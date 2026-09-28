@@ -1,0 +1,46 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+name: Lean Build
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Restaurer le cache Lake
+        uses: actions/cache@v4
+        with:
+          path: .lake
+          key: lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}
+
+      - name: Télécharger les binaires Mathlib
+        run: lake exe cache get
+
+      - name: Compiler (implémentation et spécification)
+        run: lake build
+
+      - name: Tests
+        run: lake test
+
+      - name: Générer la spécification HTML
+        run: lake exe spec --output _out/spec
+
+      - name: Publier la spécification HTML
+        uses: actions/upload-artifact@v4
+        with:
+          name: spec-html
+          path: _out/spec

@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+# Conventional Commits : <type>(<scope>): <description>
+# Voir .claude/skills/writing-rules.md, section « Conventional Commits ».
+extends:
+  - "@commitlint/config-conventional"
+rules:
+  type-enum:
+    - 2
+    - always
+    - [feat, fix, docs, style, refactor, perf, test, build, ci, chore]
