@@ -20,8 +20,11 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `spec/Spec/`                   | Chapitres de la spécification (un module Verso par chapitre)    | CC-BY-4.0  |
 | `tools/SpecMain.lean`          | Générateur HTML de la spécification (`lake exe spec`)           | CECILL-2.1 |
 | `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)       | —          |
-| `.github/workflows/`           | CI : REUSE, build Lean + tests + spec, Conventional Commits     | CECILL-2.1 |
-| `.claude/`                     | Consignes pour les contributeurs et les agents                  | CECILL-2.1 |
+| `scripts/`                     | Scripts de maintenance (montée de version, hook de session)     | CECILL-2.1 |
+| `.github/workflows/`           | CI : build/tests/lint/axiomes, Pages, REUSE, commits, sécurité  | CECILL-2.1 |
+| `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Modèles d'issues et de PR | CECILL-2.1 |
+| `.github/dependabot.yml`       | Mises à jour des GitHub Actions                                 | CECILL-2.1 |
+| `.claude/`                     | Consignes et hook de session pour les agents                    | CECILL-2.1 |
 | `lakefile.lean`                | Configuration Lake (bibliothèques, exécutables, dépendances)    | CECILL-2.1 |
 | `lake-manifest.json`           | Révisions exactes des dépendances (via `REUSE.toml`)            | CECILL-2.1 |
 | `lean-toolchain`               | Version de Lean fixée (via `REUSE.toml`)                        | CECILL-2.1 |
@@ -29,6 +32,9 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `REUSE.toml`                   | Licences des fichiers qui ne peuvent pas porter d'en-tête       | CECILL-2.1 |
 | `LICENSE`                      | Présentation des licences, en français                          | —          |
 | `README.md`, `CHANGELOG.md`    | Documentation du projet                                         | CECILL-2.1 |
+| `CONTRIBUTING.md`, `SECURITY.md` | Déroulement des contributions, signalement de vulnérabilités  | CECILL-2.1 |
+| `CODE_OF_CONDUCT.md`           | Contributor Covenant 2.1 (traduction française)                 | CC-BY-4.0  |
+| `CITATION.cff`                 | Comment citer le projet                                         | CECILL-2.1 |
 
 Dépendances (toutes épinglées sur la version de `lean-toolchain`) :
 
@@ -39,7 +45,15 @@ Dépendances (toutes épinglées sur la version de `lean-toolchain`) :
 Les bibliothèques écrites **dans le langage k7pl** (et non en Lean) sont
 recommandées sous `CECILL-C` (copyleft faible), voir `LICENSE`.
 
-## 2. Conventions de nommage
+## 2. Langues
+
+- **Anglais** pour tout le code source : identifiants, docstrings, commentaires,
+  messages affichés, noms de tests, scripts et workflows.
+- **Français** pour la documentation : README, CONTRIBUTING, SECURITY, CHANGELOG,
+  règles de rédaction, spécification Verso (`spec/`), issues et PR.
+- Messages de commit : en français, au format Conventional Commits.
+
+## 3. Conventions de nommage
 
 - Fichiers `.lean` (code, tests **et** spécifications Verso) : **CamelCase**,
   un module par fichier, le nom de fichier correspond au nom du module.
@@ -53,7 +67,7 @@ recommandées sous `CECILL-C` (copyleft faible), voir `LICENSE`.
   classes et espaces de noms (`Expr`, `TypeEnv`). Théorèmes en `snake_case`
   à la manière de Mathlib (`eval_double`).
 
-## 3. En-têtes REUSE
+## 4. En-têtes REUSE
 
 Chaque fichier commence par un en-tête SPDX avec l'année et le nom de
 l'auteur : `SPDX-FileCopyrightText: <année> Cyprien PIERRE` (ou le nom de la
@@ -115,13 +129,14 @@ SPDX-License-Identifier = "CECILL-2.1"
 Toute nouvelle licence utilisée doit avoir son texte dans `LICENSES/` :
 `reuse download <IDENTIFIANT>`. Vérifier avec `reuse lint`.
 
-## 4. Ajouter un module `.lean`
+## 5. Ajouter un module `.lean`
 
 1. Créer `src/K7pl/<Module>.lean` (CamelCase) avec l'en-tête SPDX CECILL-2.1.
 2. Déclarer le contenu dans `namespace K7pl.<Module>` … `end K7pl.<Module>`.
 3. Ajouter `import K7pl.<Module>` dans `src/K7pl.lean`.
 4. Créer `tests/<Module>Test.lean` avec l'en-tête SPDX :
-   - vérifications à la compilation (`#guard`, `example`) ;
+   - vérifications à la compilation (`#guard`, `#guard_msgs`, `example`) ;
+   - tests de propriétés avec `plausible` quand un invariant s'y prête ;
    - une liste `def tests : List (String × Bool)` exécutée par `lake test`.
 5. Mettre à jour `lakefile.lean` : ajouter `` `<Module>Test `` aux `roots` de
    `lean_lib K7plTests`, puis importer le module de test dans
@@ -129,12 +144,12 @@ Toute nouvelle licence utilisée doit avoir son texte dans `LICENSES/` :
 6. Pour une nouvelle dépendance : `require` dans `lakefile.lean`, puis
    `lake update <paquet>` et commit de `lake-manifest.json`.
 7. Ajouter une ligne dans `CHANGELOG.md`, section `[Unreleased]`.
-8. Vérifier : `lake build && lake test && reuse lint`.
+8. Vérifier : `lake build && lake test && lake lint && reuse lint`.
 
 Importer Mathlib et CSLib **module par module** (`import Mathlib.Tactic.Ring`),
 jamais `import Mathlib` ni `import Cslib` en entier : la compilation reste rapide.
 
-## 5. Ajouter un chapitre de spécification (Verso)
+## 6. Ajouter un chapitre de spécification (Verso)
 
 Les spécifications sont écrites en [Verso](https://github.com/leanprover/verso),
 genre `Manual`. Ce sont des fichiers Lean : ils sont compilés par `lake build`,
@@ -149,7 +164,7 @@ et les blocs de code Lean qu'ils contiennent sont vérifiés.
    -- SPDX-License-Identifier: CC-BY-4.0
 
    import VersoManual
-   import K7pl.Arith            -- si le chapitre cite l'implémentation
+   import K7pl.Arith            -- only if the chapter cites the implementation
 
    open Verso.Genre Manual
    open Verso.Genre.Manual.InlineLean
@@ -173,21 +188,88 @@ et les blocs de code Lean qu'ils contiennent sont vérifiés.
    (HTML dans `_out/spec/html-multi/`).
 5. Ajouter une ligne dans `CHANGELOG.md` (type `docs`).
 
-## 6. Style Lean 4
+## 7. Style Lean 4
 
-- Ordre dans un fichier : en-tête SPDX, ligne vide, `import`, `open`, puis
-  `namespace`. Les `import` doivent précéder toute autre commande.
+Les règles suivent celles de Mathlib ; les linters de Mathlib (`mathlibStandardSet`)
+sont actifs sur `src/`, et tout avertissement fait échouer la compilation
+(`warningAsError`). `lake lint` (Batteries `runLinter`) vérifie en plus les
+docstrings manquantes et les défauts courants.
+
+En-tête et documentation de module :
+
+```lean
+-- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CECILL-2.1
+
+import Mathlib.Tactic.Ring
+import K7pl.Syntax
+
+/-!
+# Small-step semantics
+
+One-paragraph summary of the module.
+
+## Main definitions
+
+* `K7pl.Step`: the one-step reduction relation.
+
+## Main statements
+
+* `K7pl.step_deterministic`: reduction is deterministic.
+
+## Notation
+
+* `e ⟶ e'`: one reduction step.
+
+## Implementation notes
+
+Why this representation was chosen (only the non-obvious choices).
+
+## References
+
+* Wright & Felleisen (1994), *A Syntactic Approach to Type Soundness*.
+-/
+```
+
+Les sections sont dans cet ordre ; celles qui n'ont pas de contenu sont omises
+(`Notation` seulement si le module en introduit, `References` seulement s'il y en a).
+
+Docstrings :
+
+- Toute définition, structure, inductive, **constructeur** et théorème principal
+  a un docstring `/-- … -/` ; les lemmes réutilisables aussi.
+- Phrase complète en anglais, terminée par un point ; lignes suivantes non indentées.
+- Écrire pour l'infobulle de l'éditeur : concis, autonome, complète la signature
+  sans la paraphraser.
+- Toute tactique, commande ou attribut défini dans le projet a un docstring.
+
+Commentaires : expliquer le *pourquoi* (choix de représentation, `WellFounded`
+plutôt que du carburant…), jamais le *quoi* que le type exprime déjà.
+
+Preuves et axiomes :
+
+- Aucun `sorry`/`admit` dans le code fusionné (bloqué par `warningAsError`).
+- Aucun `axiom` nouveau, aucun `native_decide` : l'audit des axiomes en CI
+  n'accepte que `propext`, `Classical.choice` et `Quot.sound` sous `K7pl`.
+- Séparer définitions et preuves quand un module grossit
+  (`K7pl/Foo/Defs.lean` pour les définitions, `K7pl/Foo/Basic.lean` pour les lemmes).
+- Fichiers de 1500 lignes au plus (`linter.style.longFile`), lignes de 100 caractères au plus.
+
+Mise en forme :
+
+- Ordre dans un fichier : en-tête SPDX, ligne vide, `import`, documentation de
+  module `/-! … -/`, `open`, puis `namespace`. Les `import` doivent précéder
+  toute autre commande.
 - Un `import` par ligne, triés : dépendances externes (Mathlib, Cslib, Verso)
   d'abord, puis les modules du projet.
 - `open` limité au strict nécessaire ; préférer `open X in` pour un usage local.
 - Tout le contenu d'un module dans `namespace K7pl.<Module>` … `end K7pl.<Module>`.
 - Indentation de 2 espaces, pas de tabulations, lignes de 100 caractères au plus.
-- Docstrings `/-- … -/` sur toutes les définitions publiques ; commentaire
-  de module `/-! … -/` après les imports.
 - Définitions internes marquées `private`.
 - Pas de `sorry` dans le code fusionné.
 
-## 7. Style Verso et réécriture depuis Org-mode
+## 8. Style Verso et réécriture depuis Org-mode
 
 Style :
 
@@ -216,7 +298,7 @@ Correspondances Org-mode → Verso, pour la réécriture des sources existantes 
 | `#+INCLUDE: "autre.org"`              | `import Spec.Autre` + `{include 1 Spec.Autre}` |
 | `TODO` / `DRAFT` dans un titre        | commentaire `-- TODO:` dans le source          |
 
-## 8. Conventional Commits
+## 9. Conventional Commits
 
 Format : `<type>(<scope>): <description>`
 
@@ -252,13 +334,30 @@ Le format est vérifié en CI par commitlint (`.github/workflows/commitlint.yaml
 configuration `.commitlintrc.yaml`). Vérification locale du dernier commit :
 `npx --yes -p @commitlint/cli -p @commitlint/config-conventional commitlint --from HEAD~1`.
 
-## 9. Checklist avant commit
+## 10. Travailler avec un agent (Claude Code)
+
+- Un patch n'est terminé que si `lake build`, `lake test` et `lake lint` passent,
+  localement ou en CI : ne jamais le déclarer fini sur la seule relecture.
+- Ne jamais inventer un nom de lemme : le vérifier (`#check`, `exact?`, recherche
+  dans les sources de Mathlib/CSLib) avant de l'utiliser.
+- Ne jamais introduire `sorry`, `axiom`, `native_decide`, ni désactiver un linter
+  ou un test pour faire passer la CI.
+- Les théorèmes principaux (énoncés de correction du langage) sont validés par
+  un humain : un agent peut proposer lemmes intermédiaires et preuves, mais ne
+  modifie pas l'énoncé d'un théorème principal sans accord explicite.
+- Toucher `lakefile.lean`, `lean-toolchain` ou `.github/workflows/` demande
+  une mention explicite dans la description de la PR.
+
+## 11. Checklist avant commit
 
 - [ ] En-tête SPDX présent et correct
 - [ ] Identifiant SPDX valide (`CECILL-2.1`, `CC-BY-4.0`, `CECILL-C`)
 - [ ] Copyright avec année et nom
 - [ ] Fichier dans le bon dossier
+- [ ] Code source en anglais, documentation en français
+- [ ] Docstrings sur les nouvelles déclarations, documentation de module à jour
 - [ ] Test associé si nouveau module
+- [ ] Aucun `sorry`, aucun nouvel axiome
 - [ ] `CHANGELOG.md` mis à jour
 - [ ] Message de commit conforme Conventional Commits
-- [ ] `lake build`, `lake test` et `reuse lint` passent
+- [ ] `lake build`, `lake test`, `lake lint` et `reuse lint` passent
