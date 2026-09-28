@@ -11,3 +11,6 @@ rules:
     - 2
     - always
     - [feat, fix, docs, style, refactor, perf, test, build, ci, chore]
+  # Dependabot and release notes produce long body lines (URLs, tables).
+  body-max-line-length: [0]
+  footer-max-line-length: [0]

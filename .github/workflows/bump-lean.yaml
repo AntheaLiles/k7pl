@@ -1,0 +1,82 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+# Opens a pull request when Lean, Mathlib, CSLib and Verso share a newer release.
+# A pull request opened with GITHUB_TOKEN does not trigger the other workflows: set the
+# BUMP_TOKEN secret (fine-grained token with contents and pull-requests write access)
+# so that the checks run on it.
+name: Bump Lean
+
+on:
+  schedule:
+    - cron: "43 5 3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Find the latest common release
+        id: version
+        run: |
+          current="$(cut -d: -f2 lean-toolchain)"
+          latest="$(scripts/latest-lean-version.sh)"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+          if [ "$latest" != "$current" ] && \
+             [ "$(printf '%s\n%s\n' "$current" "$latest" | sort -V | tail -n 1)" = "$latest" ]; then
+            echo "newer=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "newer=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update the toolchain and the dependencies
+        if: steps.version.outputs.newer == 'true'
+        run: scripts/bump-lean.sh --no-update "${{ steps.version.outputs.latest }}"
+
+      - if: steps.version.outputs.newer == 'true'
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
+        with:
+          auto-config: false
+          use-github-cache: false
+          use-mathlib-cache: false
+          build: false
+          test: false
+          lint: false
+
+      - name: Resolve the dependencies, build and test
+        if: steps.version.outputs.newer == 'true'
+        run: |
+          lake update
+          lake build
+          lake test
+
+      - name: Open the pull request
+        if: steps.version.outputs.newer == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ secrets.BUMP_TOKEN || github.token }}
+          branch: bump/lean-${{ steps.version.outputs.latest }}
+          commit-message: "build(deps): bump Lean, Mathlib, CSLib and Verso to ${{ steps.version.outputs.latest }}"
+          title: "build(deps): bump Lean, Mathlib, CSLib and Verso to ${{ steps.version.outputs.latest }}"
+          body: |
+            Montée de version groupée de `${{ steps.version.outputs.current }}` vers `${{ steps.version.outputs.latest }}`
+            (`lean-toolchain`, `lakefile.lean`, `lake-manifest.json`), générée par `scripts/bump-lean.sh`.
+
+            `lake build` et `lake test` passent dans le workflow qui a ouvert cette PR.
+            Penser à ajouter une ligne dans `CHANGELOG.md`.
+          add-paths: |
+            lean-toolchain
+            lakefile.lean
+            lake-manifest.json
