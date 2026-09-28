@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+name: Proposition
+description: Proposer une évolution du langage, de la spécification ou de l'outillage.
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Domaine
+      options:
+        - Langage (syntaxe, sémantique, typage)
+        - Spécification (spec/)
+        - Implémentation (src/)
+        - Outillage (CI, scripts, dépendances)
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Le problème à résoudre ou le besoin.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposition
+      description: La solution envisagée, avec un exemple si possible.
+    validations:
+      required: true
+  - type: textarea
+    id: soundness
+    attributes:
+      label: Impact sur les preuves
+      description: Nouveaux axiomes, théorèmes à revoir, compatibilité avec l'existant.

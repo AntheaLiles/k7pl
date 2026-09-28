@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+cff-version: 1.2.0
+message: "Si vous utilisez k7pl dans vos travaux, merci de le citer comme suit."
+title: "k7pl"
+abstract: >-
+  Langage de programmation implémenté et spécifié en Lean 4, avec Mathlib, CSLib et Verso.
+type: software
+authors:
+  - given-names: "Cyprien"
+    family-names: "PIERRE"
+repository-code: "https://github.com/AntheaLiles/k7pl"
+url: "https://anthealiles.github.io/k7pl/"
+license:
+  - CECILL-2.1
+  - CC-BY-4.0
+version: "0.1.0"
+keywords:
+  - programming language
+  - Lean 4
+  - formal verification
+  - Mathlib
+  - CSLib
+  - Verso
