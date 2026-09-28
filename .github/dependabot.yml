@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+version: 2
+updates:
+  # Lean dependencies are bumped by .github/workflows/bump-lean.yaml.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+      include: scope
+    groups:
+      github-actions:
+        patterns: ["*"]
