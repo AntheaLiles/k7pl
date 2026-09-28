@@ -4,3 +4,9 @@
 
 import K7pl.Arith
 import K7pl.Semantics
+
+/-!
+# k7pl
+
+Root module of the implementation: imports every `K7pl.*` module.
+-/

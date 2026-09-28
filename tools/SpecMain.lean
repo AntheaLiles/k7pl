@@ -7,5 +7,5 @@ import Spec
 
 open Verso.Genre Manual
 
-/-- Génère la spécification en HTML (répertoire `_out/` par défaut, ou `--output <dir>`). -/
+/-- Renders the specification to HTML (into `_out/` by default, or `--output <dir>`). -/
 def main := manualMain (%doc Spec)
