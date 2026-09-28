@@ -8,16 +8,16 @@ namespace ArithTest
 
 open K7pl.Arith
 
-/-- `2 + 3 * 4` -/
+/-- The expression `2 + 3 * 4`. -/
 def sample : Expr := .add (.lit 2) (.mul (.lit 3) (.lit 4))
 
--- Vérifications à la compilation.
+-- Compile-time checks.
 #guard sample.eval == 14
 #guard (double sample).eval == 28
 
 example : (double sample).eval = 2 * sample.eval := eval_double sample
 
-/-- Vérifications à l'exécution. -/
+/-- Runtime checks, run by `lake test`. -/
 def tests : List (String × Bool) :=
   [("eval sample", sample.eval == 14),
    ("eval double", (double sample).eval == 2 * sample.eval)]
