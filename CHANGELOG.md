@@ -19,6 +19,18 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - Spécification en Verso (`spec/`) et générateur HTML (`lake exe spec`).
 - CI : compilation, tests et génération de la spécification ; lint Conventional Commits.
 
+- Options Lean strictes (`autoImplicit` désactivé, avertissements bloquants),
+  linters Mathlib, `lake lint` (Batteries) et audit des axiomes en CI.
+- Publication de la spécification sur GitHub Pages.
+- CI de sécurité : actionlint, gitleaks, OpenSSF Scorecard ; Dependabot pour les
+  GitHub Actions ; actions épinglées par SHA.
+- Montée de version groupée de Lean, Mathlib, CSLib et Verso
+  (`scripts/bump-lean.sh`, workflow mensuel).
+- `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CITATION.cff`,
+  modèles d'issues et de pull request.
+- Hook `SessionStart` pour les sessions Claude Code sur le web.
+
 ### Changed
 
 - Les spécifications passent d'Org-mode à Verso.
+- Le code source (identifiants, docstrings, commentaires) est désormais en anglais.

@@ -12,6 +12,10 @@ avec Mathlib et CSLib. Sa spécification est écrite en Verso.
 - `tests/` : tests (Lean 4, CECILL-2.1)
 - `spec/` : spécification (Verso, CC-BY-4.0)
 - `tools/` : générateur HTML de la spécification (CECILL-2.1)
+- `scripts/` : maintenance (montée de version, hook de session)
+
+**Langues** : code source en anglais (identifiants, docstrings, commentaires) ;
+documentation, spécification et messages de commit en français.
 
 Les spécifications sont ajoutées **a posteriori** dans `spec/` : ne pas en
 créer sans demande explicite. Les sources historiques en Org-mode sont à
@@ -30,6 +34,7 @@ modification.
 lake exe cache get              # binaires Mathlib précompilés (après clone ou mise à jour)
 lake build                      # compiler l'implémentation et la spécification
 lake test                       # lancer les tests (exécutable @[test_driver] mainTest)
+lake lint                       # linter Batteries (docstrings manquantes, etc.)
 lake exe spec --output _out/spec  # générer la spécification HTML
 reuse lint                      # vérifier la conformité REUSE (pip install reuse)
 ```
@@ -39,8 +44,15 @@ reuse lint                      # vérifier la conformité REUSE (pip install re
 - Chaque nouveau fichier porte un en-tête SPDX. Pour un fichier qui ne peut pas
   contenir de commentaire, ajouter une entrée `[[annotations]]` dans `REUSE.toml`.
 - La version de Lean est fixée dans `lean-toolchain` ; Mathlib, CSLib et Verso
-  sont épinglés sur la même version dans `lakefile.lean`. Pour monter de
-  version : changer les quatre ensemble, puis `lake update` et commit de
-  `lake-manifest.json`.
+  sont épinglés sur la même version dans `lakefile.lean`. Ils montent
+  ensemble avec `scripts/bump-lean.sh`, puis commit de `lake-manifest.json`.
 - Mettre à jour `CHANGELOG.md` (section `[Unreleased]`) à chaque changement notable.
 - Les messages de commit sont vérifiés en CI (Conventional Commits).
+- Tout avertissement fait échouer la compilation ; aucun `sorry`, `axiom` ni
+  `native_decide` (audit des axiomes en CI). Ne jamais déclarer un patch terminé
+  sans `lake build`, `lake test` et `lake lint` verts (localement ou en CI), ni
+  utiliser un nom de lemme sans l'avoir vérifié. Détails : section « Travailler
+  avec un agent » des règles de rédaction.
+- Monter Lean et les dépendances : `scripts/bump-lean.sh vX.Y.Z` (jamais à la main).
+- Le hook `SessionStart` (`scripts/claude-session-start.sh`) installe elan et le
+  cache Mathlib dans les sessions web, si le réseau autorise `release.lean-lang.org`.
