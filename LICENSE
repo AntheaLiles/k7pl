@@ -12,8 +12,9 @@ Répartition
 -----------
 
   • Code du projet → CeCILL 2.1 (SPDX : CECILL-2.1)
-    Implémentation (src/), tests (tests/), configuration (lakefile.lean,
-    lean-toolchain, .gitignore, .gitattributes, .editorconfig, REUSE.toml),
+    Implémentation (src/), tests (tests/), outils (tools/), configuration
+    (lakefile.lean, lake-manifest.json, lean-toolchain, .gitignore,
+    .gitattributes, .editorconfig, .commitlintrc.yaml, REUSE.toml),
     intégration continue (.github/), consignes (.claude/), README.md et
     CHANGELOG.md.
     Texte complet : LICENSES/CECILL-2.1.txt
@@ -25,7 +26,7 @@ Répartition
 
   • Spécifications → Creative Commons Attribution 4.0 International
     (SPDX : CC-BY-4.0)
-    Documents du dossier spec/.
+    Documents du dossier spec/ (sources Verso).
     Texte complet : LICENSES/CC-BY-4.0.txt
 
     Les spécifications peuvent être reprises, adaptées et redistribuées

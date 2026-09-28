@@ -10,53 +10,66 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 
 ## 1. Structure du dépôt
 
-| Chemin                         | Rôle                                                        | Licence    |
-|--------------------------------|-------------------------------------------------------------|------------|
-| `src/`                         | Implémentation du langage en Lean 4                         | CECILL-2.1 |
-| `tests/`                       | Tests en Lean 4 (un fichier de test par module)             | CECILL-2.1 |
-| `spec/`                        | Spécifications en org-mode (ajoutées a posteriori)          | CC-BY-4.0  |
-| `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)   | —          |
-| `.github/workflows/`           | Intégration continue (vérification REUSE)                   | CECILL-2.1 |
-| `.claude/`                     | Consignes pour les contributeurs et les agents              | CECILL-2.1 |
-| `lakefile.lean`                | Configuration Lake (bibliothèque, exécutable de tests)      | CECILL-2.1 |
-| `lean-toolchain`               | Version de Lean fixée                                       | CECILL-2.1 |
-| `REUSE.toml`                   | Licences des fichiers qui ne peuvent pas porter d'en-tête   | CECILL-2.1 |
-| `LICENSE`                      | Présentation des licences, en français                      | —          |
-| `README.md`, `CHANGELOG.md`    | Documentation du projet                                     | CECILL-2.1 |
+| Chemin                         | Rôle                                                            | Licence    |
+|--------------------------------|-----------------------------------------------------------------|------------|
+| `src/Main.lean`                | Point d'entrée historique (`Main.hello`)                        | CECILL-2.1 |
+| `src/K7pl.lean`                | Racine de la bibliothèque : importe tous les modules `K7pl.*`   | CECILL-2.1 |
+| `src/K7pl/`                    | Implémentation du langage en Lean 4 (Mathlib, CSLib)            | CECILL-2.1 |
+| `tests/`                       | Tests en Lean 4 (un fichier `<Module>Test.lean` par module)     | CECILL-2.1 |
+| `spec/Spec.lean`               | Racine de la spécification Verso                                | CC-BY-4.0  |
+| `spec/Spec/`                   | Chapitres de la spécification (un module Verso par chapitre)    | CC-BY-4.0  |
+| `tools/SpecMain.lean`          | Générateur HTML de la spécification (`lake exe spec`)           | CECILL-2.1 |
+| `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)       | —          |
+| `.github/workflows/`           | CI : REUSE, build Lean + tests + spec, Conventional Commits     | CECILL-2.1 |
+| `.claude/`                     | Consignes pour les contributeurs et les agents                  | CECILL-2.1 |
+| `lakefile.lean`                | Configuration Lake (bibliothèques, exécutables, dépendances)    | CECILL-2.1 |
+| `lake-manifest.json`           | Révisions exactes des dépendances (via `REUSE.toml`)            | CECILL-2.1 |
+| `lean-toolchain`               | Version de Lean fixée (via `REUSE.toml`)                        | CECILL-2.1 |
+| `.commitlintrc.yaml`           | Configuration du lint Conventional Commits                      | CECILL-2.1 |
+| `REUSE.toml`                   | Licences des fichiers qui ne peuvent pas porter d'en-tête       | CECILL-2.1 |
+| `LICENSE`                      | Présentation des licences, en français                          | —          |
+| `README.md`, `CHANGELOG.md`    | Documentation du projet                                         | CECILL-2.1 |
+
+Dépendances (toutes épinglées sur la version de `lean-toolchain`) :
+
+- **Mathlib** : mathématiques et tactiques (`ring`, `simp`, `omega`…).
+- **CSLib** : fondements de l'informatique (LTS, lambda-calcul, relations…).
+- **Verso** : écriture de la spécification (genre `Manual`).
 
 Les bibliothèques écrites **dans le langage k7pl** (et non en Lean) sont
 recommandées sous `CECILL-C` (copyleft faible), voir `LICENSE`.
 
 ## 2. Conventions de nommage
 
-- Fichiers `.lean` : **CamelCase**, un module par fichier, le nom de fichier
-  correspond au nom du module. Ex. `Parser.lean`, `TypeChecker.lean`.
-  Sous-dossiers en CamelCase également : `src/Syntax/Lexer.lean` → module
-  `Syntax.Lexer`.
-- Fichiers de test : nom du module testé suivi de `Test`.
-  Ex. `src/Parser.lean` → `tests/ParserTest.lean`.
-- Fichiers `.org` : **kebab-case**. Ex. `syntax-rules.org`, `type-system.org`.
+- Fichiers `.lean` (code, tests **et** spécifications Verso) : **CamelCase**,
+  un module par fichier, le nom de fichier correspond au nom du module.
+  Ex. `src/K7pl/Parser.lean` → module `K7pl.Parser`,
+  `spec/Spec/SyntaxRules.lean` → module `Spec.SyntaxRules`.
+- Fichiers de test : nom du module testé suivi de `Test`, à la racine de `tests/`.
+  Ex. `src/K7pl/Parser.lean` → `tests/ParserTest.lean` (module `ParserTest`).
+  Ne pas créer de module de test sous `K7pl.*` : ce préfixe appartient à `src/`.
 - Identifiants Lean : `lowerCamelCase` pour les fonctions et valeurs
   (`parseExpr`, `testHello`), `UpperCamelCase` pour les types, structures,
-  classes et espaces de noms (`Expr`, `TypeEnv`).
+  classes et espaces de noms (`Expr`, `TypeEnv`). Théorèmes en `snake_case`
+  à la manière de Mathlib (`eval_double`).
 
 ## 3. En-têtes REUSE
 
 Chaque fichier commence par un en-tête SPDX avec l'année et le nom de
-l'auteur. Pour tous les fichiers : `SPDX-FileCopyrightText: <année> Cyprien PIERRE`
-(ou le nom de la personne qui contribue).
+l'auteur : `SPDX-FileCopyrightText: <année> Cyprien PIERRE` (ou le nom de la
+personne qui contribue).
 
-| Extension / fichier                         | Préfixe de commentaire | Identifiant SPDX | Exemple d'en-tête |
-|---------------------------------------------|------------------------|------------------|-------------------|
-| `.lean`                                     | `--`                   | `CECILL-2.1`     | voir ci-dessous   |
-| `.org` (dans `spec/`)                       | `#`                    | `CC-BY-4.0`      | voir ci-dessous   |
-| `.yaml`, `.yml`, `.toml`                    | `#`                    | `CECILL-2.1`     | voir ci-dessous   |
-| `.md`                                       | `<!-- … -->`           | `CECILL-2.1`     | voir ci-dessous   |
-| `.gitignore`, `.gitattributes`, `.editorconfig` | `#` + `REUSE.toml` | `CECILL-2.1`     | voir ci-dessous   |
-| `lean-toolchain`, `lake-manifest.json`      | aucun → `REUSE.toml`   | `CECILL-2.1`     | entrée `[[annotations]]` |
-| Bibliothèque écrite en k7pl                 | selon la syntaxe       | `CECILL-C`       | —                 |
+| Fichier                                         | Préfixe de commentaire | Identifiant SPDX |
+|-------------------------------------------------|------------------------|------------------|
+| `.lean` dans `src/`, `tests/`, `tools/`, racine | `--`                   | `CECILL-2.1`     |
+| `.lean` dans `spec/` (Verso)                    | `--`                   | `CC-BY-4.0`      |
+| `.yaml`, `.yml`, `.toml`                        | `#`                    | `CECILL-2.1`     |
+| `.md`                                           | `<!-- … -->`           | `CECILL-2.1`     |
+| `.gitignore`, `.gitattributes`, `.editorconfig` | `#` + `REUSE.toml`     | `CECILL-2.1`     |
+| `lean-toolchain`, `lake-manifest.json`          | aucun → `REUSE.toml`   | `CECILL-2.1`     |
+| Bibliothèque écrite en k7pl                     | selon la syntaxe       | `CECILL-C`       |
 
-Lean 4 :
+Lean 4 (code) :
 
 ```lean
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
@@ -64,12 +77,12 @@ Lean 4 :
 -- SPDX-License-Identifier: CECILL-2.1
 ```
 
-org-mode (`spec/`) :
+Verso (`spec/`) :
 
-```org
-# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
-#
-# SPDX-License-Identifier: CC-BY-4.0
+```lean
+-- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
 ```
 
 YAML, TOML, fichiers de configuration Git et EditorConfig :
@@ -104,66 +117,104 @@ Toute nouvelle licence utilisée doit avoir son texte dans `LICENSES/` :
 
 ## 4. Ajouter un module `.lean`
 
-1. Créer `src/<Module>.lean` (CamelCase) avec l'en-tête SPDX CECILL-2.1.
-2. Déclarer le contenu dans `namespace <Module>` … `end <Module>`.
-3. Créer `tests/<Module>Test.lean` avec l'en-tête SPDX et des fonctions
-   `test…` qui renvoient `Bool`.
-4. Appeler ces tests depuis `tests/MainTest.lean` (fonction `main`).
-5. Mettre à jour `lakefile.lean` si nécessaire : un module de premier niveau
-   qui n'est importé par aucun autre doit être ajouté à `roots` de
-   `lean_lib K7pl` (sinon `lake build` ne le compile pas).
-6. Ajouter une ligne dans `CHANGELOG.md`, section `[Unreleased]`.
-7. Vérifier : `lake build && lake test && reuse lint`.
+1. Créer `src/K7pl/<Module>.lean` (CamelCase) avec l'en-tête SPDX CECILL-2.1.
+2. Déclarer le contenu dans `namespace K7pl.<Module>` … `end K7pl.<Module>`.
+3. Ajouter `import K7pl.<Module>` dans `src/K7pl.lean`.
+4. Créer `tests/<Module>Test.lean` avec l'en-tête SPDX :
+   - vérifications à la compilation (`#guard`, `example`) ;
+   - une liste `def tests : List (String × Bool)` exécutée par `lake test`.
+5. Mettre à jour `lakefile.lean` : ajouter `` `<Module>Test `` aux `roots` de
+   `lean_lib K7plTests`, puis importer le module de test dans
+   `tests/MainTest.lean` et concaténer sa liste `tests`.
+6. Pour une nouvelle dépendance : `require` dans `lakefile.lean`, puis
+   `lake update <paquet>` et commit de `lake-manifest.json`.
+7. Ajouter une ligne dans `CHANGELOG.md`, section `[Unreleased]`.
+8. Vérifier : `lake build && lake test && reuse lint`.
 
-## 5. Ajouter une spécification `.org`
+Importer Mathlib et CSLib **module par module** (`import Mathlib.Tactic.Ring`),
+jamais `import Mathlib` ni `import Cslib` en entier : la compilation reste rapide.
 
-Uniquement sur demande : les spécifications sont ajoutées a posteriori.
+## 5. Ajouter un chapitre de spécification (Verso)
 
-1. Créer `spec/<sujet>.org` (kebab-case) avec l'en-tête SPDX **CC-BY-4.0**.
-2. Structure :
+Les spécifications sont écrites en [Verso](https://github.com/leanprover/verso),
+genre `Manual`. Ce sont des fichiers Lean : ils sont compilés par `lake build`,
+et les blocs de code Lean qu'ils contiennent sont vérifiés.
 
-   ```org
-   # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
-   #
-   # SPDX-License-Identifier: CC-BY-4.0
+1. Créer `spec/Spec/<Chapitre>.lean` (CamelCase) avec l'en-tête SPDX **CC-BY-4.0**.
+2. Structure minimale :
 
-   #+TITLE: Règles de syntaxe
-   #+LANGUAGE: fr
+   ````lean
+   -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+   --
+   -- SPDX-License-Identifier: CC-BY-4.0
 
-   * Règles de syntaxe
-   ** Expressions
-   Texte explicatif.
+   import VersoManual
+   import K7pl.Arith            -- si le chapitre cite l'implémentation
 
-   #+BEGIN_SRC k7pl
-   let x = 1
-   #+END_SRC
+   open Verso.Genre Manual
+   open Verso.Genre.Manual.InlineLean
+
+   #doc (Manual) "Règles de syntaxe" =>
+
+   Texte d'introduction du chapitre.
+
+   # Expressions
+
+   Texte explicatif. Référence à l'implémentation : {lean}`K7pl.Arith.Expr.eval`.
+
+   ```lean
+   example : (K7pl.Arith.Expr.lit 1).eval = 1 := rfl
    ```
+   ````
 
-3. Ajouter une ligne dans `CHANGELOG.md` (type `docs`).
+3. Dans `spec/Spec.lean` : ajouter `import Spec.<Chapitre>` et
+   `{include 1 Spec.<Chapitre>}` à l'endroit voulu.
+4. Vérifier : `lake build Spec` puis `lake exe spec --output _out/spec`
+   (HTML dans `_out/spec/html-multi/`).
+5. Ajouter une ligne dans `CHANGELOG.md` (type `docs`).
 
 ## 6. Style Lean 4
 
 - Ordre dans un fichier : en-tête SPDX, ligne vide, `import`, `open`, puis
   `namespace`. Les `import` doivent précéder toute autre commande.
-- Un `import` par ligne, triés : bibliothèque standard d'abord, puis les
-  modules du projet.
+- Un `import` par ligne, triés : dépendances externes (Mathlib, Cslib, Verso)
+  d'abord, puis les modules du projet.
 - `open` limité au strict nécessaire ; préférer `open X in` pour un usage local.
-- Tout le contenu d'un module dans `namespace <Module>` … `end <Module>`.
+- Tout le contenu d'un module dans `namespace K7pl.<Module>` … `end K7pl.<Module>`.
 - Indentation de 2 espaces, pas de tabulations, lignes de 100 caractères au plus.
-- Docstrings `/-- … -/` sur toutes les définitions publiques ; commentaires
-  de module `/-! … -/` en tête de fichier après les imports si utile.
+- Docstrings `/-- … -/` sur toutes les définitions publiques ; commentaire
+  de module `/-! … -/` après les imports.
 - Définitions internes marquées `private`.
 - Pas de `sorry` dans le code fusionné.
 
-## 7. Style org-mode
+## 7. Style Verso et réécriture depuis Org-mode
 
-- Un seul titre de premier niveau (`*`) par fichier, reprenant `#+TITLE`.
-- Sous-sections avec `**`, `***` ; pas de saut de niveau.
-- Blocs de code : `#+BEGIN_SRC <langage>` … `#+END_SRC` (en majuscules),
-  toujours avec le langage indiqué (`k7pl`, `lean`, `ebnf`…).
-- Mots-clés TODO autorisés : `TODO`, `DRAFT`, `DONE`
-  (`#+TODO: TODO DRAFT | DONE` en tête de fichier si utilisés).
-- Indentation de 2 espaces, une phrase par ligne conseillée pour des diffs lisibles.
+Style :
+
+- Un fichier = un chapitre = un `#doc (Manual) "Titre" =>`.
+- Titres de section avec `#`, `##`, `###` (relatifs au chapitre) ; pas de saut de niveau.
+- Une phrase par ligne : les diffs restent lisibles, le rendu n'est pas affecté.
+- Tout exemple de code Lean passe par un bloc ` ```lean ` (vérifié) ; les
+  exemples dans la syntaxe k7pl utilisent un bloc sans langue en attendant
+  un surligneur dédié.
+- Métadonnées de chapitre dans un bloc `%%%` (ex. `shortTitle := "…"`).
+
+Correspondances Org-mode → Verso, pour la réécriture des sources existantes :
+
+| Org-mode                              | Verso                                          |
+|---------------------------------------|------------------------------------------------|
+| `#+TITLE: Titre`                      | `#doc (Manual) "Titre" =>`                     |
+| `#+AUTHOR: Nom`                       | `%%%` `authors := ["Nom"]` `%%%`               |
+| `* Section`, `** Sous-section`         | `# Section`, `## Sous-section`                 |
+| `/italique/`, `*gras*`                | `_italique_`, `*gras*`                         |
+| `=code=`, `~code~`                    | `` `code` ``                                   |
+| `[[url][texte]]`                      | `[texte](url)`                                 |
+| `- item`, `1. item`                   | `* item`, `1. item`                            |
+| `#+BEGIN_SRC lean … #+END_SRC`        | ` ```lean … ``` ` (vérifié par Lean)           |
+| `#+BEGIN_SRC k7pl … #+END_SRC`        | ` ``` … ``` `                                  |
+| `#+BEGIN_QUOTE … #+END_QUOTE`         | `> citation`                                   |
+| `#+INCLUDE: "autre.org"`              | `import Spec.Autre` + `{include 1 Spec.Autre}` |
+| `TODO` / `DRAFT` dans un titre        | commentaire `-- TODO:` dans le source          |
 
 ## 8. Conventional Commits
 
@@ -196,6 +247,10 @@ docs(spec): documenter la syntaxe des annotations
 
 Changement incompatible : ajouter `!` après le scope
 (`feat(parser)!: …`) et un pied de page `BREAKING CHANGE: …`.
+
+Le format est vérifié en CI par commitlint (`.github/workflows/commitlint.yaml`,
+configuration `.commitlintrc.yaml`). Vérification locale du dernier commit :
+`npx --yes -p @commitlint/cli -p @commitlint/config-conventional commitlint --from HEAD~1`.
 
 ## 9. Checklist avant commit
 
