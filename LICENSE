@@ -1,0 +1,74 @@
+Licences
+========
+
+Ce dépôt suit les règles REUSE (https://reuse.software) : chaque fichier
+indique sa licence au moyen d'un en-tête SPDX, ou d'une entrée dans le
+fichier REUSE.toml quand il ne peut pas porter de commentaire.
+
+Les textes complets des licences se trouvent dans le dossier LICENSES/.
+
+
+Répartition
+-----------
+
+  • Code du projet → CeCILL 2.1 (SPDX : CECILL-2.1)
+    Implémentation (src/), tests (tests/), configuration (lakefile.lean,
+    lean-toolchain, .gitignore, .gitattributes, .editorconfig, REUSE.toml),
+    intégration continue (.github/), consignes (.claude/), README.md et
+    CHANGELOG.md.
+    Texte complet : LICENSES/CECILL-2.1.txt
+
+    La CeCILL 2.1 est une licence copyleft fort, compatible avec la GNU GPL.
+    Toute version modifiée et redistribuée du projet doit rester sous
+    CeCILL 2.1 (ou sous GNU GPL, selon les conditions de compatibilité
+    prévues par la licence).
+
+  • Spécifications → Creative Commons Attribution 4.0 International
+    (SPDX : CC-BY-4.0)
+    Documents du dossier spec/.
+    Texte complet : LICENSES/CC-BY-4.0.txt
+
+    Les spécifications peuvent être reprises, adaptées et redistribuées
+    librement, y compris à des fins commerciales, à condition de citer
+    les auteurs.
+
+
+Composants du langage
+---------------------
+
+Les bibliothèques, modules et plugins écrits DANS le langage de ce projet
+(et non dans l'implémentation Lean 4 du langage) devraient être placés sous
+la licence CeCILL-C (SPDX : CECILL-C).
+
+Pourquoi CeCILL-C ? C'est une licence copyleft faible, équivalente à la
+GNU LGPL :
+
+  - le composant lui-même reste libre : toute version modifiée et
+    redistribuée du composant doit rester sous CeCILL-C ;
+  - le composant peut être redistribué librement ;
+  - une application qui se contente de lier ou d'utiliser le composant
+    peut être distribuée sous une licence différente, y compris
+    propriétaire.
+
+Ce choix protège les composants du langage sans imposer de licence aux
+programmes qui les utilisent.
+
+Il s'agit d'une recommandation : le texte de la CeCILL-C n'est pas inclus
+dans LICENSES/ tant qu'aucun fichier du dépôt n'est publié sous cette
+licence. Pour l'ajouter : reuse download CECILL-C
+
+
+Note
+----
+
+Aucune exception de type « LLVM exception » n'est appliquée : elle n'est
+pas compatible avec la CeCILL 2.1.
+
+
+Liens
+-----
+
+  - Textes complets des licences : LICENSES/
+  - Famille de licences CeCILL : https://cecill.info/
+  - Creative Commons BY 4.0 : https://creativecommons.org/licenses/by/4.0/deed.fr
+  - Spécification REUSE : https://reuse.software/

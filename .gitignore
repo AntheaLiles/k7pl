@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+# Lean 4 / Lake
+.lake/
+build/
+out/
+*.olean
+*.ilean
+*.o
+*.so
+
+# IDE
+.vscode/
+.idea/
