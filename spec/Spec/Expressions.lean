@@ -17,7 +17,9 @@ Le bloc suivant est vérifié par Lean à chaque compilation de la spécificatio
 si l'implémentation change de comportement, la spécification ne compile plus.
 
 ```lean
-example : (K7pl.Arith.Expr.add (.lit 2) (.lit 3)).eval = 5 := rfl
+example :
+    (K7pl.Arith.Expr.add (.lit 2) (.lit 3)).eval = 5 :=
+  rfl
 ```
 
 # Doublement
