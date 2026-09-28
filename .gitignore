@@ -6,6 +6,7 @@
 .lake/
 build/
 out/
+_out/
 *.olean
 *.ilean
 *.o
