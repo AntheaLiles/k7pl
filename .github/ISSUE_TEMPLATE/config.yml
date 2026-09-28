@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+blank_issues_enabled: false
+contact_links:
+  - name: Signaler une vulnérabilité
+    url: https://github.com/AntheaLiles/k7pl/security/advisories/new
+    about: Les problèmes de sécurité se signalent en privé (voir SECURITY.md).

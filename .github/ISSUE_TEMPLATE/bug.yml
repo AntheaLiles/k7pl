@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+name: Bogue
+description: Un comportement de l'implémentation, des tests ou de la spécification ne correspond pas à l'attendu.
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Ce qui se passe, et ce qui était attendu.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Fichier ou extrait Lean minimal, commandes lancées (`lake build`, `lake test`…).
+      render: lean
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Sortie obtenue
+      description: Messages d'erreur ou résultat complet.
+      render: text
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Résultat de `git rev-parse HEAD`.
+    validations:
+      required: true
