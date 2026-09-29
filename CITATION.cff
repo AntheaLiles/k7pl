@@ -2,25 +2,32 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
+# Describes the specification archived on Zenodo (see zenodo.json).
+# At each release: update `version` and `date-released`; after the first Zenodo
+# publication, add the concept DOI (printed in the release job summary):
+#
+# identifiers:
+#   - type: doi
+#     value: "10.5281/zenodo.xxxxxx"
+#     description: "Concept DOI (toutes les versions)"
 cff-version: 1.2.0
-message: "Si vous utilisez k7pl dans vos travaux, merci de le citer comme suit."
-title: "k7pl"
-abstract: >-
-  Langage de programmation implémenté et spécifié en Lean 4, avec Mathlib, CSLib et Verso.
-type: software
+message: "Citez ce travail comme suit."
+title: "K7PL - Konsept Programming Language's Specification"
+version: "0.0.0"
 authors:
-  - given-names: "Cyprien"
-    family-names: "PIERRE"
+  - family-names: "Pierre"
+    given-names: "Cyprien"
+    orcid: "https://orcid.org/0009-0009-9040-6795"
+license: "CC-BY-4.0"
 repository-code: "https://github.com/AntheaLiles/k7pl"
 url: "https://anthealiles.github.io/k7pl/"
-license:
-  - CECILL-2.1
-  - CC-BY-4.0
-version: "0.1.0"
+abstract: >-
+  Spécification du langage de programmation K7PL, écrite en Verso et vérifiée
+  par Lean 4 contre son implémentation de référence (Mathlib, CSLib).
 keywords:
+  - K7PL
   - programming language
+  - language specification
+  - formal semantics
   - Lean 4
-  - formal verification
-  - Mathlib
-  - CSLib
   - Verso
