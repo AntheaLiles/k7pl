@@ -8,11 +8,13 @@ import Spec.Expressions
 
 open Verso.Genre Manual
 
-#doc (Manual) "Spécification du langage k7pl" =>
+#doc (Manual) "K7PL : KonSept Programming Language" =>
 %%%
 authors := ["Cyprien PIERRE"]
-shortTitle := "Spécification k7pl"
+shortTitle := "K7PL"
 %%%
+
+_A three-layered functional programming language._
 
 Ce document décrit le langage k7pl.
 Il est écrit en Verso : chaque chapitre est un module Lean,
