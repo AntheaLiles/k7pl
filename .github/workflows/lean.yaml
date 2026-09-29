@@ -6,8 +6,12 @@ name: Lean Build
 
 on:
   push:
+    branches: ["**"]
   pull_request:
   workflow_dispatch:
+  # A published release also builds the PDF and archives it on Zenodo.
+  release:
+    types: [published]
 
 permissions:
   contents: read
@@ -33,14 +37,20 @@ jobs:
           axiom-audit: true
           axiom-audit-root: K7pl
 
-      - name: Render the specification
-        run: lake exe spec --output _out/spec
+      - name: Render the specification (HTML and TeX)
+        run: lake exe spec --output _out/spec --with-tex
 
       - name: Upload the specification (artifact)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: spec-html
           path: _out/spec/html-multi
+
+      - name: Upload the specification (TeX)
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: spec-tex
+          path: _out/spec/tex
 
       - name: Upload the specification (GitHub Pages)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -65,3 +75,153 @@ jobs:
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  spec-pdf:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: spec-tex
+          path: _out/spec/tex
+
+      # Same TeX Live packages as Verso's own PDF build.
+      - name: Install TeX Live
+        uses: zauguin/install-texlive@6671d0c62046c7e349fe154d5208fe746b07e037 # v4.4.0
+        with:
+          texlive_version: 2026
+          packages: |
+            scheme-minimal
+            l3packages
+            tools
+            latex-bin
+            xpatch
+            booktabs
+            footmisc
+            environ
+            hyperref
+            titlesec
+            tocloft
+            enumitem
+            fmtcount
+            glossaries
+            datatool
+            caption
+            babel
+            fontspec
+            textcase
+            memoir
+            sourcecodepro
+            sourcesans
+            sourceserif
+            fvextra
+            upquote
+            lineno
+            float
+            tcolorbox
+            tikzfill
+            pdfcol
+            listings
+            epstopdf-pkg
+            pgf
+            etoolbox
+            ulem
+            newunicodechar
+            svg
+            transparent
+            trimspaces
+            xkeyval
+            catchfile
+
+      - name: Compile the PDF
+        working-directory: _out/spec/tex
+        run: |
+          for _ in 1 2 3; do
+            lualatex -interaction=nonstopmode -halt-on-error main
+          done
+          mkdir -p "$GITHUB_WORKSPACE/out"
+          cp main.pdf "$GITHUB_WORKSPACE/out/k7pl-spec.pdf"
+
+      - name: Upload the specification (PDF)
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: spec-pdf
+          path: out/k7pl-spec.pdf
+          if-no-files-found: error
+
+  # Archives the PDF artifact on Zenodo (one DOI per version) and attaches it to the release.
+  zenodo:
+    if: github.event_name == 'release'
+    needs: spec-pdf
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # push .zenodo_state.json to the zenodo-state branch, upload the release asset
+    concurrency:
+      group: zenodo
+      cancel-in-progress: false
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check that the release matches CITATION.cff and CHANGELOG.md
+        run: |
+          version="${TAG#v}"
+          cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
+          if [ "$cff" != "$version" ]; then
+            echo "::error::CITATION.cff declares version '$cff' but the release is '$TAG'"
+            exit 1
+          fi
+          if ! grep -q "^## \[$version\]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md has no '## [$version]' section"
+            exit 1
+          fi
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: spec-pdf
+          path: out
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Install the dependencies
+        run: pip install --require-hashes -r scripts/requirements-zenodo.txt
+
+      - name: Restore the Zenodo state
+        run: |
+          if git fetch --depth 1 origin zenodo-state; then
+            git show FETCH_HEAD:.zenodo_state.json > .zenodo_state.json
+          else
+            echo "{}" > .zenodo_state.json
+          fi
+
+      - name: Publish on Zenodo
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_ENV: ${{ secrets.ZENODO_ENV }}
+        run: ZENODO_VERSION="${TAG#v}" python scripts/sync_zenodo.py
+
+      - name: Save the Zenodo state
+        run: |
+          dir="$RUNNER_TEMP/zenodo-state"
+          if git fetch --depth 1 origin zenodo-state; then
+            git worktree add --detach "$dir" FETCH_HEAD
+          else
+            git worktree add --detach "$dir"
+            git -C "$dir" checkout --orphan zenodo-state
+            git -C "$dir" rm -rfq .
+          fi
+          cp .zenodo_state.json "$dir/.zenodo_state.json"
+          cd "$dir"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .zenodo_state.json
+          git commit -m "chore(zenodo): enregistrer l'état de la publication $TAG"
+          git push origin HEAD:refs/heads/zenodo-state
+
+      - name: Attach the PDF to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$TAG" out/k7pl-spec.pdf --clobber
