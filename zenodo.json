@@ -1,0 +1,36 @@
+{
+  "title": "K7PL - Konsept Programming Language's Specification",
+  "description": "Spécification du langage de programmation K7PL, écrite en Verso et vérifiée par Lean 4 : chaque exemple de code est compilé contre l'implémentation de référence. Chaque version du PDF est archivée avec son propre DOI de version.",
+  "upload_type": "publication",
+  "publication_type": "workingpaper",
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Pierre, Cyprien",
+      "orcid": "0009-0009-9040-6795"
+    }
+  ],
+  "keywords": [
+    "K7PL",
+    "programming language",
+    "language specification",
+    "formal semantics",
+    "Lean 4",
+    "Verso"
+  ],
+  "language": "fra",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/AntheaLiles/k7pl",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://anthealiles.github.io/k7pl/",
+      "relation": "isVariantFormOf",
+      "scheme": "url"
+    }
+  ],
+  "notes": "PDF généré par la CI à partir des sources Verso du dépôt (dossier spec/), à chaque release GitHub."
+}

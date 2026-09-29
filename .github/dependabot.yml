@@ -15,3 +15,12 @@ updates:
     groups:
       github-actions:
         patterns: ["*"]
+
+  # Dependencies of scripts/sync_zenodo.py (hash-pinned requirements file).
+  - package-ecosystem: pip
+    directory: /scripts
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: build
+      include: scope
