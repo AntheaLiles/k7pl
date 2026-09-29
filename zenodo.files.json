@@ -1,0 +1,16 @@
+{
+  "out/k7pl-spec.pdf": {
+    "title": "K7PL - Konsept Programming Language's Specification",
+    "description": "Spécification du langage K7PL : syntaxe, sémantique et exemples vérifiés par Lean 4. Document généré à partir des sources Verso du dépôt.",
+    "keywords": [
+      "K7PL",
+      "specification",
+      "programming language",
+      "formal semantics",
+      "Lean 4",
+      "Verso"
+    ],
+    "language": "fra",
+    "publication_type": "technicalnote"
+  }
+}

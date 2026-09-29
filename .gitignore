@@ -11,6 +11,7 @@ _out/
 *.ilean
 *.o
 *.so
+__pycache__/
 
 # IDE
 .vscode/
