@@ -3,7 +3,8 @@
 # SPDX-License-Identifier: CECILL-2.1
 
 # Describes the specification archived on Zenodo (see zenodo.json).
-# At each release: update `version` and `date-released`; after the first Zenodo
+# At each specification release (tag spec-vX.Y.Z): update `version` and `date-released`
+# (the implementation has its own version, in lakefile.lean); after the first Zenodo
 # publication, add the concept DOI (printed in the release job summary):
 #
 # identifiers:
@@ -18,6 +19,7 @@ authors:
   - family-names: "Pierre"
     given-names: "Cyprien"
     orcid: "https://orcid.org/0009-0009-9040-6795"
+    affiliation: "LAMIH UMR CNRS 8201"
 license: "CC-BY-4.0"
 repository-code: "https://github.com/AntheaLiles/k7pl"
 url: "https://anthealiles.github.io/k7pl/"

@@ -9,7 +9,8 @@ on:
     branches: ["**"]
   pull_request:
   workflow_dispatch:
-  # A published release also builds the PDF and archives it on Zenodo.
+  # Releases: `spec-vX.Y.Z` publishes the specification PDF on Zenodo,
+  # `vX.Y.Z` releases the implementation.
   release:
     types: [published]
 
@@ -149,9 +150,34 @@ jobs:
           path: out/k7pl-spec.pdf
           if-no-files-found: error
 
-  # Archives the PDF artifact on Zenodo (one DOI per version) and attaches it to the release.
+  # Implementation release (`vX.Y.Z`): the version must match lakefile.lean and CHANGELOG.md.
+  release-check:
+    if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v')
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check that the release matches lakefile.lean and CHANGELOG.md
+        run: |
+          version="${TAG#v}"
+          lake_version="$(sed -n 's/^ *version := v!"\(.*\)"$/\1/p' lakefile.lean)"
+          if [ "$lake_version" != "$version" ]; then
+            echo "::error::lakefile.lean declares version '$lake_version' but the release is '$TAG'"
+            exit 1
+          fi
+          if ! grep -q "^## \[$version\]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md has no '## [$version]' section"
+            exit 1
+          fi
+
+  # Specification release (`spec-vX.Y.Z`): archives the PDF artifact on Zenodo (one DOI per
+  # version) and attaches it to the release.
   zenodo:
-    if: github.event_name == 'release'
+    if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'spec-v')
     needs: spec-pdf
     runs-on: ubuntu-latest
     permissions:
@@ -164,16 +190,16 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Check that the release matches CITATION.cff and CHANGELOG.md
+      - name: Check that the release matches CITATION.cff and spec/CHANGELOG.md
         run: |
-          version="${TAG#v}"
+          version="${TAG#spec-v}"
           cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
           if [ "$cff" != "$version" ]; then
             echo "::error::CITATION.cff declares version '$cff' but the release is '$TAG'"
             exit 1
           fi
-          if ! grep -q "^## \[$version\]" CHANGELOG.md; then
-            echo "::error::CHANGELOG.md has no '## [$version]' section"
+          if ! grep -q "^## \[$version\]" spec/CHANGELOG.md; then
+            echo "::error::spec/CHANGELOG.md has no '## [$version]' section"
             exit 1
           fi
 
@@ -201,7 +227,7 @@ jobs:
         env:
           ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
           ZENODO_ENV: ${{ secrets.ZENODO_ENV }}
-        run: ZENODO_VERSION="${TAG#v}" python scripts/sync_zenodo.py
+        run: ZENODO_VERSION="${TAG#spec-v}" python scripts/sync_zenodo.py
 
       - name: Save the Zenodo state
         run: |

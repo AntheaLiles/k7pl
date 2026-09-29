@@ -18,6 +18,7 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `tests/`                       | Tests en Lean 4 (un fichier `<Module>Test.lean` par module)     | CECILL-2.1 |
 | `spec/Spec.lean`               | Racine de la spécification Verso                                | CC-BY-4.0  |
 | `spec/Spec/`                   | Chapitres de la spécification (un module Verso par chapitre)    | CC-BY-4.0  |
+| `spec/CHANGELOG.md`            | Versions de la spécification (releases `spec-vX.Y.Z`)           | CC-BY-4.0  |
 | `tools/SpecMain.lean`          | Générateur HTML de la spécification (`lake exe spec`)           | CECILL-2.1 |
 | `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)       | —          |
 | `scripts/`                     | Maintenance (montée de version, hook de session, Zenodo)        | CECILL-2.1 |
@@ -187,7 +188,7 @@ et les blocs de code Lean qu'ils contiennent sont vérifiés.
    `{include 1 Spec.<Chapitre>}` à l'endroit voulu.
 4. Vérifier : `lake build Spec` puis `lake exe spec --output _out/spec`
    (HTML dans `_out/spec/html-multi/`).
-5. Ajouter une ligne dans `CHANGELOG.md` (type `docs`).
+5. Ajouter une ligne dans `spec/CHANGELOG.md` (commit de type `docs`).
 
 ## 7. Style Lean 4
 

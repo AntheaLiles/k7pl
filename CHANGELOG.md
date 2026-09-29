@@ -7,6 +7,10 @@ SPDX-License-Identifier: CECILL-2.1
 
 Toutes les modifications notables de ce projet sont consignées dans ce fichier.
 
+Ce fichier suit l'implémentation et le dépôt (releases `vX.Y.Z`) ; la
+spécification a son propre historique dans [`spec/CHANGELOG.md`](spec/CHANGELOG.md)
+(releases `spec-vX.Y.Z`).
+
 Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
@@ -30,8 +34,9 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
   modèles d'issues et de pull request.
 - Hook `SessionStart` pour les sessions Claude Code sur le web.
 - PDF de la spécification généré en CI (Verso → TeX → LuaLaTeX, artefact `spec-pdf`).
-- Publication sur Zenodo à chaque release GitHub (`scripts/sync_zenodo.py`, adapté
-  de quickViz) ; le PDF est aussi joint à la release.
+- Publication sur Zenodo à chaque release `spec-vX.Y.Z` (`scripts/sync_zenodo.py`,
+  adapté de quickViz) ; le PDF est aussi joint à la release. Les releases de
+  l'implémentation (`vX.Y.Z`) sont indépendantes.
 
 ### Changed
 

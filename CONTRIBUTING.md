@@ -62,23 +62,38 @@ commune existe.
 
 ## Publier une version
 
-Chaque release GitHub produit le PDF de la spécification et l'archive sur
-[Zenodo](https://zenodo.org) (un DOI par version, un DOI de concept commun).
+La spécification et l'implémentation ont des versions **indépendantes** :
 
-1. Dans une PR : passer la section `[Unreleased]` de `CHANGELOG.md` en
+| Release    | Tag            | Version déclarée dans           | Changelog            | Effet                               |
+|------------|----------------|---------------------------------|----------------------|-------------------------------------|
+| Spécification | `spec-vX.Y.Z` | `CITATION.cff` (`version`)     | `spec/CHANGELOG.md`  | PDF publié sur Zenodo et joint à la release |
+| Implémentation | `vX.Y.Z`     | `lakefile.lean` (`version`)    | `CHANGELOG.md`       | Contrôle de cohérence, pas de Zenodo |
+
+Dans les deux cas, la CI refuse la release si la version du tag ne correspond
+pas au fichier de version et au changelog.
+
+### Spécification (`spec-vX.Y.Z`)
+
+1. Dans une PR : passer `[Unreleased]` de `spec/CHANGELOG.md` en
    `## [X.Y.Z] - AAAA-MM-JJ`, et mettre à jour `version` et `date-released`
    dans `CITATION.cff`.
-2. Après fusion, créer la release `vX.Y.Z` sur `main` (onglet **Releases**).
-3. La CI compile la spécification, génère le PDF (artefact `spec-pdf`), le
-   publie sur Zenodo, l'attache à la release et enregistre l'état Zenodo sur la
-   branche `zenodo-state`. Le job échoue avant toute publication si la version
-   de la release ne correspond pas à `CITATION.cff` ou à `CHANGELOG.md`.
+2. Après fusion, créer la release sur `main` avec le tag `spec-vX.Y.Z`
+   (titre conseillé : « Spécification X.Y.Z »).
+3. La CI compile le PDF (artefact `spec-pdf`), le publie sur Zenodo, l'attache
+   à la release et enregistre l'état Zenodo sur la branche `zenodo-state`.
 4. Après la première publication, ajouter le DOI de concept (affiché dans le
    résumé du job `zenodo`) dans `CITATION.cff` (`identifiers`) et dans le README.
 
 Métadonnées Zenodo : `zenodo.json` (communes) et `zenodo.files.json` (par PDF).
 Le secret `ZENODO_ENV=sandbox` permet de tester sur sandbox.zenodo.org
 (avec un jeton `ZENODO_TOKEN` du sandbox).
+
+### Implémentation (`vX.Y.Z`)
+
+1. Dans une PR : passer `[Unreleased]` de `CHANGELOG.md` en `## [X.Y.Z] - AAAA-MM-JJ`
+   et mettre à jour `version` dans `lakefile.lean`.
+2. Après fusion, créer la release sur `main` avec le tag `vX.Y.Z`
+   (titre conseillé : « k7pl X.Y.Z »).
 
 ## Sécurité
 
