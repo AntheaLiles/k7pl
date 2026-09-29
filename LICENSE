@@ -15,7 +15,7 @@ Répartition
     Implémentation (src/), tests (tests/), outils (tools/, scripts/),
     configuration (lakefile.lean, lake-manifest.json, lean-toolchain,
     .gitignore, .gitattributes, .editorconfig, .commitlintrc.yaml, REUSE.toml,
-    CITATION.cff), intégration continue et modèles (.github/), consignes
+    CITATION.cff, zenodo.json, zenodo.files.json), intégration continue et modèles (.github/), consignes
     (.claude/), README.md, CHANGELOG.md, CONTRIBUTING.md et SECURITY.md.
     Texte complet : LICENSES/CECILL-2.1.txt
 

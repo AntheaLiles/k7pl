@@ -45,7 +45,9 @@ voir [`SECURITY.md`](SECURITY.md).
 
 ## Citer k7pl
 
-Voir [`CITATION.cff`](CITATION.cff) (bouton « Cite this repository » sur GitHub).
+Chaque version de la spécification est archivée sur [Zenodo](https://zenodo.org)
+avec un DOI, et son PDF est joint à la release GitHub correspondante. Voir
+[`CITATION.cff`](CITATION.cff) (bouton « Cite this repository » sur GitHub).
 
 ## Licences
 

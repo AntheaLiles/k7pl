@@ -20,7 +20,8 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `spec/Spec/`                   | Chapitres de la spécification (un module Verso par chapitre)    | CC-BY-4.0  |
 | `tools/SpecMain.lean`          | Générateur HTML de la spécification (`lake exe spec`)           | CECILL-2.1 |
 | `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)       | —          |
-| `scripts/`                     | Scripts de maintenance (montée de version, hook de session)     | CECILL-2.1 |
+| `scripts/`                     | Maintenance (montée de version, hook de session, Zenodo)        | CECILL-2.1 |
+| `zenodo.json`, `zenodo.files.json` | Métadonnées Zenodo (communes, par PDF) — via `REUSE.toml`   | CECILL-2.1 |
 | `.github/workflows/`           | CI : build/tests/lint/axiomes, Pages, REUSE, commits, sécurité  | CECILL-2.1 |
 | `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Modèles d'issues et de PR | CECILL-2.1 |
 | `.github/dependabot.yml`       | Mises à jour des GitHub Actions                                 | CECILL-2.1 |
@@ -34,7 +35,7 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `README.md`, `CHANGELOG.md`    | Documentation du projet                                         | CECILL-2.1 |
 | `CONTRIBUTING.md`, `SECURITY.md` | Déroulement des contributions, signalement de vulnérabilités  | CECILL-2.1 |
 | `CODE_OF_CONDUCT.md`           | Contributor Covenant 2.1 (traduction française)                 | CC-BY-4.0  |
-| `CITATION.cff`                 | Comment citer le projet                                         | CECILL-2.1 |
+| `CITATION.cff`                 | Comment citer la spécification (DOI Zenodo)                     | CECILL-2.1 |
 
 Dépendances (toutes épinglées sur la version de `lean-toolchain`) :
 

@@ -60,6 +60,26 @@ Lean, Mathlib, CSLib et Verso montent ensemble :
 `Bump Lean` ouvre automatiquement une PR chaque mois quand une nouvelle version
 commune existe.
 
+## Publier une version
+
+Chaque release GitHub produit le PDF de la spécification et l'archive sur
+[Zenodo](https://zenodo.org) (un DOI par version, un DOI de concept commun).
+
+1. Dans une PR : passer la section `[Unreleased]` de `CHANGELOG.md` en
+   `## [X.Y.Z] - AAAA-MM-JJ`, et mettre à jour `version` et `date-released`
+   dans `CITATION.cff`.
+2. Après fusion, créer la release `vX.Y.Z` sur `main` (onglet **Releases**).
+3. La CI compile la spécification, génère le PDF (artefact `spec-pdf`), le
+   publie sur Zenodo, l'attache à la release et enregistre l'état Zenodo sur la
+   branche `zenodo-state`. Le job échoue avant toute publication si la version
+   de la release ne correspond pas à `CITATION.cff` ou à `CHANGELOG.md`.
+4. Après la première publication, ajouter le DOI de concept (affiché dans le
+   résumé du job `zenodo`) dans `CITATION.cff` (`identifiers`) et dans le README.
+
+Métadonnées Zenodo : `zenodo.json` (communes) et `zenodo.files.json` (par PDF).
+Le secret `ZENODO_ENV=sandbox` permet de tester sur sandbox.zenodo.org
+(avec un jeton `ZENODO_TOKEN` du sandbox).
+
 ## Sécurité
 
 Ne pas signaler de vulnérabilité dans une issue publique : voir [SECURITY.md](SECURITY.md).

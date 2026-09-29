@@ -29,8 +29,12 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CITATION.cff`,
   modèles d'issues et de pull request.
 - Hook `SessionStart` pour les sessions Claude Code sur le web.
+- PDF de la spécification généré en CI (Verso → TeX → LuaLaTeX, artefact `spec-pdf`).
+- Publication sur Zenodo à chaque release GitHub (`scripts/sync_zenodo.py`, adapté
+  de quickViz) ; le PDF est aussi joint à la release.
 
 ### Changed
 
 - Les spécifications passent d'Org-mode à Verso.
 - Le code source (identifiants, docstrings, commentaires) est désormais en anglais.
+- `CITATION.cff` décrit la spécification (CC-BY-4.0, ORCID) en vue du DOI Zenodo.
