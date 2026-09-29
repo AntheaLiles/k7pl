@@ -53,9 +53,11 @@ reuse lint                      # vérifier la conformité REUSE (pip install re
   sans `lake build`, `lake test` et `lake lint` verts (localement ou en CI), ni
   utiliser un nom de lemme sans l'avoir vérifié. Détails : section « Travailler
   avec un agent » des règles de rédaction.
-- Publication : chaque release GitHub `vX.Y.Z` compile le PDF de la spécification et
-  l'archive sur Zenodo (voir « Publier une version » dans `CONTRIBUTING.md`) ; la
-  version doit correspondre à `CITATION.cff` et `CHANGELOG.md`.
+- Publication : releases indépendantes. `spec-vX.Y.Z` compile le PDF de la
+  spécification et l'archive sur Zenodo (version dans `CITATION.cff`, changelog
+  `spec/CHANGELOG.md`) ; `vX.Y.Z` publie l'implémentation (version dans
+  `lakefile.lean`, changelog `CHANGELOG.md`). Voir « Publier une version » dans
+  `CONTRIBUTING.md`. Les changements de la spécification vont dans `spec/CHANGELOG.md`.
 - Monter Lean et les dépendances : `scripts/bump-lean.sh vX.Y.Z` (jamais à la main).
 - Le hook `SessionStart` (`scripts/claude-session-start.sh`) installe elan et le
   cache Mathlib dans les sessions web, si le réseau autorise `release.lean-lang.org`.
