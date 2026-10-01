@@ -1,0 +1,979 @@
+{
+  "_schema": "Cles maintenues en bibliographie alors qu'elles ne sont pas citees au corps. Toute entree ici est une DECISION, datee et motivee. Le controle de passe signale ces cles sans echouer ; il echoue en revanche sur toute cle non citee qui ne figure pas dans cette liste. C'est la difference entre une decision et un silence, et c'est ce qui manquait quand la reference ATKEY-PTIME a traverse vingt-cinq versions sans emploi.",
+  "maintenues_sans_citation": {
+    "DATAFUN": {
+      "depuis": "2026-08-04",
+      "motif": "Doublon Zotero : meme oeuvre que DATAFUN, sous un second DOI. Les deux entrees coexistent depuis la synchronisation. A FUSIONNER DANS ZOTERO, en gardant celle dont le DOI est celui de l'editeur.",
+      "revoir_a": "prochaine synchronisation Zotero"
+    },
+    "heuvelComparingSessionType2024": {
+      "depuis": "2026-08-04",
+      "motif": "Depouillee a l'arc F le 31 aout. Elle tranche l'incoherence entre les mentions classique et intuitionniste du manuscrit, la localite des noms partages etant imposee par l'une et non par l'autre. Citation portee au bloc C-13.",
+      "revoir_a": "passe d'ajustement, bloc C-13"
+    },
+    "THEOCHARIS": {
+      "depuis": "2026-08-04",
+      "motif": "Doublon Zotero : meme oeuvre que THEOCHARIS, sous un second DOI. Les deux entrees coexistent depuis la synchronisation. A FUSIONNER DANS ZOTERO, en gardant celle dont le DOI est celui de l'editeur.",
+      "revoir_a": "prochaine synchronisation Zotero"
+    },
+    "fuInductionPrincipleNested2023": {
+      "depuis": "2026-08-04",
+      "motif": "Fu et Selinger, « Towards an Induction Principle for Nested Data Types » — oeuvre distincte de fuDependentlyTypedFolds2018, ajoutee dans Zotero et pas encore citee.",
+      "revoir_a": "lorsqu'elle sera citee ou ecartee"
+    },
+    "AutomataAlgebrasCategories": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "Axiomatic_domain_theory_in_categories_of": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "abolpourBLgeneralFuzzyAutomata2012": {
+      "depuis": "2026-08-08",
+      "motif": "ÉCART LEVÉ le 9 août. Écartée à tort le 8 — j'avais jugé sur le mot « flou » et sur la revue, non sur le contenu. Une BL-algèbre est un treillis borné + monoïde commutatif + résiduation : la structure d'une algèbre de grades. Et l'article démontre, au-dessus de cette structure, que la réduction minimale de la partie accessible est la réalisation minimale. Fiche dans chantier/arc-theorique.org.",
+      "revoir_a": "clôture de T-65"
+    },
+    "abramskyCorrectedExpandedVersion": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "balanFinitaryFunctorsSet2011": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "bilkovaProofSystemsMoss2014": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "boccaliBicategoriesAutomataAutomata2023": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "bojanczykAutomataGroupActions2011": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "bojanczykAutomataTheoryNominal2014": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "cataltepeTimeComplexityDeterministic2026": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "fontaineAutomataCoalgebrasApproach2010": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "heerdtCategoricalFrameworkLearning2022": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "heerdtTreeAutomataAlgebras2019": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65, DÉPOUILLÉE le 9 août : minimalisation générale sous hypothèses modestes, et les effets de bord comme paramètre du cadre avec procédure de déterminisation. Fiche dans chantier/arc-theorique.org.",
+      "revoir_a": "clôture de T-65"
+    },
+    "iwaniackAutomatesTopossiques": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "kupkeClosurePropertiesCoalgebra2005": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "kupkeCoalgebraicAutomataTheory2008": {
+      "depuis": "2026-08-08",
+      "motif": "Depouillee a l'arc C le 31 aout. Elle porte la theorie des automates au niveau du foncteur sous une hypothese unique, et reformule le manque consigne sur l'etage a pile en une question precise. Emploi a preciser a la redaction du chapitre 4.",
+      "revoir_a": "passe d'ajustement, chapitre 4"
+    },
+    "kupkeCoalgebraicSemanticsModal2011": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "kurzAlphacorecursionPrincipleInfinitary2012": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "loregianAutomataCoalgebrasCategories2024": {
+      "depuis": "2026-08-08",
+      "motif": "Depouillee a l'arc C le 31 aout. Elle identifie la piece fondatrice du corpus T-65 et relie le versant categorique au versant syntaxique par le foncteur derivee. Emploi a preciser.",
+      "revoir_a": "passe d'ajustement, chapitre 4"
+    },
+    "miliusCategorytheoreticSolutionRecursive2006": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "pradicImplicitAutomataLcalculi": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "ramNeutrosophicAutomataReverse": {
+      "depuis": "2026-08-08",
+      "motif": "ÉCART PARTIELLEMENT LEVÉ le 9 août. L'article reste mince et sans résultat employable — le jugement de tenue tenait. Mais sa BIBLIOGRAPHIE est une carte vers la littérature des automates valués dans un monoïde ordonné, dont Li et Pedrycz 2005 sur les expressions régulières floues à valeurs dans un monoïde ordonné par treillis. Conservée à ce titre.",
+      "revoir_a": "clôture de T-65"
+    },
+    "tanEfficientPrecisePointsto2017": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "urbatAutomataLearningAlgebraic2020": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65, DÉPOUILLÉE le 9 août : cadre paramétrique en une MONADE, dont les langages sortés, les langages nominaux avec liaison et les fonctions de coût sont trois instances — soit nos sortes, notre hygiène et notre budget. Fiche dans chantier/arc-theorique.org.",
+      "revoir_a": "clôture de T-65"
+    },
+    "venemaAutomataFixedPoint2006": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65 (convergence automate et catégories), fourni le 7 août et CARTOGRAPHIÉ avant lecture — voir chantier/arc-theorique.org. L'entrée est en bibliographie parce que la pièce est au corpus ; elle sera citée quand elle sera dépouillée, ou écartée avec son motif.",
+      "revoir_a": "clôture de T-65"
+    },
+    "yadavGeneralCategoricalFramework2022": {
+      "depuis": "2026-08-08",
+      "motif": "Corpus T-65, DÉPOUILLÉE le 9 août : réalisation de Nerode existante et unique à isomorphisme près pour les langages multiensembles — et « multiensemble » veut dire compte d'usage, donc la composante u de notre grade. Fiche dans chantier/arc-theorique.org.",
+      "revoir_a": "clôture de T-65"
+    },
+    "beckertEvaluatingUsabilityInteractive": {
+      "depuis": "2026-08-08",
+      "motif": "Entrée synchronisée depuis Zotero sans emploi au corps. À citer ou à retirer lors de la prochaine synchronisation ; aucune décision de fond n'est prise ici.",
+      "revoir_a": "prochaine synchronisation Zotero"
+    },
+    "choFrameworkDebuggingAutomated2024": {
+      "depuis": "2026-08-08",
+      "motif": "Entrée synchronisée depuis Zotero sans emploi au corps. À citer ou à retirer lors de la prochaine synchronisation ; aucune décision de fond n'est prise ici.",
+      "revoir_a": "prochaine synchronisation Zotero"
+    },
+    "oliveiraWhatChallengesDevelopers2025": {
+      "depuis": "2026-08-08",
+      "motif": "Entrée synchronisée depuis Zotero sans emploi au corps. À citer ou à retirer lors de la prochaine synchronisation ; aucune décision de fond n'est prise ici.",
+      "revoir_a": "prochaine synchronisation Zotero"
+    },
+    "shiQEDContextObservation2025a": {
+      "depuis": "2026-08-08",
+      "motif": "Entrée synchronisée depuis Zotero sans emploi au corps. À citer ou à retirer lors de la prochaine synchronisation ; aucune décision de fond n'est prise ici.",
+      "revoir_a": "prochaine synchronisation Zotero"
+    },
+    "loukanovaSemanticInformationType2012": {
+      "depuis": "2026-08-09",
+      "motif": "Fournie le 9 août et DÉPOUILLÉE — fiche dans chantier/arc-theorique.org. Elle donne à B6 la notion de ce qu'une macro PRÉSERVE (synonymie référentielle) et la condition qui l'achète (fonction de rang). Sera citée au corps quand B6 recevra sa sémantique ; maintenue d'ici là.",
+      "revoir_a": "passe d'écriture de B6"
+    },
+    "liFuzzyFiniteAutomata2005": {
+      "depuis": "2026-08-09",
+      "motif": "Fournie et DÉPOUILLÉE le 9 août. Donne la réponse à la question 3 de T-65 sous forme d'ÉQUIVALENCE : la fonction de transition s'étend aux mots si et seulement si la composition des grades distribue sur les bornes de l'ordre (théorème 3.1). Plus le théorème de Kleene au-dessus d'un monoïde ordonné par treillis. À citer au corps quand la question 3 sera écrite.",
+      "revoir_a": "écriture de la question 3"
+    },
+    "ignjatovicDeterminizationFuzzyAutomata2008": {
+      "depuis": "2026-08-09",
+      "motif": "Fournie et DÉPOUILLÉE le 9 août. Seconde équivalence : la déterminisation donne un automate fini si et seulement si le réduit semi-anneau de l'algèbre de grades est localement fini (théorème 4.2). Et la congruence de Nerode floue. Même échéance que Li et Pedrycz.",
+      "revoir_a": "écriture de la question 3"
+    },
+    "abolpourGeneralFuzzyAutomata": {
+      "depuis": "2026-08-09",
+      "motif": "Fournie et DÉPOUILLÉE le 9 août : isomorphismes de catégories entre automates valués dans un treillis résidué et automates non déterministes ordinaires. Versant catégorique des deux précédentes.",
+      "revoir_a": "clôture de T-65"
+    },
+    "colcombetAutomataMinimizationFunctorial2020": {
+      "depuis": "2026-08-09",
+      "motif": "Fournie et DÉPOUILLÉE le 9 août — la source qu'Iwaniack étend. Un automate est un FONCTEUR ; ce qui varie d'une échelle à l'autre est la catégorie de SORTIE. Minimisation par extensions de Kan et système de factorisation ; déterminisation par relèvement de l'adjonction de Kleisli. C'est la réponse à la question 1 et elle en change l'objet.",
+      "revoir_a": "écriture de la question 1"
+    },
+    "nowackiTrackingBorrowsRegular": {
+      "depuis": "2026-08-09",
+      "motif": "Depouillee a l'arc J le 31 aout. Elle donne l'algorithme d'emprunt par expressions regulieres, decidable et deploye, ET la seule mecanisation LEAN du fonds avec sa note de cout ventilee par regle de typage. Citation portee au bloc A.2.11.",
+      "revoir_a": "écriture de la question 2"
+    },
+    "gabbayNewApproachAbstract2002": {
+      "depuis": "2026-08-09",
+      "motif": "Fournie et dépouillée le 9 août — la SOURCE de la chaîne nominale, dont Kurz et al. et Bojańczyk et al. partent tous deux. Donne la fraîcheur a # x, le quantificateur N, l'abstraction d'atome, et le fait que les classes d'alpha-équivalence sont un ensemble INDUCTIF et non un quotient. C'est la forme que thm:hygiene devrait prendre. À citer quand l'hygiène sera réécrite.",
+      "revoir_a": "réécriture de thm:hygiene"
+    },
+    "dagitUsingCognitiveDimensions2006": {
+      "depuis": "2026-08-09",
+      "motif": "Livrée le 9 août — numéro spécial du Journal of Visual Languages and Computing 17 (2006) sur les dimensions cognitives, fourni à la place de « Ten Years of Cognitive Dimensions » qui en est l'avant-propos et n'a pu être isolé. REÇUE, NON ENCORE DÉPOUILLÉE.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "edgeCorrelatesCognitiveDimensions2006": {
+      "depuis": "2026-08-09",
+      "motif": "Livrée le 9 août — numéro spécial du Journal of Visual Languages and Computing 17 (2006) sur les dimensions cognitives, fourni à la place de « Ten Years of Cognitive Dimensions » qui en est l'avant-propos et n'a pu être isolé. REÇUE, NON ENCORE DÉPOUILLÉE.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "greenCognitiveDimensionsAchievements2006": {
+      "depuis": "2026-08-09",
+      "motif": "Depouillee a l'arc G le 31 aout. Green y ecrit que les dimensions cognitives sont des outils de DISCUSSION, ce qui confirme la limite que le projet leur pretait. Emploi a preciser.",
+      "revoir_a": "passe d'ajustement, chapitre 5"
+    },
+    "petreCognitiveDimensionsNotation2006": {
+      "depuis": "2026-08-09",
+      "motif": "Livrée le 9 août — numéro spécial du Journal of Visual Languages and Computing 17 (2006) sur les dimensions cognitives, fourni à la place de « Ten Years of Cognitive Dimensions » qui en est l'avant-propos et n'a pu être isolé. REÇUE, NON ENCORE DÉPOUILLÉE.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "hadhrawiSystematicLiteratureReview": {
+      "depuis": "2026-08-09",
+      "motif": "Livrée le 9 août — numéro spécial du Journal of Visual Languages and Computing 17 (2006) sur les dimensions cognitives, fourni à la place de « Ten Years of Cognitive Dimensions » qui en est l'avant-propos et n'a pu être isolé. REÇUE, NON ENCORE DÉPOUILLÉE.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "beckerCompilerErrorMessages2019": {
+      "depuis": "2026-08-09",
+      "motif": "Livrée le 9 août — les quatre articles de Becker, Denny et Prather sur les messages d'erreur, dont je n'avais que les trois noms. Sert la question 30. REÇUE, NON ENCORE DÉPOUILLÉE.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "dennyDesigningProgrammingError2021": {
+      "depuis": "2026-08-09",
+      "motif": "Livrée le 9 août — les quatre articles de Becker, Denny et Prather sur les messages d'erreur, dont je n'avais que les trois noms. Sert la question 30. REÇUE, NON ENCORE DÉPOUILLÉE.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "dennyErrorMessageReadability2020": {
+      "depuis": "2026-08-09",
+      "motif": "Depouillee a l'arc G le 31 aout. Le facteur deux sur le temps de debogage est exact et significatif, et les auteurs bornent eux-memes sa portee. Emploi a preciser au chapitre 6.",
+      "revoir_a": "passe d'ajustement, chapitre 6"
+    },
+    "pratherFirstStepsPredicting2023": {
+      "depuis": "2026-08-09",
+      "motif": "Livrée le 9 août — les quatre articles de Becker, Denny et Prather sur les messages d'erreur, dont je n'avais que les trois noms. Sert la question 30. REÇUE, NON ENCORE DÉPOUILLÉE.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "zhuLearningProgrammingChallenges2022": {
+      "depuis": "2026-08-09",
+      "motif": "Livrée le 9 août — l'analyse de tâche cognitive sur 110 erreurs de propriété, connue jusqu'ici par la seule revue de Ferdowsi. Sert les questions 30 et 39. REÇUE, NON ENCORE DÉPOUILLÉE.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "miaraProgramIndentationComprehensibility1983": {
+      "depuis": "2026-09-02",
+      "motif": "C-26 tranche par la NON-CITATION. Le manuscrit ne parle nulle part d'indentation, et la piece est un resultat isole de 1983 dans une litterature qui ne le soutient pas : ses auteurs ouvrent en notant que le consensus tient l'indentation pour utile BIEN QUE de nombreuses etudes ne le confirment pas, et rapportent que l'effet principal de l'indentation seule n'etait significatif dans aucune mesure anterieure, une interaction n'apparaissant qu'avec le commentaire. Aucune replication posterieure n'est au fonds. Citer un optimum chiffre sur cette base serait emprunter une autorite que la source n'a pas. Maintenue en bibliographie comme trace de la verification, non citee au corps.",
+      "revoir_a": "si une replication posterieure entre au fonds, ou si le chapitre 5 vient a traiter la mise en page"
+    },
+    "blackwellFiftyYearsPsychology2019": {
+      "depuis": "2026-08-09",
+      "motif": "DOUBLON : cette pièce a déjà été dépouillée le 7 août dans le corpus charge cognitive et HCI, sous une autre entrée. Arrivée une seconde fois dans le lot cognition.zip. À FUSIONNER lors de la prochaine synchronisation Zotero.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "zhuFuzzingSurveyRoadmap2022": {
+      "depuis": "2026-08-09",
+      "motif": "HOMONYMIE : arrivée dans Zhu.zip avec l'article recherché, mais il s'agit d'un autre Zhu et le sujet — le fuzzing — ne touche aucune question ouverte. ÉCARTÉE, et consignée pour que le lot soit intégralement rendu compte.",
+      "revoir_a": "dépouillement du lot du 9 août"
+    },
+    "greenUsabilityAnalysisVisual1996": {
+      "depuis": "2026-08-10",
+      "motif": "cadre des dimensions cognitives, lu de première main ; chapitre 5 et T-61",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "iversonNotationToolThought1980a": {
+      "depuis": "2026-08-10",
+      "motif": "les cinq caractères d'une notation ; l'économie à trois termes ; chapitre 5",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "falkoffEvolutionAPL1978": {
+      "depuis": "2026-08-10",
+      "motif": "les quatre espèces de la simplicité ; la valence ambiguë comme conséquence du jeu de caractères ; chapitre 5, P-1",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "huiAPL19782020": {
+      "depuis": "2026-08-10",
+      "motif": "la section « Names » est la question 2 ; le chiffrage des opérateurs ; chapitre 5, P-2",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "coblenzGarbageCollectionMakes2022": {
+      "depuis": "2026-08-10",
+      "motif": "coût mesuré de la propriété sans ramasse-miettes ; chapitres 3 et 4 ; question 49",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "smithReflectionSemanticsLISP1984": {
+      "depuis": "2026-08-10",
+      "motif": "alignement de catégories ; l'évaluation comme franchissement de niveau ; question 51",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "herzeelReflectionMasses2008": {
+      "depuis": "2026-08-10",
+      "motif": "l'absorption ; la coupe réflexion structurelle / procédurale ; chapitre 5, B6",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "asaiReflectionDirectStyle2012": {
+      "depuis": "2026-08-10",
+      "motif": "le coût d'un niveau d'interprétation, payé même sans l'employer ; question 16",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "asaiCompilingReflectiveLanguage2015": {
+      "depuis": "2026-08-10",
+      "motif": "une sémantique modifiable interdit le compilateur autonome ; question 16",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "danvyIntensionsExtensionsReflective1988": {
+      "depuis": "2026-08-10",
+      "motif": "la tour formalisée ; partir de la sémantique et dériver l'implantation",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "flattComposableCompilableMacros2002": {
+      "depuis": "2026-08-10",
+      "motif": "la séparation de phases doit être imposée par le langage ; macros de bibliothèque",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "hermanTheoryHygienicMacros2008": {
+      "depuis": "2026-08-10",
+      "motif": "l'hygiène comme spécification et non comme algorithme ; thm:hygiene",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "gibsonEcologicalApproachVisual2015": {
+      "depuis": "2026-08-10",
+      "motif": "l'affordance de première main ; la MÉSINFORMATION comme troisième mode de défaillance ; P-4",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "rasmussenSkillsRulesKnowledge1983": {
+      "depuis": "2026-08-10",
+      "motif": "SRK de première main ; un niveau d'abstraction AJOUTE ; causes de bas en haut ; questions 30 et 50",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "vicenteCognitiveWorkAnalysis1999a": {
+      "depuis": "2026-08-10",
+      "motif": "normatif / descriptif / FORMATIF ; donne son statut à P-4",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "wrightUsingVisualizationVisualization2013a": {
+      "depuis": "2026-08-10",
+      "motif": "les trois principes de l'interface écologique appliqués à une DÉCOUVERTE ; questions 43 à 46",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "bennettPrinciplesInteractionDesign2015": {
+      "depuis": "2026-08-10",
+      "motif": "une grille générique redécrit le problème ; contrainte sur ce que T-61 produit",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "pittsNominalLogicFirst2003": {
+      "depuis": "2026-08-10",
+      "motif": "échange plutôt que renommage ; équivariance ; quantificateur de fraîcheur ; mécanisation",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "pittsNominalSetsNames2013": {
+      "depuis": "2026-08-10",
+      "motif": "manuel du domaine, dont le sujet déclaré est la LOCALITÉ ; consulté par chapitres",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "belohlavekDeterminismFuzzyAutomata2002": {
+      "depuis": "2026-08-10",
+      "motif": "le grade peut ne vivre que dans l'acceptation ; famille emboîtée ; chapitres 3 et 4",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "colcombetAutomataCategoryGlued2017b": {
+      "depuis": "2026-08-10",
+      "motif": "minimisation par construction ; le RECOLLEMENT comme forme des trois couches ; chapitre 4",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "colcombetLearningAutomataTransducers2021": {
+      "depuis": "2026-08-10",
+      "motif": "la noethérianité comme seule condition ajoutée ; chapitre 4",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "weissRustDistilledExpressive2018": {
+      "depuis": "2026-08-10",
+      "motif": "le critère de Felleisen pour les frontières de couche ; chapitres 1 et 2, question 50",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "weissOxideEssenceRust2021": {
+      "depuis": "2026-08-10",
+      "motif": "capabilités linéaires et permissions fractionnaires au niveau source ; chapitre 3",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "melesNewProgrammingStyles2026": {
+      "depuis": "2026-08-10",
+      "motif": "les quatre niveaux de dérivation d'une langue ; question 41",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "PreviewCoalton022026": {
+      "depuis": "2026-08-10",
+      "motif": "l'arité fixe en production, et les 99 % ; P-1 et question 4",
+      "revoir_a": "rédaction du chapitre concerné"
+    },
+    "stefikEmpiricalInvestigationProgramming2013": {
+      "depuis": "2026-08-10",
+      "motif": "Depouillee a l'arc G le 31 aout. Elle etablit que la syntaxe traditionnelle de type C ne fait pas mieux que des mots-cles tires au hasard, ce qui retire son appui a l'argument contre le pari des glyphes. Citation portee au bloc C-24.",
+      "revoir_a": "passe d'ajustement, bloc C-24"
+    },
+    "heijltjesFunctionalMachineCalculus2023": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 famille 3 : le Functional Machine Calculus encode les effets lecteur/ecrivain dans l'abstraction et l'application generalisees, donc SANS primitive d'effet. Designee au chantier comme CONTRE-PROPOSITION a perform (R-7) et comme hypothese sur tick (R-25). Non citee au manuscrit : K7PL retient les effets algebriques a gestionnaires, que le FMC ne couvre pas. A reexaminer si R-25 conclut que tick est un effet ecrivain.",
+      "revoir_a": "si R-25 conclut que tick est un effet ecrivain"
+    },
+    "curienIntroductionLinearLogic2005": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 : lue le 10 aout (ref/Q3 p.1196). PART II — reseaux de preuve et ludique ; les regles d'introduction et d'elimination sont dans le part I, ABSENT du fonds. Retenue pour deux points : MLL ne porte que tenseur et par, ce qui situe K7PL dans MALL/ILL ; et un reseau de preuve abstrait de l'ordre non pertinent d'application des regles, a verser a R-2. Non citee : rien n'entre encore au manuscrit.",
+      "revoir_a": "quand le part I sera source, ou a la redaction des regles (R-3)"
+    },
+    "wadlerPropositionsSessions2012": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 : identifiee comme la source FONDATRICE de R-18 (propositions comme sessions) et ABSENTE du corpus fusionne — elle n'y figure que dans des bibliographies. A SOURCER EXTERNELLEMENT, en tete de la liste des recherches complementaires.",
+      "revoir_a": "des que la source est obtenue — recherche complementaire n°1"
+    },
+    "cervesatoLogicalMeetingPoint2004": {
+      "depuis": "2026-08-10",
+      "motif": "Depouillee a la finalisation de l'arc F le 31 aout. Elle donne a la boite aux lettres sa semantique logique et porte l'exception sur la loi de replication, dont la correction est gratuite et rend la correspondance exacte. Citation portee au bloc C-22.",
+      "revoir_a": "passe d'ajustement, bloc C-22"
+    },
+    "vakarFrameworkDependentTypes2015": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 : lue le 10 aout (ref/Q3 p.339). Le CBPV de Levy etendu aux types dependants. Retenue pour la limite qu'elle nomme : dCBPV- ne suffit pas aux regles d'elimination FORTES des connecteurs POSITIFS, il faut dCBPV+ et son extension de Kleisli dependante — au prix de la perte d'unicite du typage, donc d'un besoin de sous-typage. Question ouverte pour K7PL, qui a des connecteurs positifs et du sous-typage par P2.",
+      "revoir_a": "a l'arbitrage de R-1 : dCBPV- ou dCBPV+"
+    },
+    "maAlgebraicPatternMatching2008": {
+      "depuis": "2026-08-10",
+      "motif": "Depouillee a l'arc F le 31 aout. Elle enonce le non-determinisme intrinseque du choix entre regles de reaction et donne les deux politiques ; la partition en ensembles disjoints est celle que K7PL peut payer gratuitement. Citation portee au bloc C-16.",
+      "revoir_a": "passe d'ajustement, bloc C-16"
+    },
+    "borgstromSortedSemanticFramework2016": {
+      "depuis": "2026-08-10",
+      "motif": "Depouillee a l'arc F le 31 aout. Cadre des psi-calculi avec motifs abstraits et sortes, portant les criteres suffisants de preservation du sujet que la question QF-6 demande, et une limite de mecanisation a consigner pour l'arc K.",
+      "revoir_a": "verification des sortes, question QF-6"
+    },
+    "lindleyScopedEffectsParameterized2024": {
+      "depuis": "2026-08-10",
+      "motif": "Depouillee a l'arc J le 31 aout. Elle etablit que la portee doit etre REIFIEE comme une ressource a ouvrir et fermer, la sedimentation ne suffisant pas. Citation portee au bloc C-32.",
+      "revoir_a": "a la redaction des effets a portee de la couche 2 (chapitre 3 ou 4)"
+    },
+    "hanukaevUnificationGradedSubstructural2026": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 : lue le 10 aout. Grass unifie les approches substructurelle et graduee et, au niveau de la semantique categorique, SUBSUME LNL, la logique adjointe et mGL. Repond a R-22 : la zone unique de c1 est le cas A MODE UNIQUE de cet espace, les deux zones de Vollmer le cas multi-mode — ce ne sont pas deux camps mais un parametre. Ouvre R-31 (toute liaison a-t-elle besoin des quatre composantes du grade ?) et R-32 (K7PL controle-t-il la contraction, ou seulement le grade qui en resulte ?).",
+      "revoir_a": "a la redaction du chapitre 1 : une phrase situant la zone unique dans l'espace de Grass"
+    },
+    "diaz-caroAlgebraicExtensionIntuitionistic2025a": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 : lue le 10 aout, ECARTEE POUR R-23 avec motif : le calcul L^S_! ETEND ILL par la multiplication scalaire et l'addition de termes ; il ne DECOMPOSE pas le bang en modalites adjointes, qui est ce que R-23 cherche. Retenue pour deux points mineurs : ses regles &i et &e1 sont une troisieme source pour R-24, et sa notion de REGLES INTERSTITIELLES — celles qui apparaissent entre une introduction et une elimination et qu'il faut faire commuter pour l'elimination des coupures — s'applique au sous-typage modal de P2 et a la sous-gradation.",
+      "revoir_a": "a la verification que les regles interstitielles de K7PL commutent avec les introductions"
+    },
+    "levyCallbypushvalueSubsumingParadigm1999": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 : lue le 10 aout. La source du CBPV que c1 retient depuis le debut. Donne les types indexes Sigma_I et Pi_I, dont Torczon ne presente que le cas binaire — d'ou une CORRECTION de R-24 : le & de l'acteur est le produit INDEXE Pi_{i in I} B_i, non le binaire. Donne aussi la pile d'operandes, dont le FMC tire ses locations.",
+      "revoir_a": "a la redaction de la grammaire (R-1) et du type de l'acteur (R-24)"
+    },
+    "Thesisqmwphd": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 : la these de Levy sur CBPV, entree au fonds le 10 aout. Non encore depouillee ; l'article TLCA 1999 a suffi pour R-1 et R-24. A ouvrir pour la semantique operationnelle complete et la machine.",
+      "revoir_a": "a l'instruction de R-30, la machine abstraite"
+    },
+    "plotkinHandlersAlgebraicEffects2009a": {
+      "depuis": "2026-08-10",
+      "motif": "T-68 : lue le 10 aout. Repond a R-7 : perform et handle ne sont PAS de meme espece. Une operation algebrique est un CONSTRUCTEUR d'effet ; un gestionnaire est un DECONSTRUCTEUR, et « les gestionnaires d'exception ne sont PAS des operations algebriques ». Le handle applique l'UNIQUE HOMOMORPHISME du modele libre vers un modele defini par le programmeur. Consequence de structure : « un besoin naturel de DEUX LANGAGES apparait », un pour decrire les gestionnaires et un pour les employer — d'ou la question de savoir si la couche 2 de K7PL EST ce langage des modeles.",
+      "revoir_a": "a l'arbitrage de R-7 : quatrieme langage, ou couche 2"
+    },
+    "hickeyHistoryClojure2020": {
+      "depuis": "2026-08-28",
+      "motif": "Lot arc H, depouillee le 28 aout. Rend QH-14 (l'obstacle a l'adoption est le deploiement, non la syntaxe : deux Lisps hors courant majoritaire, deux issues), QH-1 (le regret porte sur une decomposition trouvee trop tard, non sur un trait de trop), l'argument du refus des macros de lecture pour l'arbitrage 15, et une quatrieme source sur la question 30. La citation revient au ch.1 (reserve sur l'adoption et statut des contrats d'interface de couche 1) et au ch.5 (glyphe-macro a alias, non macro de lecture) ; portee a la liste des repercussions, tache 81. Maintenue ici jusqu'a cette passe.",
+      "revoir_a": "passe de répercussions T-68 (tâche 81)"
+    },
+    "erikssonGradedModalType2025": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc B le 31 aout. C'est le modele de reference le plus proche que le fonds porte : theorie des types dependante et graduee, avec univers, effacement et machine abstraite, mecanisee en Agda. Sa lecture a revele un theoreme qui manque a K7PL, la CORRECTION DE RESSOURCE, inscrit au programme d'ajustement sous A.3.6. La citation appartient donc a la passe d'ajustement et non au fil de l'eau, conformement a la decision du 10 aout.",
+      "revoir_a": "passe d'ajustement du manuscrit, bloc A.3.6"
+    },
+    "choudhuryGradedDependentType2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc B le 31 aout. Elle porte quatre apports au document : la condition de separation avec ses deux concurrentes, la non-interference du zero comme lemme, la correction de ressource dont trois proprietes descendent, et un avertissement contre la regle de filtrage de l'annexe G. Les quatre appartiennent a la passe d'ajustement, aux blocs A.3.6 et C0.",
+      "revoir_a": "passe d'ajustement du manuscrit, blocs A.3.6 et C0"
+    },
+    "pedrotFireTriangleHow2020": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc B le 31 aout. Elle porte le theoreme d'impossibilite auquel K7PL echappe par la separation valeur/calcul, et c'est l'acquis non revendique le plus lourd du document. Citation portee au bloc B sous B0.",
+      "revoir_a": "passe d'ajustement, bloc B0"
+    },
+    "mcdermottExtendedCallbypushvalueReasoning2019": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc B le 31 aout. Elle dit pourquoi la fleche de l'annexe G est juste de ne porter qu'une annotation d'effet, et ou est la borne du cadre si K7PL veut un jour l'appel par necessite. Citation portee au bloc C sous C-4.",
+      "revoir_a": "passe d'ajustement, bloc C-4"
+    },
+    "schwinghammerCoherenceSubsumptionMonadic2009": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc B le 31 aout. Elle donne a la coherence de la subsomption sa forme de preuve et sa condition, l'existence de jointures, que l'annexe G emploie deja sans le dire. Citations portees aux blocs A.3.7 et C-3.",
+      "revoir_a": "passe d'ajustement, blocs A.3.7 et C-3"
+    },
+    "bagrelDestinationCalculusLinear2025": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc B le 31 aout. Elle situe la destination et la structure incomplete au noyau, identifie le parametre d'age comme une composante de mode, et porte une interdiction de surete et un avertissement. Citations portees aux blocs C-1 et C-2.",
+      "revoir_a": "passe d'ajustement, blocs C-1 et C-2"
+    },
+    "kovacsClosurefreeFunctionalProgramming2024": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc B le 31 aout. Elle nomme la condition qui manque a la valeur close, la generativite, et formule une garantie de compilation de meme nature que le postulat d'autonomie physique. Emploi a preciser a la redaction du chapitre 3.",
+      "revoir_a": "passe d'ajustement, chapitre 3"
+    },
+    "tejiscakDependentlyTypedCalculus2020": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee en partie a l'arc B le 31 aout. Quatrieme conception de l'effacement au fonds, avec l'annotation portee par le jugement et la composition par rencontre ; seule des quatre a traiter le filtrage et les motifs forces. Lecture a terminer sur l'interaction avec les univers avant de decider de l'emploi.",
+      "revoir_a": "fin de lecture, question QB-16"
+    },
+    "vakarEffectfulTreatmentDependent2016": {
+      "depuis": "2026-08-31",
+      "motif": "Recensee non lue a l'arc B le 31 aout. Vraisemblablement la version condensee du cadre long du meme auteur ; a depouiller avant de citer l'un ou l'autre, pour ne pas citer deux fois la meme chose.",
+      "revoir_a": "depouillement de verification"
+    },
+    "kuraCategoryTheoreticFrameworkDependent2026": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a la finalisation de l'arc B le 31 aout. Elle donne son nom et sa semantique a la gradation indexee de l'annexe G — les monades graduees indexees — et pose le meme diagnostic que le document dans les memes termes. Emploi a preciser a la redaction de l'annexe G.",
+      "revoir_a": "passe d'ajustement, annexe G"
+    },
+    "abelPOPLMarkReloadedMechanizing2019": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a la finalisation de l'arc B le 31 aout. Elle chiffre le cout de la mecanisation par relations logiques et nomme ce qui le fait croitre ; elle conforte par un second motif l'indexation de la regle de filtrage. Citation portee au bloc B sous B-2, et le dossier de l'arc K la reprend.",
+      "revoir_a": "passe d'ajustement, bloc B-2"
+    },
+    "moonGradedModalDependent2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a la finalisation de l'arc B le 31 aout. Elle donne le motif du hors-perimetre des multiplicites dependantes — travail a venir, non impossibilite — et un benefice non revendique du grade, l'optimisation de la verification de type. Citation portee au bloc B sous B-1.",
+      "revoir_a": "passe d'ajustement, bloc B-1"
+    },
+    "fordParsingExpressionGrammars": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'ouverture de l'arc C le 31 aout. Elle donne la classe de grammaire que le chapitre 4 offre deja sans dire ce qu'elle engage, la reunion du lexical et du hierarchique, et l'avertissement sur la reordonnabilite indecidable. Citation portee au bloc C sous C-7.",
+      "revoir_a": "passe d'ajustement, bloc C-7"
+    },
+    "fordPackratParsingSimple": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc C le 31 aout. L'auteur nomme lui-meme le cout en espace que l'annotation de temps lineaire du chapitre 4 tairait. Citation portee au bloc C-8.",
+      "revoir_a": "passe d'ajustement, bloc C-8"
+    },
+    "jiaDerivativebasedParserGenerator2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc C le 31 aout. Elle etablit que la syntaxe de K7PL appartient deja aux grammaires a pile visible, et donne l'analyse lineaire verifiee en Coq qui va avec. Citations portees aux blocs B-5 et C-8.",
+      "revoir_a": "passe d'ajustement, blocs B-5 et C-8"
+    },
+    "jiaVstarLearningVisibly2024": {
+      "depuis": "2026-08-31",
+      "motif": "Recensee non lue a l'arc C le 31 aout. Elle porte l'apprentissage dans la classe meme ou la syntaxe de K7PL se trouve ; a lire pour etablir si elle sert la synthese du chapitre 3 ou seulement la retro-ingenierie de formats.",
+      "revoir_a": "lecture a faire"
+    },
+    "grodinAmortizedAnalysisCoalgebra2024": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc C le 31 aout. Elle rend structurelle la borne de cout par une categorie d'algebres de cout, dans le calcul par poussee de valeur, et donne le moyen d'enoncer la borne d'historique de l'histomorphisme. Citation portee au bloc A.2.7.",
+      "revoir_a": "passe d'ajustement, bloc A.2.7"
+    },
+    "keizerSessionCoalgebrasCoalgebraic2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc C le 31 aout. Elle construit le pont entre type de session et coalgebre que les chapitres 3 et 4 affirment sans le batir. Citation portee au bloc B-6.",
+      "revoir_a": "passe d'ajustement, bloc B-6"
+    },
+    "polakowNaturalDeductionIntuitionistic1999": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a la finalisation de l'arc C le 31 aout. Elle chiffre le prix de la non-commutativite — extension conservative, mais un troisieme contexte et quatre implications au lieu d'une. Manque sur la planarite leve ; l'arbitrage revient a Anthea.",
+      "revoir_a": "arbitrage sur la planarite"
+    },
+    "mairsonFUNCTIONALPEARLLinear2004": {
+      "depuis": "2026-08-31",
+      "motif": "Recensee non lue a la finalisation de l'arc C le 31 aout. Elle porte la complexite du fragment lineaire lui-meme, ce qui borne par le bas ce qu'une caracterisation par discipline peut promettre ; a lire avant de conclure sur cette voie.",
+      "revoir_a": "lecture a faire"
+    },
+    "acetoAxiomatizingTropicalSemirings2001": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle porte l'avertissement sur l'absence de base equationnelle finie des semi-anneaux exotiques, a connaitre avant d'adopter le tropical pour la composante de budget. Emploi a preciser au chapitre 1.",
+      "revoir_a": "passe d'ajustement, chapitre 1"
+    },
+    "huntReconcilingShannonScott2023": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle distingue deux ordres d'information que le meme mot recouvre, et oblige le document a dire duquel sa relation de precision releve. Citation portee au bloc C-10.",
+      "revoir_a": "passe d'ajustement, bloc C-10"
+    },
+    "gillTypesafeObservableSharing": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle nomme le prix de l'observation du partage — la transparence referentielle — que la deduplication canonique du chapitre 4 tait. Citation portee au bloc C-12.",
+      "revoir_a": "passe d'ajustement, bloc C-12"
+    },
+    "konigBehaviouralMetricsQuantitative2025": {
+      "depuis": "2026-08-31",
+      "motif": "Recensee et lue en partie a l'arc E le 31 aout. Rapport de seminaire, donc etat des lieux et non source de resultat ; a remplacer par les articles qu'il recense le jour ou un resultat sera necessaire.",
+      "revoir_a": "remplacement par une source primaire"
+    },
+    "leroySyntacticTheoryType1996": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle etablit que les estampilles sont eliminables au profit d'un compte rendu syntaxique et type, ce qui regle la question des noms engendres pour la compilation separee. Emploi a preciser au chapitre 4.",
+      "revoir_a": "passe d'ajustement, chapitre 4"
+    },
+    "hoekstraCombinatorNdimensionalArray": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle donne la structure du DAG de specialisation — l'ordre d'instance, calculable par anti-unification — et donc la possibilite de deriver la specialisation au lieu de la declarer. Citation portee au bloc B-9. Reserve : memoire de maitrise.",
+      "revoir_a": "passe d'ajustement, bloc B-9"
+    },
+    "castellanTwoSidesSame2019": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle comble l'ecart entre la synchronie des protocoles du chapitre 3 et l'asynchronie de leur realisation au chapitre 4, et donne l'encodage par protocoles d'appel et de retour. Citation portee au bloc C-9.",
+      "revoir_a": "passe d'ajustement, bloc C-9"
+    },
+    "oliveiravaleLayeredObjectbasedGame2022": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle donne au critere de sedimentation sa forme publiee et sa loi de composition, et resout le probleme d'encapsulation d'etat que l'arene pose. Citation portee au bloc B-8.",
+      "revoir_a": "passe d'ajustement, bloc B-8"
+    },
+    "castellanGeometryCausalityMultitoken2023": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle interprete la combinaison exacte du chapitre 4 et etablit la coincidence entre description causale operationnelle et denotationnelle. Emploi a preciser au chapitre 4.",
+      "revoir_a": "passe d'ajustement, chapitre 4"
+    },
+    "kavvosRecurrenceExtractionFunctional": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Quatrieme source du theoreme manquant, et la mieux factorisee : extraction syntaxique avec theoreme de borne, puis interpretation denotationnelle qui choisit la mesure. Citation portee au bloc A.3.6.",
+      "revoir_a": "passe d'ajustement, bloc A.3.6"
+    },
+    "kidneyFormalisingGraphAlgorithms2025": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle deplace la terminaison des parcours de graphes vers la productivite, donc de la couche 3 vers la couche 2, et donne des poids generiques a comparer a l'algebre du document. Emploi a preciser au chapitre 4.",
+      "revoir_a": "passe d'ajustement, chapitre 4"
+    },
+    "bianchiniCoeffectsSharingMutation2022": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle etablit que le partage s'exprime comme un coeffet, et nomme l'obstacle — ce sont des coeffets NON STRUCTURELS, que le grade par variable de K7PL ne peut pas porter. Emploi a preciser aux chapitres 3 et 4.",
+      "revoir_a": "passe d'ajustement, chapitres 3 et 4"
+    },
+    "vanstrydonckLinearCapabilitiesFully2019": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc E le 31 aout. Elle traite le troisieme des trois franchissements de la frontiere de confiance que le chapitre 3 nomme sans les traiter, par la linearite de la capabilite, pour une compilation pleinement abstraite. Citation portee au bloc A.2.2.",
+      "revoir_a": "passe d'ajustement, bloc A.2.2"
+    },
+    "toninhoInterconnectabilitySessionBasedLogical2018": {
+      "depuis": "2026-08-31",
+      "motif": "Redepouillee a l'arc F le 31 aout. Le document la cite pour la limite et manque la multicoupure de sa section 8, qui leve l'acyclicite sans modifier les types ni la syntaxe. Citation portee au bloc C-14.",
+      "revoir_a": "passe d'ajustement, bloc C-14"
+    },
+    "saffrichBorrowingSessionTypes2025": {
+      "depuis": "2026-08-31",
+      "motif": "Redepouillee a l'arc F le 31 aout. L'emprunt de session existe et son prix est le typage lineaire ordonne — le meme prix que deux autres besoins du projet. Citation portee au bloc B-10.",
+      "revoir_a": "passe d'ajustement, bloc B-10"
+    },
+    "horneSessionSubtypingMultiparty2020": {
+      "depuis": "2026-08-31",
+      "motif": "Redepouillee a l'arc F le 31 aout. Elle donne la forme exacte de la condition qui remplacerait l'acyclicite : compatibilite multipartite plus absence de course donne l'absence d'interblocage. Citation portee au bloc B-10.",
+      "revoir_a": "passe d'ajustement, bloc B-10"
+    },
+    "oliveiravaleCompositionalTheoryLinearizability2023": {
+      "depuis": "2026-08-31",
+      "motif": "Redepouillee a l'arc F le 31 aout. Le document la cite pour l'avertissement et manque qu'elle demontre la propriete de localite par l'enveloppe de Karoubi. Citation portee au bloc B-11.",
+      "revoir_a": "passe d'ajustement, bloc B-11"
+    },
+    "lahavMakingWeakMemory2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc F le 31 aout. Elle etablit que l'equite entre fils ne suffit pas a la vivacite sous modele faible et nomme l'equite memoire, hypothese que l'invariant du chapitre 4 ne pose pas. Citation portee au bloc C-15.",
+      "revoir_a": "passe d'ajustement, bloc C-15"
+    },
+    "mevelFormalVerificationConcurrent2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc F le 31 aout. Elle porte la verification mecanisee d'une file bornee concurrente sous modele memoire faible, la ou le document appuie l'anneau sur une note d'ingenierie. Citation portee au bloc C-20.",
+      "revoir_a": "passe d'ajustement, bloc C-20"
+    },
+    "kirkhamFoundationsEmpiricalMemory2020": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc F le 31 aout. Elle donne le protocole de test demande par le point de controle et l'avertissement sur la faible reproductibilite des tests non regles. Citation portee au bloc C-21.",
+      "revoir_a": "passe d'ajustement, bloc C-21"
+    },
+    "sammlerHighlevelBenefitsLowlevel2020": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc F le 31 aout. Elle situe la portee de l'isolation par les types — un modele memoire abstrait — et dit pourquoi un modele concret la rend insuffisante. Citation portee au bloc C-18.",
+      "revoir_a": "passe d'ajustement, bloc C-18"
+    },
+    "jacobsDeadlockfreeSeparationLogic2024": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee en partie a l'arc F le 31 aout. Elle porte la relation de sous-protocole que le chapitre 3 emploie sans la poser, et le progres par linearite dont le rapport a la productivite de la couche 2 reste a etablir.",
+      "revoir_a": "lecture a terminer"
+    },
+    "dolanMemoryModelMulticore": {
+      "depuis": "2026-08-31",
+      "motif": "Recensee non lue a l'arc F le 31 aout ; l'extraction du texte ne rend presque rien et demandera une autre voie. Precedent le plus proche d'un langage deploye qui selectionne et publie son modele memoire.",
+      "revoir_a": "extraction par une autre voie"
+    },
+    "lindleyTalkingBananasStructural2016": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a la finalisation de l'arc F le 31 aout. Elle etablit que le point fixe arbitraire du metalangage devrait etre un catamorphisme, ce que la doctrine du document reclamait deja, et que cette approche resout les problemes de dualite des types de session recursifs. Citation portee au bloc C-23.",
+      "revoir_a": "passe d'ajustement, bloc C-23"
+    },
+    "oliveiraEvaluatingCodeReadability2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc G le 31 aout. Elle etablit la coupe lisibilite/legibilite dans la litterature evaluee par les pairs, avec ses deux definitions. Emploi a preciser au chapitre 5.",
+      "revoir_a": "passe d'ajustement, chapitre 5"
+    },
+    "coblenzCanAdvancedType2020": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc G le 31 aout. Seule mesure du fonds portant sur le jeu de traits de K7PL, et elle est defavorable. Citation portee au bloc C-25 ; l'omettre serait contraire a la methode bibliographique du projet.",
+      "revoir_a": "passe d'ajustement, bloc C-25"
+    },
+    "cohenCodeStyleSheets2025": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc G le 31 aout. Elle generalise le dispositif glyphe/alias du chapitre 5 et pose la question, non tranchee par le document, de savoir a qui appartient le choix. Citation portee au bloc C-27.",
+      "revoir_a": "passe d'ajustement, bloc C-27"
+    },
+    "pattersonNext700Compiler": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Elle distingue preservation du comportement et pleine abstraction, et donne au compilateur preservant les types la forme sous laquelle un grade survit a l'abaissement. Citation portee au bloc C-28.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "schusterCompilingEffectHandlers2020": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Elle donne la voie de compilation des gestionnaires et un sous-ensemble a cout nul caracterise par le type. Citation portee au bloc B-13.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "chirimarReferenceCountingComputational1996": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Elle etablit la relation entre typage lineaire et comptage de references, et porte l'avertissement sur la dependance du pointeur unique a la strategie. Citation portee au bloc C-29.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "leissaMimIRExtensibleTypeSafe2025": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Representation intermediaire dependamment typee et extensible par greffons, alternative que le document n'a pas envisagee.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "fitzgibbonsRichWasmBringingSafe2024": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Extension typee de la cible ou la linearite est un parametre de type, ce qui permet a l'abaissement de conserver la discipline de ressource.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "brachthauserEffectsCapabilitiesEffect2020": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc J le 31 aout. Elle nomme le prix des effets comme capacites — toutes les fonctions de seconde classe — que le calcul par poussee de valeur paie d'avance. Citation portee au bloc B-13.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "sergeyModularHigherOrder2017": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc J le 31 aout. Elle infere ce que le grade declare, et rappelle la dependance a la strategie d'evaluation. Citation portee au bloc C-29.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "munch-maccagnoniResourcePolymorphism2018": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc J le 31 aout. Le cadre suppose un ramasse-miettes et ne convient pas ; la notion de polymorphisme de ressource transporte, et K7PL en a une forme plus forte. Reserve : rapport de recherche.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "rajaniGradedModalRelaxed2025": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc K le 31 aout. Elle etablit que la declassification demande une modalite DE PLUS et non un relachement de la premiere. Citation portee au bloc C-30.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "stefanAddressingCovertTermination2012": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc K le 31 aout. Elle donne le remede aux canaux de terminaison et de temps, que l'architecture du document porte deja sans le revendiquer. Citation portee au bloc B-14.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "allaisTypeScopeSafe2018": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc K le 31 aout. Remede exact au cout d'infrastructure que l'arc B avait chiffre. Citation portee au bloc A.2.10.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "devilhenaSeparationLogicEffect2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc J le 31 aout. Elle donne le raisonnement par separation pour les gestionnaires, ses deux prix, et le vrai motif de l'exclusion des continuations multiples. Citation portee au bloc C-31.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "vanderrestHeftyAlgebrasModular2025": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc J le 31 aout. Elle nomme ce que les operations d'ordre superieur brisent — la modularite sur les programmes et sur les preuves — et le prix du remede. Citation portee au bloc C-32.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "fluetMonadicRegions2006": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc J le 31 aout. Elle distingue arene et region, et montre que la discipline de portee ne demande que le polymorphisme parametrique. Citation portee au bloc C-33.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "oconnorCogentUniquenessTypes2021": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc J le 31 aout. Deux semantiques reliees par un theoreme de raffinement dont le compilateur produit la preuve, et la discipline qui retire une part du cout de verification. Citation portee au bloc B-15.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "jakefecherAlgebraicEffectsOwnership2024": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc J le 31 aout. Elle donne la contrainte entre gestionnaires et propriete — un corps appele plusieurs fois ne peut deplacer aucune valeur de son environnement. Reserve : billet de conception, non article evalue.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "appelShrinkingLambdaExpressions1997": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Elle montre que la borne de l'integration s'obtient par restriction de la regle et non par budget, et que le grade decide cette restriction gratuitement. Citation portee au bloc C-34.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "sarkarEDUCATIONALPEARLNanopass2005": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Elle donne le precedent du decoupage et etablit que l'implantation doit etre alignee sur l'organisation logique et plus fine qu'elle. Citation portee au bloc B-16.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "wattWasmRefisabelleVerifiedMonadic2023": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Elle montre un interprete de reference VERIFIE servant d'oracle en production, et chiffre l'ecart avec l'hypothese de confiance du chapitre 6. Citation portee au bloc A.2.12.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "brandonBetterDefunctionalizationLambda2023": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Elle separe la transparence de la transformation et la qualite de son resultat, que le chapitre 6 confond. Citation portee au bloc C-35.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "brodalOptimalPurelyFunctional1996": {
+      "depuis": "2026-08-31",
+      "motif": "Depouillee a l'arc I le 31 aout. Elle donne le critere de compatibilite avec le postulat — le pire cas et non l'amorti — et montre que l'optimum est atteignable purement fonctionnellement. Citation portee au bloc C-36.",
+      "revoir_a": "passe d'ajustement du manuscrit"
+    },
+    "DISRUPTOR": {
+      "depuis": "2026-09-02",
+      "motif": "RENOMMEE, non retiree. La cle a disparu de refs.bib par renommage en bibliotheque le 1er septembre ; la piece est citee sous thompsonDisruptorHighPerformance2011, avec son PDF au fonds. Le point de citation du chapitre 4 a ete repris.",
+      "revoir_a": "aucun — renommage acquis"
+    },
+    "WASM": {
+      "depuis": "2026-09-02",
+      "motif": "RENOMMEE, non retiree. La specification WebAssembly est desormais portee par trois cles distinctes en bibliotheque — groupWebAssemblySpecification, groupWebAssemblySpecAddendum, groupWebAssemblyCodeMetadata — Anthea ayant separe le noyau, l'addendum sur la gestion d'exceptions heritee, et les metadonnees de code. Le point de citation du chapitre 4 cite les trois.",
+      "revoir_a": "aucun — renommage acquis"
+    },
+    "SBE-SPEC": {
+      "depuis": "2026-09-03",
+      "motif": "Citee a v64 sous sa cle courte, elle l'est desormais sous la cle longue engendree par Zotero, qui porte le PDF quand la courte n'en avait pas. Ce n'est pas une perte mais un DEPLACEMENT de cle, et la piece est citee au meme endroit du chapitre 6.",
+      "revoir_a": "suppression de la cle courte dans Zotero, si elle y subsiste"
+    },
+    "ARROW-SPEC": {
+      "depuis": "2026-09-03",
+      "motif": "Citee a v64 sous cette cle courte, elle l'est desormais sous SpecificationsApacheArrow — la cle que Zotero engendre depuis sa fiche. Ce n'est pas une perte mais un DEPLACEMENT de cle, au meme endroit du chapitre 4. La cle courte a ete supprimee de la bibliotheque.",
+      "revoir_a": "rien — le deplacement est acquis"
+    }
+  },
+  "levees": {
+    "atkeyPolynomialTimeDependent2024": {
+      "depuis": "2026-08-04",
+      "levee_le": "2026-08-06",
+      "motif": "T-51 close : la réserve de complexité est réénoncée au ch.1 et cite cette référence pour la voie par réalisabilité. Le maintien n'a plus d'objet."
+    },
+    "hinzeHistoDynamorphismsRevisited2013": {
+      "depuis": "2026-09-02",
+      "motif": "Cle versee a refs.bib par Anthea le 2 septembre. Le PDF EXISTE et a ete LU le meme jour — Anthea l'a joint a la conversation — mais l'export RDF n'est pas encore regenere, de sorte que le registre de lecture, qui en derive, ne le porte pas. Ce n'est donc pas une citation sans piece : c'est une piece sans trace au registre. La lecture a rendu la derivation lineaire de l'histomorphisme, portee au chapitre 2.",
+      "revoir_a": "prochaine regeneration de l'export RDF",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Reexport coherent du 3 septembre a 20h30 : la cle est au RDF avec son PDF, et a refs.bib. La decision n'a plus d'objet."
+    },
+    "kanovichSubexponentialsNoncommutativeLinear2019": {
+      "depuis": "2026-09-02",
+      "motif": "Meme cas que Hinze et Wu 2013 : la cle est a refs.bib, le PDF existe et a ete LU — Anthea l'a joint —, mais l'export RDF dont derive le registre de lecture n'est pas encore regenere. Piece sans trace au registre, non citation sans piece. La lecture a rendu la signature de subexponentielles ⟨I, ⪯, W, C, E⟩ et le dilemme contraction/decidabilite, portes au chapitre 3.",
+      "revoir_a": "prochaine regeneration de l'export RDF",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Reexport coherent du 3 septembre a 20h30 : la cle est au RDF avec son PDF, et a refs.bib. La decision n'a plus d'objet."
+    },
+    "oliveiraEvaluatingCodeReadability2020": {
+      "depuis": "2026-09-03",
+      "motif": "Arbitrage d'Anthea du 3 septembre : citer la version EVALUEE PAR LES PAIRS, ICSME 2020 p. 348-359, DOI 10.1109/icsme46990.2020.00041, plutot que le preprint arXiv 2110.00785v1 qui etait au fonds sous oliveiraEvaluatingCodeReadability2021. L'oeuvre EST lisible : son PDF est au fonds sous l'ancienne cle. L'absence au registre tient au seul fait que l'export RDF date du 2 septembre 11h36 et n'a pas ete regenere. Cette decision tombe d'elle-meme au prochain export.",
+      "revoir_a": "prochaine regeneration du RDF",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Reexport coherent du 3 septembre a 20h30 : la cle est au RDF avec son PDF, et a refs.bib. La decision n'a plus d'objet."
+    },
+    "hillstonCompositionalApproachPerformance": {
+      "depuis": "2026-09-01",
+      "motif": "Cle livree par Anthea le 1er septembre et posee au chapitre 4 la ou PEPA etait nommee sans cle. Le PDF sera verse au RDF plus tard, l'export etant un processus long ; l'autrice le met par ailleurs en ligne. Reserve de fond a trancher : PEPA est une algebre STOCHASTIQUE quand l'exhaustivite d'un motif est une propriete de COUVERTURE, decidable par enumeration.",
+      "revoir_a": "versement du PDF, puis arbitrage sur l'ajustement",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Reexport coherent du 3 septembre a 20h30 : la cle est au RDF avec son PDF, et a refs.bib. La decision n'a plus d'objet."
+    },
+    "CICEK": {
+      "depuis": "2026-09-01",
+      "motif": "Entree au RDF sans PDF attache. A verser lors d'une prochaine passe de collecte ; la citation reste licite, sa verification ne l'est pas encore.",
+      "revoir_a": "prochaine passe de collecte",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Reexport coherent du 3 septembre a 20h30 : la cle est au RDF avec son PDF, et a refs.bib. La decision n'a plus d'objet."
+    },
+    "DANIELSSON-ERASED": {
+      "depuis": "2026-09-01",
+      "motif": "Cite deux fois au chapitre 3, pour la necessite de la regle des eliminateurs et pour la notion de type STABLE. Entree au RDF sans PDF attache — c'est l'un des appuis qui manquent le plus, la regle en dependant.",
+      "revoir_a": "prochaine passe de collecte, en priorite",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Reexport coherent du 3 septembre a 20h30 : la cle est au RDF avec son PDF, et a refs.bib. La decision n'a plus d'objet."
+    },
+    "SPIRV": {
+      "depuis": "2026-09-01",
+      "motif": "Specification d'un langage intermediaire, citee au chapitre 4 pour la discipline de SELECTION d'un modele memoire par instruction de tete de module. Document normatif en ligne, sans PDF au fonds.",
+      "revoir_a": "versement du PDF",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Bascule en deux fichiers BibTeX : la piece a son PDF atteignable depuis K7PL-Biblio.bib."
+    },
+    "DPDK-RING": {
+      "depuis": "2026-09-01",
+      "motif": "Documentation d'implantation citee au chapitre 4 pour la tabulation des entrees d'anneau. Document normatif en ligne, sans PDF au fonds.",
+      "revoir_a": "versement du PDF",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Bascule en deux fichiers BibTeX : la piece a son PDF atteignable depuis K7PL-Biblio.bib."
+    },
+    "ARROW-SPEC": {
+      "depuis": "2026-09-03",
+      "motif": "Citee a v64, elle ne l'est plus. La piece a DISPARU de la bibliotheque a la bascule du 3 septembre : ni ARROW-SPEC ni apacheArrowColumnarFormat2024 ne sont au nouvel export, et aucune entree ne porte le titre du format colonnaire. Le doublon a ete supprime et l'original avec. La citation du chapitre 4 attend donc une piece a reverser, et c'est le seul point du dossier bibliographique qui touche une AFFIRMATION du manuscrit.",
+      "revoir_a": "reversement de la specification du format colonnaire",
+      "levee_le": "2026-09-03",
+      "motif_levee": "La cle courte a bien disparu de la bibliotheque, mais la piece NON : elle est sous SpecificationsApacheArrow, et le chapitre 4 la cite. Ma conclusion du 3 septembre — la specification a disparu — etait fausse."
+    },
+    "CAPNPROTO-SPEC": {
+      "depuis": "2026-09-03",
+      "motif": "CESSE D'ETRE CITEE le 3 septembre au profit de CAPNPROTO-SPEC, qui designe la MEME oeuvre. Motif : meme motif : la longue est correctement typee, la courte est un @article. Le manuscrit cite desormais la cle que Zotero engendre depuis sa fiche, non une cle courte faite a la main qu'aucun export ne regenere. LA FICHE EN DOUBLE RESTE DANS ZOTERO et doit y etre supprimee : deux entrees pour une seule oeuvre feraient deux lignes de bibliographie.",
+      "revoir_a": "suppression du doublon dans Zotero",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Bascule du 3 septembre : la cle n'existe plus dans la bibliotheque, ou elle est redevenue la cle citee. La decision n'a plus d'objet."
+    },
+    "SBE-SPEC": {
+      "depuis": "2026-09-03",
+      "motif": "CESSE D'ETRE CITEE le 3 septembre au profit de fixTradingCommunitySBE2020, qui designe la MEME oeuvre. Motif : la longue porte le PDF, la courte n'en a pas. Argument decisif. Le manuscrit cite desormais la cle que Zotero engendre depuis sa fiche, non une cle courte faite a la main qu'aucun export ne regenere. LA FICHE EN DOUBLE RESTE DANS ZOTERO et doit y etre supprimee : deux entrees pour une seule oeuvre feraient deux lignes de bibliographie.",
+      "revoir_a": "suppression du doublon dans Zotero",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Bascule du 3 septembre : la cle n'existe plus dans la bibliotheque, ou elle est redevenue la cle citee. La decision n'a plus d'objet."
+    },
+    "apacheArrowColumnarFormat2024": {
+      "depuis": "2026-09-03",
+      "motif": "Specification de format colonnaire Arrow, citee au chapitre 4 pour la correspondance de disposition. Document NORMATIF EN LIGNE et versionne, sans PDF au fonds : c'est le cas normal d'une specification de format, non une lacune de collecte. Remplace la decision portee sur la cle courte, qui cesse d'etre citee.",
+      "revoir_a": "si une version imprimable est versee au fonds",
+      "levee_le": "2026-09-03",
+      "motif_levee": "La specification EXISTE, sous la cle SpecificationsApacheArrow — j'avais cherche l'ancien TITRE au lieu du mot Arrow. La citation du chapitre 4 pointe desormais dessus."
+    },
+    "UnicodeStandardV17": {
+      "depuis": "2026-09-03",
+      "motif": "Unicode Technical Standard #39, Unicode Security Mechanisms, version 17.0.0 ; fichier de donnees confusables.txt date du 2025-07-22. Source PRIMAIRE NORMATIVE, non evaluee par les pairs : c'est une norme, non un article, et son statut est celui d'une specification. Elle est citee a l'annexe G.7 comme INSTRUMENT de la cinquieme regle d'admission, avec sa reserve de transport ecrite dans le texte. L'extrait des squelettes des vingt-huit glyphes est conserve dans bib/confusables-glyphes.json avec sa provenance, et le controle le verifie a chaque passe. Aucun PDF : la norme est un document web versionne, https://www.unicode.org/reports/tr39/",
+      "revoir_a": "toute modification de la table des glyphes, ou une nouvelle version d'UTS #39",
+      "levee_le": "2026-09-03",
+      "motif_levee": "Anthea a corrige et l'entree est au bib. Le PDF n'est pas requis tant qu'on n'explore pas les glyphes en tant que tels — arbitrage du 3 septembre."
+    }
+  },
+  "note_2026-08-10_statut_de_refs_bib": "ARBITRÉ le 10 août. refs.bib est la BIBLIOTHÈQUE Zotero d'Anthea, non le fonds du projet. Le contrôle des orphelines porte désormais sur le FONDS-PROJET — les clés citées dans le corps ou désignées par une fiche du chantier au moyen du marqueur ~cite:@clé~. Les 204 décisions de bloc écrites provisoirement le même jour sont retirées : elles n'avaient pas d'objet. Les décisions individuelles, elles, tiennent.",
+  "citees_sans_pdf": {
+    "recioRemoteDirectMemory2007a": {
+      "depuis": "2026-09-01",
+      "motif": "Protocole d'acces distant, cite au chapitre 4 pour l'invalidation explicite d'une etiquette de region. Entree au RDF sans PDF attache.",
+      "revoir_a": "versement du PDF"
+    },
+    "SCHALK": {
+      "depuis": "2026-09-01",
+      "motif": "Entree au RDF sans PDF attache. A verser lors d'une prochaine passe de collecte.",
+      "revoir_a": "prochaine passe de collecte"
+    },
+    "CAPNPROTO-SPEC": {
+      "depuis": "2026-09-03",
+      "motif": "Specification de documentation Cap'n Proto, citee au chapitre 4 pour la correspondance de disposition. Document NORMATIF EN LIGNE et versionne, sans PDF au fonds : c'est le cas normal d'une specification de format, non une lacune de collecte. Remplace la decision portee sur la cle courte, qui cesse d'etre citee.",
+      "revoir_a": "si une version imprimable est versee au fonds"
+    },
+    "UnicodeStandardV17": {
+      "depuis": "2026-09-03",
+      "motif": "Norme Unicode, entree au bib depuis la correction d'Anthea. Le PDF n'est PAS requis : arbitrage du 3 septembre, tant que le document n'explore pas les glyphes en tant que tels. L'extrait des squelettes des vingt-huit glyphes est conserve dans bib/confusables-glyphes.json avec sa provenance, et le controle le rejoue a chaque passe.",
+      "revoir_a": "exploration des glyphes en tant que tels, ou nouvelle version de la norme"
+    },
+    "SpecificationsApacheArrow": {
+      "depuis": "2026-09-03",
+      "motif": "Specification de format, document NORMATIF EN LIGNE et versionne (Apache Arrow V25.0.1). Une specification web n'a pas de PDF, et c'est le cas normal et non une lacune de collecte. Citee au chapitre 4 pour un fait precis de la specification : le bitmap de validite peut etre omis lorsque le compte de nuls est nul.",
+      "revoir_a": "si une version imprimable est versee au fonds"
+    },
+    "agdadevelopersAgdaSizedTypes2026": {
+      "depuis": "2026-09-09",
+      "motif": "Ticket de suivi d'un assistant de preuve, cite au chapitre 2 pour la clause de bonne formation sur les tailles. Une issue GitHub n'a pas de PDF par nature ; la source est la page elle-meme, dont l'URL est au fonds et la date de consultation enregistree.",
+      "revoir_a": "jamais — cette source n'aura pas de PDF"
+    }
+  },
+  "metadonnees_erronees": {
+    "russoClosingInternalTiming2007": {
+      "depuis": "2026-09-02",
+      "motif": "RESUME CORROMPU AU REGISTRE. L'entree porte le titre « Closing internal timing channels » — canaux de temporisation internes, sujet de securite du flot d'information — mais son champ resume decrit un article de SANTE sur la divulgation ouverte entre soignants et patients. Le resume appartient a une autre oeuvre. Trouve le 2 septembre en cartographiant le fonds pour l'arc K, question QK-13 sur la non-interference temporelle.",
+      "consequence": "Toute sonde par mots-cles sur les resumes RATERA cette entree pour son vrai sujet et la RENDRA pour des sujets medicaux. C'est un faux negatif et un faux positif a la fois, et il est invisible tant qu'on ne lit pas ce que la sonde rend.",
+      "revoir_a": "prochaine regeneration de l'export RDF — verifier la fiche dans Zotero"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+* REFERENCES DU DOCUMENT
+#+TOC: headlines 2 local
+#+LATEX: \label{sec:references-du-document}
+
+** Liste des figures
+#+LATEX: \listoffigures
+
+** Liste des tableaux
+#+LATEX: \listoftables
+
+** Liste des formules
+#+LATEX: \listofformules
+
+** Liste des codes sources
+#+LATEX: \listoflistings
+
+** Liste des glosses
+#+LATEX: \footnotesize{
+#+print_glossary: :type glossary :only-contents t
+#+LATEX: }
+
+** Liste des acronymes
+#+LATEX: \footnotesize{
+#+print_glossary: :type acronym :only-contents t
+#+LATEX: }
+
+** Index
+#+LATEX: \footnotesize{
+#+print_glossary: :type index :only-contents t
+#+LATEX: }

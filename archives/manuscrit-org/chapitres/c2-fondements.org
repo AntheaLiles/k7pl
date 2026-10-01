@@ -1,0 +1,773 @@
+* FONDEMENTS CATÉGORIQUES
+#+TOC: headlines 2 local
+
+Le chapitre précédent a posé sans les construire les objets sur lesquels reposent les quatre postulats. Rien de ce qui suit n'est propre à K7PL : chaque construction appartient au corpus stabilisé de la sémantique catégorique de la logique linéaire, et l'apport de ce chapitre est d'y identifier exactement les briques dont les postulats ont besoin — ni plus, ni moins — puis de les assembler dans l'ordre où elles s'appellent. Ce parti de conservation se paie en asymétries de preuve, signalées au fil du texte.
+
+Une remarque d'orientation, qui commande la lecture du chapitre entier. On y construit un système de types de la manière intrinsèque — les types sont des objets de /C/, les termes des morphismes — alors que l'architecture du langage est extrinsèque de bout en bout. Un jugement à trois composantes porté au-dessus d'un terme, dont la Phase 8 retire tout ce qui appartient à la compilation. Cet écart n'est pas une gêne à surmonter, c'est la définition même d'un /système de raffinement de types/ — un foncteur de la catégorie des dérivations vers celle des termes sous-jacents [cite:@melliesFunctorsAreType2015] — et ce chapitre construit le domaine de ce foncteur.
+
+Chacune des quatre sections qui suivent y contribue par une pièce, et la cinquième les rassemble. La catégorie ambiante donne les objets et les flèches au-dessus desquels les dérivations se portent. La comonade exponentielle et ses fragments donnent les morphismes verticaux, ceux qui ne changent rien au terme sous-jacent et tout à ce qu'il exige. Les algèbres et coalgèbres donnent les schémas de définition que ce foncteur devra préserver. L'enrichissement donne l'ordre dans lequel deux dérivations de même image se comparent. Le §\ref{sec:c2-le-systeme-de-raffinement} montre alors que ces quatre pièces sont celles d'un système de raffinement, et ce que cette lecture dispense de poser séparément.
+
+** Catégorie ambiante
+#+LATEX: \label{sec:c2-la-categorie-ambiante}
+
+Une catégorie monoïdale symétrique fermée est la donnée d'une catégorie /C/, d'un bifoncteur \(\otimes : \mathcal{C} \times \mathcal{C} \to \mathcal{C}\), d'un objet unité \(I\), d'isomorphismes naturels d'associativité et d'unité satisfaisant les identités de cohérence usuelles (pentagone, triangle), d'un isomorphisme naturel de symétrie \(\sigma_{A,B} : A \otimes B \xrightarrow{\sim} B \otimes A\) involutif, et, pour la fermeture, d'un adjoint à droite \([A \multimap -]\) au foncteur \(- \otimes A\) pour chaque objet \(A\) : une bijection naturelle
+
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{eq:adjonction-tenseur-hom}
+\text{Hom}(\Gamma \otimes A, B) \;\cong\; \text{Hom}(\Gamma, [A \multimap B])
+\end{equation}
+#+END_EXPORT
+
+qui identifie une fonction de deux arguments à sa forme curryfiée. C'est cette structure, et rien de plus, que K7PL prend pour catégorie ambiante /C/ : ses objets sont les types du langage, ses morphismes \(A \to B\) sont les programmes purs de type \(A\) vers \(B\), l'unité \(I\) est le type sans ressource, et \([A \multimap B]\) est le type des fonctions de \(A\) vers \(B\).
+
+Un terme dans un contexte n'est alors qu'un cas particulier de morphisme. Si \(\Gamma = A_1 \otimes \dots \otimes A_n\) dénote la combinaison tensorielle des types d'un contexte de typage — \(\Gamma\) étant ici l'objet de /C/ et jamais la zone du jugement, que le chapitre 1 réserve à \(\Delta\) —, un jugement \(\Gamma \vdash t : T\) n'est rien d'autre qu'un morphisme \(t : \Gamma \to T\) de /C/ ; une donnée close n'est que le cas particulier où \(\Gamma = I\). Cette lecture, déjà annoncée au chapitre 1, unifie sous une seule notion — la flèche de /C/ — ce qu'une présentation naïve distinguerait en valeurs, en fonctions et en termes ouverts.
+
+Le choix d'une structure symétrique plutôt que cartésienne n'est pas cosmétique : c'est lui qui porte toute la lecture spatiale du tenseur. Une catégorie cartésienne fournit, pour tout objet \(A\), des projections \(A \otimes A \to A\) et une diagonale \(A \to A \otimes A\) — deux familles de morphismes disponibles inconditionnellement, quel que soit \(A\). Rien, dans la définition d'une SMCC générale, ne garantit leur existence : un objet \(A\) quelconque de /C/ n'a, a priori, ni projection ni diagonale. C'est précisément cette absence qui rend \(\otimes\) apte à modéliser la disjonction de ressources plutôt que leur simple groupement : écrire \(P \otimes Q\) engage, dans une SMCC générique, exactement les ressources attestées par \(P\) et par \(Q\), ni plus — rien ne permet d'en extraire une copie supplémentaire — ni moins — rien ne permet d'en oublier une partie sans la consommer. La logique de séparation évoquée au chapitre 1 n'est donc pas une lecture ajoutée à la structure monoïdale. Elle en est le comportement par défaut, dès lors qu'on ne suppose pas — ce que K7PL se garde de faire pour l'ensemble de /C/ — que le tenseur coïncide avec un produit cartésien.
+
+C'est ce même défaut de projections et de diagonale qui, en creux, définit le fragment linéaire strict de la couche 1 : /C/ elle-même, sans aucune structure additionnelle, est déjà ce fragment. Restituer sélectivement ces deux opérations est le rôle de la comonade exponentielle, construite à la section suivante.
+
+** Comonade exponentielle et fragments
+#+LATEX: \label{sec:c2-la-comonade-exponentielle-et}
+
+L'exponentielle vient de Girard, qui distingue les fragments cartésien, affine et linéaire comme restrictions successives de la contraction et de l'affaiblissement, et isole \(!\) comme l'opérateur les restituant à la demande. Sa traduction de l'implication intuitionniste en \(!A \multimap B\) établit que rien ne se perd à descendre au fragment linéaire — résultat dont la complétude pleine a depuis été démontrée [cite:@toninhoInterconnectabilitySessionBasedLogical2018], et sur lequel repose la sédimentation triadique tout entière. La formalisation catégorique exacte s'est révélée plus délicate que l'énoncé logique : les premières propositions, identifiant \(!\) à un foncteur muni des isomorphismes \(!(A \& B) \cong \, !A \otimes \, !B\) et \(! \top \cong I\), laissaient sous-déterminée la compatibilité entre la comultiplication et le comonoïde induit sur chaque \(!A\) — compatibilité pourtant nécessaire à la cartésianité de la catégorie de co-Kleisli. La correction est due à Bierman, construisant sur Seely : sa définition de /catégorie linéaire/, imposant que chaque \(\delta_A\) soit un morphisme de comonoïdes, s'est imposée, et c'est elle que cette section instancie. Schalk en donne l'exposé avec les preuves et recense les formulations équivalentes [cite:@SCHALK], [cite:@biermanWhatCategoricalModel1995].
+
+La lignée s'est prolongée dans une direction que K7PL suit : l'exponentielle n'est pas condamnée à être un opérateur unique. On peut l'indexer par un semi-anneau : la contraction fusionne alors deux usages par l'addition, et l'application met le contexte de l'argument à l'échelle par la multiplication [cite:@ghicaBoundedLinearTypes2014]. La modalité obtenue porte une étiquette qui renseigne sur l'usage du contexte [cite:@brunelCoreQuantitativeCoeffect2014]. Sa sémantique catégorique complète est celle d'une comonade exponentielle linéaire /indexée/, sur une structure de gradation plus riche qu'un semi-anneau ordinaire [cite:@fukiharaGeneralizedBoundedLinear2021]. Aujourd'hui, la notion de modèle est établie autour d'un objet unique, l'/adjonction linéaire-non-linéaire/, dont il est acquis qu'elle englobe les notions antérieures — catégories de Seely, catégories de Lafont, catégories linéaires [cite:@haringtonCategoricalModelsLinear2025]. C'est d'elle que part la construction qui suit, l'exponentielle en étant dérivée plutôt que posée.
+
+Soit \(F \dashv G\) une adjonction monoïdale symétrique entre le fragment cartésien et le fragment linéaire de /C/, au sens du §\ref{sec:c2-adjonctions-et-enrichissement}. Deux propriétés du semi-anneau doivent être exigées avant d'aller plus loin, car le lemme de substitution en dépend et elles ne se déduisent pas des axiomes. La /propriété du zéro-somme/ : si \(q_1 + q_2 = 0\) alors \(q_1 = q_2 = 0\). Et la /propriété du zéro-produit/ : si \(q_1 \cdot q_2 = 0\) alors \(q_1 = 0\) ou \(q_2 = 0\). Elles sont ce qui rend les substitutions bien typées [cite:@HUANG], et \(\mathcal{R}\) les satisfait — un produit de rationnels positifs n'est nul que si un facteur l'est, et \(\omega\) absorbe sans annuler. Les satisfaire et les exiger sont deux choses, et c'est la seconde qui compte pour une mécanisation.
+
+Une clause sur la composante de budget, qui exige davantage que le semi-anneau ne donne. Elle emploie la soustraction tronquée \(\ominus\), qui n'est ni l'addition ni le produit et ne s'en dérive pas. Sa définition demande d'être écrite par cas, et le choix entre deux candidates n'est pas indifférent :
+\[ \beta \ominus k \;=\; \begin{cases} \omega & \text{si } \beta = \omega\\ 0 & \text{si } \beta < k\\ \beta - k & \text{sinon} \end{cases} \]
+C'est la /soustraction tronquée prolongée/ en \(\omega\), et il faut dire ce qu'elle n'est pas : /ce n'est pas le résidu de l'addition/. Le résidu — le plus petit \(x\) tel que \(k + x \ge \beta\) — rendrait \(\omega \ominus \omega = 0\), puisque \(\omega + 0 \ge \omega\). [rmq:Deux définitions qui coïncident sur les entiers et divergent à l'infini. Celle qu'on retient est celle qui ne promet rien qu'elle ne tienne.] La différence n'est visible qu'en \(\omega\), et elle décide de la vérité d'une loi que six démonstrations invoquent : l'annotation se lit comme une /borne/ et non comme une mesure, et pour une borne \(\omega \ominus \omega = \omega\) est la sur-approximation sûre, quand le résidu annoncerait un budget nul là où rien ne le garantit.
+
+La structure requise pour cette composante est donc un monoïde commutatif /naturellement ordonné/ muni de cette soustraction, dont la part semi-anneau n'est qu'un fragment. Les conaturels la satisfont — d'où le fait que la question ne se pose jamais en pratique —, mais la satisfaire et l'impliquer sont deux choses, et on exige ici ce qu'on emploie. Une structure concurrente est écartée explicitement, étant celle qu'on propose spontanément pour un budget : le semi-anneau tropical, où le minimum tient lieu de somme. On y gagnerait le pire cas comme opération primitive~; on y perdrait la finitude de l'axiomatisation, aucun des semi-anneaux exotiques usuellement considérés n'ayant de base finie pour ses équations, non plus que les semi-anneaux faibles commutatifs idempotents qui les sous-tendent [cite:@acetoAxiomatizingTropicalSemirings2001]. Pour un document dont les règles doivent se vérifier par machine, une axiomatisation infinie n'est pas un inconvénient de présentation~: c'est un obstacle. Le choix des conaturels résidués se paie donc d'une opération de moins et s'achète une théorie équationnelle finie.
+
+Soit par ailleurs \(\mathcal{R} = (\mathbb{Q}_{\ge 0} \cup \{\omega\},\,+,\, \times,\, 0,\, 1,\, \le)\) le semi-anneau ordonné des grades : le porteur contient les rationnels positifs — les capacités de lecture divisées du chapitre 3 en ont besoin — et un élément absorbant \(\omega\) pour l'usage non contraint. Ce dernier n'est pas une commodité ajoutée : /restreint au sous-semi-anneau des entiers/, \(\mathcal{R}\) est le type des conaturels \(\mathbb{N}_\infty\), dual coinductif des naturels, dont il est établi qu'ils forment un semi-anneau commutatif exponentiel [cite:@xieConaturalNumbersForm2025]. Quatre égalités gouvernent \(\omega\) et se lisent partout sans être écrites nulle part ; les voici, car trois démonstrations en dépendent :
+\[ 0 \cdot \omega = 0 \qquad \omega \cdot 0 = 0 \qquad \omega + \omega = \omega \qquad \omega \cdot \omega = \omega \]
+\(\omega\) absorbe donc l'addition et le produit, sauf devant \(0\) qui l'absorbe en retour — c'est la convention ordinaire du sous-semi-anneau des entiers étendu, et la seule qui fasse de \(0\) un grade signifiant « jamais employé ».
+
+La restriction est à prendre au mot et la suite s'en sert. \(\mathbb{N}_\infty \subset \mathcal{R}\) est le seul fragment du porteur dont l'ordre strict soit bien fondé : sur les rationnels il ne l'est pas, la chaîne \(1 > 1/2 > 1/4 > \dots\) ne terminant jamais. Un grade et un indice de taille vivent donc dans la même algèbre sans y avoir les mêmes droits, et §\ref{sec:c2-algebres-coalgebres-et-points} pose la clause qui les sépare.
+
+Une conséquence borne ce que cette structure peut fournir ailleurs. \(\mathcal{R}\) est naturellement ordonné, ce qui suffit à en faire un support d'évaluation pour un moteur déductif, dont la complexité en données s'analyse en deux temps — mise à plat du programme en un système d'équations polynomiales, puis plus petit point fixe sur le semi-anneau [cite:@zhaoEvaluatingDatalogSemirings2024]. Mais les deux classes pour lesquelles cette évaluation admet des algorithmes efficaces — semi-anneaux de rang fini, semi-anneaux absorbants totalement ordonnés — ne contiennent pas \(\mathcal{R}\) : les conaturels ne sont ni de rang fini, ni absorbants au sens où \(a + a\,b = a\). Une extension déductive n'hériterait donc pas sa borne de coût du semi-anneau des grades. Elle évaluerait sur un semi-anneau propre — le booléen pour les règles ordinaires, qui est de rang fini et absorbant —, structure supplémentaire et non réemploi.
+
+Une loi se démontre ici plutôt qu'à l'annexe, et le choix du lieu est l'objet du théorème. Elle relie les deux actions que le grade exerce — \(\varphi_r\) sur l'effet, \(\psi\) sur le contexte —, elle ne demande que l'arithmétique de \(\mathcal{R}\) qui précède, et le reste du document l'emploie quatre fois sans jamais la redémontrer.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[distributivité du produit sur la soustraction tronquée]\label{thm:distributivite_tronquee}
+\begin{statement}[Le facteur traverse la soustraction, sauf à l'infini]
+Pour tous $u, \beta, k \in \mathbb{N}_\infty$ tels que $u \neq \omega$ \emph{ou}
+$k = 0$,
+\[ u \cdot (\beta \ominus k) \;=\; (u \cdot \beta) \ominus (u \cdot k). \]
+La restriction est nécessaire~: pour $u = \omega$ et $k \neq 0$, l'égalité est
+fausse quelle que soit la valeur donnée à $\omega \ominus \omega$.
+\end{statement}
+\begin{proofsketch}
+Trois cas pour l'énoncé. Si $u = 0$, les deux membres valent $0$. Si $u$ est fini
+et $\beta$, $k$ finis, c'est la distributivité ordinaire sur la soustraction
+tronquée des naturels~; si $\beta = \omega$, les deux membres valent $\omega$ pour
+$u \neq 0$. Si $k = 0$, la soustraction est l'identité des deux côtés.
+
+\emph{Et la nécessité de la restriction, qui est ce que l'énoncé apporte.}
+Prenons $u = \omega$ et $\beta, k$ finis avec $k \neq 0$. Pour $\beta = k$, le
+membre gauche vaut $\omega \cdot 0 = 0$ et le droit $\omega \ominus \omega$~;
+l'égalité demande $\omega \ominus \omega = 0$. Pour $\beta = 5$ et $k = 3$, le
+membre gauche vaut $\omega \cdot 2 = \omega$ et le droit $\omega \ominus \omega$~;
+l'égalité demande $\omega \ominus \omega = \omega$. Une même expression ne peut
+pas valoir les deux. \emph{Aucune définition de $\ominus$ ne rend donc la loi
+vraie en $u = \omega$}, et ce n'est pas une affaire de convention à choisir mais
+une restriction à porter.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Ce lemme sert trois fois — à la loi qui suit, à la généralisation de l'addition par la composition de contextes, et au lemme de substitution. Il est écrit une fois, et chacun des trois le cite.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[compatibilité de l'action graduée]\label{thm:coherence_axiome}
+\begin{statement}[Le transport commute avec la mise à l'échelle, à condition d'échelonner l'effet]
+Pour tout contexte $\Delta$, tout effet $\varepsilon$ et tout grade $r$ dont la
+composante d'usage $u$ est \emph{finie} --- ou dont l'effet traversé est sans
+coût temporel, $k(\varepsilon) = 0$ ---,
+\[ r \cdot \psi(\Delta, \varepsilon) \;=\; \psi\bigl(r \cdot \Delta,\ \varphi_r(\varepsilon)\bigr). \]
+\end{statement}
+\begin{proofsketch}
+Toutes les composantes du grade coïncident sans rien demander sauf une, $\psi$ y étant l'identité.
+Reste le budget~: le membre gauche vaut $u\,(\beta \ominus k)$ et le droit $u\beta \ominus u\,k$,
+puisque $\varphi_r$ porte la composante temporelle à $u\,k$. C'est exactement le
+théorème~\ref{thm:distributivite_tronquee}, dont la loi hérite la restriction~: elle ne vaut pas
+pour un usage infini traversant un effet à coût non nul.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Quatre démonstrations la réclament ensuite, et aucune n'a de raison de la redécouvrir : le lemme de substitution, la relation logique, la traduction vers le métalangage et l'expansion des macros. Chacune dira « par le théorème \ref{thm:coherence_axiome} », et rien de plus.
+
+Une seconde composition est apparue depuis que les effets se mettent en parallèle, et la loi doit valoir pour elle aussi — faute de quoi elle ne vaudrait que du fragment séquentiel, c'est-à-dire de la moitié du langage.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[l'action graduée traverse la mise en parallèle]\label{thm:action_parallele}
+\begin{statement}[Mettre à l'échelle avant ou après la mise en parallèle]
+Sous la même restriction que le théorème précédent, et pour tous effets
+$\varepsilon_1, \varepsilon_2$,
+\[ \varphi_r(\varepsilon_1 \parallel \varepsilon_2)
+   \;=\; \varphi_r(\varepsilon_1) \parallel \varphi_r(\varepsilon_2). \]
+\end{statement}
+\begin{proofsketch}
+Sur la composante de travail, c'est la distributivité du produit sur l'addition.
+Sur la composante de profondeur, c'est $u \cdot \max(s_1, s_2) = \max(u s_1, u s_2)$,
+vraie dans $\mathbb{N}_\infty$ pour tout $u$, $\omega$ compris~: la multiplication
+y est croissante, et une fonction croissante commute au maximum.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Une conséquence porte sur le budget, et elle n'est pas de forme. Le postulat P3 bornant désormais /les deux/ composantes du temps, le budget qu'une liaison porte en est un couple lui aussi, et \(\psi\) le décroît composante par composante. Employer \(r\) fois un calcul multiplie donc son travail et sa profondeur par \(r\), ce qui est la lecture attendue : réexécuter un calcul parallèle ne le rend pas plus parallèle. [rmq:Réexécuter dix fois un calcul de profondeur trois donne une profondeur trente, non trois. Le parallélisme est interne à une exécution, il ne se répète pas entre elles.]
+
+La restriction que ce théorème porte n'est pas une précaution de rédaction : elle a une contrepartie dans les règles. Les deux règles qui composent un calcul avec un calcul — l'application et la liaison séquentielle — portent une /condition de bord/ que l'annexe écrit : un argument de grade infini ne peut traverser un effet à coût temporel non nul. La condition est d'ailleurs ce que la sédimentation prédisait sans le dire : un usage non contraint appartient au fragment cartésien, lequel est pur et n'a donc pas d'effet à traverser. [rmq:Une restriction qu'on croyait coûteuse et qui ne mord que sur des programmes que la stratification écartait déjà.] Ce qu'elle rejette est un calcul qui prétendrait employer une ressource un nombre non borné de fois /en payant un temps à chaque fois/, et le budget ne saurait pas le tarifer.
+
+L'infini de \(\mathcal{R}\) dénote ce que la couche 2 a besoin de dénoter — le décompte d'étapes d'un calcul qui peut ne pas s'arrêter —, et le caractère exponentiel du semi-anneau fournit la structure des grades sous abstraction fonctionnelle, que le chapitre 3 (§\ref{sec:c3-le-systeme-gradue}) obtient aujourd'hui de la seule multiplication. La structure exponentielle est alors une famille \(\{\,!_r\,\}_{r \in \mathcal{R}}\) d'endofoncteurs sur /C/, munie de :
+
+- une déréliction \(\varepsilon : \, !_1 \Rightarrow \text{Id}\), qui n'existe qu'au grade \(1\) — consommer une ressource exactement une fois, c'est l'obtenir ;
+- une comultiplication \(\delta_{r,s} : \, !_{r \times s} \Rightarrow \, !_r !_s\), qui indexe l'itération de l'exponentielle par le produit du semi-anneau ;
+- un affaiblissement \(w : \, !_0 \Rightarrow I\), disponible au seul grade \(0\) ;
+- une contraction \(c_{r,s} : \, !_{r+s} \Rightarrow \, !_r \otimes \, !_s\), qui répartit un grade par la somme.
+
+Ces quatre transformations satisfont les lois de coassociativité, de coünité et de comonoïde de la présentation classique, indexées par \(\mathcal{R}\) ; l'ordre \(\le\) y induit des morphismes de sous-gradation \(!_r \Rightarrow \, !_s\) pour \(s \le r\). Cette structure est celle que la littérature nomme comonade exponentielle linéaire indexée [cite:@fukiharaGeneralizedBoundedLinear2021].
+
+Ce que le paragraphe précédent décrit n'est donc pas une structure primitive mais le résultat d'une composition, et l'ordre dans lequel ce chapitre l'expose reflète l'ordre dans lequel la littérature l'a établie. Benton a montré que l'exponentielle de la logique linéaire se scinde en deux modalités adjointes reliant une logique intuitionniste à une logique linéaire. Fujii, Katsumata et Melliès ont établi que toute monade graduée se factorise comme une /action stricte/ transportée le long d'un foncteur adjoint à gauche, et de deux manières — l'une généralisant Eilenberg-Moore, l'autre Kleisli [cite:@fujiiFormalTheoryGraded2016]. K7PL en emploie le dual, pour une comonade graduée, et retient la factorisation généralisant Kleisli, puisque c'est la structure de Kleisli graduée que la suite de ce chapitre construit. La conjonction des deux résultats donne, pour les modalités graduées, une paire de modalités adjointes reliant une logique graduée à une logique linéaire graduée [cite:@vollmerMixedLinearGraded2024].
+
+De cette dérivation suit ce dont le chapitre 3 aura besoin, et qui ne se lisait pas sur la comonade seule.
+
+Cette décomposition n'est pas une curiosité de présentation : c'est elle qui donne au chapitre 3 le lieu où loger le partage. Une catégorie monoïdale symétrique dénote par \(\otimes\) la /séparation/ — deux objets joints par le tenseur sont deux ressources indépendantes —, et scinder un grade par la contraction produit encore deux objets séparés, non deux vues d'une même ressource. Le partage exige une diagonale, donc le fragment cartésien ; c'est du côté cartésien de l'adjonction qu'il vit, et non d'une division opérée du côté linéaire. Le point vaut d'être souligné parce que la littérature le documente en creux : faire cohabiter dans un même niveau un produit qui sépare et un produit qui partage brise la correction, et la parade connue est la stratification à deux niveaux [cite:@deamorimSeparatedSharedEffects2023]. Intuitivement, \(!_r A\) dénote une ressource \(A\) dont l'usage est autorisé à hauteur de \(r\).
+
+Deux précisions négatives, qui évitent au lecteur de situer /C/ ailleurs qu'elle n'est. K7PL ne suppose pas son exponentielle /libre/ : la structure de comonoïde gradué y est donnée, non construite comme comonoïde cocommutatif cofibre sur \(A\), de sorte que /C/ n'est pas une catégorie de Lafont. Et K7PL ne suppose pas de biproduits finis. Ces deux abstentions vont ensemble, et il faut dire dans quel sens : c'est la /liberté/ de l'exponentielle qui porte le risque, l'additivité n'y suffisant pas. Une exponentielle libre jointe aux biproduits finis donne la structure de catégorie différentielle, donc une codéréliction [cite:@bluteDifferentialCategories2006], [cite:@lemayCoderelictionsFreeExponential2021]. La réciproque est fausse, et récemment établie comme telle : une codéréliction /induit/ l'enrichissement additif, par convolution bialgébrique, de sorte que l'implication ne remonte pas — une catégorie additive n'a pas pour autant de codéréliction. Il est en outre établi qu'une codéréliction, lorsqu'elle existe, est /unique/, ce qui rend la vérification décidable en principe plutôt qu'affaire d'appréciation.
+
+L'abstention de K7PL est donc plus robuste que sa formulation ne le laissait croire, et c'est la première qui la porte : l'exponentielle étant /donnée/ et non construite comme cofibre, aucun des deux résultats ne s'applique. [rmq:Ce qui protège n'est pas de refuser l'addition, c'est de refuser la liberté de l'exponentielle. La nuance décide de quels modèles restent admissibles.] Le langage n'a aucun usage de la structure différentielle, et n'a pas à en hériter par inadvertance ; mais un modèle concret peut légitimement en porter davantage que le langage n'en déclare, et c'est le cas ordinaire plutôt que l'exception.
+
+Le gain n'est pas seulement d'expressivité, il est d'économie : les trois fragments cessent d'être trois constructions parallèles pour devenir trois lectures d'un même objet, et les opérations dont le chapitre 3 se sert — diviser un grade, sommer des grades concurrents, mettre un contexte à l'échelle — reçoivent ici leur définition au lieu d'être supposées.
+
+L'indexation par \(\mathcal{R}\) n'est pas un ornement ajouté à une structure qui tiendrait sans elle : c'est ce qui rend \(w\) et \(c\) opérants. Dans la présentation non graduée, chaque \(!A\) porte une structure de comonoïde commutatif vis-à-vis de \(\otimes\), l'affaiblissement et la contraction y étant disponibles ou non — un choix binaire, qui ne permet que trois configurations. Ici, le comonoïde est /gradué/ : \(w\) ne s'applique qu'à \(!_0\), et \(c\) ne décompose \(!_{r+s}\) qu'en respectant l'addition. L'axiomatisation de la compatibilité entre ce comonoïde et le couple \((\varepsilon, \delta)\) reste celle que la lignée rappelée ci-dessus a établie, indexée ; K7PL l'adopte sans réserve dans sa version corrigée et graduée.
+
+Une précision est nécessaire avant de construire, car l'incise « \(\otimes\) restreint aux objets exponentiés » que l'on trouve souvent recouvre une difficulté réelle. Il n'existe en général pas de structure monoïdale sur la catégorie des coalgèbres libres — isomorphe à la catégorie de co-Kleisli —, le tenseur ne s'y faisant pas bifoncteur faute de définition sensée sur les morphismes. La structure de produit ne s'obtient qu'en plongeant cette catégorie dans une catégorie plus large, où le produit tensoriel de deux objets a \(!A \otimes !B\) pour objet sous-jacent [cite:@SCHALK]. C'est ce détour, et non une restriction, que la construction qui suit emprunte.
+
+Chaque grade ne définit pas sa catégorie, et l'écrire ainsi serait faux. Ce que la comonade graduée engendre est une /structure de Kleisli graduée/ \(\mathbf{Kl}_{\mathcal{R}}\) : sur les objets de /C/, la famille des ensembles de morphismes \(\text{Hom}^r(A,B) := \text{Hom}_{\mathcal{C}}(\,!_r A, B)\), indexée par le semi-anneau des grades. Elle porte une composition \(\text{Hom}^r(A,B) \times \text{Hom}^s(B,C) \to \text{Hom}^{r \times s}(A,C)\), donnée par \(g \circ \, !_s f \circ \delta_{s,r}\) : le grade se multiplie le long de la composition. Mais cette composition n'est pas interne à un grade, et l'identité n'existe qu'au grade neutre, où elle est \(\varepsilon_A\). Une catégorie demande l'une et l'autre ; la famille graduée n'en est donc pas une à chaque grade. La multiplication du grade le long de la composition est la lecture catégorique de la mise à l'échelle du contexte dont le chapitre 3 (§\ref{sec:c3-le-systeme-gradue}) fera un usage constant.
+
+Deux grades font exception, et ce sont les seuls qui portent une catégorie. Au grade neutre \(r = 1\), la composition est interne et l'identité existe : \(\text{Hom}^1\) est la catégorie de co-Kleisli de la comonade \(!_1\). Au grade absorbant \(\omega\), le comonoïde gradué munit \(\mathcal{C}_{!_\omega}\) d'un objet terminal (\(I\), via \(w\), disponible puisque \(0 \le \omega\)) et de produits binaires (\(\otimes\) restreint aux objets exponentiés, via \(c_{\omega,\omega}\), la somme y étant absorbante). La formalisation corrigée rappelée ci-dessus établit précisément que cette structure satisfait les lois d'une catégorie cartésienne.
+
+Deux statuts se distinguent ici, et les confondre serait se dénigrer. Que les foncteurs d'inclusion entre fragments soient fidèles est immédiat, vérifiable sur la construction. Que la catégorie de co-Kleisli du grade absorbant soit authentiquement cartésienne n'est pas assumé non plus : cela suit de la définition de catégorie linéaire retenue ci-dessus, dont la preuve est publiée et dont des formulations équivalentes sont établies [cite:@SCHALK], [cite:@biermanWhatCategoricalModel1995].
+
+Ce que ce document assume est le théorème de cohérence proprement dit — celui qui garantit que les diagrammes construits à partir des isomorphismes naturels commutent —, et il l'assume comme le fait la littérature primaire dont il reprend les constructions, qui le référence sans le redémontrer [cite:@bentonLinearLcalculusCategorical1993], [cite:@kellyCoherenceClosedCategories1971]. Deux précisions s'imposent sur cet emprunt, car il porte sur deux choses d'espèce différente que le mot « assumer » recouvrirait sans les distinguer.
+
+La première est que la cohérence emprunte à /deux/ régimes. Pour la part monoïdale, c'est bien un théorème publié. La catégorie close de Kelly et Mac Lane est une catégorie munie du tenseur et de l'exponentiation interne, d'une unité, des isomorphismes d'associativité et de symétrie et de six diagrammes d'axiomes — structure que leurs auteurs disent non essentiellement différente d'une monoïdale symétrique close. Leur théorème garantit la commutation de tout diagramme bâti sur ces isomorphismes. Pour la part /graduée/, en revanche, il n'y a pas de théorème à assumer : les lois de la comonade graduée — counité, coassociativité indexée par le produit du semi-anneau — sont posées comme /axiomes/ de la structure. Un théorème de cohérence sert là où les isomorphismes ne sont pas donnés commutants et doivent être prouvés tels ; ici ils le sont par définition. Assumer un théorème et poser un axiome ne sont pas le même acte, et le lecteur a le droit de savoir lequel porte quoi.
+
+La seconde est que la chaîne d'hypothèses de l'adjonction, telle que la littérature l'exhibe, compte /trois/ maillons et non deux. Une comonade monoïdale sur une monoïdale symétrique donne une structure monoïdale aux coalgèbres. La clôture de la base rend les coalgèbres libres exponentiables. Et c'est seulement /si de plus/ la catégorie des coalgèbres libres est close par le tenseur qu'elle est elle-même monoïdale symétrique close. Ce document pose le premier maillon par P1, dérive le deuxième de l'adjonction monoïdale — une composée de foncteurs monoïdaux étant monoïdale —, et acquitte le troisième par le choix de la définition de catégorie linéaire, qui l'inclut. C'est ce troisième maillon que ce choix paie, et non un emprunt tacite. Le cas gradué s'y transpose sans rien demander de neuf : la clause « toute puissance d'une coalgèbre libre est libre » y devient la relation entre \(!_r A \otimes !_s A\) et \(!_{r+s} A\), c'est-à-dire le comonoïde gradué posé ci-dessus. La frontière passe là : l'agencement des briques est propre à K7PL, la sémantique de la logique linéaire ne l'est pas.
+
+\(\mathcal{C}_{!_\omega}\) est donc cartésienne : c'est le fragment cartésien de la sédimentation triadique, et la partie \(\Delta_{\omega}\) du contexte germinal n'est que la notation, hors de \(\mathcal{C}_{!_\omega}\), pour un objet vu à travers cette catégorie. C'est ce que le chapitre 1 (§\ref{sec:c1-axiomatique-germinale}) annonçait en écartant la zone \(\Gamma\) de la présentation usuelle. La construction qui précède en est la justification, et c'est sur les grades — non sur une disposition de zones — que l'adjonction dont ce paragraphe établit le côté cartésien se lit.
+
+Les trois fragments de la sédimentation triadique ne se construisent alors plus séparément : ce sont les images de trois sous-ensembles distingués du porteur de \(\mathcal{R}\).
+
+- Le fragment /linéaire strict/ est l'image de \(\{1\}\) : \(\varepsilon\) y est disponible, ni \(w\) ni \(c\) n'y sont instanciables, faute des grades \(0\) et \(r+s\).
+- Le fragment /affine/ est l'image de \(\{0,1\}\) : \(w\) y devient disponible au grade \(0\), mais aucune contraction ne s'y instancie, la somme sortant de l'ensemble. C'est une convention parmi d'autres — certains traitements de la logique affine préfèrent une exponentielle propre, dont on établirait séparément comonade et comonoïde. Les deux coïncident sur ce qui importe ici, un objet muni de l'affaiblissement et non de la contraction, sans s'équiper des mêmes propriétés plus fines.
+- Le fragment /cartésien/ est l'image de \(\{\omega\}\), sous-ensemble clos par \(+\) et \(\times\) et absorbant : contraction et affaiblissement y sont l'un et l'autre disponibles, et \(\mathcal{C}_{!_\omega}\) est cartésienne au sens du paragraphe précédent.
+
+Ce que les délimiteurs syntaxiques du chapitre 5 annoncent n'est donc rien d'autre que le sous-ensemble de \(\mathcal{R}\) dans lequel l'expression ouverte est autorisée à puiser ses grades. Et les grades intermédiaires — \(1/N\) pour les capacités de lecture divisées, \(k\) pour l'âge d'une destination — ne sont pas des exceptions à cette structure : ce sont ses habitants ordinaires, que les trois sous-ensembles distingués ne suffisaient simplement pas à nommer.
+
+#+DESC: Les trois fragments comme trois restrictions successives d'une même construction, et non comme trois systèmes bâtis séparément.
+#+ALT_TEXT: Trois cadres emboites, du plus large au plus etroit — fragment cartesien, qui admet affaiblissement et contraction ; fragment affine, qui n'admet que l'affaiblissement ; fragment lineaire strict, qui n'admet ni l'un ni l'autre.
+#+CAPTION: Emboîtement des trois fragments logiques par restriction successive des règles structurelles
+#+NAME: fig:fragments-emboites
+#+ATTR_LATEX: :placement [htbp] :options width=.9\linewidth
+[[../../meta/fragments-nestings.drawio]]
+
+Notons \(\mathcal{C}_{!_S}\) la sous-catégorie large obtenue en n'autorisant que les grades du sous-ensemble \(S \subseteq \mathcal{R}\). Ces trois catégories s'emboîtent, et l'emboîtement n'est plus à démontrer : il se lit sur l'inclusion des sous-ensembles. Tout morphisme de \(\mathcal{C}_{!_{\{1\}}}\), n'invoquant ni affaiblissement ni contraction, reste a fortiori légitime dans \(\mathcal{C}_{!_{\{0,1\}}}\) dès que le grade \(0\) devient disponible sans devenir obligatoire. De même, tout morphisme de \(\mathcal{C}_{!_{\{0,1\}}}\) reste légitime dans \(\mathcal{C}_{!_\omega}\) dès que la somme cesse de sortir de l'ensemble. Il existe ainsi des foncteurs d'inclusion
+
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{eq:inclusions-fragments}
+F_{1 \to 2} : \text{Linéaire} \hookrightarrow \text{Affine} \qquad F_{2 \to 3} : \text{Affine} \hookrightarrow \text{Cartésien}
+\end{equation}
+#+END_EXPORT
+
+fidèles : aucune identification n'est introduite en passant d'un fragment à l'autre, un morphisme du fragment le plus contraint désignant, dans le fragment moins contraint, exactement le même morphisme de /C/. Ils ne sont pas pleins : franchir l'inclusion, c'est gagner l'accès à de nouveaux morphismes construits à partir de \(w\) ou de \(c\), ce qui est tout le sens de relâcher une règle structurelle. La fidélité seule suffit pourtant à garantir ce que le chapitre 1 attendait de cette construction — un terme déjà établi dans le fragment le plus contraint conserve, relu dans un fragment moins contraint, la même dénotation. C'est cette conservativité, non une préservation de la totalité des morphismes disponibles, qui justifie qu'imbriquer un fragment de programme dans un contexte moins contraint n'altère jamais sa sémantique.
+
+Cette stratification catégorique est le pendant exact de la relation de sous-typage \(\text{Lin} <: \text{Aff} <: \text{Unr}\) énoncée au chapitre 1. Une ressource dont l'usage est prouvé dans le fragment le plus contraint demeure, sans aucune reformulation, une ressource valide dans tout fragment moins contraint. C'est la même inclusion, lue une fois sur les catégories de preuves, une fois sur les types qu'elles habitent. L'inclusion des sous-ensembles \(\{1\} \subset \{0,1\} \subset \{\omega\}^\downarrow\) dans \(\mathcal{R}\) en est désormais la source unique, ce qui referme la construction de P1. La structure exponentielle annoncée au chapitre 1 est celle-ci ; et la cinquième composante \(\mathcal{G}\) du jugement germinal y trouve son interprétation — elle dénote l'indice de la famille.
+
+** Algèbres, coalgèbres et points fixes
+#+LATEX: \label{sec:c2-algebres-coalgebres-et-points}
+
+Terminaison et productivité sont, du point de vue catégorique, la même idée lue deux fois — une fois dans /C/, une fois dans /C/ opposée. Cette section construit les deux points fixes qui portent respectivement ces deux garanties : l'algèbre initiale, qui fonde la terminaison des calculs finis de la couche 3, et la coalgèbre terminale, qui fonde la productivité des flux et des acteurs de la couche 2.
+
+Soit \(F : \mathcal{C} \to \mathcal{C}\) un endofoncteur. Une \(F\)-algèbre est un couple \((A, \alpha : F(A) \to A)\) ; un morphisme de \(F\)-algèbres \((A,\alpha) \to (B,\beta)\) est une flèche \(f : A \to B\) telle que \(f \circ \alpha = \beta \circ F(f)\). Lorsqu'elle existe, l'algèbre initiale \(\mu F\) — munie de sa structure \(\text{in} : F(\mu F) \to \mu F\), qui est un isomorphisme (lemme de Lambek) — est initiale parmi les \(F\)-algèbres : pour toute algèbre \((A,\alpha)\), il existe un unique morphisme d'algèbres de \(\mu F\) vers \(A\), le catamorphisme induit par \(\alpha\), caractérisé par
+
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{eq:catamorphisme}
+\text{cata}(\alpha) \circ \text{in} = \alpha \circ F(\text{cata}(\alpha)).
+\end{equation}
+#+END_EXPORT
+
+Pour \(F(X) = I \oplus (A \otimes X)\), \(\mu F\) est le type des listes finies de \(A\) et \(\text{cata}(\alpha)\) n'est autre que le pli usuel. C'est ce schéma, dans la forme générale que l'esquisse ci-après précise, que la couche 3 autorise comme unique forme de récursion. Parce que \(\mu F\) n'est construite qu'à partir des constructeurs finis portés par \(F\), tout catamorphisme termine en un nombre d'étapes borné par la taille de son argument. La terminaison n'est pas vérifiée après coup : elle est une conséquence de l'initialité.
+
+Le catamorphisme ne suffit pas à porter cette récursion. Dès qu'un type imbriqué apparaît — un type paramétré dont la récursion s'accompagne d'un changement du paramètre, ce dont ~Incomplete A B~ est le cas limite —, le pli ordinaire ne décrit plus que des transformations naturelles, limitation trop étroite pour l'usage [cite:@birdGeneralisedFoldsNested1999]. K7PL retient donc la forme générale, le pli dépendamment typé : il est défini par récursion bien fondée, existe pour tout type imbriqué, ne dépend d'aucune fonction ~map~, et se spécialise en le pli d'ordre supérieur traditionnel [cite:@fuDependentlyTypedFolds2018]. Le catamorphisme de l'équation \ref{eq:catamorphisme} en demeure le cas particulier, celui où le paramètre ne change pas. Ce dispositif porte à lui seul ce que le langage obtenait par trois — l'itération, le principe d'induction qui découle de sa définition, et la vérifiabilité formelle des programmes ainsi définis [cite:@fuDependentlyTypedFolds2018] —, ce qui sert la condition de clôture du chapitre 1 (§\ref{sec:c1-axiomatique-germinale}).
+
+Ce choix place K7PL en dehors d'une classification reçue. [rmq:Deux généralisations du même pli ordinaire, qui se rencontrent en bas et divergent en haut. Aucune ne contient l'autre.] La littérature a unifié un large zoo de schémas de récursion sous le /pli adjoint/, paramétré par une adjonction et une loi distributive, et le pli généralisé de Bird et Paterson figure parmi les schémas ainsi subsumés [cite:@hinzeUnifyingStructuredRecursion2016]. Le pli de K7PL n'en est pas une instance, et pour une raison qui tient en un mot : une adjonction est faite de foncteurs, donc de fonctions ~map~, quand le pli dépendamment typé n'en dépend d'aucune. L'une donne l'accès au zoo, l'autre donne les types imbriqués, et K7PL a retenu la seconde parce que c'est celle dont il a besoin.
+
+Une question reste alors ouverte que la classification par le pli adjoint ne pose pas : combien de schémas sont primitifs, et lesquels se dérivent. La réponse est deux. La récursion primitive et la récursion nœthérienne sont les deux structures, chacune munie de son principe d'induction, et les schémas complexes se composent à partir d'elles pour une large classe de types [cite:@downenStructuresStructuralRecursion]. Ce résultat est guidé par la dualité, et chaque structure de récursion y a une forme duale, donnant des paires parfaitement symétriques de types de données et de co-données. Ce document en tire directement sa primitive de production : la duale de la récursion primitive est la corécursion primitive, et c'est elle que la couche 2 emploie sans l'avoir nommée. Deux primitives et non un zoo, avec les schémas nommés comme compositions — c'est la forme d'économie que la condition de clôture du chapitre 1 réclame.
+
+Une seconde lecture de la même source referme une question que la première laissait ouverte, et la réponse est négative. Cette source obtient les schémas issus de comonades — dont l'histomorphisme employé plus bas — par les deux dérivations canoniques d'adjonctions à partir des comonades. Les catamorphismes monadiques viennent de la construction de Kleisli, et les schémas issus de comonades de celle d'Eilenberg–Moore. Ce chapitre construisant une comonade exponentielle graduée et sa structure de Kleisli graduée, on pourrait croire l'histomorphisme dérivable de \(!_r\). Il ne l'est pas : la comonade qu'un tel schéma demande est la comonade cofree du foncteur de motif, celle qui accumule l'historique, quand \(!_r\) est la modalité d'usage. Deux comonades, deux rôles, et aucune raison qu'elles se confondent.
+
+Le critère de terminaison, lui, ne peut pas être une mesure structurelle décroissante. La profondeur restante de \(x\) n'est pas disponible sur un type imbriqué, l'appel récursif y portant sur une autre instance du paramètre : la mesure n'a plus de domaine fixe et sa décroissance ne signifie plus rien. La garantie doit donc reposer sur les types seuls, ce que la littérature nomme terminaison fondée sur les types [cite:@matthesRecursionNestedDatatypes2008]. K7PL l'adopte à peu de frais : une taille est un ordinal, un ordinal est un grade, et \(\mathcal{R}\) (§\ref{sec:c2-la-comonade-exponentielle-et}) porte déjà \(\omega\). Le peu de frais a toutefois un prix, et c'est une clause de bonne formation qu'il faut écrire plutôt que supposer. Il y a /deux sortes de tailles/, et les confondre est l'erreur que la clause doit écarter. [rmq:Une sorte par polarité. Ce n'est pas une prudence ajoutée : c'est la distinction que la dualité impose, et qu'on avait manquée.]
+
+\[ \mathbb{S}_\mu \;=\; \mathbb{N}_\infty \setminus \{\omega\}
+   \qquad\qquad
+   \mathbb{S}_\nu \;=\; \mathbb{N}_\infty \]
+
+La /taille inductive/ \(\mathbb{S}_\mu\) exclut \(\omega\), et la raison tient en une ligne : un ordre strict bien fondé est irréflexif, de sorte que \(\omega < \omega\) est faux, quand un plus grand élément employé comme taille inductive demanderait précisément qu'il soit vrai. Elle gouverne le pli, le dépli et la hauteur des treillis finis.
+
+La /taille coinductive/ \(\mathbb{S}_\nu\) retient \(\omega\), et c'est ce qui la rend utile. Le côté coinductif ne demande pas une bien-fondation mais sa duale : un plus grand élément absorbant le décrément, \(\omega \ominus 1 = \omega\). Un flux qui ne s'arrête jamais porte la taille \(\omega\), en rend une observation à chaque pas, et reste de taille \(\omega\) après. Les rationnels sont exclus des deux sortes, leur ordre strict n'étant bien fondé dans aucun sens.
+
+La clause qui importe n'est donc pas l'exclusion de \(\omega\), c'est la /disjonction/ : *aucun type ne porte les deux sortes*. C'est exactement la leçon de la source qui motive la prudence — un assistant de preuve majeur partage une seule sorte de taille entre les deux polarités, et l'on y construit depuis dix ans un type à la fois inductif et coinductif dont se tire une preuve du type vide [cite:@agdadevelopersAgdaSizedTypes2026]. Le défaut y est le partage, non l'infini. Un grade quelconque n'est pas une taille recevable, et c'est cette clause — non l'appartenance à \(\mathcal{R}\) — que le théorème de progression invoque, dans chacune de ses deux instances et selon la sorte qui lui revient. Le paramorphisme linéaire — pli donnant accès à la fois au résultat récursif et à la sous-structure d'origine [cite:@seflProgrammingDependentAdditive2025] — entre sous le même critère, sa taille décroissant identiquement.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[terminaison de la couche 3 --- l'instance inductive]\label{thm:terminaison_couche_3}
+\begin{statement}[Terminaison par pli dépendamment typé]
+Soit $F$ un conteneur représentant les structures de données finies de couche 3. Pour toute fonction $f : \mu F \to A$ obtenue comme pli dépendamment typé, l'évaluation de $f$ sur tout $x : \mu F$ atteint une forme normale en un nombre fini d'étapes~: $\forall f : \mu F \to A,\ \exists k \in \mathbb{N},\ \exists v,\ f(x) \leadsto^k v$.
+\end{statement}
+
+\begin{proofsketch}
+La couche 3 interdit la récursion générale, et toute itération s'y exprime comme un pli dépendamment typé sur $\mu F$, plus petit point fixe du conteneur $F$, dont les habitants sont bien fondés par construction. Le type du pli porte un indice de taille $i$, et celui de l'appel récursif un indice strictement inférieur. C'est l'hypothèse du théorème~\ref{thm:progression_polarisee}, dont cet énoncé est l'instance en $p = \mu$~; l'argument général y est conduit une fois et n'est pas repris ici. Ce qui est propre à cette instance est le domaine~: la décroissance porte sur des types imbriqués, où aucune mesure structurelle n'est disponible, et c'est ce que le pli dépendamment typé achète. Le paramorphisme linéaire est admis au même titre.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+S'il tient, la terminaison de la couche 3 cesse d'être une obligation de preuve séparée : elle devient une lecture du jugement de typage, et la Phase 4 de la compilation (§\ref{sec:c6-le-processus-de-compilation}) n'a rien à vérifier que le typage n'ait déjà établi. S'il tombe — si un pli dépendamment typé pouvait porter un indice décroissant sans terminer —, la couche 3 devrait revenir à un critère syntaxique d'arguments plus petits, lequel n'est pas disponible sur les types imbriqués. Le langage perdrait alors soit les types imbriqués, soit la terminaison garantie ; c'est le prix exact de ce théorème, et il n'y a pas de troisième terme.
+
+Ce chapitre établit la correction de son interprétation et non sa complétude, et la distinction n'est pas anodine. Sur une extension naturelle de la catégorie linéaire, l'interprétation immédiate manque de complétude, et la recouvrer suppose d'exploiter les propriétés comonadiques de l'exponentielle [cite:@gaboardiWhatModelSemantically2014]. Ce que la complétude apporterait se dit, puisqu'elle n'est pas prise en charge ici : elle établirait qu'un morphisme de /C/ qui n'est l'image d'aucun terme n'existe pas, donc que le modèle ne contient rien que le langage ne sache écrire. Sans elle, la correction garantit que tout programme accepté a un sens, non que tout sens exprimable dans le modèle corresponde à un programme — ce qui suffit à ce que ce document fait, et ne suffirait pas à en tirer un résultat de définissabilité.
+
+Deux constructions du langage vont porter le même nom sans être le même objet, et mieux vaut poser la distinction ici. [rmq:Le même nom, deux existences. L'une tient à la forme d'un foncteur, l'autre à la complétude d'un ordre.] Le \(\mu F\) de cette section est le plus petit point fixe d'un foncteur. Une algèbre initiale, dont les habitants sont des arbres finis et dont l'existence tient à la positivité stricte du conteneur. Le chapitre 4 emploiera un autre plus petit point fixe, celui d'une fonction monotone d'un type dans lui-même, qui n'est pas une algèbre initiale mais la limite d'une chaîne croissante dans un ordre. Son existence tient à la complétude de cet ordre et non à la forme d'un foncteur, et sa terminaison à une propriété métrique — la hauteur — plutôt qu'à la bonne fondation d'une structure. Les deux sont des points fixes et des plus petits, et là s'arrête la ressemblance. Le §\ref{sec:c2-adjonctions-et-enrichissement} construit le second.
+
+Dualement, une \(F\)-coalgèbre est un couple \((A, \alpha : A \to F(A))\) ; un morphisme de \(F\)-coalgèbres \((A,\alpha) \to (B,\beta)\) est \(f : A \to B\) tel que \(F(f) \circ \alpha = \beta \circ f\). La coalgèbre terminale \(\nu F\) — munie de \(\text{out} : \nu F \to F(\nu F)\), isomorphisme dual du lemme de Lambek — est terminale parmi les \(F\)-coalgèbres : pour toute coalgèbre \((A,\alpha)\), il existe un unique morphisme de coalgèbres de \(A\) vers \(\nu F\), l'anamorphisme induit par \(\alpha\), caractérisé par
+
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{eq:anamorphisme}
+\text{out} \circ \text{ana}(\alpha) = F(\text{ana}(\alpha)) \circ \alpha.
+\end{equation}
+#+END_EXPORT
+
+Pour \(F(X) = A \otimes X\), \(\nu F\) est le type des flux infinis de \(A\) et \(\text{ana}(\alpha)\) engendre le flux élément par élément depuis un état initial.
+
+Le théorème qui précède porte sur une couche prise isolément. Or la thèse du chapitre 1 n'est pas que les couches existent séparément, c'est qu'elles s'emboîtent : du fini pur à l'intérieur de l'infini productif. Cet emboîtement demande son propre énoncé, et il n'est pas gratuit — sur des points fixes imbriqués, approcher l'objet en itérant sur l'un des deux seulement ne converge pas, et il faut itérer sur les deux simultanément [cite:@kurzApproximationNestedFixpoints2015]. Deux propriétés y pourvoient. Les conteneurs préservent les plus petits et les plus grands points fixes (§\ref{sec:c2-adjonctions-et-enrichissement}) [cite:@damatoFormalisingInductiveCoinductive2024;@altenkirchIndexedContainers2015], de sorte que l'emboîtement ne sort pas de la classe où le théorème précédent a été établi. Et une version coalgébrique du lemme de Bekič réduit le système simultané à un point fixe unique, dont l'objet visé est la coalgèbre finale [cite:@kurzApproximationNestedFixpoints2015].
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[bonne définition de la sédimentation]\label{thm:sedimentation}
+\begin{statement}[Convergence des points fixes imbriqués]
+Soient $F$ et $G$ des conteneurs, $F$ engendrant les structures finies de couche 3 et $G$ l'état des générateurs de couche 2. Alors l'objet $\nu Y.\, G(\mu X.\, F(X,Y))$ est bien défini, et la suite de ses approximations finies converge vers lui.
+\end{statement}
+
+\begin{proofsketch}
+Les conteneurs préservant les deux points fixes, $\mu X.\, F(X,Y)$ est encore un conteneur en $Y$, et $\nu Y.\, G(-)$ appliqué à celui-ci reste dans la classe. Reste la convergence, qui ne se déduit pas de l'itération sur un seul des deux points fixes~: elle s'obtient en traitant le système comme simultané, sa réduction à un point fixe unique donnant l'objet visé pour coalgèbre finale, limite de ses approximations finies.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+S'il tient, c'est lui — et non la juxtaposition des énoncés par couche — qui autorise le chapitre 1 à parler de sédimentation : l'emboîtement est un objet, pas une figure de style. S'il tombe, les deux couches restent l'une et l'autre bien fondées, mais rien ne garantit plus que leur emboîtement le soit, et la sédimentation redevient une thèse à établir cas par cas.
+
+La préservation invoquée ici a été établie deux fois, et les deux cadres ne se recouvrent pas. [rmq:Le résultat existe, la version graduée n'existe pas encore. C'est là que ce document met sa demande.] Le second l'obtient dans la catégorie sauvage des types, c'est-à-dire sans supposer l'unicité des preuves d'identité [cite:@altenkirchIndexedContainers2015], de sorte que la réserve qu'on pourrait opposer — celle d'une extensionnalité postulée — tombe. Ce qui ne tombe pas est que ces résultats valent sur des types et non sur des types gradués. La transposition à la gradation reste à faire, et c'est ce que ce document demande.[fn::La technique qui rend la preuve possible est le type de chemin d'une théorie cubique, que l'assistant visé au chapitre 6 n'offre pas.]
+
+Un schéma manque encore, et il est celui que la couche 2 exécute le plus souvent. Un gestionnaire d'acteur consomme un flux de messages et le replie en un état fini : c'est un anamorphisme suivi d'un catamorphisme, autrement dit un /hylomorphisme/ — la généralisation commune des deux, dont les formes simples ne sont que des cas particuliers [cite:@yangFantasticMorphismsWhere2022]. Sa terminaison ne découle ni du premier théorème, dont l'entrée n'est pas bien fondée, ni du second, dont la sortie n'est pas un flux. Elle vient d'ailleurs, et K7PL en dispose déjà : un gestionnaire traite un message par activation, et le nombre d'activations par tour d'ordonnancement est borné par un grade \(r\) (chapitre 4, §\ref{sec:c4-echelle-locale}). L'hylomorphisme de couche 2 est donc borné par un grade — ce qui est exactement P3, appliqué au schéma de récursion plutôt qu'à l'allocation.
+
+La productivité coinductive qu'exige la couche 2 des flux et des acteurs — produire une valeur observable en temps fini, même si le calcul dans son entier ne termine jamais — est la garantie duale de la terminaison : à chaque étape, \(\text{out}\) expose un élément de \(F(\nu F)\) sans qu'il soit nécessaire d'avoir épuisé \(\alpha\). C'est cette construction que le chapitre 1 anticipait en définissant un acteur distribué comme une coalgèbre terminale \(\nu G\) sur son espace d'état. L'espace d'état joue le rôle de \(A\), et \(G\) décrit, pour chaque état, l'observation immédiate qu'il produit et l'état suivant qu'il détermine.
+
+Les flux infinis de couche 2 sont modélisés par \(\nu G\), le plus grand point fixe du conteneur \(G\), pris dans \(\mathcal{C}\) et non dans une catégorie cartésienne — ce qui n'est pas un détail, puisque les flux de K7PL transportent des ressources et non des valeurs pures, un message consommé ne pouvant l'être deux fois. Ce sont donc des flux monoïdaux, au sens où les flux ordinaires donnent une sémantique au flot de données avec fonctions pures quand leur généralisation monoïdale la donne pour des théories de processus [cite:@dilavoreMonoidalStreamsDataflow2022].
+
+Le critère de progression y est le dual exact de celui de la terminaison, et pour la même raison : un gardiennage purement syntaxique — exiger que l'appel corécursif soit précédé d'un ~yield~ — n'est pas compositionnel, puisqu'il interdit à une occurrence corécursive d'apparaître sous une opération définie antérieurement [cite:@xieConaturalNumbersForm2025], c'est-à-dire sous n'importe quel combinateur défini par l'utilisateur. Or la couche 2 est d'ordre supérieur et composable, et la restriction y mordrait sur le cas courant plutôt que sur l'exception. K7PL retient donc un critère porté par les types : le type du flux est indexé par une taille, et le ~yield~ fait décroître cet indice au sens dual, chaque observation consommant une unité de profondeur d'approximation. C'est la formulation par types dimensionnés, sur laquelle repose le traitement coinductif usuel des automates et des langages formels, et qui s'accompagne du filtrage par copatrons comme forme définitionnelle naturelle du ~yield~ [cite:@ABEL-COALG].
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[productivité de la couche 2 --- l'instance coinductive]\label{thm:productivite_couche_2}
+\begin{statement}[Progression par anamorphisme typé]
+Soit $G$ un foncteur représentant l'état d'un générateur de flux de couche 2, par exemple $G(X) = A \otimes X$. Un flux $s : S \to \nu G$ obtenu comme anamorphisme, dont le type porte un indice de taille décroissant au sens dual, produit une valeur observable en un nombre fini d'étapes.
+\end{statement}
+
+\begin{proofsketch}
+Instance en $p = \nu$ du théorème~\ref{thm:progression_polarisee}, l'argument étant le même lu dans $\mathcal{C}^{\text{op}}$. Ce qui est propre à cette instance est la conclusion~: le type de $s$ est indexé par une taille, chaque \texttt{yield} en fait décroître l'indice au sens dual, et déplier $\nu G$ produit donc au moins un élément de $G(\nu G)$ avant tout appel récursif ultérieur. C'est une observation en temps fini, non un épuisement.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+S'il tient, les deux volets de la Phase 4 de la compilation (§\ref{sec:c6-le-processus-de-compilation}) cessent d'être deux vérifications distinctes. La décroissance d'un pli de couche 3 et la progression d'un flux de couche 2 sont deux lectures d'un même jugement de typage, sous deux polarités.[fn::La Phase 3, qui établit la pureté, n'est pas concernée.] S'il tombe, la couche 2 doit revenir au gardiennage syntaxique. Elle perd avec lui la composition des combinateurs définis par l'utilisateur, c'est-à-dire l'essentiel de ce qui fait d'elle une couche d'ordre supérieur.
+
+Ce que ce choix évite ne se voit pas sur l'énoncé, et mérite donc d'être dit. [rmq:Le critère se compose parce qu'il est un jugement, non parce qu'on aurait vérifié qu'il se compose.] Les deux assistants de preuve les plus employés achoppent l'un et l'autre à cet endroit, pour des raisons différentes : chez le premier la coinduction est réputée cassée, la règle de garde n'étant pas compatible avec la conversion. Chez le second, l'inductif et le coinductif ne se mêlent pas de façon compositionnelle. Un critère porté par les types, et non par une analyse syntaxique de garde, échappe aux deux [cite:@abelWellfoundedRecursionCopatterns2016]. Ce n'est pas un raffinement de confort, c'est la raison pour laquelle ce document peut mêler ses deux polarités sans clause supplémentaire.
+
+Les deux énoncés qui précèdent ne sont pas deux théorèmes, et ils ont été écrits comme les deux instances qu'ils sont. Leurs hypothèses sont la même — un indice de taille décroissant porté par le type —, leur bien-fondation est la même, et ce qui les distingue n'est pas l'argument mais le côté où on le lit. Voici cet argument, écrit une fois, la couche étant le paramètre. Le procédé est celui d'Abel et Pientka, qui obtiennent un traitement unifié de la récursion et de la corécursion en faisant de la productivité une /instance/ de la terminaison plutôt qu'un critère parallèle [cite:@abelWellfoundedRecursionCopatterns2016].
+
+#+NAME: eq:progression-graduee
+#+BEGIN_EXPORT latex
+\begin{theorem}[progression, paramétrée par la couche]\label{thm:progression_polarisee}
+\begin{statement}[Une seule idée, lue selon la polarité de la couche]
+Soit $\ell$ une couche polarisée et $p(\ell)$ sa polarité, donnée par la table de sédimentation du
+chapitre~1 (§\ref{sec:c1-axiomatique-germinale})~: $p(3) = \mu$ et $p(2) = \nu$. Soit $F$ un conteneur.
+
+Un calcul de couche $\ell$ défini sur $p(\ell)F$ par un schéma dont le type porte un indice de taille
+décroissant \emph{au sens de} $p(\ell)$ \emph{progresse} en un nombre fini d'étapes, la progression
+s'entendant~: en $p = \mu$, jusqu'à épuisement de la structure --- c'est la terminaison~; en
+$p = \nu$, jusqu'à production d'une observation --- c'est la productivité.
+\end{statement}
+\begin{proofsketch}
+Le schéma a \emph{deux instances de sortes}, et non un seul ordre lu deux fois --- ce
+qu'une rédaction antérieure affirmait à tort, l'ordre opposé de $\mathbb{N}$ n'étant pas bien fondé.
+
+En $p = \mu$, la mesure est prise dans $\mathbb{S}_\mu$ et \emph{décroît} strictement dans un ordre
+bien fondé~: toute chaîne décroissante y est finie, donc l'évaluation atteint une forme normale.
+
+En $p = \nu$, la mesure est prise dans $\mathbb{S}_\nu$ et la conclusion est duale~: chaque
+observation consomme une unité, et l'on ne demande pas que la suite des tailles s'épuise mais que
+\emph{chaque pas soit atteint en temps fini}. Pour une taille finie, c'est la décroissance
+elle-même~; pour $\omega$, c'est l'absorption $\omega \ominus 1 = \omega$, qui garantit qu'une
+observation reste toujours disponible. Un flux non terminé est ainsi typable, et c'est ce que la
+couche 2 demande.
+
+Ce qui est commun aux deux instances, et qui fait le schéma, est que la mesure est portée par le
+\emph{type} et non inspectée sur la syntaxe du terme~: l'argument ne dépend donc pas de la forme du
+terme. Ce qui les sépare est la sorte, et elle est déterminée par la polarité.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+S'il tient, les deux théorèmes précédents cessent d'être deux théorèmes : ils se retrouvent en spécialisant \(\ell\) — le théorème \ref{thm:terminaison_couche_3} pour \(\ell = 3\), le théorème \ref{thm:productivite_couche_2} pour \(\ell = 2\) — et rien de ce qu'ils établissent n'est perdu, le traitement des types imbriqués d'un côté et la non-compositionnalité du gardiennage syntaxique de l'autre restant les difficultés propres à chaque instance. S'il tombe, le langage garde ses deux garanties mais perd le fait qu'elles n'en font qu'une, et avec lui l'économie que la condition de clôture réclame.
+
+Trois remarques sur cet énoncé, dont deux fixent sa portée. La première est que le mot /progression/ y est choisi et non trouvé : les deux conclusions d'origine — l'évaluation termine, une valeur observable est produite — ne sont pas littéralement duales, et il fallait un terme dont elles soient les deux lectures. [rmq:À ne pas confondre avec le théorème de progrès de l'annexe, qui porte sur la relation de réduction et non sur les schémas de récursion. La parenté est réelle, l'objet ne l'est pas.] Le théorème de progrès de l'annexe (§\ref{sec:annexe-presentation-formelle}) porte un nom voisin et un autre objet.
+
+La deuxième est que le paramètre court sur les /deux couches polarisées/ et non sur les trois. La couche 1 n'est ni \(\mu\) ni \(\nu\) : ses ressources sont uniques et ne sont pas parcourues, de sorte qu'elle n'a pas de théorème de progression de cette famille et n'en a pas besoin. Le chapitre 4 (§\ref{sec:c4-echelle-locale}) en tire une conséquence de vocabulaire qui n'est pas cosmétique. Le régime d'exécution des couches 2 et 3 porte un seul nom, puisqu'un seul théorème les gouverne, tandis que la couche 1 en porte un autre.
+
+La troisième est que la distinction entre les deux instances /se voit dans la machine/, ce qui interdit d'y voir une abstraction gratuite. L'instance \(\mu\) est bornée par un indice décroissant porté par le type et n'a besoin d'aucun objet à l'exécution. L'instance \(\nu\) est bornée par une taille maximale de pile que le compilateur calcule à l'avance et loge dans un contexte fixe. Un paramètre dont les deux valeurs diffèrent matériellement n'est pas une commodité de présentation.
+
+Cette dualité n'est pas une analogie mais une identité catégorique : une \(F\)-algèbre dans /C/ est une \(F^{\text{op}}\)-coalgèbre dans \(\mathcal{C}^{\text{op}}\) — la même paire \((A, \alpha)\), la flèche \(\alpha\) étant simplement lue dans l'autre sens — et l'initialité dans /C/ correspond à la terminalité dans \(\mathcal{C}^{\text{op}}\). Terminaison et productivité ne sont donc pas deux propriétés qu'il faudrait établir séparément pour chaque couche : ce sont la même propriété — existence et unicité d'un morphisme vers ou depuis un point fixe — énoncée dans deux catégories duales l'une de l'autre.
+
+#+DESC: La terminaison et la productivité mises face à face : une seule propriété, lue dans deux catégories duales l'une de l'autre.
+#+ALT_TEXT: Deux categories en vis-a-vis. A gauche la categorie C porte l'algebre initiale mu F, de structure in qui envoie F de mu F sur mu F, et fonde la terminaison. A droite la categorie C oppose porte la coalgebre terminale nu F, de structure out qui envoie nu F sur F de nu F, et fonde la productivite. Une fleche relie les deux et porte « meme construction, lue dans la categorie opposee ».
+#+CAPTION: Dualité algèbre initiale / coalgèbre terminale, dans C et C^op
+#+NAME: fig:dualite-algebre-coalgebre
+#+ATTR_LATEX: :placement [htbp] :options width=.9\linewidth
+[[../../meta/co-algebra-duality.drawio]]
+
+Pour partager des sous-calculs sans rompre la terminaison — le cas de la programmation dynamique —, le catamorphisme s'étend à l'histomorphisme. Le pli s'effectue non sur \(F(A)\) mais sur \(F(\text{Cofree}_F(A))\), où la comonade cofree \(\text{Cofree}_F\) annote chaque sous-terme de l'historique de tous les résultats déjà calculés en dessous de lui. L'histomorphisme reste un catamorphisme — sur un foncteur enrichi, non sur un principe de récursion distinct — et sa terminaison en hérite directement. K7PL borne seulement, par un grade \(r\), la profondeur de l'historique conservé, pour que cet enrichissement demeure lui-même en mémoire \(O(1)\).
+
+Deux choses doivent être ajoutées ici, car la présentation ci-dessus est correcte mais incomplète, et l'une des deux touche un postulat. La première est que l'histomorphisme relève d'une classe caractérisée — les /schémas de récursion issus d'une comonade/ —, doublement générique : paramétrée par le type de données \(\mu F\) /et/ par une comonade \(N\), l'histomorphisme s'obtenant lorsque \(N\) est la comonade cofree. Cette classe ne se réduit pas à un pli sur un foncteur enrichi : elle exige une /loi distributive/ \(\lambda : F \circ N \Rightarrow N \circ F\) de l'endofoncteur sur la comonade, soumise à deux conditions de cohérence, et c'est elle qui fait de l'algèbre \(\mathit{in}\) et de la coalgèbre de contexte une \(\lambda\)-bialgèbre — une algèbre et une coalgèbre de porteur commun [cite:@hinzeUnifyingStructuredRecursion2016]. Ce document emploie l'histomorphisme sans avoir posé cette loi ; elle lui est due, et elle est distincte de la loi distributive graduée du chapitre 1, qui distribue la modalité de grade sur la monade d'effet et non un foncteur de motif sur une comonade d'historique. Autant l'écrire ici que la laisser en dette.
+
+#+NAME: eq:loi-distributive-historique
+#+BEGIN_EXPORT latex
+\begin{theorem}[loi distributive de l'historique]\label{thm:loi_historique}
+\begin{statement}[Ce que la comonade cofree doit vérifier pour porter le pli]
+Soit $F$ un conteneur et $N = \text{Cofree}_F$ la comonade cofree associée, de counité
+$\epsilon$ et de comultiplication $\delta$. La transformation naturelle
+$\lambda : F \circ N \Rightarrow N \circ F$ satisfait les deux conditions de cohérence
+\[ \epsilon \circ F \cdot \lambda = F \circ \epsilon \qquad\text{et}\qquad
+   \delta \circ F \cdot \lambda = N\circ\lambda \cdot \lambda\circ N \cdot F\circ\delta, \]
+et l'algèbre $\mathit{in}$ de $\mu F$ forme avec la coalgèbre de contexte une $\lambda$-bialgèbre,
+c'est-à-dire une algèbre et une coalgèbre de porteur commun.
+\end{statement}
+\begin{proofsketch}
+La première condition dit que distribuer l'historique hors du foncteur puis en extraire la valeur
+courante revient à l'extraire à l'intérieur~; la seconde, que distribuer puis dupliquer le contexte
+revient à dupliquer à l'intérieur puis distribuer. Elles se vérifient sur la comonade cofree par les
+lois de counité et de coassociativité, la trace du foncteur fournissant la comultiplication. La
+troncature à $r$ niveaux les préserve, chacune étant une équation entre transformations naturelles
+dont les deux membres se tronquent au même rang.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+L'énoncé n'est pas propre à ce document : c'est celui de la classe des schémas issus de comonades, dont l'histomorphisme est l'instance où \(N\) est la cofree [cite:@hinzeUnifyingStructuredRecursion2016]. Ce qui est propre à K7PL est le grade \(r\) qui borne la profondeur de l'historique conservé, et c'est la seule moitié de l'obligation que ce document ait à acquitter. S'il tient, l'histomorphisme de K7PL est un schéma caractérisé et sa terminaison s'hérite de celle du catamorphisme. S'il tombe, l'histomorphisme redevient une définition ad hoc, dont la terminaison doit être établie à part et dont rien ne garantit qu'elle se compose.
+
+La seconde touche P3, et elle interdit de tenir la borne pour acquise. La dérivation directe d'un tel schéma est /quadratique/, le corps du pli appliquant l'algèbre au résultat d'une trace ; obtenir une version linéaire, qui n'invoque l'algèbre qu'une fois par niveau, demande un travail supplémentaire et un résultat séparé. Annoncer une borne sans dire de laquelle des deux versions on parle reviendrait à dissimuler un facteur, ce que le postulat d'autonomie physique interdit. La borne annoncée ici est donc celle de la version linéaire, et voici comment on l'obtient.
+
+Une chose de plus doit être dite sur la nature de cette borne, car elle est nommée à mi-mot. Une borne d'historique par un grade est une borne /amortie/ : elle ne majore pas ce que coûte un niveau, elle majore ce que coûte l'ensemble des niveaux rapporté à leur nombre. Ce document l'énonce sans employer le mot, ce qui laisserait croire à une borne au pire cas par étape. Or l'analyse amortie a un compte rendu catégorique dans le cadre même de ce document, le calcul par poussée de valeur. Elle se lit dans une catégorie d'/algèbres de coût/ où la fonction de potentiel devient un morphisme de coalgèbres — donc un objet du langage et non une astuce de preuve — et où les arguments d'amortissement se composent dans la catégorie indexée des coalgèbres [cite:@grodinAmortizedAnalysisCoalgebra2024]. Le grade qui borne l'historique est donc un potentiel, et le dire ainsi n'ajoute aucun mécanisme : cela nomme celui qui était déjà là, et cela rend la borne composable pour la même raison que les autres constructions de ce chapitre le sont.
+
+Le procédé est une /transposition/, et il tient à une correspondance biunivoque entre les solutions du schéma et les homomorphismes de \(\lambda\)-bialgèbres [cite:@hinzeHistoDynamorphismsRevisited2013]. Plutôt que de calculer \(f : \mu F \to B\) directement — ce que la forme naïve fait en appliquant l'algèbre au résultat d'une trace, d'où le comportement quadratique —, on calcule son transposé \(h : \mu F \to F^\infty B\), qui construit la /table entière/ des réponses, et l'on prend la tête : \(f = \mathit{head}^\infty \cdot h\). Or \(h\) est un homomorphisme d'algèbres depuis l'algèbre initiale, c'est-à-dire un /pli/. L'algèbre n'est donc invoquée qu'une fois par nœud, et l'on retrouve la définition usuelle de l'histomorphisme, obtenue ici plutôt que posée.
+
+La seconde moitié de l'obligation est propre à ce document, et la troncature s'y révèle un avantage plutôt qu'une gêne. K7PL ne travaille pas sur \(F^\infty\) mais sur son tronqué à \(r\) niveaux, qui est une comonade /graduée/ de la même famille que \(!_r\) — sa comultiplication porte l'indice du produit du semi-anneau, et la coassociativité y survit, la troncature étant idempotente et commutant avec elle-même. Le pli visite alors chaque nœud une fois en y maintenant une fenêtre de profondeur \(r\). Le travail par nœud est en \(O(r)\) et le total en \(O(n \cdot r)\), donc linéaire en la taille de l'entrée à grade fixé — et \(r\) étant un grade, ce facteur est connu à la compilation, ce que P3 exige. L'espace, lui, passe de \(O(n)\) pour la table entière à \(O(r)\) pour la fenêtre : c'est la borne mémoire que cette section annonce, et c'est la troncature qui la donne.
+
+Les effets algébriques de la couche 2 sont un cas particulier de cette même construction. Pour une signature d'opérations \(\Sigma\), la syntaxe d'un calcul effectueux de type de retour \(A\) est l'algèbre initiale \(\mu F\) pour \(F(X) = A \oplus \Sigma(X)\) — un arbre dont les feuilles sont des valeurs de type \(A\) et les nœuds internes des opérations de \(\Sigma\) à poursuivre. Un gestionnaire (/handler/) pour \(\Sigma\), ciblant un type de résultat \(R\), n'est rien d'autre qu'une \(F\)-algèbre sur \(R\) : une interprétation du retour (\(A \to R\)) et une interprétation de chaque opération (\(\Sigma(R) \to R\)), assemblées par la propriété universelle du coproduit. Exécuter un calcul avec ce gestionnaire est alors exactement le catamorphisme induit par cette algèbre — Plotkin et Power en donnent la formulation qui fonde cette lecture.
+
+Cette lecture a un domaine : les gestionnaires de K7PL sont bornés par les délimiteurs du chapitre 5, donc par une portée, et une portée n'est pas une opération algébrique. Ils relèvent à ce titre des effets /à portée/, dont la caractérisation passe par des théories algébriques paramétrées mêlant opérations à portée et opérations algébriques [cite:@matacheScopedEffectsScoped2025] — la correspondance entre monades et théories algébriques que cette notion suppose faisant elle-même l'objet d'un traitement général, par monades à arités et théorèmes de nerf [cite:@bergerMonadsAritiesTheir2012]. La lecture par \(F\)-algèbre n'en est pas invalidée : elle est paramétrée.
+
+C'est ce même schéma qui, au chapitre 6, permet l'/inlining/ statique des gestionnaires : un catamorphisme dont l'algèbre est connue à la compilation se spécialise sans reste, sans jamais recourir à une table de dispatch dynamique.
+
+** Adjonctions et enrichissement
+#+LATEX: \label{sec:c2-adjonctions-et-enrichissement}
+
+La fermeture de /C/, construite en §\ref{sec:c2-la-categorie-ambiante} comme l'adjonction \((- \otimes A) \dashv [A \multimap -]\), n'est pas qu'une clause de définition : c'est elle qui légitime, au chapitre 6, l'effacement du curryfiage à la compilation. La bijection naturelle de l'équation \ref{eq:adjonction-tenseur-hom} identifie, pour tout \(\Gamma\), une fonction de deux arguments \(\Gamma \otimes A \to B\) à sa forme curryfiée \(\Gamma \to [A \multimap B]\) — les deux dénotent le même élément, de part et d'autre d'un isomorphisme naturel, donc sémantiquement transparent au sens de P1. Un programme K7PL à plusieurs arguments admet ainsi indifféremment une présentation curryfiée, en fermetures successives, ou une présentation directe \((X \otimes Y \otimes Z) \to R\). La monomorphisation du chapitre 6, qui compile systématiquement vers la seconde, n'est donc pas une heuristique risquant d'altérer le sens du programme. C'est le choix, parmi les représentants d'une même classe d'isomorphisme, de celui qui n'alloue aucune fermeture intermédiaire, conformément à P3.
+
+Une seconde conséquence de la fermeture concerne la représentation des tableaux, et elle appelle d'abord une déclaration sur la classe à laquelle appartiennent les types de K7PL — car c'est cette classe, et non un artifice local, qui la rend possible.
+
+Les types de K7PL sont des /conteneurs indexés/. La notion syntaxiquement riche de famille strictement positive s'y réduit à une théorie noyau munie d'un **nombre fixe** de constructeurs de types, les conteneurs indexés en fournissant les formes normales, et cette réduction s'obtient sans étendre la théorie noyau [cite:@altenkirchIndexedContainers2009]. Trois conséquences en découlent, énoncées ici plutôt que redécouvertes au chapitre 3. D'abord la condition de clôture posée au chapitre 1 (§\ref{sec:c1-axiomatique-germinale}) cesse d'être une discipline de conception pour devenir un résultat, du moins sur le versant qui concerne la /grammaire des types/. Un nombre fixe de constructeurs suffit à toute famille strictement positive, de sorte qu'aucune extension n'a besoin d'en ajouter un.
+
+Le mot est fixé ici, ce chapitre lui donnant trois emplois : les /composantes du jugement/ sont les trois du chapitre 1, \(\Delta\), \(A\) et \(\mathcal{E}\) ; les /composantes du grade/ sont les coordonnées de son produit ; et les /constructeurs de la théorie noyau/ sont ce dont il est question dans cette phrase. Ce sont ces derniers dont le nombre est fixe, et cela ne dit rien du nombre des deux autres.
+
+Ensuite les familles indexées que le chapitre 3 emploie — ~Vector(n,T)~, les rangées à grade de présence, ~Incomplete A B~ dont la forme change à chaque remplissage — sont admises d'office, sans qu'aucune primitive ne soit ajoutée pour les accueillir. Enfin, et c'est ce dont le §\ref{sec:c2-algebres-coalgebres-et-points} a besoin, **les conteneurs préservent les plus petits et les plus grands points fixes** [cite:@damatoFormalisingInductiveCoinductive2024] : \(\mu F\) et \(\nu G\) restent l'un et l'autre dans la classe, et leur emboîtement aussi.
+
+Cela posé, un tableau de taille \(n\) sur \(T\) n'est pas un conteneur distinct des fonctions : c'est un élément de \(\text{Hom}(\text{Fin}(n), T)\), où \(\text{Fin}(n)\) est le coproduit de \(n\) copies de l'unité, \(\text{Fin}(n) = \underbrace{I \oplus \dots \oplus I}_{n}\). Puisque le foncteur \(\text{Hom}(-, T)\) transforme les coproduits en produits, et que les éléments globaux \(\text{Hom}(I,T)\) s'identifient aux valeurs de \(T\) elles-mêmes, il vient
+
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{eq:yoneda-tableau}
+\text{Hom}(\text{Fin}(n), T) \;\cong\; \text{Hom}(I,T)^n \;\cong\; T^n \;=\; \text{Vec}(n,T).
+\end{equation}
+#+END_EXPORT
+
+C'est cette lecture — un conteneur fini est déterminé par la façon dont il s'observe depuis un objet représentable, l'intuition centrale du lemme de Yoneda — que la théorie des types du chapitre 3 exploite pour encoder les contraintes de taille sans recourir à des types dépendants complets : ~Vec n T~ n'est pas un type primitif supplémentaire, c'est une notation pour \(\text{Hom}(\text{Fin}(n), T)\).
+
+La dernière structure que /C/ doit porter est la relation de précision \(\sqsubseteq\) annoncée au chapitre 1 (P2). Sur chaque catégorie d'artefacts syntaxiques — types, termes, contextes, effets, grades — \(\sqsubseteq\) est un /demi-treillis supérieur borné/, de joint \(\sqcup\) et d'élément minimal : \(A \sqsubseteq B\) se lit « \(A\) est une version au plus aussi précise que \(B\) ». Pourquoi cette structure et pas une plus riche ? Une version antérieure de ce texte déclarait un treillis distributif borné et l'engagement était plus lourd que l'usage. Le joint sert : aux branchements du chapitre 3, où il sur-approxime les effets d'un filtrage, et à la relation de sous-typage de l'annexe, dont le théorème \ref{thm:coherence_subsomption} montre qu'il conditionne la cohérence. La rencontre ne sert nulle part, et la distributivité n'est invoquée par aucune démonstration. Déclarer moins n'affaiblit donc rien~; cela retire seulement une dette de justification qu'aucun résultat ne réclamait.
+
+Il faut en revanche dire de quel /ordre/ il s'agit, car deux théories de l'information portent le même mot sans être le même ordre. Celle de Shannon ordonne par ce qu'on /sait/ — des relations d'équivalence sur le domaine, formant un treillis complet —, celle de Scott par ce qui est /défini/, au sens du progrès du calcul [cite:@huntReconcilingShannonScott2023]. La relation de précision compare des raffinements, donc ce qu'un type /garantit/ : elle est du côté de Shannon. La conséquence n'est pas verbale, les deux ordres n'ayant pas les mêmes propriétés de complétude — et il n'est pas indifférent que la composante de niveau du grade emploie ce même treillis, redécouvert plusieurs fois dans la littérature du flot d'information.
+
+K7PL étend cette relation aux morphismes de /C/ eux-mêmes et exige que la composition et le tenseur soient monotones : si \(f \sqsubseteq f'\) et \(g \sqsubseteq g'\), alors \(g \circ f \sqsubseteq g' \circ f'\) et \(f \otimes g \sqsubseteq f' \otimes g'\). C'est la structure d'une catégorie enrichie sur les préordres — /C/ ne perd rien de sa structure ordinaire, elle gagne un ordre compatible sur chaque ensemble de morphismes parallèles et sur ses objets.
+
+Cette exigence de monotonie ne pèse pas sur chaque primitive séparément : elle est portée par les types, au même titre que l'usage l'est par les grades. Le grade d'une liaison acquiert à cette fin une seconde composante, /discrète/ ou /monotone/, et une fonction dont le grade porte la seconde marque est astreinte à préserver \(\sqsubseteq\). Le procédé est celui de Datafun, qui suit la monotonie par les types en distinguant deux sortes de variables et deux flèches [cite:@DATAFUN]. K7PL n'en retient pas la présentation à deux zones, qu'il a écartée au chapitre 1 (§\ref{sec:c1-axiomatique-germinale}), mais l'idée que la monotonie est une propriété déclarée et vérifiée plutôt qu'une charge de preuve reconduite à chaque extension. Une construction nouvelle n'a donc pas à démontrer qu'elle respecte l'ordre : elle porte un grade qui l'y oblige, ou n'en porte pas et se voit refuser l'accès aux constructions qui l'exigent.
+
+Ce procédé n'est pas propre à la monotonie, et s'énonce une fois dans sa forme générale. Soit \((P, \preceq)\) une structure ordonnée. Une /modalité graduée sur \(P\)/ est une famille de comonades \(\{!_p\}_{p \in P}\) sur /C/, indexée par \(P\), telle que \(p \preceq q\) induise une coercion \(!_q A \to !_p A\) et que l'ordre gouverne la composition. Le grade d'une liaison porte alors une composante dans \(P\), et la contrainte que cette composante exprime est toujours de la même forme : une flèche graduée en \(p\) ne peut employer que ce qui est disponible en deçà de \(p\).
+
+Ce procédé a plus d'instances que le document ne le laisse voir, et les compter est ce qui mesure sa portée. Les voici toutes, avec la structure ordonnée que chacune prend pour paramètre.
+
+#+DESC: Chaque ligne est le même procédé, appliqué à une structure ordonnée différente. Rien n'y est propre à une modalité : ce qui change d'une ligne à l'autre est le paramètre, jamais la construction.
+#+CAPTION: Les instances du procédé de gradation, et la structure ordonnée de chacune
+#+NAME: tab:c2-instances-gradation
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.0}Z{1.0} :center nil
+| Modalité | Structure ordonnée | Ce que la contrainte dit |
+|----------+--------------------+--------------------------|
+| usage | le semi-anneau des grades | combien de fois une ressource est employée |
+| monotonie | l'ordre à deux points | si une flèche respecte l'ordre de son argument |
+| confidentialité | le treillis des niveaux | ce qu'un observateur d'un niveau peut distinguer |
+| budget | les conaturels sous l'ordre inverse | ce qu'un calcul ne dépassera pas |
+| temps, délai | l'ordre des instants | qu'une ressource sera disponible au pas suivant |
+| temps, permanence | le même, en permanence | qu'elle l'est à tout instant |
+| temps, éventualité | le même, sans borne | qu'elle le sera sans qu'on dise quand |
+| localité | le demi-treillis des localisations | où une valeur réside |
+| présence | le monoïde des champs | si un champ d'un enregistrement est là |
+
+Neuf instances, et aucune n'a demandé de mécanisme propre. [rmq:Neuf applications d'une construction écrite une fois. C'est la mesure de ce que le procédé vaut, et elle ne se lisait nulle part.] Deux données complètent le tableau sans être des modalités, et il faut dire pourquoi : le /mode/ — une algèbre, un idéal de contraction, un booléen d'affaiblissement — fixe les règles structurelles admissibles plutôt qu'une contrainte sur les liaisons ; et la /zone/ y ajoute un ordre propre. Ce sont les paramètres du procédé, non ses produits.
+
+Ce que ce tableau établit n'est pas une économie d'écriture, c'est la /portée/ de la condition de clôture. Une extension qui réclamerait une dixième modalité ne demanderait rien de neuf — il lui suffirait de nommer sa structure ordonnée. C'est ce que la distribution a fait, et c'est pourquoi elle a pu entrer sans quatrième place dans le jugement.
+
+Deux instances suffisent à montrer que la forme est la bonne. La monotonie est la modalité sur l'ordre à deux points \(\{\text{discret} \prec \text{monotone}\}\) : une flèche graduée /monotone/ ne peut employer ses arguments que d'une manière qui préserve \(\sqsubseteq\), et la coercion descendante dit qu'une fonction monotone s'emploie partout où une fonction quelconque est admise. La /confidentialité/ est la modalité sur un treillis de niveaux \((\mathcal{L}, \leq)\) : une flèche graduée en \(\ell\) ne peut employer que des valeurs de niveau au plus \(\ell\), et la coercion monte l'information sans jamais la redescendre. Le mécanisme est identique, seule change la structure ordonnée sur laquelle il opère [cite:@marshallGradedModalTypes2023] — de sorte que la confidentialité n'ajoute pas un axe au langage mais instancie celui que la monotonie a ouvert.
+
+Un dispositif reste à mentionner, sans lequel cette modalité serait impraticable et avec lequel elle est fragile. Un programme utile doit parfois /abaisser/ délibérément un niveau — vérifier un mot de passe consiste à révéler un bit d'une valeur secrète, et le refuser rendrait le langage inutilisable. Ce mécanisme, la /déclassification/, coerce le niveau vers le bas et sert d'échappatoire au régime ordinaire. Son risque propre porte un nom : l'/attaque par blanchiment/, où l'échappatoire est employée pour faire sortir davantage que ce qu'elle était censée libérer, une valeur secrète transitant par la fonction déclassifiante sous un déguisement quelconque [cite:@sabelfeldModelDelimitedInformation2004]. Il en résulte que spécifier la déclassification demande deux choses et non une : une règle qui l'autorise, et une garantie de bout en bout qui borne ce qu'elle peut libérer — la /divulgation délimitée/, dont il est établi qu'un système de types l'impose. Une règle sans cette garantie rendrait le grade de confidentialité contournable par construction, et ce document ne donne pour l'instant ni l'une ni l'autre. Il donne les deux ici.
+
+La règle procède par /échappatoires nommées/ plutôt que par une permission générale de déclassifier. Une déclaration fixe un ensemble fini \(\mathcal{X}\) d'expressions --- les échappatoires --- dont chacune énonce ce qui est autorisé à sortir : le résultat de la comparaison d'un mot de passe, la somme d'une colonne, le rang d'un enchérisseur. La règle ne s'applique qu'à elles :
+
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{eq:regle-declassify}
+\frac{\;\Delta \vdash_{\mathcal{G}} e : !_{\ell}\,A \qquad e \in \mathcal{X} \qquad \ell' \leq \ell\;}{\;\Delta \vdash_{\mathcal{G}} \mathbf{declassify}_{\ell'}(e) : !_{\ell'}\,A\;}
+\end{equation}
+#+END_EXPORT
+
+Ce que cette règle laisse ouvert est ce qu'une garantie doit fermer : rien n'y interdit qu'une valeur secrète quelconque transite par une échappatoire sous un déguisement, et l'échappatoire libérerait alors bien plus que ce qu'elle nomme. La garantie qui l'écarte s'énonce sur les exécutions plutôt que sur les dérivations.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[divulgation délimitée][statut=proposition]\label{thm:divulgation_delimitee}
+\begin{statement}[Une échappatoire ne libère que ce qu'elle nomme]
+Soit $P$ un programme bien typé dont les déclassifications portent sur l'ensemble d'échappatoires $\mathcal{X}$. Alors pour tout niveau $\ell$ et tous états initiaux $s_1, s_2$ qui coïncident sur ce que l'observateur de niveau $\ell$ voit \emph{et sur la valeur de chaque expression de $\mathcal{X}$}, les exécutions $P(s_1)$ et $P(s_2)$ sont indiscernables à ce niveau.
+\end{statement}
+
+\begin{proofsketch}
+La quantification est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $\ell$ produisent des sorties indiscernables --- ce serait la non-interférence, que la déclassification viole par construction --- mais que deux états qui s'accordent \emph{en outre} sur les échappatoires le fassent. La différence mesure ce que $\mathcal{X}$ libère, et rien de plus~: si une exécution divulguait une information qu'aucune expression de $\mathcal{X}$ ne détermine, il existerait deux états s'accordant sur toutes ces expressions et néanmoins distinguables, ce que l'énoncé interdit.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Le mode de défaillance que cette formulation ferme est celui contre lequel elle a été construite. [rmq:C'est la quantification, et elle seule, qui distingue cet énoncé de la non-interférence.] Dans l'attaque par blanchiment, on fait transiter par une échappatoire une valeur qu'elle n'était pas censée révéler — comparer un secret non pas au mot de passe attendu mais à une valeur choisie par l'attaquant. Un tel programme échoue à l'énoncé, puisque deux états s'accordant sur la comparaison légitime peuvent différer sur celle-là. S'il tient, le grade de confidentialité reste une garantie de bout en bout malgré l'échappatoire. S'il tombe, il devient contournable par construction, et la déclassification doit être retirée du langage ou confinée à un mécanisme hors du système de types.
+
+Cet énoncé est celui de la divulgation délimitée [cite:@sabelfeldModelDelimitedInformation2004], transposé au régime gradué de ce chapitre. Ce document en reprend la formulation et n'en conduit pas la preuve pour K7PL. Il note en revanche que la voie est la même que celle du théorème suivant, la quantification sur les états s'obtenant par la relation qu'une lecture paramétrique fournit.
+
+Deux conséquences en découlent, dont la seconde est celle qui compte. La première est que \(\mathcal{R}\) n'est pas un semi-anneau plat portant des composantes hétéroclites, mais un produit de structures ordonnées dont chacune contribue sa modalité : l'usage sur \(\mathbb{N}_\infty\), la monotonie sur deux points, la confidentialité sur \(\mathcal{L}\). La seconde est que ce dispositif a une /duale/ dont le langage a également besoin. La confidentialité contraint ce qu'une flèche peut /lire/, et vit donc du côté du contexte, où les coeffets se posent ; l'/intégrité/ contraint ce qu'elle peut /écrire/, et vit du côté des effets [cite:@marshallGradedModalTypes2023]. Les deux côtés de l'adjonction du chapitre 1 portent ainsi les deux propriétés. C'est du côté de l'intégrité que se dit ce que la frontière de confiance du chapitre 5 (§\ref{sec:c5-mise-en-pratique}) laisse aujourd'hui indéterminé. Une macro exécutée avant vérification, un import dont l'origine n'est pas attestée, produisent des valeurs de basse intégrité, et rien pour l'instant ne les distingue des autres.
+
+Deux autres instances de ce même procédé achèvent de montrer qu'il est le bon, et toutes deux touchent au coût. Le /budget/ que le chapitre 1 loge dans le grade est une modalité graduée sur un treillis de ressources, où la composition séquentielle et le branchement au pire cas sont deux opérations distinctes — l'une additionne, l'autre prend le maximum — et où \(!_r A\) se lit « un \(A\) réalisable sous le budget \(r\) » [cite:@mannucciResourceBoundedTypeTheory2025]. Sa formulation naturelle est celle d'un /intérieur gradué/, donc d'une comonade, ce qui confirme qu'elle appartient au côté du contexte et non à celui des effets.
+
+Une seconde lecture du même budget existe, dénotationnelle plutôt que modale, et elle vaut d'être signalée pour ce qu'elle prouve de faisabilité. Le coût d'un programme se ramène d'abord par extraction syntaxique à une /récurrence/, avec un théorème de borne : tout programme source est majoré par la récurrence extraite. Le langage des récurrences reçoit ensuite une sémantique dénotationnelle qui abstrait les types de données [cite:@dannerDenotationalSemanticsFoundation2022;@cutlerDenotationalRecurrenceExtraction2020]. Le budget de ce document n'est donc pas seul de son espèce : ce qu'il fait porter au type, cette voie le fait porter à une dénotation, et les deux se rejoignent sur le point qui compte — une borne établie sur la /forme/ du programme plutôt que mesurée sur son exécution.
+
+Le /temps/ est la quatrième : une modalité sur l'ordre linéaire des instants, dont le chapitre 4 (§\ref{sec:c4-echelle-du-systeme}) tire les calendriers de la couche 2. Quatre structures ordonnées, quatre modalités, un seul procédé — c'est la forme que prend ici la condition de clôture.
+
+Que le grade soit un produit n'est pas un pari de ce document. Composer plusieurs structures de gradation en munissant le produit de l'ordre /point par point/ est une construction standard des systèmes gradués, employée précisément pour combiner des analyses indépendantes en une seule [cite:@liepeltSameCoeffectDifferent2026]. Les lois de comonade graduée y passent parce que chaque coordonnée les satisfait et que les opérations sont définies coordonnée par coordonnée. Ce qui vaut ici du grade vaut de l'algèbre des effets, dont le chapitre 1 (§\ref{sec:c1-axiomatique-germinale}) fait un produit par le même geste.
+
+Une conséquence en découle, et elle porte sur ce qu'un développeur peut écrire. Un produit de structures ordonnées est plus /large/ que l'ensemble des grades qu'un programme peut effectivement former, et pour une raison de fond : les coordonnées ne croissent pas au même rythme. La contraction additionne dans le facteur d'usage tout en saturant dans un facteur borné, de sorte qu'un grade dont la première composante s'est incrémentée sans que la seconde ait saturé ne s'obtient ni par usage de variable, ni par contraction [cite:@liepeltSameCoeffectDifferent2026]. De tels grades existent dans le produit sans être /dérivables/.
+
+La distinction entre le domaine des grades et ceux que la dérivation habite n'est donc pas un détail de présentation, et deux conséquences pratiques en découlent. Une annotation écrite à la main peut être bien formée sans correspondre à aucun programme, et le vérificateur doit le signaler comme tel plutôt que d'échouer plus loin sur une unification qui n'aboutira pas. Et l'approximation par l'ordre — remplacer un grade par un majorant — est parfois le seul moyen d'atteindre une région du produit, ce qui rattache la question au joint des branchements du chapitre 3 (§\ref{sec:c3-le-systeme-gradue}) : ce que ce joint sur-approxime, il le fait pour la même raison.
+
+Ce second axe n'est pas gratuit et son bénéfice principal est ailleurs qu'ici. Une fonction monotone d'un type dans lui-même admet un plus petit point fixe dès que ce type possède un plus petit élément et une borne supérieure — un /semi-treillis/ —, et ce point fixe se calcule par itération depuis le plus petit élément. Trois conditions le rendent effectif : le plus petit élément, la décidabilité de l'égalité pour détecter l'arrêt, et la hauteur finie du type pour garantir la terminaison [cite:@DATAFUN]. Cette dernière est la position même de K7PL sur la terminaison (P3), appliquée à un opérateur que le langage ne possède pas encore ; Le §\ref{sec:c4-echelle-du-systeme} en tire ce qu'une extension déductive y gagnerait ; il reste à donner ici l'opérateur lui-même.
+
+Sa règle de typage se lit sur le grade et non sur la forme du terme, ce qui est la manière propre à ce langage :
+
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{eq:regle-fix}
+\frac{\;\Delta \vdash_{\mathcal{G}} f : S \to_{\text{mon}} S \qquad S \in \mathsf{Trellis}_{\text{fin}}\;}{\;\Delta \vdash_{\mathcal{G}} \mathbf{fix}\;f : S \mid \mathcal{E} = \emptyset\;}
+\end{equation}
+#+END_EXPORT
+
+où \(\to_{\text{mon}}\) note une flèche dont le grade porte la marque monotone, et où \(\mathsf{Trellis}_{\text{fin}}\) rassemble les types satisfaisant les trois conditions nommées ci-dessus. K7PL ne les exprime pas par un mécanisme de classes, qu'il ne possède pas : ce sont des conditions /syntaxiques/ sur la forme du type, décidables à la lecture de sa définition. Un type y appartient s'il est un ensemble fini sur un type d'égalité décidable, ou un produit fini de tels types, ou une somme finie --- l'élément neutre étant l'ensemble vide, le joint l'union, et la hauteur le cardinal du plus grand support. Cette restriction est plus étroite que la condition sémantique, et c'est délibéré : elle est vérifiable sans preuve, à la manière dont le §\ref{sec:c2-algebres-coalgebres-et-points} approche la bonne fondation par un indice de taille.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[terminaison du point fixe déductif]\label{thm:terminaison_lfp}
+\begin{statement}[Un troisième critère de terminaison, porté par le type]
+Soit $S \in \mathsf{Trellis}_{\text{fin}}$ de hauteur $h$, et $f : S \to_{\text{mon}} S$. Alors la suite $x_0 = \bot$, $x_{n+1} = f(x_n)$ est croissante, stationnaire en au plus $h$ étapes, et sa limite est le plus petit point fixe de $f$. L'opérateur $\mathbf{fix}$ est donc total sur $\mathsf{Trellis}_{\text{fin}}$. La borne $h$ dépend du type $S$, ce qui fait de cet énoncé un cas de gradation /indexée/ au sens du chapitre 1 (§\ref{sec:c1-axiomatique-germinale}). Le grade d'effet de $\mathbf{fix}\,f$ n'est pas une constante mais une fonction de l'indice que porte $S$.
+\end{statement}
+
+\begin{proofsketch}
+La croissance s'obtient par récurrence~: $x_0 = \bot \sqsubseteq x_1$ puisque $\bot$ est minimal, et si $x_n \sqsubseteq x_{n+1}$ alors $f(x_n) \sqsubseteq f(x_{n+1})$ par monotonie de $f$ --- c'est ici, et seulement ici, que la marque du grade sert~: elle dispense de vérifier la monotonie sur le terme, puisque le typage l'a déjà exigée. Une chaîne strictement croissante dans un ordre de hauteur $h$ ne peut compter plus de $h$ pas~; la suite est donc stationnaire au plus tard au rang $h$, et l'égalité décidable de $S$ détecte ce rang. La valeur atteinte est un point fixe par stationnarité, et le plus petit par le théorème de Knaster et Tarski, tout point fixe majorant la chaîne issue de $\bot$.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+C'est le troisième critère de terminaison de ce document, et les trois sont de même nature. [rmq:Trois critères, un seul geste. La garantie se lit sur le type, jamais sur la forme du terme.] Le pli dépendamment typé termine parce que son type porte un indice décroissant, la coinduction produit parce que son type porte une taille, et ~fix~ termine parce que son type est de hauteur finie. Aucun des trois n'inspecte la syntaxe du terme, ce qui est la position que P3 énonce. S'il tient, l'opérateur n'affaiblit pas la garantie de terminaison de la couche 3 mais l'étend à un schéma qu'elle n'atteignait pas ; s'il tombe, le point fixe déductif doit sortir du langage, et l'extension déductive du chapitre 4 avec lui.
+
+Deux réserves bornent l'énoncé. La borne \(h\) est celle du type et non du calcul : une itération peut converger bien plus tôt, et rien n'est dit du nombre d'itérations effectif — une borne serrée relèverait de la strate des obligations, comme toute proposition sur un résultat. Et l'hypothèse de monotonie porte plus qu'il n'y paraît : une règle qui conclut de l'absence d'un fait — la négation stratifiée du chapitre 7 (§\ref{sec:c7-etude-de-cas-iii}) — n'est pas monotone, et le point fixe qui la contiendrait ne relèverait pas de cet énoncé.[fn::La stratification est le remède connu. Ce document ne la traite pas, et la restriction est donc réelle plutôt que théorique.] Elle est nommée ici, où elle borne le théorème, plutôt que cinq chapitres plus loin, où elle ne ferait que le constater.
+
+Cette monotonie a une conséquence directe, la garantie de gradualité statique : si \(\Delta' \sqsubseteq \Delta\) et \(e' \sqsubseteq e\), toute dérivation de \(\Delta \vdash e : A\) se projette en une dérivation de \(\Delta' \vdash e' : A'\) pour un type \(A' \sqsubseteq A\). L'esquisse en est immédiate : la dérivation de \(\Delta \vdash e : A\) s'obtient par composition et tensorisation de règles élémentaires. Remplacer, dans cette composition, chaque prémisse par une prémisse \(\sqsubseteq\)-inférieure produit, par monotonie, une composition encore valide, dont le type résultant ne peut qu'avoir perdu en précision. Dégrader une entrée ne casse donc jamais le typage : elle ne fait que dégrader, de façon prévisible, ce qui en dépend.
+
+Cette structure ne referme pas seule la construction du chapitre : le §\ref{sec:c2-le-systeme-de-raffinement} en montre l'origine. Le sous-typage modal \(\text{Lin} <: \text{Aff} <: \text{Unr}\) du chapitre 1 est le pendant exact — mais inversé — de la restriction de \(\sqsubseteq\) à la seule dimension des modalités d'usage. Une modalité est d'autant plus précise qu'elle contraint davantage l'usage, de sorte que \(\text{Unr} \sqsubseteq \text{Aff} \sqsubseteq \text{Lin}\) exprime, dans le vocabulaire de la précision, ce que \(\text{Lin} <: \text{Aff} <: \text{Unr}\) exprime dans celui du sous-typage. Les foncteurs d'inclusion du §\ref{sec:c2-la-comonade-exponentielle-et} en réalisent catégoriquement la dualité sur les fragments eux-mêmes. Types dépendants, raffinements, sessions et existentielles, dont le chapitre 3 tire parti de cette même relation sur chacune de leurs propres dimensions, ne feront qu'instancier, pour un artefact syntaxique après l'autre, ce même treillis.
+
+** Système de raffinement
+#+LATEX: \label{sec:c2-le-systeme-de-raffinement}
+
+Les quatre sections précédentes ont construit des objets qui, pris un à un, appartiennent au corpus de la sémantique de la logique linéaire. Prises ensemble, elles font autre chose, et c'est ce que cette section établit : elles sont les constituants d'un unique foncteur, dont trois dispositifs que ce document obtenait séparément ne sont que trois lectures.
+
+Le cadre est celui des systèmes de raffinement de types [cite:@melliesFunctorsAreType2015]. On y part d'un foncteur \(p : \mathcal{D} \to \mathcal{T}\), où \(\mathcal{T}\) est une catégorie de /termes sous-jacents/ et \(\mathcal{D}\) une catégorie de /dérivations/ au-dessus d'eux. Les objets de \(\mathcal{D}\) que \(p\) envoie sur un même objet de \(\mathcal{T}\) en sont les /raffinements/. Ils forment la /fibre/ au-dessus de cet objet, et les morphismes de \(\mathcal{D}\) que \(p\) envoie sur une identité y sont les morphismes /verticaux/ — ceux qui ne changent rien au terme et tout à ce qu'on en sait.
+
+Ce geste — indexer une famille par une base et raisonner fibre par fibre — est employé trois fois dans ce document, et la parenté vaut d'être signalée puisqu'elle n'est pas une coïncidence. Les fibres de ce système de raffinement en sont le premier emploi ; la famille d'effacements par niveau de sécurité, construite ci-après, le deuxième ; et la gradation indexée des effets, que le chapitre 1 (§\ref{sec:c1-axiomatique-germinale}) vient de poser, le troisième. Cette dernière notion est elle-même inspirée de la vue fibrée et destinée à donner la sémantique d'un système à raffinements [cite:@kuraCategoryTheoreticFrameworkDependent2026] — c'est-à-dire de ce que le présent théorème établit être K7PL.
+
+Ce que K7PL possède déjà est ce triplet. La catégorie des termes est celle du métalangage construit au chapitre 4 (§\ref{sec:c4-le-calcul-de-processus}) ; celle des dérivations est faite des jugements de K7PL, avec leurs composantes \(\mathcal{G}\) et \(\mathcal{E}\) ; et le foncteur est la traduction \(\llbracket \cdot \rrbracket\), qui envoie une dérivation sur un processus sans emporter ni les grades ni les effets. C'est cette dernière propriété — le foncteur oublie ce que la Phase 8 efface — qui fait de l'ensemble un système de raffinement et non une simple traduction.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[structure de raffinement]\label{thm:raffinement}
+\begin{statement}[Trois dispositifs, une seule structure]
+Soit $\mathcal{T}$ la catégorie du métalangage, $\mathcal{D}$ celle des dérivations de K7PL, et $\llbracket \cdot \rrbracket$ la traduction du théorème~\ref{thm:traduction_metalangage}. Alors $(\mathcal{D}, \mathcal{T}, \llbracket \cdot \rrbracket)$ est un système de raffinement de types, et il s'ensuit que~:
+
+\emph{(i)} l'effacement de la Phase~8 est l'action de $\llbracket \cdot \rrbracket$ sur les objets~;
+
+\emph{(ii)} la non-interférence du chapitre~1 (\S{}\ref{sec:c1-axiomatique-germinale}) est l'énoncé que $\mathcal{T}$ ne distingue pas deux dérivations de même image~;
+
+\emph{(iii)} la relation de précision $\sqsubseteq$, restreinte aux objets d'une même fibre, est l'ordre de cette fibre, et le sous-typage modal $\mathrm{Lin} <: \mathrm{Aff} <: \mathrm{Unr}$ en est la restriction à la dimension d'usage.
+\end{statement}
+
+\begin{proofsketch}
+Que $\llbracket \cdot \rrbracket$ soit un foncteur est le contenu du théorème~\ref{thm:traduction_metalangage}~: il envoie une composition de dérivations sur la coupure correspondante et l'identité sur l'identité. La fibre au-dessus d'un type $S$ du métalangage est faite des types de K7PL d'image $S$~; deux tels types ne peuvent différer que par ce que le foncteur n'emporte pas, c'est-à-dire par leurs grades et par les effets latents qu'ils portent. Or c'est précisément sur ces dimensions que le §\ref{sec:c2-adjonctions-et-enrichissement} définit $\sqsubseteq$, et l'ordre annoncé y est donc l'ordre de la fibre plutôt qu'une structure ajoutée. Les morphismes verticaux sont les foncteurs d'inclusion du §\ref{sec:c2-la-comonade-exponentielle-et}~: passer de $\mathrm{Lin}\,T$ à $\mathrm{Unr}\,T$ ne change pas le terme, seulement ce qu'on s'autorise à en faire, et l'inclusion se projette donc sur une identité.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+S'il tient, il dispense de poser ce que le §\ref{sec:c2-adjonctions-et-enrichissement} présentait comme un engagement structurel. [rmq:Une seconde justification du sous-typage modal, indépendante de la stratification et plus élémentaire qu'elle.] Sur la part qui compare des objets d'une même fibre, l'ordre de précision cesse d'être un engagement. Il est ce qu'un système de raffinement possède par construction, et le sous-typage modal, présenté au chapitre 1 comme une conséquence de la stratification, en reçoit une seconde justification.
+
+Il ne dispense pas de tout poser pour autant. L'enrichissement de K7PL est plus fort que l'ordre des fibres : il étend \(\sqsubseteq\) à tous les morphismes de /C/ et exige que la composition et le tenseur soient monotones, ce qui est un énoncé sur la catégorie entière et non sur ses seules fibres. Cette part-là demeure un engagement. Et s'il tombe — si la traduction \(\llbracket \cdot \rrbracket\) n'était pas un foncteur, ou emportait ce qu'elle est censée oublier —, les trois lectures se disjoignent. L'effacement, la non-interférence et l'ordre de précision redeviennent trois dispositifs à établir séparément.[fn::L'ensemble repose sur le théorème \ref{thm:traduction_metalangage}, dont l'induction n'est qu'esquissée. Tant qu'elle n'est pas conduite, ce théorème hérite de la même réserve.]
+
+La clause du grade fini demande un mot, car elle a été choisie contre une autre qui paraissait plus simple. Traduire une liaison de grade \(n\) par \(n\) canaux distincts eût été immédiat, et c'est ce que le premier postulat interdit. Le produit tensoriel modélise la coexistence de ressources /disjointes/, de sorte que \(n\) canaux affirmeraient \(n\) régions séparées là où la source ne décrit qu'une ressource touchée \(n\) fois. La traduction se serait trompée sur la topologie mémoire, et l'aurait fait dans le sens qui compte. La ré-invocation séquentielle dit l'inverse et dit vrai : une ressource, une région, \(n\) emplois ordonnés. Elle satisfait du même coup les deux autres postulats que la question engageait — l'allocation reste en \(O(1)\) et statiquement bornée, et l'ordre des emplois est fixé par construction plutôt que soumis à un choix qu'il faudrait journaliser. Le grade demeure enfin du côté de ce que le terme /exige/, sans migrer dans la forme de ce qu'il /est/, ce que la partition du jugement germinal réclame.
+
+Une généralisation s'impose, que la lecture qui précède rend naturelle et que le chapitre 1 réclamait sans savoir la formuler. L'effacement de la Phase 8 est binaire : ce qui appartient à la compilation disparaît, ce qui appartient à l'exécution demeure. C'est un treillis à deux points, et rien n'oblige à s'y tenir. Si l'on se donne un treillis de niveaux \((\mathcal{L}, \leq)\) — celui-là même sur lequel le §\ref{sec:c2-adjonctions-et-enrichissement} fait porter la modalité de confidentialité —, le foncteur unique devient une /famille indexée/ \(\{\llbracket \cdot \rrbracket_\ell\}_{\ell \in \mathcal{L}}\), celui d'indice \(\ell\) retirant tout ce qui est gradué au-dessus de \(\ell\) et conservant le reste. La distinction de phase en est l'instance à deux points, la compilation étant le niveau haut et l'exécution le niveau bas.
+
+Ce déplacement a une conséquence qui vaut d'être dite, car elle change ce qu'un énoncé de sécurité doit prouver. La non-interférence cesse d'être une propriété unique pour devenir une famille : pour chaque \(\ell\), deux dérivations de même image sous \(\llbracket \cdot \rrbracket_\ell\) sont indiscernables par un observateur de niveau \(\ell\). L'effacement de la Phase 8 en est le cas où \(\mathcal{L}\) n'a que deux points, et la confidentialité le cas où il en a davantage — un seul mécanisme, deux emplois. Ce document ne conduit pas la preuve de cette famille d'énoncés ; il en fixe la forme, qui est la moitié du travail et celle qui décide de l'autre.
+
+Il désigne en revanche la voie, car trois sont disponibles et leur coût diffère. La /paramétricité/ est celle qui réemploie le plus de ce qui précède. Elle produit des théorèmes utiles sur les programmes à partir de leurs seuls types, sans rien devoir à leur contenu. Une preuve de non-interférence en a été tirée pour une variante du calcul de dépendance auquel le chapitre 1 (§\ref{sec:c1-postulats}) rattache la confidentialité, par une construction modulaire s'appuyant sur l'encodage de l'abstraction de données au moyen de types /existentiels/ [cite:@algehedSimpleNoninterferenceParametricity2019].
+
+K7PL possède ces existentielles et en fait déjà le moyen de cacher un témoin (chapitre 3, §\ref{sec:c3-structures-ouvertes-effets-et}). Il ne manque que le lien : la paramétricité transforme l'abstraction en indiscernabilité, et l'indiscernabilité /est/ la non-interférence. Un énoncé obtenu de cette façon serait le quatrième de même espèce dans ce document, après la terminaison, la productivité et la monotonie — tous portés par les types, aucun par une inspection du terme.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[non-interférence graduée, fragment séquentiel]\label{thm:non_interference}
+\begin{statement}[Une famille d'énoncés, un par niveau]
+Pour tout niveau $\ell \in \mathcal{L}$ et toutes dérivations $d_1, d_2$ de même image sous $\llbracket \cdot \rrbracket_\ell$, les termes sous-jacents sont observationnellement équivalents pour un observateur de niveau $\ell$. En particulier, aucune valeur graduée en $\ell' \not\leq \ell$ n'influence ce qu'un tel observateur distingue.
+\end{statement}
+
+\begin{proofsketch}
+La voie est celle de la paramétricité, et l'argument tient en trois pas. Le premier consiste à lire la modalité $!_\ell$ comme une abstraction de données~: une valeur graduée en $\ell$ est une valeur dont la représentation est cachée à qui n'atteint pas $\ell$, ce qui s'encode par un type existentiel. Le deuxième pas est la paramétricité elle-même, qui associe à chaque type une relation et garantit que tout terme bien typé préserve cette relation, sans que le contenu du terme intervienne. Le troisième est le choix de la relation~: on prend, à chaque niveau $\ell$, l'identité sur ce qui est gradué en deçà de $\ell$ et la relation totale au-delà. Un terme bien typé préservant cette relation ne peut alors faire dépendre sa partie basse de sa partie haute, ce qui est l'énoncé.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Cet énoncé porte sur le fragment séquentiel, et il faut dire pourquoi il ne s'étend pas de lui-même. /La non-interférence séquentielle ne survit pas à la concurrence./ Deux calculs qui ne se distinguent par aucune valeur peuvent se distinguer par le /moment/ où ils rendent la main : un secret qui gouverne la durée d'une branche gouverne l'ordre dans lequel l'ordonnanceur sert les autres, et cet ordre est observable. L'ordonnanceur entre donc dans le modèle d'attaquant, ce qu'un énoncé sur les seules valeurs ne peut pas voir. [rmq:Le secret ne fuit pas par ce qui est calculé mais par quand cela l'est. Aucune relation sur les valeurs ne l'attrape.]
+
+La notion qui lui succède sous concurrence est le /déterminisme observationnel/ : pour un niveau donné, deux entrelacements d'un même ensemble de calculs bien typés ont la même projection à ce niveau. Elle est strictement plus forte, et elle n'est pas un corollaire de la précédente.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[déterminisme observationnel][statut=conjecture]\label{thm:determinisme_observationnel}
+\begin{statement}[L'entrelacement ne dit rien de plus que les valeurs]
+Soit $\mathcal{S}$ une politique d'ordonnancement, et $\mathcal{P}$ un
+multi-ensemble de calculs bien typés. Sous l'hypothèse $\mathcal{D}_{\mathcal{S}}$
+--- la politique ne consulte aucune valeur de niveau $\ell' \not\leq \ell$ ---,
+deux exécutions de $\mathcal{P}$ qui diffèrent par le seul entrelacement ont la
+même projection $\pi_\ell(\tau)$ de leur trace.
+\end{statement}
+\begin{proofsketch}
+Non conduite. La voie est la bisimulation~: montrer que la relation « même
+projection au niveau $\ell$ » est préservée par chaque pas de réduction, pour
+chacune des cinq règles globales de l'annexe. Les quatre premières s'y prêtent,
+leur effet sur la trace étant local. \textsc{Guard} est le cas qui résiste,
+puisqu'il choisit une branche en fonction d'un message dont le niveau peut
+excéder $\ell$.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+L'hypothèse \(\mathcal{D}_{\mathcal{S}}\) est nommée plutôt que supposée, et c'est délibéré. Le déterminisme observationnel sous ordonnanceur quelconque est un problème ouvert, et le promettre sans hypothèse serait promettre ce qu'on ne sait pas tenir. Ce document énonce donc la propriété /sous une politique déclarée/, exactement comme il conditionne le rejeu binaire à un environnement reproductible — deux hypothèses de même nature, portées par l'exécution et non par le langage, et nommées toutes deux.
+
+Ce que cela coûte est inscrit : la divulgation délimitée et la non-interférence, qui étaient deux théorèmes du fragment séquentiel, ne couvrent plus la couche 2 ni la couche 1. Ce que cela gagne est qu'aucune des deux ne prétend les couvrir.
+
+Deux autres voies étaient disponibles — relations logiques mécanisées, normalisation — et rien n'oblige à celle-ci sinon l'économie. [rmq:Le quatrième énoncé de la même espèce, et non un raisonnement d'une autre nature greffé sur les trois premiers.] La paramétricité tire ses théorèmes des seuls types, ce qui est la position que ce document tient pour la terminaison, la productivité et la monotonie. Elle emploie en outre des existentielles que K7PL possède, et elle a été conduite sur une variante du calcul de dépendance auquel le chapitre 1 rattache la confidentialité [cite:@algehedSimpleNoninterferenceParametricity2019].
+
+L'esquisse ne conduit pas la preuve, et trois points y résisteraient. Le choix de la relation doit être vérifié compatible avec le produit du grade (§\ref{sec:c2-adjonctions-et-enrichissement}) : une relation par facteur ne donne pas automatiquement une relation sur le produit. Les effets, qui ont désormais une image dans le métalangage (chapitre 4, §\ref{sec:c4-le-calcul-de-processus}), demandent que la relation s'étende aux communications sur les canaux distingués, faute de quoi l'énoncé ne couvrirait pas les fuites par le temps. Et la déclassification en est une exception délibérée, dont le théorème \ref{thm:divulgation_delimitee} donne la mesure : l'énoncé ci-dessus vaut des programmes sans échappatoire, celui-là des programmes qui en ont. S'il tient, la non-interférence de K7PL devient une famille indexée par le treillis, dont l'effacement de la Phase 8 est l'instance à deux points. S'il tombe, chaque niveau de confidentialité demande son propre argument, et la gradation ne fait plus l'économie qu'elle promet.
+
+Une conséquence de méthode se lit sur cette structure, et elle vaut pour la suite du document. Les raffinements de valeur du chapitre 3 (§\ref{sec:c3-les-contraintes-de-valeur}) — un entier dont on sait qu'il est positif, un tableau dont on sait la taille — sont l'instance éponyme de ce cadre, et non un mécanisme parallèle : ils habitent les mêmes fibres, au-dessus des mêmes termes. Il en va de même des bornes de coût que le chapitre 1 loge dans la strate des obligations. Une proposition sur un résultat est un raffinement au sens strict, et la troisième strate du jugement germinal est cette fibre lue comme un lieu où déposer des propositions. Le langage n'a donc pas trois façons de dire quelque chose de plus sur un terme — il en a une, employée à trois hauteurs.
+
+** Six schémas de métathéorie
+#+LATEX: \label{sec:c2-six-schemas-de-metatheorie}
+
+Six énoncés reviennent dans ce document sous des habillages différents, et chacun est démontré ici une fois pour toutes. Ce ne sont pas des théorèmes sur K7PL mais sur la forme de ses démonstrations : les chapitres qui suivent les instancient plutôt qu'ils ne les refont. [rmq:Écrire le schéma avant ses instances évite d'écrire trois fois la même récurrence, et rend visible ce qu'elles partagent.]
+
+Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le désucrage d'une forme de surface, la traduction vers le métalangage et l'abaissement vers la représentation intermédiaire ont ceci de commun qu'ils sont définis par récurrence sur la structure des termes et qu'ils doivent commuter avec la substitution — faute de quoi le sens dépendrait de l'ordre dans lequel on transforme et on substitue.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[schéma de commutation]\label{thm:schema_commutation}
+\begin{statement}[Transformer puis substituer, ou l'inverse]
+Soit $T$ une transformation définie par récurrence sur la structure des termes, qui n'introduit
+aucune variable libre et respecte les liaisons. Alors, à renommage près des variables liées,
+\[ T \circ \text{subst} \;=\; \text{subst} \circ T. \]
+
+Le schéma est paramétré par trois données, et les nommer dit ce qu'une instance
+doit fournir~: le \emph{langage objet} sur lequel $T$ opère~; les \emph{règles de
+construction} par lesquelles la récurrence procède~; et la \emph{discipline de
+liaison}, qui fixe l'ordre d'occurrence et l'évitement de capture.
+\end{statement}
+\begin{proofsketch}
+Par récurrence sur le terme. Les cas des constructeurs sont immédiats, $T$ y étant définie
+composante par composante. Le seul cas non immédiat est celui du lieur~: il demande que la variable
+substituée ne soit pas capturée par le lieur que $T$ produit, ce que l'hypothèse d'hygiène fournit.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qu'il faut établir, et rien de plus : non pas que la traduction préserve le jugement, mais que chaque règle de la source a une dérivation pour image.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[schéma de préservation par traduction]\label{thm:schema_preservation}
+\begin{statement}[Une traduction dérivante préserve le jugement]
+Soit $\llbracket \cdot \rrbracket$ une traduction d'un système de règles vers un autre. Si l'image
+de chaque règle de la source est une \emph{dérivation} de la cible, alors toute dérivation
+$\mathcal{D}_s : \Delta_s \vdash t_s$ a pour image une dérivation
+$\mathcal{D}_t : \Delta_t \vdash \llbracket t_s \rrbracket$.
+\end{statement}
+\begin{proofsketch}
+Par récurrence sur $\mathcal{D}_s$. Chaque règle fournit sa dérivation image par hypothèse~; la
+composition de dérivations étant admissible dans la cible, les images se recollent. Le travail
+réel d'une instance est donc d'exhiber une dérivation par règle, et l'énoncé général n'a pas à
+être refait.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Le troisième est un fait de théorie des graphes, employé deux fois par ce document et qu'il serait vain de démontrer deux fois.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[tri topologique]\label{thm:tri_topologique}
+\begin{statement}[Un graphe fini acyclique s'ordonne]
+Tout graphe orienté fini et acyclique admet un ordre total de ses sommets tel que toute arête
+aille d'un sommet plus petit vers un sommet plus grand.
+\end{statement}
+\begin{proofsketch}
+Par récurrence sur le nombre de sommets. Un graphe fini acyclique non vide possède un sommet sans
+prédécesseur~: sinon, en remontant les prédécesseurs, la finitude force la répétition d'un sommet,
+donc un cycle. Ce sommet est placé en tête, et l'hypothèse d'induction ordonne le reste.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Un quatrième schéma gouverne tout ce qui, dans ce document, /retire/. Cinq constructions l'instancient sans qu'aucune ne le nomme, et leur parenté n'est aujourd'hui qu'une ressemblance de forme.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[schéma de restriction]\label{thm:schema_restriction}
+\begin{statement}[Retirer sans déformer]
+Soit $p$ un critère sur les éléments d'une structure, et $\rho_p$ l'opération qui
+retire ceux que $p$ exclut. Si $p$ est \emph{stable par les opérations de la
+structure} --- l'image d'un élément retenu ne contient que des éléments retenus
+--- alors $\rho_p$ est un morphisme~: elle commute à la composition et préserve
+l'identité.
+\end{statement}
+\begin{proofsketch}
+Par récurrence sur la structure. Le seul cas non immédiat est celui d'une
+opération dont un argument est retiré et l'autre non~; la stabilité de $p$
+l'exclut, puisqu'elle demande que le retrait d'un élément entraîne celui de tout
+ce qui en dépend. C'est cette condition, et elle seule, qui sépare une
+restriction d'une mutilation.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Cinq constructions en sont des instances, et les reconnaître comme telles dispense de vérifier cinq fois la même chose. La /projection conservatrice/ retire les opérations d'une sorte et garde le temps ; la /projection observationnelle/ retire ce qui excède un niveau, temps compris ; l'/effacement indexé/ retire ce qui est gradué au-dessus d'un niveau ; la /restriction d'un espace de noms/ retire les arêtes hors d'une dimension ; et la /purge de spécification/ de la dernière phase de compilation retire les blocs qui n'ont servi qu'à vérifier. [rmq:Cinq retraits, une condition. Ce qui change d'une instance à l'autre est le critère, jamais l'argument.]
+
+Ce que le schéma apporte n'est pas l'économie de cinq preuves, c'est la /condition/ qu'elles partagent et qu'aucune n'énonçait : une restriction n'est un morphisme que si son critère est stable. Les deux projections du chapitre suivant diffèrent précisément par leur critère, et c'est pourquoi les confondre ouvrirait le canal que l'une d'elles prétend fermer — ce n'est pas une coïncidence malheureuse mais une conséquence du schéma.
+
+Un cinquième schéma gouverne tout ce qui, dans ce document, /répète/. Cinq mécanismes font la même chose sous cinq noms, et aucun ne renvoie aux autres.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[schéma de ré-invocation bornée]\label{thm:schema_reinvocation}
+\begin{statement}[Employer $n$ fois, c'est invoquer $n$ fois en séquence]
+Soit $t$ un calcul d'effet $\varepsilon$ sous un contexte $\Delta$, et $n$ un
+grade fini. L'emploi de $t$ à hauteur de $n$ se dénote $\mathsf{reinvo}(n, t)$,
+de contexte $n \cdot \Delta$ et d'effet $\varphi_n(\varepsilon)$.
+L'opération est associative et son unité est $n = 1$.
+\end{statement}
+\begin{proofsketch}
+La mise à l'échelle du contexte est celle de la règle de la modalité~; la loi de
+coût est l'action $\varphi_n$ du grade sur l'effet, dont la compatibilité avec la
+mise à l'échelle est le théorème~\ref{thm:coherence_axiome} --- restriction
+comprise, l'énoncé demandant $n$ fini. L'associativité suit de celle du produit
+dans le semi-anneau des grades.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Cinq constructions en sont des instances. La /traduction d'un grade fini/ ré-invoque \(n\) fois la traduction du contexte. Le /parcours d'un vecteur/ compose \(n\) effets et met le contexte à l'échelle. L'/opération à portée/ applique \(\varphi_n\) à l'effet de son bloc. L'/expansion d'une macro/ applique \(\varphi_{r_i}\) à chaque argument. Et l'/image du point fixe déductif/ borne son dépliage de la même façon. [rmq:Cinq noms pour une opération. Le schéma ne les rend pas interchangeables : il dit ce qu'ils partagent, et leurs différences deviennent lisibles.]
+
+Ce que le schéma apporte est que la restriction du théorème \ref{thm:coherence_axiome} /se propage d'un coup/ aux cinq. Un grade infini traversant un effet à coût non nul est interdit partout où la ré-invocation apparaît, et il n'y a pas cinq conditions de bord à écrire mais une, portée par le schéma.
+
+Un sixième schéma est le plus général des six, et il absorbe une part des précédents. Tout ce qui, dans ce document, /traduit une représentation riche vers une représentation plus pauvre/ — l'élaboration de la syntaxe de surface, l'effacement de la dernière phase, l'abaissement vers la représentation intermédiaire, la traduction vers le métalangage — obéit au même énoncé.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[schéma d'effacement]\label{thm:schema_effacement}
+\begin{statement}[Une transformation hygiénique est un morphisme de systèmes de raffinement]
+Soit $T$ une transformation définie par récurrence sur la structure, n'introduisant
+aucune variable libre et respectant les liaisons. Alors $T$ induit un morphisme
+de systèmes de raffinement~: elle envoie une dérivation sur une dérivation,
+commute à la substitution, et ce qu'elle oublie est exactement la fibre.
+\end{statement}
+\begin{proofsketch}
+Trois conditions, et chacune est déjà établie. La commutation à la substitution
+est le théorème~\ref{thm:schema_commutation}. L'envoi des dérivations sur des
+dérivations est le théorème~\ref{thm:schema_preservation}, dont la condition est
+que l'image de chaque règle soit une dérivation. Que l'oubli soit une fibre est
+le théorème~\ref{thm:raffinement}, qui construit le système de raffinement dont
+la traduction est le foncteur.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Quatre constructions en sont des instances, et la quatrième est celle qui coûtait le plus cher : la fidélité de l'interpréteur de référence. Elle cesse d'être une propriété à établir construction par construction pour devenir la vérification de trois conditions sur une transformation. [rmq:Ce qui demandait une induction par construction demande désormais trois conditions par transformation. C'est le même travail divisé par le nombre de constructions.]
+
+Ce schéma dit en outre /ce qu'il ne faut pas confondre/, et c'est son second usage. Préserver le typage, simuler l'exécution et être correct vis-à-vis de la machine sont trois énoncés distincts~; le schéma établit le premier, et les deux autres demeurent. Les glissements entre eux sont la classe d'erreur que ce document a le plus de mal à éviter, parce que les trois s'énoncent avec les mêmes mots.
+
+Un septième énoncé mérite le même traitement, et il porte sur les capacités plutôt que sur les termes. Le chapitre 4 l'emploie deux fois — pour la mémoire partagée et pour la frontière étrangère — et l'argument y est le même à un mot près.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[lemme de capacité]\label{thm:lemme_capacite}
+\begin{statement}[Deux accès concurrents n'ont pas de dérivation]
+Soit une ressource $r$ dont l'accès n'est dérivable que d'une liaison portant $\text{Cap}(r)$. Si
+$\text{Cap}(r)$ est de grade linéaire, alors aucun terme ne dérive deux accès concurrents à $r$.
+\end{statement}
+\begin{proofsketch}
+Deux accès concurrents demanderaient deux occurrences de $\text{Cap}(r)$ dans le même contexte,
+donc une contraction sur une liaison de grade $1$~: la somme des grades vaudrait $2$, et la règle
+de contraction n'est disponible qu'aux grades qui l'admettent. Il n'y a pas de dérivation, et la
+garantie ne coûte donc aucune vérification.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+#+print_bibliography: :heading subbibliography :segment \therefsegment
