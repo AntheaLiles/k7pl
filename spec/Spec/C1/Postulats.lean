@@ -62,7 +62,16 @@ forme que la clôture énoncée ci-après réclame d'une extension.
   dépendre la correction du compilateur d'une propriété que la plupart de ses passes n'ont pas. La
   structure fine de _C_, en particulier la comonade exponentielle $`!` dont dérivent les trois
   fragments d'usage du langage, est construite au chapitre 2 (Fondements catégoriques). À ce stade,
-  P1 n'affirme que l'ambiance catégorique dans laquelle tout le reste de K7PL s'interprète.
+  P1 se scinde en deux, et la scission est ce qui le rend honnête. _P1a_ est le postulat : _C_ est
+  une SMCC, les types en sont les objets, le tenseur dénote la disjonction de ressources — c'est
+  ce que le chapitre 2 construit, et cela n'affirme que l'ambiance catégorique dans laquelle tout le
+  reste de K7PL s'interprète. _P1b_ est une obligation, nommée comme telle : il existe une
+  interprétation $`\llbracket - \rrbracket_{\mathcal{C}}` des dérivations vers les morphismes de
+  _C_, correcte pour la réduction. Elle n'est pas établie ; le seul foncteur que le document
+  construit est celui vers le métalangage (chapitre 4). Aucun argument de correction ne repose donc
+  sur P1 seul : monomorphisation, abaissement et optimisations s'appuient chacun sur un argument
+  syntaxique (substitution, inversibilité des règles) ou sur le modèle mémoire, et la sûreté
+  mémoire se tire de l'absence de dérivation (chapitre 4), non de la structure de _C_.
 
 : P2
 
@@ -94,10 +103,14 @@ forme que la clôture énoncée ci-après réclame d'une extension.
   les représentent {cite "doreDependentMultiplicitiesDependent2025"}[] — reste hors du périmètre du
   langage.
 
-  Le sous-typage modal $`\text{Lin}\,T <: \text{Aff}\,T <: \text{Unr}\,T` découle de cette structure
-  pour tout type $`T`, et n'est pas une règle ajoutée : une ressource utilisable exactement une fois
-  s'affaiblit en ressource abandonnable, elle-même utilisable sans restriction. Le chapitre 3 en
-  tire le système de types complet. L'orthogonalité s'étend enfin à toute paire de dimensions du
+  L'ordre de précision $`\text{Unr}\,T \sqsubseteq \text{Aff}\,T \sqsubseteq \text{Lin}\,T` des
+  modalités d'usage découle de cette structure pour tout type $`T`, et n'est pas une règle
+  ajoutée : une ressource utilisable exactement une fois s'affaiblit en ressource abandonnable,
+  elle-même utilisable sans restriction, et chaque affaiblissement est une perte de précision. Cet
+  ordre n'est pas le sous-typage $`\preccurlyeq` : sur l'usage, celui-ci descend (une ressource
+  librement copiable se coerce en ressource à usage unique, $`!\omega\,A <: {!}1\,A`), tandis que
+  les autres composantes montent ; il est défini comme produit mixte à l'annexe
+  (§{num "sec:annexe-presentation-formelle"}[]). Le chapitre 3 en tire le système de types complet. L'orthogonalité s'étend enfin à toute paire de dimensions du
   langage — types, termes, contextes, effets, grades — par une relation de précision $`\sqsubseteq`,
   dont la construction comme enrichissement catégorique de _C_ sur un treillis distributif borné est
   différée au chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]).
@@ -293,7 +306,8 @@ désigner la même région physique sans que cette coïncidence soit elle-même 
 
 C'est l'absence de _data race_ exigée par P4, et la garantie de sûreté mémoire exigée par P3. Ni
 l'une ni l'autre n'est une propriété vérifiée après coup sur le langage : toutes deux se déduisent
-de l'absence de diagonale dans _C_.
+de deux faits, et non d'un seul — l'absence de diagonale dans _C_, qui interdit de _dupliquer_ une
+capacité, et l'unicité de son introduction, qui interdit d'en _créer deux_ pour la même région.
 
 Le théorème qui les porte est établi au chapitre 4 (§{num "sec:c4-modeles-de-memoire"}[]), là où les
 fibrilles et les arènes existent. Deux fibrilles exécutées en parallèle sous des contextes disjoints

@@ -30,7 +30,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 21 | 10 | `thm:morphismes_modes` | theoreme | langage | la chaîne modale est une chaîne de morphismes de modes | §3.1 | 0 |
 | 22 | 11 | `thm:completude_graduee` | proposition | langage | complétude graduée | §3.1 | 0 |
 | 23 | 12 | `thm:deadlock_acyclique` | theoreme | langage | absence de deadlock par acyclicité du graphe de sessions | §3.2 | 0 |
-| 24 | 13 | `thm:homomorphisme_roues` | proposition | representation | homomorphisme de la théorie des roues | §3.2 | 0 |
+| 24 | 13 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | §3.2 | 0 |
 | 25 | 14 | `thm:preservation_type` | theoreme | langage | préservation du type | §3.3 | 0 |
 | 26 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 5 |
 | 27 | 16 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | §4.4 | 0 |
@@ -41,7 +41,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 32 | 20 | `thm:surete_ffi` | theoreme | langage | sûreté FFI par la passerelle de capacité | §4.5 | 0 |
 | 33 | — | `thm:revocation_ffi` | exigence | representation | révocation à la frontière étrangère | §4.5 | 0 |
 | 34 | 21 | `thm:traduction_metalangage` | theoreme | langage | la traduction préserve le typage | §4.6 | 11 |
-| 35 | 22 | `thm:fidelite_interprete` | theoreme | langage | fidélité de l'interpréteur de référence | §4.6 | 1 |
+| 35 | 22 | `thm:fidelite_interprete` | proposition | langage | fidélité de l'interpréteur de référence | §4.6 | 2 |
 | 36 | 23 | `thm:staticite_syntaxe` | theoreme | langage | staticité de la syntaxe | §5.2 | 1 |
 | 37 | 24 | `thm:hygiene` | theoreme | langage | hygiène des expansions | §5.2 | 1 |
 | 38 | — | `thm:elaboration` | definition | langage | élaboration | §5.3 | 1 |

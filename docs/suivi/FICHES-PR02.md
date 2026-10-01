@@ -8,7 +8,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| `BLOQ` Bloquants | 14 | 6 | 0 | 0 | 0 | 0 | 8 |
+| `BLOQ` Bloquants | 14 | 8 | 5 | 0 | 0 | 0 | 1 |
 | `STRUCT` Structurels | 23 | 4 | 1 | 0 | 0 | 0 | 18 |
 | `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
 | `PREUVE` Dettes de preuve | 16 | 1 | 2 | 0 | 0 | 0 | 13 |
@@ -20,7 +20,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **53** | **4** | **1** | **3** | **2** | **127** |
+| **Total** | **190** | **55** | **9** | **1** | **3** | **2** | **120** |
 
 ## BLOQ — Bloquants
 
@@ -32,14 +32,14 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BLOQ-04` | ✅ fermée | ℛ désigne deux structures incompatibles ; l'action scalaire n'est pas définie sur deux de ses quatre facteurs | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `BLOQ-05` | ⬜ ouverte | Le niveau d'un calcul est invoqué par cinq démonstrations et produit par aucune règle ; le symbole ℓ recouvre deux ordres |  |
 | `BLOQ-06` | ✅ fermée | La clause de taille `i ∈ ℕ∞ ∖ {ω}` interdit les acteurs et flux non bornés que le document exige | [journal](../journal/2026-09-30-pr-02-01-bloq-03-et-06.md) · deux sortes de tailles 𝕊_μ / 𝕊_ν |
-| `BLOQ-07` | ⬜ ouverte | Deux sémantiques opérationnelles concurrentes, sans théorème d'accord |  |
-| `BLOQ-08` | ⬜ ouverte | La catégorie ambiante 𝒞 n'interprète rien : P1 est un axiome sans modèle |  |
-| `BLOQ-09` | ⬜ ouverte | Le Th. 21 invoque l'absence de diagonale, alors que la propriété requise est l'unicité d'introduction de la capacité |  |
-| `BLOQ-10` | ⬜ ouverte | Le Th. 35 invoque l'inférence principale, que le document réfute deux fois |  |
-| `BLOQ-11` | ⬜ ouverte | La règle (10) de déclassification n'a pas reçu la clause de clôture de 𝒳 ; elle admet le blanchiment par substitution |  |
-| `BLOQ-12` | ⬜ ouverte | Le Th. 18 n'établit aucun homomorphisme et sa conclusion sur les lois de la théorie des roues est fausse |  |
+| `BLOQ-07` | 🟡 partielle | Deux sémantiques opérationnelles concurrentes, sans théorème d'accord | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · énoncé rendu conditionnel à Sim ; Sim à établir (PREUVE-07) |
+| `BLOQ-08` | 🟡 partielle | La catégorie ambiante 𝒞 n'interprète rien : P1 est un axiome sans modèle | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · P1b nommée ; Th. 31 et §4.6 à reprendre |
+| `BLOQ-09` | 🟡 partielle | Le Th. 21 invoque l'absence de diagonale, alors que la propriété requise est l'unicité d'introduction de la capacité | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · H1 et H2 posées en hypothèses ; lemmes à démontrer (PREUVE-12) |
+| `BLOQ-10` | ✅ fermée | Le Th. 35 invoque l'inférence principale, que le document réfute deux fois | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · D_det nommée ; ses trois composantes restent à écrire (PREUVE-15) |
+| `BLOQ-11` | ✅ fermée | La règle (10) de déclassification n'a pas reçu la clause de clôture de 𝒳 ; elle admet le blanchiment par substitution | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) |
+| `BLOQ-12` | 🟡 partielle | Le Th. 18 n'établit aucun homomorphisme et sa conclusion sur les lois de la théorie des roues est fausse | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · table de propagation à écrire (IMPL-07) |
 | `BLOQ-13` | ✅ fermée | Le graphe de câblage, hypothèse du Th. 17 et du Th. 24, n'est défini nulle part | [journal](../historique/2026-10-01-pr-02-avancement.md) |
-| `BLOQ-14` | ⬜ ouverte | Le ch. 1 et le ch. 2 énoncent le sous-typage modal dans le sens inverse de la règle SUBBOX et de la table 20 |  |
+| `BLOQ-14` | 🟡 partielle | Le ch. 1 et le ch. 2 énoncent le sous-typage modal dans le sens inverse de la règle SUBBOX et de la table 20 | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · table 20 non remontée (TRANS-06) |
 
 ## STRUCT — Structurels
 

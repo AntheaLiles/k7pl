@@ -349,26 +349,35 @@ l'absence de donnée — un échec prouvé plutôt que silencieux.
 
 ::::thm (label := "thm:homomorphisme_roues") (status := "proposition") (level := "representation")
 :::title
-homomorphisme de la théorie des roues
+représentation des singularités de la théorie des roues
 :::
 
 :::statement +titled
-Préservation des singularités par masquage vectoriel
+Encodage des singularités et masquage vectoriel
 
-Soit $`i : \text{Wheel} \to \text{Float64}` l'injection associant à chaque singularité
-($`\bot, \infty, \circ, \delta`) un encodage dans les bits de charge utile d'un NaN silencieux IEEE 754.
-Cette injection préserve l'égalité structurelle ($`i(x) = i(x)` toujours vrai), et le masquage
-vectoriel de couche 3 la propage de façon homomorphe : $`\text{select}(m, i(x), y) = i(x)` si $`m`,
-$`y` sinon.
+Soit $`i : \text{Wheel} \to \text{Float64}` l'encodage qui associe à chacune des quatre
+singularités ($`\bot, \infty, \circ, \delta`) un motif de bits déterministe dans la charge utile
+d'un NaN silencieux IEEE 754. Alors (i) $`i` est injective sur ces quatre singularités ; (ii)
+$`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement ; (iii) l'arithmétique de
+couche 3 sur les valeurs encodées est _spécifiée par K7PL_, par la table de propagation des
+singularités, et non déléguée à IEEE 754. La réalisation de (iii) est une exigence, vérifiée par
+test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
 :::
 
 :::proofsketch
-La norme IEEE 754 laisse libres les bits de charge utile d'un NaN silencieux ; K7PL y encode chaque
-singularité de façon déterministe. L'égalité de couche 3 est redéfinie comme identité bit à bit
-plutôt que comme l'égalité IEEE 754 standard, défectueuse pour `NaN` — d'où $`i(x) = i(x)`.
-L'opérateur `select` s'abaisse en masquage vectoriel sans branchement ; la nature binaire du masque
-garantit que la charge utile de la branche inactive est annihilée plutôt que corrompue, préservant
-les lois algébriques de la théorie des roues, par exemple $`\bot + y = \bot`.
+La norme IEEE 754 laisse libres les bits de charge utile d'un NaN silencieux ; K7PL y encode chaque
+singularité de façon déterministe, d'où l'injectivité (i). L'égalité de couche 3 est l'identité bit
+à bit plutôt que l'égalité IEEE 754 standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
+en masquage vectoriel sans branchement ; la nature binaire du masque garantit que la charge utile de
+la branche inactive est annihilée plutôt que corrompue, d'où (ii).
+
+Ce que l'énoncé _ne dit pas_ : l'encodage n'est pas un homomorphisme de la théorie des roues vers
+les flottants. En roues $`x/0 = \bot`, donc $`1/0 = \bot`, tandis qu'en IEEE 754 $`1/0 = +\infty` ;
+et la propagation de la charge utile d'un NaN à travers $`+` est seulement recommandée par la norme,
+non exigée, les opérations invalides produisant le NaN par défaut. Les lois de la théorie des roues,
+par exemple $`\bot + y = \bot`, ne tiennent donc sur les valeurs encodées que parce que la table de
+propagation de (iii) les impose : c'est K7PL qui les spécifie, aucun effet ne dépendant de la
+machine.
 :::
 ::::
 
