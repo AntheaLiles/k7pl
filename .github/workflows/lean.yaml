@@ -86,7 +86,7 @@ jobs:
           name: spec-tex
           path: _out/spec/tex
 
-      # Same TeX Live packages as Verso's own PDF build.
+      # Verso's own TeX Live packages, plus those the specification adds (mathematics, figures).
       - name: Install TeX Live
         uses: zauguin/install-texlive@6671d0c62046c7e349fe154d5208fe746b07e037 # v4.4.0
         with:
@@ -133,6 +133,11 @@ jobs:
             trimspaces
             xkeyval
             catchfile
+            amsmath
+            unicode-math
+            lm-math
+            lm
+            graphics
 
       - name: Compile the PDF
         working-directory: _out/spec/tex

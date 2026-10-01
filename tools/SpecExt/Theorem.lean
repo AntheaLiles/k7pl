@@ -1,0 +1,173 @@
+-- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CECILL-2.1
+
+import VersoManual
+import SpecExt.Basic
+import SpecExt.Render
+import SpecExt.Slots
+
+/-!
+# Theorems
+
+`::::theorem (label := "thm:x") (status := "proposition") (level := "representation") (titled := true)`
+holds a `:::statement` and a `:::proofsketch` slot. All the theorems of the document share one
+counter, as the `theoreme` counter of the original LaTeX preamble did.
+
+* `status`: `theoreme` (default), `proposition`, `conjecture`, `definition`, `exigence`,
+  `litterature`.
+* `level`: `langage` (default, not printed), `compilation`, `representation`, `deploiement`.
+-/
+
+open Lean Elab
+open Verso Genre Manual Doc Elab ArgParse
+open Verso.Output.Html
+open Verso.Doc.Html Verso.Doc.TeX
+
+namespace SpecExt
+
+/-- Printed name of a theorem status. -/
+def statusName : String → String
+  | "theoreme" => "Théorème"
+  | "proposition" => "Proposition"
+  | "conjecture" => "Conjecture"
+  | "definition" => "Définition"
+  | "exigence" => "Exigence"
+  | "litterature" => "Résultat de la littérature"
+  | s => s
+
+/-- Printed name of a theorem level. -/
+def levelName : String → String
+  | "representation" => "représentation"
+  | "deploiement" => "déploiement"
+  | s => s
+
+/-- What distinguishes a theorem: its label, status and level. The `number` is filled in by the
+traversal. -/
+structure ThmInfo where
+  label : Option String
+  status : String
+  level : String
+  number : Option Nat
+deriving ToJson, FromJson, Inhabited
+
+block_extension Block.theorem (info : ThmInfo) where
+  data := toJson info
+  traverse id data contents := do
+    match fromJson? (α := ThmInfo) data with
+    | .error e => reportError s!"theorem: cannot read its data: {e}"; pure none
+    | .ok info =>
+      let n ← assignNumber "theoreme" id
+      if let some l := info.label then
+        let (slots, _) := splitSlots contents
+        let title := (findSlot slots "statement").bind (·.titleAndBody.1) |>.map
+          (fun xs => String.join (xs.toList.map plainText)) |>.getD ""
+        registerLabel l id { kind := "theorem", text := toString n, title }
+      if info.number == some n then pure none
+      else
+        pure (some (.other { Block.theorem { info with number := some n } with id := some id } contents))
+  toHtml := some fun goI goB id data contents => do
+    match fromJson? (α := ThmInfo) data with
+    | .error e => reportError e; pure .empty
+    | .ok info =>
+      let n := toString (info.number.getD 0)
+      let st ← HtmlT.state
+      let (slots, _) := splitSlots contents
+      let level : Output.Html :=
+        if info.level == "langage" then .empty
+        else {{<span class="k7-level">{{s!" ⟨{levelName info.level}⟩"}}</span>}}
+      let thmTitle : Output.Html ← match findSlot slots "title" with
+        | some t => do
+          let inls := (t.content[0]?.bind paraInlines?).getD #[]
+          pure {{<span class="k7-thm-title">{{" : "}}{{← inls.mapM goI}}</span>}}
+        | none => pure .empty
+      let head : Output.Html :=
+        {{<div class="k7-thm-head">{{statusName info.status ++ " " ++ n}}{{level}}{{thmTitle}}</div>}}
+      let mut out : Array Output.Html := #[head]
+      for s in slots do
+        match s.name with
+        | "statement" =>
+          let (t, body) := s.titleAndBody
+          let tHtml : Output.Html ← match t with
+            | some xs => do pure {{<span class="k7-stm-title">{{" : "}}{{← xs.mapM goI}}</span>}}
+            | none => pure .empty
+          out := out.push {{<div class="k7-statement"><div class="k7-stm-head">{{"Déclaration " ++ n}}{{tHtml}}</div>{{← body.mapM goB}}</div>}}
+        | "proofsketch" =>
+          out := out.push {{<div class="k7-proof"><div class="k7-proof-head">"Esquisse de preuve"</div>{{← s.content.mapM goB}}<span class="k7-qed">"□"</span></div>}}
+        | "title" => pure ()
+        | _ => out := out.push {{<div>{{← s.content.mapM goB}}</div>}}
+      pure {{<div class="k7-theorem" {{st.htmlId id}}>{{Output.Html.seq out}}</div>}}
+  toTeX := some fun goI goB id data contents => do
+    match fromJson? (α := ThmInfo) data with
+    | .error e => reportError e; pure .empty
+    | .ok info =>
+      let n := toString (info.number.getD 0)
+      let (slots, _) := splitSlots contents
+      let level := if info.level == "langage" then "" else s!"~⟨{levelName info.level}⟩"
+      let mut out : Array Verso.Output.TeX := #[]
+      let thmTitle : Verso.Output.TeX ← match findSlot slots "title" with
+        | some t => do
+          let inls := (t.content[0]?.bind paraInlines?).getD #[]
+          pure (Verso.Output.TeX.seq #[.raw " : ", .seq (← inls.mapM goI)])
+        | none => pure .empty
+      out := out.push (.raw s!"\n\\par\\addvspace\{0.6em}\\noindent\{\\bfseries {statusName info.status} {n}{level}")
+      out := out.push thmTitle
+      out := out.push (.raw "}")
+      out := out.push (← texAnchor id)
+      out := out.push (.raw "\\par\\nobreak\n")
+      for s in slots do
+        match s.name with
+        | "statement" =>
+          let (t, body) := s.titleAndBody
+          let tTeX : Verso.Output.TeX ← match t with
+            | some xs => do pure (Verso.Output.TeX.seq #[.raw " : ", .seq (← xs.mapM goI)])
+            | none => pure .empty
+          out := out.push (.raw s!"\\noindent Déclaration {n}")
+          out := out.push tTeX
+          out := out.push (.raw "\\par\\nobreak\n")
+          out := out.push (.seq (← body.mapM goB))
+        | "proofsketch" =>
+          out := out.push (.raw "\n\\noindent\\textit{Esquisse de preuve}\\par\\nobreak\n\\begingroup\\itshape ")
+          out := out.push (.seq (← s.content.mapM goB))
+          out := out.push (.raw "\\unskip\\nobreak\\hfill$\\square$\\endgroup\\par\n")
+        | "title" => pure ()
+        | _ => out := out.push (.seq (← s.content.mapM goB))
+      out := out.push (.raw "\\par\\addvspace{0.6em}\n")
+      pure (.seq out)
+  extraCss := [
+r#"
+.k7-theorem { margin: 1.2rem 0; padding: 0.2rem 0.9rem; border-left: 3px solid #98B2C0; }
+.k7-thm-head { font-weight: bold; margin: 0.5rem 0 0.2rem 0; }
+.k7-level { font-weight: normal; font-size: 0.85em; }
+.k7-stm-head { margin: 0.3rem 0 0.1rem 0; }
+.k7-proof { font-style: italic; }
+.k7-proof-head { margin: 0.5rem 0 0.1rem 0; }
+.k7-qed { float: right; font-style: normal; }
+"#
+  ]
+
+section
+variable {m : Type → Type} [Monad m] [MonadError m]
+
+/-- Arguments of `theorem`. -/
+structure ThmArgs where
+  label : Option String := none
+  status : String := "theoreme"
+  level : String := "langage"
+
+meta instance : FromArgs ThmArgs m where
+  fromArgs :=
+    ThmArgs.mk <$> .named `label .string true <*> .namedD `status .string "theoreme"
+      <*> .namedD `level .string "langage"
+end
+
+/-- A theorem with its statement and proof sketch. -/
+@[directive]
+meta def thm : DirectiveExpanderOf ThmArgs
+  | {label, status, level}, stxs => do
+    let args ← stxs.mapM elabBlock
+    ``(Verso.Doc.Block.other
+        (SpecExt.Block.theorem
+          (SpecExt.ThmInfo.mk $(quote label) $(quote status) $(quote level) none)) #[$args,*])
+
+end SpecExt

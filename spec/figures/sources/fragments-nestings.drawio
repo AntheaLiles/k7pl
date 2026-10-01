@@ -1,0 +1,30 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="QLFFRH4hqPub2DCGHqS7">
+    <mxGraphModel dx="853" dy="708" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;graph TD\n    subgraph Cart[\&quot;Fragment cartésien : affaiblissement et contraction\&quot;]\n        subgraph Aff[\&quot;Fragment affine : affaiblissement seul\&quot;]\n            Lin[\&quot;Fragment linéaire strict : ni l&#39;un ni l&#39;autre\&quot;]\n        end\n    end&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="xhyjDslC9l6NRhh5eOTj-1">
+          <mxCell connectable="0" parent="1" style="group;transparentBounds=1;editIcon=1;lockedGroup=0;groupPadding=10;" vertex="1">
+            <mxGeometry as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Fragment cartésien : affaiblissement et contraction" mermaidId="n:Cart" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="Fragment cartésien : affaiblissement et contraction" id="xhyjDslC9l6NRhh5eOTj-2">
+          <mxCell parent="xhyjDslC9l6NRhh5eOTj-1" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="184" width="497" x="165" y="30" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Fragment affine : affaiblissement seul" mermaidId="n:Aff" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="Fragment affine : affaiblissement seul" id="xhyjDslC9l6NRhh5eOTj-3">
+          <mxCell parent="xhyjDslC9l6NRhh5eOTj-2" style="html=1;whiteSpace=wrap;strokeWidth=1;verticalAlign=top;fillColor=light-dark(#ffffde,#1f2020);strokeColor=light-dark(#aaaa33,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="119" width="427" x="35" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Fragment linéaire strict : ni l&#39;un ni l&#39;autre" mermaidId="n:Lin" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="Fragment linéaire strict : ni l&#39;un ni l&#39;autre" id="xhyjDslC9l6NRhh5eOTj-4">
+          <mxCell parent="xhyjDslC9l6NRhh5eOTj-3" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="54" width="357" x="35" y="45" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

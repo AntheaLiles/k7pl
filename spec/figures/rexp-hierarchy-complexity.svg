@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="591.12" height="67.92" viewBox="0 0 591.12 67.92">
+<defs>
+<clipPath id="clip_1">
+<path transform="matrix(.24,0,0,.24,0,0)" d="M0 0H2462.9884V281.98243H0Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_2">
+<path transform="matrix(.24,0,0,.24,0,0)" d="M3.125 0H2459.375V281.98243H3.125Z" clip-rule="evenodd"/>
+</clipPath>
+</defs>
+<g clip-path="url(#clip_1)">
+<path transform="matrix(.75,0,0,.75,0,0)" d="M0 0H788V90H0Z" fill="#ffffff"/>
+</g>
+<g clip-path="url(#clip_2)">
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" d="M30 30H241V103H30Z" fill="#ececff"/>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M30 30H241V103H30Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.7160218 0 0 .7160218 -12.773468 -14.3204369)" font-size="16" font-family="Arimo"><tspan y="62" x="79.796878 96.03688 99.58888 103.140888 112.03689 120.93289 129.82889 135.15689 139.60489 155.60489 160.05289 171.60489 180.50782">@linear &#x2014; DFA</tspan></text>
+<text fill="#333333" xml:space="preserve" transform="matrix(.7160218 0 0 .7160218 -12.773468 -14.3204369)" font-size="16" font-family="Arimo"><tspan y="82" x="55.46875 67.91675 73.24475 82.140758 87.46876 91.916759 96.36475 109.69276 118.58876 126.58876 135.48476 144.38076 153.27675 162.17275 171.06874 175.51674 186.18874 190.63674 203.96474">O(1), masquage SIMD</tspan></text>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" d="M291 40H489V94H291Z" fill="#ececff"/>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M291 40H489V94H291Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.7160218 0 0 .7160218 -12.773468 -14.3204369)" font-size="16" font-family="Arimo"><tspan y="72" x="315.625 331.865 340.761 349.65699 353.20899 361.20899 370.10499 379.00099 392.32899 395.88099 404.77699 408.32899 412.77699 428.77699 433.22499 444.77699 453.6875">@polynomial &#x2014; NFA</tspan></text>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" d="M539 30H829V103H539Z" fill="#ececff"/>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M539 30H829V103H539Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.7160218 0 0 .7160218 -12.773468 -14.3204369)" font-size="16" font-family="Arimo"><tspan y="62" x="606.0625 622.3025 631.1985 639.1985 648.0945 656.9905 665.8865 674.7825 683.67849 688.12649 691.67849 700.57449 704.12649 708.57449 724.57449 729.02249 739.69448 751.24649">@exponential &#x2014; PDA</tspan></text>
+<text fill="#333333" xml:space="preserve" transform="matrix(.7160218 0 0 .7160218 -12.773468 -14.3204369)" font-size="16" font-family="Arimo"><tspan y="82" x="570.5781 579.4741 584.8021 593.6981 598.1461 607.0421 615.9381 624.8341 633.7301 642.6261 647.9541 652.4021 661.2981 670.1941 675.5221 684.4181 693.3141 702.2101 706.6581 715.5541 724.4501 729.7781 734.2261 743.1221 752.01809 756.46609 765.36209 770.69009 779.58609 788.48208">profondeur born&#x00e9;e par un grade</tspan></text>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M241 67.23C241 67.23 254.62667 67.16667 281.88 67.04"/>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" d="M289.88 67.01 281.9 71.04 281.86 63.04 289.88 67.01Z" fill="#333333"/>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M289.88 67.01 281.9 71.04 281.86 63.04 289.88 67.01Z"/>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M489 67C489 67 502.62669 67.06333 529.88 67.19"/>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" d="M537.88 67.22 529.86 71.19 529.9 63.19 537.88 67.22Z" fill="#333333"/>
+<path transform="matrix(.7160218,0,0,.7160218,-12.415458,-13.962425)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M537.88 67.22 529.86 71.19 529.9 63.19 537.88 67.22Z"/>
+</g>
+</svg>

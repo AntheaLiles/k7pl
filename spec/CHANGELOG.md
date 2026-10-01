@@ -14,8 +14,14 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Added
 
-- Squelette Verso de la spécification (chapitres d'exemple) et génération du PDF.
+- Squelette Verso de la spécification et génération du PDF.
+- **Le manuscrit complet**, converti de l'Org-mode sans modification de texte : sept chapitres,
+  « Références du document » (listes des figures, tableaux, formules, codes ; glosses, acronymes,
+  index) et cinq annexes (codes d'erreur, LSP et REPL, Sushi, Sugoi, présentation formelle) ;
+  59 énoncés scellés, 38 formules, 13 figures, 27 tableaux, 7 codes sources, 250 œuvres citées.
+- Figures (`spec/figures/`) : SVG et PDF dérivés des exports drawio, et leurs sources.
 
 ### Changed
 
+- Les chapitres d'exemple (`Introduction`, `Expressions`) sont remplacés par le manuscrit.
 - Titre aligné sur la spécification Org-mode : « K7PL : KonSept Programming Language ».

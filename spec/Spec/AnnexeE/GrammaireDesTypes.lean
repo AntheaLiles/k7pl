@@ -1,0 +1,129 @@
+-- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "E.1. Grammaire des types" =>
+%%%
+file := "g-grammaire-types"
+tag := "g-grammaire-types"
+number := false
+%%%
+
+{label "sec:g-grammaire-types" (display := "E.1")}
+
+Les types se rangent en trois strates, conformément au chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]) : les types de valeur, les types de calcul, et les
+modalités graduées qui les relient. La séparation des deux premières est celle qu'impose l'appel par
+poussée de valeur, et la grammaire ci-dessous la porte.
+
+::::formula (label := "eq:grammaire-types") (kind := "formule")
+```
+\begin{align*}
+\text{(valeurs)}\quad V &::= b \mid @_n V \mid \mathbf{1} \mid V \otimes V \mid \textstyle\bigoplus_{i \in I} V_i \mid \mathsf{Vec}\;n\;V \mid \mathsf{Arena}\;V \mid !_{r} V \mid U\,C \mid \exists \alpha. V \mid \mu\alpha. V\\
+\text{(calculs)}\quad C &::= F_{\varepsilon}\,V \mid V \multimap C \mid \textstyle\mathop{\&}_{i \in I} C_i \mid \forall \alpha. C \mid \nu\alpha. C\\
+\text{(sessions)}\quad S &::= \mathbf{End} \mid V \otimes S \mid V \multimap S \mid \oplus\{\ell_i : S_i\} \mid \&\{\ell_i : S_i\} \mid {\bigcirc} S \mid {\Box} S \mid {\Diamond} S\\
+\text{(grades)}\quad r &::= \langle u, m, \ell, \beta \rangle \in \mathcal{R} = \mathbb{N}_\infty \times \{\mathrm{d} \preceq \mathrm{m}\} \times \mathcal{L} \times \mathcal{B}\\
+\text{(effets)}\quad \varepsilon &::= \langle \varphi, \kappa \rangle \in \mathcal{E} = \mathcal{E}_0 \times (\mathbb{N}_\infty \times \mathbb{N}_\infty)^{\mathcal{L}}
+\end{align*}
+```
+
+:::caption
+Grammaire des types : trois strates, le grade comme quadruplet, l'effet comme produit d'une quantale
+et d'une famille temporelle indexée par les niveaux
+:::
+::::
+
+Cette grammaire est _complète_ au sens précis où elle est croisée avec le jeu de règles, et le
+compte n'est plus une opinion : quarante-neuf règles de typage, dont quatre ne gouvernent aucun
+constructeur de terme ; quarante-cinq constructeurs de termes, dont neuf valeurs et trente-six
+calculs. Le croisement est vérifié mécaniquement à chaque construction du document, et il fait
+échouer celle-ci dès qu'un constructeur apparaît dans une règle sans figurer à la grammaire, ou
+l'inverse. Les quatre règles sans constructeur ne sont pas une anomalie : ce sont les deux règles de
+sous-typage, qui s'appliquent à tout terme sans en former, et les deux règles structurelles de
+formation de contexte. Une grammaire qui ne serait pas croisée avec ses règles ne serait pas
+incomplète — elle serait invérifiable, ce qui est pire, puisque rien ne signalerait l'écart.
+
+Trois points appellent un commentaire, car ils fixent des choix que le corps a pris sans les écrire
+sous cette forme. Le premier est que $`!_r` est _une_ modalité et non quatre : son indice est un
+quadruplet, dont les composantes sont l'usage, la marque de monotonie, le niveau de confidentialité
+et le budget, et le §{num "sec:c2-adjonctions-et-enrichissement"}[] établit que cette structure
+produit est licite. Le deuxième est que les types de session portent les trois modalités temporelles
+du §{num "sec:c4-echelle-du-systeme"}[], ce qui est la manière dont le débit s'exprime. Le troisième
+est que $`\mathsf{Trellis}_{\text{fin}}`, condition de l'opérateur de point fixe, se lit sur cette
+grammaire. Le dire en prose ne suffit pas à une induction, qui a besoin d'un prédicat ; on le pose
+donc par les quatre clauses qui l'engendrent, et par rien d'autre.
+
+::::formula (label := "eq:trellis-fin") (kind := "formule")
+```
+\begin{gather*}
+\frac{\;b \text{ de porteur fini, égalité décidable}\;}{\;\mathsf{Trellis}_{\text{fin}}(b)\;}
+\qquad
+\frac{\;}{\;\mathsf{Trellis}_{\text{fin}}(\mathbf{1})\;}
+\\[8pt]
+\frac{\;\mathsf{Trellis}_{\text{fin}}(V_1) \quad \mathsf{Trellis}_{\text{fin}}(V_2)\;}{\;\mathsf{Trellis}_{\text{fin}}(V_1 \otimes V_2)\;}
+\qquad
+\frac{\;\mathsf{Trellis}_{\text{fin}}(V) \quad n < \omega\;}{\;\mathsf{Trellis}_{\text{fin}}(\mathsf{Vec}\;n\;V)\;}
+\\[8pt]
+\frac{\;\mathsf{Trellis}_{\text{fin}}(V_i)\;(\forall i \in I) \quad I \text{ fini}\;}{\;\mathsf{Trellis}_{\text{fin}}(\textstyle\bigoplus_{i \in I} V_i)\;}
+\end{gather*}
+```
+
+:::caption
+Le prédicat de treillis fini, défini par induction sur la grammaire des types de valeur
+:::
+::::
+
+Aucune autre clause. En particulier $`!_r`, $`U\,C`, l'existentiel et le point fixe $`\mu` n'y
+entrent pas, et ce n'est pas un oubli : un porteur qui les admettrait cesserait d'être fini, et
+l'itération de l'opérateur de point fixe cesserait de terminer.
+
+Le quatrième porte sur le facteur temporel de l'effet, et il rectifie ce que cette annexe écrivait.
+Le chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) pose que le niveau _étiquette_ l'effet, et
+sur ses deux composantes ; il signale en outre que la cellule appariant le niveau et le temps est
+celle qui rend le canal temporel énonçable. Un facteur temporel réduit à un $`\mathbb{N}_\infty` nu
+ne peut pas porter cela : il compte des pas sans dire à quel niveau ils ont été faits. C'est donc
+une _famille_ $`\kappa \in \mathbb{N}_\infty^{\mathcal{L}}`, un $`\mathbf{tick}` étant compté au
+niveau du calcul qui le produit. L'ordre reste celui du produit, point par point ; le séquencement
+additionne les familles composante par composante ; l'unité est la famille nulle ; et l'itération
+$`\varphi_n` multiplie chaque composante par $`n`.
+
+Cette forme n'alourdit que là où les niveaux varient, ce que la suite démontre.
+
+::::thm (label := "thm:temps_mononiveau")
+:::title
+le cas mononiveau redonne la forme plate
+:::
+
+:::statement +titled
+Une généralisation qui ne coûte rien où elle ne sert pas
+
+Si tous les $`\mathbf{tick}` d'un calcul sont produits à un même niveau $`\ell`, la famille
+$`\kappa` est concentrée en $`\ell`, et la restriction de $`\mathcal{E}` aux tels effets est
+isomorphe, comme quantale ordonnée, à $`\mathcal{E}_0 \times \mathbb{N}_\infty`.
+:::
+
+:::proofsketch
+L'application $`\kappa \mapsto \kappa(\ell)` est une bijection entre les familles concentrées en
+$`\ell` et $`\mathbb{N}_\infty`, d'inverse $`k \mapsto k\,\delta_\ell`. Elle préserve l'addition et
+l'ordre, qui sont définis point par point, ainsi que la multiplication scalaire de $`\varphi_n`.
+Elle est donc un isomorphisme de quantales ordonnées sur ce sous-ensemble, lequel est clos par
+produit et par borne supérieure puisque la concentration en $`\ell` l'est.
+:::
+::::
+
+La lecture qu'il faut en faire est celle que le chapitre 1 a déjà pratiquée sur les contextes. Une
+zone non restreinte n'était pas une seconde zone mais la partie de grade $`\omega` de la première ;
+un compteur de pas nu n'est pas une seconde notion mais la famille concentrée en un niveau. Là où le
+langage n'emploie qu'un niveau — la couche 1 dans son usage ordinaire, tout programme qui ne mêle
+pas les confidentialités —, la généralisation est invisible.

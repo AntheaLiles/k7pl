@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="372.96" height="148.08" viewBox="0 0 372.96 148.08">
+<defs>
+<clipPath id="clip_1">
+<path transform="matrix(.24,0,0,.24,0,0)" d="M0 0H1554.0039V618H0Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_2">
+<path transform="matrix(.24,0,0,.24,0,0)" d="M0 0H1554.0039V618H0Z" clip-rule="evenodd"/>
+</clipPath>
+</defs>
+<g clip-path="url(#clip_1)">
+<path transform="matrix(.75,0,0,.75,0,0)" d="M0 0H497V198H0Z" fill="#ffffff"/>
+</g>
+<g clip-path="url(#clip_2)">
+<path transform="matrix(.7192632,0,0,.7192632,-111.120548,-14.025632)" d="M165 30H662V214H165Z" fill="#ffffde"/>
+<path transform="matrix(.7192632,0,0,.7192632,-111.120548,-14.025632)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#aaaa33" d="M165 30H662V214H165Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.7192632 0 0 .7192632 -111.48018 -14.385264)" font-size="16" font-family="Arimo"><tspan y="51" x="234.4375 244.2135 249.5415 258.4375 267.3335 280.6615 289.5575 298.4535 302.9015 307.3495 315.3495 324.24549 329.5735 334.02149 342.91749 350.91749 354.46949 363.36549 372.26148 376.70948 381.15748 385.60548 394.50148 398.66407 403.11207 412.00807 415.56007 424.45606 428.00807 431.56007 439.56007 447.56007 456.45606 469.78407 478.68006 487.57606 492.02406 496.47206 505.36805 509.81605 514.26406 522.26406 531.16006 540.056 544.504 549.83206 558.728 566.728 571.176 574.728 583.624">Fragment cart&#x00e9;sien : affaiblissement et contraction</tspan></text>
+<path transform="matrix(.7192632,0,0,.7192632,-111.120548,-14.025632)" d="M200 75H627V194H200Z" fill="#ffffde"/>
+<path transform="matrix(.7192632,0,0,.7192632,-111.120548,-14.025632)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#aaaa33" d="M200 75H627V194H200Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.7192632 0 0 .7192632 -111.48018 -14.385264)" font-size="16" font-family="Arimo"><tspan y="96" x="280.82814 290.60414 295.93214 304.82814 313.72413 327.05213 335.94813 344.84413 349.2921 353.7401 362.6361 366.79689 371.24488 374.79689 383.69288 392.58888 397.03688 401.48487 405.93287 414.82887 418.98439 423.43238 432.32838 435.88038 444.77638 448.32838 451.88038 459.88038 467.88038 476.77638 490.10438 499.00038 507.89637 512.34439 516.79238 524.79238 533.68838 542.58438">Fragment affine : affaiblissement seul</tspan></text>
+<path transform="matrix(.7192632,0,0,.7192632,-111.120548,-14.025632)" d="M235 120H592V174H235Z" fill="#ececff"/>
+<path transform="matrix(.7192632,0,0,.7192632,-111.120548,-14.025632)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M235 120H592V174H235Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.7192632 0 0 .7192632 -111.48018 -14.385264)" font-size="16" font-family="Arimo"><tspan y="152" x="272.60939 282.38539 287.71339 296.60939 305.50538 318.83338 327.72938 336.62538 341.07337 345.52137 349.07337 352.62538 361.52137 370.41737 379.31336 382.86537 388.19337 397.08937 401.53736 409.53736 413.98536 419.31336 422.86537 430.86537 435.31336 439.76136 444.20936 448.65736 457.55335 461.10536 465.55335 469.10536 472.16136 481.05735 489.95335 494.40135 503.29734 506.84934 511.29734 514.8493 517.90536 526.80136 535.6973 540.1453 545.4733">Fragment lin&#x00e9;aire strict : ni l'un ni l'autre</tspan></text>
+</g>
+</svg>

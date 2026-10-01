@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="378.96" height="119.04" viewBox="0 0 378.96 119.04">
+<defs>
+<clipPath id="clip_1">
+<path transform="matrix(.24,0,0,.24,0,0)" d="M0 0H1577.9785V495.01954H0Z" clip-rule="evenodd"/>
+</clipPath>
+<clipPath id="clip_2">
+<path transform="matrix(.24,0,0,.24,0,0)" d="M0 0H1577.9785V495.01954H0Z" clip-rule="evenodd"/>
+</clipPath>
+</defs>
+<g clip-path="url(#clip_1)">
+<path transform="matrix(.75,0,0,.75,0,0)" d="M0 0H505V158H0Z" fill="#ffffff"/>
+</g>
+<g clip-path="url(#clip_2)">
+<path transform="matrix(.71929618,0,0,.71929618,-14.023569,-14.026275)" d="M30 30H535V173H30Z" fill="#ffffde"/>
+<path transform="matrix(.71929618,0,0,.71929618,-14.023569,-14.026275)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#aaaa33" d="M30 30H535V173H30Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.71929618 0 0 .71929618 -14.383216 -14.385922)" font-size="16" font-family="Arimo"><tspan y="51" x="161.07813 171.75012 177.07813 185.97412 194.87012 203.76612 208.21411 218.88611 227.7821 237.57813 242.02613 258.02613 262.47413 271.37013 280.2661 284.7141 292.7141 301.6101 310.5061 314.0581 318.5061 327.4021 330.9541 339.8501 347.8501 352.2981 360.2981 369.1941 378.0901 382.5381 386.0901 394.98609">Ar&#x00e8;ne SoA &#x2014; un seul bloc contigu</tspan></text>
+<path transform="matrix(.71929618,0,0,.71929618,-14.023569,-14.026275)" d="M65 75H257V148H65Z" fill="#ececff"/>
+<path transform="matrix(.71929618,0,0,.71929618,-14.023569,-14.026275)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M65 75H257V148H65Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.71929618 0 0 .71929618 -14.383216 -14.385922)" font-size="16" font-family="Arimo"><tspan y="107" x="113.84375 124.51575 133.41175 142.30774 155.63574 164.53174 173.42774 177.87574 182.32373 191.21973 195.66773 200.11573">Segment 0..k</tspan></text>
+<text fill="#333333" xml:space="preserve" transform="matrix(.71929618 0 0 .71929618 -14.383216 -14.385922)" font-size="16" font-family="Arimo"><tspan y="127" x="97.5625 112.375 117.703 121.255008 125.703 134.599 146.151 155.047 163.943 168.39099 172.83899 176.39099 185.28699 190.61499 194.16699 197.719 201.271 210.16699 213.75">WriteCap fibrille A</tspan></text>
+<path transform="matrix(.71929618,0,0,.71929618,-14.023569,-14.026275)" d="M307 75H500V148H307Z" fill="#ececff"/>
+<path transform="matrix(.71929618,0,0,.71929618,-14.023569,-14.026275)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M307 75H500V148H307Z"/>
+<text fill="#333333" xml:space="preserve" transform="matrix(.71929618 0 0 .71929618 -14.383216 -14.385922)" font-size="16" font-family="Arimo"><tspan y="107" x="343.23439 353.90638 362.80238 371.69837 385.02638 393.92237 402.81837 407.26637 411.71437 419.71437 429.05836 437.95436 442.40235 446.85035 455.74635">Segment k+1..2k</tspan></text>
+<text fill="#333333" xml:space="preserve" transform="matrix(.71929618 0 0 .71929618 -14.383216 -14.385922)" font-size="16" font-family="Arimo"><tspan y="127" x="339.625 354.4375 359.7655 363.3175 367.7655 376.6615 388.2135 397.1095 406.0055 410.4535 414.9015 418.4535 427.3495 432.6775 436.2295 439.7815 443.3335 452.2295 456.6775">WriteCap fibrille B</tspan></text>
+<path transform="matrix(.71929618,0,0,.71929618,-14.023569,-14.026275)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M257 112.23C257 112.23 273.66667 112.23 307 112.23"/>
+</g>
+</svg>

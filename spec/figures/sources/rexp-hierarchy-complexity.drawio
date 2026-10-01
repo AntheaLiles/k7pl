@@ -1,0 +1,44 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="Ixx6yIDsXgTSXn3J7M9C">
+    <mxGraphModel dx="1044" dy="721" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;flowchart LR\n    DFA[\&quot;@linear — DFA&lt;br/&gt;O(1), masquage SIMD\&quot;] --&gt; NFA[\&quot;@polynomial — NFA\&quot;]\n    NFA --&gt; PDA[\&quot;@exponential — PDA&lt;br/&gt;profondeur bornée par un grade\&quot;]&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="lWkAlo1ivydHB6liviTF-1">
+          <mxCell connectable="0" parent="1" style="group;transparentBounds=1;editIcon=1;lockedGroup=0;groupPadding=10;" vertex="1">
+            <mxGeometry as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="@linear — DFA&#xa;O(1), masquage SIMD" mermaidId="n:DFA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="@linear — DFA&#xa;O(1), masquage SIMD" id="lWkAlo1ivydHB6liviTF-2">
+          <mxCell parent="lWkAlo1ivydHB6liviTF-1" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="211" x="30" y="30" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="@polynomial — NFA" mermaidId="n:NFA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="@polynomial — NFA" id="lWkAlo1ivydHB6liviTF-3">
+          <mxCell parent="lWkAlo1ivydHB6liviTF-1" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="54" width="198" x="291" y="40" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="@exponential — PDA&#xa;profondeur bornée par un grade" mermaidId="n:PDA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="@exponential — PDA&#xa;profondeur bornée par un grade" id="lWkAlo1ivydHB6liviTF-4">
+          <mxCell parent="lWkAlo1ivydHB6liviTF-1" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
+            <mxGeometry height="73" width="290" x="539" y="30" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:DFA-&gt;NFA#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.51;entryX=0;entryY=0.5;" mermaidBaseValue="" id="lWkAlo1ivydHB6liviTF-5">
+          <mxCell edge="1" parent="lWkAlo1ivydHB6liviTF-1" source="lWkAlo1ivydHB6liviTF-2" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.51;entryX=0;entryY=0.5;rounded=0;" target="lWkAlo1ivydHB6liviTF-3">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:NFA-&gt;PDA#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.5;entryX=0;entryY=0.51;" mermaidBaseValue="" id="lWkAlo1ivydHB6liviTF-6">
+          <mxCell edge="1" parent="lWkAlo1ivydHB6liviTF-1" source="lWkAlo1ivydHB6liviTF-3" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.5;entryX=0;entryY=0.51;rounded=0;" target="lWkAlo1ivydHB6liviTF-4">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
