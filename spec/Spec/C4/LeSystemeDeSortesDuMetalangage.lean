@@ -304,8 +304,8 @@ vérité sur ses événements.
 
 Le lemme fondamental (théorème {num "thm:lemme_fondamental"}[]) s'étend en conséquence à la strate
 des sessions, ses cas nouveaux étant ceux des règles de communication, chacun réglé par la clause
-correspondante. _La non-interférence graduée et la divulgation délimitée cessent donc d'être bornées
-au fragment sans communication._
+correspondante. _La non-interférence graduée et la divulgation délimitée restent donc bornées
+au fragment sans communication_, le fragment avec communication n'ayant pas encore de règles démontrées.
 
 # Les incertitudes, et ce qu'elles sont
 %%%

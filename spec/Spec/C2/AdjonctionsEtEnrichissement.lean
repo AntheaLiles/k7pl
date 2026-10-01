@@ -359,6 +359,8 @@ le cardinal du plus grand support. Cette restriction est plus étroite que la co
 et c'est délibéré : elle est vérifiable sans preuve, à la manière dont le
 §{num "sec:c2-algebres-coalgebres-et-points"}[] approche la bonne fondation par un indice de taille.
 
+Le mot « monotone » recouvre dans ce document trois notions qu'il faut tenir distinctes, une quatrième, la marque de monotonie du grade, étant une composante et non une propriété. Une _fonction monotone_ $`f : S \to_{\text{mon}} S` préserve l'ordre de $`S` ; un _domaine ordonné_ est un type $`S \in \mathsf{Trellis}_{\text{fin}}`, muni d'un ordre et des conditions ci-dessus ; un _ensemble de règles monotone_ est une méta-propriété du programme, qui garantit qu'ajouter un fait n'en retire aucun. Elles se composent — les règles d'un programme monotone se compilent en fonctions monotones sur un domaine ordonné, dont le point fixe est défini — sans se confondre.
+
 ::::thm (label := "thm:terminaison_lfp")
 :::title
 terminaison du point fixe déductif

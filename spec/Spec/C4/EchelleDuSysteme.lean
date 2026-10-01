@@ -147,9 +147,9 @@ identité binaire du rejeu, sous environnement reproductible
 :::statement +titled
 Le pas que la pureté ne franchit pas
 
-Sous l'hypothèse $`E_{\text{repro}}` — ordonnancement, mode d'arrondi flottant et version de la
-chaîne de compilation identiques entre l'exécution et le rejeu —, l'égalité du théorème précédent
-est une identité binaire : $`\text{Rejeu}(J(H), S_0) =_{\text{bit}} S_{\text{final}}`.
+Sous l'hypothèse $`E_{\text{repro}}` — ordonnancement, mode d'arrondi flottant, version de la
+chaîne de compilation et architecture, comportement des NaN compris, identiques entre l'exécution et le rejeu — et sous l'hypothèse d'injectivité de la représentation sur les valeurs observables, l'égalité du théorème précédent
+est une identité binaire : $`\text{Rejeu}(J(H), S_0) =_{\text{bit}} S_{\text{final}}`.
 :::
 
 :::proofsketch
@@ -307,7 +307,7 @@ que des processus isolés logiciellement peuvent partager un espace d'adressage 
 incapables de se corrompre, dès lors que le compilateur a vérifié leurs propriétés d'accès. Le gain
 est l'élimination des changements de contexte et des purges de TLB. Le prix est que tout le poids de
 l'isolation se déplace vers la correction du compilateur, là où une MMU la maintiendrait
-indépendamment de tout bogue en amont. C'est un pari, non une conséquence, mais il n'est pas isolé.
+indépendamment de tout bogue en amont. La terminalité de la coalgèbre qui définit un acteur garantit l'indiscernabilité comportementale _logique_, non l'absence de canaux cachés physiques. C'est un pari, non une conséquence, mais il n'est pas isolé.
 Le modèle de composants de WebAssembly en donne une réalisation déployée : la mémoire linéaire y est
 bornée par construction, les valeurs franchissent la frontière par un modèle d'interface plutôt que
 par des pointeurs, et aucun composant n'atteint la mémoire d'un autre sans unité de gestion mémoire {cite "groupWebAssemblySpecification,groupWebAssemblySpecAddendum,groupWebAssemblyCodeMetadata"}[].

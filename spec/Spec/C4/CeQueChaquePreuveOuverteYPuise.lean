@@ -26,15 +26,15 @@ doit être explicite pour que son achèvement soit mesurable.
 
 Cette section a été écrite quand les trois preuves attendaient ; elle dit maintenant ce qu'elles ont
 pris. La _préservation du typage par la traduction_ (chapitre 4, théorème {num "thm:traduction_metalangage"}[])
-est *démontrée* (§{num "sec:g-traduction"}[]). Ses trois premiers groupes par le lemme de
-commutation, et ses quatre cas résistants par le foncteur d'effacement, le système de sortes, et
+est _planifiée_ (§{num "sec:g-traduction"}[]), non conduite. Ses trois premiers groupes se réduisent au lemme de
+commutation, et ses quatre cas résistants au foncteur d'effacement, le système de sortes, et
 l'appareil de ré-invocation bornée que les deux derniers partagent. La _non-interférence graduée_
 (théorème {num "thm:non_interference"}[]) est démontrée sur le fragment sans communication, temps
 compris (§{num "sec:g-relation-logique"}[]) ; son extension attend le même système de sortes. La
 _divulgation délimitée_ (théorème {num "thm:divulgation_delimitee"}[]) est démontrée sous la même
-réserve, la relation étant celle-là même requantifiée. _Cette réserve est levée depuis le
-§{num "sec:g-sortes"}[]_ : le système de sortes rend la clause de session définissable, et les trois
-preuves s'étendent à la strate qu'elles laissaient. Les trois reposent sur le lemme de substitution
+réserve, la relation étant celle-là même requantifiée. _Cette réserve est précisée depuis le
+§{num "sec:g-sortes"}[]_ : le système de sortes rend la clause de session définissable, de sorte que les trois
+preuves s'étendent en principe à la strate qu'elles laissaient ; l'extension n'est pas conduite. Les trois reposent sur le lemme de substitution
 et sur la loi de cohérence qu'il a réclamée. Les _règles de la loi distributive graduée_ et celles
 de la _gradation indexée_ sont des règles, et appartiennent au jeu de règles du §{num "sec:g-regles"}[] dès qu'elles seront écrites.
 

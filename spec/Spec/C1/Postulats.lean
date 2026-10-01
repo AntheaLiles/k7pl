@@ -83,6 +83,16 @@ forme que la clôture énoncée ci-après réclame d'une extension.
   d'une contrainte de valeur — indices de taille, paramètres fantômes, bornes — sont exclues du
   suivi de ressource et portent un grade nul.
 
+  L'orthogonalité est une orthogonalité _au niveau du jugement_, non une indépendance absolue des
+  deux axes, et elle se qualifie en trois couplages nommés, qui sont des interfaces contrôlées entre
+  eux, chacune justifiée séparément. Les destinations indexent la modalité linéaire par un paramètre
+  d'âge $`k` (`Lin_k`) : l'indice est clos à la compilation et se lit comme la même mesure
+  décroissante que l'introduction unique. L'élimination d'un existentiel interdit la projection
+  implicite quand le témoin porte un grade effaçable : le typage de la valeur y dépend du grade du
+  contexte, par la condition de bord de {sc}[Open]. Le point fixe déductif exige que son type soit un
+  domaine ordonné à hauteur finie : la règle inspecte la structure du type de valeur pour autoriser
+  l'effet.
+
   Cette condition n'est pas une restriction ajoutée après coup. Elle distingue les types dépendants
   pragmatiques du chapitre 3 (§{num "sec:c3-les-contraintes-de-valeur"}[]) de la dépendance
   complète, pour laquelle la littérature établit qu'un tel produit libre n'est pas disponible. La
