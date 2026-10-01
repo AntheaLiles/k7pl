@@ -22,12 +22,12 @@ number := false
 
 {refsection "k7-sushi"}
 
-{label "sec:annexe-e-sushi" (display := "C")}
+{label "sec:annexe-sushi" (display := "C")}
 
 `sushi` ne définit aucune grammaire qui lui soit propre : c'est la syntaxe d'appel universelle du
 chapitre 5 (§{num "sec:c5-s-expressions-universelles"}[]) —
 `(fonction arg₁ arg₂ +flag -flag :clé valeur)` — appliquée à l'administration système plutôt qu'au
-calcul applicatif, et le REPL de l'annexe D comme surface d'interaction. La commande
+calcul applicatif, et le REPL de l'annexe {num "sec:annexe-lsp-repl"}[] comme surface d'interaction. La commande
 `(list :type-fichier mp3)` n'est, en ce sens, ni plus ni moins qu'un appel de fonction ordinaire
 dont le résultat s'affiche tabulairement. Qu'elle coïncide, par ailleurs, avec une commande shell
 POSIX et une requête relationnelle n'est pas une coïncidence heureuse mais la conséquence directe du
@@ -38,9 +38,3 @@ Les utilitaires POSIX usuels — `sed`, `awk`, `xargs` — y sont remplacés par
 chapitre 4 (§{num "sec:c4-echelle-locale"}[]). Un filtre shell n'est ainsi qu'un motif compilé en
 automate, avec les mêmes garanties de terminaison et de complexité que n'importe quel usage de
 `match` en couche 3.
-
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : shells structurés à données typées (Nushell, PowerShell, Elvish) ; l'argument de la convergence commande/requête (jq, Miller) ; littérature sur les combinateurs de flux Unix comme fragment d'un calcul plus général (McIlroy).
-```
-:::

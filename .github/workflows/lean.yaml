@@ -38,6 +38,11 @@ jobs:
           axiom-audit: true
           axiom-audit-root: K7pl
 
+      # Checks on the Verso sources (laws of the algebra at 0 and ω, seals, propagation of open
+      # statements, grammar × rules, structure); they replace the checks of the former Org tooling.
+      - name: Check the specification
+        run: python3 scripts/controle.py
+
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
 
