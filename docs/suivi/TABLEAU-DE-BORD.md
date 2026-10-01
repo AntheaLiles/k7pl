@@ -33,7 +33,7 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 119946 |
+| Mots (approximatif, hors code et formules) | 120217 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -66,7 +66,7 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 <!-- BEGIN:fiches -->
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| `BLOQ` Bloquants | 14 | 8 | 5 | 0 | 0 | 0 | 1 |
+| `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
 | `STRUCT` Structurels | 23 | 4 | 1 | 0 | 0 | 0 | 18 |
 | `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
 | `PREUVE` Dettes de preuve | 16 | 1 | 2 | 0 | 0 | 0 | 13 |
@@ -78,7 +78,7 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **55** | **9** | **1** | **3** | **2** | **120** |
+| **Total** | **190** | **55** | **10** | **1** | **3** | **2** | **119** |
 <!-- END:fiches -->
 
 Détail fiche par fiche : [`FICHES-PR02.md`](FICHES-PR02.md). **Comment lire « ouverte »** : aucun compte rendu de séance ne nomme la fermeture de la fiche. L'auteur a pu fermer sans consigner ; l'état est volontairement conservateur et se corrige dans `fiches-statuts.csv`. Les fermetures *déduites* (changement de statut d'un énoncé rapproché du texte de la fiche) sont marquées comme telles et sont à confirmer.

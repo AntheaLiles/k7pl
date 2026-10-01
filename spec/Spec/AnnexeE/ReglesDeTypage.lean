@@ -203,15 +203,15 @@ qu'il ne s'en écarte, et c'est l'effet traversant qui l'y oblige.
 
 ```
 \begin{equation*}
-\textsc{Case}\;\frac{\;\Delta_1 \vdash v : \textstyle\bigoplus_{i \in I} V_i \qquad \Delta_2,\, x :_{1} V_i \vdash c_i : C \mid \varepsilon \;\;(\forall i \in I)\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{case}\;v\;\mathsf{of}\;\{i \mapsto c_i\}_{i \in I} : C \mid \varepsilon\;}
+\textsc{Case}\;\frac{\;\Delta_1 \vdash v : \textstyle\bigoplus_{i \in I} V_i \qquad \Delta_2,\, x :_{1} V_i \vdash c_i : C \mid \varepsilon \;\;(\forall i \in I) \qquad \mathrm{niv}(\Delta_1) \sqsubseteq \hat\ell(\varepsilon)\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{case}\;v\;\mathsf{of}\;\{i \mapsto c_i\}_{i \in I} : C \mid \varepsilon\;}
 \end{equation*}
 ```
 
 ```
 \begin{equation*}
-\textsc{Op}\;\frac{\;\Delta \vdash v : V_{\mathsf{operation}}\;}{\;\Delta \vdash \mathsf{operation}_\varepsilon(v) : F_{\mathbf{1}} W \mid \varepsilon\;}
+\textsc{Op}\;\frac{\;\Delta \vdash v : V_{\mathsf{operation}} \qquad \mathrm{niv}(\Delta) \sqsubseteq \hat\ell(\varepsilon)\;}{\;\Delta \vdash \mathsf{operation}_\varepsilon(v) : F_{\mathbf{1}} W \mid \varepsilon\;}
 \qquad
-\textsc{Tick}\;\frac{\;}{\;\mathbf{0} \vdash \mathbf{tick} : F_{\mathbf{1}} \mathbf{1} \mid \langle \mathbf{1}, 1\rangle\;}
+\textsc{Tick}\;\frac{\;}{\;\mathbf{0} \vdash \mathbf{tick} : F_{\mathbf{1}} \mathbf{1} \mid \langle \mathbf{1}, \delta_{\hat\ell}\rangle\;}
 \qquad
 \textsc{Del}\;\frac{\;\Delta \vdash c : C \mid \varepsilon\;}{\;{\bigcirc}\Delta \vdash \mathsf{delay}\;c : {\bigcirc}C \mid \varepsilon\;}
 \end{equation*}
@@ -229,6 +229,25 @@ qu'il ne s'en écarte, et c'est l'effet traversant qui l'y oblige.
 Le jeu de règles central : variable, adjonction, modalité graduée, effets et sous-typage
 :::
 ::::
+
+Deux niveaux circulent dans ces règles, et ils ne sont pas le même ordre. Le _niveau de lecture_
+$`\ell` est la troisième composante d'un grade $`r` : ce qu'une liaison $`x :_r V` donne le droit
+de lire, et $`\mathrm{niv}(\Delta) = \bigsqcup_{x :_r V \in \Delta} \mathrm{niv}(r)` est celui d'un
+contexte. Le _niveau de production_ $`\hat\ell` est celui auquel un événement est observable : la
+famille $`\kappa` d'un effet $`\varepsilon = \langle \varphi, \kappa \rangle` est indexée par lui, et
+$`\hat\ell(\varepsilon)` en désigne la borne inférieure des niveaux où $`\kappa` est non nulle — et
+$`\top` si $`\kappa = 0`, un effet sans événement temporel n'ayant rien à protéger. Le premier est
+contravariant (le niveau d'un contexte monte avec ce qu'il lit), le second covariant ; les écrire
+$`\ell` et $`\hat\ell` évite que « $`\ell \sqsubseteq \ell` » ne soit inénonçable. {sc}[Tick]
+choisit son niveau de production $`\hat\ell`, et l'effet $`\langle \mathbf{1}, \delta_{\hat\ell}\rangle` est
+bien formé, $`\kappa` étant une famille et non un nombre. Ce choix serait libre, donc contournable,
+sans la clause de couplage que portent {sc}[Op] et {sc}[Case] : un calcul n'inspecte ni ne
+transmet que des valeurs dont le niveau de lecture est au plus son niveau de production. Un
+`case` sur une somme secrète dont les branches produiraient des ticks publics est ainsi
+rejeté, et le canal temporel que l'annexe déclare fermé l'est par règle. La correspondance est
+_dérivée_ et non décidée : l'exclusion de $`\varphi_\ell` hors de la quantale des effets
+n'est plus une clause négative posée à la main. Le niveau courant du processus est celui que
+porte son effet ; il n'est donc pas nécessaire de l'indexer en plus dans le jugement.
 
 Trois de ces règles ne demandent rien, et sont écrites plutôt qu'omises : une règle absente est un
 cas manquant dans toute induction — et le lemme de substitution du §{num "sec:g-regles"}[] procède
