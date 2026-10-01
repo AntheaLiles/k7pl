@@ -14,13 +14,13 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `PREUVE` Dettes de preuve | 16 | 1 | 2 | 0 | 0 | 0 | 13 |
 | `NOTA` Notation, comptes, renvois | 8 | 3 | 0 | 0 | 0 | 0 | 5 |
 | `IMPL` Implémentation et outillage | 9 | 1 | 0 | 0 | 0 | 0 | 8 |
-| `FACT` Factorisations à écrire | 24 | 12 | 1 | 0 | 0 | 2 | 9 |
+| `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `REECR` Réécritures d'énoncés | 27 | 5 | 0 | 0 | 0 | 0 | 22 |
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **57** | **10** | **1** | **3** | **2** | **117** |
+| **Total** | **190** | **57** | **13** | **1** | **5** | **2** | **112** |
 
 ## BLOQ — Bloquants
 
@@ -149,18 +149,18 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `FACT-04` | ✅ fermée | Schéma de ré-invocation bornée | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) |
 | `FACT-05` | 🟡 partielle | Théorème de cohérence des coercions | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) · le théorème recule en proposition ; voie écrite, preuve à conduire |
 | `FACT-06` | ✅ fermée | Théorème d'effacement / simulation | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) |
-| `FACT-07` | ⬜ ouverte | Théorème fondamental de préservation fibrée | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) · reportée délibérément : suppose réglés le niveau d'un calcul et la relation logique sur un produit |
+| `FACT-07` | ⬜ ouverte | Théorème fondamental de préservation fibrée | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · attend PREUVE-11 (BLOQ-05 est levé) |
 | `FACT-08` | ⬜ ouverte | Le partage en lecture et le partage de canal sont un seul geste | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · redevenue disponible : le périmètre du noyau est stabilisé |
-| `FACT-09` | ⬜ ouverte | L'inexpressibilité comme unique mode de garantie, et la réduction des familles d'erreurs |  |
-| `FACT-10` | ⬜ ouverte | Séquencement dans la quantale et préfixage dans le calcul de processus |  |
-| `FACT-11` | ⬜ ouverte | `Mailbox` comme objet unique |  |
-| `FACT-12` | ⬜ ouverte | Adjonction graduée unifiant coeffets et effets |  |
+| `FACT-09` | 🟡 partielle | L'inexpressibilité comme unique mode de garantie, et la réduction des familles d'erreurs | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · principe énoncé au §1.4 ; table code ⟷ prémisse à écrire (PORT-07) |
+| `FACT-10` | ⬜ ouverte | Séquencement dans la quantale et préfixage dans le calcul de processus | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · attend PREUVE-07 (lemme de simulation) |
+| `FACT-11` | 🟡 partielle | `Mailbox` comme objet unique | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · objet Mailbox posé au §4.5 ; reprise des quatre énoncés à faire |
+| `FACT-12` | ❓ décision | Adjonction graduée unifiant coeffets et effets | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · choix de formulation : ARB-PR-05 écarte déjà FACT-21/22 ; à réévaluer avec STRUCT-01 |
 | `FACT-13` | ✅ fermée | Une seule loi de substitution pour quatre lemmes | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
-| `FACT-14` | ⬜ ouverte | Cadre unique des structures monotones |  |
+| `FACT-14` | ❓ décision | Cadre unique des structures monotones | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · dépend de STRUCT-17 (quatre notions de monotonie) |
 | `FACT-15` | ✅ fermée | Une seule relation d'équivalence observationnelle pour les trois rejeux | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
 | `FACT-16` | ✅ fermée | `Injectivité(obs, repr)` comme exigence de représentation unique | [journal](../journal/2026-10-01-pr-02-12-fact-17-et-16.md) · exigence thm:representation_inobservable ; vérifiée par test différentiel |
 | `FACT-17` | ✅ fermée | Une loi unique d'introduction des ressources d'écriture | [journal](../journal/2026-10-01-pr-02-12-fact-17-et-16.md) · énoncé unique écrit (thm:introduction_unique) ; preuve à écrire (PREUVE-12) |
-| `FACT-18` | ⬜ ouverte | La fenêtre statiquement dimensionnée sur un objet coinductif |  |
+| `FACT-18` | 🟡 partielle | La fenêtre statiquement dimensionnée sur un objet coinductif | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · principe posé au §2.6 ; lemme de troncature à écrire à part |
 | `FACT-19` | ✅ fermée | L'ordre d'occurrence | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
 | `FACT-20` | ⬜ ouverte | Annexe unique « classes de motifs et bornes » |  |
 | `FACT-21` | ⛔ écartée | Architecture minimale à cinq couches de preuve | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md |

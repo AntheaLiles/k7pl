@@ -482,6 +482,14 @@ atomique de pointeurs, garantissant l'atomicité verrou-libre sans synchronisati
 :::
 ::::
 
+Cette boîte est un seul objet, $`\mathsf{Mailbox} = \Sigma_{c \in \mathsf{Chan}}\,\mathsf{Bag}(\mathsf{Cap}(c))` :
+un multi-ensemble de ressources linéaires indexé par canal, muni d'une règle de consommation
+atomique multi-places. Quatre résultats de ce document en sont des lectures : l'activation
+conditionnelle ci-dessus ; le circuit breaker de session, qui compare le tag d'un message à ce que la
+boîte attend ; la ré-invocation séquentielle d'un grade fini ; et la traduction d'un service répliqué
+$`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme sa restriction ; la
+reprise de leurs énoncés sur cette définition unique reste à faire.
+
 L'énoncé est _local_ : il porte sur une jonction prise isolément. {rmq}[L'atomicité locale est
 démontrée, la localité ne l'est pas. Les deux mots se ressemblent et ne disent pas la même chose.]
 La propriété dont l'architecture a besoin est distincte et ne s'en déduit pas — la _localité_ au
