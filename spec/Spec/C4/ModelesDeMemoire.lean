@@ -47,7 +47,7 @@ sûreté spatiale par capacités linéaires
 Impossibilité de mutation concurrente
 
 Soient $`t_1` et $`t_2` deux membres du multi-ensemble de calculs, composés par la règle {sc}[Par]
-de l'annexe (§{num "sec:g-parallelisme"}[]) et donc sous des contextes _additionnés_,
+(§{num "sec:g-parallelisme"}[]) et donc sous des contextes _additionnés_,
 $`\Delta_1 + \Delta_2`. On suppose (H1) l'_unicité d'introduction_ : la règle d'introduction de
 $`\mathsf{WriteCap}(r)` consomme linéairement l'arène ou le segment dont elle découpe $`r`, de sorte
 qu'au plus une capacité d'écriture par région est dérivable en contexte clos ; (H2) la _portée_ :

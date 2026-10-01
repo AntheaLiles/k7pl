@@ -102,7 +102,7 @@ def action_through_parallel():
 
 def conventions_of_infinity():
     """Are the four equalities that govern ω written down (0·ω, ω·0, ω+ω, ω·ω)?"""
-    text = corpus.flat(corpus.chapter("C2") + corpus.chapter("AnnexeE"))
+    text = corpus.flat(corpus.chapter("C2") + corpus.chapter("C3") + corpus.chapter("C4"))
     expected = [
         (r"0\s*\\cdot\s*\\omega|0\s*\\times\s*\\omega", "0 · ω"),
         (r"\\omega\s*\\cdot\s*0|\\omega\s*\\times\s*0", "ω · 0"),
@@ -118,7 +118,7 @@ def conventions_of_infinity():
 
 def size_sorts_inhabited():
     """Do the well-formedness clauses leave the connectives they govern inhabited?"""
-    text = corpus.flat(corpus.chapter("C2") + corpus.chapter("AnnexeE"))
+    text = corpus.flat(corpus.chapter("C2") + corpus.chapter("C3") + corpus.chapter("C4"))
     defs = {k: re.findall(r"\\mathbb\{S\}_\\%s\s*\\;?\s*=\s*([^$`]{0,80})" % k, text) for k in ("mu", "nu")}
     if not (defs["mu"] and defs["nu"]):
         ko("les deux sortes de tailles ne sont pas toutes deux définies : 𝕊_μ %s, 𝕊_ν %s"

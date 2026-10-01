@@ -298,7 +298,7 @@ du graphe d'attente_ : pour tous acteurs $`a` et $`b` et tout état atteignable
 message de $`b`, alors l'arête $`(a,b)` est au graphe de câblage. Sous cette simulation, tout cycle
 d'attente serait un cycle de câblage, et l'acyclicité vérifiée en Phase 1.5 conclut.
 
-_Cette simulation n'est plus un emprunt._ Depuis que la couche 2 a ses règles (annexe,
+_Cette simulation n'est plus un emprunt._ Depuis que la couche 2 a ses règles (§{num "sec:g-regles"}[],
 §{num "sec:g-couche2"}[]), le graphe de câblage n'est plus un objet posé au-dehors : il est celui
 des dépendances entre boîtes aux lettres, que le jugement porte. Une attente est une instance de {sc}[Guard]
 sur une boîte, et la boîte y est une liaison du contexte ; l'arête d'attente est donc une arête de

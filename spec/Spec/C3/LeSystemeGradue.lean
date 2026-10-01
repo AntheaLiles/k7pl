@@ -263,7 +263,7 @@ contexte à zones est une application finie vers des couples de grade et de zone
 partiel par zone. L'addition y reste ponctuelle, et $`\boxtimes` survit sans retouche puisque
 $`\psi` n'agit que sur le budget et laisse la zone inchangée.
 
-Ce qui change est le lemme de substitution (annexe, théorème {num "thm:substitution"}[]) : son
+Ce qui change est le lemme de substitution (§{num "sec:g-regles"}[], théorème {num "thm:substitution"}[]) : son
 énoncé place la variable substituée à l'extrémité droite du contexte, ce qui est une notation sur
 une application finie et devient une contrainte sur une zone ordonnée. Il acquiert donc une
 condition de bord — la substitution est admissible pour la liaison _maximale_ de sa zone —,

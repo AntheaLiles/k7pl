@@ -12,6 +12,7 @@ import Spec.C1.GuideDeLecture
 import Spec.C1.Postulats
 import Spec.C1.AxiomatiqueGerminale
 import Spec.C1.TableNormativeDesSymboles
+import Spec.C1.TableDesGlyphes
 
 open Verso.Genre Manual
 open SpecExt
@@ -35,3 +36,5 @@ tag := "c1-prolegomenes"
 {include 0 Spec.C1.AxiomatiqueGerminale}
 
 {include 0 Spec.C1.TableNormativeDesSymboles}
+
+{include 0 Spec.C1.TableDesGlyphes}

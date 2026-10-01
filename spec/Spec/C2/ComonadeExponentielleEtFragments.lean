@@ -115,7 +115,7 @@ Une extension déductive n'hériterait donc pas sa borne de coût du semi-anneau
 évaluerait sur un semi-anneau propre — le booléen pour les règles ordinaires, qui est de rang fini
 et absorbant —, structure supplémentaire et non réemploi.
 
-Une loi se démontre ici plutôt qu'à l'annexe, et le choix du lieu est l'objet du théorème. Elle
+Une loi se démontre ici plutôt qu'aux règles de typage (§{num "sec:g-regles"}[]), et le choix du lieu est l'objet du théorème. Elle
 relie les deux actions que le grade exerce — $`\varphi_r` sur l'effet, $`\psi` sur le contexte —,
 elle ne demande que l'arithmétique de $`\mathcal{R}` qui précède, et le reste du document l'emploie
 quatre fois sans jamais la redémontrer.
@@ -214,7 +214,7 @@ elles.]
 
 La restriction que ce théorème porte n'est pas une précaution de rédaction : elle a une contrepartie
 dans les règles. Les deux règles qui composent un calcul avec un calcul — l'application et la
-liaison séquentielle — portent une _condition de bord_ que l'annexe écrit : un argument de grade
+liaison séquentielle — portent une _condition de bord_ que les règles de typage écrivent : un argument de grade
 infini ne peut traverser un effet à coût temporel non nul. La condition est d'ailleurs ce que la
 sédimentation prédisait sans le dire : un usage non contraint appartient au fragment cartésien,
 lequel est pur et n'a donc pas d'effet à traverser. {rmq}[Une restriction qu'on croyait coûteuse et

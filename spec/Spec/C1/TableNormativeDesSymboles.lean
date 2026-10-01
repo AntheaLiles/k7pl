@@ -77,7 +77,7 @@ Un mot sur le partage des glyphes modaux, car deux relectures indépendantes l'o
 contraires. La ressource porte $`!` et non $`\Box` : c'est le glyphe de l'exponentielle depuis
 Girard, un lecteur le reconnaît sans l'apprendre, et il ne se confond avec rien. Le carré reste au
 temps, où la nécessité modale lui donne son meilleur titre. Ce document a longtemps écrit les deux
-pour le même objet — l'exponentielle ici, le carré indicé à l'annexe —, ce qui était le vrai défaut,
+pour le même objet — l'exponentielle ici, le carré indicé aux règles de typage —, ce qui était le vrai défaut,
 l'un ou l'autre valant mieux que les deux.
 
 {bibliography}

@@ -254,7 +254,7 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   instancie trois, et l'ordre de ces trois est le fragment totalement ordonné du treillis que les
   quatre forment. Il n'en ouvre pas davantage. Le motif est chiffrable : l'addition point par point
   des contextes suppose les mêmes facteurs des deux côtés, et les jointures dont dépend la cohérence
-  de la subsomption (annexe, théorème {num "thm:coherence_subsomption"}[]) ne sont pas garanties
+  de la subsomption (§{num "sec:g-regles"}[], théorème {num "thm:coherence_subsomption"}[]) ne sont pas garanties
   entre modes quelconques. Un besoin nouveau se satisferait par un mode _nommé_, avec son morphisme
   vers les trois autres, et non par l'ouverture d'un treillis.
 
@@ -325,7 +325,7 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   gouverne ce passage est connue et caractérisée : la fonction de transition d'un automate valué
   s'étend aux mots si et seulement si la multiplication distribue sur les bornes supérieures
   _finies_, c'est-à-dire si la structure est un monoïde ordonné par treillis {cite "liFuzzyFiniteAutomata2005"}[].
-  La quantale a donc plus qu'il n'en faut pour ce que l'annexe en fait, et savoir laquelle de ses
+  La quantale a donc plus qu'il n'en faut pour ce que les règles en font, et savoir laquelle de ses
   propriétés porte l'extension est ce qui permettra, le moment venu, de ne mécaniser que celle-là.
 
 : $`\varphi`
@@ -342,7 +342,7 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   lancé. La seconde entraîne la première — un bloc exécuté $`n` fois emploie $`n` fois chacune de
   ses ressources — mais la réciproque est fausse, et c'est la seconde qui gouverne l'itération de
   l'effet. La distinction paraît fine et elle décide de ce qu'un gestionnaire peut faire
-  (§{num "sec:annexe-presentation-formelle"}[]) : ce qui borne une réexécution n'est pas la
+  (§{num "sec:g-regles"}[]) : ce qui borne une réexécution n'est pas la
   discipline de ressource de la couche, mais le budget, qui la tarife. La composante de niveau agit
   d'une autre manière : elle n'itère pas l'effet, elle l'_étiquette_. Un calcul de niveau $`\ell`
   produit un effet observable au niveau $`\ell`, ce qui est le versant d'intégrité de la dualité du
@@ -525,8 +525,8 @@ séparée pour les tenir ensemble — ce serait $`\mathcal{C}` reparaissant.
 Cette condition est la _loi de cohérence_ de $`\varphi` et $`\psi` : pour tout grade $`r`, tout
 contexte $`\Delta` et tout effet $`\varepsilon`, mettre à l'échelle après transport doit revenir à
 transporter après mise à l'échelle, l'effet étant échelonné du même facteur. {rmq}[Le Prolégomène
-pose la condition et dit où elle est acquittée. La preuve est à l'annexe {num "sec:annexe-presentation-formelle"}[], là où la loi sert.] Elle
-est démontrée à l'annexe {num "sec:annexe-presentation-formelle"}[] (§{num "sec:annexe-presentation-formelle"}[], théorème {num "thm:coherence_axiome"}[]),
+pose la condition et dit où elle est acquittée. La preuve est au §{num "sec:g-regles"}[], là où la loi sert.] Elle
+est démontrée au §{num "sec:g-regles"}[] (théorème {num "thm:coherence_axiome"}[]),
 là où le lemme de substitution, la relation logique et la traduction l'emploient l'une après
 l'autre.
 
@@ -619,8 +619,7 @@ Trois propriétés sont incompatibles deux à deux dès qu'on les veut ensemble 
 observables, l'élimination dépendante, et un lemme de substitution. Une théorie des types qui
 possède les trois est _inconsistante_, et le résultat est démontré {cite "pedrotFireTriangleHow2020"}[].
 Il est possible d'en avoir deux, jamais trois. Or K7PL a les trois ingrédients apparents : une trace
-d'effets, des types qui dépendent de valeurs, et un lemme de substitution démontré à l'annexe
-(§{num "sec:annexe-presentation-formelle"}[]). Rien dans ce document ne dit pourquoi il n'est pas
+d'effets, des types qui dépendent de valeurs, et un lemme de substitution démontré au §{num "sec:g-regles"}[]. Rien dans ce document ne dit pourquoi il n'est pas
 visé.
 
 Il y échappe, et il y échappe structurellement plutôt que par une clause ajoutée. Son lemme de

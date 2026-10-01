@@ -13,14 +13,13 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.3. Règles de typage" =>
+#doc (Manual) "Règles de typage" =>
 %%%
 file := "g-regles"
 tag := "g-regles"
-number := false
 %%%
 
-{label "sec:g-regles" (display := "E.3")}
+{label "sec:g-regles"}
 
 Deux règles sont données au corps : celle du point fixe déductif ({num "eq:regle-fix"}[]) et celle
 de la déclassification ({num "eq:regle-declassify"}[]). Les autres sont données ici, en quatre
@@ -120,7 +119,7 @@ alors $`\beta \ominus 0 = \beta`, la soustraction tronquée dans $`\mathbb{N}_\i
 neutre à droite. Donc $`\psi(\Delta_2,\varepsilon) = \Delta_2` sur les quatre composantes.
 
 La totalité suit du même calcul : la soustraction tronquée n'échoue que lorsque le budget ne couvre
-pas le coût, et à coût nul elle est définie partout. C'est le seul point de cette annexe où $`\psi`
+pas le coût, et à coût nul elle est définie partout. C'est le seul point de cette section où $`\psi`
 soit totale, et il vaut d'être relevé.
 :::
 ::::
@@ -244,7 +243,7 @@ bien formé, $`\kappa` étant une famille et non un nombre. Ce choix serait libr
 sans la clause de couplage que portent {sc}[Op] et {sc}[Case] : un calcul n'inspecte ni ne
 transmet que des valeurs dont le niveau de lecture est au plus son niveau de production. Un
 `case` sur une somme secrète dont les branches produiraient des ticks publics est ainsi
-rejeté, et le canal temporel que l'annexe déclare fermé l'est par règle. La correspondance est
+rejeté, et le canal temporel que ce document déclare fermé l'est par règle. La correspondance est
 _dérivée_ et non décidée : l'exclusion de $`\varphi_\ell` hors de la quantale des effets
 n'est plus une clause négative posée à la main. Le niveau courant du processus est celui que
 porte son effet ; il n'est donc pas nécessaire de l'indexer en plus dans le jugement.
@@ -264,7 +263,7 @@ déjà celui du théorème, et il n'était pas dit qu'il l'était : relever une 
 et démontrer que deux dérivations coïncident demandent la même structure.
 
 La forme _indexée_ de {sc}[Case] n'est pas un raffinement de présentation, et il faut dire pourquoi
-elle a été préférée à la forme binaire que cette annexe écrivait. Un gestionnaire d'acteur a autant
+elle a été préférée à la forme binaire que ce texte écrivait. Un gestionnaire d'acteur a autant
 de branches qu'il reçoit d'espèces de messages. L'encoder par une cascade de sommes binaires
 rendrait le nombre de branches dépendant d'un ordre arbitraire, et le typage d'un protocole
 dépendrait de la manière dont on a associé les alternatives. Les types de session de cette même
@@ -407,7 +406,7 @@ demeure une proposition.
 
 La forme de cette preuve est celle qu'emploie la cohérence de la subsomption pour un calcul
 monadique {cite "schwinghammerCoherenceSubsumptionMonadic2009"}[]. La condition qu'elle demande est
-acquise ici sans qu'aucune structure nouvelle soit requise, et l'annexe employait déjà ces jointures
+acquise ici sans qu'aucune structure nouvelle soit requise, et ce texte employait déjà ces jointures
 aux branchements sans savoir qu'elles conditionnaient un théorème.
 
 Une réserve de portée doit être notée maintenant plutôt qu'au moment où l'on voudrait s'en passer. {rmq}[Les
@@ -430,10 +429,9 @@ subsomption_. Le schéma d'énoncé est le même — un programme valide a exact
 et il est employé deux fois dans ce document pour deux objets distincts. Que la preuve ci-dessus
 s'étende à la recherche est une question ouverte, et elle n'est pas traitée ici.
 
-# E.3.1. Les deux autres modalités temporelles
+# Les deux autres modalités temporelles
 %%%
 tag := "g-regles-les-deux-autres-modalites-temporelles"
-number := false
 %%%
 
 Elles n'ont pas de forme héritée, et il faut donc les concevoir. Ce qui les détermine est moins leur
@@ -537,13 +535,12 @@ seconde est que $`\Box` ressemble à la modalité d'usage sans lui être identiq
 temps, l'autre sur le nombre d'emplois, et leur parenté est celle que le chapitre 2 énonce entre
 toutes les modalités graduées sur une structure ordonnée — même patron, structures distinctes.
 
-# E.3.2. Les opérations à portée
+# Les opérations à portée
 %%%
 tag := "g-scoped"
-number := false
 %%%
 
-{label "sec:g-scoped" (display := "E.3.2")}
+{label "sec:g-scoped"}
 
 La règle {sc}[Op] vaut d'une opération algébrique ordinaire, qui reçoit une valeur et rend un
 calcul. Celles qui reçoivent un _calcul_ — un gestionnaire, un bloc délimité — n'entrent pas dans ce
@@ -597,10 +594,9 @@ pas. Ce n'est pas une entorse mais un déplacement, et le paragraphe sur la séd
 — ce qui borne une réexécution est le budget et non la discipline de ressource, le premier tarifant
 ce que la seconde interdirait sans le mesurer.
 
-## E.3.2.1. Le monoïde des transformateurs
+## Le monoïde des transformateurs
 %%%
 tag := "g-scoped-le-monoide-des-transformateurs"
-number := false
 %%%
 
 La règle quantifie sur $`\mathcal{M}`, qu'il faut donc poser. Avant de le faire, il faut situer cet
@@ -663,10 +659,9 @@ l'ordre parce que chaque générateur le préserve — l'itération dans une qua
 dans $`\mathbb{N}_\infty` sont monotones, l'effacement l'est aussi — et parce qu'une composée
 d'applications monotones l'est.
 
-### E.3.2.1.1. La troisième loi, et la condition sous laquelle elle tient
+### La troisième loi, et la condition sous laquelle elle tient
 %%%
 tag := "g-scoped-le-monoide-des-transformateurs-la-troisieme-loi-et"
-number := false
 %%%
 
 La commutation des deux familles n'est pas gratuite, et c'est elle qui décide de tout le reste. Le
@@ -697,10 +692,9 @@ introduirait une équation reliant une opération interceptable à une opératio
 commutation, donc les formes normales, donc la décidabilité de l'appartenance à $`\mathcal{M}`.
 C'est le point où ce monoïde est fragile.
 
-### E.3.2.1.2. La commutation, démontrée
+### La commutation, démontrée
 %%%
 tag := "g-scoped-le-monoide-des-transformateurs-la-commutation-demon"
-number := false
 %%%
 
 L'énoncé se pose pour ce qu'il est, trois choses en dépendant : les formes normales, donc la
@@ -756,10 +750,9 @@ $`\mathcal{E}_0` qui poserait une équation reliant une opération interceptable
 conservée romprait la commutation, donc les formes normales, donc la décidabilité. _La condition
 doit voyager avec l'algèbre des effets, non rester dans cette page._
 
-### E.3.2.1.3. Deux projections, et non une
+### Deux projections, et non une
 %%%
 tag := "g-scoped-le-monoide-des-transformateurs-deux-projections-et"
-number := false
 %%%
 
 La rétraction $`\pi_S` laisse le facteur temporel intact. C'est le bon choix pour ce à quoi le
@@ -802,10 +795,9 @@ Les deux coïncident exactement lorsqu'aucune opération effacée ne consomme de
 $`\pi^{\dagger}` majore $`\pi^{\flat}` partout ailleurs. Employer la première là où la seconde est
 requise ouvrirait le canal temporel dans la démonstration même qui prétend le fermer.
 
-### E.3.2.1.4. La seconde projection, définie
+### La seconde projection, définie
 %%%
 tag := "g-scoped-le-monoide-des-transformateurs-la-seconde-projectio"
-number := false
 %%%
 
 Le facteur temporel étant une famille indexée par les niveaux (§{num "sec:g-grammaire-types"}[]),
@@ -827,10 +819,9 @@ démontrer, pour chaque transformateur, qu'il ne relève jamais que vers le haut
 la question sans objet. C'est un choix conservateur, et il est écrit comme tel plutôt que présenté
 comme une nécessité.
 
-### E.3.2.1.5. Formes normales, et ce qu'elles achètent
+### Formes normales, et ce qu'elles achètent
 %%%
 tag := "g-scoped-le-monoide-des-transformateurs-formes-normales-et-c"
-number := false
 %%%
 
 Les trois lois suffisent à normaliser. Tout mot en les générateurs se réduit à
@@ -844,10 +835,9 @@ vérifie qu'il appartient à $`\mathcal{M}`, ce qui revient à le mettre en form
 vérification est décidable. Sans les formes normales, l'appartenance à un sous-monoïde de
 $`\mathrm{End}(\mathcal{E})` ne le serait pas, et la règle serait ininspectable.
 
-### E.3.2.1.6. Ce que le monoïde ne contient pas, et pourquoi
+### Ce que le monoïde ne contient pas, et pourquoi
 %%%
 tag := "g-scoped-le-monoide-des-transformateurs-ce-que-le-monoide-ne"
-number := false
 %%%
 
 Une troisième famille aurait pu y figurer et n'y figure pas. La loi distributive fait aussi agir le
@@ -863,10 +853,9 @@ l'attaque de blanchiment que la déclassification ferme, et le ferait à l'endro
 de non-interférence est le plus fragile, celui du canal temporel. _Le monoïde n'itère et n'efface ;
 il n'étiquette pas._
 
-## E.3.2.2. Ce que les couches en font
+## Ce que les couches en font
 %%%
 tag := "g-scoped-ce-que-les-couches-en-font"
-number := false
 %%%
 
 Le monoïde est un, et les couches n'en reçoivent pas des versions différentes : elles en admettent
@@ -893,10 +882,9 @@ deux stratifications ne s'alignent pas_, et l'image d'une sédimentation où tou
 le même sens ne vaut que sur l'axe des ressources. Le chapitre 1 la donne d'ailleurs pour une
 lecture et non pour un théorème ; ce paragraphe en fixe la borne.
 
-## E.3.2.3. Ce que la construction ne lève pas
+## Ce que la construction ne lève pas
 %%%
 tag := "g-scoped-ce-que-la-construction-ne-leve-pas"
-number := false
 %%%
 
 Une réserve accompagne cette règle, et le fait d'avoir construit $`\mathcal{M}` ne la lève pas.
@@ -916,10 +904,9 @@ n'agissent pas identiquement sur l'effet ne sont pas interchangeables, quelle qu
 ressemblance par ailleurs. La règle donne donc un typage correct et non une modularité, et K7PL ne
 revendique que le premier.
 
-### E.3.2.3.1. Mesure ou borne, et la factorisation que l'écart décide
+### Mesure ou borne, et la factorisation que l'écart décide
 %%%
 tag := "g-scoped-ce-que-la-construction-ne-leve-pas-mesure-ou-borne"
-number := false
 %%%
 
 Une condition reste, que la construction de $`\mathcal{M}` suppose sans la nommer. Pour qu'un
@@ -959,19 +946,17 @@ $`\pi^{\dagger}`_, la projection conservatrice qui garde le facteur temporel d'u
 — une borne de coût doit errer du côté sûr, et le document le décide ici pour la seconde fois, pour
 la même raison.
 
-# E.3.3. Les deux vérifications
+# Les deux vérifications
 %%%
 tag := "g-regles-les-deux-verifications"
-number := false
 %%%
 
 Deux points restaient à établir sur le jeu qui précède. Les conduire donne un résultat dans chaque
 sens, et le second corrige ce que le §{num "sec:g-regles"}[] avançait.
 
-## E.3.3.1. La première : le produit mixte et les lois de la modalité
+## La première : le produit mixte et les lois de la modalité
 %%%
 tag := "g-regles-les-deux-verifications-la-premiere-le-produit-mixte"
-number := false
 %%%
 
 Le sous-typage coerce dans deux directions opposées selon la composante — descendant sur l'usage et
@@ -995,10 +980,9 @@ est le cas, et n'est pas un accident. C'est la même exigence qui fait de chaque
 modalité graduée sur une structure ordonnée au sens du chapitre 2
 (§{num "sec:c2-adjonctions-et-enrichissement"}[]).
 
-## E.3.3.2. La seconde : la fonction des opérations à portée
+## La seconde : la fonction des opérations à portée
 %%%
 tag := "g-regles-les-deux-verifications-la-seconde-la-fonction-des-o"
-number := false
 %%%
 
 Le §{num "sec:g-regles"}[] avance que la fonction $`f` d'une opération à portée se ramène à la
@@ -1025,23 +1009,21 @@ pièce de plus qu'annoncé, et la §{num "sec:g-regles"}[] le dit désormais. La
 c'est précisément pourquoi on ne peut raffiner l'implémentation d'un gestionnaire sans recompiler {cite "bachpoulsenHeftyAlgebrasModular2023"}[].
 La réserve n'était pas une prudence, elle était la conséquence de la structure.
 
-# E.3.4. Les connecteurs restants
+# Les connecteurs restants
 %%%
 tag := "g-regles-les-connecteurs-restants"
-number := false
 %%%
 
 Six connecteurs manquaient au jeu — $`\mathsf{Vec}`, $`\mathsf{Arena}`, les points fixes $`\mu` et
-$`\nu`, la conjonction additive, le quantificateur universel — et cette annexe affirmait qu'ils
+$`\nu`, la conjonction additive, le quantificateur universel — et ce texte affirmait qu'ils
 suivaient mécaniquement les patrons déjà écrits, leur absence étant une économie de place et non une
 difficulté. Les écrire vérifie cette affirmation, et _elle ne tient pas tout à fait_. Trois d'entre
 eux suivent en effet mécaniquement ; les trois autres ne suivent pas, et chacun pour une raison qui
 vaut d'être connue.
 
-## E.3.4.1. Les trois qui suivent
+## Les trois qui suivent
 %%%
 tag := "g-regles-les-connecteurs-restants-les-trois-qui-suivent"
-number := false
 %%%
 
 Les points fixes se replient et se déplient sans que le grade intervienne, la récursion étant portée
@@ -1070,13 +1052,12 @@ Les connecteurs qui suivent les patrons déjà posés
 :::
 ::::
 
-## E.3.4.2. Le point fixe coinductif
+## Le point fixe coinductif
 %%%
 tag := "g-nu"
-number := false
 %%%
 
-{label "sec:g-nu" (display := "E.3.4.2")}
+{label "sec:g-nu"}
 
 Le connecteur $`\nu\alpha.C` figurait à la grammaire des types sans qu'aucune règle de terme ne
 l'habite, et c'était le seul de dix-neuf dans ce cas. Ce qui suit l'habite, et la forme retenue
@@ -1148,10 +1129,9 @@ tailles. La forme catégorique reste donc disponible aux démonstrations, sans �
 la métathéorie devrait porter. C'est le régime que le chapitre 5 réserve aux glyphes, appliqué ici à
 un schéma de récursion.
 
-## E.3.4.3. Les trois qui ne suivent pas
+## Les trois qui ne suivent pas
 %%%
 tag := "g-regles-les-connecteurs-restants-les-trois-qui-ne-suivent-p"
-number := false
 %%%
 
 La _conjonction additive_ est le premier écart, et le plus net. Tous les connecteurs écrits
@@ -1201,13 +1181,12 @@ propriété du compilateur et non du système de types. _Ce document ne la donne
 dit : la transcription en assistant de preuve devra la poser depuis le chapitre 4, ou l'admettre
 comme paramètre.
 
-## E.3.4.4. Le parallélisme de couche 3
+## Le parallélisme de couche 3
 %%%
 tag := "g-parallelisme"
-number := false
 %%%
 
-{label "sec:g-parallelisme" (display := "E.3.4.4")}
+{label "sec:g-parallelisme"}
 
 Le facteur temporel d'un effet n'est pas un nombre mais un _couple_, et c'est ce que le parallélisme
 demande. $`\kappa = \langle w, s \rangle` porte le _travail_ — le nombre total de pas, quelle que
@@ -1301,13 +1280,12 @@ et non par une analyse d'indépendance que le compilateur conduirait. Là où un
 prouver que deux tâches ne se marchent pas dessus, celui-ci n'a pas d'endroit où elles le
 pourraient.
 
-## E.3.4.5. La couche 2 — concurrence asynchrone à boîtes aux lettres
+## La couche 2 — concurrence asynchrone à boîtes aux lettres
 %%%
 tag := "g-couche2"
-number := false
 %%%
 
-{label "sec:g-couche2" (display := "E.3.4.5")}
+{label "sec:g-couche2"}
 
 Le chapitre 4 décrit des acteurs, des boîtes aux lettres et des motifs de jonction ; le noyau formel
 n'en portait rien, et la couche 2 n'y avait ni constructeur ni type habitable. Ce qui suit l'écrit,
@@ -1398,13 +1376,12 @@ messages, et où $`\tau` _cesse d'être une suite_ : sous concurrence, l'ordre d
 se scindent alors en locales — celles qui précèdent, appliquées à un membre du multi-ensemble — et
 globales, qui sont les cinq ci-dessus ; la congruence est la permutation du multi-ensemble.
 
-## E.3.4.6. La couche 1 — distribution, localité, défaillance
+## La couche 1 — distribution, localité, défaillance
 %%%
 tag := "g-couche1"
-number := false
 %%%
 
-{label "sec:g-couche1" (display := "E.3.4.6")}
+{label "sec:g-couche1"}
 
 La distribution est l'extension la plus lourde que ce langage ait à porter, et c'est pourquoi elle
 est le meilleur argument en faveur de la condition de clôture : _elle se décompose exactement sur
@@ -1475,10 +1452,9 @@ Une conséquence de représentation, et elle est mince. Un déplacement traverse
 transport, de sorte que l'hypothèse d'environnement reproductible gagne une composante réseau. C'est
 une coordonnée de plus au profil matériel, et aucun objet nouveau.
 
-## E.3.4.7. Ce que la vérification apprend
+## Ce que la vérification apprend
 %%%
 tag := "g-regles-les-connecteurs-restants-ce-que-la-verification-app"
-number := false
 %%%
 
 Trois connecteurs sur six suivaient les patrons, trois n'y entraient pas. L'affirmation qu'ils
@@ -1491,10 +1467,9 @@ Le monoïde des transformateurs est construit au §{num "sec:g-regles"}[] ; ce q
 plus son contenu mais une condition sur lui, la commutation de ses deux familles, qui tient sur une
 présentation sans relation croisée et se romprait sur une autre.
 
-# E.3.5. Le lemme de substitution
+# Le lemme de substitution
 %%%
 tag := "g-regles-le-lemme-de-substitution"
-number := false
 %%%
 
 Aucune des inductions ouvertes n'aboutit sans lui, et sa forme est contrainte par la gradation
@@ -1510,10 +1485,9 @@ au facteur $`r\cdot\Delta'` : substituer une valeur employée $`r` fois multipli
 son contexte d'autant, ce qui est la contrepartie de {sc}[App] et doit être vérifié cohérent avec
 elle.
 
-## E.3.5.1. La loi de cohérence que l'induction réclame
+## La loi de cohérence que l'induction réclame
 %%%
 tag := "g-regles-le-lemme-de-substitution-la-loi-de-coherence-que-l"
-number := false
 %%%
 
 Conduire l'induction fait apparaître un besoin que le chapitre 1 ne formule pas, posé ici avant la
@@ -1531,10 +1505,10 @@ Ce qui les réconcilie est déjà écrit ailleurs. $`\varphi` dit qu'employer $`
 d'effet $`\varepsilon` produit $`\varepsilon^{u}`, dont la composante temporelle est $`u\,k`. Il
 suffit donc de transporter avec l'effet _multiplié_ plutôt qu'avec l'effet nu.
 
-Cette loi n'était pas écrite quand cette annexe l'a réclamée, et c'est ici qu'elle l'est. Le
+Cette loi n'était pas écrite quand ce texte l'a réclamée, et c'est ici qu'elle l'est. Le
 chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) en pose l'obligation — elle est ce qui autorise
 le jugement à ne porter que trois composantes — sans la démontrer. La démonstration a son lieu là où
-la loi sert, et elle sert trois fois dans cette annexe.
+la loi sert, et elle sert trois fois dans cette section.
 
 Les deux membres coïncident sur toutes les composantes du grade sauf le budget, sans rien demander,
 puisque $`\psi` y est l'identité et que la multiplication y opère de part et d'autre : l'usage se
@@ -1570,10 +1544,9 @@ demande que l'arithmétique du semi-anneau des grades, de sorte que son lieu est
 est établie une fois pour les quatre démonstrations qui l'emploient — le lemme de substitution, la
 relation logique, la traduction et l'expansion des macros.
 
-## E.3.5.2. Le lemme, démontré
+## Le lemme, démontré
 %%%
 tag := "g-regles-le-lemme-de-substitution-le-lemme-demontre"
-number := false
 %%%
 
 ::::thm (label := "thm:substitution")

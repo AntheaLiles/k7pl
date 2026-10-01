@@ -414,7 +414,7 @@ présenter ce choix comme allant de soi. Ce qui le justifie tient à la maturit�
 
 Cet abaissement appelle un énoncé que le document n'a nulle part, et son absence n'est pas une
 lacune de présentation. La stabilité du typage par réduction énoncée au chapitre 3 couvre
-l'évaluation _et_ l'abaissement, mais sans grade ; la préservation graduée de l'annexe (théorème {num "thm:preservation"}[])
+l'évaluation _et_ l'abaissement, mais sans grade ; la préservation graduée du §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[])
 porte les grades, mais ne couvre que l'évaluation. Rien, entre les deux, n'établit que descendre
 vers MLIR préserve ce que le chapitre 1 a posé — et c'est le trajet qui relie les deux bouts de ce
 document.
@@ -493,9 +493,9 @@ La distinction qui commande cet énoncé est celle qu'établit la littérature s
 vérifiée : préserver le _comportement_ et être _pleinement abstrait_ ne sont pas la même exigence {cite "pattersonNext700Compiler"}[],
 et c'est la première qui est en jeu ici.
 
-Ce théorème n'est pas démontré. {rmq}[Son absence était invisible tant que deux énoncés voisins
+Ce théorème n'est pas démontré, et le projet se donne pour objectif de le démontrer : la préservation graduée de bout en bout est une revendication _déclarée_, non une réserve à abandonner. Le chemin n'en dénature pas la portée : la preuve se conduit passe par passe, sur le fragment dont les fonctions d'ordre supérieur sont monomorphisées et inlinées avant l'émission, puis s'étend à mesure que la défonctionnalisation quantitative le permet. Tant qu'elle n'est pas conduite, l'énoncé reste une conjecture et aucune prose ne le dit acquis. {rmq}[Son absence était invisible tant que deux énoncés voisins
 passaient pour un seul.] Il est énoncé parce que son absence restait invisible tant que la stabilité
-du chapitre 3 et la préservation de l'annexe passaient pour deux formulations de la même chose. La
+du chapitre 3 et la préservation du §{num "sec:g-semantique"}[] passaient pour deux formulations de la même chose. La
 première est plus large sur ce qu'elle couvre, la seconde plus fine sur ce qu'elle porte : leur
 intersection laisse l'abaissement gradué sans énoncé.
 

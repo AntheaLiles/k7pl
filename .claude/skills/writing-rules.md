@@ -17,7 +17,7 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `src/K7pl/`                    | Implémentation du langage en Lean 4 (Mathlib, CSLib)            | CECILL-2.1 |
 | `tests/`                       | Tests en Lean 4 (un fichier `<Module>Test.lean` par module)     | CECILL-2.1 |
 | `spec/Spec.lean`               | Racine de la spécification Verso : titre, `{texsetup}`, inclusion des chapitres | CC-BY-4.0  |
-| `spec/Spec/<Ch>.lean`          | Un chapitre (`C1`…`C7`, `Refs`, `AnnexeA`…`AnnexeE`) : titre, `{refsection}`, introduction, `{include}` des sections | CC-BY-4.0  |
+| `spec/Spec/<Ch>.lean`          | Un chapitre (`C1`…`C7`, `Refs`, `AnnexeA`…`AnnexeD`) : titre, `{refsection}`, introduction, `{include}` des sections | CC-BY-4.0  |
 | `spec/Spec/<Ch>/<Section>.lean` | Une section de niveau 2 : ses sous-sections (`#`, `##`…) et ses blocs | CC-BY-4.0  |
 | `spec/figures/`                | Figures : `<nom>.svg` (HTML), `<nom>.pdf` (PDF), `sources/` (drawio, mermaid) | CC-BY-4.0  |
 | `spec/CHANGELOG.md`            | Versions de la spécification (releases `spec-vX.Y.Z`)           | CC-BY-4.0  |

@@ -13,14 +13,19 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.4. Sémantique opérationnelle" =>
+#doc (Manual) "Sémantique opérationnelle" =>
 %%%
 file := "g-semantique"
 tag := "g-semantique"
-number := false
 %%%
 
-{label "sec:g-semantique" (display := "E.4")}
+{label "sec:g-semantique"}
+
+Cette section et les deux suivantes portent la sémantique sur laquelle les énoncés des chapitres 2
+à 4 se raisonnent, après la grammaire et les règles de typage du chapitre 3
+(§{num "sec:g-regles"}[]). La relation de réduction est donnée schéma par schéma, une réduction
+par forme d'élimination. La préservation et le progrès sont démontrés, le second sous deux
+hypothèses nommées, et le lemme de substitution l'est également au chapitre 3.
 
 Le cadre est fixé, et la relation peut l'être aussi. Une _configuration_ est un triplet
 $`\langle c \mid \mu \mid \tau \rangle` où $`c` est un calcul, $`\mu` un état d'arène — une
@@ -267,7 +272,7 @@ structurelle._
 
 Les trois niveaux que le chapitre 1 distingue — budget, borne synthétisée, coût effectif — sont
 ainsi ceux-là mêmes que cette littérature emploie, sous d'autres noms. Deux directions restent
-ouvertes et sont signalées à l'annexe de chantier : l'analyse amortie en présence d'effets {cite "chuHandlingExceptionsEffects"}[],
+ouvertes et sont signalées à la section sur ce que chaque preuve ouverte y puise (§{num "sec:g-tracabilite"}[]) : l'analyse amortie en présence d'effets {cite "chuHandlingExceptionsEffects"}[],
 qui est le cadre exact de ce langage, et les systèmes admettant des classes arbitraires de fonctions
 de potentiel {cite "walchAutomatedAmortisedAnalysis"}[], utiles si le budget se révélait trop
 rigide. La vérification de coût relative à une spécification consciente du coût {cite "grodinAbstractionFunctionsTypes"}[]
@@ -334,10 +339,9 @@ l'exécution, et la mise à jour en place de l'arène en descend. S'il tombe, le
 rien : il reste une intention, et les trois propriétés qui en descendent doivent être établies
 chacune pour soi.
 
-# E.4.1. Un seul objet, et ce qu'une machine serait
+# Un seul objet, et ce qu'une machine serait
 %%%
 tag := "g-semantique-un-seul-objet-et-ce-qu-une-machine-serait"
-number := false
 %%%
 
 Une question de présentation reste, tranchée ici plutôt que laissée à l'implémenteur. La littérature
@@ -378,10 +382,9 @@ avec espace de recherche et possibilité d'échec ; (c) la _graine_ du test par 
 une fonction de la source et du compte de ressource. L'ordre de parcours cesse ainsi d'être un
 renvoi à l'outillage : il est un objet de la spécification, sous cette hypothèse seulement.
 
-# E.4.2. La stratification du journal
+# La stratification du journal
 %%%
 tag := "g-semantique-la-stratification-du-journal"
-number := false
 %%%
 
 La trace $`\tau` qu'une configuration accumule est le journal, et la projection dont P4 a besoin est
@@ -438,13 +441,12 @@ qu'appelle cet énoncé — le journal stratifié — n'est pas choisie pour son
 structure _est_ celle de la projection~: journaliser par niveau, c'est n'avoir rien à projeter au
 moment du rejeu.
 
-# E.4.3. La relation logique, définie
+# La relation logique, définie
 %%%
 tag := "g-relation-logique"
-number := false
 %%%
 
-{label "sec:g-relation-logique" (display := "E.4.3")}
+{label "sec:g-relation-logique"}
 
 Le lemme de substitution rend trois inductions conduisibles, et deux d'entre elles partagent le même
 objet : une relation logique. On la définit ici une fois, et on la quantifie deux fois — c'est
@@ -525,10 +527,9 @@ même comportement observable sont indiscernables, l'environnement n'atteignant 
 messages. La clause ne postule donc pas l'indiscernabilité, elle la reçoit de la définition même de
 l'acteur.
 
-# E.4.4. Le lemme fondamental, et ce qu'il coûte
+# Le lemme fondamental, et ce qu'il coûte
 %%%
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute"
-number := false
 %%%
 
 ::::thm (label := "thm:relation_produit") (status := "proposition")
@@ -552,7 +553,7 @@ unité — se vérifie composante par composante, puisque ces opérations agisse
 composantes (§{num "sec:c1-de-la-loi-distributive"}[]). La clause de $`!^r V` n'inspectant que la
 troisième composante, elle se lit sur la seule relation du facteur de confidentialité, les autres
 facteurs la traversant inchangés. Ce qui est établi ici est une _compatibilité_ et non seulement une
-non-interaction : c'est ce que la remarque de l'annexe affirmait sans le dire. Le détail pour chaque
+non-interaction : c'est ce que la remarque de la section affirmait sans le dire. Le détail pour chaque
 facteur reste à écrire.
 :::
 ::::
@@ -618,10 +619,9 @@ niveau $`\ell`, et des traces égales après $`\pi^{\flat}_{\ell}`. L'égalité 
 ferme le canal temporel, et elle vient de la projection observationnelle plutôt que d'un argument
 séparé.
 
-## E.4.4.1. Ce qui n'est pas démontré, et il faut le dire précisément
+## Ce qui n'est pas démontré, et il faut le dire précisément
 %%%
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute-ce-qui-n"
-number := false
 %%%
 
 La grammaire de G.1 compte une troisième strate, les types de session, et la relation ci-dessus ne
@@ -644,10 +644,9 @@ communication_, temps compris — ce qui est plus que ce que la plupart des syst
 fragment avec canaux, un objet unique partagé avec la preuve de traduction_. Un seul travail reste,
 et il sert deux théorèmes.
 
-# E.4.5. La divulgation délimitée, ou le même argument quantifié deux fois
+# La divulgation délimitée, ou le même argument quantifié deux fois
 %%%
 tag := "g-semantique-la-divulgation-delimitee-ou-le-meme-argument-qu"
-number := false
 %%%
 
 L'énoncé du théorème {num "thm:divulgation_delimitee"}[] diffère du précédent par sa seule
@@ -670,10 +669,9 @@ le cas se ferme. _La différence entre les deux théorèmes est donc un cas d'un
 mesure est exacte_ : ce que l'ensemble d'échappatoires libère est ce que ce cas consomme, ni plus ni
 moins.
 
-## E.4.5.1. Le blanchiment, et la condition que le lemme de substitution fait apparaître
+## Le blanchiment, et la condition que le lemme de substitution fait apparaître
 %%%
 tag := "g-semantique-la-divulgation-delimitee-ou-le-meme-argument-qu-2"
-number := false
 %%%
 
 Le mode de défaillance contre lequel cette formulation a été construite est l'attaque par
@@ -702,13 +700,12 @@ et elle n'est pas une restriction gênante : une politique de déclassification 
 dire _quoi_ elle divulgue ne serait pas une politique. La règle du chapitre 2 doit donc porter cette
 clause, et c'est un écart de formalisation relevé au chantier.
 
-# E.4.6. La traduction vers le métalangage : ce que le lemme solde
+# La traduction vers le métalangage : ce que le lemme solde
 %%%
 tag := "g-traduction"
-number := false
 %%%
 
-{label "sec:g-traduction" (display := "E.4.6")}
+{label "sec:g-traduction"}
 
 La troisième induction est celle du théorème {num "thm:traduction_metalangage"}[], et le lemme de
 substitution y joue un rôle différent : il ne sert pas à typer la conclusion mais à commuter avec la
@@ -764,10 +761,9 @@ Le cas (c), les canaux distingués, est réglé par le système de sortes (§{nu
 théorème {num "thm:confinement_sortes"}[] établit que la traduction ne produit que des termes bien
 sortés, et qu'aucun canal distingué n'y est lié ni transmis.
 
-## E.4.6.1. Le point fixe déductif, et pourquoi son image est celle du cas (d)
+## Le point fixe déductif, et pourquoi son image est celle du cas (d)
 %%%
 tag := "g-traduction-le-point-fixe-deductif-et-pourquoi-son-image-es"
-number := false
 %%%
 
 Le cas (b) reste, et ce qu'il ne demande _pas_ vient d'abord : sa formulation initiale promettait un
@@ -827,10 +823,9 @@ applications postérieures à la stabilisation étant l'identité.
 :::
 ::::
 
-## E.4.6.2. Ce que ce cas apprend, et qui n'était pas prévu
+## Ce que ce cas apprend, et qui n'était pas prévu
 %%%
 tag := "g-traduction-ce-que-ce-cas-apprend-et-qui-n-etait-pas-prevu"
-number := false
 %%%
 
 Une remarque doit accompagner cette image, car elle corrige une facilité et fait travailler ensemble
@@ -858,10 +853,9 @@ la différence entre deux éléments consécutifs de la chaîne ; la traduction,
 _dénotation_. Les deux s'accordent par le même argument de chaîne croissante, et confondre les deux
 niveaux ferait porter à la traduction une charge qui appartient au compilateur.
 
-## E.4.6.3. Ce que la clôture de (b) achève
+## Ce que la clôture de (b) achève
 %%%
 tag := "g-traduction-ce-que-la-cloture-de-b-acheve"
-number := false
 %%%
 
 Les quatre cas résistants sont soldés, et avec eux l'induction entière : les groupes 1 à 3 par le

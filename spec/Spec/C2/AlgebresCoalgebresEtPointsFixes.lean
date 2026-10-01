@@ -393,9 +393,9 @@ qu'elles n'en font qu'une, et avec lui l'économie que la condition de clôture 
 Trois remarques sur cet énoncé, dont deux fixent sa portée. La première est que le mot _progression_
 y est choisi et non trouvé : les deux conclusions d'origine — l'évaluation termine, une valeur
 observable est produite — ne sont pas littéralement duales, et il fallait un terme dont elles soient
-les deux lectures. {rmq}[À ne pas confondre avec le théorème de progrès de l'annexe, qui porte sur
+les deux lectures. {rmq}[À ne pas confondre avec le théorème de progrès du §{num "sec:g-semantique"}[], qui porte sur
 la relation de réduction et non sur les schémas de récursion. La parenté est réelle, l'objet ne
-l'est pas.] Le théorème de progrès de l'annexe (§{num "sec:annexe-presentation-formelle"}[]) porte
+l'est pas.] Le théorème de progrès du §{num "sec:g-semantique"}[] porte
 un nom voisin et un autre objet.
 
 La deuxième est que le paramètre court sur les _deux couches polarisées_ et non sur les trois. La

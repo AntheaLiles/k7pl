@@ -13,23 +13,30 @@
 | `ARB-PR-05` | cadre d'ensemble du noyau minimal | **le cadre du manuscrit**, ratifié ; `FACT-21` et `-22` s'écartent | [`journal/2026-10-01-pr-02-07`](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) |
 | — | pas de socle univalent pour les factorisations ; les factorisations tentantes et fausses se **documentent** (`REFUS`) plutôt qu'elles ne s'exécutent | [`factorisations-refusees.md`](factorisations-refusees.md) | [`plan de traitement`](pr-02-plan-de-traitement.md) §6 |
 
+## Tranchées le 1er octobre 2026 (suite)
+
+| | Décision | Retenu | Effet |
+|---|---|---|---|
+| `ARB-PR-07` / `D-2` | socle homotopique ou famille modale et graduée | **famille modale et graduée** ; imports ciblés instruits un à un | motif écrit au §1.2 (guide de lecture) |
+| `ARB-PR-06` | préservation graduée de bout en bout | **objectif déclaré** : la revendication devient une preuve, sans dénaturer le projet (passe par passe, fragment monomorphisé d'abord) | `PREUVE-02` en tête ; énoncé écrit au §6.2 ; reste conjecture jusqu'à la preuve |
+| `ARB-PR-04` | promesse du rejeu bit-à-bit | **à instruire** avant de trancher | [`instruction-arb-pr-04-rejeu-binaire`](../recherche/instruction-arb-pr-04-rejeu-binaire.md) |
+| `T-68` | mots des 44 primitives | **avant-dernier** dans l'ordre de finition (avant la release) | [`primitives.md`](primitives.md) |
+| — | annexe E | **fondue dans le manuscrit** : grammaires et règles au ch. 3, sémantique et sortes au ch. 4, table des glyphes au ch. 1 | `STRUCT-23` ; [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) |
+| `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
+| — | `BLOQ-05` (indexation du jugement non requise), les deux options de `BLOQ-07` | validées le 1er octobre ; réévaluées avec l'ensemble une fois tout traité | — |
+
 ## À ratifier (appliquées, non confirmées)
 
 | | Décision appliquée | À confirmer |
 |---|---|---|
 | `ARB-PR-03` | effets à portée : `ℰ_alg` et `ℰ_scoped` nommés, clôture **faible** sur le second, le monoïde ℳ gardé | que `BIB-01` (*Hefty Algebras*) reste non instruit tant que le besoin de modularité n'est pas établi |
 | — | sept fermetures de fiches **déduites** (`PORT-08`, `PORT-16`, `REECR-02`, `-06`, `-07`, `-11`, `-25`) | `fiches-statuts.csv`, colonne `confiance` = `deduite` |
-| `BLOQ-05` | niveau de production porté par l'effet (pas d'indexation du jugement) ; clauses sur `Op` et `Case` ; `Tick` en `⟨1, δ_ℓ̂⟩` ; aucune règle ajoutée (décomptes 49/45 inchangés) | que l'indexation `Δ ⊢^ℓ_𝒢` de la fiche n'est pas requise en plus, et que la sortie des niveaux de lecture par `Unbox`/`Var` n'a pas besoin de clause |
 
 ## Attendent une décision de l'auteur
 
 | | Question | Éléments | Effet |
 |---|---|---|---|
-| `ARB-PR-07` / `D-2` | socle homotopique, ou famille modale et graduée ? | l'étude d'opportunité ([`etudes/etude-opportunite-hott`](../relectures/pr-02/etudes/etude-opportunite-hott.md)) conclut : famille modale et graduée, pour quatre motifs dont trois de fond ; **quatre imports ciblés** sont rentables (théorie de modes, calf et decalf, types gradués formalisés, récursion gardée multi-horloges) | écrire la décision et son motif au §1.2, « parce que la question sera reposée à chaque relecture » |
 | — | les quatre imports ciblés : lesquels verser, où | « validés » d'après le compte rendu du 1er octobre, **non versés** au texte ; le dernier est écarté pour `BLOQ-06` (corrigé autrement) | trois instructions à conduire (`BIB-10` pour les modes) |
-| `ARB-PR-06` | la revendication de préservation graduée de bout en bout est-elle un objectif déclaré ? | le manuscrit écrit « ce théorème n'est pas démontré » ; il est scellé `conjecture ⟨compilation⟩` | si oui, `PREUVE-02` passe en tête ; sinon la revendication est restreinte |
-| `ARB-PR-04` | ce que le document promet pour le rejeu bit-à-bit | théorème scindé en rejeu logique et rejeu binaire sous `E_repro` (`proposition ⟨représentation⟩`) ; hypothèse d'injectivité observation/représentation | la décision de fond reste à écrire |
-| `T-68` | choix des mots pour les quarante-quatre primitives | [`primitives.md`](primitives.md) : chaque entrée porte ses candidats et le motif de l'écart | vocabulaire du langage avant implémentation |
 
 ## Nouvelles, nées de la conversion
 
@@ -39,7 +46,7 @@
 | `D-6` ✅ | sous-titre du document | le sous-titre du manuscrit, « A functional layered programming language », fait foi (`ANOM-16`) ; le dépôt n'en porte aucun |
 | `D-7` | annexes B, C, D squelettiques ([`ANOM-04`](ANOMALIES.md)) | décider avant la première release |
 | `D-8` | rétablir au glossaire les trois couches ([`ANOM-06`](ANOMALIES.md)) | oui : le corps du document les définit, le glossaire doit suivre |
-| `D-9` | première release `spec-v0.1.0` : quand ? | après les portes P1 à P5 du [tableau de bord](TABLEAU-DE-BORD.md) |
+| `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
 
 ## Ce qui n'a pas été rapproché
 
