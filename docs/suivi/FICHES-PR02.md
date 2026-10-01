@@ -14,13 +14,13 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `PREUVE` Dettes de preuve | 16 | 1 | 2 | 0 | 0 | 0 | 13 |
 | `NOTA` Notation, comptes, renvois | 8 | 3 | 0 | 0 | 0 | 0 | 5 |
 | `IMPL` Implémentation et outillage | 9 | 1 | 0 | 0 | 0 | 0 | 8 |
-| `FACT` Factorisations à écrire | 24 | 10 | 1 | 0 | 0 | 2 | 11 |
+| `FACT` Factorisations à écrire | 24 | 12 | 1 | 0 | 0 | 2 | 9 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `REECR` Réécritures d'énoncés | 27 | 5 | 0 | 0 | 0 | 0 | 22 |
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **55** | **10** | **1** | **3** | **2** | **119** |
+| **Total** | **190** | **57** | **10** | **1** | **3** | **2** | **117** |
 
 ## BLOQ — Bloquants
 
@@ -158,8 +158,8 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `FACT-13` | ✅ fermée | Une seule loi de substitution pour quatre lemmes | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
 | `FACT-14` | ⬜ ouverte | Cadre unique des structures monotones |  |
 | `FACT-15` | ✅ fermée | Une seule relation d'équivalence observationnelle pour les trois rejeux | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
-| `FACT-16` | ⬜ ouverte | `Injectivité(obs, repr)` comme exigence de représentation unique |  |
-| `FACT-17` | ⬜ ouverte | Une loi unique d'introduction des ressources d'écriture |  |
+| `FACT-16` | ✅ fermée | `Injectivité(obs, repr)` comme exigence de représentation unique | [journal](../journal/2026-10-01-pr-02-12-fact-17-et-16.md) · exigence thm:representation_inobservable ; vérifiée par test différentiel |
+| `FACT-17` | ✅ fermée | Une loi unique d'introduction des ressources d'écriture | [journal](../journal/2026-10-01-pr-02-12-fact-17-et-16.md) · énoncé unique écrit (thm:introduction_unique) ; preuve à écrire (PREUVE-12) |
 | `FACT-18` | ⬜ ouverte | La fenêtre statiquement dimensionnée sur un objet coinductif |  |
 | `FACT-19` | ✅ fermée | L'ordre d'occurrence | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
 | `FACT-20` | ⬜ ouverte | Annexe unique « classes de motifs et bornes » |  |

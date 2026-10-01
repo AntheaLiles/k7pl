@@ -101,8 +101,8 @@ FACT-12,ouverte,,,
 FACT-13,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
 FACT-14,ouverte,,,
 FACT-15,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
-FACT-16,ouverte,,,
-FACT-17,ouverte,,,
+FACT-16,fermee,journal,journal/2026-10-01-pr-02-12-fact-17-et-16.md,exigence thm:representation_inobservable ; vérifiée par test différentiel
+FACT-17,fermee,journal,journal/2026-10-01-pr-02-12-fact-17-et-16.md,énoncé unique écrit (thm:introduction_unique) ; preuve à écrire (PREUVE-12)
 FACT-18,ouverte,,,
 FACT-19,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
 FACT-20,ouverte,,,
