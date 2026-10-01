@@ -856,8 +856,8 @@ niveaux ferait porter à la traduction une charge qui appartient au compilateur.
 tag := "g-traduction-ce-que-la-cloture-de-b-acheve"
 %%%
 
-Les quatre cas résistants sont soldés, et avec eux l'induction entière : les groupes 1 à 3 par le
+Les quatre cas résistants sont réduits à des objets construits, et l'induction entière est planifiée : les groupes 1 à 3 par le
 lemme de commutation, (a) par composition avec le foncteur d'effacement, (c) par le système de
 sortes, (b) et (d) par le même appareil de ré-invocation bornée. _Le théorème {num "thm:traduction_metalangage"}[]
-est donc démontré_, et la dette de fidélité que le chapitre 6 nommait — « établir que
-$`\llbracket \cdot \rrbracket` préserve le typage » — est acquittée.
+n'est pas pour autant conduit_ : l'induction est planifiée, ses cas résistants réduits, mais elle n'est pas menée à son terme, et la dette de fidélité que le chapitre 6 nommait — « établir que
+$`\llbracket \cdot \rrbracket` préserve le typage » — reste ouverte, plus étroite qu'elle ne l'était.

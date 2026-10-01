@@ -18,23 +18,23 @@ STRUCT-02,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,"ℰ_alg / ℰ
 STRUCT-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
 STRUCT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
 STRUCT-05,ouverte,,,
-STRUCT-06,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"mot élaboration et point 2.5 clarifiés au §5.3"
+STRUCT-06,partielle,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"mot élaboration clarifié ; la figure 11 ne porte pas encore la Phase 0 (à redessiner)"
 STRUCT-07,partielle,journal,journal/2026-10-01-pr-02-08-fact-suite.md,énoncé scellé proposition ; la preuve par facteur reste à conduire (PREUVE-10)
 STRUCT-08,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"Th. raffinement conditionnel à la traduction"
 STRUCT-09,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"journal complet posé en paramètre de l'hypothèse de rejeu"
 STRUCT-10,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"λ classée structure dérivée de l'instance historique"
 STRUCT-11,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,idem
-STRUCT-12,ouverte,,,
-STRUCT-13,ouverte,,,
-STRUCT-14,ouverte,,,
+STRUCT-12,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"Th. hygiène non gradué et gradué scindés (PORT-14)"
+STRUCT-13,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"« voie disponible, dont le prix est chiffré » (ch. 3)"
+STRUCT-14,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"G_pile et G_budget définis par projection ; clause de portée de P3"
 STRUCT-15,ouverte,,,
-STRUCT-16,ouverte,,,
-STRUCT-17,ouverte,,,
-STRUCT-18,ouverte,,,
+STRUCT-16,partielle,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"modes atteignables énoncés ; preuve par examen des règles à conduire"
+STRUCT-17,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"trois notions de monotone distinguées (§2.4)"
+STRUCT-18,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"table normative : Δ₁+Δ₂, ⊠, ⊗ des types, ⊗_𝒞, ℓ et ℓ̂"
 STRUCT-19,ouverte,,,
 STRUCT-20,ouverte,,,
 STRUCT-21,ouverte,,,
-STRUCT-22,ouverte,,,
+STRUCT-22,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"P2 qualifiée : orthogonalité au niveau du jugement, trois couplages nommés"
 STRUCT-23,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,"annexe E fondue : règles au ch. 3, sémantique au ch. 4 ; §1.1 corrigé"
 PORT-01,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"domaine et profil Π écrits ; rappel au §6.1 ; endianness et alignement"
 PORT-02,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
@@ -133,33 +133,33 @@ REFUS-04,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
 REFUS-05,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
 REFUS-06,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
 REFUS-07,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
-REECR-01,ouverte,,,
+REECR-01,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"P1a / P1b (BLOQ-08)"
 REECR-02,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-02 — à confirmer
-REECR-03,ouverte,,,
-REECR-04,ouverte,,,
-REECR-05,ouverte,,,
+REECR-03,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"Th. fidélité conditionnel à Sim (BLOQ-07)"
+REECR-04,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"domaine du Th. 20 rappelé au §6.1"
+REECR-05,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"clôture forte (données) / faible (actions)"
 REECR-06,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-03 — à confirmer
 REECR-07,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-10 — à confirmer
-REECR-08,ouverte,,,
-REECR-09,ouverte,,,
-REECR-10,ouverte,,,
+REECR-08,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"traduction : induction planifiée, non conduite ; statut proposition"
+REECR-09,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"NI et divulgation restent bornées au fragment sans communication"
+REECR-10,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"Th. 34 : définition + clôture locale"
 REECR-11,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-05 — à confirmer
-REECR-12,ouverte,,,
-REECR-13,ouverte,,,
-REECR-14,ouverte,,,
-REECR-15,ouverte,,,
-REECR-16,ouverte,,,
-REECR-17,ouverte,,,
-REECR-18,ouverte,,,
-REECR-19,ouverte,,,
-REECR-20,ouverte,,,
-REECR-21,ouverte,,,
-REECR-22,ouverte,,,
-REECR-23,ouverte,,,
-REECR-24,ouverte,,,
+REECR-12,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"E_repro élargie à l'architecture ; injectivité"
+REECR-13,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"retiré (Th. 18 réécrit)"
+REECR-14,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"énumération sur le noyau"
+REECR-15,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"profil Π"
+REECR-16,partielle,journal,journal/2026-10-01-pr-02-18-reecr.md,"Th. 29 à conserver une fois la Phase 0 portée par la figure 11"
+REECR-17,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"hypothèse D_det"
+REECR-18,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"ordre : exception de la Phase 5 reconnue"
+REECR-19,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"traduction de la couche 2 séquentielle seulement"
+REECR-20,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"singletons = fragments logiques, intervalles = modalités"
+REECR-21,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"réserve portée au ch. 1"
+REECR-22,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"jeu de règles existant ; §1.1 corrigé"
+REECR-23,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"prix des suspensions mentionné"
+REECR-24,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"terminalité : logique, non physique"
 REECR-25,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-11 — à confirmer
-REECR-26,ouverte,,,
-REECR-27,ouverte,,,
+REECR-26,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"O(n), O(1) par bloc"
+REECR-27,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"Δ = Δ_ω"
 BIB-01,ouverte,,,
 BIB-02,ouverte,,,
 BIB-03,ouverte,,,

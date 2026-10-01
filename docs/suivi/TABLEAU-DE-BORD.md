@@ -19,8 +19,8 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 |---|---|
 | Chapitres | 12 (dont 4 annexes) |
 | Sections de niveau 2 (modules) | 52 |
-| Énoncés | 67 (47 theoreme, 12 proposition, 4 exigence, 2 conjecture, 2 definition) |
-| Énoncés ouverts (proposition, conjecture, exigence) | 18 |
+| Énoncés | 67 (46 theoreme, 13 proposition, 4 exigence, 2 conjecture, 2 definition) |
+| Énoncés ouverts (proposition, conjecture, exigence) | 19 |
 | Énoncés par niveau | 60 langage, 5 representation, 2 compilation |
 | Formules | 38 |
 | Figures | 13 |
@@ -29,11 +29,11 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Remarques marginales (RMQ) | 59 |
 | Citations | 359 |
 | Œuvres citées | 250 |
-| Renvois internes | 523 |
+| Renvois internes | 524 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 123001 |
+| Mots (approximatif, hors code et formules) | 123700 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -57,6 +57,7 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | `thm:introduction_unique` | proposition | langage | §4.4 | 0 |
 | `thm:rejeu_binaire` | proposition | representation | §4.5 | 1 |
 | `thm:revocation_ffi` | exigence | representation | §4.5 | 0 |
+| `thm:traduction_metalangage` | proposition | langage | §4.6 | 11 |
 | `thm:simulation` | proposition | langage | §4.6 | 1 |
 | `thm:fidelite_interprete` | proposition | langage | §4.6 | 3 |
 | `thm:relation_produit` | proposition | langage | §4.7 | 0 |
@@ -75,18 +76,18 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
 | `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
-| `STRUCT` Structurels | 23 | 9 | 1 | 0 | 0 | 0 | 13 |
+| `STRUCT` Structurels | 23 | 14 | 3 | 0 | 0 | 0 | 6 |
 | `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
 | `IMPL` Implémentation et outillage | 9 | 4 | 2 | 0 | 0 | 0 | 3 |
 | `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
-| `REECR` Réécritures d'énoncés | 27 | 5 | 0 | 0 | 0 | 0 | 22 |
+| `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **79** | **24** | **1** | **3** | **2** | **81** |
+| **Total** | **190** | **105** | **27** | **1** | **3** | **2** | **52** |
 <!-- END:fiches -->
 
 Détail fiche par fiche : [`FICHES-PR02.md`](FICHES-PR02.md). **Comment lire « ouverte »** : aucun compte rendu de séance ne nomme la fermeture de la fiche. L'auteur a pu fermer sans consigner ; l'état est volontairement conservateur et se corrige dans `fiches-statuts.csv`. Les fermetures *déduites* (changement de statut d'un énoncé rapproché du texte de la fiche) sont marquées comme telles et sont à confirmer.

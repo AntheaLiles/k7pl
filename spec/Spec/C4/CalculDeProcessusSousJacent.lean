@@ -148,7 +148,7 @@ rend ce modèle distribuable.
 
 Cette dernière remarque suggère l'énoncé que cette section doit à la lecture qu'elle propose.
 
-::::thm (label := "thm:traduction_metalangage")
+::::thm (label := "thm:traduction_metalangage") (status := "proposition")
 :::title
 la traduction préserve le typage
 :::
@@ -366,7 +366,7 @@ l'exécution et effacées à la Phase 8.
 
 La dette qu'il reste à acquitter n'est donc plus « prouver l'interpréteur correct » mais « établir
 que $`\llbracket \cdot \rrbracket` préserve le typage », ce que le théorème {num "thm:traduction_metalangage"}[]
-énonce et n'établit qu'en esquisse.
+énonce, dont l'induction est planifiée et non conduite.
 
 Une réserve doit fermer cette section, car la lecture a un coût que sa commodité pourrait masquer.
 La composante $`\mathcal{E}` n'a pas d'image dans le métalangage : ce qui s'y raisonne est la

@@ -11,7 +11,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 2 | 33 | `thm:coherence_axiome` | theoreme | langage | compatibilité de l'action graduée | §2.2 | 11 |
 | 3 | — | `thm:action_parallele` | theoreme | langage | l'action graduée traverse la mise en parallèle | §2.2 | 0 |
 | 4 | 1 | `thm:terminaison_couche_3` | theoreme | langage | terminaison de la couche 3 — l'instance inductive | §2.3 | 1 |
-| 5 | 2 | `thm:sedimentation` | theoreme | langage | bonne définition de la sédimentation | §2.3 | 0 |
+| 5 | 2 | `thm:sedimentation` | theoreme | langage | bonne définition de la sédimentation | §2.3 | 1 |
 | 6 | 3 | `thm:productivite_couche_2` | theoreme | langage | productivité de la couche 2 — l'instance coinductive | §2.3 | 1 |
 | 7 | 4 | `thm:progression_polarisee` | theoreme | langage | progression, paramétrée par la couche | §2.3 | 4 |
 | 8 | 5 | `thm:loi_historique` | theoreme | langage | loi distributive de l'historique | §2.3 | 0 |
@@ -51,7 +51,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 42 | 19 | `thm:sync_motifs_jonction` | theoreme | langage | synchronisation atomique des motifs de jonction | §4.5 | 1 |
 | 43 | 20 | `thm:surete_ffi` | theoreme | langage | sûreté FFI par la passerelle de capacité | §4.5 | 0 |
 | 44 | — | `thm:revocation_ffi` | exigence | representation | révocation à la frontière étrangère | §4.5 | 0 |
-| 45 | 21 | `thm:traduction_metalangage` | theoreme | langage | la traduction préserve le typage | §4.6 | 11 |
+| 45 | 21 | `thm:traduction_metalangage` | proposition | langage | la traduction préserve le typage | §4.6 | 11 |
 | 46 | — | `thm:simulation` | proposition | langage | simulation de la relation de réduction par la traduction | §4.6 | 1 |
 | 47 | 22 | `thm:fidelite_interprete` | proposition | langage | fidélité de l'interpréteur de référence | §4.6 | 3 |
 | 48 | 36 | `thm:preservation` | theoreme | langage | préservation | §4.7 | 3 |
