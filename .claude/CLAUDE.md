@@ -10,16 +10,26 @@ avec Mathlib et CSLib. Sa spécification est écrite en Verso.
 
 - `src/` : implémentation du langage (Lean 4, CECILL-2.1)
 - `tests/` : tests (Lean 4, CECILL-2.1)
-- `spec/` : spécification (Verso, CC-BY-4.0)
-- `tools/` : générateur HTML de la spécification (CECILL-2.1)
-- `scripts/` : maintenance (montée de version, hook de session)
+- `spec/` : spécification (Verso, CC-BY-4.0) : le manuscrit « K7PL : KonSept Programming
+  Language », un module par chapitre (`Spec/C1.lean`…) et par section de niveau 2
+  (`Spec/C1/<Section>.lean`), figures dans `spec/figures/`
+- `tools/` : générateur de la spécification (`SpecMain.lean`), extensions Verso (`SpecExt/`) et
+  bibliographie générée (`SpecBib.lean`, depuis `biblio/references.json`) (CECILL-2.1)
+- `docs/` : suivi, relectures, méthode, recherche, journal (CC-BY-4.0) ; **point d'entrée :
+  `docs/suivi/TABLEAU-DE-BORD.md`**
+- `archives/` : manuscrit Org-mode figé et ancien outillage (ne pas y corriger le texte)
+- `scripts/` : maintenance (montée de version, hook de session), conversion Org → Verso
+  (`org2verso/`), bibliographie (`biblio/`), mesures et suivi (`manuscript_metrics.py`,
+  `suivi.py`)
 
 **Langues** : code source en anglais (identifiants, docstrings, commentaires) ;
 documentation, spécification et messages de commit en français.
 
-Les spécifications sont ajoutées **a posteriori** dans `spec/` : ne pas en
-créer sans demande explicite. Les sources historiques en Org-mode sont à
-réécrire en Verso (table de correspondance dans les règles de rédaction).
+Le manuscrit de la spécification est en Verso depuis la conversion du 1er octobre 2026 : sa
+source de référence est `spec/`, plus `archives/manuscrit-org/`. **Le manuscrit porte « ne rien
+modifier sans l'accord de l'auteur »** : ne corriger son texte que sur demande explicite, par une
+modification minimale, et consigner le changement dans `docs/suivi/` (fiche, journal). Ne pas créer
+de nouveau chapitre sans demande explicite.
 
 ## Règles de rédaction
 
@@ -36,6 +46,9 @@ lake build                      # compiler l'implémentation et la spécificatio
 lake test                       # lancer les tests (exécutable @[test_driver] mainTest)
 lake lint                       # linter Batteries (docstrings manquantes, etc.)
 lake exe spec --output _out/spec  # générer la spécification HTML
+lake exe spec --output _out/spec --with-tex   # + sources LaTeX (PDF : lualatex _out/spec/tex/main.tex, 3 passes)
+python3 scripts/manuscript_metrics.py summary # mesures du manuscrit (énoncés, formules, citations…)
+python3 scripts/suivi.py all    # regénérer les vues du suivi (fiches, énoncés, tableau de bord)
 reuse lint                      # vérifier la conformité REUSE (pip install reuse)
 ```
 

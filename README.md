@@ -30,11 +30,26 @@ reuse lint                        # vérifie la conformité REUSE
 
 ## Spécifications
 
-La spécification du langage est dans [`spec/`](spec/), écrite en Verso,
-sous licence CC-BY-4.0. Les exemples de code qu'elle contient sont vérifiés à
-chaque compilation. Elle est publiée sur <https://anthealiles.github.io/k7pl/> à chaque
-mise à jour de `main`.
-Le contenu actuel est un exemple : les spécifications seront ajoutées par la suite.
+La spécification du langage — le manuscrit « K7PL : KonSept Programming Language », sept
+chapitres, les références du document et cinq annexes — est dans [`spec/`](spec/), écrite en
+Verso, sous licence CC-BY-4.0. Elle est publiée sur <https://anthealiles.github.io/k7pl/> à
+chaque mise à jour de `main` ; son PDF est archivé sur Zenodo à chaque release `spec-vX.Y.Z`.
+
+Le manuscrit est encore en cours de correction (campagne de relecture PR-02) : le point
+d'entrée est le [tableau de bord](docs/suivi/TABLEAU-DE-BORD.md), qui dit où il en est et ce
+qu'il reste à faire avant d'implémenter le langage. Le manuscrit Org-mode d'origine est figé
+dans [`archives/`](archives/).
+
+## Organisation
+
+| Dossier | Contenu |
+|---|---|
+| [`src/`](src/), [`tests/`](tests/) | implémentation du langage en Lean 4 et ses tests |
+| [`spec/`](spec/) | la spécification (Verso) et ses figures |
+| [`tools/`](tools/) | générateur de la spécification et extensions Verso (`SpecExt/`) ; bibliographie (`SpecBib.lean`, produite depuis [`biblio/`](biblio/)) |
+| [`docs/`](docs/) | suivi, relectures, méthode, recherche, journal de séances |
+| [`scripts/`](scripts/) | maintenance, conversion Org → Verso, mesures et suivi |
+| [`archives/`](archives/) | manuscrit Org et outillage d'avant la conversion |
 
 ## Contribuer
 

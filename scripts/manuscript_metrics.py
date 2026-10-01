@@ -1,0 +1,207 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+"""Measures the specification from its Verso sources (`spec/`).
+
+    python3 scripts/manuscript_metrics.py summary     # counts, as Markdown
+    python3 scripts/manuscript_metrics.py statements  # register of the numbered statements
+    python3 scripts/manuscript_metrics.py json        # everything, as JSON
+
+The counts are *produced from the sources*, never typed by hand: this replaces the "produced
+counts" of the former Org tooling. The scan is textual (the directives the converter emits), so it
+needs no Lean toolchain.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import sys
+from collections import Counter
+from dataclasses import dataclass, field
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+SPEC = ROOT / "spec"
+
+INCLUDE = re.compile(r"^\{include \d+ Spec\.([\w.]+)\}", re.M)
+DOC = re.compile(r'^#doc \(Manual\) "(.*)" =>', re.M)
+HEAD = re.compile(r"^(#+) (.*)$", re.M)
+THM = re.compile(r"^::::thm(.*)$", re.M)
+ARG = re.compile(r'\((\w+) := "([^"]*)"\)')
+NUM = re.compile(r'\{num "([^"]+)"\}')
+
+
+@dataclass
+class Module:
+    name: str
+    path: Path
+    title: str
+    text: str
+    includes: list[str] = field(default_factory=list)
+
+
+def load(name: str) -> Module:
+    path = SPEC / "Spec" / (name.replace(".", "/") + ".lean") if name != "" else SPEC / "Spec.lean"
+    text = path.read_text(encoding="utf-8")
+    m = DOC.search(text)
+    return Module(name, path, m.group(1) if m else name, text, INCLUDE.findall(text))
+
+
+def walk(name: str = "", number: str = "", depth: int = 0, out: list | None = None):
+    """Modules in document order, with their section number (`3.2`, `A.1`)."""
+    out = [] if out is None else out
+    mod = load(name)
+    out.append((mod, number))
+    chapter = appendix = 0
+    for i, inc in enumerate(mod.includes, 1):
+        if depth == 0:
+            if inc.startswith("Annexe"):
+                n = "ABCDEFGH"[appendix]
+                appendix += 1
+            else:
+                chapter += 1
+                n = str(chapter)
+        else:
+            n = f"{number}.{i}"
+        walk(inc, n, depth + 1, out)
+    return out
+
+
+def args_of(line: str) -> dict[str, str]:
+    return dict(ARG.findall(line))
+
+
+def statements() -> list[dict]:
+    rows = []
+    counter = 0
+    for mod, number in walk():
+        for m in THM.finditer(mod.text):
+            counter += 1
+            a = args_of(m.group(1))
+            block = mod.text[m.end() : mod.text.find("\n::::\n", m.end())]
+            title = re.search(r"^:::title\n(.*?)\n:::", block, re.S | re.M)
+            stmt = re.search(r"^:::statement[^\n]*\n(.*?)\n:::", block, re.S | re.M)
+            stmt_title = stmt.group(1).split("\n", 1)[0] if stmt and "+titled" in mod.text[m.end() : m.end() + 400] else ""
+            rows.append(
+                {
+                    "numero": counter,
+                    "label": a.get("label", ""),
+                    "statut": a.get("status", "theoreme"),
+                    "niveau": a.get("level", "langage"),
+                    "titre": " ".join(title.group(1).split()) if title else "",
+                    "enonce": " ".join(stmt_title.split()),
+                    "module": mod.name,
+                    "section": number,
+                    "esquisse": ":::proofsketch" in block,
+                }
+            )
+    cited = Counter()
+    for mod, _ in walk():
+        for lab in NUM.findall(mod.text):
+            cited[lab] += 1
+    for r in rows:
+        r["renvois"] = cited.get(r["label"], 0)
+    return rows
+
+
+def summary() -> dict:
+    mods = walk()
+    chapters = [(m, n) for m, n in mods if m.name and "." not in m.name]
+    sections = [(m, n) for m, n in mods if "." in m.name]
+    texts = {m.name: m.text for m, _ in mods}
+    count = Counter()
+    keys = set()
+    labels = set()
+    missing = []
+    words = 0
+    for mod, _ in mods:
+        t = mod.text
+        for k, pat in {
+            "formules": r"^::::formula",
+            "figures": r"^::::figure",
+            "tableaux": r"^::::k7table",
+            "listings": r"^::::listing",
+            "remarques_marginales": r"\{rmq\}",
+            "citations": r"\{cite ",
+            "renvois": r"\{num ",
+            "renvois_non_resolus": r"\{missing ",
+            "commentaires_conserves": r"^:::comment",
+            "notes_de_bas_de_page": r"^\[\^fn\d+\]:",
+        }.items():
+            count[k] += len(re.findall(pat, t, re.M))
+        for ks in re.findall(r'\{cite "([^"]+)"\}', t):
+            keys.update(ks.split(","))
+        labels.update(re.findall(r'\{label "([^"]+)"', t))
+        labels.update(re.findall(r'\(label := "([^"]+)"', t))
+        for lab in re.findall(r'\{missing "([^"]+)"\}', t):
+            missing.append((mod.name, lab))
+        body = re.sub(r"^```.*?^```", "", t, flags=re.S | re.M)
+        body = re.sub(r"\$+`[^`]*`", "", body)
+        body = "\n".join(l for l in body.split("\n") if not l.startswith(("import ", "open ", "set_option", "--", "%%%", ":::", "::::")))
+        words += len(re.findall(r"\w+", body, re.U))
+    st = statements()
+    by_status = Counter(r["statut"] for r in st)
+    by_level = Counter(r["niveau"] for r in st)
+    return {
+        "chapitres": [{"numero": n, "titre": m.title, "module": m.name, "sections": len(m.includes)} for m, n in chapters],
+        "modules": len(mods),
+        "sections_niveau_2": len(sections),
+        "enonces": len(st),
+        "enonces_par_statut": dict(by_status),
+        "enonces_par_niveau": dict(by_level),
+        "enonces_ouverts": sum(by_status[s] for s in ("proposition", "conjecture", "exigence")),
+        "enonces_sans_esquisse": [r["label"] for r in st if not r["esquisse"] and r["statut"] not in ("exigence", "definition")],
+        **dict(count),
+        "cles_citees": len(keys),
+        "labels": len(labels),
+        "renvois_non_resolus_liste": missing,
+        "mots": words,
+    }
+
+
+def md_summary() -> str:
+    s = summary()
+    out = ["| Mesure | Valeur |", "|---|---|"]
+    out.append(f"| Chapitres | {len(s['chapitres'])} (dont {sum(1 for c in s['chapitres'] if c['module'].startswith('Annexe'))} annexes) |")
+    out.append(f"| Sections de niveau 2 (modules) | {s['sections_niveau_2']} |")
+    st = ", ".join(f"{v} {k}" for k, v in sorted(s["enonces_par_statut"].items(), key=lambda kv: -kv[1]))
+    out.append(f"| Énoncés | {s['enonces']} ({st}) |")
+    out.append(f"| Énoncés ouverts (proposition, conjecture, exigence) | {s['enonces_ouverts']} |")
+    lv = ", ".join(f"{v} {k}" for k, v in sorted(s["enonces_par_niveau"].items(), key=lambda kv: -kv[1]))
+    out.append(f"| Énoncés par niveau | {lv} |")
+    for k, lab in [("formules", "Formules"), ("figures", "Figures"), ("tableaux", "Tableaux"), ("listings", "Codes sources"),
+                   ("remarques_marginales", "Remarques marginales (RMQ)"), ("citations", "Citations"), ("cles_citees", "Œuvres citées"),
+                   ("renvois", "Renvois internes"), ("renvois_non_resolus", "Renvois non résolus"),
+                   ("commentaires_conserves", "Commentaires d'auteur conservés (non rendus)"), ("notes_de_bas_de_page", "Notes de bas de page"),
+                   ("mots", "Mots (approximatif, hors code et formules)")]:
+        out.append(f"| {lab} | {s.get(k, 0)} |")
+    return "\n".join(out)
+
+
+def md_statements() -> str:
+    rows = statements()
+    out = ["| N° | Étiquette | Statut | Niveau | Titre | Lieu | Renvois |", "|---:|---|---|---|---|---|---:|"]
+    for r in rows:
+        loc = f"§{r['section']}" if r["section"] else r["module"]
+        out.append(f"| {r['numero']} | `{r['label']}` | {r['statut']} | {r['niveau']} | {r['titre']} | {loc} | {r['renvois']} |")
+    return "\n".join(out)
+
+
+def main() -> int:
+    cmd = sys.argv[1] if len(sys.argv) > 1 else "summary"
+    if cmd == "summary":
+        print(md_summary())
+    elif cmd == "statements":
+        print(md_statements())
+    elif cmd == "json":
+        print(json.dumps({"resume": summary(), "enonces": statements()}, ensure_ascii=False, indent=1))
+    else:
+        print(__doc__)
+        return 2
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

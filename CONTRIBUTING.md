@@ -37,6 +37,16 @@ pip install reuse && reuse lint
 Ne jamais réécrire l'historique d'une branche partagée (pas de force-push sur
 `main`, ni sur la branche d'une autre personne).
 
+## Corriger la spécification
+
+Le manuscrit est écrit en Verso (`spec/Spec/`, un module par chapitre et par section de
+niveau 2) ; les règles d'écriture et les extensions disponibles (`{num}`, `{cite}`, `thm`,
+`formula`, `figure`…) sont dans les [règles de rédaction](.claude/skills/writing-rules.md), §6 et §8.
+Avant d'écrire, lire le [tableau de bord](docs/suivi/TABLEAU-DE-BORD.md) ; après un changement
+notable, mettre à jour `docs/suivi/fiches-statuts.csv` puis lancer `python3 scripts/suivi.py all`.
+Un énoncé corrigé change de sceau (`status`, `level` de la directive `thm`), il ne se réécrit
+pas à l'identique.
+
 ## Langues
 
 - **Français** : documentation (README, CONTRIBUTING, spécification Verso,

@@ -1,0 +1,191 @@
+id,statut,confiance,preuve,note
+BLOQ-01,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+BLOQ-02,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+BLOQ-03,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,⊖ défini par cas ; loi d'action restreinte ; contrôle écrit avant la correction
+BLOQ-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+BLOQ-05,ouverte,,,
+BLOQ-06,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,deux sortes de tailles 𝕊_μ / 𝕊_ν
+BLOQ-07,ouverte,,,
+BLOQ-08,ouverte,,,
+BLOQ-09,ouverte,,,
+BLOQ-10,ouverte,,,
+BLOQ-11,ouverte,,,
+BLOQ-12,ouverte,,,
+BLOQ-13,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+BLOQ-14,ouverte,,,
+STRUCT-01,ouverte,,,
+STRUCT-02,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,"ℰ_alg / ℰ_scoped, clôture faible (position intermédiaire de ARB-PR-03)"
+STRUCT-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+STRUCT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+STRUCT-05,ouverte,,,
+STRUCT-06,ouverte,,,
+STRUCT-07,partielle,journal,journal/2026-10-01-pr-02-08-fact-suite.md,énoncé scellé proposition ; la preuve par facteur reste à conduire (PREUVE-10)
+STRUCT-08,ouverte,,,
+STRUCT-09,ouverte,,,
+STRUCT-10,ouverte,,,
+STRUCT-11,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,idem
+STRUCT-12,ouverte,,,
+STRUCT-13,ouverte,,,
+STRUCT-14,ouverte,,,
+STRUCT-15,ouverte,,,
+STRUCT-16,ouverte,,,
+STRUCT-17,ouverte,,,
+STRUCT-18,ouverte,,,
+STRUCT-19,ouverte,,,
+STRUCT-20,ouverte,,,
+STRUCT-21,ouverte,,,
+STRUCT-22,ouverte,,,
+STRUCT-23,ouverte,,,
+PORT-01,ouverte,,,
+PORT-02,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
+PORT-03,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
+PORT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+PORT-05,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,"thm:surete_ffi scindé : clause 1 théorème, clause 2 exigence ⟨représentation⟩"
+PORT-06,ouverte,,,
+PORT-07,ouverte,,,
+PORT-08,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:elaboration requalifié définition — à confirmer
+PORT-09,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+PORT-10,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
+PORT-11,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
+PORT-12,ouverte,,,
+PORT-13,ouverte,,,
+PORT-14,ouverte,,,
+PORT-15,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
+PORT-16,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:abaissement_grades requalifié conjecture ⟨compilation⟩ — à confirmer
+PORT-17,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
+PREUVE-01,partielle,journal,journal/2026-10-01-pr-02-06-theoremes.md,énoncé repris sous concurrence ; la démonstration reste la dette la plus lourde
+PREUVE-02,ouverte,,,
+PREUVE-03,partielle,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,non-interférence séquentielle située ; déterminisme observationnel scellé conjecture sous hypothèse nommée
+PREUVE-04,ouverte,,,
+PREUVE-05,ouverte,,,
+PREUVE-06,ouverte,,,
+PREUVE-07,ouverte,,,
+PREUVE-08,ouverte,,,
+PREUVE-09,ouverte,,,
+PREUVE-10,ouverte,,,
+PREUVE-11,ouverte,,,
+PREUVE-12,ouverte,,,
+PREUVE-13,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,l'absence d'interblocage n'emprunte plus : le graphe de câblage est lu des règles
+PREUVE-14,ouverte,,,
+PREUVE-15,ouverte,,,
+PREUVE-16,ouverte,,,
+NOTA-01,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+NOTA-02,ouverte,,,
+NOTA-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
+NOTA-04,ouverte,,,
+NOTA-05,ouverte,,,
+NOTA-06,ouverte,,,
+NOTA-07,ouverte,,,
+NOTA-08,fermee,journal,journal/2026-09-30-pr-02-03-vague-0-fin.md,"deux renvois faux, définition de la pureté des gestionnaires"
+IMPL-01,ouverte,,,
+IMPL-02,ouverte,,,
+IMPL-03,ouverte,,,
+IMPL-04,ouverte,,,
+IMPL-05,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:revocation_ffi : première exigence du document
+IMPL-06,ouverte,,,
+IMPL-07,ouverte,,,
+IMPL-08,ouverte,,,
+IMPL-09,ouverte,,,
+FACT-01,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
+FACT-02,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
+FACT-03,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
+FACT-04,fermee,journal,journal/2026-10-01-pr-02-08-fact-suite.md,
+FACT-05,partielle,journal,journal/2026-10-01-pr-02-08-fact-suite.md,"le théorème recule en proposition ; voie écrite, preuve à conduire"
+FACT-06,fermee,journal,journal/2026-10-01-pr-02-08-fact-suite.md,
+FACT-07,ouverte,journal,journal/2026-10-01-pr-02-08-fact-suite.md,reportée délibérément : suppose réglés le niveau d'un calcul et la relation logique sur un produit
+FACT-08,ouverte,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,redevenue disponible : le périmètre du noyau est stabilisé
+FACT-09,ouverte,,,
+FACT-10,ouverte,,,
+FACT-11,ouverte,,,
+FACT-12,ouverte,,,
+FACT-13,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
+FACT-14,ouverte,,,
+FACT-15,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
+FACT-16,ouverte,,,
+FACT-17,ouverte,,,
+FACT-18,ouverte,,,
+FACT-19,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
+FACT-20,ouverte,,,
+FACT-21,ecartee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md
+FACT-22,ecartee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md
+FACT-23,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,"le connecteur ■ n'était pas nécessaire : □ suffit, ■ retiré"
+FACT-24,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
+TRANS-01,fermee,journal,journal/2026-09-30-pr-02-02-vague-0.md,"sceau à deux axes (statut, niveau)"
+TRANS-02,ouverte,,,
+TRANS-03,ouverte,,,
+TRANS-04,ouverte,,,
+TRANS-05,fermee,journal,journal/2026-09-30-pr-02-03-vague-0-fin.md,"registre des obligations produit, non tenu"
+TRANS-06,ouverte,,,
+TRANS-07,ouverte,,,
+TRANS-08,ouverte,,,
+TRANS-09,ouverte,,,
+ARB-PR-01,fermee,fiche,relectures/pr-02/taches-consolidees.md,tranché par vérification directe (14 septembre)
+ARB-PR-02,fermee,fiche,relectures/pr-02/taches-consolidees.md,tranché sur le point contesté (14 septembre)
+ARB-PR-03,a-ratifier,journal,journal/2026-10-01-pr-02-06-theoremes.md,position intermédiaire appliquée (ℰ_alg / ℰ_scoped) ; BIB-01 (Hefty Algebras) non instruit
+ARB-PR-04,decision,fiche,relectures/pr-02/taches-consolidees.md,ce que le document promet pour le rejeu bit-à-bit ; le théorème est scindé (PORT-04 fermée) mais la décision de fond reste à écrire
+ARB-PR-05,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,cadre du manuscrit ratifié
+ARB-PR-06,decision,fiche,relectures/pr-02/taches-consolidees.md,la revendication de bout en bout fait-elle partie des objectifs déclarés ?
+ARB-PR-07,decision,fiche,relectures/pr-02/taches-consolidees.md,étude d'opportunité : famille modale et graduée ; à écrire au §1.2 ; quatre imports ciblés non versés
+REFUS-01,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
+REFUS-02,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
+REFUS-03,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
+REFUS-04,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
+REFUS-05,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
+REFUS-06,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
+REFUS-07,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
+REECR-01,ouverte,,,
+REECR-02,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-02 — à confirmer
+REECR-03,ouverte,,,
+REECR-04,ouverte,,,
+REECR-05,ouverte,,,
+REECR-06,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-03 — à confirmer
+REECR-07,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-10 — à confirmer
+REECR-08,ouverte,,,
+REECR-09,ouverte,,,
+REECR-10,ouverte,,,
+REECR-11,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-05 — à confirmer
+REECR-12,ouverte,,,
+REECR-13,ouverte,,,
+REECR-14,ouverte,,,
+REECR-15,ouverte,,,
+REECR-16,ouverte,,,
+REECR-17,ouverte,,,
+REECR-18,ouverte,,,
+REECR-19,ouverte,,,
+REECR-20,ouverte,,,
+REECR-21,ouverte,,,
+REECR-22,ouverte,,,
+REECR-23,ouverte,,,
+REECR-24,ouverte,,,
+REECR-25,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-11 — à confirmer
+REECR-26,ouverte,,,
+REECR-27,ouverte,,,
+BIB-01,ouverte,,,
+BIB-02,ouverte,,,
+BIB-03,ouverte,,,
+BIB-04,ouverte,,,
+BIB-05,ouverte,,,
+BIB-06,ouverte,,,
+BIB-07,ouverte,,,
+BIB-08,ouverte,,,
+BIB-09,ouverte,,,
+BIB-10,ouverte,,,
+BIB-11,ouverte,,,
+BIB-12,ouverte,,,
+BIB-13,ouverte,,,
+BIB-14,ouverte,,,
+BIB-15,ouverte,,,
+BIB-16,ouverte,,,
+BIB-17,ouverte,,,
+BIB-18,ouverte,,,
+BIB-19,ouverte,,,
+BIB-20,ouverte,,,
+BIB-21,ouverte,,,
+BIB-22,ouverte,,,
+BIB-23,ouverte,,,
+BIB-24,ouverte,,,
+BIB-25,ouverte,,,
+BIB-26,ouverte,,,
+BIB-27,ouverte,,,
+BIB-28,ouverte,,,
+BIB-29,ouverte,,,
