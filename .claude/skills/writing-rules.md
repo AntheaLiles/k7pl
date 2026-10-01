@@ -16,12 +16,19 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `src/K7pl.lean`                | Racine de la bibliothèque : importe tous les modules `K7pl.*`   | CECILL-2.1 |
 | `src/K7pl/`                    | Implémentation du langage en Lean 4 (Mathlib, CSLib)            | CECILL-2.1 |
 | `tests/`                       | Tests en Lean 4 (un fichier `<Module>Test.lean` par module)     | CECILL-2.1 |
-| `spec/Spec.lean`               | Racine de la spécification Verso                                | CC-BY-4.0  |
-| `spec/Spec/`                   | Chapitres de la spécification (un module Verso par chapitre)    | CC-BY-4.0  |
+| `spec/Spec.lean`               | Racine de la spécification Verso : titre, `{texsetup}`, inclusion des chapitres | CC-BY-4.0  |
+| `spec/Spec/<Ch>.lean`          | Un chapitre (`C1`…`C7`, `Refs`, `AnnexeA`…`AnnexeE`) : titre, `{refsection}`, introduction, `{include}` des sections | CC-BY-4.0  |
+| `spec/Spec/<Ch>/<Section>.lean` | Une section de niveau 2 : ses sous-sections (`#`, `##`…) et ses blocs | CC-BY-4.0  |
+| `spec/figures/`                | Figures : `<nom>.svg` (HTML), `<nom>.pdf` (PDF), `sources/` (drawio, mermaid) | CC-BY-4.0  |
 | `spec/CHANGELOG.md`            | Versions de la spécification (releases `spec-vX.Y.Z`)           | CC-BY-4.0  |
-| `tools/SpecMain.lean`          | Générateur HTML de la spécification (`lake exe spec`)           | CECILL-2.1 |
+| `tools/SpecMain.lean`          | Générateur de la spécification (`lake exe spec`)                | CECILL-2.1 |
+| `tools/SpecExt/`, `tools/SpecExt.lean` | Extensions Verso de la spécification (renvois, énoncés, formules, figures, citations…) | CECILL-2.1 |
+| `tools/SpecBib.lean`           | Bibliographie, **générée** par `scripts/biblio/biblio.py`        | CECILL-2.1 |
+| `biblio/references.json`       | Notices des 250 œuvres citées (source de `SpecBib.lean`)         | CC-BY-4.0  |
+| `docs/`                        | Suivi, relectures, méthode, recherche, journal (Markdown)        | CC-BY-4.0  |
+| `archives/`                    | Manuscrit Org figé, ancien outillage                             | CC-BY-4.0 / CECILL-2.1 |
 | `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)       | —          |
-| `scripts/`                     | Maintenance (montée de version, hook de session, Zenodo)        | CECILL-2.1 |
+| `scripts/`                     | Maintenance (montée de version, hook de session, Zenodo), conversion Org → Verso (`org2verso/`), bibliographie (`biblio/`), mesures et suivi | CECILL-2.1 |
 | `zenodo.json`, `zenodo.files.json` | Métadonnées Zenodo (communes, par PDF) — via `REUSE.toml`   | CECILL-2.1 |
 | `.github/workflows/`           | CI : build/tests/lint/axiomes, Pages, REUSE, commits, sécurité  | CECILL-2.1 |
 | `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Modèles d'issues et de PR | CECILL-2.1 |
@@ -151,44 +158,60 @@ Toute nouvelle licence utilisée doit avoir son texte dans `LICENSES/` :
 Importer Mathlib et CSLib **module par module** (`import Mathlib.Tactic.Ring`),
 jamais `import Mathlib` ni `import Cslib` en entier : la compilation reste rapide.
 
-## 6. Ajouter un chapitre de spécification (Verso)
+## 6. Écrire dans la spécification (Verso)
 
-Les spécifications sont écrites en [Verso](https://github.com/leanprover/verso),
-genre `Manual`. Ce sont des fichiers Lean : ils sont compilés par `lake build`,
-et les blocs de code Lean qu'ils contiennent sont vérifiés.
+La spécification est écrite en [Verso](https://github.com/leanprover/verso), genre `Manual`.
+Ce sont des fichiers Lean : `lake build` les compile, et toute erreur (renvoi vers une étiquette
+inconnue, clé bibliographique absente, balisage invalide) fait échouer la compilation ou le rendu.
 
-1. Créer `spec/Spec/<Chapitre>.lean` (CamelCase) avec l'en-tête SPDX **CC-BY-4.0**.
-2. Structure minimale :
+**Le manuscrit porte « ne rien modifier sans l'accord de l'auteur »** : on ne corrige son texte
+que sur demande, par la plus petite modification, et on consigne le changement (fiche, journal).
 
-   ````lean
-   -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
-   --
-   -- SPDX-License-Identifier: CC-BY-4.0
+### Structure
 
-   import VersoManual
-   import K7pl.Arith            -- only if the chapter cites the implementation
+- `spec/Spec.lean` inclut les chapitres dans l'ordre du document ; chaque chapitre `Spec/<Ch>.lean`
+  ouvre une section de bibliographie (`{refsection "c3-types"}`), porte son introduction, puis
+  `{include 0 Spec.<Ch>.<Section>}` pour chacune de ses sections ; son module de **dernière**
+  section se termine par `{bibliography}` (la liste des œuvres citées dans le chapitre).
+- Un module de section commence par `#doc (Manual) "Titre" =>`, puis un bloc `%%%` de
+  métadonnées (`file := "…"` : nom de la page HTML ; `tag := "…"` : nom canonique, stable, de la
+  section ; `number := false` pour les annexes, dont le numéro (`A.`, `A.1.`) est écrit dans le
+  titre), puis `{label "sec:…"}` si la section est référencée.
+- Nommer un nouveau module en CamelCase ASCII, sans accent ; ajouter son `import` et son
+  `{include}` dans le module du chapitre.
 
-   open Verso.Genre Manual
-   open Verso.Genre.Manual.InlineLean
+### Extensions de la spécification (`tools/SpecExt/`)
 
-   #doc (Manual) "Règles de syntaxe" =>
+| À écrire | Rôle |
+|---|---|
+| `{num "sec:x"}[]` | renvoi numéroté, lien vers l'objet (section, énoncé, formule, figure, tableau, listing) — remplace `\ref` |
+| `{label "sec:x"}` | étiquette de la section courante (`(display := "A.1")` impose le numéro affiché) |
+| `{cite "CLÉ1,CLÉ2"}[]` | citation numérique `[3, 5–7]`, numérotée par chapitre (`{refsection}`) ; la clé doit exister dans `biblio/references.json` |
+| `::::thm (label := "thm:x") (status := "proposition") (level := "representation")` | énoncé scellé ; créneaux `:::title`, `:::statement`, `:::proofsketch`. `status` : `theoreme` (défaut), `proposition`, `conjecture`, `definition`, `exigence`, `litterature` ; `level` : `langage` (défaut), `compilation`, `representation`, `deploiement` |
+| `::::formula (label := "eq:x") (kind := "formule")` | formule(s) : blocs de code contenant du LaTeX mathématique, `:::caption` |
+| `::::figure (label := "fig:x") (src := "nom") (alt := "…") (width := "90")` | figure `spec/figures/nom.{svg,pdf}` ; créneaux `:::caption`, `:::desc`, `:::note`, `:::source` |
+| `::::k7table (label := "tab:x") (align := "lZ{1.0}")` | tableau légendé autour d'un `:::table +header` ; `align` : colonnes `tabularx` du PDF |
+| `::::listing (label := "lst:x")` | code source légendé |
+| `{rmq}[…]` | remarque marginale numérotée (« RMQ n. ») |
+| `{sc}[…]` | petites capitales |
+| `{listof "figure"}` | liste des figures, `"table"`, `"formule"`, `"listing"` |
+| `:::comment` + bloc de code | commentaire d'auteur, conservé dans la source, jamais rendu |
+| `{missing "label"}[]` | renvoi non résolu du manuscrit d'origine, imprimé `??` — à remplacer par `{num}` dès que l'étiquette existe |
 
-   Texte d'introduction du chapitre.
+Les étiquettes suivent `sec:`, `thm:`, `eq:`, `fig:`, `tab:`, `lst:`. Un énoncé corrigé **change de
+sceau**, il ne perd pas son étiquette ni ne se renumérote à la main : le compteur d'énoncés est
+global et suit l'ordre du document.
 
-   # Expressions
+### Vérifier
 
-   Texte explicatif. Référence à l'implémentation : {lean}`K7pl.Arith.Expr.eval`.
+1. `lake build Spec` (compilation ; les avertissements sont des erreurs).
+2. `lake exe spec --output _out/spec --with-tex` (rendu ; un renvoi ou une clé inconnus font échouer).
+3. `python3 scripts/manuscript_metrics.py summary`, et `python3 scripts/suivi.py all` si des fiches ont changé d'état.
+4. Ajouter une ligne dans `spec/CHANGELOG.md` (commit de type `docs(spec)`).
 
-   ```lean
-   example : (K7pl.Arith.Expr.lit 1).eval = 1 := rfl
-   ```
-   ````
-
-3. Dans `spec/Spec.lean` : ajouter `import Spec.<Chapitre>` et
-   `{include 1 Spec.<Chapitre>}` à l'endroit voulu.
-4. Vérifier : `lake build Spec` puis `lake exe spec --output _out/spec`
-   (HTML dans `_out/spec/html-multi/`).
-5. Ajouter une ligne dans `spec/CHANGELOG.md` (commit de type `docs`).
+La bibliographie : ajouter une œuvre = ajouter sa notice à `biblio/references.json` (champs de
+`scripts/biblio/biblio.py`), puis `python3 scripts/biblio/biblio.py lean biblio/references.json
+tools/SpecBib.lean`.
 
 ## 7. Style Lean 4
 
@@ -297,8 +320,24 @@ Correspondances Org-mode → Verso, pour la réécriture des sources existantes 
 | `#+BEGIN_SRC lean … #+END_SRC`        | ` ```lean … ``` ` (vérifié par Lean)           |
 | `#+BEGIN_SRC k7pl … #+END_SRC`        | ` ``` … ``` `                                  |
 | `#+BEGIN_QUOTE … #+END_QUOTE`         | `> citation`                                   |
-| `#+INCLUDE: "autre.org"`              | `import Spec.Autre` + `{include 1 Spec.Autre}` |
+| `#+INCLUDE: "autre.org"`              | `import Spec.Autre` + `{include 0 Spec.Autre}` |
+| `\ref{label}`, `[[tab:x]]`, `\eqref{x}` | `{num "label"}[]`, `({num "x"}[])`          |
+| `#+LATEX: \label{sec:x}` sous un titre | `{label "sec:x"}` sous le titre               |
+| `[cite:@clé;@clé]`                    | `{cite "clé,clé"}[]`                           |
+| `[rmq:texte]`                         | `{rmq}[texte]`                                 |
+| `\textsc{x}`                          | `{sc}[x]`                                      |
+| `#+NAME:` + `#+CAPTION:` + tableau    | `::::k7table (label := …)` + `:::caption` + `:::table +header` |
+| `#+NAME:` + `#+CAPTION:` + `[[fichier.drawio]]` | `::::figure (label := …) (src := …)`  |
+| `#+BEGIN_EXPORT latex` `\begin{theorem}[…]` | `::::thm` + `:::statement` + `:::proofsketch` |
+| `#+BEGIN_EXPORT latex` `\begin{align*}` + `\captionof{formule}` | `::::formula (kind := "formule")` |
+| `# commentaire`                       | `:::comment` + bloc de code                    |
+| `#+PRINT_BIBLIOGRAPHY:`               | `{bibliography}`                               |
+| `#+LATEX: \listoffigures`             | `{listof "figure"}`                            |
 | `TODO` / `DRAFT` dans un titre        | commentaire `-- TODO:` dans le source          |
+
+Cette table résume `scripts/org2verso/` : la conversion du manuscrit Org est reproductible
+(`python3 scripts/org2verso/convert.py --src archives/manuscrit-org --meta spec/figures --out <dossier>`
+donne les modules actuels, au caractère près, à la date de la conversion).
 
 ## 9. Conventional Commits
 

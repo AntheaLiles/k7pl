@@ -17,6 +17,16 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Added
 
+- Le manuscrit de la spécification en Verso (`spec/`), converti de l'Org-mode ; extensions Verso
+  (`tools/SpecExt/` : renvois, énoncés scellés, formules, figures, tableaux, citations par
+  chapitre, remarques marginales, listes) ; bibliographie générée (`tools/SpecBib.lean`,
+  `biblio/references.json`).
+- Conversion Org → Verso reproductible (`scripts/org2verso/`), chaîne bibliographique
+  (`scripts/biblio/`), conversion Org → Markdown (`scripts/org2md.py`), mesures du manuscrit et
+  vues du suivi (`scripts/manuscript_metrics.py`, `scripts/suivi.py`).
+- `docs/` : suivi (tableau de bord, 190 fiches de la campagne PR-02, décisions, anomalies),
+  relectures, méthode, recherche, journal de séances ; `archives/` : manuscrit Org figé et ancien
+  outillage.
 - Initialisation du dépôt (structure, licences REUSE, CI, projet Lake).
 - Dépendances Mathlib, CSLib et Verso, épinglées sur Lean v4.34.0.
 - Exemples : `K7pl.Arith` (Mathlib), `K7pl.Semantics` (CSLib) et leurs tests.
