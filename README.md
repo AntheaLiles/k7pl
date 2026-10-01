@@ -62,7 +62,7 @@ voir [`SECURITY.md`](SECURITY.md).
 
 Chaque version de la spécification est archivée sur [Zenodo](https://zenodo.org)
 avec un DOI, et son PDF est joint à la release GitHub correspondante. Voir
-[`CITATION.cff`](CITATION.cff) (bouton « Cite this repository » sur GitHub).
+[`CITATION.cff`](CITATION.cff) (bouton « Cite this repository » sur GitHub). DOI : [10.5281/zenodo.23040451](https://doi.org/10.5281/zenodo.23040451).
 
 ## Licences
 

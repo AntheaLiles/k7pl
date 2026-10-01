@@ -5,16 +5,12 @@
 # Describes the specification archived on Zenodo (see zenodo.json).
 # At each specification release (tag spec-vX.Y.Z): update `version` and `date-released`
 # (the implementation has its own version, in lakefile.lean); after the first Zenodo
-# publication, add the concept DOI (printed in the release job summary):
-#
-# identifiers:
-#   - type: doi
-#     value: "10.5281/zenodo.xxxxxx"
-#     description: "Concept DOI (toutes les versions)"
+# publication, check that the DOI below is still the right one.
 cff-version: 1.2.0
 message: "Citez ce travail comme suit."
 title: "K7PL - KonSept Programming Language's Specification"
 version: "0.0.0"
+doi: "10.5281/zenodo.23040451"
 authors:
   - family-names: "Pierre"
     given-names: "Cyprien"
