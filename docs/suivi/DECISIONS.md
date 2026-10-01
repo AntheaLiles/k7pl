@@ -19,6 +19,7 @@
 |---|---|---|
 | `ARB-PR-03` | effets à portée : `ℰ_alg` et `ℰ_scoped` nommés, clôture **faible** sur le second, le monoïde ℳ gardé | que `BIB-01` (*Hefty Algebras*) reste non instruit tant que le besoin de modularité n'est pas établi |
 | — | sept fermetures de fiches **déduites** (`PORT-08`, `PORT-16`, `REECR-02`, `-06`, `-07`, `-11`, `-25`) | `fiches-statuts.csv`, colonne `confiance` = `deduite` |
+| `BLOQ-05` | niveau de production porté par l'effet (pas d'indexation du jugement) ; clauses sur `Op` et `Case` ; `Tick` en `⟨1, δ_ℓ̂⟩` ; aucune règle ajoutée (décomptes 49/45 inchangés) | que l'indexation `Δ ⊢^ℓ_𝒢` de la fiche n'est pas requise en plus, et que la sortie des niveaux de lecture par `Unbox`/`Var` n'a pas besoin de clause |
 
 ## Attendent une décision de l'auteur
 

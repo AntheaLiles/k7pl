@@ -18,4 +18,4 @@ corriger les bloquants ; modifications minimales, chacune nommée ici.
 | `BLOQ-09` | Th. surêté spatiale (ch. 4 §4.3) : hypothèses H1 (unicité d'introduction), H2 (portée), H3 (imbrication des délimiteurs) explicites ; attribution du §1.3 corrigée. | démontrer H1 et H2 comme lemmes (PREUVE-12) ; définir « région » |
 | `BLOQ-07` | Th. fidélité de l'interpréteur (ch. 4 §4.6) : conditionnel à Sim, statut `proposition` ; engagement rouvert dans le guide de lecture. | établir Sim (PREUVE-07) |
 | `BLOQ-08` | P1 scindé en P1a (postulat) et P1b (obligation) ; trois arguments invoquant P1 reformulés (monomorphisation, abaissement, réécritures). | arguments des Th. 31 (ch. 5) et §4.6 |
-| `BLOQ-05` | non traitée (refonte lourde ℓ / ℓ̂, nouvelles règles : décision sur le décompte 49/45). | à faire |
+| `BLOQ-05` | annexe E.3 : `ℓ` (lecture) et `ℓ̂` (production) distingués, `niv(Δ)` et `ℓ̂(ε)` définis ; clause `niv(Δ) ⊑ ℓ̂(ε)` sur `Op` et `Case` ; `Tick` en `⟨1, δ_ℓ̂⟩` ; incertitude n° 3 de E.5.6 réglée. Aucune règle ajoutée. | lemme de correspondance à démontrer (PREUVE) ; Th. 43, 46, 47, 51 à relire sous les clauses ; ch. 1 table 2 |
