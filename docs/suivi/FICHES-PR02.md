@@ -11,7 +11,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
 | `STRUCT` Structurels | 23 | 4 | 1 | 0 | 0 | 0 | 18 |
 | `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
-| `PREUVE` Dettes de preuve | 16 | 1 | 2 | 0 | 0 | 0 | 13 |
+| `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 3 | 0 | 0 | 0 | 0 | 5 |
 | `IMPL` Implémentation et outillage | 9 | 1 | 0 | 0 | 0 | 0 | 8 |
 | `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
@@ -20,7 +20,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **57** | **13** | **1** | **5** | **2** | **112** |
+| **Total** | **190** | **58** | **22** | **1** | **5** | **2** | **102** |
 
 ## BLOQ — Bloquants
 
@@ -98,19 +98,19 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `PREUVE-01` | 🟡 partielle | Th. 45 (correction de ressource) : la dette la plus lourde, et deux postulats en dépendent | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · énoncé repris sous concurrence ; la démonstration reste la dette la plus lourde |
 | `PREUVE-02` | ⬜ ouverte | Th. 36 : préservation graduée par abaissement |  |
 | `PREUVE-03` | 🟡 partielle | Non-interférence graduée sur le fragment avec communication | [journal](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) · non-interférence séquentielle située ; déterminisme observationnel scellé conjecture sous hypothèse nommée |
-| `PREUVE-04` | ⬜ ouverte | Th. 7 (divulgation délimitée) : l'esquisse est circulaire |  |
+| `PREUVE-04` | 🟡 partielle | Th. 7 (divulgation délimitée) : l'esquisse est circulaire | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · Th. 9 requalifié proposition, route nommée (paramétricité), renvoi corrigé ; preuve à conduire |
 | `PREUVE-05` | ⬜ ouverte | Écrire les règles de la loi distributive graduée et vérifier leur cohérence |  |
 | `PREUVE-06` | ⬜ ouverte | Gradation indexée et substitution d'indices |  |
-| `PREUVE-07` | ⬜ ouverte | Lemme de simulation entre `→` et `⟦·⟧` |  |
-| `PREUVE-08` | ⬜ ouverte | Th. 6 : la troncature préserve-t-elle les lois de comonade ? |  |
-| `PREUVE-09` | ⬜ ouverte | Th. 40 : deux structures pour ℰ₀, et une pétition de principe au second temps |  |
-| `PREUVE-10` | ⬜ ouverte | Cohérence des coercions par facteur, puis fermeture par produit |  |
-| `PREUVE-11` | ⬜ ouverte | Relation logique sur un produit de structures ordonnées |  |
-| `PREUVE-12` | ⬜ ouverte | Unicité d'introduction de `WriteCap` et lemme de portée |  |
+| `PREUVE-07` | 🟡 partielle | Lemme de simulation entre `→` et `⟦·⟧` | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · énoncé thm:simulation écrit ; preuve par induction à conduire |
+| `PREUVE-08` | 🟡 partielle | Th. 6 : la troncature préserve-t-elle les lois de comonade ? | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · lemme thm:troncature_comonade énoncé ; convention de remplissage à écrire |
+| `PREUVE-09` | 🟡 partielle | Th. 40 : deux structures pour ℰ₀, et une pétition de principe au second temps | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · énoncé en deux temps ; hypothèse (ii) nommée exigence sur ℰ₀ |
+| `PREUVE-10` | 🟡 partielle | Cohérence des coercions par facteur, puis fermeture par produit | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · réduction à la fonctorialité sur catégories minces ; définition des conversions à écrire |
+| `PREUVE-11` | 🟡 partielle | Relation logique sur un produit de structures ordonnées | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · énoncé thm:relation_produit écrit ; détail par facteur à écrire |
+| `PREUVE-12` | 🟡 partielle | Unicité d'introduction de `WriteCap` et lemme de portée | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · lemme de portée démontré (arithmétique d'intervalles) ; unicité H1 attend la règle d'introduction |
 | `PREUVE-13` | ✅ fermée | Lemme de simulation du graphe d'attente, et hypothèse d'équité | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · l'absence d'interblocage n'emprunte plus : le graphe de câblage est lu des règles |
-| `PREUVE-14` | ⬜ ouverte | Th. 5 : schéma de méta-théorème à deux instanciations, et non identité des conclusions |  |
-| `PREUVE-15` | ⬜ ouverte | Hypothèse `D_det` : déterminisme des parcours, recherches et graines |  |
-| `PREUVE-16` | ⬜ ouverte | Th. 3 : transposition graduée de la préservation des conteneurs |  |
+| `PREUVE-14` | ✅ fermée | Th. 5 : schéma de méta-théorème à deux instanciations, et non identité des conclusions | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · schéma de méta-théorème, deux instanciations aux conclusions distinctes |
+| `PREUVE-15` | 🟡 partielle | Hypothèse `D_det` : déterminisme des parcours, recherches et graines | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · D_det écrite (parcours, recherche, graine) en E.4.1 ; implémentation à spécifier dans l'outillage |
+| `PREUVE-16` | 🟡 partielle | Th. 3 : transposition graduée de la préservation des conteneurs | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · énoncé en deux temps, contrainte d'outil nommée ; cas gradué ouvert |
 
 ## NOTA — Notation, comptes, renvois
 
