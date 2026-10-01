@@ -96,6 +96,32 @@ dans _C_. S'il tombe — si la déclaration d'indépendance entre modes n'était
 faudrait un mécanisme d'exécution pour interdire la mutation concurrente, c'est-à-dire ce que le
 postulat d'autonomie physique refuse.
 
+::::thm (label := "thm:introduction_unique") (status := "proposition")
+:::title
+loi unique d'introduction des ressources d'écriture
+:::
+
+:::statement +titled
+Une ressource d'écriture est introduite au plus une fois par région, sous une mesure strictement décroissante
+
+Dans un contexte clos, la règle d'introduction d'une ressource d'écriture — capacité sur un segment
+d'arène, destination, grade linéaire — consomme linéairement l'objet qu'elle découpe, et son indice
+(taille du segment, âge $`k` de $`\mathsf{Lin}_k`, taille de l'arène) décroît strictement. Il en
+résulte : (a) au plus une capacité d'écriture par région est dérivable (hypothèse H1 du théorème
+{num "thm:surete_spatiale"}[]) ; (b) les destinations ne forment pas de cycle ; (c) la
+construction d'une arène termine.
+:::
+
+:::proofsketch
+Les trois conséquences sont une seule loi lue sur trois objets. La consommation linéaire de l'objet
+découpé interdit d'en tirer deux capacités ; la décroissance stricte de l'indice interdit qu'une
+capacité redevienne l'ancêtre de la région qui la porte, d'où l'absence de cycle ; elle est enfin la
+mesure qui fonde la terminaison des catamorphismes (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]).
+La preuve est à écrire : l'énoncé nomme ce que la règle d'introduction doit satisfaire, et elle
+n'existe pas encore dans le noyau.
+:::
+::::
+
 Ce que les arènes viennent de faire pour l'acteur, la mémoire physique le fait sur sept niveaux, et
 c'est ici qu'il faut le dire puisque la section précédente vient d'en poser le cas principal. Cette
 hiérarchie instancie l'exigence d'effacement que le chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[])

@@ -381,6 +381,26 @@ machine.
 :::
 ::::
 
+::::thm (label := "thm:representation_inobservable") (status := "exigence") (level := "representation")
+:::title
+aucune liberté de représentation n'est observable
+:::
+
+:::statement +titled
+Injectivité de la représentation
+
+La représentation $`\mathrm{repr}` d'une valeur est telle que $`\mathrm{obs} \circ \mathrm{repr}` est
+injective : deux exécutions qui diffèrent par une liberté représentationnelle — élision d'un champ,
+purge d'un journal, bourrage, charge utile d'un NaN, ordre des segments en mémoire — ne sont pas
+discernables par l'observation.
+:::
+::::
+
+Exigence vérifiée par test différentiel, non démontrée. Elle absorbe cinq dispositions : l'élision est bornée par
+une version de schéma, la purge par la rotation du journal, le bourrage par la règle d'abaissement,
+le NaN par la proposition {num "thm:homomorphisme_roues"}[], l'ordre des segments par la
+réallocation (`mremap`). Toutes disent la même chose.
+
 L'overflow entier suit la même logique par couche : rejet statique en couche 3, où le solveur SMT
 doit prouver que l'opération reste dans les bornes ; `Result(T, OverflowError)` en couche 2, où
 l'origine des valeurs n'est plus toujours statiquement bornée. Dans les deux cas, aucun dépassement
