@@ -36,20 +36,20 @@ STRUCT-20,ouverte,,,
 STRUCT-21,ouverte,,,
 STRUCT-22,ouverte,,,
 STRUCT-23,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,"annexe E fondue : règles au ch. 3, sémantique au ch. 4 ; §1.1 corrigé"
-PORT-01,ouverte,,,
+PORT-01,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"domaine et profil Π écrits ; rappel au §6.1 ; endianness et alignement"
 PORT-02,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
 PORT-03,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
 PORT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
 PORT-05,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,"thm:surete_ffi scindé : clause 1 théorème, clause 2 exigence ⟨représentation⟩"
-PORT-06,ouverte,,,
-PORT-07,ouverte,,,
+PORT-06,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"Th. 34 : définition + clôture locale, suffisante non nécessaire"
+PORT-07,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"complétude restreinte au noyau ; exigence thm:completude_verificateur ; comptes retirés"
 PORT-08,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:elaboration requalifié définition — à confirmer
 PORT-09,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
 PORT-10,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
 PORT-11,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
-PORT-12,ouverte,,,
-PORT-13,ouverte,,,
-PORT-14,ouverte,,,
+PORT-12,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"§4.2 : O(n), @stack/@backtrack, pile bornée ; figure 7 corrigée"
+PORT-13,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"propagée aux ch. 5 et 6"
+PORT-14,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"hygiène graduée et resucrage ; Th. 19 scindé ; sédimentation en deux temps"
 PORT-15,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
 PORT-16,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:abaissement_grades requalifié conjecture ⟨compilation⟩ — à confirmer
 PORT-17,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
@@ -70,12 +70,12 @@ PREUVE-14,fermee,journal,journal/2026-10-01-pr-02-14-preuves.md,"schéma de mét
 PREUVE-15,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"D_det écrite (parcours, recherche, graine) en E.4.1 ; implémentation à spécifier dans l'outillage"
 PREUVE-16,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé en deux temps, contrainte d'outil nommée ; cas gradué ouvert"
 NOTA-01,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-NOTA-02,ouverte,,,
+NOTA-02,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"Tick déclarée admissible (instance d'Op)"
 NOTA-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-NOTA-04,ouverte,,,
-NOTA-05,ouverte,,,
-NOTA-06,ouverte,,,
-NOTA-07,ouverte,,,
+NOTA-04,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"Δ = Δ_ω au §5.1 et §5.5"
+NOTA-05,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"ε_exp, ε_body, occ(m) ; table 11 corrigée"
+NOTA-06,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"a, c, d, f corrigés ; b par renvoi ; e par BLOQ-02"
+NOTA-07,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"identifiants T-xx et G.x résolus en renvois de section"
 NOTA-08,fermee,journal,journal/2026-09-30-pr-02-03-vague-0-fin.md,"deux renvois faux, définition de la pureté des gestionnaires"
 IMPL-01,ouverte,,,
 IMPL-02,ouverte,,,

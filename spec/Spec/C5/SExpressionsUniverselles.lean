@@ -47,7 +47,7 @@ Les trois délimiteurs comme annonces de phase
   * Productivité ; effets autorisés ; ownership du tas
 * * `[ ... ]`
   * Cartésien
-  * $`\Delta = \emptyset`
+  * $`\Delta = \Delta_{\omega}`
   * Terminaison ; pureté ; allocation sur la pile
 :::
 ::::
@@ -56,8 +56,7 @@ Ces trois paires ne s'imbriquent que dans un seul sens : `{ ... ( ... [ ... ] ..
 autre inclusion — un `[ ]` contenant un `{ }`, ou un `( )` à l'intérieur d'un `[ ]` — est rejetée en
 Phase 2 (`ERR-TOP-001`). Cette contrainte n'est pas stylistique : elle découle directement des
 spécialisations du jugement germinal établies au chapitre 1
-(§{num "sec:c1-axiomatique-germinale"}[]). Le jugement de couche 3 ne comporte pas de $`\Delta` ; il
-ne peut donc rien exprimer qui suppose une ressource affine ou linéaire. Le jugement de couche 1, à
+(§{num "sec:c1-axiomatique-germinale"}[]). Le jugement de couche 3 n'admet que des liaisons de grade $`\omega` ; un bloc de couche 3 ne peut donc rien exiger qui soit affine ou linéaire. Le jugement de couche 1, à
 l'inverse, dispose de $`\Delta_{\text{lin}}`, dont le chapitre 2
 (§{num "sec:c2-la-comonade-exponentielle-et"}[]) a montré qu'il s'inclut fidèlement dans
 $`\Delta_{\text{aff}}`. Un fragment de couche 2 peut donc être évalué à l'intérieur d'un contexte de

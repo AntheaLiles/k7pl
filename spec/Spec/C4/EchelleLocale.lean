@@ -28,9 +28,11 @@ d'exécution, fibrilles et fibres, qui les portent.
 
 Les R-expressions unifient sous une seule interface, `(match ...)`, le filtrage structurel, PCRE,
 PEG et les grammaires ; leur compilation ne masque jamais la complexité qu'un motif engage, elle
-l'expose. Chaque constructeur porte une annotation : `@linear` pour un automate fini déterministe,
-`@polynomial` pour un automate non déterministe, `@exponential` pour un automate à pile ou du retour
-arrière explicite. Trois conséquences en découlent.
+l'expose. Chaque constructeur porte une annotation : `@linear` pour un automate fini déterministe
+(linéaire en la longueur du texte, constant par octet ou par bloc), `@polynomial` pour un automate
+non déterministe, `@stack` pour un automate à pile (analyse polynomiale, pile proportionnelle à la
+profondeur d'imbrication) et `@backtrack` pour le retour arrière explicite, seul exponentiel — le
+coût exponentiel vient du retour arrière, non de la pile. Trois conséquences en découlent.
 
 * Un motif utilisant une classe de caractères, une répétition ou une composition simple se résout en
   un DFA minimal, abaissé en instructions de masquage vectoriel qui avancent par blocs de 16, 32 ou
@@ -45,7 +47,7 @@ arrière explicite. Trois conséquences en découlent.
 Ce dernier rejet n'est pas une détection heuristique de motifs pathologiques : c'est une preuve
 d'admissibilité, qui prévient structurellement le déni de service par expression régulière. Pour les
 motifs non linéaires, la profondeur maximale de la pile du PDA est elle-même un grade $`r` que le
-solveur SMT vérifie compatible avec la mémoire disponible, garantissant à cet automate, comme à tout
+solveur SMT vérifie compatible avec la mémoire disponible. La discipline retenue est celle de la pile _bornée_ : la profondeur n'est un grade statique que pour une entrée de longueur bornée à la compilation ou pour un analyseur à pile bornée, et dans ce second cas la classe reconnue rétrécit à celle des motifs dont l'imbrication ne dépasse pas $`r`. Cela garantit à cet automate, comme à tout
 autre composant de K7PL, une borne statique. Les positions capturées ne sont jamais copiées : ce
 sont des paires d'offsets dans le texte source lui-même.
 
@@ -113,7 +115,7 @@ R-expression sur des AST plutôt que sur du texte —, l'annotation devrait êtr
 survivrait sans condition est la minimalisation des automates _déterministes_, qui ne dépend pas de
 la symétrie des données.
 
-::::figure (label := "fig:rexp-complexite") (src := "rexp-hierarchy-complexity") (alt := "Trois niveaux emboites de complexite des R-expressions. Au centre, arobase linear, un automate deterministe en cout constant par masquage SIMD. Autour, arobase polynomial, un automate non deterministe. A l'exterieur, arobase exponential, un automate a pile, de profondeur bornee par un grade.") (width := "90")
+::::figure (label := "fig:rexp-complexite") (src := "rexp-hierarchy-complexity") (alt := "Trois niveaux emboites de complexite des R-expressions. Au centre, arobase linear, un automate deterministe lineaire en la longueur du texte, constant par bloc. Autour, arobase polynomial, un automate non deterministe. A l'exterieur, arobase stack, un automate a pile, de profondeur bornee par un grade.") (width := "90")
 :::caption
 Hiérarchie de complexité des R-expressions
 :::

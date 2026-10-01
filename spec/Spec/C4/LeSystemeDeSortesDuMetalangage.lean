@@ -294,7 +294,7 @@ niveau du grade décidait sur les valeurs.
 :::
 ::::
 
-La première ligne est celle qui porte T-44 (ii). Un canal créé par un calcul de niveau
+La première ligne est celle qui porte le second obstacle de la clause de session. Un canal créé par un calcul de niveau
 $`\ell' \not\sqsubseteq \ell` a ses événements étiquetés $`\ell'`, donc une sorte que
 $`\pi^{\flat}_{\ell}` efface, donc la relation totale : un observateur de niveau $`\ell` n'en
 apprend rien. _C'est la même clause que celle de la modalité graduée sur les valeurs_, transposée
@@ -318,7 +318,7 @@ qui précède plutôt qu'à l'abandonner.
 
 1. _Le niveau d'un effet ne doit dépendre du grade que par $`\varphi`._ C'est ce qui garantit que la
    sorte n'emporte rien de $`\mathcal{G}`. Si un autre chemin existait, l'effacement fuirait et le
-   niveau devrait sortir de la sorte — auquel cas T-44 (ii) retomberait. _C'est la dette réelle de
+   niveau devrait sortir de la sorte — auquel cas le second obstacle de la clause de session retomberait. _C'est la dette réelle de
    cette construction_, et la seule qui touche l'axiome.
 
 2. _Le canal de l'ordre des messages._ La projection $`\pi^{\flat}_{\ell}` efface les événements

@@ -36,7 +36,7 @@ réserve, la relation étant celle-là même requantifiée. _Cette réserve est 
 §{num "sec:g-sortes"}[]_ : le système de sortes rend la clause de session définissable, et les trois
 preuves s'étendent à la strate qu'elles laissaient. Les trois reposent sur le lemme de substitution
 et sur la loi de cohérence qu'il a réclamée. Les _règles de la loi distributive graduée_ et celles
-de la _gradation indexée_ sont des règles, et appartiennent à G.3 dès qu'elles seront écrites.
+de la _gradation indexée_ sont des règles, et appartiennent au jeu de règles du §{num "sec:g-regles"}[] dès qu'elles seront écrites.
 
 Un dernier point inverse l'ordre apparent des priorités. Le métalangage du chapitre 4, qui est la
 _cible_ de la traduction, est formellement présenté — grammaire, motifs, coupure — quand K7PL, qui

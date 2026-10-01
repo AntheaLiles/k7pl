@@ -259,9 +259,8 @@ préservation du type
 Stabilité du typage par réduction
 
 Pour tout terme K7PL bien typé $`t : \tau` dont aucun type ne dépend d'une variable soumise au suivi
-de ressource — la condition de séparation de P2 —, si $`t` se réduit en $`t'` ($`t \leadsto t'`) —
-par évaluation ou par abaissement MLIR —, alors $`t' : \tau` :
-$`\Delta \vdash t : \tau \land t \leadsto t' \implies \Delta \vdash t' : \tau`.
+de ressource — la condition de séparation de P2 —, si $`t` se réduit en $`t'` ($`t \leadsto t'`) par évaluation, alors $`t' : \tau` :
+$`\Delta \vdash t : \tau \land t \leadsto t' \implies \Delta \vdash t' : \tau`. Le volet évaluation est un corollaire de la préservation du §{num "sec:g-semantique"}[] ; le volet abaissement MLIR est celui de la conjecture {num "thm:abaissement_grades"}[], non démontré.
 :::
 
 :::proofsketch

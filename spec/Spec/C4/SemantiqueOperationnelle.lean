@@ -163,7 +163,7 @@ jugement du contractum, avec le même effet : $`\varepsilon' = \varepsilon` et 
 sorte que l'inégalité est une égalité. Le cas de {sc}[Unbox] est le seul à employer la forme graduée
 du lemme, la liaison y étant de grade $`r` et le contexte de l'argument multiplié d'autant, ce qui
 est l'hypothèse $`r\cdot\Delta'` du lemme. Le cas de {sc}[Open] emploie sa condition de bord :
-$`\alpha \notin \mathrm{fv}(C)` garantit que la substitution de type ne touche pas la conclusion.
+$`\alpha \notin \mathrm{fv}(\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2) \cup \mathrm{fv}(\varepsilon) \cup \mathrm{fv}(C)` garantit que la substitution de type ne touche ni la conclusion, ni les contextes, ni l'effet.
 
 _Réductions à effet._ Pour $`\mathsf{operation}_\varepsilon(v)`, la règle {sc}[Op] donne
 $`F_{\mathbf{1}} W \mid \varepsilon` et le contractum $`\mathsf{return}\;w` reçoit
@@ -450,7 +450,7 @@ tag := "g-relation-logique"
 
 Le lemme de substitution rend trois inductions conduisibles, et deux d'entre elles partagent le même
 objet : une relation logique. On la définit ici une fois, et on la quantifie deux fois — c'est
-l'économie que la clôture de T-42 avait annoncée, et elle se réalise.
+l'économie que la clôture du lemme de substitution avait annoncée, et elle se réalise.
 
 Fixons un niveau d'observation $`\ell \in \mathcal{L}`. La relation se définit par récurrence sur la
 grammaire des types (§{num "sec:g-grammaire-types"}[]), et elle porte _deux familles_ et non une.
@@ -503,7 +503,7 @@ au-dessus, la relation est totale, ce qui signifie exactement qu'aucune informat
 Comme le $`!_r` est _une_ modalité dont l'indice est un quadruplet, la clause n'inspecte que la
 troisième composante — et le chapitre 1 établit que $`\varphi` et $`\psi` ne mêlent jamais deux
 composantes du grade entre elles. La relation est donc bien définie sur la structure produit sans
-qu'il faille rien vérifier de plus : c'est le point (i) de T-44, et il est acquis par un résultat
+qu'il faille rien vérifier de plus : c'est la première des deux conditions de la clause de session, et elle est acquise par un résultat
 déjà écrit.
 
 _La relation sur les contextes ne demande aucune définition nouvelle._ Deux substitutions closes
@@ -624,9 +624,8 @@ séparé.
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute-ce-qui-n"
 %%%
 
-La grammaire de G.1 compte une troisième strate, les types de session, et la relation ci-dessus ne
-la traite pas. Ce n'est pas un oubli de rédaction : c'est l'obstacle (ii) de T-44, et il est le même
-que le cas (c) de T-43.
+La grammaire des types (§{num "sec:g-grammaire-types"}[]) compte une troisième strate, les types de session, et la relation ci-dessus ne
+la traite pas. Ce n'est pas un oubli de rédaction : c'est le second obstacle de la clause de session, et il est le même que celui de l'extension aux canaux.
 
 Le manque se localise en deux points, nommés plutôt que rassemblés sous « l'extension aux canaux ».
 Le premier est que les clauses de session — $`\mathbf{End}`, l'émission, la réception, les
@@ -634,8 +633,7 @@ branchements, les trois modalités temporelles — se laissent écrire par récu
 Mais que leur bonne définition suppose que deux exécutions apparentées emploient des noms de canaux
 _correspondants_. Le second, qui est le vrai, est qu'un canal créé par un calcul de niveau supérieur
 à $`\ell` ne doit pas être observable en deçà, et que rien dans la relation telle qu'elle est écrite
-ne l'assure. Il y faut le système de sortes du métalangage, qui est l'objet que T-43 (c) doit
-construire. Tant qu'il n'est pas posé, la relation est définie sur les deux premières strates et la
+ne l'assure. Il y faut le système de sortes du métalangage, qui est l'objet que cette extension doit construire. Tant qu'il n'est pas posé, la relation est définie sur les deux premières strates et la
 non-interférence l'est autant.
 
 L'énoncé honnête est donc celui-ci. _La non-interférence graduée est démontrée pour le fragment sans
@@ -752,7 +750,7 @@ invocation — l'égalité entre les deux manières de compter est la compatibil
 Du _quatrième groupe_, les cas résistants, deux se soldent et deux restent.
 
 Le cas (a), les types dépendants pragmatiques, se ramène à une composition : les raffinements sont
-effacés à la compilation, le foncteur d'effacement de T-06 le justifie, et il reste à vérifier que
+effacés à la compilation, le foncteur d'effacement du chapitre 2 (théorème {num "thm:schema_effacement"}[]) le justifie, et il reste à vérifier que
 la composée préserve le typage — ce que le lemme de substitution donne, l'effacement commutant avec
 la substitution puisqu'il n'agit pas sur les termes. Le cas (d), les opérations à portée, est réglé
 par la ré-invocation séquentielle et sa clause est écrite.

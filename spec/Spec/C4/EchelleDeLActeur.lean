@@ -147,11 +147,11 @@ correspondances de disposition, transfert zéro-copie
 :::statement +titled
 Domaine exact du transfert sans copie
 
-Soit $`T` un type scalaire primitif de largeur fixe. Alors les trois dispositions suivantes
-coïncident bit à bit : le tampon de valeurs d'un `Vec n T` de couche 3 ; le tampon de valeurs d'un
+Soit $`T` un type scalaire primitif de largeur fixe, et $`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}} \rangle` les versions des trois spécifications, avec un ordre des octets déclaré (_little-endian_ ni pour l'un ni pour l'autre invariant portable sans déclaration). Alors les trois dispositions suivantes
+coïncident bit à bit, la coïncidence étant vérifiée à la compilation par comparaison de trois entiers — largeur de créneau, alignement, ordre des champs — pour la version de schéma de l'artefact : le tampon de valeurs d'un `Vec n T` de couche 3 ; le tampon de valeurs d'un
 tableau Arrow de type $`T` et de longueur $`n`, son _bitmap de validité_ étant omis ; et la charge
 utile d'une liste primitive Cap'n Proto de $`n` éléments de $`T`. Le transfert d'un pointeur y
-dispense de toute copie.
+dispense de toute copie, à une condition et non par conséquence : le tampon doit déjà être un segment de message aligné, ce que l'arène produit, et l'écriture d'un mot de pointeur de liste reste requise côté Cap'n Proto.
 
 Hors de ce domaine, la coïncidence cesse, et pour une raison unique : dès que l'élément n'est plus
 un scalaire mais une structure, Arrow décompose la donnée en un tampon par champ tandis que Cap'n

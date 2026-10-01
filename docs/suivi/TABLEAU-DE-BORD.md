@@ -19,9 +19,9 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 |---|---|
 | Chapitres | 12 (dont 4 annexes) |
 | Sections de niveau 2 (modules) | 52 |
-| Énoncés | 64 (47 theoreme, 11 proposition, 2 conjecture, 2 exigence, 2 definition) |
-| Énoncés ouverts (proposition, conjecture, exigence) | 15 |
-| Énoncés par niveau | 58 langage, 5 representation, 1 compilation |
+| Énoncés | 67 (47 theoreme, 12 proposition, 4 exigence, 2 conjecture, 2 definition) |
+| Énoncés ouverts (proposition, conjecture, exigence) | 18 |
+| Énoncés par niveau | 60 langage, 5 representation, 2 compilation |
 | Formules | 38 |
 | Figures | 13 |
 | Tableaux | 27 |
@@ -29,11 +29,11 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Remarques marginales (RMQ) | 59 |
 | Citations | 359 |
 | Œuvres citées | 250 |
-| Renvois internes | 508 |
+| Renvois internes | 518 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 121726 |
+| Mots (approximatif, hors code et formules) | 122462 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -49,6 +49,7 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | `thm:divulgation_delimitee` | proposition | langage | §2.4 | 4 |
 | `thm:determinisme_observationnel` | conjecture | langage | §2.5 | 0 |
 | `thm:completude_graduee` | proposition | langage | §3.1 | 0 |
+| `thm:completude_verificateur` | exigence | compilation | §3.1 | 0 |
 | `thm:homomorphisme_roues` | proposition | representation | §3.2 | 1 |
 | `thm:representation_inobservable` | exigence | representation | §3.2 | 0 |
 | `thm:coherence_subsomption` | proposition | langage | §3.6 | 3 |
@@ -59,7 +60,9 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | `thm:simulation` | proposition | langage | §4.6 | 0 |
 | `thm:fidelite_interprete` | proposition | langage | §4.6 | 3 |
 | `thm:relation_produit` | proposition | langage | §4.7 | 0 |
-| `thm:abaissement_grades` | conjecture | compilation | §6.2 | 2 |
+| `thm:hygiene_graduee` | proposition | langage | §5.2 | 0 |
+| `thm:resucrage` | exigence | langage | §5.2 | 0 |
+| `thm:abaissement_grades` | conjecture | compilation | §6.2 | 3 |
 <!-- END:ouverts -->
 
 Registre complet, avec les renvois : [`correspondance-enonces.md`](correspondance-enonces.md). Registre des dépendances sur du non acquis : [`registre-obligations.md`](registre-obligations.md) (instantané du 1er octobre, à regénérer — voir §3).
@@ -73,9 +76,9 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 |---|--:|--:|--:|--:|--:|--:|--:|
 | `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
 | `STRUCT` Structurels | 23 | 5 | 1 | 0 | 0 | 0 | 17 |
-| `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
+| `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
-| `NOTA` Notation, comptes, renvois | 8 | 3 | 0 | 0 | 0 | 0 | 5 |
+| `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
 | `IMPL` Implémentation et outillage | 9 | 1 | 0 | 0 | 0 | 0 | 8 |
 | `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
@@ -83,7 +86,7 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **61** | **22** | **1** | **3** | **2** | **101** |
+| **Total** | **190** | **72** | **22** | **1** | **3** | **2** | **90** |
 <!-- END:fiches -->
 
 Détail fiche par fiche : [`FICHES-PR02.md`](FICHES-PR02.md). **Comment lire « ouverte »** : aucun compte rendu de séance ne nomme la fermeture de la fiche. L'auteur a pu fermer sans consigner ; l'état est volontairement conservateur et se corrige dans `fiches-statuts.csv`. Les fermetures *déduites* (changement de statut d'un énoncé rapproché du texte de la fiche) sont marquées comme telles et sont à confirmer.
