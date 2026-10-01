@@ -10,6 +10,9 @@ import SpecExt
 import Spec.C3.LeSystemeGradue
 import Spec.C3.LesContraintesDeValeur
 import Spec.C3.StructuresOuvertesEffetsEtMetaTheorie
+import Spec.C3.GrammaireDesTypes
+import Spec.C3.GrammaireDesTermes
+import Spec.C3.ReglesDeTypage
 
 open Verso.Genre Manual
 open SpecExt
@@ -42,3 +45,9 @@ l'orthogonalité qu'il construit au niveau des types.
 {include 0 Spec.C3.LesContraintesDeValeur}
 
 {include 0 Spec.C3.StructuresOuvertesEffetsEtMetaTheorie}
+
+{include 0 Spec.C3.GrammaireDesTypes}
+
+{include 0 Spec.C3.GrammaireDesTermes}
+
+{include 0 Spec.C3.ReglesDeTypage}

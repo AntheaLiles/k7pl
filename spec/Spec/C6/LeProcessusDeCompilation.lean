@@ -182,7 +182,7 @@ présence, `Vector(n,T)` — de sorte qu'une technique purement automatisée ne 
 l'exigence de compilation bornée du §{num "sec:c6-exigence-compilation-bornee"}[] exclut les preuves
 manuelles. Le point de rencontre est donc étroit, et il a un nom : des types à raffinement augmentés
 d'_annotations de potentiel_, conduisant une analyse amortie. Ce n'est pas un dispositif à ajouter —
-le budget du grade _est_ un potentiel (annexe, §{num "sec:annexe-presentation-formelle"}[]) et les
+le budget du grade _est_ un potentiel (§{num "sec:g-semantique"}[]) et les
 contraintes de valeur du chapitre 3 _sont_ les raffinements —, c'est la reconnaissance que les trois
 pièces du dispositif sont déjà au document sous d'autres noms.
 

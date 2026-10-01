@@ -42,12 +42,11 @@ critères de terminaison. L'encodage des protocoles dans l'implication linéaire
 _Construit, non éprouvé_ — la construction est faite, l'épreuve ne l'est pas. L'extension déductive
 et son opérateur de point fixe ; les modalités temporelles et le débit qu'elles expriment ; l'axe de
 confidentialité et sa modalité graduée ; la déclassification par échappatoires nommées ; le
-métalangage et la traduction vers lui.
+métalangage et la traduction vers lui ; le jeu de règles de typage, complet pour les constructeurs du noyau (§{num "sec:g-regles"}[]), dont restent à établir les propriétés et non plus l'existence.
 
 _Nommé, non posé_ — le document sait qu'il en a besoin et ne l'a pas donné. La loi distributive
 graduée entre les deux côtés de l'adjonction ; la gradation indexée qu'exigent les effets dépendant
-de valeurs ; le jeu de règles de typage lui-même, dont l'absence est ce qui suspend les quatre
-preuves ouvertes.
+de valeurs. Ce qui suspend les preuves ouvertes est l'incomplétude de ces deux objets, non l'absence du jeu de règles.
 
 Cette troisième catégorie n'est pas une liste de manques : c'est l'état d'un chantier dont les
 objets sont identifiés et les dépendances connues. Un programme de recherche se distingue d'une

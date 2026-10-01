@@ -68,7 +68,7 @@ Les onze engagements, ce qu'ils affirment, ce qui les tient et par où ils se l�
   * démonstration
 * * La fidélité de l'interpréteur de référence
   * §{num "sec:c6-strategies-de-verification-et"}[]
-  * Le théorème {num "thm:traduction_metalangage"}[], démontré à l'annexe {num "sec:annexe-presentation-formelle"}[], et l'hypothèse Sim du théorème {num "thm:fidelite_interprete"}[], à établir
+  * Le théorème {num "thm:traduction_metalangage"}[], démontré au §{num "sec:g-traduction"}[], et l'hypothèse Sim du théorème {num "thm:fidelite_interprete"}[], à établir
   * démonstration (rouverte : Sim)
 * * Le coût d'expressivité de P3 et P4, inférieur au bénéfice
   * §{num "sec:c1-postulats"}[]
@@ -83,7 +83,7 @@ Les onze engagements, ce qu'ils affirment, ce qui les tient et par où ils se l�
   * Un pari, mesurable dès le gel de la syntaxe et non encore mesuré
   * mesure
 * * La correction de ressource — le grade tient ce qu'il annonce
-  * §{num "sec:annexe-presentation-formelle"}[]
+  * §{num "sec:g-semantique"}[]
   * Rien ; l'énoncé est posé, sa preuve reste à conduire
   * démonstration
 * * L'accord entre la réduction et son interprétation
@@ -123,7 +123,7 @@ trancherait.
 
 Trois conséquences suivent, et la première a déjà joué. Un engagement dont la route est la
 démonstration _cesse d'être un engagement le jour où le théorème est écrit_ : la fidélité de
-l'interpréteur de référence en est sortie, l'annexe ayant démontré que la traduction préserve le
+l'interpréteur de référence en est sortie, la section sur la traduction ayant démontré que celle-ci préserve le
 typage. La table le dit maintenant, et le disait mal auparavant — un document qui ne relit pas ses
 engagements finit par s'accuser de dettes qu'il a payées. La deuxième est qu'un engagement dont la
 route est la mesure ne se lèvera jamais par la lecture, et qu'il est vain de l'y attendre. La
@@ -143,6 +143,21 @@ autre chose. Cette réserve a désormais une mesure : l'inclusion tient sur l'ax
 s'inverse sur _deux_ autres. Sur celui des effets, où la couche 3 est la plus pauvre puisqu'elle
 n'en a aucun ; et sur celui de la concurrence, où elle est la plus pauvre également, son
 parallélisme étant déterministe quand la couche 2 porte l'entrelacement
-(§{num "sec:annexe-presentation-formelle"}[]). Une image qui ne vaut que sur un axe doit dire
+(§{num "sec:g-parallelisme"}[]). Une image qui ne vaut que sur un axe doit dire
 lequel. La _couche 2 comme langage de liaison_, au sens d'Ousterhout, en est une seconde : elle
 situe le rôle sans rien en dériver.
+
+Un dernier choix précède tous les autres, et il est écrit ici parce que la question serait sinon
+reposée à chaque relecture : le socle de K7PL est une _famille modale et graduée_, non un socle
+homotopique. Quatre motifs, dont trois sont de fond. L'univalence rend inexprimable ce que K7PL
+doit prouver : tout énoncé y est invariant par équivalence, quand les énoncés de représentation et
+de rejeu affirment que deux représentations équivalentes coïncident, ou non, bit à bit. Le
+transport a un coût, que le postulat d'autonomie physique interdit de dissimuler et qu'aucune
+théorie publiée ne compte dans un budget. L'assistant de preuve visé impose l'irrélevance
+définitionnelle des preuves, ce qui contredit l'univalence. Enfin aucune variante homotopique ne
+fournit le semi-anneau ordonné agissant sur le contexte, qui est le cœur de K7PL. Ce choix n'exclut
+pas les imports ciblés d'une même famille — théorie de modes pour ranger les modalités, calf pour
+le coût et la distinction de phase, théorie des types graduée formalisée pour l'effacement et la
+décidabilité, récursion gardée pour la productivité —, qui s'instruisent un à un et ne sont versés
+au texte qu'au fur et à mesure qu'ils le sont ; ni l'emploi ponctuel et instrumental, comme outil de
+preuve, d'une théorie cubique sans types de Glue pour la seule dette de la sédimentation graduée.

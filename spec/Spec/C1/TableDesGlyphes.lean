@@ -13,14 +13,13 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.7. Table des glyphes" =>
+#doc (Manual) "Table des glyphes" =>
 %%%
 file := "g-table-glyphes"
 tag := "g-table-glyphes"
-number := false
 %%%
 
-{label "sec:g-table-glyphes" (display := "E.7")}
+{label "sec:g-table-glyphes"}
 
 La table {num "tab:glyphes"}[] complète la dualité glyphe/alias construite au chapitre 5
 (§{num "sec:c5-notations-specialisees"}[]) : chaque ligne est une seule _macro de la bibliothèque

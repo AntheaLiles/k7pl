@@ -13,14 +13,23 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.1. Grammaire des types" =>
+#doc (Manual) "Grammaire des types" =>
 %%%
 file := "g-grammaire-types"
 tag := "g-grammaire-types"
-number := false
 %%%
 
-{label "sec:g-grammaire-types" (display := "E.1")}
+{label "sec:g-grammaire-types"}
+
+Les sections qui suivent écrivent ce que le corps décrit sans le poser : la grammaire des types et
+des termes, puis le jeu des règles de typage. Elles sont la fondation des preuves — la préservation
+du typage par la traduction, la non-interférence graduée, la divulgation délimitée, les règles de la
+loi distributive et celles de la gradation indexée sont des inductions ou des relations logiques, et
+se définissent _par récurrence sur une grammaire ou sur un jeu de règles_. Les deux grammaires sont
+écrites, la somme et la conjonction additive sous leur forme indexée ; le jeu de règles est complet
+pour les constructeurs du noyau, à une exception déclarée — l'arène, dont l'élimination relève du
+modèle mémoire et non du système de types. La sémantique opérationnelle et ses théorèmes suivent au
+chapitre 4 (§{num "sec:g-semantique"}[]).
 
 Les types se rangent en trois strates, conformément au chapitre 1
 (§{num "sec:c1-axiomatique-germinale"}[]) : les types de valeur, les types de calcul, et les
@@ -88,7 +97,7 @@ Aucune autre clause. En particulier $`!_r`, $`U\,C`, l'existentiel et le point f
 entrent pas, et ce n'est pas un oubli : un porteur qui les admettrait cesserait d'être fini, et
 l'itération de l'opérateur de point fixe cesserait de terminer.
 
-Le quatrième porte sur le facteur temporel de l'effet, et il rectifie ce que cette annexe écrivait.
+Le quatrième porte sur le facteur temporel de l'effet, et il rectifie ce que ce texte écrivait.
 Le chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) pose que le niveau _étiquette_ l'effet, et
 sur ses deux composantes ; il signale en outre que la cellule appariant le niveau et le temps est
 celle qui rend le canal temporel énonçable. Un facteur temporel réduit à un $`\mathbb{N}_\infty` nu

@@ -13,16 +13,15 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.6. Ce que chaque preuve ouverte y puise" =>
+#doc (Manual) "Ce que chaque preuve ouverte y puise" =>
 %%%
 file := "g-tracabilite"
 tag := "g-tracabilite"
-number := false
 %%%
 
-{label "sec:g-tracabilite" (display := "E.6")}
+{label "sec:g-tracabilite"}
 
-Cette annexe n'a pas de valeur propre ; elle en a par ce qu'elle rend possible, et la traçabilité
+Cette section n'a pas de valeur propre ; elle en a par ce qu'elle rend possible, et la traçabilité
 doit être explicite pour que son achèvement soit mesurable.
 
 Cette section a été écrite quand les trois preuves attendaient ; elle dit maintenant ce qu'elles ont
@@ -41,5 +40,5 @@ de la _gradation indexée_ sont des règles, et appartiennent à G.3 dès qu'ell
 
 Un dernier point inverse l'ordre apparent des priorités. Le métalangage du chapitre 4, qui est la
 _cible_ de la traduction, est formellement présenté — grammaire, motifs, coupure — quand K7PL, qui
-en est la _source_, ne l'est pas. Cette asymétrie est le vrai retard de ce document, et cette annexe
+en est la _source_, ne l'est pas. Cette asymétrie est le vrai retard de ce document, et cette section
 est ce qui la comble.

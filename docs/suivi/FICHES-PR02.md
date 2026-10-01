@@ -9,7 +9,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
 | `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
-| `STRUCT` Structurels | 23 | 4 | 1 | 0 | 0 | 0 | 18 |
+| `STRUCT` Structurels | 23 | 5 | 1 | 0 | 0 | 0 | 17 |
 | `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 3 | 0 | 0 | 0 | 0 | 5 |
@@ -19,8 +19,8 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `REECR` Réécritures d'énoncés | 27 | 5 | 0 | 0 | 0 | 0 | 22 |
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
-| `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **58** | **22** | **1** | **5** | **2** | **102** |
+| `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
+| **Total** | **190** | **61** | **22** | **1** | **3** | **2** | **101** |
 
 ## BLOQ — Bloquants
 
@@ -67,7 +67,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `STRUCT-20` | ⬜ ouverte | La loi distributive graduée : signature sous-déterminée et règles non écrites |  |
 | `STRUCT-21` | ⬜ ouverte | Tension non résolue entre appel par poussée de valeur, types dépendants et effets indexés |  |
 | `STRUCT-22` | ⬜ ouverte | L'orthogonalité annoncée par P2 est rompue en trois points |  |
-| `STRUCT-23` | ⬜ ouverte | L'annexe E est une fondation tardive ; le jeu de règles doit remonter dans le corps |  |
+| `STRUCT-23` | ✅ fermée | L'annexe E est une fondation tardive ; le jeu de règles doit remonter dans le corps | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · annexe E fondue : règles au ch. 3, sémantique au ch. 4 ; §1.1 corrigé |
 
 ## PORT — Portée
 
@@ -267,7 +267,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `ARB-PR-01` | ✅ fermée | Le sens de la subsomption modale | [fiche](../relectures/pr-02/taches-consolidees.md) · tranché par vérification directe (14 septembre) |
 | `ARB-PR-02` | ✅ fermée | La clause de taille `i ∈ ℕ∞ ∖ {ω}` | [fiche](../relectures/pr-02/taches-consolidees.md) · tranché sur le point contesté (14 septembre) |
 | `ARB-PR-03` | ⏳ à ratifier | Le traitement des effets à portée | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · position intermédiaire appliquée (ℰ_alg / ℰ_scoped) ; BIB-01 (Hefty Algebras) non instruit |
-| `ARB-PR-04` | ❓ décision | Le statut du rejeu bit-à-bit | [fiche](../relectures/pr-02/taches-consolidees.md) · ce que le document promet pour le rejeu bit-à-bit ; le théorème est scindé (PORT-04 fermée) mais la décision de fond reste à écrire |
+| `ARB-PR-04` | ❓ décision | Le statut du rejeu bit-à-bit | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · instruction écrite (docs/recherche/instruction-arb-pr-04-rejeu-binaire.md) ; orientation B puis C à confirmer |
 | `ARB-PR-05` | ✅ fermée | Le cadre d'ensemble du noyau minimal | [journal](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) · cadre du manuscrit ratifié |
-| `ARB-PR-06` | ❓ décision | La gravité du Th. 36 | [fiche](../relectures/pr-02/taches-consolidees.md) · la revendication de bout en bout fait-elle partie des objectifs déclarés ? |
-| `ARB-PR-07` | ❓ décision | Socle homotopique, ou famille modale et graduée ? | [fiche](../relectures/pr-02/taches-consolidees.md) · étude d'opportunité : famille modale et graduée ; à écrire au §1.2 ; quatre imports ciblés non versés |
+| `ARB-PR-06` | ✅ fermée | La gravité du Th. 36 | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · objectif déclaré : transformer la revendication en preuve ; PREUVE-02 en tête |
+| `ARB-PR-07` | ✅ fermée | Socle homotopique, ou famille modale et graduée ? | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · famille modale et graduée (1er octobre) ; motif écrit au §1.2 ; quatre imports à instruire un à un (BIB) |

@@ -13,23 +13,21 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.5. Le système de sortes du métalangage" =>
+#doc (Manual) "Le système de sortes du métalangage" =>
 %%%
 file := "g-sortes"
 tag := "g-sortes"
-number := false
 %%%
 
-{label "sec:g-sortes" (display := "E.5")}
+{label "sec:g-sortes"}
 
 Trois preuves attendaient un même objet, et le voici. Il sert le confinement des canaux distingués
 (chapitre 4), la définissabilité de la projection observationnelle dans la cible, et la clause de
 session de la relation logique.
 
-# E.5.1. Ce qu'on emprunte, et surtout ce qu'on laisse
+# Ce qu'on emprunte, et surtout ce qu'on laisse
 %%%
 tag := "g-sortes-ce-qu-on-emprunte-et-surtout-ce-qu-on-laisse"
-number := false
 %%%
 
 La forme est celle d'un cadre de sortes paramétrique établi pour les calculs de processus appliqués,
@@ -61,10 +59,9 @@ Ce que le cadre de sortes paramétrique offre, et ce que K7PL en retient
 _La cible n'est pas changée._ Le métalangage reste celui du chapitre 4 — machine à sessions
 linéaires et machine chimique réflexive. On lui ajoute une discipline de noms, et rien d'autre.
 
-# E.5.2. Les sortes
+# Les sortes
 %%%
 tag := "g-sortes-les-sortes"
-number := false
 %%%
 
 Une sorte est un couple, et c'est le même geste que pour le grade : _une_ sorte dont l'indice est
@@ -108,10 +105,9 @@ $`\kappa \in \mathbb{N}_\infty^{\mathcal{L}}` _est_ la famille des canaux de tem
 Ce que le §{num "sec:g-grammaire-types"}[] avait posé pour rendre le canal temporel énonçable reçoit
 ici son image.
 
-# E.5.3. Les quatre capacités, et le confinement en une ligne
+# Les quatre capacités, et le confinement en une ligne
 %%%
 tag := "g-sortes-les-quatre-capacites-et-le-confinement-en-une-ligne"
-number := false
 %%%
 
 ::::k7table (label := "tab:capacites") (align := "Z{0.41}Z{0.75}Z{1.84}")
@@ -153,10 +149,9 @@ d'usage et n'exige de la substitution qu'elle _raffine_ la sorte ; en prenant $`
 l'égalité, ces préordres deviennent l'identité et la clôture se lit sans induction. Le typage est
 déjà fait par les types de session, et les sortes n'ont pas à le refaire.
 
-# E.5.4. Le bon sortage
+# Le bon sortage
 %%%
 tag := "g-sortes-le-bon-sortage"
-number := false
 %%%
 
 ::::formula (label := "eq:bon-sortage") (kind := "formule")
@@ -261,10 +256,9 @@ l'offre.
 :::
 ::::
 
-# E.5.5. La clause de session de la relation logique
+# La clause de session de la relation logique
 %%%
 tag := "g-sortes-la-clause-de-session-de-la-relation-logique"
-number := false
 %%%
 
 Le système de sortes rend enfin définissable ce que le §{num "sec:g-relation-logique"}[] avait dû
@@ -313,10 +307,9 @@ des sessions, ses cas nouveaux étant ceux des règles de communication, chacun 
 correspondante. _La non-interférence graduée et la divulgation délimitée cessent donc d'être bornées
 au fragment sans communication._
 
-# E.5.6. Les incertitudes, et ce qu'elles sont
+# Les incertitudes, et ce qu'elles sont
 %%%
 tag := "g-sortes-les-incertitudes-et-ce-qu-elles-sont"
-number := false
 %%%
 
 Quatre points ont été ouverts, et trois le restent. Aucun n'est une impossibilité, et ils se distinguent d'une difficulté

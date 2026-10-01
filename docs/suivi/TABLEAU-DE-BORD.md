@@ -17,7 +17,7 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 <!-- BEGIN:mesures -->
 | Mesure | Valeur |
 |---|---|
-| Chapitres | 13 (dont 5 annexes) |
+| Chapitres | 12 (dont 4 annexes) |
 | Sections de niveau 2 (modules) | 52 |
 | Énoncés | 64 (47 theoreme, 11 proposition, 2 conjecture, 2 exigence, 2 definition) |
 | Énoncés ouverts (proposition, conjecture, exigence) | 15 |
@@ -29,11 +29,11 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Remarques marginales (RMQ) | 59 |
 | Citations | 359 |
 | Œuvres citées | 250 |
-| Renvois internes | 490 |
+| Renvois internes | 508 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 121820 |
+| Mots (approximatif, hors code et formules) | 121726 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -51,15 +51,15 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | `thm:completude_graduee` | proposition | langage | §3.1 | 0 |
 | `thm:homomorphisme_roues` | proposition | representation | §3.2 | 1 |
 | `thm:representation_inobservable` | exigence | representation | §3.2 | 0 |
+| `thm:coherence_subsomption` | proposition | langage | §3.6 | 3 |
 | `thm:isomorphisme_memoire` | proposition | representation | §4.3 | 5 |
 | `thm:introduction_unique` | proposition | langage | §4.4 | 0 |
 | `thm:rejeu_binaire` | proposition | representation | §4.5 | 0 |
 | `thm:revocation_ffi` | exigence | representation | §4.5 | 0 |
 | `thm:simulation` | proposition | langage | §4.6 | 0 |
 | `thm:fidelite_interprete` | proposition | langage | §4.6 | 3 |
+| `thm:relation_produit` | proposition | langage | §4.7 | 0 |
 | `thm:abaissement_grades` | conjecture | compilation | §6.2 | 2 |
-| `thm:coherence_subsomption` | proposition | langage | §E.3 | 3 |
-| `thm:relation_produit` | proposition | langage | §E.4 | 0 |
 <!-- END:ouverts -->
 
 Registre complet, avec les renvois : [`correspondance-enonces.md`](correspondance-enonces.md). Registre des dépendances sur du non acquis : [`registre-obligations.md`](registre-obligations.md) (instantané du 1er octobre, à regénérer — voir §3).
@@ -72,7 +72,7 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
 | `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
-| `STRUCT` Structurels | 23 | 4 | 1 | 0 | 0 | 0 | 18 |
+| `STRUCT` Structurels | 23 | 5 | 1 | 0 | 0 | 0 | 17 |
 | `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 3 | 0 | 0 | 0 | 0 | 5 |
@@ -82,8 +82,8 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 | `REECR` Réécritures d'énoncés | 27 | 5 | 0 | 0 | 0 | 0 | 22 |
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
-| `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **58** | **22** | **1** | **5** | **2** | **102** |
+| `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
+| **Total** | **190** | **61** | **22** | **1** | **3** | **2** | **101** |
 <!-- END:fiches -->
 
 Détail fiche par fiche : [`FICHES-PR02.md`](FICHES-PR02.md). **Comment lire « ouverte »** : aucun compte rendu de séance ne nomme la fermeture de la fiche. L'auteur a pu fermer sans consigner ; l'état est volontairement conservateur et se corrige dans `fiches-statuts.csv`. Les fermetures *déduites* (changement de statut d'un énoncé rapproché du texte de la fiche) sont marquées comme telles et sont à confirmer.
