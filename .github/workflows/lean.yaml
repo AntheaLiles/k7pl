@@ -86,65 +86,29 @@ jobs:
           name: spec-tex
           path: _out/spec/tex
 
-      # Verso's own TeX Live packages, plus those the specification adds (mathematics, figures).
-      - name: Install TeX Live
-        uses: zauguin/install-texlive@6671d0c62046c7e349fe154d5208fe746b07e037 # v4.4.0
+      # Tectonic (XeTeX engine) downloads only the TeX files it needs, on demand, from its bundle:
+      # no TeX Live installation. The downloaded files are cached.
+      - name: Install Tectonic
+        env:
+          TECTONIC_VERSION: 0.15.0
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSL \
+            "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%40${TECTONIC_VERSION}/tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
+            | tar -xz -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Cache Tectonic files
+        uses: actions/cache@v4
         with:
-          texlive_version: 2026
-          packages: |
-            scheme-minimal
-            l3packages
-            tools
-            latex-bin
-            xpatch
-            booktabs
-            footmisc
-            environ
-            hyperref
-            titlesec
-            tocloft
-            enumitem
-            fmtcount
-            glossaries
-            datatool
-            caption
-            babel
-            fontspec
-            textcase
-            memoir
-            sourcecodepro
-            sourcesans
-            sourceserif
-            fvextra
-            upquote
-            lineno
-            float
-            tcolorbox
-            tikzfill
-            pdfcol
-            listings
-            epstopdf-pkg
-            pgf
-            etoolbox
-            ulem
-            newunicodechar
-            svg
-            transparent
-            trimspaces
-            xkeyval
-            catchfile
-            amsmath
-            unicode-math
-            lm-math
-            lm
-            graphics
+          path: ~/.cache/Tectonic
+          key: tectonic-${{ runner.os }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json') }}
+          restore-keys: |
+            tectonic-${{ runner.os }}-
 
       - name: Compile the PDF
         working-directory: _out/spec/tex
         run: |
-          for _ in 1 2 3; do
-            lualatex -interaction=nonstopmode -halt-on-error main
-          done
+          tectonic -X compile --keep-logs main.tex
           mkdir -p "$GITHUB_WORKSPACE/out"
           cp main.pdf "$GITHUB_WORKSPACE/out/k7pl-spec.pdf"
 
