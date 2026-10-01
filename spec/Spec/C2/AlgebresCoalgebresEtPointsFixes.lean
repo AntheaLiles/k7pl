@@ -514,6 +514,12 @@ de l'entrée à grade fixé — et $`r` étant un grade, ce facteur est connu à
 exige. L'espace, lui, passe de $`O(n)` pour la table entière à $`O(r)` pour la fenêtre : c'est la
 borne mémoire que cette section annonce, et c'est la troncature qui la donne.
 
+La troncature n'est pas propre à ce pli : elle est la même fenêtre sur un objet coinductif que la
+borne de profondeur de pile de l'automate à pile (chapitre 4) et la taille de pile précalculée du
+`StreamContext`. Un lemme de troncature unique les couvre — _une fenêtre est un grade_ — et donne à
+P3 sa forme générale : toute fenêtre est un grade, tout grade est connu à la compilation. Les trois
+énoncés lui seront ramenés ; le lemme n'est pas encore écrit à part.
+
 Les effets algébriques de la couche 2 sont un cas particulier de cette même construction. Pour une
 signature d'opérations $`\Sigma`, la syntaxe d'un calcul effectueux de type de retour $`A` est
 l'algèbre initiale $`\mu F` pour $`F(X) = A \oplus \Sigma(X)` — un arbre dont les feuilles sont des

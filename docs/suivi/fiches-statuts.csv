@@ -92,18 +92,18 @@ FACT-03,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
 FACT-04,fermee,journal,journal/2026-10-01-pr-02-08-fact-suite.md,
 FACT-05,partielle,journal,journal/2026-10-01-pr-02-08-fact-suite.md,"le théorème recule en proposition ; voie écrite, preuve à conduire"
 FACT-06,fermee,journal,journal/2026-10-01-pr-02-08-fact-suite.md,
-FACT-07,ouverte,journal,journal/2026-10-01-pr-02-08-fact-suite.md,reportée délibérément : suppose réglés le niveau d'un calcul et la relation logique sur un produit
+FACT-07,ouverte,journal,journal/2026-10-01-pr-02-13-fact-fin.md,attend PREUVE-11 (BLOQ-05 est levé)
 FACT-08,ouverte,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,redevenue disponible : le périmètre du noyau est stabilisé
-FACT-09,ouverte,,,
-FACT-10,ouverte,,,
-FACT-11,ouverte,,,
-FACT-12,ouverte,,,
+FACT-09,partielle,journal,journal/2026-10-01-pr-02-13-fact-fin.md,principe énoncé au §1.4 ; table code ⟷ prémisse à écrire (PORT-07)
+FACT-10,ouverte,journal,journal/2026-10-01-pr-02-13-fact-fin.md,attend PREUVE-07 (lemme de simulation)
+FACT-11,partielle,journal,journal/2026-10-01-pr-02-13-fact-fin.md,objet Mailbox posé au §4.5 ; reprise des quatre énoncés à faire
+FACT-12,decision,journal,journal/2026-10-01-pr-02-13-fact-fin.md,choix de formulation : ARB-PR-05 écarte déjà FACT-21/22 ; à réévaluer avec STRUCT-01
 FACT-13,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
-FACT-14,ouverte,,,
+FACT-14,decision,journal,journal/2026-10-01-pr-02-13-fact-fin.md,dépend de STRUCT-17 (quatre notions de monotonie)
 FACT-15,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
 FACT-16,fermee,journal,journal/2026-10-01-pr-02-12-fact-17-et-16.md,exigence thm:representation_inobservable ; vérifiée par test différentiel
 FACT-17,fermee,journal,journal/2026-10-01-pr-02-12-fact-17-et-16.md,énoncé unique écrit (thm:introduction_unique) ; preuve à écrire (PREUVE-12)
-FACT-18,ouverte,,,
+FACT-18,partielle,journal,journal/2026-10-01-pr-02-13-fact-fin.md,principe posé au §2.6 ; lemme de troncature à écrire à part
 FACT-19,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
 FACT-20,ouverte,,,
 FACT-21,ecartee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md
