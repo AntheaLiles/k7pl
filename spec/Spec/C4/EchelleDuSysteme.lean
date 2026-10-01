@@ -121,7 +121,7 @@ déterminisme logique du rejeu
 :::statement +titled
 Reproduction de l'état final à l'observation près
 
-Pour tout acteur $`A` d'historique d'exécution $`H`, rejouer les messages journalisés $`J(H)` à
+Soit $`J` un journal _complet_ : une fonction d'observation lui associe à chaque événement extérieur observable de l'historique $`H` une entrée, de sorte que tout le non-déterminisme y est consigné — c'est un paramètre de l'hypothèse de rejeu, et non une conséquence de la pureté. Pour tout acteur $`A` d'historique d'exécution $`H`, rejouer les messages journalisés $`J(H)` à
 travers les gestionnaires purs de $`A` produit un état final observationnellement égal à
 l'original : $`\text{Rejeu}(J(H), S_0) \approx_{\text{obs}} S_{\text{final}}`.
 :::
@@ -170,6 +170,15 @@ $`E_{\text{repro}}` n'est fixée par ce document, et le journal n'en consigne au
 est portée par l'environnement d'exécution, non par le langage.
 :::
 ::::
+
+Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représentation_
+$`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}}, \mathrm{arch}, \mathrm{mem}, \mathrm{round}, v_{\mathrm{schéma}} \rangle` : versions des trois
+spécifications de disposition, architecture et comportement NaN, modèle mémoire, mode d'arrondi,
+version de schéma. $`E_{\text{repro}}`, la portée « une machine » du modèle mémoire et la convention
+d'élision de champ en sont trois projections. Il en résulte que les théorèmes de disposition
+({num "thm:isomorphisme_memoire"}[]) et de rejeu binaire ({num "thm:rejeu_binaire"}[]) sont des
+propriétés de _conformité du compilateur_ à un profil donné, vérifiées par le pipeline de validation
+de la phase 7, et non des théorèmes du calcul des types.
 
 La supervision surveille cette continuité par battements de cœur et applique des politiques de
 redémarrage garanties par un invariant de vivacité : un acteur en panne finit toujours par redevenir

@@ -31,8 +31,8 @@ aucune convention nouvelle, seulement des grades booléens désucrés comme n'im
 indicateur du chapitre 5 (§{num "sec:c5-s-expressions-universelles"}[]).
 
 Ce que `sugoi` distribue n'est jamais du texte source mais du code porteur de preuve. Chaque paquet
-embarque l'AST normalisé, ses descripteurs topologiques et ses théorèmes SMT résiduels, que le
-compilateur local re-vérifie intégralement avant toute installation. C'est la Phase 5 que le
+embarque l'AST normalisé, ses descripteurs topologiques et ses théorèmes SMT résiduels, accompagnés de leurs certificats, que le
+compilateur local vérifie intégralement avant toute installation : relancer le solveur serait une répétition, non une vérification, un solveur local de version, d'options ou de graine différentes pouvant répondre autrement. C'est la Phase 5 que le
 chapitre 6 (§{num "sec:c6-le-processus-de-compilation"}[]) décrit pour un programme ordinaire,
 appliquée à une dépendance externe plutôt qu'au texte que le développeur écrit lui-même.
 L'identification d'un paquet par le hachage BLAKE3 de son AST normalisé, et non par un numéro de
