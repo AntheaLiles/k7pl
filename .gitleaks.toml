@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+# Default gitleaks rules, plus an allowlist for the archived Org tooling, whose file-path
+# strings ("src", "chapitres", "c2-fondements.org") trip the generic-api-key rule.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Archived Org tooling (paths, no secrets)"
+paths = ['''^archives/outillage-org/''']
