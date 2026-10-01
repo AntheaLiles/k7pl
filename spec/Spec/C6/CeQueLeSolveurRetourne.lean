@@ -138,14 +138,21 @@ reproductibilité du rejet
 :::statement +titled
 Deux compilations de la même source disent la même chose
 
-À configuration de solveur fixée, le message de rejet est une fonction de la source seule : deux
-compilations d'un même programme produisent le même message, à l'identique.
+À configuration de solveur fixée, et sous l'hypothèse $`D_{\mathrm{det}}` — tout parcours, toute
+recherche et toute graine sont des fonctions de la source et du compte de ressource —, le message de
+rejet est une fonction de la source seule : deux compilations d'un même programme produisent le même
+message, à l'identique.
 :::
 
 :::proofsketch
 Les quatre composantes du message sont chacune fonction de la source. L'obligation et sa
-localisation se lisent sur la dérivation, laquelle est déterministe puisque l'inférence est
-principale. Le compte de ressource ne dépend, par construction, que de la formule soumise et de la
+localisation se lisent sur la dérivation. La vérification est bidirectionnelle et non principale
+(chapitre 3) : l'énoncé n'invoque donc pas une inférence principale, mais l'hypothèse
+$`D_{\mathrm{det}}`, qui rend le choix des grades par défaut indépendant de l'ordre de parcours.
+Le document en possède les deux moitiés — compte reproductible, budget relevé écrit dans la
+source — et $`D_{\mathrm{det}}` les assemble ; c'est une exigence sur l'implémentation, non un
+théorème du système de types.
+Le compte de ressource ne dépend, par construction, que de la formule soumise et de la
 configuration ; il est donc identique d'une exécution à l'autre et d'une machine à l'autre. L'état à
 l'épuisement est fonction du compte. Le message l'est donc aussi.
 
@@ -251,8 +258,9 @@ appelle un protocole, et le domaine est saturé d'affirmations qui n'en ont jama
 existe et n'attend aucun prototype ; sa conduite est la seule chose qui manque à cette section.
 
 Toutes les composantes du jugement sont désormais établies. C'est seulement à ce titre que la
-compilation peut réécrire le terme : toute réécriture, pour rester fidèle à P1, doit se formuler
-comme un isomorphisme naturel. Quatre familles s'y rangent.
+compilation peut réécrire le terme : toute réécriture doit se justifier par un argument qui lui est propre,
+syntaxique ou fondé sur le modèle mémoire ; leur formulation comme isomorphismes naturels dans _C_
+relève de l'obligation P1b. Quatre familles s'y rangent.
 
 * L'adjonction curry/uncurry et l'isomorphisme de Yoneda du chapitre 2
   (§{num "sec:c2-adjonctions-et-enrichissement"}[]) en fournissent deux instances.

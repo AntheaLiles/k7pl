@@ -12,6 +12,16 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+### Corrigé
+
+- BLOQ-14 : l'ordre de précision `Unr ⊑ Aff ⊑ Lin` n'est plus présenté comme le sous-typage `≼` (ch. 1, ch. 2).
+- BLOQ-11 : les échappatoires de la déclassification sont closes (`fv(e) = ∅`) dès le chapitre 2.
+- BLOQ-10 : reproductibilité du rejet sous l'hypothèse nommée `D_det`, non plus l'inférence principale.
+- BLOQ-12 : le Th. 18 devient une proposition de représentation, sans prétendre à un homomorphisme.
+- BLOQ-09 : sûreté spatiale sous trois hypothèses explicites (unicité d'introduction, portée, imbrication).
+- BLOQ-07 : fidélité de l'interpréteur conditionnelle à Sim (statut proposition).
+- BLOQ-08 : P1 scindé en P1a (postulat) et P1b (obligation).
+
 ### Added
 
 - Squelette Verso de la spécification et génération du PDF.

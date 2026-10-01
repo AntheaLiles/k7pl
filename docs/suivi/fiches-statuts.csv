@@ -5,14 +5,14 @@ BLOQ-03,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,⊖ défini 
 BLOQ-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
 BLOQ-05,ouverte,,,
 BLOQ-06,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,deux sortes de tailles 𝕊_μ / 𝕊_ν
-BLOQ-07,ouverte,,,
-BLOQ-08,ouverte,,,
-BLOQ-09,ouverte,,,
-BLOQ-10,ouverte,,,
-BLOQ-11,ouverte,,,
-BLOQ-12,ouverte,,,
+BLOQ-07,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,énoncé rendu conditionnel à Sim ; Sim à établir (PREUVE-07)
+BLOQ-08,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,P1b nommée ; Th. 31 et §4.6 à reprendre
+BLOQ-09,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,H1 et H2 posées en hypothèses ; lemmes à démontrer (PREUVE-12)
+BLOQ-10,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,D_det nommée ; ses trois composantes restent à écrire (PREUVE-15)
+BLOQ-11,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,
+BLOQ-12,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,table de propagation à écrire (IMPL-07)
 BLOQ-13,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-BLOQ-14,ouverte,,,
+BLOQ-14,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,table 20 non remontée (TRANS-06)
 STRUCT-01,ouverte,,,
 STRUCT-02,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,"ℰ_alg / ℰ_scoped, clôture faible (position intermédiaire de ARB-PR-03)"
 STRUCT-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,

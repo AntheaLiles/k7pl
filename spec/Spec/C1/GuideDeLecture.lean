@@ -68,8 +68,8 @@ Les onze engagements, ce qu'ils affirment, ce qui les tient et par où ils se l�
   * démonstration
 * * La fidélité de l'interpréteur de référence
   * §{num "sec:c6-strategies-de-verification-et"}[]
-  * Le théorème {num "thm:traduction_metalangage"}[], démontré à l'annexe {num "sec:annexe-presentation-formelle"}[]
-  * démonstration (levée)
+  * Le théorème {num "thm:traduction_metalangage"}[], démontré à l'annexe {num "sec:annexe-presentation-formelle"}[], et l'hypothèse Sim du théorème {num "thm:fidelite_interprete"}[], à établir
+  * démonstration (rouverte : Sim)
 * * Le coût d'expressivité de P3 et P4, inférieur au bénéfice
   * §{num "sec:c1-postulats"}[]
   * Un pari, dont le protocole de mesure est écrit et non conduit
