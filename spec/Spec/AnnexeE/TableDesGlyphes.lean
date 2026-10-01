@@ -32,12 +32,6 @@ ressemble à l'œil — porte sur des objets identifiés plutôt que sur des des
 une primitive du noyau — l'arbitrage qui le fixe est écrit au chapitre 5, et cette table en est la
 table des noms, non celle des constructions.
 
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : la tradition notationnelle APL/J/K/BQN/Uiua dans son ensemble (Hui ; McDonald), et les études d'utilisabilité comparant notation symbolique et alias textuel en pédagogie de la programmation.
-```
-:::
-
 ::::k7table (label := "tab:glyphes") (align := "lllZ{1.00}")
 :::caption
 Glyphes de la bibliothèque standard de couche 3 et leurs alias textuels

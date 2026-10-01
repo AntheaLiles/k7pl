@@ -22,9 +22,9 @@ number := false
 
 {refsection "k7-sugoi"}
 
-{label "sec:annexe-f-sugoi" (display := "D")}
+{label "sec:annexe-sugoi" (display := "D")}
 
-`sugoi` suit la même syntaxe d'appel universelle que `sushi` (annexe E), appliquée cette fois à la
+`sugoi` suit la même syntaxe d'appel universelle que `sushi` (annexe {num "sec:annexe-sushi"}[]), appliquée cette fois à la
 gestion de paquets plutôt qu'à l'administration système. Ses indicateurs — `+i~/~+install`,
 `+r~/~+remove`, `+u~/~+upgrade`, `+s~/~+search`, `+v~/~+verify`, entre autres — n'introduisent
 aucune convention nouvelle, seulement des grades booléens désucrés comme n'importe quel autre
@@ -50,9 +50,3 @@ avant toute installation. Si l'abaissement MLIR du paquet exige une extension ab
 d'instructions vectorielles, un accélérateur déclaré par `:gpu-offload` —, le déploiement est rejeté
 avant même d'être tenté, plutôt que de produire un binaire qui échouerait à l'exécution sur le
 matériel visé.
-
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : gestionnaires de paquets adressés par le contenu (Nix, Guix, Unison) ; proof-carrying code (Necula) ; littérature sur l'élimination de la chaîne d'approvisionnement logicielle comme surface d'attaque.
-```
-:::

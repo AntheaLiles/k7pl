@@ -92,12 +92,6 @@ hiérarchie instancie l'exigence d'effacement que le chapitre 3 (§{num "sec:c3-
 pose pour les grades ; aucun de ses niveaux ne s'appuie sur un ramasse-miettes ou un comptage de
 références atomique.
 
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : gestion mémoire par régions (Tofte et Talpin), hash-consing et structures persistantes (Appel ; Baker), comparaison avec les hiérarchies mémoire sans GC de Rust et de Zig.
-```
-:::
-
 ::::k7table (label := "tab:memoire") (align := "lZ{0.69}Z{1.31}ll")
 :::caption
 Les sept niveaux de gestion mémoire de K7PL

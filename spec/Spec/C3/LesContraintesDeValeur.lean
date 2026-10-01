@@ -213,20 +213,6 @@ Transporter l'extension au cadre intuitionniste est donc une obligation et non u
 est consignée comme telle. K7PL ne conduit pas cette extension ; il la nomme, et son encodage dans
 $`\multimap` ne s'y oppose pas.
 
-:::comment
-```
-[HISTORIQUE D'UN ARBITRAGE DEVENU SANS OBJET — auto-dualité de End. Tant que les formes de protocole étaient
- des constructeurs de type primitifs, il fallait définir la dualité par récursion, donc trancher son cas de
- base : End auto-dual, ce qui rend le squelette compact clos et donc dégénéré au sens *-autonome ; ou la voie
- Gay-Vasconcelos, End! et End? duaux l'un de l'autre, qui préserve la distinction entre unité et objet
- dualisant. C'est la convention établie de la discipline que d'adopter la première. La question ne se pose
- plus depuis que la grammaire est syntaxe de surface : la dualité tombe du retournement des arguments de
- l'implication linéaire, il n'y a plus de récursion et donc plus de cas de base à trancher. Consigné pour
- mémoire, et parce que l'arbitrage redeviendrait nécessaire si une extension future faisait des formes de
- protocole des constructeurs primitifs — ou introduisait la délégation de session.]
-```
-:::
-
 Une limite du régime asynchrone doit être connue avant d'être rencontrée. Le sous-typage de K7PL est
 _modal_ — il relie les trois fragments d'usage (chapitre 1) — et ne porte pas sur les protocoles.
 S'il devait un jour s'y étendre, il buterait sur un résultat établi : la vérification du sous-typage

@@ -41,12 +41,6 @@ reste illustrative et non exhaustive : tout mécanisme nouveau engendrerait des 
 anticiper, et le regroupement thématique facilite la navigation sans garantir la complétude —
 qu'aucune partie de ce document n'a revendiquée pour cette annexe.
 
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : conventions de diagnostics riches dans les compilateurs contemporains (Rust, Elm, Roc) ; travaux sur le message d'erreur de type comme objet de recherche à part entière (Wand ; Heeren, Hage et Swierstra).
-```
-:::
-
 Un code ne vaut que par le message qu'il porte, et il faut dire sur quoi cette annexe s'appuie pour
 en régler la forme — car ce qu'on peut invoquer ici est plus mince qu'il n'y paraît. Une revue
 systématique d'un demi-siècle de littérature sur les messages d'erreur retourne six cent cinquante

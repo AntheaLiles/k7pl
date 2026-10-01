@@ -12,7 +12,11 @@ Ce qui assemblait, contrôlait et exportait le manuscrit Org avant la conversion
 | `my-export-config.el`, `preamble-article.tex` | configuration d'export Emacs → LaTeX (marges `[rmq:]`, sceau des énoncés, flottants) |
 | `donnees/` | données des contrôles (sondes sémantiques, gel de non-régression, glyphes confusables, arcs) |
 
-## À porter vers le Verso
+## Porté vers le Verso
+
+Le Verso fait foi depuis le 1er octobre 2026 : l'essentiel de ces contrôles est porté dans [`scripts/controles/`](../../scripts/controles/) (voir le tableau de bord). Ce qui suit dit ce qui l'est, et ce qui ne l'est pas.
+
+## Rappel : à porter
 
 Les contrôles sont rangés par famille de questions ; seule la **lecture du texte** change, la logique reste.
 

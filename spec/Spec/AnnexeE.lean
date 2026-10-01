@@ -31,18 +31,6 @@ number := false
 
 {label "sec:annexe-presentation-formelle" (display := "E")}
 
-:::comment
-```
-Annexe de présentation formelle. Ce fichier est une SOURCE : il porte les citations sous leur clé symbolique et se destine à être assemblé dans la spécification par le #+INCLUDE: qui s'y trouve. Il ne s'exporte pas seul.
-```
-:::
-
-:::comment
-```
-Cette annexe n'est pas exportée. Elle porte du matériau de chantier — protocole de travail, structure des axes, travaux empiriques — qui n'a pas sa place dans un document publié. Les sections G.1 à G.4, en revanche, sont de la spécification : elles migreront vers une annexe exportée dès que le jeu de règles sera écrit, c'est-à-dire dès que G.3 cessera d'être un inventaire. Jusque-là, les publier reviendrait à publier une grammaire sans ses règles.
-```
-:::
-
 Cette annexe porte ce que le corps du document décrit sans le poser : la grammaire des types et des
 termes, le jeu des règles de typage, et la sémantique opérationnelle sur laquelle les énoncés des
 chapitres 2 à 4 se raisonnent. Sa nécessité n'est pas de commodité. Cinq travaux ouverts — la

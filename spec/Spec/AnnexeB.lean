@@ -22,7 +22,7 @@ number := false
 
 {refsection "k7-lsp-repl"}
 
-{label "sec:annexe-d-interface" (display := "B")}
+{label "sec:annexe-lsp-repl" (display := "B")}
 
 Le protocole LSP et le REPL ne sont pas deux outils ajoutés à K7PL après coup : ce sont le système
 déjà construit, rendu visible en temps réel plutôt qu'à la seule compilation. Cette annexe en
@@ -85,9 +85,3 @@ reproduit fidèlement l'original. Les commandes `play`, `pause`, `stop`, `next`,
 deux défilements rapides — avant, arrière — parcourent cette séquence exactement comme un lecteur
 multimédia parcourt un flux enregistré, sans qu'aucune instrumentation n'ait dû être ajoutée après
 coup au programme observé.
-
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : spécification du Language Server Protocol ; environnements de preuve interactifs à trous typés (Agda, Idris, Hazel — Omar et al.) ; débogueurs à rejeu déterministe (rr, Pernosco) ; notebooks de calcul interactif (Jupyter) pour comparaison avec le REPL tabulaire.
-```
-:::

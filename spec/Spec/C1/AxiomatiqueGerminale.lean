@@ -525,8 +525,8 @@ séparée pour les tenir ensemble — ce serait $`\mathcal{C}` reparaissant.
 Cette condition est la _loi de cohérence_ de $`\varphi` et $`\psi` : pour tout grade $`r`, tout
 contexte $`\Delta` et tout effet $`\varepsilon`, mettre à l'échelle après transport doit revenir à
 transporter après mise à l'échelle, l'effet étant échelonné du même facteur. {rmq}[Le Prolégomène
-pose la condition et dit où elle est acquittée. La preuve est à l'annexe E, là où la loi sert.] Elle
-est démontrée à l'annexe E (§{num "sec:annexe-presentation-formelle"}[], théorème {num "thm:coherence_axiome"}[]),
+pose la condition et dit où elle est acquittée. La preuve est à l'annexe {num "sec:annexe-presentation-formelle"}[], là où la loi sert.] Elle
+est démontrée à l'annexe {num "sec:annexe-presentation-formelle"}[] (§{num "sec:annexe-presentation-formelle"}[], théorème {num "thm:coherence_axiome"}[]),
 là où le lemme de substitution, la relation logique et la traduction l'emploient l'une après
 l'autre.
 
@@ -987,9 +987,3 @@ Mais la trace visible d'une seule structure catégorique vue sous trois degrés 
 cette trace que les chapitres 2 à 6 reconstruisent, chacun depuis son point de vue propre —
 catégorique, typologique, automatique, syntaxique, calculatoire — avant que le chapitre 7 n'en
 éprouve la cohérence sur des cas d'usage complets.
-
-:::comment
-```
-[T-12 · ISOLATION PAR TYPES — ch.4 §4.5] Le pari Singularity déplace le poids de l'isolation vers la correction du compilateur. Aucune mesure du risque résiduel n'est produite. À FAIRE : évaluer, ou assumer explicitement le pari dans les limites du document.
-```
-:::
