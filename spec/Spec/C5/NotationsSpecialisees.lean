@@ -238,6 +238,39 @@ portée impose.
 :::
 ::::
 
+::::thm (label := "thm:hygiene_graduee") (status := "proposition")
+:::title
+hygiène graduée des expansions
+:::
+
+:::statement +titled
+La même commutation, au grade déclaré
+
+L'énoncé précédent porte sur l'AST non gradué. Sa version graduée — chaque métavariable $`x_i`
+portant son grade déclaré $`r_i`, et la conclusion le contexte $`\boxtimes_i (r_i \cdot \Delta_i)` —
+est la même commutation, au contexte et à l'effet près.
+:::
+
+:::proofsketch
+Le théorème {num "thm:expansion_macro"}[] la referme par le lemme de
+substitution et la loi de compatibilité de l'action ; l'énoncé n'était simplement pas étendu. Non
+démontré ici.
+:::
+::::
+
+::::thm (label := "thm:resucrage") (status := "exigence")
+:::title
+préservation de l'α-équivalence de surface
+:::
+
+:::statement +titled
+Resucrage
+
+L'α-équivalence de surface est préservée par l'expansion. Cette propriété ne se déduit pas de
+l'énoncé sur l'AST : elle demande une algèbre de liaison de surface, que le document n'a pas.
+:::
+::::
+
 Ce que cet énoncé rend inexprimable importe plus que ce qu'il évite. {rmq}[Pas une discipline
 appliquée, un type qui ne laisse pas la question se poser.] La conclusion n'est pas qu'une capture
 est évitée par un renommage. Mais qu'elle est inécrivable : produire une occurrence hors de l'index

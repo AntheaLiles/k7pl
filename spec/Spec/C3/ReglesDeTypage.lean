@@ -182,7 +182,7 @@ qu'il ne s'en écarte, et c'est l'effet traversant qui l'y oblige.
 \begin{equation*}
 \textsc{Pack}\;\frac{\;\Delta \vdash v : V[W/\alpha]\;}{\;\Delta \vdash \mathsf{pack}\,(W,v) : \exists\alpha.V\;}
 \qquad
-\textsc{Open}\;\frac{\;\Delta_1 \vdash v : \exists\alpha.V \quad \Delta_2,\, x:_1 V \vdash c : C \mid \varepsilon \quad \alpha \notin \mathrm{fv}(C)\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{open}\;v\;\mathsf{as}\;(\alpha,x)\;\mathsf{in}\;c : C \mid \varepsilon\;}
+\textsc{Open}\;\frac{\;\Delta_1 \vdash v : \exists\alpha.V \quad \Delta_2,\, x:_1 V \vdash c : C \mid \varepsilon \quad \alpha \notin \mathrm{fv}(\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2) \cup \mathrm{fv}(\varepsilon) \cup \mathrm{fv}(C)\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{open}\;v\;\mathsf{as}\;(\alpha,x)\;\mathsf{in}\;c : C \mid \varepsilon\;}
 \end{equation*}
 ```
 
@@ -246,7 +246,7 @@ transmet que des valeurs dont le niveau de lecture est au plus son niveau de pro
 rejeté, et le canal temporel que ce document déclare fermé l'est par règle. La correspondance est
 _dérivée_ et non décidée : l'exclusion de $`\varphi_\ell` hors de la quantale des effets
 n'est plus une clause négative posée à la main. Le niveau courant du processus est celui que
-porte son effet ; il n'est donc pas nécessaire de l'indexer en plus dans le jugement.
+porte son effet ; il n'est donc pas nécessaire de l'indexer en plus dans le jugement. {sc}[Tick] n'est d'ailleurs pas une règle primitive mais une règle _admissible_ : c'est l'instance de {sc}[Op] pour l'opération d'effet $`\langle \mathbf{1}, \delta_{\hat\ell}\rangle` appliquée à $`()` dans le contexte $`\mathbf{0}`, dont la clause de couplage est satisfaite d'office. Elle est écrite pour fixer le choix de $`\hat\ell`, comme {sc}[Expand] se dérive au chapitre 5.
 
 Trois de ces règles ne demandent rien, et sont écrites plutôt qu'omises : une règle absente est un
 cas manquant dans toute induction — et le lemme de substitution du §{num "sec:g-regles"}[] procède
@@ -303,8 +303,8 @@ Trois autres règles portent l'essentiel et méritent un mot. {sc}[Box] et {sc}[
 toute la discipline de ressource : entrer sous la modalité multiplie le contexte par le grade, en
 sortir le restitue à la liaison. {sc}[App] est celle où la loi distributive se manifeste. L'argument
 y voit son contexte multiplié par la demande que la fonction exprime : c'est $`\varphi` à l'œuvre
-sur un cas concret. Et {sc}[Open] porte sa condition de bord, $`\alpha` n'apparaissant pas dans le
-type de sortie : c'est elle qui rend le témoin inatteignable, et c'est sur elle que la preuve de
+sur un cas concret. Et {sc}[Open] porte sa condition de bord, $`\alpha` n'apparaissant ni dans les
+contextes, ni dans l'effet, ni dans le type de sortie : c'est elle qui rend le témoin inatteignable, et c'est sur elle que la preuve de
 non-interférence s'appuiera.
 
 La relation $`\preccurlyeq` de {sc}[SubBox] n'est pas l'ordre du grade mais le produit _mixte_
