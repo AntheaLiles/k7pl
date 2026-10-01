@@ -319,7 +319,7 @@ tag := "g-sortes-les-incertitudes-et-ce-qu-elles-sont"
 number := false
 %%%
 
-Quatre points restent ouverts. Aucun n'est une impossibilité, et ils se distinguent d'une difficulté
+Quatre points ont été ouverts, et trois le restent. Aucun n'est une impossibilité, et ils se distinguent d'une difficulté
 de preuve : ce sont des vérifications à conduire, dont l'échec obligerait à réviser une partie de ce
 qui précède plutôt qu'à l'abandonner.
 
@@ -334,9 +334,11 @@ qui précède plutôt qu'à l'abandonner.
    contrôle de flux en concurrence typée par sessions établit une non-interférence _sensible au
    progrès_ qui l'exclut ; il reste à vérifier si notre formulation en fait autant.
 
-3. _Un seul niveau par processus._ La littérature du domaine en emploie deux — une habilitation et
-   un niveau courant, le plus haut secret obtenu jusque-là. K7PL n'en a qu'un, porté par le grade.
-   Il se peut que la stratification en couches en tienne lieu, et il se peut que non.
+3. _Un seul niveau par processus_ — réglé. La littérature du domaine en emploie deux, une
+   habilitation et un niveau courant. K7PL les a : l'habilitation est le niveau de lecture
+   $`\mathrm{niv}(r)` des liaisons, le niveau courant est le niveau de production $`\hat\ell` porté
+   par l'effet, et la jointure des niveaux de lecture, bornée par {sc}[Op] et {sc}[Case], est la
+   règle de propagation. Il ne reste rien à vérifier ici.
 
 4. _La mécanisation ne s'appuiera sur rien._ La méta-théorie du cadre emprunté n'est vérifiée par
    machine que pour une unique sorte de noms. Le cas d'un sortage arbitraire y est établi à la main,

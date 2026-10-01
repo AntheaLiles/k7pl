@@ -8,7 +8,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| `BLOQ` Bloquants | 14 | 8 | 5 | 0 | 0 | 0 | 1 |
+| `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
 | `STRUCT` Structurels | 23 | 4 | 1 | 0 | 0 | 0 | 18 |
 | `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
 | `PREUVE` Dettes de preuve | 16 | 1 | 2 | 0 | 0 | 0 | 13 |
@@ -20,7 +20,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **55** | **9** | **1** | **3** | **2** | **120** |
+| **Total** | **190** | **55** | **10** | **1** | **3** | **2** | **119** |
 
 ## BLOQ — Bloquants
 
@@ -30,7 +30,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BLOQ-02` | ✅ fermée | La modalité duale de ◇ n'a ni nom, ni glyphe, ni clause grammaticale ; la règle WHEN imprimée est celle que le texte déclare fausse | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `BLOQ-03` | ✅ fermée | Le Th. 1 (loi de cohérence) est faux au grade ω ; deux conventions de `⊖` coexistent | [journal](../journal/2026-09-30-pr-02-01-bloq-03-et-06.md) · ⊖ défini par cas ; loi d'action restreinte ; contrôle écrit avant la correction |
 | `BLOQ-04` | ✅ fermée | ℛ désigne deux structures incompatibles ; l'action scalaire n'est pas définie sur deux de ses quatre facteurs | [journal](../historique/2026-10-01-pr-02-avancement.md) |
-| `BLOQ-05` | ⬜ ouverte | Le niveau d'un calcul est invoqué par cinq démonstrations et produit par aucune règle ; le symbole ℓ recouvre deux ordres |  |
+| `BLOQ-05` | 🟡 partielle | Le niveau d'un calcul est invoqué par cinq démonstrations et produit par aucune règle ; le symbole ℓ recouvre deux ordres | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · clauses Op/Case et Tick posées ; lemme de correspondance et relecture des Th. 43-51 à faire |
 | `BLOQ-06` | ✅ fermée | La clause de taille `i ∈ ℕ∞ ∖ {ω}` interdit les acteurs et flux non bornés que le document exige | [journal](../journal/2026-09-30-pr-02-01-bloq-03-et-06.md) · deux sortes de tailles 𝕊_μ / 𝕊_ν |
 | `BLOQ-07` | 🟡 partielle | Deux sémantiques opérationnelles concurrentes, sans théorème d'accord | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · énoncé rendu conditionnel à Sim ; Sim à établir (PREUVE-07) |
 | `BLOQ-08` | 🟡 partielle | La catégorie ambiante 𝒞 n'interprète rien : P1 est un axiome sans modèle | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · P1b nommée ; Th. 31 et §4.6 à reprendre |
