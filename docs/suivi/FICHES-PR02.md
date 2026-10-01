@@ -17,10 +17,10 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
-| `BIB` Vérifications bibliographiques | 29 | 2 | 1 | 0 | 0 | 0 | 26 |
+| `BIB` Vérifications bibliographiques | 29 | 11 | 6 | 0 | 0 | 0 | 12 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **107** | **28** | **1** | **3** | **2** | **49** |
+| **Total** | **190** | **116** | **33** | **1** | **3** | **2** | **35** |
 
 ## BLOQ — Bloquants
 
@@ -217,15 +217,15 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | Fiche | État | Titre | Preuve · note |
 |---|---|---|---|
 | `BIB-01` | ⬜ ouverte | *Hefty Algebras* (Van der Rest & Bach Poulsen, 2023/2025) |  |
-| `BIB-02` | ⬜ ouverte | Saffrich & Thiemann 2025 — priorités sur boîtes aux lettres |  |
+| `BIB-02` | ⬜ ouverte | Saffrich & Thiemann 2025 — priorités sur boîtes aux lettres | [journal](../bibliographie/verifications-pr02.md) · référence introuvable en ligne : à vérifier auprès du relecteur |
 | `BIB-03` | ✅ fermée | QTAL / défonctionnalisation quantitative (Huang 2023) | [journal](../bibliographie/verifications-pr02.md) · statut exact : quantitatif en cours, dépendant publié |
-| `BIB-04` | ⬜ ouverte | Join-calculus de Fournet–Gonthier [60] — file de jonction |  |
+| `BIB-04` | 🟡 partielle | Join-calculus de Fournet–Gonthier [60] — file de jonction | [journal](../bibliographie/verifications-pr02.md) · join-calculus confirmé ; protocole = IMPL-04 |
 | `BIB-05` | ⬜ ouverte | Cohérence des sémantiques de coercions |  |
-| `BIB-06` | ⬜ ouverte | Sabelfeld & Myers — divulgation délimitée |  |
-| `BIB-07` | ⬜ ouverte | Issue Agda sur les tailles réflexives [25] |  |
+| `BIB-06` | ✅ fermée | Sabelfeld & Myers — divulgation délimitée | [journal](../bibliographie/verifications-pr02.md) · échappatoires = expressions confirmé ; clôture = notre précision |
+| `BIB-07` | ✅ fermée | Issue Agda sur les tailles réflexives [25] | [journal](../bibliographie/verifications-pr02.md) · source incrimine la plus grande taille ∞<∞ ; scission 𝕊_μ/𝕊_ν tient |
 | `BIB-08` | ✅ fermée | IEEE 754 — propagation de charge utile des NaN | [journal](../bibliographie/verifications-pr02.md) · charge utile NaN recommandée, non exigée ; architecture dans E_repro |
 | `BIB-09` | 🟡 partielle | Spécifications Arrow et Cap'n Proto | [journal](../bibliographie/verifications-pr02.md) · Arrow vérifié ; endianness et Cap'n Proto à vérifier |
-| `BIB-10` | ⬜ ouverte | Licata–Shulman–Riley — systèmes de modes |  |
+| `BIB-10` | ✅ fermée | Licata–Shulman–Riley — systèmes de modes | [journal](../bibliographie/verifications-pr02.md) · confirmé (résumé) |
 | `BIB-11` | ⬜ ouverte | Régions par polymorphisme paramétrique [19] |  |
 | `BIB-12` | ⬜ ouverte | Extension additive de la logique linéaire classique, transport intuitionniste |  |
 | `BIB-13` | ⬜ ouverte | Resucrage et algèbre de liaison de surface [26] |  |
@@ -233,18 +233,18 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BIB-15` | ⬜ ouverte | LMAX Disruptor contre preuve mécanisée de file bornée |  |
 | `BIB-16` | ⬜ ouverte | Monoïde ordonné par treillis [27] contre quantale |  |
 | `BIB-17` | ⬜ ouverte | Invalidation explicite des protocoles d'accès distant [54] |  |
-| `BIB-18` | ⬜ ouverte | Ergonomie : essai contrôlé randomisé défavorable + étude sur les barrières d'adoption |  |
+| `BIB-18` | ✅ fermée | Ergonomie : essai contrôlé randomisé défavorable + étude sur les barrières d'adoption | [journal](../bibliographie/verifications-pr02.md) · rien à corriger |
 | `BIB-19` | ⬜ ouverte | Castellan et al. — triangle effets / élimination dépendante / substitution |  |
-| `BIB-20` | ⬜ ouverte | calf / decalf — cadre logique conscient du coût |  |
-| `BIB-21` | ⬜ ouverte | Théorie des types graduée formalisée (Abel–Danielsson–Eriksson) |  |
-| `BIB-22` | ⬜ ouverte | Récursion gardée multi-horloges (CloTT) ; bisimulation comme type de chemin |  |
-| `BIB-23` | ⬜ ouverte | Granule — sessions et types modaux gradués ; TLL_C — sessions dépendantes |  |
-| `BIB-24` | ⬜ ouverte | Théorie cubique sans types Glue (XTT et variantes) |  |
-| `BIB-25` | ⬜ ouverte | Algèbre de Kleene concurrente (Hoare, Möller, Struth, Wehrman) |  |
+| `BIB-20` | ✅ fermée | calf / decalf — cadre logique conscient du coût | [journal](../bibliographie/verifications-pr02.md) · calf/decalf confirmés |
+| `BIB-21` | 🟡 partielle | Théorie des types graduée formalisée (Abel–Danielsson–Eriksson) | [journal](../bibliographie/verifications-pr02.md) · confirmé ; restriction sur l'égalité définitionnelle à lire dans le corps |
+| `BIB-22` | ✅ fermée | Récursion gardée multi-horloges (CloTT) ; bisimulation comme type de chemin | [journal](../bibliographie/verifications-pr02.md) · CloTT confirmé |
+| `BIB-23` | ✅ fermée | Granule — sessions et types modaux gradués ; TLL_C — sessions dépendantes | [journal](../bibliographie/verifications-pr02.md) · Granule/TLL_C confirmés |
+| `BIB-24` | 🟡 partielle | Théorie cubique sans types Glue (XTT et variantes) | [journal](../bibliographie/verifications-pr02.md) · XTT : extensionnalité sans univalence ; compatibilité avec la sédimentation à instruire |
+| `BIB-25` | 🟡 partielle | Algèbre de Kleene concurrente (Hoare, Möller, Struth, Wehrman) | [journal](../bibliographie/verifications-pr02.md) · loi d'échange confirmée ; compatibilité avec la résiduation à vérifier |
 | `BIB-26` | ⬜ ouverte | Déterminisme observationnel et flux d'information concurrent |  |
-| `BIB-27` | ⬜ ouverte | Types de boîtes aux lettres (de'Liguoro–Padovani, ECOOP 2018) ; *Special Delivery* (Fowler et al.) |  |
-| `BIB-28` | ⬜ ouverte | Exceptional GV / types de session asynchrones exceptionnels (Fowler–Lindley–Morris–Decova, POPL 2019) |  |
-| `BIB-29` | ⬜ ouverte | Valeurs localisées (HasChor, ChorLean, valeurs multiplement localisées) |  |
+| `BIB-27` | 🟡 partielle | Types de boîtes aux lettres (de'Liguoro–Padovani, ECOOP 2018) ; *Special Delivery* (Fowler et al.) | [journal](../bibliographie/verifications-pr02.md) · confirmé ; théorème d'interblocage à lire |
+| `BIB-28` | ✅ fermée | Exceptional GV / types de session asynchrones exceptionnels (Fowler–Lindley–Morris–Decova, POPL 2019) | [journal](../bibliographie/verifications-pr02.md) · confirmé |
+| `BIB-29` | ✅ fermée | Valeurs localisées (HasChor, ChorLean, valeurs multiplement localisées) | [journal](../bibliographie/verifications-pr02.md) · ChorLean en Lean confirmé |
 
 ## TRANS — Refontes transversales
 
