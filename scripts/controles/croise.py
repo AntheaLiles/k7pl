@@ -86,8 +86,79 @@ TYPE_CONNECTIVES = [
 ]
 
 
+def _frac_conclusions(text: str):
+    """(rule name, conclusion) for every `\\textsc{R}\\;\\frac{premises}{conclusion}` in `text`."""
+    out = []
+    for m in re.finditer(r"\\textsc\{([A-Za-z]+)\}(?:\^\{[^}]*\})?\s*\\;?\s*\\frac\{", text):
+        i = m.end()
+        depth = 1
+        while i < len(text) and depth:  # skip the premises
+            depth += {"{": 1, "}": -1}.get(text[i], 0)
+            i += 1
+        j = text.find("{", i)
+        if j < 0:
+            continue
+        k, depth = j + 1, 1
+        while k < len(text) and depth:
+            depth += {"{": 1, "}": -1}.get(text[k], 0)
+            k += 1
+        out.append((m.group(1), text[j + 1 : k - 1]))
+    return out
+
+
+# Type formers a rule can conclude, and the pattern that finds each in the grammar of types.
+TYPE_FORMERS = [
+    (r"F_", r"F_\{?\\varepsilon|F_"),
+    (r"U_", r"U_"),
+    (r"!_", r"!_"),
+    (r"\\otimes", r"\\otimes"),
+    (r"\\bigoplus", r"\\bigoplus"),
+    (r"\\multimap", r"\\multimap"),
+    (r"\\forall", r"\\forall"),
+    (r"\\exists", r"\\exists"),
+    (r"\\nu\\alpha|\\nu ", r"\\nu"),
+    (r"\\mu\\alpha|\\mu ", r"\\mu"),
+    (r"\\mathsf\{Vec\}", r"\\mathsf\{Vec\}"),
+    (r"\\mathsf\{Arena\}", r"\\mathsf\{Arena\}"),
+    (r"\{\\bigcirc\}|\\bigcirc", r"\\bigcirc"),
+]
+
+
+def degenerate_productions(types: str):
+    """Productions of the grammars that are empty or merely the non-terminal itself (`S ::= S`)."""
+    bad = []
+    for m in re.finditer(r"([A-Z])\s*&::=\s*(.*?)(?:\\\\|\\end)", types, re.S):
+        name, rhs = m.group(1), m.group(2)
+        for alt in [a.strip() for a in re.split(r"\\mid", rhs)]:
+            if alt == "" or alt == name:
+                bad.append("%s ::= %s" % (name, alt or "(vide)"))
+    return bad
+
+
+def ungenerated_types(rules_text: str, types: str):
+    """Rules whose conclusion mentions a type former the grammar of types does not generate."""
+    bad = []
+    for name, concl in _frac_conclusions(rules_text):
+        after = concl.split(":", 1)[1] if ":" in concl else ""
+        for in_rule, in_grammar in TYPE_FORMERS:
+            if re.search(in_rule, after) and not re.search(in_grammar, types):
+                bad.append((name, in_rule))
+    return bad
+
+
+def selftest():
+    """The two new checks must fail on a mutated grammar before they are trusted."""
+    ok_bad = degenerate_productions(r"S &::= S \mid \mathbf{End}\\ C &::= \\") 
+    ung = ungenerated_types(r"\textsc{R}\;\frac{\;a\;}{\;\Delta \vdash t : \mathsf{Vec}\,n\,V\;}", r"V ::= \mathbf{1}")
+    if ok_bad and ung:
+        ok("auto-test : productions vides et types non engendrés sont détectés")
+    else:
+        ko("auto-test du croisement : productions %s, types %s" % (ok_bad, ung))
+
+
 def run():
     print("\n[Croisement grammaire / règles]")
+    selftest()
     grammar = corpus.formula("eq:grammaire-termes")
     if not grammar:
         ko("la grammaire des termes (eq:grammaire-termes) est introuvable")
@@ -119,6 +190,16 @@ def run():
         if orphans:
             good = False
             ko("connecteurs de type qu'aucune règle de terme n'habite : %s" % orphans)
+
+    if types:
+        degenerate = degenerate_productions(types) + degenerate_productions(grammar)
+        if degenerate:
+            good = False
+            ko("productions vides ou auto-référentes : %s" % degenerate)
+        ungenerated = ungenerated_types(corpus.chapter("C3"), types)
+        if ungenerated:
+            good = False
+            ko("règles concluant un type non engendré par la grammaire : %s" % ungenerated)
 
     absent = [r for r in sorted(rules & set(EXPECTED)) if not re.search(EXPECTED[r][0], grammar)]
     if absent:

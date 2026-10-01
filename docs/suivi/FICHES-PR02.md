@@ -9,18 +9,18 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
 | `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
-| `STRUCT` Structurels | 23 | 5 | 1 | 0 | 0 | 0 | 17 |
+| `STRUCT` Structurels | 23 | 9 | 1 | 0 | 0 | 0 | 13 |
 | `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
-| `IMPL` Implémentation et outillage | 9 | 1 | 0 | 0 | 0 | 0 | 8 |
+| `IMPL` Implémentation et outillage | 9 | 4 | 2 | 0 | 0 | 0 | 3 |
 | `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `REECR` Réécritures d'énoncés | 27 | 5 | 0 | 0 | 0 | 0 | 22 |
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **72** | **22** | **1** | **3** | **2** | **90** |
+| **Total** | **190** | **79** | **24** | **1** | **3** | **2** | **81** |
 
 ## BLOQ — Bloquants
 
@@ -50,11 +50,11 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `STRUCT-03` | ✅ fermée | Un seul environnement normatif pour sept natures épistémiques ; quatre statuts incompatibles pour le Th. 27 | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `STRUCT-04` | ✅ fermée | La couche 2 est asynchrone au ch. 3, synchrone dans le noyau, SPSC au ch. 4 | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `STRUCT-05` | ⬜ ouverte | La trace τ est à la fois grandeur de coût à optimiser et observable de sûreté à préserver ; aucun invariant de passe n'est déclaré |  |
-| `STRUCT-06` | ⬜ ouverte | Le pipeline n'a pas de Phase 0 ; « élaboration » désigne deux opérations différentes |  |
+| `STRUCT-06` | ✅ fermée | Le pipeline n'a pas de Phase 0 ; « élaboration » désigne deux opérations différentes | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · mot élaboration et point 2.5 clarifiés au §5.3 |
 | `STRUCT-07` | 🟡 partielle | Le Th. 39 ne prouve pas la cohérence du sous-typage : l'existence de joints n'est pas la cohérence des coercions | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) · énoncé scellé proposition ; la preuve par facteur reste à conduire (PREUVE-10) |
-| `STRUCT-08` | ⬜ ouverte | Le système de raffinement (Th. 9) est conditionnel à une traduction encore ouverte (Th. 27) |  |
-| `STRUCT-09` | ⬜ ouverte | « Tout le non-déterminisme est journalisé » est une obligation sémantique, pas une conséquence de la pureté |  |
-| `STRUCT-10` | ⬜ ouverte | L'histomorphisme réclame une loi distributive qui n'était pas dans le noyau |  |
+| `STRUCT-08` | ✅ fermée | Le système de raffinement (Th. 9) est conditionnel à une traduction encore ouverte (Th. 27) | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · Th. raffinement conditionnel à la traduction |
+| `STRUCT-09` | ✅ fermée | « Tout le non-déterminisme est journalisé » est une obligation sémantique, pas une conséquence de la pureté | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · journal complet posé en paramètre de l'hypothèse de rejeu |
+| `STRUCT-10` | ✅ fermée | L'histomorphisme réclame une loi distributive qui n'était pas dans le noyau | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · λ classée structure dérivée de l'instance historique |
 | `STRUCT-11` | ✅ fermée | Les effets à portée ne sont pas absorbés par ℰ ; ℰ_alg et ℰ_scoped doivent être distingués dans la structure | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · idem |
 | `STRUCT-12` | ⬜ ouverte | Hygiène syntaxique et hygiène quantitative : le Th. 31 ne doit pas hériter automatiquement du Th. 30 |  |
 | `STRUCT-13` | ⬜ ouverte | La discipline d'échange est « voie retenue » au ch. 3, « envisagée » au ch. 4 et à l'annexe, « absente » dans les règles |  |
@@ -129,14 +129,14 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 
 | Fiche | État | Titre | Preuve · note |
 |---|---|---|---|
-| `IMPL-01` | ⬜ ouverte | Le solveur est traité comme une boîte noire, ce qui contredit le code porteur de preuve de l'annexe D |  |
-| `IMPL-02` | ⬜ ouverte | Compilation reproductible : visée et non garantie |  |
-| `IMPL-03` | ⬜ ouverte | Protocole de réglage du test différentiel |  |
+| `IMPL-01` | ✅ fermée | Le solveur est traité comme une boîte noire, ce qui contredit le code porteur de preuve de l'annexe D | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · certificat exigé aux frontières de paquet (§6.1 Phase 5, annexe D) |
+| `IMPL-02` | ✅ fermée | Compilation reproductible : visée et non garantie | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · critère opérationnel écrit en fin de §6.3 |
+| `IMPL-03` | ✅ fermée | Protocole de réglage du test différentiel | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · protocole du test différentiel écrit en fin de §6.3 |
 | `IMPL-04` | ⬜ ouverte | Structure réelle des boîtes aux lettres et protocole d'appariement atomique |  |
 | `IMPL-05` | ✅ fermée | Révocation d'une capacité exportée à la frontière FFI | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · thm:revocation_ffi : première exigence du document |
-| `IMPL-06` | ⬜ ouverte | Profil de représentation `Π` unique |  |
+| `IMPL-06` | 🟡 partielle | Profil de représentation `Π` unique | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · Π défini au §4.5 ; Th. 20 et rejeu requalifiés en conformité ; Th. 36 non requalifié |
 | `IMPL-07` | ⬜ ouverte | Table de propagation des singularités |  |
-| `IMPL-08` | ⬜ ouverte | Renforcer le croisement mécanique grammaire × règles |  |
+| `IMPL-08` | 🟡 partielle | Renforcer le croisement mécanique grammaire × règles | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · productions dégénérées et types non engendrés contrôlés (mutation vérifiée) ; arités et build sur symbole absent restent à porter |
 | `IMPL-09` | ⬜ ouverte | Hypothèses de module à porter en assistant de preuve |  |
 
 ## FACT — Factorisations à écrire

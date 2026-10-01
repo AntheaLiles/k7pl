@@ -42,17 +42,17 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 33 | — | `thm:determinisme_parallele` | theoreme | langage | déterminisme du parallélisme de couche 3 | §3.6 | 0 |
 | 34 | 34 | `thm:substitution` | theoreme | langage | substitution sur trois niveaux | §3.6 | 6 |
 | 35 | 35 | `thm:substitution_simultanee` | theoreme | langage | substitution simultanée — corollaire de la substitution élémentaire | §3.6 | 1 |
-| 36 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 5 |
+| 36 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 6 |
 | 37 | 16 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | §4.4 | 1 |
 | 38 | — | `thm:introduction_unique` | proposition | langage | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
 | 39 | 17 | `thm:determinisme_rejeu` | theoreme | langage | déterminisme logique du rejeu | §4.5 | 1 |
-| 40 | — | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 0 |
+| 40 | — | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 1 |
 | 41 | 18 | `thm:liberte_initialisation` | theoreme | langage | liberté d'initialisation par DAG topologique | §4.5 | 0 |
 | 42 | 19 | `thm:sync_motifs_jonction` | theoreme | langage | synchronisation atomique des motifs de jonction | §4.5 | 1 |
 | 43 | 20 | `thm:surete_ffi` | theoreme | langage | sûreté FFI par la passerelle de capacité | §4.5 | 0 |
 | 44 | — | `thm:revocation_ffi` | exigence | representation | révocation à la frontière étrangère | §4.5 | 0 |
 | 45 | 21 | `thm:traduction_metalangage` | theoreme | langage | la traduction préserve le typage | §4.6 | 11 |
-| 46 | — | `thm:simulation` | proposition | langage | simulation de la relation de réduction par la traduction | §4.6 | 0 |
+| 46 | — | `thm:simulation` | proposition | langage | simulation de la relation de réduction par la traduction | §4.6 | 1 |
 | 47 | 22 | `thm:fidelite_interprete` | proposition | langage | fidélité de l'interpréteur de référence | §4.6 | 3 |
 | 48 | 36 | `thm:preservation` | theoreme | langage | préservation | §4.7 | 3 |
 | 49 | 37 | `thm:progres` | theoreme | langage | progrès | §4.7 | 0 |
@@ -68,7 +68,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 59 | 24 | `thm:hygiene` | theoreme | langage | hygiène des expansions | §5.2 | 1 |
 | 60 | — | `thm:hygiene_graduee` | proposition | langage | hygiène graduée des expansions | §5.2 | 0 |
 | 61 | — | `thm:resucrage` | exigence | langage | préservation de l'α-équivalence de surface | §5.2 | 0 |
-| 62 | — | `thm:elaboration` | definition | langage | élaboration | §5.3 | 1 |
+| 62 | — | `thm:elaboration` | definition | langage | élaboration | §5.3 | 2 |
 | 63 | 25 | `thm:expansion_macro` | theoreme | langage | la règle d'expansion est dérivable | §5.4 | 3 |
 | 64 | — | `thm:stabilisation_pipeline` | theoreme | langage | stabilisation du pipeline | §6.1 | 0 |
 | 65 | 26 | `thm:interface_jugement` | definition | langage | l'interface d'une unité de compilation est son jugement | §6.2 | 0 |

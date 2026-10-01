@@ -39,7 +39,7 @@ poussée de valeur, et la grammaire ci-dessous la porte.
 ::::formula (label := "eq:grammaire-types") (kind := "formule")
 ```
 \begin{align*}
-\text{(valeurs)}\quad V &::= b \mid @_n V \mid \mathbf{1} \mid V \otimes V \mid \textstyle\bigoplus_{i \in I} V_i \mid \mathsf{Vec}\;n\;V \mid \mathsf{Arena}\;V \mid !_{r} V \mid U\,C \mid \exists \alpha. V \mid \mu\alpha. V\\
+\text{(valeurs)}\quad V &::= b \mid @_n V \mid \mathbf{1} \mid V \otimes V \mid \textstyle\bigoplus_{i \in I} V_i \mid \mathsf{Vec}\;n\;V \mid \mathsf{Arena}\;V \mid !_{r} V \mid U_{\varepsilon}\,C \mid \exists \alpha. V \mid \mu\alpha. V\\
 \text{(calculs)}\quad C &::= F_{\varepsilon}\,V \mid V \multimap C \mid \textstyle\mathop{\&}_{i \in I} C_i \mid \forall \alpha. C \mid \nu\alpha. C\\
 \text{(sessions)}\quad S &::= \mathbf{End} \mid V \otimes S \mid V \multimap S \mid \oplus\{\ell_i : S_i\} \mid \&\{\ell_i : S_i\} \mid {\bigcirc} S \mid {\Box} S \mid {\Diamond} S\\
 \text{(grades)}\quad r &::= \langle u, m, \ell, \beta \rangle \in \mathcal{R} = \mathbb{N}_\infty \times \{\mathrm{d} \preceq \mathrm{m}\} \times \mathcal{L} \times \mathcal{B}\\
@@ -93,7 +93,7 @@ Le prédicat de treillis fini, défini par induction sur la grammaire des types 
 :::
 ::::
 
-Aucune autre clause. En particulier $`!_r`, $`U\,C`, l'existentiel et le point fixe $`\mu` n'y
+Aucune autre clause. En particulier $`!_r`, $`U_{\varepsilon}\,C`, l'existentiel et le point fixe $`\mu` n'y
 entrent pas, et ce n'est pas un oubli : un porteur qui les admettrait cesserait d'être fini, et
 l'itération de l'opérateur de point fixe cesserait de terminer.
 

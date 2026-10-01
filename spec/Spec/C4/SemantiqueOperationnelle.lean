@@ -475,7 +475,7 @@ distinctes du jugement.
 \mathcal{R}_\ell\llbracket \mathsf{Vec}\;n\;V \rrbracket &= \text{point par point, à longueur égale}\\
 \mathcal{R}_\ell\llbracket !_{r} V \rrbracket &= \begin{cases} \mathcal{R}_\ell\llbracket V \rrbracket & \text{si } \mathrm{niv}(r) \sqsubseteq \ell\\[2pt] \text{la relation totale} & \text{sinon}\end{cases}\\
 &\phantom{{}={}}\text{\emph{l'unique clause qui décide}}\\
-\mathcal{R}_\ell\llbracket U\,C \rrbracket &= \{(\mathsf{thunk}\;c,\ \mathsf{thunk}\;c') \mid (c,c') \in \mathcal{R}_\ell\llbracket C \rrbracket\}\\
+\mathcal{R}_\ell\llbracket U_{\varepsilon}\,C \rrbracket &= \{(\mathsf{thunk}\;c,\ \mathsf{thunk}\;c') \mid (c,c') \in \mathcal{R}_\ell\llbracket C \rrbracket\}\\
 \mathcal{R}_\ell\llbracket \exists \alpha. V \rrbracket &= \textstyle\bigcup_{\mathcal{S}} \{(\mathsf{pack}(W,v), \mathsf{pack}(W',v'))\\
 &\phantom{{}={}}\quad \mid (v,v') \in \mathcal{R}_\ell\llbracket V \rrbracket[\mathcal{S}/\alpha]\}\\
 \mathcal{R}_\ell\llbracket \mu\alpha. V \rrbracket &= \text{le plus petit point fixe de la clause, la positivité l'assurant}\\[4pt]

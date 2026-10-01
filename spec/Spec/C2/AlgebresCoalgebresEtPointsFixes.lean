@@ -436,7 +436,7 @@ $`F(\text{Cofree}_F(A))`, où la comonade cofree $`\text{Cofree}_F` annote chaqu
 l'historique de tous les résultats déjà calculés en dessous de lui. L'histomorphisme reste un
 catamorphisme — sur un foncteur enrichi, non sur un principe de récursion distinct — et sa
 terminaison en hérite directement. K7PL borne seulement, par un grade $`r`, la profondeur de
-l'historique conservé, pour que cet enrichissement demeure lui-même en mémoire $`O(1)`.
+l'historique conservé, pour que cet enrichissement demeure lui-même en mémoire $`O(1)`. La loi distributive $`\lambda` que l'instance historique réclame n'est pas une conséquence gratuite de $`!^r` : c'est une structure dérivée, nécessaire à cette seule instance, et la factorisation se lit _noyau plus instance historique_.
 
 Deux choses doivent être ajoutées ici, car la présentation ci-dessus est correcte mais incomplète,
 et l'une des deux touche un postulat. La première est que l'histomorphisme relève d'une classe
