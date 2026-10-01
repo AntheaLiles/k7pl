@@ -35,7 +35,7 @@ STRUCT-19,ouverte,,,
 STRUCT-20,ouverte,,,
 STRUCT-21,ouverte,,,
 STRUCT-22,ouverte,,,
-STRUCT-23,ouverte,,,
+STRUCT-23,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,"annexe E fondue : règles au ch. 3, sémantique au ch. 4 ; §1.1 corrigé"
 PORT-01,ouverte,,,
 PORT-02,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
 PORT-03,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
@@ -122,10 +122,10 @@ TRANS-09,ouverte,,,
 ARB-PR-01,fermee,fiche,relectures/pr-02/taches-consolidees.md,tranché par vérification directe (14 septembre)
 ARB-PR-02,fermee,fiche,relectures/pr-02/taches-consolidees.md,tranché sur le point contesté (14 septembre)
 ARB-PR-03,a-ratifier,journal,journal/2026-10-01-pr-02-06-theoremes.md,position intermédiaire appliquée (ℰ_alg / ℰ_scoped) ; BIB-01 (Hefty Algebras) non instruit
-ARB-PR-04,decision,fiche,relectures/pr-02/taches-consolidees.md,ce que le document promet pour le rejeu bit-à-bit ; le théorème est scindé (PORT-04 fermée) mais la décision de fond reste à écrire
+ARB-PR-04,decision,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,instruction écrite (docs/recherche/instruction-arb-pr-04-rejeu-binaire.md) ; orientation B puis C à confirmer
 ARB-PR-05,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,cadre du manuscrit ratifié
-ARB-PR-06,decision,fiche,relectures/pr-02/taches-consolidees.md,la revendication de bout en bout fait-elle partie des objectifs déclarés ?
-ARB-PR-07,decision,fiche,relectures/pr-02/taches-consolidees.md,étude d'opportunité : famille modale et graduée ; à écrire au §1.2 ; quatre imports ciblés non versés
+ARB-PR-06,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,objectif déclaré : transformer la revendication en preuve ; PREUVE-02 en tête
+ARB-PR-07,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,famille modale et graduée (1er octobre) ; motif écrit au §1.2 ; quatre imports à instruire un à un (BIB)
 REFUS-01,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
 REFUS-02,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
 REFUS-03,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md

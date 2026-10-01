@@ -203,8 +203,7 @@ entrelacement ont la même projection $`\pi_\ell(\tau)` de leur trace.
 
 :::proofsketch
 Non conduite. La voie est la bisimulation : montrer que la relation « même projection au niveau
-$`\ell` » est préservée par chaque pas de réduction, pour chacune des cinq règles globales de
-l'annexe. Les quatre premières s'y prêtent, leur effet sur la trace étant local. {sc}[Guard] est le
+$`\ell` » est préservée par chaque pas de réduction, pour chacune des cinq règles globales du §{num "sec:g-regles"}[]. Les quatre premières s'y prêtent, leur effet sur la trace étant local. {sc}[Guard] est le
 cas qui résiste, puisqu'il choisit une branche en fonction d'un message dont le niveau peut excéder
 $`\ell`.
 :::

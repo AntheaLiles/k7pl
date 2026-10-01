@@ -90,7 +90,7 @@ minimal : $`A \sqsubseteq B` se lit « $`A` est une version au plus aussi préci
 Pourquoi cette structure et pas une plus riche ? Une version antérieure de ce texte déclarait un
 treillis distributif borné et l'engagement était plus lourd que l'usage. Le joint sert : aux
 branchements du chapitre 3, où il sur-approxime les effets d'un filtrage, et à la relation de
-sous-typage de l'annexe, dont le théorème {num "thm:coherence_subsomption"}[] montre qu'il
+sous-typage du §{num "sec:g-regles"}[], dont le théorème {num "thm:coherence_subsomption"}[] montre qu'il
 conditionne la cohérence. La rencontre ne sert nulle part, et la distributivité n'est invoquée par
 aucune démonstration. Déclarer moins n'affaiblit donc rien~; cela retire seulement une dette de
 justification qu'aucun résultat ne réclamait.
@@ -213,7 +213,7 @@ $`\forall e \in \mathcal{X},\ \mathrm{fv}(e) = \emptyset`, et évaluées dans l'
 échappatoire ouverte ouvrirait un contournement par substitution, puisque
 $`\mathbf{declassify}_{\ell'}(e)[v/x] = \mathbf{declassify}_{\ell'}(e[v/x])` sans que
 $`e[v/x] \in \mathcal{X}`, et l'attaquant ferait comparer le secret à une valeur de son choix
-(§{num "sec:annexe-presentation-formelle"}[]). La règle ne s'applique qu'à elles :
+(§{num "sec:g-semantique"}[]). La règle ne s'applique qu'à elles :
 
 ::::formula (label := "eq:regle-declassify") (kind := "equation")
 ```
@@ -419,7 +419,7 @@ Cette structure ne referme pas seule la construction du chapitre : le
 §{num "sec:c2-le-systeme-de-raffinement"}[] en montre l'origine. L'ordre de précision modal
 $`\text{Unr} \sqsubseteq \text{Aff} \sqsubseteq \text{Lin}` du chapitre 1 est la restriction de
 $`\sqsubseteq` à la seule dimension des modalités d'usage. Une modalité est d'autant plus précise
-qu'elle contraint davantage l'usage. Ce n'est pas le sous-typage $`\preccurlyeq` de l'annexe, qui
+qu'elle contraint davantage l'usage. Ce n'est pas le sous-typage $`\preccurlyeq` des règles de typage, qui
 descend sur l'usage ($`!\omega\,A <: {!}1\,A`) : les deux ordres sont opposés sur cette seule
 composante. Les foncteurs d'inclusion du §{num "sec:c2-la-comonade-exponentielle-et"}[] réalisent
 catégoriquement cette stratification sur les fragments eux-mêmes. Types dépendants, raffinements, sessions et existentielles,

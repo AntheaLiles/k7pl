@@ -13,14 +13,13 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.2. Grammaire des termes" =>
+#doc (Manual) "Grammaire des termes" =>
 %%%
 file := "g-grammaire-termes"
 tag := "g-grammaire-termes"
-number := false
 %%%
 
-{label "sec:g-grammaire-termes" (display := "E.2")}
+{label "sec:g-grammaire-termes"}
 
 ::::formula (label := "eq:grammaire-termes") (kind := "formule")
 ```

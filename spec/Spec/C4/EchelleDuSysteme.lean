@@ -158,7 +158,7 @@ compilation, et l'ordre d'évaluation est fixé ; l'égalité observationnelle 
 théorème {num "thm:determinisme_rejeu"}[] se transporte alors en identité de représentation.
 
 _Trois rejeux, une seule relation._ Ce document en distingue trois — le rejeu logique, l'identité
-binaire, et le rejeu stratifié par niveau de l'annexe — et ils ne sont pas trois notions mais _trois
+binaire, et le rejeu stratifié par niveau du §{num "sec:g-semantique"}[] — et ils ne sont pas trois notions mais _trois
 instances de la même_ : l'égalité modulo une projection. Le premier projette sur l'observation, le
 deuxième sur la représentation, le troisième sur un niveau. Les trois sont donc des instances du
 schéma de restriction (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
@@ -471,7 +471,7 @@ $`M(x) \neq \emptyset \land M(y) \neq \emptyset \iff M \xrightarrow{J} P`.
 
 :::proofsketch
 La consommation simultanée n'est pas un protocole d'appariement à construire : c'est l'opération
-native de la règle {sc}[Guard] de l'annexe (§{num "sec:g-couche2"}[]), dont la prémisse décompose le
+native de la règle {sc}[Guard] (§{num "sec:g-couche2"}[]), dont la prémisse décompose le
 motif de la boîte en $`\sum_i m_i[\overline{V_i}] \cdot E_i` et dont la conclusion rend la
 continuation de motif. Le motif $`J` est une coupure de logique linéaire exigeant $`x` et $`y`
 simultanément — le produit tensoriel $`x \otimes y` du chapitre 1

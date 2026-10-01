@@ -132,8 +132,8 @@ def run():
         ok("grammaire et règles coïncident")
     ok("%d règles de typage, dont %d sans constructeur de terme" % (len(rules), len(rules & NO_TERM)))
     ok("%d constructeurs de termes : %d valeurs, %d calculs" % (len(governed), len(values), len(computations)))
-    stated_rules = re.search(r"(\w[\w-]*) règles de typage", corpus.chapter("AnnexeE"))
-    stated_ctors = re.search(r"(\w[\w-]*) constructeurs", corpus.chapter("AnnexeE"))
+    stated_rules = re.search(r"(\w[\w-]*) règles de typage", corpus.chapter("C3"))
+    stated_ctors = re.search(r"(\w[\w-]*) constructeurs", corpus.chapter("C3"))
     NUMBERS = {"quarante-neuf": 49, "quarante-cinq": 45}
     for label, found, real in (("règles de typage", stated_rules, len(rules)), ("constructeurs", stated_ctors, len(governed))):
         if found and found.group(1) in NUMBERS and NUMBERS[found.group(1)] != real:

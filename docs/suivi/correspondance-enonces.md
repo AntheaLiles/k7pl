@@ -34,40 +34,40 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 25 | 13 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | §3.2 | 1 |
 | 26 | — | `thm:representation_inobservable` | exigence | representation | aucune liberté de représentation n'est observable | §3.2 | 0 |
 | 27 | 14 | `thm:preservation_type` | theoreme | langage | préservation du type | §3.3 | 0 |
-| 28 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 5 |
-| 29 | 16 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | §4.4 | 1 |
-| 30 | — | `thm:introduction_unique` | proposition | langage | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
-| 31 | 17 | `thm:determinisme_rejeu` | theoreme | langage | déterminisme logique du rejeu | §4.5 | 1 |
-| 32 | — | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 0 |
-| 33 | 18 | `thm:liberte_initialisation` | theoreme | langage | liberté d'initialisation par DAG topologique | §4.5 | 0 |
-| 34 | 19 | `thm:sync_motifs_jonction` | theoreme | langage | synchronisation atomique des motifs de jonction | §4.5 | 1 |
-| 35 | 20 | `thm:surete_ffi` | theoreme | langage | sûreté FFI par la passerelle de capacité | §4.5 | 0 |
-| 36 | — | `thm:revocation_ffi` | exigence | representation | révocation à la frontière étrangère | §4.5 | 0 |
-| 37 | 21 | `thm:traduction_metalangage` | theoreme | langage | la traduction préserve le typage | §4.6 | 11 |
-| 38 | — | `thm:simulation` | proposition | langage | simulation de la relation de réduction par la traduction | §4.6 | 0 |
-| 39 | 22 | `thm:fidelite_interprete` | proposition | langage | fidélité de l'interpréteur de référence | §4.6 | 3 |
-| 40 | 23 | `thm:staticite_syntaxe` | theoreme | langage | staticité de la syntaxe | §5.2 | 1 |
-| 41 | 24 | `thm:hygiene` | theoreme | langage | hygiène des expansions | §5.2 | 1 |
-| 42 | — | `thm:elaboration` | definition | langage | élaboration | §5.3 | 1 |
-| 43 | 25 | `thm:expansion_macro` | theoreme | langage | la règle d'expansion est dérivable | §5.4 | 2 |
-| 44 | — | `thm:stabilisation_pipeline` | theoreme | langage | stabilisation du pipeline | §6.1 | 0 |
-| 45 | 26 | `thm:interface_jugement` | definition | langage | l'interface d'une unité de compilation est son jugement | §6.2 | 0 |
-| 46 | 27 | `thm:rejet_reproductible` | theoreme | langage | reproductibilité du rejet | §6.2 | 3 |
-| 47 | 28 | `thm:abaissement_grades` | conjecture | compilation | l'abaissement préserve le jugement gradué | §6.2 | 2 |
-| 48 | 29 | `thm:temps_mononiveau` | theoreme | langage | le cas mononiveau redonne la forme plate | §E.1 | 1 |
-| 49 | 30 | `thm:boxtimes_addition` | theoreme | langage | $`\boxtimes` généralise l'addition ponctuelle | §E.3 | 0 |
-| 50 | 31 | `thm:coherence_subsomption` | proposition | langage | cohérence de la subsomption | §E.3 | 3 |
-| 51 | 32 | `thm:commutation_monoide` | theoreme | langage | commutation des deux familles | §E.3 | 0 |
-| 52 | — | `thm:determinisme_parallele` | theoreme | langage | déterminisme du parallélisme de couche 3 | §E.3 | 0 |
-| 53 | 34 | `thm:substitution` | theoreme | langage | substitution sur trois niveaux | §E.3 | 6 |
-| 54 | 35 | `thm:substitution_simultanee` | theoreme | langage | substitution simultanée — corollaire de la substitution élémentaire | §E.3 | 1 |
-| 55 | 36 | `thm:preservation` | theoreme | langage | préservation | §E.4 | 3 |
-| 56 | 37 | `thm:progres` | theoreme | langage | progrès | §E.4 | 0 |
-| 57 | 38 | `thm:correction_ressource` | theoreme | langage | correction de ressource | §E.4 | 0 |
-| 58 | 39 | `thm:stratification_journal` | theoreme | langage | stratification du journal | §E.4 | 0 |
-| 59 | — | `thm:relation_produit` | proposition | langage | relation logique sur un produit de structures ordonnées | §E.4 | 0 |
-| 60 | 40 | `thm:lemme_fondamental` | theoreme | langage | lemme fondamental | §E.4 | 4 |
-| 61 | 41 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | §E.4 | 0 |
-| 62 | 42 | `thm:image_fix` | theoreme | langage | image du point fixe déductif | §E.4 | 0 |
-| 63 | 43 | `thm:cloture_sortage` | theoreme | langage | clôture du bon sortage par substitution | §E.5 | 0 |
-| 64 | 44 | `thm:confinement_sortes` | theoreme | langage | confinement des canaux distingués | §E.5 | 2 |
+| 28 | 29 | `thm:temps_mononiveau` | theoreme | langage | le cas mononiveau redonne la forme plate | §3.4 | 1 |
+| 29 | 30 | `thm:boxtimes_addition` | theoreme | langage | $`\boxtimes` généralise l'addition ponctuelle | §3.6 | 0 |
+| 30 | 31 | `thm:coherence_subsomption` | proposition | langage | cohérence de la subsomption | §3.6 | 3 |
+| 31 | 32 | `thm:commutation_monoide` | theoreme | langage | commutation des deux familles | §3.6 | 0 |
+| 32 | — | `thm:determinisme_parallele` | theoreme | langage | déterminisme du parallélisme de couche 3 | §3.6 | 0 |
+| 33 | 34 | `thm:substitution` | theoreme | langage | substitution sur trois niveaux | §3.6 | 6 |
+| 34 | 35 | `thm:substitution_simultanee` | theoreme | langage | substitution simultanée — corollaire de la substitution élémentaire | §3.6 | 1 |
+| 35 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 5 |
+| 36 | 16 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | §4.4 | 1 |
+| 37 | — | `thm:introduction_unique` | proposition | langage | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
+| 38 | 17 | `thm:determinisme_rejeu` | theoreme | langage | déterminisme logique du rejeu | §4.5 | 1 |
+| 39 | — | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 0 |
+| 40 | 18 | `thm:liberte_initialisation` | theoreme | langage | liberté d'initialisation par DAG topologique | §4.5 | 0 |
+| 41 | 19 | `thm:sync_motifs_jonction` | theoreme | langage | synchronisation atomique des motifs de jonction | §4.5 | 1 |
+| 42 | 20 | `thm:surete_ffi` | theoreme | langage | sûreté FFI par la passerelle de capacité | §4.5 | 0 |
+| 43 | — | `thm:revocation_ffi` | exigence | representation | révocation à la frontière étrangère | §4.5 | 0 |
+| 44 | 21 | `thm:traduction_metalangage` | theoreme | langage | la traduction préserve le typage | §4.6 | 11 |
+| 45 | — | `thm:simulation` | proposition | langage | simulation de la relation de réduction par la traduction | §4.6 | 0 |
+| 46 | 22 | `thm:fidelite_interprete` | proposition | langage | fidélité de l'interpréteur de référence | §4.6 | 3 |
+| 47 | 36 | `thm:preservation` | theoreme | langage | préservation | §4.7 | 3 |
+| 48 | 37 | `thm:progres` | theoreme | langage | progrès | §4.7 | 0 |
+| 49 | 38 | `thm:correction_ressource` | theoreme | langage | correction de ressource | §4.7 | 0 |
+| 50 | 39 | `thm:stratification_journal` | theoreme | langage | stratification du journal | §4.7 | 0 |
+| 51 | — | `thm:relation_produit` | proposition | langage | relation logique sur un produit de structures ordonnées | §4.7 | 0 |
+| 52 | 40 | `thm:lemme_fondamental` | theoreme | langage | lemme fondamental | §4.7 | 4 |
+| 53 | 41 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | §4.7 | 0 |
+| 54 | 42 | `thm:image_fix` | theoreme | langage | image du point fixe déductif | §4.7 | 0 |
+| 55 | 43 | `thm:cloture_sortage` | theoreme | langage | clôture du bon sortage par substitution | §4.8 | 0 |
+| 56 | 44 | `thm:confinement_sortes` | theoreme | langage | confinement des canaux distingués | §4.8 | 2 |
+| 57 | 23 | `thm:staticite_syntaxe` | theoreme | langage | staticité de la syntaxe | §5.2 | 1 |
+| 58 | 24 | `thm:hygiene` | theoreme | langage | hygiène des expansions | §5.2 | 1 |
+| 59 | — | `thm:elaboration` | definition | langage | élaboration | §5.3 | 1 |
+| 60 | 25 | `thm:expansion_macro` | theoreme | langage | la règle d'expansion est dérivable | §5.4 | 2 |
+| 61 | — | `thm:stabilisation_pipeline` | theoreme | langage | stabilisation du pipeline | §6.1 | 0 |
+| 62 | 26 | `thm:interface_jugement` | definition | langage | l'interface d'une unité de compilation est son jugement | §6.2 | 0 |
+| 63 | 27 | `thm:rejet_reproductible` | theoreme | langage | reproductibilité du rejet | §6.2 | 3 |
+| 64 | 28 | `thm:abaissement_grades` | conjecture | compilation | l'abaissement préserve le jugement gradué | §6.2 | 2 |

@@ -1,35 +1,14 @@
--- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
---
--- SPDX-License-Identifier: CC-BY-4.0
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 
--- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
--- introduces this file on, the Verso source is the source of truth: edit it directly.
+SPDX-License-Identifier: CC-BY-4.0
+-->
 
-import VersoManual
-import SpecExt
-import Spec.AnnexeE.GrammaireDesTypes
-import Spec.AnnexeE.GrammaireDesTermes
-import Spec.AnnexeE.ReglesDeTypage
-import Spec.AnnexeE.SemantiqueOperationnelle
-import Spec.AnnexeE.LeSystemeDeSortesDuMetalangage
-import Spec.AnnexeE.CeQueChaquePreuveOuverteYPuise
-import Spec.AnnexeE.TableDesGlyphes
+# Préambule de l'ancienne annexe E (Présentation formelle)
 
-open Verso.Genre Manual
-open SpecExt
-
-set_option linter.unusedVariables false
-
-#doc (Manual) "E. PRESENTATION FORMELLE" =>
-%%%
-file := "annexe-semantique"
-tag := "annexe-semantique"
-number := false
-%%%
-
-{refsection "k7-semantique"}
-
-{label "sec:annexe-presentation-formelle" (display := "E")}
+L'annexe E a été fondue dans les chapitres 1, 3 et 4 le 1er octobre 2026 (voir
+`docs/journal/2026-10-01-pr-02-15-fusion-annexe-e.md`). Texte de son préambule, conservé tel quel
+(syntaxe Verso, références `{num}` non résolues ici) :
 
 Cette annexe porte ce que le corps du document décrit sans le poser : la grammaire des types et des
 termes, le jeu des règles de typage, et la sémantique opérationnelle sur laquelle les énoncés des
@@ -52,17 +31,3 @@ sont plus des objets manquants mais des propriétés à établir sur des objets 
 du typage par la traduction, la non-interférence graduée, la divulgation délimitée, les règles de la
 loi distributive et celles de la gradation indexée. Chacune est une induction ou une relation
 logique, et chacune a désormais le support dont elle a besoin.
-
-{include 0 Spec.AnnexeE.GrammaireDesTypes}
-
-{include 0 Spec.AnnexeE.GrammaireDesTermes}
-
-{include 0 Spec.AnnexeE.ReglesDeTypage}
-
-{include 0 Spec.AnnexeE.SemantiqueOperationnelle}
-
-{include 0 Spec.AnnexeE.LeSystemeDeSortesDuMetalangage}
-
-{include 0 Spec.AnnexeE.CeQueChaquePreuveOuverteYPuise}
-
-{include 0 Spec.AnnexeE.TableDesGlyphes}

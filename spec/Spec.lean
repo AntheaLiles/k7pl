@@ -19,7 +19,6 @@ import Spec.AnnexeA
 import Spec.AnnexeB
 import Spec.AnnexeC
 import Spec.AnnexeD
-import Spec.AnnexeE
 
 open Verso.Genre Manual
 open SpecExt
@@ -64,4 +63,3 @@ DOI : [10.5281/zenodo.23040451](https://doi.org/10.5281/zenodo.23040451) · Sour
 
 {include 0 Spec.AnnexeD}
 
-{include 0 Spec.AnnexeE}
