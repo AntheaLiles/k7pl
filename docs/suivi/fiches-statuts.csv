@@ -56,19 +56,19 @@ PORT-17,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
 PREUVE-01,partielle,journal,journal/2026-10-01-pr-02-06-theoremes.md,énoncé repris sous concurrence ; la démonstration reste la dette la plus lourde
 PREUVE-02,ouverte,,,
 PREUVE-03,partielle,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,non-interférence séquentielle située ; déterminisme observationnel scellé conjecture sous hypothèse nommée
-PREUVE-04,ouverte,,,
+PREUVE-04,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"Th. 9 requalifié proposition, route nommée (paramétricité), renvoi corrigé ; preuve à conduire"
 PREUVE-05,ouverte,,,
 PREUVE-06,ouverte,,,
-PREUVE-07,ouverte,,,
-PREUVE-08,ouverte,,,
-PREUVE-09,ouverte,,,
-PREUVE-10,ouverte,,,
-PREUVE-11,ouverte,,,
-PREUVE-12,ouverte,,,
+PREUVE-07,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé thm:simulation écrit ; preuve par induction à conduire"
+PREUVE-08,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"lemme thm:troncature_comonade énoncé ; convention de remplissage à écrire"
+PREUVE-09,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé en deux temps ; hypothèse (ii) nommée exigence sur ℰ₀"
+PREUVE-10,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"réduction à la fonctorialité sur catégories minces ; définition des conversions à écrire"
+PREUVE-11,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé thm:relation_produit écrit ; détail par facteur à écrire"
+PREUVE-12,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"lemme de portée démontré (arithmétique d'intervalles) ; unicité H1 attend la règle d'introduction"
 PREUVE-13,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,l'absence d'interblocage n'emprunte plus : le graphe de câblage est lu des règles
-PREUVE-14,ouverte,,,
-PREUVE-15,ouverte,,,
-PREUVE-16,ouverte,,,
+PREUVE-14,fermee,journal,journal/2026-10-01-pr-02-14-preuves.md,"schéma de méta-théorème, deux instanciations aux conclusions distinctes"
+PREUVE-15,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"D_det écrite (parcours, recherche, graine) en E.4.1 ; implémentation à spécifier dans l'outillage"
+PREUVE-16,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé en deux temps, contrainte d'outil nommée ; cas gradué ouvert"
 NOTA-01,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
 NOTA-02,ouverte,,,
 NOTA-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,

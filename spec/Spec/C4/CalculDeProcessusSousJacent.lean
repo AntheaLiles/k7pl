@@ -296,6 +296,30 @@ celles du métalangage. Comme celui-ci est interprété une fois pour toutes, co
 se raisonnent à son niveau et non sur chaque construction de K7PL. Cette remarque se laisse porter
 jusqu'à un énoncé, qui dit ce qu'un interpréteur de référence garantit et ce qu'il ne garantit pas.
 
+::::thm (label := "thm:simulation") (status := "proposition")
+:::title
+simulation de la relation de réduction par la traduction
+:::
+
+:::statement +titled
+Chaque pas de K7PL est suivi par au moins un pas du métalangage
+
+$`\langle c \mid \mu \mid \tau \rangle \to \langle c' \mid \mu' \mid \tau' \rangle` entraîne
+$`\llbracket c \rrbracket \to^{+} \llbracket c' \rrbracket` modulo $`\equiv`, et la trace
+$`\tau'` étend $`\tau` par l'image des événements du pas.
+:::
+
+:::proofsketch
+Par induction sur la dérivation du pas, dont les cas sont ceux que l'annexe énumère pour la
+préservation du typage (§{num "sec:annexe-presentation-formelle"}[]) : c'est la même induction, où l'on
+suit le terme image au lieu de son type. Le point délicat est la trace. La composition parallèle du
+métalangage est commutative, et ne distingue pas deux événements que la source ordonne ; c'est le
+préfixage qui les sérialise, et le cas de $`\mathbf{tick}` doit le montrer. Non démontrée ici : la
+proposition est l'hypothèse Sim du théorème {num "thm:fidelite_interprete"}[], et elle en est aussi
+la dette.
+:::
+::::
+
 ::::thm (label := "thm:fidelite_interprete") (status := "proposition")
 :::title
 fidélité de l'interpréteur de référence

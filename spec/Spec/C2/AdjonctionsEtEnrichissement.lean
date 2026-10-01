@@ -243,13 +243,16 @@ $`\mathcal{X}`_, les exécutions $`P(s_1)` et $`P(s_2)` sont indiscernables à c
 :::
 
 :::proofsketch
-La quantification est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau
-$`\ell` produisent des sorties indiscernables — ce serait la non-interférence, que la
-déclassification viole par construction — mais que deux états qui s'accordent _en outre_ sur les
-échappatoires le fassent. La différence mesure ce que $`\mathcal{X}` libère, et rien de plus : si
-une exécution divulguait une information qu'aucune expression de $`\mathcal{X}` ne détermine, il
-existerait deux états s'accordant sur toutes ces expressions et néanmoins distinguables, ce que
-l'énoncé interdit.
+Non démontré : l'énoncé est une proposition, et ce croquis n'en est que le plan. La quantification
+est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell` produisent
+des sorties indiscernables — ce serait la non-interférence, que la déclassification viole par
+construction — mais que deux états qui s'accordent _en outre_ sur les échappatoires le fassent. La
+route est la paramétricité par les existentielles : on construit la relation logique qui relie deux
+états s'accordant sur $`\ell` et sur $`\mathcal{X}`, et le lemme fondamental
+(théorème {num "thm:lemme_fondamental"}[]) l'étend à tout programme bien typé. Elle suppose la clause
+de clôture des échappatoires posée plus haut (chaque $`e \in \mathcal{X}` est close), faute de quoi
+la substitution ouvrirait le contournement par blanchiment, et le lemme de non-interférence du
+théorème {num "thm:non_interference"}[] pour les cas où aucune déclassification n'est employée.
 :::
 ::::
 
@@ -264,7 +267,7 @@ déclassification doit être retirée du langage ou confinée à un mécanisme h
 
 Cet énoncé est celui de la divulgation délimitée {cite "sabelfeldModelDelimitedInformation2004"}[],
 transposé au régime gradué de ce chapitre. Ce document en reprend la formulation et n'en conduit pas
-la preuve pour K7PL. Il note en revanche que la voie est la même que celle du théorème suivant, la
+la preuve pour K7PL. Il note en revanche que la voie est celle de la non-interférence graduée (théorème {num "thm:non_interference"}[]), la
 quantification sur les états s'obtenant par la relation qu'une lecture paramétrique fournit.
 
 Deux conséquences en découlent, dont la seconde est celle qui compte. La première est que

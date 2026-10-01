@@ -223,7 +223,10 @@ Convergence des points fixes imbriqués
 
 Soient $`F` et $`G` des conteneurs, $`F` engendrant les structures finies de couche 3 et $`G` l'état
 des générateurs de couche 2. Alors l'objet $`\nu Y.\, G(\mu X.\, F(X,Y))` est bien défini, et la
-suite de ses approximations finies converge vers lui.
+suite de ses approximations finies converge vers lui. Cet énoncé vaut en deux temps : (i) pour des
+conteneurs _non gradués_, résultat de la littérature, repris ici ; (ii) pour des conteneurs
+_gradués_, c'est une exigence ouverte, dont la route est une démonstration et dont la contrainte
+d'outil est nommée (note ci-dessous).
 :::
 
 :::proofsketch
@@ -371,6 +374,12 @@ demande.
 Ce qui est commun aux deux instances, et qui fait le schéma, est que la mesure est portée par le
 _type_ et non inspectée sur la syntaxe du terme : l'argument ne dépend donc pas de la forme du
 terme. Ce qui les sépare est la sorte, et elle est déterminée par la polarité.
+
+Le théorème est donc un _schéma de méta-théorème_ à deux instanciations, dont les conclusions ne
+sont pas identiques : en couche 3 on démontre l'épuisement d'une structure finie, en couche 2
+l'apparition d'une observation en temps fini. Le mot « progression » est choisi pour couvrir les
+deux, il n'affirme pas qu'elles ont la même conclusion sémantique, et rien n'est à déduire de l'une
+pour l'autre au-delà du schéma.
 :::
 ::::
 
@@ -513,6 +522,33 @@ $`r`. Le travail par nœud est en $`O(r)` et le total en $`O(n \cdot r)`, donc l
 de l'entrée à grade fixé — et $`r` étant un grade, ce facteur est connu à la compilation, ce que P3
 exige. L'espace, lui, passe de $`O(n)` pour la table entière à $`O(r)` pour la fenêtre : c'est la
 borne mémoire que cette section annonce, et c'est la troncature qui la donne.
+
+::::thm (label := "thm:troncature_comonade") (status := "proposition")
+:::title
+la troncature est un morphisme de comonades
+:::
+
+:::statement +titled
+Condition de préservation des lois de comonade par la troncature
+
+Soit $`T_r : N \Rightarrow N_r` le foncteur de troncature à $`r` niveaux. $`T_r` est un morphisme
+de comonades si et seulement si la convention de remplissage au rang $`r` est idempotente _et_ $`F`
+préserve les troncatures. Sous ces deux conditions $`N_r` est une comonade, et
+$`\lambda_r = T_r \circ \lambda \circ F(\eta_r)` satisfait les deux conditions de cohérence.
+:::
+
+:::proofsketch
+Le point de difficulté est le _rang frontière_ : $`N_r \delta_r` et $`\delta_r N_r` appliquent deux
+troncatures à des profondeurs différentes, et leur égalité dépend de la convention de remplissage au
+rang $`r`, que le document pratique sans l'avoir nommée. Les deux conditions de cohérence de la
+comonade cofree non tronquée sont un résultat de la littérature ; la préservation par troncature est
+le seul point propre à K7PL. Non démontrée : la convention doit être écrite, puis la condition
+vérifiée pour chaque $`F` admis. Si elle échoue pour un $`F`, la classe des conteneurs admissibles se
+restreint — restriction de domaine, non mécanisme. Les bornes $`O(r)` en espace et $`O(n \cdot r)` en
+temps de ce qui suit en dépendent.
+:::
+::::
+
 
 La troncature n'est pas propre à ce pli : elle est la même fenêtre sur un objet coinductif que la
 borne de profondeur de pile de l'automate à pile (chapitre 4) et la taille de pile précalculée du
