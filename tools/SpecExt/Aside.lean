@@ -52,6 +52,21 @@ inline_extension Inline.amp where
 meta def amp : RoleExpanderOf Unit
   | (), _ => ``(Verso.Doc.Inline.other SpecExt.Inline.amp #[])
 
+inline_extension Inline.ccby where
+  data := Json.null
+  traverse _ _ _ := pure none
+  toHtml := some fun _ _ _ _ =>
+    pure {{<a class="k7-cc" rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+      <img alt="CC BY 4.0" style="border-width:0" width="88" height="31"
+        src="https://licensebuttons.net/l/by/4.0/88x31.png"/></a>}}
+  toTeX := some fun _ _ _ _ =>
+    pure (.raw "\\href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}")
+
+/-- The official Creative Commons Attribution 4.0 badge (a text link in the PDF). -/
+@[role]
+meta def ccby : RoleExpanderOf Unit
+  | (), _ => ``(Verso.Doc.Inline.other SpecExt.Inline.ccby #[])
+
 /-- A remark in the margin. -/
 @[role]
 meta def rmq : RoleExpanderOf Unit
