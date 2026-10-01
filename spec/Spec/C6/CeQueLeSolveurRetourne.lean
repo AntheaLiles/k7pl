@@ -67,14 +67,13 @@ Trois obligations, trois composantes
 
 Le jugement $`\Delta \vdash_{\mathcal{G}} t : A \mid \mathcal{E}` porte exactement les trois
 obligations d'une interface : $`\Delta` dit ce que l'unité _exige_, $`A` ce qu'elle _est_,
-$`\mathcal{E}` ce qu'elle _produit_. Aucune obligation ne déborde de ces trois, et aucune des trois
-n'est vide de contenu d'interface.
+$`\mathcal{E}` ce qu'elle _produit_. C'est une définition : l'interface _est_ le jugement. Elle s'accompagne d'une clôture _locale_ : pour les formes de déclaration énumérées dans ce chapitre, aucune obligation ne demande une quatrième composante, et aucune des trois n'est vide de contenu d'interface.
 :::
 
 :::proofsketch
 L'énoncé ne se démontre pas, il se _montre_ : il s'agit de vérifier, par énumération sur les formes
 de déclaration de ce chapitre, que chacune se range dans l'une des trois composantes et qu'aucune
-n'en demande une quatrième. L'énumération est finie et se conduit à la lecture.
+n'en demande une quatrième. L'énumération est finie et se conduit à la lecture. La clôture ne vaut que pour ces formes : elle est suffisante, non nécessaire, et une extension qui exigerait une quatrième composante — l'extension probabiliste du chapitre 4, dont le raisonnement statique demande deux notions que K7PL n'a pas — ne la contredit pas mais appelle la clause de révision de l'axiome (chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]).
 :::
 ::::
 
@@ -372,8 +371,7 @@ voie connue.
 
 Le terme optimisé descend enfin vers MLIR puis LLVM : les tableaux de couche 3 vers `memref.alloc`,
 les automates du chapitre 4 vers le dialecte `K7PL.FSM`. Les correspondances de disposition du
-chapitre 4 (théorème {num "thm:isomorphisme_memoire"}[]) rendent cette génération de code directe —
-les tampons de couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto. L'édition de liens
+chapitre 4 (théorème {num "thm:isomorphisme_memoire"}[]) rendent cette génération de code directe _dans le domaine de ce théorème_ — les tampons de couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto, pour les scalaires primitifs —, une transposition en $`O(n)` étant requise dès qu'une liste de structures est en jeu. L'édition de liens
 qui referme le pipeline purge tout bloc de spécification — doctests, assertions `comptime` — sauf en
 mode `+introspect`, garantie que le DAG de dépendance rend structurelle plutôt que déclarative
 (`ERR-TOP-003`). Le binaire résultant, adressé par le condensat BLAKE3 de son AST normalisé plutôt

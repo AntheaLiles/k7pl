@@ -77,13 +77,17 @@ tag := "c5-ce-qu-une-macro-declare-la-regle-d-expansion-qui-n-est-pa"
 ::::formula (label := "eq:regle-expansion") (kind := "formule")
 ```
 \begin{equation*}
-\textsc{Expand}\;\frac{\;m : (x_i :_{r_i} \mathsf{AST}\,\Gamma\,A_i)_{i \leq n} \Rightarrow \mathsf{AST}\,(\Gamma,\overline{x})\,B \mid \varepsilon_m \qquad \Delta_i \vdash t_i : A_i \mid \varepsilon_i\;}{\;\boxtimes_{i}\,(r_i \cdot \Delta_i) \;\vdash\; m(t_1,\ldots,t_n) : B \;\mid\; \varepsilon_m \cdot \textstyle\prod_i \varphi_{r_i}(\varepsilon_i)\;}
+\textsc{Expand}\;\frac{\;m : (x_i :_{r_i} \mathsf{AST}\,\Gamma\,A_i)_{i \leq n} \Rightarrow \mathsf{AST}\,(\Gamma,\overline{x})\,B \mid \varepsilon_{\mathrm{body}} \qquad \Delta_i \vdash t_i : A_i \mid \varepsilon_i\;}{\;\boxtimes_{i}\,(r_i \cdot \Delta_i) \;\vdash\; m(t_1,\ldots,t_n) : B \;\mid\; \varepsilon_{\mathrm{body}} \cdot \textstyle\prod_{i \in \mathrm{occ}(m)} \varphi_{r_i}(\varepsilon_i)\;}
 \end{equation*}
 ```
 
 :::caption
 Typage d'une expansion de macro. Aucune de ses parties n'est nouvelle : le contexte est celui du
-lemme de substitution, l'effet celui du transport $`\varphi`.
+lemme de substitution, l'effet celui du transport $`\varphi`. Le produit est celui de la quantale, non
+commutatif : $`\mathrm{occ}(m)` est la _suite_ des occurrences des métavariables dans l'ordre du
+corps, non l'ensemble des indices $`i \leq n`. $`\varepsilon_{\mathrm{body}}` est l'effet déclaré du
+code produit hors arguments ; l'effet de l'expansion elle-même, $`\varepsilon_{\mathrm{exp}} = \mathbf{1}`, est un lemme du bac à
+sable, non une déclaration.
 :::
 ::::
 
@@ -116,7 +120,7 @@ et la règle serait fausse pour la même raison que le lemme de substitution le 
 
 _Ce que ce théorème vaut._ Il dit que le macro-système ne se paie d'aucun appareil : la condition de
 clôture du chapitre 1 — toute extension se projette sur les trois composantes sans altérer la
-sémantique — est vérifiée ici sur l'extension la plus lourde que le langage porte. La compatibilité
+sémantique — est vérifiée ici sur l'extension la plus lourde que le langage porte. Cette condition est suffisante, non nécessaire : une extension peut satisfaire les postulats sans s'y ranger, mais exige alors la révision de l'axiome. La compatibilité
 de l'action graduée (théorème {num "thm:coherence_axiome"}[]) y sert comme partout ailleurs.
 :::
 ::::
@@ -140,7 +144,7 @@ Les quatre contrôles que le vérificateur porte sur le corps de la macro avant 
   * le grade $`r_i` majore le nombre d'occurrences de $`x_i` dans le corps
   * comptage
 * * 2
-  * l'effet $`\varepsilon_m` majore ce que le corps compose
+  * l'effet $`\varepsilon_{\mathrm{body}}` majore les opérations du corps hors occurrences des arguments
   * lecture des opérations employées
 * * 3
   * la couche déclarée admet les opérations du corps

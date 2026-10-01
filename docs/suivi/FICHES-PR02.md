@@ -10,9 +10,9 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 |---|--:|--:|--:|--:|--:|--:|--:|
 | `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
 | `STRUCT` Structurels | 23 | 5 | 1 | 0 | 0 | 0 | 17 |
-| `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
+| `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
-| `NOTA` Notation, comptes, renvois | 8 | 3 | 0 | 0 | 0 | 0 | 5 |
+| `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
 | `IMPL` Implémentation et outillage | 9 | 1 | 0 | 0 | 0 | 0 | 8 |
 | `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
@@ -20,7 +20,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **61** | **22** | **1** | **3** | **2** | **101** |
+| **Total** | **190** | **72** | **22** | **1** | **3** | **2** | **90** |
 
 ## BLOQ — Bloquants
 
@@ -73,20 +73,20 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 
 | Fiche | État | Titre | Preuve · note |
 |---|---|---|---|
-| `PORT-01` | ⬜ ouverte | Zéro-copie : trois affirmations de portées inégales présentées comme une seule ; Th. 20 sans paramètre de version |  |
+| `PORT-01` | ✅ fermée | Zéro-copie : trois affirmations de portées inégales présentées comme une seule ; Th. 20 sans paramètre de version | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · domaine et profil Π écrits ; rappel au §6.1 ; endianness et alignement |
 | `PORT-02` | ✅ fermée | « L'isolation repose entièrement sur les types » : la réserve est écrite, l'affirmation n'est pas corrigée | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) |
 | `PORT-03` | ✅ fermée | « À l'exécution, l'audit trouve trois régions et non six » : un décompte sans méthode | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) |
 | `PORT-04` | ✅ fermée | Le rejeu bit-à-bit : hypothèse insuffisante, et un autre théorème l'élargit sans le dire | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `PORT-05` | ✅ fermée | Le Th. 26 énonce comme conclusion ce que la remarque suivante retire et ce que le paragraphe précédent déclare manquant | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · thm:surete_ffi scindé : clause 1 théorème, clause 2 exigence ⟨représentation⟩ |
-| `PORT-06` | ⬜ ouverte | Le Th. 34 ré-affirme comme théorème la direction que le ch. 1 a explicitement retirée |  |
-| `PORT-07` | ⬜ ouverte | Le Th. 16 (complétude graduée) est une propriété du vérificateur prouvée par énumération sur un catalogue déclaré non exhaustif |  |
+| `PORT-06` | ✅ fermée | Le Th. 34 ré-affirme comme théorème la direction que le ch. 1 a explicitement retirée | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · Th. 34 : définition + clôture locale, suffisante non nécessaire |
+| `PORT-07` | ✅ fermée | Le Th. 16 (complétude graduée) est une propriété du vérificateur prouvée par énumération sur un catalogue déclaré non exhaustif | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · complétude restreinte au noyau ; exigence thm:completude_verificateur ; comptes retirés |
 | `PORT-08` | ✅ fermée | Le Th. 31 quantifie sur une fonction `Sens` jamais définie ; le Th. 29 est un faux corollaire | [deduite](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · thm:elaboration requalifié définition — à confirmer |
 | `PORT-09` | ✅ fermée | Amortissement et pire cas : P3 doit dire lequel il gouverne | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `PORT-10` | ✅ fermée | Le budget est une borne supérieure dont l'écart au coût réel n'est pas borné | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) |
 | `PORT-11` | ✅ fermée | « Deux paquets sémantiquement équivalents partagent un hash » est faux dans la construction actuelle | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) |
-| `PORT-12` | ⬜ ouverte | R-expressions : trois écarts entre la classe de machine et la borne annoncée |  |
-| `PORT-13` | ⬜ ouverte | La condition de clôture doit être énoncée comme suffisante, non nécessaire |  |
-| `PORT-14` | ⬜ ouverte | Trois réserves déjà identifiées mais laissées hors des énoncés |  |
+| `PORT-12` | ✅ fermée | R-expressions : trois écarts entre la classe de machine et la borne annoncée | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · §4.2 : O(n), @stack/@backtrack, pile bornée ; figure 7 corrigée |
+| `PORT-13` | ✅ fermée | La condition de clôture doit être énoncée comme suffisante, non nécessaire | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · propagée aux ch. 5 et 6 |
+| `PORT-14` | ✅ fermée | Trois réserves déjà identifiées mais laissées hors des énoncés | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · hygiène graduée et resucrage ; Th. 19 scindé ; sédimentation en deux temps |
 | `PORT-15` | ✅ fermée | La sédimentation s'inverse sur deux axes, pas un ; la réserve du §1.2 doit être mise à jour | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) |
 | `PORT-16` | ✅ fermée | Le Th. 36 est affirmé comme acquis au ch. 3 et déclaré non démontré au ch. 6 | [deduite](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · thm:abaissement_grades requalifié conjecture ⟨compilation⟩ — à confirmer |
 | `PORT-17` | ✅ fermée | Le manuscrit revendique à la fois un modèle invariant par équivalence et une détermination de la représentation, sans dire que les deux tirent en sens opposé | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) |
@@ -117,12 +117,12 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | Fiche | État | Titre | Preuve · note |
 |---|---|---|---|
 | `NOTA-01` | ✅ fermée | La table 5 est déclarée normative et le document la contredit : 12 collisions, 11 symboles hors table | [journal](../historique/2026-10-01-pr-02-avancement.md) |
-| `NOTA-02` | ⬜ ouverte | `tick` : instance ou constructeur ? |  |
+| `NOTA-02` | ✅ fermée | `tick` : instance ou constructeur ? | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · Tick déclarée admissible (instance d'Op) |
 | `NOTA-03` | ✅ fermée | Les comptes ne se recoupent pas : 39 / 35 / 34, et 19 / 18 / 49 / 21 | [journal](../historique/2026-10-01-pr-02-avancement.md) |
-| `NOTA-04` | ⬜ ouverte | Table 8 : la couche 3 a « Δ = ∅ », alors que le reste du document dit `Δ_ω` |  |
-| `NOTA-05` | ⬜ ouverte | `ε_m` désigne deux effets dans le Th. 32, et `∏_i` est non commutatif sur un ensemble d'indices non ordonné |  |
-| `NOTA-06` | ⬜ ouverte | Six défauts formels localisés, mécaniquement bloquants, vérifiables en une ligne |  |
-| `NOTA-07` | ⬜ ouverte | Identifiants de travail non résolus |  |
+| `NOTA-04` | ✅ fermée | Table 8 : la couche 3 a « Δ = ∅ », alors que le reste du document dit `Δ_ω` | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · Δ = Δ_ω au §5.1 et §5.5 |
+| `NOTA-05` | ✅ fermée | `ε_m` désigne deux effets dans le Th. 32, et `∏_i` est non commutatif sur un ensemble d'indices non ordonné | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · ε_exp, ε_body, occ(m) ; table 11 corrigée |
+| `NOTA-06` | ✅ fermée | Six défauts formels localisés, mécaniquement bloquants, vérifiables en une ligne | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · a, c, d, f corrigés ; b par renvoi ; e par BLOQ-02 |
+| `NOTA-07` | ✅ fermée | Identifiants de travail non résolus | [journal](../journal/2026-10-01-pr-02-16-nota-et-ratifications.md) · identifiants T-xx et G.x résolus en renvois de section |
 | `NOTA-08` | ✅ fermée | Corriger les renvois faux de pureté des gestionnaires | [journal](../journal/2026-09-30-pr-02-03-vague-0-fin.md) · deux renvois faux, définition de la pureté des gestionnaires |
 
 ## IMPL — Implémentation et outillage

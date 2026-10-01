@@ -4,12 +4,12 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;flowchart LR\n    DFA[\&quot;@linear — DFA&lt;br/&gt;O(1), masquage SIMD\&quot;] --&gt; NFA[\&quot;@polynomial — NFA\&quot;]\n    NFA --&gt; PDA[\&quot;@exponential — PDA&lt;br/&gt;profondeur bornée par un grade\&quot;]&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="lWkAlo1ivydHB6liviTF-1">
+        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;flowchart LR\n    DFA[\&quot;@linear — DFA&lt;br/&gt;O(n) ; O(1)/bloc\&quot;] --&gt; NFA[\&quot;@polynomial — NFA\&quot;]\n    NFA --&gt; PDA[\&quot;@stack — PDA&lt;br/&gt;profondeur bornée par un grade\&quot;]&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="lWkAlo1ivydHB6liviTF-1">
           <mxCell connectable="0" parent="1" style="group;transparentBounds=1;editIcon=1;lockedGroup=0;groupPadding=10;" vertex="1">
             <mxGeometry as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="@linear — DFA&#xa;O(1), masquage SIMD" mermaidId="n:DFA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="@linear — DFA&#xa;O(1), masquage SIMD" id="lWkAlo1ivydHB6liviTF-2">
+        <UserObject label="@linear — DFA&#xa;O(n) ; O(1)/bloc" mermaidId="n:DFA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="@linear — DFA&#xa;O(n) ; O(1)/bloc" id="lWkAlo1ivydHB6liviTF-2">
           <mxCell parent="lWkAlo1ivydHB6liviTF-1" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
             <mxGeometry height="73" width="211" x="30" y="30" as="geometry" />
           </mxCell>
@@ -19,7 +19,7 @@
             <mxGeometry height="54" width="198" x="291" y="40" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="@exponential — PDA&#xa;profondeur bornée par un grade" mermaidId="n:PDA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="@exponential — PDA&#xa;profondeur bornée par un grade" id="lWkAlo1ivydHB6liviTF-4">
+        <UserObject label="@stack — PDA&#xa;profondeur bornée par un grade" mermaidId="n:PDA" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="@stack — PDA&#xa;profondeur bornée par un grade" id="lWkAlo1ivydHB6liviTF-4">
           <mxCell parent="lWkAlo1ivydHB6liviTF-1" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
             <mxGeometry height="73" width="290" x="539" y="30" as="geometry" />
           </mxCell>

@@ -519,26 +519,43 @@ complétude graduée
 :::statement +titled
 Tout refus est un échec de dérivation
 
-L'ensemble des programmes que le vérificateur _rejette_ est l'ensemble des programmes pour lesquels
-_aucune_ dérivation du jugement n'existe. Autrement dit, il n'existe aucune condition de bord
-vérifiée à côté du système de types.
+Pour tout constructeur du noyau (§{num "sec:g-grammaire-termes"}[]), tout refus du vérificateur est
+l'échec d'une prémisse d'une règle nommée du §{num "sec:g-regles"}[]. Autrement dit, pour ces
+constructeurs, il n'existe aucune condition de bord vérifiée à côté du système de types.
 :::
 
 :::proofsketch
-L'énoncé se vérifie par énumération, et c'est ce qui en fait un théorème plutôt qu'une déclaration :
-chaque code d'erreur du vérificateur doit être exhibé comme une dérivation qui échoue, et le
-catalogue des codes est fini. L'audit des dix-huit familles d'erreurs le conduit à la main,
-catégorie par catégorie ; les quatre catégories — grade, couche, effet, contrainte de valeur — s'y
-ramènent chacune à l'absence d'une prémisse dans une règle nommée.
+L'énoncé se vérifie par énumération sur une base _close_ : les codes d'erreur du noyau, et non le
+catalogue entier de l'annexe {num "sec:annexe-a-codes"}[], qui se déclare illustratif et non exhaustif et dont un tiers des
+codes porte sur des constructions hors du noyau — pour lesquelles l'exhibition d'une dérivation qui
+échoue n'a pas de sens. L'énumération se range selon quatre catégories — grade, couche, effet,
+contrainte de valeur — qui se ramènent chacune à l'absence d'une prémisse dans une règle nommée, et
+elle se vérifie mécaniquement : la table à deux colonnes code ⟷ prémisse manquante sur les
+constructeurs du noyau est un artefact exécutable, que le croisement des grammaires et des règles
+(`scripts/controle.py`) garde.
 
-Le sens réciproque est immédiat par correction du typage : un programme dérivable est accepté,
-puisque le vérificateur implante les règles.
+Le sens réciproque — un programme dérivable est accepté — n'est pas un théorème : c'est une
+propriété d'implémentation, énoncée ci-dessous comme exigence, et non une prémisse promue.
 
 Une hypothèse est nécessaire et elle est nommée ici plutôt que découverte plus loin : la _frontière
 de confiance_ du §{num "sec:c3-structures-ouvertes-effets-et"}[] doit être un objet du jugement.
 Tant qu'elle lui reste extérieure, ses trois franchissements constituent des restrictions non
 exprimées, et le théorème est faux. La ranger du côté de l'intégrité, comme le fait cette section,
 est donc la condition de l'énoncé et non un aménagement de présentation.
+:::
+::::
+
+::::thm (label := "thm:completude_verificateur") (status := "exigence") (level := "compilation")
+:::title
+le vérificateur n'émet que des codes de la correspondance
+:::
+
+:::statement +titled
+Aucun refus hors de la table code ⟷ prémisse
+
+Le vérificateur n'émet aucun code d'erreur hors de la correspondance entre codes et prémisses
+manquantes. Route : mesure — chaque code émis par l'implémentation est comparé à la table — ou
+démonstration, si le vérificateur est dérivé des règles.
 :::
 ::::
 

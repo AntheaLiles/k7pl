@@ -138,8 +138,7 @@ ERR-TOP-001
 La parenthèse ordinaire n'est pas ici en cause en elle-même — un appel à `select` ou à `^.`
 s'écrirait de la même manière dans ce même bloc, sans rien enfreindre. Ce qui est rejeté, c'est que
 `HandlerResult` suppose un état d'acteur et un effet de couche 2 — $`\mathcal{E}` et
-$`\Delta_{\text{aff}}` — dont le jugement de couche 3 ne dispose tout simplement pas
-($`\Delta = \emptyset`, chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]). Aucun délimiteur ne
+$`\Delta_{\text{aff}}` — dont le jugement de couche 3 ne dispose tout simplement pas ($`\Delta = \Delta_{\omega}`, chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]). Aucun délimiteur ne
 pourrait rendre cet appel légitime, puisqu'aucune transition vers la couche 2 n'est permise depuis
 la couche 3. Ce n'est pas une erreur de notation que le bon crochet aurait évitée, c'est une
 impossibilité structurelle que la notation ne fait que rendre visible.

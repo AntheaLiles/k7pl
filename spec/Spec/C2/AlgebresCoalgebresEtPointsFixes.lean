@@ -140,7 +140,7 @@ Terminaison par pli dépendamment typé
 Soit $`F` un conteneur représentant les structures de données finies de couche 3. Pour toute
 fonction $`f : \mu F \to A` obtenue comme pli dépendamment typé, l'évaluation de $`f` sur tout
 $`x : \mu F` atteint une forme normale en un nombre fini d'étapes :
-$`\forall f : \mu F \to A,\ \exists k \in \mathbb{N},\ \exists v,\ f(x) \leadsto^k v`.
+$`\forall f : \mu F \to A,\ \forall x : \mu F,\ \exists k \in \mathbb{N},\ \exists v,\ f(x) \leadsto^k v`.
 :::
 
 :::proofsketch
