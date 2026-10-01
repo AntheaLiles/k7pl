@@ -17,10 +17,10 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
-| `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
+| `BIB` Vérifications bibliographiques | 29 | 2 | 1 | 0 | 0 | 0 | 26 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **105** | **27** | **1** | **3** | **2** | **52** |
+| **Total** | **190** | **107** | **28** | **1** | **3** | **2** | **49** |
 
 ## BLOQ — Bloquants
 
@@ -218,13 +218,13 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 |---|---|---|---|
 | `BIB-01` | ⬜ ouverte | *Hefty Algebras* (Van der Rest & Bach Poulsen, 2023/2025) |  |
 | `BIB-02` | ⬜ ouverte | Saffrich & Thiemann 2025 — priorités sur boîtes aux lettres |  |
-| `BIB-03` | ⬜ ouverte | QTAL / défonctionnalisation quantitative (Huang 2023) |  |
+| `BIB-03` | ✅ fermée | QTAL / défonctionnalisation quantitative (Huang 2023) | [journal](../bibliographie/verifications-pr02.md) · statut exact : quantitatif en cours, dépendant publié |
 | `BIB-04` | ⬜ ouverte | Join-calculus de Fournet–Gonthier [60] — file de jonction |  |
 | `BIB-05` | ⬜ ouverte | Cohérence des sémantiques de coercions |  |
 | `BIB-06` | ⬜ ouverte | Sabelfeld & Myers — divulgation délimitée |  |
 | `BIB-07` | ⬜ ouverte | Issue Agda sur les tailles réflexives [25] |  |
-| `BIB-08` | ⬜ ouverte | IEEE 754 — propagation de charge utile des NaN |  |
-| `BIB-09` | ⬜ ouverte | Spécifications Arrow et Cap'n Proto |  |
+| `BIB-08` | ✅ fermée | IEEE 754 — propagation de charge utile des NaN | [journal](../bibliographie/verifications-pr02.md) · charge utile NaN recommandée, non exigée ; architecture dans E_repro |
+| `BIB-09` | 🟡 partielle | Spécifications Arrow et Cap'n Proto | [journal](../bibliographie/verifications-pr02.md) · Arrow vérifié ; endianness et Cap'n Proto à vérifier |
 | `BIB-10` | ⬜ ouverte | Licata–Shulman–Riley — systèmes de modes |  |
 | `BIB-11` | ⬜ ouverte | Régions par polymorphisme paramétrique [19] |  |
 | `BIB-12` | ⬜ ouverte | Extension additive de la logique linéaire classique, transport intuitionniste |  |
