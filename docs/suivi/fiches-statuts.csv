@@ -161,15 +161,15 @@ REECR-25,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue ave
 REECR-26,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"O(n), O(1) par bloc"
 REECR-27,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"Δ = Δ_ω"
 BIB-01,ouverte,,,
-BIB-02,ouverte,,,
+BIB-02,ouverte,journal,bibliographie/verifications-pr02.md,"référence introuvable en ligne : à vérifier auprès du relecteur"
 BIB-03,fermee,journal,bibliographie/verifications-pr02.md,"statut exact : quantitatif en cours, dépendant publié"
-BIB-04,ouverte,,,
+BIB-04,partielle,journal,bibliographie/verifications-pr02.md,"join-calculus confirmé ; protocole = IMPL-04"
 BIB-05,ouverte,,,
-BIB-06,ouverte,,,
-BIB-07,ouverte,,,
+BIB-06,fermee,journal,bibliographie/verifications-pr02.md,"échappatoires = expressions confirmé ; clôture = notre précision"
+BIB-07,fermee,journal,bibliographie/verifications-pr02.md,"source incrimine la plus grande taille ∞<∞ ; scission 𝕊_μ/𝕊_ν tient"
 BIB-08,fermee,journal,bibliographie/verifications-pr02.md,"charge utile NaN recommandée, non exigée ; architecture dans E_repro"
 BIB-09,partielle,journal,bibliographie/verifications-pr02.md,"Arrow vérifié ; endianness et Cap'n Proto à vérifier"
-BIB-10,ouverte,,,
+BIB-10,fermee,journal,bibliographie/verifications-pr02.md,"confirmé (résumé)"
 BIB-11,ouverte,,,
 BIB-12,ouverte,,,
 BIB-13,ouverte,,,
@@ -177,15 +177,15 @@ BIB-14,ouverte,,,
 BIB-15,ouverte,,,
 BIB-16,ouverte,,,
 BIB-17,ouverte,,,
-BIB-18,ouverte,,,
+BIB-18,fermee,journal,bibliographie/verifications-pr02.md,"rien à corriger"
 BIB-19,ouverte,,,
-BIB-20,ouverte,,,
-BIB-21,ouverte,,,
-BIB-22,ouverte,,,
-BIB-23,ouverte,,,
-BIB-24,ouverte,,,
-BIB-25,ouverte,,,
+BIB-20,fermee,journal,bibliographie/verifications-pr02.md,"calf/decalf confirmés"
+BIB-21,partielle,journal,bibliographie/verifications-pr02.md,"confirmé ; restriction sur l'égalité définitionnelle à lire dans le corps"
+BIB-22,fermee,journal,bibliographie/verifications-pr02.md,"CloTT confirmé"
+BIB-23,fermee,journal,bibliographie/verifications-pr02.md,"Granule/TLL_C confirmés"
+BIB-24,partielle,journal,bibliographie/verifications-pr02.md,"XTT : extensionnalité sans univalence ; compatibilité avec la sédimentation à instruire"
+BIB-25,partielle,journal,bibliographie/verifications-pr02.md,"loi d'échange confirmée ; compatibilité avec la résiduation à vérifier"
 BIB-26,ouverte,,,
-BIB-27,ouverte,,,
-BIB-28,ouverte,,,
-BIB-29,ouverte,,,
+BIB-27,partielle,journal,bibliographie/verifications-pr02.md,"confirmé ; théorème d'interblocage à lire"
+BIB-28,fermee,journal,bibliographie/verifications-pr02.md,"confirmé"
+BIB-29,fermee,journal,bibliographie/verifications-pr02.md,"ChorLean en Lean confirmé"
