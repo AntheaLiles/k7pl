@@ -9,18 +9,18 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
 | `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
-| `STRUCT` Structurels | 23 | 9 | 1 | 0 | 0 | 0 | 13 |
+| `STRUCT` Structurels | 23 | 14 | 3 | 0 | 0 | 0 | 6 |
 | `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
 | `IMPL` Implémentation et outillage | 9 | 4 | 2 | 0 | 0 | 0 | 3 |
 | `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
-| `REECR` Réécritures d'énoncés | 27 | 5 | 0 | 0 | 0 | 0 | 22 |
+| `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
 | `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **79** | **24** | **1** | **3** | **2** | **81** |
+| **Total** | **190** | **105** | **27** | **1** | **3** | **2** | **52** |
 
 ## BLOQ — Bloquants
 
@@ -50,23 +50,23 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `STRUCT-03` | ✅ fermée | Un seul environnement normatif pour sept natures épistémiques ; quatre statuts incompatibles pour le Th. 27 | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `STRUCT-04` | ✅ fermée | La couche 2 est asynchrone au ch. 3, synchrone dans le noyau, SPSC au ch. 4 | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `STRUCT-05` | ⬜ ouverte | La trace τ est à la fois grandeur de coût à optimiser et observable de sûreté à préserver ; aucun invariant de passe n'est déclaré |  |
-| `STRUCT-06` | ✅ fermée | Le pipeline n'a pas de Phase 0 ; « élaboration » désigne deux opérations différentes | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · mot élaboration et point 2.5 clarifiés au §5.3 |
+| `STRUCT-06` | 🟡 partielle | Le pipeline n'a pas de Phase 0 ; « élaboration » désigne deux opérations différentes | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · mot élaboration clarifié ; la figure 11 ne porte pas encore la Phase 0 (à redessiner) |
 | `STRUCT-07` | 🟡 partielle | Le Th. 39 ne prouve pas la cohérence du sous-typage : l'existence de joints n'est pas la cohérence des coercions | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) · énoncé scellé proposition ; la preuve par facteur reste à conduire (PREUVE-10) |
 | `STRUCT-08` | ✅ fermée | Le système de raffinement (Th. 9) est conditionnel à une traduction encore ouverte (Th. 27) | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · Th. raffinement conditionnel à la traduction |
 | `STRUCT-09` | ✅ fermée | « Tout le non-déterminisme est journalisé » est une obligation sémantique, pas une conséquence de la pureté | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · journal complet posé en paramètre de l'hypothèse de rejeu |
 | `STRUCT-10` | ✅ fermée | L'histomorphisme réclame une loi distributive qui n'était pas dans le noyau | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · λ classée structure dérivée de l'instance historique |
 | `STRUCT-11` | ✅ fermée | Les effets à portée ne sont pas absorbés par ℰ ; ℰ_alg et ℰ_scoped doivent être distingués dans la structure | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · idem |
-| `STRUCT-12` | ⬜ ouverte | Hygiène syntaxique et hygiène quantitative : le Th. 31 ne doit pas hériter automatiquement du Th. 30 |  |
-| `STRUCT-13` | ⬜ ouverte | La discipline d'échange est « voie retenue » au ch. 3, « envisagée » au ch. 4 et à l'annexe, « absente » dans les règles |  |
-| `STRUCT-14` | ⬜ ouverte | `𝒢_pile` et `𝒢_budget`, sous-algèbres qui *définissent* les couches, ne sont jamais construites |  |
+| `STRUCT-12` | ✅ fermée | Hygiène syntaxique et hygiène quantitative : le Th. 31 ne doit pas hériter automatiquement du Th. 30 | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · Th. hygiène non gradué et gradué scindés (PORT-14) |
+| `STRUCT-13` | ✅ fermée | La discipline d'échange est « voie retenue » au ch. 3, « envisagée » au ch. 4 et à l'annexe, « absente » dans les règles | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · « voie disponible, dont le prix est chiffré » (ch. 3) |
+| `STRUCT-14` | ✅ fermée | `𝒢_pile` et `𝒢_budget`, sous-algèbres qui *définissent* les couches, ne sont jamais construites | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · G_pile et G_budget définis par projection ; clause de portée de P3 |
 | `STRUCT-15` | ⬜ ouverte | « Gestionnaire » désigne deux objets de niveaux différents ; l'hypothèse de pureté du Th. 22 renvoie à des sections qui ne la contiennent pas |  |
-| `STRUCT-16` | ⬜ ouverte | Quatre régimes de grade théoriques, trois exposés : la clôture n'est pas établie |  |
-| `STRUCT-17` | ⬜ ouverte | Quatre concepts de monotonie portent un seul nom |  |
-| `STRUCT-18` | ⬜ ouverte | Surcharge de `⊗` : tenseur catégorique, composition de contextes, opération syntaxique du jugement |  |
+| `STRUCT-16` | 🟡 partielle | Quatre régimes de grade théoriques, trois exposés : la clôture n'est pas établie | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · modes atteignables énoncés ; preuve par examen des règles à conduire |
+| `STRUCT-17` | ✅ fermée | Quatre concepts de monotonie portent un seul nom | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · trois notions de monotone distinguées (§2.4) |
+| `STRUCT-18` | ✅ fermée | Surcharge de `⊗` : tenseur catégorique, composition de contextes, opération syntaxique du jugement | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · table normative : Δ₁+Δ₂, ⊠, ⊗ des types, ⊗_𝒞, ℓ et ℓ̂ |
 | `STRUCT-19` | ⬜ ouverte | La distinction compilation / exécution est une phase, pas encore une modalité |  |
 | `STRUCT-20` | ⬜ ouverte | La loi distributive graduée : signature sous-déterminée et règles non écrites |  |
 | `STRUCT-21` | ⬜ ouverte | Tension non résolue entre appel par poussée de valeur, types dépendants et effets indexés |  |
-| `STRUCT-22` | ⬜ ouverte | L'orthogonalité annoncée par P2 est rompue en trois points |  |
+| `STRUCT-22` | ✅ fermée | L'orthogonalité annoncée par P2 est rompue en trois points | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · P2 qualifiée : orthogonalité au niveau du jugement, trois couplages nommés |
 | `STRUCT-23` | ✅ fermée | L'annexe E est une fondation tardive ; le jeu de règles doit remonter dans le corps | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · annexe E fondue : règles au ch. 3, sémantique au ch. 4 ; §1.1 corrigé |
 
 ## PORT — Portée
@@ -184,33 +184,33 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 
 | Fiche | État | Titre | Preuve · note |
 |---|---|---|---|
-| `REECR-01` | ⬜ ouverte | « tout programme K7PL est un morphisme dans une catégorie ambiante 𝒞 » |  |
+| `REECR-01` | ✅ fermée | « tout programme K7PL est un morphisme dans une catégorie ambiante 𝒞 » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · P1a / P1b (BLOQ-08) |
 | `REECR-02` | ✅ fermée | « l'isolation entre eux repose **entièrement** sur les preuves du système de types » | [deduite](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · obtenue avec PORT-02 — à confirmer |
-| `REECR-03` | ⬜ ouverte | « fidèle à la sémantique de K7PL sur la structure de communication, sur le contrôle et sur les effets » |  |
-| `REECR-04` | ⬜ ouverte | « les correspondances rendent cette génération de code directe » |  |
-| `REECR-05` | ⬜ ouverte | « Trois réponses, trois domiciles, et aucune quatrième place à inventer » |  |
+| `REECR-03` | ✅ fermée | « fidèle à la sémantique de K7PL sur la structure de communication, sur le contrôle et sur les effets » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · Th. fidélité conditionnel à Sim (BLOQ-07) |
+| `REECR-04` | ✅ fermée | « les correspondances rendent cette génération de code directe » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · domaine du Th. 20 rappelé au §6.1 |
+| `REECR-05` | ✅ fermée | « Trois réponses, trois domiciles, et aucune quatrième place à inventer » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · clôture forte (données) / faible (actions) |
 | `REECR-06` | ✅ fermée | « À l'exécution, l'audit trouve trois régions et non six » | [deduite](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · obtenue avec PORT-03 — à confirmer |
 | `REECR-07` | ✅ fermée | le budget lu comme prédiction | [deduite](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · obtenue avec PORT-10 — à confirmer |
-| `REECR-08` | ⬜ ouverte | « Le théorème 27 est donc démontré, et la dette de fidélité est acquittée » |  |
-| `REECR-09` | ⬜ ouverte | « La non-interférence graduée et la divulgation délimitée cessent d'être bornées au fragment sans communication » |  |
-| `REECR-10` | ⬜ ouverte | « Aucune obligation ne déborde de ces trois » |  |
+| `REECR-08` | ✅ fermée | « Le théorème 27 est donc démontré, et la dette de fidélité est acquittée » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · traduction : induction planifiée, non conduite ; statut proposition |
+| `REECR-09` | ✅ fermée | « La non-interférence graduée et la divulgation délimitée cessent d'être bornées au fragment sans communication » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · NI et divulgation restent bornées au fragment sans communication |
+| `REECR-10` | ✅ fermée | « Aucune obligation ne déborde de ces trois » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · Th. 34 : définition + clôture locale |
 | `REECR-11` | ✅ fermée | « le système hôte ne peut y accéder après le retour » | [deduite](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · obtenue avec PORT-05 — à confirmer |
-| `REECR-12` | ⬜ ouverte | « l'égalité observationnelle se transporte en identité de représentation » |  |
-| `REECR-13` | ⬜ ouverte | « préservant les lois algébriques de la théorie des roues, par exemple ⊥ + y = ⊥ » |  |
-| `REECR-14` | ⬜ ouverte | « l'audit des dix-huit familles d'erreurs » |  |
-| `REECR-15` | ⬜ ouverte | « les trois dispositions coïncident bit à bit » |  |
-| `REECR-16` | ⬜ ouverte | « la syntaxe d'un programme est fixée à l'issue de la Phase 0 » |  |
-| `REECR-17` | ⬜ ouverte | « la dérivation est déterministe puisque l'inférence est principale » |  |
-| `REECR-18` | ⬜ ouverte | « un ordre que rien ne permet d'inverser » |  |
-| `REECR-19` | ⬜ ouverte | « la couche 2 est un π-calcul enrichi de motifs de jonction » |  |
-| `REECR-20` | ⬜ ouverte | `𝒞_{!S}` avec S singleton (ch. 2) contre intervalles (ch. 3) |  |
-| `REECR-21` | ⬜ ouverte | « la transposition à la gradation reste à faire » (RMQ 14) |  |
-| `REECR-22` | ⬜ ouverte | « Le jeu de règles de typage lui-même, dont l'absence est ce qui suspend les quatre preuves ouvertes » |  |
-| `REECR-23` | ⬜ ouverte | « sans en payer le prix » (sûreté des gestionnaires d'effets en PBV) |  |
-| `REECR-24` | ⬜ ouverte | « l'isolation par types remplace la MMU **par construction** » |  |
+| `REECR-12` | ✅ fermée | « l'égalité observationnelle se transporte en identité de représentation » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · E_repro élargie à l'architecture ; injectivité |
+| `REECR-13` | ✅ fermée | « préservant les lois algébriques de la théorie des roues, par exemple ⊥ + y = ⊥ » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · retiré (Th. 18 réécrit) |
+| `REECR-14` | ✅ fermée | « l'audit des dix-huit familles d'erreurs » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · énumération sur le noyau |
+| `REECR-15` | ✅ fermée | « les trois dispositions coïncident bit à bit » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · profil Π |
+| `REECR-16` | 🟡 partielle | « la syntaxe d'un programme est fixée à l'issue de la Phase 0 » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · Th. 29 à conserver une fois la Phase 0 portée par la figure 11 |
+| `REECR-17` | ✅ fermée | « la dérivation est déterministe puisque l'inférence est principale » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · hypothèse D_det |
+| `REECR-18` | ✅ fermée | « un ordre que rien ne permet d'inverser » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · ordre : exception de la Phase 5 reconnue |
+| `REECR-19` | ✅ fermée | « la couche 2 est un π-calcul enrichi de motifs de jonction » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · traduction de la couche 2 séquentielle seulement |
+| `REECR-20` | ✅ fermée | `𝒞_{!S}` avec S singleton (ch. 2) contre intervalles (ch. 3) | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · singletons = fragments logiques, intervalles = modalités |
+| `REECR-21` | ✅ fermée | « la transposition à la gradation reste à faire » (RMQ 14) | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · réserve portée au ch. 1 |
+| `REECR-22` | ✅ fermée | « Le jeu de règles de typage lui-même, dont l'absence est ce qui suspend les quatre preuves ouvertes » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · jeu de règles existant ; §1.1 corrigé |
+| `REECR-23` | ✅ fermée | « sans en payer le prix » (sûreté des gestionnaires d'effets en PBV) | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · prix des suspensions mentionné |
+| `REECR-24` | ✅ fermée | « l'isolation par types remplace la MMU **par construction** » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · terminalité : logique, non physique |
 | `REECR-25` | ✅ fermée | « deux paquets sémantiquement équivalents partagent un seul hash » | [deduite](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · obtenue avec PORT-11 — à confirmer |
-| `REECR-26` | ⬜ ouverte | `@linear` — DFA `O(1)` (figure 7) |  |
-| `REECR-27` | ⬜ ouverte | « Le jugement de couche 3 ne comporte pas de Δ » |  |
+| `REECR-26` | ✅ fermée | `@linear` — DFA `O(1)` (figure 7) | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · O(n), O(1) par bloc |
+| `REECR-27` | ✅ fermée | « Le jugement de couche 3 ne comporte pas de Δ » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · Δ = Δ_ω |
 
 ## BIB — Vérifications bibliographiques
 

@@ -68,7 +68,7 @@ Les onze engagements, ce qu'ils affirment, ce qui les tient et par où ils se l�
   * démonstration
 * * La fidélité de l'interpréteur de référence
   * §{num "sec:c6-strategies-de-verification-et"}[]
-  * Le théorème {num "thm:traduction_metalangage"}[], démontré au §{num "sec:g-traduction"}[], et l'hypothèse Sim du théorème {num "thm:fidelite_interprete"}[], à établir
+  * Le théorème {num "thm:traduction_metalangage"}[], dont l'induction est planifiée au §{num "sec:g-traduction"}[] mais non conduite, et l'hypothèse Sim du théorème {num "thm:fidelite_interprete"}[], à établir
   * démonstration (rouverte : Sim)
 * * Le coût d'expressivité de P3 et P4, inférieur au bénéfice
   * §{num "sec:c1-postulats"}[]
@@ -123,9 +123,9 @@ trancherait.
 
 Trois conséquences suivent, et la première a déjà joué. Un engagement dont la route est la
 démonstration _cesse d'être un engagement le jour où le théorème est écrit_ : la fidélité de
-l'interpréteur de référence en est sortie, la section sur la traduction ayant démontré que celle-ci préserve le
-typage. La table le dit maintenant, et le disait mal auparavant — un document qui ne relit pas ses
-engagements finit par s'accuser de dettes qu'il a payées. La deuxième est qu'un engagement dont la
+l'interpréteur de référence en était sortie, la section sur la traduction passant pour avoir démontré que celle-ci préserve le
+typage ; elle y est rentrée, l'induction étant planifiée et non conduite. La table le dit maintenant — un document qui ne relit pas ses
+engagements finit par s'accuser de dettes qu'il a payées, ou par se croire quitte de celles qu'il n'a pas payées. La deuxième est qu'un engagement dont la
 route est la mesure ne se lèvera jamais par la lecture, et qu'il est vain de l'y attendre. La
 troisième est qu'un engagement _sans route nommée_ est une anomalie : il en reste un dans cette
 table, l'enrichissement sur les préordres pour la part qui excède l'ordre des fibres, et sa route

@@ -21,7 +21,7 @@ tag := "c6-le-processus-de-compilation"
 
 {label "sec:c6-le-processus-de-compilation"}
 
-Compiler un programme K7PL, c'est établir, dans un ordre que rien ne permet d'inverser, chacun des
+Compiler un programme K7PL, c'est établir, dans un ordre que presque rien ne permet d'inverser — la Phase~5 et la suivante font exception, leur ordre étant un choix d'ingénieur que la section sur la vérification et le test reconnaît —, chacun des
 trois ordres de vérification du jugement germinal du chapitre 1 — puis effacer entièrement les
 preuves qui les ont établies, ne laissant dans le binaire final que le terme qu'elles autorisent. Le
 pipeline présenté en figure {num "fig:comp-process"}[] décrit cet ordre ; chaque étape n'est là que

@@ -145,7 +145,7 @@ interdit : dans un sens l'affaiblissement passerait de permis à interdit, ce q
 condition refuse ; dans l'autre, un grade contractable devrait s'envoyer sur un contractable d'un
 mode qui n'en a aucun, ce que la première refuse. Les deux conditions du morphisme de modes sont
 donc l'une et l'autre _actives_, et la chaîne à trois éléments que ce document emploie est le
-fragment totalement ordonné d'un treillis à quatre.
+fragment totalement ordonné d'un treillis à quatre. Il faut alors dire ce que le langage atteint : les modes _atteignables_ par les opérations de dérivation sont $`\{\text{Lin}, \text{Aff}, \text{Unr}\}`, aucune règle ne produisant $`\text{Rel}`. Ce mode est un grade mathématiquement admissible, non effectivement générable ; la distinction est celle que le document applique ailleurs aux produits de grades, et elle reste à démontrer par examen des règles de production de grades.
 
 Un corollaire mérite d'être tiré plutôt que laissé implicite, car il explique une facilité que ce
 document s'est permise. Un morphisme de modes induit en général une traduction qui n'est pas
@@ -203,7 +203,7 @@ Ce document ne la retient pas, et pour une raison qui n'est pas le prix : les tr
 _trois ordres différents_ — séquentiel par session, partiel sur les durées d'emprunt, total sur les
 positions —, qu'un contexte ordonné, n'en portant qu'un, confondrait.
 
-La voie retenue est de porter l'échange comme une _donnée de mode_, au rang de l'idéal de
+La voie disponible, dont le prix est chiffré ci-après, est de porter l'échange comme une _donnée de mode_, au rang de l'idéal de
 contraction et du booléen d'affaiblissement — une _zone_ étant alors un mode, dont l'ordre lui est
 propre. Ce point se fixe ici, la solution voisine ne marchant pas : faire de la zone une composante
 du grade demanderait que la mise à l'échelle ne déplace pas une liaison d'une zone à une autre, donc
@@ -299,7 +299,7 @@ cette discipline, et la conséquence porte au-delà d'elle — toute propriété
 la traduction devrait être revérifiée, l'acyclicité du chapitre 4
 (§{num "sec:c4-echelle-du-systeme"}[]) en étant une. La parade connue serait de donner au
 métalangage sa propre discipline d'ordre, c'est-à-dire la logique linéaire ordonnée du côté cible.
-Mais c'est ce que la voie retenue évite à la source, et le payer à la cible n'est pas le payer
+Mais c'est ce que la voie disponible évite à la source, et le payer à la cible n'est pas le payer
 moins.
 
 Encore faut-il dire ce qu'est la consommation d'une ressource linéaire, faute de quoi P3 exigerait
