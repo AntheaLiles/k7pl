@@ -34,6 +34,12 @@ shortTitle := "K7PL"
 
 *A functional layered programming language*
 
+*Cyprien PIERRE* — [ORCID 0009-0009-9040-6795](https://orcid.org/0009-0009-9040-6795)
+
+DOI : [10.5281/zenodo.23040451](https://doi.org/10.5281/zenodo.23040451) · Source : [github.com/AntheaLiles/k7pl](https://github.com/AntheaLiles/k7pl)
+
+{ccby}[] © Cyprien PIERRE 2026. Cette spécification est publiée sous licence [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
 {include 0 Spec.C1}
 
 {include 0 Spec.C2}
