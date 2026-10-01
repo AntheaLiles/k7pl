@@ -49,3 +49,40 @@ path = ["zenodo.json", "zenodo.files.json"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CECILL-2.1"
+
+# Figures de la spécification (SVG et PDF dérivés, sources drawio et mermaid) : CC-BY-4.0 comme
+# le texte qu'elles illustrent.
+[[annotations]]
+path = "spec/figures/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Notices bibliographiques des œuvres citées (JSON : pas de commentaires).
+[[annotations]]
+path = "biblio/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Documentation de travail (suivi, relectures, méthode, recherche, journal) : Markdown converti
+# du dossier de travail, sans en-tête.
+[[annotations]]
+path = "docs/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Manuscrit Org-mode figé : le texte de la spécification, donc la même licence qu'elle.
+[[annotations]]
+path = "archives/manuscrit-org/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Ancien outillage (code Python, Emacs Lisp, LaTeX, Makefile, données) et ses notices.
+[[annotations]]
+path = ["archives/outillage-org/**", "archives/README.md"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CECILL-2.1"

@@ -1,0 +1,380 @@
+* SYNTAXE ET MISE EN PRATIQUE
+#+TOC: headlines 2 local
+
+Les trois chapitres précédents ont défini K7PL sans montrer à quoi il ressemble sur une page. Celui-ci comble l'écart sans introduire le moindre contenu sémantique nouveau : une seule grammaire — l'expression symbolique préfixée — porte à sa surface les distinctions déjà établies. Un délimiteur n'invente rien ; il annonce au compilateur, au seul endroit où cette annonce a un coût, lequel des trois fragments gouverne l'expression qu'il ouvre. Deux réserves portent sur le dispositif plutôt que sur son réglage. La délimitation par régions répond bien au défaut des systèmes substructurels bâtis sur une discipline globale unique, mal adaptée aux motifs d'usage hétérogènes [cite:@herlihyModularSubstructuralConstraints2026]. Mais ce travail tient pour acquis que les contraintes soient personnalisables, quand K7PL en fige trois — choix défendable pour un langage autonome, qui n'en exclut pas moins les usages mixtes. Et là où le typage quantitatif a été appliqué aux netlists, les auteurs concluent sur le risque que la linéarité rende le langage inutilement verbeux, jusqu'à envisager d'y renoncer [cite:@demuijnck-hughesWiringCircuitsEasy2023]. C'est le risque principal du dispositif, que ce chapitre ne conjure qu'en pariant sur la rareté des changements de fragment.
+
+Trois arbitrages en découlent, dont le prix est nommé plutôt que caché. Un délimiteur marque les points où le fragment change, non chaque expression : lecture conforme au principe de Flat-Wiring. Mais qui interdit de vérifier le marquage par simple comptage, décider si un délimiteur est requis supposant de connaître le fragment de la fonction appelée. Le marquage est donc vérifié en Phase 1.5, après résolution des noms, et non en Phase 1 : un fichier isolé ne suffit pas à l'établir, ce qui est le prix de la lecture retenue.
+
+Le deuxième porte sur le statut des glyphes, et il détermine la place qu'ils occupent dans le langage. Un glyphe n'est pas une notation primitive : c'est une /macro/ de la bibliothèque standard, qui s'expanse en constructions du noyau portant l'algorithme et ses annotations. Son alias textuel n'est pas une autre notation mais un autre nom de la même macro, de sorte qu'associativité et priorité sont celles de l'expansion — identiques par construction, quelle que soit l'orthographe employée.
+
+La solution que ce choix écarte serait la plus naturelle dans la tradition dont ce chapitre se réclame : faire du glyphe une /macro de lecture/, c'est-à-dire une extension de l'analyseur lui-même. L'argument contre est de portée et non de mécanique. Un langage dont la surface est extensible par l'analyseur devient une /île/ — l'outillage extérieur, les analyseurs statiques, les éditeurs, tout ce qui lit du code sans l'exécuter, cesse de pouvoir le lire [cite:@hickeyHistoryClojure2020]. Un glyphe qui est une macro ordinaire laisse la grammaire fixe et l'AST lisible par quiconque ; une macro de lecture les rend dépendants du programme lu. C'est le même motif qui fait de la staticité de la syntaxe un théorème plutôt qu'une convention (§\ref{sec:c5-ce-qu-une-macro-declare}).
+
+La conséquence dépasse la question de l'affichage : la difficulté de K7PL est de comprendre le noyau et ses annotations, et l'ergonomie vient de macro-fonctions composées que des experts préparent au-dessus de lui, comme le ferait une bibliothèque. Les glyphes tacites hérités d'APL, BQN et Uiua sont de cet ordre, au même titre qu'une recherche en logique floue : de l'outillage de bibliothèque, non des primitives du langage.
+
+Ce pari appelle un état de la mesure, écrit ici plutôt qu'attendu d'un relecteur. L'argument adverse le plus courant — la syntaxe conventionnelle serait plus accessible — perd son appui. Une mesure des taux d'exactitude de novices sur six langages, dont un témoin aux mots-clés tirés au hasard de la table ASCII, trouve que les langages à syntaxe traditionnelle de type C, Perl et Java ne donnent /pas/ de taux significativement supérieurs à ce témoin, tandis que ceux qui s'en écartent, si [cite:@stefikEmpiricalInvestigationProgramming2013]. Le résultat est négatif et non positif : il retire un appui à l'objection, il n'établit pas qu'un glyphe vaille mieux qu'un mot. Et son cadre — des novices, des tâches d'exactitude, un contexte d'enseignement — n'est pas celui d'un praticien qui compose des trains. La question du transport doit donc être posée dans la même phrase que la citation, et elle reste ouverte.
+
+La mesure qui porte le plus directement sur ce document lui est en revanche /défavorable/, et l'omettre serait la faute que sa méthode bibliographique interdit. Un essai contrôlé randomisé sur la propriété, les actifs et le typestate — le jeu de traits même de ce langage — trouve la condition à types avancés plus /lente/, à variance élevée. Quatre participants sur dix n'y ont plus assez de leurs quatre heures pour se déclarer satisfaits, contre un seul au témoin, et un abandon survient après une heure quinze [cite:@coblenzCanAdvancedType2020]. La portée en est bornée — dix participants par condition, quatorze analysés, un tutoriel bref, un langage évalué distinct de celui-ci — mais aucune mesure favorable ne lui fait pendant. Ce document ne peut donc pas invoquer l'utilisabilité de ses traits comme un acquis : ce qu'il peut invoquer est ce qu'ils /garantissent/, et la question de leur coût d'apprentissage reste posée.
+
+Une seconde étude, de méthode différente, conclut au même endroit — et c'est cette convergence qui donne au constat son poids. Elle porte sur les barrières à l'adoption des langages /à vérification intégrée/, c'est-à-dire la classe où celui-ci se range, et procède en deux temps : modélisation thématique de discussions de développeurs sur des forums publics, puis enquête déclarative. Les deux obstacles qu'elle relève ne sont pas théoriques — une courbe d'apprentissage abrupte, et des problèmes d'utilisabilité — et ses recommandations portent sur l'interface des outils et sur ce qui accompagne le langage, non sur le langage lui-même [cite:@oliveiraWhatChallengesDevelopers2025]. Ce qui freine l'adoption de cette classe n'est donc pas ce qu'elle démontre, mais ce qu'elle coûte à apprendre et ce que son outillage donne. Ce document consacre sa substance au premier et renvoie le second au chapitre 6, qui décrit un pipeline sans l'avoir construit ; le déséquilibre est assumé au chapitre 1 comme une réserve de position, et il est ici mesuré.
+
+Reste à dire ce que la littérature empirique du /nommage/ apporte à ces choix, et la réponse est : moins qu'on ne l'attendrait, pour une raison d'objet. Une revue systématique de la lisibilité, cinquante-quatre études primaires dépouillées, recense onze travaux comme la littérature du nommage. Aucun des onze n'a pour objet les noms de /fonctions/ ou de /méthodes/, neuf portant sur les identifiants en général et deux nommant explicitement les variables [cite:@oliveiraEvaluatingCodeReadability2020].
+
+Or ce que ce chapitre choisit, ce sont des noms de fonctions, en nombre fini et fixés une fois ; ce que la littérature mesure, ce sont des noms de variables, écrits par l'utilisateur et gouvernés par convention. Les deux ne relèvent pas du même problème, et aucune mesure faite sur le second ne se transporte au premier.
+
+La même revue ajoute une raison de prudence sur la qualité de la preuve : l'opinion personnelle sert de variable de réponse dans trente des cinquante-quatre études et en est la seule dans neuf, trente-sept pour cent n'exercent qu'une compétence cognitive, et cinq pour cent seulement observent un signe physique. Un point survit pourtant au tri, et il va contre l'intuition : les identifiants /courts/ prennent /plus/ de temps à comprendre. La brièveté n'est donc pas un critère de choix, et ce chapitre ne l'invoque nulle part comme tel.
+
+Une dernière précaution vise les arguments tirés de grands corpus, que ce chapitre s'interdit et qu'il faut dire pourquoi. Sur quatre millions et demi de projets non forkés de GitHub, plus de quatre cent vingt-huit millions de fichiers ne comptent que quatre-vingt-cinq millions de fichiers /uniques/. Sept fichiers sur dix sont donc le clone d'un fichier déjà créé, et le taux varie d'un ordre de grandeur entre écosystèmes : six pour cent de fichiers distincts en JavaScript, soixante en Java [cite:@lopesDejaVuMapCode2017]. Une comparaison de conventions de nommage /entre langages/ tirée d'un tel corpus compte donc le même fichier un nombre de fois qui dépend du langage, et le sens du biais est connu : elle surestime l'homogénéité des écosystèmes les plus dupliqués. Aucune des conventions posées ici ne s'appuie sur un tel comptage.
+
+Une dernière remarque porte sur la méthode plutôt que sur les résultats, et elle explique pourquoi ces quatre paragraphes existent. Mêler théorie des types et méthode empirique n'est pas une commodité de présentation mais une discipline, avec ses conditions, et la littérature de la conception de langage interdisciplinaire les énonce [cite:@coblenzInterdisciplinaryProgrammingLanguage2018]. La condition appliquée ici est la plus exigeante : rapporter la mesure /défavorable/ au même titre que les autres, alors qu'elle porte sur le jeu de traits de ce document et qu'aucune mesure favorable ne lui fait pendant. Un chapitre qui ne citerait que ce qui l'arrange ne ferait pas de la conception interdisciplinaire, il en emprunterait le vocabulaire.
+
+Le troisième suit du deuxième. Faire des R- et X-expressions une syntaxe bénie plutôt qu'une bibliothèque interdit d'en ajouter une troisième /au même niveau/ : le noyau choisit l'homogénéité de compilation sur l'extensibilité, et n'offre pas de point d'extension. Cela ne ferme pas l'extension du langage, cela en déplace le lieu — un troisième langage de motifs s'écrit en macros, dans la bibliothèque, où il est soumis aux mêmes règles que tout le reste.
+
+Deux traditions le portent. Celle d'Iverson soutient qu'une notation bien conçue ne décrit pas la pensée mais la façonne [cite:@iversonNotationToolThought1980a]. Elle justifie le pari le plus visible du chapitre : les glyphes tacites de la couche 3, hérités à travers APL puis BQN et Uiua, ne sont pas un raccourci pour experts mais une autre manière d'exprimer une composition, souvent plus courte à raisonner. Celle de Lisp, où code et donnée partagent une représentation arborescente, permet de traiter une configuration, une macro et l'AST qu'un outil consulte comme un seul objet. La syntaxe parenthésée de la couche 2 doit plus précisément aux Lisps applicatifs modernes — TXR Lisp, Gerbil, LFE — qu'à la tradition générale, eux seuls ayant montré qu'une liste imbriquée reste praticable pour orchestrer des systèmes réels.
+
+** S-expressions universelles
+#+LATEX: \label{sec:c5-s-expressions-universelles}
+
+K7PL n'a qu'une seule grammaire : l'expression symbolique préfixée, où un programme est un arbre homogène, aussi manipulable comme donnée que comme code. Ce que cette grammaire ajoute au-dessus de la syntaxe de Lisp est minimal et entièrement au service des trois fragments du chapitre 2 : trois paires de délimiteurs, chacune annonçant au compilateur quelle phase de vérification s'applique à l'expression qu'elle ouvre.
+
+#+NAME: tab:delimiteurs
+#+CAPTION: Les trois délimiteurs comme annonces de phase
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align llZ{0.66}Z{1.34} :center nil
+| Délimiteur | Fragment  | Contexte du jugement germinal        | Vérifications imposées                                      |
+|------------+-----------+----------------------------------------+---------------------------------------------------------------|
+| ~{ ... }~  | Linéaire  | \(\Delta_{\text{lin}}\)                   | Absence de duplication ou d'abandon ; capabilités linéaires  |
+| ~( ... )~  | Affine    | \(\Delta_{\text{aff}}\), \(\mathcal{E}\)    | Productivité ; effets autorisés ; ownership du tas           |
+| ~[ ... ]~  | Cartésien | \(\Delta = \emptyset\)                    | Terminaison ; pureté ; allocation sur la pile                |
+
+Ces trois paires ne s'imbriquent que dans un seul sens : ~{ ... ( ... [ ... ] ... ) ... }~. Toute autre inclusion — un ~[ ]~ contenant un ~{ }~, ou un ~( )~ à l'intérieur d'un ~[ ]~ — est rejetée en Phase 2 (~ERR-TOP-001~). Cette contrainte n'est pas stylistique : elle découle directement des spécialisations du jugement germinal établies au chapitre 1 (§\ref{sec:c1-axiomatique-germinale}). Le jugement de couche 3 ne comporte pas de \(\Delta\) ; il ne peut donc rien exprimer qui suppose une ressource affine ou linéaire. Le jugement de couche 1, à l'inverse, dispose de \(\Delta_{\text{lin}}\), dont le chapitre 2 (§\ref{sec:c2-la-comonade-exponentielle-et}) a montré qu'il s'inclut fidèlement dans \(\Delta_{\text{aff}}\). Un fragment de couche 2 peut donc être évalué à l'intérieur d'un contexte de couche 1, ce contexte fournissant tout ce dont la couche 2 a besoin. La réciproque échouerait, faute d'une ressource strictement linéaire à offrir. C'est cette même asymétrie qui permet à un calcul de couche 3 — n'ayant besoin que de \(\Delta_{\omega}\), présent dans les trois jugements — d'être invoqué depuis n'importe laquelle des trois couches.
+
+Cette contrainte a été posée pour un motif de couches, et elle rend gratuitement une propriété que voici. Une grammaire est /à pile visible/ lorsque la structure d'appel et de retour se lit dans l'alphabet lui-même. Trois paires de délimiteurs, ouvertures et fermetures distinctes et fixées, ne s'imbriquant que dans un seul sens : la définition est satisfaite par construction. La classe est celle où l'analyse est linéaire, où la vérification d'imbrication est décidable, et où l'algorithme central a été formellement vérifié [cite:@jiaDerivativebasedParserGenerator2021]. Un second trait de cette approche compte pour un langage homoiconique : l'analyseur rend une /forêt/ de tous les arbres valides, là où le choix priorisé d'une grammaire d'expressions d'analyse élit une lecture en silence. Une ambiguïté devient alors une chose qu'on peut voir et refuser, plutôt qu'une chose que l'analyseur tranche pour soi.
+
+Un délimiteur, cependant, ne s'écrit qu'au point précis où le fragment change — jamais à chaque expression, jamais seulement à l'ouverture d'une définition entière. Tant qu'un appel demeure dans le fragment ambiant, l'écriture ordinaire — des parenthèses — suffit. Une fonction pure, en particulier, étant compatible par construction avec n'importe quel fragment ambiant puisqu'elle ne requiert que \(\Delta_{\omega}\), un appel vers elle ne réclame aucun marquage tant qu'il reste par ailleurs dans le fragment de son appelant. Le délimiteur du fragment appelé n'apparaît qu'au site d'un appel qui franchit effectivement la frontière vers un fragment strictement plus contraint que l'ambiant : une couche 2 qui invoque une fonction dont la vérification exige le fragment cartésien strict, par exemple. La frontière est ainsi aussi visible dans le texte qu'elle l'est dans le graphe de dépendances que le principe de Flat-Wiring entend exposer.
+
+Cette granularité décide de ce que sanctionne ~ERR-TOP-001~. Ce n'est pas la présence syntaxique d'une parenthèse ordinaire à l'intérieur d'un bloc ~[ ]~ : une telle parenthèse peut légitimement y figurer, du moment qu'elle n'exprime qu'une opération déjà compatible avec le fragment cartésien. C'est l'inverse — une expression dont la vérification exige une composante que le jugement ambiant ne porte pas, un ~HandlerResult~ par exemple, qui suppose \(\mathcal{E}\) et \(\Delta_{\text{aff}}\), l'un et l'autre absents du jugement de couche 3. Le §\ref{sec:c5-mise-en-pratique} en donne un exemple complet.
+
+Deux règles de portée doivent être énoncées avant le reste, car elles sont en usage partout dans ce chapitre et n'ont jamais été posées. Un lecteur les devine ; un vérificateur ne devine pas.
+
+La première fixe la portée des /délimiteurs/. Ils s'appliquent aux positions où un /calcul/ est attendu, et là seulement. En position de liaison, de motif ou de littéral, ils ne marquent aucun fragment — un crochet qui ouvre un littéral tableau n'annonce pas la couche 3, et une accolade qui ouvre un motif n'annonce pas la couche 1. Sans cette règle, toute la syntaxe de liaison serait ambiguë ; avec elle, elle ne l'est pas, et rien d'autre n'est à ajouter.
+
+La seconde fixe le sigil /deux-points/. Il introduit une /étiquette/, et les étiquettes forment un espace de noms distinct de celui des variables : ~:état~ dans ~(HandlerResult :état v :réponse r)~ n'est pas la variable ~état~ et ne peut pas la masquer. La règle est d'une ligne et elle referme une classe entière d'erreurs silencieuses. Sans elle, une étiquette mal orthographiée serait une /variable fraîche/, donc un motif qui filtre tout et ne signale rien — c'est le piège qu'une critique classique de Standard ML relève sur les constructeurs [cite:@appelCritiqueStandardML1993]. Avec elle, une étiquette inconnue est une erreur, parce qu'une étiquette n'est jamais liante.
+
+Le reste de la grammaire commune tient en quelques règles. Le point-virgule ouvre un commentaire, sa répétition en indiquant la portée — ~;~ en ligne, ~;;~ pour un bloc, ~;;;~ pour une section, ~;;;;~ pour un module — et sa mise entre parenthèses, crochets ou accolades désactive l'arbre entier qui suit sans rompre la syntaxe. La barre verticale sépare les rangs d'un littéral tableau : ~[1 2 | 3 4]~ dénote une matrice deux par deux, dont les rangs doivent avoir la même longueur. Le ~let~ n'introduit que des liaisons scopées, immuables et séquentielles — un ~let*~ implicite ; il n'existe pas de ~var~, la mutation s'exprimant ailleurs, par un ~HandlerResult~ en couche 2 ou par transfert de capabilité en couche 1.
+
+Cinq mots-clés activent une preuve supplémentaire au moment de la vérification. Ils ne sont réservés qu'en position de tête d'une S-expression, pour ne pas restreindre leur usage comme noms ordinaires ailleurs. Aucun n'est un mécanisme. /Chacun est la projection nommée d'une obligation que le jugement porte déjà/, et sert à la réclamer au site d'un appel, là où le contexte ne l'impose pas. Le tableau [[tab:c5-mots-cles-preuve]] donne, pour chacun, l'obligation projetée et le lieu où elle est vérifiée ; aucun d'eux n'ajoute de pouvoir au vérificateur.
+
+#+DESC: Les cinq mots-clés ne sont pas des mécanismes mais des projections nommées d'obligations existantes. La colonne de droite donne le lieu où chaque obligation est déjà vérifiée pour une autre raison.
+#+CAPTION: Les cinq mots-clés de preuve, et l'obligation que chacun projette
+#+NAME: tab:c5-mots-cles-preuve
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{0.9}Z{1.1} :center nil
+| Mot-clé | Obligation projetée | Où elle est déjà vérifiée |
+|---------+---------------------+---------------------------|
+| ~pure~ | \(\mathcal{E} = \emptyset\) | Phase 3, pour tout bloc de couche 3 |
+| ~terminates~ | une mesure strictement décroissante sur un grade | tout pli de couche 3 |
+| ~event~ | la productivité coinductive | tout flux de couche 2 |
+| ~contract~ | des pré- et post-conditions sur \(\Delta\) | la substituabilité des refactorings prouvés |
+| ~logic~ | aucune — il guide le /narrowing/ | la résolution de contraintes, sans pouvoir ajouté |
+
+Aucun de ces cinq mots-clés n'introduit ainsi de preuve nouvelle : la syntaxe rend un choix explicite, elle ne fonde rien qui ne le soit déjà.
+
+** Notations spécialisées
+#+LATEX: \label{sec:c5-notations-specialisees}
+
+Trois familles de notations se posent sur cette grammaire commune, chacune pour une raison distincte : la concision du calcul tacite, la performance des motifs structurés, et l'introspection du compilateur sur son propre AST.
+
+La couche 3 admet, en plus de l'écriture nommée, une notation point-free héritée d'APL, de BQN et d'Uiua. Chaque opération de la bibliothèque standard y porte un glyphe Unicode concis et un alias textuel strictement équivalent au niveau de l'AST. ~⌊~ et ~min~, ~⊏~ et ~select~ dénotent une seule et même macro : l'éditeur peut afficher l'un ou l'autre sans toucher au programme sous-jacent. Un service d'édition qui calcule sa réponse depuis les types plutôt que depuis le texte a son précédent opérationnel [cite:@bourMerlinLanguageServer].
+
+Cette dualité suit la règle de Stroustrup : la concision au glyphe pour qui la pratique, l'explicite à l'alias pour qui découvre. La formule suppose sans le dire que le choix appartient au /lecteur/, et il faut le dire, car cela commande ce que l'outillage doit porter. Le style dépend en réalité des choix des auteurs /et/ de ceux des lecteurs, distinctement, et un dispositif qui ne servirait que les seconds ne rendrait qu'une moitié du service [cite:@cohenCodeStyleSheets2025]. La même source signale que la difficulté technique n'est pas la sélection de l'affichage mais la /mise en page/ des blocs imbriqués — remarque qui vise une syntaxe à expressions symboliques plus que toute autre, et qui est donc à porter au compte de ce chapitre plutôt qu'à celui d'un outillage futur.
+
+Les trains composent ces primitifs sans nommer leurs arguments — un 2-train ~(f g)~ dénote ~λx. f(g(x))~, un 3-train ~(f g h)~ dénote la fourche ~λx. (f x) g (h x)~ — tandis que les modifieurs ~´~ (pli), ~¨~ (chacun), ~↢~ (liaison gauche) transforment une fonction en une autre. Les blocs concaténatifs comme ~[dup * +]~, dans la tradition de Forth et Factor, portent leur effet de pile directement dans leur type : ~[dup *]~ a l'effet ~(1 – 2)~.
+
+Le nombre d'opérations qu'une telle bibliothèque peut porter est la seule grandeur non bornée de tout le nommage de ce langage, et il faut dire tout de suite qu'aucun seuil ne se cite. La littérature ne rend pas de nombre au-delà duquel le coût de vocabulaire dominerait. Ni la revue de la lisibilité, ni celle des messages d'erreur, ni les deux rétrospectives de langages dont le vocabulaire a crû sur un demi-siècle. Celle d'APL, écrite en deux temps à quarante-deux ans d'intervalle, et celle du C++, qui sont des témoignages de concepteurs et vont d'ailleurs en sens contraire [cite:@falkoffEvolutionAPL1978;@huiAPL19782020;@stroustrupThrivingCrowdedChanging2020]. Le budget de la bibliothèque est donc une décision de conception, à assumer comme telle, et non un seuil emprunté. Ce qui existe à la place n'est pas un plafond mais un prix unitaire : la carte de justesse par jeton estime la justesse d'un novice /jeton par jeton/, et dit lesquels coûtent plutôt que combien sont de trop [cite:@stefikEmpiricalInvestigationProgramming2013]. C'est l'instrument à employer si ce budget doit un jour se défendre par la mesure.
+
+Un dernier bénéfice de la forme choisie ne passe pas par la lisibilité : elle rend le code /retrouvable/. Les outils de recherche syntaxique exploitent la structure d'arbre du code et sont à ce titre plus expressifs que la recherche par chaîne ou par expression régulière. Leur limite est que la requête doive être un fragment complet et analysable, ce qui rend inutile toute requête en cours de frappe, et le travail qui lève cette limite le fait en ne demandant qu'un découpage en jetons, avec des jokers conscients de l'arbre construits sur des /automates d'arbres/ [cite:@matuteSyntacticCodeSearch2024]. Une syntaxe à expressions symboliques y est structurellement favorable : tout fragment y est déjà un arbre, et le jeton de tête suffit à désigner la forme cherchée. Le mécanisme invoqué est celui-là même dont le chapitre 4 fait sa théorie, de sorte que le langage porte déjà les moyens de son propre outil de recherche.
+
+Les R-expressions et les X-expressions — dont le chapitre 4 (§\ref{sec:c4-echelle-locale}) a déjà donné la sémantique d'exécution pour les premières — sont des types de données intégrés au langage, avec une syntaxe qui leur est propre plutôt qu'une bibliothèque que l'utilisateur pourrait redéfinir. Cette syntaxe bénie a un prix, nommé au §\ref{sec:c5-s-expressions-universelles} ; son bénéfice immédiat est de permettre au compilateur des optimisations qu'aucune construction générique ne rendrait possibles — la fusion d'un motif R-expression et d'un flux X-expression en un seul automate ~K7PL.FSM~, sans conversion intermédiaire en chaîne de caractères. Une X-expression s'écrit ~(tag-symbole [attributs] enfants...)~ ; ses attributs occupent un espace de pile linéaire de couche 3, si bien qu'un calcul de couche 2 destiné à y figurer doit d'abord être matérialisé par un ~let~ avant d'être injecté, sous peine de la même erreur ~ERR-TOP-001~ rencontrée au §\ref{sec:c5-s-expressions-universelles}.
+
+La métaprogrammation exploite enfin l'homoiconicité elle-même. Une macro est une fonction pure de couche 2 qui reçoit un AST et en retourne un autre, exécutée en Phase 0 avant toute vérification. L'évaluation ~comptime~, marquée par le sigil ~#~, exécute du code pur de couche 2 ou 3 pour produire une constante déposée directement dans la section binaire ~.rodata~.
+
+Deux modèles répondent chacun à une moitié du problème. Terra montre qu'un langage de métaprogrammation de haut niveau peut engendrer à la compilation du code bas niveau optimisé — exactement le rapport qu'entretient la couche 2 avec les couches 1 et 3 quand elle génère leurs structures. Racket montre que cette génération ne reste sûre que si les phases sont strictement isolées, un effet de bord du macro-système ne pouvant contaminer le code produit : c'est la discipline d'hygiène reprise ici.
+
+L'isolation ne suffit cependant pas à garantir la modularité : l'expansion de macro est une /élaboration/ au sens de la littérature sur les effets d'ordre supérieur. Celle-ci établit que les opérations prenant des calculs en argument — ce qu'un gestionnaire est — brisent la modularité des effets algébriques lorsqu'on les encode naïvement, l'encodage n'appartenant alors à aucune interface d'effet. Mais elle établit aussi qu'une élaboration convenablement structurée la rétablit, en se composant par cas séparés [cite:@bachpoulsenHeftyAlgebrasModular2023]. Ce que K7PL perd ici, il le perd donc par le choix de son encodage et non par une impossibilité. K7PL ne garantit pas cette modularité, et ce défaut n'est pas indépendant du précédent : c'est parce qu'une opération introduite par macro n'appartient à aucune interface qu'on ne peut ni la confiner ni raisonner sur ce qu'elle fait. Modulariser l'élaboration — en donnant aux opérations d'ordre supérieur une interface propre plutôt qu'en les encodant — servirait donc les deux à la fois, la modularité et le confinement.
+
+Encore faut-il dire de quel type est cet AST, faute de quoi l'hygiène resterait une discipline d'implémentation plutôt qu'une propriété. L'AST de K7PL est l'algèbre initiale d'une signature à opérateurs liants, intrinsèquement indexée par la portée — soit une instance directe du \(\mu F\) construit au chapitre 2 (§\ref{sec:c2-algebres-coalgebres-et-points}), et non un mécanisme supplémentaire. Cette formulation n'est pas un raffinement théorique : c'est elle qui rend génériques, une fois pour toutes et preuves comprises, les parcours que le compilateur répète autrement pour chaque opération — renommage, substitution, désucrage, impression [cite:@allaisTypeScopeSafe2018]. Elle fournit en outre au système de macros l'objet formel qu'il manipule sans le nommer : la métavariable, et l'opération de métasubstitution qui l'accompagne, dont découle un raisonnement équationnel du second ordre sur les expansions. Le lemme de substitution s'y obtient par construction plutôt que par preuve séparée [cite:@fioreFormalMetatheorySecondorder2022].
+
+Une seconde propriété suit de la même construction, et elle décide de ce que le compilateur peut faire plutôt que de ce que le programmeur peut écrire.
+
+#+NAME: eq:staticite-syntaxe
+#+BEGIN_EXPORT latex
+\begin{theorem}[staticité de la syntaxe]\label{thm:staticite_syntaxe}
+\begin{statement}[La syntaxe est fixée avant toute exécution]
+Aucune construction de K7PL ne calcule un nom~; toute opération d'espace de noms vit au
+niveau macro, où elle est typée par \texttt{binds}. Par conséquent la syntaxe d'un programme
+est fixée à l'issue de la Phase~0, et aucune exécution ne la modifie.
+\end{statement}
+\begin{proofsketch}
+Par inspection de la grammaire, en quatre points. La seule construction qui produit un arbre est la
+\emph{macro}, fonction pure de couche 2 d'un AST vers un AST. Elle s'exécute en Phase~0, en bac à
+sable, avant toute vérification et donc avant toute exécution du programme. Son type porte la portée,
+de sorte qu'elle ne peut produire d'occurrence hors de l'index qu'elle reçoit --- c'est l'hygiène
+ci-dessus. Et aucune règle du jugement germinal ne construit un nom à partir d'une valeur~: les noms
+sont des données de la dérivation, non de l'évaluation.
+
+Un seul cas demande d'être regardé, car c'est le seul endroit du langage où un nom soit \emph{produit}
+plutôt que lu~: la résolution de \texttt{bind-to} par recherche dirigée par le type
+(§\ref{sec:c5-mise-en-pratique}). Elle ne menace pas l'énoncé, s'achevant elle aussi en Phase~0 --- une
+recherche ambiguë y est refusée plutôt que résolue arbitrairement.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Ce que ce théorème ajoute n'est pas une garantie de plus mais un /second/ bénéfice au même dispositif. Le chapitre 3 justifie le confinement de la Phase 0 par la sûreté : une macro n'a aucune raison de détenir plus de capacités que le programme qu'elle produit. Il achète aussi la compilabilité statique, et le document ne le dit nulle part. La comparaison rend la chose nette : ce qui empêche APL d'être compilé statiquement tient en une phrase de ses concepteurs — la syntaxe d'une instruction après exécution peut différer de ce qu'elle était avant [cite:@saalConsiderationsDesignCompiler1978]. Cette phrase est inécrivable pour K7PL, et elle l'est par théorème.
+
+Une condition supplémentaire doit être nommée, car on la confond aisément avec le confinement lui-même. Qu'une valeur soit close à la compilation ne suffit pas à rendre libre le produit engendré par le métaniveau. Il y faut la /générativité/, l'axiome qui internalise le fait qu'un métaprogramme ne peut pas inspecter la structure des termes du niveau objet. C'est de lui, non de la clôture, que se tire la fermeture de l'univers des sommes de produits par la somme dépendante [cite:@kovacsClosurefreeFunctionalProgramming2024]. La formulation juste n'est donc pas que la valeur soit close, mais que le métaniveau soit /paramétrique/ en l'objet. C'est ce que le confinement de la Phase 0 réalise, et le dire ainsi évite d'attribuer à la clôture un travail qu'elle ne fait pas.
+
+L'hygiène des macros cesse alors d'être un dispositif pour devenir un théorème : une macro bien typée reçoit un AST indexé par une portée et ne peut produire d'occurrence hors de cet index, de sorte qu'une capture accidentelle n'est pas évitée mais inexprimable. C'est la garantie par inexpressibilité du chapitre 1 (§\ref{sec:c1-axiomatique-germinale}), appliquée ici à la capture de nom. La seconde occurrence est ailleurs et de même forme — une violation de couche n'est pas refusée par une règle, elle échoue à se dériver faute de la ressource que le jugement ambiant ne porte pas. Ce que ces deux cas ajoutent au critère du chapitre 1 est le lieu où la structure porte l'interdit : l'index d'un préfaisceau ici, la ressource d'un contexte là.
+
+Et il faut en écrire le revers, qui se paie exactement où le gain se prend. Une violation inexprimable ne se /diagnostique/ pas : il n'y a rien à refuser, donc rien à expliquer, et le lecteur reçoit un échec de dérivation là où une règle de rejet aurait produit un message. C'est ce que la stratification des diagnostics de l'annexe des codes d'erreur doit compenser, et c'est pourquoi elle n'est pas un ornement.
+
+K7PL conserve néanmoins l'anaphore délibérée — la macro qui introduit intentionnellement une liaison destinée au corps de son site d'appel, tradition Lisp dont ce chapitre se réclame. Elle passe par une extension explicite de l'index de portée, ~binds~, qui apparaît dans le type de la macro. L'anaphore n'est ni interdite ni silencieuse, elle est visible dans la signature, selon la même règle que ce document applique aux délimiteurs, au typestate et aux capabilités — rendre coûteux et lisible plutôt qu'interdire. En interne, chaque variable porte un nom et un indice à la De Bruijn : le nom préserve la lisibilité des messages d'erreur, l'indice résout le masquage sans renommage coûteux, et il ne s'affiche que lorsqu'il est non nul — une variable jamais masquée reste, à l'écran, un nom nu.
+
+Que ~binds~ figure dans le /type/ plutôt que dans la mise en œuvre a une conséquence que ce chapitre gagnerait à revendiquer, car elle dissout un défaut de composition documenté. Les techniques d'hygiène qui traitent l'anaphore par extraction obligent toutes les macros liant un même identifiant à être définies /avec connaissance les unes des autres/. Deux macros anaphoriques écrites indépendamment ne se composent pas, et le défaut est reconnu dans la tradition même dont ce chapitre se réclame [cite:@clingerHygienicMacroTechnology]. Mettre la portée dans le type l'élimine plutôt que le contourne : deux macros dont les signatures déclarent chacune ce qu'elles lient se composent parce que leurs index de portée se composent, sans qu'aucune ait à connaître l'autre. Ce n'est pas une amélioration ergonomique, c'est un défaut de modularité qui cesse d'exister.
+
+Un précédent industriel existe sur le dispositif voisin — le délimiteur qui annonce un régime plutôt qu'une construction. F# a introduit ~async { … }~ comme une réinterprétation /localisée/ des constructions de contrôle existantes, plutôt que comme un jeu de primitives nouvelles, et la forme est devenue un standard de fait bien au-delà de ce langage [cite:@symeEarlyHistory2020]. K7PL emploie la même figure aux mêmes fins de lisibilité. Ce qui y est neuf n'est donc pas le délimiteur mais ce qu'il annonce : chez F# un régime d'évaluation, ici un /grade/, donc quelque chose que le système de types vérifie plutôt qu'une convention que le compilateur interprète.
+
+La forme de ce théorème dit d'où il vient.
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[hygiène des expansions]\label{thm:hygiene}
+\begin{statement}[La métasubstitution commute avec la substitution]
+Pour tout terme à métavariables $M$, toute métasubstitution $\theta$ et toute substitution $\sigma$
+portant sur les variables d'objet,
+\[ (M\,\theta)[\sigma] \;=\; (M[\sigma])\,\theta \]
+lorsque $\sigma$ ne touche aucune variable liée par $M$. Il en résulte qu'aucune expansion ne capture~:
+une occurrence libre dans l'argument d'une macro reste libre dans le résultat.
+\end{statement}
+\begin{proofsketch}
+L'AST étant l'algèbre initiale d'une signature à opérateurs liants, intrinsèquement indexée par la
+portée, un terme est un élément d'un préfaisceau sur les contextes et la substitution en est l'action
+fonctorielle. L'égalité ci-dessus est alors la naturalité de cette action, et se démontre par
+récurrence sur $M$~: les cas des opérateurs sont donnés par la fonctorialité, celui d'une
+métavariable par sa définition, et celui d'un lieur par le décalage d'indice que l'indexation par la
+portée impose.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Ce que cet énoncé rend inexprimable importe plus que ce qu'il évite. [rmq:Pas une discipline appliquée, un type qui ne laisse pas la question se poser.] La conclusion n'est pas qu'une capture est évitée par un renommage. Mais qu'elle est inécrivable : produire une occurrence hors de l'index de portée reçu demanderait un terme qui n'est pas dans le préfaisceau. Le macro-système n'a donc pas de discipline d'hygiène à appliquer.
+
+Deux limites le bornent, et toutes deux sont délibérées. La première est qu'il porte sur l'AST non gradué, c'est-à-dire sur l'image du foncteur d'effacement du chapitre 4 (§\ref{sec:c4-le-calcul-de-processus}). Une macro qui emploie deux fois son argument le duplique, ce qui est une contraction et n'est licite qu'au grade \(\omega\). L'énoncé gradué suppose donc de savoir ce qu'une macro déclare de ses arguments, question que ce document laisse ouverte. La seconde touche à ce que le mot /hygiène/ promet d'ordinaire : l'énoncé porte sur la métasubstitution dans l'AST du noyau, quand le but usuel est la préservation de l'\(\alpha\)-équivalence de surface — qu'un programme et son renommage aient la même expansion telle que le programmeur la lit. Celle-ci ne s'en déduit pas sans une algèbre de liaison de la surface, que ce document n'a pas construite. La difficulté est connue sous le nom de /resucrage/ : reconduire une propriété établie au noyau jusqu'à la forme de surface demande que le désucrage soit lui-même compositionnel, et cette exigence ne va pas de soi [cite:@pombrioHygienicResugaringCompositional].
+
+Une inquiétude s'écarte en revanche, et elle porterait sur la fondation plutôt que sur la surface. Manipuler des noms frais — ce que fait toute construction qui choisit un nom — pourrait sembler exiger une forme d'axiome du choix. Il n'en est rien : dans les ensembles nominaux, tout élément a un support fini et l'ensemble des noms est infini, de sorte qu'un nom frais existe toujours, et c'est le quantificateur de fraîcheur qui dispense du choix [cite:@pittsNominalSetsNames2013]. Le coût de la fraîcheur est donc nul du côté de la fondation, et entier du côté de la mécanisation — ce que le chapitre 6 discute.
+
+S'il tient, le macro-système hérite de l'hygiène sans avoir à la faire respecter, et une bibliothèque tierce ne peut pas capturer un nom du programme qui l'appelle. S'il tombe, il faut réintroduire un mécanisme de renommage à l'expansion, c'est-à-dire une discipline à vérifier plutôt qu'une propriété du type.
+
+Cet énoncé est une instance du schéma de commutation (chapitre 2, §\ref{sec:c2-six-schemas-de-metatheorie}, théorème \ref{thm:schema_commutation}), la transformation étant ici l'expansion et les deux niveaux le méta et l'objet. Un langage à trois strates produit des énoncés de cette forme parce que chacune doit traverser l'autre sans la déformer, et c'est le schéma qui porte cette raison une fois pour toutes.
+
+Une économie accompagne cet énoncé et vaut d'être signalée, car elle retire un travail qu'on attendrait. L'expansion a lieu en Phase 0, dans le bac à sable où une macro ne peut ni lire un fichier, ni interroger le réseau, ni consulter l'horloge : \(\mathcal{E} = \emptyset\) pendant toute l'expansion. /L'hygiène n'interagit donc pas avec les effets/, et la démonstration n'a aucun cas d'effet à traiter. C'est la distinction de phase qui paie ici, et non une clause ajoutée.
+
+Reste à dire de quoi la visibilité de l'anaphore est faite, faute de quoi ~binds~ resterait un mot. Une macro y déclare, dans son type, l'/extension/ de l'index de portée qu'elle opère : là où une macro ordinaire a le type \(\mathsf{AST}\,\Gamma \to \mathsf{AST}\,\Gamma\), une macro anaphorique qui introduit les liaisons \(\overline{x}\) a le type \(\mathsf{AST}\,\Gamma \to \mathsf{AST}\,(\Gamma, \overline{x})\). L'index de portée du résultat n'est pas celui de l'argument, et cet écart /est/ la déclaration. Un appelant lit donc dans la signature ce que la macro va lier chez lui, et le théorème ci-dessus vaut inchangé — il porte sur l'index reçu, quel qu'il soit.
+
+** Le théorème d'élaboration
+#+LATEX: \label{sec:c5-le-theoreme-d-elaboration}
+
+Ce chapitre décrit six façons d'écrire ce que le noyau exécute : la macro ordinaire, le glyphe, la forme sucrée, la liaison par ~bind-to~, les R-expressions et X-expressions, la notation sans point. Elles n'ont pas la même origine ni le même usage, et elles ont un seul et même statut. Plutôt que de le redire six fois, ce document l'énonce ici et l'invoque ensuite. [rmq:Une seule loi, six emplois. Ce qui suit dans ce chapitre décrit des formes, non des mécanismes.]
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[élaboration][statut=definition]\label{thm:elaboration}
+\begin{statement}[Une forme de surface n'a que le sens du terme qu'elle élabore]
+Soit $\mathrm{Elab} : \mathsf{Surface} \to \mathsf{Noyau}$ la fonction d'élaboration. Pour toute
+forme de surface $s$,
+\[ \mathrm{Elab}(s) = t \;\wedge\; \Delta \vdash t : A \mid \mathcal{E}
+   \;\Longrightarrow\; \mathrm{Sens}(s) = \mathrm{Sens}(t). \]
+Aucune forme de surface n'a de sens propre, et aucune n'en ajoute au noyau.
+\end{statement}
+\begin{proofsketch}
+$\mathrm{Elab}$ est définie par récurrence sur la syntaxe de surface et n'émet que des termes du
+noyau~; elle n'introduit aucune variable libre et respecte les liaisons. Elle est donc justiciable
+du schéma de commutation (chapitre~2, \S{}\ref{sec:c2-six-schemas-de-metatheorie},
+théorème~\ref{thm:schema_commutation}), qui donne
+$\mathrm{Elab} \circ \text{subst} = \text{subst} \circ \mathrm{Elab}$~: le sens ne dépend pas de
+l'ordre dans lequel on élabore et on substitue. La compatibilité de l'action graduée
+(théorème~\ref{thm:coherence_axiome}) en donne la part quantitative, les grades de la forme de
+surface se transportant sur ceux du terme sans se relâcher.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+Trois conséquences en découlent, et elles dispensent d'autant d'arguments locaux. La /staticité de la syntaxe/ (théorème \ref{thm:staticite_syntaxe}) en est un corollaire : si aucune forme de surface n'a de sens propre, aucune n'étend la grammaire du noyau. La /dérivabilité de l'expansion/ (théorème \ref{thm:expansion_macro}) en est l'instance pour les macros. Et la transparence de la défonctionnalisation, que le chapitre 6 emploie, en est l'instance pour une passe du compilateur — le morphisme de correction que le premier postulat réclame étant ici l'identité sur le sens.
+
+Le tableau [[tab:c5-formes-de-surface]] rassemble les six formes, ce qu'elles écrivent et ce qu'elles élaborent. Chacune tombe sous le théorème qui précède, et aucune ne demande d'argument propre.
+
+#+DESC: Chaque ligne donne une façon d'écrire, ce qu'elle abrège, et le terme de noyau qu'elle produit. Aucune n'ajoute de construction au noyau, ce qui est le contenu du théorème d'élaboration.
+#+CAPTION: Les six formes de surface du langage et leur image dans le noyau
+#+NAME: tab:c5-formes-de-surface
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.0}Z{1.0} :center nil
+| Forme | Ce qu'elle écrit | Image dans le noyau |
+|-------+------------------+---------------------|
+| macro ordinaire | une abréviation nommée, paramétrée | le corps substitué, par le lemme de substitution |
+| glyphe | un point de code Unicode | la macro de bibliothèque que la table des glyphes lui associe |
+| forme sucrée | une écriture familière d'une construction du noyau | la construction elle-même, sans reste |
+| liaison ~bind-to~ | l'attachement d'un nom à une position d'argument | une application dont l'argument est nommé |
+| R-expression, X-expression | une notation dense pour un motif fréquent | la S-expression correspondante |
+| notation sans point | une composition écrite sans nommer l'argument | la composition explicite du noyau |
+
+** Ce qu'une macro déclare
+#+LATEX: \label{sec:c5-ce-qu-une-macro-declare}
+
+Une macro de bibliothèque expose une interface, et il faut dire de quoi elle est faite. Faute de quoi la seule manière de savoir ce qu'une macro fait serait de l'expanser, et une bibliothèque tierce deviendrait inauditable. La reproductibilité que le bac à sable achète ne servirait alors à rien : on saurait l'expansion reproductible sans savoir ce qu'elle produit.
+
+Une chose se déduit avant même d'être déclarée, et il vaut la peine de la retirer de l'interface plutôt que de l'y laisser par prudence : la /spécialisation/. Les liens entre une macro générale et ses variantes sont de deux espèces seulement — poser deux termes égaux l'un à l'autre, ce qui est une contraction, et poser un terme égal à l'identité, ce qui est une substitution d'unité et non un affaiblissement. La structure qui en résulte est l'/ordre d'instance/ sur les termes, calculable par filtrage dans un sens et par anti-unification dans l'autre [cite:@hoekstraCombinatorNdimensionalArray]. Un compilateur peut donc /dériver/ quelle spécialisation s'applique à un site d'appel, au lieu de la faire déclarer par l'auteur de la bibliothèque. Ce que l'interface doit porter est ce qui ne se déduit pas ; la hiérarchie de spécialisation, elle, se calcule.
+
+La forme de cette interface n'est pas à inventer. /Une déclaration de macro est le jugement germinal porté d'un étage/ — ce que l'expansion exige, ce qu'elle est, ce qu'elle produit — et les trois composantes s'y instancient sans qu'aucun mécanisme nouveau soit requis. Ce paragraphe l'établit composante par composante, puis en tire la règle de typage d'une expansion, laquelle se révèle /dérivable/ plutôt que posée.
+
+*** Les trois composantes, au niveau macro
+
+\(\Delta\) — /ce que l'expansion exige de ses arguments/. C'est ici que se referme la question que le théorème \ref{thm:hygiene} laissait ouverte. Une macro qui place son argument en \(k\) positions le duplique, et cette duplication n'est pas anodine : si l'argument dénote une ressource de grade linéaire, l'expansion l'emploierait \(k\) fois. Une macro déclare donc, /par métavariable/, un grade \(r\) — et ce grade n'est pas d'une nouvelle espèce. /C'est le scalaire par lequel l'expansion multiplie le contexte de l'appelant/, exactement le \(r \cdot \Delta\) que le lemme de substitution gouverne.
+
+\(A\) — /ce qu'elle est/. Le type déjà donné, précisé de ce que l'arbre porte : l'AST étant intrinsèquement indexé par la portée /et par le type/, une macro a le type \(\mathsf{AST}\,\Gamma\,A_1 \to \cdots \to \mathsf{AST}\,\Gamma\,A_n \to \mathsf{AST}\,(\Gamma, \overline{x})\,B\). L'extension de portée \(\overline{x}\) y est la déclaration d'anaphore du paragraphe précédent ; elle appartient à cette composante et non à une autre.
+
+\(\mathcal{E}\) — /ce qu'elle produit/, et c'est ici qu'un piège attend. /Il y a deux effets et non un./ L'effet de l'/expansion/ est vide : une macro ne peut ni lire un fichier, ni interroger le réseau, ni consulter l'horloge, et c'est ce qui rend l'expansion reproductible. L'effet du /code produit/ ne l'est pas. Confondre les deux reviendrait à confondre le lieu de la contrainte et le lieu du mécanisme. C'est le second qu'une interface déclare, et sa forme suit du premier point : si l'expansion emploie \(r\) fois un argument d'effet \(\varepsilon\), le code produit porte \(\varphi_r(\varepsilon)\) — /le transport d'effet, avec le même \(r\)/.
+
+*** La règle d'expansion, qui n'est pas une règle
+
+#+NAME: eq:regle-expansion
+#+BEGIN_EXPORT latex
+\begin{equation*}
+\textsc{Expand}\;\frac{\;m : (x_i :_{r_i} \mathsf{AST}\,\Gamma\,A_i)_{i \leq n} \Rightarrow \mathsf{AST}\,(\Gamma,\overline{x})\,B \mid \varepsilon_m \qquad \Delta_i \vdash t_i : A_i \mid \varepsilon_i\;}{\;\boxtimes_{i}\,(r_i \cdot \Delta_i) \;\vdash\; m(t_1,\ldots,t_n) : B \;\mid\; \varepsilon_m \cdot \textstyle\prod_i \varphi_{r_i}(\varepsilon_i)\;}
+\end{equation*}
+\captionof{formule}{Typage d'une expansion de macro. Aucune de ses parties n'est nouvelle : le contexte est celui du lemme de substitution, l'effet celui du transport \(\varphi\).}
+\label{eq:regle-expansion}
+#+END_EXPORT
+
+#+BEGIN_EXPORT latex
+\begin{theorem}[la règle d'expansion est dérivable]\label{thm:expansion_macro}
+\begin{statement}[Une macro n'ajoute rien au noyau]
+La règle \textsc{Expand} n'est pas un axiome du système~: elle se dérive du lemme de substitution
+(théorème~\ref{thm:substitution}) appliqué $n$ fois, et sa cohérence est celle du
+théorème~\ref{thm:coherence_axiome}. C'est l'instance du théorème d'élaboration
+(théorème~\ref{thm:elaboration}) où la forme de surface est un appel de macro.
+\end{statement}
+\begin{proofsketch}
+Une expansion \emph{est} une substitution~: $m(t_1,\ldots,t_n)$ est le corps de $m$ où chaque
+métavariable $x_i$ a reçu $t_i$. Le lemme de substitution donne, pour une variable, le contexte
+$\Delta \boxtimes (r\cdot\Delta')$ et l'effet $\varepsilon(j)$~; itéré sur les $n$ métavariables, il
+donne le $\boxtimes_i (r_i \cdot \Delta_i)$ de la conclusion, le corps de la macro étant clos et son
+propre contexte donc nul.
+
+Reste à savoir que la mise à l'échelle de chaque contexte va de pair avec celle de l'effet qu'il
+traverse~: c'est $r \cdot \psi(\Delta,\varepsilon) = \psi(r\cdot\Delta, \varphi_r(\varepsilon))$, et
+c'est ce qui justifie le $\varphi_{r_i}(\varepsilon_i)$ de la conclusion plutôt qu'un
+$\varepsilon_i$ nu. \emph{Sans cette loi, une macro employée $r$ fois sous-facturerait son argument},
+et la règle serait fausse pour la même raison que le lemme de substitution le serait.
+
+\emph{Ce que ce théorème vaut.} Il dit que le macro-système ne se paie d'aucun appareil~: la
+condition de clôture du chapitre~1 --- toute extension se projette sur les trois composantes sans
+altérer la sémantique --- est vérifiée ici sur l'extension la plus lourde que le langage porte. La
+compatibilité de l'action graduée (théorème~\ref{thm:coherence_axiome}) y sert comme partout
+ailleurs.
+\end{proofsketch}
+\end{theorem}
+#+END_EXPORT
+
+*** Ce que le vérificateur contrôle avant expansion
+
+C'est le critère auquel cette interface se juge, et il est rempli : les quatre contrôles portent sur le /corps de la macro/, sont syntaxiques, et se font /une fois pour toutes/ à la définition. Un site d'appel ne lit ensuite que la déclaration.
+
+#+CAPTION: Les quatre contrôles que le vérificateur porte sur le corps de la macro avant expansion
+#+NAME: tab:c5-controles-avant-expansion
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.33}Z{0.67} :center nil
+|---+----------------------------------------------------+------------------------------------|
+| 1 | le grade \(r_i\) majore le nombre d'occurrences de \(x_i\) dans le corps | comptage |
+| 2 | l'effet \(\varepsilon_m\) majore ce que le corps compose | lecture des opérations employées |
+| 3 | la couche déclarée admet les opérations du corps   | appartenance                       |
+| 4 | l'extension de portée déclarée est celle que le corps opère | comparaison d'index      |
+|---+----------------------------------------------------+------------------------------------|
+
+/C'est ce qui rend une bibliothèque tierce auditable/ : la macro est vérifiée à sa définition, et chaque appel fait confiance à une déclaration dont on sait qu'elle a été contrôlée.
+
+*** Trois choix, et ce qui les décide
+
+Le grade déclaré est une *borne* et non un compte exact, et cette fois la raison n'est pas seulement la cohérence avec les arbitrages antérieurs. Un corps de macro qui /branche/ — plaçant son argument dans une alternative et pas dans l'autre — n'a pas de compte exact : la borne est le maximum sur les branches, et c'est la seule quantité calculable statiquement. Or c'est déjà la règle du noyau, le grade d'un \(\mathsf{case}\) étant le joint de ses branches. /Le niveau macro n'invente donc pas sa règle, il applique celle d'en dessous./
+
+La couche est *déclarée*, non inférée. L'inférer demanderait d'inspecter le corps, ce qui est possible mais contraire à l'objet : une interface se lit, elle ne se calcule pas. La déclaration est en revanche /vérifiée/ contre le corps, par le contrôle 3 ci-dessus — déclarée et contrôlée, comme le grade l'est.
+
+Le *polymorphisme en grade* est admis, et sous une restriction. Sans lui, deux macros ne différant que par le grade de leur argument devraient être écrites deux fois, ce qu'aucune bibliothèque ne supporterait. Une macro peut donc quantifier sur une variable de grade, mais /en position préfixe seulement/ : la quantification est instanciée au site d'appel, où le grade est connu, de sorte que tout contrôle se ramène à une instance close. Admettre un rang supérieur ferait porter au vérificateur des contraintes de grade à variables sous quantificateur, dont la décidabilité n'est pas acquise — et P3 veut qu'aucune obligation de compilation ne le soit pas.
+
+*** La limite, et elle est réelle
+
+Une macro peut /analyser/ son argument plutôt que le placer : inspecter sa forme et brancher dessus, tradition Lisp dont ce chapitre se réclame. Le nombre d'occurrences dépend alors de l'argument, et non plus du seul corps.
+
+Une partie du cas est couverte, et par un appareil que le document possède déjà : la gradation étant /indexée/ (chapitre 1, §\ref{sec:c1-axiomatique-germinale}), un grade déclaré peut être une fonction d'un indice porté par le /type/ de l'argument — la longueur d'un vecteur littéral, par exemple. C'est la quatrième fois que l'indexation paie un cas qu'on croyait hors de portée.
+
+/Ce qui reste dehors est nommé plutôt que passé sous silence/ : une macro qui branche sur la /forme syntaxique/ de son argument — selon qu'il est un littéral ou une variable — n'est pas couverte, sa dépendance ne passant par aucun indice de type. Une telle macro doit déclarer le maximum sur les formes possibles, ou se voir refusée. K7PL prend la première voie et la déclare imprécise : c'est le même arbitrage que partout ailleurs dans ce document — sur-approximer plutôt que renoncer.
+
+Cette même métaprogrammation absorbe des protocoles binaires hérités sans qu'aucun automate n'ait à être écrit à la main. Le développeur exprime, de façon déclarative en couche 2, les en-têtes, les tailles de champs et l'ordre des octets d'un protocole existant. Le système de macros en dérive à la compilation le ~{deftype}~ correspondant ainsi que le DFA de validation optimisé (chapitre 4, §\ref{sec:c4-echelle-locale}). Une bibliothèque pour un protocole legacy n'est, de ce point de vue, qu'une macro parmi d'autres — jamais un module distinct nécessitant du code non vérifié.
+
+** Mise en pratique
+#+LATEX: \label{sec:c5-mise-en-pratique}
+
+Écrire du K7PL, c'est choisir, à chaque expression, le fragment le moins permissif que la tâche autorise, et laisser les délimiteurs en porter la trace. Avant de composer les trois couches sur un exemple complet, un mot sur ce que la notation tacite du §\ref{sec:c5-notations-specialisees} donne à voir une fois débarrassée de ses noms. La moyenne d'un tableau s'écrit ~+´÷≠~ : plier par addition, diviser par la longueur. Son écart-type s'écrit ~√(+´(⊢-+´÷≠)²÷≠)~ : la même moyenne soustraite à chaque élément, élevée au carré, repliée et divisée à son tour, puis passée à la racine. Aucun argument n'y est nommé ; le train se lit comme une composition de fonctions plutôt que comme une suite d'instructions, ce que le §\ref{sec:c5-notations-specialisees} annonçait.
+
+Cette section construit maintenant un exemple unique — un compteur borné, répliqué en acteur — en remontant des trois couches jusqu'à leur composition, puis en examinant l'erreur la plus commune à leur frontière.
+
+Le cœur du calcul est une fonction pure de couche 3 ([[lst:fonction-pure]]) :
+
+#+CAPTION: Le cœur du calcul : une fonction pure de couche 3, totale et sans effet
+#+NAME: lst:fonction-pure
+#+BEGIN_SRC k7pl
+[defn incrémente-borné? (valeur borne)
+  (select (< valeur borne)
+          (Ok (+ valeur 1))
+          (Err Débordement))]
+#+END_SRC
+
+Le suffixe ~?~ engage le contrat du chapitre 3 (§\ref{sec:c3-structures-ouvertes-effets-et}) : cette fonction ne peut ni déclencher d'effet ni paniquer, elle ne peut que retourner une valeur — ici un ~Result~, puisque le débordement reste une issue normale du calcul plutôt qu'une exception à lever.
+
+Autour de ce calcul, une couche 2 orchestre l'effet observable : recevoir un message, appeler la fonction pure, décrire le nouvel état sans jamais le muter directement ([[lst:gestionnaire]]).
+
+#+CAPTION: La couche 2 orchestre l'effet observable sans jamais muter l'état directement
+#+NAME: lst:gestionnaire
+#+BEGIN_SRC k7pl
+(defhandler gestionnaire-compteur (message état)
+  (match message
+    ((Incrémente n)
+     (match [incrémente-borné? (^. état valeur) (^. état borne)]
+       ((Ok nouvelle-valeur)
+        (HandlerResult :état (^= état valeur nouvelle-valeur) :réponse (Ok nouvelle-valeur)))
+       ((Err e)
+        (HandlerResult :état état :réponse (Err e)))))))
+#+END_SRC
+
+Le calcul de couche 3 est appelé depuis la couche 2, ce qui est légitime : le pur s'invoque de partout (§\ref{sec:c5-s-expressions-universelles}). C'est cette frontière, seule, que les crochets de l'appel signalent. Le reste du gestionnaire, qui ne quitte jamais la couche 2, s'écrit en parenthèses ordinaires — y compris la mise à jour de l'état par la lentille ~^=~, qui préserve le champ ~borne~ inchangé sans qu'aucun ~HandlerResult~ n'ait besoin de le répéter.
+
+L'acteur lui-même n'est qu'une déclaration : aucune logique n'y figure directement, seulement la topologie et le rattachement du gestionnaire ([[lst:acteur]]).
+
+#+CAPTION: L'acteur ne porte que sa topologie et le rattachement de son gestionnaire
+#+NAME: lst:acteur
+#+BEGIN_SRC k7pl
+{defactor Compteur
+  (champ valeur : Int)
+  (champ borne : Int)
+  (bind-to gestionnaire-compteur)}
+#+END_SRC
+
+La forme ~bind-to~ appelle une remarque, car elle est la seule construction du langage dont l'existence ne se déduise pas du jugement germinal. Elle déclare une association que rien n'oblige à déclarer, contrevenant à la fois à la clôture du chapitre 1 et au principe de ce chapitre. Elle n'est donc pas une primitive. Un acteur /est/ la paire additive dépendante \((\text{état} : S)\,\&\,\text{Handler}(S)\) du chapitre 3 (§\ref{sec:c3-structures-ouvertes-effets-et}), et ~bind-to~ n'est qu'un accès de champ. Lorsque le programmeur l'omet, l'élaborateur remplit la seconde composante par recherche dirigée par le type — technique dont la propriété conditionnante est la /cohérence/, le fait qu'un programme valide ait exactement une signification [cite:@racordonStateCoherenceLand2025], et dont la preuve formelle en présence de non-déterminisme est récente et non triviale [cite:@BOTTU], [cite:@schrijversCOCHISStableCoherent2019]. Ici elle ne coûte rien : la structure fixe le sens, la recherche n'est qu'un sucre, et une recherche ambiguë est refusée en Phase 0 plutôt que résolue arbitrairement. La cohérence est une condition d'erreur, non une obligation de métathéorie. L'unicité du type d'état par gabarit (chapitre 4, §\ref{sec:c4-echelle-du-systeme}) est la condition sous laquelle le sucre aboutit ; la voie modulaire, où l'association est portée par une structure plutôt que déduite, est activement conçue ailleurs [cite:@VIVIEN].
+
+Ici, ~champ~ et ~bind-to~ restent tous deux dans le fragment ambiant de la déclaration : ils s'écrivent en parenthèses ordinaires, et seule l'accolade d'ouverture de ~defactor~ annonce la couche 1. Ces trois déclarations respectent déjà la forme descendante ~{ ... ( ... [ ... ] ... ) ... }~ du §\ref{sec:c5-s-expressions-universelles} : ~bind-to~ relie l'acteur à son gestionnaire, qui appelle lui-même le calcul pur — chaque frontière franchie porte le délimiteur du fragment vers lequel elle mène, et pas une de plus.
+
+L'erreur la plus commune consiste à faire remonter, dans l'autre sens, une construction qui suppose un effet à l'intérieur d'un bloc ~[ ]~ ([[lst:erreur-remontee]]) :
+
+#+CAPTION: L'erreur la plus commune : une construction à effet remontée dans un bloc pur, rejetée par ERR-TOP-001
+#+NAME: lst:erreur-remontee
+#+BEGIN_SRC k7pl
+[defn incrémente-borné? (valeur borne)
+  (HandlerResult :état valeur :réponse (Ok valeur))]  ; rejeté : ERR-TOP-001
+#+END_SRC
+
+La parenthèse ordinaire n'est pas ici en cause en elle-même — un appel à ~select~ ou à ~^.~ s'écrirait de la même manière dans ce même bloc, sans rien enfreindre. Ce qui est rejeté, c'est que ~HandlerResult~ suppose un état d'acteur et un effet de couche 2 — \(\mathcal{E}\) et \(\Delta_{\text{aff}}\) — dont le jugement de couche 3 ne dispose tout simplement pas (\(\Delta = \emptyset\), chapitre 1, §\ref{sec:c1-axiomatique-germinale}). Aucun délimiteur ne pourrait rendre cet appel légitime, puisqu'aucune transition vers la couche 2 n'est permise depuis la couche 3. Ce n'est pas une erreur de notation que le bon crochet aurait évitée, c'est une impossibilité structurelle que la notation ne fait que rendre visible.
+
+#+print_bibliography: :heading subbibliography :segment \therefsegment

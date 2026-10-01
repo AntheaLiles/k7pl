@@ -1,0 +1,120 @@
+* CODES D'ERREUR
+#+TOC: headlines 2 local
+#+LATEX: \label{sec:annexe-a-codes}
+
+Le corpus source range ces codes par ordre alphabétique de préfixe. Cette annexe les regroupe par l'invariant qu'ils protègent, afin qu'un lecteur cherchant pourquoi un programme est rejeté trouve le chapitre correspondant plutôt qu'une liste sans principe. Deux écarts avec le corpus source sont assumés. ~ERR-TOP-003~, mentionné au chapitre 6 (§\ref{sec:c6-le-processus-de-compilation}) mais absent de la table source, est ajouté ici. ~ERR-FFI-001~ et ~ERR-TYP-008~, qui y désignent tous deux une fuite de descripteur à travers la passerelle FFI, sont réunis sur une seule ligne. Cette table reste illustrative et non exhaustive : tout mécanisme nouveau engendrerait des codes qu'elle ne peut anticiper, et le regroupement thématique facilite la navigation sans garantir la complétude — qu'aucune partie de ce document n'a revendiquée pour cette annexe.
+
+# À explorer pour un futur état de l'art de cette annexe : conventions de diagnostics riches dans les compilateurs contemporains (Rust, Elm, Roc) ; travaux sur le message d'erreur de type comme objet de recherche à part entière (Wand ; Heeren, Hage et Swierstra).
+
+Un code ne vaut que par le message qu'il porte, et il faut dire sur quoi cette annexe s'appuie pour en régler la forme — car ce qu'on peut invoquer ici est plus mince qu'il n'y paraît. Une revue systématique d'un demi-siècle de littérature sur les messages d'erreur retourne six cent cinquante et un articles, en inspecte quatre cent quarante-huit à la main, et en tire dix lignes directrices qui englobent vingt des vingt-deux propositions des quatre travaux ayant tenté une synthèse. Son verdict sur la qualité de la preuve est sévère. La plupart de ces suggestions, en particulier celles des quatre décennies qui suivent 1960, reposent sur des anecdotes ou l'opinion d'experts. Et la /lisibilité/, première des dix lignes directrices, est posée comme critère depuis cinquante ans par une source fondatrice qui ne fournit aucun mécanisme pour l'évaluer [cite:@beckerCompilerErrorMessages2019]. Ce document peut donc invoquer une convergence d'opinion experte sur la forme de ses messages ; il ne peut pas invoquer un effet mesuré, et la différence décide de ce qu'un relecteur peut lui opposer.
+
+Deux résultats échappent à cette réserve, parce qu'ils sont mesurés. Le premier chiffre ce que la lisibilité d'un message coûte en temps : sept cent dix virgule sept secondes contre trois cent vingt-quatre virgule neuf, soit un facteur deux, à moins d'un pour mille [cite:@dennyErrorMessageReadability2020]. Le second isole les facteurs qui la déterminent — longueur du message, emploi de jargon, structure de la phrase, vocabulaire — par trois expériences dont la troisième fait noter des messages par des débutants sur des échelles dérivées des deux premières [cite:@dennyDesigningProgrammingError2021]. Ces quatre facteurs sont les seuls dont cette annexe se réclame, et ils gouvernent la colonne « déclencheur et correction » de chacune des tables qui suivent : un déclencheur nommé sans jargon, une correction dite en une phrase, et rien qui suppose un serveur de langage à portée.
+
+Une distinction de plus est employée ici, et elle vient d'ailleurs, ce qu'il faut déclarer. Les messages de ce langage se répartissent en trois niveaux — le /signal/, qui dit ce qui est faux à un endroit ; la /règle/, qui dit quel invariant a été violé ; la /connaissance/, qui dit pourquoi cet invariant existe. Cette stratification n'est pas une invention de la littérature des messages d'erreur : c'est la taxonomie des niveaux de contrôle cognitif d'un opérateur [cite:@rasmussenSkillsRulesKnowledge1983], et aucune des dix lignes directrices de la revue ne la nomme. L'appliquer aux diagnostics d'un compilateur est donc un transport, et il se justifie par ceci que la taxonomie porte sur ce qu'un opérateur fait d'une information — ce qu'un message d'erreur est. Le transport est faisable ; il n'est pas acquis, et la question de savoir à quel niveau un message doit s'adresser dépend de ce que le lecteur sait déjà, ce qu'aucune mesure du corpus ne tranche.
+
+** Frontières de couches et discipline de composition
+
+#+CAPTION: Codes rejetant une composition qui franchit une frontière de couche
+#+NAME: tab:err-frontieres
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.00} :center nil
+| Code         | Déclencheur et correction                                                                        |
+|--------------+---------------------------------------------------------------------------------------------------|
+| ~ERR-TOP-001~  | Structure de couche 2 ~( )~ instanciée dans un bloc de couche 3 ~[ ]~. Déplacer le calcul dans un ~let~ de couche 2 en amont. |
+| ~ERR-TOP-002~  | Structure de couche 1 ~{ }~ instanciée dans un bloc de couche 3 ~[ ]~. Même correction.            |
+| ~ERR-TOP-003~  | Un nœud marqué comme bloc de spécification (doctest, assertion ~comptime~) est référencé par un chemin de production. Isoler la spécification hors du graphe de dépendance de production. |
+| ~ERR-TOP-005~  | Projection tensorielle synchrone (réseau de Leech) demandée en couche 2. La retourner via un ~HandlerResult~. |
+| ~ERR-TOP-011~  | Aucun composant ne correspond au filtre topologique d'une projection de namespace.                |
+| ~ERR-POL-001~  | Distribution dynamique ou table virtuelle détectée. Utiliser une résolution ~comptime~ ou des variantes monomorphes. |
+| ~ERR-TYP-010~  | Deux implémentations pour la même paire (type, trait).                                            |
+
+** Pureté et discipline de la couche 3
+
+#+CAPTION: Codes protégeant la pureté et la totalité de la couche 3
+#+NAME: tab:err-purete
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.00} :center nil
+| Code         | Déclencheur et correction                                                                        |
+|--------------+---------------------------------------------------------------------------------------------------|
+| ~ERR-PUR-001~  | Opération à effet à l'intérieur d'un bloc ~pure~ ou d'un bloc ~[ ]~ de couche 3.                    |
+| ~ERR-EFF-001~  | Effet algébrique sans gestionnaire associé. Définir un gestionnaire ou retirer le ~perform~.        |
+| ~ERR-LOG-001~  | Conditionnelle impérative détectée. Utiliser ~match~, ~cond~ ou ~select~.                           |
+| ~ERR-TOP-010~  | Fonction impure, suffixée ~!~, appelée à l'intérieur d'un bloc pur de couche 3.                     |
+| ~ERR-TYP-009~  | Fonction suffixée ~?~ contenant un effet algébrique non géré.                                      |
+
+** Terminaison et productivité
+
+#+CAPTION: Codes émis lorsqu'un critère de terminaison ou de productivité n'est pas établi
+#+NAME: tab:err-terminaison
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.00} :center nil
+| Code         | Déclencheur et correction                                                                        |
+|--------------+---------------------------------------------------------------------------------------------------|
+| ~ERR-TER-001~  | Récursion générale détectée en couche 3. Utiliser un pli ou le mot-clé ~terminates~.               |
+| ~ERR-IND-001~  | Chemin d'exécution d'un flux ~@:stream~ bouclant indéfiniment sans émettre.                        |
+| ~ERR-IND-003~  | Prédicat tacite d'un ~stream-subscribe~ risquant de rejeter indéfiniment tous les éléments.         |
+| ~ERR-CMP-001~  | Constructeur non linéaire dans un contexte annoté ~@linear~.                                        |
+| ~ERR-CMP-004~  | Dépassement du budget temporel alloué à l'évaluation ~comptime~.                                    |
+| ~ERR-STK-001~  | Un train tacite consomme plus d'arguments que disponible, ou en laisse orphelins.                   |
+| ~ERR-STK-003~  | Une semicoroutine dépasse la taille de pile préallouée.                                             |
+| ~ERR-MEM-009~  | Un consommateur abandonne un ~StreamContext~ avant épuisement.                                      |
+
+** Capabilités et mémoire
+
+#+CAPTION: Codes protégeant la discipline de capabilité et la sûreté mémoire
+#+NAME: tab:err-capabilites
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align Z{0.35}Z{1.65} :center nil
+| Code                        | Déclencheur et correction                                                          |
+|-----------------------------+---------------------------------------------------------------------------------------|
+| ~ERR-MEM-004~                 | Emprunt mutable d'un état canonique. Cloner ou utiliser la copie-sur-écriture de couche 3. |
+| ~ERR-MEM-006~                 | Pointeur absolu dans une arène de couche 1. Utiliser un offset relatif.             |
+| ~ERR-TYP-006~                 | Point de session ou ressource ~Lin T~ abandonnée avant ~end~.                        |
+| ~ERR-CMP-003~                 | Abandon implicite en couche 2 d'une structure à destructeur non constant. Exiger une libération explicite par lot. |
+| ~ERR-TOP-006~                 | Barrière mémoire manquante sur une écriture de canal inter-cœurs.                    |
+| ~ERR-TOP-007~                 | Réallocation structurelle d'une arène pendant qu'une vue de couche 2 l'emprunte.     |
+| ~ERR-TOP-008~                 | Une vue ~tref~ s'échappe de son cadre local. Matérialiser par ~vec~.                  |
+| ~ERR-FFI-001~ / ~ERR-TYP-008~ | Fuite d'un descripteur ou d'un ~ForeignHandle~ via la passerelle FFI.                |
+
+** Protocoles, sessions et topologie distribuée
+
+#+CAPTION: Codes rejetant une violation de protocole ou de topologie distribuée
+#+NAME: tab:err-protocoles
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.00} :center nil
+| Code         | Déclencheur et correction                                                                        |
+|--------------+---------------------------------------------------------------------------------------------------|
+| ~ERR-TYP-007~  | Transition de typestate invalide.                                                                 |
+| ~ERR-TOP-009~  | Branche ~offer~ non gérée dans l'implémentation d'un protocole.                                    |
+| ~ERR-ACT-002~  | Combinaison de messages non couverte par un motif de jonction.                                    |
+| ~ERR-ACT-003~  | Souscription circulaire à un flux avec politique ~:block~.                                         |
+| ~ERR-ARC-001~  | Cycle dans le graphe de dépendances entre acteurs et canaux.                                       |
+| ~ERR-ARC-002~  | Seuil de centralité dépassé (God Object).                                                          |
+
+** Distinction de phase et métaprogrammation
+
+Ces quatre codes protègent l'invariant énoncé au chapitre 1 (§\ref{sec:c1-axiomatique-germinale}) : le comportement observable d'un programme ne dépend jamais de ce qui appartient à la phase de compilation. C'est cet invariant qui autorise la Phase 8 à purger les blocs de spécification sans changer le programme ; le violer rendrait l'effacement incorrect, et non pas seulement imprudent.
+
+#+CAPTION: Codes protégeant la distinction de phase et l'hygiène des macros
+#+NAME: tab:err-phase
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.00} :center nil
+| Code         | Déclencheur et correction                                                                        |
+|--------------+---------------------------------------------------------------------------------------------------|
+| ~ERR-TYP-011~  | Projection implicite ~e.τ~ sur un paquet existentiel dont le témoin porte un grade effaçable (chapitre 3, §\ref{sec:c3-structures-ouvertes-effets-et}). C'est un filtrage sur donnée effacée, qui ferait perdre la canonicité. Exiger un ~unpack~ explicite, ou rendre le témoin non effaçable. |
+| ~ERR-TYP-012~  | Éliminateur discriminant à l'exécution sur un argument de la phase de compilation — ~match~ sur un paramètre de typestate, ~cond~ sur un paramètre fantôme, filtrage sur une dimension physique (chapitre 3, §\ref{sec:c3-les-contraintes-de-valeur}). Porter un tag explicite, qui appartient alors à la phase d'exécution et cesse d'être gratuit. |
+| ~ERR-MAC-001~  | Macro dont l'expansion introduit une liaison capturable par le site d'appel sans l'avoir déclarée. L'anaphore n'est pas interdite, elle doit être visible : annoter la macro de ~binds~ pour étendre explicitement son index de portée (chapitre 5, §\ref{sec:c5-mise-en-pratique}). |
+| ~ERR-MAC-002~  | Macro annotée ~binds~ dont l'expansion n'introduit aucune liaison. Retirer l'annotation, qui alourdit la signature sans contrepartie. |
+
+** Contraintes de valeur et preuves résiduelles
+
+#+CAPTION: Codes émis lorsqu'une contrainte de valeur reste indécidée
+#+NAME: tab:err-contraintes
+#+ATTR_LATEX: :environment tabularx :width \largeurimpression :align lZ{1.00} :center nil
+| Code        | Déclencheur et correction                                                                                             |
+|-------------+-----------------------------------------------------------------------------------------------------------------------|
+| ~ERR-SMT-001~ | Intervalle du témoin contredisant les contraintes inférées.                                                           |
+| ~ERR-SMT-002~ | ~invariant~ ou ~witness~ invalidé par un test de falsification.                                                           |
+| ~ERR-DPL-001~ | Transformation pure manquante entre l'ancien et le nouveau schéma lors d'un hot-reload.                               |
+| ~ERR-PKG-003~ | Preuve SMT d'un paquet invalidée à la re-vérification locale.                                                         |
+| ~ERR-CMP-002~ | Incompatibilité de débit producteur/consommateur sans stratégie d'ajustement.                                         |
+| ~ERR-TYP-005~ | Singularité non gérée : la division renvoie ~Result<Float64, Singularity>~, exigeant un filtrage exhaustif en couche 2. |
+| ~ERR-SLC-001~ | Requête de tranche invalide.                                                                                          |
+| ~ERR-ROW-001~ | Conflit de rangée.                                                                                                    |
+| ~ERR-FLD-001~ | Conflit de présence de champ.                                                                                         |
+
+#+print_bibliography: :heading subbibliography :segment \therefsegment

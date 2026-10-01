@@ -1,0 +1,68 @@
+{
+  "_provenance": {
+    "source": "Unicode Technical Standard #39, Unicode Security Mechanisms",
+    "fichier": "confusables.txt",
+    "url": "https://www.unicode.org/Public/security/latest/confusables.txt",
+    "version": "17.0.0",
+    "date_du_fichier": "2025-07-22",
+    "extrait_le": "2026-09-03",
+    "portee": "Squelette UTS #39 des vingt-huit glyphes de tab:glyphes. Un glyphe dont le squelette diffère de lui-même a un confusable HORS du jeu.",
+    "reserve": "UTS #39 vise la sécurité des IDENTIFIANTS et l'usurpation, non la conception d'un jeu de glyphes. L'employer pour la cinquième règle d'admission est un TRANSPORT, déclaré comme tel au chapitre 5."
+  },
+  "squelettes": {
+    "002B": "002B",
+    "002D": "002D",
+    "00D7": "0078",
+    "00F7": "00F7",
+    "230A": "230A",
+    "2308": "2308",
+    "2260": "2260",
+    "228F": "228F",
+    "2294": "2294",
+    "234B": "234B",
+    "2352": "2352",
+    "2195": "16E8",
+    "223E": "223E",
+    "22A3": "22A3",
+    "22A2": "22A2",
+    "294A": "294A",
+    "2227": "2227",
+    "2228": "0076",
+    "00AC": "00AC",
+    "003D": "003D",
+    "003C": "003C",
+    "003E": "003E",
+    "2264": "2264",
+    "2265": "2265",
+    "235F": "229B",
+    "2298": "2298",
+    "21A2": "21A2",
+    "21A3": "21A3"
+  },
+  "confusables_declares": {
+    "00D7": {
+      "vers": "0078",
+      "lecture": "× MULTIPLICATION SIGN → x LATIN SMALL LETTER X",
+      "gravite": "haute",
+      "motif": "la cible est un caractère d'IDENTIFIANT légal, et x est le nom de variable le plus employé qui soit"
+    },
+    "2228": {
+      "vers": "0076",
+      "lecture": "∨ LOGICAL OR → v LATIN SMALL LETTER V",
+      "gravite": "haute",
+      "motif": "même cas : la cible est un caractère d'identifiant légal"
+    },
+    "235F": {
+      "vers": "229B",
+      "lecture": "⍟ APL FUNCTIONAL SYMBOL CIRCLE STAR → ⊛ CIRCLED ASTERISK OPERATOR",
+      "gravite": "basse",
+      "motif": "la cible n'est pas un caractère d'identifiant et n'est pas au jeu"
+    },
+    "2195": {
+      "vers": "16E8",
+      "lecture": "↕ UP DOWN ARROW → ᛨ RUNIC LETTER ICELANDIC-YR",
+      "gravite": "nulle",
+      "motif": "la cible est une rune, hors de tout usage plausible"
+    }
+  }
+}

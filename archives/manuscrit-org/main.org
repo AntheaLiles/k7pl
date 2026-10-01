@@ -1,0 +1,33 @@
+#+TITLE:  K7PL : KonSept Programming Language
+#+SUBTITLE: A functional layered programming language
+#+AUTHOR: Cyprien PIERRE \orcidlink{0009-0009-9040-6795}
+#+DATE: {{{time(%Y-%m-%d)}}}
+#+LATEX_CLASS: article
+#+LANGUAGE: fr
+#+GLOSSARY_SOURCES: ./K7PL-glossary.org
+#+EXCLUDE_TAGS: noexport
+#+LATEX_HEADER: \AddToHook{cmd/section/before}{\cleardoublepage\newrefsection}
+
+# NE RIEN MODIFIER SANS L'ACCORD DE L'AUTEUR
+
+#+LATEX: \clearpage
+#+TOC: headlines 1
+#+LATEX: \clearpage
+
+#+INCLUDE: "chapitres/c1-prolegomenes.org" :minlevel 1
+#+INCLUDE: "chapitres/c2-fondements.org" :minlevel 1
+#+INCLUDE: "chapitres/c3-types.org" :minlevel 1
+#+INCLUDE: "chapitres/c4-automates.org" :minlevel 1
+#+INCLUDE: "chapitres/c5-syntaxe.org" :minlevel 1
+#+INCLUDE: "chapitres/c6-compilation.org" :minlevel 1
+#+INCLUDE: "chapitres/c7-integration.org" :minlevel 1
+
+#+INCLUDE: "chapitres/refs.org" :minlevel 1
+
+#+LATEX: \appendix
+
+#+INCLUDE: "./K7_Errors.org" :minlevel 1
+#+INCLUDE: "./K7_LSP_REPL.org" :minlevel 1
+#+INCLUDE: "./K7_Sushi.org" :minlevel 1
+#+INCLUDE: "./K7_Sugoi.org" :minlevel 1
+#+INCLUDE: "./K7_Semantique.org" :minlevel 1

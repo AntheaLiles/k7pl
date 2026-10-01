@@ -1,0 +1,3 @@
+# Vidé le 6 août : main.org inclut désormais les annexes directement,
+# sous \appendix et sans section enveloppe. Ce fichier n'est plus inclus
+# et peut être supprimé.
