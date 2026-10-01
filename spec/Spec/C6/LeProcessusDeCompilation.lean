@@ -24,7 +24,7 @@ tag := "c6-le-processus-de-compilation"
 Compiler un programme K7PL, c'est établir, dans un ordre que rien ne permet d'inverser, chacun des
 trois ordres de vérification du jugement germinal du chapitre 1 — puis effacer entièrement les
 preuves qui les ont établies, ne laissant dans le binaire final que le terme qu'elles autorisent. Le
-pipeline présenté en figure {num "img:comp-process"}[] décrit cet ordre ; chaque étape n'est là que
+pipeline présenté en figure {num "fig:comp-process"}[] décrit cet ordre ; chaque étape n'est là que
 parce que la précédente devait l'être acquise avant elle.
 
 Un point de lecture s'impose avant de le suivre, car il évite une méprise sur ce que ces huit étapes
@@ -44,7 +44,7 @@ maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément
 Deux sources, deux motifs, une même recommandation — et huit phases logiques n'en contredisent
 aucun.
 
-::::figure (label := "img:comp-process") (src := "compilation-process") (alt := "Chaine lineaire des phases de compilation — Parse, ConfigAnalysis, TypeCheck, Elaboration, PurityCheck, TermProof, ConstraintSolve, Optimize, CodeGen, Link. Deux phases intercalaires portent un numero fractionnaire, 1.5 et 2.5.") (width := "90")
+::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Chaine lineaire des phases de compilation — Parse, ConfigAnalysis, TypeCheck, Elaboration, PurityCheck, TermProof, ConstraintSolve, Optimize, CodeGen, Link. Deux phases intercalaires portent un numero fractionnaire, 1.5 et 2.5.") (width := "90")
 :::caption
 Les huit phases du pipeline de compilation
 :::

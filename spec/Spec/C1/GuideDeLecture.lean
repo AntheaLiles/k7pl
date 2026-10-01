@@ -48,35 +48,35 @@ Les onze engagements, ce qu'ils affirment, ce qui les tient et par où ils se l�
 :::table +header
 * * Engagement
   * Où
-  * Ce qui le tient Route
-  *  
+  * Ce qui le tient
+  * Route
 * * La cohérence au sens de Kelly et Mac Lane
   * §{num "sec:c2-la-comonade-exponentielle-et"}[]
-  * La littérature primaire le référence sans le redémontrer démonstration
+  * La littérature primaire le référence sans le redémontrer
   * littérature
 * * L'enrichissement sur les préordres, pour la part qui excède l'ordre des fibres
   * §{num "sec:c2-adjonctions-et-enrichissement"}[]
-  * Rien ; le théorème {num "thm:raffinement"}[] en dérive l'autre part mesure
+  * Rien ; le théorème {num "thm:raffinement"}[] en dérive l'autre part
   * démonstration
 * * L'isolation par types plutôt que par unité de gestion mémoire
   * §{num "sec:c4-echelle-du-systeme"}[]
-  * Une réalisation déployée, non une preuve démonstration
+  * Une réalisation déployée, non une preuve
   * mesure
 * * La conformité de l'abaissement au modèle mémoire déclaré
   * §{num "sec:c4-echelle-du-systeme"}[]
-  * Rien ; c'est une propriété du compilateur démonstration
+  * Rien ; c'est une propriété du compilateur
   * démonstration
 * * La fidélité de l'interpréteur de référence
   * §{num "sec:c6-strategies-de-verification-et"}[]
-  * Le théorème {num "thm:traduction_metalangage"}[], démontré à l'annexe mesure
+  * Le théorème {num "thm:traduction_metalangage"}[], démontré à l'annexe {num "sec:annexe-presentation-formelle"}[]
   * démonstration (levée)
 * * Le coût d'expressivité de P3 et P4, inférieur au bénéfice
   * §{num "sec:c1-postulats"}[]
-  * Un pari, dont le protocole de mesure est écrit et non conduit mesure
+  * Un pari, dont le protocole de mesure est écrit et non conduit
   * mesure
 * * La reproductibilité de la compilation
   * §{num "sec:c5-mise-en-pratique"}[]
-  * Visée, non garantie — et le document l'écrit mesure
+  * Visée, non garantie — et le document l'écrit
   * mesure
 * * La rareté des changements de fragment, qui borne la verbosité des délimiteurs
   * §{num "sec:c5-s-expressions-universelles"}[]

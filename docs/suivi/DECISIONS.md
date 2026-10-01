@@ -34,8 +34,8 @@
 
 | | Question | Recommandation |
 |---|---|---|
-| `D-5` | **où écrire pendant la finition ?** Verso (source actuelle du dépôt) ou Org + outillage jusqu'au gel | Verso, en portant les contrôles d'algèbre et de propagation en priorité ([tableau de bord](TABLEAU-DE-BORD.md) §3) |
-| `D-6` | sous-titre du document : « A functional layered programming language » (manuscrit) ou « A three-layered functional programming language » (en-tête transmis pour le dépôt) | à trancher ; reporter dans `CITATION.cff` et `zenodo.json` |
+| `D-5` ✅ | **où écrire pendant la finition ?** | **Tranchée le 1er octobre 2026 : le Verso fait foi**, les fichiers Org sont archivés ; les contrôles sont portés (`scripts/controle.py`) |
+| `D-6` ✅ | sous-titre du document | le sous-titre du manuscrit, « A functional layered programming language », fait foi (`ANOM-16`) ; le dépôt n'en porte aucun |
 | `D-7` | annexes B, C, D squelettiques ([`ANOM-04`](ANOMALIES.md)) | décider avant la première release |
 | `D-8` | rétablir au glossaire les trois couches ([`ANOM-06`](ANOMALIES.md)) | oui : le corps du document les définit, le glossaire doit suivre |
 | `D-9` | première release `spec-v0.1.0` : quand ? | après les portes P1 à P5 du [tableau de bord](TABLEAU-DE-BORD.md) |

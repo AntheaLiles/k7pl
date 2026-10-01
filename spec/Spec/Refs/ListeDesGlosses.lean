@@ -147,6 +147,21 @@ tag := "refs-liste-des-glosses"
   Forme de définition par les observations que l'on peut faire d'un objet, plutôt que par les
   constructeurs dont il est bâti.
 
+: couche 1
+
+  Fragment du langage où toute ressource est strictement linéaire, employée une fois et une seule,
+  et où vivent les capabilités et les canaux.
+
+: couche 2
+
+  Fragment du langage où une ressource peut être abandonnée sans être employée, où vivent les
+  effets, les acteurs et les flux, et dont la garantie est la productivité.
+
+: couche 3
+
+  Fragment du langage où une valeur se copie et s'abandonne librement, sans effet ni ressource, et
+  dont la garantie est la terminaison.
+
 : déclassification
 
   Autorisation nommée de faire descendre une donnée d'un niveau de confidentialité vers un niveau

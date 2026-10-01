@@ -24,6 +24,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - Conversion Org → Verso reproductible (`scripts/org2verso/`), chaîne bibliographique
   (`scripts/biblio/`), conversion Org → Markdown (`scripts/org2md.py`), mesures du manuscrit et
   vues du suivi (`scripts/manuscript_metrics.py`, `scripts/suivi.py`).
+- Contrôles sur le Verso (`scripts/controles/`, `scripts/controle.py`, lancés en CI) : algèbre aux bornes, sceaux, propagation, croisement grammaire × règles, structure.
 - `docs/` : suivi (tableau de bord, 190 fiches de la campagne PR-02, décisions, anomalies),
   relectures, méthode, recherche, journal de séances ; `archives/` : manuscrit Org figé et ancien
   outillage.

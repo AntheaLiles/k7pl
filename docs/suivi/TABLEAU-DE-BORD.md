@@ -29,11 +29,11 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Remarques marginales (RMQ) | 59 |
 | Citations | 359 |
 | Œuvres citées | 250 |
-| Renvois internes | 470 |
+| Renvois internes | 476 |
 | Renvois non résolus | 0 |
-| Commentaires d'auteur conservés (non rendus) | 10 |
+| Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 118909 |
+| Mots (approximatif, hors code et formules) | 119066 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -113,7 +113,6 @@ Détail et sources : [`DECISIONS.md`](DECISIONS.md).
 | `ARB-PR-04` | ce que le document promet pour le rejeu bit-à-bit | le théorème est scindé (logique / binaire sous environnement reproductible) ; la décision de fond reste à écrire |
 | `ARB-PR-03` | effets à portée | **position intermédiaire appliquée** (`ℰ_alg`, `ℰ_scoped`, clôture faible) : à ratifier ; `BIB-01` (Hefty Algebras) non instruit |
 | `T-68` | mots des quarante-quatre primitives | dix entrées nouvelles en trois jours, chacune avec ses candidats ; le choix vous revient ([`primitives.md`](primitives.md)) |
-| — | **source de vérité pendant la finition** | Verso (recommandé) ou Org + outillage jusqu'au gel — voir §3 |
 
 Et la **validation des statuts déduits** dans `fiches-statuts.csv` (`confiance = deduite`, sept lignes).
 
@@ -139,7 +138,7 @@ Critères de sortie suggérés — à ajuster :
 | Porte | Critère | Mesure |
 |---|---|---|
 | P1 | plus aucun bloquant ouvert | lot `BLOQ` : 0 ouverte |
-| P2 | tout énoncé ouvert a sa route et son hypothèse nommées, et aucune prose ne le dit acquis | contrôle de propagation (à porter, §3) |
+| P2 | tout énoncé ouvert a sa route et son hypothèse nommées, et aucune prose ne le dit acquis | `scripts/controle.py` (propagation) |
 | P3 | décisions `ARB-PR-03`, `-04`, `-06`, `-07` et `T-68` tranchées | [`DECISIONS.md`](DECISIONS.md) |
 | P4 | les huit exigences `IMPL` sont lues comme un cahier des charges de l'implémentation | lot `IMPL` : 0 ouverte, ou reportées avec motif |
 | P5 | `REECR` appliqué, anomalies levées, relecture d'ensemble faite | lot `REECR` : 0 ouverte ; [`ANOMALIES.md`](ANOMALIES.md) vide |
@@ -149,27 +148,22 @@ Critères de sortie suggérés — à ajuster :
 
 ## 3. Ce qui menace la suite
 
-### Le filet de contrôles ne tourne plus sur le texte
+### Le filet de contrôles : porté sur le Verso
 
-Les « 85 contrôles verts » du manuscrit étaient des programmes Python lisant le Org assemblé (≈ 4 100 lignes, [`archives/outillage-org/`](../../archives/outillage-org/)). **Ils ne lisent pas le Verso.** Depuis la conversion, ce filet est en partie remplacé par la compilation elle-même, en partie perdu :
+Le Verso fait foi depuis le 1er octobre 2026 (décision `D-5`). Les contrôles de l'ancien outillage lisaient le Org ; ils sont **portés en Python** dans [`scripts/controles/`](../../scripts/controles/) et lancés par `python3 scripts/controle.py` (aussi en CI, job `build`) :
 
-| Garde | État avec le Verso |
+| Module | Ce qu'il garde |
 |---|---|
-| renvois et étiquettes (`structure.py`) | **assuré par le rendu** : un `{num}` vers une étiquette absente est une erreur (`No label 'x'`) et fait échouer `lake exe spec` ; 0 aujourd'hui |
-| citations et fonds bibliographique (`citations.py`) | **assuré par le rendu** : 250 œuvres citées, toutes présentes dans `biblio/references.json` ; une clé absente est une erreur de rendu |
-| comptages et registre des obligations (`registre.py`, `correspondance.py`) | **repris** : `scripts/manuscript_metrics.py` et `scripts/suivi.py` |
-| lois d'algèbre aux bornes, habitabilité sous clause, sceau, propagation (`algebre.py`, `notation.py`) | ⚠️ **à porter** : la logique (calcul de ⊖ sur 216 triplets, refus d'une prose qui dit « démontre » d'un énoncé ouvert) est indépendante du format, seule la lecture du texte change |
-| croisement grammaire × règles, sondes sémantiques (`croise.py`, `semantique.py`) | ⚠️ **à porter** |
-| hygiène de la source Org (`source.py`), figures et légendes (`figures.py`) | sans objet (Org) ou assuré par la compilation |
+| `algebre` | la loi d'action aux bornes (0 et ω, 216 triplets, auto-test : les deux mauvaises définitions de ⊖ échouent avec 10 et 14 contre-exemples), l'action à travers ∥, les quatre égalités de ω, les deux sortes de tailles |
+| `notation` | Δ seul contexte, un glyphe par modalité, affirmations sur le hachage, sceau des énoncés (statut, niveau, esquisse), propagation des énoncés ouverts, routes des engagements, table normative |
+| `croise` | grammaire des termes × règles de typage × liste des primitives ; comptes (49 règles, 45 constructeurs) |
+| `structure` | renvois résolus, étiquettes uniques et bien préfixées, lettres d'annexe jamais écrites en dur, tableaux réguliers, aucun commentaire d'auteur enfoui, glossaire |
 
-Tant que les contrôles d'algèbre et de propagation ne lisent pas le Verso, **une correction faite dans le Verso n'est plus vérifiée par autre chose que la relecture**. C'est le premier chantier d'outillage, et le plus rentable : le plan de traitement lui-même le notait (« le contrôle des éléments absorbants aurait attrapé `BLOQ-03` le jour même »).
+Déjà assurés par le rendu : renvois et clés bibliographiques (une étiquette ou une clé absente fait échouer `lake exe spec`). **Pas encore portés** : les sondes sémantiques (`bib/sondes.json` : un passage cite-t-il le bon auteur), le gel de non-régression bibliographique, la mesure de la prose contre la charte — à porter si on les juge utiles. Rappel : un contrôle qui n'a jamais été vu échouer ne vaut rien ; `algebre` s'auto-teste, les autres se mutent à la main (retirer un sceau, écrire « démontre » près d'un énoncé ouvert).
 
 ### Où écrire pendant la finition
 
-Deux voies cohérentes ; la première est recommandée.
-
-1. **Verso comme source** (état actuel du dépôt) : on corrige dans `spec/`, et l'on porte les contrôles restants. Le convertisseur `scripts/org2verso` reste utilisable pour rejouer la conversion de l'instantané Org et vérifier qu'elle est reproductible.
-2. **Org comme source jusqu'au gel** : on garde les 85 contrôles intacts, on reconvertit à chaque séance. Le Verso devient un produit, et le dépôt devrait alors le dire (la CI vérifierait que le Verso committé égale la conversion).
+Dans `spec/` (Verso) ; le convertisseur `scripts/org2verso` ne sert plus qu'à rejouer l'instantané Org archivé.
 
 ### Publication
 
