@@ -1,0 +1,7884 @@
+{
+ "entries": {
+  "ABEL-COALG": {
+   "date": "2016-12",
+   "howpublished": "Univ. of Gothenburg",
+   "langid": "english",
+   "pages": "1--38",
+   "persons": {
+    "author": [
+     {
+      "first": "A.",
+      "last": "Abel",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Univ. of Gothenburg",
+   "title": "Equational Reasoning about Formal Languages in Coalgebraic Style",
+   "type": "article"
+  },
+  "ABEL-VEZZOSI": {
+   "howpublished": "Univ. of Gothenburg / IT Univ. Copenhagen",
+   "langid": "english",
+   "pages": "1--39",
+   "persons": {
+    "author": [
+     {
+      "first": "A.",
+      "last": "Abel",
+      "lineage": ""
+     },
+     {
+      "first": "N. A.",
+      "last": "Danielsson",
+      "lineage": ""
+     },
+     {
+      "first": "A.",
+      "last": "Vezzosi",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Univ. of Gothenburg / IT Univ. Copenhagen",
+   "title": "Compiling Programs with Erased Univalence",
+   "type": "article"
+  },
+  "ALLAIS-MCBRIDE": {
+   "booktitle": "Leibniz International Proceedings in Informatics",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "G.",
+      "last": "Allais",
+      "lineage": ""
+     },
+     {
+      "first": "C.",
+      "last": "McBride",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Certified Proof Search for Intuitionistic Linear Logic",
+   "type": "inproceedings"
+  },
+  "BERNARDY": {
+   "doi": "10.1145/3471874.3472980",
+   "howpublished": "Univ. of Gothenburg / Tweag",
+   "langid": "english",
+   "pages": "1--19",
+   "persons": {
+    "author": [
+     {
+      "first": "J.-P.",
+      "last": "Bernardy",
+      "lineage": ""
+     },
+     {
+      "first": "A.",
+      "last": "Spiwack",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Univ. of Gothenburg / Tweag",
+   "title": "Evaluating Linear Functions to Symmetric Monoidal Categories",
+   "type": "article"
+  },
+  "BOTTU": {
+   "doi": "10.1145/3341695",
+   "howpublished": "et Univ. of Hong Kong",
+   "langid": "english",
+   "organization": "et Univ. of Hong Kong",
+   "persons": {
+    "author": [
+     {
+      "first": "G.-J.",
+      "last": "Bottu",
+      "lineage": ""
+     },
+     {
+      "first": "N.",
+      "last": "Xie",
+      "lineage": ""
+     },
+     {
+      "first": "K.",
+      "last": "Marntirosian",
+      "lineage": ""
+     },
+     {
+      "first": "T.",
+      "last": "Schrijvers",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Coherence of Type Class Resolution",
+   "type": "misc"
+  },
+  "CAPNPROTO-SPEC": {
+   "langid": "english",
+   "persons": {},
+   "title": "Cap'n Proto: Encoding Spec",
+   "type": "online",
+   "url": "https://capnproto.org/encoding.html",
+   "urldate": "2026-08-28"
+  },
+  "CASTELLAN-PI": {
+   "eprinttype": "Imperial College London et IRIF",
+   "howpublished": "Imperial College London et IRIF",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "S.",
+      "last": "Castellan",
+      "lineage": ""
+     },
+     {
+      "first": "L.",
+      "last": "Stefanesco",
+      "lineage": ""
+     },
+     {
+      "first": "N.",
+      "last": "Yoshida",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Game Semantics: Easy as Pi — Introducing Programming Game Semantics",
+   "type": "online"
+  },
+  "CICEK": {
+   "date": "2016",
+   "howpublished": "préprint",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "E.",
+      "last": "Çiçek",
+      "lineage": ""
+     },
+     {
+      "first": "M.",
+      "last": "Gaboardi",
+      "lineage": ""
+     },
+     {
+      "first": "D.",
+      "last": "Garg",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Cost-Analysis: How Do Monads and Comonads Differ?",
+   "type": "online"
+  },
+  "DANIELSSON-ERASED": {
+   "eprinttype": "Univ. of Gothenburg",
+   "howpublished": "Univ. of Gothenburg",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "N. A.",
+      "last": "Danielsson",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Logical Properties of a Modality for Erasure",
+   "type": "online"
+  },
+  "DATAFUN": {
+   "date": "2016-09-04",
+   "doi": "10.1145/2951913.2951948",
+   "eventtitle": "{{ICFP}}'16: {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "howpublished": "Univ. of Birmingham",
+   "isbn": "978-1-4503-4219-3",
+   "langid": "english",
+   "location": "Nara Japan",
+   "pages": "214--227",
+   "persons": {
+    "author": [
+     {
+      "first": "Michael",
+      "last": "Arntzenius",
+      "lineage": ""
+     },
+     {
+      "first": "Neelakantan R.",
+      "last": "Krishnaswami",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Datafun: A Functional Datalog",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2951913.2951948",
+   "urldate": "2026-09-03"
+  },
+  "DPDK-RING": {
+   "date": "2020-08-08",
+   "institution": "DPDK",
+   "langid": "english",
+   "persons": {},
+   "title": "Data {{Plane Development Kit}}",
+   "type": "Programmer’s Guide",
+   "url": "https://fast.dpdk.org/doc/pdf-guides-20.08/prog_guide-20.08.pdf",
+   "urldate": "2026-09-02"
+  },
+  "EFFCOST": {
+   "eprinttype": "Univ. of Bath",
+   "howpublished": "Univ. of Bath",
+   "langid": "english",
+   "location": "Univ. of Bath",
+   "persons": {
+    "author": [
+     {
+      "first": "P. H.",
+      "last": "Azevedo de Amorim",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Compositional Essence of Effectful Cost Analyses: Categorical Foundations and Fibered Logical Relations",
+   "type": "online"
+  },
+  "HASEGAWA-TRACED": {
+   "date": "2007-11",
+   "doi": "10.1017/s0960129508007184",
+   "howpublished": "Research Institute for Mathematical Sciences",
+   "langid": "english",
+   "location": "Kyoto Univ.",
+   "persons": {
+    "author": [
+     {
+      "first": "M.",
+      "last": "Hasegawa",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Research Institute for Mathematical Sciences",
+   "title": "On Traced Monoidal Closed Categories",
+   "type": "article"
+  },
+  "HUANG": {
+   "date": "2023-10",
+   "institution": "{Dept. of Computer Science and Technology}",
+   "langid": "english",
+   "location": "Cambridge",
+   "persons": {
+    "author": [
+     {
+      "first": "Yulong",
+      "last": "Huang",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{QTAL}}: A Quantitatively and Dependently Typed Assembly Language",
+   "type": "report"
+  },
+  "PADOVANI": {
+   "date": "2026-06-30",
+   "doi": "10.1145/3803862",
+   "howpublished": "Dept. of Computer Science and Engineering",
+   "issn": "0164-0925, 1558-4593",
+   "journaltitle": "ACM Transactions on Programming Languages and Systems",
+   "langid": "english",
+   "location": "Univ. of Bologna",
+   "number": "2",
+   "pages": "1--52",
+   "persons": {
+    "author": [
+     {
+      "first": "Luca",
+      "last": "Padovani",
+      "lineage": ""
+     },
+     {
+      "first": "Gianluigi",
+      "last": "Zavattaro",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "{Dept. of Computer Science and Engineering}",
+   "title": "Fair Termination of Asynchronous Binary Sessions",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3803862",
+   "urldate": "2026-09-01",
+   "volume": "48"
+  },
+  "PCPR18AdjointLogic": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Klaas",
+      "last": "Pruiksma",
+      "lineage": ""
+     },
+     {
+      "first": "William",
+      "last": "Chargin",
+      "lineage": ""
+     },
+     {
+      "first": "Frank",
+      "last": "Pfenning",
+      "lineage": ""
+     },
+     {
+      "first": "Jason",
+      "last": "Reed",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Adjoint {{Logic}}",
+   "type": "article",
+   "url": "https://ncatlab.org/nlab/files/PCPR18-AdjointLogic.pdf",
+   "urldate": "2026-08-28"
+  },
+  "REDDY-GLOBAL": {
+   "booktitle": "J. of {{Lisp}} and {{Symbolic Computation}}",
+   "date": "1997",
+   "doi": "10.1007/978-1-4757-3851-3_9",
+   "isbn": "978-1-4757-3853-7 978-1-4757-3851-3",
+   "langid": "english",
+   "location": "Boston, MA",
+   "pages": "227--295",
+   "persons": {
+    "author": [
+     {
+      "first": "Uday S.",
+      "last": "Reddy",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Peter W.",
+      "last": "O’Hearn",
+      "lineage": ""
+     },
+     {
+      "first": "Robert D.",
+      "last": "Tennent",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Univ. of Illinois at Urbana-Champaign",
+   "title": "Global State Considered Unnecessary: An Introduction to Object-Based Semantics",
+   "type": "incollection",
+   "url": "https://link.springer.com/10.1007/978-1-4757-3851-3_9"
+  },
+  "REDDY-PASSIVITY": {
+   "booktitle": "Proceedings {{Ninth Annual IEEE Symposium}} on {{Logic}} in {{Computer Science}}",
+   "date": "1994",
+   "doi": "10.1109/LICS.1994.316055",
+   "eventtitle": "Ninth {{Annual IEEE Symposium}} on {{Logic}} in {{Computer Science}}",
+   "howpublished": "Dept. of Computer Science",
+   "isbn": "978-0-8186-6310-9",
+   "langid": "english",
+   "location": "Paris, France",
+   "pages": "342--352",
+   "persons": {
+    "author": [
+     {
+      "first": "U.S.",
+      "last": "Reddy",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Dept. of Computer Science",
+   "title": "Passivity and Independence",
+   "type": "inproceedings",
+   "url": "http://ieeexplore.ieee.org/document/316055/"
+  },
+  "RITTER-PITTS": {
+   "date": "1994-09",
+   "doi": "10.1007/bfb0014067",
+   "howpublished": "Oxford Univ. Computing Laboratory et Cambridge Univ. Computer Laboratory",
+   "isbn": "978-3-540-59048-4 978-3-540-49178-1",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "397--413",
+   "persons": {
+    "author": [
+     {
+      "first": "Elke",
+      "last": "Ritter",
+      "lineage": ""
+     },
+     {
+      "first": "Andrew M.",
+      "last": "Pitts",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Mariangiola",
+      "last": "Dezani-Ciancaglini",
+      "lineage": ""
+     },
+     {
+      "first": "Gordon",
+      "last": "Plotkin",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Oxford Univ. Computing Laboratory et Cambridge Univ. Computer Laboratory",
+   "title": "A Fully Abstract Translation between a λ-Calculus with Reference Types and Standard {{ML}}",
+   "type": "incollection",
+   "url": "http://link.springer.com/10.1007/BFb0014067",
+   "volume": "902"
+  },
+  "SCHALK": {
+   "date": "2004-10",
+   "howpublished": "Dept. of Computer Science",
+   "langid": "english",
+   "location": "Univ. of Manchester",
+   "organization": "Dept. of Computer Science",
+   "persons": {
+    "author": [
+     {
+      "first": "A.",
+      "last": "Schalk",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "What Is a Categorical Model for Linear Logic?",
+   "type": "misc"
+  },
+  "SPIRV": {
+   "date": "2018-01-16",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "John",
+      "last": "Kessenich",
+      "lineage": ""
+     },
+     {
+      "first": "Boaz",
+      "last": "Ouriel",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Khronos Group",
+   "title": "{{SPIR-V}} Specification",
+   "type": "standard",
+   "version": "1.12"
+  },
+  "SpecificationsApacheArrow": {
+   "langid": "english",
+   "persons": {},
+   "title": "Specifications — Apache Arrow V25.0.1",
+   "type": "online",
+   "url": "https://arrow.apache.org/docs/format/index.html#format",
+   "urldate": "2026-08-28"
+  },
+  "THEOCHARIS": {
+   "booktitle": "{{LIPIcs}}, {{Volume}} 378, {{FSCD}} 2026",
+   "date": "2026",
+   "doi": "10.4230/LIPICS.FSCD.2026.31",
+   "eprint": "2605.00655v1",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "isbn": "978-3-95977-433-8",
+   "issn": "1868-8969",
+   "langid": "english",
+   "location": "Dagstuhl, Germany",
+   "pages": "31:1-31:21",
+   "persons": {
+    "author": [
+     {
+      "first": "Constantine",
+      "last": "Theocharis",
+      "lineage": ""
+     },
+     {
+      "first": "Edwin",
+      "last": "Brady",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Frank",
+      "last": "Pfenning",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "series": "Leibniz {{International Proceedings}} in {{Informatics}} ({{LIPIcs}})",
+   "title": "Type Theory with Erasure",
+   "type": "inproceedings",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.FSCD.2026.31",
+   "urldate": "2026-09-03",
+   "volume": "378"
+  },
+  "UnicodeStandardV17": {
+   "date": "2025-09-09",
+   "isbn": "978-1-936213-35-1",
+   "langid": "english",
+   "persons": {},
+   "publisher": "Unicode, Inc.",
+   "title": "The {{Unicode}}® {{Standard}}",
+   "type": "standard",
+   "version": "17.0"
+  },
+  "VAN-DEN-HEUVEL": {
+   "date": "2024",
+   "doi": "10.1016/j.jlamp.2024.101004",
+   "eprint": "2401.14763v3",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "journaltitle": "Journal of Logical and Algebraic Methods in Programming",
+   "langid": "english",
+   "pages": "1--26",
+   "persons": {
+    "author": [
+     {
+      "first": "B.",
+      "last": "van den Heuvel",
+      "lineage": ""
+     },
+     {
+      "first": "J. A.",
+      "last": "Pérez",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Elsevier Inc.",
+   "title": "Comparing Session Type Systems Derived from Linear Logic",
+   "type": "article",
+   "volume": "142"
+  },
+  "VIRTIO": {
+   "date": "2023-10-06",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "",
+      "last": "OASIS",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "OASIS Open",
+   "title": "Virtual {{I}}/{{O}} Device ({{VIRTIO}}) Specification",
+   "type": "Standards Track Work Product",
+   "version": "virtio-v1.3-csd01"
+  },
+  "VIVIEN": {
+   "booktitle": "Jfla 2026",
+   "date": "2026-01",
+   "langid": "english",
+   "location": "Oberbronn",
+   "persons": {
+    "author": [
+     {
+      "first": "S.",
+      "last": "Vivien",
+      "lineage": ""
+     },
+     {
+      "first": "D.",
+      "last": "Rémy",
+      "lineage": ""
+     },
+     {
+      "first": "G.",
+      "last": "Scherer",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "On the Design and Implementation of Modular Explicits",
+   "type": "inproceedings"
+  },
+  "abelGradedModalDependent2023": {
+   "date": "2023-08-30",
+   "doi": "10.1145/3607862",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "ICFP",
+   "pages": "920--954",
+   "persons": {
+    "author": [
+     {
+      "first": "Andreas",
+      "last": "Abel",
+      "lineage": ""
+     },
+     {
+      "first": "Nils Anders",
+      "last": "Danielsson",
+      "lineage": ""
+     },
+     {
+      "first": "Oskar",
+      "last": "Eriksson",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Graded Modal Dependent Type Theory with a Universe and Erasure, Formalized",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3607862",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "abelPOPLMarkReloadedMechanizing2019": {
+   "date": "2019",
+   "doi": "10.1017/S0956796819000170",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e19",
+   "persons": {
+    "author": [
+     {
+      "first": "Andreas",
+      "last": "Abel",
+      "lineage": ""
+     },
+     {
+      "first": "Guillaume",
+      "last": "Allais",
+      "lineage": ""
+     },
+     {
+      "first": "Aliya",
+      "last": "Hameer",
+      "lineage": ""
+     },
+     {
+      "first": "Brigitte",
+      "last": "Pientka",
+      "lineage": ""
+     },
+     {
+      "first": "Alberto",
+      "last": "Momigliano",
+      "lineage": ""
+     },
+     {
+      "first": "Steven",
+      "last": "Schäfer",
+      "lineage": ""
+     },
+     {
+      "first": "Kathrin",
+      "last": "Stark",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{POPLMark}} Reloaded: Mechanizing Proofs by Logical Relations",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796819000170/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "29"
+  },
+  "abelWellfoundedRecursionCopatterns2016": {
+   "date": "2016",
+   "doi": "10.1017/S0956796816000022",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e2",
+   "persons": {
+    "author": [
+     {
+      "first": "Andreas",
+      "last": "Abel",
+      "lineage": ""
+     },
+     {
+      "first": "Brigitte",
+      "last": "Pientka",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Well-Founded Recursion with Copatterns and Sized Types",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796816000022/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "26"
+  },
+  "acetoAxiomatizingTropicalSemirings2001": {
+   "booktitle": "Foundations of Software Science and Computation Structures",
+   "date": "2001",
+   "doi": "10.1007/3-540-45315-6_3",
+   "isbn": "978-3-540-41864-1 978-3-540-45315-4",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "42--56",
+   "persons": {
+    "author": [
+     {
+      "first": "Luca",
+      "last": "Aceto",
+      "lineage": ""
+     },
+     {
+      "first": "Zoltán",
+      "last": "Ésik",
+      "lineage": ""
+     },
+     {
+      "first": "Anna",
+      "last": "Ingólfsdóttir",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Furio",
+      "last": "Honsell",
+      "lineage": ""
+     },
+     {
+      "first": "Marino",
+      "last": "Miculan",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "title": "Axiomatizing Tropical Semirings",
+   "type": "incollection",
+   "url": "http://link.springer.com/10.1007/3-540-45315-6_3",
+   "urldate": "2026-08-28",
+   "volume": "2030"
+  },
+  "agdadevelopersAgdaSizedTypes2026": {
+   "date": "2026-09-08",
+   "persons": {
+    "author": [
+     {
+      "first": "",
+      "last": "Agda Developers",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Agda - {{Sized}} Types Allow a Type Which Is Both Inductive and Coinductive in an Inconsistent Way",
+   "type": "software",
+   "url": "https://github.com/agda/agda/issues/1946",
+   "urldate": "2026-09-09",
+   "version": "2.9.0"
+  },
+  "algehedSimpleNoninterferenceParametricity2019": {
+   "date": "2019-07-26",
+   "doi": "10.1145/3341693",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "ICFP",
+   "pages": "1--22",
+   "persons": {
+    "author": [
+     {
+      "first": "Maximilian",
+      "last": "Algehed",
+      "lineage": ""
+     },
+     {
+      "first": "Jean-Philippe",
+      "last": "Bernardy",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Simple Noninterference from Parametricity",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3341693",
+   "urldate": "2025-06-05",
+   "volume": "3"
+  },
+  "allaisBuiltinTypesViewed2023": {
+   "date": "2023",
+   "doi": "10.1007/978-3-031-30044-8_5",
+   "journaltitle": "Programming Languages and Systems",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "113--139",
+   "persons": {
+    "author": [
+     {
+      "first": "Guillaume",
+      "last": "Allais",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Thomas",
+      "last": "Wies",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Nature Switzerland",
+   "series": "{{LNCS}}",
+   "title": "Builtin Types Viewed as Inductive Families",
+   "type": "article",
+   "url": "https://link.springer.com/10.1007/978-3-031-30044-8_5",
+   "urldate": "2026-08-02",
+   "volume": "13990"
+  },
+  "allaisTypeScopeSafe2018": {
+   "date": "2018-07-30",
+   "doi": "10.1145/3236785",
+   "eprint": "2001.11001v2",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "ICFP",
+   "pages": "1--30",
+   "persons": {
+    "author": [
+     {
+      "first": "Guillaume",
+      "last": "Allais",
+      "lineage": ""
+     },
+     {
+      "first": "Robert",
+      "last": "Atkey",
+      "lineage": ""
+     },
+     {
+      "first": "James",
+      "last": "Chapman",
+      "lineage": ""
+     },
+     {
+      "first": "Conor",
+      "last": "McBride",
+      "lineage": ""
+     },
+     {
+      "first": "James",
+      "last": "McKinna",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Type and Scope Safe Universe of Syntaxes with Binding: Their Semantics and Proofs",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3236785",
+   "urldate": "2025-06-05",
+   "volume": "2"
+  },
+  "altenkirchIndexedContainers2009": {
+   "booktitle": "2009 24th {{Annual IEEE Symposium}} on {{Logic In Computer Science}}",
+   "date": "2009-08",
+   "doi": "10.1109/LICS.2009.33",
+   "eventtitle": "2009 24th {{Annual IEEE Symposium}} on {{Logic In Computer Science}} ({{LICS}})",
+   "howpublished": "préprint",
+   "isbn": "978-0-7695-3746-7",
+   "langid": "english",
+   "location": "Los Angeles, California, USA",
+   "pages": "277--285",
+   "persons": {
+    "author": [
+     {
+      "first": "Thorsten",
+      "last": "Altenkirch",
+      "lineage": ""
+     },
+     {
+      "first": "Peter",
+      "last": "Morris",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "IEEE",
+   "title": "Indexed Containers",
+   "type": "inproceedings",
+   "url": "http://ieeexplore.ieee.org/document/5230571/",
+   "urldate": "2026-08-02"
+  },
+  "altenkirchIndexedContainers2015": {
+   "date": "2015",
+   "doi": "10.1017/S095679681500009X",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e5",
+   "persons": {
+    "author": [
+     {
+      "first": "Thorsten",
+      "last": "Altenkirch",
+      "lineage": ""
+     },
+     {
+      "first": "Neil",
+      "last": "Ghani",
+      "lineage": ""
+     },
+     {
+      "first": "Peter",
+      "last": "Hancock",
+      "lineage": ""
+     },
+     {
+      "first": "Conor",
+      "last": "Mcbride",
+      "lineage": ""
+     },
+     {
+      "first": "Peter",
+      "last": "Morris",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Indexed Containers",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S095679681500009X/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "25"
+  },
+  "antonelliCurryHowardMeet2022": {
+   "booktitle": "Proc. 37th Annu. {{ACM}}/{{IEEE}} Symp. {{Logic}} in Computer Science ({{LICS}} '22)",
+   "date": "2022-08-02",
+   "doi": "10.1145/3531130.3533361",
+   "eventtitle": "{{LICS}} '22: 37th {{Annual ACM}}/{{IEEE Symposium}} on {{Logic}} in {{Computer Science}}",
+   "isbn": "978-1-4503-9351-5",
+   "langid": "english",
+   "location": "Haifa Israel",
+   "pages": "1--13",
+   "persons": {
+    "author": [
+     {
+      "first": "Melissa",
+      "last": "Antonelli",
+      "lineage": ""
+     },
+     {
+      "first": "Ugo",
+      "last": "Dal Lago",
+      "lineage": ""
+     },
+     {
+      "first": "Paolo",
+      "last": "Pistone",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Curry and Howard Meet Borel",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3531130.3533361",
+   "urldate": "2026-08-02"
+  },
+  "appelCritiqueStandardML1993": {
+   "date": "1993-10-01",
+   "doi": "10.1017/S0956796800000836",
+   "issn": "0956-7968",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "4",
+   "pages": "391--429",
+   "persons": {
+    "author": [
+     {
+      "first": "Andrew W.",
+      "last": "Appel",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Critique of Standard {{ML}}",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796800000836/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "3"
+  },
+  "appelShrinkingLambdaExpressions1997": {
+   "date": "1997-09-01",
+   "doi": "10.1017/S0956796897002839",
+   "issn": "0956-7968",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "5",
+   "pages": "515--540",
+   "persons": {
+    "author": [
+     {
+      "first": "Andrew W.",
+      "last": "Appel",
+      "lineage": ""
+     },
+     {
+      "first": "Trevor",
+      "last": "Jim",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Shrinking Lambda Expressions in Linear Time",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796897002839/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "7"
+  },
+  "atkeyPolynomialTimeDependent2024": {
+   "date": "2024-01-05",
+   "doi": "10.1145/3632918",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "2288--2317",
+   "persons": {
+    "author": [
+     {
+      "first": "Robert",
+      "last": "Atkey",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Polynomial Time and Dependent Types",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3632918",
+   "urldate": "2025-06-05",
+   "volume": "8"
+  },
+  "atkeySyntaxSemanticsQuantitative2018": {
+   "booktitle": "Proceedings of the 33rd {{Annual ACM}}/{{IEEE Symposium}} on {{Logic}} in {{Computer Science}}",
+   "date": "2018-07-09",
+   "doi": "10.1145/3209108.3209189",
+   "eventtitle": "Logic in {{Computer Science}}",
+   "isbn": "978-1-4503-5583-4",
+   "issn": "1043-6871",
+   "langid": "english",
+   "location": "Oxford United Kingdom",
+   "pages": "56--65",
+   "persons": {
+    "author": [
+     {
+      "first": "Robert",
+      "last": "Atkey",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Syntax and Semantics of Quantitative Type Theory",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3209108.3209189",
+   "urldate": "2026-08-02"
+  },
+  "bachpoulsenHeftyAlgebrasModular2023": {
+   "date": "2023-01-09",
+   "doi": "10.1145/3571255",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "1801--1831",
+   "persons": {
+    "author": [
+     {
+      "first": "Casper",
+      "last": "Bach Poulsen",
+      "lineage": ""
+     },
+     {
+      "first": "Cas",
+      "last": "Van Der Rest",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Hefty Algebras: Modular Elaboration of Higher-Order Algebraic Effects",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3571255",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "bagrelDestinationCalculusLinear2025": {
+   "date": "2025-04-09",
+   "doi": "10.1145/3720423",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "253--279",
+   "persons": {
+    "author": [
+     {
+      "first": "Thomas",
+      "last": "Bagrel",
+      "lineage": ""
+     },
+     {
+      "first": "Arnaud",
+      "last": "Spiwack",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Destination Calculus: A Linear 𝜆-Calculus for Purely Functional Memory Writes",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3720423",
+   "urldate": "2025-05-19",
+   "volume": "9"
+  },
+  "beckerCompilerErrorMessages2019": {
+   "booktitle": "Proceedings of the {{Working Group Reports}} on {{Innovation}} and {{Technology}} in {{Computer Science Education}}",
+   "date": "2019-12-18",
+   "doi": "10.1145/3344429.3372508",
+   "eventtitle": "{{ITiCSE}} '19: {{Innovation}} and {{Technology}} in {{Computer Science Education}}",
+   "isbn": "978-1-4503-7567-2",
+   "langid": "english",
+   "location": "Aberdeen Scotland Uk",
+   "pages": "177--210",
+   "persons": {
+    "author": [
+     {
+      "first": "Brett A.",
+      "last": "Becker",
+      "lineage": ""
+     },
+     {
+      "first": "Paul",
+      "last": "Denny",
+      "lineage": ""
+     },
+     {
+      "first": "Raymond",
+      "last": "Pettit",
+      "lineage": ""
+     },
+     {
+      "first": "Durell",
+      "last": "Bouchard",
+      "lineage": ""
+     },
+     {
+      "first": "Dennis J.",
+      "last": "Bouvier",
+      "lineage": ""
+     },
+     {
+      "first": "Brian",
+      "last": "Harrington",
+      "lineage": ""
+     },
+     {
+      "first": "Amir",
+      "last": "Kamil",
+      "lineage": ""
+     },
+     {
+      "first": "Amey",
+      "last": "Karkare",
+      "lineage": ""
+     },
+     {
+      "first": "Chris",
+      "last": "McDonald",
+      "lineage": ""
+     },
+     {
+      "first": "Peter-Michael",
+      "last": "Osera",
+      "lineage": ""
+     },
+     {
+      "first": "Janice L.",
+      "last": "Pearce",
+      "lineage": ""
+     },
+     {
+      "first": "James",
+      "last": "Prather",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Compiler Error Messages Considered Unhelpful: The Landscape of Text-Based Programming Error Message Research",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3344429.3372508",
+   "urldate": "2026-08-19"
+  },
+  "bentonLinearLcalculusCategorical1993": {
+   "booktitle": "Computer Science Logic",
+   "date": "1993",
+   "doi": "10.1007/3-540-56992-8_6",
+   "isbn": "978-3-540-56992-3 978-3-540-47890-4",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "61--84",
+   "persons": {
+    "author": [
+     {
+      "first": "Nick",
+      "last": "Benton",
+      "lineage": ""
+     },
+     {
+      "first": "Gavin",
+      "last": "Bierman",
+      "lineage": ""
+     },
+     {
+      "first": "Valeria",
+      "last": "Paiva",
+      "lineage": ""
+     },
+     {
+      "first": "Martin",
+      "last": "Hyland",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "E.",
+      "last": "Börger",
+      "lineage": ""
+     },
+     {
+      "first": "G.",
+      "last": "Jäger",
+      "lineage": ""
+     },
+     {
+      "first": "H.",
+      "last": "Kleine Büning",
+      "lineage": ""
+     },
+     {
+      "first": "S.",
+      "last": "Martini",
+      "lineage": ""
+     },
+     {
+      "first": "M. M.",
+      "last": "Richter",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Computer Laboratory et Dept. of Pure Mathematics",
+   "title": "Linear λ-Calculus and Categorical Models Revisited",
+   "type": "incollection",
+   "url": "http://link.springer.com/10.1007/3-540-56992-8_6",
+   "urldate": "2026-08-02",
+   "volume": "702"
+  },
+  "bergerMonadsAritiesTheir2012": {
+   "date": "2011-01-16",
+   "doi": "10.1016/j.jpaa.2012.02.039",
+   "issn": "00224049",
+   "journaltitle": "Journal of Pure and Applied Algebra",
+   "langid": "english",
+   "number": "8--9",
+   "pages": "2029--2048",
+   "persons": {
+    "author": [
+     {
+      "first": "Clemens",
+      "last": "Berger",
+      "lineage": ""
+     },
+     {
+      "first": "Paul-André",
+      "last": "Melliès",
+      "lineage": ""
+     },
+     {
+      "first": "Mark",
+      "last": "Weber",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Monads with Arities and Their Associated Theories",
+   "type": "article",
+   "url": "https://linkinghub.elsevier.com/retrieve/pii/S0022404912000874",
+   "urldate": "2026-08-02",
+   "volume": "216"
+  },
+  "berryChemicalAbstractMachine1992": {
+   "date": "1992-04",
+   "doi": "10.1016/0304-3975(92)90185-I",
+   "issn": "03043975",
+   "journaltitle": "Theoretical Computer Science",
+   "langid": "english",
+   "number": "1",
+   "pages": "217--248",
+   "persons": {
+    "author": [
+     {
+      "first": "Gérard",
+      "last": "Berry",
+      "lineage": ""
+     },
+     {
+      "first": "Gérard",
+      "last": "Boudol",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Chemical Abstract Machine",
+   "type": "article",
+   "url": "https://linkinghub.elsevier.com/retrieve/pii/030439759290185I",
+   "urldate": "2026-08-02",
+   "volume": "96"
+  },
+  "berryLessonsDesignStandard1993": {
+   "date": "1993-10",
+   "doi": "10.1017/S0956796800000873",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "4",
+   "pages": "527--552",
+   "persons": {
+    "author": [
+     {
+      "first": "Dave",
+      "last": "Berry",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Lessons from the Design of a Standard {{ML}} Library",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796800000873/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "3"
+  },
+  "bianchiniCoeffectsSharingMutation2022": {
+   "date": "2022-10-31",
+   "doi": "10.1145/3563319",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "870--898",
+   "persons": {
+    "author": [
+     {
+      "first": "Riccardo",
+      "last": "Bianchini",
+      "lineage": ""
+     },
+     {
+      "first": "Francesco",
+      "last": "Dagnino",
+      "lineage": ""
+     },
+     {
+      "first": "Paola",
+      "last": "Giannini",
+      "lineage": ""
+     },
+     {
+      "first": "Elena",
+      "last": "Zucca",
+      "lineage": ""
+     },
+     {
+      "first": "Marco",
+      "last": "Servetto",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Coeffects for Sharing and Mutation",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3563319",
+   "urldate": "2025-05-07",
+   "volume": "6"
+  },
+  "biermanWhatCategoricalModel1995": {
+   "date": "1995",
+   "doi": "10.1007/BFb0014046",
+   "journaltitle": "Typed Lambda Calculi and Applications",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "78--93",
+   "persons": {
+    "author": [
+     {
+      "first": "G. M.",
+      "last": "Bierman",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Mariangiola",
+      "last": "Dezani-Ciancaglini",
+      "lineage": ""
+     },
+     {
+      "first": "Gordon",
+      "last": "Plotkin",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "title": "What Is a Categorical Model of Intuitionistic Linear Logic?",
+   "type": "article",
+   "url": "http://link.springer.com/10.1007/BFb0014046",
+   "urldate": "2026-08-02",
+   "volume": "902"
+  },
+  "birdGeneralisedFoldsNested1999": {
+   "date": "1999-09-30",
+   "doi": "10.1007/s001650050047",
+   "issn": "0934-5043",
+   "journaltitle": "Formal Aspects of Computing",
+   "langid": "english",
+   "number": "2",
+   "pages": "200--222",
+   "persons": {
+    "author": [
+     {
+      "first": "Richard",
+      "last": "Bird",
+      "lineage": ""
+     },
+     {
+      "first": "Ross",
+      "last": "Paterson",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Generalised Folds for Nested Datatypes",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1007/s001650050047",
+   "urldate": "2026-08-02",
+   "volume": "11"
+  },
+  "bluteDifferentialCategories2006": {
+   "date": "2006-11-01",
+   "doi": "10.1017/S0960129506005676",
+   "issn": "0960-1295",
+   "journaltitle": "Mathematical Structures in Computer Science",
+   "langid": "english",
+   "number": "6",
+   "pages": "1049--1083",
+   "persons": {
+    "author": [
+     {
+      "first": "R. F.",
+      "last": "Blute",
+      "lineage": ""
+     },
+     {
+      "first": "J. R. B.",
+      "last": "Cockett",
+      "lineage": ""
+     },
+     {
+      "first": "R. A. G.",
+      "last": "Seely",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Differential Categories",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0960129506005676/type/journal_article",
+   "urldate": "2026-08-02",
+   "volume": "16"
+  },
+  "bluteStorageTensorialStrength1996": {
+   "date": "1996-08",
+   "doi": "10.1017/S0960129500001055",
+   "issn": "0960-1295, 1469-8072",
+   "journaltitle": "Mathematical Structures in Computer Science",
+   "langid": "english",
+   "number": "4",
+   "pages": "313--351",
+   "persons": {
+    "author": [
+     {
+      "first": "R. F.",
+      "last": "Blute",
+      "lineage": ""
+     },
+     {
+      "first": "J. R. B.",
+      "last": "Cockett",
+      "lineage": ""
+     },
+     {
+      "first": "R. A. G.",
+      "last": "Seely",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "! And ? – Storage as Tensorial Strength",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0960129500001055/type/journal_article",
+   "urldate": "2026-08-02",
+   "volume": "6"
+  },
+  "boccaliBicategoriesAutomataAutomata2023": {
+   "date": "2023-12-14",
+   "doi": "10.4204/EPTCS.397.1",
+   "issn": "2075-2180",
+   "journaltitle": "Electronic Proceedings in Theoretical Computer Science",
+   "langid": "english",
+   "pages": "1--19",
+   "persons": {
+    "author": [
+     {
+      "first": "Guido",
+      "last": "Boccali",
+      "lineage": ""
+     },
+     {
+      "first": "Andrea",
+      "last": "Laretto",
+      "lineage": ""
+     },
+     {
+      "first": "Fosco",
+      "last": "Loregian",
+      "lineage": ""
+     },
+     {
+      "first": "Stefano",
+      "last": "Luneia",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Bicategories of Automata, Automata in Bicategories",
+   "type": "article",
+   "url": "http://arxiv.org/abs/2303.03865v2",
+   "urldate": "2026-08-18",
+   "volume": "397"
+  },
+  "bojanczykAutomataTheoryNominal2014": {
+   "date": "2014-08-15",
+   "doi": "10.2168/LMCS-10(3:4)2014",
+   "issn": "1860-5974",
+   "journaltitle": "Logical Methods in Computer Science",
+   "langid": "english",
+   "pages": "1157",
+   "persons": {
+    "author": [
+     {
+      "first": "Mikołaj",
+      "last": "Bojańczyk",
+      "lineage": ""
+     },
+     {
+      "first": "Bartek",
+      "last": "Klin",
+      "lineage": ""
+     },
+     {
+      "first": "Sławomir",
+      "last": "Lasota",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Automata Theory in Nominal Sets",
+   "type": "article",
+   "url": "https://lmcs.episciences.org/1157",
+   "urldate": "2026-08-18",
+   "volume": "Volume 10, Issue 3"
+  },
+  "borgstromSortedSemanticFramework2016": {
+   "date": "2016-03-31",
+   "doi": "10.2168/LMCS-12(1:8)2016",
+   "issn": "1860-5974",
+   "journaltitle": "Logical Methods in Computer Science",
+   "langid": "english",
+   "pages": "1631",
+   "persons": {
+    "author": [
+     {
+      "first": "Johannes",
+      "last": "Borgström",
+      "lineage": ""
+     },
+     {
+      "first": "Ramūnas",
+      "last": "Gutkovas",
+      "lineage": ""
+     },
+     {
+      "first": "Joachim",
+      "last": "Parrow",
+      "lineage": ""
+     },
+     {
+      "first": "Björn",
+      "last": "Victor",
+      "lineage": ""
+     },
+     {
+      "first": "Johannes Åman",
+      "last": "Pohjola",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Sorted Semantic Framework for Applied Process Calculi",
+   "type": "article",
+   "url": "https://lmcs.episciences.org/1631",
+   "urldate": "2026-08-27",
+   "volume": "Volume 12, Issue 1"
+  },
+  "bourMerlinLanguageServer": {
+   "date": "2018-07-30",
+   "doi": "10.1145/3236798",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--15",
+   "persons": {
+    "author": [
+     {
+      "first": "Frédéric",
+      "last": "Bour",
+      "lineage": ""
+     },
+     {
+      "first": "Thomas",
+      "last": "Refis",
+      "lineage": ""
+     },
+     {
+      "first": "Gabriel",
+      "last": "Scherer",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Merlin: A Language Server for {{OCaml}} (Experience Report)",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3236798",
+   "volume": "2"
+  },
+  "bowmanNoninterferenceFree": {
+   "booktitle": "Proceedings of the 20th {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "date": "2015-08-29",
+   "doi": "10.1145/2784731.2784733",
+   "eventtitle": "{{ICFP}}'15: 20th {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "isbn": "978-1-4503-3669-7",
+   "langid": "english",
+   "location": "Vancouver BC Canada",
+   "pages": "101--113",
+   "persons": {
+    "author": [
+     {
+      "first": "William J",
+      "last": "Bowman",
+      "lineage": ""
+     },
+     {
+      "first": "Amal",
+      "last": "Ahmed",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Noninterference for Free",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2784731.2784733"
+  },
+  "brachthauserEffectsCapabilitiesEffect2020": {
+   "date": "2020-11-13",
+   "doi": "10.1145/3428194",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--30",
+   "persons": {
+    "author": [
+     {
+      "first": "Jonathan Immanuel",
+      "last": "Brachthäuser",
+      "lineage": ""
+     },
+     {
+      "first": "Philipp",
+      "last": "Schuster",
+      "lineage": ""
+     },
+     {
+      "first": "Klaus",
+      "last": "Ostermann",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Effects as Capabilities: Effect Handlers and Lightweight Effect Polymorphism",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3428194",
+   "urldate": "2025-05-06",
+   "volume": "4"
+  },
+  "brandonBetterDefunctionalizationLambda2023": {
+   "date": "2023-06-06",
+   "doi": "10.1145/3591260",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "977--1000",
+   "persons": {
+    "author": [
+     {
+      "first": "William",
+      "last": "Brandon",
+      "lineage": ""
+     },
+     {
+      "first": "Benjamin",
+      "last": "Driscoll",
+      "lineage": ""
+     },
+     {
+      "first": "Frank",
+      "last": "Dai",
+      "lineage": ""
+     },
+     {
+      "first": "Wilson",
+      "last": "Berkow",
+      "lineage": ""
+     },
+     {
+      "first": "Mae",
+      "last": "Milano",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Better Defunctionalization through Lambda Set Specialization",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3591260",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "brodalOptimalPurelyFunctional1996": {
+   "date": "1996-11",
+   "doi": "10.1017/S095679680000201X",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "6",
+   "pages": "839--857",
+   "persons": {
+    "author": [
+     {
+      "first": "Gerth Stølting",
+      "last": "Brodal",
+      "lineage": ""
+     },
+     {
+      "first": "Chris",
+      "last": "Okasaki",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Optimal Purely Functional Priority Queues",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S095679680000201X/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "6"
+  },
+  "brownDevelopmentAPL2Syntax1985": {
+   "date": "1985-01",
+   "doi": "10.1147/rd.291.0037",
+   "issn": "0018-8646, 0018-8646",
+   "journaltitle": "IBM Journal of Research and Development",
+   "langid": "english",
+   "number": "1",
+   "pages": "37--48",
+   "persons": {
+    "author": [
+     {
+      "first": "James A.",
+      "last": "Brown",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Development of {{APL2}} Syntax",
+   "type": "article",
+   "url": "http://ieeexplore.ieee.org/document/5390272/",
+   "urldate": "2025-04-18",
+   "volume": "29"
+  },
+  "brunelCoreQuantitativeCoeffect2014": {
+   "date": "2014",
+   "doi": "10.1007/978-3-642-54833-8_19",
+   "journaltitle": "Programming Languages and Systems",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "351--370",
+   "persons": {
+    "author": [
+     {
+      "first": "Aloïs",
+      "last": "Brunel",
+      "lineage": ""
+     },
+     {
+      "first": "Marco",
+      "last": "Gaboardi",
+      "lineage": ""
+     },
+     {
+      "first": "Damiano",
+      "last": "Mazza",
+      "lineage": ""
+     },
+     {
+      "first": "Steve",
+      "last": "Zdancewic",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Zhong",
+      "last": "Shao",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "series": "{{LNCS}}",
+   "title": "A Core Quantitative Coeffect Calculus",
+   "type": "article",
+   "url": "http://link.springer.com/10.1007/978-3-642-54833-8_19",
+   "urldate": "2026-08-02",
+   "volume": "8410"
+  },
+  "cairesLinearSessionAbstract2026": {
+   "date": "2026-05-29",
+   "doi": "10.1145/3819583",
+   "howpublished": "Univ. de Lisboa",
+   "issn": "0164-0925",
+   "journaltitle": "ACM Transactions on Programming Languages and Systems",
+   "langid": "english",
+   "location": "Lisbonne",
+   "number": "3",
+   "pages": "1--66",
+   "persons": {
+    "author": [
+     {
+      "first": "Luís",
+      "last": "Caires",
+      "lineage": ""
+     },
+     {
+      "first": "Bernardo",
+      "last": "Toninho",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Univ. de Lisboa",
+   "title": "The Linear Session Abstract Machine",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3819583",
+   "urldate": "2026-08-02",
+   "volume": "48"
+  },
+  "cairesLinearityControlEffects2017": {
+   "date": "2017",
+   "doi": "10.1007/978-3-662-54434-1_9",
+   "journaltitle": "Programming Languages and Systems",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "229--259",
+   "persons": {
+    "author": [
+     {
+      "first": "Luís",
+      "last": "Caires",
+      "lineage": ""
+     },
+     {
+      "first": "Jorge A.",
+      "last": "Pérez",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Hongseok",
+      "last": "Yang",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "title": "Linearity, Control Effects, and Behavioral Types",
+   "type": "article",
+   "url": "https://link.springer.com/10.1007/978-3-662-54434-1_9",
+   "urldate": "2026-08-02",
+   "volume": "10201"
+  },
+  "caporasoPredicativeApproachClassification2001": {
+   "date": "2001-01-01",
+   "doi": "10.1017/S0956796800003853",
+   "issn": "0956-7968",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "1",
+   "pages": "95--116",
+   "persons": {
+    "author": [
+     {
+      "first": "Salvatore",
+      "last": "Caporaso",
+      "lineage": ""
+     },
+     {
+      "first": "Emanuele",
+      "last": "Covino",
+      "lineage": ""
+     },
+     {
+      "first": "Giovanni",
+      "last": "Pani",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Predicative Approach to the Classification Problem",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796800003853/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "11"
+  },
+  "castellanGeometryCausalityMultitoken2023": {
+   "date": "2023-01-09",
+   "doi": "10.1145/3571217",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "689--717",
+   "persons": {
+    "author": [
+     {
+      "first": "Simon",
+      "last": "Castellan",
+      "lineage": ""
+     },
+     {
+      "first": "Pierre",
+      "last": "Clairambault",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Geometry of Causality: Multi-Token Geometry of Interaction and Its Causal Unfolding",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3571217",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "castellanTwoSidesSame2019": {
+   "date": "2019-01-02",
+   "doi": "10.1145/3290340",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Simon",
+      "last": "Castellan",
+      "lineage": ""
+     },
+     {
+      "first": "Nobuko",
+      "last": "Yoshida",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Two Sides of the Same Coin: Session Types and Game Semantics: A Synchronous Side and an Asynchronous Side",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3290340",
+   "urldate": "2026-08-02",
+   "volume": "3"
+  },
+  "cervesatoLogicalMeetingPoint2004": {
+   "date": "2004",
+   "institution": "Naval Research Laboratory",
+   "langid": "english",
+   "number": "Technical Memo 5540-153",
+   "persons": {
+    "author": [
+     {
+      "first": "Iliano",
+      "last": "Cervesato",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Logical Meeting Point of Multiset Rewriting and Process Algebra: Progress Report",
+   "type": "report"
+  },
+  "chirimarReferenceCountingComputational1996": {
+   "date": "1996-03",
+   "doi": "10.1017/S0956796800001660",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "2",
+   "pages": "195--244",
+   "persons": {
+    "author": [
+     {
+      "first": "Jawahar",
+      "last": "Chirimar",
+      "lineage": ""
+     },
+     {
+      "first": "Carl A.",
+      "last": "Gunter",
+      "lineage": ""
+     },
+     {
+      "first": "Jon G.",
+      "last": "Riecke",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Reference Counting as a Computational Interpretation of Linear Logic",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796800001660/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "6"
+  },
+  "chongRequiredInformationRelease2010": {
+   "booktitle": "2010 23rd {{IEEE Computer Security Foundations Symposium}}",
+   "date": "2010-07",
+   "doi": "10.1109/CSF.2010.22",
+   "eventtitle": "2010 {{IEEE}} 23rd {{Computer Security Foundations Symposium}} ({{CSF}})",
+   "howpublished": "Harvard Computer Science Group",
+   "isbn": "978-1-4244-7510-0",
+   "langid": "english",
+   "location": "Edinburgh, United Kingdom",
+   "pages": "215--227",
+   "persons": {
+    "author": [
+     {
+      "first": "Stephen",
+      "last": "Chong",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "IEEE",
+   "title": "Required Information Release",
+   "type": "inproceedings",
+   "url": "http://ieeexplore.ieee.org/document/5552644/",
+   "urldate": "2026-08-02"
+  },
+  "choudhuryDependentDependencyCalculus2022": {
+   "date": "2022",
+   "doi": "10.1007/978-3-030-99336-8_15",
+   "journaltitle": "Programming Languages and Systems",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "403--430",
+   "persons": {
+    "author": [
+     {
+      "first": "Pritam",
+      "last": "Choudhury",
+      "lineage": ""
+     },
+     {
+      "first": "Harley",
+      "last": "Eades",
+      "lineage": ""
+     },
+     {
+      "first": "Stephanie",
+      "last": "Weirich",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Ilya",
+      "last": "Sergey",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer International Publishing",
+   "title": "A Dependent Dependency Calculus",
+   "type": "article",
+   "url": "https://link.springer.com/10.1007/978-3-030-99336-8_15",
+   "urldate": "2026-08-02",
+   "volume": "13240"
+  },
+  "choudhuryGradedDependentType2021": {
+   "date": "2021-01-04",
+   "doi": "10.1145/3434331",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--32",
+   "persons": {
+    "author": [
+     {
+      "first": "Pritam",
+      "last": "Choudhury",
+      "lineage": ""
+     },
+     {
+      "first": "Harley",
+      "last": "Eades Iii",
+      "lineage": ""
+     },
+     {
+      "first": "Richard A.",
+      "last": "Eisenberg",
+      "lineage": ""
+     },
+     {
+      "first": "Stephanie",
+      "last": "Weirich",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Graded Dependent Type System with a Usage-Aware Semantics",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3434331",
+   "urldate": "2025-05-07",
+   "volume": "5"
+  },
+  "choudhuryRecoveringPurityComonads2020": {
+   "date": "2020-08-02",
+   "doi": "10.1145/3408993",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Vikraman",
+      "last": "Choudhury",
+      "lineage": ""
+     },
+     {
+      "first": "Neel",
+      "last": "Krishnaswami",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Recovering Purity with Comonads and Capabilities",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3408993",
+   "urldate": "2025-04-30",
+   "volume": "4"
+  },
+  "chuHandlingExceptionsEffects": {
+   "date": "2026-04",
+   "doi": "10.1145/3798207",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "99",
+   "pages": "1--30",
+   "persons": {
+    "author": [
+     {
+      "first": "Ethan",
+      "last": "Chu",
+      "lineage": ""
+     },
+     {
+      "first": "Yiyang",
+      "last": "Guo",
+      "lineage": ""
+     },
+     {
+      "first": "Jan",
+      "last": "Hoffmann",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Handling Exceptions and Effects with Automatic Resource Analysis",
+   "type": "article",
+   "volume": "10"
+  },
+  "clingerHygienicMacroTechnology": {
+   "date": "2020-06-14",
+   "doi": "10.1145/3386330",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--110",
+   "persons": {
+    "author": [
+     {
+      "first": "William D",
+      "last": "Clinger",
+      "lineage": ""
+     },
+     {
+      "first": "Mitchell",
+      "last": "Wand",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Hygienic Macro Technology",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3386330",
+   "volume": "4"
+  },
+  "coblenzCanAdvancedType2020": {
+   "date": "2020-11-13",
+   "doi": "10.1145/3428200",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Michael",
+      "last": "Coblenz",
+      "lineage": ""
+     },
+     {
+      "first": "Jonathan",
+      "last": "Aldrich",
+      "lineage": ""
+     },
+     {
+      "first": "Brad A.",
+      "last": "Myers",
+      "lineage": ""
+     },
+     {
+      "first": "Joshua",
+      "last": "Sunshine",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Can Advanced Type Systems Be Usable? {{An}} Empirical Study of Ownership, Assets, and Typestate in Obsidian",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3428200",
+   "urldate": "2025-05-06",
+   "volume": "4"
+  },
+  "coblenzInterdisciplinaryProgrammingLanguage2018": {
+   "booktitle": "Proceedings of the 2018 {{ACM SIGPLAN International Symposium}} on {{New Ideas}}, {{New Paradigms}}, and {{Reflections}} on {{Programming}} and {{Software}}",
+   "date": "2018-10-24",
+   "doi": "10.1145/3276954.3276965",
+   "eventtitle": "{{SPLASH}} '18: {{Conference}} on {{Systems}}, {{Programming}}, {{Languages}}, and {{Applications}}: {{Software}} for {{Humanity}}",
+   "isbn": "978-1-4503-6031-9",
+   "langid": "english",
+   "location": "Boston MA USA",
+   "pages": "133--146",
+   "persons": {
+    "author": [
+     {
+      "first": "Michael",
+      "last": "Coblenz",
+      "lineage": ""
+     },
+     {
+      "first": "Jonathan",
+      "last": "Aldrich",
+      "lineage": ""
+     },
+     {
+      "first": "Brad A.",
+      "last": "Myers",
+      "lineage": ""
+     },
+     {
+      "first": "Joshua",
+      "last": "Sunshine",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Interdisciplinary Programming Language Design",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3276954.3276965",
+   "urldate": "2026-08-27"
+  },
+  "cohenCodeStyleSheets2025": {
+   "date": "2025-04-09",
+   "doi": "10.1145/3720421",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "196--224",
+   "persons": {
+    "author": [
+     {
+      "first": "Sam",
+      "last": "Cohen",
+      "lineage": ""
+     },
+     {
+      "first": "Ravi",
+      "last": "Chugh",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Code Style Sheets: {{CSS}} for Code",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3720421",
+   "urldate": "2025-05-19",
+   "volume": "9"
+  },
+  "colcombetAutomataCategoryGlued2017b": {
+   "date": "2017",
+   "doi": "10.4230/LIPICS.MFCS.2017.52",
+   "isbn": "9783959770460",
+   "issn": "1868-8969",
+   "journaltitle": "LIPIcs, Volume 83, MFCS 2017",
+   "langid": "english",
+   "pages": "52:1-52:14",
+   "persons": {
+    "author": [
+     {
+      "first": "Thomas",
+      "last": "Colcombet",
+      "lineage": ""
+     },
+     {
+      "first": "Daniela",
+      "last": "Petrisan",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Kim G.",
+      "last": "Larsen",
+      "lineage": ""
+     },
+     {
+      "first": "Hans L.",
+      "last": "Bodlaender",
+      "lineage": ""
+     },
+     {
+      "first": "Jean-Francois",
+      "last": "Raskin",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "Automata in the Category of Glued Vector Spaces",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.MFCS.2017.52",
+   "urldate": "2026-08-27",
+   "volume": "83"
+  },
+  "colcombetAutomataMinimizationFunctorial2020": {
+   "date": "2020-03-23",
+   "doi": "10.23638/LMCS-16(1:32)2020",
+   "issn": "1860-5974",
+   "journaltitle": "Logical Methods in Computer Science",
+   "langid": "english",
+   "pages": "4159",
+   "persons": {
+    "author": [
+     {
+      "first": "Thomas",
+      "last": "Colcombet",
+      "lineage": ""
+     },
+     {
+      "first": "Daniela",
+      "last": "Petrişan",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Automata Minimization: A Functorial Approach",
+   "type": "article",
+   "url": "http://lmcs.episciences.org/4159",
+   "urldate": "2026-08-19",
+   "volume": "Volume 16, Issue 1"
+  },
+  "cutlerDenotationalRecurrenceExtraction2020": {
+   "date": "2020-08-02",
+   "doi": "10.1145/3408979",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Joseph W.",
+      "last": "Cutler",
+      "lineage": ""
+     },
+     {
+      "first": "Daniel R.",
+      "last": "Licata",
+      "lineage": ""
+     },
+     {
+      "first": "Norman",
+      "last": "Danner",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Denotational Recurrence Extraction for Amortized Analysis",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3408979",
+   "urldate": "2025-04-30",
+   "volume": "4"
+  },
+  "damatoFormalisingInductiveCoinductive2024": {
+   "date": "2024-09-04",
+   "doi": "10.48550/arXiv.2409.02603",
+   "eprint": "2409.02603v5",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "journaltitle": "International Conference on Interactive Theorem Proving",
+   "langid": "english",
+   "pages": "17:1-17:20",
+   "persons": {
+    "author": [
+     {
+      "first": "Stefania",
+      "last": "Damato",
+      "lineage": ""
+     },
+     {
+      "first": "Thorsten",
+      "last": "Altenkirch",
+      "lineage": ""
+     },
+     {
+      "first": "Axel",
+      "last": "Ljungström",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Formalising Inductive and Coinductive Containers",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2409.02603",
+   "urldate": "2026-08-02"
+  },
+  "dannerDenotationalSemanticsFoundation2022": {
+   "date": "2022",
+   "doi": "10.1017/S095679682200003X",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e8",
+   "persons": {
+    "author": [
+     {
+      "first": "Norman",
+      "last": "Danner",
+      "lineage": ""
+     },
+     {
+      "first": "Daniel R.",
+      "last": "Licata",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Denotational Semantics as a Foundation for Cost Recurrence Extraction for Functional Languages",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S095679682200003X/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "32"
+  },
+  "dasParallelComplexityAnalysis": {
+   "date": "2018-07-30",
+   "doi": "10.1145/3236786",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "ICFP",
+   "pages": "1--30",
+   "persons": {
+    "author": [
+     {
+      "first": "Ankush",
+      "last": "Das",
+      "lineage": ""
+     },
+     {
+      "first": "Jan",
+      "last": "Hoffmann",
+      "lineage": ""
+     },
+     {
+      "first": "Frank",
+      "last": "Pfenning",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Parallel Complexity Analysis with Temporal Session Types",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3236786",
+   "urldate": "2026-08-02",
+   "volume": "2"
+  },
+  "deamorimReallyNaturalLinear2014": {
+   "booktitle": "Proceedings of the 26nd 2014 {{International Symposium}} on {{Implementation}} and {{Application}} of {{Functional Languages}}",
+   "date": "2014-10-01",
+   "doi": "10.1145/2746325.2746335",
+   "eventtitle": "International {{Symposium}} on {{Implementation}} and {{Application}} of {{Functional Languages}}",
+   "isbn": "978-1-4503-3284-2",
+   "langid": "english",
+   "location": "Boston MA USA",
+   "pages": "1--12",
+   "persons": {
+    "author": [
+     {
+      "first": "Arthur Azevedo",
+      "last": "De Amorim",
+      "lineage": ""
+     },
+     {
+      "first": "Marco",
+      "last": "Gaboardi",
+      "lineage": ""
+     },
+     {
+      "first": "Emilio Jesús",
+      "last": "Gallego Arias",
+      "lineage": ""
+     },
+     {
+      "first": "Justin",
+      "last": "Hsu",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Really Natural Linear Indexed Type Checking",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2746325.2746335",
+   "urldate": "2026-08-02"
+  },
+  "deamorimSeparatedSharedEffects2023": {
+   "date": "2023",
+   "doi": "10.48550/ARXIV.2303.01616",
+   "eprint": "2303.01616v1",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "langid": "english",
+   "pages": "1--31",
+   "persons": {
+    "author": [
+     {
+      "first": "Pedro H. Azevedo",
+      "last": "de Amorim",
+      "lineage": ""
+     },
+     {
+      "first": "Justin",
+      "last": "Hsu",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Separated and Shared Effects in Higher-Order Languages",
+   "type": "unpublished",
+   "url": "https://arxiv.org/abs/2303.01616",
+   "urldate": "2026-08-02"
+  },
+  "demuijnck-hughesWiringCircuitsEasy2023": {
+   "date": "2023",
+   "doi": "10.4230/LIPICS.ECOOP.2023.8",
+   "issn": "1868-8969",
+   "journaltitle": "LIPIcs, Volume 263, ECOOP 2023",
+   "langid": "english",
+   "pages": "8:1-8:28",
+   "persons": {
+    "author": [
+     {
+      "first": "Jan",
+      "last": "de Muijnck-Hughes",
+      "lineage": ""
+     },
+     {
+      "first": "Wim",
+      "last": "Vanderbauwhede",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Karim",
+      "last": "Ali",
+      "lineage": ""
+     },
+     {
+      "first": "Guido",
+      "last": "Salvaneschi",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "Wiring Circuits Is Easy as \\{0,1,ω\\}, or Is It",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ECOOP.2023.8",
+   "urldate": "2026-08-02",
+   "volume": "263"
+  },
+  "dennyDesigningProgrammingError2021": {
+   "booktitle": "Proceedings of the 2021 {{CHI Conference}} on {{Human Factors}} in {{Computing Systems}}",
+   "date": "2021-05-06",
+   "doi": "10.1145/3411764.3445696",
+   "eventtitle": "{{CHI}} '21: {{CHI Conference}} on {{Human Factors}} in {{Computing Systems}}",
+   "isbn": "978-1-4503-8096-6",
+   "langid": "english",
+   "location": "Yokohama Japan",
+   "pages": "1--15",
+   "persons": {
+    "author": [
+     {
+      "first": "Paul",
+      "last": "Denny",
+      "lineage": ""
+     },
+     {
+      "first": "James",
+      "last": "Prather",
+      "lineage": ""
+     },
+     {
+      "first": "Brett A.",
+      "last": "Becker",
+      "lineage": ""
+     },
+     {
+      "first": "Catherine",
+      "last": "Mooney",
+      "lineage": ""
+     },
+     {
+      "first": "John",
+      "last": "Homer",
+      "lineage": ""
+     },
+     {
+      "first": "Zachary C",
+      "last": "Albrecht",
+      "lineage": ""
+     },
+     {
+      "first": "Garrett B.",
+      "last": "Powell",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "On Designing Programming Error Messages for Novices: Readability and Its Constituent Factors",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3411764.3445696",
+   "urldate": "2026-08-19"
+  },
+  "dennyErrorMessageReadability2020": {
+   "booktitle": "Proceedings of the 2020 {{ACM Conference}} on {{Innovation}} and {{Technology}} in {{Computer Science Education}}",
+   "date": "2020-06-15",
+   "doi": "10.1145/3341525.3387384",
+   "eventtitle": "{{ITiCSE}} '20: {{Innovation}} and {{Technology}} in {{Computer Science Education}}",
+   "isbn": "978-1-4503-6874-2",
+   "langid": "english",
+   "location": "Trondheim Norway",
+   "pages": "480--486",
+   "persons": {
+    "author": [
+     {
+      "first": "Paul",
+      "last": "Denny",
+      "lineage": ""
+     },
+     {
+      "first": "James",
+      "last": "Prather",
+      "lineage": ""
+     },
+     {
+      "first": "Brett A.",
+      "last": "Becker",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Error Message Readability and Novice Debugging Performance",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3341525.3387384",
+   "urldate": "2026-08-19"
+  },
+  "devilhenaSeparationLogicEffect2021": {
+   "date": "2021-01-04",
+   "doi": "10.1145/3434314",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Paulo Emílio",
+      "last": "De Vilhena",
+      "lineage": ""
+     },
+     {
+      "first": "François",
+      "last": "Pottier",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Separation Logic for Effect Handlers",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3434314",
+   "urldate": "2025-05-07",
+   "volume": "5"
+  },
+  "dilavoreMonoidalStreamsDataflow2022": {
+   "booktitle": "Proceedings of the 37th {{Annual ACM}}/{{IEEE Symposium}} on {{Logic}} in {{Computer Science}}",
+   "date": "2022-02-04",
+   "doi": "10.1145/3531130.3533365",
+   "eventtitle": "Logic in {{Computer Science}}",
+   "isbn": "978-1-4503-9351-5",
+   "issn": "1043-6871",
+   "langid": "english",
+   "location": "Haifa Israel",
+   "pages": "1--14",
+   "persons": {
+    "author": [
+     {
+      "first": "Elena",
+      "last": "Di Lavore",
+      "lineage": ""
+     },
+     {
+      "first": "Giovanni",
+      "last": "De Felice",
+      "lineage": ""
+     },
+     {
+      "first": "Mario",
+      "last": "Román",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Monoidal Streams for Dataflow Programming",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3531130.3533365",
+   "urldate": "2026-08-02"
+  },
+  "doreDependentMultiplicitiesDependent2025": {
+   "date": "2025",
+   "doi": "10.1145/3747531",
+   "langid": "english",
+   "pages": "1--13",
+   "persons": {
+    "author": [
+     {
+      "first": "Maximilian",
+      "last": "Doré",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Dependent Multiplicities in Dependent Linear Type Theory",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2507.08759",
+   "urldate": "2026-08-02"
+  },
+  "downenClassicalCorecursionMechanics2023": {
+   "date": "2023",
+   "doi": "10.1017/S0956796822000168",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e4",
+   "persons": {
+    "author": [
+     {
+      "first": "Paul",
+      "last": "Downen",
+      "lineage": ""
+     },
+     {
+      "first": "Zena M.",
+      "last": "Ariola",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Classical (Co)Recursion: Mechanics",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796822000168/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "33"
+  },
+  "downenStructuresStructuralRecursion": {
+   "booktitle": "Proceedings of the 20th {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "date": "2015-08-29",
+   "doi": "10.1145/2784731.2784762",
+   "eventtitle": "{{ICFP}}'15: 20th {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "isbn": "978-1-4503-3669-7",
+   "langid": "english",
+   "location": "Vancouver BC Canada",
+   "pages": "127--139",
+   "persons": {
+    "author": [
+     {
+      "first": "Paul",
+      "last": "Downen",
+      "lineage": ""
+     },
+     {
+      "first": "Philip",
+      "last": "Johnson-Freyd",
+      "lineage": ""
+     },
+     {
+      "first": "Zena M",
+      "last": "Ariola",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Structures for Structural Recursion",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2784731.2784762"
+  },
+  "ehrhardIntegrationCones2025": {
+   "date": "2025-01-03",
+   "doi": "10.46298/lmcs-21(1:1)2025",
+   "issn": "1860-5974",
+   "journaltitle": "Logical Methods in Computer Science",
+   "langid": "english",
+   "number": "1",
+   "pages": "10815",
+   "persons": {
+    "author": [
+     {
+      "first": "Thomas",
+      "last": "Ehrhard",
+      "lineage": ""
+     },
+     {
+      "first": "Guillaume",
+      "last": "Geoffroy",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Integration in Cones",
+   "type": "article",
+   "url": "https://lmcs.episciences.org/10815",
+   "urldate": "2026-08-02",
+   "volume": "Volume 21, Issue 1"
+  },
+  "ekiciFormalisingAsynchronousSession2026": {
+   "date": "2026-05-12",
+   "doi": "10.1145/3815176",
+   "howpublished": "Dept. of Computer Science",
+   "issn": "1529-3785",
+   "journaltitle": "ACM Transactions on Computational Logic",
+   "langid": "english",
+   "location": "Univ. of Oxford",
+   "number": "3",
+   "pages": "1--45",
+   "persons": {
+    "author": [
+     {
+      "first": "Burak",
+      "last": "Ekici",
+      "lineage": ""
+     },
+     {
+      "first": "Nobuko",
+      "last": "Yoshida",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Dept. of Computer Science",
+   "title": "Formalising Asynchronous Session Subtyping",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3815176",
+   "urldate": "2026-08-02",
+   "volume": "27"
+  },
+  "erikssonGradedModalType2025": {
+   "date": "2025",
+   "eprint": "2077/86472",
+   "eprinttype": "hdl",
+   "institution": "University of Gothenburg",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Oskar",
+      "last": "Eriksson",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Graded Modal Type Theory, Formalized",
+   "type": "bathesis",
+   "url": "https://hdl.handle.net/2077/86472",
+   "urldate": "2026-08-27"
+  },
+  "erwigInductiveGraphsFunctional2001": {
+   "date": "2001-09",
+   "doi": "10.1017/S0956796801004075",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "5",
+   "pages": "467--492",
+   "persons": {
+    "author": [
+     {
+      "first": "Martin",
+      "last": "Erwig",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Inductive Graphs and Functional Graph Algorithms",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796801004075/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "11"
+  },
+  "falkoffEvolutionAPL1978": {
+   "date": "1978-08",
+   "doi": "10.1145/960118.808372",
+   "issn": "0362-1340, 1558-1160",
+   "journaltitle": "ACM SIGPLAN Notices",
+   "langid": "english",
+   "number": "8",
+   "pages": "47--57",
+   "persons": {
+    "author": [
+     {
+      "first": "Adin D.",
+      "last": "Falkoff",
+      "lineage": ""
+     },
+     {
+      "first": "Kenneth E.",
+      "last": "Iverson",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Evolution of {{APL}}",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/960118.808372",
+   "urldate": "2026-08-26",
+   "volume": "13"
+  },
+  "felicissimoDefinitionalProofIrrelevance2025": {
+   "date": "2025",
+   "doi": "10.4230/LIPIcs.LICS.2026.41",
+   "howpublished": "TYPES 2025 (abstract)",
+   "issn": "1868-8969",
+   "journaltitle": "LIPIcs, Volume 380, LICS 2026",
+   "langid": "english",
+   "pages": "41:1-41:26",
+   "persons": {
+    "author": [
+     {
+      "first": "Thiago",
+      "last": "Felicissimo",
+      "lineage": ""
+     },
+     {
+      "first": "Yann",
+      "last": "Leray",
+      "lineage": ""
+     },
+     {
+      "first": "Loïc",
+      "last": "Pujet",
+      "lineage": ""
+     },
+     {
+      "first": "Nicolas",
+      "last": "Tabareau",
+      "lineage": ""
+     },
+     {
+      "first": "Éric",
+      "last": "Tanter",
+      "lineage": ""
+     },
+     {
+      "first": "Théo",
+      "last": "Winterhalter",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Claudia",
+      "last": "Faggian",
+      "lineage": ""
+     },
+     {
+      "first": "Joost-Pieter",
+      "last": "Katoen",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "Definitional Proof Irrelevance Made Accessible",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.LICS.2026.41",
+   "volume": "380"
+  },
+  "fioreFormalMetatheorySecondorder2022": {
+   "date": "2022-01-16",
+   "doi": "10.1145/3498715",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Marcelo",
+      "last": "Fiore",
+      "lineage": ""
+     },
+     {
+      "first": "Dmitrij",
+      "last": "Szamozvancev",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Formal Metatheory of Second-Order Abstract Syntax",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3498715",
+   "urldate": "2026-08-02",
+   "volume": "6"
+  },
+  "fitzgibbonsRichWasmBringingSafe2024": {
+   "date": "2024-06-20",
+   "doi": "10.1145/3656444",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1656--1679",
+   "persons": {
+    "author": [
+     {
+      "first": "Michael",
+      "last": "Fitzgibbons",
+      "lineage": ""
+     },
+     {
+      "first": "Zoe",
+      "last": "Paraskevopoulou",
+      "lineage": ""
+     },
+     {
+      "first": "Noble",
+      "last": "Mushtak",
+      "lineage": ""
+     },
+     {
+      "first": "Michelle",
+      "last": "Thalakottur",
+      "lineage": ""
+     },
+     {
+      "first": "Jose",
+      "last": "Sulaiman Manzur",
+      "lineage": ""
+     },
+     {
+      "first": "Amal",
+      "last": "Ahmed",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{RichWasm}}: Bringing Safe, Fine-Grained, Shared-Memory Interoperability down to {{WebAssembly}}",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3656444",
+   "urldate": "2025-05-08",
+   "volume": "8"
+  },
+  "fixTradingCommunitySBE2020": {
+   "date": "2020",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "",
+      "last": "Fix Trading Community",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Simple Binary Encoding ({{SBE}}) Technical Specification, Version 1.0 with Errata",
+   "type": "report",
+   "url": "https://www.fixtrading.org/standards/sbe/",
+   "urldate": "2026-08-27"
+  },
+  "fluetMonadicRegions2006": {
+   "date": "2006-07",
+   "doi": "10.1017/S095679680600596X",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "4--5",
+   "pages": "485--545",
+   "persons": {
+    "author": [
+     {
+      "first": "Matthew",
+      "last": "Fluet",
+      "lineage": ""
+     },
+     {
+      "first": "Greg",
+      "last": "Morrisett",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Monadic Regions",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S095679680600596X/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "16"
+  },
+  "fordPackratParsingSimple": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Bryan",
+      "last": "Ford",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Packrat Parsing: Simple, Powerful, Lazy, Linear Time",
+   "type": "article"
+  },
+  "fordParsingExpressionGrammars": {
+   "doi": "10.1145/964001.964011",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Bryan",
+      "last": "Ford",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Parsing Expression Grammars: A Recognition-Based Syntactic Foundation",
+   "type": "article"
+  },
+  "fournetReflexiveCHAMJoincalculus1996": {
+   "date": "1996",
+   "doi": "10.1145/237721.237805",
+   "howpublished": "INRIA Rocquencourt",
+   "langid": "english",
+   "location": "St. Petersburg Beach, Florida, United States",
+   "pages": "372--385",
+   "persons": {
+    "author": [
+     {
+      "first": "Cédric",
+      "last": "Fournet",
+      "lineage": ""
+     },
+     {
+      "first": "Georges",
+      "last": "Gonthier",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM Press",
+   "title": "The Reflexive {{CHAM}} and the Join-Calculus",
+   "type": "article",
+   "url": "http://portal.acm.org/citation.cfm?doid=237721.237805",
+   "urldate": "2026-08-02"
+  },
+  "fuDependentlyTypedFolds2018": {
+   "date": "2018",
+   "doi": "10.48550/ARXIV.1806.05230",
+   "eprint": "1806.05230v1",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Peng",
+      "last": "Fu",
+      "lineage": ""
+     },
+     {
+      "first": "Peter",
+      "last": "Selinger",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Dependently Typed Folds for Nested Data Types",
+   "type": "unpublished",
+   "url": "https://arxiv.org/abs/1806.05230",
+   "urldate": "2026-08-02"
+  },
+  "fujiiFormalTheoryGraded2016": {
+   "date": "2016",
+   "doi": "10.1007/978-3-662-49630-5_30",
+   "journaltitle": "Foundations of Software Science and Computation Structures",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "513--530",
+   "persons": {
+    "author": [
+     {
+      "first": "Soichiro",
+      "last": "Fujii",
+      "lineage": ""
+     },
+     {
+      "first": "Shin-ya",
+      "last": "Katsumata",
+      "lineage": ""
+     },
+     {
+      "first": "Paul-André",
+      "last": "Melliès",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Bart",
+      "last": "Jacobs",
+      "lineage": ""
+     },
+     {
+      "first": "Christof",
+      "last": "Löding",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "title": "Towards a Formal Theory of Graded Monads",
+   "type": "article",
+   "url": "http://link.springer.com/10.1007/978-3-662-49630-5_30",
+   "urldate": "2026-08-02",
+   "volume": "9634"
+  },
+  "fukiharaGeneralizedBoundedLinear2021": {
+   "booktitle": "Foundations of {{Software Science}} and {{Computation Structures}}",
+   "date": "2021-03-23",
+   "doi": "10.1007/978-3-030-71995-1_12",
+   "eventtitle": "Foundations of {{Software Science}} and {{Computation Structure}}",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "226--246",
+   "persons": {
+    "author": [
+     {
+      "first": "Yōji",
+      "last": "Fukihara",
+      "lineage": ""
+     },
+     {
+      "first": "Shin-ya",
+      "last": "Katsumata",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Stefan",
+      "last": "Kiefer",
+      "lineage": ""
+     },
+     {
+      "first": "Christine",
+      "last": "Tasson",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer International Publishing",
+   "series": "{{LNCS}}",
+   "title": "Generalized Bounded Linear Logic and Its Categorical Semantics",
+   "type": "inproceedings",
+   "url": "http://link.springer.com/10.1007/978-3-030-71995-1_12",
+   "urldate": "2026-08-02",
+   "volume": "12650"
+  },
+  "gaboardiCombiningEffectsCoeffects2016": {
+   "booktitle": "Proceedings of the 21st {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "date": "2016-09-04",
+   "doi": "10.1145/2951913.2951939",
+   "eventtitle": "{{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "isbn": "978-1-4503-4219-3",
+   "langid": "english",
+   "location": "Nara Japan",
+   "pages": "476--489",
+   "persons": {
+    "author": [
+     {
+      "first": "Marco",
+      "last": "Gaboardi",
+      "lineage": ""
+     },
+     {
+      "first": "Shin-ya",
+      "last": "Katsumata",
+      "lineage": ""
+     },
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     },
+     {
+      "first": "Flavien",
+      "last": "Breuvart",
+      "lineage": ""
+     },
+     {
+      "first": "Tarmo",
+      "last": "Uustalu",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Combining Effects and Coeffects via Grading",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2951913.2951939",
+   "urldate": "2026-08-02"
+  },
+  "gaboardiWhatModelSemantically2014": {
+   "date": "2014-06-01",
+   "doi": "10.1093/logcom/exs023",
+   "howpublished": "Univ. degli Studi di Bologna et Politecnico di Torino",
+   "issn": "0955-792X, 1465-363X",
+   "journaltitle": "Journal of Logic and Computation",
+   "langid": "english",
+   "number": "3",
+   "pages": "557--589",
+   "persons": {
+    "author": [
+     {
+      "first": "M.",
+      "last": "Gaboardi",
+      "lineage": ""
+     },
+     {
+      "first": "M.",
+      "last": "Piccolo",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Univ. degli Studi di Bologna et Politecnico di Torino",
+   "title": "What Is a Model for a Semantically Linear -Calculus?",
+   "type": "article",
+   "url": "https://academic.oup.com/logcom/article-lookup/doi/10.1093/logcom/exs023",
+   "urldate": "2026-08-02",
+   "volume": "24"
+  },
+  "ghicaBoundedLinearTypes2014": {
+   "booktitle": "European {{Symposium}} on {{Programming}}",
+   "date": "2014-04-05",
+   "doi": "10.1007/978-3-642-54833-8_18",
+   "eventtitle": "European {{Symposium}} on {{Programming}}",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "331--350",
+   "persons": {
+    "author": [
+     {
+      "first": "Dan R.",
+      "last": "Ghica",
+      "lineage": ""
+     },
+     {
+      "first": "Alex I.",
+      "last": "Smith",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Zhong",
+      "last": "Shao",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "series": "{{LNCS}}",
+   "title": "Bounded Linear Types in a Resource Semiring",
+   "type": "inproceedings",
+   "url": "http://link.springer.com/10.1007/978-3-642-54833-8_18",
+   "urldate": "2026-08-02",
+   "volume": "8410"
+  },
+  "gillTypesafeObservableSharing": {
+   "doi": "10.1145/1596638.1596653",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Andy",
+      "last": "Gill",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Type-Safe Observable Sharing in Haskell",
+   "type": "article"
+  },
+  "gordonPolymorphicIterableSequential2021": {
+   "date": "2021-03-31",
+   "doi": "10.1145/3450272",
+   "eprint": "1808.02010",
+   "eprinttype": "arXiv",
+   "issn": "0164-0925, 1558-4593",
+   "journaltitle": "ACM Transactions on Programming Languages and Systems",
+   "langid": "english",
+   "number": "1",
+   "pages": "1--79",
+   "persons": {
+    "author": [
+     {
+      "first": "Colin S.",
+      "last": "Gordon",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Polymorphic Iterable Sequential Effect Systems",
+   "type": "article",
+   "url": "http://arxiv.org/abs/1808.02010",
+   "urldate": "2025-07-02",
+   "volume": "43"
+  },
+  "gouniSecurityReasoningSubstructural2026": {
+   "date": "2026-01-08",
+   "doi": "10.1145/3776669",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "777--805",
+   "persons": {
+    "author": [
+     {
+      "first": "Hemant",
+      "last": "Gouni",
+      "lineage": ""
+     },
+     {
+      "first": "Frank",
+      "last": "Pfenning",
+      "lineage": ""
+     },
+     {
+      "first": "Jonathan",
+      "last": "Aldrich",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Security Reasoning via Substructural Dependency Tracking",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3776669",
+   "urldate": "2026-08-02",
+   "volume": "10"
+  },
+  "grabmayerMaximalSharingLam": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Clemens",
+      "last": "Grabmayer",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Maximal Sharing in the Lam",
+   "type": "article"
+  },
+  "gregersenMechanizedLogicalRelations2021": {
+   "date": "2021-01-04",
+   "doi": "10.1145/3434291",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Simon Oddershede",
+      "last": "Gregersen",
+      "lineage": ""
+     },
+     {
+      "first": "Johan",
+      "last": "Bay",
+      "lineage": ""
+     },
+     {
+      "first": "Amin",
+      "last": "Timany",
+      "lineage": ""
+     },
+     {
+      "first": "Lars",
+      "last": "Birkedal",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Mechanized Logical Relations for Termination-Insensitive Noninterference",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3434291",
+   "urldate": "2025-05-07",
+   "volume": "5"
+  },
+  "grodinAbstractionFunctionsTypes": {
+   "date": "2026-01",
+   "doi": "10.1145/3776673",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "number": "31",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Harrison",
+      "last": "Grodin",
+      "lineage": ""
+     },
+     {
+      "first": "Runming",
+      "last": "Li",
+      "lineage": ""
+     },
+     {
+      "first": "Robert",
+      "last": "Harper",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Abstraction Functions as Types: Modular Verification of Cost and Behavior in Dependent Type Theory",
+   "type": "article",
+   "volume": "10"
+  },
+  "grodinAmortizedAnalysisCoalgebra2024": {
+   "date": "2024-12-11",
+   "doi": "10.46298/entics.14797",
+   "issn": "2969-2431",
+   "journaltitle": "Electronic Notes in Theoretical Informatics and Computer Science",
+   "langid": "english",
+   "pages": "14797",
+   "persons": {
+    "author": [
+     {
+      "first": "Harrison",
+      "last": "Grodin",
+      "lineage": ""
+     },
+     {
+      "first": "Robert",
+      "last": "Harper",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Amortized Analysis via Coalgebra",
+   "type": "article",
+   "url": "http://entics.episciences.org/14797",
+   "urldate": "2026-08-28",
+   "volume": "Volume 4 - Proceedings of..."
+  },
+  "groupWebAssemblyCodeMetadata": {
+   "date": "2026-09-01",
+   "langid": "english",
+   "persons": {
+    "editor": [
+     {
+      "first": "Yuri",
+      "last": "Iozzelli",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "W3C",
+   "title": "{{WebAssembly}} Code Metadata Specification",
+   "type": "standard"
+  },
+  "groupWebAssemblySpecAddendum": {
+   "date": "2026-09-01",
+   "langid": "english",
+   "persons": {
+    "editor": [
+     {
+      "first": "Andreas",
+      "last": "Rossberg",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "W3C",
+   "title": "{{WebAssembly}} Spec Addendum: Legacy Exception Handling",
+   "type": "standard"
+  },
+  "groupWebAssemblySpecification": {
+   "date": "2026-09-01",
+   "langid": "english",
+   "persons": {
+    "editor": [
+     {
+      "first": "Andreas",
+      "last": "Rossberg",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "W3C",
+   "title": "{{WebAssembly}} Specification",
+   "type": "standard",
+   "version": "3.0"
+  },
+  "hanukaevUnificationGradedSubstructural2026": {
+   "date": "2026",
+   "doi": "10.48550/ARXIV.2605.17112",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Peter",
+      "last": "Hanukaev",
+      "lineage": ""
+     },
+     {
+      "first": "Harley",
+      "last": "Eades",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Unification of Graded and Substructural Logics",
+   "type": "online",
+   "url": "https://arxiv.org/abs/2605.17112",
+   "urldate": "2026-08-27",
+   "version": "1"
+  },
+  "haringtonCategoricalModelsLinear2025": {
+   "date": "2025",
+   "doi": "10.70675/2d5d0b08z0383z441cz828cz3d092fccf5af",
+   "issn": "1868-8969",
+   "journaltitle": "LIPIcs, Volume 337, FSCD 2025",
+   "langid": "english",
+   "location": "Palaiseau",
+   "pages": "23:1-23:20",
+   "persons": {
+    "author": [
+     {
+      "first": "Eliès",
+      "last": "Harington",
+      "lineage": ""
+     },
+     {
+      "first": "Samuel",
+      "last": "Mimram",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Maribel",
+      "last": "Fernández",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "∞-Categorical Models of Linear Logic",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.FSCD.2025.23",
+   "urldate": "2026-08-02",
+   "volume": "337"
+  },
+  "hasegawaGirardTranslationLogical2000": {
+   "date": "2000-01",
+   "doi": "10.1017/S0956796899003615",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "location": "Kyoto Univ.",
+   "number": "1",
+   "pages": "77--89",
+   "persons": {
+    "author": [
+     {
+      "first": "Masahito",
+      "last": "Hasegawa",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Research Institute for Mathematical Sciences",
+   "title": "Girard Translation and Logical Predicates",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796899003615/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "10"
+  },
+  "heerdtCategoricalFrameworkLearning2022": {
+   "date": "2022",
+   "doi": "10.1007/978-3-031-10736-8_4",
+   "eprint": "2001.05786",
+   "eprinttype": "arXiv",
+   "langid": "english",
+   "pages": "67--87",
+   "persons": {
+    "author": [
+     {
+      "first": "Gerco",
+      "last": "Heerdt",
+      "lineage": ""
+     },
+     {
+      "first": "Tobias",
+      "last": "Kappé",
+      "lineage": ""
+     },
+     {
+      "first": "Jurriaan",
+      "last": "Rot",
+      "lineage": ""
+     },
+     {
+      "first": "Matteo",
+      "last": "Sammartino",
+      "lineage": ""
+     },
+     {
+      "first": "Alexandra",
+      "last": "Silva",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Categorical Framework for Learning Generalised Tree Automata",
+   "type": "incollection",
+   "url": "http://arxiv.org/abs/2001.05786",
+   "urldate": "2026-08-18",
+   "volume": "13225"
+  },
+  "heerdtTreeAutomataAlgebras2019": {
+   "date": "2019",
+   "doi": "10.4230/LIPIcs.CALCO.2019.6",
+   "eprint": "1904.08802",
+   "eprinttype": "arXiv",
+   "issn": "1868-8969",
+   "journaltitle": "LIPIcs, Volume 139, CALCO 2019",
+   "langid": "english",
+   "pages": "6:1-6:22",
+   "persons": {
+    "author": [
+     {
+      "first": "Gerco",
+      "last": "Heerdt",
+      "lineage": ""
+     },
+     {
+      "first": "Tobias",
+      "last": "Kappé",
+      "lineage": ""
+     },
+     {
+      "first": "Jurriaan",
+      "last": "Rot",
+      "lineage": ""
+     },
+     {
+      "first": "Matteo",
+      "last": "Sammartino",
+      "lineage": ""
+     },
+     {
+      "first": "Alexandra",
+      "last": "Silva",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Tree Automata as Algebras: Minimisation and Determinisation",
+   "type": "article",
+   "url": "http://arxiv.org/abs/1904.08802",
+   "urldate": "2026-08-18",
+   "volume": "139"
+  },
+  "herlihyModularSubstructuralConstraints2026": {
+   "booktitle": "Proceedings of the 25th {{ACM SIGPLAN International Conference}} on {{Generative Programming}}: {{Concepts}} and {{Experiences}}",
+   "date": "2026-06-23",
+   "doi": "10.1145/3814885.3816411",
+   "eventtitle": "{{GPCE}} '26: 25th {{ACM SIGPLAN International Conference}} on {{Generative Programming}}: {{Concepts}} and {{Experiences}}",
+   "isbn": "979-8-4007-2718-4",
+   "langid": "english",
+   "location": "Brussels Belgium",
+   "pages": "60--71",
+   "persons": {
+    "author": [
+     {
+      "first": "Anna",
+      "last": "Herlihy",
+      "lineage": ""
+     },
+     {
+      "first": "Amir",
+      "last": "Shaikhha",
+      "lineage": ""
+     },
+     {
+      "first": "Anastasia",
+      "last": "Ailamaki",
+      "lineage": ""
+     },
+     {
+      "first": "Martin",
+      "last": "Odersky",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Modular Substructural Constraints for Embedded {{DSLs}}",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3814885.3816411",
+   "urldate": "2026-08-02"
+  },
+  "heuvelComparingSessionType2024": {
+   "date": "2024",
+   "doi": "10.48550/ARXIV.2401.14763",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Bas",
+      "last": "Heuvel",
+      "lineage": ""
+     },
+     {
+      "first": "Jorge A.",
+      "last": "Pérez",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Comparing Session Type Systems Derived from Linear Logic",
+   "type": "online",
+   "url": "https://arxiv.org/abs/2401.14763",
+   "urldate": "2026-08-02"
+  },
+  "hickeyHistoryClojure2020": {
+   "date": "2020-06-14",
+   "doi": "10.1145/3386321",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--46",
+   "persons": {
+    "author": [
+     {
+      "first": "Rich",
+      "last": "Hickey",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A History of Clojure",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3386321",
+   "urldate": "2026-08-27",
+   "volume": "4"
+  },
+  "hillstonCompositionalApproachPerformance": {
+   "date": "1996-06-13",
+   "doi": "10.1017/CBO9780511569951",
+   "edition": "1",
+   "isbn": "978-0-521-57189-0 978-0-521-67353-2 978-0-511-56995-1",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Jane",
+      "last": "Hillston",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Cambridge University Press",
+   "title": "A Compositional Approach to Performance Modelling",
+   "type": "book",
+   "url": "https://www.cambridge.org/core/product/identifier/9780511569951/type/book",
+   "urldate": "2026-09-01"
+  },
+  "hinzeHistoDynamorphismsRevisited2013": {
+   "booktitle": "Proceedings of the 9th {{ACM SIGPLAN}} Workshop on {{Generic}} Programming",
+   "date": "2013-09-28",
+   "doi": "10.1145/2502488.2502496",
+   "eventtitle": "{{ICFP}}'13: {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "isbn": "978-1-4503-2389-5",
+   "langid": "english",
+   "location": "Boston Massachusetts USA",
+   "pages": "1--12",
+   "persons": {
+    "author": [
+     {
+      "first": "Ralf",
+      "last": "Hinze",
+      "lineage": ""
+     },
+     {
+      "first": "Nicolas",
+      "last": "Wu",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Histo- and Dynamorphisms Revisited",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2502488.2502496",
+   "urldate": "2026-09-02"
+  },
+  "hinzeUnifyingStructuredRecursion2016": {
+   "date": "2016",
+   "doi": "10.1017/S0956796815000258",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e1",
+   "persons": {
+    "author": [
+     {
+      "first": "Ralf",
+      "last": "Hinze",
+      "lineage": ""
+     },
+     {
+      "first": "Nicolas",
+      "last": "Wu",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Unifying Structured Recursion Schemes: An Extended Study",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796815000258/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "26"
+  },
+  "hoekstraCombinatorNdimensionalArray": {
+   "date": "2024-03-18",
+   "doi": "10.32920/25412854.v1",
+   "institution": "Ryerson University",
+   "langid": "english",
+   "location": "Toronto, Ontario, Canada",
+   "persons": {
+    "author": [
+     {
+      "first": "Conor",
+      "last": "Hoekstra",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Combinator, n-Dimensional Array Library in Smalltalk",
+   "type": "M.S. thesis",
+   "url": "https://rshare.library.torontomu.ca/articles/thesis/A_Combinator_N-dimensional_Array_Library_in_Smalltalk/25412854/1"
+  },
+  "horneSessionSubtypingMultiparty2020": {
+   "date": "2020-09-01",
+   "doi": "10.4230/LIPIcs.CONCUR.2020.12",
+   "issn": "1868-8969",
+   "journaltitle": "International Conference on Concurrency Theory",
+   "langid": "english",
+   "pages": "12:1-12:22",
+   "persons": {
+    "author": [
+     {
+      "first": "Ross",
+      "last": "Horne",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Igor",
+      "last": "Konnov",
+      "lineage": ""
+     },
+     {
+      "first": "Laura",
+      "last": "Kovács",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "Session Subtyping and Multiparty Compatibility Using Circular Sequents",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CONCUR.2020.12",
+   "urldate": "2026-08-02",
+   "volume": "171"
+  },
+  "hudakHistoryHaskellBeing2007": {
+   "booktitle": "Proceedings of the Third {{ACM SIGPLAN}} Conference on {{History}} of Programming Languages",
+   "date": "2007-06-09",
+   "doi": "10.1145/1238844.1238856",
+   "eventtitle": "History of {{Programming Languages}}",
+   "isbn": "978-1-59593-766-7",
+   "langid": "english",
+   "location": "San Diego California",
+   "persons": {
+    "author": [
+     {
+      "first": "Paul",
+      "last": "Hudak",
+      "lineage": ""
+     },
+     {
+      "first": "John",
+      "last": "Hughes",
+      "lineage": ""
+     },
+     {
+      "first": "Simon",
+      "last": "Peyton Jones",
+      "lineage": ""
+     },
+     {
+      "first": "Philip",
+      "last": "Wadler",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "A History of Haskell: Being Lazy with Class",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/1238844.1238856",
+   "urldate": "2025-05-07"
+  },
+  "hughesProgramSynthesisGraded2024": {
+   "booktitle": "European {{Symposium}} on {{Programming}}",
+   "date": "2024",
+   "doi": "10.1007/978-3-031-57262-3_4",
+   "eventtitle": "European {{Symposium}} on {{Programming}}",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "83--112",
+   "persons": {
+    "author": [
+     {
+      "first": "Jack",
+      "last": "Hughes",
+      "lineage": ""
+     },
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Stephanie",
+      "last": "Weirich",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Nature Switzerland",
+   "series": "{{LNCS}}",
+   "title": "Program Synthesis from Graded Types",
+   "type": "inproceedings",
+   "url": "https://link.springer.com/10.1007/978-3-031-57262-3_4",
+   "urldate": "2026-08-02",
+   "volume": "14576"
+  },
+  "hughesResourcefulProgramSynthesis2021": {
+   "date": "2021",
+   "doi": "10.1007/978-3-030-68446-4_8",
+   "journaltitle": "Logic-based Program Synthesis and Transformation",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "151--170",
+   "persons": {
+    "author": [
+     {
+      "first": "Jack",
+      "last": "Hughes",
+      "lineage": ""
+     },
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Maribel",
+      "last": "Fernández",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer International Publishing",
+   "series": "{{LNCS}}",
+   "title": "Resourceful Program Synthesis from Graded Linear Types",
+   "type": "article",
+   "url": "http://link.springer.com/10.1007/978-3-030-68446-4_8",
+   "urldate": "2026-08-02",
+   "volume": "12561"
+  },
+  "huiAPL19782020": {
+   "date": "2020-06-14",
+   "doi": "10.1145/3386319",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--108",
+   "persons": {
+    "author": [
+     {
+      "first": "Roger K. W.",
+      "last": "Hui",
+      "lineage": ""
+     },
+     {
+      "first": "Morten J.",
+      "last": "Kromberg",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{APL}} since 1978",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3386319",
+   "urldate": "2025-04-17",
+   "volume": "4"
+  },
+  "huntReconcilingShannonScott2023": {
+   "date": "2023-01-09",
+   "doi": "10.1145/3571740",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1987--2016",
+   "persons": {
+    "author": [
+     {
+      "first": "Sebastian",
+      "last": "Hunt",
+      "lineage": ""
+     },
+     {
+      "first": "David",
+      "last": "Sands",
+      "lineage": ""
+     },
+     {
+      "first": "Sandro",
+      "last": "Stucki",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Reconciling Shannon and Scott with a Lattice of Computable Information",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3571740",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "iversonNotationToolThought1980a": {
+   "date": "1980-08",
+   "doi": "10.1145/358896.358899",
+   "issn": "0001-0782, 1557-7317",
+   "journaltitle": "Communications of the ACM",
+   "langid": "english",
+   "number": "8",
+   "pages": "444--465",
+   "persons": {
+    "author": [
+     {
+      "first": "Kenneth E.",
+      "last": "Iverson",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Notation as a Tool of Thought",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/358896.358899",
+   "urldate": "2026-08-26",
+   "volume": "23"
+  },
+  "jacobsSelfDualDistillationSession2022": {
+   "date": "2022",
+   "doi": "10.4230/LIPICS.ECOOP.2022.23",
+   "issn": "1868-8969",
+   "journaltitle": "LIPIcs, Volume 222, ECOOP 2022",
+   "langid": "english",
+   "pages": "23:1-23:22",
+   "persons": {
+    "author": [
+     {
+      "first": "Jules",
+      "last": "Jacobs",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Karim",
+      "last": "Ali",
+      "lineage": ""
+     },
+     {
+      "first": "Jan",
+      "last": "Vitek",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "A Self-Dual Distillation of Session Types",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ECOOP.2022.23",
+   "urldate": "2026-08-02",
+   "volume": "222"
+  },
+  "jakefecherAlgebraicEffectsOwnership2024": {
+   "date": "2024-02-20",
+   "langid": "english",
+   "organization": "Ante",
+   "persons": {
+    "author": [
+     {
+      "first": "",
+      "last": "JAKE FECHER",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Algebraic Effects, Ownership, and Borrowing",
+   "type": "online",
+   "url": "https://antelang.org/"
+  },
+  "jiaDerivativebasedParserGenerator2021": {
+   "date": "2021-10-20",
+   "doi": "10.1145/3485528",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--24",
+   "persons": {
+    "author": [
+     {
+      "first": "Xiaodong",
+      "last": "Jia",
+      "lineage": ""
+     },
+     {
+      "first": "Ashish",
+      "last": "Kumar",
+      "lineage": ""
+     },
+     {
+      "first": "Gang",
+      "last": "Tan",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Derivative-Based Parser Generator for Visibly Pushdown Grammars",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3485528",
+   "urldate": "2025-05-07",
+   "volume": "5"
+  },
+  "johannDeepInductionInduction2020": {
+   "date": "2020",
+   "doi": "10.1007/978-3-030-45231-5_18",
+   "journaltitle": "Foundations of Software Science and Computation Structures",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "339--358",
+   "persons": {
+    "author": [
+     {
+      "first": "Patricia",
+      "last": "Johann",
+      "lineage": ""
+     },
+     {
+      "first": "Andrew",
+      "last": "Polonsky",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Jean",
+      "last": "Goubault-Larrecq",
+      "lineage": ""
+     },
+     {
+      "first": "Barbara",
+      "last": "König",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer International Publishing",
+   "series": "{{LNCS}}",
+   "title": "Deep Induction: Induction Rules for (Truly) Nested Types",
+   "type": "article",
+   "url": "http://link.springer.com/10.1007/978-3-030-45231-5_18",
+   "urldate": "2026-08-02",
+   "volume": "12077"
+  },
+  "kaminskiComplexityExpressivePower2022": {
+   "date": "2021-12-22",
+   "doi": "10.1145/3495009",
+   "issn": "1535-9921",
+   "journaltitle": "Journal of the ACM",
+   "langid": "english",
+   "number": "1",
+   "pages": "1--83",
+   "persons": {
+    "author": [
+     {
+      "first": "Mark",
+      "last": "Kaminski",
+      "lineage": ""
+     },
+     {
+      "first": "Egor V.",
+      "last": "Kostylev",
+      "lineage": ""
+     },
+     {
+      "first": "Bernardo Cuenca",
+      "last": "Grau",
+      "lineage": ""
+     },
+     {
+      "first": "Boris",
+      "last": "Motik",
+      "lineage": ""
+     },
+     {
+      "first": "Ian",
+      "last": "Horrocks",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Complexity and Expressive Power of Limit Datalog",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3495009",
+   "urldate": "2026-08-02",
+   "volume": "69"
+  },
+  "kanovichSubexponentialsNoncommutativeLinear2019": {
+   "date": "2019-09",
+   "doi": "10.1017/S0960129518000117",
+   "issn": "0960-1295, 1469-8072",
+   "journaltitle": "Mathematical Structures in Computer Science",
+   "langid": "english",
+   "number": "8",
+   "pages": "1217--1249",
+   "persons": {
+    "author": [
+     {
+      "first": "Max",
+      "last": "Kanovich",
+      "lineage": ""
+     },
+     {
+      "first": "Stepan",
+      "last": "Kuznetsov",
+      "lineage": ""
+     },
+     {
+      "first": "Vivek",
+      "last": "Nigam",
+      "lineage": ""
+     },
+     {
+      "first": "Andre",
+      "last": "Scedrov",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Subexponentials in Non-Commutative Linear Logic",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0960129518000117/type/journal_article",
+   "urldate": "2026-09-03",
+   "volume": "29"
+  },
+  "kavvosManyWorldsModal2016": {
+   "date": "2016",
+   "doi": "10.48550/ARXIV.1605.08106",
+   "eprint": "1605.08106v1",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "langid": "english",
+   "pages": "1--34",
+   "persons": {
+    "author": [
+     {
+      "first": "G. A.",
+      "last": "Kavvos",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Many Worlds of Modal λ-Calculi: {{I}}. {{Curry-howard}} for Necessity, Possibility and Time",
+   "type": "unpublished",
+   "url": "https://arxiv.org/abs/1605.08106",
+   "urldate": "2026-08-02"
+  },
+  "kavvosRecurrenceExtractionFunctional": {
+   "date": "2020-01",
+   "doi": "10.1145/3371083",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--31",
+   "persons": {
+    "author": [
+     {
+      "first": "G A",
+      "last": "Kavvos",
+      "lineage": ""
+     },
+     {
+      "first": "Edward",
+      "last": "Morehouse",
+      "lineage": ""
+     },
+     {
+      "first": "Daniel R",
+      "last": "Licata",
+      "lineage": ""
+     },
+     {
+      "first": "Norman",
+      "last": "Danner",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Recurrence Extraction for Functional Programs through Call-by-Push-Value",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3371083",
+   "volume": "4"
+  },
+  "keizerSessionCoalgebrasCoalgebraic2021": {
+   "booktitle": "Programming Languages and Systems",
+   "date": "2021",
+   "doi": "10.1007/978-3-030-72019-3_14",
+   "isbn": "978-3-030-72018-6 978-3-030-72019-3",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "375--403",
+   "persons": {
+    "author": [
+     {
+      "first": "Alex C.",
+      "last": "Keizer",
+      "lineage": ""
+     },
+     {
+      "first": "Henning",
+      "last": "Basold",
+      "lineage": ""
+     },
+     {
+      "first": "Jorge A.",
+      "last": "Pérez",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Nobuko",
+      "last": "Yoshida",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer International Publishing",
+   "title": "Session Coalgebras: A Coalgebraic View on Session Types and Communication Protocols",
+   "type": "incollection",
+   "url": "https://link.springer.com/10.1007/978-3-030-72019-3_14",
+   "urldate": "2026-08-27",
+   "volume": "12648"
+  },
+  "kellisonBeanLanguageBackward2025": {
+   "date": "2025-06-10",
+   "doi": "10.1145/3729324",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "PLDI",
+   "pages": "1838--1862",
+   "persons": {
+    "author": [
+     {
+      "first": "Ariel E.",
+      "last": "Kellison",
+      "lineage": ""
+     },
+     {
+      "first": "Laura",
+      "last": "Zielinski",
+      "lineage": ""
+     },
+     {
+      "first": "David",
+      "last": "Bindel",
+      "lineage": ""
+     },
+     {
+      "first": "Justin",
+      "last": "Hsu",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Bean: A Language for Backward Error Analysis",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3729324",
+   "urldate": "2026-08-02",
+   "volume": "9"
+  },
+  "kellyCoherenceClosedCategories1971": {
+   "date": "1971-01",
+   "doi": "10.1016/0022-4049(71)90013-2",
+   "issn": "00224049",
+   "journaltitle": "Journal of Pure and Applied Algebra",
+   "langid": "english",
+   "number": "1",
+   "pages": "97--140",
+   "persons": {
+    "author": [
+     {
+      "first": "G.M.",
+      "last": "Kelly",
+      "lineage": ""
+     },
+     {
+      "first": "S.",
+      "last": "Maclane",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Coherence in Closed Categories",
+   "type": "article",
+   "url": "https://linkinghub.elsevier.com/retrieve/pii/0022404971900132",
+   "urldate": "2026-08-02",
+   "volume": "1"
+  },
+  "kidneyFormalisingGraphAlgorithms2025": {
+   "date": "2025-01-07",
+   "doi": "10.1145/3704892",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "1657--1686",
+   "persons": {
+    "author": [
+     {
+      "first": "Donnacha Oisín",
+      "last": "Kidney",
+      "lineage": ""
+     },
+     {
+      "first": "Nicolas",
+      "last": "Wu",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Formalising Graph Algorithms with Coinduction",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3704892",
+   "urldate": "2025-05-19",
+   "volume": "9"
+  },
+  "kirkhamFoundationsEmpiricalMemory2020": {
+   "date": "2020-11-13",
+   "doi": "10.1145/3428294",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Jake",
+      "last": "Kirkham",
+      "lineage": ""
+     },
+     {
+      "first": "Tyler",
+      "last": "Sorensen",
+      "lineage": ""
+     },
+     {
+      "first": "Esin",
+      "last": "Tureci",
+      "lineage": ""
+     },
+     {
+      "first": "Margaret",
+      "last": "Martonosi",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Foundations of Empirical Memory Consistency Testing",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3428294",
+   "urldate": "2025-05-06",
+   "volume": "4"
+  },
+  "knothLiquidResourceTypes2020": {
+   "date": "2020-08-02",
+   "doi": "10.1145/3408988",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "ICFP",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Tristan",
+      "last": "Knoth",
+      "lineage": ""
+     },
+     {
+      "first": "Di",
+      "last": "Wang",
+      "lineage": ""
+     },
+     {
+      "first": "Adam",
+      "last": "Reynolds",
+      "lineage": ""
+     },
+     {
+      "first": "Jan",
+      "last": "Hoffmann",
+      "lineage": ""
+     },
+     {
+      "first": "Nadia",
+      "last": "Polikarpova",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Liquid Resource Types",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3408988",
+   "urldate": "2025-04-30",
+   "volume": "4"
+  },
+  "kovacsClosurefreeFunctionalProgramming2024": {
+   "date": "2024-08-15",
+   "doi": "10.1145/3674648",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "659--692",
+   "persons": {
+    "author": [
+     {
+      "first": "András",
+      "last": "Kovács",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Closure-Free Functional Programming in a Two-Level Type Theory",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3674648",
+   "urldate": "2025-05-08",
+   "volume": "8"
+  },
+  "kupkeCoalgebraicAutomataTheory2008": {
+   "date": "2008-11-21",
+   "doi": "10.2168/LMCS-4(4:10)2008",
+   "issn": "1860-5974",
+   "journaltitle": "Logical Methods in Computer Science",
+   "langid": "english",
+   "pages": "1203",
+   "persons": {
+    "author": [
+     {
+      "first": "C.",
+      "last": "Kupke",
+      "lineage": ""
+     },
+     {
+      "first": "Y.",
+      "last": "Venema",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Coalgebraic Automata Theory: Basic Results",
+   "type": "article",
+   "url": "https://lmcs.episciences.org/1203",
+   "urldate": "2026-08-18",
+   "volume": "Volume 4, Issue 4"
+  },
+  "kuraCategoryTheoreticFrameworkDependent2026": {
+   "date": "2026",
+   "doi": "10.1007/978-3-032-22720-1_15",
+   "eprint": "2601.14846v1",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "langid": "english",
+   "pages": "1--75",
+   "persons": {
+    "author": [
+     {
+      "first": "Satoshi",
+      "last": "Kura",
+      "lineage": ""
+     },
+     {
+      "first": "Marco",
+      "last": "Gaboardi",
+      "lineage": ""
+     },
+     {
+      "first": "Taro",
+      "last": "Sekiyama",
+      "lineage": ""
+     },
+     {
+      "first": "Hiroshi",
+      "last": "Unno",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Category-Theoretic Framework for Dependent Effect Systems",
+   "type": "unpublished",
+   "url": "https://arxiv.org/abs/2601.14846",
+   "urldate": "2026-08-02"
+  },
+  "kurzApproximationNestedFixpoints2015": {
+   "date": "2015",
+   "doi": "10.4230/LIPIcs.CALCO.2015.205",
+   "issn": "1868-8969",
+   "journaltitle": "Conference on Algebra and Coalgebra in Computer Science",
+   "langid": "english",
+   "pages": "205--220",
+   "persons": {
+    "author": [
+     {
+      "first": "Alexander",
+      "last": "Kurz",
+      "lineage": ""
+     },
+     {
+      "first": "Alberto",
+      "last": "Pardo",
+      "lineage": ""
+     },
+     {
+      "first": "Daniela",
+      "last": "Petrisan",
+      "lineage": ""
+     },
+     {
+      "first": "Paula",
+      "last": "Severi",
+      "lineage": ""
+     },
+     {
+      "first": "Fer-Jan",
+      "last": "de Vries",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Lawrence S.",
+      "last": "Moss",
+      "lineage": ""
+     },
+     {
+      "first": "Pawel",
+      "last": "Sobocinski",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "Approximation of Nested Fixpoints - a Coalgebraic View of Parametric Dataypes",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CALCO.2015.205",
+   "urldate": "2026-08-02",
+   "volume": "35"
+  },
+  "lahavMakingWeakMemory2021": {
+   "date": "2021-10-20",
+   "doi": "10.1145/3485475",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--27",
+   "persons": {
+    "author": [
+     {
+      "first": "Ori",
+      "last": "Lahav",
+      "lineage": ""
+     },
+     {
+      "first": "Egor",
+      "last": "Namakonov",
+      "lineage": ""
+     },
+     {
+      "first": "Jonas",
+      "last": "Oberhauser",
+      "lineage": ""
+     },
+     {
+      "first": "Anton",
+      "last": "Podkopaev",
+      "lineage": ""
+     },
+     {
+      "first": "Viktor",
+      "last": "Vafeiadis",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Making Weak Memory Models Fair",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3485475",
+   "urldate": "2025-05-07",
+   "volume": "5"
+  },
+  "leissaMimIRExtensibleTypeSafe2025": {
+   "date": "2024-11-11",
+   "doi": "10.1145/3704840",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "pages": "95--125",
+   "persons": {
+    "author": [
+     {
+      "first": "Roland",
+      "last": "Leißa",
+      "lineage": ""
+     },
+     {
+      "first": "Marcel",
+      "last": "Ullrich",
+      "lineage": ""
+     },
+     {
+      "first": "Joachim",
+      "last": "Meyer",
+      "lineage": ""
+     },
+     {
+      "first": "Sebastian",
+      "last": "Hack",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{MimIR}}: An Extensible and Type-Safe Intermediate Representation for the {{DSL}} Age",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3704840",
+   "urldate": "2025-05-19",
+   "volume": "9"
+  },
+  "lemayCoderelictionsFreeExponential2021": {
+   "date": "2021",
+   "doi": "10.4230/LIPICS.CALCO.2021.19",
+   "issn": "1868-8969",
+   "journaltitle": "LIPIcs, Volume 211, CALCO 2021",
+   "langid": "english",
+   "location": "Sackville",
+   "pages": "19:1-19:21",
+   "persons": {
+    "author": [
+     {
+      "first": "Jean-Simon Pacaud",
+      "last": "Lemay",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Fabio",
+      "last": "Gadducci",
+      "lineage": ""
+     },
+     {
+      "first": "Alexandra",
+      "last": "Silva",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "Coderelictions for Free Exponential Modalities",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.CALCO.2021.19",
+   "urldate": "2026-08-02",
+   "volume": "211"
+  },
+  "leroySyntacticTheoryType1996": {
+   "date": "1996-09",
+   "doi": "10.1017/S0956796800001933",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "5",
+   "pages": "667--698",
+   "persons": {
+    "author": [
+     {
+      "first": "Xavier",
+      "last": "Leroy",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Syntactic Theory of Type Generativity and Sharing",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796800001933/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "6"
+  },
+  "liFuzzyFiniteAutomata2005": {
+   "date": "2005-11",
+   "doi": "10.1016/j.fss.2005.04.004",
+   "issn": "01650114",
+   "journaltitle": "Fuzzy Sets and Systems",
+   "langid": "english",
+   "number": "1",
+   "pages": "68--92",
+   "persons": {
+    "author": [
+     {
+      "first": "Yongming",
+      "last": "Li",
+      "lineage": ""
+     },
+     {
+      "first": "Witold",
+      "last": "Pedrycz",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Fuzzy Finite Automata and Fuzzy Regular Expressions with Membership Values in Lattice-Ordered Monoids",
+   "type": "article",
+   "url": "https://linkinghub.elsevier.com/retrieve/pii/S0165011405001600",
+   "urldate": "2026-08-19",
+   "volume": "156"
+  },
+  "licataFibrationalFrameworkSubstructural2017": {
+   "date": "2017-08-21",
+   "doi": "10.4230/LIPIcs.FSCD.2017.25",
+   "howpublished": "Wesleyan Univ. et Univ. of San Diego",
+   "issn": "1868-8969",
+   "journaltitle": "International Conference on Formal Structures for Computation and Deduction",
+   "langid": "english",
+   "pages": "25:1-25:22",
+   "persons": {
+    "author": [
+     {
+      "first": "Daniel R.",
+      "last": "Licata",
+      "lineage": ""
+     },
+     {
+      "first": "Michael",
+      "last": "Shulman",
+      "lineage": ""
+     },
+     {
+      "first": "Mitchell",
+      "last": "Riley",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Dale",
+      "last": "Miller",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Schloss Dagstuhl – Leibniz-Zentrum für Informatik",
+   "title": "A Fibrational Framework for Substructural and Modal Logics",
+   "type": "article",
+   "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.FSCD.2017.25",
+   "urldate": "2026-08-02",
+   "volume": "84"
+  },
+  "liepeltSameCoeffectDifferent2026": {
+   "date": "2026-08-17",
+   "doi": "10.1145/3828697",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "721--750",
+   "persons": {
+    "author": [
+     {
+      "first": "Vilem",
+      "last": "Liepelt",
+      "lineage": ""
+     },
+     {
+      "first": "Danielle",
+      "last": "Marshall",
+      "lineage": ""
+     },
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Same Coeffect, Different Base: Connecting Two Dominant Approaches to Graded Types",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3828697",
+   "urldate": "2026-08-27",
+   "volume": "10"
+  },
+  "lindleyScopedEffectsParameterized2024": {
+   "booktitle": "Programming Languages and Systems",
+   "date": "2024",
+   "doi": "10.1007/978-3-031-57262-3_1",
+   "isbn": "978-3-031-57261-6 978-3-031-57262-3",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "3--21",
+   "persons": {
+    "author": [
+     {
+      "first": "Sam",
+      "last": "Lindley",
+      "lineage": ""
+     },
+     {
+      "first": "Cristina",
+      "last": "Matache",
+      "lineage": ""
+     },
+     {
+      "first": "Sean",
+      "last": "Moss",
+      "lineage": ""
+     },
+     {
+      "first": "Sam",
+      "last": "Staton",
+      "lineage": ""
+     },
+     {
+      "first": "Nicolas",
+      "last": "Wu",
+      "lineage": ""
+     },
+     {
+      "first": "Zhixuan",
+      "last": "Yang",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Stephanie",
+      "last": "Weirich",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Nature Switzerland",
+   "title": "Scoped Effects as Parameterized Algebraic Theories",
+   "type": "incollection",
+   "url": "https://link.springer.com/10.1007/978-3-031-57262-3_1",
+   "urldate": "2026-08-27",
+   "volume": "14576"
+  },
+  "lindleyTalkingBananasStructural2016": {
+   "booktitle": "Proceedings of the 21st {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "date": "2016-09-04",
+   "doi": "10.1145/2951913.2951921",
+   "eventtitle": "{{ICFP}}'16: {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "isbn": "978-1-4503-4219-3",
+   "langid": "english",
+   "location": "Nara Japan",
+   "pages": "434--447",
+   "persons": {
+    "author": [
+     {
+      "first": "Sam",
+      "last": "Lindley",
+      "lineage": ""
+     },
+     {
+      "first": "J. Garrett",
+      "last": "Morris",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Talking Bananas: Structural Recursion for Session Types",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2951913.2951921",
+   "urldate": "2026-08-27"
+  },
+  "liuConsistencyDependentCalculus2025": {
+   "date": "2025-01-07",
+   "doi": "10.1145/3704843",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "183--209",
+   "persons": {
+    "author": [
+     {
+      "first": "Yiyun",
+      "last": "Liu",
+      "lineage": ""
+     },
+     {
+      "first": "Jonathan",
+      "last": "Chan",
+      "lineage": ""
+     },
+     {
+      "first": "Stephanie",
+      "last": "Weirich",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Consistency of a Dependent Calculus of Indistinguishability",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3704843",
+   "urldate": "2025-05-19",
+   "volume": "9"
+  },
+  "lopesDejaVuMapCode2017": {
+   "date": "2017-10-12",
+   "doi": "10.1145/3133908",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Cristina V.",
+      "last": "Lopes",
+      "lineage": ""
+     },
+     {
+      "first": "Petr",
+      "last": "Maj",
+      "lineage": ""
+     },
+     {
+      "first": "Pedro",
+      "last": "Martins",
+      "lineage": ""
+     },
+     {
+      "first": "Vaibhav",
+      "last": "Saini",
+      "lineage": ""
+     },
+     {
+      "first": "Di",
+      "last": "Yang",
+      "lineage": ""
+     },
+     {
+      "first": "Jakub",
+      "last": "Zitny",
+      "lineage": ""
+     },
+     {
+      "first": "Hitesh",
+      "last": "Sajnani",
+      "lineage": ""
+     },
+     {
+      "first": "Jan",
+      "last": "Vitek",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{DéjàVu}}: A Map of Code Duplicates on {{GitHub}}",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3133908",
+   "urldate": "2025-05-06",
+   "volume": "1"
+  },
+  "loregianAutomataCoalgebrasCategories2024": {
+   "booktitle": "Coalgebraic Methods in Computer Science",
+   "date": "2024",
+   "doi": "10.1007/978-3-031-66438-0_4",
+   "isbn": "978-3-031-66437-3 978-3-031-66438-0",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "65--92",
+   "persons": {
+    "author": [
+     {
+      "first": "Fosco",
+      "last": "Loregian",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Barbara",
+      "last": "König",
+      "lineage": ""
+     },
+     {
+      "first": "Henning",
+      "last": "Urbat",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Nature Switzerland",
+   "title": "Automata and Coalgebras in Categories of Species",
+   "type": "incollection",
+   "url": "https://link.springer.com/10.1007/978-3-031-66438-0_4",
+   "urldate": "2026-08-18",
+   "volume": "14617"
+  },
+  "lorenzenOxidizingOCamlModal2024": {
+   "date": "2024-08-15",
+   "doi": "10.1145/3674642",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "ICFP",
+   "pages": "485--514",
+   "persons": {
+    "author": [
+     {
+      "first": "Anton",
+      "last": "Lorenzen",
+      "lineage": ""
+     },
+     {
+      "first": "Leo",
+      "last": "White",
+      "lineage": ""
+     },
+     {
+      "first": "Stephen",
+      "last": "Dolan",
+      "lineage": ""
+     },
+     {
+      "first": "Richard A.",
+      "last": "Eisenberg",
+      "lineage": ""
+     },
+     {
+      "first": "Sam",
+      "last": "Lindley",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Oxidizing {{OCaml}} with Modal Memory Management",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3674642",
+   "urldate": "2025-05-08",
+   "volume": "8"
+  },
+  "maAlgebraicPatternMatching2008": {
+   "date": "2008-03-21",
+   "doi": "10.2168/LMCS-4(1:7)2008",
+   "issn": "1860-5974",
+   "journaltitle": "Logical Methods in Computer Science",
+   "langid": "english",
+   "pages": "770",
+   "persons": {
+    "author": [
+     {
+      "first": "Qin",
+      "last": "Ma",
+      "lineage": ""
+     },
+     {
+      "first": "Luc",
+      "last": "Maranget",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Algebraic Pattern Matching in Join Calculus",
+   "type": "article",
+   "url": "https://lmcs.episciences.org/770",
+   "urldate": "2026-08-27",
+   "volume": "Volume 4, Issue 1"
+  },
+  "macqueenHistoryStandardML2020": {
+   "date": "2020-06-14",
+   "doi": "10.1145/3386336",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--100",
+   "persons": {
+    "author": [
+     {
+      "first": "David",
+      "last": "MacQueen",
+      "lineage": ""
+     },
+     {
+      "first": "Robert",
+      "last": "Harper",
+      "lineage": ""
+     },
+     {
+      "first": "John",
+      "last": "Reppy",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The History of Standard {{ML}}",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3386336",
+   "urldate": "2025-05-05",
+   "volume": "4"
+  },
+  "mannucciResourceBoundedTypeTheory2025": {
+   "date": "2025-12-07",
+   "doi": "10.48550/arXiv.2512.06952",
+   "eprint": "2512.06952",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "issn": "2331-8422",
+   "journaltitle": "arXiv.org",
+   "langid": "english",
+   "pages": "1--20",
+   "persons": {
+    "author": [
+     {
+      "first": "Mirco A.",
+      "last": "Mannucci",
+      "lineage": ""
+     },
+     {
+      "first": "Corey",
+      "last": "Thuro",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Resource-Bounded Type Theory: Compositional Cost Analysis via Graded Modalities",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2512.06952",
+   "urldate": "2026-08-02",
+   "volume": "abs/2512.6952"
+  },
+  "marshallGradedModalTypes2023": {
+   "date": "2023",
+   "doi": "10.48550/ARXIV.2309.04324",
+   "howpublished": "School of Computing",
+   "langid": "english",
+   "location": "Univ. of Kent",
+   "pages": "1--3",
+   "persons": {
+    "author": [
+     {
+      "first": "Danielle",
+      "last": "Marshall",
+      "lineage": ""
+     },
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "School of Computing",
+   "title": "Graded Modal Types for Integrity and Confidentiality",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2309.04324",
+   "urldate": "2026-08-02"
+  },
+  "matacheScopedEffectsScoped2025": {
+   "date": "2025-05-05",
+   "doi": "10.1145/3731678",
+   "issn": "0164-0925",
+   "journaltitle": "ACM Transactions on Programming Languages and Systems",
+   "langid": "english",
+   "number": "2",
+   "pages": "1--33",
+   "persons": {
+    "author": [
+     {
+      "first": "Cristina",
+      "last": "Matache",
+      "lineage": ""
+     },
+     {
+      "first": "Sam",
+      "last": "Lindley",
+      "lineage": ""
+     },
+     {
+      "first": "Sean",
+      "last": "Moss",
+      "lineage": ""
+     },
+     {
+      "first": "Sam",
+      "last": "Staton",
+      "lineage": ""
+     },
+     {
+      "first": "Nicolas",
+      "last": "Wu",
+      "lineage": ""
+     },
+     {
+      "first": "Zhixuan",
+      "last": "Yang",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Scoped Effects, Scoped Operations, and Parameterized Algebraic Theories",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3731678",
+   "urldate": "2026-08-02",
+   "volume": "47"
+  },
+  "matthesRecursionNestedDatatypes2008": {
+   "booktitle": "Logic and {{Theory}} of {{Algorithms}}",
+   "date": "2008",
+   "doi": "10.1007/978-3-540-69407-6_47",
+   "isbn": "978-3-540-69405-2 978-3-540-69407-6",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "431--446",
+   "persons": {
+    "author": [
+     {
+      "first": "Ralph",
+      "last": "Matthes",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Arnold",
+      "last": "Beckmann",
+      "lineage": ""
+     },
+     {
+      "first": "Costas",
+      "last": "Dimitracopoulos",
+      "lineage": ""
+     },
+     {
+      "first": "Benedikt",
+      "last": "Löwe",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "title": "Recursion on Nested Datatypes in Dependent Type Theory",
+   "type": "incollection",
+   "url": "http://link.springer.com/10.1007/978-3-540-69407-6_47",
+   "urldate": "2026-08-02",
+   "volume": "5028"
+  },
+  "matuteSyntacticCodeSearch2024": {
+   "date": "2024-06-20",
+   "doi": "10.1145/3656460",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "2051--2072",
+   "persons": {
+    "author": [
+     {
+      "first": "Gabriel",
+      "last": "Matute",
+      "lineage": ""
+     },
+     {
+      "first": "Wode",
+      "last": "Ni",
+      "lineage": ""
+     },
+     {
+      "first": "Titus",
+      "last": "Barik",
+      "lineage": ""
+     },
+     {
+      "first": "Alvin",
+      "last": "Cheung",
+      "lineage": ""
+     },
+     {
+      "first": "Sarah E.",
+      "last": "Chasins",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Syntactic Code Search with Sequence-to-Tree Matching: Supporting Syntactic Search with Incomplete Code Fragments",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3656460",
+   "urldate": "2025-05-08",
+   "volume": "8"
+  },
+  "mcdermottExtendedCallbypushvalueReasoning2019": {
+   "booktitle": "Programming Languages and Systems",
+   "date": "2019",
+   "doi": "10.1007/978-3-030-17184-1_9",
+   "isbn": "978-3-030-17183-4 978-3-030-17184-1",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "235--262",
+   "persons": {
+    "author": [
+     {
+      "first": "Dylan",
+      "last": "McDermott",
+      "lineage": ""
+     },
+     {
+      "first": "Alan",
+      "last": "Mycroft",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Luís",
+      "last": "Caires",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer International Publishing",
+   "title": "Extended Call-by-Push-Value: Reasoning about Effectful Programs and Evaluation Order",
+   "type": "incollection",
+   "url": "http://link.springer.com/10.1007/978-3-030-17184-1_9",
+   "urldate": "2026-08-28",
+   "volume": "11423"
+  },
+  "melliesFunctorsAreType2015": {
+   "booktitle": "{{ACM SIGPLAN Notices}}",
+   "date": "2015-01-14",
+   "doi": "10.1145/2775051.2676970",
+   "eventtitle": "{{ACM-SIGACT Symposium}} on {{Principles}} of {{Programming Languages}}",
+   "issn": "0362-1340, 1558-1160",
+   "langid": "english",
+   "number": "1",
+   "pages": "3--16",
+   "persons": {
+    "author": [
+     {
+      "first": "Paul-André",
+      "last": "Melliès",
+      "lineage": ""
+     },
+     {
+      "first": "Noam",
+      "last": "Zeilberger",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Functors Are Type Refinement Systems",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2775051.2676970",
+   "urldate": "2026-08-02",
+   "volume": "50"
+  },
+  "mevelFormalVerificationConcurrent2021": {
+   "date": "2021-08-22",
+   "doi": "10.1145/3473571",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Glen",
+      "last": "Mével",
+      "lineage": ""
+     },
+     {
+      "first": "Jacques-Henri",
+      "last": "Jourdan",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Formal Verification of a Concurrent Bounded Queue in a Weak Memory Model",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3473571",
+   "urldate": "2025-05-07",
+   "volume": "5"
+  },
+  "moonGradedModalDependent2021": {
+   "date": "2021",
+   "doi": "10.1007/978-3-030-72019-3_17",
+   "journaltitle": "Programming Languages and Systems",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "462--490",
+   "persons": {
+    "author": [
+     {
+      "first": "Benjamin",
+      "last": "Moon",
+      "lineage": ""
+     },
+     {
+      "first": "Harley",
+      "last": "Eades Iii",
+      "lineage": ""
+     },
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Nobuko",
+      "last": "Yoshida",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer International Publishing",
+   "series": "{{LNCS}}",
+   "title": "Graded Modal Dependent Type Theory",
+   "type": "article",
+   "url": "https://link.springer.com/10.1007/978-3-030-72019-3_17",
+   "urldate": "2026-08-02",
+   "volume": "12648"
+  },
+  "munch-maccagnoniResourcePolymorphism2018": {
+   "date": "2018",
+   "doi": "10.48550/ARXIV.1803.02796",
+   "eprint": "1803.02796v1",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "langid": "english",
+   "pages": "1--62",
+   "persons": {
+    "author": [
+     {
+      "first": "Guillaume",
+      "last": "Munch-Maccagnoni",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Resource Polymorphism",
+   "type": "unpublished",
+   "url": "https://arxiv.org/abs/1803.02796",
+   "urldate": "2026-08-02"
+  },
+  "niuCostawareLogicalFramework2022": {
+   "date": "2021-07-09",
+   "doi": "10.1145/3498670",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "1--31",
+   "persons": {
+    "author": [
+     {
+      "first": "Yue",
+      "last": "Niu",
+      "lineage": ""
+     },
+     {
+      "first": "Jonathan",
+      "last": "Sterling",
+      "lineage": ""
+     },
+     {
+      "first": "Harrison",
+      "last": "Grodin",
+      "lineage": ""
+     },
+     {
+      "first": "Robert",
+      "last": "Harper",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Cost-Aware Logical Framework",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3498670",
+   "urldate": "2026-08-02",
+   "volume": "6"
+  },
+  "nowackiTrackingBorrowsRegular": {
+   "langid": "english",
+   "pages": "1--27",
+   "persons": {
+    "author": [
+     {
+      "first": "Todd",
+      "last": "Nowacki",
+      "lineage": ""
+     },
+     {
+      "first": "Sam",
+      "last": "Blackshear",
+      "lineage": ""
+     },
+     {
+      "first": "John",
+      "last": "Mitchell",
+      "lineage": ""
+     },
+     {
+      "first": "Shaz",
+      "last": "Qadeer",
+      "lineage": ""
+     },
+     {
+      "first": "Ilya",
+      "last": "Sergey",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Tracking Borrows with Regular Expressions",
+   "type": "article",
+   "volume": "10"
+  },
+  "oconnorCogentUniquenessTypes2021": {
+   "date": "2021",
+   "doi": "10.1017/S095679682100023X",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e25",
+   "persons": {
+    "author": [
+     {
+      "first": "Liam",
+      "last": "O’Connor",
+      "lineage": ""
+     },
+     {
+      "first": "Zilin",
+      "last": "Chen",
+      "lineage": ""
+     },
+     {
+      "first": "Christine",
+      "last": "Rizkallah",
+      "lineage": ""
+     },
+     {
+      "first": "Vincent",
+      "last": "Jackson",
+      "lineage": ""
+     },
+     {
+      "first": "Sidney",
+      "last": "Amani",
+      "lineage": ""
+     },
+     {
+      "first": "Gerwin",
+      "last": "Klein",
+      "lineage": ""
+     },
+     {
+      "first": "Toby",
+      "last": "Murray",
+      "lineage": ""
+     },
+     {
+      "first": "Thomas",
+      "last": "Sewell",
+      "lineage": ""
+     },
+     {
+      "first": "Gabriele",
+      "last": "Keller",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Cogent: Uniqueness Types and Certifying Compilation",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S095679682100023X/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "31"
+  },
+  "okasakiPurelyFunctionalData": {
+   "doi": "10.1017/CBO9780511530104",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Chris",
+      "last": "Okasaki",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Purely Functional Data Structures",
+   "type": "article"
+  },
+  "oliveiraEvaluatingCodeReadability2020": {
+   "booktitle": "2020 {{IEEE International Conference}} on {{Software Maintenance}} and {{Evolution}} ({{ICSME}})",
+   "date": "2020-09",
+   "doi": "10.1109/ICSME46990.2020.00041",
+   "eventtitle": "2020 {{IEEE International Conference}} on {{Software Maintenance}} and {{Evolution}} ({{ICSME}})",
+   "isbn": "978-1-7281-5619-4",
+   "langid": "english",
+   "location": "Adelaide, Australia",
+   "pages": "348--359",
+   "persons": {
+    "author": [
+     {
+      "first": "Delano",
+      "last": "Oliveira",
+      "lineage": ""
+     },
+     {
+      "first": "Reydne",
+      "last": "Bruno",
+      "lineage": ""
+     },
+     {
+      "first": "Fernanda",
+      "last": "Madeiral",
+      "lineage": ""
+     },
+     {
+      "first": "Fernando",
+      "last": "Castor",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "IEEE",
+   "title": "Evaluating Code Readability and Legibility: An Examination of Human-Centric Studies",
+   "type": "inproceedings",
+   "url": "https://ieeexplore.ieee.org/document/9240710/",
+   "urldate": "2026-09-03"
+  },
+  "oliveiraWhatChallengesDevelopers2025": {
+   "booktitle": "2025 {{IEEE}} 36th {{International Symposium}} on {{Software Reliability Engineering}} ({{ISSRE}})",
+   "date": "2025-10-21",
+   "doi": "10.1109/ISSRE66568.2025.00031",
+   "eventtitle": "2025 {{IEEE}} 36th {{International Symposium}} on {{Software Reliability Engineering}} ({{ISSRE}})",
+   "isbn": "979-8-3503-9302-6",
+   "langid": "english",
+   "location": "São Paulo, Brazil",
+   "pages": "203--214",
+   "persons": {
+    "author": [
+     {
+      "first": "Francisco",
+      "last": "Oliveira",
+      "lineage": ""
+     },
+     {
+      "first": "Alexandra",
+      "last": "Mendes",
+      "lineage": ""
+     },
+     {
+      "first": "Carolina",
+      "last": "Carreira",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "IEEE",
+   "title": "What Challenges Do Developers Face When Using Verification-Aware Programming Languages?",
+   "type": "inproceedings",
+   "url": "https://ieeexplore.ieee.org/document/11229775/",
+   "urldate": "2026-08-27"
+  },
+  "oliveiravaleCompositionalTheoryLinearizability2023": {
+   "date": "2023-01-09",
+   "doi": "10.1145/3571231",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "1089--1120",
+   "persons": {
+    "author": [
+     {
+      "first": "Arthur",
+      "last": "Oliveira Vale",
+      "lineage": ""
+     },
+     {
+      "first": "Zhong",
+      "last": "Shao",
+      "lineage": ""
+     },
+     {
+      "first": "Yixuan",
+      "last": "Chen",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Compositional Theory of Linearizability",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3571231",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "oliveiravaleLayeredObjectbasedGame2022": {
+   "booktitle": "Proceedings of the {{ACM}} on {{Programming Languages}}",
+   "date": "2022-01-11",
+   "doi": "10.1145/3498703",
+   "issn": "2475-1421",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "1--32",
+   "persons": {
+    "author": [
+     {
+      "first": "Arthur",
+      "last": "Oliveira Vale",
+      "lineage": ""
+     },
+     {
+      "first": "Paul-André",
+      "last": "Melliès",
+      "lineage": ""
+     },
+     {
+      "first": "Zhong",
+      "last": "Shao",
+      "lineage": ""
+     },
+     {
+      "first": "Jérémie",
+      "last": "Koenig",
+      "lineage": ""
+     },
+     {
+      "first": "Léo",
+      "last": "Stefanesco",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Layered and Object-Based Game Semantics",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3498703",
+   "urldate": "2026-08-02",
+   "volume": "6"
+  },
+  "orchardEmbeddingEffectSystems2014": {
+   "date": "2014-09-03",
+   "doi": "10.1145/2633357.2633368",
+   "journaltitle": "Proc. 2014 ACM SIGPLAN Symp. Haskell (haskell '14)",
+   "langid": "english",
+   "location": "Gothenburg Sweden",
+   "pages": "13--24",
+   "persons": {
+    "author": [
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     },
+     {
+      "first": "Tomas",
+      "last": "Petricek",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Embedding Effect Systems in Haskell",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/2633357.2633368",
+   "urldate": "2026-08-02"
+  },
+  "orchardQuantitativeProgramReasoning2019": {
+   "date": "2019-07-26",
+   "doi": "10.1145/3341714",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "ICFP",
+   "pages": "1--30",
+   "persons": {
+    "author": [
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     },
+     {
+      "first": "Vilem-Benjamin",
+      "last": "Liepelt",
+      "lineage": ""
+     },
+     {
+      "first": "Harley",
+      "last": "Eades Iii",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Quantitative Program Reasoning with Graded Modal Types",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3341714",
+   "urldate": "2026-08-02",
+   "volume": "3"
+  },
+  "pattersonNext700Compiler": {
+   "date": "2019-07-26",
+   "doi": "10.1145/3341689",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Daniel",
+      "last": "Patterson",
+      "lineage": ""
+     },
+     {
+      "first": "Amal",
+      "last": "Ahmed",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The next 700 Compiler Correctness Theorems (Functional Pearl)",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3341689",
+   "volume": "3"
+  },
+  "pedrotFireTriangleHow2020": {
+   "date": "2020-01",
+   "doi": "10.1145/3371126",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Pierre-Marie",
+      "last": "Pédrot",
+      "lineage": ""
+     },
+     {
+      "first": "Nicolas",
+      "last": "Tabareau",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Fire Triangle: How to Mix Substitution, Dependent Elimination, and Effects",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3371126",
+   "urldate": "2025-05-05",
+   "volume": "4"
+  },
+  "phipps-costinContinuingWebAssemblyEffect2023": {
+   "date": "2023-10-16",
+   "doi": "10.1145/3622814",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "460--485",
+   "persons": {
+    "author": [
+     {
+      "first": "Luna",
+      "last": "Phipps-Costin",
+      "lineage": ""
+     },
+     {
+      "first": "Andreas",
+      "last": "Rossberg",
+      "lineage": ""
+     },
+     {
+      "first": "Arjun",
+      "last": "Guha",
+      "lineage": ""
+     },
+     {
+      "first": "Daan",
+      "last": "Leijen",
+      "lineage": ""
+     },
+     {
+      "first": "Daniel",
+      "last": "Hillerström",
+      "lineage": ""
+     },
+     {
+      "first": "Kc",
+      "last": "Sivaramakrishnan",
+      "lineage": ""
+     },
+     {
+      "first": "Matija",
+      "last": "Pretnar",
+      "lineage": ""
+     },
+     {
+      "first": "Sam",
+      "last": "Lindley",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Continuing {{WebAssembly}} with Effect Handlers",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3622814",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "pierceBehavioralEquivalencePolymorphic2000": {
+   "date": "2000-05",
+   "doi": "10.1145/337244.337261",
+   "issn": "0004-5411, 1557-735X",
+   "journaltitle": "Journal of the ACM",
+   "langid": "english",
+   "number": "3",
+   "pages": "531--584",
+   "persons": {
+    "author": [
+     {
+      "first": "Benjamin C.",
+      "last": "Pierce",
+      "lineage": ""
+     },
+     {
+      "first": "Davide",
+      "last": "Sangiorgi",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Behavioral Equivalence in the Polymorphic Pi-Calculus",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/337244.337261",
+   "urldate": "2026-08-02",
+   "volume": "47"
+  },
+  "pittsNominalSetsNames2013": {
+   "date": "2013-05-30",
+   "doi": "10.1017/CBO9781139084673",
+   "edition": "1",
+   "isbn": "978-1-107-01778-8 978-1-139-08467-3",
+   "langid": "english",
+   "location": "Cambridge",
+   "number": "57",
+   "persons": {
+    "author": [
+     {
+      "first": "Andrew M.",
+      "last": "Pitts",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Cambridge University Press",
+   "title": "Nominal Sets: Names and Symmetry in Computer Science",
+   "type": "book",
+   "url": "https://www.cambridge.org/core/product/identifier/9781139084673/type/book",
+   "urldate": "2026-08-19"
+  },
+  "polakowNaturalDeductionIntuitionistic1999": {
+   "booktitle": "Typed Lambda Calculi and Applications",
+   "date": "1999",
+   "doi": "10.1007/3-540-48959-2_21",
+   "isbn": "978-3-540-65763-7 978-3-540-48959-7",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "295--309",
+   "persons": {
+    "author": [
+     {
+      "first": "Jeff",
+      "last": "Polakow",
+      "lineage": ""
+     },
+     {
+      "first": "Frank",
+      "last": "Pfenning",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Jean-Yves",
+      "last": "Girard",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "title": "Natural Deduction for Intuitionistic Non-Commutative Linear Logic",
+   "type": "incollection",
+   "url": "http://link.springer.com/10.1007/3-540-48959-2_21",
+   "urldate": "2026-08-28",
+   "volume": "1581"
+  },
+  "pombrioHygienicResugaringCompositional": {
+   "booktitle": "Proceedings of the 20th {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "date": "2015-08-29",
+   "doi": "10.1145/2784731.2784755",
+   "eventtitle": "{{ICFP}}'15: 20th {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "isbn": "978-1-4503-3669-7",
+   "langid": "english",
+   "location": "Vancouver BC Canada",
+   "pages": "75--87",
+   "persons": {
+    "author": [
+     {
+      "first": "Justin",
+      "last": "Pombrio",
+      "lineage": ""
+     },
+     {
+      "first": "Shriram",
+      "last": "Krishnamurthi",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Hygienic Resugaring of Compositional Desugaring",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2784731.2784755"
+  },
+  "pradicImplicitAutomataLcalculi": {
+   "doi": "10.46298/entics.14804",
+   "langid": "english",
+   "pages": "1--21",
+   "persons": {
+    "author": [
+     {
+      "first": "Cécilia",
+      "last": "Pradic",
+      "lineage": ""
+     },
+     {
+      "first": "Ian",
+      "last": "Price",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Implicit Automata in λ-Calculi {{III}}: Affine Planar String-to-String Functions ⋆",
+   "type": "article"
+  },
+  "prattTransitionCancellationConcurrency2003": {
+   "date": "2003-08",
+   "doi": "10.1017/S0960129503004031",
+   "issn": "0960-1295, 1469-8072",
+   "journaltitle": "Mathematical Structures in Computer Science",
+   "langid": "english",
+   "number": "4",
+   "pages": "485--529",
+   "persons": {
+    "author": [
+     {
+      "first": "Vaughan R.",
+      "last": "Pratt",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Transition and Cancellation in Concurrency and Branching Time",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0960129503004031/type/journal_article",
+   "urldate": "2026-08-02",
+   "volume": "13"
+  },
+  "racordonStateCoherenceLand2025": {
+   "date": "2025-02-15",
+   "doi": "10.22152/programming-journal.org/2025/10/15",
+   "issn": "2473-7321",
+   "journaltitle": "The Art, Science, and Engineering of Programming",
+   "langid": "english",
+   "location": "EPFL",
+   "number": "1",
+   "pages": "15",
+   "persons": {
+    "author": [
+     {
+      "first": "Dimi",
+      "last": "Racordon",
+      "lineage": ""
+     },
+     {
+      "first": "Eugene",
+      "last": "Flesselle",
+      "lineage": ""
+     },
+     {
+      "first": "Cao Nguyen",
+      "last": "Pham",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "On the State of Coherence in the Land of Type Classes",
+   "type": "article",
+   "url": "https://programming-journal.org/2025/10/15",
+   "urldate": "2026-08-02",
+   "volume": "10"
+  },
+  "rajaniGradedModalRelaxed2025": {
+   "booktitle": "{{CSF}}",
+   "date": "2025-06-16",
+   "doi": "10.1109/CSF64896.2025.00032",
+   "eventtitle": "2025 {{IEEE}} 38th {{Computer Security Foundations Symposium}} ({{CSF}})",
+   "isbn": "979-8-3315-1081-7",
+   "langid": "english",
+   "location": "Santa Cruz, CA, USA",
+   "pages": "268--283",
+   "persons": {
+    "author": [
+     {
+      "first": "Vineet",
+      "last": "Rajani",
+      "lineage": ""
+     },
+     {
+      "first": "Alex",
+      "last": "Coleman",
+      "lineage": ""
+     },
+     {
+      "first": "Hrutvik",
+      "last": "Kanabar",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "IEEE",
+   "title": "A Graded Modal Approach to Relaxed Semantic Declassification",
+   "type": "inproceedings",
+   "url": "https://ieeexplore.ieee.org/document/11097861/"
+  },
+  "rajaniUnifyingTypetheoryHigherorder2021": {
+   "date": "2021-01-04",
+   "doi": "10.1145/3434308",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Vineet",
+      "last": "Rajani",
+      "lineage": ""
+     },
+     {
+      "first": "Marco",
+      "last": "Gaboardi",
+      "lineage": ""
+     },
+     {
+      "first": "Deepak",
+      "last": "Garg",
+      "lineage": ""
+     },
+     {
+      "first": "Jan",
+      "last": "Hoffmann",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Unifying Type-Theory for Higher-Order (Amortized) Cost Analysis",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3434308",
+   "urldate": "2025-05-07",
+   "volume": "5"
+  },
+  "rasmussenSkillsRulesKnowledge1983": {
+   "date": "1983-05-01",
+   "doi": "10.1109/TSMC.1983.6313160",
+   "issn": "0018-9472",
+   "journaltitle": "IEEE Transactions on Systems, Man, and Cybernetics",
+   "langid": "english",
+   "number": "3",
+   "pages": "257--266",
+   "persons": {
+    "author": [
+     {
+      "first": "Jens",
+      "last": "Rasmussen",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Skills, Rules, and Knowledge; Signals, Signs, and Symbols, and Other Distinctions in Human Performance Models",
+   "type": "article",
+   "url": "http://ieeexplore.ieee.org/document/6313160/",
+   "urldate": "2026-07-22",
+   "volume": "SMC-13"
+  },
+  "recioRemoteDirectMemory2007a": {
+   "date": "2007-10",
+   "doi": "10.17487/rfc5040",
+   "institution": "RFC Editor",
+   "langid": "english",
+   "number": "RFC5040",
+   "pages": "RFC5040",
+   "persons": {
+    "author": [
+     {
+      "first": "R.",
+      "last": "Recio",
+      "lineage": ""
+     },
+     {
+      "first": "B.",
+      "last": "Metzler",
+      "lineage": ""
+     },
+     {
+      "first": "P.",
+      "last": "Culley",
+      "lineage": ""
+     },
+     {
+      "first": "J.",
+      "last": "Hilland",
+      "lineage": ""
+     },
+     {
+      "first": "D.",
+      "last": "Garcia",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Remote Direct Memory Access Protocol Specification",
+   "type": "RFC",
+   "url": "https://www.rfc-editor.org/info/rfc5040",
+   "urldate": "2026-08-02"
+  },
+  "reinkingPerceusGarbageFree2021": {
+   "booktitle": "Proceedings of the 42nd {{ACM SIGPLAN International Conference}} on {{Programming Language Design}} and {{Implementation}}",
+   "date": "2021-06-19",
+   "doi": "10.1145/3453483.3454032",
+   "eventtitle": "{{PLDI}} '21: 42nd {{ACM SIGPLAN International Conference}} on {{Programming Language Design}} and {{Implementation}}",
+   "isbn": "978-1-4503-8391-2",
+   "langid": "english",
+   "location": "Virtual Canada",
+   "pages": "96--111",
+   "persons": {
+    "author": [
+     {
+      "first": "Alex",
+      "last": "Reinking",
+      "lineage": ""
+     },
+     {
+      "first": "Ningning",
+      "last": "Xie",
+      "lineage": ""
+     },
+     {
+      "first": "Leonardo",
+      "last": "De Moura",
+      "lineage": ""
+     },
+     {
+      "first": "Daan",
+      "last": "Leijen",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Perceus: Garbage Free Reference Counting with Reuse",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3453483.3454032",
+   "urldate": "2025-05-02"
+  },
+  "reynoldsGEDANKENSimpleTypeless1970": {
+   "date": "1970-05",
+   "doi": "10.1145/362349.362364",
+   "issn": "0001-0782, 1557-7317",
+   "journaltitle": "Communications of the ACM",
+   "langid": "english",
+   "number": "5",
+   "pages": "308--319",
+   "persons": {
+    "author": [
+     {
+      "first": "John C.",
+      "last": "Reynolds",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{GEDANKEN}} - a Simple Typeless Language Based on the Principle of Completeness and the Reference Concept",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/362349.362364",
+   "urldate": "2025-04-18",
+   "volume": "13"
+  },
+  "saalConsiderationsDesignCompiler1978": {
+   "date": "1978-06",
+   "doi": "10.1145/586032.586034",
+   "issn": "0163-6006",
+   "journaltitle": "ACM SIGAPL APL Quote Quad",
+   "langid": "english",
+   "number": "4",
+   "pages": "8--14",
+   "persons": {
+    "author": [
+     {
+      "first": "Harry J.",
+      "last": "Saal",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Considerations in the Design of a Compiler for {{APL}}",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/586032.586034",
+   "urldate": "2025-04-18",
+   "volume": "8"
+  },
+  "sabelfeldModelDelimitedInformation2004": {
+   "date": "2004",
+   "doi": "10.1007/978-3-540-37621-7_9",
+   "journaltitle": "Software Security - Theories and Systems",
+   "langid": "english",
+   "location": "Berlin, Heidelberg",
+   "pages": "174--191",
+   "persons": {
+    "author": [
+     {
+      "first": "Andrei",
+      "last": "Sabelfeld",
+      "lineage": ""
+     },
+     {
+      "first": "Andrew C.",
+      "last": "Myers",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Kokichi",
+      "last": "Futatsugi",
+      "lineage": ""
+     },
+     {
+      "first": "Fumio",
+      "last": "Mizoguchi",
+      "lineage": ""
+     },
+     {
+      "first": "Naoki",
+      "last": "Yonezaki",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Berlin Heidelberg",
+   "title": "A Model for Delimited Information Release",
+   "type": "article",
+   "url": "http://link.springer.com/10.1007/978-3-540-37621-7_9",
+   "urldate": "2026-08-02",
+   "volume": "3233"
+  },
+  "saffrichBorrowingSessionTypes2025": {
+   "date": "2025-10-09",
+   "doi": "10.1145/3763173",
+   "howpublished": "Univ. of Freiburg",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "location": "Univ. of Freiburg",
+   "pages": "3426--3453",
+   "persons": {
+    "author": [
+     {
+      "first": "Hannes",
+      "last": "Saffrich",
+      "lineage": ""
+     },
+     {
+      "first": "Janek",
+      "last": "Spaderna",
+      "lineage": ""
+     },
+     {
+      "first": "Peter",
+      "last": "Thiemann",
+      "lineage": ""
+     },
+     {
+      "first": "Vasco T.",
+      "last": "Vasconcelos",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Univ. of Freiburg",
+   "title": "Borrowing from Session Types",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3763173",
+   "urldate": "2026-08-02",
+   "volume": "9"
+  },
+  "sahebolamriBringYourOwn2023": {
+   "date": "2023-10-16",
+   "doi": "10.1145/3622840",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "location": "Syracuse Univ.",
+   "pages": "1198--1223",
+   "persons": {
+    "author": [
+     {
+      "first": "Arash",
+      "last": "Sahebolamri",
+      "lineage": ""
+     },
+     {
+      "first": "Langston",
+      "last": "Barrett",
+      "lineage": ""
+     },
+     {
+      "first": "Scott",
+      "last": "Moore",
+      "lineage": ""
+     },
+     {
+      "first": "Kristopher",
+      "last": "Micinski",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Bring Your Own Data Structures to Datalog",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3622840",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "sainatiTypingStrictness2026": {
+   "date": "2026-01-08",
+   "doi": "10.1145/3776657",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "413--443",
+   "persons": {
+    "author": [
+     {
+      "first": "Daniel",
+      "last": "Sainati",
+      "lineage": ""
+     },
+     {
+      "first": "Joseph W.",
+      "last": "Cutler",
+      "lineage": ""
+     },
+     {
+      "first": "Benjamin C.",
+      "last": "Pierce",
+      "lineage": ""
+     },
+     {
+      "first": "Stephanie",
+      "last": "Weirich",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Typing Strictness",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3776657",
+   "urldate": "2026-08-02",
+   "volume": "10"
+  },
+  "sammlerHighlevelBenefitsLowlevel2020": {
+   "date": "2020-01",
+   "doi": "10.1145/3371100",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--32",
+   "persons": {
+    "author": [
+     {
+      "first": "Michael",
+      "last": "Sammler",
+      "lineage": ""
+     },
+     {
+      "first": "Deepak",
+      "last": "Garg",
+      "lineage": ""
+     },
+     {
+      "first": "Derek",
+      "last": "Dreyer",
+      "lineage": ""
+     },
+     {
+      "first": "Tadeusz",
+      "last": "Litak",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The High-Level Benefits of Low-Level Sandboxing",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3371100",
+   "urldate": "2025-05-05",
+   "volume": "4"
+  },
+  "sannierDependentCoeffectsLocal2026": {
+   "date": "2026-01-08",
+   "doi": "10.1145/3776670",
+   "issn": "2475-1421",
+   "journaltitle": "Proc. ACM Program. Lang.",
+   "langid": "english",
+   "location": "Rennes",
+   "pages": "806--832",
+   "persons": {
+    "author": [
+     {
+      "first": "Victor",
+      "last": "Sannier",
+      "lineage": ""
+     },
+     {
+      "first": "Patrick",
+      "last": "Baillot",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Dependent Coeffects for Local Sensitivity Analysis",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3776670",
+   "urldate": "2026-08-02",
+   "volume": "10"
+  },
+  "sarkarEDUCATIONALPEARLNanopass2005": {
+   "date": "2005-06-08",
+   "doi": "10.1017/S0956796805005605",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "5",
+   "pages": "653",
+   "persons": {
+    "author": [
+     {
+      "first": "Dipanwita",
+      "last": "Sarkar",
+      "lineage": ""
+     },
+     {
+      "first": "Oscar",
+      "last": "Waddell",
+      "lineage": ""
+     },
+     {
+      "first": "R. Kent",
+      "last": "Dybvig",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{EDUCATIONAL PEARL}}: A Nanopass Framework for Compiler Education",
+   "type": "article",
+   "url": "http://www.journals.cambridge.org/abstract_S0956796805005605",
+   "urldate": "2025-05-15",
+   "volume": "15"
+  },
+  "schrijversCOCHISStableCoherent2019": {
+   "date": "2019",
+   "doi": "10.1017/S0956796818000242",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e3",
+   "persons": {
+    "author": [
+     {
+      "first": "Tom",
+      "last": "Schrijvers",
+      "lineage": ""
+     },
+     {
+      "first": "Bruno C.D.S.",
+      "last": "Oliveira",
+      "lineage": ""
+     },
+     {
+      "first": "Philip",
+      "last": "Wadler",
+      "lineage": ""
+     },
+     {
+      "first": "Koar",
+      "last": "Marntirosian",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{COCHIS}}: Stable and Coherent Implicits",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796818000242/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "29"
+  },
+  "schusterCompilingEffectHandlers2020": {
+   "date": "2020-08-02",
+   "doi": "10.1145/3408975",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Philipp",
+      "last": "Schuster",
+      "lineage": ""
+     },
+     {
+      "first": "Jonathan Immanuel",
+      "last": "Brachthäuser",
+      "lineage": ""
+     },
+     {
+      "first": "Klaus",
+      "last": "Ostermann",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Compiling Effect Handlers in Capability-Passing Style",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3408975",
+   "urldate": "2025-04-30",
+   "volume": "4"
+  },
+  "schwinghammerCoherenceSubsumptionMonadic2009": {
+   "date": "2009-03",
+   "doi": "10.1017/S0956796808006886",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "number": "2",
+   "pages": "157--172",
+   "persons": {
+    "author": [
+     {
+      "first": "Jan",
+      "last": "Schwinghammer",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Coherence of Subsumption for Monadic Types",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796808006886/type/journal_article",
+   "urldate": "2025-05-15",
+   "volume": "19"
+  },
+  "seflProgrammingDependentAdditive2025": {
+   "booktitle": "Trends in {{Functional Programming}}",
+   "date": "2025",
+   "doi": "10.1007/978-3-031-74558-4_5",
+   "isbn": "978-3-031-74557-7 978-3-031-74558-4",
+   "langid": "english",
+   "location": "Cham",
+   "pages": "92--111",
+   "persons": {
+    "author": [
+     {
+      "first": "Vít",
+      "last": "Šefl",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Jason",
+      "last": "Hemann",
+      "lineage": ""
+     },
+     {
+      "first": "Stephen",
+      "last": "Chang",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer Nature Switzerland",
+   "title": "Programming with Dependent Additive Pairs",
+   "type": "incollection",
+   "url": "https://link.springer.com/10.1007/978-3-031-74558-4_5",
+   "urldate": "2026-08-02",
+   "volume": "14843"
+  },
+  "sergeyModularHigherOrder2017": {
+   "date": "2017",
+   "doi": "10.1017/S0956796817000016",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e11",
+   "persons": {
+    "author": [
+     {
+      "first": "Ilya",
+      "last": "Sergey",
+      "lineage": ""
+     },
+     {
+      "first": "Dimitrios",
+      "last": "Vytiniotis",
+      "lineage": ""
+     },
+     {
+      "first": "Simon L. Peyton",
+      "last": "Jones",
+      "lineage": ""
+     },
+     {
+      "first": "Joachim",
+      "last": "Breitner",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Modular, Higher Order Cardinality Analysis in Theory and Practice",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796817000016/type/journal_article",
+   "urldate": "2025-05-19",
+   "volume": "27"
+  },
+  "smithNewTypeSystem2001": {
+   "booktitle": "Proceedings. 14th {{IEEE Computer Security Foundations Workshop}}, 2001.",
+   "date": "2001",
+   "doi": "10.1109/CSFW.2001.930141",
+   "eventtitle": "14th {{IEEE Computer Security Foundations Workshop}}, 2001.",
+   "isbn": "978-0-7695-1147-4",
+   "langid": "english",
+   "location": "Cape Breton, Novia Scotia, Canada",
+   "pages": "115--125",
+   "persons": {
+    "author": [
+     {
+      "first": "G.",
+      "last": "Smith",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "IEEE",
+   "title": "A New Type System for Secure Information Flow",
+   "type": "inproceedings",
+   "url": "http://ieeexplore.ieee.org/document/930141/",
+   "urldate": "2026-08-27"
+  },
+  "stefanAddressingCovertTermination2012": {
+   "booktitle": "Proceedings of the 17th {{ACM SIGPLAN}} International Conference on {{Functional}} Programming",
+   "date": "2012-09-09",
+   "doi": "10.1145/2364527.2364557",
+   "eventtitle": "{{ICFP}}'12: {{ACM SIGPLAN International Conference}} on {{Functional Programming}}",
+   "isbn": "978-1-4503-1054-3",
+   "langid": "english",
+   "location": "Copenhagen Denmark",
+   "pages": "201--214",
+   "persons": {
+    "author": [
+     {
+      "first": "Deian",
+      "last": "Stefan",
+      "lineage": ""
+     },
+     {
+      "first": "Alejandro",
+      "last": "Russo",
+      "lineage": ""
+     },
+     {
+      "first": "Pablo",
+      "last": "Buiras",
+      "lineage": ""
+     },
+     {
+      "first": "Amit",
+      "last": "Levy",
+      "lineage": ""
+     },
+     {
+      "first": "John C.",
+      "last": "Mitchell",
+      "lineage": ""
+     },
+     {
+      "first": "David",
+      "last": "Maziéres",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Addressing Covert Termination and Timing Channels in Concurrent Information Flow Systems",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/2364527.2364557",
+   "urldate": "2026-08-27"
+  },
+  "stefikEmpiricalInvestigationProgramming2013": {
+   "date": "2013-11",
+   "doi": "10.1145/2534973",
+   "issn": "1946-6226",
+   "journaltitle": "ACM Transactions on Computing Education",
+   "langid": "english",
+   "number": "4",
+   "pages": "1--40",
+   "persons": {
+    "author": [
+     {
+      "first": "Andreas",
+      "last": "Stefik",
+      "lineage": ""
+     },
+     {
+      "first": "Susanna",
+      "last": "Siebert",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "An Empirical Investigation into Programming Language Syntax",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/2534973",
+   "urldate": "2026-08-26",
+   "volume": "13"
+  },
+  "stroustrupThrivingCrowdedChanging2020": {
+   "date": "2020-06-14",
+   "doi": "10.1145/3386320",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--168",
+   "persons": {
+    "author": [
+     {
+      "first": "Bjarne",
+      "last": "Stroustrup",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Thriving in a Crowded and Changing World: {{C}}++ 2006–2020",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3386320",
+   "urldate": "2025-05-05",
+   "volume": "4"
+  },
+  "symeEarlyHistory2020": {
+   "date": "2020-06-14",
+   "doi": "10.1145/3386325",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--58",
+   "persons": {
+    "author": [
+     {
+      "first": "Don",
+      "last": "Syme",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Early History of {{F}}\\#",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3386325",
+   "urldate": "2025-05-05",
+   "volume": "4"
+  },
+  "tejiscakDependentlyTypedCalculus2020": {
+   "date": "2020-08-02",
+   "doi": "10.1145/3408973",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Matúš",
+      "last": "Tejiščák",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Dependently Typed Calculus with Pattern Matching and Erasure Inference",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3408973",
+   "urldate": "2025-04-30",
+   "volume": "4"
+  },
+  "thiemannLabeldependentSessionTypes": {
+   "date": "2020-01",
+   "doi": "10.1145/3371135",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "POPL",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Peter",
+      "last": "Thiemann",
+      "lineage": ""
+     },
+     {
+      "first": "Vasco T",
+      "last": "Vasconcelos",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Label-Dependent Session Types",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3371135",
+   "urldate": "2026-08-02",
+   "volume": "4"
+  },
+  "thompsonDisruptorHighPerformance2011": {
+   "date": "2011",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Martin",
+      "last": "Thompson",
+      "lineage": ""
+     },
+     {
+      "first": "Dave",
+      "last": "Farley",
+      "lineage": ""
+     },
+     {
+      "first": "Michael",
+      "last": "Barker",
+      "lineage": ""
+     },
+     {
+      "first": "Patricia",
+      "last": "Gee",
+      "lineage": ""
+     },
+     {
+      "first": "Andrew",
+      "last": "Stewart",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{LMAX}} Disruptor: High Performance Alternative to Bounded Queues for Exchanging Data between Concurrent Threads",
+   "type": "misc",
+   "url": "https://lmax-exchange.github.io/disruptor/disruptor.html",
+   "urldate": "2026-08-27"
+  },
+  "toninhoInterconnectabilitySessionBasedLogical2018": {
+   "date": "2018-12-13",
+   "doi": "10.1145/3242173",
+   "issn": "0164-0925",
+   "journaltitle": "ACM Transactions on Programming Languages and Systems",
+   "langid": "english",
+   "number": "4",
+   "pages": "1--42",
+   "persons": {
+    "author": [
+     {
+      "first": "Bernardo",
+      "last": "Toninho",
+      "lineage": ""
+     },
+     {
+      "first": "Nobuko",
+      "last": "Yoshida",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Univ. Nova de Lisboa et Imperial College London",
+   "title": "Interconnectability of Session-Based Logical Processes",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3242173",
+   "urldate": "2026-08-02",
+   "volume": "40"
+  },
+  "torczonEffectsCoeffectsCallbypushvalue2024": {
+   "date": "2024-10-08",
+   "doi": "10.1145/3689750",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "OOPSLA2",
+   "pages": "1108--1134",
+   "persons": {
+    "author": [
+     {
+      "first": "Cassia",
+      "last": "Torczon",
+      "lineage": ""
+     },
+     {
+      "first": "Emmanuel",
+      "last": "Suárez Acevedo",
+      "lineage": ""
+     },
+     {
+      "first": "Shubh",
+      "last": "Agrawal",
+      "lineage": ""
+     },
+     {
+      "first": "Joey",
+      "last": "Velez-Ginorio",
+      "lineage": ""
+     },
+     {
+      "first": "Stephanie",
+      "last": "Weirich",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Effects and Coeffects in Call-by-Push-Value",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3689750",
+   "urldate": "2025-05-08",
+   "volume": "8"
+  },
+  "urbatAutomataLearningAlgebraic2020": {
+   "booktitle": "Proceedings of the 35th {{Annual ACM}}/{{IEEE Symposium}} on {{Logic}} in {{Computer Science}}",
+   "date": "2020-07-08",
+   "doi": "10.1145/3373718.3394775",
+   "eventtitle": "{{LICS}} '20: 35th {{Annual ACM}}/{{IEEE Symposium}} on {{Logic}} in {{Computer Science}}",
+   "isbn": "978-1-4503-7104-9",
+   "langid": "english",
+   "location": "Saarbrücken Germany",
+   "pages": "900--914",
+   "persons": {
+    "author": [
+     {
+      "first": "Henning",
+      "last": "Urbat",
+      "lineage": ""
+     },
+     {
+      "first": "Lutz",
+      "last": "Schröder",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "Automata Learning: An Algebraic Approach",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3373718.3394775",
+   "urldate": "2026-08-18"
+  },
+  "vakarFrameworkDependentTypes2015": {
+   "date": "2015",
+   "doi": "10.48550/ARXIV.1512.08009",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Matthijs",
+      "last": "Vákár",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A Framework for Dependent Types and Effects",
+   "type": "online",
+   "url": "https://arxiv.org/abs/1512.08009",
+   "urldate": "2026-08-27",
+   "version": "2"
+  },
+  "vanderrestHeftyAlgebrasModular2025": {
+   "date": "2025",
+   "doi": "10.1017/S0956796825100142",
+   "issn": "0956-7968, 1469-7653",
+   "journaltitle": "Journal of Functional Programming",
+   "langid": "english",
+   "pages": "e25",
+   "persons": {
+    "author": [
+     {
+      "first": "Cas",
+      "last": "Van Der Rest",
+      "lineage": ""
+     },
+     {
+      "first": "Casper",
+      "last": "Bach",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Hefty Algebras: Modular Elaboration of Higher-Order Effects",
+   "type": "article",
+   "url": "https://www.cambridge.org/core/product/identifier/S0956796825100142/type/journal_article",
+   "urldate": "2026-08-27",
+   "volume": "35"
+  },
+  "vanstrydonckLinearCapabilitiesFully2019": {
+   "date": "2019-07-26",
+   "doi": "10.1145/3341688",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Thomas",
+      "last": "Van Strydonck",
+      "lineage": ""
+     },
+     {
+      "first": "Frank",
+      "last": "Piessens",
+      "lineage": ""
+     },
+     {
+      "first": "Dominique",
+      "last": "Devriese",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Linear Capabilities for Fully Abstract Compilation of Separation-Logic-Verified Code",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3341688",
+   "urldate": "2025-06-05",
+   "volume": "3"
+  },
+  "vollmerMixedLinearGraded2024": {
+   "date": "2024-01-30",
+   "doi": "10.4230/LIPIcs.CSL.2025.32",
+   "eprint": "2401.17199v2",
+   "eprinttype": "arXiv",
+   "howpublished": "préprint",
+   "journaltitle": "Annual Conference for Computer Science Logic",
+   "langid": "english",
+   "pages": "32:1-32:21",
+   "persons": {
+    "author": [
+     {
+      "first": "Victoria",
+      "last": "Vollmer",
+      "lineage": ""
+     },
+     {
+      "first": "Danielle",
+      "last": "Marshall",
+      "lineage": ""
+     },
+     {
+      "first": "Harley",
+      "last": "Eades",
+      "lineage": ""
+     },
+     {
+      "first": "Dominic",
+      "last": "Orchard",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "arXiv",
+   "title": "A Mixed Linear and Graded Logic: Proofs, Terms, and Models",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2401.17199",
+   "urldate": "2026-08-02"
+  },
+  "walchAutomatedAmortisedAnalysis": {
+   "date": "2026",
+   "doi": "10.1007/978-3-032-32537-2_5",
+   "langid": "english",
+   "pages": "100--122",
+   "persons": {
+    "author": [
+     {
+      "first": "Armin",
+      "last": "Walch",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Automated Amortised Analysis of Skew Heaps and Leftist Heaps",
+   "type": "article"
+  },
+  "wangCompCertELFVerifiedSeparate2020": {
+   "date": "2020-11-13",
+   "doi": "10.1145/3428265",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--28",
+   "persons": {
+    "author": [
+     {
+      "first": "Yuting",
+      "last": "Wang",
+      "lineage": ""
+     },
+     {
+      "first": "Xiangzhe",
+      "last": "Xu",
+      "lineage": ""
+     },
+     {
+      "first": "Pierre",
+      "last": "Wilke",
+      "lineage": ""
+     },
+     {
+      "first": "Zhong",
+      "last": "Shao",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{CompCertELF}}: Verified Separate Compilation of {{C}} Programs into {{ELF}} Object Files",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3428265",
+   "urldate": "2025-05-06",
+   "volume": "4"
+  },
+  "wattWasmRefisabelleVerifiedMonadic2023": {
+   "date": "2023-06-06",
+   "doi": "10.1145/3591224",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "100--123",
+   "persons": {
+    "author": [
+     {
+      "first": "Conrad",
+      "last": "Watt",
+      "lineage": ""
+     },
+     {
+      "first": "Maja",
+      "last": "Trela",
+      "lineage": ""
+     },
+     {
+      "first": "Peter",
+      "last": "Lammich",
+      "lineage": ""
+     },
+     {
+      "first": "Florian",
+      "last": "Märkl",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "{{WasmRef-isabelle}}: A Verified Monadic Interpreter and Industrial Fuzzing Oracle for {{WebAssembly}}",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3591224",
+   "urldate": "2025-05-07",
+   "volume": "7"
+  },
+  "xieConaturalNumbersForm2025": {
+   "booktitle": "Proceedings of the 10th {{ACM SIGPLAN International Workshop}} on {{Type-Driven Development}}",
+   "date": "2025-10-09",
+   "doi": "10.1145/3759538.3759654",
+   "eventtitle": "{{TyDe}} '25: 10th {{ACM SIGPLAN International Workshop}} on {{Type-Driven Development}}",
+   "isbn": "979-8-4007-2163-2",
+   "langid": "english",
+   "location": "Singapore Singapore",
+   "pages": "52--63",
+   "persons": {
+    "author": [
+     {
+      "first": "Szumi",
+      "last": "Xie",
+      "lineage": ""
+     },
+     {
+      "first": "Viktor",
+      "last": "Bense",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "ACM",
+   "title": "The Conatural Numbers Form an Exponential Commutative Semiring",
+   "type": "inproceedings",
+   "url": "https://dl.acm.org/doi/10.1145/3759538.3759654",
+   "urldate": "2026-08-02"
+  },
+  "xieGeneralizedEvidencePassing2021": {
+   "date": "2021-08-22",
+   "doi": "10.1145/3473576",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "pages": "1--30",
+   "persons": {
+    "author": [
+     {
+      "first": "Ningning",
+      "last": "Xie",
+      "lineage": ""
+     },
+     {
+      "first": "Daan",
+      "last": "Leijen",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Generalized Evidence Passing for Effect Handlers: Efficient Compilation of Effect Handlers to {{C}}",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3473576",
+   "urldate": "2025-05-07",
+   "volume": "5"
+  },
+  "yadavGeneralCategoricalFramework2022": {
+   "date": "2022-07-30",
+   "doi": "10.1155/2022/2798898",
+   "issn": "1563-5147, 1024-123X",
+   "journaltitle": "Mathematical Problems in Engineering",
+   "langid": "english",
+   "pages": "1--19",
+   "persons": {
+    "author": [
+     {
+      "first": "Swati",
+      "last": "Yadav",
+      "lineage": ""
+     },
+     {
+      "first": "S. P.",
+      "last": "Tiwari",
+      "lineage": ""
+     }
+    ],
+    "editor": [
+     {
+      "first": "Ali",
+      "last": "Ahmadian",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "A General Categorical Framework of Minimal Realization Theory for a Fuzzy Multiset Language",
+   "type": "article",
+   "url": "https://www.hindawi.com/journals/mpe/2022/2798898/",
+   "urldate": "2026-08-18",
+   "volume": "2022"
+  },
+  "yangFantasticMorphismsWhere2022": {
+   "date": "2022-02-28",
+   "doi": "10.1007/978-3-031-16912-0_9",
+   "journaltitle": "International Conference on Mathematics of Program Construction",
+   "langid": "english",
+   "pages": "222--267",
+   "persons": {
+    "author": [
+     {
+      "first": "Zhixuan",
+      "last": "Yang",
+      "lineage": ""
+     },
+     {
+      "first": "Nicolas",
+      "last": "Wu",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Fantastic Morphisms and Where to Find Them: A Guide to Recursion Schemes",
+   "type": "article",
+   "url": "https://arxiv.org/abs/2202.13633",
+   "urldate": "2026-08-02"
+  },
+  "zagieboyloUsingInformationFlow2019": {
+   "booktitle": "2019 {{IEEE}} 32nd {{Computer Security Foundations Symposium}} ({{CSF}})",
+   "date": "2019-06",
+   "doi": "10.1109/CSF.2019.00026",
+   "eventtitle": "2019 {{IEEE}} 32nd {{Computer Security Foundations Symposium}} ({{CSF}})",
+   "isbn": "978-1-7281-1407-1",
+   "langid": "english",
+   "location": "Hoboken, NJ, USA",
+   "pages": "272--27215",
+   "persons": {
+    "author": [
+     {
+      "first": "Drew",
+      "last": "Zagieboylo",
+      "lineage": ""
+     },
+     {
+      "first": "G. Edward",
+      "last": "Suh",
+      "lineage": ""
+     },
+     {
+      "first": "Andrew C.",
+      "last": "Myers",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "IEEE",
+   "title": "Using Information Flow to Design an {{ISA}} That Controls Timing Channels",
+   "type": "inproceedings",
+   "url": "https://ieeexplore.ieee.org/document/8823658/",
+   "urldate": "2026-08-27"
+  },
+  "zhaoEvaluatingDatalogSemirings2024": {
+   "date": "2024-05-10",
+   "doi": "10.1145/3651591",
+   "issn": "2836-6573",
+   "journaltitle": "Proceedings of the ACM on Management of Data",
+   "langid": "english",
+   "number": "2",
+   "pages": "1--26",
+   "persons": {
+    "author": [
+     {
+      "first": "Hangdong",
+      "last": "Zhao",
+      "lineage": ""
+     },
+     {
+      "first": "Shaleen",
+      "last": "Deep",
+      "lineage": ""
+     },
+     {
+      "first": "Paraschos",
+      "last": "Koutris",
+      "lineage": ""
+     },
+     {
+      "first": "Sudeepa",
+      "last": "Roy",
+      "lineage": ""
+     },
+     {
+      "first": "Val",
+      "last": "Tannen",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Evaluating Datalog over Semirings: A Grounding-Based Approach",
+   "type": "article",
+   "url": "https://dl.acm.org/doi/10.1145/3651591",
+   "urldate": "2026-08-02",
+   "volume": "2"
+  }
+ }
+}
