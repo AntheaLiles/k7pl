@@ -269,8 +269,9 @@ Par induction structurelle sur la règle de réduction. La $`\beta`-réduction l
 contexte linéaire, les substitutions consommant et produisant des ressources de façon isomorphe —
 argument qui n'est valide que sous la condition de séparation rappelée dans l'énoncé. L'abaissement
 MLIR — défonctionnalisation et _inlining_ statique des effets — transforme les fonctions d'ordre
-supérieur et les effets en tables de saut statiques, et se formule comme un isomorphisme naturel
-dans _C_ au sens de P1.
+supérieur et les effets en tables de saut statiques, et se justifie par des arguments syntaxiques
+propres à chaque passe (substitution, inversibilité des règles) ; sa formulation comme isomorphisme
+naturel dans _C_ relève de l'obligation P1b, non établie (chapitre 1).
 :::
 ::::
 

@@ -27,10 +27,12 @@ légitime, au chapitre 6, l'effacement du curryfiage à la compilation. La bijec
 l'équation {num "eq:adjonction-tenseur-hom"}[] identifie, pour tout $`\Gamma`, une fonction de deux
 arguments $`\Gamma \otimes A \to B` à sa forme curryfiée $`\Gamma \to [A \multimap B]` — les deux
 dénotent le même élément, de part et d'autre d'un isomorphisme naturel, donc sémantiquement
-transparent au sens de P1. Un programme K7PL à plusieurs arguments admet ainsi indifféremment une
+transparent au sens de P1a, et la correction de la compilation de cette équivalence relève de P1b, non établie (chapitre 1). Un programme K7PL à plusieurs arguments admet ainsi indifféremment une
 présentation curryfiée, en fermetures successives, ou une présentation directe
 $`(X \otimes Y \otimes Z) \to R`. La monomorphisation du chapitre 6, qui compile systématiquement
-vers la seconde, n'est donc pas une heuristique risquant d'altérer le sens du programme. C'est le
+vers la seconde, n'est donc pas une heuristique risquant d'altérer le sens du programme : l'argument
+est syntaxique — chaque présentation se transforme en l'autre par substitution, les règles de
+l'abstraction et de l'application étant inversibles —, et ne requiert pas l'interprétation P1b. C'est le
 choix, parmi les représentants d'une même classe d'isomorphisme, de celui qui n'alloue aucune
 fermeture intermédiaire, conformément à P3.
 
@@ -206,7 +208,12 @@ l'instant ni l'une ni l'autre. Il donne les deux ici.
 La règle procède par _échappatoires nommées_ plutôt que par une permission générale de déclassifier.
 Une déclaration fixe un ensemble fini $`\mathcal{X}` d'expressions — les échappatoires — dont
 chacune énonce ce qui est autorisé à sortir : le résultat de la comparaison d'un mot de passe, la
-somme d'une colonne, le rang d'un enchérisseur. La règle ne s'applique qu'à elles :
+somme d'une colonne, le rang d'un enchérisseur. Ces expressions sont _closes_,
+$`\forall e \in \mathcal{X},\ \mathrm{fv}(e) = \emptyset`, et évaluées dans l'état initial : une
+échappatoire ouverte ouvrirait un contournement par substitution, puisque
+$`\mathbf{declassify}_{\ell'}(e)[v/x] = \mathbf{declassify}_{\ell'}(e[v/x])` sans que
+$`e[v/x] \in \mathcal{X}`, et l'attaquant ferait comparer le secret à une valeur de son choix
+(§{num "sec:annexe-presentation-formelle"}[]). La règle ne s'applique qu'à elles :
 
 ::::formula (label := "eq:regle-declassify") (kind := "equation")
 ```
@@ -406,13 +413,12 @@ type résultant ne peut qu'avoir perdu en précision. Dégrader une entrée ne c
 typage : elle ne fait que dégrader, de façon prévisible, ce qui en dépend.
 
 Cette structure ne referme pas seule la construction du chapitre : le
-§{num "sec:c2-le-systeme-de-raffinement"}[] en montre l'origine. Le sous-typage modal
-$`\text{Lin} <: \text{Aff} <: \text{Unr}` du chapitre 1 est le pendant exact — mais inversé — de la
-restriction de $`\sqsubseteq` à la seule dimension des modalités d'usage. Une modalité est d'autant
-plus précise qu'elle contraint davantage l'usage, de sorte que
-$`\text{Unr} \sqsubseteq \text{Aff} \sqsubseteq \text{Lin}` exprime, dans le vocabulaire de la
-précision, ce que $`\text{Lin} <: \text{Aff} <: \text{Unr}` exprime dans celui du sous-typage. Les
-foncteurs d'inclusion du §{num "sec:c2-la-comonade-exponentielle-et"}[] en réalisent catégoriquement
-la dualité sur les fragments eux-mêmes. Types dépendants, raffinements, sessions et existentielles,
+§{num "sec:c2-le-systeme-de-raffinement"}[] en montre l'origine. L'ordre de précision modal
+$`\text{Unr} \sqsubseteq \text{Aff} \sqsubseteq \text{Lin}` du chapitre 1 est la restriction de
+$`\sqsubseteq` à la seule dimension des modalités d'usage. Une modalité est d'autant plus précise
+qu'elle contraint davantage l'usage. Ce n'est pas le sous-typage $`\preccurlyeq` de l'annexe, qui
+descend sur l'usage ($`!\omega\,A <: {!}1\,A`) : les deux ordres sont opposés sur cette seule
+composante. Les foncteurs d'inclusion du §{num "sec:c2-la-comonade-exponentielle-et"}[] réalisent
+catégoriquement cette stratification sur les fragments eux-mêmes. Types dépendants, raffinements, sessions et existentielles,
 dont le chapitre 3 tire parti de cette même relation sur chacune de leurs propres dimensions, ne
 feront qu'instancier, pour un artefact syntaxique après l'autre, ce même treillis.

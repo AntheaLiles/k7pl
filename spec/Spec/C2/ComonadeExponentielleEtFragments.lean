@@ -436,8 +436,8 @@ contraint, la même dénotation. C'est cette conservativité, non une préservat
 morphismes disponibles, qui justifie qu'imbriquer un fragment de programme dans un contexte moins
 contraint n'altère jamais sa sémantique.
 
-Cette stratification catégorique est le pendant exact de la relation de sous-typage
-$`\text{Lin} <: \text{Aff} <: \text{Unr}` énoncée au chapitre 1. Une ressource dont l'usage est
+Cette stratification catégorique est le pendant de l'ordre de précision
+$`\text{Unr} \sqsubseteq \text{Aff} \sqsubseteq \text{Lin}` énoncé au chapitre 1. Une ressource dont l'usage est
 prouvé dans le fragment le plus contraint demeure, sans aucune reformulation, une ressource valide
 dans tout fragment moins contraint. C'est la même inclusion, lue une fois sur les catégories de
 preuves, une fois sur les types qu'elles habitent. L'inclusion des sous-ensembles

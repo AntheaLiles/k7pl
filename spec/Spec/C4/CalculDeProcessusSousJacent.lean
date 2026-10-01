@@ -296,7 +296,7 @@ celles du métalangage. Comme celui-ci est interprété une fois pour toutes, co
 se raisonnent à son niveau et non sur chaque construction de K7PL. Cette remarque se laisse porter
 jusqu'à un énoncé, qui dit ce qu'un interpréteur de référence garantit et ce qu'il ne garantit pas.
 
-::::thm (label := "thm:fidelite_interprete")
+::::thm (label := "thm:fidelite_interprete") (status := "proposition")
 :::title
 fidélité de l'interpréteur de référence
 :::
@@ -306,13 +306,15 @@ Une réduction, et son périmètre exact
 
 Supposons la traduction $`\llbracket \cdot \rrbracket` préservant le typage
 (théorème {num "thm:traduction_metalangage"}[]) et l'interprétation du métalangage adéquate
-vis-à-vis de son équivalence observationnelle. Alors tout interpréteur qui réalise le métalangage
+vis-à-vis de son équivalence observationnelle, et _sous l'hypothèse Sim_ d'un théorème de simulation reliant la relation $`\to` de l'annexe à la réduction du métalangage : $`\langle c \mid \mu \mid \tau \rangle \to \langle c' \mid \mu' \mid \tau' \rangle` entraîne $`\llbracket c \rrbracket \to^{+} \llbracket c' \rrbracket` modulo $`\equiv`, la trace s'étendant en conséquence. Alors tout
 est fidèle à la sémantique de K7PL sur la structure de communication, sur le contrôle _et sur les
 effets_. Il ne l'est pas sur les grades ni sur les raffinements, que la traduction oublie par
 construction.
 :::
 
 :::proofsketch
+La préservation du typage ne suffit pas à elle seule : un terme bien typé peut avoir plusieurs images bien typées de comportements distincts, et la composition parallèle du métalangage, commutative, ne distingue pas deux traces $`\tau_1 \cdot \tau_2` et $`\tau_2 \cdot \tau_1` que la source ordonne. C'est pourquoi l'énoncé porte Sim : la relation $`\to` de l'annexe est _la_ définition de l'exécution, et la fidélité n'est relative à elle que par ce théorème, qui reste à établir (c'est une induction sur la même dérivation que la préservation du typage). Sim n'est pas prouvée ici : l'énoncé est conditionnel, et l'engagement « fidélité de l'interpréteur » reste ouvert tant qu'elle ne l'est pas.
+
 La fidélité se factorise, et c'est tout l'argument. Elle est une instance du schéma d'effacement
 (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
 théorème {num "thm:schema_effacement"}[]) : la traduction étant définie par récurrence et

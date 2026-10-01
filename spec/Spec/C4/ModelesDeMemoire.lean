@@ -48,7 +48,13 @@ Impossibilité de mutation concurrente
 
 Soient $`t_1` et $`t_2` deux membres du multi-ensemble de calculs, composés par la règle {sc}[Par]
 de l'annexe (§{num "sec:g-parallelisme"}[]) et donc sous des contextes _additionnés_,
-$`\Delta_1 + \Delta_2`. Soit $`\mathsf{WriteCap}(r)` une capacité d'écriture sur une région d'arène
+$`\Delta_1 + \Delta_2`. On suppose (H1) l'_unicité d'introduction_ : la règle d'introduction de
+$`\mathsf{WriteCap}(r)` consomme linéairement l'arène ou le segment dont elle découpe $`r`, de sorte
+qu'au plus une capacité d'écriture par région est dérivable en contexte clos ; (H2) la _portée_ :
+deux capacités de $`\mathsf{Range}` disjoints ne dénotent pas la même région (arithmétique
+d'intervalles, déchargeable par le solveur) ; et (H3) le respect du sens d'imbrication des
+délimiteurs du chapitre 5, qui interdit à une valeur cartésienne de capturer une capacité
+linéaire. Soit $`\mathsf{WriteCap}(r)` une capacité d'écriture sur une région d'arène
 $`r`. Si $`\Delta_1 \vdash t_1 : \mathsf{WriteCap}(r) \multimap \mathsf{Unit}`, alors il n'existe
 aucun terme $`t_2'` tel que $`\Delta_2 \vdash t_2' : \mathsf{WriteCap}(r) \multimap \tau`, quel que
 soit $`\tau` : aucune opération mutante sur $`r` n'est typable sous $`\Delta_2`.
@@ -57,7 +63,11 @@ soit $`\tau` : aucune opération mutante sur $`r` n'est typable sous $`\Delta_2
 :::proofsketch
 Instance du lemme de capacité (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
 théorème {num "thm:lemme_capacite"}[]), la ressource étant la région $`r` et la capacité
-$`\mathsf{WriteCap}(r)`. Celle-ci vit dans le fragment linéaire strict de _C_, lequel ne porte par
+$`\mathsf{WriteCap}(r)`. L'absence de diagonale interdit de _dupliquer_ une capacité donnée ; elle
+n'interdit pas d'en _introduire deux_ pour la même région, et c'est (H1) qui l'exclut, (H2)
+ramenant la disjonction des régions à celle des intervalles. Sans (H1), une primitive
+`alloc_range` non linéaire en son arène produirait deux capacités distinctes pour la même région :
+le théorème tiendrait pour chacune et tomberait pour le couple. Celle-ci vit dans le fragment linéaire strict de _C_, lequel ne porte par
 construction aucun morphisme de duplication $`A \to A \otimes A`. C'est l'_addition_ des contextes
 qui porte la disjonction, et c'est ce que la règle {sc}[Par] donne : une capacité de grade $`1`
 présente dans $`\Delta_1 + \Delta_2` y est présente une seule fois, la somme des grades valant $`1`
@@ -68,7 +78,7 @@ l'absence se lit sur la dérivation, sans analyse supplémentaire.
 :::
 ::::
 
-Une hypothèse porte tout, et elle n'est pas gratuite. {rmq}[C'est le sens unique d'imbrication des
+Une hypothèse porte tout, et elle n'est pas gratuite : (H3). Les deux autres sont des lemmes sur la règle d'introduction ; la « région » s'y entend comme une discipline de portée, que le polymorphisme paramétrique ordinaire suffit à définir. {rmq}[C'est le sens unique d'imbrication des
 délimiteurs qui tient l'hypothèse. Ce théorème dit ce qui casse dans l'autre sens.] La preuve
 suppose les deux contextes disjoints, ce que $`\Gamma_1 \otimes \Gamma_2` écrit mais ne garantit pas
 par lui-même dès que les fragments s'imbriquent. La couche 3 admet la contraction ; si une valeur
