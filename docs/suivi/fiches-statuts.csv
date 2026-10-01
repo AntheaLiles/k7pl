@@ -162,13 +162,13 @@ REECR-26,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"O(n), O(1) par blo
 REECR-27,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"Δ = Δ_ω"
 BIB-01,ouverte,,,
 BIB-02,ouverte,,,
-BIB-03,ouverte,,,
+BIB-03,fermee,journal,bibliographie/verifications-pr02.md,"statut exact : quantitatif en cours, dépendant publié"
 BIB-04,ouverte,,,
 BIB-05,ouverte,,,
 BIB-06,ouverte,,,
 BIB-07,ouverte,,,
-BIB-08,ouverte,,,
-BIB-09,ouverte,,,
+BIB-08,fermee,journal,bibliographie/verifications-pr02.md,"charge utile NaN recommandée, non exigée ; architecture dans E_repro"
+BIB-09,partielle,journal,bibliographie/verifications-pr02.md,"Arrow vérifié ; endianness et Cap'n Proto à vérifier"
 BIB-10,ouverte,,,
 BIB-11,ouverte,,,
 BIB-12,ouverte,,,
