@@ -139,10 +139,11 @@ compilateur ne soumet au solveur que le fragment
 $`\mathcal{T}_0 \subseteq \mathcal{T}_{\text{K7PL}}` dont la décidabilité est acquise ; toute
 obligation hors de $`\mathcal{T}_0` est _rejetée à la compilation_ avec un code d'erreur, et jamais
 soumise. Ce que ce document ne fait pas encore est de délimiter $`\mathcal{T}_0`, et l'argument de
-terminaison de la Phase 5 vaut de ce fragment plutôt que de la combinaison entière. Le solveur est
-en outre traité comme une boîte noire dont aucun certificat n'est réclamé~: une réponse négative est
-crue sur parole, alors que les solveurs modernes savent produire des preuves vérifiables
-indépendamment. Une réserve porte sur l'ordre de cette phase et de la suivante. Les optimisations
+terminaison de la Phase 5 vaut de ce fragment plutôt que de la combinaison entière. Le solveur reste
+une boîte noire pour les obligations internes à une compilation, reproduites dans le même
+environnement. Pour celles qui traversent la frontière de paquet, un _certificat_ est exigé : une
+réponse négative ne se croit pas sur parole, les solveurs modernes sachant produire des preuves
+vérifiables indépendamment. La Phase~5 porte cette clause. Une réserve porte sur l'ordre de cette phase et de la suivante. Les optimisations
 que la Phase~6 conduit — déforestation, _inlining_, défonctionnalisation — transforment les
 contextes et peuvent donc engendrer des contraintes de grades que la Phase~5 avait déjà déchargées~:
 une boucle fusionnée multiplie les grades de ses deux corps, un appel intégré substitue son contexte

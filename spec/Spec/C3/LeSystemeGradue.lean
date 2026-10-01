@@ -47,7 +47,7 @@ grade qui appartient à la modalité de son type. Les confondre reviendrait à c
 l'ensemble où il vit, ce qui passe inaperçu tant que l'ensemble est unique et cesse de passer dès
 qu'il y en a trois.
 
-Le chapitre 2 a établi $`\text{Lin} <: \text{Aff} <: \text{Unr}` comme trois catégories emboîtées
+Le chapitre 2 a établi $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` comme trois catégories emboîtées
 par restriction des règles structurelles. Ce que cette section ajoute, c'est que ces fragments sont
 des sous-ensembles distingués d'un même semi-anneau de grades, et que le grade lui-même quantifie
 précisément combien de fois, ou quelle fraction d'accès, une ressource peut être exercée.
@@ -101,7 +101,7 @@ quatrième cas existe et porte un nom : $`\text{Rel}`, pour _pertinent_, au sens
 pertinence — une ressource qu'on peut dupliquer mais pas abandonner, ce qui est la discipline d'une
 obligation qu'il faut honorer au moins une fois. Ce document ne l'emploie pas aujourd'hui, et le
 nommer coûte moins que de laisser croire que trois cas épuisent la construction. La troisième est
-que le sous-typage $`\text{Lin} <: \text{Aff} <: \text{Unr}` est l'_inclusion_ des intervalles, et
+que l'ordre $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` est l'_inclusion_ des intervalles (et non le sous-typage $`\preccurlyeq` ni l'ordre de précision $`\sqsubseteq`), et
 non une relation posée à côté d'eux~; $`\text{Rel}` s'y insère entre $`\text{Lin}` et $`\text{Unr}`
 sans être comparable à $`\text{Aff}`. Cela fait de l'ordre un treillis à quatre éléments plutôt
 qu'une chaîne à trois — et c'est la forme que la littérature graduée emploie {cite "orchardQuantitativeProgramReasoning2019"}[].
@@ -124,7 +124,7 @@ Les modalités d'usage sont des modes, et leurs inclusions des morphismes
 
 Les modalités sont les modes portés par les intervalles de $`\mathcal{R}` de la
 table {num "tab:modalites-intervalles"}[], et toute inclusion d'intervalles entre elles est un
-morphisme de modes. La relation $`\text{Lin} <: \text{Aff} <: \text{Unr}` est la traduction
+morphisme de modes. La relation $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` est la traduction
 qu'induisent les inclusions $`[1..1] \subset [0..1] \subset [0..\omega]`, et elle est donc _dérivée_
 et non axiomatisée.
 :::
@@ -380,7 +380,7 @@ ainsi d'être en tension — l'une est la preuve constructive de l'autre.
 
 Cette même unicité impose une règle de composition aux fermetures : la modalité d'une fermeture ne
 peut être plus permissive que celle de la plus contrainte de ses captures, c'est-à-dire la rencontre
-— au sens du treillis $`\text{Lin} <: \text{Aff} <: \text{Unr}` — des modalités capturées. Une
+— au sens du treillis $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` — des modalités capturées. Une
 fermeture qui capture une ressource `Lin` doit elle-même être `Lin`, quelles que soient ses autres
 captures. L'autoriser à être `Unr` permettrait de l'invoquer plusieurs fois, donc de dupliquer la
 ressource linéaire qu'elle referme, en violation directe de l'absence de contraction (chapitre 2,
@@ -471,7 +471,7 @@ destinations est un cas particulier de construction bien fondée, et les âges e
 
 Une contrainte doit être posée ici, et c'est une contrainte de _sûreté_ et non de discipline. Une
 destination est _proprement linéaire_ : elle ne peut pas être affine, et elle ne peut donc pas se
-relever le long de la chaîne $`\text{Lin} <: \text{Aff} <: \text{Unr}` posée ci-dessus. Le motif est
+relever le long de la chaîne $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` posée ci-dessus. Le motif est
 direct — le mode affine admet l'affaiblissement, donc l'abandon ; une destination abandonnée est un
 trou jamais rempli ; et lire la structure finalisée reviendrait à lire de la mémoire non
 initialisée. La distinction entre une multiplicité proprement linéaire et un mode affine est celle

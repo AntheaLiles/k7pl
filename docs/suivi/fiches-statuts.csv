@@ -18,11 +18,11 @@ STRUCT-02,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,"ℰ_alg / ℰ
 STRUCT-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
 STRUCT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
 STRUCT-05,ouverte,,,
-STRUCT-06,ouverte,,,
+STRUCT-06,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"mot élaboration et point 2.5 clarifiés au §5.3"
 STRUCT-07,partielle,journal,journal/2026-10-01-pr-02-08-fact-suite.md,énoncé scellé proposition ; la preuve par facteur reste à conduire (PREUVE-10)
-STRUCT-08,ouverte,,,
-STRUCT-09,ouverte,,,
-STRUCT-10,ouverte,,,
+STRUCT-08,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"Th. raffinement conditionnel à la traduction"
+STRUCT-09,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"journal complet posé en paramètre de l'hypothèse de rejeu"
+STRUCT-10,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"λ classée structure dérivée de l'instance historique"
 STRUCT-11,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,idem
 STRUCT-12,ouverte,,,
 STRUCT-13,ouverte,,,
@@ -77,14 +77,14 @@ NOTA-05,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"ε_
 NOTA-06,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"a, c, d, f corrigés ; b par renvoi ; e par BLOQ-02"
 NOTA-07,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"identifiants T-xx et G.x résolus en renvois de section"
 NOTA-08,fermee,journal,journal/2026-09-30-pr-02-03-vague-0-fin.md,"deux renvois faux, définition de la pureté des gestionnaires"
-IMPL-01,ouverte,,,
-IMPL-02,ouverte,,,
-IMPL-03,ouverte,,,
+IMPL-01,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"certificat exigé aux frontières de paquet (§6.1 Phase 5, annexe D)"
+IMPL-02,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"critère opérationnel écrit en fin de §6.3"
+IMPL-03,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"protocole du test différentiel écrit en fin de §6.3"
 IMPL-04,ouverte,,,
 IMPL-05,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:revocation_ffi : première exigence du document
-IMPL-06,ouverte,,,
+IMPL-06,partielle,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"Π défini au §4.5 ; Th. 20 et rejeu requalifiés en conformité ; Th. 36 non requalifié"
 IMPL-07,ouverte,,,
-IMPL-08,ouverte,,,
+IMPL-08,partielle,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"productions dégénérées et types non engendrés contrôlés (mutation vérifiée) ; arités et build sur symbole absent restent à porter"
 IMPL-09,ouverte,,,
 FACT-01,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
 FACT-02,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
