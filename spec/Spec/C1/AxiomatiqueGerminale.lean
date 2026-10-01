@@ -711,6 +711,13 @@ l'est parce que le langage des obligations ne permet pas de l'écrire, plutôt q
 vérificateur la rejetterait (chapitre 4). {rmq}[Interdire demande un gardien. Rendre inexprimable
 n'en demande aucun, et c'est là toute la différence de coût.]
 
+Les quatre se lisent comme un seul énoncé : dans la fibration des dérivations sur les termes, l'ensemble
+des morphismes qui commettraient la violation est vide, $`\mathrm{Hom}(-,-) = \emptyset`, parce qu'une
+prémisse manque. Il s'ensuit une obligation de présentation, qui n'est pas encore remplie : chaque
+famille de codes d'erreur du compilateur doit se rattacher à la prémisse manquante qui la produit,
+de sorte que les familles actuelles se réduisent à quatre diagnostics, un par mécanisme.
+La table qui les apparie reste à écrire.
+
 La suffisance d'abord. Une extension qui se range dans l'une des trois strates s'exprime par
 composition et tensorisation des morphismes existants, donc reste dans _C_ — c'est P1. Portant un
 grade, elle porte une borne statique — c'est P3. Portant une contrainte de valeur indépendante de sa
