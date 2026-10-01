@@ -368,6 +368,16 @@ n'est ni une règle ni un pas de réduction : il appartient à la spécification
 interprète, formateur, analyseur, serveur de langage — que le chapitre 7 renvoie à un second temps.
 _Ce renvoi est ici rendu explicite, pour qu'il soit un choix et non un oubli._
 
+Ce renvoi a un coût, qu'il faut dire : un théorème en dépend. La reproductibilité du rejet
+(théorème {num "thm:rejet_reproductible"}[]) suppose l'hypothèse $`D_{\mathrm{det}}`, qui
+rassemble trois choix que la spécification de l'outillage doit donc fixer, et non plus laisser : (a)
+l'_ordre de parcours_ de l'arbre de syntaxe, qui décide de la localité des messages ; (b) l'_ordre de
+recherche_ du narrowing et de la synthèse dirigée par les grades, qui est une recherche de preuve,
+avec espace de recherche et possibilité d'échec ; (c) la _graine_ du test par propriétés des indices
+`invariant`, `witness` et `lemma`, exécution randomisée intégrée à la compilation. Chacun doit être
+une fonction de la source et du compte de ressource. L'ordre de parcours cesse ainsi d'être un
+renvoi à l'outillage : il est un objet de la spécification, sous cette hypothèse seulement.
+
 # E.4.2. La stratification du journal
 %%%
 tag := "g-semantique-la-stratification-du-journal"
@@ -520,6 +530,32 @@ l'acteur.
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute"
 number := false
 %%%
+
+::::thm (label := "thm:relation_produit") (status := "proposition")
+:::title
+relation logique sur un produit de structures ordonnées
+:::
+
+:::statement +titled
+La relation d'un produit se définit composante par composante
+
+Soit $`\mathcal{R} = \prod_i \mathcal{R}_i` un produit de structures ordonnées dont chaque facteur
+admet une relation logique compatible. Si la clause décisive de la modalité, celle de
+$`!^r V`, n'inspecte qu'une composante de $`r`, alors $`\mathcal{R}` admet une relation logique
+compatible, définie composante par composante.
+:::
+
+:::proofsketch
+On pose la relation du produit comme l'intersection des relations tirées en arrière par les
+projections. La compatibilité avec chaque opération — action de $`\varphi` et $`\psi`, composition,
+unité — se vérifie composante par composante, puisque ces opérations agissent sans jamais mêler deux
+composantes (§{num "sec:c1-de-la-loi-distributive"}[]). La clause de $`!^r V` n'inspectant que la
+troisième composante, elle se lit sur la seule relation du facteur de confidentialité, les autres
+facteurs la traversant inchangés. Ce qui est établi ici est une _compatibilité_ et non seulement une
+non-interaction : c'est ce que la remarque de l'annexe affirmait sans le dire. Le détail pour chaque
+facteur reste à écrire.
+:::
+::::
 
 ::::thm (label := "thm:lemme_fondamental")
 :::title

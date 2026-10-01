@@ -393,6 +393,15 @@ composée de $`r` vers $`t` égale la conversion directe, et que la conversion d
 soit l'identité. C'est une condition sur les _coercions_, non sur l'ordre, et elle reste à établir :
 facteur par facteur d'abord, puis par fermeture sur le produit, le composé de quatre familles
 cohérentes l'étant si les quatre le sont.
+
+_Réduction établie._ Chaque facteur est un préordre, donc une catégorie mince : entre deux grades il
+y a au plus une flèche, et deux dérivations de $`r \preccurlyeq r'` désignent la même. Si la
+conversion est définie comme le transport le long de cette flèche, la cohérence énoncée se ramène à
+la fonctorialité de ce transport — identité en $`r \preccurlyeq r`, composition en
+$`r \preccurlyeq s \preccurlyeq t` — à vérifier pour chacune des quatre familles, puis à clore par
+produit, la fonctorialité d'un produit de catégories l'étant composante par composante. Il reste à
+écrire la définition de la conversion de chaque facteur ; tant qu'elle ne l'est pas, la proposition
+demeure une proposition.
 :::
 ::::
 
@@ -708,33 +717,37 @@ Sous une condition sur la présentation
 Soit $`\mathcal{E}_0` présentée par un ensemble d'opérations $`\mathrm{Ops}` et un ensemble de
 relations $`\mathrm{Rel}`, et soit $`S \subseteq \mathrm{Ops}`. Si aucune relation de
 $`\mathrm{Rel}` ne fait intervenir à la fois une opération de $`S` et une opération de
-$`\mathrm{Ops} \setminus S`, alors $`\pi_S` est un morphisme de quantales et, pour tout
-$`n \in \mathbb{N}_\infty`, $$`\pi_S \circ \varphi_n \;=\; \varphi_n \circ \pi_S .`
+$`\mathrm{Ops} \setminus S`, alors (i) $`\pi_S` est un morphisme de monoïdes ordonnés, et pour tout
+$`n` _fini_, $$`\pi_S \circ \varphi_n \;=\; \varphi_n \circ \pi_S ;` (ii) si de plus $`\mathcal{E}_0` est
+une quantale et que le quotient préserve les suprema — exigence sur $`\mathcal{E}_0`, nommée comme
+telle —, l'égalité vaut pour $`n = \omega`.
 :::
 
 :::proofsketch
-En trois temps, dont le dernier seul emploie l'hypothèse.
+En deux temps, dont le premier ne suppose aucune complétude.
 
 _$`\pi_S` est bien définie._ Sur le monoïde libre $`\mathrm{Ops}^{*}`, l'application
 $`\mathrm{op} \mapsto \mathbf{1}` pour $`\mathrm{op} \in S` et $`\mathrm{op} \mapsto \mathrm{op}`
 sinon se prolonge d'une seule manière en un morphisme de monoïdes, lequel satisfait
 $`\pi_S(\alpha\beta) = \pi_S(\alpha)\,\pi_S(\beta)` par construction. Ce morphisme descend au
 quotient par $`\mathrm{Rel}` si et seulement si il respecte chaque relation. Une relation dont
-toutes les lettres sont dans $`S` devient $`\mathbf{1} = \mathbf{1}` ; une relation dont aucune
-lettre n'y est se transporte inchangée ; une relation mixte est exclue par hypothèse. Il n'en reste
-aucune à vérifier.
+toutes les lettres sont dans $`S` devient $`\mathbf{1} = \mathbf{1}` ; une relation dont aucune
+lettre n'y est se transporte inchangée ; une relation mixte est exclue par hypothèse. Il n'en reste
+aucune à vérifier. La monotonie vient de ce que $`\mathcal{E}_0` est un monoïde ordonné par treillis,
+dont le produit distribue sur les bornes supérieures _finies_.
 
-_$`\pi_S` préserve les bornes supérieures._ La quantale est complète et son produit distribue sur
-les bornes supérieures. En étendant $`\pi_S` par
-$`\pi_S(\bigvee_i \alpha_i) = \bigvee_i \pi_S(\alpha_i)`, on obtient une application qui préserve à
-la fois le produit et les suprema, c'est-à-dire un morphisme de quantales.
+_La commutation à $`n` fini._ $`\pi_S(\varepsilon^n) = (\pi_S\varepsilon)^n` par récurrence
+immédiate depuis la multiplicativité, sans complétude. Sur le facteur temporel, $`\pi_S` agit comme
+l'identité et $`\varphi_n` par $`k \mapsto n\,k` : deux applications dont l'une est l'identité
+commutent. Les deux composantes commutant, le couple commute.
 
-_La commutation._ Sur $`\mathcal{E}_0`, pour $`n` fini,
-$`\pi_S(\varepsilon^n) = (\pi_S\varepsilon)^n` par récurrence immédiate depuis la multiplicativité ;
-pour $`n = \omega`, $`\varepsilon^\omega = \bigvee_{m} \varepsilon^m` et la préservation des suprema
-conclut. Sur le facteur temporel, $`\pi_S` agit comme l'identité et $`\varphi_n` par
-$`k \mapsto n\,k` : deux applications dont l'une est l'identité commutent. Les deux composantes
-commutant, le couple commute.
+_Le cas $`n = \omega`._ Il emploie $`\varepsilon^\omega = \bigvee_m \varepsilon^m` et exige que
+$`\pi_S` préserve les suprema. Cette préservation n'est pas gratuite : étendre $`\pi_S` par
+$`\pi_S(\bigvee_i \alpha_i) = \bigvee_i \pi_S(\alpha_i)` présuppose ce qu'il s'agit d'établir. Elle
+est donc posée comme hypothèse (ii) sur $`\mathcal{E}_0`, et non démontrée. Pour un ensemble fini
+d'étiquettes — le seul cas qu'un motif de boîte puisse écrire, que la règle {sc}[Guard] emploie —
+le besoin se réduit aux bornes supérieures finies, que le monoïde ordonné par treillis fournit : cette
+condition s'écrit sur la règle, elle n'est pas supposée.
 :::
 ::::
 

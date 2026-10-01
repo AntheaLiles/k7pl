@@ -117,8 +117,11 @@ Les trois conséquences sont une seule loi lue sur trois objets. La consommation
 découpé interdit d'en tirer deux capacités ; la décroissance stricte de l'indice interdit qu'une
 capacité redevienne l'ancêtre de la région qui la porte, d'où l'absence de cycle ; elle est enfin la
 mesure qui fonde la terminaison des catamorphismes (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]).
-La preuve est à écrire : l'énoncé nomme ce que la règle d'introduction doit satisfaire, et elle
-n'existe pas encore dans le noyau.
+Le lemme de portée (H2) se démontre : deux segments $`[a,b]` et $`[c,d]` d'une même arène sont
+disjoints exactement lorsque $`b < c` ou $`d < a`, formule de l'arithmétique linéaire que le solveur
+décharge ; des cellules d'indices distincts étant des régions distinctes, deux capacités de
+$`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) reste à écrire : elle
+dépend de la règle d'introduction de $`\mathsf{WriteCap}(r)`, qui n'existe pas encore dans le noyau.
 :::
 ::::
 
