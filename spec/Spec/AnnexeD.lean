@@ -22,17 +22,17 @@ number := false
 
 {refsection "k7-sugoi"}
 
-{label "sec:annexe-f-sugoi" (display := "D")}
+{label "sec:annexe-sugoi" (display := "D")}
 
-`sugoi` suit la même syntaxe d'appel universelle que `sushi` (annexe E), appliquée cette fois à la
+`sugoi` suit la même syntaxe d'appel universelle que `sushi` (annexe {num "sec:annexe-sushi"}[]), appliquée cette fois à la
 gestion de paquets plutôt qu'à l'administration système. Ses indicateurs — `+i~/~+install`,
 `+r~/~+remove`, `+u~/~+upgrade`, `+s~/~+search`, `+v~/~+verify`, entre autres — n'introduisent
 aucune convention nouvelle, seulement des grades booléens désucrés comme n'importe quel autre
 indicateur du chapitre 5 (§{num "sec:c5-s-expressions-universelles"}[]).
 
 Ce que `sugoi` distribue n'est jamais du texte source mais du code porteur de preuve. Chaque paquet
-embarque l'AST normalisé, ses descripteurs topologiques et ses théorèmes SMT résiduels, que le
-compilateur local re-vérifie intégralement avant toute installation. C'est la Phase 5 que le
+embarque l'AST normalisé, ses descripteurs topologiques et ses théorèmes SMT résiduels, accompagnés de leurs certificats, que le
+compilateur local vérifie intégralement avant toute installation : relancer le solveur serait une répétition, non une vérification, un solveur local de version, d'options ou de graine différentes pouvant répondre autrement. C'est la Phase 5 que le
 chapitre 6 (§{num "sec:c6-le-processus-de-compilation"}[]) décrit pour un programme ordinaire,
 appliquée à une dépendance externe plutôt qu'au texte que le développeur écrit lui-même.
 L'identification d'un paquet par le hachage BLAKE3 de son AST normalisé, et non par un numéro de
@@ -50,9 +50,3 @@ avant toute installation. Si l'abaissement MLIR du paquet exige une extension ab
 d'instructions vectorielles, un accélérateur déclaré par `:gpu-offload` —, le déploiement est rejeté
 avant même d'être tenté, plutôt que de produire un binaire qui échouerait à l'exécution sur le
 matériel visé.
-
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : gestionnaires de paquets adressés par le contenu (Nix, Guix, Unison) ; proof-carrying code (Necula) ; littérature sur l'élimination de la chaîne d'approvisionnement logicielle comme surface d'attaque.
-```
-:::

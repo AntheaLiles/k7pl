@@ -17,11 +17,11 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 <!-- BEGIN:mesures -->
 | Mesure | Valeur |
 |---|---|
-| Chapitres | 13 (dont 5 annexes) |
+| Chapitres | 12 (dont 4 annexes) |
 | Sections de niveau 2 (modules) | 52 |
-| Énoncés | 59 (48 theoreme, 6 proposition, 2 conjecture, 2 definition, 1 exigence) |
-| Énoncés ouverts (proposition, conjecture, exigence) | 9 |
-| Énoncés par niveau | 54 langage, 4 representation, 1 compilation |
+| Énoncés | 67 (46 theoreme, 13 proposition, 4 exigence, 2 conjecture, 2 definition) |
+| Énoncés ouverts (proposition, conjecture, exigence) | 19 |
+| Énoncés par niveau | 60 langage, 5 representation, 2 compilation |
 | Formules | 38 |
 | Figures | 13 |
 | Tableaux | 27 |
@@ -29,11 +29,11 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Remarques marginales (RMQ) | 59 |
 | Citations | 359 |
 | Œuvres citées | 250 |
-| Renvois internes | 470 |
+| Renvois internes | 524 |
 | Renvois non résolus | 0 |
-| Commentaires d'auteur conservés (non rendus) | 10 |
+| Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 118909 |
+| Mots (approximatif, hors code et formules) | 123700 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -45,15 +45,25 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 <!-- BEGIN:ouverts -->
 | Étiquette | Statut | Niveau | Lieu | Renvois |
 |---|---|---|---|--:|
+| `thm:troncature_comonade` | proposition | langage | §2.3 | 0 |
 | `thm:divulgation_delimitee` | proposition | langage | §2.4 | 4 |
 | `thm:determinisme_observationnel` | conjecture | langage | §2.5 | 0 |
 | `thm:completude_graduee` | proposition | langage | §3.1 | 0 |
-| `thm:homomorphisme_roues` | proposition | representation | §3.2 | 0 |
-| `thm:isomorphisme_memoire` | proposition | representation | §4.3 | 5 |
-| `thm:rejeu_binaire` | proposition | representation | §4.5 | 0 |
+| `thm:completude_verificateur` | exigence | compilation | §3.1 | 0 |
+| `thm:homomorphisme_roues` | proposition | representation | §3.2 | 1 |
+| `thm:representation_inobservable` | exigence | representation | §3.2 | 0 |
+| `thm:coherence_subsomption` | proposition | langage | §3.6 | 3 |
+| `thm:isomorphisme_memoire` | proposition | representation | §4.3 | 6 |
+| `thm:introduction_unique` | proposition | langage | §4.4 | 0 |
+| `thm:rejeu_binaire` | proposition | representation | §4.5 | 1 |
 | `thm:revocation_ffi` | exigence | representation | §4.5 | 0 |
-| `thm:abaissement_grades` | conjecture | compilation | §6.2 | 2 |
-| `thm:coherence_subsomption` | proposition | langage | §E.3 | 3 |
+| `thm:traduction_metalangage` | proposition | langage | §4.6 | 11 |
+| `thm:simulation` | proposition | langage | §4.6 | 1 |
+| `thm:fidelite_interprete` | proposition | langage | §4.6 | 3 |
+| `thm:relation_produit` | proposition | langage | §4.7 | 0 |
+| `thm:hygiene_graduee` | proposition | langage | §5.2 | 0 |
+| `thm:resucrage` | exigence | langage | §5.2 | 0 |
+| `thm:abaissement_grades` | conjecture | compilation | §6.2 | 3 |
 <!-- END:ouverts -->
 
 Registre complet, avec les renvois : [`correspondance-enonces.md`](correspondance-enonces.md). Registre des dépendances sur du non acquis : [`registre-obligations.md`](registre-obligations.md) (instantané du 1er octobre, à regénérer — voir §3).
@@ -65,19 +75,19 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 <!-- BEGIN:fiches -->
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| `BLOQ` Bloquants | 14 | 6 | 0 | 0 | 0 | 0 | 8 |
-| `STRUCT` Structurels | 23 | 4 | 1 | 0 | 0 | 0 | 18 |
-| `PORT` Portée | 17 | 11 | 0 | 0 | 0 | 0 | 6 |
-| `PREUVE` Dettes de preuve | 16 | 1 | 2 | 0 | 0 | 0 | 13 |
-| `NOTA` Notation, comptes, renvois | 8 | 3 | 0 | 0 | 0 | 0 | 5 |
-| `IMPL` Implémentation et outillage | 9 | 1 | 0 | 0 | 0 | 0 | 8 |
-| `FACT` Factorisations à écrire | 24 | 10 | 1 | 0 | 0 | 2 | 11 |
+| `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
+| `STRUCT` Structurels | 23 | 14 | 3 | 0 | 0 | 0 | 6 |
+| `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
+| `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
+| `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
+| `IMPL` Implémentation et outillage | 9 | 4 | 2 | 0 | 0 | 0 | 3 |
+| `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
-| `REECR` Réécritures d'énoncés | 27 | 5 | 0 | 0 | 0 | 0 | 22 |
-| `BIB` Vérifications bibliographiques | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
+| `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
+| `BIB` Vérifications bibliographiques | 29 | 11 | 6 | 0 | 0 | 0 | 12 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
-| `ARB-PR` Arbitrages | 7 | 3 | 0 | 1 | 3 | 0 | 0 |
-| **Total** | **190** | **53** | **4** | **1** | **3** | **2** | **127** |
+| `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
+| **Total** | **190** | **116** | **33** | **1** | **3** | **2** | **35** |
 <!-- END:fiches -->
 
 Détail fiche par fiche : [`FICHES-PR02.md`](FICHES-PR02.md). **Comment lire « ouverte »** : aucun compte rendu de séance ne nomme la fermeture de la fiche. L'auteur a pu fermer sans consigner ; l'état est volontairement conservateur et se corrige dans `fiches-statuts.csv`. Les fermetures *déduites* (changement de statut d'un énoncé rapproché du texte de la fiche) sont marquées comme telles et sont à confirmer.
@@ -113,7 +123,6 @@ Détail et sources : [`DECISIONS.md`](DECISIONS.md).
 | `ARB-PR-04` | ce que le document promet pour le rejeu bit-à-bit | le théorème est scindé (logique / binaire sous environnement reproductible) ; la décision de fond reste à écrire |
 | `ARB-PR-03` | effets à portée | **position intermédiaire appliquée** (`ℰ_alg`, `ℰ_scoped`, clôture faible) : à ratifier ; `BIB-01` (Hefty Algebras) non instruit |
 | `T-68` | mots des quarante-quatre primitives | dix entrées nouvelles en trois jours, chacune avec ses candidats ; le choix vous revient ([`primitives.md`](primitives.md)) |
-| — | **source de vérité pendant la finition** | Verso (recommandé) ou Org + outillage jusqu'au gel — voir §3 |
 
 Et la **validation des statuts déduits** dans `fiches-statuts.csv` (`confiance = deduite`, sept lignes).
 
@@ -139,7 +148,7 @@ Critères de sortie suggérés — à ajuster :
 | Porte | Critère | Mesure |
 |---|---|---|
 | P1 | plus aucun bloquant ouvert | lot `BLOQ` : 0 ouverte |
-| P2 | tout énoncé ouvert a sa route et son hypothèse nommées, et aucune prose ne le dit acquis | contrôle de propagation (à porter, §3) |
+| P2 | tout énoncé ouvert a sa route et son hypothèse nommées, et aucune prose ne le dit acquis | `scripts/controle.py` (propagation) |
 | P3 | décisions `ARB-PR-03`, `-04`, `-06`, `-07` et `T-68` tranchées | [`DECISIONS.md`](DECISIONS.md) |
 | P4 | les huit exigences `IMPL` sont lues comme un cahier des charges de l'implémentation | lot `IMPL` : 0 ouverte, ou reportées avec motif |
 | P5 | `REECR` appliqué, anomalies levées, relecture d'ensemble faite | lot `REECR` : 0 ouverte ; [`ANOMALIES.md`](ANOMALIES.md) vide |
@@ -149,27 +158,22 @@ Critères de sortie suggérés — à ajuster :
 
 ## 3. Ce qui menace la suite
 
-### Le filet de contrôles ne tourne plus sur le texte
+### Le filet de contrôles : porté sur le Verso
 
-Les « 85 contrôles verts » du manuscrit étaient des programmes Python lisant le Org assemblé (≈ 4 100 lignes, [`archives/outillage-org/`](../../archives/outillage-org/)). **Ils ne lisent pas le Verso.** Depuis la conversion, ce filet est en partie remplacé par la compilation elle-même, en partie perdu :
+Le Verso fait foi depuis le 1er octobre 2026 (décision `D-5`). Les contrôles de l'ancien outillage lisaient le Org ; ils sont **portés en Python** dans [`scripts/controles/`](../../scripts/controles/) et lancés par `python3 scripts/controle.py` (aussi en CI, job `build`) :
 
-| Garde | État avec le Verso |
+| Module | Ce qu'il garde |
 |---|---|
-| renvois et étiquettes (`structure.py`) | **assuré par le rendu** : un `{num}` vers une étiquette absente est une erreur (`No label 'x'`) et fait échouer `lake exe spec` ; 0 aujourd'hui |
-| citations et fonds bibliographique (`citations.py`) | **assuré par le rendu** : 250 œuvres citées, toutes présentes dans `biblio/references.json` ; une clé absente est une erreur de rendu |
-| comptages et registre des obligations (`registre.py`, `correspondance.py`) | **repris** : `scripts/manuscript_metrics.py` et `scripts/suivi.py` |
-| lois d'algèbre aux bornes, habitabilité sous clause, sceau, propagation (`algebre.py`, `notation.py`) | ⚠️ **à porter** : la logique (calcul de ⊖ sur 216 triplets, refus d'une prose qui dit « démontre » d'un énoncé ouvert) est indépendante du format, seule la lecture du texte change |
-| croisement grammaire × règles, sondes sémantiques (`croise.py`, `semantique.py`) | ⚠️ **à porter** |
-| hygiène de la source Org (`source.py`), figures et légendes (`figures.py`) | sans objet (Org) ou assuré par la compilation |
+| `algebre` | la loi d'action aux bornes (0 et ω, 216 triplets, auto-test : les deux mauvaises définitions de ⊖ échouent avec 10 et 14 contre-exemples), l'action à travers ∥, les quatre égalités de ω, les deux sortes de tailles |
+| `notation` | Δ seul contexte, un glyphe par modalité, affirmations sur le hachage, sceau des énoncés (statut, niveau, esquisse), propagation des énoncés ouverts, routes des engagements, table normative |
+| `croise` | grammaire des termes × règles de typage × liste des primitives ; comptes (49 règles, 45 constructeurs) |
+| `structure` | renvois résolus, étiquettes uniques et bien préfixées, lettres d'annexe jamais écrites en dur, tableaux réguliers, aucun commentaire d'auteur enfoui, glossaire |
 
-Tant que les contrôles d'algèbre et de propagation ne lisent pas le Verso, **une correction faite dans le Verso n'est plus vérifiée par autre chose que la relecture**. C'est le premier chantier d'outillage, et le plus rentable : le plan de traitement lui-même le notait (« le contrôle des éléments absorbants aurait attrapé `BLOQ-03` le jour même »).
+Déjà assurés par le rendu : renvois et clés bibliographiques (une étiquette ou une clé absente fait échouer `lake exe spec`). **Pas encore portés** : les sondes sémantiques (`bib/sondes.json` : un passage cite-t-il le bon auteur), le gel de non-régression bibliographique, la mesure de la prose contre la charte — à porter si on les juge utiles. Rappel : un contrôle qui n'a jamais été vu échouer ne vaut rien ; `algebre` s'auto-teste, les autres se mutent à la main (retirer un sceau, écrire « démontre » près d'un énoncé ouvert).
 
 ### Où écrire pendant la finition
 
-Deux voies cohérentes ; la première est recommandée.
-
-1. **Verso comme source** (état actuel du dépôt) : on corrige dans `spec/`, et l'on porte les contrôles restants. Le convertisseur `scripts/org2verso` reste utilisable pour rejouer la conversion de l'instantané Org et vérifier qu'elle est reproductible.
-2. **Org comme source jusqu'au gel** : on garde les 85 contrôles intacts, on reconvertit à chaque séance. Le Verso devient un produit, et le dépôt devrait alors le dire (la CI vérifierait que le Verso committé égale la conversion).
+Dans `spec/` (Verso) ; le convertisseur `scripts/org2verso` ne sert plus qu'à rejouer l'instantané Org archivé.
 
 ### Publication
 

@@ -62,8 +62,17 @@ Les symboles du document et l'objet que chacun dénote
   * sous-typage modal, produit mixte sur les quatre composantes
 * * $`\varphi_r,\ \psi_r`
   * action du grade sur l'effet, sur le contexte
+* * $`\Delta_1 + \Delta_2`
+  * addition ponctuelle de contextes
 * * $`\boxtimes_\varepsilon`
   * composition de contextes sous effet
+* * $`A \otimes B`
+  * tenseur de types, constructeur du langage
+* * $`\otimes_{\mathcal{C}}`
+  * tenseur de la catégorie ambiante, qui dénote la disjonction de ressources
+* * $`\ell,\ \hat\ell`
+  * niveau de lecture (troisième composante d'un grade) ; niveau de production (indice de la famille d'un effet)
+
 * * $`!_r`
   * modalité de ressource
 * * $`\bigcirc,\ \Box,\ \Diamond`
@@ -77,7 +86,7 @@ Un mot sur le partage des glyphes modaux, car deux relectures indépendantes l'o
 contraires. La ressource porte $`!` et non $`\Box` : c'est le glyphe de l'exponentielle depuis
 Girard, un lecteur le reconnaît sans l'apprendre, et il ne se confond avec rien. Le carré reste au
 temps, où la nécessité modale lui donne son meilleur titre. Ce document a longtemps écrit les deux
-pour le même objet — l'exponentielle ici, le carré indicé à l'annexe —, ce qui était le vrai défaut,
+pour le même objet — l'exponentielle ici, le carré indicé aux règles de typage —, ce qui était le vrai défaut,
 l'un ou l'autre valant mieux que les deux.
 
 {bibliography}

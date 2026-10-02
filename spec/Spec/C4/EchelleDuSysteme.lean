@@ -121,7 +121,7 @@ déterminisme logique du rejeu
 :::statement +titled
 Reproduction de l'état final à l'observation près
 
-Pour tout acteur $`A` d'historique d'exécution $`H`, rejouer les messages journalisés $`J(H)` à
+Soit $`J` un journal _complet_ : une fonction d'observation lui associe à chaque événement extérieur observable de l'historique $`H` une entrée, de sorte que tout le non-déterminisme y est consigné — c'est un paramètre de l'hypothèse de rejeu, et non une conséquence de la pureté. Pour tout acteur $`A` d'historique d'exécution $`H`, rejouer les messages journalisés $`J(H)` à
 travers les gestionnaires purs de $`A` produit un état final observationnellement égal à
 l'original : $`\text{Rejeu}(J(H), S_0) \approx_{\text{obs}} S_{\text{final}}`.
 :::
@@ -147,9 +147,9 @@ identité binaire du rejeu, sous environnement reproductible
 :::statement +titled
 Le pas que la pureté ne franchit pas
 
-Sous l'hypothèse $`E_{\text{repro}}` — ordonnancement, mode d'arrondi flottant et version de la
-chaîne de compilation identiques entre l'exécution et le rejeu —, l'égalité du théorème précédent
-est une identité binaire : $`\text{Rejeu}(J(H), S_0) =_{\text{bit}} S_{\text{final}}`.
+Sous l'hypothèse $`E_{\text{repro}}` — ordonnancement, mode d'arrondi flottant, version de la
+chaîne de compilation et architecture, comportement des NaN compris, identiques entre l'exécution et le rejeu — et sous l'hypothèse d'injectivité de la représentation sur les valeurs observables, l'égalité du théorème précédent
+est une identité binaire : $`\text{Rejeu}(J(H), S_0) =_{\text{bit}} S_{\text{final}}`.
 :::
 
 :::proofsketch
@@ -158,7 +158,7 @@ compilation, et l'ordre d'évaluation est fixé ; l'égalité observationnelle 
 théorème {num "thm:determinisme_rejeu"}[] se transporte alors en identité de représentation.
 
 _Trois rejeux, une seule relation._ Ce document en distingue trois — le rejeu logique, l'identité
-binaire, et le rejeu stratifié par niveau de l'annexe — et ils ne sont pas trois notions mais _trois
+binaire, et le rejeu stratifié par niveau du §{num "sec:g-semantique"}[] — et ils ne sont pas trois notions mais _trois
 instances de la même_ : l'égalité modulo une projection. Le premier projette sur l'observation, le
 deuxième sur la représentation, le troisième sur un niveau. Les trois sont donc des instances du
 schéma de restriction (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
@@ -170,6 +170,15 @@ $`E_{\text{repro}}` n'est fixée par ce document, et le journal n'en consigne au
 est portée par l'environnement d'exécution, non par le langage.
 :::
 ::::
+
+Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représentation_
+$`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}}, \mathrm{arch}, \mathrm{mem}, \mathrm{round}, v_{\mathrm{schéma}} \rangle` : versions des trois
+spécifications de disposition, architecture et comportement NaN, modèle mémoire, mode d'arrondi,
+version de schéma. $`E_{\text{repro}}`, la portée « une machine » du modèle mémoire et la convention
+d'élision de champ en sont trois projections. Il en résulte que les théorèmes de disposition
+({num "thm:isomorphisme_memoire"}[]) et de rejeu binaire ({num "thm:rejeu_binaire"}[]) sont des
+propriétés de _conformité du compilateur_ à un profil donné, vérifiées par le pipeline de validation
+de la phase 7, et non des théorèmes du calcul des types.
 
 La supervision surveille cette continuité par battements de cœur et applique des politiques de
 redémarrage garanties par un invariant de vivacité : un acteur en panne finit toujours par redevenir
@@ -298,7 +307,7 @@ que des processus isolés logiciellement peuvent partager un espace d'adressage 
 incapables de se corrompre, dès lors que le compilateur a vérifié leurs propriétés d'accès. Le gain
 est l'élimination des changements de contexte et des purges de TLB. Le prix est que tout le poids de
 l'isolation se déplace vers la correction du compilateur, là où une MMU la maintiendrait
-indépendamment de tout bogue en amont. C'est un pari, non une conséquence, mais il n'est pas isolé.
+indépendamment de tout bogue en amont. La terminalité de la coalgèbre qui définit un acteur garantit l'indiscernabilité comportementale _logique_, non l'absence de canaux cachés physiques. C'est un pari, non une conséquence, mais il n'est pas isolé.
 Le modèle de composants de WebAssembly en donne une réalisation déployée : la mémoire linéaire y est
 bornée par construction, les valeurs franchissent la frontière par un modèle d'interface plutôt que
 par des pointeurs, et aucun composant n'atteint la mémoire d'un autre sans unité de gestion mémoire {cite "groupWebAssemblySpecification,groupWebAssemblySpecAddendum,groupWebAssemblyCodeMetadata"}[].
@@ -471,7 +480,7 @@ $`M(x) \neq \emptyset \land M(y) \neq \emptyset \iff M \xrightarrow{J} P`.
 
 :::proofsketch
 La consommation simultanée n'est pas un protocole d'appariement à construire : c'est l'opération
-native de la règle {sc}[Guard] de l'annexe (§{num "sec:g-couche2"}[]), dont la prémisse décompose le
+native de la règle {sc}[Guard] (§{num "sec:g-couche2"}[]), dont la prémisse décompose le
 motif de la boîte en $`\sum_i m_i[\overline{V_i}] \cdot E_i` et dont la conclusion rend la
 continuation de motif. Le motif $`J` est une coupure de logique linéaire exigeant $`x` et $`y`
 simultanément — le produit tensoriel $`x \otimes y` du chapitre 1
@@ -481,6 +490,14 @@ masquage binaire de l'anneau ; la réduction consomme les deux messages simulta
 atomique de pointeurs, garantissant l'atomicité verrou-libre sans synchronisation supplémentaire.
 :::
 ::::
+
+Cette boîte est un seul objet, $`\mathsf{Mailbox} = \Sigma_{c \in \mathsf{Chan}}\,\mathsf{Bag}(\mathsf{Cap}(c))` :
+un multi-ensemble de ressources linéaires indexé par canal, muni d'une règle de consommation
+atomique multi-places. Quatre résultats de ce document en sont des lectures : l'activation
+conditionnelle ci-dessus ; le circuit breaker de session, qui compare le tag d'un message à ce que la
+boîte attend ; la ré-invocation séquentielle d'un grade fini ; et la traduction d'un service répliqué
+$`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme sa restriction ; la
+reprise de leurs énoncés sur cette définition unique reste à faire.
 
 L'énoncé est _local_ : il porte sur une jonction prise isolément. {rmq}[L'atomicité locale est
 démontrée, la localité ne l'est pas. Les deux mots se ressemblent et ne disent pas la même chose.]

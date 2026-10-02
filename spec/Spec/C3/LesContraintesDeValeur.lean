@@ -213,20 +213,6 @@ Transporter l'extension au cadre intuitionniste est donc une obligation et non u
 est consignée comme telle. K7PL ne conduit pas cette extension ; il la nomme, et son encodage dans
 $`\multimap` ne s'y oppose pas.
 
-:::comment
-```
-[HISTORIQUE D'UN ARBITRAGE DEVENU SANS OBJET — auto-dualité de End. Tant que les formes de protocole étaient
- des constructeurs de type primitifs, il fallait définir la dualité par récursion, donc trancher son cas de
- base : End auto-dual, ce qui rend le squelette compact clos et donc dégénéré au sens *-autonome ; ou la voie
- Gay-Vasconcelos, End! et End? duaux l'un de l'autre, qui préserve la distinction entre unité et objet
- dualisant. C'est la convention établie de la discipline que d'adopter la première. La question ne se pose
- plus depuis que la grammaire est syntaxe de surface : la dualité tombe du retournement des arguments de
- l'implication linéaire, il n'y a plus de récursion et donc plus de cas de base à trancher. Consigné pour
- mémoire, et parce que l'arbitrage redeviendrait nécessaire si une extension future faisait des formes de
- protocole des constructeurs primitifs — ou introduisait la délégation de session.]
-```
-:::
-
 Une limite du régime asynchrone doit être connue avant d'être rencontrée. Le sous-typage de K7PL est
 _modal_ — il relie les trois fragments d'usage (chapitre 1) — et ne porte pas sur les protocoles.
 S'il devait un jour s'y étendre, il buterait sur un résultat établi : la vérification du sous-typage
@@ -312,7 +298,7 @@ du graphe d'attente_ : pour tous acteurs $`a` et $`b` et tout état atteignable
 message de $`b`, alors l'arête $`(a,b)` est au graphe de câblage. Sous cette simulation, tout cycle
 d'attente serait un cycle de câblage, et l'acyclicité vérifiée en Phase 1.5 conclut.
 
-_Cette simulation n'est plus un emprunt._ Depuis que la couche 2 a ses règles (annexe,
+_Cette simulation n'est plus un emprunt._ Depuis que la couche 2 a ses règles (§{num "sec:g-regles"}[],
 §{num "sec:g-couche2"}[]), le graphe de câblage n'est plus un objet posé au-dehors : il est celui
 des dépendances entre boîtes aux lettres, que le jugement porte. Une attente est une instance de {sc}[Guard]
 sur une boîte, et la boîte y est une liaison du contexte ; l'arête d'attente est donc une arête de
@@ -363,28 +349,57 @@ l'absence de donnée — un échec prouvé plutôt que silencieux.
 
 ::::thm (label := "thm:homomorphisme_roues") (status := "proposition") (level := "representation")
 :::title
-homomorphisme de la théorie des roues
+représentation des singularités de la théorie des roues
 :::
 
 :::statement +titled
-Préservation des singularités par masquage vectoriel
+Encodage des singularités et masquage vectoriel
 
-Soit $`i : \text{Wheel} \to \text{Float64}` l'injection associant à chaque singularité
-($`\bot, \infty, \circ, \delta`) un encodage dans les bits de charge utile d'un NaN silencieux IEEE 754.
-Cette injection préserve l'égalité structurelle ($`i(x) = i(x)` toujours vrai), et le masquage
-vectoriel de couche 3 la propage de façon homomorphe : $`\text{select}(m, i(x), y) = i(x)` si $`m`,
-$`y` sinon.
+Soit $`i : \text{Wheel} \to \text{Float64}` l'encodage qui associe à chacune des quatre
+singularités ($`\bot, \infty, \circ, \delta`) un motif de bits déterministe dans la charge utile
+d'un NaN silencieux IEEE 754. Alors (i) $`i` est injective sur ces quatre singularités ; (ii)
+$`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement ; (iii) l'arithmétique de
+couche 3 sur les valeurs encodées est _spécifiée par K7PL_, par la table de propagation des
+singularités, et non déléguée à IEEE 754. La réalisation de (iii) est une exigence, vérifiée par
+test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
 :::
 
 :::proofsketch
-La norme IEEE 754 laisse libres les bits de charge utile d'un NaN silencieux ; K7PL y encode chaque
-singularité de façon déterministe. L'égalité de couche 3 est redéfinie comme identité bit à bit
-plutôt que comme l'égalité IEEE 754 standard, défectueuse pour `NaN` — d'où $`i(x) = i(x)`.
-L'opérateur `select` s'abaisse en masquage vectoriel sans branchement ; la nature binaire du masque
-garantit que la charge utile de la branche inactive est annihilée plutôt que corrompue, préservant
-les lois algébriques de la théorie des roues, par exemple $`\bot + y = \bot`.
+La norme IEEE 754 laisse libres les bits de charge utile d'un NaN silencieux ; K7PL y encode chaque
+singularité de façon déterministe, d'où l'injectivité (i). L'égalité de couche 3 est l'identité bit
+à bit plutôt que l'égalité IEEE 754 standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
+en masquage vectoriel sans branchement ; la nature binaire du masque garantit que la charge utile de
+la branche inactive est annihilée plutôt que corrompue, d'où (ii).
+
+Ce que l'énoncé _ne dit pas_ : l'encodage n'est pas un homomorphisme de la théorie des roues vers
+les flottants. En roues $`x/0 = \bot`, donc $`1/0 = \bot`, tandis qu'en IEEE 754 $`1/0 = +\infty` ;
+et la propagation de la charge utile d'un NaN à travers $`+` est seulement recommandée par la norme,
+non exigée, les opérations invalides produisant le NaN par défaut. Les lois de la théorie des roues,
+par exemple $`\bot + y = \bot`, ne tiennent donc sur les valeurs encodées que parce que la table de
+propagation de (iii) les impose : c'est K7PL qui les spécifie, aucun effet ne dépendant de la
+machine.
 :::
 ::::
+
+::::thm (label := "thm:representation_inobservable") (status := "exigence") (level := "representation")
+:::title
+aucune liberté de représentation n'est observable
+:::
+
+:::statement +titled
+Injectivité de la représentation
+
+La représentation $`\mathrm{repr}` d'une valeur est telle que $`\mathrm{obs} \circ \mathrm{repr}` est
+injective : deux exécutions qui diffèrent par une liberté représentationnelle — élision d'un champ,
+purge d'un journal, bourrage, charge utile d'un NaN, ordre des segments en mémoire — ne sont pas
+discernables par l'observation.
+:::
+::::
+
+Exigence vérifiée par test différentiel, non démontrée. Elle absorbe cinq dispositions : l'élision est bornée par
+une version de schéma, la purge par la rotation du journal, le bourrage par la règle d'abaissement,
+le NaN par la proposition {num "thm:homomorphisme_roues"}[], l'ordre des segments par la
+réallocation (`mremap`). Toutes disent la même chose.
 
 L'overflow entier suit la même logique par couche : rejet statique en couche 3, où le solveur SMT
 doit prouver que l'opération reste dans les bornes ; `Result(T, OverflowError)` en couche 2, où

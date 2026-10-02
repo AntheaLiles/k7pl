@@ -13,23 +13,21 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.5. Le système de sortes du métalangage" =>
+#doc (Manual) "Le système de sortes du métalangage" =>
 %%%
 file := "g-sortes"
 tag := "g-sortes"
-number := false
 %%%
 
-{label "sec:g-sortes" (display := "E.5")}
+{label "sec:g-sortes"}
 
 Trois preuves attendaient un même objet, et le voici. Il sert le confinement des canaux distingués
 (chapitre 4), la définissabilité de la projection observationnelle dans la cible, et la clause de
 session de la relation logique.
 
-# E.5.1. Ce qu'on emprunte, et surtout ce qu'on laisse
+# Ce qu'on emprunte, et surtout ce qu'on laisse
 %%%
 tag := "g-sortes-ce-qu-on-emprunte-et-surtout-ce-qu-on-laisse"
-number := false
 %%%
 
 La forme est celle d'un cadre de sortes paramétrique établi pour les calculs de processus appliqués,
@@ -61,10 +59,9 @@ Ce que le cadre de sortes paramétrique offre, et ce que K7PL en retient
 _La cible n'est pas changée._ Le métalangage reste celui du chapitre 4 — machine à sessions
 linéaires et machine chimique réflexive. On lui ajoute une discipline de noms, et rien d'autre.
 
-# E.5.2. Les sortes
+# Les sortes
 %%%
 tag := "g-sortes-les-sortes"
-number := false
 %%%
 
 Une sorte est un couple, et c'est le même geste que pour le grade : _une_ sorte dont l'indice est
@@ -108,10 +105,9 @@ $`\kappa \in \mathbb{N}_\infty^{\mathcal{L}}` _est_ la famille des canaux de tem
 Ce que le §{num "sec:g-grammaire-types"}[] avait posé pour rendre le canal temporel énonçable reçoit
 ici son image.
 
-# E.5.3. Les quatre capacités, et le confinement en une ligne
+# Les quatre capacités, et le confinement en une ligne
 %%%
 tag := "g-sortes-les-quatre-capacites-et-le-confinement-en-une-ligne"
-number := false
 %%%
 
 ::::k7table (label := "tab:capacites") (align := "Z{0.41}Z{0.75}Z{1.84}")
@@ -153,10 +149,9 @@ d'usage et n'exige de la substitution qu'elle _raffine_ la sorte ; en prenant $`
 l'égalité, ces préordres deviennent l'identité et la clôture se lit sans induction. Le typage est
 déjà fait par les types de session, et les sortes n'ont pas à le refaire.
 
-# E.5.4. Le bon sortage
+# Le bon sortage
 %%%
 tag := "g-sortes-le-bon-sortage"
-number := false
 %%%
 
 ::::formula (label := "eq:bon-sortage") (kind := "formule")
@@ -261,10 +256,9 @@ l'offre.
 :::
 ::::
 
-# E.5.5. La clause de session de la relation logique
+# La clause de session de la relation logique
 %%%
 tag := "g-sortes-la-clause-de-session-de-la-relation-logique"
-number := false
 %%%
 
 Le système de sortes rend enfin définissable ce que le §{num "sec:g-relation-logique"}[] avait dû
@@ -300,7 +294,7 @@ niveau du grade décidait sur les valeurs.
 :::
 ::::
 
-La première ligne est celle qui porte T-44 (ii). Un canal créé par un calcul de niveau
+La première ligne est celle qui porte le second obstacle de la clause de session. Un canal créé par un calcul de niveau
 $`\ell' \not\sqsubseteq \ell` a ses événements étiquetés $`\ell'`, donc une sorte que
 $`\pi^{\flat}_{\ell}` efface, donc la relation totale : un observateur de niveau $`\ell` n'en
 apprend rien. _C'est la même clause que celle de la modalité graduée sur les valeurs_, transposée
@@ -310,22 +304,21 @@ vérité sur ses événements.
 
 Le lemme fondamental (théorème {num "thm:lemme_fondamental"}[]) s'étend en conséquence à la strate
 des sessions, ses cas nouveaux étant ceux des règles de communication, chacun réglé par la clause
-correspondante. _La non-interférence graduée et la divulgation délimitée cessent donc d'être bornées
-au fragment sans communication._
+correspondante. _La non-interférence graduée et la divulgation délimitée restent donc bornées
+au fragment sans communication_, le fragment avec communication n'ayant pas encore de règles démontrées.
 
-# E.5.6. Les incertitudes, et ce qu'elles sont
+# Les incertitudes, et ce qu'elles sont
 %%%
 tag := "g-sortes-les-incertitudes-et-ce-qu-elles-sont"
-number := false
 %%%
 
-Quatre points restent ouverts. Aucun n'est une impossibilité, et ils se distinguent d'une difficulté
+Quatre points ont été ouverts, et trois le restent. Aucun n'est une impossibilité, et ils se distinguent d'une difficulté
 de preuve : ce sont des vérifications à conduire, dont l'échec obligerait à réviser une partie de ce
 qui précède plutôt qu'à l'abandonner.
 
 1. _Le niveau d'un effet ne doit dépendre du grade que par $`\varphi`._ C'est ce qui garantit que la
    sorte n'emporte rien de $`\mathcal{G}`. Si un autre chemin existait, l'effacement fuirait et le
-   niveau devrait sortir de la sorte — auquel cas T-44 (ii) retomberait. _C'est la dette réelle de
+   niveau devrait sortir de la sorte — auquel cas le second obstacle de la clause de session retomberait. _C'est la dette réelle de
    cette construction_, et la seule qui touche l'axiome.
 
 2. _Le canal de l'ordre des messages._ La projection $`\pi^{\flat}_{\ell}` efface les événements
@@ -334,9 +327,11 @@ qui précède plutôt qu'à l'abandonner.
    contrôle de flux en concurrence typée par sessions établit une non-interférence _sensible au
    progrès_ qui l'exclut ; il reste à vérifier si notre formulation en fait autant.
 
-3. _Un seul niveau par processus._ La littérature du domaine en emploie deux — une habilitation et
-   un niveau courant, le plus haut secret obtenu jusque-là. K7PL n'en a qu'un, porté par le grade.
-   Il se peut que la stratification en couches en tienne lieu, et il se peut que non.
+3. _Un seul niveau par processus_ — réglé. La littérature du domaine en emploie deux, une
+   habilitation et un niveau courant. K7PL les a : l'habilitation est le niveau de lecture
+   $`\mathrm{niv}(r)` des liaisons, le niveau courant est le niveau de production $`\hat\ell` porté
+   par l'effet, et la jointure des niveaux de lecture, bornée par {sc}[Op] et {sc}[Case], est la
+   règle de propagation. Il ne reste rien à vérifier ici.
 
 4. _La mécanisation ne s'appuiera sur rien._ La méta-théorie du cadre emprunté n'est vérifiée par
    machine que pour une unique sorte de noms. Le cas d'un sortage arbitraire y est établi à la main,

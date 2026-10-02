@@ -58,7 +58,8 @@ structure de raffinement
 Trois dispositifs, une seule structure
 
 Soit $`\mathcal{T}` la catégorie du métalangage, $`\mathcal{D}` celle des dérivations de K7PL, et
-$`\llbracket \cdot \rrbracket` la traduction du théorème {num "thm:traduction_metalangage"}[]. Alors
+$`\llbracket \cdot \rrbracket` la traduction du théorème {num "thm:traduction_metalangage"}[]. _Si_
+$`\llbracket \cdot \rrbracket` est un foncteur préservant le typage — dette unique que ce théorème acquitte —, alors
 $`(\mathcal{D}, \mathcal{T}, \llbracket \cdot \rrbracket)` est un système de raffinement de types,
 et il s'ensuit que :
 
@@ -68,7 +69,7 @@ _(ii)_ la non-interférence du chapitre 1 (§{num "sec:c1-axiomatique-germinale
 $`\mathcal{T}` ne distingue pas deux dérivations de même image ;
 
 _(iii)_ la relation de précision $`\sqsubseteq`, restreinte aux objets d'une même fibre, est l'ordre
-de cette fibre, et le sous-typage modal $`\mathrm{Lin} <: \mathrm{Aff} <: \mathrm{Unr}` en est la
+de cette fibre, et l'ordre de précision modal $`\mathrm{Unr} \sqsubseteq \mathrm{Aff} \sqsubseteq \mathrm{Lin}` en est la
 restriction à la dimension d'usage.
 :::
 
@@ -203,8 +204,7 @@ entrelacement ont la même projection $`\pi_\ell(\tau)` de leur trace.
 
 :::proofsketch
 Non conduite. La voie est la bisimulation : montrer que la relation « même projection au niveau
-$`\ell` » est préservée par chaque pas de réduction, pour chacune des cinq règles globales de
-l'annexe. Les quatre premières s'y prêtent, leur effet sur la trace étant local. {sc}[Guard] est le
+$`\ell` » est préservée par chaque pas de réduction, pour chacune des cinq règles globales du §{num "sec:g-regles"}[]. Les quatre premières s'y prêtent, leur effet sur la trace étant local. {sc}[Guard] est le
 cas qui résiste, puisqu'il choisit une branche en fonction d'un message dont le niveau peut excéder
 $`\ell`.
 :::

@@ -254,7 +254,7 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   instancie trois, et l'ordre de ces trois est le fragment totalement ordonné du treillis que les
   quatre forment. Il n'en ouvre pas davantage. Le motif est chiffrable : l'addition point par point
   des contextes suppose les mêmes facteurs des deux côtés, et les jointures dont dépend la cohérence
-  de la subsomption (annexe, théorème {num "thm:coherence_subsomption"}[]) ne sont pas garanties
+  de la subsomption (§{num "sec:g-regles"}[], théorème {num "thm:coherence_subsomption"}[]) ne sont pas garanties
   entre modes quelconques. Un besoin nouveau se satisferait par un mode _nommé_, avec son morphisme
   vers les trois autres, et non par l'ouverture d'un treillis.
 
@@ -325,7 +325,7 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   gouverne ce passage est connue et caractérisée : la fonction de transition d'un automate valué
   s'étend aux mots si et seulement si la multiplication distribue sur les bornes supérieures
   _finies_, c'est-à-dire si la structure est un monoïde ordonné par treillis {cite "liFuzzyFiniteAutomata2005"}[].
-  La quantale a donc plus qu'il n'en faut pour ce que l'annexe en fait, et savoir laquelle de ses
+  La quantale a donc plus qu'il n'en faut pour ce que les règles en font, et savoir laquelle de ses
   propriétés porte l'extension est ce qui permettra, le moment venu, de ne mécaniser que celle-là.
 
 : $`\varphi`
@@ -342,7 +342,7 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   lancé. La seconde entraîne la première — un bloc exécuté $`n` fois emploie $`n` fois chacune de
   ses ressources — mais la réciproque est fausse, et c'est la seconde qui gouverne l'itération de
   l'effet. La distinction paraît fine et elle décide de ce qu'un gestionnaire peut faire
-  (§{num "sec:annexe-presentation-formelle"}[]) : ce qui borne une réexécution n'est pas la
+  (§{num "sec:g-regles"}[]) : ce qui borne une réexécution n'est pas la
   discipline de ressource de la couche, mais le budget, qui la tarife. La composante de niveau agit
   d'une autre manière : elle n'itère pas l'effet, elle l'_étiquette_. Un calcul de niveau $`\ell`
   produit un effet observable au niveau $`\ell`, ce qui est le versant d'intégrité de la dualité du
@@ -525,8 +525,8 @@ séparée pour les tenir ensemble — ce serait $`\mathcal{C}` reparaissant.
 Cette condition est la _loi de cohérence_ de $`\varphi` et $`\psi` : pour tout grade $`r`, tout
 contexte $`\Delta` et tout effet $`\varepsilon`, mettre à l'échelle après transport doit revenir à
 transporter après mise à l'échelle, l'effet étant échelonné du même facteur. {rmq}[Le Prolégomène
-pose la condition et dit où elle est acquittée. La preuve est à l'annexe E, là où la loi sert.] Elle
-est démontrée à l'annexe E (§{num "sec:annexe-presentation-formelle"}[], théorème {num "thm:coherence_axiome"}[]),
+pose la condition et dit où elle est acquittée. La preuve est au §{num "sec:g-regles"}[], là où la loi sert.] Elle
+est démontrée au §{num "sec:g-regles"}[] (théorème {num "thm:coherence_axiome"}[]),
 là où le lemme de substitution, la relation logique et la traduction l'emploient l'une après
 l'autre.
 
@@ -553,7 +553,8 @@ portant sur ce que la structure tient, et déchargées plutôt que dérivées.
 Cette organisation fournit un critère de placement dont ce document se servira à chaque extension.
 Toute construction nouvelle contraint ce que le calcul _demande_, et c'est un coeffet ; ou ce qu'il
 _fait_, et c'est un effet ; ou elle énonce une _proposition sur son résultat_, et c'est un
-raffinement. Trois réponses, trois domiciles, et aucune quatrième place à inventer. C'est ce
+raffinement. Trois réponses, trois domiciles, et aucune quatrième place à
+inventer. La clôture qui en découle est _forte_ pour les données, dont la forme est fixée par les trois composantes, et _faible_ pour les actions, qu'une extension peut composer sans s'y ranger tout à fait. C'est ce
 critère, plus discriminant que la simple projection sur une liste de composantes, qui donne sa forme
 à la condition de clôture énoncée ci-après.
 
@@ -619,8 +620,7 @@ Trois propriétés sont incompatibles deux à deux dès qu'on les veut ensemble 
 observables, l'élimination dépendante, et un lemme de substitution. Une théorie des types qui
 possède les trois est _inconsistante_, et le résultat est démontré {cite "pedrotFireTriangleHow2020"}[].
 Il est possible d'en avoir deux, jamais trois. Or K7PL a les trois ingrédients apparents : une trace
-d'effets, des types qui dépendent de valeurs, et un lemme de substitution démontré à l'annexe
-(§{num "sec:annexe-presentation-formelle"}[]). Rien dans ce document ne dit pourquoi il n'est pas
+d'effets, des types qui dépendent de valeurs, et un lemme de substitution démontré au §{num "sec:g-regles"}[]. Rien dans ce document ne dit pourquoi il n'est pas
 visé.
 
 Il y échappe, et il y échappe structurellement plutôt que par une clause ajoutée. Son lemme de
@@ -634,7 +634,7 @@ un gestionnaire est une capacité passée plutôt qu'une portée dynamique — o
 au prix d'une restriction majeure. Il y faut séparer les fonctions des valeurs et traiter toutes les
 fonctions comme de _seconde classe_ {cite "brachthauserEffectsCapabilitiesEffect2020"}[]. C'est ce
 que l'appel par poussée de valeur donne, et sans le demander : un calcul n'y est pas une valeur, une
-suspension en est une. Cette voie s'emprunte donc sans en payer le prix, avec l'abaissement qui
+suspension en est une. Cette voie s'emprunte donc sans en payer le prix de la restriction, non celui de l'allocation ou de l'indirection que les suspensions réintroduisent si l'_inlining_ ne les élimine pas systématiquement, avec l'abaissement qui
 l'accompagne — style à passage de capacités et continuations itérées, avec un sous-ensemble à _coût
 nul_ caractérisé par un système de types plus restrictif et une preuve qu'aucune abstraction de
 gestionnaire ne subsiste dans le code produit {cite "schusterCompilingEffectHandlers2020"}[].
@@ -711,6 +711,13 @@ l'est parce que le langage des obligations ne permet pas de l'écrire, plutôt q
 vérificateur la rejetterait (chapitre 4). {rmq}[Interdire demande un gardien. Rendre inexprimable
 n'en demande aucun, et c'est là toute la différence de coût.]
 
+Les quatre se lisent comme un seul énoncé : dans la fibration des dérivations sur les termes, l'ensemble
+des morphismes qui commettraient la violation est vide, $`\mathrm{Hom}(-,-) = \emptyset`, parce qu'une
+prémisse manque. Il s'ensuit une obligation de présentation, qui n'est pas encore remplie : chaque
+famille de codes d'erreur du compilateur doit se rattacher à la prémisse manquante qui la produit,
+de sorte que les familles actuelles se réduisent à quatre diagnostics, un par mécanisme.
+La table qui les apparie reste à écrire.
+
 La suffisance d'abord. Une extension qui se range dans l'une des trois strates s'exprime par
 composition et tensorisation des morphismes existants, donc reste dans _C_ — c'est P1. Portant un
 grade, elle porte une borne statique — c'est P3. Portant une contrainte de valeur indépendante de sa
@@ -735,7 +742,7 @@ constructeurs suffit à toute famille strictement positive {cite "altenkirchInde
 Cette unification a une seconde lecture, purement calculatoire. Le fragment
 $`\Delta_{\omega} \vdash \cdot`, où tout est de grade non contraint, est un $`\lambda`-calcul
 linéaire pur : c'est le micro-modèle d'exécution d'une fibre. Le fragment où des grades contraints
-apparaissent relève, lui, d'un $`\pi`-calcul enrichi de motifs de jonction : c'est le macro-modèle
+apparaissent relève, lui, de la traduction vers un $`\pi`-calcul enrichi de motifs de jonction : celle de la couche 2 séquentielle est un fragment d'un tel calcul, acteurs, boîtes aux lettres et jonctions étant des objets de la cible et de l'abaissement — c'est le macro-modèle
 des acteurs et des clusters. K7PL se résume ainsi à l'équation fondamentale
 $`K7PL = (\lambda\text{-linéaire}) \subset (\pi\text{-calcul} + \text{Join Patterns})`.
 
@@ -756,7 +763,7 @@ fidélité de l'interpréteur de référence (chapitre 6,
 §{num "sec:c6-strategies-de-verification-et"}[]).
 
 L'équation se projette directement sur la sédimentation triadique introduite ci-après — emboîtement
-dont le chapitre 2 (§{num "sec:c2-algebres-coalgebres-et-points"}[]) établit qu'il est bien défini,
+dont le chapitre 2 (§{num "sec:c2-algebres-coalgebres-et-points"}[]) établit qu'il est bien défini sur des types non gradués — la transposition à la gradation reste à faire —,
 par un théorème propre et non par la juxtaposition de ceux qui régissent chaque couche.
 
 Reste à dire ce qui fait qu'une couche est _correcte_ — question distincte de la bonne définition de
@@ -833,14 +840,14 @@ _retire_ au jugement complet plutôt que ce qu'elle y ajoute.
 Ces trois jugements ne sont pas trois calculs différents : ce sont trois restrictions du même
 calcul, obtenues en fixant la forme admissible de $`\Delta`, l'algèbre de grades $`\mathcal{G}` et
 le domaine de $`\mathcal{E}`. $`\mathcal{G}_{\text{pile}}` et $`\mathcal{G}_{\text{budget}}` sont
-deux sous-algèbres de $`\mathcal{R}`, non deux valeurs. La preuve que cette restriction est
+deux sous-algèbres de $`\mathcal{R}`, non deux valeurs : par projection du produit, $`\mathcal{G}_{\text{pile}} = \mathbb{N}_\infty \times \{\mathrm{d}\} \times \mathcal{L} \times \{0\}` (budget nul) et $`\mathcal{G}_{\text{budget}} = \mathbb{N}_\infty \times \{\mathrm{d},\mathrm{m}\} \times \mathcal{L} \times \mathbb{N}_\infty`. P3 gouverne la borne synthétisée et l'admission à la bibliothèque ; il ne gouverne ni le coût de compilation ni l'amortissement interne d'un régime de mémoire, à la condition que la borne synthétisée soit sûre. La preuve que cette restriction est
 conservative — qu'elle ajoute des contraintes d'usage sans altérer la sémantique dénotationnelle
 sous-jacente — repose sur l'existence de foncteurs d'inclusion fidèles
 $`F_{1 \to 2} : \text{Linéaire} \hookrightarrow \text{Affine}` et
 $`F_{2 \to 3} : \text{Affine} \hookrightarrow \text{Cartésien}`. La construction de ces foncteurs
 est différée au chapitre 2 (§{num "sec:c2-la-comonade-exponentielle-et"}[]), mais leur existence est
 déjà ce qui légitime, dans tout ce document, l'emploi du terme de _sédimentation_ plutôt que de
-simple juxtaposition.
+simple juxtaposition. Cette légitimité a une réserve : le théorème de bonne définition de la sédimentation ({num "thm:sedimentation"}[]) vaut pour des conteneurs non gradués, et sa transposition à la gradation reste à faire.
 
 Le _sens_ de cette sédimentation est un arbitrage et non une commodité d'exposition. Elle va du plus
 _contraint_ vers le plus _libre_, et l'autre lecture existe : on sait recouvrer la pureté à
@@ -987,9 +994,3 @@ Mais la trace visible d'une seule structure catégorique vue sous trois degrés 
 cette trace que les chapitres 2 à 6 reconstruisent, chacun depuis son point de vue propre —
 catégorique, typologique, automatique, syntaxique, calculatoire — avant que le chapitre 7 n'en
 éprouve la cohérence sur des cas d'usage complets.
-
-:::comment
-```
-[T-12 · ISOLATION PAR TYPES — ch.4 §4.5] Le pari Singularity déplace le poids de l'isolation vers la correction du compilateur. Aucune mesure du risque résiduel n'est produite. À FAIRE : évaluer, ou assumer explicitement le pari dans les limites du document.
-```
-:::

@@ -47,7 +47,7 @@ grade qui appartient à la modalité de son type. Les confondre reviendrait à c
 l'ensemble où il vit, ce qui passe inaperçu tant que l'ensemble est unique et cesse de passer dès
 qu'il y en a trois.
 
-Le chapitre 2 a établi $`\text{Lin} <: \text{Aff} <: \text{Unr}` comme trois catégories emboîtées
+Le chapitre 2 a établi $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` comme trois catégories emboîtées
 par restriction des règles structurelles. Ce que cette section ajoute, c'est que ces fragments sont
 des sous-ensembles distingués d'un même semi-anneau de grades, et que le grade lui-même quantifie
 précisément combien de fois, ou quelle fraction d'accès, une ressource peut être exercée.
@@ -101,7 +101,7 @@ quatrième cas existe et porte un nom : $`\text{Rel}`, pour _pertinent_, au sens
 pertinence — une ressource qu'on peut dupliquer mais pas abandonner, ce qui est la discipline d'une
 obligation qu'il faut honorer au moins une fois. Ce document ne l'emploie pas aujourd'hui, et le
 nommer coûte moins que de laisser croire que trois cas épuisent la construction. La troisième est
-que le sous-typage $`\text{Lin} <: \text{Aff} <: \text{Unr}` est l'_inclusion_ des intervalles, et
+que l'ordre $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` est l'_inclusion_ des intervalles (et non le sous-typage $`\preccurlyeq` ni l'ordre de précision $`\sqsubseteq`), et
 non une relation posée à côté d'eux~; $`\text{Rel}` s'y insère entre $`\text{Lin}` et $`\text{Unr}`
 sans être comparable à $`\text{Aff}`. Cela fait de l'ordre un treillis à quatre éléments plutôt
 qu'une chaîne à trois — et c'est la forme que la littérature graduée emploie {cite "orchardQuantitativeProgramReasoning2019"}[].
@@ -124,7 +124,7 @@ Les modalités d'usage sont des modes, et leurs inclusions des morphismes
 
 Les modalités sont les modes portés par les intervalles de $`\mathcal{R}` de la
 table {num "tab:modalites-intervalles"}[], et toute inclusion d'intervalles entre elles est un
-morphisme de modes. La relation $`\text{Lin} <: \text{Aff} <: \text{Unr}` est la traduction
+morphisme de modes. La relation $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` est la traduction
 qu'induisent les inclusions $`[1..1] \subset [0..1] \subset [0..\omega]`, et elle est donc _dérivée_
 et non axiomatisée.
 :::
@@ -145,7 +145,7 @@ interdit : dans un sens l'affaiblissement passerait de permis à interdit, ce q
 condition refuse ; dans l'autre, un grade contractable devrait s'envoyer sur un contractable d'un
 mode qui n'en a aucun, ce que la première refuse. Les deux conditions du morphisme de modes sont
 donc l'une et l'autre _actives_, et la chaîne à trois éléments que ce document emploie est le
-fragment totalement ordonné d'un treillis à quatre.
+fragment totalement ordonné d'un treillis à quatre. Il faut alors dire ce que le langage atteint : les modes _atteignables_ par les opérations de dérivation sont $`\{\text{Lin}, \text{Aff}, \text{Unr}\}`, aucune règle ne produisant $`\text{Rel}`. Ce mode est un grade mathématiquement admissible, non effectivement générable ; la distinction est celle que le document applique ailleurs aux produits de grades, et elle reste à démontrer par examen des règles de production de grades.
 
 Un corollaire mérite d'être tiré plutôt que laissé implicite, car il explique une facilité que ce
 document s'est permise. Un morphisme de modes induit en général une traduction qui n'est pas
@@ -203,7 +203,7 @@ Ce document ne la retient pas, et pour une raison qui n'est pas le prix : les tr
 _trois ordres différents_ — séquentiel par session, partiel sur les durées d'emprunt, total sur les
 positions —, qu'un contexte ordonné, n'en portant qu'un, confondrait.
 
-La voie retenue est de porter l'échange comme une _donnée de mode_, au rang de l'idéal de
+La voie disponible, dont le prix est chiffré ci-après, est de porter l'échange comme une _donnée de mode_, au rang de l'idéal de
 contraction et du booléen d'affaiblissement — une _zone_ étant alors un mode, dont l'ordre lui est
 propre. Ce point se fixe ici, la solution voisine ne marchant pas : faire de la zone une composante
 du grade demanderait que la mise à l'échelle ne déplace pas une liaison d'une zone à une autre, donc
@@ -263,7 +263,7 @@ contexte à zones est une application finie vers des couples de grade et de zone
 partiel par zone. L'addition y reste ponctuelle, et $`\boxtimes` survit sans retouche puisque
 $`\psi` n'agit que sur le budget et laisse la zone inchangée.
 
-Ce qui change est le lemme de substitution (annexe, théorème {num "thm:substitution"}[]) : son
+Ce qui change est le lemme de substitution (§{num "sec:g-regles"}[], théorème {num "thm:substitution"}[]) : son
 énoncé place la variable substituée à l'extrémité droite du contexte, ce qui est une notation sur
 une application finie et devient une contrainte sur une zone ordonnée. Il acquiert donc une
 condition de bord — la substitution est admissible pour la liaison _maximale_ de sa zone —,
@@ -299,7 +299,7 @@ cette discipline, et la conséquence porte au-delà d'elle — toute propriété
 la traduction devrait être revérifiée, l'acyclicité du chapitre 4
 (§{num "sec:c4-echelle-du-systeme"}[]) en étant une. La parade connue serait de donner au
 métalangage sa propre discipline d'ordre, c'est-à-dire la logique linéaire ordonnée du côté cible.
-Mais c'est ce que la voie retenue évite à la source, et le payer à la cible n'est pas le payer
+Mais c'est ce que la voie disponible évite à la source, et le payer à la cible n'est pas le payer
 moins.
 
 Encore faut-il dire ce qu'est la consommation d'une ressource linéaire, faute de quoi P3 exigerait
@@ -380,7 +380,7 @@ ainsi d'être en tension — l'une est la preuve constructive de l'autre.
 
 Cette même unicité impose une règle de composition aux fermetures : la modalité d'une fermeture ne
 peut être plus permissive que celle de la plus contrainte de ses captures, c'est-à-dire la rencontre
-— au sens du treillis $`\text{Lin} <: \text{Aff} <: \text{Unr}` — des modalités capturées. Une
+— au sens du treillis $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` — des modalités capturées. Une
 fermeture qui capture une ressource `Lin` doit elle-même être `Lin`, quelles que soient ses autres
 captures. L'autoriser à être `Unr` permettrait de l'invoquer plusieurs fois, donc de dupliquer la
 ressource linéaire qu'elle referme, en violation directe de l'absence de contraction (chapitre 2,
@@ -471,7 +471,7 @@ destinations est un cas particulier de construction bien fondée, et les âges e
 
 Une contrainte doit être posée ici, et c'est une contrainte de _sûreté_ et non de discipline. Une
 destination est _proprement linéaire_ : elle ne peut pas être affine, et elle ne peut donc pas se
-relever le long de la chaîne $`\text{Lin} <: \text{Aff} <: \text{Unr}` posée ci-dessus. Le motif est
+relever le long de la chaîne $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` posée ci-dessus. Le motif est
 direct — le mode affine admet l'affaiblissement, donc l'abandon ; une destination abandonnée est un
 trou jamais rempli ; et lire la structure finalisée reviendrait à lire de la mémoire non
 initialisée. La distinction entre une multiplicité proprement linéaire et un mode affine est celle
@@ -519,26 +519,43 @@ complétude graduée
 :::statement +titled
 Tout refus est un échec de dérivation
 
-L'ensemble des programmes que le vérificateur _rejette_ est l'ensemble des programmes pour lesquels
-_aucune_ dérivation du jugement n'existe. Autrement dit, il n'existe aucune condition de bord
-vérifiée à côté du système de types.
+Pour tout constructeur du noyau (§{num "sec:g-grammaire-termes"}[]), tout refus du vérificateur est
+l'échec d'une prémisse d'une règle nommée du §{num "sec:g-regles"}[]. Autrement dit, pour ces
+constructeurs, il n'existe aucune condition de bord vérifiée à côté du système de types.
 :::
 
 :::proofsketch
-L'énoncé se vérifie par énumération, et c'est ce qui en fait un théorème plutôt qu'une déclaration :
-chaque code d'erreur du vérificateur doit être exhibé comme une dérivation qui échoue, et le
-catalogue des codes est fini. L'audit des dix-huit familles d'erreurs le conduit à la main,
-catégorie par catégorie ; les quatre catégories — grade, couche, effet, contrainte de valeur — s'y
-ramènent chacune à l'absence d'une prémisse dans une règle nommée.
+L'énoncé se vérifie par énumération sur une base _close_ : les codes d'erreur du noyau, et non le
+catalogue entier de l'annexe {num "sec:annexe-a-codes"}[], qui se déclare illustratif et non exhaustif et dont un tiers des
+codes porte sur des constructions hors du noyau — pour lesquelles l'exhibition d'une dérivation qui
+échoue n'a pas de sens. L'énumération se range selon quatre catégories — grade, couche, effet,
+contrainte de valeur — qui se ramènent chacune à l'absence d'une prémisse dans une règle nommée, et
+elle se vérifie mécaniquement : la table à deux colonnes code ⟷ prémisse manquante sur les
+constructeurs du noyau est un artefact exécutable, que le croisement des grammaires et des règles
+(`scripts/controle.py`) garde.
 
-Le sens réciproque est immédiat par correction du typage : un programme dérivable est accepté,
-puisque le vérificateur implante les règles.
+Le sens réciproque — un programme dérivable est accepté — n'est pas un théorème : c'est une
+propriété d'implémentation, énoncée ci-dessous comme exigence, et non une prémisse promue.
 
 Une hypothèse est nécessaire et elle est nommée ici plutôt que découverte plus loin : la _frontière
 de confiance_ du §{num "sec:c3-structures-ouvertes-effets-et"}[] doit être un objet du jugement.
 Tant qu'elle lui reste extérieure, ses trois franchissements constituent des restrictions non
 exprimées, et le théorème est faux. La ranger du côté de l'intégrité, comme le fait cette section,
 est donc la condition de l'énoncé et non un aménagement de présentation.
+:::
+::::
+
+::::thm (label := "thm:completude_verificateur") (status := "exigence") (level := "compilation")
+:::title
+le vérificateur n'émet que des codes de la correspondance
+:::
+
+:::statement +titled
+Aucun refus hors de la table code ⟷ prémisse
+
+Le vérificateur n'émet aucun code d'erreur hors de la correspondance entre codes et prémisses
+manquantes. Route : mesure — chaque code émis par l'implémentation est comparé à la table — ou
+démonstration, si le vérificateur est dérivé des règles.
 :::
 ::::
 

@@ -47,6 +47,7 @@ lake test                       # lancer les tests (exécutable @[test_driver] m
 lake lint                       # linter Batteries (docstrings manquantes, etc.)
 lake exe spec --output _out/spec  # générer la spécification HTML
 lake exe spec --output _out/spec --with-tex   # + sources LaTeX (PDF : tectonic -X compile _out/spec/tex/main.tex)
+python3 scripts/controle.py     # contrôles sur le Verso (algèbre aux bornes, sceaux, propagation, croisement…)
 python3 scripts/manuscript_metrics.py summary # mesures du manuscrit (énoncés, formules, citations…)
 python3 scripts/suivi.py all    # regénérer les vues du suivi (fiches, énoncés, tableau de bord)
 reuse lint                      # vérifier la conformité REUSE (pip install reuse)

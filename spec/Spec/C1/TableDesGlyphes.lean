@@ -13,14 +13,13 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.7. Table des glyphes" =>
+#doc (Manual) "Table des glyphes" =>
 %%%
 file := "g-table-glyphes"
 tag := "g-table-glyphes"
-number := false
 %%%
 
-{label "sec:g-table-glyphes" (display := "E.7")}
+{label "sec:g-table-glyphes"}
 
 La table {num "tab:glyphes"}[] complète la dualité glyphe/alias construite au chapitre 5
 (§{num "sec:c5-notations-specialisees"}[]) : chaque ligne est une seule _macro de la bibliothèque
@@ -31,12 +30,6 @@ la fonte qui l'affiche, et que la cinquième règle d'admission — aucun couple
 ressemble à l'œil — porte sur des objets identifiés plutôt que sur des dessins. Le glyphe n'est pas
 une primitive du noyau — l'arbitrage qui le fixe est écrit au chapitre 5, et cette table en est la
 table des noms, non celle des constructions.
-
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : la tradition notationnelle APL/J/K/BQN/Uiua dans son ensemble (Hui ; McDonald), et les études d'utilisabilité comparant notation symbolique et alias textuel en pédagogie de la programmation.
-```
-:::
 
 ::::k7table (label := "tab:glyphes") (align := "lllZ{1.00}")
 :::caption

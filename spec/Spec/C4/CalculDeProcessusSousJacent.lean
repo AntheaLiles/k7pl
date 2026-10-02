@@ -27,7 +27,7 @@ propre. Reste à dire ce qu'elles sont _ensemble_, et le chapitre 1
 relève d'un $`\pi`-calcul enrichi de motifs de jonction. Cette section fait de cette équation une
 construction. Ce qu'elle apporte est une _lecture_, dans laquelle acteurs, sessions, jonctions et
 effets cessent d'être quatre mécanismes voisins pour devenir les constructeurs d'un même calcul — et
-l'annexe (§{num "sec:g-couche2"}[]) en écrit depuis peu les règles, de sorte que cette lecture a
+le §{num "sec:g-couche2"}[] en écrit depuis peu les règles, de sorte que cette lecture a
 désormais un appareil sous elle plutôt qu'au-dessus d'elle. {rmq}[La lecture précédait les règles,
 ce qui est l'ordre de la découverte et non celui de la justification. Les règles étant écrites, les
 deux coïncident.]
@@ -148,7 +148,7 @@ rend ce modèle distribuable.
 
 Cette dernière remarque suggère l'énoncé que cette section doit à la lecture qu'elle propose.
 
-::::thm (label := "thm:traduction_metalangage")
+::::thm (label := "thm:traduction_metalangage") (status := "proposition")
 :::title
 la traduction préserve le typage
 :::
@@ -296,7 +296,30 @@ celles du métalangage. Comme celui-ci est interprété une fois pour toutes, co
 se raisonnent à son niveau et non sur chaque construction de K7PL. Cette remarque se laisse porter
 jusqu'à un énoncé, qui dit ce qu'un interpréteur de référence garantit et ce qu'il ne garantit pas.
 
-::::thm (label := "thm:fidelite_interprete")
+::::thm (label := "thm:simulation") (status := "proposition")
+:::title
+simulation de la relation de réduction par la traduction
+:::
+
+:::statement +titled
+Chaque pas de K7PL est suivi par au moins un pas du métalangage
+
+$`\langle c \mid \mu \mid \tau \rangle \to \langle c' \mid \mu' \mid \tau' \rangle` entraîne
+$`\llbracket c \rrbracket \to^{+} \llbracket c' \rrbracket` modulo $`\equiv`, et la trace
+$`\tau'` étend $`\tau` par l'image des événements du pas.
+:::
+
+:::proofsketch
+Par induction sur la dérivation du pas, dont les cas sont ceux que le §{num "sec:g-semantique"}[] énumère pour la préservation du typage : c'est la même induction, où l'on
+suit le terme image au lieu de son type. Le point délicat est la trace. La composition parallèle du
+métalangage est commutative, et ne distingue pas deux événements que la source ordonne ; c'est le
+préfixage qui les sérialise, et le cas de $`\mathbf{tick}` doit le montrer. Non démontrée ici : la
+proposition est l'hypothèse Sim du théorème {num "thm:fidelite_interprete"}[], et elle en est aussi
+la dette.
+:::
+::::
+
+::::thm (label := "thm:fidelite_interprete") (status := "proposition")
 :::title
 fidélité de l'interpréteur de référence
 :::
@@ -306,13 +329,15 @@ Une réduction, et son périmètre exact
 
 Supposons la traduction $`\llbracket \cdot \rrbracket` préservant le typage
 (théorème {num "thm:traduction_metalangage"}[]) et l'interprétation du métalangage adéquate
-vis-à-vis de son équivalence observationnelle. Alors tout interpréteur qui réalise le métalangage
+vis-à-vis de son équivalence observationnelle, et _sous l'hypothèse Sim_ d'un théorème de simulation reliant la relation $`\to` du §{num "sec:g-semantique"}[] à la réduction du métalangage : $`\langle c \mid \mu \mid \tau \rangle \to \langle c' \mid \mu' \mid \tau' \rangle` entraîne $`\llbracket c \rrbracket \to^{+} \llbracket c' \rrbracket` modulo $`\equiv`, la trace s'étendant en conséquence. Alors tout
 est fidèle à la sémantique de K7PL sur la structure de communication, sur le contrôle _et sur les
 effets_. Il ne l'est pas sur les grades ni sur les raffinements, que la traduction oublie par
 construction.
 :::
 
 :::proofsketch
+La préservation du typage ne suffit pas à elle seule : un terme bien typé peut avoir plusieurs images bien typées de comportements distincts, et la composition parallèle du métalangage, commutative, ne distingue pas deux traces $`\tau_1 \cdot \tau_2` et $`\tau_2 \cdot \tau_1` que la source ordonne. C'est pourquoi l'énoncé porte Sim : la relation $`\to` du §{num "sec:g-semantique"}[] est _la_ définition de l'exécution, et la fidélité n'est relative à elle que par ce théorème, qui reste à établir (c'est une induction sur la même dérivation que la préservation du typage). Sim n'est pas prouvée ici : l'énoncé est conditionnel, et l'engagement « fidélité de l'interpréteur » reste ouvert tant qu'elle ne l'est pas.
+
 La fidélité se factorise, et c'est tout l'argument. Elle est une instance du schéma d'effacement
 (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
 théorème {num "thm:schema_effacement"}[]) : la traduction étant définie par récurrence et
@@ -341,7 +366,7 @@ l'exécution et effacées à la Phase 8.
 
 La dette qu'il reste à acquitter n'est donc plus « prouver l'interpréteur correct » mais « établir
 que $`\llbracket \cdot \rrbracket` préserve le typage », ce que le théorème {num "thm:traduction_metalangage"}[]
-énonce et n'établit qu'en esquisse.
+énonce, dont l'induction est planifiée et non conduite.
 
 Une réserve doit fermer cette section, car la lecture a un coût que sa commodité pourrait masquer.
 La composante $`\mathcal{E}` n'a pas d'image dans le métalangage : ce qui s'y raisonne est la

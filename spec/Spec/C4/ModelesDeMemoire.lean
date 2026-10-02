@@ -47,8 +47,14 @@ sûreté spatiale par capacités linéaires
 Impossibilité de mutation concurrente
 
 Soient $`t_1` et $`t_2` deux membres du multi-ensemble de calculs, composés par la règle {sc}[Par]
-de l'annexe (§{num "sec:g-parallelisme"}[]) et donc sous des contextes _additionnés_,
-$`\Delta_1 + \Delta_2`. Soit $`\mathsf{WriteCap}(r)` une capacité d'écriture sur une région d'arène
+(§{num "sec:g-parallelisme"}[]) et donc sous des contextes _additionnés_,
+$`\Delta_1 + \Delta_2`. On suppose (H1) l'_unicité d'introduction_ : la règle d'introduction de
+$`\mathsf{WriteCap}(r)` consomme linéairement l'arène ou le segment dont elle découpe $`r`, de sorte
+qu'au plus une capacité d'écriture par région est dérivable en contexte clos ; (H2) la _portée_ :
+deux capacités de $`\mathsf{Range}` disjoints ne dénotent pas la même région (arithmétique
+d'intervalles, déchargeable par le solveur) ; et (H3) le respect du sens d'imbrication des
+délimiteurs du chapitre 5, qui interdit à une valeur cartésienne de capturer une capacité
+linéaire. Soit $`\mathsf{WriteCap}(r)` une capacité d'écriture sur une région d'arène
 $`r`. Si $`\Delta_1 \vdash t_1 : \mathsf{WriteCap}(r) \multimap \mathsf{Unit}`, alors il n'existe
 aucun terme $`t_2'` tel que $`\Delta_2 \vdash t_2' : \mathsf{WriteCap}(r) \multimap \tau`, quel que
 soit $`\tau` : aucune opération mutante sur $`r` n'est typable sous $`\Delta_2`.
@@ -57,7 +63,11 @@ soit $`\tau` : aucune opération mutante sur $`r` n'est typable sous $`\Delta_2
 :::proofsketch
 Instance du lemme de capacité (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
 théorème {num "thm:lemme_capacite"}[]), la ressource étant la région $`r` et la capacité
-$`\mathsf{WriteCap}(r)`. Celle-ci vit dans le fragment linéaire strict de _C_, lequel ne porte par
+$`\mathsf{WriteCap}(r)`. L'absence de diagonale interdit de _dupliquer_ une capacité donnée ; elle
+n'interdit pas d'en _introduire deux_ pour la même région, et c'est (H1) qui l'exclut, (H2)
+ramenant la disjonction des régions à celle des intervalles. Sans (H1), une primitive
+`alloc_range` non linéaire en son arène produirait deux capacités distinctes pour la même région :
+le théorème tiendrait pour chacune et tomberait pour le couple. Celle-ci vit dans le fragment linéaire strict de _C_, lequel ne porte par
 construction aucun morphisme de duplication $`A \to A \otimes A`. C'est l'_addition_ des contextes
 qui porte la disjonction, et c'est ce que la règle {sc}[Par] donne : une capacité de grade $`1`
 présente dans $`\Delta_1 + \Delta_2` y est présente une seule fois, la somme des grades valant $`1`
@@ -68,7 +78,7 @@ l'absence se lit sur la dérivation, sans analyse supplémentaire.
 :::
 ::::
 
-Une hypothèse porte tout, et elle n'est pas gratuite. {rmq}[C'est le sens unique d'imbrication des
+Une hypothèse porte tout, et elle n'est pas gratuite : (H3). Les deux autres sont des lemmes sur la règle d'introduction ; la « région » s'y entend comme une discipline de portée, que le polymorphisme paramétrique ordinaire suffit à définir. {rmq}[C'est le sens unique d'imbrication des
 délimiteurs qui tient l'hypothèse. Ce théorème dit ce qui casse dans l'autre sens.] La preuve
 suppose les deux contextes disjoints, ce que $`\Gamma_1 \otimes \Gamma_2` écrit mais ne garantit pas
 par lui-même dès que les fragments s'imbriquent. La couche 3 admet la contraction ; si une valeur
@@ -86,17 +96,40 @@ dans _C_. S'il tombe — si la déclaration d'indépendance entre modes n'était
 faudrait un mécanisme d'exécution pour interdire la mutation concurrente, c'est-à-dire ce que le
 postulat d'autonomie physique refuse.
 
+::::thm (label := "thm:introduction_unique") (status := "proposition")
+:::title
+loi unique d'introduction des ressources d'écriture
+:::
+
+:::statement +titled
+Une ressource d'écriture est introduite au plus une fois par région, sous une mesure strictement décroissante
+
+Dans un contexte clos, la règle d'introduction d'une ressource d'écriture — capacité sur un segment
+d'arène, destination, grade linéaire — consomme linéairement l'objet qu'elle découpe, et son indice
+(taille du segment, âge $`k` de $`\mathsf{Lin}_k`, taille de l'arène) décroît strictement. Il en
+résulte : (a) au plus une capacité d'écriture par région est dérivable (hypothèse H1 du théorème
+{num "thm:surete_spatiale"}[]) ; (b) les destinations ne forment pas de cycle ; (c) la
+construction d'une arène termine.
+:::
+
+:::proofsketch
+Les trois conséquences sont une seule loi lue sur trois objets. La consommation linéaire de l'objet
+découpé interdit d'en tirer deux capacités ; la décroissance stricte de l'indice interdit qu'une
+capacité redevienne l'ancêtre de la région qui la porte, d'où l'absence de cycle ; elle est enfin la
+mesure qui fonde la terminaison des catamorphismes (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]).
+Le lemme de portée (H2) se démontre : deux segments $`[a,b]` et $`[c,d]` d'une même arène sont
+disjoints exactement lorsque $`b < c` ou $`d < a`, formule de l'arithmétique linéaire que le solveur
+décharge ; des cellules d'indices distincts étant des régions distinctes, deux capacités de
+$`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) reste à écrire : elle
+dépend de la règle d'introduction de $`\mathsf{WriteCap}(r)`, qui n'existe pas encore dans le noyau.
+:::
+::::
+
 Ce que les arènes viennent de faire pour l'acteur, la mémoire physique le fait sur sept niveaux, et
 c'est ici qu'il faut le dire puisque la section précédente vient d'en poser le cas principal. Cette
 hiérarchie instancie l'exigence d'effacement que le chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[])
 pose pour les grades ; aucun de ses niveaux ne s'appuie sur un ramasse-miettes ou un comptage de
 références atomique.
-
-:::comment
-```
-À explorer pour un futur état de l'art de cette annexe : gestion mémoire par régions (Tofte et Talpin), hash-consing et structures persistantes (Appel ; Baker), comparaison avec les hiérarchies mémoire sans GC de Rust et de Zig.
-```
-:::
 
 ::::k7table (label := "tab:memoire") (align := "lZ{0.69}Z{1.31}ll")
 :::caption

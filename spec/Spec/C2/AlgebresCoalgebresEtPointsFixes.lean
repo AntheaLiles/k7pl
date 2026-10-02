@@ -140,7 +140,7 @@ Terminaison par pli dépendamment typé
 Soit $`F` un conteneur représentant les structures de données finies de couche 3. Pour toute
 fonction $`f : \mu F \to A` obtenue comme pli dépendamment typé, l'évaluation de $`f` sur tout
 $`x : \mu F` atteint une forme normale en un nombre fini d'étapes :
-$`\forall f : \mu F \to A,\ \exists k \in \mathbb{N},\ \exists v,\ f(x) \leadsto^k v`.
+$`\forall f : \mu F \to A,\ \forall x : \mu F,\ \exists k \in \mathbb{N},\ \exists v,\ f(x) \leadsto^k v`.
 :::
 
 :::proofsketch
@@ -223,7 +223,10 @@ Convergence des points fixes imbriqués
 
 Soient $`F` et $`G` des conteneurs, $`F` engendrant les structures finies de couche 3 et $`G` l'état
 des générateurs de couche 2. Alors l'objet $`\nu Y.\, G(\mu X.\, F(X,Y))` est bien défini, et la
-suite de ses approximations finies converge vers lui.
+suite de ses approximations finies converge vers lui. Cet énoncé vaut en deux temps : (i) pour des
+conteneurs _non gradués_, résultat de la littérature, repris ici ; (ii) pour des conteneurs
+_gradués_, c'est une exigence ouverte, dont la route est une démonstration et dont la contrainte
+d'outil est nommée (note ci-dessous).
 :::
 
 :::proofsketch
@@ -371,6 +374,12 @@ demande.
 Ce qui est commun aux deux instances, et qui fait le schéma, est que la mesure est portée par le
 _type_ et non inspectée sur la syntaxe du terme : l'argument ne dépend donc pas de la forme du
 terme. Ce qui les sépare est la sorte, et elle est déterminée par la polarité.
+
+Le théorème est donc un _schéma de méta-théorème_ à deux instanciations, dont les conclusions ne
+sont pas identiques : en couche 3 on démontre l'épuisement d'une structure finie, en couche 2
+l'apparition d'une observation en temps fini. Le mot « progression » est choisi pour couvrir les
+deux, il n'affirme pas qu'elles ont la même conclusion sémantique, et rien n'est à déduire de l'une
+pour l'autre au-delà du schéma.
 :::
 ::::
 
@@ -384,9 +393,9 @@ qu'elles n'en font qu'une, et avec lui l'économie que la condition de clôture 
 Trois remarques sur cet énoncé, dont deux fixent sa portée. La première est que le mot _progression_
 y est choisi et non trouvé : les deux conclusions d'origine — l'évaluation termine, une valeur
 observable est produite — ne sont pas littéralement duales, et il fallait un terme dont elles soient
-les deux lectures. {rmq}[À ne pas confondre avec le théorème de progrès de l'annexe, qui porte sur
+les deux lectures. {rmq}[À ne pas confondre avec le théorème de progrès du §{num "sec:g-semantique"}[], qui porte sur
 la relation de réduction et non sur les schémas de récursion. La parenté est réelle, l'objet ne
-l'est pas.] Le théorème de progrès de l'annexe (§{num "sec:annexe-presentation-formelle"}[]) porte
+l'est pas.] Le théorème de progrès du §{num "sec:g-semantique"}[] porte
 un nom voisin et un autre objet.
 
 La deuxième est que le paramètre court sur les _deux couches polarisées_ et non sur les trois. La
@@ -427,7 +436,7 @@ $`F(\text{Cofree}_F(A))`, où la comonade cofree $`\text{Cofree}_F` annote chaqu
 l'historique de tous les résultats déjà calculés en dessous de lui. L'histomorphisme reste un
 catamorphisme — sur un foncteur enrichi, non sur un principe de récursion distinct — et sa
 terminaison en hérite directement. K7PL borne seulement, par un grade $`r`, la profondeur de
-l'historique conservé, pour que cet enrichissement demeure lui-même en mémoire $`O(1)`.
+l'historique conservé, pour que cet enrichissement demeure lui-même en mémoire $`O(1)`. La loi distributive $`\lambda` que l'instance historique réclame n'est pas une conséquence gratuite de $`!^r` : c'est une structure dérivée, nécessaire à cette seule instance, et la factorisation se lit _noyau plus instance historique_.
 
 Deux choses doivent être ajoutées ici, car la présentation ci-dessus est correcte mais incomplète,
 et l'une des deux touche un postulat. La première est que l'histomorphisme relève d'une classe
@@ -513,6 +522,39 @@ $`r`. Le travail par nœud est en $`O(r)` et le total en $`O(n \cdot r)`, donc l
 de l'entrée à grade fixé — et $`r` étant un grade, ce facteur est connu à la compilation, ce que P3
 exige. L'espace, lui, passe de $`O(n)` pour la table entière à $`O(r)` pour la fenêtre : c'est la
 borne mémoire que cette section annonce, et c'est la troncature qui la donne.
+
+::::thm (label := "thm:troncature_comonade") (status := "proposition")
+:::title
+la troncature est un morphisme de comonades
+:::
+
+:::statement +titled
+Condition de préservation des lois de comonade par la troncature
+
+Soit $`T_r : N \Rightarrow N_r` le foncteur de troncature à $`r` niveaux. $`T_r` est un morphisme
+de comonades si et seulement si la convention de remplissage au rang $`r` est idempotente _et_ $`F`
+préserve les troncatures. Sous ces deux conditions $`N_r` est une comonade, et
+$`\lambda_r = T_r \circ \lambda \circ F(\eta_r)` satisfait les deux conditions de cohérence.
+:::
+
+:::proofsketch
+Le point de difficulté est le _rang frontière_ : $`N_r \delta_r` et $`\delta_r N_r` appliquent deux
+troncatures à des profondeurs différentes, et leur égalité dépend de la convention de remplissage au
+rang $`r`, que le document pratique sans l'avoir nommée. Les deux conditions de cohérence de la
+comonade cofree non tronquée sont un résultat de la littérature ; la préservation par troncature est
+le seul point propre à K7PL. Non démontrée : la convention doit être écrite, puis la condition
+vérifiée pour chaque $`F` admis. Si elle échoue pour un $`F`, la classe des conteneurs admissibles se
+restreint — restriction de domaine, non mécanisme. Les bornes $`O(r)` en espace et $`O(n \cdot r)` en
+temps de ce qui suit en dépendent.
+:::
+::::
+
+
+La troncature n'est pas propre à ce pli : elle est la même fenêtre sur un objet coinductif que la
+borne de profondeur de pile de l'automate à pile (chapitre 4) et la taille de pile précalculée du
+`StreamContext`. Un lemme de troncature unique les couvre — _une fenêtre est un grade_ — et donne à
+P3 sa forme générale : toute fenêtre est un grade, tout grade est connu à la compilation. Les trois
+énoncés lui seront ramenés ; le lemme n'est pas encore écrit à part.
 
 Les effets algébriques de la couche 2 sont un cas particulier de cette même construction. Pour une
 signature d'opérations $`\Sigma`, la syntaxe d'un calcul effectueux de type de retour $`A` est

@@ -259,9 +259,8 @@ préservation du type
 Stabilité du typage par réduction
 
 Pour tout terme K7PL bien typé $`t : \tau` dont aucun type ne dépend d'une variable soumise au suivi
-de ressource — la condition de séparation de P2 —, si $`t` se réduit en $`t'` ($`t \leadsto t'`) —
-par évaluation ou par abaissement MLIR —, alors $`t' : \tau` :
-$`\Delta \vdash t : \tau \land t \leadsto t' \implies \Delta \vdash t' : \tau`.
+de ressource — la condition de séparation de P2 —, si $`t` se réduit en $`t'` ($`t \leadsto t'`) par évaluation, alors $`t' : \tau` :
+$`\Delta \vdash t : \tau \land t \leadsto t' \implies \Delta \vdash t' : \tau`. Le volet évaluation est un corollaire de la préservation du §{num "sec:g-semantique"}[] ; le volet abaissement MLIR est celui de la conjecture {num "thm:abaissement_grades"}[], non démontré.
 :::
 
 :::proofsketch
@@ -269,8 +268,9 @@ Par induction structurelle sur la règle de réduction. La $`\beta`-réduction l
 contexte linéaire, les substitutions consommant et produisant des ressources de façon isomorphe —
 argument qui n'est valide que sous la condition de séparation rappelée dans l'énoncé. L'abaissement
 MLIR — défonctionnalisation et _inlining_ statique des effets — transforme les fonctions d'ordre
-supérieur et les effets en tables de saut statiques, et se formule comme un isomorphisme naturel
-dans _C_ au sens de P1.
+supérieur et les effets en tables de saut statiques, et se justifie par des arguments syntaxiques
+propres à chaque passe (substitution, inversibilité des règles) ; sa formulation comme isomorphisme
+naturel dans _C_ relève de l'obligation P1b, non établie (chapitre 1).
 :::
 ::::
 
@@ -289,12 +289,12 @@ d'un terme linéaire vers les morphismes d'une catégorie monoïdale symétrique
 par les langages dédiés qui s'expriment en diagrammes de boîtes et de fils, dispose d'une
 construction {cite "BERNARDY"}[].
 
-Ce théorème et la préservation de l'annexe (§{num "sec:annexe-presentation-formelle"}[], théorème {num "thm:preservation"}[])
+Ce théorème et la préservation du §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[])
 ne sont pas deux formulations d'une même chose. {rmq}[Deux emboîtements de sens contraire. L'un est
-plus fin, l'autre plus large, et aucun ne contient l'autre.] L'annexe est plus fine, portant les
+plus fin, l'autre plus large, et aucun ne contient l'autre.] Celle du §{num "sec:g-semantique"}[] est plus fine, portant les
 grades, les effets et la décroissance du potentiel, là où celui-ci ne parle que du type. Celui-ci
-est plus large, couvrant l'abaissement que l'annexe ne couvre pas. Pour le volet évaluation, cet
-énoncé est donc un corollaire de celui de l'annexe — oublier le grade et l'effet dans la conclusion
+est plus large, couvrant l'abaissement que celle-ci ne couvre pas. Pour le volet évaluation, cet
+énoncé est donc un corollaire de celui du §{num "sec:g-semantique"}[] — oublier le grade et l'effet dans la conclusion
 graduée donne exactement la stabilité du type. Pour le volet abaissement, l'intersection des deux
 laisse un énoncé sans démonstration, la préservation graduée à travers l'abaissement, isolé au
 chapitre 6 (§{num "sec:c6-le-processus-de-compilation"}[], théorème {num "thm:abaissement_grades"}[])
@@ -302,7 +302,7 @@ plutôt que supposé acquis ici.
 
 Trois préservations circulent donc dans ce document, et les nommer sépare ce qui est acquis de ce
 qui ne l'est pas. La _préservation par évaluation_ porte les grades et les effets, et elle est
-démontrée à l'annexe (théorème {num "thm:preservation"}[]). La _préservation par abaissement_ porte
+démontrée au §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[]). La _préservation par abaissement_ porte
 les grades à travers la compilation, et elle est énoncée sans être démontrée (théorème {num "thm:abaissement_grades"}[]).
 Le présent énoncé est la _préservation du type_, qui couvre les deux mouvements mais oublie le grade
 ; il est plus large et plus pauvre. {rmq}[Trois noms plutôt qu'un seul mot. Ce qui manque devient

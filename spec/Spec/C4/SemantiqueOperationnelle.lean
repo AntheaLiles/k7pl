@@ -13,14 +13,19 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "E.4. Sémantique opérationnelle" =>
+#doc (Manual) "Sémantique opérationnelle" =>
 %%%
 file := "g-semantique"
 tag := "g-semantique"
-number := false
 %%%
 
-{label "sec:g-semantique" (display := "E.4")}
+{label "sec:g-semantique"}
+
+Cette section et les deux suivantes portent la sémantique sur laquelle les énoncés des chapitres 2
+à 4 se raisonnent, après la grammaire et les règles de typage du chapitre 3
+(§{num "sec:g-regles"}[]). La relation de réduction est donnée schéma par schéma, une réduction
+par forme d'élimination. La préservation et le progrès sont démontrés, le second sous deux
+hypothèses nommées, et le lemme de substitution l'est également au chapitre 3.
 
 Le cadre est fixé, et la relation peut l'être aussi. Une _configuration_ est un triplet
 $`\langle c \mid \mu \mid \tau \rangle` où $`c` est un calcul, $`\mu` un état d'arène — une
@@ -158,7 +163,7 @@ jugement du contractum, avec le même effet : $`\varepsilon' = \varepsilon` et 
 sorte que l'inégalité est une égalité. Le cas de {sc}[Unbox] est le seul à employer la forme graduée
 du lemme, la liaison y étant de grade $`r` et le contexte de l'argument multiplié d'autant, ce qui
 est l'hypothèse $`r\cdot\Delta'` du lemme. Le cas de {sc}[Open] emploie sa condition de bord :
-$`\alpha \notin \mathrm{fv}(C)` garantit que la substitution de type ne touche pas la conclusion.
+$`\alpha \notin \mathrm{fv}(\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2) \cup \mathrm{fv}(\varepsilon) \cup \mathrm{fv}(C)` garantit que la substitution de type ne touche ni la conclusion, ni les contextes, ni l'effet.
 
 _Réductions à effet._ Pour $`\mathsf{operation}_\varepsilon(v)`, la règle {sc}[Op] donne
 $`F_{\mathbf{1}} W \mid \varepsilon` et le contractum $`\mathsf{return}\;w` reçoit
@@ -267,7 +272,7 @@ structurelle._
 
 Les trois niveaux que le chapitre 1 distingue — budget, borne synthétisée, coût effectif — sont
 ainsi ceux-là mêmes que cette littérature emploie, sous d'autres noms. Deux directions restent
-ouvertes et sont signalées à l'annexe de chantier : l'analyse amortie en présence d'effets {cite "chuHandlingExceptionsEffects"}[],
+ouvertes et sont signalées à la section sur ce que chaque preuve ouverte y puise (§{num "sec:g-tracabilite"}[]) : l'analyse amortie en présence d'effets {cite "chuHandlingExceptionsEffects"}[],
 qui est le cadre exact de ce langage, et les systèmes admettant des classes arbitraires de fonctions
 de potentiel {cite "walchAutomatedAmortisedAnalysis"}[], utiles si le budget se révélait trop
 rigide. La vérification de coût relative à une spécification consciente du coût {cite "grodinAbstractionFunctionsTypes"}[]
@@ -334,10 +339,9 @@ l'exécution, et la mise à jour en place de l'arène en descend. S'il tombe, le
 rien : il reste une intention, et les trois propriétés qui en descendent doivent être établies
 chacune pour soi.
 
-# E.4.1. Un seul objet, et ce qu'une machine serait
+# Un seul objet, et ce qu'une machine serait
 %%%
 tag := "g-semantique-un-seul-objet-et-ce-qu-une-machine-serait"
-number := false
 %%%
 
 Une question de présentation reste, tranchée ici plutôt que laissée à l'implémenteur. La littérature
@@ -368,10 +372,19 @@ n'est ni une règle ni un pas de réduction : il appartient à la spécification
 interprète, formateur, analyseur, serveur de langage — que le chapitre 7 renvoie à un second temps.
 _Ce renvoi est ici rendu explicite, pour qu'il soit un choix et non un oubli._
 
-# E.4.2. La stratification du journal
+Ce renvoi a un coût, qu'il faut dire : un théorème en dépend. La reproductibilité du rejet
+(théorème {num "thm:rejet_reproductible"}[]) suppose l'hypothèse $`D_{\mathrm{det}}`, qui
+rassemble trois choix que la spécification de l'outillage doit donc fixer, et non plus laisser : (a)
+l'_ordre de parcours_ de l'arbre de syntaxe, qui décide de la localité des messages ; (b) l'_ordre de
+recherche_ du narrowing et de la synthèse dirigée par les grades, qui est une recherche de preuve,
+avec espace de recherche et possibilité d'échec ; (c) la _graine_ du test par propriétés des indices
+`invariant`, `witness` et `lemma`, exécution randomisée intégrée à la compilation. Chacun doit être
+une fonction de la source et du compte de ressource. L'ordre de parcours cesse ainsi d'être un
+renvoi à l'outillage : il est un objet de la spécification, sous cette hypothèse seulement.
+
+# La stratification du journal
 %%%
 tag := "g-semantique-la-stratification-du-journal"
-number := false
 %%%
 
 La trace $`\tau` qu'une configuration accumule est le journal, et la projection dont P4 a besoin est
@@ -428,17 +441,16 @@ qu'appelle cet énoncé — le journal stratifié — n'est pas choisie pour son
 structure _est_ celle de la projection~: journaliser par niveau, c'est n'avoir rien à projeter au
 moment du rejeu.
 
-# E.4.3. La relation logique, définie
+# La relation logique, définie
 %%%
 tag := "g-relation-logique"
-number := false
 %%%
 
-{label "sec:g-relation-logique" (display := "E.4.3")}
+{label "sec:g-relation-logique"}
 
 Le lemme de substitution rend trois inductions conduisibles, et deux d'entre elles partagent le même
 objet : une relation logique. On la définit ici une fois, et on la quantifie deux fois — c'est
-l'économie que la clôture de T-42 avait annoncée, et elle se réalise.
+l'économie que la clôture du lemme de substitution avait annoncée, et elle se réalise.
 
 Fixons un niveau d'observation $`\ell \in \mathcal{L}`. La relation se définit par récurrence sur la
 grammaire des types (§{num "sec:g-grammaire-types"}[]), et elle porte _deux familles_ et non une.
@@ -463,7 +475,7 @@ distinctes du jugement.
 \mathcal{R}_\ell\llbracket \mathsf{Vec}\;n\;V \rrbracket &= \text{point par point, à longueur égale}\\
 \mathcal{R}_\ell\llbracket !_{r} V \rrbracket &= \begin{cases} \mathcal{R}_\ell\llbracket V \rrbracket & \text{si } \mathrm{niv}(r) \sqsubseteq \ell\\[2pt] \text{la relation totale} & \text{sinon}\end{cases}\\
 &\phantom{{}={}}\text{\emph{l'unique clause qui décide}}\\
-\mathcal{R}_\ell\llbracket U\,C \rrbracket &= \{(\mathsf{thunk}\;c,\ \mathsf{thunk}\;c') \mid (c,c') \in \mathcal{R}_\ell\llbracket C \rrbracket\}\\
+\mathcal{R}_\ell\llbracket U_{\varepsilon}\,C \rrbracket &= \{(\mathsf{thunk}\;c,\ \mathsf{thunk}\;c') \mid (c,c') \in \mathcal{R}_\ell\llbracket C \rrbracket\}\\
 \mathcal{R}_\ell\llbracket \exists \alpha. V \rrbracket &= \textstyle\bigcup_{\mathcal{S}} \{(\mathsf{pack}(W,v), \mathsf{pack}(W',v'))\\
 &\phantom{{}={}}\quad \mid (v,v') \in \mathcal{R}_\ell\llbracket V \rrbracket[\mathcal{S}/\alpha]\}\\
 \mathcal{R}_\ell\llbracket \mu\alpha. V \rrbracket &= \text{le plus petit point fixe de la clause, la positivité l'assurant}\\[4pt]
@@ -491,7 +503,7 @@ au-dessus, la relation est totale, ce qui signifie exactement qu'aucune informat
 Comme le $`!_r` est _une_ modalité dont l'indice est un quadruplet, la clause n'inspecte que la
 troisième composante — et le chapitre 1 établit que $`\varphi` et $`\psi` ne mêlent jamais deux
 composantes du grade entre elles. La relation est donc bien définie sur la structure produit sans
-qu'il faille rien vérifier de plus : c'est le point (i) de T-44, et il est acquis par un résultat
+qu'il faille rien vérifier de plus : c'est la première des deux conditions de la clause de session, et elle est acquise par un résultat
 déjà écrit.
 
 _La relation sur les contextes ne demande aucune définition nouvelle._ Deux substitutions closes
@@ -515,11 +527,36 @@ même comportement observable sont indiscernables, l'environnement n'atteignant 
 messages. La clause ne postule donc pas l'indiscernabilité, elle la reçoit de la définition même de
 l'acteur.
 
-# E.4.4. Le lemme fondamental, et ce qu'il coûte
+# Le lemme fondamental, et ce qu'il coûte
 %%%
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute"
-number := false
 %%%
+
+::::thm (label := "thm:relation_produit") (status := "proposition")
+:::title
+relation logique sur un produit de structures ordonnées
+:::
+
+:::statement +titled
+La relation d'un produit se définit composante par composante
+
+Soit $`\mathcal{R} = \prod_i \mathcal{R}_i` un produit de structures ordonnées dont chaque facteur
+admet une relation logique compatible. Si la clause décisive de la modalité, celle de
+$`!^r V`, n'inspecte qu'une composante de $`r`, alors $`\mathcal{R}` admet une relation logique
+compatible, définie composante par composante.
+:::
+
+:::proofsketch
+On pose la relation du produit comme l'intersection des relations tirées en arrière par les
+projections. La compatibilité avec chaque opération — action de $`\varphi` et $`\psi`, composition,
+unité — se vérifie composante par composante, puisque ces opérations agissent sans jamais mêler deux
+composantes (§{num "sec:c1-de-la-loi-distributive"}[]). La clause de $`!^r V` n'inspectant que la
+troisième composante, elle se lit sur la seule relation du facteur de confidentialité, les autres
+facteurs la traversant inchangés. Ce qui est établi ici est une _compatibilité_ et non seulement une
+non-interaction : c'est ce que la remarque de la section affirmait sans le dire. Le détail pour chaque
+facteur reste à écrire.
+:::
+::::
 
 ::::thm (label := "thm:lemme_fondamental")
 :::title
@@ -582,15 +619,13 @@ niveau $`\ell`, et des traces égales après $`\pi^{\flat}_{\ell}`. L'égalité 
 ferme le canal temporel, et elle vient de la projection observationnelle plutôt que d'un argument
 séparé.
 
-## E.4.4.1. Ce qui n'est pas démontré, et il faut le dire précisément
+## Ce qui n'est pas démontré, et il faut le dire précisément
 %%%
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute-ce-qui-n"
-number := false
 %%%
 
-La grammaire de G.1 compte une troisième strate, les types de session, et la relation ci-dessus ne
-la traite pas. Ce n'est pas un oubli de rédaction : c'est l'obstacle (ii) de T-44, et il est le même
-que le cas (c) de T-43.
+La grammaire des types (§{num "sec:g-grammaire-types"}[]) compte une troisième strate, les types de session, et la relation ci-dessus ne
+la traite pas. Ce n'est pas un oubli de rédaction : c'est le second obstacle de la clause de session, et il est le même que celui de l'extension aux canaux.
 
 Le manque se localise en deux points, nommés plutôt que rassemblés sous « l'extension aux canaux ».
 Le premier est que les clauses de session — $`\mathbf{End}`, l'émission, la réception, les
@@ -598,8 +633,7 @@ branchements, les trois modalités temporelles — se laissent écrire par récu
 Mais que leur bonne définition suppose que deux exécutions apparentées emploient des noms de canaux
 _correspondants_. Le second, qui est le vrai, est qu'un canal créé par un calcul de niveau supérieur
 à $`\ell` ne doit pas être observable en deçà, et que rien dans la relation telle qu'elle est écrite
-ne l'assure. Il y faut le système de sortes du métalangage, qui est l'objet que T-43 (c) doit
-construire. Tant qu'il n'est pas posé, la relation est définie sur les deux premières strates et la
+ne l'assure. Il y faut le système de sortes du métalangage, qui est l'objet que cette extension doit construire. Tant qu'il n'est pas posé, la relation est définie sur les deux premières strates et la
 non-interférence l'est autant.
 
 L'énoncé honnête est donc celui-ci. _La non-interférence graduée est démontrée pour le fragment sans
@@ -608,10 +642,9 @@ communication_, temps compris — ce qui est plus que ce que la plupart des syst
 fragment avec canaux, un objet unique partagé avec la preuve de traduction_. Un seul travail reste,
 et il sert deux théorèmes.
 
-# E.4.5. La divulgation délimitée, ou le même argument quantifié deux fois
+# La divulgation délimitée, ou le même argument quantifié deux fois
 %%%
 tag := "g-semantique-la-divulgation-delimitee-ou-le-meme-argument-qu"
-number := false
 %%%
 
 L'énoncé du théorème {num "thm:divulgation_delimitee"}[] diffère du précédent par sa seule
@@ -634,10 +667,9 @@ le cas se ferme. _La différence entre les deux théorèmes est donc un cas d'un
 mesure est exacte_ : ce que l'ensemble d'échappatoires libère est ce que ce cas consomme, ni plus ni
 moins.
 
-## E.4.5.1. Le blanchiment, et la condition que le lemme de substitution fait apparaître
+## Le blanchiment, et la condition que le lemme de substitution fait apparaître
 %%%
 tag := "g-semantique-la-divulgation-delimitee-ou-le-meme-argument-qu-2"
-number := false
 %%%
 
 Le mode de défaillance contre lequel cette formulation a été construite est l'attaque par
@@ -666,13 +698,12 @@ et elle n'est pas une restriction gênante : une politique de déclassification 
 dire _quoi_ elle divulgue ne serait pas une politique. La règle du chapitre 2 doit donc porter cette
 clause, et c'est un écart de formalisation relevé au chantier.
 
-# E.4.6. La traduction vers le métalangage : ce que le lemme solde
+# La traduction vers le métalangage : ce que le lemme solde
 %%%
 tag := "g-traduction"
-number := false
 %%%
 
-{label "sec:g-traduction" (display := "E.4.6")}
+{label "sec:g-traduction"}
 
 La troisième induction est celle du théorème {num "thm:traduction_metalangage"}[], et le lemme de
 substitution y joue un rôle différent : il ne sert pas à typer la conclusion mais à commuter avec la
@@ -719,7 +750,7 @@ invocation — l'égalité entre les deux manières de compter est la compatibil
 Du _quatrième groupe_, les cas résistants, deux se soldent et deux restent.
 
 Le cas (a), les types dépendants pragmatiques, se ramène à une composition : les raffinements sont
-effacés à la compilation, le foncteur d'effacement de T-06 le justifie, et il reste à vérifier que
+effacés à la compilation, le foncteur d'effacement du chapitre 2 (théorème {num "thm:schema_effacement"}[]) le justifie, et il reste à vérifier que
 la composée préserve le typage — ce que le lemme de substitution donne, l'effacement commutant avec
 la substitution puisqu'il n'agit pas sur les termes. Le cas (d), les opérations à portée, est réglé
 par la ré-invocation séquentielle et sa clause est écrite.
@@ -728,10 +759,9 @@ Le cas (c), les canaux distingués, est réglé par le système de sortes (§{nu
 théorème {num "thm:confinement_sortes"}[] établit que la traduction ne produit que des termes bien
 sortés, et qu'aucun canal distingué n'y est lié ni transmis.
 
-## E.4.6.1. Le point fixe déductif, et pourquoi son image est celle du cas (d)
+## Le point fixe déductif, et pourquoi son image est celle du cas (d)
 %%%
 tag := "g-traduction-le-point-fixe-deductif-et-pourquoi-son-image-es"
-number := false
 %%%
 
 Le cas (b) reste, et ce qu'il ne demande _pas_ vient d'abord : sa formulation initiale promettait un
@@ -791,10 +821,9 @@ applications postérieures à la stabilisation étant l'identité.
 :::
 ::::
 
-## E.4.6.2. Ce que ce cas apprend, et qui n'était pas prévu
+## Ce que ce cas apprend, et qui n'était pas prévu
 %%%
 tag := "g-traduction-ce-que-ce-cas-apprend-et-qui-n-etait-pas-prevu"
-number := false
 %%%
 
 Une remarque doit accompagner cette image, car elle corrige une facilité et fait travailler ensemble
@@ -822,14 +851,13 @@ la différence entre deux éléments consécutifs de la chaîne ; la traduction,
 _dénotation_. Les deux s'accordent par le même argument de chaîne croissante, et confondre les deux
 niveaux ferait porter à la traduction une charge qui appartient au compilateur.
 
-## E.4.6.3. Ce que la clôture de (b) achève
+## Ce que la clôture de (b) achève
 %%%
 tag := "g-traduction-ce-que-la-cloture-de-b-acheve"
-number := false
 %%%
 
-Les quatre cas résistants sont soldés, et avec eux l'induction entière : les groupes 1 à 3 par le
+Les quatre cas résistants sont réduits à des objets construits, et l'induction entière est planifiée : les groupes 1 à 3 par le
 lemme de commutation, (a) par composition avec le foncteur d'effacement, (c) par le système de
 sortes, (b) et (d) par le même appareil de ré-invocation bornée. _Le théorème {num "thm:traduction_metalangage"}[]
-est donc démontré_, et la dette de fidélité que le chapitre 6 nommait — « établir que
-$`\llbracket \cdot \rrbracket` préserve le typage » — est acquittée.
+n'est pas pour autant conduit_ : l'induction est planifiée, ses cas résistants réduits, mais elle n'est pas menée à son terme, et la dette de fidélité que le chapitre 6 nommait — « établir que
+$`\llbracket \cdot \rrbracket` préserve le typage » — reste ouverte, plus étroite qu'elle ne l'était.

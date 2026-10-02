@@ -84,7 +84,7 @@ s'agit plus de prouver l'interpréteur correct construction par construction, ma
 traduction préserve le typage — le métalangage étant interprété une fois pour toutes, correction et
 adéquation s'y raisonnent {cite "cairesLinearSessionAbstract2026"}[]. Cette dette-là reste ouverte,
 et elle est plus étroite : le théorème {num "thm:traduction_metalangage"}[] l'énonce et n'en donne
-qu'une esquisse.
+qu'une esquisse, et la fidélité elle-même demande en outre la simulation du théorème {num "thm:simulation"}[], qui l'accompagne.
 
 Sa portée, en revanche, ne l'est plus. Le §{num "sec:c4-le-calcul-de-processus"}[] étend le
 métalangage pour que les effets y aient une image, sous la forme de communications sur des canaux
@@ -92,5 +92,19 @@ distingués. Un interpréteur prouvé fidèle l'est donc à la structure de comm
 _et_ aux effets, dont le temps. Ce que ce choix déplace n'est pas la difficulté mais son lieu : la
 discipline qui garantit qu'aucun programme traduit n'accède aux canaux distingués reste à écrire, et
 elle conditionne la valeur de l'énoncé.
+
+Reste le protocole du test différentiel, que ce chapitre invoque sans l'avoir écrit. Il compare, sur
+un même programme, l'exécution du binaire optimisé et celle de l'interpréteur de référence. Le
+corpus est composé de trois sources — les doctests, les cas d'étude du chapitre 7, et des
+programmes engendrés par propriété à graine fixée et consignée —, et chaque cas porte son profil
+de représentation $`\Pi`. La comparaison se fait sur l'observation et la trace d'effets modulo la
+congruence du métalangage : aucune tolérance sur le rejeu logique ; sur la représentation, l'égalité
+bit à bit n'est exigée que sous le profil déclaré. Un écart est classé — erreur du compilateur,
+erreur de l'oracle, ou ambiguïté de la spécification — et bissecté phase par phase du pipeline,
+puis réduit au plus petit programme qui le reproduit, lequel rejoint le corpus de non-régression.
+Le test est reproductible si chaque passe appliquée est déterministe et que la trace est respectée
+au niveau du binaire testé : c'est le critère opérationnel de la compilation reproductible.
+Tant que la fidélité de l'oracle n'est pas démontrée, un écart n'est pas une preuve contre le
+compilateur, et son absence n'en est pas une pour lui.
 
 {bibliography}

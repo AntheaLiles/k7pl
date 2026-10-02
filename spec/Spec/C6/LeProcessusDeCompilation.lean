@@ -21,10 +21,10 @@ tag := "c6-le-processus-de-compilation"
 
 {label "sec:c6-le-processus-de-compilation"}
 
-Compiler un programme K7PL, c'est établir, dans un ordre que rien ne permet d'inverser, chacun des
+Compiler un programme K7PL, c'est établir, dans un ordre que presque rien ne permet d'inverser — la Phase~5 et la suivante font exception, leur ordre étant un choix d'ingénieur que la section sur la vérification et le test reconnaît —, chacun des
 trois ordres de vérification du jugement germinal du chapitre 1 — puis effacer entièrement les
 preuves qui les ont établies, ne laissant dans le binaire final que le terme qu'elles autorisent. Le
-pipeline présenté en figure {num "img:comp-process"}[] décrit cet ordre ; chaque étape n'est là que
+pipeline présenté en figure {num "fig:comp-process"}[] décrit cet ordre ; chaque étape n'est là que
 parce que la précédente devait l'être acquise avant elle.
 
 Un point de lecture s'impose avant de le suivre, car il évite une méprise sur ce que ces huit étapes
@@ -44,7 +44,7 @@ maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément
 Deux sources, deux motifs, une même recommandation — et huit phases logiques n'en contredisent
 aucun.
 
-::::figure (label := "img:comp-process") (src := "compilation-process") (alt := "Chaine lineaire des phases de compilation — Parse, ConfigAnalysis, TypeCheck, Elaboration, PurityCheck, TermProof, ConstraintSolve, Optimize, CodeGen, Link. Deux phases intercalaires portent un numero fractionnaire, 1.5 et 2.5.") (width := "90")
+::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Chaine lineaire des phases de compilation — Parse, ConfigAnalysis, TypeCheck, Elaboration, PurityCheck, TermProof, ConstraintSolve, Optimize, CodeGen, Link. Deux phases intercalaires portent un numero fractionnaire, 1.5 et 2.5.") (width := "90")
 :::caption
 Les huit phases du pipeline de compilation
 :::
@@ -139,10 +139,11 @@ compilateur ne soumet au solveur que le fragment
 $`\mathcal{T}_0 \subseteq \mathcal{T}_{\text{K7PL}}` dont la décidabilité est acquise ; toute
 obligation hors de $`\mathcal{T}_0` est _rejetée à la compilation_ avec un code d'erreur, et jamais
 soumise. Ce que ce document ne fait pas encore est de délimiter $`\mathcal{T}_0`, et l'argument de
-terminaison de la Phase 5 vaut de ce fragment plutôt que de la combinaison entière. Le solveur est
-en outre traité comme une boîte noire dont aucun certificat n'est réclamé~: une réponse négative est
-crue sur parole, alors que les solveurs modernes savent produire des preuves vérifiables
-indépendamment. Une réserve porte sur l'ordre de cette phase et de la suivante. Les optimisations
+terminaison de la Phase 5 vaut de ce fragment plutôt que de la combinaison entière. Le solveur reste
+une boîte noire pour les obligations internes à une compilation, reproduites dans le même
+environnement. Pour celles qui traversent la frontière de paquet, un _certificat_ est exigé : une
+réponse négative ne se croit pas sur parole, les solveurs modernes sachant produire des preuves
+vérifiables indépendamment. La Phase~5 porte cette clause. Une réserve porte sur l'ordre de cette phase et de la suivante. Les optimisations
 que la Phase~6 conduit — déforestation, _inlining_, défonctionnalisation — transforment les
 contextes et peuvent donc engendrer des contraintes de grades que la Phase~5 avait déjà déchargées~:
 une boucle fusionnée multiplie les grades de ses deux corps, un appel intégré substitue son contexte
@@ -182,7 +183,7 @@ présence, `Vector(n,T)` — de sorte qu'une technique purement automatisée ne 
 l'exigence de compilation bornée du §{num "sec:c6-exigence-compilation-bornee"}[] exclut les preuves
 manuelles. Le point de rencontre est donc étroit, et il a un nom : des types à raffinement augmentés
 d'_annotations de potentiel_, conduisant une analyse amortie. Ce n'est pas un dispositif à ajouter —
-le budget du grade _est_ un potentiel (annexe, §{num "sec:annexe-presentation-formelle"}[]) et les
+le budget du grade _est_ un potentiel (§{num "sec:g-semantique"}[]) et les
 contraintes de valeur du chapitre 3 _sont_ les raffinements —, c'est la reconnaissance que les trois
 pièces du dispositif sont déjà au document sous d'autres noms.
 

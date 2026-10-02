@@ -67,14 +67,13 @@ Trois obligations, trois composantes
 
 Le jugement $`\Delta \vdash_{\mathcal{G}} t : A \mid \mathcal{E}` porte exactement les trois
 obligations d'une interface : $`\Delta` dit ce que l'unité _exige_, $`A` ce qu'elle _est_,
-$`\mathcal{E}` ce qu'elle _produit_. Aucune obligation ne déborde de ces trois, et aucune des trois
-n'est vide de contenu d'interface.
+$`\mathcal{E}` ce qu'elle _produit_. C'est une définition : l'interface _est_ le jugement. Elle s'accompagne d'une clôture _locale_ : pour les formes de déclaration énumérées dans ce chapitre, aucune obligation ne demande une quatrième composante, et aucune des trois n'est vide de contenu d'interface.
 :::
 
 :::proofsketch
 L'énoncé ne se démontre pas, il se _montre_ : il s'agit de vérifier, par énumération sur les formes
 de déclaration de ce chapitre, que chacune se range dans l'une des trois composantes et qu'aucune
-n'en demande une quatrième. L'énumération est finie et se conduit à la lecture.
+n'en demande une quatrième. L'énumération est finie et se conduit à la lecture. La clôture ne vaut que pour ces formes : elle est suffisante, non nécessaire, et une extension qui exigerait une quatrième composante — l'extension probabiliste du chapitre 4, dont le raisonnement statique demande deux notions que K7PL n'a pas — ne la contredit pas mais appelle la clause de révision de l'axiome (chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]).
 :::
 ::::
 
@@ -138,14 +137,21 @@ reproductibilité du rejet
 :::statement +titled
 Deux compilations de la même source disent la même chose
 
-À configuration de solveur fixée, le message de rejet est une fonction de la source seule : deux
-compilations d'un même programme produisent le même message, à l'identique.
+À configuration de solveur fixée, et sous l'hypothèse $`D_{\mathrm{det}}` — tout parcours, toute
+recherche et toute graine sont des fonctions de la source et du compte de ressource —, le message de
+rejet est une fonction de la source seule : deux compilations d'un même programme produisent le même
+message, à l'identique.
 :::
 
 :::proofsketch
 Les quatre composantes du message sont chacune fonction de la source. L'obligation et sa
-localisation se lisent sur la dérivation, laquelle est déterministe puisque l'inférence est
-principale. Le compte de ressource ne dépend, par construction, que de la formule soumise et de la
+localisation se lisent sur la dérivation. La vérification est bidirectionnelle et non principale
+(chapitre 3) : l'énoncé n'invoque donc pas une inférence principale, mais l'hypothèse
+$`D_{\mathrm{det}}`, qui rend le choix des grades par défaut indépendant de l'ordre de parcours.
+Le document en possède les deux moitiés — compte reproductible, budget relevé écrit dans la
+source — et $`D_{\mathrm{det}}` les assemble ; c'est une exigence sur l'implémentation, non un
+théorème du système de types.
+Le compte de ressource ne dépend, par construction, que de la formule soumise et de la
 configuration ; il est donc identique d'une exécution à l'autre et d'une machine à l'autre. L'état à
 l'épuisement est fonction du compte. Le message l'est donc aussi.
 
@@ -251,8 +257,9 @@ appelle un protocole, et le domaine est saturé d'affirmations qui n'en ont jama
 existe et n'attend aucun prototype ; sa conduite est la seule chose qui manque à cette section.
 
 Toutes les composantes du jugement sont désormais établies. C'est seulement à ce titre que la
-compilation peut réécrire le terme : toute réécriture, pour rester fidèle à P1, doit se formuler
-comme un isomorphisme naturel. Quatre familles s'y rangent.
+compilation peut réécrire le terme : toute réécriture doit se justifier par un argument qui lui est propre,
+syntaxique ou fondé sur le modèle mémoire ; leur formulation comme isomorphismes naturels dans _C_
+relève de l'obligation P1b. Quatre familles s'y rangent.
 
 * L'adjonction curry/uncurry et l'isomorphisme de Yoneda du chapitre 2
   (§{num "sec:c2-adjonctions-et-enrichissement"}[]) en fournissent deux instances.
@@ -364,8 +371,7 @@ voie connue.
 
 Le terme optimisé descend enfin vers MLIR puis LLVM : les tableaux de couche 3 vers `memref.alloc`,
 les automates du chapitre 4 vers le dialecte `K7PL.FSM`. Les correspondances de disposition du
-chapitre 4 (théorème {num "thm:isomorphisme_memoire"}[]) rendent cette génération de code directe —
-les tampons de couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto. L'édition de liens
+chapitre 4 (théorème {num "thm:isomorphisme_memoire"}[]) rendent cette génération de code directe _dans le domaine de ce théorème_ — les tampons de couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto, pour les scalaires primitifs —, une transposition en $`O(n)` étant requise dès qu'une liste de structures est en jeu. L'édition de liens
 qui referme le pipeline purge tout bloc de spécification — doctests, assertions `comptime` — sauf en
 mode `+introspect`, garantie que le DAG de dépendance rend structurelle plutôt que déclarative
 (`ERR-TOP-003`). Le binaire résultant, adressé par le condensat BLAKE3 de son AST normalisé plutôt
@@ -406,7 +412,7 @@ présenter ce choix comme allant de soi. Ce qui le justifie tient à la maturit�
 
 Cet abaissement appelle un énoncé que le document n'a nulle part, et son absence n'est pas une
 lacune de présentation. La stabilité du typage par réduction énoncée au chapitre 3 couvre
-l'évaluation _et_ l'abaissement, mais sans grade ; la préservation graduée de l'annexe (théorème {num "thm:preservation"}[])
+l'évaluation _et_ l'abaissement, mais sans grade ; la préservation graduée du §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[])
 porte les grades, mais ne couvre que l'évaluation. Rien, entre les deux, n'établit que descendre
 vers MLIR préserve ce que le chapitre 1 a posé — et c'est le trajet qui relie les deux bouts de ce
 document.
@@ -485,9 +491,9 @@ La distinction qui commande cet énoncé est celle qu'établit la littérature s
 vérifiée : préserver le _comportement_ et être _pleinement abstrait_ ne sont pas la même exigence {cite "pattersonNext700Compiler"}[],
 et c'est la première qui est en jeu ici.
 
-Ce théorème n'est pas démontré. {rmq}[Son absence était invisible tant que deux énoncés voisins
+Ce théorème n'est pas démontré, et le projet se donne pour objectif de le démontrer : la préservation graduée de bout en bout est une revendication _déclarée_, non une réserve à abandonner. Le chemin n'en dénature pas la portée : la preuve se conduit passe par passe, sur le fragment dont les fonctions d'ordre supérieur sont monomorphisées et inlinées avant l'émission, puis s'étend à mesure que la défonctionnalisation quantitative le permet. Tant qu'elle n'est pas conduite, l'énoncé reste une conjecture et aucune prose ne le dit acquis. {rmq}[Son absence était invisible tant que deux énoncés voisins
 passaient pour un seul.] Il est énoncé parce que son absence restait invisible tant que la stabilité
-du chapitre 3 et la préservation de l'annexe passaient pour deux formulations de la même chose. La
+du chapitre 3 et la préservation du §{num "sec:g-semantique"}[] passaient pour deux formulations de la même chose. La
 première est plus large sur ce qu'elle couvre, la seconde plus fine sur ce qu'elle porte : leur
 intersection laisse l'abaissement gradué sans énoncé.
 
@@ -521,7 +527,7 @@ comprendre ce qui a été inséré entre-temps.
 
 Une limite l'accompagne, et elle est stricte : ce qui peut être sauté ne peut jamais être ce qui est
 vérifié. Le mécanisme convient à un artefact que l'on transporte, non à une dérivation que l'on
-contrôle ; la re-vérification que décrit l'annexe F porte sur l'AST entier, jamais sur les seuls
+contrôle ; la re-vérification que décrit l'annexe {num "sec:annexe-sugoi"}[] porte sur l'AST entier, jamais sur les seuls
 champs qu'un lecteur donné sait lire. Cette exigence n'est pas un théorème mais une règle, et elle
 s'énonce par ce qu'elle interdit~: un vérificateur qui rencontre un identifiant de schéma ou une
 révision qu'il ne connaît pas _rejette_ l'artefact, au lieu d'en franchir les champs inconnus. Le

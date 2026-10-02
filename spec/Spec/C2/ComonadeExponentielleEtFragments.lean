@@ -115,7 +115,7 @@ Une extension déductive n'hériterait donc pas sa borne de coût du semi-anneau
 évaluerait sur un semi-anneau propre — le booléen pour les règles ordinaires, qui est de rang fini
 et absorbant —, structure supplémentaire et non réemploi.
 
-Une loi se démontre ici plutôt qu'à l'annexe, et le choix du lieu est l'objet du théorème. Elle
+Une loi se démontre ici plutôt qu'aux règles de typage (§{num "sec:g-regles"}[]), et le choix du lieu est l'objet du théorème. Elle
 relie les deux actions que le grade exerce — $`\varphi_r` sur l'effet, $`\psi` sur le contexte —,
 elle ne demande que l'arithmétique de $`\mathcal{R}` qui précède, et le reste du document l'emploie
 quatre fois sans jamais la redémontrer.
@@ -214,7 +214,7 @@ elles.]
 
 La restriction que ce théorème porte n'est pas une précaution de rédaction : elle a une contrepartie
 dans les règles. Les deux règles qui composent un calcul avec un calcul — l'application et la
-liaison séquentielle — portent une _condition de bord_ que l'annexe écrit : un argument de grade
+liaison séquentielle — portent une _condition de bord_ que les règles de typage écrivent : un argument de grade
 infini ne peut traverser un effet à coût temporel non nul. La condition est d'ailleurs ce que la
 sédimentation prédisait sans le dire : un usage non contraint appartient au fragment cartésien,
 lequel est pur et n'a donc pas d'effet à traverser. {rmq}[Une restriction qu'on croyait coûteuse et
@@ -410,7 +410,7 @@ systèmes bâtis séparément.
 ::::
 
 Notons $`\mathcal{C}_{!_S}` la sous-catégorie large obtenue en n'autorisant que les grades du
-sous-ensemble $`S \subseteq \mathcal{R}`. Ces trois catégories s'emboîtent, et l'emboîtement n'est
+sous-ensemble $`S \subseteq \mathcal{R}`. Les singletons $`\{1\}`, $`\{0,1\}` et $`\{\omega\}` sont ici les fragments _logiques_ ; les modalités de type du chapitre 3 sont les _intervalles_ de $`\mathcal{R}`, dont ils sont des cas particuliers, et c'est la notation par intervalles qui fait foi pour les types. Ces trois catégories s'emboîtent, et l'emboîtement n'est
 plus à démontrer : il se lit sur l'inclusion des sous-ensembles. Tout morphisme de
 $`\mathcal{C}_{!_{\{1\}}}`, n'invoquant ni affaiblissement ni contraction, reste a fortiori légitime
 dans $`\mathcal{C}_{!_{\{0,1\}}}` dès que le grade $`0` devient disponible sans devenir obligatoire.
@@ -436,8 +436,8 @@ contraint, la même dénotation. C'est cette conservativité, non une préservat
 morphismes disponibles, qui justifie qu'imbriquer un fragment de programme dans un contexte moins
 contraint n'altère jamais sa sémantique.
 
-Cette stratification catégorique est le pendant exact de la relation de sous-typage
-$`\text{Lin} <: \text{Aff} <: \text{Unr}` énoncée au chapitre 1. Une ressource dont l'usage est
+Cette stratification catégorique est le pendant de l'ordre de précision
+$`\text{Unr} \sqsubseteq \text{Aff} \sqsubseteq \text{Lin}` énoncé au chapitre 1. Une ressource dont l'usage est
 prouvé dans le fragment le plus contraint demeure, sans aucune reformulation, une ressource valide
 dans tout fragment moins contraint. C'est la même inclusion, lue une fois sur les catégories de
 preuves, une fois sur les types qu'elles habitent. L'inclusion des sous-ensembles
