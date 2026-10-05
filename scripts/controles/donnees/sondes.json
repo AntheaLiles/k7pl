@@ -1,0 +1,93 @@
+{
+ "_schema": "Suite de sondes semantiques. Couple « passage attendu -> cle attendue ». Rejouee a chaque passe. Le passage est cherche sur le corps NORMALISE (balisage org retire, ponctuation typographique repliee, casse abaissee), et la cle attendue doit etre celle de la premiere citation rencontree dans les 700 caracteres qui suivent. Un defaut d'ANCRAGE (passage introuvable) est un ECHEC au meme titre qu'une mauvaise attribution : une sonde qui ne s'ancre plus a cesse de verifier.",
+ "_provenance": "Dix-sept couples attestes verbatim au dossier de transfert, section registre-issues, champ verification-effectuee. La suite d'origine en comptait trente-quatre ; les dix-sept manquants ne figurent dans aucun fichier transfere et restent a reconstituer.",
+ "_etabli": "2026-08-04",
+ "_fenetre": 700,
+ "sondes": [
+  {
+   "passage": "forment un cycle qui bloque",
+   "cle": "horneSessionSubtypingMultiparty2020",
+   "origine": "B-002"
+  },
+  {
+   "passage": "decidabilite mecanisee",
+   "cle": "saffrichBorrowingSessionTypes2025",
+   "origine": "B-005"
+  },
+  {
+   "passage": "corrects sans etre complets",
+   "cle": "ekiciFormalisingAsynchronousSession2026",
+   "origine": "B-006"
+  },
+  {
+   "passage": "deux sortes de variables et deux fleches",
+   "cle": "DATAFUN",
+   "origine": "D-003"
+  },
+  {
+   "passage": "aux bornes usuelles",
+   "cle": "kaminskiComplexityExpressivePower2022",
+   "origine": "D-004"
+  },
+  {
+   "passage": "vit du cote des effets",
+   "cle": "marshallGradedModalTypes2023",
+   "origine": "J-002"
+  },
+  {
+   "passage": "coordonnee par coordonnee",
+   "cle": "mannucciResourceBoundedTypeTheory2025",
+   "origine": "K-001"
+  },
+  {
+   "passage": "deux inegalites les relient, de statuts differents",
+   "cle": "mannucciResourceBoundedTypeTheory2025",
+   "origine": "K-002"
+  },
+  {
+   "passage": "qu'il le sera sans qu'on dise quand",
+   "cle": "dasParallelComplexityAnalysis",
+   "origine": "K-003"
+  },
+  {
+   "passage": "combiner des analyses independantes",
+   "cle": "liepeltSameCoeffectDifferent2026",
+   "origine": "L-001"
+  },
+  {
+   "passage": "ni par usage de variable, ni par contraction",
+   "cle": "liepeltSameCoeffectDifferent2026",
+   "origine": "L-002"
+  },
+  {
+   "passage": "dont la lecture syntaxique est une theorie equationnelle",
+   "cle": "gaboardiCombiningEffectsCoeffects2016",
+   "origine": "L-003"
+  },
+  {
+   "passage": "dont les monoides de gradation sont eux-memes indexes",
+   "cle": "kuraCategoryTheoreticFrameworkDependent2026",
+   "origine": "M-002"
+  },
+  {
+   "passage": "consistant avec la distribution",
+   "cle": "fournetReflexiveCHAMJoincalculus1996",
+   "origine": "N-002"
+  },
+  {
+   "passage": "les processus bien sortes",
+   "cle": "fournetReflexiveCHAMJoincalculus1996",
+   "origine": "N-003"
+  },
+  {
+   "passage": "au moyen de types existentiels",
+   "cle": "algehedSimpleNoninterferenceParametricity2019",
+   "origine": "P-001"
+  },
+  {
+   "passage": "sous un deguisement quelconque",
+   "cle": "sabelfeldModelDelimitedInformation2004",
+   "origine": "P-003"
+  }
+ ]
+}

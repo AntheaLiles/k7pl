@@ -27,13 +27,13 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Tableaux | 28 |
 | Codes sources | 7 |
 | Remarques marginales (RMQ) | 59 |
-| Citations | 359 |
+| Citations | 360 |
 | Œuvres citées | 250 |
 | Renvois internes | 531 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 124735 |
+| Mots (approximatif, hors code et formules) | 124740 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -169,7 +169,7 @@ Le Verso fait foi depuis le 1er octobre 2026 (décision `D-5`). Les contrôles d
 | `croise` | grammaire des termes × règles de typage × liste des primitives ; comptes (49 règles, 45 constructeurs) |
 | `structure` | renvois résolus, étiquettes uniques et bien préfixées, lettres d'annexe jamais écrites en dur, tableaux réguliers, aucun commentaire d'auteur enfoui, glossaire |
 
-Déjà assurés par le rendu : renvois et clés bibliographiques (une étiquette ou une clé absente fait échouer `lake exe spec`). **Pas encore portés** : les sondes sémantiques (`bib/sondes.json` : un passage cite-t-il le bon auteur), le gel de non-régression bibliographique, la mesure de la prose contre la charte — à porter si on les juge utiles. Rappel : un contrôle qui n'a jamais été vu échouer ne vaut rien ; `algebre` s'auto-teste, les autres se mutent à la main (retirer un sceau, écrire « démontre » près d'un énoncé ouvert).
+Déjà assurés par le rendu : renvois et clés bibliographiques (une étiquette ou une clé absente fait échouer `lake exe spec`). Le module `semantique` porte les 17 sondes (un passage cite-t-il le bon auteur : à son premier passage il a trouvé une citation perdue par la réécriture du théorème de divulgation délimitée, rétablie), le vocabulaire de l'axiome et l'interdiction des citations numériques écrites à la main. **Pas encore portés** : le gel de non-régression bibliographique et la mesure de la prose contre la charte. Rappel : un contrôle qui n'a jamais été vu échouer ne vaut rien ; `algebre` s'auto-teste, les autres se mutent à la main (retirer un sceau, écrire « démontre » près d'un énoncé ouvert).
 
 ### Où écrire pendant la finition
 
