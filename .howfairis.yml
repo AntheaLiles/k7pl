@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+# Configuration de howfairis, qui calcule le badge fair-software.eu du README.
+
+# Le registre est une exemption déclarée, pas une conformité : k7pl est un
+# langage et sa spécification, pas un paquet publié dans un registre reconnu par
+# howfairis (PyPI, CRAN, npm, Maven, etc.).
+skip_registry_checks_reason: "Langage de programmation et sa spécification, non distribués par un registre de paquets."
