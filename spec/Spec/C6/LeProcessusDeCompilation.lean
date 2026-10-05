@@ -44,7 +44,7 @@ maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément
 Deux sources, deux motifs, une même recommandation — et huit phases logiques n'en contredisent
 aucun.
 
-::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Chaine lineaire des phases de compilation — Parse, ConfigAnalysis, TypeCheck, Elaboration, PurityCheck, TermProof, ConstraintSolve, Optimize, CodeGen, Link. Deux phases intercalaires portent un numero fractionnaire, 1.5 et 2.5.") (width := "90")
+::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Chaine lineaire des phases de compilation — Parse, ConfigAnalysis, TypeCheck, Resolution, PurityCheck, TermProof, ConstraintSolve, Optimize, CodeGen, Link. Deux phases intercalaires portent un numero fractionnaire, 1.5 et 2.5.") (width := "90")
 :::caption
 Les huit phases du pipeline de compilation
 :::
