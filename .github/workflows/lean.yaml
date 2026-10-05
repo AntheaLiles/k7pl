@@ -34,7 +34,14 @@ jobs:
       # Laws of the algebra at 0 and ω, seals, propagation of open statements, grammar × rules,
       # structure; they replace the checks of the former Org tooling.
       - name: Check the specification
-        run: python3 scripts/controle.py
+        run: python3 scripts/controle.py --format github
+
+      # Relative links between the Markdown files (no network access).
+      - name: Check the local links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --offline --no-progress --include-fragments=false '**/*.md'
+          fail: true
 
   # Implementation (`src/`) and tests: needs Mathlib and CSLib, not Verso.
   impl:
@@ -73,12 +80,24 @@ jobs:
       - name: Test
         run: lake test
 
+      # Run even if the tests failed, so that one run reports every problem.
       - name: Lint
+        if: ${{ !cancelled() }}
         run: lake lint
+
+      - name: Summary
+        if: ${{ !cancelled() }}
+        run: |
+          {
+            echo "### Implementation"
+            echo "- Modules: $(find src tests -name '*.lean' | wc -l)"
+            echo "- Lean: $(cat lean-toolchain)"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # Only propext, Classical.choice and Quot.sound are allowed under the `K7pl` namespace;
       # `sorry` and `native_decide` are rejected.
       - name: Audit the axioms
+        if: ${{ !cancelled() }}
         run: scripts/axiom-audit.sh K7pl K7pl
 
   # Specification (`spec/`, `tools/`): needs Verso, not Mathlib.
@@ -112,8 +131,22 @@ jobs:
       - name: Build the specification
         run: lake build Spec
 
+      # Same allowlist as the implementation: the specification must not rely on extra axioms
+      # either (Verso elaboration included).
+      - name: Audit the axioms
+        run: scripts/axiom-audit.sh Spec Spec
+
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
+
+      - name: Summary
+        if: ${{ !cancelled() }}
+        run: |
+          {
+            echo "### Specification"
+            echo "- HTML pages: $(find _out/spec/html-multi -name '*.html' 2>/dev/null | wc -l)"
+            echo "- Verso modules: $(find spec -name '*.lean' | wc -l)"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload the specification (artifact)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
