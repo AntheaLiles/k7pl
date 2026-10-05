@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: lean-research
 description: Rechercher et vérifier l'état réel de Lean 4, Mathlib, CSLib ou Verso avant de proposer une solution.
