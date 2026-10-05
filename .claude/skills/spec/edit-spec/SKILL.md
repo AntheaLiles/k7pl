@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: edit-spec
 description: Modifier la spécification Verso avec une portée strictement contrôlée et une validation complète.
