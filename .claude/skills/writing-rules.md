@@ -39,7 +39,7 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `lean-toolchain`               | Version de Lean fixée (via `REUSE.toml`)                        | CECILL-2.1 |
 | `.commitlintrc.yaml`           | Configuration du lint Conventional Commits                      | CECILL-2.1 |
 | `REUSE.toml`                   | Licences des fichiers qui ne peuvent pas porter d'en-tête       | CECILL-2.1 |
-| `LICENSE`                      | Présentation des licences, en français                          | —          |
+| `LICENSE.md`                   | Présentation des licences, en français                          | —          |
 | `README.md`, `CHANGELOG.md`    | Documentation du projet                                         | CECILL-2.1 |
 | `CONTRIBUTING.md`, `SECURITY.md` | Déroulement des contributions, signalement de vulnérabilités  | CECILL-2.1 |
 | `CODE_OF_CONDUCT.md`           | Contributor Covenant 2.1 (traduction française)                 | CC-BY-4.0  |
@@ -52,7 +52,7 @@ Dépendances (toutes épinglées sur la version de `lean-toolchain`) :
 - **Verso** : écriture de la spécification (genre `Manual`).
 
 Les bibliothèques écrites **dans le langage k7pl** (et non en Lean) sont
-recommandées sous `CECILL-C` (copyleft faible), voir `LICENSE`.
+recommandées sous `CECILL-C` (copyleft faible), voir `LICENSE.md`.
 
 ## 2. Langues
 

@@ -73,4 +73,4 @@ avec un DOI, et son PDF est joint à la release GitHub correspondante. Voir
 - Spécifications : [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)
 - Bibliothèques écrites dans le langage : CeCILL-C recommandée
 
-Voir [`LICENSE`](LICENSE) pour le détail.
+Voir [`LICENSE.md`](LICENSE.md) pour le détail.
