@@ -19,6 +19,7 @@ permissions:
 jobs:
   bump:
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     permissions:
       contents: write
       pull-requests: write
@@ -59,6 +60,10 @@ jobs:
         if: steps.version.outputs.newer == 'true'
         run: |
           lake update
+          # Without this, Mathlib is rebuilt from scratch (hours).
+          # Right after a toolchain bump the upstream cache may not be published yet,
+          # so a failure here is not fatal.
+          lake exe cache get || echo "::warning::Mathlib cache unavailable, full rebuild ahead"
           lake build
           lake test
 
