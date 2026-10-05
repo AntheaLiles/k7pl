@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: formal-methods-research
 description: Rechercher des sources primaires pour résoudre une question de sémantique, théorie des types, langages ou méthodes formelles liée à k7pl.
