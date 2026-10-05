@@ -417,7 +417,7 @@ va du fragment linéaire au fragment cartésien, de la région gouvernée par la
 où la diagonale existe, que $`N` lecteurs simultanés sont exprimables ; le grade $`r` n'y compte
 plus des détenteurs mais reste ce qu'il est partout ailleurs, un indice d'usage. Le solveur SMT
 (chapitre 6) vérifie alors une condition d'exclusion — aucune `WriteCap` vivante tant qu'une image
-cartésienne subsiste — et non une somme de fractions.
+cartésienne subsiste — et non une somme de fractions. Le partage d'un canal et celui d'une région étant un seul geste (chapitre 1), une seule analyse de co-Kleisli au grade $`\omega` suffit au compilateur pour les deux, au lieu des deux analyses d'aliasing séparées — arènes par le solveur, canaux par le calcul de processus — que l'on maintiendrait sinon. L'identification vaut à la cible, où la diagonale existe ; à la source, elle ne vaut que pour les capacités que le noyau porte, ce que la règle {sc}[Slice] précise pour l'écriture.
 
 Cette discipline, que le système de types impose ici par construction, est celle que les
 architectures à faible latence atteignent par la mesure. L'algorithme idéal y est celui où un seul

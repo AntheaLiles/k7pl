@@ -51,6 +51,50 @@ solveur SMT vérifie compatible avec la mémoire disponible. La discipline reten
 autre composant de K7PL, une borne statique. Les positions capturées ne sont jamais copiées : ce
 sont des paires d'offsets dans le texte source lui-même.
 
+Les trois analyses d'automates que ce document conduit — les R-expressions ici, le protocole Noise
+comme automate fini au §{num "sec:c4-echelle-du-systeme"}[], la syntaxe de K7PL au
+§{num "sec:c5-s-expressions-universelles"}[] — se rangent dans une même table, et P3 s'y applique une
+fois : le temps et l'espace sont donnés par la machine, non par l'affirmation locale.
+
+::::k7table (label := "tab:classes-motifs") (align := "lllll")
+:::caption
+Classes de motifs et bornes : machine, temps, espace, classe reconnue
+:::
+
+:::table +header
+* * Analyse
+  * Machine
+  * Temps
+  * Espace
+  * Classe reconnue
+* * R-expression `@linear`
+  * automate fini déterministe
+  * $`O(n)`, $`O(1)` par bloc
+  * $`O(1)`
+  * langages réguliers
+* * R-expression `@stack`
+  * automate à pile
+  * polynomial en $`n`
+  * proportionnel à la profondeur d'imbrication, bornée par un grade
+  * langages hors contexte, à pile bornée
+* * R-expression `@backtrack`
+  * retour arrière explicite
+  * exponentiel
+  * proportionnel à la profondeur de retour
+  * motifs avec références arrière
+* * Protocole Noise
+  * automate fini déterministe
+  * $`O(1)` par message, état et séquence fixés
+  * $`O(1)`, sans allocation
+  * séquences de messages d'un protocole fixé
+* * Syntaxe de K7PL
+  * grammaire à pile visible
+  * $`O(n)`
+  * $`O(d)`, $`d` la profondeur d'imbrication
+  * trois paires de délimiteurs, un seul sens d'imbrication
+:::
+::::
+
 Cette hiérarchie est celle des machines, et n'est qu'une coupe d'un espace à deux dimensions. La
 seconde dimension est précisément celle où ce chapitre se déplacera s'il tient sa promesse. Le
 compte rendu coalgébrique de la théorie des automates ne gradue pas seulement du déterministe au non

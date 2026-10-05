@@ -14,13 +14,13 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
 | `IMPL` Implémentation et outillage | 9 | 4 | 2 | 0 | 0 | 0 | 3 |
-| `FACT` Factorisations à écrire | 24 | 12 | 4 | 0 | 2 | 2 | 4 |
+| `FACT` Factorisations à écrire | 24 | 14 | 4 | 0 | 2 | 2 | 2 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
 | `BIB` Vérifications bibliographiques | 29 | 11 | 6 | 0 | 0 | 0 | 12 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **116** | **33** | **1** | **3** | **2** | **35** |
+| **Total** | **190** | **118** | **33** | **1** | **3** | **2** | **33** |
 
 ## BLOQ — Bloquants
 
@@ -150,7 +150,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `FACT-05` | 🟡 partielle | Théorème de cohérence des coercions | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) · le théorème recule en proposition ; voie écrite, preuve à conduire |
 | `FACT-06` | ✅ fermée | Théorème d'effacement / simulation | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) |
 | `FACT-07` | ⬜ ouverte | Théorème fondamental de préservation fibrée | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · attend PREUVE-11 (BLOQ-05 est levé) |
-| `FACT-08` | ⬜ ouverte | Le partage en lecture et le partage de canal sont un seul geste | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · redevenue disponible : le périmètre du noyau est stabilisé |
+| `FACT-08` | ✅ fermée | Le partage en lecture et le partage de canal sont un seul geste | [journal](../journal/2026-10-05-pr-02-20-slice.md) · une analyse de co-Kleisli ; réserve source/cible écrite au ch. 3 |
 | `FACT-09` | 🟡 partielle | L'inexpressibilité comme unique mode de garantie, et la réduction des familles d'erreurs | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · principe énoncé au §1.4 ; table code ⟷ prémisse à écrire (PORT-07) |
 | `FACT-10` | ⬜ ouverte | Séquencement dans la quantale et préfixage dans le calcul de processus | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · attend PREUVE-07 (lemme de simulation) |
 | `FACT-11` | 🟡 partielle | `Mailbox` comme objet unique | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · objet Mailbox posé au §4.5 ; reprise des quatre énoncés à faire |
@@ -162,7 +162,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `FACT-17` | ✅ fermée | Une loi unique d'introduction des ressources d'écriture | [journal](../journal/2026-10-01-pr-02-12-fact-17-et-16.md) · énoncé unique écrit (thm:introduction_unique) ; preuve à écrire (PREUVE-12) |
 | `FACT-18` | 🟡 partielle | La fenêtre statiquement dimensionnée sur un objet coinductif | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · principe posé au §2.6 ; lemme de troncature à écrire à part |
 | `FACT-19` | ✅ fermée | L'ordre d'occurrence | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
-| `FACT-20` | ⬜ ouverte | Annexe unique « classes de motifs et bornes » |  |
+| `FACT-20` | ✅ fermée | Annexe unique « classes de motifs et bornes » | [journal](../journal/2026-10-05-pr-02-20-slice.md) · table tab:classes-motifs au §4.2 (machine, temps, espace, classe) |
 | `FACT-21` | ⛔ écartée | Architecture minimale à cinq couches de preuve | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md |
 | `FACT-22` | ⛔ écartée | Formulation fibrée bimodale | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md |
 | `FACT-23` | ✅ fermée | Relation entre `□` et la modalité duale de ◇ | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · le connecteur ■ n'était pas nécessaire : □ suffit, ■ retiré |
