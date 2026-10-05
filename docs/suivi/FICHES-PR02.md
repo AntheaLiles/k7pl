@@ -13,14 +13,14 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
-| `IMPL` Implémentation et outillage | 9 | 4 | 2 | 0 | 0 | 0 | 3 |
+| `IMPL` Implémentation et outillage | 9 | 5 | 2 | 0 | 0 | 0 | 2 |
 | `FACT` Factorisations à écrire | 24 | 14 | 4 | 0 | 2 | 2 | 2 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
 | `BIB` Vérifications bibliographiques | 29 | 11 | 6 | 0 | 0 | 0 | 12 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **119** | **32** | **1** | **3** | **2** | **33** |
+| **Total** | **190** | **120** | **32** | **1** | **3** | **2** | **32** |
 
 ## BLOQ — Bloquants
 
@@ -137,7 +137,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `IMPL-06` | 🟡 partielle | Profil de représentation `Π` unique | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · Π défini au §4.5 ; Th. 20 et rejeu requalifiés en conformité ; Th. 36 non requalifié |
 | `IMPL-07` | ⬜ ouverte | Table de propagation des singularités |  |
 | `IMPL-08` | 🟡 partielle | Renforcer le croisement mécanique grammaire × règles | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · productions dégénérées et types non engendrés contrôlés (mutation vérifiée) ; arités et build sur symbole absent restent à porter |
-| `IMPL-09` | ⬜ ouverte | Hypothèses de module à porter en assistant de preuve |  |
+| `IMPL-09` | ✅ fermée | Hypothèses de module à porter en assistant de preuve | [journal](../suivi/hypotheses-de-module.md) · inventaire écrit dans docs/suivi/hypotheses-de-module.md |
 
 ## FACT — Factorisations à écrire
 
