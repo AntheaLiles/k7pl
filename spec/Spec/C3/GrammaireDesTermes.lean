@@ -34,7 +34,7 @@ tag := "g-grammaire-termes"
 &\quad \mid\; \mathsf{out}\;c \mid \langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J}\\
 &\quad \mid\; c \parallel c \mid \mathsf{vmap}\;v\;v\\
 &\quad \mid\; \mathsf{at}_n\;c \mid \mathsf{move}_{n \to m}\;v \mid \mathsf{try}\;c\;\mathsf{catch}\;c\\
-&\quad \mid\; \mathsf{spawn}\;c \mid \mathsf{new}_E \mid \mathsf{send}\;m(\overline{v})\;\mathsf{to}\;v \mid \mathsf{guard}\;v\;\{m_i(\overline{x_i}) \mapsto c_i\}_i \mid \mathsf{free}\;v
+&\quad \mid\; \mathsf{spawn}\;c \mid \mathsf{new}_E \mid \mathsf{send}\;m(\overline{v})\;\mathsf{to}\;v \mid \mathsf{guard}\;v\;\{m_i(\overline{x_i}) \mapsto c_i\}_i \mid \mathsf{free}\;v \mid \mathsf{slice}\;v\;\mathsf{as}\;(x,y)\;\mathsf{in}\;c
 \end{align*}
 ```
 

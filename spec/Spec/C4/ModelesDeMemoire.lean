@@ -120,8 +120,7 @@ mesure qui fonde la terminaison des catamorphismes (chapitre 3, §{num "sec:c3-l
 Le lemme de portée (H2) se démontre : deux segments $`[a,b]` et $`[c,d]` d'une même arène sont
 disjoints exactement lorsque $`b < c` ou $`d < a`, formule de l'arithmétique linéaire que le solveur
 décharge ; des cellules d'indices distincts étant des régions distinctes, deux capacités de
-$`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) reste à écrire : elle
-dépend de la règle d'introduction de $`\mathsf{WriteCap}(r)`, qui n'existe pas encore dans le noyau.
+$`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) se lit sur la règle {sc}[Slice] (§{num "sec:g-regles"}[]) : une capacité sur un segment ne naît que de l'élimination de l'arène, linéaire en l'arène, ou de la découpe d'une capacité détenue, qui la consomme ; par induction sur la dérivation, deux capacités sur un même segment en contexte clos exigeraient deux consommations de la même ressource linéaire, impossible sans diagonale. Reste à écrire l'élimination de l'arène, exception déclarée du jeu de règles : (H1) en dépend.
 :::
 ::::
 

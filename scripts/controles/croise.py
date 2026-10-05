@@ -61,6 +61,7 @@ EXPECTED = {
     "Send":    (r"mathsf\{send\}",                           "calcul"),
     "Guard":   (r"mathsf\{guard\}",                          "calcul"),
     "Free":    (r"mathsf\{free\}",                           "calcul"),
+    "Slice":   (r"mathsf\{slice\}",                          "calcul"),
     "At":      (r"mathsf\{at\}_n",                           "calcul"),
     "Move":    (r"mathsf\{move\}_\{n",                       "calcul"),
     "Try":     (r"mathsf\{try\}",                            "calcul"),
@@ -215,7 +216,7 @@ def run():
     ok("%d constructeurs de termes : %d valeurs, %d calculs" % (len(governed), len(values), len(computations)))
     stated_rules = re.search(r"(\w[\w-]*) règles de typage", corpus.chapter("C3"))
     stated_ctors = re.search(r"(\w[\w-]*) constructeurs", corpus.chapter("C3"))
-    NUMBERS = {"quarante-neuf": 49, "quarante-cinq": 45}
+    NUMBERS = {"quarante-neuf": 49, "quarante-cinq": 45, "cinquante": 50, "quarante-six": 46}
     for label, found, real in (("règles de typage", stated_rules, len(rules)), ("constructeurs", stated_ctors, len(governed))):
         if found and found.group(1) in NUMBERS and NUMBERS[found.group(1)] != real:
             ko("le texte annonce %s %s, le croisement en compte %d" % (found.group(1), label, real))

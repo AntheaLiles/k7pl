@@ -1179,6 +1179,31 @@ propriété du compilateur et non du système de types. _Ce document ne la donne
 dit : la transcription en assistant de preuve devra la poser depuis le chapitre 4, ou l'admettre
 comme paramètre.
 
+La découpe d'une capacité d'écriture est en revanche une règle du noyau, et c'est elle qui porte
+l'unicité d'introduction. Une capacité $`\mathsf{Cap}\;\rho` sur un segment $`\rho` d'une arène ne
+s'obtient que de deux façons : de l'élimination de l'arène, l'exception déclarée ci-dessus, qui
+fournit la capacité sur la région entière, ou de la découpe d'une capacité déjà détenue.
+
+::::formula (label := "eq:regle-slice") (kind := "equation")
+```
+\begin{equation*}
+\textsc{Slice}\;\frac{\;\Delta_1 \vdash v : \mathsf{Cap}\;\rho \qquad \Delta_2,\, x :_{1} \mathsf{Cap}\;\rho_1,\, y :_{1} \mathsf{Cap}\;\rho_2 \vdash c : C \mid \varepsilon \qquad \rho = \rho_1 \uplus \rho_2\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{slice}\;v\;\mathsf{as}\;(x,y)\;\mathsf{in}\;c : C \mid \varepsilon\;}
+\end{equation*}
+```
+:::caption
+Découpe d'une capacité d'écriture : $`v` est consommée, deux capacités sur des segments disjoints en
+naissent. La condition $`\rho = \rho_1 \uplus \rho_2` est de l'arithmétique d'intervalles, que le
+solveur décharge. Le mot {sc}[Slice] est provisoire (`T-68`).
+:::
+::::
+
+Les grades des liaisons $`x` et $`y` sont $`\mathbf{1}` : la capacité reçue est consommée, non
+copiée, et rien dans la règle ne laisse subsister $`v` après la découpe. Il en résulte que, dans un
+contexte clos, une capacité sur un segment est dérivable au plus une fois, ce qui est l'hypothèse
+(H1) du théorème {num "thm:surete_spatiale"}[] : l'unique source de capacité initiale est
+l'élimination de l'arène, linéaire en l'arène, et {sc}[Slice] ne fait que partager ce qu'elle a
+donné.
+
 ## Le parallélisme de couche 3
 %%%
 tag := "g-parallelisme"

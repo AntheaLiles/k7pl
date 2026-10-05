@@ -43,7 +43,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 34 | 34 | `thm:substitution` | theoreme | langage | substitution sur trois niveaux | §3.6 | 6 |
 | 35 | 35 | `thm:substitution_simultanee` | theoreme | langage | substitution simultanée — corollaire de la substitution élémentaire | §3.6 | 1 |
 | 36 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 6 |
-| 37 | 16 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | §4.4 | 1 |
+| 37 | 16 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | §4.4 | 2 |
 | 38 | — | `thm:introduction_unique` | proposition | langage | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
 | 39 | 17 | `thm:determinisme_rejeu` | theoreme | langage | déterminisme logique du rejeu | §4.5 | 1 |
 | 40 | — | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 1 |
