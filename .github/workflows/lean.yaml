@@ -28,7 +28,7 @@ jobs:
       # Installs elan, fetches the Mathlib cache, then runs `lake build`, `lake test`,
       # `lake lint` and the axiom audit (only propext, Classical.choice and Quot.sound
       # are allowed under the `K7pl` namespace; `sorry` is rejected).
-      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
+      - uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
         with:
           auto-config: false
           use-mathlib-cache: true
@@ -103,7 +103,7 @@ jobs:
           echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
 
       - name: Cache Tectonic files
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/Tectonic
           key: tectonic-${{ runner.os }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json') }}
