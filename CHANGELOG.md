@@ -57,6 +57,8 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Changed
 
+- `CITATION.cff` : version `0.0.0-alpha.1`, celle du tag `spec-v0.0.0-alpha.1` ; le contrôle de
+  release du job `zenodo` compare ces deux valeurs et avait échoué sur `0.0.0`.
 - Les spécifications passent d'Org-mode à Verso.
 - Le code source (identifiants, docstrings, commentaires) est désormais en anglais.
 - `CITATION.cff` décrit la spécification (CC-BY-4.0, ORCID) en vue du DOI Zenodo.
