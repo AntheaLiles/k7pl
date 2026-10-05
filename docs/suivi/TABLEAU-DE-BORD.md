@@ -29,11 +29,11 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Remarques marginales (RMQ) | 59 |
 | Citations | 359 |
 | Œuvres citées | 250 |
-| Renvois internes | 524 |
+| Renvois internes | 525 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 123700 |
+| Mots (approximatif, hors code et formules) | 124185 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -45,7 +45,7 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 <!-- BEGIN:ouverts -->
 | Étiquette | Statut | Niveau | Lieu | Renvois |
 |---|---|---|---|--:|
-| `thm:troncature_comonade` | proposition | langage | §2.3 | 0 |
+| `thm:troncature_comonade` | proposition | langage | §2.3 | 1 |
 | `thm:divulgation_delimitee` | proposition | langage | §2.4 | 4 |
 | `thm:determinisme_observationnel` | conjecture | langage | §2.5 | 0 |
 | `thm:completude_graduee` | proposition | langage | §3.1 | 0 |

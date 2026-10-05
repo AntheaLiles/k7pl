@@ -15,7 +15,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 6 | 3 | `thm:productivite_couche_2` | theoreme | langage | productivité de la couche 2 — l'instance coinductive | §2.3 | 1 |
 | 7 | 4 | `thm:progression_polarisee` | theoreme | langage | progression, paramétrée par la couche | §2.3 | 4 |
 | 8 | 5 | `thm:loi_historique` | theoreme | langage | loi distributive de l'historique | §2.3 | 0 |
-| 9 | — | `thm:troncature_comonade` | proposition | langage | la troncature est un morphisme de comonades | §2.3 | 0 |
+| 9 | — | `thm:troncature_comonade` | proposition | langage | la troncature est un morphisme de comonades | §2.3 | 1 |
 | 10 | 6 | `thm:divulgation_delimitee` | proposition | langage | divulgation délimitée | §2.4 | 4 |
 | 11 | 7 | `thm:terminaison_lfp` | theoreme | langage | terminaison du point fixe déductif | §2.4 | 6 |
 | 12 | 8 | `thm:raffinement` | theoreme | langage | structure de raffinement | §2.5 | 3 |
@@ -60,7 +60,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 51 | 39 | `thm:stratification_journal` | theoreme | langage | stratification du journal | §4.7 | 0 |
 | 52 | — | `thm:relation_produit` | proposition | langage | relation logique sur un produit de structures ordonnées | §4.7 | 0 |
 | 53 | 40 | `thm:lemme_fondamental` | theoreme | langage | lemme fondamental | §4.7 | 4 |
-| 54 | 41 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | §4.7 | 0 |
+| 54 | 41 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | §4.7 | 1 |
 | 55 | 42 | `thm:image_fix` | theoreme | langage | image du point fixe déductif | §4.7 | 0 |
 | 56 | 43 | `thm:cloture_sortage` | theoreme | langage | clôture du bon sortage par substitution | §4.8 | 0 |
 | 57 | 44 | `thm:confinement_sortes` | theoreme | langage | confinement des canaux distingués | §4.8 | 2 |

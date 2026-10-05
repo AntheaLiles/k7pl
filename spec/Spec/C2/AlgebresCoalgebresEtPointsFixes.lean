@@ -540,7 +540,7 @@ $`\lambda_r = T_r \circ \lambda \circ F(\eta_r)` satisfait les deux conditions d
 :::proofsketch
 Le point de difficulté est le _rang frontière_ : $`N_r \delta_r` et $`\delta_r N_r` appliquent deux
 troncatures à des profondeurs différentes, et leur égalité dépend de la convention de remplissage au
-rang $`r`, que le document pratique sans l'avoir nommée. Les deux conditions de cohérence de la
+rang $`r`, que le document pratique sans l'avoir nommée. La convention est la suivante : $`N_0 A = A` et $`N_{r} A = A \times F(N_{r-1} A)`, et au rang frontière la structure plus profonde est _écartée_, non remplacée par une valeur ; la troncature $`T_r` est alors idempotente, $`T_r \circ T_r = T_r`. Sous la seconde condition, $`T_r \circ F = F \circ T_{r-1}`, les deux membres de la coassociativité tronquée sont des arbres de profondeur au plus $`r` qui coïncident noeud par noeud, par récurrence sur $`r` : au rang $`0` ils sont égaux à la racine, au rang $`r` ils se décomposent par $`F` et l'hypothèse de récurrence s'applique à chaque fils. Les deux conditions de cohérence de la
 comonade cofree non tronquée sont un résultat de la littérature ; la préservation par troncature est
 le seul point propre à K7PL. Non démontrée : la convention doit être écrite, puis la condition
 vérifiée pour chaque $`F` admis. Si elle échoue pour un $`F`, la classe des conteneurs admissibles se

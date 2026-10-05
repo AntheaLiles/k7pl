@@ -398,9 +398,7 @@ y a au plus une flèche, et deux dérivations de $`r \preccurlyeq r'` désignent
 conversion est définie comme le transport le long de cette flèche, la cohérence énoncée se ramène à
 la fonctorialité de ce transport — identité en $`r \preccurlyeq r`, composition en
 $`r \preccurlyeq s \preccurlyeq t` — à vérifier pour chacune des quatre familles, puis à clore par
-produit, la fonctorialité d'un produit de catégories l'étant composante par composante. Il reste à
-écrire la définition de la conversion de chaque facteur ; tant qu'elle ne l'est pas, la proposition
-demeure une proposition.
+produit, la fonctorialité d'un produit de catégories l'étant composante par composante. La conversion de chaque facteur se définit ainsi. Sur le niveau, la monotonie et le budget, la conversion est l'_identité_ sur la valeur sous-jacente : seule l'étiquette change, de sorte que l'identité et la composition sont immédiates. Sur l'usage, c'est le morphisme canonique de comonades gradués $`!_{u} \Rightarrow !_{u'}` pour $`u \geq u'` : la dérivation (compteur) de $`\omega` vers $`1` et l'affaiblissement de $`1` vers $`0`. Seule équation à vérifier : l'affaiblissement composé à la dérivation est l'affaiblissement, $`w \circ \varepsilon = w`, qui est la naturalité de $`w`. Reste à la vérifier dans la construction du chapitre 2 ; tant qu'elle ne l'est pas, la proposition demeure une proposition.
 :::
 ::::
 
