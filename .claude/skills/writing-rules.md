@@ -384,8 +384,17 @@ configuration `.commitlintrc.yaml`). Vérification locale du dernier commit :
 - Ne jamais introduire `sorry`, `axiom`, `native_decide`, ni désactiver un linter
   ou un test pour faire passer la CI.
 - Les théorèmes principaux (énoncés de correction du langage) sont validés par
-  un humain : un agent peut proposer lemmes intermédiaires et preuves, mais ne
-  modifie pas l'énoncé d'un théorème principal sans accord explicite.
+  un humain : un agent peut proposer des lemmes intermédiaires et des preuves, mais
+  ne modifie pas l'énoncé d'un théorème principal sans accord explicite.
+- Les rôles Claude Code sont séparés : architecture de la spec, édition de la spec,
+  revue formelle, preuve Lean, implémentation Lean, diagnostic, cohérence transverse
+  et vérification. Ne pas utiliser un agent généraliste quand un rôle spécialisé existe.
+- Pour une tâche qui traverse `spec/` et `src/`, ne pas passer directement de
+  « demande » à « code » : établir d'abord le contrat et ses dépendances, puis faire
+  vérifier la cohérence entre spécification, formalisation, preuve, tests et documentation.
+- Les skills sous `.claude/skills/` décrivent les procédures réutilisables ; les règles
+  sous `.claude/rules/` définissent les invariants ; les agents sous `.claude/agents/`
+  définissent les rôles et leurs paramètres de modèle. Les trois niveaux sont complémentaires.
 - Toucher `lakefile.lean`, `lean-toolchain` ou `.github/workflows/` demande
   une mention explicite dans la description de la PR.
 

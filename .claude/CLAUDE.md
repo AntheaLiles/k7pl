@@ -5,73 +5,126 @@ SPDX-License-Identifier: CECILL-2.1
 
 # k7pl
 
-k7pl est un langage de programmation implémenté en Lean 4 (projet Lake),
-avec Mathlib et CSLib. Sa spécification est écrite en Verso.
+k7pl est un langage de programmation implémenté en Lean 4 avec Mathlib et CSLib. Sa spécification est écrite en Verso.
 
-- `src/` : implémentation du langage (Lean 4, CECILL-2.1)
-- `tests/` : tests (Lean 4, CECILL-2.1)
-- `spec/` : spécification (Verso, CC-BY-4.0) : le manuscrit « K7PL : KonSept Programming
-  Language », un module par chapitre (`Spec/C1.lean`…) et par section de niveau 2
-  (`Spec/C1/<Section>.lean`), figures dans `spec/figures/`
-- `tools/` : générateur de la spécification (`SpecMain.lean`), extensions Verso (`SpecExt/`) et
-  bibliographie générée (`SpecBib.lean`, depuis `biblio/references.json`) (CECILL-2.1)
-- `docs/` : suivi, relectures, méthode, recherche, journal (CC-BY-4.0) ; **point d'entrée :
-  `docs/suivi/TABLEAU-DE-BORD.md`**
-- `archives/` : manuscrit Org-mode figé et ancien outillage (ne pas y corriger le texte)
-- `scripts/` : maintenance (montée de version, hook de session), conversion Org → Verso
-  (`org2verso/`), bibliographie (`biblio/`), mesures et suivi (`manuscript_metrics.py`,
-  `suivi.py`)
+## Architecture du dépôt
 
-**Langues** : code source en anglais (identifiants, docstrings, commentaires) ;
-documentation, spécification et messages de commit en français.
+- `src/` : implémentation Lean 4 (CECILL-2.1).
+- `tests/` : tests Lean (CECILL-2.1).
+- `spec/` : spécification Verso (CC-BY-4.0), source normative courante.
+- `tools/` : générateur et extensions Verso, bibliographie générée.
+- `docs/` : suivi, décisions, recherche, audits ; point d'entrée : `docs/suivi/TABLEAU-DE-BORD.md`.
+- `archives/` : ancien manuscrit et outillage figés ; ne pas les corriger pour modifier la version courante.
+- `.claude/rules/` : règles spécialisées.
+- `.claude/skills/` : procédures réutilisables.
+- `.claude/agents/` : rôles spécialisés et paramètres de modèle.
 
-Le manuscrit de la spécification est en Verso depuis la conversion du 1er octobre 2026 : sa
-source de référence est `spec/`, plus `archives/manuscrit-org/`. **Le manuscrit porte « ne rien
-modifier sans l'accord de l'auteur »** : ne corriger son texte que sur demande explicite, par une
-modification minimale, et consigner le changement dans `docs/suivi/` (fiche, journal). Ne pas créer
-de nouveau chapitre sans demande explicite.
+Code, identifiants, commentaires et docstrings : anglais. Documentation, spécification, issues, PR et messages de commit : français.
 
-## Règles de rédaction
+## Invariants non négociables
 
-Toutes les règles détaillées (structure, nommage, en-têtes SPDX, style Lean
-et Verso, Conventional Commits, checklist avant commit) sont dans
-[`skills/writing-rules.md`](skills/writing-rules.md). Les lire avant toute
-modification.
+`spec/`, `src/`, `tests/` et `docs/` sont des objets de nature différente. Une affirmation de spécification, une définition Lean, une preuve et un test ne sont jamais interchangeables.
 
-## Commandes utiles
+Le manuscrit porte « ne rien modifier sans l'accord de l'auteur ». Toute modification normative de `spec/` exige donc une demande explicite et une portée minimale.
 
-```sh
-lake exe cache get              # binaires Mathlib précompilés (après clone ou mise à jour)
-lake build                      # compiler l'implémentation et la spécification
-lake test                       # lancer les tests (exécutable @[test_driver] mainTest)
-lake lint                       # linter Batteries (docstrings manquantes, etc.)
-lake exe spec --output _out/spec  # générer la spécification HTML
-lake exe spec --output _out/spec --with-tex   # + sources LaTeX (PDF : tectonic -X compile _out/spec/tex/main.tex)
-python3 scripts/controle.py     # contrôles sur le Verso (algèbre aux bornes, sceaux, propagation, croisement…)
-python3 scripts/manuscript_metrics.py summary # mesures du manuscrit (énoncés, formules, citations…)
-python3 scripts/suivi.py all    # regénérer les vues du suivi (fiches, énoncés, tableau de bord)
-reuse lint                      # vérifier la conformité REUSE (pip install reuse)
-```
+Ne jamais introduire `sorry`, `admit`, nouvel `axiom` ou `native_decide`. Ne jamais affaiblir un contrôle pour faire passer CI, Scorecard ou CII.
 
-## Points d'attention
+Ne jamais inventer une revue, un contributeur, une signature, une provenance, un SBOM, une preuve de reproductibilité ou une conformité.
 
-- Chaque nouveau fichier porte un en-tête SPDX. Pour un fichier qui ne peut pas
-  contenir de commentaire, ajouter une entrée `[[annotations]]` dans `REUSE.toml`.
-- La version de Lean est fixée dans `lean-toolchain` ; Mathlib, CSLib et Verso
-  sont épinglés sur la même version dans `lakefile.lean`. Ils montent
-  ensemble avec `scripts/bump-lean.sh`, puis commit de `lake-manifest.json`.
-- Mettre à jour `CHANGELOG.md` (section `[Unreleased]`) à chaque changement notable.
-- Les messages de commit sont vérifiés en CI (Conventional Commits).
-- Tout avertissement fait échouer la compilation ; aucun `sorry`, `axiom` ni
-  `native_decide` (audit des axiomes en CI). Ne jamais déclarer un patch terminé
-  sans `lake build`, `lake test` et `lake lint` verts (localement ou en CI), ni
-  utiliser un nom de lemme sans l'avoir vérifié. Détails : section « Travailler
-  avec un agent » des règles de rédaction.
-- Publication : releases indépendantes. `spec-vX.Y.Z` compile le PDF de la
-  spécification et l'archive sur Zenodo (version dans `CITATION.cff`, changelog
-  `spec/CHANGELOG.md`) ; `vX.Y.Z` publie l'implémentation (version dans
-  `lakefile.lean`, changelog `CHANGELOG.md`). Voir « Publier une version » dans
-  `CONTRIBUTING.md`. Les changements de la spécification vont dans `spec/CHANGELOG.md`.
-- Monter Lean et les dépendances : `scripts/bump-lean.sh vX.Y.Z` (jamais à la main).
-- Le hook `SessionStart` (`scripts/claude-session-start.sh`) installe elan et le
-  cache Mathlib dans les sessions web, si le réseau autorise `release.lean-lang.org`.
+Lire `.claude/rules/project.md` pour toute tâche substantielle, puis la règle spécialisée de la zone modifiée. Lire `.claude/skills/writing-rules.md` avant toute modification de code, test ou spécification.
+
+## Séparation épistémique
+
+Une tâche traversant la spécification et Lean doit expliciter :
+
+`specification → formalisation → implémentation → preuve → test`.
+
+Ne jamais adapter silencieusement la spécification à l'implémentation, ni l'implémentation à une interprétation non établie de la spécification.
+
+Les statuts suivants sont distincts : intuition, définition, assertion argumentée, propriété formalisée, propriété prouvée, propriété testée.
+
+## Routage des agents
+
+Les agents sont des rôles, les skills sont des procédures. La session principale reste l'architecte et l'intégrateur.
+
+### Spécification
+
+- `spec-architect` : conception, dépendances, arbitrages interchapitres ; lecture principalement.
+- `formal-reviewer` : revue antagoniste, hypothèses et contre-exemples ; lecture.
+- `spec-editor` : édition Verso explicitement demandée.
+- `consistency-auditor` : cohérence `spec ↔ Lean ↔ tests ↔ docs`.
+
+### Lean
+
+- `theorem-prover` : preuves pour des énoncés déjà stabilisés.
+- `lean-implementer` : implémentation de `src/` et `tests/`.
+- `lean-debugger` : diagnostic et correctifs minimaux.
+- `verification-specialist` : vérification indépendante du changement.
+
+### Assurance
+
+Les agents `scorecard-specialist`, `cii-specialist`, `github-governance-specialist`, `supply-chain-release-specialist`, `security-assurance-specialist` et `quality-reproducibility-specialist` forment une couche indépendante d'assurance OpenSSF/sécurité.
+
+## Modèles
+
+Les paramètres `model`, `effort` et `isolation` des subagents sont définis dans leurs fichiers. Ne pas les dupliquer dans une consigne ad hoc ni les remplacer arbitrairement.
+
+Pour les tâches d'architecture, de théorie, de sécurité, de gouvernance ou d'intégration, la session principale privilégie Opus 5.5 avec effort `high`. Les rôles opérationnels utilisent Sonnet 5.5 avec effort `high` quand leur définition l'indique.
+
+## Orchestration
+
+Pour une tâche locale, utiliser un seul agent pertinent.
+
+Pour une tâche substantielle, suivre deux vagues :
+
+1. **Audit** : lancer les agents concernés en parallèle, sans modifications concurrentes des mêmes fichiers. Chaque agent produit faits observés, preuves, écarts, recommandations et actions humaines restantes.
+2. **Implémentation** : après comparaison des rapports, répartir les fichiers par frontière de responsabilité, intégrer les changements retenus, puis faire vérifier l'ensemble.
+
+Ne jamais lancer simultanément plusieurs agents en écriture sur le même fichier.
+
+Pour une chaîne `spec → Lean`, préférer :
+
+`spec-architect → formal-reviewer → (theorem-prover | lean-implementer) → consistency-auditor → verification-specialist`.
+
+Pour une correction Lean locale :
+
+`lean-debugger → verification-specialist`.
+
+Pour une modification éditoriale explicitement autorisée :
+
+`spec-editor → validate-spec`.
+
+Pour un audit OpenSSF transversal, utiliser les six agents d'assurance en parallèle, puis intégrer leurs conclusions avant toute modification.
+
+## Validation
+
+Un changement n'est pas terminé parce qu'un agent dit qu'il est terminé.
+
+Pour Lean, exécuter au minimum les contrôles pertinents parmi :
+
+`lake build`, `lake test`, `lake lint`, `reuse lint`.
+
+Pour `spec/`, utiliser les contrôles Verso du dépôt, notamment :
+
+`lake build Spec`, `lake exe spec --output _out/spec --with-tex`, `python3 scripts/controle.py`.
+
+Vérifier également les contrôles de suivi lorsque les fichiers concernés changent.
+
+Classer les résultats :
+
+`VERIFIED` · `PARTIAL` · `PREPARED` · `HUMAN ACTION REQUIRED` · `BLOCKED` · `FUTURE`.
+
+Une validation externe ou humaine ne doit jamais être présentée comme déjà acquise.
+
+## Documentation
+
+Les règles détaillées de style, structure, REUSE, tests et commits restent dans `.claude/skills/writing-rules.md`.
+
+Les procédures métier sont dans les skills spécialisées :
+
+- `.claude/skills/spec/` pour Verso ;
+- `.claude/skills/lean/` pour Lean 4 ;
+- `.claude/skills/research/` pour la recherche ;
+- `.claude/skills/engineering/` pour planification, vérification et revue.
+
+Le hook `SessionStart` (`scripts/claude-session-start.sh`) prépare l'environnement Lean des sessions web quand le réseau le permet.
