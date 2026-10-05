@@ -19,6 +19,7 @@ jobs:
   implementation-verify:
     name: Vérifier l'implémentation
     if: ${{ startsWith(github.event.release.tag_name, 'v') && !startsWith(github.event.release.tag_name, 'spec-v') }}
+    needs: implementation-release-check
     uses: ./.github/workflows/verify.yaml
     with:
       lean_build: true
@@ -26,7 +27,6 @@ jobs:
   implementation-release-check:
     name: Vérifier la release de l'implémentation
     if: ${{ startsWith(github.event.release.tag_name, 'v') && !startsWith(github.event.release.tag_name, 'spec-v') }}
-    needs: implementation-verify
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -52,6 +52,7 @@ jobs:
   spec-verify:
     name: Vérifier la spécification
     if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
+    needs: spec-release-check
     uses: ./.github/workflows/verify.yaml
     with:
       spec_build: true
@@ -59,7 +60,6 @@ jobs:
   spec-release-check:
     name: Vérifier la release de spécification
     if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
-    needs: spec-verify
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
