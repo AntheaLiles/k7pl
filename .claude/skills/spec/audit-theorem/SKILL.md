@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: audit-theorem
 description: Auditer la portée, les hypothèses et le statut de preuve d'un théorème ou énoncé de k7pl.
