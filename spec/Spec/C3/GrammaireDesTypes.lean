@@ -39,7 +39,7 @@ poussée de valeur, et la grammaire ci-dessous la porte.
 ::::formula (label := "eq:grammaire-types") (kind := "formule")
 ```
 \begin{align*}
-\text{(valeurs)}\quad V &::= b \mid @_n V \mid \mathbf{1} \mid V \otimes V \mid \textstyle\bigoplus_{i \in I} V_i \mid \mathsf{Vec}\;n\;V \mid \mathsf{Arena}\;V \mid !_{r} V \mid U_{\varepsilon}\,C \mid \exists \alpha. V \mid \mu\alpha. V\\
+\text{(valeurs)}\quad V &::= b \mid @_n V \mid \mathbf{1} \mid V \otimes V \mid \textstyle\bigoplus_{i \in I} V_i \mid \mathsf{Vec}\;n\;V \mid \mathsf{Arena}\;V \mid \mathsf{Cap}\;\rho \mid !_{r} V \mid U_{\varepsilon}\,C \mid \exists \alpha. V \mid \mu\alpha. V\\
 \text{(calculs)}\quad C &::= F_{\varepsilon}\,V \mid V \multimap C \mid \textstyle\mathop{\&}_{i \in I} C_i \mid \forall \alpha. C \mid \nu\alpha. C\\
 \text{(sessions)}\quad S &::= \mathbf{End} \mid V \otimes S \mid V \multimap S \mid \oplus\{\ell_i : S_i\} \mid \&\{\ell_i : S_i\} \mid {\bigcirc} S \mid {\Box} S \mid {\Diamond} S\\
 \text{(grades)}\quad r &::= \langle u, m, \ell, \beta \rangle \in \mathcal{R} = \mathbb{N}_\infty \times \{\mathrm{d} \preceq \mathrm{m}\} \times \mathcal{L} \times \mathcal{B}\\
@@ -54,8 +54,8 @@ et d'une famille temporelle indexée par les niveaux
 ::::
 
 Cette grammaire est _complète_ au sens précis où elle est croisée avec le jeu de règles, et le
-compte n'est plus une opinion : quarante-neuf règles de typage, dont quatre ne gouvernent aucun
-constructeur de terme ; quarante-cinq constructeurs de termes, dont neuf valeurs et trente-six
+compte n'est plus une opinion : cinquante règles de typage, dont quatre ne gouvernent aucun
+constructeur de terme ; quarante-six constructeurs de termes, dont neuf valeurs et trente-sept
 calculs. Le croisement est vérifié mécaniquement à chaque construction du document, et il fait
 échouer celle-ci dès qu'un constructeur apparaît dans une règle sans figurer à la grammaire, ou
 l'inverse. Les quatre règles sans constructeur ne sont pas une anomalie : ce sont les deux règles de

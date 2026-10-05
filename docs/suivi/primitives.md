@@ -505,6 +505,15 @@ Le terme reçu. Il dit la création sans dire l'attente, ce qui est exactement c
 bifurcation  
 Écarté. Le mot suppose une jonction symétrique, que cette règle ne donne pas : rien n'oblige la mère à rejoindre la fille.
 
+### DOING Découper une capacité d'écriture
+
+    SYMBOLE: slice | FAMILLE: modèle mémoire | REGLE: Slice | LEMME-RETENU: découpe | LEMME-CANDIDAT: découpe, partition, tranche
+
+Consommer une capacité d'écriture sur un segment et en rendre deux sur des segments disjoints.
+
+découpe  
+Provisoire. Il dit la consommation de la capacité et la naissance de deux autres, et laisse à la condition de disjonction le soin de dire que les segments ne se chevauchent pas.
+
 ### DOING Créer une boîte aux lettres
 
     SYMBOLE: new | FAMILLE: couche 2 | REGLE: New | LEMME-RETENU: création de boîte | LEMME-CANDIDAT: création de boîte

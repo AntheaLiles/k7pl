@@ -7,7 +7,7 @@ BLOQ-05,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,claus
 BLOQ-06,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,deux sortes de tailles 𝕊_μ / 𝕊_ν
 BLOQ-07,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,énoncé rendu conditionnel à Sim ; Sim à établir (PREUVE-07)
 BLOQ-08,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,P1b nommée ; Th. 31 et §4.6 à reprendre
-BLOQ-09,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,H1 et H2 posées en hypothèses ; lemmes à démontrer (PREUVE-12)
+BLOQ-09,partielle,journal,journal/2026-10-05-pr-02-20-slice.md,"H1 lue sur Slice ; élimination de l'arène à écrire ; région comme discipline de portée à définir"
 BLOQ-10,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,D_det nommée ; ses trois composantes restent à écrire (PREUVE-15)
 BLOQ-11,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,
 BLOQ-12,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,table de propagation à écrire (IMPL-07)
@@ -64,7 +64,7 @@ PREUVE-08,partielle,journal,journal/2026-10-05-pr-02-19-preuves-detaillees.md,"c
 PREUVE-09,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé en deux temps ; hypothèse (ii) nommée exigence sur ℰ₀"
 PREUVE-10,partielle,journal,journal/2026-10-05-pr-02-19-preuves-detaillees.md,"conversions définies par facteur ; équation w∘ε=w à vérifier au ch. 2"
 PREUVE-11,partielle,journal,journal/2026-10-05-pr-02-19-preuves-detaillees.md,"clause par facteur écrite ; facteur budget à écrire"
-PREUVE-12,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"lemme de portée démontré (arithmétique d'intervalles) ; unicité H1 attend la règle d'introduction"
+PREUVE-12,partielle,journal,journal/2026-10-05-pr-02-20-slice.md,"règle Slice écrite (50 règles, 46 constructeurs) ; H1 dépend de l'élimination de l'arène, exception déclarée"
 PREUVE-13,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,l'absence d'interblocage n'emprunte plus : le graphe de câblage est lu des règles
 PREUVE-14,fermee,journal,journal/2026-10-01-pr-02-14-preuves.md,"schéma de méta-théorème, deux instanciations aux conclusions distinctes"
 PREUVE-15,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"D_det écrite (parcours, recherche, graine) en E.4.1 ; implémentation à spécifier dans l'outillage"
