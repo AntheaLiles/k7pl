@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: verification
 description: Vérifier qu'un changement k7pl satisfait réellement son contrat et que les contrôles couvrent les erreurs pertinentes.
