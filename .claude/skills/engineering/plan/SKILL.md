@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: plan
 description: Transformer une demande k7pl en plan d'exécution avec dépendances, frontières de fichiers et critères de vérification.
