@@ -119,7 +119,7 @@ forme que la clôture énoncée ci-après réclame d'une extension.
   elle-même utilisable sans restriction, et chaque affaiblissement est une perte de précision. Cet
   ordre n'est pas le sous-typage $`\preccurlyeq` : sur l'usage, celui-ci descend (une ressource
   librement copiable se coerce en ressource à usage unique, $`!\omega\,A <: {!}1\,A`), tandis que
-  les autres composantes montent ; il est défini comme produit mixte (§{num "sec:g-regles"}[]). Le chapitre 3 en tire le système de types complet. L'orthogonalité s'étend enfin à toute paire de dimensions du
+  les autres composantes montent ; il est défini comme produit mixte, composante par composante, dans la table {num "tab:produit-mixte"}[] (§{num "sec:g-regles"}[]), dont la direction par composante — usage et monotonie descendent, niveau et budget montent — est ce qui fait l'inversion sur l'usage. Le chapitre 3 en tire le système de types complet. L'orthogonalité s'étend enfin à toute paire de dimensions du
   langage — types, termes, contextes, effets, grades — par une relation de précision $`\sqsubseteq`,
   dont la construction comme enrichissement catégorique de _C_ sur un treillis distributif borné est
   différée au chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]).

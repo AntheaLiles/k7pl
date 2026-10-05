@@ -423,7 +423,7 @@ $`\text{Unr} \sqsubseteq \text{Aff} \sqsubseteq \text{Lin}` du chapitre 1 est la
 $`\sqsubseteq` à la seule dimension des modalités d'usage. Une modalité est d'autant plus précise
 qu'elle contraint davantage l'usage. Ce n'est pas le sous-typage $`\preccurlyeq` des règles de typage, qui
 descend sur l'usage ($`!\omega\,A <: {!}1\,A`) : les deux ordres sont opposés sur cette seule
-composante. Les foncteurs d'inclusion du §{num "sec:c2-la-comonade-exponentielle-et"}[] réalisent
+composante, ce que la table {num "tab:produit-mixte"}[] donne composante par composante. Les foncteurs d'inclusion du §{num "sec:c2-la-comonade-exponentielle-et"}[] réalisent
 catégoriquement cette stratification sur les fragments eux-mêmes. Types dépendants, raffinements, sessions et existentielles,
 dont le chapitre 3 tire parti de cette même relation sur chacune de leurs propres dimensions, ne
 feront qu'instancier, pour un artefact syntaxique après l'autre, ce même treillis.

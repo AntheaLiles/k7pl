@@ -8,7 +8,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| `BLOQ` Bloquants | 14 | 8 | 6 | 0 | 0 | 0 | 0 |
+| `BLOQ` Bloquants | 14 | 9 | 5 | 0 | 0 | 0 | 0 |
 | `STRUCT` Structurels | 23 | 14 | 3 | 0 | 0 | 0 | 6 |
 | `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
@@ -20,7 +20,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BIB` Vérifications bibliographiques | 29 | 11 | 6 | 0 | 0 | 0 | 12 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **118** | **33** | **1** | **3** | **2** | **33** |
+| **Total** | **190** | **119** | **32** | **1** | **3** | **2** | **33** |
 
 ## BLOQ — Bloquants
 
@@ -39,7 +39,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BLOQ-11` | ✅ fermée | La règle (10) de déclassification n'a pas reçu la clause de clôture de 𝒳 ; elle admet le blanchiment par substitution | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) |
 | `BLOQ-12` | 🟡 partielle | Le Th. 18 n'établit aucun homomorphisme et sa conclusion sur les lois de la théorie des roues est fausse | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · table de propagation à écrire (IMPL-07) |
 | `BLOQ-13` | ✅ fermée | Le graphe de câblage, hypothèse du Th. 17 et du Th. 24, n'est défini nulle part | [journal](../historique/2026-10-01-pr-02-avancement.md) |
-| `BLOQ-14` | 🟡 partielle | Le ch. 1 et le ch. 2 énoncent le sous-typage modal dans le sens inverse de la règle SUBBOX et de la table 20 | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · table 20 non remontée (TRANS-06) |
+| `BLOQ-14` | ✅ fermée | Le ch. 1 et le ch. 2 énoncent le sous-typage modal dans le sens inverse de la règle SUBBOX et de la table 20 | [journal](../journal/2026-10-05-pr-02-20-slice.md) · ordre ⊑ nommé, table du produit mixte renvoyée depuis les ch. 1 et 2 (TRANS-06) ; §3.1 et §4.5 relus |
 
 ## STRUCT — Structurels
 
