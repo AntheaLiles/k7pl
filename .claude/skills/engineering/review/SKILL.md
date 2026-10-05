@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: review
 description: Revoir une modification k7pl selon plusieurs axes indépendants : correction technique, fidélité à la demande, cohérence normative et risque de régression.
