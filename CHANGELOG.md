@@ -18,7 +18,8 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 ### Added
 
 - CI : jobs parallèles `quick`, `impl`, `spec` et contrôle agrégé `CI OK` ; audit d'axiomes
-  ciblé (`scripts/axiom-audit.sh`) ; concurrence, délais d'expiration et déclencheurs durcis.
+  ciblé (`scripts/axiom-audit.sh`) ; concurrence, délais d'expiration et déclencheurs durcis ; annotations et résumés de job, audit d'axiomes de la spécification, vérification des
+  liens locaux.
 - Le manuscrit de la spécification en Verso (`spec/`), converti de l'Org-mode ; extensions Verso
   (`tools/SpecExt/` : renvois, énoncés scellés, formules, figures, tableaux, citations par
   chapitre, remarques marginales, listes) ; bibliographie générée (`tools/SpecBib.lean`,

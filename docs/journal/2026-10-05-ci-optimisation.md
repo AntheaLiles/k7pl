@@ -33,12 +33,21 @@ Suite de `2026-10-05-ci-mesure-initiale.md`. PR n° 7 (brouillon).
 conditionne pas `CI OK`. Seul le premier run après un changement de `lake-manifest.json` ou de
 `lean-toolchain` est à froid.
 
-## Reporté (non réalisé dans cette passe)
+### Lots 6, 7, 8 (réalisés)
 
-Lots 2 (problem matcher, `NO_COLOR`), 6 (annotations
-`controle.py --format=github`), 7 (résumés de job), 8 (audit des axiomes de `Spec`, lychee
-`--offline`, gitleaks sur plage), 9 (filtrage par chemins). Aucun n'est bloquant ; à reprendre
-si les temps restent trop longs.
+* Lot 6 : `scripts/controle.py --format github` (groupes de log par contrôle, annotation `::error::`
+  par échec, résumé dans `$GITHUB_STEP_SUMMARY`) ; le format `text` reste le défaut.
+* Lot 7 : résumés de job (`impl`, `spec`), et `lint` / audit s'exécutent même si les tests
+  échouent (`if: !cancelled()`) : un run rapporte tous les problèmes, sans `continue-on-error`,
+  qui aurait masqué l'échec dans `CI OK`.
+* Lot 8 : audit d'axiomes de `Spec` (`scripts/axiom-audit.sh Spec Spec`, vert) ; vérification
+  hors ligne des liens relatifs Markdown par lychee (`--offline`, 0 erreur). gitleaks analyse déjà
+  l'historique complet (`fetch-depth: 0`).
+
+## Reporté
+
+Lot 2 (problem matcher, `NO_COLOR`) et lot 9 (filtrage par chemins) : sans effet mesurable à
+cache chaud (jobs de 1 à 2 min), non réalisés.
 
 ## Action humaine
 
