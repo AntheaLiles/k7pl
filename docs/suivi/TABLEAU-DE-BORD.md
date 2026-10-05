@@ -80,14 +80,14 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 | `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
 | `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
 | `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
-| `IMPL` Implémentation et outillage | 9 | 4 | 2 | 0 | 0 | 0 | 3 |
+| `IMPL` Implémentation et outillage | 9 | 5 | 2 | 0 | 0 | 0 | 2 |
 | `FACT` Factorisations à écrire | 24 | 14 | 4 | 0 | 2 | 2 | 2 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
 | `BIB` Vérifications bibliographiques | 29 | 11 | 6 | 0 | 0 | 0 | 12 |
 | `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
 | `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **119** | **32** | **1** | **3** | **2** | **33** |
+| **Total** | **190** | **120** | **32** | **1** | **3** | **2** | **32** |
 <!-- END:fiches -->
 
 Détail fiche par fiche : [`FICHES-PR02.md`](FICHES-PR02.md). **Comment lire « ouverte »** : aucun compte rendu de séance ne nomme la fermeture de la fiche. L'auteur a pu fermer sans consigner ; l'état est volontairement conservateur et se corrige dans `fiches-statuts.csv`. Les fermetures *déduites* (changement de statut d'un énoncé rapproché du texte de la fiche) sont marquées comme telles et sont à confirmer.
