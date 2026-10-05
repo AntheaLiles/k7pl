@@ -9,7 +9,8 @@ SPDX-License-Identifier: CECILL-2.1
 [![REUSE status](https://api.reuse.software/badge/github.com/AntheaLiles/k7pl)](https://api.reuse.software/info/github.com/AntheaLiles/k7pl)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/AntheaLiles/k7pl/badge)](https://scorecard.dev/viewer/?uri=github.com/AntheaLiles/k7pl)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23040451.svg)](https://doi.org/10.5281/zenodo.23040451)
-[![SWH](https://archive.softwareheritage.org/badge/origin/https://github.com/AntheaLiles/k7pl/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/AntheaLiles/k7pl)
+[![SWH origin](https://archive.softwareheritage.org/badge/origin/https://doi.org/10.5281/zenodo.23040451/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://doi.org/10.5281/zenodo.23040451)
+[![SWH directory](https://archive.softwareheritage.org/badge/swh:1:dir:b81695cfdce2e418f8a8431b79e8894ee7310c50/)](https://archive.softwareheritage.org/swh:1:dir:b81695cfdce2e418f8a8431b79e8894ee7310c50;origin=https://doi.org/10.5281/zenodo.23040451;visit=swh:1:snp:e8d0a0046dc9e4509fc52655611c04a49414fa89;anchor=swh:1:rel:6c1db6481a70f65688c0cf1f8eb8cbfcf1e128b9)
 [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
 
 k7pl est un langage de programmation dont l'implémentation est écrite en
