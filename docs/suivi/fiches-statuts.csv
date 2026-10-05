@@ -12,7 +12,7 @@ BLOQ-10,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,D_det no
 BLOQ-11,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,
 BLOQ-12,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,table de propagation à écrire (IMPL-07)
 BLOQ-13,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-BLOQ-14,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,table 20 non remontée (TRANS-06)
+BLOQ-14,fermee,journal,journal/2026-10-05-pr-02-20-slice.md,"ordre ⊑ nommé, table du produit mixte renvoyée depuis les ch. 1 et 2 (TRANS-06) ; §3.1 et §4.5 relus"
 STRUCT-01,ouverte,,,
 STRUCT-02,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,"ℰ_alg / ℰ_scoped, clôture faible (position intermédiaire de ARB-PR-03)"
 STRUCT-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
