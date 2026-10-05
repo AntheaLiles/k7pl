@@ -11,28 +11,32 @@ Les textes complets des licences se trouvent dans le dossier LICENSES/.
 Répartition
 -----------
 
-  • Code du projet → CeCILL 2.1 (SPDX : CECILL-2.1)
-    Implémentation (src/), tests (tests/), outils (tools/, scripts/),
-    configuration (lakefile.lean, lake-manifest.json, lean-toolchain,
-    .gitignore, .gitattributes, .editorconfig, .commitlintrc.yaml, REUSE.toml,
-    CITATION.cff, zenodo.json, zenodo.files.json), intégration continue et modèles (.github/), consignes
-    (.claude/), README.md, CHANGELOG.md, CONTRIBUTING.md et SECURITY.md.
-    Texte complet : LICENSES/CECILL-2.1.txt
+- Code du projet → CeCILL 2.1 (SPDX : CECILL-2.1)
 
-    La CeCILL 2.1 est une licence copyleft fort, compatible avec la GNU GPL.
-    Toute version modifiée et redistribuée du projet doit rester sous
-    CeCILL 2.1 (ou sous GNU GPL, selon les conditions de compatibilité
-    prévues par la licence).
+  Implémentation (src/), tests (tests/), outils (tools/, scripts/),
+  configuration (lakefile.lean, lake-manifest.json, lean-toolchain,
+  .gitignore, .gitattributes, .editorconfig, .commitlintrc.yaml, REUSE.toml,
+  CITATION.cff, zenodo.json, zenodo.files.json), intégration continue et modèles (.github/), consignes
+  (.claude/), README.md, CHANGELOG.md, CONTRIBUTING.md et SECURITY.md.
 
-  • Spécifications → Creative Commons Attribution 4.0 International
-    (SPDX : CC-BY-4.0)
-    Documents du dossier spec/ (sources Verso), ainsi que CODE_OF_CONDUCT.md
-    (traduction du Contributor Covenant 2.1, lui-même sous CC-BY-4.0).
-    Texte complet : LICENSES/CC-BY-4.0.txt
+  Texte complet : LICENSES/CECILL-2.1.txt
 
-    Les spécifications peuvent être reprises, adaptées et redistribuées
-    librement, y compris à des fins commerciales, à condition de citer
-    les auteurs.
+  La CeCILL 2.1 est une licence copyleft fort, compatible avec la GNU GPL.
+  Toute version modifiée et redistribuée du projet doit rester sous
+  CeCILL 2.1 (ou sous GNU GPL, selon les conditions de compatibilité
+  prévues par la licence).
+
+- Spécifications → Creative Commons Attribution 4.0 International
+  (SPDX : CC-BY-4.0)
+
+  Documents du dossier spec/ (sources Verso), ainsi que CODE_OF_CONDUCT.md
+  (traduction du Contributor Covenant 2.1, lui-même sous CC-BY-4.0).
+
+  Texte complet : LICENSES/CC-BY-4.0.txt
+
+  Les spécifications peuvent être reprises, adaptées et redistribuées
+  librement, y compris à des fins commerciales, à condition de citer
+  les auteurs.
 
 
 Composants du langage

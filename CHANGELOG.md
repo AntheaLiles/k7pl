@@ -58,6 +58,8 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 ### Changed
 
 - `LICENSE` devient `LICENSE.md` ; les références (README, règles de rédaction) sont mises à jour.
+  Mise en forme Markdown du fichier, texte inchangé (deux puces et leurs paragraphes
+  s'affichaient en blocs de code).
 - `CITATION.cff` : version `0.0.0-alpha.1`, celle du tag `spec-v0.0.0-alpha.1` ; le contrôle de
   release du job `zenodo` compare ces deux valeurs et avait échoué sur `0.0.0`.
 - Les spécifications passent d'Org-mode à Verso.
