@@ -13,12 +13,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from controles import algebre, croise, notation, structure  # noqa: E402
+from controles import algebre, croise, notation, semantique, structure  # noqa: E402
 from controles.journal import failures  # noqa: E402
 
 
 def main() -> int:
-    for module in (structure, algebre, notation, croise):
+    for module in (structure, algebre, notation, croise, semantique):
         module.run()
     print()
     if failures:

@@ -86,3 +86,9 @@ path = ["archives/outillage-org/**", "archives/README.md"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CECILL-2.1"
+
+[[annotations]]
+path = "scripts/controles/donnees/sondes.json"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CECILL-2.1"

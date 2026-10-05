@@ -247,7 +247,7 @@ Non démontré : l'énoncé est une proposition, et ce croquis n'en est que le p
 est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell` produisent
 des sorties indiscernables — ce serait la non-interférence, que la déclassification viole par
 construction — mais que deux états qui s'accordent _en outre_ sur les échappatoires le fassent. La
-route est la paramétricité par les existentielles : on construit la relation logique qui relie deux
+route est la paramétricité, obtenue au moyen de types existentiels {cite "algehedSimpleNoninterferenceParametricity2019"}[] : on construit la relation logique qui relie deux
 états s'accordant sur $`\ell` et sur $`\mathcal{X}`, et le lemme fondamental
 (théorème {num "thm:lemme_fondamental"}[]) l'étend à tout programme bien typé. Elle suppose la clause
 de clôture des échappatoires posée plus haut (chaque $`e \in \mathcal{X}` est close), faute de quoi
