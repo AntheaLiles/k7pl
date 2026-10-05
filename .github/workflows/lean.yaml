@@ -45,17 +45,36 @@ jobs:
         with:
           persist-credentials: false
 
-      # Installs elan, fetches the Mathlib cache, then runs `lake build` on the implementation and
-      # test libraries only, `lake test` and `lake lint`. The axiom audit has its own step below
-      # (lean-action's one runs a bare `lake build`, which would also compile the specification).
-      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
+      # elan only: every other step is explicit so that the time of each one is visible.
+      - name: Install elan
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
         with:
           auto-config: false
-          use-mathlib-cache: true
-          build: true
-          build-args: "K7pl K7plTests"
-          test: true
-          lint: true
+          use-github-cache: false
+          use-mathlib-cache: false
+          build: false
+          test: false
+          lint: false
+
+      # Dependencies (sources and compiled objects) only change with the manifest or the
+      # toolchain: an immutable key gives one cache entry per dependency set, usable by every ref.
+      - name: Restore the Lake dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lake/packages
+          key: lakedeps-impl-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
+
+      - name: Fetch the Mathlib cache
+        run: lake exe cache get || echo "::warning::Mathlib cache unavailable, full rebuild ahead"
+
+      - name: Build the implementation and the tests
+        run: lake build K7pl K7plTests
+
+      - name: Test
+        run: lake test
+
+      - name: Lint
+        run: lake lint
 
       # Only propext, Classical.choice and Quot.sound are allowed under the `K7pl` namespace;
       # `sorry` and `native_decide` are rejected.
@@ -71,14 +90,27 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
+      # elan only: every other step is explicit so that the time of each one is visible.
+      - name: Install elan
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
         with:
           auto-config: false
+          use-github-cache: false
           use-mathlib-cache: false
-          build: true
-          build-args: "Spec"
+          build: false
           test: false
           lint: false
+
+      # Dependencies (sources and compiled objects) only change with the manifest or the
+      # toolchain: an immutable key gives one cache entry per dependency set, usable by every ref.
+      - name: Restore the Lake dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lake/packages
+          key: lakedeps-spec-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
+
+      - name: Build the specification
+        run: lake build Spec
 
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
