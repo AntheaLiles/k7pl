@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: prove
 description: Construire une preuve Lean 4 pour une propriété déjà clarifiée, sans modifier silencieusement la théorie.
