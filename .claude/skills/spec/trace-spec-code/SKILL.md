@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CECILL-2.1
+-->
+
 ---
 name: trace-spec-code
 description: Construire et vérifier la traçabilité entre une propriété de la spécification, son implémentation Lean, ses preuves et ses tests.
