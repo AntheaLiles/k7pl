@@ -4,7 +4,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;graph LR\n    P1[\&quot;Phase 1 : Parse\&quot;] --&gt; P15[\&quot;Phase 1.5 : ConfigAnalysis\&quot;]\n    P15 --&gt; P2[\&quot;Phase 2 : TypeCheck\&quot;]\n    P2 --&gt; P25[\&quot;Phase 2.5 : Élaboration\&quot;]\n    P25 --&gt; P3[\&quot;Phase 3 : PurityCheck\&quot;]\n    P3 --&gt; P4[\&quot;Phase 4 : TermProof\&quot;]\n    P4 --&gt; P5[\&quot;Phase 5 : ConstraintSolve\&quot;]\n    P5 --&gt; P6[\&quot;Phase 6 : Optimize\&quot;]\n    P6 --&gt; P7[\&quot;Phase 7 : CodeGen\&quot;]\n    P7 --&gt; P8[\&quot;Phase 8 : Link\&quot;]&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="J_od5O2sZ147UieCqjKc-1">
+        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;graph LR\n    P1[\&quot;Phase 1 : Parse\&quot;] --&gt; P15[\&quot;Phase 1.5 : ConfigAnalysis\&quot;]\n    P15 --&gt; P2[\&quot;Phase 2 : TypeCheck\&quot;]\n    P2 --&gt; P25[\&quot;Phase 2.5 : Résolution\&quot;]\n    P25 --&gt; P3[\&quot;Phase 3 : PurityCheck\&quot;]\n    P3 --&gt; P4[\&quot;Phase 4 : TermProof\&quot;]\n    P4 --&gt; P5[\&quot;Phase 5 : ConstraintSolve\&quot;]\n    P5 --&gt; P6[\&quot;Phase 6 : Optimize\&quot;]\n    P6 --&gt; P7[\&quot;Phase 7 : CodeGen\&quot;]\n    P7 --&gt; P8[\&quot;Phase 8 : Link\&quot;]&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="J_od5O2sZ147UieCqjKc-1">
           <mxCell connectable="0" parent="1" style="group;transparentBounds=1;editIcon=1;lockedGroup=0;groupPadding=10;" vertex="1">
             <mxGeometry height="220" width="210" as="geometry" />
           </mxCell>
@@ -24,7 +24,7 @@
             <mxGeometry height="50" width="200" y="200" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Phase 2.5 : Élaboration" mermaidId="n:P25" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="Phase 2.5 : Élaboration" id="J_od5O2sZ147UieCqjKc-5">
+        <UserObject label="Phase 2.5 : Résolution" mermaidId="n:P25" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="Phase 2.5 : Résolution" id="J_od5O2sZ147UieCqjKc-5">
           <mxCell parent="J_od5O2sZ147UieCqjKc-1" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" vertex="1">
             <mxGeometry height="50" width="200" x="220" y="120" as="geometry" />
           </mxCell>
