@@ -40,7 +40,7 @@ jobs:
       - name: Check the local links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --offline --no-progress --include-fragments=false '**/*.md'
+          args: --offline --no-progress '**/*.md'
           fail: true
 
   # Implementation (`src/`) and tests: needs Mathlib and CSLib, not Verso.
