@@ -1,0 +1,196 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  implementation-verify:
+    name: Vérifier l'implémentation
+    if: ${{ startsWith(github.event.release.tag_name, 'v') && !startsWith(github.event.release.tag_name, 'spec-v') }}
+    uses: ./.github/workflows/verify.yaml
+    with:
+      lean_build: true
+
+  implementation-release-check:
+    name: Vérifier la release de l'implémentation
+    if: ${{ startsWith(github.event.release.tag_name, 'v') && !startsWith(github.event.release.tag_name, 'spec-v') }}
+    needs: implementation-verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check release metadata
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          lake_version="$(sed -n 's/^ *version := v!"\(.*\)"$/\1/p' lakefile.lean)"
+          if [ "$lake_version" != "$version" ]; then
+            echo "::error::lakefile.lean déclare '$lake_version' mais la release est '$TAG'"
+            exit 1
+          fi
+          grep -q "^## \[$version\]" CHANGELOG.md || {
+            echo "::error::CHANGELOG.md ne contient pas la section '## [$version]'"
+            exit 1
+          }
+
+  spec-verify:
+    name: Vérifier la spécification
+    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
+    uses: ./.github/workflows/verify.yaml
+    with:
+      spec_build: true
+
+  spec-release-check:
+    name: Vérifier la release de spécification
+    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
+    needs: spec-verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check specification release metadata
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          version="${TAG#spec-v}"
+          cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
+          if [ "$cff" != "$version" ]; then
+            echo "::error::CITATION.cff déclare '$cff' mais la release est '$TAG'"
+            exit 1
+          fi
+          grep -q "^## \[$version\]" spec/CHANGELOG.md || {
+            echo "::error::spec/CHANGELOG.md ne contient pas la section '## [$version]'"
+            exit 1
+          }
+
+  publish-spec:
+    name: Publier le PDF et sa provenance
+    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
+    needs: [spec-verify, spec-release-check]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: spec-pdf
+          path: out
+
+      - name: Generate a SHA-256 checksum
+        working-directory: out
+        run: sha256sum k7pl-spec.pdf > k7pl-spec.pdf.sha256
+
+      - name: Generate artifact provenance
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: out/k7pl-spec.pdf
+
+      - name: Attach the PDF and checksum to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$TAG" out/k7pl-spec.pdf out/k7pl-spec.pdf.sha256 --clobber
+
+  zenodo:
+    name: Publier sur Zenodo
+    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
+    needs: [spec-verify, spec-release-check, publish-spec]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    concurrency:
+      group: zenodo
+      cancel-in-progress: false
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check that the release matches CITATION.cff and spec/CHANGELOG.md
+        run: |
+          set -euo pipefail
+          version="${TAG#spec-v}"
+          cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
+          if [ "$cff" != "$version" ]; then
+            echo "::error::CITATION.cff déclare '$cff' mais la release est '$TAG'"
+            exit 1
+          fi
+          grep -q "^## \[$version\]" spec/CHANGELOG.md || {
+            echo "::error::spec/CHANGELOG.md ne contient pas la section '## [$version]'"
+            exit 1
+          }
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: spec-pdf
+          path: out
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Install the dependencies
+        run: pip install --require-hashes -r scripts/requirements-zenodo.txt
+
+      - name: Restore the Zenodo state
+        run: |
+          if git fetch --depth 1 origin zenodo-state; then
+            git show FETCH_HEAD:.zenodo_state.json > .zenodo_state.json
+          else
+            echo "{}" > .zenodo_state.json
+          fi
+
+      - name: Publish on Zenodo
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_ENV: ${{ secrets.ZENODO_ENV }}
+        run: ZENODO_VERSION="${TAG#spec-v}" python scripts/sync_zenodo.py
+
+      - name: Save the Zenodo state
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          dir="$RUNNER_TEMP/zenodo-state"
+          if git fetch --depth 1 origin zenodo-state; then
+            git worktree add --detach "$dir" FETCH_HEAD
+          else
+            git worktree add --detach "$dir"
+            git -C "$dir" checkout --orphan zenodo-state
+            git -C "$dir" rm -rfq .
+          fi
+          cp .zenodo_state.json "$dir/.zenodo_state.json"
+          cd "$dir"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .zenodo_state.json
+          git commit -m "chore(zenodo): enregistrer l'état de la publication $TAG"
+          git -c "http.extraheader=AUTHORIZATION: bearer $GITHUB_TOKEN" \
+            push origin HEAD:refs/heads/zenodo-state

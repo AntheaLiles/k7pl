@@ -3,9 +3,8 @@
 # SPDX-License-Identifier: CECILL-2.1
 
 # Opens a pull request when Lean, Mathlib, CSLib and Verso share a newer release.
-# A pull request opened with GITHUB_TOKEN does not trigger the other workflows: set the
-# BUMP_TOKEN secret (fine-grained token with contents and pull-requests write access)
-# so that the checks run on it.
+# A pull request opened with GITHUB_TOKEN does not trigger the other workflows; BUMP_TOKEN is
+# therefore required so that the generated pull request receives the normal CI checks.
 name: Bump Lean
 
 on:
@@ -60,18 +59,26 @@ jobs:
         if: steps.version.outputs.newer == 'true'
         run: |
           lake update
-          # Without this, Mathlib is rebuilt from scratch (hours).
-          # Right after a toolchain bump the upstream cache may not be published yet,
-          # so a failure here is not fatal.
           lake exe cache get || echo "::warning::Mathlib cache unavailable, full rebuild ahead"
           lake build
           lake test
+
+      - name: Require a token that triggers the normal PR workflows
+        if: steps.version.outputs.newer == 'true'
+        env:
+          BUMP_TOKEN: ${{ secrets.BUMP_TOKEN }}
+        run: |
+          set -euo pipefail
+          [ -n "$BUMP_TOKEN" ] || {
+            echo "::error::BUMP_TOKEN est requis pour créer une PR soumise à la CI normale."
+            exit 1
+          }
 
       - name: Open the pull request
         if: steps.version.outputs.newer == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
-          token: ${{ secrets.BUMP_TOKEN || github.token }}
+          token: ${{ secrets.BUMP_TOKEN }}
           branch: bump/lean-${{ steps.version.outputs.latest }}
           commit-message: "build(deps): bump Lean, Mathlib, CSLib and Verso to ${{ steps.version.outputs.latest }}"
           title: "build(deps): bump Lean, Mathlib, CSLib and Verso to ${{ steps.version.outputs.latest }}"
