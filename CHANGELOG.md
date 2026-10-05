@@ -17,6 +17,9 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Added
 
+- Badges DOI (Zenodo), Software Heritage (origine) et fair-software.eu dans le README, avec
+  `.howfairis.yml` : le critère « registre » y est déclaré hors sujet, le critère « checklist »
+  reste non satisfait (4 sur 5).
 - CI : jobs parallèles `quick`, `impl`, `spec` et contrôle agrégé `CI OK` ; audit d'axiomes
   ciblé (`scripts/axiom-audit.sh`) ; concurrence, délais d'expiration et déclencheurs durcis ; annotations et résumés de job, audit d'axiomes de la spécification, vérification des
   liens locaux.

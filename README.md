@@ -8,6 +8,9 @@ SPDX-License-Identifier: CECILL-2.1
 [![Lean Build](https://github.com/AntheaLiles/k7pl/actions/workflows/lean.yaml/badge.svg?branch=main)](https://github.com/AntheaLiles/k7pl/actions/workflows/lean.yaml)
 [![REUSE status](https://api.reuse.software/badge/github.com/AntheaLiles/k7pl)](https://api.reuse.software/info/github.com/AntheaLiles/k7pl)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/AntheaLiles/k7pl/badge)](https://scorecard.dev/viewer/?uri=github.com/AntheaLiles/k7pl)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23040451.svg)](https://doi.org/10.5281/zenodo.23040451)
+[![SWH](https://archive.softwareheritage.org/badge/origin/https://github.com/AntheaLiles/k7pl/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/AntheaLiles/k7pl)
+[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
 
 k7pl est un langage de programmation dont l'implémentation est écrite en
 [Lean 4](https://lean-lang.org/), avec [Mathlib](https://github.com/leanprover-community/mathlib4)
