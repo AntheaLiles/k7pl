@@ -22,7 +22,22 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  build:
+  # Fast checks on the Verso sources: pure Python, no Lean toolchain.
+  quick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Laws of the algebra at 0 and ω, seals, propagation of open statements, grammar × rules,
+      # structure; they replace the checks of the former Org tooling.
+      - name: Check the specification
+        run: python3 scripts/controle.py
+
+  # Implementation (`src/`) and tests: needs Mathlib and CSLib, not Verso.
+  impl:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -30,23 +45,40 @@ jobs:
         with:
           persist-credentials: false
 
-      # Installs elan, fetches the Mathlib cache, then runs `lake build`, `lake test`,
-      # `lake lint` and the axiom audit (only propext, Classical.choice and Quot.sound
-      # are allowed under the `K7pl` namespace; `sorry` is rejected).
+      # Installs elan, fetches the Mathlib cache, then runs `lake build` on the implementation and
+      # test libraries only, `lake test` and `lake lint`. The axiom audit has its own step below
+      # (lean-action's one runs a bare `lake build`, which would also compile the specification).
       - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
         with:
           auto-config: false
           use-mathlib-cache: true
           build: true
+          build-args: "K7pl K7plTests"
           test: true
           lint: true
-          axiom-audit: true
-          axiom-audit-root: K7pl
 
-      # Checks on the Verso sources (laws of the algebra at 0 and ω, seals, propagation of open
-      # statements, grammar × rules, structure); they replace the checks of the former Org tooling.
-      - name: Check the specification
-        run: python3 scripts/controle.py
+      # Only propext, Classical.choice and Quot.sound are allowed under the `K7pl` namespace;
+      # `sorry` and `native_decide` are rejected.
+      - name: Audit the axioms
+        run: scripts/axiom-audit.sh K7pl K7pl
+
+  # Specification (`spec/`, `tools/`): needs Verso, not Mathlib.
+  spec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
+        with:
+          auto-config: false
+          use-mathlib-cache: false
+          build: true
+          build-args: "Spec"
+          test: false
+          lint: false
 
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
@@ -73,9 +105,26 @@ jobs:
         with:
           path: _out/spec/html-multi
 
+  # Single required status check: succeeds only if every job it depends on succeeded.
+  ci-ok:
+    name: CI OK
+    if: always()
+    needs: [quick, impl, spec]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check the results of the required jobs
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "results: $RESULTS"
+          for r in $RESULTS; do
+            [ "$r" = success ] || { echo "::error::a required job did not succeed ($r)"; exit 1; }
+          done
+
   deploy-spec:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: build
+    needs: [spec, ci-ok]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -93,7 +142,7 @@ jobs:
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
   spec-pdf:
-    needs: build
+    needs: spec
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
