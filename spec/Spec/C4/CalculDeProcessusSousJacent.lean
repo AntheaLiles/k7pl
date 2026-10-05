@@ -310,12 +310,30 @@ $`\tau'` étend $`\tau` par l'image des événements du pas.
 :::
 
 :::proofsketch
-Par induction sur la dérivation du pas, dont les cas sont ceux que le §{num "sec:g-semantique"}[] énumère pour la préservation du typage : c'est la même induction, où l'on
-suit le terme image au lieu de son type. Le point délicat est la trace. La composition parallèle du
-métalangage est commutative, et ne distingue pas deux événements que la source ordonne ; c'est le
-préfixage qui les sérialise, et le cas de $`\mathbf{tick}` doit le montrer. Non démontrée ici : la
-proposition est l'hypothèse Sim du théorème {num "thm:fidelite_interprete"}[], et elle en est aussi
-la dette.
+Par induction sur la dérivation du pas, en suivant le terme image. Les réductions pures se rangent
+en trois groupes. (1) Les $`\beta`-réductions — application, `let` sur `return`, `force` sur `thunk`,
+`unbox` sur `box`, `open` sur `pack`, instanciation — traduisent la coupure d'une introduction et
+d'une élimination : la traduction de gauche se réduit en un pas de communication vers
+$`(\nu x)(\llbracket c \rrbracket \mid \overline{x}\langle \llbracket v \rrbracket \rangle)`, qui est
+$`\llbracket c[v/x] \rrbracket` modulo $`\equiv` par le théorème
+{num "thm:commutation_traduction"}[]. (2) Les éliminations de produit, de somme, de conjonction
+additive, d'unité, de vecteur vide et de repli sont des communications sur un canal linéaire suivies
+d'un aiguillage, un pas chacune. (3) Le parcours d'un vecteur non vide se déplie en deux pas, comme
+dans la source. La congruence se transporte directement : un contexte d'évaluation se traduit en un
+contexte de séquentialisation, et $`\to^{+}` y est stable.
+
+Reste la trace, qui est le point délicat. La composition parallèle du métalangage est commutative, et
+ne distingue pas deux événements que la source ordonne. Deux émissions $`\overline{t}\langle\rangle`
+sur un même canal de temps ne seraient donc pas ordonnées par la seule coupure du `let`. L'énoncé
+n'est vrai que si la traduction _enfile_ le canal de temps : chaque événement consomme le canal reçu et
+rend le canal suivant, de sorte que le préfixage de la séquence impose l'ordre. C'est une exigence sur
+la traduction, non une conséquence de la préservation du typage ; avec elle, les cas
+$`\mathbf{tick}` et $`\mathsf{operation}_\varepsilon` sont chacun un pas de communication qui étend
+la trace d'un événement. Sans elle, le contre-exemple $`\mathsf{let}\;x \leftarrow \mathbf{tick}\;\mathsf{in}\;\mathbf{tick}`
+est une trace à deux événements non ordonnés. L'opération à portée se traduit en un contexte, et se
+traite comme un `let`. Non démontrée : les clauses de traduction pour les opérations et pour $`\mathbf{tick}`
+ne sont données qu'en prose, et la proposition est l'hypothèse Sim du théorème
+{num "thm:fidelite_interprete"}[], et elle en est aussi la dette.
 :::
 ::::
 

@@ -552,7 +552,7 @@ projections. La compatibilité avec chaque opération — action de $`\varphi` e
 unité — se vérifie composante par composante, puisque ces opérations agissent sans jamais mêler deux
 composantes (§{num "sec:c1-de-la-loi-distributive"}[]). La clause de $`!^r V` n'inspectant que la
 troisième composante, elle se lit sur la seule relation du facteur de confidentialité, les autres
-facteurs la traversant inchangés. Ce qui est établi ici est une _compatibilité_ et non seulement une
+facteurs la traversant inchangés. Facteur par facteur : sur l'_usage_ $`\mathbb{N}_\infty`, la clause de $`!^r V` compare des comptes et la relation d'un facteur est celle du lemme de ce facteur, $`\varphi` et $`\psi` y étant la multiplication ; sur la _monotonie_ (deux points), la relation est l'égalité, la marque ne modifiant pas le terme ; sur le _niveau_, c'est la clause décisive, la relation y est celle du treillis $`\mathcal{L}` indexée par le niveau d'observation $`\ell` ; sur le _budget_, $`\psi` le diminue sans toucher la valeur, donc la relation de valeur est inchangée et la condition porte sur la trace. Les trois premiers cas sont immédiats ; le quatrième est celui que la proposition {num "thm:troncature_comonade"}[] ne couvre pas et qu'il reste à écrire. Ce qui est établi ici est une _compatibilité_ et non seulement une
 non-interaction : c'est ce que la remarque de la section affirmait sans le dire. Le détail pour chaque
 facteur reste à écrire.
 :::
