@@ -50,7 +50,7 @@ qui n'est pas encore démontré.
 - **SLSA** : aucun niveau n'est revendiqué (aucune provenance publiée).
 - **SBOM** : `lake-manifest.json` tient lieu de nomenclature des dépendances Lake ; aucun SBOM n'est produit.
 - **SAST** : aucun outil ne couvre Lean. Le SARIF de Scorecard n'est pas un SAST.
-- **Fuzzing** : aucune surface d'entrée ; `src/` ne contient que 9 déclarations.
+- **Fuzzing** : aucune surface d'entrée identifiée (`src/` est minuscule, sans IO ni FFI) ; le décompte courant est celui de `docs/STATUS.md`, généré par la CI.
 - **Propriétés de sécurité du langage** (non-interférence, déclassification) : ce sont des énoncés de la spécification, ni implémentés ni prouvés.
 
 ## 4. Entretien

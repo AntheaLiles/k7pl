@@ -150,7 +150,7 @@ Commandes **réellement lancées**, avec le résultat observé. Ce qui n'est pas
 
 | Contrôle | Où | Résultat |
 |---|---|---|
-| `python3 -m unittest discover -s scripts/ci -p 'test_*.py'` | local, sur la tête `5e4edcf` | 276 tests réussis |
+| `python3 -m unittest discover -s scripts/ci -p 'test_*.py'` | local, sur la tête `5e4edcf` (avant aplatissement) | 276 tests réussis, puis 278 après les ajouts de l'autocritique (§ 13) |
 | `actionlint` avec ShellCheck 0.9.0 (la version de la CI) sur `.github/workflows/*.yaml` | local, sur la tête fusionnée | 0 constat |
 | `zizmor --offline` (profil courant) | local, sur la tête fusionnée | 7 constats de gravité faible, tous `self-repository` (appels `./.github/workflows/…`) ; le profil auditeur ajoute `artipacked` et deux permissions non commentées sur le job `status` |
 | `gitleaks detect` 8.24.3 (historique complet) | local | aucune fuite |
@@ -159,8 +159,8 @@ Commandes **réellement lancées**, avec le résultat observé. Ce qui n'est pas
 | `commitlint` 19 sur les 43 commits de la branche | local | 1 échec (voir § 10) |
 | Liens Markdown relatifs (équivalent hors ligne du contrôle `lychee`) | local, sur tous les `.md` | 0 lien cassé |
 | Scorecard v5.5.0 `--local` sur export propre | local | voir § 4 ; le contrôle `Vulnerabilities` échoue (API `osv.dev` refusée) |
-| `lake build`, `lake test`, `lake lint`, audits d'axiomes, `lake build Spec`, rendu et PDF | **CI GitHub**, run 37424012908 sur `3fd82f1` | réussis (journaux lus) |
-| Même CI | run 37457714953 sur `ce606a9` | **échec** : gitleaks (corrigé) et actionlint SC2015 (corrigé ensuite) |
+| `lake build`, `lake test`, `lake lint`, audits d'axiomes, `lake build Spec`, rendu et PDF | **CI GitHub**, run 37424012908 sur `3fd82f1` (avant aplatissement) | réussis (journaux lus) |
+| Même CI | run 37457714953 sur `ce606a9` (avant aplatissement) | **échec** : gitleaks (corrigé) et actionlint SC2015 (corrigé ensuite) |
 | Même CI sur la tête `25eb642` | run 37505816526 | **réussi**, 13 jobs |
 | Même CI sur la tête `5e4edcf` (après le réaudit et ses corrections) | run 37520170453 | **réussi** (voir § 12) |
 
@@ -194,3 +194,18 @@ Les commits `25eb642` et `5e4edcf` n'existent plus sur la branche (aplatissement
 l'aplatissement. Le commit unique a le même arbre que le dernier de ces deux commits à ses fichiers de documentation près ; le résultat de la CI **de la PR** sur le
 commit courant n'est pas figé dans ce document (un document qui citerait le résultat de la CI de son propre commit obligerait à un commit de plus, donc à un nouveau
 run) : il se lit dans les contrôles de la PR #28.
+
+## 13. Autocritique et suites données
+
+Autocritique de la session principale sur le travail poussé, et ce qui en a été fait. Rien ici n'est validé par la mainteneuse.
+
+| Constat | Suite | Statut |
+|---|---|---|
+| Un commit à l'en-tête de 102 caractères avait été intégré sans `commitlint` ; la règle « vérifier avant de pousser » n'était écrite nulle part | `CONTRIBUTING.md` : critères exacts de la CI, chaque commit est lu, procédure de contrôle local (la commande documentée a été exécutée : code de sortie 0 sur la plage, 1 sur un en-tête trop long) | corrigé |
+| Contrôle de manifeste trop coûteux à maintenir : message d'échec muet sur la marche à suivre ; `version` exigée à trois composantes sans preuve que Lake la garde | le message dit où ajouter une dépendance relue ; `CONTRIBUTING.md` décrit l'opération ; `version` accepte tout motif de nombres séparés par des points ; tests ajoutés | corrigé |
+| Hypothèse non vérifiée sur le format des jetons Zenodo | écrite dans la docstring de `sync_zenodo.py` : l'hypothèse porte sur le format (ASCII imprimable sans espace), pas sur Zenodo | documenté |
+| Deux décomptes incompatibles de `src/` (9 déclarations dans le registre, 82 constantes dans l'audit d'axiomes) | le chiffre à la main est retiré du registre et de la matrice : le décompte courant est celui de `docs/STATUS.md` | corrigé |
+| Taille de la PR (un commit, plus de 10 000 lignes) | non corrigé : découper en trois PR (audit, contrôles de CI, chaîne de publication) demande des branches empilées, car `release.yaml` appelle des entrées de `verify.yaml` et les tests de `scripts/ci/` couvrent les trois ; plus de documents qui dépassent le code fusionné tant que l'ordre n'est pas respecté | `HUMAN ACTION REQUIRED` (choix de la mainteneuse) |
+| Second concept DOI avec `NEW`, `--signer-workflow` non ancré, D3 (agents qui peuvent fusionner) | non corrigés : chacun demande soit une exécution contre Zenodo ou GitHub, soit une décision de la mainteneuse | `HUMAN ACTION REQUIRED` |
+| Langue (français contre anglais récent de `main`), job `status` | non tranchés ; le job est consigné en D11 | `HUMAN ACTION REQUIRED` |
+

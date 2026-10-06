@@ -276,6 +276,20 @@ class RunTests(unittest.TestCase):
                 self.assertEqual(code, 1)
                 self.assertNotIn("Traceback", err)
 
+    def test_a_new_dependency_is_refused_with_the_way_to_accept_it(self):
+        manifest = copy.deepcopy(REAL_MANIFEST)
+        batteries = next(p for p in manifest["packages"] if p["name"] == "batteries")
+        manifest["packages"].append({**batteries, "name": "newdep"})
+        code, _, err = self.run_main("--root", str(self.make_root(manifest=manifest)))
+        self.assertEqual(code, 1)
+        self.assertIn("newdep: not one of the known packages", err)
+        self.assertIn("add `name: owner/repo` to ALLOWED_PACKAGES", err)
+
+    def test_the_hint_is_not_printed_for_other_problems(self):
+        code, _, err = self.run_main("--root", str(self.make_root(manifest=manifest_with(rev="abc1234"))))
+        self.assertEqual(code, 1)
+        self.assertNotIn("ALLOWED_PACKAGES", err)
+
     def test_inconsistent_toolchain_fails_with_status_1(self):
         root = self.make_root(toolchain="leanprover/lean4:v4.0.1\n")
         code, _, err = self.run_main("--root", str(root))
@@ -635,15 +649,17 @@ class IndependentAuditFollowUpTests(unittest.TestCase):
                 self.assertEqual(check_structure(manifest_changing("batteries", configFile=value)), [])
 
     def test_version_and_fixed_toolchain_must_be_well_formed_when_present(self):
-        for value in ("", "1.2", "v1.2.0", "1.2.0\n", 1, None, ["1.2.0"]):
+        for value in ("", "v1.2.0", "1.2.0\n", "1.2.x", "1", 1, None, ["1.2.0"]):
             with self.subTest(version=value):
                 errors = check_structure(manifest_with_top_level(version=value))
-                self.assertTrue(any("`version` must look like" in e for e in errors), errors)
+                self.assertTrue(any("`version` must be dotted numbers" in e for e in errors), errors)
         for value in ("false", 0, None, [False]):
             with self.subTest(fixedToolchain=value):
                 errors = check_structure(manifest_with_top_level(fixedToolchain=value))
                 self.assertTrue(any("`fixedToolchain` must be a boolean" in e for e in errors), errors)
-        self.assertEqual(check_structure(manifest_with_top_level(version="1.3.0", fixedToolchain=True)), [])
+        for value in ("1.2", "1.3.0", "2.0.1"):
+            with self.subTest(accepted=value):
+                self.assertEqual(check_structure(manifest_with_top_level(version=value, fixedToolchain=True)), [])
 
     def test_a_parent_directory_inside_input_rev_is_refused(self):
         for value in ("a/../b", "v1..2", "main/.."):
