@@ -12,6 +12,10 @@ k7pl est un langage de programmation dont l'implémentation est écrite en
 et [CSLib](https://github.com/leanprover/cslib). Sa spécification est écrite en
 [Verso](https://github.com/leanprover/verso).
 
+## Comprendre le projet
+
+Le parcours documentaire courant commence par [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), puis [`docs/RESEARCH.md`](docs/RESEARCH.md) et la spécification normative dans [`spec/`](spec/). L'état factuel est produit par CI dans [`docs/STATUS.md`](docs/STATUS.md), tandis que [`docs/ASSURANCE.md`](docs/ASSURANCE.md) expose l'argument d'assurance scientifique. Les anciens documents de travail sont conservés sans migration dans leur emplacement actuel.
+
 ## Démarrage
 
 La version de Lean est fixée dans `lean-toolchain` ; [elan](https://github.com/leanprover/elan)
@@ -45,7 +49,7 @@ dans [`archives/`](archives/).
 | [`src/`](src/), [`tests/`](tests/) | implémentation du langage en Lean 4 et ses tests |
 | [`spec/`](spec/) | la spécification (Verso) et ses figures |
 | [`tools/`](tools/) | générateur de la spécification et extensions Verso (`SpecExt/`) ; bibliographie (`SpecBib.lean`, produite depuis [`biblio/`](biblio/)) |
-| [`docs/`](docs/) | suivi, relectures, méthode, recherche, journal de séances |
+| [`docs/`](docs/) | documentation courante, assurance, recherche, méthode et matière legacy conservée |
 | [`scripts/`](scripts/) | maintenance, conversion Org → Verso, mesures et suivi |
 | [`archives/`](archives/) | manuscrit Org et outillage d'avant la conversion |
 

@@ -115,6 +115,62 @@ jobs:
           done
           echo "CI OK"
 
+  status:
+    name: Generated status
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.ci-ok.result == 'success' }}
+    needs: [ci-ok]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+
+      - name: Generate STATUS.md
+        env:
+          K7PL_VERIFICATION: success
+        run: python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION"
+
+      - name: Check for generated changes
+        id: changes
+        run: |
+          if git diff --quiet -- docs/STATUS.md; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish generated status branch
+        if: ${{ steps.changes.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git switch -C automation/generated-status
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/STATUS.md
+          git commit -m "ci: update generated project status"
+          git push --force origin automation/generated-status
+
+      - name: Open or update status pull request
+        if: ${{ steps.changes.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          count="$(gh pr list --head automation/generated-status --base main --state open --json number --jq 'length')"
+          if [ "$count" -eq 0 ]; then
+            gh pr create \
+              --base main \
+              --head automation/generated-status \
+              --title "ci: update generated project status" \
+              --body "Automated update of docs/STATUS.md from the CI verification gate. This file is generated; no manual status editing is required."
+          fi
+
   deploy-pages:
     name: Publication GitHub Pages
     if: ${{ always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.impact.outputs.spec_build == 'true' && needs.ci-ok.result == 'success' }}
