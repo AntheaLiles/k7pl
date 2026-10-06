@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC-BY-4.0
 |---|---|
 | Nature | Enregistrement **daté** de ce qui a été fait, de ce qui ne l'a pas été et de ce qui a réellement été exécuté. Produit par la session principale ; **non validé par la mainteneuse**. |
 | Date | 2026-10-06 |
-| Branche | `ccr-adfea9f2-6lxtmt`, **aplatie en un seul commit** puis fusionnée avec `main` à `4a8c34f` ; PR #28 ouverte, rien n'est sur `main` |
+| Branche | PR #28, **fusionnée dans `main` par rebase** le 2026-10-06 (commits `b94a4e3`, `ab070c6`, `da1abb1`, copies réécrites par le rebase) ; ce document est mis à jour par une PR de suite |
 | Point d'entrée | [`README.md`](README.md) ; l'état factuel courant du dépôt est dans [`../STATUS.md`](../STATUS.md) (généré par la CI) |
 | Statuts | `VERIFIED` · `PARTIAL` · `PREPARED` · `HUMAN ACTION REQUIRED` · `BLOCKED` · `FUTURE` |
 
@@ -18,16 +18,16 @@ ce qui se dérive d'une source automatique (comptes, scores, états de CI) doit 
 
 ## 1. Résumé
 
-- Le score Scorecard publié avant la campagne est **6,0** (lu dans le journal du job `Scorecard`, run 37385570410). La seule différence
-  que la campagne produit sur les contrôles qu'on peut rejouer en local est **Pinned-Dependencies 9 → 10**. Les autres écarts de score
-  dépendent de réglages GitHub et de pratiques humaines que le dépôt ne peut pas modifier seul.
+- Le score Scorecard passe de **6,0** (`b5f6146`, run 37385570410, 2026-10-05) à **6,1** (`da1abb1`, run 37524313277, 2026-10-06), lus dans les
+  journaux du job `Scorecard`. La seule différence de contrôle est **Pinned-Dependencies 9 → 10**, comme le prévoyait la mesure locale. Les
+  autres écarts de score dépendent de réglages GitHub et de pratiques humaines que le dépôt ne peut pas modifier seul.
 - Les contrôles de CI ont été renforcés (modules Lean jamais compilés, audits d'axiomes étendus, analyse d'impact testée). Une
   **chaîne de publication attestée** (brouillon de release, attestation, archivage Zenodo vérifié) est écrite mais **n'a jamais été
   exécutée de bout en bout** : `PREPARED`, pas `VERIFIED`.
 - Aucun artefact signé, aucune provenance, aucun SBOM, aucune preuve de reproductibilité du PDF n'a été produit ni revendiqué.
 - Le niveau « Gold » des bonnes pratiques est structurellement hors d'atteinte pour une seule mainteneuse ; « Silver » ne l'est pas en
   l'état ; « Passing » est atteignable par des actions humaines.
-- **Une branche à fusionner par vous, avec des réglages à faire avant** : voir `ACTIONS-HUMAINES.md` § 0 et les décisions D1 à D11.
+- **La campagne est fusionnée ; il reste des réglages à faire et des décisions à prendre** : voir `ACTIONS-HUMAINES.md` § 0 et les décisions D1 à D11.
 
 ## 2. Réalisé (`VERIFIED`)
 
@@ -38,7 +38,7 @@ ce qui se dérive d'une source automatique (comptes, scores, états de CI) doit 
 | Audits d'axiomes de `K7pl`, des modules de test, de `Spec`, `SpecExt`, `SpecBib` | exécutés en CI, run 37424012908, sortie lue |
 | `scripts/ci/impact.py` seule source des chemins qui forcent la validation complète ; un `git diff` en échec ne valide plus « rien » | 276 tests, mutants ciblés tués (`workstreams/quality-reproducibility/VALIDATION.md`, `workstreams/final-audit/reaudit-vague-2bis.md`) |
 | Faux positif gitleaks sur la valeur de test de `test_sync_zenodo.py` | exécution avant/après et contrôle négatif avec gitleaks 8.24.3 (la version de la CI) |
-| Pinned-Dependencies 9 → 10 (hook de session sans `curl … \| sh`) | Scorecard v5.5.0 local sur un export propre du commit (voir § 4) |
+| Pinned-Dependencies 9 → 10 (hook de session sans `curl … \| sh`) | mesure locale sur un export propre, puis journaux du job `Scorecard` de `main` avant et après (voir § 4) |
 
 ## 3. Partiellement réalisé (`PARTIAL`) et préparé (`PREPARED`)
 
@@ -53,28 +53,36 @@ ce qui se dérive d'une source automatique (comptes, scores, états de CI) doit 
 
 ## 4. Scorecard avant et après
 
-Binaire OpenSSF Scorecard v5.5.0, **mode local sur un export propre** (`git archive`) : il ne couvre que les contrôles fondés sur les
-fichiers. Les contrôles qui interrogent l'API de GitHub (Branch-Protection, Code-Review, Maintained, Contributors, CI-Tests, Signed-Releases,
-Vulnerabilities, …) ne sont pas rejouables ici : leur évaluation ne sera disponible qu'après fusion, dans le journal du job `Scorecard`.
+Les deux évaluations sont celles du job `Scorecard` de `main` (Scorecard v5.5.0, évaluation **en ligne**, avec l'API de GitHub), lues dans les journaux :
+avant la campagne sur `b5f6146` (run 37385570410, 2026-10-05) ; après la fusion sur `da1abb1` (run 37524313277, 2026-10-06). **Score global : 6,0 → 6,1.**
 
-| Contrôle | Avant (`b5f6146`) | Après, avant fusion de `main` | Après fusion de `main` (`4a8c34f`) |
-|---|---:|---:|---:|
-| Binary-Artifacts | 10 | 10 | 10 |
-| Dangerous-Workflow | 10 | 10 | 10 |
-| Dependency-Update-Tool | 10 | 10 | 10 |
-| Fuzzing | 0 | 0 | 0 |
-| License | 9 | 9 | 9 |
-| Pinned-Dependencies | 9 | **10** | 10 |
-| SAST | 0 | 0 | 0 |
-| Security-Policy | 4 | 4 | 4 |
-| Token-Permissions | 10 | 10 | 10 |
+| Contrôle | Avant | Après | Observé |
+|---|---:|---:|---|
+| Binary-Artifacts | 10 | 10 | |
+| CI-Tests | 10 | 10 | 5 sur 5 PR fusionnées, puis 14 sur 14 |
+| CII-Best-Practices | 2 | 2 | badge « InProgress » ; action humaine |
+| Code-Review | 0 | 0 | 0 sur 4 changesets approuvés, puis 0 sur 13 ; une seule personne (structurel) |
+| Contributors | 6 | 6 | « anthropics, freeengineering » d'après les métadonnées des commits ; ne représente pas des contributeurs indépendants |
+| Dangerous-Workflow | 10 | 10 | |
+| Dependency-Update-Tool | 10 | 10 | |
+| Fuzzing | 0 | 0 | délibéré |
+| License | 9 | 9 | `LICENSE.md` n'est pas reconnu comme licence FSF ou OSI |
+| Maintained | 0 | 0 | dépôt créé il y a moins de 90 jours |
+| Packaging | −1 | −1 | sans objet |
+| **Pinned-Dependencies** | **9** | **10** | 29 sur 29 puis 34 sur 34 actions GitHub épinglées ; le téléchargement suivi d'une exécution du hook de session (0 sur 1) a disparu |
+| SAST | 0 | 0 | délibéré |
+| Security-Policy | 4 | 4 | « no linked content found » ; voir D4 |
+| Signed-Releases | −1 | −1 | aucune release avec artefact |
+| Token-Permissions | 10 | 10 | écritures au niveau d'un job : avant `bump-lean.yaml:23`, `release.yaml:92` et `:125` ; après `ci.yaml:125` (job `status`, venu de `main`) et `release.yaml:233` (job `draft`) |
+| Vulnerabilities | 10 | 10 | |
+| Branch-Protection | 3 | 3 | mêmes avertissements : pas d'approbation requise, pas de revue par les propriétaires de code, branches à jour non exigées (D6) |
 
-Le job `status` ajouté à `ci.yaml` sur `main` demande `contents: write` et `pull-requests: write` : le score local de Token-Permissions reste
-10, ce qui ne dit pas ce que donnera l'évaluation en ligne (voir D11). Le score global « après » n'est **pas connu** : il ne peut pas être calculé
-sans l'API.
+La mesure locale en mode fichier avait prévu cette différence et elle seule (Pinned-Dependencies 9 → 10) : sur les neuf contrôles qu'elle couvre, elle
+concordait avec les journaux de CI avant comme après.
 
-Les 0 de Fuzzing et SAST sont délibérés : aucun outil de SAST ne couvre Lean (le SARIF de Scorecard n'est pas un SAST) et `src/` ne contient
-presque aucune surface d'entrée. Aucun outil n'a été ajouté pour remonter ces scores. Security-Policy 4 vient d'un artefact de nommage (D4).
+Les 0 de Fuzzing et SAST sont délibérés : aucun outil de SAST ne couvre Lean (le SARIF de Scorecard n'est pas un SAST) et `src/` n'a presque aucune
+surface d'entrée. Aucun outil n'a été ajouté pour remonter ces scores. Les écarts restants (Code-Review, Branch-Protection, Maintained, CII,
+Signed-Releases) relèvent de pratiques ou de réglages humains, ou du temps.
 
 ## 5. Bonnes pratiques (CII)
 
@@ -165,7 +173,7 @@ Commandes **réellement lancées**, avec le résultat observé. Ce qui n'est pas
 | Même CI sur la tête `5e4edcf` (après le réaudit et ses corrections) | run 37520170453 | **réussi** (voir § 12) |
 
 Non exécuté : `lake build`, `lake test`, `lake lint` en local ; `python3 scripts/suivi.py all` (aucun fichier de suivi touché) ; tout workflow de
-publication ; toute lecture des réglages GitHub avec droits d'administration ; Scorecard en ligne.
+publication ; toute lecture des réglages GitHub avec droits d'administration. (L'évaluation Scorecard en ligne n'a pas été lancée à la main : elle est lue dans les journaux du job `Scorecard` de `main`, § 4.)
 
 ## 12. CI de la tête testée
 
@@ -208,4 +216,15 @@ Autocritique de la session principale sur le travail poussé, et ce qui en a ét
 | Taille de la PR (un commit, plus de 10 000 lignes) | non corrigé : découper en trois PR (audit, contrôles de CI, chaîne de publication) demande des branches empilées, car `release.yaml` appelle des entrées de `verify.yaml` et les tests de `scripts/ci/` couvrent les trois ; plus de documents qui dépassent le code fusionné tant que l'ordre n'est pas respecté | `HUMAN ACTION REQUIRED` (choix de la mainteneuse) |
 | Second concept DOI avec `NEW`, `--signer-workflow` non ancré, D3 (agents qui peuvent fusionner) | non corrigés : chacun demande soit une exécution contre Zenodo ou GitHub, soit une décision de la mainteneuse | `HUMAN ACTION REQUIRED` |
 | Langue (français contre anglais récent de `main`), job `status` | non tranchés ; le job est consigné en D11 | `HUMAN ACTION REQUIRED` |
+
+## 14. Observations après la fusion (2026-10-06)
+
+Faits lus ou mesurés après la fusion de la PR #28 ; rien n'est déduit.
+
+| Observation | Source |
+|---|---|
+| Fusion **par rebase** : les trois commits ont de nouveaux identifiants sur `main` ; la branche de la PR a disparu du dépôt distant (suppression automatique des branches fusionnées, ou geste de la mainteneuse) | historique de `main`, `git fetch` |
+| Score Scorecard 6,1 (§ 4) | journal du run 37524313277 |
+| Sur `main`, le job d'impact exécute `Check the Lake manifest` : `lake-manifest.json: all checks passed` | liste des étapes du run 37524313864 |
+| **La PR #27** (« ci: add Python tooling validation and coverage controls », ouverte avant cette fusion) **est maintenant en conflit** avec `main` sur `ci.yaml`, `verify.yaml` et `scripts/ci/impact.py` : elle modifie des fichiers que la PR #28 a réécrits | `git merge-tree` local sur sa tête et sur `main` |
 
