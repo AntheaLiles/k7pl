@@ -3,9 +3,9 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CECILL-2.1
 -->
 
-# k7pl
+# K7PL - KonSept Programming Language
 
-[![Lean Build](https://github.com/AntheaLiles/k7pl/actions/workflows/lean.yaml/badge.svg?branch=main)](https://github.com/AntheaLiles/k7pl/actions/workflows/lean.yaml)
+[![Lean Build](https://github.com/AntheaLiles/k7pl/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/AntheaLiles/k7pl/actions/workflows/ci.yaml)
 
 k7pl est un langage de programmation dont l'implémentation est écrite en
 [Lean 4](https://lean-lang.org/), avec [Mathlib](https://github.com/leanprover-community/mathlib4)
@@ -82,6 +82,6 @@ Présenter succintement le protocole de sécurité
 
 - Code : [CeCILL 2.1](LICENSES/CECILL-2.1.txt)
 - Spécifications : [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)
-- Bibliothèques écrites dans le langage : CeCILL-C recommandée
+- Bibliothèques écrites dans le langage : [CeCILL-C](LICENCES/CECILL-C.txt) recommandée
 
 Voir [`LICENSE.md`](LICENSE.md) pour le détail.
