@@ -86,6 +86,6 @@ Présenter succintement le protocole de sécurité
 
 - Code : [CeCILL 2.1](LICENSES/CECILL-2.1.txt)
 - Spécifications : [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)
-- Bibliothèques écrites dans le langage : [CeCILL-C](LICENCES/CECILL-C.txt) recommandée
+- Bibliothèques écrites dans le langage : CeCILL-C recommandée
 
 Voir [`LICENSE.md`](LICENSE.md) pour le détail.
