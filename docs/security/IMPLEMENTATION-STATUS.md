@@ -227,4 +227,5 @@ Faits lus ou mesurés après la fusion de la PR #28 ; rien n'est déduit.
 | Score Scorecard 6,1 (§ 4) | journal du run 37524313277 |
 | Sur `main`, le job d'impact exécute `Check the Lake manifest` : `lake-manifest.json: all checks passed` | liste des étapes du run 37524313864 |
 | **La PR #27** (« ci: add Python tooling validation and coverage controls », ouverte avant cette fusion) **est maintenant en conflit** avec `main` sur `ci.yaml`, `verify.yaml` et `scripts/ci/impact.py` : elle modifie des fichiers que la PR #28 a réécrits | `git merge-tree` local sur sa tête et sur `main` |
-
+| CI de `main` sur `da1abb1` (run 37524313864) : conclusion **succès** ; le job `status` a poussé `automation/generated-status` (commit `d5c4a35`, 20:15:37 UTC) et mis à jour la PR #19 ouverte par `github-actions[bot]` | conclusion du run ; commit et date de la branche |
+| La PR #19 est `blocked` : son seul contrôle est celui de Dependabot, **`CI OK` n'y est pas rapporté** (une PR ouverte avec `GITHUB_TOKEN` ne déclenche pas les workflows) ; `docs/STATUS.md` généré affiche toujours `Implementation version: unknown` | état de la PR #19 ; contenu de la branche (D11) |

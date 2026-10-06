@@ -114,7 +114,7 @@ Sur un push sur `main`, une fois `CI OK` réussi, le job `status` de `ci.yaml` e
 C'est le seul job de `ci.yaml` qui écrit dans le dépôt : `contents: write` et `pull-requests: write`, avec `persist-credentials: true` à l'extraction (nécessaire à la poussée). Observations, à ne pas lire comme des garanties :
 
 - le réglage « Allow GitHub Actions to create and approve pull requests » doit être activé pour que `gh pr create` aboutisse ; `docs/security/ACTIONS-HUMAINES.md` § 1.5 en tient compte ;
-- une PR ouverte avec `GITHUB_TOKEN` ne déclenche pas les workflows de PR : `CI OK`, exigé par le ruleset, n'y est pas rapporté tant qu'une personne ne relance pas la CI (ESTIMÉ d'après la documentation de GitHub, non observé) ;
+- une PR ouverte avec `GITHUB_TOKEN` ne déclenche pas les workflows de PR : `CI OK`, exigé par le ruleset, n'y est pas rapporté (observé le 2026-10-06 sur la PR #19 : état `blocked`, seul le contrôle de Dependabot présent) ;
 - le job n'exécute que du code déjà fusionné sur `main` ; la branche `automation/generated-status` n'est pas protégée par le ruleset de `main`.
 
 Voir `docs/security/DECISIONS-REQUISES.md`, D11.
