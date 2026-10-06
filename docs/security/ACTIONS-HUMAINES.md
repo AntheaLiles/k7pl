@@ -16,11 +16,13 @@ Les commandes `gh api` ci-dessous se lisent avec un jeton qui a les droits sur l
 
 ## 0. Ordre conseillé
 
-1. **Avant de fusionner la branche de cette campagne** : créer les environnements `zenodo` et `bump-lean` **avec leurs protections**
-   (§ 1.4). Les workflows les référencent par leur nom ; à défaut, GitHub en crée un sans protection à la première exécution.
-2. Fusionner la branche (par rebase, après relecture).
-3. **Ensuite seulement** : déplacer les secrets vers les environnements, puis supprimer les secrets de dépôt correspondants.
-4. Avant la première release de spécification : § 5 en entier.
+La campagne est **fusionnée** (PR #28, 2026-10-06). L'ordre prévu au départ (environnements avant la fusion) n'a pas été tenu : les
+workflows référencent déjà les environnements `zenodo` et `bump-lean`, et GitHub en crée un **sans protection** à la première exécution.
+
+1. **Maintenant** : créer les environnements `zenodo` et `bump-lean` **avec leurs protections** (§ 1.4), avant tout `workflow_dispatch` de
+   `bump-lean.yaml`, avant la prochaine exécution planifiée de ce workflow, et avant toute publication de release.
+2. Ensuite : déplacer les secrets vers les environnements, puis supprimer les secrets de dépôt correspondants.
+3. Avant la première release de spécification : § 5 en entier.
 
 ## 1. Réglages GitHub
 
