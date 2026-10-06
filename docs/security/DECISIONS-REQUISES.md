@@ -123,11 +123,16 @@ Les extraits de texte proposés en annexe sont des **propositions de rédaction*
   `automation/generated-status` avec `--force` et ouvre une PR avec `GITHUB_TOKEN`. zizmor (profil auditeur) signale `artipacked`
   (identifiants persistés) et deux permissions non commentées ; le profil courant ne signale rien de plus. Scorecard local (clé de lecture
   des fichiers) donne toujours 10 à Token-Permissions sur l'arbre fusionné, sans que cela dise ce que donnera l'évaluation en ligne.
+- **Observé après la fusion de la PR #28 (2026-10-06).** Le job `status` a tourné sur le push de fusion : le commit
+  `github-actions[bot]` `d5c4a35` (20:15:37 UTC) porte `docs/STATUS.md` « Generated for commit » `da1abb1` et pousse la branche
+  `automation/generated-status`, dont l'écart avec `main` est ce seul fichier. La PR #19, ouverte par `github-actions[bot]` à 14:33, a été mise à jour par cette
+  poussée ; elle est `blocked` et son seul contrôle est celui de Dependabot : **`CI OK` n'y est pas rapporté**, donc elle ne peut pas être fusionnée sans geste
+  humain. Le fichier généré affiche toujours `Implementation version: unknown`.
 - **Conflit avec une recommandation de la campagne.** `docs/security/ACTIONS-HUMAINES.md` § 1.5 proposait de décocher « Allow GitHub Actions
   to create and approve pull requests ». C'était écrit avant ce job ; il en dépend désormais. Le texte de `ACTIONS-HUMAINES.md` est corrigé ;
   le réglage GitHub lui-même n'a été ni lu ni modifié.
-- **Options.** (a) Garder tel quel, régler « Actions peut créer des PR », accepter une PR de bot dont `CI OK` n'est probablement pas rapporté
-  (ESTIMÉ) et qu'il faut donc traiter à la main. (b) Ajouter des commentaires aux permissions et passer par un jeton à granularité fine
+- **Options.** (a) Garder tel quel, régler « Actions peut créer des PR », accepter une PR de bot dont `CI OK` n'est pas rapporté
+  (observé, voir ci-dessous) et qu'il faut donc traiter à la main. (b) Ajouter des commentaires aux permissions et passer par un jeton à granularité fine
   limité à `automation/*`. (c) Ne plus committer `docs/STATUS.md` et le publier comme artefact ou sur Pages : cela réalise la préférence
   d'automatisation de `docs/METHOD.md` sans écriture dans le dépôt, mais change votre conception.
 - **Constat du réaudit de la vague 2 bis (hors périmètre, non corrigé).** `K7PL_VERIFICATION: success` est codé en dur dans `ci.yaml` et
