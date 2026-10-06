@@ -527,7 +527,7 @@ comprendre ce qui a été inséré entre-temps.
 
 Une limite l'accompagne, et elle est stricte : ce qui peut être sauté ne peut jamais être ce qui est
 vérifié. Le mécanisme convient à un artefact que l'on transporte, non à une dérivation que l'on
-contrôle ; la re-vérification que décrit l'annexe {num "sec:annexe-sugoi"}[] porte sur l'AST entier, jamais sur les seuls
+contrôle ; la re-vérification porte sur l'AST entier, jamais sur les seuls
 champs qu'un lecteur donné sait lire. Cette exigence n'est pas un théorème mais une règle, et elle
 s'énonce par ce qu'elle interdit~: un vérificateur qui rencontre un identifiant de schéma ou une
 révision qu'il ne connaît pas _rejette_ l'artefact, au lieu d'en franchir les champs inconnus. Le
