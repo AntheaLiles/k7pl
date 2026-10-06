@@ -18,7 +18,9 @@ Inputs:
 
 Environment (all required unless stated otherwise):
   ZENODO_TOKEN          personal access token (scopes: deposit:write, deposit:actions); not needed
-                        by --check-config
+                        by --check-config. Assumed to be printable ASCII without a space (an assumption
+                        about the token format, not checked against Zenodo): anything else is refused
+                        before the network, without being shown.
   ZENODO_ENV            exactly "production" or "sandbox"; no default
   ZENODO_CONCEPT_RECID  the concept record id (the number of the concept DOI 10.5281/zenodo.<id>)
                         under which a new version is published, or the literal "NEW" to create a

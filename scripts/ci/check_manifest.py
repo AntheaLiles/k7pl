@@ -11,7 +11,7 @@ executed upstream code. This script decides whether it is acceptable to put in a
 Always checked (no network):
 
 * the manifest only has keys of a Lake manifest, `packagesDir` is `.lake/packages`, `lakeDir` is
-  `.lake`, `version` (when present) looks like `1.2.0`, `fixedToolchain` (when present) is a boolean,
+  `.lake`, `version` (when present) is dotted numbers such as `1.2.0`, `fixedToolchain` (when present) is a boolean,
   and its `name` is the package name declared by `lakefile.lean`;
 * every package only has keys of a Lake package (`inputRev` and `subDir` may be absent) and is a Git
   dependency;
@@ -97,7 +97,7 @@ PACKAGE_KEYS = frozenset(
 )
 
 REV_RE = re.compile(r"[0-9a-f]{40}")
-MANIFEST_VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+")
+MANIFEST_VERSION_RE = re.compile(r"[0-9]+(?:\.[0-9]+)+")
 NAME_RE = re.compile(r"[A-Za-z0-9._-]+")
 SEGMENT_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*")
 TAG_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*")
@@ -244,7 +244,7 @@ def check_manifest(manifest: object) -> list[str]:
     if "version" in manifest:
         version = manifest["version"]
         if not isinstance(version, str) or not MANIFEST_VERSION_RE.fullmatch(version):
-            errors.append(f"`version` must look like 1.2.0, got {clean(str(version))!r}")
+            errors.append(f"`version` must be dotted numbers such as 1.2.0, got {clean(str(version))!r}")
     if "fixedToolchain" in manifest and not isinstance(manifest["fixedToolchain"], bool):
         errors.append(f"`fixedToolchain` must be a boolean, got {clean(str(manifest['fixedToolchain']))!r}")
     packages = manifest.get("packages")
@@ -515,6 +515,12 @@ def main(
         print(f"::error::{message}" if annotate else f"error: {message}", file=sys.stderr)
     if errors:
         print(f"{len(errors)} problem(s) found: the manifest must not be used.", file=sys.stderr)
+        if any("not one of the known packages" in error for error in errors):
+            print(
+                "To accept a new dependency after reviewing it, add `name: owner/repo` to "
+                "ALLOWED_PACKAGES in scripts/ci/check_manifest.py (see CONTRIBUTING.md).",
+                file=sys.stderr,
+            )
         return 1
     extra = " (including upstream tags and manifests)" if args.check_upstream else (
         " (including upstream tags)" if args.check_tags else ""

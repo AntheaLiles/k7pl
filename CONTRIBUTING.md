@@ -27,17 +27,35 @@ pip install reuse && reuse lint
 1. Ouvrir une issue pour toute proposition non triviale (changement du langage,
    nouvelle dépendance), afin d'en discuter avant d'écrire le code.
 2. Créer une branche courte depuis `main` (`feat/lambda`, `fix/parser-precedence`…).
-3. Faire des commits au format [Conventional Commits](https://www.conventionalcommits.org/fr/)
-   (vérifié en CI), avec `CHANGELOG.md` à jour.
+3. Faire des commits au format [Conventional Commits](https://www.conventionalcommits.org/fr/),
+   avec `CHANGELOG.md` à jour. La CI vérifie **chaque commit** de la PR avec `.commitlintrc.yaml` :
+   en-tête de 100 caractères au plus, type parmi `feat`, `fix`, `docs`, `style`, `refactor`, `perf`,
+   `test`, `build`, `ci`, `chore`, portée en minuscules, sujet sans majuscule initiale ni point final.
+   Un seul commit refusé fait échouer `CI OK`, et corriger un message déjà poussé oblige à réécrire
+   l'historique de la branche : vérifier **avant** de pousser (voir « Vérifier ses commits »).
 4. Ouvrir une pull request vers `main` en remplissant le modèle.
 5. Le check `CI OK` doit passer. Il agrège l'analyse d'impact, les contrôles ciblés selon les
    fichiers modifiés (Lean : compilation, tests, lint, audit des axiomes ; spécification :
    contrôles, compilation, rendu), REUSE, Conventional Commits, actionlint et gitleaks.
-6. Fusion par **rebase** (historique linéaire). La CI vérifie la tête de la pull request, pas
-   chaque commit pris isolément.
+6. Fusion par **rebase** (historique linéaire). Les contrôles de build vérifient la tête de la pull
+   request, pas chaque commit pris isolément ; `commitlint`, lui, les lit tous.
 
 Ne jamais réécrire l'historique d'une branche partagée (pas de force-push sur
 `main`, ni sur la branche d'une autre personne).
+
+### Vérifier ses commits
+
+Avec Node installé (ce dépôt n'a pas de `package.json` : l'outil s'installe dans un dossier temporaire,
+à côté d'une copie de la configuration, dont `extends` se résout depuis ce dossier) :
+
+```sh
+mkdir -p /tmp/commitlint && cp .commitlintrc.yaml /tmp/commitlint/
+(cd /tmp/commitlint && npm init -y >/dev/null \
+  && npm install --no-audit --no-fund @commitlint/cli@19 @commitlint/config-conventional@19)
+/tmp/commitlint/node_modules/.bin/commitlint --cwd . --config /tmp/commitlint/.commitlintrc.yaml --from origin/main
+```
+
+Sans message d'erreur, la plage `origin/main..HEAD` est conforme à ce que contrôle la CI.
 
 ## Revue
 
@@ -80,6 +98,12 @@ Lean, Mathlib, CSLib et Verso montent ensemble :
 `scripts/bump-lean.sh vX.Y.Z`, puis `lake build && lake test`. Le workflow
 `Bump Lean` ouvre automatiquement une PR chaque mois quand une nouvelle version
 commune existe.
+
+Le job d'impact de la CI lance `scripts/ci/check_manifest.py` (hors ligne) à chaque exécution : le
+manifeste `lake-manifest.json` ne doit contenir que les 14 paquets connus, chacun lié à son dépôt.
+Une nouvelle dépendance, y compris transitive, fait donc échouer la CI **volontairement** jusqu'à ce
+qu'une personne l'ait relue et ajoutée à `ALLOWED_PACKAGES` dans `scripts/ci/check_manifest.py`
+(`nom: propriétaire/dépôt`) ; la PR de `Bump Lean` n'aboutit pas seule dans ce cas.
 
 ## Publier une version
 

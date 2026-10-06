@@ -85,6 +85,9 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - `sync_zenodo.py` (suite d'un réaudit indépendant) : une relecture qui n'est pas un objet, une erreur de rapport ou
   une interruption n'empêchent plus d'écrire le DOI ; seules les réponses 400, 401, 403, 404 et 422 prouvent
   qu'aucune publication n'a eu lieu ; un jeton mal formé est refusé sans être affiché.
+- `CONTRIBUTING.md` : critères exacts de `commitlint` (chaque commit est lu, en-tête de 100 caractères au plus) et procédure de
+  contrôle local ; marche à suivre quand le contrôle de manifeste refuse une nouvelle dépendance, que `check_manifest.py` indique
+  désormais dans son message d'échec.
 - `check_manifest.py` est lancé par le job d'impact de `ci.yaml` à chaque exécution, et contrôle aussi `configFile`,
   `manifestFile`, `version` et `fixedToolchain` ; `check_lean_modules.py` refuse un `srcDir` calculé ; `impact.py`
   cite les chemins qu'il affiche.
