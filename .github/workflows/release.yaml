@@ -2,195 +2,365 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
+# Release flow, compatible with immutable releases.
+#
+# Once published, an immutable release can no longer receive, replace or lose an asset, and its tag
+# can no longer move. Everything that must be attached is therefore attached BEFORE publication,
+# every blocking check runs BEFORE publication, and the irreversible step comes last, by a human:
+#
+#   1. (human)    git tag spec-vX.Y.Z && git push origin spec-vX.Y.Z      (or vX.Y.Z)
+#   2. (this file) `check` verifies the metadata, that the tagged commit is on main and that the
+#                 `CI OK` check succeeded on it; the verification job rebuilds and tests with no
+#                 cache; for spec-v* tags `draft` then creates a DRAFT release holding the PDF,
+#                 its SHA-256 and the Sigstore attestation bundle. It never publishes.
+#   3. (human)    read the draft, replay `gh attestation verify` locally (the commands are in the
+#                 draft's notes), then publish it: the release becomes immutable and GitHub adds
+#                 its release attestation.
+#   4. (zenodo.yaml) the publication triggers the Zenodo archive of the published assets.
+#
+# v* tags (implementation) only run `check` and the verification: no artifact is useful for a Lake
+# library, whose users consume the tag as source. The human creates the release afterwards, from
+# the notes in CHANGELOG.md.
+#
+# workflow_dispatch is a rehearsal: same checks and build, no draft, no attestation, no write.
+# Run it on a commit that is already on main.
+#
+# What the attestation proves, and what it does not: the PDF was attested by a run of THIS
+# workflow, at this tag and commit, on a GitHub-hosted runner. It does not prove that the PDF is
+# reproducible, that the build inputs (toolchain, TeX bundle) are free of malicious code, that the
+# commit was reviewed, or anything about the truth of the specification.
 name: Release
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "spec-v*"
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "Rehearsal: which release to rehearse"
+        required: true
+        type: choice
+        options:
+          - spec
+          - implementation
+      version:
+        description: "Rehearsal: version without prefix, e.g. 0.1.0 or 0.1.0-alpha.2"
+        required: true
+        type: string
 
-permissions:
-  contents: read
+permissions: {}
 
 concurrency:
-  group: release-${{ github.event.release.tag_name }}
+  group: release-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
-  implementation-verify:
+  check:
+    name: Contrôler la release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read # checkout
+      checks: read # list the check runs of the tagged commit
+    outputs:
+      kind: ${{ steps.resolve.outputs.kind }}
+      version: ${{ steps.resolve.outputs.version }}
+      tag: ${{ steps.resolve.outputs.tag }}
+      dry_run: ${{ steps.resolve.outputs.dry_run }}
+    env:
+      GH_REPO: ${{ github.repository }}
+    steps:
+      # Full history: the tagged commit must be proven to be an ancestor of main.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Resolve what is being released
+        id: resolve
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          INPUT_KIND: ${{ inputs.kind }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          fail() { echo "::error::$1"; exit 1; }
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            dry_run=true
+            version="$INPUT_VERSION"
+            case "$INPUT_KIND" in
+              spec) kind=spec; tag="spec-v$version" ;;
+              implementation) kind=implementation; tag="v$version" ;;
+              *) fail "unknown kind '$INPUT_KIND'" ;;
+            esac
+          else
+            dry_run=false
+            [ "$REF_TYPE" = "tag" ] || fail "expected a tag, got $REF_TYPE '$REF_NAME'"
+            tag="$REF_NAME"
+            case "$tag" in
+              spec-v*) kind=spec; version="${tag#spec-v}" ;;
+              v*) kind=implementation; version="${tag#v}" ;;
+              *) fail "tag '$tag' is neither spec-vX.Y.Z nor vX.Y.Z" ;;
+            esac
+          fi
+          semver='^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z][0-9A-Za-z.-]*)?$'
+          [[ "$version" =~ $semver ]] || fail "'$version' is not a version (X.Y.Z or X.Y.Z-pre.release)"
+          {
+            echo "kind=$kind"
+            echo "version=$version"
+            echo "tag=$tag"
+            echo "dry_run=$dry_run"
+          } >> "$GITHUB_OUTPUT"
+          if [ "$dry_run" = "true" ]; then
+            echo "Rehearsal of $tag: checks and build only. No draft, no attestation, nothing written." \
+              >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # The notes of a specification release come from its section of spec/CHANGELOG.md; the file
+      # is written here, in a read-only job, and handed to the job that holds write permissions.
+      - name: Check the release metadata and extract the notes
+        env:
+          KIND: ${{ steps.resolve.outputs.kind }}
+          VERSION: ${{ steps.resolve.outputs.version }}
+          TAG: ${{ steps.resolve.outputs.tag }}
+        run: |
+          set -euo pipefail
+          fail() { echo "::error::$1"; exit 1; }
+          # Lines of the `## [VERSION]` section of a changelog, without the heading itself.
+          section() {
+            awk -v heading="## [$2]" '
+              index($0, heading) == 1 { found = 1; next }
+              found && index($0, "## [") == 1 { exit }
+              found { print }
+            ' "$1"
+          }
+          if [ "$KIND" = "implementation" ]; then
+            lake_version="$(sed -n 's/^ *version := v!"\(.*\)"$/\1/p' lakefile.lean)"
+            [ "$lake_version" = "$VERSION" ] ||
+              fail "lakefile.lean déclare '$lake_version' mais la release est '$TAG'"
+            changelog=CHANGELOG.md
+          else
+            cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
+            [ "$cff" = "$VERSION" ] || fail "CITATION.cff déclare '$cff' mais la release est '$TAG'"
+            changelog=spec/CHANGELOG.md
+          fi
+          # Written to a file, not piped into grep -q: with pipefail, grep closing the pipe early
+          # could make a successful check look like a failure.
+          section "$changelog" "$VERSION" > release-notes.md
+          grep -q '[^[:space:]]' release-notes.md ||
+            fail "$changelog n'a pas de section '## [$VERSION]' non vide"
+
+      - name: Check that the tagged commit is on main
+        env:
+          TAG: ${{ steps.resolve.outputs.tag }}
+          DRY_RUN: ${{ steps.resolve.outputs.dry_run }}
+        run: |
+          set -euo pipefail
+          fail() { echo "::error::$1"; exit 1; }
+          git rev-parse --verify --quiet refs/remotes/origin/main > /dev/null ||
+            fail "origin/main is not available in the checkout"
+          if [ "$DRY_RUN" != "true" ]; then
+            tag_commit="$(git rev-parse "refs/tags/$TAG^{commit}")"
+            [ "$tag_commit" = "$GITHUB_SHA" ] ||
+              fail "tag $TAG points at $tag_commit but this run was triggered for $GITHUB_SHA: the tag moved"
+          fi
+          git merge-base --is-ancestor "$GITHUB_SHA" refs/remotes/origin/main ||
+            fail "commit $GITHUB_SHA is not an ancestor of origin/main: refusing to release it"
+          echo "$GITHUB_SHA is on main."
+
+      # The check run must come from GitHub Actions: another app could post a run with that name.
+      - name: Check that CI OK succeeded on the tagged commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          count="$(gh api --paginate "repos/$GH_REPO/commits/$GITHUB_SHA/check-runs?per_page=100" \
+            --jq '.check_runs[] | select(.name == "CI OK" and .conclusion == "success" and .app.slug == "github-actions") | .id' \
+            | wc -l)"
+          if [ "$count" -lt 1 ]; then
+            echo "::error::no successful 'CI OK' check run from GitHub Actions on $GITHUB_SHA"
+            exit 1
+          fi
+          echo "CI OK succeeded on $GITHUB_SHA."
+
+      - name: Hand over the release notes
+        if: ${{ steps.resolve.outputs.kind == 'spec' && steps.resolve.outputs.dry_run != 'true' }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-notes
+          path: release-notes.md
+          retention-days: 7
+          if-no-files-found: error
+
+  # Rebuild and test from the tagged commit, with no cache: a cache restored from main is not
+  # re-verified, and these builds produce what gets attested. A job that calls a reusable workflow
+  # cannot carry its own timeout; the called jobs set theirs.
+  verify-spec:
+    name: Vérifier la spécification
+    needs: check
+    if: ${{ needs.check.outputs.kind == 'spec' }}
+    permissions:
+      contents: read
+    uses: ./.github/workflows/verify.yaml
+    with:
+      spec_check: true
+      spec_build: true
+      use_cache: false
+
+  verify-implementation:
     name: Vérifier l'implémentation
-    if: ${{ startsWith(github.event.release.tag_name, 'v') && !startsWith(github.event.release.tag_name, 'spec-v') }}
-    needs: implementation-release-check
+    needs: check
+    if: ${{ needs.check.outputs.kind == 'implementation' }}
+    permissions:
+      contents: read
     uses: ./.github/workflows/verify.yaml
     with:
       lean_build: true
+      use_cache: false
 
-  implementation-release-check:
-    name: Vérifier la release de l'implémentation
-    if: ${{ startsWith(github.event.release.tag_name, 'v') && !startsWith(github.event.release.tag_name, 'spec-v') }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Check release metadata
-        env:
-          TAG: ${{ github.event.release.tag_name }}
-        run: |
-          set -euo pipefail
-          version="${TAG#v}"
-          lake_version="$(sed -n 's/^ *version := v!"\(.*\)"$/\1/p' lakefile.lean)"
-          if [ "$lake_version" != "$version" ]; then
-            echo "::error::lakefile.lean déclare '$lake_version' mais la release est '$TAG'"
-            exit 1
-          fi
-          grep -q "^## \[$version\]" CHANGELOG.md || {
-            echo "::error::CHANGELOG.md ne contient pas la section '## [$version]'"
-            exit 1
-          }
-
-  spec-verify:
-    name: Vérifier la spécification
-    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
-    needs: spec-release-check
-    uses: ./.github/workflows/verify.yaml
-    with:
-      spec_build: true
-
-  spec-release-check:
-    name: Vérifier la release de spécification
-    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Check specification release metadata
-        env:
-          TAG: ${{ github.event.release.tag_name }}
-        run: |
-          set -euo pipefail
-          version="${TAG#spec-v}"
-          cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
-          if [ "$cff" != "$version" ]; then
-            echo "::error::CITATION.cff déclare '$cff' mais la release est '$TAG'"
-            exit 1
-          fi
-          grep -q "^## \[$version\]" spec/CHANGELOG.md || {
-            echo "::error::spec/CHANGELOG.md ne contient pas la section '## [$version]'"
-            exit 1
-          }
-
-  publish-spec:
-    name: Publier le PDF et sa provenance
-    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
-    needs: [spec-verify, spec-release-check]
+  draft:
+    name: Préparer le brouillon de release
+    needs: [check, verify-spec]
+    if: ${{ needs.check.outputs.kind == 'spec' && needs.check.outputs.dry_run != 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # This job runs no repository code and no build tool: it handles one verified artifact.
     permissions:
-      contents: write
-      id-token: write
-      attestations: write
-      artifact-metadata: write
+      contents: write # create the draft release and attach its assets
+      id-token: write # keyless Sigstore signing identity for actions/attest
+      attestations: write # store the build attestation
     env:
-      TAG: ${{ github.event.release.tag_name }}
+      TAG: ${{ needs.check.outputs.tag }}
+      VERSION: ${{ needs.check.outputs.version }}
+      # There is no git repository in this job: gh needs the repository named explicitly.
+      GH_REPO: ${{ github.repository }}
     steps:
+      - name: Refuse to touch an existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          existing="$(gh release list --limit 1000 --json tagName --jq 'map(select(.tagName == env.TAG)) | length')"
+          if [ "$existing" != "0" ]; then
+            echo "::error::a release (possibly a draft) already exists for $TAG: delete the draft, then re-run this job"
+            exit 1
+          fi
+
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: spec-pdf
           path: out
 
-      - name: Generate a SHA-256 checksum
-        working-directory: out
-        run: sha256sum k7pl-spec.pdf > k7pl-spec.pdf.sha256
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-notes
+          path: notes
 
-      - name: Generate artifact provenance
+      - name: Compute the SHA-256 checksum
+        working-directory: out
+        run: |
+          set -euo pipefail
+          if [ "$(find . -type f | wc -l)" -ne 1 ] || [ ! -f k7pl-spec.pdf ]; then
+            echo "::error::the spec-pdf artifact must contain exactly k7pl-spec.pdf"
+            exit 1
+          fi
+          sha256sum k7pl-spec.pdf > k7pl-spec.pdf.sha256
+
+      - name: Generate the build attestation
+        id: attest
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
           subject-path: out/k7pl-spec.pdf
+          create-storage-record: false
 
-      - name: Attach the PDF and checksum to the release
+      - name: Keep the attestation bundle next to the PDF
+        env:
+          BUNDLE_PATH: ${{ steps.attest.outputs.bundle-path }}
+        run: |
+          set -euo pipefail
+          [ -s "$BUNDLE_PATH" ] || { echo "::error::attestation bundle not found"; exit 1; }
+          cp "$BUNDLE_PATH" out/k7pl-spec.pdf.sigstore.json
+
+      # The draft is never published here: the human does that, after reading it.
+      - name: Create the draft release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "$TAG" out/k7pl-spec.pdf out/k7pl-spec.pdf.sha256 --clobber
-
-  zenodo:
-    name: Publier sur Zenodo
-    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
-    needs: [spec-verify, spec-release-check, publish-spec]
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    permissions:
-      contents: write
-    concurrency:
-      group: zenodo
-      cancel-in-progress: false
-    env:
-      TAG: ${{ github.event.release.tag_name }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Check that the release matches CITATION.cff and spec/CHANGELOG.md
         run: |
           set -euo pipefail
-          version="${TAG#spec-v}"
-          cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
-          if [ "$cff" != "$version" ]; then
-            echo "::error::CITATION.cff déclare '$cff' mais la release est '$TAG'"
+          # The backticks inside single quotes below are Markdown in the release notes, not command
+          # substitutions.
+          # shellcheck disable=SC2016
+          {
+            cat notes/release-notes.md
+            printf '\n## Vérification\n\n'
+            printf 'Le PDF est attesté par une exécution de `release.yaml` de ce dépôt, au tag `%s` (commit `%s`).\n' "$TAG" "$GITHUB_SHA"
+            printf "La somme SHA-256 ne détecte que la corruption : elle n'authentifie rien.\n\n"
+            printf '### Avant publication (relecture du brouillon)\n\n'
+            printf "Le tag est mobile tant que la release n'est pas publiée. Depuis un clone du dépôt, vérifier qu'il vise toujours le commit attesté :\n\n"
+            printf '```\n'
+            printf 'git fetch origin tag %s --force\n' "$TAG"
+            printf 'test "$(git rev-parse %s^{commit})" = %s\n' "$TAG" "$GITHUB_SHA"
+            printf '```\n\n'
+            printf 'Dans un dossier qui contient les trois fichiers téléchargés depuis la page du brouillon :\n\n'
+            printf '```\n'
+            printf 'sha256sum -c k7pl-spec.pdf.sha256\n'
+            printf 'gh attestation verify k7pl-spec.pdf --repo %s \\\n' "$GH_REPO"
+            printf '    --bundle k7pl-spec.pdf.sigstore.json \\\n'
+            printf '    --signer-workflow %s/.github/workflows/release.yaml \\\n' "$GH_REPO"
+            printf '    --source-ref refs/tags/%s \\\n' "$TAG"
+            printf '    --source-digest %s \\\n' "$GITHUB_SHA"
+            printf '    --deny-self-hosted-runners\n'
+            printf '```\n\n'
+            printf '`--source-digest` et `--deny-self-hosted-runners` sont désactivés par défaut : ils doivent figurer.\n\n'
+            printf '### Après publication (tout tiers)\n\n'
+            printf "\`gh release verify\` et \`gh release verify-asset\` ne fonctionnent qu'après la publication : l'attestation de la release est créée par GitHub quand la release immuable est publiée.\n\n"
+            printf '```\n'
+            printf 'gh release verify       %s -R %s\n' "$TAG" "$GH_REPO"
+            printf 'gh release download     %s -R %s -p "k7pl-spec.pdf*"\n' "$TAG" "$GH_REPO"
+            printf 'gh release verify-asset %s k7pl-spec.pdf -R %s\n' "$TAG" "$GH_REPO"
+            printf 'gh attestation verify k7pl-spec.pdf --repo %s \\\n' "$GH_REPO"
+            printf '    --bundle k7pl-spec.pdf.sigstore.json \\\n'
+            printf '    --signer-workflow %s/.github/workflows/release.yaml \\\n' "$GH_REPO"
+            printf '    --source-ref refs/tags/%s \\\n' "$TAG"
+            printf '    --source-digest %s \\\n' "$GITHUB_SHA"
+            printf '    --deny-self-hosted-runners\n'
+            printf 'sha256sum -c k7pl-spec.pdf.sha256\n'
+            printf '```\n'
+          } > notes/final-notes.md
+          prerelease=()
+          case "$VERSION" in
+            *-*) prerelease=(--prerelease) ;;
+          esac
+          # Last thing before the release exists: the tag may have been moved since the check job,
+          # and the release must not point at another commit than the one the PDF was attested at.
+          # An annotated tag is followed down to its commit.
+          answer="$(gh api "repos/$GH_REPO/git/ref/tags/$TAG" --jq '[.object.type, .object.sha] | @tsv')"
+          read -r kind sha <<< "$answer"
+          depth=0
+          while [ "$kind" = "tag" ]; do
+            depth=$((depth + 1))
+            if [ "$depth" -gt 5 ]; then
+              echo "::error::tag $TAG is nested too deeply: no release was created"
+              exit 1
+            fi
+            answer="$(gh api "repos/$GH_REPO/git/tags/$sha" --jq '[.object.type, .object.sha] | @tsv')"
+            read -r kind sha <<< "$answer"
+          done
+          if [ "$kind" != "commit" ] || [ "$sha" != "$GITHUB_SHA" ]; then
+            echo "::error::tag $TAG now points at $kind $sha, not at the attested commit $GITHUB_SHA: no release was created"
             exit 1
           fi
-          grep -q "^## \[$version\]" spec/CHANGELOG.md || {
-            echo "::error::spec/CHANGELOG.md ne contient pas la section '## [$version]'"
-            exit 1
-          }
-
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: spec-pdf
-          path: out
-
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        with:
-          python-version: "3.13"
-
-      - name: Install the dependencies
-        run: pip install --require-hashes -r scripts/requirements-zenodo.txt
-
-      - name: Restore the Zenodo state
-        run: |
-          if git fetch --depth 1 origin zenodo-state; then
-            git show FETCH_HEAD:.zenodo_state.json > .zenodo_state.json
-          else
-            echo "{}" > .zenodo_state.json
-          fi
-
-      - name: Publish on Zenodo
-        env:
-          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
-          ZENODO_ENV: ${{ secrets.ZENODO_ENV }}
-        run: ZENODO_VERSION="${TAG#spec-v}" python scripts/sync_zenodo.py
-
-      - name: Save the Zenodo state
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          dir="$RUNNER_TEMP/zenodo-state"
-          if git fetch --depth 1 origin zenodo-state; then
-            git worktree add --detach "$dir" FETCH_HEAD
-          else
-            git worktree add --detach "$dir"
-            git -C "$dir" checkout --orphan zenodo-state
-            git -C "$dir" rm -rfq .
-          fi
-          cp .zenodo_state.json "$dir/.zenodo_state.json"
-          cd "$dir"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .zenodo_state.json
-          git commit -m "chore(zenodo): enregistrer l'état de la publication $TAG"
-          git -c "http.extraheader=AUTHORIZATION: bearer $GITHUB_TOKEN" \
-            push origin HEAD:refs/heads/zenodo-state
+          gh release create "$TAG" --draft --verify-tag --title "$TAG" \
+            --notes-file notes/final-notes.md "${prerelease[@]}" \
+            out/k7pl-spec.pdf out/k7pl-spec.pdf.sha256 out/k7pl-spec.pdf.sigstore.json
+          {
+            echo "## Brouillon créé : \`$TAG\`"
+            echo
+            echo "Il n'est **pas** publié. Pour le publier : relire le brouillon, rejouer en local"
+            echo "\`gh attestation verify\` (commandes « avant publication » dans les notes), puis publier."
+            echo "La publication est irréversible (tag et assets verrouillés) et déclenche l'archivage Zenodo."
+          } >> "$GITHUB_STEP_SUMMARY"

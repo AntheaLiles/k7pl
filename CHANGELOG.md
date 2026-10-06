@@ -17,6 +17,15 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Added
 
+- Audit OpenSSF (`docs/security/`) : six audits indépendants (Scorecard, bonnes pratiques CII, gouvernance GitHub,
+  chaîne d'approvisionnement, assurance, qualité), matrice consolidée, plan de remédiation, décisions et actions
+  humaines requises, modèle de menace et registre des revendications. Rapports d'agents, non validés par une personne.
+- CI : `scripts/ci/check_lean_modules.py` (modules Lean que `lake build` ne compile jamais), audits d'axiomes de
+  `SpecExt`, `SpecBib` et des modules de test, entrée `use_cache` de `verify.yaml`, `scripts/ci/check_manifest.py`
+  (contrôle du manifeste Lake) et tests de `scripts/ci/` (tous lancés par `unittest discover`).
+- `zenodo.yaml` : archivage Zenodo des octets de la release publiée, après vérification de la release et de
+  l'attestation du PDF ; échoue par défaut tant que le concept Zenodo n'est pas déclaré.
+
 - Badges DOI (Zenodo), Software Heritage (origine, et répertoire de la release `0.0.0-alpha.1`
   avec son SWHID qualifié, à mettre à jour à chaque release `spec-vX.Y.Z`) et fair-software.eu
   dans le README, avec `.howfairis.yml` : le critère « registre » y est déclaré hors sujet, le
@@ -58,6 +67,36 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Changed
 
+- `release.yaml` refondu pour les releases immuables : poussée du tag, contrôles (tag sur `main`, `CI OK`), build
+  sans cache, brouillon de release avec PDF, somme et attestation ; la publication reste un geste humain. Corrige
+  deux défauts qui l'empêchaient de joindre le PDF (upload après publication d'une release immuable ; absence de
+  `GH_REPO`). Non encore exécuté de bout en bout.
+- `sync_zenodo.py` : plus de branche d'état `zenodo-state`, instance et concept déclarés explicitement, refus avant
+  tout appel réseau si la configuration est incomplète.
+- `bump-lean.yaml` : un job de construction sans secret, un job d'ouverture de PR qui n'exécute aucun code Lean ;
+  `check_manifest.py` lie chacun des 14 paquets à son dépôt et compare, en réseau, les paquets hérités aux manifestes
+  publiés à l'amont (`--check-upstream`). Une nouvelle dépendance transitive fait échouer le contrôle jusqu'à ce
+  qu'une personne l'ajoute à la liste.
+- `release.yaml` : le tag est revérifié juste avant la création du brouillon ; les notes de la release séparent
+  les commandes de vérification d'avant et d'après publication.
+- `sync_zenodo.py` : toute erreur après l'envoi de la publication écrit le DOI et sort avec le code 3 (au lieu
+  d'un succès silencieux en cas de relecture refusée) ; `NEW` refuse de s'exécuter si `GITHUB_RUN_ATTEMPT` n'est
+  pas `1`.
+- `sync_zenodo.py` (suite d'un réaudit indépendant) : une relecture qui n'est pas un objet, une erreur de rapport ou
+  une interruption n'empêchent plus d'écrire le DOI ; seules les réponses 400, 401, 403, 404 et 422 prouvent
+  qu'aucune publication n'a eu lieu ; un jeton mal formé est refusé sans être affiché.
+- `check_manifest.py` est lancé par le job d'impact de `ci.yaml` à chaque exécution, et contrôle aussi `configFile`,
+  `manifestFile`, `version` et `fixedToolchain` ; `check_lean_modules.py` refuse un `srcDir` calculé ; `impact.py`
+  cite les chemins qu'il affiche.
+- Hook de session : elan installé par version et somme enregistrée, plus de `curl … | sh` sur `master`.
+- Dependabot : délai de sept jours (`cooldown`) avant de proposer une nouvelle version.
+- `ci.yaml` : `scripts/ci/impact.py` est la seule source des chemins qui forcent la vérification complète (une
+  regex shell redondante, dont cinq alternatives sur huit ne correspondaient à rien, est supprimée) ;
+  `scripts/axiom-audit.sh` déclenche aussi le build de la spécification.
+- Compilation du PDF : `SOURCE_DATE_EPOCH` et `-Z deterministic-mode` ; journal de compilation conservé. Le PDF
+  n'est pas pour autant démontré reproductible.
+- README : badge de CI corrigé (il pointait vers un workflow supprimé) ; flux de publication décrit comme non encore
+  exécuté de bout en bout. `CONTRIBUTING.md` et `SECURITY.md` alignés sur ces changements.
 - `LICENSE` devient `LICENSE.md` ; les références (README, règles de rédaction) sont mises à jour.
   Mise en forme Markdown du fichier, texte inchangé (deux puces et leurs paragraphes
   s'affichaient en blocs de code).

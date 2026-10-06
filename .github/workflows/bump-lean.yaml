@@ -3,8 +3,42 @@
 # SPDX-License-Identifier: CECILL-2.1
 
 # Opens a pull request when Lean, Mathlib, CSLib and Verso share a newer release.
+#
+# The work is split in two jobs so that BUMP_TOKEN never reaches a machine that ran upstream code:
+#
+#   build    contents: read, no secret. Runs the version computation, scripts/bump-lean.sh,
+#            `lake update`, the build and the tests. `lake update` and `lake build` execute code
+#            from the newly resolved upstream revisions. Its only product is lake-manifest.json,
+#            handed over as an artifact.
+#   open-pr  contents: read, environment `bump-lean`, holds BUMP_TOKEN. Runs NO Lean code. From a
+#            clean checkout it regenerates lean-toolchain and lakefile.lean with the repository's
+#            own script, treats the artifact as untrusted data (scripts/ci/check_manifest.py),
+#            checks that exactly the three expected files differ, and only then opens the pull
+#            request.
+#
+# What open-pr checks in the manifest (scripts/ci/check_manifest.py --check-tags
+# --check-upstream), and nothing else:
+#   - structure: only keys of a Lake manifest and of a Lake package; packagesDir, lakeDir and name
+#     fixed; version and fixedToolchain well formed; every package a Git dependency; subDir and scope
+#     plain relative paths (no `..`, no absolute path); configFile lakefile.lean or lakefile.toml;
+#     manifestFile lake-manifest.json; inputRev a plain name, never `refs/...`, no `..`;
+#   - identity: every package is one of the 14 known names, taken from the manifest of 6 October
+#     2026 (ALLOWED_PACKAGES), and comes from the one GitHub repository recorded for that name;
+#     a new transitive dependency therefore fails until a human adds it to the script;
+#   - pins: every rev is 40 lowercase hex digits; lean-toolchain and the three `@ "vX.Y.Z"`
+#     requirements of lakefile.lean name the same release; the non-inherited packages are exactly
+#     the lakefile's requirements, with the same URL and inputRev;
+#   - upstream tags (network): each direct dependency's rev is the commit of its upstream tag;
+#   - upstream manifests (network): for each direct dependency whose tag check passed, the
+#     lake-manifest.json committed upstream at that rev is fetched, and every inherited package
+#     must be listed by one of them with the same name, URL and rev.
+# NOT checked: a package that the manifest omits; a malicious commit that an upstream manifest
+# itself pins; an upstream tag moved before the bump. The reviewer of the pull request still reads
+# the diff of lake-manifest.json.
+#
 # A pull request opened with GITHUB_TOKEN does not trigger the other workflows; BUMP_TOKEN is
-# therefore required so that the generated pull request receives the normal CI checks.
+# therefore required so that the generated pull request receives the normal CI checks. The
+# GITHUB_TOKEN of this workflow is read-only and is not used to write anything.
 name: Bump Lean
 
 on:
@@ -15,13 +49,22 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: bump-lean
+  cancel-in-progress: false
+
 jobs:
-  bump:
+  build:
+    name: Bump, build and test
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    # Executes upstream code: no write permission, no secret.
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
+    outputs:
+      current: ${{ steps.version.outputs.current }}
+      latest: ${{ steps.version.outputs.latest }}
+      newer: ${{ steps.version.outputs.newer }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -41,9 +84,11 @@ jobs:
             echo "newer=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Update the toolchain and the dependencies
+      - name: Update the toolchain and the requirements
         if: steps.version.outputs.newer == 'true'
-        run: scripts/bump-lean.sh --no-update "${{ steps.version.outputs.latest }}"
+        env:
+          LATEST: ${{ steps.version.outputs.latest }}
+        run: scripts/bump-lean.sh --no-update "$LATEST"
 
       - if: steps.version.outputs.newer == 'true'
         uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
@@ -55,16 +100,50 @@ jobs:
           test: false
           lint: false
 
-      - name: Resolve the dependencies, build and test
+      - name: Resolve the dependencies
+        if: steps.version.outputs.newer == 'true'
+        run: lake update
+
+      # Early check, and it blocks: a failure stops this job before the build. It runs after
+      # `lake update` evaluated upstream code in this workspace, so it is not authoritative: the
+      # authoritative check is made by the open-pr job on a clean checkout.
+      - name: Check the resolved manifest (early)
+        if: steps.version.outputs.newer == 'true'
+        run: python3 scripts/ci/check_manifest.py
+
+      - name: Build and test
         if: steps.version.outputs.newer == 'true'
         run: |
-          lake update
           lake exe cache get || echo "::warning::Mathlib cache unavailable, full rebuild ahead"
           lake build
           lake test
 
-      - name: Require a token that triggers the normal PR workflows
+      # Only the manifest leaves this job. lean-toolchain and lakefile.lean are regenerated by
+      # open-pr, never taken from here.
+      - name: Hand over the resolved manifest
         if: steps.version.outputs.newer == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: lake-manifest
+          path: lake-manifest.json
+          retention-days: 3
+          if-no-files-found: error
+
+  open-pr:
+    name: Open the pull request
+    needs: build
+    if: needs.build.outputs.newer == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: bump-lean
+    # BUMP_TOKEN is passed to create-pull-request explicitly; this job needs no GITHUB_TOKEN write.
+    permissions:
+      contents: read
+    env:
+      LATEST: ${{ needs.build.outputs.latest }}
+      CURRENT: ${{ needs.build.outputs.current }}
+    steps:
+      - name: Require a token that triggers the normal PR workflows
         env:
           BUMP_TOKEN: ${{ secrets.BUMP_TOKEN }}
         run: |
@@ -74,19 +153,73 @@ jobs:
             exit 1
           }
 
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Validate the version
+        run: |
+          set -euo pipefail
+          for v in "$LATEST" "$CURRENT"; do
+            [[ "$v" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+              echo "::error::version invalide : '$v' (attendu : vX.Y.Z)"
+              exit 1
+            }
+          done
+
+      - name: Regenerate lean-toolchain and lakefile.lean
+        run: scripts/bump-lean.sh --no-update "$LATEST"
+
+      - name: Download the resolved manifest (untrusted)
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: lake-manifest
+          path: ${{ runner.temp }}/untrusted
+
+      - name: Validate the manifest and put it in place
+        run: |
+          set -euo pipefail
+          dir="$RUNNER_TEMP/untrusted"
+          [ "$(find "$dir" -mindepth 1 | wc -l)" -eq 1 ] || {
+            echo "::error::l'artefact doit contenir uniquement lake-manifest.json"
+            exit 1
+          }
+          if [ ! -f "$dir/lake-manifest.json" ] || [ -L "$dir/lake-manifest.json" ]; then
+            echo "::error::lake-manifest.json est absent ou n'est pas un fichier ordinaire"
+            exit 1
+          fi
+          python3 scripts/ci/check_manifest.py --manifest "$dir/lake-manifest.json" \
+            --check-tags --check-upstream
+          cp "$dir/lake-manifest.json" lake-manifest.json
+
+      - name: Check that exactly the expected files differ
+        run: |
+          set -euo pipefail
+          expected=$'lake-manifest.json\nlakefile.lean\nlean-toolchain'
+          changed="$(git diff --name-only | sort)"
+          staged="$(git diff --cached --name-only)"
+          untracked="$(git ls-files --others --exclude-standard)"
+          if [ "$changed" != "$expected" ] || [ -n "$staged" ] || [ -n "$untracked" ]; then
+            echo "::error::seuls lake-manifest.json, lakefile.lean et lean-toolchain doivent différer"
+            printf 'modified:\n%s\nstaged:\n%s\nuntracked:\n%s\n' "$changed" "$staged" "$untracked"
+            exit 1
+          fi
+
       - name: Open the pull request
-        if: steps.version.outputs.newer == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ secrets.BUMP_TOKEN }}
-          branch: bump/lean-${{ steps.version.outputs.latest }}
-          commit-message: "build(deps): bump Lean, Mathlib, CSLib and Verso to ${{ steps.version.outputs.latest }}"
-          title: "build(deps): bump Lean, Mathlib, CSLib and Verso to ${{ steps.version.outputs.latest }}"
+          branch: bump/lean-${{ env.LATEST }}
+          commit-message: "build(deps): bump Lean, Mathlib, CSLib and Verso to ${{ env.LATEST }}"
+          title: "build(deps): bump Lean, Mathlib, CSLib and Verso to ${{ env.LATEST }}"
           body: |
-            Montée de version groupée de `${{ steps.version.outputs.current }}` vers `${{ steps.version.outputs.latest }}`
-            (`lean-toolchain`, `lakefile.lean`, `lake-manifest.json`), générée par `scripts/bump-lean.sh`.
+            Montée de version groupée de `${{ env.CURRENT }}` vers `${{ env.LATEST }}`
+            (`lean-toolchain`, `lakefile.lean`, `lake-manifest.json`).
 
-            `lake build` et `lake test` passent dans le workflow qui a ouvert cette PR.
+            `lean-toolchain` et `lakefile.lean` sont régénérés par `scripts/bump-lean.sh` ; `lake-manifest.json`
+            vient du job `build` (qui a exécuté du code amont) et a été validé par
+            `scripts/ci/check_manifest.py --check-tags --check-upstream` avant l'ouverture de cette PR.
+            `lake build` et `lake test` passent dans le job `build` du workflow qui a ouvert cette PR.
             Penser à ajouter une ligne dans `CHANGELOG.md`.
           add-paths: |
             lean-toolchain

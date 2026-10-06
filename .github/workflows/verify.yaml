@@ -37,6 +37,11 @@ on:
         required: false
         type: boolean
         default: false
+      use_cache:
+        description: "Restaurer les caches Lake et Tectonic (false : construction à froid, par exemple pour une release)"
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -84,6 +89,7 @@ jobs:
           lint: false
 
       - name: Restore the Lake dependencies
+        if: ${{ inputs.use_cache }}
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .lake/packages
@@ -91,6 +97,14 @@ jobs:
 
       - name: Fetch the Mathlib cache
         run: lake exe cache get || echo "::warning::Mathlib cache unavailable, full rebuild ahead"
+
+      # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The scan
+      # covers src/ and tests/ only, and any declared lean_lib counts as a root, even one that this
+      # job does not build (no default target).
+      # The check sits right before the build, after the Mathlib cache: the steps that run even
+      # after a failure (lint, audits) must not start from a cold Mathlib.
+      - name: Check that every Lean file is built
+        run: python3 scripts/ci/check_lean_modules.py
 
       - name: Build the implementation and the tests
         run: lake build K7pl K7plTests
@@ -111,19 +125,57 @@ jobs:
             echo "- Lean: $(cat lean-toolchain)"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Audit the axioms
+      - name: Audit the axioms (K7pl)
         if: ${{ !cancelled() }}
         run: scripts/axiom-audit.sh K7pl K7pl
+
+      # axiom-audit audits one root namespace per run and the test modules are flat (ArithTest,
+      # SemanticsTest, MainTest): `--root K7plTests` matches no module and fails with "unknown
+      # module prefix". The roots are read from lakefile.lean, so a new test module is audited
+      # without editing this workflow; every root is audited even if an earlier one fails.
+      - name: Audit the axioms (tests)
+        if: ${{ !cancelled() }}
+        run: |
+          set -euo pipefail
+          roots="$(python3 scripts/ci/check_lean_modules.py --roots-in tests)"
+          status=0
+          for root in $roots; do
+            echo "::group::axiom-audit $root"
+            scripts/axiom-audit.sh "$root" "+$root" || {
+              echo "::error::the axiom audit of $root failed"
+              status=1
+            }
+            echo "::endgroup::"
+          done
+          exit "$status"
 
   spec:
     name: Spécification Verso
     if: ${{ inputs.full || inputs.spec_build }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    outputs:
+      source_date_epoch: ${{ steps.source-date.outputs.epoch }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+
+      # Commit date of the checked-out source, handed to `spec-pdf` (which has no checkout) as
+      # SOURCE_DATE_EPOCH. On a `pull_request` event the checkout is GitHub's synthetic merge
+      # commit, so the date is that of the merge computation, not of the last commit of the branch.
+      - name: Record the commit date of the source
+        id: source-date
+        run: |
+          set -euo pipefail
+          epoch="$(git log -1 --format=%ct)"
+          case "$epoch" in
+            ''|*[!0-9]*)
+              echo "::error::unexpected commit date: '$epoch'"
+              exit 1
+              ;;
+          esac
+          echo "epoch=$epoch" >> "$GITHUB_OUTPUT"
 
       - name: Install elan
         uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
@@ -136,6 +188,7 @@ jobs:
           lint: false
 
       - name: Restore the Lake dependencies
+        if: ${{ inputs.use_cache }}
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .lake/packages
@@ -144,8 +197,17 @@ jobs:
       - name: Build the specification
         run: lake build Spec
 
-      - name: Audit the axioms
+      - name: Audit the axioms (Spec)
         run: scripts/axiom-audit.sh Spec Spec
+
+      # SpecExt and SpecBib are separate roots: `--root Spec` does not cover them.
+      - name: Audit the axioms (SpecExt)
+        if: ${{ !cancelled() }}
+        run: scripts/axiom-audit.sh SpecExt SpecExt
+
+      - name: Audit the axioms (SpecBib)
+        if: ${{ !cancelled() }}
+        run: scripts/axiom-audit.sh SpecBib SpecBib
 
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
@@ -210,6 +272,7 @@ jobs:
           echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
 
       - name: Cache Tectonic files
+        if: ${{ inputs.use_cache }}
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/Tectonic
@@ -217,12 +280,50 @@ jobs:
           restore-keys: |
             tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
 
+      # SOURCE_DATE_EPOCH and `-Z deterministic-mode` remove two known sources of variation (the
+      # build date and absolute paths). They do not pin the TeX bundle, which Tectonic downloads
+      # at run time, and nothing here compares two builds.
       - name: Compile the PDF
         working-directory: _out/spec/tex
+        env:
+          SOURCE_DATE_EPOCH: ${{ needs.spec.outputs.source_date_epoch }}
         run: |
-          tectonic -X compile --keep-logs main.tex
+          set -euo pipefail
+          case "$SOURCE_DATE_EPOCH" in
+            ''|*[!0-9]*)
+              echo "::error::SOURCE_DATE_EPOCH is not a number: '$SOURCE_DATE_EPOCH'"
+              exit 1
+              ;;
+          esac
+          tectonic -X compile --keep-logs -Z deterministic-mode main.tex
           mkdir -p "$GITHUB_WORKSPACE/out"
           cp main.pdf "$GITHUB_WORKSPACE/out/k7pl-spec.pdf"
+
+      # Informative only: no healthy build has been observed yet, so no threshold is enforced.
+      - name: Summarise the compilation log
+        if: ${{ !cancelled() }}
+        run: |
+          log=_out/spec/tex/main.log
+          {
+            echo "### PDF compilation log"
+            if [ -f "$log" ]; then
+              echo "- Lines in the log: $(wc -l < "$log")"
+              echo "- Lines containing 'Warning': $(grep -a -c 'Warning' "$log" || true)"
+              echo "- Lines containing 'Undefined' or 'undefined': $(grep -a -c -i 'undefined' "$log" || true)"
+              echo "- Lines containing 'Missing character': $(grep -a -c 'Missing character' "$log" || true)"
+            else
+              echo "- No log found at $log"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the compilation log
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: spec-pdf-log
+          path: _out/spec/tex/main.log
+          retention-days: 14
+          if-no-files-found: warn
 
       - name: Upload the specification (PDF)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
