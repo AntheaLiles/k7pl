@@ -5,30 +5,24 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Migration register
 
-This directory contains the operational records for the legacy documentation migration defined by [LEGACY-MIGRATION.md](../LEGACY-MIGRATION.md).
+This directory contains the operational records for the legacy documentation migration defined by LEGACY-MIGRATION.md.
 
-The migration is knowledge migration, not file migration. Legacy material is treated as source evidence; current documents are rewritten knowledge supports. The controlled sequence is extraction, qualification, rewriting, traceability, validation, and only then physical relocation.
+The migration is knowledge migration, not file migration. Legacy material is source evidence; current documents are rewritten knowledge supports. The sequence is extraction, qualification, rewriting, traceability, validation, then physical relocation.
 
 ## Lot states
 
 NOT STARTED → IN PROGRESS → UNDER REVIEW → VALIDATED.
 
-A lot is not validated merely because files have been moved. Semantic, epistemic, traceability, and navigation checks are required.
-
 ## L0 — Corpus freeze and inventory
 
-The authoritative L0 register is [LEGACY-INVENTORY.md](LEGACY-INVENTORY.md). It is generated from the Git working tree by [scripts/inventory_legacy.py](../../scripts/inventory_legacy.py).
+L0 is established by the reproducible inventory generator in scripts/inventory_legacy.py. Its mechanically derived fields must be regenerated from the Git working tree rather than manually maintained.
 
-The first inventory records the legacy corpus without modifying or deleting it. Candidate destinations are provisional until semantic qualification.
+## L1 — suivi/
 
-## L1–L5
+L1 is IN PROGRESS. Its semantic qualification is recorded in L1-SUIVI.md. No suivi/ file is moved or deleted during semantic qualification.
 
-The detailed execution order remains defined in [LEGACY-MIGRATION.md](../LEGACY-MIGRATION.md):
+## L2–L5
 
-- L1: `suivi/`
-- L2: `recherche/`
-- L3: `methode/` and `relectures/`
-- L4: `journal/`, `bibliographie/`, and `historique/`
-- L5: global validation and physical relocation.
+L2: recherche/. L3: methode/ and relectures/. L4: journal/, bibliographie/, and historique/. L5: global validation and physical relocation.
 
-The register must be updated as each extracted proposition is qualified and rewritten. Historical sources remain identifiable until the corresponding lot is validated.
+The register is updated as extracted propositions are qualified and rewritten.
