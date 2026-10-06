@@ -1,0 +1,155 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+# Archives a published specification release on Zenodo.
+#
+# A Zenodo DOI is irreversible, so this workflow fails by default and rebuilds nothing:
+#
+#   * it runs only when a human publishes a `spec-v*` release (the draft prepared by release.yaml);
+#   * it downloads the assets of that published, immutable release and verifies them: the release
+#     attestation (`gh release verify`), the asset against the release (`gh release verify-asset`),
+#     and the build attestation of the PDF against THIS repository's release.yaml at the release
+#     tag and commit (`gh attestation verify --bundle`);
+#   * only then does scripts/sync_zenodo.py upload those very bytes.
+#
+# Repository settings this workflow depends on (HUMAN ACTION REQUIRED, not set by this file):
+#   * environment `zenodo`: secret ZENODO_TOKEN; variables ZENODO_ENV ("production" or "sandbox",
+#     nothing else is accepted) and ZENODO_CONCEPT_RECID; deployment limited to tags `spec-v*`;
+#     a required reviewer is advisable, since the next step cannot be undone;
+#   * ZENODO_CONCEPT_RECID is the concept record id under which a new version is published, or the
+#     literal NEW to create a new record and a new concept DOI. Nothing in the repository proves
+#     where the DOI 10.5281/zenodo.23040451 comes from, so the author must decide. The script
+#     refuses to run, before any network call, when the variable is absent or invalid, and a run
+#     with NEW writes the identifiers it created in the job summary. NEW cannot notice that its
+#     record already exists, so it also refuses to run unless GITHUB_RUN_ATTEMPT is 1: a "Re-run"
+#     of the job is refused, and after any failure past the publish request the summary says not
+#     to re-run (exit status 3).
+name: Zenodo
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zenodo
+  cancel-in-progress: false
+
+jobs:
+  zenodo:
+    name: Publier sur Zenodo
+    if: ${{ startsWith(github.event.release.tag_name, 'spec-v') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: zenodo
+    # Nothing is written to the repository: the former `zenodo-state` branch no longer exists.
+    permissions:
+      contents: read
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+      # The job has no git repository to infer it from; gh needs it.
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Install the dependencies
+        run: pip install --require-hashes -r scripts/requirements-zenodo.txt
+
+      # Fails before anything is downloaded when the instance or the concept is missing or invalid.
+      - name: Check the Zenodo configuration
+        env:
+          ZENODO_ENV: ${{ vars.ZENODO_ENV }}
+          ZENODO_CONCEPT_RECID: ${{ vars.ZENODO_CONCEPT_RECID }}
+          ZENODO_TAG: ${{ env.TAG }}
+          ZENODO_COMMIT: ${{ github.sha }}
+          ZENODO_REPOSITORY: ${{ github.repository }}
+          ZENODO_RELEASE_URL: ${{ github.event.release.html_url }}
+        run: python3 scripts/sync_zenodo.py --check-config
+
+      - name: Check that the release matches CITATION.cff and spec/CHANGELOG.md
+        run: |
+          set -euo pipefail
+          version="${TAG#spec-v}"
+          cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
+          if [ "$cff" != "$version" ]; then
+            echo "::error::CITATION.cff déclare '$cff' mais la release est '$TAG'"
+            exit 1
+          fi
+          grep -q "^## \[$version\]" spec/CHANGELOG.md || {
+            echo "::error::spec/CHANGELOG.md ne contient pas la section '## [$version]'"
+            exit 1
+          }
+
+      - name: Check that gh can verify releases and attestations
+        run: |
+          set -euo pipefail
+          gh --version
+          gh release verify --help > /dev/null || {
+            echo "::error::this gh has no 'gh release verify': refusing to publish unverified assets"
+            exit 1
+          }
+          gh release verify-asset --help > /dev/null || {
+            echo "::error::this gh has no 'gh release verify-asset': refusing to publish unverified assets"
+            exit 1
+          }
+          gh attestation verify --help > /dev/null
+
+      - name: Download the published assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir out
+          gh release download "$TAG" --dir out \
+            --pattern k7pl-spec.pdf \
+            --pattern k7pl-spec.pdf.sha256 \
+            --pattern k7pl-spec.pdf.sigstore.json
+          for f in k7pl-spec.pdf k7pl-spec.pdf.sha256 k7pl-spec.pdf.sigstore.json; do
+            [ -f "out/$f" ] || { echo "::error::asset $f is missing from release $TAG"; exit 1; }
+          done
+
+      # Nothing is rebuilt: the bytes verified here are the bytes uploaded below.
+      - name: Verify the release, the PDF and its build attestation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release verify "$TAG"
+          gh release verify-asset "$TAG" out/k7pl-spec.pdf
+          gh attestation verify out/k7pl-spec.pdf \
+            --repo "$GH_REPO" \
+            --bundle out/k7pl-spec.pdf.sigstore.json \
+            --signer-workflow "$GH_REPO/.github/workflows/release.yaml" \
+            --source-ref "refs/tags/$TAG" \
+            --source-digest "$GITHUB_SHA" \
+            --deny-self-hosted-runners
+          # The checksum only detects corruption: it authenticates nothing.
+          (cd out && sha256sum --check --strict k7pl-spec.pdf.sha256)
+          {
+            echo "## Vérification avant dépôt"
+            echo
+            echo "- \`gh release verify $TAG\` : réussi"
+            echo "- \`gh release verify-asset $TAG k7pl-spec.pdf\` : réussi"
+            echo "- \`gh attestation verify\` (bundle, \`release.yaml\`, \`refs/tags/$TAG\`, \`$GITHUB_SHA\`) : réussi"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish on Zenodo
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_ENV: ${{ vars.ZENODO_ENV }}
+          ZENODO_CONCEPT_RECID: ${{ vars.ZENODO_CONCEPT_RECID }}
+          ZENODO_TAG: ${{ env.TAG }}
+          ZENODO_COMMIT: ${{ github.sha }}
+          ZENODO_REPOSITORY: ${{ github.repository }}
+          ZENODO_RELEASE_URL: ${{ github.event.release.html_url }}
+          ZENODO_FILES_DIR: out
+        run: python3 scripts/sync_zenodo.py

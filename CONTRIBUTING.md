@@ -30,12 +30,23 @@ pip install reuse && reuse lint
 3. Faire des commits au format [Conventional Commits](https://www.conventionalcommits.org/fr/)
    (vérifié en CI), avec `CHANGELOG.md` à jour.
 4. Ouvrir une pull request vers `main` en remplissant le modèle.
-5. Tous les checks doivent passer : compilation, tests, lint, audit des axiomes,
-   REUSE, Conventional Commits, actionlint, gitleaks.
-6. Fusion par **rebase** (historique linéaire, chaque commit ayant déjà été vérifié).
+5. Le check `CI OK` doit passer. Il agrège l'analyse d'impact, les contrôles ciblés selon les
+   fichiers modifiés (Lean : compilation, tests, lint, audit des axiomes ; spécification :
+   contrôles, compilation, rendu), REUSE, Conventional Commits, actionlint et gitleaks.
+6. Fusion par **rebase** (historique linéaire). La CI vérifie la tête de la pull request, pas
+   chaque commit pris isolément.
 
 Ne jamais réécrire l'historique d'une branche partagée (pas de force-push sur
 `main`, ni sur la branche d'une autre personne).
+
+## Revue
+
+Aujourd'hui, aucune revue par une seconde personne n'a lieu : k7pl est porté par une seule
+personne, qui fusionne ses propres pull requests une fois le check `CI OK` réussi. Le ruleset de
+`main` n'exige aucune approbation. Les agents d'assistance (Claude Code) rédigent, proposent et
+vérifient des changements ; ils ne constituent pas une revue indépendante. Ce que cela implique
+pour les critères de sécurité est détaillé dans
+[`docs/security/OPENSSF-AUDIT.md`](docs/security/OPENSSF-AUDIT.md) (§ 6).
 
 ## Corriger la spécification
 
@@ -76,34 +87,60 @@ La spécification et l'implémentation ont des versions **indépendantes** :
 
 | Release    | Tag            | Version déclarée dans           | Changelog            | Effet                               |
 |------------|----------------|---------------------------------|----------------------|-------------------------------------|
-| Spécification | `spec-vX.Y.Z` | `CITATION.cff` (`version`)     | `spec/CHANGELOG.md`  | PDF publié sur Zenodo et joint à la release |
-| Implémentation | `vX.Y.Z`     | `lakefile.lean` (`version`)    | `CHANGELOG.md`       | Contrôle de cohérence, pas de Zenodo |
+| Spécification | `spec-vX.Y.Z` | `CITATION.cff` (`version`)     | `spec/CHANGELOG.md`  | brouillon de release avec le PDF, sa somme SHA-256 et son attestation ; archivage Zenodo après publication |
+| Implémentation | `vX.Y.Z`     | `lakefile.lean` (`version`)    | `CHANGELOG.md`       | contrôles avant publication ; ni artefact ni Zenodo |
 
-Dans les deux cas, la CI refuse la release si la version du tag ne correspond
-pas au fichier de version et au changelog.
+Les releases de ce dépôt sont conçues pour être **immuables** (la release existante l'est ; le réglage du
+dépôt est à confirmer, voir [`docs/security/ACTIONS-HUMAINES.md`](docs/security/ACTIONS-HUMAINES.md), § 1.6) : une
+fois publiée, une release immuable ne peut plus recevoir, remplacer ni perdre d'asset, et son tag ne peut plus bouger. La CI prépare donc tout *avant* la
+publication, et **ne publie jamais** : la publication est un geste humain, irréversible. Une erreur
+après publication impose une nouvelle version, et le nom d'un tag publié n'est pas réutilisable.
+
+> **Statut.** Ce flux est écrit et vérifié par des outils statiques et des tests de ses scripts, mais
+> il **n'a jamais été exécuté de bout en bout**. Avant la première release de spécification, suivre la
+> liste de [`docs/security/ACTIONS-HUMAINES.md`](docs/security/ACTIONS-HUMAINES.md) (§ 5) : environnements
+> protégés, règle de tags, décision sur le DOI, répétition sur le sandbox Zenodo.
 
 ### Spécification (`spec-vX.Y.Z`)
 
 1. Dans une PR : passer `[Unreleased]` de `spec/CHANGELOG.md` en
    `## [X.Y.Z] - AAAA-MM-JJ`, et mettre à jour `version` et `date-released`
    dans `CITATION.cff`.
-2. Après fusion, créer la release sur `main` avec le tag `spec-vX.Y.Z`
-   (titre conseillé : « Spécification X.Y.Z »).
-3. La CI compile le PDF (artefact `spec-pdf`), le publie sur Zenodo, l'attache
-   à la release et enregistre l'état Zenodo sur la branche `zenodo-state`.
-4. Après la première publication, ajouter le DOI de concept (affiché dans le
-   résumé du job `zenodo`) dans `CITATION.cff` (`identifiers`) et dans le README.
+2. Après fusion, poser le tag sur un commit de `main` et le pousser :
+   `git tag spec-vX.Y.Z <commit> && git push origin spec-vX.Y.Z`. Ne pas créer la release à la main.
+3. `release.yaml` contrôle les métadonnées, que le commit est sur `main` et que `CI OK` y a réussi,
+   reconstruit sans cache Actions, puis crée une release **en brouillon** contenant le PDF
+   (`k7pl-spec.pdf`), sa somme (`.sha256`) et l'attestation (`.sigstore.json`).
+4. Relire le brouillon, rejouer en local les commandes « Avant publication » de ses notes
+   (`sha256sum -c`, puis `gh attestation verify --bundle` avec `--source-digest` et
+   `--deny-self-hosted-runners`), puis le **publier**. GitHub génère alors l'attestation de la
+   release : `gh release verify` et `gh release verify-asset` ne fonctionnent qu'à partir de là.
+5. La publication déclenche `zenodo.yaml`, qui vérifie les assets publiés avant de les déposer. Il
+   refuse de publier tant que les variables `ZENODO_ENV` (exactement `production` ou `sandbox`) et
+   `ZENODO_CONCEPT_RECID` (l'identifiant du concept, ou `NEW` pour en créer un) ne sont pas
+   renseignées dans l'environnement `zenodo`. Après un run avec `NEW`, renseigner la variable avec
+   l'identifiant affiché dans le résumé du job, et **ne jamais rejouer ce run** : avec `NEW`, le
+   script refuse de s'exécuter si `GITHUB_RUN_ATTEMPT` n'est pas `1`, et un échec après l'envoi de
+   la publication (code de sortie 3) écrit le DOI et l'identifiant du concept dans le résumé du job.
+6. Vérifier que le DOI de `CITATION.cff` et du README est le bon.
 
-Métadonnées Zenodo : `zenodo.json` (communes) et `zenodo.files.json` (par PDF).
-Le secret `ZENODO_ENV=sandbox` permet de tester sur sandbox.zenodo.org
-(avec un jeton `ZENODO_TOKEN` du sandbox).
+Métadonnées Zenodo : `zenodo.json` (communes) et `zenodo.files.json` (par PDF) ; le script y ajoute
+à l'exécution le tag, le commit, l'URL de la release et la somme SHA-256 du PDF. `ZENODO_ENV=sandbox`
+publie sur sandbox.zenodo.org avec un jeton du sandbox.
+
+Un essai à blanc existe : le workflow `Release`, lancé à la main (`workflow_dispatch`), rejoue les
+contrôles et la construction sans rien écrire. Il n'est disponible qu'une fois ce workflow sur
+`main`, exige un commit déjà sur `main` et une version dont les métadonnées sont prêtes.
 
 ### Implémentation (`vX.Y.Z`)
 
 1. Dans une PR : passer `[Unreleased]` de `CHANGELOG.md` en `## [X.Y.Z] - AAAA-MM-JJ`
    et mettre à jour `version` dans `lakefile.lean`.
-2. Après fusion, créer la release sur `main` avec le tag `vX.Y.Z`
-   (titre conseillé : « k7pl X.Y.Z »).
+2. Après fusion, pousser le tag `vX.Y.Z` sur un commit de `main`. `release.yaml` contrôle et vérifie
+   l'implémentation **avant** toute publication ; il ne produit aucun artefact (une bibliothèque
+   Lake est consommée en source, par son tag).
+3. Quand ce run est vert, créer la release depuis le tag (notes tirées de `CHANGELOG.md`) : la publier
+   la rend immuable.
 
 ## Sécurité
 

@@ -35,7 +35,8 @@ reuse lint                        # vérifie la conformité REUSE
 La spécification du langage — le manuscrit « K7PL : KonSept Programming Language », sept
 chapitres, les références du document et cinq annexes — est dans [`spec/`](spec/), écrite en
 Verso, sous licence CC-BY-4.0. Elle est publiée sur <https://anthealiles.github.io/k7pl/> à
-chaque mise à jour de `main` ; son PDF est archivé sur Zenodo à chaque release `spec-vX.Y.Z`.
+chaque mise à jour de `main`. Le flux qui joindra son PDF à chaque release `spec-vX.Y.Z` et l'archivera
+sur Zenodo est décrit dans [`CONTRIBUTING.md`](CONTRIBUTING.md) ; il n'a pas encore été exécuté de bout en bout.
 
 Le manuscrit est encore en cours de correction (campagne de relecture PR-02) : le point
 d'entrée est le [tableau de bord](docs/suivi/TABLEAU-DE-BORD.md), qui dit où il en est et ce
@@ -67,8 +68,10 @@ voir [`SECURITY.md`](SECURITY.md).
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23040451.svg)](https://doi.org/10.5281/zenodo.23040451)
 [![SWH origin](https://archive.softwareheritage.org/badge/origin/https://doi.org/10.5281/zenodo.23040451/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://doi.org/10.5281/zenodo.23040451)
 
-Chaque version de la spécification est archivée sur [Zenodo](https://zenodo.org)
-avec un DOI, et son PDF est joint à la release GitHub correspondante. Voir
+Les versions de la spécification doivent être archivées sur [Zenodo](https://zenodo.org)
+avec un DOI, leur PDF étant joint à la release GitHub correspondante. Ce flux n'a pas encore été
+exécuté de bout en bout : la release `spec-v0.0.0-alpha.1` n'a pas de PDF joint (voir
+[`CONTRIBUTING.md`](CONTRIBUTING.md)). Voir
 [`CITATION.cff`](CITATION.cff) (bouton « Cite this repository » sur GitHub). DOI : [10.5281/zenodo.23040451](https://doi.org/10.5281/zenodo.23040451).
 
 [![SWH directory](https://archive.softwareheritage.org/badge/swh:1:dir:b81695cfdce2e418f8a8431b79e8894ee7310c50/)](https://archive.softwareheritage.org/swh:1:dir:b81695cfdce2e418f8a8431b79e8894ee7310c50;origin=https://doi.org/10.5281/zenodo.23040451;visit=swh:1:snp:e8d0a0046dc9e4509fc52655611c04a49414fa89;anchor=swh:1:rel:6c1db6481a70f65688c0cf1f8eb8cbfcf1e128b9)

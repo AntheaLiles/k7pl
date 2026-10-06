@@ -9,6 +9,10 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # Wait a week before proposing a freshly published release, so that a compromised release
+    # that is withdrawn within days is never proposed. Security updates are not delayed.
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: ci
       include: scope
@@ -21,6 +25,9 @@ updates:
     directory: /scripts
     schedule:
       interval: monthly
+    # Same delay as above; security updates are not delayed.
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: build
       include: scope

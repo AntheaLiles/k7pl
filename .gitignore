@@ -16,3 +16,6 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+
+# Claude Code: isolated worktrees created by agents (copies of the repository, not project files)
+.claude/worktrees/

@@ -20,8 +20,9 @@ FULL_EXACT = {
     "scripts/requirements-zenodo.txt",
 }
 FULL_PREFIXES = (".github/workflows/", "scripts/ci/")
-LEAN_EXACT = {"scripts/axiom-audit.sh"}
 LEAN_PREFIXES = ("src/", "tests/")
+# Called by both the `impl` and the `spec` job of verify.yaml, so a change must run both.
+LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
 SPEC_BUILD_EXACT = {
     "scripts/controle.py",
     "scripts/manuscript_metrics.py",
@@ -41,12 +42,24 @@ def is_markdown(path: str) -> bool:
 
 
 def changed_paths(base: str, head: str) -> list[str]:
+    """Paths that differ between two commits.
+
+    Two properties matter for safety. `--no-renames` reports a rename as a deletion plus an
+    addition: with rename detection only the new path is listed, so moving `lakefile.lean` under
+    `docs/` would look like a documentation change. There is no `--diff-filter`: every kind of
+    change counts. A failed diff must stop the script, never become "no changed path", which
+    would classify nothing and validate nothing.
+    """
     result = subprocess.run(
-        ["git", "diff", "--name-only", "--diff-filter=ACDMRT", "--no-renames", base, head],
-        check=True,
+        ["git", "diff", "--name-only", "--no-renames", base, head],
         text=True,
         capture_output=True,
     )
+    if result.returncode != 0:
+        raise SystemExit(
+            f"impact.py: git diff {base} {head} failed with exit status {result.returncode}: "
+            f"{result.stderr.strip()}"
+        )
     return [line for line in result.stdout.splitlines() if line]
 
 
@@ -61,13 +74,14 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
     for path in paths:
         if is_markdown(path):
             docs_links = True
-        elif starts(path, LIGHT_PREFIXES) or path in LIGHT_EXACT:
-            pass
 
         if path in FULL_EXACT or starts(path, FULL_PREFIXES):
             full = True
-        elif path in LEAN_EXACT or starts(path, LEAN_PREFIXES):
+        elif starts(path, LEAN_PREFIXES):
             lean_build = True
+        elif path in LEAN_AND_SPEC_BUILD_EXACT:
+            lean_build = True
+            spec_build = True
         elif path in SPEC_CHECK_EXACT:
             spec_check = True
         elif path in SPEC_BUILD_EXACT or starts(path, SPEC_BUILD_PREFIXES):
@@ -125,12 +139,12 @@ def main() -> int:
     write_outputs(result)
     print(f"Changed paths: {len(paths)}")
     for path in paths:
-        print(f"  {path}")
+        print(f"  {path!r}")  # quoted: a path such as `::warning::x` must not become a log command
     print("Impact: " + " ".join(f"{key}={str(value).lower()}" for key, value in result.items() if key not in {"unknown_paths"}))
     if result["unknown_paths"]:
         print("Unclassified paths:")
         for path in result["unknown_paths"]:
-            print(f"  {path}")
+            print(f"  {path!r}")
     return 0
 
 
