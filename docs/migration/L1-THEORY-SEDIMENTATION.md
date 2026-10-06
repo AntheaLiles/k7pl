@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **État :** IN PROGRESS
 
-Ce document constitue le dossier d'instruction des imports théoriques arrêtés dans [L1-DECISIONS.md](L1-DECISIONS.md). Il distingue ce qui est déjà explicitement présent dans la spécification de ce qui doit encore être démontré.
+Ce document constitue le dossier d'instruction des imports théoriques arrêtés dans [L1-DECISIONS.md](L1-DECISIONS.md), désormais intégré à la branche principale. Il distingue ce qui est déjà explicitement présent dans la spécification de ce qui doit encore être démontré.
 
 ## 1. Théorie des modes — statut NORMATIF
 
