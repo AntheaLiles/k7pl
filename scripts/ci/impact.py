@@ -16,18 +16,25 @@ FULL_EXACT = {
     "lakefile.lean",
     "lean-toolchain",
     "lake-manifest.json",
+    "scripts/axiom-audit.sh",
+    "scripts/bump-lean.sh",
+    "scripts/latest-lean-version.sh",
     "scripts/sync_zenodo.py",
     "scripts/requirements-zenodo.txt",
 }
 FULL_PREFIXES = (".github/workflows/", "scripts/ci/")
-LEAN_EXACT = {"scripts/axiom-audit.sh"}
-LEAN_PREFIXES = ("src/", "tests/")
+LEAN_PREFIXES = ("src/",)
 SPEC_BUILD_EXACT = {
     "scripts/controle.py",
     "scripts/manuscript_metrics.py",
 }
 SPEC_BUILD_PREFIXES = ("spec/", "tools/", "biblio/", "scripts/controles/")
 SPEC_CHECK_EXACT = {"docs/suivi/primitives.md"}
+PYTHON_TEST_EXACT = {
+    "scripts/generate_status.py",
+    "scripts/suivi.py",
+}
+PYTHON_TEST_PREFIXES = ("tests/python/",)
 LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 LIGHT_EXACT = {"CITATION.cff"}
 
@@ -56,6 +63,7 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
     spec_check = False
     spec_build = False
     lean_build = False
+    python_tests = False
     unknown: list[str] = []
 
     for path in paths:
@@ -64,15 +72,23 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
         elif starts(path, LIGHT_PREFIXES) or path in LIGHT_EXACT:
             pass
 
+        # Preserve the original validation semantics first: CI/security/toolchain and the
+        # axiom-audit mechanism force the complete gate.
         if path in FULL_EXACT or starts(path, FULL_PREFIXES):
             full = True
-        elif path in LEAN_EXACT or starts(path, LEAN_PREFIXES):
-            lean_build = True
-        elif path in SPEC_CHECK_EXACT:
-            spec_check = True
         elif path in SPEC_BUILD_EXACT or starts(path, SPEC_BUILD_PREFIXES):
             spec_check = True
             spec_build = True
+            python_tests = True
+        elif path in SPEC_CHECK_EXACT:
+            spec_check = True
+        elif path in PYTHON_TEST_EXACT or starts(path, PYTHON_TEST_PREFIXES):
+            python_tests = True
+        elif starts(path, LEAN_PREFIXES):
+            lean_build = True
+        elif path.startswith("tests/"):
+            # Lean tests live under tests/, while tests/python/ is handled above.
+            lean_build = True
         elif is_markdown(path) or starts(path, LIGHT_PREFIXES) or path in LIGHT_EXACT:
             pass
         else:
@@ -86,6 +102,7 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
         spec_check = True
         spec_build = True
         lean_build = True
+        python_tests = True
 
     return {
         "full": full,
@@ -93,6 +110,7 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
         "spec_check": spec_check,
         "spec_build": spec_build,
         "lean_build": lean_build,
+        "python_tests": python_tests,
         "unclassified": bool(unknown),
         "unknown_paths": unknown,
     }
@@ -103,7 +121,8 @@ def write_outputs(result: dict[str, object]) -> None:
     if not output:
         return
     with open(output, "a", encoding="utf-8") as handle:
-        for key in ("full", "docs_links", "spec_check", "spec_build", "lean_build", "unclassified"):
+        for key in ("full", "docs_links", "spec_check", "spec_build", "lean_build",
+                    "python_tests", "unclassified"):
             handle.write(f"{key}={str(result[key]).lower()}\n")
 
 
@@ -126,7 +145,7 @@ def main() -> int:
     print(f"Changed paths: {len(paths)}")
     for path in paths:
         print(f"  {path}")
-    print("Impact: " + " ".join(f"{key}={str(value).lower()}" for key, value in result.items() if key not in {"unknown_paths"}))
+    print("Impact: " + " ".join(f"{key}={str(value).lower()}" for key, value in result.items() if key != "unknown_paths"))
     if result["unknown_paths"]:
         print("Unclassified paths:")
         for path in result["unknown_paths"]:

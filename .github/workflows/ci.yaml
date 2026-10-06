@@ -30,6 +30,7 @@ jobs:
       spec_check: ${{ steps.impact.outputs.spec_check }}
       spec_build: ${{ steps.impact.outputs.spec_build }}
       lean_build: ${{ steps.impact.outputs.lean_build }}
+      python_tests: ${{ steps.impact.outputs.python_tests }}
       unclassified: ${{ steps.impact.outputs.unclassified }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -54,7 +55,7 @@ jobs:
           fi
 
           changed="$(git diff --name-only --diff-filter=ACDMRT --no-renames "$BASE_SHA" "$HEAD_SHA")"
-          if printf '%s\n' "$changed" | grep -Eq '^(.github/workflows/|.github/dependabot\\.yml$|scripts/ci/|lakefile\\.lean$|lean-toolchain$|lake-manifest\\.json$|scripts/sync_zenodo\\.py$|scripts/requirements-zenodo\\.txt$)'; then
+          if printf '%s\n' "$changed" | grep -Eq '^(.github/workflows/|.github/dependabot\\.yml$|scripts/ci/|lakefile\\.lean$|lean-toolchain$|lake-manifest\\.json$|scripts/requirements-zenodo\\.txt$)'; then
             python3 scripts/ci/impact.py --base "$BASE_SHA" --head "$HEAD_SHA" --force-full
           else
             python3 scripts/ci/impact.py --base "$BASE_SHA" --head "$HEAD_SHA"
@@ -70,6 +71,7 @@ jobs:
       spec_check: ${{ needs.impact.outputs.spec_check == 'true' }}
       spec_build: ${{ needs.impact.outputs.spec_build == 'true' }}
       lean_build: ${{ needs.impact.outputs.lean_build == 'true' }}
+      python_tests: ${{ needs.impact.outputs.python_tests == 'true' }}
       deploy_pages: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.impact.outputs.spec_build == 'true' }}
 
   reuse:
@@ -133,6 +135,9 @@ jobs:
         env:
           K7PL_VERIFICATION: success
         run: python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION"
+
+      - name: Refresh the spec <-> Lean coverage matrix
+        run: python3 scripts/controles/couverture.py --update
 
       - name: Check for generated changes
         id: changes

@@ -32,6 +32,11 @@ on:
         required: false
         type: boolean
         default: false
+      python_tests:
+        description: "Exécuter les tests de l'outillage Python"
+        required: false
+        type: boolean
+        default: false
       deploy_pages:
         description: "Publier la spécification sur GitHub Pages après validation"
         required: false
@@ -87,10 +92,19 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .lake/packages
-          key: lake-deps-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
+          key: lake-deps-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}-gitdeps-v1
 
       - name: Fetch the Mathlib cache
-        run: lake exe cache get || echo "::warning::Mathlib cache unavailable, full rebuild ahead"
+        run: |
+          if ! lake exe cache get; then
+            # A silent fallback to a full rebuild on main would hide a lasting cache outage and
+            # quietly double CI times; on a PR, tolerance is worth more than an alert.
+            if [ "${{ github.event_name }}" = "push" ]; then
+              echo "::error::Mathlib cache unavailable on main — refusing to mask a lasting outage"
+              exit 1
+            fi
+            echo "::warning::Mathlib cache unavailable, full rebuild ahead"
+          fi
 
       - name: Build the implementation and the tests
         run: lake build K7pl K7plTests
@@ -114,6 +128,38 @@ jobs:
       - name: Audit the axioms
         if: ${{ !cancelled() }}
         run: scripts/axiom-audit.sh K7pl K7pl
+
+  python-tests:
+    name: Tests de l'outillage Python
+    if: ${{ inputs.full || inputs.python_tests }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Install pytest
+        run: pip install "pytest>=8"
+
+      - name: Test the CI impact classifier
+        run: python3 scripts/ci/test_impact.py
+
+      - name: Test the Python tooling (mini-corpus Verso, auto-tests mutés)
+        run: python3 -m pytest tests/python -q
+
+      - name: Check the real corpus with the tooling under test
+        # The whole point of the mini-corpus is to run these controls where spec/ is absent; this
+        # step mirrors `python3 scripts/controle.py --format github` locally and catches drift
+        # between the synthetic corpus and the real manuscript. sync_zenodo.py is not covered:
+        # its only third-party dependency (requests) lives in the pinned requirements-zenodo.txt
+        # (with hashes), which the full lane installs — see .github/workflows/full.yaml.
+        run: python3 scripts/controle.py
 
   spec:
     name: Spécification Verso
@@ -139,7 +185,9 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .lake/packages
-          key: lake-deps-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
+          key: lake-deps-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}-gitdeps-v1
+          restore-keys: |
+            lake-deps-
 
       - name: Build the specification
         run: lake build Spec
@@ -235,7 +283,7 @@ jobs:
   verification-result:
     name: Résultat de la vérification
     if: always()
-    needs: [quick, impl, spec, spec-pdf]
+    needs: [quick, impl, python-tests, spec, spec-pdf]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

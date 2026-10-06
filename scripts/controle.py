@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from controles import algebre, croise, notation, semantique, structure  # noqa: E402
+from controles import algebre, couverture, croise, notation, semantique, structure  # noqa: E402
 from controles import journal  # noqa: E402
 from controles.journal import failures  # noqa: E402
 
@@ -27,7 +27,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--format", choices=("text", "github"), default="text")
     journal.github = parser.parse_args().format == "github"
-    for module in (structure, algebre, notation, croise, semantique):
+    for module in (structure, algebre, notation, croise, semantique, couverture):
         name = module.__name__.rsplit(".", 1)[-1]
         before = len(failures)
         journal.group(name)

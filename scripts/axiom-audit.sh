@@ -22,10 +22,21 @@ trap 'rm -rf "$WORKDIR"' EXIT
 
 lake build "$@"
 
-git clone --depth 1 --branch "$REF" https://github.com/leanprover-community/axiom-audit.git "$WORKDIR/axiom-audit"
+# Fetch strategy, in order of preference:
+#  1. the pinned commit directly (`git fetch origin $SHA`): independent of ref mutability, and it
+#     also tolerates annotated tags (which `--branch $REF` resolves to the tag object, not the
+#     commit, on some Git versions);
+#  2. the tag as a fallback, still verified against the pinned SHA below — the verification is the
+#     real gate; the fetch method only decides how graceful the common path is.
+AUDIT_REPO="https://github.com/leanprover-community/axiom-audit.git"
+git init -q "$WORKDIR/axiom-audit"
+if ! git -C "$WORKDIR/axiom-audit" fetch --depth 1 --no-tags "$AUDIT_REPO" "$SHA"; then
+  git -C "$WORKDIR/axiom-audit" fetch --depth 1 --tags "$AUDIT_REPO" "refs/tags/$REF"
+fi
+git -C "$WORKDIR/axiom-audit" checkout --quiet FETCH_HEAD
 got="$(git -C "$WORKDIR/axiom-audit" rev-parse HEAD)"
 if [ "$got" != "$SHA" ]; then
-  echo "::error::axiom-audit $REF resolved to $got, expected $SHA"
+  echo "::error::axiom-audit resolved to $got, expected $SHA ($REF)"
   exit 1
 fi
 cp lean-toolchain "$WORKDIR/axiom-audit/"
