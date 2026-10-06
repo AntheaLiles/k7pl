@@ -13,6 +13,13 @@ publication** (workflows, dépendances, releases, comptes). Il ne dit rien de la
 **Last updated:** 2026-10-06  
 **Audience:** la mainteneuse, les relecteurs, les agents.
 
+## Identifiants de commit cités
+
+La branche de cette campagne a été **aplatie en un seul commit** (décision de la mainteneuse, pour que `commitlint` passe sur la PR). Tout identifiant de
+commit cité dans ce dossier qui ne figure pas dans l'historique de `main` (par exemple `3fd82f1`, `ce606a9`, `25eb642`, `5e4edcf`, `c9372cb`, `b8ee3b6`)
+désigne l'historique de la branche **avant** l'aplatissement : il n'est plus joignable depuis la branche. Les numéros de run de CI, eux, restent valides ;
+`b5f6146` et `4a8c34f` sont des commits de `main`.
+
 ## Nature des documents
 
 Ces documents sont des **enregistrements datés** d'une campagne conduite par des agents ; ils ne sont **pas validés par la mainteneuse**

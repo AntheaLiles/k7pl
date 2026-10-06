@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC-BY-4.0
 |---|---|
 | Nature | Enregistrement **daté** de ce qui a été fait, de ce qui ne l'a pas été et de ce qui a réellement été exécuté. Produit par la session principale ; **non validé par la mainteneuse**. |
 | Date | 2026-10-06 |
-| Branche | `ccr-adfea9f2-6lxtmt`, fusionnée avec `main` à `4a8c34f` ; aucune PR ouverte, rien n'est sur `main` |
+| Branche | `ccr-adfea9f2-6lxtmt`, **aplatie en un seul commit** puis fusionnée avec `main` à `4a8c34f` ; PR #28 ouverte, rien n'est sur `main` |
 | Point d'entrée | [`README.md`](README.md) ; l'état factuel courant du dépôt est dans [`../STATUS.md`](../STATUS.md) (généré par la CI) |
 | Statuts | `VERIFIED` · `PARTIAL` · `PREPARED` · `HUMAN ACTION REQUIRED` · `BLOCKED` · `FUTURE` |
 
@@ -121,6 +121,11 @@ Signature et provenance des releases au-delà du PDF, SBOM, SLSA (aucun niveau r
 - **Job `status`** : écriture dans le dépôt depuis `main`, ajouté après l'audit, non audité en profondeur (D11).
 - Les agents d'audit final partagent le modèle et le dépôt des agents d'implémentation : leur indépendance est organisationnelle, pas épistémique.
 - Les corrections de la vague 2 bis ont été réauditées par un agent indépendant (`workstreams/final-audit/reaudit-vague-2bis.md` : 0 critique, 4 importants, 13 mineurs). Les corrections qui répondent à ce réaudit n'ont **pas** fait l'objet d'un nouvel audit : relues et vérifiées par la session principale (tests, mutation ciblée), exécutées en CI sur `5e4edcf`.
+- **Coût de maintenance du contrôle de manifeste** : `check_manifest.py` est lancé à chaque exécution de CI et ne connaît que 14 paquets. Une nouvelle dépendance
+  transitive, ou un changement de forme du manifeste de Lake (`version`, `configFile`, nouvelle clé), fait échouer la CI jusqu'à ce qu'une personne mette à jour
+  la liste : c'est voulu (échec fermé), mais c'est une charge pour une seule mainteneuse et la PR de `bump-lean` ne s'ouvrira pas seule dans ce cas.
+- **Taille de la PR** : un seul commit et plus de 10 000 lignes ajoutées, dont plus de la moitié de documentation d'agents non validée. Une revue réelle suppose de
+  lire d'abord les fichiers sensibles listés dans la PR ; découper la campagne en PR séparées (audit, contrôles de CI, chaîne de publication) aurait réduit le risque de régression.
 - **Second concept DOI** : `NEW` ne protège que du rejeu du même run ; une seconde release avec la variable encore à `NEW` créerait un second concept (`THREAT-MODEL.md`).
 
 ## 10. Intégration de `main` et conventions de commit
@@ -130,11 +135,11 @@ annexes B à D extraites de `spec/`, job `status` de `ci.yaml`). La branche a é
 (badges redistribués par `main`), résolu en gardant la structure de `main` et les formulations vérifiables de la branche. `docs/STATUS.md`
 n'est pas touché.
 
-Contrôle de **Conventional Commits** : `@commitlint/cli` 19 avec `.commitlintrc.yaml` (la configuration de la CI), exécuté sur les 43 commits
-de la branche. **Un seul échec** : `ci(release): revérifier le tag avant la création du brouillon et séparer les commandes de vérification`
-(en-tête de 102 caractères, limite 100). Le corriger demande de réécrire l'historique de la branche (rebase) ; cette opération a été **refusée**
-par le système de permissions de la session et n'a pas été contournée. Remplacement proposé (93 caractères) :
-`ci(release): revérifier le tag avant le brouillon et séparer les commandes de vérification`.
+Contrôle de **Conventional Commits** : `@commitlint/cli` 19 avec `.commitlintrc.yaml` (la configuration de la CI), exécuté sur les 43 commits de la branche
+avant l'aplatissement. **Un seul échec** : `ci(release): revérifier le tag avant la création du brouillon et séparer les commandes de vérification`
+(en-tête de 102 caractères, limite 100), qui faisait échouer `Conventional Commits / commitlint` puis `CI OK` sur la PR (run 37521070000). La réécriture ciblée
+(rebase) a été refusée par le système de permissions de la session, puis la mainteneuse a décidé d'**aplatir la branche en un seul commit**. Le commit unique
+(en-tête de 93 caractères) passe `commitlint` en local ; le contrôle de la PR sur ce commit est consigné au § 12.
 
 Écart observé à signaler, sans l'avoir tranché : `CONTRIBUTING.md` et `.claude/skills/writing-rules.md` prescrivent des messages de commit et une
 documentation en français ; les commits récents de `main` et les nouveaux documents de `docs/` sont en anglais.
@@ -185,4 +190,7 @@ Limites de cette exécution :
 - Un run déclenché à la main n'exerce ni la publication Pages ni le job `status` : leur comportement sur `main` n'est pas observé ici.
 - Le PDF compile : cela ne dit rien de sa reproductibilité (voir § 3).
 
-Des commits de documentation ont pu suivre `5e4edcf` ; `git log 5e4edcf..HEAD` les liste. Ils ne modifient aucun fichier exécuté par la CI.
+Les commits `25eb642` et `5e4edcf` n'existent plus sur la branche (aplatissement, voir § 10) : les deux runs ci-dessus décrivent l'état exécutable de la campagne avant
+l'aplatissement. Le commit unique a le même arbre que le dernier de ces deux commits à ses fichiers de documentation près ; le résultat de la CI **de la PR** sur le
+commit courant n'est pas figé dans ce document (un document qui citerait le résultat de la CI de son propre commit obligerait à un commit de plus, donc à un nouveau
+run) : il se lit dans les contrôles de la PR #28.
