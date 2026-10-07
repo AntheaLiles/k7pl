@@ -497,6 +497,13 @@ du chapitre 3 et la préservation du §{num "sec:g-semantique"}[] passaient pour
 première est plus large sur ce qu'elle couvre, la seconde plus fine sur ce qu'elle porte : leur
 intersection laisse l'abaissement gradué sans énoncé.
 
+Comme les théorèmes de disposition et de rejeu binaire du chapitre 4
+({num "thm:isomorphisme_memoire"}[], {num "thm:rejeu_binaire"}[]), cet énoncé se lit comme une
+propriété de _conformité du compilateur_ à un profil de représentation
+(§{num "sec:c4-echelle-du-systeme"}[]), vérifiée passe par passe par le pipeline de validation, et
+non comme un théorème du calcul des types : son niveau est « compilation ». Cette lecture dit où
+l'obligation se vérifie, non qu'elle est acquise ; elle ne dispense pas de la démontrer.
+
 L'état de l'art doit être donné avec ses statuts, car ils diffèrent. La littérature fournit la forme
 de la règle que cet énoncé devra porter : dans un calcul défonctionnalisé quantitatif, l'usage total
 d'une étiquette est la somme des usages de chaque contexte, chacun multiplié par l'usage désigné de

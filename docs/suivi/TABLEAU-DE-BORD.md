@@ -19,9 +19,9 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 |---|---|
 | Chapitres | 9 (dont 1 annexes) |
 | Sections de niveau 2 (modules) | 52 |
-| Énoncés | 67 (46 theoreme, 13 proposition, 4 exigence, 2 conjecture, 2 definition) |
+| Énoncés | 68 (47 theoreme, 13 proposition, 4 exigence, 2 conjecture, 2 definition) |
 | Énoncés ouverts (proposition, conjecture, exigence) | 19 |
-| Énoncés par niveau | 60 langage, 5 representation, 2 compilation |
+| Énoncés par niveau | 61 langage, 5 representation, 2 compilation |
 | Formules | 39 |
 | Figures | 12 |
 | Tableaux | 28 |
@@ -29,11 +29,11 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Remarques marginales (RMQ) | 59 |
 | Citations | 360 |
 | Œuvres citées | 250 |
-| Renvois internes | 514 |
+| Renvois internes | 519 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 123607 |
+| Mots (approximatif, hors code et formules) | 123966 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -45,7 +45,7 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 <!-- BEGIN:ouverts -->
 | Étiquette | Statut | Niveau | Lieu | Renvois |
 |---|---|---|---|--:|
-| `thm:troncature_comonade` | proposition | langage | §2.3 | 1 |
+| `thm:fenetre_grade` | proposition | langage | §2.3 | 0 |
 | `thm:divulgation_delimitee` | proposition | langage | §2.4 | 4 |
 | `thm:determinisme_observationnel` | conjecture | langage | §2.5 | 0 |
 | `thm:completude_graduee` | proposition | langage | §3.1 | 0 |
@@ -53,9 +53,9 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | `thm:homomorphisme_roues` | proposition | representation | §3.2 | 1 |
 | `thm:representation_inobservable` | exigence | representation | §3.2 | 0 |
 | `thm:coherence_subsomption` | proposition | langage | §3.6 | 3 |
-| `thm:isomorphisme_memoire` | proposition | representation | §4.3 | 6 |
+| `thm:isomorphisme_memoire` | proposition | representation | §4.3 | 7 |
 | `thm:introduction_unique` | proposition | langage | §4.4 | 0 |
-| `thm:rejeu_binaire` | proposition | representation | §4.5 | 1 |
+| `thm:rejeu_binaire` | proposition | representation | §4.5 | 2 |
 | `thm:revocation_ffi` | exigence | representation | §4.5 | 0 |
 | `thm:traduction_metalangage` | proposition | langage | §4.6 | 11 |
 | `thm:simulation` | proposition | langage | §4.6 | 1 |
