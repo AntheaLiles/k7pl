@@ -11,7 +11,7 @@ This record closes the controlled documentation-tree migration at the repository
 
 | Measure | Baseline (main, bf437f0) | Candidate branch |
 |---|---:|---:|
-| Repository files | 521 | 526 |
+| Repository files | 521 | 525 |
 | Markdown files under docs/ | 133 | 135 |
 | Root biblio/ | present (references.json) | removed |
 | docs/bibliography/ files | 7 | 8 |
