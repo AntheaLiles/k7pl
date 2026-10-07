@@ -42,7 +42,7 @@ Les surfaces sont les suivantes.
 |---|---|
 | `src/**`, `tests/**` | build Lean, tests, lint, audit des axiomes |
 | `scripts/axiom-audit.sh` | build Lean **et** build de la spécification : le script est appelé par les deux chaînes |
-| `spec/**`, `tools/**`, `biblio/**`, `scripts/controle.py`, `scripts/controles/**`, `scripts/manuscript_metrics.py` | contrôles statiques, build Verso, audit des axiomes, rendu HTML/TeX, PDF |
+| `spec/**`, `tools/**`, `docs/bibliography/**`, `scripts/controle.py`, `scripts/controles/**`, `scripts/manuscript_metrics.py` | contrôles statiques, build Verso, audit des axiomes, rendu HTML/TeX, PDF |
 | `docs/tracking/primitives.md` | contrôles statiques de la spécification |
 | `*.md` | contrôle des liens locaux |
 | `docs/**`, `.claude/**`, `.github/ISSUE_TEMPLATE/**`, `LICENSES/**`, `CITATION.cff` | documentation/configuration légère ; contrôles invariants seulement, avec contrôle des liens pour Markdown |

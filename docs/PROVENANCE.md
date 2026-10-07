@@ -6,10 +6,11 @@ Chaque fichier de `docs/` et d'`archives/` vient du dossier de travail que vous 
 
 | Élément | Raison |
 |---|---|
-| `biblio/K7PL-Biblio.bib`, `biblio/refs-pour-citations.bib` (7 Mo chacun) | bibliothèque Zotero complète : résumés d'éditeurs (textes de tiers), chemins de fichiers locaux. Seules les 250 notices citées par la spécification sont reprises, sans résumés ni chemins : [`biblio/references.json`](../biblio/references.json) |
+| `biblio/K7PL-Biblio.bib`, `biblio/refs-pour-citations.bib` (7 Mo chacun) | bibliothèque Zotero complète : résumés d'éditeurs (textes de tiers), chemins de fichiers locaux. Seules les 250 notices citées par la spécification sont reprises, sans résumés ni chemins : [`docs/bibliography/references.json`](bibliography/references.json) |
 | `biblio/pdf-index.json` (4,7 Mo) | index du texte de PDF d'articles (extraits de tiers, chemins locaux) |
 | `src/main.pdf`, `main.tex`, `main.bbl`, `main.lof`, `main.lot`, `main.lst`, `main.synctex.gz`, `main-luamml-mathml.html` | produits de compilation, périmés (9 septembre) et regénérés par la CI |
 | `src/chapitres/ltximg/` | images intermédiaires de l'export |
+| `biblio/references.json` | `docs/bibliography/references.json` | notices bibliographiques sélectionnées, conservées comme source machine active |
 | `biblio/A-CORRIGER-resumes.md`, `A-DEPLACER-cles.md`, `A-IMPORTER-solde.md`, `A-VERSER-collection.md` | quatre pastilles « PÉRIMÉ » de 183 octets, sans contenu |
 | `#+EMAIL:` de `main.org` | adresse professionnelle, retirée de la copie d'archive |
 | résumés d'éditeurs de `meta/corpus.org` (633 blocs `#+BEGIN_ABSTRACT`) | textes de tiers ; les synthèses et analyses de l'auteur sont conservées |
