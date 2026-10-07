@@ -515,40 +515,84 @@ retrouve la définition usuelle de l'histomorphisme, obtenue ici plutôt que pos
 
 La seconde moitié de l'obligation est propre à ce document, et la troncature s'y révèle un avantage
 plutôt qu'une gêne. K7PL ne travaille pas sur $`F^\infty` mais sur son tronqué à $`r` niveaux, qui
-est une comonade _graduée_ de la même famille que $`!_r` — sa comultiplication porte l'indice du
-produit du semi-anneau, et la coassociativité y survit, la troncature étant idempotente et commutant
-avec elle-même. Le pli visite alors chaque nœud une fois en y maintenant une fenêtre de profondeur
+est une comonade _graduée_ de la même famille que $`!_r` — sa comultiplication porte la somme des
+profondeurs, non le produit du semi-anneau, et la coassociativité y survit (théorème
+{num "thm:troncature_comonade"}[]). Le pli visite alors chaque nœud une fois en y maintenant une fenêtre de profondeur
 $`r`. Le travail par nœud est en $`O(r)` et le total en $`O(n \cdot r)`, donc linéaire en la taille
 de l'entrée à grade fixé — et $`r` étant un grade, ce facteur est connu à la compilation, ce que P3
 exige. L'espace, lui, passe de $`O(n)` pour la table entière à $`O(r)` pour la fenêtre : c'est la
 borne mémoire que cette section annonce, et c'est la troncature qui la donne.
 
-::::thm (label := "thm:troncature_comonade") (status := "proposition")
+::::thm (label := "thm:troncature_comonade")
 :::title
 la troncature est un morphisme de comonades
 :::
 
 :::statement +titled
-Condition de préservation des lois de comonade par la troncature
+La troncature préserve les lois de comonade, pour tout foncteur
 
-Soit $`T_r : N \Rightarrow N_r` le foncteur de troncature à $`r` niveaux. $`T_r` est un morphisme
-de comonades si et seulement si la convention de remplissage au rang $`r` est idempotente _et_ $`F`
-préserve les troncatures. Sous ces deux conditions $`N_r` est une comonade, et
-$`\lambda_r = T_r \circ \lambda \circ F(\eta_r)` satisfait les deux conditions de cohérence.
+Soit $`F` un endofoncteur, en particulier un conteneur. La convention de remplissage est
+l'_écartement_ : $`N_0 A = A` et $`N_{r+1} A = A \times F(N_r A)`, la structure plus profonde étant
+écartée et non remplacée. La troncature $`T_{r,n} : N_n \Rightarrow N_r` ($`r \le n`) est définie par
+$`T_{0,n} = \mathit{head}` et $`T_{r+1,n+1}(a,t) = (a, F(T_{r,n})\,t)`, et $`T_r : N \Rightarrow N_r`
+sur $`N = \text{Cofree}_F` par la même récurrence sur la structure déroulée. Pour tout $`F`, sans
+autre hypothèse : (i) $`N_r`, de counité $`\epsilon = \mathit{id} : N_0 \Rightarrow \mathit{Id}` et de
+comultiplication $`\delta_{r,s} : N_{r+s} \Rightarrow N_r N_s`, est une comonade graduée par le monoïde
+additif des profondeurs $`(\mathbb{N}, +, 0)` ; (ii) $`T_r` est un morphisme de comonades de $`N` vers
+$`N_r` ; (iii) $`\lambda_0 = \mathit{id}` et $`\lambda_{r+1} = \langle F\,\mathit{fst},\ F(\lambda_r)\circ F\,\mathit{snd} \rangle`
+définissent $`\lambda_r : F N_r \Rightarrow N_r F`, avec $`\lambda_r \circ F(T_r) = T_r \circ \lambda`, qui
+satisfait les deux conditions de cohérence de la loi distributive. Aucune restriction de la classe des
+conteneurs admissibles n'est requise.
 :::
 
 :::proofsketch
-Le point de difficulté est le _rang frontière_ : $`N_r \delta_r` et $`\delta_r N_r` appliquent deux
-troncatures à des profondeurs différentes, et leur égalité dépend de la convention de remplissage au
-rang $`r`, que le document pratique sans l'avoir nommée. La convention est la suivante : $`N_0 A = A` et $`N_{r} A = A \times F(N_{r-1} A)`, et au rang frontière la structure plus profonde est _écartée_, non remplacée par une valeur ; la troncature $`T_r` est alors idempotente, $`T_r \circ T_r = T_r`. Sous la seconde condition, $`T_r \circ F = F \circ T_{r-1}`, les deux membres de la coassociativité tronquée sont des arbres de profondeur au plus $`r` qui coïncident noeud par noeud, par récurrence sur $`r` : au rang $`0` ils sont égaux à la racine, au rang $`r` ils se décomposent par $`F` et l'hypothèse de récurrence s'applique à chaque fils. Les deux conditions de cohérence de la
-comonade cofree non tronquée sont un résultat de la littérature ; la préservation par troncature est
-le seul point propre à K7PL. Non démontrée : la convention doit être écrite, puis la condition
-vérifiée pour chaque $`F` admis. Si elle échoue pour un $`F`, la classe des conteneurs admissibles se
-restreint — restriction de domaine, non mécanisme. Les bornes $`O(r)` en espace et $`O(n \cdot r)` en
-temps de ce qui suit en dépendent.
+Le point de difficulté est le _rang frontière_ : $`N_r \delta_{s,u}` et $`\delta_{r,s} N_u` appliquent
+deux troncatures à des profondeurs différentes. La convention d'écartement le lève : la troncature
+n'invente aucune valeur, elle est définie par la récurrence ci-dessus, et les identités se démontrent
+par récurrence sur le rang extérieur, en ne mobilisant que la fonctorialité de $`F`. La comultiplication
+est définie par $`\delta_{0,s} = \mathit{id}` et $`\delta_{r+1,s}(a,t) = (T_{s,s+r+1}(a,t),\ F(\delta_{r,s})\,t)`.
+Elle porte la _somme_ des profondeurs, non leur produit : la fenêtre extérieure de $`r` niveaux porte en
+chacun de ses nœuds une fenêtre intérieure de $`s` niveaux, et ces fenêtres se recouvrent, de sorte que
+$`r+s` niveaux sont nécessaires pour la construire. Trois récurrences suffisent. (a) Les troncatures
+forment une tour : $`T_{r,s} \circ T_{s,n} = T_{r,n}` et $`T_{n,n} = \mathit{id}`, d'où l'idempotence de la
+troncature rapportée au rang $`r`, sans condition sur $`F`. (b) La troncature commute à $`\delta` :
+$`T_{s,n}^{N_u} \circ \delta_{n,u} = \delta_{s,u} \circ T_{u+s,u+n}`. (c) Les lois de comonade : la counité
+est immédiate au rang $`0`, et au rang $`r+1` la première composante est la troncature de la racine,
+la seconde se ramène à l'hypothèse de récurrence par fonctorialité de $`F` ; la coassociativité
+$`N_r(\delta_{s,u}) \circ \delta_{r,u+s} = \delta_{r,s}^{N_u} \circ \delta_{r+s,u}` est la même récurrence sur $`r`,
+la première composante étant égalée par (b). La condition $`T_r \circ F = F \circ T_{r-1}` n'est pas une
+hypothèse sur $`F` : c'est la clause de définition de la troncature. Pour $`\lambda_r`, la première
+condition ($`\mathit{head}\circ\lambda_r = F(\mathit{head})`) se lit sur la première composante ; la seconde
+($`\delta_{r,s}\circ\lambda_{r+s} = N_r(\lambda_s)\circ\lambda_r\circ F(\delta_{r,s})`) se démontre par récurrence
+sur $`r`, au rang $`0` par $`\delta_{0,s} = \mathit{id}`, au rang $`r+1` par la commutation de $`\lambda` à
+la troncature. Les deux conditions de cohérence de la comonade cofree non tronquée sont un résultat de
+la littérature ; la préservation par troncature est le seul point propre à K7PL. La démonstration est
+sur papier : elle n'a pas été mécanisée. Les bornes $`O(r)` en espace et $`O(n \cdot r)` en temps de ce
+qui suit reposent sur cette structure.
 :::
 ::::
 
+
+::::thm (label := "thm:fenetre_grade") (status := "proposition")
+:::title
+une fenêtre est un grade
+:::
+
+:::statement +titled
+Toute fenêtre sur un objet coinductif est un grade connu à la compilation
+
+La troncature à $`r` niveaux d'un objet coinductif, la borne de profondeur de pile d'un automate à pile
+et la taille de pile précalculée d'un `StreamContext` sont trois instances de la même fenêtre : un
+entier $`r` qui borne la profondeur observée, porté par le grade et donc connu à la compilation.
+:::
+
+:::proofsketch
+La troncature est la comonade graduée $`N_r` du théorème {num "thm:troncature_comonade"}[], dont $`r`
+est l'indice. La pile d'un automate et celle d'un `StreamContext` sont des fenêtres sur la
+configuration, dont le grade est la profondeur maximale que le solveur vérifie. Le lemme est la
+réduction des deux dernières à la première ; non démontrée ici, elle donne à P3 sa forme générale.
+:::
+::::
 
 La troncature n'est pas propre à ce pli : elle est la même fenêtre sur un objet coinductif que la
 borne de profondeur de pile de l'automate à pile (chapitre 4) et la taille de pile précalculée du
