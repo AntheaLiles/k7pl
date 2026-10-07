@@ -41,7 +41,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - Le manuscrit de la spécification en Verso (`spec/`), converti de l'Org-mode ; extensions Verso
   (`tools/SpecExt/` : renvois, énoncés scellés, formules, figures, tableaux, citations par
   chapitre, remarques marginales, listes) ; bibliographie générée (`tools/SpecBib.lean`,
-  `biblio/references.json`).
+  `docs/bibliography/references.json`).
 - Conversion Org → Verso reproductible (`scripts/org2verso/`), chaîne bibliographique
   (`scripts/biblio/`), conversion Org → Markdown (`scripts/org2md.py`), mesures du manuscrit et
   vues du suivi (`scripts/manuscript_metrics.py`, `scripts/suivi.py`).
