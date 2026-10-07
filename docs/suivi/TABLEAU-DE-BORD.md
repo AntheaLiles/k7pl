@@ -17,23 +17,23 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 <!-- BEGIN:mesures -->
 | Mesure | Valeur |
 |---|---|
-| Chapitres | 12 (dont 4 annexes) |
+| Chapitres | 9 (dont 1 annexes) |
 | Sections de niveau 2 (modules) | 52 |
 | Énoncés | 67 (46 theoreme, 13 proposition, 4 exigence, 2 conjecture, 2 definition) |
 | Énoncés ouverts (proposition, conjecture, exigence) | 19 |
 | Énoncés par niveau | 60 langage, 5 representation, 2 compilation |
 | Formules | 39 |
-| Figures | 13 |
+| Figures | 12 |
 | Tableaux | 28 |
-| Codes sources | 7 |
+| Codes sources | 6 |
 | Remarques marginales (RMQ) | 59 |
 | Citations | 360 |
 | Œuvres citées | 250 |
-| Renvois internes | 531 |
+| Renvois internes | 514 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 124740 |
+| Mots (approximatif, hors code et formules) | 123607 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.

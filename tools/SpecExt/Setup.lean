@@ -27,9 +27,26 @@ block_extension Block.texsetup where
     "\\usepackage{amsmath}\n\\usepackage{unicode-math}",
     "\\usepackage{graphicx}",
     "\\usepackage{array}",
-    "\\usepackage{tabularx}"
+    "\\usepackage{tabularx}",
+    "\\usepackage{multicol}",
+    "\\usepackage{refcount}"
   ]
   preamble := [
+    r#"\makeatletter
+% Index with pages (SpecExt.Index): an entry is a term and the labels of its occurrences; the pages
+% are those of the labels, each printed once, in the order of the document.
+\newcommand{\specidxpage}[1]{%
+  \edef\specidx@cur{\getpagerefnumber{#1}}%
+  \ifx\specidx@cur\specidx@last\else
+    \ifx\specidx@last\relax\else, \fi
+    \hyperref[#1]{\specidx@cur}%
+    \let\specidx@last\specidx@cur
+  \fi}
+\newcommand{\specidxentry}[2]{%
+  \noindent\hangindent=1.2em\hangafter=1 #1\dotfill\ %
+  \let\specidx@last\relax
+  \@for\specidx@l:=#2\do{\specidxpage{\specidx@l}}\par}
+\makeatother"#,
     "\\renewcommand{\\chaptername}{Chapitre}\n\\renewcommand{\\contentsname}{Table des matières}",
     "\\AtBeginDocument{%\n  \\let\\llbracket\\lBrack \\let\\rrbracket\\rBrack\n  \\let\\Box\\mdlgwhtsquare \\let\\square\\mdlgwhtsquare\n  \\let\\Diamond\\mdlgwhtdiamond \\let\\bigcirc\\mdlgwhtcircle\n  \\let\\leadsto\\rightsquigarrow\n}"
   ]

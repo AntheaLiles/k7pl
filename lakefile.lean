@@ -62,7 +62,7 @@ lean_lib K7pl where
 /-- Test modules (`tests/`). Like Mathlib's own tests, they do not run the style linters. -/
 lean_lib K7plTests where
   srcDir := "tests"
-  roots := #[`ArithTest, `SemanticsTest]
+  roots := #[`ArithTest, `SemanticsTest, `SpecToolsTest]
   leanOptions := k7plBaseOptions
 
 /-- Test runner, invoked by `lake test`. -/

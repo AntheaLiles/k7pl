@@ -15,6 +15,10 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+### Ajouté
+
+- Générateur de la spécification : index à pages et reconnaissance automatique des termes de l'index, du glossaire et des acronymes (`tools/SpecExt/Index.lean`, `AutoMark.lean`, `IndexCore.lean`, `IndexTerms.lean`), interface HTML en français (`tools/SpecExt/Translate.lean`), tests (`tests/SpecToolsTest.lean`, `lakefile.lean`), garde `scripts/controles/indexation.py` (`ANOM-09`, `ANOM-10`).
+
 ### Added
 
 - Audit OpenSSF (`docs/security/`) : six audits indépendants (Scorecard, bonnes pratiques CII, gouvernance GitHub,
