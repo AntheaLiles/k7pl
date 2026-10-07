@@ -84,20 +84,20 @@ def test_check_passes_on_a_consistent_corpus(suivi):
 def test_card_without_status_row_is_caught(suivi, capsys):
     suivi.mutate_csv("id,statut,confiance,preuve,note\nBLOQ-01,fermee,haute,,\n")
     assert suivi.check() == 1
-    assert "fiche sans statut : BLOQ-02" in capsys.readouterr().out
+    assert "card without status: BLOQ-02" in capsys.readouterr().out
 
 
 def test_orphan_status_row_is_caught(suivi, capsys):
     suivi.mutate_csv(CSV_OK + "GHOST-01,ouverte,,,\n")
     assert suivi.check() == 1
-    assert "statut sans fiche : GHOST-01" in capsys.readouterr().out
+    assert "status without card: GHOST-01" in capsys.readouterr().out
 
 
 def test_unknown_status_value_is_caught(suivi, capsys):
     suivi.mutate_csv("id,statut,confiance,preuve,note\nBLOQ-01,froisseee,haute,,\nBLOQ-02,ouverte,,\n")
     assert suivi.check() == 1
     out = capsys.readouterr().out
-    assert "statut inconnu pour BLOQ-01" in out
+    assert "unknown status for BLOQ-01" in out
 
 
 def test_titles_are_normalised(suivi):
