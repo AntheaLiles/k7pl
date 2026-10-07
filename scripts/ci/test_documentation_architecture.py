@@ -50,8 +50,20 @@ class DocumentationArchitectureTests(unittest.TestCase):
         self.assertEqual(check(self.root), [])
 
     def test_root_biblio_is_rejected(self):
-        (self.root / "biblio").mkdir()
-        self.assertIn("legacy path still exists: biblio/references.json", check(self.root))
+        path = self.root / "biblio/references.json"
+        path.parent.mkdir(parents=True)
+        path.write_text("{}\\n", encoding="utf-8")
+        self.assertTrue(any("legacy path still exists: biblio/references.json" in e for e in check(self.root)))
+
+    def test_current_archive_path_is_allowed(self):
+        path = self.root / "docs/README.md"
+        path.write_text("# K7PL Documentation\\nSee docs/archives/.\\n", encoding="utf-8")
+        self.assertEqual(check(self.root), [])
+
+    def test_root_archive_path_is_rejected(self):
+        path = self.root / "docs/README.md"
+        path.write_text("# K7PL Documentation\\nSee archives/.\\n", encoding="utf-8")
+        self.assertTrue(any("archives/" in e for e in check(self.root)))
 
     def test_legacy_reference_is_rejected(self):
         path = self.root / "docs/README.md"
