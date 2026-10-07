@@ -49,6 +49,21 @@ LOTS = OrderedDict(
     ]
 )
 
+STATUS_LABELS = {
+    "theoreme": "theorem",
+    "proposition": "proposition",
+    "exigence": "requirement",
+    "conjecture": "conjecture",
+    "definition": "definition",
+    "litterature": "literature",
+}
+LEVEL_LABELS = {
+    "langage": "language",
+    "representation": "representation",
+    "compilation": "compilation",
+    "deploiement": "deployment",
+}
+
 SYMBOL = {
     "fermee": "✅ closed",
     "partielle": "🟡 partial",
@@ -201,7 +216,7 @@ def dashboard() -> None:
     openr = [r for r in st if r["statut"] in ("proposition", "conjecture", "exigence")]
     lines = ["| Label | Status | Level | Section | References |", "|---|---|---|---|--:|"]
     for r in openr:
-        lines.append(f"| `{r['label']}` | {r['statut']} | {r['niveau']} | §{r['section']} | {r['renvois']} |")
+        lines.append(f"| `{r['label']}` | {STATUS_LABELS.get(r['statut'], r['statut'])} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | §{r['section']} | {r['renvois']} |")
     text = refresh_block(text, "ouverts", "\n".join(lines))
     write(path, text)
 
