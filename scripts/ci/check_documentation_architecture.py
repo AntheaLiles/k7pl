@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 LEGACY_PATHS = (
@@ -108,9 +109,13 @@ def check(root: Path) -> list[str]:
             if len(parts) >= 2 and tuple(parts[:2]) in excluded_parts:
                 continue
             text = _read_text(path)
-            for marker in LEGACY_PATHS:
-                if marker in text:
-                    errors.append(f"obsolete path reference in active surface: {rel}: {marker}")
+            legacy_patterns = (
+                re.compile(r"(?<![\\w/])archives/"),
+                *(re.compile(re.escape(marker)) for marker in LEGACY_PATHS[1:]),
+            )
+            for pattern in legacy_patterns:
+                if pattern.search(text):
+                    errors.append(f"obsolete path reference in active surface: {rel}: {pattern.pattern}")
     return sorted(set(errors))
 
 
