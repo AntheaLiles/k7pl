@@ -8,6 +8,8 @@ on:
   push:
     branches: [main]
   pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
@@ -20,6 +22,7 @@ concurrency:
 jobs:
   impact:
     name: Analyse d'impact
+    if: ${{ github.event_name != 'pull_request_target' && !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -76,24 +79,76 @@ jobs:
 
   reuse:
     name: REUSE
+    if: ${{ github.event_name != 'pull_request_target' && !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
     uses: ./.github/workflows/reuse.yaml
 
   commitlint:
     name: Conventional Commits
+    if: ${{ github.event_name != 'pull_request_target' && !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
     uses: ./.github/workflows/commitlint.yaml
 
   security:
     name: Security
+    if: ${{ github.event_name != 'pull_request_target' && !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
     uses: ./.github/workflows/security.yaml
 
   ci-ok:
     name: CI OK
-    if: always()
+    if: >-
+      always() && (
+        (github.event_name == 'pull_request_target' && github.head_ref == 'automation/generated-status') ||
+        (github.event_name != 'pull_request_target' && !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status'))
+      )
     needs: [impact, verify, reuse, commitlint, security]
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
+      - name: Validate generated status pull request
+        if: ${{ github.event_name == 'pull_request_target' && github.head_ref == 'automation/generated-status' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test "${{ github.event.pull_request.head.repo.full_name }}" = "$REPOSITORY"
+
+          mapfile -t files < <(
+            gh api --paginate "repos/$REPOSITORY/pulls/$PR_NUMBER/files?per_page=100" \
+              --jq '.[].filename'
+          )
+          [ "${#files[@]}" -eq 1 ] || {
+            printf '::error::Le PR généré modifie %d fichiers, attendu: 1.\n' "${#files[@]}"
+            printf '  %s\n' "${files[@]}"
+            exit 1
+          }
+          [ "${files[0]}" = "docs/STATUS.md" ] || {
+            echo "::error::Le PR généré ne doit modifier que docs/STATUS.md"
+            exit 1
+          }
+
+          git fetch --no-tags origin "$BASE_SHA"
+          test "$(git rev-parse "$BASE_SHA")" = "$(git rev-parse HEAD)"
+
+          python3 scripts/generate_status.py --verification success
+          expected="$(cat docs/STATUS.md)"
+          actual="$(gh api "repos/$REPOSITORY/contents/docs/STATUS.md?ref=$HEAD_SHA" \
+            --jq '.content' | base64 --decode)"
+          [ "$actual" = "$expected" ] || {
+            echo "::error::docs/STATUS.md ne correspond pas au générateur sur le commit de base"
+            diff -u <(printf '%s\n' "$expected") <(printf '%s\n' "$actual") || true
+            exit 1
+          }
+
+          echo "Generated status validated for $HEAD_SHA from verified base $BASE_SHA"
+
       - name: Check the verification results
+        if: ${{ github.event_name != 'pull_request_target' }}
         env:
           IMPACT_RESULT: ${{ needs.impact.result }}
           VERIFY_RESULT: ${{ needs.verify.result }}
