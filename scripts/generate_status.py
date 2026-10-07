@@ -4,6 +4,8 @@
 from pathlib import Path
 import argparse, datetime, os, subprocess
 
+from controles import couverture
+
 def sh(*args):
     return subprocess.check_output(args, text=True).strip()
 
@@ -72,6 +74,7 @@ def main():
         "The authoritative generator is [scripts/generate_status.py](../scripts/generate_status.py). CI is responsible for updating this file; manual edits are not part of the project workflow."
     ]
     Path(a.output).write_text("\n".join(lines) + "\n", encoding="utf-8")
+    couverture.update_status()
 
 if __name__ == "__main__":
     main()
