@@ -56,7 +56,8 @@ dans [`archives/`](archives/).
 
 ## Contribuer
 
-[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
+[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
+[![DEI](https://img.shields.io/badge/DEI-DEI.md-6f42c1)](DEI.md)
 
 Voir [`CONTRIBUTING.md`](CONTRIBUTING.md) (déroulement), les
 [règles de rédaction](.claude/skills/writing-rules.md) et le
