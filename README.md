@@ -80,9 +80,13 @@ exécuté de bout en bout : la release `spec-v0.0.0-alpha.1` n'a pas de PDF join
 ## Sécurité
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/AntheaLiles/k7pl/badge)](https://scorecard.dev/viewer/?uri=github.com/AntheaLiles/k7pl)
-<!--
-Présenter succintement le protocole de sécurité 
--->
+
+Les vulnérabilités ne doivent pas être signalées dans les issues publiques. Utilisez le
+[signalement privé GitHub](https://github.com/AntheaLiles/k7pl/security/advisories/new) et indiquez
+le commit concerné, les étapes de reproduction et l'impact supposé. Le périmètre couvre notamment
+la cohérence de la spécification et de ses preuves, l'implémentation du langage et la chaîne de
+construction. Voir [`SECURITY.md`](SECURITY.md) pour la politique complète, les délais de réponse
+et les limites connues de la chaîne de construction.
 
 ## Licences
 
