@@ -13,18 +13,15 @@ The dashboard contains generated blocks. Run `python3 scripts/suivi.py dashboard
 
 ## Current specification measures
 
-<!-- BEGIN:mesures -->
-<!-- END:mesures -->
+
 
 ## PR-02 campaign
 
-<!-- BEGIN:fiches -->
-<!-- END:fiches -->
+
 
 ## Open specification statements
 
-<!-- BEGIN:ouverts -->
-<!-- END:ouverts -->
+
 
 ## Reading the remaining work
 
