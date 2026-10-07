@@ -15,6 +15,11 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- CI : annotations de `controle.py` échappées et dédoublonnées ; clé du cache Tectonic liée aux sources
+  (un cache à clé fixe n'était jamais réécrit) ; vérification des liens sans `archives/`.
+
 ### Added
 
 - Audit OpenSSF (`docs/security/`) : six audits indépendants (Scorecard, bonnes pratiques CII, gouvernance GitHub,
