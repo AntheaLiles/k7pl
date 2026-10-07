@@ -41,7 +41,7 @@ Start with:
 
 The documentation tree has been reorganized into explicit epistemic areas: `tracking/`, `history/`, `peer-review/`, `research/`, `method/`, `bibliography/`, `migration/`, `archives/`, and `security/`. No current document should silently become normative merely because it is old or detailed.
 
-See also [archives/](../archives/) for frozen historical implementation material.
+See also [archives/](archives/) for frozen historical implementation material.
 
 ## Documentation model
 
