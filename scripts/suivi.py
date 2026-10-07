@@ -93,13 +93,13 @@ def check() -> int:
     missing = [i for i in c if i not in s]
     extra = [i for i in s if i not in c]
     for i in missing:
-        print(f"fiche sans statut : {i}")
+        print(f"card without status: {i}")
     for i in extra:
-        print(f"statut sans fiche : {i}")
+        print(f"status without card: {i}")
     bad = [i for i, r in s.items() if r["statut"] not in SYMBOL]
     for i in bad:
-        print(f"statut inconnu pour {i} : {s[i]['statut']}")
-    print(f"{len(c)} fiches, {len(s)} statuts")
+        print(f"unknown status for {i}: {s[i]['statut']}")
+    print(f"{len(c)} cards, {len(s)} statuses")
     return 1 if missing or extra or bad else 0
 
 
@@ -199,7 +199,7 @@ def dashboard() -> None:
     text = refresh_block(text, "fiches", lot_summary())
     st = mm.statements()
     openr = [r for r in st if r["statut"] in ("proposition", "conjecture", "exigence")]
-    lines = ["| Étiquette | Statut | Niveau | Lieu | Renvois |", "|---|---|---|---|--:|"]
+    lines = ["| Label | Status | Level | Section | References |", "|---|---|---|---|--:|"]
     for r in openr:
         lines.append(f"| `{r['label']}` | {r['statut']} | {r['niveau']} | §{r['section']} | {r['renvois']} |")
     text = refresh_block(text, "ouverts", "\n".join(lines))
