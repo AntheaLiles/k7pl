@@ -62,8 +62,8 @@ def test_md_summary_is_a_table(patched):
 
     md = mm.md_summary()
     lines = md.splitlines()
-    assert lines[0].startswith("| Mesure |")
-    assert any("Énoncés" in l for l in lines)
+    assert lines[0].startswith("| Measure |")
+    assert any("Statements" in l for l in lines)
 
 
 def test_json_output_is_serialisable(patched, capsys, monkeypatch):
