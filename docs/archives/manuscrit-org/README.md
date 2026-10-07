@@ -19,4 +19,4 @@ Ne pas y corriger le texte : on corrige dans `spec/`.
 | `K7_Errors.org`, `K7_LSP_REPL.org`, `K7_Sushi.org`, `K7_Sugoi.org`, `K7_Semantique.org` | annexes A à E |
 | `K7PL-glossary.org` | termes, acronymes et index (source `org-glossary`) |
 
-Les sources des figures sont dans [`spec/figures/sources/`](../../spec/figures/sources/) (drawio et mermaid) ; la bibliographie est dans [`biblio/references.json`](../../biblio/references.json).
+Les sources des figures sont dans [`spec/figures/sources/`](../../spec/figures/sources/) (drawio et mermaid) ; la bibliographie est dans [`docs/bibliography/references.json`](../../bibliography/references.json).
