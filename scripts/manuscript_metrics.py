@@ -163,26 +163,26 @@ def summary() -> dict:
 
 def md_summary() -> str:
     s = summary()
-    out = ["| Mesure | Valeur |", "|---|---|"]
-    out.append(f"| Chapitres | {len(s['chapitres'])} (dont {sum(1 for c in s['chapitres'] if c['module'].startswith('Annexe'))} annexes) |")
-    out.append(f"| Sections de niveau 2 (modules) | {s['sections_niveau_2']} |")
+    out = ["| Measure | Value |", "|---|---|"]
+    out.append(f"| Chapters | {len(s['chapitres'])} (dont {sum(1 for c in s['chapitres'] if c['module'].startswith('Annexe'))} annexes) |")
+    out.append(f"| Level-2 sections (modules) | {s['sections_niveau_2']} |")
     st = ", ".join(f"{v} {k}" for k, v in sorted(s["enonces_par_statut"].items(), key=lambda kv: -kv[1]))
-    out.append(f"| Énoncés | {s['enonces']} ({st}) |")
-    out.append(f"| Énoncés ouverts (proposition, conjecture, exigence) | {s['enonces_ouverts']} |")
+    out.append(f"| Statements | {s['enonces']} ({st}) |")
+    out.append(f"| Open statements (proposition, conjecture, exigence) | {s['enonces_ouverts']} |")
     lv = ", ".join(f"{v} {k}" for k, v in sorted(s["enonces_par_niveau"].items(), key=lambda kv: -kv[1]))
-    out.append(f"| Énoncés par niveau | {lv} |")
-    for k, lab in [("formules", "Formules"), ("figures", "Figures"), ("tableaux", "Tableaux"), ("listings", "Codes sources"),
-                   ("remarques_marginales", "Remarques marginales (RMQ)"), ("citations", "Citations"), ("cles_citees", "Œuvres citées"),
-                   ("renvois", "Renvois internes"), ("renvois_non_resolus", "Renvois non résolus"),
-                   ("commentaires_conserves", "Commentaires d'auteur conservés (non rendus)"), ("notes_de_bas_de_page", "Notes de bas de page"),
-                   ("mots", "Mots (approximatif, hors code et formules)")]:
+    out.append(f"| Statements by level | {lv} |")
+    for k, lab in [("formules", "Formulas"), ("figures", "Figures"), ("tableaux", "Tables"), ("listings", "Source listings"),
+                   ("remarques_marginales", "Marginal remarks (RMQ)"), ("citations", "Citations"), ("cles_citees", "Cited works"),
+                   ("renvois", "Internal references"), ("renvois_non_resolus", "Unresolved references"),
+                   ("commentaires_conserves", "Retained author comments (not rendered)"), ("notes_de_bas_de_page", "Footnotes"),
+                   ("mots", "Words (approximate; excluding code and formulas)")]:
         out.append(f"| {lab} | {s.get(k, 0)} |")
     return "\n".join(out)
 
 
 def md_statements() -> str:
     rows = statements()
-    out = ["| N° | Étiquette | Statut | Niveau | Titre | Lieu | Renvois |", "|---:|---|---|---|---|---|---:|"]
+    out = ["| No. | Label | Status | Level | Title | Section | References |", "|---:|---|---|---|---|---|---:|"]
     for r in rows:
         loc = f"§{r['section']}" if r["section"] else r["module"]
         out.append(f"| {r['numero']} | `{r['label']}` | {r['statut']} | {r['niveau']} | {r['titre']} | {loc} | {r['renvois']} |")
