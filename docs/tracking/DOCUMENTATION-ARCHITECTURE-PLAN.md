@@ -336,15 +336,15 @@ Generated files must be migrated through their generators.
 
 ### D8 — Final validation
 
-- [ ] Run repository documentation checks.
-- [ ] Run Verso build and HTML rendering.
-- [ ] Run PDF generation.
-- [ ] Run generated-status validation.
-- [ ] Run link and provenance checks.
-- [ ] Compare pre/post file inventories.
-- [ ] Verify that no historical artefact has become current knowledge accidentally.
-- [ ] Verify that no current obligation exists only in history/ or archives/.
-- [ ] Update docs/README.md last, once the physical architecture is stable.
+- [x] Run repository documentation checks.
+- [x] Run Verso build and HTML rendering.
+- [x] Run PDF generation.
+- [ ] Run generated-status validation (post-merge on `main`; the PR workflow intentionally skips this job).
+- [x] Run link and provenance checks.
+- [x] Compare pre/post file inventories.
+- [x] Verify that no historical artefact has become current knowledge accidentally.
+- [x] Verify that no current obligation exists only in history/ or archives/.
+- [x] Update docs/README.md last, once the physical architecture is stable.
 
 ## 11. Explicit non-goals
 
@@ -376,3 +376,8 @@ A clean directory tree with ambiguous roles is still a failed migration.
 ## Current execution note
 
 This branch performs the planned physical reorganization as a controlled tree migration. Scientific content is not rewritten. Final validation (links, REUSE, generated views, CI, and the English-maintained-documentation pass) remains pending.
+
+
+## D8 validation note
+
+The full PR validation was completed successfully by CI run #473 on commit `bcd249f9cc59b0dbdfd7bde50230a224d2b1b7bf`. The `Generated status` job is intentionally skipped on pull requests and runs only after a successful push to `main`; it therefore remains the single post-merge migration gate.
