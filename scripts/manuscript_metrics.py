@@ -161,15 +161,30 @@ def summary() -> dict:
     }
 
 
+STATUS_LABELS = {
+    "theoreme": "theorem",
+    "proposition": "proposition",
+    "exigence": "requirement",
+    "conjecture": "conjecture",
+    "definition": "definition",
+    "litterature": "literature",
+}
+LEVEL_LABELS = {
+    "langage": "language",
+    "representation": "representation",
+    "compilation": "compilation",
+    "deploiement": "deployment",
+}
+
 def md_summary() -> str:
     s = summary()
     out = ["| Measure | Value |", "|---|---|"]
     out.append(f"| Chapters | {len(s['chapitres'])} (dont {sum(1 for c in s['chapitres'] if c['module'].startswith('Annexe'))} annexes) |")
     out.append(f"| Level-2 sections (modules) | {s['sections_niveau_2']} |")
-    st = ", ".join(f"{v} {k}" for k, v in sorted(s["enonces_par_statut"].items(), key=lambda kv: -kv[1]))
+    st = ", ".join(f"{v} {STATUS_LABELS.get(k, k)}" for k, v in sorted(s["enonces_par_statut"].items(), key=lambda kv: -kv[1]))
     out.append(f"| Statements | {s['enonces']} ({st}) |")
     out.append(f"| Open statements (proposition, conjecture, exigence) | {s['enonces_ouverts']} |")
-    lv = ", ".join(f"{v} {k}" for k, v in sorted(s["enonces_par_niveau"].items(), key=lambda kv: -kv[1]))
+    lv = ", ".join(f"{v} {LEVEL_LABELS.get(k, k)}" for k, v in sorted(s["enonces_par_niveau"].items(), key=lambda kv: -kv[1]))
     out.append(f"| Statements by level | {lv} |")
     for k, lab in [("formules", "Formulas"), ("figures", "Figures"), ("tableaux", "Tables"), ("listings", "Source listings"),
                    ("remarques_marginales", "Marginal remarks (RMQ)"), ("citations", "Citations"), ("cles_citees", "Cited works"),
@@ -185,7 +200,7 @@ def md_statements() -> str:
     out = ["| No. | Label | Status | Level | Title | Section | References |", "|---:|---|---|---|---|---|---:|"]
     for r in rows:
         loc = f"§{r['section']}" if r["section"] else r["module"]
-        out.append(f"| {r['numero']} | `{r['label']}` | {r['statut']} | {r['niveau']} | {r['titre']} | {loc} | {r['renvois']} |")
+        out.append(f"| {r['numero']} | `{r['label']}` | {STATUS_LABELS.get(r['statut'], r['statut'])} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | {r['titre']} | {loc} | {r['renvois']} |")
     return "\n".join(out)
 
 
