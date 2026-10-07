@@ -109,8 +109,10 @@ def check(root: Path) -> list[str]:
             if len(parts) >= 2 and tuple(parts[:2]) in excluded_parts:
                 continue
             text = _read_text(path)
+            if rel in {"scripts/ci/check_documentation_architecture.py", "scripts/ci/test_documentation_architecture.py"}:
+                continue
             legacy_patterns = (
-                re.compile(r"(?<![\\w/])archives/"),
+                re.compile(r"(?<![A-Za-z0-9_/])archives/"),
                 *(re.compile(re.escape(marker)) for marker in LEGACY_PATHS[1:]),
             )
             for pattern in legacy_patterns:
