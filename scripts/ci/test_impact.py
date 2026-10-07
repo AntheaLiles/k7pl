@@ -178,7 +178,7 @@ class SurfaceTableTests(unittest.TestCase):
         paths = sorted(EXPECTED_SPEC_BUILD_EXACT) + [f"{p}Anything.lean" for p in EXPECTED_SPEC_BUILD_PREFIXES]
         for path in paths:
             with self.subTest(path=path):
-                self.assert_surfaces(path, spec_check=True, spec_build=True)
+                self.assert_surfaces(path, spec_check=True, spec_build=True, python_tests=True)
 
     def test_specification_check_path(self):
         for path in sorted(EXPECTED_SPEC_CHECK_EXACT):
@@ -197,7 +197,7 @@ class SurfaceTableTests(unittest.TestCase):
                 self.assert_surfaces(path, docs_links=True)
 
     def test_markdown_in_a_validated_directory_adds_the_link_check(self):
-        self.assert_surfaces("spec/CHANGELOG.md", docs_links=True, spec_check=True, spec_build=True)
+        self.assert_surfaces("spec/CHANGELOG.md", docs_links=True, spec_check=True, spec_build=True, python_tests=True)
         self.assert_surfaces("tests/NOTES.markdown", docs_links=True, lean_build=True)
 
 
