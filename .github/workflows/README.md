@@ -109,12 +109,12 @@ Une modification uniquement liée à l'implémentation ne reconstruit donc pas l
 
 ## Statut généré (`docs/STATUS.md`)
 
-Sur un push sur `main`, une fois `CI OK` réussi, le job `status` de `ci.yaml` exécute `scripts/generate_status.py`. Si `docs/STATUS.md` change, il pousse la branche `automation/generated-status` (poussée forcée) et ouvre une PR vers `main` avec `GITHUB_TOKEN`. `docs/STATUS.md` est un fichier généré : il ne se modifie pas à la main.
+Sur un push sur `main`, une fois `CI OK` réussi, le job `status` de `ci.yaml` exécute `scripts/generate_status.py` puis, si nécessaire, pousse la branche `automation/generated-status` et ouvre ou met à jour sa PR vers `main`. Il déclenche ensuite explicitement `CI` par `workflow_dispatch` sur le commit généré ; cette exception est nécessaire car les événements créés par `GITHUB_TOKEN` ne relancent pas les workflows ordinaires. `docs/STATUS.md` est un fichier généré : il ne se modifie pas à la main.
 
 C'est le seul job de `ci.yaml` qui écrit dans le dépôt : `contents: write` et `pull-requests: write`, avec `persist-credentials: true` à l'extraction (nécessaire à la poussée). Observations, à ne pas lire comme des garanties :
 
 - le réglage « Allow GitHub Actions to create and approve pull requests » doit être activé pour que `gh pr create` aboutisse ; `docs/security/ACTIONS-HUMAINES.md` § 1.5 en tient compte ;
-- une PR ouverte avec `GITHUB_TOKEN` ne déclenche pas les workflows de PR : `CI OK`, exigé par le ruleset, n'y est pas rapporté (observé le 2026-10-06 sur la PR #19 : état `blocked`, seul le contrôle de Dependabot présent) ;
+- une PR créée avec `GITHUB_TOKEN` ne déclenche pas automatiquement les workflows `pull_request` : le job `status` contourne ce mécanisme en déclenchant explicitement `workflow_dispatch` sur la branche générée ; la première exécution réelle de ce flux reste à observer avant de considérer le mécanisme comme vérifié ;
 - le job n'exécute que du code déjà fusionné sur `main` ; la branche `automation/generated-status` n'est pas protégée par le ruleset de `main`.
 
 Voir `docs/security/DECISIONS-REQUISES.md`, D11.
