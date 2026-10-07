@@ -137,9 +137,6 @@ jobs:
           K7PL_VERIFICATION: success
         run: python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION"
 
-      - name: Refresh the spec <-> Lean coverage matrix
-        run: python3 scripts/controles/couverture.py --update
-
       - name: Check for generated changes
         id: changes
         run: |
