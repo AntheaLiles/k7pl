@@ -441,7 +441,7 @@ class RepositoryDiffEndToEndTests(unittest.TestCase):
         self.assertIn("Changed paths: 1\n  'docs/note.md'\n", done.stdout)
         self.assertIn(
             "Impact: full=false docs_links=true spec_check=false spec_build=false "
-            "lean_build=false unclassified=false\n",
+            "lean_build=false python_tests=false unclassified=false\n",
             done.stdout,
         )
         self.assertNotIn("Unclassified paths:", done.stdout)
@@ -460,7 +460,7 @@ class RepositoryDiffEndToEndTests(unittest.TestCase):
         self.assertIn("Unclassified paths:\n  'new-format.toml'\n", done.stdout)
         self.assertIn(
             "Impact: full=true docs_links=true spec_check=true spec_build=true "
-            "lean_build=true unclassified=true\n",
+            "lean_build=true python_tests=true unclassified=true\n",
             done.stdout,
         )
         self.assertEqual((outputs["full"], outputs["unclassified"]), ("true", "true"))
