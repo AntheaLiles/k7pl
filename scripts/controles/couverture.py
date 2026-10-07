@@ -206,16 +206,17 @@ def render_block() -> str:
     )
 
 
-def update_status() -> None:
-    text = STATUS.read_text(encoding="utf-8")
+def update_status(status_path: Path | None = None) -> None:
+    target = status_path or STATUS
+    text = target.read_text(encoding="utf-8")
     block = render_block()
     pat = re.compile(re.escape(BEGIN) + r".*?" + re.escape(END), re.S)
     if pat.search(text):
         text = pat.sub(lambda _: block, text)
     else:
         text = text.rstrip("\n") + "\n\n" + block + "\n"
-    STATUS.write_text(text, encoding="utf-8")
-    print("bloc de couverture mis à jour dans", STATUS.relative_to(ROOT))
+    target.write_text(text, encoding="utf-8")
+    print("bloc de couverture mis à jour dans", target.relative_to(ROOT) if target.is_relative_to(ROOT) else target)
 
 
 def run() -> None:
