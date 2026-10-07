@@ -1,6 +1,6 @@
 # Correspondance des numéros imprimés et des étiquettes
 
-> Instantané du 1er octobre 2026 (numéros imprimés par LaTeX). Le numérotage de la spécification Verso suit le même ordre de document ; la correspondance à jour est dans [`correspondance-enonces.md`](correspondance-enonces.md).
+> Instantané du 1er octobre 2026 (numéros imprimés par LaTeX). Le numérotage de la spécification Verso suit le même ordre de document ; la correspondance à jour est dans [`correspondance-enonces.md`](../tracking/correspondance-enonces.md).
 
 | relu | courant | Étiquette | Nom |
 |----|----|----|----|

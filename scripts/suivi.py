@@ -27,9 +27,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 import manuscript_metrics as mm  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SUIVI = ROOT / "docs" / "suivi"
-CARDS = ROOT / "docs" / "relectures" / "pr-02" / "taches-consolidees.md"
-STATUTS = SUIVI / "fiches-statuts.csv"
+TRACKING = ROOT / "docs" / "tracking"
+HISTORY = ROOT / "docs" / "history"
+CARDS = ROOT / "docs" / "peer-review" / "pr-02" / "taches-consolidees.md"
+STATUTS = TRACKING / "fiches-statuts.csv"
 
 LOTS = OrderedDict(
     [
@@ -123,7 +124,7 @@ def render_fiches() -> str:
     out = [
         "# Fiches de la campagne PR-02 — état par fiche",
         "",
-        "Vue **produite** par `scripts/suivi.py fiches` à partir de [`docs/peer-review/pr-02/taches-consolidees.md`](../relectures/pr-02/taches-consolidees.md) (le texte des fiches) et de [`fiches-statuts.csv`](fiches-statuts.csv) (l'état, seul fichier à tenir à la main). Ne pas éditer ce fichier.",
+        "Vue **produite** par `scripts/suivi.py fiches` à partir de [`docs/peer-review/pr-02/taches-consolidees.md`](../peer-review/pr-02/taches-consolidees.md) (le texte des fiches) et de [`fiches-statuts.csv`](fiches-statuts.csv) (l'état, seul fichier à tenir à la main). Ne pas éditer ce fichier.",
         "",
         "Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** = l'état est dans la fiche elle-même ; **déduite** = conclue par le rapprochement d'un changement de statut du manuscrit et du texte de la fiche — *à confirmer par l'auteur*.",
         "",
@@ -157,7 +158,7 @@ def write(path: Path, text: str) -> None:
 def relu_numbers() -> dict[str, str]:
     """Statement label → number printed in the PDF the reviewers read (September 9), from the
     snapshot of the former Org tooling."""
-    snap = SUIVI / "correspondance-theoremes-org.md"
+    snap = HISTORY / "correspondance-theoremes-org.md"
     if not snap.exists():
         return {}
     rows = re.findall(r"^\| (—|\d+) \| \d+ \| `(thm:[^`]+)` \|", snap.read_text(encoding="utf-8"), re.M)
@@ -192,7 +193,7 @@ def refresh_block(text: str, name: str, body: str) -> str:
 
 
 def dashboard() -> None:
-    path = SUIVI / "TABLEAU-DE-BORD.md"
+    path = TRACKING / "TABLEAU-DE-BORD.md"
     text = path.read_text(encoding="utf-8")
     text = refresh_block(text, "mesures", mm.md_summary())
     text = refresh_block(text, "fiches", lot_summary())
@@ -212,9 +213,9 @@ def main() -> int:
     if cmd in ("fiches", "all"):
         if check():
             return 1
-        write(SUIVI / "FICHES-PR02.md", render_fiches())
+        write(TRACKING / "FICHES-PR02.md", render_fiches())
     if cmd in ("enonces", "all"):
-        write(SUIVI / "correspondance-enonces.md", render_enonces())
+        write(TRACKING / "correspondance-enonces.md", render_enonces())
     if cmd in ("dashboard", "all"):
         dashboard()
     if cmd not in ("check", "fiches", "enonces", "dashboard", "all"):
