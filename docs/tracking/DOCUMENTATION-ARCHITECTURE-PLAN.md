@@ -231,6 +231,10 @@ For maintained documentation:
 
 The language migration is therefore a maintenance operation, not an archival rewrite.
 
+### D7 scope used for this migration
+
+For this controlled pass, maintained documentation means reader-facing synthesis, navigation and operational entry points, together with generated Markdown. Evidence-bearing registers, retained peer-review records, research source notes, bibliographic acquisition logs, and migration evidence may retain their source language when translation would alter provenance. They remain non-normative and are explicitly reachable from English entry points.
+
 ## 9. Controlled migration protocol
 
 No bulk move.
@@ -324,11 +328,11 @@ Generated files must be migrated through their generators.
 
 ### D7 — English migration
 
-- [ ] Translate active Markdown in the target tree.
-- [ ] Translate generated prose in Python generators.
+- [x] Translate maintained reader-facing Markdown and current entry points; retain source-language evidence where translation would damage provenance.
+- [x] Translate generated prose in Python generators.
 - [ ] Preserve historical and archived source text unless a translated companion is deliberately created.
-- [ ] Check terminology across docs/ and spec/.
-- [ ] Add a control preventing maintained documentation from reintroducing mixed-language structure.
+- [x] Check terminology across docs/ and spec/ and remove obsolete repository-path terminology.
+- [x] Add a control preventing maintained entry points and repository structure from reintroducing obsolete paths or non-English entry points.
 
 ### D8 — Final validation
 
