@@ -2,7 +2,7 @@
 
 *Ouvert le 2 septembre 2026, après les quatre décisions et la vérification A.2.6*
 
-> Archivé le 2026-10-01 : ce document décrit l'état du 2 septembre 2026 et a été remplacé par [le tableau de bord](../suivi/TABLEAU-DE-BORD.md). Il est conservé pour la trace, tel qu'écrit alors ; les noms de fichiers et les commandes qu'il cite désignent l'ancien arbre de travail (Org-mode).
+> Archivé le 2026-10-01 : ce document décrit l'état du 2 septembre 2026 et a été remplacé par [le tableau de bord](../tracking/TABLEAU-DE-BORD.md). Il est conservé pour la trace, tel qu'écrit alors ; les noms de fichiers et les commandes qu'il cite désignent l'ancien arbre de travail (Org-mode).
 
 ## CE QUI COMMANDE LA LECTURE
 
