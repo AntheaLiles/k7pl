@@ -1,72 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" width="648.95999" height="166.08" viewBox="0 0 648.95999 166.08">
-<defs>
-<clipPath id="clip_1">
-<path transform="matrix(.24,0,0,.24,0,0)" d="M0 0H2705V693H0Z" clip-rule="evenodd"/>
-</clipPath>
-<clipPath id="clip_2">
-<path transform="matrix(.24,0,0,.24,0,0)" d="M0 0H2705V693H0Z" clip-rule="evenodd"/>
-</clipPath>
-</defs>
-<g clip-path="url(#clip_1)">
-<path transform="matrix(.75,0,0,.75,0,0)" d="M0 0H866V222H0Z" fill="#ffffff"/>
-</g>
-<g clip-path="url(#clip_2)">
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M0 40H200V90H0Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M0 40H200V90H0Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="70" x="43.078126 53.750127 62.646127 71.54213 79.54213 88.43813 92.88613 101.782138 106.23013 110.67813 115.12613 125.79813 134.69412 140.02213 148.02213">Phase 1 : Parse</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M0 120H200V170H0Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M0 120H200V170H0Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="150" x="4.390625 15.062626 23.958626 32.854627 40.854627 49.750627 54.198629 63.094629 67.542629 76.43863 80.88663 85.334629 89.78262 101.334629 110.23063 119.12663 123.57463 127.12663 136.02263 146.69463 155.59062 164.48662 168.03862 176.03862 184.03862 187.59062">Phase 1.5 : ConfigAnalysis</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M0 200H200V250H0Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M0 200H200V250H0Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="230" x="24.09375 34.76575 43.66175 52.55775 60.55775 69.45375 73.90175 82.79775 87.24575 91.69375 95.85156 104.74219 112.74219 121.63819 130.5342 142.0862 150.9822 159.87819 167.87819">Phase 2 : TypeCheck</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M220 120H420V170H220Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M220 120H420V170H220Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="150" x="240.82813">Phase 2.5 : R&#x00e9;solution</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M440 40H640V90H440Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M440 40H640V90H440Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="70" x="460.84376 471.51576 480.41175 489.30775 497.30775 506.20375 510.65174 519.5477 523.9957 528.4437 532.8917 543.5637 552.4597 557.7877 561.3397 565.7877 573.7877 585.3397 594.2357 603.1317 611.1317">Phase 3 : PurityCheck</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M440 120H640V170H440Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M440 120H640V170H440Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="150" x="467.21876 477.89076 486.78675 495.68275 503.68275 512.57876 517.02676 525.9227 530.3707 534.8187 538.97659 546.97659 555.87258 561.20059 574.52859 585.20059 590.52859 599.42459 608.32058">Phase 4 : TermProof</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M440.5 200H640.5V250H440.5Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M440.5 200H640.5V250H440.5Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="230" x="448.5 459.172 468.068 476.964 484.964 493.86 498.30799 507.20399 511.65199 516.1 520.548 532.1 540.996 549.89199 557.89199 562.33999 567.66799 576.56399 580.11599 589.01199 593.45999 604.13198 613.02798 616.57998 624.57998">Phase 5 : ConstraintSolve</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M680 40H880V90H680Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M680 40H880V90H680Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="70" x="712.40628 723.07827 731.97427 740.87026 748.87026 757.76626 762.21426 771.1102 775.5582 780.0062 784.4542 796.9022 805.7982 810.2462 813.7982 827.1262 830.6782 838.6782">Phase 6 : Optimize</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M680 120H880V170H680Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M680 120H880V170H680Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="150" x="709.71878 720.39077 729.28677 738.18276 746.18276 755.07876 759.52676 768.4227 772.8707 777.3187 781.7667 793.3187 802.2147 811.1107 820.0067 832.4547 841.3507">Phase 7 : CodeGen</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M680 200H880V250H680Z" fill="#ececff"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="4" stroke-linejoin="miter" fill="none" stroke="#9370db" d="M680 200H880V250H680Z"/>
-<text fill="#333333" xml:space="preserve" transform="matrix(.71836188 0 0 .71836188 7.9562089 -21.550856)" font-size="16" font-family="Arimo"><tspan y="230" x="729.2969 739.9689 748.86489 757.76089 765.76089 774.65689 779.10488 788.00088 792.44888 796.89688 801.34487 810.24087 813.79287 822.68887">Phase 8 : Link</tspan></text>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M100 90C100 90 100 96.96 100 110.88"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M100 118.88 96 110.88H104L100 118.88Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M100 118.88 96 110.88H104L100 118.88Z"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M100 170V185 190.88"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M100 198.88 96 190.88H104L100 198.88Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M100 198.88 96 190.88H104L100 198.88Z"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M200 225H320V179.12"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M320 171.12 324 179.12H316L320 171.12Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M320 171.12 324 179.12H316L320 171.12Z"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M320 120V65H430.88"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M438.88 65 430.88 69V61L438.88 65Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M438.88 65 430.88 69V61L438.88 65Z"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M540 90C540 90 540 96.96 540 110.88"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M540 118.88 536 110.88H544L540 118.88Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M540 118.88 536 110.88H544L540 118.88Z"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M540 170V185L540.2 190.89"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M540.46 198.88 536.2 191.02 544.19 190.75 540.46 198.88Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M540.46 198.88 536.2 191.02 544.19 190.75 540.46 198.88Z"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M640.5 225H660.3V65H670.88"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M678.88 65 670.88 69V61L678.88 65Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M678.88 65 670.88 69V61L678.88 65Z"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M780 90V110.88"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M780 118.88 776 110.88H784L780 118.88Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M780 118.88 776 110.88H784L780 118.88Z"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M780 170C780 170 780 176.96 780 190.88"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" d="M780 198.88 776 190.88H784L780 198.88Z" fill="#333333"/>
-<path transform="matrix(.71836188,0,0,.71836188,8.315389,-21.191676)" stroke-width="1" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#333333" d="M780 198.88 776 190.88H784L780 198.88Z"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="940" height="330" viewBox="0 0 940 330" role="img">
+<title>Les onze étapes du pipeline de compilation</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#333333"/></marker></defs>
+<rect width="940" height="330" fill="#ffffff"/>
+<path d="M210 45.0H250" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M450 45.0H490" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M690 45.0H730" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M830.0 70V95.0H110.0V120" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M210 145.0H250" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M450 145.0H490" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M690 145.0H730" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M830.0 170V195.0H110.0V220" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M210 245.0H250" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<path d="M450 245.0H490" fill="none" stroke="#333333" stroke-width="1.2" marker-end="url(#arr)"/>
+<rect x="10" y="20" width="200" height="50" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="110.0" y="50.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 0 : Parse</text>
+<rect x="250" y="20" width="200" height="50" fill="#ffffff" stroke="#9370db" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="350.0" y="50.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 1 : Expansion</text>
+<rect x="490" y="20" width="200" height="50" fill="#ffffff" stroke="#9370db" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="590.0" y="50.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 2 : ConfigAnalysis</text>
+<rect x="730" y="20" width="200" height="50" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="830.0" y="50.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 3 : TypeCheck</text>
+<rect x="10" y="120" width="200" height="50" fill="#ffffff" stroke="#9370db" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="110.0" y="150.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 4 : Résolution</text>
+<rect x="250" y="120" width="200" height="50" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="350.0" y="150.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 5 : PurityCheck</text>
+<rect x="490" y="120" width="200" height="50" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="590.0" y="150.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 6 : TermProof</text>
+<rect x="730" y="120" width="200" height="50" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="830.0" y="150.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 7 : ConstraintSolve</text>
+<rect x="10" y="220" width="200" height="50" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="110.0" y="250.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 8 : Optimize</text>
+<rect x="250" y="220" width="200" height="50" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="350.0" y="250.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 9 : CodeGen</text>
+<rect x="490" y="220" width="200" height="50" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="590.0" y="250.0" text-anchor="middle" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="16" fill="#333333">Phase 10 : Link</text>
+<rect x="10" y="294" width="30" height="16" fill="#ececff" stroke="#9370db" stroke-width="1.5"/>
+<text x="48" y="308" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="14" fill="#333333">ordre de vérification (huit)</text>
+<rect x="300" y="294" width="30" height="16" fill="#ffffff" stroke="#9370db" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="338" y="308" font-family="Arimo, Arial, Helvetica, sans-serif" font-size="14" fill="#333333">point de contrôle intercalaire (trois)</text>
 </svg>

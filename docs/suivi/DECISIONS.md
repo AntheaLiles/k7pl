@@ -1,6 +1,6 @@
-# Décisions — ce qui est tranché, ce qui attend
+# Décisions — ce qui est tranché, ce qui est appliqué à ratifier, ce qui attend
 
-**État au 1er octobre 2026.** Une ligne par décision. « Tranché » renvoie à la source qui le dit ; « à ratifier » veut dire qu'un compte rendu de séance l'a **appliquée** en suivant la recommandation du dossier, sans que l'auteur l'ait confirmée par écrit.
+**État au 6 octobre 2026 (séance 32).** Une ligne par décision. « Tranché » renvoie à la source qui le dit ; « à ratifier » veut dire qu'un compte rendu de séance l'a **appliquée** en suivant la recommandation de l'instruction ([`instruction-des-decisions`](../recherche/instruction-des-decisions.md), [`instruction-arb-pr-04`](../recherche/instruction-arb-pr-04-rejeu-binaire.md)), sans que l'auteur l'ait confirmée par écrit ; « attend » veut dire qu'aucune orientation n'est applicable sans un choix de fond de l'auteur. **Analyses détaillées, face au manuscrit, de chaque élément à trancher** (demande de l'auteur : « propose-moi les analyses détaillées face au manuscrit des éléments à trancher ») : dossier [`analyses-decisions/`](../recherche/analyses-decisions/README.md) (index général). L'audit des entrées qui figuraient à tort parmi les attentes est dans [`journal/2026-10-06-pr-02-30`](../journal/2026-10-06-pr-02-30-arbitrages-deja-pris.md). Les décisions de l'auteur reçues après la séance 31 (numérotation des phases, singularités, grammaires, index et interface HTML, vocabulaire en bloc, deux études comparatives) sont rédigées à la [séance 32](../journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md) : là où l'auteur a décidé *quoi* faire et laissé le *comment*, le comment appliqué est marqué « à ratifier ».
 
 ## Tranchées
 
@@ -10,43 +10,77 @@
 | — | les six décisions de conception du noyau (canal comme valeur, asynchrone primitif, sessions *et* boîtes aux lettres, graphe importé, localité graduée, coût en travail et profondeur) | arrêtées ; aucune quatrième place dans le jugement | [`journal/2026-09-30-pr-02-04`](../journal/2026-09-30-pr-02-04-couche-3-parallele.md) |
 | `ARB-PR-01` | sens de la subsomption modale | pas d'inversion ; collision entre deux ordres | [`taches-consolidees`](../relectures/pr-02/taches-consolidees.md) §13 |
 | `ARB-PR-02` | clause de taille | deux sortes de tailles 𝕊_μ / 𝕊_ν, jamais partagées | idem ; [`journal/2026-09-30-pr-02-01`](../journal/2026-09-30-pr-02-01-bloq-03-et-06.md) |
-| `ARB-PR-05` | cadre d'ensemble du noyau minimal | **le cadre du manuscrit**, ratifié ; `FACT-21` et `-22` s'écartent | [`journal/2026-10-01-pr-02-07`](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) |
+| `ARB-PR-05` | cadre d'ensemble du noyau minimal | **le cadre du manuscrit**, ratifié ; `FACT-21` et `-22` s'écartent (consignées dans [`factorisations-refusees`](factorisations-refusees.md)) | [`journal/2026-10-01-pr-02-07`](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) |
 | — | pas de socle univalent pour les factorisations ; les factorisations tentantes et fausses se **documentent** (`REFUS`) plutôt qu'elles ne s'exécutent | [`factorisations-refusees.md`](factorisations-refusees.md) | [`plan de traitement`](pr-02-plan-de-traitement.md) §6 |
-
-## Tranchées le 1er octobre 2026 (suite)
-
-| | Décision | Retenu | Effet |
-|---|---|---|---|
-| `ARB-PR-07` / `D-2` | socle homotopique ou famille modale et graduée | **famille modale et graduée** ; imports ciblés instruits un à un | motif écrit au §1.2 (guide de lecture) |
-| `ARB-PR-06` | préservation graduée de bout en bout | **objectif déclaré** : la revendication devient une preuve, sans dénaturer le projet (passe par passe, fragment monomorphisé d'abord) | `PREUVE-02` en tête ; énoncé écrit au §6.2 ; reste conjecture jusqu'à la preuve |
-| `ARB-PR-04` | promesse du rejeu bit-à-bit | **à instruire** avant de trancher | [`instruction-arb-pr-04-rejeu-binaire`](../recherche/instruction-arb-pr-04-rejeu-binaire.md) |
-| `T-68` | mots des 44 primitives | **avant-dernier** dans l'ordre de finition (avant la release) | [`primitives.md`](primitives.md) |
+| `ARB-PR-07` / `D-2` | socle homotopique ou famille modale et graduée | **famille modale et graduée** ; imports ciblés instruits un à un (`BIB-10`, `-20`, `-21`, `-22`) | 1er octobre ; motif écrit au §1.2 |
+| `ARB-PR-06` | préservation graduée de bout en bout | **objectif déclaré** : la revendication devient une preuve, sans dénaturer le projet (passe par passe, fragment monomorphisé d'abord) | 1er octobre ; `PREUVE-02` en tête ; énoncé au §6.2 ; reste conjecture jusqu'à la preuve |
+| `ARB-PR-04` | méthode | **à instruire avant de trancher** ; l'instruction est écrite | 1er octobre ; [`instruction-arb-pr-04`](../recherche/instruction-arb-pr-04-rejeu-binaire.md) ; le choix de la voie est plus bas, à ratifier |
+| `T-68` | place dans l'ordre de finition | **avant-dernier**, juste avant la release (le contenu est éditorial et vient à son tour) | 1er octobre ; [`primitives.md`](primitives.md) (proposition de vocabulaire préparée, rien n'est renommé) |
 | — | annexe E | **fondue dans le manuscrit** : grammaires et règles au ch. 3, sémantique et sortes au ch. 4, table des glyphes au ch. 1 | `STRUCT-23` ; [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) |
-| `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
-| — | `BLOQ-05` (indexation du jugement non requise), les deux options de `BLOQ-07` | validées le 1er octobre ; réévaluées avec l'ensemble une fois tout traité | — |
+| `D-9` | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 (et `T-68` juste avant) | 1er octobre |
+| `D-5` | où écrire pendant la finition ? | **le Verso fait foi**, les fichiers Org sont archivés ; les contrôles sont portés (`scripts/controle.py`) | 1er octobre |
+| `D-6` | sous-titre du document | « A functional layered programming language » (`ANOM-16`) ; le dépôt n'en porte aucun | 1er octobre |
+| `D-8` | rétablir au glossaire les trois couches | **fait** : entrées « couche 1/2/3 » au glossaire (`ANOM-06`) | [`ANOMALIES.md`](ANOMALIES.md) |
+| `BLOQ-05` | indexer le jugement par le niveau ? | **non requise** ; le lemme de correspondance se lit sur les clauses des règles | 1er octobre ; remarque au §4.7 |
+| `BLOQ-07` | accord entre → et `⟦·⟧` | **les deux options** : énoncé conditionnel à `Sim` *et* simulation à conduire | 1er octobre ; reste la preuve (`PREUVE-07`) |
+| `PREUVE-08` | graduation de la troncature (§2.3) | **additive** : `δ_{r,s} : N_{r+s} → N_r N_s` (vérifiée ; un indice produit est impossible) ; idempotence comme tour ; `λ_r` directe | ratifiée par l'auteur ; [`journal/2026-10-06-pr-02-28`](../journal/2026-10-06-pr-02-28-troncature-et-conformite.md) |
+| `STRUCT-06` | numérotation des phases de compilation | « Renumérote toutes les phases de compilation pour les remettre en cohérence » (6 octobre) : appliqué, schéma à ratifier (voir plus bas) | [séance 32](../journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md) §A.1 |
+| `BLOQ-12` | singularités `∘` et `δ` | « Les singularités sont à définir, leurs propagations réelles sont à sourcer dans les références » : définies ; sourcé ce qui l'est, le reste dit tel ; corps des sources **inaccessible** (résumés seulement) ; la règle de la séance 32 n'était pas associative, corrigée (réunion d'étiquettes) | idem §A.2 ; [`journal/2026-10-07-pr-02-33`](../journal/2026-10-07-pr-02-33-sources-des-singularites.md) ; [`recherche/sources-singularites`](../recherche/sources-singularites.md) |
+| `ANOM-17` | grammaires des termes et des types | « Les grammaires sont à définir » : corrigées | idem §A.3 |
+| `ANOM-09`, `ANOM-10` | index à pages, interface HTML | « Ok alors rédige ANOM-09 et ANOM-10 » : rédigées | idem §A.4 |
+| `T-68` | ratification du vocabulaire des primitives | **en bloc** : « il y a un besoin de complétude et un besoin de cohérence dans le choix du vocabulaire » ; la proposition consolidée est un seul bloc, le renommage n'a lieu qu'après ratification, juste avant la release | [`t68-vocabulaire-en-bloc`](../recherche/t68-vocabulaire-en-bloc.md) |
+| `ANOM-17` (`spawn`, `∥`) | fil de temps de la fibrille engendrée ; fourche-jointure contre entrelacement | **pas de choix** : « j'ai besoin d'avoir une analyse des possibilités » ; deux études comparatives écrites | [`etude-spawn-fil-de-temps`](../recherche/etude-spawn-fil-de-temps.md), [`etude-parallele-fourche-entrelacement`](../recherche/etude-parallele-fourche-entrelacement.md) (écrites, sans choix) |
 
 ## À ratifier (appliquées, non confirmées)
 
-| | Décision appliquée | À confirmer |
-|---|---|---|
-| `ARB-PR-03` | effets à portée : `ℰ_alg` et `ℰ_scoped` nommés, clôture **faible** sur le second, le monoïde ℳ gardé | que `BIB-01` (*Hefty Algebras*) reste non instruit tant que le besoin de modularité n'est pas établi |
-| — | sept fermetures de fiches **déduites** (`PORT-08`, `PORT-16`, `REECR-02`, `-06`, `-07`, `-11`, `-25`) | `fiches-statuts.csv`, colonne `confiance` = `deduite` |
+Une ligne par décision ; la **source** est l'orientation de l'instruction ou le compte rendu qui l'applique, l'**endroit** est celui du manuscrit.
+
+| | Décision appliquée | Source, endroit | À confirmer |
+|---|---|---|---|
+| `ARB-PR-04` | **voie B puis C** : identité binaire promise sur une machine, sous `E_repro` à quatre composantes (ordonnancement, arrondi, chaîne, architecture et NaN) ; charge utile d'un NaN hors de l'égalité observable ; pas de rejeu binaire multi-acteurs (voie D écartée sans borne) | [instruction §4](../recherche/instruction-arb-pr-04-rejeu-binaire.md) ; §4.5, §1.2 (P4) ; [séance 31](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) | la voie ; repli sur A si la réalisation ne la tient pas |
+| `IMPL-07` | tables d'addition et de produit sur les classes `0`, `x`, `∞`, `⊥` (théorie des roues) ; règle d'entrée : NaN lu `⊥`, `±∞` lus `∞` (identifiés), `±0` lus `0` | instruction (`IMPL-07`) ; §3.2 | l'identification des deux infinis d'IEEE 754 plutôt que leur distinction |
+| `IMPL-04` | un anneau SPSC par couple (émetteur, boîte), une file de jonction par acteur ; message choisi par ordre fixe des émetteurs ; MPSC écarté | instruction (`IMPL-04`) ; §4.5 | la topologie ; la borne mémoire par le graphe de câblage |
+| `STRUCT-16` | le mode est attaché à la couche (délimiteur) ; `Rel` admissible, non instancié ; grammaire des grades libre | instruction (`STRUCT-16`) ; §3.1 | que la restriction de la grammaire est refusée (elle casserait `Lin_k`, `1/N`) |
+| `FACT-12`, `STRUCT-01` | pas d'adjonction graduée unifiée (loi distributive affaiblie) ; vocabulaire de la théorie de modes ; la décomposition de `TRANS-02` tient lieu de cadre | instruction (`FACT-12`) ; §1.4 | avec `TRANS-02` |
+| `FACT-14` | pas de cadre unique des structures monotones : trois notions, aucun mécanisme commun | instruction (`FACT-14`) ; §2.4 | — |
+| `PREUVE-05` | loi distributive **affaiblie** (la stricte demanderait un `ℰ₀` commutatif) | §3.2 (`thm:loi_distributive_conditions`) ; [séance 24](../journal/2026-10-06-pr-02-24-loi-distributive.md) | que le séquencement non commutatif prime sur la stricte |
+| `D-7` ✅ | annexes B, C, D : **sorties de la spécification** et déplacées en prototypes (`tooling/prototypes-bcd/`, commit `d84021f` de l'auteur, 6 octobre 2026) ; le bandeau « esquisse » posé à la séance 31 n'a plus d'objet ; `ANOM-04` ne concerne plus la release | commit `d84021f` ; `tooling/prototypes-bcd/README.md` | tranchée |
+| `ANOM-17` | `slice` (jeton de capacité sans contenu, voie B) ; `∥` et `vmap` (fourche et jointure, voie B comme étape de la C) ; `guard` à motif conjonctif (voie A) ; défaillance de `try` (pas de l'environnement, voie A) ; `spawn` : comptabilité par provision (voie A, déjà écrite) | instruction (`ANOM-17`) ; §3.2, §4.7 | chacune des cinq ; l'entrelacement par branche (voie C) pour `∥` est reporté |
+| `ANOM-17`, points de forme | formes terminales du progrès (`Λα.c`, copatron) ; sous-typage des tailles `νC⟨j⟩ <: νC⟨i⟩` (`i ≤ j`) ; `thm:determinisme_parallele` : le séquentiel majore le parallèle (énoncé corrigé) | instruction (« points de forme ») ; §3.2, §4.7 | — |
+| `BIB-17` | le destructeur d'une capacité exportée **invalide localement** l'étiquette annoncée (le propriétaire invalide, sur demande de l'accédant ou de lui-même) | [`verifications-pr02`](../bibliographie/verifications-pr02.md) ; §4.5 | le sens |
+| `ARB-PR-03` | effets à portée : `ℰ_alg` et `ℰ_scoped` nommés, clôture **faible** sur le second, le monoïde ℳ gardé | [journal 6](../journal/2026-10-01-pr-02-06-theoremes.md) | que `BIB-01` (*Hefty Algebras*) reste non instruit tant que le besoin de modularité n'est pas établi |
+| — | sept fermetures de fiches **déduites** (`PORT-08`, `PORT-16`, `REECR-02`, `-06`, `-07`, `-11`, `-25`) | [journal 9](../journal/2026-10-01-pr-02-09-port-et-fact2.md) | `fiches-statuts.csv`, colonne `confiance` = `deduite` |
+| `STRUCT-05` / `TRANS-04` | ordre de préservation `P-dén`, `P-grad`, `P-trace(ℓ)`, `P-repr` et règle « une unité ℓ-sensible n'admet que les passes `P-trace(ℓ)` » | §6.1 ; [séance 22](../journal/2026-10-05-pr-02-22-preuves-fin.md) | que cette règle localise sans le résoudre le conflit entre P3 et la non-interférence temporelle |
+| `TRANS-02` | grade = (𝕌 × 𝔅) × (𝕄 × ℒ), module et ordre pur ; sept effets, dont l'admissibilité d'une composante vérifiable par machine | §1.4 ; [séance 25](../journal/2026-10-06-pr-02-25-trans.md) | que la décomposition remplace les trois conditions d'admission du §1.4 |
+| `STRUCT-06`, `REECR-16` | phases numérotées **0 à 10**, une étape par numéro, sans fraction ; trois points de contrôle (Expansion 1, ConfigAnalysis 2, Résolution 4) en pointillés sur la figure 11 ; ancien « Phase 0 » devient 1, ancien 1 devient 0, ancien 1.5 devient 2, etc. (table au journal) | séance 32 §A.1 ; §6.1, figure 11, ch. 1 à 7, annexes A et D | le schéma (ce n'est pas le numéro de chaque phase, c'est qu'il n'y ait plus de fraction) |
+| `BLOQ-12` | tables de `⊥` et `∞` calculées sur la roue des fractions (Carlström 2004 ; notice confirmée, corps non lu) ; écart d'IEEE 754 sur `∞ + ∞` écrit ; **`∘` et `δ` définis comme extension de K7PL, sans source** : erreurs = ensembles d'étiquettes combinés par réunion (`∘δ` cinquième singularité), l'extension n'est pas une roue (séance 33 : la borne supérieure de la séance 32 n'était pas associative) | séance 32 §A.2, séance 33 ; §3.2 | que `∘` et `δ` restent (réunion d'étiquettes, priorité fixe, ou retrait de l'encodage) ; la lecture de Carlström 2004 dans son corps |
+| `ANOM-17`, grammaires | `□V`, `◇V`, `○V`, `○C` produits ; `◇C`, `@ₙC`, `!_ℓ A` abréviations ; `always`, `now`, `next`, `locₙ` valeurs ; `at`, `wait`, `declassify` calculs ; règles `Nxt`, `Loc`, `Declassify` ; six schémas (lecture séquentielle, machine unique) | séance 32 §A.3 ; ch. 3, §2.4, §4.7 | le choix de lire les modalités comme l'identité de la relation (le temps vit dans la trace) ; `declassify` rendant une boîte au niveau abaissé plutôt qu'une étiquette |
+| `ANOM-09`, `ANOM-10` | index imprimé avec ses pages par LaTeX lui-même (étiquettes et macros du préambule, sans `makeindex`), reconnaissance automatique des termes à la génération ; feuille de traduction de l'interface HTML | séance 32 §A.4 ; `tools/SpecExt/` | le choix de la voie (ni sortie `makeindex`, ni contribution à Verso) ; le PDF compilé avec `lualatex`, pas encore avec `tectonic` |
+| `PREUVE-04`, `TRANS-02`, `TRANS-06` | clôture des échappatoires par la règle (`fv(v) = ∅`) ; fragments et table de sédimentation comme images réciproques ; remontée du facteur temporel au ch. 1 | séance 32 §A.5 | — |
+| `FACT-09` | table `codes d'erreur ⟷ prémisse manquante` (48 sur 48), objectif « 18 familles, 4 diagnostics » non atteint (17 codes sur 48) | [`codes-et-premisses`](codes-et-premisses.md) | l'appariement ; la reprise éventuelle des quatre messages-types à l'annexe A |
+| `ANOM-17`, copatron | la liaison implicite du copatron est un thunk (employée par `force x`) | séance 32 §A.5 ; règle `Cop`, schéma de `out` | — |
+
+### Changements de sceau proposés (non appliqués)
+
+Aucun sceau n'est changé sans qu'une décision l'exige. Ces deux-là sont proposés ; le contrôle de propagation n'est pas en cause.
+
+| Énoncé | Sceau actuel | Proposé | Raison |
+|---|---|---|---|
+| `thm:progres` | théorème | proposition | tous les constructeurs ont un schéma (séance 32), mais la preuve n'est conduite que pour une partie d'entre eux : `declassify`, les éliminations temporelles, `at_n` et `move` ne sont couverts que par la phrase « leur cas se lit comme les autres » |
+| `thm:preservation` | théorème | proposition | les cas ajoutés (point fixe borné, récupération, jointure, couche 2, schémas orientés, modalités) ne sont pas démontrés en détail ; la préservation de `declassify` est fausse en l'état et doit l'être (à l'abaissement près) ; ceux de `wait` et de `move` demandent un lemme |
 
 ## Attendent une décision de l'auteur
 
-| | Question | Éléments | Effet |
+Chaque ligne donne la **question exacte** et la raison pour laquelle l'orientation de l'instruction ne s'applique pas seule. La séance 32 a appliqué tout ce que les décisions de l'auteur permettaient d'appliquer ; il reste trois choix de fond et une question conditionnelle.
+
+| | Question | Pourquoi l'orientation ne suffit pas | Effet |
 |---|---|---|---|
-| — | les quatre imports ciblés : lesquels verser, où | « validés » d'après le compte rendu du 1er octobre, **non versés** au texte ; le dernier est écarté pour `BLOQ-06` (corrigé autrement) | trois instructions à conduire (`BIB-10` pour les modes) |
+| `ANOM-17` | `spawn` : accepter la **bifurcation par maillon** pour le fil de temps de la fibrille engendrée, ou une autre voie ? **Étude comparative écrite, pas de choix** : [`etude-spawn-fil-de-temps`](../recherche/etude-spawn-fil-de-temps.md) (quatre options ; avis : la bifurcation dirigée par le type est la moins invasive, sous quatre conditions ; attendre est sans risque ; **à décider après l'étude sur `∥`**) | étend le système de sortes et le protocole du gestionnaire ; la même question se pose pour l'application et l'opération à portée (maillons dans un appel) | clauses de traduction du fil (`PREUVE-03`), ordre partiel de la couche 2 |
+| `ANOM-17` | `∥` : garder la **fourche et la jointure** ou passer à l'**entrelacement avec une trace par branche** ? **Étude comparative écrite, pas de choix** : [`etude-parallele-fourche-entrelacement`](../recherche/etude-parallele-fourche-entrelacement.md) (variantes `V0` à `V5` ; avis : réparer la fourche-jointure, puis la trace structurée `V3`, l'entrelacement plus tard) | la seconde étend la machinerie de la couche 2 à la couche 3 ; le texte est ambivalent sur ce qu'est `∥` | `thm:preservation`, `PREUVE-07`, `thm:determinisme_parallele` |
+| `T-68` | ratifier **en bloc** la proposition consolidée des 49 primitives : [`t68-vocabulaire-en-bloc`](../recherche/t68-vocabulaire-en-bloc.md) ; table de renommage mécanique prête : [`t68-table-de-renommage`](t68-table-de-renommage.md) ; **analyse détaillée face au manuscrit** (occurrences, essai à blanc, collisions, plan, décision par bloc) : [`t68-vocabulaire-face-au-manuscrit`](../recherche/analyses-decisions/t68-vocabulaire-face-au-manuscrit.md) | avant-dernier dans l'ordre de finition : le renommage n'a lieu qu'après ratification | vocabulaire avant la release |
+| `BIB-01` | *Hefty Algebras* : instruire ? | conditionnel : seulement si `ARB-PR-03` est ratifiée et le besoin de modularité établi | — |
 
-## Nouvelles, nées de la conversion
-
-| | Question | Recommandation |
-|---|---|---|
-| `D-5` ✅ | **où écrire pendant la finition ?** | **Tranchée le 1er octobre 2026 : le Verso fait foi**, les fichiers Org sont archivés ; les contrôles sont portés (`scripts/controle.py`) |
-| `D-6` ✅ | sous-titre du document | le sous-titre du manuscrit, « A functional layered programming language », fait foi (`ANOM-16`) ; le dépôt n'en porte aucun |
-| `D-7` | annexes B, C, D squelettiques ([`ANOM-04`](ANOMALIES.md)) | décider avant la première release |
-| `D-8` | rétablir au glossaire les trois couches ([`ANOM-06`](ANOMALIES.md)) | oui : le corps du document les définit, le glossaire doit suivre |
-| `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
+Les quatre **imports ciblés** (`BIB-10`, `-20`, `-21`, `-22`) ne sont plus une décision de l'auteur : le cadre est arrêté (`ARB-PR-07`), il reste à les instruire un à un (`BIB-21` : lire la restriction sur l'égalité définitionnelle contre le produit mixte).
 
 ## Ce qui n'a pas été rapproché
 

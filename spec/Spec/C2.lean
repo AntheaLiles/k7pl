@@ -37,7 +37,7 @@ preuve, signalées au fil du texte.
 Une remarque d'orientation, qui commande la lecture du chapitre entier. On y construit un système de
 types de la manière intrinsèque — les types sont des objets de _C_, les termes des morphismes —
 alors que l'architecture du langage est extrinsèque de bout en bout. Un jugement à trois composantes
-porté au-dessus d'un terme, dont la Phase 8 retire tout ce qui appartient à la compilation. Cet
+porté au-dessus d'un terme, dont la Phase 10 retire tout ce qui appartient à la compilation. Cet
 écart n'est pas une gêne à surmonter, c'est la définition même d'un _système de raffinement de
 types_ — un foncteur de la catégorie des dérivations vers celle des termes sous-jacents {cite "melliesFunctorsAreType2015"}[]
 — et ce chapitre construit le domaine de ce foncteur.

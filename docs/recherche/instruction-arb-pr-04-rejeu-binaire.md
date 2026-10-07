@@ -40,9 +40,15 @@ trancher. Ce document est l'instruction ; il ne tranche pas.
 4. **Vérifier par test** (à l'implémentation) l'hypothèse `Injectivité` : un test différentiel sur
    deux chemins de compilation par arrondi et par NaN.
 
-## 4. Orientation provisoire (à confirmer)
+## 4. Orientation (appliquée le 6 octobre 2026, à ratifier)
 
 B puis C : fixer la portée « une machine » que le §4.5 applique déjà au modèle mémoire, ajouter la
 quatrième composante à `E_repro`, et faire de la table de propagation (`IMPL-07`) ce qui rend
 l'injectivité vraie sur les singularités. A reste la voie de repli si l'implémentation ne peut tenir
 B. D est écartée tant qu'aucune borne n'est écrite.
+
+**Suite (séance 31).** L'orientation B puis C est écrite au §4.5 (identité binaire sur une machine, sous `E_repro` à quatre
+composantes ; pas de rejeu binaire multi-acteurs) et au §3.2 (classes de singularités, tables de propagation, règle d'entrée
+des infinis d'IEEE 754 : `±∞` identifiés en `∞`). `∘` et `δ`, que ni la théorie des roues ni le texte ne définissent, restent
+en attente de l'auteur. Le point 3 (compatibilité de la voie D avec P3) reste vrai : D n'est pas retenue tant qu'aucune borne
+n'est écrite. Le point 4 (test différentiel) est une exigence de la réalisation, déjà portée par `thm:representation_inobservable`.

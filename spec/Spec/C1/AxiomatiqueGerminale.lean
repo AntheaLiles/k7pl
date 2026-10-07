@@ -227,6 +227,27 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   d'être énoncé : la confidentialité est une composante ajoutée après coup, et le
   §{num "sec:c1-postulats"}[] conclut qu'elle « n'ajoute rien à l'appareil » {cite "choudhuryDependentDependencyCalculus2022"}[].
 
+  Ces trois conditions sont insuffisantes telles qu'elles sont posées, et la décomposition qui les
+  remplace est proposée à la ratification. Le grade se factorise en un facteur _module_ et un facteur
+  _ordre pur_ : $`\mathcal{R} = (\mathbb{U} \times \mathfrak{B}) \times (\mathbb{M} \times \mathcal{L})`, où
+  $`\mathbb{U} = \mathbb{Q}_{\geq 0} \cup \{\omega\}` est l'usage, $`\mathfrak{B} = \mathbb{N}_\infty` le budget
+  muni du résidu $`\ominus` continu en $`\omega`, $`\mathbb{M}` la monotonie et $`\mathcal{L}` le niveau, ces deux
+  derniers agissant trivialement. Deux projections, $`\pi_{\mathrm{mod}}` et $`\pi_{\mathrm{ord}}`, en
+  découlent. Sept effets suivent : les fragments du chapitre 2 sont les images réciproques
+  $`\mathcal{C}_{!_{\pi_{\mathbb{U}}^{-1}(S)}}`, de sorte que singletons et intervalles coexistent ; les grades
+  fractionnaires $`1/N` sont dans le noyau formel ; $`r \cdot \Delta` est défini ; le niveau d'un calcul est
+  un indice distinct de $`\mathrm{niv}(r)` (§{num "sec:g-regles"}[]) ; $`\mathcal{G}_{\text{pile}}` et
+  $`\mathcal{G}_{\text{budget}}` sont des images réciproques de projections ; et, surtout, la condition de
+  clôture devient vérifiable par machine : une composante nouvelle est admissible si et seulement si
+  elle est un module sur $`\mathbb{U}` ou un ordre pur à action triviale.
+
+  Cette décomposition tient lieu de cadre unificateur, et ce document n'en promet pas davantage. Une
+  adjonction graduée stricte, qui absorberait coeffets et effets en un seul principe, serait fausse en
+  l'état : la loi distributive qui les relie n'est qu'_affaiblie_ (théorème {num "thm:loi_distributive_conditions"}[]),
+  l'opération de mise à l'échelle des effets n'étant pas un morphisme de monoïde dès que $`\mathcal{E}_0` n'est
+  pas commutatif. Ce que K7PL emprunte à la théorie des modes est son vocabulaire — le mode est le
+  paramètre (théorème {num "thm:morphismes_modes"}[]) — et non une réécriture du chapitre autour d'une adjonction unique.
+
   Une conséquence de notation en découle, réglée ici plutôt que laissée à chaque chapitre. Écrire
   les composantes d'un grade sur chaque liaison est lourd, et beaucoup de liaisons n'en contraignent
   qu'une. L'_élision_ est donc autorisée : une composante non écrite prend la valeur qui n'impose
@@ -339,7 +360,7 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   Le multiplicateur demande d'être nommé pour ce qu'il est, car deux grandeurs se confondaient ici
   et ne sont pas la même. Le _grade d'usage_ $`u` d'une liaison dit combien de fois une ressource
   est employée ; la _multiplicité d'exécution_ $`n` d'un calcul dit combien de fois ce calcul est
-  lancé. La seconde entraîne la première — un bloc exécuté $`n` fois emploie $`n` fois chacune de
+  lancé. La signature de $`\varphi` en découle : le grade $`r` ne détermine pas la multiplicité d'exécution, qui est fournie par le combinateur de contrôle de la règle en jeu — séquencement, parcours de vecteur, opération à portée —, de sorte que $`\varphi` est une fonction _indexée_ par ce combinateur, $`\varphi_n : \mathcal{E} \to \mathcal{E}`, et non une fonction de $`\mathcal{R} \times \mathcal{E}` seule. La seconde entraîne la première — un bloc exécuté $`n` fois emploie $`n` fois chacune de
   ses ressources — mais la réciproque est fausse, et c'est la seconde qui gouverne l'itération de
   l'effet. La distinction paraît fine et elle décide de ce qu'un gestionnaire peut faire
   (§{num "sec:g-regles"}[]) : ce qui borne une réexécution n'est pas la
@@ -427,7 +448,7 @@ rend le canal temporel énonçable, et c'est là que la preuve de non-interfére
 
 De cette quantale découle une opération d'_itération_ induite, qui donne son annotation d'effet à un
 flux coinductif de couche 2 (chapitre 4, §{num "sec:c4-echelle-locale"}[]) et son critère à la Phase
-3 du compilateur (chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) : sans elle, une boucle
+5 du compilateur (chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) : sans elle, une boucle
 n'aurait tout simplement pas d'effet calculable. Leur intégration au système de types et leur
 composition sans pile de monades sont traitées au chapitre 3
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) ; leur résorption statique par _inlining_, au
@@ -457,7 +478,11 @@ structure qui n'a pas été construite pour cela. K7PL prend l'autre voie, qui e
 littérature dès que plusieurs dimensions de coût coexistent : $`\mathcal{E}` est un _produit_,
 $`\mathcal{E}_0 \times \mathbb{N}_\infty`, dont le premier facteur garde le produit non commutatif
 du séquencement et dont le second est additif, l'ordre et les opérations se prenant coordonnée par
-coordonnée {cite "mannucciResourceBoundedTypeTheory2025"}[]. Les deux lois ne se rencontrent jamais,
+coordonnée {cite "mannucciResourceBoundedTypeTheory2025"}[]. Le facteur temporel est écrit ici
+$`\mathbb{N}_\infty` pour la lecture ; sa forme complète, posée avec la grammaire des types
+(§{num "sec:g-grammaire-types"}[]), est une _famille_ de coûts temporels indexée par les niveaux, qui
+compte chaque événement au niveau qui l'a produit, et dont le cas mononiveau redonne la forme plate (théorème {num "thm:temps_mononiveau"}[]) : les lois de ce
+paragraphe n'en changent pas. Les deux lois ne se rencontrent jamais,
 puisqu'elles n'opèrent pas sur la même composante. Qu'une opération donnée porte une étiquette dans
 chaque facteur — une lecture qui coûte trois pas s'écrit $`(~read~, 3)` — ne rend pas le produit
 moins direct : cela fixe seulement où elle se situe dans l'un et dans l'autre.
@@ -665,7 +690,7 @@ celle de l'exécution, où ne subsiste que ce qui produit une valeur observable.
 De cette distinction découle la propriété dont dépend toute la fin du pipeline, la
 _non-interférence_ : le comportement entrée-sortie d'un programme ne peut dépendre de ce qui
 appartient à la phase de compilation {cite "niuCostawareLogicalFramework2022"}[]. C'est elle, et non
-une simple convention d'ingénierie, qui autorise la Phase 8 du chapitre 6 à purger les blocs de
+une simple convention d'ingénierie, qui autorise la Phase 10 du chapitre 6 à purger les blocs de
 spécification sans changer le programme. C'est elle aussi qui impose la règle générale du
 §{num "sec:c3-les-contraintes-de-valeur"}[] — aucun éliminateur ne discrimine sur un argument
 appartenant à la phase de compilation. Les cinq mécanismes d'effacement que les chapitres suivants
@@ -756,7 +781,13 @@ c'est-à-dire une transition de réseau de Petri dont plusieurs places d'entrée
 seul tenant. Le séquencement des actions est le produit non commutatif de la quantale d'effets, et
 son itération l'opération induite. La couche 2 n'est donc pas définie par soustraction — ni pure, ni
 linéaire stricte — mais par cette liste positive : c'est un calcul de processus dont ce document
-construit chaque constituant avant de les nommer ensemble. Le chapitre 4
+construit chaque constituant avant de les nommer ensemble. La frontière est déclarée ici, faute de quoi « couche 2 » désignerait deux objets : (a) le
+fragment affine du $`\lambda`-calcul gradué, dont les règles sont écrites au
+§{num "sec:g-regles"}[], et (b) le calcul de processus — acteurs, canaux, boîtes aux lettres, jonctions,
+arènes, supervision — que les chapitres 4 et 7 décrivent et que la traduction construit dans la cible.
+Le noyau formel contient (a) et les règles de la couche 2 concurrente écrites au
+§{num "sec:g-couche2"}[] ; (b) est l'image de (a) sous la traduction, non une identification du langage
+source à un langage concurrent. Le chapitre 4
 (§{num "sec:c4-le-calcul-de-processus"}[]) construit ce métalangage, donne la traduction et en tire
 trois conséquences — le foncteur d'effacement, celui de l'échelle du système, et la voie vers la
 fidélité de l'interpréteur de référence (chapitre 6,
@@ -900,7 +931,12 @@ Sédimentation triadique : fragments logiques, couches et garanties
 
 La table {num "tab:sedimentation"}[] n'anticipe qu'un résultat ; chacune de ses colonnes sera
 reconstruite en son lieu propre — le mécanisme catégorique au chapitre 2, la garantie formelle au
-chapitre 3 pour ce qui concerne les valeurs, au chapitre 4 pour ce qui concerne l'exécution.
+chapitre 3 pour ce qui concerne les valeurs, au chapitre 4 pour ce qui concerne l'exécution. Elle donne
+la lecture par _singletons_ de l'usage : ses trois lignes sont les fragments
+$`\pi_{\mathbb{U}}^{-1}(\{\omega\})`, $`\pi_{\mathbb{U}}^{-1}(\{0,1\})` et $`\pi_{\mathbb{U}}^{-1}(\{1\})`, images
+réciproques de singletons de $`\mathbb{U}` par la projection de la décomposition ci-dessus ; les modalités de type du
+chapitre 3 sont, elles, des intervalles, que la table ne liste pas et dont ces trois fragments sont des cas
+particuliers.
 
 Deux lectures s'y ajoutent, qui ne se voient pas au premier passage et dont le reste du document se
 sert. La première est que la sédimentation ne fait pas qu'_ordonner_ des garanties : elle

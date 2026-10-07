@@ -5,6 +5,7 @@
 import Main
 import ArithTest
 import SemanticsTest
+import SpecToolsTest
 
 namespace MainTest
 
@@ -13,7 +14,7 @@ def testHello : Bool := Main.hello == "Hello, world!"
 
 /-- Every runtime check of the project. -/
 def tests : List (String × Bool) :=
-  [("hello", testHello)] ++ ArithTest.tests ++ SemanticsTest.tests
+  [("hello", testHello)] ++ ArithTest.tests ++ SemanticsTest.tests ++ SpecToolsTest.tests
 
 end MainTest
 

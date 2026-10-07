@@ -6,6 +6,7 @@
 
     python3 scripts/suivi.py check      # the status table covers every card, and only them
     python3 scripts/suivi.py fiches     # docs/suivi/FICHES-PR02.md
+    python3 scripts/suivi.py reste      # docs/suivi/RESTE-A-FAIRE.md (what remains, by nature of the work)
     python3 scripts/suivi.py enonces    # docs/suivi/correspondance-enonces.md
     python3 scripts/suivi.py dashboard  # refreshes the generated blocks of TABLEAU-DE-BORD.md
     python3 scripts/suivi.py all
@@ -96,6 +97,10 @@ def check() -> int:
     for i in extra:
         print(f"statut sans fiche : {i}")
     bad = [i for i, r in s.items() if r["statut"] not in SYMBOL]
+    for i, r in s.items():
+        if r["statut"] not in ("fermee", "ecartee") and r.get("nature") not in NATURES:
+            print(f"fiche ouverte sans nature : {i}")
+            bad.append(i)
     for i in bad:
         print(f"statut inconnu pour {i} : {s[i]['statut']}")
     print(f"{len(c)} fiches, {len(s)} statuts")
@@ -145,6 +150,51 @@ def render_fiches() -> str:
                 proof += (" · " if proof else "") + r["note"]
             title = c[i].replace("|", "\\|")
             out.append(f"| `{i}` | {SYMBOL[r['statut']]} | {title} | {proof} |")
+        out.append("")
+    return "\n".join(out)
+
+
+NATURES = OrderedDict(
+    [
+        ("decision", "Décisions de l'auteur"),
+        ("ratification", "À ratifier (appliqué, non confirmé)"),
+        ("conception", "Travaux de conception"),
+        ("preuve", "Preuves à conduire"),
+        ("redaction", "Rédaction restante"),
+        ("outil", "Contrôles et outillage"),
+        ("recherche", "Recherches et vérifications de sources"),
+    ]
+)
+
+
+def render_reste() -> str:
+    """The to-do view: every card that is neither closed nor set aside, by nature of the work."""
+    c, s = cards(), statuts()
+    open_rows = [r for r in s.values() if r["statut"] not in ("fermee", "ecartee")]
+    out = [
+        "# Reste à faire",
+        "",
+        "Vue **produite** par `scripts/suivi.py reste` à partir de [`fiches-statuts.csv`](fiches-statuts.csv) (colonnes `nature`, `avancement`, `suite`, `depend`). Ne pas éditer ce fichier : tenir le CSV.",
+        "",
+        f"**{len(open_rows)} fiches** restent à traiter sur {len(s)} ; {sum(1 for r in s.values() if r['statut'] == 'fermee')} sont fermées, {sum(1 for r in s.values() if r['statut'] == 'ecartee')} écartées. `avancement` est une estimation du travail accompli sur la fiche, pas une mesure.",
+        "",
+        "| Nature | Fiches | Avancement moyen |",
+        "|---|--:|--:|",
+    ]
+    for nat, label in NATURES.items():
+        rs = [r for r in open_rows if r["nature"] == nat]
+        if rs:
+            avg = sum(int(r["avancement"] or 0) for r in rs) // len(rs)
+            out.append(f"| {label} | {len(rs)} | {avg} % |")
+    out.append("")
+    for nat, label in NATURES.items():
+        rs = [r for r in open_rows if r["nature"] == nat]
+        if not rs:
+            continue
+        out += [f"## {label}", "", "| Fiche | Titre | Avancement | Prochaine étape | Dépend de |", "|---|---|--:|---|---|"]
+        for r in sorted(rs, key=lambda r: -int(r["avancement"] or 0)):
+            title = c.get(r["id"], "").replace("|", "\\|")[:90]
+            out.append(f"| `{r['id']}` | {title} | {r['avancement']} % | {r['suite']} | {r['depend']} |")
         out.append("")
     return "\n".join(out)
 
@@ -213,11 +263,15 @@ def main() -> int:
         if check():
             return 1
         write(SUIVI / "FICHES-PR02.md", render_fiches())
+    if cmd in ("reste", "all"):
+        if check():
+            return 1
+        write(SUIVI / "RESTE-A-FAIRE.md", render_reste())
     if cmd in ("enonces", "all"):
         write(SUIVI / "correspondance-enonces.md", render_enonces())
     if cmd in ("dashboard", "all"):
         dashboard()
-    if cmd not in ("check", "fiches", "enonces", "dashboard", "all"):
+    if cmd not in ("check", "fiches", "reste", "enonces", "dashboard", "all"):
         print(__doc__)
         return 2
     return 0

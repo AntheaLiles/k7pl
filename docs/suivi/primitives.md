@@ -2,6 +2,71 @@
 
 28 août 2026
 
+## PROPOSITION DE VOCABULAIRE (T-68) — à ratifier, rien n'est renommé
+
+**Mise à jour du 6 octobre 2026.** `T-68` est l'**avant-dernier** point de l'ordre de finition, juste avant la release
+`spec-v0.1.0` (porte P6) : ce tableau prépare le choix, il ne l'applique pas. Aucun constructeur, aucune règle et
+aucun renvoi du manuscrit n'est renommé. Il rassemble, par règle de typage, le mot que l'analyse ci-dessous retient
+(`retenu`, la fiche porte un `LEMME-RETENU`), celui qu'elle fait préférer là où la fiche n'a pas encore tranché
+(`proposé`), ce qui reste à arbitrer faute d'élément (`à arbitrer`) et ce qui est provisoire (`provisoire`). Les
+alternatives écartées et leurs raisons sont dans les entrées ci-dessous ; la règle de forme du manuscrit (deux
+constructeurs de même espèce portent des noms de même forme, pas d'abréviations de longueurs différentes) les départage.
+
+| Règle | Symbole | Mot | État | Pourquoi, en une ligne |
+|---|---|---|---|---|
+| `Var` | `x` | variable | retenu | universel |
+| `Lam` | `λx.M` | lambda | proposé | le mot de Church, héritage acquis ; `fn`, `fun` : trois abréviations concurrentes |
+| `App` | `M V` | application | proposé | terme exact, couvre aussi la composition ; ne s'écrit jamais |
+| `Th` | `{M}` | thunk | retenu | Levy, toute la littérature CBPV |
+| `Fo` | `V!` | force | retenu | Levy et Scheme, meilleur cas du critère d'usage |
+| `Ret` | `return V` | return | retenu | Levy et les monades ; risque de contresens connu (`produce` en repli) |
+| `Let` | `x ← M in N` | let | proposé | la forme que la grammaire écrit déjà ; `bind` est encombré (`bind-to`, `bind-left`) |
+| `One` | `()` | unit | proposé | le nom du type ; demande deux espaces de noms |
+| `OneE` | `let () = V in N` | (aucun mot) | à arbitrer | motif contre forme dédiée, débat ouvert |
+| `Pair` | `(V₁, V₂)` | pair | proposé | usuel ; ne dit pas la disjonction (P1), qu'une remarque dit |
+| `Split` | `let (x,y) = V in N` | split | proposé | direct ; collision possible avec le découpage de séquences |
+| `Inj` | `inj_i V` | inject | proposé | terme catégorique, forme longue |
+| `Case` | `case V of {i ↦ N_i}` | case | proposé | ML, Haskell, Scheme ; `match` est réservé au filtrage de textes |
+| `With` | `⟨M_i⟩` | with | proposé | logique linéaire ; `handler` confond type et usage |
+| `Proj` | `M.i` | project | proposé | terme catégorique ; `send` ne vaut que pour les acteurs |
+| `Pack` | `pack (W, V)` | pack | retenu | usuel et exact |
+| `Open` | `open V as (α,x) in N` | unpack | proposé | symétrique de `pack` ; `open` est pris par les fichiers |
+| `Box` | `box_r V` | box | proposé | le mot du manuscrit et de la logique modale |
+| `Unbox` | `unbox V as x in N` | unbox | proposé | symétrique de `box` |
+| `Sc` | `handle / sc_f(V, M)` | handle | proposé | Plotkin et Pretnar, universel |
+| `Op` | `perform_op(V)` | perform | proposé | Eff, OCaml 5 ; `raise` serait un contresens |
+| `Fold` | `fold` | repliage | retenu | Malcolm, sans concurrent |
+| `Unfold` | `unfold` | dépliage | retenu | inverse exact du précédent |
+| `Out` | `out` | observation | retenu | structure de la coalgèbre terminale |
+| `Cop` | `⟨⟨j ↦ c_j⟩⟩` | copatron | retenu | Abel et Pientka, seul en usage |
+| `Gen` | `Λα. c` | généralisation | proposé | Damas et Milner ; « abstraction de type » plus long |
+| `Inst` | `c [W]` | instanciation | proposé | Damas et Milner |
+| `Del` | `delay` | différer | à arbitrer | « à arbitrer au temps 2 » |
+| `Alw` | `always` | toujours | à arbitrer | idem |
+| `Alw⁻` | `at` | à | à arbitrer | préposition : rompt la règle de forme des constructeurs |
+| `Now` | `now` | maintenant | à arbitrer | idem |
+| `Wait` | `wait` | attendre | à arbitrer | sous la décision sur la contrainte manquante |
+| `Nxt` | `next` | suivant | à arbitrer | introduction de ○V, ajoutée à la séance 32 (grammaire corrigée) ; même famille que les autres formes temporelles |
+| `When` | `when` | quand | à arbitrer | idem |
+| `VecI`, `VecE` | `[v₀,…]`, `iter` | pli indexé gradué | proposé | nom donné par l'entrée du vecteur ; le vecteur en est une instance |
+| `Fix` | `fix` | point fixe | retenu | Datafun ; « récursion » serait faux |
+| `Par` | `c ∥ c` | mise en parallèle | retenu | dit l'absence d'ordre |
+| `Vmap` | `vmap` | application vectorisée | retenu | dit ce que la règle achète |
+| `Spawn` | `spawn` | engendrement | retenu | création sans attente |
+| `Slice` | `slice` | découpe | provisoire | `partition` et `tranche` en concurrence ; à lier à la règle de forme |
+| `New` | `new` | création de boîte | retenu | contexte nul : rien |
+| `Send` | `send` | émission | retenu | l'asynchronie est primitive |
+| `Guard` | `guard` | réception gardée | retenu | un motif conjonctif de messages est consommé d'un seul tenant |
+| `Free` | `free` | libération | retenu | même mot que pour les ressources de couche 1 |
+| `Loc` | `loc_n` | lieu | à arbitrer | introduction de @ₙV, ajoutée à la séance 32 ; ne pas confondre avec `At` |
+| `At` | `at_n` | localisation | retenu | même mot que la modalité qui le type |
+| `Declassify` | `declassify_ℓ` | déclassification | retenu | mot de Sabelfeld et Myers, déjà du manuscrit ; règle nommée à la séance 32 |
+| `Move` | `move` | déplacement | retenu | la ressource reste unique |
+| `Try` | `try` | récupération | retenu | un recours, non une garantie d'éviter la chute |
+
+Ce tableau ne tranche pas pour l'auteur : les mots `proposé` suivent le critère d'usage de l'analyse et la règle de forme ; ils
+se ratifient en bloc, ou un par un. Les six formes temporelles et `OneE` n'ont pas d'élément dans le texte pour choisir.
+
 ## IDENTIFICATION DES PRIMITIVES
 
 ### DOING Désigner une liaison
@@ -542,10 +607,10 @@ envoi
 
     SYMBOLE: guard | FAMILLE: couche 2 | REGLE: Guard | LEMME-RETENU: réception gardée | LEMME-CANDIDAT: réception gardée
 
-Attendre d'une boîte l'un des messages que son motif annonce, et poursuivre avec le motif qui reste.
+Attendre d'une boîte l'un des motifs de messages que son type annonce — un message, ou une conjonction de messages consommés d'un seul tenant —, et poursuivre avec le motif qui reste.
 
 réception gardée  
-Le terme reçu. La garde est ce qui distingue cette règle d'une lecture : plusieurs messages sont possibles, un seul est consommé, et le type de la boîte en est transformé.
+Le terme reçu. La garde est ce qui distingue cette règle d'une lecture : plusieurs motifs sont possibles, un seul est consommé, et le type de la boîte en est transformé.
 
 filtrage de boîte  
 Écarté. Le filtrage décompose une valeur donnée ; ici rien n'est donné tant qu'un message n'est pas arrivé, et c'est l'attente qui fait la différence.
@@ -561,6 +626,33 @@ Le terme reçu, et le même mot que pour les ressources de couche 1, à bon droi
 
 fermeture  
 Écarté. Fermer suggère qu'on pourrait encore lire ce qui reste ; la règle exige au contraire qu'il ne reste rien.
+
+### DOING Poser une garantie pour le pas suivant
+
+    SYMBOLE: next | FAMILLE: temporelles | REGLE: Nxt | LEMME-RETENU | LEMME-CANDIDAT: suivant, next
+
+Attester qu'une valeur sera disponible au pas suivant, sous un contexte lui-même différé.
+
+suivant  
+À arbitrer avec les autres formes temporelles (T-68, consolidation de la séance 32). Ajoutée avec la correction de la grammaire : sans elle, aucune valeur close n'habite ○◇V.
+
+### DOING Attester qu'une valeur est à un lieu
+
+    SYMBOLE: loc_n | FAMILLE: couche 1 | REGLE: Loc | LEMME-RETENU | LEMME-CANDIDAT: lieu, localisée
+
+Introduire la modalité de localisation sur une valeur : l'étiquette de lieu, sans déplacer.
+
+lieu  
+À arbitrer (T-68, séance 32). Ajoutée avec la correction de la grammaire : sans elle, aucune valeur close n'habite @ₙV, et la prémisse de `Move` n'a rien à recevoir.
+
+### DOING Abaisser le niveau d'une valeur nommée à l'avance
+
+    SYMBOLE: declassify_ℓ | FAMILLE: noyau | REGLE: Declassify | LEMME-RETENU: déclassification | LEMME-CANDIDAT: déclassification
+
+Rendre, au niveau abaissé, une boîte déjà nommée par une échappatoire.
+
+déclassification  
+Le terme de Sabelfeld et Myers, déjà employé par tout le manuscrit. La règle porte désormais son nom (séance 32).
 
 ### DOING Localiser un calcul
 

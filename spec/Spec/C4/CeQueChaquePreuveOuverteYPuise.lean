@@ -34,7 +34,7 @@ compris (§{num "sec:g-relation-logique"}[]) ; son extension attend le même sys
 _divulgation délimitée_ (théorème {num "thm:divulgation_delimitee"}[]) est démontrée sous la même
 réserve, la relation étant celle-là même requantifiée. _Cette réserve est précisée depuis le
 §{num "sec:g-sortes"}[]_ : le système de sortes rend la clause de session définissable, de sorte que les trois
-preuves s'étendent en principe à la strate qu'elles laissaient ; l'extension n'est pas conduite. Les trois reposent sur le lemme de substitution
+preuves s'étendent en principe à la strate qu'elles laissaient ; la clause est écrite, avec la correspondance des noms et le fil de temps enfilé, mais l'extension n'est pas conduite. Les trois reposent sur le lemme de substitution
 et sur la loi de cohérence qu'il a réclamée. Les _règles de la loi distributive graduée_ et celles
 de la _gradation indexée_ sont des règles, et appartiennent au jeu de règles du §{num "sec:g-regles"}[] dès qu'elles seront écrites.
 

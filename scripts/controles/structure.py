@@ -98,7 +98,34 @@ def glossary_covers_layers():
         ok("glossaire : les trois couches y figurent")
 
 
+def error_codes_catalogued():
+    """Every error code the body mentions must exist in the catalogue of annex A."""
+    annex = corpus.chapter("AnnexeA")
+    body = "\n".join(t for n, _, t in corpus.modules() if not n.startswith("AnnexeA"))
+    known = set(re.findall(r"ERR-[A-Z]+-\d+", annex))
+    cited = set(re.findall(r"ERR-[A-Z]+-\d+", body))
+    missing = sorted(cited - known)
+    if missing:
+        ko("codes d'erreur cités hors du catalogue de l'annexe A : %s" % missing)
+    else:
+        ok("codes d'erreur : %d au catalogue, %d cités dans le corps, tous catalogués" % (len(known), len(cited)))
+
+
+def error_codes_paired():
+    """Every code of annex A is paired with the premise it lacks (`docs/suivi/codes-et-premisses.md`)."""
+    table = corpus.SPEC.parent / "docs" / "suivi" / "codes-et-premisses.md"
+    known = set(re.findall(r"ERR-[A-Z]+-\d+", corpus.chapter("AnnexeA")))
+    if not table.exists():
+        ko("docs/suivi/codes-et-premisses.md introuvable")
+        return
+    paired = set(re.findall(r"^\| `(ERR-[A-Z]+-\d+)` \|", table.read_text(encoding="utf-8"), re.M))
+    if known - paired or paired - known:
+        ko("codes sans appariement : %s ; appariements sans code : %s" % (sorted(known - paired), sorted(paired - known)))
+    else:
+        ok("codes d'erreur : %d appariés à leur prémisse manquante" % len(known))
+
+
 def run():
     print("\n[Structure]")
-    for check in (references_resolve, labels_unique_and_prefixed, appendix_letters, tables_regular, no_author_comments, glossary_covers_layers):
+    for check in (references_resolve, labels_unique_and_prefixed, appendix_letters, tables_regular, no_author_comments, glossary_covers_layers, error_codes_catalogued, error_codes_paired):
         check()

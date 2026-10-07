@@ -1,0 +1,25 @@
+ancien,nouveau,motif,remplacement,fichier,occurrences
+inj,inject,\\mathsf\{inj\},\\mathsf{inject},spec/Spec/C3/GrammaireDesTermes.lean,1
+inj,inject,\\mathsf\{inj\},\\mathsf{inject},spec/Spec/C3/ReglesDeTypage.lean,1
+inj,inject,\\mathsf\{inj\},\\mathsf{inject},spec/Spec/C4/SemantiqueOperationnelle.lean,4
+iter,iterate,\\mathsf\{iter\},\\mathsf{iterate},spec/Spec/C3/GrammaireDesTermes.lean,1
+iter,iterate,\\mathsf\{iter\},\\mathsf{iterate},spec/Spec/C3/ReglesDeTypage.lean,1
+iter,iterate,\\mathsf\{iter\},\\mathsf{iterate},spec/Spec/C4/SemantiqueOperationnelle.lean,3
+vmap,vectormap,\\mathsf\{vmap\},\\mathsf{vectormap},spec/Spec/C3/GrammaireDesTermes.lean,1
+vmap,vectormap,\\mathsf\{vmap\},\\mathsf{vectormap},spec/Spec/C3/ReglesDeTypage.lean,2
+vmap,vectormap,\\mathsf\{vmap\},\\mathsf{vectormap},spec/Spec/C4/SemantiqueOperationnelle.lean,3
+open,unpack,\\mathsf\{open\},\\mathsf{unpack},spec/Spec/C3/GrammaireDesTermes.lean,1
+open,unpack,\\mathsf\{open\},\\mathsf{unpack},spec/Spec/C3/ReglesDeTypage.lean,1
+open,unpack,\\mathsf\{open\},\\mathsf{unpack},spec/Spec/C4/SemantiqueOperationnelle.lean,1
+at (□),current,\\mathsf\{at\}(?!_),\\mathsf{current},spec/Spec/C3/GrammaireDesTermes.lean,3
+at (□),current,\\mathsf\{at\}(?!_),\\mathsf{current},spec/Spec/C3/ReglesDeTypage.lean,2
+at (□),current,\\mathsf\{at\}(?!_),\\mathsf{current},spec/Spec/C4/SemantiqueOperationnelle.lean,3
+loc,placed,\\mathsf\{loc\},\\mathsf{placed},spec/Spec/C3/GrammaireDesTermes.lean,2
+loc,placed,\\mathsf\{loc\},\\mathsf{placed},spec/Spec/C3/ReglesDeTypage.lean,1
+loc,placed,\\mathsf\{loc\},\\mathsf{placed},spec/Spec/C4/SemantiqueOperationnelle.lean,5
+inj,inject,LITERAL:mathsf\{inj\},mathsf\{inject\},scripts/controles/croise.py,
+iter,iterate,LITERAL:mathsf\{iter\},mathsf\{iterate\},scripts/controles/croise.py,
+vmap,vectormap,LITERAL:mathsf\{vmap\},mathsf\{vectormap\},scripts/controles/croise.py,
+open,unpack,LITERAL:mathsf\{open\},mathsf\{unpack\},scripts/controles/croise.py,
+at (□),current,"LITERAL:""Alw^{-}"": (r""mathsf\{at\}""","""Alw^{-}"": (r""mathsf\{current\}""",scripts/controles/croise.py,
+loc,placed,LITERAL:mathsf\{loc\}_n,mathsf\{placed\}_n,scripts/controles/croise.py,

@@ -130,6 +130,14 @@ une restriction d'une mutilation.
 :::
 ::::
 
+La distinction entre compilation et exécution est une _modalité_, non seulement une phase. Son ordre
+est le treillis à deux points, compilation avant exécution ; le code sous $`\Box` est disponible à la
+compilation, ce que le chapitre 1 reconnaît comme une nécessité modale. L'effacement de phase de la
+Phase 10, qui retire tout ce qui n'appartient qu'à la compilation, est alors l'instance de ce schéma de
+restriction pour cet ordre, et la non-interférence entre phases s'énonce comme l'égalité modulo cette
+projection. Le mot « compilation » désigne ainsi une seule chose à deux niveaux : la phase où les
+macros s'exécutent, et la propriété modale que cette phase garantit ; la formalisation lie les deux.
+
 Cinq constructions en sont des instances, et les reconnaître comme telles dispense de vérifier cinq
 fois la même chose. La _projection conservatrice_ retire les opérations d'une sorte et garde le
 temps ; la _projection observationnelle_ retire ce qui excède un niveau, temps compris ;
@@ -207,6 +215,13 @@ une dérivation. Que l'oubli soit une fibre est le théorème {num "thm:raffine
 le système de raffinement dont la traduction est le foncteur.
 :::
 ::::
+
+Les obligations se factorisent comme les théories : quatre preuves transversales portent l'essentiel
+— la substitution (théorème {num "thm:substitution"}[]), la cohérence des coercions (théorème
+{num "thm:coherence_subsomption"}[]), l'effacement et la simulation (théorème
+{num "thm:schema_effacement"}[]), la progression polarisée (théorème {num "thm:progression_polarisee"}[])
+— et le reste se requalifie comme leurs instances. Le manque n'est pas de théorie mais de quelques
+théorèmes de liaison explicites, et ajouter des mécanismes serait la mauvaise direction.
 
 Quatre constructions en sont des instances, et la quatrième est celle qui coûtait le plus cher : la
 fidélité de l'interpréteur de référence. Elle cesse d'être une propriété à établir construction par

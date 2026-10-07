@@ -1337,6 +1337,30 @@
    "urldate": "2026-08-02",
    "volume": "216"
   },
+  "bergstraDivisionZeroCommon2015": {
+   "date": "2015",
+   "eprint": "1406.6878",
+   "eprinttype": "arxiv",
+   "howpublished": "Chapitre d'ouvrage, Springer",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Jan A.",
+      "last": "Bergstra",
+      "lineage": ""
+     },
+     {
+      "first": "Alban",
+      "last": "Ponse",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Division by Zero in Common Meadows",
+   "type": "misc",
+   "url": "https://arxiv.org/abs/1406.6878"
+  },
   "berryChemicalAbstractMachine1992": {
    "date": "1992-04",
    "doi": "10.1016/0304-3975(92)90185-I",
@@ -1998,6 +2022,28 @@
    "url": "https://www.cambridge.org/core/product/identifier/S0956796800003853/type/journal_article",
    "urldate": "2025-05-15",
    "volume": "11"
+  },
+  "carlstromWheelsDivisionZero2004": {
+   "date": "2004",
+   "doi": "10.1017/S0960129503004110",
+   "journaltitle": "Mathematical Structures in Computer Science",
+   "langid": "english",
+   "number": "1",
+   "pages": "143--184",
+   "persons": {
+    "author": [
+     {
+      "first": "Jesper",
+      "last": "Carlström",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Cambridge University Press",
+   "title": "Wheels — On Division by Zero",
+   "type": "article",
+   "url": "https://doi.org/10.1017/S0960129503004110",
+   "volume": "14"
   },
   "castellanGeometryCausalityMultitoken2023": {
    "date": "2023-01-09",
@@ -4302,6 +4348,16 @@
    "url": "https://dl.acm.org/doi/10.1145/3571740",
    "urldate": "2025-05-07",
    "volume": "7"
+  },
+  "ieeeIEEEStandardFloatingPoint2019": {
+   "date": "2019-07-22",
+   "doi": "10.1109/IEEESTD.2019.8766229",
+   "langid": "english",
+   "note": "IEEE Std 754-2019 (révision de IEEE Std 754-2008)",
+   "persons": {},
+   "publisher": "IEEE",
+   "title": "{{IEEE Standard}} for {{Floating-Point Arithmetic}}",
+   "type": "standard"
   },
   "iversonNotationToolThought1980a": {
    "date": "1980-08",

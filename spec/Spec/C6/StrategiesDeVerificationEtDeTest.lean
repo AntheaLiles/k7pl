@@ -33,7 +33,7 @@ contrainte logique.
 La vérification décrite au §{num "sec:c6-le-processus-de-compilation"}[] a pour conséquence de vider
 de leur sens la plupart des catégories usuelles de test, en les faisant coïncider avec des
 mécanismes déjà établis plutôt qu'avec des pratiques séparées. Un test unitaire, dans cette lecture,
-est _couvert pour partie_ par un type de raffinement vérifié par le solveur SMT de la Phase 5. Un
+est _couvert pour partie_ par un type de raffinement vérifié par le solveur SMT de la Phase 7. Un
 test d'intégration l'est par la vérification du DAG topologique du chapitre 4
 (§{num "sec:c4-echelle-du-systeme"}[]). Un test de résilience l'est par l'arbre de supervision
 lui-même, dont la politique de redémarrage (chapitre 4, §{num "sec:c4-echelle-du-systeme"}[])
@@ -47,14 +47,14 @@ confiance. Écrire l'équivalence plutôt que le recouvrement ferait passer pour
 qu'espéré.
 
 Les doctests occupent, dans ce paysage, une position particulière : le compilateur les exécute comme
-des tests unitaires ordinaires pendant la Phase 1, avant toute génération de code, ce qui en fait la
+des tests unitaires ordinaires pendant la compilation, avant la génération de code (Phase 9), ce qui en fait la
 seule forme de test dont l'échec bloque la compilation elle-même plutôt qu'une exécution ultérieure.
 En mode `+strict-tdd`, un symbole public sans doctest associé est lui-même rejeté — la documentation
 devient une obligation de preuve comme une autre, vérifiée avec le même sérieux que le jugement
 lui-même.
 
 Un résidu dynamique subsiste néanmoins, et ce chapitre ne prétend pas l'éliminer : la falsification
-des indices SMT par test de propriétés (§{num "sec:c6-le-processus-de-compilation"}[], Phase 5),
+des indices SMT par test de propriétés (§{num "sec:c6-le-processus-de-compilation"}[], Phase 7),
 activée en mode `+verify`, reste un test au sens classique du terme — une exécution qui pourrait
 échouer, plutôt qu'une preuve qui ne le peut pas. Le chemin nominal de K7PL est statique de bout en
 bout ; ce résidu en est la seule exception assumée, et il ne porte que sur les indices qu'un

@@ -195,6 +195,8 @@ que sur demande, par la plus petite modification, et on consigne le changement (
 | `{rmq}[…]` | remarque marginale numérotée (« RMQ n. ») |
 | `{sc}[…]` | petites capitales |
 | `{listof "figure"}` | liste des figures, `"table"`, `"formule"`, `"listing"` |
+| `{printindex}` | index à pages (PDF) et à sections (HTML) ; les termes de `tools/SpecExt/IndexTerms.lean` sont reconnus dans le texte à la génération (`SpecExt.AutoMark`), sans balisage à la main |
+| `{idx "terme"}[texte]`, `{gloss "définition"}[texte]` | marques posées par la reconnaissance automatique (index, infobulle du glossaire) ; ne s'écrivent pas à la main |
 | `:::comment` + bloc de code | commentaire d'auteur, conservé dans la source, jamais rendu |
 | `{missing "label"}[]` | renvoi non résolu du manuscrit d'origine, imprimé `??` — à remplacer par `{num}` dès que l'étiquette existe |
 

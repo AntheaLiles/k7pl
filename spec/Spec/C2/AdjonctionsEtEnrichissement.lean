@@ -218,10 +218,20 @@ $`e[v/x] \in \mathcal{X}`, et l'attaquant ferait comparer le secret à une valeu
 ::::formula (label := "eq:regle-declassify") (kind := "equation")
 ```
 \begin{equation}
-\frac{\;\Delta \vdash_{\mathcal{G}} e : !_{\ell}\,A \qquad e \in \mathcal{X} \qquad \ell' \leq \ell\;}{\;\Delta \vdash_{\mathcal{G}} \mathbf{declassify}_{\ell'}(e) : !_{\ell'}\,A\;}
+\textsc{Declassify}\;\frac{\;\Delta \vdash_{\mathcal{G}} v : !_{r}\,V \qquad v \in \mathcal{X} \qquad \mathrm{fv}(v) = \emptyset \qquad r = \langle u, m, \ell, \beta \rangle \qquad \ell' \leq \ell\;}{\;\Delta \vdash_{\mathcal{G}} \mathbf{declassify}_{\ell'}(v) : F_{\mathbf{1}}\,(!_{r[\ell']}\,V) \mid \mathbf{1}\;}
 \end{equation}
 ```
 ::::
+
+Quatre précisions de forme, que la grammaire des termes et la preuve réclamaient. La clôture des
+échappatoires n'est plus une hypothèse du texte : la règle l'exige elle-même par sa prémisse
+$`\mathrm{fv}(v) = \emptyset`, et c'est ce qui ferme le contournement par substitution que le chapitre 4 relève. L'argument est une _valeur_ $`v`, et non
+une expression quelconque : les éléments de $`\mathcal{X}` sont clos et évalués dans l'état initial, ils sont donc
+des valeurs closes, ce que la grammaire écrivait déjà. La déclassification _consomme_ cette valeur pour en
+produire une autre, d'un type qui diffère ; elle est donc un calcul, d'effet neutre, qui rend le résultat sous
+$`F_{\mathbf{1}}`. Et le type conclu s'écrit $`!_{r[\ell']}\,V`, le grade $`r` dont seul le niveau est abaissé en
+$`\ell'` : c'est ce que la notation $`!_{\ell'} A` du texte abrège (§{num "sec:g-grammaire-types"}[]), les
+trois autres composantes du grade ne changeant pas.
 
 Ce que cette règle laisse ouvert est ce qu'une garantie doit fermer : rien n'y interdit qu'une
 valeur secrète quelconque transite par une échappatoire sous un déguisement, et l'échappatoire
@@ -243,14 +253,14 @@ $`\mathcal{X}`_, les exécutions $`P(s_1)` et $`P(s_2)` sont indiscernables à c
 :::
 
 :::proofsketch
-Non démontré : l'énoncé est une proposition, et ce croquis n'en est que le plan. La quantification
+Non démontré en l'état : l'énoncé est une proposition, et ce croquis n'en est que le plan. La preuve est conduite comme un cas de l'induction du lemme fondamental, sous la relation renforcée par $`\mathcal{X}` (§{num "sec:g-relation-logique"}[], divulgation délimitée) : seul le cas de {sc}[Declassify] change, et la condition de bord $`e \in \mathcal{X}` le ferme. La clôture des échappatoires est désormais imposée par la règle elle-même (prémisse $`\mathrm{fv}(v) = \emptyset`) ; l'énoncé reste une proposition tant que le lemme fondamental n'est pas conduit sur tous ses cas. La quantification
 est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell` produisent
 des sorties indiscernables — ce serait la non-interférence, que la déclassification viole par
 construction — mais que deux états qui s'accordent _en outre_ sur les échappatoires le fassent. La
 route est la paramétricité, obtenue au moyen de types existentiels {cite "algehedSimpleNoninterferenceParametricity2019"}[] : on construit la relation logique qui relie deux
 états s'accordant sur $`\ell` et sur $`\mathcal{X}`, et le lemme fondamental
 (théorème {num "thm:lemme_fondamental"}[]) l'étend à tout programme bien typé. Elle suppose la clause
-de clôture des échappatoires posée plus haut (chaque $`e \in \mathcal{X}` est close), faute de quoi
+de clôture des échappatoires que la règle porte (chaque $`e \in \mathcal{X}` est close), faute de quoi
 la substitution ouvrirait le contournement par blanchiment, et le lemme de non-interférence du
 théorème {num "thm:non_interference"}[] pour les cas où aucune déclassification n'est employée.
 :::
@@ -359,7 +369,7 @@ le cardinal du plus grand support. Cette restriction est plus étroite que la co
 et c'est délibéré : elle est vérifiable sans preuve, à la manière dont le
 §{num "sec:c2-algebres-coalgebres-et-points"}[] approche la bonne fondation par un indice de taille.
 
-Le mot « monotone » recouvre dans ce document trois notions qu'il faut tenir distinctes, une quatrième, la marque de monotonie du grade, étant une composante et non une propriété. Une _fonction monotone_ $`f : S \to_{\text{mon}} S` préserve l'ordre de $`S` ; un _domaine ordonné_ est un type $`S \in \mathsf{Trellis}_{\text{fin}}`, muni d'un ordre et des conditions ci-dessus ; un _ensemble de règles monotone_ est une méta-propriété du programme, qui garantit qu'ajouter un fait n'en retire aucun. Elles se composent — les règles d'un programme monotone se compilent en fonctions monotones sur un domaine ordonné, dont le point fixe est défini — sans se confondre.
+Le mot « monotone » recouvre dans ce document trois notions qu'il faut tenir distinctes, une quatrième, la marque de monotonie du grade, étant une composante et non une propriété. Une _fonction monotone_ $`f : S \to_{\text{mon}} S` préserve l'ordre de $`S` ; un _domaine ordonné_ est un type $`S \in \mathsf{Trellis}_{\text{fin}}`, muni d'un ordre et des conditions ci-dessus ; un _ensemble de règles monotone_ est une méta-propriété du programme, qui garantit qu'ajouter un fait n'en retire aucun. Elles se composent — les règles d'un programme monotone se compilent en fonctions monotones sur un domaine ordonné, dont le point fixe est défini — sans se confondre. Aucun cadre unique ne les réunit, et ce n'est pas un manque : elles ne partagent aucun mécanisme, seulement un mot.
 
 ::::thm (label := "thm:terminaison_lfp")
 :::title

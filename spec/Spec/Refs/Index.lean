@@ -19,34 +19,10 @@ file := "refs-index"
 tag := "refs-index"
 %%%
 
-* absence de blocage
-* acyclicité
-* amortissement
-* analyse de coût
-* atomicité
-* borne de temps d'exécution
-* cohérence de la subsomption
-* compilation séparée
-* confidentialité
-* convergence
-* décidabilité
-* differential testing
-* édition de liens
-* effacement de phase
-* emprunt
-* inférence de type
-* intégrité
-* localité
-* mécanisation
-* ordonnancement
-* partage en lecture
-* préservation du typage
-* principalité
-* productivité
-* progression
-* réplication
-* reprise après panne
-* substitution
-* terminaison
-* unification
-* vérification bidirectionnelle
+L'index recense ce dont le document _traite_ en plusieurs endroits distincts, non ce qu'il mentionne :
+un concept traité une seule fois se trouve par la table des matières, et un mot présent partout ne se
+cherche pas. Chaque terme est suivi des pages du PDF où il apparaît et, dans la version HTML, des
+sections correspondantes. Les occurrences sont reconnues dans le texte à la génération, sans balisage
+à la main (pluriel et casse indifférents).
+
+{printindex}

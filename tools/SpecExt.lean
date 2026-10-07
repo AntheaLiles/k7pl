@@ -12,4 +12,9 @@ import SpecExt.Float
 import SpecExt.Cite
 import SpecExt.Aside
 import SpecExt.Lists
+import SpecExt.IndexCore
+import SpecExt.IndexTerms
+import SpecExt.Index
+import SpecExt.AutoMark
+import SpecExt.Translate
 import SpecExt.Setup

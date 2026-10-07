@@ -120,7 +120,12 @@ mesure qui fonde la terminaison des catamorphismes (chapitre 3, §{num "sec:c3-l
 Le lemme de portée (H2) se démontre : deux segments $`[a,b]` et $`[c,d]` d'une même arène sont
 disjoints exactement lorsque $`b < c` ou $`d < a`, formule de l'arithmétique linéaire que le solveur
 décharge ; des cellules d'indices distincts étant des régions distinctes, deux capacités de
-$`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) se lit sur la règle {sc}[Slice] (§{num "sec:g-regles"}[]) : une capacité sur un segment ne naît que de l'élimination de l'arène, linéaire en l'arène, ou de la découpe d'une capacité détenue, qui la consomme ; par induction sur la dérivation, deux capacités sur un même segment en contexte clos exigeraient deux consommations de la même ressource linéaire, impossible sans diagonale. Reste à écrire l'élimination de l'arène, exception déclarée du jeu de règles : (H1) en dépend.
+$`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) se lit sur la règle {sc}[Slice] (§{num "sec:g-regles"}[]) : une capacité sur un segment ne naît que de l'élimination de l'arène, linéaire en l'arène, ou de la découpe d'une capacité détenue, qui la consomme ; par induction sur la dérivation, deux capacités sur un même segment en contexte clos exigeraient deux consommations de la même ressource linéaire, impossible sans diagonale. Une _région_ est un segment d'arène vu comme discipline de portée : le segment $`\rho` dénoté par un
+type $`\mathsf{Cap}\;\rho`, valide tant que la capacité n'est pas consommée, sans notion de durée de vie
+séparée. Le polymorphisme paramétrique ordinaire suffit à la définir, la portée étant celle de
+l'indice $`\rho`. L'élimination de l'arène, exception déclarée du jeu de règles, reste une hypothèse de
+module (`docs/suivi/hypotheses-de-module.md`) : (H1) vaut _sous l'hypothèse que l'allocation est
+linéaire en l'arène_, que le modèle mémoire de la section suivante établit pour son propre compte.
 :::
 ::::
 

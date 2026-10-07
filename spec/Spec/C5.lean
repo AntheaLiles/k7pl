@@ -45,7 +45,7 @@ Trois arbitrages en découlent, dont le prix est nommé plutôt que caché. Un d
 points où le fragment change, non chaque expression : lecture conforme au principe de Flat-Wiring.
 Mais qui interdit de vérifier le marquage par simple comptage, décider si un délimiteur est requis
 supposant de connaître le fragment de la fonction appelée. Le marquage est donc vérifié en Phase
-1.5, après résolution des noms, et non en Phase 1 : un fichier isolé ne suffit pas à l'établir, ce
+2, après résolution des noms, et non en Phase 0 : un fichier isolé ne suffit pas à l'établir, ce
 qui est le prix de la lecture retenue.
 
 Le deuxième porte sur le statut des glyphes, et il détermine la place qu'ils occupent dans le

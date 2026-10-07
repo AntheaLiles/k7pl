@@ -15,6 +15,18 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+### Ajouté
+
+- Suivi : deux études comparatives sans choix pour `ANOM-17` (`docs/recherche/etude-spawn-fil-de-temps.md`, `docs/recherche/etude-parallele-fourche-entrelacement.md`) et fichier de reprise des agents (`docs/suivi/reprise-agents.md`) ; liens ajoutés à `DECISIONS.md`, au tableau de bord et à l'instruction des décisions.
+- Suivi : séance 33 (`docs/journal/2026-10-07-pr-02-33-sources-des-singularites.md`), note de sources des propagations de singularités (`docs/recherche/sources-singularites.md`) vérification exhaustive de l'algèbre des singularités (`scripts/verif_singularites.py`) et contrôle des tables de propagation du §3.2 contre la roue des fractions (`scripts/controles/singularites.py`) ; notice d'IEEE 754-2019 dans `biblio/references.json`.
+- Générateur de la spécification : index à pages et reconnaissance automatique des termes de l'index, du glossaire et des acronymes (`tools/SpecExt/Index.lean`, `AutoMark.lean`, `IndexCore.lean`, `IndexTerms.lean`), interface HTML en français (`tools/SpecExt/Translate.lean`), tests (`tests/SpecToolsTest.lean`, `lakefile.lean`), garde `scripts/controles/indexation.py` (`ANOM-09`, `ANOM-10`).
+- Suivi : séance 32 (`docs/journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md`) : décisions de l'auteur rédigées (numérotation des phases, singularités, grammaires, index et interface HTML), suivi mis à jour, études comparatives et consolidation du vocabulaire.
+- Suivi : séances 30 et 31 (`docs/journal/2026-10-06-pr-02-30-arbitrages-deja-pris.md`, `docs/journal/2026-10-06-pr-02-31-orientations-appliquees.md`) : audit des entrées « en attente » déjà arbitrées, orientations de l'instruction appliquées « à ratifier » ; `docs/suivi/DECISIONS.md` réorganisé (tranchées, à ratifier, en attente, une ligne par décision, changements de sceau proposés) ; proposition de vocabulaire `T-68` en tête de `docs/suivi/primitives.md` (rien n'est renommé) ; `FACT-21` et `FACT-22` consignées dans `docs/suivi/factorisations-refusees.md`.
+- Suivi : séance 29 (`docs/journal/2026-10-06-pr-02-29-anom-17-et-preuve-03.md`) ; instruction des constructeurs sans schéma de réduction (`docs/recherche/instruction-des-decisions.md`, section `ANOM-17`).
+- Suivi : quatrième relevé bibliographique (`docs/bibliographie/verifications-pr02.md`), anomalie `ANOM-17` (couverture de la relation de réduction), séance 28.
+- Contrôles sur le Verso : sondes sémantiques, vocabulaire de l'axiome, règles sans prémisse, productions dégénérées, types non engendrés, catalogue des codes d'erreur.
+- `scripts/suivi.py reste` : vue `docs/suivi/RESTE-A-FAIRE.md` (fiches non closes par nature, avancement, prochaine étape, dépendances).
+
 ### Added
 
 - Audit OpenSSF (`docs/security/`) : six audits indépendants (Scorecard, bonnes pratiques CII, gouvernance GitHub,

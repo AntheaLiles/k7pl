@@ -145,7 +145,7 @@ interdit : dans un sens l'affaiblissement passerait de permis à interdit, ce q
 condition refuse ; dans l'autre, un grade contractable devrait s'envoyer sur un contractable d'un
 mode qui n'en a aucun, ce que la première refuse. Les deux conditions du morphisme de modes sont
 donc l'une et l'autre _actives_, et la chaîne à trois éléments que ce document emploie est le
-fragment totalement ordonné d'un treillis à quatre. Il faut alors dire ce que le langage atteint : les modes _atteignables_ par les opérations de dérivation sont $`\{\text{Lin}, \text{Aff}, \text{Unr}\}`, aucune règle ne produisant $`\text{Rel}`. Ce mode est un grade mathématiquement admissible, non effectivement générable ; la distinction est celle que le document applique ailleurs aux produits de grades, et elle reste à démontrer par examen des règles de production de grades.
+fragment totalement ordonné d'un treillis à quatre. Il faut alors dire ce que le langage atteint : les modes _atteignables_ par les opérations de dérivation sont $`\{\text{Lin}, \text{Aff}, \text{Unr}\}`, aucune règle ne produisant $`\text{Rel}`. Ce mode est un grade mathématiquement admissible, non effectivement générable ; la distinction est celle que le document applique ailleurs aux produits de grades. Elle se lit sur la manière dont un mode est donné : le mode d'un contexte n'est pas calculé, il est _attaché à la couche_, donc au délimiteur — `{ }` linéaire, `( )` affine, `[ ]` cartésien (table {num "tab:delimiteurs"}[]) —, et la règle d'imbrication à sens unique ne laisse aucune quatrième zone. La grammaire des grades laisse en revanche $`u \in \mathbb{N}_\infty` libre, et c'est voulu : les grades $`\text{Lin}_k` et $`1/N` en ont besoin, qu'une restriction de la grammaire aux modes déclarables casserait. $`\text{Rel}` reste donc un grade de l'algèbre qu'aucune zone du langage n'instancie ; une extension future qui le voudrait — la pertinence au sens de la logique du même nom — trouverait la grammaire prête et le système de zones fermé, et c'est le coût d'ouverture que le §{num "sec:c1-axiomatique-germinale"}[] assume. La preuve se réduit à constater que les trois délimiteurs sont les seuls producteurs de zones.
 
 Un corollaire mérite d'être tiré plutôt que laissé implicite, car il explique une facilité que ce
 document s'est permise. Un morphisme de modes induit en général une traduction qui n'est pas
@@ -355,7 +355,7 @@ celui du fragment ambiant, que le délimiteur a déjà annoncé (chapitre 5,
 écrit précisément dans le fragment que l'on a ouvert. Le second est l'_inférence locale_ : à
 l'intérieur d'une définition annotée, grades et types des liaisons internes sont inférés, la
 signature ne portant que sur la frontière. Ces deux dispositifs relèvent de l'élaboration et non du
-système de types : ce que la Phase 2 reçoit est la signature complète, reconstituée, et le parcours
+système de types : ce que la Phase 3 reçoit est la signature complète, reconstituée, et le parcours
 bidirectionnel qui suit est inchangé. L'inférence complète des modes de propriété est d'ailleurs
 attestée sur un système à trois axes {cite "lorenzenOxidizingOCamlModal2024"}[] ; le renoncement de
 K7PL porte sur le système gradué général, non sur cet axe.

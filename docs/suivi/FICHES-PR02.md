@@ -8,19 +8,19 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 
 | Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| `BLOQ` Bloquants | 14 | 9 | 5 | 0 | 0 | 0 | 0 |
-| `STRUCT` Structurels | 23 | 14 | 3 | 0 | 0 | 0 | 6 |
+| `BLOQ` Bloquants | 14 | 11 | 2 | 1 | 0 | 0 | 0 |
+| `STRUCT` Structurels | 23 | 19 | 0 | 4 | 0 | 0 | 0 |
 | `PORT` Portée | 17 | 17 | 0 | 0 | 0 | 0 | 0 |
-| `PREUVE` Dettes de preuve | 16 | 2 | 11 | 0 | 0 | 0 | 3 |
+| `PREUVE` Dettes de preuve | 16 | 9 | 5 | 1 | 0 | 0 | 1 |
 | `NOTA` Notation, comptes, renvois | 8 | 8 | 0 | 0 | 0 | 0 | 0 |
-| `IMPL` Implémentation et outillage | 9 | 5 | 2 | 0 | 0 | 0 | 2 |
-| `FACT` Factorisations à écrire | 24 | 14 | 4 | 0 | 2 | 2 | 2 |
+| `IMPL` Implémentation et outillage | 9 | 6 | 1 | 2 | 0 | 0 | 0 |
+| `FACT` Factorisations à écrire | 24 | 18 | 1 | 3 | 0 | 2 | 0 |
 | `REFUS` Factorisations refusées | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
-| `REECR` Réécritures d'énoncés | 27 | 26 | 1 | 0 | 0 | 0 | 0 |
-| `BIB` Vérifications bibliographiques | 29 | 11 | 6 | 0 | 0 | 0 | 12 |
-| `TRANS` Refontes transversales | 9 | 2 | 0 | 0 | 0 | 0 | 7 |
-| `ARB-PR` Arbitrages | 7 | 5 | 0 | 1 | 1 | 0 | 0 |
-| **Total** | **190** | **120** | **32** | **1** | **3** | **2** | **32** |
+| `REECR` Réécritures d'énoncés | 27 | 27 | 0 | 0 | 0 | 0 | 0 |
+| `BIB` Vérifications bibliographiques | 29 | 22 | 6 | 0 | 0 | 0 | 1 |
+| `TRANS` Refontes transversales | 9 | 7 | 0 | 2 | 0 | 0 | 0 |
+| `ARB-PR` Arbitrages | 7 | 5 | 0 | 2 | 0 | 0 | 0 |
+| **Total** | **190** | **156** | **15** | **15** | **0** | **2** | **2** |
 
 ## BLOQ — Bloquants
 
@@ -30,14 +30,14 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `BLOQ-02` | ✅ fermée | La modalité duale de ◇ n'a ni nom, ni glyphe, ni clause grammaticale ; la règle WHEN imprimée est celle que le texte déclare fausse | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `BLOQ-03` | ✅ fermée | Le Th. 1 (loi de cohérence) est faux au grade ω ; deux conventions de `⊖` coexistent | [journal](../journal/2026-09-30-pr-02-01-bloq-03-et-06.md) · ⊖ défini par cas ; loi d'action restreinte ; contrôle écrit avant la correction |
 | `BLOQ-04` | ✅ fermée | ℛ désigne deux structures incompatibles ; l'action scalaire n'est pas définie sur deux de ses quatre facteurs | [journal](../historique/2026-10-01-pr-02-avancement.md) |
-| `BLOQ-05` | 🟡 partielle | Le niveau d'un calcul est invoqué par cinq démonstrations et produit par aucune règle ; le symbole ℓ recouvre deux ordres | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · clauses Op/Case et Tick posées ; lemme de correspondance et relecture des Th. 43-51 à faire |
+| `BLOQ-05` | 🟡 partielle | Le niveau d'un calcul est invoqué par cinq démonstrations et produit par aucune règle ; le symbole ℓ recouvre deux ordres | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · indexation du jugement non requise (validé le 1er octobre) ; clauses Op/Case et Tick posées ; lemme de correspondance énoncé sans indexation (thm:correspondance_niveaux) avec plan de preuve ; relecture des Th. 43-51 à faire |
 | `BLOQ-06` | ✅ fermée | La clause de taille `i ∈ ℕ∞ ∖ {ω}` interdit les acteurs et flux non bornés que le document exige | [journal](../journal/2026-09-30-pr-02-01-bloq-03-et-06.md) · deux sortes de tailles 𝕊_μ / 𝕊_ν |
-| `BLOQ-07` | 🟡 partielle | Deux sémantiques opérationnelles concurrentes, sans théorème d'accord | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · énoncé rendu conditionnel à Sim ; Sim à établir (PREUVE-07) |
-| `BLOQ-08` | 🟡 partielle | La catégorie ambiante 𝒞 n'interprète rien : P1 est un axiome sans modèle | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · P1b nommée ; Th. 31 et §4.6 à reprendre |
-| `BLOQ-09` | 🟡 partielle | Le Th. 21 invoque l'absence de diagonale, alors que la propriété requise est l'unicité d'introduction de la capacité | [journal](../journal/2026-10-05-pr-02-20-slice.md) · H1 lue sur Slice ; élimination de l'arène à écrire ; région comme discipline de portée à définir |
+| `BLOQ-07` | 🟡 partielle | Deux sémantiques opérationnelles concurrentes, sans théorème d'accord | [journal](../journal/2026-10-06-pr-02-29-anom-17-et-preuve-03.md) · les deux options validées le 1er octobre : énoncé conditionnel à Sim, simulation à conduire ; tous les constructeurs ont désormais un schéma de réduction (formules eq:reductions-orientees et eq:reductions-modalites, à ratifier), sans clause de traduction pour la plupart ; Sim non démontrée |
+| `BLOQ-08` | ✅ fermée | La catégorie ambiante 𝒞 n'interprète rien : P1 est un axiome sans modèle | [journal](../journal/2026-10-05-pr-02-21-struct-et-facts.md) · P1a/P1b ; arguments syntaxiques par famille d'optimisation ; ré-invocation rattachée au modèle mémoire |
+| `BLOQ-09` | ✅ fermée | Le Th. 21 invoque l'absence de diagonale, alors que la propriété requise est l'unicité d'introduction de la capacité | [journal](../journal/2026-10-06-pr-02-26-arene.md) · H1, H2, H3 posées ; Slice ; région définie ; élimination de l'arène admise comme hypothèse de module (réponse du texte : « ou l'admettre comme paramètre ») |
 | `BLOQ-10` | ✅ fermée | Le Th. 35 invoque l'inférence principale, que le document réfute deux fois | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · D_det nommée ; ses trois composantes restent à écrire (PREUVE-15) |
 | `BLOQ-11` | ✅ fermée | La règle (10) de déclassification n'a pas reçu la clause de clôture de 𝒳 ; elle admet le blanchiment par substitution | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) |
-| `BLOQ-12` | 🟡 partielle | Le Th. 18 n'établit aucun homomorphisme et sa conclusion sur les lois de la théorie des roues est fausse | [journal](../journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md) · table de propagation à écrire (IMPL-07) |
+| `BLOQ-12` | ⏳ à ratifier | Le Th. 18 n'établit aucun homomorphisme et sa conclusion sur les lois de la théorie des roues est fausse | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · Th. 18 réécrit en proposition de représentation ; tables de propagation calculées sur la roue des fractions (Carlström 2004, notice confirmée, corps non lu) ; écart IEEE 754 sur ∞+∞ écrit ; ∘ et δ définis comme extension de K7PL, sans source (séance 33 : réunion d'étiquettes, la borne supérieure n'étant pas associative ; l'extension n'est pas une roue) |
 | `BLOQ-13` | ✅ fermée | Le graphe de câblage, hypothèse du Th. 17 et du Th. 24, n'est défini nulle part | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `BLOQ-14` | ✅ fermée | Le ch. 1 et le ch. 2 énoncent le sous-typage modal dans le sens inverse de la règle SUBBOX et de la table 20 | [journal](../journal/2026-10-05-pr-02-20-slice.md) · ordre ⊑ nommé, table du produit mixte renvoyée depuis les ch. 1 et 2 (TRANS-06) ; §3.1 et §4.5 relus |
 
@@ -45,13 +45,13 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 
 | Fiche | État | Titre | Preuve · note |
 |---|---|---|---|
-| `STRUCT-01` | ⬜ ouverte | Inversion d'antériorité : le jugement germinal n'est pas germinal |  |
+| `STRUCT-01` | ⏳ à ratifier | Inversion d'antériorité : le jugement germinal n'est pas germinal | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · la décomposition module × ordre (TRANS-02) tient lieu de cadre ; le chapitre 1 le dit ; pas de réécriture du chapitre |
 | `STRUCT-02` | ✅ fermée | Le monoïde ℳ est une pièce théorique nouvelle ; la condition de clôture est trop fortement énoncée | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · ℰ_alg / ℰ_scoped, clôture faible (position intermédiaire de ARB-PR-03) |
 | `STRUCT-03` | ✅ fermée | Un seul environnement normatif pour sept natures épistémiques ; quatre statuts incompatibles pour le Th. 27 | [journal](../historique/2026-10-01-pr-02-avancement.md) |
 | `STRUCT-04` | ✅ fermée | La couche 2 est asynchrone au ch. 3, synchrone dans le noyau, SPSC au ch. 4 | [journal](../historique/2026-10-01-pr-02-avancement.md) |
-| `STRUCT-05` | ⬜ ouverte | La trace τ est à la fois grandeur de coût à optimiser et observable de sûreté à préserver ; aucun invariant de passe n'est déclaré |  |
-| `STRUCT-06` | 🟡 partielle | Le pipeline n'a pas de Phase 0 ; « élaboration » désigne deux opérations différentes | [journal](../journal/2026-10-05-pr-02-19-preuves-detaillees.md) · phase 2.5 renommée Résolution (figure 11 régénérée) ; Phase 0 Expansion à ajouter à la figure |
-| `STRUCT-07` | 🟡 partielle | Le Th. 39 ne prouve pas la cohérence du sous-typage : l'existence de joints n'est pas la cohérence des coercions | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) · énoncé scellé proposition ; la preuve par facteur reste à conduire (PREUVE-10) |
+| `STRUCT-05` | ⏳ à ratifier | La trace τ est à la fois grandeur de coût à optimiser et observable de sûreté à préserver ; aucun invariant de passe n'est déclaré | [journal](../journal/2026-10-05-pr-02-22-preuves-fin.md) · ordre de préservation écrit au §6.1 (tab:invariants-de-passe) ; lemmes de compatibilité à écrire |
+| `STRUCT-06` | ⏳ à ratifier | Le pipeline n'a pas de Phase 0 ; « élaboration » désigne deux opérations différentes | [journal](../journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md) · numérotation consécutive de 0 à 10, une étape par numéro (Parse 0, Expansion 1, ConfigAnalysis 2, TypeCheck 3, Résolution 4, PurityCheck 5, TermProof 6, ConstraintSolve 7, Optimize 8, CodeGen 9, Link 10) ; figure 11, textes, tables et renvois renumérotés ; points de contrôle en pointillés |
+| `STRUCT-07` | ✅ fermée | Le Th. 39 ne prouve pas la cohérence du sous-typage : l'existence de joints n'est pas la cohérence des coercions | [journal](../journal/2026-10-06-pr-02-27-coercions-produit.md) · cohérence des coercions facteur par facteur, fermée par le produit |
 | `STRUCT-08` | ✅ fermée | Le système de raffinement (Th. 9) est conditionnel à une traduction encore ouverte (Th. 27) | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · Th. raffinement conditionnel à la traduction |
 | `STRUCT-09` | ✅ fermée | « Tout le non-déterminisme est journalisé » est une obligation sémantique, pas une conséquence de la pureté | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · journal complet posé en paramètre de l'hypothèse de rejeu |
 | `STRUCT-10` | ✅ fermée | L'histomorphisme réclame une loi distributive qui n'était pas dans le noyau | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · λ classée structure dérivée de l'instance historique |
@@ -59,13 +59,13 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `STRUCT-12` | ✅ fermée | Hygiène syntaxique et hygiène quantitative : le Th. 31 ne doit pas hériter automatiquement du Th. 30 | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · Th. hygiène non gradué et gradué scindés (PORT-14) |
 | `STRUCT-13` | ✅ fermée | La discipline d'échange est « voie retenue » au ch. 3, « envisagée » au ch. 4 et à l'annexe, « absente » dans les règles | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · « voie disponible, dont le prix est chiffré » (ch. 3) |
 | `STRUCT-14` | ✅ fermée | `𝒢_pile` et `𝒢_budget`, sous-algèbres qui *définissent* les couches, ne sont jamais construites | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · G_pile et G_budget définis par projection ; clause de portée de P3 |
-| `STRUCT-15` | ⬜ ouverte | « Gestionnaire » désigne deux objets de niveaux différents ; l'hypothèse de pureté du Th. 22 renvoie à des sections qui ne la contiennent pas |  |
-| `STRUCT-16` | 🟡 partielle | Quatre régimes de grade théoriques, trois exposés : la clôture n'est pas établie | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · modes atteignables énoncés ; preuve par examen des règles à conduire |
+| `STRUCT-15` | ✅ fermée | « Gestionnaire » désigne deux objets de niveaux différents ; l'hypothèse de pureté du Th. 22 renvoie à des sections qui ne la contiennent pas | [journal](../journal/2026-10-05-pr-02-21-struct-et-facts.md) · deux mots (gestionnaire d'acteur / d'effet), sémantique d'instructions écrite |
+| `STRUCT-16` | ⏳ à ratifier | Quatre régimes de grade théoriques, trois exposés : la clôture n'est pas établie | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · le mode est attaché à la couche, donc au délimiteur ; Rel admissible, aucune zone ne l'instancie ; la grammaire des grades reste libre pour Lin_k et 1/N (§3.1) |
 | `STRUCT-17` | ✅ fermée | Quatre concepts de monotonie portent un seul nom | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · trois notions de monotone distinguées (§2.4) |
 | `STRUCT-18` | ✅ fermée | Surcharge de `⊗` : tenseur catégorique, composition de contextes, opération syntaxique du jugement | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · table normative : Δ₁+Δ₂, ⊠, ⊗ des types, ⊗_𝒞, ℓ et ℓ̂ |
-| `STRUCT-19` | ⬜ ouverte | La distinction compilation / exécution est une phase, pas encore une modalité |  |
-| `STRUCT-20` | ⬜ ouverte | La loi distributive graduée : signature sous-déterminée et règles non écrites |  |
-| `STRUCT-21` | ⬜ ouverte | Tension non résolue entre appel par poussée de valeur, types dépendants et effets indexés |  |
+| `STRUCT-19` | ✅ fermée | La distinction compilation / exécution est une phase, pas encore une modalité | [journal](../journal/2026-10-05-pr-02-21-struct-et-facts.md) · modalité compilation/exécution, effacement de phase = instance du schéma de restriction |
+| `STRUCT-20` | ✅ fermée | La loi distributive graduée : signature sous-déterminée et règles non écrites | [journal](../journal/2026-10-06-pr-02-24-loi-distributive.md) · φ indexée ; conditions écrites et vérifiées ; cadre indexé clos |
+| `STRUCT-21` | ✅ fermée | Tension non résolue entre appel par poussée de valeur, types dépendants et effets indexés | [journal](../journal/2026-10-06-pr-02-24-loi-distributive.md) · lemme d'indices séparé ; stabilité démontrée pour les indices clos |
 | `STRUCT-22` | ✅ fermée | L'orthogonalité annoncée par P2 est rompue en trois points | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · P2 qualifiée : orthogonalité au niveau du jugement, trois couplages nommés |
 | `STRUCT-23` | ✅ fermée | L'annexe E est une fondation tardive ; le jeu de règles doit remonter dans le corps | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · annexe E fondue : règles au ch. 3, sémantique au ch. 4 ; §1.1 corrigé |
 
@@ -97,19 +97,19 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 |---|---|---|---|
 | `PREUVE-01` | 🟡 partielle | Th. 45 (correction de ressource) : la dette la plus lourde, et deux postulats en dépendent | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · énoncé repris sous concurrence ; la démonstration reste la dette la plus lourde |
 | `PREUVE-02` | ⬜ ouverte | Th. 36 : préservation graduée par abaissement |  |
-| `PREUVE-03` | 🟡 partielle | Non-interférence graduée sur le fragment avec communication | [journal](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) · non-interférence séquentielle située ; déterminisme observationnel scellé conjecture sous hypothèse nommée |
-| `PREUVE-04` | 🟡 partielle | Th. 7 (divulgation délimitée) : l'esquisse est circulaire | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · Th. 9 requalifié proposition, route nommée (paramétricité), renvoi corrigé ; preuve à conduire |
-| `PREUVE-05` | ⬜ ouverte | Écrire les règles de la loi distributive graduée et vérifier leur cohérence |  |
-| `PREUVE-06` | ⬜ ouverte | Gradation indexée et substitution d'indices |  |
-| `PREUVE-07` | 🟡 partielle | Lemme de simulation entre `→` et `⟦·⟧` | [journal](../journal/2026-10-05-pr-02-19-preuves-detaillees.md) · cas pures, congruence et trace détaillés ; exigence : traduction qui enfile le canal de temps ; clauses d'opération à écrire |
-| `PREUVE-08` | 🟡 partielle | Th. 6 : la troncature préserve-t-elle les lois de comonade ? | [journal](../journal/2026-10-05-pr-02-19-preuves-detaillees.md) · convention de remplissage et récurrence écrites ; vérification pour chaque F à faire |
-| `PREUVE-09` | 🟡 partielle | Th. 40 : deux structures pour ℰ₀, et une pétition de principe au second temps | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · énoncé en deux temps ; hypothèse (ii) nommée exigence sur ℰ₀ |
-| `PREUVE-10` | 🟡 partielle | Cohérence des coercions par facteur, puis fermeture par produit | [journal](../journal/2026-10-05-pr-02-19-preuves-detaillees.md) · conversions définies par facteur ; équation w∘ε=w à vérifier au ch. 2 |
-| `PREUVE-11` | 🟡 partielle | Relation logique sur un produit de structures ordonnées | [journal](../journal/2026-10-05-pr-02-19-preuves-detaillees.md) · clause par facteur écrite ; facteur budget à écrire |
-| `PREUVE-12` | 🟡 partielle | Unicité d'introduction de `WriteCap` et lemme de portée | [journal](../journal/2026-10-05-pr-02-20-slice.md) · règle Slice écrite (50 règles, 46 constructeurs) ; H1 dépend de l'élimination de l'arène, exception déclarée |
+| `PREUVE-03` | 🟡 partielle | Non-interférence graduée sur le fragment avec communication | [journal](../journal/2026-10-06-pr-02-29-anom-17-et-preuve-03.md) · non-interférence séquentielle située ; déterminisme observationnel scellé conjecture sous hypothèse nommée ; clause de session écrite (correspondance des noms, comparaison des fils), genre de sorte `maillon`, fil de temps par niveau et proposition de chaîne sur un fragment ; induction du lemme fondamental sur les règles de communication non conduite |
+| `PREUVE-04` | 🟡 partielle | Th. 7 (divulgation délimitée) : l'esquisse est circulaire | [journal](../journal/2026-10-05-pr-02-22-preuves-fin.md) · clôture des échappatoires imposée par la règle Declassify (prémisse fv(v)=∅, séance 32) ; croquis mis à jour ; lemme fondamental non conduit sur tous les cas |
+| `PREUVE-05` | ⏳ à ratifier | Écrire les règles de la loi distributive graduée et vérifier leur cohérence | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · λ écrite ; conditions (U), (C), (N) vérifiées ; loi affaiblie retenue (la loi stricte demanderait de restreindre ℰ₀ à une partie commutative) |
+| `PREUVE-06` | ✅ fermée | Gradation indexée et substitution d'indices | [journal](../journal/2026-10-06-pr-02-28-troncature-et-conformite.md) · monade indexée écrite dans le cas clos ; indices dynamiques déclarés hors périmètre dans la preuve de thm:substitution_indices |
+| `PREUVE-07` | 🟡 partielle | Lemme de simulation entre `→` et `⟦·⟧` | [journal](../journal/2026-10-06-pr-02-29-anom-17-et-preuve-03.md) · clause de return avec transfert écrite ; schémas pour tous les constructeurs (point fixe borné, copatron sous l'observation, try, couche 2, fourche-jointure, découpe, modalités, déclassification ; ANOM-17 : à ratifier) ; induction sur les schémas à clause de traduction à conduire |
+| `PREUVE-08` | ✅ fermée | Th. 6 : la troncature préserve-t-elle les lois de comonade ? | [journal](../journal/2026-10-06-pr-02-28-troncature-et-conformite.md) · N_r comonade graduée additive par écartement, pour tout foncteur F : aucune restriction des conteneurs ; λ_r cohérente ; preuve sur papier |
+| `PREUVE-09` | ✅ fermée | Th. 40 : deux structures pour ℰ₀, et une pétition de principe au second temps | [journal](../journal/2026-10-05-pr-02-22-preuves-fin.md) · énoncé en deux temps, extension aux suprema posée en exigence ; décidabilité à relire |
+| `PREUVE-10` | ✅ fermée | Cohérence des coercions par facteur, puis fermeture par produit | [journal](../journal/2026-10-06-pr-02-27-coercions-produit.md) · conversions par facteur ; w∘ε=w par terminalité de l'unité du fragment affine |
+| `PREUVE-11` | ✅ fermée | Relation logique sur un produit de structures ordonnées | [journal](../journal/2026-10-06-pr-02-27-coercions-produit.md) · clause par facteur écrite, dont le budget |
+| `PREUVE-12` | ✅ fermée | Unicité d'introduction de `WriteCap` et lemme de portée | [journal](../journal/2026-10-06-pr-02-26-arene.md) · H1, H2, H3 posées ; Slice ; région définie ; élimination de l'arène admise comme hypothèse de module (réponse du texte : « ou l'admettre comme paramètre ») |
 | `PREUVE-13` | ✅ fermée | Lemme de simulation du graphe d'attente, et hypothèse d'équité | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · l'absence d'interblocage n'emprunte plus : le graphe de câblage est lu des règles |
 | `PREUVE-14` | ✅ fermée | Th. 5 : schéma de méta-théorème à deux instanciations, et non identité des conclusions | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · schéma de méta-théorème, deux instanciations aux conclusions distinctes |
-| `PREUVE-15` | 🟡 partielle | Hypothèse `D_det` : déterminisme des parcours, recherches et graines | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · D_det écrite (parcours, recherche, graine) en E.4.1 ; implémentation à spécifier dans l'outillage |
+| `PREUVE-15` | ✅ fermée | Hypothèse `D_det` : déterminisme des parcours, recherches et graines | [journal](../journal/2026-10-05-pr-02-22-preuves-fin.md) · D_det écrite : parcours, recherche, graine ; objet de la spécification de l'outillage |
 | `PREUVE-16` | 🟡 partielle | Th. 3 : transposition graduée de la préservation des conteneurs | [journal](../journal/2026-10-01-pr-02-14-preuves.md) · énoncé en deux temps, contrainte d'outil nommée ; cas gradué ouvert |
 
 ## NOTA — Notation, comptes, renvois
@@ -132,11 +132,11 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `IMPL-01` | ✅ fermée | Le solveur est traité comme une boîte noire, ce qui contredit le code porteur de preuve de l'annexe D | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · certificat exigé aux frontières de paquet (§6.1 Phase 5, annexe D) |
 | `IMPL-02` | ✅ fermée | Compilation reproductible : visée et non garantie | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · critère opérationnel écrit en fin de §6.3 |
 | `IMPL-03` | ✅ fermée | Protocole de réglage du test différentiel | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · protocole du test différentiel écrit en fin de §6.3 |
-| `IMPL-04` | ⬜ ouverte | Structure réelle des boîtes aux lettres et protocole d'appariement atomique |  |
+| `IMPL-04` | ⏳ à ratifier | Structure réelle des boîtes aux lettres et protocole d'appariement atomique | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · un anneau SPSC par couple (émetteur, boîte) et une file de jonction par acteur (§4.5) ; MPSC écarté (comparer-et-échanger, P3) ; borne mémoire par le graphe de câblage ; message choisi par ordre fixe des émetteurs |
 | `IMPL-05` | ✅ fermée | Révocation d'une capacité exportée à la frontière FFI | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · thm:revocation_ffi : première exigence du document |
-| `IMPL-06` | 🟡 partielle | Profil de représentation `Π` unique | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · Π défini au §4.5 ; Th. 20 et rejeu requalifiés en conformité ; Th. 36 non requalifié |
-| `IMPL-07` | ⬜ ouverte | Table de propagation des singularités |  |
-| `IMPL-08` | 🟡 partielle | Renforcer le croisement mécanique grammaire × règles | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · productions dégénérées et types non engendrés contrôlés (mutation vérifiée) ; arités et build sur symbole absent restent à porter |
+| `IMPL-06` | ✅ fermée | Profil de représentation `Π` unique | [journal](../journal/2026-10-06-pr-02-28-troncature-et-conformite.md) · Π défini au §4.5 ; Th. 20, rejeu et abaissement gradué lus comme conformité du compilateur à un profil |
+| `IMPL-07` | ⏳ à ratifier | Table de propagation des singularités | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · tables d'addition et de produit sur les classes 0, x, ∞, ⊥ (§3.2), calculées sur la roue des fractions ; règle d'entrée Float64 → roue (NaN lu ⊥, ±∞ lus ∞, ±0 lus 0) ; écart IEEE 754 sur ∞+∞ écrit ; ∘ et δ : extension de K7PL (BLOQ-12, séance 33) |
+| `IMPL-08` | 🟡 partielle | Renforcer le croisement mécanique grammaire × règles | [journal](../journal/2026-10-01-pr-02-17-impl-et-struct.md) · productions dégénérées, types non engendrés, règles sans prémisse contrôlés (mutations vérifiées) ; échec du build sur symbole absent du rendu déjà assuré par Verso |
 | `IMPL-09` | ✅ fermée | Hypothèses de module à porter en assistant de preuve | [journal](../suivi/hypotheses-de-module.md) · inventaire écrit dans docs/suivi/hypotheses-de-module.md |
 
 ## FACT — Factorisations à écrire
@@ -147,24 +147,24 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `FACT-02` | ✅ fermée | Schéma de restriction `ρ_p` (projection par niveau) | [journal](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) |
 | `FACT-03` | ✅ fermée | Schéma de bien-fondation (progression polarisée) | [journal](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) |
 | `FACT-04` | ✅ fermée | Schéma de ré-invocation bornée | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) |
-| `FACT-05` | 🟡 partielle | Théorème de cohérence des coercions | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) · le théorème recule en proposition ; voie écrite, preuve à conduire |
+| `FACT-05` | ✅ fermée | Théorème de cohérence des coercions | [journal](../journal/2026-10-06-pr-02-27-coercions-produit.md) · preuve de la cohérence : voir PREUVE-10 ; le théorème reste une proposition tant que les jointures hors des quatre facteurs manquent |
 | `FACT-06` | ✅ fermée | Théorème d'effacement / simulation | [journal](../journal/2026-10-01-pr-02-08-fact-suite.md) |
-| `FACT-07` | ⬜ ouverte | Théorème fondamental de préservation fibrée | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · attend PREUVE-11 (BLOQ-05 est levé) |
+| `FACT-07` | ✅ fermée | Théorème fondamental de préservation fibrée | [journal](../journal/2026-10-06-pr-02-28-troncature-et-conformite.md) · une relation indexée par le treillis, trois lectures (NI, divulgation, lemme fondamental) ; la préservation n'en fait pas partie ; non-monotonie en ℓ notée |
 | `FACT-08` | ✅ fermée | Le partage en lecture et le partage de canal sont un seul geste | [journal](../journal/2026-10-05-pr-02-20-slice.md) · une analyse de co-Kleisli ; réserve source/cible écrite au ch. 3 |
-| `FACT-09` | 🟡 partielle | L'inexpressibilité comme unique mode de garantie, et la réduction des familles d'erreurs | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · principe énoncé au §1.4 ; table code ⟷ prémisse à écrire (PORT-07) |
-| `FACT-10` | ⬜ ouverte | Séquencement dans la quantale et préfixage dans le calcul de processus | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · attend PREUVE-07 (lemme de simulation) |
-| `FACT-11` | 🟡 partielle | `Mailbox` comme objet unique | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · objet Mailbox posé au §4.5 ; reprise des quatre énoncés à faire |
-| `FACT-12` | ❓ décision | Adjonction graduée unifiant coeffets et effets | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · choix de formulation : ARB-PR-05 écarte déjà FACT-21/22 ; à réévaluer avec STRUCT-01 |
+| `FACT-09` | ⏳ à ratifier | L'inexpressibilité comme unique mode de garantie, et la réduction des familles d'erreurs | [journal](../journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md) · table code ⟷ prémisse écrite hors du manuscrit (docs/suivi/codes-et-premisses.md, 48 codes sur 48, gardée par controle.py) ; objectif 18 familles → 4 diagnostics non atteint : 17 codes sur 48 relèvent d'une non-dérivabilité |
+| `FACT-10` | 🟡 partielle | Séquencement dans la quantale et préfixage dans le calcul de processus | [journal](../journal/2026-10-06-pr-02-28-troncature-et-conformite.md) · identification écrite (§4.4, préfixage = produit non commutatif) et clause du let qui ordonne les traces ; factorisation de la preuve attend la simulation |
+| `FACT-11` | ✅ fermée | `Mailbox` comme objet unique | [journal](../journal/2026-10-05-pr-02-21-struct-et-facts.md) · objet Mailbox posé ; quatre lectures énoncées comme restrictions |
+| `FACT-12` | ⏳ à ratifier | Adjonction graduée unifiant coeffets et effets | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · pas d'adjonction graduée unifiée : la loi distributive n'est qu'affaiblie ; vocabulaire de la théorie de modes et décomposition de TRANS-02 (§1.4) |
 | `FACT-13` | ✅ fermée | Une seule loi de substitution pour quatre lemmes | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
-| `FACT-14` | ❓ décision | Cadre unique des structures monotones | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · dépend de STRUCT-17 (quatre notions de monotonie) |
+| `FACT-14` | ⏳ à ratifier | Cadre unique des structures monotones | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · satisfaite par STRUCT-17 : trois notions de monotonie distinguées, aucun cadre unique (§2.4) |
 | `FACT-15` | ✅ fermée | Une seule relation d'équivalence observationnelle pour les trois rejeux | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
 | `FACT-16` | ✅ fermée | `Injectivité(obs, repr)` comme exigence de représentation unique | [journal](../journal/2026-10-01-pr-02-12-fact-17-et-16.md) · exigence thm:representation_inobservable ; vérifiée par test différentiel |
 | `FACT-17` | ✅ fermée | Une loi unique d'introduction des ressources d'écriture | [journal](../journal/2026-10-01-pr-02-12-fact-17-et-16.md) · énoncé unique écrit (thm:introduction_unique) ; preuve à écrire (PREUVE-12) |
-| `FACT-18` | 🟡 partielle | La fenêtre statiquement dimensionnée sur un objet coinductif | [journal](../journal/2026-10-01-pr-02-13-fact-fin.md) · principe posé au §2.6 ; lemme de troncature à écrire à part |
+| `FACT-18` | ✅ fermée | La fenêtre statiquement dimensionnée sur un objet coinductif | [journal](../journal/2026-10-05-pr-02-21-struct-et-facts.md) · proposition thm:fenetre_grade (une fenêtre est un grade) |
 | `FACT-19` | ✅ fermée | L'ordre d'occurrence | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
 | `FACT-20` | ✅ fermée | Annexe unique « classes de motifs et bornes » | [journal](../journal/2026-10-05-pr-02-20-slice.md) · table tab:classes-motifs au §4.2 (machine, temps, espace, classe) |
-| `FACT-21` | ⛔ écartée | Architecture minimale à cinq couches de preuve | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md |
-| `FACT-22` | ⛔ écartée | Formulation fibrée bimodale | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md |
+| `FACT-21` | ⛔ écartée | Architecture minimale à cinq couches de preuve | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · cadre de rédaction écarté par ARB-PR-05 ; consigné dans factorisations-refusees.md |
+| `FACT-22` | ⛔ écartée | Formulation fibrée bimodale | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) · cadre de rédaction écarté par ARB-PR-05 ; consigné dans factorisations-refusees.md |
 | `FACT-23` | ✅ fermée | Relation entre `□` et la modalité duale de ◇ | [journal](../journal/2026-10-01-pr-02-09-port-et-fact2.md) · le connecteur ■ n'était pas nécessaire : □ suffit, ■ retiré |
 | `FACT-24` | ✅ fermée | Le système de modes comme unique lieu des onze modalités | [journal](../journal/2026-10-01-pr-02-10-fact-second-rang.md) |
 
@@ -199,7 +199,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `REECR-13` | ✅ fermée | « préservant les lois algébriques de la théorie des roues, par exemple ⊥ + y = ⊥ » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · retiré (Th. 18 réécrit) |
 | `REECR-14` | ✅ fermée | « l'audit des dix-huit familles d'erreurs » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · énumération sur le noyau |
 | `REECR-15` | ✅ fermée | « les trois dispositions coïncident bit à bit » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · profil Π |
-| `REECR-16` | 🟡 partielle | « la syntaxe d'un programme est fixée à l'issue de la Phase 0 » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · Th. 29 à conserver une fois la Phase 0 portée par la figure 11 |
+| `REECR-16` | ✅ fermée | « la syntaxe d'un programme est fixée à l'issue de la Phase 0 » | [journal](../journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md) · l'expansion est la Phase 1 de la figure 11 ; Th. 29 conservé, énoncé sur la Phase 1 |
 | `REECR-17` | ✅ fermée | « la dérivation est déterministe puisque l'inférence est principale » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · hypothèse D_det |
 | `REECR-18` | ✅ fermée | « un ordre que rien ne permet d'inverser » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · ordre : exception de la Phase 5 reconnue |
 | `REECR-19` | ✅ fermée | « la couche 2 est un π-calcul enrichi de motifs de jonction » | [journal](../journal/2026-10-01-pr-02-18-reecr.md) · traduction de la couche 2 séquentielle seulement |
@@ -217,31 +217,31 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | Fiche | État | Titre | Preuve · note |
 |---|---|---|---|
 | `BIB-01` | ⬜ ouverte | *Hefty Algebras* (Van der Rest & Bach Poulsen, 2023/2025) |  |
-| `BIB-02` | ⬜ ouverte | Saffrich & Thiemann 2025 — priorités sur boîtes aux lettres | [journal](../bibliographie/verifications-pr02.md) · référence introuvable en ligne : à vérifier auprès du relecteur |
+| `BIB-02` | ✅ fermée | Saffrich & Thiemann 2025 — priorités sur boîtes aux lettres | [journal](../bibliographie/verifications-pr02.md) · référence identifiée : Saffrich, Spaderna, Thiemann, Vasconcelos (OOPSLA 2025), déjà au manuscrit ; elle traite des canaux de session, non des boîtes aux lettres |
 | `BIB-03` | ✅ fermée | QTAL / défonctionnalisation quantitative (Huang 2023) | [journal](../bibliographie/verifications-pr02.md) · statut exact : quantitatif en cours, dépendant publié |
 | `BIB-04` | 🟡 partielle | Join-calculus de Fournet–Gonthier [60] — file de jonction | [journal](../bibliographie/verifications-pr02.md) · join-calculus confirmé ; protocole = IMPL-04 |
-| `BIB-05` | ⬜ ouverte | Cohérence des sémantiques de coercions |  |
+| `BIB-05` | ✅ fermée | Cohérence des sémantiques de coercions | [journal](../bibliographie/verifications-pr02.md) · cohérence des coercions : techniques identifiées |
 | `BIB-06` | ✅ fermée | Sabelfeld & Myers — divulgation délimitée | [journal](../bibliographie/verifications-pr02.md) · échappatoires = expressions confirmé ; clôture = notre précision |
 | `BIB-07` | ✅ fermée | Issue Agda sur les tailles réflexives [25] | [journal](../bibliographie/verifications-pr02.md) · source incrimine la plus grande taille ∞<∞ ; scission 𝕊_μ/𝕊_ν tient |
 | `BIB-08` | ✅ fermée | IEEE 754 — propagation de charge utile des NaN | [journal](../bibliographie/verifications-pr02.md) · charge utile NaN recommandée, non exigée ; architecture dans E_repro |
-| `BIB-09` | 🟡 partielle | Spécifications Arrow et Cap'n Proto | [journal](../bibliographie/verifications-pr02.md) · Arrow vérifié ; endianness et Cap'n Proto à vérifier |
+| `BIB-09` | ✅ fermée | Spécifications Arrow et Cap'n Proto | [journal](../bibliographie/verifications-pr02.md) · Arrow : petit-boutiste par défaut, champ d'ordre dans le schéma ; Cap'n Proto : petit-boutiste, mots de 8 octets, primitifs alignés sur leur taille |
 | `BIB-10` | ✅ fermée | Licata–Shulman–Riley — systèmes de modes | [journal](../bibliographie/verifications-pr02.md) · confirmé (résumé) |
-| `BIB-11` | ⬜ ouverte | Régions par polymorphisme paramétrique [19] |  |
-| `BIB-12` | ⬜ ouverte | Extension additive de la logique linéaire classique, transport intuitionniste |  |
-| `BIB-13` | ⬜ ouverte | Resucrage et algèbre de liaison de surface [26] |  |
-| `BIB-14` | ⬜ ouverte | Types de chemin cubiques et assistant visé |  |
-| `BIB-15` | ⬜ ouverte | LMAX Disruptor contre preuve mécanisée de file bornée |  |
-| `BIB-16` | ⬜ ouverte | Monoïde ordonné par treillis [27] contre quantale |  |
-| `BIB-17` | ⬜ ouverte | Invalidation explicite des protocoles d'accès distant [54] |  |
+| `BIB-11` | ✅ fermée | Régions par polymorphisme paramétrique [19] | [journal](../bibliographie/verifications-pr02.md) · la source est Fluet–Morrisett, Monadic Regions (JFP 2006), déjà au manuscrit : le polymorphisme paramétrique suffit, traduction préservant types et sens |
+| `BIB-12` | 🟡 partielle | Extension additive de la logique linéaire classique, transport intuitionniste | [journal](../bibliographie/verifications-pr02.md) · source identifiée : Caires–Pérez, Linearity, Control Effects, and Behavioral Types (ESOP 2017), déjà au manuscrit ; résumé non relu |
+| `BIB-13` | ✅ fermée | Resucrage et algèbre de liaison de surface [26] | [](../bibliographie/verifications-pr02.md) · Pombrio–Krishnamurthi (ICFP 2015) : hygiène et désucrage compositionnel confirmés (résumé) ; l'algèbre de liaison de surface reste à construire |
+| `BIB-14` | ✅ fermée | Types de chemin cubiques et assistant visé | [](../bibliographie/verifications-pr02.md) · aucune offre native de type de chemin cubique retrouvée pour Lean ; l'irrélevance des preuves contredit l'univalence (documentation Lean) |
+| `BIB-15` | ✅ fermée | LMAX Disruptor contre preuve mécanisée de file bornée | [journal](../bibliographie/verifications-pr02.md) · preuve existante : file à plusieurs producteurs et consommateurs, OCaml multicœur (Mével–Jourdan) ; différence avec l'anneau à curseur unique écrite au §4.2 |
+| `BIB-16` | ✅ fermée | Monoïde ordonné par treillis [27] contre quantale | [journal](../bibliographie/verifications-pr02.md) · l-monoïde / quantale confirmé |
+| `BIB-17` | ✅ fermée | Invalidation explicite des protocoles d'accès distant [54] | [](../bibliographie/verifications-pr02.md) · RFC 5040 : Send with Invalidate ; l'invalidation s'exécute chez le propriétaire de la région : le §4.5 dit que le destructeur de l'exportateur invalide localement (à ratifier) |
 | `BIB-18` | ✅ fermée | Ergonomie : essai contrôlé randomisé défavorable + étude sur les barrières d'adoption | [journal](../bibliographie/verifications-pr02.md) · rien à corriger |
-| `BIB-19` | ⬜ ouverte | Castellan et al. — triangle effets / élimination dépendante / substitution |  |
+| `BIB-19` | ✅ fermée | Castellan et al. — triangle effets / élimination dépendante / substitution | [](../bibliographie/verifications-pr02.md) · le triangle est de Pédrot–Tabareau (POPL 2020), déjà cité au ch. 1 ; l'attribution à Castellan et al. venait du relecteur ; le cas des indices relève de PREUVE-06 |
 | `BIB-20` | ✅ fermée | calf / decalf — cadre logique conscient du coût | [journal](../bibliographie/verifications-pr02.md) · calf/decalf confirmés |
 | `BIB-21` | 🟡 partielle | Théorie des types graduée formalisée (Abel–Danielsson–Eriksson) | [journal](../bibliographie/verifications-pr02.md) · confirmé ; restriction sur l'égalité définitionnelle à lire dans le corps |
 | `BIB-22` | ✅ fermée | Récursion gardée multi-horloges (CloTT) ; bisimulation comme type de chemin | [journal](../bibliographie/verifications-pr02.md) · CloTT confirmé |
 | `BIB-23` | ✅ fermée | Granule — sessions et types modaux gradués ; TLL_C — sessions dépendantes | [journal](../bibliographie/verifications-pr02.md) · Granule/TLL_C confirmés |
 | `BIB-24` | 🟡 partielle | Théorie cubique sans types Glue (XTT et variantes) | [journal](../bibliographie/verifications-pr02.md) · XTT : extensionnalité sans univalence ; compatibilité avec la sédimentation à instruire |
 | `BIB-25` | 🟡 partielle | Algèbre de Kleene concurrente (Hoare, Möller, Struth, Wehrman) | [journal](../bibliographie/verifications-pr02.md) · loi d'échange confirmée ; compatibilité avec la résiduation à vérifier |
-| `BIB-26` | ⬜ ouverte | Déterminisme observationnel et flux d'information concurrent |  |
+| `BIB-26` | ✅ fermée | Déterminisme observationnel et flux d'information concurrent | [journal](../bibliographie/verifications-pr02.md) · déterminisme observationnel confirmé |
 | `BIB-27` | 🟡 partielle | Types de boîtes aux lettres (de'Liguoro–Padovani, ECOOP 2018) ; *Special Delivery* (Fowler et al.) | [journal](../bibliographie/verifications-pr02.md) · confirmé ; théorème d'interblocage à lire |
 | `BIB-28` | ✅ fermée | Exceptional GV / types de session asynchrones exceptionnels (Fowler–Lindley–Morris–Decova, POPL 2019) | [journal](../bibliographie/verifications-pr02.md) · confirmé |
 | `BIB-29` | ✅ fermée | Valeurs localisées (HasChor, ChorLean, valeurs multiplement localisées) | [journal](../bibliographie/verifications-pr02.md) · ChorLean en Lean confirmé |
@@ -251,14 +251,14 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | Fiche | État | Titre | Preuve · note |
 |---|---|---|---|
 | `TRANS-01` | ✅ fermée | Sceau à deux axes sur chaque énoncé (statut × niveau) | [journal](../journal/2026-09-30-pr-02-02-vague-0.md) · sceau à deux axes (statut, niveau) |
-| `TRANS-02` | ⬜ ouverte | Décomposition module × ordre du grade |  |
-| `TRANS-03` | ⬜ ouverte | Tracer la frontière noyau / cible |  |
-| `TRANS-04` | ⬜ ouverte | Déclarer ce qu'une passe, une représentation et un environnement doivent préserver |  |
+| `TRANS-02` | ⏳ à ratifier | Décomposition module × ordre du grade | [journal](../journal/2026-10-06-pr-02-25-trans.md) · décomposition module × ordre écrite au §1.4 ; à ratifier |
+| `TRANS-03` | ✅ fermée | Tracer la frontière noyau / cible | [journal](../journal/2026-10-06-pr-02-25-trans.md) · frontière noyau / cible déclarée au §1.4 |
+| `TRANS-04` | ⏳ à ratifier | Déclarer ce qu'une passe, une représentation et un environnement doivent préserver | [journal](../journal/2026-10-05-pr-02-22-preuves-fin.md) · table des invariants et règle d'interaction écrites ; trois lemmes de compatibilité restent |
 | `TRANS-05` | ✅ fermée | Registre unique des obligations et règle de propagation | [journal](../journal/2026-09-30-pr-02-03-vague-0-fin.md) · registre des obligations produit, non tenu |
-| `TRANS-06` | ⬜ ouverte | Passe de remontée : toute condition découverte en annexe qui contraint un objet du ch. 1 doit y être portée |  |
-| `TRANS-07` | ⬜ ouverte | Décider quelle sémantique est primitive et dériver les deux autres |  |
-| `TRANS-08` | ⬜ ouverte | Convention de réécriture : une réserve qui borne une affirmation doit réécrire l'affirmation |  |
-| `TRANS-09` | ⬜ ouverte | Factoriser les obligations et non seulement les théories |  |
+| `TRANS-06` | ✅ fermée | Passe de remontée : toute condition découverte en annexe qui contraint un objet du ch. 1 doit y être portée | [journal](../journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md) · six remontées : toutes portées aux ch. 1 à 3 (tableau de complétude au journal de la séance 32) |
+| `TRANS-07` | ✅ fermée | Décider quelle sémantique est primitive et dériver les deux autres | [journal](../journal/2026-10-06-pr-02-25-trans.md) · → primitive, ⟦·⟧ reliée par simulation, 𝒞 en vocabulaire : écrit au §4.1 de la sémantique |
+| `TRANS-08` | ✅ fermée | Convention de réécriture : une réserve qui borne une affirmation doit réécrire l'affirmation | [journal](../journal/2026-10-06-pr-02-25-trans.md) · convention écrite au guide de lecture ; appliquée par le lot REECR |
+| `TRANS-09` | ✅ fermée | Factoriser les obligations et non seulement les théories | [journal](../journal/2026-10-06-pr-02-25-trans.md) · quatre preuves transversales nommées au ch. 2 ; reste requalifié en instances |
 
 ## ARB-PR — Arbitrages
 
@@ -267,7 +267,7 @@ Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** 
 | `ARB-PR-01` | ✅ fermée | Le sens de la subsomption modale | [fiche](../relectures/pr-02/taches-consolidees.md) · tranché par vérification directe (14 septembre) |
 | `ARB-PR-02` | ✅ fermée | La clause de taille `i ∈ ℕ∞ ∖ {ω}` | [fiche](../relectures/pr-02/taches-consolidees.md) · tranché sur le point contesté (14 septembre) |
 | `ARB-PR-03` | ⏳ à ratifier | Le traitement des effets à portée | [journal](../journal/2026-10-01-pr-02-06-theoremes.md) · position intermédiaire appliquée (ℰ_alg / ℰ_scoped) ; BIB-01 (Hefty Algebras) non instruit |
-| `ARB-PR-04` | ❓ décision | Le statut du rejeu bit-à-bit | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · instruction écrite (docs/recherche/instruction-arb-pr-04-rejeu-binaire.md) ; orientation B puis C à confirmer |
+| `ARB-PR-04` | ⏳ à ratifier | Le statut du rejeu bit-à-bit | [journal](../journal/2026-10-06-pr-02-31-orientations-appliquees.md) · voie B puis C appliquée : identité binaire sur une machine sous E_repro à quatre composantes (§4.5), classes de singularités et tables de propagation (§3.2) ; voie D écartée tant qu'aucune borne n'est écrite |
 | `ARB-PR-05` | ✅ fermée | Le cadre d'ensemble du noyau minimal | [journal](../journal/2026-10-01-pr-02-07-non-interference-et-fact.md) · cadre du manuscrit ratifié |
 | `ARB-PR-06` | ✅ fermée | La gravité du Th. 36 | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · objectif déclaré : transformer la revendication en preuve ; PREUVE-02 en tête |
 | `ARB-PR-07` | ✅ fermée | Socle homotopique, ou famille modale et graduée ? | [journal](../journal/2026-10-01-pr-02-15-fusion-annexe-e.md) · famille modale et graduée (1er octobre) ; motif écrit au §1.2 ; quatre imports à instruire un à un (BIB) |

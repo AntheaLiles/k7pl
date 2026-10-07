@@ -84,7 +84,7 @@ un `let` avant d'être injecté, sous peine de la même erreur `ERR-TOP-001` ren
 §{num "sec:c5-s-expressions-universelles"}[].
 
 La métaprogrammation exploite enfin l'homoiconicité elle-même. Une macro est une fonction pure de
-couche 2 qui reçoit un AST et en retourne un autre, exécutée en Phase 0 avant toute vérification.
+couche 2 qui reçoit un AST et en retourne un autre, exécutée en Phase 1 avant toute vérification.
 L'évaluation `comptime`, marquée par le sigil `#`, exécute du code pur de couche 2 ou 3 pour
 produire une constante déposée directement dans la section binaire `.rodata`.
 
@@ -133,12 +133,12 @@ La syntaxe est fixée avant toute exécution
 
 Aucune construction de K7PL ne calcule un nom ; toute opération d'espace de noms vit au niveau
 macro, où elle est typée par `binds`. Par conséquent la syntaxe d'un programme est fixée à l'issue
-de la Phase 0, et aucune exécution ne la modifie.
+de la Phase 1, et aucune exécution ne la modifie.
 :::
 
 :::proofsketch
 Par inspection de la grammaire, en quatre points. La seule construction qui produit un arbre est la
-_macro_, fonction pure de couche 2 d'un AST vers un AST. Elle s'exécute en Phase 0, en bac à sable,
+_macro_, fonction pure de couche 2 d'un AST vers un AST. Elle s'exécute en Phase 1, en bac à sable,
 avant toute vérification et donc avant toute exécution du programme. Son type porte la portée, de
 sorte qu'elle ne peut produire d'occurrence hors de l'index qu'elle reçoit — c'est l'hygiène
 ci-dessus. Et aucune règle du jugement germinal ne construit un nom à partir d'une valeur : les noms
@@ -146,13 +146,13 @@ sont des données de la dérivation, non de l'évaluation.
 
 Un seul cas demande d'être regardé, car c'est le seul endroit du langage où un nom soit _produit_
 plutôt que lu : la résolution de `bind-to` par recherche dirigée par le type
-(§{num "sec:c5-mise-en-pratique"}[]). Elle ne menace pas l'énoncé, s'achevant elle aussi en Phase 0
+(§{num "sec:c5-mise-en-pratique"}[]). Elle ne menace pas l'énoncé, s'achevant elle aussi en Phase 1
 — une recherche ambiguë y est refusée plutôt que résolue arbitrairement.
 :::
 ::::
 
 Ce que ce théorème ajoute n'est pas une garantie de plus mais un _second_ bénéfice au même
-dispositif. Le chapitre 3 justifie le confinement de la Phase 0 par la sûreté : une macro n'a aucune
+dispositif. Le chapitre 3 justifie le confinement de la Phase 1 par la sûreté : une macro n'a aucune
 raison de détenir plus de capacités que le programme qu'elle produit. Il achète aussi la
 compilabilité statique, et le document ne le dit nulle part. La comparaison rend la chose nette : ce
 qui empêche APL d'être compilé statiquement tient en une phrase de ses concepteurs — la syntaxe
@@ -165,7 +165,7 @@ par le métaniveau. Il y faut la _générativité_, l'axiome qui internalise le 
 ne peut pas inspecter la structure des termes du niveau objet. C'est de lui, non de la clôture, que
 se tire la fermeture de l'univers des sommes de produits par la somme dépendante {cite "kovacsClosurefreeFunctionalProgramming2024"}[].
 La formulation juste n'est donc pas que la valeur soit close, mais que le métaniveau soit
-_paramétrique_ en l'objet. C'est ce que le confinement de la Phase 0 réalise, et le dire ainsi évite
+_paramétrique_ en l'objet. C'est ce que le confinement de la Phase 1 réalise, et le dire ainsi évite
 d'attribuer à la clôture un travail qu'elle ne fait pas.
 
 L'hygiène des macros cesse alors d'être un dispositif pour devenir un théorème : une macro bien
@@ -310,7 +310,7 @@ strates produit des énoncés de cette forme parce que chacune doit traverser l'
 déformer, et c'est le schéma qui porte cette raison une fois pour toutes.
 
 Une économie accompagne cet énoncé et vaut d'être signalée, car elle retire un travail qu'on
-attendrait. L'expansion a lieu en Phase 0, dans le bac à sable où une macro ne peut ni lire un
+attendrait. L'expansion a lieu en Phase 1, dans le bac à sable où une macro ne peut ni lire un
 fichier, ni interroger le réseau, ni consulter l'horloge : $`\mathcal{E} = \emptyset` pendant toute
 l'expansion. _L'hygiène n'interagit donc pas avec les effets_, et la démonstration n'a aucun cas
 d'effet à traiter. C'est la distinction de phase qui paie ici, et non une clause ajoutée.

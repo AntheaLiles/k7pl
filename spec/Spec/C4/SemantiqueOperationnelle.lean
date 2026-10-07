@@ -25,7 +25,8 @@ Cette section et les deux suivantes portent la sémantique sur laquelle les éno
 à 4 se raisonnent, après la grammaire et les règles de typage du chapitre 3
 (§{num "sec:g-regles"}[]). La relation de réduction est donnée schéma par schéma, une réduction
 par forme d'élimination. La préservation et le progrès sont démontrés, le second sous deux
-hypothèses nommées, et le lemme de substitution l'est également au chapitre 3.
+hypothèses nommées, sur les constructeurs que la relation réduit, et le lemme de substitution l'est
+également au chapitre 3.
 
 Le cadre est fixé, et la relation peut l'être aussi. Une _configuration_ est un triplet
 $`\langle c \mid \mu \mid \tau \rangle` où $`c` est un calcul, $`\mu` un état d'arène — une
@@ -76,8 +77,8 @@ suite,
 $`\mathsf{iter}_{V}\;[v_0,\ldots,v_{n-1}]\;c \longrightarrow \mathsf{let}\;\_ \leftarrow c[v_0/x]\;\mathsf{in}\;\mathsf{iter}_{V}\;[v_1,\ldots,v_{n-1}]\;c`,
 ce qui est la lecture opérationnelle du produit $`\prod_{i<n}\varepsilon(i)` que {sc}[VecE]
 synthétise — l'effet du parcours se compose donc pas à pas, et non d'un coup. Et le point fixe
-déductif se déplie sur son argument, la terminaison étant assurée par la finitude du treillis plutôt
-que par la forme du terme.
+déductif se déplie sur son argument un nombre de fois que fixe le type, la terminaison étant assurée
+par la finitude du treillis plutôt que par la forme du terme (schéma plus bas).
 
 Les réductions _effectueuses_ étendent la trace et peuvent modifier l'arène.
 
@@ -108,11 +109,245 @@ L'opération à portée est la seule dont la réduction ait deux règles, et c'e
 de ce que {sc}[Sc] annonce. Son effet étant une _fonction_ de celui de son argument, elle doit voir
 cet argument s'exécuter avant de conclure. Elle est donc un contexte d'évaluation, et non un pas.
 
+Ces blocs ne réduisaient pas tous les constructeurs de la grammaire des termes
+(§{num "sec:g-grammaire-termes"}[]). Ce qui suit écrit les schémas que le texte des chapitres 2 à 4
+détermine déjà ; puis cinq autres, que le texte ne détermine pas et qui sont écrits sur l'orientation que
+l'instruction des décisions recommande, _proposés à la ratification_ ; enfin les six autres, que la correction
+des grammaires a rendus écrivables (déclassification, formes temporelles, localisation, déplacement), eux aussi
+proposés à la ratification (table {num "tab:couverture-reductions"}[]).
+
+Trois réductions pures s'ajoutent. Le point fixe déductif se déplie _exactement_ $`h` fois depuis le
+plus petit élément, $`h` étant la hauteur du type $`S` que la règle ({num "eq:regle-fix"}[]) lui
+associe : l'image du point fixe (théorème {num "thm:image_fix"}[]) interdit la sortie anticipée, pour
+que la durée ne dépende pas de la donnée, et la finitude du treillis
+(théorème {num "thm:terminaison_lfp"}[]) assure que $`h` itérations atteignent le plus petit point
+fixe. Le copatron se déplie sous l'observation, avec lui-même pour appel corécursif (règle {sc}[Cop],
+§{num "sec:g-nu"}[]). Et la portée de récupération rend le résultat de son corps quand celui-ci est
+terminal (règle {sc}[Try], §{num "sec:g-couche1"}[]).
+
+::::formula (label := "eq:reductions-pures-suite") (kind := "formule")
+```
+\begin{equation*}
+\begin{aligned}
+\mathbf{fix}\;f &\longrightarrow \mathsf{let}\;x_1 \leftarrow f\,\bot_S\;\mathsf{in}\;\mathsf{let}\;x_2 \leftarrow f\,x_1\;\mathsf{in}\;\cdots\\
+&\qquad \cdots\;\mathsf{let}\;x_h \leftarrow f\,x_{h-1}\;\mathsf{in}\;\mathsf{return}\;x_h\\
+&\qquad h \text{ la hauteur de } S,\ \text{et } \mathsf{return}\;\bot_S \text{ si } h = 0\\[4pt]
+\mathsf{out}\;\langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J} &\longrightarrow \langle c_j[\mathsf{thunk}\;\langle\!\langle j \mapsto c_j \rangle\!\rangle/x] \rangle_{j \in J}\\[4pt]
+\mathsf{try}\;t\;\mathsf{catch}\;h &\longrightarrow t \qquad t \text{ terminal}
+\end{aligned}
+\end{equation*}
+```
+
+:::caption
+Réductions pures de plus : le point fixe, le copatron sous l'observation, la récupération qui n'a pas
+eu lieu d'être
+:::
+::::
+
+Trois lectures accompagnent ces schémas, et aucune n'est un choix. Le plus petit élément $`\bot_S` est
+celui que le chapitre 2 pose sur les quatre clauses de $`\mathsf{Trellis}_{\text{fin}}`, et que la
+traduction note déjà $`\llbracket \bot \rrbracket` ; la fonction monotone $`f` s'applique comme une
+fonction, son thunk éventuel étant forcé, et n'a pas d'effet, la règle écrivant $`\mathcal{E} = \emptyset`.
+La variable $`x` du copatron est celle que la règle {sc}[Cop] lie implicitement à la branche, sous la forme
+d'un thunk : le schéma lui substitue un thunk du copatron, et la branche l'emploie par $`\mathsf{force}\;x`. Et un calcul est _terminal_ s'il est de la forme
+$`\mathsf{return}\;v`, $`\lambda x. c`, $`\Lambda\alpha. c`, $`\langle c_i\rangle_{i\in I}` ou
+$`\langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J}` : les deux dernières introductions de calcul
+n'étaient pas nommées dans l'énoncé du progrès.
+
+Les réductions de la couche 2 sont les cinq règles _globales_ que le §{num "sec:g-couche2"}[]
+annonçait sans les écrire, et la règle locale qui les complète. Une configuration est
+$`\langle \mathcal{P} \mid \mu \mid \mathcal{M} \mid \tau \rangle` : $`\mathcal{P}` est un
+multi-ensemble de _fibrilles_ $`p : c`, $`\mathcal{M}` associe à chaque localisation $`\iota` le
+multi-ensemble de ses messages, et $`\tau` est l'ordre partiel étiqueté des événements. Une
+localisation est une valeur d'exécution de type $`\mathsf{Mb}\;E`, que la grammaire des valeurs ne
+liste pas : c'est la seule extension que ces règles supposent. Chaque message porte l'événement de son
+émission, $`m(\overline{v})@s`, et $`\tau \triangleleft_p e` note l'ordre $`\tau` étendu de l'événement
+$`e`, placé après tout ce que la fibrille $`p` a déjà produit.
+
+::::formula (label := "eq:reductions-couche2") (kind := "formule")
+```
+\begin{equation*}
+\begin{aligned}
+&\langle \mathcal{P} \uplus \{p : \mathsf{spawn}\;c\} \mid \mu \mid \mathcal{M} \mid \tau\rangle\\
+&\quad \longrightarrow \langle \mathcal{P} \uplus \{p : \mathsf{return}\;(),\ q : c\} \mid \mu \mid \mathcal{M} \mid \tau \triangleleft_p \varepsilon_{\mathsf{spawn}}\rangle\\
+&\qquad q \text{ frais, reprenant après } \varepsilon_{\mathsf{spawn}} = \langle \mathsf{spawn}, \langle w(\varepsilon), 0 \rangle\rangle,\\
+&\qquad \varepsilon \text{ étant l'effet de } c\\[6pt]
+&\langle \mathcal{P} \uplus \{p : \mathsf{new}_E\} \mid \mu \mid \mathcal{M} \mid \tau\rangle\\
+&\quad \longrightarrow \langle \mathcal{P} \uplus \{p : \mathsf{return}\;\iota\} \mid \mu \mid \mathcal{M}[\iota \mapsto \varnothing] \mid \tau\rangle\\
+&\qquad \iota \notin \mathrm{dom}\,\mathcal{M}\\[6pt]
+&\langle \mathcal{P} \uplus \{p : \mathsf{send}\;m(\overline{v})\;\mathsf{to}\;\iota\} \mid \mu \mid \mathcal{M} \mid \tau\rangle\\
+&\quad \longrightarrow \langle \mathcal{P} \uplus \{p : \mathsf{return}\;()\} \mid \mu \mid \mathcal{M}[\iota \mapsto \mathcal{M}(\iota) \uplus \{m(\overline{v})@s\}] \mid \tau \triangleleft_p s\rangle\\
+&\qquad s = \langle \mathsf{send}_m, \langle 1, 1 \rangle\rangle,\ \iota \in \mathrm{dom}\,\mathcal{M}\\[6pt]
+&\langle \mathcal{P} \uplus \{p : \mathsf{guard}\;\iota\;\{m_i(\overline{x_i}) \mapsto c_i\}_i\} \mid \mu \mid \mathcal{M} \mid \tau\rangle\\
+&\quad \longrightarrow \langle \mathcal{P} \uplus \{p : c_k[\overline{v}/\overline{x_k},\, \iota/y]\} \mid \mu \mid \mathcal{M}[\iota \mapsto B] \mid \tau[\,s \prec p\,]\rangle\\
+&\qquad \mathcal{M}(\iota) = B \uplus \{m_k(\overline{v})@s\}\\[6pt]
+&\langle \mathcal{P} \uplus \{p : \mathsf{free}\;\iota\} \mid \mu \mid \mathcal{M} \mid \tau\rangle\\
+&\quad \longrightarrow \langle \mathcal{P} \uplus \{p : \mathsf{return}\;()\} \mid \mu \mid \mathcal{M} \setminus \iota \mid \tau\rangle\\
+&\qquad \mathcal{M}(\iota) = \varnothing
+\end{aligned}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\begin{aligned}
+&(\textsc{Loc})\quad \langle \mathcal{P} \uplus \{p : c\} \mid \mu \mid \mathcal{M} \mid \tau\rangle\\
+&\quad \longrightarrow \langle \mathcal{P} \uplus \{p : c'\} \mid \mu' \mid \mathcal{M} \mid \tau \triangleleft_p \tau_0\rangle\\
+&\qquad \text{si } \langle c \mid \mu \mid \varnothing\rangle \longrightarrow \langle c' \mid \mu' \mid \tau_0\rangle
+\end{aligned}
+\end{equation*}
+```
+
+:::caption
+Les cinq règles globales de la couche 2 et la règle locale : engendrer, créer une boîte, émettre,
+recevoir sous garde, libérer
+:::
+::::
+
+Chaque schéma se lit sur le texte qui le précède. L'émission ne bloque pas et la réception bloque
+(§{num "sec:g-couche2"}[]) : {sc}[Send] ajoute au multi-ensemble sans condition, {sc}[Guard] n'a de
+pas que si un message d'une des branches est présent. Le message consommé fait entrer son événement
+d'émission dans l'ordre : c'est l'appariement libération-acquisition du
+§{num "sec:c4-echelle-du-systeme"}[], qui établit l'antériorité entre deux fils. {sc}[Free] ne
+s'applique qu'à une boîte vide, ce que la règle de typage garantit en exigeant
+$`\mathsf{Mb}\;\mathbf{1}` ; la règle {sc}[Loc] relève à la configuration concurrente les schémas de
+couche 3, qui y restent déterministes. La relation de la couche 2 ne l'est pas : le choix de la
+fibrille qui avance, et celui du message que consomme une garde quand plusieurs conviennent, ne sont
+pas fixés par ces schémas.
+
+Cinq autres schémas sont écrits sur l'orientation retenue, et chacun se lit avec la réserve qu'il l'est
+sans que le texte le dicte. La mise en parallèle et l'application vectorisée se réduisent par _fourche et
+jointure_ : les branches s'exécutent chacune depuis la trace vide, et la trace de la configuration
+s'étend d'un seul événement, la composition parallèle des produits de leurs traces
+($`\pi(\tau)` est le produit, dans la quantale, des événements du mot $`\tau`). C'est la lecture de la profondeur
+que le type annonce — le maximum des profondeurs, non leur somme —, que le dépliage en séquence aurait
+perdue. La découpe d'une capacité substitue à ses deux variables un jeton sans contenu : la sûreté spatiale
+reste une propriété du typage, et l'arène n'a rien à lire. La garde consomme d'un seul tenant tous les
+messages de son motif conjonctif. Enfin la défaillance d'une portée de récupération est un pas de
+l'environnement, qui rend la main au recours en inscrivant l'événement de défaillance, sans défaire ce que le
+corps avait écrit.
+
+::::formula (label := "eq:reductions-orientees") (kind := "formule")
+```
+\begin{equation*}
+\begin{aligned}
+&\langle c_1 \parallel c_2 \mid \mu \mid \tau\rangle \longrightarrow \langle \mathsf{return}\;(v_1,v_2) \mid \mu_1 \uplus \mu_2 \mid \tau\cdot\bigl(\pi(\tau_1)\parallel\pi(\tau_2)\bigr)\rangle\\
+&\qquad \text{si } \langle c_i \mid \mu \mid \varnothing\rangle \longrightarrow^{*} \langle \mathsf{return}\;v_i \mid \mu_i \mid \tau_i\rangle\ (i=1,2)\\[6pt]
+&\langle \mathsf{vmap}\;v\;[w_0,\ldots,w_{n-1}] \mid \mu \mid \tau\rangle \longrightarrow \langle \mathsf{return}\;[u_0,\ldots,u_{n-1}] \mid \textstyle\biguplus_{i<n} \mu_i \mid \tau\cdot\mathop{\parallel}_{i<n}\pi(\tau_i)\rangle\\
+&\qquad \text{si } \langle (\mathsf{force}\;v)\;w_i \mid \mu \mid \varnothing\rangle \longrightarrow^{*} \langle \mathsf{return}\;u_i \mid \mu_i \mid \tau_i\rangle\ (i<n)\\[6pt]
+&\mathsf{slice}\;\kappa\;\mathsf{as}\;(x,y)\;\mathsf{in}\;c \longrightarrow c[\kappa/x,\,\kappa/y]\\[6pt]
+&\langle \mathcal{P} \uplus \{p : \mathsf{guard}\;\iota\;\{p_i \mapsto c_i\}_i\} \mid \mu \mid \mathcal{M} \mid \tau\rangle\\
+&\quad \longrightarrow \langle \mathcal{P} \uplus \{p : c_k[\overline{v_1}/\overline{x_{k1}},\ldots,\overline{v_r}/\overline{x_{kr}},\, \iota/y]\} \mid \mu \mid \mathcal{M}[\iota \mapsto B] \mid \tau[\,s_1 \prec p,\ldots,s_r \prec p\,]\rangle\\
+&\qquad p_k = m_1(\overline{x_{k1}}) \mathbin{\&}\cdots\mathbin{\&} m_r(\overline{x_{kr}}),\quad \mathcal{M}(\iota) = B \uplus \{m_1(\overline{v_1})@s_1,\ldots,m_r(\overline{v_r})@s_r\}\\[6pt]
+&\langle \mathsf{try}\;c\;\mathsf{catch}\;h \mid \mu \mid \tau\rangle \longrightarrow \langle h \mid \mu \mid \tau\cdot\mathsf{fail}\rangle
+\end{aligned}
+\end{equation*}
+```
+
+:::caption
+Fourche et jointure, découpe sans contenu, garde à motif conjonctif, défaillance de l'environnement
+:::
+::::
+
+Les lectures sont les suivantes. Les deux écritures $`\mu_1` et $`\mu_2` ont des supports disjoints, ce que
+l'addition des contextes de {sc}[Par] garantit par la linéarité des capacités d'écriture, de sorte que
+$`\mu_1 \uplus \mu_2` est l'arène $`\mu` mise à jour des deux. Le jeton $`\kappa` est une valeur
+d'exécution comme les localisations de la couche 2 : close, sans contenu, typée $`\mathsf{Cap}\;\rho` pour
+tout segment $`\rho`, et elle n'apparaît que par la réduction d'une découpe ; elle est effacée avec les grades.
+Quand plusieurs messages conviennent au motif de la garde, celui que l'on retient est le premier dans l'ordre fixe des
+émetteurs, que la structure de la boîte du §{num "sec:c4-echelle-du-systeme"}[] impose ; seul le choix de la
+fibrille qui avance reste libre. La défaillance peut survenir à tout moment avant la fin du corps, et elle ne
+rend pas l'arène : le grade affine de la couche 2 autorise l'abandon de ce que le corps détenait. Cette
+orientation n'est pas la plus fidèle pour la mise en parallèle : l'entrelacement avec une trace par branche,
+ordre partiel dès la couche 3, la prolongerait, et c'est elle que la fourche et la jointure préparent.
+
+Les six schémas qui restaient sans règle le sont devenus quand la grammaire a été corrigée : les introductions
+temporelles et la localisation sont des valeurs (§{num "sec:g-grammaire-termes"}[]), de sorte que leurs
+éliminations ont un sujet qui peut être une valeur close, et que la déclassification a un argument valeur. Ils sont
+écrits sur l'orientation la plus étroite, celle d'une machine unique : les lieux et les niveaux sont des
+étiquettes de type, et l'horloge vit dans la trace et dans la traduction, non dans la configuration.
+
+::::formula (label := "eq:reductions-modalites") (kind := "formule")
+```
+\begin{equation*}
+\begin{aligned}
+&\mathsf{at}\;(\mathsf{always}\;w) \longrightarrow \mathsf{return}\;w\\[4pt]
+&\mathsf{wait}\;(\mathsf{next}\;u) \longrightarrow \mathsf{return}\;u\\[4pt]
+&\mathsf{when}\;x = \mathsf{now}\;w\;\mathsf{in}\;c \longrightarrow c[w/x]\\[4pt]
+&\mathbf{declassify}_{\ell'}(\mathsf{box}_r\,w) \longrightarrow \mathsf{return}\;(\mathsf{box}_{r[\ell']}\,w)\\[4pt]
+&\mathsf{at}_n\;(\mathsf{return}\;w) \longrightarrow \mathsf{return}\;(\mathsf{loc}_n\,w)\\[4pt]
+&\langle \mathsf{move}_{n \to m}\;(\mathsf{loc}_n\,w) \mid \mu \mid \tau\rangle \longrightarrow \langle \mathsf{return}\;(\mathsf{loc}_m\,w) \mid \mu \mid \tau\cdot\langle \mathsf{net}_{n,m}, \langle c, c\rangle\rangle\rangle
+\end{aligned}
+\end{equation*}
+```
+
+:::caption
+Les éliminations des modalités et la déclassification : consommer l'introduction qui leur correspond
+:::
+::::
+
+Les lectures sont les suivantes. Les cinq premiers schémas sont purs, sans événement : le temps et les niveaux
+n'y sont pas observés, et la durée d'une attente n'est pas un pas de la relation. Le pas $`\mathsf{wait}` est
+celui où l'horloge de session avance, et c'est la traduction, non la source, qui le compte ; la relation $`\to` ne
+porte donc pas la durée d'attente, qui reste visible sur le canal de temps de la cible. La déclassification
+rend une boîte dont seul le niveau du grade change, sans événement : c'est le cas où la préservation graduée ne
+tient pas telle quelle, le contractum ne se dérivant que dans un contexte dont les niveaux sont abaissés, et la
+ligne de préservation ci-dessous le dit. La localisation enveloppe le résultat de l'étiquette de lieu, et ne
+déplace rien : la configuration n'a pas de lieu courant, et le coût du déplacement est celui de
+$`\mathsf{move}`, qui seul inscrit l'événement réseau, de coût $`\langle c, c \rangle`. Le contexte d'évaluation
+$`\mathsf{at}_n\,E` relève le premier de ces schémas aux sous-calculs de la localisation, et
+$`\mathsf{delay}\;c` est un calcul terminal, introduction de $`{\bigcirc}C`.
+
+::::k7table (label := "tab:couverture-reductions") (align := "Z{0.55}Z{0.45}Z{2.0}")
+:::caption
+Les constructeurs de calcul et leur schéma de réduction : ce qui est écrit, ce qui est instruit
+:::
+
+:::table +header
+* * Constructeur
+  * Schéma
+  * Ce qui le détermine, ou ce qui manque
+* * éliminations et opérations des blocs ({num "eq:reductions-pures"}[]) et ({num "eq:reductions-effets"}[])
+  * écrit
+  * une par règle d'élimination du §{num "sec:g-regles"}[]
+* * $`\mathbf{fix}`, $`\mathsf{out}` et le copatron, $`\mathsf{try}` à corps terminal
+  * écrit ({num "eq:reductions-pures-suite"}[])
+  * images du point fixe, règles {sc}[Cop] et {sc}[Try]
+* * $`\mathsf{spawn}`, $`\mathsf{new}`, $`\mathsf{send}`, $`\mathsf{free}`, et $`\mathsf{guard}` à un message
+  * écrit ({num "eq:reductions-couche2"}[])
+  * les « règles globales » du §{num "sec:g-couche2"}[]
+* * $`\mathsf{guard}` à motif conjonctif
+  * écrit, à ratifier ({num "eq:reductions-orientees"}[])
+  * la règle {sc}[Guard] porte des motifs conjonctifs ; le choix du message suit la structure de la boîte
+* * $`\mathsf{try}` quand le corps défaille
+  * écrit, à ratifier ({num "eq:reductions-orientees"}[])
+  * la défaillance n'est pas un terme du langage : pas de l'environnement, sans retour en arrière
+* * $`\mathbf{declassify}`
+  * écrit, à ratifier ({num "eq:reductions-modalites"}[])
+  * le contractum n'est pas typable dans le même contexte : la préservation graduée y tient à l'abaissement près
+* * $`\mathsf{at}`, $`\mathsf{wait}`, $`\mathsf{when}` (introductions : $`\mathsf{always}`, $`\mathsf{now}`, $`\mathsf{next}`, valeurs ; $`\mathsf{delay}`, terminal)
+  * écrit, à ratifier ({num "eq:reductions-modalites"}[])
+  * lecture séquentielle : la configuration n'a pas d'horloge, la durée d'attente vit dans la trace de la cible
+* * $`\parallel`, $`\mathsf{vmap}`
+  * écrit, à ratifier : fourche et jointure ({num "eq:reductions-orientees"}[])
+  * le déplier en séquence majorerait la profondeur que le type annonce ; reste l'entrelacement avec une trace par branche
+* * $`\mathsf{at}_n`, $`\mathsf{move}_{n \to m}` (introduction : $`\mathsf{loc}_n`, valeur)
+  * écrit, à ratifier ({num "eq:reductions-modalites"}[])
+  * machine unique : le lieu est une étiquette de type, la configuration n'a pas de lieu courant
+* * $`\mathsf{slice}`
+  * écrit, à ratifier ({num "eq:reductions-orientees"}[])
+  * jeton de capacité sans contenu ; la règle ne donne pas le découpage dans le terme, et le typage le porte
+:::
+::::
+
 Reste la _congruence_, qui dit où un pas peut avoir lieu. Les contextes d'évaluation sont
-$`E ::= [\,] \mid \mathsf{let}\;x \leftarrow E\;\mathsf{in}\;c \mid E\,v \mid \mathsf{scoped}_{f}(v, E)`,
+$`E ::= [\,] \mid \mathsf{let}\;x \leftarrow E\;\mathsf{in}\;c \mid E\,v \mid E.i \mid E\,[W] \mid \mathsf{out}\;E \mid \mathsf{try}\;E\;\mathsf{catch}\;h \mid \mathsf{scoped}_{f}(v, E) \mid \mathsf{at}_n\,E`,
 et la règle est celle qu'on attend : si
 $`\langle c \mid \mu \mid \tau\rangle \longrightarrow \langle c' \mid \mu' \mid \tau'\rangle` alors
 $`\langle E[c] \mid \mu \mid \tau\rangle \longrightarrow \langle E[c'] \mid \mu' \mid \tau'\rangle`.
+La projection, l'instanciation, l'observation et la portée de récupération ont un _calcul_ pour
+sujet, et leurs contextes manquaient aux blocs qui les réduisent : sans $`E.i` et $`E\,[W]`, un
+sujet qui n'est pas encore sous sa forme d'introduction aurait bloqué.
 Cette grammaire de contextes est courte, et sa brièveté n'est pas fortuite : en appel par poussée de
 valeur, les arguments sont déjà des valeurs, de sorte qu'il n'y a rien à évaluer sous une paire, une
 injection ou un thunk. _L'ordre d'évaluation est donc fixé par la grammaire des termes et non par un
@@ -128,7 +363,8 @@ couche 2 — plusieurs calculs, une arène partagée, une trace par fibrille —
 de la couche 3 soit perdu, propriété que la machine abstraite désignée au chapitre 4 possède {cite "cairesLinearSessionAbstract2026"}[].
 
 Deux propriétés font de cette relation autre chose qu'une description, et la relation étant
-maintenant écrite en entier, elles se démontrent. La _préservation_ dit que le type et la borne
+écrite pour les constructeurs que le texte détermine (table {num "tab:couverture-reductions"}[]),
+elles se démontrent sur ceux-là. La _préservation_ dit que le type et la borne
 d'effet sont maintenus, la seconde ne pouvant que décroître à mesure que la trace s'allonge. Le
 _progrès_ dit qu'un calcul bien typé qui n'est pas terminal peut avancer. Ensemble, ils donnent la
 correction du système d'effets : le coût effectif reste sous la borne synthétisée, ce que le
@@ -186,6 +422,52 @@ $`\varepsilon_1'\cdot\varepsilon_2 \sqsubseteq \varepsilon_1\cdot\varepsilon_2`,
 de quantale du §{num "sec:c1-axiomatique-germinale"}[]. Pour le contexte $`\mathsf{scoped}_f(v,E)`,
 il faut de plus que $`f` soit monotone : elle l'est, tout élément de $`\mathcal{M}` étant de la
 forme normale $`\varphi_n \circ \pi_S` dont les deux facteurs le sont.
+
+_Schémas ajoutés_ ({num "eq:reductions-pures-suite"}[] et {num "eq:reductions-couche2"}[]). Le point
+fixe se déplie en une suite de `let` dont chaque liaison est de grade $`\mathbf{1}` et d'effet neutre :
+le contractum se dérive par {sc}[Let], {sc}[App] et {sc}[Ret], avec $`\varepsilon' = \varepsilon`, à
+condition que $`\bot_S` soit un terme typable de type $`S`, ce que le chapitre 2 pose sans l'écrire. La
+récupération qui n'a pas eu lieu rend un terminal $`t` que la prémisse de {sc}[Try] type sous l'effet
+$`\varepsilon`, et $`\varepsilon \sqsubseteq \varepsilon \sqcup \varepsilon' \sqcup \mathsf{fail}` ; mais
+cette prémisse porte le contexte $`\Delta_1` quand la conclusion porte $`\Delta_1 \sqcup \Delta_2`, et
+l'affaiblissement par la jointure y est requis, dont le théorème {num "thm:coherence_subsomption"}[]
+reste ouvert. Le copatron demande de substituer à $`x` un thunk du copatron : la prémisse de
+{sc}[Cop] le veut de taille $`i`, le rédex le donne de taille $`i + 1`, et la règle de sous-typage des tailles,
+écrite, comble l'écart ; la liaison de $`x` étant un thunk, c'est-à-dire une valeur, le lemme de substitution
+s'applique, et ce cas se dérive par {sc}[Th], {sc}[Sub] et ce lemme. _Les deux autres ne sont donc pas démontrés_, et
+l'énoncé ci-dessus ne l'est que pour les blocs ({num "eq:reductions-pures"}[]) et
+({num "eq:reductions-effets"}[]). Les cinq règles globales de la couche 2 demandent en outre de typer
+les configurations — chaque localisation porte le type $`\mathsf{Mb}\;E` de ses messages en attente —,
+ce que ce document n'écrit pas : la préservation n'y est pas démontrée non plus.
+
+_Schémas orientés_ ({num "eq:reductions-orientees"}[]). La découpe : le jeton est typé
+$`\mathsf{Cap}\;\rho_1` et $`\mathsf{Cap}\;\rho_2`, comme la prémisse de {sc}[Slice] l'exige, et le lemme de
+substitution donne le contractum avec le même effet. La défaillance : le recours $`h` se type sous
+$`\Delta_2`, et l'inégalité d'effet est
+$`\tau\cdot\mathsf{fail}\cdot\varepsilon' \sqsubseteq \tau\cdot(\varepsilon \sqcup \varepsilon' \sqcup \mathsf{fail})` ;
+l'affaiblissement par la jointure y est requis comme pour la réussite. La fourche et la jointure : chaque
+branche se conserve par récurrence sur sa suite de pas, d'où $`\pi(\tau_i) \sqsubseteq \varepsilon_i`, et la
+monotonie de $`\parallel` — que ce document n'énonce pas — donne
+$`\tau\cdot(\pi(\tau_1)\parallel\pi(\tau_2)) \sqsubseteq \tau\cdot(\varepsilon_1\parallel\varepsilon_2)`, le
+contractum $`\mathsf{return}\;(v_1,v_2)` étant d'effet neutre ; pour $`\mathsf{vmap}`, le même argument sur
+$`n` branches. La garde à motif conjonctif demande, comme celle à un message, de typer les configurations.
+_Ces cas ne sont pas démontrés en détail_ : ils reposent sur la préservation le long des suites de pas des
+branches, établie seulement pour les constructeurs que la relation réduit déjà.
+
+_Schémas des modalités_ ({num "eq:reductions-modalites"}[]). Trois se dérivent exactement : $`\mathsf{at}\,(\mathsf{always}\;w)`
+a pour prémisse celle de {sc}[Alw], qui type $`w` dans le contexte même du rédex ;
+$`\mathsf{when}\;x = \mathsf{now}\;w` se conclut par le lemme de substitution, l'effet $`\varepsilon` du contractum étant
+majoré par $`\varepsilon[\omega/k]` de la conclusion ; $`\mathsf{at}_n\,(\mathsf{return}\;w)` se type par {sc}[Loc]
+dans le contexte $`@_n\Delta`, l'effet neutre étant majoré par $`@_n\mathbf{1}`. Trois ne se dérivent pas
+sans un lemme que ce document n'écrit pas. $`\mathsf{wait}\,(\mathsf{next}\;u)` : le sujet se type dans $`{\bigcirc}\Delta`
+et le contractum dans $`\Delta`, puisque l'attente a fait avancer l'horloge ; la préservation y est énoncée _au contexte
+avancé près_, ce que la lecture séquentielle ne trace pas. $`\mathsf{move}` : le sujet se type dans $`@_n\Delta` et le
+contractum dans $`@_m\Delta` ; les deux coïncident parce que le contexte d'une valeur sérialisable est de grades nuls,
+$`\mathsf{Ser}(V)` excluant les ressources, ce qui est un lemme à établir. $`\mathbf{declassify}` : la boîte rendue porte
+le niveau abaissé et son contexte se dérive avec des niveaux abaissés ; _c'est le seul cas où la préservation
+graduée est fausse en l'état, et elle doit l'être_ : une déclassification divulgue, et le théorème de
+divulgation délimitée ({num "thm:divulgation_delimitee"}[]) est ce qui la borne. La préservation de ce cas s'entend donc à
+l'abaissement près.
 :::
 ::::
 
@@ -201,7 +483,8 @@ progrès
 Un calcul bien typé qui n'est pas terminal avance, et le pool avec lui
 
 Soit $`\vdash c : C \mid \varepsilon` dans le contexte vide. Alors $`c` est terminal — de la forme
-$`\mathsf{return}\;v`, $`\lambda x. c_0` ou $`\langle c_i\rangle_{i\in I}` — ou bien il existe
+$`\mathsf{return}\;v`, $`\lambda x. c_0`, $`\Lambda\alpha. c_0`, $`\langle c_i\rangle_{i\in I}`,
+$`\langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J}` ou $`\mathsf{delay}\;c_0` — ou bien il existe
 $`\langle c' \mid \mu' \mid \tau'\rangle` tel que
 $`\langle c \mid \mu \mid \tau\rangle \longrightarrow \langle c' \mid \mu' \mid \tau'\rangle`, et ce
 pour tout $`\mu` et tout $`\tau`.
@@ -219,15 +502,28 @@ _Le progrès local_, par récurrence sur la dérivation de typage, à l'aide du 
 canoniques. Ce lemme donne la forme de toute valeur close : $`()` au type $`\mathbf{1}`, une paire
 au type $`V_1 \otimes V_2`, un $`\mathsf{inj}_i\,v` au type $`\bigoplus_{i\in I} V_i`, un
 $`\mathsf{thunk}` au type $`U_\varepsilon C`, un $`\mathsf{box}_r` au type $`!_r V`, un
-$`\mathsf{pack}` au type $`\exists\alpha.V`, un $`\mathsf{fold}` au type $`\mu\alpha.V`. Ce lemme
+$`\mathsf{pack}` au type $`\exists\alpha.V`, un $`\mathsf{fold}` au type $`\mu\alpha.V`, un $`\mathsf{always}` au type
+$`{\Box}V`, un $`\mathsf{now}` au type $`{\Diamond}V`, un $`\mathsf{next}` au type $`{\bigcirc}V` et un $`\mathsf{loc}_n` au type $`@_n V`. Ce lemme
 s'établit par inspection des règles d'introduction, qui sont dirigées par la syntaxe et dont aucune
 n'est admissible pour deux types distincts.
 
 Les cas d'introduction donnent des termes terminaux. Chaque cas d'élimination examine son sujet :
 s'il est déjà une valeur, la forme canonique fournit le rédex correspondant et le schéma de
 ({num "eq:reductions-pures"}[]) s'applique ; sinon, l'hypothèse de récurrence donne un pas et la
-congruence le relève, le sujet étant en position d'évaluation dans les trois contextes $`E`. Les
-opérations à effet avancent inconditionnellement.
+congruence le relève, le sujet étant en position d'évaluation dans les contextes $`E`. Les
+opérations à effet avancent inconditionnellement, comme le point fixe, qui se déplie toujours.
+Sous concurrence, une garde dont la boîte ne contient aucun message attendu est bloquée : c'est le cas
+que la forme globale ci-dessus renvoie à l'acyclicité du graphe de dépendances.
+
+L'induction ne porte que sur les formes que les blocs ({num "eq:reductions-pures"}[]),
+({num "eq:reductions-pures-suite"}[]), ({num "eq:reductions-effets"}[]) et
+({num "eq:reductions-couche2"}[]) réduisent, plus celles que les formules ({num "eq:reductions-orientees"}[]) et
+({num "eq:reductions-modalites"}[]), proposées à la ratification, ajoutent : la déclassification, les éliminations
+temporelles, la localisation et le déplacement y ont un schéma, et leur cas du progrès se lit comme les autres,
+la forme canonique de leur sujet fournissant le rédex. Aucun de ces cas n'est conduit en détail.
+La liste des formes terminales de l'énoncé nomme désormais $`\Lambda\alpha. c`, le copatron et
+$`\mathsf{delay}\;c`, qui sont des calculs clos qu'aucun schéma ne réduit ; et l'énoncé porte sur un calcul bien typé quelconque, quand la preuve
+ne couvre que les constructeurs ci-dessus.
 
 _Deux hypothèses sont nécessaires et il vaut mieux les déclarer que de les supposer._ La première
 est que $`\llbracket \mathsf{operation} \rrbracket` soit _totale_ sur les arguments bien typés : le
@@ -363,6 +659,14 @@ elle, n'a pas à être efficace : elle a à être fidèle, et son office est de 
 comme Reynolds l'a fait pour GEDANKEN en traduisant sa définition formelle en un interprète qu'il
 qualifiait lui-même d'extrêmement inefficace.
 
+Trois objets sont en jeu, et leurs liens doivent être tenus ensemble : une sémantique _construite_,
+la relation $`\to` ci-dessus ; une sémantique _empruntée_, la machine à sessions linéaires atteinte par la
+traduction $`\llbracket \cdot \rrbracket` ; une sémantique _invoquée_, la catégorie ambiante. La relation
+$`\to` est primitive ; la traduction lui est reliée par la simulation du théorème
+{num "thm:simulation"}[] ; la catégorie ambiante est requalifiée en vocabulaire (postulat P1a), son
+interprétation restant l'obligation P1b. Chaque lien manquant est invisible quand on lit un seul
+objet : c'est en les tenant ensemble que l'incohérence apparaîtrait.
+
 Une troisième chose existe pourtant, que ni les règles ni la relation ne portent, et l'omettre
 serait la léguer à l'improvisation. Un vérificateur dispose d'une grande liberté dans l'_ordre_ où
 il parcourt l'arbre de syntaxe, et cet ordre décide de la localité des messages d'erreur bien plus
@@ -440,6 +744,36 @@ affaibli par la stratification, il en est l'instance supérieure. La seconde est
 qu'appelle cet énoncé — le journal stratifié — n'est pas choisie pour son coût mais parce que sa
 structure _est_ celle de la projection~: journaliser par niveau, c'est n'avoir rien à projeter au
 moment du rejeu.
+
+::::thm (label := "thm:correspondance_niveaux") (status := "proposition")
+:::title
+correspondance des niveaux de lecture et de production
+:::
+
+:::statement +titled
+Un calcul n'émet d'événement qu'à un niveau au moins égal à celui de ce qu'il lit
+
+Si $`\Delta \vdash c : C \mid \varepsilon` et si $`\langle c \mid \mu \mid \tau \rangle \to^{*} \langle c' \mid \mu' \mid \tau \cdot \tau' \rangle`,
+alors tout événement de $`\tau'` a un niveau $`\hat\ell \sqsupseteq \mathrm{niv}(\Delta)`. Autrement dit, le tick
+dont dépend un secret n'est jamais étiqueté en deçà du secret.
+:::
+
+:::proofsketch
+Par préservation (théorème {num "thm:preservation"}[]), chaque contractum reste typable avec une borne
+d'effet qui ne fait que décroître, de sorte qu'il suffit de la propriété sur le pas. Pour
+{sc}[Tick], le contexte est nul, donc $`\mathrm{niv}(\mathbf{0}) = \bot \sqsubseteq \hat\ell`. Pour {sc}[Op]
+et {sc}[Case], c'est exactement la clause de couplage $`\mathrm{niv}(\Delta) \sqsubseteq \hat\ell(\varepsilon)`. Les
+autres règles composent des contextes dont le niveau est la jointure de ceux des prémisses, et la
+sous-effet {sc}[Sub] ne peut qu'abaisser la borne $`\hat\ell` jusqu'à la clause. Non démontrée en
+détail : l'induction doit encore traiter les règles de couche 2.
+:::
+::::
+
+Cette proposition est le lemme de correspondance que la distinction de $`\ell` et de $`\hat\ell`
+rend énonçable ; elle fait de l'exclusion de $`\varphi_\ell` hors de la quantale un résultat dérivé.
+Elle n'exige pas d'indexer le jugement par le niveau : la correspondance est portée par les clauses des
+règles {sc}[Op], {sc}[Case] et {sc}[Tick], et se lit sur chaque nœud de la dérivation, où le contexte
+$`\Delta` et l'effet $`\varepsilon` sont tous deux présents.
 
 # La relation logique, définie
 %%%
@@ -552,7 +886,7 @@ projections. La compatibilité avec chaque opération — action de $`\varphi` e
 unité — se vérifie composante par composante, puisque ces opérations agissent sans jamais mêler deux
 composantes (§{num "sec:c1-de-la-loi-distributive"}[]). La clause de $`!^r V` n'inspectant que la
 troisième composante, elle se lit sur la seule relation du facteur de confidentialité, les autres
-facteurs la traversant inchangés. Facteur par facteur : sur l'_usage_ $`\mathbb{N}_\infty`, la clause de $`!^r V` compare des comptes et la relation d'un facteur est celle du lemme de ce facteur, $`\varphi` et $`\psi` y étant la multiplication ; sur la _monotonie_ (deux points), la relation est l'égalité, la marque ne modifiant pas le terme ; sur le _niveau_, c'est la clause décisive, la relation y est celle du treillis $`\mathcal{L}` indexée par le niveau d'observation $`\ell` ; sur le _budget_, $`\psi` le diminue sans toucher la valeur, donc la relation de valeur est inchangée et la condition porte sur la trace. Les trois premiers cas sont immédiats ; le quatrième est celui que la proposition {num "thm:troncature_comonade"}[] ne couvre pas et qu'il reste à écrire. Ce qui est établi ici est une _compatibilité_ et non seulement une
+facteurs la traversant inchangés. Facteur par facteur : sur l'_usage_ $`\mathbb{N}_\infty`, la clause de $`!^r V` compare des comptes et la relation d'un facteur est celle du lemme de ce facteur, $`\varphi` et $`\psi` y étant la multiplication ; sur la _monotonie_ (deux points), la relation est l'égalité, la marque ne modifiant pas le terme ; sur le _niveau_, c'est la clause décisive, la relation y est celle du treillis $`\mathcal{L}` indexée par le niveau d'observation $`\ell` ; sur le _budget_, $`\psi` le diminue sans toucher la valeur, donc la relation de valeur est inchangée et la condition porte sur la trace. Les quatre cas sont immédiats. Pour le budget, $`\psi` agit de la même façon sur les deux substitutions, l'effet $`\varepsilon` étant commun aux deux exécutions ; il diminue les budgets d'autant sans toucher la valeur, et la relation de valeur est donc inchangée. La condition porte sur la trace, que la clause de niveau projette, et elle est acquise par le lemme de substitution. Ce qui est établi ici est une _compatibilité_ et non seulement une
 non-interaction : c'est ce que la remarque de la section affirmait sans le dire. Le détail pour chaque
 facteur reste à écrire.
 :::
@@ -619,6 +953,18 @@ niveau $`\ell`, et des traces égales après $`\pi^{\flat}_{\ell}`. L'égalité 
 ferme le canal temporel, et elle vient de la projection observationnelle plutôt que d'un argument
 séparé.
 
+_Une seule relation, indexée par le treillis._ Ce que le niveau indexe est tout ce que la relation
+contient : $`\ell \mapsto \mathcal{R}_\ell\llbracket A \rrbracket` est la seule famille dont ce
+chapitre ait besoin, et trois énoncés en sont des lectures. La non-interférence graduée est la relation
+nue appliquée à deux entrées de niveau supérieur à $`\ell` ; la divulgation délimitée est la même relation
+sous l'hypothèse $`\mathcal{X}` ; le lemme fondamental est la preuve qu'elles partagent. Cette famille
+n'est pas monotone en $`\ell`, et il ne faut pas lui prêter cette propriété : sur un type de fonction
+$`V \multimap C`, abaisser le niveau agrandit à la fois l'ensemble des arguments à traiter et la relation
+que les résultats doivent satisfaire, de sorte qu'aucune inclusion ne vaut en général. La préservation
+(théorème {num "thm:preservation"}[]) n'en fait pas partie : elle porte sur un pas d'une exécution et non
+sur deux exécutions apparentées, et son analogue serait une relation unaire sur les configurations, qui
+n'est pas écrite ici.
+
 ## Ce qui n'est pas démontré, et il faut le dire précisément
 %%%
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute-ce-qui-n"
@@ -633,8 +979,11 @@ branchements, les trois modalités temporelles — se laissent écrire par récu
 Mais que leur bonne définition suppose que deux exécutions apparentées emploient des noms de canaux
 _correspondants_. Le second, qui est le vrai, est qu'un canal créé par un calcul de niveau supérieur
 à $`\ell` ne doit pas être observable en deçà, et que rien dans la relation telle qu'elle est écrite
-ne l'assure. Il y faut le système de sortes du métalangage, qui est l'objet que cette extension doit construire. Tant qu'il n'est pas posé, la relation est définie sur les deux premières strates et la
-non-interférence l'est autant.
+ne l'assure. Il y faut le système de sortes du métalangage, qui est l'objet que cette extension devait construire : il l'est
+(§{num "sec:g-sortes"}[]), avec la correspondance des noms et le fil de temps enfilé, et la clause de session y est
+écrite (formule {num "eq:relation-sessions-mondes"}[]). La relation de cette section reste définie sur les deux
+premières strates, et la non-interférence l'est autant : ce qui manque est l'induction du lemme fondamental sur les
+règles de communication, que ni la proposition {num "thm:chaine_fils"}[], bornée à un fragment, ni la clause ne remplacent.
 
 L'énoncé honnête est donc celui-ci. _La non-interférence graduée est démontrée pour le fragment sans
 communication_, temps compris — ce qui est plus que ce que la plupart des systèmes gradués
@@ -695,8 +1044,8 @@ _closes_, évaluées dans l'état initial. La substitution y est alors l'identit
 l'échappatoire désigne une valeur déterminée avant l'exécution plutôt qu'une forme à remplir. C'est
 la lecture que retient la littérature dont l'énoncé est repris {cite "sabelfeldModelDelimitedInformation2004"}[],
 et elle n'est pas une restriction gênante : une politique de déclassification qui ne saurait pas
-dire _quoi_ elle divulgue ne serait pas une politique. La règle du chapitre 2 doit donc porter cette
-clause, et c'est un écart de formalisation relevé au chantier.
+dire _quoi_ elle divulgue ne serait pas une politique. La règle du chapitre 2 porte désormais cette
+clause, par la prémisse $`\mathrm{fv}(v) = \emptyset` : l'écart de formalisation relevé au chantier est refermé.
 
 # La traduction vers le métalangage : ce que le lemme solde
 %%%

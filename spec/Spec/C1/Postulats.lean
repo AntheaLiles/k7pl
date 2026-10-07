@@ -185,9 +185,9 @@ forme que la clôture énoncée ci-après réclame d'une extension.
   Deux degrés de rejeu se distinguent, faute de quoi l'énoncé promet plus qu'il ne tient. Le rejeu
   _logique_ — même journal, même suite d'états observables — est ce que P4 garantit : il ne dépend
   que de la journalisation des sources de non-déterminisme, et le système de types suffit à
-  l'établir. Le rejeu _bit à bit_ suppose en outre un ordonnancement, un mode d'arrondi flottant et
-  une version de compilateur identiques, qu'aucune clause de ce document ne fixe et que le journal
-  ne consigne pas. P4 énonce donc le premier ; le second est une propriété de déploiement, obtenue
+  l'établir. Le rejeu _bit à bit_ suppose en outre un ordonnancement, un mode d'arrondi flottant,
+  une version de compilateur, une architecture et un comportement des NaN identiques, sur une même
+  machine, qu'aucune clause de ce document ne fixe et que le journal ne consigne pas. P4 énonce donc le premier ; le second est une propriété de déploiement, obtenue
   lorsque l'environnement d'exécution est lui-même reproductible.
 
   Une quatrième source aurait pu figurer dans cette liste, et son absence demande une justification :

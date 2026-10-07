@@ -41,6 +41,8 @@ Start with:
 
 The existing directories suivi/, relectures/, methode/, recherche/, bibliographie/, journal/, and historique/ are intentionally retained in place.
 
+The working entry point of that tree is [`suivi/TABLEAU-DE-BORD.md`](suivi/TABLEAU-DE-BORD.md) (state of the manuscript and what remains), with [`suivi/RESTE-A-FAIRE.md`](suivi/RESTE-A-FAIRE.md) (open items) and [`suivi/DECISIONS.md`](suivi/DECISIONS.md) (decided, applied "to be ratified", genuinely pending). The session journal is in [`journal/`](journal/). The detailed analyses, set against the manuscript, of each element the author has to decide are indexed in [`recherche/analyses-decisions/`](recherche/analyses-decisions/README.md).
+
 A later migration programme will classify, rewrite, cross-reference, and relocate their relevant material. No current document should silently become normative merely because it is old or detailed.
 
 See also [archives/](../archives/) for frozen historical implementation material.

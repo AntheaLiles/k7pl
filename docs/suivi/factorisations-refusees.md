@@ -65,3 +65,9 @@ Sept fusions ont été examinées et refusées. Chacune était tentante, et six 
 Six sur sept rapprochaient des objets de *même forme*. C'est le signal à retenir : la ressemblance de notation est ce qui rend une fusion tentante, et elle n'est jamais ce qui la justifie.
 
 Ce qui justifie une factorisation est que les objets aient les mêmes *obligations*. Ce qui l'interdit est qu'ils aient les mêmes formes et des obligations différentes — et c'est le cas le plus fréquent, parce qu'une notation bien choisie fait justement ressembler ce qui joue un rôle analogue.
+
+## Deux cadres d'ensemble, écartés par arbitrage (`FACT-21`, `FACT-22`)
+
+Ces deux-là ne sont pas des fusions d'objets mais des **cadres de rédaction** proposés par la relecture : une architecture à cinq couches de preuve (`FACT-21`) et une formulation fibrée bimodale du jugement (`FACT-22`). `ARB-PR-05` (journal de la séance 7, 1er octobre 2026) a retenu le cadre du manuscrit, ratifié : le jugement germinal à trois composantes, la sédimentation des trois couches, l'effacement en dernière phase. Choisir celui-là ne coûte rien ; en choisir un autre coûte une réécriture pour un gain nul, les quatre cadres se recouvrant largement. Les deux propositions sont donc **documentées comme écartées** plutôt qu'écrites.
+
+Deux éléments postérieurs confortent le refus, sans en être le motif. La loi distributive qui relie coeffets et effets n'est qu'*affaiblie* (`thm:loi_distributive_conditions`, séance 24) : un cadre fibré strict qui l'absorberait serait faux en l'état. Et les objectifs chiffrés que `FACT-22` annonçait (quatorze théorèmes en moins, trente-neuf règles de typage ramenées à vingt-quatre) n'ont pas été vérifiés ; le manuscrit en compte aujourd'hui cinquante. Ce qui est pris de ces cadres tient en un mot : le vocabulaire de la théorie de modes (le mode est le paramètre), et la décomposition module × ordre de `TRANS-02`, écrite au §1.4.

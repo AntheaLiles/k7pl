@@ -1,191 +1,191 @@
-id,statut,confiance,preuve,note
-BLOQ-01,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-BLOQ-02,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-BLOQ-03,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,⊖ défini par cas ; loi d'action restreinte ; contrôle écrit avant la correction
-BLOQ-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-BLOQ-05,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,clauses Op/Case et Tick posées ; lemme de correspondance et relecture des Th. 43-51 à faire
-BLOQ-06,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,deux sortes de tailles 𝕊_μ / 𝕊_ν
-BLOQ-07,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,énoncé rendu conditionnel à Sim ; Sim à établir (PREUVE-07)
-BLOQ-08,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,P1b nommée ; Th. 31 et §4.6 à reprendre
-BLOQ-09,partielle,journal,journal/2026-10-05-pr-02-20-slice.md,"H1 lue sur Slice ; élimination de l'arène à écrire ; région comme discipline de portée à définir"
-BLOQ-10,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,D_det nommée ; ses trois composantes restent à écrire (PREUVE-15)
-BLOQ-11,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,
-BLOQ-12,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,table de propagation à écrire (IMPL-07)
-BLOQ-13,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-BLOQ-14,fermee,journal,journal/2026-10-05-pr-02-20-slice.md,"ordre ⊑ nommé, table du produit mixte renvoyée depuis les ch. 1 et 2 (TRANS-06) ; §3.1 et §4.5 relus"
-STRUCT-01,ouverte,,,
-STRUCT-02,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,"ℰ_alg / ℰ_scoped, clôture faible (position intermédiaire de ARB-PR-03)"
-STRUCT-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-STRUCT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-STRUCT-05,ouverte,,,
-STRUCT-06,partielle,journal,journal/2026-10-05-pr-02-19-preuves-detaillees.md,"phase 2.5 renommée Résolution (figure 11 régénérée) ; Phase 0 Expansion à ajouter à la figure"
-STRUCT-07,partielle,journal,journal/2026-10-01-pr-02-08-fact-suite.md,énoncé scellé proposition ; la preuve par facteur reste à conduire (PREUVE-10)
-STRUCT-08,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"Th. raffinement conditionnel à la traduction"
-STRUCT-09,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"journal complet posé en paramètre de l'hypothèse de rejeu"
-STRUCT-10,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"λ classée structure dérivée de l'instance historique"
-STRUCT-11,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,idem
-STRUCT-12,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"Th. hygiène non gradué et gradué scindés (PORT-14)"
-STRUCT-13,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"« voie disponible, dont le prix est chiffré » (ch. 3)"
-STRUCT-14,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"G_pile et G_budget définis par projection ; clause de portée de P3"
-STRUCT-15,ouverte,,,
-STRUCT-16,partielle,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"modes atteignables énoncés ; preuve par examen des règles à conduire"
-STRUCT-17,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"trois notions de monotone distinguées (§2.4)"
-STRUCT-18,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"table normative : Δ₁+Δ₂, ⊠, ⊗ des types, ⊗_𝒞, ℓ et ℓ̂"
-STRUCT-19,ouverte,,,
-STRUCT-20,ouverte,,,
-STRUCT-21,ouverte,,,
-STRUCT-22,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"P2 qualifiée : orthogonalité au niveau du jugement, trois couplages nommés"
-STRUCT-23,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,"annexe E fondue : règles au ch. 3, sémantique au ch. 4 ; §1.1 corrigé"
-PORT-01,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"domaine et profil Π écrits ; rappel au §6.1 ; endianness et alignement"
-PORT-02,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
-PORT-03,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
-PORT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-PORT-05,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,"thm:surete_ffi scindé : clause 1 théorème, clause 2 exigence ⟨représentation⟩"
-PORT-06,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"Th. 34 : définition + clôture locale, suffisante non nécessaire"
-PORT-07,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"complétude restreinte au noyau ; exigence thm:completude_verificateur ; comptes retirés"
-PORT-08,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:elaboration requalifié définition — à confirmer
-PORT-09,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-PORT-10,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
-PORT-11,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
-PORT-12,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"§4.2 : O(n), @stack/@backtrack, pile bornée ; figure 7 corrigée"
-PORT-13,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"propagée aux ch. 5 et 6"
-PORT-14,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"hygiène graduée et resucrage ; Th. 19 scindé ; sédimentation en deux temps"
-PORT-15,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
-PORT-16,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:abaissement_grades requalifié conjecture ⟨compilation⟩ — à confirmer
-PORT-17,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,
-PREUVE-01,partielle,journal,journal/2026-10-01-pr-02-06-theoremes.md,énoncé repris sous concurrence ; la démonstration reste la dette la plus lourde
-PREUVE-02,ouverte,,,
-PREUVE-03,partielle,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,non-interférence séquentielle située ; déterminisme observationnel scellé conjecture sous hypothèse nommée
-PREUVE-04,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"Th. 9 requalifié proposition, route nommée (paramétricité), renvoi corrigé ; preuve à conduire"
-PREUVE-05,ouverte,,,
-PREUVE-06,ouverte,,,
-PREUVE-07,partielle,journal,journal/2026-10-05-pr-02-19-preuves-detaillees.md,"cas pures, congruence et trace détaillés ; exigence : traduction qui enfile le canal de temps ; clauses d'opération à écrire"
-PREUVE-08,partielle,journal,journal/2026-10-05-pr-02-19-preuves-detaillees.md,"convention de remplissage et récurrence écrites ; vérification pour chaque F à faire"
-PREUVE-09,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé en deux temps ; hypothèse (ii) nommée exigence sur ℰ₀"
-PREUVE-10,partielle,journal,journal/2026-10-05-pr-02-19-preuves-detaillees.md,"conversions définies par facteur ; équation w∘ε=w à vérifier au ch. 2"
-PREUVE-11,partielle,journal,journal/2026-10-05-pr-02-19-preuves-detaillees.md,"clause par facteur écrite ; facteur budget à écrire"
-PREUVE-12,partielle,journal,journal/2026-10-05-pr-02-20-slice.md,"règle Slice écrite (50 règles, 46 constructeurs) ; H1 dépend de l'élimination de l'arène, exception déclarée"
-PREUVE-13,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,l'absence d'interblocage n'emprunte plus : le graphe de câblage est lu des règles
-PREUVE-14,fermee,journal,journal/2026-10-01-pr-02-14-preuves.md,"schéma de méta-théorème, deux instanciations aux conclusions distinctes"
-PREUVE-15,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"D_det écrite (parcours, recherche, graine) en E.4.1 ; implémentation à spécifier dans l'outillage"
-PREUVE-16,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé en deux temps, contrainte d'outil nommée ; cas gradué ouvert"
-NOTA-01,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-NOTA-02,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"Tick déclarée admissible (instance d'Op)"
-NOTA-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,
-NOTA-04,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"Δ = Δ_ω au §5.1 et §5.5"
-NOTA-05,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"ε_exp, ε_body, occ(m) ; table 11 corrigée"
-NOTA-06,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"a, c, d, f corrigés ; b par renvoi ; e par BLOQ-02"
-NOTA-07,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"identifiants T-xx et G.x résolus en renvois de section"
-NOTA-08,fermee,journal,journal/2026-09-30-pr-02-03-vague-0-fin.md,"deux renvois faux, définition de la pureté des gestionnaires"
-IMPL-01,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"certificat exigé aux frontières de paquet (§6.1 Phase 5, annexe D)"
-IMPL-02,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"critère opérationnel écrit en fin de §6.3"
-IMPL-03,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"protocole du test différentiel écrit en fin de §6.3"
-IMPL-04,ouverte,,,
-IMPL-05,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:revocation_ffi : première exigence du document
-IMPL-06,partielle,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"Π défini au §4.5 ; Th. 20 et rejeu requalifiés en conformité ; Th. 36 non requalifié"
-IMPL-07,ouverte,,,
-IMPL-08,partielle,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"productions dégénérées et types non engendrés contrôlés (mutation vérifiée) ; arités et build sur symbole absent restent à porter"
-IMPL-09,fermee,journal,suivi/hypotheses-de-module.md,"inventaire écrit dans docs/suivi/hypotheses-de-module.md"
-FACT-01,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
-FACT-02,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
-FACT-03,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,
-FACT-04,fermee,journal,journal/2026-10-01-pr-02-08-fact-suite.md,
-FACT-05,partielle,journal,journal/2026-10-01-pr-02-08-fact-suite.md,"le théorème recule en proposition ; voie écrite, preuve à conduire"
-FACT-06,fermee,journal,journal/2026-10-01-pr-02-08-fact-suite.md,
-FACT-07,ouverte,journal,journal/2026-10-01-pr-02-13-fact-fin.md,attend PREUVE-11 (BLOQ-05 est levé)
-FACT-08,fermee,journal,journal/2026-10-05-pr-02-20-slice.md,"une analyse de co-Kleisli ; réserve source/cible écrite au ch. 3"
-FACT-09,partielle,journal,journal/2026-10-01-pr-02-13-fact-fin.md,principe énoncé au §1.4 ; table code ⟷ prémisse à écrire (PORT-07)
-FACT-10,ouverte,journal,journal/2026-10-01-pr-02-13-fact-fin.md,attend PREUVE-07 (lemme de simulation)
-FACT-11,partielle,journal,journal/2026-10-01-pr-02-13-fact-fin.md,objet Mailbox posé au §4.5 ; reprise des quatre énoncés à faire
-FACT-12,decision,journal,journal/2026-10-01-pr-02-13-fact-fin.md,choix de formulation : ARB-PR-05 écarte déjà FACT-21/22 ; à réévaluer avec STRUCT-01
-FACT-13,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
-FACT-14,decision,journal,journal/2026-10-01-pr-02-13-fact-fin.md,dépend de STRUCT-17 (quatre notions de monotonie)
-FACT-15,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
-FACT-16,fermee,journal,journal/2026-10-01-pr-02-12-fact-17-et-16.md,exigence thm:representation_inobservable ; vérifiée par test différentiel
-FACT-17,fermee,journal,journal/2026-10-01-pr-02-12-fact-17-et-16.md,énoncé unique écrit (thm:introduction_unique) ; preuve à écrire (PREUVE-12)
-FACT-18,partielle,journal,journal/2026-10-01-pr-02-13-fact-fin.md,principe posé au §2.6 ; lemme de troncature à écrire à part
-FACT-19,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
-FACT-20,fermee,journal,journal/2026-10-05-pr-02-20-slice.md,"table tab:classes-motifs au §4.2 (machine, temps, espace, classe)"
-FACT-21,ecartee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md
-FACT-22,ecartee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,cadres de rédaction écartés par ARB-PR-05 ; à consigner dans factorisations-refusees.md
-FACT-23,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,"le connecteur ■ n'était pas nécessaire : □ suffit, ■ retiré"
-FACT-24,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,
-TRANS-01,fermee,journal,journal/2026-09-30-pr-02-02-vague-0.md,"sceau à deux axes (statut, niveau)"
-TRANS-02,ouverte,,,
-TRANS-03,ouverte,,,
-TRANS-04,ouverte,,,
-TRANS-05,fermee,journal,journal/2026-09-30-pr-02-03-vague-0-fin.md,"registre des obligations produit, non tenu"
-TRANS-06,ouverte,,,
-TRANS-07,ouverte,,,
-TRANS-08,ouverte,,,
-TRANS-09,ouverte,,,
-ARB-PR-01,fermee,fiche,relectures/pr-02/taches-consolidees.md,tranché par vérification directe (14 septembre)
-ARB-PR-02,fermee,fiche,relectures/pr-02/taches-consolidees.md,tranché sur le point contesté (14 septembre)
-ARB-PR-03,a-ratifier,journal,journal/2026-10-01-pr-02-06-theoremes.md,position intermédiaire appliquée (ℰ_alg / ℰ_scoped) ; BIB-01 (Hefty Algebras) non instruit
-ARB-PR-04,decision,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,instruction écrite (docs/recherche/instruction-arb-pr-04-rejeu-binaire.md) ; orientation B puis C à confirmer
-ARB-PR-05,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,cadre du manuscrit ratifié
-ARB-PR-06,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,objectif déclaré : transformer la revendication en preuve ; PREUVE-02 en tête
-ARB-PR-07,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,famille modale et graduée (1er octobre) ; motif écrit au §1.2 ; quatre imports à instruire un à un (BIB)
-REFUS-01,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
-REFUS-02,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
-REFUS-03,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
-REFUS-04,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
-REFUS-05,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
-REFUS-06,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
-REFUS-07,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md
-REECR-01,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"P1a / P1b (BLOQ-08)"
-REECR-02,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-02 — à confirmer
-REECR-03,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"Th. fidélité conditionnel à Sim (BLOQ-07)"
-REECR-04,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"domaine du Th. 20 rappelé au §6.1"
-REECR-05,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"clôture forte (données) / faible (actions)"
-REECR-06,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-03 — à confirmer
-REECR-07,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-10 — à confirmer
-REECR-08,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"traduction : induction planifiée, non conduite ; statut proposition"
-REECR-09,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"NI et divulgation restent bornées au fragment sans communication"
-REECR-10,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"Th. 34 : définition + clôture locale"
-REECR-11,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-05 — à confirmer
-REECR-12,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"E_repro élargie à l'architecture ; injectivité"
-REECR-13,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"retiré (Th. 18 réécrit)"
-REECR-14,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"énumération sur le noyau"
-REECR-15,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"profil Π"
-REECR-16,partielle,journal,journal/2026-10-01-pr-02-18-reecr.md,"Th. 29 à conserver une fois la Phase 0 portée par la figure 11"
-REECR-17,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"hypothèse D_det"
-REECR-18,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"ordre : exception de la Phase 5 reconnue"
-REECR-19,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"traduction de la couche 2 séquentielle seulement"
-REECR-20,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"singletons = fragments logiques, intervalles = modalités"
-REECR-21,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"réserve portée au ch. 1"
-REECR-22,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"jeu de règles existant ; §1.1 corrigé"
-REECR-23,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"prix des suspensions mentionné"
-REECR-24,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"terminalité : logique, non physique"
-REECR-25,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-11 — à confirmer
-REECR-26,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"O(n), O(1) par bloc"
-REECR-27,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"Δ = Δ_ω"
-BIB-01,ouverte,,,
-BIB-02,ouverte,journal,bibliographie/verifications-pr02.md,"référence introuvable en ligne : à vérifier auprès du relecteur"
-BIB-03,fermee,journal,bibliographie/verifications-pr02.md,"statut exact : quantitatif en cours, dépendant publié"
-BIB-04,partielle,journal,bibliographie/verifications-pr02.md,"join-calculus confirmé ; protocole = IMPL-04"
-BIB-05,ouverte,,,
-BIB-06,fermee,journal,bibliographie/verifications-pr02.md,"échappatoires = expressions confirmé ; clôture = notre précision"
-BIB-07,fermee,journal,bibliographie/verifications-pr02.md,"source incrimine la plus grande taille ∞<∞ ; scission 𝕊_μ/𝕊_ν tient"
-BIB-08,fermee,journal,bibliographie/verifications-pr02.md,"charge utile NaN recommandée, non exigée ; architecture dans E_repro"
-BIB-09,partielle,journal,bibliographie/verifications-pr02.md,"Arrow vérifié ; endianness et Cap'n Proto à vérifier"
-BIB-10,fermee,journal,bibliographie/verifications-pr02.md,"confirmé (résumé)"
-BIB-11,ouverte,,,
-BIB-12,ouverte,,,
-BIB-13,ouverte,,,
-BIB-14,ouverte,,,
-BIB-15,ouverte,,,
-BIB-16,ouverte,,,
-BIB-17,ouverte,,,
-BIB-18,fermee,journal,bibliographie/verifications-pr02.md,"rien à corriger"
-BIB-19,ouverte,,,
-BIB-20,fermee,journal,bibliographie/verifications-pr02.md,"calf/decalf confirmés"
-BIB-21,partielle,journal,bibliographie/verifications-pr02.md,"confirmé ; restriction sur l'égalité définitionnelle à lire dans le corps"
-BIB-22,fermee,journal,bibliographie/verifications-pr02.md,"CloTT confirmé"
-BIB-23,fermee,journal,bibliographie/verifications-pr02.md,"Granule/TLL_C confirmés"
-BIB-24,partielle,journal,bibliographie/verifications-pr02.md,"XTT : extensionnalité sans univalence ; compatibilité avec la sédimentation à instruire"
-BIB-25,partielle,journal,bibliographie/verifications-pr02.md,"loi d'échange confirmée ; compatibilité avec la résiduation à vérifier"
-BIB-26,ouverte,,,
-BIB-27,partielle,journal,bibliographie/verifications-pr02.md,"confirmé ; théorème d'interblocage à lire"
-BIB-28,fermee,journal,bibliographie/verifications-pr02.md,"confirmé"
-BIB-29,fermee,journal,bibliographie/verifications-pr02.md,"ChorLean en Lean confirmé"
+id,statut,confiance,preuve,note,nature,avancement,suite,depend
+BLOQ-01,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+BLOQ-02,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+BLOQ-03,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,⊖ défini par cas ; loi d'action restreinte ; contrôle écrit avant la correction,,,,
+BLOQ-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+BLOQ-05,partielle,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,indexation du jugement non requise (validé le 1er octobre) ; clauses Op/Case et Tick posées ; lemme de correspondance énoncé sans indexation (thm:correspondance_niveaux) avec plan de preuve ; relecture des Th. 43-51 à faire,preuve,80,conduire l'induction sur les règles de couche 2 ; relire la préservation et la non-interférence sous les clauses,PREUVE-03
+BLOQ-06,fermee,journal,journal/2026-09-30-pr-02-01-bloq-03-et-06.md,deux sortes de tailles 𝕊_μ / 𝕊_ν,,,,
+BLOQ-07,partielle,journal,journal/2026-10-06-pr-02-29-anom-17-et-preuve-03.md,"les deux options validées le 1er octobre : énoncé conditionnel à Sim, simulation à conduire ; tous les constructeurs ont désormais un schéma de réduction (formules eq:reductions-orientees et eq:reductions-modalites, à ratifier), sans clause de traduction pour la plupart ; Sim non démontrée",preuve,50,"conduire la simulation Sim sur les schémas écrits ; écrire les clauses de traduction du copatron, de la couche 2, de la fourche-jointure, des modalités temporelles, de la localisation et de la déclassification",PREUVE-07
+BLOQ-08,fermee,journal,journal/2026-10-05-pr-02-21-struct-et-facts.md,P1a/P1b ; arguments syntaxiques par famille d'optimisation ; ré-invocation rattachée au modèle mémoire,,,,
+BLOQ-09,fermee,journal,journal/2026-10-06-pr-02-26-arene.md,"H1, H2, H3 posées ; Slice ; région définie ; élimination de l'arène admise comme hypothèse de module (réponse du texte : « ou l'admettre comme paramètre »)",,,,
+BLOQ-10,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,D_det nommée ; ses trois composantes restent à écrire (PREUVE-15),,,,
+BLOQ-11,fermee,journal,journal/2026-10-01-pr-02-11-bloq-sur-le-verso.md,,,,,
+BLOQ-12,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,"Th. 18 réécrit en proposition de représentation ; tables de propagation calculées sur la roue des fractions (Carlström 2004, notice confirmée, corps non lu) ; écart IEEE 754 sur ∞+∞ écrit ; ∘ et δ définis comme extension de K7PL, sans source (séance 33 : réunion d'étiquettes, la borne supérieure n'étant pas associative ; l'extension n'est pas une roue)",ratification,90,ratifier la définition de ∘ et δ (extension sans source ; réunion d'étiquettes, priorité fixe ou retrait) ; lire Carlström 2004 dans son corps (accès fermé),IMPL-07
+BLOQ-13,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+BLOQ-14,fermee,journal,journal/2026-10-05-pr-02-20-slice.md,"ordre ⊑ nommé, table du produit mixte renvoyée depuis les ch. 1 et 2 (TRANS-06) ; §3.1 et §4.5 relus",,,,
+STRUCT-01,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,la décomposition module × ordre (TRANS-02) tient lieu de cadre ; le chapitre 1 le dit ; pas de réécriture du chapitre,ratification,85,ratifier avec TRANS-02,TRANS-02
+STRUCT-02,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,"ℰ_alg / ℰ_scoped, clôture faible (position intermédiaire de ARB-PR-03)",,,,
+STRUCT-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+STRUCT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+STRUCT-05,a-ratifier,journal,journal/2026-10-05-pr-02-22-preuves-fin.md,ordre de préservation écrit au §6.1 (tab:invariants-de-passe) ; lemmes de compatibilité à écrire,ratification,70,ratifier l'ordre de préservation ; écrire les trois lemmes de compatibilité,TRANS-04
+STRUCT-06,a-ratifier,journal,journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md,"numérotation consécutive de 0 à 10, une étape par numéro (Parse 0, Expansion 1, ConfigAnalysis 2, TypeCheck 3, Résolution 4, PurityCheck 5, TermProof 6, ConstraintSolve 7, Optimize 8, CodeGen 9, Link 10) ; figure 11, textes, tables et renvois renumérotés ; points de contrôle en pointillés",ratification,90,ratifier la numérotation consécutive (décision de l'auteur : renuméroter toutes les phases ; le choix du schéma est le nôtre),
+STRUCT-07,fermee,journal,journal/2026-10-06-pr-02-27-coercions-produit.md,"cohérence des coercions facteur par facteur, fermée par le produit",,,,
+STRUCT-08,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,Th. raffinement conditionnel à la traduction,,,,
+STRUCT-09,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,journal complet posé en paramètre de l'hypothèse de rejeu,,,,
+STRUCT-10,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,λ classée structure dérivée de l'instance historique,,,,
+STRUCT-11,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,idem,,,,
+STRUCT-12,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,Th. hygiène non gradué et gradué scindés (PORT-14),,,,
+STRUCT-13,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"« voie disponible, dont le prix est chiffré » (ch. 3)",,,,
+STRUCT-14,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,G_pile et G_budget définis par projection ; clause de portée de P3,,,,
+STRUCT-15,fermee,journal,journal/2026-10-05-pr-02-21-struct-et-facts.md,"deux mots (gestionnaire d'acteur / d'effet), sémantique d'instructions écrite",,,,
+STRUCT-16,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,"le mode est attaché à la couche, donc au délimiteur ; Rel admissible, aucune zone ne l'instancie ; la grammaire des grades reste libre pour Lin_k et 1/N (§3.1)",ratification,90,ratifier,
+STRUCT-17,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,trois notions de monotone distinguées (§2.4),,,,
+STRUCT-18,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"table normative : Δ₁+Δ₂, ⊠, ⊗ des types, ⊗_𝒞, ℓ et ℓ̂",,,,
+STRUCT-19,fermee,journal,journal/2026-10-05-pr-02-21-struct-et-facts.md,"modalité compilation/exécution, effacement de phase = instance du schéma de restriction",,,,
+STRUCT-20,fermee,journal,journal/2026-10-06-pr-02-24-loi-distributive.md,φ indexée ; conditions écrites et vérifiées ; cadre indexé clos,,,,
+STRUCT-21,fermee,journal,journal/2026-10-06-pr-02-24-loi-distributive.md,lemme d'indices séparé ; stabilité démontrée pour les indices clos,,,,
+STRUCT-22,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"P2 qualifiée : orthogonalité au niveau du jugement, trois couplages nommés",,,,
+STRUCT-23,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,"annexe E fondue : règles au ch. 3, sémantique au ch. 4 ; §1.1 corrigé",,,,
+PORT-01,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,domaine et profil Π écrits ; rappel au §6.1 ; endianness et alignement,,,,
+PORT-02,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,,,,,
+PORT-03,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,,,,,
+PORT-04,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+PORT-05,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,"thm:surete_ffi scindé : clause 1 théorème, clause 2 exigence ⟨représentation⟩",,,,
+PORT-06,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"Th. 34 : définition + clôture locale, suffisante non nécessaire",,,,
+PORT-07,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,complétude restreinte au noyau ; exigence thm:completude_verificateur ; comptes retirés,,,,
+PORT-08,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:elaboration requalifié définition — à confirmer,,,,
+PORT-09,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+PORT-10,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,,,,,
+PORT-11,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,,,,,
+PORT-12,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"§4.2 : O(n), @stack/@backtrack, pile bornée ; figure 7 corrigée",,,,
+PORT-13,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,propagée aux ch. 5 et 6,,,,
+PORT-14,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,hygiène graduée et resucrage ; Th. 19 scindé ; sédimentation en deux temps,,,,
+PORT-15,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,,,,,
+PORT-16,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:abaissement_grades requalifié conjecture ⟨compilation⟩ — à confirmer,,,,
+PORT-17,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,,,,,
+PREUVE-01,partielle,journal,journal/2026-10-01-pr-02-06-theoremes.md,énoncé repris sous concurrence ; la démonstration reste la dette la plus lourde,preuve,20,conduire la correction de ressource (potentiel) ; route calf/decalf,BIB-20
+PREUVE-02,ouverte,,,,conception,10,conduire passe par passe sur le fragment monomorphisé ; objectif déclaré (ARB-PR-06),BIB-03
+PREUVE-03,partielle,journal,journal/2026-10-06-pr-02-29-anom-17-et-preuve-03.md,"non-interférence séquentielle située ; déterminisme observationnel scellé conjecture sous hypothèse nommée ; clause de session écrite (correspondance des noms, comparaison des fils), genre de sorte `maillon`, fil de temps par niveau et proposition de chaîne sur un fragment ; induction du lemme fondamental sur les règles de communication non conduite",preuve,65,"conduire l'induction du lemme fondamental sur la couche 2 (apparentement des boîtes) ; clause de traduction du fil pour l'application, l'opération à portée et spawn ; délégation ; déterminisme observationnel",BIB-26
+PREUVE-04,partielle,journal,journal/2026-10-05-pr-02-22-preuves-fin.md,"clôture des échappatoires imposée par la règle Declassify (prémisse fv(v)=∅, séance 32) ; croquis mis à jour ; lemme fondamental non conduit sur tous les cas",preuve,80,conduire le lemme fondamental sur tous les cas,PREUVE-05
+PREUVE-05,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,"λ écrite ; conditions (U), (C), (N) vérifiées ; loi affaiblie retenue (la loi stricte demanderait de restreindre ℰ₀ à une partie commutative)",ratification,90,ratifier la loi affaiblie ; relire LET/APP,
+PREUVE-06,fermee,journal,journal/2026-10-06-pr-02-28-troncature-et-conformite.md,monade indexée écrite dans le cas clos ; indices dynamiques déclarés hors périmètre dans la preuve de thm:substitution_indices,,,,
+PREUVE-07,partielle,journal,journal/2026-10-06-pr-02-29-anom-17-et-preuve-03.md,"clause de return avec transfert écrite ; schémas pour tous les constructeurs (point fixe borné, copatron sous l'observation, try, couche 2, fourche-jointure, découpe, modalités, déclassification ; ANOM-17 : à ratifier) ; induction sur les schémas à clause de traduction à conduire",preuve,80,conduire l'induction sur les schémas écrits ; clauses de traduction manquantes (formes de ANOM-17 comprises),—
+PREUVE-08,fermee,journal,journal/2026-10-06-pr-02-28-troncature-et-conformite.md,"N_r comonade graduée additive par écartement, pour tout foncteur F : aucune restriction des conteneurs ; λ_r cohérente ; preuve sur papier",,,,
+PREUVE-09,fermee,journal,journal/2026-10-05-pr-02-22-preuves-fin.md,"énoncé en deux temps, extension aux suprema posée en exigence ; décidabilité à relire",,,,
+PREUVE-10,fermee,journal,journal/2026-10-06-pr-02-27-coercions-produit.md,conversions par facteur ; w∘ε=w par terminalité de l'unité du fragment affine,,,,
+PREUVE-11,fermee,journal,journal/2026-10-06-pr-02-27-coercions-produit.md,"clause par facteur écrite, dont le budget",,,,
+PREUVE-12,fermee,journal,journal/2026-10-06-pr-02-26-arene.md,"H1, H2, H3 posées ; Slice ; région définie ; élimination de l'arène admise comme hypothèse de module (réponse du texte : « ou l'admettre comme paramètre »)",,,,
+PREUVE-13,fermee,journal,journal/2026-10-01-pr-02-06-theoremes.md,l'absence d'interblocage n'emprunte plus : le graphe de câblage est lu des règles,,,,
+PREUVE-14,fermee,journal,journal/2026-10-01-pr-02-14-preuves.md,"schéma de méta-théorème, deux instanciations aux conclusions distinctes",,,,
+PREUVE-15,fermee,journal,journal/2026-10-05-pr-02-22-preuves-fin.md,"D_det écrite : parcours, recherche, graine ; objet de la spécification de l'outillage",,,,
+PREUVE-16,partielle,journal,journal/2026-10-01-pr-02-14-preuves.md,"énoncé en deux temps, contrainte d'outil nommée ; cas gradué ouvert",recherche,30,transposition graduée de la sédimentation ; type de chemin cubique absent de l'outil,"BIB-14, BIB-24"
+NOTA-01,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+NOTA-02,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,Tick déclarée admissible (instance d'Op),,,,
+NOTA-03,fermee,journal,historique/2026-10-01-pr-02-avancement.md,,,,,
+NOTA-04,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,Δ = Δ_ω au §5.1 et §5.5,,,,
+NOTA-05,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"ε_exp, ε_body, occ(m) ; table 11 corrigée",,,,
+NOTA-06,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,"a, c, d, f corrigés ; b par renvoi ; e par BLOQ-02",,,,
+NOTA-07,fermee,journal,journal/2026-10-01-pr-02-16-nota-et-ratifications.md,identifiants T-xx et G.x résolus en renvois de section,,,,
+NOTA-08,fermee,journal,journal/2026-09-30-pr-02-03-vague-0-fin.md,"deux renvois faux, définition de la pureté des gestionnaires",,,,
+IMPL-01,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"certificat exigé aux frontières de paquet (§6.1 Phase 5, annexe D)",,,,
+IMPL-02,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,critère opérationnel écrit en fin de §6.3,,,,
+IMPL-03,fermee,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,protocole du test différentiel écrit en fin de §6.3,,,,
+IMPL-04,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,"un anneau SPSC par couple (émetteur, boîte) et une file de jonction par acteur (§4.5) ; MPSC écarté (comparer-et-échanger, P3) ; borne mémoire par le graphe de câblage ; message choisi par ordre fixe des émetteurs",ratification,85,ratifier la topologie ; lire le corps de BIB-04 et BIB-27,"BIB-04, BIB-27"
+IMPL-05,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,thm:revocation_ffi : première exigence du document,,,,
+IMPL-06,fermee,journal,journal/2026-10-06-pr-02-28-troncature-et-conformite.md,"Π défini au §4.5 ; Th. 20, rejeu et abaissement gradué lus comme conformité du compilateur à un profil",,,,
+IMPL-07,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,"tables d'addition et de produit sur les classes 0, x, ∞, ⊥ (§3.2), calculées sur la roue des fractions ; règle d'entrée Float64 → roue (NaN lu ⊥, ±∞ lus ∞, ±0 lus 0) ; écart IEEE 754 sur ∞+∞ écrit ; ∘ et δ : extension de K7PL (BLOQ-12, séance 33)",ratification,80,ratifier les tables et la règle d'entrée ; vérification par test différentiel à l'implémentation (hors ∞+∞ de même signe),BLOQ-12
+IMPL-08,partielle,journal,journal/2026-10-01-pr-02-17-impl-et-struct.md,"productions dégénérées, types non engendrés, règles sans prémisse contrôlés (mutations vérifiées) ; échec du build sur symbole absent du rendu déjà assuré par Verso",outil,90,porter le contrôle des occurrences effectives des métavariables si on le juge utile,—
+IMPL-09,fermee,journal,suivi/hypotheses-de-module.md,inventaire écrit dans docs/suivi/hypotheses-de-module.md,,,,
+FACT-01,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,,,,,
+FACT-02,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,,,,,
+FACT-03,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,,,,,
+FACT-04,fermee,journal,journal/2026-10-01-pr-02-08-fact-suite.md,,,,,
+FACT-05,fermee,journal,journal/2026-10-06-pr-02-27-coercions-produit.md,preuve de la cohérence : voir PREUVE-10 ; le théorème reste une proposition tant que les jointures hors des quatre facteurs manquent,,,,
+FACT-06,fermee,journal,journal/2026-10-01-pr-02-08-fact-suite.md,,,,,
+FACT-07,fermee,journal,journal/2026-10-06-pr-02-28-troncature-et-conformite.md,"une relation indexée par le treillis, trois lectures (NI, divulgation, lemme fondamental) ; la préservation n'en fait pas partie ; non-monotonie en ℓ notée",,,,
+FACT-08,fermee,journal,journal/2026-10-05-pr-02-20-slice.md,une analyse de co-Kleisli ; réserve source/cible écrite au ch. 3,,,,
+FACT-09,a-ratifier,journal,journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md,"table code ⟷ prémisse écrite hors du manuscrit (docs/suivi/codes-et-premisses.md, 48 codes sur 48, gardée par controle.py) ; objectif 18 familles → 4 diagnostics non atteint : 17 codes sur 48 relèvent d'une non-dérivabilité",ratification,90,ratifier l'appariement ; décider si l'annexe A reprend les quatre messages-types,—
+FACT-10,partielle,journal,journal/2026-10-06-pr-02-28-troncature-et-conformite.md,"identification écrite (§4.4, préfixage = produit non commutatif) et clause du let qui ordonne les traces ; factorisation de la preuve attend la simulation",preuve,30,factoriser quantale et préfixage une fois la simulation conduite,PREUVE-07
+FACT-11,fermee,journal,journal/2026-10-05-pr-02-21-struct-et-facts.md,objet Mailbox posé ; quatre lectures énoncées comme restrictions,,,,
+FACT-12,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,pas d'adjonction graduée unifiée : la loi distributive n'est qu'affaiblie ; vocabulaire de la théorie de modes et décomposition de TRANS-02 (§1.4),ratification,85,ratifier avec TRANS-02,TRANS-02
+FACT-13,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,,,,,
+FACT-14,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,"satisfaite par STRUCT-17 : trois notions de monotonie distinguées, aucun cadre unique (§2.4)",ratification,90,ratifier,
+FACT-15,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,,,,,
+FACT-16,fermee,journal,journal/2026-10-01-pr-02-12-fact-17-et-16.md,exigence thm:representation_inobservable ; vérifiée par test différentiel,,,,
+FACT-17,fermee,journal,journal/2026-10-01-pr-02-12-fact-17-et-16.md,énoncé unique écrit (thm:introduction_unique) ; preuve à écrire (PREUVE-12),,,,
+FACT-18,fermee,journal,journal/2026-10-05-pr-02-21-struct-et-facts.md,proposition thm:fenetre_grade (une fenêtre est un grade),,,,
+FACT-19,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,,,,,
+FACT-20,fermee,journal,journal/2026-10-05-pr-02-20-slice.md,"table tab:classes-motifs au §4.2 (machine, temps, espace, classe)",,,,
+FACT-21,ecartee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,cadre de rédaction écarté par ARB-PR-05 ; consigné dans factorisations-refusees.md,,,,
+FACT-22,ecartee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,cadre de rédaction écarté par ARB-PR-05 ; consigné dans factorisations-refusees.md,,,,
+FACT-23,fermee,journal,journal/2026-10-01-pr-02-09-port-et-fact2.md,"le connecteur ■ n'était pas nécessaire : □ suffit, ■ retiré",,,,
+FACT-24,fermee,journal,journal/2026-10-01-pr-02-10-fact-second-rang.md,,,,,
+TRANS-01,fermee,journal,journal/2026-09-30-pr-02-02-vague-0.md,"sceau à deux axes (statut, niveau)",,,,
+TRANS-02,a-ratifier,journal,journal/2026-10-06-pr-02-25-trans.md,décomposition module × ordre écrite au §1.4 ; à ratifier,ratification,85,"ratifier (table de sédimentation et fragments du ch. 2 repris selon les images réciproques, séance 32)",—
+TRANS-03,fermee,journal,journal/2026-10-06-pr-02-25-trans.md,frontière noyau / cible déclarée au §1.4,,,,
+TRANS-04,a-ratifier,journal,journal/2026-10-05-pr-02-22-preuves-fin.md,table des invariants et règle d'interaction écrites ; trois lemmes de compatibilité restent,ratification,70,ratifier ; écrire les trois lemmes de compatibilité,STRUCT-05
+TRANS-05,fermee,journal,journal/2026-09-30-pr-02-03-vague-0-fin.md,"registre des obligations produit, non tenu",,,,
+TRANS-06,fermee,journal,journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md,six remontées : toutes portées aux ch. 1 à 3 (tableau de complétude au journal de la séance 32),,,,
+TRANS-07,fermee,journal,journal/2026-10-06-pr-02-25-trans.md,"→ primitive, ⟦·⟧ reliée par simulation, 𝒞 en vocabulaire : écrit au §4.1 de la sémantique",,,,
+TRANS-08,fermee,journal,journal/2026-10-06-pr-02-25-trans.md,convention écrite au guide de lecture ; appliquée par le lot REECR,,,,
+TRANS-09,fermee,journal,journal/2026-10-06-pr-02-25-trans.md,quatre preuves transversales nommées au ch. 2 ; reste requalifié en instances,,,,
+ARB-PR-01,fermee,fiche,relectures/pr-02/taches-consolidees.md,tranché par vérification directe (14 septembre),,,,
+ARB-PR-02,fermee,fiche,relectures/pr-02/taches-consolidees.md,tranché sur le point contesté (14 septembre),,,,
+ARB-PR-03,a-ratifier,journal,journal/2026-10-01-pr-02-06-theoremes.md,position intermédiaire appliquée (ℰ_alg / ℰ_scoped) ; BIB-01 (Hefty Algebras) non instruit,ratification,80,ratifier ℰ_alg / ℰ_scoped ; BIB-01 reste non instruit,—
+ARB-PR-04,a-ratifier,journal,journal/2026-10-06-pr-02-31-orientations-appliquees.md,"voie B puis C appliquée : identité binaire sur une machine sous E_repro à quatre composantes (§4.5), classes de singularités et tables de propagation (§3.2) ; voie D écartée tant qu'aucune borne n'est écrite",ratification,90,ratifier la voie B puis C ; repli sur la voie A si la réalisation ne peut la tenir,
+ARB-PR-05,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,cadre du manuscrit ratifié,,,,
+ARB-PR-06,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,objectif déclaré : transformer la revendication en preuve ; PREUVE-02 en tête,,,,
+ARB-PR-07,fermee,journal,journal/2026-10-01-pr-02-15-fusion-annexe-e.md,famille modale et graduée (1er octobre) ; motif écrit au §1.2 ; quatre imports à instruire un à un (BIB),,,,
+REFUS-01,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md,,,,
+REFUS-02,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md,,,,
+REFUS-03,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md,,,,
+REFUS-04,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md,,,,
+REFUS-05,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md,,,,
+REFUS-06,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md,,,,
+REFUS-07,fermee,journal,journal/2026-10-01-pr-02-07-non-interference-et-fact.md,documenté dans suivi/factorisations-refusees.md,,,,
+REECR-01,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,P1a / P1b (BLOQ-08),,,,
+REECR-02,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-02 — à confirmer,,,,
+REECR-03,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,Th. fidélité conditionnel à Sim (BLOQ-07),,,,
+REECR-04,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,domaine du Th. 20 rappelé au §6.1,,,,
+REECR-05,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,clôture forte (données) / faible (actions),,,,
+REECR-06,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-03 — à confirmer,,,,
+REECR-07,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-10 — à confirmer,,,,
+REECR-08,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"traduction : induction planifiée, non conduite ; statut proposition",,,,
+REECR-09,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,NI et divulgation restent bornées au fragment sans communication,,,,
+REECR-10,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,Th. 34 : définition + clôture locale,,,,
+REECR-11,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-05 — à confirmer,,,,
+REECR-12,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,E_repro élargie à l'architecture ; injectivité,,,,
+REECR-13,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,retiré (Th. 18 réécrit),,,,
+REECR-14,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,énumération sur le noyau,,,,
+REECR-15,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,profil Π,,,,
+REECR-16,fermee,journal,journal/2026-10-06-pr-02-32-redactions-de-l-auteur.md,"l'expansion est la Phase 1 de la figure 11 ; Th. 29 conservé, énoncé sur la Phase 1",,,,
+REECR-17,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,hypothèse D_det,,,,
+REECR-18,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,ordre : exception de la Phase 5 reconnue,,,,
+REECR-19,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,traduction de la couche 2 séquentielle seulement,,,,
+REECR-20,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"singletons = fragments logiques, intervalles = modalités",,,,
+REECR-21,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,réserve portée au ch. 1,,,,
+REECR-22,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,jeu de règles existant ; §1.1 corrigé,,,,
+REECR-23,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,prix des suspensions mentionné,,,,
+REECR-24,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"terminalité : logique, non physique",,,,
+REECR-25,fermee,deduite,journal/2026-10-01-pr-02-09-port-et-fact2.md,obtenue avec PORT-11 — à confirmer,,,,
+REECR-26,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,"O(n), O(1) par bloc",,,,
+REECR-27,fermee,journal,journal/2026-10-01-pr-02-18-reecr.md,Δ = Δ_ω,,,,
+BIB-01,ouverte,,,,recherche,0,ne pas instruire tant que ARB-PR-03 n'est pas ratifiée,ARB-PR-03
+BIB-02,fermee,journal,bibliographie/verifications-pr02.md,"référence identifiée : Saffrich, Spaderna, Thiemann, Vasconcelos (OOPSLA 2025), déjà au manuscrit ; elle traite des canaux de session, non des boîtes aux lettres",,,,
+BIB-03,fermee,journal,bibliographie/verifications-pr02.md,"statut exact : quantitatif en cours, dépendant publié",,,,
+BIB-04,partielle,journal,bibliographie/verifications-pr02.md,join-calculus confirmé ; protocole = IMPL-04,recherche,50,join-calculus confirmé ; protocole = IMPL-04,—
+BIB-05,fermee,journal,bibliographie/verifications-pr02.md,cohérence des coercions : techniques identifiées,,,,
+BIB-06,fermee,journal,bibliographie/verifications-pr02.md,échappatoires = expressions confirmé ; clôture = notre précision,,,,
+BIB-07,fermee,journal,bibliographie/verifications-pr02.md,source incrimine la plus grande taille ∞<∞ ; scission 𝕊_μ/𝕊_ν tient,,,,
+BIB-08,fermee,journal,bibliographie/verifications-pr02.md,"charge utile NaN recommandée, non exigée ; architecture dans E_repro",,,,
+BIB-09,fermee,journal,bibliographie/verifications-pr02.md,"Arrow : petit-boutiste par défaut, champ d'ordre dans le schéma ; Cap'n Proto : petit-boutiste, mots de 8 octets, primitifs alignés sur leur taille",,,,
+BIB-10,fermee,journal,bibliographie/verifications-pr02.md,confirmé (résumé),,,,
+BIB-11,fermee,journal,bibliographie/verifications-pr02.md,"la source est Fluet–Morrisett, Monadic Regions (JFP 2006), déjà au manuscrit : le polymorphisme paramétrique suffit, traduction préservant types et sens",,,,
+BIB-12,partielle,journal,bibliographie/verifications-pr02.md,"source identifiée : Caires–Pérez, Linearity, Control Effects, and Behavioral Types (ESOP 2017), déjà au manuscrit ; résumé non relu",recherche,70,lire le corps : extension additive et possibilité de la transporter à l'intuitionniste,—
+BIB-13,fermee,,bibliographie/verifications-pr02.md,Pombrio–Krishnamurthi (ICFP 2015) : hygiène et désucrage compositionnel confirmés (résumé) ; l'algèbre de liaison de surface reste à construire,,,,
+BIB-14,fermee,,bibliographie/verifications-pr02.md,aucune offre native de type de chemin cubique retrouvée pour Lean ; l'irrélevance des preuves contredit l'univalence (documentation Lean),,,,
+BIB-15,fermee,journal,bibliographie/verifications-pr02.md,"preuve existante : file à plusieurs producteurs et consommateurs, OCaml multicœur (Mével–Jourdan) ; différence avec l'anneau à curseur unique écrite au §4.2",,,,
+BIB-16,fermee,journal,bibliographie/verifications-pr02.md,l-monoïde / quantale confirmé,,,,
+BIB-17,fermee,,bibliographie/verifications-pr02.md,RFC 5040 : Send with Invalidate ; l'invalidation s'exécute chez le propriétaire de la région : le §4.5 dit que le destructeur de l'exportateur invalide localement (à ratifier),,,,
+BIB-18,fermee,journal,bibliographie/verifications-pr02.md,rien à corriger,,,,
+BIB-19,fermee,,bibliographie/verifications-pr02.md,"le triangle est de Pédrot–Tabareau (POPL 2020), déjà cité au ch. 1 ; l'attribution à Castellan et al. venait du relecteur ; le cas des indices relève de PREUVE-06",,,,
+BIB-20,fermee,journal,bibliographie/verifications-pr02.md,calf/decalf confirmés,,,,
+BIB-21,partielle,journal,bibliographie/verifications-pr02.md,confirmé ; restriction sur l'égalité définitionnelle à lire dans le corps,recherche,50,confirmé ; restriction sur l'égalité définitionnelle à lire dans le corps,—
+BIB-22,fermee,journal,bibliographie/verifications-pr02.md,CloTT confirmé,,,,
+BIB-23,fermee,journal,bibliographie/verifications-pr02.md,Granule/TLL_C confirmés,,,,
+BIB-24,partielle,journal,bibliographie/verifications-pr02.md,XTT : extensionnalité sans univalence ; compatibilité avec la sédimentation à instruire,recherche,50,XTT : extensionnalité sans univalence ; compatibilité avec la sédimentation à instruire,—
+BIB-25,partielle,journal,bibliographie/verifications-pr02.md,loi d'échange confirmée ; compatibilité avec la résiduation à vérifier,recherche,50,loi d'échange confirmée ; compatibilité avec la résiduation à vérifier,—
+BIB-26,fermee,journal,bibliographie/verifications-pr02.md,déterminisme observationnel confirmé,,,,
+BIB-27,partielle,journal,bibliographie/verifications-pr02.md,confirmé ; théorème d'interblocage à lire,recherche,50,confirmé ; théorème d'interblocage à lire,—
+BIB-28,fermee,journal,bibliographie/verifications-pr02.md,confirmé,,,,
+BIB-29,fermee,journal,bibliographie/verifications-pr02.md,ChorLean en Lean confirmé,,,,
