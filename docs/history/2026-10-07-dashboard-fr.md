@@ -1,10 +1,10 @@
 # Tableau de bord — le manuscrit et ce qu'il reste avant l'implémentation
 
-**État au 1er octobre 2026.** Point d'entrée unique du suivi : il remplace `PR-02-AVANCEMENT`, `todo-manuscrit`, `plan` et les autres documents de suivi, archivés dans [`../history/`](../history/). Les chiffres des blocs gris sont **produits** par `python3 scripts/suivi.py dashboard` (à partir de `spec/` et de [`fiches-statuts.csv`](fiches-statuts.csv)) ; le reste est de la prose, à tenir à la main.
+**État au 1er octobre 2026.** Point d'entrée unique du suivi : il remplace `PR-02-AVANCEMENT`, `todo-manuscrit`, `plan` et les autres documents de suivi, archivés dans [`../history/`](../history/). Les chiffres des blocs gris sont **produits** par `python3 scripts/suivi.py dashboard` (à partir de `spec/` et de [`fiches-statuts.csv`](../tracking/fiches-statuts.csv)) ; le reste est de la prose, à tenir à la main.
 
 Lecture en trois temps : [1. où en est le manuscrit](#1-où-en-est-le-manuscrit) · [2. ce qu'il reste à faire](#2-ce-quil-reste-à-faire-avant-limplémentation-lean-4) · [3. ce qui menace la suite](#3-ce-qui-menace-la-suite).
 
-Ce tableau a été établi **sans exécuter l'ancien outillage** : les comptes viennent du Verso, l'état des fiches des comptes rendus de séance (voir [`DECISIONS.md`](DECISIONS.md) pour ce qui n'a pas été rapproché).
+Ce tableau a été établi **sans exécuter l'ancien outillage** : les comptes viennent du Verso, l'état des fiches des comptes rendus de séance (voir [`DECISIONS.md`](../tracking/DECISIONS.md) pour ce qui n'a pas été rapproché).
 
 ---
 
@@ -66,7 +66,7 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | `thm:abaissement_grades` | conjecture | compilation | §6.2 | 3 |
 <!-- END:ouverts -->
 
-Registre complet, avec les renvois : [`correspondance-enonces.md`](correspondance-enonces.md). Registre des dépendances sur du non acquis : [`registre-obligations.md`](registre-obligations.md) (instantané du 1er octobre, à regénérer — voir §3).
+Registre complet, avec les renvois : [`correspondance-enonces.md`](../tracking/correspondance-enonces.md). Registre des dépendances sur du non acquis : [`registre-obligations.md`](../tracking/registre-obligations.md) (instantané du 1er octobre, à regénérer — voir §3).
 
 ### La campagne PR-02 en chiffres
 
@@ -90,7 +90,7 @@ Six relectures, un méta-relecteur, trois études annexes : **190 lignes de suiv
 | **Total** | **190** | **120** | **32** | **1** | **3** | **2** | **32** |
 <!-- END:fiches -->
 
-Détail fiche par fiche : [`FICHES-PR02.md`](FICHES-PR02.md). **Comment lire « ouverte »** : aucun compte rendu de séance ne nomme la fermeture de la fiche. L'auteur a pu fermer sans consigner ; l'état est volontairement conservateur et se corrige dans `fiches-statuts.csv`. Les fermetures *déduites* (changement de statut d'un énoncé rapproché du texte de la fiche) sont marquées comme telles et sont à confirmer.
+Détail fiche par fiche : [`FICHES-PR02.md`](../tracking/FICHES-PR02.md). **Comment lire « ouverte »** : aucun compte rendu de séance ne nomme la fermeture de la fiche. L'auteur a pu fermer sans consigner ; l'état est volontairement conservateur et se corrige dans `fiches-statuts.csv`. Les fermetures *déduites* (changement de statut d'un énoncé rapproché du texte de la fiche) sont marquées comme telles et sont à confirmer.
 
 ### Les six vagues du plan, aujourd'hui
 
@@ -113,7 +113,7 @@ L'ordre suit le plan de traitement et les comptes rendus de séance les plus ré
 
 ### A. Ce qui demande votre décision
 
-Détail et sources : [`DECISIONS.md`](DECISIONS.md).
+Détail et sources : [`DECISIONS.md`](../tracking/DECISIONS.md).
 
 | | Décision | Ce qui attend |
 |---|---|---|
@@ -122,7 +122,7 @@ Détail et sources : [`DECISIONS.md`](DECISIONS.md).
 | `ARB-PR-06` | la revendication de préservation de bout en bout fait-elle partie des objectifs déclarés ? | si oui, `PREUVE-02` passe en tête ; sinon la revendication est restreinte |
 | `ARB-PR-04` | ce que le document promet pour le rejeu bit-à-bit | le théorème est scindé (logique / binaire sous environnement reproductible) ; la décision de fond reste à écrire |
 | `ARB-PR-03` | effets à portée | **position intermédiaire appliquée** (`ℰ_alg`, `ℰ_scoped`, clôture faible) : à ratifier ; `BIB-01` (Hefty Algebras) non instruit |
-| `T-68` | mots des quarante-quatre primitives | dix entrées nouvelles en trois jours, chacune avec ses candidats ; le choix vous revient ([`primitives.md`](primitives.md)) |
+| `T-68` | mots des quarante-quatre primitives | dix entrées nouvelles en trois jours, chacune avec ses candidats ; le choix vous revient ([`primitives.md`](../tracking/primitives.md)) |
 
 Et la **validation des statuts déduits** dans `fiches-statuts.csv` (`confiance = deduite`, sept lignes).
 
@@ -130,7 +130,7 @@ Et la **validation des statuts déduits** dans `fiches-statuts.csv` (`confiance 
 
 1. **Fermer les bloquants restants** (`BLOQ-05`, `-07`, `-08`, `-09`, `-10`, `-11`, `-12`, `-14`). `BLOQ-05` (le niveau d'un calcul n'est produit par aucune règle) et la relation logique sur un produit conditionnent `FACT-07`, qui attend délibérément.
 2. **Les dettes de preuve** (`PREUVE-01` à `-16`, 13 ouvertes et 2 partielles) — la plus lourde est la correction de ressource (`PREUVE-01`) ; les neuf énoncés ouverts sont listés au §1.
-3. **Le lot `FACT`** (11 ouvertes : `-07`, `-08`, `-09`, `-10`, `-11`, `-12`, `-14`, `-16`, `-17`, `-18`, `-20`) et la consignation de `FACT-21` / `-22` dans [`factorisations-refusees.md`](factorisations-refusees.md).
+3. **Le lot `FACT`** (11 ouvertes : `-07`, `-08`, `-09`, `-10`, `-11`, `-12`, `-14`, `-16`, `-17`, `-18`, `-20`) et la consignation de `FACT-21` / `-22` dans [`factorisations-refusees.md`](../tracking/factorisations-refusees.md).
 4. **`STRUCT`** (18 ouvertes, 1 partielle) et **`PORT`** (6 ouvertes : `-01`, `-06`, `-07`, `-12`, `-13`, `-14`), puis **`NOTA`** (5) et **`TRANS`** (7).
 5. **`IMPL`** (8 ouvertes) : exigences sur le compilateur et l'outillage. Ce sont les **entrées directes de l'implémentation Lean 4** — solveur comme boîte noire, compilation reproductible, structure des boîtes aux lettres, profil de représentation, table de propagation des singularités.
 6. **`BIB`** (29 vérifications de sources externes) — se mènent en parallèle, sans bloquer le reste.
@@ -138,8 +138,8 @@ Et la **validation des statuts déduits** dans `fiches-statuts.csv` (`confiance 
 
 ### C. L'ouvrage de reprise, hors fiches
 
-* **Les anomalies relevées par l'audit de la conversion** : [`ANOMALIES.md`](ANOMALIES.md) (lettres d'annexes périmées, tableau des engagements mal formé, commentaires d'auteur obsolètes, annexes squelettiques…). Aucune n'a été corrigée : le manuscrit porte « ne rien modifier sans l'accord de l'auteur ».
-* **Regénérer le PDF de référence.** Le PDF `main.pdf` hérité date du 9 septembre ; les fiches citent ses numéros de pages et d'énoncés. Le PDF courant est produit par la CI (`spec-pdf`) ; la table de correspondance [`correspondance-enonces.md`](correspondance-enonces.md) relie les numéros d'alors aux numéros d'aujourd'hui.
+* **Les anomalies relevées par l'audit de la conversion** : [`ANOMALIES.md`](../tracking/ANOMALIES.md) (lettres d'annexes périmées, tableau des engagements mal formé, commentaires d'auteur obsolètes, annexes squelettiques…). Aucune n'a été corrigée : le manuscrit porte « ne rien modifier sans l'accord de l'auteur ».
+* **Regénérer le PDF de référence.** Le PDF `main.pdf` hérité date du 9 septembre ; les fiches citent ses numéros de pages et d'énoncés. Le PDF courant est produit par la CI (`spec-pdf`) ; la table de correspondance [`correspondance-enonces.md`](../tracking/correspondance-enonces.md) relie les numéros d'alors aux numéros d'aujourd'hui.
 
 ### D. Portes proposées avant de passer à l'implémentation
 
@@ -149,9 +149,9 @@ Critères de sortie suggérés — à ajuster :
 |---|---|---|
 | P1 | plus aucun bloquant ouvert | lot `BLOQ` : 0 ouverte |
 | P2 | tout énoncé ouvert a sa route et son hypothèse nommées, et aucune prose ne le dit acquis | `scripts/controle.py` (propagation) |
-| P3 | décisions `ARB-PR-03`, `-04`, `-06`, `-07` et `T-68` tranchées | [`DECISIONS.md`](DECISIONS.md) |
+| P3 | décisions `ARB-PR-03`, `-04`, `-06`, `-07` et `T-68` tranchées | [`DECISIONS.md`](../tracking/DECISIONS.md) |
 | P4 | les huit exigences `IMPL` sont lues comme un cahier des charges de l'implémentation | lot `IMPL` : 0 ouverte, ou reportées avec motif |
-| P5 | `REECR` appliqué, anomalies levées, relecture d'ensemble faite | lot `REECR` : 0 ouverte ; [`ANOMALIES.md`](ANOMALIES.md) vide |
+| P5 | `REECR` appliqué, anomalies levées, relecture d'ensemble faite | lot `REECR` : 0 ouverte ; [`ANOMALIES.md`](../tracking/ANOMALIES.md) vide |
 | P6 | première version publiée de la spécification | release `spec-v0.1.0` (PDF archivé sur Zenodo) |
 
 ---

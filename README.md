@@ -49,7 +49,7 @@ dans [`docs/archives/`](docs/archives/).
 |---|---|
 | [`src/`](src/), [`tests/`](tests/) | implémentation du langage en Lean 4 et ses tests |
 | [`spec/`](spec/) | la spécification (Verso) et ses figures |
-| [`tools/`](tools/) | générateur de la spécification et extensions Verso (`SpecExt/`) ; bibliographie (`SpecBib.lean`, produite depuis [`biblio/`](biblio/)) |
+| [`tools/`](tools/) | générateur de la spécification et extensions Verso (`SpecExt/`) ; bibliography (`SpecBib.lean`, generated from [`docs/bibliography/references.json`](docs/bibliography/references.json)) |
 | [`docs/`](docs/) | documentation courante, assurance, recherche, méthode, suivi et archives historiques |
 | [`scripts/`](scripts/) | maintenance, conversion Org → Verso, mesures et suivi |
 | [`docs/archives/`](docs/archives/) | manuscrit Org et outillage d'avant la conversion |
