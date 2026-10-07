@@ -21,9 +21,9 @@ Chaque fichier de `docs/` et d'`archives/` vient du dossier de travail que vous 
 | `meta/registre-obligations.org` | `docs/tracking/registre-obligations.md` | org → md |
 | `meta/registre-empirique.org` | `docs/tracking/registre-empirique.md` | org → md |
 | `meta/factorisations-refusees.org` | `docs/tracking/factorisations-refusees.md` | org → md |
-| `meta/correspondance-theoremes.org` | `docs/tracking/correspondance-theoremes-org.md` | org → md |
+| `meta/correspondance-theoremes.org` | `docs/history/correspondance-theoremes-org.md` | org → md |
 | `meta/primitives.org` | `docs/tracking/primitives.md` | org → md |
-| `livrables/PLAN-PR-02.md` | `docs/tracking/pr-02-plan-de-traitement.md` | copie + bandeau |
+| `livrables/PLAN-PR-02.md` | `docs/history/pr-02-plan-de-traitement.md` | copie + bandeau |
 | `Peer-Review/PR_02/K7PL_PR_02_CLAUDE.docx` | `docs/peer-review/pr-02/claude.md` | docx → md |
 | `Peer-Review/PR_02/K7PL_PR_02_FLASH.docx` | `docs/peer-review/pr-02/flash.md` | docx → md |
 | `Peer-Review/PR_02/K7PL_PR_02_DEEPSEEK.md` | `docs/peer-review/pr-02/deepseek.md` | copie |

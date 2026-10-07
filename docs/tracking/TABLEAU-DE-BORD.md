@@ -94,7 +94,7 @@ Détail fiche par fiche : [`FICHES-PR02.md`](FICHES-PR02.md). **Comment lire « 
 
 ### Les six vagues du plan, aujourd'hui
 
-Le plan de traitement ([`pr-02-plan-de-traitement.md`](pr-02-plan-de-traitement.md), 30 septembre) ordonnait six vagues. Leur état réel :
+Le plan de traitement ([`pr-02-plan-de-traitement.md`](../history/pr-02-plan-de-traitement.md), 30 septembre) ordonnait six vagues. Leur état réel :
 
 | Vague | Contenu | État |
 |---|---|---|

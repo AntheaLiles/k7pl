@@ -52,7 +52,7 @@ dans [`docs/archives/`](docs/archives/).
 | [`tools/`](tools/) | générateur de la spécification et extensions Verso (`SpecExt/`) ; bibliographie (`SpecBib.lean`, produite depuis [`biblio/`](biblio/)) |
 | [`docs/`](docs/) | documentation courante, assurance, recherche, méthode, suivi et archives historiques |
 | [`scripts/`](scripts/) | maintenance, conversion Org → Verso, mesures et suivi |
-| [`archives/`](archives/) | manuscrit Org et outillage d'avant la conversion |
+| [`docs/archives/`](docs/archives/) | manuscrit Org et outillage d'avant la conversion |
 
 ## Contribuer
 
