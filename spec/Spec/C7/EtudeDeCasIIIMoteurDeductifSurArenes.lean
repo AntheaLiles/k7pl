@@ -31,7 +31,7 @@ Le cas retenu est une analyse statique de programme — l'accessibilité dans un
 on veut la clôture transitive sous des règles de propagation. Les faits initiaux sont un ensemble
 d'arêtes ; les règles en dérivent de nouvelles jusqu'à saturation. C'est le cas d'emploi canonique
 d'un moteur déductif, et il a le mérite d'être auto-applicable : le compilateur de K7PL construit
-lui-même un graphe de dépendances en Phase 1.5, et rien n'interdirait qu'il l'interroge de cette
+lui-même un graphe de dépendances en Phase 2, et rien n'interdirait qu'il l'interroge de cette
 façon.
 
 La composition est celle que le chapitre 4 décrit, et aucune pièce n'y est nouvelle. Les arêtes

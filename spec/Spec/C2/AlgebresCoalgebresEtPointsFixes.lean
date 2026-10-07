@@ -156,7 +156,7 @@ achète. Le paramorphisme linéaire est admis au même titre.
 ::::
 
 S'il tient, la terminaison de la couche 3 cesse d'être une obligation de preuve séparée : elle
-devient une lecture du jugement de typage, et la Phase 4 de la compilation
+devient une lecture du jugement de typage, et la Phase 6 de la compilation
 (§{num "sec:c6-le-processus-de-compilation"}[]) n'a rien à vérifier que le typage n'ait déjà établi.
 S'il tombe — si un pli dépendamment typé pouvait porter un indice décroissant sans terminer —, la
 couche 3 devrait revenir à un critère syntaxique d'arguments plus petits, lequel n'est pas
@@ -313,14 +313,14 @@ une observation en temps fini, non un épuisement.
 :::
 ::::
 
-S'il tient, les deux volets de la Phase 4 de la compilation
+S'il tient, les deux volets de la Phase 6 de la compilation
 (§{num "sec:c6-le-processus-de-compilation"}[]) cessent d'être deux vérifications distinctes. La
 décroissance d'un pli de couche 3 et la progression d'un flux de couche 2 sont deux lectures d'un
 même jugement de typage, sous deux polarités.[^fn2] S'il tombe, la couche 2 doit revenir au
 gardiennage syntaxique. Elle perd avec lui la composition des combinateurs définis par
 l'utilisateur, c'est-à-dire l'essentiel de ce qui fait d'elle une couche d'ordre supérieur.
 
-[^fn2]: La Phase 3, qui établit la pureté, n'est pas concernée.
+[^fn2]: La Phase 5, qui établit la pureté, n'est pas concernée.
 
 Ce que ce choix évite ne se voit pas sur l'énoncé, et mérite donc d'être dit. {rmq}[Le critère se
 compose parce qu'il est un jugement, non parce qu'on aurait vérifié qu'il se compose.] Les deux

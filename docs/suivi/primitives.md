@@ -542,10 +542,10 @@ envoi
 
     SYMBOLE: guard | FAMILLE: couche 2 | REGLE: Guard | LEMME-RETENU: réception gardée | LEMME-CANDIDAT: réception gardée
 
-Attendre d'une boîte l'un des messages que son motif annonce, et poursuivre avec le motif qui reste.
+Attendre d'une boîte l'un des motifs de messages que son type annonce — un message, ou une conjonction de messages consommés d'un seul tenant —, et poursuivre avec le motif qui reste.
 
 réception gardée  
-Le terme reçu. La garde est ce qui distingue cette règle d'une lecture : plusieurs messages sont possibles, un seul est consommé, et le type de la boîte en est transformé.
+Le terme reçu. La garde est ce qui distingue cette règle d'une lecture : plusieurs motifs sont possibles, un seul est consommé, et le type de la boîte en est transformé.
 
 filtrage de boîte  
 Écarté. Le filtrage décompose une valeur donnée ; ici rien n'est donné tant qu'un message n'est pas arrivé, et c'est l'attente qui fait la différence.
@@ -561,6 +561,33 @@ Le terme reçu, et le même mot que pour les ressources de couche 1, à bon droi
 
 fermeture  
 Écarté. Fermer suggère qu'on pourrait encore lire ce qui reste ; la règle exige au contraire qu'il ne reste rien.
+
+### DOING Poser une garantie pour le pas suivant
+
+    SYMBOLE: next | FAMILLE: temporelles | REGLE: Nxt | LEMME-RETENU | LEMME-CANDIDAT: suivant, next
+
+Attester qu'une valeur sera disponible au pas suivant, sous un contexte lui-même différé.
+
+suivant  
+À arbitrer avec les autres formes temporelles (T-68, consolidation de la séance 32). Ajoutée avec la correction de la grammaire : sans elle, aucune valeur close n'habite ○◇V.
+
+### DOING Attester qu'une valeur est à un lieu
+
+    SYMBOLE: loc_n | FAMILLE: couche 1 | REGLE: Loc | LEMME-RETENU | LEMME-CANDIDAT: lieu, localisée
+
+Introduire la modalité de localisation sur une valeur : l'étiquette de lieu, sans déplacer.
+
+lieu  
+À arbitrer (T-68, séance 32). Ajoutée avec la correction de la grammaire : sans elle, aucune valeur close n'habite @ₙV, et la prémisse de `Move` n'a rien à recevoir.
+
+### DOING Abaisser le niveau d'une valeur nommée à l'avance
+
+    SYMBOLE: declassify_ℓ | FAMILLE: noyau | REGLE: Declassify | LEMME-RETENU: déclassification | LEMME-CANDIDAT: déclassification
+
+Rendre, au niveau abaissé, une boîte déjà nommée par une échappatoire.
+
+déclassification  
+Le terme de Sabelfeld et Myers, déjà employé par tout le manuscrit. La règle porte désormais son nom (séance 32).
 
 ### DOING Localiser un calcul
 

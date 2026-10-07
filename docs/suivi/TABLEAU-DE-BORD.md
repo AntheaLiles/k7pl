@@ -19,21 +19,21 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 |---|---|
 | Chapitres | 9 (dont 1 annexes) |
 | Sections de niveau 2 (modules) | 52 |
-| Énoncés | 68 (47 theoreme, 13 proposition, 4 exigence, 2 conjecture, 2 definition) |
-| Énoncés ouverts (proposition, conjecture, exigence) | 19 |
-| Énoncés par niveau | 61 langage, 5 representation, 2 compilation |
-| Formules | 39 |
+| Énoncés | 72 (49 theoreme, 15 proposition, 4 exigence, 2 conjecture, 2 definition) |
+| Énoncés ouverts (proposition, conjecture, exigence) | 21 |
+| Énoncés par niveau | 65 langage, 5 representation, 2 compilation |
+| Formules | 46 |
 | Figures | 12 |
-| Tableaux | 30 |
+| Tableaux | 32 |
 | Codes sources | 6 |
 | Remarques marginales (RMQ) | 60 |
-| Citations | 364 |
+| Citations | 365 |
 | Œuvres citées | 253 |
-| Renvois internes | 524 |
+| Renvois internes | 628 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 124855 |
+| Mots (approximatif, hors code et formules) | 134766 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -46,24 +46,26 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | Étiquette | Statut | Niveau | Lieu | Renvois |
 |---|---|---|---|--:|
 | `thm:fenetre_grade` | proposition | langage | §2.3 | 0 |
-| `thm:divulgation_delimitee` | proposition | langage | §2.4 | 4 |
+| `thm:divulgation_delimitee` | proposition | langage | §2.4 | 5 |
 | `thm:determinisme_observationnel` | conjecture | langage | §2.5 | 0 |
 | `thm:completude_graduee` | proposition | langage | §3.1 | 0 |
 | `thm:completude_verificateur` | exigence | compilation | §3.1 | 0 |
 | `thm:homomorphisme_roues` | proposition | representation | §3.2 | 3 |
 | `thm:representation_inobservable` | exigence | representation | §3.2 | 0 |
-| `thm:coherence_subsomption` | proposition | langage | §3.6 | 3 |
+| `thm:coherence_subsomption` | proposition | langage | §3.6 | 6 |
 | `thm:isomorphisme_memoire` | proposition | representation | §4.3 | 7 |
 | `thm:introduction_unique` | proposition | langage | §4.4 | 0 |
 | `thm:rejeu_binaire` | proposition | representation | §4.5 | 2 |
 | `thm:revocation_ffi` | exigence | representation | §4.5 | 0 |
 | `thm:traduction_metalangage` | proposition | langage | §4.6 | 11 |
-| `thm:simulation` | proposition | langage | §4.6 | 1 |
+| `thm:simulation` | proposition | langage | §4.6 | 2 |
 | `thm:fidelite_interprete` | proposition | langage | §4.6 | 3 |
+| `thm:correspondance_niveaux` | proposition | langage | §4.7 | 0 |
 | `thm:relation_produit` | proposition | langage | §4.7 | 0 |
+| `thm:chaine_fils` | proposition | langage | §4.8 | 2 |
 | `thm:hygiene_graduee` | proposition | langage | §5.2 | 0 |
 | `thm:resucrage` | exigence | langage | §5.2 | 0 |
-| `thm:abaissement_grades` | conjecture | compilation | §6.2 | 3 |
+| `thm:abaissement_grades` | conjecture | compilation | §6.2 | 4 |
 <!-- END:ouverts -->
 
 Registre complet, avec les renvois : [`correspondance-enonces.md`](correspondance-enonces.md). Registre des dépendances sur du non acquis : [`registre-obligations.md`](registre-obligations.md) (instantané du 1er octobre, à regénérer — voir §3).

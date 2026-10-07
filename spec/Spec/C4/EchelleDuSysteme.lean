@@ -92,7 +92,10 @@ l'anneau, et il ne faut pas lui faire dire ce qu'elle ne dit pas. La correction 
 concurrente sous modèle mémoire faible est, elle, vérifiée mécaniquement dans une logique de
 séparation dédiée, dont les assertions portent des _vues_ munies d'une structure de treillis,
 l'antériorité s'y exprimant comme un transfert de vue {cite "mevelFormalVerificationConcurrent2021"}[].
-C'est cette preuve qui porte la correction ; la note porte l'ingénierie.
+C'est cette preuve qui porte la correction ; la note porte l'ingénierie. Les deux objets ne sont pas
+pour autant les mêmes : la file prouvée admet plusieurs producteurs et plusieurs consommateurs sous le
+modèle mémoire d'OCaml multicœur, quand l'anneau décrit ici n'a qu'un producteur et un consommateur et
+un seul curseur. Le transport de l'une à l'autre n'est pas nul, et il n'est pas fait.
 
 Ce dispositif appelle une hypothèse que l'invariant de vivacité de ce chapitre suppose sans la
 nommer, et l'omission n'est pas anodine. Sous modèle mémoire faible, les notions usuelles d'équité
@@ -165,11 +168,25 @@ schéma de restriction (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}
 théorème {num "thm:schema_restriction"}[]), et ce qui les sépare est leur critère, non leur forme.
 Une hypothèse supplémentaire est en outre requise ici et le dire évite de la découvrir : l'identité
 binaire demande que la représentation soit _injective_ sur les valeurs observables, faute de quoi
-deux dénotations distinctes pourraient partager une image. Aucune des trois composantes de
+deux dénotations distinctes pourraient partager une image. Aucune des quatre composantes de
 $`E_{\text{repro}}` n'est fixée par ce document, et le journal n'en consigne aucune : l'hypothèse
 est portée par l'environnement d'exécution, non par le langage.
 :::
 ::::
+
+Ce que ce document promet du rejeu binaire tient donc en trois clauses. L'identité binaire est promise
+_sur une machine_, qui est la portée que le modèle mémoire de ce chapitre déclare déjà, et sous
+$`E_{\text{repro}}` à quatre composantes : ordonnancement, mode d'arrondi, version de la chaîne de compilation,
+architecture et comportement des NaN ; entre machines, c'est le journal qui porte l'ordre, et le rejeu y reste
+logique. L'ordonnancement complet des réceptions entre acteurs n'est pas consigné, et la promesse ne s'étend pas
+à un rejeu binaire multi-acteurs : consigner chaque réception ferait croître le journal au rythme des messages,
+ce que P3 interdit tant qu'aucune borne n'est écrite. Enfin la charge utile d'un NaN n'est pas observable :
+l'égalité de couche 3 compare les classes de singularités, et leur propagation est spécifiée par K7PL
+(tables {num "tab:propagation-addition"}[] et {num "tab:propagation-produit"}[]), de sorte que l'injectivité de
+la représentation est vraie sur les singularités par définition. Elle reste à vérifier pour le bourrage de
+l'arène et l'ordre des segments après réallocation, que cette clause ne traite pas. Si la réalisation ne peut
+tenir ces clauses, le repli est de ne promettre que le rejeu logique, et l'identité binaire redevient une
+propriété d'une implémentation.
 
 Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représentation_
 $`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}}, \mathrm{arch}, \mathrm{mem}, \mathrm{round}, v_{\mathrm{schéma}} \rangle` : versions des trois
@@ -178,7 +195,7 @@ version de schéma. $`E_{\text{repro}}`, la portée « une machine » du modèle
 d'élision de champ en sont trois projections. Il en résulte que les théorèmes de disposition
 ({num "thm:isomorphisme_memoire"}[]) et de rejeu binaire ({num "thm:rejeu_binaire"}[]) sont des
 propriétés de _conformité du compilateur_ à un profil donné, vérifiées par le pipeline de validation
-de la phase 7, et non des théorèmes du calcul des types.
+de la Phase 9, et non des théorèmes du calcul des types.
 
 La supervision surveille cette continuité par battements de cœur et applique des politiques de
 redémarrage garanties par un invariant de vivacité : un acteur en panne finit toujours par redevenir
@@ -323,7 +340,7 @@ liberté d'initialisation par DAG topologique
 :::statement +titled
 Câblage complet sans interblocage
 
-Si le graphe de dépendances $`G` des acteurs et canaux est acyclique — vérifié en Phase 1.5
+Si le graphe de dépendances $`G` des acteurs et canaux est acyclique — vérifié en Phase 2
 (chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) —, la phase d'initialisation atteint un
 état entièrement câblé sans interblocage : $`\text{Acyclique}(G) \implies \exists` un tri
 topologique $`T` tel que $`\forall n \in T`, l'initialisation de $`n` se termine sans blocage.
@@ -331,7 +348,7 @@ topologique $`T` tel que $`\forall n \in T`, l'initialisation de $`n` se termine
 
 :::proofsketch
 Un interblocage à l'initialisation impliquerait une attente circulaire, correspondant
-structurellement à un cycle dans $`G` ; la Phase 1.5 calcule le tri topologique de $`G` et échoue la
+structurellement à un cycle dans $`G` ; la Phase 2 calcule le tri topologique de $`G` et échoue la
 compilation si un cycle est détecté (`ERR-ARC-001`). Étant donné $`G` acyclique, le tri topologique
 existe (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
 théorème {num "thm:tri_topologique"}[]) et l'ordre qu'il donne est l'ordre d'initialisation : chaque
@@ -481,12 +498,12 @@ $`M(x) \neq \emptyset \land M(y) \neq \emptyset \iff M \xrightarrow{J} P`.
 :::proofsketch
 La consommation simultanée n'est pas un protocole d'appariement à construire : c'est l'opération
 native de la règle {sc}[Guard] (§{num "sec:g-couche2"}[]), dont la prémisse décompose le
-motif de la boîte en $`\sum_i m_i[\overline{V_i}] \cdot E_i` et dont la conclusion rend la
-continuation de motif. Le motif $`J` est une coupure de logique linéaire exigeant $`x` et $`y`
+motif de la boîte en $`\sum_i P_i \cdot E_i`, chaque $`P_i` étant un produit de messages, et dont la
+conclusion rend la continuation de motif. Le motif $`J` est une coupure de logique linéaire exigeant $`x` et $`y`
 simultanément — le produit tensoriel $`x \otimes y` du chapitre 1
 (§{num "sec:c1-axiomatique-germinale"}[]) — et la boîte aux lettres est un multi-ensemble de
-ressources linéaires stocké dans un anneau SPSC. Le compilateur abaisse $`J` en automate évalué par
-masquage binaire de l'anneau ; la réduction consomme les deux messages simultanément par échange
+ressources linéaires stocké dans des anneaux SPSC, un par émetteur (voir la structure de la boîte, ci-dessous). Le compilateur abaisse $`J` en automate évalué par
+masquage binaire de l'occupation des anneaux ; la réduction consomme les deux messages simultanément par échange
 atomique de pointeurs, garantissant l'atomicité verrou-libre sans synchronisation supplémentaire.
 :::
 ::::
@@ -496,8 +513,29 @@ un multi-ensemble de ressources linéaires indexé par canal, muni d'une règle 
 atomique multi-places. Quatre résultats de ce document en sont des lectures : l'activation
 conditionnelle ci-dessus ; le circuit breaker de session, qui compare le tag d'un message à ce que la
 boîte attend ; la ré-invocation séquentielle d'un grade fini ; et la traduction d'un service répliqué
-$`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme sa restriction ; la
-reprise de leurs énoncés sur cette définition unique reste à faire.
+$`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme sa restriction :
+l'activation conditionnelle est la consommation atomique multi-places sur $`\mathsf{Bag}(\mathsf{Cap}(c))`
+pour deux canaux ; le circuit breaker est la comparaison du tag d'un message à l'indice de la somme ; la
+ré-invocation d'un grade fini est le service répliqué $`n` fois sur un canal de la boîte ; la
+traduction $`!x(y).P` en est la restriction au grade $`\omega`. La reprise formelle de leurs énoncés sur
+cette définition unique reste à faire : c'est une réécriture, non une découverte.
+
+La structure physique de cette boîte tient en une phrase : _un anneau SPSC par couple (émetteur, boîte), et une
+file de jonction par acteur_. La capacité d'écriture d'un canal est linéaire, de sorte qu'un anneau n'a qu'un
+producteur, et la boîte n'a qu'un consommateur, l'acteur qui la détient ; l'indexation de $`\mathsf{Mailbox}`
+par canal est cette même partition. Aucune des deux extrémités n'a besoin de comparer-et-échanger, et les deux
+barrières de ce chapitre — libération à la publication, acquisition à la consommation — suffisent. La file de
+jonction est l'état que l'acteur tient pour ses motifs en attente, au sens du calcul de jonction
+{cite "fournetReflexiveCHAMJoincalculus1996"}[] : pour chaque motif, l'ensemble des anneaux non vides dont il a besoin,
+lisible par masquage binaire. L'appariement atomique n'est alors pas un protocole entre pairs : l'acteur étant
+l'unique consommateur de ses anneaux, consommer deux messages revient à avancer deux curseurs de consommation que
+lui seul écrit, et les producteurs, qui ne lisent ce curseur que pour savoir s'il reste de la place, tolèrent de
+le voir en retard. Quand plusieurs anneaux portent un message qui convient au motif, l'acteur les examine dans
+l'ordre fixe des identifiants d'émetteur : le choix est une fonction de l'état de la boîte, que le journal
+restitue, et non une source de non-déterminisme de plus. Deux coûts se nomment. Une file à plusieurs producteurs
+simplifierait la topologie, mais au prix d'un comparer-et-échanger que P3 refuse ; et le nombre d'anneaux croît avec
+celui des émetteurs. Cette borne mémoire est connue à la compilation : le graphe de câblage est donné en entier, et
+chaque anneau a une capacité qui est un grade ; une boîte créée à l'exécution par {sc}[New] porte le sien.
 
 L'énoncé est _local_ : il porte sur une jonction prise isolément. {rmq}[L'atomicité locale est
 démontrée, la localité ne l'est pas. Les deux mots se ressemblent et ne disent pas la même chose.]
@@ -537,8 +575,10 @@ de sorte que la propriété se lit dans l'endroit où l'on écrit {cite "VIRTIO"
 Une opération manque cependant : le système de types sait retirer une capacité de son contexte, non
 la _révoquer_ chez un pair qui l'a reçue. Les protocoles d'accès distant y pourvoient par une
 invalidation explicite, signal du protocole annulant l'étiquette d'une région préalablement annoncée {cite "recioRemoteDirectMemory2007a"}[].
-Le destructeur d'une capacité exportée (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]) devrait en
-émettre une, faute de quoi P3 cesse de valoir au-delà de la frontière. C'est le troisième point où
+Le destructeur d'une capacité exportée (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]) devrait
+invalider localement l'étiquette de la région qu'il a annoncée : dans ces protocoles l'invalidation s'exécute
+chez le propriétaire de la région, sur sa demande ou sur celle de l'accédant, et c'est l'exportateur qui est
+propriétaire. Faute de quoi P3 cesse de valoir au-delà de la frontière. C'est le troisième point où
 ce document franchit une frontière de confiance sans l'avoir tracée — les deux autres étant
 l'exécution de macros avant vérification et l'importation depuis une source distante (chapitre 5,
 §{num "sec:c5-mise-en-pratique"}[]).

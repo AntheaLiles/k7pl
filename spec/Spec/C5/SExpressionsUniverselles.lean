@@ -54,7 +54,7 @@ Les trois délimiteurs comme annonces de phase
 
 Ces trois paires ne s'imbriquent que dans un seul sens : `{ ... ( ... [ ... ] ... ) ... }`. Toute
 autre inclusion — un `[ ]` contenant un `{ }`, ou un `( )` à l'intérieur d'un `[ ]` — est rejetée en
-Phase 2 (`ERR-TOP-001`). Cette contrainte n'est pas stylistique : elle découle directement des
+Phase 3 (`ERR-TOP-001`). Cette contrainte n'est pas stylistique : elle découle directement des
 spécialisations du jugement germinal établies au chapitre 1
 (§{num "sec:c1-axiomatique-germinale"}[]). Le jugement de couche 3 n'admet que des liaisons de grade $`\omega` ; un bloc de couche 3 ne peut donc rien exiger qui soit affine ou linéaire. Le jugement de couche 1, à
 l'inverse, dispose de $`\Delta_{\text{lin}}`, dont le chapitre 2
@@ -139,7 +139,7 @@ Les cinq mots-clés de preuve, et l'obligation que chacun projette
   * Où elle est déjà vérifiée
 * * `pure`
   * $`\mathcal{E} = \emptyset`
-  * Phase 3, pour tout bloc de couche 3
+  * Phase 5, pour tout bloc de couche 3
 * * `terminates`
   * une mesure strictement décroissante sur un grade
   * tout pli de couche 3

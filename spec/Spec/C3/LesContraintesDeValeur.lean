@@ -23,7 +23,7 @@ tag := "c3-les-contraintes-de-valeur"
 
 Deux filiations gouvernent cette section. Les types liquides de Rondon, Kawaguchi et Jhala
 établissent qu'un raffinement reste décidable si sa vérification est déléguée à un solveur plutôt
-qu'intégrée à l'unification — c'est le partage que K7PL reprend entre le narrowing et la Phase 5
+qu'intégrée à l'unification — c'est le partage que K7PL reprend entre le narrowing et la Phase 7
 (chapitre 6). Le tracé exact de ce partage est assumé pour ce qu'il est : il ne suit d'aucune
 nécessité logique. Certaines contraintes de taille se vérifieraient par narrowing au prix
 d'annotations supplémentaires, certaines existentielles se délégueraient au solveur. Le critère
@@ -287,7 +287,7 @@ qui précède, _et dont le graphe de dépendances est acyclique_ au sens du chap
 :::proofsketch
 Le jeton linéaire `Lin(SessionEndpoint)` force la progression : une session ne peut être abandonnée,
 elle doit atteindre `end` ou traiter un `Timeout`. Le graphe de dépendances est acyclique par
-vérification en Phase 1.5, un cycle produisant `ERR-ARC-001`. Par tri topologique de ce graphe
+vérification en Phase 2, un cycle produisant `ERR-ARC-001`. Par tri topologique de ce graphe
 (chapitre 2, théorème {num "thm:tri_topologique"}[]) et élimination des coupures sur le fragment
 multiplicatif, il existe toujours une communication réductible : une progression possible plutôt
 qu'une attente circulaire. L'énoncé porte sur les états atteignables et se prouve donc par
@@ -296,7 +296,7 @@ atteignable ne présente de cycle dans la relation « attend un message de ». L
 est ce que cette esquisse doit encore établir, et elle se réduit à un énoncé unique — la _simulation
 du graphe d'attente_ : pour tous acteurs $`a` et $`b` et tout état atteignable, si $`a` attend un
 message de $`b`, alors l'arête $`(a,b)` est au graphe de câblage. Sous cette simulation, tout cycle
-d'attente serait un cycle de câblage, et l'acyclicité vérifiée en Phase 1.5 conclut.
+d'attente serait un cycle de câblage, et l'acyclicité vérifiée en Phase 2 conclut.
 
 _Cette simulation n'est plus un emprunt._ Depuis que la couche 2 a ses règles (§{num "sec:g-regles"}[],
 §{num "sec:g-couche2"}[]), le graphe de câblage n'est plus un objet posé au-dehors : il est celui
@@ -311,13 +311,13 @@ Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. 
 donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet
 coinductif par induction.] Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné
 en entier à la compilation : fini, statique, il se traite inductivement, et le tri topologique de la
-Phase 1.5 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie
+Phase 2 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie
 au fil des activations et n'est jamais donné. L'acyclicité du premier n'implique donc pas
 mécaniquement celle du second, et c'est pourquoi l'énoncé porte sur les états atteignables et non
 sur le câblage.
 
 L'absence de blocage mutuel est donc une propriété de compilation, et non une promesse
-conditionnelle : le tri topologique de la Phase 1.5 la décide, et aucun mécanisme d'exécution —
+conditionnelle : le tri topologique de la Phase 2 la décide, et aucun mécanisme d'exécution —
 détection de cycle, temporisation globale — n'a à la surveiller. S'il tombe, la garantie retombe sur
 le `Timeout`, c'est-à-dire sur une détection à l'exécution, ce qui la ferait sortir du système de
 types et rentrer dans le coût.

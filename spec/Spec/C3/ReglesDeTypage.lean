@@ -398,7 +398,7 @@ y a au plus une flèche, et deux dérivations de $`r \preccurlyeq r'` désignent
 conversion est définie comme le transport le long de cette flèche, la cohérence énoncée se ramène à
 la fonctorialité de ce transport — identité en $`r \preccurlyeq r`, composition en
 $`r \preccurlyeq s \preccurlyeq t` — à vérifier pour chacune des quatre familles, puis à clore par
-produit, la fonctorialité d'un produit de catégories l'étant composante par composante. La conversion de chaque facteur se définit ainsi. Sur le niveau, la monotonie et le budget, la conversion est l'_identité_ sur la valeur sous-jacente : seule l'étiquette change, de sorte que l'identité et la composition sont immédiates. Sur l'usage, c'est le morphisme canonique de comonades gradués $`!_{u} \Rightarrow !_{u'}` pour $`u \geq u'` : la dérivation (compteur) de $`\omega` vers $`1` et l'affaiblissement de $`1` vers $`0`. Seule équation à vérifier : l'affaiblissement composé à la dérivation est l'affaiblissement, $`w \circ \varepsilon = w`, qui est la naturalité de $`w`. Reste à la vérifier dans la construction du chapitre 2 ; tant qu'elle ne l'est pas, la proposition demeure une proposition.
+produit, la fonctorialité d'un produit de catégories l'étant composante par composante. La conversion de chaque facteur se définit ainsi. Sur le niveau, la monotonie et le budget, la conversion est l'_identité_ sur la valeur sous-jacente : seule l'étiquette change, de sorte que l'identité et la composition sont immédiates. Sur l'usage, c'est le morphisme canonique de comonades gradués $`!_{u} \Rightarrow !_{u'}` pour $`u \geq u'` : la dérivation (compteur) de $`\omega` vers $`1` et l'affaiblissement de $`1` vers $`0`. Seule équation à vérifier : de $`\omega` à $`0`, la conversion composée, dérivation puis affaiblissement, est la conversion directe. Elle tient parce que $`!_0 A` est l'unité, terminale dans le fragment affine du chapitre 2 : toute flèche vers un objet terminal est unique, donc deux chemins de $`!_\omega A` vers $`!_0 A` coïncident. Les trois autres facteurs étant l'identité, la cohérence des quatre familles est établie, et le produit la ferme ; le théorème {num "thm:coherence_subsomption"}[] reste une proposition tant que l'existence des jointures entre modes quelconques (chapitre 1) n'est pas acquise hors des quatre facteurs.
 :::
 ::::
 
@@ -450,7 +450,7 @@ le résultat reste sous $`\Diamond`.
 \begin{equation*}
 \textsc{Alw}\;\frac{\;{\Box}\Delta \vdash v : V\;}{\;{\Box}\Delta \vdash \mathsf{always}\;v : {\Box}V\;}
 \qquad
-\textsc{Alw}^{-}\;\frac{\;\Delta \vdash v : {\Box}V\;}{\;\Delta \vdash \mathsf{at}\;v : V\;}
+\textsc{Alw}^{-}\;\frac{\;\Delta \vdash v : {\Box}V\;}{\;\Delta \vdash \mathsf{at}\;v : F_{\mathbf{1}} V \mid \mathbf{1}\;}
 \qquad
 \textsc{Now}\;\frac{\;\Delta \vdash v : V\;}{\;\Delta \vdash \mathsf{now}\;v : {\Diamond}V\;}
 \end{equation*}
@@ -458,7 +458,7 @@ le résultat reste sous $`\Diamond`.
 
 ```
 \begin{gather*}
-\textsc{Wait}\;\frac{\;\Delta \vdash v : {\bigcirc}{\Diamond}V\;}{\;\Delta \vdash \mathsf{wait}\;v : {\Diamond}V\;}
+\textsc{Nxt}\;\frac{\;\Delta \vdash v : V\;}{\;{\bigcirc}\Delta \vdash \mathsf{next}\;v : {\bigcirc}V\;}\qquad\textsc{Wait}\;\frac{\;\Delta \vdash v : {\bigcirc}{\Diamond}V\;}{\;\Delta \vdash \mathsf{wait}\;v : F_{\mathbf{1}}\,{\Diamond}V \mid \mathbf{1}\;}
 \\[8pt]
 \textsc{When}\;\frac{\;\Delta_1 \vdash v : {\Diamond}V \qquad {\Box}\Delta_2,\, x :_r V \vdash c : {\Diamond}C \mid \varepsilon\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} ({\Box}\Delta_2) \vdash \mathsf{when}\;x = v\;\mathsf{in}\;c : {\Diamond}C \mid \varepsilon[\,\omega/k\,]\;}
 \end{gather*}
@@ -468,6 +468,17 @@ le résultat reste sous $`\Diamond`.
 Règles des modalités « toujours » et « éventuellement », et la perte de borne qu'attendre coûte
 :::
 ::::
+
+Les règles ont changé de forme sur un point, pour que la grammaire des termes les habite.
+{sc}[Alw], {sc}[Now] et {sc}[Nxt] _introduisent_ un type de valeur ($`{\Box}V`, $`{\Diamond}V`, $`{\bigcirc}V`) : leurs
+termes sont des valeurs, et {sc}[Nxt], qui manquait, est la troisième introduction, celle sans laquelle aucune
+valeur close n'habitait $`{\bigcirc}{\Diamond}V` et l'attente ne pouvait pas se déclencher. {sc}[Alw]$`^{-}` et
+{sc}[Wait] _consomment_ une valeur pour en rendre une autre : ce sont des calculs, d'effet neutre, qui
+rendent $`V` et $`{\Diamond}V` sous $`F_{\mathbf{1}}`. Le jugement qu'écrivait la règle, une valeur de type $`V`
+obtenue d'une valeur de type $`{\Box}V`, rangeait une élimination parmi les valeurs, où aucune forme canonique
+ne la réduit. {sc}[Del] n'a pas changé : $`\mathsf{delay}\;c` est un calcul, introduction du type de calcul
+$`{\bigcirc}C`. La conclusion de {sc}[When] porte $`{\Diamond}C`, que la grammaire des types définit par
+abréviation (§{num "sec:g-grammaire-types"}[]) : le type est $`F_{\varepsilon}({\Diamond}V)` quand $`C = F_{\varepsilon}V`.
 
 La substitution $`\varepsilon[\omega/k]` dans {sc}[When] est le point où ces règles rencontrent
 l'algèbre des effets, et elle demande d'abord d'être définie. Le facteur temporel étant une famille
@@ -1007,6 +1018,56 @@ pièce de plus qu'annoncé, et la §{num "sec:g-regles"}[] le dit désormais. La
 c'est précisément pourquoi on ne peut raffiner l'implémentation d'un gestionnaire sans recompiler {cite "bachpoulsenHeftyAlgebrasModular2023"}[].
 La réserve n'était pas une prudence, elle était la conséquence de la structure.
 
+## La troisième : la loi distributive, écrite
+%%%
+tag := "g-regles-les-deux-verifications-la-troisieme-la-loi-distributive"
+%%%
+
+La loi distributive graduée du chapitre 1 était nommée et employée sans que ses conditions soient
+écrites ; {sc}[Let] et {sc}[App] la supposaient. Elle s'écrit
+$`\lambda_{r,\varepsilon} : !_r\,T_\varepsilon \Rightarrow T_{\varphi_n(\varepsilon)}\,!_{\psi(r,\varepsilon)}`,
+où $`\varphi_n(\varepsilon) = \varepsilon^n` pour la multiplicité d'exécution $`n` que fournit le
+combinateur de contrôle de la règle, et $`\psi` le transport de contexte du chapitre 1. Trois
+conditions de cohérence sont exigées d'une loi distributive graduée, et elles se vérifient.
+
+::::thm (label := "thm:loi_distributive_conditions") (status := "theoreme")
+:::title
+conditions de cohérence de la loi distributive
+:::
+
+:::statement +titled
+Unité, composition, naturalité
+
+(U) $`\varphi_1(\varepsilon) = \varepsilon` et $`\varphi_0(\varepsilon) = \mathbf{1}`. (C) $`\varphi_{n m} = \varphi_n \circ \varphi_m`, y compris
+pour $`n` ou $`m` égal à $`\omega`, de sorte que $`\lambda` est compatible avec la comultiplication
+$`\delta_{r,s}`. (N) $`\lambda` est naturelle en le type, $`\varphi_n` et $`\psi` n'agissant que sur les
+annotations.
+:::
+
+:::proofsketch
+(U) : $`\varepsilon^1 = \varepsilon` et $`\varepsilon^0 = \mathbf{1}` par définition de la puissance dans
+un monoïde. (C) : dans un monoïde, $`\varepsilon^{n m} = (\varepsilon^{m})^{n}` par récurrence sur $`n`.
+Pour $`\omega`, $`\varepsilon^\omega = \bigvee_k \varepsilon^k` ; la distributivité du produit sur les
+bornes supérieures donne $`(\varepsilon^\omega)^m = \bigvee_k \varepsilon^{k m}`, égal à
+$`\varepsilon^\omega` pour $`m \geq 1`, et à $`\mathbf{1}` pour $`m = 0`, ce qui est
+$`\varphi_0 \circ \varphi_\omega`. (N) : les deux membres ne diffèrent que par l'annotation, que
+$`\varphi_n` et $`\psi` transforment sans regarder le type.
+:::
+::::
+
+Une quatrième condition ne tient pas, et il faut le dire : la compatibilité de $`\lambda` avec la
+multiplication de la monade exigerait que $`\varphi_n` soit un _morphisme de monoïde_,
+$`\varphi_n(\varepsilon\delta) = \varphi_n(\varepsilon)\,\varphi_n(\delta)`. Or
+$`(\varepsilon\delta)^n \neq \varepsilon^n \delta^n` dès que $`\varepsilon` et $`\delta` ne commutent pas ;
+l'égalité vaut sur le facteur temporel, où $`k \mapsto n k` est additif, et sur toute partie commutative
+de $`\mathcal{E}_0`. Les règles du jeu n'emploient jamais cette condition : elles mettent à l'échelle un
+corps entier, jamais la moitié d'une séquence, et la seule propriété qu'elles invoquent est la loi de
+cohérence du théorème {num "thm:coherence_axiome"}[]. La loi est donc une loi distributive
+_affaiblie_ — sans compatibilité avec le produit — et le mot ne doit pas être entendu au sens strict.
+Ce qui en résulte : déplacer un bloc mis à l'échelle de part et d'autre d'une frontière de séquence
+change l'annotation d'effet, et aucune règle ne le fait ; toute extension qui le ferait devra écrire la
+condition sur une partie commutative.
+
 # Les connecteurs restants
 %%%
 tag := "g-regles-les-connecteurs-restants"
@@ -1088,7 +1149,7 @@ type ne porte les deux sortes.
 
 ```
 \begin{equation*}
-\textsc{Cop}\;\frac{\;\bigl(\Delta,\ x :_{1} \nu\alpha.C\,\langle i \rangle \;\vdash\; c_j : C_j\,\langle i \rangle \mid \varepsilon \bigr)_{j \in J}\;}{\;\Delta \vdash \langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J} : \nu\alpha.C\,\langle i+1 \rangle \mid \varepsilon\;}
+\textsc{Cop}\;\frac{\;\bigl(\Delta,\ x :_{1} U_{\varepsilon}(\nu\alpha.C\,\langle i \rangle) \;\vdash\; c_j : C_j\,\langle i \rangle \mid \varepsilon \bigr)_{j \in J}\;}{\;\Delta \vdash \langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J} : \nu\alpha.C\,\langle i+1 \rangle \mid \varepsilon\;}
 \end{equation*}
 ```
 
@@ -1097,6 +1158,11 @@ Les deux règles du point fixe coinductif. L'observation consomme une unité de 
 en produit une.
 :::
 ::::
+
+Le sous-typage des tailles est la clause de $`<:` que {sc}[Sub] emploie entre deux types coinductifs de même
+corps : $`\nu\alpha.C\,\langle j \rangle <: \nu\alpha.C\,\langle i \rangle` dès que $`i \leq j`. Un flux qui offre
+plus d'observations s'emploie là où l'on en attend moins ; c'est cette clause qui comble l'écart entre la taille
+$`i` de la prémisse de {sc}[Cop] et la taille $`i+1` du copatron qu'on lui substitue.
 
 Un point de lecture avant tout le reste, car la question se pose immédiatement. Comment {sc}[Out]
 s'instancie-t-il sur un flux de taille $`\omega`, dont la prémisse demande $`\langle i+1 \rangle` ?
@@ -1108,8 +1174,8 @@ flux en $`n` observations, ce qui est le comportement voulu d'un flux borné.
 
 Trois choses se lisent ensuite sur ces deux règles, et la troisième est celle qui compte.
 
-La première est que l'appel corécursif est _disponible_ dans chaque branche, sous la liaison $`x`,
-mais à une taille strictement inférieure. C'est la décroissance, et elle est un fait de typage :
+La première est que l'appel corécursif est _disponible_ dans chaque branche, sous la liaison $`x`, qui est un
+thunk du copatron (une valeur, que la branche emploie par $`\mathsf{force}\;x`), mais à une taille strictement inférieure. C'est la décroissance, et elle est un fait de typage :
 aucune inspection de la syntaxe du terme n'a lieu, aucun gardien n'est posé, et la garantie tient du
 jugement seul. Le critère est ainsi le dual exact de celui qui borne le pli de couche 3, comme le
 théorème {num "thm:progression_polarisee"}[] l'affirmait sans encore le pouvoir.
@@ -1284,8 +1350,8 @@ Mettre en parallèle ne change pas ce qui est calculé
 
 Pour $`c_1` et $`c_2` de couche 3, les calculs $`c_1 \parallel c_2` et
 $`\mathsf{let}\;x \leftarrow c_1\;\mathsf{in}\;\mathsf{let}\;y \leftarrow c_2\;\mathsf{in}\;\mathsf{return}\,(x,y)`
-rendent la même valeur. Leurs effets diffèrent sur la seule composante de profondeur, où le premier
-majore le second.
+rendent la même valeur. Leurs effets diffèrent sur la seule composante de profondeur, où le second
+majore le premier.
 :::
 
 :::proofsketch
@@ -1358,7 +1424,7 @@ plutôt qu'un sac : consommer transforme le type, et le type dit ce qu'il reste 
 
 ```
 \begin{equation*}
-\textsc{Guard}\;\frac{\;\Delta_0 \vdash v :_1 \mathsf{Mb}\;E \quad E = \textstyle\sum_i m_i[\overline{V_i}] \cdot E_i \quad \bigl(\Delta_i,\ \overline{x_i} :_1 \overline{V_i},\ y :_1 \mathsf{Mb}\;E_i \vdash c_i : C \mid \varepsilon_i\bigr)_i\;}{\;\Delta_0 \boxtimes_{\mathbf{1}} \bigl(\textstyle\bigsqcup_i \Delta_i\bigr) \vdash \mathsf{guard}\;v\;\{m_i(\overline{x_i}) \mapsto c_i\}_i : C \mid \textstyle\bigsqcup_i \varepsilon_i\;}
+\textsc{Guard}\;\frac{\;\Delta_0 \vdash v :_1 \mathsf{Mb}\;E \quad E = \textstyle\sum_i P_i \cdot E_i \quad \bigl(\Delta_i,\ \overline{x_i} :_1 \overline{V_i},\ y :_1 \mathsf{Mb}\;E_i \vdash c_i : C \mid \varepsilon_i\bigr)_i\;}{\;\Delta_0 \boxtimes_{\mathbf{1}} \bigl(\textstyle\bigsqcup_i \Delta_i\bigr) \vdash \mathsf{guard}\;v\;\{p_i \mapsto c_i\}_i : C \mid \textstyle\bigsqcup_i \varepsilon_i\;}
 \end{equation*}
 ```
 
@@ -1380,8 +1446,15 @@ Trois points de conception méritent d'être lus sur ces règles, et le troisiè
 modèle de la bifurcation et de la jonction, et c'est ce qui rend le coût compositionnel : engendrer
 une tâche ne rallonge pas le chemin critique de celui qui l'engendre, il augmente la facture totale.
 
-{sc}[Guard] rend explicite la _continuation de motif_, $`y :_1 \mathsf{Mb}\;E_i` : consommer un
-message transforme le type de la boîte. C'est l'état porté par le type, et c'est ce que le chapitre
+Dans {sc}[Guard], chaque branche porte un _motif conjonctif_
+$`p_i = m_{i1}(\overline{x_{i1}}) \mathbin{\&} \cdots \mathbin{\&} m_{ik_i}(\overline{x_{ik_i}})`, de type de boîte
+$`P_i = m_{i1}[\overline{V_{i1}}] \cdot \cdots \cdot m_{ik_i}[\overline{V_{ik_i}}]`, et $`\overline{x_i}`, $`\overline{V_i}`
+concatènent les charges de ses messages ; $`k_i = 1` redonne la garde à un message. La branche ne s'ouvre que
+si tous les messages du motif sont présents, et les consomme d'un seul tenant : c'est ainsi que le motif de
+jonction du chapitre 4 est une forme de {sc}[Guard], et non un protocole bâti dessus.
+
+{sc}[Guard] rend explicite la _continuation de motif_, $`y :_1 \mathsf{Mb}\;E_i` : consommer les messages du
+motif transforme le type de la boîte. C'est l'état porté par le type, et c'est ce que le chapitre
 4 décrit en prose sans pouvoir l'écrire. La consommation multi-places d'un motif de jonction en est
 l'opération native, et non un protocole d'appariement à inventer.
 
@@ -1441,7 +1514,9 @@ spéciale ; l'écrire comme une instance la rend ordinaire, et c'est ce qu'elle 
 ::::formula (label := "eq:regles-couche1") (kind := "formule")
 ```
 \begin{equation*}
-\textsc{At}\;\frac{\;\Delta \vdash c : C \mid \varepsilon \qquad \mathrm{loc}(\Delta) \sqsupseteq n\;}{\;@_n \Delta \vdash \mathsf{at}_n\;c : @_n C \mid @_n \varepsilon\;}
+\textsc{Loc}\;\frac{\;\Delta \vdash v : V\;}{\;@_n \Delta \vdash \mathsf{loc}_n\,v : @_n V\;}
+\qquad
+\textsc{At}\;\frac{\;\Delta \vdash c : F_{\varepsilon} V \mid \varepsilon \qquad \mathrm{loc}(\Delta) \sqsupseteq n\;}{\;@_n \Delta \vdash \mathsf{at}_n\;c : F_{@_n\varepsilon}(@_n V) \mid @_n \varepsilon\;}
 \end{equation*}
 ```
 
@@ -1461,6 +1536,13 @@ spéciale ; l'écrire comme une instance la rend ordinaire, et c'est ce qu'elle 
 Localiser un calcul, déplacer une valeur, récupérer d'une défaillance
 :::
 ::::
+
+Deux changements de forme, comme pour les modalités temporelles. {sc}[Loc] est l'introduction de $`@_n V`
+qui manquait : aucune valeur de la grammaire n'habitait ce type, de sorte que la prémisse de {sc}[Move] n'avait
+pas de valeur close à recevoir. {sc}[At] se restreint à un calcul qui _rend_ une valeur : son type est
+$`@_n(F_{\varepsilon}V) = F_{@_n\varepsilon}(@_n V)`, le résultat localisé en $`n`, ce qui est aussi la forme que
+{sc}[Move] rend ; exécuter à distance un calcul qui ne rend rien de la forme $`F` n'avait pas de sens que le texte
+fixait.
 
 Le coût d'un déplacement est $`\langle c, c \rangle` : le travail et la profondeur y sont égaux,
 parce qu'un transfert ne se parallélise pas avec lui-même. C'est le seul endroit du langage où les
@@ -1507,6 +1589,44 @@ dépendre d'une ressource consommée et la substitution cesserait d'être admiss
 au facteur $`r\cdot\Delta'` : substituer une valeur employée $`r` fois multiplie les exigences de
 son contexte d'autant, ce qui est la contrepartie de {sc}[App] et doit être vérifié cohérent avec
 elle.
+
+Une troisième réserve touche l'appel par poussée de valeur : le lemme ne substitue que des valeurs, ce
+qui écarte l'incompatibilité entre effets observables, élimination dépendante et substitution, mais
+les indices de taille dont dépendent les types modifient les annotations d'effet — un parcours de
+$`N` éléments effectue $`N` pas, et substituer une valeur d'indice change l'effet. La stabilité de la
+quantale et de l'itération $`\varepsilon^n` par substitution d'indices est donc un lemme _séparé_, non
+une conséquence du lemme ci-dessus : on la restreint aux indices intervenant dans les effets qui sont
+_clos à la compilation_, et le lemme de substitution ne traite que ce cas, sans dépendance d'indices
+dynamiques. Son extension demande le cadre de la monade graduée indexée, que l'on écrit maintenant dans le cas
+clos.
+
+La _monade graduée indexée_ est la famille $`T^{i}_{\varepsilon}`, où l'indice $`i` parcourt un
+langage d'indices (tailles, longueurs, bornes) et où l'annotation $`\varepsilon(i)` en dépend ; la
+substitution d'un indice $`j` à $`i` agit sur les annotations par la même opération que sur les types.
+
+::::thm (label := "thm:substitution_indices") (status := "theoreme")
+:::title
+stabilité de l'effet par substitution d'indices clos
+:::
+
+:::statement +titled
+La puissance d'effet commute avec la substitution d'un indice clos
+
+Si $`n(i)` et $`\varepsilon(i)` sont des termes d'indices et $`j` un indice clos à la compilation, alors
+$`\bigl(\varepsilon(i)^{n(i)}\bigr)[j/i] = \varepsilon(j)^{n(j)}`, et le lemme de substitution
+ci-dessus conclut $`c[v/x] : C[j/i] \mid \varepsilon(j)` sans autre condition sur l'itération.
+:::
+
+:::proofsketch
+La substitution est un homomorphisme du langage d'indices, et la puissance $`\varepsilon^{n}` est définie
+sur la valeur de $`n`, un indice clos s'évaluant en un élément de $`\mathbb{N}_\infty`. Substituer $`j`
+puis évaluer, ou évaluer le terme substitué, donne le même entier ; les deux membres sont donc la même
+puissance de la même annotation. L'hypothèse de clôture est ce qui rend l'évaluation possible : pour un
+indice dynamique, $`\varepsilon^{n}` n'a plus de valeur à la compilation, et c'est le cas hors du
+périmètre du langage.
+:::
+::::
+
 
 ## La loi de cohérence que l'induction réclame
 %%%

@@ -10,5 +10,6 @@ Ported from the checks of the former Org tooling (`archives/outillage-org/`). Ru
 * `algebre`    — laws of the algebra at the absorbing elements, size sorts, the conventions of ω;
 * `notation`   — one symbol per object, status seals, propagation of open statements;
 * `croise`     — the grammar of terms against the typing rules, and the counts the prose states;
-* `structure`  — appendix letters, tables, comments, hand-written counts, unique labels.
+* `structure`  — appendix letters, tables, comments, hand-written counts, unique labels;
+* `indexation` — the terms of the index occur in the text, the page prints the index.
 """

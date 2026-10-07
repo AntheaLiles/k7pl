@@ -262,14 +262,14 @@ syntaxique ou fondé sur le modèle mémoire ; leur formulation comme isomorphis
 relève de l'obligation P1b. Quatre familles s'y rangent.
 
 * L'adjonction curry/uncurry et l'isomorphisme de Yoneda du chapitre 2
-  (§{num "sec:c2-adjonctions-et-enrichissement"}[]) en fournissent deux instances.
+  (§{num "sec:c2-adjonctions-et-enrichissement"}[]) en fournissent deux instances ; l'argument est syntaxique — chaque présentation se transforme en l'autre par substitution, les règles d'abstraction et d'application étant inversibles.
 
-* La déforestation et la fusion de boucles éliminent les structures intermédiaires.
+* La déforestation et la fusion de boucles éliminent les structures intermédiaires ; leur argument est la commutation de la substitution avec le pli, par induction sur la structure éliminée, avec un contexte multiplié par le grade du corps fusionné.
 
-* La saturation par égalité explore un graphe de réécritures borné par un grade.
+* La saturation par égalité explore un graphe de réécritures borné par un grade ; chaque réécriture du graphe est l'une des précédentes, et leur validité est celle de leurs arguments propres.
 
 * La défonctionnalisation et l'inlining statique des effets (chapitre 2,
-  §{num "sec:c2-algebres-coalgebres-et-points"}[]) achèvent d'effacer toute indirection restante.
+  §{num "sec:c2-algebres-coalgebres-et-points"}[]) achèvent d'effacer toute indirection restante ; leur argument est la préservation graduée par abaissement, conjecture {num "thm:abaissement_grades"}[] non démontrée.
   Les projections de Futamura, réservées aux fonctions pures de couche 3 dont la terminaison est
   déjà prouvée, spécialisent un programme par évaluation partielle sans jamais risquer d'en changer
   le sens.
@@ -366,7 +366,7 @@ sont sévères : les types peuvent mentionner les étiquettes, jamais l'inverse 
 étiquette se type dans le contexte des étiquettes _précédentes_, de sorte qu'aucune étiquette ne se
 référence elle-même. Une boucle infinie devient ainsi mal typée — non par une analyse de
 terminaison, mais parce que sa signature est mal portée. Ce document a besoin de cette forme au
-moment où sa Phase 6 défonctionnalise sous des types dépendants pragmatiques, et il n'a pas d'autre
+moment où sa Phase 8 défonctionnalise sous des types dépendants pragmatiques, et il n'a pas d'autre
 voie connue.
 
 Le terme optimisé descend enfin vers MLIR puis LLVM : les tableaux de couche 3 vers `memref.alloc`,
@@ -381,8 +381,9 @@ jamais silencieusement. La normalisation décide ici une égalité _syntaxique c
 plus : deux programmes de même sens dont les arbres normalisés diffèrent reçoivent deux adresses,
 l'équivalence sémantique n'étant pas décidable.
 
-Un mode `+dev` n'exécute que les trois premières phases, plus une version allégée de la Phase 4,
-quand un mode `+release` seul engage les phases 5 à 7. Ce cache, comme le reste du pipeline,
+Un mode `+dev` n'exécute que les phases 0 à 5 — de l'analyse syntaxique à la vérification de pureté, points de
+contrôle compris —, plus une version allégée de la Phase 6, quand un mode `+release` seul engage
+les phases 7 à 9. Ce cache, comme le reste du pipeline,
 s'appuie sur ce même hachage pour ne recompiler que ce qui a changé. En production, le remplacement
 d'un acteur ne repasse jamais par ce pipeline : l'orchestrateur substitue directement l'image
 compilée par échange de pointeur, draine l'ancien acteur, et rejoue le journal Cap'n Proto pour

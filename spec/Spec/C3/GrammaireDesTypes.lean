@@ -39,8 +39,8 @@ poussée de valeur, et la grammaire ci-dessous la porte.
 ::::formula (label := "eq:grammaire-types") (kind := "formule")
 ```
 \begin{align*}
-\text{(valeurs)}\quad V &::= b \mid @_n V \mid \mathbf{1} \mid V \otimes V \mid \textstyle\bigoplus_{i \in I} V_i \mid \mathsf{Vec}\;n\;V \mid \mathsf{Arena}\;V \mid \mathsf{Cap}\;\rho \mid !_{r} V \mid U_{\varepsilon}\,C \mid \exists \alpha. V \mid \mu\alpha. V\\
-\text{(calculs)}\quad C &::= F_{\varepsilon}\,V \mid V \multimap C \mid \textstyle\mathop{\&}_{i \in I} C_i \mid \forall \alpha. C \mid \nu\alpha. C\\
+\text{(valeurs)}\quad V &::= b \mid @_n V \mid \mathbf{1} \mid V \otimes V \mid \textstyle\bigoplus_{i \in I} V_i \mid \mathsf{Vec}\;n\;V \mid \mathsf{Arena}\;V \mid \mathsf{Cap}\;\rho \mid !_{r} V \mid U_{\varepsilon}\,C \mid \exists \alpha. V \mid \mu\alpha. V \mid {\Box} V \mid {\Diamond} V \mid {\bigcirc} V\\
+\text{(calculs)}\quad C &::= F_{\varepsilon}\,V \mid V \multimap C \mid \textstyle\mathop{\&}_{i \in I} C_i \mid \forall \alpha. C \mid \nu\alpha. C \mid {\bigcirc} C\\
 \text{(sessions)}\quad S &::= \mathbf{End} \mid V \otimes S \mid V \multimap S \mid \oplus\{\ell_i : S_i\} \mid \&\{\ell_i : S_i\} \mid {\bigcirc} S \mid {\Box} S \mid {\Diamond} S\\
 \text{(grades)}\quad r &::= \langle u, m, \ell, \beta \rangle \in \mathcal{R} = \mathbb{N}_\infty \times \{\mathrm{d} \preceq \mathrm{m}\} \times \mathcal{L} \times \mathcal{B}\\
 \text{(effets)}\quad \varepsilon &::= \langle \varphi, \kappa \rangle \in \mathcal{E} = \mathcal{E}_0 \times (\mathbb{N}_\infty \times \mathbb{N}_\infty)^{\mathcal{L}}
@@ -48,14 +48,15 @@ poussée de valeur, et la grammaire ci-dessous la porte.
 ```
 
 :::caption
-Grammaire des types : trois strates, le grade comme quadruplet, l'effet comme produit d'une quantale
-et d'une famille temporelle indexée par les niveaux
+Grammaire des types : trois strates, les trois modalités temporelles sur les deux premières, le grade
+comme quadruplet, l'effet comme produit d'une quantale et d'une famille temporelle indexée par les
+niveaux
 :::
 ::::
 
 Cette grammaire est _complète_ au sens précis où elle est croisée avec le jeu de règles, et le
-compte n'est plus une opinion : cinquante règles de typage, dont quatre ne gouvernent aucun
-constructeur de terme ; quarante-six constructeurs de termes, dont neuf valeurs et trente-sept
+compte n'est plus une opinion : cinquante-trois règles de typage, dont quatre ne gouvernent aucun
+constructeur de terme ; quarante-neuf constructeurs de termes, dont treize valeurs et trente-six
 calculs. Le croisement est vérifié mécaniquement à chaque construction du document, et il fait
 échouer celle-ci dès qu'un constructeur apparaît dans une règle sans figurer à la grammaire, ou
 l'inverse. Les quatre règles sans constructeur ne sont pas une anomalie : ce sont les deux règles de
@@ -63,15 +64,35 @@ sous-typage, qui s'appliquent à tout terme sans en former, et les deux règles 
 formation de contexte. Une grammaire qui ne serait pas croisée avec ses règles ne serait pas
 incomplète — elle serait invérifiable, ce qui est pire, puisque rien ne signalerait l'écart.
 
-Trois points appellent un commentaire, car ils fixent des choix que le corps a pris sans les écrire
+Quatre points appellent un commentaire, car ils fixent des choix que le corps a pris sans les écrire
 sous cette forme. Le premier est que $`!_r` est _une_ modalité et non quatre : son indice est un
 quadruplet, dont les composantes sont l'usage, la marque de monotonie, le niveau de confidentialité
 et le budget, et le §{num "sec:c2-adjonctions-et-enrichissement"}[] établit que cette structure
 produit est licite. Le deuxième est que les types de session portent les trois modalités temporelles
-du §{num "sec:c4-echelle-du-systeme"}[], ce qui est la manière dont le débit s'exprime. Le troisième
+du §{num "sec:c4-echelle-du-systeme"}[], ce qui est la manière dont le débit s'exprime. Ce sont les trois mêmes modalités que celles que la grammaire porte sur les valeurs et les calculs, et les règles du §{num "sec:g-regles"}[] sont les leurs. Le troisième
 est que $`\mathsf{Trellis}_{\text{fin}}`, condition de l'opérateur de point fixe, se lit sur cette
-grammaire. Le dire en prose ne suffit pas à une induction, qui a besoin d'un prédicat ; on le pose
-donc par les quatre clauses qui l'engendrent, et par rien d'autre.
+grammaire. Le quatrième est ce que cette grammaire engendre pour les types que les règles concluent et
+que le corps écrit par abréviation : $`{\Box}V`, $`{\Diamond}V` et $`{\bigcirc}V`, types de valeur, et
+$`{\bigcirc}C`, type de calcul, sont des productions ; $`{\Diamond}C`, $`@_n C` et $`!_\ell A` n'en sont pas, et
+ce sont des _abréviations_, définies plus bas. Le dire en prose ne suffit pas à une induction, qui a besoin d'un prédicat ; on le pose
+donc par les quatre clauses qui l'engendrent, et par rien d'autre. Les trois abréviations viennent
+d'abord, car les règles les emploient.
+
+Le niveau de confidentialité est la troisième composante du grade. $`!_\ell V` abrège
+$`!_{r}\,V` pour un grade $`r = \langle u, m, \ell, \beta \rangle` dont seule la troisième composante
+est nommée, et $`r[\ell']` est le grade $`\langle u, m, \ell', \beta \rangle`, qui ne diffère de $`r` que par le
+niveau : le type $`!_{\ell} A` du corps est $`!_{r}\,V` avec $`V = A`. Les deux autres abréviations
+distribuent la modalité sur la tête du type de calcul. La possibilité se distribue sur tous les types de
+calcul, $`{\Diamond}(F_{\varepsilon} V) = F_{\varepsilon}({\Diamond}V)`,
+$`{\Diamond}(V \multimap C) = V \multimap {\Diamond}C`,
+$`{\Diamond}(\mathop{\&}_{i \in I} C_i) = \mathop{\&}_{i \in I} {\Diamond}C_i`,
+$`{\Diamond}(\forall\alpha. C) = \forall\alpha. {\Diamond}C`, $`{\Diamond}(\nu\alpha. C) = \nu\alpha. {\Diamond}C` et
+$`{\Diamond}({\bigcirc}C) = {\bigcirc}{\Diamond}C` : c'est ce qui donne un type au corps de la règle d'attente. La
+localisation ne se distribue que sur un calcul qui rend une valeur,
+$`@_n(F_{\varepsilon} V) = F_{@_n\varepsilon}(@_n V)`, où $`@_n\varepsilon` est l'effet $`\varepsilon` vu au lieu $`n` :
+exécuter ailleurs un calcul qui ne rend pas de valeur n'a pas de sens que le texte fixe, et la règle de
+localisation s'arrête là. Aucune de ces trois notations n'ajoute de production à la grammaire, et
+aucune ne se définit par récurrence sur autre chose que la tête du type.
 
 ::::formula (label := "eq:trellis-fin") (kind := "formule")
 ```

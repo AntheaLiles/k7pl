@@ -410,7 +410,10 @@ systèmes bâtis séparément.
 ::::
 
 Notons $`\mathcal{C}_{!_S}` la sous-catégorie large obtenue en n'autorisant que les grades du
-sous-ensemble $`S \subseteq \mathcal{R}`. Les singletons $`\{1\}`, $`\{0,1\}` et $`\{\omega\}` sont ici les fragments _logiques_ ; les modalités de type du chapitre 3 sont les _intervalles_ de $`\mathcal{R}`, dont ils sont des cas particuliers, et c'est la notation par intervalles qui fait foi pour les types. Ces trois catégories s'emboîtent, et l'emboîtement n'est
+sous-ensemble $`S \subseteq \mathcal{R}` ; avec la décomposition du grade du chapitre 1 (à ratifier), $`S` est
+un sous-ensemble de l'usage $`\mathbb{U}` et la catégorie est $`\mathcal{C}_{!_{\pi_{\mathbb{U}}^{-1}(S)}}`, les trois
+autres composantes — budget, monotonie, niveau — restant libres, ce qui est ce qui laisse coexister singletons
+et intervalles. Les singletons $`\{1\}`, $`\{0,1\}` et $`\{\omega\}` sont ici les fragments _logiques_ ; les modalités de type du chapitre 3 sont les _intervalles_ de $`\mathcal{R}`, dont ils sont des cas particuliers, et c'est la notation par intervalles qui fait foi pour les types. Ces trois catégories s'emboîtent, et l'emboîtement n'est
 plus à démontrer : il se lit sur l'inclusion des sous-ensembles. Tout morphisme de
 $`\mathcal{C}_{!_{\{1\}}}`, n'invoquant ni affaiblissement ni contraction, reste a fortiori légitime
 dans $`\mathcal{C}_{!_{\{0,1\}}}` dès que le grade $`0` devient disponible sans devenir obligatoire.

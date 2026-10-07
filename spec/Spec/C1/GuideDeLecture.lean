@@ -33,6 +33,17 @@ prête plus qu'il n'établit. Une _obligation_ est une preuve à fournir au vér
 terme et non par le document. Une _exigence_ est une contrainte que l'implémentation doit
 satisfaire, et dont ni la démonstration ni la réfutation n'appartiennent à ce texte.
 
+Une règle de rédaction s'applique à tout le texte : _une réserve qui borne une affirmation réécrit
+l'affirmation_, elle ne l'annote pas. Un lecteur pressé lit l'énoncé et non la réserve. Et un changement
+de statut d'un énoncé se propage à toutes ses mentions : une mention non propagée est une erreur du
+document, non une nuance ; le contrôle de propagation (`scripts/controle.py`) la rend vérifiable.
+
+Deux mots désignent des objets distincts et ne se substituent pas : le _gestionnaire d'acteur_ est la
+fonction pure $`(\mathsf{Message} \times \mathsf{\acute{E}tat}) \to \mathsf{HandlerResult}` de la couche 2 ;
+le _gestionnaire d'effet_ est une algèbre qui interprète des opérations et, ce faisant, élimine un
+effet. Le premier ne produit pas d'effet : son résultat est une _description_ d'effets, exécutée par
+l'exécutif, et c'est cette exécution qui est journalisée.
+
 Cette convention a une conséquence que le lecteur peut exiger : là où aucun de ces sept mots
 n'apparaît, l'énoncé est une conséquence de ce qui précède, et le renvoi qui l'accompagne dit d'où
 il vient.

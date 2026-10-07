@@ -22,7 +22,7 @@ number := false
 
 Ces quatre codes protègent l'invariant énoncé au chapitre 1
 (§{num "sec:c1-axiomatique-germinale"}[]) : le comportement observable d'un programme ne dépend
-jamais de ce qui appartient à la phase de compilation. C'est cet invariant qui autorise la Phase 8 à
+jamais de ce qui appartient à la phase de compilation. C'est cet invariant qui autorise la Phase 10 à
 purger les blocs de spécification sans changer le programme ; le violer rendrait l'effacement
 incorrect, et non pas seulement imprudent.
 

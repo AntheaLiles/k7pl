@@ -45,9 +45,12 @@ EXPECTED = {
     "Inst":    (r"c.{0,3}\[W\]",                             "calcul"),
     "Sc":      (r"mathsf\{scoped\}",                        "calcul"),
     "Del":     (r"mathsf\{delay\}",                         "calcul"),
-    "Alw":     (r"mathsf\{always\}",                        "calcul"),
+    "Alw":     (r"mathsf\{always\}",                        "valeur"),
     "Alw^{-}": (r"mathsf\{at\}",                            "calcul"),
-    "Now":     (r"mathsf\{now\}",                           "calcul"),
+    "Now":     (r"mathsf\{now\}",                           "valeur"),
+    "Nxt":     (r"mathsf\{next\}",                          "valeur"),
+    "Loc":     (r"mathsf\{loc\}_n",                         "valeur"),
+    "Declassify": (r"mathbf\{declassify\}",                 "calcul"),
     "Wait":    (r"mathsf\{wait\}",                          "calcul"),
     "When":    (r"mathsf\{when\}",                          "calcul"),
     "VecI":    (r"\[v_0",                                    "valeur"),
@@ -69,7 +72,7 @@ EXPECTED = {
 NO_TERM_EXTRA = {"Tick", "Expand"}
 NO_TERM = {"Sub", "SubBox"} | NO_TERM_EXTRA
 
-# tick is an INSTANCE of the `operation` scheme, and Expand works in phase 0 on the tree.
+# tick is an INSTANCE of the `operation` scheme, and Expand works in phase 1 on the tree.
 NO_TERM_EXTRA = {"Tick", "Expand"}
 NO_TERM = {"Sub", "SubBox"} | NO_TERM_EXTRA
 
@@ -85,6 +88,21 @@ TYPE_CONNECTIVES = [
     (r"\\multimap", "implication", ("Lam", "App")),
     (r"\\mathsf\{Vec\}", "vecteur", ("VecI", "VecE")),
 ]
+
+
+AXIOMS = {"Var", "One", "Tick", "New"}  # rules that legitimately have no premise
+
+
+def premises_of(text: str):
+    """(rule name, premises) for every rule: used to catch a rule written without its premises."""
+    out = []
+    for m in re.finditer(r"\\textsc\{([A-Za-z]+)\}(?:\^\{[^}]*\})?\s*\\;?\s*\\frac\{", text):
+        i, depth = m.end(), 1
+        while i < len(text) and depth:
+            depth += {"{": 1, "}": -1}.get(text[i], 0)
+            i += 1
+        out.append((m.group(1), re.sub(r"(\\;|\s)", "", text[m.end() : i - 1])))
+    return out
 
 
 def _frac_conclusions(text: str):
@@ -122,6 +140,8 @@ TYPE_FORMERS = [
     (r"\\mathsf\{Vec\}", r"\\mathsf\{Vec\}"),
     (r"\\mathsf\{Arena\}", r"\\mathsf\{Arena\}"),
     (r"\{\\bigcirc\}|\\bigcirc", r"\\bigcirc"),
+    (r"\{\\Box\}\s*V|\\Box V", r"\\Box"),
+    (r"\{\\Diamond\}\s*V|\\Diamond V", r"\\Diamond"),
 ]
 
 
@@ -202,6 +222,11 @@ def run():
             good = False
             ko("règles concluant un type non engendré par la grammaire : %s" % ungenerated)
 
+    empty = sorted({n for n, pr in premises_of(corpus.chapter("C3")) if not pr and n not in AXIOMS})
+    if empty:
+        good = False
+        ko("règles écrites sans prémisse (ni axiome déclaré) : %s" % empty)
+
     absent = [r for r in sorted(rules & set(EXPECTED)) if not re.search(EXPECTED[r][0], grammar)]
     if absent:
         good = False
@@ -216,7 +241,7 @@ def run():
     ok("%d constructeurs de termes : %d valeurs, %d calculs" % (len(governed), len(values), len(computations)))
     stated_rules = re.search(r"(\w[\w-]*) règles de typage", corpus.chapter("C3"))
     stated_ctors = re.search(r"(\w[\w-]*) constructeurs", corpus.chapter("C3"))
-    NUMBERS = {"quarante-neuf": 49, "quarante-cinq": 45, "cinquante": 50, "quarante-six": 46}
+    NUMBERS = {"quarante-neuf": 49, "quarante-cinq": 45, "cinquante": 50, "quarante-six": 46, "cinquante-trois": 53}
     for label, found, real in (("règles de typage", stated_rules, len(rules)), ("constructeurs", stated_ctors, len(governed))):
         if found and found.group(1) in NUMBERS and NUMBERS[found.group(1)] != real:
             ko("le texte annonce %s %s, le croisement en compte %d" % (found.group(1), label, real))
