@@ -2,17 +2,17 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Renders the derived views of the follow-up (`docs/suivi/`).
+"""Renders the derived views of the follow-up (`docs/tracking/`).
 
     python3 scripts/suivi.py check      # the status table covers every card, and only them
-    python3 scripts/suivi.py fiches     # docs/suivi/FICHES-PR02.md
-    python3 scripts/suivi.py enonces    # docs/suivi/correspondance-enonces.md
+    python3 scripts/suivi.py fiches     # docs/tracking/FICHES-PR02.md
+    python3 scripts/suivi.py enonces    # docs/tracking/correspondance-enonces.md
     python3 scripts/suivi.py dashboard  # refreshes the generated blocks of TABLEAU-DE-BORD.md
     python3 scripts/suivi.py all
 
-What a person maintains: `docs/suivi/fiches-statuts.csv` (one row per card: status, confidence,
+What a person maintains: `docs/tracking/fiches-statuts.csv` (one row per card: status, confidence,
 proof, note) and the prose of the dashboard. What is produced: every count, every register.
-The cards themselves (titles, findings) live in `docs/relectures/pr-02/taches-consolidees.md`.
+The cards themselves (titles, findings) live in `docs/peer-review/pr-02/taches-consolidees.md`.
 """
 
 from __future__ import annotations
@@ -123,7 +123,7 @@ def render_fiches() -> str:
     out = [
         "# Fiches de la campagne PR-02 — état par fiche",
         "",
-        "Vue **produite** par `scripts/suivi.py fiches` à partir de [`docs/relectures/pr-02/taches-consolidees.md`](../relectures/pr-02/taches-consolidees.md) (le texte des fiches) et de [`fiches-statuts.csv`](fiches-statuts.csv) (l'état, seul fichier à tenir à la main). Ne pas éditer ce fichier.",
+        "Vue **produite** par `scripts/suivi.py fiches` à partir de [`docs/peer-review/pr-02/taches-consolidees.md`](../relectures/pr-02/taches-consolidees.md) (le texte des fiches) et de [`fiches-statuts.csv`](fiches-statuts.csv) (l'état, seul fichier à tenir à la main). Ne pas éditer ce fichier.",
         "",
         "Confiance : **journal** = le compte rendu de séance nomme la fiche ; **fiche** = l'état est dans la fiche elle-même ; **déduite** = conclue par le rapprochement d'un changement de statut du manuscrit et du texte de la fiche — *à confirmer par l'auteur*.",
         "",

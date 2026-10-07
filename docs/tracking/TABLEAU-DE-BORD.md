@@ -1,6 +1,6 @@
 # Tableau de bord — le manuscrit et ce qu'il reste avant l'implémentation
 
-**État au 1er octobre 2026.** Point d'entrée unique du suivi : il remplace `PR-02-AVANCEMENT`, `todo-manuscrit`, `plan` et les autres documents de suivi, archivés dans [`../historique/`](../historique/). Les chiffres des blocs gris sont **produits** par `python3 scripts/suivi.py dashboard` (à partir de `spec/` et de [`fiches-statuts.csv`](fiches-statuts.csv)) ; le reste est de la prose, à tenir à la main.
+**État au 1er octobre 2026.** Point d'entrée unique du suivi : il remplace `PR-02-AVANCEMENT`, `todo-manuscrit`, `plan` et les autres documents de suivi, archivés dans [`../history/`](../history/). Les chiffres des blocs gris sont **produits** par `python3 scripts/suivi.py dashboard` (à partir de `spec/` et de [`fiches-statuts.csv`](fiches-statuts.csv)) ; le reste est de la prose, à tenir à la main.
 
 Lecture en trois temps : [1. où en est le manuscrit](#1-où-en-est-le-manuscrit) · [2. ce qu'il reste à faire](#2-ce-quil-reste-à-faire-avant-limplémentation-lean-4) · [3. ce qui menace la suite](#3-ce-qui-menace-la-suite).
 
@@ -10,7 +10,7 @@ Ce tableau a été établi **sans exécuter l'ancien outillage** : les comptes v
 
 ## 1. Où en est le manuscrit
 
-La spécification est désormais **un projet Verso** (`spec/`), compilé par `lake build` et rendu en HTML (`lake exe spec`) et en PDF (LuaLaTeX). Sa source de référence est le Verso ; l'ancien manuscrit Org-mode est figé dans [`../../archives/manuscrit-org/`](../../archives/manuscrit-org/). La conversion est fidèle : aucun texte n'a été corrigé (voir [`../../scripts/org2verso/`](../../scripts/org2verso/)).
+La spécification est désormais **un projet Verso** (`spec/`), compilé par `lake build` et rendu en HTML (`lake exe spec`) et en PDF (LuaLaTeX). Sa source de référence est le Verso ; l'ancien manuscrit Org-mode est figé dans [`../archives/manuscrit-org/`](../archives/manuscrit-org/). La conversion est fidèle : aucun texte n'a été corrigé (voir [`../../scripts/org2verso/`](../../scripts/org2verso/)).
 
 ### Mesures du manuscrit
 
@@ -190,4 +190,4 @@ python3 scripts/suivi.py all         # regénère FICHES-PR02.md, correspondance
 python3 scripts/manuscript_metrics.py summary     # mesures du manuscrit
 ```
 
-À chaque séance : mettre à jour `fiches-statuts.csv` (une ligne par fiche, avec la preuve : le compte rendu de séance), lancer `suivi.py all`, relire la prose des sections 1 à 3, consigner la séance dans [`../journal/`](../journal/).
+À chaque séance : mettre à jour `fiches-statuts.csv` (une ligne par fiche, avec la preuve : le compte rendu de séance), lancer `suivi.py all`, relire la prose des sections 1 à 3, consigner la séance dans [`../history/`](../history/).

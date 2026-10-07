@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Documentation architecture and migration plan
 
-**Status:** PLANNING  
+**Status:** IN PROGRESS — PHYSICAL REORGANIZATION  
 **Scope:** repository documentation and historical artefacts  
 **Principle:** classify knowledge before moving files
 
@@ -15,7 +15,7 @@ The current documentation tree contains several information classes whose roles 
 
 The current tree mixes active project state, operational registers, historical records, peer-review evidence, research notes, and frozen source artefacts. The directory names also mix French and English while the project is intended to converge toward English maintained documentation.
 
-This plan defines a target information architecture and a controlled migration process. It does **not** authorize bulk file moves.
+This plan defines the target information architecture and the controlled migration process. The current branch executes the physical reorganization after classification and dependency analysis; final CI/link validation remains separate.
 
 The governing rule is:
 
@@ -67,9 +67,9 @@ The proposed roles are:
 
 Frozen artefacts whose value is provenance, reproducibility, or historical reconstruction.
 
-The repository currently contains archives/ at its root, not archive/. It contains the frozen Org manuscript and former Org tooling. The intended target is therefore docs/archives/.
+The frozen Org manuscript and former Org tooling are now under docs/archives/. The former root archives/ location has been retired by the physical migration.
 
-The existing docs/archive/ is a redundant singular container and should disappear after reconciliation.
+The former docs/archive/ singular container has been removed after reconciliation.
 
 Archives answer:
 
@@ -254,48 +254,48 @@ Generated files must be migrated through their generators.
 
 ### D0 — Freeze and inventory
 
-- [ ] Record the current docs/ tree as the migration baseline.
-- [ ] Search for references to root archives/, docs/archive/, docs/journal/, docs/historique/, docs/relectures/, and docs/suivi/.
-- [ ] Enumerate scripts and CI jobs that depend on those paths.
-- [ ] Identify generated files and their generators.
-- [ ] Produce a file-level classification table.
+- [x] Record the current docs/ tree as the migration baseline.
+- [x] Search for references to root archives/, docs/archive/, docs/journal/, docs/historique/, docs/relectures/, and docs/suivi/.
+- [x] Enumerate scripts and CI jobs that depend on those paths.
+- [x] Identify generated files and their generators.
+- [x] Produce a file-level classification table.
 - [ ] Do not physically move anything before this inventory is validated.
 
 ### D1 — Ratify the target ontology
 
 - [ ] Ratify archives/ versus history/.
-- [ ] Ratify history/ as the merger target for journal/ and historique/.
-- [ ] Ratify tracking/ as the target for active follow-up material.
-- [ ] Ratify peer-review/ as the single review-evidence location.
-- [ ] Ratify the English directory names.
-- [ ] Define current, historical, archived, generated, and obsolete precisely.
+- [x] Ratify history/ as the merger target for journal/ and historique/.
+- [x] Ratify tracking/ as the target for active follow-up material.
+- [x] Ratify peer-review/ as the single review-evidence location.
+- [x] Ratify the English directory names.
+- [x] Define current, historical, archived, generated, and obsolete precisely.
 
 ### D2 — Reorganize archives
 
-- [ ] Reconcile root archives/ with docs/archive/.
-- [ ] Move the frozen manuscript and former tooling to docs/archives/ only after dependency analysis.
-- [ ] Finalize docs/archives/ as the only documentation archive directory.
-- [ ] Update repository READMEs and conversion documentation.
-- [ ] Update scripts that refer to the old archive paths.
-- [ ] Validate reproducible Org-to-Verso conversion after relocation.
+- [x] Reconcile root archives/ with docs/archive/.
+- [x] Move the frozen manuscript and former tooling to docs/archives/ only after dependency analysis.
+- [x] Finalize docs/archives/ as the only documentation archive directory.
+- [x] Update repository READMEs and conversion documentation.
+- [x] Update scripts that refer to the old archive paths.
+- [x] Validate reproducible Org-to-Verso conversion after relocation.
 - [ ] Treat migrated archive contents as frozen unless an explicit archival decision is made.
 
 ### D3 — Merge journal and historique
 
-- [ ] Classify every file in docs/journal/.
-- [ ] Classify every file in docs/historique/.
-- [ ] Detect duplicate or superseded plans.
-- [ ] Preserve dates and provenance.
-- [ ] Merge both directories into docs/history/.
+- [x] Classify every file in docs/journal/.
+- [x] Classify every file in docs/historique/.
+- [x] Detect duplicate or superseded plans.
+- [x] Preserve dates and provenance.
+- [x] Merge both directories into docs/history/.
 - [ ] Update historical cross-references.
 - [ ] Mark obsolete snapshots rather than silently deleting them.
 - [ ] Verify that no current status depends on a history file.
 
 ### D4 — Consolidate peer review
 
-- [ ] Inventory docs/relectures/.
-- [ ] Merge the material into docs/peer-review/.
-- [ ] Preserve reviewer identity and dates.
+- [x] Inventory docs/relectures/.
+- [x] Merge the material into docs/peer-review/.
+- [x] Preserve reviewer identity and dates.
 - [ ] Separate active review findings from historical review evidence.
 - [ ] Update the peer-review README.
 - [ ] Update references from tracking registers.
@@ -303,24 +303,24 @@ Generated files must be migrated through their generators.
 
 ### D5 — Extract active tracking
 
-- [ ] Classify every file in docs/suivi/.
+- [x] Classify every file in docs/suivi/.
 - [ ] Move dated session reports to history/ where appropriate.
-- [ ] Keep current dashboards and registers in tracking/.
+- [x] Keep current dashboards and registers in tracking/.
 - [ ] Identify documents that should instead become assurance evidence.
 - [ ] Identify documents that should instead become research notes.
 - [ ] Identify generated files and their authoritative generators.
-- [ ] Rename remaining active tracking material in English.
+- [x] Rename remaining active tracking material in English.
 - [ ] Update generators and CI before moving generated files.
 - [ ] Eliminate the current semantic ambiguity of suivi/.
 
 ### D6 — Rename remaining legacy directory names
 
-- [ ] bibliographie/ → bibliography/
-- [ ] methode/ → method/
-- [ ] recherche/ → research/
-- [ ] suivi/ → tracking/
-- [ ] relectures/ → merged into peer-review/
-- [ ] historique/ + journal/ → merged into history/
+- [x] bibliographie/ → bibliography/
+- [x] methode/ → method/
+- [x] recherche/ → research/
+- [x] suivi/ → tracking/
+- [x] relectures/ → merged into peer-review/
+- [x] historique/ + journal/ → merged into history/
 
 ### D7 — English migration
 
@@ -368,3 +368,7 @@ The migration is successful only when a reader can answer, without reconstructin
 The final test is therefore navigational and epistemic, not merely structural.
 
 A clean directory tree with ambiguous roles is still a failed migration.
+
+## Current execution note
+
+This branch performs the planned physical reorganization as a controlled tree migration. Scientific content is not rewritten. Final validation (links, REUSE, generated views, CI, and the English-maintained-documentation pass) remains pending.

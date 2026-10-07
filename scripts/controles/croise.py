@@ -5,7 +5,7 @@
 """Cross-check: the grammar of terms must cover the typing rules, and the lists must agree.
 
 Three objects should coincide: the grammar of terms (annex E), the set of typing rules, and the
-list of primitives (`docs/suivi/primitives.md`). This compares them and prints the counts.
+list of primitives (`docs/tracking/primitives.md`). This compares them and prints the counts.
 """
 
 from __future__ import annotations
@@ -181,9 +181,9 @@ def run():
         missing = sorted(r for r in rules & set(EXPECTED) if r.lower() not in listed)
         if missing:
             good = False
-            ko("règles écrites sans entrée à la liste des primitives (docs/suivi/primitives.md) : %s" % missing)
+            ko("règles écrites sans entrée à la liste des primitives (docs/tracking/primitives.md) : %s" % missing)
     else:
-        ko("docs/suivi/primitives.md introuvable — croisement à trois non conduit")
+        ko("docs/tracking/primitives.md introuvable — croisement à trois non conduit")
 
     types = corpus.formula("eq:grammaire-types")
     if types:

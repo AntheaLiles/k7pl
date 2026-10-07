@@ -35,13 +35,11 @@ Start with:
 ## Review K7PL
 
 - [peer-review/](peer-review/): active and retained peer-review material.
-- Detailed review and tracking material currently remains in the legacy documentation tree and is not being migrated by this change.
+- Current peer-review evidence is consolidated under `peer-review/`; active tracking is maintained under `tracking/`.
 
 ## Historical and legacy material
 
-The existing directories suivi/, relectures/, methode/, recherche/, bibliographie/, journal/, and historique/ are intentionally retained in place.
-
-A later migration programme will classify, rewrite, cross-reference, and relocate their relevant material. No current document should silently become normative merely because it is old or detailed.
+The documentation tree has been reorganized into explicit epistemic areas: `tracking/`, `history/`, `peer-review/`, `research/`, `method/`, `bibliography/`, `migration/`, `archives/`, and `security/`. No current document should silently become normative merely because it is old or detailed.
 
 See also [archives/](../archives/) for frozen historical implementation material.
 
@@ -51,4 +49,4 @@ The current human navigation path is:
 
 README.md → ARCHITECTURE.md → RESEARCH.md / spec/ → ASSURANCE.md → STATUS.md
 
-This path is an entry point, not a replacement for the normative specification or the detailed evidence held in the legacy material.
+This path is an entry point, not a replacement for the normative specification or the detailed evidence held in the supporting registers.

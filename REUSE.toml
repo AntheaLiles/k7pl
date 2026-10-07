@@ -75,14 +75,14 @@ SPDX-License-Identifier = "CC-BY-4.0"
 
 # Manuscrit Org-mode figé : le texte de la spécification, donc la même licence qu'elle.
 [[annotations]]
-path = "archives/manuscrit-org/**"
+path = "docs/archives/manuscrit-org/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 # Ancien outillage (code Python, Emacs Lisp, LaTeX, Makefile, données) et ses notices.
 [[annotations]]
-path = ["archives/outillage-org/**", "archives/README.md"]
+path = ["docs/archives/outillage-org/**", "docs/archives/README.md"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CECILL-2.1"

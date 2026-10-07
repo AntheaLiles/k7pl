@@ -14,7 +14,7 @@ et [CSLib](https://github.com/leanprover/cslib). Sa spécification est écrite e
 
 ## Comprendre le projet
 
-Le parcours documentaire courant commence par [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), puis [`docs/RESEARCH.md`](docs/RESEARCH.md) et la spécification normative dans [`spec/`](spec/). L'état factuel est produit par CI dans [`docs/STATUS.md`](docs/STATUS.md), tandis que [`docs/ASSURANCE.md`](docs/ASSURANCE.md) expose l'argument d'assurance scientifique. Les anciens documents de travail sont conservés sans migration dans leur emplacement actuel.
+Le parcours documentaire courant commence par [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), puis [`docs/RESEARCH.md`](docs/RESEARCH.md) et la spécification normative dans [`spec/`](spec/). L'état factuel est produit par CI dans [`docs/STATUS.md`](docs/STATUS.md), tandis que [`docs/ASSURANCE.md`](docs/ASSURANCE.md) expose l'argument d'assurance scientifique. Les matériaux historiques et de suivi sont organisés selon l'architecture documentaire décrite dans `docs/migration/README.md`.
 
 ## Démarrage
 
@@ -39,7 +39,7 @@ chaque mise à jour de `main`. Le flux qui joindra son PDF à chaque release `sp
 sur Zenodo est décrit dans [`CONTRIBUTING.md`](CONTRIBUTING.md) ; il n'a pas encore été exécuté de bout en bout.
 
 Le manuscrit est encore en cours de correction (campagne de relecture PR-02) : le point
-d'entrée est le [tableau de bord](docs/suivi/TABLEAU-DE-BORD.md), qui dit où il en est et ce
+d'entrée est le [tableau de bord](docs/tracking/TABLEAU-DE-BORD.md), qui dit où il en est et ce
 qu'il reste à faire avant d'implémenter le langage. Le manuscrit Org-mode d'origine est figé
 dans [`archives/`](archives/).
 
@@ -50,7 +50,7 @@ dans [`archives/`](archives/).
 | [`src/`](src/), [`tests/`](tests/) | implémentation du langage en Lean 4 et ses tests |
 | [`spec/`](spec/) | la spécification (Verso) et ses figures |
 | [`tools/`](tools/) | générateur de la spécification et extensions Verso (`SpecExt/`) ; bibliographie (`SpecBib.lean`, produite depuis [`biblio/`](biblio/)) |
-| [`docs/`](docs/) | documentation courante, assurance, recherche, méthode et matière legacy conservée |
+| [`docs/`](docs/) | documentation courante, assurance, recherche, méthode, suivi et archives historiques |
 | [`scripts/`](scripts/) | maintenance, conversion Org → Verso, mesures et suivi |
 | [`archives/`](archives/) | manuscrit Org et outillage d'avant la conversion |
 

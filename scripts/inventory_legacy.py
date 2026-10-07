@@ -7,15 +7,14 @@ import re
 import subprocess
 from pathlib import Path
 
-ROOTS = ("docs/suivi/", "docs/recherche/", "docs/methode/", "docs/relectures/", "docs/bibliographie/", "docs/journal/", "docs/historique/")
+ROOTS = ("docs/tracking/", "docs/research/", "docs/method/", "docs/peer-review/", "docs/bibliography/", "docs/history/")
 CANDIDATES = {
-    "suivi": "À qualifier: STATUS / ASSURANCE / RESEARCH / METHOD / archive",
-    "recherche": "RESEARCH.md",
-    "methode": "METHOD.md",
-    "relectures": "docs/peer-review/",
-    "bibliographie": "corpus bibliographique ou conservation legacy",
-    "journal": "docs/archive/",
-    "historique": "docs/archive/",
+    "tracking": "À qualifier: STATUS / ASSURANCE / RESEARCH / METHOD / archive",
+    "research": "RESEARCH.md",
+    "method": "METHOD.md",
+    "peer-review": "docs/peer-review/",
+    "bibliography": "corpus bibliographique ou conservation legacy",
+    "history": "docs/history/",
 }
 LINK_RE = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 DOI_RE = re.compile(r"\b10\.\d{4,9}/[-._;()/:A-Z0-9]+\b", re.I)

@@ -35,7 +35,7 @@ EXPECTED_LEAN_PREFIXES = ("src/", "tests/")
 EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
 EXPECTED_SPEC_BUILD_EXACT = {"scripts/controle.py", "scripts/manuscript_metrics.py"}
 EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "biblio/", "scripts/controles/")
-EXPECTED_SPEC_CHECK_EXACT = {"docs/suivi/primitives.md"}
+EXPECTED_SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
 EXPECTED_LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 EXPECTED_LIGHT_EXACT = {"CITATION.cff"}
 
@@ -66,7 +66,7 @@ class ImpactTests(unittest.TestCase):
         self.assertFalse(result["lean_build"])
 
     def test_spec_tracking_file(self):
-        result = classify(["docs/suivi/primitives.md"])
+        result = classify(["docs/tracking/primitives.md"])
         self.assertTrue(result["docs_links"])
         self.assertTrue(result["spec_check"])
         self.assertFalse(result["spec_build"])

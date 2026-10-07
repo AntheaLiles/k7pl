@@ -336,7 +336,7 @@ Correspondances Org-mode → Verso, pour la réécriture des sources existantes 
 | `TODO` / `DRAFT` dans un titre        | commentaire `-- TODO:` dans le source          |
 
 Cette table résume `scripts/org2verso/` : la conversion du manuscrit Org est reproductible
-(`python3 scripts/org2verso/convert.py --src archives/manuscrit-org --meta spec/figures --out <dossier>`
+(`python3 scripts/org2verso/convert.py --src docs/docs/archives/manuscrit-org --meta spec/figures --out <dossier>`
 donne les modules actuels, au caractère près, à la date de la conversion).
 
 ## 9. Conventional Commits

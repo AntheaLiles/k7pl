@@ -18,7 +18,7 @@ L'annexe E, « Présentation formelle », est dissoute dans le corps :
 
 Les modules ont été déplacés (`spec/Spec/C1`, `C3`, `C4`), les préfixes « E.n » retirés des titres,
 tous les renvois « l'annexe » réécrits en renvois de section (une quarantaine), le préambule de
-l'annexe archivé dans [`docs/recherche/ancienne-annexe-e-preambule.md`](../recherche/ancienne-annexe-e-preambule.md).
+l'annexe archivé dans [`docs/research/ancienne-annexe-e-preambule.md`](../research/ancienne-annexe-e-preambule.md).
 Les étiquettes `sec:g-*` sont conservées. Les annexes restantes sont A à D. Le §1.1 est corrigé : le
 jeu de règles existe, ce sont ses propriétés qui restent à établir.
 

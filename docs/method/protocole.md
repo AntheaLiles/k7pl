@@ -2,7 +2,7 @@
 
 28 août 2026
 
-> Protocole de travail de l'ancien dispositif (Org-mode, assistants et contrôles Python). La conduite du travail sur la spécification Verso est décrite dans [le tableau de bord](../suivi/TABLEAU-DE-BORD.md) et dans `.claude/skills/writing-rules.md`.
+> Protocole de travail de l'ancien dispositif (Org-mode, assistants et contrôles Python). La conduite du travail sur la spécification Verso est décrite dans [le tableau de bord](../tracking/TABLEAU-DE-BORD.md) et dans `.claude/skills/writing-rules.md`.
 
 ## Protocole des acteurs
 

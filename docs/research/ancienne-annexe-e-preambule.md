@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # Préambule de l'ancienne annexe E (Présentation formelle)
 
 L'annexe E a été fondue dans les chapitres 1, 3 et 4 le 1er octobre 2026 (voir
-`docs/journal/2026-10-01-pr-02-15-fusion-annexe-e.md`). Texte de son préambule, conservé tel quel
+`docs/history/2026-10-01-pr-02-15-fusion-annexe-e.md`). Texte de son préambule, conservé tel quel
 (syntaxe Verso, références `{num}` non résolues ici) :
 
 Cette annexe porte ce que le corps du document décrit sans le poser : la grammaire des types et des
