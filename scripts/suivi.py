@@ -42,7 +42,7 @@ LOTS = OrderedDict(
         ("IMPL", "Implementation and tooling"),
         ("FACT", "Factorisations to write"),
         ("REFUS", "Rejected factorisations"),
-        ("REECR", "Réécritures d'énoncés"),
+        ("REECR", "Statement rewrites"),
         ("BIB", "Bibliographic checks"),
         ("TRANS", "Cross-cutting revisions"),
         ("ARB-PR", "Arbitrations"),
@@ -195,7 +195,7 @@ def render_enonces() -> str:
     ]
     for r in mm.statements():
         out.append(
-            f"| {r['numero']} | {relu.get(r['label'], '—')} | `{r['label']}` | {r['statut']} | {r['niveau']} | {r['titre']} | §{r['section']} | {r['renvois']} |"
+            f"| {r['numero']} | {relu.get(r['label'], '—')} | `{r['label']}` | {STATUS_LABELS.get(r['statut'], r['statut'])} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | {r['titre']} | §{r['section']} | {r['renvois']} |
         )
     return "\n".join(out)
 
