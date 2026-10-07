@@ -74,7 +74,7 @@ def main():
         "The authoritative generator is [scripts/generate_status.py](../scripts/generate_status.py). CI is responsible for updating this file; manual edits are not part of the project workflow."
     ]
     Path(a.output).write_text("\n".join(lines) + "\n", encoding="utf-8")
-    couverture.update_status()
+    couverture.update_status(Path(a.output))
 
 if __name__ == "__main__":
     main()
