@@ -58,13 +58,6 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"
 
-# Notices bibliographiques des œuvres citées (JSON : pas de commentaires).
-[[annotations]]
-path = "biblio/**"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CC-BY-4.0"
-
 # Documentation de travail (suivi, relectures, méthode, recherche, journal) : Markdown converti
 # du dossier de travail, sans en-tête.
 [[annotations]]

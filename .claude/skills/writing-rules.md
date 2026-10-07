@@ -24,7 +24,7 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `tools/SpecMain.lean`          | Générateur de la spécification (`lake exe spec`)                | CECILL-2.1 |
 | `tools/SpecExt/`, `tools/SpecExt.lean` | Extensions Verso de la spécification (renvois, énoncés, formules, figures, citations…) | CECILL-2.1 |
 | `tools/SpecBib.lean`           | Bibliographie, **générée** par `scripts/biblio/biblio.py`        | CECILL-2.1 |
-| `biblio/references.json`       | Notices des 250 œuvres citées (source de `SpecBib.lean`)         | CC-BY-4.0  |
+| `docs/bibliography/references.json` | Notices des œuvres citées (source de `SpecBib.lean`)       | CC-BY-4.0  |
 | `docs/`                        | Documentation courante, suivi, recherche, méthode, assurance et preuves | CC-BY-4.0  |
 | `docs/archives/`               | Manuscrit Org figé, ancien outillage                             | CC-BY-4.0 / CECILL-2.1 |
 | `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)       | —          |
@@ -186,7 +186,7 @@ que sur demande, par la plus petite modification, et on consigne le changement (
 |---|---|
 | `{num "sec:x"}[]` | renvoi numéroté, lien vers l'objet (section, énoncé, formule, figure, tableau, listing) — remplace `\ref` |
 | `{label "sec:x"}` | étiquette de la section courante (`(display := "A.1")` impose le numéro affiché) |
-| `{cite "CLÉ1,CLÉ2"}[]` | citation numérique `[3, 5–7]`, numérotée par chapitre (`{refsection}`) ; la clé doit exister dans `biblio/references.json` |
+| `{cite "CLÉ1,CLÉ2"}[]` | citation numérique `[3, 5–7]`, numérotée par chapitre (`{refsection}`) ; la clé doit exister dans `docs/bibliography/references.json` |
 | `::::thm (label := "thm:x") (status := "proposition") (level := "representation")` | énoncé scellé ; créneaux `:::title`, `:::statement`, `:::proofsketch`. `status` : `theoreme` (défaut), `proposition`, `conjecture`, `definition`, `exigence`, `litterature` ; `level` : `langage` (défaut), `compilation`, `representation`, `deploiement` |
 | `::::formula (label := "eq:x") (kind := "formule")` | formule(s) : blocs de code contenant du LaTeX mathématique, `:::caption` |
 | `::::figure (label := "fig:x") (src := "nom") (alt := "…") (width := "90")` | figure `spec/figures/nom.{svg,pdf}` ; créneaux `:::caption`, `:::desc`, `:::note`, `:::source` |

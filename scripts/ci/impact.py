@@ -27,7 +27,7 @@ SPEC_BUILD_EXACT = {
     "scripts/controle.py",
     "scripts/manuscript_metrics.py",
 }
-SPEC_BUILD_PREFIXES = ("spec/", "tools/", "biblio/", "scripts/controles/")
+SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/")
 SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
 LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 LIGHT_EXACT = {"CITATION.cff"}
