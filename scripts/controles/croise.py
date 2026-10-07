@@ -173,7 +173,7 @@ def run():
         good = False
         ko("règles absentes du tableau de croisement (scripts/controles/croise.py) : %s" % unknown)
 
-    primitives = (corpus.SPEC.parent / "docs" / "suivi" / "primitives.md")
+    primitives = (corpus.SPEC.parent / "docs" / "tracking" / "primitives.md")
     if primitives.exists():
         listed = set()
         for line in re.findall(r"REGLE:\s*([^|\n]+)", primitives.read_text(encoding="utf-8")):
