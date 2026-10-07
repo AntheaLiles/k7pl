@@ -33,14 +33,10 @@ Current reader-facing entry points and generated views are maintained in English
 
 ## D8 validation protocol
 
-The final candidate must pass:
+The validated candidate passed:
 
-python3 scripts/ci/check_documentation_architecture.py
+CI run #473 on commit `bcd249f9cc59b0dbdfd7bde50230a224d2b1b7bf`: the architecture guard, Python CI tooling, documentation links, REUSE, security checks, Verso build/render, PDF compilation, Lean build/tests/lint/axiom audits, and `CI OK` all passed. The PR-only workflow intentionally skips the `Generated status` job, which executes only after a successful push to `main`; that post-merge gate remains open by design.
 
-python3 -m unittest discover -s scripts/ci -p 'test_*.py'
-
-the complete GitHub Actions CI, including documentation links, REUSE, security checks, the Verso build/render, PDF compilation, Lean build/tests/lint/axiom audits, and CI OK.
-
-The final validation must also confirm that docs/STATUS.md is generated from the actual validated commit and that no current obligation exists only in history/ or archives/.
+The validated inventory contains no root `biblio/`; `docs/bibliography/references.json` is the sole active bibliography source. No current obligation is relocated into `history/` or `archives/` by this migration.
 
 This record is a migration validation artefact. It does not assert that the scientific claims of K7PL are correct; it establishes only that the repository architecture and its declared validation controls are internally coherent.
