@@ -32,6 +32,11 @@ on:
         required: false
         type: boolean
         default: false
+      python_tests:
+        description: "Exécuter les tests de l'outillage Python"
+        required: false
+        type: boolean
+        default: false
       deploy_pages:
         description: "Publier la spécification sur GitHub Pages après validation"
         required: false
@@ -148,6 +153,33 @@ jobs:
             echo "::endgroup::"
           done
           exit "$status"
+
+  python-tests:
+    name: Tests de l'outillage Python
+    if: ${{ inputs.full || inputs.python_tests }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Install pytest
+        run: pip install pytest==9.1.1
+
+      - name: Test the CI impact classifier
+        run: python3 scripts/ci/test_impact.py
+
+      - name: Test the Python tooling (mini-corpus Verso, auto-tests mutés)
+        run: python3 -m pytest tests/python -q
+
+      - name: Check the real corpus with the tooling under test
+        run: python3 scripts/controle.py
 
   spec:
     name: Spécification Verso
@@ -338,7 +370,7 @@ jobs:
   verification-result:
     name: Résultat de la vérification
     if: always()
-    needs: [quick, impl, spec, spec-pdf]
+    needs: [quick, impl, python-tests, spec, spec-pdf]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
