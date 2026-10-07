@@ -105,7 +105,7 @@ def check() -> int:
 
 def lot_summary() -> str:
     s = statuts()
-    rows = ["| Lot | Fiches | ✅ fermées | 🟡 partielles | ⏳ à ratifier | ❓ décision | ⛔ écartées | ⬜ ouvertes |", "|---|--:|--:|--:|--:|--:|--:|--:|"]
+    rows = ["| Lot | Cards | ✅ closed | 🟡 partial | ⏳ to ratify | ❓ decision | ⛔ rejected | ⬜ open |", "|---|--:|--:|--:|--:|--:|--:|--:|"]
     tot = Counter()
     for lot, label in LOTS.items():
         ids = [i for i in s if lot_of(i) == lot]
@@ -135,7 +135,7 @@ def render_fiches() -> str:
     ]
     for lot, label in LOTS.items():
         ids = [i for i in c if lot_of(i) == lot]
-        out += [f"## {lot} — {label}", "", "| Fiche | État | Titre | Preuve · note |", "|---|---|---|---|"]
+        out += [f"## {lot} — {label}", "", "| Card | Status | Title | Evidence · note |", "|---|---|---|---|"]
         for i in ids:
             r = s[i]
             proof = ""
