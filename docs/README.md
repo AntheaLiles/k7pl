@@ -43,6 +43,8 @@ The documentation tree has been reorganized into explicit epistemic areas: `trac
 
 See also [archives/](archives/) for frozen historical implementation material.
 
+See [migration/](migration/README.md) for the controlled migration register and its execution state.
+
 ## Documentation model
 
 The current human navigation path is:
