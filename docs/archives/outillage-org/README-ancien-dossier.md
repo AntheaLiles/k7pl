@@ -2,7 +2,7 @@
 
 4 août 2026
 
-> Organisation de l'ancien dossier de travail (4 août 2026), obsolète : voir le [README de l'archive](README.md) et le [tableau de bord](../../docs/suivi/TABLEAU-DE-BORD.md).
+> Organisation de l'ancien dossier de travail (4 août 2026), obsolète : voir le [README de l'archive](README.md) et le [tableau de bord](../../tracking/TABLEAU-DE-BORD.md).
 
 Ce fichier remplace le manifeste comme index vivant. Il dit où sont les choses, comment on construit, et ce qui reste à faire à la main.
 

@@ -189,7 +189,7 @@ def corpus(tmp_path):
 
 @pytest.fixture
 def primitives(corpus, monkeypatch):
-    """A stub `docs/suivi/primitives.md` beside the mini-corpus, declaring the Var rule.
+    """A stub `docs/tracking/primitives.md` beside the mini-corpus, declaring the Var rule.
 
     The croisée check reads that file through `corpus.SPEC.parent`, so pointing SPEC at the
     tmp corpus and writing the stub next to it is enough for the three-way cross-check.

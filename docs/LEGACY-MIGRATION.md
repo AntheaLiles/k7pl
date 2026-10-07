@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Legacy documentation migration programme
 
-This document defines the second-stage migration of the existing documentation material. The present change deliberately does not move or rewrite the legacy directories.
+This document defines the second-stage migration of the existing documentation material. The first controlled physical relocation has now been executed. This document remains the migration programme and provenance policy.
 
 **Document version:** 1.0.0  
 **Last updated:** 2026-10-06  
@@ -61,7 +61,7 @@ Where a claim has no current support, mark it as open or remove it from the curr
 
 ## Phase 5 — Relocation
 
-Only after rewriting and traceability review should files be moved to docs/archive/ or another current location.
+Only after rewriting and traceability review should files be moved to docs/archives/ or another current location.
 
 Preserve Git history and update internal links.
 

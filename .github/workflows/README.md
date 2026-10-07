@@ -43,7 +43,7 @@ Les surfaces sont les suivantes.
 | `src/**`, `tests/**` | build Lean, tests, lint, audit des axiomes |
 | `scripts/axiom-audit.sh` | build Lean **et** build de la spécification : le script est appelé par les deux chaînes |
 | `spec/**`, `tools/**`, `biblio/**`, `scripts/controle.py`, `scripts/controles/**`, `scripts/manuscript_metrics.py` | contrôles statiques, build Verso, audit des axiomes, rendu HTML/TeX, PDF |
-| `docs/suivi/primitives.md` | contrôles statiques de la spécification |
+| `docs/tracking/primitives.md` | contrôles statiques de la spécification |
 | `*.md` | contrôle des liens locaux |
 | `docs/**`, `.claude/**`, `.github/ISSUE_TEMPLATE/**`, `LICENSES/**`, `CITATION.cff` | documentation/configuration légère ; contrôles invariants seulement, avec contrôle des liens pour Markdown |
 | `.github/workflows/**`, `.github/dependabot.yml` | vérification complète |
@@ -97,7 +97,7 @@ tectonic -X compile --keep-logs -Z deterministic-mode main.tex     # avec SOURCE
 
 L'entrée `use_cache` de `verify.yaml` (défaut `true`) permet de construire sans restaurer les caches de `.lake/packages` et de Tectonic : `release.yaml` l'utilise à `false`.
 
-Une modification de `docs/suivi/primitives.md` nécessite les contrôles statiques mais pas le build/rendu Verso, car ce fichier est consommé directement par `scripts/controles/croise.py`.
+Une modification de `docs/tracking/primitives.md` nécessite les contrôles statiques mais pas le build/rendu Verso, car ce fichier est consommé directement par `scripts/controles/croise.py`.
 
 Le PDF est un artefact dérivé : il n'est produit que lorsque le build de la spécification est nécessaire.
 

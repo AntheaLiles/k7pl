@@ -5,7 +5,7 @@ Sources du manuscrit de K7PL telles qu'elles étaient à la conversion en Verso 
 **La source de référence est maintenant [`spec/`](../../spec/)** (Verso). Ce dossier ne sert plus qu'à :
 
 * retrouver le texte d'origine, mot pour mot ;
-* rejouer la conversion : `python3 scripts/org2verso/convert.py --src archives/manuscrit-org --meta spec/figures --out <répertoire de sortie>` (voir `scripts/org2verso/`) ;
+* rejouer la conversion : `python3 scripts/org2verso/convert.py --src docs/archives/manuscrit-org --meta spec/figures --out <répertoire de sortie>` (voir `scripts/org2verso/`) ;
 * faire tourner l'ancien outillage, qui lit ces fichiers ([`../outillage-org/`](../outillage-org/)).
 
 Ne pas y corriger le texte : on corrige dans `spec/`.

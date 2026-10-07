@@ -49,7 +49,7 @@ Therefore:
 | H — Spec ↔ Lean traceability | PARTIAL | scripts/controles/couverture.py | semantic traceability established |
 | I — implementation conformance | OPEN | IMPL obligations / ASSURANCE.md | bounded conformance claim with evidence |
 | J — release / PDF / Zenodo | NOT STARTED | release gate P6 | real release path exercised and reproducible |
-| Documentation architecture | PLANNING | #55 / DOC-D0–D8 | target ontology ratified and migration validated |
+| Documentation architecture | IN PROGRESS | this branch / DOC-D0–D8 | physical tree reorganized; validation and residual language work remain |
 
 Current main baseline: 91dfa388a81f7e472d60859b5117d3c61a6ed67d.
 
@@ -590,7 +590,7 @@ Every missing link must be explicit.
 At the current snapshot:
 
 1. complete the review of #54 and merge only once its current head is green and its scientific scope is accepted;
-2. retain #55 as the documentation-architecture planning baseline; do not begin bulk moves;
+2. use the merged documentation-architecture plan as the migration baseline; the controlled physical reorganization is now in progress;
 3. continue the remaining C proof/interface obligations;
 4. open D only after the C exit gate is satisfied;
 5. execute E, then F;
@@ -598,7 +598,7 @@ At the current snapshot:
 7. strengthen H from lexical coverage to semantic traceability;
 8. establish the bounded implementation-conformance case I;
 9. exercise J and P1–P6;
-10. execute the physical documentation migration and DOC-D8 against the stabilized project state.
+10. finalize and validate the physical documentation migration (DOC-D8), then complete the remaining English-maintained-documentation pass.
 
 If a stage exposes a new architectural dependency, stop the downstream progression and reclassify the dependency rather than silently carrying it forward.
 

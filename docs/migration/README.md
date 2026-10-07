@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 This directory contains the operational records for the legacy documentation migration defined by LEGACY-MIGRATION.md.
 
-The migration is knowledge migration, not file migration. Legacy material is source evidence; current documents are rewritten knowledge supports. The sequence is extraction, qualification, rewriting, traceability, validation, then physical relocation.
+The migration is knowledge migration plus controlled physical relocation. Legacy material remains source evidence; current documents are rewritten knowledge supports. Physical moves follow classification, dependency analysis, and validation.
 
 ## Lot states
 
@@ -17,12 +17,12 @@ NOT STARTED → IN PROGRESS → UNDER REVIEW → VALIDATED.
 
 L0 is established by the reproducible inventory generator in scripts/inventory_legacy.py. Its mechanically derived fields must be regenerated from the Git working tree rather than manually maintained.
 
-## L1 — suivi/
+## L1 — tracking/ extraction
 
-L1 is IN PROGRESS. Its semantic qualification is recorded in L1-SUIVI.md. No suivi/ file is moved or deleted during semantic qualification.
+The former `suivi/` corpus has been physically relocated to `tracking/` (with classified historical/research exceptions). Its semantic qualification is recorded in `L1-SUIVI.md`.
 
 ## L2–L5
 
-L2: recherche/. L3: methode/ and relectures/. L4: journal/, bibliographie/, and historique/. L5: global validation and physical relocation.
+L2: research/. L3: method/ and peer-review/. L4: history/ and bibliography/. L5: global validation and residual language/documentation cleanup.
 
 The register is updated as extracted propositions are qualified and rewritten.

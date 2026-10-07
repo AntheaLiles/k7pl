@@ -4,8 +4,8 @@
 
 """Tests for `scripts/suivi.py check`: the status table must cover exactly the consolidated cards.
 
-`check()` is the guard that keeps `docs/suivi/fiches-statuts.csv` in lockstep with
-`docs/relectures/pr-02/taches-consolidees.md`. It is exercised here on a synthetic pair (cards +
+`check()` is the guard that keeps `docs/tracking/fiches-statuts.csv` in lockstep with
+`docs/peer-review/pr-02/taches-consolidees.md`. It is exercised here on a synthetic pair (cards +
 CSV) so every failure mode — missing row, orphan row, unknown status — is seen failing at least
 once; a control never witnessed failing is worth nothing.
 """

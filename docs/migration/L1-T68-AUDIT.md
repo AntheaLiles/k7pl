@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # T-68 — Audit de minimalité des primitives
 
 **État :** IN PROGRESS  
-**Source principale :** `docs/suivi/primitives.md`  
+**Source principale :** `docs/tracking/primitives.md`  
 **Objectif :** établir la minimalité normative et formelle du noyau avant stabilisation de l'implémentation et de la mécanisation.
 
 ## 1. Premier constat
