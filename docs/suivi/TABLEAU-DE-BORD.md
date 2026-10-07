@@ -24,16 +24,16 @@ La spécification est désormais **un projet Verso** (`spec/`), compilé par `la
 | Énoncés par niveau | 61 langage, 5 representation, 2 compilation |
 | Formules | 39 |
 | Figures | 12 |
-| Tableaux | 28 |
+| Tableaux | 30 |
 | Codes sources | 6 |
-| Remarques marginales (RMQ) | 59 |
-| Citations | 360 |
-| Œuvres citées | 250 |
-| Renvois internes | 519 |
+| Remarques marginales (RMQ) | 60 |
+| Citations | 364 |
+| Œuvres citées | 253 |
+| Renvois internes | 524 |
 | Renvois non résolus | 0 |
 | Commentaires d'auteur conservés (non rendus) | 0 |
 | Notes de bas de page | 6 |
-| Mots (approximatif, hors code et formules) | 123966 |
+| Mots (approximatif, hors code et formules) | 124855 |
 <!-- END:mesures -->
 
 Ces nombres sont recoupés par le manuscrit lui-même : « quarante-neuf règles de typage » et « quarante-cinq constructeurs » (annexe E) sont écrits en toutes lettres et ne sont pas contredits par le reste.
@@ -50,7 +50,7 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | `thm:determinisme_observationnel` | conjecture | langage | §2.5 | 0 |
 | `thm:completude_graduee` | proposition | langage | §3.1 | 0 |
 | `thm:completude_verificateur` | exigence | compilation | §3.1 | 0 |
-| `thm:homomorphisme_roues` | proposition | representation | §3.2 | 1 |
+| `thm:homomorphisme_roues` | proposition | representation | §3.2 | 3 |
 | `thm:representation_inobservable` | exigence | representation | §3.2 | 0 |
 | `thm:coherence_subsomption` | proposition | langage | §3.6 | 3 |
 | `thm:isomorphisme_memoire` | proposition | representation | §4.3 | 7 |

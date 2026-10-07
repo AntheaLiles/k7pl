@@ -14,7 +14,10 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Modifié
 
+- §3.2 : les erreurs `∘`, `δ` sont des ensembles d'étiquettes combinés par réunion (`∘δ`, cinquième singularité ; la règle précédente, borne supérieure avec `∘ ⋆ δ = ⊥`, n'était pas associative : `(∞ + ∞) + ∘ ≠ ∞ + (∞ + ∘)`) ; l'extension n'est pas une roue (`⊥` n'absorbe plus les erreurs) et le texte le dit ; « une roue » devient « la roue des fractions d'un corps » pour le nombre d'éléments hors du corps ; IEEE 754-2019 cité pour l'écart sur `∞ + ∞` (une notice ajoutée) ; `thm:homomorphisme_roues` : cinq singularités au lieu de quatre (`BLOQ-12`, décision de l'auteur ; à ratifier ; sources lues au niveau du résumé seulement : `docs/recherche/sources-singularites.md`).
 - L'index (§8.7) imprime les pages du PDF (et les sections dans le HTML) des trente et un termes, reconnus dans le texte à la génération ; l'interface du HTML est en français (`ANOM-09`, `ANOM-10` ; décision de l'auteur). La liste des termes quitte la page pour `tools/SpecExt/IndexTerms.lean`.
+- §3.2 : tables de propagation de `⊥` et `∞` calculées sur la roue des fractions (Carlström 2004, notice confirmée, corps non lu) ; l'écart d'IEEE 754 sur `∞ + ∞` est écrit ; `∘` et `δ` sont définis comme une extension de K7PL, absorbante et sans source, propagée par la borne supérieure (`BLOQ-12`, décision de l'auteur ; à ratifier). Deux notices ajoutées à la bibliographie (Carlström 2004 ; Bergstra et Ponse 2015).
+- §3.2 : tables de propagation des singularités (addition, produit) sur les classes `0`, `x`, `∞`, `⊥`, règle d'entrée Float64 → roue (NaN lu `⊥`, `±∞` lus `∞`) et égalité de couche 3 sur les classes ; `∘` et `δ` restent sans définition (appliqué, à ratifier : `IMPL-07`).
 
 - L'annexe E (présentation formelle) est fondue dans le manuscrit : grammaires et règles de typage au chapitre 3, sémantique opérationnelle et sortes du métalangage au chapitre 4, table des glyphes au chapitre 1. Les annexes restantes sont A à D.
 - §1.2 : le choix d'une famille modale et graduée comme socle est écrit, avec son motif.

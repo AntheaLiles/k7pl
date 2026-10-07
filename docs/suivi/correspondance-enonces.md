@@ -33,7 +33,7 @@ Vue **produite** par `scripts/suivi.py enonces` à partir de `spec/` (le numéro
 | 24 | 11 | `thm:completude_graduee` | proposition | langage | complétude graduée | §3.1 | 0 |
 | 25 | — | `thm:completude_verificateur` | exigence | compilation | le vérificateur n'émet que des codes de la correspondance | §3.1 | 0 |
 | 26 | 12 | `thm:deadlock_acyclique` | theoreme | langage | absence de deadlock par acyclicité du graphe de sessions | §3.2 | 0 |
-| 27 | 13 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | §3.2 | 1 |
+| 27 | 13 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | §3.2 | 3 |
 | 28 | — | `thm:representation_inobservable` | exigence | representation | aucune liberté de représentation n'est observable | §3.2 | 0 |
 | 29 | 14 | `thm:preservation_type` | theoreme | langage | préservation du type | §3.3 | 0 |
 | 30 | 29 | `thm:temps_mononiveau` | theoreme | langage | le cas mononiveau redonne la forme plate | §3.4 | 1 |

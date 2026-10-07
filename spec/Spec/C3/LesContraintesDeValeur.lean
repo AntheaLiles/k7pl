@@ -342,7 +342,9 @@ un effet algébrique (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}
 confondue avec une erreur définitive. La théorie des roues instancie ce premier régime pour
 l'arithmétique : une opération invalide ($`0/0`) ne lève pas d'exception mais produit une
 singularité — $`\bot`, $`\infty`, $`\circ`, $`\delta`, constructeurs d'un type algébrique `Wheel<T>`
-distinct du flottant IEEE 754 sous-jacent, dont la conversion reste explicite dans les deux sens.
+distinct du flottant IEEE 754 sous-jacent, dont la conversion reste explicite dans les deux sens. Les deux
+premières viennent de la théorie des roues {cite "carlstromWheelsDivisionZero2004"}[] ; les deux dernières, et
+leur combinaison $`\circ\delta`, sont une extension de K7PL, définie plus bas.
 Ces singularités se propagent algébriquement à travers les opérations vectorielles, sans jamais
 introduire de branchement ; si $`\bot` atteint la sortie d'une fonction, le résultat est simplement
 l'absence de donnée — un échec prouvé plutôt que silencieux.
@@ -355,24 +357,27 @@ représentation des singularités de la théorie des roues
 :::statement +titled
 Encodage des singularités et masquage vectoriel
 
-Soit $`i : \text{Wheel} \to \text{Float64}` l'encodage qui associe à chacune des quatre
-singularités ($`\bot, \infty, \circ, \delta`) un motif de bits déterministe dans la charge utile
-d'un NaN silencieux IEEE 754. Alors (i) $`i` est injective sur ces quatre singularités ; (ii)
+Soit $`i : \text{Wheel} \to \text{Float64}` l'encodage qui associe à chacune des cinq
+singularités ($`\bot, \infty, \circ, \delta, \circ\delta`) un motif de bits déterministe dans la charge utile
+d'un NaN silencieux IEEE 754. Alors (i) $`i` est injective sur ces cinq singularités ; (ii)
 $`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement ; (iii) l'arithmétique de
 couche 3 sur les valeurs encodées est _spécifiée par K7PL_, par la table de propagation des
-singularités, et non déléguée à IEEE 754. La réalisation de (iii) est une exigence, vérifiée par
+singularités ({num "tab:propagation-addition"}[], {num "tab:propagation-produit"}[]), et non déléguée à
+IEEE 754. La réalisation de (iii) est une exigence, vérifiée par
 test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
 :::
 
 :::proofsketch
 La norme IEEE 754 laisse libres les bits de charge utile d'un NaN silencieux ; K7PL y encode chaque
 singularité de façon déterministe, d'où l'injectivité (i). L'égalité de couche 3 est l'identité bit
-à bit plutôt que l'égalité IEEE 754 standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
+à bit sur les valeurs finies et l'égalité de classe sur les singularités, plutôt que l'égalité IEEE 754
+standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
 en masquage vectoriel sans branchement ; la nature binaire du masque garantit que la charge utile de
 la branche inactive est annihilée plutôt que corrompue, d'où (ii).
 
 Ce que l'énoncé _ne dit pas_ : l'encodage n'est pas un homomorphisme de la théorie des roues vers
-les flottants. En roues $`x/0 = \bot`, donc $`1/0 = \bot`, tandis qu'en IEEE 754 $`1/0 = +\infty` ;
+les flottants. En roues, $`0/0 = \bot` et $`1/0 = \infty`, un seul infini non signé ; IEEE 754 a deux infinis, $`1/{+0} = +\infty`
+et $`1/{-0} = -\infty`, que l'encodage doit distinguer ou identifier explicitement ;
 et la propagation de la charge utile d'un NaN à travers $`+` est seulement recommandée par la norme,
 non exigée, les opérations invalides produisant le NaN par défaut. Les lois de la théorie des roues,
 par exemple $`\bot + y = \bot`, ne tiennent donc sur les valeurs encodées que parce que la table de
@@ -380,6 +385,128 @@ propagation de (iii) les impose : c'est K7PL qui les spécifie, aucun effet ne d
 machine.
 :::
 ::::
+
+La table de propagation est celle de la théorie des roues {cite "carlstromWheelsDivisionZero2004"}[], que le texte
+ci-dessus invoque : $`\bot` est la
+nullité, $`0/0`, et $`\infty` l'infini non signé, $`1/0`. Quatre classes de valeurs suffisent à l'écrire — zéro,
+un fini non nul $`x`, $`\infty` et $`\bot` —, et la division se ramène au produit par l'inverse, $`a/b = a \cdot (1/b)`,
+avec $`1/0 = \infty`, $`1/\infty = 0`, $`1/\bot = \bot`. {rmq}[Les trois lois qu'on retient : $`\bot` absorbe
+l'addition, le produit et l'inverse ; $`\infty + \infty = \bot` et $`0 \cdot \infty = \bot` ; $`\infty \cdot \infty = \infty`.
+Aucun branchement n'est nécessaire pour les lire sur un vecteur de valeurs encodées.] Ces valeurs se calculent
+dans la roue des fractions du corps des rationnels ou des réels, dont les éléments sont les couples $`(a, b)`
+modulo les multiples non nuls, avec $`(a, b) + (c, d) = (ad + bc, bd)`, $`(a, b) \cdot (c, d) = (ac, bd)`,
+$`1/(a, b) = (b, a)`, $`0 = (0, 1)`, $`\infty = (1, 0)` et $`\bot = (0, 0)` : les deux tables en sont la lecture
+directe, classe par classe. La construction est celle de Carlström ; les valeurs de ces tables sont calculées ici
+sur elle, et non citées d'un énoncé de l'article.
+
+::::k7table (label := "tab:propagation-addition") (align := "lllll")
+:::caption
+Propagation des singularités par l'addition $`a + b` ($`a` en ligne, $`b` en colonne)
+:::
+
+:::table +header
+* * $`a + b`
+  * $`b = 0`
+  * $`b = x`
+  * $`b = \infty`
+  * $`b = \bot`
+* * $`a = 0`
+  * $`0`
+  * $`x`
+  * $`\infty`
+  * $`\bot`
+* * $`a = x`
+  * $`x`
+  * fini
+  * $`\infty`
+  * $`\bot`
+* * $`a = \infty`
+  * $`\infty`
+  * $`\infty`
+  * $`\bot`
+  * $`\bot`
+* * $`a = \bot`
+  * $`\bot`
+  * $`\bot`
+  * $`\bot`
+  * $`\bot`
+:::
+::::
+
+::::k7table (label := "tab:propagation-produit") (align := "lllll")
+:::caption
+Propagation des singularités par le produit $`a \cdot b` ($`a` en ligne, $`b` en colonne)
+:::
+
+:::table +header
+* * $`a \cdot b`
+  * $`b = 0`
+  * $`b = x`
+  * $`b = \infty`
+  * $`b = \bot`
+* * $`a = 0`
+  * $`0`
+  * $`0`
+  * $`\bot`
+  * $`\bot`
+* * $`a = x`
+  * $`0`
+  * fini
+  * $`\infty`
+  * $`\bot`
+* * $`a = \infty`
+  * $`\bot`
+  * $`\infty`
+  * $`\infty`
+  * $`\bot`
+* * $`a = \bot`
+  * $`\bot`
+  * $`\bot`
+  * $`\bot`
+  * $`\bot`
+:::
+::::
+
+« Fini » désigne le résultat de l'opération sur les valeurs finies, que la représentation flottante calcule.
+Ce que la représentation produit hors des finis est lu par une règle d'entrée, et c'est elle qui tranche la
+question des deux infinis d'IEEE 754 : le NaN, quelle que soit sa charge utile, est lu $`\bot` ; $`+\infty` et
+$`-\infty` sont tous deux lus $`\infty` ; $`+0` et $`-0` sont tous deux lus $`0`. Les deux signes sont donc
+_identifiés_ à l'entrée, plutôt que distingués au prix d'une division par zéro signée. Cette lecture s'accorde
+avec les opérations d'IEEE 754 {cite "ieeeIEEEStandardFloatingPoint2019"}[] sur les cas singuliers — $`0/0`, $`\infty - \infty`, $`0 \cdot \infty` rendent un NaN, lu
+$`\bot` ; $`x/0` rend un infini, lu $`\infty` —, et elle coûte deux choses, qu'il faut écrire. La conversion d'un
+flottant vers une roue n'est pas un aller-retour sur les infinis, qu'elle identifie. Et un écart subsiste sur
+l'addition : $`+\infty + (+\infty)` rend $`+\infty` en IEEE 754 quand les signes concordent, alors que la roue, qui n'a
+qu'un seul infini, rend $`\bot` ($`\infty + \infty = \bot`). L'arithmétique de couche 3 suit la table et non le matériel,
+selon la proposition {num "thm:homomorphisme_roues"}[] (iii) ; le test différentiel compare donc à IEEE 754 hors de ce cas. L'égalité de couche 3
+compare des _classes_ de singularités, jamais la charge utile d'un NaN ; c'est ce qui rend l'injectivité de la
+représentation vraie sur les singularités par définition, et non par vérification (§{num "sec:c4-echelle-du-systeme"}[]).
+Les deux autres singularités du texte, $`\circ` et $`\delta`, n'ont pas de source, et on le dit. La roue des fractions
+d'un corps n'a que deux éléments hors du corps, $`\infty = 1/0` et $`\bot = 0/0` ; un méadow commun
+{cite "bergstraDivisionZeroCommon2015"}[], l'autre structure où la division est totale, n'a qu'une seule valeur
+d'erreur, qui se propage à travers toutes les opérations. Aucune de ces sources ne porte deux classes
+d'erreur distinctes de $`\bot`. $`\circ` et $`\delta` sont donc une _extension de K7PL_, que ce document définit par le
+seul principe que les sources établissent, celui de la propagation absorbante, et par rien d'autre. Ce sont deux
+classes d'erreur, que K7PL réserve à deux erreurs qu'un programme veut distinguer de l'indétermination $`0/0` ;
+il appartient au programme de dire lesquelles, le langage n'en fixe aucune. Une erreur est un _ensemble_ non vide
+d'étiquettes pris parmi $`\circ` et $`\delta` : $`\circ`, $`\delta`, et $`\circ\delta`, la classe d'une valeur qui porte les
+deux. Pour $`+`, $`\cdot` et l'inverse $`1/\cdot`, une opération dont un opérande est une erreur rend l'erreur dont
+l'ensemble est la _réunion_ des ensembles de ses opérandes, et la valeur de la roue est oubliée : (a) une erreur absorbe
+les quatre classes de la roue, $`0`, $`x`, $`\infty` et $`\bot`, $`c \star \circ = \circ \star c = \circ`, $`1/\circ = \circ`, et de même
+pour $`\delta` ; (b) $`\circ \star \circ = \circ`, $`\delta \star \delta = \delta` ; (c) $`\circ \star \delta = \delta \star \circ = \circ\delta`,
+et $`\circ\delta` absorbe tout. Aucune entrée flottante ne produit une erreur : tout NaN est lu $`\bot`, et seuls les
+constructeurs de `Wheel<T>` les introduisent. Deux conséquences, qu'il faut écrire. D'une part $`\bot` n'absorbe plus
+les erreurs ($`\bot + \circ = \circ`) : l'axiome $`0/0 + x = 0/0` de la théorie des roues, tel que nous le
+rappelons, ne tient pas pour $`x = \circ`, et l'ensemble des sept classes n'est donc _pas une roue_ ; il contient la
+roue des fractions, dont les quatre classes se comportent comme dans les tables. D'autre part c'est le prix de
+l'associativité : si $`\circ` absorbait $`\infty` et que $`\bot` absorbât $`\circ`, on aurait
+$`(\infty + \infty) + \circ = \bot` et $`\infty + (\infty + \circ) = \circ`, et l'addition ne serait pas associative ; la
+règle que ce document écrivait d'abord, la borne supérieure avec $`\circ \star \delta = \bot`, est tombée sur ce
+contre-exemple. Avec la réunion, $`+` et $`\cdot` sont commutatives, associatives et ont pour neutres $`0` et $`1`, et
+l'inverse est une involution multiplicative. Cela a été _vérifié par énumération_ sur la roue des fractions des
+corps à 2, 3 et 5 éléments étendue de la même façon (`scripts/verif_singularites.py`), non démontré ; le même
+programme vérifie les autres axiomes de la roue, tels que nous les rappelons, qui tiennent tous sauf celui de $`\bot`.
+La proposition {num "thm:homomorphisme_roues"}[] n'en dépend pas, et retirer $`\circ` et $`\delta` de l'encodage (i) ne
+modifierait rien d'autre.
 
 ::::thm (label := "thm:representation_inobservable") (status := "exigence") (level := "representation")
 :::title

@@ -17,6 +17,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Ajouté
 
+- Suivi : séance 33 (`docs/journal/2026-10-07-pr-02-33-sources-des-singularites.md`), note de sources des propagations de singularités (`docs/recherche/sources-singularites.md`) vérification exhaustive de l'algèbre des singularités (`scripts/verif_singularites.py`) et contrôle des tables de propagation du §3.2 contre la roue des fractions (`scripts/controles/singularites.py`) ; notice d'IEEE 754-2019 dans `biblio/references.json`.
 - Générateur de la spécification : index à pages et reconnaissance automatique des termes de l'index, du glossaire et des acronymes (`tools/SpecExt/Index.lean`, `AutoMark.lean`, `IndexCore.lean`, `IndexTerms.lean`), interface HTML en français (`tools/SpecExt/Translate.lean`), tests (`tests/SpecToolsTest.lean`, `lakefile.lean`), garde `scripts/controles/indexation.py` (`ANOM-09`, `ANOM-10`).
 
 ### Added
