@@ -41,7 +41,7 @@ sur Zenodo est décrit dans [`CONTRIBUTING.md`](CONTRIBUTING.md) ; il n'a pas en
 Le manuscrit est encore en cours de correction (campagne de relecture PR-02) : le point
 d'entrée est le [tableau de bord](docs/tracking/TABLEAU-DE-BORD.md), qui dit où il en est et ce
 qu'il reste à faire avant d'implémenter le langage. Le manuscrit Org-mode d'origine est figé
-dans [`archives/`](archives/).
+dans [`docs/archives/`](docs/archives/).
 
 ## Organisation
 
