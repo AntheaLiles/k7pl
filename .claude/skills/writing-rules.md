@@ -25,8 +25,8 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `tools/SpecExt/`, `tools/SpecExt.lean` | Extensions Verso de la spécification (renvois, énoncés, formules, figures, citations…) | CECILL-2.1 |
 | `tools/SpecBib.lean`           | Bibliographie, **générée** par `scripts/biblio/biblio.py`        | CECILL-2.1 |
 | `biblio/references.json`       | Notices des 250 œuvres citées (source de `SpecBib.lean`)         | CC-BY-4.0  |
-| `docs/`                        | Suivi, relectures, méthode, recherche, journal (Markdown)        | CC-BY-4.0  |
-| `archives/`                    | Manuscrit Org figé, ancien outillage                             | CC-BY-4.0 / CECILL-2.1 |
+| `docs/`                        | Documentation courante, suivi, recherche, méthode, assurance et preuves | CC-BY-4.0  |
+| `docs/archives/`               | Manuscrit Org figé, ancien outillage                             | CC-BY-4.0 / CECILL-2.1 |
 | `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)       | —          |
 | `scripts/`                     | Maintenance (montée de version, hook de session, Zenodo), conversion Org → Verso (`org2verso/`), bibliographie (`biblio/`), mesures et suivi | CECILL-2.1 |
 | `zenodo.json`, `zenodo.files.json` | Métadonnées Zenodo (communes, par PDF) — via `REUSE.toml`   | CECILL-2.1 |
@@ -336,7 +336,7 @@ Correspondances Org-mode → Verso, pour la réécriture des sources existantes 
 | `TODO` / `DRAFT` dans un titre        | commentaire `-- TODO:` dans le source          |
 
 Cette table résume `scripts/org2verso/` : la conversion du manuscrit Org est reproductible
-(`python3 scripts/org2verso/convert.py --src docs/docs/archives/manuscrit-org --meta spec/figures --out <dossier>`
+(`python3 scripts/org2verso/convert.py --src docs/archives/manuscrit-org --meta spec/figures --out <dossier>`
 donne les modules actuels, au caractère près, à la date de la conversion).
 
 ## 9. Conventional Commits
