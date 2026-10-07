@@ -14,11 +14,15 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Modifié
 
+- L'index (§8.7) imprime les pages du PDF (et les sections dans le HTML) des trente et un termes, reconnus dans le texte à la génération ; l'interface du HTML est en français (`ANOM-09`, `ANOM-10` ; décision de l'auteur). La liste des termes quitte la page pour `tools/SpecExt/IndexTerms.lean`.
+
 - L'annexe E (présentation formelle) est fondue dans le manuscrit : grammaires et règles de typage au chapitre 3, sémantique opérationnelle et sortes du métalangage au chapitre 4, table des glyphes au chapitre 1. Les annexes restantes sont A à D.
 - §1.2 : le choix d'une famille modale et graduée comme socle est écrit, avec son motif.
 - §6.2 : la préservation graduée de bout en bout est déclarée comme objectif.
 
 ### Corrigé
+- PREUVE-08 : la troncature préserve les lois de comonade pour tout foncteur (convention d'écartement) ; la comonade tronquée est graduée par la somme des profondeurs, non par le produit (§2.3, théorème de troncature, désormais un théorème).
+- IMPL-06 : l'abaissement gradué se lit comme une propriété de conformité du compilateur à un profil de représentation (§6.2).
 - BLOQ-05 : niveaux de lecture ℓ et de production ℓ̂ distingués ; clauses sur Op et Case ; Tick bien formé.
 - Lot PREUVE : énoncés nets pour la simulation, la troncature, la relation sur un produit ; hypothèse D_det écrite ; croquis du Th. 9 non circulaire ; commutation de ℰ₀ en deux temps.
 - Lot FACT : loi unique d'introduction, exigence d'inobservabilité de la représentation, Mailbox, fenêtre-grade.
