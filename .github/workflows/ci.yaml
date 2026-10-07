@@ -174,13 +174,6 @@ jobs:
               --body "Automated update of docs/STATUS.md from the CI verification gate. This file is generated; no manual status editing is required."
           fi
 
-      - name: Validate generated status commit
-        if: ${{ steps.changes.outputs.changed == 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh workflow run CI --ref automation/generated-status
 
   deploy-pages:
     name: Publication GitHub Pages
