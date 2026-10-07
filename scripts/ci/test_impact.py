@@ -28,7 +28,9 @@ EXPECTED_FULL_EXACT = {
     "scripts/requirements-zenodo.txt",
 }
 EXPECTED_FULL_PREFIXES = (".github/workflows/", "scripts/ci/")
-SURFACES = ("full", "docs_links", "spec_check", "spec_build", "lean_build")
+SURFACES = ("full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests")
+EXPECTED_PYTHON_TEST_EXACT = {"scripts/generate_status.py", "scripts/suivi.py"}
+EXPECTED_PYTHON_TEST_PREFIXES = ("tests/python/",)
 EXPECTED_LEAN_PREFIXES = ("src/", "tests/")
 EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
 EXPECTED_SPEC_BUILD_EXACT = {"scripts/controle.py", "scripts/manuscript_metrics.py"}
@@ -146,6 +148,8 @@ class SurfaceTableTests(unittest.TestCase):
     def test_expected_tables_match_the_classifier(self):
         self.assertEqual(impact.LEAN_PREFIXES, EXPECTED_LEAN_PREFIXES)
         self.assertEqual(impact.LEAN_AND_SPEC_BUILD_EXACT, EXPECTED_LEAN_AND_SPEC_BUILD_EXACT)
+        self.assertEqual(impact.PYTHON_TEST_EXACT, EXPECTED_PYTHON_TEST_EXACT)
+        self.assertEqual(impact.PYTHON_TEST_PREFIXES, EXPECTED_PYTHON_TEST_PREFIXES)
         self.assertEqual(impact.SPEC_BUILD_EXACT, EXPECTED_SPEC_BUILD_EXACT)
         self.assertEqual(impact.SPEC_BUILD_PREFIXES, EXPECTED_SPEC_BUILD_PREFIXES)
         self.assertEqual(impact.SPEC_CHECK_EXACT, EXPECTED_SPEC_CHECK_EXACT)
@@ -163,6 +167,12 @@ class SurfaceTableTests(unittest.TestCase):
         for prefix in EXPECTED_LEAN_PREFIXES:
             with self.subTest(prefix=prefix):
                 self.assert_surfaces(f"{prefix}Anything.lean", lean_build=True)
+
+    def test_python_test_paths(self):
+        paths = sorted(EXPECTED_PYTHON_TEST_EXACT) + [f"{p}test_example.py" for p in EXPECTED_PYTHON_TEST_PREFIXES]
+        for path in paths:
+            with self.subTest(path=path):
+                self.assert_surfaces(path, python_tests=True)
 
     def test_specification_build_paths(self):
         paths = sorted(EXPECTED_SPEC_BUILD_EXACT) + [f"{p}Anything.lean" for p in EXPECTED_SPEC_BUILD_PREFIXES]
@@ -242,7 +252,7 @@ class RepositoryDiffEndToEndTests(unittest.TestCase):
     leaves both looking healthy (status 0, every flag false) makes the whole validation vanish.
     """
 
-    KEYS = {"full", "docs_links", "spec_check", "spec_build", "lean_build", "unclassified"}
+    KEYS = {"full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests", "unclassified"}
 
     def setUp(self):
         tmp = tempfile.TemporaryDirectory()
