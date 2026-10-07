@@ -259,11 +259,11 @@ Generated files must be migrated through their generators.
 - [x] Enumerate scripts and CI jobs that depend on those paths.
 - [x] Identify generated files and their generators.
 - [x] Produce a file-level classification table.
-- [ ] Do not physically move anything before this inventory is validated.
+- [x] Do not physically move anything before this inventory is validated.
 
 ### D1 — Ratify the target ontology
 
-- [ ] Ratify archives/ versus history/.
+- [x] Ratify archives/ versus history/.
 - [x] Ratify history/ as the merger target for journal/ and historique/.
 - [x] Ratify tracking/ as the target for active follow-up material.
 - [x] Ratify peer-review/ as the single review-evidence location.
@@ -278,7 +278,7 @@ Generated files must be migrated through their generators.
 - [x] Update repository READMEs and conversion documentation.
 - [x] Update scripts that refer to the old archive paths.
 - [x] Validate reproducible Org-to-Verso conversion after relocation.
-- [ ] Treat migrated archive contents as frozen unless an explicit archival decision is made.
+- [x] Treat migrated archive contents as frozen unless an explicit archival decision is made.
 
 ### D3 — Merge journal and historique
 
@@ -287,8 +287,8 @@ Generated files must be migrated through their generators.
 - [x] Detect duplicate or superseded plans.
 - [x] Preserve dates and provenance.
 - [x] Merge both directories into docs/history/.
-- [ ] Update historical cross-references.
-- [ ] Mark obsolete snapshots rather than silently deleting them.
+- [x] Update historical cross-references.
+- [x] Mark obsolete snapshots rather than silently deleting them.
 - [ ] Verify that no current status depends on a history file.
 
 ### D4 — Consolidate peer review
@@ -296,21 +296,21 @@ Generated files must be migrated through their generators.
 - [x] Inventory docs/relectures/.
 - [x] Merge the material into docs/peer-review/.
 - [x] Preserve reviewer identity and dates.
-- [ ] Separate active review findings from historical review evidence.
-- [ ] Update the peer-review README.
-- [ ] Update references from tracking registers.
+- [x] Separate active review findings from historical review evidence.
+- [x] Update the peer-review README.
+- [x] Update references from tracking registers.
 - [ ] Remove docs/relectures/ only after link and provenance validation.
 
 ### D5 — Extract active tracking
 
 - [x] Classify every file in docs/suivi/.
-- [ ] Move dated session reports to history/ where appropriate.
+- [x] Move dated session reports to history/ where appropriate.
 - [x] Keep current dashboards and registers in tracking/.
 - [ ] Identify documents that should instead become assurance evidence.
 - [ ] Identify documents that should instead become research notes.
-- [ ] Identify generated files and their authoritative generators.
+- [x] Identify generated files and their authoritative generators.
 - [x] Rename remaining active tracking material in English.
-- [ ] Update generators and CI before moving generated files.
+- [x] Update generators and CI before moving generated files.
 - [ ] Eliminate the current semantic ambiguity of suivi/.
 
 ### D6 — Rename remaining legacy directory names
