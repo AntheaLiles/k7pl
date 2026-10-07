@@ -138,13 +138,30 @@ jobs:
         with:
           persist-credentials: true
 
+      - name: Check whether STATUS already covers the current history
+        id: baseline
+        run: |
+          set -euo pipefail
+          generated_for="$(sed -n 's/^\*\*Generated for commit:\*\* \([0-9a-f]\{40\}\)$/\1/p' docs/STATUS.md)"
+          if [ -n "$generated_for" ] \
+            && git fetch --no-tags origin "$generated_for" >/dev/null 2>&1 \
+            && git merge-base --is-ancestor "$generated_for" "$GITHUB_SHA" \
+            && [ -z "$(git diff --name-only "$generated_for" "$GITHUB_SHA" -- . ':(exclude)docs/STATUS.md')" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+            echo "STATUS already describes the latest substantive commit ($generated_for); only docs/STATUS.md changed afterwards."
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Generate STATUS.md
+        if: ${{ steps.baseline.outputs.current != 'true' }}
         env:
           K7PL_VERIFICATION: success
         run: python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION"
 
       - name: Check for generated changes
         id: changes
+        if: ${{ steps.baseline.outputs.current != 'true' }}
         run: |
           if git diff --quiet -- docs/STATUS.md; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
