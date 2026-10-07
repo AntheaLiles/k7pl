@@ -29,12 +29,9 @@ def main() -> int:
     journal.github = parser.parse_args().format == "github"
     for module in (structure, algebre, notation, croise, semantique):
         name = module.__name__.rsplit(".", 1)[-1]
-        before = len(failures)
         journal.group(name)
         module.run()
         journal.endgroup()
-        if journal.github and len(failures) > before:
-            print("::error title=controle.py::%d échec(s) dans le contrôle « %s »" % (len(failures) - before, name))
     print()
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:

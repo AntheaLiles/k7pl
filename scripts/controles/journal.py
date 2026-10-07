@@ -20,12 +20,17 @@ def endgroup() -> None:
         print("::endgroup::")
 
 
+def _escape(message: str) -> str:
+    """Escapes a message for a GitHub workflow command (`%`, CR and LF are significant)."""
+    return message.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+
+
 def ko(message: str) -> None:
     """Records and prints a failure; the exit code follows from the list."""
     failures.append(message)
     print("    ECHEC  " + message)
     if github:
-        print("::error title=controle.py::" + message.replace("\n", " "))
+        print("::error title=controle.py::" + _escape(message))
 
 
 def ok(message: str) -> None:

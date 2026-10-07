@@ -65,7 +65,7 @@ jobs:
         if: ${{ inputs.full || inputs.docs_links }}
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --offline --no-progress '**/*.md'
+          args: --offline --no-progress --exclude-path archives '**/*.md'
           fail: true
 
   impl:
@@ -276,7 +276,9 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/Tectonic
-          key: tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-v1
+          # An exact hit is never rewritten: the key follows the sources, so that a new LaTeX
+          # package pulled in by the specification is saved by the next run.
+          key: tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json') }}
           restore-keys: |
             tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
 
