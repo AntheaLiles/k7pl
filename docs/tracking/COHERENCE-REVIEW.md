@@ -108,6 +108,10 @@ Les cases restent décochées tant que le correctif n'a pas été réalisé et v
 
 **Réalisation du lot 7 (2026-10-08).** L'audit des branches actuellement présentes a été consigné dans `docs/tracking/BRANCHES-STATUS.md` (12 branches actuelles contre 18 dans l'instantané historique de la revue). La PR #71, supersédée par #72, a été fermée. Le matériau scientifique unique de `claude/lean4-reuse-init-qvzlcg` est explicitement conservé comme archive non normative ; les branches `split/pr10-2` à `split/pr10-4` sont historiques et ne doivent pas être fusionnées telles quelles. `split/pr10-1` et son ancien mécanisme `{printindex}` sont explicitement abandonnés au profit de `tools/SpecExt/IndexTerms.lean`.
 
+## État de la contre-épreuve au 2026-10-08
+
+Les 20 points ci-dessous correspondent aux invariants déjà établis sur `main` et conservés comme critères de non-régression. La tête actuelle de la PR #72 (`d24b5f1774e68067c8b3e56944ad93bc3679a5c7`) a bien déclenché la CI #564, mais son exécution est encore **PENDING** et aucun job n'a encore été publié par GitHub. Les contrôles de la présente PR ne sont donc pas déclarés verts par anticipation. La clôture P9 et le critère final de la revue restent conditionnés à cette exécution.
+
 ## 8. Synthèse des garanties CI à préserver
 
 - [x] **Contre-épreuve.** REUSE : 438/438 fichiers conformes, Spec 3.3.
