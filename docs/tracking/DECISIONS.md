@@ -19,6 +19,7 @@
 |---|---|---|---|
 | `ARB-PR-07` / `D-2` | socle homotopique ou famille modale et graduée | **famille modale et graduée** ; imports ciblés instruits un à un | motif écrit au §1.2 (guide de lecture) |
 | `ARB-PR-06` | préservation graduée de bout en bout | **objectif déclaré** : la revendication devient une preuve, sans dénaturer le projet (passe par passe, fragment monomorphisé d'abord) | `PREUVE-02` en tête ; énoncé écrit au §6.2 ; reste conjecture jusqu'à la preuve |
+| `split/pr10-1-outillage-spec` | Le travail historique sur `{printindex}` est abandonné pour la branche courante : son mécanisme est remplacé par la liste canonique `tools/SpecExt/IndexTerms.lean` et l'indexation actuelle ; aucune fusion de cette branche n'est requise. | index / provenance |
 | `ARB-PR-04` | promesse du rejeu bit-à-bit | **à instruire** avant de trancher | [`instruction-arb-pr-04-rejeu-binaire`](../research/instruction-arb-pr-04-rejeu-binaire.md) |
 | `T-68` | mots des 44 primitives | **avant-dernier** dans l'ordre de finition (avant la release) | [`primitives.md`](primitives.md) |
 | — | annexe E | **fondue dans le manuscrit** : grammaires et règles au ch. 3, sémantique et sortes au ch. 4, table des glyphes au ch. 1 | `STRUCT-23` ; [journal](../history/2026-10-01-pr-02-15-fusion-annexe-e.md) |
