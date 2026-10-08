@@ -1625,7 +1625,7 @@ factorisées par rôle du scalaire.
 :::
 :::proofsketch
 Sous ces hypothèses, une preuve naturelle procède par induction sur la dérivation de $`\Delta,\, x :_r V_i \vdash c : C \mid \varepsilon(i)`. Les
-trente-quatre règles se rangent en cinq groupes. Les cas purement syntaxiques ne demandent aucune
+règles de typage se rangent en quatre groupes. Les cas purement syntaxiques ne demandent aucune
 propriété quantitative nouvelle ; les autres utilisent les lois propres à la sorte de scalaire qui
 apparaît dans la règle.
 
