@@ -1,6 +1,6 @@
 # Registre des obligations
 
-> Instantané du 1er octobre 2026, produit par `outils/registre.py` du manuscrit Org (voir `archives/outillage-org/`). Les lieux cités sont les anciens fichiers `.org` ; le registre à jour se regénère à partir de `spec/` : voir le [tableau de bord](TABLEAU-DE-BORD.md).
+> Instantané du 1er octobre 2026, produit par `outils/registre.py` du manuscrit Org (voir `archives/outillage-org/`). Les lieux cités sont les anciens fichiers `.org` ; le registre à jour se regénère à partir de `spec/` : voir le [tableau de bord](DASHBOARD.md).
 
 ## Ce qui reste ouvert
 
