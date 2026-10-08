@@ -1588,7 +1588,7 @@ de $`\operatorname{Scale}_{Usage}(n,-)` et applique $`\varphi_n` à l'effet prod
 action $`\operatorname{Scale}_{Exec}` sur le grade complet n'est donc requise par le langage actuel.
 
 La séparation répond directement aux règles. $`\mathrm{Scale}_{\mathrm{Usage}}` porte les demandes de
-$`Box`, $`App`, substitution et le contexte de {sc}[Sc]`; les transformations comme $`\varphi_n`
+$`Box`, $`App`, substitution et le contexte de {sc}[Sc] ; les transformations comme $`\varphi_n`
 portent les effets produits par une répétition. La loi universelle
 $`r\cdot\psi(\Delta,\varepsilon)=\psi(r\cdot\Delta,\varphi_r(\varepsilon))` est abandonnée comme
 formulation générale : elle confondait une action de contexte et une action sur les effets, et elle
