@@ -258,15 +258,19 @@ Oui, le grade peut ne vivre que dans l'acceptation, et la famille des automates 
 
 1.  \[DONE\] belohlavekDeterminismFuzzyAutomata2002
 
-### \[DONE\] \[#A\] Les conaturels forment un semi-anneau commutatif exponentiel. Cette structure suffit-elle à `𝒢_budget` ?
+### \[DONE\] \[#A\] Les conaturels forment un semi-anneau commutatif exponentiel. Cette structure suffit-elle à \`𝒢_budget\` ?
 
     ARC: A | QUID: QA-25 | REF
 
-NON, et l'écart est nommable en une phrase : le budget a besoin d'une opération qui n'est PAS une opération de semi-anneau. CE QUE LE BUDGET EMPLOIE RÉELLEMENT, sur le texte du document : la soustraction tronquée `β ⊖ k`, partielle ; la distributivité du produit sur elle, `u(β ⊖ k) = uβ ⊖ uk`, qui est le contenu de la loi de cohérence ; l'ordre croissant avec l'infini au sommet ; et `β ⊖ 0 = β`, qui est ce qui fait passer le lemme de généralisation de ⊠. OR `⊖` NE SE DÉRIVE NI DE `+` NI DE `×`. C'est le RÉSIDU de l'addition — le plus petit x tel que k + x ≥ β. La structure requise est donc un monoïde commutatif NATURELLEMENT ORDONNÉ ET RÉSIDUÉ, dont la partie semi-anneau n'est qu'un fragment. LES CONATURELS LA SATISFONT, ce qui explique que la question ne se soit jamais posée en pratique : max(0, β−k) est bien le résidu, et ∞ ⊖ k = ∞. Mais la satisfaire et l'impliquer sont deux choses, et annoncer « semi-anneau commutatif » sous-dit ce qui est exigé. LA SECONDE MOITIÉ DE LA QUESTION — taille ou profondeur — EST DÉJÀ CLOSE AU MANUSCRIT, et ni l'une ni l'autre : le budget est un POTENTIEL PROVISIONNÉ et non encore consommé, que ψ décrémente de ce que l'effet coûte. C'est la lecture par l'analyse amortie, écrite à l'annexe. ACTION : dire que l'algèbre du budget est résiduée, là où le semi-anneau est posé. Une clause.
+NON, mais la justification doit être corrigée au regard de la définition désormais normative. Le budget emploie une consommation \`β ⊖ k\` distincte des opérations du semi-anneau d'usage. La spécification définit cette opération comme une soustraction tronquée prolongée : \`ω ⊖ k = ω\`, \`0\` lorsque \`β < k\`, et \`β-k\` dans le cas fini restant. Elle ne doit donc pas être qualifiée de résidu de l'addition : en particulier, la convention \`ω ⊖ ω = ω\` diverge du résidu usuel sur \`ℕ∞\`, qui donnerait \`0\` pour le plus petit complément.
+
+La structure requise reste donc plus riche qu'un simple semi-anneau : elle comprend l'ordre du budget, l'opération de consommation et la condition d'admissibilité portée par \`ψ\`. La compatibilité arithmétique avec une multiplicité d'exécution entière est une propriété séparée ; elle ne transforme pas \`⊖\` en multiplication de grade.
+
+La seconde partie reste également distincte : le budget est utilisé comme borne de coût dans \`ψ\`, alors que l'usage détermine la disponibilité structurelle des dépendances. La séance 36 (\`docs/journal/2026-10-07-pr-02-36-budget-factorisation-test.md\`) établit qu'aucune règle du fragment \`Box\`, \`App\`, \`SubBox\`, substitution et \`Sc\` ne fournit de contre-exemple à une \`Scale_Usage\` qui laisse le budget invariant.
 
 #### Suivi d'avancement
 
-1.  \[DONE\] le manuscrit lui-même, relu contre ce qu'il emploie
+1.  \[DONE\] le manuscrit lui-même et vérification de la définition effective de \`⊖\`
 
 ### \[DONE\] \[#A\] Le semi-anneau de K7PL a-t-il besoin d'un plus grand élément `∞` ?
 
@@ -288,13 +292,7 @@ Le chapitre 2 donne le semi-anneau avec les rationnels positifs et l'infini, ce 
 
 1.  \[DONE\] le manuscrit lui-même
 
-### \[DONE\] \[#A\] Toute liaison a-t-elle besoin des QUATRE composantes `⟨u, m, ℓ, β⟩` ?
-
-    ARC: A | QUID: QA-28 | REF
-
-Instruite le 2 septembre selon l'ordre de prévalence, et tranchée par Anthea le même jour. Rapport complet à meta/rapport-QA-28.org. LA QUESTION EN CONTENAIT DEUX, et la formulation les confondait. ÉLIDER une composante à l'écriture est de notation ; RESTREINDRE une composante à une algèbre plus petite est de structure, et existe déjà sous le nom de la chaîne modale — Lin, Aff et Unr sont trois sous-ensembles d'un même semi-anneau. CE QUE LA LECTURE DE VOLLMER APPORTE. La gradation n'est pas une propriété de la catégorie : une adjonction et une ACTION MONOÏDALE STRICTE de R sur C induisent ensemble la comonade graduée. Élider laisse l'action intacte ; restreindre en change l'algèbre, donc l'action, donc le mode. C'est ce qui sépare proprement les deux options. P3 TRANCHE UN POINT QUE RIEN D'AUTRE N'AURAIT TRANCHÉ. La valeur permissive du budget est l'infini, donc une allocation non bornée : élider le budget d'une liaison qui alloue dissimule un coût par convention. Mais P2 donne la sortie dans la même phrase, en posant déjà un GRADE NUL aux liaisons sans signification de ressource — une valeur, non une absence. L'AXIOME ADMET LES DEUX ET NE DÉCIDE PAS, ce qui est son rôle. C'est le MANUSCRIT qui départage : élider ne touche qu'une phrase — l'énoncé de la loi de cohérence, qui dénombrait les composantes — tandis que restreindre rend l'addition point par point indéfinie entre modes et menace les jointures dont dépend la cohérence de la subsomption. DÉCISION : élider adopté sous trois conditions, restreindre refusé en général. Un besoin nouveau se satisferait par un MODE NOMMÉ avec son morphisme, non par l'ouverture d'un treillis. Portée à la doctrine et au chapitre 1.
-
-#### Suivi d'avancement
+### [IN REVIEW] [#A] Toute liaison a-t-elle besoin des QUATRE composantes `⟨u, m, ℓ, β⟩` ?,,    ARC: A | QUID: QA-28 | REF,,Reprise le 7 octobre. La distinction entre deux questions est conservée : ÉLIDER une composante à,l'écriture est une convention de présentation ; RESTREINDRE la structure disponible est une question,de mode. La formulation antérieure identifiait à tort les intervalles `Lin`, `Aff` et `Unr` à des,sous-algèbres ou à des modes. C'est désormais corrigé : `𝕌 = ℚ≥0 ∪ {ω}` porte la composante d'usage,,`𝒢 = 𝕌 × 𝕄 × ℒ × 𝔅` porte le grade complet, et les intervalles d'usage sont des domaines syntaxiques.,Les modes structurels sont des structures supplémentaires de la forme,`(R_m, Cont(m), Weak(m))`. Une composante nouvelle doit donc satisfaire non seulement les conditions,d'ordre et de composition du produit, mais aussi la condition d'action scalaire requise par les règles.,Cette dernière n'est pas encore résolue : l'usage contient des rationnels positifs alors que le budget,est porté par `ℕ∞`, de sorte qu'une action globale `𝕌 × 𝔅 → 𝔅` n'est pas disponible sans convention,supplémentaire. La décision d'élision du budget reste inchangée ; la question de l'action graduée doit,être instruite séparément avant de déclarer le noyau complètement fermé.,#### Suivi d'avancement
 
 1.  \[DONE\] vollmerMixedLinearGraded2024
 
@@ -320,6 +318,41 @@ Ce n'est pas une homonymie, c'est une implication. Le rapport entre les catégor
 
 1.  \[DONE\] lemayCoderelictionsFreeExponential2021
 
+### [IN REVIEW] [#A] Le grade complet `⟨u,m,ℓ,β⟩` doit-il être une algèbre globale, une annotation hétérogène, ou un indice comonadique enrichi ?
+
+    ARC: A | QUID: QA-31 | REF
+
+Reprise le 7 octobre. Quatre architectures sont désormais distinguées. (A) Le produit `𝒢` reçoit une structure algébrique complète et porte directement `!_r`, `r·Δ` et `φ_r`. (B) La comonade reste indexée par `𝕌`, les composantes `m`, `ℓ` et `β` étant des annotations orthogonales du jugement ; la signification exacte de `!_r` doit alors être reconstruite. (C) Le grade est traité comme une structure hétérogène ou multimodale, chaque dimension conservant son algèbre et les transports étant gouvernés par des morphismes explicites. L'architecture C est directement proche des constructions de grades hétérogènes de Bianchini et al. (ECOOP 2023, DOI 10.4230/LIPIcs.ECOOP.2023.3) et de GRASS (Hanukaev & Eades, 2026, DOI 10.48550/ARXIV.2605.17112).
+
+Le test des signatures ajoute un résultat plus précis. L'obstacle ne porte pas sur le produit de grade algebras en général : Bianchini et al. montrent qu'une construction de grades hétérogènes peut être obtenue à partir de plusieurs algèbres. Le problème de K7PL est l'adéquation entre les opérations réellement demandées. L'agrégation des contextes, une éventuelle multiplication de `𝒢`, l'action `Scale` et la consommation budgétaire `⊖` doivent désormais être traitées comme quatre familles distinctes.
+
+Le niveau de confidentialité est le discriminant principal identifié par la séance 28. Les règles utilisent `⊔` pour des agrégations conservatrices ; une construction standard d'algèbre de grades à partir d'un treillis distributif associe plutôt `⊔` à l'addition et `⊓` à la multiplication sous l'ordre usuel. Une dualisation est possible en principe, mais elle modifie alors la relation entre l'ordre algébrique et l'ordre de confidentialité du sous-typage. Aucune de ces voies n'est encore démontrée compatible avec K7PL.
+
+Le critère concernant `Usage` et `Exec` reste inchangé et non négociable : `u = 1/N` peut représenter une capacité de lecture sans représenter une fraction d'exécution. Toute définition de `φ_r` par `ε^u` est donc limitée à un domaine où une multiplicité entière est explicitement associée à `u`.
+
+La décision de `TRANS-02` reste ouverte. A, A2 et C demeurent en concurrence. Le prochain test doit fixer, pour le fragment minimal, les signatures et lois de `AggG`, `MulG`, `Scale`, `⊖`, `!`, `≼` et `c`, puis vérifier les interactions nécessaires à `Box`, `App` et substitution.
+### \[IN REVIEW\] \[#A\] Quelle sorte de scalaire porte réellement l'action `Scale` de `Box` et `App` ?
+
+    ARC: A | QUID: QA-32 | REF
+
+Les séances 35 à 52 ont réduit la question à une architecture factorisée. Le noyau de `!` est porté
+par le semi-anneau d'usage `𝓡`, via `π_U : 𝒢 → 𝓡`, tandis que `𝒢` conserve les annotations complètes.
+
+`Scale_Usage(a,⟨u,m,ℓ,β⟩)=⟨a·u,m,ℓ,β⟩` est l'action contextuelle de référence pour `Box`, `App`,
+substitution et le contexte de `Sc`. Les répétitions effectives restent portées par `φ_n` sur les
+effets ; le langage actuel ne requiert pas un nouvel objet `Scale_Exec` agissant sur le grade complet.
+
+Les lois d'identité, de composition, de distribution sur l'agrégation, de commutation avec `ψ` et de
+monotonie sont établies sur le candidat. Les deux dettes restantes concernent la compatibilité de
+ces lois avec les conversions `Sub`/`SubBox` et l'interaction avec `When`.
+
+Le problème n'est donc plus de choisir un scalaire global unique, mais de vérifier la fonctorialité
+des conversions et la cohérence sémantique des transformations temporelles.
+
+#### Suivi d'avancement
+
+1.  \[DONE\] architecture factorisée et lois de `Scale_Usage`
+2.  \[IN REVIEW\] conversions de grade complet et interaction avec `When`
 ### \[DONE\] \[#A\] La grammaire CBPV de Levy suffit-elle, ou faut-il `dCBPV+` ?
 
     ARC: B | QUID: QB-1 | REF
@@ -586,13 +619,7 @@ C'est une obligation de métathéorie, et sa preuve a une forme connue : interpr
 
 1.  \[DONE\] schwinghammerCoherenceSubsumptionMonadic2009
 
-### \[DONE\] \[#A\] Le sous-typage modal `Lin T <: Aff T <: Unr T` est-il dérivable de la structure, ou faut-il l'axiomatiser ?
-
-    ARC: B | QUID: QB-25 | REF
-
-Dérivable, et la recherche est close : la chaîne est une chaîne de MORPHISMES DE MODES, dont la condition d'existence est explicite — tout grade contractable de la source s'envoie sur un contractable du but, et l'affaiblissement se propage vers l'avant. Ce qui reste n'est pas une source à trouver mais une preuve à écrire : exhiber les trois morphismes d'algèbres de grades entre les usages du document. Maintenue en cours à ce titre, et portée au programme d'ajustement plutôt qu'au corpus. TRANCHÉE le 3 septembre : LA PREUVE EST ÉCRITE, et la question se referme sur elle. Ce qui restait n'était pas une source mais une démonstration, et elle est au chapitre 3 sous forme de théorème. Les modalités sont les modes portés par des INTERVALLES de l'algèbre de grades, et toute inclusion d'intervalles est un morphisme de modes : la chaîne de sous-typage est la traduction qu'induisent les inclusions, donc DÉRIVÉE et non axiomatisée. ET LA RÉÉCRITURE DES MODALITÉS EN INTERVALLES A RENDU LA PREUVE PLUS COURTE ET PLUS FORTE. Les deux conditions du morphisme se vérifient sur les bornes : la première est vide pour les modes sans contractable, la seconde est la monotonie du booléen d'affaiblissement. ET LA STRUCTURE EST UN TREILLIS, NON UNE CHAÎNE, dès qu'on compte les quatre modes. Le pertinent admet la contraction et refuse l'affaiblissement ; il n'est PAS comparable à l'affine, et le voir dit ce que chaque condition interdit — dans un sens l'affaiblissement passerait de permis à interdit, dans l'autre un contractable devrait s'envoyer sur un mode qui n'en a aucun. Les deux conditions sont donc l'une et l'autre ACTIVES, ce qu'une chaîne à trois éléments ne montrait pas.
-
-#### Suivi d'avancement
+### [IN REVIEW] [#A] Le sous-typage modal `Lin T <: Aff T <: Unr T` est-il dérivable de la structure, ou faut-il l'axiomatiser ?,,    ARC: B | QUID: QB-25 | REF,,Conclusion corrigée le 7 octobre : la recherche bibliographique est close sur le cadre des modes, mais la conclusion normative précédente était trop forte. La littérature définit un mode par une algèbre de grades, un idéal de contraction et un prédicat d'affaiblissement ; elle ne définit pas un mode comme un intervalle de grades. La réécriture de C3 sépare donc les strates syntaxiques `Lin=[1..1]`, `Aff=[0..1]`, `Rel=[1..ω]`, `Unr=[0..ω]` des modes structurels candidats `M_Lin`, `M_Aff`, `M_Rel`, `M_Unr`. Sous cette instanciation candidate, l'identité du porteur commun réalise les morphismes `Lin→Aff`, `Lin→Rel`, `Aff→Unr` et `Rel→Unr`, tandis que `Aff` et `Rel` sont incomparables. Ce résultat est propositionnel et conditionnel : il reste à établir que le jugement et les règles de K7PL réalisent effectivement ces structures. Le fait n'autorise donc pas encore à déclarer que `Lin T <: Aff T <: Unr T` est dérivé des seules inclusions d'intervalles.,#### Suivi d'avancement
 
 1.  \[DONE\] hanukaevUnificationGradedSubstructural2026
 
