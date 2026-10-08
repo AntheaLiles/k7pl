@@ -36,6 +36,7 @@ EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
 EXPECTED_SPEC_BUILD_EXACT = {"scripts/controle.py", "scripts/manuscript_metrics.py"}
 EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/")
 EXPECTED_SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
+EXPECTED_TRACKING_VIEWS_EXACT = {"docs/tracking/fiches-statuts.csv"}
 EXPECTED_LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 EXPECTED_LIGHT_EXACT = {"CITATION.cff"}
 
@@ -58,6 +59,11 @@ class ImpactTests(unittest.TestCase):
         self.assertTrue(result["lean_build"])
         self.assertFalse(result["spec_build"])
         self.assertFalse(result["full"])
+
+    def test_tracking_views_surface(self):
+        self.assertTrue(classify(["spec/Spec/C1.lean"])["tracking_views"])
+        self.assertTrue(classify(["docs/tracking/fiches-statuts.csv"])["tracking_views"])
+        self.assertFalse(classify(["docs/other.md"])["tracking_views"])
 
     def test_spec_surface(self):
         result = classify(["spec/Spec/C1.lean"])
@@ -153,6 +159,7 @@ class SurfaceTableTests(unittest.TestCase):
         self.assertEqual(impact.SPEC_BUILD_EXACT, EXPECTED_SPEC_BUILD_EXACT)
         self.assertEqual(impact.SPEC_BUILD_PREFIXES, EXPECTED_SPEC_BUILD_PREFIXES)
         self.assertEqual(impact.SPEC_CHECK_EXACT, EXPECTED_SPEC_CHECK_EXACT)
+        self.assertEqual(impact.TRACKING_VIEWS_EXACT, EXPECTED_TRACKING_VIEWS_EXACT)
         self.assertEqual(impact.LIGHT_PREFIXES, EXPECTED_LIGHT_PREFIXES)
         self.assertEqual(impact.LIGHT_EXACT, EXPECTED_LIGHT_EXACT)
 
@@ -252,7 +259,7 @@ class RepositoryDiffEndToEndTests(unittest.TestCase):
     leaves both looking healthy (status 0, every flag false) makes the whole validation vanish.
     """
 
-    KEYS = {"full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests", "unclassified"}
+    KEYS = {"full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests", "tracking_views", "unclassified"}
 
     def setUp(self):
         tmp = tempfile.TemporaryDirectory()
@@ -441,7 +448,7 @@ class RepositoryDiffEndToEndTests(unittest.TestCase):
         self.assertIn("Changed paths: 1\n  'docs/note.md'\n", done.stdout)
         self.assertIn(
             "Impact: full=false docs_links=true spec_check=false spec_build=false "
-            "lean_build=false python_tests=false unclassified=false\n",
+            "lean_build=false python_tests=false tracking_views=false unclassified=false\n",
             done.stdout,
         )
         self.assertNotIn("Unclassified paths:", done.stdout)
@@ -460,7 +467,7 @@ class RepositoryDiffEndToEndTests(unittest.TestCase):
         self.assertIn("Unclassified paths:\n  'new-format.toml'\n", done.stdout)
         self.assertIn(
             "Impact: full=true docs_links=true spec_check=true spec_build=true "
-            "lean_build=true python_tests=true unclassified=true\n",
+            "lean_build=true python_tests=true tracking_views=true unclassified=true\n",
             done.stdout,
         )
         self.assertEqual((outputs["full"], outputs["unclassified"]), ("true", "true"))
