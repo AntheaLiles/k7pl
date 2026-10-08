@@ -102,8 +102,11 @@ Les cases restent décochées tant que le correctif n'a pas été réalisé et v
 
 ## 7. Hygiène des branches et matériau scientifique non fusionné
 
-- [ ] **F-30 — MINEUR.** Auditer les 18 branches distantes et statuer sur chacune : suppression, archivage, fusion ou abandon explicite. Porter notamment une décision sur `split/pr10-1` et les groupes 3-6, ainsi que sur le matériau scientifique de `claude/lean4-reuse-init-qvzlcg`. **Acceptation :** aucun matériau scientifique unique n'est laissé dans une branche sans statut documenté.
-- [ ] **F-09/F-30 — dépendance.** Décider explicitement si le travail `Index.lean` / `{printindex}` de `split/pr10-1` est repris, remplacé ou abandonné. **Acceptation :** `spec/CHANGELOG.md`, ANOM-09/10 et les branches racontent la même histoire.
+- [x] **F-30 — MINEUR.** Auditer les 18 branches distantes et statuer sur chacune : suppression, archivage, fusion ou abandon explicite. Porter notamment une décision sur `split/pr10-1` et les groupes 3-6, ainsi que sur le matériau scientifique de `claude/lean4-reuse-init-qvzlcg`. **Acceptation :** aucun matériau scientifique unique n'est laissé dans une branche sans statut documenté.
+- [x] **F-09/F-30 — dépendance.** Décider explicitement si le travail `Index.lean` / `{printindex}` de `split/pr10-1` est repris, remplacé ou abandonné. **Acceptation :** `spec/CHANGELOG.md`, ANOM-09/10 et les branches racontent la même histoire.
+
+
+**Réalisation du lot 7 (2026-10-08).** L'audit des branches actuellement présentes a été consigné dans `docs/tracking/BRANCHES-STATUS.md` (12 branches actuelles contre 18 dans l'instantané historique de la revue). La PR #71, supersédée par #72, a été fermée. Le matériau scientifique unique de `claude/lean4-reuse-init-qvzlcg` est explicitement conservé comme archive non normative ; les branches `split/pr10-2` à `split/pr10-4` sont historiques et ne doivent pas être fusionnées telles quelles. `split/pr10-1` et son ancien mécanisme `{printindex}` sont explicitement abandonnés au profit de `tools/SpecExt/IndexTerms.lean`.
 
 ## 8. Synthèse des garanties CI à préserver
 
