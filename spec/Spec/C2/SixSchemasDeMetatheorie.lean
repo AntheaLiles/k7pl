@@ -154,31 +154,31 @@ schéma de ré-invocation bornée
 
 :::statement +titled
 Employer $`n` fois, c'est invoquer $`n` fois en séquence
-
-Soit $`t` un calcul d'effet $`\varepsilon` sous un contexte $`\Delta`, et $`n` un grade fini.
-L'emploi de $`t` à hauteur de $`n` se dénote $`\mathsf{reinvo}(n, t)`, de contexte $`n \cdot \Delta`
-et d'effet $`\varphi_n(\varepsilon)`. L'opération est associative et son unité est $`n = 1`.
 :::
 
+Pour $`t` de contexte $`\Delta` et d'effet $`\varepsilon`, et pour un entier fini $`n \in \mathbb{N}_\infty`,
+la ré-invocation $`\mathsf{reinvo}(n,t)` combine deux actions distinctes : le contexte est mis à
+l'échelle par $`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et l'effet devient
+$`\varphi_n(\varepsilon)`. L'associativité requiert séparément la composition des mises à l'échelle
+et celle des transformations d'effet ; l'unité est $`n=1`.
+
 :::proofsketch
-La mise à l'échelle du contexte est celle de la règle de la modalité ; la loi de coût est l'action
-$`\varphi_n` du grade sur l'effet, dont la compatibilité avec la mise à l'échelle est le
-théorème {num "thm:coherence_axiome"}[] — restriction comprise, l'énoncé demandant $`n` fini.
-L'associativité suit de celle du produit dans le semi-anneau des grades.
+La mise à l'échelle du contexte est celle de la modalité factorisée. La loi de coût est l'action
+$`\varphi_n` sur les effets. Leur compatibilité constitue une obligation propre à la ré-invocation
+finie ; elle n'est pas une instance automatique d'une loi uniforme sur le grade complet. Sur le
+budget, cette compatibilité reste distincte de $`Scale_Usage` et ne doit pas introduire une
+multiplication du budget tant qu'aucune telle action n'est définie.
 :::
 ::::
 
-Cinq constructions en sont des instances. La _traduction d'un grade fini_ ré-invoque $`n` fois la
-traduction du contexte. Le _parcours d'un vecteur_ compose $`n` effets et met le contexte à
-l'échelle. L'_opération à portée_ applique $`\varphi_n` à l'effet de son bloc. L'_expansion d'une
-macro_ applique $`\varphi_{r_i}` à chaque argument. Et l'_image du point fixe déductif_ borne son
-dépliage de la même façon. {rmq}[Cinq noms pour une opération. Le schéma ne les rend pas
-interchangeables : il dit ce qu'ils partagent, et leurs différences deviennent lisibles.]
+Certaines constructions en sont des instances directes : la traduction d'un grade fini, le parcours
+d'un vecteur, l'opération à portée et l'image bornée du point fixe déductif. L'expansion d'une macro
+n'en est pas une instance directe : elle conserve l'ordre des occurrences des arguments et compose
+leurs effets sans convertir le grade déclaré en multiplicité d'effet.
+{rmq}[Le schéma décrit une ré-invocation homogène ; la macro relève d'un schéma plus général de
+substitution séquentielle. Les deux partagent l'action contextuelle d'usage, mais leurs obligations
+sur les effets sont différentes.]
 
-Ce que le schéma apporte est que la restriction du théorème {num "thm:coherence_axiome"}[] _se
-propage d'un coup_ aux cinq. Un grade infini traversant un effet à coût non nul est interdit partout
-où la ré-invocation apparaît, et il n'y a pas cinq conditions de bord à écrire mais une, portée par
-le schéma.
 
 Un sixième schéma est le plus général des six, et il absorbe une part des précédents. Tout ce qui,
 dans ce document, _traduit une représentation riche vers une représentation plus pauvre_ —
