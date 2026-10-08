@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
-# SPDX-License-Identifier: CECILL-2.1
+# SPDX-License-Identifier: CC0-1.0
 
 # Default gitleaks rules, plus an allowlist for the archived Org tooling and its data: file-path
 # strings ("src", "chapitres", "c2-fondements.org") and bibliography keys trip the
