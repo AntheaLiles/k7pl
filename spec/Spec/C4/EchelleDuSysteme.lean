@@ -112,7 +112,7 @@ pourrait tirer d'une source non déterministe — horloge, générateur aléatoi
 contexte implicite unique, passé silencieusement à chaque appel mais dont toute modification est
 explicite et journalisée. Au rejeu, le runtime substitue à chaque appel non déterministe la valeur
 consignée, ce qui établit le rejeu logique défini par P4. Une identité bit à bit ne suit que sous le
-profil de représentation $`\\Pi` et les hypothèses $`E_{\\text{repro}}` du théorème de représentation
+profil de représentation $`\Pi` et les hypothèses $`E_{\text{repro}}` du théorème de représentation
 binaire ci-dessous ; elle n'est pas une propriété intrinsèque de la persistance ni du langage.
 
 ::::thm (label := "thm:determinisme_rejeu")
