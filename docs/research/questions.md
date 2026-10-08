@@ -292,12 +292,19 @@ Le chapitre 2 donne le semi-anneau avec les rationnels positifs et l'infini, ce 
 
 1.  \[DONE\] le manuscrit lui-même
 
-### [IN REVIEW] [#A] Toute liaison a-t-elle besoin des QUATRE composantes `⟨u, m, ℓ, β⟩` ?,,    ARC: A | QUID: QA-28 | REF,,Reprise le 7 octobre. La distinction entre deux questions est conservée : ÉLIDER une composante à,l'écriture est une convention de présentation ; RESTREINDRE la structure disponible est une question,de mode. La formulation antérieure identifiait à tort les intervalles `Lin`, `Aff` et `Unr` à des,sous-algèbres ou à des modes. C'est désormais corrigé : `𝕌 = ℚ≥0 ∪ {ω}` porte la composante d'usage,,`𝒢 = 𝕌 × 𝕄 × ℒ × 𝔅` porte le grade complet, et les intervalles d'usage sont des domaines syntaxiques.,Les modes structurels sont des structures supplémentaires de la forme,`(R_m, Cont(m), Weak(m))`. Une composante nouvelle doit donc satisfaire non seulement les conditions,d'ordre et de composition du produit, mais aussi la condition d'action scalaire requise par les règles.,Cette dernière n'est pas encore résolue : l'usage contient des rationnels positifs alors que le budget,est porté par `ℕ∞`, de sorte qu'une action globale `𝕌 × 𝔅 → 𝔅` n'est pas disponible sans convention,supplémentaire. La décision d'élision du budget reste inchangée ; la question de l'action graduée doit,être instruite séparément avant de déclarer le noyau complètement fermé.,#### Suivi d'avancement
+### [IN REVIEW] [#A] Toute liaison a-t-elle besoin des QUATRE composantes `⟨u, m, ℓ, β⟩` ?
+
+    ARC: A | QUID: QA-28 | REF
+
+Reprise le 7 octobre. La distinction entre deux questions est conservée : ÉLIDER une composante à l'écriture est une convention de présentation ; RESTREINDRE la structure disponible est une question de mode. La formulation antérieure identifiait à tort les intervalles `Lin`, `Aff` et `Unr` à des sous-algèbres ou à des modes. C'est désormais corrigé : `𝕌 = ℚ≥0 ∪ {ω}` porte la composante d'usage, `𝒢 = 𝕌 × 𝕄 × ℒ × 𝔅` porte le grade complet, et les intervalles d'usage sont des domaines syntaxiques. Les modes structurels sont des structures supplémentaires de la forme `(R_m, Cont(m), Weak(m))`.
+
+Une composante nouvelle doit donc satisfaire non seulement les conditions d'ordre et de composition du produit, mais aussi la condition d'action scalaire requise par les règles. Cette dernière n'est pas encore résolue : l'usage contient des rationnels positifs alors que le budget est porté par `ℕ∞`, de sorte qu'une action globale `𝕌 × 𝔅 → 𝔅` n'est pas disponible sans convention supplémentaire. La décision d'élision du budget reste inchangée ; la question de l'action graduée doit être instruite séparément avant de déclarer le noyau complètement fermé.
+
+#### Suivi d'avancement
 
 1.  \[DONE\] vollmerMixedLinearGraded2024
 
 2.  \[DONE\] arbitrage d'Anthea, 2 septembre
-
 ### \[DONE\] \[#A\] Le support fini coûte-t-il l'axiome du choix sur les constructions de K7PL qui CHOISISSENT un nom, un témoin ou une branche ?
 
     ARC: A | QUID: QA-29 | REF
