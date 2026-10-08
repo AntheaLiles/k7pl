@@ -91,11 +91,14 @@ Les cases restent décochées tant que le correctif n'a pas été réalisé et v
 
 ## 6. Documentation, langue et discipline contributive
 
-- [ ] **F-26 — MINEUR.** Décider si les messages de commit doivent réellement être exclusivement en français. Si oui, outiller le contrôle ; sinon, corriger `CONTRIBUTING.md` et les règles Claude pour assumer le bilinguisme. **Acceptation :** règle et pratique historique sont compatibles.
-- [ ] **F-27 — MINEUR.** Décider si #64/#66 nécessitaient une entrée de changelog et, si oui, enregistrer les changements CI manquants. **Acceptation :** la checklist CONTRIBUTING et le changelog sont alignés avec la pratique réelle.
-- [ ] **F-28 — INFO.** Corriger la formulation « fusion par rebase » si la politique voulue est seulement l'historique linéaire, puisque le ruleset autorise merge/rebase/squash. **Acceptation :** CONTRIBUTING décrit exactement la politique imposée par GitHub.
-- [ ] **F-31 — INFO.** Actualiser ou automatiser la date « Last updated » de `docs/README.md` et harmoniser l'absence de date/version dans `docs/PROVENANCE.md`. **Acceptation :** les métadonnées de fraîcheur suivent une convention unique.
-- [ ] **F-32 — INFO.** Harmoniser les deux parcours de lecture déclarés dans `README.md` et `docs/README.md`. **Acceptation :** un seul parcours canonique est publié, ou les différences sont justifiées.
+- [x] **F-26 — MINEUR.** Décider si les messages de commit doivent réellement être exclusivement en français. Si oui, outiller le contrôle ; sinon, corriger `CONTRIBUTING.md` et les règles Claude pour assumer le bilinguisme. **Acceptation :** règle et pratique historique sont compatibles.
+- [x] **F-27 — MINEUR.** Décider si #64/#66 nécessitaient une entrée de changelog et, si oui, enregistrer les changements CI manquants. **Acceptation :** la checklist CONTRIBUTING et le changelog sont alignés avec la pratique réelle.
+- [x] **F-28 — INFO.** Corriger la formulation « fusion par rebase » si la politique voulue est seulement l'historique linéaire, puisque le ruleset autorise merge/rebase/squash. **Acceptation :** CONTRIBUTING décrit exactement la politique imposée par GitHub.
+- [x] **F-31 — INFO.** Actualiser ou automatiser la date « Last updated » de `docs/README.md` et harmoniser l'absence de date/version dans `docs/PROVENANCE.md`. **Acceptation :** les métadonnées de fraîcheur suivent une convention unique.
+- [x] **F-32 — INFO.** Harmoniser les deux parcours de lecture déclarés dans `README.md` et `docs/README.md`. **Acceptation :** un seul parcours canonique est publié, ou les différences sont justifiées.
+
+
+**Réalisation du lot 6 (2026-10-08).** Les messages de commit sont désormais explicitement bilingues (français ou anglais) et seule la conformité Conventional Commits est normative ; la pratique observée de la PR #72 reste majoritairement française. Le changelog distingue les changements notables des commits ordinaires et enregistre les évolutions CI de #64/#66. CONTRIBUTING décrit l'exigence d'historique linéaire sans imposer rebase contre le ruleset GitHub. `docs/README.md` et `docs/PROVENANCE.md` utilisent la même convention `Last updated`, et le parcours de lecture est aligné sur celui du README racine.
 
 ## 7. Hygiène des branches et matériau scientifique non fusionné
 
