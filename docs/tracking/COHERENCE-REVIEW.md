@@ -39,17 +39,19 @@ Les cases restent décochées tant que le correctif n'a pas été réalisé et v
 
 ## 2. Vérité des vues et artefacts générés
 
-- [ ] **F-01 — MAJEUR.** Rendre `docs/tracking/correspondance-enonces.md` reproductible depuis `spec/`. Trancher la langue des vues générées, l'implanter dans `scripts/suivi.py`, régénérer la vue et éliminer les divergences 67/68, `thm:fenetre_grade`, `thm:troncature_comonade`, `thm:resucrage` et la numérotation. **Acceptation :** une génération depuis l'arbre courant produit exactement le fichier commis.
-- [ ] **F-02 — MAJEUR.** Rendre `docs/tracking/FICHES-PR02.md` reproductible et conforme à son générateur, notamment pour la langue des statuts. **Acceptation :** `suivi.py all` ne produit aucune différence.
-- [ ] **F-03 — MAJEUR.** Décider du statut de `docs/tracking/registre-obligations.md` : soit le régénérer depuis `spec/`, soit le requalifier explicitement comme historique et le sortir de la navigation active. **Acceptation :** aucun instantané historique n'est présenté comme registre courant.
-- [ ] **F-04 — MINEUR.** Supprimer ou réparer les références au « bloc ouverts » du tableau de bord et le code mort `refresh_block()`. **Acceptation :** les pointeurs de suivi correspondent à une fonctionnalité réellement présente.
-- [ ] **F-07 — MINEUR.** Corriger `scripts/generate_status.py` pour lire `version := v!"…"` dans `lakefile.lean`. **Acceptation :** `STATUS.md` affiche `0.1.0` au lieu de `unknown`.
-- [ ] **F-08 — MINEUR.** Remplacer les quatre faux « faits » de vérification de `STATUS.md` par les résultats réels des jobs, ou reformuler explicitement la valeur comme agrégation. Traiter le cas `skipped == success`. **Acceptation :** chaque ligne de statut représente réellement ce qui a été exécuté sur le commit concerné.
+- [x] **F-01 — MAJEUR.** Rendre `docs/tracking/correspondance-enonces.md` reproductible depuis `spec/`. Trancher la langue des vues générées, l'implanter dans `scripts/suivi.py`, régénérer la vue et éliminer les divergences 67/68, `thm:fenetre_grade`, `thm:troncature_comonade`, `thm:resucrage` et la numérotation. **Acceptation :** une génération depuis l'arbre courant produit exactement le fichier commis.
+- [x] **F-02 — MAJEUR.** Rendre `docs/tracking/FICHES-PR02.md` reproductible et conforme à son générateur, notamment pour la langue des statuts. **Acceptation :** `suivi.py all` ne produit aucune différence.
+- [x] **F-03 — MAJEUR.** Décider du statut de `docs/tracking/registre-obligations.md` : soit le régénérer depuis `spec/`, soit le requalifier explicitement comme historique et le sortir de la navigation active. **Acceptation :** aucun instantané historique n'est présenté comme registre courant.
+- [x] **F-04 — MINEUR.** Supprimer ou réparer les références au « bloc ouverts » du tableau de bord et le code mort `refresh_block()`. **Acceptation :** les pointeurs de suivi correspondent à une fonctionnalité réellement présente.
+- [x] **F-07 — MINEUR.** Corriger `scripts/generate_status.py` pour lire `version := v!"…"` dans `lakefile.lean`. **Acceptation :** `STATUS.md` affiche `0.1.0` au lieu de `unknown`.
+- [x] **F-08 — MINEUR.** Remplacer les quatre faux « faits » de vérification de `STATUS.md` par les résultats réels des jobs, ou reformuler explicitement la valeur comme agrégation. Traiter le cas `skipped == success`. **Acceptation :** chaque ligne de statut représente réellement ce qui a été exécuté sur le commit concerné.
 
+
+> **Réalisation du lot 2 (2026-10-08).** Les vues `FICHES-PR02.md` et `correspondance-enonces.md` ont été régénérées depuis leurs sources. La CI a effectivement exécuté la garde O4 sur la PR #72 ; sa première exécution a détecté la dérive de la correspondance (69 énoncés dans l'arbre courant contre 68 dans la vue committée), puis la sortie exacte du générateur a été appliquée. Le registre d'obligations est désormais explicitement historique et hors navigation active. `generate_status.py` lit la syntaxe Lake `v!"…"` et le statut CI reçoit les résultats réels des jobs.
 ### Câblage CI associé
 
-- [ ] **F-01/F-02 — O4.** Ajouter en CI `suivi.py check`, régénération et `git diff --exit-code docs/tracking/` lorsque `spec/**` ou `docs/tracking/fiches-statuts.csv` change. **Acceptation :** une vue générée périmée fait échouer la CI.
-- [ ] **F-29a — MINEUR.** Vérifier que cette garde est effectivement appelée par la CI et pas seulement couverte par des tests unitaires.
+- [x] **F-01/F-02 — O4.** Ajouter en CI `suivi.py check`, régénération et `git diff --exit-code docs/tracking/` lorsque `spec/**` ou `docs/tracking/fiches-statuts.csv` change. **Acceptation :** une vue générée périmée fait échouer la CI.
+- [x] **F-29a — MINEUR.** Vérifier que cette garde est effectivement appelée par la CI et pas seulement couverte par des tests unitaires.
 
 ## 3. Contrôles morts, non câblés ou trop permissifs
 
