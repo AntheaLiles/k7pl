@@ -27,6 +27,8 @@
 
 ## À ratifier (appliquées, non confirmées)
 
+| `ARB-PR-04` / PR-54 | statut des résultats de cohérence | ratification : `thm:coherence_axiome`, `thm:action_parallele`, `thm:morphismes_modes` et `thm:substitution` sont des propositions ; `thm:coherence_usage` est une proposition distincte | PR #54, séance C des 7–8 octobre 2026 |
+
 | | Décision appliquée | À confirmer |
 |---|---|---|
 | `ARB-PR-03` | effets à portée : `ℰ_alg` et `ℰ_scoped` nommés, clôture **faible** sur le second, le monoïde ℳ gardé | que `BIB-01` (*Hefty Algebras*) reste non instruit tant que le besoin de modularité n'est pas établi |
