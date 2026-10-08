@@ -13,7 +13,7 @@ k7pl est un langage de programmation en cours de conception, avec une spécifica
 - `src/` est la source de l'implémentation Lean.
 - `tests/` contient les contrôles exécutables.
 - `docs/` contient le suivi, les décisions, les audits et les matériaux de recherche.
-- `archives/` conserve l'ancien manuscrit et l'ancien outillage ; ne pas les modifier pour corriger la version courante.
+- `docs/archives/` conserve l'ancien manuscrit et l'ancien outillage ; ne pas les modifier pour corriger la version courante.
 
 Une affirmation dans la spécification, une définition Lean, une preuve et un test sont des objets différents. Ne jamais les considérer comme interchangeables.
 
