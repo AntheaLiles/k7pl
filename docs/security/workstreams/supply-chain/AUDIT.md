@@ -249,7 +249,7 @@ Sources lues **au SHA épinglé** (`raw.githubusercontent.com/<repo>/<sha>/…`,
 
 **Faits observés**
 
-- `release.yaml:118-196` ; `scripts/sync_zenodo.py` ; `CITATION.cff:13` (`doi: "10.5281/zenodo.23040451"`) ; `README.md:11-13, 68-69` ; `CONTRIBUTING.md:90-99` ; `.github/workflows/README.md:123-125` ; `docs/suivi/DASHBOARD.md:181` (cite encore `lean.yaml`, job `zenodo` : documentation périmée).
+- `release.yaml:118-196` ; `scripts/sync_zenodo.py` ; `CITATION.cff:13` (`doi: "10.5281/zenodo.23040451"`) ; `README.md:11-13, 68-69` ; `CONTRIBUTING.md:90-99` ; `.github/workflows/README.md:123-125` ; `docs/tracking/DASHBOARD.md:181` (cite encore `lean.yaml`, job `zenodo` : documentation périmée).
 - **Origine du DOI non établie par le dépôt** : le DOI figure dans `CITATION.cff` et `README.md` depuis le commit `05aa321` (2026-10-01), alors que le seul run de release (2026-09-29) a échoué *avant* toute étape Zenodo et que `zenodo-state` n'a jamais existé. Les badges Software Heritage et le « SWHID de la release » ont été ajoutés le 2026-10-05 par `61e916e` (auteur « Claude ») avec le message « Ce SWHID est celui de la release spec-v0.0.0-alpha.1 », **sans source ni contrôle**.
 - Vérification partielle : `swh:1:dir:b81695cf…` (README l. 13) **≠** l'arbre git du tag (`git rev-parse dcd65a9^{tree}` = `87a04386…`). Les identifiants de répertoire SWH sont calculés comme des arbres git ; l'écart n'est donc pas un simple défaut de format. J'ai testé quatre enveloppes de type archive GitHub (`AntheaLiles-k7pl-dcd65a9`, nom long, `k7pl-spec-v0.0.0-alpha.1`, `k7pl-v0.0.0-alpha.1`) : aucune ne reproduit `b81695cf` (`scratchpad/scA-swh.py`). **Non concluant** (le contenu archivé par SWH est celui de l'enregistrement Zenodo, d'origine inconnue). Zenodo, doi.org et SWH sont refusés par le proxy : **non vérifiable ici**.
 - `zenodo-state` : **absente** (`git ls-remote --heads origin`) → `sync_zenodo.py:187-193` : « First publication: new record » → nouveau dépôt Zenodo et **nouveau DOI de concept**.
@@ -380,9 +380,9 @@ git tag [-s] spec-vX.Y.Z && git push origin spec-vX.Y.Z        (humain)
 - **Permissions** : les jobs qui exécutent du code Lean/TeX restent en `contents: read` ; seule l'étape de brouillon porte `contents: write`, `id-token: write`, `attestations: write` (et plus `artifact-metadata`). Le job Zenodo n'a plus besoin de `contents: write` (plus de branche d'état) : `contents: read`. Un brouillon créé avec `GITHUB_TOKEN` ne déclenche pas de workflow ; la publication par l'humain déclenche `release: published` (comportement décrit par la documentation GitHub des événements, **non testé** ici : ESTIMÉ).
 - **Job Zenodo** : il ne reconstruit plus rien ; il dépose **les octets de l'asset publié**, après `verify-asset` et `attestation verify`. L'état (`zenodo-state`) disparaît au profit d'un identifiant de concept déclaré dans le dépôt (§3.9) ; le DOI de **concept** (stable) est celui à citer dans `CITATION.cff`, parce que le DOI de **version** n'existe qu'après la release.
 - **Tags** : une règle de tag (`spec-v*`, `v*` : création, mise à jour, suppression restreintes) protège la fenêtre « tag poussé / release non publiée », seule période où le tag est déplaçable (réglage GitHub). Un tag erroné non publié se supprime ; **après publication**, il est verrouillé et son nom n'est plus réutilisable.
-- **Documents à aligner** (vague 2) : `CONTRIBUTING.md` (procédure « pousser le tag, relire le brouillon, publier »), `.github/workflows/README.md`, `SECURITY.md` (procédure de vérification du §4). `docs/suivi/DASHBOARD.md:181` cite encore `lean.yaml` (hors de mon périmètre).
+- **Documents à aligner** (vague 2) : `CONTRIBUTING.md` (procédure « pousser le tag, relire le brouillon, publier »), `.github/workflows/README.md`, `SECURITY.md` (procédure de vérification du §4). `docs/tracking/DASHBOARD.md:181` cite encore `lean.yaml` (hors de mon périmètre).
 
-**Pré-requis avant toute première release** (décisions humaines, §8) : élucider le DOI `23040451` et l'intégration GitHub de Zenodo ; confirmer que l'immuabilité est active ; faire une répétition (brouillon supprimé, Zenodo *sandbox*) ; la porte P6 de `docs/suivi/DASHBOARD.md:155` prévoit une décision explicite pour la première version publiée.
+**Pré-requis avant toute première release** (décisions humaines, §8) : élucider le DOI `23040451` et l'intégration GitHub de Zenodo ; confirmer que l'immuabilité est active ; faire une répétition (brouillon supprimé, Zenodo *sandbox*) ; la porte P6 de `docs/tracking/DASHBOARD.md:155` prévoit une décision explicite pour la première version publiée.
 
 **Statut** : PREPARED (conception). Non testé : la création d'un brouillon avec assets puis sa publication sur ce dépôt n'a pas pu être essayée (aucune écriture en vague 1) ; le comportement « upload sur release immuable publiée = refus » repose sur la documentation GitHub, **non reproduit** (HTTP exact non observé).
 
@@ -418,7 +418,7 @@ git tag [-s] spec-vX.Y.Z && git push origin spec-vX.Y.Z        (humain)
 | O3 | `ci.yaml:57` : `grep -Eq` avec `\\.` dans une chaîne entre apostrophes : le motif exige une barre oblique inverse littérale ; **reproduit** (`scratchpad/scA-regex.sh`) : ne reconnaît pas `lakefile.lean`, `lake-manifest.json`, `.github/dependabot.yml`, `scripts/sync_zenodo.py`, `scripts/requirements-zenodo.txt` (reconnaît `lean-toolchain`, `.github/workflows/`, `scripts/ci/`). **Sans effet aujourd'hui** : `scripts/ci/impact.py:14-22` (`FULL_EXACT`) force déjà la vérification complète pour ces chemins. Code mort trompeur, domaine CI | corriger ou supprimer le `grep` | FUTURE (autre domaine) |
 | O4 | `actionlint` en `version: latest` ; images Docker par tag (`fsfe/reuse:6`, `node:20.16.0-alpine3.20`, `scorecard-action:v2.4.4`) | fixer la version d'actionlint ; documenter le reste en risque accepté | FUTURE |
 | O5 | Politique GitHub « SHA obligatoire » et liste d'actions autorisées non vérifiables | réglage | HUMAN ACTION REQUIRED |
-| O6 | `CHANGELOG.md:54` mentionne « LuaLaTeX » (le PDF est compilé par Tectonic, moteur XeTeX) ; `docs/suivi/DASHBOARD.md:181` cite `lean.yaml` | corrections documentaires | FUTURE (hors périmètre) |
+| O6 | `CHANGELOG.md:54` mentionne « LuaLaTeX » (le PDF est compilé par Tectonic, moteur XeTeX) ; `docs/tracking/DASHBOARD.md:181` cite `lean.yaml` | corrections documentaires | FUTURE (hors périmètre) |
 | O7 | Remplacer `lean-action` (elan seul) par un téléchargement épinglé dans `verify.yaml` | gain partiel (toolchain non vérifiée par elan) | FUTURE |
 
 ## 8. Actions humaines (procédure exacte, comment vérifier)
@@ -468,7 +468,7 @@ git tag [-s] spec-vX.Y.Z && git push origin spec-vX.Y.Z        (humain)
 | `.github/workflows/README.md` | releases, intégrité, Zenodo | **tous** |
 | `docs/security/workstreams/supply-chain/{CHANGES,VALIDATION}.md` | prévus par la définition de l'agent | — |
 
-**Ne seront pas touchés par moi** : `README.md`, `CITATION.cff`, `CHANGELOG.md`, `spec/**`, `src/**`, `tests/**`, `docs/suivi/**` (décisions humaines ou frontière).
+**Ne seront pas touchés par moi** : `README.md`, `CITATION.cff`, `CHANGELOG.md`, `spec/**`, `src/**`, `tests/**`, `docs/tracking/**` (décisions humaines ou frontière).
 
 ## 11. Contradictions et chevauchements avec les autres domaines
 
@@ -482,7 +482,7 @@ git tag [-s] spec-vX.Y.Z && git push origin spec-vX.Y.Z        (humain)
 
 ## 12. Points touchant `spec/`, `src/` ou la sémantique (frontière)
 
-- Rien dans cet audit ne modifie ni ne propose de modifier `spec/`, `src/`, `tests/`. La publication Zenodo est la **publication du manuscrit** : son déclenchement relève de l'auteur (« ne rien modifier sans l'accord de l'auteur » ; porte P6, `docs/suivi/DASHBOARD.md:155`).
+- Rien dans cet audit ne modifie ni ne propose de modifier `spec/`, `src/`, `tests/`. La publication Zenodo est la **publication du manuscrit** : son déclenchement relève de l'auteur (« ne rien modifier sans l'accord de l'auteur » ; porte P6, `docs/tracking/DASHBOARD.md:155`).
 - Le contrôle de release lit `spec/CHANGELOG.md` (section `## [X.Y.Z]`) : tout changement de ce fichier est une décision de l'auteur.
 - **À signaler à `consistency-auditor` et à l'auteur (spec ↔ Lean ; non tranché)** : `zenodo.json` (description : « chaque exemple de code est compilé contre l'implémentation de référence ») et `CITATION.cff` (abstract : « vérifiée par Lean 4 contre son implémentation de référence (Mathlib, CSLib) ») affirment un lien spécification ↔ implémentation. Dans ce que j'ai lu, `spec/` et `tools/` n'importent que `VersoManual`, `SpecExt`, `SpecBib` : **aucune référence à `K7pl`, `Mathlib` ou `Cslib`** (`grep`). Ces métadonnées seront figées de façon irréversible par Zenodo ; leur exactitude n'est pas établie par ce que j'ai observé. Je ne propose aucune modification.
 - L'attestation du PDF ne dit **rien** de la vérité des énoncés de la spécification (§3.7, point 6).
