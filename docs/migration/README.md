@@ -15,7 +15,7 @@ NOT STARTED → IN PROGRESS → UNDER REVIEW → VALIDATED.
 
 ## L0 — Corpus freeze and inventory
 
-L0 is established by the reproducible inventory generator in scripts/inventory_legacy.py. Its mechanically derived fields must be regenerated from the Git working tree rather than manually maintained.
+L0 is not yet established on the current branch. `docs/migration/LEGACY-INVENTORY.md` is only the generator placeholder until `scripts/inventory_legacy.py` has been executed against the migration corpus; it must then be committed as the generator output.
 
 ## L1 — tracking/ extraction
 
