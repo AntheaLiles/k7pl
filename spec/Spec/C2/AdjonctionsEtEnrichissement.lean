@@ -141,7 +141,7 @@ Les instances du procédé de gradation, et la structure ordonnée de chacune
   * Structure ordonnée
   * Ce que la contrainte dit
 * * usage
-  * le semi-anneau des grades
+  * le semi-anneau d'usage
   * combien de fois une ressource est employée
 * * monotonie
   * l'ordre à deux points
@@ -177,9 +177,12 @@ _mode_ — une algèbre, un idéal de contraction, un booléen d'affaiblissement
 structurelles admissibles plutôt qu'une contrainte sur les liaisons ; et la _zone_ y ajoute un ordre
 propre. Ce sont les paramètres du procédé, non ses produits.
 
-Ce que ce tableau établit n'est pas une économie d'écriture, c'est la _portée_ de la condition de
-clôture. Une extension qui réclamerait une dixième modalité ne demanderait rien de neuf — il lui
-suffirait de nommer sa structure ordonnée. C'est ce que la distribution a fait, et c'est pourquoi
+Ce que ce tableau établit n'est pas une économie d'écriture, c'est la _portée syntaxique_ de la
+condition de clôture. Une extension qui réclamerait une dixième modalité n'a pas besoin d'un nouveau
+constructeur de la théorie noyau pour la porter dans la grammaire. En revanche, si cette modalité
+participe aux opérations graduées, elle doit fournir les structures d'ordre, d'action et de morphisme
+requises par les règles qui l'emploient. C'est cette distinction entre clôture syntaxique et clôture
+algébrique qui manque aux formulations antérieures, et c'est pourquoi
 elle a pu entrer sans quatrième place dans le jugement.
 
 Deux instances suffisent à montrer que la forme est la bonne. La monotonie est la modalité sur
@@ -304,14 +307,25 @@ Le _temps_ est la quatrième : une modalité sur l'ordre linéaire des instants,
 (§{num "sec:c4-echelle-du-systeme"}[]) tire les calendriers de la couche 2. Quatre structures
 ordonnées, quatre modalités, un seul procédé — c'est la forme que prend ici la condition de clôture.
 
-Que le grade soit un produit n'est pas un pari de ce document. Composer plusieurs structures de
-gradation en munissant le produit de l'ordre _point par point_ est une construction standard des
-systèmes gradués, employée précisément pour combiner des analyses indépendantes en une seule {cite "liepeltSameCoeffectDifferent2026"}[].
-Les lois de comonade graduée y passent parce que chaque coordonnée les satisfait et que les
-opérations sont définies coordonnée par coordonnée. Ce qui vaut ici du grade vaut de l'algèbre des
-effets, dont le chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) fait un produit par le même
-geste.
+Que le grade complet soit un produit n'est pas un pari de ce document. La construction du produit
+de structures graduées autorise à raisonner coordonnée par coordonnée sur l'ordre, comme le font les
+systèmes gradués pour combiner plusieurs analyses indépendantes {cite "liepeltSameCoeffectDifferent2026"}[].
+Mais cette construction ne donne pas automatiquement une seule algèbre homogène : dans K7PL, la
+composante d'usage vit dans $`\mathcal{R}=\mathbb{Q}_{\geq0}\cup\{\omega\}`, la monotonie dans
+une chaîne discrète, le niveau dans $`\mathcal{L}` et le budget dans $`\mathcal{B}=\mathbb{N}_\infty`.
+Le porteur complet $`\mathcal{G}=\mathcal{R}\times\mathcal{M}\times\mathcal{L}\times\mathcal{B}`
+est donc un produit hétérogène. L'ordre produit est défini composante par composante, mais les
+opérations et l'action d'un scalaire doivent être spécifiées séparément pour chaque facteur.
 
+Cette précision devient indispensable pour la mise à l'échelle. Les règles du chapitre 3 écrivent
+$`r\cdot\Delta` comme si un grade complet était un scalaire. Or une action globale
+$`\mathcal{R}\times\mathcal{G}\to\mathcal{G}` n'est pas encore définie : l'usage admet des
+rationnels positifs tandis que le budget est porté par $`\mathbb{N}_\infty`. Une multiplication
+par un scalaire rationnel ne reste donc pas dans le budget actuel sans une convention supplémentaire.
+Les facteurs de monotonie et de niveau ne sont pas davantage des modules ; leur action attendue
+doit être l'identité si telle est bien l'intention du calcul. La loi de mise à l'échelle et les
+preuves qui en dépendent sont par conséquent conditionnelles à cette définition d'action. Ce point
+est une obligation de fond, non une question de notation.
 Une conséquence en découle, et elle porte sur ce qu'un développeur peut écrire. Un produit de
 structures ordonnées est plus _large_ que l'ensemble des grades qu'un programme peut effectivement
 former, et pour une raison de fond : les coordonnées ne croissent pas au même rythme. La contraction
