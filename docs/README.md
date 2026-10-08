@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 Documentation is organized around the information a reader needs, rather than around the historical production process.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-06  
+**Last updated:** 2026-10-08  
 **Audience:** researchers, reviewers, contributors, and readers who need to understand the current K7PL project.
 
 ## Understand K7PL
@@ -49,6 +49,6 @@ See [migration/](migration/README.md) for the controlled migration register and 
 
 The current human navigation path is:
 
-README.md → ARCHITECTURE.md → RESEARCH.md / spec/ → ASSURANCE.md → STATUS.md
+Repository `README.md` → `docs/ARCHITECTURE.md` → `docs/RESEARCH.md` / `spec/` → `docs/ASSURANCE.md` → `docs/STATUS.md`
 
 This path is an entry point, not a replacement for the normative specification or the detailed evidence held in the supporting registers.
