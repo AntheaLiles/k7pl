@@ -5,6 +5,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Document provenance
 
+**Last updated:** 2026-10-08
+
 This page is the current reader-facing provenance entry point for the K7PL repository.
 
 The migration preserves three distinct things: source provenance, current documentation, and historical evidence. Physical relocation does not by itself change scientific status, and historical records are not rewritten merely to make their language or terminology current.
