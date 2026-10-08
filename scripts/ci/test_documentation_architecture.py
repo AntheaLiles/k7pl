@@ -59,15 +59,20 @@ class DocumentationArchitectureTests(unittest.TestCase):
         path.write_text("# K7PL Documentation\nSee docs/archives/.\n", encoding="utf-8")
         self.assertEqual(check(self.root), [])
 
-    def test_root_archive_path_is_rejected(self):
+    def test_bare_archive_reference_is_allowed(self):
         path = self.root / "docs/README.md"
-        path.write_text("# K7PL Documentation\nSee archives/.\n", encoding="utf-8")
-        self.assertTrue(any("archives/" in e for e in check(self.root)))
+        path.write_text("# K7PL Documentation\nHistorical material is kept in archives/.\n", encoding="utf-8")
+        self.assertEqual(check(self.root), [])
 
-    def test_legacy_reference_is_rejected(self):
+    def test_legacy_reference_in_link_is_rejected(self):
         path = self.root / "docs/README.md"
-        path.write_text("# K7PL Documentation\nSee docs/suivi/.\n", encoding="utf-8")
+        path.write_text("# K7PL Documentation\nSee [the old tracker](docs/suivi/README.md).\n", encoding="utf-8")
         self.assertTrue(any("obsolete path reference" in e for e in check(self.root)))
+
+    def test_security_audit_historical_reference_is_allowed(self):
+        path = self.root / "docs/security/AUDIT.md"
+        path.write_text("# Audit\nHistorical reviews were under `docs/relectures/`.\n", encoding="utf-8")
+        self.assertEqual(check(self.root), [])
 
     def test_non_english_entry_point_is_rejected(self):
         path = self.root / "docs/PROVENANCE.md"
