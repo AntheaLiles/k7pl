@@ -28,7 +28,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | R3 | `4deacdf` | `.github/workflows/zenodo.yaml` (nouveau), `scripts/sync_zenodo.py`, `scripts/ci/test_sync_zenodo.py` |
 | — | (ce commit) | `CHANGES.md` et `VALIDATION.md` |
 
-Fichiers modifiés : uniquement ceux du périmètre. Aucun fichier de `spec/`, `src/`, `tests/`, `.claude/`, `docs/suivi/`, ni `ci.yaml`, `verify.yaml`, `zenodo.json`, `zenodo.files.json`, `lakefile.lean`, `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`, `.github/workflows/README.md`.
+Fichiers modifiés : uniquement ceux du périmètre. Aucun fichier de `spec/`, `src/`, `tests/`, `.claude/`, `docs/tracking/`, ni `ci.yaml`, `verify.yaml`, `zenodo.json`, `zenodo.files.json`, `lakefile.lean`, `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`, `.github/workflows/README.md`.
 
 ## 2. R1 + R6 — `release.yaml`
 
@@ -158,7 +158,7 @@ Les identifiants H1, H5, H6, H7 et H9 reprennent la numérotation de l'audit (§
 - `.github/workflows/README.md` : sections « Releases » (flux brouillon, plus de publication après coup, essai par dispatch) et « Publication Zenodo et identifiants » (plus de `zenodo-state` ni de `contents: write`) ; mention du `cooldown` et de l'épinglage d'elan.
 - `CONTRIBUTING.md` (§ release, l. 90-99 d'après l'audit) : « pousser le tag, relire le brouillon, publier ».
 - `SECURITY.md` : procédure de vérification (AUDIT §4, **après** la première release vérifiée), liste des dépendances externes non épinglées (toolchain Lean, bundle TeX, images Docker), TOFU du hook.
-- `docs/suivi/DASHBOARD.md:181` cite encore `lean.yaml`.
+- `docs/tracking/DASHBOARD.md:181` cite encore `lean.yaml`.
 - Ne rien afficher (« DOI », « SWHID de la release », « reproductible », SLSA) avant les décisions D1/H3 et la première release attestée **et** vérifiée.
 
 ## 9. Ce qui n'a volontairement pas été fait
