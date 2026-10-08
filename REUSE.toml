@@ -66,7 +66,7 @@ SPDX-License-Identifier = "CC-BY-4.0"
 path = "docs/archives/outillage-org/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CC0-1.0"
+SPDX-License-Identifier = "CECILL-2.1"
 
 # Données bibliographiques : métadonnées réutilisables ; les décisions
 # bibliographiques restent documentaires.
