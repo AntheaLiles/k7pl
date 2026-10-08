@@ -1,6 +1,6 @@
 # PR-02 — plan de traitement
 
-> État au 30 septembre 2026. Les décisions D-1 (voie 2 : formaliser la couche 2) et D-3 (position intermédiaire, `ℰ_alg` / `ℰ_scoped`) ont depuis été tranchées ; l'avancement à jour est dans le [tableau de bord](../tracking/TABLEAU-DE-BORD.md).
+> État au 30 septembre 2026. Les décisions D-1 (voie 2 : formaliser la couche 2) et D-3 (position intermédiaire, `ℰ_alg` / `ℰ_scoped`) ont depuis été tranchées ; l'avancement à jour est dans le [tableau de bord](/tracking/DASHBOARD.md).
 
 30 septembre 2026. Six relectures, un méta-relecteur, trois études annexes,
 **127 fiches**. Ce document ne refait pas leur travail : il dit dans quel ordre
