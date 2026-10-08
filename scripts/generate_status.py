@@ -13,6 +13,11 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--output", default="docs/STATUS.md")
     p.add_argument("--verification", default=os.environ.get("K7PL_VERIFICATION", "unknown"))
+    p.add_argument("--impact-result", default=os.environ.get("K7PL_IMPACT_RESULT", "unknown"))
+    p.add_argument("--verify-result", default=os.environ.get("K7PL_VERIFY_RESULT", "unknown"))
+    p.add_argument("--reuse-result", default=os.environ.get("K7PL_REUSE_RESULT", "unknown"))
+    p.add_argument("--commitlint-result", default=os.environ.get("K7PL_COMMITLINT_RESULT", "unknown"))
+    p.add_argument("--security-result", default=os.environ.get("K7PL_SECURITY_RESULT", "unknown"))
     a = p.parse_args()
     commit = sh("git", "rev-parse", "HEAD")
     date = sh("git", "show", "-s", "--format=%cI", "HEAD")
@@ -26,6 +31,13 @@ def main():
     tests = sh("bash", "-lc", "find tests -type f -name '*.lean' | wc -l")
     spec = sh("bash", "-lc", "find spec -type f -name '*.lean' | wc -l")
     verification = a.verification.upper()
+    ci_results = {
+        "Impact analysis": a.impact_result.upper(),
+        "Verification aggregate": a.verify_result.upper(),
+        "REUSE": a.reuse_result.upper(),
+        "Conventional Commits": a.commitlint_result.upper(),
+        "Security": a.security_result.upper(),
+    }
     generated = datetime.datetime.fromisoformat(date.replace("Z", "+00:00")).date().isoformat()
     lines = [
         "<!-- GENERATED CONTENT START -->",
@@ -48,10 +60,12 @@ def main():
         "",
         "| Fact | Status |",
         "|---|---|",
-        "| Verification gate | " + verification + " |",
-        "| Lean build, tests, lint, and axiom audit | " + verification + " |",
-        "| Specification build and rendering | " + verification + " |",
-        "| Repository, documentation, and security checks | " + verification + " |",
+        "| Verification gate (CI OK aggregate) | " + verification + " |",
+        "| Impact analysis | " + ci_results["Impact analysis"] + " |",
+        "| Verification aggregate (impact scope) | " + ci_results["Verification aggregate"] + " |",
+        "| REUSE | " + ci_results["REUSE"] + " |",
+        "| Conventional Commits | " + ci_results["Conventional Commits"] + " |",
+        "| Security | " + ci_results["Security"] + " |",
         "",
         "CI success means that the configured checks ran for the applicable impact scope; it does not establish correctness of every scientific claim.",
         "",
