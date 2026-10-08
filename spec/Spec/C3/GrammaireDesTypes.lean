@@ -110,15 +110,15 @@ Le quatrième porte sur le facteur temporel de l'effet, et il rectifie ce que ce
 Le niveau étiquette l'effet sur ses deux composantes. Un facteur temporel réduit à un entier nu ne
 peut pas porter simultanément le travail et la profondeur ; la forme normative est donc une famille
 de couples
-$`\\kappa \\in (\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty)^{\\mathcal L}`$ indexée par les niveaux,
-un $`\\mathbf{tick}`$ étant compté au niveau du calcul qui le produit. L'ordre reste celui du produit,
+$`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`$ indexée par les niveaux,
+un $`\mathbf{tick}`$ étant compté au niveau du calcul qui le produit. L'ordre reste celui du produit,
 point par point ; le séquencement additionne les couples composante par composante ; la mise en
-parallèle additionne les travaux et prend le maximum des profondeurs ; l'itération $`\\varphi_n`$
+parallèle additionne les travaux et prend le maximum des profondeurs ; l'itération $`\varphi_n`$
 multiplie chaque composante par $`n`$.
 
 Cette forme rend explicite la décision du noyau : le parallélisme appartient à l'algèbre des effets,
 et non à une nouvelle composante du grade. Le budget reste une annotation de contexte ; sa relation
-avec les deux composantes temporelles est traitée séparément par $`Cost_{\\mathcal B}`$.
+avec les deux composantes temporelles est traitée séparément par $`Cost_{\mathcal B}`$.
 
 ::::thm (label := "thm:temps_mononiveau")
 :::title
@@ -131,16 +131,16 @@ Une généralisation qui ne coûte rien où elle ne sert pas
 Si tous les $`\mathbf{tick}`$ d'un calcul sont produits à un même niveau $`\ell`$, la famille
 $`\kappa`$ est concentrée en $`\ell`$, et la restriction de $`\mathcal{E}`$ aux tels effets est
 isomorphe, comme quantale ordonnée, à
-$`\mathcal{E}_0 \\times (\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty)`$.
+$`\mathcal{E}_0 \times (\mathbb{N}_\infty\times\mathbb{N}_\infty)`$.
 :::
 
 :::proofsketch
-L'application $`\kappa \\mapsto \\kappa(\\ell)`$ est une bijection entre les familles concentrées
-en $`\\ell`$ et $`\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty`$, d'inverse
-$`(w,s) \\mapsto \\langle w,s\\rangle \\delta_{\\ell}`$. Elle préserve l'addition et l'ordre,
-définis point par point, ainsi que la multiplication scalaire de $`\\varphi_n`$.
+L'application $`\kappa \mapsto \kappa(\ell)`$ est une bijection entre les familles concentrées
+en $`\ell`$ et $`\mathbb{N}_\infty\times\mathbb{N}_\infty`$, d'inverse
+$`(w,s) \mapsto \langle w,s\rangle \delta_{\ell}`$. Elle préserve l'addition et l'ordre,
+définis point par point, ainsi que la multiplication scalaire de $`\varphi_n`$.
 Elle est donc un isomorphisme de quantales ordonnées sur ce sous-ensemble, lequel est clos par
-produit et par borne supérieure puisque la concentration en $`\\ell`$ l'est.
+produit et par borne supérieure puisque la concentration en $`\ell`$ l'est.
 :::
 ::::
 
