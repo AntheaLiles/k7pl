@@ -365,14 +365,14 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   il est l'identité partout sauf en un point, et ce point est celui qui compte. L'usage, la
 monotonie et le niveau traversent l'effet inchangés ; le _budget_, lui, en sort diminué de ce que
 l'effet a consommé. Comme la composante temporelle normative est une famille de couples
-$`\\kappa : \\mathcal{L}\\to(\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty)`$, la notation scalaire
+$`\kappa : \mathcal{L}\to(\mathbb{N}_\infty\times\mathbb{N}_\infty)`$, la notation scalaire
 $`k`$ employée dans les règles doit être comprise comme l'abréviation
-$`k = \\operatorname{Cost}_{\\mathcal B}(\\kappa)`$, avec
-$`\\operatorname{Cost}_{\\mathcal B} :
-(\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty)^{\\mathcal L} \\rightharpoonup \\mathbb{N}_\\infty`$ encore à définir.
-La consommation s'écrit donc provisoirement $`\\beta \\ominus k`$.
+$`k = \operatorname{Cost}_{\mathcal B}(\kappa)`$, avec
+$`\operatorname{Cost}_{\mathcal B} :
+(\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L} \rightharpoonup \mathbb{N}_\infty`$ encore à définir.
+La consommation s'écrit donc provisoirement $`\beta \ominus k`$.
 C'est la seule cellule où l'effet modifie la demande, et c'est aussi la seule où la soustraction
-peut échouer : un budget insuffisant rend $`\\lambda`$ indéfinie, et la règle qui en dérive refuse
+peut échouer : un budget insuffisant rend $`\lambda`$ indéfinie, et la règle qui en dérive refuse
 alors la composition au lieu de la payer.
 
 Ces appariements se lisent mieux rassemblés, et ils sont peu nombreux.
@@ -471,7 +471,7 @@ l'algèbre des effets. Il faudrait alors y trouver une partie commutative — le
 sans égard à l'ordre, quand les effets se séquencent — et donc caractériser le centre d'une
 structure qui n'a pas été construite pour cela. K7PL prend l'autre voie, qui est celle qu'emploie la
 littérature dès que plusieurs dimensions de coût coexistent : $`\mathcal{E}` est un _produit_,
-$`\mathcal{E}_0 \\times (\\mathbb{N}_\\infty \\times \\mathbb{N}_\\infty)^{\\mathcal L}`, dont le premier facteur garde le produit non commutatif
+$`\mathcal{E}_0 \times (\mathbb{N}_\infty \times \mathbb{N}_\infty)^{\mathcal L}`, dont le premier facteur garde le produit non commutatif
 du séquencement et dont le second est une famille de couples _travail/profondeur_, l'ordre et les
 opérations se prenant niveau par niveau {cite "mannucciResourceBoundedTypeTheory2025"}[]. Les deux
 lois ne se rencontrent jamais, puisqu'elles n'opèrent pas sur la même composante. Qu'une opération
