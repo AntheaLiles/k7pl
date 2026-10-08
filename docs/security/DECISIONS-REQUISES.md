@@ -22,7 +22,7 @@ Les extraits de texte proposés en annexe sont des **propositions de rédaction*
 - **Options.** (a) Garder l'intégration native de Zenodo et supprimer la publication par la CI. (b) Garder la publication par la CI
   (`zenodo.yaml`) et désactiver l'intégration native. (c) Rester dans le flou : à écarter.
 - **Recommandation.** Ouvrir l'enregistrement, noter s'il s'agit du DOI de concept ou de version et ce qu'il contient, regarder si
-  l'intégration est active, puis choisir **un seul** canal et consigner la décision dans `docs/suivi/DECISIONS.md`. Répéter d'abord
+  l'intégration est active, puis choisir **un seul** canal et consigner la décision dans `docs/tracking/DECISIONS.md`. Répéter d'abord
   sur le sandbox Zenodo.
 - **Conséquence.** `zenodo.yaml` refuse de publier tant que la variable `ZENODO_CONCEPT_RECID` n'est pas renseignée (entier, ou
   `NEW` pour créer explicitement un nouveau concept). Un DOI publié est irréversible.
@@ -184,7 +184,7 @@ le jour où elle est publiée.
 > **Gouvernance de k7pl.** k7pl est porté par une seule personne, Cyprien PIERRE (compte GitHub `AntheaLiles`), qui décide du
 > contenu, fusionne les changements et publie les versions. Toute proposition non triviale (changement du langage, nouvelle
 > dépendance) est discutée dans une issue avant d'être implémentée. Les décisions de fond sont consignées dans
-> `docs/suivi/DECISIONS.md`. Le manuscrit de la spécification ne se modifie qu'avec l'accord de l'autrice.
+> `docs/tracking/DECISIONS.md`. Le manuscrit de la spécification ne se modifie qu'avec l'accord de l'autrice.
 >
 > Des agents d'assistance (Claude Code) rédigent, proposent et vérifient des changements. **Ils ne constituent pas une revue
 > indépendante.** [À conditionner : « Ils n'approuvent ni ne fusionnent rien », vrai seulement si la restriction de la décision D3
