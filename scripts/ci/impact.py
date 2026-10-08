@@ -107,6 +107,7 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
         full = True
 
     if full:
+        tracking_views = True
         docs_links = True
         spec_check = True
         spec_build = True
