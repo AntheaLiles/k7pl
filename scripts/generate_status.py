@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 from pathlib import Path
-import argparse, datetime, os, subprocess
+import argparse, datetime, os, re, subprocess
 
 from controles import couverture
 
@@ -24,9 +24,9 @@ def main():
     toolchain = Path("lean-toolchain").read_text().strip()
     version = "unknown"
     lake = Path("lakefile.lean").read_text()
-    marker = 'version := "'
-    if marker in lake:
-        version = lake.split(marker, 1)[1].split('"', 1)[0]
+    match = re.search(r'version\\s*:=\\s*v!"([^"]+)"', lake)
+    if match:
+        version = match.group(1)
     src = sh("bash", "-lc", "find src -type f -name '*.lean' | wc -l")
     tests = sh("bash", "-lc", "find tests -type f -name '*.lean' | wc -l")
     spec = sh("bash", "-lc", "find spec -type f -name '*.lean' | wc -l")
