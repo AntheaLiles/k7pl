@@ -79,12 +79,9 @@ def _infer_locations(message: str) -> list[Location]:
     return locations
 
 
-def _emit_error(message: str, location: Location | None = None) -> None:
-    """Emit a global or source-anchored GitHub error annotation."""
+def _emit_error(message: str, location: Location) -> None:
+    """Emit a source-anchored GitHub error annotation."""
     if not github:
-        return
-    if location is None:
-        print("::error title=controle.py::" + _escape(message))
         return
 
     fields = [
@@ -132,9 +129,6 @@ def ko(
     if locations:
         for location in locations[:10]:
             _emit_error(message, location)
-        return
-
-    _emit_error(message)
 
 
 def ok(message: str) -> None:
