@@ -1,6 +1,6 @@
 # K7PL — plan de reprise et de réalisation
 
-> Archivé le 2026-10-01 : ce document décrit l'état du 8 septembre 2026 et a été remplacé par [le tableau de bord](../tracking/TABLEAU-DE-BORD.md). Il est conservé pour la trace, tel qu'écrit alors ; les noms de fichiers et les commandes qu'il cite désignent l'ancien arbre de travail (Org-mode).
+> Archivé le 2026-10-01 : ce document décrit l'état du 8 septembre 2026 et a été remplacé par [le tableau de bord](/tracking/DASHBOARD.md). Il est conservé pour la trace, tel qu'écrit alors ; les noms de fichiers et les commandes qu'il cite désignent l'ancien arbre de travail (Org-mode).
 
 8 septembre 2026. Établi sur l'état mesuré du dépôt, non sur `meta/plan.org`,
 qui date du 2 septembre et se dit lui-même en retard sur le travail.
