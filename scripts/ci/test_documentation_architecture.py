@@ -74,7 +74,7 @@ class DocumentationArchitectureTests(unittest.TestCase):
         self.assertTrue(any("obsolete path reference" in e for e in check(self.root)))
 
     def test_security_audit_historical_reference_is_allowed(self):
-        path = self.root / "docs/security/AUDIT.md"
+        path = self.root / "docs/security/workstreams/cii/AUDIT.md"
         path.write_text("# Audit\nHistorical reviews were under `docs/relectures/`.\n", encoding="utf-8")
         self.assertEqual(check(self.root), [])
 
