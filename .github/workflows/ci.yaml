@@ -32,6 +32,7 @@ jobs:
       spec_build: ${{ steps.impact.outputs.spec_build }}
       lean_build: ${{ steps.impact.outputs.lean_build }}
       python_tests: ${{ steps.impact.outputs.python_tests }}
+      tracking_views: ${{ steps.impact.outputs.tracking_views }}
       unclassified: ${{ steps.impact.outputs.unclassified }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -73,6 +74,7 @@ jobs:
       spec_build: ${{ needs.impact.outputs.spec_build == 'true' }}
       lean_build: ${{ needs.impact.outputs.lean_build == 'true' }}
       python_tests: ${{ needs.impact.outputs.python_tests == 'true' }}
+      tracking_views: ${{ needs.impact.outputs.tracking_views == 'true' }}
       deploy_pages: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.impact.outputs.spec_build == 'true' }}
 
   reuse:
