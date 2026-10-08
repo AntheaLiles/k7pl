@@ -1,0 +1,17 @@
+{
+  "problemMatcher": [
+    {
+      "owner": "k7pl-lean-spec-warning",
+      "pattern": [
+        {
+          "regexp": "^(.+):(\\d+):(\\d+):\\s+warning:\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": "warning",
+          "message": 4
+        }
+      ]
+    }
+  ]
+}
