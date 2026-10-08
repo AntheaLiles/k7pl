@@ -16,7 +16,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 - Quatre sceaux de preuve sont rétrogradés explicitement au statut `proposition` (`thm:coherence_axiome`, `thm:action_parallele`, `thm:morphismes_modes`, `thm:substitution`) ; le résultat `thm:coherence_usage` est introduit comme proposition distincte pour la loi d'action d'usage.
 
-- L'index (§8.7) imprime les pages du PDF (et les sections dans le HTML) des trente et un termes, reconnus dans le texte à la génération ; l'interface du HTML est en français (`ANOM-09`, `ANOM-10` ; décision de l'auteur). La liste des termes quitte la page pour `tools/SpecExt/IndexTerms.lean`.
+- L'index (§8.7) contient les trente et un termes du manuscrit et leur liste canonique est portée par `tools/SpecExt/IndexTerms.lean`. La génération reconnaît ces termes dans le texte ; les pages du PDF et l'interface HTML restent des points distincts de l'indexation (`ANOM-09`, `ANOM-10`).
 
 - L'annexe E (présentation formelle) est fondue dans le manuscrit : grammaires et règles de typage au chapitre 3, sémantique opérationnelle et sortes du métalangage au chapitre 4, table des glyphes au chapitre 1. Les annexes restantes sont A à D.
 - §1.2 : le choix d'une famille modale et graduée comme socle est écrit, avec son motif.
