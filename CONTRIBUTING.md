@@ -37,7 +37,7 @@ pip install reuse && reuse lint
 5. Le check `CI OK` doit passer. Il agrège l'analyse d'impact, les contrôles ciblés selon les
    fichiers modifiés (Lean : compilation, tests, lint, audit des axiomes ; spécification :
    contrôles, compilation, rendu), REUSE, Conventional Commits, actionlint et gitleaks.
-6. Fusion par **rebase** (historique linéaire). Les contrôles de build vérifient la tête de la pull
+6. Fusion selon le ruleset GitHub : l'historique linéaire est requis, mais le dépôt n'impose pas une méthode particulière (merge, rebase ou squash). Les contrôles de build vérifient la tête de la pull
    request, pas chaque commit pris isolément ; `commitlint`, lui, les lit tous.
 
 Ne jamais réécrire l'historique d'une branche partagée (pas de force-push sur
@@ -82,8 +82,9 @@ pas à l'identique.
   règles de rédaction), issues et pull requests.
 - **Anglais** : code source Lean (identifiants, docstrings, commentaires),
   messages affichés par le code, workflows et scripts.
+- **Bilingue** : messages de commit, selon le contexte, à condition de respecter
+  Conventional Commits ; aucune langue n'est imposée par la CI.
 
-Les messages de commit sont en français (voir les exemples des règles de rédaction).
 
 ## Preuves et axiomes
 
