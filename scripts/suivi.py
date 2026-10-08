@@ -7,12 +7,11 @@
     python3 scripts/suivi.py check      # the status table covers exactly the review cards
     python3 scripts/suivi.py fiches     # docs/tracking/FICHES-PR02.md
     python3 scripts/suivi.py enonces    # docs/tracking/correspondance-enonces.md
-    python3 scripts/suivi.py dashboard  # refreshes the generated blocks of TABLEAU-DE-BORD.md
     python3 scripts/suivi.py all
 
 Human-maintained inputs: `docs/tracking/fiches-statuts.csv` (one row per card: status, confidence,
 proof, note) and the prose of the dashboard. What is produced: every count, every register.
-The cards themselves (titles, findings) live in `docs/peer-review/pr-02/taches-consolidees.md`.
+The cards themselves (titles, findings) live in `docs/peer-review/pr-02/taches-consolidees.md`. DASHBOARD.md is a navigation view and is not generated.
 """
 
 from __future__ import annotations
@@ -207,20 +206,6 @@ def refresh_block(text: str, name: str, body: str) -> str:
     return pat.sub(lambda m: f"<!-- BEGIN:{name} -->\n{body}\n<!-- END:{name} -->", text)
 
 
-def dashboard() -> None:
-    path = TRACKING / "TABLEAU-DE-BORD.md"
-    text = path.read_text(encoding="utf-8")
-    text = refresh_block(text, "mesures", mm.md_summary())
-    text = refresh_block(text, "fiches", lot_summary())
-    st = mm.statements()
-    openr = [r for r in st if r["statut"] in ("proposition", "conjecture", "exigence")]
-    lines = ["| Label | Status | Level | Section | References |", "|---|---|---|---|--:|"]
-    for r in openr:
-        lines.append(f"| `{r['label']}` | {STATUS_LABELS.get(r['statut'], r['statut'])} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | §{r['section']} | {r['renvois']} |")
-    text = refresh_block(text, "ouverts", "\n".join(lines))
-    write(path, text)
-
-
 def main() -> int:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     if cmd == "check":
@@ -231,9 +216,7 @@ def main() -> int:
         write(TRACKING / "FICHES-PR02.md", render_fiches())
     if cmd in ("enonces", "all"):
         write(TRACKING / "correspondance-enonces.md", render_enonces())
-    if cmd in ("dashboard", "all"):
-        dashboard()
-    if cmd not in ("check", "fiches", "enonces", "dashboard", "all"):
+    if cmd not in ("check", "fiches", "enonces", "all"):
         print(__doc__)
         return 2
     return 0
