@@ -18,16 +18,35 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from controles import algebre, couverture, croise, notation, semantique, structure  # noqa: E402
+from controles import algebre, couverture, croise, indexation, notation, semantique, structure  # noqa: E402
 from controles import journal  # noqa: E402
 from controles.journal import failures  # noqa: E402
 
+
+def _lexical_guard() -> None:
+    """Reject the three lexical regressions previously observed in Verso sources."""
+    import re
+
+    spec_root = Path(__file__).resolve().parent.parent / "spec"
+    errors = []
+    for path in sorted(spec_root.rglob("*.lean")):
+        source = path.read_text(encoding="utf-8")
+        if source.count("```") % 2:
+            errors.append(f"{path}: odd number of fenced-code delimiters")
+        if re.search(r"\$(?:\\`|\\\\`)", source):
+            errors.append(f"{path}: legacy Verso math delimiter")
+        for match in re.finditer(r"`([^`\n]*)`", source):
+            if "\\\\" in match.group(1):
+                errors.append(f"{path}: double backslash inside inline span")
+    for error in errors:
+        journal.ko(error)
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--format", choices=("text", "github"), default="text")
     journal.github = parser.parse_args().format == "github"
-    for module in (structure, algebre, notation, croise, semantique, couverture):
+    _lexical_guard()
+    for module in (structure, algebre, notation, croise, semantique, couverture, indexation):
         name = module.__name__.rsplit(".", 1)[-1]
         journal.group(name)
         module.run()
