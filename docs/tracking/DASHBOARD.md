@@ -11,7 +11,7 @@ This is the current entry point for project tracking. It answers what is current
 
 - [Project status](../STATUS.md) — generated CI and repository facts.
 - [Project master plan](PROJECT-MASTER-PLAN.md) — active scientific and release workstreams.
-- [Theoretical-object register](../migration/L1-THEORY-OBJECTS.md) — current C-stage object and boundary analysis.
+- [L1 migration qualification register](../migration/L1-SUIVI.md) — current C-stage object and boundary analysis.
 - [Specification ↔ Lean traceability](correspondance-enonces.md) — current lexical traceability view.
 - [Obligations](registre-obligations.md) — open statements and dependency obligations.
 
