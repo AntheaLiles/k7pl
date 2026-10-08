@@ -158,7 +158,7 @@ Les identifiants H1, H5, H6, H7 et H9 reprennent la numérotation de l'audit (§
 - `.github/workflows/README.md` : sections « Releases » (flux brouillon, plus de publication après coup, essai par dispatch) et « Publication Zenodo et identifiants » (plus de `zenodo-state` ni de `contents: write`) ; mention du `cooldown` et de l'épinglage d'elan.
 - `CONTRIBUTING.md` (§ release, l. 90-99 d'après l'audit) : « pousser le tag, relire le brouillon, publier ».
 - `SECURITY.md` : procédure de vérification (AUDIT §4, **après** la première release vérifiée), liste des dépendances externes non épinglées (toolchain Lean, bundle TeX, images Docker), TOFU du hook.
-- `docs/suivi/TABLEAU-DE-BORD.md:181` cite encore `lean.yaml`.
+- `docs/suivi/DASHBOARD.md:181` cite encore `lean.yaml`.
 - Ne rien afficher (« DOI », « SWHID de la release », « reproductible », SLSA) avant les décisions D1/H3 et la première release attestée **et** vérifiée.
 
 ## 9. Ce qui n'a volontairement pas été fait
