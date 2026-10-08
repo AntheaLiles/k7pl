@@ -38,19 +38,18 @@ l'évite pas par la petitesse de son treillis mais parce que ses types dépendan
 n'exposent que des indices exclus du suivi de ressource.
 
 {rmq}[Ce document a employé le même mot pour deux objets distincts. La section s'ouvre donc sur le
-vocabulaire plutôt que de le laisser flotter.] Un _grade_ est un élément de l'algèbre, porté par une
-_liaison_. C'est le $`r` de $`x :_r V`, et il dit combien de fois et à quelles conditions cette
-liaison-ci sera employée. Une _modalité_ est un sous-ensemble distingué de cette algèbre, porté par
+vocabulaire plutôt que de le laisser flotter.] Un _grade_ est une annotation portée par une liaison. C'est le $`r` de $`x :_r V`, et il dit combien de fois
+et à quelles conditions cette liaison-ci sera employée. Les opérations algébriques qui portent cette
+annotation restent celles que l'architecture des grades doit préciser. Une _modalité_ est un sous-ensemble distingué de cette algèbre, porté par
 un _type_ : c'est le $`\text{Lin}`, $`\text{Aff}` ou $`\text{Unr}` qui dit dans quel fragment un
 type vit. Un grade est une valeur, une modalité est un domaine de valeurs — et une liaison porte un
 grade qui appartient à la modalité de son type. Les confondre reviendrait à confondre un nombre et
 l'ensemble où il vit, ce qui passe inaperçu tant que l'ensemble est unique et cesse de passer dès
 qu'il y en a trois.
 
-Le chapitre 2 a établi $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` comme trois catégories emboîtées
-par restriction des règles structurelles. Ce que cette section ajoute, c'est que ces fragments sont
-des sous-ensembles distingués d'un même semi-anneau de grades, et que le grade lui-même quantifie
-précisément combien de fois, ou quelle fraction d'accès, une ressource peut être exercée.
+La distinction des fragments du chapitre 2 porte sur des sous-domaines d'usage du porteur `𝒢`. Ce que cette
+section ajoute, c'est que ces domaines syntaxiques sont distingués par leurs bornes d'usage, tandis que
+l'annotation complète reste un quadruplet dans `𝒢` et ne se confond pas avec le seul semi-anneau d'usage.
 
 Ces sous-ensembles sont des _intervalles_, et les écrire ainsi corrige une imprécision que la
 notation par singletons entretenait. Une modalité dit ce qu'une ressource _peut_ subir, non ce
@@ -94,70 +93,78 @@ Les quatre modalités d'usage comme quatre intervalles d'une seule construction
 :::
 ::::
 
-Trois choses se lisent sur cette table que trois singletons ne portaient pas. La première est qu'il
-n'y a pas quatre définitions mais _une_ construction et quatre instances, obtenues en croisant deux
-booléens — l'affaiblissement est-il permis, la contraction l'est-elle. La deuxième est que le
-quatrième cas existe et porte un nom : $`\text{Rel}`, pour _pertinent_, au sens de la logique de la
-pertinence — une ressource qu'on peut dupliquer mais pas abandonner, ce qui est la discipline d'une
-obligation qu'il faut honorer au moins une fois. Ce document ne l'emploie pas aujourd'hui, et le
-nommer coûte moins que de laisser croire que trois cas épuisent la construction. La troisième est
-que l'ordre $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` est l'_inclusion_ des intervalles (et non le sous-typage $`\preccurlyeq` ni l'ordre de précision $`\sqsubseteq`), et
-non une relation posée à côté d'eux~; $`\text{Rel}` s'y insère entre $`\text{Lin}` et $`\text{Unr}`
-sans être comparable à $`\text{Aff}`. Cela fait de l'ordre un treillis à quatre éléments plutôt
-qu'une chaîne à trois — et c'est la forme que la littérature graduée emploie {cite "orchardQuantitativeProgramReasoning2019"}[].
+Le tableau précédent décrit les strates d'usage admises par la syntaxe. Il ne constitue pas, à lui
+seul, une définition des modes structurels. Cette distinction est indispensable : un intervalle
+d'usage peut être utile pour classifier les grades acceptés par une syntaxe sans être fermé par les
+opérations de l'algèbre de grades, et il ne peut alors pas être pris comme une algèbre de mode.
 
-Cette identification a une conséquence que le document a jusqu'ici employée sans la démontrer. Poser
-les trois fragments comme trois sous-ensembles d'un même $`\mathcal{R}` ne dit pas encore que la
-chaîne de sous-typage est _dérivable_ : il faut, pour cela, exhiber les morphismes qui la
-produisent. La littérature sur l'unification des systèmes gradués et sous-structurels donne le cadre
-et la condition. Un _mode_ y est la donnée d'une algèbre de grades, d'un idéal de contraction et
-d'un booléen d'affaiblissement. Un morphisme de modes est une application qui envoie tout grade
-contractable de la source sur un contractable du but et propage l'affaiblissement vers l'avant {cite "hanukaevUnificationGradedSubstructural2026"}[].
+Les quatre strates d'usage sont
 
-::::thm (label := "thm:morphismes_modes")
+$$`U_{\mathrm{Lin}}=[1..1],\qquad
+U_{\mathrm{Aff}}=[0..1],\qquad
+U_{\mathrm{Rel}}=[1..\omega],\qquad
+U_{\mathrm{Unr}}=[0..\omega].`
+
+Elles vérifient
+
+$$`U_{\mathrm{Lin}}\subseteq U_{\mathrm{Aff}}\subseteq U_{\mathrm{Unr}},
+\qquad U_{\mathrm{Lin}}\subseteq U_{\mathrm{Rel}}\subseteq U_{\mathrm{Unr}}`
+
+et $`U_{\mathrm{Aff}}` et $`U_{\mathrm{Rel}}` sont incomparables. Ces inclusions sont des faits
+ensemblistes sur les annotations d'usage. Elles ne sont ni la relation de sous-typage
+$`\preccurlyeq`, ni l'ordre de précision $`\sqsubseteq`.
+
+Pour raisonner sur les permissions structurelles, la définition de Hanukaev et Eades doit être
+utilisée explicitement {cite "hanukaevUnificationGradedSubstructural2026"}[] : un mode est un triplet
+$`(R_m,\mathrm{Cont}(m),\mathrm{Weak}(m))`, où $`R_m` est une algèbre de grades,
+$`\mathrm{Cont}(m)` un idéal de grades contractables et $`\mathrm{Weak}(m)` un booléen.
+Sur le porteur commun $`\mathcal{R}` de K7PL, une réalisation structurelle candidate est
+
+$$`\begin{aligned}
+M_{\mathrm{Lin}} &= (\mathcal{R},\{0\},\mathrm{false}), &
+M_{\mathrm{Aff}} &= (\mathcal{R},\{0\},\mathrm{true}),\\
+M_{\mathrm{Rel}} &= (\mathcal{R},\mathcal{R},\mathrm{false}), &
+M_{\mathrm{Unr}} &= (\mathcal{R},\mathcal{R},\mathrm{true}).
+\end{aligned}`
+
+::::thm (label := "thm:morphismes_modes") (status := "proposition")
 :::title
-la chaîne modale est une chaîne de morphismes de modes
+ordre structurel des modes
 :::
 
 :::statement +titled
-Les modalités d'usage sont des modes, et leurs inclusions des morphismes
+Sous cette instanciation, les identités du porteur de grades réalisent les morphismes
 
-Les modalités sont les modes portés par les intervalles de $`\mathcal{R}` de la
-table {num "tab:modalites-intervalles"}[], et toute inclusion d'intervalles entre elles est un
-morphisme de modes. La relation $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` est la traduction
-qu'induisent les inclusions $`[1..1] \subset [0..1] \subset [0..\omega]`, et elle est donc _dérivée_
-et non axiomatisée.
+$$`M_{\mathrm{Lin}}\to M_{\mathrm{Aff}},\qquad
+M_{\mathrm{Lin}}\to M_{\mathrm{Rel}},\qquad
+M_{\mathrm{Aff}}\to M_{\mathrm{Unr}},\qquad
+M_{\mathrm{Rel}}\to M_{\mathrm{Unr}}.`
+
+Les comparaisons $`M_{\mathrm{Aff}}\to M_{\mathrm{Rel}}` et
+$`M_{\mathrm{Rel}}\to M_{\mathrm{Aff}}` ne sont pas des morphismes de modes.
 :::
 
 :::proofsketch
-Les contractables de $`\text{Lin}` et de $`\text{Aff}` forment l'ensemble vide, aucun de $`1` ni de
-$`0` n'admettant la contraction ; la première condition est donc satisfaite _videment_ pour les deux
-inclusions. La seconde l'est par monotonie du booléen d'affaiblissement le long de la chaîne :
-$`\text{Lin}` ne l'admet pas, $`\text{Aff}` l'admet par disponibilité de $`0`, $`\text{Unr}` l'admet
-_a fortiori_.
+Chaque identité conserve l'algèbre de grades et son ordre. Les inclusions requises pour
+$`\mathrm{Cont}` sont respectivement $`\{0\}\subseteq\{0\}`,
+$`\{0\}\subseteq\mathcal{R}`, $`\{0\}\subseteq\mathcal{R}` et
+$`\mathcal{R}\subseteq\mathcal{R}`. La condition d'affaiblissement autorise uniquement
+le passage de `false` à `true`, ce qui donne les quatre flèches indiquées.
+Dans le sens $`\mathrm{Aff}\to\mathrm{Rel}`, l'affaiblissement ne se préserve pas ; dans le
+sens $`\mathrm{Rel}\to\mathrm{Aff}`, les grades contractables de $`\mathcal{R}` ne sont pas
+envoyés dans $`\{0\}`. L'incomparabilité est donc structurelle.
 
-_Et la structure est un treillis, non une chaîne, dès qu'on compte les quatre modes._ Le quatrième,
-$`\text{Rel} = [1..\omega]`, admet la contraction et refuse l'affaiblissement : l'inclusion
-$`[1..1] \subset [1..\omega]` est un morphisme — première condition vide, seconde satisfaite, aucun
-des deux n'admettant l'affaiblissement — et $`[1..\omega] \subset [0..\omega]` en est un aussi. Mais
-$`\text{Aff}` et $`\text{Rel}` ne sont _pas_ comparables, et le voir dit ce que chaque condition
-interdit : dans un sens l'affaiblissement passerait de permis à interdit, ce que la seconde
-condition refuse ; dans l'autre, un grade contractable devrait s'envoyer sur un contractable d'un
-mode qui n'en a aucun, ce que la première refuse. Les deux conditions du morphisme de modes sont
-donc l'une et l'autre _actives_, et la chaîne à trois éléments que ce document emploie est le
-fragment totalement ordonné d'un treillis à quatre. Il faut alors dire ce que le langage atteint : les modes _atteignables_ par les opérations de dérivation sont $`\{\text{Lin}, \text{Aff}, \text{Unr}\}`, aucune règle ne produisant $`\text{Rel}`. Ce mode est un grade mathématiquement admissible, non effectivement générable ; la distinction est celle que le document applique ailleurs aux produits de grades, et elle reste à démontrer par examen des règles de production de grades.
-
-Un corollaire mérite d'être tiré plutôt que laissé implicite, car il explique une facilité que ce
-document s'est permise. Un morphisme de modes induit en général une traduction qui n'est pas
-l'identité sur les types et les termes, ceux-ci portant des annotations de grade qu'il faut
-transporter le long du morphisme. Ici les morphismes sont des _inclusions de sous-ensembles d'un
-même_ $`\mathcal{R}` : les traductions induites sont donc des identités sur le grade, et il n'y a
-rien à transporter. C'est pourquoi la chaîne s'écrit partout comme du pur sous-typage sans qu'aucune
-annotation ne soit jamais convertie — ce qui était correct, mais pour une raison qui n'était pas
-écrite.
+Cette proposition est conditionnelle à la réalisation candidate. Il reste à vérifier que les
+règles de typage de K7PL et leur jugement mettent effectivement en œuvre ces permissions. Elle
+ne permet donc pas de déduire directement le sous-typage des intervalles d'usage.
 :::
 ::::
 
+Le statut précis de la chaîne Lin–Aff–Unr est ainsi double : c'est une chaîne de modes structurels
+sous l'instanciation candidate, et une chaîne d'inclusions des strates syntaxiques. Ces deux lectures
+coïncident sur l'ordre de souplesse, mais elles ne sont pas le même objet mathématique. Le quatrième
+cas Rel est comparable à Lin et Unr au niveau des modes, sans être comparable à Aff ; il reste
+absent des règles de production syntaxique actuelles de K7PL.
 Ce mot de _mode_ demande d'être situé, faute de quoi ce document paraîtrait seul de son espèce alors
 qu'il ne l'est pas. Un cadre général existe, dont ce chapitre est une instance : un calcul des
 séquents paramétré par une _théorie des modes_, où le contexte obéit aux propriétés structurelles
