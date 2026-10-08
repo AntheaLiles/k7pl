@@ -92,3 +92,13 @@ path = ".github/lean-problem-matcher.json"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CECILL-2.1"
+
+# CI annotation policy and native problem matchers (JSON: no comments allowed).
+[[annotations]]
+path = [
+  ".github/annotation-policy.json",
+  ".github/lean-spec-warning-problem-matcher.json"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CECILL-2.1"
