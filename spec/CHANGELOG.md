@@ -49,7 +49,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Changed
 
-- Anomalies corrigées : lettres d'annexes écrites en dur remplacées par des renvois ; étiquettes d'annexes sans lettre ; en-tête et colonne « Route » du tableau des engagements ; trois couches rétablies au glossaire ; étiquette `fig:comp-process` ; commentaires d'auteur retirés du texte (`docs/recherche/commentaires-du-manuscrit.md`).
+- Anomalies corrigées : lettres d'annexes écrites en dur remplacées par des renvois ; étiquettes d'annexes sans lettre ; en-tête et colonne « Route » du tableau des engagements ; trois couches rétablies au glossaire ; étiquette `fig:comp-process` ; commentaires d'auteur retirés du texte (`docs/research/commentaires-du-manuscrit.md`).
 
 - Les chapitres d'exemple (`Introduction`, `Expressions`) sont remplacés par le manuscrit.
 - Titre aligné sur la spécification Org-mode : « K7PL : KonSept Programming Language ».
