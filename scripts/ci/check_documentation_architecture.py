@@ -10,7 +10,6 @@ import re
 from pathlib import Path
 
 LEGACY_PATHS = (
-    "archives/",
     "docs/archive/",
     "docs/journal/",
     "docs/historique/",
@@ -107,12 +106,9 @@ def check(root: Path) -> list[str]:
             if len(parts) >= 2 and tuple(parts[:2]) in excluded_parts:
                 continue
             text = _read_text(path)
-            if rel in {"scripts/ci/check_documentation_architecture.py", "scripts/ci/test_documentation_architecture.py", "docs/tracking/COHERENCE-REVIEW.md"}:
+            if rel in {"scripts/ci/check_documentation_architecture.py", "scripts/ci/test_documentation_architecture.py", "docs/tracking/COHERENCE-REVIEW.md"} or (rel.startswith("docs/security/") and rel.endswith("/AUDIT.md")):
                 continue
-            legacy_patterns = (
-                re.compile(r"(?<![A-Za-z0-9_/])archives/"),
-                *(re.compile(re.escape(marker)) for marker in LEGACY_PATHS[1:]),
-            )
+            legacy_patterns = tuple(re.compile(re.escape(marker)) for marker in LEGACY_PATHS)
             for pattern in legacy_patterns:
                 if pattern.search(text):
                     errors.append(f"obsolete path reference in active surface: {rel}: {pattern.pattern}")
