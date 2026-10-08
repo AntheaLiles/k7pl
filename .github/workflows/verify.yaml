@@ -67,6 +67,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Check documentation architecture
+        run: python3 scripts/ci/check_documentation_architecture.py
+
       - name: Check the specification
         if: ${{ inputs.full || inputs.spec_check }}
         run: python3 scripts/controle.py --format github
