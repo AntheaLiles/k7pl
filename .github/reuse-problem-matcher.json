@@ -1,0 +1,15 @@
+{
+  "problemMatcher": [
+    {
+      "owner": "k7pl-reuse",
+      "severity": "error",
+      "pattern": [
+        {
+          "regexp": "^(.+): ((?:bad license '.+'|deprecated license|license without file extension|unused license|missing license '.+'|read error|invalid SPDX License Expression '.+'|no license identifier|no copyright notice))$",
+          "file": 1,
+          "message": 2
+        }
+      ]
+    }
+  ]
+}
