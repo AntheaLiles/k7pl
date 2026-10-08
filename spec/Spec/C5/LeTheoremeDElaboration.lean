@@ -47,9 +47,10 @@ noyau ; elle n'introduit aucune variable libre et respecte les liaisons. Elle e
 du schéma de commutation (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
 théorème {num "thm:schema_commutation"}[]), qui donne
 $`\mathrm{Elab} \circ \text{subst} = \text{subst} \circ \mathrm{Elab}` : le sens ne dépend pas de
-l'ordre dans lequel on élabore et on substitue. La compatibilité de l'action graduée
-(théorème {num "thm:coherence_axiome"}[]) en donne la part quantitative, les grades de la forme de
-surface se transportant sur ceux du terme sans se relâcher.
+l'ordre dans lequel on élabore et on substitue. La partie quantitative relève du lemme de substitution et de l'action de mise à l'échelle
+factorisée $`\operatorname{Scale}_{\mathrm{Usage}}`. Les formes qui effectuent explicitement une
+ré-invocation finie ajoutent leur obligation propre sur $`\varphi_n` ; cette obligation ne peut être
+étendue par défaut aux grades complets ni aux usages rationnels.
 :::
 ::::
 
