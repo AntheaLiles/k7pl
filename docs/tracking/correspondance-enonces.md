@@ -68,7 +68,7 @@ Generated view from `spec/`. The number is the global statement counter in docum
 | 59 | 23 | `thm:staticite_syntaxe` | theorem | language | staticité de la syntaxe | §5.2 | 1 |
 | 60 | 24 | `thm:hygiene` | theorem | language | hygiène des expansions | §5.2 | 1 |
 | 61 | — | `thm:hygiene_graduee` | proposition | language | hygiène graduée des expansions | §5.2 | 0 |
-| 62 | — | `thm:resucrage` | requirement | langage | préservation de l'α-équivalence de surface | §5.2 | 0 |
+| 62 | — | `thm:resucrage` | requirement | language | préservation de l'α-équivalence de surface | §5.2 | 0 |
 | 63 | — | `thm:elaboration` | definition | language | élaboration | §5.3 | 2 |
 | 64 | 25 | `thm:expansion_macro` | theorem | language | la règle d'expansion est dérivable | §5.4 | 3 |
 | 65 | — | `thm:stabilisation_pipeline` | theorem | language | stabilisation du pipeline | §6.1 | 0 |
