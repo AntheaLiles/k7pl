@@ -111,6 +111,9 @@ jobs:
       - name: Check that every Lean file is built
         run: python3 scripts/ci/check_lean_modules.py
 
+      - name: Register the Lean problem matcher
+        run: echo "::add-matcher::.github/lean-problem-matcher.json"
+
       - name: Build the implementation and the tests
         run: lake build K7pl K7plTests
 
@@ -225,6 +228,9 @@ jobs:
         with:
           path: .lake/packages
           key: lake-deps-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
+
+      - name: Register the Lean problem matcher
+        run: echo "::add-matcher::.github/lean-problem-matcher.json"
 
       - name: Build the specification
         run: lake build Spec
