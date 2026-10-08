@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # K7PL — Project Master Plan
 
 **Status:** ACTIVE PLANNING  
-**Snapshot:** 2026-10-07  
+**Snapshot:** 2026-10-08  
 **Scope:** scientific/formal workstreams A–J and documentation architecture
 
 This document is the project-level execution map. It does not replace the detailed registers, decision logs, theoretical-object register, assurance case, or documentation-migration plan.
@@ -49,7 +49,7 @@ Therefore:
 | H — Spec ↔ Lean traceability | PARTIAL | scripts/controles/couverture.py | semantic traceability established |
 | I — implementation conformance | OPEN | IMPL obligations / ASSURANCE.md | bounded conformance claim with evidence |
 | J — release / PDF / Zenodo | NOT STARTED | release gate P6 | real release path exercised and reproducible |
-| Documentation architecture | IN PROGRESS | this branch / DOC-D0–D8 | physical tree reorganized; validation and residual language work remain |
+| Documentation architecture | DONE | #58 + #60; D8 validated | physical architecture closed; semantic migration remains tracked separately in docs/migration/ |
 
 Current main baseline: 91dfa388a81f7e472d60859b5117d3c61a6ed67d.
 
@@ -392,9 +392,7 @@ A green verification gate establishes execution of configured checks; it does no
 
 The documentation chantier is not an eleventh scientific phase.
 
-The detailed architecture plan is:
-
-docs/suivi/DOCUMENTATION-ARCHITECTURE-PLAN.md
+The physical architecture programme is closed. Its final historical record is [2026-10-08-documentation-architecture-plan.md](../history/2026-10-08-documentation-architecture-plan.md); active semantic migration remains under [docs/migration/](../migration/).
 
 Its target information architecture is:
 
@@ -426,92 +424,21 @@ The epistemic distinction is fixed as:
 - research: active exploratory knowledge;
 - migration: controlled migration records.
 
-PR #55 establishes this architecture plan without moving or rewriting existing documentation.
+PR #55 established the target ontology; #58 performed the physical reorganization and #60 completed the controlled D7/D8 documentation pass.
 
-## 16. Documentation execution phases
+## 16. Documentation closure
 
-The prefix DOC avoids confusion with scientific workstream D.
+The physical migration is complete. The former DOC-D0–D8 execution queue is retained in the historical architecture record and is no longer an active work queue.
 
-### DOC-D0 — Freeze and inventory
+Current rule:
 
-- freeze the current documentation tree;
-- inventory legacy paths;
-- find incoming/outgoing references;
-- identify scripts and CI dependencies;
-- identify generated files and generators;
-- produce file-level classification.
+- physical tree and generated entry points are closed under #58/#60;
+- historical and archived provenance remains immutable unless explicitly reopened;
+- semantic migration lots remain active under docs/migration/;
+- current tracking is maintained in docs/tracking/;
+- the dashboard is DASHBOARD.md and is a navigation surface, not a generated fact table.
 
-**Dependency:** immediate.
-
-### DOC-D1 — Ratify target ontology
-
-- ratify archives versus history;
-- ratify tracking versus history;
-- ratify peer-review as the unique review-evidence location;
-- ratify target English names;
-- define current/historical/archived/generated/obsolete precisely.
-
-**Dependency:** DOC-D0.
-
-### DOC-D2 — Archives
-
-Reconcile root archives/ with docs/archive/, audit path dependencies, then migrate only when frozen artefacts remain reproducible.
-
-**Dependency:** DOC-D0–D1.
-
-### DOC-D3 — History
-
-Classify and merge journal/ and historique/ into history/, preserving dates and provenance.
-
-**Dependency:** DOC-D0–D1.
-
-### DOC-D4 — Peer review
-
-Consolidate relectures/ into peer-review/ without promoting reviewer evidence to normative status.
-
-**Dependency:** DOC-D0–D1.
-
-### DOC-D5 — Tracking extraction
-
-Classify suivi/ file by file. Some material may belong in history, research, assurance support, or archives rather than tracking.
-
-**Dependency:** DOC-D0–D4.
-
-### DOC-D6 — Remaining directory migration
-
-Move:
-
-- bibliographie → bibliography;
-- methode → method;
-- recherche → research;
-- suivi → tracking;
-- already classified peer-review/history material to their final homes.
-
-**Dependency:** classification complete.
-
-### DOC-D7 — English maintained documentation
-
-Rewrite maintained documentation in English only after its epistemic destination is stable.
-
-Historical and archived source material is not silently translated.
-
-**Dependency:** DOC-D2–D6.
-
-### DOC-D8 — Final documentation validation
-
-Validate:
-
-- repository documentation;
-- Verso build/rendering;
-- PDF;
-- generated status;
-- links;
-- provenance;
-- pre/post inventory;
-- no current obligation hidden in history/archives;
-- final docs/README.md.
-
-**Dependency:** late J-stage stabilization.
+The remaining documentation work is therefore maintenance and semantic extraction, not another directory migration.
 
 ## 17. Parallelism policy
 
@@ -590,15 +517,15 @@ Every missing link must be explicit.
 At the current snapshot:
 
 1. complete the review of #54 and merge only once its current head is green and its scientific scope is accepted;
-2. use the merged documentation-architecture plan as the migration baseline; the controlled physical reorganization is now in progress;
-3. continue the remaining C proof/interface obligations;
+2. continue the remaining C proof/interface obligations and open C8 statement-command taxonomy as a dedicated sub-workstream;
+3. do not reopen the completed physical documentation migration; use docs/migration/ only for the remaining semantic lots;
 4. open D only after the C exit gate is satisfied;
 5. execute E, then F;
 6. ratify G and close T-68;
 7. strengthen H from lexical coverage to semantic traceability;
 8. establish the bounded implementation-conformance case I;
 9. exercise J and P1–P6;
-10. finalize and validate the physical documentation migration (DOC-D8), then complete the remaining English-maintained-documentation pass.
+10. complete the semantic migration lots that remain justified, then maintain the closed physical architecture without recreating a migration work queue.
 
 If a stage exposes a new architectural dependency, stop the downstream progression and reclassify the dependency rather than silently carrying it forward.
 
@@ -610,11 +537,11 @@ Detailed evidence remains in:
 
 - docs/STATUS.md — generated repository/CI status;
 - docs/ASSURANCE.md — assurance case;
-- docs/suivi/DECISIONS.md — decisions and ratifications;
-- docs/suivi/FICHES-PR02.md — PR-02 tracking;
+- docs/tracking/DECISIONS.md — decisions and ratifications;
+- docs/tracking/FICHES-PR02.md — PR-02 tracking;
 - docs/suivi/registre-obligations.md — obligation inventory;
 - docs/migration/L1-THEORY-OBJECTS.md — theoretical-object boundaries;
-- docs/suivi/DOCUMENTATION-ARCHITECTURE-PLAN.md — documentation migration;
+- docs/history/2026-10-08-documentation-architecture-plan.md — completed physical documentation migration record;
 - scripts/controles/couverture.py — initial specification/Lean coverage infrastructure.
 
 The master plan should not duplicate theorem statements or historical session reports.
