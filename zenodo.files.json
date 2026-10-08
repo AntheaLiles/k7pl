@@ -1,7 +1,7 @@
 {
   "out/k7pl-spec.pdf": {
     "title": "K7PL - KonSept Programming Language's Specification",
-    "description": "Spécification du langage K7PL : syntaxe, sémantique et exemples vérifiés par Lean 4. Document généré à partir des sources Verso du dépôt.",
+    "description": "Spécification du langage K7PL : syntaxe, sémantique et formalisation contrôlée par Lean 4. Une implémentation en Lean 4 est présente, mais aucune couverture de couplage spécification-implémentation n'est actuellement revendiquée. Document généré à partir des sources Verso du dépôt.",
     "keywords": [
       "K7PL",
       "specification",
