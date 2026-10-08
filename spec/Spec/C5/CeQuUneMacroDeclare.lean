@@ -65,9 +65,13 @@ $`\mathcal{E}` — _ce qu'elle produit_, et c'est ici qu'un piège attend. _Il y
 un._ L'effet de l'_expansion_ est vide : une macro ne peut ni lire un fichier, ni interroger le
 réseau, ni consulter l'horloge, et c'est ce qui rend l'expansion reproductible. L'effet du _code
 produit_ ne l'est pas. Confondre les deux reviendrait à confondre le lieu de la contrainte et le
-lieu du mécanisme. C'est le second qu'une interface déclare, et sa forme suit du premier point : si
-l'expansion emploie $`r` fois un argument d'effet $`\varepsilon`, le code produit porte
-$`\varphi_r(\varepsilon)` — _le transport d'effet, avec le même $`r`_.
+lieu du mécanisme. C'est le second qu'une interface déclare.
+
+Pour chaque métavariable $`x_i`, soit $`n_i = \operatorname{occ}_i(m)` le nombre d'occurrences
+effectives dans le corps. Le grade $`r_i` reste une _borne d'usage_ et sert à mettre le contexte
+de l'argument à l'échelle ; $`n_i` est, lui, un _compte syntaxique entier_ qui détermine combien
+de copies de son effet apparaissent dans le code produit. Ces deux nombres ne doivent pas être
+confondus.
 
 # La règle d'expansion, qui n'est pas une règle
 %%%
@@ -77,20 +81,18 @@ tag := "c5-ce-qu-une-macro-declare-la-regle-d-expansion-qui-n-est-pa"
 ::::formula (label := "eq:regle-expansion") (kind := "formule")
 ```
 \begin{equation*}
-\textsc{Expand}\;\frac{\;m : (x_i :_{r_i} \mathsf{AST}\,\Gamma\,A_i)_{i \leq n} \Rightarrow \mathsf{AST}\,(\Gamma,\overline{x})\,B \mid \varepsilon_{\mathrm{body}} \qquad \Delta_i \vdash t_i : A_i \mid \varepsilon_i\;}{\;\boxtimes_{i}\,(r_i \cdot \Delta_i) \;\vdash\; m(t_1,\ldots,t_n) : B \;\mid\; \varepsilon_{\mathrm{body}} \cdot \textstyle\prod_{i \in \mathrm{occ}(m)} \varphi_{r_i}(\varepsilon_i)\;}
+\textsc{Expand}\;\frac{\;m : (x_i :_{r_i} \mathsf{AST}\,\Gamma\,A_i)_{i \leq n} \Rightarrow \mathsf{AST}\,(\Gamma,\overline{x})\,B \mid \varepsilon_{\mathrm{body}} \qquad \Delta_i \vdash t_i : A_i \mid \varepsilon_i\;}{\;\boxtimes_{i}\,\operatorname{Scale}_{\mathrm{Usage}}(\pi_U(r_i),\Delta_i) \;\vdash\; m(t_1,\ldots,t_n) : B \;\mid\; \varepsilon_{\mathrm{body}} \cdot \varepsilon_{i_1}\cdot\ldots\cdot\varepsilon_{i_k}\;}
 \end{equation*}
 ```
 
 :::caption
-Typage d'une expansion de macro. Aucune de ses parties n'est nouvelle : le contexte est celui du
-lemme de substitution, l'effet celui du transport $`\varphi`. Le produit est celui de la quantale, non
-commutatif : $`\mathrm{occ}(m)` est la _suite_ des occurrences des métavariables dans l'ordre du
-corps, non l'ensemble des indices $`i \leq n`. $`\varepsilon_{\mathrm{body}}` est l'effet déclaré du
-code produit hors arguments ; l'effet de l'expansion elle-même, $`\varepsilon_{\mathrm{exp}} = \mathbf{1}`, est un lemme du bac à
-sable, non une déclaration.
+Typage d'une expansion de macro. On note $`\operatorname{Occ}(m)=(i_1,\ldots,i_k)` la suite des
+occurrences des métavariables dans l'ordre du corps. Le produit des effets d'arguments respecte cet
+ordre et est donc celui de la quantale, potentiellement non commutatif. $`\varepsilon_{\mathrm{body}}`
+est l'effet déclaré du code produit hors arguments ; l'effet de l'expansion elle-même,
+$`\varepsilon_{\mathrm{exp}} = \mathbf{1}`, est un lemme du bac à sable, non une déclaration.
 :::
 ::::
-
 ::::thm (label := "thm:expansion_macro")
 :::title
 la règle d'expansion est dérivable
@@ -99,32 +101,40 @@ la règle d'expansion est dérivable
 :::statement +titled
 Une macro n'ajoute rien au noyau
 
-La règle {sc}[Expand] n'est pas un axiome du système : elle se dérive du lemme de substitution
-(théorème {num "thm:substitution"}[]) appliqué $`n` fois, et sa cohérence est celle du
-théorème {num "thm:coherence_axiome"}[]. C'est l'instance du théorème d'élaboration
-(théorème {num "thm:elaboration"}[]) où la forme de surface est un appel de macro.
+La règle {sc}[Expand] n'est pas un axiome du système : elle se dérive du lemme de substitution
+(théorème {num "thm:substitution"}[]) appliqué à chaque occurrence du corps, puis de la composition
+séquentielle des effets dans l'ordre syntaxique des occurrences. La mise à l'échelle du contexte
+et la composition séquentielle des effets sont traitées séparément comme dans l'architecture factorisée.
+C'est
+l'instance du théorème d'élaboration (théorème {num "thm:elaboration"}[]) où la forme de surface
+est un appel de macro.
 :::
 
 :::proofsketch
-Une expansion _est_ une substitution : $`m(t_1,\ldots,t_n)` est le corps de $`m` où chaque
-métavariable $`x_i` a reçu $`t_i`. Le lemme de substitution donne, pour une variable, le contexte
-$`\Delta \boxtimes (r\cdot\Delta')` et l'effet $`\varepsilon(j)` ; itéré sur les $`n` métavariables,
-il donne le $`\boxtimes_i (r_i \cdot \Delta_i)` de la conclusion, le corps de la macro étant clos et
-son propre contexte donc nul.
+Une expansion est une suite de substitutions. Pour chaque occurrence du corps, le lemme de
+substitution fournit le contexte mis à l'échelle par le grade déclaré de la métavariable, après
+projection sur l'usage. Le regroupement des contextes selon chaque argument donne la composition
+des $`\operatorname{Scale}_{\mathrm{Usage}}(\pi_U(r_i),\Delta_i)` annoncée par la règle, parce que
+le grade déclaré borne les occurrences admises.
 
-Reste à savoir que la mise à l'échelle de chaque contexte va de pair avec celle de l'effet qu'il
-traverse : c'est $`r \cdot \psi(\Delta,\varepsilon) = \psi(r\cdot\Delta, \varphi_r(\varepsilon))`,
-et c'est ce qui justifie le $`\varphi_{r_i}(\varepsilon_i)` de la conclusion plutôt qu'un
-$`\varepsilon_i` nu. _Sans cette loi, une macro employée $`r` fois sous-facturerait son argument_,
-et la règle serait fausse pour la même raison que le lemme de substitution le serait.
+Sur les effets, si $`\operatorname{Occ}(m)=(i_1,\ldots,i_k)`, la substitution répétée produit
+$`\varepsilon_{i_1}\cdot\ldots\cdot\varepsilon_{i_k}`, précédé de
+$`\varepsilon_{\mathrm{body}}`. L'ordre syntaxique est conservé. Puisque la quantale est non
+commutative, il est en général incorrect de regrouper toutes les occurrences d'un même argument
+sous une puissance $`\varphi_{n_i}(\varepsilon_i)` : un tel regroupement demanderait une hypothèse
+supplémentaire de commutation ou une structure d'ordonnancement différente.
 
-_Ce que ce théorème vaut._ Il dit que le macro-système ne se paie d'aucun appareil : la condition de
-clôture du chapitre 1 — toute extension se projette sur les trois composantes sans altérer la
-sémantique — est vérifiée ici sur l'extension la plus lourde que le langage porte. Cette condition est suffisante, non nécessaire : une extension peut satisfaire les postulats sans s'y ranger, mais exige alors la révision de l'axiome. La compatibilité
-de l'action graduée (théorème {num "thm:coherence_axiome"}[]) y sert comme partout ailleurs.
+Le grade $`r_i` n'a donc pas besoin d'être transformé en multiplicité d'effet. La mise à l'échelle
+du contexte relève de $`\operatorname{Scale}_{\mathrm{Usage}}` ; l'effet du code produit résulte de
+la composition des effets effectivement introduits aux positions d'occurrence.
 :::
-::::
 
+_Ce que ce théorème vaut._ Il montre que l'expansion se déduit du noyau sans nouvelle règle primitive :
+la condition de clôture est portée par la substitution sur les contextes, tandis que les effets du
+code produit résultent de leur composition dans l'ordre des occurrences. Une extension qui introduirait
+un mécanisme différent de duplication ou d'ordonnancement devrait cependant fournir sa propre loi de
+transport d'effet.
+::::
 # Ce que le vérificateur contrôle avant expansion
 %%%
 tag := "c5-ce-qu-une-macro-declare-ce-que-le-verificateur-controle-a"
