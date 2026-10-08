@@ -45,7 +45,7 @@ Nature du document : **audit uniquement**. Aucun fichier du dépôt autre que ce
 |---|---|---|
 | `python3 scripts/ci/test_impact.py` | oui | 9 tests, OK (§2.3) |
 | `python3 scripts/controle.py` | oui | « TOUS LES CONTROLES PASSENT », code retour 0 |
-| `python3 scripts/suivi.py check` + `all` (dans une copie) | oui | 190 fiches ; aucune différence avec `docs/suivi/` (§8) |
+| `python3 scripts/suivi.py check` + `all` (dans une copie) | oui | 190 fiches ; aucune différence avec `docs/tracking/` (§8) |
 | `reuse lint` (reuse 6.2.0, installé par `pip`) | oui | conforme REUSE 3.3, 363/363 fichiers (§6) |
 | actionlint 1.7.12, zizmor 1.30.1 (hors ligne), bandit 1.9.4, ruff 0.16.10 | oui | sorties au §4 |
 | `lake build Spec`, `lake exe spec --with-tex` (Lean 4.34.0) | oui | protocole et résultats au §5 |
@@ -75,7 +75,7 @@ Chaque ligne : propriété visée → niveau → oracle → erreur détectable �
 | 11 | REUSE (`reuse.yaml`) | licences/droits d'auteur conformes → métadonnées | `fsfe/reuse-action` | fichier sans licence | toujours | version de `reuse` de l'action non vérifiée | VERIFIED (localement, reuse 6.2.0, §6) |
 | 12 | Conventional Commits (`commitlint.yaml`) | messages de commit conformes → processus | `wagoid/commitlint-github-action` | message non conforme | toujours | ne couvre pas le contenu | N/A (non exécuté) |
 | 13 | actionlint + gitleaks (`security.yaml`) | syntaxe des workflows ; absence de secrets | actionlint ; gitleaks | expression/typage de workflow invalide ; secret commité | toujours | actionlint : 0 constat à ma passe locale (§4.3) ; gitleaks non exécuté | VERIFIED (actionlint) / N/A (gitleaks) |
-| 14 | `scripts/suivi.py check/all` | vues dérivées de `docs/suivi/` à jour → documentaire | script Python | dérive entre `fiches-statuts.csv` et les vues générées | **absent de la CI** | exécuté par moi dans une copie : aucune différence aujourd'hui (§8 R6) | PARTIAL (hors CI) |
+| 14 | `scripts/suivi.py check/all` | vues dérivées de `docs/tracking/` à jour → documentaire | script Python | dérive entre `fiches-statuts.csv` et les vues générées | **absent de la CI** | exécuté par moi dans une copie : aucune différence aujourd'hui (§8 R6) | PARTIAL (hors CI) |
 | 15 | `ci-ok` + `verification-result` | agrégat requis par le ruleset (`CI OK`) | résultat des jobs | jobs en échec/annulés | toujours | repose sur la justesse du classifieur pour les `skipped` (§2.5) | VERIFIED (lu) |
 
 **Matrice chemin → validation lancée** (**[EXÉCUTÉ]** `qr/classify_matrix.py`, fonction `classify` réelle, un chemin à la fois ; en plus des jobs toujours actifs `impact`, `reuse`, `commitlint`, `security`) :
@@ -84,9 +84,9 @@ Chaque ligne : propriété visée → niveau → oracle → erreur détectable �
 |---|---|
 | `src/**`, `tests/**`, `scripts/axiom-audit.sh` | `impl` seul |
 | `spec/**` (y compris `spec/CHANGELOG.md`, `spec/figures/**`), `tools/**`, `biblio/**`, `scripts/controle.py`, `scripts/controles/**`, `scripts/manuscript_metrics.py` | `quick` (`controle.py`) + `spec` + `spec-pdf` |
-| `docs/suivi/primitives.md` | `quick` (`controle.py` + lychee) |
+| `docs/tracking/primitives.md` | `quick` (`controle.py` + lychee) |
 | tout autre `*.md` (README, CHANGELOG, CONTRIBUTING, `docs/**`, `.claude/**`, modèle de PR) | `quick` (lychee hors ligne seulement) |
-| `docs/**` non Markdown (dont `docs/suivi/fiches-statuts.csv`), `.claude/**` non Markdown (dont `.claude/settings.json`), `.github/ISSUE_TEMPLATE/**`, `LICENSES/**`, `CITATION.cff` | **aucun contrôle de `verify`** (seulement REUSE, commitlint, security) |
+| `docs/**` non Markdown (dont `docs/tracking/fiches-statuts.csv`), `.claude/**` non Markdown (dont `.claude/settings.json`), `.github/ISSUE_TEMPLATE/**`, `LICENSES/**`, `CITATION.cff` | **aucun contrôle de `verify`** (seulement REUSE, commitlint, security) |
 | `.github/workflows/**`, `.github/dependabot.yml`, `scripts/ci/**`, `lakefile.lean`, `lean-toolchain`, `lake-manifest.json`, `scripts/sync_zenodo.py`, `scripts/requirements-zenodo.txt`, tout chemin inconnu (`scripts/suivi.py`, `scripts/bump-lean.sh`, `.gitleaks.toml`, `REUSE.toml`, `.gitignore`, `zenodo*.json`, `archives/**`, `.github/CODEOWNERS`…) | `full` (tous les jobs) |
 
 Remarque : tout fichier **nouveau** d'un type non prévu est classé « inconnu » → `full`. Le classifieur est donc conservateur : l'erreur possible est la sous-validation d'un chemin explicitement classé léger ou partiel (lignes « aucun contrôle » et « `impl` seul » ci-dessus), non l'oubli d'un chemin nouveau.
@@ -160,7 +160,7 @@ grep-branch=no  | .gitleaks.toml / REUSE.toml / .commitlintrc.yaml / zenodo.json
 
 ### 2.4 Tests unitaires du classifieur
 
-**[EXÉCUTÉ]** `python3 scripts/ci/test_impact.py` → `Ran 9 tests in 0.000s — OK`. Ce que ces tests détectent : une régression de la logique pour `docs/*.md`, `.claude/*.md`, `src/`, `spec/`, `docs/suivi/primitives.md`, un chemin de workflow, un chemin inconnu, un mélange de surfaces, `--force-full`. Ce qu'ils ne détectent pas : la suppression d'un chemin de `FULL_EXACT` (il retomberait dans `unknown` → `full`, donc le test passerait quand même), l'enveloppe shell de `ci.yaml`, et la sémantique de `git diff` (base/head).
+**[EXÉCUTÉ]** `python3 scripts/ci/test_impact.py` → `Ran 9 tests in 0.000s — OK`. Ce que ces tests détectent : une régression de la logique pour `docs/*.md`, `.claude/*.md`, `src/`, `spec/`, `docs/tracking/primitives.md`, un chemin de workflow, un chemin inconnu, un mélange de surfaces, `--force-full`. Ce qu'ils ne détectent pas : la suppression d'un chemin de `FULL_EXACT` (il retomberait dans `unknown` → `full`, donc le test passerait quand même), l'enveloppe shell de `ci.yaml`, et la sémantique de `git diff` (base/head).
 
 ### 2.5 `ci-ok` et `verification-result`
 
@@ -300,7 +300,7 @@ sources (git, lake-manifest.json) ──lake build Spec──▶ .olean/.ilean/.
    release spec-v* : sha256sum + actions/attest (provenance) + gh release upload + Zenodo
 ```
 
-Aucune étape du dépôt ne recompile deux fois ni ne compare deux hachages : le dépôt n'affirme pas de **build** reproductible (**[EXÉCUTÉ]** `grep -i "reproducib|reproductib|déterministe|deterministic"` sur `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`, `.github/`, `docs/README.md` : une seule occurrence, `CHANGELOG.md:31`, « Conversion Org → Verso reproductible (`scripts/org2verso/`) »). Cette phrase vise le convertisseur historique Org → Verso, pas le build de la spécification ; aucun contrôle de CI ne l'étaye (et `spec/` s'édite désormais directement : les fichiers générés l'indiquent en tête) ; je ne l'ai pas testée. Les occurrences de « compilation reproductible » dans `docs/tracking/DASHBOARD.md` et `docs/suivi/registre-obligations.md` sont des **exigences sur le futur langage** (spécification), sans rapport avec la reproductibilité du build du dépôt. La **provenance** attestée (`actions/attest`, `release.yaml:109`) dit *où et comment* le PDF a été construit ; elle ne dit pas qu'une seconde construction redonnerait les mêmes octets.
+Aucune étape du dépôt ne recompile deux fois ni ne compare deux hachages : le dépôt n'affirme pas de **build** reproductible (**[EXÉCUTÉ]** `grep -i "reproducib|reproductib|déterministe|deterministic"` sur `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`, `.github/`, `docs/README.md` : une seule occurrence, `CHANGELOG.md:31`, « Conversion Org → Verso reproductible (`scripts/org2verso/`) »). Cette phrase vise le convertisseur historique Org → Verso, pas le build de la spécification ; aucun contrôle de CI ne l'étaye (et `spec/` s'édite désormais directement : les fichiers générés l'indiquent en tête) ; je ne l'ai pas testée. Les occurrences de « compilation reproductible » dans `docs/tracking/DASHBOARD.md` et `docs/tracking/registre-obligations.md` sont des **exigences sur le futur langage** (spécification), sans rapport avec la reproductibilité du build du dépôt. La **provenance** attestée (`actions/attest`, `release.yaml:109`) dit *où et comment* le PDF a été construit ; elle ne dit pas qu'une seconde construction redonnerait les mêmes octets.
 
 ### 5.2 Expérience exécutée : Lean → HTML/TeX (« build A / build B »)
 
@@ -422,7 +422,7 @@ Niveau : conformité de licences/droits d'auteur (métadonnées), pas qualité d
 | R3 | Avertissement (y compris `sorry`) dans `tests/MainTest.lean` ou `tools/SpecMain.lean` | §3.4 (mini-projet) | VERIFIED (mécanisme) ; transposition ESTIMÉ |
 | R4 | PDF dont le contenu se dégrade sans erreur bloquante (références `??`, glyphes manquants, débordements) | §5.4 point 5 : journaux jamais inspectés | PARTIAL ; comportement exact de Tectonic ESTIMÉ |
 | R5 | Dérive de rendu de la spécification (changement de Verso/Lean par `bump-lean`, ou de `tools/SpecExt`) sans diff de contenu | aucun instantané ni comparaison ; seul critère : sortie non vide | PARTIAL |
-| R6 | Vues dérivées de `docs/suivi/` périmées (`fiches-statuts.csv` modifié sans `suivi.py all`) | `suivi.py` absent des workflows (`grep` : aucune occurrence) ; `fiches-statuts.csv` est « léger » (matrice §1) ; **aujourd'hui** aucune dérive (`suivi.py all` dans une copie : aucune différence) | VERIFIED (absence de contrôle) |
+| R6 | Vues dérivées de `docs/tracking/` périmées (`fiches-statuts.csv` modifié sans `suivi.py all`) | `suivi.py` absent des workflows (`grep` : aucune occurrence) ; `fiches-statuts.csv` est « léger » (matrice §1) ; **aujourd'hui** aucune dérive (`suivi.py all` dans une copie : aucune différence) | VERIFIED (absence de contrôle) |
 | R7 | Régression propre à l'appel `axiom-audit.sh Spec Spec` après modification du script | classé `lean` seul (§2.5) | VERIFIED (lu + simulation) |
 | R8 | Modification de `.claude/settings.json` (déclaration de hooks, dont `scripts/claude-session-start.sh`) | classé léger : aucun contrôle ; **recouvrement** avec les domaines supply-chain et gouvernance | VERIFIED (matrice §1) |
 | R9 | `lake test` « vert » sans exécuter tous les tests : retirer `ArithTest.tests` de la liste de `MainTest.tests` | aucun contrôle de cardinalité ; les `#guard` restent le vrai filet | LU |
@@ -448,7 +448,7 @@ Niveau : conformité de licences/droits d'auteur (métadonnées), pas qualité d
 - **O1.** Supprimer la regex `grep -Eq` redondante de `ci.yaml:57` (cinq alternatives mortes à cause de `\\.`, défaut SIGPIPE/`pipefail` reproduit, journal appauvri en `--force-full`) ; `impact.py` est la source unique ; ajouter un test paramétré sur `FULL_EXACT`/`FULL_PREFIXES` (§2.3).
 - **O2.** Classer `scripts/axiom-audit.sh` aussi comme déclencheur de `spec_build` (il est appelé par le job `spec`).
 - **O3.** `leanOptions` sur `lean_exe mainTest` (et `spec`, déjà sans avertissement) : **`lakefile.lean`, modification à signaler en PR** (§3.4).
-- **O4.** Rendre `scripts/suivi.py check` (et `all` + `git diff --exit-code docs/suivi`) exécutable en CI quand `docs/suivi/**` change, y compris le CSV (R6).
+- **O4.** Rendre `scripts/suivi.py check` (et `all` + `git diff --exit-code docs/suivi`) exécutable en CI quand `docs/tracking/**` change, y compris le CSV (R6).
 - **O5.** Inspecter les journaux Tectonic (`--keep-logs`) : échec sur « undefined reference », « Missing character », au minimum avertissement dans le résumé d'étape ; téléverser le journal. Comportement exact de Tectonic à vérifier en CI avant de rendre cela bloquant.
 - **O6.** Optionnel : zizmor en non bloquant, SHA-épinglé, après arbitrage avec les domaines supply-chain/sécurité (§4.3) ; passer `steps.version.outputs.latest` par `env:` dans `bump-lean.yaml:44`.
 - **O7.** Section « Reconstruire et vérifier » dans `CONTRIBUTING.md`/`README.md` (§7).
