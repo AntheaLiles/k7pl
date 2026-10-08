@@ -1,6 +1,6 @@
 # Anomalies relevées par l'audit de la conversion
 
-> **Mise à jour du 1er octobre 2026 (soir).** Le Verso fait désormais foi : les anomalies du manuscrit ont été corrigées dans `spec/` (✅), sauf `ANOM-04` et `ANOM-09`, qui demandent une décision ou un chantier, et `ANOM-10` (interface HTML de Verso). `ANOM-16` est tranchée : le sous-titre du manuscrit (« A functional layered programming language ») fait foi. Chaque correction est gardée par `scripts/controle.py`.
+> **Mise à jour du 1er octobre 2026 (soir).** Le Verso fait désormais foi : les anomalies du manuscrit ont été corrigées dans `spec/` (✅), sauf `ANOM-04` et `ANOM-09`, qui demandent une décision ou un chantier, et `ANOM-10` (interface HTML de Verso). `ANOM-16` est tranchée : le sous-titre du manuscrit (« A functional layered programming language ») fait foi et n'est pas dupliqué dans les métadonnées publiques. Chaque correction est gardée par `scripts/controle.py`.
 
 **Relevé du 1er octobre 2026**, établi en convertissant le manuscrit Org en Verso et en le confrontant à son suivi. Le manuscrit porte « NE RIEN MODIFIER SANS L'ACCORD DE L'AUTEUR » : **aucune de ces anomalies n'a été corrigée** ; la conversion reproduit le texte tel qu'il était. Chacune indique où elle se trouve (dans `spec/`, ou dans le suivi) et la correction proposée, à valider.
 
