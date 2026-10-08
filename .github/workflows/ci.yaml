@@ -125,7 +125,7 @@ jobs:
   status:
     name: Generated status
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.ci-ok.result == 'success' }}
-    needs: [ci-ok]
+    needs: [ci-ok, impact, verify, reuse, commitlint, security]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -158,6 +158,11 @@ jobs:
         if: ${{ steps.baseline.outputs.current != 'true' }}
         env:
           K7PL_VERIFICATION: success
+          K7PL_IMPACT_RESULT: ${{ needs.impact.result }}
+          K7PL_VERIFY_RESULT: ${{ needs.verify.result }}
+          K7PL_REUSE_RESULT: ${{ needs.reuse.result }}
+          K7PL_COMMITLINT_RESULT: ${{ needs.commitlint.result }}
+          K7PL_SECURITY_RESULT: ${{ needs.security.result }}
         run: python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION"
 
       - name: Check for generated changes
