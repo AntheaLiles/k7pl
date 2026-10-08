@@ -7,8 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # Hypothèses de module et obstacles outils (`IMPL-09`)
 
 Ce que la transcription en assistant de preuve devra poser comme paramètre ou contourner. Inventaire
-tenu à la main ; le registre des énoncés ouverts est produit par `scripts/suivi.py` (bloc « ouverts »
-du [tableau de bord](DASHBOARD.md)).
+tenu à la main ; les vues de suivi des énoncés sont produites par `scripts/suivi.py`, notamment [la correspondance courante](correspondance-enonces.md).
 
 ## Hypothèses de module
 
