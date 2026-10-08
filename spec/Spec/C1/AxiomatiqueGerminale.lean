@@ -100,19 +100,13 @@ termine et l'interaction qui perdure — s'opère en un unique point fixe minima
 ```
 ::::
 
-qui se lit : sous le contexte $`\Delta`, dont les grades sont pris dans l'algèbre $`\mathcal{G}`, le
+qui se lit : sous le contexte $`\Delta`, dont les grades sont pris dans le porteur complet $`\mathcal{G}`, le
 terme $`t` a le type $`A` et produit les effets $`\mathcal{E}`.
 
 Deux points de lecture doivent accompagner cette équation, faute de quoi on lui comptera des
 composantes qu'elle n'a pas. Ils sont arrêtés, et le reste du document s'y conforme.
 
-_L'indice $`\mathcal{G}` n'est pas une composante du jugement._ Il nomme l'_algèbre de grades_ en
-vigueur — le semi-anneau $`\mathcal{R}` et ses opérations —, dans laquelle sont pris les grades que
-portent les liaisons de $`\Delta`. C'est un paramètre du système, non une donnée du jugement : deux
-dérivations ne diffèrent jamais par leur $`\mathcal{G}`, et aucune règle ne le transforme. Il est
-écrit là où il éclaire — sur l'axiome, et sur les spécialisations par couche, qui restreignent
-précisément l'algèbre — et omis partout où il est constant, ce qui est le cas dans tout jeu de
-règles. Un $`\vdash` nu et un $`\vdash_{\mathcal{G}}` dénotent donc le même jugement.
+_L'indice $`\mathcal{G}` n'est pas une composante du jugement._ Il désigne le porteur complet des grades en vigueur. Le semi-anneau d'usage est $`\mathcal{R}`, et la question d'une structure algébrique homogène sur $`\mathcal{G}` reste indépendante de cette notation. C'est un paramètre du système, non une donnée du jugement : deux dérivations ne diffèrent jamais par leur $`\mathcal{G}`, et aucune règle ne le transforme. Il est écrit là où il éclaire — sur l'axiome et sur les spécialisations par couche, qui restreignent le domaine des grades admissibles — et omis partout où il est constant, ce qui est le cas dans tout jeu de règles. Un $`\vdash` nu et un $`\vdash_{\mathcal{G}}` dénotent donc le même jugement.
 
 _Il n'y a pas de composante de complexité._ Une version antérieure de ce dispositif en portait une,
 notée $`\mathcal{C}` ; elle a été répartie sur les composantes existantes, et le
@@ -144,8 +138,7 @@ nomenclature dont le jugement serait la table.
 
 Trois objets demandent alors d'être construits, et ce ne sont pas tout à fait les trois composantes.
 Le type $`A` n'en demande aucune : les types sont les objets de la catégorie ambiante, et le
-paragraphe qui précède l'a dit. Restent $`\Delta`, l'algèbre $`\mathcal{G}` où ses grades sont pris,
-et $`\mathcal{E}`. _Ce que le terme exige se décompose ainsi en deux_ — quelles ressources il
+paragraphe qui précède l'a dit. Restent $`\Delta`, le porteur complet $`\mathcal{G}` où ses grades sont pris,\net $`\mathcal{E}`. _Ce que le terme exige se décompose ainsi en deux_ — quelles ressources il
 possède, et à quel régime il les emploie —, et c'est cette décomposition, et non une quatrième
 composante, que l'on rencontre lorsque le document énumère $`\Delta`, $`\mathcal{G}` et
 $`\mathcal{E}`.
@@ -201,12 +194,12 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
 
 : $`\mathcal{G}`
 
-  _l'algèbre des grades de ressource_, au sens de _Granule_ {cite "orchardQuantitativeProgramReasoning2019"}[] :
+  _le porteur des annotations de grades de ressource_, au sens de _Granule_ {cite "orchardQuantitativeProgramReasoning2019"}[] :
   des constantes — taille de tampon, profondeur de pile, nombre d'itérations — qui statifient
   l'allocation, conformément à P3. Leur système de contraintes est construit au chapitre 3
   (§{num "sec:c3-le-systeme-gradue"}[]), leur réalisation physique au chapitre 4, leur vérification
-  par un solveur au chapitre 6. Un grade particulier se note $`r` et vit dans $`\mathcal{R}` ;
-  $`\mathcal{G}` désigne la structure qui les organise, et jamais l'un d'entre eux.
+  par un solveur au chapitre 6. Un grade particulier se note $`r` et vit dans $`\mathcal{G}` ;
+  $`\mathcal{R}` désigne uniquement le semi-anneau d'usage, et $`\mathcal{G}` le porteur du grade complet.
 
   Un point de statut doit être fixé ici, sous peine d'un contresens que la suite rendrait coûteux.
   Le grade porte aujourd'hui quatre composantes — usage, monotonie, niveau de confidentialité,
@@ -216,17 +209,27 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   entorse à justifier, mais l'usage normal d'un objet ouvert.
 
   Encore faut-il dire à quelles conditions, faute de quoi l'ouverture se lirait comme une licence.
-  Elles sont au nombre de trois, et aucune n'est nouvelle. La composante doit être une _structure
-  ordonnée_. Ses opérations doivent se définir _sur chaque facteur séparément_, l'ordre du produit
-  étant pris point par point. Et elle doit se placer dans l'une des trois strates du critère
-  ci-après — coeffet, effet ou raffinement —, une composante de grade étant un coeffet et se
-  projetant donc sur $`\Delta`. Sous ces trois conditions, rien n'est à redémontrer : le chapitre 2
-  (§{num "sec:c2-adjonctions-et-enrichissement"}[]) établit que les lois de comonade graduée passent
-  au produit dès lors que chaque facteur les satisfait séparément {cite "liepeltSameCoeffectDifferent2026"}[],
-  et cet argument ne dépend pas du nombre de facteurs. Le procédé a d'ailleurs été pratiqué avant
-  d'être énoncé : la confidentialité est une composante ajoutée après coup, et le
-  §{num "sec:c1-postulats"}[] conclut qu'elle « n'ajoute rien à l'appareil » {cite "choudhuryDependentDependencyCalculus2022"}[].
+  Elles sont au nombre de quatre. La composante doit être une _structure ordonnée_. Ses opérations
+  propres doivent se définir sur son facteur ; l'ordre du produit est pris point par point {cite "mannucciResourceBoundedTypeTheory2025"}[]. Si la
+  composante participe à une mise à l'échelle, elle doit en outre porter une _action précisément
+  typée_ du scalaire utilisé par K7PL ; une composante d'ordre pur peut au contraire recevoir l'action
+  triviale, si cette identité est celle requise par les règles. Enfin, la composante doit se placer
+  dans l'une des trois strates du critère ci-après — coeffet, effet ou raffinement —, une composante
+  de grade étant un coeffet et se projetant donc sur $`\Delta`.
 
+  Cette quatrième condition n'est pas une formalité. Le porteur actuel met en regard un semi-anneau
+  d'usage $`\mathcal{R}=\mathbb{Q}_{\geq0}\cup\{\omega\}` et un budget $`\mathcal{B}=\mathbb{N}_\infty`.
+  Leur produit ne fournit pas automatiquement une action de $`\mathcal{U}` sur $`\mathcal{B}`, en
+  particulier pour les scalaires rationnels. La notation $`r\cdot\Delta` utilisée par les règles
+  reste donc conditionnelle à une définition d'action ou à une restriction de domaine explicitement
+  démontrée.
+
+  Sous ces conditions, le produit peut hériter des structures requises facteur par facteur, mais
+  aucune loi de comonade graduée ne doit être réputée acquise avant d'avoir vérifié l'action sur
+  chaque facteur qui y participe {cite "liepeltSameCoeffectDifferent2026"}[]. Le procédé a d'ailleurs
+  été pratiqué avant d'être énoncé : la confidentialité est une composante ajoutée après coup, et le
+  §{num "sec:c1-postulats"}[] conclut qu'elle « n'ajoute rien à l'appareil »
+  {cite "choudhuryDependentDependencyCalculus2022"}[].
   Une conséquence de notation en découle, réglée ici plutôt que laissée à chaque chapitre. Écrire
   les composantes d'un grade sur chaque liaison est lourd, et beaucoup de liaisons n'en contraignent
   qu'une. L'_élision_ est donc autorisée : une composante non écrite prend la valeur qui n'impose
@@ -336,6 +339,13 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   et sur le facteur temporel par multiplication, $`n` exécutions d'un calcul de $`k` pas coûtant
   $`n\,k` pas.
 
+  _Obligation sur $`\varphi_r`._ La distinction précédente rend explicite une dette de définition.
+  Le grade d'usage $`u` n'est pas une multiplicité d'exécution. La puissance $`\varepsilon^n` est
+  définie pour un nombre d'itérations $`n`, tandis que $`u` peut être rationnel. L'écriture
+  $`\varphi_r(\varepsilon)=\varepsilon^u` n'est donc pas admissible pour tout grade. Une définition
+  de $`\varphi_r` doit soit restreindre son domaine aux grades dont l'usage est une multiplicité
+  entière, soit fournir une autre action des usages rationnels sur $`\mathcal{E}`. La seconde option
+  introduirait une structure qui n'est pas encore présente dans K7PL.
   Le multiplicateur demande d'être nommé pour ce qu'il est, car deux grandeurs se confondaient ici
   et ne sont pas la même. Le _grade d'usage_ $`u` d'une liaison dit combien de fois une ressource
   est employée ; la _multiplicité d'exécution_ $`n` d'un calcul dit combien de fois ce calcul est
@@ -353,11 +363,17 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
 : $`\psi`
 
   il est l'identité partout sauf en un point, et ce point est celui qui compte. L'usage, la
-  monotonie et le niveau traversent l'effet inchangés ; le _budget_, lui, en sort diminué de ce que
-  l'effet a consommé — $`\beta \ominus k`, où $`k` est la composante temporelle de $`\varepsilon`.
-  C'est la seule cellule où l'effet modifie la demande, et c'est aussi la seule où la soustraction
-  peut échouer : un budget insuffisant rend $`\lambda` indéfinie, et la règle qui en dérive refuse
-  alors la composition au lieu de la payer.
+monotonie et le niveau traversent l'effet inchangés ; le _budget_, lui, en sort diminué de ce que
+l'effet a consommé. Comme la composante temporelle normative est une famille de couples
+$`\\kappa : \\mathcal{L}\\to(\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty)`$, la notation scalaire
+$`k`$ employée dans les règles doit être comprise comme l'abréviation
+$`k = \\operatorname{Cost}_{\\mathcal B}(\\kappa)`$, avec
+$`\\operatorname{Cost}_{\\mathcal B} :
+(\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty)^{\\mathcal L} \\rightharpoonup \\mathbb{N}_\\infty`$ encore à définir.
+La consommation s'écrit donc provisoirement $`\\beta \\ominus k`$.
+C'est la seule cellule où l'effet modifie la demande, et c'est aussi la seule où la soustraction
+peut échouer : un budget insuffisant rend $`\\lambda`$ indéfinie, et la règle qui en dérive refuse
+alors la composition au lieu de la payer.
 
 Ces appariements se lisent mieux rassemblés, et ils sont peu nombreux.
 
@@ -369,7 +385,7 @@ Action de chaque composante du grade sur chaque composante de l'effet
 :::table +header
 * * Composante du grade
   * sur $`\mathcal{E}_0`
-  * sur $`\mathbb{N}_\infty`
+  * sur $`(\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`
   * sens de $`\psi`
 * * usage $`u`
   * itération $`\varepsilon^{n}`
@@ -455,12 +471,12 @@ l'algèbre des effets. Il faudrait alors y trouver une partie commutative — le
 sans égard à l'ordre, quand les effets se séquencent — et donc caractériser le centre d'une
 structure qui n'a pas été construite pour cela. K7PL prend l'autre voie, qui est celle qu'emploie la
 littérature dès que plusieurs dimensions de coût coexistent : $`\mathcal{E}` est un _produit_,
-$`\mathcal{E}_0 \times \mathbb{N}_\infty`, dont le premier facteur garde le produit non commutatif
-du séquencement et dont le second est additif, l'ordre et les opérations se prenant coordonnée par
-coordonnée {cite "mannucciResourceBoundedTypeTheory2025"}[]. Les deux lois ne se rencontrent jamais,
-puisqu'elles n'opèrent pas sur la même composante. Qu'une opération donnée porte une étiquette dans
-chaque facteur — une lecture qui coûte trois pas s'écrit $`(~read~, 3)` — ne rend pas le produit
-moins direct : cela fixe seulement où elle se situe dans l'un et dans l'autre.
+$`\mathcal{E}_0 \\times (\\mathbb{N}_\\infty \\times \\mathbb{N}_\\infty)^{\\mathcal L}`, dont le premier facteur garde le produit non commutatif
+du séquencement et dont le second est une famille de couples _travail/profondeur_, l'ordre et les
+opérations se prenant niveau par niveau {cite "mannucciResourceBoundedTypeTheory2025"}[]. Les deux
+lois ne se rencontrent jamais, puisqu'elles n'opèrent pas sur la même composante. Qu'une opération
+donnée porte une étiquette dans chaque facteur ne rend pas le produit moins direct : cela fixe
+seulement où elle se situe dans l'un et dans l'autre.
 
 Une distinction manque encore, et son absence confondrait un théorème avec une obligation. Entre ce
 que l'exécution consomme et ce que le budget alloue s'intercale une troisième grandeur : la _borne
@@ -522,19 +538,21 @@ la mise à l'échelle, c'est-à-dire l'emploi répété d'un même calcul. Si l'
 sans multiplier l'effet qu'elle traverse, les deux moitiés dérivent, et il faudrait une composante
 séparée pour les tenir ensemble — ce serait $`\mathcal{C}` reparaissant.
 
-Cette condition est la _loi de cohérence_ de $`\varphi` et $`\psi` : pour tout grade $`r`, tout
+Cette condition est la _loi candidate de cohérence_ de $`\varphi` et $`\psi`. Elle ne pourra être
+quantifiée sur tout grade $`r` qu'après définition du domaine d'action correspondant, et elle porte alors sur tout
 contexte $`\Delta` et tout effet $`\varepsilon`, mettre à l'échelle après transport doit revenir à
 transporter après mise à l'échelle, l'effet étant échelonné du même facteur. {rmq}[Le Prolégomène
 pose la condition et dit où elle est acquittée. La preuve est au §{num "sec:g-regles"}[], là où la loi sert.] Elle
-est démontrée au §{num "sec:g-regles"}[] (théorème {num "thm:coherence_axiome"}[]),
+est une obligation du §{num "sec:g-regles"}[] (théorème {num "thm:coherence_axiome"}[]),
 là où le lemme de substitution, la relation logique et la traduction l'emploient l'une après
 l'autre.
 
 Cette loi n'ajoute rien à l'appareil : elle énonce une compatibilité entre deux fonctions déjà
-posées. Mais elle est ce qui autorise le jugement à ne porter que trois composantes, et elle a été
-rencontrée dans trois démonstrations indépendantes — le lemme de substitution, la relation logique
-de la non-interférence, et la traduction vers le métalangage. Une loi qui sert trois fois à trois
-endroits appartient aux fondations.
+posées. Elle reste cependant une loi candidate dont la portée dépend du support d'indexation et des
+actions retenues. Dans l'architecture factorisée actuelle, les règles de mise à l'échelle contextuelle
+emploient d'abord `Scale_Usage`, tandis que les transformations d'effet sont traitées séparément.
+La loi générale n'est donc pas encore un résultat fondamental acquis ; elle constitue l'interface de
+compatibilité à vérifier pour les constructions qui ré-invoquent effectivement un calcul.
 
 Ce partage n'est pas propre au coût : c'est celui qui organise le jugement tout entier, énoncé ici
 une fois pour toutes. La littérature distingue une lecture _comonadique_ des ressources — ce que le
@@ -792,8 +810,8 @@ définition.
 
 En couche 3 (pureté mathématique), $`\Delta` se réduit à sa partie $`\Delta_{\omega}`, toute liaison
 y étant de grade non contraint. $`\mathcal{E}` y est vide. Aucun $`\mathbf{tick}` n'y est même
-compté, le temps d'un calcul pur relevant de son appel et non de lui. Et $`\mathcal{G}` se réduit à
-l'algèbre de pile ; c'est un $`\lambda`-calcul pur au sens strict :
+compté, le temps d'un calcul pur relevant de son appel et non de lui. Et le porteur $`\mathcal{G}` se restreint au
+domaine de grades de pile ; c'est un $`\lambda`-calcul pur au sens strict :
 
 ::::formula (label := "eq:instance-L3") (kind := "equation")
 ```
@@ -840,7 +858,7 @@ _retire_ au jugement complet plutôt que ce qu'elle y ajoute.
 Ces trois jugements ne sont pas trois calculs différents : ce sont trois restrictions du même
 calcul, obtenues en fixant la forme admissible de $`\Delta`, l'algèbre de grades $`\mathcal{G}` et
 le domaine de $`\mathcal{E}`. $`\mathcal{G}_{\text{pile}}` et $`\mathcal{G}_{\text{budget}}` sont
-deux sous-algèbres de $`\mathcal{R}`, non deux valeurs : par projection du produit, $`\mathcal{G}_{\text{pile}} = \mathbb{N}_\infty \times \{\mathrm{d}\} \times \mathcal{L} \times \{0\}` (budget nul) et $`\mathcal{G}_{\text{budget}} = \mathbb{N}_\infty \times \{\mathrm{d},\mathrm{m}\} \times \mathcal{L} \times \mathbb{N}_\infty`. P3 gouverne la borne synthétisée et l'admission à la bibliothèque ; il ne gouverne ni le coût de compilation ni l'amortissement interne d'un régime de mémoire, à la condition que la borne synthétisée soit sûre. La preuve que cette restriction est
+deux sous-domaines de $`\mathcal{G}`, non deux valeurs : par projection du produit, $`\mathcal{G}_{\text{pile}} = \mathbb{N}_\infty \times \{\mathrm{d}\} \times \mathcal{L} \times \{0\}` (budget nul) et $`\mathcal{G}_{\text{budget}} = \mathbb{N}_\infty \times \{\mathrm{d},\mathrm{m}\} \times \mathcal{L} \times \mathbb{N}_\infty`. P3 gouverne la borne synthétisée et l'admission à la bibliothèque ; il ne gouverne ni le coût de compilation ni l'amortissement interne d'un régime de mémoire, à la condition que la borne synthétisée soit sûre. La preuve que cette restriction est
 conservative — qu'elle ajoute des contraintes d'usage sans altérer la sémantique dénotationnelle
 sous-jacente — repose sur l'existence de foncteurs d'inclusion fidèles
 $`F_{1 \to 2} : \text{Linéaire} \hookrightarrow \text{Affine}` et
