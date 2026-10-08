@@ -66,7 +66,7 @@ Un énoncé est *ouvert* quand son sceau n'est pas « théorème » ou « défin
 | `thm:abaissement_grades` | conjecture | compilation | §6.2 | 3 |
 <!-- END:ouverts -->
 
-Registre complet, avec les renvois : [`correspondance-enonces.md`](../tracking/correspondance-enonces.md). Registre des dépendances sur du non acquis : [`registre-obligations.md`](../tracking/registre-obligations.md) (instantané du 1er octobre, à regénérer — voir §3).
+Registre complet, avec les renvois : [`correspondance-enonces.md`](../tracking/correspondance-enonces.md). Registre historique des dépendances sur du non acquis : [`2026-10-01-registre-obligations.md`](2026-10-01-registre-obligations.md) (instantané du 1er octobre ; ne constitue plus le registre courant).
 
 ### La campagne PR-02 en chiffres
 
