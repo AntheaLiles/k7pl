@@ -1,8 +1,8 @@
 {
   "title": "K7PL - KonSept Programming Language's Specification",
-  "description": "Spécification du langage de programmation K7PL, écrite en Verso et vérifiée par Lean 4 : chaque exemple de code est compilé contre l'implémentation de référence. Chaque version du PDF est archivée avec son propre DOI de version.",
+  "description": "Spécification du langage de programmation K7PL, écrite en Verso et contrôlée par Lean 4. Une implémentation en Lean 4 est présente, mais aucune couverture de couplage entre spécification et implémentation n'est actuellement revendiquée. Chaque version du PDF est archivée avec son propre DOI de version.",
   "upload_type": "publication",
-  "publication_type": "workingpaper",
+  "publication_type": "technicalnote",
   "license": "cc-by-4.0",
   "access_right": "open",
   "creators": [
@@ -33,5 +33,5 @@
       "scheme": "url"
     }
   ],
-  "notes": "PDF généré par la CI à partir des sources Verso du dépôt (dossier spec/), à chaque release GitHub."
+  "notes": "PDF généré par la CI à partir des sources Verso du dépôt (dossier spec/), puis archivé avec la release GitHub correspondante. Le script de synchronisation ajoute à l’exécution le tag, le commit, l’URL de release et le SHA-256 du PDF."
 }
