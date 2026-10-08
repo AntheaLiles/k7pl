@@ -39,7 +39,7 @@ chaque mise à jour de `main`. Le flux qui joindra son PDF à chaque release `sp
 sur Zenodo est décrit dans [`CONTRIBUTING.md`](CONTRIBUTING.md) ; il n'a pas encore été exécuté de bout en bout.
 
 Le manuscrit est encore en cours de correction (campagne de relecture PR-02) : le point
-d'entrée est le [tableau de bord](docs/tracking/TABLEAU-DE-BORD.md), qui dit où il en est et ce
+d'entrée est le [tableau de bord](docs/tracking/DASHBOARD.md), qui dit où il en est et ce
 qu'il reste à faire avant d'implémenter le langage. Le manuscrit Org-mode d'origine est figé
 dans [`docs/archives/`](docs/archives/).
 
