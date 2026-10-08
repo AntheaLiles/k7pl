@@ -12,6 +12,8 @@
 Human-maintained inputs: `docs/tracking/fiches-statuts.csv` (one row per card: status, confidence,
 proof, note) and the prose of the dashboard. What is produced: every count, every register.
 The cards themselves (titles, findings) live in `docs/peer-review/pr-02/taches-consolidees.md`. DASHBOARD.md is a navigation view and is not generated.
+
+Generated statement views use the English controlled vocabulary defined below; source labels and levels remain in their canonical repository vocabulary.
 """
 
 from __future__ import annotations
@@ -197,13 +199,6 @@ def render_enonces() -> str:
             f"| {r['numero']} | {relu.get(r['label'], '—')} | `{r['label']}` | {STATUS_LABELS.get(r['statut'], r['statut'])} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | {r['titre']} | §{r['section']} | {r['renvois']} |"
         )
     return "\n".join(out)
-
-
-def refresh_block(text: str, name: str, body: str) -> str:
-    pat = re.compile(rf"<!-- BEGIN:{name} -->.*?<!-- END:{name} -->", re.S)
-    if not pat.search(text):
-        raise SystemExit(f"bloc <!-- BEGIN:{name} --> introuvable")
-    return pat.sub(lambda m: f"<!-- BEGIN:{name} -->\n{body}\n<!-- END:{name} -->", text)
 
 
 def main() -> int:
