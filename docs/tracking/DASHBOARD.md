@@ -14,7 +14,7 @@ This is the current entry point for project tracking. It answers what is current
 - [Coherence review](COHERENCE-REVIEW.md) — independent coherence findings converted into a tracked corrective checklist.
 - [L1 migration qualification register](../migration/L1-SUIVI.md) — current C-stage object and boundary analysis.
 - [Specification ↔ Lean traceability](correspondance-enonces.md) — current lexical traceability view.
-- [Obligations](registre-obligations.md) — open statements and dependency obligations.
+- [Statement correspondence](correspondance-enonces.md) — current generated statement traceability view.
 
 ## Active registers
 
