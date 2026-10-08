@@ -59,6 +59,10 @@ class DocumentationArchitectureTests(unittest.TestCase):
         path.write_text("# K7PL Documentation\nSee docs/archives/.\n", encoding="utf-8")
         self.assertEqual(check(self.root), [])
 
+    def test_root_archive_directory_is_rejected(self):
+        (self.root / "archives").mkdir()
+        self.assertTrue(any("legacy path still exists: archives/" in e for e in check(self.root)))
+
     def test_bare_archive_reference_is_allowed(self):
         path = self.root / "docs/README.md"
         path.write_text("# K7PL Documentation\nHistorical material is kept in archives/.\n", encoding="utf-8")
