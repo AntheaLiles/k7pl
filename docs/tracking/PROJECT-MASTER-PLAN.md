@@ -58,11 +58,9 @@ Current main baseline: 083e12ca6974ca16fb296ffbb8e77937c77b21dc.
 ~~~text
 A → B → C → D → E → F → G → H → I → J
           │
-          ├── documentation DOC-D0–D1
+          ├── C8 statement-command taxonomy
           ├── provenance / historical classification
-          └── documentation DOC-D2–D7
-
-J ───────────────────────────────→ documentation DOC-D8
+          └── semantic migration lots under docs/migration/
 ~~~
 
 This is the principal execution order, not a requirement that every commit be serialized. Documentation inventory, bibliographic verification, provenance work, and early traceability infrastructure may proceed in parallel when they only record evidence and do not silently change scientific status.
@@ -444,9 +442,9 @@ The remaining documentation work is therefore maintenance and semantic extractio
 
 Work that may proceed in parallel:
 
-- DOC-D0 and DOC-D1 alongside C;
+- C8 inventory and taxonomy analysis alongside the remaining C proof/interface work;
 - bibliographic verification that does not alter normative claims;
-- historical classification and provenance inventory;
+- semantic migration lots whose output is explicitly non-normative;
 - early traceability infrastructure that records gaps without closing them;
 - security and repository hygiene.
 
@@ -457,7 +455,7 @@ Work that should remain sequential:
 - E before F where spawn depends on parallel semantics;
 - G before release;
 - I before release;
-- DOC-D8 after scientific and generated outputs stabilize.
+- semantic documentation extraction must not precede the closure of the scientific boundary it documents.
 
 Work that must not cross an unresolved boundary:
 
