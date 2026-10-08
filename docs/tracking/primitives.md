@@ -1,5 +1,7 @@
 # K7PL — les fonctions primitives : questions de recherche
 
+> **Cardinal courant : 45 entrées `DOING` au 2026-10-08.** Le précédent cardinal de 44 est historique et ne doit plus être utilisé comme mesure courante.
+
 28 août 2026
 
 ## IDENTIFICATION DES PRIMITIVES
