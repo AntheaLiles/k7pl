@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "annotation_budget": {
+    "per_step": {
+      "error": 10,
+      "warning": 10
+    },
+    "per_job": 50,
+    "per_run": 50
+  },
+  "default": "report-only",
+  "priorities": {
+    "P0": {
+      "surface": "specification",
+      "error": "annotate",
+      "warning": "annotate-major"
+    },
+    "P1": {
+      "surface": "compliance",
+      "error": "annotate",
+      "warning": "report-only"
+    },
+    "P2": {
+      "surface": "implementation",
+      "error": "annotate",
+      "warning": "report-only"
+    },
+    "P3": {
+      "surface": "auxiliary",
+      "error": "report-only",
+      "warning": "report-only"
+    }
+  },
+  "flows": {
+    "specification": {
+      "priority": "P0",
+      "rule": "All specification build errors and warnings are considered critical until explicitly reclassified."
+    },
+    "python-specification-controls": {
+      "priority": "P0",
+      "rule": "Only diagnostics with a justified source location are annotated. Global failures remain in the report."
+    },
+    "reuse": {
+      "priority": "P1",
+      "rule": "File-level REUSE violations are annotated; the complete REUSE report remains authoritative."
+    },
+    "implementation": {
+      "priority": "P2",
+      "rule": "Only errors are annotated by default."
+    },
+    "documentation-and-auxiliary": {
+      "priority": "P3",
+      "rule": "Failures remain in GitHub Actions reports unless a future policy promotes them."
+    }
+  }
+}
