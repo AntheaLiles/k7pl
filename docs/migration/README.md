@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Migration register
 
-This directory contains the operational records for the legacy documentation migration defined by LEGACY-MIGRATION.md.
+This directory contains the operational records for the legacy documentation migration defined by the historical programme [2026-10-08 legacy-migration record](../history/2026-10-08-legacy-documentation-migration-programme.md).
 
 The migration is knowledge migration plus controlled physical relocation. Legacy material remains source evidence; current documents are rewritten knowledge supports. Physical moves follow classification, dependency analysis, and validation.
 
