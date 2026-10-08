@@ -60,7 +60,7 @@ recommandées sous `CECILL-C` (copyleft faible), voir `LICENSE.md`.
   messages affichés, noms de tests, scripts et workflows.
 - **Français** pour la documentation : README, CONTRIBUTING, SECURITY, CHANGELOG,
   règles de rédaction, spécification Verso (`spec/`), issues et PR.
-- Messages de commit : en français, au format Conventional Commits.
+- Messages de commit : français ou anglais, au format Conventional Commits.
 
 ## 3. Conventions de nommage
 
