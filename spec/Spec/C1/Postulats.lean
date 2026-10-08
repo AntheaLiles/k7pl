@@ -97,8 +97,7 @@ forme que la clôture énoncée ci-après réclame d'une extension.
   pragmatiques du chapitre 3 (§{num "sec:c3-les-contraintes-de-valeur"}[]) de la dépendance
   complète, pour laquelle la littérature établit qu'un tel produit libre n'est pas disponible. La
   frontière porte sur le _moment_ et non sur le degré, et il faut l'écrire ainsi pour ne pas se voir
-  prêter une limite qu'on n'a pas : un indice _clos à la compilation_ est admis, un indice
-  _dépendant d'une valeur d'exécution_ ne l'est pas. K7PL a donc bien des effets indexés, sous leur
+  prêter une limite qu'on n'a pas : un indice _clos à la compilation_ est admis, un indice  _dépendant d'une valeur d'exécution_ ne l'est pas. K7PL a donc bien des effets indexés, sous leur
   forme statique, et la réserve ne porte que sur le second cas {cite "atkeySyntaxSemanticsQuantitative2018"}[], {cite "moonGradedModalDependent2021"}[].
 
   Elle vaut dans les deux sens. Un grade peut dépendre d'une valeur, pourvu que cette valeur soit
@@ -166,29 +165,25 @@ forme que la clôture énoncée ci-après réclame d'une extension.
 
 : P4
 
-  Déterminisme distribué : toute exécution distribuée de K7PL est rejouable, et _le rejeu est gradué
-  par la couche_ plutôt qu'uniforme. En couche 3, il est déterministe *par construction* : le
-  fragment est cartésien et sans effet, deux branches parallèles n'ont aucun endroit où interférer.
-  En couche 2, il est déterministe *modulo le journal* : l'entrelacement des acteurs est journalisé,
-  et c'est le journal qui le restitue. En couche 1, il l'est *modulo le journal et celui des
-  défaillances*, une machine pouvant tomber sans qu'aucun type ne l'en empêche. {rmq}[Trois régimes,
-  un par couche, et c'est la thèse de sédimentation appliquée à une garantie plutôt qu'à un
-  fragment. Le postulat cesse de promettre uniformément ce qu'il tient diversement.] Ce n'est pas
-  une complication subie : c'est la thèse architecturale de ce document, appliquée à une garantie.
-  Chaque régime est en outre _logique_ par construction — il rend le même état à l'observation près
-  —, et _binaire_ sous la seule hypothèse d'un environnement reproductible, que ce document nomme
-  sans la fixer et dont la couche 1 ajoute une composante réseau. Les sources de non-déterminisme —
-  horloge, générateur aléatoire, latence réseau — ne sont jamais des propriétés intrinsèques du
-  langage : ce sont des ressources injectées dans le contexte d'exécution, puis journalisées. Le
-  journal, au format Cap'n Proto, est l'unique source de vérité pour toute reconstruction d'état.
+  Déterminisme distribué : les exécutions de K7PL sont rejouables sous le régime de
+  reproductibilité que leur profil d'exécution fixe, et _le rejeu est gradué par la couche_ plutôt
+  qu'uniforme. En couche 3, il est déterministe *par construction* : le fragment est cartésien et
+  sans effet, deux branches parallèles n'ont aucun endroit où interférer. En couche 2, il est
+  déterministe *modulo le journal* : l'entrelacement des acteurs est journalisé, et c'est le journal
+  qui le restitue. En couche 1, il l'est *modulo le journal et celui des défaillances*, une machine
+  pouvant tomber sans qu'aucun type ne l'en empêche. {rmq}[Trois régimes, un par couche, et c'est la
+  thèse de sédimentation appliquée à une garantie plutôt qu'à un fragment.] Les sources de
+  non-déterminisme pertinentes — horloge, générateur aléatoire, latence réseau — sont des ressources
+  injectées dans le contexte d'exécution et doivent être journalisées lorsqu'elles conditionnent le
+  rejeu. Le journal est la source de vérité pour la reconstruction logique de l'état ; son format
+  concret relève du profil de représentation $`\Pi`.
 
-  Deux degrés de rejeu se distinguent, faute de quoi l'énoncé promet plus qu'il ne tient. Le rejeu
-  _logique_ — même journal, même suite d'états observables — est ce que P4 garantit : il ne dépend
-  que de la journalisation des sources de non-déterminisme, et le système de types suffit à
-  l'établir. Le rejeu _bit à bit_ suppose en outre un ordonnancement, un mode d'arrondi flottant et
-  une version de compilateur identiques, qu'aucune clause de ce document ne fixe et que le journal
-  ne consigne pas. P4 énonce donc le premier ; le second est une propriété de déploiement, obtenue
-  lorsque l'environnement d'exécution est lui-même reproductible.
+  Deux degrés de rejeu se distinguent. Le rejeu _logique_ — même journal, même suite d'états
+  observables — est l'exigence sémantique portée par P4. Le rejeu _bit à bit_ n'est pas une propriété
+  générale du langage : il est une propriété de conformité à un profil $`\Pi` suffisamment précis,
+  comprenant notamment la chaîne de compilation, l'architecture, le modèle mémoire et le mode
+  d'arrondi. Une exécution peut donc satisfaire P4 sans que son artefact binaire soit identique à
+  celui d'une autre chaîne d'exécution.
 
   Une quatrième source aurait pu figurer dans cette liste, et son absence demande une justification :
   le déclenchement des _motifs de jonction_, qui admet en général un choix non déterministe. Elle
@@ -317,7 +312,6 @@ C'est l'absence de _data race_ exigée par P4, et la garantie de sûreté mémoi
 l'une ni l'autre n'est une propriété vérifiée après coup sur le langage : toutes deux se déduisent
 de deux faits, et non d'un seul — l'absence de diagonale dans _C_, qui interdit de _dupliquer_ une
 capacité, et l'unicité de son introduction, qui interdit d'en _créer deux_ pour la même région.
-
 Le théorème qui les porte est établi au chapitre 4 (§{num "sec:c4-modeles-de-memoire"}[]), là où les
 fibrilles et les arènes existent. Deux fibrilles exécutées en parallèle sous des contextes disjoints
 ne peuvent détenir la même capacité d'écriture, et aucune opération mutante concurrente n'est donc
