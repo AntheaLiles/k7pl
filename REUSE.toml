@@ -1,111 +1,106 @@
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
-# SPDX-License-Identifier: CECILL-2.1
+# SPDX-License-Identifier: CC0-1.0
 
 version = 1
 
+# Fichiers non commentables ou métadonnées techniques : CC0.
 [[annotations]]
-path = ".gitignore"
-precedence = "aggregate"
+path = [
+  "lean-toolchain",
+  "lake-manifest.json",
+  "zenodo.json",
+  "zenodo.files.json",
+  ".claude/settings.json",
+  ".github/annotation-policy.json",
+  ".github/lean-problem-matcher.json",
+  ".github/lean-spec-warning-problem-matcher.json",
+  ".github/reuse-problem-matcher.json"
+]
+precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
+SPDX-License-Identifier = "CC0-1.0"
 
+# Infrastructure du dépôt : librement réutilisable.
+# Les fichiers commentables conservent provisoirement leurs anciens headers ;
+# override permet d'établir la licence effective sans réécrire massivement
+# l'infrastructure dans cette étape.
 [[annotations]]
-path = ".gitattributes"
-precedence = "aggregate"
+path = [".claude/**", ".github/**"]
+precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
+SPDX-License-Identifier = "CC0-1.0"
 
+# Configuration racine : CC0.
 [[annotations]]
-path = ".editorconfig"
-precedence = "aggregate"
+path = [
+  ".gitignore",
+  ".gitattributes",
+  ".editorconfig",
+  ".commitlintrc.yaml",
+  ".gitleaks.toml",
+  ".howfairis.yml",
+  "pytest.ini",
+  "CITATION.cff"
+]
+precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
+SPDX-License-Identifier = "CC0-1.0"
 
-# lean-toolchain est lu tel quel par elan : aucun commentaire possible.
-[[annotations]]
-path = "lean-toolchain"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
-
-# Fichier généré par Lake (JSON, pas de commentaires).
-[[annotations]]
-path = "lake-manifest.json"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
-
-# JSON: no comments allowed.
-[[annotations]]
-path = ".claude/settings.json"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
-
-# Zenodo metadata (JSON: no comments allowed).
-[[annotations]]
-path = ["zenodo.json", "zenodo.files.json"]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
-
-# Figures de la spécification (SVG et PDF dérivés, sources drawio et mermaid) : CC-BY-4.0 comme
-# le texte qu'elles illustrent.
+# Figures de la spécification : même licence que la spécification.
 [[annotations]]
 path = "spec/figures/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"
 
-# Documentation de travail (suivi, relectures, méthode, recherche, journal) : Markdown converti
-# du dossier de travail, sans en-tête.
+# Documentation et archives documentaires : CC-BY-4.0.
 [[annotations]]
 path = "docs/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"
 
-# Manuscrit Org-mode figé : le texte de la spécification, donc la même licence qu'elle.
+# Ancien outillage Org : le code reste du logiciel.
 [[annotations]]
-path = "docs/archives/manuscrit-org/**"
+path = "docs/archives/outillage-org/**"
 precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CECILL-2.1"
+
+# Données bibliographiques : métadonnées réutilisables ; les décisions
+# bibliographiques restent documentaires.
+[[annotations]]
+path = "docs/bibliography/references.json"
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "docs/bibliography/decisions-bibliographiques.json"
+precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"
 
-# Ancien outillage (code Python, Emacs Lisp, LaTeX, Makefile, données) et ses notices.
+# Artefact bibliographique généré : la source est le script, cet artefact
+# est librement réutilisable.
 [[annotations]]
-path = ["docs/archives/outillage-org/**", "docs/archives/README.md"]
-precedence = "aggregate"
+path = "tools/SpecBib.lean"
+precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
+SPDX-License-Identifier = "CC0-1.0"
 
+# Données de sondes : licence provisoire explicite, sous réserve de l'audit
+# des extraits provenant de sources tierces.
 [[annotations]]
 path = "scripts/controles/donnees/sondes.json"
-precedence = "aggregate"
+precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
+SPDX-License-Identifier = "CC0-1.0"
 
-# GitHub Actions problem matcher (JSON: no comments allowed in the matcher itself).
+# Bibliothèque d'exemple écrite en K7PL.
 [[annotations]]
-path = ".github/lean-problem-matcher.json"
+path = "lib/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
-
-# CI annotation policy and native problem matchers (JSON: no comments allowed).
-[[annotations]]
-path = [
-  ".github/annotation-policy.json",
-  ".github/lean-spec-warning-problem-matcher.json"
-]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
-
-# GitHub Actions REUSE problem matcher (JSON: no comments allowed in the matcher itself).
-[[annotations]]
-path = ".github/reuse-problem-matcher.json"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CECILL-2.1"
+SPDX-License-Identifier = "CECILL-C"
