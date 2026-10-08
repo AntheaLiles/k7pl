@@ -19,11 +19,12 @@ def test_explicit_location_emits_source_annotation(capsys):
     assert "::error file=spec/Spec/C3/ReglesDeTypage.lean,line=1598,col=37,title=controle.py::erreur %25 sur la source" in output
 
 
-def test_global_failure_still_emits_annotation(capsys):
+def test_global_failure_stays_in_report_only(capsys):
     journal.github = True
     journal.ko("échec global")
     output = capsys.readouterr().out
-    assert "::error title=controle.py::échec global" in output
+    assert "ECHEC  échec global" in output
+    assert "::error" not in output
 
 
 def test_module_line_is_inferred_as_a_source_annotation(patched, capsys):
