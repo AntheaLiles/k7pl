@@ -1,85 +1,78 @@
 <!--
 SPDX-FileCopyrightText: 2026 Cyprien PIERRE
-SPDX-License-Identifier: CECILL-2.1
+SPDX-License-Identifier: CC-BY-4.0
 -->
 
 Licences
 ========
 
-Ce dépôt suit les règles REUSE (https://reuse.software) : chaque fichier
-indique sa licence au moyen d'un en-tête SPDX, ou d'une entrée dans le
-fichier REUSE.toml quand il ne peut pas porter de commentaire.
+Ce dépôt suit les règles REUSE : chaque fichier est associé à une licence au moyen
+d'un en-tête SPDX, d'un fichier adjacent `.license`, ou d'une annotation dans
+`REUSE.toml`.
 
-Les textes complets des licences se trouvent dans le dossier LICENSES/.
-
+Les textes complets des licences se trouvent dans `LICENSES/`.
 
 Répartition
 -----------
 
-- Code du projet → CeCILL 2.1 (SPDX : CECILL-2.1)
+- **Logiciel du projet → CeCILL-2.1** (SPDX : `CECILL-2.1`)
 
-  Implémentation (src/), tests (tests/), outils (tools/, scripts/),
-  configuration (lakefile.lean, lake-manifest.json, lean-toolchain,
-  .gitignore, .gitattributes, .editorconfig, .commitlintrc.yaml, REUSE.toml,
-  CITATION.cff, zenodo.json, zenodo.files.json), intégration continue et modèles (.github/), consignes
-  (.claude/), README.md, CHANGELOG.md, CONTRIBUTING.md et SECURITY.md.
+  L'implémentation du langage, ses tests, ses outils et scripts constituant du
+  logiciel, notamment `src/`, `tests/`, `tools/` hors artefacts explicitement
+  générés, `scripts/` hors données explicitement classées autrement, ainsi que
+  `lakefile.lean`.
 
-  Texte complet : LICENSES/CECILL-2.1.txt
+- **Bibliothèques et composants écrits dans K7PL → CeCILL-C** (SPDX : `CECILL-C`)
 
-  La CeCILL 2.1 est une licence copyleft fort, compatible avec la GNU GPL.
-  Toute version modifiée et redistribuée du projet doit rester sous
-  CeCILL 2.1 (ou sous GNU GPL, selon les conditions de compatibilité
-  prévues par la licence).
+  Les composants destinés à être réutilisés comme bibliothèques, notamment
+  `lib/`, utilisent le copyleft faible de la CeCILL-C.
 
-- Spécifications → Creative Commons Attribution 4.0 International
-  (SPDX : CC-BY-4.0)
+- **Spécification, documentation et contenu scientifique → CC-BY-4.0**
+  (SPDX : `CC-BY-4.0`)
 
-  Documents du dossier spec/ (sources Verso), ainsi que CODE_OF_CONDUCT.md
-  (traduction du Contributor Covenant 2.1, lui-même sous CC-BY-4.0).
+  La spécification `spec/`, ses figures, la documentation `docs/`, les
+  politiques et autres documents intellectuels du projet sont librement
+  réutilisables sous réserve de l'attribution prévue par CC-BY-4.0.
 
-  Texte complet : LICENSES/CC-BY-4.0.txt
+- **Infrastructure, configuration, métadonnées et artefacts techniques → CC0-1.0**
+  (SPDX : `CC0-1.0`)
 
-  Les spécifications peuvent être reprises, adaptées et redistribuées
-  librement, y compris à des fins commerciales, à condition de citer
-  les auteurs.
+  Sont notamment concernés l'infrastructure `.github/` et `.claude/`, les
+  fichiers de configuration racine, les métadonnées Zenodo/Citation, les
+  manifests générés et certains artefacts générés. L'objectif est de permettre
+  leur réutilisation sans imposer le copyleft du logiciel ni une obligation
+  d'attribution lorsque les droits du projet le permettent.
 
+Cette classification suit la **nature fonctionnelle de l'œuvre**, et non son
+extension de fichier : un script reste du logiciel, un document reste du contenu
+documentaire et une configuration technique reste de l'infrastructure.
 
-Composants du langage
----------------------
+Données et œuvres de tiers
+--------------------------
 
-Les bibliothèques, modules et plugins écrits DANS le langage de ce projet
-(et non dans l'implémentation Lean 4 du langage) devraient être placés sous
-la licence CeCILL-C (SPDX : CECILL-C).
+Une licence ne peut être accordée que pour les droits effectivement détenus par
+le projet. Les données bibliographiques ou extraits provenant de tiers restent
+soumis aux droits et licences applicables à leurs sources ; leur classement sous
+CC0 est donc subordonné à cette vérification.
 
-Pourquoi CeCILL-C ? C'est une licence copyleft faible, équivalente à la
-GNU LGPL :
+Fichiers générés
+----------------
 
-  - le composant lui-même reste libre : toute version modifiée et
-    redistribuée du composant doit rester sous CeCILL-C ;
-  - le composant peut être redistribué librement ;
-  - une application qui se contente de lier ou d'utiliser le composant
-    peut être distribuée sous une licence différente, y compris
-    propriétaire.
+Un fichier généré est distingué de son générateur : le générateur peut être du
+logiciel sous CeCILL-2.1 alors que la sortie peut être sous CC0 lorsque le projet
+détient les droits nécessaires et que la sortie ne contient pas d'œuvre tierce
+protégée.
 
-Ce choix protège les composants du langage sans imposer de licence aux
-programmes qui les utilisent.
-
-Il s'agit d'une recommandation : le texte de la CeCILL-C n'est pas inclus
-dans LICENSES/ tant qu'aucun fichier du dépôt n'est publié sous cette
-licence. Pour l'ajouter : reuse download CECILL-C
-
-
-Note
-----
-
-Aucune exception de type « LLVM exception » n'est appliquée : elle n'est
-pas compatible avec la CeCILL 2.1.
-
+Les PDF de `spec/figures/` sont actuellement conservés car ils sont consommés
+par la chaîne PDF. Ils sont des dérivés des sources de figures et leur suppression
+sera traitée séparément lorsque la génération PDF sera démontrée suffisamment
+reproductible.
 
 Liens
 -----
 
-  - Textes complets des licences : LICENSES/
-  - Famille de licences CeCILL : https://cecill.info/
-  - Creative Commons BY 4.0 : https://creativecommons.org/licenses/by/4.0/deed.fr
-  - Spécification REUSE : https://reuse.software/
+- Textes complets des licences : `LICENSES/`
+- Famille de licences CeCILL : <https://cecill.info/>
+- Creative Commons BY 4.0 : <https://creativecommons.org/licenses/by/4.0/>
+- Creative Commons Zero 1.0 : <https://creativecommons.org/publicdomain/zero/1.0/>
+- Spécification REUSE : <https://reuse.software/>
