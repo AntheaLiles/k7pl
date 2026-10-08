@@ -101,7 +101,7 @@ jobs:
           key: lake-deps-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
 
       - name: Fetch the Mathlib cache
-        run: lake exe cache get || echo "::warning::Mathlib cache unavailable, full rebuild ahead"
+        run: lake exe cache get || echo "Mathlib cache unavailable, full rebuild ahead"
 
       # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The scan
       # covers src/ and tests/ only, and any declared lean_lib counts as a root, even one that this
@@ -231,6 +231,9 @@ jobs:
 
       - name: Register the Lean problem matcher
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
+
+      - name: Register the specification warning matcher
+        run: echo "::add-matcher::.github/lean-spec-warning-problem-matcher.json"
 
       - name: Build the specification
         run: lake build Spec
