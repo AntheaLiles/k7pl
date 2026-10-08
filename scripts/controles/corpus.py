@@ -28,6 +28,17 @@ def modules() -> list[tuple[str, str, str]]:
     return [(m.name or "Spec", n, m.text) for m, n in mm.walk()]
 
 
+def module_path(name: str) -> str:
+    """Return the repository-relative path of a parsed specification module."""
+    for mod, _ in mm.walk():
+        if (mod.name or "Spec") == name:
+            try:
+                return mod.path.relative_to(SPEC.parent).as_posix()
+            except ValueError:
+                return mod.path.as_posix()
+    raise KeyError(name)
+
+
 def raw(name: str) -> str:
     """Raw text of a module (`C2.ComonadeExponentielleEtFragments`), or of a chapter (`C2`)."""
     for n, _, t in modules():
