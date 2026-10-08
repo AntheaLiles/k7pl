@@ -2,7 +2,8 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-# Configuration de howfairis, qui calcule le badge fair-software.eu du README.
+# Configuration de howfairis. Le badge affiché dans le README est maintenu manuellement ; ce fichier
+# documente uniquement l'exemption du contrôle de registre et ne calcule pas le score affiché.
 
 # Le registre est une exemption déclarée, pas une conformité : k7pl est un
 # langage et sa spécification, pas un paquet publié dans un registre reconnu par
