@@ -23,11 +23,11 @@ This lot qualifies the legacy suivi/ corpus by knowledge function rather than by
 | pr-02-plan-de-traitement.md | METHOD.md; docs/peer-review/; docs/archives/ | campaign plan | décision; historique | Extract durable workflow rules; archive campaign sequencing | source retained |
 | primitives.md | ARCHITECTURE.md; METHOD.md; RESEARCH.md; docs/archives/ | terminology/design inventory | décision; hypothèse; établi | Extract stabilized terminology and rationale | source retained |
 | registre-empirique.md | RESEARCH.md; ASSURANCE.md; docs/archives/ | empirical commitments | preuve; hypothèse; observation | Separate protocols from measurements not conducted | source retained |
-| registre-obligations.md | ASSURANCE.md; RESEARCH.md; docs/archives/ | claim/dependency register | établi; hypothèse; preuve; historique | Reconcile against current spec before current use | source retained |
+| 2026-10-01-registre-obligations.md | ASSURANCE.md; RESEARCH.md; docs/archives/ | historical claim/dependency snapshot | établi; hypothèse; preuve; historique | Reconcile against current spec before current use | source retained |
 
 ## Qualification rules
 
-Generated material is not manually reproduced where a current machine source exists. DECISIONS.md is not itself normative. ANOMALIES.md and factorisations-refusees.md are adversarial evidence, not normative truth. registre-empirique.md distinguishes protocols from empirical results. registre-obligations.md is an historical snapshot and must be reconciled with the current Verso specification.
+Generated material is not manually reproduced where a current machine source exists. DECISIONS.md is not itself normative. ANOMALIES.md and factorisations-refusees.md are adversarial evidence, not normative truth. registre-empirique.md distinguishes protocols from empirical results. `docs/history/2026-10-01-registre-obligations.md` is an historical snapshot and must be reconciled with the current Verso specification.
 
 ## Acceptance criteria
 
