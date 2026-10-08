@@ -43,8 +43,7 @@ REQUIRED_FILES = {
     "docs/PROVENANCE.md",
     "docs/RESEARCH.md",
     "docs/STATUS.md",
-    "docs/tracking/TABLEAU-DE-BORD.md",
-    "docs/tracking/DOCUMENTATION-ARCHITECTURE-PLAN.md",
+    "docs/tracking/DASHBOARD.md",
     "docs/migration/README.md",
     "docs/peer-review/README.md",
 }
@@ -57,8 +56,7 @@ ENGLISH_ENTRY_POINTS = {
     "docs/PROVENANCE.md": "# Document provenance",
     "docs/RESEARCH.md": "# K7PL Research",
     "docs/STATUS.md": "# K7PL Status",
-    "docs/tracking/TABLEAU-DE-BORD.md": "# K7PL Project Dashboard",
-    "docs/tracking/DOCUMENTATION-ARCHITECTURE-PLAN.md": "# Documentation architecture and migration plan",
+    "docs/tracking/DASHBOARD.md": "# K7PL Project Dashboard",
     "docs/migration/README.md": "# Migration register",
     "docs/peer-review/README.md": "# Peer review",
 }
