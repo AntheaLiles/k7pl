@@ -17,7 +17,7 @@ Start with:
 
 - [Architecture](ARCHITECTURE.md): project structure, conceptual layers, and relationships between specification, formalisation, implementation, proofs, and tests.
 - [Research](RESEARCH.md): scientific problem, hypothesis, object, expected contributions, and validation strategy.
-- [Specification](../spec/): the normative language specification.
+- [Specification](../spec/): the normative language specification.\n- [Interactive exploration](INTERACTIVE-EXPLORATION.md): proposed interactive presentation and knowledge navigation layer.
 
 ## Assess the current state
 
@@ -43,7 +43,7 @@ The documentation tree has been reorganized into explicit epistemic areas: `trac
 
 See also [archives/](archives/) for frozen historical implementation material.
 
-See [migration/](migration/README.md) for the controlled migration register and its execution state.
+See [migration/](migration/README.md) for the controlled migration register and its execution state.\n\nThe interactive exploration project is tracked in [tracking/INTERACTIVE-EXPLORATION-PLAN.md](tracking/INTERACTIVE-EXPLORATION-PLAN.md).
 
 ## Documentation model
 
