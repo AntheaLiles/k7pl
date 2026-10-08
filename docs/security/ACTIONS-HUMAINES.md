@@ -100,7 +100,7 @@ CI démarre.
 
 1. Ouvrir l'enregistrement `10.5281/zenodo.23040451` : DOI de concept ou de version ? Fichiers déposés (archive du dépôt ou PDF) ? Mode de création ?
 2. Sur zenodo.org, onglet GitHub du compte : l'interrupteur du dépôt `AntheaLiles/k7pl` est-il actif ? Choisir **un seul** canal (intégration native
-   **ou** `zenodo.yaml`), le consigner dans `docs/suivi/DECISIONS.md`.
+   **ou** `zenodo.yaml`), le consigner dans `docs/tracking/DECISIONS.md`.
 3. Contrôler l'identifiant Software Heritage du README : `swh:1:dir:b81695cf…` ne correspond pas à l'arbre git du tag (`87a04386…`) d'après l'audit.
    S'il ne désigne pas le contenu du tag, corriger ou retirer la mention.
 4. Répéter sur le sandbox (`ZENODO_ENV=sandbox`) avant la production.
