@@ -33,9 +33,9 @@ reuse lint                        # vérifie la conformité REUSE
 ## Spécifications
 
 La spécification du langage — le manuscrit « K7PL : KonSept Programming Language », sept
-chapitres, les références du document et cinq annexes — est dans [`spec/`](spec/), écrite en
-Verso, sous licence CC-BY-4.0. Elle est publiée sur <https://anthealiles.github.io/k7pl/> à
-chaque mise à jour de `main`. Le flux qui joindra son PDF à chaque release `spec-vX.Y.Z` et l'archivera
+chapitres, les références du document et quatre annexes — est dans [`spec/`](spec/), écrite en
+Verso, sous licence CC-BY-4.0. Elle est publiée sur <https://anthealiles.github.io/k7pl/> lorsque
+la CI de `main` reconstruit la spécification. Le flux qui joindra son PDF à chaque release `spec-vX.Y.Z` et l'archivera
 sur Zenodo est décrit dans [`CONTRIBUTING.md`](CONTRIBUTING.md) ; il n'a pas encore été exécuté de bout en bout.
 
 Le manuscrit est encore en cours de correction (campagne de relecture PR-02) : le point
@@ -56,7 +56,7 @@ dans [`docs/archives/`](docs/archives/).
 
 ## Contribuer
 
-[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
+[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
 [![DEI](https://img.shields.io/badge/DEI-DEI.md-6f42c1)](DEI.md)
 
 Voir [`CONTRIBUTING.md`](CONTRIBUTING.md) (déroulement), les
