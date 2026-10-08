@@ -36,8 +36,7 @@ class DocumentationArchitectureTests(unittest.TestCase):
             "docs/PROVENANCE.md": "# Document provenance",
             "docs/RESEARCH.md": "# K7PL Research",
             "docs/STATUS.md": "# K7PL Status",
-            "docs/tracking/TABLEAU-DE-BORD.md": "# K7PL Project Dashboard",
-            "docs/tracking/DOCUMENTATION-ARCHITECTURE-PLAN.md": "# Documentation architecture and migration plan",
+            "docs/tracking/DASHBOARD.md": "# K7PL Project Dashboard",
             "docs/migration/README.md": "# Migration register",
             "docs/peer-review/README.md": "# Peer review",
         }.items():
