@@ -266,7 +266,7 @@ NON, mais la justification doit être corrigée au regard de la définition dés
 
 La structure requise reste donc plus riche qu'un simple semi-anneau : elle comprend l'ordre du budget, l'opération de consommation et la condition d'admissibilité portée par \`ψ\`. La compatibilité arithmétique avec une multiplicité d'exécution entière est une propriété séparée ; elle ne transforme pas \`⊖\` en multiplication de grade.
 
-La seconde partie reste également distincte : le budget est utilisé comme borne de coût dans \`ψ\`, alors que l'usage détermine la disponibilité structurelle des dépendances. La séance 36 (\`docs/journal/2026-10-07-pr-02-36-budget-factorisation-test.md\`) établit qu'aucune règle du fragment \`Box\`, \`App\`, \`SubBox\`, substitution et \`Sc\` ne fournit de contre-exemple à une \`Scale_Usage\` qui laisse le budget invariant.
+La seconde partie reste également distincte : le budget est utilisé comme borne de coût dans \`ψ\`, alors que l'usage détermine la disponibilité structurelle des dépendances. La séance 36 (\`docs/history/2026-10-07-pr-02-36-budget-factorisation-test.md\`) établit qu'aucune règle du fragment \`Box\`, \`App\`, \`SubBox\`, substitution et \`Sc\` ne fournit de contre-exemple à une \`Scale_Usage\` qui laisse le budget invariant.
 
 #### Suivi d'avancement
 
