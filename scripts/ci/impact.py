@@ -29,6 +29,7 @@ SPEC_BUILD_EXACT = {
 }
 SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/")
 SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
+TRACKING_VIEWS_EXACT = {"docs/tracking/fiches-statuts.csv"}
 LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 LIGHT_EXACT = {"CITATION.cff"}
 PYTHON_TEST_EXACT = {"scripts/generate_status.py", "scripts/suivi.py"}
@@ -72,11 +73,15 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
     spec_build = False
     lean_build = False
     python_tests = False
+    tracking_views = force_full
     unknown: list[str] = []
 
     for path in paths:
         if is_markdown(path):
             docs_links = True
+
+        if path in TRACKING_VIEWS_EXACT or path.startswith("spec/"):
+            tracking_views = True
 
         if path in FULL_EXACT or starts(path, FULL_PREFIXES):
             full = True
@@ -115,6 +120,7 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
         "spec_build": spec_build,
         "lean_build": lean_build,
         "python_tests": python_tests,
+        "tracking_views": tracking_views,
         "unclassified": bool(unknown),
         "unknown_paths": unknown,
     }
@@ -125,7 +131,7 @@ def write_outputs(result: dict[str, object]) -> None:
     if not output:
         return
     with open(output, "a", encoding="utf-8") as handle:
-        for key in ("full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests", "unclassified"):
+        for key in ("full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests", "tracking_views", "unclassified"):
             handle.write(f"{key}={str(result[key]).lower()}\n")
 
 
