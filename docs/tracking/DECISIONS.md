@@ -64,3 +64,9 @@
 ## Ce qui n'a pas été rapproché
 
 Le **programme d'ajustement de septembre** ([`todo-manuscrit`](../history/2026-09-02-todo-manuscrit.md), 115 items en trois blocs) porte ses items comme « faits » ou « tranchés » ; les **questions de recherche** ([`questions`](../research/questions.md)) sont closes à 224 sur 225 (la seule en cours demande si les cônes intégrables portent une exponentielle graduée sur ℛ). Je n'ai pas rapproché ces items un à un du manuscrit courant : le suivi les dit clos, et la campagne PR-02 a depuis réécrit une grande partie des passages concernés. Un rapprochement ciblé se justifie pour les items qui touchent les énoncés repris sous concurrence (blocs A et C) ; il est proposé comme première relecture d'ensemble.
+
+
+| D-10 | DOI Zenodo `10.5281/zenodo.23040451` | **Ne pas l'utiliser implicitement comme concept de publication.** Son rôle exact (concept/version et contenu archivé) doit être vérifié humainement sur Zenodo. Le flux de release utilisera explicitement `ZENODO_CONCEPT_RECID` ; `NEW` est réservé à une création volontaire d'un nouveau concept. | `docs/PROVENANCE.md`, `scripts/sync_zenodo.py` |
+| D-11 | type de publication du PDF Zenodo | **`technicalnote`** pour le dépôt du PDF ; `zenodo.json` et `zenodo.files.json` sont alignés. | métadonnées de release |
+| D-12 | revendication de conformance publique | **Aucune conformance spécification–implémentation n'est revendiquée tant que le couplage n'est pas établi.** Lean contrôle la spécification et ses obligations formelles ; l'implémentation existe séparément. | `CITATION.cff`, `zenodo.json`, `zenodo.files.json`, `docs/ASSURANCE.md` |
+| D-13 | badge fair-software | **Badge manuel à 4 critères sur 5**, le critère de registre étant explicitement hors sujet dans `.howfairis.yml`. Le score affiché n'est pas présenté comme un calcul automatique. | `README.md`, `.howfairis.yml` |
