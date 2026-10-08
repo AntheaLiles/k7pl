@@ -17,10 +17,17 @@ be removed from this set when the manuscript vocabulary is reconciled with the i
 from __future__ import annotations
 
 import re
+import sys
 import unicodedata
+from pathlib import Path
 
-from . import corpus
-from .journal import ko, ok
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from controles import corpus
+    from controles.journal import ko, ok
+else:
+    from . import corpus
+    from .journal import ko, ok
 
 TERMS_FILE = corpus.SPEC.parent / "tools" / "SpecExt" / "IndexTerms.lean"
 LISTINGS = ("Refs.",)
