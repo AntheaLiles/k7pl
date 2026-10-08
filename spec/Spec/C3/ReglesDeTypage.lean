@@ -234,7 +234,7 @@ Le jeu de règles central : variable, adjonction, modalité graduée, effets et 
 ::::
 
 Deux niveaux circulent dans ces règles, et ils ne sont pas le même ordre. Le _niveau de lecture_
-$`\ell` est la troisième composante d'un grade $`r`$ : ce qu'une liaison $`x :_r V` donne le droit
+$`\ell` est la troisième composante d'un grade $`r` : ce qu'une liaison $`x :_r V` donne le droit
 de lire, et $`\mathrm{niv}(\Delta) = \bigsqcup_{x :_r V \in \Delta} \mathrm{niv}(r)` est celui d'un
 contexte. Le _niveau de production_ $`\hat\ell` est celui auquel un événement est observable : la
 famille $`\kappa` d'un effet $`\varepsilon = \langle \varphi, \kappa \rangle` est indexée par lui, et
@@ -408,7 +408,7 @@ le niveau par définition du treillis, le budget sous $`\leq` comme maxima.
 Mais _l'existence de jointures n'est pas la cohérence des coercions_, et cette esquisse confondait
 les deux. Un ordre peut avoir ses jointures sans que les fonctions de conversion associées
 commutent : ce qu'il faut est que, pour tous $`r \preccurlyeq s \preccurlyeq t`, la conversion
-composée de $`r`$ vers $`t` égale la conversion directe, et que la conversion de $`r`$ vers lui-même
+composée de $`r` vers $`t` égale la conversion directe, et que la conversion de $`r` vers lui-même
 soit l'identité. C'est une condition sur les _coercions_, non sur l'ordre, et elle reste à établir :
 facteur par facteur d'abord, puis par fermeture sur le produit, le composé de quatre familles
 cohérentes l'étant si les quatre le sont.
@@ -579,7 +579,7 @@ La forme d'une opération à portée : son effet est une fonction de l'effet de 
 
 Le scalaire `n` agit sur le contexte comme un scalaire d'usage : `n·Δ₂`
 se lit sous l'architecture factorisée comme `Scale_Usage(n,Δ₂)`. La transformation
-$`\varphi_n`$ sur l'effet est une opération distincte. La règle ne requiert donc
+$`\varphi_n` sur l'effet est une opération distincte. La règle ne requiert donc
 aucune multiplication préalable de la composante budgétaire par `n`.
 
 Ce qui distingue cette règle de {sc}[Op] tient entièrement à $`f`. L'effet d'une opération à portée
@@ -994,7 +994,7 @@ quatrième opération, indexée par l'effet. Identifier ces quatre familles sous
 était trop fort.
 
 Le cas du budget montre immédiatement pourquoi. La soustraction tronquée `⊖` intervient dans
-$`\boxtimes`$ via $`\psi`$, mais elle n'est pas la multiplication d'une grade algebra. La loi utile
+$`\boxtimes` via $`\psi`, mais elle n'est pas la multiplication d'une grade algebra. La loi utile
 pour une répétition entière, `n(β ⊖ k)=nβ ⊖ nk`, est une loi de compatibilité
 entre une action de multiplicité et la consommation ; elle ne définit pas l'opération de
 composition des grades.
@@ -1546,7 +1546,7 @@ $`\Delta \boxtimes_{\mathbf{1}} (r\cdot\Delta') \vdash c[v/x] : C[j/i] \mid \var
 Deux clauses le conditionnent. La première est celle que le chapitre 3 pose : la formation des types
 s'effectue dans un contexte dont tous les usages sont annulés, faute de quoi un type pourrait
 dépendre d'une ressource consommée et la substitution cesserait d'être admissible. La seconde tient
-au facteur `r\cdot\Delta'` : substituer une valeur employée $`r`$ fois multiplie les exigences de
+au facteur `r\cdot\Delta'` : substituer une valeur employée $`r` fois multiplie les exigences de
 son contexte d'autant, ce qui est la contrepartie de {sc}[App] et doit être vérifié cohérent avec
 l'action d'usage effectivement retenue.
 
@@ -1565,7 +1565,7 @@ d'usage ; les transformations d'effet restent séparées et ne définissent pas 
 l'échelle du grade complet.
 
 Pour les usages, on retient le candidat
-$`\operatorname{Scale}_{Usage}(a,\langle u,m,\ell,\beta\rangle) = \langle a\cdot u,m,\ell,\beta\rangle`$.
+$`\operatorname{Scale}_{Usage}(a,\langle u,m,\ell,\beta\rangle) = \langle a\cdot u,m,\ell,\beta\rangle`.
 Comme $`\psi` laisse inchangées l'usage, la monotonie et le niveau et n'agit que sur le budget, la
 compatibilité correspondante est :
 ::::formula (label := "eq:coherence-usage") (kind := "formule")
@@ -1579,24 +1579,24 @@ compatibilité correspondante est :
 ::::
 
 Aucune transformation $`\varphi_a` de l'effet n'est alors requise. Cette propriété évite d'étendre
-artificiellement $`\varphi_r`$ à un usage rationnel : $`a=1/N`$ décrit une capacité d'usage, non une
+artificiellement $`\varphi_r` à un usage rationnel : $`a=1/N` décrit une capacité d'usage, non une
 fraction d'exécution.
 
-Les répétitions effectives utilisent séparément une multiplicité entière $`n`$ sur l'effet, par
-exemple $`\varphi_n(\varepsilon)=\varepsilon^n`$. La règle {sc}[Sc] conserve l'action contextuelle
-de $`\operatorname{Scale}_{Usage}(n,-)`$ et applique $`\varphi_n`$ à l'effet produit. Aucune seconde
-action $`\operatorname{Scale}_{Exec}`$ sur le grade complet n'est donc requise par le langage actuel.
+Les répétitions effectives utilisent séparément une multiplicité entière $`n` sur l'effet, par
+exemple $`\varphi_n(\varepsilon)=\varepsilon^n`. La règle {sc}[Sc] conserve l'action contextuelle
+de $`\operatorname{Scale}_{Usage}(n,-)` et applique $`\varphi_n` à l'effet produit. Aucune seconde
+action $`\operatorname{Scale}_{Exec}` sur le grade complet n'est donc requise par le langage actuel.
 
-La séparation répond directement aux règles. $`\mathrm{Scale}_{\mathrm{Usage}}`$ porte les demandes de
-$`Box`, $`App`, substitution et le contexte de {sc}[Sc]`; les transformations comme $`\varphi_n`$
+La séparation répond directement aux règles. $`\mathrm{Scale}_{\mathrm{Usage}}` porte les demandes de
+$`Box`, $`App`, substitution et le contexte de {sc}[Sc]`; les transformations comme $`\varphi_n`
 portent les effets produits par une répétition. La loi universelle
-$`r\cdot\psi(\Delta,\varepsilon)=\psi(r\cdot\Delta,\varphi_r(\varepsilon))`$ est abandonnée comme
+$`r\cdot\psi(\Delta,\varepsilon)=\psi(r\cdot\Delta,\varphi_r(\varepsilon))` est abandonnée comme
 formulation générale : elle confondait une action de contexte et une action sur les effets, et elle
-obligeait à donner un sens à $`\varphi_r`$ pour des grades d'usage rationnels.
+obligeait à donner un sens à $`\varphi_r` pour des grades d'usage rationnels.
 
 Le point reste conditionnel pour la preuve complète de substitution. Les lois d'identité, de composition,
-de distributivité de $`\mathrm{Scale}_{\mathrm{Usage}}`$ sur l'agrégation des contextes et sa compatibilité
-avec les conversions de $`Sub` et $`SubBox`$ doivent être considérées avec les domaines exacts
+de distributivité de $`\mathrm{Scale}_{\mathrm{Usage}}` sur l'agrégation des contextes et sa compatibilité
+avec les conversions de $`Sub` et $`SubBox` doivent être considérées avec les domaines exacts
 des constructions auxquelles elles s'appliquent.
 
 ## Cible de preuve — substitution
@@ -1612,70 +1612,70 @@ Terme, type et grade ensemble
 
 Si $`\Delta,\, x :_r V_i \vdash c : C \mid \varepsilon(i)` et $`\Delta' \vdash v : V_j`, alors
 la notation de surface $`\Delta \boxtimes_{\mathbf{1}} (r\cdot\Delta')` est interprétée, sous
-l'architecture factorisée, par $`\mathrm{Scale}_{\mathrm{Usage}}(\pi_U(r),\Delta')`$ et la conclusion est
+l'architecture factorisée, par $`\mathrm{Scale}_{\mathrm{Usage}}(\pi_U(r),\Delta')` et la conclusion est
 $$`\Delta \boxtimes_{\mathbf{1}} \mathrm{Scale}_{\mathrm{Usage}}(\pi_U(r),\Delta')
 \;\vdash\; c[v/x] : C[j/i] \mid \varepsilon(j).`
 
 Les hypothèses quantitatives requises sont : la formation des types dans un contexte d'usages
-annulés ; l'identité, la composition et la bilinéarité de $`\mathrm{Scale}_{\mathrm{Usage}}`$ sur la composante d'usage ;
-la commutation de $`\mathrm{Scale}_{\mathrm{Usage}}`$ avec $`\psi`$ ; et la compatibilité des conversions de grade complet
-avec les constructeurs de types. La transformation $`\varphi_n`$ reste séparée lorsqu'une règle produit un
+annulés ; l'identité, la composition et la bilinéarité de $`\mathrm{Scale}_{\mathrm{Usage}}` sur la composante d'usage ;
+la commutation de $`\mathrm{Scale}_{\mathrm{Usage}}` avec $`\psi` ; et la compatibilité des conversions de grade complet
+avec les constructeurs de types. La transformation $`\varphi_n` reste séparée lorsqu'une règle produit un
 effet répété. L'énoncé reste donc une proposition conditionnelle, mais ses obligations sont désormais
 factorisées par rôle du scalaire.
 :::
 :::proofsketch
-Sous ces hypothèses, une preuve naturelle procède par induction sur la dérivation de $`\Delta,\, x :_r V_i \vdash c : C \mid \varepsilon(i)`$. Les
+Sous ces hypothèses, une preuve naturelle procède par induction sur la dérivation de $`\Delta,\, x :_r V_i \vdash c : C \mid \varepsilon(i)`. Les
 trente-quatre règles se rangent en cinq groupes. Les cas purement syntaxiques ne demandent aucune
 propriété quantitative nouvelle ; les autres utilisent les lois propres à la sorte de scalaire qui
 apparaît dans la règle.
 
-_La variable._ Deux sous-cas exclusifs. Si $`c = x`$, la
+_La variable._ Deux sous-cas exclusifs. Si $`c = x`, la
 règle {sc}[Var] impose que toutes les autres liaisons soient au grade nul et que celle-ci soit à
-l'unité : donc $`\Delta = \mathbf{0}`$ et $`r = 1`$. La conclusion demandée devient
-$`\mathbf{0} \boxtimes_{\mathbf{1}} \Delta' \vdash v : V_j`$, soit $`\Delta' \vdash v : V_j`$, qui est
-l'hypothèse. Si $`c=y\neq x`$, la même règle impose $`r=0`$ ; la substitution ne fait rien, et
-$`\mathrm{Scale}_{\mathrm{Usage}}(0,\Delta')=0\cdot\Delta'`$ laisse le contexte inchangé. Le facteur $`r`$ compte donc bien les
+l'unité : donc $`\Delta = \mathbf{0}` et $`r = 1`. La conclusion demandée devient
+$`\mathbf{0} \boxtimes_{\mathbf{1}} \Delta' \vdash v : V_j`, soit $`\Delta' \vdash v : V_j`, qui est
+l'hypothèse. Si $`c=y\neq x`, la même règle impose $`r=0` ; la substitution ne fait rien, et
+$`\mathrm{Scale}_{\mathrm{Usage}}(0,\Delta')=0\cdot\Delta'` laisse le contexte inchangé. Le facteur $`r` compte donc bien les
 emplois de la variable substituée, mais son action quantitative passe par la projection d'usage.
 
 _Les règles structurelles ne fournissent aucun cas_ : l'affaiblissement et la contraction sont
 encodés par l'arithmétique des grades. Il n'y a donc pas de règle structurelle supplémentaire à
-compatibiliser avec $`\mathrm{Scale}_{\mathrm{Usage}}`$.
+compatibiliser avec $`\mathrm{Scale}_{\mathrm{Usage}}`.
 
 _Les règles à contextes additionnés_ — {sc}[Pair], {sc}[Inj] — séparent `x` entre les deux
-prémisses, $`r = r_1 + r_2`$. La recombinaison des hypothèses d'induction utilise
-$`\pi_U(r_1+r_2)=\pi_U(r_1)+\pi_U(r_2)`$ et la distributivité de
-$`\mathrm{Scale}_{\mathrm{Usage}}`$ sur l'addition point par point. Elle n'exige aucune multiplication ou action
+prémisses, $`r = r_1 + r_2`. La recombinaison des hypothèses d'induction utilise
+$`\pi_U(r_1+r_2)=\pi_U(r_1)+\pi_U(r_2)` et la distributivité de
+$`\mathrm{Scale}_{\mathrm{Usage}}` sur l'addition point par point. Elle n'exige aucune multiplication ou action
 sur la monotonie, le niveau ou le budget.
 
 _Les règles à contextes composés_ — {sc}[Let], {sc}[App], {sc}[Unbox], {sc}[Open] — utilisent la
-loi de commutation de $`\mathrm{Scale}_{\mathrm{Usage}}`$ avec $`\psi`$ et sa composition scalaire. En particulier, pour
-un scalaire d'usage $`a`$, la candidate
-$$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1 \boxtimes_{\varepsilon} \Delta_2)`$$
+loi de commutation de $`\mathrm{Scale}_{\mathrm{Usage}}` avec $`\psi` et sa composition scalaire. En particulier, pour
+un scalaire d'usage $`a`, la candidate
+$$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1 \boxtimes_{\varepsilon} \Delta_2)`
 est égale à
-$$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1) \boxtimes_{\varepsilon} \mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_2)`$$
-par la définition de $`\boxtimes`$, la commutation avec $`\psi`$ et l'additivité de l'action sur
-l'usage. La composition $`\mathrm{Scale}_{\mathrm{Usage}}(a,\mathrm{Scale}_{\mathrm{Usage}}(b,\Delta))=\mathrm{Scale}_{\mathrm{Usage}}(ab,\Delta)`$ ferme le
+$$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1) \boxtimes_{\varepsilon} \mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_2)`
+par la définition de $`\boxtimes`, la commutation avec $`\psi` et l'additivité de l'action sur
+l'usage. La composition $`\mathrm{Scale}_{\mathrm{Usage}}(a,\mathrm{Scale}_{\mathrm{Usage}}(b,\Delta))=\mathrm{Scale}_{\mathrm{Usage}}(ab,\Delta)` ferme le
 cas d'imbriquement.
 
-_La règle {sc}[Sc]_ représente une répétition effective sur deux axes distincts : $`\mathrm{Scale}_{\mathrm{Usage}}(n,-)`$
-sur le contexte et $`\varphi_n`$ sur l'effet. Ces deux actions restent séparées ; aucune nouvelle action
+_La règle {sc}[Sc]_ représente une répétition effective sur deux axes distincts : $`\mathrm{Scale}_{\mathrm{Usage}}(n,-)`
+sur le contexte et $`\varphi_n` sur l'effet. Ces deux actions restent séparées ; aucune nouvelle action
 sur le grade complet n'est introduite.
 
 _Les règles de sous-typage_ {sc}[Sub] et {sc}[SubBox] demandent la compatibilité des conversions
 avec les constructeurs. Pour {sc}[SubBox], la projection
-$`\preccurlyeq`$
+$`\preccurlyeq`
 donne déjà la direction d'usage nécessaire :
-$`r \preccurlyeq r' \Rightarrow \pi_U(r) \geq \pi_U(r')`$.
+$`r \preccurlyeq r' \Rightarrow \pi_U(r) \geq \pi_U(r')`.
 La monotonie de la multiplication de l'usage permet alors de conserver cette direction sous une
 mise à l'échelle commune. La compatibilité des composantes de niveau, monotonie et budget reste
 une obligation distincte.
 
 _Les modalités temporelles_ demandent un cas distinct pour {sc}[When], qui transforme la composante
 temporelle. Sa compatibilité avec les actions de grade ne découle pas de la présence de
-$`\omega`$ seule et reste à établir lorsque son domaine exact sera fixé.
+$`\omega` seule et reste à établir lorsque son domaine exact sera fixé.
 
-_Les trois niveaux._ La substitution du terme donne $`c[v/x]`$ ; celle du type donne
-$`C[j/i]`$ ; celle du grade donne l'effet $`\varepsilon(j)`$. Les deux dernières se font ensemble parce
+_Les trois niveaux._ La substitution du terme donne $`c[v/x]` ; celle du type donne
+$`C[j/i]` ; celle du grade donne l'effet $`\varepsilon(j)`. Les deux dernières se font ensemble parce
 que l'indice est le même. La première clause, formation des types dans un contexte d'usages annulés,
 garantit qu'aucun type ne dépend d'une ressource consommée.
 
@@ -1767,14 +1767,14 @@ dans la famille de grades de la fonction :
 où $`\boxtimes` note la composition des contextes que la loi distributive gouverne. La seconde est
 le lemme de substitution, énoncé sur les deux niveaux : si
 $`\Delta, x{:}_r A_i \vdash t : B \mid \varepsilon(i)` et $`\Delta' \vdash v : A_j`, alors
-$`\Delta \boxtimes (r\cdot\Delta') \vdash t[v/x] : B[j/i] \mid \varepsilon(j)` — le facteur $`r`$
+$`\Delta \boxtimes (r\cdot\Delta') \vdash t[v/x] : B[j/i] \mid \varepsilon(j)` — le facteur $`r`
 étant celui de la liaison substituée, comme dans l'énoncé qui ouvre cette section. Sa forme
 ordinaire — celle qui ne substitue que dans le terme et le type — serait ici vraie et sans emploi,
 puisqu'elle ne dirait rien du grade, qui est ce dont dépend le cas intéressant.
 
-Le facteur $`r`$ n'est pas un ornement, et l'omettre rendrait l'énoncé faux dans le seul sens qui
+Le facteur $`r` n'est pas un ornement, et l'omettre rendrait l'énoncé faux dans le seul sens qui
 compte. La règle {sc}[App] conclut sur $`\Delta_1 \boxtimes (r\cdot\Delta_2)` : une fonction qui
-déclare consommer son argument $`r`$ fois multiplie d'autant les exigences du contexte qui le
+déclare consommer son argument $`r` fois multiplie d'autant les exigences du contexte qui le
 produit. Le lemme en est la contrepartie, puisque substituer est ce que l'application fait en
 réduisant. S'il concluait sur $`\Delta \boxtimes \Delta'`, la réduction de $`(\lambda x.c)\,v`
 produirait un terme typable dans un contexte strictement plus faible que celui où l'application
