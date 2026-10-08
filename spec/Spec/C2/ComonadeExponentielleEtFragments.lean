@@ -214,7 +214,7 @@ tag := "sec:c2-interface-cout-budgetaire"
 {label "sec:c2-interface-cout-budgetaire"}
 
 Dans l'état normatif courant, la composante temporelle est une famille de couples
-$`\kappa : \mathcal{L} \to (\mathbb{N}_\infty \times \mathbb{N}_\infty)`$ indexée par les niveaux.
+$`\kappa : \mathcal{L} \to (\mathbb{N}_\infty \times \mathbb{N}_\infty)` indexée par les niveaux.
 Il faut donc distinguer l'agrégation de coût et la consommation budgétaire :
 
 ::::formula (label := "eq:cost-budget-interface") (kind := "formule")
@@ -238,7 +238,7 @@ tag := "sec:c2-scalarisation-minimale-budget"
 
 {label "sec:c2-scalarisation-minimale-budget"}
 
-Pour maintenir un budget scalaire tout en bornant simultanément le travail et la profondeur, on définit, pour $`\kappa(\ell)=\langle w_\ell,s_\ell\rangle`$ :
+Pour maintenir un budget scalaire tout en bornant simultanément le travail et la profondeur, on définit, pour $`\kappa(\ell)=\langle w_\ell,s_\ell\rangle` :
 
 ::::formula (label := "eq:cost-max-both") (kind := "formule")
 ```
@@ -257,8 +257,8 @@ séquencement et se combine par maximum en parallèle, ce qui donne les inégali
 une borne scalaire.
 
 Il possède surtout une propriété de minimalité : pour toute scalarisation scalaire `C(κ)` qui satisfait
-simultanément $`W(κ)\le C(κ)`$ et $`D(κ)\le C(κ)`$, on a
-`Cost_Budget(κ)≤C(κ)`$. Il s'agit donc de la plus petite borne scalaire qui
+simultanément $`W(κ)\le C(κ)` et $`D(κ)\le C(κ)`, on a
+`Cost_Budget(κ)≤C(κ)`. Il s'agit donc de la plus petite borne scalaire qui
 domine les deux dimensions temporelles.
 
 Sous les deux hypothèses déjà normatives — budget scalaire et borne simultanée du travail et de la
@@ -267,10 +267,10 @@ pas de la comonade et ne justifie aucune multiplication supplémentaire du grade
 budget vectoriel reste une extension architecturale possible, mais elle n'est pas requise par les
 règles actuelles.
 
-Le statut est donc celui d'une _construction dérivée sous hypothèses normatives_ : les agrégateurs, la scalarisation et la condition d'admissibilité sont fixés. L'obligation restante porte sur la preuve que le coût annoncé par chaque effet est bien celui consommé par $`\psi`$ lors de chaque traversée.
+Le statut est donc celui d'une _construction dérivée sous hypothèses normatives_ : les agrégateurs, la scalarisation et la condition d'admissibilité sont fixés. L'obligation restante porte sur la preuve que le coût annoncé par chaque effet est bien celui consommé par $`\psi` lors de chaque traversée.
 
 La composition parallèle appartient au noyau des effets exposé par le chapitre 3. La famille temporelle
-$`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`$ porte, à chaque niveau,
+$`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}` porte, à chaque niveau,
 le travail et la profondeur ; le séquencement additionne les deux composantes et la mise en parallèle
 additionne les travaux en prenant le maximum des profondeurs.
 
@@ -282,27 +282,27 @@ compatibilité de l'itération et de la mise en parallèle
 :::
 
 :::statement +titled
-Pour tous effets et toute multiplicité entière $`n`$ du domaine de l'itération :
+Pour tous effets et toute multiplicité entière $`n` du domaine de l'itération :
 $$`\varphi_n(\varepsilon_1 \parallel \varepsilon_2)
 =
-\varphi_n(\varepsilon_1) \parallel \varphi_n(\varepsilon_2).`$
+\varphi_n(\varepsilon_1) \parallel \varphi_n(\varepsilon_2).`
 :::
 
 :::proofsketch
 Sur le travail, l'identité vient de la distributivité de la multiplication entière sur l'addition.
 Sur la profondeur, elle vient de la monotonie de la multiplication dans le supremum :
-$`n\max(s_1,s_2)=\max(ns_1,ns_2)`$.
+$`n\max(s_1,s_2)=\max(ns_1,ns_2)`.
 L'énoncé ne présuppose aucune transformation du budget ; celle-ci relève de `Cost_Budget`.
 :::
 ::::
 
-L'interface budgétaire est désormais fixée sous les hypothèses normatives retenues. Le grade porte un budget $`\beta \in \mathbb{N}_\infty`$, tandis que la composante temporelle normative est la famille $`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`$. Les agrégateurs $`W`$ et $`D`$ et la scalarisation `Cost_Budget` sont définis ci-dessous ; la consommation reste séparée et n'intervient que lorsque l'effet traverse effectivement un contexte par $`\psi`$.
+L'interface budgétaire est désormais fixée sous les hypothèses normatives retenues. Le grade porte un budget $`\beta \in \mathbb{N}_\infty`, tandis que la composante temporelle normative est la famille $`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`. Les agrégateurs $`W` et $`D` et la scalarisation `Cost_Budget` sont définis ci-dessous ; la consommation reste séparée et n'intervient que lorsque l'effet traverse effectivement un contexte par $`\psi`.
 
 Une extension concurrente pourrait ultérieurement raffiner la famille temporelle par plusieurs composantes de coût, mais cette extension n'appartient pas à la définition normative actuelle. Elle ne doit donc pas décider aujourd'hui de la structure du grade ni de la consommation budgétaire.
 
-Le rôle du budget est ainsi séparé de la mise à l'échelle d'usage : $`Scale_{\mathrm{Usage}}` laisse la composante budgétaire inchangée, tandis que `Cost_Budget` et `Consume` décrivent la consommation provoquée par un effet effectivement traversé par $`\psi`$.
+Le rôle du budget est ainsi séparé de la mise à l'échelle d'usage : $`Scale_{\mathrm{Usage}}` laisse la composante budgétaire inchangée, tandis que `Cost_Budget` et `Consume` décrivent la consommation provoquée par un effet effectivement traversé par $`\psi`.
 
-Il n'est pas non plus établi qu'un usage infini soit interdit dès qu'un effet a un coût non nul. L'admissibilité dépend de la condition $`Adm`$ et de la valeur du budget ; aucune telle exclusion ne doit être déduite de la seule factorisation de l'index.
+Il n'est pas non plus établi qu'un usage infini soit interdit dès qu'un effet a un coût non nul. L'admissibilité dépend de la condition $`Adm` et de la valeur du budget ; aucune telle exclusion ne doit être déduite de la seule factorisation de l'index.
 
 Le rôle de l'index doit ici être séparé du rôle de l'annotation complète. La présentation historique
 utilise $`\mathcal{R}` pour le semi-anneau qui porte l'usage, et la structure exponentielle est alors
@@ -320,7 +320,7 @@ Le manuscrit doit donc conserver trois objets distincts tant que cette correspon
 démontrée : $`\mathcal{R}` pour le semi-anneau d'usage, $`\mathcal{G}` pour l'annotation complète
 du jugement, et la famille de modes qui gouverne les permissions structurelles. Les tests des séances
 35 à 52 soutiennent désormais une architecture de référence factorisée : la comonade est indexée par
-$`\mathcal{R}` et les autres composantes de $`r`$ sont conservées comme annotations et interfaces
+$`\mathcal{R}` et les autres composantes de $`r` sont conservées comme annotations et interfaces
 orthogonales. Une indexation par un porteur plus riche reste mathématiquement possible comme
 généralisation, mais elle n'est plus requise par les règles actuelles. La factorisation doit encore
 être validée par les lois sémantiques de l'interface.
@@ -465,7 +465,7 @@ tag := "sec:c2-cloture-minimale-gradation-usage"
 
 {label "sec:c2-cloture-minimale-gradation-usage"}
 
-Une fois le support fixé à $`I=\mathcal{R}`$, la dette de gradation indexée se réduit à une famille
+Une fois le support fixé à $`I=\mathcal{R}`, la dette de gradation indexée se réduit à une famille
 finie de lois. Pour les usages admissibles, il faut disposer d'une identité, d'une composition des
 coercions et de la compatibilité de la comonade avec la décomposition graduée :
 
@@ -483,16 +483,16 @@ w_A:!_0A\to A.
 
 Les règles de typage ajoutent ensuite trois conditions de liaison au grade complet :
 
-1. $`r\preccurlyeq r'`$ doit impliquer $`\pi_U(r)\geq\pi_U(r')`$ ;
-2. `Box`, `App` et substitution doivent utiliser $`Scale_{\mathrm{Usage}}(\pi_U(r),-)`$ ;
+1. $`r\preccurlyeq r'` doit impliquer $`\pi_U(r)\geq\pi_U(r')` ;
+2. `Box`, `App` et substitution doivent utiliser $`Scale_{\mathrm{Usage}}(\pi_U(r),-)` ;
 3. les composantes restantes du grade doivent conserver leurs propres conversions et ne doivent pas
 être introduites dans l'index de la comonade sans obligation indépendante.
 
 Ces clauses constituent la clôture minimale recherchée. Elles ne prouvent pas la cohérence sémantique
 de toutes les conversions ; elles isolent exactement les obligations à démontrer pour que la
-factorisation $`\mathcal{G}\to\mathcal{R}\to !`$ soit utilisable par la substitution et `SubBox`.
+factorisation $`\mathcal{G}\to\mathcal{R}\to !` soit utilisable par la substitution et `SubBox`.
 
-Le statut de cette section est donc propositionnel : aucune multiplication globale de $`\mathcal{G}`$
+Le statut de cette section est donc propositionnel : aucune multiplication globale de $`\mathcal{G}`
 n'est requise pour satisfaire ces lois.
 
 Ce que le paragraphe précédent décrit n'est donc pas une structure primitive mais le résultat d'une
