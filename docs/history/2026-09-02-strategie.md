@@ -2,7 +2,7 @@
 
 *Établie le 2 septembre 2026, sur l'état réel des quarante-deux chantiers*
 
-> Archivé le 2026-10-01 : ce document décrit l'état du 2 septembre 2026 et a été remplacé par [le tableau de bord](/tracking/DASHBOARD.md). Il est conservé pour la trace, tel qu'écrit alors ; les noms de fichiers et les commandes qu'il cite désignent l'ancien arbre de travail (Org-mode).
+> Archivé le 2026-10-01 : ce document décrit l'état du 2 septembre 2026 et a été remplacé par [le tableau de bord](../tracking/DASHBOARD.md). Il est conservé pour la trace, tel qu'écrit alors ; les noms de fichiers et les commandes qu'il cite désignent l'ancien arbre de travail (Org-mode).
 
 ## CE QUE L'ÉTAT DES LIEUX A CHANGÉ, AVANT MÊME DE PROPOSER QUOI QUE CE SOIT
 
