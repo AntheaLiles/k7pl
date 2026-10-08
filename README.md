@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2026 Cyprien PIERRE
-SPDX-License-Identifier: CECILL-2.1
+SPDX-License-Identifier: CC-BY-4.0
 -->
 
 # K7PL - KonSept Programming Language
@@ -93,7 +93,8 @@ et les limites connues de la chaîne de construction.
 [![REUSE status](https://api.reuse.software/badge/github.com/AntheaLiles/k7pl)](https://api.reuse.software/info/github.com/AntheaLiles/k7pl)
 
 - Code : [CeCILL 2.1](LICENSES/CECILL-2.1.txt)
-- Spécifications : [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)
-- Bibliothèques écrites dans le langage : CeCILL-C recommandée
+- Bibliothèques écrites dans K7PL : [CeCILL-C](LICENSES/CECILL-C.txt)
+- Spécifications et documentation : [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)
+- Infrastructure et configuration : [CC0-1.0](LICENSES/CC0-1.0.txt)
 
 Voir [`LICENSE.md`](LICENSE.md) pour le détail.
