@@ -61,7 +61,7 @@ Une clause sur la composante de budget, qui exige davantage que le semi-anneau n
 emploie la soustraction tronquée $`\ominus`, qui n'est ni l'addition ni le produit et ne s'en dérive
 pas. Sa définition demande d'être écrite par cas, et le choix entre deux candidates n'est pas
 indifférent :
-$$`\beta \ominus k \;=\; \begin{cases} \omega & \text{si } \beta = \omega\ 0 & \text{si } \beta < k\ \beta - k & \text{sinon} \end{cases}`
+$`\beta \ominus k \;=\; \begin{cases} \omega & \text{si } \beta = \omega\\ 0 & \text{si } \beta < k\\ \beta - k & \text{sinon} \end{cases}`
 C'est la _soustraction tronquée prolongée_ en $`\omega`, et il faut dire ce qu'elle n'est pas : _ce
 n'est pas le résidu de l'addition_. Le résidu — le plus petit $`x` tel que $`k + x \ge \beta` —
 rendrait $`\omega \ominus \omega = 0`, puisque $`\omega + 0 \ge \omega`. {rmq}[Deux définitions qui
@@ -640,9 +640,9 @@ un idéal de grades contractables et $`\mathrm{Weak}(m)` un prédicat booléen d
 la réalisation structurale candidate est :
 
 $$`\begin{aligned}
-M_{\mathrm{Lin}}   &= (\mathcal{R},\{0\},\mathrm{false}),&
-M_{\mathrm{Aff}}   &= (\mathcal{R},\{0\},\mathrm{true}),\
-M_{\mathrm{Rel}}   &= (\mathcal{R},\mathcal{R},\mathrm{false}),&
+M_{\mathrm{Lin}}   &= (\mathcal{R},\{0\},\mathrm{false}),\\
+M_{\mathrm{Aff}}   &= (\mathcal{R},\{0\},\mathrm{true}),\\
+M_{\mathrm{Rel}}   &= (\mathcal{R},\mathcal{R},\mathrm{false}),\\
 M_{\mathrm{Unr}}   &= (\mathcal{R},\mathcal{R},\mathrm{true}).
 \end{aligned}`
 
