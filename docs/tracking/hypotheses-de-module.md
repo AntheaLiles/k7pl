@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Ce que la transcription en assistant de preuve devra poser comme paramètre ou contourner. Inventaire
 tenu à la main ; le registre des énoncés ouverts est produit par `scripts/suivi.py` (bloc « ouverts »
-du [tableau de bord](TABLEAU-DE-BORD.md)).
+du [tableau de bord](DASHBOARD.md)).
 
 ## Hypothèses de module
 
