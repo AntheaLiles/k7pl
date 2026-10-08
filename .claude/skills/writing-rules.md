@@ -209,8 +209,8 @@ global et suit l'ordre du document.
 3. `python3 scripts/manuscript_metrics.py summary`, et `python3 scripts/suivi.py all` si des fiches ont changé d'état.
 4. Ajouter une ligne dans `spec/CHANGELOG.md` (commit de type `docs(spec)`).
 
-La bibliographie : ajouter une œuvre = ajouter sa notice à `biblio/references.json` (champs de
-`scripts/biblio/biblio.py`), puis `python3 scripts/biblio/biblio.py lean biblio/references.json
+La bibliographie : ajouter une œuvre = ajouter sa notice à `docs/bibliography/references.json` (champs de
+`scripts/biblio/biblio.py`), puis `python3 scripts/biblio/biblio.py lean docs/bibliography/references.json
 tools/SpecBib.lean`.
 
 ## 7. Style Lean 4
