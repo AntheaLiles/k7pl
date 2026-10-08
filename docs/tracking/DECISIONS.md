@@ -70,3 +70,6 @@ Le **programme d'ajustement de septembre** ([`todo-manuscrit`](../history/2026-0
 | D-11 | type de publication du PDF Zenodo | **`technicalnote`** pour le dépôt du PDF ; `zenodo.json` et `zenodo.files.json` sont alignés. | métadonnées de release |
 | D-12 | revendication de conformance publique | **Aucune conformance spécification–implémentation n'est revendiquée tant que le couplage n'est pas établi.** Lean contrôle la spécification et ses obligations formelles ; l'implémentation existe séparément. | `CITATION.cff`, `zenodo.json`, `zenodo.files.json`, `docs/ASSURANCE.md` |
 | D-13 | badge fair-software | **Badge manuel à 4 critères sur 5**, le critère de registre étant explicitement hors sujet dans `.howfairis.yml`. Le score affiché n'est pas présenté comme un calcul automatique. | `README.md`, `.howfairis.yml` |
+
+
+| D-14 | hygiène des branches | Audit du 8 octobre : les branches historiques sont désormais classées dans `docs/tracking/BRANCHES-STATUS.md`. `claude/lean4-reuse-init-qvzlcg` est conservée comme archive scientifique non normative car elle contient encore du matériau absent de `main`. `split/pr10-1-outillage-spec` est explicitement abandonnée. La branche `automation/generated-status` et sa PR #71 sont supersédées par #72. |
