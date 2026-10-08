@@ -60,7 +60,7 @@ Beaucoup de critères ne s'appliquent qu'au « software produced by the project 
 dizaine de choix N/A. **Faits observés** :
 
 - `src/` ne contient que trois modules jouets (`Main.hello`, `K7pl.Arith`, `K7pl.Semantics`) ; le langage
-  k7pl **n'est pas implémenté** (README.md:42-45 et `docs/suivi/TABLEAU-DE-BORD.md` §2 le disent).
+  k7pl **n'est pas implémenté** (README.md:42-45 et `docs/suivi/DASHBOARD.md` §2 le disent).
 - `lakefile.lean:42` déclare la version `0.1.0`, mais aucun tag `v*` n'existe.
 - La seule release est `spec-v0.0.0-alpha.1` : un **document** (spécification, CC-BY-4.0).
 - Le logiciel effectivement exécuté est l'outillage : générateur `lake exe spec` (`tools/`), contrôles
@@ -203,12 +203,12 @@ Les critères Passing promus (SHOULD/SUGGESTED devenus MUST) sont repris avec le
 | `achieve_passing` | MUST | Unmet tant que Passing n'est pas obtenu | état du site illisible | — | externe | §3 | Passing | HUMAN ACTION REQUIRED |
 | `contribution_requirements` | MUST, URL | Met | voir §3 | style Python non spécifié | documentaire | — | — | VERIFIED |
 | `dco` | SHOULD, URL | Unmet | 1 seul `Signed-off-by` sur 69 commits ; ni DCO ni CLA dans CONTRIBUTING | — | organisationnel (choix juridique) | adopter le DCO (texte dans CONTRIBUTING, `git commit -s`, contrôle en CI) **ou** justifier l'absence | autrice | HUMAN ACTION REQUIRED |
-| `governance` | MUST, URL | Unmet | pratique réelle visible mais non décrite comme telle : `docs/suivi/DECISIONS.md` (« Attendent une décision de l'auteur », « à ratifier ») ; CONTRIBUTING.md:27-28 | aucun document de gouvernance | documentaire | GOVERNANCE.md court qui décrit la pratique réelle (§6) | autrice | HUMAN ACTION REQUIRED |
+| `governance` | MUST, URL | Unmet | pratique réelle visible mais non décrite comme telle : `docs/tracking/DECISIONS.md` (« Attendent une décision de l'auteur », « à ratifier ») ; CONTRIBUTING.md:27-28 | aucun document de gouvernance | documentaire | GOVERNANCE.md court qui décrit la pratique réelle (§6) | autrice | HUMAN ACTION REQUIRED |
 | `code_of_conduct` | MUST, URL | Met | CODE_OF_CONDUCT.md (Contributor Covenant 2.1, FR) ; profil communautaire 100 % | canal de signalement (CODE_OF_CONDUCT.md:45) : « message privé … via son profil GitHub » — GitHub n'a pas de messagerie privée | documentaire / organisationnel | l'autrice désigne un canal qui existe | autrice | PARTIAL |
 | `roles_responsibilities` | MUST, URL | Unmet | aucun document ; rôles implicites : autrice-mainteneuse (@AntheaLiles), agents IA auteurs de commits, Dependabot | — | documentaire | dans le même GOVERNANCE.md (le critère l'autorise) | autrice | HUMAN ACTION REQUIRED |
 | `access_continuity` | MUST, URL | Unmet | une seule personne détient le compte GitHub, les secrets (`ZENODO_TOKEN`, `BUMP_TOKEN`), les comptes Zenodo et ORCID | — | organisationnel | voir §5 | autrice | HUMAN ACTION REQUIRED |
 | `bus_factor` | SHOULD, URL | Unmet (justifier) | une seule personne humaine (compte GitHub 120063455, « Cyprien PIERRE », 19 commits) ; les 49 commits « Claude » viennent d'un agent, dont 22 sous l'adresse de ce même compte | — | structurel | justification honnête ; ne pas compter les agents | — | BLOCKED |
-| `documentation_roadmap` | MUST, URL | Unmet | `docs/suivi/TABLEAU-DE-BORD.md` §2 et portes P1–P6 (l. 110-157) donnent le chemin vers l'implémentation | ni horizon d'un an, ni « ce que le projet ne fera pas » | documentaire | feuille de route écrite ou validée par l'autrice (§6) | autrice | HUMAN ACTION REQUIRED |
+| `documentation_roadmap` | MUST, URL | Unmet | `docs/suivi/DASHBOARD.md` §2 et portes P1–P6 (l. 110-157) donnent le chemin vers l'implémentation | ni horizon d'un an, ni « ce que le projet ne fera pas » | documentaire | feuille de route écrite ou validée par l'autrice (§6) | autrice | HUMAN ACTION REQUIRED |
 | `documentation_architecture` | MUST (N/A), URL | PARTIAL | règles §1 (structure du dépôt) ; `.github/workflows/README.md` (architecture CI) | rien sur l'architecture du logiciel produit (bibliothèque, générateur `SpecExt`/`SpecMain`, contrôles) | documentaire | page courte, ou N/A justifié tant qu'il n'y a pas d'implémentation | §1 | FUTURE |
 | `documentation_security` | MUST (N/A), URL | Unmet | SECURITY.md:23-31 décrit le périmètre de signalement, pas ce que l'utilisateur peut attendre | — | documentaire | modèle de sécurité (propriétaire : security-assurance) | security-assurance | FUTURE |
 | `documentation_quick_start` | MUST (N/A), URL | PARTIAL | README.md:21-33 | lance le build, ne permet de « faire quelque chose » avec aucun logiciel | interprétatif | N/A justifié, ou Met « lire la spec, lancer les tests » | §1 | HUMAN ACTION REQUIRED |
@@ -280,7 +280,7 @@ Les critères Passing promus (SHOULD/SUGGESTED devenus MUST) sont repris avec le
 
 | Critère | État technique | Obstacle organisationnel | Action humaine nécessaire | Possibilité future | Statut |
 |---|---|---|---|---|---|
-| `governance`, `roles_responsibilities` (Silver) | pratique réelle tracée dans `docs/suivi/DECISIONS.md` | aucun : il suffit de l'écrire | l'autrice valide un texte décrivant le modèle réel : une mainteneuse décide ; les agents IA rédigent et proposent, n'approuvent rien ; les décisions de fond sont consignées | immédiate | HUMAN ACTION REQUIRED |
+| `governance`, `roles_responsibilities` (Silver) | pratique réelle tracée dans `docs/tracking/DECISIONS.md` | aucun : il suffit de l'écrire | l'autrice valide un texte décrivant le modèle réel : une mainteneuse décide ; les agents IA rédigent et proposent, n'approuvent rien ; les décisions de fond sont consignées | immédiate | HUMAN ACTION REQUIRED |
 | `access_continuity` (Silver, MUST) | un compte, deux secrets, comptes Zenodo et ORCID personnels | personne d'autre n'a d'accès | (1) GitHub → Settings → Account → « Successor settings » → « Add successor » ; (2) dépôt chiffré (« lockbox ») : codes de récupération 2FA, accès Zenodo, procédure de rotation de `ZENODO_TOKEN`/`BUMP_TOKEN`, avec mention testamentaire des droits ; (3) option forte : transférer le dépôt dans une organisation avec deux propriétaires | le successeur GitHub ne couvre que le décès, et agit après un certificat de décès + 7 jours ou une nécrologie + 21 jours, sans pouvoir se connecter au compte : il ne suffit pas seul (incapacité, retrait volontaire) | HUMAN ACTION REQUIRED |
 | `bus_factor` (Silver SHOULD, Gold MUST) | 1 | une seule personne | aucune action documentaire ; recruter une seconde personne est une décision de projet | Gold seulement avec une seconde personne réelle | BLOCKED |
 | `contributors_unassociated` (Gold) | 1 contributeur | idem | idem | idem | BLOCKED |
@@ -297,7 +297,7 @@ Les critères Passing promus (SHOULD/SUGGESTED devenus MUST) sont repris avec le
 
 | Document | Répond-il à une pratique réelle ? | Critères servis | Recommandation |
 |---|---|---|---|
-| `GOVERNANCE.md` | **Oui**, si court et factuel : une mainteneuse unique qui décide ; agents IA qui proposent sans approuver ; journal des décisions dans `docs/suivi/DECISIONS.md` ; issue préalable pour les propositions non triviales (CONTRIBUTING.md:27-28) | `governance`, `roles_responsibilities`, éclaire `repo_track` | à créer en vague 2 **après validation de l'autrice** ; y intégrer les rôles |
+| `GOVERNANCE.md` | **Oui**, si court et factuel : une mainteneuse unique qui décide ; agents IA qui proposent sans approuver ; journal des décisions dans `docs/tracking/DECISIONS.md` ; issue préalable pour les propositions non triviales (CONTRIBUTING.md:27-28) | `governance`, `roles_responsibilities`, éclaire `repo_track` | à créer en vague 2 **après validation de l'autrice** ; y intégrer les rôles |
 | `MAINTAINERS.md` | Non, seul : il ne listerait qu'un nom, déjà dans `CITATION.cff` | — | **décoratif** : fusionner dans GOVERNANCE.md |
 | `ROADMAP.md` | En partie : le tableau de bord porte un vrai chemin (portes P1-P6, `D-9` : `spec-v0.1.0` après P6) ; l'horizon d'un an et la liste « ce que le projet ne fera pas » sont des intentions que seule l'autrice peut énoncer | `documentation_roadmap` | à écrire par l'autrice, ou section du tableau de bord liée depuis le README ; un texte rédigé par un agent serait une intention fabriquée |
 | `docs/security/SECURITY-MODEL.md` | **Oui** : ce qu'on peut attendre aujourd'hui (théorèmes Lean prouvés modulo les axiomes audités ; aucune garantie sur les énoncés de la spec non formalisés ; aucun binaire publié ; chaîne de publication) | `documentation_security` | propriétaire : security-assurance |
@@ -323,7 +323,7 @@ Les critères Passing promus (SHOULD/SUGGESTED devenus MUST) sont repris avec le
 Défauts documentaires (`documentation_current`), hors `spec/` sauf mention :
 
 - **D1** README.md:8 (badge `lean.yaml`, voir A6).
-- **D2** `docs/suivi/TABLEAU-DE-BORD.md:163` (« job `build` ») et :181 (« workflow `lean.yaml`, job `zenodo` ») : workflows renommés.
+- **D2** `docs/suivi/DASHBOARD.md:163` (« job `build` ») et :181 (« workflow `lean.yaml`, job `zenodo` ») : workflows renommés.
 - **D3** `lakefile.lean:74` : « generated by `outils/biblio/biblio.py` » — le script est `scripts/biblio/biblio.py`.
 - **D4** `CHANGELOG.md:54` : PDF « Verso → TeX → LuaLaTeX » ; la CI utilise Tectonic (`verify.yaml:184-233`).
 - **D5** SECURITY.md:10 : « k7pl n'a pas encore de version publiée » alors que `spec-v0.0.0-alpha.1` existe (ambigu : vrai pour l'implémentation).
@@ -391,7 +391,7 @@ canal du code de conduite, processus de réponse aux vulnérabilités (engagemen
 `README.md` (badges A4-A6, D1, badge CII), `CONTRIBUTING.md` (politique de tests, langue, revue, DCO),
 `SECURITY.md` (processus de réponse, D5), `CODE_OF_CONDUCT.md:45` (canal), `GOVERNANCE.md` (nouveau, après
 validation), `CITATION.cff`, `zenodo.json`, `zenodo.files.json` (A1, sur décision de l'autrice),
-`lakefile.lean:74` (D3), `CHANGELOG.md`, `docs/suivi/TABLEAU-DE-BORD.md` (D2),
+`lakefile.lean:74` (D3), `CHANGELOG.md`, `docs/suivi/DASHBOARD.md` (D2),
 `.claude/skills/writing-rules.md:35` (D6). Les documents `docs/security/*.md` appartiennent à
 security-assurance : le CII s'y réfère sans les écrire.
 
