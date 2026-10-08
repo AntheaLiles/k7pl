@@ -35,7 +35,7 @@
    "origine": "J-002"
   },
   {
-   "passage": "coordonnee par coordonnee",
+   "passage": "point par point",
    "cle": "mannucciResourceBoundedTypeTheory2025",
    "origine": "K-001"
   },
@@ -50,7 +50,7 @@
    "origine": "K-003"
   },
   {
-   "passage": "combiner des analyses independantes",
+   "passage": "combiner plusieurs analyses independantes",
    "cle": "liepeltSameCoeffectDifferent2026",
    "origine": "L-001"
   },
