@@ -159,7 +159,7 @@ jobs:
       - name: Generate STATUS.md
         if: ${{ steps.baseline.outputs.current != 'true' }}
         env:
-          K7PL_VERIFICATION: success
+          K7PL_VERIFICATION: ${{ needs.ci-ok.result }}
           K7PL_IMPACT_RESULT: ${{ needs.impact.result }}
           K7PL_VERIFY_RESULT: ${{ needs.verify.result }}
           K7PL_REUSE_RESULT: ${{ needs.reuse.result }}
