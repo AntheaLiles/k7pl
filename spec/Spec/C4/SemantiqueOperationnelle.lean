@@ -295,18 +295,18 @@ correction de ressource
 :::statement +titled
 Le grade borne les usages effectifs
 
-Étendre la configuration d'un compteur d'usages $`\kappa`, de sorte que la relation devienne
-$`\langle \mathcal{P} \mid \mu \mid \mathcal{M} \mid \tau \mid \kappa\rangle \longrightarrow \langle \mathcal{P}' \mid \mu' \mid \mathcal{M}' \mid \tau' \mid \kappa'\rangle`,
-où $`\kappa` compte les accès effectifs à chaque liaison _par membre du multi-ensemble_, et où le
+Étendre la configuration d'un compteur d'usages $`\nu`, de sorte que la relation devienne
+$`\langle \mathcal{P} \mid \mu \mid \mathcal{M} \mid \tau \mid \nu\rangle \longrightarrow \langle \mathcal{P}' \mid \mu' \mid \mathcal{M}' \mid \tau' \mid \nu'\rangle`,
+où $`\nu` compte les accès effectifs à chaque liaison _par membre du multi-ensemble_, et où le
 compte d'une liaison partagée est la somme des comptes de ceux qui la détiennent. Alors pour tout
 $`\Delta \vdash c : C \mid \varepsilon` et toute exécution depuis $`c`, liaison par liaison,
-$$`\kappa(x) \;\leq\; \text{la composante d'usage du grade de } x \text{ dans } \Delta.`
+$$`\nu(x) \;\leq\; \text{la composante d'usage du grade de } x \text{ dans } \Delta.`
 :::
 
 :::proofsketch
 La configuration est celle d'une machine instrumentée : les accès au tas correspondent aux
 références de variables, et la machine les suit. L'induction est celle de la préservation, avec un
-cas par règle et la charge supplémentaire de montrer que $`\kappa` ne dépasse jamais l'annotation —
+cas par règle et la charge supplémentaire de montrer que $`\nu` ne dépasse jamais l'annotation —
 ce qui est immédiat aux règles qui n'emploient pas la variable, et se ramène à la loi de cohérence
 de $`\varphi` et $`\psi` à celles qui composent deux contextes.
 :::
@@ -584,12 +584,15 @@ distinction est sans effet aujourd'hui, le contexte étant une application finie
 un sous une discipline d'échange, où l'ordre de séquentialisation cesse d'être indifférent.
 
 _Il intervient ensuite dans les cas de composition._ Pour {sc}[Let] et {sc}[App], le calcul conclu
-se forme sur $`\Delta_1 \boxtimes (r\cdot\Delta_2)`, et recoller les deux hypothèses d'induction
-demande que la mise à l'échelle traverse la composition : c'est la loi de cohérence la compatibilité
-de l'action graduée (théorème {num "thm:coherence_axiome"}[]). Le budget d'une exigence et le coût
-de l'effet qu'elle traverse doivent être multipliés ensemble, et le théorème dit que l'ordre des
-deux opérations est indifférent.
-
+se forme sur $`\Delta_1 \boxtimes (r\cdot\Delta_2)`. Sous l'architecture factorisée, l'indice du
+grade est projeté sur l'usage et l'identité pertinente est la commutation de
+$`\operatorname{Scale}_{\mathrm{Usage}}(\pi_U(r),-)` avec $`\psi` :
+$`\operatorname{Scale}_{\mathrm{Usage}}(u,\Delta_1 \boxtimes_\varepsilon \Delta_2)
+= \operatorname{Scale}_{\mathrm{Usage}}(u,\Delta_1) \boxtimes_\varepsilon
+\operatorname{Scale}_{\mathrm{Usage}}(u,\Delta_2)`. Aucune transformation de l'effet n'est
+requise pour ces règles. Une obligation supplémentaire n'apparaît que lorsqu'une construction
+de ré-invocation finie transforme explicitement l'effet par $`\varphi_n` ; elle reste alors
+conditionnelle à la compatibilité propre de cette ré-invocation avec la consommation budgétaire.
 _Les cas ordinaires._ Les connecteurs se traitent en dépliant la clause correspondante de la
 relation, laquelle a été écrite pour cela. {sc}[Box] et {sc}[Unbox] passent par la clause de la
 modalité : si le niveau du grade est sous $`\ell`, l'hypothèse d'induction donne la conclusion ;
@@ -741,12 +744,11 @@ désignée. Le fragment séquentiel déterministe de la cible étant le lambda-c
 de continuations, et K7PL retenant l'appel par poussée de valeur, la transformée se lit sans détour.
 Le _deuxième_, les connecteurs ordinaires, suit le schéma, les quatre règles de l'adjonction fixant
 où les coupures se placent. Le _troisième_, la modalité graduée, envoie une liaison de grade
-$`\omega` sur un service répliqué et toute autre sur un canal linéaire. Et le grade fini $`n` sur
-une ré-invocation séquentielle, selon l'arbitrage du 4 août. Traduire $`r \cdot \Delta`, c'est
-ré-invoquer $`r` fois la traduction de $`\Delta`, dont le coût est $`\varphi_r` de celui d'une
-invocation — l'égalité entre les deux manières de compter est la compatibilité de l'action graduée
-(théorème {num "thm:coherence_axiome"}[]).
-
+$`\omega` sur un service répliqué et toute autre sur un canal linéaire. Et le grade fini $`n` intervient
+dans une ré-invocation séquentielle, selon l'arbitrage retenu. Une traduction qui réalise cette
+ré-invocation met le contexte à l'échelle par $`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et
+transforme l'effet par $`\varphi_n`. Leur compatibilité est celle du schéma de ré-invocation bornée,
+et non une propriété automatique du grade complet.
 Du _quatrième groupe_, les cas résistants, deux se soldent et deux restent.
 
 Le cas (a), les types dépendants pragmatiques, se ramène à une composition : les raffinements sont
