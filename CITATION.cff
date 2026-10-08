@@ -20,8 +20,8 @@ license: "CC-BY-4.0"
 repository-code: "https://github.com/AntheaLiles/k7pl"
 url: "https://anthealiles.github.io/k7pl/"
 abstract: >-
-  Spécification du langage de programmation K7PL, écrite en Verso et vérifiée
-  par Lean 4 ; aucune conformance de la spécification à l’implémentation n’est actuellement revendiquée,
+  Spécification du langage de programmation K7PL, écrite en Verso et contrôlée
+  par Lean 4 ; aucune conformance de la spécification à l’implémentation n’est actuellement revendiquée.
 keywords:
   - K7PL
   - programming language
