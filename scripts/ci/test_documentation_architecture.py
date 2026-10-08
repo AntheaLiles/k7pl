@@ -75,6 +75,7 @@ class DocumentationArchitectureTests(unittest.TestCase):
 
     def test_security_audit_historical_reference_is_allowed(self):
         path = self.root / "docs/security/workstreams/cii/AUDIT.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("# Audit\nHistorical reviews were under `docs/relectures/`.\n", encoding="utf-8")
         self.assertEqual(check(self.root), [])
 
