@@ -537,7 +537,6 @@ Detailed evidence remains in:
 - docs/ASSURANCE.md — assurance case;
 - docs/tracking/DECISIONS.md — decisions and ratifications;
 - docs/tracking/FICHES-PR02.md — PR-02 tracking;
-- docs/tracking/registre-obligations.md — obligation inventory;
 - docs/migration/L1-THEORY-OBJECTS.md — theoretical-object boundaries;
 - docs/history/2026-10-08-documentation-architecture-plan.md — completed physical documentation migration record;
 - docs/tracking/LEAN-STATEMENT-COMMANDS-PLAN.md — C8 statement-command taxonomy and proof-bearing exposition;
