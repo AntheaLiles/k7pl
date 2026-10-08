@@ -27,6 +27,7 @@
 
 ## À ratifier (appliquées, non confirmées)
 
+| `QA-28` | réouverture de la question sur les quatre composantes du grade | **à nouveau en revue** : l'élision reste admise comme convention de présentation, mais l'action scalaire et la séparation grade/modes restent à établir | décision d'auteur du 7 octobre 2026, reprise dans PR #54 |
 | `ARB-PR-04` / PR-54 | statut des résultats de cohérence | ratification : `thm:coherence_axiome`, `thm:action_parallele`, `thm:morphismes_modes` et `thm:substitution` sont des propositions ; `thm:coherence_usage` est une proposition distincte | PR #54, séance C des 7–8 octobre 2026 |
 
 | | Décision appliquée | À confirmer |
