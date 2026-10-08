@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2026 Cyprien PIERRE
-SPDX-License-Identifier: CECILL-2.1
+SPDX-License-Identifier: CC-BY-4.0
 -->
 
 # Contribuer à k7pl
