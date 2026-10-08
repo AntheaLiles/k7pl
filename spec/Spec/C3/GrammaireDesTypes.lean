@@ -42,7 +42,7 @@ poussée de valeur, et la grammaire ci-dessous la porte.
 \text{(valeurs)}\quad V &::= b \mid @_n V \mid \mathbf{1} \mid V \otimes V \mid \textstyle\bigoplus_{i \in I} V_i \mid \mathsf{Vec}\;n\;V \mid \mathsf{Arena}\;V \mid \mathsf{Cap}\;\rho \mid !_{r} V \mid U_{\varepsilon}\,C \mid \exists \alpha. V \mid \mu\alpha. V\\
 \text{(calculs)}\quad C &::= F_{\varepsilon}\,V \mid V \multimap C \mid \textstyle\mathop{\&}_{i \in I} C_i \mid \forall \alpha. C \mid \nu\alpha. C\\
 \text{(sessions)}\quad S &::= \mathbf{End} \mid V \otimes S \mid V \multimap S \mid \oplus\{\ell_i : S_i\} \mid \&\{\ell_i : S_i\} \mid {\bigcirc} S \mid {\Box} S \mid {\Diamond} S\\
-\text{(grades)}\quad r &::= \langle u, m, \ell, \beta \rangle \in \mathcal{R} = \mathbb{N}_\infty \times \{\mathrm{d} \preceq \mathrm{m}\} \times \mathcal{L} \times \mathcal{B}\\
+\text{(grades)}\quad r &::= \langle u, m, \ell, \beta \rangle \in \mathcal{G} = \mathcal{R} \times \{\mathrm{d} \preceq \mathrm{m}\} \times \mathcal{L} \times \mathcal{B}\\
 \text{(effets)}\quad \varepsilon &::= \langle \varphi, \kappa \rangle \in \mathcal{E} = \mathcal{E}_0 \times (\mathbb{N}_\infty \times \mathbb{N}_\infty)^{\mathcal{L}}
 \end{align*}
 ```
@@ -52,6 +52,11 @@ Grammaire des types : trois strates, le grade comme quadruplet, l'effet comme pr
 et d'une famille temporelle indexée par les niveaux
 :::
 ::::
+
+Dans cette notation, `\mathcal{R}` désigne uniquement le semi-anneau porteur de la composante d'usage,
+tandis que `\mathcal{G}` désigne le produit des quatre composantes du grade. `\mathbb{N}_\infty` reste
+le sous-semi-anneau réservé aux indices de taille et ne doit pas remplacer `\mathcal{R}` dans la
+grammaire générale des grades.
 
 Cette grammaire est _complète_ au sens précis où elle est croisée avec le jeu de règles, et le
 compte n'est plus une opinion : cinquante règles de typage, dont quatre ne gouvernent aucun
@@ -64,10 +69,14 @@ formation de contexte. Une grammaire qui ne serait pas croisée avec ses règles
 incomplète — elle serait invérifiable, ce qui est pire, puisque rien ne signalerait l'écart.
 
 Trois points appellent un commentaire, car ils fixent des choix que le corps a pris sans les écrire
-sous cette forme. Le premier est que $`!_r` est _une_ modalité et non quatre : son indice est un
-quadruplet, dont les composantes sont l'usage, la marque de monotonie, le niveau de confidentialité
-et le budget, et le §{num "sec:c2-adjonctions-et-enrichissement"}[] établit que cette structure
-produit est licite. Le deuxième est que les types de session portent les trois modalités temporelles
+sous cette forme. Le premier est que $`!_r` est _une_ modalité et non quatre : sa syntaxe accepte un
+grade complet comme indice, dont les composantes sont l'usage, la marque de monotonie, le niveau de
+confidentialité et le budget. La correspondance de cet indice avec le support de la comonade graduée est désormais testée par
+le candidat $`\mathcal{G} \xrightarrow{\pi_U} \mathcal{R} \xrightarrow{!} End(\mathcal{C})` du
+§{num "sec:c2-candidat-factorisation-index-complet"}[]. La notation conserve le grade complet comme
+annotation, tandis que le noyau comonadique reçoit son indice d'usage. Le statut reste celui d'une
+architecture candidate tant que les coercions du grade complet et la substitution ne sont pas
+entièrement vérifiées. Le deuxième est que les types de session portent les trois modalités temporelles
 du §{num "sec:c4-echelle-du-systeme"}[], ce qui est la manière dont le débit s'exprime. Le troisième
 est que $`\mathsf{Trellis}_{\text{fin}}`, condition de l'opérateur de point fixe, se lit sur cette
 grammaire. Le dire en prose ne suffit pas à une induction, qui a besoin d'un prédicat ; on le pose
@@ -98,16 +107,18 @@ entrent pas, et ce n'est pas un oubli : un porteur qui les admettrait cesserait 
 l'itération de l'opérateur de point fixe cesserait de terminer.
 
 Le quatrième porte sur le facteur temporel de l'effet, et il rectifie ce que ce texte écrivait.
-Le chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) pose que le niveau _étiquette_ l'effet, et
-sur ses deux composantes ; il signale en outre que la cellule appariant le niveau et le temps est
-celle qui rend le canal temporel énonçable. Un facteur temporel réduit à un $`\mathbb{N}_\infty` nu
-ne peut pas porter cela : il compte des pas sans dire à quel niveau ils ont été faits. C'est donc
-une _famille_ $`\kappa \in \mathbb{N}_\infty^{\mathcal{L}}`, un $`\mathbf{tick}` étant compté au
-niveau du calcul qui le produit. L'ordre reste celui du produit, point par point ; le séquencement
-additionne les familles composante par composante ; l'unité est la famille nulle ; et l'itération
-$`\varphi_n` multiplie chaque composante par $`n`.
+Le niveau étiquette l'effet sur ses deux composantes. Un facteur temporel réduit à un entier nu ne
+peut pas porter simultanément le travail et la profondeur ; la forme normative est donc une famille
+de couples
+$`\\kappa \\in (\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty)^{\\mathcal L}`$ indexée par les niveaux,
+un $`\\mathbf{tick}`$ étant compté au niveau du calcul qui le produit. L'ordre reste celui du produit,
+point par point ; le séquencement additionne les couples composante par composante ; la mise en
+parallèle additionne les travaux et prend le maximum des profondeurs ; l'itération $`\\varphi_n`$
+multiplie chaque composante par $`n`$.
 
-Cette forme n'alourdit que là où les niveaux varient, ce que la suite démontre.
+Cette forme rend explicite la décision du noyau : le parallélisme appartient à l'algèbre des effets,
+et non à une nouvelle composante du grade. Le budget reste une annotation de contexte ; sa relation
+avec les deux composantes temporelles est traitée séparément par $`Cost_{\\mathcal B}`$.
 
 ::::thm (label := "thm:temps_mononiveau")
 :::title
@@ -117,19 +128,22 @@ le cas mononiveau redonne la forme plate
 :::statement +titled
 Une généralisation qui ne coûte rien où elle ne sert pas
 
-Si tous les $`\mathbf{tick}` d'un calcul sont produits à un même niveau $`\ell`, la famille
-$`\kappa` est concentrée en $`\ell`, et la restriction de $`\mathcal{E}` aux tels effets est
-isomorphe, comme quantale ordonnée, à $`\mathcal{E}_0 \times \mathbb{N}_\infty`.
+Si tous les $`\mathbf{tick}`$ d'un calcul sont produits à un même niveau $`\ell`$, la famille
+$`\kappa`$ est concentrée en $`\ell`$, et la restriction de $`\mathcal{E}`$ aux tels effets est
+isomorphe, comme quantale ordonnée, à
+$`\mathcal{E}_0 \\times (\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty)`$.
 :::
 
 :::proofsketch
-L'application $`\kappa \mapsto \kappa(\ell)` est une bijection entre les familles concentrées en
-$`\ell` et $`\mathbb{N}_\infty`, d'inverse $`k \mapsto k\,\delta_\ell`. Elle préserve l'addition et
-l'ordre, qui sont définis point par point, ainsi que la multiplication scalaire de $`\varphi_n`.
+L'application $`\kappa \\mapsto \\kappa(\\ell)`$ est une bijection entre les familles concentrées
+en $`\\ell`$ et $`\\mathbb{N}_\\infty\\times\\mathbb{N}_\\infty`$, d'inverse
+$`(w,s) \\mapsto \\langle w,s\\rangle \\delta_{\\ell}`$. Elle préserve l'addition et l'ordre,
+définis point par point, ainsi que la multiplication scalaire de $`\\varphi_n`$.
 Elle est donc un isomorphisme de quantales ordonnées sur ce sous-ensemble, lequel est clos par
-produit et par borne supérieure puisque la concentration en $`\ell` l'est.
+produit et par borne supérieure puisque la concentration en $`\\ell`$ l'est.
 :::
 ::::
+
 
 La lecture qu'il faut en faire est celle que le chapitre 1 a déjà pratiquée sur les contextes. Une
 zone non restreinte n'était pas une seconde zone mais la partie de grade $`\omega` de la première ;
