@@ -122,7 +122,7 @@ Sur le porteur commun $`\mathcal{R}` de K7PL, une réalisation structurelle cand
 
 $$`\begin{aligned}
 M_{\mathrm{Lin}} &= (\mathcal{R},\{0\},\mathrm{false}), &
-M_{\mathrm{Aff}} &= (\mathcal{R},\{0\},\mathrm{true}),\\
+M_{\mathrm{Aff}} &= (\mathcal{R},\{0\},\mathrm{true}),\
 M_{\mathrm{Rel}} &= (\mathcal{R},\mathcal{R},\mathrm{false}), &
 M_{\mathrm{Unr}} &= (\mathcal{R},\mathcal{R},\mathrm{true}).
 \end{aligned}`
