@@ -92,3 +92,11 @@ path = ".github/lean-problem-matcher.json"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CECILL-2.1"
+
+
+# GitHub Actions problem matcher (JSON: no comments allowed in the matcher itself).
+[[annotations]]
+path = ".github/reuse-problem-matcher.json"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CECILL-2.1"
