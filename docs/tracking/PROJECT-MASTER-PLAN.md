@@ -51,7 +51,7 @@ Therefore:
 | J — release / PDF / Zenodo | NOT STARTED | release gate P6 | real release path exercised and reproducible |
 | Documentation architecture | DONE | #58 + #60; D8 validated | physical architecture closed; semantic migration remains tracked separately in docs/migration/ |
 
-Current main baseline: 083e12ca6974ca16fb296ffbb8e77937c77b21dc.
+Main baseline is intentionally a dated snapshot rather than a maintained live SHA. For the current execution state, use the commit SHA attached to the CI run/PR under review; this plan does not assert a dynamic baseline.
 
 ## 3. Dependency structure
 
