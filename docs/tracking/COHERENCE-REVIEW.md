@@ -22,9 +22,9 @@ Les cases restent décochées tant que le correctif n'a pas été réalisé et v
 
 ## 1. PR #54 — prérequis avant toute fusion
 
-- [x] **G-01 — BLOQUANT.** Corriger le backtick parasite dans `spec/Spec/C3/ReglesDeTypage.lean:1591`, après `{sc}[Sc]`, qui désapparie la syntaxe Verso et fait échouer `lake build Spec`. **Acceptation :** la syntaxe est valide et la CI « Spécification Verso » passe.
-- [x] **G-02 — MAJEUR.** Normaliser les environ 106 délimiteurs mathématiques parasites de la PR #54 : remplacer les formes LaTeX `$\`…\`$` / `$$\`…\`$$` par la convention Verso `$\`…\`` / `$$\`…\``. **Acceptation :** aucun délimiteur orphelin sur `spec/Spec/` et rendu PDF/HTML propre.
-- [x] **G-03 — MAJEUR.** Corriger les 18 spans contenant des doubles antislashs introduits dans les formules de la PR #54. **Acceptation :** aucun `\\` parasite dans les spans mathématiques concernés et rendu mathématique vérifié.
+- [ ] **G-01 — BLOQUANT.** Corriger le backtick parasite dans `spec/Spec/C3/ReglesDeTypage.lean:1591`, après `{sc}[Sc]`, qui désapparie la syntaxe Verso et fait échouer `lake build Spec`. **Acceptation :** la syntaxe est valide et la CI « Spécification Verso » passe.
+- [ ] **G-02 — MAJEUR.** Normaliser les environ 106 délimiteurs mathématiques parasites de la PR #54 : remplacer les formes LaTeX `$\`…\`$` / `$$\`…\`$$` par la convention Verso `$\`…\`` / `$$\`…\``. **Acceptation :** aucun délimiteur orphelin sur `spec/Spec/` et rendu PDF/HTML propre.
+- [ ] **G-03 — MAJEUR.** Corriger les 18 spans contenant des doubles antislashs introduits dans les formules de la PR #54. **Acceptation :** aucun `\\` parasite dans les spans mathématiques concernés et rendu mathématique vérifié.
 - [ ] **G-04 — MAJEUR.** Rebaser/reconstruire la PR #54 sur le `main` post-réorganisation documentaire et remapper les chemins : `docs/journal/`→`docs/history/`, `docs/suivi/`→`docs/tracking/`, `docs/recherche/`→`docs/research/`, `biblio/`→`docs/bibliography/`. Régénérer `tools/SpecBib.lean`. **Acceptation :** aucun répertoire hérité n'est réintroduit ; mergeable et CI verts.
 - [x] **G-05 — MAJEUR.** Répercuter les changements de statuts de la PR dans `docs/tracking/fiches-statuts.csv`, notamment la réouverture de BLOQ-04, puis régénérer les vues. **Acceptation :** CSV, vues générées et contenu scientifique sont cohérents après une nouvelle génération.
 - [x] **G-06 — MAJEUR.** Enregistrer dans `spec/CHANGELOG.md` les quatre rétrogradations de sceau et la création de `thm:coherence_usage`, et inscrire leur ratification dans `DECISIONS.md`. **Acceptation :** chaque changement de statut est traçable par une décision et un changelog ; aucune promotion/rétrogradation silencieuse.
@@ -33,7 +33,7 @@ Les cases restent décochées tant que le correctif n'a pas été réalisé et v
 - [x] **G-09 — MINEUR.** Documenter le ré-ancrage des sondes sémantiques de `sondes.json` et justifier pourquoi il s'agit d'un affinage du contrôle et non d'un assouplissement. **Acceptation :** l'origine, la raison et l'effet des nouveaux ancrages sont enregistrés.
 
   **Réalisation :** `coordonnee par coordonnee` → `point par point` et `combiner des analyses independantes` → `combiner plusieurs analyses independantes`. Les clés et la fenêtre de 700 caractères restent inchangées ; les nouveaux passages correspondent au libellé effectivement présent dans l'artefact contrôlé. Le contrôle reste donc aussi strict sur l'ancrage et l'attribution, sans élargissement de la fenêtre ni baisse de précision.
-- [x] **G-10 — INFO.** Mettre à jour la narration de la PR #54 (« un seul commit ») et son état CI dès que la branche est stabilisée. **Acceptation :** description et historique de la PR décrivent l'état réellement soumis.
+- [ ] **G-10 — INFO.** Mettre à jour la narration de la PR #54 (« un seul commit ») et son état CI dès que la branche est stabilisée. **Acceptation :** description et historique de la PR décrivent l'état réellement soumis.
 
 ## 2. Vérité des vues et artefacts générés
 
