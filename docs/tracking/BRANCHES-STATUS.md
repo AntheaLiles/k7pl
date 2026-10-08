@@ -21,7 +21,7 @@ Cet inventaire remplace le cardinal historique de 18 branches figurant dans la r
 
 ## Matériau scientifique non fusionné
 
-La branche `claude/lean4-reuse-init-qvzlcg` contient notamment les journaux des séances PR-02 du 5 au 7 octobre 2026 et le corpus `docs/recherche/analyses-decisions/`. Une vérification contre `main` montre que plusieurs de ces documents ne sont pas présents dans l'arbre courant. Ils constituent donc bien du matériau scientifique unique.
+La branche `claude/lean4-reuse-init-qvzlcg` contient notamment les journaux des séances PR-02 du 5 au 7 octobre 2026 et le corpus d’analyses de décisions de la branche. Une vérification contre `main` montre que plusieurs de ces documents ne sont pas présents dans l'arbre courant. Ils constituent donc bien du matériau scientifique unique.
 
 Ce matériau est conservé comme **archive de travail non normative**. Son absence de fusion est volontaire et documentée : aucune conclusion scientifique, ratification, modification du manuscrit ou décision de vocabulaire contenue uniquement dans cette branche n'est réputée adoptée par `main`.
 
