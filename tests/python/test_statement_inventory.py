@@ -35,3 +35,24 @@ def test_inventory_drift_is_reported(tmp_path):
 
     assert any("missing inventory row" in error for error in errors)
     assert any("stale inventory row" in error for error in errors)
+
+
+def test_statement_dependencies_resolve_and_keep_direct_edges():
+    rows = inventory.source_inventory()
+    by_label = {row["label"]: row for row in rows}
+    labels = set(by_label)
+
+    unresolved = [
+        (row["label"], dependency)
+        for row in rows
+        for dependency in row["dependencies"]
+        if dependency not in labels
+    ]
+    assert unresolved == []
+
+    effacement = by_label["thm:schema_effacement"]["dependencies"]
+    assert effacement == [
+        "thm:raffinement",
+        "thm:schema_commutation",
+        "thm:schema_preservation",
+    ]
