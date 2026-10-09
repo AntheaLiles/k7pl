@@ -173,10 +173,68 @@ def check_inventory(path: Path = DEFAULT_INVENTORY) -> list[str]:
     return errors
 
 
+
+def dependency_cycles(rows: list[dict[str, object]]) -> list[list[str]]:
+    """Return strongly connected dependency components that may indicate cycles.
+
+    References are syntactic edges, not necessarily proof premises. The caller must
+    review reported components rather than treating them as automatically invalid.
+    """
+    graph = {
+        str(row["label"]): {str(dep) for dep in row["dependencies"]}
+        for row in rows
+        if row["label"]
+    }
+    for targets in list(graph.values()):
+        for target in targets:
+            graph.setdefault(target, set())
+
+    index = 0
+    indices: dict[str, int] = {}
+    lowlinks: dict[str, int] = {}
+    stack: list[str] = []
+    on_stack: set[str] = set()
+    cycles: list[list[str]] = []
+
+    def visit(node: str) -> None:
+        nonlocal index
+        indices[node] = index
+        lowlinks[node] = index
+        index += 1
+        stack.append(node)
+        on_stack.add(node)
+
+        for target in sorted(graph[node]):
+            if target not in indices:
+                visit(target)
+                lowlinks[node] = min(lowlinks[node], lowlinks[target])
+            elif target in on_stack:
+                lowlinks[node] = min(lowlinks[node], indices[target])
+
+        if lowlinks[node] == indices[node]:
+            component: list[str] = []
+            while True:
+                member = stack.pop()
+                on_stack.remove(member)
+                component.append(member)
+                if member == node:
+                    break
+            if len(component) > 1 or node in graph[node]:
+                cycles.append(sorted(component))
+
+    for node in sorted(graph):
+        if node not in indices:
+            visit(node)
+
+    return sorted(cycles)
+
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
     parser.add_argument("--dependencies", action="store_true", help="print direct theorem-reference edges as Markdown")
+    parser.add_argument("--dependency-cycles", action="store_true", help="report possible dependency cycles for semantic review")
     args = parser.parse_args(argv)
     try:
         errors = check_inventory(args.inventory)
@@ -190,7 +248,14 @@ def main(argv: list[str] | None = None) -> int:
     rows = source_inventory()
     files = len({str(row["path"]) for row in rows})
     edges = [(str(row["label"]), dep, str(row["path"]), int(row["line"])) for row in rows for dep in row["dependencies"]]
-    if args.dependencies:
+    if args.dependency_cycles:
+        cycles = dependency_cycles(rows)
+        if not cycles:
+            print("statement dependency audit: no syntactic cycles detected")
+        else:
+            for component in cycles:
+                print("possible dependency cycle (semantic review required): " + " <-> ".join(component))
+    elif args.dependencies:
         print("| Source label | Direct dependency | Source location |")
         print("|---|---|---|")
         for source, target, location, line in edges:
