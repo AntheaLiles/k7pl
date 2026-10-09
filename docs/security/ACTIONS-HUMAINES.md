@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC-BY-4.0
 |---|---|
 | Nature | Liste consolidée de ce que le dépôt ne peut pas accomplir seul : réglages GitHub, compte, Zenodo, site du badge, vérifications à rejouer hors du bac à sable. |
 | Origine | Dédoublonnage des listes des six audits (`docs/security/workstreams/*/AUDIT.md`). |
-| Statut de toutes les lignes | `HUMAN ACTION REQUIRED` : **aucune n'a été faite ni vérifiée** depuis la session qui a produit ce document (réglages illisibles, hôtes refusés). |
+| Statut | Une vérification distante partielle a été faite le 2026-10-09 : le ruleset « PR on main » est lisible et actif (voir § 1.1). Les autres réglages administratifs, le compte, les environnements et Zenodo restent à vérifier ou à exécuter ; une lecture partielle n'est pas une validation globale. |
 | Décisions associées | `docs/security/DECISIONS-REQUISES.md` (identifiants D1 à D11) |
 
 Les commandes `gh api` ci-dessous se lisent avec un jeton qui a les droits sur le dépôt ; certaines exigent les droits d'administration.
@@ -34,7 +34,8 @@ workflows référencent déjà les environnements `zenodo` et `bump-lean`, et Gi
 - **Ne pas toucher** : « Required approvals » (0), « Require review from Code Owners », « Require approval of the most recent
   reviewable push », liste de contournement (vide). Avec une seule personne, les activer bloquerait toute PR ou créerait un
   contournement systématique, qui ne serait pas une revue.
-- Vérifier : `gh api repos/AntheaLiles/k7pl/rulesets/24138119` → `strict_required_status_checks_policy: true`, `bypass_actors: []`.
+- **Constat vérifié le 2026-10-09** via `GET /repos/AntheaLiles/k7pl/rulesets/24138119`: ruleset actif, cible `~DEFAULT_BRANCH`, règles `deletion`, `non_fast_forward`, `pull_request`, `required_linear_history` et status check `CI OK`; `bypass_actors: []`.
+- **Écarts observés** : `required_approving_review_count: 0` et `strict_required_status_checks_policy: false`. La revue indépendante ne peut pas être exigée sans second mainteneur ; décider séparément si l'exigence « branche à jour » doit être activée. Ne pas présenter la présence d'une PR obligatoire comme une revue indépendante.
 
 ### 1.2 Paramètres du dépôt (Settings → General → Pull Requests)
 
