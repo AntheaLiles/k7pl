@@ -79,7 +79,7 @@ tant qu'il ne s'exécute pas : son défaut est de ne pas fonctionner, pas d'agir
 | R23 | Tags signés | FUTURE | clé détenue par l'humain ; valeur faible sans canal de confiance extérieur |
 | R24 | Fuzzing, tests par propriétés | FUTURE | aucune surface d'entrée avant un analyseur du langage |
 | R25 | SBOM SPDX/CycloneDX | FUTURE | Le manifeste Lake n'est pas une SBOM. L'adaptateur OSV proposé sert uniquement à l'analyse d'avis par commit ; générer et valider une SBOM normalisée reste un chantier distinct. |
-| R26 | Surveillance des vulnérabilités Lake par OSV-Scanner | PREPARED (PR SCA ouverte) | `scripts/ci/lake_manifest_to_osv.py` convertit le manifeste validé vers le format personnalisé OSV-Scanner documenté ; le workflow est non bloquant en cas de vulnérabilité jusqu'à examen du premier rapport et de la couverture. |
+| R27 | Surveillance des vulnérabilités Lake par OSV-Scanner | PREPARED (PR SCA ouverte) | `scripts/ci/lake_manifest_to_osv.py` convertit le manifeste validé vers le format personnalisé OSV-Scanner documenté ; le workflow est non bloquant en cas de vulnérabilité jusqu'à examen du premier rapport et de la couverture. |
 | R26 | `suivi.py` en CI | FUTURE | hors périmètre OpenSSF |
 
 ## 6. Ordre d'exécution de la vague 2
