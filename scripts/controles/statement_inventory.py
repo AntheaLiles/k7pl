@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 K7PL contributors
+#
 # SPDX-License-Identifier: CC0-1.0
 """Check that the reviewed C8 legacy inventory still matches the manuscript sources.
 
