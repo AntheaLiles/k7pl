@@ -256,8 +256,9 @@ route envisagée est la paramétricité, obtenue au moyen de types existentiels 
 les cas ordinaires, mais pas le cas de divulgation. Il reste à établir une clause de relation logique
 qui traite explicitement ce cas, en conservant la clause de clôture des échappatoires posée plus haut
 (chaque $`e \in \mathcal{X}` est close), faute de quoi la substitution ouvrirait le contournement
-par blanchiment. Le théorème de non-interférence {num "thm:non_interference"}[] couvre les cas où
-aucune déclassification n'est employée. Cette extension n'est pas démontrée ici.
+par blanchiment. Le théorème de non-interférence {num "thm:non_interference"}[] couvre les cas séquentiels où
+aucune déclassification n'est employée ; le traitement de la communication demeure hors de sa portée.
+Cette extension n'est pas démontrée ici.
 :::
 ::::
 
