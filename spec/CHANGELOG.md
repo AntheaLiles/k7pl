@@ -12,6 +12,8 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+## [0.0.0-alpha.2]
+
 ### Modifié
 
 - Quatre sceaux de preuve sont rétrogradés explicitement au statut `proposition` (`thm:coherence_axiome`, `thm:action_parallele`, `thm:morphismes_modes`, `thm:substitution`) ; le résultat `thm:coherence_usage` est introduit comme proposition distincte pour la loi d'action d'usage.
