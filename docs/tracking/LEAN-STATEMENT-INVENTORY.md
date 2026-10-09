@@ -108,8 +108,8 @@ Le statut et le niveau sont les valeurs explicites présentes dans la directive 
 | `spec/Spec/C4/SemantiqueOperationnelle.lean` | 393 | `thm:stratification_journal` | theoreme | langage | stratification du journal | oui |
 | `spec/Spec/C4/SemantiqueOperationnelle.lean` | 535 | `thm:relation_produit` | proposition | langage | relation logique sur un produit de structures ordonnées | oui |
 | `spec/Spec/C4/SemantiqueOperationnelle.lean` | 561 | `thm:lemme_fondamental` | theoreme | langage | lemme fondamental | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 715 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 790 | `thm:image_fix` | theoreme | langage | image du point fixe déductif | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 717 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 792 | `thm:image_fix` | theoreme | langage | image du point fixe déductif | oui |
 | `spec/Spec/C4/EchelleDeLActeur.lean` | 142 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | oui |
 | `spec/Spec/C5/CeQuUneMacroDeclare.lean` | 96 | `thm:expansion_macro` | theoreme | langage | la règle d'expansion est dérivable | oui |
 | `spec/Spec/C3/LesContraintesDeValeur.lean` | 274 | `thm:deadlock_acyclique` | theoreme | langage | absence de deadlock par acyclicité du graphe de sessions | oui |
@@ -132,7 +132,7 @@ Le statut et le niveau sont les valeurs explicites présentes dans la directive 
 | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 187 | `thm:cloture_sortage` | theoreme | langage | clôture du bon sortage par substitution | oui |
 | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 214 | `thm:confinement_sortes` | theoreme | langage | confinement des canaux distingués | oui |
 | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 234 | `thm:divulgation_delimitee` | proposition | langage | divulgation délimitée | oui |
-| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 378 | `thm:terminaison_lfp` | theoreme | langage | terminaison du point fixe déductif | oui |
+| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 380 | `thm:terminaison_lfp` | theoreme | langage | terminaison du point fixe déductif | oui |
 | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 125 | `thm:distributivite_tronquee` | theoreme | langage | distributivité du produit sur la soustraction tronquée | oui |
 | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 158 | `thm:coherence_axiome` | proposition | langage | condition de compatibilité de l'action graduée | oui |
 | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 182 | `thm:coherence_usage` | proposition | langage | cohérence de l'action d'usage | oui |
