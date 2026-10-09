@@ -111,13 +111,12 @@ This section records source-level dependency cycles found by reading the complet
 
 This is a semantic review blocker, but it must not be reported as a cycle detected by the syntactic graph tool. Review must identify an independently justified rule or premise for H1 and orient the proof obligation accordingly. Preserve the H2 interval-scope argument and H3 nesting condition as separate premises; do not silently erase them during migration.
 
-### Syntactic dependency cycle — fundamental lemma and bounded disclosure
+### Dependency-cycle remediation proposed — fundamental lemma and bounded disclosure
 
-- `thm:lemme_fondamental` lists `thm:divulgation_delimitee` among its direct theorem dependencies.
-- `thm:divulgation_delimitee` explicitly lists `thm:lemme_fondamental` and `thm:non_interference` as its dependencies, while its proof sketch says “Non démontré”.
-- The resulting explicit reference cycle is `thm:lemme_fondamental → thm:divulgation_delimitee → thm:lemme_fondamental`.
-
-This is a stronger blocker than a missing sketch: the current dependency direction is circular at the document level. The semantic review must establish whether bounded disclosure is intended as an assumption, a separate lemma, a corollary after the fundamental lemma, or an open conjecture. No status should be promoted until the dependency is acyclic and the argument is independently supported.
+- On the original source baseline, `thm:lemme_fondamental` referred to `thm:divulgation_delimitee` for its omitted `Declassify` case, while `thm:divulgation_delimitee` depended on the fundamental lemma. This created a direct reference cycle.
+- PR #117 proposes to restrict `thm:lemme_fondamental` to terms and substitution images without `Declassify`, and removes the reverse reference from its proof sketch. The disclosure proposition continues to depend on the core lemma and non-interference, but its own `Declassify` case remains explicitly unproved.
+- If PR #117 is merged and the inventory checker confirms the graph, the syntactic cycle is removed. This does **not** establish `thm:divulgation_delimitee`; its status must remain open until a release-sensitive relation and complete proof are supplied.
+- The H1 concern for `thm:introduction_unique` / `thm:surete_spatiale` remains a separate argumentative circularity, not a syntactic cycle.
 
 ### Compound object confirmed — type preservation and MLIR lowering
 
