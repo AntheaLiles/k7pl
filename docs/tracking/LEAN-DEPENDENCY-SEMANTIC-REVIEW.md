@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **État :** note de revue provisoire, à ratifier.  
 **Périmètre :** deux situations relevées dans les blocs `::::thm` actifs.  
-**Règle :** cette note distingue les références syntaxiques des dépendances réelles de preuve. Elle ne modifie ni les énoncés sources ni leur statut épistémique.
+**Règle :** cette note distingue les références syntaxiques des dépendances réelles de preuve. La revue initiale n'a pas modifié les statuts épistémiques ; la PR #117 propose une restriction explicite de portée pour supprimer la référence circulaire, sans prétendre prouver la divulgation.
 
 ## 1. Résumé des constats
 
@@ -61,7 +61,7 @@ La PR #117 adopte l'architecture prudente du lemme fondamental limité au langag
 - Lecture des blocs complets `thm:surete_spatiale`, `thm:introduction_unique`, `thm:lemme_fondamental` et `thm:divulgation_delimitee`.
 - Extraction des références directes `{num "thm:..."}` dans chacun des blocs.
 - Distinction explicite entre cycle syntaxique et circularité argumentative.
-- Aucun changement apporté aux sources mathématiques.
+- La revue initiale n'avait pas modifié les sources ; la PR #117 propose une restriction conservatrice du lemme fondamental, avec statuts inchangés.
 
 
 ## 6. Compound blocks that must not inherit one status
