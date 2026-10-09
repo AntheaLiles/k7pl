@@ -609,7 +609,7 @@ exécutions font le même pas, l'argument étant apparenté par hypothèse d'ind
 famille indexée paie_ : un compteur temporel nu ne permettrait pas de distinguer les deux sous-cas,
 et la preuve s'arrêterait sur le canal temporel.
 
-_Le cas {sc}[Declassify] est exclu par l'hypothèse de fragment de l'énoncé. L'étendre exige
+Le cas {sc}[Declassify] est exclu par l'hypothèse de fragment de l'énoncé. L'étendre exige
 une clause de relation logique sensible à la divulgation et un cas de preuve distinct ; cette
 extension n'est pas établie par le présent lemme.
 :::
