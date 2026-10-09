@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # C8 — Matrice de couverture de la revue sémantique
 
 **État :** matrice de pilotage provisoire ; ne vaut ni ratification des classifications ni validation mathématique.  
-**Référence source :** inventaire mécanique C8.0, 69 labels dans 21 fichiers.  
+**Référence source :** inventaire mécanique C8.0, 69 labels dans 21 fichiers ; références de lignes et dépendances revérifiées après fusion des PR #111, #114, #116 et #117.  
 **But :** relier chaque bloc source aux notes de revue, aux dépendances directes explicites extraites des références `{num "thm:…"}`, et aux risques sémantiques prioritaires. Les dépendances documentaires implicites et les dépendances bibliographiques ne sont pas toutes capturées par ce graphe syntaxique.
 
 ## 1. Couverture des blocs
@@ -14,8 +14,8 @@ SPDX-License-Identifier: CC-BY-4.0
 | Lot | Couverture | État |
 |---|---|---|
 | B01–B09 | 29 labels uniques environ ; certains blocs sont volontairement réexaminés comme dépendances dans plusieurs lots | Notes fusionnées ; constats provisoires |
-| B10 | `thm:temps_mononiveau`, `thm:morphismes_modes`, `thm:boxtimes_addition` | [PR #111](https://github.com/AntheaLiles/k7pl/pull/111), ouverte ; CI relancée et verte après erreurs réseau Docker Hub |
-| B11 | Les 37 labels restants de l'inventaire, sans modifier les sources | [PR #114](https://github.com/AntheaLiles/k7pl/pull/114), ouverte |
+| B10 | `thm:temps_mononiveau`, `thm:morphismes_modes`, `thm:boxtimes_addition` | Fusionné ([PR #111](https://github.com/AntheaLiles/k7pl/pull/111)) |
+| B11 | Les 37 labels restants de l'inventaire, sans modifier les sources | Fusionné ([PR #114](https://github.com/AntheaLiles/k7pl/pull/114)) |
 | Total de couverture documentaire | 69 labels uniques rattachés à une note B01–B11 | Complet au niveau de la couverture documentaire ; pas au niveau de la preuve mathématique |
 
 Le nombre de mentions dans les lots est supérieur au nombre de labels uniques parce que certains résultats sont relus comme dépendances de plusieurs blocs. Les recouvrements ne constituent pas des blocs supplémentaires.
@@ -31,7 +31,7 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 | `thm:schema_reinvocation` | `spec/Spec/C2/SixSchemasDeMetatheorie.lean:150` | B01, B05 | Fusionné (PR d'audit) | — | — |
 | `thm:schema_effacement` | `spec/Spec/C2/SixSchemasDeMetatheorie.lean:188` | B01 | Fusionné (PR d'audit) | `thm:schema_commutation`, `thm:schema_preservation`, `thm:raffinement` | — |
 | `thm:lemme_capacite` | `spec/Spec/C2/SixSchemasDeMetatheorie.lean:227` | B01 | Fusionné (PR d'audit) | — | — |
-| `thm:surete_spatiale` | `spec/Spec/C4/ModelesDeMemoire.lean:41` | B11 | PR #114 ouverte | `thm:lemme_capacite` | H1 est une prémisse que l'autre bloc prétend établir |
+| `thm:surete_spatiale` | `spec/Spec/C4/ModelesDeMemoire.lean:41` | B11 | Fusionné (PR #114) | `thm:lemme_capacite` | H1 est une prémisse que l'autre bloc prétend établir |
 | `thm:introduction_unique` | `spec/Spec/C4/ModelesDeMemoire.lean:99` | B11 | PR #114 ouverte | `thm:surete_spatiale` | Circularité argumentative H1; cas d'élimination d'arène manquant |
 | `thm:elaboration` | `spec/Spec/C5/LeTheoremeDElaboration.lean:30` | B11 | PR #114 ouverte | `thm:schema_commutation` | — |
 | `thm:raffinement` | `spec/Spec/C2/SystemeDeRaffinement.lean:52` | B01, B02 | Fusionné (PR d'audit) | `thm:traduction_metalangage` | — |
@@ -62,14 +62,14 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 | `thm:correction_ressource` | `spec/Spec/C4/SemantiqueOperationnelle.lean:290` | B03 | Fusionné (PR d'audit) | — | — |
 | `thm:stratification_journal` | `spec/Spec/C4/SemantiqueOperationnelle.lean:393` | B04 | Fusionné (PR d'audit) | — | — |
 | `thm:relation_produit` | `spec/Spec/C4/SemantiqueOperationnelle.lean:535` | B04 | Fusionné (PR d'audit) | `thm:troncature_comonade` | — |
-| `thm:lemme_fondamental` | `spec/Spec/C4/SemantiqueOperationnelle.lean:561` | B11 | PR #114 ouverte | `thm:substitution`, `thm:substitution_simultanee`, `thm:divulgation_delimitee` | Cycle syntaxique avec divulgation délimitée; cas Declassify absent |
-| `thm:commutation_traduction` | `spec/Spec/C4/SemantiqueOperationnelle.lean:715` | B05, B07 | Fusionné (PR d'audit) | `thm:schema_commutation`, `thm:substitution` | — |
-| `thm:image_fix` | `spec/Spec/C4/SemantiqueOperationnelle.lean:790` | B05 | Fusionné (PR d'audit) | `thm:terminaison_lfp` | — |
+| `thm:lemme_fondamental` | `spec/Spec/C4/SemantiqueOperationnelle.lean:561` | B11 | Fusionné (PR #114) | `thm:substitution`, `thm:substitution_simultanee` | Portée restreinte au fragment sans `Declassify` ; extension à la déclassification non prouvée |
+| `thm:commutation_traduction` | `spec/Spec/C4/SemantiqueOperationnelle.lean:717` | B05, B07 | Fusionné (PR d'audit) | `thm:schema_commutation`, `thm:substitution` | — |
+| `thm:image_fix` | `spec/Spec/C4/SemantiqueOperationnelle.lean:792` | B05 | Fusionné (PR d'audit) | `thm:terminaison_lfp` | — |
 | `thm:isomorphisme_memoire` | `spec/Spec/C4/EchelleDeLActeur.lean:142` | B11 | PR #114 ouverte | — | — |
 | `thm:expansion_macro` | `spec/Spec/C5/CeQuUneMacroDeclare.lean:96` | B11 | PR #114 ouverte | `thm:substitution`, `thm:elaboration` | — |
 | `thm:deadlock_acyclique` | `spec/Spec/C3/LesContraintesDeValeur.lean:274` | B08 | Fusionné (PR d'audit) | `thm:tri_topologique` | — |
 | `thm:homomorphisme_roues` | `spec/Spec/C3/LesContraintesDeValeur.lean:350` | B11 | PR #114 ouverte | — | — |
-| `thm:representation_inobservable` | `spec/Spec/C3/LesContraintesDeValeur.lean:384` | B11 | PR #114 ouverte | — | Formule d'injectivité ne formalise pas l'invariance représentationnelle annoncée |
+| `thm:representation_inobservable` | `spec/Spec/C3/LesContraintesDeValeur.lean:384` | B11 | Fusionné (PR #114, correction dans [PR #116](https://github.com/AntheaLiles/k7pl/pull/116)) | — | Relation de représentations admissibles et types de `repr`/`obs` à préciser |
 | `thm:interface_jugement` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:60` | B11 | PR #114 ouverte | — | — |
 | `thm:rejet_reproductible` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:132` | B11 | PR #114 ouverte | — | — |
 | `thm:abaissement_grades` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:463` | B11 | PR #114 ouverte | `thm:schema_preservation` | Conjecture; obligations par passe non acquittées |
@@ -86,7 +86,7 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 | `thm:stabilisation_pipeline` | `spec/Spec/C6/LeProcessusDeCompilation.lean:155` | B11 | PR #114 ouverte | — | — |
 | `thm:cloture_sortage` | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean:187` | B06 | Fusionné (PR d'audit) | — | — |
 | `thm:confinement_sortes` | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean:214` | B06 | Fusionné (PR d'audit) | `thm:traduction_metalangage`, `thm:temps_mononiveau` | — |
-| `thm:divulgation_delimitee` | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean:234` | B11 | PR #114 ouverte | `thm:lemme_fondamental`, `thm:non_interference` | Cycle syntaxique avec lemme fondamental; preuve non conduite |
+| `thm:divulgation_delimitee` | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean:234` | B11 | Fusionné (PR #114) | `thm:non_interference` | Cas `Declassify` et relation sensible à la divulgation restent à prouver |
 | `thm:terminaison_lfp` | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean:378` | B05 | Fusionné (PR d'audit) | — | — |
 | `thm:distributivite_tronquee` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:125` | B09 | Fusionné (PR d'audit) | — | — |
 | `thm:coherence_axiome` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:158` | B09 | Fusionné (PR d'audit) | — | — |
@@ -96,11 +96,9 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 
 ## 3. Graphe des dépendances et risques
 
-### Cycle syntaxique sur la base d'audit
+### Cycle syntaxique résolu sur `main`
 
-`thm:lemme_fondamental → thm:divulgation_delimitee → thm:lemme_fondamental`.
-
-Ce cycle est présent dans la base source sur laquelle cette matrice a été construite. La [PR #117](https://github.com/AntheaLiles/k7pl/pull/117) propose de le supprimer en limitant le lemme fondamental au fragment sans `Declassify` et en retirant la référence retour. Si cette correction est fusionnée et confirmée par le vérificateur de dépendances, le cycle syntaxique disparaîtra ; la preuve de `thm:divulgation_delimitee` restera néanmoins ouverte, car son cas `Declassify` n'est pas démontré.
+La [PR #117](https://github.com/AntheaLiles/k7pl/pull/117) est fusionnée et sa CI a réussi. Le lemme fondamental est limité au fragment sans `Declassify` (y compris dans les images de substitution) et sa référence retour à `thm:divulgation_delimitee` a été supprimée. Le cycle syntaxique est donc résolu par restriction de portée, pas par démonstration du cas manquant. `thm:divulgation_delimitee` reste ouvert : sa relation sensible à la divulgation et son cas `Declassify` ne sont pas prouvés.
 
 ### Circularité argumentative sans cycle syntaxique
 
@@ -113,18 +111,18 @@ Ce cycle est présent dans la base source sur laquelle cette matrice a été con
 - **Traduction et fidélité :** `thm:traduction_metalangage` → `thm:raffinement` / `thm:fidelite_interprete` ; préservation du typage, simulation de réduction, préservation des traces et adéquation observationnelle sont des résultats distincts.
 - **Effets et budget :** `thm:temps_mononiveau`, `thm:boxtimes_addition`, `thm:coherence_axiome`, `thm:coherence_usage`, `thm:action_parallele` et `thm:distributivite_tronquee` exigent une signature explicite des opérations et de leurs domaines.
 - **Abaissement et préservation :** `thm:preservation_type` doit être suivi comme bloc composé ; son volet de réduction ne valide pas la conjecture `thm:abaissement_grades`.
-- **Représentation :** `thm:isomorphisme_memoire`, `thm:homomorphisme_roues` et `thm:representation_inobservable` portent des engagements d'ABI et d'observabilité distincts. La [PR #116](https://github.com/AntheaLiles/k7pl/pull/116) propose de remplacer l'injectivité par une invariance entre représentations d'une même valeur ; la formulation des représentations admissibles doit encore être revue.
+- **Représentation :** `thm:isomorphisme_memoire`, `thm:homomorphisme_roues` et `thm:representation_inobservable` portent des engagements d'ABI et d'observabilité distincts. La [PR #116](https://github.com/AntheaLiles/k7pl/pull/116) a corrigé la formule pour exprimer l'invariance des observations entre représentations admissibles d'une même valeur. La définition de cette admissibilité et les types de `repr`/`obs` restent à préciser.
 
 ## 4. Décision de préparation à la migration
 
 À ce stade, **aucun bloc n'est certifié prêt pour migration sémantique** par la seule existence d'une note de revue. Le tableau prouve la couverture documentaire, pas la résolution des obligations. Les classifications du registre restent provisoires.
 
 Avant C8.0, il reste à :
-1. obtenir la fusion par le mainteneur des PR #111 et #114 après leurs vérifications ;
-2. faire ratifier la classification rôle/état de chaque bloc, en particulier les exigences et les blocs composés ;
-3. choisir une architecture acyclique pour le lemme fondamental et la divulgation, et établir H1 indépendamment ;
-4. corriger par PR distincte la formulation de `thm:representation_inobservable`, après définition de `repr`, `obs` et de l'équivalence représentationnelle voulue ;
-5. exécuter à nouveau l'inventaire et le contrôle de dérive sur le `main` actualisé, puis vérifier les liens bibliographiques et les hypothèses locales ;
-6. seulement ensuite, planifier une migration contrôlée en préservant labels, références, texte, hypothèses et statut, avec toute correction éditoriale séparée.
+1. faire ratifier la classification rôle/état de chaque bloc, en particulier les exigences et les blocs composés ;
+2. établir H1 indépendamment ou conserver explicitement son statut d'hypothèse normative/architecturale, sans raisonnement circulaire ;
+3. formaliser la relation de divulgation et traiter le cas `Declassify` sans promouvoir son statut avant preuve ;
+4. préciser les représentations admissibles et les signatures de `repr`/`obs` pour `thm:representation_inobservable` ;
+5. régénérer l'inventaire mécanique et le contrôle de dérive sur `main`, puis vérifier les références bibliographiques et les hypothèses locales ;
+6. seulement après ratification des classifications et validation des obligations, planifier la migration contrôlée en préservant labels, références, texte, hypothèses et statuts, avec toute correction éditoriale dans une PR séparée.
 
-**Conclusion :** la couverture de revue source-level peut être considérée complète une fois les lots B10 et B11 fusionnés. La revue sémantique n'est pas close : plusieurs preuves sont incomplètes, un cycle syntaxique et deux circularités argumentatives sont ouverts, et la migration n'est pas encore autorisée par cette matrice.
+**Conclusion :** la couverture documentaire des 69 labels est complète. Le cycle syntaxique lemme fondamental/divulgation a été supprimé par restriction explicite de portée ; cela ne prouve pas la divulgation. La revue sémantique n'est pas close : plusieurs obligations restent ouvertes, notamment H1 et la dépendance argumentative simulation/fidélité. La migration n'est pas encore autorisée par cette matrice.
