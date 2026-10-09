@@ -188,8 +188,8 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Install pytest
-        run: pip install pytest==9.1.1
+      - name: Install hash-pinned Python test dependencies
+        run: python -m pip install --require-hashes -r scripts/requirements-ci.txt
 
       - name: Test the CI impact classifier
         run: python3 scripts/ci/test_impact.py
@@ -414,4 +414,3 @@ jobs:
                 ;;
             esac
           done
-
