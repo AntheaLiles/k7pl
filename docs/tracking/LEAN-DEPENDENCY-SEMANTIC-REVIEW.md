@@ -14,7 +14,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | Cas | Références directes observées | Nature du problème | Conclusion autorisée |
 |---|---|---|---|
 | `thm:surete_spatiale` / `thm:introduction_unique` | `thm:introduction_unique → thm:surete_spatiale` | Circularité argumentative autour de H1, mais pas de cycle syntaxique | Revue sémantique requise ; ne pas compter comme cycle détecté |
-| `thm:lemme_fondamental` / `thm:divulgation_delimitee` | `thm:lemme_fondamental → thm:divulgation_delimitee` et `thm:divulgation_delimitee → thm:lemme_fondamental` | Cycle syntaxique ; le sens des deux arêtes n’est pas identique | Bloquant pour l’affirmation d’une preuve complète ; statuts à laisser ouverts |
+| `thm:lemme_fondamental` / `thm:divulgation_delimitee` | Cycle syntaxique présent sur la base initiale ; PR #117 propose de supprimer la référence retour en restreignant le lemme fondamental au fragment sans `Declassify` | Dépendance circulaire de la version de base ; après la correction proposée, la preuve de divulgation reste ouverte | Le graphe peut devenir acyclique sans que la divulgation soit prouvée ; statut à laisser ouvert |
 
 ## 2. H1 — sûreté spatiale et introduction unique
 
@@ -34,37 +34,23 @@ Il faut établir d’où vient H1, sans utiliser le résultat qu’elle conditio
 
 Aucune de ces voies n’est ratifiée ici. H2 (disjonction des intervalles) et H3 (sens d’imbrication des délimiteurs) doivent rester explicites et distinctes ; la résolution de H1 ne les élimine pas.
 
-## 3. Déclassification — lemme fondamental et divulgation délimitée
+## 3. Déclassification — lemme fondamental de base et divulgation délimitée
 
 Sources : `spec/Spec/C4/SemantiqueOperationnelle.lean`, label `thm:lemme_fondamental` ; `spec/Spec/C2/AdjonctionsEtEnrichissement.lean`, label `thm:divulgation_delimitee`.
 
-Le croquis du lemme fondamental traite les cas ordinaires, puis indique que le cas `Declassify` n’est pas traité et renvoie à `thm:divulgation_delimitee`. L’énoncé du lemme fondamental reste pourtant formulé pour tout terme bien typé. La divulgation délimitée, de son côté, dit explicitement que son croquis n’est pas une preuve et propose une route par paramétricité qui utilise le lemme fondamental et la non-interférence.
+Sur la base initiale, le croquis du lemme fondamental traitait les cas ordinaires puis renvoyait au résultat de divulgation pour le cas `Declassify`, tandis que la divulgation dépendait du lemme fondamental. Le graphe syntaxique contenait donc le cycle direct `thm:lemme_fondamental → thm:divulgation_delimitee → thm:lemme_fondamental`. Les deux esquisses ne constituaient pas une preuve complète.
 
-Le graphe contient donc bien deux références directes. Leur rôle n’est toutefois pas symétrique :
-- l’arête du lemme fondamental vers la divulgation est une référence à la lacune laissée dans son esquisse, pas une prémisse positive de preuve ;
-- l’arête de la divulgation vers le lemme fondamental est une dépendance explicite de l’argument proposé.
+**Correction proposée dans la PR #117 :** restreindre explicitement `thm:lemme_fondamental` au fragment dont le terme et les termes dans l'image des substitutions ne contiennent pas `Declassify`, et retirer du croquis du lemme toute référence à `thm:divulgation_delimitee` comme justification de son cas manquant. La preuve de divulgation peut alors dépendre du lemme fondamental de base et de la non-interférence pour les cas ordinaires, mais doit toujours fournir une clause de relation logique spécifique à la déclassification.
 
-Ce cycle syntaxique ne suffit pas à démontrer une circularité mathématique formelle ; il établit en revanche que la documentation actuelle ne présente pas encore une dérivation complète et ordonnée des deux résultats.
+Cette correction supprime la circularité **syntaxique** si elle est fusionnée et si le contrôle d'inventaire confirme l'absence de cycle. Elle ne démontre pas `thm:divulgation_delimitee` : son croquis reste explicitement non démontré. Il faut encore définir la relation de libération, la clôture des échappatoires, le traitement des valeurs substituées et le cas de preuve `Declassify`.
 
-### Architectures possibles à examiner
+### Décision et portée
 
-1. **Lemme fondamental pour le langage de base.** Restreindre explicitement le lemme fondamental au fragment sans `Declassify`, puis prouver séparément l’admissibilité de la déclassification et la divulgation délimitée. Cette option exige de réexaminer les théorèmes de non-interférence qui dépendent du lemme.
-2. **Lemme fondamental paramétré par une relation de libération.** Formuler le cas `Declassify` avec une condition locale de compatibilité ou d’admissibilité, prouver le lemme sous cette condition, puis établir que la construction de divulgation la satisfait.
-3. **Résultat auxiliaire indépendant.** Isoler un lemme de paramétricité ou de clôture des échappatoires, démontré sans utiliser le lemme fondamental complet, puis l’utiliser pour établir la divulgation et compléter le cas `Declassify`.
-
-Ces options sont des architectures de preuve candidates, pas des résultats validés. Il faut vérifier leur compatibilité avec la définition des échappatoires, leur clôture, la substitution, la non-interférence et le sens exact de « tout terme bien typé ».
-
-### Décision à prendre
-
-Avant la migration des commandes :
-- décider si `thm:lemme_fondamental` porte sur le langage entier ou seulement sur le fragment de base ;
-- expliciter le statut du cas `Declassify` (hypothèse locale, obligation ouverte, ou cas démontré) ;
-- établir une séquence de dépendances acyclique pour les résultats effectivement prouvés ;
-- conserver `thm:divulgation_delimitee` comme non démontré tant qu’une preuve complète n’a pas été fournie et revue.
+La PR #117 adopte l'architecture prudente du lemme fondamental limité au langage de base. Cette décision conserve le résultat plus faible, mieux aligné sur les cas effectivement esquissés ; elle ne promeut aucun statut épistémique. Les autres usages du lemme fondamental doivent être vérifiés pour s'assurer qu'ils n'exigent pas le cas de déclassification.
 
 ## 4. Conséquences pour C8
 
-1. Le détecteur de cycles syntaxiques doit signaler le couple lemme fondamental / divulgation délimitée, mais pas le couple sûreté spatiale / introduction unique.
+1. Le détecteur de cycles syntaxiques ne doit plus signaler le couple lemme fondamental / divulgation délimitée après fusion de la PR #117 ; il ne doit pas signaler le couple sûreté spatiale / introduction unique, qui reste une circularité argumentative.
 2. La détection syntaxique ne remplace pas la classification des arêtes : preuve, hypothèse, obligation ouverte, citation ou mention contextuelle.
 3. Les classifications candidates des quatre énoncés restent provisoires. Aucun ne doit être automatiquement promu à l’état `established`.
 4. La migration mécanique ne doit pas résoudre ces questions en changeant silencieusement l’ordre des références, les hypothèses ou les textes.
