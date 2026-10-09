@@ -23,6 +23,12 @@ La CI prépare ce fichier, le transmet au workflow OSV-Scanner épinglé sur un 
 
 **Limite majeure :** le scan par commit n'est pas une analyse complète du code, une preuve d'absence de vulnérabilités, ni une SBOM normalisée. Une absence de résultat peut signifier qu'aucun avis connu ne correspond à ce commit dans OSV. Elle ne démontre pas l'absence de défauts ni la couverture de tous les composants transitifs.
 
+### Premier résultat observé
+
+Le run GitHub Actions [37951599075](https://github.com/AntheaLiles/k7pl/actions/runs/37951599075), sur le commit `7b72150f045ac5a6dc1f98bfd230d422baa94e47`, a exécuté OSV-Scanner v2.6.0 sur le fichier personnalisé. Le journal confirme que **14 paquets** ont été extraits, que le scan a terminé avec le code 0 et que le rapport a affiché `No issues found`. Le fichier SARIF a été validé et envoyé à GitHub Code Scanning.
+
+Ce résultat établit que l'adaptateur et le chemin d'exécution fonctionnent pour le manifeste actuel. Il ne prouve pas que chaque dépendance a des avis indexés dans OSV ni que toutes les vulnérabilités possibles sont couvertes. Le scan reste non bloquant ; le suivi périodique, la couverture des avis et le processus de triage restent à établir.
+
 ### Place des autres outils
 
 - **Syft + Grype :** Syft catalogue des composants qu'il sait reconnaître dans un répertoire, une archive ou une image ; Grype recherche des vulnérabilités dans les composants identifiés d'une SBOM. Cette chaîne mérite un essai ultérieur sur les artefacts réellement livrés, mais elle ne remplace pas l'extraction explicite des dépendances Lake depuis le manifeste. Sources : [sources Syft](https://github.com/anchore/syft/wiki/Supported-Sources), [cibles de scan Grype](https://github.com/anchore/grype).
