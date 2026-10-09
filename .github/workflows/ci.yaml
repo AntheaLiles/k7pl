@@ -90,6 +90,10 @@ jobs:
   security:
     name: Security
     if: ${{ !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     uses: ./.github/workflows/security.yaml
 
   ci-ok:
