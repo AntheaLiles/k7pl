@@ -96,11 +96,11 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 
 ## 3. Graphe des dépendances et risques
 
-### Cycle syntaxique détecté
+### Cycle syntaxique sur la base d'audit
 
 `thm:lemme_fondamental → thm:divulgation_delimitee → thm:lemme_fondamental`.
 
-Le cycle est bloquant pour toute affirmation selon laquelle les deux preuves sont complètes. Les deux esquisses ne peuvent pas se justifier mutuellement. Options encore ouvertes : (A) prouver le lemme fondamental pour le fragment sans `Declassify`, puis traiter séparément l'extension ; (B) paramétrer le lemme fondamental par une relation/condition de divulgation et prouver le cas `Declassify` ; (C) établir un lemme auxiliaire indépendant de clôture/paramétricité. La décision exige une ratification explicite avant toute modification de source.
+Ce cycle est présent dans la base source sur laquelle cette matrice a été construite. La [PR #117](https://github.com/AntheaLiles/k7pl/pull/117) propose de le supprimer en limitant le lemme fondamental au fragment sans `Declassify` et en retirant la référence retour. Si cette correction est fusionnée et confirmée par le vérificateur de dépendances, le cycle syntaxique disparaîtra ; la preuve de `thm:divulgation_delimitee` restera néanmoins ouverte, car son cas `Declassify` n'est pas démontré.
 
 ### Circularité argumentative sans cycle syntaxique
 
@@ -109,11 +109,11 @@ Le cycle est bloquant pour toute affirmation selon laquelle les deux preuves son
 
 ### Dépendances structurantes à traiter ensemble
 
-- **Substitution et relation logique :** `thm:substitution` → `thm:substitution_simultanee` → `thm:lemme_fondamental`; les lois de mise à l'échelle, le transport d'effet et les cas de modalité doivent être distingués.
-- **Traduction et fidélité :** `thm:traduction_metalangage` → `thm:raffinement` / `thm:fidelite_interprete`; préservation du typage, simulation de réduction, préservation des traces et adéquation observationnelle sont des résultats distincts.
+- **Substitution et relation logique :** `thm:substitution` → `thm:substitution_simultanee` → `thm:lemme_fondamental` ; les lois de mise à l'échelle, le transport d'effet et les cas de modalité doivent être distingués.
+- **Traduction et fidélité :** `thm:traduction_metalangage` → `thm:raffinement` / `thm:fidelite_interprete` ; préservation du typage, simulation de réduction, préservation des traces et adéquation observationnelle sont des résultats distincts.
 - **Effets et budget :** `thm:temps_mononiveau`, `thm:boxtimes_addition`, `thm:coherence_axiome`, `thm:coherence_usage`, `thm:action_parallele` et `thm:distributivite_tronquee` exigent une signature explicite des opérations et de leurs domaines.
 - **Abaissement et préservation :** `thm:preservation_type` doit être suivi comme bloc composé ; son volet de réduction ne valide pas la conjecture `thm:abaissement_grades`.
-- **Représentation :** `thm:isomorphisme_memoire`, `thm:homomorphisme_roues` et `thm:representation_inobservable` portent des engagements d'ABI et d'observabilité distincts ; les tests de l'implémentation ne remplacent pas la formulation de la propriété.
+- **Représentation :** `thm:isomorphisme_memoire`, `thm:homomorphisme_roues` et `thm:representation_inobservable` portent des engagements d'ABI et d'observabilité distincts. La [PR #116](https://github.com/AntheaLiles/k7pl/pull/116) propose de remplacer l'injectivité par une invariance entre représentations d'une même valeur ; la formulation des représentations admissibles doit encore être revue.
 
 ## 4. Décision de préparation à la migration
 
