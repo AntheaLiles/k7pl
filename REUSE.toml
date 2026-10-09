@@ -21,16 +21,6 @@ precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC0-1.0"
 
-# Infrastructure du dépôt : librement réutilisable.
-# Les fichiers commentables conservent provisoirement leurs anciens headers ;
-# override permet d'établir la licence effective sans réécrire massivement
-# l'infrastructure dans cette étape.
-[[annotations]]
-path = [".claude/**", ".github/**"]
-precedence = "override"
-SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
-SPDX-License-Identifier = "CC0-1.0"
-
 # Configuration racine : CC0.
 [[annotations]]
 path = [
