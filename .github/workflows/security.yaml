@@ -9,10 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  actions: read
   contents: read
-  # Required by the nested OSV-Scanner workflow to publish SARIF findings to Code Scanning.
-  security-events: write
 
 jobs:
   actionlint:
@@ -59,6 +56,10 @@ jobs:
   lake-osv-scan:
     name: Scan pinned Lake revisions (OSV)
     needs: lake-osv-manifest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@c7c7bcb0773cc4678a674ada03a66cc5c4325476 # v2.6.0
     with:
       download-artifact: lake-osv-scanner-deps
