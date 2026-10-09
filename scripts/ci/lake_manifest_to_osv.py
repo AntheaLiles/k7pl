@@ -5,9 +5,9 @@
 
 """Convert the pinned Lake Git manifest into OSV-Scanner's custom-lockfile format.
 
-This adapter intentionally emits repository URLs and exact Git commit hashes, not invented
-semantic versions or package-manager identities. It is a vulnerability-query input, not an SPDX
-or CycloneDX SBOM and not a claim that OSV contains advisories for every dependency.
+This adapter emits repository identities and exact Git commit hashes, not invented semantic
+versions or package-manager identities. It is a vulnerability-query input, not an SPDX or CycloneDX
+SBOM, and does not imply that OSV contains advisories for every dependency.
 """
 
 from __future__ import annotations
@@ -25,11 +25,21 @@ DEFAULT_OUTPUT = ROOT / "lake-osv-scanner.json"
 MAX_MANIFEST_BYTES = 1 << 20
 
 
-def convert_manifest(manifest: object) -> dict[str, object]:
-    """Return OSV-Scanner custom-lockfile data after strict Lake manifest validation."""
+def convert_manifest(
+    manifest: object, lakefile: str, toolchain: str
+) -> dict[str, object]:
+    """Convert only a structurally valid manifest consistent with Lake's declared pins."""
     errors = check_manifest(manifest)
     if errors:
         raise ValueError("invalid Lake manifest:\n" + "\n".join(f"- {error}" for error in errors))
+
+    assert isinstance(manifest, dict)  # established by check_manifest above
+    consistency_errors = check_consistency(manifest, lakefile, toolchain)
+    if consistency_errors:
+        raise ValueError(
+            "inconsistent Lake inputs:\n"
+            + "\n".join(f"- {error}" for error in consistency_errors)
+        )
 
     packages = manifest["packages"]
     assert isinstance(packages, list)
