@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Lean statement-command taxonomy and proof-bearing exposition plan
 
-**Status:** PLANNED — C8  
+**Status:** IN PROGRESS — C8 (ontology ratified; inventory and implementation pending)  
 **Scope:** specification source in `spec/`, Verso extensions in `tools/SpecExt/`, statement inventories and controls  
 **Purpose:** make the mathematical and epistemic nature of specification statements explicit while reducing explanatory prose that merely labels or repeats that nature
 
@@ -293,3 +293,32 @@ The C8 work should ultimately produce:
 - a historical record of the migration decisions.
 
 Until these artefacts exist, the current `::::thm` representation remains authoritative.
+
+
+## 10. Ratified design decisions (2026-10-09)
+
+The author has ratified the following decisions. These are normative constraints for implementation; they supersede conflicting preliminary suggestions above.
+
+### Ontology and classification
+
+- **Target model:** a strict multidimensional ontology (object kind, logical role, epistemic state, evidence, and explicit scope). A hybrid representation is permitted only as a transitional implementation state.
+- **Editorial roles:** theorem = major established result; lemma = established result primarily used as a dependency; corollary = established result derived directly from earlier established results; proposition = established result not assigned one of those other expository roles; conjecture = result not established. These roles do not encode different degrees of truth.
+- **Epistemic state:** the controlled vocabulary is `proposed`, `under-review`, `supported`, `established`, `refuted`, and `withdrawn`. State is independent of role and must not be inferred solely from the command name.
+- **Requirements:** use one generic requirement object with explicit scope and normative effect rather than splitting commands prematurely.
+- **Assumptions:** local hypotheses are structurally attached to the result or argument they qualify. No normative distinction between axiom and postulate is introduced without a documented justification.
+- **Literature:** an externally attributed result is a distinct documentary object linked to bibliographic provenance and to its use in K7PL. It is not thereby a result established by K7PL. A future improvement may reimplement selected external proofs; that work must be tracked separately and connected by explicit traceability rather than assumed.
+- **Evidence:** distinguish a written mathematical demonstration from a machine-checked Lean proof. A proof sketch remains explicitly incomplete. A formal proof claim requires traceability to an identified formal artifact and must never be inferred from the presence of a document slot.
+- **Scope:** scope is explicit and distinct from the existing `level` field. Scope must be modeled only through defined values and validation rules, not free-form labels that imply guarantees.
+- **Labels and numbering:** distinct counters by statement type are permitted. Labels are mandatory for numbered/referenced objects and optional for genuinely local illustrative examples. Existing labels and references must be preserved during the initial migration; any numbering changes must be deliberate and recorded.
+- **Authoring interface:** combine specialized convenience commands with a shared, validated internal representation. Aliases must not introduce divergent semantics.
+
+### Assurance and migration
+
+- CI is a blocking assurance gate for every mechanically decidable structural or consistency violation in the ratified model. Scientific judgments that cannot be reliably automated must be identified as review obligations, not represented as machine-verified facts.
+- Migration is performed in independently reviewable, buildable PRs. The initial migration must preserve statement text, labels, references, assumptions, and epistemic status; editorial corrections are deferred to a distinct review.
+- Prose reduction begins only after the taxonomy, migration, and structural checks are validated. Removed prose must be demonstrably redundant; word-count reduction is a secondary metric, not a correctness criterion.
+- C8 closes only after the existing exit gate passes, including regenerated inventories, successful build/render, blocking CI checks, explicit traceability, and a separate qualitative review of prose reduction.
+
+### Implementation constraint
+
+The current `::::thm` remains authoritative until the replacement representation, compatibility layer, and generated inventory are validated. No status promotion, proof claim, scope change, or normative change may be inferred from a mechanical migration.
