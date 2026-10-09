@@ -37,7 +37,7 @@ pip install reuse && reuse lint
 5. Le check `CI OK` doit passer. Il agrège l'analyse d'impact, les contrôles ciblés selon les
    fichiers modifiés (Lean : compilation, tests, lint, audit des axiomes ; spécification :
    contrôles, compilation, rendu), REUSE, Conventional Commits, actionlint et gitleaks.
-6. Toute fonctionnalité nouvelle ou modification majeure MUST être accompagnée de tests automatisés
+6. Toute fonctionnalité nouvelle ou modification majeure doit être accompagnée de tests automatisés
    couvrant son comportement attendu et les régressions plausibles. Si un test automatisé n'est pas
    pertinent ou possible, expliquer pourquoi dans la PR et consigner le contrôle alternatif. Les
    corrections de bogues doivent ajouter un test de régression lorsqu'un test peut raisonnablement
