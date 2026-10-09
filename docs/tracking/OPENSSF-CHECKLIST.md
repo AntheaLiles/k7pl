@@ -317,6 +317,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 | `access_continuity`, `bus_factor`, `osps_qa_07_01` | bloqué structurellement à ce stade | La gouvernance documente une seule mainteneuse ; une approbation indépendante ne peut être simulée par une automatisation. | Identifier une seconde personne de confiance et formaliser la continuité ; mainteneuse, sans échéance fictive |
 | `crypto_*` | décision de périmètre requise | La checklist ne démontre pas encore quelles fonctions cryptographiques, TLS, clés ou mots de passe appartiennent aux artefacts livrés. | Inventorier les interfaces et dépendances du produit puis motiver chaque N/A ; mainteneuse, avant auto-évaluation |
 | `static_analysis`, `dynamic_analysis`, `test_statement_coverage80` | partiel / à instruire | Lint, avertissements et tests existent ; aucune preuve d'un SAST adapté à Lean ni d'une mesure de couverture statement pertinente n'est enregistrée. | Documenter les outils évalués et leurs limites ; ne pas annoncer de seuil sans mesure, mainteneuse |
+| `workflow_static_analysis` | préparé, CI à confirmer | PR en cours : zizmor est ajouté à `security.yaml` pour analyser `.github/`, avec version fixée et résultats non bloquants dans Code Scanning. Ce n'est pas un SAST du code Lean. | Confirmer le job, examiner les constats et documenter les exceptions ; ne pas bloquer avant triage, mainteneuse |
 
 
 ## Ordre de traitement proposé
