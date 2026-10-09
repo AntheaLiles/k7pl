@@ -17,7 +17,7 @@ Start with:
 
 - [Architecture](ARCHITECTURE.md): project structure, conceptual layers, and relationships between specification, formalisation, implementation, proofs, and tests.
 - [Research](RESEARCH.md): scientific problem, hypothesis, object, expected contributions, and validation strategy.
-- [Specification](../spec/): the normative language specification.\n- [Interactive exploration](INTERACTIVE-EXPLORATION.md): proposed interactive presentation and knowledge navigation layer.
+- [Specification](../spec/): the normative language specification.\n- [Interactive exploration](tracking/INTERACTIVE-EXPLORATION.md): proposed interactive presentation and knowledge navigation layer.
 
 ## Assess the current state
 
