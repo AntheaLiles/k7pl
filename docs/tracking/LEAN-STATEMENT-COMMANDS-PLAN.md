@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Lean statement-command taxonomy and proof-bearing exposition plan
 
-**Status:** IN PROGRESS — C8 (ontology ratified; inventory and implementation pending)  
+**Status:** IN PROGRESS — C8 (ontology ratified; mechanical inventory produced; full semantic audit, implementation, and controlled migration pending)  
 **Scope:** specification source in `spec/`, Verso extensions in `tools/SpecExt/`, statement inventories and controls  
 **Purpose:** make the mathematical and epistemic nature of specification statements explicit while reducing explanatory prose that merely labels or repeats that nature
 
@@ -126,6 +126,8 @@ The current `::::thm` should not be removed first. Migration must proceed in lay
 ### C8.0 — Inventory
 
 Build a complete inventory of all current statement blocks and classify each occurrence independently.
+
+**Progress recorded 2026-10-09:** the mechanical inventory covers 69 active `::::thm` blocks across 21 source files, and a 69-row provisional classification register has been produced. The inventory drift checker is present. The register is a first-pass triage, not a full audit: complete reading of every statement, hypothesis, proof sketch, and dependency remains open. The dependency checker and cycle audit are under CI review; two semantic risk cases are documented separately. C8.0 is therefore **not closed**.
 
 Required fields:
 
