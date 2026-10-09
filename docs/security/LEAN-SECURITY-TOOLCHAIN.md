@@ -118,8 +118,10 @@ Le SAST Lean devra cibler des classes de défauts formulées explicitement : con
 
 ### Phase B — SBOM minimale et comparaison indépendante
 
-- [ ] Générer une SBOM SPDX pour les dépendances Lake à partir du modèle interne.
-- [ ] Valider l'export avec un parseur indépendant et vérifier les relations.
+Un premier générateur SPDX 2.3 JSON est proposé dans `scripts/ci/lake_manifest_to_spdx.py`. Il reprend uniquement les entrées du manifeste validé, conserve l'URL du dépôt et le SHA exact de chaque commit, utilise `NOASSERTION` pour les licences et droits non établis et décrit chaque paquet sans inventer d'arête de dépendance. L'horodatage peut être fixé par `--created` ou `SOURCE_DATE_EPOCH` pour stabiliser la sortie. Le prototype n'est pas encore validé par un parseur indépendant, publié, ni relié au flux de release.
+
+- [x] Générateur SPDX 2.3 JSON minimal et tests hors ligne proposés dans une PR ; périmètre borné aux entrées du manifeste Lake.
+- [ ] Valider l'export avec un parseur indépendant et vérifier la structure SPDX et les relations.
 - [ ] Comparer les composants exportés au manifeste et expliciter toute différence.
 - [ ] Évaluer un export CycloneDX à partir du même modèle si les consommateurs retenus le nécessitent.
 - [ ] Mesurer déterminisme, taille, qualité des métadonnées et compatibilité des outils.
