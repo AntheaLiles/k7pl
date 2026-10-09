@@ -87,7 +87,7 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 | `thm:cloture_sortage` | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean:187` | B06 | Fusionné (PR d'audit) | — | — |
 | `thm:confinement_sortes` | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean:214` | B06 | Fusionné (PR d'audit) | `thm:traduction_metalangage`, `thm:temps_mononiveau` | — |
 | `thm:divulgation_delimitee` | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean:234` | B11 | Fusionné (PR #114) | `thm:non_interference` | Cas `Declassify` et relation sensible à la divulgation restent à prouver |
-| `thm:terminaison_lfp` | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean:378` | B05 | Fusionné (PR d'audit) | — | — |
+| `thm:terminaison_lfp` | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean:381` | B05 | Fusionné (PR d'audit) | — | — |
 | `thm:distributivite_tronquee` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:125` | B09 | Fusionné (PR d'audit) | — | — |
 | `thm:coherence_axiome` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:158` | B09 | Fusionné (PR d'audit) | — | — |
 | `thm:coherence_usage` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:182` | B09 | Fusionné (PR d'audit) | — | — |
