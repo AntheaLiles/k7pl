@@ -34,3 +34,38 @@ jobs:
         uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lake-osv-manifest:
+    name: Prepare Lake dependencies for OSV-Scanner
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Validate and convert the Lake manifest
+        run: python3 scripts/ci/lake_manifest_to_osv.py --output lake-osv-scanner.json
+      - name: Upload OSV-Scanner custom lockfile
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: lake-osv-scanner-deps
+          path: lake-osv-scanner.json
+          if-no-files-found: error
+          retention-days: 1
+
+  lake-osv-scan:
+    name: Scan pinned Lake revisions (OSV)
+    needs: lake-osv-manifest
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@c7c7bcb0773cc4678a674ada03a66cc5c4325476 # v2.6.0
+    with:
+      download-artifact: lake-osv-scanner-deps
+      scan-args: |-
+        --lockfile=osv-scanner:lake-osv-scanner.json
+      # First observation phase: publish findings, but do not block the only maintainer before
+      # the baseline, coverage and false-positive behavior have been reviewed.
+      fail-on-vuln: false
+      upload-sarif: true
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
