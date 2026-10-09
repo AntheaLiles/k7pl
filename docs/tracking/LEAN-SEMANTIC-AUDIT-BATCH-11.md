@@ -32,7 +32,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | `thm:commutation_monoide` | Finite iteration case is supported by multiplicativity; the infinite case has an explicit supremum-preservation premise | Verify the quotient map respects all presentation relations and the exact finite/infinite signatures |
 | `thm:substitution` | Conditional multi-component substitution theorem with several distinct algebraic obligations | Keep grade projection, usage scaling, effect iteration, and budget transport separate |
 | `thm:substitution_simultanee` | Corollary of elementary substitution under finite contexts; order-independence is not stable under a future ordered-context discipline | Keep as corollary; if ordered zones are adopted, state reverse-topological substitution order |
-| `thm:lemme_fondamental` | Proof sketch explicitly omits `Declassify`; direct dependency cycle with bounded disclosure | Resolve the cycle by isolating a core fragment or parameterizing the release relation; do not claim established |
+| `thm:lemme_fondamental` | The baseline sketch omits `Declassify` and participates in a direct dependency cycle; PR #117 proposes a core-fragment scope | The disclosure extension remains unproved even if the syntax cycle is removed |
 | `thm:isomorphisme_memoire` | Zero-copy layout claim is limited to primitive fixed-width arrays and a concrete ABI/profile | Validate exact Arrow/Cap'n Proto/MLIR alignment, null-bitmap, ownership, and pointer-writing conditions against pinned versions |
 | `thm:expansion_macro` | Derivation from substitution is plausible; noncommutative effect order is correctly treated as occurrence order | Verify the expansion rule's exact occurrence and effect composition, without replacing it by an unjustified power law |
 | `thm:homomorphisme_roues` | Injective payload encoding and select behavior are separate from arithmetic semantics; custom propagation is an implementation obligation | Differentially test all singularity operations and supported hardware/compiler combinations |
@@ -47,7 +47,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | `thm:troncature_comonade` | Broad all-functor claim with several indexed maps and boundary equations; proof remains on paper | Type-check each `T`, `δ`, and `λ` equation, especially the rank boundary, and separate standard cofree facts from the K7PL truncation result |
 | `thm:fenetre_grade` | The identification of three concrete windows with one grade is explicitly not demonstrated | Supply representation maps and prove that the compile-time bounds coincide |
 | `thm:stabilisation_pipeline` | Finite-budget descent supports termination if every modifying pass consumes budget and no other transition increases it | State the transition invariant and how a no-change pass is detected |
-| `thm:divulgation_delimitee` | Explicitly not demonstrated; its proof sketch depends on the fundamental lemma and non-interference | Resolve the dependency cycle before promotion; define the escape set, closure, and relational release clause |
+| `thm:divulgation_delimitee` | Explicitly not demonstrated; on the baseline it depends on the fundamental lemma and non-interference | PR #117 proposes removing the cycle by scoping the core lemma; define the escape set, closure, and relational release clause |
 | `thm:action_parallele` | Componentwise law is routine for finite natural multiplicities on work/depth pairs | Make the multiplicity domain and the exact parallel-effect operation explicit |
 | `thm:preservation_type` | Compound block combining reduction preservation with the independent MLIR-lowering conjecture | Track core type preservation and `thm:abaissement_grades` separately, retaining P2 and P1b obligations |
 
@@ -131,7 +131,7 @@ Finally, the identification of coinductive truncation, stack bound, and `StreamC
 
 ## Dependency and status conclusions
 
-1. The only direct syntactic cycle currently identified by the dependency checker remains `thm:lemme_fondamental ↔ thm:divulgation_delimitee`. The H1 issue between `thm:introduction_unique` and `thm:surete_spatiale` is argumentative, not a syntactic cycle.
+1. The baseline contains the direct syntactic cycle `thm:lemme_fondamental ↔ thm:divulgation_delimitee`. PR #117 proposes a scope correction that removes the reverse dependency if merged and confirmed by the checker; it does not prove disclosure. The H1 issue between `thm:introduction_unique` and `thm:surete_spatiale` remains argumentative, not syntactic.
 2. The most important unresolved dependency chain is substitution → fundamental lemma → non-interference/disclosure, with translation typing → refinement → simulation/fidelity as a separate chain. Repeated labels in audit batches are cross-references, not additional unique statements.
 3. Compound blocks needing split tracking include `thm:introduction_unique`, `thm:elaboration`, `thm:rejeu_binaire` (environment assumptions versus binary conclusion), `thm:preservation_type`, and `thm:troncature_comonade` (standard structure versus K7PL-specific truncation).
 4. No status is promoted by this note. The conjectures `thm:determinisme_observationnel` and `thm:abaissement_grades`, the explicit requirements, and the unproved propositions remain distinct.
