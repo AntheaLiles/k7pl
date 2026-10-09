@@ -137,7 +137,7 @@ Confidence: **journal** means a session report names the card; **card** means th
 | `IMPL-06` | 🟡 partial | Profil de représentation `Π` unique | [journal](../history/2026-10-01-pr-02-17-impl-et-struct.md) · Π défini au §4.5 ; Th. 20 et rejeu requalifiés en conformité ; Th. 36 non requalifié |
 | `IMPL-07` | ⬜ open | Table de propagation des singularités |  |
 | `IMPL-08` | 🟡 partial | Renforcer le croisement mécanique grammaire × règles | [journal](../history/2026-10-01-pr-02-17-impl-et-struct.md) · productions dégénérées et types non engendrés contrôlés (mutation vérifiée) ; arités et build sur symbole absent restent à porter |
-| `IMPL-09` | ✅ closed | Hypothèses de module à porter en assistant de preuve | [journal](hypotheses-de-module.md) · inventaire écrit dans docs/tracking/hypotheses-de-module.md |
+| `IMPL-09` | ✅ closed | Hypothèses de module à porter en assistant de preuve | [journal](../tracking/hypotheses-de-module.md) · inventaire écrit dans docs/tracking/hypotheses-de-module.md |
 
 ## FACT — Factorisations to write
 
