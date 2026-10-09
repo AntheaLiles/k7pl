@@ -76,3 +76,36 @@ Avant la migration des commandes :
 - Extraction des références directes `{num "thm:..."}` dans chacun des blocs.
 - Distinction explicite entre cycle syntaxique et circularité argumentative.
 - Aucun changement apporté aux sources mathématiques.
+
+
+## 6. Compound blocks that must not inherit one status
+
+A separate reading of four complete blocks confirms that a single future command kind and epistemic state cannot safely represent all of their contents. These are decomposition candidates for a later, explicitly reviewed source migration; no split is performed here.
+
+### `thm:sedimentation` — literature result plus open graded requirement
+
+The surrounding prose attributes the non-graded nested fixed-point result to the literature and cites Kurz and others. The statement then distinguishes two cases: (i) non-graded containers, described as a literature result reused here; (ii) graded containers, explicitly an open requirement. The proof sketch presents the route for convergence but does not establish the graded case.
+
+**Candidate decomposition:** retain a literature-result object with bibliographic provenance for the non-graded case; represent the graded case as a scoped requirement or open conjecture only after the author decides whether it is a desired property or a mathematical claim. Preserve the dependency between them without transferring the literature result's epistemic status to the graded case.
+
+### `thm:preservation_type` — preservation theorem plus MLIR-lowering conjecture
+
+The statement's first claim is type preservation under the P2 separation condition. It then identifies the MLIR-lowering volet as `thm:abaissement_grades`, explicitly “non démontré”. The sketch distinguishes ordinary reduction from MLIR defunctionalisation/inlining and states that obligation P1b is not established.
+
+**Candidate decomposition:** one result for preservation by reduction, with P2 as an explicit premise; a separate open conjecture or requirement for MLIR lowering, with P1b and per-pass obligations attached to that object. Do not let the first result's evidence or state propagate to the second.
+
+### `thm:elaboration` — definition plus semantic-preservation property
+
+The block is marked `status := "definition"`, but its statement also claims that every surface form has no independent meaning beyond the elaborated core term. Its sketch argues from recursive definition and the commutation schema to semantic invariance, and includes further quantitative caveats.
+
+**Candidate decomposition:** define `Elab` as a function from surface syntax to core terms; express preservation of meaning and commutation with substitution as separate result objects, each with explicit assumptions. Keep the quantitative and finite-reinvocation caveats attached to the result they constrain, rather than silently treating them as consequences of the definition.
+
+### `thm:interface_jugement` — definition plus finite-forms closure claim
+
+The block is marked as a definition and defines an interface as a judgment with three components. It also asserts a closure property over the declaration forms enumerated in the chapter: no fourth component is required and none of the three is empty. The proof sketch says the property is established by finite enumeration and limits its scope to those forms.
+
+**Candidate decomposition:** define the interface/judgment correspondence separately from a proposition about closure for the currently enumerated declaration forms. Encode the finite scope explicitly. The text's note that a probabilistic extension may require revision must remain as a limitation, not be dropped during prose reduction.
+
+### Acceptance condition for these cases
+
+Before migration, the classification review must decide for each component its object kind, logical role where applicable, epistemic state, scope, evidence/provenance, and normative effect. The split must preserve labels and cross-references deliberately, and must not be carried out as a mechanical edit before those decisions are ratified.
