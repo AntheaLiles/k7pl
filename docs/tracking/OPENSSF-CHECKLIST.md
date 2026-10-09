@@ -15,7 +15,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ## Tableau de bord d'audit
 
-**Dernière réévaluation documentaire : 2026-10-09 — branche de travail `docs/openssf-governance-and-controls`.**
+**Dernière réévaluation documentaire : 2026-10-09 — PR #97 et #98 fusionnées ; audit complémentaire sur `docs/openssf-evidence-audit`.**
 Les critères cochés ci-dessous ne concernent que les exigences dont la preuve documentaire a été ajoutée ou clarifiée par cette campagne. Ils ne valent pas validation de la configuration GitHub ni attestation d'activité réelle. Les nouveaux documents sont [GOVERNANCE.md](../security/GOVERNANCE.md), [SECRETS-POLICY.md](../security/SECRETS-POLICY.md) et les règles mises à jour dans [CONTRIBUTING.md](../../CONTRIBUTING.md). Les points administratifs, mesures et preuves d'activité restent ouverts.
 
 - [ ] Passer en revue chaque critère et joindre une preuve.
@@ -78,9 +78,9 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [x] [test_policy] CONTRIBUTING.md indique quand les changements doivent être accompagnés de tests.
 - [ ] [tests_are_added] Vérifier les PR récentes pour démontrer que la politique de test a été appliquée.
 - [x] [tests_documented_added] Les instructions de contribution mentionnent les tests et contrôles attendus.
-- [ ] [warnings] Partiel : warningAsError et le linter sont configurés pour les bibliothèques ; les exécutables `mainTest` et `spec` doivent aussi être couverts et validés en CI (PR #98).
-- [ ] [warnings_fixed] Partiel : les avertissements échouent là où `warningAsError` est activé ; l'extension aux exécutables reste à valider (PR #98).
-- [ ] [warnings_strict] Vérifier la portée exacte de warningAsError sur toutes les cibles Lean, y compris les exécutables, puis documenter les limites connues.
+- [x] [warnings] `warningAsError` est activé sur les bibliothèques et les exécutables Lean `mainTest` et `spec` via `lakefile.lean` ; PR #98 fusionnée et CI de PR passée.
+- [x] [warnings_fixed] Les cibles Lean déclarées dans `lakefile.lean` utilisent les ensembles d'options avec `warningAsError` ; la CI de PR #98 est passée.
+- [x] [warnings_strict] `lakefile.lean` applique les options strictes aux bibliothèques et exécutables du dépôt ; la CI de PR #98 est passée.
 
 ### Security — conception, cryptographie, livraison et secrets
 
@@ -170,7 +170,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 
 - [x] [test_policy_mandated] La politique de contribution prévoit des tests pour les changements pertinents ; confirmer que le caractère obligatoire est formulé sans ambiguïté.
 - [x] [tests_documented_added] CONTRIBUTING.md documente les contrôles attendus lors d'une PR.
-- [ ] [warnings_strict] Vérifier et documenter la stricte gestion des avertissements sur toutes les cibles.
+- [x] [warnings_strict] `lakefile.lean` applique les options strictes aux bibliothèques et exécutables du dépôt ; la CI de PR #98 est passée.
 - [ ] [implement_secure_design] Faire le lien entre les principes du modèle de menace et les mécanismes de conception réellement implémentés.
 - [ ] [crypto_weaknesses] Voir l'analyse Passing ; N/A uniquement après examen du périmètre.
 - [ ] [crypto_algorithm_agility] Déterminer si l'agilité cryptographique est applicable ; sinon N/A motivé.
@@ -231,8 +231,8 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 
 - [ ] [osps_ac_01_01] Exiger une authentification multifacteur pour accéder aux ressources sensibles du dépôt.
 - [ ] [osps_ac_02_01] Assigner manuellement les permissions des nouveaux collaborateurs ou appliquer le moindre privilège par défaut.
-- [x] [osps_ac_03_01] Le ruleset/flux de contribution impose les PR ; vérifier la configuration actuelle du blocage des commits directs.
-- [ ] [osps_ac_03_02] Vérifier que la suppression de la branche primaire requiert une confirmation explicite / est protégée.
+- [x] [osps_ac_03_01] Le ruleset actif « PR on main » impose un flux de PR et interdit le fast-forward ; sa configuration a été relue le 2026-10-09.
+- [x] [osps_ac_03_02] Le ruleset actif « PR on main » contient la règle `deletion`, qui protège la branche par défaut contre la suppression.
 - [ ] [osps_br_01_01] Assainir et valider les métadonnées non fiables utilisées par les pipelines CI/CD.
 - [ ] [osps_br_01_03] Partiel : plusieurs contrôles utilisent des permissions restreintes et `persist-credentials: false` ; il faut vérifier systématiquement tous les workflows et chemins de code non fiable.
 - [ ] [osps_br_03_01] Vérifier que toutes les URLs officielles sont servies exclusivement par des canaux chiffrés.
@@ -267,7 +267,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [x] [osps_gv_01_02] [GOVERNANCE.md](../security/GOVERNANCE.md) décrit les rôles et responsabilités actuels, sans prétendre qu'une équipe existe.
 - [x] [osps_gv_03_02] Le guide de contribution indique les exigences d'acceptabilité.
 - [ ] [osps_le_01_01] Mettre en place une attestation légale de contribution à chaque commit (par exemple DCO), ou justifier l'écart.
-- [x] [osps_qa_03_01] Les status checks sont requis par le flux de PR ; vérifier la configuration du ruleset et les possibilités de contournement.
+- [x] [osps_qa_03_01] Le ruleset actif « PR on main » exige le status check `CI OK` et ne définit aucun acteur de contournement ; la politique exigeant une mise à jour stricte de la branche reste désactivée.
 - [x] [osps_qa_06_01] CI exécute des tests/validations avant fusion des PR.
 - [ ] [osps_sa_01_01] Documenter les actions et acteurs de l'ensemble du système livré avant une release pertinente.
 - [ ] [osps_sa_02_01] Partiel : la spécification décrit l'interface prévue du langage, mais la couverture de toutes les interfaces des artefacts effectivement publiés reste à établir.
@@ -302,11 +302,22 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 
 ## Registre de preuves et décisions N/A
 
-Compléter cette table pendant l'audit. Ajouter une ligne par critère non satisfait, partiel ou déclaré N/A.
+État vérifié le 2026-10-09. Ce registre consigne les constats vérifiables à distance ; il ne remplace pas les contrôles de compte, de sécurité ou de publication qui exigent une action humaine.
 
 | Identifiant | État (satisfait/partiel/non satisfait/N/A) | Preuve ou justification | Action, responsable, échéance |
 |---|---|---|---|
-| — | — | — | — |
+| `warnings`, `warnings_fixed`, `warnings_strict` | satisfait (configuration) | `lakefile.lean` applique `warningAsError` aux bibliothèques et exécutables Lean ; PR #98 fusionnée et CI de PR passée. | Réévaluer après modification des cibles Lean ; mainteneuse, continu |
+| `osps_ac_03_01`, `osps_ac_03_02`, `osps_qa_03_01` | partiel | Ruleset actif « PR on main » : règles `deletion`, `non_fast_forward`, PR requise, historique linéaire, status check `CI OK`, aucun acteur de contournement. Le nombre d'approbations requises est 0 et `strict_required_status_checks_policy` vaut `false`. | Décider si l'on exige des branches à jour ; approbation indépendante impossible sans second mainteneur. Mainteneuse, avant demande de badge |
+| `require_2FA`, `secure_2FA`, `osps_ac_01_01` | non vérifié | La lecture du ruleset ne permet pas de vérifier la MFA du compte ni les paramètres d'accès aux ressources sensibles. | Vérifier MFA résistante au phishing et settings du compte ; mainteneuse, avant demande de badge |
+| `version_tags`, `signed_releases`, `osps_br_03_02`, `osps_do_03_01`, `osps_do_03_02` | partiel | Une release publiée `spec-v0.0.0-alpha.1` existe, est immuable et n'a aucun asset. `.github/workflows/release.yaml` prévoit un brouillon avec PDF, SHA-256 et attestation Sigstore, mais ce flux révisé n'a pas été exécuté de bout en bout. | Répéter le flux sur une release d'essai/sandbox puis vérifier les attestations avant publication ; mainteneuse, avant prochaine release |
+| `release_notes`, `osps_br_04_01` | partiel | La release existante a des notes générées à partir de PR ; le nouveau workflow extrait désormais une section de `spec/CHANGELOG.md`, mais le processus n'a pas encore été éprouvé de bout en bout. | Vérifier le contenu de notes de release lisibles et de sécurité lors de la répétition ; mainteneuse, avant prochaine release |
+| `dependency_monitoring`, `osps_qa_02_01` | partiel | Dependabot couvre certains manifestes connus ; les dépendances Lake sont épinglées dans `lake-manifest.json`, mais cela ne constitue pas une surveillance d'alertes SCA. | Choisir et intégrer une surveillance pertinente pour Lean/Lake ; mainteneuse, prochaine vague SCA |
+| `osps_qa_05_01`, `osps_qa_05_02` | non vérifié | Aucun inventaire exhaustif des binaires et fichiers générés, y compris dans l'historique actif, n'est référencé ici. | Produire un inventaire automatisé et définir une règle de dépôt ; mainteneuse, prochaine vague qualité |
+| `dco`, `osps_le_01_01` | non satisfait / décision requise | Aucun mécanisme DCO/CLA n'est actuellement décrit comme obligatoire ; le projet est porté par une seule personne, mais cela ne suffit pas à prouver l'origine légale de contributions futures. | Décider DCO/CLA ou politique proportionnée et mettre en œuvre ; mainteneuse, avant contributions externes substantielles |
+| `access_continuity`, `bus_factor`, `osps_qa_07_01` | bloqué structurellement à ce stade | La gouvernance documente une seule mainteneuse ; une approbation indépendante ne peut être simulée par une automatisation. | Identifier une seconde personne de confiance et formaliser la continuité ; mainteneuse, sans échéance fictive |
+| `crypto_*` | décision de périmètre requise | La checklist ne démontre pas encore quelles fonctions cryptographiques, TLS, clés ou mots de passe appartiennent aux artefacts livrés. | Inventorier les interfaces et dépendances du produit puis motiver chaque N/A ; mainteneuse, avant auto-évaluation |
+| `static_analysis`, `dynamic_analysis`, `test_statement_coverage80` | partiel / à instruire | Lint, avertissements et tests existent ; aucune preuve d'un SAST adapté à Lean ni d'une mesure de couverture statement pertinente n'est enregistrée. | Documenter les outils évalués et leurs limites ; ne pas annoncer de seuil sans mesure, mainteneuse |
+
 
 ## Ordre de traitement proposé
 
