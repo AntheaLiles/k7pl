@@ -387,12 +387,15 @@ aucune liberté de représentation n'est observable
 :::
 
 :::statement +titled
-Injectivité de la représentation
+Invariance observationnelle des représentations admissibles
 
-La représentation $`\mathrm{repr}` d'une valeur est telle que $`\mathrm{obs} \circ \mathrm{repr}` est
-injective : deux exécutions qui diffèrent par une liberté représentationnelle — élision d'un champ,
-purge d'un journal, bourrage, charge utile d'un NaN, ordre des segments en mémoire — ne sont pas
-discernables par l'observation.
+Pour toute valeur sémantique $`v` et toutes représentations admissibles $`r_1` et $`r_2` de cette
+même valeur, $`\mathrm{obs}(r_1) = \mathrm{obs}(r_2)`. L'observation doit donc être constante
+sur les représentations admissibles d'une même valeur sémantique : l'élision d'un champ, la purge
+d'un journal, le bourrage, la charge utile d'un NaN ou l'ordre des segments en mémoire ne doivent
+pas être discernables par l'observation. Cette exigence porte sur l'invariance entre représentations
+d'une même valeur ; elle ne formule pas une injectivité de l'application des valeurs sémantiques
+vers leurs observations.
 :::
 ::::
 
