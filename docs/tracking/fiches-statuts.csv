@@ -85,7 +85,7 @@ IMPL-05,fermee,journal,history/2026-10-01-pr-02-09-port-et-fact2.md,thm:revocati
 IMPL-06,partielle,journal,history/2026-10-01-pr-02-17-impl-et-struct.md,"Π défini au §4.5 ; Th. 20 et rejeu requalifiés en conformité ; Th. 36 non requalifié"
 IMPL-07,ouverte,,,
 IMPL-08,partielle,journal,history/2026-10-01-pr-02-17-impl-et-struct.md,"productions dégénérées et types non engendrés contrôlés (mutation vérifiée) ; arités et build sur symbole absent restent à porter"
-IMPL-09,fermee,journal,hypotheses-de-module.md,"inventaire écrit dans docs/tracking/hypotheses-de-module.md"
+IMPL-09,fermee,journal,tracking/hypotheses-de-module.md,"inventaire écrit dans docs/tracking/hypotheses-de-module.md"
 FACT-01,fermee,journal,history/2026-10-01-pr-02-07-non-interference-et-fact.md,
 FACT-02,fermee,journal,history/2026-10-01-pr-02-07-non-interference-et-fact.md,
 FACT-03,fermee,journal,history/2026-10-01-pr-02-07-non-interference-et-fact.md,
