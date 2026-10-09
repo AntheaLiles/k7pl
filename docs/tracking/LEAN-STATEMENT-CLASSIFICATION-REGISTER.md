@@ -1,6 +1,6 @@
 # Registre de classification sémantique — C8.0
 
-**Statut : registre de travail, non normatif.** Cette étape classe les 69 blocs de l'inventaire mécanique à partir de leur texte et de leur esquisse. Elle ne valide pas les résultats mathématiques et n'autorise aucune modification des sources. Les classifications marquées « candidate » sont des hypothèses de travail, pas des décisions finales.
+**Statut : première passe de triage, non normative.** Les 69 lignes proposent une classification initiale à partir de l'inventaire, des titres et des passages consultés des énoncés/esquisses. Ce registre ne prétend pas constituer une lecture intégrale et une validation indépendante de chaque preuve : cette revue approfondie, dépendances comprises, reste à faire. Il ne valide pas les résultats mathématiques et n'autorise aucune modification des sources. Les classifications marquées « candidate » sont des hypothèses de travail, pas des décisions finales.
 
 **Base source :** `20a228f137f507aac9b3e8c9f2e1776f29fa635a`. Inventaire mécanique : [PR #81](https://github.com/AntheaLiles/k7pl/pull/81). Contrôle de dérive : [PR #83](https://github.com/AntheaLiles/k7pl/pull/83).
 
@@ -91,7 +91,7 @@ Les états cibles « étayé », « établi », « réfuté » et « retiré » 
 
 ## Synthèse provisoire et points bloquants
 
-1. **69 blocs examinés, mais pas 69 validations mathématiques.** Le registre donne une première lecture de la nature, du rôle, de la portée et des appuis visibles. Chaque rôle et chaque portée candidate doit encore être confirmé.
+1. **69 blocs répertoriés, mais ni 69 audits intégraux ni 69 validations mathématiques.** Le registre donne une première hypothèse sur la nature, le rôle, la portée et les appuis visibles. La lecture intégrale de chaque énoncé et esquisse, la vérification de toutes les hypothèses et la revue des dépendances restent nécessaires avant ratification.
 2. **Aucun résultat n'est déclaré « établi » ou « réfuté ».** Les esquisses textuelles peuvent étayer une revue, mais ne sont ni des preuves Lean ni, sans audit mathématique, une validation indépendante.
 3. **Deux blocs composés sont prioritaires** : `thm:sedimentation` (résultat de littérature + exigence ouverte) et `thm:preservation_type` (préservation par réduction + volet d'abaissement MLIR conjectural). `thm:elaboration` et `thm:interface_jugement` mêlent aussi une définition et des propriétés qui méritent une décomposition conceptuelle.
 4. **Les exigences sont séparées des résultats** : `thm:resucrage`, `thm:revocation_ffi`, `thm:completude_verificateur`, `thm:representation_inobservable`. L'absence d'esquisse n'est pas un défaut automatique.
