@@ -78,7 +78,7 @@ tant qu'il ne s'exécute pas : son défaut est de ne pas fonctionner, pas d'agir
 | R22 | `lean4checker` dans `full.yaml` | FUTURE | coût à mesurer ; revérifie les oléans importés |
 | R23 | Tags signés | FUTURE | clé détenue par l'humain ; valeur faible sans canal de confiance extérieur |
 | R24 | Fuzzing, tests par propriétés | FUTURE | aucune surface d'entrée avant un analyseur du langage |
-| R25 | SBOM SPDX/CycloneDX | FUTURE | Le manifeste Lake n'est pas une SBOM. L'adaptateur OSV proposé sert uniquement à l'analyse d'avis par commit ; générer et valider une SBOM normalisée reste un chantier distinct. |
+| R25 | Prototype SBOM SPDX/CycloneDX | PREPARED (prototype SPDX 2.3 en PR) | Un générateur d'inventaire SPDX 2.3 pour les entrées de `lake-manifest.json` est proposé ; il conserve les révisions Git et marque les licences inconnues `NOASSERTION`. Il ne déduit pas les arêtes directes/transitives et ne couvre pas l'outillage, les actions CI ni les artefacts. Validation par parseur indépendant, triage de compatibilité et décision d'intégration à la release encore requis. |
 | R26 | `suivi.py` en CI | FUTURE | hors périmètre OpenSSF |
 | R27 | Surveillance des vulnérabilités Lake par OSV-Scanner | PARTIAL (premier run exécuté) | Run 37951599075 : 14 paquets extraits, `No issues found`, SARIF envoyé à Code Scanning. Un scan hebdomadaire est configuré dans la PR ; la répétition planifiée, la couverture des avis et le triage restent à établir. Le scan est non bloquant. |
 
