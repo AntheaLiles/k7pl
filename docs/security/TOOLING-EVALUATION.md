@@ -13,7 +13,7 @@ Ce document recense des pistes à évaluer ; il ne déclare aucun outil adopté,
 
 `lake-manifest.json` contient les URL des dépôts Git et les SHA-1 de commit résolus pour les dépendances Lake. Ce sont des identifiants utilisables pour interroger des bases d'avis liées à des commits, mais ils ne sont pas des versions sémantiques et ne garantissent pas que chaque paquet ait des avis indexés.
 
-La documentation OSV-Scanner prévoit un format d'entrée personnalisé pour les gestionnaires de paquets non pris en charge : chaque paquet peut être représenté par un nom de dépôt et un hash de commit. La documentation recommande de fournir un tel fichier `osv-scanner.json` via `--lockfile osv-scanner:<chemin>`. Cela fournit une voie d'essai concrète sans prétendre que `lake-manifest.json` est un lockfile natif OSV-Scanner. Références : [formats de manifeste pris en charge et lockfiles personnalisés](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/), [API OSV par commit](https://google.github.io/osv.dev/docs/api/post-v1-query/).
+La documentation OSV-Scanner prévoit un format d'entrée personnalisé pour les gestionnaires de paquets non pris en charge : chaque paquet peut être représenté par un nom de dépôt et un hash de commit. La documentation recommande de fournir un tel fichier `osv-scanner.json` via `--lockfile osv-scanner:<chemin>`. Cela fournit une voie d'essai concrète sans prétendre que `lake-manifest.json` est un lockfile natif OSV-Scanner. Références : [formats de manifeste pris en charge et lockfiles personnalisés](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/), [API OSV par commit](https://google.github.io/osv.dev/post-v1-query/).
 
 ### Première intégration proposée
 
