@@ -32,31 +32,31 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 | `thm:schema_effacement` | `spec/Spec/C2/SixSchemasDeMetatheorie.lean:188` | B01 | Fusionné (PR d'audit) | `thm:schema_commutation`, `thm:schema_preservation`, `thm:raffinement` | — |
 | `thm:lemme_capacite` | `spec/Spec/C2/SixSchemasDeMetatheorie.lean:227` | B01 | Fusionné (PR d'audit) | — | — |
 | `thm:surete_spatiale` | `spec/Spec/C4/ModelesDeMemoire.lean:41` | B11 | Fusionné (PR #114) | `thm:lemme_capacite` | H1 est une prémisse que l'autre bloc prétend établir |
-| `thm:introduction_unique` | `spec/Spec/C4/ModelesDeMemoire.lean:99` | B11 | PR #114 ouverte | `thm:surete_spatiale` | Circularité argumentative H1; cas d'élimination d'arène manquant |
-| `thm:elaboration` | `spec/Spec/C5/LeTheoremeDElaboration.lean:30` | B11 | PR #114 ouverte | `thm:schema_commutation` | — |
+| `thm:introduction_unique` | `spec/Spec/C4/ModelesDeMemoire.lean:99` | B11 | Fusionné (PR #114) | `thm:surete_spatiale` | Circularité argumentative H1; cas d'élimination d'arène manquant |
+| `thm:elaboration` | `spec/Spec/C5/LeTheoremeDElaboration.lean:30` | B11 | Fusionné (PR #114) | `thm:schema_commutation` | — |
 | `thm:raffinement` | `spec/Spec/C2/SystemeDeRaffinement.lean:52` | B01, B02 | Fusionné (PR d'audit) | `thm:traduction_metalangage` | — |
 | `thm:non_interference` | `spec/Spec/C2/SystemeDeRaffinement.lean:152` | B02 | Fusionné (PR d'audit) | — | — |
 | `thm:determinisme_observationnel` | `spec/Spec/C2/SystemeDeRaffinement.lean:191` | B02 | Fusionné (PR d'audit) | — | — |
-| `thm:staticite_syntaxe` | `spec/Spec/C5/NotationsSpecialisees.lean:126` | B11 | PR #114 ouverte | — | — |
-| `thm:hygiene` | `spec/Spec/C5/NotationsSpecialisees.lean:217` | B11 | PR #114 ouverte | — | — |
-| `thm:hygiene_graduee` | `spec/Spec/C5/NotationsSpecialisees.lean:241` | B11 | PR #114 ouverte | `thm:expansion_macro` | — |
-| `thm:resucrage` | `spec/Spec/C5/NotationsSpecialisees.lean:261` | B11 | PR #114 ouverte | — | Exigence; algèbre de liaison de surface absente |
-| `thm:determinisme_rejeu` | `spec/Spec/C4/EchelleDuSysteme.lean:118` | B11 | PR #114 ouverte | — | — |
-| `thm:rejeu_binaire` | `spec/Spec/C4/EchelleDuSysteme.lean:144` | B11 | PR #114 ouverte | `thm:determinisme_rejeu`, `thm:schema_restriction` | — |
-| `thm:liberte_initialisation` | `spec/Spec/C4/EchelleDuSysteme.lean:320` | B11 | PR #114 ouverte | `thm:tri_topologique` | — |
-| `thm:sync_motifs_jonction` | `spec/Spec/C4/EchelleDuSysteme.lean:469` | B11 | PR #114 ouverte | — | — |
-| `thm:surete_ffi` | `spec/Spec/C4/EchelleDuSysteme.lean:548` | B11 | PR #114 ouverte | — | — |
-| `thm:revocation_ffi` | `spec/Spec/C4/EchelleDuSysteme.lean:575` | B11 | PR #114 ouverte | — | Exigence d'implémentation hors du seul système de types |
-| `thm:temps_mononiveau` | `spec/Spec/C3/GrammaireDesTypes.lean:123` | B10 | PR #111 ouverte | — | — |
-| `thm:morphismes_modes` | `spec/Spec/C3/LeSystemeGradue.lean:130` | B10 | PR #111 ouverte | — | — |
-| `thm:completude_graduee` | `spec/Spec/C3/LeSystemeGradue.lean:521` | B11 | PR #114 ouverte | — | — |
-| `thm:completude_verificateur` | `spec/Spec/C3/LeSystemeGradue.lean:555` | B11 | PR #114 ouverte | — | Exigence d'implémentation, pas théorème établi |
-| `thm:boxtimes_addition` | `spec/Spec/C3/ReglesDeTypage.lean:103` | B10 | PR #111 ouverte | — | — |
-| `thm:coherence_subsomption` | `spec/Spec/C3/ReglesDeTypage.lean:386` | B11 | PR #114 ouverte | — | — |
-| `thm:commutation_monoide` | `spec/Spec/C3/ReglesDeTypage.lean:726` | B11 | PR #114 ouverte | — | — |
+| `thm:staticite_syntaxe` | `spec/Spec/C5/NotationsSpecialisees.lean:126` | B11 | Fusionné (PR #114) | — | — |
+| `thm:hygiene` | `spec/Spec/C5/NotationsSpecialisees.lean:217` | B11 | Fusionné (PR #114) | — | — |
+| `thm:hygiene_graduee` | `spec/Spec/C5/NotationsSpecialisees.lean:241` | B11 | Fusionné (PR #114) | `thm:expansion_macro` | — |
+| `thm:resucrage` | `spec/Spec/C5/NotationsSpecialisees.lean:261` | B11 | Fusionné (PR #114) | — | Exigence; algèbre de liaison de surface absente |
+| `thm:determinisme_rejeu` | `spec/Spec/C4/EchelleDuSysteme.lean:118` | B11 | Fusionné (PR #114) | — | — |
+| `thm:rejeu_binaire` | `spec/Spec/C4/EchelleDuSysteme.lean:144` | B11 | Fusionné (PR #114) | `thm:determinisme_rejeu`, `thm:schema_restriction` | — |
+| `thm:liberte_initialisation` | `spec/Spec/C4/EchelleDuSysteme.lean:320` | B11 | Fusionné (PR #114) | `thm:tri_topologique` | — |
+| `thm:sync_motifs_jonction` | `spec/Spec/C4/EchelleDuSysteme.lean:469` | B11 | Fusionné (PR #114) | — | — |
+| `thm:surete_ffi` | `spec/Spec/C4/EchelleDuSysteme.lean:548` | B11 | Fusionné (PR #114) | — | — |
+| `thm:revocation_ffi` | `spec/Spec/C4/EchelleDuSysteme.lean:575` | B11 | Fusionné (PR #114) | — | Exigence d'implémentation hors du seul système de types |
+| `thm:temps_mononiveau` | `spec/Spec/C3/GrammaireDesTypes.lean:123` | B10 | Fusionné (PR #111) | — | — |
+| `thm:morphismes_modes` | `spec/Spec/C3/LeSystemeGradue.lean:130` | B10 | Fusionné (PR #111) | — | — |
+| `thm:completude_graduee` | `spec/Spec/C3/LeSystemeGradue.lean:521` | B11 | Fusionné (PR #114) | — | — |
+| `thm:completude_verificateur` | `spec/Spec/C3/LeSystemeGradue.lean:555` | B11 | Fusionné (PR #114) | — | Exigence d'implémentation, pas théorème établi |
+| `thm:boxtimes_addition` | `spec/Spec/C3/ReglesDeTypage.lean:103` | B10 | Fusionné (PR #111) | — | — |
+| `thm:coherence_subsomption` | `spec/Spec/C3/ReglesDeTypage.lean:386` | B11 | Fusionné (PR #114) | — | — |
+| `thm:commutation_monoide` | `spec/Spec/C3/ReglesDeTypage.lean:726` | B11 | Fusionné (PR #114) | — | — |
 | `thm:determinisme_parallele` | `spec/Spec/C3/ReglesDeTypage.lean:1319` | B08 | Fusionné (PR d'audit) | — | — |
-| `thm:substitution` | `spec/Spec/C3/ReglesDeTypage.lean:1605` | B11 | PR #114 ouverte | — | — |
-| `thm:substitution_simultanee` | `spec/Spec/C3/ReglesDeTypage.lean:1696` | B11 | PR #114 ouverte | `thm:substitution` | — |
+| `thm:substitution` | `spec/Spec/C3/ReglesDeTypage.lean:1605` | B11 | Fusionné (PR #114) | — | — |
+| `thm:substitution_simultanee` | `spec/Spec/C3/ReglesDeTypage.lean:1696` | B11 | Fusionné (PR #114) | `thm:substitution` | — |
 | `thm:preservation` | `spec/Spec/C4/SemantiqueOperationnelle.lean:137` | B03 | Fusionné (PR d'audit) | — | — |
 | `thm:progres` | `spec/Spec/C4/SemantiqueOperationnelle.lean:195` | B03 | Fusionné (PR d'audit) | — | — |
 | `thm:correction_ressource` | `spec/Spec/C4/SemantiqueOperationnelle.lean:290` | B03 | Fusionné (PR d'audit) | — | — |
@@ -65,25 +65,25 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 | `thm:lemme_fondamental` | `spec/Spec/C4/SemantiqueOperationnelle.lean:561` | B11 | Fusionné (PR #114) | `thm:substitution`, `thm:substitution_simultanee` | Portée restreinte au fragment sans `Declassify` ; extension à la déclassification non prouvée |
 | `thm:commutation_traduction` | `spec/Spec/C4/SemantiqueOperationnelle.lean:717` | B05, B07 | Fusionné (PR d'audit) | `thm:schema_commutation`, `thm:substitution` | — |
 | `thm:image_fix` | `spec/Spec/C4/SemantiqueOperationnelle.lean:792` | B05 | Fusionné (PR d'audit) | `thm:terminaison_lfp` | — |
-| `thm:isomorphisme_memoire` | `spec/Spec/C4/EchelleDeLActeur.lean:142` | B11 | PR #114 ouverte | — | — |
-| `thm:expansion_macro` | `spec/Spec/C5/CeQuUneMacroDeclare.lean:96` | B11 | PR #114 ouverte | `thm:substitution`, `thm:elaboration` | — |
+| `thm:isomorphisme_memoire` | `spec/Spec/C4/EchelleDeLActeur.lean:142` | B11 | Fusionné (PR #114) | — | — |
+| `thm:expansion_macro` | `spec/Spec/C5/CeQuUneMacroDeclare.lean:96` | B11 | Fusionné (PR #114) | `thm:substitution`, `thm:elaboration` | — |
 | `thm:deadlock_acyclique` | `spec/Spec/C3/LesContraintesDeValeur.lean:274` | B08 | Fusionné (PR d'audit) | `thm:tri_topologique` | — |
-| `thm:homomorphisme_roues` | `spec/Spec/C3/LesContraintesDeValeur.lean:350` | B11 | PR #114 ouverte | — | — |
+| `thm:homomorphisme_roues` | `spec/Spec/C3/LesContraintesDeValeur.lean:350` | B11 | Fusionné (PR #114) | — | — |
 | `thm:representation_inobservable` | `spec/Spec/C3/LesContraintesDeValeur.lean:384` | B11 | Fusionné (PR #114, correction dans [PR #116](https://github.com/AntheaLiles/k7pl/pull/116)) | — | Relation de représentations admissibles et types de `repr`/`obs` à préciser |
-| `thm:interface_jugement` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:60` | B11 | PR #114 ouverte | — | — |
-| `thm:rejet_reproductible` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:132` | B11 | PR #114 ouverte | — | — |
-| `thm:abaissement_grades` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:463` | B11 | PR #114 ouverte | `thm:schema_preservation` | Conjecture; obligations par passe non acquittées |
-| `thm:terminaison_couche_3` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:132` | B11 | PR #114 ouverte | `thm:progression_polarisee` | — |
+| `thm:interface_jugement` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:60` | B11 | Fusionné (PR #114) | — | — |
+| `thm:rejet_reproductible` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:132` | B11 | Fusionné (PR #114) | — | — |
+| `thm:abaissement_grades` | `spec/Spec/C6/CeQueLeSolveurRetourne.lean:463` | B11 | Fusionné (PR #114) | `thm:schema_preservation` | Conjecture; obligations par passe non acquittées |
+| `thm:terminaison_couche_3` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:132` | B11 | Fusionné (PR #114) | `thm:progression_polarisee` | — |
 | `thm:sedimentation` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:216` | B02 | Fusionné (PR d'audit) | — | Résultat de littérature + obligation graduée ouverte |
-| `thm:productivite_couche_2` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:294` | B11 | PR #114 ouverte | `thm:progression_polarisee` | L'absorption à ω ne prouve pas à elle seule la productivité |
-| `thm:progression_polarisee` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:342` | B11 | PR #114 ouverte | — | — |
-| `thm:loi_historique` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:454` | B11 | PR #114 ouverte | — | — |
-| `thm:troncature_comonade` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:526` | B11 | PR #114 ouverte | — | — |
-| `thm:fenetre_grade` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:576` | B11 | PR #114 ouverte | `thm:troncature_comonade` | Correspondance des trois fenêtres non démontrée |
+| `thm:productivite_couche_2` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:294` | B11 | Fusionné (PR #114) | `thm:progression_polarisee` | L'absorption à ω ne prouve pas à elle seule la productivité |
+| `thm:progression_polarisee` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:342` | B11 | Fusionné (PR #114) | — | — |
+| `thm:loi_historique` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:454` | B11 | Fusionné (PR #114) | — | — |
+| `thm:troncature_comonade` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:526` | B11 | Fusionné (PR #114) | — | — |
+| `thm:fenetre_grade` | `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean:576` | B11 | Fusionné (PR #114) | `thm:troncature_comonade` | Correspondance des trois fenêtres non démontrée |
 | `thm:traduction_metalangage` | `spec/Spec/C4/CalculDeProcessusSousJacent.lean:151` | B02, B06 | Fusionné (PR d'audit) | — | — |
 | `thm:simulation` | `spec/Spec/C4/CalculDeProcessusSousJacent.lean:299` | B07 | Fusionné (PR d'audit) | `thm:commutation_traduction`, `thm:fidelite_interprete` | Dépendance argumentative à la fidélité; trace/canal temporel à préciser |
 | `thm:fidelite_interprete` | `spec/Spec/C4/CalculDeProcessusSousJacent.lean:340` | B07 | Fusionné (PR d'audit) | `thm:traduction_metalangage`, `thm:schema_effacement` | Conditionnelle à Sim; préservation du typage seule insuffisante |
-| `thm:stabilisation_pipeline` | `spec/Spec/C6/LeProcessusDeCompilation.lean:155` | B11 | PR #114 ouverte | — | — |
+| `thm:stabilisation_pipeline` | `spec/Spec/C6/LeProcessusDeCompilation.lean:155` | B11 | Fusionné (PR #114) | — | — |
 | `thm:cloture_sortage` | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean:187` | B06 | Fusionné (PR d'audit) | — | — |
 | `thm:confinement_sortes` | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean:214` | B06 | Fusionné (PR d'audit) | `thm:traduction_metalangage`, `thm:temps_mononiveau` | — |
 | `thm:divulgation_delimitee` | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean:234` | B11 | Fusionné (PR #114) | `thm:non_interference` | Cas `Declassify` et relation sensible à la divulgation restent à prouver |
@@ -91,8 +91,8 @@ Le nombre de mentions dans les lots est supérieur au nombre de labels uniques p
 | `thm:distributivite_tronquee` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:125` | B09 | Fusionné (PR d'audit) | — | — |
 | `thm:coherence_axiome` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:158` | B09 | Fusionné (PR d'audit) | — | — |
 | `thm:coherence_usage` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:182` | B09 | Fusionné (PR d'audit) | — | — |
-| `thm:action_parallele` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:280` | B11 | PR #114 ouverte | — | — |
-| `thm:preservation_type` | `spec/Spec/C3/StructuresOuvertesEffetsEtMetaTheorie.lean:253` | B11 | PR #114 ouverte | `thm:abaissement_grades` | Bloc composé : réduction vs abaissement MLIR conjectural |
+| `thm:action_parallele` | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean:280` | B11 | Fusionné (PR #114) | — | — |
+| `thm:preservation_type` | `spec/Spec/C3/StructuresOuvertesEffetsEtMetaTheorie.lean:253` | B11 | Fusionné (PR #114) | `thm:abaissement_grades` | Bloc composé : réduction vs abaissement MLIR conjectural |
 
 ## 3. Graphe des dépendances et risques
 
