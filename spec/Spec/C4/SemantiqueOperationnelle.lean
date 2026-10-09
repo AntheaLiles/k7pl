@@ -567,8 +567,9 @@ lemme fondamental
 Tout terme bien typé préserve la relation
 
 Si $`\Delta \vdash c : C \mid \varepsilon`, si $`c` ne contient aucune occurrence de
-`Declassify`, et si $`\gamma,\gamma'` sont $`\mathcal{R}_\ell\llbracket \Delta \rrbracket`-apparentées,
-alors $`(\gamma c,\ \gamma' c) \in \mathcal{R}_\ell\llbracket C \rrbracket`.
+`Declassify`, si aucun terme dans l'image de $`\gamma` ou $`\gamma'` ne contient `Declassify`,
+et si $`\gamma,\gamma'` sont $`\mathcal{R}_\ell\llbracket \Delta \rrbracket`-apparentées, alors
+$`(\gamma c,\ \gamma' c) \in \mathcal{R}_\ell\llbracket C \rrbracket`.
 :::
 
 :::proofsketch
