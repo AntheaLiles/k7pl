@@ -24,7 +24,7 @@ def main():
     toolchain = Path("lean-toolchain").read_text().strip()
     version = "unknown"
     lake = Path("lakefile.lean").read_text()
-    match = re.search(r'version\\s*:=\\s*v!"([^"]+)"', lake)
+    match = re.search(r'version\s*:=\s*v!"([^"]+)"', lake)
     if match:
         version = match.group(1)
     src = sh("bash", "-lc", "find src -type f -name '*.lean' | wc -l")
