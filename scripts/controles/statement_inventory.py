@@ -23,6 +23,7 @@ if str(SCRIPTS) not in sys.path:
 import manuscript_metrics as mm  # noqa: E402
 
 DEFAULT_INVENTORY = ROOT / "docs" / "tracking" / "LEAN-STATEMENT-INVENTORY.md"
+THM_REF = re.compile(r'\{num "(thm:[^"]+)"\}')
 TABLE_ROW = re.compile(
     r"^\| `(?P<path>[^\`]+)` \| (?P<line>\d+) \| "
     r"`(?P<label>[^\`]+)` \| (?P<status>[^|]+) \| (?P<level>[^|]+) \| "
@@ -57,6 +58,7 @@ def source_inventory() -> list[dict[str, object]]:
                     "title": normalize(title_match.group(1)) if title_match else "",
                     "statement": statement_match is not None,
                     "sketch": sketch_match is not None,
+                    "dependencies": sorted(set(THM_REF.findall(block))),
                 }
             )
     return rows
@@ -119,6 +121,15 @@ def check_inventory(path: Path = DEFAULT_INVENTORY) -> list[str]:
         if missing:
             errors.append(f"{name}: {len(missing)} row(s) have no label")
 
+    source_labels = {str(row["label"]) for row in actual if row["label"]}
+    for row in actual:
+        for dependency in row["dependencies"]:
+            if dependency not in source_labels:
+                errors.append(
+                    f'unresolved theorem dependency in {row["path"]}:{row["line"]} '
+                    f'({row["label"]} -> {dependency})'
+                )
+
     actual_by_key = {(r["path"], r["line"], r["label"]): r for r in actual}
     listed_by_key = {(r["path"], r["line"], r["label"]): r for r in listed}
     if len(actual_by_key) != len(actual):
@@ -165,6 +176,7 @@ def check_inventory(path: Path = DEFAULT_INVENTORY) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
+    parser.add_argument("--dependencies", action="store_true", help="print direct theorem-reference edges as Markdown")
     args = parser.parse_args(argv)
     try:
         errors = check_inventory(args.inventory)
@@ -177,7 +189,14 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     rows = source_inventory()
     files = len({str(row["path"]) for row in rows})
-    print(f"statement inventory: OK — {len(rows)} blocks across {files} source files")
+    edges = [(str(row["label"]), dep, str(row["path"]), int(row["line"])) for row in rows for dep in row["dependencies"]]
+    if args.dependencies:
+        print("| Source label | Direct dependency | Source location |")
+        print("|---|---|---|")
+        for source, target, location, line in edges:
+            print(f"| `{source}` | `{target}` | `{location}:{line}` |")
+    else:
+        print(f"statement inventory: OK — {len(rows)} blocks across {files} source files; {len(edges)} direct theorem-reference edges")
     return 0
 
 
