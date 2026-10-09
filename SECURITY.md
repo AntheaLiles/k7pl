@@ -39,8 +39,8 @@ construction (le troisième point).
 
 Aucune release ne porte encore d'artefact vérifiable. Une release de spécification produite par le
 flux décrit dans [`CONTRIBUTING.md`](CONTRIBUTING.md) peut l'être ainsi (procédure cible, **non
-encore éprouvée**) ; `gh release verify` et `gh release verify-asset` ne fonctionnent qu'après la
-publication de la release (pour un brouillon, les notes de la release donnent la procédure
+encore éprouvée**) ; `gh release verify` et `gh release verify-asset` ne fonctionnent qu'après
+la publication de la release (pour un brouillon, les notes de la release donnent la procédure
 « Avant publication ») :
 
 ```sh
@@ -81,4 +81,10 @@ couvre pas ce qu'elles téléchargent ensuite.
 - Le hook de session des agents installe elan par version et par somme enregistrée : cette somme est
   une première observation, non une empreinte publiée par l'amont.
 - Le PDF de la spécification n'est pas démontré reproductible.
-- Un seul humain porte le projet, sans revue indépendante (voir `CONTRIBUTING.md`, « Revue »).
+- Un seul humain porte le projet, sans revue indépendante (voir [`CONTRIBUTING.md`](CONTRIBUTING.md), « Revue »).
+
+## Documentation associée
+
+- [Registre des revendications de sécurité et d'assurance](docs/security/ASSURANCE-CASE.md) : état des preuves et limites, sans prétendre à une conformité démontrée.
+- [Plan de remédiation OpenSSF](docs/security/OPENSSF-ROADMAP.md) : actions préparées, bloquées et futures.
+- [Évaluation prospective des outils de sécurité](docs/security/TOOLING-EVALUATION.md) : pistes SBOM, SAST Lean, fuzzing et gouvernance GitHub ; aucune adoption n'est présumée.
