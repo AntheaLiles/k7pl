@@ -15,6 +15,8 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+## [0.1.0]
+
 - CI : les diagnostics Lean et les violations REUSE sont désormais annotés selon une politique sélective et priorisée, sans ajouter de permissions d'écriture sur les pull requests (#64, #66).
 
 ### Fixed
