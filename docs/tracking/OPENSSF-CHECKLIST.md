@@ -13,6 +13,8 @@ SPDX-License-Identifier: CC-BY-4.0
 >
 > Sources de travail : [audit OpenSSF](../security/OPENSSF-AUDIT.md), [feuille de route OpenSSF](../security/OPENSSF-ROADMAP.md), [dossier d'assurance](../security/ASSURANCE-CASE.md), [évaluation des outils](../security/TOOLING-EVALUATION.md).
 
+## Tableau de bord d'audit
+
 **Dernière réévaluation documentaire : 2026-10-09 — branche de travail `docs/openssf-governance-and-controls`.**
 Les critères cochés ci-dessous ne concernent que les exigences dont la preuve documentaire a été ajoutée ou clarifiée par cette campagne. Ils ne valent pas validation de la configuration GitHub ni attestation d'activité réelle. Les nouveaux documents sont [GOVERNANCE.md](../security/GOVERNANCE.md), [SECRETS-POLICY.md](../security/SECRETS-POLICY.md) et les règles mises à jour dans [CONTRIBUTING.md](../../CONTRIBUTING.md). Les points administratifs, mesures et preuves d'activité restent ouverts.
 
