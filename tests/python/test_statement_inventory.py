@@ -79,10 +79,6 @@ def test_dependency_cycles_reports_self_reference():
     assert inventory.dependency_cycles(rows) == [["thm:self"]]
 
 
-def test_current_source_graph_keeps_reviewed_cycle_distinct_from_h1_concern():
+def test_current_source_graph_has_no_syntactic_cycle_after_core_scope_change():
     cycles = inventory.dependency_cycles(inventory.source_inventory())
-    assert cycles == [["thm:divulgation_delimitee", "thm:lemme_fondamental"]]
-    assert all(
-        not {"thm:surete_spatiale", "thm:introduction_unique"}.issubset(cycle)
-        for cycle in cycles
-    )
+    assert cycles == []
