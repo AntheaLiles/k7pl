@@ -71,7 +71,7 @@ tant qu'il ne s'exécute pas : son défaut est de ne pas fonctionner, pas d'agir
 | ID | Sujet | Statut | Raison de ne pas le faire maintenant |
 |---|---|---|---|
 | R17 | zizmor dans `security.yaml` | FUTURE | valeur réelle sur les workflows (surface écrite par des agents), mais les audits en ligne n'ont pas pu tourner : à essayer d'abord sur une branche, puis décider s'il est requis |
-| R18 | `leanOptions` sur `lean_exe mainTest` et `spec` | FUTURE | touche `lakefile.lean` : PR dédiée, signalée explicitement (règle `.claude/rules/lean.md`) |
+| R18 | `leanOptions` sur `lean_exe mainTest` et `spec` | VERIFIED (PR #98 fusionnée) | `lakefile.lean` applique `k7plBaseOptions` à `mainTest` et `k7plSpecOptions` à `spec` ; CI de PR passée. La portée doit être réévaluée si de nouvelles cibles exécutables sont ajoutées. |
 | R19 | Double build quotidien de reproductibilité (niveau 1 : HTML/TeX ; niveau 2 : PDF) | FUTURE | décision d'ambition de l'autrice ; niveau 2 impossible à valider ici |
 | R20 | Installer elan par version et somme dans la CI à la place de `lean-action` | FUTURE | gain partiel : elan ne vérifie pas ensuite le toolchain |
 | R21 | Épingler le bundle TeX de Tectonic | BLOCKED | hôte inaccessible depuis cette session |
