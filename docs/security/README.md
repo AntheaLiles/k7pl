@@ -36,6 +36,8 @@ exemple le job `status` ajouté à `ci.yaml` sur `main` après l'audit) n'y figu
 | [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) | réglages GitHub, compte, Zenodo, site des bonnes pratiques |
 | [`THREAT-MODEL.md`](THREAT-MODEL.md) | actifs, acteurs, chemins d'attaque, privilèges des workflows |
 | [`ASSURANCE-CASE.md`](ASSURANCE-CASE.md) | revendications de sécurité étayées, et celles qui ne sont pas (encore) vraies |
+| [`GOVERNANCE.md`](GOVERNANCE.md) | modèle de décision, rôles réels et limites de continuité |
+| [`SECRETS-POLICY.md`](SECRETS-POLICY.md) | règles de gestion des secrets et vérifications administratives encore requises |
 | [`workstreams/`](workstreams/) | rapports bruts des agents : audits, changements, validations, audits finaux |
 
 ## Vocabulaire des statuts
