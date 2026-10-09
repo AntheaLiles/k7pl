@@ -74,6 +74,11 @@ def test_dependency_cycles_returns_empty_for_acyclic_graph():
     assert inventory.dependency_cycles(rows) == []
 
 
+def test_dependency_cycles_reports_self_reference():
+    rows = [{"label": "thm:self", "dependencies": ["thm:self"]}]
+    assert inventory.dependency_cycles(rows) == [["thm:self"]]
+
+
 def test_current_source_graph_keeps_reviewed_cycle_distinct_from_h1_concern():
     cycles = inventory.dependency_cycles(inventory.source_inventory())
     assert cycles == [["thm:divulgation_delimitee", "thm:lemme_fondamental"]]
