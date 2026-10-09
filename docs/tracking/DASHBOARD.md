@@ -26,6 +26,8 @@ This is the current entry point for project tracking. It answers what is current
 
 ## Active methodological work
 
+- [OpenSSF criteria checklist](OPENSSF-CHECKLIST.md) — auditable checklist for FLOSS Best Practices Passing/Silver/Gold and OSPS Baseline Levels 1–3; boxes require evidence, and N/A decisions must be justified.
+
 - [Lean statement-command plan](LEAN-STATEMENT-COMMANDS-PLAN.md) — dedicated plan for distinguishing definitions, assumptions, axioms, hypotheses, theorems, proofs, examples, and related statement kinds in the specification source.
 - [Migration register](../migration/README.md) — active semantic migration lots only.
 
