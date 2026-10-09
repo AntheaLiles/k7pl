@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
-# SPDX-License-Identifier: CECILL-2.1
+# SPDX-License-Identifier: CC0-1.0
 
 name: Bogue
 description: Un comportement de l'implémentation, des tests ou de la spécification ne correspond pas à l'attendu.
