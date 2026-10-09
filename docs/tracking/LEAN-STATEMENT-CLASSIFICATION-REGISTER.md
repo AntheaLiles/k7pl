@@ -1,8 +1,8 @@
 # Registre de classification sémantique — C8.0
 
-**Statut : première passe de triage, non normative.** Les 69 lignes proposent une classification initiale à partir de l'inventaire, des titres et des passages consultés des énoncés/esquisses. Ce registre ne prétend pas constituer une lecture intégrale et une validation indépendante de chaque preuve : cette revue approfondie, dépendances comprises, reste à faire. Il ne valide pas les résultats mathématiques et n'autorise aucune modification des sources. Les classifications marquées « candidate » sont des hypothèses de travail, pas des décisions finales.
+**Statut : classifications candidates, non normatives.** Les 69 lignes conservent des propositions de classification qui restent à ratifier. Les lots d'audit B01–B11 ont maintenant couvert les 69 blocs et leurs esquisses au niveau de la revue sémantique source ; cela ne constitue ni une validation indépendante de chaque preuve ni une validation des résultats mathématiques. Les dépendances argumentatives, les hypothèses locales et les obligations ouvertes doivent encore être résolues avant migration. Les classifications marquées « candidate » sont des hypothèses de travail, pas des décisions finales.
 
-**Base source :** `20a228f137f507aac9b3e8c9f2e1776f29fa635a`. Inventaire mécanique : [PR #81](https://github.com/AntheaLiles/k7pl/pull/81). Contrôle de dérive : [PR #83](https://github.com/AntheaLiles/k7pl/pull/83).
+**Base source examinée :** `fd27103783d1ff1a5a69b303e22a2c10655aa74c` (`main`, après fusion des PR #116 et #117). Inventaire mécanique : [PR #81](https://github.com/AntheaLiles/k7pl/pull/81). Contrôle de dérive : [PR #83](https://github.com/AntheaLiles/k7pl/pull/83). Les lignes de source sont des repères révisables ; l'inventaire mécanique demeure la référence pour les positions courantes.
 
 ## Convention de lecture
 
@@ -114,9 +114,10 @@ This is a semantic review blocker, but it must not be reported as a cycle detect
 ### Dependency-cycle remediation proposed — fundamental lemma and bounded disclosure
 
 - On the original source baseline, `thm:lemme_fondamental` referred to `thm:divulgation_delimitee` for its omitted `Declassify` case, while `thm:divulgation_delimitee` depended on the fundamental lemma. This created a direct reference cycle.
-- PR #117 proposes to restrict `thm:lemme_fondamental` to terms and substitution images without `Declassify`, and removes the reverse reference from its proof sketch. The disclosure proposition continues to depend on the core lemma and non-interference, but its own `Declassify` case remains explicitly unproved.
-- If PR #117 is merged and the inventory checker confirms the graph, the syntactic cycle is removed. This does **not** establish `thm:divulgation_delimitee`; its status must remain open until a release-sensitive relation and complete proof are supplied.
+- PR #117 is merged: `thm:lemme_fondamental` is restricted to terms and substitution images without `Declassify`, and its proof sketch no longer refers back to the disclosure result. The direct syntactic cycle is removed on the current `main` baseline.
+- This does **not** establish `thm:divulgation_delimitee`; its status remains open until a release-sensitive relation and complete proof are supplied.
 - The H1 concern for `thm:introduction_unique` / `thm:surete_spatiale` remains a separate argumentative circularity, not a syntactic cycle.
+- PR #116 is merged: `thm:representation_inobservable` now states observational invariance across admissible representations of the same semantic value. The admissible-representation relation and signatures/types of `repr` and `obs` remain to be specified.
 
 ### Compound object confirmed — type preservation and MLIR lowering
 
@@ -124,7 +125,9 @@ The complete `thm:preservation_type` block states ordinary preservation by reduc
 
 ### Required follow-up
 
-1. Resolve the one explicit syntactic dependency cycle and the separate H1 circularity concern in a dedicated semantic review; do not rewrite source blocks as part of this inventory-only change.
-2. Extend the dependency audit to classify each edge as proof premise, stated hypothesis, derived result, documentary citation, or contextual mention. The current checker deliberately reports direct label references only.
-3. Revisit the candidate role/state fields for the affected entries after the dependency direction is resolved.
-4. Keep C8.0 open until the full statement/proof-sketch review and the migration acceptance checks are complete.
+1. Ratify or revise the candidate role/state fields row by row; the source-level audit is complete, but authorial classification decisions remain open.
+2. Resolve H1 independently or retain it explicitly as a normative/architectural assumption; do not treat `thm:introduction_unique` as its own justification.
+3. Complete the proof of `thm:divulgation_delimitee`, including the `Declassify` case and release-sensitive relation, before any status promotion.
+4. Specify the admissible-representation relation and types of `repr`/`obs` for `thm:representation_inobservable`.
+5. Extend the dependency audit to classify edges as proof premise, stated hypothesis, derived result, documentary citation, or contextual mention; the checker currently extracts direct label references only.
+6. Keep C8.0 open until classifications are ratified and the migration acceptance checks pass.
