@@ -56,3 +56,21 @@ def test_statement_dependencies_resolve_and_keep_direct_edges():
         "thm:schema_commutation",
         "thm:schema_preservation",
     ]
+
+
+def test_dependency_cycles_reports_strongly_connected_components():
+    rows = [
+        {"label": "thm:a", "dependencies": ["thm:b"]},
+        {"label": "thm:b", "dependencies": ["thm:a", "thm:c"]},
+        {"label": "thm:c", "dependencies": []},
+        {"label": "thm:downstream", "dependencies": ["thm:a"]},
+    ]
+    assert inventory.dependency_cycles(rows) == [["thm:a", "thm:b"]]
+
+
+def test_dependency_cycles_returns_empty_for_acyclic_graph():
+    rows = [
+        {"label": "thm:base", "dependencies": []},
+        {"label": "thm:derived", "dependencies": ["thm:base"]},
+    ]
+    assert inventory.dependency_cycles(rows) == []
