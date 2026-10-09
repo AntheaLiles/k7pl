@@ -132,7 +132,7 @@ Le statut et le niveau sont les valeurs explicites présentes dans la directive 
 | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 187 | `thm:cloture_sortage` | theoreme | langage | clôture du bon sortage par substitution | oui |
 | `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 214 | `thm:confinement_sortes` | theoreme | langage | confinement des canaux distingués | oui |
 | `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 234 | `thm:divulgation_delimitee` | proposition | langage | divulgation délimitée | oui |
-| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 380 | `thm:terminaison_lfp` | theoreme | langage | terminaison du point fixe déductif | oui |
+| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 381 | `thm:terminaison_lfp` | theoreme | langage | terminaison du point fixe déductif | oui |
 | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 125 | `thm:distributivite_tronquee` | theoreme | langage | distributivité du produit sur la soustraction tronquée | oui |
 | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 158 | `thm:coherence_axiome` | proposition | langage | condition de compatibilité de l'action graduée | oui |
 | `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 182 | `thm:coherence_usage` | proposition | langage | cohérence de l'action d'usage | oui |
