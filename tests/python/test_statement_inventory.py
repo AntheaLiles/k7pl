@@ -35,3 +35,40 @@ def test_inventory_drift_is_reported(tmp_path):
 
     assert any("missing inventory row" in error for error in errors)
     assert any("stale inventory row" in error for error in errors)
+
+
+def test_statement_dependencies_resolve_and_keep_direct_edges():
+    rows = inventory.source_inventory()
+    labels = {str(row["label"]) for row in rows}
+    unresolved = [
+        (row["label"], dependency)
+        for row in rows
+        for dependency in row["dependencies"]
+        if dependency not in labels
+    ]
+    assert unresolved == []
+
+    by_label = {str(row["label"]): row for row in rows}
+    assert by_label["thm:schema_effacement"]["dependencies"] == [
+        "thm:raffinement",
+        "thm:schema_commutation",
+        "thm:schema_preservation",
+    ]
+
+
+def test_dependency_cycles_reports_strongly_connected_components():
+    rows = [
+        {"label": "thm:a", "dependencies": ["thm:b"]},
+        {"label": "thm:b", "dependencies": ["thm:a", "thm:c"]},
+        {"label": "thm:c", "dependencies": []},
+        {"label": "thm:downstream", "dependencies": ["thm:a"]},
+    ]
+    assert inventory.dependency_cycles(rows) == [["thm:a", "thm:b"]]
+
+
+def test_dependency_cycles_returns_empty_for_acyclic_graph():
+    rows = [
+        {"label": "thm:base", "dependencies": []},
+        {"label": "thm:derived", "dependencies": ["thm:base"]},
+    ]
+    assert inventory.dependency_cycles(rows) == []
