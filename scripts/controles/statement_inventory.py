@@ -173,7 +173,6 @@ def check_inventory(path: Path = DEFAULT_INVENTORY) -> list[str]:
     return errors
 
 
-
 def dependency_cycles(rows: list[dict[str, object]]) -> list[list[str]]:
     """Return strongly connected dependency components that may indicate cycles.
 
@@ -227,7 +226,6 @@ def dependency_cycles(rows: list[dict[str, object]]) -> list[list[str]]:
             visit(node)
 
     return sorted(cycles)
-
 
 
 def main(argv: list[str] | None = None) -> int:
