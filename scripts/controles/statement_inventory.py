@@ -49,11 +49,7 @@ def source_inventory() -> list[dict[str, object]]:
             sketch_match = re.search(r"^:::proofsketch[^\n]*\n", block, re.M)
             label = args.get("label", "")
             dependencies = sorted(
-                {
-                    target
-                    for target in re.findall(r'\{num\s+"(thm:[^"]+)"\}', block)
-                    if target != label
-                }
+                set(re.findall(r'\{num\s+"(thm:[^"]+)"\}', block))
             )
             rows.append(
                 {
