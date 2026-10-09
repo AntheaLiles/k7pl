@@ -70,7 +70,7 @@ tant qu'il ne s'exécute pas : son défaut est de ne pas fonctionner, pas d'agir
 
 | ID | Sujet | Statut | Raison de ne pas le faire maintenant |
 |---|---|---|---|
-| R17 | zizmor dans `security.yaml` | FUTURE | valeur réelle sur les workflows (surface écrite par des agents), mais les audits en ligne n'ont pas pu tourner : à essayer d'abord sur une branche, puis décider s'il est requis |
+| R17 | Audit statique des workflows GitHub Actions par zizmor | PREPARED (PR en cours) | job non bloquant ajouté à `security.yaml`, action et version de l'analyseur épinglées, résultats destinés à Code Scanning ; confirmer la CI et examiner les constats avant toute décision de blocage |
 | R18 | `leanOptions` sur `lean_exe mainTest` et `spec` | VERIFIED (PR #98 fusionnée) | `lakefile.lean` applique `k7plBaseOptions` à `mainTest` et `k7plSpecOptions` à `spec` ; CI de PR passée. La portée doit être réévaluée si de nouvelles cibles exécutables sont ajoutées. |
 | R19 | Double build quotidien de reproductibilité (niveau 1 : HTML/TeX ; niveau 2 : PDF) | FUTURE | décision d'ambition de l'autrice ; niveau 2 impossible à valider ici |
 | R20 | Installer elan par version et somme dans la CI à la place de `lean-action` | FUTURE | gain partiel : elan ne vérifie pas ensuite le toolchain |
@@ -97,7 +97,7 @@ tant qu'il ne s'exécute pas : son défaut est de ne pas fonctionner, pas d'agir
 | Contrôle | Quand | Remarque |
 |---|---|---|
 | `python3 scripts/ci/test_impact.py`, tests des nouveaux scripts | à chaque modification de `scripts/` | hors ligne |
-| `actionlint`, `zizmor --offline` sur tous les workflows | après chaque workflow modifié | zizmor : persona `regular` et `auditor` ; les audits en ligne ne tournent pas ici |
+| `actionlint` et job zizmor dans `security.yaml` | après chaque workflow modifié | le job utilise le persona `regular`, une version d'analyseur fixée et désactive les audits en ligne au départ ; examiner les constats Code Scanning avant d'envisager un seuil bloquant. Le persona `auditor` reste un contrôle exploratoire séparé |
 | `reuse lint` | à chaque commit | 368 / 368 au dernier relevé |
 | `python3 scripts/controle.py` | avant clôture | contrôles de la spécification |
 | `lake build Spec`, `lake exe spec --with-tex`, `scripts/axiom-audit.sh` | avant clôture | une toolchain Lean 4.34.0 est téléchargeable depuis les assets GitHub (seul `release.lean-lang.org` est refusé) ; Mathlib non disponible |
