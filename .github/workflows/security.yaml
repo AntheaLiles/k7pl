@@ -9,7 +9,10 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
+  # Required by the nested OSV-Scanner workflow to publish SARIF findings to Code Scanning.
+  security-events: write
 
 jobs:
   actionlint:
