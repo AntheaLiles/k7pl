@@ -37,7 +37,12 @@ pip install reuse && reuse lint
 5. Le check `CI OK` doit passer. Il agrège l'analyse d'impact, les contrôles ciblés selon les
    fichiers modifiés (Lean : compilation, tests, lint, audit des axiomes ; spécification :
    contrôles, compilation, rendu), REUSE, Conventional Commits, actionlint et gitleaks.
-6. Fusion selon le ruleset GitHub : l'historique linéaire est requis, mais le dépôt n'impose pas une méthode particulière (merge, rebase ou squash). Les contrôles de build vérifient la tête de la pull
+6. Toute fonctionnalité nouvelle ou modification majeure MUST être accompagnée de tests automatisés
+   couvrant son comportement attendu et les régressions plausibles. Si un test automatisé n'est pas
+   pertinent ou possible, expliquer pourquoi dans la PR et consigner le contrôle alternatif. Les
+   corrections de bogues doivent ajouter un test de régression lorsqu'un test peut raisonnablement
+   reproduire le défaut.
+7. Fusion selon le ruleset GitHub : l'historique linéaire est requis, mais le dépôt n'impose pas une méthode particulière (merge, rebase ou squash). Les contrôles de build vérifient la tête de la pull
    request, pas chaque commit pris isolément ; `commitlint`, lui, les lit tous.
 
 Ne jamais réécrire l'historique d'une branche partagée (pas de force-push sur
@@ -62,9 +67,20 @@ Sans message d'erreur, la plage `origin/main..HEAD` est conforme à ce que contr
 Aujourd'hui, aucune revue par une seconde personne n'a lieu : k7pl est porté par une seule
 personne, qui fusionne ses propres pull requests une fois le check `CI OK` réussi. Le ruleset de
 `main` n'exige aucune approbation. Les agents d'assistance (Claude Code) rédigent, proposent et
-vérifient des changements ; ils ne constituent pas une revue indépendante. Ce que cela implique
-pour les critères de sécurité est détaillé dans
-[`docs/security/OPENSSF-AUDIT.md`](docs/security/OPENSSF-AUDIT.md) (§ 6).
+vérifient des changements ; ils ne constituent pas une revue indépendante. Ce constat est un écart
+structurel explicite, pas une approbation implicite.
+
+Pour chaque PR, l'autrice effectue une auto-revue avant fusion : adéquation au besoin et au périmètre,
+analyse des effets sur la sémantique et les interfaces, tests ajoutés ou mis à jour, documentation et
+changelog cohérents, dépendances et licences justifiées, absence de secrets, permissions CI minimales,
+liens et références valides, résultat de tous les contrôles requis. Pour une modification sensible,
+la PR doit décrire les risques résiduels et les preuves qui restent à vérifier. Cette auto-revue et la
+CI ne remplacent pas l'examen indépendant par une autre personne.
+
+Le projet ne revendique pas satisfaire le critère OpenSSF exigeant une revue par une personne autre
+que l'auteur. Les exigences et responsabilités de gouvernance sont décrites dans
+[`docs/security/GOVERNANCE.md`](docs/security/GOVERNANCE.md) ; l'état de l'audit est suivi dans
+[`docs/security/OPENSSF-AUDIT.md`](docs/security/OPENSSF-AUDIT.md).
 
 ## Corriger la spécification
 
