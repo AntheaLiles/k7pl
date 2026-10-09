@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Lean statement-command taxonomy and proof-bearing exposition plan
 
-**Status:** IN PROGRESS — C8 (ontology ratified; mechanical inventory produced; full semantic audit, implementation, and controlled migration pending)  
+**Status:** IN PROGRESS — C8 (ontology ratified; mechanical inventory and source-level semantic audit B01–B11 complete; per-statement classification ratification, implementation, and controlled migration pending)  
 **Scope:** specification source in `spec/`, Verso extensions in `tools/SpecExt/`, statement inventories and controls  
 **Purpose:** make the mathematical and epistemic nature of specification statements explicit while reducing explanatory prose that merely labels or repeats that nature
 
