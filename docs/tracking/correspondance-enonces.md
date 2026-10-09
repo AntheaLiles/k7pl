@@ -18,7 +18,7 @@ Generated view from `spec/`. The number is the global statement counter in docum
 | 9 | 5 | `thm:loi_historique` | theorem | language | loi distributive de l'historique | §2.3 | 0 |
 | 10 | — | `thm:troncature_comonade` | theorem | language | la troncature est un morphisme de comonades | §2.3 | 3 |
 | 11 | — | `thm:fenetre_grade` | proposition | language | une fenêtre est un grade | §2.3 | 0 |
-| 12 | 6 | `thm:divulgation_delimitee` | proposition | language | divulgation délimitée | §2.4 | 4 |
+| 12 | 6 | `thm:divulgation_delimitee` | proposition | language | divulgation délimitée | §2.4 | 3 |
 | 13 | 7 | `thm:terminaison_lfp` | theorem | language | terminaison du point fixe déductif | §2.4 | 6 |
 | 14 | 8 | `thm:raffinement` | theorem | language | structure de raffinement | §2.5 | 3 |
 | 15 | 9 | `thm:non_interference` | theorem | language | non-interférence graduée, fragment séquentiel | §2.5 | 4 |
