@@ -15,7 +15,7 @@ Cette concentration des responsabilités est un risque connu. Ce document ne pr�
 
 | Rôle | Titulaire actuel | Responsabilités |
 |---|---|---|
-| Mainteneuse / autrice | Une seule personne : propriétaire du dépôt | Fixer le périmètre et les priorités ; arbitrer les décisions ; examiner les issues et PR ; vérifier les résultats de CI ; fusionner ; décider et publier les releases ; traiter les signalements de sécurité. |
+| Mainteneuse / autrice | Compte mainteneur actuel : `AntheaLiles` (une seule personne) | Fixer le périmètre et les priorités ; arbitrer les décisions ; examiner les issues et PR ; vérifier les résultats de CI ; fusionner ; décider et publier les releases ; traiter les signalements de sécurité. |
 | Contributrice ou contributeur | Toute personne proposant une contribution | Décrire le problème et le changement proposé ; respecter le processus de contribution ; fournir tests, documentation et éléments de validation pertinents ; répondre aux demandes de clarification. |
 | Agent logiciel d'assistance | Outil, sans autorité propre | Produire des propositions et analyses. Ses conclusions doivent être contrôlées ; il ne compte pas comme une personne indépendante, une approbation, un titulaire de rôle humain ou une preuve d'acceptation. |
 | Relecteur humain indépendant | Aucun titulaire actuellement | Rôle souhaitable pour une revue indépendante avant fusion ; le rôle n'est pas pourvu et aucune PR ne doit être présentée comme revue par un tiers en son absence. |
