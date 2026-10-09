@@ -7,32 +7,37 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Ce document recense des pistes à évaluer ; il ne déclare aucun outil adopté, aucune couverture de sécurité obtenue, ni aucun score OpenSSF amélioré. Chaque intégration devra être justifiée par une capacité utile à K7PL, validée sur une branche, puis mesurée sur des entrées représentatives.
 
-## 1. SBOM standardisée : génération puis contrôle de qualité
+## 1. SCA des dépendances Lake : OSV-Scanner en premier, SBOM séparée
 
-### Constat et objectif
+### Constat et distinction des objectifs
 
-`lake-manifest.json` verrouille les dépendances Lake par révision, mais ce n'est pas à lui seul une SBOM standardisée décrivant les composants et leurs métadonnées dans un format d'échange. K7PL ne produit actuellement pas de SBOM. L'objectif potentiel est de produire un inventaire traçable des dépendances du dépôt et de ses artefacts publiés, en distinguant au besoin dépendances Lake, outillage Python et composants de la chaîne CI.
+`lake-manifest.json` contient les URL des dépôts Git et les SHA-1 de commit résolus pour les dépendances Lake. Ce sont des identifiants utilisables pour interroger des bases d'avis liées à des commits, mais ils ne sont pas des versions sémantiques et ne garantissent pas que chaque paquet ait des avis indexés.
 
-### Outil candidat
+La documentation OSV-Scanner prévoit un format d'entrée personnalisé pour les gestionnaires de paquets non pris en charge : chaque paquet peut être représenté par un nom de dépôt et un hash de commit. La documentation recommande de fournir un tel fichier `osv-scanner.json` via `--lockfile osv-scanner:<chemin>`. Cela fournit une voie d'essai concrète sans prétendre que `lake-manifest.json` est un lockfile natif OSV-Scanner. Références : [formats de manifeste pris en charge et lockfiles personnalisés](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/), [API OSV par commit](https://google.github.io/osv.dev/docs/api/post-v1-query/).
 
-Le lien fourni, [interlynk-io/sbomqset](https://github.com/interlynk-io/sbomqset), semble contenir une coquille dans le nom du dépôt. Le projet Interlynk retrouvé est [interlynk-io/sbomqs](https://github.com/interlynk-io/sbomqs), un outil d'évaluation de la qualité et de la conformité d'une SBOM, notamment aux formats SPDX et CycloneDX. **sbomqs évalue une SBOM ; ce n'est pas en soi un générateur de SBOM.** Il ne faut donc pas le présenter comme le générateur standardisé recherché.
+### Première intégration proposée
 
-### Hypothèse d'architecture
+Le script `scripts/ci/lake_manifest_to_osv.py` valide le manifeste avec le contrôle structurel déjà utilisé par K7PL, puis produit un fichier temporaire dans le format OSV-Scanner. Il conserve l'URL de chaque dépôt et sa révision exacte, trie les entrées pour un résultat déterministe et refuse les manifestes qui ne passent pas les contrôles existants.
 
-1. Identifier un générateur qui sait représenter correctement les dépendances Lean/Lake à partir de `lake-manifest.json`, et non simplement les fichiers du dépôt.
-2. Définir le périmètre de l'inventaire : dépendances directes et transitives, composants de build, actions GitHub et/ou artefacts publiés. Les sources de données et les omissions doivent être explicites.
-3. Générer un format d'échange standard, SPDX ou CycloneDX, puis valider sa structure et sa complétude.
-4. Évaluer `sbomqs` comme contrôle qualité secondaire, sans confondre score de qualité et exhaustivité réelle de l'inventaire.
-5. Envisager la publication de la SBOM avec les artefacts de release seulement après une validation reproductible et une décision de maintenance.
+La CI prépare ce fichier, le transmet au workflow OSV-Scanner épinglé sur un SHA complet et publie les résultats dans GitHub Code Scanning. La première phase est volontairement **non bloquante en cas de vulnérabilité signalée** : il faut observer le résultat réel, vérifier la correspondance des dépendances, la couverture des avis et les faux positifs avant de transformer le scan en condition de fusion. Une erreur d'exécution ou d'extraction reste un problème à diagnostiquer, pas une preuve d'absence de vulnérabilités.
 
-### Critères d'acceptation d'une étude
+**Limite majeure :** le scan par commit n'est pas une analyse complète du code, une preuve d'absence de vulnérabilités, ni une SBOM normalisée. Une absence de résultat peut signifier qu'aucun avis connu ne correspond à ce commit dans OSV. Elle ne démontre pas l'absence de défauts ni la couverture de tous les composants transitifs.
 
-- [ ] Le générateur couvre réellement le graphe Lake utilisé par K7PL ou documente précisément les lacunes.
-- [ ] Les composants et versions produits sont comparés au manifeste source ; les dépendances absentes et fausses positives sont testées.
-- [ ] Le fichier produit est validé par un parseur indépendant SPDX/CycloneDX.
-- [ ] La génération est déterministe, ou les différences non déterministes sont caractérisées.
-- [ ] La SBOM n'est pas qualifiée de complète au-delà de son périmètre mesuré.
-- [ ] Le coût d'installation et la chaîne de confiance de l'outil sont évalués avant toute intégration CI.
+### Place des autres outils
+
+- **Syft + Grype :** Syft catalogue des composants qu'il sait reconnaître dans un répertoire, une archive ou une image ; Grype recherche des vulnérabilités dans les composants identifiés d'une SBOM. Cette chaîne mérite un essai ultérieur sur les artefacts réellement livrés, mais elle ne remplace pas l'extraction explicite des dépendances Lake depuis le manifeste. Sources : [sources Syft](https://github.com/anchore/syft/wiki/Supported-Sources), [cibles de scan Grype](https://github.com/anchore/grype).
+- **ORT :** outil pertinent pour la conformité des licences, les politiques et les rapports. Lake n'apparaît pas dans la liste documentée des gestionnaires natifs ; il faut fournir un inventaire via le mécanisme de repli SPDX ou une définition ORT manuelle, puis vérifier l'exactitude des résultats. Source : [ORT Analyzer](https://oss-review-toolkit.org/ort/docs/tools/analyzer).
+- **REUSE :** `reuse lint` vérifie les déclarations de licence des fichiers du dépôt. `reuse spdx` peut produire un document SPDX sur le contenu qu'il sait analyser. Ces contrôles ne suffisent pas à établir les licences des dépendances amont ni leur compatibilité juridique.
+- **sbomqs :** évalue la qualité d'une SBOM existante ; il ne génère pas à lui seul l'inventaire.
+
+### Critères avant de rendre le scan bloquant
+
+- [ ] Confirmer en CI que chaque entrée du manifeste est extraite et transmise à OSV-Scanner.
+- [ ] Inspecter le premier rapport et établir la couverture réelle sur les 14 dépendances allowlistées.
+- [ ] Vérifier si les avis OSV correspondent à des commits, tags ou versions et documenter les angles morts.
+- [ ] Définir une procédure de triage des avis, de justification des faux positifs et de suivi des corrections.
+- [ ] Ne rendre le scan bloquant qu'après examen du résultat initial et décision sur les règles de sévérité.
+- [ ] Traiter la SBOM SPDX/CycloneDX comme un chantier distinct : identifier les composants, versions, licences et relations ; valider le fichier avec un outil indépendant ; ne pas la déclarer exhaustive sans preuve.
 
 ## 2. Fuzzing ciblant Lean 4
 
