@@ -41,6 +41,8 @@ Start with:
 
 The documentation tree has been reorganized into explicit epistemic areas: `tracking/`, `history/`, `peer-review/`, `research/`, `method/`, `bibliography/`, `migration/`, `archives/`, and `security/`. No current document should silently become normative merely because it is old or detailed.
 
+The completed coherence-review workstream is preserved as a dated record in [history/2026-10-09-coherence-review.md](history/2026-10-09-coherence-review.md); its checklist is historical evidence, not an active task list.
+
 See also [archives/](archives/) for frozen historical implementation material.
 
 See [migration/](migration/README.md) for the controlled migration register and its execution state.\n\nThe interactive exploration project is tracked in [tracking/INTERACTIVE-EXPLORATION-PLAN.md](tracking/INTERACTIVE-EXPLORATION-PLAN.md).
