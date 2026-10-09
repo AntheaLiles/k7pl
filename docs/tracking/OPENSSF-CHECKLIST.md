@@ -15,6 +15,11 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ## Tableau de bord d'audit
 
+**Dernière réévaluation documentaire : 2026-10-09 — branche de travail `docs/openssf-governance-and-controls`.**
+Les critères cochés ci-dessous ne concernent que les exigences dont la preuve documentaire a été ajoutée ou clarifiée par cette campagne. Ils ne valent pas validation de la configuration GitHub ni attestation d'activité réelle. Les nouveaux documents sont [GOVERNANCE.md](../security/GOVERNANCE.md), [SECRETS-POLICY.md](../security/SECRETS-POLICY.md) et les règles mises à jour dans [CONTRIBUTING.md](../../CONTRIBUTING.md). Les points administratifs, mesures et preuves d'activité restent ouverts.
+
+## Tableau de bord d'audit
+
 - [ ] Passer en revue chaque critère et joindre une preuve.
 - [ ] Séparer les critères du logiciel publié, ceux du dépôt et ceux de la gouvernance/configuration GitHub.
 - [ ] Justifier explicitement chaque N/A dans la colonne de suivi ou dans une section dédiée.
@@ -116,9 +121,9 @@ SPDX-License-Identifier: CC-BY-4.0
 - [ ] [achieve_passing] Obtenir d'abord le badge Passing.
 - [x] [contribution_requirements] Les règles de contribution sont documentées et référencées.
 - [ ] [dco] Choisir et mettre en place un mécanisme DCO/CLA ou justifier formellement l'absence actuelle de ce mécanisme.
-- [ ] [governance] Documenter clairement le modèle de gouvernance et la prise de décision ; inventorier les preuves existantes et les écarts.
+- [x] [governance] Le modèle de gouvernance et la prise de décision sont documentés dans [GOVERNANCE.md](../security/GOVERNANCE.md) ; la continuité et la revue indépendante restent des écarts.
 - [x] [code_of_conduct] CODE_OF_CONDUCT.md est présent.
-- [ ] [roles_responsibilities] Documenter les rôles clés, responsabilités et attribution actuelle des rôles.
+- [x] [roles_responsibilities] Les rôles clés, responsabilités et attribution actuelle sont documentés dans [GOVERNANCE.md](../security/GOVERNANCE.md) ; les rôles de second mainteneur/relecteur restent vacants.
 - [ ] [access_continuity] Préparer une procédure de continuité permettant à une autre personne de reprendre le dépôt, les issues et les releases sous une semaine.
 - [ ] [bus_factor] Le projet est actuellement porté par une seule personne ; planifier une voie réaliste vers un facteur de bus de 2 sans prétendre que le critère est déjà satisfait.
 
@@ -203,7 +208,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ### Quality — revue et reproductibilité
 
-- [ ] [code_review_standards] Documenter les exigences de revue, les éléments à vérifier et les conditions d'acceptation.
+- [x] [code_review_standards] CONTRIBUTING.md documente une liste d'auto-revue et indique explicitement qu'elle ne remplace pas une revue indépendante.
 - [ ] [two_person_review] Le dépôt reconnaît qu'aucune revue humaine indépendante n'a lieu actuellement ; le critère ne peut pas être coché sans évolution réelle de l'équipe.
 - [ ] [build_reproducible] Évaluer si le build est reproductible au sens OpenSSF, ou justifier N/A si aucune construction pertinente n'a lieu.
 
@@ -261,7 +266,7 @@ SPDX-License-Identifier: CC-BY-4.0
 - [x] [osps_do_06_01] CONTRIBUTING.md décrit la sélection, l'obtention et le suivi des dépendances.
 - [x] [osps_do_07_01] CONTRIBUTING.md décrit les dépendances et commandes de construction.
 - [ ] [osps_gv_01_01] Documenter les membres ayant accès aux ressources sensibles, sans exposer de données sensibles.
-- [ ] [osps_gv_01_02] Documenter les rôles et responsabilités des membres.
+- [x] [osps_gv_01_02] [GOVERNANCE.md](../security/GOVERNANCE.md) décrit les rôles et responsabilités actuels, sans prétendre qu'une équipe existe.
 - [x] [osps_gv_03_02] Le guide de contribution indique les exigences d'acceptabilité.
 - [ ] [osps_le_01_01] Mettre en place une attestation légale de contribution à chaque commit (par exemple DCO), ou justifier l'écart.
 - [x] [osps_qa_03_01] Les status checks sont requis par le flux de PR ; vérifier la configuration du ruleset et les possibilités de contournement.
@@ -278,7 +283,7 @@ SPDX-License-Identifier: CC-BY-4.0
 - [ ] [osps_ac_04_02] Définir les permissions minimales pour chaque job CI/CD, sans héritage plus large que nécessaire.
 - [ ] [osps_br_01_04] Assainir et valider les entrées de collaborateurs de confiance utilisées par les pipelines.
 - [ ] [osps_br_02_02] Associer explicitement tous les artefacts d'une release à son identifiant unique.
-- [ ] [osps_br_07_02] Documenter une politique de gestion, d'accès et de rotation des secrets et identifiants.
+- [x] [osps_br_07_02] [SECRETS-POLICY.md](../security/SECRETS-POLICY.md) documente stockage, moindre privilège, exposition, révocation/rotation et vérifications opérationnelles ; la configuration réelle reste à vérifier.
 - [ ] [osps_do_03_01] Documenter comment vérifier l'intégrité et l'authenticité des artefacts de release.
 - [ ] [osps_do_03_02] Documenter comment vérifier l'identité attendue de l'auteur ou du processus de release.
 - [ ] [osps_do_04_01] Définir la portée et la durée du support de chaque release.
