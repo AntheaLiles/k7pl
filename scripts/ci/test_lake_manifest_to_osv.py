@@ -33,10 +33,13 @@ class ConversionTests(unittest.TestCase):
             )
 
     def test_output_is_deterministic_independent_of_manifest_order(self):
-        first = convert_manifest(REAL_MANIFEST)
+        first = convert_manifest(REAL_MANIFEST, REAL_LAKEFILE, REAL_TOOLCHAIN)
         reversed_manifest = copy.deepcopy(REAL_MANIFEST)
         reversed_manifest["packages"].reverse()
-        self.assertEqual(first, convert_manifest(reversed_manifest, REAL_LAKEFILE, REAL_TOOLCHAIN))
+        self.assertEqual(
+            first,
+            convert_manifest(reversed_manifest, REAL_LAKEFILE, REAL_TOOLCHAIN),
+        )
 
     def test_invalid_repository_is_rejected(self):
         manifest = copy.deepcopy(REAL_MANIFEST)
@@ -48,13 +51,13 @@ class ConversionTests(unittest.TestCase):
         manifest = copy.deepcopy(REAL_MANIFEST)
         manifest["packages"][0]["rev"] = "main"
         with self.assertRaisesRegex(ValueError, "40 lowercase hexadecimal"):
-            convert_manifest(manifest)
+            convert_manifest(manifest, REAL_LAKEFILE, REAL_TOOLCHAIN)
 
     def test_empty_dependency_list_is_rejected(self):
         manifest = copy.deepcopy(REAL_MANIFEST)
         manifest["packages"] = []
         with self.assertRaisesRegex(ValueError, "missing, empty or not a list"):
-            convert_manifest(manifest)
+            convert_manifest(manifest, REAL_LAKEFILE, REAL_TOOLCHAIN)
 
     def test_lakefile_revision_mismatch_is_rejected(self):
         mismatched_lakefile = REAL_LAKEFILE.replace(
@@ -67,7 +70,7 @@ class ConversionTests(unittest.TestCase):
 
     def test_toolchain_mismatch_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "inconsistent Lake inputs"):
-            convert_manifest(REAL_MANIFEST, REAL_LAKEFILE, "leanprover/lean4:v4.0.1\\n")
+            convert_manifest(REAL_MANIFEST, REAL_LAKEFILE, "leanprover/lean4:v4.0.1\n")
 
 
 if __name__ == "__main__":
