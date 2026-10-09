@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2026 Cyprien PIERRE
-SPDX-License-Identifier: CECILL-2.1
+SPDX-License-Identifier: CC0-1.0
 -->
 
 # Règles de rédaction du projet k7pl
@@ -97,7 +97,7 @@ Lean 4 (code) :
 ```lean
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 --
--- SPDX-License-Identifier: CECILL-2.1
+-- SPDX-License-Identifier: CC0-1.0
 ```
 
 Verso (`spec/`) :
@@ -113,7 +113,7 @@ YAML, TOML, fichiers de configuration Git et EditorConfig :
 ```yaml
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
-# SPDX-License-Identifier: CECILL-2.1
+# SPDX-License-Identifier: CC0-1.0
 ```
 
 Markdown :
@@ -121,7 +121,7 @@ Markdown :
 ```markdown
 <!--
 SPDX-FileCopyrightText: 2026 Cyprien PIERRE
-SPDX-License-Identifier: CECILL-2.1
+SPDX-License-Identifier: CC0-1.0
 -->
 ```
 
@@ -225,7 +225,7 @@ En-tête et documentation de module :
 ```lean
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 --
--- SPDX-License-Identifier: CECILL-2.1
+-- SPDX-License-Identifier: CC0-1.0
 
 import Mathlib.Tactic.Ring
 import K7pl.Syntax
