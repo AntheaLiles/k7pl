@@ -47,16 +47,25 @@ def source_inventory() -> list[dict[str, object]]:
             title_match = re.search(r"^:::title\n(.*?)\n:::", block, re.S | re.M)
             statement_match = re.search(r"^:::statement[^\n]*\n", block, re.M)
             sketch_match = re.search(r"^:::proofsketch[^\n]*\n", block, re.M)
+            label = args.get("label", "")
+            dependencies = sorted(
+                {
+                    target
+                    for target in re.findall(r'\{num\s+"(thm:[^"]+)"\}', block)
+                    if target != label
+                }
+            )
             rows.append(
                 {
                     "path": module.path.relative_to(ROOT).as_posix(),
                     "line": module.text.count("\n", 0, match.start()) + 1,
-                    "label": args.get("label", ""),
+                    "label": label,
                     "status": args.get("status", "theoreme"),
                     "level": args.get("level", "langage"),
                     "title": normalize(title_match.group(1)) if title_match else "",
                     "statement": statement_match is not None,
                     "sketch": sketch_match is not None,
+                    "dependencies": dependencies,
                 }
             )
     return rows
@@ -146,6 +155,15 @@ def check_inventory(path: Path = DEFAULT_INVENTORY) -> list[str]:
     if len(actual) != len(listed):
         errors.append(f"row count differs: source={len(actual)}, inventory={len(listed)}")
 
+    active_labels = {str(row["label"]) for row in actual if row["label"]}
+    for row in actual:
+        for dependency in row["dependencies"]:
+            if dependency not in active_labels:
+                errors.append(
+                    f'{row["path"]}:{row["line"]} ({row["label"]}): '
+                    f"unresolved theorem reference {dependency}"
+                )
+
     source_statuses = Counter(str(row["status"]) for row in actual)
     source_levels = Counter(str(row["level"]) for row in actual)
     status_table = summary_counts(
@@ -162,9 +180,68 @@ def check_inventory(path: Path = DEFAULT_INVENTORY) -> list[str]:
     return errors
 
 
+
+def dependency_cycles(rows: list[dict[str, object]]) -> list[list[str]]:
+    """Return cyclic components in the syntactic theorem-reference graph.
+
+    References are not necessarily proof premises; every reported component needs
+    semantic review rather than being treated as an automatic proof of circularity.
+    """
+    graph = {
+        str(row["label"]): {str(dep) for dep in row["dependencies"]}
+        for row in rows
+        if row["label"]
+    }
+    for targets in list(graph.values()):
+        for target in targets:
+            graph.setdefault(target, set())
+
+    index = 0
+    indices: dict[str, int] = {}
+    lowlinks: dict[str, int] = {}
+    stack: list[str] = []
+    on_stack: set[str] = set()
+    cycles: list[list[str]] = []
+
+    def visit(node: str) -> None:
+        nonlocal index
+        indices[node] = index
+        lowlinks[node] = index
+        index += 1
+        stack.append(node)
+        on_stack.add(node)
+
+        for target in sorted(graph[node]):
+            if target not in indices:
+                visit(target)
+                lowlinks[node] = min(lowlinks[node], lowlinks[target])
+            elif target in on_stack:
+                lowlinks[node] = min(lowlinks[node], indices[target])
+
+        if lowlinks[node] == indices[node]:
+            component: list[str] = []
+            while True:
+                member = stack.pop()
+                on_stack.remove(member)
+                component.append(member)
+                if member == node:
+                    break
+            if len(component) > 1 or node in graph[node]:
+                cycles.append(sorted(component))
+
+    for node in sorted(graph):
+        if node not in indices:
+            visit(node)
+
+    return sorted(cycles)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
+    output = parser.add_mutually_exclusive_group()
+    output.add_argument("--dependencies", action="store_true", help="print direct theorem-reference edges as Markdown")
+    output.add_argument("--dependency-cycles", action="store_true", help="report candidate cycles for semantic review")
     args = parser.parse_args(argv)
     try:
         errors = check_inventory(args.inventory)
@@ -177,7 +254,26 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     rows = source_inventory()
     files = len({str(row["path"]) for row in rows})
-    print(f"statement inventory: OK — {len(rows)} blocks across {files} source files")
+    edges = [
+        (str(row["label"]), str(dep), str(row["path"]), int(row["line"]))
+        for row in rows
+        for dep in row["dependencies"]
+    ]
+    if args.dependencies:
+        print("| Source label | Direct dependency | Source location |")
+        print("|---|---|---|")
+        for source, target, path, line in edges:
+            print(f"| {source} | {target} | {path}:{line} |")
+        print(f"statement dependency audit: {len(edges)} direct reference(s)")
+    elif args.dependency_cycles:
+        cycles = dependency_cycles(rows)
+        if not cycles:
+            print("statement dependency audit: no syntactic cycles detected")
+        else:
+            for component in cycles:
+                print("possible dependency cycle (semantic review required): " + " <-> ".join(component))
+    else:
+        print(f"statement inventory: OK — {len(rows)} blocks across {files} source files; {len(edges)} direct reference(s)")
     return 0
 
 
