@@ -11,7 +11,6 @@ This is the current entry point for project tracking. It answers what is current
 
 - [Project status](../STATUS.md) — generated CI and repository facts.
 - [Project master plan](PROJECT-MASTER-PLAN.md) — active scientific and release workstreams.
-- [Coherence review](COHERENCE-REVIEW.md) — independent coherence findings converted into a tracked corrective checklist.
 - [L1 migration qualification register](../migration/L1-SUIVI.md) — current C-stage object and boundary analysis.
 - [Specification ↔ Lean traceability](correspondance-enonces.md) — current lexical traceability view.
 - [Statement correspondence](correspondance-enonces.md) — current generated statement traceability view.
@@ -32,6 +31,7 @@ This is the current entry point for project tracking. It answers what is current
 
 ## Historical records
 
+- [Coherence review (closed 2026-10-09)](../history/2026-10-09-coherence-review.md) — retained audit checklist and closure context; not an active task list.
 The physical documentation-architecture programme is closed. Its final state is preserved in [the historical architecture plan](../history/2026-10-08-documentation-architecture-plan.md) and [the historical legacy-migration programme](../history/2026-10-08-legacy-documentation-migration-programme.md).
 
 Historical PR-02 plans and dated campaign reports remain under [docs/history/](../history/).
