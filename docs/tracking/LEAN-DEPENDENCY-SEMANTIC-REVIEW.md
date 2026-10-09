@@ -7,14 +7,14 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **État :** note de revue provisoire, à ratifier.  
 **Périmètre :** deux situations relevées dans les blocs `::::thm` actifs.  
-**Règle :** cette note distingue les références syntaxiques des dépendances réelles de preuve. La revue initiale n'a pas modifié les statuts épistémiques ; la PR #117 propose une restriction explicite de portée pour supprimer la référence circulaire, sans prétendre prouver la divulgation.
+**Règle :** cette note distingue les références syntaxiques des dépendances réelles de preuve. Les corrections des PR #116 et #117 sont fusionnées. Les statuts épistémiques n'ont pas été promus ; la portée du lemme fondamental a été restreinte pour supprimer le cycle syntaxique, sans prétendre prouver la divulgation.
 
 ## 1. Résumé des constats
 
 | Cas | Références directes observées | Nature du problème | Conclusion autorisée |
 |---|---|---|---|
 | `thm:surete_spatiale` / `thm:introduction_unique` | `thm:introduction_unique → thm:surete_spatiale` | Circularité argumentative autour de H1, mais pas de cycle syntaxique | Revue sémantique requise ; ne pas compter comme cycle détecté |
-| `thm:lemme_fondamental` / `thm:divulgation_delimitee` | Cycle syntaxique présent sur la base initiale ; PR #117 propose de supprimer la référence retour en restreignant le lemme fondamental au fragment sans `Declassify` | Dépendance circulaire de la version de base ; après la correction proposée, la preuve de divulgation reste ouverte | Le graphe peut devenir acyclique sans que la divulgation soit prouvée ; statut à laisser ouvert |
+| `thm:lemme_fondamental` / `thm:divulgation_delimitee` | Plus de cycle syntaxique sur `main` après fusion de la [PR #117](https://github.com/AntheaLiles/k7pl/pull/117) ; la référence retour a été retirée | Le lemme fondamental ne couvre désormais que le fragment sans `Declassify` ; la preuve de divulgation reste ouverte | Cycle syntaxique résolu par restriction de portée ; aucune preuve de divulgation ni promotion de statut n'en découle |
 
 ## 2. H1 — sûreté spatiale et introduction unique
 
@@ -40,17 +40,17 @@ Sources : `spec/Spec/C4/SemantiqueOperationnelle.lean`, label `thm:lemme_fondame
 
 Sur la base initiale, le croquis du lemme fondamental traitait les cas ordinaires puis renvoyait au résultat de divulgation pour le cas `Declassify`, tandis que la divulgation dépendait du lemme fondamental. Le graphe syntaxique contenait donc le cycle direct `thm:lemme_fondamental → thm:divulgation_delimitee → thm:lemme_fondamental`. Les deux esquisses ne constituaient pas une preuve complète.
 
-**Correction proposée dans la PR #117 :** restreindre explicitement `thm:lemme_fondamental` au fragment dont le terme et les termes dans l'image des substitutions ne contiennent pas `Declassify`, et retirer du croquis du lemme toute référence à `thm:divulgation_delimitee` comme justification de son cas manquant. La preuve de divulgation peut alors dépendre du lemme fondamental de base et de la non-interférence pour les cas ordinaires, mais doit toujours fournir une clause de relation logique spécifique à la déclassification.
+**Correction fusionnée dans la PR #117 :** `thm:lemme_fondamental` est explicitement limité au fragment dont le terme et les termes dans l'image des substitutions ne contiennent pas `Declassify`, et le croquis ne renvoie plus à `thm:divulgation_delimitee` pour justifier le cas manquant.
 
-Cette correction supprime la circularité **syntaxique** si elle est fusionnée et si le contrôle d'inventaire confirme l'absence de cycle. Elle ne démontre pas `thm:divulgation_delimitee` : son croquis reste explicitement non démontré. Il faut encore définir la relation de libération, la clôture des échappatoires, le traitement des valeurs substituées et le cas de preuve `Declassify`.
+Le cycle syntaxique est supprimé sur `main`. Cela ne démontre pas `thm:divulgation_delimitee` : son croquis reste explicitement non démontré. Il faut encore définir la relation de libération, la clôture des échappatoires, le traitement des valeurs substituées et le cas de preuve `Declassify`.
 
 ### Décision et portée
 
-La PR #117 adopte l'architecture prudente du lemme fondamental limité au langage de base. Cette décision conserve le résultat plus faible, mieux aligné sur les cas effectivement esquissés ; elle ne promeut aucun statut épistémique. Les autres usages du lemme fondamental doivent être vérifiés pour s'assurer qu'ils n'exigent pas le cas de déclassification.
+La PR #117 a adopté l'architecture prudente du lemme fondamental limité au langage de base. Cette correction conserve le résultat plus faible, mieux aligné sur les cas effectivement esquissés ; elle ne promeut aucun statut épistémique. Les autres usages du lemme fondamental doivent être vérifiés pour s'assurer qu'ils n'exigent pas le cas de déclassification.
 
 ## 4. Conséquences pour C8
 
-1. Le détecteur de cycles syntaxiques ne doit plus signaler le couple lemme fondamental / divulgation délimitée après fusion de la PR #117 ; il ne doit pas signaler le couple sûreté spatiale / introduction unique, qui reste une circularité argumentative.
+1. Le détecteur de cycles syntaxiques ne doit plus signaler le couple lemme fondamental / divulgation délimitée après fusion de la PR #117 ; le couple sûreté spatiale / introduction unique reste une circularité argumentative, pas un cycle syntaxique.
 2. La détection syntaxique ne remplace pas la classification des arêtes : preuve, hypothèse, obligation ouverte, citation ou mention contextuelle.
 3. Les classifications candidates des quatre énoncés restent provisoires. Aucun ne doit être automatiquement promu à l’état `established`.
 4. La migration mécanique ne doit pas résoudre ces questions en changeant silencieusement l’ordre des références, les hypothèses ou les textes.
@@ -61,7 +61,8 @@ La PR #117 adopte l'architecture prudente du lemme fondamental limité au langag
 - Lecture des blocs complets `thm:surete_spatiale`, `thm:introduction_unique`, `thm:lemme_fondamental` et `thm:divulgation_delimitee`.
 - Extraction des références directes `{num "thm:..."}` dans chacun des blocs.
 - Distinction explicite entre cycle syntaxique et circularité argumentative.
-- La revue initiale n'avait pas modifié les sources ; la PR #117 propose une restriction conservatrice du lemme fondamental, avec statuts inchangés.
+- Les PR #116 et #117 sont fusionnées ; leurs corrections de formulation et de portée conservent les statuts épistémiques.
+- La CI de la PR #117 a réussi ; la vérification actuelle du graphe ne remplace pas la preuve de divulgation ni la résolution argumentative de H1.
 
 
 ## 6. Compound blocks that must not inherit one status
