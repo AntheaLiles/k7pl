@@ -17,7 +17,7 @@ import json
 import sys
 from pathlib import Path
 
-from check_manifest import check_manifest
+from check_manifest import check_consistency, check_manifest
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MANIFEST = ROOT / "lake-manifest.json"
@@ -31,7 +31,6 @@ def convert_manifest(manifest: object) -> dict[str, object]:
     if errors:
         raise ValueError("invalid Lake manifest:\n" + "\n".join(f"- {error}" for error in errors))
 
-    assert isinstance(manifest, dict)  # established by check_manifest above
     packages = manifest["packages"]
     assert isinstance(packages, list)
     dependencies = []
@@ -53,7 +52,9 @@ def main() -> int:
         if len(raw) > MAX_MANIFEST_BYTES:
             raise ValueError(f"manifest exceeds {MAX_MANIFEST_BYTES} bytes")
         manifest = json.loads(raw)
-        result = convert_manifest(manifest)
+        lakefile = (ROOT / "lakefile.lean").read_text(encoding="utf-8")
+        toolchain = (ROOT / "lean-toolchain").read_text(encoding="utf-8")
+        result = convert_manifest(manifest, lakefile, toolchain)
         encoded = json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
         args.output.write_text(encoded, encoding="utf-8")
     except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as error:
