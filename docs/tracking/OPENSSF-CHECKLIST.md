@@ -52,7 +52,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [x] [version_unique] Les versions et tags de spécification/implémentation ont des schémas distincts documentés.
 - [x] [version_semver] Le projet documente des tags de version au format X.Y.Z.
 - [ ] [version_tags] Vérifier l'existence et la politique d'étiquetage de chaque release destinée aux utilisateurs.
-- [x] [release_notes] CHANGELOG et journaux de changements existent ; vérifier les notes attachées à chaque release réelle.
+- [ ] [release_notes] Non satisfait à ce stade : les journaux existent, mais l'audit relève une release sans notes humaines complètes et le flux n'a pas été éprouvé de bout en bout.
 - [ ] [release_notes_vulns] Définir la procédure pour mentionner les vulnérabilités connues corrigées dans les notes de release, ou justifier N/A quand applicable.
 
 ### Reporting — rapports de bogues et vulnérabilités
@@ -78,8 +78,8 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [x] [test_policy] CONTRIBUTING.md indique quand les changements doivent être accompagnés de tests.
 - [ ] [tests_are_added] Vérifier les PR récentes pour démontrer que la politique de test a été appliquée.
 - [x] [tests_documented_added] Les instructions de contribution mentionnent les tests et contrôles attendus.
-- [x] [warnings] Lean utilise warningAsError et un linter ; les contrôles statiques sont intégrés à CI.
-- [x] [warnings_fixed] Les avertissements bloquants sont traités comme des échecs de build/CI là où la règle est activée.
+- [ ] [warnings] Partiel : warningAsError et le linter sont configurés pour les bibliothèques ; les exécutables `mainTest` et `spec` doivent aussi être couverts et validés en CI (PR #98).
+- [ ] [warnings_fixed] Partiel : les avertissements échouent là où `warningAsError` est activé ; l'extension aux exécutables reste à valider (PR #98).
 - [ ] [warnings_strict] Vérifier la portée exacte de warningAsError sur toutes les cibles Lean, y compris les exécutables, puis documenter les limites connues.
 
 ### Security — conception, cryptographie, livraison et secrets
@@ -159,7 +159,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [ ] [installation_standard_variables] N/A si aucun système d'installation pertinent ; consigner la justification.
 - [x] [installation_development_quick] CONTRIBUTING.md décrit l'installation de l'environnement de développement et des tests.
 - [x] [external_dependencies] lake-manifest.json liste les dépendances Lake de manière exploitable.
-- [x] [dependency_monitoring] Dependabot surveille les GitHub Actions et les dépendances Python ; le workflow Lean mensuel et le contrôle de manifeste complètent le suivi. Vérifier les dépendances transitives et les vulnérabilités connues.
+- [ ] [dependency_monitoring] Partiel : Dependabot couvre les Actions et Python ; la surveillance des vulnérabilités des dépendances Lake et la preuve d'une revue périodique complète restent insuffisantes.
 - [x] [updateable_reused_components] Les versions Lean/Mathlib/CSLib/Verso sont épinglées et mises à jour par un workflow documenté ; vérifier la facilité de mise à jour de toutes les dépendances.
 - [ ] [interfaces_current] Rechercher les API obsolètes dans la pile et documenter la décision.
 - [x] [automated_integration_testing] CI exécute des suites et produit des statuts de réussite/échec.
@@ -183,7 +183,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [ ] [version_tags_signed] Évaluer la signature des tags importants.
 - [ ] [input_validation] Définir les frontières d'entrée non fiables et vérifier validation/rejet ; N/A uniquement si aucune entrée contrainte n'existe.
 - [ ] [hardening] Identifier les mécanismes de durcissement réellement applicables à l'implémentation Lean et aux scripts.
-- [x] [assurance_case] Le dossier d'assurance existe ; vérifier qu'il contient explicitement modèle de menace, frontières de confiance, principes de conception et faiblesses courantes traitées.
+- [ ] [assurance_case] Le dossier existe mais indique lui-même que le critère n'est pas encore satisfait : le modèle de menace, les frontières de confiance et l'application des principes doivent être validés et reliés à des preuves.
 - [ ] [static_analysis_common_vulnerabilities] Voir le critère Passing ; choisir un outil SAST pertinent ou motiver N/A.
 - [ ] [dynamic_analysis_unsafe] Examiner les langages et composants réellement livrés ; justifier N/A si aucun langage mémoire-non-sûr.
  
@@ -234,7 +234,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [x] [osps_ac_03_01] Le ruleset/flux de contribution impose les PR ; vérifier la configuration actuelle du blocage des commits directs.
 - [ ] [osps_ac_03_02] Vérifier que la suppression de la branche primaire requiert une confirmation explicite / est protégée.
 - [ ] [osps_br_01_01] Assainir et valider les métadonnées non fiables utilisées par les pipelines CI/CD.
-- [x] [osps_br_01_03] Les workflows de vérification emploient des permissions restreintes et checkout sans identifiants persistants ; vérifier chaque workflow exposé au code non fiable.
+- [ ] [osps_br_01_03] Partiel : plusieurs contrôles utilisent des permissions restreintes et `persist-credentials: false` ; il faut vérifier systématiquement tous les workflows et chemins de code non fiable.
 - [ ] [osps_br_03_01] Vérifier que toutes les URLs officielles sont servies exclusivement par des canaux chiffrés.
 - [ ] [osps_br_03_02] Vérifier l'authenticité cryptographique des canaux de distribution officiels.
 - [x] [osps_br_07_01] Gitleaks est intégré à la CI ; vérifier aussi la protection des données sensibles et les éventuelles exceptions.
@@ -250,7 +250,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [x] [osps_qa_01_02] Git conserve publiquement les modifications, auteurs et dates.
 - [x] [osps_qa_02_01] lake-manifest.json répertorie les dépendances directes/transitives Lake ; vérifier la couverture des autres écosystèmes.
 - [ ] [osps_qa_04_01] Documenter les codebases faisant partie du projet si le projet comporte plusieurs dépôts constitutifs.
-- [x] [osps_qa_05_01] Aucun binaire exécutable généré ne doit être commis ; confirmer par contrôle automatisé.
+- [ ] [osps_qa_05_01] À vérifier par inventaire du dépôt et contrôle automatisé ; la checklist ne contient pas encore de preuve exhaustive.
 - [ ] [osps_qa_05_02] Vérifier l'absence de binaires non révisables dans l'historique actif et définir une règle.
 - [x] [osps_vm_02_01] SECURITY.md indique le canal de contact de sécurité.
 
@@ -270,7 +270,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [x] [osps_qa_03_01] Les status checks sont requis par le flux de PR ; vérifier la configuration du ruleset et les possibilités de contournement.
 - [x] [osps_qa_06_01] CI exécute des tests/validations avant fusion des PR.
 - [ ] [osps_sa_01_01] Documenter les actions et acteurs de l'ensemble du système livré avant une release pertinente.
-- [x] [osps_sa_02_01] La spécification décrit les interfaces externes prévues ; confirmer qu'elles couvrent tous les artefacts de release.
+- [ ] [osps_sa_02_01] Partiel : la spécification décrit l'interface prévue du langage, mais la couverture de toutes les interfaces des artefacts effectivement publiés reste à établir.
 - [ ] [osps_sa_03_01] Avant une release, réaliser une évaluation de sécurité du logiciel et conserver la preuve.
 - [x] [osps_vm_01_01] SECURITY.md décrit le signalement et un délai initial annoncé ; renforcer la politique de divulgation coordonnée si nécessaire.
 - [x] [osps_vm_03_01] Un canal privé de signalement GitHub est documenté.
@@ -292,7 +292,7 @@ Les critères cochés ci-dessous ne concernent que les exigences dont la preuve 
 - [x] [osps_qa_06_02] CONTRIBUTING.md décrit quand les tests et contrôles sont exécutés ; renforcer la documentation des déclencheurs si besoin.
 - [x] [osps_qa_06_03] La politique de tests pour changements majeurs est documentée ; rendre l'exigence explicite et obligatoire si nécessaire.
 - [ ] [osps_qa_07_01] Exiger une approbation humaine non-auteur avant chaque fusion sur la branche principale ; impossible à satisfaire honnêtement avec une seule personne sans élargir l'équipe.
-- [x] [osps_sa_03_02] Un modèle de menace existe ; vérifier qu'une analyse de surface d'attaque/cas critiques est explicitement couverte et datée avant release.
+- [ ] [osps_sa_03_02] Un modèle de menace existe, mais il n'est pas encore validé comme analyse complète de surface d'attaque et de chemins critiques avant release.
 - [ ] [osps_vm_04_02] Produire un document VEX pour les vulnérabilités de composants déclarées non exploitables.
 - [ ] [osps_vm_05_01] Documenter des seuils de remédiation pour les constats SCA liés aux vulnérabilités et licences.
 - [ ] [osps_vm_05_02] Exiger la résolution ou la justification des violations SCA avant toute release.
