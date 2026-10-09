@@ -250,12 +250,770 @@ Non démontré : l'énoncé est une proposition, et ce croquis n'en est que le p
 est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell` produisent
 des sorties indiscernables — ce serait la non-interférence, que la déclassification viole par
 construction — mais que deux états qui s'accordent _en outre_ sur les échappatoires le fassent. La
-route est la paramétricité, obtenue au moyen de types existentiels {cite "algehedSimpleNoninterferenceParametricity2019"}[] : on construit la relation logique qui relie deux
-états s'accordant sur $`\ell` et sur $`\mathcal{X}`, et le lemme fondamental
-(théorème {num "thm:lemme_fondamental"}[]) l'étend à tout programme bien typé. Elle suppose la clause
-de clôture des échappatoires posée plus haut (chaque $`e \in \mathcal{X}` est close), faute de quoi
-la substitution ouvrirait le contournement par blanchiment, et le lemme de non-interférence du
-théorème {num "thm:non_interference"}[] pour les cas où aucune déclassification n'est employée.
+route envisagée est la paramétricité, obtenue au moyen de types existentiels {cite "algehedSimpleNoninterferenceParametricity2019"}[] : il faut construire une relation logique qui relie deux
+états s'accordant sur -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Adjonctions et enrichissement" =>
+%%%
+file := "c2-adjonctions-et-enrichissement"
+tag := "c2-adjonctions-et-enrichissement"
+%%%
+
+{label "sec:c2-adjonctions-et-enrichissement"}
+
+La fermeture de _C_, construite en §{num "sec:c2-la-categorie-ambiante"}[] comme l'adjonction
+$`(- \otimes A) \dashv [A \multimap -]`, n'est pas qu'une clause de définition : c'est elle qui
+légitime, au chapitre 6, l'effacement du curryfiage à la compilation. La bijection naturelle de
+l'équation {num "eq:adjonction-tenseur-hom"}[] identifie, pour tout $`\Gamma`, une fonction de deux
+arguments $`\Gamma \otimes A \to B` à sa forme curryfiée $`\Gamma \to [A \multimap B]` — les deux
+dénotent le même élément, de part et d'autre d'un isomorphisme naturel, donc sémantiquement
+transparent au sens de P1a, et la correction de la compilation de cette équivalence relève de P1b, non établie (chapitre 1). Un programme K7PL à plusieurs arguments admet ainsi indifféremment une
+présentation curryfiée, en fermetures successives, ou une présentation directe
+$`(X \otimes Y \otimes Z) \to R`. La monomorphisation du chapitre 6, qui compile systématiquement
+vers la seconde, n'est donc pas une heuristique risquant d'altérer le sens du programme : l'argument
+est syntaxique — chaque présentation se transforme en l'autre par substitution, les règles de
+l'abstraction et de l'application étant inversibles —, et ne requiert pas l'interprétation P1b. C'est le
+choix, parmi les représentants d'une même classe d'isomorphisme, de celui qui n'alloue aucune
+fermeture intermédiaire, conformément à P3.
+
+Une seconde conséquence de la fermeture concerne la représentation des tableaux, et elle appelle
+d'abord une déclaration sur la classe à laquelle appartiennent les types de K7PL — car c'est cette
+classe, et non un artifice local, qui la rend possible.
+
+Les types de K7PL sont des _conteneurs indexés_. La notion syntaxiquement riche de famille
+strictement positive s'y réduit à une théorie noyau munie d'un *nombre fixe* de constructeurs de
+types, les conteneurs indexés en fournissant les formes normales, et cette réduction s'obtient sans
+étendre la théorie noyau {cite "altenkirchIndexedContainers2009"}[]. Trois conséquences en
+découlent, énoncées ici plutôt que redécouvertes au chapitre 3. D'abord la condition de clôture
+posée au chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) cesse d'être une discipline de
+conception pour devenir un résultat, du moins sur le versant qui concerne la _grammaire des types_.
+Un nombre fixe de constructeurs suffit à toute famille strictement positive, de sorte qu'aucune
+extension n'a besoin d'en ajouter un.
+
+Le mot est fixé ici, ce chapitre lui donnant trois emplois : les _composantes du jugement_ sont les
+trois du chapitre 1, $`\Delta`, $`A` et $`\mathcal{E}` ; les _composantes du grade_ sont les
+coordonnées de son produit ; et les _constructeurs de la théorie noyau_ sont ce dont il est question
+dans cette phrase. Ce sont ces derniers dont le nombre est fixe, et cela ne dit rien du nombre des
+deux autres.
+
+Ensuite les familles indexées que le chapitre 3 emploie — `Vector(n,T)`, les rangées à grade de
+présence, `Incomplete A B` dont la forme change à chaque remplissage — sont admises d'office, sans
+qu'aucune primitive ne soit ajoutée pour les accueillir. Enfin, et c'est ce dont le
+§{num "sec:c2-algebres-coalgebres-et-points"}[] a besoin, *les conteneurs préservent les plus petits
+et les plus grands points fixes* {cite "damatoFormalisingInductiveCoinductive2024"}[] : $`\mu F` et
+$`\nu G` restent l'un et l'autre dans la classe, et leur emboîtement aussi.
+
+Cela posé, un tableau de taille $`n` sur $`T` n'est pas un conteneur distinct des fonctions : c'est
+un élément de $`\text{Hom}(\text{Fin}(n), T)`, où $`\text{Fin}(n)` est le coproduit de $`n` copies
+de l'unité, $`\text{Fin}(n) = \underbrace{I \oplus \dots \oplus I}_{n}`. Puisque le foncteur
+$`\text{Hom}(-, T)` transforme les coproduits en produits, et que les éléments globaux
+$`\text{Hom}(I,T)` s'identifient aux valeurs de $`T` elles-mêmes, il vient
+
+::::formula (label := "eq:yoneda-tableau") (kind := "equation")
+```
+\begin{equation}
+\text{Hom}(\text{Fin}(n), T) \;\cong\; \text{Hom}(I,T)^n \;\cong\; T^n \;=\; \text{Vec}(n,T).
+\end{equation}
+```
+::::
+
+C'est cette lecture — un conteneur fini est déterminé par la façon dont il s'observe depuis un objet
+représentable, l'intuition centrale du lemme de Yoneda — que la théorie des types du chapitre 3
+exploite pour encoder les contraintes de taille sans recourir à des types dépendants complets :
+`Vec n T` n'est pas un type primitif supplémentaire, c'est une notation pour
+$`\text{Hom}(\text{Fin}(n), T)`.
+
+La dernière structure que _C_ doit porter est la relation de précision $`\sqsubseteq` annoncée au
+chapitre 1 (P2). Sur chaque catégorie d'artefacts syntaxiques — types, termes, contextes, effets,
+grades — $`\sqsubseteq` est un _demi-treillis supérieur borné_, de joint $`\sqcup` et d'élément
+minimal : $`A \sqsubseteq B` se lit « $`A` est une version au plus aussi précise que $`B` ».
+Pourquoi cette structure et pas une plus riche ? Une version antérieure de ce texte déclarait un
+treillis distributif borné et l'engagement était plus lourd que l'usage. Le joint sert : aux
+branchements du chapitre 3, où il sur-approxime les effets d'un filtrage, et à la relation de
+sous-typage du §{num "sec:g-regles"}[], dont le théorème {num "thm:coherence_subsomption"}[] montre qu'il
+conditionne la cohérence. La rencontre ne sert nulle part, et la distributivité n'est invoquée par
+aucune démonstration. Déclarer moins n'affaiblit donc rien~; cela retire seulement une dette de
+justification qu'aucun résultat ne réclamait.
+
+Il faut en revanche dire de quel _ordre_ il s'agit, car deux théories de l'information portent le
+même mot sans être le même ordre. Celle de Shannon ordonne par ce qu'on _sait_ — des relations
+d'équivalence sur le domaine, formant un treillis complet —, celle de Scott par ce qui est _défini_,
+au sens du progrès du calcul {cite "huntReconcilingShannonScott2023"}[]. La relation de précision
+compare des raffinements, donc ce qu'un type _garantit_ : elle est du côté de Shannon. La
+conséquence n'est pas verbale, les deux ordres n'ayant pas les mêmes propriétés de complétude — et
+il n'est pas indifférent que la composante de niveau du grade emploie ce même treillis, redécouvert
+plusieurs fois dans la littérature du flot d'information.
+
+K7PL étend cette relation aux morphismes de _C_ eux-mêmes et exige que la composition et le tenseur
+soient monotones : si $`f \sqsubseteq f'` et $`g \sqsubseteq g'`, alors
+$`g \circ f \sqsubseteq g' \circ f'` et $`f \otimes g \sqsubseteq f' \otimes g'`. C'est la structure
+d'une catégorie enrichie sur les préordres — _C_ ne perd rien de sa structure ordinaire, elle gagne
+un ordre compatible sur chaque ensemble de morphismes parallèles et sur ses objets.
+
+Cette exigence de monotonie ne pèse pas sur chaque primitive séparément : elle est portée par les
+types, au même titre que l'usage l'est par les grades. Le grade d'une liaison acquiert à cette fin
+une seconde composante, _discrète_ ou _monotone_, et une fonction dont le grade porte la seconde
+marque est astreinte à préserver $`\sqsubseteq`. Le procédé est celui de Datafun, qui suit la
+monotonie par les types en distinguant deux sortes de variables et deux flèches {cite "DATAFUN"}[].
+K7PL n'en retient pas la présentation à deux zones, qu'il a écartée au chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]), mais l'idée que la monotonie est une propriété déclarée
+et vérifiée plutôt qu'une charge de preuve reconduite à chaque extension. Une construction nouvelle
+n'a donc pas à démontrer qu'elle respecte l'ordre : elle porte un grade qui l'y oblige, ou n'en
+porte pas et se voit refuser l'accès aux constructions qui l'exigent.
+
+Ce procédé n'est pas propre à la monotonie, et s'énonce une fois dans sa forme générale. Soit
+$`(P, \preceq)` une structure ordonnée. Une _modalité graduée sur $`P`_ est une famille de comonades
+$`\{!_p\}_{p \in P}` sur _C_, indexée par $`P`, telle que $`p \preceq q` induise une coercion
+$`!_q A \to !_p A` et que l'ordre gouverne la composition. Le grade d'une liaison porte alors une
+composante dans $`P`, et la contrainte que cette composante exprime est toujours de la même forme :
+une flèche graduée en $`p` ne peut employer que ce qui est disponible en deçà de $`p`.
+
+Ce procédé a plus d'instances que le document ne le laisse voir, et les compter est ce qui mesure sa
+portée. Les voici toutes, avec la structure ordonnée que chacune prend pour paramètre.
+
+::::k7table (label := "tab:c2-instances-gradation") (align := "lZ{1.0}Z{1.0}")
+:::caption
+Les instances du procédé de gradation, et la structure ordonnée de chacune
+:::
+
+:::table +header
+* * Modalité
+  * Structure ordonnée
+  * Ce que la contrainte dit
+* * usage
+  * le semi-anneau d'usage
+  * combien de fois une ressource est employée
+* * monotonie
+  * l'ordre à deux points
+  * si une flèche respecte l'ordre de son argument
+* * confidentialité
+  * le treillis des niveaux
+  * ce qu'un observateur d'un niveau peut distinguer
+* * budget
+  * les conaturels sous l'ordre inverse
+  * ce qu'un calcul ne dépassera pas
+* * temps, délai
+  * l'ordre des instants
+  * qu'une ressource sera disponible au pas suivant
+* * temps, permanence
+  * le même, en permanence
+  * qu'elle l'est à tout instant
+* * temps, éventualité
+  * le même, sans borne
+  * qu'elle le sera sans qu'on dise quand
+* * localité
+  * le demi-treillis des localisations
+  * où une valeur réside
+* * présence
+  * le monoïde des champs
+  * si un champ d'un enregistrement est là
+:::
+::::
+
+Neuf instances, et aucune n'a demandé de mécanisme propre. {rmq}[Neuf applications d'une
+construction écrite une fois. C'est la mesure de ce que le procédé vaut, et elle ne se lisait nulle
+part.] Deux données complètent le tableau sans être des modalités, et il faut dire pourquoi : le
+_mode_ — une algèbre, un idéal de contraction, un booléen d'affaiblissement — fixe les règles
+structurelles admissibles plutôt qu'une contrainte sur les liaisons ; et la _zone_ y ajoute un ordre
+propre. Ce sont les paramètres du procédé, non ses produits.
+
+Ce que ce tableau établit n'est pas une économie d'écriture, c'est la _portée syntaxique_ de la
+condition de clôture. Une extension qui réclamerait une dixième modalité n'a pas besoin d'un nouveau
+constructeur de la théorie noyau pour la porter dans la grammaire. En revanche, si cette modalité
+participe aux opérations graduées, elle doit fournir les structures d'ordre, d'action et de morphisme
+requises par les règles qui l'emploient. C'est cette distinction entre clôture syntaxique et clôture
+algébrique qui manque aux formulations antérieures, et c'est pourquoi
+elle a pu entrer sans quatrième place dans le jugement.
+
+Deux instances suffisent à montrer que la forme est la bonne. La monotonie est la modalité sur
+l'ordre à deux points $`\{\text{discret} \prec \text{monotone}\}` : une flèche graduée _monotone_ ne
+peut employer ses arguments que d'une manière qui préserve $`\sqsubseteq`, et la coercion
+descendante dit qu'une fonction monotone s'emploie partout où une fonction quelconque est admise. La
+_confidentialité_ est la modalité sur un treillis de niveaux $`(\mathcal{L}, \leq)` : une flèche
+graduée en $`\ell` ne peut employer que des valeurs de niveau au plus $`\ell`, et la coercion monte
+l'information sans jamais la redescendre. Le mécanisme est identique, seule change la structure
+ordonnée sur laquelle il opère {cite "marshallGradedModalTypes2023"}[] — de sorte que la
+confidentialité n'ajoute pas un axe au langage mais instancie celui que la monotonie a ouvert.
+
+Un dispositif reste à mentionner, sans lequel cette modalité serait impraticable et avec lequel elle
+est fragile. Un programme utile doit parfois _abaisser_ délibérément un niveau — vérifier un mot de
+passe consiste à révéler un bit d'une valeur secrète, et le refuser rendrait le langage
+inutilisable. Ce mécanisme, la _déclassification_, coerce le niveau vers le bas et sert
+d'échappatoire au régime ordinaire. Son risque propre porte un nom : l'_attaque par blanchiment_, où
+l'échappatoire est employée pour faire sortir davantage que ce qu'elle était censée libérer, une
+valeur secrète transitant par la fonction déclassifiante sous un déguisement quelconque {cite "sabelfeldModelDelimitedInformation2004"}[].
+Il en résulte que spécifier la déclassification demande deux choses et non une : une règle qui
+l'autorise, et une garantie de bout en bout qui borne ce qu'elle peut libérer — la _divulgation
+délimitée_, dont il est établi qu'un système de types l'impose. Une règle sans cette garantie
+rendrait le grade de confidentialité contournable par construction, et ce document ne donne pour
+l'instant ni l'une ni l'autre. Il donne les deux ici.
+
+La règle procède par _échappatoires nommées_ plutôt que par une permission générale de déclassifier.
+Une déclaration fixe un ensemble fini $`\mathcal{X}` d'expressions — les échappatoires — dont
+chacune énonce ce qui est autorisé à sortir : le résultat de la comparaison d'un mot de passe, la
+somme d'une colonne, le rang d'un enchérisseur. Ces expressions sont _closes_,
+$`\forall e \in \mathcal{X},\ \mathrm{fv}(e) = \emptyset`, et évaluées dans l'état initial : une
+échappatoire ouverte ouvrirait un contournement par substitution, puisque
+$`\mathbf{declassify}_{\ell'}(e)[v/x] = \mathbf{declassify}_{\ell'}(e[v/x])` sans que
+$`e[v/x] \in \mathcal{X}`, et l'attaquant ferait comparer le secret à une valeur de son choix
+(§{num "sec:g-semantique"}[]). La règle ne s'applique qu'à elles :
+
+::::formula (label := "eq:regle-declassify") (kind := "equation")
+```
+\begin{equation}
+\frac{\;\Delta \vdash_{\mathcal{G}} e : !_{\ell}\,A \qquad e \in \mathcal{X} \qquad \ell' \leq \ell\;}{\;\Delta \vdash_{\mathcal{G}} \mathbf{declassify}_{\ell'}(e) : !_{\ell'}\,A\;}
+\end{equation}
+```
+::::
+
+Ce que cette règle laisse ouvert est ce qu'une garantie doit fermer : rien n'y interdit qu'une
+valeur secrète quelconque transite par une échappatoire sous un déguisement, et l'échappatoire
+libérerait alors bien plus que ce qu'elle nomme. La garantie qui l'écarte s'énonce sur les
+exécutions plutôt que sur les dérivations.
+
+::::thm (label := "thm:divulgation_delimitee") (status := "proposition")
+:::title
+divulgation délimitée
+:::
+
+:::statement +titled
+Une échappatoire ne libère que ce qu'elle nomme
+
+Soit $`P` un programme bien typé dont les déclassifications portent sur l'ensemble d'échappatoires
+$`\mathcal{X}`. Alors pour tout niveau $`\ell` et tous états initiaux $`s_1, s_2` qui coïncident sur
+ce que l'observateur de niveau $`\ell` voit _et sur la valeur de chaque expression de
+$`\mathcal{X}`_, les exécutions $`P(s_1)` et $`P(s_2)` sont indiscernables à ce niveau.
+:::
+
+:::proofsketch
+Non démontré : l'énoncé est une proposition, et ce croquis n'en est que le plan. La quantification
+est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell` produisent
+des sorties indiscernables — ce serait la non-interférence, que la déclassification viole par
+construction — mais que deux états qui s'accordent _en outre_ sur les échappatoires le fassent. La
+\\ell` et sur -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Adjonctions et enrichissement" =>
+%%%
+file := "c2-adjonctions-et-enrichissement"
+tag := "c2-adjonctions-et-enrichissement"
+%%%
+
+{label "sec:c2-adjonctions-et-enrichissement"}
+
+La fermeture de _C_, construite en §{num "sec:c2-la-categorie-ambiante"}[] comme l'adjonction
+$`(- \otimes A) \dashv [A \multimap -]`, n'est pas qu'une clause de définition : c'est elle qui
+légitime, au chapitre 6, l'effacement du curryfiage à la compilation. La bijection naturelle de
+l'équation {num "eq:adjonction-tenseur-hom"}[] identifie, pour tout $`\Gamma`, une fonction de deux
+arguments $`\Gamma \otimes A \to B` à sa forme curryfiée $`\Gamma \to [A \multimap B]` — les deux
+dénotent le même élément, de part et d'autre d'un isomorphisme naturel, donc sémantiquement
+transparent au sens de P1a, et la correction de la compilation de cette équivalence relève de P1b, non établie (chapitre 1). Un programme K7PL à plusieurs arguments admet ainsi indifféremment une
+présentation curryfiée, en fermetures successives, ou une présentation directe
+$`(X \otimes Y \otimes Z) \to R`. La monomorphisation du chapitre 6, qui compile systématiquement
+vers la seconde, n'est donc pas une heuristique risquant d'altérer le sens du programme : l'argument
+est syntaxique — chaque présentation se transforme en l'autre par substitution, les règles de
+l'abstraction et de l'application étant inversibles —, et ne requiert pas l'interprétation P1b. C'est le
+choix, parmi les représentants d'une même classe d'isomorphisme, de celui qui n'alloue aucune
+fermeture intermédiaire, conformément à P3.
+
+Une seconde conséquence de la fermeture concerne la représentation des tableaux, et elle appelle
+d'abord une déclaration sur la classe à laquelle appartiennent les types de K7PL — car c'est cette
+classe, et non un artifice local, qui la rend possible.
+
+Les types de K7PL sont des _conteneurs indexés_. La notion syntaxiquement riche de famille
+strictement positive s'y réduit à une théorie noyau munie d'un *nombre fixe* de constructeurs de
+types, les conteneurs indexés en fournissant les formes normales, et cette réduction s'obtient sans
+étendre la théorie noyau {cite "altenkirchIndexedContainers2009"}[]. Trois conséquences en
+découlent, énoncées ici plutôt que redécouvertes au chapitre 3. D'abord la condition de clôture
+posée au chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) cesse d'être une discipline de
+conception pour devenir un résultat, du moins sur le versant qui concerne la _grammaire des types_.
+Un nombre fixe de constructeurs suffit à toute famille strictement positive, de sorte qu'aucune
+extension n'a besoin d'en ajouter un.
+
+Le mot est fixé ici, ce chapitre lui donnant trois emplois : les _composantes du jugement_ sont les
+trois du chapitre 1, $`\Delta`, $`A` et $`\mathcal{E}` ; les _composantes du grade_ sont les
+coordonnées de son produit ; et les _constructeurs de la théorie noyau_ sont ce dont il est question
+dans cette phrase. Ce sont ces derniers dont le nombre est fixe, et cela ne dit rien du nombre des
+deux autres.
+
+Ensuite les familles indexées que le chapitre 3 emploie — `Vector(n,T)`, les rangées à grade de
+présence, `Incomplete A B` dont la forme change à chaque remplissage — sont admises d'office, sans
+qu'aucune primitive ne soit ajoutée pour les accueillir. Enfin, et c'est ce dont le
+§{num "sec:c2-algebres-coalgebres-et-points"}[] a besoin, *les conteneurs préservent les plus petits
+et les plus grands points fixes* {cite "damatoFormalisingInductiveCoinductive2024"}[] : $`\mu F` et
+$`\nu G` restent l'un et l'autre dans la classe, et leur emboîtement aussi.
+
+Cela posé, un tableau de taille $`n` sur $`T` n'est pas un conteneur distinct des fonctions : c'est
+un élément de $`\text{Hom}(\text{Fin}(n), T)`, où $`\text{Fin}(n)` est le coproduit de $`n` copies
+de l'unité, $`\text{Fin}(n) = \underbrace{I \oplus \dots \oplus I}_{n}`. Puisque le foncteur
+$`\text{Hom}(-, T)` transforme les coproduits en produits, et que les éléments globaux
+$`\text{Hom}(I,T)` s'identifient aux valeurs de $`T` elles-mêmes, il vient
+
+::::formula (label := "eq:yoneda-tableau") (kind := "equation")
+```
+\begin{equation}
+\text{Hom}(\text{Fin}(n), T) \;\cong\; \text{Hom}(I,T)^n \;\cong\; T^n \;=\; \text{Vec}(n,T).
+\end{equation}
+```
+::::
+
+C'est cette lecture — un conteneur fini est déterminé par la façon dont il s'observe depuis un objet
+représentable, l'intuition centrale du lemme de Yoneda — que la théorie des types du chapitre 3
+exploite pour encoder les contraintes de taille sans recourir à des types dépendants complets :
+`Vec n T` n'est pas un type primitif supplémentaire, c'est une notation pour
+$`\text{Hom}(\text{Fin}(n), T)`.
+
+La dernière structure que _C_ doit porter est la relation de précision $`\sqsubseteq` annoncée au
+chapitre 1 (P2). Sur chaque catégorie d'artefacts syntaxiques — types, termes, contextes, effets,
+grades — $`\sqsubseteq` est un _demi-treillis supérieur borné_, de joint $`\sqcup` et d'élément
+minimal : $`A \sqsubseteq B` se lit « $`A` est une version au plus aussi précise que $`B` ».
+Pourquoi cette structure et pas une plus riche ? Une version antérieure de ce texte déclarait un
+treillis distributif borné et l'engagement était plus lourd que l'usage. Le joint sert : aux
+branchements du chapitre 3, où il sur-approxime les effets d'un filtrage, et à la relation de
+sous-typage du §{num "sec:g-regles"}[], dont le théorème {num "thm:coherence_subsomption"}[] montre qu'il
+conditionne la cohérence. La rencontre ne sert nulle part, et la distributivité n'est invoquée par
+aucune démonstration. Déclarer moins n'affaiblit donc rien~; cela retire seulement une dette de
+justification qu'aucun résultat ne réclamait.
+
+Il faut en revanche dire de quel _ordre_ il s'agit, car deux théories de l'information portent le
+même mot sans être le même ordre. Celle de Shannon ordonne par ce qu'on _sait_ — des relations
+d'équivalence sur le domaine, formant un treillis complet —, celle de Scott par ce qui est _défini_,
+au sens du progrès du calcul {cite "huntReconcilingShannonScott2023"}[]. La relation de précision
+compare des raffinements, donc ce qu'un type _garantit_ : elle est du côté de Shannon. La
+conséquence n'est pas verbale, les deux ordres n'ayant pas les mêmes propriétés de complétude — et
+il n'est pas indifférent que la composante de niveau du grade emploie ce même treillis, redécouvert
+plusieurs fois dans la littérature du flot d'information.
+
+K7PL étend cette relation aux morphismes de _C_ eux-mêmes et exige que la composition et le tenseur
+soient monotones : si $`f \sqsubseteq f'` et $`g \sqsubseteq g'`, alors
+$`g \circ f \sqsubseteq g' \circ f'` et $`f \otimes g \sqsubseteq f' \otimes g'`. C'est la structure
+d'une catégorie enrichie sur les préordres — _C_ ne perd rien de sa structure ordinaire, elle gagne
+un ordre compatible sur chaque ensemble de morphismes parallèles et sur ses objets.
+
+Cette exigence de monotonie ne pèse pas sur chaque primitive séparément : elle est portée par les
+types, au même titre que l'usage l'est par les grades. Le grade d'une liaison acquiert à cette fin
+une seconde composante, _discrète_ ou _monotone_, et une fonction dont le grade porte la seconde
+marque est astreinte à préserver $`\sqsubseteq`. Le procédé est celui de Datafun, qui suit la
+monotonie par les types en distinguant deux sortes de variables et deux flèches {cite "DATAFUN"}[].
+K7PL n'en retient pas la présentation à deux zones, qu'il a écartée au chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]), mais l'idée que la monotonie est une propriété déclarée
+et vérifiée plutôt qu'une charge de preuve reconduite à chaque extension. Une construction nouvelle
+n'a donc pas à démontrer qu'elle respecte l'ordre : elle porte un grade qui l'y oblige, ou n'en
+porte pas et se voit refuser l'accès aux constructions qui l'exigent.
+
+Ce procédé n'est pas propre à la monotonie, et s'énonce une fois dans sa forme générale. Soit
+$`(P, \preceq)` une structure ordonnée. Une _modalité graduée sur $`P`_ est une famille de comonades
+$`\{!_p\}_{p \in P}` sur _C_, indexée par $`P`, telle que $`p \preceq q` induise une coercion
+$`!_q A \to !_p A` et que l'ordre gouverne la composition. Le grade d'une liaison porte alors une
+composante dans $`P`, et la contrainte que cette composante exprime est toujours de la même forme :
+une flèche graduée en $`p` ne peut employer que ce qui est disponible en deçà de $`p`.
+
+Ce procédé a plus d'instances que le document ne le laisse voir, et les compter est ce qui mesure sa
+portée. Les voici toutes, avec la structure ordonnée que chacune prend pour paramètre.
+
+::::k7table (label := "tab:c2-instances-gradation") (align := "lZ{1.0}Z{1.0}")
+:::caption
+Les instances du procédé de gradation, et la structure ordonnée de chacune
+:::
+
+:::table +header
+* * Modalité
+  * Structure ordonnée
+  * Ce que la contrainte dit
+* * usage
+  * le semi-anneau d'usage
+  * combien de fois une ressource est employée
+* * monotonie
+  * l'ordre à deux points
+  * si une flèche respecte l'ordre de son argument
+* * confidentialité
+  * le treillis des niveaux
+  * ce qu'un observateur d'un niveau peut distinguer
+* * budget
+  * les conaturels sous l'ordre inverse
+  * ce qu'un calcul ne dépassera pas
+* * temps, délai
+  * l'ordre des instants
+  * qu'une ressource sera disponible au pas suivant
+* * temps, permanence
+  * le même, en permanence
+  * qu'elle l'est à tout instant
+* * temps, éventualité
+  * le même, sans borne
+  * qu'elle le sera sans qu'on dise quand
+* * localité
+  * le demi-treillis des localisations
+  * où une valeur réside
+* * présence
+  * le monoïde des champs
+  * si un champ d'un enregistrement est là
+:::
+::::
+
+Neuf instances, et aucune n'a demandé de mécanisme propre. {rmq}[Neuf applications d'une
+construction écrite une fois. C'est la mesure de ce que le procédé vaut, et elle ne se lisait nulle
+part.] Deux données complètent le tableau sans être des modalités, et il faut dire pourquoi : le
+_mode_ — une algèbre, un idéal de contraction, un booléen d'affaiblissement — fixe les règles
+structurelles admissibles plutôt qu'une contrainte sur les liaisons ; et la _zone_ y ajoute un ordre
+propre. Ce sont les paramètres du procédé, non ses produits.
+
+Ce que ce tableau établit n'est pas une économie d'écriture, c'est la _portée syntaxique_ de la
+condition de clôture. Une extension qui réclamerait une dixième modalité n'a pas besoin d'un nouveau
+constructeur de la théorie noyau pour la porter dans la grammaire. En revanche, si cette modalité
+participe aux opérations graduées, elle doit fournir les structures d'ordre, d'action et de morphisme
+requises par les règles qui l'emploient. C'est cette distinction entre clôture syntaxique et clôture
+algébrique qui manque aux formulations antérieures, et c'est pourquoi
+elle a pu entrer sans quatrième place dans le jugement.
+
+Deux instances suffisent à montrer que la forme est la bonne. La monotonie est la modalité sur
+l'ordre à deux points $`\{\text{discret} \prec \text{monotone}\}` : une flèche graduée _monotone_ ne
+peut employer ses arguments que d'une manière qui préserve $`\sqsubseteq`, et la coercion
+descendante dit qu'une fonction monotone s'emploie partout où une fonction quelconque est admise. La
+_confidentialité_ est la modalité sur un treillis de niveaux $`(\mathcal{L}, \leq)` : une flèche
+graduée en $`\ell` ne peut employer que des valeurs de niveau au plus $`\ell`, et la coercion monte
+l'information sans jamais la redescendre. Le mécanisme est identique, seule change la structure
+ordonnée sur laquelle il opère {cite "marshallGradedModalTypes2023"}[] — de sorte que la
+confidentialité n'ajoute pas un axe au langage mais instancie celui que la monotonie a ouvert.
+
+Un dispositif reste à mentionner, sans lequel cette modalité serait impraticable et avec lequel elle
+est fragile. Un programme utile doit parfois _abaisser_ délibérément un niveau — vérifier un mot de
+passe consiste à révéler un bit d'une valeur secrète, et le refuser rendrait le langage
+inutilisable. Ce mécanisme, la _déclassification_, coerce le niveau vers le bas et sert
+d'échappatoire au régime ordinaire. Son risque propre porte un nom : l'_attaque par blanchiment_, où
+l'échappatoire est employée pour faire sortir davantage que ce qu'elle était censée libérer, une
+valeur secrète transitant par la fonction déclassifiante sous un déguisement quelconque {cite "sabelfeldModelDelimitedInformation2004"}[].
+Il en résulte que spécifier la déclassification demande deux choses et non une : une règle qui
+l'autorise, et une garantie de bout en bout qui borne ce qu'elle peut libérer — la _divulgation
+délimitée_, dont il est établi qu'un système de types l'impose. Une règle sans cette garantie
+rendrait le grade de confidentialité contournable par construction, et ce document ne donne pour
+l'instant ni l'une ni l'autre. Il donne les deux ici.
+
+La règle procède par _échappatoires nommées_ plutôt que par une permission générale de déclassifier.
+Une déclaration fixe un ensemble fini $`\mathcal{X}` d'expressions — les échappatoires — dont
+chacune énonce ce qui est autorisé à sortir : le résultat de la comparaison d'un mot de passe, la
+somme d'une colonne, le rang d'un enchérisseur. Ces expressions sont _closes_,
+$`\forall e \in \mathcal{X},\ \mathrm{fv}(e) = \emptyset`, et évaluées dans l'état initial : une
+échappatoire ouverte ouvrirait un contournement par substitution, puisque
+$`\mathbf{declassify}_{\ell'}(e)[v/x] = \mathbf{declassify}_{\ell'}(e[v/x])` sans que
+$`e[v/x] \in \mathcal{X}`, et l'attaquant ferait comparer le secret à une valeur de son choix
+(§{num "sec:g-semantique"}[]). La règle ne s'applique qu'à elles :
+
+::::formula (label := "eq:regle-declassify") (kind := "equation")
+```
+\begin{equation}
+\frac{\;\Delta \vdash_{\mathcal{G}} e : !_{\ell}\,A \qquad e \in \mathcal{X} \qquad \ell' \leq \ell\;}{\;\Delta \vdash_{\mathcal{G}} \mathbf{declassify}_{\ell'}(e) : !_{\ell'}\,A\;}
+\end{equation}
+```
+::::
+
+Ce que cette règle laisse ouvert est ce qu'une garantie doit fermer : rien n'y interdit qu'une
+valeur secrète quelconque transite par une échappatoire sous un déguisement, et l'échappatoire
+libérerait alors bien plus que ce qu'elle nomme. La garantie qui l'écarte s'énonce sur les
+exécutions plutôt que sur les dérivations.
+
+::::thm (label := "thm:divulgation_delimitee") (status := "proposition")
+:::title
+divulgation délimitée
+:::
+
+:::statement +titled
+Une échappatoire ne libère que ce qu'elle nomme
+
+Soit $`P` un programme bien typé dont les déclassifications portent sur l'ensemble d'échappatoires
+$`\mathcal{X}`. Alors pour tout niveau $`\ell` et tous états initiaux $`s_1, s_2` qui coïncident sur
+ce que l'observateur de niveau $`\ell` voit _et sur la valeur de chaque expression de
+$`\mathcal{X}`_, les exécutions $`P(s_1)` et $`P(s_2)` sont indiscernables à ce niveau.
+:::
+
+:::proofsketch
+Non démontré : l'énoncé est une proposition, et ce croquis n'en est que le plan. La quantification
+est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell` produisent
+des sorties indiscernables — ce serait la non-interférence, que la déclassification viole par
+construction — mais que deux états qui s'accordent _en outre_ sur les échappatoires le fassent. La
+\\mathcal{X}`. Le lemme fondamental
+(théorème {num "thm:lemme_fondamental"}[]) ne couvre que le fragment sans `Declassify` ; il fournit
+les cas ordinaires, mais pas le cas de divulgation. Il reste à établir une clause de relation logique
+qui traite explicitement ce cas, en conservant la clause de clôture des échappatoires posée plus haut
+(chaque -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Adjonctions et enrichissement" =>
+%%%
+file := "c2-adjonctions-et-enrichissement"
+tag := "c2-adjonctions-et-enrichissement"
+%%%
+
+{label "sec:c2-adjonctions-et-enrichissement"}
+
+La fermeture de _C_, construite en §{num "sec:c2-la-categorie-ambiante"}[] comme l'adjonction
+$`(- \otimes A) \dashv [A \multimap -]`, n'est pas qu'une clause de définition : c'est elle qui
+légitime, au chapitre 6, l'effacement du curryfiage à la compilation. La bijection naturelle de
+l'équation {num "eq:adjonction-tenseur-hom"}[] identifie, pour tout $`\Gamma`, une fonction de deux
+arguments $`\Gamma \otimes A \to B` à sa forme curryfiée $`\Gamma \to [A \multimap B]` — les deux
+dénotent le même élément, de part et d'autre d'un isomorphisme naturel, donc sémantiquement
+transparent au sens de P1a, et la correction de la compilation de cette équivalence relève de P1b, non établie (chapitre 1). Un programme K7PL à plusieurs arguments admet ainsi indifféremment une
+présentation curryfiée, en fermetures successives, ou une présentation directe
+$`(X \otimes Y \otimes Z) \to R`. La monomorphisation du chapitre 6, qui compile systématiquement
+vers la seconde, n'est donc pas une heuristique risquant d'altérer le sens du programme : l'argument
+est syntaxique — chaque présentation se transforme en l'autre par substitution, les règles de
+l'abstraction et de l'application étant inversibles —, et ne requiert pas l'interprétation P1b. C'est le
+choix, parmi les représentants d'une même classe d'isomorphisme, de celui qui n'alloue aucune
+fermeture intermédiaire, conformément à P3.
+
+Une seconde conséquence de la fermeture concerne la représentation des tableaux, et elle appelle
+d'abord une déclaration sur la classe à laquelle appartiennent les types de K7PL — car c'est cette
+classe, et non un artifice local, qui la rend possible.
+
+Les types de K7PL sont des _conteneurs indexés_. La notion syntaxiquement riche de famille
+strictement positive s'y réduit à une théorie noyau munie d'un *nombre fixe* de constructeurs de
+types, les conteneurs indexés en fournissant les formes normales, et cette réduction s'obtient sans
+étendre la théorie noyau {cite "altenkirchIndexedContainers2009"}[]. Trois conséquences en
+découlent, énoncées ici plutôt que redécouvertes au chapitre 3. D'abord la condition de clôture
+posée au chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) cesse d'être une discipline de
+conception pour devenir un résultat, du moins sur le versant qui concerne la _grammaire des types_.
+Un nombre fixe de constructeurs suffit à toute famille strictement positive, de sorte qu'aucune
+extension n'a besoin d'en ajouter un.
+
+Le mot est fixé ici, ce chapitre lui donnant trois emplois : les _composantes du jugement_ sont les
+trois du chapitre 1, $`\Delta`, $`A` et $`\mathcal{E}` ; les _composantes du grade_ sont les
+coordonnées de son produit ; et les _constructeurs de la théorie noyau_ sont ce dont il est question
+dans cette phrase. Ce sont ces derniers dont le nombre est fixe, et cela ne dit rien du nombre des
+deux autres.
+
+Ensuite les familles indexées que le chapitre 3 emploie — `Vector(n,T)`, les rangées à grade de
+présence, `Incomplete A B` dont la forme change à chaque remplissage — sont admises d'office, sans
+qu'aucune primitive ne soit ajoutée pour les accueillir. Enfin, et c'est ce dont le
+§{num "sec:c2-algebres-coalgebres-et-points"}[] a besoin, *les conteneurs préservent les plus petits
+et les plus grands points fixes* {cite "damatoFormalisingInductiveCoinductive2024"}[] : $`\mu F` et
+$`\nu G` restent l'un et l'autre dans la classe, et leur emboîtement aussi.
+
+Cela posé, un tableau de taille $`n` sur $`T` n'est pas un conteneur distinct des fonctions : c'est
+un élément de $`\text{Hom}(\text{Fin}(n), T)`, où $`\text{Fin}(n)` est le coproduit de $`n` copies
+de l'unité, $`\text{Fin}(n) = \underbrace{I \oplus \dots \oplus I}_{n}`. Puisque le foncteur
+$`\text{Hom}(-, T)` transforme les coproduits en produits, et que les éléments globaux
+$`\text{Hom}(I,T)` s'identifient aux valeurs de $`T` elles-mêmes, il vient
+
+::::formula (label := "eq:yoneda-tableau") (kind := "equation")
+```
+\begin{equation}
+\text{Hom}(\text{Fin}(n), T) \;\cong\; \text{Hom}(I,T)^n \;\cong\; T^n \;=\; \text{Vec}(n,T).
+\end{equation}
+```
+::::
+
+C'est cette lecture — un conteneur fini est déterminé par la façon dont il s'observe depuis un objet
+représentable, l'intuition centrale du lemme de Yoneda — que la théorie des types du chapitre 3
+exploite pour encoder les contraintes de taille sans recourir à des types dépendants complets :
+`Vec n T` n'est pas un type primitif supplémentaire, c'est une notation pour
+$`\text{Hom}(\text{Fin}(n), T)`.
+
+La dernière structure que _C_ doit porter est la relation de précision $`\sqsubseteq` annoncée au
+chapitre 1 (P2). Sur chaque catégorie d'artefacts syntaxiques — types, termes, contextes, effets,
+grades — $`\sqsubseteq` est un _demi-treillis supérieur borné_, de joint $`\sqcup` et d'élément
+minimal : $`A \sqsubseteq B` se lit « $`A` est une version au plus aussi précise que $`B` ».
+Pourquoi cette structure et pas une plus riche ? Une version antérieure de ce texte déclarait un
+treillis distributif borné et l'engagement était plus lourd que l'usage. Le joint sert : aux
+branchements du chapitre 3, où il sur-approxime les effets d'un filtrage, et à la relation de
+sous-typage du §{num "sec:g-regles"}[], dont le théorème {num "thm:coherence_subsomption"}[] montre qu'il
+conditionne la cohérence. La rencontre ne sert nulle part, et la distributivité n'est invoquée par
+aucune démonstration. Déclarer moins n'affaiblit donc rien~; cela retire seulement une dette de
+justification qu'aucun résultat ne réclamait.
+
+Il faut en revanche dire de quel _ordre_ il s'agit, car deux théories de l'information portent le
+même mot sans être le même ordre. Celle de Shannon ordonne par ce qu'on _sait_ — des relations
+d'équivalence sur le domaine, formant un treillis complet —, celle de Scott par ce qui est _défini_,
+au sens du progrès du calcul {cite "huntReconcilingShannonScott2023"}[]. La relation de précision
+compare des raffinements, donc ce qu'un type _garantit_ : elle est du côté de Shannon. La
+conséquence n'est pas verbale, les deux ordres n'ayant pas les mêmes propriétés de complétude — et
+il n'est pas indifférent que la composante de niveau du grade emploie ce même treillis, redécouvert
+plusieurs fois dans la littérature du flot d'information.
+
+K7PL étend cette relation aux morphismes de _C_ eux-mêmes et exige que la composition et le tenseur
+soient monotones : si $`f \sqsubseteq f'` et $`g \sqsubseteq g'`, alors
+$`g \circ f \sqsubseteq g' \circ f'` et $`f \otimes g \sqsubseteq f' \otimes g'`. C'est la structure
+d'une catégorie enrichie sur les préordres — _C_ ne perd rien de sa structure ordinaire, elle gagne
+un ordre compatible sur chaque ensemble de morphismes parallèles et sur ses objets.
+
+Cette exigence de monotonie ne pèse pas sur chaque primitive séparément : elle est portée par les
+types, au même titre que l'usage l'est par les grades. Le grade d'une liaison acquiert à cette fin
+une seconde composante, _discrète_ ou _monotone_, et une fonction dont le grade porte la seconde
+marque est astreinte à préserver $`\sqsubseteq`. Le procédé est celui de Datafun, qui suit la
+monotonie par les types en distinguant deux sortes de variables et deux flèches {cite "DATAFUN"}[].
+K7PL n'en retient pas la présentation à deux zones, qu'il a écartée au chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]), mais l'idée que la monotonie est une propriété déclarée
+et vérifiée plutôt qu'une charge de preuve reconduite à chaque extension. Une construction nouvelle
+n'a donc pas à démontrer qu'elle respecte l'ordre : elle porte un grade qui l'y oblige, ou n'en
+porte pas et se voit refuser l'accès aux constructions qui l'exigent.
+
+Ce procédé n'est pas propre à la monotonie, et s'énonce une fois dans sa forme générale. Soit
+$`(P, \preceq)` une structure ordonnée. Une _modalité graduée sur $`P`_ est une famille de comonades
+$`\{!_p\}_{p \in P}` sur _C_, indexée par $`P`, telle que $`p \preceq q` induise une coercion
+$`!_q A \to !_p A` et que l'ordre gouverne la composition. Le grade d'une liaison porte alors une
+composante dans $`P`, et la contrainte que cette composante exprime est toujours de la même forme :
+une flèche graduée en $`p` ne peut employer que ce qui est disponible en deçà de $`p`.
+
+Ce procédé a plus d'instances que le document ne le laisse voir, et les compter est ce qui mesure sa
+portée. Les voici toutes, avec la structure ordonnée que chacune prend pour paramètre.
+
+::::k7table (label := "tab:c2-instances-gradation") (align := "lZ{1.0}Z{1.0}")
+:::caption
+Les instances du procédé de gradation, et la structure ordonnée de chacune
+:::
+
+:::table +header
+* * Modalité
+  * Structure ordonnée
+  * Ce que la contrainte dit
+* * usage
+  * le semi-anneau d'usage
+  * combien de fois une ressource est employée
+* * monotonie
+  * l'ordre à deux points
+  * si une flèche respecte l'ordre de son argument
+* * confidentialité
+  * le treillis des niveaux
+  * ce qu'un observateur d'un niveau peut distinguer
+* * budget
+  * les conaturels sous l'ordre inverse
+  * ce qu'un calcul ne dépassera pas
+* * temps, délai
+  * l'ordre des instants
+  * qu'une ressource sera disponible au pas suivant
+* * temps, permanence
+  * le même, en permanence
+  * qu'elle l'est à tout instant
+* * temps, éventualité
+  * le même, sans borne
+  * qu'elle le sera sans qu'on dise quand
+* * localité
+  * le demi-treillis des localisations
+  * où une valeur réside
+* * présence
+  * le monoïde des champs
+  * si un champ d'un enregistrement est là
+:::
+::::
+
+Neuf instances, et aucune n'a demandé de mécanisme propre. {rmq}[Neuf applications d'une
+construction écrite une fois. C'est la mesure de ce que le procédé vaut, et elle ne se lisait nulle
+part.] Deux données complètent le tableau sans être des modalités, et il faut dire pourquoi : le
+_mode_ — une algèbre, un idéal de contraction, un booléen d'affaiblissement — fixe les règles
+structurelles admissibles plutôt qu'une contrainte sur les liaisons ; et la _zone_ y ajoute un ordre
+propre. Ce sont les paramètres du procédé, non ses produits.
+
+Ce que ce tableau établit n'est pas une économie d'écriture, c'est la _portée syntaxique_ de la
+condition de clôture. Une extension qui réclamerait une dixième modalité n'a pas besoin d'un nouveau
+constructeur de la théorie noyau pour la porter dans la grammaire. En revanche, si cette modalité
+participe aux opérations graduées, elle doit fournir les structures d'ordre, d'action et de morphisme
+requises par les règles qui l'emploient. C'est cette distinction entre clôture syntaxique et clôture
+algébrique qui manque aux formulations antérieures, et c'est pourquoi
+elle a pu entrer sans quatrième place dans le jugement.
+
+Deux instances suffisent à montrer que la forme est la bonne. La monotonie est la modalité sur
+l'ordre à deux points $`\{\text{discret} \prec \text{monotone}\}` : une flèche graduée _monotone_ ne
+peut employer ses arguments que d'une manière qui préserve $`\sqsubseteq`, et la coercion
+descendante dit qu'une fonction monotone s'emploie partout où une fonction quelconque est admise. La
+_confidentialité_ est la modalité sur un treillis de niveaux $`(\mathcal{L}, \leq)` : une flèche
+graduée en $`\ell` ne peut employer que des valeurs de niveau au plus $`\ell`, et la coercion monte
+l'information sans jamais la redescendre. Le mécanisme est identique, seule change la structure
+ordonnée sur laquelle il opère {cite "marshallGradedModalTypes2023"}[] — de sorte que la
+confidentialité n'ajoute pas un axe au langage mais instancie celui que la monotonie a ouvert.
+
+Un dispositif reste à mentionner, sans lequel cette modalité serait impraticable et avec lequel elle
+est fragile. Un programme utile doit parfois _abaisser_ délibérément un niveau — vérifier un mot de
+passe consiste à révéler un bit d'une valeur secrète, et le refuser rendrait le langage
+inutilisable. Ce mécanisme, la _déclassification_, coerce le niveau vers le bas et sert
+d'échappatoire au régime ordinaire. Son risque propre porte un nom : l'_attaque par blanchiment_, où
+l'échappatoire est employée pour faire sortir davantage que ce qu'elle était censée libérer, une
+valeur secrète transitant par la fonction déclassifiante sous un déguisement quelconque {cite "sabelfeldModelDelimitedInformation2004"}[].
+Il en résulte que spécifier la déclassification demande deux choses et non une : une règle qui
+l'autorise, et une garantie de bout en bout qui borne ce qu'elle peut libérer — la _divulgation
+délimitée_, dont il est établi qu'un système de types l'impose. Une règle sans cette garantie
+rendrait le grade de confidentialité contournable par construction, et ce document ne donne pour
+l'instant ni l'une ni l'autre. Il donne les deux ici.
+
+La règle procède par _échappatoires nommées_ plutôt que par une permission générale de déclassifier.
+Une déclaration fixe un ensemble fini $`\mathcal{X}` d'expressions — les échappatoires — dont
+chacune énonce ce qui est autorisé à sortir : le résultat de la comparaison d'un mot de passe, la
+somme d'une colonne, le rang d'un enchérisseur. Ces expressions sont _closes_,
+$`\forall e \in \mathcal{X},\ \mathrm{fv}(e) = \emptyset`, et évaluées dans l'état initial : une
+échappatoire ouverte ouvrirait un contournement par substitution, puisque
+$`\mathbf{declassify}_{\ell'}(e)[v/x] = \mathbf{declassify}_{\ell'}(e[v/x])` sans que
+$`e[v/x] \in \mathcal{X}`, et l'attaquant ferait comparer le secret à une valeur de son choix
+(§{num "sec:g-semantique"}[]). La règle ne s'applique qu'à elles :
+
+::::formula (label := "eq:regle-declassify") (kind := "equation")
+```
+\begin{equation}
+\frac{\;\Delta \vdash_{\mathcal{G}} e : !_{\ell}\,A \qquad e \in \mathcal{X} \qquad \ell' \leq \ell\;}{\;\Delta \vdash_{\mathcal{G}} \mathbf{declassify}_{\ell'}(e) : !_{\ell'}\,A\;}
+\end{equation}
+```
+::::
+
+Ce que cette règle laisse ouvert est ce qu'une garantie doit fermer : rien n'y interdit qu'une
+valeur secrète quelconque transite par une échappatoire sous un déguisement, et l'échappatoire
+libérerait alors bien plus que ce qu'elle nomme. La garantie qui l'écarte s'énonce sur les
+exécutions plutôt que sur les dérivations.
+
+::::thm (label := "thm:divulgation_delimitee") (status := "proposition")
+:::title
+divulgation délimitée
+:::
+
+:::statement +titled
+Une échappatoire ne libère que ce qu'elle nomme
+
+Soit $`P` un programme bien typé dont les déclassifications portent sur l'ensemble d'échappatoires
+$`\mathcal{X}`. Alors pour tout niveau $`\ell` et tous états initiaux $`s_1, s_2` qui coïncident sur
+ce que l'observateur de niveau $`\ell` voit _et sur la valeur de chaque expression de
+$`\mathcal{X}`_, les exécutions $`P(s_1)` et $`P(s_2)` sont indiscernables à ce niveau.
+:::
+
+:::proofsketch
+Non démontré : l'énoncé est une proposition, et ce croquis n'en est que le plan. La quantification
+est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell` produisent
+des sorties indiscernables — ce serait la non-interférence, que la déclassification viole par
+construction — mais que deux états qui s'accordent _en outre_ sur les échappatoires le fassent. La
+e \\in \\mathcal{X}` est close), faute de quoi la substitution ouvrirait le contournement
+par blanchiment. Le théorème de non-interférence {num "thm:non_interference"}[] couvre les cas où
+aucune déclassification n'est employée. Cette extension n'est pas démontrée ici.
 :::
 ::::
 
