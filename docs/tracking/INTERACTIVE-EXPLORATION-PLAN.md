@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC-BY-4.0
 **Date de création :** 2026-10-08  
 **Document de suivi :** les cases décrivent des actions à réaliser ou des critères à vérifier ; elles ne constituent pas des résultats acquis.
 
-Référence : [Enveloppe interactive de présentation et d'exploration](../INTERACTIVE-EXPLORATION.md).
+Référence : [Enveloppe interactive de présentation et d'exploration](INTERACTIVE-EXPLORATION.md).
 
 ## Objectif
 
