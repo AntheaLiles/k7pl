@@ -67,7 +67,7 @@ A change that requires weakening a normative claim merely to make an implementat
 
 K7PL is also developing an interactive presentation and exploration layer. The purpose is not to replace the repository's canonical sources, but to make relationships between specification, formalisation, implementation, proofs, tests, documentation, bibliography, decisions, and history navigable.
 
-The proposed architecture is documented in [INTERACTIVE-EXPLORATION.md](INTERACTIVE-EXPLORATION.md) and its executable backlog in [tracking/INTERACTIVE-EXPLORATION-PLAN.md](tracking/INTERACTIVE-EXPLORATION-PLAN.md).
+The proposed architecture is documented in [INTERACTIVE-EXPLORATION.md](tracking/INTERACTIVE-EXPLORATION.md) and its executable backlog in [tracking/INTERACTIVE-EXPLORATION-PLAN.md](tracking/INTERACTIVE-EXPLORATION-PLAN.md).
 
 The project treats Lean as a possible transformation language from a formal documentary/semantic model to a navigable representation rendered with Verso. A graph view may complement document navigation. Development is gated by a demonstration of value on a real comprehension path; a global Markdown-to-MDX migration is not an objective.
 
