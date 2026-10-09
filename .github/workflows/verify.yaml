@@ -196,6 +196,8 @@ jobs:
 
       - name: Test the Lake-to-OSV adapter
         run: python3 scripts/ci/test_lake_manifest_to_osv.py
+      - name: Test the Lake-to-SPDX inventory generator
+        run: python3 scripts/ci/test_lake_manifest_to_spdx.py
 
       - name: Test the Python tooling (mini-corpus Verso, auto-tests mutés)
         run: python3 -m pytest tests/python -q
