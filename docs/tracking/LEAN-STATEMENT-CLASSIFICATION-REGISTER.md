@@ -103,15 +103,15 @@ Les états cibles « étayé », « établi », « réfuté » et « retiré » 
 
 This section records source-level dependency cycles found by reading the complete statement and proof-sketch blocks. These are **review blockers**, not automatic judgments that the mathematical claims are false. The dependency extractor identifies explicit theorem-label references; it does not determine whether a reference is a proof premise, an informal motivation, or a genuinely circular justification. That distinction requires semantic review.
 
-### Cycle A — spatial safety and unique resource introduction
+### Semantic circularity concern — spatial safety and unique resource introduction
 
 - `thm:surete_spatiale` states H1 (at most one write capability per region) as an assumption and its proof sketch says H1 is what excludes two distinct capabilities for the same region.
 - `thm:introduction_unique` claims to establish that same uniqueness, but its statement explicitly calls it “hypothèse H1 du théorème `thm:surete_spatiale`”.
-- The resulting explicit reference cycle is `thm:surete_spatiale → thm:introduction_unique → thm:surete_spatiale`.
+- **Correction:** the source blocks do not form a syntactic reference cycle. The direct theorem-label references are one-way: `thm:introduction_unique → thm:surete_spatiale`. The concern is instead a circularity in the argument's stated justification: the uniqueness claim is both assumed by the safety theorem and presented as a consequence by the introduction theorem, while the introduction sketch still says the arena-elimination rule remains to be written.
 
-This cannot be treated as a closed derivation as written. Review must decide which statement is foundational and independently justified by the typing/rule system, then orient the dependency one way. Preserve the H2 interval-scope argument and H3 nesting condition as separate premises; do not silently erase them during migration.
+This is a semantic review blocker, but it must not be reported as a cycle detected by the syntactic graph tool. Review must identify an independently justified rule or premise for H1 and orient the proof obligation accordingly. Preserve the H2 interval-scope argument and H3 nesting condition as separate premises; do not silently erase them during migration.
 
-### Cycle B — fundamental lemma and bounded disclosure
+### Syntactic dependency cycle — fundamental lemma and bounded disclosure
 
 - `thm:lemme_fondamental` lists `thm:divulgation_delimitee` among its direct theorem dependencies.
 - `thm:divulgation_delimitee` explicitly lists `thm:lemme_fondamental` and `thm:non_interference` as its dependencies, while its proof sketch says “Non démontré”.
@@ -125,7 +125,7 @@ The complete `thm:preservation_type` block states ordinary preservation by reduc
 
 ### Required follow-up
 
-1. Resolve the two explicit dependency cycles in a dedicated semantic review; do not rewrite source blocks as part of this inventory-only change.
+1. Resolve the one explicit syntactic dependency cycle and the separate H1 circularity concern in a dedicated semantic review; do not rewrite source blocks as part of this inventory-only change.
 2. Extend the dependency audit to classify each edge as proof premise, stated hypothesis, derived result, documentary citation, or contextual mention. The current checker deliberately reports direct label references only.
 3. Revisit the candidate role/state fields for the affected entries after the dependency direction is resolved.
 4. Keep C8.0 open until the full statement/proof-sketch review and the migration acceptance checks are complete.
