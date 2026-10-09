@@ -76,6 +76,25 @@ L'évaluation doit distinguer trois couches : (1) défauts de code Lean détecta
 - [ ] Si l'outil est inadéquat, documenter les lacunes avant de décider d'une extension ou d'une réimplémentation ciblée.
 - [ ] Ne revendiquer aucune couverture SAST tant qu'une évaluation reproductible ne la démontre pas.
 
+## 4. SAST des workflows GitHub Actions : zizmor
+
+`zizmor` analyse statiquement les workflows et définitions d'actions GitHub Actions. Il complète `actionlint` : ce dernier valide principalement la syntaxe et la structure, tandis que zizmor recherche des motifs de sécurité tels que les permissions excessives, les injections et les risques de chaîne d'approvisionnement.
+
+Une première intégration est proposée dans `.github/workflows/security.yaml` avec :
+- l'action `zizmorcore/zizmor-action` épinglée sur un SHA complet ;
+- la version de l'analyseur explicitement fixée ;
+- le périmètre `.github/` ;
+- les audits en ligne désactivés pour la première observation ;
+- la publication des résultats vers Code Scanning, sans transformer les constats en condition de fusion.
+
+Ce choix est volontairement conservateur : la configuration doit d'abord produire des résultats examinables sans bloquer la mainteneuse sur des constats non triés. La réussite technique du job ne signifie pas que les workflows sont exempts de défauts, et l'absence de constats ne prouve pas l'absence de vulnérabilités.
+
+- [ ] Confirmer la réussite du job dans la CI de la PR et l'apparition des résultats dans Code Scanning.
+- [ ] Examiner chaque constat, distinguer vrai positif, faux positif et cas non applicable ; documenter les suppressions justifiées dans la configuration prévue par zizmor.
+- [ ] Réaliser un passage exploratoire avec le persona `auditor` et comparer le signal au persona `regular`.
+- [ ] N'envisager un blocage qu'après examen des constats, des faux positifs et de l'effet sur les PR.
+- [ ] Revoir périodiquement la version épinglée et les règles d'analyse, comme toute dépendance de sécurité.
+
 ## 4. Gouvernance des branches et actions GitHub
 
 Les avertissements génériques sur la protection de branche ne doivent pas être corrigés mécaniquement au prix d'une règle impossible à satisfaire ou d'un verrouillage de l'unique mainteneuse. Le dépôt a historiquement un seul humain en mesure de relire ; une approbation exigée sans second relecteur serait une protection inopérante ou un blocage. Un fichier `CODEOWNERS` pointant vers la seule mainteneuse ne crée pas de revue indépendante.
