@@ -220,15 +220,15 @@ jobs:
           }
           with open(evidence_path, "w", encoding="utf-8") as stream:
               json.dump(evidence, stream, indent=2, sort_keys=True)
-              stream.write("\\n")
+              stream.write("\n")
 
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
-              summary.write("### Scoped SPDX consistency audit\\n")
-              summary.write("- Valid input: PASS; 14 manifest components checked.\\n")
-              summary.write("- Negative integration cases: malformed JSON → ERROR/2; mutated revision → FAIL/1.\\n")
-              summary.write("- Lean toolchain: `" + evidence["toolchain"]["lean"] + "`\\n")
-              summary.write("- Manifest SHA-256: `" + evidence["inputs"][0]["sha256"] + "`\\n")
-              summary.write("- Generated SPDX SHA-256: `" + evidence["inputs"][1]["sha256"] + "`\\n")
+              summary.write("### Scoped SPDX consistency audit\n")
+              summary.write("- Valid input: PASS; 14 manifest components checked.\n")
+              summary.write("- Negative integration cases: malformed JSON → ERROR/2; mutated revision → FAIL/1.\n")
+              summary.write("- Lean toolchain: `" + evidence["toolchain"]["lean"] + "`\n")
+              summary.write("- Manifest SHA-256: `" + evidence["inputs"][0]["sha256"] + "`\n")
+              summary.write("- Generated SPDX SHA-256: `" + evidence["inputs"][1]["sha256"] + "`\n")
           print("Lean scoped SPDX consistency audit and negative CLI cases: PASS")
           PY
 
