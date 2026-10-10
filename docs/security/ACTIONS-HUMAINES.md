@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 | | |
 |---|---|
-| État | **À dérouler** : l'automatisation locale est préparée dans la PR [#129](https://github.com/AntheaLiles/k7pl/pull/129), mais la campagne OpenSSF n'est pas close. |
+| État | **À poursuivre** : la PR [#129](https://github.com/AntheaLiles/k7pl/pull/129) est fusionnée ; l'exploitation du workflow Security, les décisions et les validations humaines restent ouvertes. |
 | Profil externe | [K7PL sur Best Practices](https://www.bestpractices.dev/en/projects/15239/baseline-2) — dernier état vérifié le 2026-10-10 : in_progress, baseline v2026.08.28, métadonnées de nom, description, licence et langages vides. |
 | Mode d'emploi | Suivre les phases dans l'ordre. Ne cocher une case qu'après observation effective ; inscrire la preuve, la date et la décision dans le registre approprié. |
 | Registres | [État opérationnel](OPENSSF-ROADMAP.md) · [Décisions D1–D11](DECISIONS-REQUISES.md) · [Analyse BadgeApp](BADGE-AUTOMATION.md) · [Matrice des critères](BADGE-CONFORMANCE-MATRIX.md) |
@@ -16,7 +16,7 @@ Cette liste est centrée sur les gestes, décisions et preuves qui exigent la ma
 
 ## 0. Valider puis intégrer le socle
 
-- [ ] **Relire et intégrer la PR #129** uniquement lorsque son dernier commit a une CI verte et que le diff est accepté. La PR reste ouverte ; aucun merge n'a été effectué par cette campagne.
+- [x] **Socle automatisé intégré** : PR #129 fusionnée le 2026-10-10 à 17:09:57 UTC. Le `main` observé (`2c7c8a0`) a passé [CI #38073770380](https://github.com/AntheaLiles/k7pl/actions/runs/38073770380) et [Scorecard #38073770034](https://github.com/AntheaLiles/k7pl/actions/runs/38073770034). Ces résultats ne remplacent pas l'observation du workflow Security ni les actions humaines ci-dessous.
 - [ ] **Après fusion**, lancer une fois le workflow Security sur la branche main via GitHub Actions, ou attendre sa prochaine exécution planifiée. Vérifier que le job « Detect upstream BadgeApp criteria drift » s'exécute réellement et produit l'artefact JSON attendu.
   - unchanged : consigner la date et le SHA amont observé.
   - drift : comparer les définitions officielles, examiner leurs effets, puis proposer une mise à jour du registre dans une PR ; ne jamais régénérer silencieusement le snapshot.
@@ -80,7 +80,7 @@ La répétition workflow_dispatch précédente était un essai à blanc : elle n
 - [ ] **Preuves temporelles** : relever les délais de réponse aux rapports et vulnérabilités sur les fenêtres exigées ; une absence de données ou une seule exécution ne satisfait pas automatiquement ces critères.
 - [ ] **OSV-Scanner** : après plusieurs exécutions planifiées sur main, documenter la couverture effective, le traitement des alertes et les éventuels échecs.
 - [ ] **PDF/TeX** : si l'ambition de reproductibilité est retenue, obtenir une provenance vérifiable du bundle, épingler son empreinte et exécuter les comparaisons indépendantes avant de fermer R11/R21.
-- [ ] **SBOM/SPDX (R25)** : garder ce prototype dans son chantier technique distinct ([issue #122](https://github.com/AntheaLiles/k7pl/issues/122)). Ne le qualifier ni de validé ni de conforme tant qu'un validateur SPDX indépendant n'a pas accepté le document généré et que le périmètre des artefacts couverts n'est pas établi.
+- [ ] **SBOM/SPDX (R25)** : conserver le chantier technique distinct ([issue #122](https://github.com/AntheaLiles/k7pl/issues/122)). Le document SPDX généré a été accepté par le validateur indépendant hash-locké `spdx-tools 0.8.5` dans la CI #891 ; cette réussite porte sur le document exact, pas sur l'exhaustivité. Il reste à ratifier le périmètre des artefacts couverts et à terminer l'évaluation du corpus négatif et des runs indépendants.
 - [ ] Après chaque série de décisions, mettre à jour la [matrice](BADGE-CONFORMANCE-MATRIX.md) en conservant séparées preuve du dépôt, preuve d'exploitation, réglage externe et jugement humain ; refaire une passe finale avant toute demande de niveau.
 
 ## Conditions de clôture
