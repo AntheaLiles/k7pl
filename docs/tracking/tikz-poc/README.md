@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # POC TikZ — rendu partagé HTML/PDF
 
-**Statut :** prototype expérimental ; aucune figure de production n'est remplacée par ces fichiers.
+**Statut :** POC technique validé ; intégration sélective de la génération au rendu Verso en cours. Les sources TikZ restent des reconstructions révisables.
 **But :** vérifier qu'une source TikZ commune peut produire des sorties PDF et SVG statiques, avec une compilation contrôlée et des métadonnées d'accessibilité explicites.
 
 ## Périmètre
@@ -30,6 +30,20 @@ python3 scripts/ci/check_tikz_poc.py --root out/tikz-poc
 \`\`\`
 
 Le script compile chaque figure deux fois avec le mode déterministe de Tectonic, produit un PDF et un SVG statique via \`pdftocairo\`, puis compare les empreintes des deux constructions. La CI installe Tectonic depuis l'archive épinglée et vérifiée par SHA-256 ; elle conserve les rendus et les trois SVG canoniques de référence comme artefact de PR pour une comparaison visuelle côte à côte.
+
+## Intégration au rendu Verso
+
+Le build de spécification compile les trois sources, valide les paires PDF/SVG, puis copie les rendus vers les noms d'assets canoniques déclarés par `production_asset` dans le manifeste. Les déclarations Verso et leurs textes alternatifs restent la source canonique des métadonnées éditoriales ; le manifeste ne sert qu'à associer les sorties générées aux fichiers d'assets attendus.
+
+Pour reproduire ce rendu localement, avec Tectonic 0.15.0 et Poppler installés :
+
+```sh
+SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)" bash scripts/ci/build_tikz_poc.sh
+python3 scripts/ci/install_tikz_figures.py --source out/tikz-poc --target spec/figures
+lake exe spec --output _out/spec --with-tex
+```
+
+La copie remplace les fichiers PDF/SVG correspondants dans le répertoire de travail. Pour éviter un rendu différent de la CI, lancer ces étapes avant toute compilation Verso destinée à la publication. Les sorties PDF/SVG restent des artefacts dérivés ; ne pas éditer manuellement ces fichiers.
 
 ## Contrat d'évaluation
 
