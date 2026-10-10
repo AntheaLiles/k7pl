@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Chantier K — Assurance de conformité outillée avec Lean 4
 
-**État au 2026-10-10 :** inventaire et faisabilité documentés ; le démonstrateur borné compile, passe ses tests, son audit d'inventaire et ses audits d'axiomes dans [CI #830](https://github.com/AntheaLiles/k7pl/actions/runs/38058400228), sur la révision `67fbf1869b363d07dc3ccb3949846f16f76ac61c`. La validation SPDX indépendante, la provenance par empreinte et l'évaluation mesurée restent ouvertes. Aucune décision de production ni revendication globale de conformité.
+**État au 2026-10-10 :** le démonstrateur de base compile et passe son audit d'inventaire, `lake test`, `lake lint` et les audits d'axiomes dans [CI #830](https://github.com/AntheaLiles/k7pl/actions/runs/38058400228), sur la révision `67fbf1869b363d07dc3ccb3949846f16f76ac61c`. Une révision ultérieure étend les tests CLI négatifs et ajoute un artefact de traçabilité SHA-256 ; ces ajouts doivent encore être validés par leur propre CI. La validation SPDX indépendante et l'évaluation mesurée restent ouvertes. Aucune décision de production ni revendication globale de conformité.
 
 ## 1. Objet et décisions antérieures récupérées
 
@@ -75,7 +75,7 @@ Le flux proposé est :
 6. **Rapport** : produire un JSON stable avec version de schéma, outil et version, statut `PASS/FAIL/ERROR`, diagnostics identifiés par règle, artefacts source, périmètre et limites.
 7. **Preuves et provenance** : relier chaque affirmation à la règle et au source Lean correspondant ; ajouter avant toute généralisation les révisions, empreintes des entrées, versions effectives des analyseurs et liens vers les artefacts de vérification.
 
-Pour la première version, le rapport du prototype enregistre les chemins et le périmètre mais pas encore les empreintes SHA-256 des entrées. Cette limite interdit de le considérer comme un contrat de provenance complet.
+Le rapport natif Lean conserve les chemins et le périmètre, sans calculer les empreintes cryptographiques. La CI ajoute maintenant une enveloppe d'évidence distincte, calculée avec la bibliothèque standard Python, qui enregistre SHA-256 du manifeste, du `lakefile.lean`, du toolchain, des sources d'audit/génération et du SBOM ; elle relève aussi le commit effectivement testé et la tête de PR. Cette enveloppe ne constitue pas une preuve Lean de provenance : elle est une attestation reproductible du workflow, conservée comme artefact CI. Le nouveau contrôle doit encore passer la CI sur sa révision actuelle.
 
 ## 5. Démonstrateur : audit de cohérence Lake ↔ SPDX 2.3
 
@@ -98,7 +98,13 @@ La revendication porte sur **les données observées**, pas sur leur exhaustivit
 
 Les tests Lean couvrent un cas positif ainsi que des cas négatifs pour format de révision invalide, révision modifiée, URL modifiée, métadonnée de licence affirmée, relation inventée, relation manquante, identifiants dupliqués et champ requis absent.
 
-La CI #830 compile la bibliothèque et le CLI, exécute le générateur actuel sur le vrai manifeste, lance l'audit sur le document généré et vérifie le statut du rapport JSON ; `lake test`, `lake lint` et les deux audits d'axiomes passent également. L'intégration testée couvre les 14 entrées présentes dans le manifeste. Elle ne remplace pas le validateur SPDX indépendant, encore à intégrer.
+La CI #830 a compilé la bibliothèque et le CLI, exécuté le générateur sur le vrai manifeste, audité le document généré et vérifié le statut du rapport JSON ; `lake test`, `lake lint` et les deux audits d'axiomes y passent. L'intégration couvre les 14 entrées présentes dans le manifeste. La révision en cours ajoute des tests end-to-end du CLI pour un JSON malformé (`ERROR`, code 2) et une révision falsifiée (`FAIL`, code 1), plus un artefact d'évidence incluant les empreintes ; ces changements n'ont pas encore leur propre résultat CI au moment de cette note.
+
+### Validation indépendante : état du candidat au 10 octobre 2026
+
+Le candidat officiel [`spdx-tools` v0.8.5](https://github.com/spdx/tools-python/releases/tag/v0.8.5) annonce une validation complète contre SPDX 2.2 et 2.3. Toutefois, l'issue upstream [#885 — Package without a name is not flagged as invalid](https://github.com/spdx/tools-python/issues/885) reste ouverte et décrit un document où le nom du paquet est vide sans constat de validité. Le validateur ne doit donc pas être traité comme un oracle infaillible.
+
+Décision provisoire : évaluer v0.8.5 en tant que contrôle indépendant complémentaire, assorti d'une garde explicite pour les champs obligatoires et de fixtures négatives qui vérifient les défauts connus. **Ne pas l'ajouter encore à la CI** : il faut d'abord produire un verrouillage reproductible, avec versions exactes et empreintes de toutes les dépendances transitives, conforme à la politique `--require-hashes` déjà utilisée par K7PL. Le statut de l'issue upstream et la version choisie devront être revérifiés au moment de l'intégration.
 
 ### Critères d'acceptation
 
@@ -118,8 +124,8 @@ La CI #830 compile la bibliothèque et le CLI, exécute le générateur actuel s
 | A — inventaire et récupération des décisions | **Exploré** | Sources repérées ; limites et décisions non récupérables explicites |
 | B — faisabilité et architecture | **Conçu** | Matrice et frontières ci-dessus documentées |
 | C — contrat SPDX minimal | **Conçu** | Invariants du modèle normalisé explicités |
-| D — prototype Lean/CLI/tests | **Prototypé et testé en CI (#830)** | Compilation, `lake test`, `lake lint`, audit d'inventaire et audits d'axiomes réussis sur la révision référencée en tête de ce document |
-| E — validation SPDX indépendante | **Ouvert** | Validateur, version et chaîne d'approvisionnement acceptables ; succès sur la sortie effective |
+| D — prototype Lean/CLI/tests | **Prototype de base testé en CI (#830) ; extension en cours** | Le socle est vert ; les derniers tests CLI négatifs et l'évidence SHA-256 doivent être validés sur la révision mise à jour |
+| E — validation SPDX indépendante | **Candidat évalué ; adoption bloquée** | Valideur indépendant versionné, garde pour les limites connues, dépendances intégralement verrouillées et tests sur la sortie effective |
 | F — évaluation | **Non commencé** | Couverture mesurée, rapports différentiels, temps d'exécution et limites observées |
 | Extension SCA/SAST/CycloneDX/WCAG | **À prioriser après évaluation** | Décision fondée sur le prototype, le bénéfice et les dépendances communes |
 
