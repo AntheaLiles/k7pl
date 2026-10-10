@@ -79,7 +79,7 @@ def test_generates_graph_from_explicit_references_and_citations(tmp_path: Path) 
     assert "Target section" in page
     assert "A source" in page
     assert "fig:one" in page
-    assert "references Verso" in page
+    assert "références Verso" in page
     assert "generated-from" not in page
     assert "blob/deadbeef/" in page
     svg_start = page.index("<svg ")
