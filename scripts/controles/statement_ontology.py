@@ -87,7 +87,7 @@ def violations(text: str, module: str = "<source>") -> list[str]:
         if role == "conjecture" and state == "established":
             errors.append(f"{where}: une conjecture ne peut pas être établie")
         if (kind == "literature" or evidence == "literature") and not source:
-            errors.append(f"{where}: evidence=literature exige source")
+            errors.append(f"{where}: provenance bibliographique absente — evidence=literature exige source")
         if evidence == "lean-proof" and not artifact:
             errors.append(f"{where}: evidence=lean-proof exige formalArtifact")
         if artifact and evidence != "lean-proof":
