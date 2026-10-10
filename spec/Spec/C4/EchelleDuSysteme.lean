@@ -115,7 +115,7 @@ consignée, ce qui établit le rejeu logique défini par P4. Une identité bit �
 profil de représentation $`\Pi` et les hypothèses $`E_{\text{repro}}` du théorème de représentation
 binaire ci-dessous ; elle n'est pas une propriété intrinsèque de la persistance ni du langage.
 
-::::thm (label := "thm:determinisme_rejeu")
+::::theorem (label := "thm:determinisme_rejeu") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Rejeu logique observationnel, sous journal complet et gestionnaires purs ; ne conclut pas à l’identité binaire.")
 :::title
 déterminisme logique du rejeu
 :::
@@ -139,9 +139,9 @@ transparente, le pli sur $`J(H)` est déterministe et égale l'exécution origin
 L'argument porte sur la fonction, donc sur la valeur dénotée ; il ne porte pas sur sa
 représentation.
 :::
-::::
 
-::::thm (label := "thm:rejeu_binaire") (status := "proposition") (level := "representation")
+::::
+::::corollary (label := "thm:rejeu_binaire") (level := "representation") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Identité binaire seulement sous E_repro et injectivité de la représentation ; corollaire conditionnel du rejeu logique.")
 :::title
 identité binaire du rejeu, sous environnement reproductible
 :::
@@ -171,8 +171,8 @@ deux dénotations distinctes pourraient partager une image. Aucune des trois com
 $`E_{\text{repro}}` n'est fixée par ce document, et le journal n'en consigne aucune : l'hypothèse
 est portée par l'environnement d'exécution, non par le langage.
 :::
-::::
 
+::::
 Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représentation_
 $`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}}, \mathrm{arch}, \mathrm{mem}, \mathrm{round}, v_{\mathrm{schéma}} \rangle` : versions des trois
 spécifications de disposition, architecture et comportement NaN, modèle mémoire, mode d'arrondi,
@@ -317,7 +317,7 @@ Ces deux postulats ont un coût d'expressivité assumé et non démontré : P3 e
 dont la terminaison n'est pas structurellement évidente, P4 les ordonnancements non déterministes
 que certains systèmes sensibles à la latence préfèrent.
 
-::::thm (label := "thm:liberte_initialisation")
+::::lemma (label := "thm:liberte_initialisation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Initialisation complète sous acyclicité du graphe et correspondance démontrée entre graphe statique et attentes dynamiques.")
 :::title
 liberté d'initialisation par DAG topologique
 :::
@@ -339,8 +339,8 @@ existe (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
 théorème {num "thm:tri_topologique"}[]) et l'ordre qu'il donne est l'ordre d'initialisation : chaque
 nœud n'y est atteint qu'après ses dépendances, jusqu'au câblage complet.
 :::
-::::
 
+::::
 Les espaces de noms se lisent sur ce même graphe : un namespace en retient la restriction à une
 dimension choisie — la pureté, l'effet, le couplage — ce qui remplace la hiérarchie de dossiers
 physiques par une lecture purement logique du graphe de types. Le graphe lui-même se traite
@@ -466,7 +466,7 @@ caches, son protocole de cohérence.[^fn2]
 
 [^fn2]: La conformité du code engendré au modèle déclaré est une propriété de l'abaissement, qui se vérifie sur un compilateur et non dans un document.
 
-::::thm (label := "thm:sync_motifs_jonction")
+::::lemma (label := "thm:sync_motifs_jonction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Sémantique de Guard/jonction pour présence simultanée de messages ; préciser la relation exacte avec la transition.")
 :::title
 synchronisation atomique des motifs de jonction
 :::
@@ -491,8 +491,8 @@ ressources linéaires stocké dans un anneau SPSC. Le compilateur abaisse $`J` e
 masquage binaire de l'anneau ; la réduction consomme les deux messages simultanément par échange
 atomique de pointeurs, garantissant l'atomicité verrou-libre sans synchronisation supplémentaire.
 :::
-::::
 
+::::
 Cette boîte est un seul objet, $`\mathsf{Mailbox} = \Sigma_{c \in \mathsf{Chan}}\,\mathsf{Bag}(\mathsf{Cap}(c))` :
 un multi-ensemble de ressources linéaires indexé par canal, muni d'une règle de consommation
 atomique multi-places. Quatre résultats de ce document en sont des lectures : l'activation
@@ -545,7 +545,7 @@ ce document franchit une frontière de confiance sans l'avoir tracée — les de
 l'exécution de macros avant vérification et l'importation depuis une source distante (chapitre 5,
 §{num "sec:c5-mise-en-pratique"}[]).
 
-::::thm (label := "thm:surete_ffi")
+::::theorem (label := "thm:surete_ffi") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Exclusivité d’accès de l’acteur pendant l’appel FFI ; n’implique pas la révocation côté hôte.")
 :::title
 sûreté FFI par la passerelle de capacité
 :::
@@ -570,9 +570,9 @@ terme qu'il gouverne, il ne sait pas la _révoquer_ chez un pair qu'il ne gouver
 contrainte sur une sortie, non sur une entrée, et elle relève de l'exigence ci-après plutôt que de
 ce théorème. Au retour, la passerelle restitue la capacité à l'acteur.
 :::
-::::
 
-::::thm (label := "thm:revocation_ffi") (status := "exigence") (level := "representation")
+::::
+::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "Passerelle FFI / runtime")
 :::title
 révocation à la frontière étrangère
 :::
@@ -586,8 +586,8 @@ ne la révoque pas chez un pair qu'il ne gouverne pas. Elle est une _exigence_ s
 la passerelle, qui doit invalider la référence côté hôte — par une table de poignées, une
 génération, ou un mécanisme équivalent — et dont la vérification sort du système de types.
 :::
-::::
 
+::::
 Les deux clauses de cet énoncé n'ont pas le même statut, et le dire évite de leur prêter la même
 force. {rmq}[Une contrainte d'entrée se démontre, une contrainte de sortie s'organise. Seule la
 première est ici un théorème.] Que l'acteur perde l'accès est une contrainte sur une _entrée_, et
