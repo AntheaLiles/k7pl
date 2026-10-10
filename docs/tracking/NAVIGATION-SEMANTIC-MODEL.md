@@ -63,9 +63,11 @@ Si la provenance ne peut pas être retrouvée, l'arête ne doit pas être affich
 
 ## 5. Première tranche sémantique proposée
 
-Après le catalogue de provenance des figures, la prochaine tranche peut porter sur les références explicites et les citations d'une section existante, par exemple `sec:c3-le-systeme-gradue` dans `spec/Spec/C3/LeSystemeGradue.lean`. Cette section contient des références `num` vers des sections et un théorème, ainsi que des citations `cite` vers des clés bibliographiques.
+Le premier prototype exécutable porte sur les lignes 22–50 de `spec/Spec/C6/LeProcessusDeCompilation.lean`. Il relie la section à sa figure explicitement référencée et aux sources bibliographiques citées dans son introduction, puis ajoute la provenance technique de la figure déjà validée par le POC TikZ. Cette tranche est volontairement bornée pour garder le graphe lisible.
 
-Le prototype doit représenter uniquement ces arêtes explicites, chacune avec un lien vers son emplacement source. Il ne doit pas déduire que les références citées sont des prémisses formelles, ni que les théorèmes référencés sont des dépendances de preuve. Le résultat sera une vue locale, navigable dans les deux sens, et non encore un graphe exhaustif de K7PL.
+Le prototype représente uniquement les arêtes `num` et `cite` présentes dans cette plage source, chacune avec un lien vers son emplacement exact. La provenance figure → source TikZ → SVG/PDF est un autre type d'arête, étayé par le manifeste et la CI. Le graphe ne déduit pas que les citations sont des prémisses formelles ni que les références sont des dépendances de preuve.
+
+Une tranche suivante pourra porter sur `sec:c3-le-systeme-gradue` dans `spec/Spec/C3/LeSystemeGradue.lean`, dont les références explicites relient plusieurs sections et un théorème. Le résultat actuel est une vue locale, navigable, et non un graphe exhaustif de K7PL.
 
 ## 6. Génération et validation
 
