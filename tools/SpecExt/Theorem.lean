@@ -162,7 +162,7 @@ block_extension Block.theorem (info : ThmInfo) where
     match fromJson? (α := StatementInfo) data with
     | .error e => reportError e; pure .empty
     | .ok info =>
-      let n := toString (info.number.getD 0)
+      let n := if info.numbered then toString (info.number.getD 0) else ""
       let (slots, _) := splitSlots contents
       let level := if info.level == "langage" then "" else s!"~⟨{levelName info.level}⟩"
       let mut out : Array Verso.Output.TeX := #[]
