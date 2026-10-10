@@ -73,3 +73,12 @@ Le **programme d'ajustement de septembre** ([`todo-manuscrit`](../history/2026-0
 
 
 | D-14 | hygiène des branches | Audit du 8 octobre : les branches historiques sont désormais classées dans `docs/tracking/BRANCHES-STATUS.md`. `claude/lean4-reuse-init-qvzlcg` est conservée comme archive scientifique non normative car elle contient encore du matériau absent de `main`. `split/pr10-1-outillage-spec` est explicitement abandonnée. La branche `automation/generated-status` et sa PR #71 sont supersédées par #72. |
+
+
+## D-15 — Outils Lean d'assurance de conformité de projet (question ouverte, 2026-10-10)
+
+**État : à instruire ; aucune décision d'implémentation prise.** L'issue [#122](https://github.com/AntheaLiles/k7pl/issues/122) ouvre l'exploration.
+
+La question est de déterminer si Lean apporte une valeur spécifique pour relier des contraintes de projet (normes, contrats, règles métier, décisions et exigences) à des propriétés vérifiables et à des preuves de réalisation. Il faut distinguer les théorèmes vérifiés, les contrôles de données, la traçabilité, les observations empiriques et les jugements humains responsables. Une formalisation ou une compilation réussie ne suffit pas à établir une conformité juridique, contractuelle ou organisationnelle.
+
+Avant toute implémentation, l'étude doit comparer Lean à des solutions plus simples, définir une revendication d'assurance bornée et proposer un démonstrateur non critique avec des contre-exemples. Elle n'autorise aucune modification implicite de la spécification normative ou de l'implémentation Lean de K7PL.
