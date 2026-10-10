@@ -48,7 +48,7 @@ qui n'est pas encore démontré.
 - **Reproductibilité du PDF** : non démontrée (bundle TeX non épinglé, aucune double compilation comparée). Seule la génération HTML/TeX de la
   spécification a été observée identique sur deux builds propres **d'une même machine**.
 - **SLSA** : aucun niveau n'est revendiqué (aucune provenance publiée).
-- **SBOM** : `lake-manifest.json` tient lieu de nomenclature des dépendances Lake ; aucun SBOM n'est produit.
+- **SBOM** : `lake-manifest.json` tient lieu de nomenclature des dépendances Lake ; un générateur SPDX 2.3 existe, mais sa sortie n'a pas encore été validée par un parseur indépendant ni intégrée à la release.
 - **SAST** : aucun outil ne couvre Lean. Le SARIF de Scorecard n'est pas un SAST.
 - **Fuzzing** : aucune surface d'entrée identifiée (`src/` est minuscule, sans IO ni FFI) ; le décompte courant est celui de `docs/STATUS.md`, généré par la CI.
 - **Propriétés de sécurité du langage** (non-interférence, déclassification) : ce sont des énoncés de la spécification, ni implémentés ni prouvés.
