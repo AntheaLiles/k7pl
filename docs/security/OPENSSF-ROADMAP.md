@@ -3,61 +3,43 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# OpenSSF — registre des travaux encore ouverts
+# OpenSSF / CII Best Practices — état opérationnel
 
 | | |
 |---|---|
-| État | **PAUSE TEMPORAIRE** au 2026-10-10 |
-| Périmètre | Remédiation de sécurité et de chaîne d'approvisionnement du dépôt ; ne vaut ni certification OpenSSF, ni validation humaine de sécurité |
-| Règle | Ce registre ne contient que les actions encore ouvertes, partielles, préparées mais non exécutées de bout en bout, ou bloquées |
-| Historique | [Plan détaillé archivé au 2026-10-10](OPENSSF-ROADMAP-HISTORY-2026-10-10.md) · [Audit consolidé](OPENSSF-AUDIT.md) · [État de mise en œuvre](IMPLEMENTATION-STATUS.md) |
-| Actions humaines | [ACTIONS-HUMAINES.md](ACTIONS-HUMAINES.md) · [DECISIONS-REQUISES.md](DECISIONS-REQUISES.md) |
+| État | **Préparation technique prête à relire ; conformité globale non achevée** |
+| Périmètre | Sécurité du dépôt, chaîne de construction/publication et préparation de l'auto-évaluation BadgeApp. Ne vaut ni certification ni revue humaine. |
+| Trace de la dernière vague | [PR #129](https://github.com/AntheaLiles/k7pl/pull/129). Vérifier l'état de main pour savoir quels changements sont intégrés ; une PR ne prouve pas la conformité. |
+| Registres actifs | [Actions humaines ordonnées](ACTIONS-HUMAINES.md) · [Décisions D1–D11](DECISIONS-REQUISES.md) · [Matrice des critères](BADGE-CONFORMANCE-MATRIX.md) · [Analyse BadgeApp](BADGE-AUTOMATION.md) |
+| Dossier de preuves | [Audit consolidé](OPENSSF-AUDIT.md) · [État d'implémentation](IMPLEMENTATION-STATUS.md) · [Modèle de menace](THREAT-MODEL.md) · [Cas d'assurance](ASSURANCE-CASE.md) · [Politique des secrets](SECRETS-POLICY.md) |
+| Archives | [Checklist historique du 2026-10-10](../history/2026-10-10-openssf-conformance-checklist.md) · [Plan initial de remédiation](../history/2026-10-10-openssf-remediation-plan.md) · [Clôture de la vague d'automatisation](../history/2026-10-10-openssf-automation-closeout.md) |
 
-## 1. Résultat de la campagne avant la pause
+## État observé
 
-La mainteneuse rapporte que la PR #120 est fusionnée, que `CI OK` passe sur `main`, et que le workflow `Release` a été lancé manuellement sur `main` et a réussi. La PR #121 met à jour la traçabilité de cette répétition ; elle reste volontairement non fusionnée au moment de cette mise à jour.
+La PR #129 prépare le contrôle local de cohérence des sources BadgeApp, le générateur prudent de propositions, le registre de critères épinglé, la détection read-only de dérive amont et les tests correspondants. La CI de la tête antérieure 1b5950350588742f2b0681e37565f85d70527d98 a réussi le run [38059644310](https://github.com/AntheaLiles/k7pl/actions/runs/38059644310). La présente consolidation documentaire impose une nouvelle exécution CI ; seul son résultat sur le nouveau head pourra être retenu.
 
-La répétition manuelle constitue un **essai à blanc**. Elle confirme le chemin de contrôles et de construction exercé par `workflow_dispatch`, notamment le build sans cache. Elle ne prouve pas le déclenchement par tag, la création réelle du brouillon, l'émission et la vérification d'une attestation, la publication, ni l'archivage Zenodo. Les réglages GitHub, du compte et de Zenodo n'ont pas été confirmés par cette exécution.
+Le profil [BadgeApp K7PL](https://www.bestpractices.dev/en/projects/15239/baseline-2) a été observé le 2026-10-10 en état in_progress, baseline v2026.08.28. Les champs nom, description, licence et langages sont vides. Le badge est déjà affiché dans le README. Aucun formulaire n'a été soumis et aucune réponse externe n'a été modifiée.
 
-## 2. Registre actif : uniquement les écarts non clos
+## Écarts qui restent ouverts
 
-| ID | Sujet | État | Ce qui manque pour clore honnêtement |
-|---|---|---|---|
-| R1 | Flux de release : tag, contrôles, reconstruction sans cache, brouillon avec PDF, somme et attestation | PARTIAL | Essai contrôlé sur un tag de test, création du brouillon, vérification locale de l'attestation ; aucune publication réelle sans validation humaine préalable |
-| R3 | Publication Zenodo et synchronisation des artefacts | PREPARED | Décision D1 sur l'origine et l'identifiant du DOI ; environnement protégé ; tests et répétition sur le sandbox Zenodo |
-| R4 | Mise à jour automatique de Lean (`bump-lean`) | PREPARED | Environnement protégé ; examen des permissions et du manifeste ; exécution réelle lors d'un bump admissible |
-| R5 | Paramètres de sécurité GitHub et du compte | HUMAN ACTION REQUIRED | Vérifier règles de tags, protections d'environnements, secrets, permissions Actions, secret scanning, 2FA et continuité d'accès ; consigner les observations |
-| R6 | Déclenchement réel de la release par tag et contrôle d'appartenance à `main` / `CI OK` | PARTIAL | Tester le chemin d'événement tag dans des conditions contrôlées ; le succès de `workflow_dispatch` ne suffit pas |
-| R7 | Limitation des capacités de fusion et d'écriture des agents | HUMAN ACTION REQUIRED | Décision D3, mise en œuvre explicite dans `.claude/settings.json` et vérification du comportement des agents ; ne pas confondre convention et garantie technique |
-| R11 | Reproductibilité du PDF | PARTIAL | Le PDF n'est pas démontré reproductible ; pinner et vérifier le bundle TeX puis comparer des compilations indépendantes avant toute revendication |
-| R13 | Documentation publique du parcours de release | PARTIAL | Relecture finale de README, CONTRIBUTING, SECURITY, CHANGELOG et documentation des workflows à la lumière du parcours réel ; ne pas décrire la release comme éprouvée de bout en bout |
-| R14 | Revue de sécurité humaine et validation des revendications | HUMAN ACTION REQUIRED | Revue personnelle, datée et signée par la mainteneuse ; les rapports d'agents ne constituent pas une revue indépendante |
-| R21 | Épinglage et vérification du bundle TeX de Tectonic | BLOCKED | Source d'artefact et empreinte de confiance indépendamment vérifiables ; la tentative précédente était bloquée par l'accès réseau de la session |
-| R25 | Prototype SBOM SPDX 2.3 | PARTIAL | Générer le document sur le manifeste courant, le valider avec un parseur/validateur SPDX indépendant, examiner les résultats et décider séparément s'il doit entrer dans la release |
-| R27 | Surveillance des vulnérabilités des dépendances Lake par OSV-Scanner | PARTIAL | Confirmer plusieurs exécutions planifiées, le comportement en cas d'échec et le traitement des avis ; le premier scan sans résultat n'est pas une preuve de couverture durable |
+| ID | État | Condition de clôture |
+|---|---|---|
+| R1 / R6 — chemin réel de publication par tag | PARTIEL | Répétition en sandbox avec tag contrôlé, vérification du commit / de CI OK, brouillon et attestation ; le seul workflow_dispatch ne prouve pas le chemin tag. |
+| R3 — Zenodo / DOI | PRÉPARÉ | Décision D1 sur l'origine du DOI et le canal unique ; environnement protégé et répétition sandbox. |
+| R4 — mise à jour Lean | PRÉPARÉ | Environnement bump-lean protégé, jeton à privilèges minimaux et première exécution réelle lors d'une mise à jour admissible. |
+| R5 / R7 — paramètres et agents | ACTION HUMAINE | Contrôles de compte, paramètres administratifs et décision D3 ; aucune configuration externe n'a été modifiée par la campagne. |
+| R11 / R21 — reproductibilité PDF/TeX | PARTIEL / BLOQUÉ | Décision D7, bundle TeX identifié et vérifié indépendamment, puis comparaison de builds ; ne pas revendiquer de reproductibilité avant preuve. |
+| R13 / R14 — documentation et revue humaine | PARTIEL / ACTION HUMAINE | Confronter les documents au parcours réellement testé ; revue de sécurité personnellement conduite et datée avant de revendiquer le critère Gold. |
+| R25 — SBOM/SPDX | PARTIEL, distinct | Validation indépendante et décision de périmètre ; chantier séparé de la présente automatisation BadgeApp (issue #122). |
+| R27 — surveillance OSV | PARTIEL | Plusieurs exécutions planifiées, examen des avis et preuve de la procédure de triage. |
+| R28 — fiche BadgeApp | PARTIEL / ACTION HUMAINE | Périmètre, métadonnées, examen des critères, justifications N/A autorisées, envoi humain et vérification de l'état sauvegardé. |
 
-## 3. Décisions humaines encore à traiter
+Les décisions D2, D4, D6, D8, D9, D10 et D11 restent décrites dans [DECISIONS-REQUISES.md](DECISIONS-REQUISES.md) ; leur recommandation documentaire ne doit pas être interprétée comme une ratification. Les actions sont ordonnées dans [ACTIONS-HUMAINES.md](ACTIONS-HUMAINES.md) pour éviter de multiplier les checklists et le suivi dupliqué.
 
-Les décisions ouvertes restent consignées dans [DECISIONS-REQUISES.md](DECISIONS-REQUISES.md). Les plus sensibles avant toute publication sont :
+## Règles de clôture
 
-- **D1** — établir l'origine du DOI Zenodo et choisir un canal de publication unique ;
-- **D2** — confirmer la procédure de publication humaine en deux temps et conserver l'immuabilité ;
-- **D3** — décider et appliquer les restrictions des agents ;
-- **D5** — valider la formulation des métadonnées publiques avant leur archivage irréversible ;
-- **D6** — décider si les checks de `main` doivent être stricts ;
-- **D7** — borner explicitement la revendication de reproductibilité ;
-- **D9** — valider gouvernance, langue des signalements, DCO et canal du code de conduite ;
-- **D10** — terminer les notes de release et l'état pre-release de la version de spécification ;
-- **D11** — trancher la conception et les permissions du job `status`.
-
-L'essai de zizmor est maintenant réalisé dans la CI ; la question encore ouverte est son éventuel caractère bloquant, pas son introduction initiale.
-
-## 4. Travaux différés, hors du registre actif
-
-Les idées non engagées — double compilation quotidienne, remplacement de `lean-action`, `lean4checker`, tags signés, fuzzing et tests par propriétés — ne sont pas des actions de la campagne en cours. Elles restent dans le snapshot historique pour ne pas gonfler le registre actif. Elles ne sont ni déclarées accomplies, ni engagées pour la prochaine étape.
-
-## 5. Règle de pause
-
-La campagne OpenSSF est **mise en pause**, pas déclarée entièrement conforme ni définitivement close. Aucune tâche proactive de remédiation supplémentaire n'est engagée avant sa réouverture explicite, sauf incident de sécurité ou exigence nécessaire à une publication envisagée. Les actions humaines irréversibles ne doivent jamais être exécutées automatiquement.
-
-La question de recherche suivante est séparée : [issue #122 — outils Lean pour l'assurance de conformité de projet](https://github.com/AntheaLiles/k7pl/issues/122). Elle ne constitue pas une revendication de conformité OpenSSF et ne doit pas modifier implicitement la spécification K7PL.
+- Un contrôle local ou une CI verte valide uniquement les contrôles exécutés.
+- La matrice est un registre interne de preuves candidates, pas l'état sauvegardé dans BadgeApp.
+- Aucune écriture automatique ne pousse les réponses au badge et aucun job de dérive ne met à jour le registre épinglé.
+- Aucun secret, réglage administrateur, tag, release, publication Zenodo ni réponse BadgeApp n'a été modifié par la campagne.
+- Tout nouveau travail d'ingénierie doit être rattaché à un identifiant et à une preuve de sortie ; les pistes futures non engagées restent dans les archives, pas dans le registre actif.

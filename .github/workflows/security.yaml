@@ -15,6 +15,53 @@ permissions:
   contents: read
 
 jobs:
+  badge-source-coherence:
+    name: Check BadgeApp source metadata and proposal safety
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check local metadata coherence and pinned criteria registry
+        run: python3 scripts/ci/check_badge_proposals.py --check-sources
+
+  badge-criteria-drift:
+    name: Detect upstream BadgeApp criteria drift
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Compare pinned criteria blob IDs with upstream
+        run: |
+          set +e
+          python3 scripts/ci/check_badge_proposals.py --check-upstream --report "$RUNNER_TEMP/badge-criteria-drift.json"
+          result=$?
+          if [ "$result" -eq 0 ]; then
+            echo "OpenSSF BadgeApp criteria are unchanged from the pinned registry." >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$result" -eq 1 ]; then
+            echo "::warning::OpenSSF BadgeApp criteria changed upstream; review the report and update the registry deliberately."
+            echo "**Upstream criteria drift detected.** The pinned registry was not modified." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning::Could not verify OpenSSF BadgeApp criteria drift; inspect the report and retry."
+            echo "**Upstream check unavailable.** This is not evidence that the criteria are unchanged." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit 0
+      - name: Preserve drift-check report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: badge-criteria-drift-${{ github.run_id }}
+          path: ${{ runner.temp }}/badge-criteria-drift.json
+          if-no-files-found: warn
+          retention-days: 90
   actionlint:
     runs-on: ubuntu-latest
     timeout-minutes: 10

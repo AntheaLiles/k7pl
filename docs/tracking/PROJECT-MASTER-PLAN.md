@@ -515,6 +515,8 @@ Every missing link must be explicit.
 
 At the current snapshot:
 
+The OpenSSF/security workstream is tracked separately in [the operational roadmap](../security/OPENSSF-ROADMAP.md) and [the human-action register](../security/ACTIONS-HUMAINES.md); it is intentionally not duplicated in this scientific execution queue.
+
 1. complete the review of #54 and merge only once its current head is green and its scientific scope is accepted;
 2. continue the remaining C proof/interface obligations and open C8 statement-command taxonomy as a dedicated sub-workstream;
 3. do not reopen the completed physical documentation migration; use docs/migration/ only for the remaining semantic lots;
@@ -525,8 +527,7 @@ At the current snapshot:
 8. establish the bounded implementation-conformance case I;
 9. exercise J and P1–P6;
 10. complete the semantic migration lots that remain justified, then maintain the closed physical architecture without recreating a migration work queue.
-11. keep the OpenSSF remediation campaign on temporary hold; its genuinely open items remain in `docs/security/OPENSSF-ROADMAP.md` and human-only actions in `docs/security/ACTIONS-HUMAINES.md`.
-12. start K as a separate research question via issue #122; do not treat Lean formalization as automatic legal, contractual, or organizational compliance.
+11. start K as a separate research question via issue #122; do not treat Lean formalization as automatic legal, contractual, or organizational compliance.
 
 If a stage exposes a new architectural dependency, stop the downstream progression and reclassify the dependency rather than silently carrying it forward.
 
@@ -576,4 +577,4 @@ The first phase must distinguish:
 
 **Exit criterion:** a short decision note defines one assurance claim, its evidence boundary, alternatives considered, one bounded non-safety-critical demonstrator with counterexamples, and a go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
 
-The OpenSSF remediation campaign is temporarily paused and tracked separately. Its outstanding release/security actions remain open and must be resumed before any release action that depends on them.
+The OpenSSF/security track is separate from this scientific queue. Its safe automation and documentation consolidation is proposed in PR #129; the operational state and ordered human actions remain in docs/security/OPENSSF-ROADMAP.md and docs/security/ACTIONS-HUMAINES.md. Neither a successful CI run nor this master plan implies BadgeApp submission, a release test, or an independently reviewed security claim.

@@ -231,17 +231,17 @@ Faits lus ou mesurés après la fusion de la PR #28 ; rien n'est déduit.
 | La PR #19 est `blocked` : son seul contrôle est celui de Dependabot, **`CI OK` n'y est pas rapporté** (une PR ouverte avec `GITHUB_TOKEN` ne déclenche pas les workflows) ; `docs/STATUS.md` généré affiche toujours `Implementation version: unknown` | état de la PR #19 ; contenu de la branche (D11) |
 
 
-## 15. Point de situation et mise en pause (2026-10-10)
+## 15. Snapshot historique — état au moment de la pause (2026-10-10)
 
 Ce complément actualise l'état d'exécution sans réécrire les observations historiques des sections précédentes.
 
 - La mainteneuse confirme que PR #120 a été fusionnée, que `CI OK` passe sur `main`, et que le workflow `Release` lancé manuellement sur `main` a réussi.
 - Cette répétition confirme le chemin de vérification et de construction à blanc exercé par `workflow_dispatch`, dont le build sans cache. Elle **ne** valide **pas** l'événement de tag réel, la création d'un brouillon, la production et la vérification d'une attestation, la publication, l'archivage Zenodo, ni les réglages administratifs.
-- La PR #121 contient une mise à jour du tracking de release et reste non fusionnée selon la décision de la mainteneuse au moment de ce complément.
+- Snapshot historique : au moment de la rédaction du §15, la PR #121 était encore ouverte ; elle a été fusionnée ensuite. Voir l'état courant consigné au §16.
 - Le prototype SPDX 2.3 issu de la PR #113 est fusionné, mais aucun parseur SPDX indépendant n'a encore validé le document généré. Son état est **PARTIAL** ; aucune conformité SPDX ni intégration à la release n'est revendiquée.
 - Le scan OSV sur les dépendances Lake a produit un premier résultat sans avis signalé ; la répétition planifiée et le processus de triage restent à confirmer (**PARTIAL**).
 - Les tâches réellement encore ouvertes sont maintenues dans [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md), désormais limité au registre actif, et dans [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) / [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md).
-- La campagne OpenSSF est **mise en pause temporaire** pour permettre une question de recherche distincte sur les outils Lean d'assurance de conformité de projet. Ce changement de priorité ne constitue ni une clôture de tous les écarts, ni une certification, ni une revue de sécurité humaine.
+- Snapshot historique : à l'heure de rédaction du §15, la campagne OpenSSF était mise en pause temporaire pour instruire séparément la recherche Lean sur l'assurance de conformité. Cette priorité temporaire ne valait ni clôture des écarts, ni certification, ni revue humaine de sécurité.
 
 ### Registre de clôture temporaire
 
@@ -254,3 +254,31 @@ Ce complément actualise l'état d'exécution sans réécrire les observations h
 | SBOM SPDX | PARTIAL | avant intégration à la release ou revendication de conformité |
 | Surveillance OSV | PARTIAL | à la prochaine revue périodique ou si un avis apparaît |
 | Revue de sécurité humaine | HUMAN ACTION REQUIRED | si une revendication de revue humaine ou de critère CII correspondant est nécessaire |
+
+
+## 16. Revalidation du dépôt et du profil BadgeApp — 2026-10-10
+
+Ce complément reflète les lectures effectuées après le snapshot §15 ; il ne réécrit pas les constats historiques de la matinée.
+
+- La PR #121 est fusionnée depuis le 2026-10-10 à 09:45:53 UTC (merge commit `7754c4944abb46b6f87d3783c5158b3706542ff2`). La tête `main` auditée est `d3dd39b4e4265490b58dd7dba8bfe076a39e7e6f`.
+- Le run CI [`38053761245`](https://github.com/AntheaLiles/k7pl/actions/runs/38053761245) et le run Scorecard [`38053760969`](https://github.com/AntheaLiles/k7pl/actions/runs/38053760969) sont réussis sur cette tête. Actionlint, commitlint, gitleaks, REUSE, zizmor et le scan OSV ont notamment réussi. Les jobs détaillés Lean/Verso/PDF et Python ont été ignorés pour cette modification documentaire ; ce n'est donc pas une vérification complète de release sur cette tête.
+- La vérification complète planifiée [`38043274260`](https://github.com/AntheaLiles/k7pl/actions/runs/38043274260) a réussi le même jour sur le commit précédent `7754c4944abb46b6f87d3783c5158b3706542ff2`, y compris implémentation Lean, tests Python, spécification Verso, génération PDF et résultat global. Elle fournit une preuve récente sur ce commit, pas sur le SHA exact `d3dd39b`.
+- La vérification complète planifiée [`38043274260`](https://github.com/AntheaLiles/k7pl/actions/runs/38043274260) a réussi le même jour sur le commit précédent `7754c4944abb46b6f87d3783c5158b3706542ff2`, y compris implémentation Lean, tests Python, spécification Verso, génération PDF et résultat global. Elle fournit une preuve récente sur ce commit, pas sur le SHA exact `d3dd39b`.
+- La répétition manuelle du workflow `Release` a réussi lors du run [`38037872705`](https://github.com/AntheaLiles/k7pl/actions/runs/38037872705) sur le commit `1d8339b`. Ce mode ne crée aucun brouillon, asset ou attestation et ne teste pas l'événement de tag. La release publiée `spec-v0.0.0-alpha.1` reste immuable avec zéro asset.
+- Le ruleset `PR on main` (ID `24138119`) a été relu via API : règles `pull_request`, `deletion`, `non_fast_forward`, historique linéaire et check `CI OK` requis ; approbations requises à 0 et `strict_required_status_checks_policy=false`. L'API de protection de branche renvoie 403 avec la connexion utilisée ; la requête pour les rulesets de tags était vide. Les autres paramètres administratifs ne sont pas considérés vérifiés.
+- Le profil [BadgeApp K7PL](https://www.bestpractices.dev/en/projects/15239/baseline-2) est toujours `in_progress`, Baseline `v2026.08.28`. Il affiche `(Name Unknown)` et les champs nom, description, licence et langages vides ; les URLs du site et du dépôt sont renseignées.
+- Le badge Best Practices est déjà présent dans `README.md`. Aucun `.bestpractices.json`, `.project.d/bestpractices.json` ou `security-insights.yml` n'a été trouvé dans l'arbre `main` inspecté.
+- Le registre actif a été corrigé pour ne plus présenter la PR #121 comme ouverte. L'analyse complète du mécanisme et la matrice critère par critère sont ajoutées dans `docs/security/BADGE-AUTOMATION.md` et `docs/security/BADGE-CONFORMANCE-MATRIX.md`.
+
+Les actions ouvertes de release, Zenodo, protections et secrets, restrictions des agents, reproductibilité PDF/bundle TeX, validation indépendante SPDX, continuité OSV et revue humaine restent ouvertes. Aucune réponse `Met`, aucun `N/A` et aucun niveau de badge n'ont été enregistrés par ce complément.
+
+
+## 17. Contrôles BadgeApp locaux — implémentation dans la PR #129
+
+- scripts/ci/check_badge_proposals.py vérifie les URLs de source dans CITATION.cff, la référence du badge dans README et l'intégrité du registre de critères épinglé.
+- scripts/ci/badge_criteria_registry.json conserve un snapshot des fichiers de critères officiels observés au commit amont 1059cb310a63cbcf0e1ada5fef0d7e9870a02ff1 (blob SHA listés dans le registre). Les critères sont répartis entre passing, silver, gold et baseline-1/2/3.
+- scripts/ci/test_badge_proposals.py couvre les propositions et les refus de sécurité (statut inconnu, ID hors section, N/A interdit, preuve absente et paramètres de forçage).
+- Le workflow Security lance le contrôle local en CI et exécute, seulement sur schedule/workflow_dispatch, une comparaison read-only des blob SHA amont. Un écart ou une indisponibilité réseau produit un avertissement et un rapport conservé 90 jours ; aucun fichier de critères n'est réécrit.
+- Pas de fichier de propositions rempli : les décisions de nom, description, licence, langages et de périmètre restent à l'autrice. Aucun accès ni aucune écriture BadgeApp n'est utilisé.
+
+Cette étape automatise le contrôle des sources et la génération de propositions ; elle ne vérifie pas la sémantique de chaque preuve et ne constitue pas un audit officiel ou une auto-certification du badge.
