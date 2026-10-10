@@ -68,7 +68,7 @@ def load_registry(path: Path = REGISTRY_PATH) -> dict[str, Any]:
         if not isinstance(criteria, dict) or not criteria:
             raise ProposalError(f"empty or invalid registry section: {section}")
         for identifier, props in criteria.items():
-            if not re.fullmatch(r"[a-z][a-z0-9_]*", identifier) or not isinstance(props, dict):
+            if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", identifier) or not isinstance(props, dict):
                 raise ProposalError(f"invalid criterion registry item: {section}/{identifier}")
             for key in ("na_allowed", "na_justification_required", "met_justification_required",
                         "met_url_required", "future", "obsolete"):
@@ -185,7 +185,7 @@ def build_proposal_url(proposal: object, root: Path = ROOT,
         params[field] = value.strip()
 
     for identifier, raw in criteria.items():
-        if not isinstance(identifier, str) or not re.fullmatch(r"[a-z][a-z0-9_]*", identifier):
+        if not isinstance(identifier, str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", identifier):
             raise ProposalError(f"invalid criterion identifier: {identifier!r}")
         record = exact_keys(raw, {"status", "justification", "approved", "evidence"}, f"criteria.{identifier}")
         definition = section_criteria.get(identifier)
