@@ -62,6 +62,12 @@ jobs:
       - name: Build twice and validate deterministic outputs
         run: bash scripts/ci/build_tikz_poc.sh
 
+      - name: Include canonical SVGs for side-by-side review
+        run: |
+          cp spec/figures/compilation-process.svg out/tikz-poc/reference-compilation-process.svg
+          cp spec/figures/session-protocol-as-automata.svg out/tikz-poc/reference-session-protocol.svg
+          cp spec/figures/matrice-contraction-affaiblissement.svg out/tikz-poc/reference-structural-modes.svg
+
       - name: Upload PDF and SVG proof artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
