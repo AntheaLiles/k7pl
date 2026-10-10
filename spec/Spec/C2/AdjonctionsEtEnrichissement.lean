@@ -231,7 +231,7 @@ valeur secrète quelconque transite par une échappatoire sous un déguisement, 
 libérerait alors bien plus que ce qu'elle nomme. La garantie qui l'écarte s'énonce sur les
 exécutions plutôt que sur les dérivations.
 
-::::conjecture (label := "thm:divulgation_delimitee") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "Proposition de non-interférence conditionnelle à l’accord sur les échappatoires ; cas Declassify et relation de libération non prouvés.")
+::::conjecture (label := "thm:divulgation_delimitee") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "security")
 :::title
 divulgation délimitée
 :::
@@ -378,7 +378,7 @@ et c'est délibéré : elle est vérifiable sans preuve, à la manière dont le
 
 Le mot « monotone » recouvre dans ce document trois notions qu'il faut tenir distinctes, une quatrième, la marque de monotonie du grade, étant une composante et non une propriété. Une _fonction monotone_ $`f : S \to_{\text{mon}} S` préserve l'ordre de $`S` ; un _domaine ordonné_ est un type $`S \in \mathsf{Trellis}_{\text{fin}}`, muni d'un ordre et des conditions ci-dessus ; un _ensemble de règles monotone_ est une méta-propriété du programme, qui garantit qu'ajouter un fait n'en retire aucun. Elles se composent — les règles d'un programme monotone se compilent en fonctions monotones sur un domaine ordonné, dont le point fixe est défini — sans se confondre.
 
-::::theorem (label := "thm:terminaison_lfp") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Itération monotone sur Trellis_fin de hauteur h ; vérifier hypothèses d’ordre, hauteur, borne et leastness.")
+::::theorem (label := "thm:terminaison_lfp") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 terminaison du point fixe déductif
 :::
