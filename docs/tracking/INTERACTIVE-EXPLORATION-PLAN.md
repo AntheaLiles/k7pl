@@ -102,9 +102,10 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Corriger la cause démontrée et valider le contrôle automatisé des images locales : [PR #124 fusionnée](https://github.com/AntheaLiles/k7pl/pull/124), CI complète verte (build Verso, contrôle HTML, PDF). Le déploiement GitHub Pages et la validation de l'artefact publié sont réussis ; `ANOM-17` peut être clos.
 - [ ] Inventorier chaque figure, sa source canonique, ses sorties et sa fonction explicative.
 - [ ] Définir les métadonnées minimales : objectif explicatif, alt, description longue, note de lecture, provenance et objets liés.
-- [ ] Comparer sur trois figures représentatives la chaîne existante, TikZ/PGFPlots et TikZJax/isomorphic-tikzjax.
-- [ ] Vérifier la transmission des métadonnées d'accessibilité au PDF et valider le fichier réellement généré.
-- [ ] Décider explicitement si TikZ devient une option de création ciblée ; ne pas engager de migration globale sans bénéfice démontré.
+- [x] Réaliser le POC TikZ sur trois figures, vérifier les sorties PDF/SVG et la reproductibilité, comparer les éléments sémantiques aux SVG canoniques et consigner la décision dans [les résultats du POC](tikz-poc/RESULTS.md).
+- [ ] Évaluer TikZJax/isomorphic-tikzjax seulement si un besoin d'affichage interactif dans le navigateur reste démontré ; le POC actuel vise des rendus statiques.
+- [ ] Vérifier la transmission des métadonnées d'accessibilité au PDF final et valider le balisage avec le préambule personnalisé réel.
+- [ ] Intégrer la génération TikZ au build canonique, vérifier les sorties suivies dans Git et décider figure par figure ; aucune migration globale n'est autorisée par le seul résultat du POC.
 
 ### P1 — Cas d'usage et démonstration de valeur
 
