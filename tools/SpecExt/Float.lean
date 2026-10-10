@@ -157,7 +157,7 @@ block_extension Block.float (info : FloatInfo) where
         let escapedAlt := texEscape info.alt
         -- Build the filename with the existing, already-tested interpolation form;
         -- concatenate the option list so braces around alt remain literal TeX braces.
-        let graphicPath := s!"\\{figures/{info.arg}.pdf}\n"
+        let graphicPath := "{figures/" ++ info.arg ++ ".pdf}\n"
         let plainGraphic := "\\includegraphics[width=" ++ widthOption ++ "\\linewidth,keepaspectratio]" ++ graphicPath
         let taggedGraphic := "\\includegraphics[alt={" ++ escapedAlt ++ "},width=" ++ widthOption ++ "\\linewidth,keepaspectratio]" ++ graphicPath
         out := out.push (.raw "\\ifdefined\\qvalt\n")
