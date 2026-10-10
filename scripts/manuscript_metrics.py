@@ -28,7 +28,7 @@ SPEC = ROOT / "spec"
 INCLUDE = re.compile(r"^\{include \d+ Spec\.([\w.]+)\}", re.M)
 DOC = re.compile(r'^#doc \(Manual\) "(.*)" =>', re.M)
 HEAD = re.compile(r"^(#+) (.*)$", re.M)
-THM = re.compile(r"^::::thm(.*)$", re.M)
+THM = re.compile(r"^::::(thm|definition|axiom|postulate|hypothesis|theorem|lemma|corollary|proposition|conjecture|requirement|literature|example|counterexample)(.*)$", re.M)
 ARG = re.compile(r'\((\w+) := "([^"]*)"\)')
 NUM = re.compile(r'\{num "([^"]+)"\}')
 
@@ -74,29 +74,49 @@ def args_of(line: str) -> dict[str, str]:
 
 
 def statements() -> list[dict]:
+    """Inventory legacy and ontology-aware statement directives in document order."""
     rows = []
     counter = 0
+    directive_kinds = {
+        "definition": "definition", "axiom": "assumption", "postulate": "assumption",
+        "hypothesis": "assumption", "theorem": "result", "lemma": "result",
+        "corollary": "result", "proposition": "result", "conjecture": "result",
+        "requirement": "requirement", "literature": "literature", "example": "example",
+        "counterexample": "counterexample",
+    }
     for mod, number in walk():
         for m in THM.finditer(mod.text):
             counter += 1
-            a = args_of(m.group(1))
-            block = mod.text[m.end() : mod.text.find("\n::::\n", m.end())]
-            title = re.search(r"^:::title\n(.*?)\n:::", block, re.S | re.M)
-            stmt = re.search(r"^:::statement[^\n]*\n(.*?)\n:::", block, re.S | re.M)
-            stmt_title = stmt.group(1).split("\n", 1)[0] if stmt and "+titled" in mod.text[m.end() : m.end() + 400] else ""
-            rows.append(
-                {
-                    "numero": counter,
-                    "label": a.get("label", ""),
-                    "statut": a.get("status", "theoreme"),
-                    "niveau": a.get("level", "langage"),
-                    "titre": " ".join(title.group(1).split()) if title else "",
-                    "enonce": " ".join(stmt_title.split()),
-                    "module": mod.name,
-                    "section": number,
-                    "esquisse": ":::proofsketch" in block,
-                }
-            )
+            directive, argline = m.group(1), m.group(2)
+            a = args_of(argline)
+            close = mod.text.find("\\n::::\\n", m.end())
+            block = mod.text[m.end(): close if close >= 0 else len(mod.text)]
+            title = re.search(r"^:::title\\n(.*?)\\n:::", block, re.S | re.M)
+            stmt = re.search(r"^:::statement[^\\n]*\\n(.*?)\\n:::", block, re.S | re.M)
+            stmt_title = stmt.group(1).split("\\n", 1)[0] if stmt and "+titled" in mod.text[m.end():m.end() + 400] else ""
+            legacy = directive == "thm"
+            kind = ({"definition": "definition", "exigence": "requirement", "litterature": "literature"}.get(a.get("status", "theoreme"), "result")
+                    if legacy else directive_kinds[directive])
+            role = ({"conjecture": "conjecture", "proposition": "proposition"}.get(a.get("status", "theoreme"), "theorem")
+                    if legacy and kind == "result" else
+                    (a.get("role") or (directive if directive in {"theorem", "lemma", "corollary", "proposition", "conjecture", "axiom", "postulate", "hypothesis"} else "")))
+            state = ({"conjecture": "proposed", "proposition": "under-review"}.get(a.get("status", "theoreme"), "under-review")
+                     if legacy and kind == "result" else
+                     (a.get("state") or ("proposed" if directive == "conjecture" else
+                      "not-applicable" if kind not in {"result", "assumption"} else "under-review")))
+            rows.append({
+                "numero": counter, "label": a.get("label", ""),
+                "statut": a.get("status", "theoreme") if legacy else (role or kind),
+                "niveau": a.get("level", "langage"),
+                "titre": " ".join(title.group(1).split()) if title else "",
+                "enonce": " ".join(stmt_title.split()), "module": mod.name, "section": number,
+                "esquisse": ":::proofsketch" in block, "directive": directive,
+                "kind": kind, "role": role, "state": state,
+                "evidence": a.get("evidence", "proofsketch" if legacy and kind == "result" else "none"),
+                "scope": a.get("scope", "legacy-unspecified" if legacy else ""),
+                "source": a.get("source", ""), "formalArtifact": a.get("formalArtifact", ""),
+                "legacy": legacy,
+            })
     cited = Counter()
     for mod, _ in walk():
         for lab in NUM.findall(mod.text):
