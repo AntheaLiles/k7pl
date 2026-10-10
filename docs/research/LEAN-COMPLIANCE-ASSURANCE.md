@@ -120,6 +120,18 @@ Le validateur est intégré expérimentalement au job Python de la CI. `scripts/
 
 ## 6. Séquencement et statuts
 
+### Cinq points du chantier de reprise — reconstruction documentaire
+
+Le texte exact des cinq points de l'échange antérieur « Analyser le plan Lean » n'est pas versionné dans les sources consultées. Le tableau suivant est une **reconstruction opérationnelle**, fondée sur les artefacts du dépôt et les validations observables ; il ne reproduit pas des intitulés supposés de l'ancien échange et ne correspond pas aux six phases A–F décrites plus bas.
+
+| Point reconstruit | Résultat attendu | État vérifié et preuve | Écart restant | Critère d'achèvement |
+|---|---|---|---|---|
+| 1. Inventorier les sources, décisions et états de livraison | Retrouver la base actuelle sans se fier aux anciens comptes rendus seuls | Réalisé avant le présent lot ; `main` observé au SHA `2c7c8a0c16489c44cd1fbee80eb6959a31b25daa`. Les fusions #54, #128 et #129, les PR ouvertes et leurs checks ont été revérifiés. | Le libellé d'origine du point n'est pas récupérable ; ce manque est explicitement conservé. | Le plan distingue sources versionnées, faits CI, états PR et obligations restantes ; satisfait pour le périmètre Lean/SBOM. |
+| 2. Établir la faisabilité et la frontière de garantie | Justifier le contrat borné Lean, le générateur existant et la validation indépendante | Conçu et documenté dans les sections précédentes de cette note ; PR #128 et CI #891 attestent le prototype retenu. | Les extensions SCA/SAST/CycloneDX et l'usage en production ne sont pas décidés ; ce n'est pas un résultat implicite de faisabilité. | Architecture et limites exposées ; GO recherche bornée, NO-GO conformité de production ; satisfait. |
+| 3. Terminer et clôturer le démonstrateur Lake→SPDX | Générer, auditer et valider le document SPDX sur son périmètre annoncé, puis synchroniser les plans | Prototype fusionné par [PR #128](https://github.com/AntheaLiles/k7pl/pull/128) ; CI [#891](https://github.com/AntheaLiles/k7pl/actions/runs/38063142568) et [#38086816755](https://github.com/AntheaLiles/k7pl/actions/runs/38086816755) vertes. Cette PR synchronise les notes actives avec l'état réel. | La SBOM ne couvre que les entrées Lake et ne prouve ni exhaustivité, ni absence de vulnérabilités, ni conformité globale. | Build/audit/test, validation SPDX indépendante, empreintes conservées et sources de suivi cohérentes ; satisfait pour le prototype borné. |
+| 4. Élargir la couverture des diagnostics du wrapper | Tester les branches de succès, d'échec et d'erreur sans introduire un nouveau contrôle bloquant | `scripts/ci/test_validate_spdx.py` compte 19 tests ; le job Python complet réussit dans [CI #38086816755](https://github.com/AntheaLiles/k7pl/actions/runs/38086816755), y compris la validation réelle de la sortie SPDX. | Les tests de diagnostic du wrapper, en partie simulés, ne remplacent pas un corpus de documents SPDX invalides évalués contre le validateur externe ; la couverture complète des schémas n'est pas démontrée. | Suite unitaire verte et contrat des diagnostics vérifié — atteint ; corpus externe négatif et analyse de couverture restent le critère distinct de généralisation. |
+| 5. Évaluer la variabilité inter-run et décider de la suite | Comparer les mêmes entrées et outils entre plusieurs exécutions indépendantes ; fonder toute extension sur les résultats | Comparaison préliminaire acquise entre #891 et #38086816755 : même SHA d'entrée `a7957632…161c`, mêmes empreintes du validateur et du verrou ; cinq échantillons `PASS` par run, détails ci-dessous. | Deux runs suffisent à produire une première comparaison descriptive, pas une estimation robuste. Le corpus négatif élargi, la couverture des diagnostics et l'examen d'autres angles morts sont toujours ouverts. | Accumuler des runs indépendants avec empreintes/version vérifiées, analyser les écarts sans attribuer de cause non testée, terminer le corpus négatif puis consigner un GO/NO-GO de portée ; non atteint. |
+
 | Lot | État | Critère de sortie |
 |---|---|---|
 | A — inventaire et récupération des décisions | **Exploré** | Sources repérées ; limites et décisions non récupérables explicites |
@@ -127,7 +139,7 @@ Le validateur est intégré expérimentalement au job Python de la CI. `scripts/
 | C — contrat SPDX minimal | **Conçu** | Invariants du modèle normalisé explicités |
 | D — prototype Lean/CLI/tests | **Testé en CI (#891)** | Compilation, audit d'inventaire, tests positifs/négatifs, lint, audits d'axiomes et artefacts de preuve validés sur la tête de PR `69368cea93b9c0fc25d2164b8052e90a85e1690a` |
 | E — validation SPDX indépendante | **Intégration expérimentale réussie en CI (#891)** | Document précis accepté par `spdx-tools 0.8.5`, fermeture hash-lockée et garde pour l'issue amont #885 ; d'autres limites sont possibles |
-| F — évaluation | **Baseline intra-run acquise ; évaluation inter-run et corpus externe négatif ouverts** | Comparer plusieurs runs indépendants sur les mêmes empreintes d'entrée/outils ; tester des documents SPDX négatifs au-delà du garde local ; mesurer les classes de diagnostic couvertes et les angles morts |
+| F — évaluation | **Comparaison préliminaire sur deux runs ; corpus externe négatif et évaluation élargie ouverts** | Conserver les empreintes identiques de l'entrée et des outils, caractériser davantage de runs indépendants ; tester des documents SPDX négatifs au-delà du garde local ; mesurer couverture et classes de diagnostic |
 | Extension SCA/SAST/CycloneDX/WCAG | **À prioriser après évaluation** | Décision fondée sur le prototype, le bénéfice et les dépendances communes |
 
 ### Évaluation empirique : baseline et micro-mesure
@@ -136,15 +148,20 @@ Les métadonnées du run CI #877 enregistrent environ 5 min 46 s pour le workflo
 
 Le run #887 a mesuré une première invocation de validation à 543,202 ms pour le sous-processus `pyspdxtools` et 556,297 ms pour le wrapper. Dans le run #891, l'invocation autonome préalable aux répétitions a pris 496,043 ms pour `pyspdxtools` et 508,578 ms pour le wrapper. Les cinq invocations suivantes, exécutées séparément sur le même runner et sur le même document, ont toutes renvoyé `PASS`, sans diagnostic, avec le même SHA-256 `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c`.
 
-| Mesure sur les cinq répétitions du run #891 | Min. | Médiane | Max. |
-|---|---:|---:|---:|
-| Processus CLI complet, démarrage Python inclus | 378,237 ms | 381,283 ms | 389,103 ms |
-| Wrapper `validate_spdx.py` (après imports) | 314,895 ms | 316,976 ms | 325,656 ms |
-| Sous-processus `pyspdxtools` seul | 302,409 ms | 304,564 ms | 313,096 ms |
+| Run CI | Mesure sur cinq répétitions | Min. | Médiane | Max. |
+|---|---|---:|---:|---:|
+| #891 | Processus CLI complet, démarrage Python inclus | 378,237 ms | 381,283 ms | 389,103 ms |
+| #891 | Wrapper `validate_spdx.py` (après imports) | 314,895 ms | 316,976 ms | 325,656 ms |
+| #891 | Sous-processus `pyspdxtools` seul | 302,409 ms | 304,564 ms | 313,096 ms |
+| #38086816755 | Processus CLI complet, démarrage Python inclus | 327,807 ms | 345,772 ms | 348,941 ms |
+| #38086816755 | Wrapper `validate_spdx.py` (après imports) | 272,527 ms | 288,930 ms | 293,715 ms |
+| #38086816755 | Sous-processus `pyspdxtools` seul | 261,066 ms | 277,628 ms | 282,120 ms |
 
-Le rapport d'évidence enregistre aussi la version Python 3.13.16, la plateforme du runner, le SHA-256 du script de validation et celui du fichier de verrouillage. L'écart entre les invocations autonomes et les répétitions suivantes est notable ; un effet de caches ou des conditions d'exécution différentes est plausible, mais ces données ne permettent pas d'en attribuer la cause. Cinq répétitions d'un seul job constituent une micro-mesure descriptive, pas un benchmark multi-machine ni une estimation robuste de variance.
+Les deux rapports indépendants enregistrent Python 3.13.16, la même plateforme `Linux-6.17.0-1022-azure-x86_64-with-glibc2.39`, le SHA-256 d'entrée `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c`, le même SHA du script de validation `279ed992c4cf534539a27179cacefa998c35fee7e1cf2427e5268c95dad3fe03` et du verrou `300e52cba5c20930dfd2e7a9a1ef6042d057e56336de6ae58c67ff14b0646632`. Dans les cinq répétitions, l'entrée n'a pas changé et chaque invocation a renvoyé `PASS` sans diagnostic.
 
-La CI produit désormais les durées monotones dans le rapport et le résumé de job ; une fixture CLI vérifie l'égalité **octet pour octet** de deux sorties du générateur pour le même manifeste, le même toolchain et un horodatage fixé. L'étape suivante reste de répéter la mesure dans des runs indépendants et d'élargir le corpus négatif pour caractériser couverture, diagnostics et limites du validateur.
+La médiane du sous-processus `pyspdxtools` passe descriptivement de 304,564 ms dans #891 à 277,628 ms dans #38086816755 ; les médianes wrapper et processus complet varient aussi. Les invocations autonomes préalables étaient plus lentes que les répétitions dans les deux runs (496,043 ms puis 512,303 ms pour le validateur seul). Cette variation est compatible avec des effets d'initialisation/cache, mais les mesures ne permettent pas d'en attribuer la cause. Même si les deux rapports ont le même document, les versions et l'environnement consignés, deux runs de cinq échantillons ne constituent ni un benchmark multi-machine ni une estimation robuste de variance.
+
+La CI produit les durées monotones dans les rapports et résumés ; une fixture CLI vérifie l'égalité **octet pour octet** de deux sorties du générateur pour le même manifeste, le même toolchain et un horodatage fixé. Une première comparaison inter-run est désormais documentée ; il reste à répéter l'expérience selon un protocole contrôlé et à élargir le corpus négatif pour caractériser couverture, diagnostics et autres limites du validateur.
 
 ### Décision provisoire (go/no-go)
 
