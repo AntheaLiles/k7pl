@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Audit préliminaire des figures et de leur rendu HTML/PDF
 
-**Statut :** audit technique actualisé le 10 octobre 2026 à partir des sources, workflows et artefacts CI de la PR #142 ; l'accessibilité PDF/UA et la revue humaine finale restent ouvertes.  
+**Statut :** audit actualisé après la PR #149, à partir du code, des runs CI #38091879446 / #38091879272 et des artefacts HTML/PDF de la tête `5d527c5ee6b74c993903607addb5852f4e914b1c`. Le rendu statique, les tests HTML/SVG et la pagination sont vérifiés ; PDF/UA sur la chaîne Org/LuaLaTeX personnelle et la revue humaine indépendante restent ouverts.  
 **Périmètre :** figures de la spécification Verso, besoins de représentation de l'enveloppe interactive, stratégie de sources et de rendu.  
 **Date :** 2026-10-10.
 
@@ -25,7 +25,7 @@ Le point d'entrée actuel des figures est tools/SpecExt/Float.lean. Le commentai
 
 Le rendu HTML construisait un élément img avec un préfixe relatif calculé en répétant ../ selon la profondeur de traversal. Or Verso ajoute aux pages multi-pages un élément <base href> qui pointe déjà vers la racine du site. Le navigateur résout les URL relatives à partir de cette base, et non du répertoire de la page : le préfixe était donc appliqué deux fois. Le défaut est **reproduit** sur l'artefact CI : les 12 figures K7PL pointent hors du site alors que les fichiers existent. Une URL `figures/nom.svg`, résolue par la base de Verso, corrige les 12 références. La correction et son contrôle de non-régression ont été fusionnés via la [PR #124](https://github.com/AntheaLiles/k7pl/pull/124) (commit `d42d33a`). La CI complète est verte et le job de déploiement GitHub Pages a réussi. L'artefact exact de publication a été revalidé (64 pages, 12 figures K7PL, aucune référence cassée). L'outil de navigation n'a pas permis une vérification HTTP directe de la page en ligne ; le contrôle déterministe du contenu publié et le statut du déploiement sont toutefois positifs.
 
-Le rendu TeX de Float.lean utilise actuellement includegraphics avec width et keepaspectratio, sans transmettre le texte alternatif de FloatInfo à la commande d'inclusion et sans appel explicite visible au mécanisme de balisage de figure accessible dans ce chemin. Une macro de préambule seule ne corrige pas ce défaut si le générateur ne l'appelle pas.
+Avant la PR #149, le rendu TeX de `Float.lean` utilisait `includegraphics` avec `width` et `keepaspectratio` sans transmettre le texte alternatif de `FloatInfo`. Le renderer émet maintenant conditionnellement les macros de projet `qvalt/qvaltfin`, sinon `includegraphics[alt={...}]` lorsque `tagpdfsetup` est disponible, avec un fallback non balisé pour le build standard. La compilation Lean et le rendu complet Verso/PDF du commit `5d527c5ee6b74c993903607addb5852f4e914b1c` ont réussi. Cela prouve la génération du code TeX et son build, pas à lui seul le balisage structurel PDF/UA.
 
 Le plan interactif et son document d'architecture sont situés sous docs/tracking/. Le suivi des anomalies se trouve sous docs/tracking/ANOMALIES.md. L'anomalie ANOM-10 du registre actuel concerne l'interface Verso en anglais, pas le défaut d'images décrit ici ; ne pas réutiliser cet identifiant sans vérifier le registre. Créer ou rattacher un suivi spécifique aux figures cassées après reproduction.
 
@@ -59,7 +59,7 @@ La CI vérifie les sorties des trois sources TikZ, leur reproductibilité et leu
 - **Correction fusionnée en PR #124 :** émettre `figures/<nom>.svg` sans préfixe manuel ; le `<base href>` résout alors l'URL à la racine du site. La compilation de la spécification, le contrôle d'assets, la compilation PDF et le déploiement GitHub Pages passent.
 - **Contrôle ajouté :** le validateur de CI doit tenir compte de `<base href>`, vérifier chaque référence locale, contrôler la copie et le XML des SVG, et rejeter les figures sans texte alternatif. Un validateur qui résout uniquement les chemins depuis le répertoire de la page ne détecte pas ce défaut.
 - **Déploiement :** le test sur l'artefact local ne suffit pas à prouver la publication. La validation CI et le déploiement après fusion doivent être vérifiés avant de clore l'anomalie.
-- **PDF :** `Float.lean` émet conditionnellement `\\qvalt{alt}` avant l'image et `\\qvaltfin` après, uniquement si ces macros existent au moment du rendu. Cela ne prouve pas que les macros créent une structure balisée. L'artefact PDF réel de CI associé au run `38070486770` a été inspecté avec `pdfinfo` : `Tagged: no`; aucun arbre de structure PDF n'est déclaré. Le préambule personnalisé utilisé hors dépôt et son chemin d'exécution réel ne sont pas disponibles ; aucune conformité PDF/UA n'est revendiquée. La sortie actuelle montre aussi qu'une figure peut être séparée de sa légende/description par un saut de page ; la PR de correction groupe le tout dans une `minipage`, à revérifier après CI.
+- **PDF :** le renderer émet maintenant le texte alternatif vers les trois voies conditionnelles (`qvalt/qvaltfin`, `includegraphics[alt={...}]` si Tagged PDF est présent, sinon fallback ordinaire). Le PDF courant de CI du run `38091879446` a été inspecté ; `pdfinfo` indique toujours `Tagged: no`, car la CI construit la spécification via Tectonic sans la configuration Org/LuaLaTeX personnelle. La matrice, sa légende et sa description sont bien sur la même page. Aucune conformité PDF/UA n'est revendiquée pour le PDF CI ni pour le document personnel non produit ici.
 
 ## 4. Stratégie de source et de rendu recommandée
 
@@ -200,3 +200,20 @@ Ce protocole porte sur le PDF effectivement destiné à publication, pas sur un 
 
 TikZJax/isomorphic-tikzjax n'est pas retenu : les besoins démontrés ici portent sur des artefacts statiques déterministes et aucun cas d'édition/rendu interactif côté navigateur n'a été identifié. La décision de réimplémentation reste limitée aux trois figures déjà testées ; aucune migration globale n'est autorisée par ces résultats.
 
+## 12. Validation de la PR #149 sur la tête courante
+
+La tête vérifiée est `5d527c5ee6b74c993903607addb5852f4e914b1c`. Runs : [CI #38091879446](https://github.com/AntheaLiles/k7pl/actions/runs/38091879446) et [TikZ figure POC #38091879272](https://github.com/AntheaLiles/k7pl/actions/runs/38091879272). Le POC est vert. Dans la CI complète, les contrôles sécurité, REUSE, commitlint, tests Python, contrôles rapides, assets TikZ, rendu Verso, validation HTML et compilation PDF ont réussi. Le job général `Vérification / Implémentation Lean` restait en cours au dernier contrôle, pendant `Audit the axioms (tests)`; aucun échec n'y était rapporté. Ce job ne remplace pas les validations spécifiques du renderer, qui ont réussi.
+
+### HTML courant
+
+L'artefact `spec-html` du run #38091879446 contient 67 pages, 12 figures déclarées et 13 SVG copiés. Les 12 figures déclarées ont un `alt` non vide, une cible `aria-describedby` existante et non vide ; leurs SVG ont `role="img"`, `<title>`, `<desc>`, et des références `aria-labelledby` / `aria-describedby` concordantes. La treizième copie est `services-lsp.svg`, reliquat non référencé, conservé intentionnellement sans inventer de métadonnées pour une figure hors catalogue. Les étapes CI `Enrich published SVGs with accessible names and descriptions` et `Validate generated HTML image assets` ont réussi.
+
+### PDF courant et défaut Lean corrigé
+
+Le PDF `spec-pdf` du run #38091879446 a été téléchargé et inspecté ; la compilation PDF a réussi. À 120 dpi, les figures se trouvent à la page PDF 246 (pipeline, page imprimée 242), 110 (automate, page imprimée 106) et 102 (matrice, page imprimée 98). La matrice reste monochrome et se trouve sur la même page que sa légende et sa description longue ; les étiquettes du pipeline et les états/transitions de l'automate restent discernables. Ce constat est une inspection directe de l'artefact, non une revue humaine indépendante.
+
+La CI antérieure sur le commit `6dc731127ffc5fbee4aff2ff9cfb4048bd042e65` a échoué à `tools/SpecExt/Float.lean:160:33` avec `Unknown identifier figures` : le chemin `figures/{info.arg}.pdf` avait été lu comme interpolation Lean. Le code du commit courant construit désormais le chemin TeX comme concaténation de texte littéral et de `info.arg`. Sur la tête courante, `Build the specification`, le rendu Verso, l'enrichissement SVG, le validateur HTML et le PDF complet réussissent.
+
+### Limite de l'accessibilité PDF
+
+Le PDF CI affiche `Tagged: no`. Le préambule et la configuration historiques exacts ont été retrouvés et identifiés dans le dépôt : `docs/archives/outillage-org/preamble-article.tex` (blob `33816e66eda838c9646e40c0c46f5a21a66f444a`) et `docs/archives/outillage-org/my-export-config.el` (blob `ab63b5d3b11d51ffb19074f6f3d24b0819a0542b`). Leurs blobs correspondent aux entrées homonymes du backup historique fourni. Cela ne prouve pas que les fichiers actuellement installés sous `~/.emacs.d/latex/` sont byte-identiques, ni ne remplace la reconstruction du document de publication avec cette chaîne. Le profil PDF/UA, la validation veraPDF et la revue par lecteur d'écran restent donc des tâches externes/humaines.
