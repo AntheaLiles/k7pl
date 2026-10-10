@@ -44,14 +44,16 @@ maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément
 Deux sources, deux motifs, une même recommandation — et huit phases logiques n'en contredisent
 aucun.
 
-::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Chaine lineaire des phases de compilation — Parse, ConfigAnalysis, TypeCheck, Resolution, PurityCheck, TermProof, ConstraintSolve, Optimize, CodeGen, Link. Deux phases intercalaires portent un numero fractionnaire, 1.5 et 2.5.") (width := "90")
+::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : dix phases de compilation, lues de gauche à droite puis de droite à gauche.") (width := "90")
 :::caption
 Les huit phases du pipeline de compilation
 :::
 
 :::desc
-L'ordre des huit vérifications, et les deux phases intercalaires que la numérotation fractionnaire
-distingue des huit.
+Dix étapes forment une séquence linéaire disposée en serpentin : la rangée supérieure se lit de
+gauche à droite, puis la flèche descend vers TermProof et la rangée inférieure se lit de droite à
+gauche jusqu'à Link. ConfigAnalysis et Résolution sont les points de contrôle intercalaires numérotés
+1.5 et 2.5.
 :::
 ::::
 
