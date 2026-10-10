@@ -95,4 +95,4 @@ def test_specialized_directive_exposes_ontology_fields(patched):
     assert row["role"] == "lemma"
     assert row["state"] == "under-review"
     assert row["evidence"] == "proofsketch"
-    assert row["scope"] == "synthetic test scope"
+    assert row["scope"] == "syntax"
