@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | | |
 |---|---|
 | Nature | Enregistrement **daté** de ce qui a été fait, de ce qui ne l'a pas été et de ce qui a réellement été exécuté. Produit par la session principale ; **non validé par la mainteneuse**. |
-| Date | 2026-10-06 |
+| Date | Historical baseline: 2026-10-06; closure addendum: 2026-10-10 |
 | Branche | PR #28, **fusionnée dans `main` par rebase** le 2026-10-06 (commits `b94a4e3`, `ab070c6`, `da1abb1`, copies réécrites par le rebase) ; ce document est mis à jour par une PR de suite |
 | Point d'entrée | [`README.md`](README.md) ; l'état factuel courant du dépôt est dans [`../STATUS.md`](../STATUS.md) (généré par la CI) |
 | Statuts | `VERIFIED` · `PARTIAL` · `PREPARED` · `HUMAN ACTION REQUIRED` · `BLOCKED` · `FUTURE` |
@@ -229,3 +229,28 @@ Faits lus ou mesurés après la fusion de la PR #28 ; rien n'est déduit.
 | **La PR #27** (« ci: add Python tooling validation and coverage controls », ouverte avant cette fusion) **est maintenant en conflit** avec `main` sur `ci.yaml`, `verify.yaml` et `scripts/ci/impact.py` : elle modifie des fichiers que la PR #28 a réécrits | `git merge-tree` local sur sa tête et sur `main` |
 | CI de `main` sur `da1abb1` (run 37524313864) : conclusion **succès** ; le job `status` a poussé `automation/generated-status` (commit `d5c4a35`, 20:15:37 UTC) et mis à jour la PR #19 ouverte par `github-actions[bot]` | conclusion du run ; commit et date de la branche |
 | La PR #19 est `blocked` : son seul contrôle est celui de Dependabot, **`CI OK` n'y est pas rapporté** (une PR ouverte avec `GITHUB_TOKEN` ne déclenche pas les workflows) ; `docs/STATUS.md` généré affiche toujours `Implementation version: unknown` | état de la PR #19 ; contenu de la branche (D11) |
+
+
+## 15. Point de situation et mise en pause (2026-10-10)
+
+Ce complément actualise l'état d'exécution sans réécrire les observations historiques des sections précédentes.
+
+- La mainteneuse confirme que PR #120 a été fusionnée, que `CI OK` passe sur `main`, et que le workflow `Release` lancé manuellement sur `main` a réussi.
+- Cette répétition confirme le chemin de vérification et de construction à blanc exercé par `workflow_dispatch`, dont le build sans cache. Elle **ne** valide **pas** l'événement de tag réel, la création d'un brouillon, la production et la vérification d'une attestation, la publication, l'archivage Zenodo, ni les réglages administratifs.
+- La PR #121 contient une mise à jour du tracking de release et reste non fusionnée selon la décision de la mainteneuse au moment de ce complément.
+- Le prototype SPDX 2.3 issu de la PR #113 est fusionné, mais aucun parseur SPDX indépendant n'a encore validé le document généré. Son état est **PARTIAL** ; aucune conformité SPDX ni intégration à la release n'est revendiquée.
+- Le scan OSV sur les dépendances Lake a produit un premier résultat sans avis signalé ; la répétition planifiée et le processus de triage restent à confirmer (**PARTIAL**).
+- Les tâches réellement encore ouvertes sont maintenues dans [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md), désormais limité au registre actif, et dans [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) / [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md).
+- La campagne OpenSSF est **mise en pause temporaire** pour permettre une question de recherche distincte sur les outils Lean d'assurance de conformité de projet. Ce changement de priorité ne constitue ni une clôture de tous les écarts, ni une certification, ni une revue de sécurité humaine.
+
+### Registre de clôture temporaire
+
+| Sujet | État courant | Condition de réouverture |
+|---|---|---|
+| Release et attestation | PARTIAL | avant toute publication réelle ou demande de preuve de release complète |
+| Zenodo et secrets | HUMAN ACTION REQUIRED / PREPARED | avant toute synchronisation ou publication |
+| Restrictions des agents | HUMAN ACTION REQUIRED | si l'on veut établir une garantie technique sur les capacités des agents |
+| Reproductibilité PDF et bundle TeX | PARTIAL / BLOCKED | avant toute revendication de reproductibilité |
+| SBOM SPDX | PARTIAL | avant intégration à la release ou revendication de conformité |
+| Surveillance OSV | PARTIAL | à la prochaine revue périodique ou si un avis apparaît |
+| Revue de sécurité humaine | HUMAN ACTION REQUIRED | si une revendication de revue humaine ou de critère CII correspondant est nécessaire |
