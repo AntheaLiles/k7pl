@@ -42,19 +42,6 @@ def levelName : String → String
   | "deploiement" => "déploiement"
   | s => s
 
-/-- Heading for the body of a statement, based on its object kind. -/
-def statementPartName (info : StatementInfo) : String :=
-  if info.scope == "legacy-unspecified" then "Déclaration"
-  else
-    match info.kind with
-    | "definition" => "Définition"
-    | "assumption" => "Prémisse"
-    | "requirement" => "Exigence"
-    | "literature" => "Résultat documenté"
-    | "example" => "Exemple"
-    | "counterexample" => "Contre-exemple"
-    | _ => "Énoncé"
-
 /-- Shared internal representation for every proof-bearing or documentary statement. -/
 structure StatementInfo where
   label : Option String
@@ -74,6 +61,19 @@ deriving ToJson, FromJson, Inhabited
 
 /-- Compatibility name for downstream code using the former theorem-only record. -/
 abbrev ThmInfo := StatementInfo
+
+/-- Heading for the body of a statement, based on its object kind. -/
+def statementPartName (info : StatementInfo) : String :=
+  if info.scope == "legacy-unspecified" then "Déclaration"
+  else
+    match info.kind with
+    | "definition" => "Définition"
+    | "assumption" => "Prémisse"
+    | "requirement" => "Exigence"
+    | "literature" => "Résultat documenté"
+    | "example" => "Exemple"
+    | "counterexample" => "Contre-exemple"
+    | _ => "Énoncé"
 
 /-- Map the old status vocabulary to the new dimensions without promoting a claim. -/
 def legacyClassification (status : String) : String × String × String × String :=
