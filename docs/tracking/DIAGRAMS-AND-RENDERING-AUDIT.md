@@ -148,3 +148,15 @@ L'audit préliminaire ne sera considéré comme terminé que lorsque :
 - les décisions de rendu sont appuyées par des essais reproductibles ;
 - le contrat de métadonnées et les tests sont acceptés ;
 - les travaux restants sont reportés dans le suivi avec des statuts honnêtes.
+
+
+## 10. Résultats du POC TikZ (2026-10-10)
+
+Le POC sur trois figures est documenté dans [tikz-poc/RESULTS.md](tikz-poc/RESULTS.md). Le workflow dédié compile trois sources TikZ en PDF, convertit les PDF en SVG statiques et compare deux constructions indépendantes octet par octet. Le run 15 a réussi ; l'artefact comprend les six rendus et les trois SVG canoniques pour comparaison visuelle.
+
+La revue confirme la conservation des éléments sémantiques principaux :
+- pipeline : dix phases ordonnées, avec une disposition plus compacte en serpentin ;
+- automate : état initial, deux états nommés, transitions et état final ;
+- matrice : quatre combinaisons, axes catégoriels, couches et case non instanciée.
+
+Le POC justifie de poursuivre vers une réimplémentation sélective, pas une migration globale. La génération n'est pas encore intégrée au build canonique Verso. La conformité PDF/UA avec le préambule personnalisé reste à vérifier, ce préambule n'étant pas versionné dans le dépôt. Le manifeste d'essai ne remplace pas les métadonnées canoniques des figures.
