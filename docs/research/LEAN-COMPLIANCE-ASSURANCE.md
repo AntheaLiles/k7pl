@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Chantier K — Assurance de conformité outillée avec Lean 4
 
-**État au 2026-10-10 :** inventaire documentaire réalisé ; choix d'un démonstrateur borné ; prototype sur branche dédiée ; validation CI distante à observer. Aucune décision de production ni revendication globale de conformité.
+**État au 2026-10-10 :** inventaire et faisabilité documentés ; le démonstrateur borné compile, passe ses tests, son audit d'inventaire et ses audits d'axiomes dans [CI #830](https://github.com/AntheaLiles/k7pl/actions/runs/38058400228), sur la révision `67fbf1869b363d07dc3ccb3949846f16f76ac61c`. La validation SPDX indépendante, la provenance par empreinte et l'évaluation mesurée restent ouvertes. Aucune décision de production ni revendication globale de conformité.
 
 ## 1. Objet et décisions antérieures récupérées
 
@@ -98,7 +98,7 @@ La revendication porte sur **les données observées**, pas sur leur exhaustivit
 
 Les tests Lean couvrent un cas positif ainsi que des cas négatifs pour format de révision invalide, révision modifiée, URL modifiée, métadonnée de licence affirmée, relation inventée, relation manquante, identifiants dupliqués et champ requis absent.
 
-La CI compile la bibliothèque et le CLI, exécute le générateur actuel sur le vrai manifeste, lance l'audit sur le document généré et vérifie le statut du rapport JSON. Cette exécution teste l'intégration dans le dépôt ; elle ne remplace pas le validateur SPDX indépendant, encore à intégrer.
+La CI #830 compile la bibliothèque et le CLI, exécute le générateur actuel sur le vrai manifeste, lance l'audit sur le document généré et vérifie le statut du rapport JSON ; `lake test`, `lake lint` et les deux audits d'axiomes passent également. L'intégration testée couvre les 14 entrées présentes dans le manifeste. Elle ne remplace pas le validateur SPDX indépendant, encore à intégrer.
 
 ### Critères d'acceptation
 
@@ -109,7 +109,7 @@ La CI compile la bibliothèque et le CLI, exécute le générateur actuel sur le
 - génération déterministe pour un manifeste et un horodatage donnés ;
 - validation indépendante de SPDX 2.3 par un outil versionné et vérifié, **condition encore ouverte** ;
 - pas de modification de la spécification normative ou de la sémantique de K7PL ;
-- la CI et une revue du diff passent avant que le prototype soit annoncé comme testé.
+- la CI #830 a validé la compilation, `lake test`, `lake lint`, l'audit ciblé du SBOM généré à partir des 14 entrées de `lake-manifest.json` et les audits d'axiomes. Cela valide le prototype borné, pas le document contre l'intégralité de la spécification SPDX ; le validateur indépendant reste un critère d'acceptation ouvert.
 
 ## 6. Séquencement et statuts
 
@@ -118,7 +118,7 @@ La CI compile la bibliothèque et le CLI, exécute le générateur actuel sur le
 | A — inventaire et récupération des décisions | **Exploré** | Sources repérées ; limites et décisions non récupérables explicites |
 | B — faisabilité et architecture | **Conçu** | Matrice et frontières ci-dessus documentées |
 | C — contrat SPDX minimal | **Conçu** | Invariants du modèle normalisé explicités |
-| D — prototype Lean/CLI/tests | **Prototypé, vérification CI en attente** | Compilation, tests et exécution sur le manifeste réel passent |
+| D — prototype Lean/CLI/tests | **Prototypé et testé en CI (#830)** | Compilation, `lake test`, `lake lint`, audit d'inventaire et audits d'axiomes réussis sur la révision référencée en tête de ce document |
 | E — validation SPDX indépendante | **Ouvert** | Validateur, version et chaîne d'approvisionnement acceptables ; succès sur la sortie effective |
 | F — évaluation | **Non commencé** | Couverture mesurée, rapports différentiels, temps d'exécution et limites observées |
 | Extension SCA/SAST/CycloneDX/WCAG | **À prioriser après évaluation** | Décision fondée sur le prototype, le bénéfice et les dépendances communes |
