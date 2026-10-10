@@ -25,7 +25,7 @@ RESULT_ROLES = {"theorem", "lemma", "corollary", "proposition", "conjecture"}
 ASSUMPTION_ROLES = {"axiom", "postulate", "hypothesis"}
 STATES = {"proposed", "under-review", "supported", "established", "refuted", "withdrawn", "not-applicable"}
 EVIDENCE = {"none", "written-proof", "proofsketch", "literature", "computation", "counterexample", "lean-proof"}
-SCOPES = {"syntax", "metatheory", "graphs", "resources", "memory-safety", "security", "operational-semantics", "graded-typing", "effects", "logical-relations", "translation", "fixed-points", "interoperability", "concurrency", "ffi-safety", "representation", "compiler-interface", "compilation", "resource-accounting", "literature"}
+SCOPES = {"syntax", "metatheory", "graphs", "resources", "memory-safety", "security", "operational-semantics", "graded-typing", "effects", "logical-relations", "translation", "fixed-points", "interoperability", "concurrency", "ffi-safety", "representation", "compiler-interface", "compilation", "resource-accounting", "literature", "runtime"}
 ARGS = re.compile(r'\((\w+) := "([^"]*)"\)')
 
 
