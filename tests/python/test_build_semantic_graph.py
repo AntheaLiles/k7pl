@@ -90,6 +90,8 @@ def test_generates_graph_from_explicit_references_and_citations(tmp_path: Path) 
     )
     assert result.returncode == 0, result.stderr
     page = output.read_text(encoding="utf-8")
+    assert 'data-k7pl-generated-ref="deadbeef"' in page
+    assert "Liens de provenance vérifiables" in page
     assert "Target section" in page
     assert "A source" in page
     assert "fig:one" in page
@@ -155,6 +157,51 @@ def test_fails_when_a_canonical_label_has_no_rendered_anchor(tmp_path: Path) -> 
     assert result.returncode != 0
     assert "rendered anchor 'lbl-sec-target' must resolve to exactly one HTML page" in result.stderr
     assert not output.exists()
+
+def test_fails_on_unresolved_bibliography_key(tmp_path: Path) -> None:
+    root = fixture_repo(tmp_path)
+    source = root / "spec" / "Spec" / "C6" / "Example.lean"
+    source.write_text(
+        '#doc (Manual) "Example section" =>\n'
+        '{label "sec:example"}\n'
+        'This text cites {cite "MISSING"}[].\n',
+        encoding="utf-8",
+    )
+    output = tmp_path / "site" / "navigation" / "semantic-graph.html"
+    result = subprocess.run(
+        [
+            sys.executable, str(SCRIPT), "--repo-root", str(root),
+            "--output", str(output), "--ref", "deadbeef",
+            "--source", "spec/Spec/C6/Example.lean", "--label", "sec:example",
+            "--start-line", "1", "--end-line", "5",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode != 0
+    assert "unresolved bibliography key 'MISSING'" in result.stderr
+    assert not output.exists()
+
+
+def test_fails_when_the_source_label_is_missing(tmp_path: Path) -> None:
+    root = fixture_repo(tmp_path)
+    output = tmp_path / "site" / "navigation" / "semantic-graph.html"
+    result = subprocess.run(
+        [
+            sys.executable, str(SCRIPT), "--repo-root", str(root),
+            "--output", str(output), "--ref", "deadbeef",
+            "--source", "spec/Spec/C6/Example.lean", "--label", "sec:absent",
+            "--start-line", "1", "--end-line", "5",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode != 0
+    assert "is not declared in" in result.stderr
+    assert not output.exists()
+
 
 def test_reference_only_graph_uses_compact_viewbox(tmp_path: Path) -> None:
     root = fixture_repo(tmp_path)
