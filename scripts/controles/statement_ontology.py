@@ -25,6 +25,7 @@ RESULT_ROLES = {"theorem", "lemma", "corollary", "proposition", "conjecture"}
 ASSUMPTION_ROLES = {"axiom", "postulate", "hypothesis"}
 STATES = {"proposed", "under-review", "supported", "established", "refuted", "withdrawn", "not-applicable"}
 EVIDENCE = {"none", "written-proof", "proofsketch", "literature", "computation", "counterexample", "lean-proof"}
+SCOPES = {"syntax", "metatheory", "graphs", "resources", "memory-safety", "security", "operational-semantics", "graded-typing", "effects", "logical-relations", "translation", "fixed-points", "interoperability", "concurrency", "ffi-safety", "representation", "compiler-interface", "compilation", "resource-accounting", "literature"}
 ARGS = re.compile(r'\((\w+) := "([^"]*)"\)')
 
 
@@ -75,6 +76,8 @@ def violations(text: str, module: str = "<source>") -> list[str]:
             errors.append(f"{where}: type de preuve inconnu {evidence!r}")
         if not scope or scope == "unspecified":
             errors.append(f"{where}: portée explicite absente")
+        elif scope not in SCOPES:
+            errors.append(f"{where}: identifiant de portée non autorisé {scope!r}")
         if kind == "result" and (role not in RESULT_ROLES or state == "not-applicable"):
             errors.append(f"{where}: rôle/état incompatible avec un résultat ({role!r}, {state!r})")
         if kind == "assumption" and (role not in ASSUMPTION_ROLES or state == "not-applicable"):
