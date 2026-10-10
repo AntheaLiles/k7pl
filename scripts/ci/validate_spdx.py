@@ -13,6 +13,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
@@ -77,6 +78,7 @@ def _report(
     digest: str | None,
     diagnostics: list[dict[str, str]],
     validator_stderr: str = "",
+    validator_elapsed_ms: float | None = None,
 ) -> dict[str, Any]:
     workflow: dict[str, Any] = {
         "runId": os.environ.get("GITHUB_RUN_ID"),
@@ -103,6 +105,7 @@ def _report(
             "version": validator_version,
             "expectedVersion": EXPECTED_VALIDATOR_VERSION,
             "command": ["pyspdxtools", "--infile", str(path), "--version", "SPDX-2.3"],
+            "elapsedMs": validator_elapsed_ms,
         },
         "workflow": workflow,
         "diagnostics": diagnostics,
@@ -164,13 +167,17 @@ def validate(path: Path) -> tuple[dict[str, Any], int]:
         "--version",
         "SPDX-2.3",
     ]
+    validator_started_ns = time.perf_counter_ns()
     try:
         result = subprocess.run(command, check=False, capture_output=True, text=True)
     except OSError as error:
+        elapsed_ms = round((time.perf_counter_ns() - validator_started_ns) / 1_000_000, 3)
         return _report(
             path, "ERROR", validator_version, digest_before,
             [{"ruleId": "SPDX-VALIDATOR-EXEC", "message": f"Unable to execute validator: {error}", "artifact": "toolchain"}],
+            validator_elapsed_ms=elapsed_ms,
         ), 2
+    validator_elapsed_ms = round((time.perf_counter_ns() - validator_started_ns) / 1_000_000, 3)
 
     try:
         digest_after = sha256_file(path)
@@ -178,12 +185,14 @@ def validate(path: Path) -> tuple[dict[str, Any], int]:
         return _report(
             path, "ERROR", validator_version, digest_before,
             [{"ruleId": "SPDX-INPUT-READ", "message": f"Unable to re-read input after validation: {error}", "artifact": path.name}],
+            validator_elapsed_ms=validator_elapsed_ms,
         ), 2
 
     if digest_after != digest_before:
         return _report(
             path, "ERROR", validator_version, digest_before,
             [{"ruleId": "SPDX-INPUT-CHANGED", "message": "The input bytes changed while validation was running.", "artifact": path.name}],
+            validator_elapsed_ms=validator_elapsed_ms,
         ), 2
 
     if result.returncode != 0:
@@ -192,13 +201,18 @@ def validate(path: Path) -> tuple[dict[str, Any], int]:
             path, "FAIL", validator_version, digest_before,
             [{"ruleId": "SPDX-TOOLS-VALIDATION", "message": detail[-8000:], "artifact": path.name}],
             result.stderr,
+            validator_elapsed_ms,
         )
         return report, 1
 
-    return _report(path, "PASS", validator_version, digest_before, []), 0
+    return _report(
+        path, "PASS", validator_version, digest_before, [],
+        validator_elapsed_ms=validator_elapsed_ms,
+    ), 0
 
 
 def main(argv: list[str]) -> int:
+    started_ns = time.perf_counter_ns()
     if len(argv) != 2:
         report = _report(
             Path(argv[1]) if len(argv) > 1 else Path("spdx.json"),
@@ -207,9 +221,11 @@ def main(argv: list[str]) -> int:
             None,
             [{"ruleId": "USAGE", "message": "Usage: validate_spdx.py <spdx-2.3.json>", "artifact": "arguments"}],
         )
+        report["elapsedMs"] = round((time.perf_counter_ns() - started_ns) / 1_000_000, 3)
         print(json.dumps(report, sort_keys=True))
         return 2
     report, exit_code = validate(Path(argv[1]))
+    report["elapsedMs"] = round((time.perf_counter_ns() - started_ns) / 1_000_000, 3)
     print(json.dumps(report, sort_keys=True))
     return exit_code
 

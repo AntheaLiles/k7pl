@@ -574,6 +574,6 @@ The workstream continues to distinguish:
 - versioning, applicability, exceptions, conflicts, and provenance of constraints;
 - Lean-specific formalization from simpler rule engines, structured registers, and existing compliance tooling.
 
-**Exit criterion:** the bounded prototype, negative CLI cases, SHA-256 evidence, hash-locked validator install, SPDX 2.3 validation and full CI passed in #877. Remaining work is measured evaluation of coverage, reproducibility, diagnostics, cost and unhandled cases; review of additional validator blind spots; and an explicit go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
+**Exit criterion:** the bounded prototype, negative CLI cases, SHA-256 evidence, hash-locked validator install, SPDX 2.3 validation and full CI passed in #877. The evaluation now includes byte-identical CLI regeneration for a fixed timestamp and reports measured wrapper/subprocess times. Remaining work is repeated-run characterization of coverage, reproducibility, diagnostics, cost and unhandled cases; review of additional validator blind spots; and an explicit go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
 
 The OpenSSF remediation campaign is temporarily paused and tracked separately. Its outstanding release/security actions remain open and must be resumed before any release action that depends on them.
