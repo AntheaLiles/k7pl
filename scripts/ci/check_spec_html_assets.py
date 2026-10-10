@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Validate local image references in the generated multi-page Verso HTML."""
+"""Validate declared figure assets and local image references in rendered Verso HTML."""
 
 from __future__ import annotations
 
@@ -94,8 +94,17 @@ def check(html_root: Path, source_figures: Path, spec_root: Path | None = None) 
         if not expected_stems:
             errors.append(f"no canonical figure declarations found under {spec_root}")
         for stem in sorted(set(expected_stems)):
-            if not (source_figures / f"{stem}.svg").is_file():
-                errors.append(f"declared figure has no source SVG asset: {stem}.svg")
+            for extension in ("svg", "pdf"):
+                asset = source_figures / f"{stem}.{extension}"
+                if not asset.is_file():
+                    errors.append(f"declared figure has no source {extension.upper()} asset: {stem}.{extension}")
+            pdf = source_figures / f"{stem}.pdf"
+            if pdf.is_file():
+                try:
+                    if pdf.stat().st_size < 5 or pdf.read_bytes()[:5] != b"%PDF-":
+                        errors.append(f"invalid PDF asset for declared figure: {stem}.pdf")
+                except OSError as exc:
+                    errors.append(f"cannot read PDF asset for declared figure {stem}.pdf: {exc}")
     for source in expected_svgs:
         copied = html_root / "figures" / source.name
         if not copied.is_file():
