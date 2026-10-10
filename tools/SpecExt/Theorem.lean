@@ -100,6 +100,10 @@ def allowedEpistemicState (s : String) : Bool :=
 def allowedEvidence (s : String) : Bool :=
   ["none", "written-proof", "proofsketch", "literature", "computation", "counterexample", "lean-proof"].contains s
 
+/-- Closed vocabulary for explicit statement scope tags. Detailed limitations remain in the statement and migration register. -/
+def allowedScope (s : String) : Bool :=
+  ["syntax", "metatheory", "graphs", "resources", "memory-safety", "security", "operational-semantics", "graded-typing", "effects", "logical-relations", "translation", "fixed-points", "interoperability", "concurrency", "ffi-safety", "representation", "compiler-interface", "compilation", "resource-accounting", "literature"].contains s
+
 def validRoleForKind (kind role : String) : Bool :=
   match kind with
   | "result" => ["theorem", "lemma", "corollary", "proposition", "conjecture"].contains role
@@ -258,6 +262,8 @@ meta def statementDirective (kind display defaultRole defaultState : String)
       throwError s!"{display}: invalid epistemic state '{state}'"
     if args.scope.isEmpty || args.scope == "unspecified" then
       throwError s!"{display}: explicit scope metadata is required; scope is separate from level"
+    if !allowedScope args.scope then
+      throwError s!"{display}: invalid scope tag '{args.scope}'; use the controlled scope vocabulary"
     if isTruthClaimKind kind && state == "not-applicable" then
       throwError s!"{display}: results and assumptions require an epistemic state"
     if !isTruthClaimKind kind && state != "not-applicable" then
