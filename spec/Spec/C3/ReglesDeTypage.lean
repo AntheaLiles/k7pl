@@ -100,7 +100,7 @@ propre qu'aux deux endroits où un calcul précède un autre calcul, ce qui est 
 attendait qu'elle en eût, et nulle part ailleurs. Les règles portent désormais leur indice, et une
 mécanisation n'aura ni à le deviner ni à traiter neuf cas là où deux suffisent.
 
-::::corollary (label := "thm:boxtimes_addition") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Égalité avec l’addition des contextes lorsque la composante temporelle est nulle et ψ est définie partout.")
+::::corollary (label := "thm:boxtimes_addition") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 $`\boxtimes` généralise l'addition ponctuelle
 :::
@@ -383,7 +383,7 @@ s'appliquent en tout point d'une dérivation, de sorte que plusieurs dérivation
 programme dès qu'elles existent. Rien n'a jusqu'ici établi qu'elles s'accordent, c'est-à-dire que
 ces dérivations dénotent la même chose.
 
-::::proposition (label := "thm:coherence_subsomption") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Cohérence des interprétations des dérivations d’un même terme ; isoler les faits annexes sur les jointures.")
+::::proposition (label := "thm:coherence_subsomption") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 cohérence de la subsomption
 :::
@@ -723,7 +723,7 @@ tag := "g-scoped-le-monoide-des-transformateurs-la-commutation-demon"
 L'énoncé se pose pour ce qu'il est, trois choses en dépendant : les formes normales, donc la
 décidabilité de l'appartenance, donc la vérifiabilité de la règle.
 
-::::lemma (label := "thm:commutation_monoide") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Projection sur S sous absence de relations croisées ; le cas ω dépend de la préservation des suprema du quotient.")
+::::lemma (label := "thm:commutation_monoide") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 commutation des deux familles
 :::
@@ -1316,7 +1316,7 @@ vectorisation, écrite dans le type plutôt que promise par le compilateur : app
 un vecteur de longueur $`n` coûte $`n` fois son travail et une seule fois sa profondeur. Un
 programme qui l'écrit dit qu'il est vectorisable, et le vérificateur le tient.
 
-::::theorem (label := "thm:determinisme_parallele") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Couche 3 / parallélisme / coût")
+::::theorem (label := "thm:determinisme_parallele") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 déterminisme du parallélisme de couche 3
 :::
@@ -1602,7 +1602,7 @@ des constructions auxquelles elles s'appliquent.
 ## Cible de preuve — substitution
 
 
-::::lemma (label := "thm:substitution") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Substitution typée sous hypothèses explicites de mise à l’échelle d’usage, compatibilité avec ψ et conversions de grade.")
+::::lemma (label := "thm:substitution") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 substitution sur trois niveaux
 :::
@@ -1693,7 +1693,7 @@ second message d'une session avant le premier.
 Une forme simultanée en découle, et elle n'est pas un corollaire immédiat sous la discipline
 ci-dessus.
 
-::::corollary (label := "thm:substitution_simultanee") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Substitution simultanée dérivée par itération de substitution élémentaire, une liaison à la fois.")
+::::corollary (label := "thm:substitution_simultanee") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 substitution simultanée — corollaire de la substitution élémentaire
 :::
