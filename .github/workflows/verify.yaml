@@ -313,6 +313,12 @@ jobs:
       - name: Install hash-pinned Python test dependencies
         run: python -m pip install --require-hashes -r scripts/requirements-ci.txt
 
+      - name: Install hash-locked SPDX validator
+        run: python -m pip install --require-hashes --only-binary=:all: -r scripts/requirements-spdx-validator.txt
+
+      - name: Test the SPDX validator guard
+        run: python3 scripts/ci/test_validate_spdx.py
+
       - name: Test the CI impact classifier
         run: python3 scripts/ci/test_impact.py
 
@@ -323,6 +329,47 @@ jobs:
 
       - name: Test the Python tooling (mini-corpus Verso, auto-tests mutés)
         run: python3 -m pytest tests/python -q
+
+      - name: Generate deterministic SPDX 2.3 validation input
+        run: |
+          python3 scripts/ci/lake_manifest_to_spdx.py \
+            --created 2026-10-10T00:00:00Z \
+            --output "$RUNNER_TEMP/k7pl-spdx-validation.spdx.json"
+
+      - name: Validate SPDX 2.3 with spdx-tools
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/validate_spdx.py "$RUNNER_TEMP/k7pl-spdx-validation.spdx.json" \
+            > "$RUNNER_TEMP/k7pl-spdx-validation.json"
+          python3 - "$RUNNER_TEMP/k7pl-spdx-validation.json" <<'PY'
+          import json
+          import sys
+
+          with open(sys.argv[1], encoding="utf-8") as stream:
+              report = json.load(stream)
+          assert report["schemaVersion"] == "k7pl.spdx-validation/v1", report
+          assert report["status"] == "PASS", report
+          assert report["validator"]["name"] == "spdx-tools", report
+          assert report["validator"]["version"] == "0.8.5", report
+          assert report["diagnostics"] == [], report
+          assert len(report["input"]["sha256"]) == 64, report
+          print("Independent SPDX 2.3 validator: PASS (spdx-tools 0.8.5)")
+          with open(__import__("os").environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write("### Independent SPDX 2.3 validation\\n")
+              summary.write("- Validator: `spdx-tools 0.8.5` (hash-locked runtime closure).\\n")
+              summary.write("- Result: PASS; generated JSON validated against SPDX 2.3.\\n")
+              summary.write("- SBOM SHA-256: `" + report["input"]["sha256"] + "`\\n")
+          PY
+
+      - name: Upload independent SPDX validation evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: k7pl-independent-spdx-validation-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/k7pl-spdx-validation.spdx.json
+            ${{ runner.temp }}/k7pl-spdx-validation.json
+          retention-days: 14
+          if-no-files-found: error
 
       - name: Check the real corpus with the tooling under test
         run: python3 scripts/controle.py
