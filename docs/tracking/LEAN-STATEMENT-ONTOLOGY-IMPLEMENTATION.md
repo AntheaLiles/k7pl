@@ -49,7 +49,7 @@ The externally attributed result is stated here.
 ::::
 ```
 
-Metadata validation rejects unknown epistemic/evidence values, incompatible kind/role pairs, missing labels on numbered/referenced command kinds, literature objects without provenance, machine-checked evidence without a formal artifact identifier, and hypotheses without an explicit non-global scope. `evidence := "lean-proof"` is intentionally distinct from a written proof or a proof sketch.
+Metadata validation rejects unknown epistemic/evidence values, incompatible kind/role pairs, missing labels on numbered/referenced command kinds, literature objects without provenance, machine-checked evidence without a formal artifact identifier, and hypotheses without an explicit non-global scope. Examples and counterexamples are unnumbered by default; `+unnumbered` can mark another genuinely local object as unnumbered. `evidence := "lean-proof"` is intentionally distinct from a written proof or a proof sketch.
 
 ## Compatibility and limits
 
