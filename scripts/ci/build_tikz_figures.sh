@@ -43,5 +43,5 @@ PY
 )
 
 rm -rf "$work_dir"
-python3 "$repo_root/scripts/ci/check_tikz_poc.py" --root "$out_dir"
+python3 "$repo_root/scripts/ci/check_tikz_figures.py" --generated "$out_dir"
 sha256sum "$out_dir"/*.pdf "$out_dir"/*.svg
