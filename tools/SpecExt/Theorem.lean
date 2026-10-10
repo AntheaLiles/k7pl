@@ -76,7 +76,7 @@ def allowedEpistemicState (s : String) : Bool :=
   ["proposed", "under-review", "supported", "established", "refuted", "withdrawn"].contains s
 
 def allowedEvidence (s : String) : Bool :=
-  ["none", "proof", "proofsketch", "literature", "computation", "counterexample"].contains s
+  ["none", "written-proof", "proofsketch", "literature", "computation", "counterexample", "lean-proof"].contains s
 
 block_extension Block.theorem (info : ThmInfo) where
   data := toJson info
@@ -192,7 +192,7 @@ structure StatementArgs where
   label : Option String := none
   level : String := "langage"
   role : String := ""
-  state : String := "under-review"
+  state : String := ""
   evidence : String := "none"
   scope : String := "unspecified"
   source : String := ""
@@ -215,16 +215,18 @@ meta def statementDirective (kind display defaultRole defaultState : String)
   | args, stxs => do
     if labelRequired && args.label.isNone then
       throwError s!"{display}: a label is required for a numbered/referenced statement"
-    if !allowedEpistemicState args.state then
-      throwError s!"{display}: invalid epistemic state '{args.state}'"
+    let state := if args.state.isEmpty then
+      (if defaultState.isEmpty then "under-review" else defaultState)
+      else args.state
+    if !allowedEpistemicState state then
+      throwError s!"{display}: invalid epistemic state '{state}'"
     if !allowedEvidence args.evidence then
       throwError s!"{display}: invalid evidence kind '{args.evidence}'"
     if kind == "literature" && args.source.isEmpty then
       throwError "literature: provide (source := \"…\") for provenance"
-    if args.evidence == "proof" && args.formalArtifact.isEmpty then
-      throwError "evidence := \"proof\" requires (formalArtifact := \"Module.declaration\")"
+    if args.evidence == "lean-proof" && args.formalArtifact.isEmpty then
+      throwError "evidence := \"lean-proof\" requires (formalArtifact := \"Module.declaration\")"
     let role := if args.role.isEmpty then defaultRole else args.role
-    let state := if defaultState.isEmpty then args.state else defaultState
     let children ← stxs.mapM elabBlock
     let info := StatementInfo.mk args.label display args.level kind role state args.evidence
       args.scope args.source args.formalArtifact none
@@ -242,15 +244,15 @@ meta def thm : DirectiveExpanderOf ThmArgs
 
 @[directive] meta def definition : DirectiveExpanderOf StatementArgs :=
   statementDirective "definition" "Définition" "" "" false
-@[directive] meta def axiom : DirectiveExpanderOf StatementArgs :=
+@[directive] meta def «axiom» : DirectiveExpanderOf StatementArgs :=
   statementDirective "assumption" "Axiome" "axiom" "" true
 @[directive] meta def postulate : DirectiveExpanderOf StatementArgs :=
   statementDirective "assumption" "Postulat" "postulate" "" true
 @[directive] meta def hypothesis : DirectiveExpanderOf StatementArgs :=
   statementDirective "assumption" "Hypothèse" "hypothesis" "" false
-@[directive] meta def theorem : DirectiveExpanderOf StatementArgs :=
+@[directive] meta def «theorem» : DirectiveExpanderOf StatementArgs :=
   statementDirective "result" "Théorème" "theorem" "" true
-@[directive] meta def lemma : DirectiveExpanderOf StatementArgs :=
+@[directive] meta def «lemma» : DirectiveExpanderOf StatementArgs :=
   statementDirective "result" "Lemme" "lemma" "" true
 @[directive] meta def corollary : DirectiveExpanderOf StatementArgs :=
   statementDirective "result" "Corollaire" "corollary" "" true
@@ -262,7 +264,7 @@ meta def thm : DirectiveExpanderOf ThmArgs
   statementDirective "requirement" "Exigence" "" "" true
 @[directive] meta def literature : DirectiveExpanderOf StatementArgs :=
   statementDirective "literature" "Résultat de la littérature" "" "" true
-@[directive] meta def example : DirectiveExpanderOf StatementArgs :=
+@[directive] meta def «example» : DirectiveExpanderOf StatementArgs :=
   statementDirective "example" "Exemple" "" "" false
 @[directive] meta def counterexample : DirectiveExpanderOf StatementArgs :=
   statementDirective "counterexample" "Contre-exemple" "" "" false
