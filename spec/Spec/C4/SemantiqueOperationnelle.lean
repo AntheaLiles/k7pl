@@ -134,7 +134,7 @@ _progrès_ dit qu'un calcul bien typé qui n'est pas terminal peut avancer. Ense
 correction du système d'effets : le coût effectif reste sous la borne synthétisée, ce que le
 chapitre 1 distingue de l'obligation déchargée par le solveur.
 
-::::theorem (label := "thm:preservation") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Préservation du type et décroissance du potentiel le long des chaînes d’une trace partielle ; invariants concurrents à formaliser.")
+::::theorem (label := "thm:preservation") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
 préservation
 :::
@@ -192,7 +192,7 @@ forme normale $`\varphi_n \circ \pi_S` dont les deux facteurs le sont.
 La quantité que cet énoncé fait décroître décide d'une question qu'on croirait devoir traiter à
 part.
 
-::::theorem (label := "thm:progres") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Progrès local d’un calcul clos ; ne pas confondre avec le progrès global d’un pool et l’absence de blocage mutuel.")
+::::theorem (label := "thm:progres") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
 progrès
 :::
@@ -287,7 +287,7 @@ statique, qu'aucun énoncé ne relie à un comportement observable — et c'est 
 postulat interdisant de dissimuler un coût et le grade en étant la mesure. Un grade relié à rien
 d'observable dissimulerait tout.
 
-::::theorem (label := "thm:correction_ressource") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Borne instrumentée des usages effectifs par membre et liaison ; machine instrumentée et compte partagé à définir.")
+::::theorem (label := "thm:correction_ressource") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "resource-accounting")
 :::title
 correction de ressource
 :::
@@ -390,7 +390,7 @@ tag := "g-semantique-la-stratification-du-journal"
 La trace $`\tau` qu'une configuration accumule est le journal, et la projection dont P4 a besoin est
 $`\pi^{\flat}_{\ell}`. L'énoncé que le chapitre 4 formule se laisse alors écrire, et se démontre.
 
-::::theorem (label := "thm:stratification_journal") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Équivalence d’observation du rejeu après projection au niveau ℓ ; dépend de la sémantique des traces et de l’effacement sûr.")
+::::theorem (label := "thm:stratification_journal") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
 stratification du journal
 :::
@@ -532,7 +532,7 @@ l'acteur.
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute"
 %%%
 
-::::lemma (label := "thm:relation_produit") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Compatibilité d’une relation logique produit sous la condition sur la clause de modalité ; la composante budget reste à justifier.")
+::::lemma (label := "thm:relation_produit") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "logical-relations")
 :::title
 relation logique sur un produit de structures ordonnées
 :::
@@ -558,7 +558,7 @@ facteur reste à écrire.
 :::
 
 ::::
-::::lemma (label := "thm:lemme_fondamental") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Fragment sans Declassify, y compris dans les images de substitution ; la déclassification reste hors portée.")
+::::lemma (label := "thm:lemme_fondamental") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "logical-relations")
 :::title
 lemme fondamental
 :::
@@ -714,7 +714,7 @@ La troisième induction est celle du théorème {num "thm:traduction_metalangage
 substitution y joue un rôle différent : il ne sert pas à typer la conclusion mais à commuter avec la
 traduction.
 
-::::lemma (label := "thm:commutation_traduction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Équation de traduction/substitution modulo congruence structurelle cible ; conditions de fraîcheur et cas de construction à vérifier.")
+::::lemma (label := "thm:commutation_traduction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 commutation de la traduction et de la substitution
 :::
@@ -789,7 +789,7 @@ paraissait une interprétation à donner était une définition à écrire._
 
 Reste l'image de l'opérateur lui-même, et l'appareil qu'elle réclame est déjà là.
 
-::::theorem (label := "thm:image_fix") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Image du point fixe sur Trellis_fin de hauteur h ; dépend de terminaison_lfp et de la compatibilité de ré-invocation finie.")
+::::theorem (label := "thm:image_fix") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 image du point fixe déductif
 :::
