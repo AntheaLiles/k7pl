@@ -57,7 +57,7 @@ document. Une interface de module doit énoncer trois choses : ce qu'une unité 
 environnement, ce qu'elle est, et ce qu'elle produit dans le monde. Le jugement germinal du chapitre
 1 en porte exactement trois.
 
-::::thm (label := "thm:interface_jugement") (status := "definition")
+::::definition (label := "thm:interface_jugement") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Définition de l’interface par le jugement")
 :::title
 l'interface d'une unité de compilation est son jugement
 :::
@@ -67,7 +67,19 @@ Trois obligations, trois composantes
 
 Le jugement $`\Delta \vdash_{\mathcal{G}} t : A \mid \mathcal{E}` porte exactement les trois
 obligations d'une interface : $`\Delta` dit ce que l'unité _exige_, $`A` ce qu'elle _est_,
-$`\mathcal{E}` ce qu'elle _produit_. C'est une définition : l'interface _est_ le jugement. Elle s'accompagne d'une clôture _locale_ : pour les formes de déclaration énumérées dans ce chapitre, aucune obligation ne demande une quatrième composante, et aucune des trois n'est vide de contenu d'interface.
+$`\mathcal{E}` ce qu'elle _produit_. C'est une définition : l'interface _est_ le jugement.
+:::
+::::
+
+::::proposition (label := "thm:interface_jugement_cloture") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Définition de l’interface par le jugement ; clôture limitée aux formes de déclaration énumérées.")
+:::title
+clôture locale de l’interface
+:::
+
+:::statement +titled
+Clôture locale
+
+Elle s'accompagne d'une clôture _locale_ : pour les formes de déclaration énumérées dans ce chapitre, aucune obligation ne demande une quatrième composante, et aucune des trois n'est vide de contenu d'interface.
 :::
 
 :::proofsketch
@@ -76,7 +88,6 @@ de déclaration de ce chapitre, que chacune se range dans l'une des trois compos
 n'en demande une quatrième. L'énumération est finie et se conduit à la lecture. La clôture ne vaut que pour ces formes : elle est suffisante, non nécessaire, et une extension qui exigerait une quatrième composante — l'extension probabiliste du chapitre 4, dont le raisonnement statique demande deux notions que K7PL n'a pas — ne la contredit pas mais appelle la clause de révision de l'axiome (chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]).
 :::
 ::::
-
 Deux échecs historiques symétriques donnent la mesure de cet énoncé, et c'est ce qui le rend
 intéressant plutôt que tautologique. {rmq}[Chacun porte deux des trois obligations, aucun les
 trois.] Standard ML a des signatures riches et pas d'effets dans son interface {cite "macqueenHistoryStandardML2020"}[].
