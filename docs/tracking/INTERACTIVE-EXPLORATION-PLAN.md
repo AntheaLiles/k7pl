@@ -110,13 +110,13 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 ### P1 — Cas d'usage et démonstration de valeur
 
-- [ ] Choisir un parcours de compréhension réel et suffisamment représentatif.
-- [ ] Documenter le parcours actuel dans le dépôt.
-- [ ] Définir les objets et relations strictement nécessaires à ce parcours.
-- [ ] Définir les critères d'évaluation avant de développer l'interface.
-- [ ] Produire une première représentation navigable avec le minimum d'infrastructure.
-- [ ] Comparer le parcours actuel et le parcours prototype.
-- [ ] Décider explicitement si la démonstration justifie la poursuite du projet.
+- [x] Choisir un premier parcours de provenance technique, étroit et vérifiable : figure Verso → source graphique → rendus SVG/PDF → renderer et validation CI.
+- [x] Documenter le parcours cible et distinguer ses relations vérifiables des futures relations sémantiques dans [le cadrage du prototype](NAVIGATION-PROTOTYPE.md).
+- [x] Définir les objets et relations strictement nécessaires à cette tranche ; aucune relation conceptuelle n'est inférée depuis la simple proximité de fichiers.
+- [x] Définir les critères de validation avant la revue de l'interface (cadrage du prototype).
+- [ ] Produire et valider une première représentation navigable dans le rendu HTML publié.
+- [ ] Comparer le parcours manuel actuel au parcours prototype, y compris le retour à la source canonique.
+- [ ] Décider explicitement si cette tranche apporte assez de valeur pour poursuivre vers un parcours définition → preuve → implémentation → test.
 
 ### P2 — Modèle documentaire et sémantique
 
