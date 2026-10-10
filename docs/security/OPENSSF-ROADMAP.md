@@ -7,16 +7,16 @@ SPDX-License-Identifier: CC-BY-4.0
 
 | | |
 |---|---|
-| État | **Préparation technique prête à relire ; conformité globale non achevée** |
+| État | **Automatisation #129 fusionnée ; actions humaines et preuves d'exploitation encore ouvertes** |
 | Périmètre | Sécurité du dépôt, chaîne de construction/publication et préparation de l'auto-évaluation BadgeApp. Ne vaut ni certification ni revue humaine. |
-| Trace de la dernière vague | [PR #129](https://github.com/AntheaLiles/k7pl/pull/129). Vérifier l'état de main pour savoir quels changements sont intégrés ; une PR ne prouve pas la conformité. |
+| Trace de la dernière vague | [PR #129](https://github.com/AntheaLiles/k7pl/pull/129) fusionnée le 2026-10-10 à 17:09:57 UTC. Le `main` observé est `2c7c8a0`; [CI #38073770380](https://github.com/AntheaLiles/k7pl/actions/runs/38073770380) et [Scorecard #38073770034](https://github.com/AntheaLiles/k7pl/actions/runs/38073770034) sont verts. Cela valide les contrôles exécutés, pas la conformité externe. |
 | Registres actifs | [Actions humaines ordonnées](ACTIONS-HUMAINES.md) · [Décisions D1–D11](DECISIONS-REQUISES.md) · [Matrice des critères](BADGE-CONFORMANCE-MATRIX.md) · [Analyse BadgeApp](BADGE-AUTOMATION.md) |
 | Dossier de preuves | [Audit consolidé](OPENSSF-AUDIT.md) · [État d'implémentation](IMPLEMENTATION-STATUS.md) · [Modèle de menace](THREAT-MODEL.md) · [Cas d'assurance](ASSURANCE-CASE.md) · [Politique des secrets](SECRETS-POLICY.md) |
 | Archives | [Checklist historique du 2026-10-10](../history/2026-10-10-openssf-conformance-checklist.md) · [Plan initial de remédiation](../history/2026-10-10-openssf-remediation-plan.md) · [Clôture de la vague d'automatisation](../history/2026-10-10-openssf-automation-closeout.md) |
 
 ## État observé
 
-La PR #129 prépare le contrôle local de cohérence des sources BadgeApp, le générateur prudent de propositions, le registre de critères épinglé, la détection read-only de dérive amont et les tests correspondants. La CI de la tête antérieure 1b5950350588742f2b0681e37565f85d70527d98 a réussi le run [38059644310](https://github.com/AntheaLiles/k7pl/actions/runs/38059644310). La présente consolidation documentaire impose une nouvelle exécution CI ; seul son résultat sur le nouveau head pourra être retenu.
+La PR #129 a livré et fait fusionner le contrôle local de cohérence des sources BadgeApp, le générateur prudent de propositions, le registre de critères épinglé, la détection read-only de dérive amont et les tests correspondants. La CI et Scorecard du `main` courant ont passé leurs contrôles. La prochaine exécution explicite ou planifiée de `Security` devra encore fournir la preuve d'exécution du job « Detect upstream BadgeApp criteria drift » et de son artefact ; cette étape d'exploitation n'est pas déduite de la CI générale.
 
 Le profil [BadgeApp K7PL](https://www.bestpractices.dev/en/projects/15239/baseline-2) a été observé le 2026-10-10 en état in_progress, baseline v2026.08.28. Les champs nom, description, licence et langages sont vides. Le badge est déjà affiché dans le README. Aucun formulaire n'a été soumis et aucune réponse externe n'a été modifiée.
 
@@ -30,7 +30,7 @@ Le profil [BadgeApp K7PL](https://www.bestpractices.dev/en/projects/15239/baseli
 | R5 / R7 — paramètres et agents | ACTION HUMAINE | Contrôles de compte, paramètres administratifs et décision D3 ; aucune configuration externe n'a été modifiée par la campagne. |
 | R11 / R21 — reproductibilité PDF/TeX | PARTIEL / BLOQUÉ | Décision D7, bundle TeX identifié et vérifié indépendamment, puis comparaison de builds ; ne pas revendiquer de reproductibilité avant preuve. |
 | R13 / R14 — documentation et revue humaine | PARTIEL / ACTION HUMAINE | Confronter les documents au parcours réellement testé ; revue de sécurité personnellement conduite et datée avant de revendiquer le critère Gold. |
-| R25 — SBOM/SPDX | PARTIEL, distinct | Validation indépendante et décision de périmètre ; chantier séparé de la présente automatisation BadgeApp (issue #122). |
+| R25 — SBOM/SPDX | PARTIEL, distinct | La validation indépendante du document SPDX exact est acquise dans le chantier K ([PR #128](https://github.com/AntheaLiles/k7pl/pull/128), CI #891). Restent à établir le périmètre des artefacts couverts, le corpus négatif élargi et l'évaluation inter-run ; ne pas confondre validation du document et exhaustivité de la SBOM. |
 | R27 — surveillance OSV | PARTIEL | Plusieurs exécutions planifiées, examen des avis et preuve de la procédure de triage. |
 | R28 — fiche BadgeApp | PARTIEL / ACTION HUMAINE | Périmètre, métadonnées, examen des critères, justifications N/A autorisées, envoi humain et vérification de l'état sauvegardé. |
 
