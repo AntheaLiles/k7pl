@@ -10,7 +10,7 @@ useDefault = true
 
 [allowlist]
 description = "Archived Org tooling (paths and bibliography keys, no secrets) and one fake test fixture"
-paths = ['''^docs/archives/outillage-org/''']
+paths = ['''^docs/archives/outillage-org/''', '''^archives/outillage-org/''']
 # The fake token of scripts/ci/test_sync_zenodo.py (a test double that is never sent anywhere).
 # gitleaks scans the whole history of a pull request, so renaming the constant cannot make the
 # commit that introduced it disappear. The allowlist matches this exact value only: any other
