@@ -26,7 +26,7 @@ Le workflow épingle l'archive de Tectonic et vérifie son SHA-256. Le SVG est d
 Les références canoniques et les six rendus du POC sont réunis dans l'artefact de CI afin de permettre une comparaison directe. Les sources géométriques sont sous `spec/figures/tikz/`, source canonique des trois dessins. Les déclarations Verso conservent la légende, le texte alternatif et les descriptions de production. La CI génère les sorties, les valide et les transmet au rendu Verso via un artefact ; les sorties dérivées ne sont pas suivies dans Git.
 
 
-La comparaison visuelle de l'artefact initial a néanmoins révélé deux écarts évitables : les libellés du pipeline avaient perdu le préfixe « Phase » et les deux-points des SVG historiques, et le marqueur central violet de l'état final de l'automate était devenu blanc. Les sources TikZ corrigent ces écarts ; la validation de la sortie régénérée reste requise avant de déclarer la revue visuelle terminée.
+La comparaison visuelle de l'artefact initial a néanmoins révélé deux écarts évitables : les libellés du pipeline avaient perdu le préfixe « Phase » et les deux-points des SVG historiques, et le marqueur central violet de l'état final de l'automate était devenu blanc. Les sources TikZ corrigent ces écarts. L'artefact régénéré a été inspecté en aperçu agrandi : les libellés complets du pipeline et le marqueur violet sont confirmés. La vérification à la taille exacte d'insertion dans le document reste ouverte.
 
 ## 3. Ce qui est validé — et ce qui ne l'est pas
 
