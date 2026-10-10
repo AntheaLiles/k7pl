@@ -29,6 +29,7 @@ Start with:
 
 - [Method](METHOD.md): current methodological rules for producing and evaluating project artefacts.
 - [CONTRIBUTING.md](../CONTRIBUTING.md): contribution workflow and repository rules.
+- [Diagram and rendering audit](tracking/DIAGRAMS-AND-RENDERING-AUDIT.md): preliminary findings, rendering strategy, accessibility and validation work.
 - [src/](../src/): Lean implementation.
 - [tests/](../tests/): executable tests.
 
