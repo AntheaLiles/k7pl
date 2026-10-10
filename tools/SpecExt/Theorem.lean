@@ -327,4 +327,6 @@ meta def thm : DirectiveExpanderOf ThmArgs
 @[directive] meta def counterexample : DirectiveExpanderOf StatementArgs :=
   statementDirective "counterexample" "Contre-exemple" "" "not-applicable" false false
 
+end
+
 end SpecExt
