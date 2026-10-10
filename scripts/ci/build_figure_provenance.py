@@ -178,6 +178,7 @@ footer {{ margin-top: 2rem; border-top: 1px solid currentColor; padding-top: 1re
 <a href="{html.escape(renderer_url, quote=True)}">Renderer Verso</a>
 <a href="{html.escape(workflow_url, quote=True)}">Workflow de validation</a>
 <a href="{html.escape(manifest_url, quote=True)}">Manifeste des sources TikZ</a>
+<a href="semantic-graph.html">Graphe sémantique expérimental</a>
 </nav>
 <p>{len(figures)} figures déclarées recensées. Les liens vers les sources sont épinglés à la révision qui a généré cette page.</p>
 </header>
