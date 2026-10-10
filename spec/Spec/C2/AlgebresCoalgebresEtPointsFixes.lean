@@ -236,7 +236,7 @@ extension graduée de la sédimentation
 :::statement +titled
 Extension graduée
 
-c'est une exigence ouverte, dont la route est une démonstration et dont la contrainte
+Pour des conteneurs _gradués_, c'est une exigence ouverte, dont la route est une démonstration et dont la contrainte
 d'outil est nommée (note ci-dessous).
 :::
 
