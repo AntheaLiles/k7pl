@@ -186,7 +186,8 @@ def svg_node(node_id: str, title: str, kind: str, href: str, x: int, y: int, wid
         for i, line in enumerate(lines)
     )
     return (
-        f'<a href="{html.escape(href, quote=True)}" aria-label="{html.escape(title, quote=True)}">'
+        f'<a href="{html.escape(href, quote=True)}" aria-label="{html.escape(title + " (" + node_id + ")", quote=True)}">'
+        f'<title>{xml_text(node_id)}</title>'
         f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="8" fill="{fill}" stroke="#5b6570" stroke-width="1.2"/>'
         f'{label_lines}<text x="{x + 12}" y="{y + height - 8}" font-size="10" fill="#424b55">{xml_text(kind)}</text></a>'
     )
