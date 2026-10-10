@@ -43,8 +43,8 @@ def main() -> int:
             if not str(figure.get(field, "")).strip():
                 fail(f"{figure_id}: missing required manifest field {field}")
         source = (POC_DIR / figure["source"]).resolve()
-        if not source.is_relative_to(POC_DIR.resolve()) or not source.is_file():
-            fail(f"{figure_id}: source is missing or escapes the POC directory")
+        if not source.is_relative_to(REPO_ROOT.resolve()) or not source.is_file():
+            fail(f"{figure_id}: source is missing or escapes the repository")
         pdf = root / f"{figure_id}.pdf"
         svg = root / f"{figure_id}.svg"
         if not pdf.is_file() or pdf.stat().st_size < 100:
