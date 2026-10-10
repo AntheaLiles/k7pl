@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 [![Lean Build](https://github.com/AntheaLiles/k7pl/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/AntheaLiles/k7pl/actions/workflows/ci.yaml)
 
-k7pl est un langage de programmation dont l'implémentation est écrite en
+K7PL est un langage de programmation dont l'implémentation est écrite en
 [Lean 4](https://lean-lang.org/), avec [Mathlib](https://github.com/leanprover-community/mathlib4)
 et [CSLib](https://github.com/leanprover/cslib). Sa spécification est écrite en
 [Verso](https://github.com/leanprover/verso).
@@ -80,6 +80,7 @@ exécuté de bout en bout : la release `spec-v0.0.0-alpha.1` n'a pas de PDF join
 ## Sécurité
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/AntheaLiles/k7pl/badge)](https://scorecard.dev/viewer/?uri=github.com/AntheaLiles/k7pl)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/15239/badge)](https://www.bestpractices.dev/projects/15239)
 
 Les vulnérabilités ne doivent pas être signalées dans les issues publiques. Utilisez le
 [signalement privé GitHub](https://github.com/AntheaLiles/k7pl/security/advisories/new) et indiquez
