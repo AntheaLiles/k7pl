@@ -15,8 +15,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ## Tableau de bord d'audit
 
-**Dernière réévaluation documentaire : 2026-10-09 — PR #97 et #98 fusionnées ; audit complémentaire sur `docs/openssf-evidence-audit`.**
-Les critères cochés ci-dessous ne concernent que les exigences dont la preuve documentaire a été ajoutée ou clarifiée par cette campagne. Ils ne valent pas validation de la configuration GitHub ni attestation d'activité réelle. Les nouveaux documents sont [GOVERNANCE.md](../security/GOVERNANCE.md), [SECRETS-POLICY.md](../security/SECRETS-POLICY.md) et les règles mises à jour dans [CONTRIBUTING.md](../../CONTRIBUTING.md). Les points administratifs, mesures et preuves d'activité restent ouverts.
+**Dernière réévaluation documentaire : 2026-10-10 — PR #121 fusionnée ; état du profil BadgeApp et preuves CI relus.**
+Les cases de cette checklist constituent un inventaire interne de preuves candidates. Une case cochée ne signifie pas que la réponse a été soumise ou acceptée sur BadgeApp. Le profil [K7PL](https://www.bestpractices.dev/en/projects/15239/baseline-2) reste `in_progress` (critères `v2026.08.28`) et affiche `(Name Unknown)` ; nom, description, licence et langages sont vides. Les paramètres administratifs, les critères temporels et les revendications de revue humaine restent à vérifier. Voir [l'analyse de l'automatisation](../security/BADGE-AUTOMATION.md) et [la matrice critère par critère](../security/BADGE-CONFORMANCE-MATRIX.md). Ne choisir `N/A` qu'après décision explicite de périmètre et justification propre au critère.
 
 - [ ] Passer en revue chaque critère et joindre une preuve.
 - [ ] Séparer les critères du logiciel publié, ceux du dépôt et ceux de la gouvernance/configuration GitHub.

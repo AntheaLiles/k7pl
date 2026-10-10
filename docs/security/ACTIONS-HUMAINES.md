@@ -14,7 +14,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Les commandes `gh api` ci-dessous se lisent avec un jeton qui a les droits sur le dépôt ; certaines exigent les droits d'administration.
 
-**Portée actuelle (2026-10-10).** Ce document ne conserve que les opérations humaines encore à vérifier ou à décider. La répétition manuelle du workflow `Release` a réussi, mais n'a pas exercé la publication réelle, Zenodo, ni les paramètres d'administration. La campagne est en pause temporaire ; ne pas interpréter cette pause comme une validation des points ci-dessous.
+**Portée actuelle (2026-10-10).** Ce document ne conserve que les opérations humaines encore à vérifier ou à décider. La répétition manuelle du workflow `Release` a réussi, mais n'a pas exercé la publication réelle, Zenodo, ni les paramètres d'administration. La campagne a repris le 2026-10-10 à la demande de la mainteneuse ; les actions administratives, irréversibles et les décisions de fond restent réservées à la personne responsable.
 
 ## 0. Ordre conseillé
 
@@ -119,13 +119,13 @@ CI démarre.
 
 ## 4. Site des bonnes pratiques (bestpractices.dev)
 
-1. Déclarer d'abord ce qu'est « le logiciel produit par le projet » (annexe D de `DECISIONS-REQUISES.md`).
-2. Relire ou renseigner chaque critère sur `https://www.bestpractices.dev/fr/projects/15239/{passing,silver,gold}/edit` : n'indiquer `Met` que si la preuve
-   citée existe. Ne pas reprendre aveuglément l'auto-remplissage (GitHub ne détecte pas la licence : `NOASSERTION`). Vérifier via
-   `https://www.bestpractices.dev/projects/15239.json`.
-3. Éditer les notes de la release `spec-v0.0.0-alpha.1` (résumé lisible à la place de la liste auto-générée) et cocher « pre-release » (D10).
-4. Décisions de contenu qu'aucun agent ne peut prendre : gouvernance, feuille de route, DCO, langue des signalements, canal du code de conduite.
-5. Facultatif, sur décision : ajouter le badge du projet au README.
+État relu le 2026-10-10 : [fiche K7PL](https://www.bestpractices.dev/en/projects/15239/baseline-2) est `in_progress` (Baseline critères `v2026.08.28`). Le site affiche `(Name Unknown)` ; nom, description, licence et langages d'implémentation sont vides. L'URL du projet et celle du dépôt sont renseignées. Le badge Best Practices est déjà inclus dans `README.md` ; ne pas en ajouter un second.
+
+1. Ratifier le périmètre du « logiciel produit par le projet » (annexe D de `DECISIONS-REQUISES.md`) avant de choisir les métadonnées ou les `N/A`.
+2. Suivre [BADGE-AUTOMATION.md](BADGE-AUTOMATION.md) et [BADGE-CONFORMANCE-MATRIX.md](BADGE-CONFORMANCE-MATRIX.md). Pour chaque critère, ne proposer `Met` qu'avec une preuve datée, directement pertinente et vérifiable. La checklist interne ne prouve pas que la réponse a été sauvegardée dans BadgeApp.
+3. Après ratification d'une métadonnée, passer par l'[interface de proposition](https://www.bestpractices.dev/en/projects/15239/choose/edit). Ne pas utiliser `overrides` ni une écriture REST directe. Après soumission humaine, relire le profil et l'export `https://www.bestpractices.dev/projects/15239.json` depuis un client réseau accessible ; consigner l'état accepté et la date.
+4. Revoir les notes de la release `spec-v0.0.0-alpha.1` et son état pre-release conformément à D10. La release est immuable ; ne pas supposer qu'il s'agit d'une opération libre sur les assets.
+5. Les décisions qui ne doivent pas être prises par un agent comprennent le périmètre du produit, la gouvernance, le DCO/CLA, la langue et le canal des signalements, le code de conduite et toute affirmation de revue de sécurité humaine.
 
 ## 5. Avant la première release de spécification
 

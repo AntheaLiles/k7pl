@@ -7,17 +7,21 @@ SPDX-License-Identifier: CC-BY-4.0
 
 | | |
 |---|---|
-| État | **PAUSE TEMPORAIRE** au 2026-10-10 |
+| État | **REPRISE EN COURS** au 2026-10-10 — actions documentaires et vérifications sûres actives ; opérations sensibles toujours soumises à autorisation |
 | Périmètre | Remédiation de sécurité et de chaîne d'approvisionnement du dépôt ; ne vaut ni certification OpenSSF, ni validation humaine de sécurité |
 | Règle | Ce registre ne contient que les actions encore ouvertes, partielles, préparées mais non exécutées de bout en bout, ou bloquées |
-| Historique | [Plan détaillé archivé au 2026-10-10](OPENSSF-ROADMAP-HISTORY-2026-10-10.md) · [Audit consolidé](OPENSSF-AUDIT.md) · [État de mise en œuvre](IMPLEMENTATION-STATUS.md) |
+| Historique | [Plan détaillé archivé au 2026-10-10](OPENSSF-ROADMAP-HISTORY-2026-10-10.md) · [Audit consolidé](OPENSSF-AUDIT.md) · [État de mise en œuvre](IMPLEMENTATION-STATUS.md) · [Analyse du badge](BADGE-AUTOMATION.md) · [Matrice critère par critère](BADGE-CONFORMANCE-MATRIX.md) |
 | Actions humaines | [ACTIONS-HUMAINES.md](ACTIONS-HUMAINES.md) · [DECISIONS-REQUISES.md](DECISIONS-REQUISES.md) |
 
-## 1. Résultat de la campagne avant la pause
+## 1. Résultat vérifié à la reprise
 
-La mainteneuse rapporte que la PR #120 est fusionnée, que `CI OK` passe sur `main`, et que le workflow `Release` a été lancé manuellement sur `main` et a réussi. La PR #121 met à jour la traçabilité de cette répétition ; elle reste volontairement non fusionnée au moment de cette mise à jour.
+La PR #121 a été fusionnée le 2026-10-10 à 09:45:53 UTC (merge commit `7754c4944abb46b6f87d3783c5158b3706542ff2`). La tête `main` auditée est `d3dd39b4e4265490b58dd7dba8bfe076a39e7e6f`. Le run CI [38053761245](https://github.com/AntheaLiles/k7pl/actions/runs/38053761245) et le run Scorecard [38053760969](https://github.com/AntheaLiles/k7pl/actions/runs/38053760969) sont réussis sur cette tête ; les tests détaillés Lean/Verso/PDF et l'outillage Python ont été ignorés dans ce run documentaire.
 
-La répétition manuelle constitue un **essai à blanc**. Elle confirme le chemin de contrôles et de construction exercé par `workflow_dispatch`, notamment le build sans cache. Elle ne prouve pas le déclenchement par tag, la création réelle du brouillon, l'émission et la vérification d'une attestation, la publication, ni l'archivage Zenodo. Les réglages GitHub, du compte et de Zenodo n'ont pas été confirmés par cette exécution.
+La répétition `Release` `workflow_dispatch` du 2026-10-10 ([run 38037872705](https://github.com/AntheaLiles/k7pl/actions/runs/38037872705), commit `1d8339b`) est un essai à blanc : aucun événement de tag n'a été testé et aucun brouillon, asset ou bundle d'attestation n'a été créé. La release publique `spec-v0.0.0-alpha.1` du 2026-09-29 est immuable et contient zéro asset. L'archivage Zenodo n'a pas été éprouvé de bout en bout.
+
+Le ruleset de branche `PR on main` a été relu via API le 2026-10-10 : PR obligatoire, check `CI OK`, historique linéaire, aucune approbation requise et contrôles de statut non stricts. La lecture API de la protection de branche renvoie 403 ; aucun ruleset de tags n'est retourné par l'endpoint consulté. Ces limites sont inscrites dans la nouvelle analyse [BADGE-AUTOMATION.md](BADGE-AUTOMATION.md).
+
+Le profil BadgeApp K7PL reste `in_progress` : les métadonnées de nom, description, licence et langages sont vides ; les URLs du site et du dépôt sont déjà présentes. Le badge est déjà affiché dans `README.md`. La [matrice critère par critère](BADGE-CONFORMANCE-MATRIX.md) et le registre humain distinguent les preuves du dépôt des réponses effectivement enregistrées sur BadgeApp.
 
 ## 2. Registre actif : uniquement les écarts non clos
 
@@ -35,6 +39,7 @@ La répétition manuelle constitue un **essai à blanc**. Elle confirme le chemi
 | R21 | Épinglage et vérification du bundle TeX de Tectonic | BLOCKED | Source d'artefact et empreinte de confiance indépendamment vérifiables ; la tentative précédente était bloquée par l'accès réseau de la session |
 | R25 | Prototype SBOM SPDX 2.3 | PARTIAL | Générer le document sur le manifeste courant, le valider avec un parseur/validateur SPDX indépendant, examiner les résultats et décider séparément s'il doit entrer dans la release |
 | R27 | Surveillance des vulnérabilités des dépendances Lake par OSV-Scanner | PARTIAL | Confirmer plusieurs exécutions planifiées, le comportement en cas d'échec et le traitement des avis ; le premier scan sans résultat n'est pas une preuve de couverture durable |
+| R28 | Fiche Best Practices BadgeApp : métadonnées et réponses par critère | PARTIAL / ACTION HUMAINE REQUIRED | Valider le périmètre du produit ; décider nom, description, licence ; mesurer les langages ; examiner les preuves par critère et enregistrer explicitement les réponses. La fiche actuelle est `in_progress`, avec quatre métadonnées vides. Voir `BADGE-AUTOMATION.md` et `BADGE-CONFORMANCE-MATRIX.md`. |
 
 ## 3. Décisions humaines encore à traiter
 
@@ -56,8 +61,10 @@ L'essai de zizmor est maintenant réalisé dans la CI ; la question encore ouver
 
 Les idées non engagées — double compilation quotidienne, remplacement de `lean-action`, `lean4checker`, tags signés, fuzzing et tests par propriétés — ne sont pas des actions de la campagne en cours. Elles restent dans le snapshot historique pour ne pas gonfler le registre actif. Elles ne sont ni déclarées accomplies, ni engagées pour la prochaine étape.
 
-## 5. Règle de pause
+## 5. Pilotage et limites de la reprise
 
-La campagne OpenSSF est **mise en pause**, pas déclarée entièrement conforme ni définitivement close. Aucune tâche proactive de remédiation supplémentaire n'est engagée avant sa réouverture explicite, sauf incident de sécurité ou exigence nécessaire à une publication envisagée. Les actions humaines irréversibles ne doivent jamais être exécutées automatiquement.
+La campagne reprend à la demande de la mainteneuse le 2026-10-10. Les corrections de suivi et les vérifications non sensibles sont actives dans cette branche. La reprise ne vaut pas autorisation de modifier des paramètres administratifs, déplacer des secrets, publier une release, créer un tag de production ou enregistrer des changements irréversibles dans Zenodo ou BadgeApp.
 
-La question de recherche suivante est séparée : [issue #122 — outils Lean pour l'assurance de conformité de projet](https://github.com/AntheaLiles/k7pl/issues/122). Elle ne constitue pas une revendication de conformité OpenSSF et ne doit pas modifier implicitement la spécification K7PL.
+Toute proposition de statut de conformité doit être reliée à une preuve précise et datée. Aucun critère ne devient `SATISFAIT` par ajout de documentation seule ; aucune revue d'agent ne remplace une revue humaine responsable. Ne pas fusionner la PR issue de cette campagne sans l'autorisation de la mainteneuse.
+
+La recherche suivante reste distincte : [issue #122 — outils Lean pour l'assurance de conformité de projet](https://github.com/AntheaLiles/k7pl/issues/122). Elle n'autorise aucune modification implicite de la spécification K7PL.
