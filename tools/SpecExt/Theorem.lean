@@ -212,7 +212,7 @@ meta instance : FromArgs StatementArgs m where
     StatementArgs.mk <$> .named `label .string true
       <*> .namedD `level .string "langage"
       <*> .namedD `role .string ""
-      <*> .namedD `state .string "under-review"
+      <*> .namedD `state .string ""
       <*> .namedD `evidence .string "none"
       <*> .namedD `scope .string "unspecified"
       <*> .namedD `source .string ""
@@ -245,7 +245,7 @@ meta def statementDirective (kind display defaultRole defaultState : String)
       throwError "evidence := \"lean-proof\" requires (formalArtifact := \"Module.declaration\")"
     if !args.formalArtifact.isEmpty && evidence != "lean-proof" then
       throwError "formalArtifact is only valid with evidence := \"lean-proof\""
-    if kind == "assumption" && role == "hypothesis" && args.scope == "unspecified" then
+    if kind == "assumption" && role == "hypothesis" && (args.scope == "unspecified" || args.scope == "global") then
       throwError "hypothesis requires an explicit local scope; it must not become a global assumption"
     let children ← stxs.mapM elabBlock
     let info := StatementInfo.mk args.label display args.level kind role state evidence
