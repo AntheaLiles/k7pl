@@ -121,7 +121,8 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 ### P2 — Modèle documentaire et sémantique
 
 - [x] Proposer un premier vocabulaire de nœuds, de relations et de provenance dans [le modèle sémantique minimal](NAVIGATION-SEMANTIC-MODEL.md) ; il reste à le valider par un prototype.
-- [x] Produire et valider en CI le premier graphe local sur les références explicites et citations de la section C6 ; les ancres des pages rendues sont résolues ou font échouer la génération. La revue humaine de la valeur explicative reste ouverte.
+- [x] Produire et valider en CI le graphe local C6 sur les références explicites et citations ; les ancres des pages rendues sont résolues ou font échouer la génération. La revue humaine de la valeur explicative reste ouverte.
+- [x] Ajouter une seconde tranche C3 et relier les deux vues pour vérifier que le générateur s'applique à plusieurs sections sans fusionner citations et références.
 - [ ] Définir et tester les catégories minimales d'objets nécessaires.
 - [ ] Définir et tester les catégories minimales de relations nécessaires.
 - [ ] Distinguer au minimum état courant, historique, hypothèse et preuve, sans les confondre avec l'état de validation d'une relation.
@@ -134,16 +135,16 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [ ] Définir le point d'entrée du générateur.
 - [ ] Déterminer quelles fonctionnalités peuvent être obtenues avec Verso existant.
 - [ ] Développer uniquement les extensions nécessaires au prototype.
-- [ ] Générer une première navigation multi-niveaux.
+- [x] Générer une première navigation multi-niveaux reliant le catalogue de provenance et deux graphes locaux.
 - [x] Préserver les liens vers les sources canoniques, avec retour vers la page Verso rendue.
 - [x] Ajouter les garde-fous de génération nécessaires à la CI : références/citations et ancres rendues non résolues font échouer le build.
 
 ### P4 — Graphe
 
 - [ ] Définir le modèle de graphe à partir des relations sémantiques.
-- [ ] Générer une première vue graphe limitée au cas d'usage démontré.
+- [x] Générer deux vues graphe limitées à des plages de source explicites et validées par CI.
 - [ ] Ajouter filtrage ou limitation de profondeur si nécessaire.
-- [ ] Permettre le retour du graphe vers la vue documentaire.
+- [x] Permettre le retour du graphe vers la section Verso rendue et sa source canonique.
 - [ ] Évaluer si la vue graphe améliore réellement la compréhension.
 
 ### P5 — Extension progressive
