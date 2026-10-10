@@ -114,16 +114,17 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Documenter le parcours cible et distinguer ses relations vérifiables des futures relations sémantiques dans [le cadrage du prototype](NAVIGATION-PROTOTYPE.md).
 - [x] Définir les objets et relations strictement nécessaires à cette tranche ; aucune relation conceptuelle n'est inférée depuis la simple proximité de fichiers.
 - [x] Définir les critères de validation avant la revue de l'interface (cadrage du prototype).
-- [ ] Produire et valider une première représentation navigable dans le rendu HTML publié.
+- [x] Produire une première représentation navigable dans le rendu HTML publié : le catalogue de provenance est généré et validé en CI, puis déployé avec succès via GitHub Pages.
 - [ ] Comparer le parcours manuel actuel au parcours prototype, y compris le retour à la source canonique.
 - [ ] Décider explicitement si cette tranche apporte assez de valeur pour poursuivre vers un parcours définition → preuve → implémentation → test.
 
 ### P2 — Modèle documentaire et sémantique
 
-- [ ] Définir les catégories minimales d'objets nécessaires.
-- [ ] Définir les catégories minimales de relations nécessaires.
-- [ ] Distinguer au minimum état courant, historique, hypothèse et preuve.
-- [ ] Définir comment chaque relation conserve sa provenance.
+- [x] Proposer un premier vocabulaire de nœuds, de relations et de provenance dans [le modèle sémantique minimal](NAVIGATION-SEMANTIC-MODEL.md) ; il reste à le valider par un prototype.
+- [ ] Définir et tester les catégories minimales d'objets nécessaires.
+- [ ] Définir et tester les catégories minimales de relations nécessaires.
+- [ ] Distinguer au minimum état courant, historique, hypothèse et preuve, sans les confondre avec l'état de validation d'une relation.
+- [ ] Définir comment chaque relation conserve sa provenance dans les données générées.
 - [ ] Déterminer ce qui doit être modélisé en Lean et ce qui doit rester dans les sources.
 - [ ] Vérifier qu'aucun modèle intermédiaire ne devient une seconde source de vérité.
 
