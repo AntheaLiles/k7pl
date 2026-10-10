@@ -1,0 +1,22 @@
+% SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+% SPDX-License-Identifier: CC-BY-4.0
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usetikzlibrary{arrows.meta,automata,positioning}
+\begin{document}
+\begin{tikzpicture}[
+  >=Stealth,
+  font=\sffamily\small,
+  state/.style={draw, rounded corners=2pt, minimum height=11mm, minimum width=27mm,
+    align=center, line width=.65pt},
+  transition/.style={->, line width=.7pt},
+  node distance=28mm
+]
+\node[state] (int) {EXPECT\_INT};
+\node[state, right=of int] (bool) {EXPECT\_BOOL};
+\node[state, right=of bool, accepting] (done) {\textsc{end}};
+\draw[transition] (int) -- node[above, align=center] {send(Int)} (bool);
+\draw[transition] (bool) -- node[above, align=center] {recv(Bool)} (done);
+\end{tikzpicture}
+\end{document}
