@@ -18,7 +18,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Les éléments issus de `docs/tracking/OPENSSF-CHECKLIST.md` sont réévalués ici. Une ancienne case cochée est une preuve candidate, pas une réponse BadgeApp réputée sauvegardée. Les critères Metal Passing/Silver/Gold et Baseline OSPS L1–L3 peuvent différer ; contrôler les identifiants de champs et la version active avant de générer une proposition.
 
-**Fiche externe observée :** [K7PL sur BadgeApp](https://www.bestpractices.dev/en/projects/15239/baseline-2), état `in_progress`, Baseline `v2026.08.28`. Le site affiche `(Name Unknown)` ; nom, description, licence et langages sont vides. Voir [BADGE-AUTOMATION.md](BADGE-AUTOMATION.md).
+**Fiche externe observée :** [K7PL sur BadgeApp](https://www.bestpractices.dev/en/projects/15239/baseline-2), état `in_progress`, Baseline `v2026.08.28` ; la section Controls consultée affiche 0/19. Le site affiche `(Name Unknown)` ; nom, description, licence et langages sont vides. Voir [BADGE-AUTOMATION.md](BADGE-AUTOMATION.md).
 
 ## Matrice exhaustive des critères du registre
 
