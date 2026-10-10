@@ -4,11 +4,9 @@
 set -euo pipefail
 
 repo_root="$(git rev-parse --show-toplevel)"
-poc_dir="$repo_root/docs/tracking/tikz-poc"
 source_dir="$repo_root/spec/figures/tikz"
-poc_manifest="$poc_dir/manifest.json"
-build_manifest="$source_dir/manifest.json"
-out_dir="$repo_root/out/tikz-poc"
+manifest="$source_dir/manifest.json"
+out_dir="$repo_root/out/tikz-production"
 work_dir="$out_dir/.work"
 first_dir="$out_dir/.first"
 second_dir="$out_dir/.second"
@@ -43,12 +41,13 @@ build_one() {
 
 while IFS=$'\t' read -r id source stem; do
   [[ -n "$id" && -n "$source" && -n "$stem" ]] || continue
-  echo "::group::TikZ POC: $id (first build)"
+  echo "::group::TikZ figure: $id (first build)"
   build_one first "$id" "$source" "$stem" "$first_dir"
   echo "::endgroup::"
-  echo "::group::TikZ POC: $id (second build)"
+  echo "::group::TikZ figure: $id (second build)"
   build_one second "$id" "$source" "$stem" "$second_dir"
   echo "::endgroup::"
+
   for extension in pdf svg; do
     if ! cmp --silent "$first_dir/$stem.$extension" "$second_dir/$stem.$extension"; then
       echo "::error::Non-deterministic $extension output for $id" >&2
@@ -56,10 +55,12 @@ while IFS=$'\t' read -r id source stem; do
     fi
   done
   echo "reproducible: $id -> $stem (PDF + SVG)"
-done < <(python3 - "$build_manifest" <<'PY'
+done < <(python3 - "$manifest" <<'PY'
 import json, sys
 with open(sys.argv[1], encoding="utf-8") as stream:
     manifest = json.load(stream)
+if manifest.get("status") != "canonical-tikz-sources":
+    raise SystemExit("TikZ source manifest has an unexpected status")
 for figure in manifest["figures"]:
     print(f'{figure["id"]}\t{figure["source"]}\t{figure["asset_stem"]}')
 PY
@@ -68,5 +69,5 @@ PY
 cp "$first_dir"/*.pdf "$out_dir/"
 cp "$first_dir"/*.svg "$out_dir/"
 rm -rf "$first_dir" "$second_dir" "$work_dir"
-python3 "$repo_root/scripts/ci/check_tikz_poc.py" --root "$out_dir"
+python3 "$repo_root/scripts/ci/check_tikz_figures.py" --generated "$out_dir"
 sha256sum "$out_dir"/*.pdf "$out_dir"/*.svg

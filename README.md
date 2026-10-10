@@ -26,9 +26,15 @@ lake exe cache get                # télécharge les binaires Mathlib précompil
 lake build                        # compile l'implémentation (src/) et la spécification (spec/)
 lake test                         # lance les tests (tests/)
 lake lint                         # linter Batteries
-lake exe spec --output _out/spec  # génère la spécification HTML
 reuse lint                        # vérifie la conformité REUSE
+
+# Avant le rendu de la spécification : Tectonic 0.15.0 et Poppler (pdftocairo) doivent être installés.
+SOURCE_DATE_EPOCH=946684800 bash scripts/ci/build_tikz_figures.sh
+cp out/tikz-production/* spec/figures/
+lake exe spec --output _out/spec --with-tex
 ```
+
+Les PDF/SVG des trois figures TikZ sont des artefacts générés et ignorés par Git ; la CI les produit puis les injecte avant le rendu. Pour un rendu local identique à la CI, exécuter ces étapes avant `lake exe spec`.
 
 ## Spécifications
 

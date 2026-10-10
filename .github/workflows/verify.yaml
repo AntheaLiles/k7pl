@@ -199,17 +199,80 @@ jobs:
       - name: Test the Lake-to-SPDX inventory generator
         run: python3 scripts/ci/test_lake_manifest_to_spdx.py
 
-      - name: Test TikZ production asset installation
-        run: python3 scripts/ci/test_install_tikz_figures.py
-
       - name: Test the Python tooling (mini-corpus Verso, auto-tests mutés)
         run: python3 -m pytest tests/python -q
 
       - name: Check the real corpus with the tooling under test
         run: python3 scripts/controle.py
 
+  tikz-assets:
+    name: TikZ figure assets
+    if: ${{ inputs.full || inputs.spec_build }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TECTONIC_VERSION: 0.15.0
+      TECTONIC_SHA256: dfb82876f2986862996e564fa507a9e576e0c1e3bee63c2c1bd677c2543e6407
+      SOURCE_DATE_EPOCH: "946684800"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install Poppler SVG converter
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends poppler-utils
+
+      - name: Install pinned Tectonic
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+          url="https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic@${TECTONIC_VERSION}/$archive"
+          curl --proto '=https' --tlsv1.2 --fail --location --silent --show-error \
+            "$url" --output "$RUNNER_TEMP/$archive"
+          echo "$TECTONIC_SHA256  $RUNNER_TEMP/$archive" | sha256sum --check --strict
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
+          install -m 0755 "$RUNNER_TEMP/tectonic" "$RUNNER_TEMP/tectonic-bin"
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Cache Tectonic files
+        if: ${{ inputs.use_cache }}
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/Tectonic
+          key: tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
+          restore-keys: |
+            tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
+
+      - name: Generate TikZ figures
+        run: bash scripts/ci/build_tikz_figures.sh
+
+      - name: Validate generated TikZ figure assets
+        run: python3 scripts/ci/check_tikz_figures.py --generated out/tikz-production
+
+      - name: Upload generated TikZ figure assets
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: tikz-figure-assets
+          path: out/tikz-production/*
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Summarise TikZ figure assets
+        if: ${{ success() }}
+        run: |
+          {
+            echo "### TikZ figure assets"
+            echo "Tectonic: ${TECTONIC_VERSION} (SHA-256 checked)"
+            echo "SOURCE_DATE_EPOCH: ${SOURCE_DATE_EPOCH}"
+            sha256sum out/tikz-production/*.pdf out/tikz-production/*.svg
+          } >> "$GITHUB_STEP_SUMMARY"
+
   spec:
     name: Spécification Verso
+    needs: tikz-assets
     if: ${{ inputs.full || inputs.spec_build }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -259,35 +322,6 @@ jobs:
       - name: Register the specification warning matcher
         run: echo "::add-matcher::.github/lean-spec-warning-problem-matcher.json"
 
-      - name: Install Poppler SVG converter
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes --no-install-recommends poppler-utils
-
-      - name: Install pinned Tectonic for the figure sources
-        env:
-          TECTONIC_VERSION: "0.15.0"
-          TECTONIC_SHA256: dfb82876f2986862996e564fa507a9e576e0c1e3bee63c2c1bd677c2543e6407
-        shell: bash
-        run: |
-          set -euo pipefail
-          archive="tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-musl.tar.gz"
-          url="https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic@${TECTONIC_VERSION}/$archive"
-          curl --proto '=https' --tlsv1.2 --fail --location --silent --show-error \
-            "$url" --output "$RUNNER_TEMP/$archive"
-          echo "$TECTONIC_SHA256  $RUNNER_TEMP/$archive" | sha256sum --check --strict
-          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
-          install -m 0755 "$RUNNER_TEMP/tectonic" "$RUNNER_TEMP/tectonic-bin"
-          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
-
-      - name: Build and validate TikZ figure outputs
-        env:
-          SOURCE_DATE_EPOCH: ${{ steps.source-date.outputs.epoch }}
-        run: bash scripts/ci/build_tikz_poc.sh
-
-      - name: Install the TikZ outputs as the Verso figure assets
-        run: python3 scripts/ci/install_tikz_figures.py --source out/tikz-poc --target spec/figures
-
       - name: Build the specification
         run: lake build Spec
 
@@ -302,6 +336,12 @@ jobs:
       - name: Audit the axioms (SpecBib)
         if: ${{ !cancelled() }}
         run: scripts/axiom-audit.sh SpecBib SpecBib
+
+      - name: Download generated TikZ figure assets
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: tikz-figure-assets
+          path: spec/figures
 
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
@@ -350,6 +390,10 @@ jobs:
       TECTONIC_VERSION: 0.15.0
       TECTONIC_SHA256: dfb82876f2986862996e564fa507a9e576e0c1e3bee63c2c1bd677c2543e6407
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: spec-tex
@@ -375,7 +419,7 @@ jobs:
           path: ~/.cache/Tectonic
           # An exact hit is never rewritten: the key follows the sources, so that a new LaTeX
           # package pulled in by the specification is saved by the next run.
-          key: tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json') }}
+          key: tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
           restore-keys: |
             tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
 
@@ -435,7 +479,7 @@ jobs:
   verification-result:
     name: Résultat de la vérification
     if: always()
-    needs: [quick, impl, python-tests, spec, spec-pdf]
+    needs: [quick, impl, python-tests, tikz-assets, spec, spec-pdf]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
