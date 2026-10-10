@@ -148,7 +148,7 @@ rend ce modèle distribuable.
 
 Cette dernière remarque suggère l'énoncé que cette section doit à la lecture qu'elle propose.
 
-::::theorem (label := "thm:traduction_metalangage") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Préservation du typage de chaque dérivation par traduction, sous obligations par règle et ré-invocation.")
+::::theorem (label := "thm:traduction_metalangage") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 la traduction préserve le typage
 :::
@@ -296,7 +296,7 @@ celles du métalangage. Comme celui-ci est interprété une fois pour toutes, co
 se raisonnent à son niveau et non sur chaque construction de K7PL. Cette remarque se laisse porter
 jusqu'à un énoncé, qui dit ce qu'un interpréteur de référence garantit et ce qu'il ne garantit pas.
 
-::::theorem (label := "thm:simulation") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Simulation avant →+ modulo équivalence structurelle, avec extension de trace ; le canal de temps et les clauses d’effet restent à établir.")
+::::theorem (label := "thm:simulation") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 simulation de la relation de réduction par la traduction
 :::
@@ -337,7 +337,7 @@ ne sont données qu'en prose, et la proposition est l'hypothèse Sim du théorè
 :::
 
 ::::
-::::theorem (label := "thm:fidelite_interprete") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Fidélité conditionnelle sur communication, contrôle et effets ; exclut explicitement grades et raffinements.")
+::::theorem (label := "thm:fidelite_interprete") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 fidélité de l'interpréteur de référence
 :::
