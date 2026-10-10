@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Lean statement-command taxonomy and proof-bearing exposition plan
 
-**Status:** IN PROGRESS — C8 (ontology ratified; mechanical inventory and source-level semantic audit B01–B11 complete; per-statement classification ratification, implementation, and controlled migration pending)  
+**Status:** IN PROGRESS — C8 (ontology and 69-block classification ratified; mechanical inventory and source-level semantic audit B01–B11 complete; implementation, proof-obligation resolution, and controlled migration pending)  
 **Scope:** specification source in `spec/`, Verso extensions in `tools/SpecExt/`, statement inventories and controls  
 **Purpose:** make the mathematical and epistemic nature of specification statements explicit while reducing explanatory prose that merely labels or repeats that nature
 
@@ -127,7 +127,7 @@ The current `::::thm` should not be removed first. Migration must proceed in lay
 
 Build a complete inventory of all current statement blocks and classify each occurrence independently.
 
-**Progress recorded 2026-10-09:** the mechanical inventory covers 69 active `::::thm` blocks across 21 source files, and a 69-row provisional classification register has been produced. The inventory drift checker is present. The register is a first-pass triage, not a full audit: complete reading of every statement, hypothesis, proof sketch, and dependency remains open. The dependency checker and cycle audit are under CI review; two semantic risk cases are documented separately. C8.0 is therefore **not closed**.
+**Progress recorded 2026-10-10:** the mechanical inventory covers 69 active `::::thm` blocks across 21 source files. The source-level semantic review B01–B11 is complete, and the [69-block classification ratification ledger](LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) records the ratified nature, logical role, epistemic state, scope, visible support, and remaining qualification for every block. This ratifies classification only, not mathematical validity or Lean proof. The dependency checker and inventory drift controls remain part of the assurance gate. H1, bounded disclosure/`Declassify`, representation admissibility, simulation/fidelity, several algebraic compatibility laws, and the composite-object splits remain open proof or migration obligations. C8.0 is therefore **not closed**.
 
 Required fields:
 
