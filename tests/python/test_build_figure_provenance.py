@@ -19,7 +19,15 @@ def fixture_repo(tmp_path: Path) -> Path:
     (spec / "figures" / "sources").mkdir(parents=True)
     (spec / "Spec" / "C1" / "Example.lean").write_text(
         '::::figure (label := "fig:one") (src := "asset-one") (alt := "A & B")\n'
-        '::::figure (label := "fig:two") (src := "asset-two") (alt := "Second figure")\n',
+        ':::desc\n'
+        'A long description for the first figure.\n'
+        ':::\n'
+        '::::\n'
+        '::::figure (label := "fig:two") (src := "asset-two") (alt := "Second figure")\n'
+        ':::desc\n'
+        'The second figure has two connected states.\n'
+        ':::\n'
+        '::::\n',
         encoding="utf-8",
     )
     (spec / "figures" / "tikz" / "one.tex").write_text(r"\documentclass{standalone}", encoding="utf-8")
@@ -58,6 +66,10 @@ def test_generates_catalog_from_verso_and_canonical_sources(tmp_path: Path) -> N
     assert 'id="asset-one"' in page
     assert 'id="asset-two"' in page
     assert 'alt="A &amp; B"' in page
+    assert 'aria-describedby="figure-description-asset-one"' in page
+    assert 'id="figure-description-asset-one">A long description for the first figure.' in page
+    assert 'class="k7-provenance-img"' in page
+    assert "The second figure has two connected states." in page
     assert "spec/figures/tikz/one.tex" in page
     assert "spec/figures/sources/asset-two.drawio" in page
     assert "blob/deadbeef/" in page
