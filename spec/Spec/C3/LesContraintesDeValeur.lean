@@ -347,7 +347,7 @@ Ces singularités se propagent algébriquement à travers les opérations vector
 introduire de branchement ; si $`\bot` atteint la sortie d'une fonction, le résultat est simplement
 l'absence de donnée — un échec prouvé plutôt que silencieux.
 
-::::thm (label := "thm:homomorphisme_roues") (status := "proposition") (level := "representation")
+::::proposition (label := "thm:homomorphisme_roues") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Injectivité des quatre singularités et comportement de select")
 :::title
 représentation des singularités de la théorie des roues
 :::
@@ -358,10 +358,7 @@ Encodage des singularités et masquage vectoriel
 Soit $`i : \text{Wheel} \to \text{Float64}` l'encodage qui associe à chacune des quatre
 singularités ($`\bot, \infty, \circ, \delta`) un motif de bits déterministe dans la charge utile
 d'un NaN silencieux IEEE 754. Alors (i) $`i` est injective sur ces quatre singularités ; (ii)
-$`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement ; (iii) l'arithmétique de
-couche 3 sur les valeurs encodées est _spécifiée par K7PL_, par la table de propagation des
-singularités, et non déléguée à IEEE 754. La réalisation de (iii) est une exigence, vérifiée par
-test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
+$`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement.
 :::
 
 :::proofsketch
@@ -370,6 +367,22 @@ singularité de façon déterministe, d'où l'injectivité (i). L'égalité de c
 à bit plutôt que l'égalité IEEE 754 standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
 en masquage vectoriel sans branchement ; la nature binaire du masque garantit que la charge utile de
 la branche inactive est annihilée plutôt que corrompue, d'où (ii).
+:::
+::::
+
+::::requirement (label := "req:homomorphisme_roues_realisation") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "Injectivité des quatre singularités et comportement de select ; l’arithmétique des valeurs encodées est une exigence de réalisation séparée.")
+:::title
+réalisation de l’arithmétique des roues
+:::
+
+:::statement +titled
+Réalisation de l’arithmétique de couche 3
+
+L'arithmétique de
+couche 3 sur les valeurs encodées est _spécifiée par K7PL_, par la table de propagation des
+singularités, et non déléguée à IEEE 754. La réalisation de (iii) est une exigence, vérifiée par
+test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
+:::
 
 Ce que l'énoncé _ne dit pas_ : l'encodage n'est pas un homomorphisme de la théorie des roues vers
 les flottants. En roues $`x/0 = \bot`, donc $`1/0 = \bot`, tandis qu'en IEEE 754 $`1/0 = +\infty` ;
@@ -378,9 +391,7 @@ non exigée, les opérations invalides produisant le NaN par défaut. Les lois d
 par exemple $`\bot + y = \bot`, ne tiennent donc sur les valeurs encodées que parce que la table de
 propagation de (iii) les impose : c'est K7PL qui les spécifie, aucun effet ne dépendant de la
 machine.
-:::
 ::::
-
 ::::requirement (label := "thm:representation_inobservable") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "Invariance de obs entre représentations admissibles d’une même valeur ; relation d’admissibilité et signatures de repr/obs à préciser.")
 :::title
 aucune liberté de représentation n'est observable
