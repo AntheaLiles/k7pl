@@ -17,7 +17,7 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from validate_spdx import main, preflight_issues, validate
+from validate_spdx import main, preflight_issues, sha256_file, validate
 
 
 VALIDATOR_VERSION = "0.8.5"
@@ -103,12 +103,6 @@ class ValidatorDiagnosticsTests(unittest.TestCase):
         path = Path(directory) / "input.spdx.json"
         path.write_text(json.dumps(payload), encoding="utf-8")
         return path
-
-    def validator_environment(self):
-        return (
-            patch("validate_spdx.version", return_value=VALIDATOR_VERSION),
-            patch("validate_spdx.shutil.which", return_value="/usr/bin/pyspdxtools"),
-        )
 
     def test_missing_validator_package_is_an_error(self) -> None:
         with TemporaryDirectory() as directory:
@@ -225,11 +219,11 @@ class ValidatorDiagnosticsTests(unittest.TestCase):
 
         self.assertEqual((report["status"], exit_code), ("PASS", 0))
         self.assertEqual(report["schemaVersion"], "k7pl.spdx-validation/v1")
-        self.assertEqual(report["input"]["sha256"], report["input"]["sha256"])
+        self.assertEqual(report["input"]["sha256"], sha256_file(path))
         self.assertEqual(report["validator"]["version"], VALIDATOR_VERSION)
         self.assertEqual(report["diagnostics"], [])
         run.assert_called_once()
-        self.assertEqual(run.call_args.args[0][-3:], ["--version", "SPDX-2.3"])
+        self.assertEqual(run.call_args.args[0][-3:], [str(path), "--version", "SPDX-2.3"])
 
 
 class CommandLineDiagnosticsTests(unittest.TestCase):
