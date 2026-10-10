@@ -31,6 +31,28 @@ Le plan interactif et son document d'architecture sont situés sous docs/trackin
 
 Le changelog de la spécification annonce treize figures. Ce nombre sert de contrôle initial à confronter à un inventaire généré depuis les sources ; il ne constitue pas à lui seul un inventaire validé.
 
+### Inventaire initial extrait des déclarations Verso
+
+La première recherche dans les sources a fait apparaître les douze déclarations ci-dessous. Ce relevé est volontairement **provisoire** : le changelog annonce treize figures, donc il reste au moins une déclaration à retrouver ou à expliquer avant de fermer l'inventaire.
+
+| Source canonique (module) | Identifiant de figure | Objet représenté | Rôle explicatif pressenti |
+|---|---|---|---|
+| spec/Spec/C1/AxiomatiqueGerminale.lean | fig:specialisation-couches | specialisation-du-jugement | Relier le jugement germinal aux trois couches du langage |
+| spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean | fig:dualite-algebre-coalgebre | co-algebra-duality | Expliquer la dualité entre algèbre initiale et coalgèbre terminale |
+| spec/Spec/C2/ComonadeExponentielleEtFragments.lean | fig:fragments-emboites | fragments-nestings | Comparer les règles structurelles autorisées dans les fragments |
+| spec/Spec/C3/LeSystemeGradue.lean | fig:modalites-structurelles | matrice-contraction-affaiblissement | Montrer les combinaisons de contraction/affaiblissement retenues |
+| spec/Spec/C3/LesContraintesDeValeur.lean | fig:session-automate | session-protocol-as-automata | Expliquer la progression d'un automate de protocole de session |
+| spec/Spec/C3/LesContraintesDeValeur.lean | fig:session-dualite | session-protocol-as-dual-exchange | Comparer les deux extrémités d'un protocole dual |
+| spec/Spec/C4/EchelleLocale.lean | fig:rexp-complexite | rexp-hierarchy-complexity | Comparer les classes de complexité des R-expressions |
+| spec/Spec/C4/EchelleDeLActeur.lean | fig:arene-partition | soa-partitionning | Rendre visible la partition statique de mémoire entre fibrilles |
+| spec/Spec/C4/EchelleDuSysteme.lean | fig:acteur-cycle-de-vie | virtual-actor-lca | Expliquer le cycle de vie d'un acteur virtuel |
+| spec/Spec/C4/EchelleDuSysteme.lean | fig:circuit-breaker | session-circuit-breaker | Expliquer le rejet ou l'acceptation d'un message selon le tag d'état |
+| spec/Spec/C6/LeProcessusDeCompilation.lean | fig:comp-process | compilation-process | Exposer les phases de la chaîne de compilation |
+| spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean | fig:cycle-reactif | unidirectionnal-reactive-cycle | Relier les étapes du cycle réactif aux trois couches |
+
+Ce tableau classe la **fonction attendue** d'après les déclarations et leurs textes alternatifs ; il ne valide pas encore l'exactitude visuelle des images, leur existence dans les deux formats ni la qualité de leur description longue. Les trois cas de prototype les plus informatifs semblent être : le pipeline de compilation (processus), l'automate ou la dualité du protocole de session (états/relations), et la matrice contraction/affaiblissement (représentation structurale compacte). Le choix définitif dépendra de l'inspection visuelle des fichiers réels.
+
+
 ## 3. Hypothèses à vérifier avant toute correction
 
 - **H1 — URL ou copie des assets :** la page HTML émise référence un chemin qui ne correspond pas à l'emplacement réel du SVG après génération ou publication.
