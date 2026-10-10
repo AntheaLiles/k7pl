@@ -322,6 +322,9 @@ jobs:
       - name: Test generated HTML figure accessibility contracts
         run: python3 scripts/ci/test_check_spec_html_assets.py
 
+      - name: Test generated SVG accessibility metadata
+        run: python3 scripts/ci/test_enrich_figure_svg_metadata.py
+
       - name: Test the CI impact classifier
         run: python3 scripts/ci/test_impact.py
 
@@ -537,6 +540,9 @@ jobs:
 
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
+
+      - name: Enrich published SVGs with accessible names and descriptions
+        run: python3 scripts/ci/enrich_figure_svg_metadata.py --html-root _out/spec/html-multi
 
       - name: Generate the navigable figure-provenance catalog
         run: python3 scripts/ci/build_figure_provenance.py --output _out/spec/html-multi/navigation/figures.html
