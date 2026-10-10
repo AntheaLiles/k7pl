@@ -88,7 +88,7 @@ def InventoryContract (input : AuditInput) : Prop :=
     item.licenseDeclared == "NOASSERTION" &&
     item.licenseConcluded == "NOASSERTION" &&
     item.copyrightText == "NOASSERTION")) = true ∧
-  input.relationships.length = input.packages.length ∧
+  (input.relationships.length == input.packages.length) = true ∧
   allDistinct (input.relationships.map (fun item => item.relatedSpdxElement)) = true ∧
   (input.relationships.all (fun item =>
     item.spdxElementId == "SPDXRef-DOCUMENT" &&
@@ -97,14 +97,37 @@ def InventoryContract (input : AuditInput) : Prop :=
   (input.packages.all (fun package =>
     input.relationships.any (fun relation => relation.relatedSpdxElement == package.spdxId))) = true
 
+/-- Executable decision procedure, using only Boolean checks on the finite model. -/
 def verifyContract (input : AuditInput) : Bool :=
-  decide (InventoryContract input)
+  (input.manifestName == "k7pl") &&
+  (input.spdxVersion == "SPDX-2.3") &&
+  (input.documentId == "SPDXRef-DOCUMENT") &&
+  allDistinct (input.manifestPackages.map (fun item => item.name)) &&
+  input.manifestPackages.all (fun item => item.name != "" && item.url != "") &&
+  allDistinct (input.packages.map (fun item => item.name)) &&
+  input.packages.all (fun item => item.name != "" && item.downloadLocation != "") &&
+  allDistinct (input.packages.map (fun item => item.spdxId)) &&
+  input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT") &&
+  input.manifestPackages.all (fun item => validRevision item.rev) &&
+  sameInventory input &&
+  input.packages.all (fun item =>
+    item.licenseDeclared == "NOASSERTION" &&
+    item.licenseConcluded == "NOASSERTION" &&
+    item.copyrightText == "NOASSERTION") &&
+  (input.relationships.length == input.packages.length) &&
+  allDistinct (input.relationships.map (fun item => item.relatedSpdxElement)) &&
+  input.relationships.all (fun item =>
+    item.spdxElementId == "SPDXRef-DOCUMENT" &&
+    item.relationshipType == "DESCRIBES" &&
+    input.packages.any (fun package => package.spdxId == item.relatedSpdxElement)) &&
+  input.packages.all (fun package =>
+    input.relationships.any (fun relation => relation.relatedSpdxElement == package.spdxId))
 
-/-- Soundness of a successful decision over the normalized model. -/
+/-- Soundness: a successful computation entails every clause of the declared contract. -/
 theorem verifyContract_sound (input : AuditInput) (h : verifyContract input = true) :
     InventoryContract input := by
-  unfold verifyContract at h
-  exact of_decide_eq_true h
+  simp only [verifyContract, Bool.and_eq_true] at h
+  simpa only [InventoryContract] using h
 
 structure Diagnostic where
   ruleId : String
