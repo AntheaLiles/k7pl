@@ -11,7 +11,7 @@ import sys
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import unquote, urljoin, urlsplit
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PAGES = (
@@ -28,6 +28,8 @@ class PageParser(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.ids: Counter[str] = Counter()
         self.links: list[str] = []
+        self.figure_card_ids: list[str] = []
+        self.base_href: str | None = None
         self.scripts = 0
         self.styles: list[str] = []
         self._in_style = False
@@ -37,6 +39,10 @@ class PageParser(HTMLParser):
         identifier = values.get("id")
         if identifier:
             self.ids[identifier] += 1
+            if tag.lower() == "article" and "figure-card" in (values.get("class") or "").split():
+                self.figure_card_ids.append(identifier)
+        if tag.lower() == "base" and values.get("href") is not None:
+            self.base_href = values["href"] or ""
         if tag.lower() == "a" and values.get("href") is not None:
             self.links.append(values["href"] or "")
         if tag.lower() == "script":
@@ -124,6 +130,44 @@ def check_local_link(html_root: Path, page: Path, href: str) -> None:
             fail(f"local anchor {fragment!r} must occur exactly once, found {count}: {href} from {page}")
 
 
+def check_incoming_figure_links(html_root: Path) -> int:
+    """Check that each catalogue figure is linked from its rendered document page."""
+    catalog_path = html_root / "navigation" / "figures.html"
+    _, catalog = parse_html(catalog_path)
+    stems = set(catalog.figure_card_ids)
+    if not stems:
+        fail("figure catalog contains no figure-card anchors")
+    navigation_paths = {(html_root / relative).resolve() for relative in PAGES}
+    found: Counter[str] = Counter()
+
+    # Pages use a relative Verso <base>; the synthetic /k7pl/ prefix models the
+    # repository-page deployment path while keeping validation independent of host DNS.
+    for page in sorted(html_root.rglob("*.html")):
+        if page.resolve() in navigation_paths:
+            continue
+        _, rendered = parse_html(page)
+        document_url = "https://navigation.invalid/k7pl/" + page.relative_to(html_root).as_posix()
+        base_url = urljoin(document_url, rendered.base_href) if rendered.base_href else document_url
+        for href in rendered.links:
+            resolved = urlsplit(urljoin(base_url, href))
+            if not resolved.path.endswith("/navigation/figures.html"):
+                continue
+            if resolved.path != "/k7pl/navigation/figures.html":
+                fail(f"figure-to-catalog link does not resolve to the site catalog: {href} from {page}")
+            stem = unquote(resolved.fragment)
+            if stem not in stems:
+                fail(f"figure-to-catalog link has no catalog card for {stem!r}: {href} from {page}")
+            found[stem] += 1
+
+    missing = sorted(stems - found.keys())
+    duplicates = sorted(stem for stem, count in found.items() if count != 1)
+    if missing:
+        fail(f"catalog figures lack a rendered-document entry link: {missing}")
+    if duplicates:
+        fail(f"catalog figures need exactly one rendered-document entry link: {duplicates}")
+    return len(stems)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
@@ -176,9 +220,11 @@ def main() -> int:
             check_local_link(html_root, page, href)
             local_links += 1
 
+    reversible_figures = check_incoming_figure_links(html_root)
     print(
         f"navigation outputs validated: {len(PAGES)} pages, {total_links} links "
-        f"({local_links} local, {github_links} pinned GitHub source links), ref={args.ref}"
+        f"({local_links} local, {github_links} pinned GitHub source links), "
+        f"{reversible_figures} reversible figure links, ref={args.ref}"
     )
     return 0
 
