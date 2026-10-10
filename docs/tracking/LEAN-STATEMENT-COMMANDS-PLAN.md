@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Lean statement-command taxonomy and proof-bearing exposition plan
 
-**Status:** IN PROGRESS — C8 (ontology and 69-block classification ratified; mechanical inventory and source-level semantic audit B01–B11 complete; implementation, proof-obligation resolution, and controlled migration pending)  
+**Status:** IN PROGRESS — C8 (ontology and 69-block classification ratified; shared directives and structural controls implemented on stacked branches; 69 historical labels migrated across 21 files and five complementary objects added by controlled splitting; exact-head CI, current inventory regeneration, traceability/rendering, and proof-obligation resolution remain pending)  
 **Scope:** specification source in `spec/`, Verso extensions in `tools/SpecExt/`, statement inventories and controls  
 **Purpose:** make the mathematical and epistemic nature of specification statements explicit while reducing explanatory prose that merely labels or repeats that nature
 
@@ -127,7 +127,7 @@ The current `::::thm` should not be removed first. Migration must proceed in lay
 
 Build a complete inventory of all current statement blocks and classify each occurrence independently.
 
-**Progress recorded 2026-10-10:** the mechanical inventory covers 69 active `::::thm` blocks across 21 source files. The source-level semantic review B01–B11 is complete, and the [69-block classification ratification ledger](LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) records the ratified nature, logical role, epistemic state, scope, visible support, and remaining qualification for every block. This ratifies classification only, not mathematical validity or Lean proof. The dependency checker and inventory drift controls remain part of the assurance gate. H1, bounded disclosure/`Declassify`, representation admissibility, simulation/fidelity, several algebraic compatibility laws, and the composite-object splits remain open proof or migration obligations. C8.0 is therefore **not closed**.
+**Progress recorded 2026-10-10:** the mechanical inventory covers 69 active `::::thm` blocks across 21 source files. The source-level semantic review B01–B11 is complete, and the [69-block classification ratification ledger](LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) records the ratified nature, logical role, epistemic state, scope, visible support, and remaining qualification for every block. This ratifies classification only, not mathematical validity or Lean proof. The dependency checker and inventory drift controls remain part of the assurance gate. The controlled migration is now applied on branch `feat/c8-controlled-statement-migration`: the 69 ratified labels are retained, five complementary objects are added, and the six composite cases are recorded in the [migration register](LEAN-STATEMENT-MIGRATION.md). This is a source migration, not mathematical validation. H1, bounded disclosure/`Declassify`, representation admissibility, simulation/fidelity, and several algebraic compatibility laws remain open proof obligations. Exact-head CI, regenerated current inventories, reference resolution, and HTML/TeX/PDF rendering remain to be validated. C8.0 is therefore **not closed**.
 
 Required fields:
 
@@ -149,7 +149,7 @@ The output is a ratified taxonomy, not merely a list of command names.
 
 ### C8.2 — Extension refactoring
 
-**Implementation draft recorded in branch `feat/c8-shared-statement-ontology` (2026-10-10); validation pending.** `tools/SpecExt/Theorem.lean` now has a shared `StatementInfo` record, legacy `::::thm` mapping, specialized command front ends, metadata validation, separate scope/provenance/formal-artifact fields, and role/kind-specific counters for new blocks. The historical counter and syntax are retained for legacy blocks. See [the implementation contract](LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md). This is not yet considered complete until the Lean build, directive expansion tests, HTML/PDF rendering, and compatibility checks pass. The inventory, Python controls, slot-parent validation, and source migration remain outside this implementation slice.
+**Implementation draft recorded in branch `feat/c8-shared-statement-ontology` (2026-10-10); validation pending.** `tools/SpecExt/Theorem.lean` now has a shared `StatementInfo` record, legacy `::::thm` mapping, specialized command front ends, metadata validation, separate scope/provenance/formal-artifact fields, and role/kind-specific counters for new blocks. The historical counter and syntax are retained for legacy blocks. See [the implementation contract](LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md). This is not yet considered complete until the Lean build, directive expansion tests, HTML/PDF rendering, and compatibility checks pass. The inventory and Python controls are tracked in C8.3; the controlled source migration is tracked in C8.4. The current inventory still needs regeneration and independent coverage verification.
 Refactor `tools/SpecExt/Theorem.lean` into a representation that can encode the ratified taxonomy.
 
 The preferred architecture is one internal statement representation with validated variants rather than a copy-pasted renderer for every command. Surface commands may remain distinct for authoring clarity while sharing the same internal representation and rendering infrastructure.
@@ -180,6 +180,8 @@ Controls should reject at least:
 - proof blocks detached from an eligible parent.
 
 ### C8.4 — Controlled migration
+
+**Progress (2026-10-10):** the source migration is applied on `feat/c8-controlled-statement-migration`, based on the shared ontology/control branch. All 69 historical labels are retained across the 21 ratified source files; five complementary objects are added to separate the composite claims. See [the migration register](LEAN-STATEMENT-MIGRATION.md). The exact-head build, structural controls, rendering, and regenerated inventories are still required before acceptance.
 
 Migrate the existing statements without changing their mathematical content.
 
