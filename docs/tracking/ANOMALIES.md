@@ -26,7 +26,7 @@ Statut : ⬜ à traiter · ✅ traitée. Les anomalies du manuscrit peuvent se t
 
 | | Anomalie | Où | Correction |
 |---|---|---|---|
-| ⬜ `ANOM-17` | **Figures invisibles dans les pages HTML imbriquées.** Le renderer ajoutait un préfixe `../` selon la profondeur alors que Verso fournit déjà un `<base href>` vers la racine du site ; le navigateur appliquait donc le préfixe deux fois. Cause reproduite sur l'artefact CI : les 12 références de figures pointent hors du site. | `tools/SpecExt/Float.lean`, rendu `html-multi` | émettre `figures/<nom>.svg`, valider les URL en tenant compte de `<base href>` et vérifier le déploiement ; correction en cours dans la [PR #124](https://github.com/AntheaLiles/k7pl/pull/124) |
+| ✅ `ANOM-17` | **Figures invisibles dans les pages HTML imbriquées.** Le renderer ajoutait un préfixe `../` selon la profondeur alors que Verso fournit déjà un `<base href>` vers la racine du site ; le navigateur appliquait donc le préfixe deux fois. Cause reproduite sur l'artefact CI : les 12 références de figures pointaient hors du site. | `tools/SpecExt/Float.lean`, rendu `html-multi` | corrigé par la [PR #124](https://github.com/AntheaLiles/k7pl/pull/124) ; CI complète verte, contrôle HTML réussi et déploiement GitHub Pages réussi |
 
 ## Dans le suivi
 
