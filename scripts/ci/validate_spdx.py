@@ -102,7 +102,7 @@ def _report(
             "name": "spdx-tools",
             "version": validator_version,
             "expectedVersion": EXPECTED_VALIDATOR_VERSION,
-            "command": ["pyspdxtools", "--infile", path.name, "--version", "SPDX-2.3"],
+            "command": ["pyspdxtools", "--infile", str(path), "--version", "SPDX-2.3"],
         },
         "workflow": workflow,
         "diagnostics": diagnostics,

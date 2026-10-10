@@ -7,9 +7,15 @@
 
 from __future__ import annotations
 
+import io
+import json
 import unittest
+from contextlib import redirect_stdout
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
-from validate_spdx import preflight_issues
+from validate_spdx import main, preflight_issues
 
 
 class PreflightTests(unittest.TestCase):
@@ -42,6 +48,29 @@ class PreflightTests(unittest.TestCase):
     def test_non_object_document_is_rejected(self) -> None:
         issues = preflight_issues([])
         self.assertEqual([issue["ruleId"] for issue in issues], ["SPDX-PREFLIGHT-DOCUMENT"])
+
+    def test_cli_rejects_empty_package_name_before_external_validator(self) -> None:
+        document = {"packages": [{"name": ""}]}
+        with TemporaryDirectory() as temporary_directory:
+            path = Path(temporary_directory) / "empty-name.spdx.json"
+            path.write_text(json.dumps(document), encoding="utf-8")
+            captured = io.StringIO()
+            with (
+                patch("validate_spdx.version", return_value="0.8.5"),
+                patch("validate_spdx.shutil.which", return_value="/usr/bin/pyspdxtools"),
+                patch("validate_spdx.subprocess.run") as external_validator,
+                redirect_stdout(captured),
+            ):
+                exit_code = main(["validate_spdx.py", str(path)])
+
+        report = json.loads(captured.getvalue())
+        self.assertEqual(exit_code, 1)
+        self.assertEqual(report["status"], "FAIL")
+        self.assertEqual(
+            [item["ruleId"] for item in report["diagnostics"]],
+            ["SPDX-PREFLIGHT-PACKAGE-NAME"],
+        )
+        external_validator.assert_not_called()
 
 
 if __name__ == "__main__":
