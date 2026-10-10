@@ -86,7 +86,7 @@ def test_specialized_directive_exposes_ontology_fields(patched):
     source = source.replace(
         '::::thm (label := "thm:exemple") (status := "theoreme")',
         '::::lemma (label := "thm:exemple") (level := "langage") (role := "lemma") '
-        '(state := "under-review") (evidence := "proofsketch") (scope := "synthetic test scope")',
+        '(state := "under-review") (evidence := "proofsketch") (scope := "syntax")',
     )
     f.write_text(source, encoding="utf-8")
     row = mm.statements()[0]
