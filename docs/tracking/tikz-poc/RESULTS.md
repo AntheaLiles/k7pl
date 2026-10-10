@@ -34,11 +34,13 @@ La comparaison visuelle de l'artefact initial a néanmoins révélé deux écart
 - compilation PDF et génération SVG statique à partir de la même source TikZ ;
 - reproductibilité octet par octet entre deux constructions dans le même environnement CI ;
 - structure XML des SVG et présence des PDF attendus ;
-- lisibilité visuelle des trois rendus et conservation des éléments sémantiques listés ci-dessus ;
-- textes alternatifs et descriptions de production maintenus dans les déclarations Verso ; le manifeste sert uniquement à documenter l'évaluation.
+- conservation des éléments sémantiques décrits ci-dessus, vérifiée par comparaison visuelle agrandie des artefacts ;
+- textes alternatifs et descriptions de production présents dans les déclarations Verso.
+
+**Inspection à l'échelle d'insertion :** le pipeline est lisible mais ses étiquettes restent petites à l'échelle d'une page entière ; l'automate conserve des états et transitions discernables ; la matrice monochrome reste lisible sans code couleur. Le PDF CI examiné séparait toutefois la matrice de sa légende et description par un saut de page. Le renderer regroupe maintenant l'image et son explication dans une `minipage` ; il reste à vérifier cette correction sur le nouvel artefact CI.
 
 **Non validé :**
-- conformité PDF/UA avec le préambule personnalisé réel, qui n'est pas versionné dans le dépôt ;
+- conformité PDF/UA avec le préambule personnalisé réel, qui n'est pas versionné dans le dépôt ; l'artefact `spec-pdf` CI contrôlé via `pdfinfo` indique `Tagged: no` ;
 - fidélité pixel à pixel au dessin d'origine — elle n'est pas recherchée pour le pipeline, dont la disposition est volontairement modifiée ;
 - revue visuelle finale à taille de publication après les deux corrections de fidélité introduites le 10 octobre ;
 - test utilisateur comparatif de la compréhension ou de la navigation ;
@@ -49,7 +51,9 @@ La comparaison visuelle de l'artefact initial a néanmoins révélé deux écart
 La réimplémentation sélective des trois figures est intégrée à la chaîne CI : les sources TikZ sont versionnées, les PDF/SVG sont générés et validés, puis transmis au rendu Verso comme artefacts. Cette décision ne s'étend pas aux autres figures ; les sources Mermaid, draw.io et les figures ayant d'autres besoins restent évaluées individuellement.
 
 Les contrôles restants sont :
-1. tester le PDF final avec le mécanisme de balisage accessible et le préambule personnalisé réel lorsqu'il sera disponible ;
-2. confirmer la lisibilité des trois rendus à taille de publication, en niveaux de gris lorsque pertinent ;
+1. reconstruire le PDF de publication avec le préambule réellement utilisé, puis contrôler son balisage au moyen d'un validateur PDF/UA et d'une revue humaine au lecteur d'écran ;
+2. vérifier sur le nouvel artefact la correction de pagination de la matrice, puis faire la revue éditoriale finale à taille d'insertion et en niveaux de gris ;
 3. conserver les SVG historiques comme références de non-régression ;
 4. poursuivre séparément la navigation sémantique : un SVG statique n'est pas un graphe de connaissances.
+
+La décision de réimplémentation demeure limitée aux trois figures : pipeline en serpentin conservé sous réserve de validation éditoriale finale de sa petite typographie ; automate conservé avec son marqueur central rétabli ; matrice monochrome conservée pour ne pas dépendre de la couleur. Aucune quatrième figure ne justifie encore une migration à partir des seules preuves de ce POC.
