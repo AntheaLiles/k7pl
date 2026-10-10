@@ -286,9 +286,12 @@ meta def statementDirective (kind display defaultRole defaultState : String)
     let numbered := numberedDefault && !args.unnumbered
     if numbered && args.label.isNone then
       throwError s!"{display}: numbered statements require a label"
-    let info := StatementInfo.mk args.label display args.level kind role state evidence
-      args.scope args.source args.formalArtifact numbered none
-    ``(Verso.Doc.Block.other (SpecExt.Block.theorem $(quote info)) #[$children,*])
+    ``(Verso.Doc.Block.other
+      (SpecExt.Block.theorem
+        (SpecExt.StatementInfo.mk $(quote args.label) $(quote display) $(quote args.level)
+          $(quote kind) $(quote role) $(quote state) $(quote evidence) $(quote args.scope)
+          $(quote args.source) $(quote args.formalArtifact) $(quote numbered) none))
+      #[$children,*])
 
 /-- Backwards-compatible directive for existing legacy blocks. -/
 @[directive]
@@ -296,9 +299,12 @@ meta def thm : DirectiveExpanderOf ThmArgs
   | {label, status, level}, stxs => do
     let children ← stxs.mapM elabBlock
     let (kind, role, state, evidence) := legacyClassification status
-    let info := StatementInfo.mk label status level kind role state evidence
-      "legacy-unspecified" "" "" true none
-    ``(Verso.Doc.Block.other (SpecExt.Block.theorem $(quote info)) #[$children,*])
+    ``(Verso.Doc.Block.other
+      (SpecExt.Block.theorem
+        (SpecExt.StatementInfo.mk $(quote label) $(quote status) $(quote level)
+          $(quote kind) $(quote role) $(quote state) $(quote evidence)
+          "legacy-unspecified" "" "" true none))
+      #[$children,*])
 
 @[directive] meta def definition : DirectiveExpanderOf StatementArgs :=
   statementDirective "definition" "Définition" "" "not-applicable" true true
