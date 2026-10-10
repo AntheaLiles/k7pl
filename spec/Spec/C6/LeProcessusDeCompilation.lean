@@ -152,7 +152,7 @@ une boucle fusionnée multiplie les grades de ses deux corps, un appel intégré
 les enchaîner une fois. Ce que la suite linéaire décrit n'est donc pas le modèle défendu, et l'écart
 se referme par un énoncé plutôt que par une figure.
 
-::::thm (label := "thm:stabilisation_pipeline")
+::::theorem (label := "thm:stabilisation_pipeline") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Terminaison de la boucle vérification/optimisation sous budget fini décroissant strictement à chaque modification.")
 :::title
 stabilisation du pipeline
 :::
@@ -171,8 +171,8 @@ fondé, la suite des tours est finie. Un tour qui ne modifie pas le terme est le
 de la mise en ligne, seul à pouvoir engendrer de nouvelles obligations de grade, est traité par la
 borne que ce chapitre lui donne déjà.
 :::
-::::
 
+::::
 Le recours à un solveur externe pose enfin la question de la _stratégie_ de vérification des
 obligations de budget, et l'arbitrage y est plus contraint qu'il n'en a l'air. La littérature le
 pose dans ses propres termes : les techniques d'analyse de ressource _automatisées_ sont restreintes
