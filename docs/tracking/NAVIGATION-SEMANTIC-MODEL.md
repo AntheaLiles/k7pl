@@ -63,11 +63,11 @@ Si la provenance ne peut pas être retrouvée, l'arête ne doit pas être affich
 
 ## 5. Première tranche sémantique proposée
 
-Le premier prototype exécutable porte sur les lignes 22–50 de `spec/Spec/C6/LeProcessusDeCompilation.lean`. Il relie la section à sa figure explicitement référencée et aux sources bibliographiques citées dans son introduction, puis ajoute la provenance technique de la figure déjà validée par le POC TikZ. Cette tranche est volontairement bornée pour garder le graphe lisible.
+La première tranche exécutable porte sur les lignes 22–50 de `spec/Spec/C6/LeProcessusDeCompilation.lean`. Elle relie la section à sa figure explicitement référencée et aux sources bibliographiques citées dans son introduction, puis ajoute la provenance technique de la figure validée par le POC TikZ. Une seconde tranche, lignes 22–50 de `spec/Spec/C3/LeSystemeGradue.lean`, vérifie la réutilisation du générateur sur des références vers une autre section et plusieurs citations. Les deux vues se relient mutuellement ; chacune reste volontairement bornée.
 
 Le prototype représente uniquement les arêtes `num` et `cite` présentes dans cette plage source, chacune avec un lien vers son emplacement source exact. Les labels canoniques sont résolus vers les ancres des pages HTML produites par Verso ; une ancre manquante ou ambiguë fait échouer la génération. Le graphe revient à la section rendue et expose aussi sa source Lean/Verso. La provenance figure → source TikZ → SVG/PDF est un autre type d'arête, étayé par le manifeste et la CI. Le graphe ne déduit pas que les citations sont des prémisses formelles ni que les références sont des dépendances de preuve.
 
-Une tranche suivante pourra porter sur `sec:c3-le-systeme-gradue` dans `spec/Spec/C3/LeSystemeGradue.lean`, dont les références explicites relient plusieurs sections et un théorème. Le résultat actuel est une vue locale, navigable, et non un graphe exhaustif de K7PL.
+Le résultat actuel est un petit ensemble de vues locales navigables, pas un graphe exhaustif de K7PL. La plage C3 n'est pas représentative de toutes les références de la section et ne doit pas être interprétée comme un inventaire complet.
 
 ## 6. Génération et validation
 
