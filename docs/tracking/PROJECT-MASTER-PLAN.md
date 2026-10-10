@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # K7PL — Project Master Plan
 
 **Status:** ACTIVE PLANNING  
-**Snapshot:** 2026-10-08  
+**Snapshot:** 2026-10-10  
 **Scope:** scientific/formal workstreams A–J and documentation architecture
 
 This document is the project-level execution map. It does not replace the detailed registers, decision logs, theoretical-object register, assurance case, or documentation-migration plan.
@@ -48,8 +48,9 @@ Therefore:
 | G — ratifications and T-68 | PARTIALLY PREPARED | DECISIONS.md / primitives.md | outstanding decisions ratified and T-68 closed |
 | H — Spec ↔ Lean traceability | PARTIAL | scripts/controles/couverture.py | semantic traceability established |
 | I — implementation conformance | OPEN | IMPL obligations / ASSURANCE.md | bounded conformance claim with evidence |
-| J — release / PDF / Zenodo | NOT STARTED | release gate P6 | real release path exercised and reproducible |
+| J — release / PDF / Zenodo | PARTIAL | release gate P6; OpenSSF tracking in `docs/security/` | real tag-triggered release, attestation verification, Zenodo sandbox and reproducibility evidence |
 | Documentation architecture | DONE | #58 + #60; D8 validated | physical architecture closed; semantic migration remains tracked separately in docs/migration/ |
+| K — Lean tools for project-compliance assurance | OPEN — research question | [issue #122](https://github.com/AntheaLiles/k7pl/issues/122) | bounded assurance claim, evidence boundary, comparison with simpler alternatives, and go/no-go demonstrator note |
 
 Main baseline is intentionally a dated snapshot rather than a maintained live SHA. For the current execution state, use the commit SHA attached to the CI run/PR under review; this plan does not assert a dynamic baseline.
 
@@ -524,6 +525,8 @@ At the current snapshot:
 8. establish the bounded implementation-conformance case I;
 9. exercise J and P1–P6;
 10. complete the semantic migration lots that remain justified, then maintain the closed physical architecture without recreating a migration work queue.
+11. keep the OpenSSF remediation campaign on temporary hold; its genuinely open items remain in `docs/security/OPENSSF-ROADMAP.md` and human-only actions in `docs/security/ACTIONS-HUMAINES.md`.
+12. start K as a separate research question via issue #122; do not treat Lean formalization as automatic legal, contractual, or organizational compliance.
 
 If a stage exposes a new architectural dependency, stop the downstream progression and reclassify the dependency rather than silently carrying it forward.
 
@@ -555,3 +558,22 @@ Update this master plan only when a workstream changes:
 - position in the global sequence.
 
 Routine progress belongs in the dedicated registers.
+
+
+## 23. K — Lean tools for project-compliance assurance
+
+**Status:** OPEN — exploration only  
+**Anchor:** [GitHub issue #122](https://github.com/AntheaLiles/k7pl/issues/122)
+
+The question is whether Lean can support a bounded, useful form of project-compliance assurance for constraints derived from standards, contracts, regulations, and business rules. This is not yet a decision to implement a compliance engine.
+
+The first phase must distinguish:
+
+- the object being checked (requirements, constraints, decisions, artefacts, or their relations);
+- mechanically provable properties from traceability evidence, empirical facts, and accountable human judgements;
+- versioning, applicability, exceptions, conflicts, and provenance of constraints;
+- Lean-specific formalization from simpler rule engines, structured registers, and existing compliance tooling.
+
+**Exit criterion:** a short decision note defines one assurance claim, its evidence boundary, alternatives considered, one bounded non-safety-critical demonstrator with counterexamples, and a go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
+
+The OpenSSF remediation campaign is temporarily paused and tracked separately. Its outstanding release/security actions remain open and must be resumed before any release action that depends on them.
