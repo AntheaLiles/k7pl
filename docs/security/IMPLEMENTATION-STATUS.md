@@ -231,17 +231,17 @@ Faits lus ou mesurés après la fusion de la PR #28 ; rien n'est déduit.
 | La PR #19 est `blocked` : son seul contrôle est celui de Dependabot, **`CI OK` n'y est pas rapporté** (une PR ouverte avec `GITHUB_TOKEN` ne déclenche pas les workflows) ; `docs/STATUS.md` généré affiche toujours `Implementation version: unknown` | état de la PR #19 ; contenu de la branche (D11) |
 
 
-## 15. Point de situation et mise en pause (2026-10-10)
+## 15. Snapshot historique — état au moment de la pause (2026-10-10)
 
 Ce complément actualise l'état d'exécution sans réécrire les observations historiques des sections précédentes.
 
 - La mainteneuse confirme que PR #120 a été fusionnée, que `CI OK` passe sur `main`, et que le workflow `Release` lancé manuellement sur `main` a réussi.
 - Cette répétition confirme le chemin de vérification et de construction à blanc exercé par `workflow_dispatch`, dont le build sans cache. Elle **ne** valide **pas** l'événement de tag réel, la création d'un brouillon, la production et la vérification d'une attestation, la publication, l'archivage Zenodo, ni les réglages administratifs.
-- La PR #121 contient une mise à jour du tracking de release et reste non fusionnée selon la décision de la mainteneuse au moment de ce complément.
+- Snapshot historique : au moment de la rédaction du §15, la PR #121 était encore ouverte ; elle a été fusionnée ensuite. Voir l'état courant consigné au §16.
 - Le prototype SPDX 2.3 issu de la PR #113 est fusionné, mais aucun parseur SPDX indépendant n'a encore validé le document généré. Son état est **PARTIAL** ; aucune conformité SPDX ni intégration à la release n'est revendiquée.
 - Le scan OSV sur les dépendances Lake a produit un premier résultat sans avis signalé ; la répétition planifiée et le processus de triage restent à confirmer (**PARTIAL**).
 - Les tâches réellement encore ouvertes sont maintenues dans [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md), désormais limité au registre actif, et dans [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) / [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md).
-- La campagne OpenSSF est **mise en pause temporaire** pour permettre une question de recherche distincte sur les outils Lean d'assurance de conformité de projet. Ce changement de priorité ne constitue ni une clôture de tous les écarts, ni une certification, ni une revue de sécurité humaine.
+- Snapshot historique : à l'heure de rédaction du §15, la campagne OpenSSF était mise en pause temporaire pour instruire séparément la recherche Lean sur l'assurance de conformité. Cette priorité temporaire ne valait ni clôture des écarts, ni certification, ni revue humaine de sécurité.
 
 ### Registre de clôture temporaire
 
