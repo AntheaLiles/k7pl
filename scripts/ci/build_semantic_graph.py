@@ -61,6 +61,29 @@ def source_lines(root: Path, path: str) -> list[str]:
     return file.read_text(encoding="utf-8").splitlines()
 
 
+def rendered_label_href(site_root: Path, output: Path, label: str) -> str:
+    """Resolve a canonical Verso label to the generated page that owns its anchor."""
+    anchor = f"lbl-{label}"
+    pattern = re.compile(r'\bid=["\']' + re.escape(anchor) + r'["\']')
+    matches: list[Path] = []
+    for page in sorted(site_root.rglob("*.html")):
+        if page.resolve() == output.resolve():
+            continue
+        try:
+            source = page.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError) as exc:
+            fail(f"cannot inspect rendered HTML {page}: {exc}")
+        if pattern.search(source):
+            matches.append(page)
+    if len(matches) != 1:
+        fail(
+            f"rendered anchor {anchor!r} must resolve to exactly one HTML page "
+            f"under {site_root}; found {len(matches)}"
+        )
+    relative = os.path.relpath(matches[0], output.parent).replace(os.sep, "/")
+    return f"{quote(relative, safe='/.-_')}#{quote(anchor, safe='-')}"
+
+
 def label_index(root: Path) -> dict[str, LabelTarget]:
     index: dict[str, LabelTarget] = {}
     spec_root = root / "spec" / "Spec"
@@ -205,6 +228,8 @@ def svg_edge(x1: int, y1: int, x2: int, y2: int, label: str) -> str:
 def build(root: Path, output: Path, ref: str, source_path: str, source_label: str, start_line: int, end_line: int) -> None:
     targets = label_index(root)
     source, edges = extract_edges(root, source_path, source_label, targets, start_line, end_line)
+    site_root = output.parent.parent
+    source_page_href = rendered_label_href(site_root, output, source.label)
     tikz_manifest = json.loads((root / "spec" / "figures" / "tikz" / "manifest.json").read_text(encoding="utf-8"))
     tikz_by_stem = {item["asset_stem"]: item for item in tikz_manifest["figures"]}
 
@@ -216,7 +241,10 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
             "id": str(edge["target_id"]),
             "title": str(edge["target_title"]),
             "kind": str(edge["target_kind"]),
-            "href": github_url(ref, str(edge["target_path"]), int(edge["target_line"])),
+            "href": rendered_label_href(
+                site_root, output, str(edge["target_id"])
+            ),
+            "source_href": github_url(ref, str(edge["target_path"]), int(edge["target_line"])),
             "edge": edge,
         })
     for edge in citation_edges:
@@ -225,6 +253,7 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
             "title": str(edge["target_title"]),
             "kind": "source bibliographique",
             "href": github_url(ref, str(edge["target_path"]), int(edge["target_line"])),
+            "source_href": github_url(ref, str(edge["target_path"]), int(edge["target_line"])),
             "edge": edge,
         })
 
@@ -236,7 +265,7 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
     nodes: list[str] = []
     paths: list[str] = []
     source_url = github_url(ref, source.path, source.line)
-    nodes.append(svg_node(source.label, source.title, "section", source_url, source_x, source_y, 260, 90))
+    nodes.append(svg_node(source.label, source.title, "section", source_page_href, source_x, source_y, 260, 90))
     relation_positions: dict[str, tuple[int, int]] = {}
     for i, node in enumerate(relation_nodes):
         x, y = relation_x, 40 + i * row_gap
@@ -343,7 +372,8 @@ li {{ margin: .5rem 0; }}
 </style></head>
 <body>
 <nav aria-label="Navigation du prototype"><a href="figures.html">Catalogue des figures</a>
-<a href="{html.escape(source_url, quote=True)}">Source canonique de la section</a></nav>
+<a href="{html.escape(source_page_href, quote=True)}">Section rendue</a>
+<a href="{html.escape(source_url, quote=True)}">Source Lean/Verso</a></nav>
 <h1>Graphe local : {html.escape(source.title)}</h1>
 <p>Ce graphe montre les références Verso et citations explicitement présentes aux lignes {start_line}–{end_line} de la source. Les arêtes de provenance de la figure sont distinguées des relations documentaires. Il ne représente pas les dépendances de preuve ni les liens vers les tests.</p>
 <div class="graph">{svg}</div>
