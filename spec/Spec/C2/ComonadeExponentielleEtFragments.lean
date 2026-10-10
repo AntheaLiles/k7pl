@@ -122,7 +122,7 @@ et le transport de l'effet ; la partie budgétaire non ambiguë se réduit au le
 $`\mathbb{N}_\infty`, tandis que l'extension au grade complet reste à établir. Les usages ultérieurs
 ne doivent invoquer cette loi qu'une fois ces actions définies.
 
-::::thm (label := "thm:distributivite_tronquee")
+::::lemma (label := "thm:distributivite_tronquee") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Pour u fini ou k=0 ; la preuve par cas des combinaisons finies/infinies, notamment k=ω, doit être exhaustive.")
 :::title
 distributivité du produit sur la soustraction tronquée
 :::
@@ -150,12 +150,12 @@ $`\omega \ominus \omega` ; l'égalité demande $`\omega \ominus \omega = \omega
 ne peut pas valoir les deux. _Aucune définition de $`\ominus` ne rend donc la loi vraie en
 $`u = \omega`_, et ce n'est pas une affaire de convention à choisir mais une restriction à porter.
 :::
-::::
 
+::::
 Ce lemme arithmétique reste disponible pour une architecture où une même multiplicité agit
 simultanément sur le budget et sur l'effet. Il n'est pas requis par `Scale_Usage`, qui laisse le budget
 inchangé, et il ne doit donc plus être présenté comme une prémisse générale de la substitution.
-::::thm (label := "thm:coherence_axiome") (status := "proposition")
+::::proposition (label := "thm:coherence_axiome") (level := "langage") (role := "proposition") (state := "proposed") (evidence := "proofsketch") (scope := "Compatibilité r·ψ(Δ,ε)=ψ(r·Δ,φ_r(ε)) seulement dans le domaine où les deux actions sont définies ; aucun axiome par le seul nom.")
 :::title
 condition de compatibilité de l'action graduée
 :::
@@ -177,9 +177,9 @@ $`n(\beta \ominus k)=n\beta\ominus nk`, sous la loi arithmétique correspondante
 ne peut pas être étendue aux grades d'usage rationnels sans définir séparément l'action sur le budget
 et l'action $`\varphi_r` sur les effets.
 :::
-::::
 
-::::thm (label := "thm:coherence_usage") (status := "proposition")
+::::
+::::lemma (label := "thm:coherence_usage") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Commutation de Scale_Usage avec ψ, sous factorisation et domaine défini ; signatures et quatre composantes à confirmer.")
 :::title
 cohérence de l'action d'usage
 :::
@@ -199,8 +199,8 @@ composante d'usage et laisse le budget inchangé. Les deux compositions ont donc
 composantes. Aucune action $`\varphi_u` sur les effets n'est requise, ce qui rend cette loi compatible
 avec les usages rationnels.
 :::
-::::
 
+::::
 La loi `coherence_usage` est maintenant la condition pertinente pour l'action contextuelle
 factorisée. Le lemme de substitution et les règles `Box`/`App` peuvent l'invoquer une fois le support
 d'indexation et `Scale_Usage` fixés. La relation logique, la traduction et les transformations
@@ -277,7 +277,7 @@ additionne les travaux en prenant le maximum des profondeurs.
 
 L'action d'itération doit être compatible avec cette composition.
 
-::::thm (label := "thm:action_parallele") (status := "proposition")
+::::lemma (label := "thm:action_parallele") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Compatibilité de φ_n avec l’effet parallèle pour multiplicité entière ; budget exclu et traité séparément.")
 :::title
 compatibilité de l'itération et de la mise en parallèle
 :::
@@ -295,8 +295,8 @@ Sur la profondeur, elle vient de la monotonie de la multiplication dans le supre
 $`n\max(s_1,s_2)=\max(ns_1,ns_2)`.
 L'énoncé ne présuppose aucune transformation du budget ; celle-ci relève de `Cost_Budget`.
 :::
-::::
 
+::::
 L'interface budgétaire est désormais fixée sous les hypothèses normatives retenues. Le grade porte un budget $`\beta \in \mathbb{N}_\infty`, tandis que la composante temporelle normative est la famille $`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`. Les agrégateurs $`W` et $`D` et la scalarisation `Cost_Budget` sont définis ci-dessous ; la consommation reste séparée et n'intervient que lorsque l'effet traverse effectivement un contexte par $`\psi`.
 
 Une extension concurrente pourrait ultérieurement raffiner la famille temporelle par plusieurs composantes de coût, mais cette extension n'appartient pas à la définition normative actuelle. Elle ne doit donc pas décider aujourd'hui de la structure du grade ni de la consommation budgétaire.
