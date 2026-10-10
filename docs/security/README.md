@@ -9,8 +9,12 @@ Ce dossier rassemble l'audit OpenSSF mené sur le dépôt et ses suites. Il trai
 publication** (workflows, dépendances, releases, comptes). Il ne dit rien de la correction scientifique du langage : celle-ci relève de
 [`../ASSURANCE.md`](../ASSURANCE.md). L'état factuel courant du dépôt est produit par la CI dans [`../STATUS.md`](../STATUS.md).
 
+**État au 2026-10-10 : pause temporaire.** La remédiation active est réduite aux actions encore ouvertes ou partielles dans
+[`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md). Le plan détaillé antérieur est archivé ; cette pause ne signifie ni conformité OpenSSF complète,
+ni revue humaine de sécurité. Les actions administratives et décisions non résolues restent dans les registres dédiés.
+
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-06  
+**Last updated:** 2026-10-10  
 **Audience:** la mainteneuse, les relecteurs, les agents.
 
 ## Identifiants de commit cités
