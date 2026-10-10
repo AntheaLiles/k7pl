@@ -25,6 +25,7 @@ class Figure:
     label: str
     stem: str
     alt: str
+    description: str
     source_path: str
     source_kind: str
     verso_path: str
@@ -47,6 +48,30 @@ def lean_string(value: str) -> str:
 def github_url(ref: str, path: str, line: int | None = None) -> str:
     url = f"https://github.com/{GITHUB_REPO}/blob/{quote(ref, safe='')}/{quote(path, safe='/')}"
     return f"{url}#L{line}" if line is not None else url
+
+
+def long_description(lines: list[str], declaration_line: int) -> str:
+    """Extract the canonical :::desc slot and normalize it for plain-text metadata."""
+    inside_description = False
+    parts: list[str] = []
+    for line in lines[declaration_line + 1:]:
+        stripped = line.strip()
+        if stripped == "::::":
+            break
+        if stripped == ":::desc":
+            inside_description = True
+            continue
+        if inside_description and stripped == ":::":
+            break
+        if inside_description:
+            parts.append(stripped)
+    text = " ".join(parts)
+    text = re.sub(r'§?\{num\s+"[^"]+"\}\[\]', "la section correspondante", text)
+    text = re.sub(r'\{cite\s+"[^"]+"\}\[\]', "", text)
+    text = re.sub(r'\$\x60([^\x60]*)\x60', r'\1', text)
+    text = re.sub(r'\x60([^\x60]*)\x60', r'\1', text)
+    text = re.sub(r'[*_]+', "", text)
+    return " ".join(text.split())
 
 
 def discover_figures(root: Path) -> list[Figure]:
@@ -77,7 +102,9 @@ def discover_figures(root: Path) -> list[Figure]:
 
     for source_file in sorted(spec_dir.rglob("*.lean")):
         relative_source = source_file.relative_to(root).as_posix()
-        for line_number, line in enumerate(source_file.read_text(encoding="utf-8").splitlines(), 1):
+        source_lines = source_file.read_text(encoding="utf-8").splitlines()
+        for line_index, line in enumerate(source_lines):
+            line_number = line_index + 1
             if not DECLARATION.search(line):
                 continue
             fields = {key: lean_string(value) for key, value in NAMED_STRING.findall(line)}
@@ -85,8 +112,9 @@ def discover_figures(root: Path) -> list[Figure]:
             if missing:
                 fail(f"{relative_source}:{line_number}: figure declaration misses {sorted(missing)}")
             label, stem, alt = fields["label"], fields["src"], fields["alt"]
-            if not label or not stem or not alt.strip():
-                fail(f"{relative_source}:{line_number}: empty label, asset stem or alt text")
+            description = long_description(source_lines, line_index)
+            if not label or not stem or not alt.strip() or not description:
+                fail(f"{relative_source}:{line_number}: empty label, asset stem, alt text or long description")
             if stem in seen_stems or label in seen_labels:
                 fail(f"{relative_source}:{line_number}: duplicate figure label or asset stem")
             seen_stems.add(stem)
@@ -103,7 +131,7 @@ def discover_figures(root: Path) -> list[Figure]:
             svg = figures_dir / f"{stem}.svg"
             if not svg.is_file():
                 fail(f"{relative_source}:{line_number}: published SVG is missing: {svg.relative_to(root)}")
-            figures.append(Figure(label, stem, alt, source_path, source_kind, relative_source, line_number))
+            figures.append(Figure(label, stem, alt, description, source_path, source_kind, relative_source, line_number))
 
     if not figures:
         fail("no figure declarations found under spec/Spec")
@@ -122,6 +150,8 @@ def render_page(root: Path, output: Path, ref: str) -> None:
     for figure in figures:
         stem = html.escape(figure.stem, quote=True)
         alt = html.escape(figure.alt, quote=True)
+        description = html.escape(figure.description)
+        description_id = html.escape(f"figure-description-{figure.stem}", quote=True)
         label = html.escape(figure.label)
         source_path = html.escape(figure.source_path)
         source_url = github_url(ref, figure.source_path)
@@ -135,9 +165,10 @@ def render_page(root: Path, output: Path, ref: str) -> None:
         )
         cards.append(
             f'<article class="figure-card" id="{stem}">'
-            f'<div class="figure-preview"><a href="{svg_url}"><img src="{svg_url}" '
-            f'alt="{alt}" loading="lazy"></a></div>'
+            f'<div class="figure-preview"><a href="{svg_url}"><img class="k7-provenance-img" src="{svg_url}" '
+            f'alt="{alt}" aria-describedby="{description_id}" loading="lazy"></a></div>'
             f'<div class="figure-details"><h2>{label}</h2>'
+            f'<p class="figure-description" id="{description_id}">{description}</p>'
             f'<p class="asset">{stem}</p>'
             f'<p class="source-kind">Source canonique : {html.escape(figure.source_kind)}</p>'
             f'<p class="actions"><a href="{html.escape(verso_url, quote=True)}">Déclaration Verso</a>'
@@ -162,6 +193,7 @@ nav {{ display: flex; flex-wrap: wrap; gap: .8rem; }}
 .figure-card {{ display: grid; grid-template-columns: minmax(120px, 42%) 1fr; gap: 1rem; align-items: start; border: 1px solid #8888; border-radius: .6rem; padding: .8rem; min-width: 0; }}
 .figure-preview img {{ display: block; width: 100%; height: auto; max-height: 230px; object-fit: contain; }}
 .figure-details h2 {{ font-size: 1.05rem; margin: 0 0 .25rem; overflow-wrap: anywhere; }}
+.figure-description {{ margin: .3rem 0; font-size: .92rem; overflow-wrap: anywhere; }}
 .asset, .source-path {{ font-size: .85rem; overflow-wrap: anywhere; }}
 .source-kind {{ font-size: .9rem; }}
 .actions {{ display: flex; flex-wrap: wrap; gap: .6rem; }}
