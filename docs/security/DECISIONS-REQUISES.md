@@ -93,12 +93,10 @@ Les extraits de texte proposés en annexe sont des **propositions de rédaction*
 - **Recommandation.** (a) ou (b) maintenant ; (c) seulement après avoir observé un build sain en CI. Dans tous les cas, ne jamais
   écrire « reproductible » avant la démonstration correspondante.
 
-## D8. Essayer zizmor sur les workflows
+## D8. Statut du contrôle zizmor : essai réalisé, seuil bloquant non décidé
 
-- **Contexte (fait).** Les workflows sont la surface d'attaque réelle et sont rédigés en partie par des agents. zizmor hors ligne :
-  8 constats de gravité faible ; les audits en ligne (commits imposteurs, actions vulnérables) n'ont pas pu tourner ici.
-- **Recommandation.** L'essayer d'abord sur une branche, puis décider s'il devient un contrôle requis. **Pas de CodeQL** : il ne
-  couvre pas Lean et n'apporterait qu'un faux signal sur Scorecard.
+- **Contexte vérifié au 2026-10-10.** Le contrôle zizmor est intégré à la CI et son job a réussi sur la PR de suivi #121 ; les résultats sont destinés à Code Scanning. La campagne a donc dépassé le stade de l'essai ponctuel initial. Le succès du job signifie que l'audit s'est exécuté sans faire échouer ce run ; il ne signifie pas qu'il n'existe aucun constat ni que tous les audits en ligne sont activés.
+- **Décision restante.** Choisir ultérieurement si zizmor doit devenir bloquant, après examen des constats Code Scanning et de la charge de maintenance. Jusqu'à cette décision, conserver le comportement non bloquant actuel. **Pas de CodeQL** : il ne couvre pas Lean et ne doit pas être ajouté pour améliorer artificiellement Scorecard.
 
 ## D9. Gouvernance, langue des signalements, DCO, canal du code de conduite
 
