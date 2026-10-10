@@ -81,6 +81,8 @@ def test_generates_graph_from_explicit_references_and_citations(tmp_path: Path) 
             "--output", str(output), "--ref", "deadbeef",
             "--source", "spec/Spec/C6/Example.lean", "--label", "sec:example",
             "--start-line", "1", "--end-line", "5",
+            "--peer-graph", "semantic-graph-c3.html",
+            "--peer-title", "Graphe C3",
         ],
         check=False,
         capture_output=True,
@@ -97,6 +99,7 @@ def test_generates_graph_from_explicit_references_and_citations(tmp_path: Path) 
     assert "../Spec/C3/Target.html#lbl-sec-target" in page
     assert "../Spec/C6/Example.html#lbl-fig-one" in page
     assert "../Spec/C6/Example.html#lbl-sec-example" in page
+    assert 'href="semantic-graph-c3.html">Graphe C3</a>' in page
     svg_start = page.index("<svg ")
     svg_end = page.index("</svg>", svg_start) + len("</svg>")
     svg = ET.fromstring(page[svg_start:svg_end])
