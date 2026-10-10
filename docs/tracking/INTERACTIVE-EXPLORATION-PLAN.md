@@ -105,7 +105,8 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Réaliser le POC TikZ sur trois figures, vérifier les sorties PDF/SVG et la reproductibilité, comparer les éléments sémantiques aux SVG canoniques et consigner la décision dans [les résultats du POC](tikz-poc/RESULTS.md).
 - [ ] Évaluer TikZJax/isomorphic-tikzjax seulement si un besoin d'affichage interactif dans le navigateur reste démontré ; le POC actuel vise des rendus statiques.
 - [ ] Vérifier la transmission des métadonnées d'accessibilité au PDF final et valider le balisage avec le préambule personnalisé réel.
-- [ ] Intégrer la génération TikZ au build canonique, vérifier les sorties suivies dans Git et décider figure par figure ; aucune migration globale n'est autorisée par le seul résultat du POC.
+- [x] Intégrer la génération TikZ au build canonique : la CI valide les sorties et les injecte avant le rendu Verso ; les artefacts dérivés ne sont pas suivis dans Git.
+- [ ] Vérifier le balisage PDF/UA avec le préambule personnalisé réel, puis décider figure par figure des autres candidats ; aucune migration globale n'est autorisée par le seul résultat du POC.
 
 ### P1 — Cas d'usage et démonstration de valeur
 

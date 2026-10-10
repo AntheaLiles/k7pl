@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Résultats du POC TikZ — figures HTML/PDF
 
-**Statut :** POC technique validé sur trois figures ; génération intégrée au build CI, synchronisation des artefacts suivis en cours dans la PR de réimplémentation.
+**Statut :** POC technique validé sur trois figures ; génération intégrée au build CI. Les PDF/SVG sont produits à la demande et ne sont pas suivis dans Git.
 **Date :** 2026-10-10.
 **Validation de génération :** workflow « TikZ figure POC », run 15 ; artefact tikz-poc-renderings.
 
@@ -23,7 +23,7 @@ Le workflow épingle l'archive de Tectonic et vérifie son SHA-256. Le SVG est d
 | Automate de session | Le point initial, les deux états nommés, les transitions send(Int) et recv(Bool) et l'état final en double cercle sont conservés. | Candidat à la réimplémentation ; reconstruction sémantiquement fidèle aux éléments observés. |
 | Matrice contraction/affaiblissement | La grille 2 × 2, les axes catégoriels, les couches Lin/Aff/Unr, les trois points existants et la case non instanciée sont conservés. La couleur n'est plus nécessaire pour distinguer les cases. | Candidat à la réimplémentation ; meilleure robustesse en niveaux de gris à confirmer à la taille de publication. |
 
-Les références canoniques et les six rendus du POC sont réunis dans l'artefact de CI afin de permettre une comparaison directe. Les sources géométriques ont été déplacées vers `spec/figures/tikz/`, qui devient la source canonique des trois dessins. Les déclarations Verso conservent la légende, le texte alternatif et les descriptions de production. La CI génère les sorties et compare leur contenu binaire aux fichiers suivis avant le rendu Verso.
+Les références canoniques et les six rendus du POC sont réunis dans l'artefact de CI afin de permettre une comparaison directe. Les sources géométriques sont sous `spec/figures/tikz/`, source canonique des trois dessins. Les déclarations Verso conservent la légende, le texte alternatif et les descriptions de production. La CI génère les sorties, les valide et les transmet au rendu Verso via un artefact ; les sorties dérivées ne sont pas suivies dans Git.
 
 ## 3. Ce qui est validé — et ce qui ne l'est pas
 
@@ -46,7 +46,7 @@ Les références canoniques et les six rendus du POC sont réunis dans l'artefac
 Poursuivre vers une **réimplémentation sélective des trois figures**, en gardant les sources TikZ versionnées et les PDF/SVG générés comme artefacts dérivés contrôlés par CI. Ne pas généraliser cette décision à toutes les figures : les sources Mermaid, draw.io et les figures ayant d'autres besoins restent évaluées individuellement.
 
 Avant de fusionner la réimplémentation dans la spécification, la suite doit :
-1. valider en CI que les sorties suivies dans Git sont identiques aux sources TikZ ;
+1. maintenir le contrôle CI qui valide les sorties générées et les injecte avant le rendu Verso ;
 2. transmettre le texte alternatif au rendu HTML/PDF existant sans dupliquer les métadonnées ;
 3. tester le PDF final avec le mécanisme de balisage accessible et le préambule réel lorsqu'il sera disponible ;
 4. conserver une référence de non-régression pour chaque figure.

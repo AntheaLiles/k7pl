@@ -159,4 +159,4 @@ La revue confirme la conservation des éléments sémantiques principaux :
 - automate : état initial, deux états nommés, transitions et état final ;
 - matrice : quatre combinaisons, axes catégoriels, couches et case non instanciée.
 
-Le POC justifie de poursuivre vers une réimplémentation sélective, pas une migration globale. La génération n'est pas encore intégrée au build canonique Verso. La conformité PDF/UA avec le préambule personnalisé reste à vérifier, ce préambule n'étant pas versionné dans le dépôt. Le manifeste d'essai ne remplace pas les métadonnées canoniques des figures.
+Le POC justifie de poursuivre vers une réimplémentation sélective, pas une migration globale. La génération est intégrée à la CI : un job produit et valide les PDF/SVG, puis le rendu Verso consomme l'artefact généré. Les sorties dérivées ne sont pas suivies dans Git ; les sources TikZ restent dans `spec/figures/tikz/` et les textes alternatifs restent définis dans les déclarations Verso. La conformité PDF/UA avec le préambule personnalisé reste à vérifier, ce préambule n'étant pas versionné dans le dépôt.

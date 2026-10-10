@@ -12,8 +12,6 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SOURCE_DIR = REPO_ROOT / "spec" / "figures" / "tikz"
-FIGURE_DIR = REPO_ROOT / "spec" / "figures"
-
 
 def fail(message: str) -> None:
     print(f"ERROR: {message}", file=sys.stderr)
@@ -23,7 +21,6 @@ def fail(message: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--generated", type=Path, required=True, help="directory containing generated PDF/SVG pairs")
-    parser.add_argument("--check-tracked", action="store_true", help="require generated assets to match spec/figures byte-for-byte")
     args = parser.parse_args()
     generated_root = args.generated.resolve()
     manifest = json.loads((SOURCE_DIR / "manifest.json").read_text(encoding="utf-8"))
@@ -65,12 +62,7 @@ def main() -> int:
         if tree.getroot().tag.split("}")[-1] != "svg":
             fail(f"{figure_id}: root element is not SVG")
 
-        if args.check_tracked:
-            for suffix, generated in (("pdf", pdf), ("svg", svg)):
-                tracked = FIGURE_DIR / f"{stem}.{suffix}"
-                if not tracked.is_file() or tracked.read_bytes() != generated.read_bytes():
-                    fail(f"{figure_id}: generated {suffix.upper()} differs from tracked asset {tracked.relative_to(REPO_ROOT)}")
-        print(f"validated {figure_id}: source, PDF and SVG" + ("; tracked outputs match" if args.check_tracked else ""))
+        print(f"validated {figure_id}: source, PDF and SVG")
 
     print(f"validated {len(figures)} canonical TikZ figure assets")
     return 0

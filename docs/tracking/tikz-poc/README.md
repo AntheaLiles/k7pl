@@ -27,6 +27,11 @@ Depuis la racine du dépôt, avec Tectonic 0.15.0 et Poppler (pdftocairo) instal
 \`\`\`sh
 SOURCE_DATE_EPOCH=946684800 bash scripts/ci/build_tikz_poc.sh
 python3 scripts/ci/check_tikz_poc.py --root out/tikz-poc
+
+# Préparer les figures pour un rendu Verso local
+SOURCE_DATE_EPOCH=946684800 bash scripts/ci/build_tikz_figures.sh
+cp out/tikz-production/* spec/figures/
+lake exe spec --output _out/spec --with-tex
 \`\`\`
 
 Le script compile chaque figure deux fois avec le mode déterministe de Tectonic, produit un PDF et un SVG statique via \`pdftocairo\`, puis compare les empreintes des deux constructions. La CI installe Tectonic depuis l'archive épinglée et vérifiée par SHA-256 ; elle conserve les rendus et les trois SVG canoniques de référence comme artefact de PR pour une comparaison visuelle côte à côte.
