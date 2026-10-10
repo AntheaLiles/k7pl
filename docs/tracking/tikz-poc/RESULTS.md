@@ -37,14 +37,15 @@ La comparaison visuelle de l'artefact initial a néanmoins révélé deux écart
 - conservation des éléments sémantiques décrits ci-dessus, vérifiée par comparaison visuelle agrandie des artefacts ;
 - textes alternatifs et descriptions de production présents dans les déclarations Verso.
 
-**Inspection à l'échelle d'insertion :** le pipeline est lisible mais ses étiquettes restent petites à l'échelle d'une page entière ; l'automate conserve des états et transitions discernables ; la matrice monochrome reste lisible sans code couleur. Le PDF CI examiné séparait toutefois la matrice de sa légende et description par un saut de page. Le renderer regroupe maintenant l'image et son explication dans une `minipage` ; il reste à vérifier cette correction sur le nouvel artefact CI.
+**Inspection à la taille d'insertion (artefact CI)** : sur le `spec-pdf` du run [#38090151252](https://github.com/AntheaLiles/k7pl/actions/runs/38090151252), le pipeline (page imprimée 242) et l'automate (page imprimée 106) gardent leurs étiquettes et transitions discernables à 120 dpi. La matrice (page imprimée 98) reste lisible en niveaux de gris ; elle est maintenant réunie avec sa légende et sa description longue sur la même page. Cette inspection de l'artefact confirme la correction du saut de page, sans constituer une revue humaine indépendante.
 
+Le run POC [#38090525710](https://github.com/AntheaLiles/k7pl/actions/runs/38090525710) a recompilé les trois couples PDF/SVG. Les neuf SHA-256 (trois PDF, trois SVG et trois SVG de référence) sont identiques au run précédent. La géométrie des figures reste donc inchangée après les retouches éditoriales. Le PDF inspecté a été produit sur le SHA `79165b921676520b970034066db9e3c8e71041a0`, avant les derniers ajustements rédactionnels et attributs SVG de la tête actuelle ; le nouveau rendu HTML/PDF de cette tête reste à confirmer après ses checks CI.
 **Accessibilité HTML/SVG ajoutée dans la PR #149 :** la relation entre chaque image et sa description longue est explicite (`aria-describedby`), y compris dans le catalogue de provenance. Les copies SVG du site reçoivent un élément `<title>` depuis le texte alternatif rendu et un élément `<desc>` depuis la description longue rendue. Les fichiers SVG canoniques ne sont pas réécrits. Les contrôles de CI correspondants ont été ajoutés ; la validation finale attend les checks de la tête courante et l'inspection du nouveau PDF.
 
 **Non validé :**
 - conformité PDF/UA avec le préambule personnalisé réel, qui n'est pas versionné dans le dépôt ; l'artefact `spec-pdf` CI contrôlé via `pdfinfo` indique `Tagged: no` ;
 - fidélité pixel à pixel au dessin d'origine — elle n'est pas recherchée pour le pipeline, dont la disposition est volontairement modifiée ;
-- revue visuelle finale à taille de publication après les deux corrections de fidélité introduites le 10 octobre ;
+- revue éditoriale humaine indépendante à taille de publication, notamment la petite typographie du pipeline ;
 - test utilisateur comparatif de la compréhension ou de la navigation ;
 - génération de liens sémantiques navigables à partir des figures. Un SVG reste un artefact de présentation, pas un graphe de connaissances.
 
@@ -53,8 +54,9 @@ La comparaison visuelle de l'artefact initial a néanmoins révélé deux écart
 La réimplémentation sélective des trois figures est intégrée à la chaîne CI : les sources TikZ sont versionnées, les PDF/SVG sont générés et validés, puis transmis au rendu Verso comme artefacts. Cette décision ne s'étend pas aux autres figures ; les sources Mermaid, draw.io et les figures ayant d'autres besoins restent évaluées individuellement.
 
 Les contrôles restants sont :
-1. reconstruire le PDF de publication avec le préambule réellement utilisé, puis contrôler son balisage au moyen d'un validateur PDF/UA et d'une revue humaine au lecteur d'écran ;
-2. vérifier sur le nouvel artefact la correction de pagination de la matrice, puis faire la revue éditoriale finale à taille d'insertion et en niveaux de gris ;
+1. confirmer sur les artefacts CI de la tête la plus récente que les dernières modifications de texte/accessibilité n'ont pas affecté le rendu HTML/PDF ;
+2. reconstruire le PDF de publication avec le préambule réellement utilisé, puis contrôler son balisage au moyen d'un validateur PDF/UA et d'une revue humaine au lecteur d'écran ;
+3. faire effectuer une revue éditoriale humaine indépendante à taille d'insertion et en niveaux de gris ;
 3. conserver les SVG historiques comme références de non-régression ;
 4. poursuivre séparément la navigation sémantique : un SVG statique n'est pas un graphe de connaissances.
 
