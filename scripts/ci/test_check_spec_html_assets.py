@@ -27,6 +27,7 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
         self.source.mkdir()
         self.spec.mkdir(parents=True)
         (self.source / "test.svg").write_text(SVG, encoding="utf-8")
+        (self.source / "test.pdf").write_bytes(b"%PDF-1.4\nvalid test fixture")
         shutil.copy2(self.source / "test.svg", self.site / "figures" / "test.svg")
         self.write_spec("test")
         (self.site / "index.html").write_text("<html><body>Index</body></html>", encoding="utf-8")
@@ -92,6 +93,12 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
         results = check(self.site, self.source, self.spec)
         self.assertTrue(any("no alternative text" in result for result in results), results)
 
+
+    def test_rejects_missing_declared_pdf_asset(self) -> None:
+        (self.source / "test.pdf").unlink()
+        results = check(self.site, self.source, self.spec)
+        self.assertTrue(any("no source PDF asset: test.pdf" in result for result in results), results)
+
     def test_rejects_missing_copied_svg(self) -> None:
         (self.site / "figures" / "test.svg").unlink()
         self.write_page("../figures/test.svg")
@@ -130,6 +137,7 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
 
     def test_rejects_declared_figure_missing_from_html(self) -> None:
         (self.source / "second.svg").write_text(SVG, encoding="utf-8")
+        (self.source / "second.pdf").write_bytes(b"%PDF-1.4\nvalid test fixture")
         shutil.copy2(self.source / "second.svg", self.site / "figures" / "second.svg")
         self.write_spec("test", "second")
         self.write_page("figures/test.svg")
