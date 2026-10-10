@@ -210,6 +210,7 @@ class ValidatorDiagnosticsTests(unittest.TestCase):
     def test_valid_wrapper_path_preserves_sha_and_report_contract(self) -> None:
         with TemporaryDirectory() as directory:
             path = self.write_document(directory, {"packages": [{"name": "mathlib"}]})
+            expected_digest = sha256_file(path)
             with (
                 patch("validate_spdx.version", return_value=VALIDATOR_VERSION),
                 patch("validate_spdx.shutil.which", return_value="/usr/bin/pyspdxtools"),
@@ -219,7 +220,7 @@ class ValidatorDiagnosticsTests(unittest.TestCase):
 
         self.assertEqual((report["status"], exit_code), ("PASS", 0))
         self.assertEqual(report["schemaVersion"], "k7pl.spdx-validation/v1")
-        self.assertEqual(report["input"]["sha256"], sha256_file(path))
+        self.assertEqual(report["input"]["sha256"], expected_digest)
         self.assertEqual(report["validator"]["version"], VALIDATOR_VERSION)
         self.assertEqual(report["diagnostics"], [])
         run.assert_called_once()
