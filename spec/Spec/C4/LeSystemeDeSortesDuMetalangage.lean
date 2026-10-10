@@ -184,7 +184,7 @@ motif de jonction pour primitive — c'est une transition de réseau de Petri co
 places d'un seul tenant, et c'est P1 qui le veut. On ajoute donc la clause, _qui est une conjonction
 de la deuxième_, et l'on redémontre ci-dessous ce que l'on n'hérite plus.
 
-::::thm (label := "thm:cloture_sortage")
+::::lemma (label := "thm:cloture_sortage") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 clôture du bon sortage par substitution
 :::
@@ -209,9 +209,9 @@ dividende du choix de prendre $`\#` discrète_ : le cadre général n'exige de 
 raffine la sorte, ce qui obligerait à vérifier que le raffinement traverse chaque clause ; l'égalité
 rend la vérification vide.
 :::
-::::
 
-::::thm (label := "thm:confinement_sortes")
+::::
+::::lemma (label := "thm:confinement_sortes") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 confinement des canaux distingués
 :::
@@ -254,8 +254,8 @@ clause échouerait ; et la clause d'émission interdit qu'un tel nom soit trans
 ne peut donc entrer dans un terme traduit que par son contexte, c'est-à-dire par le gestionnaire qui
 l'offre.
 :::
-::::
 
+::::
 # La clause de session de la relation logique
 %%%
 tag := "g-sortes-la-clause-de-session-de-la-relation-logique"

@@ -134,7 +134,7 @@ _progrès_ dit qu'un calcul bien typé qui n'est pas terminal peut avancer. Ense
 correction du système d'effets : le coût effectif reste sous la borne synthétisée, ce que le
 chapitre 1 distingue de l'obligation déchargée par le solveur.
 
-::::thm (label := "thm:preservation")
+::::theorem (label := "thm:preservation") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
 préservation
 :::
@@ -187,12 +187,12 @@ de quantale du §{num "sec:c1-axiomatique-germinale"}[]. Pour le contexte $`\mat
 il faut de plus que $`f` soit monotone : elle l'est, tout élément de $`\mathcal{M}` étant de la
 forme normale $`\varphi_n \circ \pi_S` dont les deux facteurs le sont.
 :::
-::::
 
+::::
 La quantité que cet énoncé fait décroître décide d'une question qu'on croirait devoir traiter à
 part.
 
-::::thm (label := "thm:progres")
+::::theorem (label := "thm:progres") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
 progrès
 :::
@@ -237,8 +237,8 @@ règle d'élimination (§{num "sec:g-regles"}[]) : le progrès y est conditionn
 l'abaissement, qui est une propriété du compilateur. La transcription en assistant de preuve portera
 donc ces deux points comme hypothèses de module, et non comme lemmes.
 :::
-::::
 
+::::
 La forme de l'énoncé de préservation mérite qu'on s'y arrête à son tour, car elle décide d'une
 question qu'on croirait devoir traiter à part. La quantité qu'il fait décroître n'est pas le coût
 d'un pas mais $`\tau\cdot\varepsilon`, c'est-à-dire _ce qui a été produit composé avec ce que le
@@ -287,7 +287,7 @@ statique, qu'aucun énoncé ne relie à un comportement observable — et c'est 
 postulat interdisant de dissimuler un coût et le grade en étant la mesure. Un grade relié à rien
 d'observable dissimulerait tout.
 
-::::thm (label := "thm:correction_ressource")
+::::theorem (label := "thm:correction_ressource") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "resource-accounting")
 :::title
 correction de ressource
 :::
@@ -310,8 +310,8 @@ cas par règle et la charge supplémentaire de montrer que $`\nu` ne dépasse ja
 ce qui est immédiat aux règles qui n'emploient pas la variable, et se ramène à la loi de cohérence
 de $`\varphi` et $`\psi` à celles qui composent deux contextes.
 :::
-::::
 
+::::
 La forme de machine instrumentée est empruntée à un système modal gradué où elle a déjà servi {cite "erikssonGradedModalType2025"}[].
 Ce théorème n'est pas un de plus : trois propriétés en descendent, et deux figurent déjà à ce
 document sous une forme non graduée — la sûreté du typage, la non-interférence des ressources non
@@ -390,7 +390,7 @@ tag := "g-semantique-la-stratification-du-journal"
 La trace $`\tau` qu'une configuration accumule est le journal, et la projection dont P4 a besoin est
 $`\pi^{\flat}_{\ell}`. L'énoncé que le chapitre 4 formule se laisse alors écrire, et se démontre.
 
-::::thm (label := "thm:stratification_journal")
+::::theorem (label := "thm:stratification_journal") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
 stratification du journal
 :::
@@ -432,8 +432,8 @@ Reste que l'argument suppose l'étiquetage effectif de chaque opération par le 
 la produit. C'est ce que la loi distributive prescrit et ce que la famille indexée porte ; ce n'est
 pas une hypothèse ajoutée mais la structure de $`\mathcal{E}`.
 :::
-::::
 
+::::
 Deux remarques closent ce point. La première est que le rejeu intégral de P4 en est le cas où
 l'observateur atteint le niveau le plus haut, la projection devenant l'identité~: P4 n'est pas
 affaibli par la stratification, il en est l'instance supérieure. La seconde est que la réalisation
@@ -532,7 +532,7 @@ l'acteur.
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute"
 %%%
 
-::::thm (label := "thm:relation_produit") (status := "proposition")
+::::lemma (label := "thm:relation_produit") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "logical-relations")
 :::title
 relation logique sur un produit de structures ordonnées
 :::
@@ -556,9 +556,9 @@ facteurs la traversant inchangés. Facteur par facteur : sur l'_usage_ $`\mathbb
 non-interaction : c'est ce que la remarque de la section affirmait sans le dire. Le détail pour chaque
 facteur reste à écrire.
 :::
-::::
 
-::::thm (label := "thm:lemme_fondamental")
+::::
+::::lemma (label := "thm:lemme_fondamental") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "logical-relations")
 :::title
 lemme fondamental
 :::
@@ -613,8 +613,8 @@ Le cas {sc}[Declassify] est exclu par l'hypothèse de fragment de l'énoncé. L'
 une clause de relation logique sensible à la divulgation et un cas de preuve distinct ; cette
 extension n'est pas établie par le présent lemme.
 :::
-::::
 
+::::
 La non-interférence graduée (théorème {num "thm:non_interference"}[]) s'en déduit en une ligne,
 donnée ici pour montrer que rien d'autre n'est employé. Soit un programme dont une entrée est liée
 au grade $`r` avec $`\mathrm{niv}(r) \not\sqsubseteq \ell`, et dont le résultat est de niveau
@@ -714,7 +714,7 @@ La troisième induction est celle du théorème {num "thm:traduction_metalangage
 substitution y joue un rôle différent : il ne sert pas à typer la conclusion mais à commuter avec la
 traduction.
 
-::::thm (label := "thm:commutation_traduction")
+::::lemma (label := "thm:commutation_traduction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 commutation de la traduction et de la substitution
 :::
@@ -736,8 +736,8 @@ restriction s'élimine par la loi de portée. Les cas de composition emploient l
 licite puisque le lemme de substitution garantit que $`x` n'apparaît que dans la prémisse où son
 grade est non nul.
 :::
-::::
 
+::::
 Cette commutation est ce que le cas de l'application réclamait, et elle rend mécaniques les trois
 premiers des quatre groupes de l'induction.
 
@@ -789,7 +789,7 @@ paraissait une interprétation à donner était une définition à écrire._
 
 Reste l'image de l'opérateur lui-même, et l'appareil qu'elle réclame est déjà là.
 
-::::thm (label := "thm:image_fix")
+::::theorem (label := "thm:image_fix") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 image du point fixe déductif
 :::
@@ -823,8 +823,8 @@ _La valeur_ est celle du théorème {num "thm:terminaison_lfp"}[] : la suite é
 plus tard au rang $`h`, appliquer $`f` exactement $`h` fois donne le plus petit point fixe, les
 applications postérieures à la stabilisation étant l'identité.
 :::
-::::
 
+::::
 ## Ce que ce cas apprend, et qui n'était pas prévu
 %%%
 tag := "g-traduction-ce-que-ce-cas-apprend-et-qui-n-etait-pas-prevu"

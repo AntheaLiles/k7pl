@@ -49,7 +49,7 @@ traduction $`\llbracket \cdot \rrbracket`, qui envoie une dérivation sur un pro
 ni les grades ni les effets. C'est cette dernière propriété — le foncteur oublie ce que la Phase 8
 efface — qui fait de l'ensemble un système de raffinement et non une simple traduction.
 
-::::thm (label := "thm:raffinement")
+::::theorem (label := "thm:raffinement") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
 structure de raffinement
 :::
@@ -86,8 +86,8 @@ foncteurs d'inclusion du §{num "sec:c2-la-comonade-exponentielle-et"}[] : pass
 $`\mathrm{Lin}\,T` à $`\mathrm{Unr}\,T` ne change pas le terme, seulement ce qu'on s'autorise à en
 faire, et l'inclusion se projette donc sur une identité.
 :::
-::::
 
+::::
 S'il tient, il dispense de poser ce que le §{num "sec:c2-adjonctions-et-enrichissement"}[]
 présentait comme un engagement structurel. {rmq}[Une seconde justification du sous-typage modal,
 indépendante de la stratification et plus élémentaire qu'elle.] Sur la part qui compare des objets
@@ -149,7 +149,7 @@ transforme l'abstraction en indiscernabilité, et l'indiscernabilité _est_ la n
 terminaison, la productivité et la monotonie — tous portés par les types, aucun par une inspection
 du terme.
 
-::::thm (label := "thm:non_interference")
+::::theorem (label := "thm:non_interference") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "security")
 :::title
 non-interférence graduée, fragment séquentiel
 :::
@@ -174,8 +174,8 @@ l'identité sur ce qui est gradué en deçà de $`\ell` et la relation totale au
 typé préservant cette relation ne peut alors faire dépendre sa partie basse de sa partie haute, ce
 qui est l'énoncé.
 :::
-::::
 
+::::
 Cet énoncé porte sur le fragment séquentiel, et il faut dire pourquoi il ne s'étend pas de lui-même.
 _La non-interférence séquentielle ne survit pas à la concurrence._ Deux calculs qui ne se
 distinguent par aucune valeur peuvent se distinguer par le _moment_ où ils rendent la main : un
@@ -188,7 +188,7 @@ La notion qui lui succède sous concurrence est le _déterminisme observationnel
 donné, deux entrelacements d'un même ensemble de calculs bien typés ont la même projection à ce
 niveau. Elle est strictement plus forte, et elle n'est pas un corollaire de la précédente.
 
-::::thm (label := "thm:determinisme_observationnel") (status := "conjecture")
+::::conjecture (label := "thm:determinisme_observationnel") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
 déterminisme observationnel
 :::
@@ -208,8 +208,8 @@ $`\ell` » est préservée par chaque pas de réduction, pour chacune des cinq r
 cas qui résiste, puisqu'il choisit une branche en fonction d'un message dont le niveau peut excéder
 $`\ell`.
 :::
-::::
 
+::::
 L'hypothèse $`\mathcal{D}_{\mathcal{S}}` est nommée plutôt que supposée, et c'est délibéré. Le
 déterminisme observationnel sous ordonnanceur quelconque est un problème ouvert, et le promettre
 sans hypothèse serait promettre ce qu'on ne sait pas tenir. Ce document énonce donc la propriété

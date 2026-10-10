@@ -67,3 +67,12 @@ Metadata validation rejects unknown epistemic/evidence values, incompatible kind
 3. Exercise every new command, including invalid metadata combinations and the compatibility path.
 4. Confirm the old labels/references and legacy numbering are unchanged.
 5. Do not migrate the 69 blocks or remove legacy support in this PR.
+
+### Controlled scope vocabulary
+
+The `scope` argument is a closed identifier, not free-form prose. The accepted tags are: `syntax`, `metatheory`, `graphs`, `resources`, `memory-safety`, `security`, `operational-semantics`, `graded-typing`, `effects`, `logical-relations`, `translation`, `fixed-points`, `interoperability`, `concurrency`, `ffi-safety`, `representation`, `compiler-interface`, `compilation`, `resource-accounting`, `literature`, and `runtime`. Detailed assumptions and limits remain in the statement text and the migration register; the tag must not be read as proof of any guarantee.
+
+
+### Controlled scope vocabulary
+
+The `scope` argument is a closed identifier, not free-form prose. The accepted tags are: `syntax`, `metatheory`, `graphs`, `resources`, `memory-safety`, `security`, `operational-semantics`, `graded-typing`, `effects`, `logical-relations`, `translation`, `fixed-points`, `interoperability`, `concurrency`, `ffi-safety`, `representation`, `compiler-interface`, `compilation`, `resource-accounting`, `literature`, and `runtime`. Detailed assumptions and limits remain in the statement text and the migration register; the tag must not be read as proof of any guarantee.

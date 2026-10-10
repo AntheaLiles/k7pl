@@ -231,7 +231,7 @@ valeur secrète quelconque transite par une échappatoire sous un déguisement, 
 libérerait alors bien plus que ce qu'elle nomme. La garantie qui l'écarte s'énonce sur les
 exécutions plutôt que sur les dérivations.
 
-::::thm (label := "thm:divulgation_delimitee") (status := "proposition")
+::::conjecture (label := "thm:divulgation_delimitee") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "security")
 :::title
 divulgation délimitée
 :::
@@ -260,8 +260,8 @@ par blanchiment. Le théorème de non-interférence {num "thm:non_interference"}
 aucune déclassification n'est employée ; le traitement de la communication demeure hors de sa portée.
 Cette extension n'est pas démontrée ici.
 :::
-::::
 
+::::
 Le mode de défaillance que cette formulation ferme est celui contre lequel elle a été construite. {rmq}[C'est
 la quantification, et elle seule, qui distingue cet énoncé de la non-interférence.] Dans l'attaque
 par blanchiment, on fait transiter par une échappatoire une valeur qu'elle n'était pas censée
@@ -378,7 +378,7 @@ et c'est délibéré : elle est vérifiable sans preuve, à la manière dont le
 
 Le mot « monotone » recouvre dans ce document trois notions qu'il faut tenir distinctes, une quatrième, la marque de monotonie du grade, étant une composante et non une propriété. Une _fonction monotone_ $`f : S \to_{\text{mon}} S` préserve l'ordre de $`S` ; un _domaine ordonné_ est un type $`S \in \mathsf{Trellis}_{\text{fin}}`, muni d'un ordre et des conditions ci-dessus ; un _ensemble de règles monotone_ est une méta-propriété du programme, qui garantit qu'ajouter un fait n'en retire aucun. Elles se composent — les règles d'un programme monotone se compilent en fonctions monotones sur un domaine ordonné, dont le point fixe est défini — sans se confondre.
 
-::::thm (label := "thm:terminaison_lfp")
+::::theorem (label := "thm:terminaison_lfp") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 terminaison du point fixe déductif
 :::
@@ -404,8 +404,8 @@ $`h`, et l'égalité décidable de $`S` détecte ce rang. La valeur atteinte est
 stationnarité, et le plus petit par le théorème de Knaster et Tarski, tout point fixe majorant la
 chaîne issue de $`\bot`.
 :::
-::::
 
+::::
 C'est le troisième critère de terminaison de ce document, et les trois sont de même nature. {rmq}[Trois
 critères, un seul geste. La garantie se lit sur le type, jamais sur la forme du terme.] Le pli
 dépendamment typé termine parce que son type porte un indice décroissant, la coinduction produit

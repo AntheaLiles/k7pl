@@ -148,7 +148,7 @@ rend ce modèle distribuable.
 
 Cette dernière remarque suggère l'énoncé que cette section doit à la lecture qu'elle propose.
 
-::::thm (label := "thm:traduction_metalangage") (status := "proposition")
+::::theorem (label := "thm:traduction_metalangage") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 la traduction préserve le typage
 :::
@@ -175,8 +175,8 @@ composante $`\mathcal{G}` dirige le choix entre canal linéaire et service répl
 licite parce que le grade $`\omega` est l'image du fragment cartésien. La composante $`\mathcal{E}`
 n'est pas traduite : elle n'a pas de contrepartie dans le calcul.
 :::
-::::
 
+::::
 Une seconde voie existe pour les cas de la couche 3, plus directe, et elle rejoint un choix déjà
 fait. Le fragment séquentiel déterministe du calcul cible est essentiellement le $`\lambda`-calcul
 en style à passage de continuations, de sorte que toute transformée CPS y plonge le
@@ -296,7 +296,7 @@ celles du métalangage. Comme celui-ci est interprété une fois pour toutes, co
 se raisonnent à son niveau et non sur chaque construction de K7PL. Cette remarque se laisse porter
 jusqu'à un énoncé, qui dit ce qu'un interpréteur de référence garantit et ce qu'il ne garantit pas.
 
-::::thm (label := "thm:simulation") (status := "proposition")
+::::theorem (label := "thm:simulation") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 simulation de la relation de réduction par la traduction
 :::
@@ -335,9 +335,9 @@ traite comme un `let`. Non démontrée : les clauses de traduction pour les opé
 ne sont données qu'en prose, et la proposition est l'hypothèse Sim du théorème
 {num "thm:fidelite_interprete"}[], et elle en est aussi la dette.
 :::
-::::
 
-::::thm (label := "thm:fidelite_interprete") (status := "proposition")
+::::
+::::theorem (label := "thm:fidelite_interprete") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 fidélité de l'interpréteur de référence
 :::
@@ -380,8 +380,8 @@ raffinement plutôt qu'une simple traduction. Un interpréteur fidèle ne dira d
 discipline de ressource garantit – il n'a pas à le dire, ces garanties étant établies avant
 l'exécution et effacées à la Phase 8.
 :::
-::::
 
+::::
 La dette qu'il reste à acquitter n'est donc plus « prouver l'interpréteur correct » mais « établir
 que $`\llbracket \cdot \rrbracket` préserve le typage », ce que le théorème {num "thm:traduction_metalangage"}[]
 énonce, dont l'induction est planifiée et non conduite.

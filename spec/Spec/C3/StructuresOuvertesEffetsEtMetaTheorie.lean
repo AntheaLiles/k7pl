@@ -250,7 +250,7 @@ leur somme n'a pas été conçue, elle s'est accumulée. Deux d'entre eux ont é
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) ; les autres subsistent, et le total reste le
 point faible du chapitre, nommé ici plutôt que passé sous silence.
 
-::::thm (label := "thm:preservation_type")
+::::theorem (label := "thm:preservation_type") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 préservation du type
 :::
@@ -260,20 +260,23 @@ Stabilité du typage par réduction
 
 Pour tout terme K7PL bien typé $`t : \tau` dont aucun type ne dépend d'une variable soumise au suivi
 de ressource — la condition de séparation de P2 —, si $`t` se réduit en $`t'` ($`t \leadsto t'`) par évaluation, alors $`t' : \tau` :
-$`\Delta \vdash t : \tau \land t \leadsto t' \implies \Delta \vdash t' : \tau`. Le volet évaluation est un corollaire de la préservation du §{num "sec:g-semantique"}[] ; le volet abaissement MLIR est celui de la conjecture {num "thm:abaissement_grades"}[], non démontré.
+$`\Delta \vdash t : \tau \land t \leadsto t' \implies \Delta \vdash t' : \tau`.
 :::
 
 :::proofsketch
 Par induction structurelle sur la règle de réduction. La $`\beta`-réduction locale préserve le
 contexte linéaire, les substitutions consommant et produisant des ressources de façon isomorphe —
-argument qui n'est valide que sous la condition de séparation rappelée dans l'énoncé. L'abaissement
+argument qui n'est valide que sous la condition de séparation rappelée dans l'énoncé.
+:::
+::::
+
+Le volet évaluation est un corollaire de la préservation du §{num "sec:g-semantique"}[] ; le volet abaissement MLIR est celui de la conjecture {num "thm:abaissement_grades"}[], non démontré.
+
+L'abaissement
 MLIR — défonctionnalisation et _inlining_ statique des effets — transforme les fonctions d'ordre
 supérieur et les effets en tables de saut statiques, et se justifie par des arguments syntaxiques
 propres à chaque passe (substitution, inversibilité des règles) ; sa formulation comme isomorphisme
 naturel dans _C_ relève de l'obligation P1b, non établie (chapitre 1).
-:::
-::::
-
 La condition de séparation n'est pas une commodité d'énoncé. Un système quantitatif qui autorise une
 dépendance de type sur une variable d'usage non nul cesse d'admettre la substitution, et l'échec se
 produit sur la règle d'application {cite "atkeySyntaxSemanticsQuantitative2018"}[]. Le fragment visé
