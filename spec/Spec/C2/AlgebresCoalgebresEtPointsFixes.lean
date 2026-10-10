@@ -129,7 +129,7 @@ la sorte qui lui revient. Le paramorphisme linéaire — pli donnant accès à l
 récursif et à la sous-structure d'origine {cite "seflProgrammingDependentAdditive2025"}[] — entre
 sous le même critère, sa taille décroissant identiquement.
 
-::::thm (label := "thm:terminaison_couche_3")
+::::corollary (label := "thm:terminaison_couche_3") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Terminaison du pli sur μF par indice strictement décroissant ; corollaire de progression_polarisee.")
 :::title
 terminaison de la couche 3 — l'instance inductive
 :::
@@ -153,8 +153,8 @@ ici. Ce qui est propre à cette instance est le domaine : la décroissance port
 imbriqués, où aucune mesure structurelle n'est disponible, et c'est ce que le pli dépendamment typé
 achète. Le paramorphisme linéaire est admis au même titre.
 :::
-::::
 
+::::
 S'il tient, la terminaison de la couche 3 cesse d'être une obligation de preuve séparée : elle
 devient une lecture du jugement de typage, et la Phase 4 de la compilation
 (§{num "sec:c6-le-processus-de-compilation"}[]) n'a rien à vérifier que le typage n'ait déjà établi.
@@ -291,7 +291,7 @@ formulation par types dimensionnés, sur laquelle repose le traitement coinducti
 et des langages formels, et qui s'accompagne du filtrage par copatrons comme forme définitionnelle
 naturelle du `yield` {cite "ABEL-COALG"}[].
 
-::::thm (label := "thm:productivite_couche_2")
+::::corollary (label := "thm:productivite_couche_2") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Production d’une observation en temps fini par anamorphisme typé ; ne signifie pas épuisement du flux.")
 :::title
 productivité de la couche 2 — l'instance coinductive
 :::
@@ -311,8 +311,8 @@ $`s` est indexé par une taille, chaque `yield` en fait décroître l'indice au 
 $`\nu G` produit donc au moins un élément de $`G(\nu G)` avant tout appel récursif ultérieur. C'est
 une observation en temps fini, non un épuisement.
 :::
-::::
 
+::::
 S'il tient, les deux volets de la Phase 4 de la compilation
 (§{num "sec:c6-le-processus-de-compilation"}[]) cessent d'être deux vérifications distinctes. La
 décroissance d'un pli de couche 3 et la progression d'un flux de couche 2 sont deux lectures d'un
@@ -339,7 +339,7 @@ où on le lit. Voici cet argument, écrit une fois, la couche étant le paramèt
 d'Abel et Pientka, qui obtiennent un traitement unifié de la récursion et de la corécursion en
 faisant de la productivité une _instance_ de la terminaison plutôt qu'un critère parallèle {cite "abelWellfoundedRecursionCopatterns2016"}[].
 
-::::thm (label := "thm:progression_polarisee")
+::::theorem (label := "thm:progression_polarisee") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Principe général à deux cas de polarité : terminaison en μ, production finie d’observation en ν.")
 :::title
 progression, paramétrée par la couche
 :::
@@ -381,8 +381,8 @@ l'apparition d'une observation en temps fini. Le mot « progression » est chois
 deux, il n'affirme pas qu'elles ont la même conclusion sémantique, et rien n'est à déduire de l'une
 pour l'autre au-delà du schéma.
 :::
-::::
 
+::::
 S'il tient, les deux théorèmes précédents cessent d'être deux théorèmes : ils se retrouvent en
 spécialisant $`\ell` — le théorème {num "thm:terminaison_couche_3"}[] pour $`\ell = 3`, le théorème {num "thm:productivite_couche_2"}[]
 pour $`\ell = 2` — et rien de ce qu'ils établissent n'est perdu, le traitement des types imbriqués
@@ -451,7 +451,7 @@ avoir posé cette loi ; elle lui est due, et elle est distincte de la loi distri
 chapitre 1, qui distribue la modalité de grade sur la monade d'effet et non un foncteur de motif sur
 une comonade d'historique. Autant l'écrire ici que la laisser en dette.
 
-::::thm (label := "thm:loi_historique")
+::::theorem (label := "thm:loi_historique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Lois de cohérence de λ pour la comonade cofree et bialgèbre ; naturalité et équations doivent être vérifiées.")
 :::title
 loi distributive de l'historique
 :::
@@ -475,8 +475,8 @@ lois de counité et de coassociativité, la trace du foncteur fournissant la com
 troncature à $`r` niveaux les préserve, chacune étant une équation entre transformations naturelles
 dont les deux membres se tronquent au même rang.
 :::
-::::
 
+::::
 L'énoncé n'est pas propre à ce document : c'est celui de la classe des schémas issus de comonades,
 dont l'histomorphisme est l'instance où $`N` est la cofree {cite "hinzeUnifyingStructuredRecursion2016"}[].
 Ce qui est propre à K7PL est le grade $`r` qui borne la profondeur de l'historique conservé, et
@@ -523,7 +523,7 @@ de l'entrée à grade fixé — et $`r` étant un grade, ce facteur est connu à
 exige. L'espace, lui, passe de $`O(n)` pour la table entière à $`O(r)` pour la fenêtre : c'est la
 borne mémoire que cette section annonce, et c'est la troncature qui la donne.
 
-::::thm (label := "thm:troncature_comonade")
+::::theorem (label := "thm:troncature_comonade") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Lois de comonade graduée et morphisme de comonades pour la troncature, sous les définitions de N_r et δ.")
 :::title
 la troncature est un morphisme de comonades
 :::
@@ -570,10 +570,9 @@ la littérature ; la préservation par troncature est le seul point propre à K7
 sur papier : elle n'a pas été mécanisée. Les bornes $`O(r)` en espace et $`O(n \cdot r)` en temps de ce
 qui suit reposent sur cette structure.
 :::
+:
 ::::
-
-
-::::thm (label := "thm:fenetre_grade") (status := "proposition")
+::::proposition (label := "thm:fenetre_grade") (level := "langage") (role := "proposition") (state := "proposed") (evidence := "proofsketch") (scope := "Réduction de fenêtres de pile à la troncature N_r ; explicitement non démontrée dans le bloc.")
 :::title
 une fenêtre est un grade
 :::
@@ -592,8 +591,8 @@ est l'indice. La pile d'un automate et celle d'un `StreamContext` sont des fenê
 configuration, dont le grade est la profondeur maximale que le solveur vérifie. Le lemme est la
 réduction des deux dernières à la première ; non démontrée ici, elle donne à P3 sa forme générale.
 :::
-::::
 
+::::
 La troncature n'est pas propre à ce pli : elle est la même fenêtre sur un objet coinductif que la
 borne de profondeur de pile de l'automate à pile (chapitre 4) et la taille de pile précalculée du
 `StreamContext`. Un lemme de troncature unique les couvre — _une fenêtre est un grade_ — et donne à
