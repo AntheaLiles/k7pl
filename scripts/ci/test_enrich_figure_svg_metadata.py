@@ -40,8 +40,11 @@ class EnrichFigureSvgMetadataTests(unittest.TestCase):
         self.assertEqual(count, 1)
         self.assertIsNotNone(title)
         self.assertEqual(title.text, "Figure title")
+        self.assertEqual(root.get("role"), "img")
+        self.assertEqual(root.get("aria-labelledby"), title.get("id"))
         self.assertIsNotNone(description)
         self.assertEqual(description.text, "A detailed description & context.")
+        self.assertEqual(root.get("aria-describedby"), description.get("id"))
 
     def test_fails_without_a_valid_long_description_target(self) -> None:
         page = self.root / "chapter" / "index.html"
