@@ -123,7 +123,7 @@ construction plutôt que par preuve séparée {cite "fioreFormalMetatheorySecond
 Une seconde propriété suit de la même construction, et elle décide de ce que le compilateur peut
 faire plutôt que de ce que le programmeur peut écrire.
 
-::::corollary (label := "thm:staticite_syntaxe") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Aucune production de noms à l’exécution, sous la grammaire et les phases décrites ; corollaire revendiqué de l’élaboration.")
+::::corollary (label := "thm:staticite_syntaxe") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "syntax")
 :::title
 staticité de la syntaxe
 :::
@@ -214,7 +214,7 @@ système de types vérifie plutôt qu'une convention que le compilateur interpr�
 
 La forme de ce théorème dit d'où il vient.
 
-::::lemma (label := "thm:hygiene") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Macros / substitution")
+::::lemma (label := "thm:hygiene") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "syntax")
 :::title
 hygiène des expansions
 :::
@@ -238,7 +238,7 @@ portée impose.
 :::
 
 ::::
-::::conjecture (label := "thm:hygiene_graduee") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "Commutation graduée de la métasubstitution ; le transfert des contextes/effets reste non démontré.")
+::::conjecture (label := "thm:hygiene_graduee") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "syntax")
 :::title
 hygiène graduée des expansions
 :::
@@ -258,7 +258,7 @@ démontré ici.
 :::
 
 ::::
-::::requirement (label := "thm:resucrage") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Exigence de préservation de l’α-équivalence de surface ; l’algèbre de liaison de surface manque.")
+::::requirement (label := "thm:resucrage") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "syntax")
 :::title
 préservation de l'α-équivalence de surface
 :::
