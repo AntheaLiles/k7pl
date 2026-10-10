@@ -27,8 +27,8 @@ def make_fixture(tmp_path: Path) -> tuple[Path, Path]:
     (site / "Spec" / "C1").mkdir(parents=True)
     (site / "figures").mkdir(parents=True)
     (site / "Spec" / "C1" / "Example.html").write_text(
-        '<html><body><div id="lbl-fig-one"></div>'
-        '<a href="../../navigation/figures.html#asset-one">Sources et rendus</a></body></html>',
+        '<html><head><base href="./../../"></head><body><div id="lbl-fig-one"></div>'
+        '<a href="navigation/figures.html#asset-one">Sources et rendus</a></body></html>',
         encoding="utf-8",
     )
     (site / "figures" / "asset-one.svg").write_text(
