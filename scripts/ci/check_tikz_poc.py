@@ -48,6 +48,23 @@ def main() -> int:
         source = (POC_DIR / figure["source"]).resolve()
         if not source.is_relative_to(POC_DIR.resolve()) or not source.is_file():
             fail(f"{figure_id}: source is missing or escapes the POC directory")
+
+        canonical = str(figure["canonical_verso"])
+        if "#" not in canonical:
+            fail(f"{figure_id}: canonical_verso must identify a source file and figure label")
+        canonical_path, label = canonical.split("#", 1)
+        canonical_file = (REPO_ROOT / canonical_path).resolve()
+        if not canonical_file.is_relative_to(REPO_ROOT) or not canonical_file.is_file():
+            fail(f"{figure_id}: canonical Verso source is missing or escapes the repository")
+        canonical_lines = canonical_file.read_text(encoding="utf-8").splitlines()
+        declarations = [
+            line for line in canonical_lines
+            if label in line and "::::figure" in line
+        ]
+        expected_src = f'(src := "{asset}")'
+        if len(declarations) != 1 or expected_src not in declarations[0]:
+            fail(f"{figure_id}: canonical figure declaration does not match production_asset {asset!r}")
+
         pdf = root / f"{figure_id}.pdf"
         svg = root / f"{figure_id}.svg"
         if not pdf.is_file() or pdf.stat().st_size < 100:
