@@ -25,7 +25,7 @@ Les sources de ce dossier sont des **reconstructions de POC**, pas les sources c
 Depuis la racine du dépôt, avec Tectonic 0.15.0 et Poppler (pdftocairo) installés :
 
 \`\`\`sh
-SOURCE_DATE_EPOCH=946684800 scripts/ci/build_tikz_poc.sh
+SOURCE_DATE_EPOCH=946684800 bash scripts/ci/build_tikz_poc.sh
 python3 scripts/ci/check_tikz_poc.py --root out/tikz-poc
 \`\`\`
 
