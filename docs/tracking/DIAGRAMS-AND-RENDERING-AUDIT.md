@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Audit préliminaire des figures et de leur rendu HTML/PDF
 
-**Statut :** audit préparatoire ; constats de code à confirmer par une génération locale et par inspection du site publié.  
+**Statut :** audit technique actualisé le 10 octobre 2026 à partir des sources, workflows et artefacts CI de la PR #142 ; l'accessibilité PDF/UA et la revue humaine finale restent ouvertes.  
 **Périmètre :** figures de la spécification Verso, besoins de représentation de l'enveloppe interactive, stratégie de sources et de rendu.  
 **Date :** 2026-10-10.
 
@@ -29,11 +29,11 @@ Le rendu TeX de Float.lean utilise actuellement includegraphics avec width et ke
 
 Le plan interactif et son document d'architecture sont situés sous docs/tracking/. Le suivi des anomalies se trouve sous docs/tracking/ANOMALIES.md. L'anomalie ANOM-10 du registre actuel concerne l'interface Verso en anglais, pas le défaut d'images décrit ici ; ne pas réutiliser cet identifiant sans vérifier le registre. Créer ou rattacher un suivi spécifique aux figures cassées après reproduction.
 
-Le changelog conserve un compte historique de treize figures. L'artefact HTML audité contient douze figures K7PL réellement déclarées et un treizième SVG, `services-lsp.svg`, qui n'est référencé par aucune déclaration actuelle. Le nombre 13 ne doit donc pas être interprété comme une déclaration manquante : le fichier LSP est un reliquat de l'ancien manuscrit. Le suivi de cohérence du 9 octobre le croyait déjà absent, mais il existe encore dans `spec/figures/` avec son PDF et sa source Mermaid. Le reliquat est désormais explicitement inventorié ; sa suppression ou son archivage reste une décision séparée.
+Le changelog conserve un compte historique de treize figures. L'artefact HTML CI courant contient douze figures K7PL déclarées et copie également `services-lsp.svg`, qui n'est référencé par aucune déclaration Verso courante. Le SVG existe bien sous `spec/figures/` ; le PDF homonyme est également présent comme asset binaire, mais ni `spec/figures/sources/services-lsp.drawio` ni `spec/figures/services-lsp.mmd` ne sont présents dans l'arbre courant. Une source Mermaid historique est retrouvable dans `docs/archives/manuscrit-org/K7_LSP_REPL.org`. La décision technique retenue pour cette PR est de **conserver les reliquats sans les supprimer ni les archiver** : leur utilité éditoriale et leur destination relèvent d'une décision de maintenance distincte. Le treizième fichier copié n'est pas une treizième déclaration Verso.
 
 ### Inventaire des figures déclarées dans Verso
 
-Les douze déclarations de figures présentes dans la spécification sont inventoriées ci-dessous. Les trois figures réimplémentées utilisent des sources TikZ ; les neuf autres conservent leurs sources draw.io. Le fichier `services-lsp.mmd` et ses anciens rendus ne correspondent à aucune déclaration Verso : c'est un reliquat non référencé, pas une treizième figure manquante.
+Les douze déclarations de figures présentes dans la spécification sont inventoriées ci-dessous. Les trois figures réimplémentées utilisent des sources TikZ ; les neuf autres conservent leurs sources draw.io. Les assets `services-lsp.svg` et `services-lsp.pdf` restent des reliquats non référencés ; leur source Mermaid historique se trouve dans l'archive Org, pas dans `spec/figures/sources/`. Ce n'est pas une treizième déclaration Verso manquante.
 
 | Module Verso | Identifiant | Asset publié | Source géométrique | Fonction explicative |
 |---|---|---|---|---|
@@ -59,7 +59,7 @@ La CI vérifie les sorties des trois sources TikZ, leur reproductibilité et leu
 - **Correction fusionnée en PR #124 :** émettre `figures/<nom>.svg` sans préfixe manuel ; le `<base href>` résout alors l'URL à la racine du site. La compilation de la spécification, le contrôle d'assets, la compilation PDF et le déploiement GitHub Pages passent.
 - **Contrôle ajouté :** le validateur de CI doit tenir compte de `<base href>`, vérifier chaque référence locale, contrôler la copie et le XML des SVG, et rejeter les figures sans texte alternatif. Un validateur qui résout uniquement les chemins depuis le répertoire de la page ne détecte pas ce défaut.
 - **Déploiement :** le test sur l'artefact local ne suffit pas à prouver la publication. La validation CI et le déploiement après fusion doivent être vérifiés avant de clore l'anomalie.
-- **PDF :** le texte alternatif est désormais transmis conditionnellement aux macros `qvalt` / `qvaltfin` si le préambule les définit. La conformité du PDF reste à confirmer sur l'artefact compilé avec ce préambule.
+- **PDF :** `Float.lean` émet conditionnellement `\\qvalt{alt}` avant l'image et `\\qvaltfin` après, uniquement si ces macros existent au moment du rendu. Cela ne prouve pas que les macros créent une structure balisée. L'artefact PDF réel de CI associé au run `38070486770` a été inspecté avec `pdfinfo` : `Tagged: no`; aucun arbre de structure PDF n'est déclaré. Le préambule personnalisé utilisé hors dépôt et son chemin d'exécution réel ne sont pas disponibles ; aucune conformité PDF/UA n'est revendiquée. La sortie actuelle montre aussi qu'une figure peut être séparée de sa légende/description par un saut de page ; la PR de correction groupe le tout dans une `minipage`, à revérifier après CI.
 
 ## 4. Stratégie de source et de rendu recommandée
 
@@ -160,3 +160,25 @@ La revue confirme la conservation des éléments sémantiques principaux :
 - matrice : quatre combinaisons, axes catégoriels, couches et case non instanciée.
 
 Le POC justifie une réimplémentation sélective, pas une migration globale. La génération est désormais séparée du rendu Verso dans la CI : un job produit et valide les paires PDF/SVG, puis le rendu consomme l'artefact. Les sources TikZ sont versionnées sous `spec/figures/tikz/`; les sorties générées ne sont pas suivies dans Git. Les légendes, textes alternatifs et descriptions éditoriales restent dans les déclarations Verso. La conformité PDF/UA avec le préambule personnalisé reste à vérifier, ce préambule n'étant pas versionné dans le dépôt.
+
+## 11. Vérification des artefacts CI et état effectif (10 octobre 2026)
+
+Les artefacts ont été téléchargés depuis les runs GitHub Actions réellement associés à la PR [#142](https://github.com/AntheaLiles/k7pl/pull/142), et non régénérés localement : [run TikZ POC #38070486651](https://github.com/AntheaLiles/k7pl/actions/runs/38070486651), [run CI #38070486770](https://github.com/AntheaLiles/k7pl/actions/runs/38070486770). Les deux jobs rapportent \`success\`. L'artefact \`tikz-poc-renderings\` était présent, non expiré au moment de l'inspection, avec une expiration annoncée le 24 octobre 2026 ; la CI produit aussi \`tikz-figure-assets\`, \`spec-html\`, \`spec-tex\` et \`spec-pdf\`.
+
+Le workflow de production génère les trois couples PDF/SVG, les reconstruit deux fois et compare chaque fichier octet par octet. \`check_tikz_figures.py\` confirme pour chaque entrée du manifeste la source TikZ, la déclaration Verso correspondante, la signature PDF, le XML SVG et leur présence. Le HTML CI inspecté contient 66 pages, les 12 figures déclarées avec une alternative non vide et 12 descriptions longues, ainsi que 13 SVG copiés (le treizième est le reliquat LSP). Le vérificateur HTML vérifiait chemins, présence et XML des assets, mais il ne liait pas explicitement la description longue à l'image et ne comparait pas l'ensemble des figures rendues à l'ensemble des déclarations : les contrôles sont renforcés par la PR de suivi.
+
+### Inspection du PDF réel disponible
+
+Le \`spec-pdf\` de CI a été ouvert et rendu en images de pages, plutôt que de s'en tenir au résultat de compilation. Le pipeline en serpentin (largeur configurée à 90 % de la largeur de texte) conserve ses dix libellés, son ordre et ses flèches ; à l'échelle d'une page entière, ses caractères sont petits mais distinguables. L'automate conserve les deux états, les transitions et le point violet central sur le double cercle final ; les étiquettes restent discernables à l'échelle de page. La matrice est monochrome, ses axes et ses points ne dépendent pas de la couleur ; cependant, dans le PDF inspecté, l'image est en bas d'une page alors que sa légende et sa description commencent sur la page suivante. Ce défaut est corrigé par un regroupement TeX figure+explication, mais le résultat doit être contrôlé sur le nouvel artefact CI avant clôture.
+
+Côté HTML, les images sont affichées via \`<img>\` avec \`alt\` et un \`max-width\` inline (90 % pour les trois figures TikZ, 75 % pour la figure duale ; \`height:auto\` conserve les proportions, \`max-width:100%\` borne aussi le CSS général). Le nom accessible du dessin intégré est donc fourni par \`alt\` sur l'élément HTML. Le SVG converti par Poppler n'a pas été traité comme un document SVG autonome doté de son propre titre accessible. Les descriptions éditoriales existaient dans le DOM, mais sans association \`aria-describedby\` : la PR ajoute l'identifiant au bloc descriptif et sa référence depuis l'image, raccourcit les textes alternatifs des trois figures TikZ et enrichit leurs descriptions longues.
+
+### Portée des conclusions et dépendances externes
+
+- **Établi par l'automatisation :** génération statique PDF/SVG et égalité octet par octet entre deux builds dans l'environnement épinglé ; présence et structure XML des SVG ; présence/signature PDF ; résolution des 12 déclarations vers leurs assets SVG ; texte alternatif non vide ; désormais, relation testée entre \`aria-describedby\` et un bloc \`.k7-desc\`, absence de référence manquante/dupliquée, et égalité entre inventaire des déclarations et inventaire HTML.
+- **Observé sur le PDF CI antérieur à cette correction :** \`pdfinfo\` indique \`Tagged: no\`. Ce constat n'est pas une validation PDF/UA ; c'est l'absence de preuve de balisage structurel dans cet artefact.
+- **Non établi :** balisage de la sortie compilée avec le préambule TeX réellement utilisé par la mainteneuse, conformité PDF/UA, lecture par un lecteur d'écran, lisibilité imprimée finale après correction de pagination, et bénéfice explicatif pour les lecteurs.
+- **Dépendance humaine/externe :** fournir ou identifier la version exacte du préambule personnalisé et la commande/version de la chaîne de génération PDF utilisée pour le document destiné à publication ; reconstruire ce même document ; exécuter un validateur PDF/UA adapté (par exemple veraPDF configuré pour le profil PDF/UA pertinent) ; faire contrôler l'arbre de structure et les textes alternatifs par une personne outillée avec lecteur d'écran ; enfin, relire les trois figures au format d'insertion et la matrice en niveaux de gris.
+
+TikZJax/isomorphic-tikzjax n'est pas retenu : les besoins démontrés ici portent sur des artefacts statiques déterministes et aucun cas d'édition/rendu interactif côté navigateur n'a été identifié. La décision de réimplémentation reste limitée aux trois figures déjà testées ; aucune migration globale n'est autorisée par ces résultats.
+
