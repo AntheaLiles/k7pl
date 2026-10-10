@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Chantier K — Assurance de conformité outillée avec Lean 4
 
-**État au 2026-10-10 :** la tête de PR `43255158712ea6bab5bf05b02c3ab5a42ad87587` a passé tous les jobs du [run CI #877](https://github.com/AntheaLiles/k7pl/actions/runs/38060548146). Le run couvre la compilation Lean, l'audit des 14 entrées Lake, les tests CLI positifs/négatifs (y compris un nom de paquet vide refusé avant l'appel au validateur externe), `lake test`, `lake lint`, les audits d'axiomes, les contrôles sécurité/REUSE et le build Verso/PDF. `spdx-tools 0.8.5`, installé depuis une fermeture de dépendances hash-lockée, a validé la sortie SPDX 2.3. Les artefacts conservent rapports, empreintes SHA-256 et identité du run. L'évaluation mesurée et toute revendication d'exhaustivité restent ouvertes ; aucune conformité globale ou préparation à la production n'est affirmée.
+**État au 2026-10-10 :** la tête de PR `69368cea93b9c0fc25d2164b8052e90a85e1690a` a passé tous les jobs du [run CI #891](https://github.com/AntheaLiles/k7pl/actions/runs/38063142568). Le run couvre la compilation Lean, l'audit des 14 entrées Lake, les cas CLI négatifs, `lake test`, `lake lint`, les audits d'axiomes, les contrôles sécurité/REUSE et le build Verso/PDF. `spdx-tools 0.8.5`, installé depuis une fermeture de dépendances hash-lockée, valide la sortie SPDX 2.3. Cinq invocations répétées sur le même SHA-256 ont produit `PASS`, avec un rapport min/médiane/max téléversé. L'évaluation sur plusieurs runs indépendants, la couverture élargie et toute revendication d'exhaustivité restent ouvertes ; aucune conformité globale ou préparation à la production n'est affirmée.
 
 ## 1. Objet et décisions antérieures récupérées
 
@@ -30,7 +30,7 @@ L'issue #122 ne comporte aucun commentaire décisionnel au moment de l'inventair
 | Dépendances | `lake-manifest.json` comporte 14 entrées Git avec des révisions exactes | Le manifeste aplati ne suffit pas à établir toutes les arêtes ni l'exhaustivité de la chaîne de fabrication |
 | Contrôle du manifeste | `scripts/ci/check_manifest.py` et `test_check_manifest.py` | Contrôle les invariants locaux et une liste de paquets autorisés ; les contrôles amont réseau sont une étape distincte |
 | SCA | `scripts/ci/lake_manifest_to_osv.py`, tests et scan OSV documenté | Une requête d'avis par commit n'est pas une SBOM ni une preuve d'absence de vulnérabilité |
-| SPDX | `scripts/ci/lake_manifest_to_spdx.py`, `test_lake_manifest_to_spdx.py` | Inventaire limité au manifeste Lake ; parseur SPDX indépendant non encore intégré |
+| SPDX | `scripts/ci/lake_manifest_to_spdx.py`, `scripts/ci/validate_spdx.py` et leurs tests | Générateur limité au manifeste Lake ; validation indépendante `spdx-tools 0.8.5` intégrée expérimentalement, avec garde locale pour le défaut amont #885 |
 | CycloneDX | Pas de générateur identifié dans les fichiers examinés | Candidat à décider seulement sur la base de consommateurs et de besoins réels |
 | SAST Lean | Candidat `dmbs335/pc-sast-lean` documenté, non qualifié pour K7PL | Licence, maintenance, règles, couverture, faux positifs et faux négatifs à mesurer |
 | SAST workflows | `actionlint` et `zizmor` intégrés | Leur succès d'exécution ne signifie pas qu'aucun constat n'existe ; la politique de blocage reste distincte |
@@ -75,7 +75,7 @@ Le flux proposé est :
 6. **Rapport** : produire un JSON stable avec version de schéma, outil et version, statut `PASS/FAIL/ERROR`, diagnostics identifiés par règle, artefacts source, périmètre et limites.
 7. **Preuves et provenance** : relier chaque affirmation à la règle et au source Lean correspondant ; ajouter avant toute généralisation les révisions, empreintes des entrées, versions effectives des analyseurs et liens vers les artefacts de vérification.
 
-Le rapport natif Lean conserve les chemins et le périmètre, sans calculer les empreintes cryptographiques. La CI ajoute maintenant une enveloppe d'évidence distincte, calculée avec la bibliothèque standard Python, qui enregistre SHA-256 du manifeste, du `lakefile.lean`, du toolchain, des sources d'audit/génération et du SBOM ; elle relève aussi le commit effectivement testé et la tête de PR. Cette enveloppe ne constitue pas une preuve Lean de provenance : elle est une attestation reproductible du workflow, conservée comme artefact CI. Le nouveau contrôle doit encore passer la CI sur sa révision actuelle.
+Le rapport natif Lean conserve les chemins et le périmètre, sans calculer les empreintes cryptographiques. La CI produit une enveloppe d'évidence distincte, calculée avec la bibliothèque standard Python, qui enregistre SHA-256 du manifeste, du `lakefile.lean`, du toolchain, des sources d'audit/génération et du SBOM ; elle relève aussi le commit testé et la tête de PR. Cette enveloppe n'est pas une preuve Lean de provenance : c'est une attestation du workflow conservée comme artefact CI. L'intégration de génération/validation, les cas CLI négatifs et les artefacts de mesure ont passé le run #891.
 
 ## 5. Démonstrateur : audit de cohérence Lake ↔ SPDX 2.3
 
@@ -98,13 +98,13 @@ La revendication porte sur **les données observées**, pas sur leur exhaustivit
 
 Les tests Lean couvrent un cas positif ainsi que des cas négatifs pour format de révision invalide, révision modifiée, URL modifiée, métadonnée de licence affirmée, relation inventée, relation manquante, identifiants dupliqués et champ requis absent.
 
-La CI #877 a compilé la bibliothèque et le CLI, généré puis audité le SBOM issu des 14 entrées du vrai manifeste, vérifié le rapport JSON, exécuté `lake test`, `lake lint` et les audits d'axiomes. Les tests end-to-end couvrent : JSON de manifeste malformé → `ERROR`/code 2 ; révision de composant falsifiée → `FAIL`/code 1 ; nom de paquet vide → garde `FAIL`/code 1 avant l'appel au validateur externe. L'artefact `k7pl-sbom-evidence-38059959562` conserve les empreintes de provenance de la première exécution intégrée ; l'artefact `k7pl-independent-spdx-validation-38060548146` contient la sortie validée et son rapport `PASS` pour `spdx-tools 0.8.5`, avec le SHA-256 du document et l'identité du run/commit.
+La CI #891 a compilé la bibliothèque et le CLI, généré puis audité le SBOM issu des 14 entrées du vrai manifeste, vérifié le rapport JSON, exécuté `lake test`, `lake lint` et les audits d'axiomes. Les tests end-to-end couvrent : JSON de manifeste malformé → `ERROR`/code 2 ; révision de composant falsifiée → `FAIL`/code 1 ; nom de paquet vide → garde `FAIL`/code 1 avant l'appel au validateur externe. L'artefact `k7pl-independent-spdx-validation-38063142568` contient le SBOM, le rapport `PASS` pour `spdx-tools 0.8.5` et le rapport de mesure répétée, avec SHA-256 identique sur les cinq échantillons.
 
 ### Validation indépendante : état du candidat au 10 octobre 2026
 
 Le candidat officiel [`spdx-tools` v0.8.5](https://github.com/spdx/tools-python/releases/tag/v0.8.5) annonce une validation complète contre SPDX 2.2 et 2.3. Toutefois, l'issue upstream [#885 — Package without a name is not flagged as invalid](https://github.com/spdx/tools-python/issues/885) reste ouverte et décrit un document où le nom du paquet est vide sans constat de validité. Le validateur ne doit donc pas être traité comme un oracle infaillible.
 
-Le validateur est désormais intégré expérimentalement au job Python de la CI. Le fichier `scripts/requirements-spdx-validator.txt` verrouille les versions et hashes de sa fermeture de dépendances ; l'installation avec `--require-hashes --only-binary=:all:` et la validation du SBOM généré ont réussi dans le run #866. Le garde local rejette les noms de paquets absents ou vides avant l'appel externe ; les tests de régression correspondants passent. L'issue upstream #885 reste ouverte : le garde couvre ce défaut signalé, mais ne démontre pas l'absence d'autres lacunes du validateur. Le résultat `PASS` vaut pour le document précis identifié par son SHA-256, pas pour l'exhaustivité de l'inventaire.
+Le validateur est intégré expérimentalement au job Python de la CI. `scripts/requirements-spdx-validator.txt` verrouille les versions et les hashes de la fermeture de dépendances ; l'installation avec `--require-hashes --only-binary=:all:` et la validation du SBOM ont réussi dans #891. Le garde local rejette les noms de paquets absents ou vides avant l'appel externe ; les tests de régression passent. L'issue upstream #885 reste ouverte : le garde couvre ce défaut connu, mais ne démontre pas l'absence d'autres lacunes du validateur. Le `PASS` concerne uniquement le document identifié par son SHA-256 `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c`, pas l'exhaustivité de l'inventaire.
 
 ### Critères d'acceptation
 
@@ -114,9 +114,9 @@ Le validateur est désormais intégré expérimentalement au job Python de la CI
 - comportement CLI distinct pour succès, non-conformité au contrat et entrée malformée/illisible ;
 - génération déterministe pour un manifeste et un horodatage donnés, vérifiée au niveau CLI sur l'égalité octet pour octet des fichiers produits ;
 - durée du wrapper et du sous-processus de validation conservées dans le rapport d'évidence ; cette mesure descriptive ne constitue pas un benchmark multi-run ;
-- validation SPDX 2.3 indépendante de la sortie réelle, version `spdx-tools 0.8.5` et fermeture hash-lockée, réussie dans la CI #877 ; le validateur conserve toutefois les limites et le défaut upstream explicités ci-dessus ;
+- validation SPDX 2.3 indépendante de la sortie réelle, version `spdx-tools 0.8.5` et fermeture hash-lockée, réussie dans la CI #891 ; le garde #885 est testé, mais d'autres lacunes restent possibles ;
 - pas de modification de la spécification normative ou de la sémantique de K7PL ;
-- la CI #877 a validé l'ensemble des contrôles du démonstrateur et la validation externe du document SPDX 2.3 ; cela n'établit ni l'exhaustivité du SBOM, ni l'absence d'autres lacunes de validation, ni la conformité globale de K7PL.
+- la CI #891 a validé le démonstrateur, la validation externe du document SPDX 2.3 et le micro-benchmark sur cinq répétitions ; cela n'établit ni l'exhaustivité du SBOM, ni l'absence d'autres lacunes de validation, ni la conformité globale de K7PL.
 
 ## 6. Séquencement et statuts
 
@@ -125,18 +125,32 @@ Le validateur est désormais intégré expérimentalement au job Python de la CI
 | A — inventaire et récupération des décisions | **Exploré** | Sources repérées ; limites et décisions non récupérables explicites |
 | B — faisabilité et architecture | **Conçu** | Matrice et frontières ci-dessus documentées |
 | C — contrat SPDX minimal | **Conçu** | Invariants du modèle normalisé explicités |
-| D — prototype Lean/CLI/tests | **Testé en CI (#877)** | Compilation, audit d'inventaire, tests positifs/négatifs, lint, audits d'axiomes et artefacts de preuve validés sur la tête de PR `43255158712ea6bab5bf05b02c3ab5a42ad87587` |
-| E — validation SPDX indépendante | **Intégration expérimentale réussie en CI (#877)** | Document précis accepté par `spdx-tools 0.8.5`, fermeture hash-lockée et garde pour l'issue upstream #885 ; autres limites possibles à évaluer |
-| F — évaluation | **Non commencé** | Couverture mesurée, rapports différentiels, temps d'exécution et limites observées |
+| D — prototype Lean/CLI/tests | **Testé en CI (#891)** | Compilation, audit d'inventaire, tests positifs/négatifs, lint, audits d'axiomes et artefacts de preuve validés sur la tête de PR `69368cea93b9c0fc25d2164b8052e90a85e1690a` |
+| E — validation SPDX indépendante | **Intégration expérimentale réussie en CI (#891)** | Document précis accepté par `spdx-tools 0.8.5`, fermeture hash-lockée et garde pour l'issue amont #885 ; d'autres limites sont possibles |
+| F — évaluation | **Baseline intra-run acquise ; évaluation inter-run ouverte** | Répéter sur des runs indépendants, tester un corpus négatif SPDX élargi et mesurer la couverture de validation et les diagnostics |
 | Extension SCA/SAST/CycloneDX/WCAG | **À prioriser après évaluation** | Décision fondée sur le prototype, le bénéfice et les dépendances communes |
 
-### Évaluation empirique : première baseline de CI
+### Évaluation empirique : baseline et micro-mesure
 
-Les métriques de durée sont distinguées du temps propre du validateur. Dans le run complet #877 (10 octobre 2026), les métadonnées Actions enregistrent environ 5 min 46 s pour le workflow, 4 min 56 s pour le job Lean, 2 min 21 s pour l'étape `lake test` et 18 s pour le job Python. Ces temps de CI comprennent installation, cache, initialisation et contrôles annexes : ils ne sont pas des benchmarks isolant le validateur.
+Les métadonnées du run CI #877 enregistrent environ 5 min 46 s pour le workflow complet, 4 min 56 s pour le job Lean, 2 min 21 s pour l'étape `lake test` et 18 s pour le job Python. Ces durées de CI incluent installation, cache, initialisation et contrôles annexes ; elles ne mesurent pas isolément le validateur.
 
-La CI ajoute une mesure monotone en millisecondes au rapport du validateur : temps total du wrapper (`elapsedMs`) et temps du sous-processus `pyspdxtools` (`validator.elapsedMs`). Les valeurs sont conservées dans l'artefact de validation et le résumé de job. Une nouvelle fixture CLI vérifie aussi l'égalité **octet pour octet** de deux sorties du générateur pour le même manifeste, le même toolchain et un horodatage fixé ; l'égalité des objets JSON seule ne suffisait pas à vérifier l'encodage réellement écrit sur disque.
+Le run #887 a mesuré une première invocation de validation à 543,202 ms pour le sous-processus `pyspdxtools` et 556,297 ms pour le wrapper. Dans le run #891, l'invocation autonome préalable aux répétitions a pris 496,043 ms pour `pyspdxtools` et 508,578 ms pour le wrapper. Les cinq invocations suivantes, exécutées séparément sur le même runner et sur le même document, ont toutes renvoyé `PASS`, sans diagnostic, avec le même SHA-256 `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c`.
 
-Cette baseline n'est pas encore une étude de performance : un seul run ne permet pas d'estimer la variance, les effets de cache ni la régression. L'étape suivante reste de répéter ces mesures sur plusieurs exécutions contrôlées, de comparer une sortie stable entre runs et de documenter les limites du périmètre.
+| Mesure sur les cinq répétitions du run #891 | Min. | Médiane | Max. |
+|---|---:|---:|---:|
+| Processus CLI complet, démarrage Python inclus | 378,237 ms | 381,283 ms | 389,103 ms |
+| Wrapper `validate_spdx.py` (après imports) | 314,895 ms | 316,976 ms | 325,656 ms |
+| Sous-processus `pyspdxtools` seul | 302,409 ms | 304,564 ms | 313,096 ms |
+
+Le rapport d'évidence enregistre aussi la version Python 3.13.16, la plateforme du runner, le SHA-256 du script de validation et celui du fichier de verrouillage. L'écart entre les invocations autonomes et les répétitions suivantes est notable ; un effet de caches ou des conditions d'exécution différentes est plausible, mais ces données ne permettent pas d'en attribuer la cause. Cinq répétitions d'un seul job constituent une micro-mesure descriptive, pas un benchmark multi-machine ni une estimation robuste de variance.
+
+La CI produit désormais les durées monotones dans le rapport et le résumé de job ; une fixture CLI vérifie l'égalité **octet pour octet** de deux sorties du générateur pour le même manifeste, le même toolchain et un horodatage fixé. L'étape suivante reste de répéter la mesure dans des runs indépendants et d'élargir le corpus négatif pour caractériser couverture, diagnostics et limites du validateur.
+
+### Décision provisoire (go/no-go)
+
+**GO pour maintenir et étudier le démonstrateur borné** dans cette PR de recherche : le noyau Lean vérifie un contrat explicite sur les champs normalisés ; un validateur externe hash-locké contrôle le document généré ; les résultats et empreintes sont conservés ; les cas négatifs connus sont testés.
+
+**NO-GO pour le présenter comme porte de conformité de production ou comme preuve de conformité globale.** Le manifeste ne fournit que 14 entrées aplaties et ne prouve pas l'exhaustivité du SBOM ; le théorème ne prouve pas la correction du parseur ni celle du validateur tiers ; l'issue amont #885 reste un défaut connu traité par une garde locale ; la couverture de validation sur un corpus SPDX négatif élargi et la variabilité entre runs restent à mesurer. Aucune fusion ou publication n'est recommandée avant la fin de cette évaluation.
 
 ### Dépendances à figer avant généralisation
 
