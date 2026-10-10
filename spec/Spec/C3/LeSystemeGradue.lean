@@ -127,7 +127,7 @@ M_{\mathrm{Rel}} &= (\mathcal{R},\mathcal{R},\mathrm{false}), &
 M_{\mathrm{Unr}} &= (\mathcal{R},\mathcal{R},\mathrm{true}).
 \end{aligned}`
 
-::::proposition (label := "thm:morphismes_modes") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Quatre morphismes pour l’instanciation donnée ; dépend de l’orientation exacte des inclusions Cont et de l’affaiblissement.")
+::::proposition (label := "thm:morphismes_modes") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 ordre structurel des modes
 :::
@@ -518,7 +518,7 @@ ouverts d'un langage sans types déclarés, qu'un système de restrictions doit 
 rien n'est refusé qui ne soit refusé par lui {cite "reynoldsGEDANKENSimpleTypeless1970"}[] ; ce qui
 suit en est la version graduée.
 
-::::proposition (label := "thm:completude_graduee") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Exhaustivité uniquement sur l’inventaire fermé des codes du noyau, pas sur l’annexe illustrative ni les extensions.")
+::::proposition (label := "thm:completude_graduee") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 complétude graduée
 :::
@@ -552,7 +552,7 @@ est donc la condition de l'énoncé et non un aménagement de présentation.
 :::
 
 ::::
-::::requirement (label := "thm:completude_verificateur") (level := "compilation") (state := "not-applicable") (evidence := "none") (scope := "Implémentation du vérificateur / compilation")
+::::requirement (label := "thm:completude_verificateur") (level := "compilation") (state := "not-applicable") (evidence := "none") (scope := "graded-typing")
 :::title
 le vérificateur n'émet que des codes de la correspondance
 :::
