@@ -9,6 +9,8 @@ on:
     paths:
       - ".github/workflows/tikz-poc.yaml"
       - "docs/tracking/tikz-poc/**"
+      - "spec/figures/tikz/**"
+      - "scripts/ci/build_tikz_figures.sh"
       - "scripts/ci/build_tikz_poc.sh"
       - "scripts/ci/check_tikz_poc.py"
   push:
