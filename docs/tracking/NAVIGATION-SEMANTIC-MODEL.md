@@ -80,7 +80,7 @@ Critères d'acceptation du premier prototype :
 - [x] les références non résolues sont signalées et ne deviennent pas des liens inventés ;
 - [x] les citations restent distinctes des références à des objets de la spécification ;
 - [x] la vue retourne à la source canonique et à la page documentaire rendue ;
-- [ ] les tests couvrent les labels manquants, les références non résolues, les citations multiples et les ancres ;
+- [x] les tests couvrent les labels sources absents, les références/citations non résolues, plusieurs clés bibliographiques dans une citation et les ancres manquantes ;
 - [x] le prototype n'ajoute aucune dépendance d'exécution au site publié ;
 - [ ] une revue humaine confirme que la vue aide à comprendre les relations sans exagérer leur portée.
 
