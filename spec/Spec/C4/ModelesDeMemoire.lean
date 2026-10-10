@@ -38,7 +38,7 @@ produire un effet, quand celui du théorème est la disjonction de régions. Et 
 recouvre la pureté depuis un ambiant impur, direction que ce document écarte ; l'adopter comme
 sémantique importerait la lecture relative de la pureté qu'il refuse.
 
-::::theorem (label := "thm:surete_spatiale") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Impossibilité de mutation concurrente sous H1, H2 et H3 ; H1 n’est pas justifiée indépendamment.")
+::::theorem (label := "thm:surete_spatiale") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "memory-safety")
 :::title
 sûreté spatiale par capacités linéaires
 :::
@@ -96,7 +96,7 @@ dans _C_. S'il tombe — si la déclaration d'indépendance entre modes n'était
 faudrait un mécanisme d'exécution pour interdire la mutation concurrente, c'est-à-dire ce que le
 postulat d'autonomie physique refuse.
 
-::::proposition (label := "thm:introduction_unique") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Unicité d’introduction, acyclicité des destinations et terminaison ; la justification de H1 et le cas d’élimination d’arène restent ouverts.")
+::::proposition (label := "thm:introduction_unique") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "memory-safety")
 :::title
 loi unique d'introduction des ressources d'écriture
 :::
