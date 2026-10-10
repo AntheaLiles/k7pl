@@ -88,7 +88,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 ### P0 — Cadrage et inventaire
 
-- [ ] Traiter l'audit préparatoire des figures et moteurs de rendu ([audit figures HTML/PDF](DIAGRAMS-AND-RENDERING-AUDIT.md)) : établir la cause du défaut HTML, inventori­er les sources et sorties, comparer les moteurs et définir les contrôles d'accessibilité.
+- [x] Actualiser l'audit des figures et moteurs de rendu ([audit figures HTML/PDF](DIAGRAMS-AND-RENDERING-AUDIT.md)) : la cause du défaut HTML est documentée, les sources et sorties sont inventoriées, les rendus statiques comparés et les contrôles automatiques définis. Les points de validation PDF/UA avec la chaîne réelle, l'inspection du nouvel artefact PDF et la revue humaine restent séparément ouverts ci-dessous.
 - [ ] Inventorier les capacités actuelles de Verso utilisées par K7PL.
 - [ ] Inventorier les générateurs et extensions sous `tools/`.
 - [ ] Identifier les structures Lean actuellement disponibles pour représenter les objets documentaires.
