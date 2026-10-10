@@ -1,6 +1,6 @@
 # Registre de classification sémantique — C8.0
 
-**Statut : classifications candidates, non normatives.** Les 69 lignes conservent des propositions de classification qui restent à ratifier. Les lots d'audit B01–B11 ont maintenant couvert les 69 blocs et leurs esquisses au niveau de la revue sémantique source ; cela ne constitue ni une validation indépendante de chaque preuve ni une validation des résultats mathématiques. Les dépendances argumentatives, les hypothèses locales et les obligations ouvertes doivent encore être résolues avant migration. Les classifications marquées « candidate » sont des hypothèses de travail, pas des décisions finales.
+**Statut : registre historique des candidats ; décisions ratifiées dans le [registre de ratification](LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md).** Les champs ci-dessous préservent les classifications initiales et les alertes ayant servi à la décision. En cas de divergence, le registre de ratification fait autorité pour la nature, le rôle, l’état épistémique et la portée. La ratification ne valide pas les résultats mathématiques et n’autorise pas une migration source automatique.
 
 **Base source examinée :** `fd27103783d1ff1a5a69b303e22a2c10655aa74c` (`main`, après fusion des PR #116 et #117). Inventaire mécanique : [PR #81](https://github.com/AntheaLiles/k7pl/pull/81). Contrôle de dérive : [PR #83](https://github.com/AntheaLiles/k7pl/pull/83). Les lignes de source sont des repères révisables ; l'inventaire mécanique demeure la référence pour les positions courantes.
 
