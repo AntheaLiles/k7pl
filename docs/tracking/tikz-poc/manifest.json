@@ -7,7 +7,8 @@
       "canonical_verso": "spec/Spec/C6/LeProcessusDeCompilation.lean#fig:comp-process",
       "caption": "Phases de la chaîne de compilation",
       "alt": "Pipeline en deux rangées : Parse, ConfigAnalysis, TypeCheck, Resolution et PurityCheck de gauche à droite sur la rangée supérieure ; la séquence descend vers TermProof à droite puis revient de droite à gauche par ConstraintSolve, Optimize, CodeGen et Link. Les étapes intermédiaires portent les numéros 1.5 et 2.5.",
-      "long_description": "Dix étapes forment une séquence linéaire disposée en serpentin pour préserver la lisibilité : la rangée supérieure se lit de gauche à droite, puis la flèche descend vers TermProof et la rangée inférieure se lit de droite à gauche jusqu'à Link. Les étapes intercalaires ConfigAnalysis et Resolution portent les numéros 1.5 et 2.5. La disposition est un choix de présentation du POC ; vérifier l'ordre et le contenu contre la figure canonique avant adoption."
+      "long_description": "Dix étapes forment une séquence linéaire disposée en serpentin pour préserver la lisibilité : la rangée supérieure se lit de gauche à droite, puis la flèche descend vers TermProof et la rangée inférieure se lit de droite à gauche jusqu'à Link. Les étapes intercalaires ConfigAnalysis et Resolution portent les numéros 1.5 et 2.5. La disposition est un choix de présentation du POC ; vérifier l'ordre et le contenu contre la figure canonique avant adoption.",
+      "production_asset": "compilation-process"
     },
     {
       "id": "session-protocol",
@@ -15,7 +16,8 @@
       "canonical_verso": "spec/Spec/C3/LesContraintesDeValeur.lean#fig:session-automate",
       "caption": "Un protocole de session comme automate à états",
       "alt": "Automate orienté avec un état initial représenté par un point plein, EXPECT_INT qui envoie Int vers EXPECT_BOOL, puis EXPECT_BOOL qui reçoit Bool et rejoint l'état final en double cercle.",
-      "long_description": "Un point initial plein mène à EXPECT_INT. La transition send(Int) mène à EXPECT_BOOL ; la transition recv(Bool) mène à l'état final représenté par un double cercle non étiqueté. La reconstruction conserve les deux états nommés et les deux transitions du dessin canonique."
+      "long_description": "Un point initial plein mène à EXPECT_INT. La transition send(Int) mène à EXPECT_BOOL ; la transition recv(Bool) mène à l'état final représenté par un double cercle non étiqueté. La reconstruction conserve les deux états nommés et les deux transitions du dessin canonique.",
+      "production_asset": "session-protocol-as-automata"
     },
     {
       "id": "structural-modes",
@@ -23,7 +25,8 @@
       "canonical_verso": "spec/Spec/C3/LeSystemeGradue.lean#fig:modalites-structurelles",
       "caption": "Contraction et affaiblissement : quatre combinaisons possibles",
       "alt": "Matrice 2 × 2 : Aff (couche 2) et Unr (couche 3) dans la rangée où l'affaiblissement est admis ; Lin (couche 1) et « non instancié par K7PL » dans la rangée où l'affaiblissement est interdit. Les colonnes indiquent respectivement contraction interdite et contraction admise.",
-      "long_description": "La matrice classe les quatre combinaisons. À gauche, la contraction est interdite ; à droite, elle est admise. En haut, l'affaiblissement est admis : Aff (couche 2) et Unr (couche 3). En bas, il est interdit : Lin (couche 1) et la combinaison non instanciée par K7PL. Des points noirs matérialisent les trois modalités existantes. La couleur n'est pas utilisée comme seul moyen de distinction."
+      "long_description": "La matrice classe les quatre combinaisons. À gauche, la contraction est interdite ; à droite, elle est admise. En haut, l'affaiblissement est admis : Aff (couche 2) et Unr (couche 3). En bas, il est interdit : Lin (couche 1) et la combinaison non instanciée par K7PL. Des points noirs matérialisent les trois modalités existantes. La couleur n'est pas utilisée comme seul moyen de distinction.",
+      "production_asset": "matrice-contraction-affaiblissement"
     }
   ]
 }
