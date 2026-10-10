@@ -353,12 +353,15 @@ jobs:
           assert report["validator"]["version"] == "0.8.5", report
           assert report["diagnostics"] == [], report
           assert len(report["input"]["sha256"]) == 64, report
+          assert isinstance(report["elapsedMs"], (int, float)), report
+          assert isinstance(report["validator"]["elapsedMs"], (int, float)), report
           print("Independent SPDX 2.3 validator: PASS (spdx-tools 0.8.5)")
           with open(__import__("os").environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
-              summary.write("### Independent SPDX 2.3 validation\\n")
-              summary.write("- Validator: `spdx-tools 0.8.5` (hash-locked runtime closure).\\n")
-              summary.write("- Result: PASS; generated JSON validated against SPDX 2.3.\\n")
-              summary.write("- SBOM SHA-256: `" + report["input"]["sha256"] + "`\\n")
+              summary.write("### Independent SPDX 2.3 validation\n")
+              summary.write("- Validator: \`spdx-tools 0.8.5\` (hash-locked runtime closure).\n")
+              summary.write("- Result: PASS; generated JSON validated against SPDX 2.3.\n")
+              summary.write("- SBOM SHA-256: \`" + report["input"]["sha256"] + "\`\n")
+              summary.write("- Wrapper elapsed: \`" + str(report["elapsedMs"]) + " ms\`; validator subprocess: \`" + str(report["validator"]["elapsedMs"]) + " ms\`.\n")
           PY
 
       - name: Upload independent SPDX validation evidence

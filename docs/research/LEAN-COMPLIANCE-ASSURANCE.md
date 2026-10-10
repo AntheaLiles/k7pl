@@ -112,7 +112,8 @@ Le validateur est désormais intégré expérimentalement au job Python de la CI
 - tests positifs et négatifs réussis ;
 - rapport JSON stable dans sa structure, avec statut exploitable et diagnostics identifiables ;
 - comportement CLI distinct pour succès, non-conformité au contrat et entrée malformée/illisible ;
-- génération déterministe pour un manifeste et un horodatage donnés ;
+- génération déterministe pour un manifeste et un horodatage donnés, vérifiée au niveau CLI sur l'égalité octet pour octet des fichiers produits ;
+- durée du wrapper et du sous-processus de validation conservées dans le rapport d'évidence ; cette mesure descriptive ne constitue pas un benchmark multi-run ;
 - validation SPDX 2.3 indépendante de la sortie réelle, version `spdx-tools 0.8.5` et fermeture hash-lockée, réussie dans la CI #877 ; le validateur conserve toutefois les limites et le défaut upstream explicités ci-dessus ;
 - pas de modification de la spécification normative ou de la sémantique de K7PL ;
 - la CI #877 a validé l'ensemble des contrôles du démonstrateur et la validation externe du document SPDX 2.3 ; cela n'établit ni l'exhaustivité du SBOM, ni l'absence d'autres lacunes de validation, ni la conformité globale de K7PL.
@@ -128,6 +129,14 @@ Le validateur est désormais intégré expérimentalement au job Python de la CI
 | E — validation SPDX indépendante | **Intégration expérimentale réussie en CI (#877)** | Document précis accepté par `spdx-tools 0.8.5`, fermeture hash-lockée et garde pour l'issue upstream #885 ; autres limites possibles à évaluer |
 | F — évaluation | **Non commencé** | Couverture mesurée, rapports différentiels, temps d'exécution et limites observées |
 | Extension SCA/SAST/CycloneDX/WCAG | **À prioriser après évaluation** | Décision fondée sur le prototype, le bénéfice et les dépendances communes |
+
+### Évaluation empirique : première baseline de CI
+
+Les métriques de durée sont distinguées du temps propre du validateur. Dans le run complet #877 (10 octobre 2026), les métadonnées Actions enregistrent environ 5 min 46 s pour le workflow, 4 min 56 s pour le job Lean, 2 min 21 s pour l'étape `lake test` et 18 s pour le job Python. Ces temps de CI comprennent installation, cache, initialisation et contrôles annexes : ils ne sont pas des benchmarks isolant le validateur.
+
+La CI ajoute une mesure monotone en millisecondes au rapport du validateur : temps total du wrapper (`elapsedMs`) et temps du sous-processus `pyspdxtools` (`validator.elapsedMs`). Les valeurs sont conservées dans l'artefact de validation et le résumé de job. Une nouvelle fixture CLI vérifie aussi l'égalité **octet pour octet** de deux sorties du générateur pour le même manifeste, le même toolchain et un horodatage fixé ; l'égalité des objets JSON seule ne suffisait pas à vérifier l'encodage réellement écrit sur disque.
+
+Cette baseline n'est pas encore une étude de performance : un seul run ne permet pas d'estimer la variance, les effets de cache ni la régression. L'étape suivante reste de répéter ces mesures sur plusieurs exécutions contrôlées, de comparer une sortie stable entre runs et de documenter les limites du périmètre.
 
 ### Dépendances à figer avant généralisation
 
