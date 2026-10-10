@@ -32,7 +32,7 @@ représentation intermédiaire ont ceci de commun qu'ils sont définis par récu
 des termes et qu'ils doivent commuter avec la substitution — faute de quoi le sens dépendrait de
 l'ordre dans lequel on transforme et on substitue.
 
-::::thm (label := "thm:schema_commutation")
+::::lemma (label := "thm:schema_commutation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Substitution et transformations syntaxiques")
 :::title
 schéma de commutation
 :::
@@ -54,13 +54,13 @@ Par récurrence sur le terme. Les cas des constructeurs sont immédiats, $`T` y 
 composante par composante. Le seul cas non immédiat est celui du lieur : il demande que la variable
 substituée ne soit pas capturée par le lieur que $`T` produit, ce que l'hypothèse d'hygiène fournit.
 :::
-::::
 
+::::
 Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qu'il faut
 établir, et rien de plus : non pas que la traduction préserve le jugement, mais que chaque règle de
 la source a une dérivation pour image.
 
-::::thm (label := "thm:schema_preservation")
+::::lemma (label := "thm:schema_preservation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Traduction de systèmes de règles")
 :::title
 schéma de préservation par traduction
 :::
@@ -80,12 +80,12 @@ composition de dérivations étant admissible dans la cible, les images se recol
 d'une instance est donc d'exhiber une dérivation par règle, et l'énoncé général n'a pas à être
 refait.
 :::
-::::
 
+::::
 Le troisième est un fait de théorie des graphes, employé deux fois par ce document et qu'il serait
 vain de démontrer deux fois.
 
-::::thm (label := "thm:tri_topologique")
+::::lemma (label := "thm:tri_topologique") (level := "langage") (role := "lemma") (state := "supported") (evidence := "proofsketch") (scope := "Graphes finis")
 :::title
 tri topologique
 :::
@@ -102,13 +102,13 @@ Par récurrence sur le nombre de sommets. Un graphe fini acyclique non vide poss
 prédécesseur : sinon, en remontant les prédécesseurs, la finitude force la répétition d'un sommet,
 donc un cycle. Ce sommet est placé en tête, et l'hypothèse d'induction ordonne le reste.
 :::
-::::
 
+::::
 Un quatrième schéma gouverne tout ce qui, dans ce document, _retire_. Cinq constructions
 l'instancient sans qu'aucune ne le nomme, et leur parenté n'est aujourd'hui qu'une ressemblance de
 forme.
 
-::::thm (label := "thm:schema_restriction")
+::::lemma (label := "thm:schema_restriction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Restriction de structures")
 :::title
 schéma de restriction
 :::
@@ -128,8 +128,8 @@ est retiré et l'autre non ; la stabilité de $`p` l'exclut, puisqu'elle demand
 élément entraîne celui de tout ce qui en dépend. C'est cette condition, et elle seule, qui sépare
 une restriction d'une mutilation.
 :::
-::::
 
+::::
 Cinq constructions en sont des instances, et les reconnaître comme telles dispense de vérifier cinq
 fois la même chose. La _projection conservatrice_ retire les opérations d'une sorte et garde le
 temps ; la _projection observationnelle_ retire ce qui excède un niveau, temps compris ;
@@ -185,7 +185,7 @@ dans ce document, _traduit une représentation riche vers une représentation pl
 l'élaboration de la syntaxe de surface, l'effacement de la dernière phase, l'abaissement vers la
 représentation intermédiaire, la traduction vers le métalangage — obéit au même énoncé.
 
-::::thm (label := "thm:schema_effacement")
+::::lemma (label := "thm:schema_effacement") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Morphism de raffinement conditionnel aux lois de commutation, préservation et fibre ; les trois conséquences ne sont pas acquittées par le seul schéma.")
 :::title
 schéma d'effacement
 :::
@@ -206,8 +206,8 @@ théorème {num "thm:schema_preservation"}[], dont la condition est que l'image
 une dérivation. Que l'oubli soit une fibre est le théorème {num "thm:raffinement"}[], qui construit
 le système de raffinement dont la traduction est le foncteur.
 :::
-::::
 
+::::
 Quatre constructions en sont des instances, et la quatrième est celle qui coûtait le plus cher : la
 fidélité de l'interpréteur de référence. Elle cesse d'être une propriété à établir construction par
 construction pour devenir la vérification de trois conditions sur une transformation. {rmq}[Ce qui
@@ -224,7 +224,7 @@ Un septième énoncé mérite le même traitement, et il porte sur les capacité
 termes. Le chapitre 4 l'emploie deux fois — pour la mémoire partagée et pour la frontière étrangère
 — et l'argument y est le même à un mot près.
 
-::::thm (label := "thm:lemme_capacite")
+::::lemma (label := "thm:lemme_capacite") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Ressources linéaires / accès concurrents")
 :::title
 lemme de capacité
 :::
@@ -242,6 +242,6 @@ donc une contraction sur une liaison de grade $`1` : la somme des grades vaudra
 de contraction n'est disponible qu'aux grades qui l'admettent. Il n'y a pas de dérivation, et la
 garantie ne coûte donc aucune vérification.
 :::
-::::
 
+::::
 {bibliography}
