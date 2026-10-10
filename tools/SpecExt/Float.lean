@@ -68,10 +68,6 @@ def tableRows? : Doc.Block Manual → Option (Nat × Bool × Array (Array (Array
     else none
   | _ => none
 
-/-- The relative path from a page to the root of the site. -/
-def rootPrefix (path : Array String) : String :=
-  String.join (List.replicate path.size "../")
-
 block_extension Block.float (info : FloatInfo) where
   data := toJson info
   traverse id data contents := do
@@ -106,9 +102,11 @@ block_extension Block.float (info : FloatInfo) where
       let caption : Output.Html := {{<div class="k7-caption">{{cap}}{{descH}}{{noteH}}{{srcH}}</div>}}
       let body : Output.Html ←
         if info.kind == "figure" then
-          let rt := rootPrefix (← read).traverseContext.path
+          -- Verso's generated pages have a <base href> pointing at the site root.
+          -- Keep this URL site-root-relative; prepending the page-depth prefix here applies
+          -- that prefix twice and breaks images on nested pages.
           let style := s!"max-width: {info.width}%"
-          pure {{<img class="k7-img" src={{rt ++ "figures/" ++ info.arg ++ ".svg"}} alt={{info.alt}} style={{style}}/>}}
+          pure {{<img class="k7-img" src={{"figures/" ++ info.arg ++ ".svg"}} alt={{info.alt}} style={{style}}/>}}
         else
           pure (Output.Html.seq (← others.mapM goB))
       -- tables and listings put their caption above, figures below
