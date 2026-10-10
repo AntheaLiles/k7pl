@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # C8 — Matrice de couverture de la revue sémantique
 
-**État :** matrice de pilotage provisoire ; ne vaut ni ratification des classifications ni validation mathématique.  
+**État :** matrice de couverture et de risques ; les classifications sont ratifiées dans le [registre dédié](LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md). Cette matrice ne vaut pas validation mathématique.  
 **Référence source :** inventaire mécanique C8.0, 69 labels dans 21 fichiers ; références de lignes et dépendances revérifiées après fusion des PR #111, #114, #116 et #117.  
 **But :** relier chaque bloc source aux notes de revue, aux dépendances directes explicites extraites des références `{num "thm:…"}`, et aux risques sémantiques prioritaires. Les dépendances documentaires implicites et les dépendances bibliographiques ne sont pas toutes capturées par ce graphe syntaxique.
 
@@ -115,14 +115,14 @@ La [PR #117](https://github.com/AntheaLiles/k7pl/pull/117) est fusionnée et sa 
 
 ## 4. Décision de préparation à la migration
 
-À ce stade, **aucun bloc n'est certifié prêt pour migration sémantique** par la seule existence d'une note de revue. Le tableau prouve la couverture documentaire, pas la résolution des obligations. Les classifications du registre restent provisoires.
+À ce stade, **aucun bloc n'est certifié prêt pour migration sémantique** par la seule existence d'une note de revue. Le tableau prouve la couverture documentaire, pas la résolution des obligations. Les classifications sont ratifiées dans le [registre de ratification](LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) ; les obligations mathématiques et argumentatives restent ouvertes.
 
 Avant C8.0, il reste à :
-1. faire ratifier la classification rôle/état de chaque bloc, en particulier les exigences et les blocs composés ;
-2. établir H1 indépendamment ou conserver explicitement son statut d'hypothèse normative/architecturale, sans raisonnement circulaire ;
-3. formaliser la relation de divulgation et traiter le cas `Declassify` sans promouvoir son statut avant preuve ;
-4. préciser les représentations admissibles et les signatures de `repr`/`obs` pour `thm:representation_inobservable` ;
+1. établir H1 indépendamment ou conserver explicitement son statut d'hypothèse normative/architecturale, sans raisonnement circulaire ;
+2. formaliser la relation de divulgation et traiter le cas `Declassify` sans promouvoir son statut avant preuve ;
+3. préciser les représentations admissibles et les signatures de `repr`/`obs` pour `thm:representation_inobservable` ;
+4. classifier les dépendances comme prémisse, hypothèse, résultat dérivé, citation documentaire ou mention contextuelle ;
 5. régénérer l'inventaire mécanique et le contrôle de dérive sur `main`, puis vérifier les références bibliographiques et les hypothèses locales ;
-6. seulement après ratification des classifications et validation des obligations, planifier la migration contrôlée en préservant labels, références, texte, hypothèses et statuts, avec toute correction éditoriale dans une PR séparée.
+6. après résolution des obligations pertinentes, planifier la migration contrôlée en préservant labels, références, texte, hypothèses et statuts, avec toute correction éditoriale dans une PR séparée.
 
 **Conclusion :** la couverture documentaire des 69 labels est complète. Le cycle syntaxique lemme fondamental/divulgation a été supprimé par restriction explicite de portée ; cela ne prouve pas la divulgation. La revue sémantique n'est pas close : plusieurs obligations restent ouvertes, notamment H1 et la dépendance argumentative simulation/fidélité. La migration n'est pas encore autorisée par cette matrice.
