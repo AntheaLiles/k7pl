@@ -132,7 +132,11 @@ block_extension Block.float (info : FloatInfo) where
         ← extra "desc", ← extra "note", ← extra "source", .raw "\\par\n"]
       let mut out : Array Verso.Output.TeX := #[.raw "\n\\begin{center}\n", ← texAnchor id]
       if info.kind == "figure" then
-        out := out.push (.raw s!"\\includegraphics[width={(info.width.toNat?.getD 90).toFloat / 100.0}\\linewidth,keepaspectratio]\{figures/{info.arg}.pdf}\n")
+        -- If the project preamble provides the qvfigure accessibility helpers, wrap the image
+        -- in a tagged Figure structure. Keep the fallback for the ordinary Verso PDF build.
+        out := out.push (.raw s!"\\ifdefined\\qvalt\\qvalt{{{texEscape info.alt}}}\\fi\\n")
+        out := out.push (.raw s!"\\includegraphics[width={(info.width.toNat?.getD 90).toFloat / 100.0}\\linewidth,keepaspectratio]\\{figures/{info.arg}.pdf}\\n")
+        out := out.push (.raw "\\ifdefined\\qvaltfin\\qvaltfin\\fi\n")
         out := out.push head
       else if info.kind == "table" then
         out := out.push head
