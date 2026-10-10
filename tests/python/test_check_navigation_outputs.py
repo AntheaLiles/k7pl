@@ -27,7 +27,9 @@ def make_fixture(tmp_path: Path) -> tuple[Path, Path]:
     (site / "Spec" / "C1").mkdir(parents=True)
     (site / "figures").mkdir(parents=True)
     (site / "Spec" / "C1" / "Example.html").write_text(
-        '<html><body><div id="lbl-fig-one"></div></body></html>', encoding="utf-8"
+        '<html><body><div id="lbl-fig-one"></div>'
+        '<a href="../../navigation/figures.html#asset-one">Sources et rendus</a></body></html>',
+        encoding="utf-8",
     )
     (site / "figures" / "asset-one.svg").write_text(
         '<svg xmlns="http://www.w3.org/2000/svg"><title>one</title></svg>', encoding="utf-8"
@@ -38,6 +40,7 @@ def make_fixture(tmp_path: Path) -> tuple[Path, Path]:
 <html lang="fr" data-k7pl-generated-ref="deadbeef"><head><style>
 @media (max-width: 560px) { .figure-card { grid-template-columns: 1fr; } }
 </style></head><body>
+<article class="figure-card" id="asset-one"><h2>Figure one</h2></article>
 <a href="../Spec/C1/Example.html#lbl-fig-one">Page documentaire</a>
 <a href="../figures/asset-one.svg">SVG</a>
 <a href="../figures/asset-one.pdf">PDF</a>
@@ -80,6 +83,7 @@ def test_valid_static_navigation_artifacts_pass(tmp_path: Path) -> None:
     assert result.returncode == 0, result.stderr
     assert "3 pages" in result.stdout
     assert "pinned GitHub source links" in result.stdout
+    assert "1 reversible figure links" in result.stdout
 
 
 def test_stale_generated_page_is_rejected(tmp_path: Path) -> None:
@@ -92,6 +96,15 @@ def test_stale_generated_page_is_rejected(tmp_path: Path) -> None:
     result = run_checker(root, site)
     assert result.returncode != 0
     assert "stale generated output" in result.stderr
+
+
+def test_missing_figure_to_catalog_link_is_rejected(tmp_path: Path) -> None:
+    root, site = make_fixture(tmp_path)
+    document = site / "Spec" / "C1" / "Example.html"
+    document.write_text('<html><body><div id="lbl-fig-one"></div></body></html>', encoding="utf-8")
+    result = run_checker(root, site)
+    assert result.returncode != 0
+    assert "catalog figures lack a rendered-document entry link" in result.stderr
 
 
 def test_missing_local_anchor_is_rejected(tmp_path: Path) -> None:
