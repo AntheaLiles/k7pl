@@ -1,0 +1,20 @@
+{
+  "status": "canonical-tikz-sources",
+  "figures": [
+    {
+      "id": "compilation-pipeline",
+      "source": "compilation-pipeline.tex",
+      "asset_stem": "compilation-process"
+    },
+    {
+      "id": "session-protocol",
+      "source": "session-protocol.tex",
+      "asset_stem": "session-protocol-as-automata"
+    },
+    {
+      "id": "structural-modes",
+      "source": "structural-modes.tex",
+      "asset_stem": "matrice-contraction-affaiblissement"
+    }
+  ]
+}
