@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Prototype de navigation — provenance des figures
 
-**Statut :** première tranche verticale en validation CI.  
+**Statut :** catalogue généré en CI et déployé sur GitHub Pages ; comparaison d'usage et revue humaine encore ouvertes.  
 **Périmètre :** navigation de provenance des figures, et non graphe sémantique général.
 
 ## Cas d'usage retenu
@@ -41,9 +41,9 @@ Ce catalogue représente la **provenance technique des figures**. Il n'affirme p
 
 ## Critères de validation
 
-- [ ] Le build complet génère la page et toutes ses cibles d'ancrage.
-- [ ] Les douze figures déclarées sont recensées sans entrée inventée ni source manquante.
-- [ ] Chaque figure mène à sa déclaration et à sa source graphique canonique ; les rendus existants sont accessibles.
+- [x] Le build complet génère la page et les ancres des 12 figures (CI verte).
+- [x] Les douze figures déclarées sont recensées sans entrée inventée ni source manquante (génération CI réussie).
+- [x] Le catalogue produit les liens vers la déclaration, la source graphique canonique et les rendus disponibles ; les SVG locaux sont validés par la CI.
 - [ ] Le lien depuis la figure et le retour vers le rendu fonctionnent dans le site publié.
 - [ ] Le catalogue reste lisible sur mobile, au clavier et sans dépendance JavaScript.
 - [ ] Une revue humaine confirme l'utilité du parcours par rapport à l'ouverture manuelle des fichiers.
