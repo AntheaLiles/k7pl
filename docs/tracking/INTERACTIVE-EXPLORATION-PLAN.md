@@ -184,12 +184,12 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [ ] La provenance des éléments présentés est vérifiable.
 - [ ] Une évaluation comparative du parcours avant/après est produite.
 - [ ] Les bénéfices et limites sont documentés.
-- [ ] Une décision explicite est prise : poursuivre, réorienter ou abandonner l'industrialisation.
+- [x] Une décision explicite est prise : réorienter la démonstration, maintenir la comparaison utilisateur comme prérequis à toute extension.
 
 ## Point de reprise — preuve de valeur navigation (11 octobre 2026)
 
 Le run CI `38092815528` construit et déploie les trois pages de navigation ; l'inspection de son artefact Pages montre 67 pages HTML et 53 liens locaux valides dans le sous-ensemble de navigation, sans ancre locale visée manquante. C'est une vérification reproductible de l'artefact, pas un test utilisateur ni une preuve de bon fonctionnement des URL publiques.
 
-Une correction de réversibilité et un contrôle automatique des liens/fraîcheur sont préparés dans la PR de cette tranche. Après validation de la PR et déploiement, refaire l'inspection du nouvel artefact. Maintenir ouvertes la comparaison manuelle/prototype, l'essai réel mobile/clavier/sans JavaScript et la revue de valeur humaine. Ne pas modifier le tableau de bord global généré `docs/STATUS.md`.
+Une correction de réversibilité et un contrôle automatique des liens/fraîcheur sont préparés dans la [PR #150](https://github.com/AntheaLiles/k7pl/pull/150). Après validation de la PR et déploiement, refaire l'inspection du nouvel artefact. Maintenir ouvertes la comparaison manuelle/prototype, l'essai réel mobile/clavier/sans JavaScript et la revue de valeur humaine. Ne pas modifier le tableau de bord global généré `docs/STATUS.md`.
 
 Le prochain parcours sémantique est bloqué, pas autorisé par défaut : aucune relation entre définition, théorème, preuve, implémentation et test ne sera ajoutée sur la seule base des noms de modules, imports ou proximités de fichiers.
