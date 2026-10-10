@@ -99,7 +99,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 #### Sous-chantier figures et rendu HTML/PDF
 
 - [x] Reproduire le défaut dans l'artefact HTML de CI : les 12 références de figures sortent de la racine à cause du double préfixe entre l'URL et le `<base href>` de Verso. La vérification du site publié reste à faire après fusion/déploiement.
-- [ ] Corriger la cause démontrée et valider le contrôle automatisé des images locales ([PR #124](https://github.com/AntheaLiles/k7pl/pull/124), CI en cours).
+- [x] Corriger la cause démontrée et valider le contrôle automatisé des images locales : [PR #124 fusionnée](https://github.com/AntheaLiles/k7pl/pull/124), CI complète verte (build Verso, contrôle HTML, PDF). Vérifier encore le déploiement GitHub Pages avant de clore `ANOM-17`.
 - [ ] Inventorier chaque figure, sa source canonique, ses sorties et sa fonction explicative.
 - [ ] Définir les métadonnées minimales : objectif explicatif, alt, description longue, note de lecture, provenance et objets liés.
 - [ ] Comparer sur trois figures représentatives la chaîne existante, TikZ/PGFPlots et TikZJax/isomorphic-tikzjax.
