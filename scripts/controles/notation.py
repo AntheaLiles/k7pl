@@ -12,6 +12,7 @@ import manuscript_metrics as mm
 
 from . import corpus
 from .journal import ko, ok
+from . import statement_ontology
 
 STATUSES = {"theoreme", "proposition", "conjecture", "definition", "exigence", "litterature"}
 LEVELS = {"langage", "compilation", "representation", "deploiement"}
@@ -181,3 +182,4 @@ def run():
     for check in (judgement_context, one_glyph_per_modality, hashing_claims, grades_and_sizes, float_families_listed,
                   seal, propagated_mentions, route_of_each_commitment, symbols_in_the_normative_table):
         check()
+    statement_ontology.run()
