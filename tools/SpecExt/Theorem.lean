@@ -64,6 +64,7 @@ structure StatementInfo where
   scope : String
   source : String
   formalArtifact : String
+  numbered : Bool
   number : Option Nat
 deriving ToJson, FromJson, Inhabited
 
@@ -117,20 +118,20 @@ block_extension Block.theorem (info : ThmInfo) where
       let sequence :=
         if info.scope == "legacy-unspecified" then "theoreme"
         else if info.role.isEmpty then info.kind else info.role
-      let n ← assignNumber sequence id
+      let n ← if info.numbered then assignNumber sequence id else pure 0
       if let some l := info.label then
         let (slots, _) := splitSlots contents
         let title := (findSlot slots "statement").bind (·.titleAndBody.1) |>.map
           (fun xs => String.join (xs.toList.map plainText)) |>.getD ""
-        registerLabel l id { kind := (if info.role.isEmpty then info.kind else info.role), text := toString n, title }
-      if info.number == some n then pure none
+        registerLabel l id { kind := (if info.role.isEmpty then info.kind else info.role), text := (if info.numbered then toString n else statusName info.status), title }
+      if (info.numbered && info.number == some n) || (!info.numbered && info.number.isNone) then pure none
       else
-        pure (some (.other { Block.theorem { info with number := some n } with id := some id } contents))
+        pure (some (.other { Block.theorem { info with number := if info.numbered then some n else none } with id := some id } contents))
   toHtml := some fun goI goB id data contents => do
     match fromJson? (α := StatementInfo) data with
     | .error e => reportError e; pure .empty
     | .ok info =>
-      let n := toString (info.number.getD 0)
+      let n := if info.numbered then toString (info.number.getD 0) else ""
       let st ← HtmlT.state
       let (slots, _) := splitSlots contents
       let level : Output.Html :=
@@ -142,7 +143,7 @@ block_extension Block.theorem (info : ThmInfo) where
           pure {{<span class="k7-thm-title">{{" : "}}{{← inls.mapM goI}}</span>}}
         | none => pure .empty
       let head : Output.Html :=
-        {{<div class="k7-thm-head">{{statusName info.status ++ " " ++ n}}{{level}}{{thmTitle}}</div>}}
+        {{<div class="k7-thm-head">{{statusName info.status ++ (if info.numbered then " " ++ n else "")}}{{level}}{{thmTitle}}</div>}}
       let mut out : Array Output.Html := #[head]
       for s in slots do
         match s.name with
@@ -151,7 +152,7 @@ block_extension Block.theorem (info : ThmInfo) where
           let tHtml : Output.Html ← match t with
             | some xs => do pure {{<span class="k7-stm-title">{{" : "}}{{← xs.mapM goI}}</span>}}
             | none => pure .empty
-          out := out.push {{<div class="k7-statement"><div class="k7-stm-head">{{statementPartName info ++ " " ++ n}}{{tHtml}}</div>{{← body.mapM goB}}</div>}}
+          out := out.push {{<div class="k7-statement"><div class="k7-stm-head">{{statementPartName info ++ (if info.numbered then " " ++ n else "")}}{{tHtml}}</div>{{← body.mapM goB}}</div>}}
         | "proofsketch" =>
           out := out.push {{<div class="k7-proof"><div class="k7-proof-head">"Esquisse de preuve"</div>{{← s.content.mapM goB}}<span class="k7-qed">"□"</span></div>}}
         | "title" => pure ()
@@ -230,6 +231,7 @@ structure StatementArgs where
   scope : String := "unspecified"
   source : String := ""
   formalArtifact : String := ""
+  unnumbered : Bool := false
 
 meta instance : FromArgs StatementArgs m where
   fromArgs :=
@@ -241,10 +243,11 @@ meta instance : FromArgs StatementArgs m where
       <*> .namedD `scope .string "unspecified"
       <*> .namedD `source .string ""
       <*> .namedD `formalArtifact .string ""
+      <*> .flag `unnumbered false
 
 /-- Shared constructor and validation path for the specialized commands. -/
 meta def statementDirective (kind display defaultRole defaultState : String)
-    (labelRequired : Bool) : DirectiveExpanderOf StatementArgs
+    (numberedDefault labelRequired : Bool) : DirectiveExpanderOf StatementArgs
   | args, stxs => do
     if labelRequired && args.label.isNone then
       throwError s!"{display}: a label is required for a numbered/referenced statement"
@@ -280,8 +283,11 @@ meta def statementDirective (kind display defaultRole defaultState : String)
     if kind == "assumption" && role == "hypothesis" && (args.scope == "unspecified" || args.scope == "global") then
       throwError "hypothesis requires an explicit local scope; it must not become a global assumption"
     let children ← stxs.mapM elabBlock
+    let numbered := numberedDefault && !args.unnumbered
+    if numbered && args.label.isNone then
+      throwError s!"{display}: numbered statements require a label"
     let info := StatementInfo.mk args.label display args.level kind role state evidence
-      args.scope args.source args.formalArtifact none
+      args.scope args.source args.formalArtifact numbered none
     ``(Verso.Doc.Block.other (SpecExt.Block.theorem $(quote info)) #[$children,*])
 
 /-- Backwards-compatible directive for existing legacy blocks. -/
@@ -291,34 +297,34 @@ meta def thm : DirectiveExpanderOf ThmArgs
     let children ← stxs.mapM elabBlock
     let (kind, role, state, evidence) := legacyClassification status
     let info := StatementInfo.mk label status level kind role state evidence
-      "legacy-unspecified" "" "" none
+      "legacy-unspecified" "" "" true none
     ``(Verso.Doc.Block.other (SpecExt.Block.theorem $(quote info)) #[$children,*])
 
 @[directive] meta def definition : DirectiveExpanderOf StatementArgs :=
-  statementDirective "definition" "Définition" "" "not-applicable" false
+  statementDirective "definition" "Définition" "" "not-applicable" true true
 @[directive] meta def «axiom» : DirectiveExpanderOf StatementArgs :=
-  statementDirective "assumption" "Axiome" "axiom" "" true
+  statementDirective "assumption" "Axiome" "axiom" "" true true
 @[directive] meta def postulate : DirectiveExpanderOf StatementArgs :=
-  statementDirective "assumption" "Postulat" "postulate" "" true
+  statementDirective "assumption" "Postulat" "postulate" "" true true
 @[directive] meta def hypothesis : DirectiveExpanderOf StatementArgs :=
-  statementDirective "assumption" "Hypothèse" "hypothesis" "" false
+  statementDirective "assumption" "Hypothèse" "hypothesis" "" false false
 @[directive] meta def «theorem» : DirectiveExpanderOf StatementArgs :=
-  statementDirective "result" "Théorème" "theorem" "" true
+  statementDirective "result" "Théorème" "theorem" "" true true
 @[directive] meta def «lemma» : DirectiveExpanderOf StatementArgs :=
-  statementDirective "result" "Lemme" "lemma" "" true
+  statementDirective "result" "Lemme" "lemma" "" true true
 @[directive] meta def corollary : DirectiveExpanderOf StatementArgs :=
-  statementDirective "result" "Corollaire" "corollary" "" true
+  statementDirective "result" "Corollaire" "corollary" "" true true
 @[directive] meta def proposition : DirectiveExpanderOf StatementArgs :=
-  statementDirective "result" "Proposition" "proposition" "" true
+  statementDirective "result" "Proposition" "proposition" "" true true
 @[directive] meta def conjecture : DirectiveExpanderOf StatementArgs :=
-  statementDirective "result" "Conjecture" "conjecture" "proposed" true
+  statementDirective "result" "Conjecture" "conjecture" "proposed" true true
 @[directive] meta def requirement : DirectiveExpanderOf StatementArgs :=
-  statementDirective "requirement" "Exigence" "" "not-applicable" true
+  statementDirective "requirement" "Exigence" "" "not-applicable" true true
 @[directive] meta def literature : DirectiveExpanderOf StatementArgs :=
-  statementDirective "literature" "Résultat de la littérature" "" "not-applicable" true
+  statementDirective "literature" "Résultat de la littérature" "" "not-applicable" true true
 @[directive] meta def «example» : DirectiveExpanderOf StatementArgs :=
-  statementDirective "example" "Exemple" "" "not-applicable" false
+  statementDirective "example" "Exemple" "" "not-applicable" false false
 @[directive] meta def counterexample : DirectiveExpanderOf StatementArgs :=
-  statementDirective "counterexample" "Contre-exemple" "" "not-applicable" false
+  statementDirective "counterexample" "Contre-exemple" "" "not-applicable" false false
 
 end SpecExt
