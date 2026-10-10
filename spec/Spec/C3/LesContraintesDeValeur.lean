@@ -271,7 +271,7 @@ Le second est que la preuve procède par coinduction sur le dépliage plutôt qu
 structure, un graphe se laissant mieux traiter comme structure coinductive dès le départ, les
 algorithmes de graphes n'étant pas structurellement récursifs dans leurs présentations usuelles {cite "kidneyFormalisingGraphAlgorithms2025"}[].
 
-::::theorem (label := "thm:deadlock_acyclique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Absence de blocage mutuel sous protocoles duaux et graphe de dépendances acyclique ; invariant graphe statique/dynamique à établir.")
+::::theorem (label := "thm:deadlock_acyclique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "concurrency")
 :::title
 absence de deadlock par acyclicité du graphe de sessions
 :::
@@ -347,7 +347,7 @@ Ces singularités se propagent algébriquement à travers les opérations vector
 introduire de branchement ; si $`\bot` atteint la sortie d'une fonction, le résultat est simplement
 l'absence de donnée — un échec prouvé plutôt que silencieux.
 
-::::proposition (label := "thm:homomorphisme_roues") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Injectivité des quatre singularités et comportement de select")
+::::proposition (label := "thm:homomorphisme_roues") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "representation")
 :::title
 représentation des singularités de la théorie des roues
 :::
@@ -370,7 +370,7 @@ la branche inactive est annihilée plutôt que corrompue, d'où (ii).
 :::
 ::::
 
-::::requirement (label := "req:homomorphisme_roues_realisation") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "Injectivité des quatre singularités et comportement de select ; l’arithmétique des valeurs encodées est une exigence de réalisation séparée.")
+::::requirement (label := "req:homomorphisme_roues_realisation") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "representation")
 :::title
 réalisation de l’arithmétique des roues
 :::
@@ -392,7 +392,7 @@ par exemple $`\bot + y = \bot`, ne tiennent donc sur les valeurs encodées que p
 propagation de (iii) les impose : c'est K7PL qui les spécifie, aucun effet ne dépendant de la
 machine.
 ::::
-::::requirement (label := "thm:representation_inobservable") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "Invariance de obs entre représentations admissibles d’une même valeur ; relation d’admissibilité et signatures de repr/obs à préciser.")
+::::requirement (label := "thm:representation_inobservable") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "representation")
 :::title
 aucune liberté de représentation n'est observable
 :::
