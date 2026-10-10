@@ -159,12 +159,30 @@ def check(html_root: Path, source_figures: Path, spec_root: Path | None = None) 
             if svg_root.tag.split("}")[-1] != "svg":
                 errors.append(f"invalid SVG root element: {copied.relative_to(html_root)}")
             namespace = svg_root.tag[1:].split("}")[0] if svg_root.tag.startswith("{") else ""
-            for element_name in ("title", "desc"):
-                qualified = f"{{{namespace}}}{element_name}" if namespace else element_name
-                nodes = svg_root.findall(qualified)
-                if len(nodes) != 1 or not " ".join("".join(nodes[0].itertext()).split()):
+            title_tag = f"{{{namespace}}}title" if namespace else "title"
+            desc_tag = f"{{{namespace}}}desc" if namespace else "desc"
+            title_nodes = svg_root.findall(title_tag)
+            desc_nodes = svg_root.findall(desc_tag)
+            if len(title_nodes) != 1 or not " ".join("".join(title_nodes[0].itertext()).split()):
+                errors.append(
+                    f"{copied.relative_to(html_root)}: declared figure SVG must have one non-empty title"
+                )
+            if len(desc_nodes) != 1 or not " ".join("".join(desc_nodes[0].itertext()).split()):
+                errors.append(
+                    f"{copied.relative_to(html_root)}: declared figure SVG must have one non-empty desc"
+                )
+            if len(title_nodes) == 1 and len(desc_nodes) == 1:
+                title_id = title_nodes[0].get("id")
+                desc_id = desc_nodes[0].get("id")
+                if svg_root.get("role") != "img":
+                    errors.append(f"{copied.relative_to(html_root)}: accessible SVG must declare role=\\"img\\"")
+                if not title_id or svg_root.get("aria-labelledby") != title_id:
                     errors.append(
-                        f"{copied.relative_to(html_root)}: declared figure SVG must have one non-empty {element_name}"
+                        f"{copied.relative_to(html_root)}: SVG aria-labelledby must reference its title id"
+                    )
+                if not desc_id or svg_root.get("aria-describedby") != desc_id:
+                    errors.append(
+                        f"{copied.relative_to(html_root)}: SVG aria-describedby must reference its desc id"
                     )
 
     image_count = 0
