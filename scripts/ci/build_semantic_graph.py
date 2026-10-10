@@ -303,6 +303,9 @@ def build(
         ),
         None,
     )
+    # The C3 reference-only view has no provenance column; do not reserve its width.
+    if figure_node is None:
+        width = 650
 
     provenance_summary = ""
     if figure_node is not None:
