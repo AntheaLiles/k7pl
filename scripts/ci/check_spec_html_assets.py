@@ -18,16 +18,13 @@ class ImageParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.images: list[tuple[str | None, str | None, str | None, int]] = []
-        self._line = 1
-
-    def feed(self, data: str) -> None:
-        super().feed(data)
-
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag.lower() != "img":
             return
         values = dict(attrs)
-        self.images.append((values.get("src"), values.get("alt"), values.get("class"), self.getpos()[0]))
+        self.images.append(
+            (values.get("src"), values.get("alt"), values.get("class"), self.getpos()[0])
+        )
 
 
 def check(html_root: Path, source_figures: Path) -> list[str]:
@@ -97,7 +94,7 @@ def main() -> int:
     html_root = Path(sys.argv[1]) if len(sys.argv) > 1 else root / "_out/spec/html-multi"
     source_figures = root / "spec/figures"
     results = check(html_root, source_figures)
-    failed = any(result.startswith(("no HTML pages", "no source SVG", "no K7PL figure", "figure asset", "invalid SVG", "cannot read", "image path", "image asset does not exist", "img has", "K7PL figure",)) for result in results)
+    failed = not (len(results) == 1 and results[0].startswith("validated "))
     for result in results:
         print(("ERROR: " if failed else "OK: ") + result)
     return 1 if failed else 0
