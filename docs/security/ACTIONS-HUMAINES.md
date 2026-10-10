@@ -14,6 +14,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Les commandes `gh api` ci-dessous se lisent avec un jeton qui a les droits sur le dépôt ; certaines exigent les droits d'administration.
 
+**Portée actuelle (2026-10-10).** Ce document ne conserve que les opérations humaines encore à vérifier ou à décider. La répétition manuelle du workflow `Release` a réussi, mais n'a pas exercé la publication réelle, Zenodo, ni les paramètres d'administration. La campagne est en pause temporaire ; ne pas interpréter cette pause comme une validation des points ci-dessous.
+
 ## 0. Ordre conseillé
 
 La campagne est **fusionnée** (PR #28, 2026-10-06). La répétition manuelle du workflow `Release` a réussi le 2026-10-10 sur `main` ; c'est un essai à blanc qui ne crée ni brouillon ni attestation et ne publie rien. Il ne valide pas les paramètres administratifs ni le parcours de publication réel.
