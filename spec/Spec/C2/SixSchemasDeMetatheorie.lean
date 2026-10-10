@@ -32,7 +32,7 @@ représentation intermédiaire ont ceci de commun qu'ils sont définis par récu
 des termes et qu'ils doivent commuter avec la substitution — faute de quoi le sens dépendrait de
 l'ordre dans lequel on transforme et on substitue.
 
-::::lemma (label := "thm:schema_commutation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Substitution et transformations syntaxiques")
+::::lemma (label := "thm:schema_commutation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
 schéma de commutation
 :::
@@ -60,7 +60,7 @@ Le deuxième gouverne les traductions d'un système de règles vers un autre. Il
 établir, et rien de plus : non pas que la traduction préserve le jugement, mais que chaque règle de
 la source a une dérivation pour image.
 
-::::lemma (label := "thm:schema_preservation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Traduction de systèmes de règles")
+::::lemma (label := "thm:schema_preservation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
 schéma de préservation par traduction
 :::
@@ -85,7 +85,7 @@ refait.
 Le troisième est un fait de théorie des graphes, employé deux fois par ce document et qu'il serait
 vain de démontrer deux fois.
 
-::::lemma (label := "thm:tri_topologique") (level := "langage") (role := "lemma") (state := "supported") (evidence := "proofsketch") (scope := "Graphes finis")
+::::lemma (label := "thm:tri_topologique") (level := "langage") (role := "lemma") (state := "supported") (evidence := "proofsketch") (scope := "graphs")
 :::title
 tri topologique
 :::
@@ -108,7 +108,7 @@ Un quatrième schéma gouverne tout ce qui, dans ce document, _retire_. Cinq con
 l'instancient sans qu'aucune ne le nomme, et leur parenté n'est aujourd'hui qu'une ressemblance de
 forme.
 
-::::lemma (label := "thm:schema_restriction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Restriction de structures")
+::::lemma (label := "thm:schema_restriction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
 schéma de restriction
 :::
@@ -147,7 +147,7 @@ coïncidence malheureuse mais une conséquence du schéma.
 Un cinquième schéma gouverne tout ce qui, dans ce document, _répète_. Cinq mécanismes font la même
 chose sous cinq noms, et aucun ne renvoie aux autres.
 
-::::lemma (label := "thm:schema_reinvocation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "none") (scope := "Ré-invocation de multiplicité finie")
+::::lemma (label := "thm:schema_reinvocation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "none") (scope := "metatheory")
 :::title
 schéma de ré-invocation bornée
 :::
@@ -162,7 +162,7 @@ l'échelle par $`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et l'effet dev
 $`\varphi_n(\varepsilon)`.
 ::::
 
-::::requirement (label := "req:schema_reinvocation_compatibility") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Ré-invocation de multiplicité finie ; l’associativité et la compatibilité contexte/effet sont des obligations distinctes.")
+::::requirement (label := "req:schema_reinvocation_compatibility") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "metatheory")
 :::title
 compatibilité de la ré-invocation
 :::
@@ -194,7 +194,7 @@ dans ce document, _traduit une représentation riche vers une représentation pl
 l'élaboration de la syntaxe de surface, l'effacement de la dernière phase, l'abaissement vers la
 représentation intermédiaire, la traduction vers le métalangage — obéit au même énoncé.
 
-::::lemma (label := "thm:schema_effacement") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Morphism de raffinement conditionnel aux lois de commutation, préservation et fibre ; les trois conséquences ne sont pas acquittées par le seul schéma.")
+::::lemma (label := "thm:schema_effacement") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
 schéma d'effacement
 :::
@@ -233,7 +233,7 @@ Un septième énoncé mérite le même traitement, et il porte sur les capacité
 termes. Le chapitre 4 l'emploie deux fois — pour la mémoire partagée et pour la frontière étrangère
 — et l'argument y est le même à un mot près.
 
-::::lemma (label := "thm:lemme_capacite") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Ressources linéaires / accès concurrents")
+::::lemma (label := "thm:lemme_capacite") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "resources")
 :::title
 lemme de capacité
 :::
