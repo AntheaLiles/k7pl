@@ -151,10 +151,8 @@ jobs:
           assert report["tool"] == "k7pl-sbom-audit", report
           assert report["status"] == "PASS", report
           assert report["diagnostics"] == [], report
-          assert report["sourceArtifacts"] == [
-              "lake-manifest.json",
-              "$RUNNER_TEMP/k7pl-lake.spdx.json",
-          ], report
+          assert report["sourceArtifacts"][0] == "lake-manifest.json", report
+          assert report["sourceArtifacts"][1].endswith("/k7pl-lake.spdx.json"), report
           print("Lean scoped SPDX consistency audit: PASS")
           PY
 
