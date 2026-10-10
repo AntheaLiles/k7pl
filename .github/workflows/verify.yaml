@@ -314,7 +314,7 @@ jobs:
         run: python -m pip install --require-hashes -r scripts/requirements-ci.txt
 
       - name: Install hash-locked SPDX validator
-        run: python -m pip install --require-hashes --only-binary=:all: -r scripts/requirements-spdx-validator.txt
+        run: "python -m pip install --require-hashes --only-binary=:all: -r scripts/requirements-spdx-validator.txt"
 
       - name: Test the SPDX validator guard
         run: python3 scripts/ci/test_validate_spdx.py
