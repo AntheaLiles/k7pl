@@ -9,20 +9,29 @@ SPDX-License-Identifier: CC-BY-4.0
 |---|---|
 | Nature | Liste consolidée de ce que le dépôt ne peut pas accomplir seul : réglages GitHub, compte, Zenodo, site du badge, vérifications à rejouer hors du bac à sable. |
 | Origine | Dédoublonnage des listes des six audits (`docs/security/workstreams/*/AUDIT.md`). |
-| Statut | Une vérification distante partielle a été faite le 2026-10-09 : le ruleset « PR on main » est lisible et actif (voir § 1.1). Les autres réglages administratifs, le compte, les environnements et Zenodo restent à vérifier ou à exécuter ; une lecture partielle n'est pas une validation globale. |
+| Statut | Au 2026-10-10, la répétition `workflow_dispatch` du workflow `Release` sur `main` a réussi (contrôles et build à blanc, sans brouillon ni publication). Le ruleset « PR on main » a été lu le 2026-10-09 ; les réglages administratifs, le compte, les environnements, les secrets et Zenodo restent à vérifier ou à exécuter. |
 | Décisions associées | `docs/security/DECISIONS-REQUISES.md` (identifiants D1 à D11) |
 
 Les commandes `gh api` ci-dessous se lisent avec un jeton qui a les droits sur le dépôt ; certaines exigent les droits d'administration.
 
 ## 0. Ordre conseillé
 
-La campagne est **fusionnée** (PR #28, 2026-10-06). L'ordre prévu au départ (environnements avant la fusion) n'a pas été tenu : les
-workflows référencent déjà les environnements `zenodo` et `bump-lean`, et GitHub en crée un **sans protection** à la première exécution.
+La campagne est **fusionnée** (PR #28, 2026-10-06). La répétition manuelle du workflow `Release` a réussi le 2026-10-10 sur `main` ; c'est un essai à blanc qui ne crée ni brouillon ni attestation et ne publie rien. Il ne valide pas les paramètres administratifs ni le parcours de publication réel.
 
-1. **Maintenant** : créer les environnements `zenodo` et `bump-lean` **avec leurs protections** (§ 1.4), avant tout `workflow_dispatch` de
-   `bump-lean.yaml`, avant la prochaine exécution planifiée de ce workflow, et avant toute publication de release.
-2. Ensuite : déplacer les secrets vers les environnements, puis supprimer les secrets de dépôt correspondants.
-3. Avant la première release de spécification : § 5 en entier.
+1. **Priorité administrative** : créer les environnements `zenodo` et `bump-lean` **avec leurs protections** (§ 1.4), avant tout `workflow_dispatch` de `bump-lean.yaml`, avant la prochaine exécution planifiée de ce workflow et avant toute publication.
+2. Déplacer les secrets vers les environnements, puis supprimer les secrets de dépôt correspondants ; vérifier la règle de tags, l'immuabilité, les permissions Actions et les contrôles de sécurité (§ 1).
+3. Trancher la décision DOI D1 et répéter le flux Zenodo sur le sandbox avant toute publication (§ 3 et § 5).
+4. Avant la première release de spécification : achever les vérifications du § 5, notamment la vérification locale de l'attestation et la relecture des métadonnées.
+
+### 0.1 Résultat de la répétition Release
+
+| Contrôle | État au 2026-10-10 | Limite |
+|---|---|---|
+| `CI OK` sur `main` | réussi selon le résultat communiqué par la mainteneuse | ne prouve pas la configuration administrative GitHub |
+| Workflow `Release` lancé manuellement sur `main` | réussi selon le résultat communiqué par la mainteneuse | `workflow_dispatch` n'émet ni brouillon ni attestation et n'exerce pas l'événement réel de tag |
+| Publication réelle et archivage Zenodo | non exécutés par cette répétition | à garder comme actions séparées ; elles comportent des étapes irréversibles |
+
+Les réglages administratifs ci-dessous sont distincts des contrôles de code et ne sont pas considérés comme validés par la réussite du workflow.
 
 ## 1. Réglages GitHub
 
