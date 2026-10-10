@@ -565,6 +565,12 @@ jobs:
           --peer-graph semantic-graph.html
           --peer-title "Graphe du processus de compilation (C6)"
 
+      - name: Validate navigation links, anchors, provenance and freshness
+        run: >-
+          python3 scripts/ci/check_navigation_outputs.py
+          --html-root _out/spec/html-multi
+          --ref "$GITHUB_SHA"
+
       - name: Validate generated HTML image assets
         run: python3 scripts/ci/check_spec_html_assets.py _out/spec/html-multi
 
