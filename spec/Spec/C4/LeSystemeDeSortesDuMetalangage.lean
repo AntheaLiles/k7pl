@@ -184,7 +184,7 @@ motif de jonction pour primitive — c'est une transition de réseau de Petri co
 places d'un seul tenant, et c'est P1 qui le veut. On ajoute donc la clause, _qui est une conjonction
 de la deuxième_, et l'on redémontre ci-dessous ce que l'on n'hérite plus.
 
-::::lemma (label := "thm:cloture_sortage") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Préservation du sortage par substitution à égalité de sortes ; l’égalité discrète simplifie l’induction mais les cas restent à contrôler.")
+::::lemma (label := "thm:cloture_sortage") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 clôture du bon sortage par substitution
 :::
@@ -211,7 +211,7 @@ rend la vérification vide.
 :::
 
 ::::
-::::lemma (label := "thm:confinement_sortes") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Sortage de la traduction et confinement des canaux d’effets libres à ceux mentionnés par ε ; dépend de la traduction typée.")
+::::lemma (label := "thm:confinement_sortes") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 confinement des canaux distingués
 :::
