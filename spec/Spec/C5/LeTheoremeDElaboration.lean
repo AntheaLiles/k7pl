@@ -27,7 +27,7 @@ Elles n'ont pas la même origine ni le même usage, et elles ont un seul et mêm
 le redire six fois, ce document l'énonce ici et l'invoque ensuite. {rmq}[Une seule loi, six emplois.
 Ce qui suit dans ce chapitre décrit des formes, non des mécanismes.] Le mot _élaboration_ désigne ici la traduction Surface → Noyau ; la phase de résolution du pipeline (§{num "sec:c6-le-processus-de-compilation"}[], point de contrôle 2.5) résout des variables d'unification, et n'est pas une élaboration au sens du théorème {num "thm:elaboration"}[].  L'expansion de macro est la Phase 0 du pipeline : elle opère sur l'arbre ; la figure du chapitre 6 ne la porte pas encore, et reste à corriger.
 
-::::definition (label := "def:elaboration") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Fonction Surface → Noyau")
+::::definition (label := "def:elaboration") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "syntax")
 :::title
 fonction d’élaboration
 :::
@@ -39,7 +39,7 @@ Soit $`\mathrm{Elab} : \mathsf{Surface} \to \mathsf{Noyau}` la fonction d'élabo
 :::
 ::::
 
-::::theorem (label := "thm:elaboration") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Fonction Surface → Noyau ; isoler la définition de la préservation du sens et des conséquences annexes.")
+::::theorem (label := "thm:elaboration") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "syntax")
 :::title
 élaboration
 :::
