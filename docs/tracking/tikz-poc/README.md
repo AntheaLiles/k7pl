@@ -49,6 +49,10 @@ Une décision de migration ne doit pas reposer uniquement sur le succès de comp
 3. La CI vérifie l'intégrité structurelle et la reproductibilité des artefacts. La revue visuelle et la validation sémantique restent une étape humaine documentée avant toute réimplémentation.
 4. Le POC n'est pas encore branché sur \`SpecExt.Float\` et ne constitue pas une nouvelle source de vérité pour les figures publiées.
 
+## Résultats
+
+Le compte rendu du POC et la décision proposée sont consignés dans [RESULTS.md](RESULTS.md). Les critères de clôture technique sont satisfaits sur les trois figures ; l’intégration à Verso et la validation PDF/UA restent des étapes distinctes.
+
 ## Résultat attendu
 
 À l'issue de la revue des trois artefacts, consigner une décision par figure : conserver la source actuelle, réimplémenter en TikZ, ou choisir un autre format. Une migration globale n'est pas un résultat présupposé.
