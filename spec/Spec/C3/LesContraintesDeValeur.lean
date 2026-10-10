@@ -143,8 +143,8 @@ Un protocole de session comme automate à états
 :::
 
 :::desc
-Le point initial plein mène à EXPECT_INT. La transition send(Int) mène à EXPECT_BOOL ; la transition
-recv(Bool) mène à l'état final non étiqueté, représenté par un double cercle.
+Le point initial plein mène à `EXPECT_INT`. La transition `send(Int)` mène à `EXPECT_BOOL` ; la transition
+`recv(Bool)` mène à l'état final non étiqueté, représenté par un double cercle.
 :::
 
 :::note
