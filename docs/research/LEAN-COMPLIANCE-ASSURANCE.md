@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Chantier K — Assurance de conformité outillée avec Lean 4
 
-**État au 2026-10-10 :** la révision `55643454b77acdf2aad240c819cd94fed356ad44` a passé tous les jobs du [run CI #866](https://github.com/AntheaLiles/k7pl/actions/runs/38059959562). Cela couvre la compilation Lean, l'audit des 14 entrées Lake, les cas CLI positifs/négatifs, `lake test`, `lake lint`, les audits d'axiomes et la validation indépendante du SBOM généré par `spdx-tools 0.8.5` avec dépendances hash-lockées. Les artefacts de preuve incluent les empreintes SHA-256 et l'identité du run. L'évaluation mesurée et toute revendication d'exhaustivité restent ouvertes ; aucune décision de production ou conformité globale n'est affirmée.
+**État au 2026-10-10 :** la tête de PR `43255158712ea6bab5bf05b02c3ab5a42ad87587` a passé tous les jobs du [run CI #877](https://github.com/AntheaLiles/k7pl/actions/runs/38060548146). Le run couvre la compilation Lean, l'audit des 14 entrées Lake, les tests CLI positifs/négatifs (y compris un nom de paquet vide refusé avant l'appel au validateur externe), `lake test`, `lake lint`, les audits d'axiomes, les contrôles sécurité/REUSE et le build Verso/PDF. `spdx-tools 0.8.5`, installé depuis une fermeture de dépendances hash-lockée, a validé la sortie SPDX 2.3. Les artefacts conservent rapports, empreintes SHA-256 et identité du run. L'évaluation mesurée et toute revendication d'exhaustivité restent ouvertes ; aucune conformité globale ou préparation à la production n'est affirmée.
 
 ## 1. Objet et décisions antérieures récupérées
 
@@ -98,7 +98,7 @@ La revendication porte sur **les données observées**, pas sur leur exhaustivit
 
 Les tests Lean couvrent un cas positif ainsi que des cas négatifs pour format de révision invalide, révision modifiée, URL modifiée, métadonnée de licence affirmée, relation inventée, relation manquante, identifiants dupliqués et champ requis absent.
 
-La CI #866 a compilé la bibliothèque et le CLI, généré puis audité le SBOM issu des 14 entrées du vrai manifeste, vérifié le rapport JSON, exécuté `lake test`, `lake lint` et les audits d'axiomes. Deux cas end-to-end testent aussi le contrat d'erreur du CLI : JSON de manifeste malformé → `ERROR`/code 2 ; révision de composant falsifiée → `FAIL`/code 1. L'artefact `k7pl-sbom-evidence-38059959562` conserve l'empreinte du manifeste, du toolchain, des sources de génération/audit et du SBOM, ainsi que l'identité du run et du commit de PR.
+La CI #877 a compilé la bibliothèque et le CLI, généré puis audité le SBOM issu des 14 entrées du vrai manifeste, vérifié le rapport JSON, exécuté `lake test`, `lake lint` et les audits d'axiomes. Les tests end-to-end couvrent : JSON de manifeste malformé → `ERROR`/code 2 ; révision de composant falsifiée → `FAIL`/code 1 ; nom de paquet vide → garde `FAIL`/code 1 avant l'appel au validateur externe. L'artefact `k7pl-sbom-evidence-38059959562` conserve les empreintes de provenance de la première exécution intégrée ; l'artefact `k7pl-independent-spdx-validation-38060548146` contient la sortie validée et son rapport `PASS` pour `spdx-tools 0.8.5`, avec le SHA-256 du document et l'identité du run/commit.
 
 ### Validation indépendante : état du candidat au 10 octobre 2026
 
@@ -113,9 +113,9 @@ Le validateur est désormais intégré expérimentalement au job Python de la CI
 - rapport JSON stable dans sa structure, avec statut exploitable et diagnostics identifiables ;
 - comportement CLI distinct pour succès, non-conformité au contrat et entrée malformée/illisible ;
 - génération déterministe pour un manifeste et un horodatage donnés ;
-- validation SPDX 2.3 indépendante de la sortie réelle, version `spdx-tools 0.8.5` et fermeture hash-lockée, réussie dans la CI #866 ; le validateur conserve toutefois les limites et le défaut upstream explicités ci-dessus ;
+- validation SPDX 2.3 indépendante de la sortie réelle, version `spdx-tools 0.8.5` et fermeture hash-lockée, réussie dans la CI #877 ; le validateur conserve toutefois les limites et le défaut upstream explicités ci-dessus ;
 - pas de modification de la spécification normative ou de la sémantique de K7PL ;
-- la CI #866 a validé l'ensemble des contrôles du démonstrateur et la validation externe du document SPDX 2.3 ; cela n'établit ni l'exhaustivité du SBOM, ni l'absence d'autres lacunes de validation, ni la conformité globale de K7PL.
+- la CI #877 a validé l'ensemble des contrôles du démonstrateur et la validation externe du document SPDX 2.3 ; cela n'établit ni l'exhaustivité du SBOM, ni l'absence d'autres lacunes de validation, ni la conformité globale de K7PL.
 
 ## 6. Séquencement et statuts
 
@@ -124,8 +124,8 @@ Le validateur est désormais intégré expérimentalement au job Python de la CI
 | A — inventaire et récupération des décisions | **Exploré** | Sources repérées ; limites et décisions non récupérables explicites |
 | B — faisabilité et architecture | **Conçu** | Matrice et frontières ci-dessus documentées |
 | C — contrat SPDX minimal | **Conçu** | Invariants du modèle normalisé explicités |
-| D — prototype Lean/CLI/tests | **Testé en CI (#866)** | Compilation, audit d'inventaire, tests positifs/négatifs, lint, audits d'axiomes et artefact de traçabilité validés sur le commit référencé en tête |
-| E — validation SPDX indépendante | **Intégration expérimentale réussie en CI (#866)** | Document précis accepté par `spdx-tools 0.8.5`, fermeture hash-lockée et garde pour l'issue upstream #885 ; autres limites possibles à évaluer |
+| D — prototype Lean/CLI/tests | **Testé en CI (#877)** | Compilation, audit d'inventaire, tests positifs/négatifs, lint, audits d'axiomes et artefacts de preuve validés sur la tête de PR `43255158712ea6bab5bf05b02c3ab5a42ad87587` |
+| E — validation SPDX indépendante | **Intégration expérimentale réussie en CI (#877)** | Document précis accepté par `spdx-tools 0.8.5`, fermeture hash-lockée et garde pour l'issue upstream #885 ; autres limites possibles à évaluer |
 | F — évaluation | **Non commencé** | Couverture mesurée, rapports différentiels, temps d'exécution et limites observées |
 | Extension SCA/SAST/CycloneDX/WCAG | **À prioriser après évaluation** | Décision fondée sur le prototype, le bénéfice et les dépendances communes |
 
