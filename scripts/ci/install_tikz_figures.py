@@ -31,6 +31,7 @@ def install_assets(manifest: dict[str, Any], source_dir: Path, target_dir: Path)
     target_dir.mkdir(parents=True, exist_ok=True)
     installed: list[Path] = []
     seen: set[str] = set()
+    seen_assets: set[str] = set()
 
     for figure in figures:
         figure_id = str(figure.get("id", ""))
@@ -40,6 +41,9 @@ def install_assets(manifest: dict[str, Any], source_dir: Path, target_dir: Path)
         seen.add(figure_id)
         if not asset or asset in {".", ".."} or "/" in asset or "\\" in asset:
             fail(f"{figure_id}: production_asset must be a plain filename stem")
+        if asset in seen_assets:
+            fail(f"{figure_id}: duplicate production_asset {asset!r}")
+        seen_assets.add(asset)
 
         for extension in ("pdf", "svg"):
             source = (source_dir / f"{figure_id}.{extension}").resolve()
