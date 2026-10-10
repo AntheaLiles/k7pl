@@ -27,8 +27,9 @@ build_one() {
   (
     cd "$build_dir"
     tectonic -X compile --keep-logs -Z deterministic-mode main.tex
-    pdftocairo -svg -singlefile main.pdf "$destination/$id"
+    pdftocairo -svg main.pdf "$destination/$id"
   )
+  mv "$destination/$id-1.svg" "$destination/$id.svg"
   cp "$build_dir/main.pdf" "$destination/$id.pdf"
 }
 
