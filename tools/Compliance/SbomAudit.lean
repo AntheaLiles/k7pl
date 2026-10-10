@@ -52,6 +52,11 @@ def lowerHexDigit (c : Char) : Bool :=
 def validRevision (revision : String) : Bool :=
   revision.length == 40 && revision.toList.all lowerHexDigit
 
+/-- Computable duplicate check for a finite list of component identifiers. -/
+def allDistinct : List String → Bool
+  | [] => true
+  | item :: rest => !(rest.contains item) && allDistinct rest
+
 def sameComponent (manifestPackage : ManifestPackage) (sbomPackage : SbomPackage) : Bool :=
   manifestPackage.name == sbomPackage.name &&
   manifestPackage.url == sbomPackage.downloadLocation &&
@@ -71,11 +76,11 @@ def InventoryContract (input : AuditInput) : Prop :=
   input.manifestName = "k7pl" ∧
   input.spdxVersion = "SPDX-2.3" ∧
   input.documentId = "SPDXRef-DOCUMENT" ∧
-  (input.manifestPackages.map (fun item => item.name)).Nodup ∧
+  allDistinct (input.manifestPackages.map (fun item => item.name)) = true ∧
   (input.manifestPackages.all (fun item => item.name != "" && item.url != "")) = true ∧
-  (input.packages.map (fun item => item.name)).Nodup ∧
+  allDistinct (input.packages.map (fun item => item.name)) = true ∧
   (input.packages.all (fun item => item.name != "" && item.downloadLocation != "")) = true ∧
-  (input.packages.map (fun item => item.spdxId)).Nodup ∧
+  allDistinct (input.packages.map (fun item => item.spdxId)) = true ∧
   (input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT")) = true ∧
   (input.manifestPackages.all (fun item => validRevision item.rev)) = true ∧
   sameInventory input = true ∧
@@ -84,7 +89,7 @@ def InventoryContract (input : AuditInput) : Prop :=
     item.licenseConcluded == "NOASSERTION" &&
     item.copyrightText == "NOASSERTION")) = true ∧
   input.relationships.length = input.packages.length ∧
-  (input.relationships.map (fun item => item.relatedSpdxElement)).Nodup ∧
+  allDistinct (input.relationships.map (fun item => item.relatedSpdxElement)) = true ∧
   (input.relationships.all (fun item =>
     item.spdxElementId == "SPDXRef-DOCUMENT" &&
     item.relationshipType == "DESCRIBES" &&
@@ -129,15 +134,15 @@ def auditIssues (input : AuditInput) : List Diagnostic :=
     [diagnostic "SBOM-SPDX-VERSION" "The document must declare SPDX-2.3 for this prototype." "spdx"]) ++
   (if input.documentId == "SPDXRef-DOCUMENT" then [] else
     [diagnostic "SBOM-DOCUMENT-ID" "The document ID must be SPDXRef-DOCUMENT." "spdx"]) ++
-  (if (input.manifestPackages.map (fun item => item.name)).Nodup then [] else
+  (if allDistinct (input.manifestPackages.map (fun item => item.name)) then [] else
     [diagnostic "SBOM-MANIFEST-DUPLICATE-NAME" "The Lake manifest contains duplicate package names." "lake-manifest.json"]) ++
   (if input.manifestPackages.all (fun item => item.name != "" && item.url != "") then [] else
     [diagnostic "SBOM-MANIFEST-EMPTY-IDENTITY" "A manifest package has an empty name or repository URL." "lake-manifest.json"]) ++
-  (if (input.packages.map (fun item => item.name)).Nodup then [] else
+  (if allDistinct (input.packages.map (fun item => item.name)) then [] else
     [diagnostic "SBOM-DUPLICATE-PACKAGE-NAME" "The SPDX inventory contains duplicate package names." "spdx"]) ++
   (if input.packages.all (fun item => item.name != "" && item.downloadLocation != "") then [] else
     [diagnostic "SBOM-PACKAGE-EMPTY-IDENTITY" "An SPDX package has an empty name or download location." "spdx"]) ++
-  (if (input.packages.map (fun item => item.spdxId)).Nodup then [] else
+  (if allDistinct (input.packages.map (fun item => item.spdxId)) then [] else
     [diagnostic "SBOM-DUPLICATE-SPDX-ID" "The SPDX inventory contains duplicate package identifiers." "spdx"]) ++
   (if input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT") then [] else
     [diagnostic "SBOM-PACKAGE-ID" "A package identifier is empty or conflicts with the document identifier." "spdx"]) ++
@@ -152,7 +157,7 @@ def auditIssues (input : AuditInput) : List Diagnostic :=
     [diagnostic "SBOM-UNKNOWN-LICENSE-ASSERTION" "Unknown licence and copyright facts must remain NOASSERTION." "spdx"]) ++
   (if input.relationships.length == input.packages.length then [] else
     [diagnostic "SBOM-RELATIONSHIP-COUNT" "Exactly one DESCRIBES relationship per package is required." "spdx"]) ++
-  (if (input.relationships.map (fun item => item.relatedSpdxElement)).Nodup then [] else
+  (if allDistinct (input.relationships.map (fun item => item.relatedSpdxElement)) then [] else
     [diagnostic "SBOM-DUPLICATE-RELATIONSHIP-TARGET" "A package is the target of more than one relationship." "spdx"]) ++
   (if input.relationships.all (fun item =>
       item.spdxElementId == "SPDXRef-DOCUMENT" &&
