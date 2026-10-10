@@ -50,10 +50,8 @@ Les huit phases du pipeline de compilation
 :::
 
 :::desc
-Dix étapes forment une séquence linéaire disposée en serpentin : la rangée supérieure se lit de
-gauche à droite, puis la flèche descend vers TermProof et la rangée inférieure se lit de droite à
-gauche jusqu'à Link. ConfigAnalysis et Résolution sont les points de contrôle intercalaires numérotés
-1.5 et 2.5.
+Dix étapes forment un serpentin : la rangée supérieure se lit de gauche à droite ; la flèche descend
+vers TermProof, puis la rangée inférieure se lit de droite à gauche jusqu'à Link (1.5 et 2.5 sont intercalaires).
 :::
 ::::
 
