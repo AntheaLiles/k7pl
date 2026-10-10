@@ -57,6 +57,18 @@ def fixture_repo(tmp_path: Path) -> Path:
         encoding="utf-8",
     )
     (spec / "figures" / "asset-one.pdf").write_bytes(b"%PDF-1.7 test fixture")
+    site = tmp_path / "site"
+    (site / "Spec" / "C6").mkdir(parents=True)
+    (site / "Spec" / "C3").mkdir(parents=True)
+    (site / "Spec" / "C6" / "Example.html").write_text(
+        '<html><body><h1 id="lbl-sec:example">Example section</h1>'
+        '<div id="lbl-fig:one">Figure</div></body></html>',
+        encoding="utf-8",
+    )
+    (site / "Spec" / "C3" / "Target.html").write_text(
+        '<html><body><h1 id="lbl-sec:target">Target section</h1></body></html>',
+        encoding="utf-8",
+    )
     return root
 
 
@@ -82,6 +94,9 @@ def test_generates_graph_from_explicit_references_and_citations(tmp_path: Path) 
     assert "références Verso" in page
     assert "generated-from" not in page
     assert "blob/deadbeef/" in page
+    assert "../Spec/C3/Target.html#lbl-sec:target" in page
+    assert "../Spec/C6/Example.html#lbl-fig:one" in page
+    assert "../Spec/C6/Example.html#lbl-sec:example" in page
     svg_start = page.index("<svg ")
     svg_end = page.index("</svg>", svg_start) + len("</svg>")
     svg = ET.fromstring(page[svg_start:svg_end])
