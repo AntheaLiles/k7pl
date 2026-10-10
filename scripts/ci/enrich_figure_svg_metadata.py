@@ -147,10 +147,15 @@ def enrich_svg(svg_path: Path, title: str, description: str) -> None:
         if child.tag in (title_tag, desc_tag):
             root.remove(child)
 
-    title_element = ET.Element(title_tag)
+    title_id = f"k7pl-{svg_path.stem}-title"
+    description_id = f"k7pl-{svg_path.stem}-description"
+    title_element = ET.Element(title_tag, {"id": title_id})
     title_element.text = title
-    description_element = ET.Element(desc_tag)
+    description_element = ET.Element(desc_tag, {"id": description_id})
     description_element.text = description
+    root.set("role", "img")
+    root.set("aria-labelledby", title_id)
+    root.set("aria-describedby", description_id)
     root.insert(0, title_element)
     root.insert(1, description_element)
     tree.write(svg_path, encoding="utf-8", xml_declaration=True)
