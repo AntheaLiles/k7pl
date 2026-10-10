@@ -81,7 +81,7 @@ def rendered_label_href(site_root: Path, output: Path, label: str) -> str:
             f"under {site_root}; found {len(matches)}"
         )
     relative = os.path.relpath(matches[0], output.parent).replace(os.sep, "/")
-    return f"{quote(relative, safe='/.-_')}#{quote(anchor, safe='-')}"
+    return f"{quote(relative, safe='/.-_')}#{quote(anchor, safe='-:')}"
 
 
 def label_index(root: Path) -> dict[str, LabelTarget]:
@@ -348,7 +348,14 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
 
     edge_items: list[str] = []
     for edge in edges:
-        target_href = github_url(ref, str(edge["target_path"]), int(edge["target_line"]))
+        target_href = next(
+            (
+                str(node["href"])
+                for node in relation_nodes
+                if node["id"] == edge["target_id"]
+            ),
+            github_url(ref, str(edge["target_path"]), int(edge["target_line"])),
+        )
         relation = "Référence explicite" if edge["kind"] == "references" else "Citation bibliographique"
         lines = ", ".join(str(n) for n in edge["source_lines"])
         edge_items.append(
