@@ -88,12 +88,23 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 ### P0 — Cadrage et inventaire
 
+- [ ] Traiter l'audit préparatoire des figures et moteurs de rendu ([audit figures HTML/PDF](DIAGRAMS-AND-RENDERING-AUDIT.md)) : établir la cause du défaut HTML, inventori­er les sources et sorties, comparer les moteurs et définir les contrôles d'accessibilité.
 - [ ] Inventorier les capacités actuelles de Verso utilisées par K7PL.
 - [ ] Inventorier les générateurs et extensions sous `tools/`.
 - [ ] Identifier les structures Lean actuellement disponibles pour représenter les objets documentaires.
 - [ ] Identifier les mécanismes existants de génération de documentation, statuts, bibliographie et traçabilité.
 - [ ] Cartographier les matériaux susceptibles d'entrer dans l'enveloppe : `spec/`, `src/`, `tests/`, `docs/`, bibliographie, historique et décisions.
 - [ ] Identifier les doublons de modèle qu'il serait dangereux d'introduire.
+
+#### Sous-chantier figures et rendu HTML/PDF
+
+- [ ] Reproduire le défaut d'affichage des figures et vérifier les URL d'assets dans le HTML généré et publié.
+- [ ] Corriger la cause démontrée et ajouter un contrôle automatisé de résolution des images locales.
+- [ ] Inventorier chaque figure, sa source canonique, ses sorties et sa fonction explicative.
+- [ ] Définir les métadonnées minimales : objectif explicatif, alt, description longue, note de lecture, provenance et objets liés.
+- [ ] Comparer sur trois figures représentatives la chaîne existante, TikZ/PGFPlots et TikZJax/isomorphic-tikzjax.
+- [ ] Vérifier la transmission des métadonnées d'accessibilité au PDF et valider le fichier réellement généré.
+- [ ] Décider explicitement si TikZ devient une option de création ciblée ; ne pas engager de migration globale sans bénéfice démontré.
 
 ### P1 — Cas d'usage et démonstration de valeur
 
