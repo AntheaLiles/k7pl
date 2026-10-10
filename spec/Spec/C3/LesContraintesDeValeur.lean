@@ -271,7 +271,7 @@ Le second est que la preuve procède par coinduction sur le dépliage plutôt qu
 structure, un graphe se laissant mieux traiter comme structure coinductive dès le départ, les
 algorithmes de graphes n'étant pas structurellement récursifs dans leurs présentations usuelles {cite "kidneyFormalisingGraphAlgorithms2025"}[].
 
-::::thm (label := "thm:deadlock_acyclique")
+::::theorem (label := "thm:deadlock_acyclique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Absence de blocage mutuel sous protocoles duaux et graphe de dépendances acyclique ; invariant graphe statique/dynamique à établir.")
 :::title
 absence de deadlock par acyclicité du graphe de sessions
 :::
@@ -305,8 +305,8 @@ sur une boîte, et la boîte y est une liaison du contexte ; l'arête d'attente
 dépendance par construction du typage, et non par une hypothèse à honorer. Ce qui était la prémisse
 manquante de cet énoncé est devenu une lecture de ses règles.
 :::
-::::
 
+::::
 Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. {rmq}[Le câblage est
 donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet
 coinductif par induction.] Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné
@@ -381,7 +381,7 @@ machine.
 :::
 ::::
 
-::::thm (label := "thm:representation_inobservable") (status := "exigence") (level := "representation")
+::::requirement (label := "thm:representation_inobservable") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "Invariance de obs entre représentations admissibles d’une même valeur ; relation d’admissibilité et signatures de repr/obs à préciser.")
 :::title
 aucune liberté de représentation n'est observable
 :::
@@ -397,8 +397,8 @@ pas être discernables par l'observation. Cette exigence porte sur l'invariance 
 d'une même valeur ; elle ne formule pas une injectivité de l'application des valeurs sémantiques
 vers leurs observations.
 :::
-::::
 
+::::
 Exigence vérifiée par test différentiel, non démontrée. Elle absorbe cinq dispositions : l'élision est bornée par
 une version de schéma, la purge par la rotation du journal, le bourrage par la règle d'abaissement,
 le NaN par la proposition {num "thm:homomorphisme_roues"}[], l'ordre des segments par la
