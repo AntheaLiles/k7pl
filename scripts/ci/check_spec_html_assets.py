@@ -17,7 +17,7 @@ from urllib.parse import unquote, urlsplit
 class ImageParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
-        self.images: list[tuple[str | None, str | None, int]] = []
+        self.images: list[tuple[str | None, str | None, str | None, int]] = []
         self._line = 1
 
     def feed(self, data: str) -> None:
@@ -27,7 +27,7 @@ class ImageParser(HTMLParser):
         if tag.lower() != "img":
             return
         values = dict(attrs)
-        self.images.append((values.get("src"), values.get("alt"), self.getpos()[0]))
+        self.images.append((values.get("src"), values.get("alt"), values.get("class"), self.getpos()[0]))
 
 
 def check(html_root: Path, source_figures: Path) -> list[str]:
@@ -59,12 +59,12 @@ def check(html_root: Path, source_figures: Path) -> list[str]:
             errors.append(f"cannot read HTML page {page.relative_to(html_root)}: {exc}")
             continue
 
-        for src, alt, line in parser.images:
+        for src, alt, classes, line in parser.images:
             image_count += 1
             if not src:
                 errors.append(f"{page.relative_to(html_root)}:{line}: img has no src")
                 continue
-            if "k7-img" in page.read_text(encoding="utf-8").splitlines()[line - 1]:
+            if classes and "k7-img" in classes.split():
                 figure_count += 1
                 if not alt or not alt.strip():
                     errors.append(f"{page.relative_to(html_root)}:{line}: K7PL figure has no alternative text")
