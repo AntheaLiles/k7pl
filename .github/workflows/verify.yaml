@@ -195,13 +195,20 @@ jobs:
                       digest.update(chunk)
               return digest.hexdigest()
 
+          event = {}
+          event_path = os.environ.get("GITHUB_EVENT_PATH")
+          if event_path:
+              with open(event_path, encoding="utf-8") as stream:
+                  event = json.load(stream)
+          pull_request_head = (event.get("pull_request") or {}).get("head", {}).get("sha")
           evidence = {
               "schemaVersion": "k7pl.ci-evidence/v1",
               "workflow": {
                   "name": "CI",
                   "runId": int(os.environ["GITHUB_RUN_ID"]),
                   "runAttempt": int(os.environ["GITHUB_RUN_ATTEMPT"]),
-                  "commit": os.environ["GITHUB_SHA"],
+                  "checkedOutSha": os.environ["GITHUB_SHA"],
+                  "pullRequestHeadSha": pull_request_head,
               },
               "toolchain": {
                   "lean": Path("lean-toolchain").read_text(encoding="utf-8").strip(),
@@ -210,6 +217,11 @@ jobs:
               },
               "inputs": [
                   {"artifact": "lake-manifest.json", "sha256": sha256(manifest_path)},
+                  {"artifact": "lakefile.lean", "sha256": sha256("lakefile.lean")},
+                  {"artifact": "lean-toolchain", "sha256": sha256("lean-toolchain")},
+                  {"artifact": "scripts/ci/lake_manifest_to_spdx.py", "sha256": sha256("scripts/ci/lake_manifest_to_spdx.py")},
+                  {"artifact": "tools/Compliance/SbomAudit.lean", "sha256": sha256("tools/Compliance/SbomAudit.lean")},
+                  {"artifact": "tools/Compliance/SbomAuditMain.lean", "sha256": sha256("tools/Compliance/SbomAuditMain.lean")},
                   {"artifact": "k7pl-lake.spdx.json", "sha256": sha256(sbom_path)},
               ],
               "audit": report,
