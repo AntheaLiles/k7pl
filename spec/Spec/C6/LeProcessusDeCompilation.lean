@@ -44,14 +44,14 @@ maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément
 Deux sources, deux motifs, une même recommandation — et huit phases logiques n'en contredisent
 aucun.
 
-::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : dix phases de compilation, lues de gauche à droite puis de droite à gauche.") (width := "90")
+::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : huit phases principales et deux étapes intercalaires, lues en aller-retour.") (width := "90")
 :::caption
 Les huit phases du pipeline de compilation
 :::
 
 :::desc
 Dix étapes forment un serpentin : la rangée supérieure se lit de gauche à droite ; la flèche descend
-vers TermProof, puis la rangée inférieure se lit de droite à gauche jusqu'à Link (1.5 et 2.5 sont intercalaires).
+vers TermProof, puis la rangée inférieure se lit de droite à gauche jusqu'à Link ; 1.5 et 2.5 sont intercalaires.
 :::
 ::::
 
