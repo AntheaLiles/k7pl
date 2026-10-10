@@ -49,7 +49,7 @@ traduction $`\llbracket \cdot \rrbracket`, qui envoie une dérivation sur un pro
 ni les grades ni les effets. C'est cette dernière propriété — le foncteur oublie ce que la Phase 8
 efface — qui fait de l'ensemble un système de raffinement et non une simple traduction.
 
-::::theorem (label := "thm:raffinement") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Conditionnel à une traduction fonctorielle préservant le typage ; les conséquences (i)–(iii) ne sont pas établies par la seule prémisse.")
+::::theorem (label := "thm:raffinement") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
 structure de raffinement
 :::
@@ -149,7 +149,7 @@ transforme l'abstraction en indiscernabilité, et l'indiscernabilité _est_ la n
 terminaison, la productivité et la monotonie — tous portés par les types, aucun par une inspection
 du terme.
 
-::::theorem (label := "thm:non_interference") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Fragment séquentiel ; observation indexée par niveau. Ne pas étendre à la concurrence ni à la déclassification.")
+::::theorem (label := "thm:non_interference") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "security")
 :::title
 non-interférence graduée, fragment séquentiel
 :::
@@ -188,7 +188,7 @@ La notion qui lui succède sous concurrence est le _déterminisme observationnel
 donné, deux entrelacements d'un même ensemble de calculs bien typés ont la même projection à ce
 niveau. Elle est strictement plus forte, et elle n'est pas un corollaire de la précédente.
 
-::::conjecture (label := "thm:determinisme_observationnel") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "Conjecture conditionnelle à une politique d’ordonnancement non consultative ; le cas Guard reste ouvert.")
+::::conjecture (label := "thm:determinisme_observationnel") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
 déterminisme observationnel
 :::
