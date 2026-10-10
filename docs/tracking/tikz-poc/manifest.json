@@ -14,16 +14,16 @@
       "source": "src/session-protocol.tex",
       "canonical_verso": "spec/Spec/C3/LesContraintesDeValeur.lean#fig:session-automate",
       "caption": "Un protocole de session comme automate à états",
-      "alt": "Automate orienté : EXPECT_INT envoie une valeur Int vers EXPECT_BOOL, puis EXPECT_BOOL reçoit une valeur Bool et rejoint l'état final.",
-      "long_description": "Trois états sont représentés. Une transition send(Int) va de EXPECT_INT vers EXPECT_BOOL ; une transition recv(Bool) va de EXPECT_BOOL vers l'état final. Vérifier la polarité et les étiquettes contre le dessin canonique avant adoption."
+      "alt": "Automate orienté avec un état initial représenté par un point plein, EXPECT_INT qui envoie Int vers EXPECT_BOOL, puis EXPECT_BOOL qui reçoit Bool et rejoint l'état final en double cercle.",
+      "long_description": "Un point initial plein mène à EXPECT_INT. La transition send(Int) mène à EXPECT_BOOL ; la transition recv(Bool) mène à l'état final représenté par un double cercle non étiqueté. La reconstruction conserve les deux états nommés et les deux transitions du dessin canonique."
     },
     {
       "id": "structural-modes",
       "source": "src/structural-modes.tex",
       "canonical_verso": "spec/Spec/C3/LeSystemeGradue.lean#fig:modalites-structurelles",
       "caption": "Contraction et affaiblissement : quatre combinaisons possibles",
-      "alt": "Matrice à deux axes : contraction horizontalement et affaiblissement verticalement. Lin occupe la case sans les deux opérations, Aff la case avec affaiblissement seul, Unr la case avec les deux ; la case contraction sans affaiblissement est indiquée comme non instanciée.",
-      "long_description": "La matrice distingue les quatre combinaisons binaires. Lin correspond à aucune des deux opérations ; Aff à l'affaiblissement seul ; Unr à la contraction et à l'affaiblissement ; la contraction sans affaiblissement n'est pas instanciée par K7PL. Vérifier la disposition exacte contre le dessin canonique avant adoption."
+      "alt": "Matrice 2 × 2 : Aff (couche 2) et Unr (couche 3) dans la rangée où l'affaiblissement est admis ; Lin (couche 1) et « non instancié par K7PL » dans la rangée où l'affaiblissement est interdit. Les colonnes indiquent respectivement contraction interdite et contraction admise.",
+      "long_description": "La matrice classe les quatre combinaisons. À gauche, la contraction est interdite ; à droite, elle est admise. En haut, l'affaiblissement est admis : Aff (couche 2) et Unr (couche 3). En bas, il est interdit : Lin (couche 1) et la combinaison non instanciée par K7PL. Des points noirs matérialisent les trois modalités existantes. La couleur n'est pas utilisée comme seul moyen de distinction."
     }
   ]
 }
