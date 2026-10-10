@@ -139,7 +139,7 @@ jobs:
           python3 scripts/ci/lake_manifest_to_spdx.py \
             --created 2026-10-10T00:00:00Z \
             --output "$RUNNER_TEMP/k7pl-lake.spdx.json"
-          lake exe sbomAudit -- lake-manifest.json "$RUNNER_TEMP/k7pl-lake.spdx.json" \
+          lake exe sbomAudit lake-manifest.json "$RUNNER_TEMP/k7pl-lake.spdx.json" \
             > "$RUNNER_TEMP/k7pl-sbom-audit.json"
           python3 - "$RUNNER_TEMP/k7pl-sbom-audit.json" <<'PY'
           import json
