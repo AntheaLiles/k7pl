@@ -72,7 +72,9 @@ def InventoryContract (input : AuditInput) : Prop :=
   input.spdxVersion = "SPDX-2.3" ∧
   input.documentId = "SPDXRef-DOCUMENT" ∧
   (input.manifestPackages.map (fun item => item.name)).Nodup ∧
+  (input.manifestPackages.all (fun item => item.name != "" && item.url != "")) = true ∧
   (input.packages.map (fun item => item.name)).Nodup ∧
+  (input.packages.all (fun item => item.name != "" && item.downloadLocation != "")) = true ∧
   (input.packages.map (fun item => item.spdxId)).Nodup ∧
   (input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT")) = true ∧
   (input.manifestPackages.all (fun item => validRevision item.rev)) = true ∧
@@ -129,8 +131,12 @@ def auditIssues (input : AuditInput) : List Diagnostic :=
     [diagnostic "SBOM-DOCUMENT-ID" "The document ID must be SPDXRef-DOCUMENT." "spdx"]) ++
   (if (input.manifestPackages.map (fun item => item.name)).Nodup then [] else
     [diagnostic "SBOM-MANIFEST-DUPLICATE-NAME" "The Lake manifest contains duplicate package names." "lake-manifest.json"]) ++
+  (if input.manifestPackages.all (fun item => item.name != "" && item.url != "") then [] else
+    [diagnostic "SBOM-MANIFEST-EMPTY-IDENTITY" "A manifest package has an empty name or repository URL." "lake-manifest.json"]) ++
   (if (input.packages.map (fun item => item.name)).Nodup then [] else
     [diagnostic "SBOM-DUPLICATE-PACKAGE-NAME" "The SPDX inventory contains duplicate package names." "spdx"]) ++
+  (if input.packages.all (fun item => item.name != "" && item.downloadLocation != "") then [] else
+    [diagnostic "SBOM-PACKAGE-EMPTY-IDENTITY" "An SPDX package has an empty name or download location." "spdx"]) ++
   (if (input.packages.map (fun item => item.spdxId)).Nodup then [] else
     [diagnostic "SBOM-DUPLICATE-SPDX-ID" "The SPDX inventory contains duplicate package identifiers." "spdx"]) ++
   (if input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT") then [] else
