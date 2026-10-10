@@ -102,7 +102,7 @@ block_extension Block.float (info : FloatInfo) where
       -- The provenance catalog is generated from canonical figure declarations and source mappings.
       -- Keep this link generic: the catalog, not this renderer, determines each figure's source.
       let provenanceLink : Output.Html :=
-        {{<a href={{"navigation/figures.html#" ++ info.arg}}>Sources et rendus</a>}}
+        {{<a href={{"navigation/figures.html#" ++ info.arg}}>{{"Sources et rendus"}}</a>}}
       let provenanceH : Output.Html :=
         if info.kind == "figure" then {{<div class="k7-provenance">{{provenanceLink}}</div>}} else .empty
       let caption : Output.Html :=
