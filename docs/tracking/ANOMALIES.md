@@ -21,6 +21,13 @@ Statut : ⬜ à traiter · ✅ traitée. Les anomalies du manuscrit peuvent se t
 | ⬜ `ANOM-09` | **Index sans pages.** L'index est une liste de trente et un termes ; le PDF d'origine l'imprimait avec ses pages (`org-glossary`), le Verso n'a pas encore d'index à entrées. Idem pour la reconnaissance automatique des termes du glossaire dans le texte. | `spec/Spec/Refs/Index.lean` | utiliser l'index de Verso (`{index}`) : à instruire |
 | ⬜ `ANOM-10` | **Interface en anglais.** La navigation du HTML (« Table of Contents », « Search ») est celle de Verso. Les en-têtes courants et la table des matières du PDF ont été francisés (`tools/SpecExt/Setup.lean`). | rendu HTML | dépend de Verso ; à signaler en amont |
 
+
+## Dans le rendu HTML Verso
+
+| | Anomalie | Où | Correction |
+|---|---|---|---|
+| ⬜ `ANOM-17` | **Figures invisibles dans les pages HTML imbriquées.** Le renderer ajoutait un préfixe `../` selon la profondeur alors que Verso fournit déjà un `<base href>` vers la racine du site ; le navigateur appliquait donc le préfixe deux fois. Cause reproduite sur l'artefact CI : les 12 références de figures pointent hors du site. | `tools/SpecExt/Float.lean`, rendu `html-multi` | émettre `figures/<nom>.svg`, valider les URL en tenant compte de `<base href>` et vérifier le déploiement ; correction en cours dans la [PR #124](https://github.com/AntheaLiles/k7pl/pull/124) |
+
 ## Dans le suivi
 
 | | Anomalie | Où | Correction |
