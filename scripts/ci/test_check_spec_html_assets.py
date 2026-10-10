@@ -12,7 +12,7 @@ from pathlib import Path
 from check_spec_html_assets import check
 
 
-SVG = '<svg xmlns="http://www.w3.org/2000/svg"><title>Test</title></svg>'
+SVG = '<svg xmlns="http://www.w3.org/2000/svg"><title>Test</title><desc>A test long description.</desc></svg>'
 
 
 class CheckSpecHtmlAssetsTests(unittest.TestCase):
@@ -110,6 +110,30 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
         self.write_page("../figures/test.svg")
         results = check(self.site, self.source, self.spec)
         self.assertTrue(any("invalid SVG" in result for result in results), results)
+
+    def test_rejects_svg_without_accessible_title_and_description(self) -> None:
+        (self.site / "figures" / "test.svg").write_text(
+            '<svg xmlns="http://www.w3.org/2000/svg"><rect width="10" height="10"/></svg>',
+            encoding="utf-8",
+        )
+        self.write_page("../figures/test.svg")
+        results = check(self.site, self.source, self.spec)
+        self.assertTrue(any("non-empty title" in result for result in results), results)
+        self.assertTrue(any("non-empty desc" in result for result in results), results)
+
+    def test_accepts_provenance_preview_with_its_long_description(self) -> None:
+        self.write_page("../figures/test.svg")
+        navigation = self.site / "navigation"
+        navigation.mkdir()
+        (navigation / "figures.html").write_text(
+            '<img class="k7-provenance-img" src="../figures/test.svg" '
+            'alt="A test figure" aria-describedby="figure-description-test">'
+            '<p class="figure-description" id="figure-description-test">Full description.</p>',
+            encoding="utf-8",
+        )
+        results = check(self.site, self.source, self.spec)
+        self.assertEqual(len(results), 1)
+        self.assertTrue(results[0].startswith("validated "), results)
 
 
 
