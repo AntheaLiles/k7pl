@@ -562,10 +562,10 @@ Routine progress belongs in the dedicated registers.
 
 ## 23. K — Lean tools for project-compliance assurance
 
-**Status:** OPEN — base prototype tested in CI; provenance/negative-CLI extension awaiting CI  
+**Status:** OPEN — bounded prototype and independent SPDX validation passed CI; measured evaluation pending  
 **Anchor:** [GitHub issue #122](https://github.com/AntheaLiles/k7pl/issues/122) · [decision and feasibility note](../research/LEAN-COMPLIANCE-ASSURANCE.md) · branch `research/lean-sbom-consistency-poc`
 
-The inventory and feasibility pass selected a narrowly scoped Lake-to-SPDX 2.3 consistency audit, reusing the existing generator. CI #830 passed the Lean build, scoped inventory audit, `lake test`, `lake lint` and axiom audits on `67fbf1869b363d07dc3ccb3949846f16f76ac61c`. The current revision adds negative CLI integration tests and a SHA-256 evidence artifact; its CI is the acceptance gate for those additions. The theorem concerns only normalized fields. Independent SPDX validation and measured evaluation remain open. `spdx-tools` v0.8.5 is under consideration, but upstream issue #885 documents a known validation gap and adoption is blocked until that gap is guarded and the complete dependency closure is hash-locked.
+The inventory and feasibility pass selected a narrowly scoped Lake-to-SPDX 2.3 consistency audit, reusing the existing generator. CI #866 passed on PR head `55643454b77acdf2aad240c819cd94fed356ad44`: Lean build, 14-entry inventory audit, positive/negative CLI tests, `lake test`, `lake lint`, axiom audits, Python tests, workflow/security checks and specification build. The Python job also installed the full `spdx-tools==0.8.5` runtime closure with hashes and independently validated the generated SPDX 2.3 document; run artifacts contain the SBOM, validation report and SHA-256 evidence. The theorem still concerns only normalized fields. Upstream issue #885 remains a known validator gap; the local non-empty-name guard and regression tests cover that case, but do not establish that no other validator limitations exist. Measured evaluation remains open.
 
 The workstream continues to distinguish:
 
@@ -574,6 +574,6 @@ The workstream continues to distinguish:
 - versioning, applicability, exceptions, conflicts, and provenance of constraints;
 - Lean-specific formalization from simpler rule engines, structured registers, and existing compliance tooling.
 
-**Exit criterion:** the base prototype's tests and CI passed in #830; the current negative CLI/provenance extension must pass CI; an independent validator with versioned and hash-locked dependencies must accept the generated SPDX document while known validator blind spots are covered by regression checks; the evidence artifact must record input digests and toolchain/commit identity; and the note must report measured coverage, omissions, architecture alternatives and go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
+**Exit criterion:** the bounded prototype, negative CLI cases, SHA-256 evidence, hash-locked validator install, SPDX 2.3 validation and full CI passed in #866. Remaining work is measured evaluation of coverage, reproducibility, diagnostics, cost and unhandled cases; review of additional validator blind spots; and an explicit go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
 
 The OpenSSF remediation campaign is temporarily paused and tracked separately. Its outstanding release/security actions remain open and must be resumed before any release action that depends on them.
