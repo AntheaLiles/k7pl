@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-> Historical snapshot archived on 2026-10-10. This was the original remediation plan, not the current action register. Current unresolved or partial items are tracked in [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md); the campaign is temporarily paused. The original statuses below are preserved as a record and must not be interpreted as current.
+> Historical snapshot moved to docs/history/ on 2026-10-10. This is the original remediation plan before the current automation wave, not the active action register. Current unresolved or partial items are tracked in [OPENSSF-ROADMAP.md](../security/OPENSSF-ROADMAP.md); the campaign is active but remains incomplete. The original statuses below are preserved as a record and must not be interpreted as current.
 
 # Plan de remédiation OpenSSF de k7pl
 
@@ -130,4 +130,4 @@ Estimations arithmétiques (méthode de l'audit Scorecard, § 6) ; elles ne sont
 - La répétition manuelle `workflow_dispatch` du workflow Release est un **essai à blanc** : contrôles de métadonnées, appartenance à `main`, présence d'un `CI OK` réussi et build sans cache ont été exercés. Elle ne crée ni brouillon, ni attestation, ne publie rien et ne teste pas un événement déclenché par un tag réel.
 - Le chantier de release est donc `PARTIAL` jusqu'à une répétition contrôlée de création de brouillon et vérification locale de l'attestation. La publication et l'archivage Zenodo restent des gestes séparés et irréversibles.
 - Le prototype SPDX 2.3 (PR #113) reste `PREPARED` : aucun parseur SPDX indépendant n'a encore validé le document. Ne pas annoncer une SBOM conforme ou l'intégrer à la release avant cette validation.
-- Les tâches de compte, de permissions, d'environnements, de secrets, de règles de tags, de DOI Zenodo et de déclaration OpenSSF sont regroupées dans [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) et [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md) ; la réussite du workflow Release ne les valide pas.
+- Les tâches de compte, de permissions, d'environnements, de secrets, de règles de tags, de DOI Zenodo et de déclaration OpenSSF sont regroupées dans [`ACTIONS-HUMAINES.md`](../security/ACTIONS-HUMAINES.md) et [`DECISIONS-REQUISES.md`](../security/DECISIONS-REQUISES.md) ; la réussite du workflow Release ne les valide pas.
