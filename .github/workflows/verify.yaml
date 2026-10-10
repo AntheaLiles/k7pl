@@ -358,11 +358,19 @@ jobs:
           print("Independent SPDX 2.3 validator: PASS (spdx-tools 0.8.5)")
           with open(__import__("os").environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
               summary.write("### Independent SPDX 2.3 validation\n")
-              summary.write("- Validator: \`spdx-tools 0.8.5\` (hash-locked runtime closure).\n")
+              summary.write("- Validator: `spdx-tools 0.8.5` (hash-locked runtime closure).\n")
               summary.write("- Result: PASS; generated JSON validated against SPDX 2.3.\n")
-              summary.write("- SBOM SHA-256: \`" + report["input"]["sha256"] + "\`\n")
-              summary.write("- Wrapper elapsed: \`" + str(report["elapsedMs"]) + " ms\`; validator subprocess: \`" + str(report["validator"]["elapsedMs"]) + " ms\`.\n")
+              summary.write("- SBOM SHA-256: `" + report["input"]["sha256"] + "`\n")
+              summary.write("- Wrapper elapsed: `" + str(report["elapsedMs"]) + " ms`; validator subprocess: `" + str(report["validator"]["elapsedMs"]) + " ms`.\n")
           PY
+
+      - name: Measure repeated SPDX validation cost
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/benchmark_spdx_validator.py \
+            "$RUNNER_TEMP/k7pl-spdx-validation.spdx.json" \
+            --repetitions 5 \
+            --output "$RUNNER_TEMP/k7pl-spdx-validation-benchmark.json"
 
       - name: Upload independent SPDX validation evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -371,6 +379,7 @@ jobs:
           path: |
             ${{ runner.temp }}/k7pl-spdx-validation.spdx.json
             ${{ runner.temp }}/k7pl-spdx-validation.json
+            ${{ runner.temp }}/k7pl-spdx-validation-benchmark.json
           retention-days: 14
           if-no-files-found: error
 
