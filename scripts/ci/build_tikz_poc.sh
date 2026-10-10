@@ -27,7 +27,7 @@ build_one() {
   (
     cd "$build_dir"
     tectonic -X compile --keep-logs -Z deterministic-mode main.tex
-    pdftocairo -svg main.pdf "$destination/$id"
+    pdftocairo -svg main.pdf "$destination/$id.svg"
   )
   if [[ -f "$destination/$id-1.svg" ]]; then
     mv "$destination/$id-1.svg" "$destination/$id.svg"
