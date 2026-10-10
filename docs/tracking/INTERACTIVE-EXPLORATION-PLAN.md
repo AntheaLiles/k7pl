@@ -121,6 +121,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 ### P2 — Modèle documentaire et sémantique
 
 - [x] Proposer un premier vocabulaire de nœuds, de relations et de provenance dans [le modèle sémantique minimal](NAVIGATION-SEMANTIC-MODEL.md) ; il reste à le valider par un prototype.
+- [ ] Produire et valider le premier graphe local sur les références explicites et citations de la section C6, sans prétendre représenter les dépendances de preuve.
 - [ ] Définir et tester les catégories minimales d'objets nécessaires.
 - [ ] Définir et tester les catégories minimales de relations nécessaires.
 - [ ] Distinguer au minimum état courant, historique, hypothèse et preuve, sans les confondre avec l'état de validation d'une relation.
