@@ -274,6 +274,9 @@ jobs:
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
 
+      - name: Validate generated HTML image assets
+        run: python3 scripts/ci/check_spec_html_assets.py _out/spec/html-multi
+
       - name: Summary
         if: ${{ !cancelled() }}
         run: |
