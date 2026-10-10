@@ -124,7 +124,8 @@ Le générateur `scripts/ci/lake_manifest_to_spdx.py` produit un SPDX 2.3 JSON l
 - [x] Valider le document SPDX 2.3 généré avec le validateur indépendant hash-locké `spdx-tools 0.8.5` ; un garde local couvre le cas de nom de paquet vide associé à l'issue amont #885.
 - [x] Comparer les noms, URL et révisions des paquets avec les 14 entrées du manifeste et contrôler les relations couvertes par le contrat borné (run CI #891).
 - [x] Vérifier le déterminisme octet par octet pour une entrée et un horodatage fixés ; mesurer cinq invocations dans un même job.
-- [ ] Interpréter le rapport du corpus exploratoire non bloquant `k7pl-spdx-negative-probes` produit par `scripts/ci/evaluate_spdx_negative_corpus.py` ; valider les hypothèses contre la spécification SPDX 2.3, puis élargir le corpus et caractériser la couverture des diagnostics. Deux runs indépendants comparables sont mesurés, mais ne suffisent pas à conclure sur la stabilité.
+- [x] Exécuter un corpus exploratoire non bloquant de sept mutations dans [CI #38087621350](https://github.com/AntheaLiles/k7pl/actions/runs/38087621350) : le contrôle positif passe, six mutations ont un code retour externe 1, et le nom de paquet vide renvoie code 0 en direct mais est intercepté par la garde locale #885. Le rapport fait partie de l'artefact [d'évidence](https://github.com/AntheaLiles/k7pl/actions/runs/38087621350/artifacts/11682734460).
+- [ ] Faire relire les hypothèses de mutation contre la spécification SPDX 2.3, élargir le corpus négatif et caractériser la couverture des diagnostics. Deux runs indépendants comparables sont mesurés, mais ne suffisent pas à conclure sur la stabilité.
 - [ ] Évaluer un export CycloneDX seulement si des consommateurs identifiés le nécessitent ; les mesures de taille, la qualité des métadonnées et la compatibilité élargie des outils restent à établir.
 
 **Sortie :** prototype évalué ; aucune revendication de complétude hors du périmètre mesuré.
