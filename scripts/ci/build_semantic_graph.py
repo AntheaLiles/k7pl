@@ -63,7 +63,7 @@ def source_lines(root: Path, path: str) -> list[str]:
 
 def rendered_label_href(site_root: Path, output: Path, label: str) -> str:
     """Resolve a canonical Verso label to the generated page that owns its anchor."""
-    anchor = f"lbl-{label}"
+    anchor = f"lbl-{label.replace(':', '-')}"
     pattern = re.compile(r'\bid=["\']' + re.escape(anchor) + r'["\']')
     matches: list[Path] = []
     for page in sorted(site_root.rglob("*.html")):
