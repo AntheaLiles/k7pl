@@ -3,9 +3,9 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Registre de migration contrôlée des énoncés — C8.3
+# Registre de migration contrôlée des énoncés — C8.4
 
-**État : migration source appliquée sur cette branche ; validation CI et génération définitive des inventaires en attente.**
+**État : migration source appliquée sur cette branche ; validation CI exacte, régénération des inventaires et vérification indépendante des rendus en attente.**
 
 Ce registre relie les 69 labels ratifiés aux directives spécialisées et documente les cinq objets complémentaires créés par la séparation des six blocs composites. Les labels historiques des revendications principales sont conservés afin de préserver les références existantes. Les cinq labels ajoutés sont nouveaux ; aucun résultat n’a été promu à `established`.
 
@@ -22,7 +22,7 @@ La migration conserve les textes mathématiques, les labels historiques, les ré
 
 ## Provenance et obligations restantes
 
-La provenance bibliographique du résultat non gradué de sédimentation n’est pas encore reliée à un identifiant bibliographique résolu. Le champ `source` le marque explicitement comme non résolu ; le point C8.4 doit établir la référence exacte. Les contrôles structurels n’établissent ni la vérité mathématique des énoncés ni l’adéquation sémantique de leurs hypothèses.
+La provenance bibliographique du résultat non gradué de sédimentation n’est pas encore reliée à un identifiant bibliographique résolu. Le champ `source` le marque explicitement comme non résolu ; le point 4 (traçabilité et rendus) doit établir la référence exacte. Les contrôles structurels n’établissent ni la vérité mathématique des énoncés ni l’adéquation sémantique de leurs hypothèses.
 
 Nombre de lignes dans ce registre : **74** (69 labels historiques ratifiés + 5 objets complémentaires).
 
