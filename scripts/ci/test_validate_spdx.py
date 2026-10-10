@@ -66,6 +66,8 @@ class PreflightTests(unittest.TestCase):
         report = json.loads(captured.getvalue())
         self.assertEqual(exit_code, 1)
         self.assertEqual(report["status"], "FAIL")
+        self.assertIsInstance(report["elapsedMs"], (int, float))
+        self.assertIsNone(report["validator"]["elapsedMs"])
         self.assertEqual(
             [item["ruleId"] for item in report["diagnostics"]],
             ["SPDX-PREFLIGHT-PACKAGE-NAME"],
