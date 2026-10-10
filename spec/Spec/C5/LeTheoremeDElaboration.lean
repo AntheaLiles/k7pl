@@ -27,7 +27,19 @@ Elles n'ont pas la même origine ni le même usage, et elles ont un seul et mêm
 le redire six fois, ce document l'énonce ici et l'invoque ensuite. {rmq}[Une seule loi, six emplois.
 Ce qui suit dans ce chapitre décrit des formes, non des mécanismes.] Le mot _élaboration_ désigne ici la traduction Surface → Noyau ; la phase de résolution du pipeline (§{num "sec:c6-le-processus-de-compilation"}[], point de contrôle 2.5) résout des variables d'unification, et n'est pas une élaboration au sens du théorème {num "thm:elaboration"}[].  L'expansion de macro est la Phase 0 du pipeline : elle opère sur l'arbre ; la figure du chapitre 6 ne la porte pas encore, et reste à corriger.
 
-::::thm (label := "thm:elaboration") (status := "definition")
+::::definition (label := "def:elaboration") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Fonction Surface → Noyau")
+:::title
+fonction d’élaboration
+:::
+
+:::statement +titled
+Fonction d’élaboration
+
+Soit $`\mathrm{Elab} : \mathsf{Surface} \to \mathsf{Noyau}` la fonction d'élaboration.
+:::
+::::
+
+::::theorem (label := "thm:elaboration") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Fonction Surface → Noyau ; isoler la définition de la préservation du sens et des conséquences annexes.")
 :::title
 élaboration
 :::
@@ -35,7 +47,7 @@ Ce qui suit dans ce chapitre décrit des formes, non des mécanismes.] Le mot _�
 :::statement +titled
 Une forme de surface n'a que le sens du terme qu'elle élabore
 
-Soit $`\mathrm{Elab} : \mathsf{Surface} \to \mathsf{Noyau}` la fonction d'élaboration. Pour toute
+Pour toute
 forme de surface $`s`,
 $$`\mathrm{Elab}(s) = t \;\wedge\; \Delta \vdash t : A \mid \mathcal{E} \;\Longrightarrow\; \mathrm{Sens}(s) = \mathrm{Sens}(t).`
 Aucune forme de surface n'a de sens propre, et aucune n'en ajoute au noyau.
@@ -53,7 +65,6 @@ ré-invocation finie ajoutent leur obligation propre sur $`\varphi_n` ; cette ob
 étendue par défaut aux grades complets ni aux usages rationnels.
 :::
 ::::
-
 Trois conséquences en découlent, et elles dispensent d'autant d'arguments locaux. La _staticité de
 la syntaxe_ (théorème {num "thm:staticite_syntaxe"}[]) en est un corollaire : si aucune forme de
 surface n'a de sens propre, aucune n'étend la grammaire du noyau. La _dérivabilité de l'expansion_
