@@ -129,7 +129,7 @@ déchargée, énoncée dans le vocabulaire de la source et non dans celui du sol
 le compte de ressource consommé ; et l'état du solveur à l'épuisement. De cette forme suit une
 propriété que le développeur peut exiger.
 
-::::thm (label := "thm:rejet_reproductible")
+::::theorem (label := "thm:rejet_reproductible") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Identité du diagnostic sous configuration fixe et hypothèse D_det ; déterminisme des parcours/choix à garantir.")
 :::title
 reproductibilité du rejet
 :::
@@ -164,8 +164,8 @@ actionnable : un développeur ne peut pas travailler contre un avis qui change.
 n'est donc pas une propriété agréable de plus, c'est la condition sans laquelle les trois points qui
 suivent n'auraient pas d'objet.
 :::
-::::
 
+::::
 # Ce qu'un rejet propose, et pourquoi il n'y a que trois voies
 %%%
 tag := "c6-ce-que-le-solveur-retourne-ce-qu-un-rejet-propose-et-pour"
@@ -460,7 +460,7 @@ Ce que ce document adopte reste le hachage, pour ce qu'il donne par ailleurs —
 l'équivalence sémantique de deux programmes syntaxiquement distincts —, mais il ne peut plus se
 présenter comme la seule voie.
 
-::::thm (label := "thm:abaissement_grades") (status := "conjecture") (level := "compilation")
+::::conjecture (label := "thm:abaissement_grades") (level := "compilation") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "Conjecture de préservation des grades par abaissement vers MLIR ; preuve règle par règle absente.")
 :::title
 l'abaissement préserve le jugement gradué
 :::
@@ -485,8 +485,8 @@ n'accomplit qu'une tâche se vérifie isolément. Le grade étant une grandeur s
 établir n'est pas qu'aucun observateur cible ne distingue plus que la source, mais que l'annotation
 portée par la source a une image dans la cible et que cette image ne l'affaiblit pas.
 :::
-::::
 
+::::
 La distinction qui commande cet énoncé est celle qu'établit la littérature sur la compilation
 vérifiée : préserver le _comportement_ et être _pleinement abstrait_ ne sont pas la même exigence {cite "pattersonNext700Compiler"}[],
 et c'est la première qui est en jeu ici.
