@@ -18,10 +18,15 @@ class ImageParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.images: list[tuple[str | None, str | None, str | None, int]] = []
+        self.base_href: str | None = None
+
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        if tag.lower() == "base" and self.base_href is None:
+            self.base_href = values.get("href")
+            return
         if tag.lower() != "img":
             return
-        values = dict(attrs)
         self.images.append(
             (values.get("src"), values.get("alt"), values.get("class"), self.getpos()[0])
         )
@@ -58,6 +63,19 @@ def check(html_root: Path, source_figures: Path) -> list[str]:
             errors.append(f"cannot read HTML page {page.relative_to(html_root)}: {exc}")
             continue
 
+        base_dir = page.parent
+        if parser.base_href:
+            base = urlsplit(parser.base_href)
+            if base.scheme or base.netloc:
+                base_dir = None
+            else:
+                base_path = unquote(base.path)
+                base_dir = (
+                    (html_root / base_path.lstrip("/"))
+                    if base_path.startswith("/")
+                    else (page.parent / base_path)
+                ).resolve()
+
         for src, alt, classes, line in parser.images:
             image_count += 1
             if not src:
@@ -69,10 +87,18 @@ def check(html_root: Path, source_figures: Path) -> list[str]:
                     errors.append(f"{page.relative_to(html_root)}:{line}: K7PL figure has no alternative text")
 
             parsed = urlsplit(src)
-            if parsed.scheme or parsed.netloc or parsed.path.startswith("data:"):
+            if parsed.scheme or parsed.netloc or parsed.scheme == "data":
                 continue
             path = unquote(parsed.path)
-            target = (html_root / path.lstrip("/")) if path.startswith("/") else (page.parent / path)
+            if path.startswith("/"):
+                target = html_root / path.lstrip("/")
+            elif base_dir is not None:
+                target = base_dir / path
+            else:
+                errors.append(
+                    f"{page.relative_to(html_root)}:{line}: relative image uses an external base URL: {src}"
+                )
+                continue
             target = target.resolve()
             if not target.is_relative_to(html_root):
                 errors.append(f"{page.relative_to(html_root)}:{line}: image path escapes the HTML site: {src}")
