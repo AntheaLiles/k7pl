@@ -562,10 +562,10 @@ Routine progress belongs in the dedicated registers.
 
 ## 23. K — Lean tools for project-compliance assurance
 
-**Status:** OPEN — bounded prototype and independent SPDX validation passed CI; measured evaluation pending  
+**Status:** OPEN — prototype, independent SPDX validation and five-sample micro-measurement passed CI; cross-run evaluation pending  
 **Anchor:** [GitHub issue #122](https://github.com/AntheaLiles/k7pl/issues/122) · [decision and feasibility note](../research/LEAN-COMPLIANCE-ASSURANCE.md) · branch `research/lean-sbom-consistency-poc`
 
-The inventory and feasibility pass selected a narrowly scoped Lake-to-SPDX 2.3 consistency audit, reusing the existing generator. CI #877 passed on PR head `43255158712ea6bab5bf05b02c3ab5a42ad87587`: Lean build, 14-entry inventory audit, CLI negative cases (malformed JSON, revision mismatch and empty package name), `lake test`, `lake lint`, axiom audits, Python tests, workflow/security checks and specification/PDF build. The Python job installed the full `spdx-tools==0.8.5` runtime closure with hashes and independently validated the generated SPDX 2.3 document; artifacts contain the validation report and SHA-256. The theorem still concerns only normalized fields. Upstream issue #885 remains a known validator gap; a local guard and regression test cover that case, but do not establish that no other validator limitations exist. Measured evaluation remains open.
+The inventory and feasibility pass selected a narrowly scoped Lake-to-SPDX 2.3 consistency audit, reusing the existing generator. CI #891 passed on PR head `69368cea93b9c0fc25d2164b8052e90a85e1690a`: Lean build, 14-entry inventory audit, CLI negative cases, `lake test`, `lake lint`, axiom audits, Python tests, workflow/security checks and specification/PDF build. The Python job installed the hash-locked `spdx-tools==0.8.5` closure, independently validated the generated SPDX 2.3 document and ran a five-sample timing probe. The repeated validator median was 304.564 ms (min 302.409, max 313.096) on one runner, with the same input SHA-256 across samples. These values are descriptive only; the first standalone invocation was slower, so cache/run-order effects remain a confound. The theorem still concerns only normalized fields. Upstream issue #885 remains a known validator gap; a local guard covers that case but not all possible validator limitations.
 
 The workstream continues to distinguish:
 
@@ -574,6 +574,6 @@ The workstream continues to distinguish:
 - versioning, applicability, exceptions, conflicts, and provenance of constraints;
 - Lean-specific formalization from simpler rule engines, structured registers, and existing compliance tooling.
 
-**Exit criterion:** the bounded prototype, negative CLI cases, SHA-256 evidence, hash-locked validator install, SPDX 2.3 validation and full CI passed in #877. The evaluation now includes byte-identical CLI regeneration for a fixed timestamp and reports measured wrapper/subprocess times. Remaining work is repeated-run characterization of coverage, reproducibility, diagnostics, cost and unhandled cases; review of additional validator blind spots; and an explicit go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
+**Exit criterion:** the bounded prototype, negative CLI cases, hash-locked validator install, SPDX 2.3 validation, byte-identical fixed-input regeneration, five-sample timing probe and full CI passed in #891. Provisional recommendation: GO for continued research on the bounded prototype; NO-GO for production or global compliance claims. Remaining work is cross-run characterization, expansion of negative SPDX fixtures, measurement of validation coverage/diagnostics and review of additional validator blind spots. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
 
 The OpenSSF remediation campaign is temporarily paused and tracked separately. Its outstanding release/security actions remain open and must be resumed before any release action that depends on them.
