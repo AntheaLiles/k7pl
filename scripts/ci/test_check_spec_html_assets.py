@@ -146,7 +146,7 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
     def test_rejects_dangling_long_description_reference(self) -> None:
         self.write_page("figures/test.svg", described_by="missing-description")
         results = check(self.site, self.source, self.spec)
-        self.assertTrue(any("is not a k7-desc element" in result for result in results), results)
+        self.assertTrue(any("is not a valid long-description element" in result for result in results), results)
 
     def test_rejects_duplicate_long_description_id(self) -> None:
         self.write_page("figures/test.svg")
