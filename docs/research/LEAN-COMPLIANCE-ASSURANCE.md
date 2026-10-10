@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Chantier K — Assurance de conformité outillée avec Lean 4
 
-**État au 2026-10-10 :** le démonstrateur de base compile et passe son audit d'inventaire, `lake test`, `lake lint` et les audits d'axiomes dans [CI #830](https://github.com/AntheaLiles/k7pl/actions/runs/38058400228), sur la révision `67fbf1869b363d07dc3ccb3949846f16f76ac61c`. Une révision ultérieure étend les tests CLI négatifs et ajoute un artefact de traçabilité SHA-256 ; ces ajouts doivent encore être validés par leur propre CI. La validation SPDX indépendante et l'évaluation mesurée restent ouvertes. Aucune décision de production ni revendication globale de conformité.
+**État au 2026-10-10 :** la révision `55643454b77acdf2aad240c819cd94fed356ad44` a passé tous les jobs du [run CI #866](https://github.com/AntheaLiles/k7pl/actions/runs/38059959562). Cela couvre la compilation Lean, l'audit des 14 entrées Lake, les cas CLI positifs/négatifs, `lake test`, `lake lint`, les audits d'axiomes et la validation indépendante du SBOM généré par `spdx-tools 0.8.5` avec dépendances hash-lockées. Les artefacts de preuve incluent les empreintes SHA-256 et l'identité du run. L'évaluation mesurée et toute revendication d'exhaustivité restent ouvertes ; aucune décision de production ou conformité globale n'est affirmée.
 
 ## 1. Objet et décisions antérieures récupérées
 
@@ -98,13 +98,13 @@ La revendication porte sur **les données observées**, pas sur leur exhaustivit
 
 Les tests Lean couvrent un cas positif ainsi que des cas négatifs pour format de révision invalide, révision modifiée, URL modifiée, métadonnée de licence affirmée, relation inventée, relation manquante, identifiants dupliqués et champ requis absent.
 
-La CI #830 a compilé la bibliothèque et le CLI, exécuté le générateur sur le vrai manifeste, audité le document généré et vérifié le statut du rapport JSON ; `lake test`, `lake lint` et les deux audits d'axiomes y passent. L'intégration couvre les 14 entrées présentes dans le manifeste. La révision en cours ajoute des tests end-to-end du CLI pour un JSON malformé (`ERROR`, code 2) et une révision falsifiée (`FAIL`, code 1), plus un artefact d'évidence incluant les empreintes ; ces changements n'ont pas encore leur propre résultat CI au moment de cette note.
+La CI #866 a compilé la bibliothèque et le CLI, généré puis audité le SBOM issu des 14 entrées du vrai manifeste, vérifié le rapport JSON, exécuté `lake test`, `lake lint` et les audits d'axiomes. Deux cas end-to-end testent aussi le contrat d'erreur du CLI : JSON de manifeste malformé → `ERROR`/code 2 ; révision de composant falsifiée → `FAIL`/code 1. L'artefact `k7pl-sbom-evidence-38059959562` conserve l'empreinte du manifeste, du toolchain, des sources de génération/audit et du SBOM, ainsi que l'identité du run et du commit de PR.
 
 ### Validation indépendante : état du candidat au 10 octobre 2026
 
 Le candidat officiel [`spdx-tools` v0.8.5](https://github.com/spdx/tools-python/releases/tag/v0.8.5) annonce une validation complète contre SPDX 2.2 et 2.3. Toutefois, l'issue upstream [#885 — Package without a name is not flagged as invalid](https://github.com/spdx/tools-python/issues/885) reste ouverte et décrit un document où le nom du paquet est vide sans constat de validité. Le validateur ne doit donc pas être traité comme un oracle infaillible.
 
-Décision provisoire : évaluer v0.8.5 en tant que contrôle indépendant complémentaire, assorti d'une garde explicite pour les champs obligatoires et de fixtures négatives qui vérifient les défauts connus. **Ne pas l'ajouter encore à la CI** : il faut d'abord produire un verrouillage reproductible, avec versions exactes et empreintes de toutes les dépendances transitives, conforme à la politique `--require-hashes` déjà utilisée par K7PL. Le statut de l'issue upstream et la version choisie devront être revérifiés au moment de l'intégration.
+Le validateur est désormais intégré expérimentalement au job Python de la CI. Le fichier `scripts/requirements-spdx-validator.txt` verrouille les versions et hashes de sa fermeture de dépendances ; l'installation avec `--require-hashes --only-binary=:all:` et la validation du SBOM généré ont réussi dans le run #866. Le garde local rejette les noms de paquets absents ou vides avant l'appel externe ; les tests de régression correspondants passent. L'issue upstream #885 reste ouverte : le garde couvre ce défaut signalé, mais ne démontre pas l'absence d'autres lacunes du validateur. Le résultat `PASS` vaut pour le document précis identifié par son SHA-256, pas pour l'exhaustivité de l'inventaire.
 
 ### Critères d'acceptation
 
@@ -113,9 +113,9 @@ Décision provisoire : évaluer v0.8.5 en tant que contrôle indépendant compl�
 - rapport JSON stable dans sa structure, avec statut exploitable et diagnostics identifiables ;
 - comportement CLI distinct pour succès, non-conformité au contrat et entrée malformée/illisible ;
 - génération déterministe pour un manifeste et un horodatage donnés ;
-- validation indépendante de SPDX 2.3 par un outil versionné et vérifié, **condition encore ouverte** ;
+- validation SPDX 2.3 indépendante de la sortie réelle, version `spdx-tools 0.8.5` et fermeture hash-lockée, réussie dans la CI #866 ; le validateur conserve toutefois les limites et le défaut upstream explicités ci-dessus ;
 - pas de modification de la spécification normative ou de la sémantique de K7PL ;
-- la CI #830 a validé la compilation, `lake test`, `lake lint`, l'audit ciblé du SBOM généré à partir des 14 entrées de `lake-manifest.json` et les audits d'axiomes. Cela valide le prototype borné, pas le document contre l'intégralité de la spécification SPDX ; le validateur indépendant reste un critère d'acceptation ouvert.
+- la CI #866 a validé l'ensemble des contrôles du démonstrateur et la validation externe du document SPDX 2.3 ; cela n'établit ni l'exhaustivité du SBOM, ni l'absence d'autres lacunes de validation, ni la conformité globale de K7PL.
 
 ## 6. Séquencement et statuts
 
@@ -124,8 +124,8 @@ Décision provisoire : évaluer v0.8.5 en tant que contrôle indépendant compl�
 | A — inventaire et récupération des décisions | **Exploré** | Sources repérées ; limites et décisions non récupérables explicites |
 | B — faisabilité et architecture | **Conçu** | Matrice et frontières ci-dessus documentées |
 | C — contrat SPDX minimal | **Conçu** | Invariants du modèle normalisé explicités |
-| D — prototype Lean/CLI/tests | **Prototype de base testé en CI (#830) ; extension en cours** | Le socle est vert ; les derniers tests CLI négatifs et l'évidence SHA-256 doivent être validés sur la révision mise à jour |
-| E — validation SPDX indépendante | **Candidat évalué ; adoption bloquée** | Valideur indépendant versionné, garde pour les limites connues, dépendances intégralement verrouillées et tests sur la sortie effective |
+| D — prototype Lean/CLI/tests | **Testé en CI (#866)** | Compilation, audit d'inventaire, tests positifs/négatifs, lint, audits d'axiomes et artefact de traçabilité validés sur le commit référencé en tête |
+| E — validation SPDX indépendante | **Intégration expérimentale réussie en CI (#866)** | Document précis accepté par `spdx-tools 0.8.5`, fermeture hash-lockée et garde pour l'issue upstream #885 ; autres limites possibles à évaluer |
 | F — évaluation | **Non commencé** | Couverture mesurée, rapports différentiels, temps d'exécution et limites observées |
 | Extension SCA/SAST/CycloneDX/WCAG | **À prioriser après évaluation** | Décision fondée sur le prototype, le bénéfice et les dépendances communes |
 
