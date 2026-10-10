@@ -250,7 +250,7 @@ leur somme n'a pas été conçue, elle s'est accumulée. Deux d'entre eux ont é
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) ; les autres subsistent, et le total reste le
 point faible du chapitre, nommé ici plutôt que passé sous silence.
 
-::::theorem (label := "thm:preservation_type") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Préservation par réduction sous condition de séparation P2 ; volet MLIR est la conjecture distincte abaissement_grades.")
+::::theorem (label := "thm:preservation_type") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 préservation du type
 :::
