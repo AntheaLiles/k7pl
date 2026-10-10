@@ -21,13 +21,13 @@ def test_current_inventory_matches_all_active_statement_blocks():
     errors = inventory.check_inventory()
     assert errors == [], "\n".join(errors)
     rows = inventory.source_inventory()
-    assert len(rows) == 69
+    assert len(rows) == 74
     assert len({row["path"] for row in rows}) == 21
 
 
 def test_inventory_drift_is_reported(tmp_path):
     original = inventory.DEFAULT_INVENTORY.read_text(encoding="utf-8")
-    changed = original.replace("thm:schema_commutation", "thm:deliberately_stale", 1)
+    changed = original.replace("| `thm:schema_commutation` |", "| `thm:deliberately_stale` |", 1)
     path = tmp_path / "inventory.md"
     path.write_text(changed, encoding="utf-8")
 
