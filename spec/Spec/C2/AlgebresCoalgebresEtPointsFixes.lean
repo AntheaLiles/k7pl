@@ -129,7 +129,7 @@ la sorte qui lui revient. Le paramorphisme linéaire — pli donnant accès à l
 récursif et à la sous-structure d'origine {cite "seflProgrammingDependentAdditive2025"}[] — entre
 sous le même critère, sa taille décroissant identiquement.
 
-::::corollary (label := "thm:terminaison_couche_3") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Terminaison du pli sur μF par indice strictement décroissant ; corollaire de progression_polarisee.")
+::::corollary (label := "thm:terminaison_couche_3") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 terminaison de la couche 3 — l'instance inductive
 :::
@@ -213,7 +213,7 @@ de sorte que l'emboîtement ne sort pas de la classe où le théorème précéde
 version coalgébrique du lemme de Bekič réduit le système simultané à un point fixe unique, dont
 l'objet visé est la coalgèbre finale {cite "kurzApproximationNestedFixpoints2015"}[].
 
-::::literature (label := "thm:sedimentation") (level := "langage") (state := "not-applicable") (evidence := "literature") (scope := "Résultat non gradué de points fixes imbriqués et convergence des approximations finies") (source := "unresolved: Kurz et al.; source bibliographique du résultat non gradué de points fixes imbriqués à relier au point C8.4")
+::::literature (label := "thm:sedimentation") (level := "langage") (state := "not-applicable") (evidence := "literature") (scope := "literature") (source := "unresolved: Kurz et al.; source bibliographique du résultat non gradué de points fixes imbriqués à relier au point C8.4")
 :::title
 bonne définition de la sédimentation
 :::
@@ -228,7 +228,7 @@ conteneurs _non gradués_, résultat de la littérature, repris ici ;
 :::
 ::::
 
-::::requirement (label := "req:sedimentation_graduee") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Extension graduée de la sédimentation; convergence ouverte")
+::::requirement (label := "req:sedimentation_graduee") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "fixed-points")
 :::title
 extension graduée de la sédimentation
 :::
@@ -299,7 +299,7 @@ formulation par types dimensionnés, sur laquelle repose le traitement coinducti
 et des langages formels, et qui s'accompagne du filtrage par copatrons comme forme définitionnelle
 naturelle du `yield` {cite "ABEL-COALG"}[].
 
-::::corollary (label := "thm:productivite_couche_2") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Production d’une observation en temps fini par anamorphisme typé ; ne signifie pas épuisement du flux.")
+::::corollary (label := "thm:productivite_couche_2") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 productivité de la couche 2 — l'instance coinductive
 :::
@@ -347,7 +347,7 @@ où on le lit. Voici cet argument, écrit une fois, la couche étant le paramèt
 d'Abel et Pientka, qui obtiennent un traitement unifié de la récursion et de la corécursion en
 faisant de la productivité une _instance_ de la terminaison plutôt qu'un critère parallèle {cite "abelWellfoundedRecursionCopatterns2016"}[].
 
-::::theorem (label := "thm:progression_polarisee") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Principe général à deux cas de polarité : terminaison en μ, production finie d’observation en ν.")
+::::theorem (label := "thm:progression_polarisee") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 progression, paramétrée par la couche
 :::
@@ -459,7 +459,7 @@ avoir posé cette loi ; elle lui est due, et elle est distincte de la loi distri
 chapitre 1, qui distribue la modalité de grade sur la monade d'effet et non un foncteur de motif sur
 une comonade d'historique. Autant l'écrire ici que la laisser en dette.
 
-::::theorem (label := "thm:loi_historique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Lois de cohérence de λ pour la comonade cofree et bialgèbre ; naturalité et équations doivent être vérifiées.")
+::::theorem (label := "thm:loi_historique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 loi distributive de l'historique
 :::
@@ -531,7 +531,7 @@ de l'entrée à grade fixé — et $`r` étant un grade, ce facteur est connu à
 exige. L'espace, lui, passe de $`O(n)` pour la table entière à $`O(r)` pour la fenêtre : c'est la
 borne mémoire que cette section annonce, et c'est la troncature qui la donne.
 
-::::theorem (label := "thm:troncature_comonade") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Lois de comonade graduée et morphisme de comonades pour la troncature, sous les définitions de N_r et δ.")
+::::theorem (label := "thm:troncature_comonade") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 la troncature est un morphisme de comonades
 :::
@@ -580,7 +580,7 @@ qui suit reposent sur cette structure.
 :::
 :
 ::::
-::::proposition (label := "thm:fenetre_grade") (level := "langage") (role := "proposition") (state := "proposed") (evidence := "proofsketch") (scope := "Réduction de fenêtres de pile à la troncature N_r ; explicitement non démontrée dans le bloc.")
+::::proposition (label := "thm:fenetre_grade") (level := "langage") (role := "proposition") (state := "proposed") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
 une fenêtre est un grade
 :::
