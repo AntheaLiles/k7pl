@@ -36,6 +36,7 @@ exemple le job `status` ajouté à `ci.yaml` sur `main` après l'audit) n'y figu
 | [`OPENSSF-AUDIT.md`](OPENSSF-AUDIT.md) | matrice des écarts consolidée des six audits |
 | [`BADGE-AUTOMATION.md`](BADGE-AUTOMATION.md) | état vérifié de BadgeApp, analyse des propositions et règle de synchronisation prudente |
 | [`BADGE-CONFORMANCE-MATRIX.md`](BADGE-CONFORMANCE-MATRIX.md) | matrice de conformité critère par critère et états probatoires datés |
+| `scripts/ci/check_badge_proposals.py` | contrôle local de cohérence, génération d'URL de proposition et détection read-only des dérives upstream |
 | [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md) | registre actif des écarts et actions encore ouvertes |
 | [`IMPLEMENTATION-STATUS.md`](IMPLEMENTATION-STATUS.md) | ce qui a été fait, ce qui ne l'a pas été, et la validation réellement exécutée |
 | [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md) | décisions qui reviennent à la mainteneuse (D1 à D11) |
