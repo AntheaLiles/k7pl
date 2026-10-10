@@ -87,3 +87,19 @@ Critères d'acceptation du premier prototype :
 ## 7. Hors périmètre explicite
 
 Ce modèle ne prétend pas encore relier formellement les propositions Lean aux implémentations et aux tests. Cette relation doit être recherchée dans les annotations et conventions existantes ; elle ne doit pas être supposée. L'accessibilité PDF/UA des figures reste un chantier distinct.
+
+## 8. Audit de traçabilité et limite du prototype — 11 octobre 2026
+
+Le générateur courant fait trois choses distinctes et ne doit pas les fusionner :
+
+1. `references` est extrait d'un rôle Verso `num` vers un label résolu dans les déclarations canoniques ; la provenance conservée est le fichier source, la ligne, le label cible, le fichier et la ligne de la déclaration.
+2. `cites` est extrait d'un rôle Verso `cite` vers une clé existante de `docs/bibliography/references.json` ; la provenance est la ligne de citation et la clé bibliographique.
+3. La chaîne figure → source TikZ → rendu SVG/PDF → renderer/workflow est une **provenance de génération**, fondée sur la correspondance exacte `canonical_verso` du manifeste et sur les étapes de build CI. Elle ne signifie pas que le code du renderer démontre une propriété de la figure.
+
+La vue C6/C3 ne produit pas d'arêtes `imports`, `tested-by` ou `implemented-by`. La simple présence d'une commande `import`, d'un fichier de test au nom similaire, d'une citation ou d'un objet voisin n'est pas suffisante pour inférer un lien scientifique. Les dépendances structurelles éventuelles devront être conservées dans une catégorie distincte et explicitement typées ; elles ne font pas partie des arêtes scientifiques actuelles.
+
+Le contrôle de sortie ajouté à la CI vérifie que les trois pages existent, qu'elles portent la révision attendue, que chaque lien local cible un fichier existant et que toute ancre HTML locale ciblée apparaît une seule fois. Les liens GitHub `blob` sont contrôlés contre la révision du build, le chemin canonique existant et, lorsqu'un fragment `L<n>` est présent, les lignes réellement disponibles. Des tests négatifs couvrent la cible Verso absente, la référence/citation non résolue, l'ancre rendue absente, les liens/ancres locaux cassés et la sortie périmée. Ces contrôles valident la cohérence mécanique des liens, non la pertinence scientifique d'une relation.
+
+La couche de validation d'une arête (extraite, passée dans la CI, revue par une personne) reste orthogonale au statut épistémique du contenu visé (proposition, hypothèse, résultat publié, preuve). La CI ne peut pas accorder une validation humaine.
+
+Le choix de phase est **réorienter** : ne pas étendre le modèle à définition → théorème → preuve → implémentation → test avant résultat positif de la comparaison d'usage du prototype étroit et avant identification de relations explicites ou de métadonnées canoniques capables de les attester.

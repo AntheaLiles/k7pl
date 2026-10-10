@@ -50,6 +50,29 @@ def github_url(ref: str, path: str, line: int | None = None) -> str:
     return f"{url}#L{line}" if line is not None else url
 
 
+def rendered_label_href(site_root: Path, output: Path, label: str) -> str:
+    """Resolve a canonical figure label to exactly one rendered document anchor."""
+    anchor = f"lbl-{label.replace(':', '-')}"
+    pattern = re.compile(r'\bid=["\']' + re.escape(anchor) + r'["\']')
+    matches: list[Path] = []
+    for page in sorted(site_root.rglob("*.html")):
+        if page.resolve() == output.resolve():
+            continue
+        try:
+            source = page.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError) as exc:
+            fail(f"cannot inspect rendered HTML {page}: {exc}")
+        if pattern.search(source):
+            matches.append(page)
+    if len(matches) != 1:
+        fail(
+            f"rendered anchor {anchor!r} must resolve to exactly one HTML page "
+            f"under {site_root}; found {len(matches)}"
+        )
+    relative = os.path.relpath(matches[0], output.parent).replace(os.sep, "/")
+    return f"{quote(relative, safe='/.-_')}#{quote(anchor, safe='-:')}"
+
+
 def long_description(lines: list[str], declaration_line: int) -> str:
     """Extract the canonical :::desc slot and normalize it for plain-text metadata."""
     inside_description = False
@@ -156,6 +179,7 @@ def render_page(root: Path, output: Path, ref: str) -> None:
         source_path = html.escape(figure.source_path)
         source_url = github_url(ref, figure.source_path)
         verso_url = github_url(ref, figure.verso_path, figure.line)
+        document_href = rendered_label_href(output.parent.parent, output, figure.label)
         svg_url = f"../figures/{quote(figure.stem, safe='-')}.svg"
         pdf_path = root / "spec" / "figures" / f"{figure.stem}.pdf"
         pdf_link = (
@@ -171,14 +195,15 @@ def render_page(root: Path, output: Path, ref: str) -> None:
             f'<p class="figure-description" id="{description_id}">{description}</p>'
             f'<p class="asset">{stem}</p>'
             f'<p class="source-kind">Source canonique : {html.escape(figure.source_kind)}</p>'
-            f'<p class="actions"><a href="{html.escape(verso_url, quote=True)}">Déclaration Verso</a>'
+            f'<p class="actions"><a href="{html.escape(document_href, quote=True)}">Page documentaire</a>'
+            f'<a href="{html.escape(verso_url, quote=True)}">Déclaration Verso</a>'
             f'<a href="{html.escape(source_url, quote=True)}">Source graphique</a>'
             f'<a href="{svg_url}">SVG publié</a>{pdf_link}</p>'
             f'<p class="source-path"><code>{source_path}</code></p></div></article>'
         )
 
     page = f"""<!doctype html>
-<html lang="fr">
+<html lang="fr" data-k7pl-generated-ref="{html.escape(ref, quote=True)}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

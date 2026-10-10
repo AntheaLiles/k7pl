@@ -124,8 +124,8 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Définir les objets et relations strictement nécessaires à cette tranche ; aucune relation conceptuelle n'est inférée depuis la simple proximité de fichiers.
 - [x] Définir les critères de validation avant la revue de l'interface (cadrage du prototype).
 - [x] Produire une première représentation navigable dans le rendu HTML publié : le catalogue de provenance est généré et validé en CI, puis déployé avec succès via GitHub Pages.
-- [ ] Comparer le parcours manuel actuel au parcours prototype, y compris le retour à la source canonique.
-- [ ] Décider explicitement si cette tranche apporte assez de valeur pour poursuivre vers un parcours définition → preuve → implémentation → test.
+- [ ] Comparer le parcours manuel actuel au parcours prototype avec des lecteurs non familiers ; le protocole, les mesures et le seuil de décision sont préenregistrés dans [le dossier de preuve de valeur](NAVIGATION-PROTOTYPE.md). Aucune mesure utilisateur n'est disponible à ce stade.
+- [x] Décision de phase du 2026-10-11 : **réorienter**. Conserver la tranche de provenance, suspendre l'extension sémantique et conditionner tout élargissement à la comparaison utilisateur et à la traçabilité explicite de chaque relation.
 
 ### P2 — Modèle documentaire et sémantique
 
@@ -185,3 +185,11 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [ ] Une évaluation comparative du parcours avant/après est produite.
 - [ ] Les bénéfices et limites sont documentés.
 - [ ] Une décision explicite est prise : poursuivre, réorienter ou abandonner l'industrialisation.
+
+## Point de reprise — preuve de valeur navigation (11 octobre 2026)
+
+Le run CI `38092815528` construit et déploie les trois pages de navigation ; l'inspection de son artefact Pages montre 67 pages HTML et 53 liens locaux valides dans le sous-ensemble de navigation, sans ancre locale visée manquante. C'est une vérification reproductible de l'artefact, pas un test utilisateur ni une preuve de bon fonctionnement des URL publiques.
+
+Une correction de réversibilité et un contrôle automatique des liens/fraîcheur sont préparés dans la PR de cette tranche. Après validation de la PR et déploiement, refaire l'inspection du nouvel artefact. Maintenir ouvertes la comparaison manuelle/prototype, l'essai réel mobile/clavier/sans JavaScript et la revue de valeur humaine. Ne pas modifier le tableau de bord global généré `docs/STATUS.md`.
+
+Le prochain parcours sémantique est bloqué, pas autorisé par défaut : aucune relation entre définition, théorème, preuve, implémentation et test ne sera ajoutée sur la seule base des noms de modules, imports ou proximités de fichiers.
