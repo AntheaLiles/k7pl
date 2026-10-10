@@ -50,6 +50,7 @@ Les commandes de vérification API, les champs observés et les limites connues 
 
 ## 3. Ratifier les choix de gouvernance et les affirmations publiques
 
+- [ ] **D2 — Maintenir l'immuabilité et le modèle de publication en deux temps** : confirmer que le tag déclenche seulement la préparation d'un brouillon, que la mainteneuse contrôle les artefacts et vérifie l'attestation avant de publier, et que l'immuabilité des releases reste activée. Ne pas désactiver une protection pour contourner un échec ; une erreur déjà publiée impose une nouvelle version.
 - [ ] **D9 — Gouvernance** : valider les rôles, les langues acceptées pour les signalements, le canal effectif du code de conduite et la décision DCO/CLA. Vérifier les liens et canaux réellement utilisables.
 - [ ] **D5 — Métadonnées de publication** : corriger ou ratifier avant publication la formulation prétendant que la spécification a été vérifiée contre « l'implémentation de référence ». La preuve actuelle ne permet pas d'affirmer une correspondance spécification–implémentation qui n'a pas été observée.
 - [ ] **D10 — Notes de version** : relire les notes de spec-v0.0.0-alpha.1 et décider la correction du changelog. La release existante est immuable ; ne pas tenter de la réparer en remplaçant tag ou assets.

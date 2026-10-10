@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC-BY-4.0
 |---|---|
 | État | **Préparation technique prête à relire ; conformité globale non achevée** |
 | Périmètre | Sécurité du dépôt, chaîne de construction/publication et préparation de l'auto-évaluation BadgeApp. Ne vaut ni certification ni revue humaine. |
-| Branche de travail | [PR #129](https://github.com/AntheaLiles/k7pl/pull/129), ouverte sur main ; ne pas considérer ses changements comme intégrés avant fusion. |
+| Trace de la dernière vague | [PR #129](https://github.com/AntheaLiles/k7pl/pull/129). Vérifier l'état de main pour savoir quels changements sont intégrés ; une PR ne prouve pas la conformité. |
 | Registres actifs | [Actions humaines ordonnées](ACTIONS-HUMAINES.md) · [Décisions D1–D11](DECISIONS-REQUISES.md) · [Matrice des critères](BADGE-CONFORMANCE-MATRIX.md) · [Analyse BadgeApp](BADGE-AUTOMATION.md) |
 | Dossier de preuves | [Audit consolidé](OPENSSF-AUDIT.md) · [État d'implémentation](IMPLEMENTATION-STATUS.md) · [Modèle de menace](THREAT-MODEL.md) · [Cas d'assurance](ASSURANCE-CASE.md) · [Politique des secrets](SECRETS-POLICY.md) |
 | Archives | [Checklist historique du 2026-10-10](../history/2026-10-10-openssf-conformance-checklist.md) · [Plan initial de remédiation](../history/2026-10-10-openssf-remediation-plan.md) · [Clôture de la vague d'automatisation](../history/2026-10-10-openssf-automation-closeout.md) |
