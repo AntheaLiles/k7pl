@@ -7,72 +7,77 @@ Generated view from `spec/`. The number is the global statement counter in docum
 
 | No. | Reviewed no. | Label | Status | Level | Title | Section | References |
 |--:|--:|---|---|---|---|---|--:|
-| 1 | — | `thm:distributivite_tronquee` | theorem | language | distributivité du produit sur la soustraction tronquée | §2.2 | 0 |
+| 1 | — | `thm:distributivite_tronquee` | lemma | language | distributivité du produit sur la soustraction tronquée | §2.2 | 0 |
 | 2 | 33 | `thm:coherence_axiome` | proposition | language | condition de compatibilité de l'action graduée | §2.2 | 1 |
-| 3 | — | `thm:coherence_usage` | proposition | language | cohérence de l'action d'usage | §2.2 | 0 |
-| 4 | — | `thm:action_parallele` | proposition | language | compatibilité de l'itération et de la mise en parallèle | §2.2 | 0 |
-| 5 | 1 | `thm:terminaison_couche_3` | theorem | language | terminaison de la couche 3 — l'instance inductive | §2.3 | 1 |
-| 6 | 2 | `thm:sedimentation` | theorem | language | bonne définition de la sédimentation | §2.3 | 1 |
-| 7 | 3 | `thm:productivite_couche_2` | theorem | language | productivité de la couche 2 — l'instance coinductive | §2.3 | 1 |
-| 8 | 4 | `thm:progression_polarisee` | theorem | language | progression, paramétrée par la couche | §2.3 | 4 |
-| 9 | 5 | `thm:loi_historique` | theorem | language | loi distributive de l'historique | §2.3 | 0 |
-| 10 | — | `thm:troncature_comonade` | theorem | language | la troncature est un morphisme de comonades | §2.3 | 3 |
-| 11 | — | `thm:fenetre_grade` | proposition | language | une fenêtre est un grade | §2.3 | 0 |
-| 12 | 6 | `thm:divulgation_delimitee` | proposition | language | divulgation délimitée | §2.4 | 3 |
-| 13 | 7 | `thm:terminaison_lfp` | theorem | language | terminaison du point fixe déductif | §2.4 | 6 |
-| 14 | 8 | `thm:raffinement` | theorem | language | structure de raffinement | §2.5 | 3 |
-| 15 | 9 | `thm:non_interference` | theorem | language | non-interférence graduée, fragment séquentiel | §2.5 | 4 |
-| 16 | — | `thm:determinisme_observationnel` | conjecture | language | déterminisme observationnel | §2.5 | 0 |
-| 17 | — | `thm:schema_commutation` | theorem | language | schéma de commutation | §2.6 | 4 |
-| 18 | — | `thm:schema_preservation` | theorem | language | schéma de préservation par traduction | §2.6 | 2 |
-| 19 | — | `thm:tri_topologique` | theorem | language | tri topologique | §2.6 | 2 |
-| 20 | — | `thm:schema_restriction` | theorem | language | schéma de restriction | §2.6 | 2 |
-| 21 | — | `thm:schema_reinvocation` | theorem | language | schéma de ré-invocation bornée | §2.6 | 0 |
-| 22 | — | `thm:schema_effacement` | theorem | language | schéma d'effacement | §2.6 | 2 |
-| 23 | — | `thm:lemme_capacite` | theorem | language | lemme de capacité | §2.6 | 1 |
-| 24 | 10 | `thm:morphismes_modes` | proposition | language | ordre structurel des modes | §3.1 | 0 |
-| 25 | 11 | `thm:completude_graduee` | proposition | language | complétude graduée | §3.1 | 0 |
-| 26 | — | `thm:completude_verificateur` | requirement | compilation | le vérificateur n'émet que des codes de la correspondance | §3.1 | 0 |
-| 27 | 12 | `thm:deadlock_acyclique` | theorem | language | absence de deadlock par acyclicité du graphe de sessions | §3.2 | 0 |
-| 28 | 13 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | §3.2 | 1 |
-| 29 | — | `thm:representation_inobservable` | requirement | representation | aucune liberté de représentation n'est observable | §3.2 | 0 |
-| 30 | 14 | `thm:preservation_type` | theorem | language | préservation du type | §3.3 | 0 |
-| 31 | 29 | `thm:temps_mononiveau` | theorem | language | le cas mononiveau redonne la forme plate | §3.4 | 1 |
-| 32 | 30 | `thm:boxtimes_addition` | theorem | language | $`\boxtimes` généralise l'addition ponctuelle | §3.6 | 0 |
-| 33 | 31 | `thm:coherence_subsomption` | proposition | language | cohérence de la subsomption | §3.6 | 3 |
-| 34 | 32 | `thm:commutation_monoide` | theorem | language | commutation des deux familles | §3.6 | 0 |
-| 35 | — | `thm:determinisme_parallele` | theorem | language | déterminisme du parallélisme de couche 3 | §3.6 | 0 |
-| 36 | 34 | `thm:substitution` | proposition | language | substitution sur trois niveaux | §3.6 | 6 |
-| 37 | 35 | `thm:substitution_simultanee` | theorem | language | substitution simultanée — corollaire de la substitution élémentaire | §3.6 | 1 |
-| 38 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 7 |
-| 39 | 16 | `thm:surete_spatiale` | theorem | language | sûreté spatiale par capacités linéaires | §4.4 | 2 |
-| 40 | — | `thm:introduction_unique` | proposition | language | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
-| 41 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 1 |
-| 42 | — | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 2 |
-| 43 | 18 | `thm:liberte_initialisation` | theorem | language | liberté d'initialisation par DAG topologique | §4.5 | 0 |
-| 44 | 19 | `thm:sync_motifs_jonction` | theorem | language | synchronisation atomique des motifs de jonction | §4.5 | 1 |
-| 45 | 20 | `thm:surete_ffi` | theorem | language | sûreté FFI par la passerelle de capacité | §4.5 | 0 |
-| 46 | — | `thm:revocation_ffi` | requirement | representation | révocation à la frontière étrangère | §4.5 | 0 |
-| 47 | 21 | `thm:traduction_metalangage` | proposition | language | la traduction préserve le typage | §4.6 | 11 |
-| 48 | — | `thm:simulation` | proposition | language | simulation de la relation de réduction par la traduction | §4.6 | 1 |
-| 49 | 22 | `thm:fidelite_interprete` | proposition | language | fidélité de l'interpréteur de référence | §4.6 | 3 |
-| 50 | 36 | `thm:preservation` | theorem | language | préservation | §4.7 | 3 |
-| 51 | 37 | `thm:progres` | theorem | language | progrès | §4.7 | 0 |
-| 52 | 38 | `thm:correction_ressource` | theorem | language | correction de ressource | §4.7 | 0 |
-| 53 | 39 | `thm:stratification_journal` | theorem | language | stratification du journal | §4.7 | 0 |
-| 54 | — | `thm:relation_produit` | proposition | language | relation logique sur un produit de structures ordonnées | §4.7 | 0 |
-| 55 | 40 | `thm:lemme_fondamental` | theorem | language | lemme fondamental | §4.7 | 4 |
-| 56 | 41 | `thm:commutation_traduction` | theorem | language | commutation de la traduction et de la substitution | §4.7 | 1 |
-| 57 | 42 | `thm:image_fix` | theorem | language | image du point fixe déductif | §4.7 | 0 |
-| 58 | 43 | `thm:cloture_sortage` | theorem | language | clôture du bon sortage par substitution | §4.8 | 0 |
-| 59 | 44 | `thm:confinement_sortes` | theorem | language | confinement des canaux distingués | §4.8 | 2 |
-| 60 | 23 | `thm:staticite_syntaxe` | theorem | language | staticité de la syntaxe | §5.2 | 1 |
-| 61 | 24 | `thm:hygiene` | theorem | language | hygiène des expansions | §5.2 | 1 |
-| 62 | — | `thm:hygiene_graduee` | proposition | language | hygiène graduée des expansions | §5.2 | 0 |
-| 63 | — | `thm:resucrage` | requirement | language | préservation de l'α-équivalence de surface | §5.2 | 0 |
-| 64 | — | `thm:elaboration` | definition | language | élaboration | §5.3 | 2 |
-| 65 | 25 | `thm:expansion_macro` | theorem | language | la règle d'expansion est dérivable | §5.4 | 3 |
-| 66 | — | `thm:stabilisation_pipeline` | theorem | language | stabilisation du pipeline | §6.1 | 0 |
-| 67 | 26 | `thm:interface_jugement` | definition | language | l'interface d'une unité de compilation est son jugement | §6.2 | 0 |
-| 68 | 27 | `thm:rejet_reproductible` | theorem | language | reproductibilité du rejet | §6.2 | 3 |
-| 69 | 28 | `thm:abaissement_grades` | conjecture | compilation | l'abaissement préserve le jugement gradué | §6.2 | 3 |
+| 3 | — | `thm:coherence_usage` | lemma | language | cohérence de l'action d'usage | §2.2 | 0 |
+| 4 | — | `thm:action_parallele` | lemma | language | compatibilité de l'itération et de la mise en parallèle | §2.2 | 0 |
+| 5 | 1 | `thm:terminaison_couche_3` | corollary | language | terminaison de la couche 3 — l'instance inductive | §2.3 | 1 |
+| 6 | 2 | `thm:sedimentation` | literature | language | bonne définition de la sédimentation | §2.3 | 1 |
+| 7 | — | `req:sedimentation_graduee` | requirement | language | extension graduée de la sédimentation | §2.3 | 0 |
+| 8 | 3 | `thm:productivite_couche_2` | corollary | language | productivité de la couche 2 — l'instance coinductive | §2.3 | 1 |
+| 9 | 4 | `thm:progression_polarisee` | theorem | language | progression, paramétrée par la couche | §2.3 | 4 |
+| 10 | 5 | `thm:loi_historique` | theorem | language | loi distributive de l'historique | §2.3 | 0 |
+| 11 | — | `thm:troncature_comonade` | theorem | language | la troncature est un morphisme de comonades | §2.3 | 3 |
+| 12 | — | `thm:fenetre_grade` | proposition | language | une fenêtre est un grade | §2.3 | 0 |
+| 13 | 6 | `thm:divulgation_delimitee` | conjecture | language | divulgation délimitée | §2.4 | 3 |
+| 14 | 7 | `thm:terminaison_lfp` | theorem | language | terminaison du point fixe déductif | §2.4 | 6 |
+| 15 | 8 | `thm:raffinement` | theorem | language | structure de raffinement | §2.5 | 3 |
+| 16 | 9 | `thm:non_interference` | theorem | language | non-interférence graduée, fragment séquentiel | §2.5 | 4 |
+| 17 | — | `thm:determinisme_observationnel` | conjecture | language | déterminisme observationnel | §2.5 | 0 |
+| 18 | — | `thm:schema_commutation` | lemma | language | schéma de commutation | §2.6 | 4 |
+| 19 | — | `thm:schema_preservation` | lemma | language | schéma de préservation par traduction | §2.6 | 2 |
+| 20 | — | `thm:tri_topologique` | lemma | language | tri topologique | §2.6 | 2 |
+| 21 | — | `thm:schema_restriction` | lemma | language | schéma de restriction | §2.6 | 2 |
+| 22 | — | `thm:schema_reinvocation` | lemma | language | schéma de ré-invocation bornée | §2.6 | 0 |
+| 23 | — | `req:schema_reinvocation_compatibility` | requirement | language | compatibilité de la ré-invocation | §2.6 | 0 |
+| 24 | — | `thm:schema_effacement` | lemma | language | schéma d'effacement | §2.6 | 2 |
+| 25 | — | `thm:lemme_capacite` | lemma | language | lemme de capacité | §2.6 | 1 |
+| 26 | 10 | `thm:morphismes_modes` | proposition | language | ordre structurel des modes | §3.1 | 0 |
+| 27 | 11 | `thm:completude_graduee` | proposition | language | complétude graduée | §3.1 | 0 |
+| 28 | — | `thm:completude_verificateur` | requirement | compilation | le vérificateur n'émet que des codes de la correspondance | §3.1 | 0 |
+| 29 | 12 | `thm:deadlock_acyclique` | theorem | language | absence de deadlock par acyclicité du graphe de sessions | §3.2 | 0 |
+| 30 | 13 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | §3.2 | 1 |
+| 31 | — | `req:homomorphisme_roues_realisation` | requirement | representation | réalisation de l’arithmétique des roues | §3.2 | 0 |
+| 32 | — | `thm:representation_inobservable` | requirement | representation | aucune liberté de représentation n'est observable | §3.2 | 0 |
+| 33 | 14 | `thm:preservation_type` | theorem | language | préservation du type | §3.3 | 0 |
+| 34 | 29 | `thm:temps_mononiveau` | lemma | language | le cas mononiveau redonne la forme plate | §3.4 | 1 |
+| 35 | 30 | `thm:boxtimes_addition` | corollary | language | $`\boxtimes` généralise l'addition ponctuelle | §3.6 | 0 |
+| 36 | 31 | `thm:coherence_subsomption` | proposition | language | cohérence de la subsomption | §3.6 | 3 |
+| 37 | 32 | `thm:commutation_monoide` | lemma | language | commutation des deux familles | §3.6 | 0 |
+| 38 | — | `thm:determinisme_parallele` | theorem | language | déterminisme du parallélisme de couche 3 | §3.6 | 0 |
+| 39 | 34 | `thm:substitution` | lemma | language | substitution sur trois niveaux | §3.6 | 6 |
+| 40 | 35 | `thm:substitution_simultanee` | corollary | language | substitution simultanée — corollaire de la substitution élémentaire | §3.6 | 1 |
+| 41 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 7 |
+| 42 | 16 | `thm:surete_spatiale` | theorem | language | sûreté spatiale par capacités linéaires | §4.4 | 2 |
+| 43 | — | `thm:introduction_unique` | proposition | language | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
+| 44 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 1 |
+| 45 | — | `thm:rejeu_binaire` | corollary | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 2 |
+| 46 | 18 | `thm:liberte_initialisation` | lemma | language | liberté d'initialisation par DAG topologique | §4.5 | 0 |
+| 47 | 19 | `thm:sync_motifs_jonction` | lemma | language | synchronisation atomique des motifs de jonction | §4.5 | 1 |
+| 48 | 20 | `thm:surete_ffi` | theorem | language | sûreté FFI par la passerelle de capacité | §4.5 | 0 |
+| 49 | — | `thm:revocation_ffi` | requirement | representation | révocation à la frontière étrangère | §4.5 | 0 |
+| 50 | 21 | `thm:traduction_metalangage` | theorem | language | la traduction préserve le typage | §4.6 | 11 |
+| 51 | — | `thm:simulation` | theorem | language | simulation de la relation de réduction par la traduction | §4.6 | 1 |
+| 52 | 22 | `thm:fidelite_interprete` | theorem | language | fidélité de l'interpréteur de référence | §4.6 | 3 |
+| 53 | 36 | `thm:preservation` | theorem | language | préservation | §4.7 | 3 |
+| 54 | 37 | `thm:progres` | theorem | language | progrès | §4.7 | 0 |
+| 55 | 38 | `thm:correction_ressource` | theorem | language | correction de ressource | §4.7 | 0 |
+| 56 | 39 | `thm:stratification_journal` | theorem | language | stratification du journal | §4.7 | 0 |
+| 57 | — | `thm:relation_produit` | lemma | language | relation logique sur un produit de structures ordonnées | §4.7 | 0 |
+| 58 | 40 | `thm:lemme_fondamental` | lemma | language | lemme fondamental | §4.7 | 4 |
+| 59 | 41 | `thm:commutation_traduction` | lemma | language | commutation de la traduction et de la substitution | §4.7 | 1 |
+| 60 | 42 | `thm:image_fix` | theorem | language | image du point fixe déductif | §4.7 | 0 |
+| 61 | 43 | `thm:cloture_sortage` | lemma | language | clôture du bon sortage par substitution | §4.8 | 0 |
+| 62 | 44 | `thm:confinement_sortes` | lemma | language | confinement des canaux distingués | §4.8 | 2 |
+| 63 | 23 | `thm:staticite_syntaxe` | corollary | language | staticité de la syntaxe | §5.2 | 1 |
+| 64 | 24 | `thm:hygiene` | lemma | language | hygiène des expansions | §5.2 | 1 |
+| 65 | — | `thm:hygiene_graduee` | conjecture | language | hygiène graduée des expansions | §5.2 | 0 |
+| 66 | — | `thm:resucrage` | requirement | language | préservation de l'α-équivalence de surface | §5.2 | 0 |
+| 67 | — | `def:elaboration` | definition | language | fonction d’élaboration | §5.3 | 0 |
+| 68 | — | `thm:elaboration` | theorem | language | élaboration | §5.3 | 2 |
+| 69 | 25 | `thm:expansion_macro` | corollary | language | la règle d'expansion est dérivable | §5.4 | 3 |
+| 70 | — | `thm:stabilisation_pipeline` | theorem | language | stabilisation du pipeline | §6.1 | 0 |
+| 71 | 26 | `thm:interface_jugement` | definition | language | l'interface d'une unité de compilation est son jugement | §6.2 | 0 |
+| 72 | — | `thm:interface_jugement_cloture` | proposition | language | clôture locale de l’interface | §6.2 | 0 |
+| 73 | 27 | `thm:rejet_reproductible` | theorem | language | reproductibilité du rejet | §6.2 | 3 |
+| 74 | 28 | `thm:abaissement_grades` | conjecture | compilation | l'abaissement préserve le jugement gradué | §6.2 | 3 |
