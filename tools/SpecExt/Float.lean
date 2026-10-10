@@ -101,10 +101,10 @@ block_extension Block.float (info : FloatInfo) where
         | none => pure {{<span class="k7-capno">{{s!"{floatName info.kind} {n}"}}</span>}}
       -- The provenance catalog is generated from canonical figure declarations and source mappings.
       -- Keep this link generic: the catalog, not this renderer, determines each figure's source.
+      let provenanceLink : Output.Html :=
+        {{<a href={{"navigation/figures.html#" ++ info.arg}}>Sources et rendus</a>}}
       let provenanceH : Output.Html :=
-        if info.kind == "figure" then
-          {{<div class="k7-provenance"><a href={{"navigation/figures.html#" ++ info.arg}}>Sources et rendus</a></div>}}
-        else .empty
+        if info.kind == "figure" then {{<div class="k7-provenance">{{provenanceLink}}</div>}} else .empty
       let caption : Output.Html :=
         {{<div class="k7-caption">{{cap}}{{descH}}{{noteH}}{{srcH}}{{provenanceH}}</div>}}
       let body : Output.Html ←
