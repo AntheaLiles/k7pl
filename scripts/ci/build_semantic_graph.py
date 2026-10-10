@@ -98,7 +98,7 @@ def label_index(root: Path) -> dict[str, LabelTarget]:
     return index
 
 
-def extract_edges(root: Path, source_path: str, source_label: str, targets: dict[str, LabelTarget]) -> tuple[LabelTarget, list[dict[str, object]]]:
+def extract_edges(root: Path, source_path: str, source_label: str, targets: dict[str, LabelTarget], start_line: int, end_line: int) -> tuple[LabelTarget, list[dict[str, object]]]:
     lines = source_lines(root, source_path)
     source = targets.get(source_label)
     if source is None or source.path != source_path:
@@ -111,7 +111,12 @@ def extract_edges(root: Path, source_path: str, source_label: str, targets: dict
         fail(f"cannot read bibliography entries: {exc}")
 
     edges: list[dict[str, object]] = []
+    if start_line < 1 or end_line < start_line or start_line > len(lines):
+        fail(f"invalid source range {start_line}-{end_line} for {source_path}")
+    end_line = min(end_line, len(lines))
     for number, line in enumerate(lines, 1):
+        if number < start_line or number > end_line:
+            continue
         for match in NUM_ROLE.finditer(line):
             target_label = lean_string(match.group(1))
             target = targets.get(target_label)
@@ -196,9 +201,9 @@ def svg_edge(x1: int, y1: int, x2: int, y2: int, label: str) -> str:
     )
 
 
-def build(root: Path, output: Path, ref: str, source_path: str, source_label: str) -> None:
+def build(root: Path, output: Path, ref: str, source_path: str, source_label: str, start_line: int, end_line: int) -> None:
     targets = label_index(root)
-    source, edges = extract_edges(root, source_path, source_label, targets)
+    source, edges = extract_edges(root, source_path, source_label, targets, start_line, end_line)
     tikz_manifest = json.loads((root / "spec" / "figures" / "tikz" / "manifest.json").read_text(encoding="utf-8"))
     tikz_by_stem = {item["asset_stem"]: item for item in tikz_manifest["figures"]}
 
@@ -240,7 +245,6 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
         line_label = "num" if edge["kind"] == "references" else "cite"
         paths.append(svg_edge(source_x + 260, source_y + 45, x, y + 37, line_label))
 
-    figure_node = next((node for node in relation_nodes if node["kind"] == "figure" and node["id"] in tikz_by_stem.values()), None)
     # Resolve the figure by its label target's asset stem, not by visual label or filename similarity.
     figure_node = next(
         (
@@ -283,7 +287,6 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
         paths.append(svg_edge(workflow_pos[0] + 250, workflow_pos[1] + 37, svg_pos[0], svg_pos[1] + 37, "valide"))
 
         svg_path = root / "spec" / "figures" / f"{stem}.svg"
-        pdf_path = root / "spec" / "figures" / f"{stem}.pdf"
         if not svg_path.is_file():
             fail(f"figure SVG is missing for provenance graph: {svg_path.relative_to(root)}")
         provenance_summary = (
@@ -335,7 +338,7 @@ li {{ margin: .5rem 0; }}
 <nav aria-label="Navigation du prototype"><a href="figures.html">Catalogue des figures</a>
 <a href="{html.escape(source_url, quote=True)}">Source canonique de la section</a></nav>
 <h1>Graphe local : {html.escape(source.title)}</h1>
-<p>Ce graphe montre les références Verso et citations explicitement présentes dans la source. Les arêtes de provenance de la figure sont distinguées des relations documentaires. Il ne représente pas les dépendances de preuve ni les liens vers les tests.</p>
+<p>Ce graphe montre les références Verso et citations explicitement présentes aux lignes {start_line}–{end_line} de la source. Les arêtes de provenance de la figure sont distinguées des relations documentaires. Il ne représente pas les dépendances de preuve ni les liens vers les tests.</p>
 <div class="graph">{svg}</div>
 <h2>Relations et provenance</h2>
 <ul>{''.join(edge_items)}</ul>
@@ -355,10 +358,12 @@ def main() -> int:
     parser.add_argument("--ref", default=os.environ.get("GITHUB_SHA", "main"))
     parser.add_argument("--source", default="spec/Spec/C6/LeProcessusDeCompilation.lean")
     parser.add_argument("--label", default="sec:c6-le-processus-de-compilation")
+    parser.add_argument("--start-line", type=int, default=22)
+    parser.add_argument("--end-line", type=int, default=50)
     args = parser.parse_args()
     root = args.repo_root.resolve()
     output = args.output if args.output.is_absolute() else root / args.output
-    build(root, output, args.ref, args.source, args.label)
+    build(root, output, args.ref, args.source, args.label, args.start_line, args.end_line)
     return 0
 
 
