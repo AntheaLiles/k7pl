@@ -261,6 +261,9 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
         target = targets[str(figure_node["id"])]
         stem = target.asset_stem or ""
         manifest_item = tikz_by_stem[stem]
+        canonical_mapping = f"{target.path}#{target.label}"
+        if manifest_item.get("canonical_verso") != canonical_mapping:
+            fail(f"manifest mapping for {stem!r} does not match {canonical_mapping!r}")
         tex_path = f"spec/figures/tikz/{manifest_item['source']}"
         tex_url = github_url(ref, tex_path)
         renderer_path = "tools/SpecExt/Float.lean"
