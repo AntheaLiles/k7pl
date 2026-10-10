@@ -41,7 +41,7 @@ Therefore:
 |---|---|---|---|
 | A — finalize #50 | DONE | #50 merged | repository entry-point/security baseline incorporated |
 | B — freeze CI/documentation baseline | DONE | #53 merged; current main baseline | execution baseline remains identifiable and reproducible |
-| C — theoretical objects | IN PROGRESS | #54 | theoretical interfaces closed; residual work explicit as proof/semantic/decision obligations |
+| C — theoretical objects | IN PROGRESS — PR #54 merged; residual obligations remain | #54 + current migration/proof registers | theoretical interfaces closed; residual work explicit as proof/semantic/decision obligations |
 | D — singularities | NOT STARTED in this sequence | BLOQ-12 / singularity work | singularity treatment resolved without hidden architectural change |
 | E — ∥ | NOT STARTED | PR-02 continuation | parallel construct formally and semantically integrated |
 | F — spawn | NOT STARTED | PR-02 continuation | spawn semantics and typing integrated |
@@ -110,7 +110,7 @@ The baseline freezes execution evidence, not mathematical conclusions.
 
 **Objective.** Stabilize the theoretical objects and their epistemic boundaries before reopening dependent constructs.
 
-**Current state.** IN PROGRESS in #54.
+**Current state.** PR #54 was merged on 2026-10-08. This closed that delivery step, not workstream C: the remaining theoretical interfaces, proof obligations and semantic/decision questions remain tracked below and in the active migration registers.
 
 The architectural exploration is substantially closed. The remaining work must be demonstrative, semantic, or decisional rather than a new uncontrolled architectural search.
 
@@ -564,7 +564,7 @@ Routine progress belongs in the dedicated registers.
 ## 23. K — Lean tools for project-compliance assurance
 
 **Status:** OPEN — prototype, independent SPDX validation and five-sample micro-measurement passed CI; cross-run evaluation pending  
-**Anchor:** [GitHub issue #122](https://github.com/AntheaLiles/k7pl/issues/122) · [decision and feasibility note](../research/LEAN-COMPLIANCE-ASSURANCE.md) · branch `research/lean-sbom-consistency-poc`
+**Anchor:** [GitHub issue #122](https://github.com/AntheaLiles/k7pl/issues/122) · [decision and feasibility note](../research/LEAN-COMPLIANCE-ASSURANCE.md) · [merged prototype PR #128](https://github.com/AntheaLiles/k7pl/pull/128)
 
 The inventory and feasibility pass selected a narrowly scoped Lake-to-SPDX 2.3 consistency audit, reusing the existing generator. CI #891 passed on PR head `69368cea93b9c0fc25d2164b8052e90a85e1690a`: Lean build, 14-entry inventory audit, CLI negative cases, `lake test`, `lake lint`, axiom audits, Python tests, workflow/security checks and specification/PDF build. The Python job installed the hash-locked `spdx-tools==0.8.5` closure, independently validated the generated SPDX 2.3 document and ran a five-sample timing probe. The repeated validator median was 304.564 ms (min 302.409, max 313.096) on one runner, with the same input SHA-256 across samples. These values are descriptive only; the first standalone invocation was slower, so cache/run-order effects remain a confound. The theorem still concerns only normalized fields. Upstream issue #885 remains a known validator gap; a local guard covers that case but not all possible validator limitations.
 
@@ -575,6 +575,8 @@ The workstream continues to distinguish:
 - versioning, applicability, exceptions, conflicts, and provenance of constraints;
 - Lean-specific formalization from simpler rule engines, structured registers, and existing compliance tooling.
 
-**Exit criterion:** the bounded prototype, negative CLI cases, hash-locked validator install, SPDX 2.3 validation, byte-identical fixed-input regeneration, five-sample timing probe and full CI passed in #891. Provisional recommendation: GO for continued research on the bounded prototype; NO-GO for production or global compliance claims. Remaining work is cross-run characterization, expansion of negative SPDX fixtures, measurement of validation coverage/diagnostics and review of additional validator blind spots. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
+**Prototype exit criterion (met by PR #128):** the bounded audit, negative CLI cases, hash-locked validator install, SPDX 2.3 validation, byte-identical fixed-input regeneration, five-sample timing probe and full CI passed in #891. Provisional recommendation: GO for continued research on the bounded prototype; NO-GO for production or global compliance claims.
 
-The OpenSSF/security track is separate from this scientific queue. Its safe automation and documentation consolidation is proposed in PR #129; the operational state and ordered human actions remain in docs/security/OPENSSF-ROADMAP.md and docs/security/ACTIONS-HUMAINES.md. Neither a successful CI run nor this master plan implies BadgeApp submission, a release test, or an independently reviewed security claim.
+**Evaluation still open:** characterize runs with independent CI executions, expand the external validator's negative SPDX corpus, measure diagnostic coverage and inspect further validator blind spots. The current unit tests exercise wrapper failure/diagnostic paths; they do not establish coverage of the full SPDX schema. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
+
+The OpenSSF/security track is separate from this scientific queue. Its safe automation and documentation consolidation were merged in PR #129; the remaining operational state and ordered human actions are tracked in docs/security/OPENSSF-ROADMAP.md and docs/security/ACTIONS-HUMAINES.md. Neither a successful CI run nor this master plan implies BadgeApp submission, a release test, or an independently reviewed security claim.
