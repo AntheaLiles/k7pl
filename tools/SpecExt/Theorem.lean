@@ -102,7 +102,7 @@ def allowedEvidence (s : String) : Bool :=
 
 /-- Closed vocabulary for explicit statement scope tags. Detailed limitations remain in the statement and migration register. -/
 def allowedScope (s : String) : Bool :=
-  ["syntax", "metatheory", "graphs", "resources", "memory-safety", "security", "operational-semantics", "graded-typing", "effects", "logical-relations", "translation", "fixed-points", "interoperability", "concurrency", "ffi-safety", "representation", "compiler-interface", "compilation", "resource-accounting", "literature"].contains s
+  ["syntax", "metatheory", "graphs", "resources", "memory-safety", "security", "operational-semantics", "graded-typing", "effects", "logical-relations", "translation", "fixed-points", "interoperability", "concurrency", "ffi-safety", "representation", "compiler-interface", "compilation", "resource-accounting", "literature", "runtime"].contains s
 
 def validRoleForKind (kind role : String) : Bool :=
   match kind with
