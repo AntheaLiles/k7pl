@@ -63,6 +63,7 @@ def test_generates_catalog_from_verso_and_canonical_sources(tmp_path: Path) -> N
     assert "blob/deadbeef/" in page
     assert "../figures/asset-one.svg" in page
     assert "2 figures déclarées recensées" in page
+    assert "semantic-graph.html" in page
 
 
 def test_fails_when_a_declared_figure_has_no_canonical_source(tmp_path: Path) -> None:
