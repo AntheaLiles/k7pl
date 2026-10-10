@@ -277,14 +277,17 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
         nodes.append(svg_node("renderer", "Renderer Verso Float.lean", "outil", github_url(ref, renderer_path), *renderer_pos, 250, 74))
         nodes.append(svg_node("workflow", "Validation CI", "outil", github_url(ref, workflow_path), *workflow_pos, 250, 74))
         nodes.append(svg_node("svg:" + stem, f"SVG {stem}", "artefact", f"../figures/{quote(stem, safe='-')}.svg", *svg_pos, 250, 74))
-        nodes.append(svg_node("pdf:" + stem, f"PDF {stem}", "artefact", f"../figures/{quote(stem, safe='-')}.pdf", *pdf_pos, 250, 74))
 
         fx, fy0 = relation_positions[str(figure_node["id"])]
         paths.append(svg_edge(fx + 250, fy0 + 37, source_pos[0], source_pos[1] + 37, "source canonique"))
         paths.append(svg_edge(fx + 250, fy0 + 45, renderer_pos[0], renderer_pos[1] + 37, "rendu"))
         paths.append(svg_edge(source_pos[0] + 250, source_pos[1] + 37, svg_pos[0], svg_pos[1] + 37, "génère"))
-        paths.append(svg_edge(source_pos[0] + 250, source_pos[1] + 45, pdf_pos[0], pdf_pos[1] + 37, "génère"))
         paths.append(svg_edge(workflow_pos[0] + 250, workflow_pos[1] + 37, svg_pos[0], svg_pos[1] + 37, "valide"))
+
+        pdf_path = root / "spec" / "figures" / f"{stem}.pdf"
+        if pdf_path.is_file():
+            nodes.append(svg_node("pdf:" + stem, f"PDF {stem}", "artefact", f"../figures/{quote(stem, safe='-')}.pdf", *pdf_pos, 250, 74))
+            paths.append(svg_edge(source_pos[0] + 250, source_pos[1] + 45, pdf_pos[0], pdf_pos[1] + 37, "génère"))
 
         svg_path = root / "spec" / "figures" / f"{stem}.svg"
         if not svg_path.is_file():
