@@ -44,12 +44,12 @@ tant qu'il ne s'exécute pas : son défaut est de ne pas fonctionner, pas d'agir
 
 | ID | Problème | Justification | Fichiers | Agent | Dépendances | Risque de régression | Validation attendue | Statut |
 |---|---|---|---|---|---|---|---|---|
-| R1 | `release.yaml` ne peut pas joindre le PDF (release immuable ; pas de `GH_REPO`) et n'a jamais tourné | C1 : sans correction, la première release de spécification échoue | `release.yaml` | supply-chain | R2 ; réglage d'immuabilité (H) | **élevé** : workflow jamais exécuté de bout en bout | `actionlint` ; `zizmor` hors ligne ; relecture adversariale ; mode essai déclenché en CI (contrôles et build, sans brouillon) ; répétition humaine sur sandbox | PREPARED |
-| R2 | Le build du PDF attesté restaure des caches de `main` | écart important (ASS § 3.5, SUP § 3.5) | `verify.yaml` (entrée `use_cache`) | quality | — | faible : défaut inchangé | `actionlint` ; CI complète verte avec `use_cache` par défaut | PREPARED |
+| R1 | Flux `release.yaml` : création du brouillon, PDF, somme et attestation avant publication immuable | C1 : le flux doit préparer tous les assets avant le geste irréversible | `release.yaml` | supply-chain | R2 ; réglages GitHub et répétition Zenodo (H) | **élevé** : la publication réelle reste irréversible | `actionlint` ; `zizmor` hors ligne ; relecture adversariale ; répétition `workflow_dispatch` sur `main` réussie le 2026-10-10 ; création réelle d'un brouillon et vérification de l'attestation encore à faire | PARTIAL |
+| R2 | Le build du PDF attesté restaure des caches de `main` | écart important (ASS § 3.5, SUP § 3.5) | `verify.yaml` (entrée `use_cache`) | quality | — | faible : défaut inchangé | CI `main` verte avec comportement par défaut et répétition Release réussie avec `use_cache: false` le 2026-10-10 | VERIFIED |
 | R3 | Zenodo : DOI sans origine, état sur branche mutable, `ZENODO_ENV` en secret, jeton en argument de commande | C2 : DOI de concept en doublon irréversible | `zenodo.yaml`, `sync_zenodo.py` + test | supply-chain | **décision de l'autrice sur le DOI** ; environnement `zenodo` (H) | élevé (irréversible) : d'où l'**échec par défaut** | tests unitaires hors ligne avec simulation de l'API ; `actionlint` ; répétition sur sandbox | PREPARED |
 | R4 | `bump-lean` : PAT et code amont sur la même machine ; `contents: write` inutile ; interpolation dans `run:` | écart important (SUP § 3.10, ASS § 3.4) | `bump-lean.yaml`, `scripts/ci/check_manifest.py` + test | supply-chain | environnement `bump-lean` (H) | moyen : branche « nouvelle version » non exercée depuis longtemps | `actionlint` ; tests du contrôle de manifeste sur le manifeste réel ; relecture ; première exécution réelle au prochain bump | PREPARED |
 | R5 | Secrets hors environnement ; aucune règle de tags ; réglages Actions et 2FA non vérifiés | C3 | réglages GitHub | — | — | — | liste de procédures et vérifications dans `ACTIONS-HUMAINES.md` | HUMAN ACTION REQUIRED |
-| R6 | Aucun contrôle « le tag est sur `main` et `CI OK` y a réussi » | I1 (SUP) | `release.yaml` (job `check`) | supply-chain | R1 | faible | même validation que R1 | PREPARED |
+| R6 | Contrôle que le commit ciblé est sur `main` et que `CI OK` a réussi | I1 (SUP) | `release.yaml` (job `check`) | supply-chain | R1 | faible | répétition `workflow_dispatch` réussie le 2026-10-10 ; événement réel sur un tag encore non exercé | PARTIAL |
 | R7 | Le vecteur d'agent piégé n'est pas restreint | risque le plus vraisemblable (ASS § 5) | `.claude/settings.json`, `.claude/agents/*.md` | — | **décision de l'autrice** | — | extrait proposé dans `DECISIONS-REQUISES.md` | HUMAN ACTION REQUIRED |
 
 ## 4. P2 : amélioration substantielle
@@ -78,7 +78,7 @@ tant qu'il ne s'exécute pas : son défaut est de ne pas fonctionner, pas d'agir
 | R22 | `lean4checker` dans `full.yaml` | FUTURE | coût à mesurer ; revérifie les oléans importés |
 | R23 | Tags signés | FUTURE | clé détenue par l'humain ; valeur faible sans canal de confiance extérieur |
 | R24 | Fuzzing, tests par propriétés | FUTURE | aucune surface d'entrée avant un analyseur du langage |
-| R25 | Prototype SBOM SPDX/CycloneDX | PREPARED (prototype SPDX 2.3 en PR) | Un générateur d'inventaire SPDX 2.3 pour les entrées de `lake-manifest.json` est proposé ; il conserve les révisions Git et marque les licences inconnues `NOASSERTION`. Il ne déduit pas les arêtes directes/transitives et ne couvre pas l'outillage, les actions CI ni les artefacts. Validation par parseur indépendant, triage de compatibilité et décision d'intégration à la release encore requis. |
+| R25 | Prototype SBOM SPDX/CycloneDX | PREPARED (prototype SPDX 2.3 fusionné, PR #113) | Le générateur produit un inventaire borné aux entrées de `lake-manifest.json`, conserve les révisions Git et marque les licences inconnues `NOASSERTION`. Il n'infère pas les relations directes/transitives et ne couvre pas l'outillage, les actions CI ni les artefacts. **Validation par parseur SPDX indépendant non exécutée** ; comparaison au manifeste, triage de compatibilité et décision d'intégration à la release restent ouverts. |
 | R26 | `suivi.py` en CI | FUTURE | hors périmètre OpenSSF |
 | R27 | Surveillance des vulnérabilités Lake par OSV-Scanner | PARTIAL (premier run exécuté) | Run 37951599075 : 14 paquets extraits, `No issues found`, SARIF envoyé à Code Scanning. Un scan hebdomadaire est configuré dans la PR ; la répétition planifiée, la couverture des avis et le triage restent à établir. Le scan est non bloquant. |
 
@@ -120,3 +120,12 @@ Estimations arithmétiques (méthode de l'audit Scorecard, § 6) ; elles ne sont
 | Formulaire CII renseigné (autrice) | CII-Best-Practices | 2 | jusqu'à 5 | réel si les réponses sont sincères |
 | — | Security-Policy | 4 | 4 | **artefact de mesure, non corrigé** |
 | — | SAST, Code-Review, Fuzzing | 0 | 0 | plafonds structurels ou sans objet, non contournés |
+
+
+## 9. État actualisé — 2026-10-10
+
+- PR #120 fusionnée ; `CI OK` et workflow `Release` exécutés avec succès sur `main` selon le résultat communiqué par la mainteneuse.
+- La répétition manuelle `workflow_dispatch` du workflow Release est un **essai à blanc** : contrôles de métadonnées, appartenance à `main`, présence d'un `CI OK` réussi et build sans cache ont été exercés. Elle ne crée ni brouillon, ni attestation, ne publie rien et ne teste pas un événement déclenché par un tag réel.
+- Le chantier de release est donc `PARTIAL` jusqu'à une répétition contrôlée de création de brouillon et vérification locale de l'attestation. La publication et l'archivage Zenodo restent des gestes séparés et irréversibles.
+- Le prototype SPDX 2.3 (PR #113) reste `PREPARED` : aucun parseur SPDX indépendant n'a encore validé le document. Ne pas annoncer une SBOM conforme ou l'intégrer à la release avant cette validation.
+- Les tâches de compte, de permissions, d'environnements, de secrets, de règles de tags, de DOI Zenodo et de déclaration OpenSSF sont regroupées dans [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) et [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md) ; la réussite du workflow Release ne les valide pas.
