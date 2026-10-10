@@ -271,3 +271,14 @@ Ce complément reflète les lectures effectuées après le snapshot §15 ; il ne
 - Le registre actif a été corrigé pour ne plus présenter la PR #121 comme ouverte. L'analyse complète du mécanisme et la matrice critère par critère sont ajoutées dans `docs/security/BADGE-AUTOMATION.md` et `docs/security/BADGE-CONFORMANCE-MATRIX.md`.
 
 Les actions ouvertes de release, Zenodo, protections et secrets, restrictions des agents, reproductibilité PDF/bundle TeX, validation indépendante SPDX, continuité OSV et revue humaine restent ouvertes. Aucune réponse `Met`, aucun `N/A` et aucun niveau de badge n'ont été enregistrés par ce complément.
+
+
+## 17. Contrôles BadgeApp locaux — implémentation dans la PR #129
+
+- scripts/ci/check_badge_proposals.py vérifie les URLs de source dans CITATION.cff, la référence du badge dans README et l'intégrité du registre de critères épinglé.
+- scripts/ci/badge_criteria_registry.json conserve un snapshot des fichiers de critères officiels observés au commit amont 1059cb310a63cbcf0e1ada5fef0d7e9870a02ff1 (blob SHA listés dans le registre). Les critères sont répartis entre passing, silver, gold et baseline-1/2/3.
+- scripts/ci/test_badge_proposals.py couvre les propositions et les refus de sécurité (statut inconnu, ID hors section, N/A interdit, preuve absente et paramètres de forçage).
+- Le workflow Security lance le contrôle local en CI et exécute, seulement sur schedule/workflow_dispatch, une comparaison read-only des blob SHA amont. Un écart ou une indisponibilité réseau produit un avertissement et un rapport conservé 90 jours ; aucun fichier de critères n'est réécrit.
+- Pas de fichier de propositions rempli : les décisions de nom, description, licence, langages et de périmètre restent à l'autrice. Aucun accès ni aucune écriture BadgeApp n'est utilisé.
+
+Cette étape automatise le contrôle des sources et la génération de propositions ; elle ne vérifie pas la sémantique de chaque preuve et ne constitue pas un audit officiel ou une auto-certification du badge.
