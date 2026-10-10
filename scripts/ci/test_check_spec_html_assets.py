@@ -35,11 +35,11 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
         self.temp.cleanup()
 
     def write_spec(self, *stems: str) -> None:
-        declarations = "\\n".join(
+        declarations = "\n".join(
             f'::::figure (label := "fig:{stem}") (src := "{stem}") (alt := "A test figure")'
             for stem in stems
         )
-        (self.spec / "Example.lean").write_text(declarations + "\\n", encoding="utf-8")
+        (self.spec / "Example.lean").write_text(declarations + "\n", encoding="utf-8")
 
     def write_page(
         self,
@@ -64,8 +64,8 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
     def test_resolves_image_against_verso_base_href(self) -> None:
         (self.site / "chapter" / "index.html").write_text(
             '<html><head><base href="./../"></head><body>'
-            '<img class="k7-img" src="figures/test.svg" alt="A test figure">'
-            '</body></html>',
+            '<img class="k7-img" src="figures/test.svg" alt="A test figure" aria-describedby="description">'
+            '<div id="description" class="k7-desc">Detailed description.</div></body></html>',
             encoding="utf-8",
         )
         results = check(self.site, self.source, self.spec)
@@ -75,8 +75,8 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
     def test_detects_double_prefix_with_verso_base_href(self) -> None:
         (self.site / "chapter" / "index.html").write_text(
             '<html><head><base href="./../"></head><body>'
-            '<img class="k7-img" src="../figures/test.svg" alt="A test figure">'
-            '</body></html>',
+            '<img class="k7-img" src="../figures/test.svg" alt="A test figure" aria-describedby="description">'
+            '<div id="description" class="k7-desc">Detailed description.</div></body></html>',
             encoding="utf-8",
         )
         results = check(self.site, self.source, self.spec)
@@ -139,11 +139,11 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
     def test_rejects_undeclared_figure_in_html(self) -> None:
         (self.source / "orphan.svg").write_text(SVG, encoding="utf-8")
         shutil.copy2(self.source / "orphan.svg", self.site / "figures" / "orphan.svg")
-        self.write_page("figures/orphan.svg")
+        self.write_page("../figures/orphan.svg")
         page = self.site / "chapter" / "index.html"
         page.write_text(
             page.read_text(encoding="utf-8")
-            + '<img class="k7-img" src="figures/test.svg" alt="A test figure" aria-describedby="k7-long-description">',
+            + '<img class="k7-img" src="../figures/test.svg" alt="A test figure" aria-describedby="k7-long-description">',
             encoding="utf-8",
         )
         # The file exists and is valid; reject the extra HTML reference because it has no declaration.
