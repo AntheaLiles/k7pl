@@ -17,8 +17,8 @@ Les décisions antérieures récupérables dans le dépôt sont les suivantes :
 
 - `docs/security/LEAN-SECURITY-TOOLCHAIN.md` propose un modèle interne indépendant des formats, des adaptateurs d'entrée et de sortie, des règles formelles bornées, ainsi que des validations indépendantes des documents exportés.
 - `docs/security/TOOLING-EVALUATION.md` propose OSV-Scanner pour le premier scan SCA, maintient la SBOM comme sujet distinct, identifie Syft/Grype/ORT comme candidats à évaluer, et exige une évaluation contrôlée du SAST Lean.
-- La [PR #113](https://github.com/AntheaLiles/k7pl/pull/113) a livré un générateur SPDX 2.3 pour l'inventaire borné aux entrées de `lake-manifest.json`. Il préserve les URL et révisions de commits, utilise `NOASSERTION` pour les informations de licence et de copyright inconnues, n'invente pas d'arêtes de dépendance et dispose de tests hors ligne.
-- Le même historique indique que la sortie SPDX n'a pas été validée par un parseur indépendant. Aucun choix final d'implémentation native en Lean n'est établi.
+- La [PR #113](https://github.com/AntheaLiles/k7pl/pull/113) a livré le générateur SPDX 2.3 borné aux entrées de `lake-manifest.json`, avec conservation des URL/révisions, `NOASSERTION` pour les champs non établis et tests hors ligne.
+- Cette absence de validation indépendante décrit l'état historique avant le démonstrateur suivant ; elle n'est plus l'état courant. La [PR #128](https://github.com/AntheaLiles/k7pl/pull/128) est fusionnée : son audit Lean vérifie un contrat explicite sur les champs normalisés, et le document produit a été accepté par `spdx-tools 0.8.5` verrouillé dans le run CI [#891](https://github.com/AntheaLiles/k7pl/actions/runs/38063142568). Les limites et travaux encore ouverts sont consignés aux sections 5 et 6 ci-dessous. Aucun choix n'est établi quant à la réimplémentation de moteurs externes complets.
 
 L'issue #122 ne comporte aucun commentaire décisionnel au moment de l'inventaire. Aucune décision spécifique WCAG/ARIA ni aucun prototype CycloneDX/accessibilité n'a été retrouvé par les recherches de fichiers. Cela signifie « non identifié dans les éléments examinés », non une preuve absolue d'absence dans tout historique inaccessible.
 
@@ -127,7 +127,7 @@ Le validateur est intégré expérimentalement au job Python de la CI. `scripts/
 | C — contrat SPDX minimal | **Conçu** | Invariants du modèle normalisé explicités |
 | D — prototype Lean/CLI/tests | **Testé en CI (#891)** | Compilation, audit d'inventaire, tests positifs/négatifs, lint, audits d'axiomes et artefacts de preuve validés sur la tête de PR `69368cea93b9c0fc25d2164b8052e90a85e1690a` |
 | E — validation SPDX indépendante | **Intégration expérimentale réussie en CI (#891)** | Document précis accepté par `spdx-tools 0.8.5`, fermeture hash-lockée et garde pour l'issue amont #885 ; d'autres limites sont possibles |
-| F — évaluation | **Baseline intra-run acquise ; évaluation inter-run ouverte** | Répéter sur des runs indépendants, tester un corpus négatif SPDX élargi et mesurer la couverture de validation et les diagnostics |
+| F — évaluation | **Baseline intra-run acquise ; évaluation inter-run et corpus externe négatif ouverts** | Comparer plusieurs runs indépendants sur les mêmes empreintes d'entrée/outils ; tester des documents SPDX négatifs au-delà du garde local ; mesurer les classes de diagnostic couvertes et les angles morts |
 | Extension SCA/SAST/CycloneDX/WCAG | **À prioriser après évaluation** | Décision fondée sur le prototype, le bénéfice et les dépendances communes |
 
 ### Évaluation empirique : baseline et micro-mesure
