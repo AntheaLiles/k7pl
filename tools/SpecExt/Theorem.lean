@@ -228,7 +228,7 @@ structure StatementArgs where
   role : String := ""
   state : String := ""
   evidence : String := "none"
-  scope : String := "unspecified"
+  scope : String := ""
   source : String := ""
   formalArtifact : String := ""
   unnumbered : Bool := false
@@ -240,7 +240,7 @@ meta instance : FromArgs StatementArgs m where
       <*> .namedD `role .string ""
       <*> .namedD `state .string ""
       <*> .namedD `evidence .string "none"
-      <*> .namedD `scope .string "unspecified"
+      <*> .namedD `scope .string ""
       <*> .namedD `source .string ""
       <*> .namedD `formalArtifact .string ""
       <*> .flag `unnumbered false
@@ -256,6 +256,8 @@ meta def statementDirective (kind display defaultRole defaultState : String)
       else args.state
     if !allowedEpistemicState state then
       throwError s!"{display}: invalid epistemic state '{state}'"
+    if args.scope.isEmpty || args.scope == "unspecified" then
+      throwError s!"{display}: explicit scope metadata is required; scope is separate from level"
     if isTruthClaimKind kind && state == "not-applicable" then
       throwError s!"{display}: results and assumptions require an epistemic state"
     if !isTruthClaimKind kind && state != "not-applicable" then
@@ -280,7 +282,7 @@ meta def statementDirective (kind display defaultRole defaultState : String)
       throwError "machine-checked proof evidence may only support result objects"
     if !args.formalArtifact.isEmpty && evidence != "lean-proof" then
       throwError "formalArtifact is only valid with evidence := \"lean-proof\""
-    if kind == "assumption" && role == "hypothesis" && (args.scope == "unspecified" || args.scope == "global") then
+    if kind == "assumption" && role == "hypothesis" && (args.scope == "global") then
       throwError "hypothesis requires an explicit local scope; it must not become a global assumption"
     let children ← stxs.mapM elabBlock
     let numbered := numberedDefault && !args.unnumbered
