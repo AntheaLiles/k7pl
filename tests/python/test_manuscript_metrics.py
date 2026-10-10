@@ -76,3 +76,23 @@ def test_json_output_is_serialisable(patched, capsys, monkeypatch):
     payload = json.loads(capsys.readouterr().out)
     assert payload["resume"]["enonces"] == 1
     assert payload["enonces"][0]["label"] == "thm:exemple"
+
+
+def test_specialized_directive_exposes_ontology_fields(patched):
+    import manuscript_metrics as mm
+
+    f = patched / "Spec" / "C2" / "Fondements.lean"
+    source = f.read_text(encoding="utf-8")
+    source = source.replace(
+        '::::thm (label := "thm:exemple") (status := "theoreme")',
+        '::::lemma (label := "thm:exemple") (level := "langage") (role := "lemma") '
+        '(state := "under-review") (evidence := "proofsketch") (scope := "synthetic test scope")',
+    )
+    f.write_text(source, encoding="utf-8")
+    row = mm.statements()[0]
+    assert row["directive"] == "lemma"
+    assert row["kind"] == "result"
+    assert row["role"] == "lemma"
+    assert row["state"] == "under-review"
+    assert row["evidence"] == "proofsketch"
+    assert row["scope"] == "synthetic test scope"
