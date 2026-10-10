@@ -175,7 +175,7 @@ def check(html_root: Path, source_figures: Path, spec_root: Path | None = None) 
                 title_id = title_nodes[0].get("id")
                 desc_id = desc_nodes[0].get("id")
                 if svg_root.get("role") != "img":
-                    errors.append(f"{copied.relative_to(html_root)}: accessible SVG must declare role=\\"img\\"")
+                    errors.append(f'{copied.relative_to(html_root)}: accessible SVG must declare role="img"')
                 if not title_id or svg_root.get("aria-labelledby") != title_id:
                     errors.append(
                         f"{copied.relative_to(html_root)}: SVG aria-labelledby must reference its title id"
