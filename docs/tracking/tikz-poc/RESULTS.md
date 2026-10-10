@@ -39,6 +39,8 @@ La comparaison visuelle de l'artefact initial a néanmoins révélé deux écart
 
 **Inspection à l'échelle d'insertion :** le pipeline est lisible mais ses étiquettes restent petites à l'échelle d'une page entière ; l'automate conserve des états et transitions discernables ; la matrice monochrome reste lisible sans code couleur. Le PDF CI examiné séparait toutefois la matrice de sa légende et description par un saut de page. Le renderer regroupe maintenant l'image et son explication dans une `minipage` ; il reste à vérifier cette correction sur le nouvel artefact CI.
 
+**Accessibilité HTML/SVG ajoutée dans la PR #149 :** la relation entre chaque image et sa description longue est explicite (`aria-describedby`), y compris dans le catalogue de provenance. Les copies SVG du site reçoivent un élément `<title>` depuis le texte alternatif rendu et un élément `<desc>` depuis la description longue rendue. Les fichiers SVG canoniques ne sont pas réécrits. Les contrôles de CI correspondants ont été ajoutés ; la validation finale attend les checks de la tête courante et l'inspection du nouveau PDF.
+
 **Non validé :**
 - conformité PDF/UA avec le préambule personnalisé réel, qui n'est pas versionné dans le dépôt ; l'artefact `spec-pdf` CI contrôlé via `pdfinfo` indique `Tagged: no` ;
 - fidélité pixel à pixel au dessin d'origine — elle n'est pas recherchée pour le pipeline, dont la disposition est volontairement modifiée ;
