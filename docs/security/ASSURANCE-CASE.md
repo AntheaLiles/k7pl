@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | | |
 |---|---|
 | Nature | Registre **court**, au format Claim → Argument → Evidence. Produit par une session d'agents, **non validé par l'autrice**. |
-| Date | 2026-10-06 ; état de `origin/main` (`b5f6146`) et de la branche de cette campagne |
+| Date | Base historique : 2026-10-06 ; addendum de statut : 2026-10-10 |
 | Périmètre | Sécurité de la chaîne de construction et de publication. **Distinct** de [`docs/ASSURANCE.md`](../ASSURANCE.md), qui porte l'argument d'assurance **scientifique** (spécification, formalisation, preuves) avec son propre vocabulaire de statuts. |
 | Règle | Une intention, une politique ou une action future n'est **jamais** une preuve d'une propriété déjà satisfaite. Une revendication non démontrée est marquée comme telle. |
 | Lecture | `VERIFIED` : observé par une commande ou une lecture citée. `PARTIAL` : vrai pour une partie. `PREPARED` : écrit, non exécuté de bout en bout. `FUTURE` : pas encore vrai. `NOT CLAIMED` : volontairement non affirmé. |
@@ -34,8 +34,8 @@ qui n'est pas encore démontré.
 
 | # | Claim (source) | État réel | Statut |
 |---|---|---|---|
-| N1 | « Le PDF est joint à la release et archivé sur Zenodo » (`README.md`, `CONTRIBUTING.md` avant cette campagne) | la release n'a aucun asset ; la chaîne n'a jamais abouti ; le flux refondu n'a jamais été exécuté de bout en bout | FUTURE |
-| N2 | « Un artefact publié provient de ce dépôt et de cette chaîne » | aucun artefact publié ; aucune attestation d'artefact. La procédure de vérification (`SECURITY.md`) est une cible, non éprouvée | FUTURE |
+| N1 | « Le PDF est joint à la release et archivé sur Zenodo » (`README.md`, `CONTRIBUTING.md` avant cette campagne) | le workflow `Release` lancé manuellement sur `main` a réussi selon la mainteneuse, mais cette répétition à blanc ne crée aucun brouillon ni asset et ne teste pas le parcours tag réel | PARTIAL |
+| N2 | « Un artefact publié provient de ce dépôt et de cette chaîne » | aucun artefact ni attestation n'a été produit par la répétition manuelle ; la vérification d'une attestation réelle reste non exercée | PARTIAL |
 | N3 | « Les secrets de publication sont inaccessibles à une PR » | aucun environnement ne les protège aujourd'hui ; `environment:` est ajouté aux workflows, mais le réglage de protection est humain | HUMAN ACTION REQUIRED |
 | N4 | « Un tag de release ne peut pas être posé hors de `main` ni déplacé avant publication » | aucune règle de tags ; le contrôle `check` ne résiste pas à un acteur qui peut pousser un tag ; la règle à créer doit restreindre aussi la **création** ; un identifiant qui hérite du contournement administrateur n'est pas arrêté | HUMAN ACTION REQUIRED |
 | N5 | « Tout avertissement fait échouer la compilation » (`lakefile.lean`) | vrai pour les bibliothèques ; faux pour `lean_exe mainTest` et `lean_exe spec` (établi sur mini-projet, transposition ESTIMÉE) | PARTIAL |
@@ -57,3 +57,10 @@ qui n'est pas encore démontré.
 
 Ce registre vieillit : une revendication passe de `PREPARED` à `VERIFIED` seulement avec une exécution observée (run, commande), jamais par
 décision. À relire avant toute release et après toute modification de `.github/workflows/`.
+
+
+## 5. Addendum de statut — 2026-10-10
+
+La mainteneuse confirme : PR #120 fusionnée, `CI OK` sur `main`, workflow `Release` lancé manuellement sur `main` et réussi. Cette preuve fait passer N1 et N2 de `FUTURE` à `PARTIAL`, mais pas à `VERIFIED` : le mode manuel n'émet pas de brouillon, d'artefact ou d'attestation. Les actions humaines relatives aux environnements, aux secrets, aux règles de tags et à Zenodo restent ouvertes.
+
+Le prototype SPDX 2.3 est présent dans le dépôt, mais aucun validateur indépendant n'a encore été exécuté sur sa sortie. Aucune SBOM validée ni intégrée à la release n'est revendiquée. Ce registre reste produit par une session d'agents et non validé par l'autrice ; il ne remplace pas la revue humaine de sécurité.
