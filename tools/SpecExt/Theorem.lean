@@ -8,15 +8,23 @@ import SpecExt.Render
 import SpecExt.Slots
 
 /-!
-# Theorems
+# Shared statement ontology
 
-`::::theorem (label := "thm:x") (status := "proposition") (level := "representation") (titled := true)`
-holds a `:::statement` and a `:::proofsketch` slot. All the theorems of the document share one
-counter, as the `theoreme` counter of the original LaTeX preamble did.
+`::::thm` remains available for compatibility with the existing manuscript. New authoring uses
+specialized commands, all backed by `StatementInfo` and this shared renderer. The representation
+separates object kind, logical role, epistemic state, evidence, explicit scope, provenance, formal
+artifact, and the historical domain `level`.
 
-* `status`: `theoreme` (default), `proposition`, `conjecture`, `definition`, `exigence`,
-  `litterature`.
-* `level`: `langage` (default, not printed), `compilation`, `representation`, `deploiement`.
+Specialized directives: `::::definition`, `::::axiom`, `::::postulate`, `::::hypothesis`,
+`::::theorem`, `::::lemma`, `::::corollary`, `::::proposition`, `::::conjecture`,
+`::::requirement`, `::::literature`, `::::example`, and `::::counterexample`.
+
+Evidence values distinguish `written-proof`, `proofsketch`, and `lean-proof`; the latter requires
+a `formalArtifact` identifier. Legacy blocks retain their source syntax, displayed status, labels,
+and historical shared numbering. New objects use role/kind-specific counters.
+
+`level` remains historical domain metadata and is not a substitute for `scope`. This extension
+does not establish mathematical claims; the source inventory and blocking controls are separate.
 -/
 
 open Lean Elab
@@ -254,11 +262,19 @@ meta def statementDirective (kind display defaultRole defaultState : String)
     let role := if args.role.isEmpty then defaultRole else args.role
     if !validRoleForKind kind role then
       throwError s!"{display}: role '{role}' is not valid for object kind '{kind}'"
+    if role == "conjecture" && state == "established" then
+      throwError "a conjecture cannot be marked established; change its role or epistemic state"
     let evidence := if kind == "literature" && args.evidence == "none" then "literature" else args.evidence
     if (kind == "literature" || evidence == "literature") && args.source.isEmpty then
       throwError "literature evidence requires (source := \"bibliographic identifier or URL\")"
     if evidence == "lean-proof" && args.formalArtifact.isEmpty then
       throwError "evidence := \"lean-proof\" requires (formalArtifact := \"Module.declaration\")"
+    if evidence == "proofsketch" && kind != "result" then
+      throwError "proof sketches may only support result objects"
+    if evidence == "written-proof" && kind != "result" then
+      throwError "written proofs may only support result objects"
+    if evidence == "lean-proof" && kind != "result" then
+      throwError "machine-checked proof evidence may only support result objects"
     if !args.formalArtifact.isEmpty && evidence != "lean-proof" then
       throwError "formalArtifact is only valid with evidence := \"lean-proof\""
     if kind == "assumption" && role == "hypothesis" && (args.scope == "unspecified" || args.scope == "global") then
