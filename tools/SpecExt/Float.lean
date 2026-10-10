@@ -99,7 +99,14 @@ block_extension Block.float (info : FloatInfo) where
       let cap : Output.Html ← match findSlot slots "caption" with
         | some s => pure {{<span class="k7-capno">{{s!"{floatName info.kind} {n}"}}</span>{{" : "}}{{← s.content.mapM goB}}}}
         | none => pure {{<span class="k7-capno">{{s!"{floatName info.kind} {n}"}}</span>}}
-      let caption : Output.Html := {{<div class="k7-caption">{{cap}}{{descH}}{{noteH}}{{srcH}}</div>}}
+      -- The provenance catalog is generated from canonical figure declarations and source mappings.
+      -- Keep this link generic: the catalog, not this renderer, determines each figure's source.
+      let provenanceH : Output.Html :=
+        if info.kind == "figure" then
+          {{<div class="k7-provenance"><a href={{"navigation/figures.html#" ++ info.arg}}>Sources et rendus</a></div>}}
+        else .empty
+      let caption : Output.Html :=
+        {{<div class="k7-caption">{{cap}}{{descH}}{{noteH}}{{srcH}}{{provenanceH}}</div>}}
       let body : Output.Html ←
         if info.kind == "figure" then
           -- Verso's generated pages have a <base href> pointing at the site root.
