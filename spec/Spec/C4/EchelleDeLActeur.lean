@@ -139,7 +139,7 @@ substituer à l'égalité exacte que le hachage garantit.
 Cette identité de format n'est pas propre à la promotion canonique : elle vaut de bout en bout entre
 l'arène et le réseau.
 
-::::thm (label := "thm:isomorphisme_memoire") (status := "proposition") (level := "representation")
+::::proposition (label := "thm:isomorphisme_memoire") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Dispositions bit-à-bit pour types primitifs de largeur fixe et versions déclarées ; pas de garantie générale entre formats.")
 :::title
 correspondances de disposition, transfert zéro-copie
 :::
@@ -170,8 +170,8 @@ exige qu'une liste de structures soit encodée en composite — disposition orie
 Arrow répartit les mêmes données en un tampon par champ ; aucun réencodage local ne les réconcilie,
 et le passage de l'une à l'autre est une transposition en $`O(n)`.
 :::
-::::
 
+::::
 Les deux spécifications sont normatives sur ce point, et c'est d'elles que l'énoncé tire sa forme.
 Arrow définit le tampon primitif contigu et l'omission licite du bitmap de validité quand le compte
 de nuls est nul {cite "SpecificationsApacheArrow"}[]. Cap'n Proto définit la liste plate de valeurs,
