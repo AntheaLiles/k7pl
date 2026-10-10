@@ -20,7 +20,7 @@ Existing sketch.
 
 
 def test_valid_specialized_result():
-    source = '''::::lemma (label := "thm:new") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "local")
+    source = '''::::lemma (label := "thm:new") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::statement
 Candidate result.
 :::
@@ -58,3 +58,12 @@ External result.
 :::
 ::::'''
     assert any("provenance bibliographique absente" in error for error in violations(source))
+
+
+def test_unknown_scope_tag_is_blocking():
+    source = '''::::lemma (label := "thm:bad-scope") (role := "lemma") (state := "under-review") (evidence := "none") (scope := "free-form scope")
+:::statement
+A result with an uncontrolled scope.
+:::
+::::'''
+    assert any("identifiant de portée non autorisé" in error for error in violations(source))
