@@ -562,10 +562,10 @@ Routine progress belongs in the dedicated registers.
 
 ## 23. K — Lean tools for project-compliance assurance
 
-**Status:** OPEN — scoped prototype in progress; no accepted result yet  
+**Status:** OPEN — bounded prototype tested in CI; overall acceptance pending  
 **Anchor:** [GitHub issue #122](https://github.com/AntheaLiles/k7pl/issues/122) · [decision and feasibility note](../research/LEAN-COMPLIANCE-ASSURANCE.md) · branch `research/lean-sbom-consistency-poc`
 
-The inventory and feasibility pass have selected a narrowly scoped Lake-to-SPDX 2.3 consistency audit, reusing the existing generator rather than writing a new SBOM generator. The prototype's Lean theorem concerns only normalized fields; independent SPDX validation, CI evidence and measured evaluation remain open. This is not a decision to implement a general compliance engine.
+The inventory and feasibility pass have selected a narrowly scoped Lake-to-SPDX 2.3 consistency audit, reusing the existing generator rather than writing a new SBOM generator. On revision `67fbf1869b363d07dc3ccb3949846f16f76ac61c`, CI #830 passed the Lean build, scoped inventory audit, `lake test`, `lake lint` and axiom audits. The theorem concerns only normalized fields; independent SPDX validation, input fingerprints/provenance and measured evaluation remain open. This is not a decision to implement a general compliance engine.
 
 The workstream continues to distinguish:
 
@@ -574,6 +574,6 @@ The workstream continues to distinguish:
 - versioning, applicability, exceptions, conflicts, and provenance of constraints;
 - Lean-specific formalization from simpler rule engines, structured registers, and existing compliance tooling.
 
-**Exit criterion:** the bounded prototype passes its negative and positive tests and CI; an independent, versioned SPDX validator accepts the generated document; input provenance and tool versions are recorded to a sufficient level; the note records measured coverage, known omissions, architectural alternatives and an explicit go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
+**Exit criterion:** the prototype's positive/negative tests and CI have passed in run #830; remaining acceptance requires an independent, versioned SPDX validator to accept the generated document, input fingerprints/provenance and tool versions to be recorded, and the note to report measured coverage, known omissions, architectural alternatives and an explicit go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
 
 The OpenSSF remediation campaign is temporarily paused and tracked separately. Its outstanding release/security actions remain open and must be resumed before any release action that depends on them.
