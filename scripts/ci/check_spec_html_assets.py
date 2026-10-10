@@ -24,28 +24,68 @@ class ImageParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.images: list[tuple[str | None, str | None, str | None, str | None, int]] = []
-        self.descriptions: list[tuple[str | None, int]] = []
+        self.descriptions: list[tuple[str | None, int, str]] = []
         self.base_href: str | None = None
+        self._active_description_id: str | None = None
+        self._active_description_tag: str | None = None
+        self._active_description_depth = 0
+        self._active_description_line = 0
+        self._active_description_text: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
-        if tag.lower() == "base" and self.base_href is None:
+        classes = (values.get("class") or "").split()
+        lower_tag = tag.lower()
+        if lower_tag == "base" and self.base_href is None:
             self.base_href = values.get("href")
             return
-        if tag.lower() == "div" and "k7-desc" in (values.get("class") or "").split():
-            self.descriptions.append((values.get("id"), self.getpos()[0]))
-        if tag.lower() != "img":
-            return
-        self.images.append(
-            (
+
+        is_long_description = (
+            lower_tag == "div" and "k7-desc" in classes
+        ) or (
+            lower_tag == "p" and "figure-description" in classes
+        )
+        if self._active_description_id is not None:
+            if lower_tag == self._active_description_tag:
+                self._active_description_depth += 1
+        elif is_long_description:
+            identifier = values.get("id")
+            if identifier:
+                self._active_description_id = identifier
+                self._active_description_tag = lower_tag
+                self._active_description_depth = 1
+                self._active_description_line = self.getpos()[0]
+                self._active_description_text = []
+            else:
+                self.descriptions.append((None, self.getpos()[0], ""))
+
+        if lower_tag == "img":
+            self.images.append((
                 values.get("src"),
                 values.get("alt"),
                 values.get("class"),
                 values.get("aria-describedby"),
                 self.getpos()[0],
-            )
-        )
+            ))
 
+    def handle_endtag(self, tag: str) -> None:
+        if self._active_description_id is None or tag.lower() != self._active_description_tag:
+            return
+        self._active_description_depth -= 1
+        if self._active_description_depth == 0:
+            text = " ".join("".join(self._active_description_text).replace("\xa0", " ").split())
+            self.descriptions.append((
+                self._active_description_id,
+                self._active_description_line,
+                text,
+            ))
+            self._active_description_id = None
+            self._active_description_tag = None
+            self._active_description_text = []
+
+    def handle_data(self, data: str) -> None:
+        if self._active_description_id is not None:
+            self._active_description_text.append(data)
 
 def declared_figure_stems(spec_root: Path) -> tuple[list[str], list[str]]:
     """Return canonical figure asset stems and declaration errors from Verso sources."""
@@ -111,9 +151,21 @@ def check(html_root: Path, source_figures: Path, spec_root: Path | None = None) 
             errors.append(f"figure asset was not copied into the HTML site: {copied.relative_to(html_root)}")
             continue
         try:
-            ET.parse(copied)
+            svg_root = ET.parse(copied).getroot()
         except (ET.ParseError, OSError) as exc:
             errors.append(f"invalid SVG {copied.relative_to(html_root)}: {exc}")
+            continue
+        if expected_stems is not None and source.stem in expected_stems:
+            if svg_root.tag.split("}")[-1] != "svg":
+                errors.append(f"invalid SVG root element: {copied.relative_to(html_root)}")
+            namespace = svg_root.tag[1:].split("}")[0] if svg_root.tag.startswith("{") else ""
+            for element_name in ("title", "desc"):
+                qualified = f"{{{namespace}}}{element_name}" if namespace else element_name
+                nodes = svg_root.findall(qualified)
+                if len(nodes) != 1 or not " ".join("".join(nodes[0].itertext()).split()):
+                    errors.append(
+                        f"{copied.relative_to(html_root)}: declared figure SVG must have one non-empty {element_name}"
+                    )
 
     image_count = 0
     figure_count = 0
@@ -139,11 +191,16 @@ def check(html_root: Path, source_figures: Path, spec_root: Path | None = None) 
                     else (page.parent / base_path)
                 ).resolve()
 
-        description_ids = [identifier for identifier, _ in parser.descriptions if identifier]
-        for identifier, line in parser.descriptions:
+        description_ids = [identifier for identifier, _, _ in parser.descriptions if identifier]
+        description_text = {identifier: text for identifier, _, text in parser.descriptions if identifier}
+        for identifier, line, text in parser.descriptions:
             if not identifier:
                 errors.append(
                     f"{page.relative_to(html_root)}:{line}: K7PL long description has no id"
+                )
+            elif not text:
+                errors.append(
+                    f"{page.relative_to(html_root)}:{line}: long description {identifier!r} has no text"
                 )
         duplicate_description_ids = sorted(
             identifier for identifier, count in Counter(description_ids).items() if count > 1
@@ -158,9 +215,10 @@ def check(html_root: Path, source_figures: Path, spec_root: Path | None = None) 
             if not src:
                 errors.append(f"{page.relative_to(html_root)}:{line}: img has no src")
                 continue
-            is_figure = classes is not None and "k7-img" in classes.split()
-            if is_figure:
-                figure_count += 1
+            class_tokens = (classes or "").split()
+            is_figure = "k7-img" in class_tokens
+            is_provenance_figure = "k7-provenance-img" in class_tokens
+            if is_figure or is_provenance_figure:
                 if not alt or not alt.strip():
                     errors.append(f"{page.relative_to(html_root)}:{line}: K7PL figure has no alternative text")
                 targets = described_by.split() if described_by else []
@@ -170,8 +228,14 @@ def check(html_root: Path, source_figures: Path, spec_root: Path | None = None) 
                     )
                 elif targets[0] not in description_ids:
                     errors.append(
-                        f"{page.relative_to(html_root)}:{line}: aria-describedby target {targets[0]!r} is not a k7-desc element on this page"
+                        f"{page.relative_to(html_root)}:{line}: aria-describedby target {targets[0]!r} is not a valid long-description element on this page"
                     )
+                elif not description_text.get(targets[0]):
+                    errors.append(
+                        f"{page.relative_to(html_root)}:{line}: aria-describedby target {targets[0]!r} has no text"
+                    )
+            if is_figure:
+                figure_count += 1
 
             parsed = urlsplit(src)
             if is_figure and parsed.path.lower().endswith(".svg"):
