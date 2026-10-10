@@ -128,3 +128,27 @@ def test_fails_on_unresolved_explicit_reference(tmp_path: Path) -> None:
     assert result.returncode != 0
     assert "unresolved num reference" in result.stderr
     assert not output.exists()
+
+def test_fails_when_a_canonical_label_has_no_rendered_anchor(tmp_path: Path) -> None:
+    root = fixture_repo(tmp_path)
+    target_page = tmp_path / "site" / "Spec" / "C3" / "Target.html"
+    target_page.write_text(
+        '<html><body><h1>Target section without canonical anchor</h1></body></html>',
+        encoding="utf-8",
+    )
+    output = tmp_path / "site" / "navigation" / "semantic-graph.html"
+    result = subprocess.run(
+        [
+            sys.executable, str(SCRIPT), "--repo-root", str(root),
+            "--output", str(output), "--ref", "deadbeef",
+            "--source", "spec/Spec/C6/Example.lean", "--label", "sec:example",
+            "--start-line", "1", "--end-line", "5",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode != 0
+    assert "rendered anchor 'lbl-sec-target' must resolve to exactly one HTML page" in result.stderr
+    assert not output.exists()
+
