@@ -250,7 +250,7 @@ jobs:
         run: bash scripts/ci/build_tikz_figures.sh
 
       - name: Verify generated figures match tracked assets
-        run: python3 scripts/ci/check_tikz_poc.py --root out/tikz-production --check-tracked
+        run: python3 scripts/ci/check_tikz_figures.py --generated out/tikz-production --check-tracked
 
       - name: Summarise TikZ figure assets
         if: ${{ success() }}
