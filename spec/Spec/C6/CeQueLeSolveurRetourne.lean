@@ -57,7 +57,7 @@ document. Une interface de module doit énoncer trois choses : ce qu'une unité 
 environnement, ce qu'elle est, et ce qu'elle produit dans le monde. Le jugement germinal du chapitre
 1 en porte exactement trois.
 
-::::definition (label := "thm:interface_jugement") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Définition de l’interface par le jugement")
+::::definition (label := "thm:interface_jugement") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "compilation")
 :::title
 l'interface d'une unité de compilation est son jugement
 :::
@@ -71,7 +71,7 @@ $`\mathcal{E}` ce qu'elle _produit_. C'est une définition : l'interface _est_ l
 :::
 ::::
 
-::::proposition (label := "thm:interface_jugement_cloture") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Définition de l’interface par le jugement ; clôture limitée aux formes de déclaration énumérées.")
+::::proposition (label := "thm:interface_jugement_cloture") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
 :::title
 clôture locale de l’interface
 :::
@@ -140,7 +140,7 @@ déchargée, énoncée dans le vocabulaire de la source et non dans celui du sol
 le compte de ressource consommé ; et l'état du solveur à l'épuisement. De cette forme suit une
 propriété que le développeur peut exiger.
 
-::::theorem (label := "thm:rejet_reproductible") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Identité du diagnostic sous configuration fixe et hypothèse D_det ; déterminisme des parcours/choix à garantir.")
+::::theorem (label := "thm:rejet_reproductible") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
 :::title
 reproductibilité du rejet
 :::
@@ -471,7 +471,7 @@ Ce que ce document adopte reste le hachage, pour ce qu'il donne par ailleurs —
 l'équivalence sémantique de deux programmes syntaxiquement distincts —, mais il ne peut plus se
 présenter comme la seule voie.
 
-::::conjecture (label := "thm:abaissement_grades") (level := "compilation") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "Conjecture de préservation des grades par abaissement vers MLIR ; preuve règle par règle absente.")
+::::conjecture (label := "thm:abaissement_grades") (level := "compilation") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "compilation")
 :::title
 l'abaissement préserve le jugement gradué
 :::
