@@ -334,14 +334,16 @@ d'une ressource d'usage libre, ce qu'un système bâti uniquement sur des opéra
 peut structurellement pas faire. Le reste de cette section montre comment ce grade se propage, se
 divise et se recompose à travers les constructions du langage.
 
-::::figure (label := "fig:modalites-structurelles") (src := "matrice-contraction-affaiblissement") (alt := "Matrice a deux entrees, contraction en abscisse et affaiblissement en ordonnee. Trois cases sur quatre sont instanciees par K7PL — Lin en couche 1, ni contraction ni affaiblissement ; Aff en couche 2, affaiblissement seul ; Unr en couche 3, les deux. La quatrieme case, contraction sans affaiblissement, est marquee « non instancie par K7PL ».") (width := "90")
+::::figure (label := "fig:modalites-structurelles") (src := "matrice-contraction-affaiblissement") (alt := "Matrice 2 x 2 des autorisations de contraction et d'affaiblissement pour Lin, Aff, Unr et le cas non instancié.") (width := "90")
 :::caption
 Contraction et affaiblissement, trois modalités sur quatre combinaisons possibles
 :::
 
 :::desc
-Les quatre combinaisons que la contraction et l'affaiblissement engendrent, et celle que le langage
-laisse vacante.
+La matrice classe les quatre combinaisons. À gauche, la contraction est interdite ; à droite, elle est
+admise. En haut, l'affaiblissement est admis : Aff (couche 2) et Unr (couche 3). En bas, il est
+interdit : Lin (couche 1) et la combinaison non instanciée par K7PL. Les points noirs matérialisent les
+trois modalités existantes.
 :::
 ::::
 
