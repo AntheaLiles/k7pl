@@ -120,7 +120,7 @@ Cette forme rend explicite la décision du noyau : le parallélisme appartient �
 et non à une nouvelle composante du grade. Le budget reste une annotation de contexte ; sa relation
 avec les deux composantes temporelles est traitée séparément par $`Cost_{\mathcal B}`.
 
-::::lemma (label := "thm:temps_mononiveau") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Sous-quantale des effets concentrés à un niveau ; vérifier fermeture et signature complète des opérations.")
+::::lemma (label := "thm:temps_mononiveau") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "effects")
 :::title
 le cas mononiveau redonne la forme plate
 :::
