@@ -73,9 +73,9 @@ discover omitted packages, establish licence compatibility, query vulnerability 
 the JSON parser or schema validator correct.
 -/
 def InventoryContract (input : AuditInput) : Prop :=
-  input.manifestName = "k7pl" ∧
-  input.spdxVersion = "SPDX-2.3" ∧
-  input.documentId = "SPDXRef-DOCUMENT" ∧
+  (input.manifestName == "k7pl") = true ∧
+  (input.spdxVersion == "SPDX-2.3") = true ∧
+  (input.documentId == "SPDXRef-DOCUMENT") = true ∧
   allDistinct (input.manifestPackages.map (fun item => item.name)) = true ∧
   (input.manifestPackages.all (fun item => item.name != "" && item.url != "")) = true ∧
   allDistinct (input.packages.map (fun item => item.name)) = true ∧
