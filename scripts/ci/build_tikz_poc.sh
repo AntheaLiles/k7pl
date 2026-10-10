@@ -29,7 +29,12 @@ build_one() {
     tectonic -X compile --keep-logs -Z deterministic-mode main.tex
     pdftocairo -svg main.pdf "$destination/$id"
   )
-  mv "$destination/$id-1.svg" "$destination/$id.svg"
+  if [[ -f "$destination/$id-1.svg" ]]; then
+    mv "$destination/$id-1.svg" "$destination/$id.svg"
+  elif [[ ! -f "$destination/$id.svg" ]]; then
+    echo "::error::pdftocairo did not produce an SVG for $id" >&2
+    exit 1
+  fi
   cp "$build_dir/main.pdf" "$destination/$id.pdf"
 }
 
