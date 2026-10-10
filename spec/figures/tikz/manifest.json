@@ -1,0 +1,23 @@
+{
+  "status": "canonical-tikz-sources",
+  "figures": [
+    {
+      "id": "compilation-pipeline",
+      "source": "compilation-pipeline.tex",
+      "asset_stem": "compilation-process",
+      "canonical_verso": "spec/Spec/C6/LeProcessusDeCompilation.lean#fig:comp-process"
+    },
+    {
+      "id": "session-protocol",
+      "source": "session-protocol.tex",
+      "asset_stem": "session-protocol-as-automata",
+      "canonical_verso": "spec/Spec/C3/LesContraintesDeValeur.lean#fig:session-automate"
+    },
+    {
+      "id": "structural-modes",
+      "source": "structural-modes.tex",
+      "asset_stem": "matrice-contraction-affaiblissement",
+      "canonical_verso": "spec/Spec/C3/LeSystemeGradue.lean#fig:modalites-structurelles"
+    }
+  ]
+}

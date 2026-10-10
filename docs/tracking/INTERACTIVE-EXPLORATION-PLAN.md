@@ -100,12 +100,13 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 - [x] Reproduire le défaut dans l'artefact HTML de CI : les 12 références de figures sortent de la racine à cause du double préfixe entre l'URL et le `<base href>` de Verso. La correction a été déployée ; le job GitHub Pages et la validation de l'artefact publié réussissent. Le navigateur de recherche ne permet pas un contrôle HTTP direct de la page en ligne.
 - [x] Corriger la cause démontrée et valider le contrôle automatisé des images locales : [PR #124 fusionnée](https://github.com/AntheaLiles/k7pl/pull/124), CI complète verte (build Verso, contrôle HTML, PDF). Le déploiement GitHub Pages et la validation de l'artefact publié sont réussis ; `ANOM-17` peut être clos.
-- [ ] Inventorier chaque figure, sa source canonique, ses sorties et sa fonction explicative.
-- [ ] Définir les métadonnées minimales : objectif explicatif, alt, description longue, note de lecture, provenance et objets liés.
+- [x] Inventorier les 12 figures déclarées, leurs modules, noms d'assets, sources modifiables et fonctions explicatives ; le SVG LSP non référencé est recensé comme reliquat (voir l'inventaire de l'audit).
+- [x] Définir le contrat minimal de métadonnées : objectif explicatif, type, source/sorties, légende, alt, description longue, note de lecture, provenance, objets liés, statut épistémique et critères de validation (audit, §5).
 - [x] Réaliser le POC TikZ sur trois figures, vérifier les sorties PDF/SVG et la reproductibilité, comparer les éléments sémantiques aux SVG canoniques et consigner la décision dans [les résultats du POC](tikz-poc/RESULTS.md).
 - [ ] Évaluer TikZJax/isomorphic-tikzjax seulement si un besoin d'affichage interactif dans le navigateur reste démontré ; le POC actuel vise des rendus statiques.
 - [ ] Vérifier la transmission des métadonnées d'accessibilité au PDF final et valider le balisage avec le préambule personnalisé réel.
-- [ ] Intégrer la génération TikZ au build canonique, vérifier les sorties suivies dans Git et décider figure par figure ; aucune migration globale n'est autorisée par le seul résultat du POC.
+- [x] Intégrer la génération TikZ au build canonique : un job CI dédié génère et valide les paires PDF/SVG, puis les transmet au rendu Verso ; les artefacts dérivés ne sont pas suivis dans Git.
+- [ ] Vérifier le balisage PDF/UA avec le préambule personnalisé réel, puis décider figure par figure des autres candidats ; aucune migration globale n'est autorisée par le seul résultat du POC.
 
 ### P1 — Cas d'usage et démonstration de valeur
 

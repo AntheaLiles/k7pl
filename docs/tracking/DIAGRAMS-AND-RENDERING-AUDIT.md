@@ -29,28 +29,28 @@ Le rendu TeX de Float.lean utilise actuellement includegraphics avec width et ke
 
 Le plan interactif et son document d'architecture sont situés sous docs/tracking/. Le suivi des anomalies se trouve sous docs/tracking/ANOMALIES.md. L'anomalie ANOM-10 du registre actuel concerne l'interface Verso en anglais, pas le défaut d'images décrit ici ; ne pas réutiliser cet identifiant sans vérifier le registre. Créer ou rattacher un suivi spécifique aux figures cassées après reproduction.
 
-Le changelog conserve un compte historique de treize figures. L'artefact HTML audité contient douze figures K7PL réellement déclarées et un treizième SVG, `services-lsp.svg`, qui n'est référencé par aucune déclaration actuelle. Le nombre 13 ne doit donc pas être interprété comme une déclaration manquante : le fichier LSP est un reliquat de l'ancien manuscrit. Le suivi de cohérence du 9 octobre le croyait déjà absent, mais il existe encore dans `spec/figures/` avec son PDF et sa source Mermaid ; cette incohérence d'inventaire reste à résoudre séparément.
+Le changelog conserve un compte historique de treize figures. L'artefact HTML audité contient douze figures K7PL réellement déclarées et un treizième SVG, `services-lsp.svg`, qui n'est référencé par aucune déclaration actuelle. Le nombre 13 ne doit donc pas être interprété comme une déclaration manquante : le fichier LSP est un reliquat de l'ancien manuscrit. Le suivi de cohérence du 9 octobre le croyait déjà absent, mais il existe encore dans `spec/figures/` avec son PDF et sa source Mermaid. Le reliquat est désormais explicitement inventorié ; sa suppression ou son archivage reste une décision séparée.
 
-### Inventaire initial extrait des déclarations Verso
+### Inventaire des figures déclarées dans Verso
 
-La première recherche dans les sources a fait apparaître les douze déclarations ci-dessous. Ce relevé est volontairement **provisoire** : le changelog annonce treize figures, donc il reste au moins une déclaration à retrouver ou à expliquer avant de fermer l'inventaire.
+Les douze déclarations de figures présentes dans la spécification sont inventoriées ci-dessous. Les trois figures réimplémentées utilisent des sources TikZ ; les neuf autres conservent leurs sources draw.io. Le fichier `services-lsp.mmd` et ses anciens rendus ne correspondent à aucune déclaration Verso : c'est un reliquat non référencé, pas une treizième figure manquante.
 
-| Source canonique (module) | Identifiant de figure | Objet représenté | Rôle explicatif pressenti |
-|---|---|---|---|
-| spec/Spec/C1/AxiomatiqueGerminale.lean | fig:specialisation-couches | specialisation-du-jugement | Relier le jugement germinal aux trois couches du langage |
-| spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean | fig:dualite-algebre-coalgebre | co-algebra-duality | Expliquer la dualité entre algèbre initiale et coalgèbre terminale |
-| spec/Spec/C2/ComonadeExponentielleEtFragments.lean | fig:fragments-emboites | fragments-nestings | Comparer les règles structurelles autorisées dans les fragments |
-| spec/Spec/C3/LeSystemeGradue.lean | fig:modalites-structurelles | matrice-contraction-affaiblissement | Montrer les combinaisons de contraction/affaiblissement retenues |
-| spec/Spec/C3/LesContraintesDeValeur.lean | fig:session-automate | session-protocol-as-automata | Expliquer la progression d'un automate de protocole de session |
-| spec/Spec/C3/LesContraintesDeValeur.lean | fig:session-dualite | session-protocol-as-dual-exchange | Comparer les deux extrémités d'un protocole dual |
-| spec/Spec/C4/EchelleLocale.lean | fig:rexp-complexite | rexp-hierarchy-complexity | Comparer les classes de complexité des R-expressions |
-| spec/Spec/C4/EchelleDeLActeur.lean | fig:arene-partition | soa-partitionning | Rendre visible la partition statique de mémoire entre fibrilles |
-| spec/Spec/C4/EchelleDuSysteme.lean | fig:acteur-cycle-de-vie | virtual-actor-lca | Expliquer le cycle de vie d'un acteur virtuel |
-| spec/Spec/C4/EchelleDuSysteme.lean | fig:circuit-breaker | session-circuit-breaker | Expliquer le rejet ou l'acceptation d'un message selon le tag d'état |
-| spec/Spec/C6/LeProcessusDeCompilation.lean | fig:comp-process | compilation-process | Exposer les phases de la chaîne de compilation |
-| spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean | fig:cycle-reactif | unidirectionnal-reactive-cycle | Relier les étapes du cycle réactif aux trois couches |
+| Module Verso | Identifiant | Asset publié | Source géométrique | Fonction explicative |
+|---|---|---|---|---|
+| `spec/Spec/C1/AxiomatiqueGerminale.lean` | `fig:specialisation-couches` | `specialisation-du-jugement` | `spec/figures/sources/specialisation-du-jugement.drawio` | Relier le jugement germinal aux trois couches du langage |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | `fig:dualite-algebre-coalgebre` | `co-algebra-duality` | `spec/figures/sources/co-algebra-duality.drawio` | Expliquer la dualité entre algèbre initiale et coalgèbre terminale |
+| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | `fig:fragments-emboites` | `fragments-nestings` | `spec/figures/sources/fragments-nestings.drawio` | Comparer les règles structurelles autorisées dans les fragments |
+| `spec/Spec/C3/LeSystemeGradue.lean` | `fig:modalites-structurelles` | `matrice-contraction-affaiblissement` | `spec/figures/tikz/structural-modes.tex` | Montrer les combinaisons de contraction/affaiblissement retenues |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` | `fig:session-automate` | `session-protocol-as-automata` | `spec/figures/tikz/session-protocol.tex` | Expliquer la progression d'un automate de protocole de session |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` | `fig:session-dualite` | `session-protocol-as-dual-exchange` | `spec/figures/sources/session-protocol-as-dual-exchange.drawio` | Comparer les deux extrémités d'un protocole dual |
+| `spec/Spec/C4/EchelleLocale.lean` | `fig:rexp-complexite` | `rexp-hierarchy-complexity` | `spec/figures/sources/rexp-hierarchy-complexity.drawio` | Comparer les classes de complexité des R-expressions |
+| `spec/Spec/C4/EchelleDeLActeur.lean` | `fig:arene-partition` | `soa-partitionning` | `spec/figures/sources/soa-partitionning.drawio` | Rendre visible la partition statique de mémoire entre fibrilles |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | `fig:acteur-cycle-de-vie` | `virtual-actor-lca` | `spec/figures/sources/virtual-actor-lca.drawio` | Expliquer le cycle de vie d'un acteur virtuel |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | `fig:circuit-breaker` | `session-circuit-breaker` | `spec/figures/sources/session-circuit-breaker.drawio` | Expliquer le rejet ou l'acceptation d'un message selon le tag d'état |
+| `spec/Spec/C6/LeProcessusDeCompilation.lean` | `fig:comp-process` | `compilation-process` | `spec/figures/tikz/compilation-pipeline.tex` | Exposer les phases de la chaîne de compilation |
+| `spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean` | `fig:cycle-reactif` | `unidirectionnal-reactive-cycle` | `spec/figures/sources/unidirectionnal-reactive-cycle.drawio` | Relier les étapes du cycle réactif aux trois couches |
 
-Ce tableau classe la **fonction attendue** d'après les déclarations et leurs textes alternatifs ; il ne valide pas encore l'exactitude visuelle des images, leur existence dans les deux formats ni la qualité de leur description longue. Les trois cas de prototype les plus informatifs semblent être : le pipeline de compilation (processus), l'automate ou la dualité du protocole de session (états/relations), et la matrice contraction/affaiblissement (représentation structurale compacte). Le choix définitif dépendra de l'inspection visuelle des fichiers réels.
+La CI vérifie les sorties des trois sources TikZ, leur reproductibilité et leur correspondance avec les déclarations Verso. Les neuf figures draw.io sont inventoriées, mais leur fidélité visuelle et leur accessibilité restent à évaluer séparément. La revue des rendus TikZ à taille de publication reste humaine : la CI ne prouve ni leur lisibilité ni leur valeur explicative.
 
 
 ## 3. Cause racine et portée de la correction
@@ -159,4 +159,4 @@ La revue confirme la conservation des éléments sémantiques principaux :
 - automate : état initial, deux états nommés, transitions et état final ;
 - matrice : quatre combinaisons, axes catégoriels, couches et case non instanciée.
 
-Le POC justifie de poursuivre vers une réimplémentation sélective, pas une migration globale. La génération n'est pas encore intégrée au build canonique Verso. La conformité PDF/UA avec le préambule personnalisé reste à vérifier, ce préambule n'étant pas versionné dans le dépôt. Le manifeste d'essai ne remplace pas les métadonnées canoniques des figures.
+Le POC justifie une réimplémentation sélective, pas une migration globale. La génération est désormais séparée du rendu Verso dans la CI : un job produit et valide les paires PDF/SVG, puis le rendu consomme l'artefact. Les sources TikZ sont versionnées sous `spec/figures/tikz/`; les sorties générées ne sont pas suivies dans Git. Les légendes, textes alternatifs et descriptions éditoriales restent dans les déclarations Verso. La conformité PDF/UA avec le préambule personnalisé reste à vérifier, ce préambule n'étant pas versionné dans le dépôt.

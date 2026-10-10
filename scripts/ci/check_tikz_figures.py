@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+# SPDX-License-Identifier: CC0-1.0
+"""Validate generated TikZ figure assets against the canonical source manifest."""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SOURCE_DIR = REPO_ROOT / "spec" / "figures" / "tikz"
+
+def fail(message: str) -> None:
+    print(f"ERROR: {message}", file=sys.stderr)
+    raise SystemExit(1)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--generated", type=Path, required=True, help="directory containing generated PDF/SVG pairs")
+    args = parser.parse_args()
+    generated_root = args.generated.resolve()
+    manifest = json.loads((SOURCE_DIR / "manifest.json").read_text(encoding="utf-8"))
+
+    if manifest.get("status") != "canonical-tikz-sources":
+        fail("source manifest has an unexpected status")
+    figures = manifest.get("figures")
+    if not isinstance(figures, list) or len(figures) != 3:
+        fail("expected exactly three canonical TikZ figures")
+
+    seen_ids: set[str] = set()
+    seen_stems: set[str] = set()
+    for figure in figures:
+        figure_id = figure.get("id", "")
+        source_name = figure.get("source", "")
+        stem = figure.get("asset_stem", "")
+        if not figure_id or figure_id in seen_ids:
+            fail(f"missing or duplicate figure id: {figure_id!r}")
+        if not stem or stem in {".", ".."} or "/" in stem or "\\" in stem or stem in seen_stems:
+            fail(f"missing, duplicate or unsafe asset stem: {stem!r}")
+        seen_ids.add(figure_id)
+        seen_stems.add(stem)
+        source = (SOURCE_DIR / source_name).resolve()
+        if not source.is_relative_to(SOURCE_DIR.resolve()) or not source.is_file():
+            fail(f"{figure_id}: source is missing or escapes the canonical source directory")
+
+        canonical = str(figure.get("canonical_verso", ""))
+        if "#" not in canonical:
+            fail(f"{figure_id}: canonical_verso must identify a source file and figure label")
+        canonical_path, label = canonical.split("#", 1)
+        canonical_file = (REPO_ROOT / canonical_path).resolve()
+        if not canonical_file.is_relative_to(REPO_ROOT) or not canonical_file.is_file():
+            fail(f"{figure_id}: canonical Verso source is missing or escapes the repository")
+        declarations = [
+            line for line in canonical_file.read_text(encoding="utf-8").splitlines()
+            if label in line and "::::figure" in line
+        ]
+        if len(declarations) != 1 or f'(src := "{stem}")' not in declarations[0]:
+            fail(f"{figure_id}: canonical figure declaration does not match asset stem {stem!r}")
+
+        pdf = generated_root / f"{stem}.pdf"
+        svg = generated_root / f"{stem}.svg"
+        if not pdf.is_file() or pdf.stat().st_size < 100:
+            fail(f"{figure_id}: missing or implausibly small PDF")
+        if pdf.read_bytes()[:5] != b"%PDF-":
+            fail(f"{figure_id}: invalid PDF signature")
+        if not svg.is_file() or svg.stat().st_size < 100:
+            fail(f"{figure_id}: missing or implausibly small SVG")
+        try:
+            tree = ET.parse(svg)
+        except ET.ParseError as exc:
+            fail(f"{figure_id}: malformed SVG: {exc}")
+        if tree.getroot().tag.split("}")[-1] != "svg":
+            fail(f"{figure_id}: root element is not SVG")
+
+        print(f"validated {figure_id}: source, PDF and SVG")
+
+    print(f"validated {len(figures)} canonical TikZ figure assets")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

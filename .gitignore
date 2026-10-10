@@ -19,3 +19,11 @@ __pycache__/
 
 # Claude Code: isolated worktrees created by agents (copies of the repository, not project files)
 .claude/worktrees/
+
+# Generated from spec/figures/tikz/manifest.json; build with scripts/ci/build_tikz_figures.sh
+/spec/figures/compilation-process.pdf
+/spec/figures/compilation-process.svg
+/spec/figures/session-protocol-as-automata.pdf
+/spec/figures/session-protocol-as-automata.svg
+/spec/figures/matrice-contraction-affaiblissement.pdf
+/spec/figures/matrice-contraction-affaiblissement.svg
