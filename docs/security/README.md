@@ -10,7 +10,7 @@ publication** (workflows, dépendances, releases, comptes). Il ne dit rien de la
 [`../ASSURANCE.md`](../ASSURANCE.md). L'état factuel courant du dépôt est produit par la CI dans [`../STATUS.md`](../STATUS.md).
 
 **État au 2026-10-10 : campagne reprise à la demande de la mainteneuse.** La remédiation active est réduite aux actions encore ouvertes ou partielles dans
-[`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md). Le plan détaillé antérieur est archivé ; la reprise ne signifie ni conformité OpenSSF complète,
+[`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md). Le plan de remédiation initial et l'ancienne checklist sont désormais dans docs/history/ ; la matrice de critères est la référence d'évaluation courante. La reprise ne signifie ni conformité OpenSSF complète,
 ni revue humaine de sécurité. Les actions administratives et décisions non résolues restent dans les registres dédiés.
 
 **Document version:** 1.0.0  
@@ -52,3 +52,6 @@ exemple le job `status` ajouté à `ci.yaml` sur `main` après l'audit) n'y figu
 Pour la sécurité : `VERIFIED`, `PARTIAL`, `PREPARED`, `HUMAN ACTION REQUIRED`, `BLOCKED`, `FUTURE` (voir `.claude/rules/security.md`).
 Le vocabulaire de [`../METHOD.md`](../METHOD.md) (`ESTABLISHED`, `UNDER REVIEW`, …) s'applique aux affirmations scientifiques : les deux
 ne se mélangent pas.
+
+
+Les anciennes checklists et le plan de remédiation initial sont conservés sous [docs/history/](../history/) comme traces datées ; ils ne constituent plus des registres actifs. Les rapports de workstreams restent des pièces justificatives historiques, pas des listes de tâches à dérouler.

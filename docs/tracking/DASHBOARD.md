@@ -26,13 +26,17 @@ This is the current entry point for project tracking. It answers what is current
 
 ## Active methodological work
 
-- [OpenSSF criteria checklist](OPENSSF-CHECKLIST.md) — auditable checklist for FLOSS Best Practices Passing/Silver/Gold and OSPS Baseline Levels 1–3; boxes require evidence, and N/A decisions must be justified.
+- [OpenSSF / CII operational status](../security/OPENSSF-ROADMAP.md) — current open security, release, and BadgeApp gates.
+- [Human actions](../security/ACTIONS-HUMAINES.md) — ordered checklist for settings, decisions, BadgeApp, and publication.
 
 - [Lean statement-command plan](LEAN-STATEMENT-COMMANDS-PLAN.md) — dedicated plan for distinguishing definitions, assumptions, axioms, hypotheses, theorems, proofs, examples, and related statement kinds in the specification source.
 - [Migration register](../migration/README.md) — active semantic migration lots only.
 
 ## Historical records
 
+- [OpenSSF criterion checklist (2026-10-10)](../history/2026-10-10-openssf-conformance-checklist.md) — archived working inventory; not a current status source.
+- [Original OpenSSF remediation plan (2026-10-10)](../history/2026-10-10-openssf-remediation-plan.md) — historical plan before the current automation wave.
+- [OpenSSF automation closeout (2026-10-10)](../history/2026-10-10-openssf-automation-closeout.md) — prepared work and items still unverified.
 - [Coherence review (closed 2026-10-09)](../history/2026-10-09-coherence-review.md) — retained audit checklist and closure context; not an active task list.
 The physical documentation-architecture programme is closed. Its final state is preserved in [the historical architecture plan](../history/2026-10-08-documentation-architecture-plan.md) and [the historical legacy-migration programme](../history/2026-10-08-legacy-documentation-migration-programme.md).
 
