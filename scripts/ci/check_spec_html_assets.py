@@ -39,6 +39,8 @@ def check(html_root: Path, source_figures: Path) -> list[str]:
         return [f"no HTML pages found under {html_root}"]
 
     expected_svgs = sorted(source_figures.glob("*.svg"))
+    if not expected_svgs:
+        errors.append(f"no source SVG assets found under {source_figures}")
     for source in expected_svgs:
         copied = html_root / "figures" / source.name
         if not copied.is_file():
@@ -80,6 +82,8 @@ def check(html_root: Path, source_figures: Path) -> list[str]:
             elif not target.is_file():
                 errors.append(f"{page.relative_to(html_root)}:{line}: image asset does not exist: {src}")
 
+    if figure_count == 0:
+        errors.append("no K7PL figure elements found in generated HTML")
     if errors:
         return errors
     return [
@@ -93,7 +97,7 @@ def main() -> int:
     html_root = Path(sys.argv[1]) if len(sys.argv) > 1 else root / "_out/spec/html-multi"
     source_figures = root / "spec/figures"
     results = check(html_root, source_figures)
-    failed = any(result.startswith(("no HTML pages", "figure asset", "invalid SVG", "cannot read", "image path", "img has", "K7PL figure",)) for result in results)
+    failed = any(result.startswith(("no HTML pages", "no source SVG", "no K7PL figure", "figure asset", "invalid SVG", "cannot read", "image path", "image asset does not exist", "img has", "K7PL figure",)) for result in results)
     for result in results:
         print(("ERROR: " if failed else "OK: ") + result)
     return 1 if failed else 0
