@@ -6,30 +6,30 @@
 \usetikzlibrary{arrows.meta,positioning}
 \begin{document}
 \begin{tikzpicture}[
-  font=\sffamily\small,
+  font=\sffamily\footnotesize,
   phase/.style={draw, rounded corners=2pt, align=center, minimum height=10mm,
-    text width=19mm, inner sep=2pt, line width=.55pt},
+    text width=23mm, inner sep=2pt, line width=.55pt},
   flow/.style={-{Stealth[length=2mm]}, line width=.65pt},
-  node distance=3mm
+  node distance=4mm
 ]
 \node[phase] (parse) {1\quad Parse};
 \node[phase, right=of parse] (config) {1.5\quad Config\\Analysis};
 \node[phase, right=of config] (type) {2\quad Type\\Check};
 \node[phase, right=of type] (resolve) {2.5\quad Resolution};
 \node[phase, right=of resolve] (purity) {3\quad Purity\\Check};
-\node[phase, right=of purity] (proof) {4\quad Term\\Proof};
-\node[phase, right=of proof] (constraints) {5\quad Constraint\\Solve};
-\node[phase, right=of constraints] (optimize) {6\quad Optimize};
-\node[phase, right=of optimize] (codegen) {7\quad CodeGen};
-\node[phase, right=of codegen] (link) {8\quad Link};
+\node[phase, below=10mm of purity] (proof) {4\quad Term\\Proof};
+\node[phase, left=of proof] (constraints) {5\quad Constraint\\Solve};
+\node[phase, left=of constraints] (optimize) {6\quad Optimize};
+\node[phase, left=of optimize] (codegen) {7\quad CodeGen};
+\node[phase, left=of codegen] (link) {8\quad Link};
 \draw[flow] (parse) -- (config);
 \draw[flow] (config) -- (type);
 \draw[flow] (type) -- (resolve);
 \draw[flow] (resolve) -- (purity);
-\draw[flow] (purity) -- (proof);
-\draw[flow] (proof) -- (constraints);
-\draw[flow] (constraints) -- (optimize);
-\draw[flow] (optimize) -- (codegen);
-\draw[flow] (codegen) -- (link);
+\draw[flow] (purity.south) -- (proof.north);
+\draw[flow] (proof.west) -- (constraints.east);
+\draw[flow] (constraints.west) -- (optimize.east);
+\draw[flow] (optimize.west) -- (codegen.east);
+\draw[flow] (codegen.west) -- (link.east);
 \end{tikzpicture}
 \end{document}
