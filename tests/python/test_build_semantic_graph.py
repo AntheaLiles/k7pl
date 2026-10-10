@@ -100,6 +100,7 @@ def test_generates_graph_from_explicit_references_and_citations(tmp_path: Path) 
     assert "../Spec/C6/Example.html#lbl-fig-one" in page
     assert "../Spec/C6/Example.html#lbl-sec-example" in page
     assert 'href="semantic-graph-c3.html">Graphe C3</a>' in page
+    assert 'viewBox="0 0 1380 ' in page
     svg_start = page.index("<svg ")
     svg_end = page.index("</svg>", svg_start) + len("</svg>")
     svg = ET.fromstring(page[svg_start:svg_end])
@@ -154,4 +155,29 @@ def test_fails_when_a_canonical_label_has_no_rendered_anchor(tmp_path: Path) -> 
     assert result.returncode != 0
     assert "rendered anchor 'lbl-sec-target' must resolve to exactly one HTML page" in result.stderr
     assert not output.exists()
+
+def test_reference_only_graph_uses_compact_viewbox(tmp_path: Path) -> None:
+    root = fixture_repo(tmp_path)
+    source = root / "spec" / "Spec" / "C6" / "Example.lean"
+    source.write_text(
+        '#doc (Manual) "Example section" =>\n'
+        '{label "sec:example"}\n'
+        'This text references {num "sec:target"}[] and cites {cite "KEY"}[].\n',
+        encoding="utf-8",
+    )
+    output = tmp_path / "site" / "navigation" / "semantic-graph.html"
+    result = subprocess.run(
+        [
+            sys.executable, str(SCRIPT), "--repo-root", str(root),
+            "--output", str(output), "--ref", "deadbeef",
+            "--source", "spec/Spec/C6/Example.lean", "--label", "sec:example",
+            "--start-line", "1", "--end-line", "3",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    page = output.read_text(encoding="utf-8")
+    assert 'viewBox="0 0 650 520"' in page
 
