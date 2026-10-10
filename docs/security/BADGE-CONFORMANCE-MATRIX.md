@@ -16,9 +16,9 @@ SPDX-License-Identifier: CC-BY-4.0
 - **À VÉRIFIER** : preuve suffisante non établie.
 - **ACTION HUMAINE REQUISE** : décision, lecture administrative ou revue responsable non automatisable.
 
-Les éléments issus de \`docs/tracking/OPENSSF-CHECKLIST.md\` sont réévalués ici. Une ancienne case cochée est une preuve candidate, pas une réponse BadgeApp réputée sauvegardée. Les critères Metal Passing/Silver/Gold et Baseline OSPS L1–L3 peuvent différer ; contrôler les identifiants de champs et la version active avant de générer une proposition.
+Les éléments issus de `docs/tracking/OPENSSF-CHECKLIST.md` sont réévalués ici. Une ancienne case cochée est une preuve candidate, pas une réponse BadgeApp réputée sauvegardée. Les critères Metal Passing/Silver/Gold et Baseline OSPS L1–L3 peuvent différer ; contrôler les identifiants de champs et la version active avant de générer une proposition.
 
-**Fiche externe observée :** [K7PL sur BadgeApp](https://www.bestpractices.dev/en/projects/15239/baseline-2), état \`in_progress\`, Baseline \`v2026.08.28\`. Le site affiche \`(Name Unknown)\` ; nom, description, licence et langages sont vides. Voir [BADGE-AUTOMATION.md](BADGE-AUTOMATION.md).
+**Fiche externe observée :** [K7PL sur BadgeApp](https://www.bestpractices.dev/en/projects/15239/baseline-2), état `in_progress`, Baseline `v2026.08.28`. Le site affiche `(Name Unknown)` ; nom, description, licence et langages sont vides. Voir [BADGE-AUTOMATION.md](BADGE-AUTOMATION.md).
 
 ## Matrice exhaustive des critères du registre
 
@@ -158,8 +158,8 @@ Les éléments issus de \`docs/tracking/OPENSSF-CHECKLIST.md\` sont réévalués
 | Gold | `code_review_standards` | PARTIEL | La checklist interne marque cette preuve comme candidate ; elle ne prouve pas que la réponse a été enregistrée dans BadgeApp ni qu'elle a été revalidée contre la version courante. CONTRIBUTING.md documente une liste d'auto-revue et indique explicitement qu'elle ne remplace pas une revue indépendante. |
 | Gold | `two_person_review` | NON SATISFAIT | Le dépôt indique qu'aucune revue humaine indépendante n'a lieu actuellement ; le critère exige une seconde personne, non une revue d'agent. |
 | Gold | `build_reproducible` | PARTIEL | Une mise en œuvre ou preuve partielle est documentée, mais la démonstration ou l'acceptation BadgeApp reste incomplète au 2026-10-10. Évaluer si le build est reproductible au sens OpenSSF, ou justifier N/A si aucune construction pertinente n'a lieu. |
-| Gold | `test_invocation` | SATISFAIT | CONTRIBUTING.md documente les commandes ; ne pas confondre avec le run CI documentaire du 2026-10-10. Les commandes d'exécution des tests sont documentées. |
-| Gold | `test_continuous_integration` | SATISFAIT | Workflow CI et règles de PR observés ; CI OK réussi le 2026-10-10. GitHub Actions automatise les tests et validations. |
+| Gold | `test_invocation` | SATISFAIT | CONTRIBUTING.md documente les commandes ; les jobs Lean, Python, Verso et PDF ont tourné et réussi dans Full Verification 38043274260 le 2026-10-10. Les commandes d'exécution des tests sont documentées. |
+| Gold | `test_continuous_integration` | SATISFAIT | Workflow CI et règles de PR observés ; CI OK réussi sur d3dd39b le 2026-10-10 et Full Verification complet réussi sur 7754c49 le même jour. GitHub Actions automatise les tests et validations. |
 | Gold | `test_statement_coverage90` | À VÉRIFIER | Critère non coché dans la checklist interne ; preuve actuelle suffisante non établie dans cette campagne. Mesurer la couverture de statements à 90 % si un outil FLOSS adapté existe ; sinon justifier N/A. |
 | Gold | `test_branch_coverage80` | À VÉRIFIER | Critère non coché dans la checklist interne ; preuve actuelle suffisante non établie dans cette campagne. Mesurer la couverture de branches à 80 % si un outil FLOSS adapté existe ; sinon justifier N/A. |
 | Gold | `crypto_used_network` | À VÉRIFIER | Critère non coché dans la checklist interne ; preuve actuelle suffisante non établie dans cette campagne. Déterminer l'applicabilité aux résultats logiciels et documenter N/A si nécessaire. |
@@ -245,4 +245,4 @@ Pour requalifier un critère, conserver la preuve selon sa nature :
 - Gouvernance/revue : décision humaine datée, portée explicite et trace adéquate.
 - Applicabilité : définition ratifiée du produit livré et justification propre au critère.
 
-La matrice n'enregistre rien sur BadgeApp. Après relecture et soumission humaine, comparer l'état externe réellement sauvegardé à ce rapport. Ne jamais utiliser \`overrides\` ni mettre à jour automatiquement les réponses distantes.
+La matrice n'enregistre rien sur BadgeApp. Après relecture et soumission humaine, comparer l'état externe réellement sauvegardé à ce rapport. Ne jamais utiliser `overrides` ni mettre à jour automatiquement les réponses distantes.
