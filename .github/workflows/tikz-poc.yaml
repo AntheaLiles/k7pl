@@ -56,7 +56,7 @@ jobs:
             "$url" --output "$RUNNER_TEMP/$archive"
           echo "$TECTONIC_SHA256  $RUNNER_TEMP/$archive" | sha256sum --check --strict
           tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
-          install -m 0755 "$RUNNER_TEMP/tectonic" "$RUNNER_TEMP/tectonic-bin"
+          install -m 0755 "$RUNNER_TEMP/tectonic" "$RUNNER_TEMP/tectonic"
           echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
 
       - name: Build twice and validate deterministic outputs
