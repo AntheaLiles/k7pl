@@ -12,7 +12,7 @@ from pathlib import Path
 from check_spec_html_assets import check
 
 
-SVG = '<svg xmlns="http://www.w3.org/2000/svg"><title>Test</title><desc>A test long description.</desc></svg>'
+SVG = '<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="test-title" aria-describedby="test-desc"><title id="test-title">Test</title><desc id="test-desc">A test long description.</desc></svg>'
 
 
 class CheckSpecHtmlAssetsTests(unittest.TestCase):
