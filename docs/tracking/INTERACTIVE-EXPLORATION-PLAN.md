@@ -103,10 +103,13 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Inventorier les 12 figures déclarées, leurs modules, noms d'assets, sources modifiables et fonctions explicatives ; le SVG LSP non référencé est recensé comme reliquat (voir l'inventaire de l'audit).
 - [x] Définir le contrat minimal de métadonnées : objectif explicatif, type, source/sorties, légende, alt, description longue, note de lecture, provenance, objets liés, statut épistémique et critères de validation (audit, §5).
 - [x] Réaliser le POC TikZ sur trois figures, vérifier les sorties PDF/SVG et la reproductibilité, comparer les éléments sémantiques aux SVG canoniques et consigner la décision dans [les résultats du POC](tikz-poc/RESULTS.md).
-- [ ] Évaluer TikZJax/isomorphic-tikzjax seulement si un besoin d'affichage interactif dans le navigateur reste démontré ; le POC actuel vise des rendus statiques.
-- [ ] Vérifier la transmission des métadonnées d'accessibilité au PDF final et valider le balisage avec le préambule personnalisé réel.
+- [x] Décision de ne pas ajouter TikZJax/isomorphic-tikzjax à ce stade : les artefacts déterministes PDF/SVG répondent au besoin démontré ; aucun besoin d'édition/rendu interactif navigateur n'est établi. Réouvrir ce point seulement si un cas d'usage interactif concret est documenté.
+- [x] Inspecter les artefacts HTML et PDF de CI du 10 octobre ; relever les 12 figures HTML, les alternatives présentes, les dimensions proportionnelles, et détecter dans le PDF que la matrice et sa description sont séparées par un saut de page.
+- [ ] Après la correction ciblée du renderer, vérifier que la matrice reste groupée avec sa légende et sa description sur le nouvel artefact PDF CI.
+- [ ] Vérifier la transmission effective des métadonnées d'accessibilité au PDF de publication avec le préambule personnalisé réel ; l'artefact PDF CI inspecté indique `Tagged: no`.
 - [x] Intégrer la génération TikZ au build canonique : un job CI dédié génère et valide les paires PDF/SVG, puis les transmet au rendu Verso ; les artefacts dérivés ne sont pas suivis dans Git.
-- [ ] Vérifier le balisage PDF/UA avec le préambule personnalisé réel, puis décider figure par figure des autres candidats ; aucune migration globale n'est autorisée par le seul résultat du POC.
+- [ ] Faire contrôler le PDF de publication avec le préambule personnalisé réel, un validateur PDF/UA et une revue humaine avec lecteur d'écran ; ne pas revendiquer de conformité avant ces contrôles.
+- [ ] Terminer la revue humaine à taille d'insertion après correction de pagination, puis décider figure par figure d'éventuels autres candidats ; aucune migration globale n'est autorisée par le seul résultat du POC.
 
 ### P1 — Cas d'usage et démonstration de valeur
 
