@@ -139,7 +139,7 @@ substituer à l'égalité exacte que le hachage garantit.
 Cette identité de format n'est pas propre à la promotion canonique : elle vaut de bout en bout entre
 l'arène et le réseau.
 
-::::proposition (label := "thm:isomorphisme_memoire") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "Dispositions bit-à-bit pour types primitifs de largeur fixe et versions déclarées ; pas de garantie générale entre formats.")
+::::proposition (label := "thm:isomorphisme_memoire") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "interoperability")
 :::title
 correspondances de disposition, transfert zéro-copie
 :::
