@@ -54,6 +54,11 @@ class InstallTikzFiguresTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "duplicate figure id"):
             install_assets(self.manifest, self.source, self.target)
 
+    def test_rejects_duplicate_production_assets(self) -> None:
+        self.manifest["figures"][1]["production_asset"] = "canonical-pipeline"
+        with self.assertRaisesRegex(ValueError, "duplicate production_asset"):
+            install_assets(self.manifest, self.source, self.target)
+
 
 if __name__ == "__main__":
     unittest.main()
