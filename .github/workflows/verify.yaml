@@ -349,6 +349,9 @@ jobs:
       - name: Generate the navigable figure-provenance catalog
         run: python3 scripts/ci/build_figure_provenance.py --output _out/spec/html-multi/navigation/figures.html
 
+      - name: Generate the local semantic graph prototype
+        run: python3 scripts/ci/build_semantic_graph.py --output _out/spec/html-multi/navigation/semantic-graph.html
+
       - name: Validate generated HTML image assets
         run: python3 scripts/ci/check_spec_html_assets.py _out/spec/html-multi
 
