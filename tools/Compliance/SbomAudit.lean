@@ -127,7 +127,7 @@ def verifyContract (input : AuditInput) : Bool :=
 theorem verifyContract_sound (input : AuditInput) (h : verifyContract input = true) :
     InventoryContract input := by
   simp only [verifyContract, Bool.and_eq_true] at h
-  simpa only [InventoryContract] using h
+  simpa only [InventoryContract, and_assoc] using h
 
 structure Diagnostic where
   ruleId : String
