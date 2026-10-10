@@ -152,7 +152,7 @@ une boucle fusionnée multiplie les grades de ses deux corps, un appel intégré
 les enchaîner une fois. Ce que la suite linéaire décrit n'est donc pas le modèle défendu, et l'écart
 se referme par un énoncé plutôt que par une figure.
 
-::::theorem (label := "thm:stabilisation_pipeline") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Terminaison de la boucle vérification/optimisation sous budget fini décroissant strictement à chaque modification.")
+::::theorem (label := "thm:stabilisation_pipeline") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
 :::title
 stabilisation du pipeline
 :::
