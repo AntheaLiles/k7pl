@@ -106,6 +106,8 @@ def statements() -> list[dict]:
                       "not-applicable" if kind not in {"result", "assumption"} else "under-review")))
             rows.append({
                 "numero": counter, "label": a.get("label", ""),
+                "path": mod.path.relative_to(ROOT).as_posix(),
+                "line": mod.text.count("\n", 0, m.start()) + 1,
                 "statut": a.get("status", "theoreme") if legacy else (role or kind),
                 "niveau": a.get("level", "langage"),
                 "titre": " ".join(title.group(1).split()) if title else "",
@@ -115,6 +117,7 @@ def statements() -> list[dict]:
                 "evidence": a.get("evidence", "proofsketch" if legacy and kind == "result" else "none"),
                 "scope": a.get("scope", "legacy-unspecified" if legacy else ""),
                 "source": a.get("source", ""), "formalArtifact": a.get("formalArtifact", ""),
+                "dependencies": sorted(set(re.findall(r'\{num\s+"((?:thm|req|def|lit|ex|cex):[^"]+)"\}', block))),
                 "legacy": legacy,
             })
     cited = Counter()
