@@ -153,9 +153,13 @@ block_extension Block.float (info : FloatInfo) where
         -- The user's Org/LaTeX preamble uses LaTeX's native tagged-graphic alt key instead.
         -- Plain CI builds without tagging support retain a compatible non-tagged fallback.
         let width := (info.width.toNat?.getD 90).toFloat / 100.0
+        let widthOption := s!"{width}"
         let escapedAlt := texEscape info.alt
-        let plainGraphic := s!"\\includegraphics[width={width}\\linewidth,keepaspectratio]\\{figures/{info.arg}.pdf}\n"
-        let taggedGraphic := s!"\\includegraphics[alt={{{escapedAlt}}},width={width}\\linewidth,keepaspectratio]\\{figures/{info.arg}.pdf}\n"
+        -- Build the filename with the existing, already-tested interpolation form;
+        -- concatenate the option list so braces around alt remain literal TeX braces.
+        let graphicPath := s!"\\{figures/{info.arg}.pdf}\n"
+        let plainGraphic := "\\includegraphics[width=" ++ widthOption ++ "\\linewidth,keepaspectratio]" ++ graphicPath
+        let taggedGraphic := "\\includegraphics[alt={" ++ escapedAlt ++ "},width=" ++ widthOption ++ "\\linewidth,keepaspectratio]" ++ graphicPath
         out := out.push (.raw "\\ifdefined\\qvalt\n")
         out := out.push (.raw ("\\qvalt{" ++ escapedAlt ++ "}\n"))
         out := out.push (.raw plainGraphic)
