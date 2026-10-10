@@ -39,9 +39,12 @@ def main() -> int:
         if not figure_id or figure_id in seen:
             fail(f"missing or duplicate figure id: {figure_id!r}")
         seen.add(figure_id)
-        for field in ("source", "canonical_verso", "caption", "alt", "long_description"):
+        for field in ("source", "canonical_verso", "production_asset", "caption", "alt", "long_description"):
             if not str(figure.get(field, "")).strip():
                 fail(f"{figure_id}: missing required manifest field {field}")
+        asset = figure["production_asset"]
+        if not asset or "/" in asset or "\\" in asset or asset in {".", ".."}:
+            fail(f"{figure_id}: production_asset must be a plain filename stem")
         source = (POC_DIR / figure["source"]).resolve()
         if not source.is_relative_to(POC_DIR.resolve()) or not source.is_file():
             fail(f"{figure_id}: source is missing or escapes the POC directory")
