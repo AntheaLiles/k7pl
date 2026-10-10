@@ -78,6 +78,27 @@ Source : [`ossf/best-practices-badge/docs/automation-proposals.md`](https://gith
 7. **Preuves à conserver** : SHA du dépôt, IDs et URLs des runs, version/date des critères, rapport de propositions, URL générée sans cookie/session, décision humaine et instantané post-soumission. Ne jamais stocker les identifiants ou sessions.
 8. **Manifeste futur** : `.bestpractices.json` peut être ajouté lorsque les réponses ont une source de vérité stable ; il doit être une projection contrôlée de faits ratifiés, pas une seconde source concurrente.
 
+### 3.2 Contrôles automatisés désormais implémentés
+
+Le code ajouté à cette PR réalise des contrôles locaux sans authentification BadgeApp :
+
+- `scripts/ci/check_badge_proposals.py --check-sources` vérifie la cohérence de `CITATION.cff:repository-code`, de `CITATION.cff:url` et du badge Best Practices présent une seule fois dans le README. Il ne déduit pas les quatre métadonnées encore indécidées.
+- `scripts/ci/badge_criteria_registry.json` fige les IDs actifs et contraintes utiles (notamment l'autorisation de `N/A`, les critères futurs/obsolètes et l'exigence d'une URL comme preuve pour `Met`) à partir des fichiers officiels `criteria/criteria.yml` et `criteria/baseline_criteria.yml`, observés dans `ossf/best-practices-badge` au commit `1059cb310a63cbcf0e1ada5fef0d7e9870a02ff1`. Les blob SHA des deux fichiers sont conservés dans le registre.
+- Le même outil génère une URL éditable uniquement à partir d'un JSON de proposition qui exige `human_reviewed: true`, l'approbation explicite de chaque champ et une preuve pour chaque entrée. Les IDs sont vérifiés contre la section du registre épinglé ; les statuts inconnus `?`, `overrides` et `reanalyze` sont refusés ; les contraintes amont de statut sont contrôlées. Les chemins de preuve locaux sont convertis en liens GitHub épinglés à `source_sha`. La génération ne soumet pas le formulaire.
+- `scripts/ci/test_badge_proposals.py` couvre les vérifications locales, la génération et l'encodage d'URL, les statuts et IDs refusés, les preuves manquantes, les tentatives de forçage et la détection de dérive.
+- Le workflow `.github/workflows/security.yaml` exécute la cohérence locale lors de la CI. Lors de ses déclenchements planifiés ou manuels, il compare aussi les blob SHA des deux fichiers de critères amont. En cas de dérive ou d'indisponibilité réseau, il émet un avertissement et conserve un rapport en artefact pendant 90 jours. Le workflow ne modifie jamais le registre automatiquement.
+
+Le contrôle de dérive porte sur les **définitions des critères sources**, pas sur l'état interne sauvegardé de BadgeApp. Cette distinction est intentionnelle : l'outil n'utilise pas de méthode REST `PUT` et ne prétend pas que les statuts sont synchronisés.
+
+Commandes de contrôle :
+
+```sh
+python3 scripts/ci/check_badge_proposals.py --check-sources
+python3 -m unittest discover -s scripts/ci -p 'test_badge_proposals.py'
+python3 scripts/ci/check_badge_proposals.py --check-upstream --report badge-criteria-drift.json
+```
+
+Aucun fichier de propositions prérempli n'est ajouté à ce stade : le périmètre du badge, le nom, la description, la licence et les langages restent des décisions humaines. Une fois ces décisions prises, le schéma d'entrée pourra être versionné avec les preuves correspondantes.
 ## 4. Matrice de conformité — points immédiatement vérifiables
 
 La matrice critère par critère, reprenant tout l'inventaire interne Passing/Silver/Gold et OSPS Baseline L1–L3, est dans [`BADGE-CONFORMANCE-MATRIX.md`](BADGE-CONFORMANCE-MATRIX.md). Le tableau ci-dessous détaille les sujets prioritaires qui déterminent directement la suite. « Satisfait » porte seulement sur la propriété précisée ; cela ne signifie pas que la réponse est enregistrée sur BadgeApp.
