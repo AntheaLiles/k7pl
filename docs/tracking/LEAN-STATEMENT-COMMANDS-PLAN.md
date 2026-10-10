@@ -149,6 +149,7 @@ The output is a ratified taxonomy, not merely a list of command names.
 
 ### C8.2 — Extension refactoring
 
+**Implementation draft recorded in branch `feat/c8-shared-statement-ontology` (2026-10-10); validation pending.** `tools/SpecExt/Theorem.lean` now has a shared `StatementInfo` record, legacy `::::thm` mapping, specialized command front ends, metadata validation, separate scope/provenance/formal-artifact fields, and role/kind-specific counters for new blocks. The historical counter and syntax are retained for legacy blocks. See [the implementation contract](LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md). This is not yet considered complete until the Lean build, directive expansion tests, HTML/PDF rendering, and compatibility checks pass. The inventory, Python controls, slot-parent validation, and source migration remain outside this implementation slice.
 Refactor `tools/SpecExt/Theorem.lean` into a representation that can encode the ratified taxonomy.
 
 The preferred architecture is one internal statement representation with validated variants rather than a copy-pasted renderer for every command. Surface commands may remain distinct for authoring clarity while sharing the same internal representation and rendering infrastructure.
