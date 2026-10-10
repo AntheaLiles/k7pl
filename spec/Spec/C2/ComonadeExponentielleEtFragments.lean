@@ -122,7 +122,7 @@ et le transport de l'effet ; la partie budgétaire non ambiguë se réduit au le
 $`\mathbb{N}_\infty`, tandis que l'extension au grade complet reste à établir. Les usages ultérieurs
 ne doivent invoquer cette loi qu'une fois ces actions définies.
 
-::::lemma (label := "thm:distributivite_tronquee") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Pour u fini ou k=0 ; la preuve par cas des combinaisons finies/infinies, notamment k=ω, doit être exhaustive.")
+::::lemma (label := "thm:distributivite_tronquee") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "effects")
 :::title
 distributivité du produit sur la soustraction tronquée
 :::
@@ -155,7 +155,7 @@ $`u = \omega`_, et ce n'est pas une affaire de convention à choisir mais une re
 Ce lemme arithmétique reste disponible pour une architecture où une même multiplicité agit
 simultanément sur le budget et sur l'effet. Il n'est pas requis par `Scale_Usage`, qui laisse le budget
 inchangé, et il ne doit donc plus être présenté comme une prémisse générale de la substitution.
-::::proposition (label := "thm:coherence_axiome") (level := "langage") (role := "proposition") (state := "proposed") (evidence := "proofsketch") (scope := "Compatibilité r·ψ(Δ,ε)=ψ(r·Δ,φ_r(ε)) seulement dans le domaine où les deux actions sont définies ; aucun axiome par le seul nom.")
+::::proposition (label := "thm:coherence_axiome") (level := "langage") (role := "proposition") (state := "proposed") (evidence := "proofsketch") (scope := "effects")
 :::title
 condition de compatibilité de l'action graduée
 :::
@@ -179,7 +179,7 @@ et l'action $`\varphi_r` sur les effets.
 :::
 
 ::::
-::::lemma (label := "thm:coherence_usage") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Commutation de Scale_Usage avec ψ, sous factorisation et domaine défini ; signatures et quatre composantes à confirmer.")
+::::lemma (label := "thm:coherence_usage") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "effects")
 :::title
 cohérence de l'action d'usage
 :::
@@ -277,7 +277,7 @@ additionne les travaux en prenant le maximum des profondeurs.
 
 L'action d'itération doit être compatible avec cette composition.
 
-::::lemma (label := "thm:action_parallele") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Compatibilité de φ_n avec l’effet parallèle pour multiplicité entière ; budget exclu et traité séparément.")
+::::lemma (label := "thm:action_parallele") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "effects")
 :::title
 compatibilité de l'itération et de la mise en parallèle
 :::
