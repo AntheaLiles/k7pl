@@ -43,6 +43,27 @@ class CheckSpecHtmlAssetsTests(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertTrue(results[0].startswith("validated "), results)
 
+    def test_resolves_image_against_verso_base_href(self) -> None:
+        (self.site / "chapter" / "index.html").write_text(
+            '<html><head><base href="./../"></head><body>'
+            '<img class="k7-img" src="figures/test.svg" alt="A test figure">'
+            '</body></html>',
+            encoding="utf-8",
+        )
+        results = check(self.site, self.source)
+        self.assertEqual(len(results), 1)
+        self.assertTrue(results[0].startswith("validated "), results)
+
+    def test_detects_double_prefix_with_verso_base_href(self) -> None:
+        (self.site / "chapter" / "index.html").write_text(
+            '<html><head><base href="./../"></head><body>'
+            '<img class="k7-img" src="../figures/test.svg" alt="A test figure">'
+            '</body></html>',
+            encoding="utf-8",
+        )
+        results = check(self.site, self.source)
+        self.assertTrue(any("escapes the HTML site" in result for result in results), results)
+
     def test_rejects_missing_image_asset(self) -> None:
         self.write_page("../figures/missing.svg")
         results = check(self.site, self.source)
