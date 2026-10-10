@@ -10,12 +10,13 @@
   font=\sffamily\small,
   state/.style={draw, rounded corners=2pt, minimum height=11mm, minimum width=27mm,
     align=center, line width=.65pt},
+  final/.style={state, double, double distance=1.2pt},
   transition/.style={->, line width=.7pt},
   node distance=28mm
 ]
 \node[state] (int) {EXPECT\_INT};
 \node[state, right=of int] (bool) {EXPECT\_BOOL};
-\node[state, right=of bool, accepting] (done) {\textsc{end}};
+\node[final, right=of bool] (done) {\textsc{end}};
 \draw[transition] (int) -- node[above, align=center] {send(Int)} (bool);
 \draw[transition] (bool) -- node[above, align=center] {recv(Bool)} (done);
 \end{tikzpicture}
