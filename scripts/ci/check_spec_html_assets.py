@@ -65,7 +65,7 @@ def declared_figure_stems(spec_root: Path) -> tuple[list[str], list[str]]:
                 errors.append(f"{source}:{line_number}: figure declaration has no literal src")
                 continue
             stem = match.group(1)
-            if not stem or stem in {".", ".."} or "/" in stem or "\\\\" in stem:
+            if not stem or stem in {".", ".."} or "/" in stem or "\\" in stem:
                 errors.append(f"{source}:{line_number}: unsafe figure asset stem {stem!r}")
                 continue
             stems.append(stem)
