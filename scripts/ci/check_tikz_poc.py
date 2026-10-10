@@ -23,6 +23,7 @@ def fail(message: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True, help="directory containing generated PDF/SVG pairs")
+    parser.add_argument("--check-tracked", action="store_true", help="require generated assets to match spec/figures byte-for-byte")
     args = parser.parse_args()
     root = args.root.resolve()
     poc_manifest = json.loads((POC_DIR / "manifest.json").read_text(encoding="utf-8"))
@@ -72,6 +73,11 @@ def main() -> int:
             fail(f"{figure_id}: malformed SVG: {exc}")
         if tree.getroot().tag.split("}")[-1] != "svg":
             fail(f"{figure_id}: root element is not SVG")
+        if args.check_tracked:
+            for suffix, generated in (("pdf", pdf), ("svg", svg)):
+                tracked = REPO_ROOT / "spec" / "figures" / f"{stem}.{suffix}"
+                if not tracked.is_file() or tracked.read_bytes() != generated.read_bytes():
+                    fail(f"{figure_id}: generated {suffix.upper()} differs from tracked asset {tracked.relative_to(REPO_ROOT)}")
         print(f"validated {figure_id}: canonical source, POC metadata, PDF and SVG")
 
     print(f"validated {len(poc_figures)} TikZ POC figures")
