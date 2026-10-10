@@ -32,7 +32,7 @@ représentation intermédiaire ont ceci de commun qu'ils sont définis par récu
 des termes et qu'ils doivent commuter avec la substitution — faute de quoi le sens dépendrait de
 l'ordre dans lequel on transforme et on substitue.
 
-::::thm (label := "thm:schema_commutation")
+::::lemma (label := "thm:schema_commutation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Substitution et transformations syntaxiques")
 :::title
 schéma de commutation
 :::
