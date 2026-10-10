@@ -131,7 +131,32 @@ jobs:
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
 
       - name: Build the implementation and the tests
-        run: lake build K7pl K7plTests
+        run: lake build K7pl K7plTests K7plCompliance sbomAudit
+
+      - name: Audit the scoped Lake-to-SPDX inventory
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/lake_manifest_to_spdx.py \
+            --created 2026-10-10T00:00:00Z \
+            --output "$RUNNER_TEMP/k7pl-lake.spdx.json"
+          lake exe sbomAudit -- lake-manifest.json "$RUNNER_TEMP/k7pl-lake.spdx.json" \
+            > "$RUNNER_TEMP/k7pl-sbom-audit.json"
+          python3 - "$RUNNER_TEMP/k7pl-sbom-audit.json" <<'PY'
+          import json
+          import sys
+
+          with open(sys.argv[1], encoding="utf-8") as stream:
+              report = json.load(stream)
+          assert report["schemaVersion"] == "k7pl.compliance-report/v1", report
+          assert report["tool"] == "k7pl-sbom-audit", report
+          assert report["status"] == "PASS", report
+          assert report["diagnostics"] == [], report
+          assert report["sourceArtifacts"] == [
+              "lake-manifest.json",
+              "$RUNNER_TEMP/k7pl-lake.spdx.json",
+          ], report
+          print("Lean scoped SPDX consistency audit: PASS")
+          PY
 
       - name: Test
         run: lake test
