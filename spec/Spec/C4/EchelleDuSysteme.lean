@@ -115,7 +115,7 @@ consignée, ce qui établit le rejeu logique défini par P4. Une identité bit �
 profil de représentation $`\Pi` et les hypothèses $`E_{\text{repro}}` du théorème de représentation
 binaire ci-dessous ; elle n'est pas une propriété intrinsèque de la persistance ni du langage.
 
-::::theorem (label := "thm:determinisme_rejeu") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Rejeu logique observationnel, sous journal complet et gestionnaires purs ; ne conclut pas à l’identité binaire.")
+::::theorem (label := "thm:determinisme_rejeu") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "runtime")
 :::title
 déterminisme logique du rejeu
 :::
@@ -141,7 +141,7 @@ représentation.
 :::
 
 ::::
-::::corollary (label := "thm:rejeu_binaire") (level := "representation") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Identité binaire seulement sous E_repro et injectivité de la représentation ; corollaire conditionnel du rejeu logique.")
+::::corollary (label := "thm:rejeu_binaire") (level := "representation") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "runtime")
 :::title
 identité binaire du rejeu, sous environnement reproductible
 :::
@@ -317,7 +317,7 @@ Ces deux postulats ont un coût d'expressivité assumé et non démontré : P3 e
 dont la terminaison n'est pas structurellement évidente, P4 les ordonnancements non déterministes
 que certains systèmes sensibles à la latence préfèrent.
 
-::::lemma (label := "thm:liberte_initialisation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Initialisation complète sous acyclicité du graphe et correspondance démontrée entre graphe statique et attentes dynamiques.")
+::::lemma (label := "thm:liberte_initialisation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "runtime")
 :::title
 liberté d'initialisation par DAG topologique
 :::
@@ -466,7 +466,7 @@ caches, son protocole de cohérence.[^fn2]
 
 [^fn2]: La conformité du code engendré au modèle déclaré est une propriété de l'abaissement, qui se vérifie sur un compilateur et non dans un document.
 
-::::lemma (label := "thm:sync_motifs_jonction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "Sémantique de Guard/jonction pour présence simultanée de messages ; préciser la relation exacte avec la transition.")
+::::lemma (label := "thm:sync_motifs_jonction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "concurrency")
 :::title
 synchronisation atomique des motifs de jonction
 :::
@@ -545,7 +545,7 @@ ce document franchit une frontière de confiance sans l'avoir tracée — les de
 l'exécution de macros avant vérification et l'importation depuis une source distante (chapitre 5,
 §{num "sec:c5-mise-en-pratique"}[]).
 
-::::theorem (label := "thm:surete_ffi") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "Exclusivité d’accès de l’acteur pendant l’appel FFI ; n’implique pas la révocation côté hôte.")
+::::theorem (label := "thm:surete_ffi") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "ffi-safety")
 :::title
 sûreté FFI par la passerelle de capacité
 :::
@@ -572,7 +572,7 @@ ce théorème. Au retour, la passerelle restitue la capacité à l'acteur.
 :::
 
 ::::
-::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "Passerelle FFI / runtime")
+::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "ffi-safety")
 :::title
 révocation à la frontière étrangère
 :::
