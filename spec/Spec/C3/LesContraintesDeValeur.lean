@@ -137,14 +137,14 @@ le sens de ce que le paragraphe précédent revendique. Un type de session n'en 
 distribuée : le même automate, sauf que ses transitions sont déclenchées par l'échange de messages
 entre deux extrémités plutôt que par des appels locaux.
 
-::::figure (label := "fig:session-automate") (src := "session-protocol-as-automata") (alt := "Automate a deux etats. De EXPECT_INT part la transition send de Int vers EXPECT_BOOL, d'ou part la transition recv de Bool vers l'etat final.") (width := "90")
+::::figure (label := "fig:session-automate") (src := "session-protocol-as-automata") (alt := "Automate de session avec un état initial, EXPECT_INT, EXPECT_BOOL et un état final en double cercle.") (width := "90")
 :::caption
 Un protocole de session comme automate à états
 :::
 
 :::desc
-Un protocole vu comme la suite de ses états, avant que le
-§{num "sec:c3-les-contraintes-de-valeur"}[] ne le relise comme un échange entre deux extrémités.
+Le point initial plein mène à EXPECT_INT. La transition send(Int) mène à EXPECT_BOOL ; la transition
+recv(Bool) mène à l'état final non étiqueté, représenté par un double cercle.
 :::
 
 :::note
