@@ -60,7 +60,7 @@ jobs:
           echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
 
       - name: Build twice and validate deterministic outputs
-        run: scripts/ci/build_tikz_poc.sh
+        run: bash scripts/ci/build_tikz_poc.sh
 
       - name: Upload PDF and SVG proof artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -71,6 +71,7 @@ jobs:
           if-no-files-found: error
 
       - name: Summarise render hashes
+        if: ${{ success() }}
         run: |
           {
             echo "### TikZ POC"
