@@ -93,7 +93,7 @@ est l'effet déclaré du code produit hors arguments ; l'effet de l'expansion el
 $`\varepsilon_{\mathrm{exp}} = \mathbf{1}`, est un lemme du bac à sable, non une déclaration.
 :::
 ::::
-::::corollary (label := "thm:expansion_macro") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "Dérivabilité de Expand par substitution et composition des effets dans l’ordre syntaxique ; corollaire de l’élaboration.")
+::::corollary (label := "thm:expansion_macro") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "syntax")
 :::title
 la règle d'expansion est dérivable
 :::
