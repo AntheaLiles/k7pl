@@ -42,6 +42,19 @@ def levelName : String → String
   | "deploiement" => "déploiement"
   | s => s
 
+/-- Heading for the body of a statement, based on its object kind. -/
+def statementPartName (info : StatementInfo) : String :=
+  if info.scope == "legacy-unspecified" then "Déclaration"
+  else
+    match info.kind with
+    | "definition" => "Définition"
+    | "assumption" => "Prémisse"
+    | "requirement" => "Exigence"
+    | "literature" => "Résultat documenté"
+    | "example" => "Exemple"
+    | "counterexample" => "Contre-exemple"
+    | _ => "Énoncé"
+
 /-- Shared internal representation for every proof-bearing or documentary statement. -/
 structure StatementInfo where
   label : Option String
@@ -93,12 +106,15 @@ block_extension Block.theorem (info : ThmInfo) where
     match fromJson? (α := StatementInfo) data with
     | .error e => reportError s!"theorem: cannot read its data: {e}"; pure none
     | .ok info =>
-      let n ← assignNumber "theoreme" id
+      let sequence :=
+        if info.scope == "legacy-unspecified" then "theoreme"
+        else if info.role.isEmpty then info.kind else info.role
+      let n ← assignNumber sequence id
       if let some l := info.label then
         let (slots, _) := splitSlots contents
         let title := (findSlot slots "statement").bind (·.titleAndBody.1) |>.map
           (fun xs => String.join (xs.toList.map plainText)) |>.getD ""
-        registerLabel l id { kind := "theorem", text := toString n, title }
+        registerLabel l id { kind := (if info.role.isEmpty then info.kind else info.role), text := toString n, title }
       if info.number == some n then pure none
       else
         pure (some (.other { Block.theorem { info with number := some n } with id := some id } contents))
@@ -127,7 +143,7 @@ block_extension Block.theorem (info : ThmInfo) where
           let tHtml : Output.Html ← match t with
             | some xs => do pure {{<span class="k7-stm-title">{{" : "}}{{← xs.mapM goI}}</span>}}
             | none => pure .empty
-          out := out.push {{<div class="k7-statement"><div class="k7-stm-head">{{"Déclaration " ++ n}}{{tHtml}}</div>{{← body.mapM goB}}</div>}}
+          out := out.push {{<div class="k7-statement"><div class="k7-stm-head">{{statementPartName info ++ " " ++ n}}{{tHtml}}</div>{{← body.mapM goB}}</div>}}
         | "proofsketch" =>
           out := out.push {{<div class="k7-proof"><div class="k7-proof-head">"Esquisse de preuve"</div>{{← s.content.mapM goB}}<span class="k7-qed">"□"</span></div>}}
         | "title" => pure ()
@@ -158,7 +174,7 @@ block_extension Block.theorem (info : ThmInfo) where
           let tTeX : Verso.Output.TeX ← match t with
             | some xs => do pure (Verso.Output.TeX.seq #[.raw " : ", .seq (← xs.mapM goI)])
             | none => pure .empty
-          out := out.push (.raw s!"\\noindent Déclaration {n}")
+          out := out.push (.raw s!"\\noindent {statementPartName info} {n}")
           out := out.push tTeX
           out := out.push (.raw "\\par\\nobreak\n")
           out := out.push (.seq (← body.mapM goB))
