@@ -66,6 +66,8 @@ def tests : List (String × Bool) :=
       !(verifyContract { sampleInput with packages := [{ sampleSbomPackage with versionInfo := "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" }] }))
   , ("component URL must be preserved",
       !(verifyContract { sampleInput with packages := [{ sampleSbomPackage with downloadLocation := "https://example.invalid/alpha" }] }))
+  , ("empty component identity is rejected",
+      !(verifyContract { sampleInput with packages := [{ sampleSbomPackage with name := "" }] }))
   , ("unknown licence metadata remains NOASSERTION",
       !(verifyContract { sampleInput with packages := [{ sampleSbomPackage with licenseDeclared := "MIT" }] }))
   , ("invented dependency edge is rejected",
