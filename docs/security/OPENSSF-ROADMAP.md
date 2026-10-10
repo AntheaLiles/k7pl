@@ -10,7 +10,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | État | **PAUSE TEMPORAIRE** au 2026-10-10 |
 | Périmètre | Remédiation de sécurité et de chaîne d'approvisionnement du dépôt ; ne vaut ni certification OpenSSF, ni validation humaine de sécurité |
 | Règle | Ce registre ne contient que les actions encore ouvertes, partielles, préparées mais non exécutées de bout en bout, ou bloquées |
-| Historique | [Plan détaillé archivé au 2026-10-10](../history/2026-10-10-openssf-roadmap-snapshot.md) · [Audit consolidé](OPENSSF-AUDIT.md) · [État de mise en œuvre](IMPLEMENTATION-STATUS.md) |
+| Historique | [Plan détaillé archivé au 2026-10-10](OPENSSF-ROADMAP-HISTORY-2026-10-10.md) · [Audit consolidé](OPENSSF-AUDIT.md) · [État de mise en œuvre](IMPLEMENTATION-STATUS.md) |
 | Actions humaines | [ACTIONS-HUMAINES.md](ACTIONS-HUMAINES.md) · [DECISIONS-REQUISES.md](DECISIONS-REQUISES.md) |
 
 ## 1. Résultat de la campagne avant la pause
