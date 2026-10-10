@@ -75,8 +75,15 @@ def tests : List (String × Bool) :=
   , ("missing relationship is rejected",
       !(verifyContract { sampleInput with relationships := [] }))
   , ("duplicate package IDs are rejected",
-      !(verifyContract { sampleInput with packages := [sampleSbomPackage, sampleSbomPackage]
-        , relationships := [sampleRelationship, sampleRelationship] }))
+      !(verifyContract { sampleInput with
+        packages := [sampleSbomPackage, sampleSbomPackage],
+        relationships := [sampleRelationship, sampleRelationship] }))
+  , ("wrong SPDX version is rejected",
+      !(verifyContract { sampleInput with spdxVersion := "SPDX-2.2" }))
+  , ("invalid manifest JSON reports ERROR",
+      (auditTexts "{" "{}" "manifest.json" "spdx.json").status == "ERROR")
+  , ("invalid SPDX JSON reports ERROR",
+      (auditTexts "{\"name\":\"k7pl\",\"packages\":[]}" "{" "manifest.json" "spdx.json").status == "ERROR")
   , ("valid input has no diagnostics", (auditIssues sampleInput).isEmpty)
   , ("missing required manifest field is rejected",
       match parseAuditInput malformedManifest emptySbom with
