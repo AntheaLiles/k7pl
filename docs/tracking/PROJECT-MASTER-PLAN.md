@@ -525,7 +525,7 @@ At the current snapshot:
 8. establish the bounded implementation-conformance case I;
 9. exercise J and P1–P6;
 10. complete the semantic migration lots that remain justified, then maintain the closed physical architecture without recreating a migration work queue.
-11. keep the OpenSSF remediation campaign on temporary hold; its genuinely open items remain in `docs/security/OPENSSF-ROADMAP.md` and human-only actions in `docs/security/ACTIONS-HUMAINES.md`.
+11. resume the OpenSSF remediation work on 2026-10-10; its open evidence, release and human-only actions are tracked separately in `docs/security/OPENSSF-ROADMAP.md` and `docs/security/ACTIONS-HUMAINES.md`.
 12. start K as a separate research question via issue #122; do not treat Lean formalization as automatic legal, contractual, or organizational compliance.
 
 If a stage exposes a new architectural dependency, stop the downstream progression and reclassify the dependency rather than silently carrying it forward.
@@ -576,4 +576,4 @@ The workstream continues to distinguish:
 
 **Exit criterion:** the bounded prototype, negative CLI cases, hash-locked validator install, SPDX 2.3 validation, byte-identical fixed-input regeneration, five-sample timing probe and full CI passed in #891. Provisional recommendation: GO for continued research on the bounded prototype; NO-GO for production or global compliance claims. Remaining work is cross-run characterization, expansion of negative SPDX fixtures, measurement of validation coverage/diagnostics and review of additional validator blind spots. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
 
-The OpenSSF remediation campaign is temporarily paused and tracked separately. Its outstanding release/security actions remain open and must be resumed before any release action that depends on them.
+The OpenSSF remediation campaign resumed on 2026-10-10 at the maintainer's request. Safe documentation and evidence work proceeds in a separate PR; outstanding release/security actions remain open, and sensitive administrator or publication actions still require explicit authorization.

@@ -254,3 +254,18 @@ Ce complément actualise l'état d'exécution sans réécrire les observations h
 | SBOM SPDX | PARTIAL | avant intégration à la release ou revendication de conformité |
 | Surveillance OSV | PARTIAL | à la prochaine revue périodique ou si un avis apparaît |
 | Revue de sécurité humaine | HUMAN ACTION REQUIRED | si une revendication de revue humaine ou de critère CII correspondant est nécessaire |
+
+
+## 16. Revalidation du dépôt et du profil BadgeApp — 2026-10-10
+
+Ce complément reflète les lectures effectuées après le snapshot §15 ; il ne réécrit pas les constats historiques de la matinée.
+
+- La PR #121 est fusionnée depuis le 2026-10-10 à 09:45:53 UTC (merge commit \`7754c4944abb46b6f87d3783c5158b3706542ff2\`). La tête \`main\` auditée est \`d3dd39b4e4265490b58dd7dba8bfe076a39e7e6f\`.
+- Le run CI [\`38053761245\`](https://github.com/AntheaLiles/k7pl/actions/runs/38053761245) et le run Scorecard [\`38053760969\`](https://github.com/AntheaLiles/k7pl/actions/runs/38053760969) sont réussis sur cette tête. Actionlint, commitlint, gitleaks, REUSE, zizmor et le scan OSV ont notamment réussi. Les jobs détaillés Lean/Verso/PDF et Python ont été ignorés pour cette modification documentaire ; ce n'est donc pas une vérification complète de release sur cette tête.
+- La répétition manuelle du workflow \`Release\` a réussi lors du run [\`38037872705\`](https://github.com/AntheaLiles/k7pl/actions/runs/38037872705) sur le commit \`1d8339b\`. Ce mode ne crée aucun brouillon, asset ou attestation et ne teste pas l'événement de tag. La release publiée \`spec-v0.0.0-alpha.1\` reste immuable avec zéro asset.
+- Le ruleset \`PR on main\` (ID \`24138119\`) a été relu via API : règles \`pull_request\`, \`deletion\`, \`non_fast_forward\`, historique linéaire et check \`CI OK\` requis ; approbations requises à 0 et \`strict_required_status_checks_policy=false\`. L'API de protection de branche renvoie 403 avec la connexion utilisée ; la requête pour les rulesets de tags était vide. Les autres paramètres administratifs ne sont pas considérés vérifiés.
+- Le profil [BadgeApp K7PL](https://www.bestpractices.dev/en/projects/15239/baseline-2) est toujours \`in_progress\`, Baseline \`v2026.08.28\`. Il affiche \`(Name Unknown)\` et les champs nom, description, licence et langages vides ; les URLs du site et du dépôt sont renseignées.
+- Le badge Best Practices est déjà présent dans \`README.md\`. Aucun \`.bestpractices.json\`, \`.project.d/bestpractices.json\` ou \`security-insights.yml\` n'a été trouvé dans l'arbre \`main\` inspecté.
+- Le registre actif a été corrigé pour ne plus présenter la PR #121 comme ouverte. L'analyse complète du mécanisme et la matrice critère par critère sont ajoutées dans \`docs/security/BADGE-AUTOMATION.md\` et \`docs/security/BADGE-CONFORMANCE-MATRIX.md\`.
+
+Les actions ouvertes de release, Zenodo, protections et secrets, restrictions des agents, reproductibilité PDF/bundle TeX, validation indépendante SPDX, continuité OSV et revue humaine restent ouvertes. Aucune réponse \`Met\`, aucun \`N/A\` et aucun niveau de badge n'ont été enregistrés par ce complément.
