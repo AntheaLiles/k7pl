@@ -147,7 +147,7 @@ coïncidence malheureuse mais une conséquence du schéma.
 Un cinquième schéma gouverne tout ce qui, dans ce document, _répète_. Cinq mécanismes font la même
 chose sous cinq noms, et aucun ne renvoie aux autres.
 
-::::thm (label := "thm:schema_reinvocation")
+::::lemma (label := "thm:schema_reinvocation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "none") (scope := "Ré-invocation de multiplicité finie")
 :::title
 schéma de ré-invocation bornée
 :::
@@ -159,18 +159,27 @@ Employer $`n` fois, c'est invoquer $`n` fois en séquence
 Pour $`t` de contexte $`\Delta` et d'effet $`\varepsilon`, et pour un entier fini $`n \in \mathbb{N}_\infty`,
 la ré-invocation $`\mathsf{reinvo}(n,t)` combine deux actions distinctes : le contexte est mis à
 l'échelle par $`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et l'effet devient
-$`\varphi_n(\varepsilon)`. L'associativité requiert séparément la composition des mises à l'échelle
+$`\varphi_n(\varepsilon)`.
+::::
+
+::::requirement (label := "req:schema_reinvocation_compatibility") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Ré-invocation de multiplicité finie ; l’associativité et la compatibilité contexte/effet sont des obligations distinctes.")
+:::title
+compatibilité de la ré-invocation
+:::
+
+:::statement +titled
+Compatibilité contexte/effet
+:::
+
+L'associativité requiert séparément la composition des mises à l'échelle
 et celle des transformations d'effet ; l'unité est $`n=1`.
 
-:::proofsketch
 La mise à l'échelle du contexte est celle de la modalité factorisée. La loi de coût est l'action
 $`\varphi_n` sur les effets. Leur compatibilité constitue une obligation propre à la ré-invocation
 finie ; elle n'est pas une instance automatique d'une loi uniforme sur le grade complet. Sur le
 budget, cette compatibilité reste distincte de $`Scale_Usage` et ne doit pas introduire une
 multiplication du budget tant qu'aucune telle action n'est définie.
-:::
 ::::
-
 Certaines constructions en sont des instances directes : la traduction d'un grade fini, le parcours
 d'un vecteur, l'opération à portée et l'image bornée du point fixe déductif. L'expansion d'une macro
 n'en est pas une instance directe : elle conserve l'ordre des occurrences des arguments et compose
