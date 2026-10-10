@@ -23,13 +23,13 @@ Le choix de TikZJax relève d'abord de la troisième couche. Un fichier TikZ con
 
 Le point d'entrée actuel des figures est tools/SpecExt/Float.lean. Le commentaire de module décrit le contrat suivant : figures/name.svg pour HTML et figures/name.pdf pour PDF, avec des slots caption, desc, note et source.
 
-Le rendu HTML construit un élément img dont l'URL est calculée comme rootPrefix traverseContext.path suivi de figures/, du nom de la figure et de .svg. Le préfixe est produit en répétant ../ selon la taille du chemin de traversal. Le générateur, dans tools/SpecMain.lean, copie spec/figures vers figures dans la sortie. C'est une hypothèse de défaut de chemin plausible, mais **pas encore un diagnostic prouvé** : il faut inspecter le HTML généré, la structure effective de html-multi, les réponses HTTP des URL d'images et le comportement sous le préfixe GitHub Pages.
+Le rendu HTML construisait un élément img avec un préfixe relatif calculé en répétant ../ selon la profondeur de traversal. Or Verso ajoute aux pages multi-pages un élément <base href> qui pointe déjà vers la racine du site. Le navigateur résout les URL relatives à partir de cette base, et non du répertoire de la page : le préfixe était donc appliqué deux fois. Le défaut est **reproduit** sur l'artefact CI : les 12 figures K7PL pointent hors du site alors que les fichiers existent. Une URL `figures/nom.svg`, résolue par la base de Verso, corrige les 12 références. La correction et son contrôle de non-régression sont dans la [PR #124](https://github.com/AntheaLiles/k7pl/pull/124).
 
 Le rendu TeX de Float.lean utilise actuellement includegraphics avec width et keepaspectratio, sans transmettre le texte alternatif de FloatInfo à la commande d'inclusion et sans appel explicite visible au mécanisme de balisage de figure accessible dans ce chemin. Une macro de préambule seule ne corrige pas ce défaut si le générateur ne l'appelle pas.
 
 Le plan interactif et son document d'architecture sont situés sous docs/tracking/. Le suivi des anomalies se trouve sous docs/tracking/ANOMALIES.md. L'anomalie ANOM-10 du registre actuel concerne l'interface Verso en anglais, pas le défaut d'images décrit ici ; ne pas réutiliser cet identifiant sans vérifier le registre. Créer ou rattacher un suivi spécifique aux figures cassées après reproduction.
 
-Le changelog de la spécification annonce treize figures. Ce nombre sert de contrôle initial à confronter à un inventaire généré depuis les sources ; il ne constitue pas à lui seul un inventaire validé.
+Le changelog conserve un compte historique de treize figures. L'artefact HTML audité contient douze figures K7PL réellement déclarées et un treizième SVG, `services-lsp.svg`, qui n'est référencé par aucune déclaration actuelle. Le nombre 13 ne doit donc pas être interprété comme une déclaration manquante : le fichier LSP est un reliquat de l'ancien manuscrit. Le suivi de cohérence du 9 octobre le croyait déjà absent, mais il existe encore dans `spec/figures/` avec son PDF et sa source Mermaid ; cette incohérence d'inventaire reste à résoudre séparément.
 
 ### Inventaire initial extrait des déclarations Verso
 
@@ -53,15 +53,13 @@ La première recherche dans les sources a fait apparaître les douze déclaratio
 Ce tableau classe la **fonction attendue** d'après les déclarations et leurs textes alternatifs ; il ne valide pas encore l'exactitude visuelle des images, leur existence dans les deux formats ni la qualité de leur description longue. Les trois cas de prototype les plus informatifs semblent être : le pipeline de compilation (processus), l'automate ou la dualité du protocole de session (états/relations), et la matrice contraction/affaiblissement (représentation structurale compacte). Le choix définitif dépendra de l'inspection visuelle des fichiers réels.
 
 
-## 3. Hypothèses à vérifier avant toute correction
+## 3. Cause racine et portée de la correction
 
-- **H1 — URL ou copie des assets :** la page HTML émise référence un chemin qui ne correspond pas à l'emplacement réel du SVG après génération ou publication.
-- **H2 — base path :** le rendu fonctionne en local à la racine, mais échoue sous le préfixe du site GitHub Pages.
-- **H3 — source absente ou nom différent :** le champ src du bloc Verso ne correspond pas à un fichier SVG présent dans spec/figures.
-- **H4 — comportement d'affichage :** le navigateur affiche le texte alternatif parce que la ressource image échoue ; il faut le confirmer dans le réseau/console plutôt que l'inférer du seul rendu visuel.
-- **H5 — accessibilité PDF :** le PDF peut être visuellement correct tout en n'exposant pas le texte alternatif dans sa structure balisée.
-
-Aucune de ces hypothèses ne doit être marquée comme cause racine avant reproduction et test discriminant.
+- **Cause HTML confirmée :** double application du préfixe de profondeur, due à la combinaison de l'URL produite par `Float.lean` et du `<base href>` injecté par Verso.
+- **Correction proposée et implémentée en PR #124 :** émettre `figures/<nom>.svg` sans préfixe manuel ; le `<base href>` résout alors l'URL à la racine du site.
+- **Contrôle ajouté :** le validateur de CI doit tenir compte de `<base href>`, vérifier chaque référence locale, contrôler la copie et le XML des SVG, et rejeter les figures sans texte alternatif. Un validateur qui résout uniquement les chemins depuis le répertoire de la page ne détecte pas ce défaut.
+- **Déploiement :** le test sur l'artefact local ne suffit pas à prouver la publication. La validation CI et le déploiement après fusion doivent être vérifiés avant de clore l'anomalie.
+- **PDF :** le texte alternatif est désormais transmis conditionnellement aux macros `qvalt` / `qvaltfin` si le préambule les définit. La conformité du PDF reste à confirmer sur l'artefact compilé avec ce préambule.
 
 ## 4. Stratégie de source et de rendu recommandée
 
