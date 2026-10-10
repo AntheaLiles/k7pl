@@ -225,11 +225,29 @@ def svg_edge(x1: int, y1: int, x2: int, y2: int, label: str) -> str:
     )
 
 
-def build(root: Path, output: Path, ref: str, source_path: str, source_label: str, start_line: int, end_line: int) -> None:
+def build(
+    root: Path,
+    output: Path,
+    ref: str,
+    source_path: str,
+    source_label: str,
+    start_line: int,
+    end_line: int,
+    peer_graph: str | None = None,
+    peer_title: str | None = None,
+) -> None:
     targets = label_index(root)
     source, edges = extract_edges(root, source_path, source_label, targets, start_line, end_line)
     site_root = output.parent.parent
     source_page_href = rendered_label_href(site_root, output, source.label)
+    if bool(peer_graph) != bool(peer_title):
+        fail("--peer-graph and --peer-title must be supplied together")
+    if peer_graph and (Path(peer_graph).name != peer_graph or not peer_graph.endswith(".html")):
+        fail("--peer-graph must be a local HTML filename")
+    peer_link = (
+        f'<a href="{html.escape(peer_graph, quote=True)}">{html.escape(peer_title or "")}</a>'
+        if peer_graph else ""
+    )
     tikz_manifest = json.loads((root / "spec" / "figures" / "tikz" / "manifest.json").read_text(encoding="utf-8"))
     tikz_by_stem = {item["asset_stem"]: item for item in tikz_manifest["figures"]}
 
@@ -379,6 +397,7 @@ li {{ margin: .5rem 0; }}
 </style></head>
 <body>
 <nav aria-label="Navigation du prototype"><a href="figures.html">Catalogue des figures</a>
+{peer_link}
 <a href="{html.escape(source_page_href, quote=True)}">Section rendue</a>
 <a href="{html.escape(source_url, quote=True)}">Source Lean/Verso</a></nav>
 <h1>Graphe local : {html.escape(source.title)}</h1>
@@ -404,10 +423,15 @@ def main() -> int:
     parser.add_argument("--label", default="sec:c6-le-processus-de-compilation")
     parser.add_argument("--start-line", type=int, default=22)
     parser.add_argument("--end-line", type=int, default=50)
+    parser.add_argument("--peer-graph", help="local HTML filename for another graph view")
+    parser.add_argument("--peer-title", help="accessible link text for --peer-graph")
     args = parser.parse_args()
     root = args.repo_root.resolve()
     output = args.output if args.output.is_absolute() else root / args.output
-    build(root, output, args.ref, args.source, args.label, args.start_line, args.end_line)
+    build(
+        root, output, args.ref, args.source, args.label,
+        args.start_line, args.end_line, args.peer_graph, args.peer_title
+    )
     return 0
 
 
