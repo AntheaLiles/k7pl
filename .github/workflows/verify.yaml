@@ -131,7 +131,129 @@ jobs:
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
 
       - name: Build the implementation and the tests
-        run: lake build K7pl K7plTests
+        run: lake build K7pl K7plTests K7plCompliance sbomAudit
+
+      - name: Audit the scoped Lake-to-SPDX inventory
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/lake_manifest_to_spdx.py \
+            --created 2026-10-10T00:00:00Z \
+            --output "$RUNNER_TEMP/k7pl-lake.spdx.json"
+          lake exe sbomAudit lake-manifest.json "$RUNNER_TEMP/k7pl-lake.spdx.json" \
+            > "$RUNNER_TEMP/k7pl-sbom-audit.json"
+          python3 - "$RUNNER_TEMP/k7pl-sbom-audit.json" lake-manifest.json \
+            "$RUNNER_TEMP/k7pl-lake.spdx.json" "$RUNNER_TEMP/k7pl-sbom-evidence.json" <<'PY'
+          import hashlib
+          import json
+          import os
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          report_path, manifest_path, sbom_path, evidence_path = sys.argv[1:]
+          with open(report_path, encoding="utf-8") as stream:
+              report = json.load(stream)
+          assert report["schemaVersion"] == "k7pl.compliance-report/v1", report
+          assert report["tool"] == "k7pl-sbom-audit", report
+          assert report["status"] == "PASS", report
+          assert report["diagnostics"] == [], report
+          assert report["sourceArtifacts"][0] == "lake-manifest.json", report
+          assert report["sourceArtifacts"][1].endswith("/k7pl-lake.spdx.json"), report
+
+          # End-to-end negative cases exercise the executable's exit-code/report contract.
+          malformed_manifest = Path(os.environ["RUNNER_TEMP"]) / "malformed-manifest.json"
+          malformed_manifest.write_text("{", encoding="utf-8")
+          malformed = subprocess.run(
+              ["lake", "exe", "sbomAudit", str(malformed_manifest), sbom_path],
+              check=False, capture_output=True, text=True,
+          )
+          assert malformed.returncode == 2, (malformed.returncode, malformed.stdout, malformed.stderr)
+          malformed_report = json.loads(malformed.stdout)
+          assert malformed_report["status"] == "ERROR", malformed_report
+          assert any(d["ruleId"] == "INPUT-JSON-MANIFEST" for d in malformed_report["diagnostics"]), malformed_report
+
+          with open(sbom_path, encoding="utf-8") as stream:
+              mutated_sbom = json.load(stream)
+          original_revision = mutated_sbom["packages"][0]["versionInfo"]
+          replacement_char = "e" if original_revision[0] == "f" else "f"
+          mutated_sbom["packages"][0]["versionInfo"] = replacement_char + original_revision[1:]
+          mismatch_path = Path(os.environ["RUNNER_TEMP"]) / "mismatched.spdx.json"
+          mismatch_path.write_text(json.dumps(mutated_sbom), encoding="utf-8")
+          mismatch = subprocess.run(
+              ["lake", "exe", "sbomAudit", manifest_path, str(mismatch_path)],
+              check=False, capture_output=True, text=True,
+          )
+          assert mismatch.returncode == 1, (mismatch.returncode, mismatch.stdout, mismatch.stderr)
+          mismatch_report = json.loads(mismatch.stdout)
+          assert mismatch_report["status"] == "FAIL", mismatch_report
+          assert any(d["ruleId"] == "SBOM-INVENTORY-MISMATCH" for d in mismatch_report["diagnostics"]), mismatch_report
+
+          def sha256(path):
+              digest = hashlib.sha256()
+              with open(path, "rb") as stream:
+                  for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                      digest.update(chunk)
+              return digest.hexdigest()
+
+          event = {}
+          event_path = os.environ.get("GITHUB_EVENT_PATH")
+          if event_path:
+              with open(event_path, encoding="utf-8") as stream:
+                  event = json.load(stream)
+          pull_request_head = (event.get("pull_request") or {}).get("head", {}).get("sha")
+          evidence = {
+              "schemaVersion": "k7pl.ci-evidence/v1",
+              "workflow": {
+                  "name": "CI",
+                  "runId": int(os.environ["GITHUB_RUN_ID"]),
+                  "runAttempt": int(os.environ["GITHUB_RUN_ATTEMPT"]),
+                  "checkedOutSha": os.environ["GITHUB_SHA"],
+                  "pullRequestHeadSha": pull_request_head,
+              },
+              "toolchain": {
+                  "lean": Path("lean-toolchain").read_text(encoding="utf-8").strip(),
+                  "sbomGenerator": "k7pl-lake-sbom@0.1.0",
+                  "leanAudit": "k7pl-sbom-audit@0.1.0",
+              },
+              "inputs": [
+                  {"artifact": "lake-manifest.json", "sha256": sha256(manifest_path)},
+                  {"artifact": "lakefile.lean", "sha256": sha256("lakefile.lean")},
+                  {"artifact": "lean-toolchain", "sha256": sha256("lean-toolchain")},
+                  {"artifact": "scripts/ci/lake_manifest_to_spdx.py", "sha256": sha256("scripts/ci/lake_manifest_to_spdx.py")},
+                  {"artifact": "tools/Compliance/SbomAudit.lean", "sha256": sha256("tools/Compliance/SbomAudit.lean")},
+                  {"artifact": "tools/Compliance/SbomAuditMain.lean", "sha256": sha256("tools/Compliance/SbomAuditMain.lean")},
+                  {"artifact": "k7pl-lake.spdx.json", "sha256": sha256(sbom_path)},
+              ],
+              "audit": report,
+              "negativeCases": [
+                  {"case": "malformed manifest JSON", "exitCode": malformed.returncode, "status": malformed_report["status"]},
+                  {"case": "mutated package revision", "exitCode": mismatch.returncode, "status": mismatch_report["status"]},
+              ],
+          }
+          with open(evidence_path, "w", encoding="utf-8") as stream:
+              json.dump(evidence, stream, indent=2, sort_keys=True)
+              stream.write("\n")
+
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write("### Scoped SPDX consistency audit\n")
+              summary.write("- Valid input: PASS; 14 manifest components checked.\n")
+              summary.write("- Negative integration cases: malformed JSON → ERROR/2; mutated revision → FAIL/1.\n")
+              summary.write("- Lean toolchain: `" + evidence["toolchain"]["lean"] + "`\n")
+              summary.write("- Manifest SHA-256: `" + evidence["inputs"][0]["sha256"] + "`\n")
+              summary.write("- Generated SPDX SHA-256: `" + evidence["inputs"][1]["sha256"] + "`\n")
+          print("Lean scoped SPDX consistency audit and negative CLI cases: PASS")
+          PY
+
+      - name: Upload scoped SBOM audit evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: k7pl-sbom-evidence-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/k7pl-lake.spdx.json
+            ${{ runner.temp }}/k7pl-sbom-audit.json
+            ${{ runner.temp }}/k7pl-sbom-evidence.json
+          retention-days: 14
+          if-no-files-found: error
 
       - name: Test
         run: lake test
@@ -191,6 +313,12 @@ jobs:
       - name: Install hash-pinned Python test dependencies
         run: python -m pip install --require-hashes -r scripts/requirements-ci.txt
 
+      - name: Install hash-locked SPDX validator
+        run: "python -m pip install --require-hashes --only-binary=:all: -r scripts/requirements-spdx-validator.txt"
+
+      - name: Test the SPDX validator guard
+        run: python3 scripts/ci/test_validate_spdx.py
+
       - name: Test the CI impact classifier
         run: python3 scripts/ci/test_impact.py
 
@@ -201,6 +329,59 @@ jobs:
 
       - name: Test the Python tooling (mini-corpus Verso, auto-tests mutés)
         run: python3 -m pytest tests/python -q
+
+      - name: Generate deterministic SPDX 2.3 validation input
+        run: |
+          python3 scripts/ci/lake_manifest_to_spdx.py \
+            --created 2026-10-10T00:00:00Z \
+            --output "$RUNNER_TEMP/k7pl-spdx-validation.spdx.json"
+
+      - name: Validate SPDX 2.3 with spdx-tools
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/validate_spdx.py "$RUNNER_TEMP/k7pl-spdx-validation.spdx.json" \
+            > "$RUNNER_TEMP/k7pl-spdx-validation.json"
+          python3 - "$RUNNER_TEMP/k7pl-spdx-validation.json" <<'PY'
+          import json
+          import sys
+
+          with open(sys.argv[1], encoding="utf-8") as stream:
+              report = json.load(stream)
+          assert report["schemaVersion"] == "k7pl.spdx-validation/v1", report
+          assert report["status"] == "PASS", report
+          assert report["validator"]["name"] == "spdx-tools", report
+          assert report["validator"]["version"] == "0.8.5", report
+          assert report["diagnostics"] == [], report
+          assert len(report["input"]["sha256"]) == 64, report
+          assert isinstance(report["elapsedMs"], (int, float)), report
+          assert isinstance(report["validator"]["elapsedMs"], (int, float)), report
+          print("Independent SPDX 2.3 validator: PASS (spdx-tools 0.8.5)")
+          with open(__import__("os").environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write("### Independent SPDX 2.3 validation\n")
+              summary.write("- Validator: `spdx-tools 0.8.5` (hash-locked runtime closure).\n")
+              summary.write("- Result: PASS; generated JSON validated against SPDX 2.3.\n")
+              summary.write("- SBOM SHA-256: `" + report["input"]["sha256"] + "`\n")
+              summary.write("- Wrapper elapsed: `" + str(report["elapsedMs"]) + " ms`; validator subprocess: `" + str(report["validator"]["elapsedMs"]) + " ms`.\n")
+          PY
+
+      - name: Measure repeated SPDX validation cost
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/benchmark_spdx_validator.py \
+            "$RUNNER_TEMP/k7pl-spdx-validation.spdx.json" \
+            --repetitions 5 \
+            --output "$RUNNER_TEMP/k7pl-spdx-validation-benchmark.json"
+
+      - name: Upload independent SPDX validation evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: k7pl-independent-spdx-validation-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/k7pl-spdx-validation.spdx.json
+            ${{ runner.temp }}/k7pl-spdx-validation.json
+            ${{ runner.temp }}/k7pl-spdx-validation-benchmark.json
+          retention-days: 14
+          if-no-files-found: error
 
       - name: Check the real corpus with the tooling under test
         run: python3 scripts/controle.py

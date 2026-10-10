@@ -7,7 +7,9 @@
 import copy
 import json
 import os
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -59,6 +61,27 @@ class SbomTests(unittest.TestCase):
         reversed_manifest = copy.deepcopy(REAL_MANIFEST)
         reversed_manifest["packages"].reverse()
         self.assertEqual(first, self.generate(reversed_manifest))
+
+    def test_cli_output_is_byte_reproducible_for_fixed_timestamp(self):
+        with tempfile.TemporaryDirectory() as directory:
+            first_path = Path(directory) / "first.spdx.json"
+            second_path = Path(directory) / "second.spdx.json"
+            command = [
+                sys.executable,
+                str(ROOT / "scripts" / "ci" / "lake_manifest_to_spdx.py"),
+                "--created",
+                CREATED,
+            ]
+            for output_path in (first_path, second_path):
+                completed = subprocess.run(
+                    [*command, "--output", str(output_path)],
+                    cwd=ROOT,
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertEqual(first_path.read_bytes(), second_path.read_bytes())
 
     def test_document_namespace_changes_when_inventory_changes(self):
         changed = copy.deepcopy(REAL_MANIFEST)
