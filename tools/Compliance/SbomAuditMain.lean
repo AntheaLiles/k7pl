@@ -7,18 +7,19 @@ import Compliance.SbomAudit
 open Lean
 open Compliance.SbomAudit
 
-def main : IO UInt32 := do
-  let args ← IO.getArgs
+def main (args : List String) : IO UInt32 := do
   match args with
-  | [manifestPath, sbomPath] =>
+  | [manifestArgument, sbomArgument] =>
+      let manifestPath := System.FilePath.mk manifestArgument
+      let sbomPath := System.FilePath.mk sbomArgument
       try
         let manifestText ← IO.FS.readFile manifestPath
         let sbomText ← IO.FS.readFile sbomPath
-        let report := auditTexts manifestText sbomText manifestPath sbomPath
+        let report := auditTexts manifestText sbomText manifestArgument sbomArgument
         IO.println ((toJson report).compress)
         return if report.status == "PASS" then 0 else if report.status == "FAIL" then 1 else 2
       catch _ =>
-        let report := makeReport manifestPath sbomPath "ERROR"
+        let report := makeReport manifestArgument sbomArgument "ERROR"
           [diagnostic "INPUT-READ" "Unable to read one or more input files." "inputs"]
         IO.println ((toJson report).compress)
         return 2
