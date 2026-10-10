@@ -249,7 +249,7 @@ meta instance : FromArgs StatementArgs m where
 meta def statementDirective (kind display defaultRole defaultState : String)
     (numberedDefault labelRequired : Bool) : DirectiveExpanderOf StatementArgs
   | args, stxs => do
-    if labelRequired && args.label.isNone then
+    if labelRequired && !args.unnumbered && args.label.isNone then
       throwError s!"{display}: a label is required for a numbered/referenced statement"
     let state := if args.state.isEmpty then
       (if defaultState.isEmpty then "under-review" else defaultState)
