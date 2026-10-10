@@ -65,18 +65,27 @@ abbrev ThmInfo := StatementInfo
 /-- Map the old status vocabulary to the new dimensions without promoting a claim. -/
 def legacyClassification (status : String) : String × String × String × String :=
   match status with
-  | "definition" => ("definition", "", "under-review", "none")
-  | "exigence" => ("requirement", "", "under-review", "none")
-  | "litterature" => ("literature", "", "under-review", "literature")
+  | "definition" => ("definition", "", "not-applicable", "none")
+  | "exigence" => ("requirement", "", "not-applicable", "none")
+  | "litterature" => ("literature", "", "not-applicable", "literature")
   | "conjecture" => ("result", "conjecture", "proposed", "proofsketch")
   | "proposition" => ("result", "proposition", "under-review", "proofsketch")
   | _ => ("result", "theorem", "under-review", "proofsketch")
 
 def allowedEpistemicState (s : String) : Bool :=
-  ["proposed", "under-review", "supported", "established", "refuted", "withdrawn"].contains s
+  ["proposed", "under-review", "supported", "established", "refuted", "withdrawn", "not-applicable"].contains s
 
 def allowedEvidence (s : String) : Bool :=
   ["none", "written-proof", "proofsketch", "literature", "computation", "counterexample", "lean-proof"].contains s
+
+def validRoleForKind (kind role : String) : Bool :=
+  match kind with
+  | "result" => ["theorem", "lemma", "corollary", "proposition", "conjecture"].contains role
+  | "assumption" => ["axiom", "postulate", "hypothesis"].contains role
+  | _ => role.isEmpty
+
+def isTruthClaimKind (kind : String) : Bool :=
+  kind == "result" || kind == "assumption"
 
 block_extension Block.theorem (info : ThmInfo) where
   data := toJson info
@@ -220,15 +229,26 @@ meta def statementDirective (kind display defaultRole defaultState : String)
       else args.state
     if !allowedEpistemicState state then
       throwError s!"{display}: invalid epistemic state '{state}'"
+    if isTruthClaimKind kind && state == "not-applicable" then
+      throwError s!"{display}: results and assumptions require an epistemic state"
+    if !isTruthClaimKind kind && state != "not-applicable" then
+      throwError s!"{display}: this object kind uses state := \"not-applicable\""
     if !allowedEvidence args.evidence then
       throwError s!"{display}: invalid evidence kind '{args.evidence}'"
-    if kind == "literature" && args.source.isEmpty then
-      throwError "literature: provide (source := \"…\") for provenance"
-    if args.evidence == "lean-proof" && args.formalArtifact.isEmpty then
-      throwError "evidence := \"lean-proof\" requires (formalArtifact := \"Module.declaration\")"
     let role := if args.role.isEmpty then defaultRole else args.role
+    if !validRoleForKind kind role then
+      throwError s!"{display}: role '{role}' is not valid for object kind '{kind}'"
+    let evidence := if kind == "literature" && args.evidence == "none" then "literature" else args.evidence
+    if (kind == "literature" || evidence == "literature") && args.source.isEmpty then
+      throwError "literature evidence requires (source := \"bibliographic identifier or URL\")"
+    if evidence == "lean-proof" && args.formalArtifact.isEmpty then
+      throwError "evidence := \"lean-proof\" requires (formalArtifact := \"Module.declaration\")"
+    if !args.formalArtifact.isEmpty && evidence != "lean-proof" then
+      throwError "formalArtifact is only valid with evidence := \"lean-proof\""
+    if kind == "assumption" && role == "hypothesis" && args.scope == "unspecified" then
+      throwError "hypothesis requires an explicit local scope; it must not become a global assumption"
     let children ← stxs.mapM elabBlock
-    let info := StatementInfo.mk args.label display args.level kind role state args.evidence
+    let info := StatementInfo.mk args.label display args.level kind role state evidence
       args.scope args.source args.formalArtifact none
     ``(Verso.Doc.Block.other (SpecExt.Block.theorem $(quote info)) #[$children,*])
 
@@ -243,7 +263,7 @@ meta def thm : DirectiveExpanderOf ThmArgs
     ``(Verso.Doc.Block.other (SpecExt.Block.theorem $(quote info)) #[$children,*])
 
 @[directive] meta def definition : DirectiveExpanderOf StatementArgs :=
-  statementDirective "definition" "Définition" "" "" false
+  statementDirective "definition" "Définition" "" "not-applicable" false
 @[directive] meta def «axiom» : DirectiveExpanderOf StatementArgs :=
   statementDirective "assumption" "Axiome" "axiom" "" true
 @[directive] meta def postulate : DirectiveExpanderOf StatementArgs :=
@@ -261,12 +281,12 @@ meta def thm : DirectiveExpanderOf ThmArgs
 @[directive] meta def conjecture : DirectiveExpanderOf StatementArgs :=
   statementDirective "result" "Conjecture" "conjecture" "proposed" true
 @[directive] meta def requirement : DirectiveExpanderOf StatementArgs :=
-  statementDirective "requirement" "Exigence" "" "" true
+  statementDirective "requirement" "Exigence" "" "not-applicable" true
 @[directive] meta def literature : DirectiveExpanderOf StatementArgs :=
-  statementDirective "literature" "Résultat de la littérature" "" "" true
+  statementDirective "literature" "Résultat de la littérature" "" "not-applicable" true
 @[directive] meta def «example» : DirectiveExpanderOf StatementArgs :=
-  statementDirective "example" "Exemple" "" "" false
+  statementDirective "example" "Exemple" "" "not-applicable" false
 @[directive] meta def counterexample : DirectiveExpanderOf StatementArgs :=
-  statementDirective "counterexample" "Contre-exemple" "" "" false
+  statementDirective "counterexample" "Contre-exemple" "" "not-applicable" false
 
 end SpecExt
