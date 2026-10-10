@@ -340,10 +340,8 @@ Contraction et affaiblissement, trois modalités sur quatre combinaisons possibl
 :::
 
 :::desc
-La matrice classe les quatre combinaisons. À gauche, la contraction est interdite ; à droite, elle est
-admise. En haut, l'affaiblissement est admis : Aff (couche 2) et Unr (couche 3). En bas, il est
-interdit : Lin (couche 1) et la combinaison non instanciée par K7PL. Les points noirs matérialisent les
-trois modalités existantes.
+La matrice croise contraction (interdite à gauche, admise à droite) et affaiblissement (admis en haut,
+interdit en bas). Les points noirs marquent Aff et Unr en haut, Lin en bas ; la quatrième case reste non instanciée par K7PL.
 :::
 ::::
 
