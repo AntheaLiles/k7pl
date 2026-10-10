@@ -213,7 +213,7 @@ de sorte que l'emboîtement ne sort pas de la classe où le théorème précéde
 version coalgébrique du lemme de Bekič réduit le système simultané à un point fixe unique, dont
 l'objet visé est la coalgèbre finale {cite "kurzApproximationNestedFixpoints2015"}[].
 
-::::thm (label := "thm:sedimentation")
+::::literature (label := "thm:sedimentation") (level := "langage") (state := "not-applicable") (evidence := "literature") (scope := "Résultat non gradué de points fixes imbriqués et convergence des approximations finies") (source := "unresolved: Kurz et al.; source bibliographique du résultat non gradué de points fixes imbriqués à relier au point C8.4")
 :::title
 bonne définition de la sédimentation
 :::
@@ -224,20 +224,28 @@ Convergence des points fixes imbriqués
 Soient $`F` et $`G` des conteneurs, $`F` engendrant les structures finies de couche 3 et $`G` l'état
 des générateurs de couche 2. Alors l'objet $`\nu Y.\, G(\mu X.\, F(X,Y))` est bien défini, et la
 suite de ses approximations finies converge vers lui. Cet énoncé vaut en deux temps : (i) pour des
-conteneurs _non gradués_, résultat de la littérature, repris ici ; (ii) pour des conteneurs
-_gradués_, c'est une exigence ouverte, dont la route est une démonstration et dont la contrainte
+conteneurs _non gradués_, résultat de la littérature, repris ici ;
+:::
+::::
+
+::::requirement (label := "req:sedimentation_graduee") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "Extension graduée de la sédimentation; convergence ouverte")
+:::title
+extension graduée de la sédimentation
+:::
+
+:::statement +titled
+Extension graduée
+
+c'est une exigence ouverte, dont la route est une démonstration et dont la contrainte
 d'outil est nommée (note ci-dessous).
 :::
 
-:::proofsketch
 Les conteneurs préservant les deux points fixes, $`\mu X.\, F(X,Y)` est encore un conteneur en $`Y`,
 et $`\nu Y.\, G(-)` appliqué à celui-ci reste dans la classe. Reste la convergence, qui ne se déduit
 pas de l'itération sur un seul des deux points fixes : elle s'obtient en traitant le système comme
 simultané, sa réduction à un point fixe unique donnant l'objet visé pour coalgèbre finale, limite de
 ses approximations finies.
-:::
 ::::
-
 S'il tient, c'est lui — et non la juxtaposition des énoncés par couche — qui autorise le chapitre 1
 à parler de sédimentation : l'emboîtement est un objet, pas une figure de style. S'il tombe, les
 deux couches restent l'une et l'autre bien fondées, mais rien ne garantit plus que leur emboîtement
