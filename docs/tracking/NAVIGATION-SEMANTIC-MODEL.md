@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Modèle sémantique minimal pour la navigation K7PL
 
-**Statut :** proposition de conception, à valider par un prototype dérivé.  
+**Statut :** premier prototype exécuté en CI ; validation de la valeur d'usage et extension du modèle encore ouvertes.  
 **Périmètre immédiat :** références explicites de la spécification et citations ; aucune relation vers l'implémentation ou les tests n'est inventée.
 
 ## 1. Principes
@@ -65,7 +65,7 @@ Si la provenance ne peut pas être retrouvée, l'arête ne doit pas être affich
 
 Le premier prototype exécutable porte sur les lignes 22–50 de `spec/Spec/C6/LeProcessusDeCompilation.lean`. Il relie la section à sa figure explicitement référencée et aux sources bibliographiques citées dans son introduction, puis ajoute la provenance technique de la figure déjà validée par le POC TikZ. Cette tranche est volontairement bornée pour garder le graphe lisible.
 
-Le prototype représente uniquement les arêtes `num` et `cite` présentes dans cette plage source, chacune avec un lien vers son emplacement exact. La provenance figure → source TikZ → SVG/PDF est un autre type d'arête, étayé par le manifeste et la CI. Le graphe ne déduit pas que les citations sont des prémisses formelles ni que les références sont des dépendances de preuve.
+Le prototype représente uniquement les arêtes `num` et `cite` présentes dans cette plage source, chacune avec un lien vers son emplacement source exact. Les labels canoniques sont résolus vers les ancres des pages HTML produites par Verso ; une ancre manquante ou ambiguë fait échouer la génération. Le graphe revient à la section rendue et expose aussi sa source Lean/Verso. La provenance figure → source TikZ → SVG/PDF est un autre type d'arête, étayé par le manifeste et la CI. Le graphe ne déduit pas que les citations sont des prémisses formelles ni que les références sont des dépendances de preuve.
 
 Une tranche suivante pourra porter sur `sec:c3-le-systeme-gradue` dans `spec/Spec/C3/LeSystemeGradue.lean`, dont les références explicites relient plusieurs sections et un théorème. Le résultat actuel est une vue locale, navigable, et non un graphe exhaustif de K7PL.
 
@@ -75,13 +75,13 @@ Le graphe doit être construit au moment du build depuis les sources existantes.
 
 Critères d'acceptation du premier prototype :
 
-- [ ] les nœuds ont des identifiants stables indépendants de leur numéro de présentation ;
-- [ ] chaque arête explicite conserve le fichier, la ligne et le label ou la clé source ;
-- [ ] les références non résolues sont signalées et ne deviennent pas des liens inventés ;
-- [ ] les citations restent distinctes des références à des objets de la spécification ;
-- [ ] la vue retourne à la source canonique et à la vue documentaire ;
+- [x] les nœuds ont des identifiants stables fondés sur les labels et les clés bibliographiques, indépendants de leur numéro de présentation ;
+- [x] chaque arête explicite conserve le fichier, la ligne et le label ou la clé source ;
+- [x] les références non résolues sont signalées et ne deviennent pas des liens inventés ;
+- [x] les citations restent distinctes des références à des objets de la spécification ;
+- [x] la vue retourne à la source canonique et à la page documentaire rendue ;
 - [ ] les tests couvrent les labels manquants, les références non résolues, les citations multiples et les ancres ;
-- [ ] le prototype n'ajoute aucune dépendance d'exécution au site publié ;
+- [x] le prototype n'ajoute aucune dépendance d'exécution au site publié ;
 - [ ] une revue humaine confirme que la vue aide à comprendre les relations sans exagérer leur portée.
 
 ## 7. Hors périmètre explicite
