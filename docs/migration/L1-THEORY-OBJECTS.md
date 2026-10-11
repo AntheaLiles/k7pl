@@ -49,7 +49,7 @@ fusionner sans relation explicitement établie.
 | support d'indexation de la comonade | DÉRIVÉ | carrier effectif des indices de `!` | `𝓡` est le support de référence ; vérifier `w`, `c`, `coerce` et leurs lois de naturalité |
 | `φ_n` | DÉRIVÉ | transformation de l'effet pour une répétition entière | domaine de référence : multiplicités effectives `n` ; ne pas l'étendre automatiquement aux usages rationnels |
 | `mise à l'échelle d'un grade complet` | DÉRIVÉ | élaboration règle-locale de l'action sur un contexte | `Scale_Usage(a,<u,m,ℓ,β>)=<a·u,m,ℓ,β>` pour `Box`, `App`, substitution et contexte de `Sc` ; pas de multiplication globale de `𝒢` requise |
-| `Cost_Budget` | DÉRIVÉ | scalarisation du coût temporel vers le budget | signature retenue en séance 60 ; ses lois et son couplage avec les règles restent à prouver ; `Adm`/`Consume` sont des objets distincts |
+| `Cost_Budget` | DÉRIVÉ / INTERFACE À RÉCONCILIER | scalarisation du coût temporel vers le budget | la source C2 déclare encore une flèche partielle, mais définit ensuite max(W,D) ; séance 60 décrit cette dernière comme scalarisation totale sous hypothèses. Ne pas choisir silencieusement le domaine. |
 | `Unr ⊑ Aff ⊑ Lin` | DÉRIVÉ | ordre de précision des usages | ne pas le confondre avec le sous-typage modal `≼` |
 
 Point de contrôle : trois relations doivent rester distinctes : l'inclusion des intervalles modaux
@@ -60,7 +60,7 @@ syntaxique ≠ précision.
 
 **Correction critique de C — modes et intervalles.** La définition de mode utilisée dans la littérature de référence n'est pas celle d'un intervalle de grades : elle combine une algèbre de grades, un idéal de contraction et un prédicat d'affaiblissement. Les intervalles `U_m` de K7PL ne sont donc que des domaines syntaxiques d'annotations. En particulier, `U_Aff = [0..1]` n'est pas fermé par addition et ne peut pas jouer le rôle d'une algèbre de grades. La démonstration antérieure « inclusion d'intervalles ⇒ morphisme de modes » est retirée comme trop forte. Une réalisation structurelle candidate par les quatre triplets `M_Lin`, `M_Aff`, `M_Rel`, `M_Unr` est maintenant exposée en C2/C3 ; sa correspondance avec le jugement K7PL reste à vérifier.
 
-**Interface de mise à l'échelle retenue (séance 62 ; lois encore à prouver).** L'action est locale à la composante d'usage :
+**Interface de mise à l'échelle enregistrée en séance 62 (statut normatif à réconcilier ; lois encore à prouver).** L'action est locale à la composante d'usage :
 
 \[
 \mathrm{Scale\_Usage} : \mathcal R \times \mathcal G \to \mathcal G,\qquad
@@ -220,13 +220,15 @@ Les obligations restantes sont bornées et classées dans la matrice C-01 à C-0
 
 ## 11. Matrice des obligations résiduelles de C
 
+**Écart critique entre registre de conception et source normative.** Le manuscrit C2 qualifie encore π_U et Scale_Usage de candidats d'architecture, alors que les séances 59–62 les décrivent comme l'interface de référence. Il déclare aussi Cost_Budget : (ℕ∞×ℕ∞)^ℒ ⇀ ℕ∞ comme fonction partielle, puis expose Cost_Budget(κ)=max(W(κ),D(κ)) sans condition de domaine dans la définition de la scalarisation. Le registre n'élève pas une note de séance au rang normatif : l'autrice doit confirmer la promotion des interfaces candidates et décider si la flèche partielle est intentionnelle ou doit devenir totale sous les hypothèses scalarisation/P3. Jusque-là, ce point empêche la fermeture de la porte C.
+
 Cette matrice consolide les audits de source existants et les séances 59–62 ; elle n'est ni une preuve ni une validation indépendante. Les fichiers sous spec/Spec sont des sources Verso contenant définitions textuelles, énoncés et esquisses, non des déclarations Lean correspondant automatiquement à des théorèmes machine-vérifiés. Leur compilation vérifie parsing/rendu et les contrôles associés, pas la vérité mathématique des propositions exposées.
 
 ### C-01 — Signatures des grades, usages et modes
 
 **Classe :** question d'interface formelle et obligations mathématiques.
 
-**Contrat de référence :** R = ℚ≥0 ∪ {ω}, avec addition, multiplication, zéro, unité et ordre annoncés ; G = R × M × L × B, B = ℕ∞ ; π_U : G → R ; Bang_G(r,A) := !_{π_U(r)}A ; Scale_Usage : R × G → G agit sur la seule coordonnée d'usage ; φ_n transforme un effet pour une multiplicité effective n ; Cost_Budget : K → B, où K désigne les familles de coûts temporels définies au § C-05 ; Adm : B × K → Prop ; Consume : B × K ⇀ B, partielle hors du domaine admissible. Pour coerce, w, c et ψ, les types sont à vérifier contre leurs définitions canoniques et les objets effectivement présents dans le manuscrit : ne pas déduire leur signature complète de leur seule utilisation en prose.
+**Contrat de référence :** R = ℚ≥0 ∪ {ω}, avec addition, multiplication, zéro, unité et ordre annoncés ; G = R × M × L × B, B = ℕ∞ ; π_U : G → R ; Bang_G(r,A) := !_{π_U(r)}A comme interface candidate ; Scale_Usage : R × G → G agit sur la seule coordonnée d'usage comme interface candidate ; φ_n transforme un effet pour une multiplicité effective n ; le manuscrit C2 note actuellement Cost_Budget : K ⇀ B, alors que max(W,D) semble définir une fonction totale sous les hypothèses retenues ; Adm : B × K → Prop ; Consume : B × K ⇀ B, partielle hors du domaine admissible. Pour coerce, w, c et ψ, les types sont à vérifier contre leurs définitions canoniques et les objets effectivement présents dans le manuscrit : ne pas déduire leur signature complète de leur seule utilisation en prose.
 
 **Hypothèses et cas manquants :** rendre canoniques les porteurs M et L et leurs opérations ; inventorier chaque relation et fonction employée par une règle avec domaines, codomaines, direction et conditions de définissabilité. Le produit d'ensembles G n'est pas un semi-anneau par lui-même. Il faut identifier la définition source de φ_n et les cas de répétition effectivement couverts sans assimiler usage rationnel et nombre d'exécutions.
 
@@ -250,7 +252,7 @@ Cette matrice consolide les audits de source existants et les séances 59–62 ;
 
 **Classe :** preuve mathématique avec dépendance formelle catégorique externe.
 
-**Contrat disponible :** ConvCtx(r,r') transforme une liaison x:_r V en x:_r' V lorsque r ≼ r', sans changer variable ni type. ConvCtx(r,r)=id ; pour r ≼ s ≼ t, ConvCtx(r,t)=ConvCtx(s,t)∘ConvCtx(r,s). Conv!_{r,r',A} est coerce_{π_U(r),π_U(r'),A} dans la direction induite par π_U(r) ≥ π_U(r'). Scale_Usage(a,⟨u,m,ℓ,β⟩)=⟨a·u,m,ℓ,β⟩.
+**Contrat de transport consigné en séance 61 :** ConvCtx(r,r') transforme une liaison x:_r V en x:_r' V lorsque r ≼ r', sans changer variable ni type. ConvCtx(r,r)=id ; pour r ≼ s ≼ t, ConvCtx(r,t)=ConvCtx(s,t)∘ConvCtx(r,s). Conv!_{r,r',A} est coerce_{π_U(r),π_U(r'),A} dans la direction induite par π_U(r) ≥ π_U(r'). Scale_Usage(a,⟨u,m,ℓ,β⟩)=⟨a·u,m,ℓ,β⟩. Le texte C2 qualifie encore π_U et Scale_Usage de candidats d'architecture : ce classement doit être rendu cohérent avec la ratification ou non des séances 59–62.
 
 **Hypothèses et cas manquants :** prouver coerce_{u,u,A}=id et coerce_{u,u'',A}=coerce_{u',u'',A}∘coerce_{u,u',A} sur les indices admissibles ; prouver naturalité et compatibilité avec counité w et comultiplication c de la comonade indexée ; démontrer que Scale_Usage préserve ≼ et commute avec la relabellisation de contexte ; vérifier le transport des types qui portent !, pas uniquement l'annotation de contexte. La référence externe ne prouve pas à elle seule l'instance K7PL.
 
@@ -274,7 +276,7 @@ Cette matrice consolide les audits de source existants et les séances 59–62 ;
 
 **Classe :** preuve mathématique.
 
-**Définitions consignées en séance 60 :** si κ(ℓ)=⟨w_ℓ,s_ℓ⟩, W(κ)=sup {Σ_{ℓ∈F} w_ℓ | F ⊆ L, F fini} et D(κ)=sup_{ℓ∈L}s_ℓ dans ℕ∞. Sous budget scalaire et P3 interprété comme borne commune sur travail et profondeur, Cost_Budget(κ)=max(W(κ),D(κ)) est la plus petite borne scalaire dominante.
+**Définitions consignées en séance 60 :** si κ(ℓ)=⟨w_ℓ,s_ℓ⟩, W(κ)=sup {Σ_{ℓ∈F} w_ℓ | F ⊆ ℒ, F fini} et D(κ)=sup_{ℓ∈ℒ}s_ℓ dans ℕ∞. Sous budget scalaire et P3 interprété comme borne commune sur travail et profondeur, Cost_Budget(κ)=max(W(κ),D(κ)) est la plus petite borne scalaire dominante. Attention : le symbole ⇀ de la signature encore présente dans C2 suggère un domaine partiel ; il n'est pas cohérent de traiter simultanément la fonction comme totale sans préciser si la partialité appartient à l'interface normative ou est une trace historique.
 
 **Hypothèses et cas manquants :** prouver la monotonie ponctuelle, W(0)=D(0)=0, l'additivité du travail sous séquencement et parallélisme, la sous-additivité de profondeur sous séquencement, le maximum de profondeur sous parallélisme et la sous-additivité correspondante de Cost_Budget. Vérifier supremums pour L infini, famille nulle, valeurs ω et opérations réellement produites par chaque règle. Le compte rendu qui donne la définition n'est pas l'évidence d'une preuve complète.
 
