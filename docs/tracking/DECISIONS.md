@@ -117,3 +117,10 @@ Distinction requise : U_Rel=[1..ω] est un intervalle d'usage, tandis que M_Rel=
 **Décision d’autrice :** `ℒ=∅` est autorisé et `sup ∅=0` dans `ℕ∞`. En conséquence, `D(κ)=sup_{ℓ∈ℒ}s_ℓ=0` lorsque l’ensemble des niveaux est vide. Cette convention complète la ratification D3 de la totalité de `Cost_Budget`, sous réserve que les domaines et codomaines canoniques soient définis de façon cohérente.
 
 La décision ne constitue pas une définition formelle de `K`, ni une preuve Lean de `W`, `D` ou `Cost_Budget`. Restent ouvertes la formalisation des agrégats, les lois de composition invoquées, le lien entre coût annoncé et budget consommé, et la preuve de respect des bornes à l’exécution. Voir la [note D4](../migration/L1-D4-EMPTY-SUPREMUM-2026-10-11.md).
+
+
+## D-19 — Principe d’admissibilité du budget (11 octobre 2026)
+
+**Décision d’autrice : principe ratifié, formule exacte ouverte.** Un budget `β` est admissible pour un coût `Cost_Budget(κ)` lorsque le budget couvre ce coût. L’autrice choisit l’option B : elle ne ratifie pas à ce stade la formule candidate `Adm(β,κ) ↔ β=ω ∨ Cost_Budget(κ)≤β` comme définition formelle.
+
+Restent à préciser le type et l’ordre de `𝔅`, le statut de `ω` (notamment s’il est son élément maximal), la relation exacte entre couverture et comparaison, ainsi que la nécessité éventuelle du disjoint `β=ω`. Cette décision ne détermine pas le domaine de `Consume`, ne rend pas `Consume` totale et ne fixe pas le domaine de `ψ`. Aucune preuve Lean ni garantie d’exécution n’est revendiquée. Voir la [note D5](../migration/L1-D5-ADM-PRINCIPLE-2026-10-11.md).
