@@ -124,3 +124,10 @@ La décision ne constitue pas une définition formelle de `K`, ni une preuve Lea
 **Décision d’autrice : principe ratifié, formule exacte ouverte.** Un budget `β` est admissible pour un coût `Cost_Budget(κ)` lorsque le budget couvre ce coût. L’autrice choisit l’option B : elle ne ratifie pas à ce stade la formule candidate `Adm(β,κ) ↔ β=ω ∨ Cost_Budget(κ)≤β` comme définition formelle.
 
 Restent à préciser le type et l’ordre de `𝔅`, le statut de `ω` (notamment s’il est son élément maximal), la relation exacte entre couverture et comparaison, ainsi que la nécessité éventuelle du disjoint `β=ω`. Cette décision ne détermine pas le domaine de `Consume`, ne rend pas `Consume` totale et ne fixe pas le domaine de `ψ`. Aucune preuve Lean ni garantie d’exécution n’est revendiquée. Voir la [note D5](../migration/L1-D5-ADM-PRINCIPLE-2026-10-11.md).
+
+
+## D-20 — Domaine partiel de `Consume` (11 octobre 2026)
+
+**Décision d’autrice : option A.** `Consume(β,κ)` est une opération partielle, définie seulement lorsque `Adm(β,κ)` est satisfaite. La valeur candidate est `β ⊖ Cost_Budget(κ)`, conformément à l’interface actuellement écrite en C2 ; le contrat précis de `⊖` reste à normaliser.
+
+Cette décision ne ratifie pas une définition particulière de la soustraction tronquée, ne résout pas les cas ambigus autour de `ω ⊖ ω`, et ne fixe pas le domaine de `ψ`. Il reste à définir formellement le domaine de `Consume`, le codomaine et les lois du résidu, puis à prouver que la consommation associée aux effets est cohérente avec le coût annoncé. Aucun théorème Lean, test/CI ni garantie de sûreté à l’exécution n’est revendiqué. Voir la [note D6](../migration/L1-D6-CONSUME-PARTIAL-DOMAIN-2026-10-11.md).
