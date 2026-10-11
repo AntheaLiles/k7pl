@@ -130,4 +130,4 @@ def test_interval_counterexamples_rule_out_inherited_grade_algebras():
 
     audit = AUDIT.read_text(encoding="utf-8")
     assert "1+1=2" in audit
-    assert "ne contient pas le neutre additif" in audit
+    assert "ne possède pas le neutre additif" in audit
