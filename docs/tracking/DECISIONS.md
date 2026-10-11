@@ -131,3 +131,10 @@ Restent à préciser le type et l’ordre de `𝔅`, le statut de `ω` (notammen
 **Décision d’autrice : option A.** `Consume(β,κ)` est une opération partielle, définie seulement lorsque `Adm(β,κ)` est satisfaite. La valeur candidate est `β ⊖ Cost_Budget(κ)`, conformément à l’interface actuellement écrite en C2 ; le contrat précis de `⊖` reste à normaliser.
 
 Cette décision ne ratifie pas une définition particulière de la soustraction tronquée, ne résout pas les cas ambigus autour de `ω ⊖ ω`, et ne fixe pas le domaine de `ψ`. Il reste à définir formellement le domaine de `Consume`, le codomaine et les lois du résidu, puis à prouver que la consommation associée aux effets est cohérente avec le coût annoncé. Aucun théorème Lean, test/CI ni garantie de sûreté à l’exécution n’est revendiqué. Voir la [note D6](../migration/L1-D6-CONSUME-PARTIAL-DOMAIN-2026-10-11.md).
+
+
+## D-21 — Domaine de ψ indépendant de Consume (11 octobre 2026)
+
+**Décision d’autrice : option B.** Le domaine de `ψ` est conceptuellement indépendant de la définissabilité de `Consume`. Il ne faut donc pas définir automatiquement `ψ` comme partielle exactement là où `Consume` est partielle, ni inférer qu’une application de `ψ` autorise à elle seule la traversée d’un effet.
+
+Les règles devront spécifier séparément (1) le domaine et le codomaine de `ψ`, (2) les conditions de typage/autorisation d’une traversée, (3) les cas où la consommation budgétaire est requise, et (4) la correspondance entre le coût annoncé et le budget consommé. D7 ne rend pas `Consume` totale, ne garantit pas l’exécution sûre et ne constitue aucune preuve Lean. Voir la [note D7](../migration/L1-D7-PSI-INDEPENDENT-DOMAIN-2026-10-11.md).
