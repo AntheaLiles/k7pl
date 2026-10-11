@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | | |
 |---|---|
 | Nature | Enregistrement **daté** de ce qui a été fait, de ce qui ne l'a pas été et de ce qui a réellement été exécuté. Produit par la session principale ; **non validé par la mainteneuse**. |
-| Date | Historical baseline: 2026-10-06; closure addendum: 2026-10-10 |
+| Date | Historical baseline: 2026-10-06; closure addendum: 2026-10-10; post-merge technical audit: 2026-10-11 |
 | Branche | PR #28, **fusionnée dans `main` par rebase** le 2026-10-06 (commits `b94a4e3`, `ab070c6`, `da1abb1`, copies réécrites par le rebase) ; ce document est mis à jour par une PR de suite |
 | Point d'entrée | [`README.md`](README.md) ; l'état factuel courant du dépôt est dans [`../STATUS.md`](../STATUS.md) (généré par la CI) |
 | Statuts | `VERIFIED` · `PARTIAL` · `PREPARED` · `HUMAN ACTION REQUIRED` · `BLOCKED` · `FUTURE` |
@@ -282,3 +282,17 @@ Les actions ouvertes de release, Zenodo, protections et secrets, restrictions de
 - Pas de fichier de propositions rempli : les décisions de nom, description, licence, langages et de périmètre restent à l'autrice. Aucun accès ni aucune écriture BadgeApp n'est utilisé.
 
 Cette étape automatise le contrôle des sources et la génération de propositions ; elle ne vérifie pas la sémantique de chaque preuve et ne constitue pas un audit officiel ou une auto-certification du badge.
+
+
+## 18. État technique post-fusion de #129 — 2026-10-11
+
+Ce complément actualise les observations opérationnelles sans réécrire les snapshots datés des sections précédentes.
+
+- **État GitHub.** La PR [#129](https://github.com/AntheaLiles/k7pl/pull/129) est fusionnée depuis le 2026-10-10 à 17:09:57 UTC. Le HEAD observé de `main` est [`86959948ff36deb6e8ee0985cf22740787696720`](https://github.com/AntheaLiles/k7pl/commit/86959948ff36deb6e8ee0985cf22740787696720).
+- **CI et Scorecard.** Le run [CI #38094667153](https://github.com/AntheaLiles/k7pl/actions/runs/38094667153) échoue dans `Vérification / Spécification Verso` à l'étape `Install elan` : téléchargement de Lean 4.34.0 bloqué par `SSL connect error` sur `releases.lean-lang.org`. Le check global `CI OK` échoue, le PDF est ignoré et aucune validation complète verte n'est démontrée sur ce HEAD. L'observation est compatible avec une erreur de transport externe ; elle ne suffit pas à conclure à une régression du code. Le workflow [Scorecard #38094666898](https://github.com/AntheaLiles/k7pl/actions/runs/38094666898) réussit, ce qui n'établit pas un niveau du badge.
+- **Contrôles automatisables sur ce HEAD.** Le job de cohérence des sources BadgeApp réussit. `python3 -m unittest discover -s scripts/ci -p 'test_*.py'` réussit avec 364 tests ; `python3 -m pytest tests/python -q` donne 68 tests réussis. REUSE, actionlint, zizmor, gitleaks, la préparation du manifeste Lake et le job de scan OSV réussissent. OSV téléverse un rapport SARIF ; cela ne prouve pas l'exhaustivité du périmètre ni une surveillance durable. Le registre épinglé conserve le snapshot du 2026-10-10 et les comptages passing=67, silver=55, gold=22, baseline-1=24, baseline-2=19, baseline-3=21.
+- **Dérive amont.** Le job `Security / Detect upstream BadgeApp criteria drift` est `skipped` sur ce run déclenché par `push`, conformément à sa condition `schedule` ou `workflow_dispatch`; aucun artefact `badge-criteria-drift-*` n'est attaché à ce run. Une lecture read-only de l'API GitHub amont, le 2026-10-11, retrouve les mêmes Blob SHA que le snapshot : `criteria/criteria.yml` = `7804ec1a56e6423d58b23fc67e9ec9d4a6d43e7b`, `criteria/baseline_criteria.yml` = `b7f3742959f7197b0e83fe49c7d92de05a578ba5`. Cette observation ponctuelle n'est pas un résultat de job, ne produit pas l'artefact attendu et ne démontre pas une surveillance continue. Le déclenchement manuel n'a pas été disponible via les outils GitHub en lecture seule utilisés dans cette session.
+- **Permissions et garde-fous.** `.github/workflows/security.yaml` définit `contents: read` par défaut ; les jobs de cohérence et de dérive déclarent `contents: read`, et leurs checkouts utilisent `persist-credentials: false`. Les droits supplémentaires de publication SARIF sont explicitement limités aux jobs concernés. Aucun fichier de registre n'a été réécrit automatiquement ; aucune réponse BadgeApp n'a été soumise et aucune permission, règle, secret, environnement, release ou enregistrement Zenodo n'a été modifié.
+- **État externe et limites.** La fiche BadgeApp n'a pas été relue dans cette session ; son dernier état cité demeure l'observation datée du 2026-10-10 dans `BADGE-AUTOMATION.md`. Les décisions de gouvernance, paramètres externes, essai de publication par tag, Zenodo/DOI, preuves temporelles OSV et revue humaine restent ouvertes.
+
+La liste unique et ordonnée des actions responsables reste dans [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md). Ce complément est un état opérationnel produit à partir des journaux et lectures observés, pas une revue indépendante ni une déclaration de conformité.
