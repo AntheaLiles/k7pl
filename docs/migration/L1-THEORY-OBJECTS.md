@@ -369,6 +369,8 @@ P1a (cadre catégorique annoncé par C) reste distinct de P1b (interprétation �
 
 **Critère de clôture :** pour chaque import effectivement utilisé, consigner référence/version, hypothèses, fragment couvert, mapping K7PL et propriété obtenue ; toute hypothèse empruntée demeure visible.
 
+**Audit de provenance (11 octobre 2026) :** voir [C-09 — Audit de provenance et d'instanciation des dépendances externes](L1-C09-EXTERNAL-DEPENDENCIES-AUDIT-2026-10-11.md). Cet audit reste documentaire : les instanciations manquantes et décisions d'auteur qu'il recense maintiennent C-09 ouvert.
+
 ## 12. Décisions humaines à préserver comme ouvertes
 
 1. **Portée normative de P3/When :** confirmer que la politique voulue fait porter la consommation de ressource par le franchissement via ψ et l'admissibilité différée. L'alternative « attente externe hors budget » exige une distinction explicite entre latence et coût d'exécution ; l'alternative « interdire When au point d'introduction si le budget est fini » modifierait la règle locale. Aucune option ne doit être appliquée implicitement.
