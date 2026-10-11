@@ -14,6 +14,8 @@ séparer les objets que la spécification emploie, leur statut, les relations qu
 eux et les obligations qui restent à établir. Une modification normative n'est admise que lorsque
 l'objet concerné, sa signature et la propriété invoquée sont identifiés.
 
+**Dossier probant de la porte C (instantané audité au 11 octobre 2026) :** voir [L1-STAGE-C-EVIDENCE-DOSSIER-2026-10-11.md](L1-STAGE-C-EVIDENCE-DOSSIER-2026-10-11.md). Ce dossier documente les signatures, l’évidence disponible, les obligations et les décisions humaines sans promouvoir un objet candidat ni fermer C.
+
 ## 1. Règle d'instruction
 
 Pour chaque objet théorique, la reprise suit la chaîne :
