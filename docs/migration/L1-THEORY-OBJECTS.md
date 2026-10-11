@@ -264,6 +264,8 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 ### C-03 — coerce, w, c, conversions et Scale_Usage
 
+**Audit détaillé au SHA de référence :** [L1-C03-CONVERSION-LAWS-AUDIT-2026-10-11.md](L1-C03-CONVERSION-LAWS-AUDIT-2026-10-11.md) — lois typées, cas conditionnels, contre-exemples, frontière de signature et critères de clôture. Cette référence ne change pas le statut C-03.
+
 **Classe :** preuve mathématique avec dépendance formelle catégorique externe.
 
 **Contrat de transport consigné en séance 61 :** ConvCtx(r,r') transforme une liaison x:_r V en x:_r' V lorsque r ≼ r', sans changer variable ni type. ConvCtx(r,r)=id ; pour r ≼ s ≼ t, ConvCtx(r,t)=ConvCtx(s,t)∘ConvCtx(r,s). Conv!_{r,r',A} est coerce_{π_U(r),π_U(r'),A} dans la direction induite par π_U(r) ≥ π_U(r'). Scale_Usage(a,⟨u,m,ℓ,β⟩)=⟨a·u,m,ℓ,β⟩. Le texte C2 qualifie encore π_U et Scale_Usage de candidats d'architecture : ce classement doit être rendu cohérent avec la ratification ou non des séances 59–62.
