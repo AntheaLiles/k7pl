@@ -173,12 +173,12 @@ Les points 1–5 sont soit des contre-exemples à une inférence trop forte, soi
 
 C-03 ne peut être déclaré clos avant les éléments suivants :
 
-- [ ] L’autrice ratifie ou maintient explicitement candidates `π_U`, `Bang_𝒢` et `Scale_Usage`, et fixe le support `I) de l’exponentielle utilisé par les règles.
+- [ ] L’autrice ratifie ou maintient explicitement candidates `π_U`, `Bang_𝒢` et `Scale_Usage`, et fixe le support `I` de l’exponentielle utilisé par les règles.
 - [ ] Le domaine exact des paires admissibles de `coerce` et les lois d’identité/composition sont déclarés avec leurs prémisses ; la naturalité en `A` est prouvée ou assumée dans une structure précisément référencée et instanciée.
 - [ ] La compatibilité avec `w` et `c` est donnée sous des équations aux types source/cible cohérents. L’ambiguïté de `w ∘ ε = w` est résolue sans confondre composition et naturalité.
-- [ ] La différence entre syntaxe `!_r) indexée par le grade complet et famille catégorique `!_{π_U(r)}) est comblée par une définition ratifiée ou reste explicitement bloquante. Aucune preuve de P1a n’est présentée comme preuve de P1b.
-- [ ] L’écart entre `0·Δ₁ = 0·Δ₂` et l’action `Scale_Usage(0,-)) est arbitré par l’autrice ; aucune correction n’est appliquée à `spec/` sans cette décision.
-- [ ] Les règles `Sub`, `SubBox`, `Box`, `App`, `Unbox`, substitution, composition via `ψ`, `Sc) et `When` ont chacune une correspondance typée avec les lois requises. Les conversions génériques des autres constructeurs et la relation d’effet restent distinctes.
+- [ ] La différence entre syntaxe `!_r` indexée par le grade complet et famille catégorique `!_{π_U(r)}` est comblée par une définition ratifiée ou reste explicitement bloquante. Aucune preuve de P1a n’est présentée comme preuve de P1b.
+- [ ] L’écart entre `0·Δ₁ = 0·Δ₂` et l’action `Scale_Usage(0,-)` est arbitré par l’autrice ; aucune correction n’est appliquée à `spec/` sans cette décision.
+- [ ] Les règles `Sub`, `SubBox`, `Box`, `App`, `Unbox`, substitution, composition via `ψ`, `Sc` et `When` ont chacune une correspondance typée avec les lois requises. Les conversions génériques des autres constructeurs et la relation d’effet restent distinctes.
 - [ ] Les lois formelles éventuellement produites dans Lean ciblent ces signatures mêmes, avec leurs hypothèses/domaines explicites ; les tests structurels et builds restent classés comme contrôles d’outillage.
 - [ ] La revue de la porte C se fait sur un SHA contenant les preuves et les ratifications, et non à partir de ce seul document.
 
