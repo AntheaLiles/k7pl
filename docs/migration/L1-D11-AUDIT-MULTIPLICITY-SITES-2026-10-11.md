@@ -36,3 +36,28 @@ L’audit distingue désormais trois dépendances possibles :
 4. Ne modifier aucune source normative `spec/` ou `src/` dans le cadre de cette décision.
 
 Aucune preuve Lean, exécution de tests, validation CI ou garantie d’exécution n’est revendiquée. La porte C demeure **NON SATISFAITE**.
+
+
+## Addendum — rapprochement indépendant avec les étiquettes courantes
+
+La table [correspondance des numéros imprimés et des étiquettes](../history/correspondance-theoremes-org.md) distingue le numéro relu dans le PDF de septembre et le numéro courant. Elle permet quelques rapprochements, mais **pas** une bijection pour la liste historique de la revue : celle-ci mélange les deux numérotations. Les références qui ne figurent pas dans la colonne « relu » ne doivent pas être requalifiées en identifiants courants sans examiner le passage source exact.
+
+| Référence citée dans la revue consolidée | Correspondance que permet la table | Conclusion sur la dépendance à la loi budgétaire |
+|---|---|---|
+| Th. 38 | numéro relu 38 → numéro courant 53, `thm:correction_ressource` | Dépendance **indéterminée** : l’invariant instrumenté et les mises à jour de compteur ne sont pas formalisés ; la référence seule ne démontre pas l’emploi de `n(β ⊖ k)=nβ ⊖ nk`. |
+| Th. 41 | numéro relu 41 → numéro courant 56, `thm:commutation_traduction` | Aucune invocation explicite de la loi arithmétique dans le bloc courant n’a été établie ; la commutation de traduction/substitution reste une obligation distincte. |
+| Th. 45 | absent comme numéro relu ; le numéro courant 45 désigne `thm:boxtimes_addition` | Si l’intention est le numéro courant, le bloc ne traite que le cas d’effet de coût nul et n’exige pas la loi pour une multiplicité budgétaire générale. L’intention historique exacte reste non prouvée. |
+| Th. 47 (cas LET/APP) | absent comme numéro relu ; le numéro courant 47 désigne `thm:commutation_monoide` | Le bloc courant impose une multiplicité finie pour l’identité de commutation des familles `π_S` et `φ_n`. Cela concerne l’action sur les effets ; le budget ne peut en être déduit sans définition d’une action budgétaire correspondante. Le lien exact aux cas LET/APP historiques reste à confirmer. |
+| Th. 48/27 | le 48 courant désigne `thm:determinisme_parallele` ; le 27 relu désigne `thm:surete_spatiale` | Ces deux correspondances mènent à des objets distincts. La notation « 48/27 » ne permet donc pas d’identifier un seul bloc courant. |
+| Th. 32 (EXPAND) | numéro relu 32 → numéro courant 47, `thm:commutation_monoide`, d’après la table imprimée | Cette correspondance n’est pas compatible avec l’étiquette EXPAND associée au numéro 32 dans une autre version de la revue. Pour l’expansion courante, l’étiquette directe est `thm:expansion_macro` (no courant 39 selon la table historique et no d’inventaire 69 dans la vue générée). Le mécanisme actuel passe par substitution et compose les effets dans l’ordre des occurrences ; aucune loi générale de multiplication du budget n’est déclarée comme prémisse. |
+
+### Sites courants à vérifier individuellement
+
+- `thm:distributivite_tronquee` (C2) est maintenant l’identité arithmétique distincte : le multiplicateur doit être fini, ou le coût nul. D8 impose `∞ ⊖ ∞ = ∞`, ce qui conserve le contre-exemple au multiplicateur infini.
+- `thm:coherence_axiome` (C2) reste une obligation générale de compatibilité dont la composante budgétaire dépend d’une action `φ_r` et de domaines communs qui ne sont pas encore définis complètement.
+- `thm:coherence_usage` (C2) repose sur la séparation factorisée : `Scale_Usage` change l’usage, tandis que `ψ` change le budget. Cette loi ne demande pas la loi de multiplicité budgétaire.
+- `thm:action_parallele` (C2) concerne le travail et la profondeur pour multiplicité entière finie ; son esquisse exclut explicitement la transformation du budget.
+- `thm:substitution` et `thm:substitution_simultanee` (C3) séparent l’action contextuelle `Scale_Usage` de `φ_n) sur les effets. Ils ne sont pas une preuve de l’identité budgétaire.
+- `thm:correction_ressource`, `thm:commutation_traduction` et `thm:expansion_macro` restent des obligations à formaliser ; il faut examiner leurs cas concrets lorsque les compteurs et effets sont explicités.
+
+**Décision d’audit.** Le rapprochement historique est désormais plus précis, mais ne permet toujours pas de déclarer « les six démonstrations auditées et classées ». La numérotation qui mélange des versions et des correspondances contradictoires doit rester marquée comme dette de provenance. La loi arithmétique formalisée dans `K7pl.GradeBudget` constitue un résultat mathématique candidat sur `ℕ∞), pas une décision sur l’usage par une preuve K7PL déterminée. D11 demeure **partiellement exécutée** jusqu’à ce que chaque site soit relié sans ambiguïté à sa dérivation source.
