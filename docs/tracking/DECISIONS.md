@@ -138,3 +138,8 @@ Cette décision ne ratifie pas une définition particulière de la soustraction 
 **Décision d’autrice : option B.** Le domaine de `ψ` est conceptuellement indépendant de la définissabilité de `Consume`. Il ne faut donc pas définir automatiquement `ψ` comme partielle exactement là où `Consume` est partielle, ni inférer qu’une application de `ψ` autorise à elle seule la traversée d’un effet.
 
 Les règles devront spécifier séparément (1) le domaine et le codomaine de `ψ`, (2) les conditions de typage/autorisation d’une traversée, (3) les cas où la consommation budgétaire est requise, et (4) la correspondance entre le coût annoncé et le budget consommé. D7 ne rend pas `Consume` totale, ne garantit pas l’exécution sûre et ne constitue aucune preuve Lean. Voir la [note D7](../migration/L1-D7-PSI-INDEPENDENT-DOMAIN-2026-10-11.md).
+
+
+## D-22 — Consommation budgétaire (11 octobre 2026)
+
+Option A ratifiée : conserver la soustraction tronquée prolongée, avec ω ⊖ ω = ω, dans les couches où Consume est utilisée. Les couches déterminent les opérations requises localement, mais ne définissent pas de variantes de ⊖. Les six démonstrations concernées restent à auditer et à prouver. Voir la note D8 dans docs/migration/L1-D8-GLOBAL-TRUNCATED-SUBTRACTION-2026-10-11.md. La porte C demeure NON SATISFAITE.
