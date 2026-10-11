@@ -111,7 +111,7 @@ Sous les hypothèses explicites précédentes, `W` et `D` sont des fonctions tot
 
 C2/C3 affichent le porteur pair-valué `(ℕ∞×ℕ∞)^ℒ`. C2 affiche en même temps `Cost_𝓑 : K ⇀ ℕ∞`, puis définit la valeur par maximum sans restriction d'argument. La séance 60 ne peut pas rendre cette interface totale par son seul statut de note de conception.
 
-Un second écart de source doit rester visible : C4, section sur les sortes du métalangage, décrit une famille temporelle scalaire `κ ∈ ℕ∞^ℒ`, alors que C2/C3 décrivent la famille pair-valuée portant travail et profondeur. Les sources examinées ne définissent pas explicitement une application reliant ces deux porteurs. Cet audit ne décide pas s'il s'agit d'une autre notion ou d'une incohérence; cette correspondance doit être instruite à son emplacement.
+Deux autres écarts de représentation doivent rester visibles. (1) Dans C3, le texte d'explication de `When` donne `⟨φ,κ⟩[ω]=⟨φ,⊤⟩` avec `⊤(ℓ)=ω`, c'est-à-dire une définition scalaire du canal supérieur, alors que la grammaire d'effet C3 et l'interface C2 présentent `κ` comme une famille de paires travail/profondeur. (2) C4, section sur les sortes du métalangage, décrit également une famille temporelle scalaire `κ ∈ ℕ∞^ℒ`, distincte de la forme pair-valuée de C2/C3. Les sources examinées ne spécifient pas explicitement les applications qui relieraient ces représentations. Cet audit ne décide pas s'il s'agit d'autres notions ou d'incohérences; ces correspondances doivent être instruites aux endroits appropriés.
 
 ### C. Frontière avec C-04 : `Adm`, `Consume`, `ψ`
 
