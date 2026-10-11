@@ -315,15 +315,17 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 ### C-06 — Substitution, conversions, Scale_Usage et φ_n
 
-**Classe :** obligation mathématique sur le typage et les effets.
+**Audit détaillé :** [L1-C06-SUBSTITUTION-AUDIT-2026-10-11.md](L1-C06-SUBSTITUTION-AUDIT-2026-10-11.md) — contrat de preuve, dépendances C-01–C-05, matrice individuelle des 49 occurrences de règles C3, conversions, liaison/fraîcheur, limites C8 et test structurel.
 
-**Hypothèses à isoler :** formation des types sous usage effacé ; identité, composition et monotonie de Scale_Usage ; compatibilité avec ψ ; conversion ConvCtx et Conv! ; conditions de Sub/SubBox ; transformation d'effet φ_n uniquement sur son domaine de multiplicités effectives ; lois zéro-somme/zéro-produit là où les lemmes les invoquent.
+**Verdict : C-06 OUVERT.** L’esquisse n’est pas exhaustive : elle annonce 34 règles mais C3 en contient 49 occurrences, et classe incorrectement Inj parmi les règles à deux prémisses qui partagent l’usage. Cela réfute la complétude de l’esquisse, non le théorème de substitution dans son ensemble. Aucun contre-exemple typé au théorème entier n’est établi et aucune preuve Lean correspondante n’a été trouvée.
 
-**Cas manquants :** variables, lieurs et fraîcheur ; Box, App, VECI, SC ; substitution sous Sub/SubBox ; contexte partagé dans ψ ; conversions de modalité et transport de ! ; effets et budgets ; répétitions finies/infinies seulement si elles sont admises par la règle concernée. Les schémas généraux de commutation et préservation ne remplacent pas la preuve d'instance.
+**Contrat cible :** préserver terme, instanciation du type et famille d’effets, avec conclusion sous Δ ⊠₁ Scale_Usage(π_U(r),Δ′). π_U et Scale_Usage restent candidates dans C2 ; Conv!/coerce, w/c, ψ, When/Adm/Consume et le domaine de Cost_Budget sont des dépendances ouvertes. φ_n porte sur les multiplicités effectives ; un grade d’usage rationnel ne permet pas de définir φ_a par analogie, et n=ω requiert ses hypothèses propres.
 
-**Dépendances :** C-01 à C-05, thm:substitution, thm:substitution_simultanee, thm:commutation_traduction, thm:coherence_axiome et thm:coherence_usage.
+**Cas recensés :** Var, Ret, Th, Let, Fo, Box, Unbox, Lam, App, Pair, Inj, Pack, Open, One, OneE, Split, Case, Op, Tick, Del, Sub, SubBox, les deux règles Alw, Now, Wait, When, Sc, Fold, Unfold, Gen, Inst, Out, Cop, With, Proj, VecI, VecE, Slice, Par, Vmap, Spawn, New, Send, Guard, Free, At, Move et Try, ainsi que ConvCtx/Conv!. L’élimination d’Arena, Fix/Declassify et la traduction/sortage ne sont pas réputés couverts sans leurs règles et contrats propres.
 
-**Critère de clôture :** induction sur chaque règle avec hypothèses typées et fraîcheur ; identité et conversions établies ; aucun passage de l'usage rationnel à la multiplicité d'exécution sans preuve dédiée.
+**Test :** tests/python/test_stage_c_substitution_audit.py contrôle la correspondance structurelle entre l’inventaire source et la matrice ; ce n’est pas une preuve mathématique. Vérifier la CI sur le SHA exact, les jobs effectivement exécutés et ceux ignorés par les filtres de chemins.
+
+**Clôture :** tous les cas et prémisses latérales doivent être traités individuellement ; signatures, domaines et fraîcheur établis ; conversions, ψ, When, SubBox et φ_n démontrés dans leurs domaines ; preuve papier, Lean, tests et ratification humaine distingués. La porte C reste NON SATISFAITE.
 
 ### C-07 — Réduction source, Sim et adéquation de la représentation
 
