@@ -128,7 +128,7 @@ Par conséquent, les inclusions d'intervalles sont exactes en tant que faits ens
 
 La source C2 porte encore textuellement l'étiquette « candidate » : cette divergence est un travail de normalisation documentaire/normative à réaliser dans un changement distinct. Les lois algébriques, conversions, naturalité, compatibilité avec les règles et substitution restent des obligations de preuve ; aucune preuve Lean n'est revendiquée. Le détail de la décision est consigné dans la [note de ratification C-01](L1-C01-INTERFACE-RATIFICATION-2026-10-11.md).
 
-**D2 — Réalisation des modes : OUVERT.** Confirmer ou réviser les quatre triplets candidats et le contrat exact `Cont(source)→Cont(cible)` / `Weak(source)⇒Weak(cible)`. Le constat actuel autorise seulement la proposition conditionnelle ; les règles K7PL et leurs permissions ne sont pas encore reliées par preuve.
+**D2 — Périmètre des modes : DÉCIDÉ ; preuves ouvertes.** Par décision d'autrice du 11 octobre 2026, le périmètre de référence courant retient `M_Lin` pour la couche 1, `M_Aff` pour la couche 2 et `M_Unr` pour la couche 3. `M_Rel` n'est pas activé dans les règles actuelles ; ses opportunités sont décrites dans [L1-REL-MODE-OPPORTUNITIES-2026-10-11.md](L1-REL-MODE-OPPORTUNITIES-2026-10-11.md). Cette décision ne prouve ni l'idéalité requise ni le contrat des morphismes : définir précisément la préservation de l'algèbre/ordre, `Cont(source)→Cont(cible)` et `Weak(source)⇒Weak(cible)`, puis établir la correspondance avec les permissions des règles K7PL.
 
 **D3 — Totalité de `Cost_Budget` : OUVERT.** Décider si le coût est total sous les hypothèses de scalarisation/P3 ou partiel avec un domaine explicite. Ne pas faire porter à `Consume` la partialité de `Cost_Budget` par défaut, ni l'inverse.
 
