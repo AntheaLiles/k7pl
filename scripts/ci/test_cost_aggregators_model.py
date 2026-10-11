@@ -12,7 +12,6 @@ infinite families, and do not decide whether normative Cost_Budget is total.
 from __future__ import annotations
 
 import unittest
-from itertools import chain, combinations
 from typing import TypeAlias
 
 
@@ -66,20 +65,15 @@ def sup(values: list[NInf]) -> NInf:
     return result
 
 
-def all_subsets(values: list[NInf]):
-    return chain.from_iterable(combinations(values, size) for size in range(len(values) + 1))
-
-
 def work_aggregate(family: Family) -> NInf:
     """Finite-index instance of sup over all finite-subset work sums."""
     validate_family(family)
-    sums = [0]
-    for subset in all_subsets([work for work, _depth in family]):
-        total: NInf = 0
-        for value in subset:
-            total = ext_add(total, value)
-        sums.append(total)
-    return sup(sums)
+    # On a finite carrier with nonnegative coordinates, the sum over the
+    # entire carrier dominates every finite-subset sum and is itself allowed.
+    total: NInf = 0
+    for work, _depth in family:
+        total = ext_add(total, work)
+    return total
 
 
 def depth_aggregate(family: Family) -> NInf:
