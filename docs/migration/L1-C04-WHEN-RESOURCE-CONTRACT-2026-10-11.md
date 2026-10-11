@@ -120,7 +120,7 @@ Si ces hypothèses ne sont pas celles que le texte normatif veut retenir, le dom
 
 ## 3. Cas discriminants et attentes conditionnelles
 
-Ces cas servent à départager les lectures. Ils ne doivent être convertis en tests normatifs qu’après ratification de la lecture correspondante. Les attentes ne sont donc pas des résultats acquis.
+Ces cas ont servi à départager les lectures ; P3-B est désormais ratifiée, mais leurs attentes restent conditionnelles jusqu'à ce que la représentation latence/coût et les contrats de budget soient définis. Ils ne doivent pas devenir des tests normatifs avant que leurs préconditions et résultats attendus soient dérivés de ces contrats. La ratification de l'intention ne constitue pas un résultat de preuve.
 
 | Cas | Données | Lecture avec coût d’exécution P3-A et contrôle différé | Lecture avec latence externe P3-B | Obligation discriminée |
 |---|---|---|---|---|
@@ -190,7 +190,9 @@ Restent à trancher ou à spécifier avant la fermeture de C-04 :
 3. le contrat de `ψ` : paramètres typés, domaine, unité de coût, liaison(s) affectée(s), précondition `Adm`, résultat `Consume`, frontière de déclenchement et règle de composition invoquant ce transport ;
 4. la convention normative de `⊖`, notamment `ω ⊖ ω = ω`, et sa distinction d’avec un résidu d’addition ;
 5. le modèle de l’orchestrateur : agrégation des surveillances, lancement d’automates ad hoc, interaction des budgets et garanties éventuellement visées (ordre, équité, réarmement, événements multiples). Ces garanties ne sont pas ratifiées par la seule description fonctionnelle ci-dessus ;
-6. la validation de l’option C exige des contrats et preuves distincts pour les couches K7PL concernées. La ratification de l’orientation ne ratifie pas automatiquement une politique uniforme de contrôle, une métrique commune ou un garde-fou particulier.
+6. la validation de l’option C exige des contrats et preuves distincts pour les couches K7PL concernées. La ratification de l’orientation ne ratifie pas automatiquement une politique uniforme de contrôle, une métrique commune ou un garde-fou particulier ;
+7. pour chaque couche concernée, la validation budgétaire à la compilation doit être reliée par un théorème de correction aux bornes de coût observables à l’exécution, et la composition inter-couches doit préserver ces bornes sous les hypothèses annoncées ;
+8. la propriété de borne de l’automate après déclenchement reste distincte de toute propriété de vivacité de `When` : aucun résultat ne suppose que l’événement survient, ni que l’orchestrateur garantit l’équité ou le déclenchement en temps fini.
 
 ## 5. Preuve attendue pour fermer C-04
 
