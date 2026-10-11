@@ -371,9 +371,9 @@ P1a (cadre catégorique annoncé par C) reste distinct de P1b (interprétation �
 
 **Audit de provenance (11 octobre 2026) :** voir [C-09 — Audit de provenance et d'instanciation des dépendances externes](L1-C09-EXTERNAL-DEPENDENCIES-AUDIT-2026-10-11.md). Cet audit reste documentaire : les instanciations manquantes et décisions d'auteur qu'il recense maintiennent C-09 ouvert.
 
-## 12. Décisions humaines à préserver comme ouvertes
+## 12. Décisions humaines et sous-choix à préserver comme ouverts
 
-1. **Portée normative de P3/When :** confirmer que la politique voulue fait porter la consommation de ressource par le franchissement via ψ et l'admissibilité différée. L'alternative « attente externe hors budget » exige une distinction explicite entre latence et coût d'exécution ; l'alternative « interdire When au point d'introduction si le budget est fini » modifierait la règle locale. Aucune option ne doit être appliquée implicitement.
+1. **P3 / When — P3-B ratifiée le 11 octobre 2026.** L'attente environnementale est une latence de surveillance prise en charge par l'orchestrateur ; elle ne fait pas partie du coût d'exécution de l'automate déclenché. L'orchestrateur agrège les surveillances pertinentes et lance les automates ad hoc à la survenue des événements. **Restent à formaliser, sans nouvelle ratification du principe P3-B :** représentation distincte de la latence, sémantique de l'agrégation et du déclenchement, frontière des budgets, contrat typé de `ψ`/`Adm`/`Consume`, et preuve qu'aucun coût d'exécution n'est masqué. Cette décision ne ferme pas C-04.
 2. **H1 et thm:introduction_unique :** choisir entre preuve indépendante via l'élimination de l'arène et acceptation explicite de H1 comme hypothèse avec réduction de portée. Les conséquences théoriques diffèrent.
 3. **Morphismes des modes :** si les triplets candidats ne satisfont pas le contrat, apporter les contre-exemples et la conséquence sur les règles avant de choisir restriction, modification normative ou obligation ouverte.
 
