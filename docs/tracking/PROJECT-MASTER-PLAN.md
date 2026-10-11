@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # K7PL — Project Master Plan
 
 **Status:** ACTIVE PLANNING  
-**Snapshot:** 2026-10-10  
+**Snapshot:** 2026-10-11  
 **Scope:** scientific/formal workstreams A–J and documentation architecture
 
 This document is the project-level execution map. It does not replace the detailed registers, decision logs, theoretical-object register, assurance case, or documentation-migration plan.
@@ -41,7 +41,7 @@ Therefore:
 |---|---|---|---|
 | A — finalize #50 | DONE | #50 merged | repository entry-point/security baseline incorporated |
 | B — freeze CI/documentation baseline | DONE | #53 merged; current main baseline | execution baseline remains identifiable and reproducible |
-| C — theoretical objects | IN PROGRESS — PR #54 merged; residual obligations remain | #54 + current migration/proof registers | theoretical interfaces closed; residual work explicit as proof/semantic/decision obligations |
+| C — theoretical objects | IN PROGRESS — PR #54 integrated; exit gate not met | [#54 merged 2026-10-08](https://github.com/AntheaLiles/k7pl/pull/54) is historical delivery evidence; current obligations live in the C registers | signatures/directions explicit; external dependencies separated; remaining proof, semantic, representation and authorial decisions bounded |
 | D — singularities | NOT STARTED in this sequence | BLOQ-12 / singularity work | singularity treatment resolved without hidden architectural change |
 | E — ∥ | NOT STARTED | PR-02 continuation | parallel construct formally and semantically integrated |
 | F — spawn | NOT STARTED | PR-02 continuation | spawn semantics and typing integrated |
@@ -110,9 +110,9 @@ The baseline freezes execution evidence, not mathematical conclusions.
 
 **Objective.** Stabilize the theoretical objects and their epistemic boundaries before reopening dependent constructs.
 
-**Current state.** PR #54 was merged on 2026-10-08. This closed that delivery step, not workstream C: the remaining theoretical interfaces, proof obligations and semantic/decision questions remain tracked below and in the active migration registers.
+**Current state (verified 2026-10-11).** PR #54 was merged on 2026-10-08. Its changes are integrated on `main`; no review/merge task for #54 remains. This closes the delivery step, not workstream C. The interface decisions recorded in sessions 59–62 narrow the remaining work but do not prove their mathematical properties or silently ratify every normative consequence.
 
-The architectural exploration is substantially closed. The remaining work must be demonstrative, semantic, or decisional rather than a new uncontrolled architectural search.
+The architectural exploration is substantially closed. The remaining work must be demonstrative, semantic, representation-related, or authorial rather than a new uncontrolled architectural search. Do not modify an open statement merely to obtain a successful build.
 
 ### C1 — Object and boundary control
 
@@ -173,14 +173,16 @@ The representation profile Π is not a semantic property of the language. Logica
 
 ### C6 — Remaining interface/proof obligations
 
-The residual C work includes, at minimum:
+The interface records from sessions 59–62 are design evidence, not a proof certificate. The residual C work includes, at minimum:
 
-- naturality, identity and composition for coerce;
-- compatibility with w and c;
-- substitution closure under conversions and Scale_Usage;
-- the interaction between ψ and Cost_Budget;
-- exact W/D aggregators and their properties;
-- remaining semantic and memory obligations, including Sim and H1/H2.
+- verify explicit carriers, signatures and directions for `𝒢`, `π_U`, `Bang_𝒢`, `Scale_Usage`, `φ_n`, `coerce`, `w`, `c`, `ψ`, `Adm`, `Consume`, `W`, `D` and `Cost_Budget`; keep `𝓡` separate from the complete grade `𝒢`;
+- prove identity/composition/naturality for `coerce`, its compatibility with `w`/`c`, and the stated reverse direction `r ≼ r' ⇒ π_U(r) ≥ π_U(r')`;
+- prove substitution for the actual typing domain, including conversions, `SubBox`, `Scale_Usage`, effects via `ψ` and repetitions via `φ_n`; do not extend the effective-multiplicity result to rational usage grades;
+- prove the `When`/`ψ`/`Adm`/`Consume` contract rule by rule, including that a non-bounded effect is exposed and is rejected when it must cross a finite budget;
+- validate the definitions and required laws of `W`/`D` and `Cost_Budget` over the stated level-indexed family, rather than treating the session notes or an informal calculation as a proof;
+- complete the directional simulation obligation `Sim` from source reduction to target reduction, including traces, effects, time-channel threading, structural congruence and every reduction case;
+- resolve or explicitly retain as open the memory hypotheses H1/H2 (with H3 kept distinct), without a circular justification; keep abstract-memory claims separate from representation-profile `Π` claims;
+- classify every remaining item as mathematical proof, semantic obligation, external formal dependency, representation question or authorial decision. The exact hypotheses, missing cases, dependencies and closure evidence are registered in [L1-THEORY-OBJECTS.md](../migration/L1-THEORY-OBJECTS.md), with the memory dependency reviewed in [LEAN-DEPENDENCY-SEMANTIC-REVIEW.md](LEAN-DEPENDENCY-SEMANTIC-REVIEW.md).
 
 ### C7 — C exit gate
 
@@ -517,8 +519,8 @@ At the current snapshot:
 
 The OpenSSF/security workstream is tracked separately in [the operational roadmap](../security/OPENSSF-ROADMAP.md) and [the human-action register](../security/ACTIONS-HUMAINES.md); it is intentionally not duplicated in this scientific execution queue.
 
-1. complete the review of #54 and merge only once its current head is green and its scientific scope is accepted;
-2. continue the remaining C proof/interface obligations and open C8 statement-command taxonomy as a dedicated sub-workstream;
+1. treat #54 as integrated delivery evidence only; continue the bounded C obligations in the current registers and keep open epistemic states open;
+2. continue the remaining C proof/interface obligations and the C8 statement-command taxonomy as a dedicated sub-workstream;
 3. do not reopen the completed physical documentation migration; use docs/migration/ only for the remaining semantic lots;
 4. open D only after the C exit gate is satisfied;
 5. execute E, then F;
