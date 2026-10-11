@@ -5,9 +5,9 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # C8 — Shared statement ontology: implementation contract
 
-**Status:** C8.2 shared representation/legacy compatibility and C8.3 structural controls passed CI on the exact PR #134 head `52c4ca16937bc52e76d3ac6f12583a3459cd9984` (run [#1017](https://github.com/AntheaLiles/k7pl/actions/runs/38121072356), 2026-10-11). PR #134 remains open and unmerged.
+**Status:** the shared representation, legacy compatibility and structural controls passed CI on PR #134 exact head `0a2171c3c3a188a9d2802bd6779392d393eefe07` (run [#1024](https://github.com/AntheaLiles/k7pl/actions/runs/38121483338), 2026-10-11). PR #134 remains open and unmerged; validation of the migrated source belongs to PR #139.
 
-This document records the shared implementation and structural-control slice of C8. On the recorded head, the Lean implementation/tests, Python tooling, quick checks, Verso specification, and PDF jobs succeeded. These results establish build/render and mechanical consistency for that exact source revision only; they do not validate migrated source blocks, prove mathematical claims, or establish scientific adequacy.
+This document records the shared implementation and structural-control slice of C8. On the exact head recorded above, Python tooling tests, quick checks, Lean implementation/tests, Verso rendering, and PDF compilation succeeded. These results validate that revision's build and mechanical controls only; they do not validate the migrated source blocks or establish any mathematical claim.
 
 ## Shared representation
 
@@ -54,22 +54,23 @@ Metadata validation rejects unknown epistemic/evidence values, incompatible kind
 ## Compatibility and limits
 
 - Existing source blocks are not migrated by this change. They retain their labels, prose, references, and legacy numbering.
-- The shared representation, legacy compatibility, ontology-aware inventory, Python structural controls, and CI integration are implemented across the stacked C8 PRs. The migration of the 69 source blocks and five companion objects belongs to PR #139 and is reviewed separately.
-- Presence/absence of `:::proofsketch` is not yet cross-validated against the `evidence` metadata. The next validation slice must make slot-parent rules mechanically enforceable.
+- The shared representation and legacy compatibility are covered by PR #134. Ontology metadata checks and inventory drift controls are implemented across C8.3/C8.4; the 69-block migration and its register have a separate validation gate in PR #139.
+- Python structural controls cross-check `evidence` against the presence/absence of `:::proofsketch` for specialized directives. This is a metadata/slot check, not a proof checker and not a judgment of proof adequacy.
 - A hypothesis still needs an explicit local scope string and must be attached to the relevant argument/result during controlled migration; this directive does not by itself prove that structural relationship.
-- Bibliographic identifiers are currently represented as strings. Their canonical format and reference resolution remain to be specified by the inventory/control work.
+- Bibliographic identifiers are represented as source strings. The controls require provenance to be present but do not resolve canonical bibliographic identifiers or prove that an external claim supports its use in K7PL.
 - No `::::thm` statement has been assigned `established` as a consequence of this refactor. Metadata never substitutes for a proof.
 
-## Validation record and remaining assurance boundary
+## Validation record and assurance boundary
 
-Exact head tested: `52c4ca16937bc52e76d3ac6f12583a3459cd9984`. CI run [#1017](https://github.com/AntheaLiles/k7pl/actions/runs/38121072356) completed successfully. The workflow reported success for Python tooling tests, quick checks, Lean implementation/tests, Verso specification/rendering, and PDF compilation. This record is head-specific and does not authorize a merge or constitute a mathematical proof review.
+CI run [#1024](https://github.com/AntheaLiles/k7pl/actions/runs/38121483338) passed on the exact PR #134 head `0a2171c3c3a188a9d2802bd6779392d393eefe07`, including Python tooling, quick checks, Lean implementation/tests, Verso rendering, and PDF compilation.
 
-PR #134 does not migrate the 69 statements. PR #139 retains responsibility for the source migration, current register, historical-level preservation, and human review of classification/proof obligations.
+The current migration is reviewed independently in PR #139. A passing build or structural checker is not mathematical proof validation. The remaining obligations include bibliographic source resolution, semantic attachment of local hypotheses, proof adequacy, and the rendered numbering/reference review recorded in the migration register.
 
-## Required validation before merge
+### Controlled scope vocabulary
 
-1. Run the Lean build and tests for `SpecExt` and the `Spec` library.
-2. Generate both HTML and PDF/LaTeX outputs and compare representative legacy blocks.
-3. Exercise every new command, including invalid metadata combinations and the compatibility path.
-4. Confirm the old labels/references and legacy numbering are unchanged.
-5. Do not migrate the 69 blocks or remove legacy support in this PR.
+The `scope` argument is a closed identifier, not free-form prose. The accepted tags are: `syntax`, `metatheory`, `graphs`, `resources`, `memory-safety`, `security`, `operational-semantics`, `graded-typing`, `effects`, `logical-relations`, `translation`, `fixed-points`, `interoperability`, `concurrency`, `ffi-safety`, `representation`, `compiler-interface`, `compilation`, `resource-accounting`, `literature`, and `runtime`. Detailed assumptions and limits remain in the statement text and the migration register; the tag must not be read as proof of any guarantee.
+
+
+### Controlled scope vocabulary
+
+The `scope` argument is a closed identifier, not free-form prose. The accepted tags are: `syntax`, `metatheory`, `graphs`, `resources`, `memory-safety`, `security`, `operational-semantics`, `graded-typing`, `effects`, `logical-relations`, `translation`, `fixed-points`, `interoperability`, `concurrency`, `ffi-safety`, `representation`, `compiler-interface`, `compilation`, `resource-accounting`, `literature`, and `runtime`. Detailed assumptions and limits remain in the statement text and the migration register; the tag must not be read as proof of any guarantee.

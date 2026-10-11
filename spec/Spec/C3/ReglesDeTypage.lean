@@ -100,7 +100,7 @@ propre qu'aux deux endroits où un calcul précède un autre calcul, ce qui est 
 attendait qu'elle en eût, et nulle part ailleurs. Les règles portent désormais leur indice, et une
 mécanisation n'aura ni à le deviner ni à traiter neuf cas là où deux suffisent.
 
-::::thm (label := "thm:boxtimes_addition")
+::::corollary (label := "thm:boxtimes_addition") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 $`\boxtimes` généralise l'addition ponctuelle
 :::
@@ -126,8 +126,8 @@ La totalité suit du même calcul : la soustraction tronquée n'échoue que lor
 pas le coût, et à coût nul elle est définie partout. C'est le seul point de cette section où $`\psi`
 soit totale, et il vaut d'être relevé.
 :::
-::::
 
+::::
 Ce lemme n'est pas une commodité de calcul : il situe K7PL par rapport à la forme reçue. Des
 présentations indépendantes des systèmes gradués écrivent la règle d'application en multipliant le
 contexte de l'argument par le grade que la flèche exige, puis en le combinant à celui du terme
@@ -383,7 +383,7 @@ s'appliquent en tout point d'une dérivation, de sorte que plusieurs dérivation
 programme dès qu'elles existent. Rien n'a jusqu'ici établi qu'elles s'accordent, c'est-à-dire que
 ces dérivations dénotent la même chose.
 
-::::thm (label := "thm:coherence_subsomption") (status := "proposition")
+::::proposition (label := "thm:coherence_subsomption") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 cohérence de la subsomption
 :::
@@ -420,8 +420,8 @@ la fonctorialité de ce transport — identité en $`r \preccurlyeq r`, composit
 $`r \preccurlyeq s \preccurlyeq t` — à vérifier pour chacune des quatre familles, puis à clore par
 produit, la fonctorialité d'un produit de catégories l'étant composante par composante. La conversion de chaque facteur se définit ainsi. Sur le niveau, la monotonie et le budget, la conversion est l'_identité_ sur la valeur sous-jacente : seule l'étiquette change, de sorte que l'identité et la composition sont immédiates. Sur l'usage, c'est le morphisme canonique de comonades gradués $`!_{u} \Rightarrow !_{u'}` pour $`u \geq u'` : la dérivation (compteur) de $`\omega` vers $`1` et l'affaiblissement de $`1` vers $`0`. Seule équation à vérifier : l'affaiblissement composé à la dérivation est l'affaiblissement, $`w \circ \varepsilon = w`, qui est la naturalité de $`w`. Reste à la vérifier dans la construction du chapitre 2 ; tant qu'elle ne l'est pas, la proposition demeure une proposition.
 :::
-::::
 
+::::
 La forme de cette preuve est celle qu'emploie la cohérence de la subsomption pour un calcul
 monadique {cite "schwinghammerCoherenceSubsumptionMonadic2009"}[]. La condition qu'elle demande n'est pas encore acquise ici : K7PL doit vérifier les conversions
 propres à son ordre produit. Les jointures déjà utilisées aux branchements constituent une donnée
@@ -723,7 +723,7 @@ tag := "g-scoped-le-monoide-des-transformateurs-la-commutation-demon"
 L'énoncé se pose pour ce qu'il est, trois choses en dépendant : les formes normales, donc la
 décidabilité de l'appartenance, donc la vérifiabilité de la règle.
 
-::::thm (label := "thm:commutation_monoide")
+::::lemma (label := "thm:commutation_monoide") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 commutation des deux familles
 :::
@@ -766,8 +766,8 @@ d'étiquettes — le seul cas qu'un motif de boîte puisse écrire, que la règl
 le besoin se réduit aux bornes supérieures finies, que le monoïde ordonné par treillis fournit : cette
 condition s'écrit sur la règle, elle n'est pas supposée.
 :::
-::::
 
+::::
 La réserve est dans l'hypothèse et non dans la preuve, ce qui est la bonne place. Une extension de
 $`\mathcal{E}_0` qui poserait une équation reliant une opération interceptable à une opération
 conservée romprait la commutation, donc les formes normales, donc la décidabilité. _La condition
@@ -1316,7 +1316,7 @@ vectorisation, écrite dans le type plutôt que promise par le compilateur : app
 un vecteur de longueur $`n` coûte $`n` fois son travail et une seule fois sa profondeur. Un
 programme qui l'écrit dit qu'il est vectorisable, et le vérificateur le tient.
 
-::::thm (label := "thm:determinisme_parallele")
+::::theorem (label := "thm:determinisme_parallele") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 déterminisme du parallélisme de couche 3
 :::
@@ -1337,8 +1337,8 @@ l'égalité des valeurs suit de ce que $`\varepsilon_1` et $`\varepsilon_2` y on
 d'effet neutre, de sorte que l'entrelacement ne distingue aucun état. La différence de profondeur
 est celle des deux compositions : $`\max(s_1, s_2) \le s_1 + s_2`.
 :::
-::::
 
+::::
 Ce que cet énoncé achète mérite d'être dit, car il est facile et n'en est pas moins un résultat. _Le
 parallélisme de couche 3 n'a pas besoin d'être vérifié_ : il est sûr par la structure du fragment,
 et non par une analyse d'indépendance que le compilateur conduirait. Là où un langage ordinaire doit
@@ -1602,7 +1602,7 @@ des constructions auxquelles elles s'appliquent.
 ## Cible de preuve — substitution
 
 
-::::thm (label := "thm:substitution") (status := "proposition")
+::::lemma (label := "thm:substitution") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 substitution sur trois niveaux
 :::
@@ -1688,12 +1688,12 @@ liaison _maximale_ de sa zone. Le lemme ne s'en trouverait pas faux, mais moins 
 restriction serait le contenu même de la discipline plutôt qu'un défaut — on ne consomme pas le
 second message d'une session avant le premier.
 :::
-::::
 
+::::
 Une forme simultanée en découle, et elle n'est pas un corollaire immédiat sous la discipline
 ci-dessus.
 
-::::thm (label := "thm:substitution_simultanee")
+::::corollary (label := "thm:substitution_simultanee") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 substitution simultanée — corollaire de la substitution élémentaire
 :::
@@ -1724,8 +1724,8 @@ partiel sur un ensemble fini ayant toujours un élément maximal, et $`\gamma` f
 toutes les liaisons sont bien retirées. C'est le seul point où la forme simultanée demande davantage
 que la forme simple.
 :::
-::::
 
+::::
 Une remarque sur le statut de ce qui précède. La démonstration est conduite à la main et n'a pas été
 vérifiée par machine. Elle ne comporte pas de cas passé sous silence — les trente-quatre règles s'y
 rangent toutes —, mais la vérification cas par cas des connecteurs routiniers y est faite par schéma

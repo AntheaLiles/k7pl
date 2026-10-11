@@ -123,7 +123,7 @@ construction plutôt que par preuve séparée {cite "fioreFormalMetatheorySecond
 Une seconde propriété suit de la même construction, et elle décide de ce que le compilateur peut
 faire plutôt que de ce que le programmeur peut écrire.
 
-::::thm (label := "thm:staticite_syntaxe")
+::::corollary (label := "thm:staticite_syntaxe") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "syntax")
 :::title
 staticité de la syntaxe
 :::
@@ -149,8 +149,8 @@ plutôt que lu : la résolution de `bind-to` par recherche dirigée par le type
 (§{num "sec:c5-mise-en-pratique"}[]). Elle ne menace pas l'énoncé, s'achevant elle aussi en Phase 0
 — une recherche ambiguë y est refusée plutôt que résolue arbitrairement.
 :::
-::::
 
+::::
 Ce que ce théorème ajoute n'est pas une garantie de plus mais un _second_ bénéfice au même
 dispositif. Le chapitre 3 justifie le confinement de la Phase 0 par la sûreté : une macro n'a aucune
 raison de détenir plus de capacités que le programme qu'elle produit. Il achète aussi la
@@ -214,7 +214,7 @@ système de types vérifie plutôt qu'une convention que le compilateur interpr�
 
 La forme de ce théorème dit d'où il vient.
 
-::::thm (label := "thm:hygiene")
+::::lemma (label := "thm:hygiene") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "syntax")
 :::title
 hygiène des expansions
 :::
@@ -236,9 +236,9 @@ par récurrence sur $`M` : les cas des opérateurs sont donnés par la fonctori
 métavariable par sa définition, et celui d'un lieur par le décalage d'indice que l'indexation par la
 portée impose.
 :::
-::::
 
-::::thm (label := "thm:hygiene_graduee") (status := "proposition")
+::::
+::::conjecture (label := "thm:hygiene_graduee") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "syntax")
 :::title
 hygiène graduée des expansions
 :::
@@ -256,9 +256,9 @@ Le théorème {num "thm:expansion_macro"}[] la referme par le lemme de
 substitution et la loi de compatibilité de l'action ; l'énoncé n'était simplement pas étendu. Non
 démontré ici.
 :::
-::::
 
-::::thm (label := "thm:resucrage") (status := "exigence")
+::::
+::::requirement (label := "thm:resucrage") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "syntax")
 :::title
 préservation de l'α-équivalence de surface
 :::
@@ -269,8 +269,8 @@ Resucrage
 L'α-équivalence de surface est préservée par l'expansion. Cette propriété ne se déduit pas de
 l'énoncé sur l'AST : elle demande une algèbre de liaison de surface, que le document n'a pas.
 :::
-::::
 
+::::
 Ce que cet énoncé rend inexprimable importe plus que ce qu'il évite. {rmq}[Pas une discipline
 appliquée, un type qui ne laisse pas la question se poser.] La conclusion n'est pas qu'une capture
 est évitée par un renommage. Mais qu'elle est inécrivable : produire une occurrence hors de l'index
