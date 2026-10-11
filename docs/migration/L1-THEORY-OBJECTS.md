@@ -14,7 +14,7 @@ séparer les objets que la spécification emploie, leur statut, les relations qu
 eux et les obligations qui restent à établir. Une modification normative n'est admise que lorsque
 l'objet concerné, sa signature et la propriété invoquée sont identifiés.
 
-**Dossier probant de la porte C (instantané audité au 11 octobre 2026) :** voir [L1-STAGE-C-EVIDENCE-DOSSIER-2026-10-11.md](L1-STAGE-C-EVIDENCE-DOSSIER-2026-10-11.md). Ce dossier documente les signatures, l’évidence disponible, les obligations et les décisions humaines sans promouvoir une preuve au rang établi ni fermer C. La décision du 11 octobre ratifie les interfaces π_U, Bang_𝒢 et Scale_Usage ; voir la [note de ratification](L1-C01-INTERFACE-RATIFICATION-2026-10-11.md).
+**Dossier probant de la porte C (instantané audité au 11 octobre 2026) :** voir [L1-STAGE-C-EVIDENCE-DOSSIER-2026-10-11.md](L1-STAGE-C-EVIDENCE-DOSSIER-2026-10-11.md). Ce dossier documente les signatures, l’évidence disponible, les obligations et les décisions humaines sans promouvoir une preuve au rang établi ni fermer C. La décision du 11 octobre ratifie les interfaces π_U, Bang_𝒢 et Scale_Usage ; voir la [note de ratification](L1-C01-INTERFACE-RATIFICATION-2026-10-11.md). L’[audit indépendant de sortie C](L1-C-GATE-INDEPENDENT-EXIT-AUDIT-2026-10-11.md), établi sur le SHA `bfe2058…`, maintient explicitement la porte non satisfaite et distingue les PR de décisions non fusionnées des preuves disponibles.
 
 ## 1. Règle d'instruction
 
