@@ -11,6 +11,7 @@ from __future__ import annotations
 
 from fractions import Fraction
 from pathlib import Path
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
 C2 = ROOT / "spec" / "Spec" / "C2" / "ComonadeExponentielleEtFragments.lean"
@@ -28,6 +29,22 @@ def test_audit_pins_the_source_revision_and_keeps_stage_c_open():
     assert "819385958b3b2fbdada7418d7e7a1f340ff59baf" in audit
     assert "b579261957ce5a2967f736203682ca5c61482eaf" in audit
     assert "11abe4803e93a13a2d24c847dad323337094502f" in audit
+
+    source_blobs = {
+        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "819385958b3b2fbdada7418d7e7a1f340ff59baf",
+        "spec/Spec/C3/LeSystemeGradue.lean": "b579261957ce5a2967f736203682ca5c61482eaf",
+        "spec/Spec/C3/GrammaireDesTypes.lean": "3df5f24c41375de24d4254516be2863c437b9d6a",
+        "spec/Spec/C3/ReglesDeTypage.lean": "11abe4803e93a13a2d24c847dad323337094502f",
+    }
+    for path, expected_blob in source_blobs.items():
+        actual_blob = subprocess.run(
+            ["git", "rev-parse", f"HEAD:{path}"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        assert actual_blob == expected_blob, f"source changed since audit: {path}"
     assert "C-01 : PARTIEL, porte ouverte" in audit
     assert "C-02 : PARTIEL, porte ouverte" in audit
     assert "Porte C globale : NON SATISFAITE" in audit
