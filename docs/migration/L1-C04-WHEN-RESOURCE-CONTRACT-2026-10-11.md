@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC-BY-4.0
 **Révision source examinée :** `main`, SHA `414ce6a1d2347de11397002980f3e0fe0b1e8205`  
 **Périmètre :** C-04, avec dépendance explicite à C-05 ; aucune modification de `spec/` ni de `src/`.
 
-Ce document confronte le texte normatif aux notes des séances 55 et 59–62. Il ne transforme ni les notes de séance en preuve, ni une conception proposée en décision de l’autrice. Les cas ci-dessous sont des discriminants et des attentes conditionnelles, pas une suite de tests normatifs déjà ratifiés. Le statut de C-04 reste PARTIEL / NON CLOS.
+Ce document confronte le texte normatif aux notes des séances 55 et 59–62. Il ne transforme ni les notes de séance en preuve, ni une conception proposée en décision de l’autrice. Les cas ci-dessous sont des discriminants et des attentes conditionnelles, pas une suite de tests normatifs déjà ratifiés. Depuis sa rédaction, l’autrice a ratifié P3-B le 11 octobre 2026 : la latence d’attente appartient à l’orchestrateur et non au coût d’exécution de l’automate déclenché. Cette décision ne prouve pas le contrat de ressources et ne ferme pas C-04, qui reste PARTIEL / NON CLOS.
 
 Sources principales : [règle When en C3, révision auditée](https://github.com/AntheaLiles/k7pl/blob/414ce6a1d2347de11397002980f3e0fe0b1e8205/spec/Spec/C3/ReglesDeTypage.lean#L483-L538), [interface de coût en C2](https://github.com/AntheaLiles/k7pl/blob/414ce6a1d2347de11397002980f3e0fe0b1e8205/spec/Spec/C2/ComonadeExponentielleEtFragments.lean#L160-L255), [axiomatique C1](https://github.com/AntheaLiles/k7pl/blob/414ce6a1d2347de11397002980f3e0fe0b1e8205/spec/Spec/C1/AxiomatiqueGerminale.lean), [registre C](L1-THEORY-OBJECTS.md), [sédimentation L1](L1-THEORY-SEDIMENTATION.md).
 
@@ -145,15 +145,17 @@ Ces cas servent à départager les lectures. Ils ne doivent être convertis en t
 - **« La formule max rend vraie la signature partielle ».** Sans domaine explicite, au contraire : si W et D sont totales sur le porteur indiqué, max(W,D) l’est aussi. Une restriction partielle doit correspondre à une hypothèse vérifiable.
 - **« L’attente externe est seulement une latence, alors le même κω peut être consommé avec un coût fini ».** Si κω a effectivement les deux coordonnées ⟨ω,ω⟩ et Cost_Budget = max(W,D), son coût scalaire vaut ω. P3-B exige une séparation formelle entre latence observée et coût d’exécution ; elle ne peut garder simultanément la même fonction de coût sur le même porteur.
 
-## 4. Décision P3 à ratifier — axes indépendants
+## 4. Décision P3 — axe ratifié, interfaces restantes ouvertes
 
 ### Axe P3 : que borne le budget ?
 
-**P3-A — l’attente est comptée dans le coût d’exécution.** La perte de borne de When est une perte de borne du coût ; avec κω = ⟨ω,ω⟩, Cost_Budget vaut ω. Une politique de contrôle différé permet de typer localement When sous ses prémisses, mais exige que toute traversée effective d’un budget fini échoue par ψ/Adm. Cette lecture correspond au sens budgétaire de la lecture A de la séance 55, sans imposer nécessairement le rejet au point d’introduction : le moment du contrôle est une question distincte.
+**P3-A — option non retenue.** Cette lecture imputait la latence d’attente au coût temporel budgété de l’automate. Elle est conservée ici comme provenance de l'arbitrage de la séance 55, pas comme option encore ouverte après la ratification de P3-B.
 
-**P3-B — l’attente est une latence externe, distincte du coût d’exécution.** La date d’aboutissement peut être non bornée tout en ne représentant pas la consommation de travail du calcul. Il faut alors séparer formellement la latence observée et le coût d’exécution — par exemple dans des composantes distinctes ou par une projection définie — et faire porter Cost_Budget seulement sur le coût que P3 borne. Avec le porteur actuel où κ(ℓ) est un couple travail/profondeur et la formule max(W,D), cette lecture ne peut être mise en œuvre en laissant inchangées la transformation de When et la même fonction Cost_Budget.
+**P3-B — ratifiée par l’autrice le 11 octobre 2026.** `When` est un déclencheur réactif, distinct de `case` : il surveille l’environnement et lance une séquence d’actions à la survenue d’un événement. L’orchestrateur agrège les surveillances de son environnement connu et lance les automates ad hoc. Une attente peut durer indéfiniment ; sa latence est attribuée à l’orchestrateur, non au coût d’exécution de l’automate déclenché.
 
-Le compte rendu de la séance 59 propose l’exposition de l’effet non borné puis le refus au franchissement d’un budget fini ; ce scénario est un candidat pour P3-A, pas une ratification. La lecture P3-B reste une option réellement documentée par la séance 55, mais elle entraîne une obligation de représentation/sémantique plus forte.
+Cette décision établit l’intention sémantique de la séparation, mais **ne choisit pas** comment la représenter dans les objets mathématiques. Il reste à définir une représentation typée séparant latence observée et coût d’exécution (coordonnées distinctes, projection ou autre interface justifiée), leur composition, la frontière temporelle du déclenchement et les budgets de l’orchestrateur et de l’automate. La famille de C3 `ε[ω/k]` ne peut pas être assimilée silencieusement au coût d’exécution de l’automate tant que cette correspondance n’est pas définie.
+
+La séance 59 propose une vérification d’admissibilité différée via `ψ`/`Adm`/`Consume`. La ratification de P3-B ne confirme pas à elle seule ce détail opératoire : il faut encore préciser si, quand et sur quel contexte le coût de l’automate est consommé, et distinguer cette consommation de la durée d’attente de l’orchestrateur.
 
 ### Ne pas confondre la structure temporelle avec la décision budgétaire
 
@@ -168,33 +170,33 @@ Cet axe est indépendant de P3 :
 
 La première option est celle que la formule max supporte directement sous les hypothèses de totalité indiquées. La seconde reste possible si une restriction intentionnelle du porteur est démontrée. Aucune n’est appliquée ici.
 
-### Réponse d’autrice requise
+### Décision d’autrice ratifiée et choix techniques encore ouverts
 
-Pour lever le bloqueur, il faut ratifier explicitement :
+**Décision ratifiée le 11 octobre 2026 : P3-B.** L’attente environnementale et la surveillance des événements relèvent de l’orchestrateur ; le budget d’exécution de l’automate déclenché ne comptabilise pas cette latence préalable.
 
-1. **P3-A** (latence dans le budget d’exécution, avec contrôle immédiat ou différé précisé) ou **P3-B** (latence externe séparée du coût d’exécution) ;
-2. **COST-TOTAL** ou **COST-PARTIELLE**, avec domaine exact le cas échéant ;
-3. le contrat de ψ : paramètres typés, domaine, unité de coût, liaison(s) affectée(s), précondition Adm, résultat Consume et règle de composition invoquant ce transport ;
-4. la convention normative de ⊖, notamment ω ⊖ ω = ω, et sa distinction d’avec un résidu d’addition.
+Restent à trancher ou à spécifier avant la fermeture de C-04 :
+
+1. **COST-TOTAL** ou **COST-PARTIELLE**, avec domaine exact et hypothèses explicites le cas échéant ;
+2. la représentation mathématique de la latence observée séparée du coût d’exécution, sans présumer qu'une coordonnée supplémentaire ou une projection est déjà choisie ;
+3. le contrat de `ψ` : paramètres typés, domaine, unité de coût, liaison(s) affectée(s), précondition `Adm`, résultat `Consume`, frontière de déclenchement et règle de composition invoquant ce transport ;
+4. la convention normative de `⊖`, notamment `ω ⊖ ω = ω`, et sa distinction d’avec un résidu d’addition ;
+5. le modèle de l’orchestrateur : agrégation des surveillances, lancement d’automates ad hoc, interaction des budgets et garanties éventuellement visées (ordre, équité, réarmement, événements multiples). Ces garanties ne sont pas ratifiées par la seule description fonctionnelle ci-dessus.
 
 ## 5. Preuve attendue pour fermer C-04
 
-### Si P3-A et contrôle différé sont ratifiés
+### Contrat de preuve après ratification de P3-B
 
-La preuve de correction de ressource doit établir, pour chaque règle qui compose des contextes, que :
+La preuve doit séparer deux phénomènes : (a) l’attente/observation d’un événement par l’orchestrateur, qui peut être non bornée, et (b) le coût d’exécution de l’automate lancé à la survenue de cet événement. Elle doit établir que :
 
-- l’effet effectivement traversé est celui dont la famille κ est évaluée ;
-- la composition est définie seulement lorsque chaque budget concerné satisfait Adm ;
-- un coût non borné ne franchit jamais un budget fini ;
-- si le passage est admissible, ψ actualise uniquement les coordonnées décidées, par Consume ;
-- l’effet résultant garde la perte de borne de When ;
-- la propriété est stable par les conversions et la substitution invoquées dans les règles, en coordination avec C-06.
+- le déclenchement conserve la latence observée sans la convertir en coût d’exécution de l’automate ;
+- le budget de l’automate est appliqué à son exécution dans le périmètre formellement défini, sans imputer l’attente préalable ;
+- aucune consommation réelle de l’automate n’est omise ou rendue admissible par la seule séparation de la latence ;
+- `ψ`, `Adm` et `Consume` opèrent sur la grandeur de coût retenue, dans des domaines explicites, et chaque règle qui compose les contextes invoque le contrat correct ;
+- le modèle exprime comment l’orchestrateur agrège les événements connus et lance les automates ad hoc, sans lui attribuer des garanties d’ordre, d’équité ou de réarmement qui n’auraient pas été décidées ;
+- la relation entre `ε[ω/k]` dans la source C3, la latence observée et le porteur temporel de C2 est typée et démontrée ;
+- les conversions et la substitution préservent cette séparation, en coordination avec C-06.
 
-L’instance When doit en particulier établir que κω est bien la famille évaluée par C-05 et que sa scalarisation vaut ω. Pour tout β fini, le passage par ψ doit donc être indéfini ; pour β = ω, la consommation doit suivre la convention de ⊖ ratifiée.
-
-### Si P3-B est ratifié
-
-Il faut définir les composantes « coût d’exécution » et « latence observée », leur composition séquentielle/parallèle, leurs projections et leur transport dans ψ. La preuve doit montrer simultanément que le coût d’exécution consommé ne dépasse jamais le budget et que la latence non bornée reste explicitement observable. Il faut démontrer que When ne transforme pas une attente externe en consommation de travail, tout en conservant les invariants de reportabilité du contexte.
+La représentation précise de latence et de coût n’est pas encore choisie : la preuve ne doit ni supposer une composante supplémentaire, ni postuler une projection non définie.
 
 ### Dans les deux cas
 
@@ -221,7 +223,7 @@ C-04 demeure OUVERT tant que les six conditions suivantes ne sont pas satisfaite
 1. la correspondance entre ε[ω/k] et κω(ℓ) = ⟨ω,ω⟩ est typée ;
 2. les signatures et domaines de Cost_Budget, ψ, Adm et Consume sont compatibles ;
 3. le rôle de ⊖, notamment au cas ω ⊖ ω, est explicite dans la source normative ;
-4. le choix P3 est ratifié et la distinction coût/latence est reflétée dans le modèle ;
+4. P3-B est ratifiée ; la distinction coût/latence est effectivement reflétée dans le modèle et dans les interfaces typées ;
 5. la preuve règle par règle exclut tout franchissement inadmissible et établit l’absence de coût masqué ;
 6. les obligations dépendantes de C-05 et C-06 sont prouvées ou conservées explicitement ouvertes sans prétendre fermer C.
 
