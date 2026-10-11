@@ -68,7 +68,7 @@ syntaxique ≠ précision.
 =\langle a\cdot u,m,\ell,\beta\rangle.
 \]
 
-Elle ne définit aucune multiplication globale de \mathcal G et ne met pas à l'échelle le budget. Les règles VAR, Box, App, VECI et SC ainsi que les opérations de contexte doivent être contrôlées contre cette signature. φ_n est une transformation d'effets indexée par une multiplicité effective n ; son domaine ne s'étend pas automatiquement aux usages rationnels. La monotonie, la compatibilité avec les conversions et la fermeture de la substitution demeurent des obligations distinctes.
+Elle ne définit aucune multiplication globale sur 𝒢 et ne met pas à l'échelle le budget. Les règles VAR, Box, App, VECI et SC ainsi que les opérations de contexte doivent être contrôlées contre cette signature. φ_n est une transformation d'effets indexée par une multiplicité effective n ; son domaine ne s'étend pas automatiquement aux usages rationnels. La monotonie, la compatibilité avec les conversions et la fermeture de la substitution demeurent des obligations distinctes.
 
 ## 3. Grades et raffinement
 
