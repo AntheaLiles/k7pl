@@ -282,6 +282,8 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Classe :** obligation sémantique, correction de ressource et ratification normative.
 
+**Audit C-04 non normatif (2026-10-11) :** [contrat de When, ψ et consommation budgétaire](L1-C04-WHEN-RESOURCE-CONTRACT-2026-10-11.md). Ce dossier explicite les écarts et les choix à ratifier ; il ne clôt pas C-04 et n’autorise aucune modification normative.
+
 **Contrat de conception :** When produit κω(ℓ)=⟨ω,ω⟩. W et D agrègent la famille κ ; Cost_Budget=max(W,D). Adm(β,κ) accepte β=ω ou Cost_Budget(κ)≤β. Consume soustrait Cost_Budget à β seulement si Adm est vraie. ψ s'applique quand un effet traverse le contexte dans Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂,ε).
 
 **Hypothèses et cas manquants :** définir l'interface et le domaine partiel exacts de ψ, les conditions de partage des liaisons de contexte et la coordonnée de budget modifiée. Prouver règle par règle que le coût temporel de l'effet est bien le coût de l'opération composée ; traiter When en contexte local, passage de When par budget infini, passage par budget fini, coût nul et coûts finis aux frontières. Vérifier la soustraction tronquée, notamment ω⊖ω=ω, β fini et coût ω. La lecture P3 adoptée par les séances doit être ratifiée si elle n'est pas déjà confirmée comme décision d'autrice : l'alternative « attente externe hors budget » exige de distinguer latence et coût d'exécution au lieu de conserver implicitement le même Cost_Budget.
