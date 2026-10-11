@@ -219,7 +219,7 @@ La qualification doit séparer : (1) les propriétés déjà décrites dans le c
 |---|---|---|---|
 | ARB-PR-04 | Reproductibilité paramétrée par `Π`, pas de rejeu bit-à-bit général | Formaliser `Π` et `E_repro`, puis assurer la traçabilité | Non |
 | Imports | Modes + types gradués = NORMATIF ; Calf/Decalf = DÉPENDANCE FORMELLE ; récursion gardée multi-horloges = qualification par couche | Construire les chaînes de cohérence et la sédimentation | Oui pour la clôture théorique |
-| `when` | Structure temporelle supplémentaire retenue ; distincte de la lecture budgétaire A/B de la séance 55 | Sédimenter par couche et prouver le contrat When → effet non borné → ψ/Adm/Consume ; ratifier P3 si nécessaire | Oui pour la formalisation temporelle et la clôture C |
+| `when` | Structure temporelle supplémentaire retenue ; distincte de la lecture budgétaire de la séance 55 | P3-B ratifiée le 11 octobre 2026 : la latence environnementale relève de l'orchestrateur, pas du budget d'exécution de l'automate déclenché. Formaliser leur représentation distincte et prouver le contrat `When`/`ψ`/`Adm`/`Consume` ; clôture C toujours ouverte | Oui pour la formalisation temporelle et la clôture C |
 | T-68 | Audit autonome de minimalité des 44 primitives | Primitive → obligation → règle → propriété → preuve | **Oui : implémentation/mécanisation** |
 | Annexes B/C/D | Sortie de la spécification ; branche outillage séparée ; pas stdlib par défaut | Extraire les renvois et créer la frontière d'outillage | Oui pour la cohérence normative |
 
