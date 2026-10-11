@@ -48,7 +48,7 @@
 |---|---|---|
 | `D-5` ✅ | **où écrire pendant la finition ?** | **Tranchée le 1er octobre 2026 : le Verso fait foi**, les fichiers Org sont archivés ; les contrôles sont portés (`scripts/controle.py`) |
 | `D-6` ✅ | sous-titre du document | le sous-titre du manuscrit, « A functional layered programming language », fait foi (`ANOM-16`) ; le dépôt n'en porte aucun |
-| `D-7` | annexes B, C, D squelettiques ([`ANOM-04`](ANOMALIES.md)) | décider avant la première release |
+| `D-7` | périmètre éditorial des annexes B/C/D ([`ANOM-04`](ANOMALIES.md)) | **OUVERT — décision de l'autrice requise.** Choisir développer séparément, regrouper comme annexe d'outillage, ou différer hors du document normatif. L'absence actuelle des modules B/C/D de `spec/` et la conservation des prototypes dans `tooling/prototypes-bcd/` sont des faits d'arborescence, pas une ratification de l'option de différer. Voir [`L1-ANNEXES-EXTRACTION.md`](../migration/L1-ANNEXES-EXTRACTION.md). |
 | `D-8` | rétablir au glossaire les trois couches ([`ANOM-06`](ANOMALIES.md)) | oui : le corps du document les définit, le glossaire doit suivre |
 | `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
 
@@ -59,6 +59,7 @@
 | Extraction B/C/D | Les lots d'extraction documentaire sont portés par `docs/migration/` ; ils qualifient et extraient le corpus sans réécrire les sources historiques. | migration sémantique |
 | `ARB-PR-04` | Le rejeu logique reste sémantique ; le rejeu bit-à-bit relève de la conformité au profil de représentation. | assurance / conformance |
 | `D8` | La passe physique de documentation est clôturée ; les décisions de migration restantes relèvent de `docs/migration/`. | architecture documentaire |
+| ANOM-09 | **Résolution technique vérifiée sur candidate** `9c34e7aaa99e00809c00d56812ab2160b55c276d`, run CI [`38131422345`](https://github.com/AntheaLiles/k7pl/actions/runs/38131422345): index paginé aux pp. imprimées 277–278, 287 pages, cadres rouges supprimés, aucune cible `idx-*` non résolue dans `main.log`, garde CI dédiée réussie. Cette clôture concerne ANOM-09 sur la candidate, pas la validation globale L1/L5. | rendu PDF / test / CI |
 | `P1–P6` | Les portes restent la séquence de release : P1 blocages scientifiques, P2 assertions ouvertes, P3 décisions auteur, P4 implémentation, P5 stabilisation documentaire, P6 release. | release |
 
 ## État scientifique C — mise à jour du 11 octobre 2026

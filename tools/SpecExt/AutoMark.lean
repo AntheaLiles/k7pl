@@ -7,6 +7,8 @@ import SpecExt.Render
 import SpecExt.IndexCore
 import SpecExt.IndexTerms
 import SpecExt.Index
+import SpecExt.Slots
+import SpecExt.Theorem
 
 /-!
 # Automatic recognition of index and glossary terms
@@ -19,8 +21,8 @@ rendered (`SpecMain`):
 * the first occurrence, in each chapter, of a term of the glossary or of an acronym becomes a
   glossary hint (`SpecExt.Inline.gloss`), carrying its definition.
 
-Only the text of the paragraphs is marked: not code, not mathematics, not links, not the lists of
-figures, of acronyms, of glosses nor the index itself.
+Only rendered prose is marked: not code, mathematics, links, reference listings, the index itself,
+author comments, or ordinary statement children that the HTML and TeX renderers omit.
 -/
 
 open Verso Genre Manual Doc
@@ -93,19 +95,46 @@ private partial def markInline (r : Recognisers) : Doc.Inline Manual → M (Doc.
   | .other c xs => .other c <$> xs.mapM (markInline r)
   | i => pure i
 
-/-- Marks the blocks. -/
-private partial def markBlock (r : Recognisers) : Doc.Block Manual → M (Doc.Block Manual)
-  | .para xs => .para <$> xs.mapM (markInline r)
-  | .ul items => .ul <$> items.mapM fun ⟨bs⟩ => (fun bs => ⟨bs⟩) <$> bs.mapM (markBlock r)
-  | .ol n items => .ol n <$> items.mapM fun ⟨bs⟩ => (fun bs => ⟨bs⟩) <$> bs.mapM (markBlock r)
-  | .dl items => .dl <$> items.mapM fun ⟨t, d⟩ => do
+/-- Traverses source blocks in rendering order. For a statement child, only a named slot
+is emitted by the HTML and TeX renderers. Other direct children remain in source but are not marked,
+so they cannot create index anchors for text absent from both outputs. -/
+private partial def markBlockMode (r : Recognisers) (statementChild : Bool) :
+    Doc.Block Manual → M (Doc.Block Manual)
+  | .concat bs => .concat <$> bs.mapM (markBlockMode r statementChild)
+  | .other b bs =>
+    if b.name == ``SpecExt.Block.comment then
+      pure (.other b bs)
+    else if statementChild then
+      if b.name == ``SpecExt.Block.slot then
+        .other b <$> bs.mapM (markBlockMode r false)
+      else
+        pure (.other b bs)
+    else if b.name == ``SpecExt.Block.theorem then
+      .other b <$> bs.mapM (markBlockMode r true)
+    else
+      .other b <$> bs.mapM (markBlockMode r false)
+  | .para xs =>
+    if statementChild then pure (.para xs)
+    else .para <$> xs.mapM (markInline r)
+  | .ul items =>
+    if statementChild then pure (.ul items)
+    else .ul <$> items.mapM fun ⟨bs⟩ => (fun bs => ⟨bs⟩) <$> bs.mapM (markBlockMode r false)
+  | .ol n items =>
+    if statementChild then pure (.ol n items)
+    else .ol n <$> items.mapM fun ⟨bs⟩ => (fun bs => ⟨bs⟩) <$> bs.mapM (markBlockMode r false)
+  | .dl items =>
+    if statementChild then pure (.dl items)
+    else .dl <$> items.mapM fun ⟨t, d⟩ => do
       let t ← t.mapM (markInline r)
-      let d ← d.mapM (markBlock r)
+      let d ← d.mapM (markBlockMode r false)
       pure ⟨t, d⟩
-  | .blockquote bs => .blockquote <$> bs.mapM (markBlock r)
-  | .concat bs => .concat <$> bs.mapM (markBlock r)
-  | .other b bs => .other b <$> bs.mapM (markBlock r)
+  | .blockquote bs =>
+    if statementChild then pure (.blockquote bs)
+    else .blockquote <$> bs.mapM (markBlockMode r false)
   | b => pure b
+
+private def markBlock (r : Recognisers) : Doc.Block Manual → M (Doc.Block Manual) :=
+  markBlockMode r false
 
 /-- The parts whose text is a list of terms, not prose. -/
 private def isListing (title : String) : Bool :=

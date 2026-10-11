@@ -670,6 +670,16 @@ jobs:
           mkdir -p "$GITHUB_WORKSPACE/out"
           cp main.pdf "$GITHUB_WORKSPACE/out/k7pl-spec.pdf"
 
+      - name: Reject unresolved index page references
+        working-directory: _out/spec/tex
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -F 'Hyper reference' main.log | grep -F 'idx-' | grep -F 'undefined'; then
+            echo "::error::The generated index contains a page reference without an emitted target."
+            exit 1
+          fi
+
       # Informative only: no healthy build has been observed yet, so no threshold is enforced.
       - name: Summarise the compilation log
         if: ${{ !cancelled() }}

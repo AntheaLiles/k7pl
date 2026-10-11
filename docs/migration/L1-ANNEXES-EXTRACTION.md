@@ -3,79 +3,70 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# L1 — Extraction des annexes B, C et D
+# L1 — Annexes B, C et D : options à arbitrer
 
-**État :** IN PROGRESS
+**État :** ANALYSE PRÉPARÉE ; DÉCISION DE L'AUTRICE REQUISE  
+**Périmètre :** qualification sémantique seulement. Ce document n'autorise aucun déplacement physique et ne modifie pas le contenu normatif.
 
-## 1. Décision
+## 1. État courant vérifié
 
-Les annexes B, C et D sont des prototypes d'outillage complémentaire et ne font pas partie du périmètre normatif de K7PL. Elles doivent donc sortir de `spec/`.
+Observation sur `main` au commit [`86959948ff36deb6e8ee0985cf22740787696720`](https://github.com/AntheaLiles/k7pl/commit/86959948ff36deb6e8ee0985cf22740787696720) :
 
-Leur retrait ne signifie pas leur suppression historique. Leur contenu doit être conservé avec provenance dans une branche de travail dédiée à l'outillage.
+- `spec/Spec.lean` importe l'annexe A ; les modules `spec/Spec/AnnexeB.lean`, `AnnexeC.lean` et `AnnexeD.lean` n'existent pas dans l'arbre courant.
+- Le matériau prototype correspondant existe déjà dans [`tooling/prototypes-bcd/AnnexeB.lean`](../../tooling/prototypes-bcd/AnnexeB.lean), [`AnnexeC.lean`](../../tooling/prototypes-bcd/AnnexeC.lean) et [`AnnexeD.lean`](../../tooling/prototypes-bcd/AnnexeD.lean). Les sources Org historiques restent dans [`docs/archives/manuscrit-org/`](../archives/manuscrit-org/).
+- La recherche des étiquettes `sec:annexe-lsp-repl`, `sec:annexe-sushi` et `sec:annexe-sugoi` ne trouve, dans le code courant indexé, que les prototypes d'outillage et les registres de migration ; aucun résultat correspondant n'a été retrouvé dans `spec/`.
+- Le registre central [`docs/tracking/DECISIONS.md`](../tracking/DECISIONS.md) garde D-7 ouvert (« décider avant la première release »). Le texte précédent de ce dossier affirmait au contraire qu'une décision définitive avait été prise. Aucune source consultée ne permet de traiter cette affirmation du dossier comme une ratification explicite de l'autrice.
 
-## 2. Contenu identifié
+Conséquence : la séparation physique actuelle entre le Verso normatif et les prototypes est un fait de l'arbre courant. Le choix éditorial et scientifique de maintenir, réunir ou redévelopper ces annexes reste à décider. Il ne faut ni rétablir leurs contenus dans `spec/`, ni modifier des énoncés normatifs pour justifier rétroactivement leur retrait sans cette décision.
 
-| Annexe | Contenu | Nature |
+## 2. Nature des contenus et frontières
+
+| Contenu historique | Fonction proposée à qualifier | Frontière à préserver |
 |---|---|---|
-| B | LSP, REPL, Replay Debugger | outil d'édition/exécution/debug |
-| C | Sushi, shell applicatif | outil/surface d'administration |
-| D | Sugoi, gestionnaire de paquets/services | outil d'écosystème |
+| B — LSP, REPL, Replay Debugger | exposition d'outils d'édition, d'interaction et de débogage | Les mécanismes du langage éventuellement utilisés par ces outils restent normatifs indépendamment de l'existence d'un LSP, REPL ou debugger. La promesse de rejeu doit rester compatible avec ARB-PR-04 et le profil `Π`. |
+| C — Sushi | shell d'administration utilisant la syntaxe d'appel universelle et le REPL | Les commandes, combinateurs et conventions de shell ne deviennent pas des primitives ou une partie implicite de la bibliothèque standard. |
+| D — Sugoi | prototype de gestion de paquets et de services | Séparer les propriétés garanties par K7PL des formats, protocoles, politiques de distribution, commandes et mécanismes de déploiement propres à l'outil. Une idée de vérification locale dans un prototype n'est pas une preuve de sûreté du produit. |
 
-Aucun des trois n'est, par cette décision, une composante de la future stdlib.
+Sources de provenance : [B historique](../archives/manuscrit-org/K7_LSP_REPL.org), [C historique](../archives/manuscrit-org/K7_Sushi.org), [D historique](../archives/manuscrit-org/K7_Sugoi.org), leurs variantes Verso dans `tooling/prototypes-bcd/`, et l'inventaire de conversion [`scripts/org2verso/convert.py`](../../scripts/org2verso/convert.py). Ces sources décrivent le contenu et son origine ; elles ne décident pas à elles seules du périmètre de la prochaine release.
 
-## 3. Dépendances vers la spécification
+## 3. Options de décision
 
-L'extraction doit préserver les distinctions suivantes.
+### Option A — Développer les trois annexes séparément
 
-### B — LSP/REPL
+**Principe :** reprendre B, C et D comme descriptions d'outils documentées et vérifiables, avec statut explicite (prototype, prévu ou implémenté), dépendances, interfaces et références. Chaque affirmation de disponibilité ou de garantie serait vérifiée contre le dépôt de l'outil concerné ; à défaut, elle serait marquée comme proposition.
 
-L'annexe s'appuie sur des mécanismes déjà spécifiés : narrowing, tranche minimale, machines à états, substituabilité, mode JIT et journal d'acteur. Ces mécanismes restent dans la spécification ; c'est leur exposition sous forme d'outil qui sort.
+**Avantages :** conserve l'intention et le contexte propres à chaque outil ; permet une feuille de route distincte par prototype ; évite de fondre des propriétés hétérogènes.
 
-Le passage « le système déjà construit, rendu visible en temps réel » doit être reformulé dans la documentation de l'outil pour ne pas faire de l'existence de l'outil une propriété du langage.
+**Coûts/risques :** trois sections demandent une maintenance distincte ; le contenu historique est incomplet et parfois hypothétique ; annoncer leur existence dans le manuscrit pourrait être lu comme une promesse d'implémentation si les statuts ne sont pas précis.
 
-Le Replay Debugger contient également une affirmation forte sur le rejeu. Celle-ci doit être harmonisée avec ARB-PR-04 : la pureté d'un gestionnaire ne suffit pas à établir une identité bit-à-bit générale.
+**À fournir avant publication :** responsable et état réel de chaque outil, lien vers implémentation accessible (si elle existe), tests ou démonstrations observés, sources pour les garanties revendiquées.
 
-### C — Sushi
+### Option B — Regrouper en une seule annexe « Outillage complémentaire »
 
-Sushi réutilise la syntaxe d'appel universelle et le REPL. La spécification de la syntaxe reste normative ; Sushi comme interprétation administrative ne l'est pas.
+**Principe :** présenter B/C/D dans une annexe unique avec trois sous-sections, une introduction explicite sur leur statut et une table des dépendances vers les mécanismes normatifs.
 
-Les combinateurs `stream-sed`, `stream-awk` et `spawn-fibrilles` doivent être traités comme propositions d'outillage, et non comme primitives ou composants implicites de la stdlib.
+**Avantages :** réduit la fragmentation et le coût de navigation ; rend plus visible la frontière « langage spécifié / outils envisagés » ; permet d'exposer les prototypes sans les promouvoir comme fonctionnalités garanties.
 
-### D — Sugoi
+**Coûts/risques :** la structure historique et les renvois entre annexes changent ; les exemples pourraient laisser croire que ces outils sont un écosystème déjà implémenté ; la réécriture éditoriale et la revue des références restent nécessaires.
 
-Sugoi dépend de plusieurs mécanismes normatifs : AST normalisé, adressage par contenu, certificats de preuve, vérification locale, capacités matérielles et redémarrage à chaud.
+**À fournir avant publication :** contenu révisé et sourcé, étiquettes de statut pour chaque outil, liens vérifiés, revue de toutes les références à l'annexe.
 
-Il faut distinguer strictement les propriétés de K7PL que Sugoi exploite, les formats/protocoles propres à Sugoi, les politiques de distribution, les commandes d'administration et les mécanismes de déploiement.
+### Option C — Différer les annexes hors du document normatif jusqu'à l'implémentation
 
-Le renvoi actuel de C6 vers Sugoi est particulièrement important : il transforme actuellement une propriété d'outillage en référence interne de la spécification. Le texte C6 doit être réécrit pour énoncer directement la règle normative, puis l'outil pourra l'implémenter.
+**Principe :** garder le Verso normatif actuel limité à la spécification du langage ; conserver les prototypes dans `tooling/prototypes-bcd/` et les sources initiales dans l'archive, sans présenter les trois contenus comme annexes de la release courante.
 
-## 4. Renvois actuellement détectés
+**Avantages :** limite les engagements publiés à ce qui est réellement spécifié ; ne nécessite aucune modification du contenu normatif maintenant ; maintient une provenance récupérable pour une décision ultérieure.
 
-Les références explicites identifiées dans le corpus courant sont :
+**Coûts/risques :** le manuscrit courant expose moins l'écosystème envisagé ; un lecteur ne découvre les prototypes qu'en suivant les liens documentaires ; il faudra réexaminer leur statut avant une release ultérieure.
 
-- C → B via `sec:annexe-lsp-repl` ;
-- D → C via `sec:annexe-sushi` ;
-- C6 → D via `sec:annexe-sugoi`.
+**Preuve requise :** vérifier les références du texte normatif et le PDF/HTML courant ; ne pas prétendre que le report équivaut à une suppression historique.
 
-La recherche doit être répétée après extraction pour vérifier qu'aucun identifiant d'annexe ne subsiste dans le corps normatif.
+## 4. Recommandation d'instruction, sans présumer de la décision
 
-## 5. Opération d'extraction
+Le dépôt actuel est déjà proche de l'Option C sur le plan du rendu normatif, tandis que la provenance matérielle des trois prototypes est conservée. C'est une observation de l'état existant, pas un choix éditorial ratifié.
 
-L'opération cible une branche dédiée à l'outillage :
+Avant de clore ANOM-04, l'autrice doit choisir A, B ou C. Si A ou B est choisi, les affirmations sur les outils devront être reprises et sourcées ; le texte normatif ne sera modifié que si un renvoi ou une proposition courante s'avère effectivement dépendant de ces contenus. Si C est choisi, vérifier que la distinction entre spécification et prototypes est assez visible dans les points d'entrée documentaires.
 
-1. copier le matériau B/C/D dans le corpus outillage en conservant sa provenance ;
-2. retirer les inclusions B/C/D de `spec/Spec.lean` ;
-3. supprimer les fichiers normatifs B/C/D de cette branche ;
-4. supprimer les renvois croisés entre les annexes ;
-5. réécrire C6 pour que sa règle de vérification soit autonome ;
-6. vérifier que la spécification se construit sans B/C/D ;
-7. vérifier les contrôles de références et de structure ;
-8. conserver la branche comme base de développement des prototypes.
+## 5. Critère de sortie
 
-Cette branche ne doit pas être fusionnée automatiquement dans `main`. Elle constitue le nouvel emplacement de travail pour les prototypes d'outillage.
-
-## 6. Critère de sortie
-
-L'extraction est terminée lorsque la spécification normative ne dépend plus d'aucune annexe B/C/D, qu'aucune propriété normative n'est perdue, que les affirmations relevant des outils sont reformulées au niveau approprié, que le matériau des prototypes reste récupérable avec provenance et qu'aucune primitive de la stdlib n'est introduite.
-
-**Statut actuel :** analyse prête ; extraction physique à exécuter sur une branche dédiée.
+ANOM-04 ne sera clôturée qu'après : (1) décision explicite de l'autrice, (2) vérification des renvois du Verso, (3) vérification de la provenance des trois prototypes, (4) cohérence du registre central D-7, (5) validation réelle des liens et du rendu. La décision n'autorise aucune nouvelle réorganisation physique.
