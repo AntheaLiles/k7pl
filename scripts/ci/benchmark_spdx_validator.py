@@ -17,6 +17,7 @@ import subprocess
 import sys
 import time
 from datetime import datetime, timezone
+from importlib.metadata import PackageNotFoundError, version as package_version
 from pathlib import Path
 from typing import Any
 
@@ -77,6 +78,45 @@ def workflow_identity() -> dict[str, Any]:
         except (OSError, json.JSONDecodeError, AttributeError):
             result["pullRequestHeadSha"] = None
     return result
+
+
+def cache_observation() -> dict[str, Any]:
+    """Capture available cache/runner indicators without treating them as proof of a cache hit."""
+    pip_info = subprocess.run(
+        [sys.executable, "-m", "pip", "cache", "info"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    try:
+        spdx_tools_version = package_version("spdx-tools")
+    except PackageNotFoundError:
+        spdx_tools_version = None
+    return {
+        "actionsSetupPythonPipCacheConfiguredInCurrentWorkflow": False,
+        "actionsCacheHit": os.environ.get("K7PL_SPDX_CACHE_HIT", "not-exposed"),
+        "pipCacheInfoReturnCode": pip_info.returncode,
+        "pipCacheInfo": (pip_info.stdout or pip_info.stderr or "").strip()[-2000:],
+        "pipCacheInventoryIsNotAHitMissSignal": True,
+        "runner": {
+            "os": os.environ.get("RUNNER_OS"),
+            "architecture": os.environ.get("RUNNER_ARCH"),
+            "imageOS": os.environ.get("ImageOS"),
+            "imageVersion": os.environ.get("ImageVersion"),
+            "platform": platform.platform(),
+        },
+        "effectiveToolVersions": {
+            "python": platform.python_version(),
+            "pythonImplementation": sys.implementation.name,
+            "spdxTools": spdx_tools_version,
+        },
+        "interpretation": (
+            "The python-tests job does not configure actions/setup-python pip caching or an "
+            "actions/cache step. pip cache info is an inventory after dependency installation, "
+            "not evidence of a restored cache or proof that all runtime effects are cache-free."
+        ),
+    }
 
 
 def run_benchmark(input_path: Path, repetitions: int) -> dict[str, Any]:
@@ -160,13 +200,26 @@ def run_benchmark(input_path: Path, repetitions: int) -> dict[str, Any]:
         "validator": {
             "name": "spdx-tools",
             "version": EXPECTED_VALIDATOR_VERSION,
+            "effectiveVersion": cache_observation()["effectiveToolVersions"]["spdxTools"],
         },
         "environment": {
             "pythonVersion": platform.python_version(),
+            "pythonImplementation": sys.implementation.name,
             "platform": platform.platform(),
+            "runnerOS": os.environ.get("RUNNER_OS"),
+            "runnerArchitecture": os.environ.get("RUNNER_ARCH"),
+            "runnerImageOS": os.environ.get("ImageOS"),
+            "runnerImageVersion": os.environ.get("ImageVersion"),
         },
+        "cacheObservation": cache_observation(),
         "toolInputs": {
             "validatorScriptSha256": sha256_file(VALIDATOR),
+            "benchmarkScriptSha256": sha256_file(Path(__file__).resolve()),
+            "negativeCorpusScriptSha256": sha256_file(ROOT / "scripts" / "ci" / "evaluate_spdx_negative_corpus.py"),
+            "sbomGeneratorScriptSha256": sha256_file(ROOT / "scripts" / "ci" / "lake_manifest_to_spdx.py"),
+            "lakeManifestSha256": sha256_file(ROOT / "lake-manifest.json"),
+            "lakefileSha256": sha256_file(ROOT / "lakefile.lean"),
+            "leanToolchainSha256": sha256_file(ROOT / "lean-toolchain"),
             "requirementsLockSha256": sha256_file(LOCKFILE),
         },
         "samples": samples,
@@ -191,8 +244,9 @@ def append_step_summary(report: dict[str, Any]) -> None:
         "validatorElapsedMs": "pyspdxtools subprocess",
     }
     with open(summary_path, "a", encoding="utf-8") as stream:
-        stream.write("### Repeated SPDX validation timing (5 samples)\n")
+        stream.write("### Repeated SPDX validation timing (" + str(report["method"]["repetitions"]) + " samples)\n")
         stream.write("- Input SHA-256: `" + report["input"]["sha256"] + "`\n")
+        stream.write("- Run/attempt: `" + str(report["workflow"].get("runId")) + "/" + str(report["workflow"].get("runAttempt")) + "`; runner image: `" + str(report["environment"].get("runnerImageOS")) + " " + str(report["environment"].get("runnerImageVersion")) + "`.\n")
         for metric, label in labels.items():
             values = summary[metric]
             stream.write(
