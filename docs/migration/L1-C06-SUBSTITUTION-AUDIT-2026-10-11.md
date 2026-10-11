@@ -133,7 +133,23 @@ ConvCtx/Conv! sont consignées dans la note de conception/audit C-03, pas comme 
 | ConvCtx | Réutiliser IH après relabellisation, à support fixe. | Identité/composition de la relabellisation sont dérivables sur papier ; règle normative et stabilité sous substitution restent ouvertes. | **IFS** |
 | Conv! | IH sur terme de type !_rV. | Typage, naturalité et compatibilité de coerce_{π_U(r),π_U(r′),V} avec w,c et !. | **BDN** |
 
-## 5. Liaison et contre-exemple de capture
+## 5. Usages directs et conséquences dans le manuscrit
+
+La recherche des références actives a identifié les usages suivants. Les mentions des registres, des matrices de couverture et des archives Org sont des index/provenances ; elles ne constituent pas des preuves indépendantes.
+
+| Emplacement courant | Utilisation exacte | Dette transmise depuis C-06 |
+|---|---|---|
+| C3, ReglesDeTypage.lean, thm:substitution | Énoncé élémentaire, terme/type/indice d’effet ensemble ; under-review/proofsketch. | La matrice de la section 4 couvre les occurrences de règle, mais les cas IFS/BDN et H0–H8 restent à démontrer. |
+| C3, ReglesDeTypage.lean, thm:substitution_simultanee | Corollaire annoncé de la substitution élémentaire ; under-review/proofsketch. | Dépend du lemme élémentaire et d’un ordre admissible d’instanciation/retrait des liaisons. Une discipline ordonnée demande explicitement l’ordre inverse d’occurrence dans la zone. |
+| C3, LeSystemeGradue.lean, discussion des zones | Le lemme est utilisé pour la condition de substitution sous contexte ordonné : substitution seulement dans la liaison maximale de sa zone. Le texte distingue préservation, relation logique et traduction. | La préservation d’une réduction utilise la maximalité du lieur nouvellement introduit ; la relation logique requiert une décomposition de la substitution simultanée en substitutions simples à ordre inverse ; la traduction parallèle vers une composition cible commutative ne reflète pas l’ordre source. Si la représentation zonée est retenue, ce sont des obligations sémantiques, pas de simples notations. |
+| C4, SemantiqueOperationnelle.lean, thm:lemme_fondamental | Le sketch emploie la substitution deux fois : pour établir que l’application de γ/γ′ laisse le terme typé et son contexte composé, puis dans les cas Let/App via Scale_Usage et ψ. Il nomme explicitement la forme simultanée pour la substitution d’environnement. | Requiert la conclusion élémentaire ET simultanée avec contextes composés, puis les lois d’action/ψ. Le source courant borne le lemme fondamental aux termes et images de substitution sans Declassify. La revue de dépendances dit que PR #117 a supprimé le cycle syntaxique antérieurement signalé par C8 ; cela ne prouve ni le fragment logique ni l’extension divulgation. |
+| C4, SemantiqueOperationnelle.lean, thm:commutation_traduction | La traduction d’un terme substitué est comparée à la substitution dans la traduction, modulo congruence structurelle de la cible. Le sketch invoque schema_commutation et la dérivation de substitution, notamment les deux sous-cas Var. | Requiert fraîcheur, compatibilité de chaque constructeur de traduction avec substitution et preuve que le grade non nul localise la prémisse pertinente. Une preuve du jugement source ne prouve pas seule l’équation de traduction. |
+| C5, CeQuUneMacroDeclare.lean, thm:expansion_macro | Expand est dérivée par substitution à chaque occurrence du corps ; les effets se composent dans l’ordre syntaxique des occurrences. L’effet devient εᵢ₁·…·εᵢₖ, précédé de l’effet déclaré du corps. | Requiert la substitution élémentaire itérée, Scale_Usage(π_U(rᵢ),Δᵢ) sur les contextes et la composition séquentielle des effets. La quantale étant potentiellement non commutative, on ne peut pas regrouper les occurrences d’un même argument sous φₙ sans hypothèse de commutation supplémentaire. |
+| C2, AdjonctionsEtEnrichissement.lean, argument de divulgation | Le texte de sécurité remarque qu’une substitution pourrait contourner la frontière de divulgation ; ce n’est pas une application déjà prouvée de thm:substitution au cas Declassify. | Le contrat C3 ne couvre pas automatiquement le calcul de sécurité. La condition de clôture des échappatoires et une clause de relation logique pour la divulgation demandent leurs preuves propres. |
+
+Les entrées des archives/manuscrits Org et des matrices de migration reproduisent origine et classification ; elles ne sont pas des instances supplémentaires du lemme normatif. Les usages indirects doivent rester tracés par les dépendances explicites ci-dessus, sans inférer que thm:preservation, thm:image_fix ou un résultat de traduction est prouvé parce qu’il est voisin dans le graphe.
+
+## 6. Liaison et contre-exemple de capture
 
 Les lieurs de terme incluent au minimum Lam, Let, Unbox, Split, Case, Open, When, Cop, Slice et Guard ; les lieurs de type incluent Pack/Open, Fold/Unfold, Gen et Inst. La définition formelle doit indiquer l’égalité modulo alpha-renommage et les espaces de noms des indices/tailles/niveaux.
 
@@ -141,20 +157,20 @@ Les lieurs de terme incluent au minimum Lam, Let, Unbox, Split, Case, Open, When
 
 Open a déjà une condition de fraîcheur sur α dans contexte/effet/type ; il reste à démontrer qu’elle survit à la substitution. La forme simultanée demande un ordre explicite de retrait des liaisons sous discipline d’échange.
 
-## 6. Limites de portée
+## 7. Limites de portée
 
 - **Arena :** le texte C3 dit que l’élimination d’arène n’est pas donnée dans le jeu de règles et doit venir du chapitre mémoire ou d’un paramètre. Aucun cas de substitution ne peut lui être attribué avant d’avoir sa règle/signature.
-- **Fix/Declassify :** C8 batch 11 rapporte l’absence du cas Declassify dans l’esquisse du lemme fondamental et une dépendance circulaire vers divulgation délimitée. Les règles de sécurité ne sont pas couvertes automatiquement par le lemme du jugement C3.
+- **Fix/Declassify :** le jugement C3 inventorié ici ne donne pas de règles de typage Fix/Declassify parmi ses 49 occurrences. Le source courant de thm:lemme_fondamental en C4 borne explicitement terme et images de substitution au fragment sans Declassify ; la revue de dépendances indique que PR #117 a supprimé le cycle syntaxique antérieurement signalé par C8 batch 11. Cela ne prouve pas divulgation délimitée ni un théorème étendu à Declassify : toute extension exige règles et conditions propres.
 - **Métalangage/traduction :** substitution sur le langage cible, commutation de traduction, préservation du sortage et hygiène des macros sont des contrats séparés. Une preuve du jugement source ne les prouve pas par transitivité ou par citation d’un schéma.
 - **Utilisations :** thm:substitution_simultanee, réduction de l’application, macro-expansion et les schémas commutation/traduction doivent dépendre des hypothèses réellement prouvées, non d’un théorème portant un nom similaire.
 
-## 7. Squelette de preuve et options
+## 8. Squelette de preuve et options
 
 Squelette conditionnel : (1) fixer une dérivation D, une dérivation pour v et H0–H8 ; (2) traiter Var par les cas x et y≠x et les lois d’unité/zéro ; (3) appliquer l’IH à chaque prémisse de chaque règle puis reconstruire le contexte selon l’opération propre à cette règle ; (4) alpha-renommer chaque lieur et préserver toutes les side conditions ; (5) séparer Scale_Usage sur le contexte de φ_n sur l’effet ; (6) prouver la stabilité de Sub/SubBox et des conversions ; (7) vérifier type, effet, contexte et prémisses annexes pour chaque ligne. Les lignes IFS/BDN indiquent où cette preuve n’est pas justifiée actuellement.
 
 Options non adoptées : restreindre explicitement le théorème au fragment prouvé ; compléter les signatures/lois puis démontrer tous les cas ; séparer C3 des extensions Arena/sécurité/métalangage ; ou, seulement après contre-exemple typé et ratification, réviser une règle. Aucun choix normatif n’est fait ici.
 
-## 8. Régression et clôture
+## 9. Régression et clôture
 
 Le test tests/python/test_stage_c_substitution_audit.py compare la matrice à l’inventaire du fichier source. Il détecte l’ajout/suppression d’un marqueur ou une ligne manquante ; il ne vérifie ni la vérité mathématique ni la sémantique de l’évitement de capture.
 
