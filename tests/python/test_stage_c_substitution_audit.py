@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 K7PL contributors
+#
+# SPDX-License-Identifier: CC0-1.0
+
 from collections import Counter
 from pathlib import Path
 import re
