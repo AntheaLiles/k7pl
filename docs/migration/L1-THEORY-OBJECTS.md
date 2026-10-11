@@ -294,6 +294,8 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Classe :** preuve mathématique.
 
+**Audit C-05 non normatif (2026-10-11) :** [reconstruction typée, preuves conditionnelles, contre-exemples et choix de domaine](L1-C05-COST-AGGREGATORS-AUDIT-2026-10-11.md) ; tests de modèle fini : `scripts/ci/test_cost_aggregators_model.py`. Le dossier ne choisit pas la totalité ou la partialité de `Cost_Budget` et ne ferme pas C-05.
+
 **Définitions consignées en séance 60 :** si κ(ℓ)=⟨w_ℓ,s_ℓ⟩, W(κ)=sup {Σ_{ℓ∈F} w_ℓ | F ⊆ ℒ, F fini} et D(κ)=sup_{ℓ∈ℒ}s_ℓ dans ℕ∞. Sous budget scalaire et P3 interprété comme borne commune sur travail et profondeur, Cost_Budget(κ)=max(W(κ),D(κ)) est la plus petite borne scalaire dominante. Attention : le symbole ⇀ de la signature encore présente dans C2 suggère un domaine partiel ; il n'est pas cohérent de traiter simultanément la fonction comme totale sans préciser si la partialité appartient à l'interface normative ou est une trace historique.
 
 **Résultats algébriques démontrables sur papier sous contrat explicite.** Supposons ℕ∞ muni de son ordre complet et de l'addition étendue monotone préservant les supremums, l'ordre des familles ponctuel, la composition séquentielle κ₁·κ₂ définie par les sommes point par point, et la composition parallèle κ₁∥κ₂ définie par addition du travail et maximum de profondeur. Alors :
