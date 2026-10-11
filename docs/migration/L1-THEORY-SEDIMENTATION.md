@@ -111,15 +111,15 @@ Le résultat attendu est :
 
 Une théorie globale de la récursion gardée ne sera pas considérée comme suffisante si elle ne permet pas d'expliquer sa sédimentation dans ces trois régimes.
 
-## 5. Point déjà établi sur `when`
+## 5. Point déjà établi sur when
 
-La règle actuelle de `when` est explicitement :
+La règle actuelle de when est explicitement :
 
-`Δ₁ ⊢ v : ◇V` et `□Δ₂, x :ᵣ V ⊢ c : ◇C | ε`.
+Δ₁ ⊢ v : ◇V et □Δ₂, x :ᵣ V ⊢ c : ◇C | ε.
 
-La dette identifiée historiquement est l'absence d'une contrainte imposant que les liaisons utilisées dans l'attente soient elles-mêmes indéfiniment reportables.
+La contrainte de reportabilité du contexte n'est pas la même obligation que la comptabilisation du coût. Les séances 59–62 arrêtent comme interface de conception que when transforme la famille temporelle de l'effet en κω(ℓ)=⟨ω,ω⟩, avec Cost_Budget(κ)=max(W(κ),D(κ)). Le budget n'est pas consommé à la seule introduction de l'effet : Adm(β,κ) est vérifiée au passage de l'effet par ψ dans la composition des contextes, puis Consume actualise le budget si l'admissibilité est satisfaite.
 
-La décision d'architecture est désormais arrêtée : introduire la structure supplémentaire nécessaire. La recherche de la forme exacte est donc une question de sédimentation, de typage et de preuve ; elle ne doit pas conduire à supprimer le cas d'usage exprimé par `◇`.
+Cette résolution remplace l'alternative architecturale « interdire immédiatement when avec un budget fini » contre « attente externe hors budget ». Elle n'est toutefois pas une preuve de correction : le domaine partiel de ψ, la relation exacte entre l'effet κ et le coût de chaque règle, la preuve de correction budgétaire et la compatibilité avec la substitution restent ouvertes. La structure de reportabilité retenue doit encore être reliée par couche aux règles et invariants correspondants ; elle ne doit pas conduire à supprimer le cas d'usage exprimé par ◇ ni à introduire implicitement un nouvel opérateur.
 
 ## 6. État de l'instruction
 
@@ -129,6 +129,6 @@ La décision d'architecture est désormais arrêtée : introduire la structure s
 | Types gradués formalisés | NORMATIF | établir la correspondance théorie → règles → formalisation |
 | Calf/Decalf | DÉPENDANCE FORMELLE | isoler les constructions et hypothèses effectivement utilisées |
 | Récursion gardée | DÉPENDANCE FORMELLE | produire les trois dossiers de sédimentation |
-| `when` / duale | DÉCISION ARRÊTÉE | déterminer la structure exacte par couche et établir les invariants |
+| `when` / duale | choix de structure arrêté ; preuve non acquise | prouver le typage/sédimentation et le contrat When → effet non borné → ψ/Adm/Consume, règle par règle ; ratifier l'interprétation normative de P3 si nécessaire |
 
 Aucune de ces étapes ne justifie encore une déclaration d'établissement global. Elles constituent les preuves nécessaires à la clôture de l'instruction.
