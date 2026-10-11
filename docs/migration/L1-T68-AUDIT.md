@@ -7,15 +7,15 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **État :** IN PROGRESS  
 **Source principale :** `docs/tracking/primitives.md`  
-**Objectif :** établir la minimalité normative et formelle du noyau avant stabilisation de l'implémentation et de la mécanisation.
+**Objectif :** établir la minimalité normative et formelle du noyau avant stabilisation de l'implémentation et de la mécanisation. Le compte des lignes du registre et le cardinal scientifique du noyau sont deux questions distinctes.
 
 ## 1. Premier constat
 
-Le registre historique est intitulé « 44 primitives », mais son extraction structurée fait apparaître **45 entrées DOING**. Cette divergence doit être résolue avant toute conclusion sur le cardinal du noyau.
+La source courante [`docs/tracking/primitives.md`](../tracking/primitives.md), datée du 8 octobre, comporte **45 entrées `DOING`** ; le nombre « 44 » est historique. Cette réconciliation règle le compte des lignes présentes dans le registre, pas le cardinal scientifique du noyau.
 
-Le registre contient par ailleurs des entrées explicitement qualifiées de dérivées ou de décisions déjà prises contre une primitive, notamment le vecteur comme type dérivé et la codéréliction comme construction écartée. Le nombre lexical d'entrées ne peut donc pas être assimilé au nombre de primitives normatives.
+Le registre contient aussi des entrées explicitement qualifiées de dérivées ou de décisions contre une primitive, notamment le vecteur comme type dérivé et la codéréliction écartée. Une ligne de registre ne se confond pas nécessairement avec un constructeur syntaxique, une règle de terme, une primitive conceptuelle ou une primitive normative.
 
-Le premier résultat T-68 est ainsi méthodologique : **le cardinal 44 doit être démontré, et non repris comme donnée d'entrée.**
+**Résultat de réconciliation documentaire : 45 lignes `DOING` observées ; question scientifique ouverte : démontrer combien de primitives normatives distinctes sont nécessaires**, à partir de la grammaire, des règles, des obligations conservées/perdues et des factorisations examinées.
 
 ## 2. Critère de minimalité
 
@@ -83,11 +83,11 @@ Les refus historiques de `factorisations-refusees.md` constituent les premiers c
 
 ## 4. Anomalies à instruire avant l'audit de minimalité
 
-### 4.1 Cardinal 44 / 45
+### 4.1 Cardinal des entrées et cardinal normatif
 
-Le registre fournit 45 entrées DOING. Il faut reconstruire le véritable ensemble des primitives à partir de la grammaire, des règles et des contraintes de clôture, puis expliquer explicitement toute différence entre :
+Le registre fournit 45 entrées `DOING`, alors que le cardinal des primitives normatives n'est pas établi. Il faut reconstruire cet ensemble à partir de la grammaire, des règles et des contraintes de clôture, puis expliquer explicitement toute différence entre :
 
-- entrée de registre ;
+- entrée de registre (45 déclarées `DOING` dans l'instantané courant) ;
 - constructeur syntaxique ;
 - règle de terme ;
 - primitive conceptuelle ;

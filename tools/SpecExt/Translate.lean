@@ -29,6 +29,8 @@ def htmlRules : List (String × String) := [
   (">Source Code<", ">Code source<"),
   (">Report Issues<", ">Signaler un problème<"),
   ("title=\"Permalink\"", "title=\"Lien permanent\""),
+  ("<title>Cross-Reference Redirection</title>", "<title>Redirection des références croisées</title>"),
+  ("Cross-Reference Redirection", "Redirection des références croisées"),
   ("<title>Search</title>", "<title>Rechercher</title>"),
   ("Search</h1>", "Rechercher</h1>"),
   ("This search feature requires JavaScript.", "Cette recherche demande JavaScript."),

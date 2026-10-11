@@ -5,24 +5,35 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Migration register
 
-This directory contains the operational records for the legacy documentation migration defined by the historical programme [2026-10-08 legacy-migration record](../history/2026-10-08-legacy-documentation-migration-programme.md).
-
-The migration is knowledge migration plus controlled physical relocation. Legacy material remains source evidence; current documents are rewritten knowledge supports. Physical moves follow classification, dependency analysis, and validation.
+This directory is the active register for **semantic qualification** of the legacy documentation. The physical documentation-tree migration was closed on 2026-10-08; its [dated programme](../history/2026-10-08-legacy-documentation-migration-programme.md) is retained as provenance, not as an active move plan. Do not reopen directory relocation as a substitute for proposition-level review.
 
 ## Lot states
 
 NOT STARTED → IN PROGRESS → UNDER REVIEW → VALIDATED.
 
-## L0 — Corpus freeze and inventory
+A lot is validated only when its stated acceptance criteria are met. A successful build is evidence about the checks actually run, not scientific validation or author ratification.
 
-L0 is not yet established on the current branch. `docs/migration/LEGACY-INVENTORY.md` is only the generator placeholder until `scripts/inventory_legacy.py` has been executed against the migration corpus; it must then be committed as the generator output.
+## L0 — Corpus inventory
 
-## L1 — tracking/ extraction
+`docs/migration/LEGACY-INVENTORY.md` remains a generator placeholder until `scripts/inventory_legacy.py` has been run and its output reviewed. It is not a current inventory. Keep that status explicit; do not hand-edit generated content.
 
-The former `suivi/` corpus has been physically relocated to `tracking/` (with classified historical/research exceptions). Its semantic qualification is recorded in `L1-SUIVI.md`.
+## L1 — Semantic qualification
 
-## L2–L5
+L1 classifies propositions from the former `suivi/` corpus, now represented principally under `docs/tracking/`, and other migration sources by epistemic role: current decision, hypothesis, evidence/observation, critique, or historical provenance. The physical relocation is closed; semantic qualification remains **IN PROGRESS**.
 
-L2: research/. L3: method/ and peer-review/. L4: history/ and bibliography/. L5: global validation and residual language/documentation cleanup.
+Entry points:
 
-The register is updated as extracted propositions are qualified and rewritten.
+- [L1 source register](L1-SUIVI.md)
+- [Proposition-level extraction register](L1-SUIVI-EXTRACTION.md)
+- [Decision analyses and author choices](L1-DECISIONS.md)
+- [Annexes B/C/D options](L1-ANNEXES-EXTRACTION.md)
+- [Theory objects](L1-THEORY-OBJECTS.md)
+- [T-68 primitive audit](L1-T68-AUDIT.md)
+
+## L2–L4
+
+L2 covers research; L3 covers method and peer-review material; L4 covers historical records and bibliography. Each extracted statement must retain its source and epistemic status. A historical conclusion is not current solely because a register labels it “decided”.
+
+## L5 — Validation
+
+[L5-VALIDATION.md](L5-VALIDATION.md) separates validation of the completed physical migration from validation of semantic qualification. Its current evidence must identify the exact commit and checks observed. Open author decisions, unverified PDF output, and incomplete source-by-source reconciliation prevent a global `VALIDATED` status.
