@@ -11,7 +11,7 @@ Ce document constitue le dossier d'instruction des imports théoriques arrêtés
 
 ## 1. Théorie des modes — statut NORMATIF
 
-La spécification actuelle contient déjà une structure de modes explicite. Le chapitre 3 définit notamment le mode comme une donnée comprenant une algèbre de grades, un idéal de contraction et une condition d'affaiblissement ; les morphismes de modes organisent les relations entre fragments. La chaîne `Lin ⊆ Aff ⊆ Unr` et le quatrième mode non atteignable sont également distingués.
+La spécification distingue les intervalles d'usage des modes structurels : les premiers ne sont pas, à eux seuls, des modes. C2 présente le diamant candidat `M_Lin → M_Aff → M_Unr` et `M_Lin → M_Rel → M_Unr`, avec `M_Aff` et `M_Rel` incomparables. La sédimentation triadique actuellement retenue instancie la branche `Lin` (couche 1), `Aff` (couche 2), `Unr` (couche 3). Par décision D-16 du 11 octobre 2026, `Rel` reste hors périmètre des règles génératrices actuelles ; les opportunités sont documentées dans [L1-REL-MODE-OPPORTUNITIES-2026-10-11.md](L1-REL-MODE-OPPORTUNITIES-2026-10-11.md). En particulier, `U_Rel` est l'intervalle d'usage `[1..ω]`, tandis que `M_Rel` est le triplet structurel candidat : ils ne doivent pas être confondus.
 
 L'enjeu n'est donc pas d'ajouter une définition isolée. Il faut démontrer que cette théorie est le principe qui relie effectivement :
 
