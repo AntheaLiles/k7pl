@@ -37,6 +37,12 @@ def truncatedSub (β k : ℕ∞) : ℕ∞ :=
     truncatedSub (b : ℕ∞) (k : ℕ∞) = ((b - k : ℕ) : ℕ∞) := by
   simp [truncatedSub]
 
+/-- A product of finite natural grades remains finite in ℕ∞. -/
+private theorem finite_mul_ne_top (n b : ℕ) :
+    (n : ℕ∞) * (b : ℕ∞) ≠ ⊤ := by
+  rw [← ENat.natCast_mul]
+  simp
+
 /-- Finite execution multiplicities commute with the ratified subtraction,
 for every pair of extended-natural budget and cost bounds. This arithmetic
 identity alone does not make a partial `Consume` operation total: its
@@ -52,14 +58,17 @@ theorem finite_multiplicity_compatibility (n : ℕ) (β k : ℕ∞) :
   | coe b =>
       cases k with
       | top =>
-          cases n with
-          | zero => simp [truncatedSub]
-          | succ n => simp [truncatedSub]
+          have hb : (n : ℕ∞) * (b : ℕ∞) ≠ ⊤ := finite_mul_ne_top n b
+          simp [truncatedSub, hb, ENat.mul_top']
       | coe k =>
-          cases n with
-          | zero => simp [truncatedSub]
-          | succ n =>
-              simp [truncatedSub, ← ENat.natCast_mul, Nat.mul_sub_left_distrib]
+          have hb : (n : ℕ∞) * (b : ℕ∞) ≠ ⊤ := finite_mul_ne_top n b
+          have hk : (n : ℕ∞) * (k : ℕ∞) ≠ ⊤ := finite_mul_ne_top n k
+          change (n : ℕ∞) * ((b - k : ℕ) : ℕ∞) =
+            truncatedSub ((n : ℕ∞) * (b : ℕ∞)) ((n : ℕ∞) * (k : ℕ∞))
+          rw [truncatedSub, if_neg hb]
+          rw [← ENat.natCast_mul, ← ENat.natCast_mul]
+          congr 1
+          exact Nat.mul_sub_left_distrib n b k
 
 /-- The law cannot be extended to an infinite multiplier: with budget and cost
 both equal to 2, the left side is 0 while the right side is ∞. -/
