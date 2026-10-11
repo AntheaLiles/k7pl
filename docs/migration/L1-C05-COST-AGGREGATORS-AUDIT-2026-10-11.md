@@ -28,10 +28,10 @@ La séance 60 fixe une conception candidate et propose des lois sur papier. C2, 
 
 Soit `\mathcal L` l'ensemble/type des niveaux temporels, encore à vérifier comme porteur canonique avec ses éventuelles propriétés structurelles. Le modèle écrit dans C2 et C3 donne :
 
-[
+```text
 K := (\mathbb N_\infty \times \mathbb N_\infty)^{\mathcal L},\qquad
 \kappa : \mathcal L \to \mathbb N_\infty \times \mathbb N_\infty,
-\]
+```
 avec `\kappa(\ell)=(w_\ell,s_\ell)`, où `w_\ell` est le travail et `s_\ell` la profondeur au niveau `\ell`.
 
 Les reconstructions de signature sont :
