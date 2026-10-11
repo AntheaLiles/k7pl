@@ -163,6 +163,11 @@ For `When`, the authorial P3 decision was ratified on 2026-10-11 as **P3-B**:
 
 This ratification does not establish that the current normative `When` rule already implements P3-B. Do not rewrite `spec/` or Lean semantics until the relevant carriers, domains, and affected assertions are specified for a separate normative change.
 
+**Discipline budgétaire — option C retenue comme orientation d'autrice le 11 octobre 2026.** Les budgets doivent être validés lors de la compilation ; l'exécution de chaque automate doit rester dans ses bornes budgétées ; les autres contrôles sont des garde-fous, dont le rôle varie selon la couche K7PL. Il s'agit d'un principe de conception à formaliser, pas d'une propriété déjà prouvée.
+
+La formalisation doit, pour chaque couche, préciser (i) les ressources et métriques bornées, (ii) le sens de validation à la compilation, (iii) les hypothèses d'exécution, (iv) les garde-fous et ce qu'ils ne garantissent pas, et (v) la preuve reliant acceptation statique et coût observable à l'exécution. La composition inter-couches doit préserver ces bornes ou en expliquer explicitement les conditions. Ne pas supposer que le contrôle statique garantit la ressource réelle sans un théorème de correction reliant le modèle aux exécutions.
+
+
 ### C4 — Operational semantics
 
 The reduction relation remains the source operational object.
