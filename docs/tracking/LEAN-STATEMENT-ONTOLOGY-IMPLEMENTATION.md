@@ -5,9 +5,9 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # C8 — Shared statement ontology: implementation contract
 
-**Status:** implementation draft in PR; build and rendering validation pending.
+**Status:** C8.2 shared representation/legacy compatibility and C8.3 structural controls passed CI on the exact PR #134 head `52c4ca16937bc52e76d3ac6f12583a3459cd9984` (run [#1017](https://github.com/AntheaLiles/k7pl/actions/runs/38121072356), 2026-10-11). PR #134 remains open and unmerged.
 
-This document records the first implementation slice of C8. It is not evidence that the Lean extension compiles, that migrated source blocks are correct, or that any mathematical claim is established.
+This document records the shared implementation and structural-control slice of C8. On the recorded head, the Lean implementation/tests, Python tooling, quick checks, Verso specification, and PDF jobs succeeded. These results establish build/render and mechanical consistency for that exact source revision only; they do not validate migrated source blocks, prove mathematical claims, or establish scientific adequacy.
 
 ## Shared representation
 
@@ -29,7 +29,7 @@ The shared parser/constructor is exposed through these directives: `::::definiti
 Example of a result candidate:
 
 ```text
-::::theorem (label := "thm:example") (state := "under-review") (scope := "chapter-level") (evidence := "proofsketch")
+::::theorem (label := "thm:example") (state := "under-review") (scope := "metatheory") (evidence := "proofsketch")
 :::statement
 The statement text is preserved here.
 :::
@@ -42,7 +42,7 @@ The incomplete proof argument is recorded here.
 Example of a literature object:
 
 ```text
-::::literature (label := "thm:external-result") (source := "doi:10.xxxx/example") (scope := "documentary")
+::::literature (label := "thm:external-result") (source := "doi:10.xxxx/example") (scope := "literature")
 :::statement
 The externally attributed result is stated here.
 :::
@@ -54,11 +54,17 @@ Metadata validation rejects unknown epistemic/evidence values, incompatible kind
 ## Compatibility and limits
 
 - Existing source blocks are not migrated by this change. They retain their labels, prose, references, and legacy numbering.
-- The first slice shares the renderer and internal representation; it does not yet update the inventory, Python controls, or CI gate. Those belong to the next C8 point.
+- The shared representation, legacy compatibility, ontology-aware inventory, Python structural controls, and CI integration are implemented across the stacked C8 PRs. The migration of the 69 source blocks and five companion objects belongs to PR #139 and is reviewed separately.
 - Presence/absence of `:::proofsketch` is not yet cross-validated against the `evidence` metadata. The next validation slice must make slot-parent rules mechanically enforceable.
 - A hypothesis still needs an explicit local scope string and must be attached to the relevant argument/result during controlled migration; this directive does not by itself prove that structural relationship.
 - Bibliographic identifiers are currently represented as strings. Their canonical format and reference resolution remain to be specified by the inventory/control work.
 - No `::::thm` statement has been assigned `established` as a consequence of this refactor. Metadata never substitutes for a proof.
+
+## Validation record and remaining assurance boundary
+
+Exact head tested: `52c4ca16937bc52e76d3ac6f12583a3459cd9984`. CI run [#1017](https://github.com/AntheaLiles/k7pl/actions/runs/38121072356) completed successfully. The workflow reported success for Python tooling tests, quick checks, Lean implementation/tests, Verso specification/rendering, and PDF compilation. This record is head-specific and does not authorize a merge or constitute a mathematical proof review.
+
+PR #134 does not migrate the 69 statements. PR #139 retains responsibility for the source migration, current register, historical-level preservation, and human review of classification/proof obligations.
 
 ## Required validation before merge
 
