@@ -178,6 +178,7 @@ def run_benchmark(input_path: Path, repetitions: int) -> dict[str, Any]:
     final_digest = sha256_file(input_path)
     if final_digest != expected_digest:
         raise RuntimeError("input bytes changed during repeated validation")
+    cache_state = cache_observation()
 
     return {
         "schemaVersion": "k7pl.spdx-validation-benchmark/v1",
@@ -200,7 +201,7 @@ def run_benchmark(input_path: Path, repetitions: int) -> dict[str, Any]:
         "validator": {
             "name": "spdx-tools",
             "version": EXPECTED_VALIDATOR_VERSION,
-            "effectiveVersion": cache_observation()["effectiveToolVersions"]["spdxTools"],
+            "effectiveVersion": cache_state["effectiveToolVersions"]["spdxTools"],
         },
         "environment": {
             "pythonVersion": platform.python_version(),
@@ -211,7 +212,7 @@ def run_benchmark(input_path: Path, repetitions: int) -> dict[str, Any]:
             "runnerImageOS": os.environ.get("ImageOS"),
             "runnerImageVersion": os.environ.get("ImageVersion"),
         },
-        "cacheObservation": cache_observation(),
+        "cacheObservation": cache_state,
         "toolInputs": {
             "validatorScriptSha256": sha256_file(VALIDATOR),
             "benchmarkScriptSha256": sha256_file(Path(__file__).resolve()),
