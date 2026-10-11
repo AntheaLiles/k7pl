@@ -3,41 +3,41 @@ SPDX-FileCopyrightText: 2026 K7PL contributors
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Decision d'autrice C-01 — interfaces de reference
+# Décision d’autrice C-01 — interfaces de référence
 
 **Date :** 11 octobre 2026  
-**Portee :** C-01/C-02 ; porte C non satisfaite
+**Portée :** C-01/C-02 ; porte C non satisfaite
 
-## Decision
+## Décision
 
-L'autrice confirme que les signatures de `pi_U`, `Bang_G` et `Scale_Usage` sont retenues comme interfaces de reference. L'alternative consistant a maintenir ces interfaces au rang de simples candidates n'est pas retenue.
+L’autrice confirme que les signatures de `π_U`, `Bang_𝒢` et `Scale_Usage` sont retenues comme interfaces de référence. L’alternative consistant à maintenir ces interfaces au rang de simples candidates n’est pas retenue.
 
-Les signatures de reference sont :
+Les signatures de référence sont :
 
-- `pi_U : G -> R`, projection de `<u,m,l,beta>` vers `u` ;
-- `Bang_G(r,A) := !_{pi_U(r)} A`, raccourci d'indexation de l'exponentielle par la composante d'usage ;
-- `Scale_Usage : R x G -> G`, avec `Scale_Usage(a,<u,m,l,beta>) = <a*u,m,l,beta>`.
+- `π_U : 𝒢 → 𝓡`, projection de `⟨u,m,ℓ,β⟩` vers `u` ;
+- `Bang_𝒢(r,A) := !_{π_U(r)} A`, raccourci d’indexation de l’exponentielle par la composante d’usage ;
+- `Scale_Usage : 𝓡 × 𝒢 → 𝒢`, avec `Scale_Usage(a,⟨u,m,ℓ,β⟩) = ⟨a·u,m,ℓ,β⟩`.
 
-La notation ci-dessus est une transcription lisible ; les sources doivent conserver leurs glyphes et conventions typographiques canoniques. L'action Scale_Usage modifie uniquement la composante d'usage. Elle ne met pas a l'echelle le mode, le niveau ou le budget. Son extension aux contextes est definie seulement lorsque les liaisons, les types et l'agregation de contexte sont compatibles.
+L’action de `Scale_Usage` modifie uniquement la composante d’usage. Elle ne met à l’échelle ni le mode, ni le niveau, ni le budget. Son extension aux contextes est définie seulement lorsque les liaisons, les types et l’agrégation du contexte sont compatibles.
 
 ## Obligations qui restent ouvertes
 
-La decision de signature n'est pas une preuve des lois attendues. Il reste a :
+La décision sur les signatures n’est pas une preuve des lois attendues. Il reste à :
 
-1. normaliser les declarations, les domaines, les hypotheses de definissabilite et les noms dans les registres et dans les sources normatives ciblees ;
-2. demontrer les lois d'identite, composition, additivite et monotonie de Scale_Usage sous les hypotheses algebriques effectivement retenues ;
-3. etablir la compatibilite de pi_U et Bang_G avec coerce, w et c, et prouver identite, composition, naturalite et compatibilite avec les regles de typage ;
-4. traiter les cas Box, App, SubBox, substitution et extension de l'action aux contextes types ;
-5. creer ou identifier les declarations et theoremes Lean correspondants et verifier effectivement les preuves. Une preuve papier, une esquisse, un test documentaire ou une compilation Verso ne constitue pas une preuve Lean.
+1. normaliser les déclarations, les domaines, les hypothèses de définissabilité et les noms dans les registres et les sources normatives ciblées ;
+2. démontrer les lois d’identité, de composition, d’additivité et de monotonie de `Scale_Usage`, sous les hypothèses algébriques effectivement retenues ;
+3. établir la compatibilité de `π_U` et `Bang_𝒢` avec `coerce`, `w` et `c`, puis prouver l’identité, la composition, la naturalité et la compatibilité avec les règles de typage ;
+4. traiter les cas `Box`, `App`, `SubBox`, la substitution et l’extension de l’action aux contextes typés ;
+5. créer ou identifier les déclarations et théorèmes Lean correspondants et vérifier effectivement les preuves. Une preuve sur papier, une esquisse, un test documentaire ou une compilation Verso ne constitue pas une preuve Lean.
 
-Les preuves restent conditionnees par les signatures precises et les structures necessaires, dont le semi-anneau R, les porteurs M et L, les conditions d'addition de contextes et le contrat de l'exponentielle indexee. Toute hypothese requise doit etre explicite ; aucune loi ne doit etre declaree etablie par simple ratification de l'interface.
+Les preuves restent conditionnées par les signatures précises et les structures nécessaires, dont le semi-anneau `𝓡`, les porteurs `𝕄` et `ℒ`, les conditions d’addition de contextes et le contrat de l’exponentielle indexée. Toute hypothèse requise doit être explicite ; aucune loi ne doit être déclarée établie par simple ratification de l’interface.
 
-## Sources et frontieres
+## Sources et frontières
 
-- [Registre des objets theoriques](L1-THEORY-OBJECTS.md)
+- [Registre des objets théoriques](L1-THEORY-OBJECTS.md)
 - [Audit typé C-01/C-02 du 11 octobre 2026](L1-C01-C02-TYPED-INTERFACE-AUDIT-2026-10-11.md)
 - Source C2 : `spec/Spec/C2/ComonadeExponentielleEtFragments.lean`
 
-C2 affiche encore ces interfaces avec un statut candidat. Cette source n'a pas ete modifiee par la presente decision : les registres documentent le statut architectural ratifie, et une modification normative distincte devra harmoniser les declarations source apres verification des domaines et preconditions. Ne pas presenter le statut historique du fichier comme une absence de decision humaine, ni la decision humaine comme une preuve ou une normalisation deja executee.
+C2 affiche encore ces interfaces avec un statut de candidates. Cette source n’a pas été modifiée par la présente décision : les registres documentent le statut architectural ratifié, et une modification normative distincte devra harmoniser les déclarations source après vérification des domaines et préconditions. Ne pas présenter le statut historique du fichier comme une absence de décision humaine, ni la décision humaine comme une preuve ou une normalisation déjà exécutée.
 
-La decision ne tranche pas le contrat exact des morphismes de modes, la totalite ou partialite de Cost_Budget, les domaines complets de psi et Consume, la correction de ressources a l'execution, ni la cloture C-01/C-02. La porte C reste **NON SATISFAITE**.
+La décision ne tranche pas le contrat exact des morphismes de modes, la totalité ou la partialité de `Cost_Budget`, les domaines complets de `ψ` et `Consume`, la correction des ressources à l’exécution, ni la clôture de C-01/C-02. La porte C reste **NON SATISFAITE**.
