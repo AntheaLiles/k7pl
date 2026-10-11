@@ -70,20 +70,80 @@ def _empty_package_name(document: dict[str, Any]) -> None:
     document["packages"][0]["name"] = ""
 
 
+def _missing_package_name(document: dict[str, Any]) -> None:
+    document["packages"][0].pop("name", None)
+
+
+def _null_package_name(document: dict[str, Any]) -> None:
+    document["packages"][0]["name"] = None
+
+
+def _missing_spdx_version(document: dict[str, Any]) -> None:
+    document.pop("spdxVersion", None)
+
+
+def _spdx_22_version(document: dict[str, Any]) -> None:
+    document["spdxVersion"] = "SPDX-2.2"
+
+
+def _missing_document_name(document: dict[str, Any]) -> None:
+    document.pop("name", None)
+
+
+def _empty_document_name(document: dict[str, Any]) -> None:
+    document["name"] = ""
+
+
+def _empty_package_spdxid(document: dict[str, Any]) -> None:
+    document["packages"][0]["SPDXID"] = ""
+
+
+def _empty_download_location(document: dict[str, Any]) -> None:
+    document["packages"][0]["downloadLocation"] = ""
+
+
+def _duplicate_relationship(document: dict[str, Any]) -> None:
+    if not document.get("relationships"):
+        raise ValueError("duplicate relationship probe requires at least one relationship")
+    document["relationships"].append(copy.deepcopy(document["relationships"][0]))
+
+
+def _inconsistent_relationship_source(document: dict[str, Any]) -> None:
+    if not document.get("relationships"):
+        raise ValueError("relationship-source probe requires at least one relationship")
+    document["relationships"][0]["spdxElementId"] = "SPDXRef-Probe-Undeclared-Source"
+
+
+def _unsupported_license_assertion(document: dict[str, Any]) -> None:
+    # This is a semantic/provenance challenge, not a claim that MIT is actually false.
+    # The test replaces an unknown assertion with a valid-looking but unsubstantiated value.
+    document["packages"][0]["licenseDeclared"] = "MIT"
+
+
 PROBES: tuple[tuple[str, str, Callable[[dict[str, Any]], None]], ...] = (
-    ("missing-document-namespace", "Probe a missing required document identity field.", _missing_namespace),
-    ("unsupported-spdx-version", "Probe an unsupported SPDX version token.", _unsupported_spdx_version),
-    ("missing-package-download-location", "Probe a package with its download location field removed.", _missing_download_location),
-    ("invalid-license-expression", "Probe a malformed declared-license expression.", _invalid_license_expression),
-    ("dangling-relationship-reference", "Probe a relationship pointing to an undeclared SPDX identifier.", _dangling_relationship),
-    ("duplicate-package-spdxid", "Probe duplicate package identifiers.", _duplicate_package_identifier),
-    ("empty-package-name-upstream-885", "Known upstream gap probe tracked in spdx/tools-python issue #885; wrapper preflight should intercept it.", _empty_package_name),
+    ("missing-document-namespace", "Remove documentNamespace, a required document identity field.", _missing_namespace),
+    ("missing-spdx-version", "Remove the declared SPDX specification version.", _missing_spdx_version),
+    ("unsupported-spdx-version", "Use an unsupported SPDX version token.", _unsupported_spdx_version),
+    ("spdx-2.2-version-in-2.3-run", "Declare SPDX-2.2 while the invocation explicitly selects SPDX-2.3.", _spdx_22_version),
+    ("missing-document-name", "Remove the document name field.", _missing_document_name),
+    ("empty-document-name", "Set the document name to an empty string.", _empty_document_name),
+    ("missing-package-name", "Remove a package name; compare direct-validator and wrapper diagnostics.", _missing_package_name),
+    ("null-package-name", "Use null instead of a package name string.", _null_package_name),
+    ("missing-package-download-location", "Remove a package downloadLocation field.", _missing_download_location),
+    ("empty-package-download-location", "Set downloadLocation to an empty string.", _empty_download_location),
+    ("invalid-license-expression", "Use a malformed declared-license expression.", _invalid_license_expression),
+    ("unsupported-license-assertion", "Replace NOASSERTION with MIT without adding evidence; syntactic validation cannot prove this factual assertion.", _unsupported_license_assertion),
+    ("dangling-relationship-reference", "Point a relationship at an undeclared SPDX identifier.", _dangling_relationship),
+    ("inconsistent-relationship-source", "Set a relationship source to an undeclared identifier.", _inconsistent_relationship_source),
+    ("duplicate-package-spdxid", "Duplicate package identifiers.", _duplicate_package_identifier),
+    ("duplicate-relationship", "Duplicate a relationship object / target.", _duplicate_relationship),
+    ("empty-package-name-upstream-885", "Known upstream gap tracked in spdx/tools-python issue #885; wrapper preflight should intercept it.", _empty_package_name),
 )
 
 
-def _invoke(command: list[str]) -> dict[str, Any]:
+def _invoke(command: list[str], env: dict[str, str] | None = None) -> dict[str, Any]:
     try:
-        result = subprocess.run(command, check=False, capture_output=True, text=True)
+        result = subprocess.run(command, check=False, capture_output=True, text=True, env=env)
         return {
             "returnCode": result.returncode,
             "returnedZero": result.returncode == 0,
@@ -133,6 +193,83 @@ def _observe_case(name: str, hypothesis: str, document: dict[str, Any], director
     }
 
 
+def _report_wrapper_result(wrapper: dict[str, Any]) -> dict[str, Any]:
+    wrapper_report: dict[str, Any] | None = None
+    try:
+        wrapper_report = json.loads(wrapper["stdout"])
+    except json.JSONDecodeError:
+        pass
+    return {
+        "returnCode": wrapper["returnCode"],
+        "executionError": wrapper["executionError"],
+        "status": wrapper_report.get("status") if wrapper_report else None,
+        "diagnosticRuleIds": [
+            item.get("ruleId") for item in (wrapper_report or {}).get("diagnostics", [])
+        ],
+        "diagnosticMessages": [
+            item.get("message") for item in (wrapper_report or {}).get("diagnostics", [])
+        ],
+    }
+
+
+def _observe_raw_case(name: str, hypothesis: str, raw_text: str, directory: Path) -> dict[str, Any]:
+    input_path = directory / f"{name}.spdx.json"
+    input_path.write_text(raw_text, encoding="utf-8")
+    external = _invoke(["pyspdxtools", "--infile", str(input_path), "--version", "SPDX-2.3"])
+    wrapper = _invoke([sys.executable, str(WRAPPER), str(input_path)])
+    return {
+        "name": name,
+        "probeHypothesis": hypothesis,
+        "inputSha256": sha256_file(input_path),
+        "externalValidator": external,
+        "wrapper": _report_wrapper_result(wrapper),
+    }
+
+
+def _observe_tool_error(input_path: Path, directory: Path) -> dict[str, Any]:
+    missing_command = _invoke([
+        str(directory / "definitely-no-such-spdx-validator"),
+        "--infile", str(input_path), "--version", "SPDX-2.3",
+    ])
+    isolated_path = directory / "empty-path"
+    isolated_path.mkdir()
+    env = os.environ.copy()
+    env["PATH"] = str(isolated_path)
+    wrapper = _invoke([sys.executable, str(WRAPPER), str(input_path)], env=env)
+    return {
+        "directCommandMissing": missing_command,
+        "wrapperWithValidatorAbsentFromPath": _report_wrapper_result(wrapper),
+        "interpretation": (
+            "These controls exercise command-execution/error handling; they do not simulate every "
+            "possible crash, timeout, corrupt database, or internal error in spdx-tools."
+        ),
+    }
+
+
+def _coverage_summary(base: dict[str, Any]) -> dict[str, Any]:
+    observations = [base.get("positiveControl")] + base.get("cases", []) + base.get("rawCases", [])
+    observations = [item for item in observations if isinstance(item, dict)]
+    wrapper_statuses: dict[str, int] = {}
+    rule_ids: set[str] = set()
+    external_codes: dict[str, int] = {}
+    for item in observations:
+        wrapper = item.get("wrapper", {})
+        status = wrapper.get("status") or "NO-JSON-REPORT"
+        wrapper_statuses[status] = wrapper_statuses.get(status, 0) + 1
+        rule_ids.update(rule_id for rule_id in wrapper.get("diagnosticRuleIds", []) if rule_id)
+        external = item.get("externalValidator", {})
+        code = str(external.get("returnCode", "none"))
+        external_codes[code] = external_codes.get(code, 0) + 1
+    return {
+        "mutationCases": len(base.get("cases", [])),
+        "rawInputCases": len(base.get("rawCases", [])),
+        "wrapperStatusCounts": wrapper_statuses,
+        "wrapperDiagnosticRuleIdsObserved": sorted(rule_ids),
+        "externalValidatorReturnCodeCounts": external_codes,
+        "notASchemaCoverageClaim": True,
+    }
+
+
 def run_probes(input_path: Path) -> dict[str, Any]:
     try:
         validator_version = version("spdx-tools")
@@ -159,6 +296,8 @@ def run_probes(input_path: Path) -> dict[str, Any]:
         "positiveInput": {"artifact": input_path.name, "sha256": None},
         "positiveControl": None,
         "cases": [],
+        "rawCases": [],
+        "toolErrorControls": None,
         "limitations": [
             "This is an exploratory mutation corpus, not comprehensive SPDX 2.3 schema coverage.",
             "A zero exit code is an observation, not by itself a conclusion of standards conformance.",
@@ -192,7 +331,15 @@ def run_probes(input_path: Path) -> dict[str, Any]:
                     base["cases"].append(_observe_case(name, hypothesis, changed, directory))
                 except (IndexError, KeyError, TypeError, ValueError) as error:
                     base["cases"].append({"name": name, "probeHypothesis": hypothesis, "skipped": str(error)})
+            base["rawCases"].append(_observe_raw_case(
+                "malformed-json", "Input is not syntactically valid JSON.", '{"packages": [', directory
+            ))
+            base["rawCases"].append(_observe_raw_case(
+                "json-root-array", "JSON is syntactically valid but the document root is not an object.", '[]', directory
+            ))
+            base["toolErrorControls"] = _observe_tool_error(input_path, directory)
         base["status"] = "OBSERVED"
+        base["diagnosticCoverageSummary"] = _coverage_summary(base)
     except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as error:
         base["status"] = "ERROR"
         base["error"] = str(error)
@@ -211,11 +358,13 @@ def main() -> int:
     if summary_path:
         with open(summary_path, "a", encoding="utf-8") as stream:
             stream.write("### Exploratory SPDX negative-corpus probes (non-blocking)\n")
-            stream.write(f"- Status: {report.get('status')}; external-validator probes: {len(report.get('cases', []))}.\n")
-            stream.write("- This step records observations only; no probe result gates CI.\n")
+            stream.write(f"- Status: {report.get('status')}; structured mutations: {len(report.get('cases', []))}; raw-input cases: {len(report.get('rawCases', []))}.\n")
+            stream.write("- Tool-error controls and the observed wrapper diagnostic IDs are saved in the JSON artefact.\n")
+            stream.write("- This step records observations only; no probe result gates CI and this is not schema coverage.\n")
     print(
         "Non-blocking SPDX negative-corpus probes recorded: "
-        f"status={report.get('status')}, cases={len(report.get('cases', []))}"
+        f"status={report.get('status')}, cases={len(report.get('cases', []))}, "
+        f"raw_cases={len(report.get('rawCases', []))}"
     )
     # The experiment is deliberately non-gating. Report ERROR in the artifact for review.
     return 0
