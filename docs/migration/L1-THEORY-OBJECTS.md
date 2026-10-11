@@ -343,6 +343,8 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Critère de clôture :** énoncé entièrement typé, preuve par chaque cas de réduction, invariant trace/canal établi et hypothèse exacte d'adéquation explicitée. Sinon Sim reste OPEN.
 
+**Audit détaillé du 11 octobre 2026 (base auditée : `de1f6bed21b4c773a58f3cd0af93867bb3e07401`):** [C-07 — Audit de la simulation source → métalangage](C-07-SIMULATION-AUDIT.md). Le dossier distingue le contrat mathématique de simulation, les preuves de traduction, les tests exécutables et la conformité à `Π`; il consigne les lacunes sans modifier la sémantique normative ni promouvoir le statut épistémique. La décision sur l'ordre temporel inter-fibrilles est réservée à ratification de l'autrice.
+
 ### C-08 — Mémoire abstraite, H1/H2/H3 et profil concret
 
 **Classe :** obligations mathématiques/sémantiques et question de représentation.
