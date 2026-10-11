@@ -64,6 +64,15 @@ Ces résultats sont des déductions conditionnelles à partir des formules affic
 | Précision des usages/modes `⊑` | L'ordre de précision est présenté comme `Unr ⊑ Aff ⊑ Lin` (dans son domaine modal/fibre) | Ne permet pas d'inverser les directions des composantes du sous-typage mixte |
 | Morphisme de modes | Sous le contrat appliqué par la preuve-esquisse : morphisme de l'algèbre de grades/ordre, `f(Cont(source))⊆Cont(cible)`, et préservation de l'affaiblissement (`Weak(source)⇒Weak(cible)`) | Le contrat exact et sa direction ne sont pas explicitement isolés dans le manuscrit ; les flèches abstraites ne prouvent pas la réalisation par le jugement K7PL |
 
+**Signatures des relations : domaines connus et domaines conditionnels.**
+
+- **Inclusion d'intervalles :** `\u2286 : \u2118(𝓡) × \u2118(𝓡) → Prop` (inclusion de sous-ensembles, ordre par inclusion). Elle compare les domaines syntaxiques `U_m ⊆ 𝓡`, pas des modes en tant qu'algèbres.
+- **Sous-typage des grades :** `≼ : 𝒢 × 𝒢 → Prop`. Son ordre est le produit mixte défini dans la source : `u ≥ u′`, `m ≽ m′`, `ℓ ≤ ℓ′`, `β ≤ β′`. La projection sur la première conjonction suffit à établir la direction `π_U(r) ≥ π_U(r′)`.
+- **Précision `⊑` :** la source de raffinement la place sur les objets d'une même fibre de l'interprétation `⟦-⟧ : 𝒟 → 𝒯`. Pour un type cible `S`, on peut noter conditionnellement `𝒟_S := {T ∈ Obj(𝒟) | ⟦T⟧=S}` et `⊑_S : 𝒟_S × 𝒟_S → Prop` comme l'ordre de cette fibre si le foncteur préservant le typage est établi. La chaîne modale `Unr ⊑ Aff ⊑ Lin` est présentée comme restriction sur la dimension d'usage. La signature globale de `⊑` et sa monotonicité sur tous les morphismes restent conditionnelles à `thm:traduction_metalangage` ; on ne lui attribue pas sans preuve le domaine `𝒢 × 𝒢`.
+- **Morphism de modes :** entre deux modes `M_s=(R_s,Cont(s),Weak(s))` et `M_t=(R_t,Cont(t),Weak(t))`, la fonction porteuse candidate a la forme `f : R_s → R_t`. Elle doit conserver les opérations/ordre exigés par l'algèbre de grades, vérifier `f(Cont(s)) ⊆ Cont(t)`, et préserver l'affaiblissement selon le sens donné par le contrat retenu. Le manuscrit utilise l'identité de `𝓡` pour les quatre flèches, mais la déclaration formelle complète de ce prédicat de morphisme reste manquante.
+
+Ces signatures signalent aussi précisément ce qui reste ouvert : l'inclusion ensembliste est totale sur les parties, le sous-typage possède son domaine explicite, mais l'ordre de précision dépend d'une fibre/foncteur et le morphisme de modes dépend d'un contrat encore à fixer. Aucune des quatre relations n'est substituable aux autres.
+
 ### Candidats structurels et vérification conditionnelle
 
 C3 propose, sur le porteur commun `𝓡` :
