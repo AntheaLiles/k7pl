@@ -130,13 +130,15 @@ La source C2 porte encore textuellement l'étiquette « candidate » : cette div
 
 **D2 — Périmètre des modes : DÉCIDÉ ; preuves ouvertes.** Par décision d'autrice du 11 octobre 2026, le périmètre de référence courant retient `M_Lin` pour la couche 1, `M_Aff` pour la couche 2 et `M_Unr` pour la couche 3. `M_Rel` n'est pas activé dans les règles actuelles ; ses opportunités sont décrites dans [L1-REL-MODE-OPPORTUNITIES-2026-10-11.md](L1-REL-MODE-OPPORTUNITIES-2026-10-11.md). Cette décision ne prouve ni l'idéalité requise ni le contrat des morphismes : définir précisément la préservation de l'algèbre/ordre, `Cont(source)→Cont(cible)` et `Weak(source)⇒Weak(cible)`, puis établir la correspondance avec les permissions des règles K7PL.
 
-**D3 — Totalité de `Cost_Budget` : OUVERT.** Décider si le coût est total sous les hypothèses de scalarisation/P3 ou partiel avec un domaine explicite. Ne pas faire porter à `Consume` la partialité de `Cost_Budget` par défaut, ni l'inverse.
+**D3 — Totalité de `Cost_Budget` : DÉCIDÉ.** `Cost_Budget : K → 𝔅` est retenue comme totale sous les hypothèses et conventions explicites qui rendent `W`, `D` et `max` bien définis. Voir la note D3 et la décision D-17. Cette décision ne prouve pas les agrégats ni leurs propriétés.
 
 ## 6. Résultat pour le registre C
 
 - **C-01 : PARTIEL, porte ouverte.** Les signatures de référence principales sont retenues par décision d'autrice. Leur normalisation entre le registre et C2, les domaines de plusieurs opérations, les porteurs `𝕄`/`ℒ`, les conversions de l'exponentielle, la formalisation de `sup ∅=0` et les preuves des lois restent ouvertes.
 - **C-02 : PARTIEL, porte ouverte.** La direction `r≼r′ ⇒ π_U(r)≥π_U(r′)` est démontrable directement sur papier à partir des clauses source ; les intervalles n'impliquent pas des morphismes ; les flèches candidat sont validées conditionnellement à un contrat de mode encore à expliciter. La correspondance avec le jugement K7PL et la preuve machine demeurent ouvertes.
-- **Porte C globale : NON SATISFAITE.** Cette tranche ne conclut ni sur C-03–C-09 ni sur les autres décisions humaines encore requises. D–F restent bloqués par la porte scientifique C.
+- **D5 — Principe d’admissibilité : DÉCIDÉ, formule exacte ouverte.** L’autrice retient le principe selon lequel un budget est admissible lorsqu’il couvre le coût annoncé. La formule candidate `Adm(β,κ) ↔ β=ω ∨ Cost_Budget(κ)≤β` n’est pas ratifiée telle quelle ; restent à normaliser le domaine et l’ordre de `𝔅`, le rôle de `ω` et l’éventuelle redondance du premier disjoint. Voir la note D5. Cette décision ne détermine pas le domaine de `Consume` ni celui de `ψ`.
+
+**Porte C globale : NON SATISFAITE.** Cette tranche ne conclut ni sur C-03–C-09 ni sur les autres décisions humaines encore requises. D–F restent bloqués par la porte scientifique C.
 
 ## 7. Méthode de vérification reproductible
 
