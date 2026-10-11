@@ -56,6 +56,15 @@ Cette déduction ne demande pas de structure catégorique. Elle donne la **direc
 
 L’orientation inverse serait non justifiée : pour `u = ω` et `u' = 1`, la source indique `!_ω A → !_1 A`, pas `!_1 A → !_ω A`. Le sous-typage mixte impose cette orientation ; il ne fournit pas le morphisme lui-même.
 
+### Relations modales et relation de conversion : quatre objets distincts
+
+- **Inclusion des intervalles `⊆`.** C3 donne `U_Lin=[1..1]`, `U_Aff=[0..1]`, `U_Rel=[1..ω]`, `U_Unr=[0..ω]` et les inclusions ensemblistes Lin⊆Aff⊆Unr et Lin⊆Rel⊆Unr. Elles portent sur les valeurs d’usage permises par la syntaxe ; Aff et Rel sont incomparables. Elles ne définissent ni `≼), ni un morphisme de modes ([C3, lignes 108–157](../../spec/Spec/C3/LeSystemeGradue.lean#L108-L157)).
+- **Sous-typage complet `≼`.** C’est la relation produit mixte sur `r=⟨u,m,ℓ,β⟩` et `r'=⟨u',m',ℓ',β'⟩` : `u≥u' ∧ m≽m' ∧ ℓ≤ℓ' ∧ β≤β'`. C’est cette relation, et elle seule, qui autorise le transport de l’annotation `ConvCtx` dans la définition consignée en séance 61, puis fournit la prémisse nécessaire au transport exponentiel candidat.
+- **Ordre de précision `⊑`.** C2 le présente comme un ordre dans une même fibre de la traduction `⟦-⟧ : 𝒟→𝒯`, si cette traduction est bien un foncteur préservant le typage ; `Unr ⊑ Aff ⊑ Lin` en est la restriction modale sur l’usage. La validité de cette lecture dépend de `thm:traduction_metalangage`, dont la preuve reste une esquisse. En particulier, la relation d’effet `ε ⊑ ε'` figurant dans `Sub` ne doit pas être remplacée par le sous-typage de grade `≼` ([C2, lignes 60–103](../../spec/Spec/C2/SystemeDeRaffinement.lean#L60-L103)).
+- **Morphisme de modes.** Pour `M_s=(R_s,Cont_s,Weak_s)` et `M_t=(R_t,Cont_t,Weak_t)`, la candidate est une application de porteurs `f:R_s→R_t` qui doit respecter les opérations/ordre requis, `f(Cont_s)⊆Cont_t` et la direction de préservation de `Weak`. Les flèches des modes Lin/Aff/Rel/Unr demeurent présentées comme proposition sous `under-review/proofsketch`; elles ne découlent pas des seules inclusions des intervalles ([C3, lignes 118–157](../../spec/Spec/C3/LeSystemeGradue.lean#L118-L157)).
+
+Ainsi, `ConvCtx` dépend de `≼), `Conv!` dépend en plus de la projection candidate et du domaine de `coerce), tandis que `⊆), `⊑) et les morphismes de modes ont des domaines et des engagements distincts. Aucune de ces relations ne remplace une autre dans les preuves de C-03.
+
 ## 4. Preuves par cas et obligations exactes
 
 ### 4.1. `ConvCtx` — identité et composition
