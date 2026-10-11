@@ -5,8 +5,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # PR-02 — registre des objets théoriques
 
-**État :** IN PROGRESS  
-**Périmètre :** étape C — reprise des objets théoriques  
+**État :** IN PROGRESS — exploration architecturale bornée ; porte de sortie C non satisfaite  
+**Périmètre :** étape C — interfaces, preuves et obligations sémantiques résiduelles  
 **Statut épistémique :** dossier d'instruction, non normatif.
 
 Ce registre ne décide pas à lui seul de la validité mathématique des constructions. Il sert à
@@ -49,7 +49,7 @@ fusionner sans relation explicitement établie.
 | support d'indexation de la comonade | DÉRIVÉ | carrier effectif des indices de `!` | `𝓡` est le support de référence ; vérifier `w`, `c`, `coerce` et leurs lois de naturalité |
 | `φ_n` | DÉRIVÉ | transformation de l'effet pour une répétition entière | domaine de référence : multiplicités effectives `n` ; ne pas l'étendre automatiquement aux usages rationnels |
 | `mise à l'échelle d'un grade complet` | DÉRIVÉ | élaboration règle-locale de l'action sur un contexte | `Scale_Usage(a,<u,m,ℓ,β>)=<a·u,m,ℓ,β>` pour `Box`, `App`, substitution et contexte de `Sc` ; pas de multiplication globale de `𝒢` requise |
-| `Cost_Budget` | DÉRIVÉ / OBLIGATION | scalarisation du coût temporel vers le budget | sous budget scalaire + P3, `Cost_Budget(κ)=max(W(κ),D(κ))` est la plus petite scalarisation ; restent à définir exactement `W`, `D` et `Adm` |
+| `Cost_Budget` | DÉRIVÉ | scalarisation du coût temporel vers le budget | signature retenue en séance 60 ; ses lois et son couplage avec les règles restent à prouver ; `Adm`/`Consume` sont des objets distincts |
 | `Unr ⊑ Aff ⊑ Lin` | DÉRIVÉ | ordre de précision des usages | ne pas le confondre avec le sous-typage modal `≼` |
 
 Point de contrôle : trois relations doivent rester distinctes : l'inclusion des intervalles modaux
@@ -60,16 +60,15 @@ syntaxique ≠ précision.
 
 **Correction critique de C — modes et intervalles.** La définition de mode utilisée dans la littérature de référence n'est pas celle d'un intervalle de grades : elle combine une algèbre de grades, un idéal de contraction et un prédicat d'affaiblissement. Les intervalles `U_m` de K7PL ne sont donc que des domaines syntaxiques d'annotations. En particulier, `U_Aff = [0..1]` n'est pas fermé par addition et ne peut pas jouer le rôle d'une algèbre de grades. La démonstration antérieure « inclusion d'intervalles ⇒ morphisme de modes » est retirée comme trop forte. Une réalisation structurelle candidate par les quatre triplets `M_Lin`, `M_Aff`, `M_Rel`, `M_Unr` est maintenant exposée en C2/C3 ; sa correspondance avec le jugement K7PL reste à vérifier.
 
-**Obligation supplémentaire — action graduée.** Le simple remplacement de `\mathcal{R}` par un
-produit de facteurs ne suffit pas à définir `r · Δ`. La composante d'usage porte
-$`\mathbb{Q}_{\geq0}\cup\{\omega\}` tandis que le budget actuel porte $`\mathbb{N}_\infty` ; une
-action uniforme du semi-anneau d'usage sur le budget n'est donc pas encore disponible pour les
-grades rationnels. La notation utilisée par `VAR`, `Box`, `App`, `VECI` et `SC` doit être
-factorisée en une action précisément typée, ou restreinte à un sous-domaine dont la fermeture
-soit démontrée. Aucune convention arithmétique implicite ne doit être introduite pour franchir
-cette frontière. Cette obligation devient une dépendance explicite de la substitution et de la
-loi de compatibilité de l'action graduée.
-**Correction critique de C — algèbre des grades.** `\mathcal{R}` est le semi-anneau de la composante d'usage. `\mathcal{G}` est le porteur du grade complet, produit de structures potentiellement hétérogènes. Il ne doit pas être appelé « semi-anneau des grades » sans préciser quelle structure algébrique est effectivement retenue. La notation de mise à l'échelle `r · Δ` doit elle aussi être lue comme une action graduée typée, et non comme une multiplication naïve de deux éléments de `\mathcal{G}`. La séance 28 distingue désormais quatre familles : agrégation des grades, éventuelle multiplication de `\mathcal{G}`, action `Scale` et consommation budgétaire `⊖`. Aucune de leurs identifications n'est acquise.
+**Interface de mise à l'échelle retenue (séance 62 ; lois encore à prouver).** L'action est locale à la composante d'usage :
+
+\[
+\mathrm{Scale\_Usage} : \mathcal R \times \mathcal G \to \mathcal G,\qquad
+\mathrm{Scale\_Usage}(a,\langle u,m,\ell,\beta\rangle)
+=\langle a\cdot u,m,\ell,\beta\rangle.
+\]
+
+Elle ne définit aucune multiplication globale de \mathcal G et ne met pas à l'échelle le budget. Les règles VAR, Box, App, VECI et SC ainsi que les opérations de contexte doivent être contrôlées contre cette signature. φ_n est une transformation d'effets indexée par une multiplicité effective n ; son domaine ne s'étend pas automatiquement aux usages rationnels. La monotonie, la compatibilité avec les conversions et la fermeture de la substitution demeurent des obligations distinctes.
 
 ## 3. Grades et raffinement
 
@@ -115,12 +114,7 @@ La temporalité ne doit pas être traitée comme un objet unique. L'étape C doi
 couche → construction → invariant → règle → propriété avant toute conclusion sur la théorie
 temporelle globale.
 
-**Constat de reprise.** Le jeu actuel contient bien les règles `Alw`, `Alw⁻`, `Now`, `Wait` et `When`,
-mais leur statut n'est pas homogène. `Del` apparaît dans le jeu central, tandis que les autres règles
-sont regroupées dans une extension de section. Surtout, `When` utilise la transformation
-`ε[ω/k]` sans que le registre actuel établisse encore son domaine, sa définition ni sa correction.
-La perte de borne induite par `When` doit donc rester une obligation de preuve, et non être considérée
-comme une conséquence acquise de la notation.
+**Interface temporelle retenue (séances 59–62 ; preuve non acquise).** When transforme l'effet temporel en la famille non bornée κω(ℓ)=⟨ω,ω⟩, notée ε[ω/k]. Les notes de conception définissent W comme le supremum des sommes finies de travail, D comme le supremum ponctuel de profondeur, puis Cost_Budget(κ)=max(W(κ),D(κ)). Adm(β,κ) vaut (β=ω) ou Cost_Budget(κ)≤β ; Consume(β,κ)=β⊖Cost_Budget(κ) n'est défini que sur le domaine admissible. La consommation est déclenchée au franchissement du contexte par ψ, selon Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂,ε), et non par la seule production d'un effet non borné. Cette résolution de conception remplace la bifurcation architecturale antérieure, mais ne prouve pas la correction de ressource. Il faut encore définir précisément le domaine partiel de ψ et vérifier chaque règle et cas-frontière.
 
 ## 5. Sémantique et concurrence
 
@@ -222,7 +216,126 @@ La construction de référence est désormais accompagnée d'une loi de transpor
 avec `Scale_Usage` pour l'action contextuelle, `φ_n` pour les transformations d'effets liées aux
 répétitions effectives et `Cost_Budget` comme interface scalaire du coût temporel.
 
-Les obligations encore ouvertes sont de nature démonstrative ou sémantique : naturalité et
-fonctorialité de `coerce`, compatibilité avec `w`/`c`, commutation avec `Scale_Usage`, preuve de
-substitution sous ces conversions, définition exacte de `W`/`D), et décision sur la place de
-l'attente environnementale de `When` dans P3.
+Les obligations restantes sont bornées et classées dans la matrice C-01 à C-09 ci-dessous. L'exploration de conception du sous-système grade/exponentielle/coût est close, mais la porte de sortie globale de C demeure NON SATISFAITE. Les comptes rendus constituent la provenance des décisions de conception ; ils ne sont ni des preuves formelles ni une ratification humaine lorsque celle-ci est requise.
+
+## 11. Matrice des obligations résiduelles de C
+
+Cette matrice consolide les audits de source existants et les séances 59–62 ; elle n'est ni une preuve ni une validation indépendante. Les fichiers sous spec/Spec sont des sources Verso contenant définitions textuelles, énoncés et esquisses, non des déclarations Lean correspondant automatiquement à des théorèmes machine-vérifiés. Leur compilation vérifie parsing/rendu et les contrôles associés, pas la vérité mathématique des propositions exposées.
+
+### C-01 — Signatures des grades, usages et modes
+
+**Classe :** question d'interface formelle et obligations mathématiques.
+
+**Contrat de référence :** R = ℚ≥0 ∪ {ω}, avec addition, multiplication, zéro, unité et ordre annoncés ; G = R × M × L × B, B = ℕ∞ ; π_U : G → R ; Bang_G(r,A) := !_{π_U(r)}A ; Scale_Usage : R × G → G agit sur la seule coordonnée d'usage ; φ_n transforme un effet pour une multiplicité effective n ; Cost_Budget : K → B, où K désigne les familles de coûts temporels définies au § C-05 ; Adm : B × K → Prop ; Consume : B × K ⇀ B, partielle hors du domaine admissible. Pour coerce, w, c et ψ, les types sont à vérifier contre leurs définitions canoniques et les objets effectivement présents dans le manuscrit : ne pas déduire leur signature complète de leur seule utilisation en prose.
+
+**Hypothèses et cas manquants :** rendre canoniques les porteurs M et L et leurs opérations ; inventorier chaque relation et fonction employée par une règle avec domaines, codomaines, direction et conditions de définissabilité. Le produit d'ensembles G n'est pas un semi-anneau par lui-même. Il faut identifier la définition source de φ_n et les cas de répétition effectivement couverts sans assimiler usage rationnel et nombre d'exécutions.
+
+**Dépendances :** chapitres 2–3, sessions 61–62, propositions de cohérence et de substitution.
+
+**Critère de clôture :** chaque objet central a une signature explicite dans la source normative ou un renvoi non ambigu à cette signature ; chaque règle utilise seulement des opérations typées ; aucune multiplication globale de G ni extension implicite de φ_n n'est nécessaire.
+
+### C-02 — Domaines et directions des relations modales
+
+**Classe :** obligation mathématique et correspondance formelle.
+
+**Relations à garder distinctes :** inclusion des intervalles syntaxiques Lin ⊆ Aff ⊆ Unr ; sous-typage modal ≼ ; ordre de précision Unr ⊑ Aff ⊑ Lin ; morphisme entre modes structurels M_m. La direction du transport d'index retenue est r ≼ r' ⇒ π_U(r) ≥ π_U(r'). Ces relations ne sont pas interchangeables.
+
+**Hypothèses et cas manquants :** définir les quatre triplets candidats M_Lin, M_Aff, M_Rel et M_Unr avec algèbre de grades, idéal de contraction et condition d'affaiblissement ; exposer le contrat exact de morphisme de modes et la direction de l'inclusion de Cont ; vérifier chaque flèche candidate et les contre-exemples exigés pour l'incomparabilité Aff/Rel. Rel = [1..ω] appartient à l'espace théorique mais n'est pas généré par les règles courantes.
+
+**Dépendances :** thm:morphismes_modes, audit C8 batch 10, définition du sous-typage et factorisation π_U.
+
+**Critère de clôture :** preuve ou contre-exemple pour chaque flèche et chaque non-comparabilité ; aucune dérivation de morphisme à partir de la seule inclusion des intervalles.
+
+### C-03 — coerce, w, c, conversions et Scale_Usage
+
+**Classe :** preuve mathématique avec dépendance formelle catégorique externe.
+
+**Contrat disponible :** ConvCtx(r,r') transforme une liaison x:_r V en x:_r' V lorsque r ≼ r', sans changer variable ni type. ConvCtx(r,r)=id ; pour r ≼ s ≼ t, ConvCtx(r,t)=ConvCtx(s,t)∘ConvCtx(r,s). Conv!_{r,r',A} est coerce_{π_U(r),π_U(r'),A} dans la direction induite par π_U(r) ≥ π_U(r'). Scale_Usage(a,⟨u,m,ℓ,β⟩)=⟨a·u,m,ℓ,β⟩.
+
+**Hypothèses et cas manquants :** prouver coerce_{u,u,A}=id et coerce_{u,u'',A}=coerce_{u',u'',A}∘coerce_{u,u',A} sur les indices admissibles ; prouver naturalité et compatibilité avec counité w et comultiplication c de la comonade indexée ; démontrer que Scale_Usage préserve ≼ et commute avec la relabellisation de contexte ; vérifier le transport des types qui portent !, pas uniquement l'annotation de contexte. La référence externe ne prouve pas à elle seule l'instance K7PL.
+
+**Dépendances :** modèle catégorique de !, hypothèses exactes des imports, sessions 61–62, thm:coherence_subsomption et thm:substitution.
+
+**Critère de clôture :** les diagrammes ont des types source/cible cohérents ; les lois sont prouvées ou les hypothèses externes explicitement déclarées ; les cas de conversion sont couverts par l'induction de substitution.
+
+### C-04 — When, ψ, Cost_Budget, Adm et Consume
+
+**Classe :** obligation sémantique, correction de ressource et ratification normative.
+
+**Contrat de conception :** When produit κω(ℓ)=⟨ω,ω⟩. W et D agrègent la famille κ ; Cost_Budget=max(W,D). Adm(β,κ) accepte β=ω ou Cost_Budget(κ)≤β. Consume soustrait Cost_Budget à β seulement si Adm est vraie. ψ s'applique quand un effet traverse le contexte dans Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂,ε).
+
+**Hypothèses et cas manquants :** définir l'interface et le domaine partiel exacts de ψ, les conditions de partage des liaisons de contexte et la coordonnée de budget modifiée. Prouver règle par règle que le coût temporel de l'effet est bien le coût de l'opération composée ; traiter When en contexte local, passage de When par budget infini, passage par budget fini, coût nul et coûts finis aux frontières. Vérifier la soustraction tronquée, notamment ω⊖ω=ω, β fini et coût ω. La lecture P3 adoptée par les séances doit être ratifiée si elle n'est pas déjà confirmée comme décision d'autrice : l'alternative « attente externe hors budget » exige de distinguer latence et coût d'exécution au lieu de conserver implicitement le même Cost_Budget.
+
+**Dépendances :** règles temporelles du chapitre 3, composition des contextes, P3, C-05 et C-06.
+
+**Critère de clôture :** aucune traversée de contexte non admissible n'est typable ; le coût n'est jamais masqué ; tous les cas limites sont couverts par la preuve de correction de ressource.
+
+### C-05 — Agrégateurs W/D et scalarisation
+
+**Classe :** preuve mathématique.
+
+**Définitions consignées en séance 60 :** si κ(ℓ)=⟨w_ℓ,s_ℓ⟩, W(κ)=sup {Σ_{ℓ∈F} w_ℓ | F ⊆ L, F fini} et D(κ)=sup_{ℓ∈L}s_ℓ dans ℕ∞. Sous budget scalaire et P3 interprété comme borne commune sur travail et profondeur, Cost_Budget(κ)=max(W(κ),D(κ)) est la plus petite borne scalaire dominante.
+
+**Hypothèses et cas manquants :** prouver la monotonie ponctuelle, W(0)=D(0)=0, l'additivité du travail sous séquencement et parallélisme, la sous-additivité de profondeur sous séquencement, le maximum de profondeur sous parallélisme et la sous-additivité correspondante de Cost_Budget. Vérifier supremums pour L infini, famille nulle, valeurs ω et opérations réellement produites par chaque règle. Le compte rendu qui donne la définition n'est pas l'évidence d'une preuve complète.
+
+**Dépendances :** ordre et supremums de ℕ∞, définition normative de κ, Adm/Consume et contrat de ψ.
+
+**Critère de clôture :** chaque loi invoquée est démontrée pour les opérations réellement retenues ; aucune égalité plus forte que les bornes requises n'est supposée.
+
+### C-06 — Substitution, conversions, Scale_Usage et φ_n
+
+**Classe :** obligation mathématique sur le typage et les effets.
+
+**Hypothèses à isoler :** formation des types sous usage effacé ; identité, composition et monotonie de Scale_Usage ; compatibilité avec ψ ; conversion ConvCtx et Conv! ; conditions de Sub/SubBox ; transformation d'effet φ_n uniquement sur son domaine de multiplicités effectives ; lois zéro-somme/zéro-produit là où les lemmes les invoquent.
+
+**Cas manquants :** variables, lieurs et fraîcheur ; Box, App, VECI, SC ; substitution sous Sub/SubBox ; contexte partagé dans ψ ; conversions de modalité et transport de ! ; effets et budgets ; répétitions finies/infinies seulement si elles sont admises par la règle concernée. Les schémas généraux de commutation et préservation ne remplacent pas la preuve d'instance.
+
+**Dépendances :** C-01 à C-05, thm:substitution, thm:substitution_simultanee, thm:commutation_traduction, thm:coherence_axiome et thm:coherence_usage.
+
+**Critère de clôture :** induction sur chaque règle avec hypothèses typées et fraîcheur ; identité et conversions établies ; aucun passage de l'usage rationnel à la multiplicité d'exécution sans preuve dédiée.
+
+### C-07 — Réduction source, Sim et adéquation de la représentation
+
+**Classe :** obligation sémantique avec dépendances formelles distinctes.
+
+**Objets et direction :** la réduction source → porte sur les configurations ⟨c∣μ∣τ⟩. La traduction ⟦-⟧ vers la cible et sa réduction →ₜ sont des objets de représentation. Sim doit être une simulation avant : chaque pas source correspond à un ou plusieurs pas cible, modulo la congruence structurelle précisée, et la trace cible prolonge la trace source conformément au pas.
+
+**Hypothèses et cas manquants :** domaine des configurations typées ; invariants de mémoire μ et convention de trace τ ; clauses de traduction des opérations et du temps ; invariant de canal de temps chaîné qui préserve l'ordre des événements ; cas de beta/communication, produits/sommes, vecteurs, effets, tick, opérations délimitées, congruence structurelle et réécritures. La préservation de typage, la commutation de traduction et le confinement des canaux sont des dépendances, pas des substituts à Sim. thm:simulation est explicitement non démontré ; thm:fidelite_interprete reste conditionnel à Sim et à l'adéquation de l'interpréteur cible. Une simulation avant ne prouve ni bisimulation, ni équivalence observationnelle bidirectionnelle, ni pleine abstraction.
+
+**Dépendances :** thm:commutation_traduction, thm:traduction_metalangage, thm:confinement_sortes, interprétation cible et PREUVE-07 ; audit C8 batch 07.
+
+**Critère de clôture :** énoncé entièrement typé, preuve par chaque cas de réduction, invariant trace/canal établi et hypothèse exacte d'adéquation explicitée. Sinon Sim reste OPEN.
+
+### C-08 — Mémoire abstraite, H1/H2/H3 et profil concret
+
+**Classe :** obligations mathématiques/sémantiques et question de représentation.
+
+**H1 :** au plus une introduction de WriteCap(r) par région r. Le théorème de sûreté spatiale l'assume ; thm:introduction_unique ambitionne de le prouver, mais le cas d'élimination de l'arène est signalé comme manquant. L'arête thm:introduction_unique → thm:surete_spatiale crée une circularité argumentative si H1 est justifiée à partir d'un résultat qui la suppose, bien que ce ne soit pas un cycle de références syntaxiques.
+
+**H2 et H3 :** H2 porte sur la disjonction des intervalles/régions ; elle exige une définition de Range et une preuve d'élimination/disjonction. H3 porte sur l'imbrication des délimiteurs et reste distincte. Prouver H1 ne décharge ni H2 ni H3.
+
+**Alternatives non choisies :** compléter indépendamment le cas d'élimination afin d'établir H1 ; ou conserver H1 comme hypothèse normative/de modèle et réduire/laisser ouvert le résultat d'introduction unique. Pour H2, formaliser les intervalles puis prouver disjonction et élimination ; pour H3, expliciter les règles d'imbrication. L'autrice doit ratifier toute restriction ou hypothèse. Le modèle abstrait ne prouve pas la conformité à une machine/ABI.
+
+**Profil Π :** identifier la révision de spécification, représentation/formalisation, chaîne d'exécution, architecture et paramètres matériels, paramètres d'exécution et sources pertinentes de non-déterminisme. Séparer la sûreté abstraite, E_repro, égalité binaire et garanties ABI.
+
+**Dépendances :** ModelesDeMemoire.lean, LEAN-DEPENDENCY-SEMANTIC-REVIEW.md, H1/H2/H3 et contrôles propres à Π.
+
+**Critère de clôture :** H1 indépendamment prouvée ou expressément acceptée comme hypothèse avec portée indiquée ; H2 et H3 prouvées séparément ; revendications concrètes testées/prouvées sur un profil versionné.
+
+### C-09 — Imports et dépendances formelles externes
+
+**Classe :** dépendance formelle, à séparer des engagements normatifs K7PL.
+
+P1a (cadre catégorique annoncé par C) reste distinct de P1b (interprétation ⟦-⟧_C et correction), qui demeure une obligation ouverte. Théorie des modes et théorie des types gradués ont un rôle normatif déclaré, mais leurs sources bibliographiques n'établissent pas automatiquement leur correspondance avec les règles K7PL. Calf/Decalf et récursion gardée sont des mécanismes externes : seules les propriétés instanciées sous les hypothèses exactes peuvent être utilisées. Les résultats de littérature ne sont ni axiomes K7PL ni théorèmes du langage par défaut.
+
+**Critère de clôture :** pour chaque import effectivement utilisé, consigner référence/version, hypothèses, fragment couvert, mapping K7PL et propriété obtenue ; toute hypothèse empruntée demeure visible.
+
+## 12. Décisions humaines à préserver comme ouvertes
+
+1. **Portée normative de P3/When :** confirmer que la politique voulue fait porter la consommation de ressource par le franchissement via ψ et l'admissibilité différée. L'alternative « attente externe hors budget » exige une distinction explicite entre latence et coût d'exécution ; l'alternative « interdire When au point d'introduction si le budget est fini » modifierait la règle locale. Aucune option ne doit être appliquée implicitement.
+2. **H1 et thm:introduction_unique :** choisir entre preuve indépendante via l'élimination de l'arène et acceptation explicite de H1 comme hypothèse avec réduction de portée. Les conséquences théoriques diffèrent.
+3. **Morphismes des modes :** si les triplets candidats ne satisfont pas le contrat, apporter les contre-exemples et la conséquence sur les règles avant de choisir restriction, modification normative ou obligation ouverte.
+
+## 13. Porte de sortie C — état
+
+**NON SATISFAITE.** L'exploration architecturale du sous-système grade/exponentielle/coût est bornée, mais les obligations C-01 à C-09, la traçabilité formelle des signatures et les ratifications humaines listées ci-dessus ne sont pas closes. D–F ne doivent pas commencer avant clôture explicite de cette porte.
