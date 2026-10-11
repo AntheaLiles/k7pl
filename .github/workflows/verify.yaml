@@ -318,7 +318,10 @@ jobs:
 
       - name: Test the SPDX validator guard
         run: python3 scripts/ci/test_validate_spdx.py
-\n      - name: Test the SPDX negative-corpus evaluator\n        run: python3 scripts/ci/test_evaluate_spdx_negative_corpus.py\n
+
+      - name: Test the SPDX negative-corpus evaluator
+        run: python3 scripts/ci/test_evaluate_spdx_negative_corpus.py
+
       - name: Test generated HTML figure accessibility contracts
         run: python3 scripts/ci/test_check_spec_html_assets.py
 
