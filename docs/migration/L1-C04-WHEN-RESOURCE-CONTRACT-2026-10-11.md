@@ -128,10 +128,10 @@ Ces cas servent à départager les lectures. Ils ne doivent être convertis en t
 | T2 — frontière exacte | β = n ; Cost_Budget(κ) = n | Adm vraie ; Consume vaut 0 | Dépend de la projection du coût retenue | Cas d’égalité dans Adm |
 | T3 — dépassement fini | β = n ; Cost_Budget(κ) = n + 1 | Adm fausse ; ψ et la composition sont indéfinies. Le 0 arithmétique de ⊖ ne doit pas être utilisé | Refus si le coût d’exécution dépasse n ; la latence externe ne suffit pas, à elle seule, à décider | Séparation du garde-fou Adm et de ⊖ |
 | T4 — When local | When produit un effet non borné, sans franchissement établi d’un budget fini | Avec le contrôle différé, l’effet peut rester local si les prémisses et □ sont satisfaites ; sa borne infinie demeure visible, et tout franchissement ultérieur d’un budget fini échoue | Possible seulement si la représentation distingue latence et coût d’exécution ; l’effet ne peut être silencieusement réduit à un coût fini | Introduction versus consommation |
-| T5 — When traverse un budget fini | β fini ; κω(ℓ) = ⟨ω, ω⟩ | Cost_Budget = ω ; Adm fausse ; ψ indéfinie | Le passage peut être admissible seulement si la latence est exclue explicitement de la fonction de coût consommée | Choix P3 et domaine de ψ |
+| T5 — When traverse un budget fini | β fini ; κω(ℓ) = ⟨ω, ω⟩ | Cost_Budget = ω ; Adm fausse ; ψ indéfinie | P3-B exclut la latence de l’orchestrateur, mais ce cas ne peut être évalué avant de séparer typiquement cette latence du coût d’exécution | Représentation des coûts et domaine de ψ |
 | T6 — When traverse un budget infini | β = ω ; κ = κω | Adm vraie si Cost_Budget est définie ; Consume vaut ω selon la convention ω ⊖ ω = ω | L’effet de latence doit être conservé comme observation même si la consommation d’exécution est finie ou nulle | Totalité, convention d’infini et sens de la borne |
 | T7 — travail infini réparti | ℒ dénombrable ; wℓ = 1 et sℓ = 0 à chaque niveau | W = ω par supremum des sommes finies ; D = 0 ; coût scalaire ω | Même coût d’exécution si ces wℓ sont des travaux réels ; l’attente externe n’est pas nécessaire pour obtenir ω | Définition de W, support infini |
-| T8 — profondeur seule | Un niveau avec wℓ = 0 et sℓ = ω | W = 0 ; D = ω ; coût scalaire ω | Une attente externe ne doit être comptée dans D que si P3 le décide | Distinction travail/profondeur/latence |
+| T8 — profondeur seule | Un niveau avec wℓ = 0 et sℓ = ω | W = 0 ; D = ω ; coût scalaire ω | Sous P3-B, la latence environnementale de l’orchestrateur est exclue du budget d’exécution de l’automate ; la séparation reste à typer | Distinction travail/profondeur/latence |
 | T9 — ensemble de niveaux vide | ℒ = ∅ | Si sup ∅ = 0 est ratifié, W = D = Cost_Budget = 0 ; sinon la totalité revendiquée n’est pas établie | Même obligation de domaine pour la composante d’exécution | Convention de supremum et signature de Cost_Budget |
 | T10 — signature partielle | κ ∉ Dom(Cost_Budget), β = ω | La définition actuelle d’Adm retourne vrai par β = ω mais Consume reste indéfinie : contrat incohérent tant que le domaine n’est pas gardé | Même incohérence si la fonction est conservée partielle | Signature totale ou garde de domaine |
 | T11 — contexte reportable, budget fini | Une liaison de □Δ₂ porte β fini | □ ne suffit pas à rendre le budget infini ; le passage doit être refusé par ψ si le coût est ω | La reportabilité est satisfaite, indépendamment du coût d’exécution, si la sémantique les sépare | Absence d’implication établie entre □ et β = ω |
@@ -159,7 +159,7 @@ La séance 59 propose une vérification d’admissibilité différée via `ψ`/`
 
 ### Ne pas confondre la structure temporelle avec la décision budgétaire
 
-La condition □Δ₂ porte sur la reportabilité du contexte. La transformation ε[ω/k] / κω porte sur la représentation de la non-borne temporelle. Le choix P3-A/P3-B porte sur la question distincte de savoir si cette latence fait partie du coût d’exécution borné. Conserver □ comme modalité existante, ou retenir la famille temporelle κω, ne tranche pas à lui seul la lecture budgétaire A/B.
+La condition □Δ₂ porte sur la reportabilité du contexte. La transformation ε[ω/k] / κω porte sur la représentation de la non-borne temporelle. La question de savoir si l’attente relève du coût d’exécution est désormais tranchée par P3-B : elle relève de l’orchestrateur, pas de l’automate déclenché. En revanche, conserver □ ou la famille κω ne définit pas encore comment cette latence est représentée séparément dans les porteurs typés.
 
 ### Axe de signature : Cost_Budget est-elle totale ?
 
@@ -200,7 +200,7 @@ La représentation précise de latence et de coût n’est pas encore choisie : 
 
 ### Dans les deux cas
 
-La fermeture exige la signature et les domaines explicites, la preuve des propriétés de C-05 effectivement utilisées, la vérification de toutes les règles qui invoquent la composition de contexte, les cas de bord du tableau ci-dessus, la compatibilité avec la substitution C-06 et la ratification de l’autrice. Une compilation Lean, un test arithmétique, une CI verte ou une dérivation sur papier ne remplace aucun de ces éléments.
+La fermeture exige la signature et les domaines explicites, la preuve des propriétés de C-05 effectivement utilisées, la vérification de toutes les règles qui invoquent la composition de contexte, les cas de bord du tableau ci-dessus, la compatibilité avec la substitution C-06 et la ratification explicite des autres choix normatifs qui restent ouverts. La ratification de P3-B ne remplace aucune de ces preuves. Une compilation Lean, un test arithmétique, une CI verte ou une dérivation sur papier ne remplace aucun de ces éléments.
 
 ## 6. Fichiers concernés et changement minimal autorisé
 
@@ -208,13 +208,13 @@ La fermeture exige la signature et les domaines explicites, la preuve des propri
 - ce dossier C-04 ;
 - le lien depuis la section C-04 de L1-THEORY-OBJECTS.md.
 
-**Normatif, uniquement après ratification :**
+**Normatif, dans une PR distincte après définition des interfaces touchées et des obligations de preuve :**
 - spec/Spec/C1/AxiomatiqueGerminale.lean : contrat de composition de contexte et statut de l’interface budgétaire ;
 - spec/Spec/C2/ComonadeExponentielleEtFragments.lean : signature et domaine de Cost_Budget, définitions de W/D et de Consume ;
 - spec/Spec/C3/ReglesDeTypage.lean : relation explicite entre When, l’effet ε[ω/k], le sous-indice de ⊠, ψ et la condition d’admissibilité ;
 - la formalisation Lean et les contrôles arithmétiques qui invoquent effectivement ces définitions, après inventaire des cibles exactes.
 
-Aucun changement normatif n’est autorisé par le présent dossier. Ne pas modifier les sources pour « rendre les signatures cohérentes » avant la réponse d’autrice.
+Cette PR documentaire ne modifie aucune source normative. P3-B est ratifiée, mais aucune modification de `spec/` ou de `src/` ne doit être improvisée pour rendre les signatures cohérentes : une PR normative dédiée ne sera préparée qu'après explicitation de la représentation latence/coût, des domaines opératoires et des règles qui composent les contextes, avec un plan de preuve et la liste exacte des assertions touchées.
 
 ## 7. Critère de clôture C-04
 
