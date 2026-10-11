@@ -150,3 +150,10 @@ Option A ratifiée : conserver la soustraction tronquée prolongée, avec ω ⊖
 **Décision d’autrice : option A.** La loi candidate `n (β ⊖ k) = (n β) ⊖ (n k)` est à formuler sur le domaine admissible où la consommation et les opérations de multiplicité sont définies. La suffisance des hypothèses doit être établie, en particulier pour `n = ω` ; aucune preuve n’est revendiquée.
 
 Une éventuelle factorisation ou loi globale peut être étudiée comme piste de recherche distincte, mais elle n’est pas ratifiée et ne doit pas être considérée comme vraie sans preuve. L’audit des six démonstrations reste requis. Voir [la note D9](../migration/L1-D9-ADMISSIBLE-MULTIPLICITY-LAW-2026-10-11.md). La porte C demeure NON SATISFAITE.
+
+
+## D-24 — Domaine restreint de la loi de multiplicité (11 octobre 2026)
+
+**Décision d’autrice : option A.** La loi `n (β ⊖ k) = (n β) ⊖ (n k)` est conservée comme lemme conditionnel, avec des hypothèses plus fortes que la seule admissibilité. Les multiplicités autorisées et les hypothèses arithmétiques suffisantes restent à préciser et à prouver ; `n = ω` n’est pas inclus par défaut, compte tenu des contre-exemples sous la convention D8.
+
+Cette loi n’est pas requise par `Scale_Usage` et ne doit pas être une prémisse générale de substitution. L’audit des six démonstrations doit déterminer ses usages effectifs et leur nécessité. Voir [la note D10](../migration/L1-D10-RESTRICT-MULTIPLICITY-LAW-2026-10-11.md). La porte C demeure NON SATISFAITE.
