@@ -89,11 +89,11 @@ def statements() -> list[dict]:
             counter += 1
             directive, argline = m.group(1), m.group(2)
             a = args_of(argline)
-            close = mod.text.find("\\n::::\\n", m.end())
+            close = mod.text.find("\n::::\n", m.end())
             block = mod.text[m.end(): close if close >= 0 else len(mod.text)]
-            title = re.search(r"^:::title\\n(.*?)\\n:::", block, re.S | re.M)
-            stmt = re.search(r"^:::statement[^\\n]*\\n(.*?)\\n:::", block, re.S | re.M)
-            stmt_title = stmt.group(1).split("\\n", 1)[0] if stmt and "+titled" in mod.text[m.end():m.end() + 400] else ""
+            title = re.search(r"^:::title\n(.*?)\n:::", block, re.S | re.M)
+            stmt = re.search(r"^:::statement[^\n]*\n(.*?)\n:::", block, re.S | re.M)
+            stmt_title = stmt.group(1).split("\n", 1)[0] if stmt and "+titled" in mod.text[m.end():m.end() + 400] else ""
             legacy = directive == "thm"
             kind = ({"definition": "definition", "exigence": "requirement", "litterature": "literature"}.get(a.get("status", "theoreme"), "result")
                     if legacy else directive_kinds[directive])
