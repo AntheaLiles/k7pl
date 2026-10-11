@@ -16,12 +16,12 @@ Cette liste est centrée sur les gestes, décisions et preuves qui exigent la ma
 
 ## 0. Valider puis intégrer le socle
 
-- [x] **Socle automatisé intégré** : PR #129 fusionnée le 2026-10-10 à 17:09:57 UTC. Le `main` observé (`2c7c8a0`) a passé [CI #38073770380](https://github.com/AntheaLiles/k7pl/actions/runs/38073770380) et [Scorecard #38073770034](https://github.com/AntheaLiles/k7pl/actions/runs/38073770034). Ces résultats ne remplacent pas l'observation du workflow Security ni les actions humaines ci-dessous.
-- [ ] **Après fusion**, lancer une fois le workflow Security sur la branche main via GitHub Actions, ou attendre sa prochaine exécution planifiée. Vérifier que le job « Detect upstream BadgeApp criteria drift » s'exécute réellement et produit l'artefact JSON attendu.
-  - unchanged : consigner la date et le SHA amont observé.
-  - drift : comparer les définitions officielles, examiner leurs effets, puis proposer une mise à jour du registre dans une PR ; ne jamais régénérer silencieusement le snapshot.
-  - unavailable : résultat inconclusif, pas une preuve d'absence de dérive.
-- [ ] Après fusion, examiner plusieurs exécutions planifiées d'OSV-Scanner, traiter les avis éventuels et consigner le triage. Un premier scan sans résultat ne démontre pas une surveillance durable.
+- [x] **Socle automatisé intégré** : PR #129 fusionnée le 2026-10-10 à 17:09:57 UTC. HEAD courant observé : [`86959948`](https://github.com/AntheaLiles/k7pl/commit/86959948ff36deb6e8ee0985cf22740787696720). [Scorecard #38094666898](https://github.com/AntheaLiles/k7pl/actions/runs/38094666898) réussit ; le run [CI #38094667153](https://github.com/AntheaLiles/k7pl/actions/runs/38094667153) échoue lors du téléchargement de Lean/installation d'Elan (TLS distant). Le contrôle de cohérence BadgeApp, les tests Python, REUSE, actionlint, zizmor, gitleaks et OSV ont réussi ; cela ne constitue pas une CI complète verte.
+- [ ] **Exécuter le contrôle de dérive post-fusion** : le dernier run CI sur `main` est un événement `push` ; le job « Detect upstream BadgeApp criteria drift » y est `skipped` et aucun artefact `badge-criteria-drift-*` n'y a été produit. Une lecture read-only ponctuelle des deux fichiers amont retrouve les Blob SHA épinglés dans le registre, mais elle ne remplace pas la preuve du job. Déclencher `Security` avec `workflow_dispatch` depuis GitHub Actions, ou attendre un événement `schedule`, puis inspecter le job et l'artefact JSON.
+  - `unchanged` : consigner la date et les Blob SHA amont observés.
+  - `drift` : comparer les définitions officielles, examiner leurs effets, puis proposer une mise à jour du registre dans une PR ; ne jamais régénérer silencieusement le snapshot.
+  - `unavailable` : résultat inconclusif, pas une preuve d'absence de dérive. L'exécution `workflow_dispatch` n'a pas pu être lancée avec les outils GitHub en lecture seule disponibles dans cette session.
+- [ ] **OSV-Scanner** : le run [CI #38094667153](https://github.com/AntheaLiles/k7pl/actions/runs/38094667153) a réussi le job de scan et téléversé son rapport SARIF. Examiner les rapports de plusieurs exécutions planifiées, traiter les avis éventuels et consigner le triage ; un run réussi ne démontre pas une surveillance durable ni une couverture exhaustive.
 
 ## 1. Compléter la fiche Best Practices BadgeApp
 

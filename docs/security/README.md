@@ -9,12 +9,10 @@ Ce dossier rassemble l'audit OpenSSF mené sur le dépôt et ses suites. Il trai
 publication** (workflows, dépendances, releases, comptes). Il ne dit rien de la correction scientifique du langage : celle-ci relève de
 [`../ASSURANCE.md`](../ASSURANCE.md). L'état factuel courant du dépôt est produit par la CI dans [`../STATUS.md`](../STATUS.md).
 
-**État au 2026-10-10 : campagne reprise à la demande de la mainteneuse.** La remédiation active est réduite aux actions encore ouvertes ou partielles dans
-[`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md). Le plan de remédiation initial et l'ancienne checklist sont désormais dans docs/history/ ; la matrice de critères est la référence d'évaluation courante. La reprise ne signifie ni conformité OpenSSF complète,
-ni revue humaine de sécurité. Les actions administratives et décisions non résolues restent dans les registres dédiés.
+**État technique au 2026-10-11 : automatisation de la PR #129 intégrée et état post-fusion réconcilié.** Le HEAD observé de `main` est `86959948ff36deb6e8ee0985cf22740787696720`. La CI la plus récente (`38094667153`) échoue au téléchargement TLS de Lean pendant l'installation d'Elan ; plusieurs contrôles de sécurité et les tests Python réussissent, mais la validation globale du HEAD courant n'est pas verte. Le contrôle de dérive BadgeApp a été ignoré sur l'événement `push` et aucun artefact de dérive n'a été produit ; la lecture ponctuelle read-only des Blob SHA amont ne remplace pas cette preuve. La remédiation active et les prochaines étapes sont dans [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md) et l'ordre des actions humaines dans [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md). Les archives de la campagne du 2026-10-10 restent historiques. Rien de cela ne vaut conformité OpenSSF, réponse BadgeApp enregistrée ou revue humaine de sécurité.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-10  
+**Last updated:** 2026-10-11  
 **Audience:** la mainteneuse, les relecteurs, les agents.
 
 ## Identifiants de commit cités
