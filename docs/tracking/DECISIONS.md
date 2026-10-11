@@ -157,3 +157,8 @@ Une éventuelle factorisation ou loi globale peut être étudiée comme piste de
 **Décision d’autrice : option A.** La loi `n (β ⊖ k) = (n β) ⊖ (n k)` est conservée comme lemme conditionnel, avec des hypothèses plus fortes que la seule admissibilité. Les multiplicités autorisées et les hypothèses arithmétiques suffisantes restent à préciser et à prouver ; `n = ω` n’est pas inclus par défaut, compte tenu des contre-exemples sous la convention D8.
 
 Cette loi n’est pas requise par `Scale_Usage` et ne doit pas être une prémisse générale de substitution. L’audit des six démonstrations doit déterminer ses usages effectifs et leur nécessité. Voir [la note D10](../migration/L1-D10-RESTRICT-MULTIPLICITY-LAW-2026-10-11.md). La porte C demeure NON SATISFAITE.
+
+
+## D-25 — Ordre de travail pour la loi de multiplicité (11 octobre 2026)
+
+**Décision d’autrice : option A.** Auditer d’abord les démonstrations historiquement signalées et leurs dépendances ; ne fixer les hypothèses exactes du lemme arithmétique qu’après cet audit. Les références historiques mélangent numéros de théorèmes, cas LET/APP et correspondances entre numérotations ; leur réconciliation avec les étiquettes Verso actuelles est une étape explicite. La loi de multiplicité ne doit pas devenir une prémisse générale de substitution. Voir [la note D11](../migration/L1-D11-AUDIT-MULTIPLICITY-SITES-2026-10-11.md). La porte C demeure NON SATISFAITE.
