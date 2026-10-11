@@ -40,7 +40,7 @@ def truncatedSub (β k : ℕ∞) : ℕ∞ :=
 /-- A product of finite natural grades remains finite in ℕ∞. -/
 private theorem finite_mul_ne_top (n b : ℕ) :
     (n : ℕ∞) * (b : ℕ∞) ≠ ⊤ := by
-  exact WithTop.mul_ne_top (WithTop.coe_ne_top n) (WithTop.coe_ne_top b)
+  apply WithTop.mul_ne_top <;> exact WithTop.coe_ne_top
 
 /-- Finite execution multiplicities commute with the ratified subtraction,
 for every pair of extended-natural budget and cost bounds. This arithmetic
@@ -59,7 +59,7 @@ theorem finite_multiplicity_compatibility (n : ℕ) (β k : ℕ∞) :
       | top =>
           have hb : (n : ℕ∞) * (b : ℕ∞) ≠ ⊤ := finite_mul_ne_top n b
           simp [truncatedSub, hb, ENat.mul_top']
-          split_ifs with hn <;> simp [hn, hb]
+          split_ifs with hn <;> simp [hn]
       | coe k =>
           have hb : (n : ℕ∞) * (b : ℕ∞) ≠ ⊤ := finite_mul_ne_top n b
           change (n : ℕ∞) * ((b - k : ℕ) : ℕ∞) =
