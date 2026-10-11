@@ -28,6 +28,7 @@ Entry points:
 - [Decision analyses and author choices](L1-DECISIONS.md)
 - [Annexes B/C/D options](L1-ANNEXES-EXTRACTION.md)
 - [Theory objects](L1-THEORY-OBJECTS.md)
+- [Independent exit audit for scientific gate C (2026-10-11)](L1-C-GATE-INDEPENDENT-EXIT-AUDIT-2026-10-11.md)
 - [T-68 primitive audit](L1-T68-AUDIT.md)
 
 ## L2–L4
