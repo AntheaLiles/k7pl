@@ -97,3 +97,9 @@ Le **programme d'ajustement de septembre** ([`todo-manuscrit`](../history/2026-0
 La question est de déterminer si Lean apporte une valeur spécifique pour relier des contraintes de projet (normes, contrats, règles métier, décisions et exigences) à des propriétés vérifiables et à des preuves de réalisation. Il faut distinguer les théorèmes vérifiés, les contrôles de données, la traçabilité, les observations empiriques et les jugements humains responsables. Une formalisation ou une compilation réussie ne suffit pas à établir une conformité juridique, contractuelle ou organisationnelle.
 
 Avant toute implémentation, l'étude doit comparer Lean à des solutions plus simples, définir une revendication d'assurance bornée et proposer un démonstrateur non critique avec des contre-exemples. Elle n'autorise aucune modification implicite de la spécification normative ou de l'implémentation Lean de K7PL.
+
+## D-16 — Périmètre des modes et piste Rel (11 octobre 2026)
+
+Décision de périmètre : les trois modes de référence de la sédimentation actuelle sont M_Lin (couche 1), M_Aff (couche 2) et M_Unr (couche 3). Leur sélection architecturale est retenue ; leurs lois, le contrat des morphismes et leur réalisation par les règles restent à normaliser et à prouver. Rel n'est pas activé dans la grammaire ni dans les règles génératrices actuelles. La piste est documentée dans [L1-REL-MODE-OPPORTUNITIES-2026-10-11.md](../migration/L1-REL-MODE-OPPORTUNITIES-2026-10-11.md).
+
+Distinction requise : U_Rel=[1..ω] est un intervalle d'usage, tandis que M_Rel=(𝓡,𝓡,false) est un triplet structurel candidat ; l'un ne définit pas l'autre. C2 décrit les branches M_Lin → M_Aff → M_Unr et M_Lin → M_Rel → M_Unr, avec Aff et Rel incomparables. Ce diamant candidat n'établit ni que les règles actuelles réalisent Rel ni que son activation soit requise. Cette décision de périmètre ne constitue pas une preuve et ne ferme pas C-02 ou la porte C.
