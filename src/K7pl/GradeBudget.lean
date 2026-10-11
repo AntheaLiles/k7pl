@@ -22,22 +22,20 @@ An infinite budget remains infinite after any subtraction. A finite budget
 minus an infinite cost is zero; for finite arguments, subtraction is natural
 truncated subtraction. In particular, `∞ ⊖ ∞ = ∞`, not the residual of addition.
 -/
-def truncatedSub : ℕ∞ → ℕ∞ → ℕ∞
-  | .top, _ => .top
-  | .coe _, .top => 0
-  | .coe b, .coe k => ((b - k : ℕ) : ℕ∞)
+def truncatedSub (β k : ℕ∞) : ℕ∞ :=
+  if β = ⊤ then ⊤ else β - k
 
 @[simp] theorem truncatedSub_top (k : ℕ∞) :
     truncatedSub ⊤ k = ⊤ := by
-  rfl
+  simp [truncatedSub]
 
 @[simp] theorem truncatedSub_finite_infinite (b : ℕ) :
     truncatedSub (b : ℕ∞) ⊤ = 0 := by
-  rfl
+  simp [truncatedSub]
 
 @[simp] theorem truncatedSub_finite_finite (b k : ℕ) :
     truncatedSub (b : ℕ∞) (k : ℕ∞) = ((b - k : ℕ) : ℕ∞) := by
-  rfl
+  simp [truncatedSub]
 
 /-- Finite execution multiplicities commute with the ratified subtraction,
 for every pair of extended-natural budget and cost bounds. This arithmetic
@@ -61,7 +59,7 @@ theorem finite_multiplicity_compatibility (n : ℕ) (β k : ℕ∞) :
           cases n with
           | zero => simp [truncatedSub]
           | succ n =>
-              simp [truncatedSub, Nat.mul_sub_left_distrib]
+              simp [truncatedSub, ← ENat.natCast_mul, Nat.mul_sub_left_distrib]
 
 /-- The law cannot be extended to an infinite multiplier: with budget and cost
 both equal to 2, the left side is 0 while the right side is ∞. -/
