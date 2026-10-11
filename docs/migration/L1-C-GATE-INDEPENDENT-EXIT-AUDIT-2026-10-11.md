@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # Audit indépendant de sortie — porte scientifique C
 
 Date : 11 octobre 2026.  
-Révision de `main) vérifiée : `bfe20580a7839e36702ec178e6c8eff671b60ce8`.  
+Révision de `main` vérifiée : `bfe20580a7839e36702ec178e6c8eff671b60ce8`.  
 Chaîne documentaire de décisions examinée : PR #170 à #180 ; tête antérieure à ce rapport : `7ec2d1f76713d42d763b0dd9694d37f071f572b8`.  
 Portée : réévaluation indépendante des critères C-01 à C-09, de la traçabilité des décisions et des preuves formelles disponibles.
 
@@ -35,7 +35,7 @@ Les audits historiques ne partagent pas tous la même révision source : certain
 | **C-01 — grades et interfaces** | **PARTIEL** | Les signatures de référence `π_U`, `Bang_𝒢` et `Scale_Usage` ont été ratifiées dans la chaîne #170. | Décisions pas encore intégrées dans `main` ; les porteurs, domaines de `ψ` et `φ_n`, conversions `coerce/w/c` et les compatibilités requises ne sont pas formalisés en preuves K7PL. |
 | **C-02 — modes** | **PARTIEL** | La chaîne #171 retient `M_Lin`, `M_Aff`, `M_Unr` et réserve `Rel` comme piste. | La correspondance mode → jugement → règles n’est pas prouvée ; les contrats et morphismes ne découlent pas des seuls intervalles et aucun lemme Lean d’instance K7PL n’a été trouvé. |
 | **C-03 — conversions** | **OUVERT** | Audits et dérivations conditionnelles sur identité/composition de certains transports. | Lois `coerce`, naturalité, compatibilité avec counité/comultiplication, conversions `Sub/SubBox` et leurs cas dans l’induction de substitution restent à établir ou à rattacher à un contrat externe effectivement instancié. |
-| **C-04 — When et correction de ressource** | **OUVERT** | Décisions D5–D8 proposées dans les PR #174–#177 ; `Adm`, `Consume`, `ψ) et le coût non borné sont séparés conceptuellement. | Le contrat exact de traversée et l’intégration de l’admissibilité dans les règles ne sont pas prouvés. L’interprétation normative P3/When et la question de savoir si le coût non borné doit être rejeté sous budget fini restent explicitement à résoudre. |
+| **C-04 — When et correction de ressource** | **OUVERT** | Décisions D5–D8 proposées dans les PR #174–#177 ; `Adm`, `Consume`, `ψ` et le coût non borné sont séparés conceptuellement. | Le contrat exact de traversée et l’intégration de l’admissibilité dans les règles ne sont pas prouvés. L’interprétation normative P3/When et la question de savoir si le coût non borné doit être rejeté sous budget fini restent explicitement à résoudre. |
 | **C-05 — W, D, Cost_Budget** | **PARTIEL** | D3/D4 enregistrent dans les PR #172–#173 la scalarisation `max(W,D)` et `sup ∅ = 0`. Une preuve arithmétique supplémentaire est préparée dans `src/K7pl/GradeBudget.lean`. | Les agrégateurs sur la famille temporelle, leurs lois de composition, monotonie, nullité et minimalité ne sont pas formalisés ; la correspondance avec l’interface normative C2 reste à vérifier. |
 | **C-06 — substitution** | **OUVERT** | La source expose `thm:substitution`, la substitution simultanée et une induction esquissée ; D11 ordonne l’audit de ses dépendances. | Pas d’induction Lean complète ; les cas par constructeur, conversions, contextes partagés, `ψ`, effets répétés, fraîcheur et compatibilité restent à prouver. |
 | **C-07 — simulation sémantique** | **OUVERT** | Audit règle par règle de la traduction annoncé dans `C-07-SIMULATION-AUDIT.md`. | `Sim` n’a pas de contrat complet sur configurations/traces/canaux et n’est pas démontrée pour chaque règle. Aucune équivalence, bisimulation ou pleine abstraction n’est justifiée. |
@@ -50,7 +50,7 @@ Le fichier candidat [`src/K7pl/GradeBudget.lean`](../../src/K7pl/GradeBudget.lea
 
 Ce résultat, même si sa compilation est validée par CI, ne prouverait que les identités arithmétiques énoncées dans ce module. Il ne prouverait pas :
 - le domaine de l’opération partielle `Consume` ;
-- la correction de `ψ) ou le refus d’un franchissement inadmissible ;
+- la correction de `ψ` ou le refus d’un franchissement inadmissible ;
 - une compatibilité générale avec les grades rationnels ;
 - la substitution K7PL ou l’invariant instrumenté de correction de ressource ;
 - les agrégateurs temporels `W`, `D` et `Cost_Budget`.
@@ -62,7 +62,7 @@ La loi arithmétique reste donc un candidat formellement vérifiable à rattache
 La revue consolidée cite les anciens numéros « Th. 38, 41, 45, 47 (LET/APP), 48/27, 32 ». La table [`correspondance-theoremes-org.md`](../history/correspondance-theoremes-org.md) montre que la numérotation « relu » et la numérotation courante divergent, et que plusieurs nombres cités ne sont pas des numéros « relu » dans cette table. Certains rapprochements sont possibles — par exemple le 38 relu correspond à `thm:correction_ressource`, le 41 à `thm:commutation_traduction` et le 32 à `thm:commutation_monoide` — mais cela ne réconcilie pas tous les cas et n’établit pas quelles expressions de budget les preuves invoquaient réellement. Voir l’[addendum D11](L1-D11-AUDIT-MULTIPLICITY-SITES-2026-10-11.md).
 
 Sur les sources actuelles :
-- `thm:coherence_usage` sépare `Scale_Usage) (usage seulement) et `ψ) (budget) ; il ne requiert pas `n(β ⊖ k)=nβ ⊖ nk`.
+- `thm:coherence_usage` sépare `Scale_Usage` (usage seulement) et `ψ` (budget) ; il ne requiert pas `n(β ⊖ k)=nβ ⊖ nk`.
 - `thm:action_parallele` traite travail et profondeur pour multiplicité naturelle finie et exclut explicitement la transformation du budget.
 - `thm:substitution` sépare action de contexte et transformation d’effet ; l’esquisse ne prouve pas l’identité budgétaire.
 - `thm:coherence_axiome` reste une obligation de compatibilité générale dont la composante budget dépend d’une action et d’un domaine commun qui restent à définir.
