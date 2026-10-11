@@ -123,7 +123,7 @@ Les registres décrivent l'intention `Adm(β,κ) := (β=ω) ∨ (Cost_Budget(κ)
 
 **Option B — coût partiel.** Conserver `Cost_Budget : K⇀ℕ∞`, mais définir un domaine `Dom_Cost ⊆ K` et stipuler précisément sur quels `κ` les suprema/formule sont admissibles. La formule serait alors un théorème/une définition sous condition sur `Dom_Cost`; la totalité des agrégateurs ne suffit pas à effacer celle de l'interface composée. Conséquence : `Adm`, `Consume` et `ψ` doivent exposer leur comportement quand `κ∉Dom_Cost`. Ne pas déplacer implicitement cette partialité d'une fonction à l'autre.
 
-**Aucune option n'est sélectionnée ici.** Le simple choix du maximum ne détermine pas si la signature normative imprimée est intentionnellement partielle ou historiquement incohérente. Décision attendue de l'autrice : totalité vs partialité et, si partielle, domaine exact; confirmer en outre les hypothèses portant sur `ℒ`, les supremums et les deux coordonnées temporelles.
+**Aucune option n'est sélectionnée ici.** Le simple choix du maximum ne détermine pas si la signature normative imprimée est intentionnellement partielle ou historiquement incohérente. Décisions à obtenir de l'autrice : totalité vs partialité et, si partielle, domaine exact; ratification explicite, si elle n'est pas déjà acquise, du budget scalaire et de P3 comme borne simultanée du travail et de la profondeur; confirmation des hypothèses sur `ℒ`, les supremums et les deux coordonnées temporelles.
 
 ## 7. Lemmas et preuves à formaliser
 
