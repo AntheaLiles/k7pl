@@ -157,6 +157,15 @@ Cette décision établit l’intention sémantique de la séparation, mais **ne 
 
 La séance 59 propose une vérification d’admissibilité différée via `ψ`/`Adm`/`Consume`. La ratification de P3-B ne confirme pas à elle seule ce détail opératoire : il faut encore préciser si, quand et sur quel contexte le coût de l’automate est consommé, et distinguer cette consommation de la durée d’attente de l’orchestrateur.
 
+
+
+### Orientation d'autrice — option C pour les budgets (11 octobre 2026)
+
+L'autrice préfère un travail minutieux autour de l'option C : les budgets doivent être validés lors de la compilation ; l'exécution de l'automate doit rester dans les bornes budgétées ; les mécanismes complémentaires sont des garde-fous modulés selon la couche K7PL. Cette orientation est retenue pour l'instruction, mais ne constitue pas encore un contrat mathématique entièrement ratifié.
+
+La preuve doit relier l'acceptation par le contrôle de compilation aux coûts observables des exécutions admissibles. Pour chaque couche, il faut préciser la métrique de ressource, la frontière de calcul, les hypothèses d'exécution et les propriétés garanties. Les garde-fous doivent être décrits comme défense complémentaire, avec leur portée et leurs modes de défaillance ; ils ne peuvent ni se substituer à une validation statique correcte ni servir de preuve du théorème de correction. Les opérations inter-couches doivent préserver les bornes combinées, ou expliciter les hypothèses nécessaires à cette préservation.
+
+**Ne sont pas tranchés par cette orientation :** l'interface précise du contrôle de compilation ; le choix et le domaine des métriques de budget par couche ; le statut et la sémantique des garde-fous particuliers ; la composition des budgets de l'orchestrateur et de l'automate ; les signatures de `ψ`, `Adm`, `Consume` et `Cost_Budget`. Aucun de ces choix ne doit être déduit sans analyse des sources et preuve des propriétés invoquées.
 ### Ne pas confondre la structure temporelle avec la décision budgétaire
 
 La condition □Δ₂ porte sur la reportabilité du contexte. La transformation ε[ω/k] / κω porte sur la représentation de la non-borne temporelle. La question de savoir si l’attente relève du coût d’exécution est désormais tranchée par P3-B : elle relève de l’orchestrateur, pas de l’automate déclenché. En revanche, conserver □ ou la famille κω ne définit pas encore comment cette latence est représentée séparément dans les porteurs typés.
@@ -180,19 +189,23 @@ Restent à trancher ou à spécifier avant la fermeture de C-04 :
 2. la représentation mathématique de la latence observée séparée du coût d’exécution, sans présumer qu'une coordonnée supplémentaire ou une projection est déjà choisie ;
 3. le contrat de `ψ` : paramètres typés, domaine, unité de coût, liaison(s) affectée(s), précondition `Adm`, résultat `Consume`, frontière de déclenchement et règle de composition invoquant ce transport ;
 4. la convention normative de `⊖`, notamment `ω ⊖ ω = ω`, et sa distinction d’avec un résidu d’addition ;
-5. le modèle de l’orchestrateur : agrégation des surveillances, lancement d’automates ad hoc, interaction des budgets et garanties éventuellement visées (ordre, équité, réarmement, événements multiples). Ces garanties ne sont pas ratifiées par la seule description fonctionnelle ci-dessus.
+5. le modèle de l’orchestrateur : agrégation des surveillances, lancement d’automates ad hoc, interaction des budgets et garanties éventuellement visées (ordre, équité, réarmement, événements multiples). Ces garanties ne sont pas ratifiées par la seule description fonctionnelle ci-dessus ;
+6. la validation de l’option C exige des contrats et preuves distincts pour les couches K7PL concernées. La ratification de l’orientation ne ratifie pas automatiquement une politique uniforme de contrôle, une métrique commune ou un garde-fou particulier.
 
 ## 5. Preuve attendue pour fermer C-04
 
-### Contrat de preuve après ratification de P3-B
+### Contrat de preuve après ratifications P3-B et orientation budgétaire C
 
-La preuve doit séparer deux phénomènes : (a) l’attente/observation d’un événement par l’orchestrateur, qui peut être non bornée, et (b) le coût d’exécution de l’automate lancé à la survenue de cet événement. Elle doit établir que :
+La preuve doit séparer (a) l’attente/observation d’un événement par l’orchestrateur, qui peut être non bornée, (b) le coût d’exécution de l’automate lancé à la survenue de cet événement, et (c) les contrôles budgétaires et garde-fous propres à chaque couche. Elle doit notamment établir que :
 
 - le déclenchement conserve la latence observée sans la convertir en coût d’exécution de l’automate ;
-- le budget de l’automate est appliqué à son exécution dans le périmètre formellement défini, sans imputer l’attente préalable ;
+- le budget de l’automate est validé par la compilation selon un contrat statique explicite, puis respecté par toute exécution admissible dans les hypothèses de correction démontrées, sans imputer l’attente préalable ;
 - aucune consommation réelle de l’automate n’est omise ou rendue admissible par la seule séparation de la latence ;
 - `ψ`, `Adm` et `Consume` opèrent sur la grandeur de coût retenue, dans des domaines explicites, et chaque règle qui compose les contextes invoque le contrat correct ;
 - le modèle exprime comment l’orchestrateur agrège les événements connus et lance les automates ad hoc, sans lui attribuer des garanties d’ordre, d’équité ou de réarmement qui n’auraient pas été décidées ;
+- chaque couche précise ce que son contrôle de compilation garantit, quelles ressources sont bornées et à quel périmètre l’obligation de borne s’applique ;
+- les garde-fous complémentaires sont distingués des preuves statiques et du théorème de correction ; leurs échecs possibles et leur interaction avec les contrats de chaque couche sont consignés ;
+- la composition inter-couches conserve les bornes budgétaires sous les hypothèses énoncées, ou expose clairement les conditions dans lesquelles cette conservation n’est pas garantie ;
 - la relation entre `ε[ω/k]` dans la source C3, la latence observée et le porteur temporel de C2 est typée et démontrée ;
 - les conversions et la substitution préservent cette séparation, en coordination avec C-06.
 
