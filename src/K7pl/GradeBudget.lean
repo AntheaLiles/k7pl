@@ -2,7 +2,7 @@
 --
 -- SPDX-License-Identifier: CECILL-2.1
 
-import Mathlib.Data.ENat.Basic
+import Mathlib.Data.ENat.Monoid
 import Mathlib.Tactic.NormNum
 
 /-!
@@ -23,9 +23,9 @@ minus an infinite cost is zero; for finite arguments, subtraction is natural
 truncated subtraction. In particular, `∞ ⊖ ∞ = ∞`, not the residual of addition.
 -/
 def truncatedSub : ℕ∞ → ℕ∞ → ℕ∞
-  | WithTop.none, _ => WithTop.none
-  | WithTop.some _, WithTop.none => WithTop.some 0
-  | WithTop.some b, WithTop.some k => WithTop.some (b - k)
+  | .top, _ => .top
+  | .coe _, .top => 0
+  | .coe b, .coe k => ((b - k : ℕ) : ℕ∞)
 
 @[simp] theorem truncatedSub_top (k : ℕ∞) :
     truncatedSub ⊤ k = ⊤ := by
@@ -47,17 +47,17 @@ theorem finite_multiplicity_compatibility (n : ℕ) (β k : ℕ∞) :
     (n : ℕ∞) * truncatedSub β k =
       truncatedSub ((n : ℕ∞) * β) ((n : ℕ∞) * k) := by
   cases β with
-  | none =>
+  | top =>
       cases n with
       | zero => simp [truncatedSub]
       | succ n => simp [truncatedSub]
-  | some b =>
+  | coe b =>
       cases k with
-      | none =>
+      | top =>
           cases n with
           | zero => simp [truncatedSub]
           | succ n => simp [truncatedSub]
-      | some k =>
+      | coe k =>
           cases n with
           | zero => simp [truncatedSub]
           | succ n =>
