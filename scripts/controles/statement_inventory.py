@@ -43,7 +43,7 @@ def source_inventory() -> list[dict[str, object]]:
             if closing < 0:
                 raise ValueError(f"{module.path}: unclosed :::::thm block at offset {match.start()}")
             block = module.text[match.end() : closing]
-            args = mm.args_of(match.group(1))
+            args = mm.args_of(match.group(2))
             title_match = re.search(r"^:::title\n(.*?)\n:::", block, re.S | re.M)
             statement_match = re.search(r"^:::statement[^\n]*\n", block, re.M)
             sketch_match = re.search(r"^:::proofsketch[^\n]*\n", block, re.M)
