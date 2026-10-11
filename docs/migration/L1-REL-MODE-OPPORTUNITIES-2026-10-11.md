@@ -61,10 +61,12 @@ Le candidat `M_Rel` n'est pas simplement le même objet que l'intervalle `U_Rel`
 
 ## 3. Opportunité architecturale à examiner plus tard
 
-Une piste raisonnable est d'étudier si la couche 2 devrait, à terme, admettre deux régimes intermédiaires alternatifs :
+L'hypothèse architecturale à conserver pour une évolution future est que la couche 2 pourrait offrir deux régimes intermédiaires alternatifs entre Lin et Unr :
 
 - **affine** : une ressource peut être abandonnée mais pas dupliquée ;
 - **pertinent** : une ressource ne peut pas être abandonnée mais peut être dupliquée.
+
+Dans le périmètre normatif courant, seule la branche Aff est instanciée en couche 2. Cette note documente l'opportunité de Rel sans l'activer et sans prétendre que les règles actuelles le réalisent.
 
 Cette piste enrichirait la couche intermédiaire sans identifier `Aff` et `Rel` l'un à l'autre. Elle pourrait permettre d'exprimer des API, des ressources ou des contrats où l'existence d'un consommateur est obligatoire, mais où plusieurs usages sont permis. Ce bénéfice est une hypothèse de conception à instruire, pas un résultat établi sur les programmes K7PL.
 
