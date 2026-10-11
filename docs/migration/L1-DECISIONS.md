@@ -141,7 +141,7 @@ Il ne faut donc pas transformer cette recherche en alternative éditoriale entre
 
 **État :** DÉCISION ARRÊTÉE ; SÉDIMENTATION ET PREUVES À CONDUIRE.
 
-**Clarification nécessaire pour la reprise C.** L'« option A » de cette section désigne le choix architectural de conserver la structure temporelle supplémentaire ; elle ne doit pas être confondue avec la « lecture A » de la séance 55 sur la consommation immédiate du budget. Sur ce second point, les séances 59–62 consignent une interface distincte : When rend la famille de coût non bornée, tandis que ψ/Adm/Consume appliquent l'admissibilité lors du franchissement de contexte. La preuve de correction de ressource et la ratification de cette lecture normative de P3 restent à faire ; le compte rendu ne suffit pas à les déclarer closes.
+**Clarification et décision d'autrice du 11 octobre 2026.** L'« option A » de cette section désigne le choix architectural de conserver la structure temporelle supplémentaire ; elle ne doit pas être confondue avec la « lecture A » de la séance 55 sur le budget. L'autrice a ratifié P3-B : `When` est un déclencheur réactif ; l'attente d'un événement relève de l'orchestrateur et non du coût d'exécution de l'automate déclenché. La décision fixe cette frontière conceptuelle, mais ne choisit pas encore la représentation mathématique de la latence ni les signatures de `ψ`/`Adm`/`Consume`. La preuve de correction de ressource, la formalisation de l'orchestration et la résolution du domaine de `Cost_Budget` restent ouvertes ; la porte C n'est pas close.
 
 ## 4. T-68 — minimalité des 44 primitives
 
