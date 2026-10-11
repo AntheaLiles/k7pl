@@ -75,9 +75,9 @@ Les deux obligations doivent être typées pour tout objet `A` et toutes les pai
 - **Identité :** `coerce_{u,u,A} = id_{!_u A}`.
 - **Composition :** pour `u ≥ v ≥ w`, `coerce_{u,w,A} = coerce_{v,w,A} ∘ coerce_{u,v,A}`.
 
-La relation d’ordre permet d’énoncer les flèches seulement si le domaine de `coerce` admet effectivement chaque paire. Elle ne force pas des applications déjà données à satisfaire ces équations. Ni le registre C, ni la signature C2, ni une compilation de Verso ne fournit une preuve de ces égalités pour l’instance K7PL.
+La relation d’ordre permet d’énoncer les flèches seulement si le domaine de `coerce` admet effectivement chaque paire. Elle ne force pas des applications déjà données à satisfaire ces équations. Ni le registre C, ni la signature isolée, ni une compilation de Verso ne prouve ces égalités pour l’instance K7PL. Il faut distinguer preuve et axiome : C2 dit plus loin que K7PL adopte sans réserve l’axiomatisation graduée de la compatibilité entre le comonoïde et le couple `(ε,δ)` (lignes 551–558). Cette phrase constitue une déclaration de structure au niveau P1a, pas une preuve Lean. Elle ne spécifie cependant pas à elle seule le domaine des couples admissibles de `coerce`, ni le rattachement exact de ses lois d’identité/composition à ces axiomes, ni l’instanciation de la projection candidate du grade complet. C2 énumère d’ailleurs auparavant la compatibilité de `w`, `c` et des coercions comme obligation liée aux opérations d’indices (lignes 361–364), et C3 maintient la proposition de cohérence de la subsomption en `under-review/proofsketch`. Il y a donc au minimum un défaut de traçabilité du contrat, et une tension de statut à résoudre ; cet audit ne transforme pas une déclaration d’axiomes de modèle en preuve que toutes les conversions C3 les satisfont.
 
-**Statut :** obligations mathématiques ouvertes, dépendantes de la définition/axiomatisation retenue pour la comonade graduée.
+**Statut :** identité/composition sont des obligations listées par l’interface ; elles peuvent relever des axiomes du modèle catégorique adopté si le mapping est explicite. L’instance concrète `coerce`, son domaine et sa liaison au sous-typage de C3 restent à établir ou à identifier précisément comme hypothèses de P1a.
 
 ### 4.3. `coerce` — naturalité en l’objet
 
@@ -87,7 +87,7 @@ Pour chaque morphisme `f : A → B` de `𝒞` et chaque paire d’indices admiss
 
 Les équations d’identité et de composition portent sur le trajet dans **l’indice** ; cette équation porte sur le trajet dans **l’objet**. Elles sont logiquement distinctes.
 
-**Contre-exemple à l’inférence « identité + composition ⇒ naturalité » (pas un contre-exemple à K7PL).** Dans `Set`, prenons `!_i = Id` pour trois indices `2 ≥ 1 ≥ 0`. Pour chaque ensemble non vide `A`, choisissons une application constante `g_A : A → A`; prenons les coercions `2→1` et `1→0` égales à `g_A`, et `2→0` égale à `g_A ∘ g_A`, avec les coercions identité égales à l’identité. Les lois d’identité et de composition sont satisfaites par construction. Mais pour une fonction d’un singleton vers `{0,1}` qui envoie son unique élément sur `1`, en choisissant la constante de `{0,1}` égale à `0`, le carré de naturalité ne commute pas. Les deux premières lois ne dispensent donc pas de prouver la troisième.
+**Contre-exemple à l’inférence « identité + composition ⇒ naturalité » (pas un contre-exemple à K7PL).** Prenons la petite catégorie `𝒞) ayant pour objets `A=\{*\}` et `B=\{0,1\}`, et pour flèches `id_A`, `id_B), `z:B→B` (constante `0`), `f_0:A→B` (constante `0`) et `f_1:A→B` (constante `1`). Les compositions non triviales sont `z∘z=z`, `z∘f_0=f_0) et `z∘f_1=f_0), ce qui définit une catégorie. Posons `!_2=!_1=!_0=Id_𝒞). Définissons les composants de `coerce_{2,1}` et `coerce_{1,0}` par `id_A) sur `A) et `z) sur `B), et ceux de `coerce_{2,0}` de même ; les composants des coercions d’identité sont les identités. Toutes les lois d’identité et la composition `coerce_{2,0}=coerce_{1,0}∘coerce_{2,1}` sont satisfaites composante par composante puisque `z∘z=z). Pourtant, le carré de naturalité de `coerce_{2,1}` pour `f_1) ne commute pas : le trajet gauche est `f_1∘id_A=f_1), alors que le trajet droit est `z∘f_1=f_0), et `f_0≠f_1). Cela montre, avec une catégorie explicitement fermée par composition, que les lois d’indice ne suffisent pas à établir la naturalité.
 
 **Statut :** obligation ouverte. Il faut soit la prouver pour la réalisation concrète, soit montrer qu’elle est un axiome explicite de la structure importée et que l’instance K7PL satisfait effectivement ce contrat. Une citation catégorique externe sans mapping et hypothèses ne clôt pas l’instance.
 
@@ -173,7 +173,7 @@ Les points 1–5 sont soit des contre-exemples à une inférence trop forte, soi
 
 C-03 ne peut être déclaré clos avant les éléments suivants :
 
-- [ ] L’autrice ratifie ou maintient explicitement candidates `π_U`, `Bang_𝒢` et `Scale_Usage`, et fixe le support `I` de l’exponentielle utilisé par les règles.
+- [ ] Le registre canonique distingue le choix de l’exponentielle d’usage `I = 𝓡` décrit en C2 des ponts encore candidats `π_U`, `Bang_𝒢` et `Scale_Usage`. La portée normative de ces derniers doit être ratifiée ou explicitement maintenue au statut candidat ; aucune promotion ne découle des séances.
 - [ ] Le domaine exact des paires admissibles de `coerce` et les lois d’identité/composition sont déclarés avec leurs prémisses ; la naturalité en `A` est prouvée ou assumée dans une structure précisément référencée et instanciée.
 - [ ] La compatibilité avec `w` et `c` est donnée sous des équations aux types source/cible cohérents. L’ambiguïté de `w ∘ ε = w` est résolue sans confondre composition et naturalité.
 - [ ] La différence entre syntaxe `!_r` indexée par le grade complet et famille catégorique `!_{π_U(r)}` est comblée par une définition ratifiée ou reste explicitement bloquante. Aucune preuve de P1a n’est présentée comme preuve de P1b.
