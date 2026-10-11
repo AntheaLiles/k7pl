@@ -143,3 +143,10 @@ Les règles devront spécifier séparément (1) le domaine et le codomaine de `�
 ## D-22 — Consommation budgétaire (11 octobre 2026)
 
 Option A ratifiée : conserver la soustraction tronquée prolongée, avec ω ⊖ ω = ω, dans les couches où Consume est utilisée. Les couches déterminent les opérations requises localement, mais ne définissent pas de variantes de ⊖. Les six démonstrations concernées restent à auditer et à prouver. Voir la note D8 dans docs/migration/L1-D8-GLOBAL-TRUNCATED-SUBTRACTION-2026-10-11.md. La porte C demeure NON SATISFAITE.
+
+
+## D-23 — Loi de compatibilité avec les multiplicités (11 octobre 2026)
+
+**Décision d’autrice : option A.** La loi candidate `n (β ⊖ k) = (n β) ⊖ (n k)` est à formuler sur le domaine admissible où la consommation et les opérations de multiplicité sont définies. La suffisance des hypothèses doit être établie, en particulier pour `n = ω` ; aucune preuve n’est revendiquée.
+
+Une éventuelle factorisation ou loi globale peut être étudiée comme piste de recherche distincte, mais elle n’est pas ratifiée et ne doit pas être considérée comme vraie sans preuve. L’audit des six démonstrations reste requis. Voir [la note D9](../migration/L1-D9-ADMISSIBLE-MULTIPLICITY-LAW-2026-10-11.md). La porte C demeure NON SATISFAITE.
