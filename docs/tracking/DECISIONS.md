@@ -1,6 +1,6 @@
 # Décisions — ce qui est tranché, ce qui attend
 
-**État au 1er octobre 2026.** Une ligne par décision. « Tranché » renvoie à la source qui le dit ; « à ratifier » veut dire qu'un compte rendu de séance l'a **appliquée** en suivant la recommandation du dossier, sans que l'auteur l'ait confirmée par écrit.
+**État de synthèse au 11 octobre 2026 ; les dates historiques restent indiquées par entrée.** Une ligne par décision. « Tranché » renvoie à la source qui le dit ; « à ratifier » veut dire qu'un compte rendu de séance l'a **appliquée** en suivant la recommandation du dossier, sans que l'autrice l'ait confirmée par écrit.
 
 ## Tranchées
 
@@ -20,7 +20,7 @@
 | `ARB-PR-07` / `D-2` | socle homotopique ou famille modale et graduée | **famille modale et graduée** ; imports ciblés instruits un à un | motif écrit au §1.2 (guide de lecture) |
 | `ARB-PR-06` | préservation graduée de bout en bout | **objectif déclaré** : la revendication devient une preuve, sans dénaturer le projet (passe par passe, fragment monomorphisé d'abord) | `PREUVE-02` en tête ; énoncé écrit au §6.2 ; reste conjecture jusqu'à la preuve |
 | `split/pr10-1-outillage-spec` | Le travail historique sur `{printindex}` est abandonné pour la branche courante : son mécanisme est remplacé par la liste canonique `tools/SpecExt/IndexTerms.lean` et l'indexation actuelle ; aucune fusion de cette branche n'est requise. | index / provenance |
-| `ARB-PR-04` | promesse du rejeu bit-à-bit | **à instruire** avant de trancher | [`instruction-arb-pr-04-rejeu-binaire`](../research/instruction-arb-pr-04-rejeu-binaire.md) |
+| `ARB-PR-04` | promesse générale du rejeu bit-à-bit | **formulation historique remplacée** : rejeu logique sémantique ; identité bit-à-bit conditionnée au profil de représentation Π | décision postérieure ci-dessous ; conserver l'instruction historique comme provenance |
 | `T-68` | mots des 44 primitives | **avant-dernier** dans l'ordre de finition (avant la release) | [`primitives.md`](primitives.md) |
 | — | annexe E | **fondue dans le manuscrit** : grammaires et règles au ch. 3, sémantique et sortes au ch. 4, table des glyphes au ch. 1 | `STRUCT-23` ; [journal](../history/2026-10-01-pr-02-15-fusion-annexe-e.md) |
 | `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
@@ -29,7 +29,7 @@
 ## À ratifier (appliquées, non confirmées)
 
 | `QA-28` | réouverture de la question sur les quatre composantes du grade | **à nouveau en revue** : l'élision reste admise comme convention de présentation, mais l'action scalaire et la séparation grade/modes restent à établir | décision d'auteur du 7 octobre 2026, reprise dans PR #54 |
-| `ARB-PR-04` / PR-54 | statut des résultats de cohérence | ratification : `thm:coherence_axiome`, `thm:action_parallele`, `thm:morphismes_modes` et `thm:substitution` sont des propositions ; `thm:coherence_usage` est une proposition distincte | PR #54, séance C des 7–8 octobre 2026 |
+| `ARB-PR-04` / PR-54 | statut épistémique des résultats de cohérence | **à confirmer par l'autrice** : `thm:coherence_axiome`, `thm:action_parallele`, `thm:morphismes_modes` et `thm:substitution` restent des propositions ; `thm:coherence_usage` est une proposition distincte. La PR #54 est fusionnée, mais sa fusion ne vaut pas ratification scientifique des statuts. | [PR #54 fusionnée le 8 octobre](https://github.com/AntheaLiles/k7pl/pull/54), séances C des 7–8 octobre 2026 |
 
 | | Décision appliquée | À confirmer |
 |---|---|---|
@@ -60,6 +60,18 @@
 | `ARB-PR-04` | Le rejeu logique reste sémantique ; le rejeu bit-à-bit relève de la conformité au profil de représentation. | assurance / conformance |
 | `D8` | La passe physique de documentation est clôturée ; les décisions de migration restantes relèvent de `docs/migration/`. | architecture documentaire |
 | `P1–P6` | Les portes restent la séquence de release : P1 blocages scientifiques, P2 assertions ouvertes, P3 décisions auteur, P4 implémentation, P5 stabilisation documentaire, P6 release. | release |
+
+## État scientifique C — mise à jour du 11 octobre 2026
+
+| Sujet | État établi par les registres | Ce qui reste ouvert |
+|---|---|---|
+| Livraison PR #54 | Fusionnée le 8 octobre 2026 et intégrée à main ; aucune action de revue/fusion de cette PR ne reste à faire. | Cette livraison ne ferme pas l'étape scientifique C et n'autorise pas D–F. |
+| Grade / exponentielle / coût (séances 59–62) | L'exploration architecturale est bornée : G, projection π_U, Scale_Usage, séparation φ_n, conversions ConvCtx/Conv!, agrégateurs W/D, Cost_Budget, Adm et Consume sont consignés comme interface de référence. | Naturalité de coerce, compatibilité w/c, substitution complète, correction de ψ, lois W/D et intégration exacte aux règles restent à démontrer ; voir [registre des objets C](../migration/L1-THEORY-OBJECTS.md). |
+| When / P3 | Les notes de conception retiennent une admissibilité différée au passage d'effet via ψ ; le coût non borné est rendu explicite et testé par Adm. | Ratifier l'interprétation normative de P3 si aucune confirmation explicite n'est déjà enregistrée ; la preuve de correction de ressource reste distincte. |
+| Sim / PREUVE-07 | Simulation avant, distincte de la préservation de typage et de la traduction syntaxique ; l'énoncé narratif reste ouvert. | Clauses de traduction effet/temps, invariant du canal chaîné, cas de réduction et relation d'observation cible ; pas d'inférence de bisimulation ou de pleine abstraction. |
+| Mémoire H1/H2/H3 | La revue enregistre une circularité argumentative potentielle pour H1, pas un cycle syntaxique ; H2 et H3 sont des obligations séparées. | H1 doit être prouvée indépendamment ou conservée comme hypothèse avec portée explicite ; prouver H2 et H3 dans leurs contrats respectifs. |
+
+**Règle épistémique.** Les séances 59–62 établissent la provenance des choix de conception, non la vérité des lois mathématiques correspondantes. Les fichiers Verso/Lean qui affichent des blocs d'énoncé et des esquisses ne sont pas, de ce seul fait, des preuves Lean vérifiées. Un résultat de build n'autorise ni la promotion d'une proposition au statut établi ni l'intégration normative de D, E ou F.
 
 ## Ce qui n'a pas été rapproché
 
