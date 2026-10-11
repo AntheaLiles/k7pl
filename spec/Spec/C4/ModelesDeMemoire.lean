@@ -38,7 +38,7 @@ produire un effet, quand celui du théorème est la disjonction de régions. Et 
 recouvre la pureté depuis un ambiant impur, direction que ce document écarte ; l'adopter comme
 sémantique importerait la lecture relative de la pureté qu'il refuse.
 
-::::thm (label := "thm:surete_spatiale")
+::::theorem (label := "thm:surete_spatiale") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "memory-safety")
 :::title
 sûreté spatiale par capacités linéaires
 :::
@@ -76,8 +76,8 @@ raisonnement vaut sur le multi-ensemble entier par associativité de l'addition.
 propre contexte de typage, $`t_2` ne peut construire aucun terme bien typé opérant sur $`r` :
 l'absence se lit sur la dérivation, sans analyse supplémentaire.
 :::
-::::
 
+::::
 Une hypothèse porte tout, et elle n'est pas gratuite : (H3). Les deux autres sont des lemmes sur la règle d'introduction ; la « région » s'y entend comme une discipline de portée, que le polymorphisme paramétrique ordinaire suffit à définir. {rmq}[C'est le sens unique d'imbrication des
 délimiteurs qui tient l'hypothèse. Ce théorème dit ce qui casse dans l'autre sens.] La preuve
 suppose les deux contextes disjoints, ce que $`\Gamma_1 \otimes \Gamma_2` écrit mais ne garantit pas
@@ -96,7 +96,7 @@ dans _C_. S'il tombe — si la déclaration d'indépendance entre modes n'était
 faudrait un mécanisme d'exécution pour interdire la mutation concurrente, c'est-à-dire ce que le
 postulat d'autonomie physique refuse.
 
-::::thm (label := "thm:introduction_unique") (status := "proposition")
+::::proposition (label := "thm:introduction_unique") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "memory-safety")
 :::title
 loi unique d'introduction des ressources d'écriture
 :::
@@ -122,8 +122,8 @@ disjoints exactement lorsque $`b < c` ou $`d < a`, formule de l'arithmétique li
 décharge ; des cellules d'indices distincts étant des régions distinctes, deux capacités de
 $`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) se lit sur la règle {sc}[Slice] (§{num "sec:g-regles"}[]) : une capacité sur un segment ne naît que de l'élimination de l'arène, linéaire en l'arène, ou de la découpe d'une capacité détenue, qui la consomme ; par induction sur la dérivation, deux capacités sur un même segment en contexte clos exigeraient deux consommations de la même ressource linéaire, impossible sans diagonale. Reste à écrire l'élimination de l'arène, exception déclarée du jeu de règles : (H1) en dépend.
 :::
-::::
 
+::::
 Ce que les arènes viennent de faire pour l'acteur, la mémoire physique le fait sur sept niveaux, et
 c'est ici qu'il faut le dire puisque la section précédente vient d'en poser le cas principal. Cette
 hiérarchie instancie l'exigence d'effacement que le chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[])

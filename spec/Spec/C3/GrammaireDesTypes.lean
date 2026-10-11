@@ -120,7 +120,7 @@ Cette forme rend explicite la décision du noyau : le parallélisme appartient �
 et non à une nouvelle composante du grade. Le budget reste une annotation de contexte ; sa relation
 avec les deux composantes temporelles est traitée séparément par $`Cost_{\mathcal B}`.
 
-::::thm (label := "thm:temps_mononiveau")
+::::lemma (label := "thm:temps_mononiveau") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "effects")
 :::title
 le cas mononiveau redonne la forme plate
 :::
@@ -142,9 +142,8 @@ définis point par point, ainsi que la multiplication scalaire de $`\varphi_n`.
 Elle est donc un isomorphisme de quantales ordonnées sur ce sous-ensemble, lequel est clos par
 produit et par borne supérieure puisque la concentration en $`\ell` l'est.
 :::
+:
 ::::
-
-
 La lecture qu'il faut en faire est celle que le chapitre 1 a déjà pratiquée sur les contextes. Une
 zone non restreinte n'était pas une seconde zone mais la partie de grade $`\omega` de la première ;
 un compteur de pas nu n'est pas une seconde notion mais la famille concentrée en un niveau. Là où le

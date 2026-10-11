@@ -271,7 +271,7 @@ Le second est que la preuve procède par coinduction sur le dépliage plutôt qu
 structure, un graphe se laissant mieux traiter comme structure coinductive dès le départ, les
 algorithmes de graphes n'étant pas structurellement récursifs dans leurs présentations usuelles {cite "kidneyFormalisingGraphAlgorithms2025"}[].
 
-::::thm (label := "thm:deadlock_acyclique")
+::::theorem (label := "thm:deadlock_acyclique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "concurrency")
 :::title
 absence de deadlock par acyclicité du graphe de sessions
 :::
@@ -305,8 +305,8 @@ sur une boîte, et la boîte y est une liaison du contexte ; l'arête d'attente
 dépendance par construction du typage, et non par une hypothèse à honorer. Ce qui était la prémisse
 manquante de cet énoncé est devenu une lecture de ses règles.
 :::
-::::
 
+::::
 Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. {rmq}[Le câblage est
 donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet
 coinductif par induction.] Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné
@@ -347,7 +347,7 @@ Ces singularités se propagent algébriquement à travers les opérations vector
 introduire de branchement ; si $`\bot` atteint la sortie d'une fonction, le résultat est simplement
 l'absence de donnée — un échec prouvé plutôt que silencieux.
 
-::::thm (label := "thm:homomorphisme_roues") (status := "proposition") (level := "representation")
+::::proposition (label := "thm:homomorphisme_roues") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "representation")
 :::title
 représentation des singularités de la théorie des roues
 :::
@@ -358,10 +358,7 @@ Encodage des singularités et masquage vectoriel
 Soit $`i : \text{Wheel} \to \text{Float64}` l'encodage qui associe à chacune des quatre
 singularités ($`\bot, \infty, \circ, \delta`) un motif de bits déterministe dans la charge utile
 d'un NaN silencieux IEEE 754. Alors (i) $`i` est injective sur ces quatre singularités ; (ii)
-$`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement ; (iii) l'arithmétique de
-couche 3 sur les valeurs encodées est _spécifiée par K7PL_, par la table de propagation des
-singularités, et non déléguée à IEEE 754. La réalisation de (iii) est une exigence, vérifiée par
-test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
+$`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement.
 :::
 
 :::proofsketch
@@ -370,6 +367,22 @@ singularité de façon déterministe, d'où l'injectivité (i). L'égalité de c
 à bit plutôt que l'égalité IEEE 754 standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
 en masquage vectoriel sans branchement ; la nature binaire du masque garantit que la charge utile de
 la branche inactive est annihilée plutôt que corrompue, d'où (ii).
+:::
+::::
+
+::::requirement (label := "req:homomorphisme_roues_realisation") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "representation")
+:::title
+réalisation de l’arithmétique des roues
+:::
+
+:::statement +titled
+Réalisation de l’arithmétique de couche 3
+
+L'arithmétique de
+couche 3 sur les valeurs encodées est _spécifiée par K7PL_, par la table de propagation des
+singularités, et non déléguée à IEEE 754. La réalisation de (iii) est une exigence, vérifiée par
+test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
+:::
 
 Ce que l'énoncé _ne dit pas_ : l'encodage n'est pas un homomorphisme de la théorie des roues vers
 les flottants. En roues $`x/0 = \bot`, donc $`1/0 = \bot`, tandis qu'en IEEE 754 $`1/0 = +\infty` ;
@@ -378,10 +391,8 @@ non exigée, les opérations invalides produisant le NaN par défaut. Les lois d
 par exemple $`\bot + y = \bot`, ne tiennent donc sur les valeurs encodées que parce que la table de
 propagation de (iii) les impose : c'est K7PL qui les spécifie, aucun effet ne dépendant de la
 machine.
-:::
 ::::
-
-::::thm (label := "thm:representation_inobservable") (status := "exigence") (level := "representation")
+::::requirement (label := "thm:representation_inobservable") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "representation")
 :::title
 aucune liberté de représentation n'est observable
 :::
@@ -397,8 +408,8 @@ pas être discernables par l'observation. Cette exigence porte sur l'invariance 
 d'une même valeur ; elle ne formule pas une injectivité de l'application des valeurs sémantiques
 vers leurs observations.
 :::
-::::
 
+::::
 Exigence vérifiée par test différentiel, non démontrée. Elle absorbe cinq dispositions : l'élision est bornée par
 une version de schéma, la purge par la rotation du journal, le bourrage par la règle d'abaissement,
 le NaN par la proposition {num "thm:homomorphisme_roues"}[], l'ordre des segments par la

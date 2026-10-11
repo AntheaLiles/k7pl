@@ -106,6 +106,8 @@ def statements() -> list[dict]:
                       "not-applicable" if kind not in {"result", "assumption"} else "under-review")))
             rows.append({
                 "numero": counter, "label": a.get("label", ""),
+                "path": (Path("spec") / mod.path.relative_to(SPEC)).as_posix(),
+                "line": mod.text.count("\n", 0, m.start()) + 1,
                 "statut": a.get("status", "theoreme") if legacy else (role or kind),
                 "niveau": a.get("level", "langage"),
                 "titre": " ".join(title.group(1).split()) if title else "",
@@ -115,6 +117,7 @@ def statements() -> list[dict]:
                 "evidence": a.get("evidence", "proofsketch" if legacy and kind == "result" else "none"),
                 "scope": a.get("scope", "legacy-unspecified" if legacy else ""),
                 "source": a.get("source", ""), "formalArtifact": a.get("formalArtifact", ""),
+                "dependencies": sorted(set(re.findall(r'\{num\s+"((?:thm|req|def|lit|ex|cex):[^"]+)"\}', block))),
                 "legacy": legacy,
             })
     cited = Counter()
@@ -171,8 +174,8 @@ def summary() -> dict:
         "enonces": len(st),
         "enonces_par_statut": dict(by_status),
         "enonces_par_niveau": dict(by_level),
-        "enonces_ouverts": sum(by_status[s] for s in ("proposition", "conjecture", "exigence")),
-        "enonces_sans_esquisse": [r["label"] for r in st if not r["esquisse"] and r["statut"] not in ("exigence", "definition")],
+        "enonces_ouverts": sum(r["state"] in ("proposed", "under-review", "supported") for r in st),
+        "enonces_sans_esquisse": [r["label"] for r in st if r["kind"] == "result" and not r["esquisse"]],
         **dict(count),
         "cles_citees": len(keys),
         "labels": len(labels),
@@ -217,10 +220,10 @@ def md_summary() -> str:
 
 def md_statements() -> str:
     rows = statements()
-    out = ["| No. | Label | Status | Level | Title | Section | References |", "|---:|---|---|---|---|---|---:|"]
+    out = ["| No. | Label | Kind | Role | Epistemic state | Evidence | Scope | Level | Title | Section | References |", "|---:|---|---|---|---|---|---|---|---|---|---:|"]
     for r in rows:
         loc = f"§{r['section']}" if r["section"] else r["module"]
-        out.append(f"| {r['numero']} | `{r['label']}` | {STATUS_LABELS.get(r['statut'], r['statut'])} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | {r['titre']} | {loc} | {r['renvois']} |")
+        out.append(f"| {r['numero']} | `{r['label']}` | {r['kind']} | {r['role'] or '—'} | {r['state']} | {r['evidence']} | {r['scope']} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | {r['titre']} | {loc} | {r['renvois']} |")
     return "\n".join(out)
 
 

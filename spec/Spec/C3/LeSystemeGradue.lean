@@ -127,7 +127,7 @@ M_{\mathrm{Rel}} &= (\mathcal{R},\mathcal{R},\mathrm{false}), &
 M_{\mathrm{Unr}} &= (\mathcal{R},\mathcal{R},\mathrm{true}).
 \end{aligned}`
 
-::::thm (label := "thm:morphismes_modes") (status := "proposition")
+::::proposition (label := "thm:morphismes_modes") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 ordre structurel des modes
 :::
@@ -158,8 +158,8 @@ Cette proposition est conditionnelle à la réalisation candidate. Il reste à v
 règles de typage de K7PL et leur jugement mettent effectivement en œuvre ces permissions. Elle
 ne permet donc pas de déduire directement le sous-typage des intervalles d'usage.
 :::
-::::
 
+::::
 Le statut précis de la chaîne Lin–Aff–Unr est ainsi double : c'est une chaîne de modes structurels
 sous l'instanciation candidate, et une chaîne d'inclusions des strates syntaxiques. Ces deux lectures
 coïncident sur l'ordre de souplesse, mais elles ne sont pas le même objet mathématique. Le quatrième
@@ -518,7 +518,7 @@ ouverts d'un langage sans types déclarés, qu'un système de restrictions doit 
 rien n'est refusé qui ne soit refusé par lui {cite "reynoldsGEDANKENSimpleTypeless1970"}[] ; ce qui
 suit en est la version graduée.
 
-::::thm (label := "thm:completude_graduee") (status := "proposition")
+::::proposition (label := "thm:completude_graduee") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 complétude graduée
 :::
@@ -550,9 +550,9 @@ Tant qu'elle lui reste extérieure, ses trois franchissements constituent des re
 exprimées, et le théorème est faux. La ranger du côté de l'intégrité, comme le fait cette section,
 est donc la condition de l'énoncé et non un aménagement de présentation.
 :::
-::::
 
-::::thm (label := "thm:completude_verificateur") (status := "exigence") (level := "compilation")
+::::
+::::requirement (label := "thm:completude_verificateur") (level := "compilation") (state := "not-applicable") (evidence := "none") (scope := "graded-typing")
 :::title
 le vérificateur n'émet que des codes de la correspondance
 :::
@@ -564,8 +564,8 @@ Le vérificateur n'émet aucun code d'erreur hors de la correspondance entre cod
 manquantes. Route : mesure — chaque code émis par l'implémentation est comparé à la table — ou
 démonstration, si le vérificateur est dérivé des règles.
 :::
-::::
 
+::::
 Ce théorème est ce qui donne son statut à `ERR-TOP-001` (chapitre~5,
 §{num "sec:c5-s-expressions-universelles"}[]) : le refus d'une imbrication de délimiteurs n'est pas
 une règle de plus, c'est le nom d'un échec de dérivation. Le chapitre 5 l'affirme déjà — la
