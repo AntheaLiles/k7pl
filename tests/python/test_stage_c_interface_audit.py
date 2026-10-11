@@ -52,7 +52,7 @@ def test_subtyping_direction_is_read_from_the_source_equation():
     assert r"u \geq u' \;\land\; m \succeq m' \;\land\; \ell \leq \ell'" in source
     assert r"\beta \leq \beta'" in source
     audit = AUDIT.read_text(encoding="utf-8")
-    assert r"r\preccurlyeq r'\Rightarrow\pi_U(r)\ge\pi_U(r')" in audit
+    assert "π_U(r)≥π_U(r′)" in audit
 
 
 def test_mode_triples_and_proposition_are_not_silently_promoted():
