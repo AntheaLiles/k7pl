@@ -141,6 +141,8 @@ Il ne faut donc pas transformer cette recherche en alternative éditoriale entre
 
 **État :** DÉCISION ARRÊTÉE ; SÉDIMENTATION ET PREUVES À CONDUIRE.
 
+**Clarification nécessaire pour la reprise C.** L'« option A » de cette section désigne le choix architectural de conserver la structure temporelle supplémentaire ; elle ne doit pas être confondue avec la « lecture A » de la séance 55 sur la consommation immédiate du budget. Sur ce second point, les séances 59–62 consignent une interface distincte : When rend la famille de coût non bornée, tandis que ψ/Adm/Consume appliquent l'admissibilité lors du franchissement de contexte. La preuve de correction de ressource et la ratification de cette lecture normative de P3 restent à faire ; le compte rendu ne suffit pas à les déclarer closes.
+
 ## 4. T-68 — minimalité des 44 primitives
 
 T-68 constitue désormais un chantier scientifique autonome et bloquant pour l'étape d'implémentation/mécanisation.
@@ -224,9 +226,9 @@ Les annexes doivent donc être retirées du corpus normatif, avec conservation d
 
 | Point | Décision | Prochaine preuve/action | Bloquant |
 |---|---|---|---|
-| ARB-PR-04 | Reproductibilité paramétrée par `Π`, pas de rejeu bit-à-bit général | Formaliser `Π), `E_repro`, puis assurer la traçabilité | Non |
+| ARB-PR-04 | Reproductibilité paramétrée par `Π`, pas de rejeu bit-à-bit général | Formaliser `Π` et `E_repro`, puis assurer la traçabilité | Non |
 | Imports | Modes + types gradués = NORMATIF ; Calf/Decalf = DÉPENDANCE FORMELLE ; récursion gardée multi-horloges = qualification par couche | Construire les chaînes de cohérence et la sédimentation | Oui pour la clôture théorique |
-| `when` | Option A retenue | Sédimenter la structure supplémentaire et établir les invariants | Oui pour la formalisation temporelle |
+| `when` | Structure temporelle supplémentaire retenue ; distincte de la lecture budgétaire A/B de la séance 55 | Sédimenter par couche et prouver le contrat When → effet non borné → ψ/Adm/Consume ; ratifier P3 si nécessaire | Oui pour la formalisation temporelle et la clôture C |
 | T-68 | Audit autonome de minimalité des 44 primitives | Primitive → obligation → règle → propriété → preuve | **Oui : implémentation/mécanisation** |
 | Annexes B/C/D | Sortie de la spécification ; branche outillage séparée ; pas stdlib par défaut | Extraire les renvois et créer la frontière d'outillage | Oui pour la cohérence normative |
 
