@@ -130,7 +130,7 @@ object → signature → normative role → dependencies → invoked property �
 
 ### C2 — Modes and grades
 
-The current stabilized boundary is:
+The design boundary recorded in sessions 59–62 is:
 
 - 𝓡 carries the usage component;
 - 𝒢 carries the complete grade;
@@ -138,6 +138,8 @@ The current stabilized boundary is:
 - Consume and ⊖ concern budget consumption;
 - φₙ concerns effective repetition multiplicity;
 - Cost_Budget is the scalar interface for temporal cost.
+
+**Normative-source discrepancy still blocks C.** C2 in the current Verso source still labels π_U and Scale_Usage as architectural candidates, while the session record treats them as the intended interface. The same source writes Cost_Budget with a partial-function arrow, then gives max(W,D) without a domain restriction. Sessions do not silently promote a candidate to normative status or resolve that total/partial signature conflict. Record the author’s decision and align the source only after that decision; until then the exit gate remains open.
 
 The following identifications remain forbidden unless proved:
 
