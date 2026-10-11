@@ -278,7 +278,18 @@ Cette matrice consolide les audits de source existants et les séances 59–62 ;
 
 **Définitions consignées en séance 60 :** si κ(ℓ)=⟨w_ℓ,s_ℓ⟩, W(κ)=sup {Σ_{ℓ∈F} w_ℓ | F ⊆ ℒ, F fini} et D(κ)=sup_{ℓ∈ℒ}s_ℓ dans ℕ∞. Sous budget scalaire et P3 interprété comme borne commune sur travail et profondeur, Cost_Budget(κ)=max(W(κ),D(κ)) est la plus petite borne scalaire dominante. Attention : le symbole ⇀ de la signature encore présente dans C2 suggère un domaine partiel ; il n'est pas cohérent de traiter simultanément la fonction comme totale sans préciser si la partialité appartient à l'interface normative ou est une trace historique.
 
-**Hypothèses et cas manquants :** prouver la monotonie ponctuelle, W(0)=D(0)=0, l'additivité du travail sous séquencement et parallélisme, la sous-additivité de profondeur sous séquencement, le maximum de profondeur sous parallélisme et la sous-additivité correspondante de Cost_Budget. Vérifier supremums pour L infini, famille nulle, valeurs ω et opérations réellement produites par chaque règle. Le compte rendu qui donne la définition n'est pas l'évidence d'une preuve complète.
+**Résultats algébriques démontrables sur papier sous contrat explicite.** Supposons ℕ∞ muni de son ordre complet et de l'addition étendue monotone préservant les supremums, l'ordre des familles ponctuel, la composition séquentielle κ₁·κ₂ définie par les sommes point par point, et la composition parallèle κ₁∥κ₂ définie par addition du travail et maximum de profondeur. Alors :
+
+1. Si κ₁≤κ₂ ponctuellement, chaque somme finie de travail pour κ₁ est inférieure ou égale à celle de κ₂, donc W(κ₁)≤W(κ₂) ; la monotonie du supremum ponctuel donne D(κ₁)≤D(κ₂), puis Cost_Budget(κ₁)≤Cost_Budget(κ₂).
+2. Pour la famille nulle, toutes les sommes finies de travail valent zéro et chaque profondeur vaut zéro ; W(0)=D(0)=Cost_Budget(0)=0, à condition que le supremum d'une famille de zéros soit bien défini à zéro.
+3. Pour le séquencement, la somme de deux travaux sur un sous-ensemble fini se sépare en deux sommes. Pour obtenir l'égalité du supremum, toute paire de sous-ensembles finis est majorée par leur union finie ; la préservation des supremums par l'addition donne W(κ₁·κ₂)=W(κ₁)+W(κ₂). Pour chaque niveau ℓ, s₁ℓ+s₂ℓ≤sup_j s₁j+sup_j s₂j ; en prenant le supremum, D(κ₁·κ₂)≤D(κ₁)+D(κ₂).
+4. Pour le parallèle, le travail est point par point additif et le même argument donne W(κ₁∥κ₂)=W(κ₁)+W(κ₂). Comme sup_ℓ max(s₁ℓ,s₂ℓ)=max(sup_ℓ s₁ℓ,sup_ℓ s₂ℓ), on a D(κ₁∥κ₂)=max(D(κ₁),D(κ₂)).
+5. Pour chacun des deux opérateurs, les inégalités précédentes et l'algèbre de max donnent Cost_Budget(κ₁ op κ₂)≤Cost_Budget(κ₁)+Cost_Budget(κ₂). Enfin, si une scalarisation C domine à la fois W et D, alors max(W,D)≤C ; la minimalité annoncée est donc immédiate.
+6. Pour κω(ℓ)=⟨ω,ω⟩, W(κω)=D(κω)=ω à condition que ℒ soit non vide (ou que la définition de supremum retenue fournisse une convention équivalente). Cette hypothèse doit être explicite avant d'invoquer le résultat dans When.
+
+**Portée exacte de cette décharge conditionnelle :** il s'agit d'une démonstration mathématique sur papier des lois agrégées, sous le contrat ci-dessus ; ce n'est ni une preuve Lean ni la preuve que le manuscrit normatif fournit déjà ces signatures et ces opérations. Reste à vérifier que l'effet normatif utilise exactement ces compositions, que ℕ∞ a les propriétés de complétude/addition invoquées, et que le domaine de κ est celui-ci.
+
+**Divergence de signature qui bloque encore la clôture :** C2 écrit Cost_Budget comme fonction partielle, alors que max(W,D) définit une valeur pour toute famille κ de ce type. L'autrice doit confirmer si la partialité est intentionnelle et préciser son domaine, ou si la signature est totale sous le contrat scalaire/P3. Il ne faut pas modifier cette flèche sans cette décision.
 
 **Dépendances :** ordre et supremums de ℕ∞, définition normative de κ, Adm/Consume et contrat de ψ.
 
