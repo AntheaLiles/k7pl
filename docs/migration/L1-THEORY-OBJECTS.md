@@ -290,7 +290,7 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Dépendances :** règles temporelles du chapitre 3, composition des contextes, P3, C-05 et C-06.
 
-**Critère de clôture :** aucune traversée de contexte non admissible n'est typable ; le coût n'est jamais masqué ; tous les cas limites sont couverts par la preuve de correction de ressource.
+**Critère de clôture :** aucune traversée de contexte non admissible n'est typable ; le coût n'est jamais masqué ; tous les cas limites sont couverts par la preuve de correction de ressource ; pour chaque couche concernée, la validation à la compilation est reliée par une preuve de correction aux bornes observables à l'exécution, les garde-fous sont caractérisés séparément, et la composition inter-couches préserve les bornes sous des hypothèses explicites. Cette obligation est conditionnelle au contrat par couche et ne prouve ni que l'événement `When` surviendra, ni que l'orchestrateur fournit l'équité ou une garantie de déclenchement eventuale.
 
 ### C-05 — Agrégateurs W/D et scalarisation
 
