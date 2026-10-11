@@ -282,15 +282,15 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Classe :** obligation sémantique, correction de ressource et ratification normative.
 
-**Audit C-04 non normatif (2026-10-11) :** [contrat de When, ψ et consommation budgétaire](L1-C04-WHEN-RESOURCE-CONTRACT-2026-10-11.md). Ce dossier explicite les écarts et les choix à ratifier ; il ne clôt pas C-04 et n’autorise aucune modification normative.
+**Audit C-04 non normatif (2026-10-11) :** [contrat de When, ψ et consommation budgétaire](L1-C04-WHEN-RESOURCE-CONTRACT-2026-10-11.md). P3-B a été ratifiée par l’autrice le 11 octobre 2026 ; le dossier décrit les conséquences à formaliser et les choix d’interface encore ouverts. Il ne clôt pas C-04 et n’autorise pas une réécriture normative spéculative.
 
 **Contrat de conception :** When produit κω(ℓ)=⟨ω,ω⟩. W et D agrègent la famille κ ; Cost_Budget=max(W,D). Adm(β,κ) accepte β=ω ou Cost_Budget(κ)≤β. Consume soustrait Cost_Budget à β seulement si Adm est vraie. ψ s'applique quand un effet traverse le contexte dans Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂,ε).
 
-**Hypothèses et cas manquants :** définir l'interface et le domaine partiel exacts de ψ, les conditions de partage des liaisons de contexte et la coordonnée de budget modifiée. Prouver règle par règle que le coût temporel de l'effet est bien le coût de l'opération composée ; traiter When en contexte local, passage de When par budget infini, passage par budget fini, coût nul et coûts finis aux frontières. Vérifier la soustraction tronquée, notamment ω⊖ω=ω, β fini et coût ω. La lecture P3 adoptée par les séances doit être ratifiée si elle n'est pas déjà confirmée comme décision d'autrice : l'alternative « attente externe hors budget » exige de distinguer latence et coût d'exécution au lieu de conserver implicitement le même Cost_Budget.
+**Hypothèses et cas manquants :** définir l'interface et le domaine partiel exacts de ψ, les conditions de partage des liaisons de contexte et la coordonnée de budget modifiée. Prouver règle par règle que le coût temporel de l'effet est bien le coût de l'opération composée ; traiter When en contexte local, passage de When par budget infini, passage par budget fini, coût nul et coûts finis aux frontières. Vérifier la soustraction tronquée, notamment ω⊖ω=ω, β fini et coût ω. P3-B a été ratifiée par l'autrice le 11 octobre 2026 : l'attente environnementale relève de la latence de l'orchestrateur, non du coût d'exécution de l'automate déclenché. L'autrice retient également l'option C comme orientation de travail : validation des budgets à la compilation, obligation pour l'automate de respecter les bornes budgétées et garde-fous modulés selon la couche K7PL. Restent ouverts la définition par couche des bornes, la portée exacte des contrôles statiques et des garde-fous, ainsi que le théorème reliant acceptation statique et exécution. Il reste à représenter formellement la latence et le coût d'exécution, et à choisir le domaine de Cost_Budget ; aucune signature ne doit être modifiée avant que ces interfaces et leurs hypothèses soient explicites.
 
 **Dépendances :** règles temporelles du chapitre 3, composition des contextes, P3, C-05 et C-06.
 
-**Critère de clôture :** aucune traversée de contexte non admissible n'est typable ; le coût n'est jamais masqué ; tous les cas limites sont couverts par la preuve de correction de ressource.
+**Critère de clôture :** aucune traversée de contexte non admissible n'est typable ; le coût n'est jamais masqué ; tous les cas limites sont couverts par la preuve de correction de ressource ; pour chaque couche concernée, la validation à la compilation est reliée par une preuve de correction aux bornes observables à l'exécution, les garde-fous sont caractérisés séparément, et la composition inter-couches préserve les bornes sous des hypothèses explicites. Cette obligation est conditionnelle au contrat par couche et ne prouve ni que l'événement `When` surviendra, ni que l'orchestrateur fournit l'équité ou une garantie de déclenchement à échéance finie.
 
 ### C-05 — Agrégateurs W/D et scalarisation
 
@@ -371,9 +371,9 @@ P1a (cadre catégorique annoncé par C) reste distinct de P1b (interprétation �
 
 **Audit de provenance (11 octobre 2026) :** voir [C-09 — Audit de provenance et d'instanciation des dépendances externes](L1-C09-EXTERNAL-DEPENDENCIES-AUDIT-2026-10-11.md). Cet audit reste documentaire : les instanciations manquantes et décisions d'auteur qu'il recense maintiennent C-09 ouvert.
 
-## 12. Décisions humaines à préserver comme ouvertes
+## 12. Décisions humaines et sous-choix à préserver comme ouverts
 
-1. **Portée normative de P3/When :** confirmer que la politique voulue fait porter la consommation de ressource par le franchissement via ψ et l'admissibilité différée. L'alternative « attente externe hors budget » exige une distinction explicite entre latence et coût d'exécution ; l'alternative « interdire When au point d'introduction si le budget est fini » modifierait la règle locale. Aucune option ne doit être appliquée implicitement.
+1. **P3 / When — P3-B ratifiée le 11 octobre 2026.** L'attente environnementale est une latence de surveillance prise en charge par l'orchestrateur ; elle ne fait pas partie du coût d'exécution de l'automate déclenché. L'orchestrateur agrège les surveillances pertinentes et lance les automates ad hoc à la survenue des événements. **Restent à formaliser, sans nouvelle ratification du principe P3-B :** représentation distincte de la latence, sémantique de l'agrégation et du déclenchement, frontière des budgets, contrat typé de `ψ`/`Adm`/`Consume`, et preuve qu'aucun coût d'exécution n'est masqué. Cette décision ne ferme pas C-04.
 2. **H1 et thm:introduction_unique :** choisir entre preuve indépendante via l'élimination de l'arène et acceptation explicite de H1 comme hypothèse avec réduction de portée. Les conséquences théoriques diffèrent.
 3. **Morphismes des modes :** si les triplets candidats ne satisfont pas le contrat, apporter les contre-exemples et la conséquence sur les règles avant de choisir restriction, modification normative ou obligation ouverte.
 

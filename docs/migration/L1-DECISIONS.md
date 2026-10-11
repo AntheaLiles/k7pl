@@ -141,7 +141,7 @@ Il ne faut donc pas transformer cette recherche en alternative éditoriale entre
 
 **État :** DÉCISION ARRÊTÉE ; SÉDIMENTATION ET PREUVES À CONDUIRE.
 
-**Clarification nécessaire pour la reprise C.** L'« option A » de cette section désigne le choix architectural de conserver la structure temporelle supplémentaire ; elle ne doit pas être confondue avec la « lecture A » de la séance 55 sur la consommation immédiate du budget. Sur ce second point, les séances 59–62 consignent une interface distincte : When rend la famille de coût non bornée, tandis que ψ/Adm/Consume appliquent l'admissibilité lors du franchissement de contexte. La preuve de correction de ressource et la ratification de cette lecture normative de P3 restent à faire ; le compte rendu ne suffit pas à les déclarer closes.
+**Clarification et décisions d'autrice du 11 octobre 2026.** L'« option A » de cette section désigne le choix architectural de conserver la structure temporelle supplémentaire ; elle ne doit pas être confondue avec la « lecture A » de la séance 55 sur le budget. P3-B est ratifiée : `When` est un déclencheur réactif ; l'attente d'un événement relève de l'orchestrateur et non du coût d'exécution de l'automate déclenché. Séparément, l'option C est retenue comme orientation de conception pour les budgets : validation à la compilation, exécution tenue dans les bornes budgétées, garde-fous dont le rôle varie selon la couche. Ces choix ne fixent pas encore la représentation mathématique de la latence, les signatures de `ψ`/`Adm`/`Consume`, les contrats par couche ou la preuve reliant le contrôle statique à l'exécution. La preuve de correction de ressource, la formalisation de l'orchestration et la résolution du domaine de `Cost_Budget` restent ouvertes ; la porte C n'est pas close.
 
 ## 4. T-68 — minimalité des 44 primitives
 
@@ -219,7 +219,7 @@ La qualification doit séparer : (1) les propriétés déjà décrites dans le c
 |---|---|---|---|
 | ARB-PR-04 | Reproductibilité paramétrée par `Π`, pas de rejeu bit-à-bit général | Formaliser `Π` et `E_repro`, puis assurer la traçabilité | Non |
 | Imports | Modes + types gradués = NORMATIF ; Calf/Decalf = DÉPENDANCE FORMELLE ; récursion gardée multi-horloges = qualification par couche | Construire les chaînes de cohérence et la sédimentation | Oui pour la clôture théorique |
-| `when` | Structure temporelle supplémentaire retenue ; distincte de la lecture budgétaire A/B de la séance 55 | Sédimenter par couche et prouver le contrat When → effet non borné → ψ/Adm/Consume ; ratifier P3 si nécessaire | Oui pour la formalisation temporelle et la clôture C |
+| `when` | Structure temporelle supplémentaire retenue ; distincte de la lecture budgétaire de la séance 55 | P3-B ratifiée le 11 octobre 2026 : la latence environnementale relève de l'orchestrateur, pas du budget d'exécution de l'automate déclenché. Formaliser leur représentation distincte et prouver le contrat `When`/`ψ`/`Adm`/`Consume` ; clôture C toujours ouverte | Oui pour la formalisation temporelle et la clôture C |
 | T-68 | Audit autonome de minimalité des 44 primitives | Primitive → obligation → règle → propriété → preuve | **Oui : implémentation/mécanisation** |
 | Annexes B/C/D | Sortie de la spécification ; branche outillage séparée ; pas stdlib par défaut | Extraire les renvois et créer la frontière d'outillage | Oui pour la cohérence normative |
 
