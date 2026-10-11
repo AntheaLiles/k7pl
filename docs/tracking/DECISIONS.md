@@ -103,3 +103,10 @@ Avant toute implémentation, l'étude doit comparer Lean à des solutions plus s
 Décision de périmètre : les trois modes de référence de la sédimentation actuelle sont M_Lin (couche 1), M_Aff (couche 2) et M_Unr (couche 3). Leur sélection architecturale est retenue ; leurs lois, le contrat des morphismes et leur réalisation par les règles restent à normaliser et à prouver. Rel n'est pas activé dans la grammaire ni dans les règles génératrices actuelles. La piste est documentée dans [L1-REL-MODE-OPPORTUNITIES-2026-10-11.md](../migration/L1-REL-MODE-OPPORTUNITIES-2026-10-11.md).
 
 Distinction requise : U_Rel=[1..ω] est un intervalle d'usage, tandis que M_Rel=(𝓡,𝓡,false) est un triplet structurel candidat ; l'un ne définit pas l'autre. C2 décrit les branches M_Lin → M_Aff → M_Unr et M_Lin → M_Rel → M_Unr, avec Aff et Rel incomparables. Ce diamant candidat n'établit ni que les règles actuelles réalisent Rel ni que son activation soit requise. Cette décision de périmètre ne constitue pas une preuve et ne ferme pas C-02 ou la porte C.
+
+
+## D-17 — Totalité du coût budgétaire (11 octobre 2026)
+
+**Décision d’autrice :** `Cost_Budget : K → 𝔅` est totale sous les hypothèses et conventions explicites qui rendent `W`, `D` et `max` bien définis, avec `Cost_Budget(κ)=max(W(κ),D(κ))`. Cette ratification résout le choix total/partiel de la fonction de coût ; elle ne constitue pas une preuve de ses propriétés.
+
+La convention de supremum sur un domaine vide reste à préciser, en particulier pour `D(κ)=sup_{ℓ∈ℒ}s_ℓ` si `ℒ=∅` est autorisé. `Adm` reste un prédicat d’admissibilité ; `Consume` et `ψ` peuvent être partielles selon leurs propres domaines et préconditions. Restent ouvertes les preuves de définition correcte de `W`/`D`, de composition du coût, de cohérence avec la consommation d’un effet et de respect effectif des bornes à l’exécution. Voir la [note D3](../migration/L1-D3-COST-BUDGET-RATIFICATION-2026-10-11.md).
