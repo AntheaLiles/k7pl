@@ -153,11 +153,15 @@ The following identifications remain forbidden unless proved:
 
 Temporal constructs must be analysed by layer.
 
-For When, the current architectural resolution is:
+For `When`, the authorial P3 decision was ratified on 2026-10-11 as **P3-B**:
 
-- unbounded cost is exposed rather than hidden;
-- finite-budget compatibility is mediated by the effect crossing through ψ;
-- Adm remains distinct from ⊖.
+- `When` is a reactive event trigger, distinct from `case` condition filtering;
+- the orchestrator watches and aggregates known environmental events and launches ad hoc automata when their triggers occur;
+- environmental waiting latency, even if unbounded, is not charged to the execution budget of the triggered automaton;
+- latency must remain observable and be represented separately from the triggered automaton's execution cost;
+- the typed representation of that separation, its relation to `ε[ω/k]` and the C2 temporal carrier, and the exact `ψ`/`Adm`/`Consume` contract remain open proof/interface obligations.
+
+This ratification does not establish that the current normative `When` rule already implements P3-B. Do not rewrite `spec/` or Lean semantics until the relevant carriers, domains, and affected assertions are specified for a separate normative change.
 
 ### C4 — Operational semantics
 
