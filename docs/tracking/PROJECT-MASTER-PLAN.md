@@ -42,7 +42,7 @@ Therefore:
 | A — finalize #50 | DONE | #50 merged | repository entry-point/security baseline incorporated |
 | B — freeze CI/documentation baseline | DONE | #53 merged; current main baseline | execution baseline remains identifiable and reproducible |
 | C — theoretical objects | IN PROGRESS — PR #54 integrated; exit gate not met | [#54 merged 2026-10-08](https://github.com/AntheaLiles/k7pl/pull/54) is historical delivery evidence; current obligations live in the C registers | signatures/directions explicit; external dependencies separated; remaining proof, semantic, representation and authorial decisions bounded |
-| D — singularities | NOT STARTED in this sequence | BLOQ-12 / singularity work | singularity treatment resolved without hidden architectural change |
+| D — singularities | BLOCKED — C exit gate not met; no D semantic changes | BLOQ-12 / IMPL-07, after the C5 representation boundary is explicit | only reopen after C7 passes; then classify the object/interface, normative status, typing/semantics, invariants, proof obligations and exact formal correspondence; authorial alternatives remain unchosen |
 | E — ∥ | NOT STARTED | PR-02 continuation | parallel construct formally and semantically integrated |
 | F — spawn | NOT STARTED | PR-02 continuation | spawn semantics and typing integrated |
 | G — ratifications and T-68 | PARTIALLY PREPARED | DECISIONS.md / primitives.md | outstanding decisions ratified and T-68 closed |
@@ -185,6 +185,8 @@ The interface records from sessions 59–62 are design evidence, not a proof cer
 - complete the directional simulation obligation `Sim` from source reduction to target reduction, including traces, effects, time-channel threading, structural congruence and every reduction case;
 - resolve or explicitly retain as open the memory hypotheses H1/H2 (with H3 kept distinct), without a circular justification; keep abstract-memory claims separate from representation-profile `Π` claims;
 - classify every remaining item as mathematical proof, semantic obligation, external formal dependency, representation question or authorial decision. The exact hypotheses, missing cases, dependencies and closure evidence are registered in [L1-THEORY-OBJECTS.md](../migration/L1-THEORY-OBJECTS.md), with the memory dependency reviewed in [LEAN-DEPENDENCY-SEMANTIC-REVIEW.md](LEAN-DEPENDENCY-SEMANTIC-REVIEW.md).
+
+**D handoff dependency (BLOQ-12; tracking only).** The current Th. 18 reclassification is a proposition about representation, not a theorem that the singularity operations form a wheel homomorphism. Keep logical replay as a semantic property and bitwise identity as representation-profile conformance under `Π`; the proposition’s requirements (injective observation/representation, exact `select`, and K7PL-specified arithmetic) must not be silently strengthened. Until the C7 exit gate is satisfied, D may only carry this dependency forward: do not choose among the singularity-algebra alternatives, add a normative propagation table, or change `spec/`. Those alternatives affect observable error classes and operation laws and remain authorial decisions.
 
 ### C7 — C exit gate
 
