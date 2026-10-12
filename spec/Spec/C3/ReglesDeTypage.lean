@@ -31,7 +31,7 @@ coordonnées, et App ne projette ce grade que pour mettre le contexte d'argument
 
 namespace K7pl.Spec.C3.EffectiveKernel
 
-universe uVar uMono uLevel uEffect
+universe uVar uMono uLevel uEffect uLayer
 
 /-- Portée normative d'usage : rationnels non négatifs et usage non borné. -/
 abbrev Usage := WithTop ℚ≥0
@@ -121,8 +121,9 @@ abbrev UsageContext (Var : Type uVar) := Var → Usage
 
 /-- Effect-indexed observation of context composition; kept explicit to preserve
 the layer-specific meaning of the normative context operator. -/
-abbrev ContextComposition (Var : Type uVar) (Effect : Type uEffect) :=
-  Effect → UsageContext Var → UsageContext Var → UsageContext Var
+abbrev ContextComposition (Var : Type uVar) (Effect : Type uEffect)
+    (Layer : Type uLayer) :=
+  Layer → Effect → UsageContext Var → UsageContext Var → UsageContext Var
 
 def emptyTypeEnv {Var : Type uVar} : TypeEnv Var := fun _ => none
 
@@ -191,14 +192,15 @@ The effect carrier and composition operation are explicit parameters; no
 algebraic laws for effects are assumed by this inductive definition. -/
 inductive ComputationTyping {Var : Type uVar} [DecidableEq Var]
     {Effect : Type uEffect} {Monotonicity : Type uMono} {Level : Type uLevel}
-    (contextCombine : ContextComposition Var Effect)
+    {Layer : Type uLayer} (layer : Layer)
+    (contextCombine : ContextComposition Var Effect Layer)
     (effectOne : Effect) (effectMul : Effect → Effect → Effect)
     (env : TypeEnv Var) :
     UsageContext Var → Computation Var Monotonicity Level →
     ComputationType Effect Monotonicity Level → Effect → Prop where
   | ret {Γ value A}
       (typedValue : ValueTyping env Γ value A) :
-      ComputationTyping contextCombine effectOne effectMul env Γ (.ret value)
+      ComputationTyping layer contextCombine effectOne effectMul env Γ (.ret value)
         (.returned effectOne A) effectOne
   | lam {Γ x A r body C ε}
       (fresh : env x = none)
@@ -212,7 +214,7 @@ inductive ComputationTyping {Var : Type uVar} [DecidableEq Var]
         (.arrow r A C ε) ε₀)
       (typedArgument : ValueTyping env Δ argument A) :
       ComputationTyping contextCombine effectOne effectMul env
-        (contextCombine ε₀ Γ (scaleContext (piU r) Δ))
+        (contextCombine layer ε₀ Γ (scaleContext (piU r) Δ))
         (.app function argument) C (effectMul ε₀ ε)
   | let1 {Γ₁ Γ₂ x A first body C ε₁ ε₂}
       (fresh : env x = none)
@@ -222,7 +224,7 @@ inductive ComputationTyping {Var : Type uVar} [DecidableEq Var]
       (typedBody : ComputationTyping contextCombine effectOne effectMul
         (extendTypeEnv env x A) Γ₂ body C ε₂) :
       ComputationTyping contextCombine effectOne effectMul env
-        (contextCombine ε₁ Γ₁ (eraseContext x Γ₂))
+        (contextCombine layer ε₁ Γ₁ (eraseContext x Γ₂))
         (.let1 first x body) C (effectMul ε₁ ε₂)
 
 /-- A typed identity computation exists for every effect algebra and base type.
@@ -230,7 +232,8 @@ This exercises the actual Var, Ret and Lam constructors in the kernel. -/
 theorem identityComputationTypable
     {Var : Type uVar} [DecidableEq Var]
     {Effect : Type uEffect} {Monotonicity : Type uMono} {Level : Type uLevel}
-    (contextCombine : ContextComposition Var Effect)
+    {Layer : Type uLayer} (layer : Layer)
+    (contextCombine : ContextComposition Var Effect Layer)
     (effectOne : Effect) (effectMul : Effect → Effect → Effect)
     (x : Var) (A : ValueType) (m : Monotonicity) (ℓ : Level)
     (β : ℕ∞) :
@@ -252,8 +255,8 @@ theorem identityComputationTypable
       ComputationTyping contextCombine effectOne effectMul emptyTypeEnv
         (eraseContext x (singletonContext x)) (.lam x A r (.ret (.var x)))
         (.arrow r A (.returned effectOne A) effectOne) effectOne := by
-    exact ComputationTyping.lam (effectOne := effectOne) (effectMul := effectMul)
-      (env := emptyTypeEnv) (Γ := singletonContext x) (x := x) (A := A)
+    exact ComputationTyping.lam (layer := layer) (contextCombine := contextCombine)
+      (effectOne := effectOne) (effectMul := effectMul) (env := emptyTypeEnv) (Γ := singletonContext x) (x := x) (A := A)
       (r := r) (body := .ret (.var x)) (C := .returned effectOne A) (ε := effectOne)
       (by simp [emptyTypeEnv]) (by simp [singletonContext, r]) bodyTyping
   simpa [r, eraseContext_singleton] using lambdaTyping
@@ -280,7 +283,7 @@ Une première tranche du jeu de règles est désormais définie comme du Lean co
 Le contexte du noyau est explicitement l'observation d'usage `π_U`, tandis que le type de fonction conserve le grade complet
 (usage, coordonnée monotone, niveau, budget). La règle `App` projette le grade par `π_U(r)` pour mettre à l'échelle le contexte
 de l'argument, puis utilise une opération de composition contextuelle indexée par l'effet. Cette opération reste un paramètre explicite :
-son instanciation par `⊠` doit respecter les conventions propres à la couche et n'est pas supposée globalement additive.
+son instanciation par `⊠` est indexée par la couche et n'est pas supposée globalement additive.
 La règle `Let` utilise ce même opérateur avec l'effet traversé, au lieu de remplacer silencieusement `⊠` par une addition.
 Un théorème compilé construit la dérivation de `λx. return x` sous un grade arbitraire pour les trois coordonnées non liées à l'usage.
 
