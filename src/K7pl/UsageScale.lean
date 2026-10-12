@@ -27,9 +27,13 @@ abbrev Usage := WithTop ℚ≥0
 
 /-- The four-coordinate grade shape; only usage is scaled. -/
 structure Grade (U : Type u) (M : Type v) (L : Type w) where
+  /-- Usage scalar, scaled by the grade action. -/
   usage : U
+  /-- Monotonicity marker, distinct from structural mode. -/
   monotonicity : M
+  /-- Temporal or stratification level. -/
   level : L
+  /-- Declared budget bound. -/
   budget : ℕ∞
 
 /-- Scaling acts multiplicatively on usage alone. -/

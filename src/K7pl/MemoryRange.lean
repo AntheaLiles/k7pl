@@ -14,8 +14,11 @@ namespace K7pl.MemoryRange
 
 /-- A finite closed range of natural-number positions. -/
 structure Range where
+  /-- First position of the closed range. -/
   first : ℕ
+  /-- Last position of the closed range. -/
   last : ℕ
+  /-- The range is nonempty and consistently ordered. -/
   valid : first ≤ last
 
 /-- Two closed ranges are disjoint when one ends before the other begins. -/

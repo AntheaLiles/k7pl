@@ -20,7 +20,9 @@ universe u
 
 /-- A structural mode consists of contractible grades and a weakening permission. -/
 structure Mode (R : Type u) [Semiring R] where
+  /-- Ideal of grades that may be contracted in this mode. -/
   contractible : Ideal R
+  /-- Per-grade predicate deciding whether weakening is allowed. -/
   weakening : R → Prop
 
 /-- Strict linear mode: only the zero ideal is contractible; weakening is denied. -/
