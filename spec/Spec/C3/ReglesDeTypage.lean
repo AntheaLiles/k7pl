@@ -102,6 +102,8 @@ inductive Computation (Var : Type uVar) (Monotonicity : Type uMono) (Level : Typ
       Computation Var Monotonicity Level → Computation Var Monotonicity Level
   | app : Computation Var Monotonicity Level → Value Var →
       Computation Var Monotonicity Level
+  | let1 : Computation Var Monotonicity Level → Var →
+      Computation Var Monotonicity Level → Computation Var Monotonicity Level
   deriving DecidableEq, Repr
 
 /-- Computation types include effect-return and graded function types. -/
@@ -116,6 +118,11 @@ abbrev TypeEnv (Var : Type uVar) := Var → Option ValueType
 
 /-- The usage observation of a typing context: π_U at each binding. -/
 abbrev UsageContext (Var : Type uVar) := Var → Usage
+
+/-- Effect-indexed observation of context composition; kept explicit to preserve
+the layer-specific meaning of the normative context operator. -/
+abbrev ContextComposition (Var : Type uVar) (Effect : Type uEffect) :=
+  Effect → UsageContext Var → UsageContext Var → UsageContext Var
 
 def emptyTypeEnv {Var : Type uVar} : TypeEnv Var := fun _ => none
 
@@ -184,38 +191,50 @@ The effect carrier and composition operation are explicit parameters; no
 algebraic laws for effects are assumed by this inductive definition. -/
 inductive ComputationTyping {Var : Type uVar} [DecidableEq Var]
     {Effect : Type uEffect} {Monotonicity : Type uMono} {Level : Type uLevel}
+    (contextCombine : ContextComposition Var Effect)
     (effectOne : Effect) (effectMul : Effect → Effect → Effect)
     (env : TypeEnv Var) :
     UsageContext Var → Computation Var Monotonicity Level →
     ComputationType Effect Monotonicity Level → Effect → Prop where
   | ret {Γ value A}
       (typedValue : ValueTyping env Γ value A) :
-      ComputationTyping effectOne effectMul env Γ (.ret value)
+      ComputationTyping contextCombine effectOne effectMul env Γ (.ret value)
         (.returned effectOne A) effectOne
   | lam {Γ x A r body C ε}
       (fresh : env x = none)
       (boundUsage : Γ x = piU r)
-      (typedBody : ComputationTyping effectOne effectMul
+      (typedBody : ComputationTyping contextCombine effectOne effectMul
         (extendTypeEnv env x A) Γ body C ε) :
-      ComputationTyping effectOne effectMul env (eraseContext x Γ)
+      ComputationTyping contextCombine effectOne effectMul env (eraseContext x Γ)
         (.lam x A r body) (.arrow r A C ε) effectOne
   | app {Γ Δ function argument r A C ε₀ ε}
-      (typedFunction : ComputationTyping effectOne effectMul env Γ function
+      (typedFunction : ComputationTyping contextCombine effectOne effectMul env Γ function
         (.arrow r A C ε) ε₀)
       (typedArgument : ValueTyping env Δ argument A) :
-      ComputationTyping effectOne effectMul env
-        (addContext Γ (scaleContext (piU r) Δ))
+      ComputationTyping contextCombine effectOne effectMul env
+        (contextCombine ε₀ Γ (scaleContext (piU r) Δ))
         (.app function argument) C (effectMul ε₀ ε)
+  | let1 {Γ₁ Γ₂ x A first body C ε₁ ε₂}
+      (fresh : env x = none)
+      (typedFirst : ComputationTyping contextCombine effectOne effectMul env Γ₁ first
+        (.returned ε₁ A) ε₁)
+      (boundUsage : Γ₂ x = 1)
+      (typedBody : ComputationTyping contextCombine effectOne effectMul
+        (extendTypeEnv env x A) Γ₂ body C ε₂) :
+      ComputationTyping contextCombine effectOne effectMul env
+        (contextCombine ε₁ Γ₁ (eraseContext x Γ₂))
+        (.let1 first x body) C (effectMul ε₁ ε₂)
 
 /-- A typed identity computation exists for every effect algebra and base type.
 This exercises the actual Var, Ret and Lam constructors in the kernel. -/
 theorem identityComputationTypable
     {Var : Type uVar} [DecidableEq Var]
     {Effect : Type uEffect} {Monotonicity : Type uMono} {Level : Type uLevel}
+    (contextCombine : ContextComposition Var Effect)
     (effectOne : Effect) (effectMul : Effect → Effect → Effect)
     (x : Var) (A : ValueType) (m : Monotonicity) (ℓ : Level)
     (β : ℕ∞) :
-    ComputationTyping effectOne effectMul emptyTypeEnv zeroContext
+    ComputationTyping contextCombine effectOne effectMul emptyTypeEnv zeroContext
       (.lam x A ({ usage := 1, monotonicity := m, level := ℓ, budget := β })
         (.ret (.var x)))
       (.arrow ({ usage := 1, monotonicity := m, level := ℓ, budget := β })
@@ -223,14 +242,14 @@ theorem identityComputationTypable
   let r : Grade Monotonicity Level :=
     { usage := 1, monotonicity := m, level := ℓ, budget := β }
   have bodyTyping :
-      ComputationTyping effectOne effectMul (extendTypeEnv emptyTypeEnv x A)
+      ComputationTyping contextCombine effectOne effectMul (extendTypeEnv emptyTypeEnv x A)
         (singletonContext x) (.ret (.var x))
         (.returned effectOne A) effectOne := by
     apply ComputationTyping.ret
     apply ValueTyping.var
     simp [extendTypeEnv, emptyTypeEnv]
   have lambdaTyping :
-      ComputationTyping effectOne effectMul emptyTypeEnv
+      ComputationTyping contextCombine effectOne effectMul emptyTypeEnv
         (eraseContext x (singletonContext x)) (.lam x A r (.ret (.var x)))
         (.arrow r A (.returned effectOne A) effectOne) effectOne := by
     exact ComputationTyping.lam (effectOne := effectOne) (effectMul := effectMul)
@@ -256,16 +275,19 @@ rencontre. Ce qui suit n'est plus un inventaire mais un jeu. Chaque groupe a son
 compte qui a réduit ce qui paraissait un chantier ouvert à une liste bornée de décisions.
 
 Une première tranche du jeu de règles est désormais définie comme du Lean compilable dans cette même source Verso, sous le nom
-`K7pl.Spec.C3.EffectiveKernel`. Elle relie une grammaire interne à des jugements inductifs effectifs :
-`ValueTyping` porte `Var`, l'unité et `Pair` ; `ComputationTyping` porte `Ret`, `Lam` et `App`.
-Le contexte du noyau est explicitement la projection d'usage `π_U`, tandis que le type de fonction conserve le grade complet
-(usage, coordonnée monotone, niveau, budget). La règle `App` ne met à l'échelle que le contexte de l'argument, par `π_U(r)`.
+`K7pl.Spec.C3.EffectiveKernel`. Elle relie une grammaire interne à des jugements inductifs :
+`ValueTyping` porte `Var`, l'unité et `Pair` ; `ComputationTyping` porte `Ret`, `Lam`, `App` et `Let`.
+Le contexte du noyau est explicitement l'observation d'usage `π_U`, tandis que le type de fonction conserve le grade complet
+(usage, coordonnée monotone, niveau, budget). La règle `App` projette le grade par `π_U(r)` pour mettre à l'échelle le contexte
+de l'argument, puis utilise une opération de composition contextuelle indexée par l'effet. Cette opération reste un paramètre explicite :
+son instanciation par `⊠` doit respecter les conventions propres à la couche et n'est pas supposée globalement additive.
+La règle `Let` utilise ce même opérateur avec l'effet traversé, au lieu de remplacer silencieusement `⊠` par une addition.
 Un théorème compilé construit la dérivation de `λx. return x` sous un grade arbitraire pour les trois coordonnées non liées à l'usage.
 
-Cette tranche est un fragment exécutable, pas le jeu complet de C3. Le porteur et la composition des effets restent des paramètres explicites ;
-aucune loi d'effet n'est supposée. La composition complète `⊠`, `ψ`, la consommation de budget, les conversions, les règles restantes,
-la substitution générale et la simulation ne sont pas couverts par ce noyau. Ils restent des obligations de formalisation et de preuve,
-pas des conséquences de sa compilation.
+Cette tranche est un fragment du système C3, pas son jeu complet. Le porteur et la composition des effets restent des paramètres explicites ;
+aucune loi d'effet n'est supposée. La composition contextuelle complète `⊠`, la définition et le domaine de `ψ`, la consommation de budget,
+les conversions, les autres règles, la substitution générale et la simulation ne sont pas prouvés par ce noyau. Ils restent des obligations
+de formalisation et de preuve, pas des conséquences de sa compilation.
 
 Les règles _structurelles_ se réduisent à une seule, et c'est le premier gain de la gradation. Dans
 un système gradué, l'affaiblissement et la contraction ne sont pas des règles mais des conséquences
