@@ -41,7 +41,7 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
             '<meta name="k7pl-generated-ref" content="abc123"></head><body>'
             '<nav aria-label="Navigation du site"><a href="../index.html">Retour</a>'
             '<a href="figures.html">Figures</a><a href="semantic-graph.html">C6</a>'
-            '<a href="semantic-graph-c3.html">C3</a></nav>'
+            '<a href="semantic-graph-c3.html">C3</a></nav><noscript>La vue interactive nécessite JavaScript.</noscript>'
             '<label for="search">Recherche</label><input id="search" type="search">'
             '<label for="depth">Profondeur</label><select id="depth"></select><button id="reset-selection" type="button">Revenir au point de départ</button>'
             '<input type="checkbox" data-edge-kind="contains">'
