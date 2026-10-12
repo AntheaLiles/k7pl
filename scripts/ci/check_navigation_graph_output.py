@@ -141,7 +141,7 @@ def check(site_root: Path, expected_ref: str) -> list[str]:
         errors.append("interactive page must provide a direct link to the selected document object")
     if page_source.count('id="detail-level"') != 1 or page_source.count('id="object-detail"') != 1:
         errors.append("interactive page must provide progressive object-detail controls")
-    if 'class="graph-scroll"' not in page_source or "Défilement horizontal possible" not in page_source:
+    if 'class="graph-scroll"' not in page_source or "défilement horizontal possible" not in page_source:
         errors.append("interactive graph must remain horizontally navigable on narrow screens")
     if "<noscript>" not in page_source or "La vue interactive nécessite JavaScript" not in page_source:
         errors.append("interactive page must provide an explicit no-script fallback")
