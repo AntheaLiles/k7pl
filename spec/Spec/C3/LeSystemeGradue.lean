@@ -114,57 +114,28 @@ et $`U_{\mathrm{Aff}}` et $`U_{\mathrm{Rel}}` sont incomparables. Ces inclusions
 ensemblistes sur les annotations d'usage. Elles ne sont ni la relation de sous-typage
 $`\preccurlyeq`, ni l'ordre de précision $`\sqsubseteq`.
 
-Pour raisonner sur les permissions structurelles, la définition de Hanukaev et Eades doit être
-utilisée explicitement {cite "hanukaevUnificationGradedSubstructural2026"}[] : un mode est un triplet
-$`(R_m,\mathrm{Cont}(m),\mathrm{Weak}(m))`, où $`R_m` est une algèbre de grades,
-$`\mathrm{Cont}(m)` un idéal de grades contractables et $`\mathrm{Weak}(m)` un booléen.
-Sur le porteur commun $`\mathcal{R}` de K7PL, une réalisation structurelle candidate est
+Pour raisonner sur les permissions structurelles, la définition de Hanukaev et Eades doit être utilisée explicitement {cite "hanukaevUnificationGradedSubstructural2026"}[] : un mode est un triplet (Rₘ, Cont(m), Weak(m)), où Rₘ est une algèbre de grades, Cont(m) un idéal de grades contractables et Weak(m) le prédicat d'affaiblissement.
 
-$$`\begin{aligned}
-M_{\mathrm{Lin}} &= (\mathcal{R},\{0\},\mathrm{false}), &
-M_{\mathrm{Aff}} &= (\mathcal{R},\{0\},\mathrm{true}),\
-M_{\mathrm{Rel}} &= (\mathcal{R},\mathcal{R},\mathrm{false}), &
-M_{\mathrm{Unr}} &= (\mathcal{R},\mathcal{R},\mathrm{true}).
-\end{aligned}`
+Le périmètre normatif actuel retient les trois modes structurels de référence :
+`M_Lin = (𝓡, {0}, false)`, `M_Aff = (𝓡, {0}, true)`, `M_Unr = (𝓡, 𝓡, true)`.
+Le quadruplet `M_Rel = (𝓡, 𝓡, false)` reste une possibilité théorique documentée séparément, mais n'est pas un mode normatif de la grammaire courante. Cela n'efface pas `U_Rel = [1..ω]`, qui demeure un intervalle d'usage syntaxique et ne doit pas être confondu avec un mode structurel.
 
 ::::proposition (label := "thm:morphismes_modes") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
-ordre structurel des modes
+ordre structurel des trois modes de référence
 :::
 
 :::statement +titled
-Sous cette instanciation, les identités du porteur de grades réalisent les morphismes
-
-$$`M_{\mathrm{Lin}}\to M_{\mathrm{Aff}},\qquad
-M_{\mathrm{Lin}}\to M_{\mathrm{Rel}},\qquad
-M_{\mathrm{Aff}}\to M_{\mathrm{Unr}},\qquad
-M_{\mathrm{Rel}}\to M_{\mathrm{Unr}}.`
-
-Les comparaisons $`M_{\mathrm{Aff}}\to M_{\mathrm{Rel}}` et
-$`M_{\mathrm{Rel}}\to M_{\mathrm{Aff}}` ne sont pas des morphismes de modes.
+Sous les triplets ci-dessus, les identités du porteur de grades donnent les morphismes candidats `M_Lin → M_Aff`, `M_Aff → M_Unr` et `M_Lin → M_Unr`, sous réserve du contrat exact de morphisme. Aucune comparaison structurelle n'est affirmée pour `U_Rel`, qui n'est qu'un intervalle d'usage dans le périmètre courant.
 :::
 
 :::proofsketch
-Chaque identité conserve l'algèbre de grades et son ordre. Les inclusions requises pour
-$`\mathrm{Cont}` sont respectivement $`\{0\}\subseteq\{0\}`,
-$`\{0\}\subseteq\mathcal{R}`, $`\{0\}\subseteq\mathcal{R}` et
-$`\mathcal{R}\subseteq\mathcal{R}`. La condition d'affaiblissement autorise uniquement
-le passage de `false` à `true`, ce qui donne les quatre flèches indiquées.
-Dans le sens $`\mathrm{Aff}\to\mathrm{Rel}`, l'affaiblissement ne se préserve pas ; dans le
-sens $`\mathrm{Rel}\to\mathrm{Aff}`, les grades contractables de $`\mathcal{R}` ne sont pas
-envoyés dans $`\{0\}`. L'incomparabilité est donc structurelle.
-
-Cette proposition est conditionnelle à la réalisation candidate. Il reste à vérifier que les
-règles de typage de K7PL et leur jugement mettent effectivement en œuvre ces permissions. Elle
-ne permet donc pas de déduire directement le sous-typage des intervalles d'usage.
+Chaque identité conserve le porteur et son ordre. Le passage `Lin → Aff` introduit l'affaiblissement ; `Aff → Unr` étend les grades contractables de `{0}` à 𝓡 ; `Lin → Unr` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
 :::
 
 ::::
-Le statut précis de la chaîne Lin–Aff–Unr est ainsi double : c'est une chaîne de modes structurels
-sous l'instanciation candidate, et une chaîne d'inclusions des strates syntaxiques. Ces deux lectures
-coïncident sur l'ordre de souplesse, mais elles ne sont pas le même objet mathématique. Le quatrième
-cas Rel est comparable à Lin et Unr au niveau des modes, sans être comparable à Aff ; il reste
-absent des règles de production syntaxique actuelles de K7PL.
+La structure des intervalles d'usage ne doit donc pas être traitée comme une algèbre de modes. Les règles structurelles courantes fixent Lin, Aff et Unr ; toute future introduction d'un mode Rel nécessitera un arbitrage distinct, un contrat explicite et une justification dans les règles, plutôt que l'inférence depuis `U_Rel`.
+
 Ce mot de _mode_ demande d'être situé, faute de quoi ce document paraîtrait seul de son espèce alors
 qu'il ne l'est pas. Un cadre général existe, dont ce chapitre est une instance : un calcul des
 séquents paramétré par une _théorie des modes_, où le contexte obéit aux propriétés structurelles

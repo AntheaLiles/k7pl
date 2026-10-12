@@ -67,7 +67,7 @@
 | Sujet | État établi par les registres | Ce qui reste ouvert |
 |---|---|---|
 | Livraison PR #54 | Fusionnée le 8 octobre 2026 et intégrée à main ; aucune action de revue/fusion de cette PR ne reste à faire. | Cette livraison ne ferme pas l'étape scientifique C et n'autorise pas D–F. |
-| Grade / exponentielle / coût (séances 59–62) | L'exploration de conception est bornée ; les séances enregistrent une interface de référence pour π_U, Scale_Usage, φ_n, conversions, W/D et le coût scalaire. | La source normative C2 marque encore π_U et Scale_Usage comme candidats et écrit Cost_Budget comme fonction partielle alors que max(W,D) est présenté sans restriction de domaine. L'autrice doit ratifier la promotion et préciser totalité/partialité ; les lois de coerce, w/c, substitution et ψ restent ouvertes. Voir le [registre des objets C](../migration/L1-THEORY-OBJECTS.md). |
+| Grade / exponentielle / coût (séances 59–62) | Les interfaces `π_U`, `Bang_𝒢` et `Scale_Usage` sont ratifiées ; D3–D8 fixent les contrats de `Cost_Budget`, `Adm`, `Consume` et de soustraction prolongée. La branche PR #170 contient maintenant des modèles Lean partiels pour l’action d’usage, les agrégateurs de coût, les permissions modales, le contrat budgétaire `When` et les invariants abstraits de mémoire. | La cohérence des conversions/comonade, la substitution exhaustive, la correction de ressource sur les règles, la simulation, H3, le raccord aux mesures opérationnelles et l’audit complet D11 restent ouverts. C demeure NON SATISFAITE. Voir le [registre des objets C](../migration/L1-THEORY-OBJECTS.md) et le [dossier d’intégration source](../migration/L1-C-SOURCE-INTEGRATION-2026-10-12.md). |
 | When / P3 | **P3-B ratifiée par l'autrice le 11 octobre 2026** : l'attente environnementale est une latence de surveillance de l'orchestrateur ; elle ne s'impute pas au coût d'exécution de l'automate déclenché. | Formaliser la séparation latence/coût d'exécution, le rôle de l'orchestrateur et le contrat budgétaire de l'automate ; la preuve de correction de ressource reste à produire. |
 | Discipline budgétaire / option C | **Orientation ratifiée pour instruction le 11 octobre 2026** : budgets validés à la compilation, exécution de l'automate tenue dans les bornes, garde-fous modulés par couche K7PL. | Définir le contrat par couche et prouver la correction entre validation statique et exécution réelle ; les garde-fous ne remplacent pas la preuve ; aucune signature n'est encore fixée. |
 | Sim / PREUVE-07 | Simulation avant, distincte de la préservation de typage et de la traduction syntaxique ; l'énoncé narratif reste ouvert. | Clauses de traduction effet/temps, invariant du canal chaîné, cas de réduction et relation d'observation cible ; pas d'inférence de bisimulation ou de pleine abstraction. |
@@ -116,3 +116,68 @@ Le **programme d'ajustement de septembre** ([`todo-manuscrit`](../history/2026-0
 La question est de déterminer si Lean apporte une valeur spécifique pour relier des contraintes de projet (normes, contrats, règles métier, décisions et exigences) à des propriétés vérifiables et à des preuves de réalisation. Il faut distinguer les théorèmes vérifiés, les contrôles de données, la traçabilité, les observations empiriques et les jugements humains responsables. Une formalisation ou une compilation réussie ne suffit pas à établir une conformité juridique, contractuelle ou organisationnelle.
 
 Avant toute implémentation, l'étude doit comparer Lean à des solutions plus simples, définir une revendication d'assurance bornée et proposer un démonstrateur non critique avec des contre-exemples. Elle n'autorise aucune modification implicite de la spécification normative ou de l'implémentation Lean de K7PL.
+
+## D-16 — Périmètre des modes et piste Rel (11 octobre 2026)
+
+Décision de périmètre : les trois modes de référence de la sédimentation actuelle sont M_Lin (couche 1), M_Aff (couche 2) et M_Unr (couche 3). Leur sélection architecturale est retenue ; leurs lois, le contrat des morphismes et leur réalisation par les règles restent à normaliser et à prouver. Rel n'est pas activé dans la grammaire ni dans les règles génératrices actuelles. La piste est documentée dans [L1-REL-MODE-OPPORTUNITIES-2026-10-11.md](../migration/L1-REL-MODE-OPPORTUNITIES-2026-10-11.md).
+
+Distinction requise : U_Rel=[1..ω] est un intervalle d'usage, tandis que M_Rel=(𝓡,𝓡,false) est un triplet structurel candidat ; l'un ne définit pas l'autre. C2 décrit les branches M_Lin → M_Aff → M_Unr et M_Lin → M_Rel → M_Unr, avec Aff et Rel incomparables. Ce diamant candidat n'établit ni que les règles actuelles réalisent Rel ni que son activation soit requise. Cette décision de périmètre ne constitue pas une preuve et ne ferme pas C-02 ou la porte C.
+
+
+## D-17 — Totalité du coût budgétaire (11 octobre 2026)
+
+**Décision d’autrice :** `Cost_Budget : K → 𝔅` est totale sous les hypothèses et conventions explicites qui rendent `W`, `D` et `max` bien définis, avec `Cost_Budget(κ)=max(W(κ),D(κ))`. Cette ratification résout le choix total/partiel de la fonction de coût ; elle ne constitue pas une preuve de ses propriétés.
+
+**D4 — Supremum sur domaine vide : DÉCIDÉ.** Le 11 octobre 2026, l’autrice ratifie l’option A : `ℒ=∅` est autorisé et `sup ∅=0` dans `ℕ∞`. Ainsi `D(κ)=0` lorsque `ℒ=∅`. Cette convention ne remplace pas la définition canonique de `K` ni la preuve Lean des agrégats ; elle ne prouve aucune loi de composition ou de sûreté budgétaire. Voir la [note D4](../migration/L1-D4-EMPTY-SUPREMUM-2026-10-11.md). `Adm` reste un prédicat d’admissibilité ; `Consume` et `ψ` peuvent être partielles selon leurs propres domaines et préconditions. Restent ouvertes les preuves de définition correcte de `W`/`D`, de composition du coût, de cohérence avec la consommation d’un effet et de respect effectif des bornes à l’exécution. Voir la [note D3](../migration/L1-D3-COST-BUDGET-RATIFICATION-2026-10-11.md).
+
+
+## D-18 — Convention de supremum vide (11 octobre 2026)
+
+**Décision d’autrice :** `ℒ=∅` est autorisé et `sup ∅=0` dans `ℕ∞`. En conséquence, `D(κ)=sup_{ℓ∈ℒ}s_ℓ=0` lorsque l’ensemble des niveaux est vide. Cette convention complète la ratification D3 de la totalité de `Cost_Budget`, sous réserve que les domaines et codomaines canoniques soient définis de façon cohérente.
+
+La décision ne constitue pas une définition formelle de `K`, ni une preuve Lean de `W`, `D` ou `Cost_Budget`. Restent ouvertes la formalisation des agrégats, les lois de composition invoquées, le lien entre coût annoncé et budget consommé, et la preuve de respect des bornes à l’exécution. Voir la [note D4](../migration/L1-D4-EMPTY-SUPREMUM-2026-10-11.md).
+
+
+## D-19 — Principe d’admissibilité du budget (11 octobre 2026)
+
+**Décision d’autrice : principe de couverture ratifié ; forme canonique normalisée.** Un budget `β` est admissible lorsque `Cost_Budget(κ)≤β`. Dans `ℕ∞`, si `ω` est le maximum, la formulation `β=ω ∨ Cost_Budget(κ)≤β` lui est logiquement équivalente ; retenir la seule comparaison est une normalisation logique, pas une nouvelle ratification d’autrice.
+
+Le lemme Lean `K7pl.GradeBudget.top_disjunct_iff_le` vérifie seulement l’identité d’ordre dans `ℕ∞` ; il ne définit ni `Cost_Budget`, ni le prédicat formel K7PL `Adm`, ni leurs usages dans les règles. La définition formelle des types et de l’ordre, la formalisation de `Cost_Budget`, la preuve de correction et l’usage de cette précondition dans chaque règle restent ouverts. Cette décision ne détermine pas le domaine de `Consume` (D6) ni celui de `ψ` (D7). Voir [la note D5](../migration/L1-D5-ADM-PRINCIPLE-2026-10-11.md).
+
+
+## D-20 — Domaine partiel de `Consume` (11 octobre 2026)
+
+**Décision d’autrice : option A.** `Consume(β,κ)` est une opération partielle, définie seulement lorsque `Adm(β,κ)` est satisfaite ; sur ce domaine, sa valeur retenue est `β ⊖ Cost_Budget(κ)`. D8 ratifie globalement la convention `ω ⊖ ω = ω`. Restent à prouver les propriétés de l’opération requises par les règles et le raccord entre admissibilité, coût annoncé et consommation.
+
+D6 fixe le domaine partiel de `Consume`, tandis que D8 ratifie séparément la convention globale de soustraction tronquée, dont `ω ⊖ ω = ω` ; D7 traite indépendamment le domaine de `ψ`. Restent à formaliser les signatures/types canoniques et à prouver que, dans chaque règle où une consommation est requise, l’admissibilité précède la consommation et la borne résultante correspond au coût annoncé. Aucun théorème de correction de ressource n’est revendiqué. Voir la [note D6](../migration/L1-D6-CONSUME-PARTIAL-DOMAIN-2026-10-11.md) et la [note D8](../migration/L1-D8-GLOBAL-TRUNCATED-SUBTRACTION-2026-10-11.md).
+
+
+## D-21 — Domaine de ψ indépendant de Consume (11 octobre 2026)
+
+**Décision d’autrice : option B.** Le domaine de `ψ` est conceptuellement indépendant de la définissabilité de `Consume`. Il ne faut donc pas définir automatiquement `ψ` comme partielle exactement là où `Consume` est partielle, ni inférer qu’une application de `ψ` autorise à elle seule la traversée d’un effet.
+
+Les règles devront spécifier séparément (1) le domaine et le codomaine de `ψ`, (2) les conditions de typage/autorisation d’une traversée, (3) les cas où la consommation budgétaire est requise, et (4) la correspondance entre le coût annoncé et le budget consommé. D7 ne rend pas `Consume` totale, ne garantit pas l’exécution sûre et ne constitue aucune preuve Lean. Voir la [note D7](../migration/L1-D7-PSI-INDEPENDENT-DOMAIN-2026-10-11.md).
+
+
+## D-22 — Consommation budgétaire (11 octobre 2026)
+
+Option A ratifiée : conserver la soustraction tronquée prolongée, avec ω ⊖ ω = ω, dans les couches où Consume est utilisée. Les couches déterminent les opérations requises localement, mais ne définissent pas de variantes de ⊖. Les six démonstrations concernées restent à auditer et à prouver. Voir la note D8 dans docs/migration/L1-D8-GLOBAL-TRUNCATED-SUBTRACTION-2026-10-11.md. La porte C demeure NON SATISFAITE.
+
+
+## D-23 — Loi de compatibilité avec les multiplicités (11 octobre 2026)
+
+**Décision d’autrice : option A.** La loi candidate `n (β ⊖ k) = (n β) ⊖ (n k)` est à formuler sur le domaine admissible où la consommation et les opérations de multiplicité sont définies. La suffisance des hypothèses doit être établie, en particulier pour `n = ω` ; aucune preuve n’est revendiquée.
+
+Une éventuelle factorisation ou loi globale peut être étudiée comme piste de recherche distincte, mais elle n’est pas ratifiée et ne doit pas être considérée comme vraie sans preuve. L’audit des six démonstrations reste requis. Voir [la note D9](../migration/L1-D9-ADMISSIBLE-MULTIPLICITY-LAW-2026-10-11.md). La porte C demeure NON SATISFAITE.
+
+
+## D-24 — Domaine restreint de la loi de multiplicité (11 octobre 2026)
+
+**Décision d’autrice : option A.** La loi `n (β ⊖ k) = (n β) ⊖ (n k)` est conservée comme lemme conditionnel, avec des hypothèses plus fortes que la seule admissibilité. Les multiplicités autorisées et les hypothèses arithmétiques suffisantes restent à préciser et à prouver ; `n = ω` n’est pas inclus par défaut, compte tenu des contre-exemples sous la convention D8.
+
+Cette loi n’est pas requise par `Scale_Usage` et ne doit pas être une prémisse générale de substitution. L’audit des six démonstrations doit déterminer ses usages effectifs et leur nécessité. Voir [la note D10](../migration/L1-D10-RESTRICT-MULTIPLICITY-LAW-2026-10-11.md). La porte C demeure NON SATISFAITE.
+
+
+## D-25 — Ordre de travail pour la loi de multiplicité (11 octobre 2026)
+
+**Décision d’autrice : option A.** Auditer d’abord les démonstrations historiquement signalées et leurs dépendances ; ne fixer les hypothèses exactes du lemme arithmétique qu’après cet audit. Les références historiques mélangent numéros de théorèmes, cas LET/APP et correspondances entre numérotations ; leur réconciliation avec les étiquettes Verso actuelles est une étape explicite. La loi de multiplicité ne doit pas devenir une prémisse générale de substitution. Voir [la note D11](../migration/L1-D11-AUDIT-MULTIPLICITY-SITES-2026-10-11.md). La porte C demeure NON SATISFAITE.

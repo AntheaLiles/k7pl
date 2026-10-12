@@ -95,6 +95,8 @@ ne porte pas, un `HandlerResult` par exemple, qui suppose $`\mathcal{E}` et $`\D
 l'un et l'autre absents du jugement de couche 3. Le §{num "sec:c5-mise-en-pratique"}[] en donne un
 exemple complet.
 
+Le contrôle des délimiteurs rend la règle de portée explicite, mais il ne suffit pas à établir la propriété H3 de sûreté mémoire. H3 exige qu'aucune valeur cartésienne, fermeture duplicable, tuple, substitution ou conversion ne puisse capturer une capacité d'écriture linéaire encore accessible. La preuve doit couvrir les constructeurs et les frontières de couche effectivement admis, et rester distincte de H1 (unicité d'introduction d'une capacité) et H2 (dénotation des régions disjointes). Le rejet syntaxique ERR-TOP-001 est un contrôle nécessaire de cette discipline, non une preuve sémantique de H3.
+
 Deux règles de portée doivent être énoncées avant le reste, car elles sont en usage partout dans ce
 chapitre et n'ont jamais été posées. Un lecteur les devine ; un vérificateur ne devine pas.
 

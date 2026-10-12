@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: CC0-1.0
 """Structural consistency checks for the non-normative Stage C interface audit.
 
-These checks detect drift between the audit register and the current Verso source.
-They are not formal proofs of K7PL's mathematical claims or a ratification of candidates.
+These checks detect drift between the historical audit, the current Verso source, and the recorded source integration.
+They are not formal proofs of K7PL's mathematical claims. Reference-interface ratification is distinct from proof of the interface laws.
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ REGISTER = ROOT / "docs" / "migration" / "L1-THEORY-OBJECTS.md"
 AUDIT = ROOT / "docs" / "migration" / "L1-C01-C02-TYPED-INTERFACE-AUDIT-2026-10-11.md"
 
 
-def test_audit_pins_the_source_revision_and_keeps_stage_c_open():
+def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open():
     audit = AUDIT.read_text(encoding="utf-8")
     register = REGISTER.read_text(encoding="utf-8")
 
@@ -30,13 +30,16 @@ def test_audit_pins_the_source_revision_and_keeps_stage_c_open():
     assert "b579261957ce5a2967f736203682ca5c61482eaf" in audit
     assert "11abe4803e93a13a2d24c847dad323337094502f" in audit
 
-    source_blobs = {
-        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "819385958b3b2fbdada7418d7e7a1f340ff59baf",
-        "spec/Spec/C3/LeSystemeGradue.lean": "b579261957ce5a2967f736203682ca5c61482eaf",
+    # Historical blobs above pin the snapshot inspected by the 11 October audit.
+    # The 12 October source integration intentionally supersedes three of those files;
+    # keep the snapshot traceable without treating the old state as the live tree.
+    integrated_source_blobs = {
+        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "a024ae7fcb82b0ffe555e41a72fead8f9fbbc977",
+        "spec/Spec/C3/LeSystemeGradue.lean": "4ba4a66c555c9cfa0a4feee14eb954589567d5b9",
         "spec/Spec/C3/GrammaireDesTypes.lean": "3df5f24c41375de24d4254516be2863c437b9d6a",
-        "spec/Spec/C3/ReglesDeTypage.lean": "11abe4803e93a13a2d24c847dad323337094502f",
+        "spec/Spec/C3/ReglesDeTypage.lean": "9dfa32a623aa2c7433716014aad3f33d88ba128f",
     }
-    for path, expected_blob in source_blobs.items():
+    for path, expected_blob in integrated_source_blobs.items():
         actual_blob = subprocess.run(
             ["git", "rev-parse", f"HEAD:{path}"],
             cwd=ROOT,
@@ -52,14 +55,15 @@ def test_audit_pins_the_source_revision_and_keeps_stage_c_open():
     assert "NON SATISFAITE" in register
 
 
-def test_candidate_index_and_scaling_signatures_remain_explicit_in_c2():
+def test_reference_index_and_scaling_signatures_remain_explicit_in_c2():
     source = C2.read_text(encoding="utf-8")
 
     assert r"\pi_U : \mathcal{G}\to\mathcal{R}" in source
     assert r"\pi_U(\langle u,m,\ell,\beta\rangle)=u" in source
     assert r"\operatorname{Bang}_{\mathcal G}(r,A)" in source
     assert r"\operatorname{Scale}_{\mathrm{Usage}}(a,\langle u,m,\ell,\beta\rangle)" in source
-    assert "candidat d'architecture" in source
+    assert "interface de référence" in source
+    assert "ne prouve pas les lois de cohérence de cette instance" in source
 
 
 def test_subtyping_direction_is_read_from_the_source_equation():
@@ -72,13 +76,14 @@ def test_subtyping_direction_is_read_from_the_source_equation():
     assert "π_U(r)≥π_U(r′)" in audit
 
 
-def test_mode_triples_and_proposition_are_not_silently_promoted():
+def test_reference_modes_are_selected_but_their_proposition_remains_unproved():
     source = C3.read_text(encoding="utf-8")
 
-    assert r"M_{\mathrm{Lin}} &= (\mathcal{R},\{0\},\mathrm{false})" in source
-    assert r"M_{\mathrm{Aff}} &= (\mathcal{R},\{0\},\mathrm{true})" in source
-    assert r"M_{\mathrm{Rel}} &= (\mathcal{R},\mathcal{R},\mathrm{false})" in source
-    assert r"M_{\mathrm{Unr}} &= (\mathcal{R},\mathcal{R},\mathrm{true})" in source
+    assert "M_Lin = (𝓡, {0}, false)" in source
+    assert "M_Aff = (𝓡, {0}, true)" in source
+    assert "M_Unr = (𝓡, 𝓡, true)" in source
+    assert "M_Rel = (𝓡, 𝓡, false)" in source
+    assert "n'est pas un mode normatif de la grammaire courante" in source
     statement = source.split('label := "thm:morphismes_modes"', maxsplit=1)[1].split("::::", maxsplit=1)[0]
     assert 'state := "under-review"' in statement
     assert 'evidence := "proofsketch"' in statement

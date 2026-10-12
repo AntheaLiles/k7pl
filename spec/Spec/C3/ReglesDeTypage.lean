@@ -72,8 +72,8 @@ que dans un commentaire.
 
 Ce qui suit donne le jeu central. Les conventions sont celles-ci. $`\Delta` est un contexte gradué
 $`x_1 :_{r_1} V_1, \ldots`. La notation de surface $`r\cdot\Delta` désigne une action _règle-locale_ :
-pour $`Box`, $`App`, substitution et le contexte de {sc}[Sc], son élaboration candidate est
-$`\operatorname{Scale}_{Usage}(\pi_U(r),\Delta)`. Les répétitions effectives sont représentées par
+pour {sc}[Box], {sc}[App], la substitution et le contexte de {sc}[Sc], son interprétation de référence est
+$`\operatorname{Scale}_{Usage}(\pi_U(r),\Delta)`, conformément à la décision d’autrice C-01. Les lois et leur compatibilité avec les règles restent à prouver. Les répétitions effectives sont représentées par
 la transformation d'effet $`\varphi_n`, distincte de l'action contextuelle. La notation ne constitue
 donc pas une multiplication primitive du grade complet, dont l'action globale reste une obligation de C2.
 $`\Delta_1 + \Delta_2` les additionne composante par composante, _à condition qu'ils portent les
@@ -114,17 +114,7 @@ _totale_ : $`\psi(\cdot,\varepsilon)` y est définie partout.
 :::
 
 :::proofsketch
-Par la définition ({num "eq:boxtimes"}[]),
-$`\Delta_1 \boxtimes_\varepsilon \Delta_2 = \Delta_1 + \psi(\Delta_2, \varepsilon)`. La table de
-l'action de $`\varphi` et $`\psi` (§{num "sec:c1-de-la-loi-distributive"}[]) donne celle de
-$`\psi` : elle traverse inchangé sur l'usage, le niveau et la monotonie, et n'agit que sur le
-budget, par $`\beta \ominus k` où $`k` est la composante temporelle de $`\varepsilon`. Si $`k = 0`
-alors $`\beta \ominus 0 = \beta`, la soustraction tronquée dans $`\mathbb{N}_\infty` ayant $`0` pour
-neutre à droite. Donc $`\psi(\Delta_2,\varepsilon) = \Delta_2` sur les quatre composantes.
-
-La totalité suit du même calcul : la soustraction tronquée n'échoue que lorsque le budget ne couvre
-pas le coût, et à coût nul elle est définie partout. C'est le seul point de cette section où $`\psi`
-soit totale, et il vaut d'être relevé.
+Par la définition ({num "eq:boxtimes"}[]), Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂, ε). Lorsque l'effet a un coût temporel nul, la composante budgétaire de ψ est l'identité puisque β ⊖ 0 = β ; si les domaines structurels sont satisfaits, le produit mixte se réduit donc à l'addition point par point. Cela ne rend pas ψ partielle selon l'admissibilité : la définissabilité structurelle de ψ et l'autorisation de traversée sont deux obligations distinctes. Toute règle qui compose des contextes doit vérifier la compatibilité des clés/types et Adm pour chaque budget traversé. La soustraction tronquée et `Cost_Budget` sont totales ; la partialité du passage est portée par son domaine d'admissibilité, pas par ces fonctions.
 :::
 
 ::::
@@ -480,47 +470,20 @@ le résultat reste sous $`\Diamond`.
 \begin{gather*}
 \textsc{Wait}\;\frac{\;\Delta \vdash v : {\bigcirc}{\Diamond}V\;}{\;\Delta \vdash \mathsf{wait}\;v : {\Diamond}V\;}
 \\[8pt]
-\textsc{When}\;\frac{\;\Delta_1 \vdash v : {\Diamond}V \qquad {\Box}\Delta_2,\, x :_r V \vdash c : {\Diamond}C \mid \varepsilon\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} ({\Box}\Delta_2) \vdash \mathsf{when}\;x = v\;\mathsf{in}\;c : {\Diamond}C \mid \varepsilon[\,\omega/k\,]\;}
+\textsc{When}\;\frac{\;\Delta_1 \vdash v : {\Diamond}V \qquad {\Box}\Delta_2,\, x :_r V \vdash c : {\Diamond}C \mid \varepsilon\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} ({\Box}\Delta_2) \vdash \mathsf{when}\;x = v\;\mathsf{in}\;c : {\Diamond}C \mid \varepsilon\;}
 \end{gather*}
 ```
 
 :::caption
-Règles des modalités « toujours » et « éventuellement », et la perte de borne qu'attendre coûte
+Règles des modalités de permanence et d'éventualité ; la latence d'attente est distincte du coût d'exécution
 :::
 ::::
 
-La substitution $`\varepsilon[\omega/k]` dans {sc}[When] est le point où ces règles rencontrent
-l'algèbre des effets, et elle demande d'abord d'être définie. Le facteur temporel étant une famille
-indexée par les niveaux (§{num "sec:g-grammaire-types"}[]), la substitution ne remplace pas un
-nombre par un autre : elle envoie la famille sur l'élément maximal,
-$`\langle \varphi, \kappa\rangle[\omega] = \langle \varphi, \top\rangle` où $`\top(\ell) = \omega`
-pour tout $`\ell`. La perte porte sur _tous_ les niveaux et non sur celui de l'attente seule, et
-c'est correct : attendre un événement de date non bornée retarde ce qui suit à tout niveau, non pas
-seulement au sien. C'est la sur-approximation sûre, et la seule.
+Le contrat de When doit séparer l'événement déclencheur du coût d'exécution de l'automate déclenché. P3-B, ratifiée le 11 octobre 2026, décide que l'attente environnementale, de durée potentiellement non bornée, est une latence de surveillance et d'orchestration ; elle ne s'impute pas au coût d'exécution propre de l'automate une fois l'événement survenu. La conclusion de typage conserve donc l'effet d'exécution ε, au lieu de remplacer sa famille temporelle par le maximum ω.
 
-Cela dit, elle se lit pour ce qu'elle dit. Attendre un événement dont la date n'est pas bornée porte
-la composante temporelle de l'effet à $`\omega` : la borne de coût est _perdue_, et elle l'est
-explicitement plutôt que silencieusement. C'est la contrepartie exacte de ce que $`\Diamond` achète
-— l'inévitabilité sans l'échéance —, et le fait que $`\mathcal{R}` soit le type des conaturels donne
-à cette perte une valeur plutôt qu'une exception. Un programme qui traverse un $`\Diamond` n'a plus
-de WCET, ce qui est vrai et doit se voir dans son type.
+L'absence de déclenchement dans un temps fini reste possible : P3-B ne promet ni vivacité de l'environnement ni échéance finie. Elle exige que la latence de surveillance reste observable séparément, mais ne ratifie pas le carrier ni le type de cette observation. C-04/C-07 doivent fixer cette représentation avant qu'une coordonnée ou un canal ne soit ajouté à la sémantique.
 
-Une SECONDE contrainte manque à cette règle, et la source qui la donne la porte explicitement. La
-règle publiée contraint deux choses là où celle-ci n'en contraint qu'une. Sur la conclusion, le type
-offert doit être de la forme « retardable d'un nombre fini d'étapes, puis communicable à un instant
-arbitraire » — c'est ce que $`\Diamond C` exprime ici, et cette part est acquise. Mais elle
-contraint aussi le CONTEXTE : tout canal du contexte doit être d'une forme qui admet elle-même un
-report indéfini, ce que la modalité duale de $`\Diamond` exprime {cite "dasParallelComplexityAnalysis"}[].
-Le motif est nommé par les auteurs et il est décisif : puisque le processus peut attendre une durée
-indéfinie, la communication sur la conclusion _et sur tout canal du contexte_ doit pouvoir être
-reportée d'autant. Un canal du contexte porteur d'une échéance fixe serait rompu par cette attente.
-
-Cette contrainte manque ici, et son absence n'est pas neutre : elle rend la règle {sc}[When] _trop
-permissive_. Elle admet un contexte dont une liaison porterait une borne temporelle stricte, alors
-que l'attente peut la dépasser — de sorte que la conclusion promettrait une borne que le contexte ne
-peut pas tenir. La correction est directe et se dit en une clause : exiger de chaque liaison du
-contexte qu'elle soit sous la modalité duale, c'est-à-dire indéfiniment reportable. Elle est
-désormais appliquée, et la duale porte un nom que le document avait déjà.
+La prémisse Box Δ₂ continue de porter la disponibilité après une attente ; elle ne suffit pas à rendre tous les budgets admissibles. Les règles de composition doivent vérifier séparément que ψ est structurellement définie et que les budgets traversés satisfont Adm. La correction de ressource pour When reste à démontrer règle par règle.
 
 Cette contrainte est désormais posée, et il faut dire comment : _aucun connecteur n'a été ajouté_.
 La duale que la règle réclame — une ressource disponible maintenant et encore après une attente de
@@ -1564,7 +1527,7 @@ preuve plutôt que découvert dedans. L'action requise par la substitution est u
 d'usage ; les transformations d'effet restent séparées et ne définissent pas une seconde mise à
 l'échelle du grade complet.
 
-Pour les usages, on retient le candidat
+Pour les usages, l’interface de référence ratifiée est
 $`\operatorname{Scale}_{Usage}(a,\langle u,m,\ell,\beta\rangle) = \langle a\cdot u,m,\ell,\beta\rangle`.
 Comme $`\psi` laisse inchangées l'usage, la monotonie et le niveau et n'agit que sur le budget, la
 compatibilité correspondante est :
@@ -1641,15 +1604,11 @@ _Les règles structurelles ne fournissent aucun cas_ : l'affaiblissement et la c
 encodés par l'arithmétique des grades. Il n'y a donc pas de règle structurelle supplémentaire à
 compatibiliser avec $`\mathrm{Scale}_{\mathrm{Usage}}`.
 
-_Les règles à contextes additionnés_ — {sc}[Pair], {sc}[Inj] — séparent `x` entre les deux
-prémisses, $`r = r_1 + r_2`. La recombinaison des hypothèses d'induction utilise
-$`\pi_U(r_1+r_2)=\pi_U(r_1)+\pi_U(r_2)` et la distributivité de
-$`\mathrm{Scale}_{\mathrm{Usage}}` sur l'addition point par point. Elle n'exige aucune multiplication ou action
-sur la monotonie, le niveau ou le budget.
+_Le cas à deux prémisses qui additionne les contextes_ — {sc}[Pair] — répartit les occurrences de x entre ses deux prémisses, avec r = r₁ + r₂. La recombinaison des hypothèses d'induction utilise π_U(r₁ + r₂) = π_U(r₁) + π_U(r₂) et l'additivité de Scale_Usage sur l'addition point par point ; elle n'exige aucune action sur la monotonie, le niveau ou le budget. {sc}[Inj], en revanche, a une seule prémisse et conserve son contexte ; son cas est traité par l'hypothèse d'induction pour cette prémisse, sans inventer une seconde occurrence ni une décomposition r = r₁ + r₂.
 
 _Les règles à contextes composés_ — {sc}[Let], {sc}[App], {sc}[Unbox], {sc}[Open] — utilisent la
 loi de commutation de $`\mathrm{Scale}_{\mathrm{Usage}}` avec $`\psi` et sa composition scalaire. En particulier, pour
-un scalaire d'usage $`a`, la candidate
+un scalaire d'usage $`a`, la loi de compatibilité à prouver
 $$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1 \boxtimes_{\varepsilon} \Delta_2)`
 est égale à
 $$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1) \boxtimes_{\varepsilon} \mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_2)`
@@ -1726,10 +1685,7 @@ que la forme simple.
 :::
 
 ::::
-Une remarque sur le statut de ce qui précède. La démonstration est conduite à la main et n'a pas été
-vérifiée par machine. Elle ne comporte pas de cas passé sous silence — les trente-quatre règles s'y
-rangent toutes —, mais la vérification cas par cas des connecteurs routiniers y est faite par schéma
-plutôt qu'un à un, et c'est ce qu'une mécanisation éprouverait.
+Une remarque sur le statut de ce qui précède. Le proofsketch de substitution est une cible de preuve, non une démonstration complète vérifiée. L'inventaire courant compte 49 occurrences de règles en C3 ; l'audit C-06 fournit une matrice de ces occurrences et le test associé contrôle uniquement la correspondance structurelle entre le texte source et cette matrice. Aucun de ces contrôles ne démontre le théorème de substitution ni ses cas par constructeur. L'état under-review / proofsketch doit donc être conservé tant que les cas, conversions, contraintes de fraîcheur et dépendances de domaine n'ont pas été justifiés.
 
 Deux familles s'ajoutent à cet inventaire, que le corps nomme sans les donner et qui n'appartiennent
 à aucun des quatre groupes ci-dessus.

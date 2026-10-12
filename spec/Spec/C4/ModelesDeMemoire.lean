@@ -198,3 +198,10 @@ mutation par des _coeffets_, c'est-à-dire par l'appareil même de ce document {
 l'autre établit que le partage _maximal_ se décide, ce qui borne ce qu'un compilateur peut promettre {cite "grabmayerMaximalSharingLam"}[].
 Ce chapitre n'emprunte ni l'un ni l'autre — son choix reste que le partage n'est pas observable —,
 mais l'ouverture qu'il laisse n'est pas une porte sur du vide.
+
+
+# Profil de représentation Π et portée des garanties concrètes
+
+Une revendication concernant une exécution concrète doit être indexée par un profil Π versionné comprenant au minimum la révision normative et la formalisation, la chaîne de compilation et d'exécution, la représentation et l'ABI visées, l'architecture et les paramètres matériels pertinents, les options effectives et les hypothèses sur les sources de non-déterminisme. Un profil documente les conditions de la revendication ; il ne constitue pas à lui seul une preuve de conformité.
+
+La sûreté abstraite sous H1/H2/H3, la conformité d'une représentation concrète, l'égalité bit-à-bit, la reproductibilité `E_repro` et les garanties ABI restent des propriétés distinctes. Aucun résultat sur les règles abstraites ni aucune compilation réussie ne permet de promouvoir une de ces garanties concrètes en résultat général sans une correspondance et une preuve propres au profil Π visé.
