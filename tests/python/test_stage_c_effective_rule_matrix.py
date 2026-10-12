@@ -31,4 +31,4 @@ def test_effective_rule_matrix_matches_all_c3_rule_occurrences():
         f"extra={Counter(normalised) - source_labels}"
     )
     assert all("**ABSENT**" in line for line in matrix.splitlines() if re.match(r"^\|\s*\d+\s*\|", line))
-    assert "not a proof" in matrix.lower() or "not a proof" in matrix.lower()
+    assert "ne constitue ni une preuve" in matrix.lower()
