@@ -24,11 +24,11 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 > **As a reader**, I want to start from an element de la spécification and discover its definition, dependencies, rationale and related evidence, so that I can understand what it means without reconstructing the whole repository manually.
 
 **Critères d'acceptation**
-- [ ] Un élément identifiable de la spécification peut constituer un point d'entrée.
+- [x] Un point d'entrée contextuel est présent sur chaque page rendue ; il ouvre le graphe sur cette page, puis la recherche permet de sélectionner un objet précis.
 - [ ] La page présente sa définition ou son contexte immédiat.
 - [ ] Les relations disponibles vers documentation, décisions, sources et vérifications sont navigables.
 - [ ] Chaque relation renvoie à une source canonique.
-- [ ] Le prototype ne présente pas comme établi un lien qui n'est pas démontré.
+- [x] Le prototype distingue les relations structurelles `contains` des références `references` et citations `cites` explicitement rendues ; aucune relation de preuve, d'implémentation ou de test n'est inférée.
 
 ### US-02 — Explorer le projet par relations
 
@@ -69,7 +69,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 > **As a researcher**, I want to navigate from formal project objects to bibliography, notes and decisions, so that I can reconstruct the reasoning that led to the current project state.
 
 **Critères d'acceptation**
-- [ ] Au moins un parcours relie un objet formel à une source ou note pertinente.
+- [x] Au moins un parcours relie les objets rendus aux entrées bibliographiques via les citations `cites`, et la navigation figure relie les figures à leurs sources de production.
 - [ ] Les décisions peuvent être distinguées des observations et hypothèses.
 - [ ] Les matériaux historiques sont identifiés comme tels.
 - [ ] Les liens vers les matériaux sont traçables.
