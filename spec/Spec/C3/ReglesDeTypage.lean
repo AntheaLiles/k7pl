@@ -104,7 +104,6 @@ inductive Computation (Var : Type uVar) (Monotonicity : Type uMono) (Level : Typ
       Computation Var Monotonicity Level
   | let1 : Computation Var Monotonicity Level → Var →
       Computation Var Monotonicity Level → Computation Var Monotonicity Level
-  deriving DecidableEq, Repr
 
 /-- Computation types include effect-return and graded function types. -/
 inductive ComputationType (Effect : Type uEffect) (Monotonicity : Type uMono) (Level : Type uLevel) where
