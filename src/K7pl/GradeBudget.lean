@@ -416,6 +416,39 @@ theorem workAggregate_sequential_le_add {L : Type u}
     (le_iSup_of_le F le_rfl)
     (le_iSup_of_le F le_rfl)
 
+/-- Exact work aggregation for sequential composition.
+
+The work aggregate is the supremum of sums over finite level sets. The union
+of two finite sets gives a common upper bound for both component sums, so the
+sum of the two suprema equals the supremum of the pointwise-summed finite
+set sums, even when the level type is infinite. -/
+theorem workAggregate_sequential_eq_add {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    workAggregate (sequentialProfile κ₁ κ₂) =
+      workAggregate κ₁ + workAggregate κ₂ := by
+  classical
+  unfold workAggregate sequentialProfile
+  simp_rw [Finset.sum_add_distrib]
+  symm
+  apply ENat.iSup_add_iSup
+  intro F G
+  refine ⟨F ∪ G, ?_⟩
+  exact add_le_add
+    (Finset.sum_le_sum_of_subset_of_nonneg Finset.subset_union_left
+      (by intro ℓ hℓ hnot; exact bot_le))
+    (Finset.sum_le_sum_of_subset_of_nonneg Finset.subset_union_right
+      (by intro ℓ hℓ hnot; exact bot_le))
+
+/-- Parallel composition has the same additive work aggregate as sequential
+composition because its definition changes only the depth coordinate. -/
+theorem workAggregate_parallel_eq_add {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    workAggregate (parallelProfile κ₁ κ₂) =
+      workAggregate κ₁ + workAggregate κ₂ := by
+  rw [show workAggregate (parallelProfile κ₁ κ₂) =
+      workAggregate (sequentialProfile κ₁ κ₂) by rfl,
+    workAggregate_sequential_eq_add]
+
 /-- The depth aggregate of a sequential profile is bounded by the sum of the
 individual depth aggregates. -/
 theorem depthAggregate_sequential_le_add {L : Type u}
@@ -461,6 +494,15 @@ theorem costBudget_sequential_le {L : Type u}
   exact max_le_max
     (workAggregate_sequential_le_add κ₁ κ₂)
     (depthAggregate_sequential_le_add κ₁ κ₂)
+
+/-- Exact scalar cost for parallel composition of reference profiles. -/
+theorem costBudget_parallel_eq {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    costBudget (parallelProfile κ₁ κ₂) =
+      max (workAggregate κ₁ + workAggregate κ₂)
+          (max (depthAggregate κ₁) (depthAggregate κ₂)) := by
+  unfold costBudget
+  rw [workAggregate_parallel_eq_add, depthAggregate_parallel_eq_max]
 
 /-- Parallel composition admits the expected scalar cost upper bound. The
 work component is additive; its depth component is the maximum. -/

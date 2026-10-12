@@ -137,3 +137,25 @@ d'exécution doit être prouvé séparément. **C demeure NON SATISFAITE et aucu
 La CI [#38249828869](https://github.com/AntheaLiles/k7pl/actions/runs/38249828869) a compilé les contrôles préliminaires, puis signalé que la définition de `parallelProfile` dépend de `instCompleteLinearOrderENat`, instance non calculable sur `ℕ∞`. Le correctif marque explicitement `parallelProfile` comme `noncomputable`, sans modifier sa formule mathématique. Les audits et tests dépendants de la compilation ont été sautés ou ont échoué en cascade ; ils ne permettent pas encore de valider cette nouvelle tranche C-05.
 
 Le résultat de CI précédent (#38248910876) ne se transfère pas à cette nouvelle extension. Il faut vérifier le SHA post-correctif avant d'affirmer la réussite de C-05.
+
+
+## 11. C-05 — égalité exacte du travail agrégé et coût parallèle
+
+La CI post-correctif de l'étape précédente a terminé avec succès sur le SHA
+`a296ae946dcd162e6e3dab094b5c60c1a5b2510b` : run
+[#38250240685](https://github.com/AntheaLiles/k7pl/actions/runs/38250240685), y compris
+`CI OK`, l'implémentation Lean, les tests, lint et audits d'axiomes. Cette validation
+porte sur le SHA cité ; la présente extension devra être validée à son tour.
+
+Le lemme `workAggregate_sequential_eq_add` utilise `ENat.iSup_add_iSup` et l'union
+de deux ensembles finis pour prouver l'égalité exacte de l'agrégat de travail séquentiel
+avec la somme des deux agrégats, même si le type des niveaux n'est pas fini.
+Le lemme `workAggregate_parallel_eq_add` en déduit la même loi pour le profil
+parallèle, dont seule la coordonnée de profondeur diffère.
+Enfin `costBudget_parallel_eq` exprime exactement le coût scalaire parallèle :
+maximum entre somme des travaux agrégés et maximum des profondeurs agrégées.
+
+Cela renforce le modèle de composition temporelle de C-05 sans établir que les règles
+K7PL effectives calculent ces profils ni que les profils correspondent aux traces
+d'exécution concrètes. La porte C reste NON SATISFAITE tant que ce raccord opérationnel,
+la correction de ressource et les autres obligations C-01–C-09 ne sont pas démontrés.
