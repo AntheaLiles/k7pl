@@ -172,7 +172,7 @@ theorem scaleUsageContext_transportBudget_commute (a : Usage)
     scaleUsageContext a (transportBudgetContext budgetMap Δ) =
       transportBudgetContext budgetMap (scaleUsageContext a Δ) := by
   funext x
-  cases h : Δ x <;> simp [scaleUsageContext, transportBudgetContext, h]
+  cases h : Δ x <;> simp [scaleUsageContext, transportBudgetContext, scaleUsage, h]
 
 /-- Scaling preserves the support of a context. -/
 theorem scaleUsageContext_isSome [Monoid U] (a : U)

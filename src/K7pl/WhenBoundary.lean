@@ -32,7 +32,7 @@ structure TriggeredRun (LatencyObservation : Type u) (L : Type v) where
   profile_matches : budgetCertificate.profile = executionProfile
 
 /-- Only the triggered automaton profile contributes to the charged cost. -/
-def chargedCost {LatencyObservation : Type u} {L : Type v}
+noncomputable def chargedCost {LatencyObservation : Type u} {L : Type v}
     (run : TriggeredRun LatencyObservation L) : ℕ∞ :=
   GradeBudget.costBudgetK run.executionProfile
 
@@ -41,6 +41,7 @@ theorem TriggeredRun.conservation {LatencyObservation : Type u} {L : Type v}
     (run : TriggeredRun LatencyObservation L) :
     run.budgetCertificate.budgetAfter + chargedCost run =
       run.budgetCertificate.budgetBefore := by
+  unfold chargedCost
   rw [← run.profile_matches]
   exact run.budgetCertificate.conservation
 

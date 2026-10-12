@@ -21,6 +21,8 @@ namespace K7pl.MemoryCapability
 
 universe u
 
+variable {Region : Type u}
+
 /-- For each region, count available arena tokens and live write capabilities. -/
 abbrev State (Region : Type u) := Region → ℕ × ℕ
 
