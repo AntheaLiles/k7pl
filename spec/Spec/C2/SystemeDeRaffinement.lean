@@ -87,6 +87,15 @@ $`\mathrm{Lin}\,T` à $`\mathrm{Unr}\,T` ne change pas le terme, seulement ce qu
 faire, et l'inclusion se projette donc sur une identité.
 :::
 
+:::note
+_Obligation ouverte._ La seule prémisse — une traduction fonctorielle qui préserve le typage — ne
+suffit pas visiblement aux trois lectures. La lecture _(ii)_ demande une relation d'observation et la
+liste des observations qu'admet la sémantique cible ; la lecture _(iii)_ demande d'énoncer la
+restriction de $`\sqsubseteq` à une fibre et ses propriétés d'ordre, puis de montrer qu'elle coïncide
+avec l'ordre de la fibre. Restent à définir précisément « même image », l'indiscernabilité
+observationnelle, les morphismes verticaux et l'ordre en jeu, et à donner pour chaque lecture les
+prémisses ou lemmes qu'elle exige. Que la prémisse soit plausible n'établit pas le bloc entier.
+:::
 ::::
 S'il tient, il dispense de poser ce que le §{num "sec:c2-adjonctions-et-enrichissement"}[]
 présentait comme un engagement structurel. {rmq}[Une seconde justification du sous-typage modal,
@@ -175,6 +184,15 @@ typé préservant cette relation ne peut alors faire dépendre sa partie basse d
 qui est l'énoncé.
 :::
 
+:::note
+_Obligation ouverte._ Restent à définir l'équivalence observationnelle (observations de valeurs et
+de traces), la famille de traductions $`\llbracket \cdot \rrbracket_\ell` et son rapport à
+l'effacement de la Phase 8, et l'interprétation relationnelle de chaque constructeur de type et de
+chaque effet. Les trois points que le texte nomme plus bas comme résistants — produit du grade,
+communications sur les canaux distingués, déclassification — restent à traiter ; l'exclusion des
+programmes à échappatoire, posée par le texte, n'est pas portée par l'énoncé. La portée reste le
+fragment séquentiel : l'énoncé ne s'étend pas à l'exécution concurrente.
+:::
 ::::
 Cet énoncé porte sur le fragment séquentiel, et il faut dire pourquoi il ne s'étend pas de lui-même.
 _La non-interférence séquentielle ne survit pas à la concurrence._ Deux calculs qui ne se
@@ -209,6 +227,12 @@ cas qui résiste, puisqu'il choisit une branche en fonction d'un message dont le
 $`\ell`.
 :::
 
+:::note
+_Obligation ouverte._ L'état de conjecture est maintenu. Restent à définir ce que la politique
+d'ordonnancement peut observer, la projection de trace $`\pi_\ell` et l'équivalence entre
+exécutions, puis à traiter explicitement le cas {sc}[Guard]. Que les quatre premières règles s'y
+prêtent ne dit rien du cinquième cas.
+:::
 ::::
 L'hypothèse $`\mathcal{D}_{\mathcal{S}}` est nommée plutôt que supposée, et c'est délibéré. Le
 déterminisme observationnel sous ordonnanceur quelconque est un problème ouvert, et le promettre

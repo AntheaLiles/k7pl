@@ -42,6 +42,7 @@
 |---|---|---|---|
 | — | les quatre imports ciblés : lesquels verser, où | « validés » d'après le compte rendu du 1er octobre, **non versés** au texte ; le dernier est écarté pour `BLOQ-06` (corrigé autrement) | trois instructions à conduire (`BIB-10` pour les modes) |
 | `thm:schema_reinvocation` | domaine de `n` dans le schéma de ré-invocation bornée : entiers finis, ou `ℕ∞` avec un traitement explicite de `ω` | l'énoncé dit « entier fini » mais quantifie sur `n ∈ ℕ∞` ; relevé par la revue sémantique C8, lot 01 ; obligation reportée au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative de l'énoncé ; `req:schema_reinvocation_compatibility` et `thm:image_fix` en dépendent |
+| `thm:raffinement` | scinder ou non le bloc composé : construction du système de raffinement d'un côté, ses trois lectures (effacement, non-interférence, ordre de précision) de l'autre | options : (a) scinder en une construction et trois énoncés dépendants, chacun avec ses prémisses ; (b) garder le bloc et énumérer, dans l'énoncé, les prémisses de chaque lecture ; (c) garder le texte actuel avec la note d'obligation ouverte. Relevé par la revue sémantique C8, lot 02 ; détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative ; `thm:schema_effacement` cite `thm:raffinement` |
 
 ## Nouvelles, nées de la conversion
 
