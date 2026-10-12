@@ -176,17 +176,20 @@ schéma de ré-invocation bornée
 :::statement +titled
 Employer $`n` fois, c'est invoquer $`n` fois en séquence
 
-Pour $`t` de contexte $`\Delta` et d'effet $`\varepsilon`, et pour un entier fini $`n \in \mathbb{N}_\infty`,
+Pour $`t` de contexte $`\Delta` et d'effet $`\varepsilon`, et pour $`n \in \mathbb{N}_\infty`,
 la ré-invocation $`\mathsf{reinvo}(n,t)` combine deux actions distinctes : le contexte est mis à
 l'échelle par $`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et l'effet devient
-$`\varphi_n(\varepsilon)`.
+$`\varphi_n(\varepsilon)`. Pour $`n` fini, c'est la ré-invocation séquentielle bornée. Le cas
+$`n = \omega` est traité à part : $`\operatorname{Scale}_{\mathrm{Usage}}(\omega,-)` est l'action de
+l'usage non borné, et $`\varphi_\omega` emploie $`\varepsilon^\omega = \bigvee_m \varepsilon^m`
+(§{num "sec:g-scoped"}[]), qui suppose ces suprema dans le monoïde des effets.
 :::
 :::note
-_Obligation ouverte._ L'énoncé parle d'un entier fini mais quantifie sur $`n \in \mathbb{N}_\infty`,
-qui contient un élément infini : le domaine de $`n` (entiers finis, ou $`\mathbb{N}_\infty` avec un
-traitement explicite de $`\omega`) reste à fixer. L'associativité, l'unité et la compatibilité
-entre mise à l'échelle et action sur les effets ne sont pas établies par ce bloc ; elles relèvent
-de l'exigence qui suit. Aucune multiplication du budget ne doit en être déduite.
+_Obligation ouverte._ Restent à établir l'existence des suprema qui définissent $`\varphi_\omega`, et
+le lien entre $`\mathsf{reinvo}(\omega,t)` et le service répliqué que la traduction associe au grade
+$`\omega`. L'associativité, l'unité et la compatibilité entre mise à l'échelle et action sur les
+effets ne sont pas établies par ce bloc ; elles relèvent de l'exigence qui suit. Aucune
+multiplication du budget ne doit en être déduite.
 :::
 ::::
 
@@ -203,7 +206,9 @@ et celle des transformations d'effet ; l'unité est $`n=1`.
 
 La mise à l'échelle du contexte est celle de la modalité factorisée. La loi de coût est l'action
 $`\varphi_n` sur les effets. Leur compatibilité constitue une obligation propre à la ré-invocation
-finie ; elle n'est pas une instance automatique d'une loi uniforme sur le grade complet. Sur le
+finie ; elle n'est pas une instance automatique d'une loi uniforme sur le grade complet. Au cas
+$`n = \omega`, la compatibilité est une obligation distincte, conditionnelle à l'existence des
+suprema qui définissent $`\varphi_\omega`. Sur le
 budget, cette compatibilité reste distincte de $`Scale_Usage` et ne doit pas introduire une
 multiplication du budget tant qu'aucune telle action n'est définie.
 :::

@@ -12,7 +12,14 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+### Modifié
+
+- `thm:raffinement` est scindé (décision de l'autrice du 12 octobre 2026) : le théorème garde la construction du système de raffinement ; ses trois lectures deviennent les corollaires `thm:raffinement_effacement`, `thm:raffinement_non_interference` et `thm:raffinement_precision`, chacun avec ses prémisses. Aucun état épistémique n'est promu ; la numérotation affichée des énoncés suivants change.
+- `thm:schema_reinvocation` : le domaine de `n` est `ℕ∞`, avec un traitement explicite de `ω` (décision de l'autrice du 12 octobre 2026). Le cas fini reste la ré-invocation séquentielle bornée ; l'exigence de compatibilité nomme le cas `ω` comme obligation distincte.
+
 ### Corrigé
+
+- `thm:sedimentation` : l'énoncé, tronqué lors de sa séparation en un résultat de littérature et une exigence, dit désormais qu'il vaut pour des conteneurs non gradués et renvoie à l'exigence graduée.
 
 - Le texte placé hors des emplacements nommés d'un bloc d'énoncé n'était pas rendu, en HTML comme en PDF. Cinq blocs sont rétablis sans changement de texte : `thm:schema_reinvocation`, `req:schema_reinvocation_compatibility`, `req:homomorphisme_roues_realisation`, `thm:expansion_macro` et `thm:temps_mononiveau` (ligne parasite supprimée). Le contrôle d'ontologie des énoncés rejette désormais ce cas.
 

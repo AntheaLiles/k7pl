@@ -21,7 +21,7 @@ def test_current_inventory_matches_all_active_statement_blocks():
     errors = inventory.check_inventory()
     assert errors == [], "\n".join(errors)
     rows = inventory.source_inventory()
-    assert len(rows) == 74
+    assert len(rows) == 77
     assert len({row["path"] for row in rows}) == 21
 
 
@@ -117,10 +117,11 @@ def test_current_dependency_cycle_scan_is_advisory(capsys):
         or "possible dependency cycle (semantic review required)" in output
     )
 
-def test_all_historical_labels_survive_with_only_five_companion_objects():
+def test_all_historical_labels_survive_with_only_declared_companion_objects():
     rows = inventory.source_inventory()
     historical = inventory.historical_labels()
     active = {str(row["label"]) for row in rows}
     assert len(historical) == 69
     assert historical <= active
     assert active - historical == inventory.EXPECTED_COMPANION_LABELS
+    assert len(inventory.EXPECTED_COMPANION_LABELS) == 8

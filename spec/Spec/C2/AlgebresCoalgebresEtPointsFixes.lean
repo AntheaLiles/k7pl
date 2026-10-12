@@ -223,8 +223,9 @@ Convergence des points fixes imbriqués
 
 Soient $`F` et $`G` des conteneurs, $`F` engendrant les structures finies de couche 3 et $`G` l'état
 des générateurs de couche 2. Alors l'objet $`\nu Y.\, G(\mu X.\, F(X,Y))` est bien défini, et la
-suite de ses approximations finies converge vers lui. Cet énoncé vaut en deux temps : (i) pour des
-conteneurs _non gradués_, résultat de la littérature, repris ici ;
+suite de ses approximations finies converge vers lui. Cet énoncé vaut pour des conteneurs
+_non gradués_ : c'est un résultat de la littérature, repris ici. Le cas des conteneurs gradués fait
+l'objet de l'exigence qui suit.
 :::
 :::proofsketch
 Les conteneurs préservant les deux points fixes, $`\mu X.\, F(X,Y)` est encore un conteneur en $`Y`,
@@ -235,8 +236,7 @@ ses approximations finies.
 :::
 :::note
 _Obligation ouverte._ La source exacte du résultat cité et ses hypothèses précises restent à
-relier (provenance encore non résolue). Ce résultat vaut pour des conteneurs non gradués et ne se
-transfère pas à l'extension graduée, qui fait l'objet de l'exigence suivante.
+relier (provenance encore non résolue). Le résultat ne se transfère pas de lui-même au cas gradué.
 :::
 ::::
 

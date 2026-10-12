@@ -30,6 +30,10 @@ EXPECTED_COMPANION_LABELS = {
     "thm:interface_jugement_cloture",
     "req:homomorphisme_roues_realisation",
     "req:sedimentation_graduee",
+    # Split of thm:raffinement ratified by the author on 2026-10-12 (option a).
+    "thm:raffinement_effacement",
+    "thm:raffinement_non_interference",
+    "thm:raffinement_precision",
 }
 HISTORICAL_ROW = re.compile(r"^\| `[^\`]+` \| \d+ \| `(?P<label>[^\`]+)` \|", re.M)
 HISTORICAL_LEVEL_ROW = re.compile(
