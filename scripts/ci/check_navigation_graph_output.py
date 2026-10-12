@@ -190,7 +190,7 @@ def check(site_root: Path, expected_ref: str) -> list[str]:
         if node_id in node_ids:
             errors.append(f"duplicate graph node id: {node_id!r}")
         node_ids.add(node_id)
-        if kind not in NODE_KINDS:
+        if not isinstance(kind, str) or kind not in NODE_KINDS:
             errors.append(f"graph node {node_id!r} has unknown kind {kind!r}")
         if not isinstance(url, str) or not url:
             errors.append(f"graph node {node_id!r} has no destination URL")
@@ -219,9 +219,9 @@ def check(site_root: Path, expected_ref: str) -> list[str]:
             errors.append(f"graph edge {index} is not an object")
             continue
         source, target, kind = edge.get("source"), edge.get("target"), edge.get("kind")
-        if source not in node_ids or target not in node_ids:
+        if not isinstance(source, str) or source not in node_ids or not isinstance(target, str) or target not in node_ids:
             errors.append(f"graph edge {index} has missing endpoint: {source!r} -> {target!r}")
-        if kind not in EDGE_KINDS:
+        if not isinstance(kind, str) or kind not in EDGE_KINDS:
             errors.append(f"graph edge {index} has unknown type {kind!r}")
         else:
             edge_counts[kind] += 1
