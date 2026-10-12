@@ -41,6 +41,7 @@
 | | Question | Éléments | Effet |
 |---|---|---|---|
 | — | les quatre imports ciblés : lesquels verser, où | « validés » d'après le compte rendu du 1er octobre, **non versés** au texte ; le dernier est écarté pour `BLOQ-06` (corrigé autrement) | trois instructions à conduire (`BIB-10` pour les modes) |
+| `thm:progres` | séparer ou non le progrès local d'un calcul clos et le progrès global d'un pool ; faire entrer ou non dans l'énoncé les deux hypothèses de l'esquisse (totalité des opérations à effet, conformité de l'arène) | le titre de l'énoncé (« … et le pool avec lui ») annonce le progrès global, mais l'énoncé ne porte que sur le progrès local. Options : (a) scinder en un progrès local, hypothèses dans l'énoncé, et un progrès global, avec configuration du pool et prémisse d'acyclicité ; (b) garder un bloc et y écrire les deux formes avec leurs prémisses ; (c) garder le texte actuel avec la note. Relevé par la revue sémantique C8, lot 03 ; détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative ; `thm:deadlock_acyclique` porte l'exclusion du blocage mutuel |
 
 ## Nouvelles, nées de la conversion
 
