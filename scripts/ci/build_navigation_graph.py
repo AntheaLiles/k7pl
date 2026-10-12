@@ -448,6 +448,7 @@ input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font
 <section class="panel" aria-labelledby="graph-title">
 <h2 id="graph-title">Voisinage explicite</h2>
 <p id="selected" class="muted"></p>
+<button id="reset-selection" type="button">Revenir au point de départ</button>
 <svg id="graph" viewBox="0 0 1000 640" role="img" aria-label="Graphe des relations explicites autour de l'objet sélectionné">
 <title>Relations explicites de l'objet sélectionné</title>
 <desc>Les liens sont extraits des références internes, citations et structures de sections de la spécification Verso.</desc>
@@ -467,6 +468,8 @@ const byId = new Map();
 const nodeList = document.getElementById("node-list");
 const search = document.getElementById("search");
 const depthControl = document.getElementById("depth");
+const resetButton = document.getElementById("reset-selection");
+let entryNodeId = null;
 function activeEdgeKinds() {
   return new Set(Array.from(document.querySelectorAll("[data-edge-kind]"))
     .filter(function (control) { return control.checked; })
@@ -619,10 +622,23 @@ function renderRelations() {
     if (edge.provenance && edge.provenance.link_text) {
       li.append(document.createTextNode(" (lien : « " + edge.provenance.link_text + " »)"));
     }
+    if (edge.provenance && edge.provenance.page) {
+      const origin = document.createElement("a");
+      origin.href = "../" + edge.provenance.page;
+      origin.textContent = " Source de la relation";
+      li.append(origin);
+    }
     list.appendChild(li);
   });
 }
 search.addEventListener("input", renderList);
+resetButton.addEventListener("click", function () {
+  if (entryNodeId) {
+    search.value = "";
+    renderList();
+    selectNode(entryNodeId);
+  }
+});
 depthControl.addEventListener("change", function () { renderGraph(); renderRelations(); });
 document.querySelectorAll("[data-edge-kind]").forEach(function (control) {
   control.addEventListener("change", function () { renderGraph(); renderRelations(); });
@@ -639,7 +655,8 @@ fetch("./graph.json").then(function (response) {
     return node.kind === "figure" && node.id.includes("LesContraintesDeValeur.html#lbl-fig-session-automate");
   });
   const fallback = graphData.nodes.find(function (node) { return node.kind === "figure"; }) || graphData.nodes[0];
-  selectedId = (requested || preferred || fallback).id;
+  entryNodeId = (requested || preferred || fallback).id;
+  selectedId = entryNodeId;
   renderList();
   selectNode(selectedId);
 }).catch(function (error) {
