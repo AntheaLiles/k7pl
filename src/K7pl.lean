@@ -6,6 +6,7 @@ import K7pl.Arith
 import K7pl.GradeBudget
 import K7pl.UsageScale
 import K7pl.StructuralModes
+import K7pl.MemoryRange
 import K7pl.Semantics
 
 /-!

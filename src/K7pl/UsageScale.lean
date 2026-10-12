@@ -104,6 +104,52 @@ def scaleUsageContext [Monoid U] (a : U) (Δ : Context Var U M L) :
     Context Var U M L :=
   fun x => Option.map (scaleUsage a) (Δ x)
 
+/-- A full usage context is a total map; missing bindings project to zero. -/
+abbrev UsageContext (Var : Type x) := Var → Usage
+
+/-- The usage-only projection of a partial grade context. -/
+def projectUsageContext (Δ : Context Var Usage M L) : UsageContext Var :=
+  fun x =>
+    match Δ x with
+    | none => 0
+    | some g => g.usage
+
+/-- Projection commutes with the full context scaling action. -/
+theorem projectUsageContext_scale (a : Usage)
+    (Δ : Context Var Usage M L) :
+    projectUsageContext (scaleUsageContext a Δ) =
+      fun x => a * projectUsageContext Δ x := by
+  funext x
+  cases h : Δ x with
+  | none => simp [projectUsageContext, scaleUsageContext, h]
+  | some g => simp [projectUsageContext, scaleUsageContext, h]
+
+/-- Multiply every usage in a projected context by one scalar. -/
+def scaleUsageVector (a : Usage) (Δ : UsageContext Var) : UsageContext Var :=
+  fun x => a * Δ x
+
+/-- Pointwise addition of projected usage contexts. -/
+def addUsageVector (Δ Γ : UsageContext Var) : UsageContext Var :=
+  fun x => Δ x + Γ x
+
+/-- Scaling distributes over pointwise addition of usage projections. -/
+theorem scaleUsageVector_add (a : Usage)
+    (Δ Γ : UsageContext Var) :
+    scaleUsageVector a (addUsageVector Δ Γ) =
+      addUsageVector (scaleUsageVector a Δ) (scaleUsageVector a Γ) := by
+  funext x
+  exact mul_add a (Δ x) (Γ x)
+
+/-- Multiplication by a canonical usage scalar is monotone. -/
+theorem usage_mul_mono_left (a x y : Usage) (h : x ≤ y) :
+    a * x ≤ a * y := by
+  exact mul_le_mul_left' h a
+
+/-- Multiplication by a canonical usage scalar is additive. -/
+theorem usage_mul_add (a x y : Usage) :
+    a * (x + y) = a * x + a * y := by
+  exact mul_add a x y
+
 /-- Scaling preserves the support of a context. -/
 theorem scaleUsageContext_isSome [Monoid U] (a : U)
     (Δ : Context Var U M L) (x : Var) :
