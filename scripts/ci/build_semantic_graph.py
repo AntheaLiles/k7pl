@@ -418,7 +418,8 @@ li {{ margin: .5rem 0; }}
 .note {{ border-left: 4px solid #777; padding-left: .8rem; }}
 </style></head>
 <body>
-<nav aria-label="Navigation du prototype"><a href="figures.html">Catalogue des figures</a>
+<nav aria-label="Navigation du prototype"><a href="index.html">Exploration générale</a>
+<a href="figures.html">Catalogue des figures</a>
 {peer_link}
 <a href="{html.escape(source_page_href, quote=True)}">Section rendue</a>
 <a href="{html.escape(source_url, quote=True)}">Source Lean/Verso</a></nav>
