@@ -46,11 +46,11 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 > **As a researcher**, I want an optional graph view of K7PL's knowledge relations, so that I can discover structures that are difficult to perceive through linear documents.
 
 **Critères d'acceptation**
-- [ ] Le graphe peut être ouvert depuis un objet ou un parcours.
-- [ ] Les nœuds ne sont pas limités aux fichiers.
-- [ ] Les types d'objets et de relations sont distinguables.
-- [ ] La profondeur ou le périmètre affiché peut être limité.
-- [ ] Un nœud du graphe permet de revenir à une vue documentaire.
+- [x] Le graphe peut être ouvert depuis chaque page documentaire ; l'entrée transmet la page courante comme nœud initial, puis la liste de recherche permet de sélectionner un objet précis.
+- [x] Les nœuds ne sont pas limités aux fichiers : pages, sections, figures, tableaux, listings, énoncés et entrées bibliographiques rendus sont classés séparément.
+- [x] Les types d'objets sont visibles dans la liste et les nœuds ; les relations `contains`, `references` et `cites` ont des libellés distincts.
+- [x] La profondeur du voisinage (1–3 niveaux) et les types de relations affichés sont contrôlables depuis l'interface.
+- [x] Chaque nœud fournit un lien vers son objet dans le HTML documentaire rendu ; le graphe n'est pas le seul moyen de navigation.
 - [ ] Le graphe n'est pas la seule modalité de navigation.
 
 ### US-04 — Comprendre sans simplifier abusivement
@@ -141,18 +141,18 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 ### P3 — Génération Verso
 
-- [ ] Définir le point d'entrée du générateur.
-- [ ] Déterminer quelles fonctionnalités peuvent être obtenues avec Verso existant.
-- [ ] Développer uniquement les extensions nécessaires au prototype.
+- [x] Définir le point d'entrée du générateur : `scripts/ci/build_navigation_graph.py --site ... --ref ...`, appelé par `verify.yaml`.
+- [x] Exploiter le HTML généré par Verso pour les ancres, liens explicites, types de blocs et citations, sans ajouter d'extension Lean pour cette première vue.
+- [x] Pour la première vue, aucun nouveau bloc Verso n'est nécessaire : le générateur dérive la navigation du HTML rendu et réutilise les métadonnées et classes existantes.
 - [x] Générer une première navigation multi-niveaux reliant le catalogue de provenance et deux graphes locaux.
 - [x] Préserver les liens vers les sources canoniques, avec retour vers la page Verso rendue.
 - [x] Ajouter les garde-fous de génération nécessaires à la CI : références/citations et ancres rendues non résolues font échouer le build.
 
 ### P4 — Graphe
 
-- [ ] Définir le modèle de graphe à partir des relations sémantiques.
+- [x] Définir un modèle initial borné : nœuds de types rendus, arêtes `contains` structurelles et arêtes `references`/`cites` explicites ; provenance conservée dans `graph.json`.
 - [x] Générer deux vues graphe limitées à des plages de source explicites et validées par CI.
-- [ ] Ajouter filtrage ou limitation de profondeur si nécessaire.
+- [x] Ajouter le réglage interactif de profondeur et les cases de filtrage par type de relation ; les nœuds et relations restent aussi disponibles en listes textuelles accessibles.
 - [x] Permettre le retour du graphe vers la section Verso rendue et sa source canonique.
 - [ ] Évaluer si la vue graphe améliore réellement la compréhension.
 
