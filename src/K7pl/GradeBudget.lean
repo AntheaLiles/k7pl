@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: CECILL-2.1
 
 import Mathlib.Data.ENat.Monoid
-import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.Order.BigOperators.Group.Finset.Basic
 import Mathlib.Data.ENat.Lattice
 import Mathlib.Tactic.NormNum
 
@@ -120,7 +120,7 @@ theorem work_le_workAggregate {L : Type u} (κ : TemporalProfile L) (ℓ : L) :
 theorem depth_le_depthAggregate {L : Type u} (κ : TemporalProfile L) (ℓ : L) :
     (κ ℓ).2 ≤ depthAggregate κ := by
   unfold depthAggregate
-  exact le_iSup_of_le ℓ rfl
+  exact le_iSup_of_le ℓ (le_rfl : (κ ℓ).2 ≤ (κ ℓ).2)
 
 /-- The least-scalar-bound property for max(workAggregate, depthAggregate). -/
 theorem costBudget_le_of_bounds {L : Type u} (κ : TemporalProfile L) (b : ℕ∞)
