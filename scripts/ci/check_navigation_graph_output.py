@@ -143,6 +143,8 @@ def check(site_root: Path, expected_ref: str) -> list[str]:
         errors.append("interactive page must expose text lists as an alternative to the graph drawing")
     if "Source de la relation" not in page_source:
         errors.append("interactive page must expose each relation's source page in its details")
+    if "listLimit" not in page_source or "Afficher les " not in page_source:
+        errors.append("interactive page must let readers reach search results beyond the initial page")
     for kind in EDGE_KINDS:
         if f'data-edge-kind="{kind}"' not in page_source:
             errors.append(f"interactive page has no filter for relation type {kind!r}")
