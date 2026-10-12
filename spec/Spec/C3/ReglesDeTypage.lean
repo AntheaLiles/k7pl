@@ -261,6 +261,36 @@ theorem identityComputationTypable
       (by simp [emptyTypeEnv]) (by simp [singletonContext, r]) bodyTyping
   simpa [r, eraseContext_singleton] using lambdaTyping
 
+
+/-- A concrete `Let` derivation: bind the unit value and return the bound variable.
+The context-composition operator remains layer/effect-indexed; this theorem
+does not assume it is pointwise addition. -/
+theorem letUnitTypable
+    {Var : Type uVar} [DecidableEq Var]
+    {Effect : Type uEffect} {Monotonicity : Type uMono} {Level : Type uLevel}
+    {Layer : Type uLayer} (layer : Layer)
+    (contextCombine : ContextComposition Var Effect Layer)
+    (effectOne : Effect) (effectMul : Effect → Effect → Effect)
+    (x : Var) :
+    ComputationTyping layer contextCombine effectOne effectMul emptyTypeEnv
+      (contextCombine layer effectOne zeroContext
+        (eraseContext x (singletonContext x)))
+      (.let1 (.ret .unit) x (.ret (.var x)))
+      (.returned effectOne .unit) (effectMul effectOne effectOne) := by
+  apply ComputationTyping.let1 (layer := layer)
+    (contextCombine := contextCombine) (effectOne := effectOne)
+    (effectMul := effectMul) (env := emptyTypeEnv)
+    (Γ₁ := zeroContext) (Γ₂ := singletonContext x) (x := x)
+    (A := .unit) (first := .ret .unit) (body := .ret (.var x))
+    (C := .returned effectOne .unit) (ε₁ := effectOne) (ε₂ := effectOne)
+  · simp [emptyTypeEnv]
+  · apply ComputationTyping.ret
+    exact ValueTyping.unit
+  · simp [singletonContext]
+  · apply ComputationTyping.ret
+    apply ValueTyping.var
+    simp [extendTypeEnv, emptyTypeEnv]
+
 end K7pl.Spec.C3.EffectiveKernel
 
 #doc (Manual) "Règles de typage" =>
