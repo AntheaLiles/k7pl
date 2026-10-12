@@ -63,7 +63,7 @@ def test_reference_index_and_scaling_signatures_remain_explicit_in_c2():
     assert r"\operatorname{Bang}_{\mathcal G}(r,A)" in source
     assert r"\operatorname{Scale}_{\mathrm{Usage}}(a,\langle u,m,\ell,\beta\rangle)" in source
     assert "interface de référence" in source
-    assert "La ratification de l'interface ne prouve pas les lois de cohérence" in source
+    assert "ne prouve pas les lois de cohérence de cette instance" in source
 
 
 def test_subtyping_direction_is_read_from_the_source_equation():
