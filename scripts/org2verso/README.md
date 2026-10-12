@@ -34,8 +34,9 @@ les commentaires Org deviennent des blocs `:::comment` (non rendus) ; les `\ref`
 `{num}` ; les annexes portent leur lettre dans le titre.
 
 Le rapport de conversion liste les renvois non résolus (aucun aujourd'hui) et les avertissements
-de l'analyseur (un : l'en-tête du tableau `tab:engagements` est incomplet dans la source, voir
-[`docs/tracking/ANOMALIES.md`](../../docs/tracking/ANOMALIES.md)).
+de l'analyseur (un : l'en-tête du tableau `tab:engagements` est incomplet dans la source Org
+archivée, voir [`c1-prolegomenes.org`](../../docs/archives/manuscrit-org/chapitres/c1-prolegomenes.org).
+Le tableau courant est structuré dans [`GuideDeLecture.lean`](../../spec/Spec/C1/GuideDeLecture.lean)).
 
 Autres scripts : [`../biblio/`](../biblio/) (bibliographie), [`../org2md.py`](../org2md.py) (notes
 Org → Markdown), [`../manuscript_metrics.py`](../manuscript_metrics.py) et
