@@ -118,11 +118,14 @@ def semantic_kind(element: Element) -> str | None:
     return None
 
 
-def make_node(node_id: str, kind: str, label: str, url: str, page: str) -> dict[str, str]:
+def make_node(
+    node_id: str, kind: str, label: str, url: str, page: str, description: str = ""
+) -> dict[str, str]:
     return {
         "id": node_id,
         "kind": kind,
         "label": label or node_id,
+        "description": description,
         "url": url,
         "page": page,
     }
@@ -215,7 +218,7 @@ def build_graph(site_root: Path) -> dict:
                 node_id = f"{page}#{element_id}" if element_id else f"{page}#heading-{heading_number}"
                 label = element.text() or f"Section {heading_number}"
                 url = f"{page}#{element_id}" if element_id else page
-                nodes[node_id] = make_node(node_id, "section", label, url, page)
+                nodes[node_id] = make_node(node_id, "section", label, url, page, element.text())
                 if element_id:
                     anchor_to_node[f"{page}#{element_id}"] = node_id
                 if heading_stack:
@@ -246,7 +249,15 @@ def build_graph(site_root: Path) -> dict:
                     label = first_descendant_text(element, "k7-thm-head") or first_descendant_text(element, "k7-stm-head")
                 elif kind == "bibliography":
                     label = element.text()
-                nodes[node_id] = make_node(node_id, kind, label, f"{page}#{element_id}", page)
+                description = element.text()
+                if kind == "figure":
+                    image = next((child for child in descendants(element) if child.tag == "img"), None)
+                    alt = (image.attrs.get("alt") or "").strip() if image else ""
+                    if alt:
+                        description = alt + (" — " + description if description else "")
+                nodes[node_id] = make_node(
+                    node_id, kind, label, f"{page}#{element_id}", page, description
+                )
                 semantic_map[id(element)] = node_id
                 element_to_node[key] = node_id
                 anchor_to_node[f"{page}#{element_id}"] = node_id
@@ -414,7 +425,10 @@ input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font
 #node-list { max-height: 28rem; overflow: auto; padding-left: 1.2rem; }
 #node-list li { margin: .35rem 0; }
 #node-list button { font: inherit; text-align: left; }
-#graph { display: block; width: 100%; height: auto; min-height: 20rem; border: 1px solid #8c959f; border-radius: .3rem; }
+.graph-scroll { max-width: 100%; overflow-x: auto; border: 1px solid #8c959f; border-radius: .3rem; }
+#graph { display: block; width: 1000px; max-width: none; height: auto; min-height: 20rem; }
+.node { cursor: pointer; }
+.node:focus-visible .node-card { stroke: #0969da; stroke-width: 4; }
 .node-card { fill: Canvas; stroke: #57606a; stroke-width: 1.5; }
 .node-root .node-card { stroke: #0969da; stroke-width: 3; }
 .node-label { fill: CanvasText; font-size: 13px; }
@@ -450,12 +464,17 @@ input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font
 <h2 id="graph-title">Voisinage explicite</h2>
 <p class="muted"><span id="selected"></span> · <a id="selected-link" href="../index.html">Ouvrir l’objet documentaire</a></p>
 <button id="reset-selection" type="button">Revenir au point de départ</button>
+<div class="detail-controls"><label for="detail-level">Niveau de lecture <select id="detail-level"><option value="marker">Repère</option><option value="content">Texte rendu disponible</option><option value="document">Page documentaire</option></select></label></div>
+<section class="panel" aria-labelledby="object-detail-heading"><h3 id="object-detail-heading">Détail de l’objet sélectionné</h3><p id="object-detail" aria-live="polite">Sélectionner un objet pour afficher son contexte.</p></section>
+<noscript><p>La vue interactive nécessite JavaScript. Les pages documentaires restent consultables et les vues statiques sont disponibles dans le <a href="figures.html">catalogue des figures</a>, les <a href="semantic-graph.html">références C6</a> et les <a href="semantic-graph-c3.html">références C3</a>.</p></noscript>
+<div class="graph-scroll" tabindex="0" role="region" aria-label="Graphe relationnel, défilement horizontal possible">
 <svg id="graph" viewBox="0 0 1000 640" role="img" aria-label="Graphe des relations explicites autour de l'objet sélectionné">
 <title>Relations explicites de l'objet sélectionné</title>
 <desc>Les liens sont extraits des références internes, citations et structures de sections de la spécification Verso.</desc>
 <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8c959f"></path></marker></defs>
 <g id="edges"></g><g id="nodes"></g>
 </svg>
+</div>
 <h3>Relations autour de l'objet</h3>
 <ul id="relations"></ul>
 </section>
@@ -469,6 +488,7 @@ const byId = new Map();
 const nodeList = document.getElementById("node-list");
 const search = document.getElementById("search");
 const depthControl = document.getElementById("depth");
+const detailControl = document.getElementById("detail-level");
 const resetButton = document.getElementById("reset-selection");
 let entryNodeId = null;
 let listLimit = 120;
@@ -493,6 +513,7 @@ function selectNode(id) {
   const node = byId.get(id);
   document.getElementById("selected").textContent = node.kind + " — " + nodeLabel(node);
   document.getElementById("selected-link").href = openHref(node);
+  renderObjectDetail();
 }
 function renderList() {
   const query = search.value.trim().toLocaleLowerCase();
@@ -611,6 +632,35 @@ function renderGraph() {
     graphData.summary.nodes + " objets · " + graphData.summary.edges + " relations explicites · " +
     graphData.summary.references + " références · " + graphData.summary.citations + " citations." + note;
 }
+function renderObjectDetail() {
+  const node = byId.get(selectedId);
+  const panel = document.getElementById("object-detail");
+  panel.replaceChildren();
+  if (!node) {
+    panel.textContent = "Aucun objet sélectionné.";
+    return;
+  }
+  const level = detailControl.value;
+  const paragraph = document.createElement("p");
+  if (level === "marker") {
+    paragraph.textContent = node.kind + " — " + nodeLabel(node) +
+      ". Repère extrait de la structure HTML rendue ; ce libellé ne constitue pas une explication scientifique autonome.";
+    panel.appendChild(paragraph);
+    return;
+  }
+  if (level === "content") {
+    paragraph.textContent = node.description ||
+      "Aucun extrait de contenu n’est associé à cet objet. La source documentaire reste accessible ci-dessous.";
+    panel.appendChild(paragraph);
+    return;
+  }
+  paragraph.textContent = "Ouvrir l’objet à son emplacement dans le HTML Verso rendu. Le texte affiché reste soumis à la source documentaire, qui fait autorité.";
+  panel.appendChild(paragraph);
+  const link = document.createElement("a");
+  link.href = openHref(node);
+  link.textContent = node.page ? "Ouvrir la page documentaire (" + node.page + ")" : "Ouvrir la page documentaire";
+  panel.appendChild(link);
+}
 function renderRelations() {
   const list = document.getElementById("relations");
   list.replaceChildren();
@@ -655,6 +705,7 @@ resetButton.addEventListener("click", function () {
   }
 });
 depthControl.addEventListener("change", function () { renderGraph(); renderRelations(); });
+detailControl.addEventListener("change", renderObjectDetail);
 document.querySelectorAll("[data-edge-kind]").forEach(function (control) {
   control.addEventListener("change", function () { renderGraph(); renderRelations(); });
 });
