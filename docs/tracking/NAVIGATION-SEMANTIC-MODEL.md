@@ -67,7 +67,7 @@ La première tranche exécutable porte sur les lignes 22–50 de `spec/Spec/C6/L
 
 Le prototype représente uniquement les arêtes `num` et `cite` présentes dans cette plage source, chacune avec un lien vers son emplacement source exact. Les labels canoniques sont résolus vers les ancres des pages HTML produites par Verso ; une ancre manquante ou ambiguë fait échouer la génération. Le graphe revient à la section rendue et expose aussi sa source Lean/Verso. La provenance figure → source TikZ → SVG/PDF est un autre type d'arête, étayé par le manifeste et la CI. Le graphe ne déduit pas que les citations sont des prémisses formelles ni que les références sont des dépendances de preuve.
 
-Le résultat actuel est un petit ensemble de vues locales navigables, pas un graphe exhaustif de K7PL. La plage C3 n'est pas représentative de toutes les références de la section et ne doit pas être interprétée comme un inventaire complet.
+Le modèle source-vers-graphe actuel reste un petit ensemble de vues C6/C3 limité à des plages source explicites. Une vue de navigation plus large peut également être produite à partir du HTML Verso rendu : elle expose les catégories structurelles et les liens visibles, mais n'est pas un inventaire exhaustif de toutes les relations scientifiques. La plage C3 n'est pas représentative de toutes les références de la section.
 
 ## 6. Génération et validation
 
