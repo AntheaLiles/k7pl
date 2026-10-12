@@ -236,7 +236,8 @@ theorem truncatedSub_add_of_le (β k : ℕ∞) (h : k ≤ β) :
           simp at h
       | coe k =>
           have hk : k ≤ b := by simpa using h
-          simp [truncatedSub, Nat.sub_add_cancel hk]
+          rw [truncatedSub_finite_finite]
+          exact_mod_cast Nat.sub_add_cancel hk
 
 /-- Generic profile-level admissibility: the scalarized profile cost is
 covered by the supplied budget. This is not yet the canonical K7PL predicate
@@ -246,7 +247,7 @@ def profileAdmissible {L : Type u} (β : ℕ∞) (κ : TemporalProfile L) : Prop
 
 /-- Profile-level consumption is available only with a proof of admissibility.
 It models the partial domain contract from D6, but is not yet K7PL Consume. -/
-def profileConsume {L : Type u} (β : ℕ∞) (κ : TemporalProfile L)
+noncomputable def profileConsume {L : Type u} (β : ℕ∞) (κ : TemporalProfile L)
     (_admissible : profileAdmissible β κ) : ℕ∞ :=
   truncatedSub β (costBudget κ)
 
