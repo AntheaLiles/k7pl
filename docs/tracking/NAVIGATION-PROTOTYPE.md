@@ -47,7 +47,7 @@ Ce catalogue représente la **provenance technique des figures**. Il n'affirme p
 - [ ] Le lien depuis la figure et le retour vers le rendu fonctionnent dans le site publié.
 - [ ] Le catalogue reste lisible sur mobile, au clavier et sans dépendance JavaScript.
 - [ ] Une revue humaine confirme l'utilité du parcours par rapport à l'ouverture manuelle des fichiers.
-- [ ] Le parcours est réversible : depuis le catalogue, on revient à la source canonique puis à la page de spécification.
+- [x] La réversibilité du HTML généré est contrôlée : le catalogue renvoie vers l'ancre unique de la page documentaire et le validateur CI refuse les ancres absentes ou ambiguës (PR #150, run #38093986701). Le test du site public dans un navigateur reste ouvert.
 
 ## Étape suivante
 
@@ -61,7 +61,9 @@ Sur le seul sous-ensemble des trois pages générées, l'analyse statique a suiv
 
 **Limite du test de déploiement.** L'artefact chargé depuis Actions est celui remis au job Pages ; cela ne prouve pas, à lui seul, que chaque URL publique répond actuellement correctement. La consultation directe du site et l'ouverture de ses fichiers dans un navigateur de test ont été bloquées dans cette session. Le parcours réel sur le domaine publié, l'usage clavier, l'affichage mobile effectif et le test explicite avec JavaScript désactivé restent donc à vérifier par une personne disposant d'un navigateur fonctionnel. L'absence de script dans ces trois pages et leurs liens natifs rendent le mode sans JavaScript plausible, mais ne remplacent pas l'essai réel.
 
-L'audit statique cité ci-dessus porte sur l'artefact du run #38092815528, construit sur le commit `5d437c52dc7204dce03794af127c86c8f9970067`, donc antérieur à la PR #150. Depuis, la [PR #150](https://github.com/AntheaLiles/k7pl/pull/150) a été fusionnée le 10 octobre 2026. Son run de validation [#38093986701](https://github.com/AntheaLiles/k7pl/actions/runs/38093986701) a réussi, et le générateur ainsi que ses tests comprennent désormais un lien « Page documentaire » vers l'ancre rendue unique ; voir `scripts/ci/build_figure_provenance.py` et `tests/python/test_build_figure_provenance.py`. Cependant, le job « Publication GitHub Pages » était ignoré dans ce run de PR : ce résultat ne prouve donc ni un redéploiement du site public après #150, ni le fonctionnement effectif des liens sur ce site. La validation directe dans un navigateur, au clavier et sur mobile reste à conduire.
+L'audit statique cité ci-dessus porte sur l'artefact du run #38092815528, construit sur le commit `5d437c52dc7204dce03794af127c86c8f9970067`, donc antérieur à la PR #150. La [PR #150](https://github.com/AntheaLiles/k7pl/pull/150) a depuis été fusionnée. Son run de validation [#38093986701](https://github.com/AntheaLiles/k7pl/actions/runs/38093986701) a réussi ; le catalogue et le validateur incluent désormais un lien « Page documentaire » vers l'ancre rendue unique, ainsi que des contrôles de fraîcheur et de cohérence des liens. Les sources concernées sont `scripts/ci/build_figure_provenance.py`, `scripts/ci/check_navigation_outputs.py` et leurs tests.
+
+Le run de PR n'exécutait pas le job « Publication GitHub Pages » : il ne prouve donc ni un redéploiement public après #150, ni le fonctionnement effectif des liens sur ce site. La cohérence du HTML construit est couverte par CI ; la validation directe du site public, le clavier, le mobile et le mode sans JavaScript restent des essais humains à conduire.
 
 ## Comparaison falsifiable à mener avant d'étendre le prototype
 
