@@ -8,13 +8,75 @@ import Mathlib.Tactic.NormNum
 /-!
 # Formal arithmetic for K7PL budget annotations
 
-This module formalizes only the extended-natural-number subtraction convention
-ratified in the D8 decision trail and its compatibility with finite natural
-multiplicities. It does not formalize the K7PL effect judgement, Adm, Consume,
-ψ, substitution, or the complete temporal cost construction.
+This module formalizes bounded arithmetic facts over ℕ∞ and generic temporal
+profile aggregation. The profile type matches the work/depth pair structure
+written in C2, but is not yet linked to the canonical K7PL domain K, effect
+judgement, Adm, Consume, ψ, substitution, or resource-correctness theorem.
 -/
 
 namespace K7pl.GradeBudget
+
+universe u
+
+/-- A temporal profile assigns work and depth bounds to each level. -/
+abbrev TemporalProfile (L : Type u) := L → ℕ∞ × ℕ∞
+
+/-- Supremum of accumulated work over all finite sets of levels. -/
+noncomputable def workAggregate {L : Type u} (κ : TemporalProfile L) : ℕ∞ :=
+  ⨆ F : Finset L, ∑ ℓ ∈ F, (κ ℓ).1
+
+/-- Supremum of per-level depth. On an empty level type, this is zero. -/
+noncomputable def depthAggregate {L : Type u} (κ : TemporalProfile L) : ℕ∞ :=
+  ⨆ ℓ : L, (κ ℓ).2
+
+/-- Scalarized budget cost, as the maximum of total work and maximum depth. -/
+noncomputable def costBudget {L : Type u} (κ : TemporalProfile L) : ℕ∞ :=
+  max (workAggregate κ) (depthAggregate κ)
+
+/-- Work aggregation is monotone in every per-level work bound. -/
+theorem workAggregate_mono {L : Type u} (κ κ' : TemporalProfile L)
+    (h : ∀ ℓ, (κ ℓ).1 ≤ (κ' ℓ).1) :
+    workAggregate κ ≤ workAggregate κ' := by
+  unfold workAggregate
+  apply iSup_le
+  intro F
+  apply le_iSup_of_le F
+  exact Finset.sum_le_sum (fun ℓ _ => h ℓ)
+
+/-- Depth aggregation is monotone in every per-level depth bound. -/
+theorem depthAggregate_mono {L : Type u} (κ κ' : TemporalProfile L)
+    (h : ∀ ℓ, (κ ℓ).2 ≤ (κ' ℓ).2) :
+    depthAggregate κ ≤ depthAggregate κ' := by
+  unfold depthAggregate
+  apply iSup_le
+  intro ℓ
+  exact le_iSup_of_le ℓ (h ℓ)
+
+/-- The max scalarization is monotone when work and depth are monotone. -/
+theorem costBudget_mono {L : Type u} (κ κ' : TemporalProfile L)
+    (hw : ∀ ℓ, (κ ℓ).1 ≤ (κ' ℓ).1)
+    (hd : ∀ ℓ, (κ ℓ).2 ≤ (κ' ℓ).2) :
+    costBudget κ ≤ costBudget κ' := by
+  unfold costBudget
+  exact max_le_max (workAggregate_mono κ κ' hw) (depthAggregate_mono κ κ' hd)
+
+/-- The depth supremum on an empty level set is the bottom of ℕ∞, namely 0. -/
+theorem depthAggregate_empty (κ : TemporalProfile Empty) :
+    depthAggregate κ = 0 := by
+  simp [depthAggregate]
+
+/-- The finite-subset work supremum on an empty level set is 0. -/
+theorem workAggregate_empty (κ : TemporalProfile Empty) :
+    workAggregate κ = 0 := by
+  unfold workAggregate
+  apply le_antisymm
+  · apply iSup_le
+    intro F
+    induction F using Finset.induction_on with
+    | empty => simp
+    | @insert x F hx ih => cases x
+  · exact le_iSup_of_le ∅ (by simp)
+
 
 /-- Extended truncated subtraction for budget bounds.
 
