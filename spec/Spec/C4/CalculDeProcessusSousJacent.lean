@@ -176,6 +176,14 @@ licite parce que le grade $`\omega` est l'image du fragment cartésien. La compo
 n'est pas traduite : elle n'a pas de contrepartie dans le calcul.
 :::
 
+:::note
+_Obligation ouverte._ L'induction n'est conduite que dans son plan. Restent à fixer les formes de
+jugement source et cible, puis à conduire l'induction règle par règle, prémisses et conditions
+latérales comprises, en particulier pour la ré-invocation finie, les services répliqués, les effets
+(la composante $`\mathcal{E}` n'est pas traduite), les types dépendants pragmatiques et le point
+fixe. Ce théorème est une dépendance de preuve, non un fondement vérifié ; toute limite du fragment
+cible doit rester explicite.
+:::
 ::::
 Une seconde voie existe pour les cas de la couche 3, plus directe, et elle rejoint un choix déjà
 fait. Le fragment séquentiel déterministe du calcul cible est essentiellement le $`\lambda`-calcul

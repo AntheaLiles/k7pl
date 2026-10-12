@@ -233,6 +233,11 @@ pas de l'itération sur un seul des deux points fixes : elle s'obtient en trait
 simultané, sa réduction à un point fixe unique donnant l'objet visé pour coalgèbre finale, limite de
 ses approximations finies.
 :::
+:::note
+_Obligation ouverte._ La source exacte du résultat cité et ses hypothèses précises restent à
+relier (provenance encore non résolue). Ce résultat vaut pour des conteneurs non gradués et ne se
+transfère pas à l'extension graduée, qui fait l'objet de l'exigence suivante.
+:::
 ::::
 
 ::::requirement (label := "req:sedimentation_graduee") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "fixed-points")
@@ -245,6 +250,11 @@ Extension graduée
 
 Pour des conteneurs _gradués_, c'est une exigence ouverte, dont la route est une démonstration et dont la contrainte
 d'outil est nommée (note ci-dessous).
+:::
+:::note
+_Obligation ouverte._ Restent à énoncer la préservation des points fixes et la convergence
+attendues pour des conteneurs gradués, puis la route de preuve envisagée. La contrainte d'outil est
+celle que nomme la note de bas de page ci-après.
 :::
 ::::
 
