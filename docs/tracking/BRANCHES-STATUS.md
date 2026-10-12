@@ -1,72 +1,132 @@
 # Statut des branches de travail
 
-**Audit API : 2026-10-11, 13:20 Europe/Paris.**  
-**État observé :** 33 références de branche, dont `main`, et cinq PR ouvertes.
+**Rapprochement : 2026-10-12, sur `main` = `200b6935f5622e93d9add104e1f0e46dae6f6e6b`.**  
+**État observé avant ce rapprochement :** 46 références de branche distantes (dont `main` et la branche de session `ccr-c4afa630-5uz1ic`) et trois PR ouvertes (#170, #182, #183).
 
-Cet inventaire distingue les branches qui portent une PR ouverte, les archives scientifiques à conserver et les branches anciennes/supersédées. Il ne donne pas autorisation de fusion ni de suppression. Les rebase/squash et les changements d'historique rendent les nombres de commits en avance/retard impropres à établir seuls qu'une branche contient ou non du matériau unique.
+Ce registre remplace l'inventaire du 11 octobre. Il réalise le passage d'hygiène annoncé par [l'instantané de reprise](RECOVERY-STATUS-2026-10-11.md), § 5 : pour chaque tête sans PR ouverte, il consigne s'il reste du contenu unique. Il recommande ; il **n'autorise ni fusion ni suppression**. Aucune branche n'a été supprimée ni réécrite pendant ce rapprochement. Les reprises sont portées par de nouvelles branches `rebase/…`, et les branches d'origine restent intactes.
 
-## Référence canonique et PR ouvertes
+## Méthode et limites
 
-| Branche | Statut au moment de l'audit | PR | Action |
+Faits observés, dans l'ordre :
+
+1. Le clone de session était superficiel (50 commits). L'historique complet a été récupéré avant toute comparaison, car un clone superficiel fausse les comptes d'avance et de retard.
+2. Pour chaque branche : `git cherry origin/main <branche>` (équivalence de patch), puis un `git rebase origin/main` réel dans un worktree jetable. Le rebase écarte les commits dont le patch est déjà dans `main`.
+3. Pour les rebases en conflit, j'ai mesuré le **résidu** avec la règle « la version de `main` prévaut sur chaque hunk en conflit », puis inspecté ce résidu à la main. Cette règle sert à mesurer ce qui reste ; elle ne tranche pas entre la branche et `main`.
+4. Les branches d'archive ont été comparées fichier par fichier, et l'historique des PR a été lu par l'API GitHub.
+
+Limites : l'équivalence de patch n'est pas une équivalence sémantique. Un résidu nul signifie que la branche n'ajoute plus rien à `main` sans conflit. Il ne dit pas que la version de `main` est la bonne. Ce registre est une photographie datée : reconsulter les références vivantes avant toute suppression.
+
+## 1. PR ouvertes
+
+| PR | Branche (tête) | État vérifié le 12 octobre | Action proposée |
 |---|---|---|---|
-| `main` | référence canonique, protégée | — | Seule référence normative courante. SHA observé : `5655628693eb86eca8f8bef026a1d1f384264a71`. |
-| `research/stage-c-interface-closure` | active, brouillon de suivi C | [#154](https://github.com/AntheaLiles/k7pl/pull/154) | Porte C toujours ouverte ; vérifier le nouveau CI après mise à jour des documents. |
-| `automation/generated-status` | PR automatisée ouverte | [#148](https://github.com/AntheaLiles/k7pl/pull/148) | `docs/STATUS.md` est généré. Ne pas le modifier manuellement. |
-| `docs/semantic-migration-closeout-2026-10-11` | active, brouillon | [#153](https://github.com/AntheaLiles/k7pl/pull/153) | Rebaser/réconcilier les changements contre `main` ; examiner également les changements de `spec/` et de l'outillage. |
-| `feat/c8-controlled-statement-migration` | active | [#139](https://github.com/AntheaLiles/k7pl/pull/139) | Examiner la migration contrôlée des 69 blocs historiques et des cinq objets compagnons ; CI verte ne vaut pas validation mathématique. |
-| `research/lean-assurance-evaluation-2026-10-11` | active, brouillon | [#151](https://github.com/AntheaLiles/k7pl/pull/151) | Chantier K indépendant de C ; vérifier la réconciliation du plan maître avant fusion. |
+| [#183](https://github.com/AntheaLiles/k7pl/pull/183) | `research/c-kernel-effective-rules-2026-10-12` (`64d98e7`) | CI complète verte, run [38293553896](https://github.com/AntheaLiles/k7pl/actions/runs/38293553896). Contient tout l'arbre de #170 : `git diff b055e38 9a1409a2` est vide. Noyau C3 compilé et audité (258 déclarations sous `Spec.C3.EffectiveKernel`). | Fusion : décision de l'autrice. La porte C reste **NON SATISFAITE**. |
+| [#170](https://github.com/AntheaLiles/k7pl/pull/170) | `research/c01-interface-ratification-2026-10-11` (`9a1409a`) | CI verte (run [38284102750](https://github.com/AntheaLiles/k7pl/actions/runs/38284102750)), mais fusion par rebase impossible : trois commits de fusion (`0d575f7`, `a353c09`, `5de8d73`). | Fermer sans fusion si #183 est fusionnée. L'historique reste consultable via `refs/pull/170/head`. Ne pas réécrire la branche. |
+| [#182](https://github.com/AntheaLiles/k7pl/pull/182) | `feat/semantic-navigation-rendered-links` (`cc415a4`) | Diff vide avec `main` : contenu intégré par #141, la tête est une fusion de `main`. | Fermer sans fusion, puis supprimer la branche. |
+| [#184](https://github.com/AntheaLiles/k7pl/pull/184) | `rebase/feat/navigation-graph-mvp` (`be612be`) | Brouillon. Rebase sans conflit de `feat/navigation-graph-mvp` (`f24763a`) : approche « graphe dérivé du HTML rendu », concurrente de `build_semantic_graph.py` dans `main`. | Décision de conception. Ensuite, supprimer les deux branches. |
+| [#185](https://github.com/AntheaLiles/k7pl/pull/185) | `rebase/split/pr10-1-outillage-spec` (`f2b17f1`) | Brouillon. Seul résidu de `split/pr10-1-outillage-spec` (`c4aea10`) : deux lignes de `writing-rules.md` documentant `{printindex}`, `{idx}` et `{gloss}`. | Fusionner ou fermer. Ensuite, supprimer les deux branches. |
 
-L'état des PR doit être reconsulté avant toute action : ce tableau est une photographie datée, pas un substitut à l'API GitHub.
+## 2. Branches intégrées à `main` — rebase vide
 
-## Branches à conserver pour revue scientifique
+Le rebase sur `main` ne laisse aucun changement. Ces branches peuvent être supprimées après votre vérification.
 
-| Branche | Traitement | Motif |
+| Branche | Tête | Trace |
 |---|---|---|
-| `claude/lean4-reuse-init-qvzlcg` | **Archive scientifique non normative ; conserver** | Contient des journaux et analyses PR-02 uniques, absents de `main`. Aucune conclusion de cette branche n'est ratifiée par sa seule existence. |
-| `repair/pr54-coherence-2026-10-08` | **Archive de travail à réconcilier ; conserver** | Contient une importante trajectoire ancienne autour de la reprise C. Ne pas fusionner en bloc ; rapprocher les notes et conclusions de la matrice C-01–C-09 actuelle. |
-| `split/pr10-3-singularites` | Référence historique uniquement | Ne constitue pas une résolution courante de BLOQ-12. Toute proposition doit être requalifiée après satisfaction du verrou C. |
+| `docs/semantic-navigation-model` | `5f2d9ce` | #137 fusionnée |
+| `feat/c8-shared-statement-ontology` | `335faf3` | #130 fermée ; patchs présents dans `main` via #131 |
+| `feat/figure-provenance-navigation` | `22aadf9` | #136 fusionnée |
+| `feat/semantic-navigation-graph` | `d68ebaa` | #138 fusionnée |
+| `feat/semantic-navigation-multi-slice` | `8957c46` | #144 fusionnée |
+| `feat/tikz-figure-poc` | `710ca34` | #127 fusionnée |
+| `feat/tikz-production-artifacts` | `b3dc217` | #135 fusionnée |
+| `feat/tikz-production-integration` | `87c7201` | #133 fusionnée |
+| `fix/semantic-graph-auto-width` | `83a1685` | #146 fusionnée |
+| `fix/tikz-visual-fidelity` | `3684370` | #142 fusionnée |
+| `fix/verso-figure-assets-html` | `d2cb684` | #124 fusionnée |
+| `research/stage-c-interface-closure` | `ce686c0` | #154 fusionnée |
+| `repair/pr54-coherence-2026-10-08` | `ebd08e7` | Aucune PR à ce nom. 86 commits d'avance : 78 sont équivalents à des commits de `main`, et les 8 autres deviennent vides au rebase. Tout le contenu est donc dans `main` ; seule la trajectoire des commits est propre à la branche. Cela corrige le statut « à conserver » du 11 octobre, qui reposait sur une comparaison non vérifiée fichier par fichier. |
+| `feat/semantic-navigation-rendered-links` | `cc415a4` | Voir #182 |
 
-## Branches avec PR fusionnée ou travail intégré
+## 3. Branches contenues dans #170 et #183
 
-Ces branches ne doivent pas servir de point de départ à de nouvelles modifications. Leur conservation ou suppression dépend d'une comparaison de contenu, pas uniquement de l'ascendance Git.
+Ce sont les étapes empilées des décisions D3 à D11 et de l'audit indépendant de la porte C. Elles ont été fusionnées dans la pile de #170, pas dans `main`. `git cherry` contre la tête de #170 ne trouve aucun patch sans équivalent, sauf pour `research/l1-rel-mode-opportunities-2026-10-11` : ses deux patchs restants portent sur des fichiers que #170 reprend et révise (`L1-REL-MODE-OPPORTUNITIES-2026-10-11.md`, D-16 dans `DECISIONS.md`).
 
-| Branche | Trace principale | Traitement |
+| Branche | Tête | PR (base) |
 |---|---|---|
-| `docs/semantic-navigation-model` | PR #137 fusionnée | Provenance historique ; ne pas redévelopper le modèle depuis cette tête. |
-| `feat/figure-provenance-navigation` | PR #136 fusionnée | Le catalogue de provenance est intégré à `main`. |
-| `feat/semantic-navigation-graph` | PR #138 fusionnée | Graphe sémantique initial intégré. |
-| `feat/semantic-navigation-rendered-links` | PR #141 fusionnée | Liens vers les pages rendues intégrés. |
-| `feat/semantic-navigation-multi-slice` | PR #144 fusionnée | Deuxième tranche intégrée. |
-| `feat/tikz-figure-poc` | PR #127 fusionnée | POC historique ; la génération de figures a été intégrée ensuite. |
-| `feat/tikz-production-artifacts` | PR #135 fusionnée | Production d'artefacts intégrée. |
-| `feat/tikz-production-integration` | PR #133 fusionnée | Intégration au build principal. |
-| `fix/semantic-graph-auto-width` | PR #146 fusionnée | Correction intégrée. |
-| `fix/tikz-visual-fidelity` | PR #142 fusionnée | Correction intégrée. |
-| `fix/verso-figure-assets-html` | PR #124 fusionnée | Correction HTML intégrée. |
+| `research/mode-scope-c01-c02-2026-10-11` | `ec7076f` | #171 (pile #170) |
+| `research/d3-cost-budget-total-2026-10-11` | `5f9ef4c` | #172 |
+| `research/d4-empty-sup-zero-2026-10-11` | `183f17d` | #173 |
+| `research/d5-adm-principle-2026-10-11` | `bf8234f` | #174 |
+| `research/d6-partial-consume-2026-10-11` | `18d7c88` | #175 |
+| `research/d7-psi-independent-domain-2026-10-11` | `855fb23` | #176 |
+| `research/d8-global-truncated-subtraction-2026-10-11` | `6d10441` | #177 |
+| `research/d9-admissible-multiplicity-law-2026-10-11` | `6928e07` | #178 |
+| `research/d10-restrict-multiplicity-law-2026-10-11` | `a322e33` | #179 |
+| `research/d11-audit-multiplicity-sites-2026-10-11` | `37160f8` | #180 ; ancêtre direct de la tête de #170 |
+| `research/c-gate-independent-audit-2026-10-11` | `596a957` | #181 |
+| `research/l1-rel-mode-opportunities-2026-10-11` | `f1901f8` | aucune PR |
 
-## Branches supersédées ou historiques
+Action proposée : supprimer ces branches après la fusion de #183, ou de #170 par une autre méthode. Avant cela, une PR séparée par branche ne ferait que dupliquer #170.
 
-| Branche | État connu | Règle de reprise |
-|---|---|---|
-| `feat/c8-controlled-statement-migration-ci` | PR #143 fermée sans fusion, supersédée par #139 | Ne pas reprendre séparément ; le correctif de migration doit rester sur #139. |
-| `feat/c8-shared-statement-ontology` | PR #130 supersédée par #131 | Ne pas fusionner ; la version intégrée est la référence. |
-| `feat/c8-statement-dependency-check` | PR #85 supersédée par le travail intégré sur `main` | Historique ; ne pas réactiver sans défaut concret. |
-| `feat/c8-dependency-cycle-audit` | PR #87 supersédée par le travail intégré sur `main` | Historique ; ne pas réactiver sans défaut concret. |
-| `feat/lake-osv-scanning` | PR #103 supersédée par #104 | Ancienne tentative ; ne pas fusionner. |
-| `feat/tikz-production-figures` | PR #132 fermée sans fusion, supersédée par #133/#135 | Ancienne trajectoire ; ne pas fusionner. |
-| `feat/navigation-graph-mvp` | Pas de PR ouverte associée au snapshot | Comparer son contenu aux PR intégrées avant toute réutilisation ou suppression. |
-| `ci/diagnostic-localization` | PR #65 fermée sans fusion ; approche ultérieure intégrée via #66 | Ne pas réouvrir telle quelle ; contrôler tout élément distinctif avant suppression. |
-| `improvement-suggestions-c74e0` | Ancienne PR #27 fermée sans fusion | Ancienne branche très divergente ; ne pas fusionner en bloc. Examiner seulement une proposition précise si elle reste pertinente. |
-| `split/pr10-1-outillage-spec` | Abandonnée explicitement ; remplacée par `tools/SpecExt/IndexTerms.lean` | Ne pas reprendre `{printindex}` depuis cette branche. |
-| `split/pr10-2-troncature-conformite` | Matériau historique associé à la PR #33 intégrée | Ne pas fusionner en bloc. |
-| `split/pr10-4-manuscrit-semantique` | Branche cumulative historique de PR-10 | Ne pas fusionner ; les tranches ont été séparées, revues et intégrées autrement. |
-| `tooling/prototypes-bcd` | Ancienne trajectoire des annexes B/C/D | Historique ; ne pas la confondre avec une décision actuelle sur ces annexes. |
+## 4. Branches supersédées — aucun résidu utile
+
+| Branche | Tête | Trace | Résidu après rebase |
+|---|---|---|---|
+| `ci/diagnostic-localization` | `e340d38` | #65 fermée | Nul : les trois fichiers sont en conflit avec la version ultérieure intégrée à `main` (problem matcher REUSE et son test). |
+| `feat/c8-dependency-cycle-audit` | `ee658aa` | #87 fermée | Nul (`statement_inventory.py` a été remplacé par #91). |
+| `feat/c8-statement-dependency-check` | `ea845ef` | #85 fermée | Nul. |
+| `feat/lake-osv-scanning` | `ce6ace6` | #103 fermée, remplacée par #104 | Nul. |
+| `tooling/prototypes-bcd` | `df200aa` | #25 fermée, remplacée par #26 | Nul. |
+| `feat/c8-controlled-statement-migration-ci` | `da6c657` | #143 fermée, remplacée par #139 | Artefacts seulement : un paragraphe dupliqué dans `LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md`, la suppression d'un `import re` que `statement_inventory.py` utilise, et un fichier Verso entier collé au milieu d'une phrase de `SixSchemasDeMetatheorie.lean`. Rien à reprendre. |
+| `feat/tikz-production-figures` | `030737e` | #132 fermée | Option `--check-tracked` de `check_tikz_poc.py`. Elle compare aux fichiers `spec/figures/<figure>.pdf` et `.svg`, que `main` ne versionne plus pour les figures TikZ depuis #135 : elle est obsolète. |
+| `improvement-suggestions-c74e0` | `65e726b` | #27 fermée | Hybride incohérent avec `main` : 3 échecs de `scripts/ci/test_impact.py`, et perte du bit exécutable de `scripts/axiom-audit.sh`. Deux idées pourraient être reconçues, pas fusionnées : récupérer `axiom-audit` par SHA, et classer `scripts/axiom-audit.sh` parmi les déclencheurs du chemin complet. |
+
+Action proposée : ces branches peuvent être supprimées après votre vérification. Aucune PR n'a été ouverte pour elles : elle serait vide, obsolète, ou ferait échouer la CI.
+
+## 5. Branches à conserver — décision de l'autrice requise
+
+Ces branches portent du contenu absent de `main` que je n'ai pas intégré : l'intégrer demanderait d'arbitrer une sémantique normative ou une migration sémantique.
+
+### `claude/lean4-reuse-init-qvzlcg` (`d39d012`) — archive scientifique
+
+La PR #10 a été fermée sans fusion. La branche contient un commit unique de 115 fichiers. Contenu absent de `main` :
+
+- 13 comptes rendus de séances PR-02 numérotées 21 à 33 (5 au 7 octobre) ;
+- 16 notes du dossier `analyses-decisions/` de l'ancien répertoire de recherche (index, `∥`/`vmap`, `spawn`, ANOM-18, singularités, sceaux, ARB-PR-04, ratifications, T-68) ;
+- les études `etude-parallele-fourche-entrelacement` et `etude-spawn-fil-de-temps`, `instruction-des-decisions` et `t68-vocabulaire-en-bloc` ;
+- les tables de renommage T-68 et les scripts `vocabulaire.py` et `t68_renommer.py` ;
+- des modifications de `spec/`, de registres et d'outillage. Le rebase signale 36 conflits de contenu, de modification/suppression ou d'ajout/ajout, plus 34 conflits de localisation pour les fichiers ajoutés.
+
+**Constat bloquant.** `main` contient déjà une **autre** série de séances « PR-02 21 à 62 », datée du 7 octobre (`docs/history/2026-10-07-pr-02-21-grade-architecture.md` et suivants). Les numéros 21 à 33 sont donc en collision avec des sujets différents : ce sont deux trajectoires PR-02 distinctes. De plus, les notes de recherche citent les anciens répertoires de suivi et de recherche d'avant la migration physique. `scripts/ci/check_documentation_architecture.py` refuse ces chemins hors de `docs/history`, `docs/archives` et `docs/migration`. Je n'ai donc produit ni rebase ni PR.
+
+Options, sans choix de ma part :
+
+- **A** : verser les comptes rendus 21 à 33 dans `docs/history/` sous un nom de série distinct. Ce renommage est une décision. Il faudrait ensuite rapprocher leurs conclusions de la matrice C-01 à C-09.
+- **B** : garder la branche comme archive référencée (statut actuel).
+- **C** : reprise sélective, note par note, après revue scientifique, dans un lot de `docs/migration/`.
+
+### `split/pr10-2-troncature-conformite` (`99bc514`), `split/pr10-3-singularites` (`927a6fd`) et `split/pr10-4-manuscrit-semantique` (`b0d2cbf`)
+
+Ces trois branches partagent le commit `c4aea10` de `split/pr10-1`, dont le seul résidu est repris par #185. Le reste de leur contenu est surtout normatif :
+
+- **pr10-2** : §2.3 (troncature) et §6.2 (conformité), en conflit avec la version courante.
+- **pr10-3** : singularités de la roue (`LesContraintesDeValeur.lean`), avec 56 lignes d'entrées bibliographiques, `scripts/controles/singularites.py` et `SpecBib.lean`. Cela relève de D/BLOQ-12, bloqué par la porte C. La partie non normative dépend de la partie normative, que je n'ai pas reprise.
+- **pr10-4** : environ 30 fichiers `spec/`. 57 de ses 61 fichiers sont identiques à ceux de `claude/lean4-reuse-init-qvzlcg`.
+
+Reprendre une partie de ce texte demande une décision d'autrice et, pour D, la clôture de la porte C. À conserver comme référence historique tant que cette décision n'est pas prise.
+
+## 6. Branches créées par ce rapprochement
+
+| Branche | Rôle |
+|---|---|
+| `rebase/feat/navigation-graph-mvp` | tête de #184 |
+| `rebase/split/pr10-1-outillage-spec` | tête de #185 |
+| `ccr-c4afa630-5uz1ic` | branche de session portant ce registre |
 
 ## Politique de nettoyage
 
-1. Aucun nettoyage massif n'est autorisé par cet inventaire.
-2. Pour chaque branche sans PR ouverte, vérifier le commit exact, les fichiers qui diffèrent de `main`, les PR historiques correspondantes et la présence éventuelle de notes scientifiques uniques.
-3. Les branches dont le contenu a été fusionné ou explicitement supersédé peuvent être proposées à la suppression une fois cette vérification enregistrée.
-4. Les branches `claude/lean4-reuse-init-qvzlcg` et `repair/pr54-coherence-2026-10-08` restent conservées jusqu'à une revue scientifique explicite.
-5. Les branches de migration cumulative ne remplacent jamais les portes de sortie. En particulier, `split/pr10-3-singularites` ne permet pas de contourner l'étape C.
-6. Ce document a été mis à jour dans la PR de reprise C ; la PR #153 portait aussi une modification antérieure de ce fichier. Avant de fusionner les PR de suivi, réconcilier leur version de `BRANCHES-STATUS.md` afin de ne pas réintroduire l'ancien décompte.
+1. Ce registre n'autorise aucun nettoyage massif. Chaque suppression reste une décision humaine, branche par branche.
+2. Avant de supprimer une branche, revérifier sa tête : une tête différente de celle du tableau invalide la ligne.
+3. Les branches de la section 5 restent conservées tant qu'une décision explicite de l'autrice n'est pas consignée dans [`DECISIONS.md`](DECISIONS.md).
+4. Les branches de migration cumulative ne remplacent jamais les portes de sortie. En particulier, `split/pr10-3-singularites` ne permet pas de contourner l'étape C.
+5. [`RECOVERY-STATUS-2026-10-11.md`](RECOVERY-STATUS-2026-10-11.md) reste un instantané daté ; il n'a pas été modifié.
