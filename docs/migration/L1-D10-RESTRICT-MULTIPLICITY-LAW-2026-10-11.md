@@ -26,4 +26,10 @@ C2 indique que cette loi n’est pas requise par `Scale_Usage`, qui conserve le 
 - Vérifier si chaque usage est nécessaire à la substitution ou relève d’une extension optionnelle.
 - Formaliser puis prouver le lemme conditionnel, si son domaine est justifié.
 
+## Mise à jour de l'audit de source — 12 octobre 2026
+
+La formalisation ajoutée dans `K7pl.GradeBudget` prouve l'identité arithmétique sur `ℕ∞` sous la condition `u ≠ ⊤ ∨ k = 0`. Cette restriction correspond au domaine indiqué dans le lemme C2 courant ; elle n'affirme pas que la seule admissibilité budgétaire suffise, ni que chaque dérivation historique dépende effectivement de cette identité. L'audit D11 confronte désormais les affirmations de R-02 aux proofsketches actuels et laisse la provenance détaillée des dérivations historiques ouverte.
+
+Ce nouvel artefact Lean n'amende pas rétroactivement la décision D10, ne change pas le domaine au-delà de l'option A ratifiée et ne ferme pas l'audit des six cibles historiques. Il prouve une identité arithmétique ciblée, pas la correction de ressource K7PL.
+
 Aucune preuve Lean, validation CI ou garantie d’exécution n’est revendiquée. Aucun changement de `spec/` ou `src/` n’est autorisé par cette décision. La porte C demeure **NON SATISFAITE**.

@@ -66,10 +66,7 @@ C'est la _soustraction tronquée prolongée_ en $`\omega`, et il faut dire ce qu
 n'est pas le résidu de l'addition_. Le résidu — le plus petit $`x` tel que $`k + x \ge \beta` —
 rendrait $`\omega \ominus \omega = 0`, puisque $`\omega + 0 \ge \omega`. {rmq}[Deux définitions qui
 coïncident sur les entiers et divergent à l'infini. Celle qu'on retient est celle qui ne promet rien
-qu'elle ne tienne.] La différence n'est visible qu'en $`\omega`, et elle décide de la vérité d'une
-loi que six démonstrations invoquent : l'annotation se lit comme une _borne_ et non comme une
-mesure, et pour une borne $`\omega \ominus \omega = \omega` est la sur-approximation sûre, quand le
-résidu annoncerait un budget nul là où rien ne le garantit.
+qu'elle ne tienne.] La différence n'est visible qu'en ω et décide de la vérité de la loi candidate de compatibilité de multiplicité. La revue indépendante R-02 attribue cette loi à six démonstrations historiques ; cette attribution ne vaut cependant pas preuve que les cibles du source courant en dépendent. La comparaison adverse de leurs proofsketches est consignée dans [l'audit D11](../../docs/migration/L1-D11-AUDIT-MULTIPLICITY-SITES-2026-10-11.md) : plusieurs cibles courantes n'invoquent pas directement la loi dans leur esquisse, et deux obligations restent indéterminées ou conditionnelles. Le choix de la convention globale et son contre-exemple restent décrits immédiatement ci-dessus.
 
 La structure requise pour cette composante est donc un monoïde commutatif _naturellement ordonné_
 muni de cette soustraction, dont la part semi-anneau n'est qu'un fragment. Les conaturels la
