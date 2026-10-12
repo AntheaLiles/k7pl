@@ -447,7 +447,7 @@ input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font
 </section>
 <section class="panel" aria-labelledby="graph-title">
 <h2 id="graph-title">Voisinage explicite</h2>
-<p id="selected" class="muted"></p>
+<p class="muted"><span id="selected"></span> · <a id="selected-link" href="../index.html">Ouvrir l’objet documentaire</a></p>
 <button id="reset-selection" type="button">Revenir au point de départ</button>
 <svg id="graph" viewBox="0 0 1000 640" role="img" aria-label="Graphe des relations explicites autour de l'objet sélectionné">
 <title>Relations explicites de l'objet sélectionné</title>
@@ -490,6 +490,7 @@ function selectNode(id) {
   renderRelations();
   const node = byId.get(id);
   document.getElementById("selected").textContent = node.kind + " — " + nodeLabel(node);
+  document.getElementById("selected-link").href = openHref(node);
 }
 function renderList() {
   const query = search.value.trim().toLocaleLowerCase();
