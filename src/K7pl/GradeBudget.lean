@@ -3,6 +3,7 @@
 -- SPDX-License-Identifier: CECILL-2.1
 
 import Mathlib.Data.ENat.Monoid
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import Mathlib.Data.ENat.Lattice
 import Mathlib.Tactic.NormNum
 
@@ -24,7 +25,7 @@ abbrev TemporalProfile (L : Type u) := L → ℕ∞ × ℕ∞
 
 /-- Supremum of accumulated work over all finite sets of levels. -/
 noncomputable def workAggregate {L : Type u} (κ : TemporalProfile L) : ℕ∞ :=
-  ⨆ F : Finset L, (∑ ℓ ∈ F, (κ ℓ).1)
+  ⨆ (F : Finset L), F.sum (fun ℓ => (κ ℓ).1)
 
 /-- Supremum of per-level depth. On an empty level type, this is zero. -/
 noncomputable def depthAggregate {L : Type u} (κ : TemporalProfile L) : ℕ∞ :=
