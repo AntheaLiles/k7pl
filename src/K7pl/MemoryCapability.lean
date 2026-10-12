@@ -55,7 +55,7 @@ def parallel (left right : State Region) : State Region :=
   fun r => ((left r).1 + (right r).1, (left r).2 + (right r).2)
 
 /-- Two parallel contexts cannot both own a writer for one region if their union is unique. -/
-theorem no_double_writer [DecidableEq Region] (left right : State Region)
+theorem no_double_writer (left right : State Region)
     (hUnique : Unique (parallel left right)) (r : Region)
     (hLeft : (left r).2 > 0) (hRight : (right r).2 > 0) : False := by
   have hCount := hUnique r
