@@ -225,40 +225,34 @@ La qualification doit séparer : (1) les propriétés déjà décrites dans le c
 
 ## 7. Décisions restant ouvertes
 
-Les analyses techniques ci-dessus ne remplacent pas les décisions réservées à l'autrice. En particulier, D-7/ANOM-04 reste ouvert. Les autres décisions et preuves scientifiques conservent leur propre statut ; aucun état fermé n'est inféré depuis un compte rendu historique sans provenance.
+Les analyses techniques ci-dessus ne remplacent pas les décisions réservées à l'autrice. En particulier, le choix éditorial D-7 reste ouvert, même si les renvois normatifs obsolètes sont retirés. Les autres décisions et preuves scientifiques conservent leur propre statut ; aucun état fermé n'est inféré depuis un compte rendu historique sans provenance.
 
 ## 8. Fiches courtes pour arbitrage
 
-### D-7 / ANOM-04 — périmètre des prototypes B, C et D
+### D-7 — Périmètre éditorial des prototypes B, C et D (décision ouverte)
 
-- **A — développer séparément :** conserver trois annexes à l'avenir, en vérifiant le statut réel de chaque outil et toutes les garanties annoncées.
-- **B — regrouper :** une annexe « Outillage complémentaire » avec les trois prototypes, et une frontière explicite entre langage spécifié et outils.
-- **C — différer :** garder le document normatif sur A seule jusqu'à implémentation vérifiable, avec provenance dans `tooling/prototypes-bcd/` et `docs/archives/manuscrit-org/`.
+Les annexes B/C/D ne sont pas importées par `spec/Spec.lean`; les prototypes restent dans `tooling/prototypes-bcd/` et les sources Org dans `docs/archives/manuscrit-org/`. Le renvoi normatif résiduel de C6 vers Sugoi a été retiré dans le commit [`4a8c34f`](https://github.com/AntheaLiles/k7pl/commit/4a8c34f80f2013b2d9c330f344e82a774a9b275e). L'anomalie technique de référence dans le manuscrit courant est donc résolue.
 
-Effet commun : aucune modification du contenu normatif n'est proposée dans cette PR. Choisir une option et l'inscrire explicitement dans D-7 est nécessaire pour clôturer ANOM-04.
+La décision portant sur la présentation future du matériau reste réservée à l'autrice :
 
-### D-9 / ANOM-09 — index paginé
+- **A — développer séparément :** conserver trois annexes, après vérification du statut réel de chaque outil et de ses garanties ;
+- **B — regrouper :** créer une annexe « Outillage complémentaire » avec une frontière explicite entre langage spécifié et outils ;
+- **C — différer :** garder le document normatif limité à son périmètre courant, avec provenance dans `tooling/prototypes-bcd/` et `docs/archives/manuscrit-org/`.
 
-- **État de départ mesuré :** le PDF de `main` au SHA `86959948` avait une liste statique de 31 termes sans pages, visible pages 277–278.
-- **Voie technique testée dans cette branche :** réutiliser l'extension existante `SpecExt.printindex`, qui agrège les marques automatiques issues de `IndexTerms.lean` et émet des références de pages en TeX ; les liens HTML sont des liens de sections. Le résultat doit être contrôlé dans le PDF réellement construit, pas uniquement par compilation.
-- **Preuve observée :** sur la candidate `9c34e7aaa99e00809c00d56812ab2160b55c276d`, run [`38131422345`](https://github.com/AntheaLiles/k7pl/actions/runs/38131422345) terminé avec `success`; `spec-pdf` (`11699506098`) contient 287 pages et un index paginé aux pages imprimées 277–278. `ordonnancement` mène à `64, 82, 99, 171, 175, 233`; les cadres rouges hyperref ont disparu au rendu; le journal `spec-pdf-log` (`11699366281`) ne contient pas de cibles `idx-*` non résolues, et la garde CI dédiée a réussi. **État : techniquement résolu sur cette candidate.**
+Cette décision ne doit pas être inférée de la seule absence de B/C/D dans `spec/`; aucun contenu normatif ne doit être réécrit avant ratification.
 
-### D-10 / ANOM-10 — interface HTML localisée
+### Index PDF — correction intégrée dans main
 
-- **Configurable dans le dépôt :** `tools/SpecExt/Translate.lean` remplace une liste explicite de chaînes HTML/JS après génération ; `tools/SpecMain.lean` déclenche cette passe ; `tests/SpecToolsTest.lean` teste des cas unitaires. Cela établit une localisation partielle contrôlée par le dépôt, pas une interface entièrement traduite.
-- **Dépend de l'amont :** les chaînes de navigation et de recherche sont émises par Verso v4.34.0 (par ex. `VersoManual.lean` et `static-web/search/search-box.js`). La configuration `HtmlConfig` consultée expose les options de table des matières mais aucune option de locale/localisation n'a été trouvée. Le remplacement local peut casser en cas de modification des chaînes.
-- **Proposition upstream préparée, non soumise :**
+- **Implémentation courante :** `spec/Spec/Refs/Index.lean` invoque `printindex`; `tools/SpecExt/Index.lean` produit l'index, et `tools/SpecExt/AutoMark.lean` limite les marques au texte rendu. La CI comprend l'étape `Reject unresolved index page references` dans `.github/workflows/verify.yaml`.
+- **Preuve de rendu disponible :** le PDF du run [38131422345](https://github.com/AntheaLiles/k7pl/actions/runs/38131422345) sur la candidate PR #153 a été inspecté visuellement : 287 pages, index paginé aux pages imprimées 277–278, sans cadres rouges, et aucune cible `idx-*` non résolue dans le journal. Le code et le garde CI sont présents dans `main`. La preuve visuelle archivée concerne toutefois cette candidate, non une nouvelle inspection de l'artefact exact de la tête actuelle.
+- **État :** la correction et la non-régression sont intégrées. Cette clôture technique est distincte de la validation globale L1/L5.
 
-  **Titre :** `Add configurable locale/i18n for Verso manual UI and search`
+### Localisation HTML Verso — portée courante et amélioration upstream distincte
 
-  **Problème observé :** K7PL doit remplacer des chaînes après génération ; dans Verso v4.34.0, `HtmlConfig` n'expose pas de locale, tandis que `VersoManual.lean`, `static-web/search/search-box.js` et `search-page.js` émettent des chaînes UI en dur.
-
-  **Demande :** exposer un catalogue centralisé de messages UI (navigation, recherche, compteurs, états vides, libellés ARIA, titres utilitaires) avec locale de repli documentée et exemple `fr`.
-
-  **Critères d'acceptation proposés :** les chaînes visibles/accessibilité relèvent du catalogue ; le repli des clés absentes est déterministe ; tests de page de recherche, suggestions, résultats vides, compteurs et titres ; locale ou fournisseur de messages configurable depuis `HtmlConfig`.
-
-  **État :** fiche prête pour révision humaine ; ticket non soumis et aucune réponse upstream connue.
-- **Critère de clôture :** couverture des chaînes dans le rendu HTML réel documentée ; les chaînes hors du contrôle local restent ouvertes jusqu'à une capacité upstream ou à une autre stratégie explicitement choisie.
+- **Implémentation courante :** `tools/SpecExt/Translate.lean` contient une feuille de traduction HTML (navigation, pages de recherche/redirection, messages d'erreur) et une feuille JS pour les contrôles, résultats et libellés ARIA. `tools/SpecMain.lean` déclenche la transformation après génération et `tests/SpecToolsTest.lean` vérifie les remplacements représentatifs et l'idempotence.
+- **Observation de rendu :** l'artefact HTML de la candidate PR #153 contenait 67 pages avec `lang="fr"`; la page de redirection et ses titres/en-têtes visibles étaient traduits. Le code courant comporte plus de règles que celles consignées dans l'ancien registre.
+- **Limite explicite :** Verso v4.34.0 ne fournit pas de paramètre de locale dans `HtmlConfig`. La feuille locale traduit les chaînes qu'elle cible ; elle ne garantit pas la traduction de toutes les futures chaînes ajoutées par l'amont. Une API générique de locale/i18n serait une amélioration upstream séparée, dont la proposition reste non soumise.
+- **État :** le défaut local de traduction des chaînes prises en charge est corrigé dans `main`. Aucune revendication de localisation universelle ou de couverture des chaînes futures n'est faite ; la demande upstream reste une amélioration facultative, non un défaut bloquant de la spécification courante.
 
 ## 9. Provenance
 
@@ -268,6 +262,7 @@ Sources principales de la migration :
 - [`docs/tracking/primitives.md`](../tracking/primitives.md) — inventaire et justification lexicale des primitives ;
 - [`docs/tracking/factorisations-refusees.md`](../tracking/factorisations-refusees.md) — contre-exemples aux factorisations ;
 - [`docs/tracking/hypotheses-de-module.md`](../tracking/hypotheses-de-module.md) — hypothèses de formalisation et obstacles ;
-- [`docs/tracking/ANOMALIES.md`](../tracking/ANOMALIES.md) — état des anomalies de conversion et des annexes.
+- [`docs/migration/L5-VALIDATION.md`](L5-VALIDATION.md) — preuves des rendus et limites de validation ;
+- [`docs/tracking/DECISIONS.md`](../tracking/DECISIONS.md) — décisions d'autrice et choix explicitement ouverts.
 
 Les formulations de ce document sont une qualification de migration. Elles ne valent pas preuve mathématique des propriétés qu'elles prescrivent de démontrer.
