@@ -130,3 +130,10 @@ n'est pas affirmée pour une famille de niveaux arbitraire ; seule la borne sup�
 au budget est prouvée dans ce module. Les constructions restent des profils de référence :
 le lien avec les véritables opérations d'effet, le domaine canonique des règles et les traces
 d'exécution doit être prouvé séparément. **C demeure NON SATISFAITE et aucun GO D–J n'est déduit.**
+
+
+## 10. Retour de compilation sur les compositions temporelles
+
+La CI [#38249828869](https://github.com/AntheaLiles/k7pl/actions/runs/38249828869) a compilé les contrôles préliminaires, puis signalé que la définition de `parallelProfile` dépend de `instCompleteLinearOrderENat`, instance non calculable sur `ℕ∞`. Le correctif marque explicitement `parallelProfile` comme `noncomputable`, sans modifier sa formule mathématique. Les audits et tests dépendants de la compilation ont été sautés ou ont échoué en cascade ; ils ne permettent pas encore de valider cette nouvelle tranche C-05.
+
+Le résultat de CI précédent (#38248910876) ne se transfère pas à cette nouvelle extension. Il faut vérifier le SHA post-correctif avant d'affirmer la réussite de C-05.

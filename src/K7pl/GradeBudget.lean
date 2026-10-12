@@ -339,7 +339,7 @@ def sequentialProfile {L : Type u}
   fun ℓ => ((κ₁ ℓ).1 + (κ₂ ℓ).1, (κ₁ ℓ).2 + (κ₂ ℓ).2)
 
 /-- Parallel composition: work adds while depth is the maximum. -/
-def parallelProfile {L : Type u}
+noncomputable def parallelProfile {L : Type u}
     (κ₁ κ₂ : TemporalProfile L) : TemporalProfile L :=
   fun ℓ => ((κ₁ ℓ).1 + (κ₂ ℓ).1, max (κ₁ ℓ).2 (κ₂ ℓ).2)
 
