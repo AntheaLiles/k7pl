@@ -7,13 +7,15 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Statut :** audit documentaire non normatif ; C reste ouvert.  
 **Révision auditée de `main` :** `232eb9afca0fdd7d87d2250eceaeeb8a381b271c` (11 octobre 2026).  
-**Frontière :** C-01 et C-02 seulement. Aucun engagement normatif n'est promu par ce document. Les sources Verso/Spec décrivent les objets, propositions et esquisses ; leur compilation n'en fait pas des déclarations de théorèmes Lean.
+**Frontière :** C-01 et C-02 seulement. Cet audit décrit les sources avant la décision d'autrice consignée ci-dessous ; il n'est pas une preuve formelle. Les sources Verso/Spec décrivent les objets, propositions et esquisses ; leur compilation n'en fait pas des déclarations de théorèmes Lean.
+
+**Mise à jour postérieure à l’audit :** l’autrice a ratifié `π_U`, `Bang_𝒢` et `Scale_Usage` comme interfaces de référence le 11 octobre 2026 ; les sources ont été harmonisées le 12 octobre. Cette harmonisation reste documentaire : les lois de cohérence, de naturalité, de composition et leur compatibilité avec les règles attendent encore leurs preuves. Voir [la note de ratification C-01](L1-C01-INTERFACE-RATIFICATION-2026-10-11.md) et le [dossier d’intégration source](L1-C-SOURCE-INTEGRATION-2026-10-12.md).
 
 ## 1. Sources exactes et portée de la preuve
 
 | Source | Révision du fichier (blob) | Passage pertinent | Ce que la source fournit |
 |---|---|---|---|
-| [C2 — ComonadeExponentielleEtFragments.lean](../../spec/Spec/C2/ComonadeExponentielleEtFragments.lean) | `819385958b3b2fbdada7418d7e7a1f340ff59baf` | définition de `𝓡`, interface exponentielle, `π_U`, `Bang_𝒢`, `Scale_Usage`, coût budgétaire | signatures candidates et lois exigées, pas leur mécanisation |
+| [C2 — ComonadeExponentielleEtFragments.lean](../../spec/Spec/C2/ComonadeExponentielleEtFragments.lean) | `819385958b3b2fbdada7418d7e7a1f340ff59baf` | définition de `𝓡`, interface exponentielle, `π_U`, `Bang_𝒢`, `Scale_Usage`, coût budgétaire | le texte source marque les signatures comme candidates et énonce des lois sans les mécaniser ; décision humaine postérieure référencée ci-dessus |
 | [C3 — LeSystemeGradue.lean](../../spec/Spec/C3/LeSystemeGradue.lean) | `b579261957ce5a2967f736203682ca5c61482eaf` | intervalles `U_m`, triplets `M_m`, `thm:morphismes_modes` | instances candidates et preuve-esquisse sous contrat à expliciter |
 | [C3 — GrammaireDesTypes.lean](../../spec/Spec/C3/GrammaireDesTypes.lean) | `3df5f24c41375de24d4254516be2863c437b9d6a` | grade complet et effet temporel indexé par niveau | composantes de l'annotation et structure temporelle |
 | [C3 — ReglesDeTypage.lean](../../spec/Spec/C3/ReglesDeTypage.lean) | `11abe4803e93a13a2d24c847dad323337094502f` | produit mixte du sous-typage, `SubBox`, `φ_n`, substitution | direction de `≼`, opérations dans les règles et obligations |
@@ -31,10 +33,10 @@ Notations : `𝒞` est la catégorie dont `End(𝒞)` désigne les endofoncteurs
 | `𝕄` | coordonnée `m∈𝕄`, avec comparaison écrite `m ≽ m′` | Marque de monotonie. Le support canonique et ses opérations/composition ne sont pas complètement spécifiés. Le « minimum » qui apparaît dans la table des candidats n'est pas encore une structure globale ratifiée. |
 | `ℒ` | coordonnée de niveau `ℓ∈ℒ` ; `κ : ℒ → ℕ∞×ℕ∞` | Niveaux de confidentialité et indexation du coût temporel. La source utilise `ℓ≤ℓ′` et `⊔` dans les cas de branchement, mais la structure exacte requise (ordre/treillis, niveaux admissibles, contraintes) doit être canoniquement définie pour chaque loi invoquée. |
 | `𝔅` | `ℕ∞` | Budget `β`, ordonné par `≤`. La consommation utilise la soustraction tronquée `⊖`, opération distincte de `+` et `×` du semi-anneau d'usage. |
-| `π_U` | candidate `π_U : 𝒢 → 𝓡`, `π_U(⟨u,m,ℓ,β⟩)=u` | Projection de la seule coordonnée d'usage. Signature explicitée comme candidate dans C2 ; promotion normative et compatibilité générale restent à ratifier/démontrer. |
-| `Bang_𝒢` | abréviation candidate `Bang_𝒢 : 𝒢 × Obj(𝒞) → Obj(𝒞)`, `Bang_𝒢(r,A) := !_{π_U(r)}A` | Factorise l'indice de l'exponentielle par `π_U`. La catégorie et l'index effectif `I=𝓡` sont les hypothèses de la construction. Ce raccourci ne prouve pas que les conversions du grade complet sont correctes. |
+| `π_U` | interface de référence ratifiée : `π_U : 𝒢 → 𝓡`, `π_U(⟨u,m,ℓ,β⟩)=u` | Projection de la seule coordonnée d'usage. C2 conserve encore la mention source « candidate » ; sa normalisation est à réaliser. La compatibilité générale reste à démontrer. |
+| `Bang_𝒢` | interface de référence ratifiée : `Bang_𝒢 : 𝒢 × Obj(𝒞) → Obj(𝒞)`, `Bang_𝒢(r,A) := !_{π_U(r)}A` | Factorise l'indice de l'exponentielle par `π_U`. La catégorie et l'index effectif `I=𝓡` sont les hypothèses de la construction. C2 est à harmoniser ; ce raccourci ne prouve pas que les conversions du grade complet sont correctes. |
 | Exponentielle indexée | `! : I → End(𝒞)` ; `0_I∈I`; `+_I, ·_I : I×I→I` | Interface abstraite de la comonade graduée. C2 exige aussi `w_A : !_{0_I}A → A`, `c_{i,j,A} : !_{i+_I j}A → !_i A ⊗ !_j A`, et `coerce_{i,j,A}: !_i A → !_j A` seulement pour les couples d'indices admissibles. Ne pas confondre `·_I`, action de contexte et multiplication sur `𝒢`. |
-| `Scale_Usage` | candidate `Scale_Usage : 𝓡 × 𝒢 → 𝒢`; `Scale_Usage(a,⟨u,m,ℓ,β⟩)=⟨a·u,m,ℓ,β⟩` | Action sur la seule composante usage. Pour les règles, extension liaison-par-liaison à `Ctx`; définie uniquement lorsque le contexte et son agrégation sont bien formés. Le budget n'est pas mis à l'échelle. Statut candidat dans C2 : aucune promotion normative ici. |
+| `Scale_Usage` | interface de référence ratifiée : `Scale_Usage : 𝓡 × 𝒢 → 𝒢`; `Scale_Usage(a,⟨u,m,ℓ,β⟩)=⟨a·u,m,ℓ,β⟩` | Action sur la seule composante usage. Pour les règles, extension liaison-par-liaison à `Ctx`; définie uniquement lorsque le contexte et son agrégation sont bien formés. Le budget n'est pas mis à l'échelle. C2 est à harmoniser ; les lois restent à prouver. |
 | `φ_n` | `n∈ℕ∞`; `φ_n : 𝔈 → 𝔈` | Transformateur d'effets pour une multiplicité d'exécution effective `n`, distinct du scalaire d'usage `a∈𝓡`. La source donne `φ_n(⟨ε₀,k⟩)=⟨ε₀^n,n·k⟩`, avec `k` lu point-par-point sur les paires travail/profondeur indexées par `ℒ`. `φ_1=id`, `φ_n∘φ_m=φ_{nm}`, `φ_0` envoie sur l'unité ; ces lois dépendent de la signature exacte de `𝔈` et de sa puissance/supremum au cas infini. Ne pas définir `φ_a` pour un usage rationnel par analogie. |
 | `W` | `W : K → ℕ∞`, `W(κ)=sup_{F⊆ℒ, F fini} Σ_{ℓ∈F} w_ℓ` | Agrège le travail comme supremum des sommes finies. La formule est la définition textuelle ; les conventions du supremum et les propriétés de composition restent à vérifier sur le `K` canonique. |
 | `D` | `D : K → ℕ∞`, `D(κ)=sup_{ℓ∈ℒ} s_ℓ` | Agrège la profondeur par supremum ponctuel. Domaine et existence du supremum doivent être spécifiés (en particulier la convention si `ℒ` est vide, si ce cas est admis). |
@@ -47,13 +49,13 @@ Notations : `𝒞` est la catégorie dont `End(𝒞)` désigne les endofoncteurs
 
 ### Lois démontrables sur papier, sous hypothèses explicites
 
-1. **Projection monotone dans la direction de sous-typage demandée.** La règle source donne `r≼r′ ⇒ u≥u′` pour les quadruplets bien formés ; la définition candidate de `π_U` donne `π_U(r)=u` et `π_U(r′)=u′`. Donc `π_U(r)≥π_U(r′)`. Cela est une conséquence immédiate des définitions textuelles. Hypothèses : même décomposition de `𝒢` et définition de `≼` exactement comme écrite. Ce n'est pas un théorème Lean, ni une preuve de fonctorialité de `coerce`.
-2. **Identité de `Scale_Usage`.** Sous `Scale_Usage` comme formule candidate et `1·u=u`, chaque coordonnée reste identique ; donc `Scale_Usage(1,r)=r`, et liaison par liaison `Scale_Usage(1,Δ)=Δ`.
+1. **Projection monotone dans la direction de sous-typage demandée.** La règle source donne `r≼r′ ⇒ u≥u′` pour les quadruplets bien formés ; la définition de référence de `π_U` (encore étiquetée candidate dans le texte source C2) donne `π_U(r)=u` et `π_U(r′)=u′`. Donc `π_U(r)≥π_U(r′)`. Cela est une conséquence immédiate des définitions textuelles. Hypothèses : même décomposition de `𝒢` et définition de `≼` exactement comme écrite. Ce n'est pas un théorème Lean, ni une preuve de fonctorialité de `coerce`.
+2. **Identité de `Scale_Usage`.** Sous la formule retenue pour `Scale_Usage` et l’hypothèse `1·u=u`, chaque coordonnée reste identique ; donc `Scale_Usage(1,r)=r`, et liaison par liaison `Scale_Usage(1,Δ)=Δ`.
 3. **Composition de `Scale_Usage`.** Sous associativité de `·` dans `𝓡`, la coordonnée usage de `Scale_Usage(a,Scale_Usage(b,r))` est `a·(b·u)=(a·b)·u`; les trois autres restent inchangées. La loi suit pour un grade, puis point-par-point pour un contexte admissible.
 4. **Additivité de `Scale_Usage`.** Sous distributivité de `·` sur `+` dans `𝓡` et lorsque `Δ₁+Δ₂` est défini (mêmes liaisons/types), la coordonnée usage donne `a·(u₁+u₂)=a·u₁+a·u₂` et les autres coordonnées restent non-scalées. Aucun résultat n'en découle pour les contextes incompatibles.
 5. **Monotonie de l'action.** Si `r≼r′`, alors `u≥u′`. Pour `a∈𝓡`, si la multiplication de `𝓡` est monotone en son second argument, `a·u≥a·u′` ; les trois autres coordonnées étant inchangées, `Scale_Usage(a,r)≼Scale_Usage(a,r′)`. Conditions : ordre mixte de la source, porteur et multiplication d'usage retenus et opération partout définie.
 
-Ces résultats sont des déductions conditionnelles à partir des formules affichées ; aucune preuve Lean spécifique à ces objets n'a été trouvée dans la bibliothèque `src/`. Ils ne ratifient pas les candidats de C2.
+Ces résultats sont des déductions conditionnelles à partir des formules affichées ; aucune preuve Lean spécifique à ces objets n'a été trouvée dans la bibliothèque `src/`. Ils ne prouvent ni les lois générales requises ni la compatibilité des conversions.
 
 ## 3. Relations à ne pas confondre — C-02
 
@@ -113,41 +115,44 @@ Par conséquent, les inclusions d'intervalles sont exactes en tant que faits ens
 
 1. **Porteurs `𝕄` et `ℒ` :** définition canonique, valeurs, relations complètes et opérations (y compris les lois de combinaison et le rôle exact de `⊔`).
 2. **Contrat de morphisme de modes :** définition formelle explicite, direction de l'inclusion de `Cont`, sens de préservation de `Weak`, définition exacte d'un idéal dans le cadre choisi, et validation que les permissions effectivement utilisées par les règles K7PL suivent de ces triplets.
-3. **`π_U` / `Bang_𝒢` :** décider si les signatures candidates sont ratifiées comme interface normative ; démontrer ensuite que les conversions de grade complet induisent les morphismes de l'exponentielle indexée, identité/composition/naturalité et compatibilité avec `w`/`c`.
-4. **`Scale_Usage` :** ratifier ou maintenir candidat ; prouver les lois pour les contextes typés, en intégrant les cas de contextes incompatibles, `SubBox`, substitutions et conversions.
+3. **`π_U` / `Bang_𝒢` :** interfaces de référence ratifiées par l'autrice ; harmoniser leurs déclarations de source, puis démontrer que les conversions de grade complet induisent les morphismes de l'exponentielle indexée, identité/composition/naturalité et compatibilité avec `w`/`c`.
+4. **`Scale_Usage` :** interface de référence ratifiée ; normaliser sa déclaration et prouver les lois pour les contextes typés, en intégrant les cas de contextes incompatibles, `SubBox`, substitutions et conversions.
 5. **Budget/coût :** clarifier `Cost_Budget:K⇀𝔅` versus `max(W,D)` sous hypothèses. Garder `Adm` comme prédicat et `Consume` potentiellement partielle hors admissibilité ; préciser le domaine de `ψ` et le lien entre `ψ`, les contextes compatibles et le coût traversé.
 6. **`φ_n` :** donner une définition de domaine/codomaine concordante avec les effets temporels actuels point-par-point par niveau ; montrer les lois utilisées par les règles pour tout domaine autorisé, en particulier si `n=ω` est conservé.
 7. **Formalisation :** apporter des déclarations Lean qui modélisent explicitement ces interfaces et des théorèmes correspondants si la formalisation est retenue comme preuve. Le rendu/compilation Verso n'est pas cette preuve.
 8. **Relations :** maintenir séparés `⊆`, `≼`, `⊑` et les morphismes de modes dans les règles, les tables et tout futur test structurel.
 
-## 5. Décisions à soumettre à l'autrice
+## 5. Décision d'autrice et décisions restant ouvertes
 
-Aucune des options ci-dessous n'est appliquée par cet audit.
+**D1 — Interfaces de grade et exponentielle : DÉCIDÉ.** Le 11 octobre 2026, l'autrice a retenu les signatures de `π_U`, `Bang_𝒢` et `Scale_Usage` comme interfaces de référence. Il ne reste pas à choisir entre les deux options de statut. L'action Scale_Usage porte seulement sur la composante d'usage et ne transforme pas le budget.
 
-**D1 — Statut de `π_U`, `Bang_𝒢` et `Scale_Usage`.**
+La source C2 porte encore textuellement l'étiquette « candidate » : cette divergence est un travail de normalisation documentaire/normative à réaliser dans un changement distinct. Les lois algébriques, conversions, naturalité, compatibilité avec les règles et substitution restent des obligations de preuve ; aucune preuve Lean n'est revendiquée. Le détail de la décision est consigné dans la [note de ratification C-01](L1-C01-INTERFACE-RATIFICATION-2026-10-11.md).
 
-- **Option A : ratifier précisément l'interface factorisée** décrite dans la table (avec les domaines/conditions à inscrire), puis aligner C2/C3 lors d'une modification normative autorisée ; les lois et la substitution restent à prouver.
-- **Option B : les maintenir comme candidats** dans la source et utiliser la table uniquement comme contrat de travail non normatif jusqu'à une démonstration ou une décision ultérieure.
-- **Coût/conséquence :** A stabilise les noms et domaines mais ratifie le choix architectural ; B protège l'ouverture épistémique mais laisse les règles qui les invoquent conditionnelles. Le registre ne choisit pas à la place de l'autrice.
+**D2 — Périmètre des modes : DÉCIDÉ ; preuves ouvertes.** Par décision d'autrice du 11 octobre 2026, le périmètre de référence courant retient `M_Lin` pour la couche 1, `M_Aff` pour la couche 2 et `M_Unr` pour la couche 3. `M_Rel` n'est pas activé dans les règles actuelles ; ses opportunités sont décrites dans [L1-REL-MODE-OPPORTUNITIES-2026-10-11.md](L1-REL-MODE-OPPORTUNITIES-2026-10-11.md). Cette décision ne prouve ni l'idéalité requise ni le contrat des morphismes : définir précisément la préservation de l'algèbre/ordre, `Cont(source)→Cont(cible)` et `Weak(source)⇒Weak(cible)`, puis établir la correspondance avec les permissions des règles K7PL.
 
-**D2 — Réalisation des modes.** Confirmer ou réviser les quatre triplets candidats et le contrat exact `Cont(source)→Cont(cible)` / `Weak(source)⇒Weak(cible)`. Le constat actuel autorise seulement la proposition conditionnelle ; les règles K7PL et leurs permissions ne sont pas encore reliées par preuve.
-
-**D3 — Totalité de `Cost_Budget`.** Décider si le coût est total sous les hypothèses scalarisation/P3 ou partiel avec un domaine explicite. Ne pas faire porter à `Consume` la partialité de `Cost_Budget` par défaut, ni l'inverse.
+**D3 — Totalité de `Cost_Budget` : OUVERT.** Décider si le coût est total sous les hypothèses de scalarisation/P3 ou partiel avec un domaine explicite. Ne pas faire porter à `Consume` la partialité de `Cost_Budget` par défaut, ni l'inverse.
 
 ## 6. Résultat pour le registre C
 
-- **C-01 : PARTIEL, porte ouverte.** Les signatures candidates principales et les lois algébriques conditionnelles sont écrites. Les domaines de plusieurs opérations, les porteurs `𝕄`/`ℒ`, les conversions de l'exponentielle, la totalité du coût et les ratifications ne sont pas résolus.
+- **C-01 : PARTIEL, porte ouverte.** Les signatures de référence principales sont retenues par décision d'autrice. Leur normalisation entre le registre et C2, les domaines de plusieurs opérations, les porteurs `𝕄`/`ℒ`, les conversions de l'exponentielle, la totalité du coût et les preuves des lois ne sont pas résolus.
 - **C-02 : PARTIEL, porte ouverte.** La direction `r≼r′ ⇒ π_U(r)≥π_U(r′)` est démontrable directement sur papier à partir des clauses source ; les intervalles n'impliquent pas des morphismes ; les flèches candidat sont validées conditionnellement à un contrat de mode encore à expliciter. La correspondance avec le jugement K7PL et la preuve machine demeurent ouvertes.
-- **Porte C globale : NON SATISFAITE.** Cette tranche ne conclut ni sur C-03–C-09 ni sur les ratifications humaines. D–F restent bloqués par la porte scientifique C.
+- **Porte C globale : NON SATISFAITE.** Cette tranche ne conclut ni sur C-03–C-09 ni sur les autres décisions humaines encore requises. D–F restent bloqués par la porte scientifique C.
 
 ## 7. Méthode de vérification reproductible
 
 À la révision source du tableau §1 :
 
-1. contrôler dans C2 la déclaration de `𝓡`, le produit `𝒢`, les formules candidates `π_U`/`Bang_𝒢`/`Scale_Usage` et l'interface `Cost_Budget`;
+1. contrôler dans C2 la déclaration de `𝓡`, le produit `𝒢`, les formules de référence `π_U`/`Bang_𝒢`/`Scale_Usage` et l'interface `Cost_Budget`, puis vérifier leur harmonisation source;
 2. contrôler dans C3 le tableau `U_m`, les quatre `M_m` candidats et le statut `under-review/proofsketch` de `thm:morphismes_modes`;
 3. contrôler dans les règles de typage la définition explicite du produit mixte `≼`, puis projeter la conjonction sur `u≥u′` ;
 4. vérifier les témoins d'échec `1+1=2` pour Lin/Aff et `0∉U_Rel`, puis les deux témoins de non-flèche Aff/Rel ci-dessus ;
 5. exécuter le test structurel `tests/python/test_stage_c_interface_audit.py`. Ce test vérifie la cohérence documentaire et quelques témoins arithmétiques élémentaires ; il n'établit ni les lois d'un mode, ni les règles K7PL, ni un théorème Lean.
 
 Les SHA de fichier consignés au §1 permettent de signaler toute dérive ultérieure de source. Tout changement de ces sources doit déclencher une nouvelle revue, et non une mise à jour automatique du statut épistémique.
+
+
+## Mise à jour de portée — intégration de source du 12 octobre 2026
+
+Ce fichier est un **instantané d’audit historique** de l’état mentionné au début du document ; ses tableaux de signatures et son §5 consignent ce qui restait ouvert lors de cet audit. Les décisions D3–D11 et l’intégration source ultérieure le complètent et supersèdent les choix explicitement marqués « ouverts » ci-dessous, sans promouvoir les esquisses en preuves : D3 retient `Cost_Budget : K → 𝔅` totale sous le contrat scalaire ; D4 retient `sup ∅=0` dans `ℕ∞` ; D5 établit le principe de couverture, dont la forme `Cost_Budget(κ)≤β` est une normalisation logique lorsque `ω` est maximal ; D6 maintient `Consume` partielle sur `Adm` ; D7 sépare le domaine de `ψ` de celui de `Consume` ; D8 fixe globalement `ω ⊖ ω=ω` ; D9–D10 gardent la loi de multiplicité conditionnelle et excluent son emploi comme prémisse universelle ; D11 reste un audit partiel des sites historiques.
+
+La source C2 harmonisée est présentée dans la [note d’intégration de source C-01–C-09](L1-C-SOURCE-INTEGRATION-2026-10-12.md). Les signatures textuelles et la compilation Verso ne démontrent ni les lois des interfaces ni la correction de ressource ; C demeure **NON SATISFAITE**.

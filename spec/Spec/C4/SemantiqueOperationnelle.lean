@@ -27,11 +27,9 @@ Cette section et les deux suivantes portent la sémantique sur laquelle les éno
 par forme d'élimination. La préservation et le progrès sont démontrés, le second sous deux
 hypothèses nommées, et le lemme de substitution l'est également au chapitre 3.
 
-Le cadre est fixé, et la relation peut l'être aussi. Une _configuration_ est un triplet
-$`\langle c \mid \mu \mid \tau \rangle` où $`c` est un calcul, $`\mu` un état d'arène — une
-application des régions vers leur contenu — et $`\tau` une _trace d'effets_, mot de la quantale
-accumulant ce qui a été produit. La relation $`\longrightarrow` est définie par les schémas
-suivants, donnés en style à petits pas.
+Le cadre est fixé, et la relation doit être définie sur les configurations complètes. Une configuration est un triplet ⟨c | μ | τ⟩ où c est un calcul, μ un état d'arène — une application des régions vers leur contenu — et τ la trace d'effets d'exécution. Dans le fragment séquentiel, cette trace est un mot ; sous concurrence, les obligations de préservation lisent son ordre comme un ordre partiel étiqueté le long de chaque chaîne, sans imposer de séquencement entre événements indépendants. La relation de réduction est définie par les schémas suivants, donnés en style à petits pas.
+
+P3-B ratifie que la latence d'attente environnementale de When doit rester observable séparément du coût d'exécution de l'automate déclenché et ne doit pas être ajoutée à son effet ε ni à `Cost_Budget`. La représentation et le type exacts de cette observation séparée ne sont toutefois pas ratifiés par cette décision. La configuration affichée ici ne les définit pas encore : il s'agit d'une obligation d'interface C-04/C-07, pas d'une coordonnée de trace ajoutée implicitement à la sémantique normative.
 
 Les schémas se rangent en trois familles, écrites toutes plutôt que représentées par une : une
 relation donnée « par exemples » ne supporte pas la récurrence dont la préservation a besoin, et

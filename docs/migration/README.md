@@ -28,6 +28,7 @@ Entry points:
 - [Decision analyses and author choices](L1-DECISIONS.md)
 - [Annexes B/C/D options](L1-ANNEXES-EXTRACTION.md)
 - [Theory objects](L1-THEORY-OBJECTS.md)
+- [C-01–C-09 source integration and remaining proof obligations (2026-10-12)](L1-C-SOURCE-INTEGRATION-2026-10-12.md)
 - [T-68 primitive audit](L1-T68-AUDIT.md)
 
 ## L2–L4

@@ -317,10 +317,8 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   Reste à dire comment cette algèbre communique avec celle du contexte. La structure qui en décide
   est une _loi distributive graduée_ {cite "gaboardiCombiningEffectsCoeffects2016"}[],
   transformation naturelle
-  $`\lambda_{r,\varepsilon} : !_r\,T_\varepsilon \Rightarrow T_{\varphi(r,\varepsilon)}\,!_{\psi(r,\varepsilon)}`
-  dont deux fonctions portent tout le contenu. $`\varphi` dit comment l'effet est modifié lorsqu'on
-  le fait passer derrière la demande ; $`\psi`, comment la demande l'est lorsqu'on la fait passer
-  devant l'effet. K7PL les pose ainsi.
+  $`\lambda_{r,\varepsilon} : !_r\,T_\varepsilon \Rightarrow T_{\Phi_{\mathrm{dist}}(r,\varepsilon)}\,!_{\Psi_{\mathrm{grade}}(r,\varepsilon)}`
+  dont deux composantes portent le contenu : $`\Phi_{\mathrm{dist}}` décrit la transformation d'effet au niveau de la loi distributive graduée ; $`\Psi_{\mathrm{grade}}` décrit le grade transformé par cette loi. Ce sont des interfaces de niveau grade, indexées par (r, ε), et non les opérations de contexte qui apparaissent ensuite dans $`\Delta_1\boxtimes_\varepsilon\Delta_2`. Cette distinction de signatures est obligatoire : le relèvement liaison par liaison et la compatibilité entre la loi distributive et la composition des contextes doivent être démontrés, et ne sont pas impliqués par le partage des lettres φ ou ψ dans les notes historiques. K7PL n'identifie pas automatiquement ces objets. K7PL les pose ainsi.
 
   Une remarque sur la _force_ de cette structure, car elle en emploie moins qu'elle n'en déclare.
   Une quantale est complète, donc distributive sur les bornes supérieures _infinies_. Ce dont on se
@@ -339,13 +337,8 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   et sur le facteur temporel par multiplication, $`n` exécutions d'un calcul de $`k` pas coûtant
   $`n\,k` pas.
 
-  _Obligation sur $`\varphi_r`._ La distinction précédente rend explicite une dette de définition.
-  Le grade d'usage $`u` n'est pas une multiplicité d'exécution. La puissance $`\varepsilon^n` est
-  définie pour un nombre d'itérations $`n`, tandis que $`u` peut être rationnel. L'écriture
-  $`\varphi_r(\varepsilon)=\varepsilon^u` n'est donc pas admissible pour tout grade. Une définition
-  de $`\varphi_r` doit soit restreindre son domaine aux grades dont l'usage est une multiplicité
-  entière, soit fournir une autre action des usages rationnels sur $`\mathcal{E}`. La seconde option
-  introduirait une structure qui n'est pas encore présente dans K7PL.
+  _Répétition effective._ La transformation d'effet associée à une multiplicité effective n est notée φ_n : elle répète l'effet dans la quantale et multiplie sa famille temporelle lorsque le calcul est effectivement répété n fois. Elle ne se déduit pas de la coordonnée d'usage u. En particulier, un usage rationnel n'autorise pas une opération φ_u, et aucune multiplication du grade complet n'est impliquée. La relation entre φ_n et la composante Φ_dist de la loi distributive graduée n'est établie que dans les cas et sous les hypothèses explicitement démontrés ; elle ne découle pas de l'indexation complète r. Le cas n = ω et les lois de compatibilité avec la consommation sont limités aux domaines et hypothèses ratifiés par D9/D10 ; ils ne constituent pas une loi générale de substitution.
+
   Le multiplicateur demande d'être nommé pour ce qu'il est, car deux grandeurs se confondaient ici
   et ne sont pas la même. Le _grade d'usage_ $`u` d'une liaison dit combien de fois une ressource
   est employée ; la _multiplicité d'exécution_ $`n` d'un calcul dit combien de fois ce calcul est
@@ -362,18 +355,9 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
 
 : $`\psi`
 
-  il est l'identité partout sauf en un point, et ce point est celui qui compte. L'usage, la
-monotonie et le niveau traversent l'effet inchangés ; le _budget_, lui, en sort diminué de ce que
-l'effet a consommé. Comme la composante temporelle normative est une famille de couples
-$`\kappa : \mathcal{L}\to(\mathbb{N}_\infty\times\mathbb{N}_\infty)`, la notation scalaire
-$`k` employée dans les règles doit être comprise comme l'abréviation
-$`k = \operatorname{Cost}_{\mathcal B}(\kappa)`, avec
-$`\operatorname{Cost}_{\mathcal B} :
-(\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L} \rightharpoonup \mathbb{N}_\infty` encore à définir.
-La consommation s'écrit donc provisoirement $`\beta \ominus k`.
-C'est la seule cellule où l'effet modifie la demande, et c'est aussi la seule où la soustraction
-peut échouer : un budget insuffisant rend $`\lambda` indéfinie, et la règle qui en dérive refuse
-alors la composition au lieu de la payer.
+  L'opération de contexte ψ agit sur un contexte entier. Elle se distingue de `Ψ_grade`, interface au niveau grade dans la loi distributive. Dans le contexte, ψ laisse inchangées les composantes d'usage, de monotonie et de niveau ; sa composante budgétaire utilise le coût de l'effet. La famille temporelle normative est κ : ℒ → (ℕ∞ × ℕ∞), et `Cost_Budget(κ)` est désormais une fonction totale, définie en C2 par `max(W(κ),D(κ))` sous la convention `sup ∅ = 0`. L'arithmétique de budget s'écrit `β ⊖ Cost_Budget(κ)`, avec la soustraction tronquée globale de C2 prolongée par D8, notamment `ω ⊖ ω = ω`.
+
+Le domaine de ψ n'est pas défini par celui de `Consume`. ψ peut être définie structurellement même si le budget ne couvre pas le coût ; cette définissabilité ne rend toutefois pas la traversée autorisée. `Adm(β,κ)` exprime séparément la couverture du coût, et `Consume(β,κ)` n'est disponible que lorsque `Adm` est satisfaite. Une règle qui compose des contextes doit donc vérifier explicitement l'admissibilité des liaisons traversées, indépendamment de la compatibilité structurelle qui rend ψ définie. La seule valeur temporelle imputée au budget d'exécution est `Cost_Budget(κ)` ; aucune coordonnée de grade n'est implicitement mise à l'échelle.
 
 Ces appariements se lisent mieux rassemblés, et ils sont peu nombreux.
 
@@ -386,11 +370,11 @@ Action de chaque composante du grade sur chaque composante de l'effet
 * * Composante du grade
   * sur $`\mathcal{E}_0`
   * sur $`(\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`
-  * sens de $`\psi`
-* * usage $`u`
-  * itération $`\varepsilon^{n}`
-  * multiplication $`k \mapsto n\,k`
-  * traverse inchangé
+  * sens de ψ
+* * répétition effective n, distincte de l'usage u
+  * itération `φ_n(ε)`
+  * multiplication de la famille temporelle par n
+  * traverse inchangé pour la coordonnée d'usage
 * * niveau $`\ell`
   * étiquetage par $`\ell`
   * étiquetage par $`\ell`
@@ -402,7 +386,7 @@ Action de chaque composante du grade sur chaque composante de l'effet
 * * budget $`\beta`
   * —
   * —
-  * $`\beta \ominus k`, partielle
+  * `β ⊖ Cost_Budget(κ)`, arithmétique totale ; l'admissibilité du franchissement est distincte, portée par `Adm`
 :::
 ::::
 
@@ -422,16 +406,9 @@ La composition de contextes, définie à partir des deux fonctions de la loi dis
 :::
 ::::
 
-où l'addition est celle des grades, composante par composante, et où $`\psi` s'applique liaison par
-liaison. L'opérateur est donc l'addition assortie du seul transport que $`\psi` prescrit, et ce
-transport ne porte que sur le budget. Deux conséquences en découlent, et elles sont ce qui rend
-l'opérateur utilisable. Il est _partiel_ : si un budget de $`\Delta_2` ne couvre pas la composante
-temporelle de $`\varepsilon`, $`\psi` est indéfinie et la composition est refusée plutôt que payée.
-Et il est _associatif là où il est défini_, l'addition des grades l'étant et $`\psi` n'agissant que
-sur une composante qui ne rétroagit sur aucune autre. L'indice $`\varepsilon` est omis lorsque le
-contexte le détermine, ce que les règles font partout.
+où l'addition est celle des grades, composante par composante, et où ψ agit liaison par liaison. La compatibilité structurelle des liaisons est une condition de définissabilité de ψ ; le budget ne fait pas partie de cette condition. Le domaine de la composition de contextes est toutefois partiel : en plus de la définissabilité de ψ et de la compatibilité des clés/types pour l'addition, chaque budget traversé doit satisfaire `Adm(β,κ(ε))`. L'absence d'admissibilité interdit la règle de composition ; elle ne doit pas être encodée en faisant passer la soustraction ou `Cost_Budget` pour des fonctions partielles. L'associativité est revendiquée seulement sur le domaine où toutes les compositions successives sont définies, et ses conditions doivent être vérifiées.
 
-Cette manière de poser $`\varphi` et $`\psi` décide d'une question que le chapitre 2 avait laissée
+La séparation entre les interfaces de loi distributive et le relèvement de contexte répond à une question que le chapitre 2 avait laissée
 ouverte. Les deux fonctions ne mêlent jamais deux composantes du grade entre elles : chacune apparie
 _une_ composante du grade à _une_ composante de l'effet, et la plupart des paires sont sans
 interaction. La loi se décompose donc en un produit de lois élémentaires, une par paire agissante.
