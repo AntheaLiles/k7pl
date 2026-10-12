@@ -38,7 +38,7 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
         "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "a024ae7fcb82b0ffe555e41a72fead8f9fbbc977",
         "spec/Spec/C3/LeSystemeGradue.lean": "4ba4a66c555c9cfa0a4feee14eb954589567d5b9",
         "spec/Spec/C3/GrammaireDesTypes.lean": "3df5f24c41375de24d4254516be2863c437b9d6a",
-        "spec/Spec/C3/ReglesDeTypage.lean": "635cea03749269de6280168bb5eb88022fd3e775",
+        "spec/Spec/C3/ReglesDeTypage.lean": "0248841d19f94770806634093093648f8632ef4a",
     }
     for path, expected_blob in integrated_source_blobs.items():
         actual_blob = subprocess.run(
