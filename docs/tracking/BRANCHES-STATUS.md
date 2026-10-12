@@ -2,7 +2,7 @@
 
 **Rapprochement : 2026-10-12, sur `main` = `200b6935f5622e93d9add104e1f0e46dae6f6e6b`.**  
 **État observé avant ce rapprochement :** 44 références de branche distantes (dont `main` et la branche de session `ccr-c4afa630-5uz1ic`) et trois PR ouvertes (#170, #182, #183).  
-**Mises à jour du même jour :** #183 a été fusionnée (`ee0d05a`, arbre identique à sa tête), puis #184 (`main` = `e7c69aa`). Les branches `research/c-kernel-effective-rules-2026-10-12` et `rebase/feat/navigation-graph-mvp` ont été supprimées à la fusion.
+**Mises à jour du même jour :** #183 a été fusionnée (`ee0d05a`, arbre identique à sa tête), puis #184 et #185 (`main` = `96e1b1e`). Les branches `research/c-kernel-effective-rules-2026-10-12`, `rebase/feat/navigation-graph-mvp` et `rebase/split/pr10-1-outillage-spec` ont été supprimées à la fusion.
 
 Ce registre remplace l'inventaire du 11 octobre. Il réalise le passage d'hygiène annoncé par [l'instantané de reprise](RECOVERY-STATUS-2026-10-11.md), § 5 : pour chaque tête sans PR ouverte, il consigne s'il reste du contenu unique. Il recommande ; il **n'autorise ni fusion ni suppression**. Aucune branche n'a été supprimée ni réécrite pendant ce rapprochement. Les reprises sont portées par de nouvelles branches `rebase/…`, et les branches d'origine restent intactes.
 
@@ -25,7 +25,7 @@ Limites : l'équivalence de patch n'est pas une équivalence sémantique. Un ré
 | [#170](https://github.com/AntheaLiles/k7pl/pull/170) | `research/c01-interface-ratification-2026-10-11` (`9a1409a`) | Tout son contenu est dans `main` depuis la fusion de #183. Elle est désormais en conflit avec `main` sur les épingles de `tests/python/test_stage_c_interface_audit.py`, que #183 a mises à jour. Par ailleurs, la fusion par rebase était impossible : trois commits de fusion (`0d575f7`, `a353c09`, `5de8d73`). | Fermer sans fusion, puis supprimer la branche. L'historique reste consultable via `refs/pull/170/head`. Ne pas réécrire la branche. |
 | [#182](https://github.com/AntheaLiles/k7pl/pull/182) | `feat/semantic-navigation-rendered-links` (`cc415a4`) | Diff vide avec `main` : contenu intégré par #141, la tête est une fusion de `main`. | Fermer sans fusion, puis supprimer la branche. |
 | [#184](https://github.com/AntheaLiles/k7pl/pull/184) | `rebase/feat/navigation-graph-mvp` (`be612be`) | **Fusionnée** le 12 octobre. Rebase sans conflit de `feat/navigation-graph-mvp` (`f24763a`) : approche « graphe dérivé du HTML rendu », à côté de `build_semantic_graph.py`. Aucun workflow ne l'appelle encore. | Supprimer `feat/navigation-graph-mvp` : ses deux fichiers sont identiques dans `main`. |
-| [#185](https://github.com/AntheaLiles/k7pl/pull/185) | `rebase/split/pr10-1-outillage-spec` (`f2b17f1`) | Brouillon. Seul résidu de `split/pr10-1-outillage-spec` (`c4aea10`) : deux lignes de `writing-rules.md` documentant `{printindex}`, `{idx}` et `{gloss}`. | Fusionner ou fermer. Ensuite, supprimer les deux branches. |
+| [#185](https://github.com/AntheaLiles/k7pl/pull/185) | `rebase/split/pr10-1-outillage-spec` (`f2b17f1`) | **Fusionnée** le 12 octobre : le seul résidu de `split/pr10-1-outillage-spec` (`c4aea10`), deux lignes de `writing-rules.md` documentant `{printindex}`, `{idx}` et `{gloss}`. | Supprimer `split/pr10-1-outillage-spec`. Son commit reste contenu dans `split/pr10-2`, `-3` et `-4`. |
 
 ## 2. Branches intégrées à `main` — rebase vide
 
