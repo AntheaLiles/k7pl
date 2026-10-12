@@ -12,6 +12,14 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+### Corrigé
+
+- Le texte placé hors des emplacements nommés d'un bloc d'énoncé n'était pas rendu, en HTML comme en PDF. Cinq blocs sont rétablis sans changement de texte : `thm:schema_reinvocation`, `req:schema_reinvocation_compatibility`, `req:homomorphisme_roues_realisation`, `thm:expansion_macro` et `thm:temps_mononiveau` (ligne parasite supprimée). Le contrôle d'ontologie des énoncés rejette désormais ce cas.
+
+### Ajouté
+
+- Chapitre 2, section « Six schémas de métathéorie » : six blocs portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 01). Ni énoncé, ni esquisse, ni état épistémique ne change ; le détail est tenu dans `docs/tracking/LEAN-STATEMENT-MIGRATION.md`.
+
 ## [0.0.0-alpha.2]
 
 ### Modifié
