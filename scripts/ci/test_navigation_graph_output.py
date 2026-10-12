@@ -43,11 +43,11 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
             '<a href="figures.html">Figures</a><a href="semantic-graph.html">C6</a>'
             '<a href="semantic-graph-c3.html">C3</a></nav>'
             '<label for="search">Recherche</label><input id="search" type="search">'
-            '<label for="depth">Profondeur</label><select id="depth"></select>'
+            '<label for="depth">Profondeur</label><select id="depth"></select><button id="reset-selection" type="button">Revenir au point de départ</button>'
             '<input type="checkbox" data-edge-kind="contains">'
             '<input type="checkbox" data-edge-kind="references">'
             '<input type="checkbox" data-edge-kind="cites">'
-            '<p id="summary">Chargement</p><script>fetch("./graph.json");</script>'
+            '<ul id="node-list"></ul><ul id="relations"></ul><p id="summary">Chargement</p><script>const provenanceLabel = "Source de la relation"; fetch("./graph.json");</script>'
             '</body></html>',
             encoding="utf-8",
         )
