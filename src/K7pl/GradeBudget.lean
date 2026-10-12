@@ -76,4 +76,17 @@ theorem infinite_multiplicity_counterexample :
       truncatedSub ((⊤ : ℕ∞) * 2) ((⊤ : ℕ∞) * 2) := by
   norm_num [truncatedSub]
 
+/-- On ℕ∞, the explicit infinite-budget disjunct is redundant because every
+cost is bounded by ⊤. This proves only an order-theoretic normalization; it
+does not define K7PL's Adm predicate or formalize Cost_Budget. -/
+theorem top_disjunct_iff_le (cost budget : ℕ∞) :
+    (budget = ⊤ ∨ cost ≤ budget) ↔ cost ≤ budget := by
+  constructor
+  · intro h
+    rcases h with htop | hle
+    · rw [htop]
+      exact le_top
+    · exact hle
+  · exact Or.inr
+
 end K7pl.GradeBudget
