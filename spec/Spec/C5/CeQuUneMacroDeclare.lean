@@ -129,11 +129,13 @@ du contexte relève de $`\operatorname{Scale}_{\mathrm{Usage}}` ; l'effet du cod
 la composition des effets effectivement introduits aux positions d'occurrence.
 :::
 
+:::note
 _Ce que ce théorème vaut._ Il montre que l'expansion se déduit du noyau sans nouvelle règle primitive :
 la condition de clôture est portée par la substitution sur les contextes, tandis que les effets du
 code produit résultent de leur composition dans l'ordre des occurrences. Une extension qui introduirait
 un mécanisme différent de duplication ou d'ordonnancement devrait cependant fournir sa propre loi de
 transport d'effet.
+:::
 ::::
 # Ce que le vérificateur contrôle avant expansion
 %%%

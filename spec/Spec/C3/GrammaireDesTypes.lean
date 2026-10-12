@@ -142,7 +142,6 @@ définis point par point, ainsi que la multiplication scalaire de $`\varphi_n`.
 Elle est donc un isomorphisme de quantales ordonnées sur ce sous-ensemble, lequel est clos par
 produit et par borne supérieure puisque la concentration en $`\ell` l'est.
 :::
-:
 ::::
 La lecture qu'il faut en faire est celle que le chapitre 1 a déjà pratiquée sur les contextes. Une
 zone non restreinte n'était pas une seconde zone mais la partie de grade $`\omega` de la première ;

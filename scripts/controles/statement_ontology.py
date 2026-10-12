@@ -51,6 +51,25 @@ def _blocks(text: str):
             i += 1
 
 
+def _text_outside_slots(body: str) -> list[str]:
+    """Return non-blank lines of a statement block that lie outside every named slot.
+
+    The shared renderer (`tools/SpecExt/Theorem.lean`) only renders slots; any other text in a
+    statement block is silently dropped from HTML and PDF output.
+    """
+    depth = 0
+    outside: list[str] = []
+    for line in body.splitlines():
+        stripped = line.strip()
+        if re.match(r"^:::[a-zA-Z]", stripped):
+            depth += 1
+        elif stripped == ":::":
+            depth = max(depth - 1, 0)
+        elif depth == 0 and stripped:
+            outside.append(stripped)
+    return outside
+
+
 def violations(text: str, module: str = "<source>") -> list[str]:
     """Return mechanically decidable ontology inconsistencies for one source module."""
     errors: list[str] = []
@@ -103,6 +122,9 @@ def violations(text: str, module: str = "<source>") -> list[str]:
             errors.append(f"{where}: evidence=proofsketch mais slot :::proofsketch absent")
         if evidence not in {"proofsketch", "literature"} and has_sketch:
             errors.append(f"{where}: slot :::proofsketch incompatible avec evidence={evidence}")
+        outside = _text_outside_slots(body)
+        if outside:
+            errors.append(f"{where}: texte hors slot, non rendu ({outside[0][:40]!r})")
     return errors
 
 
