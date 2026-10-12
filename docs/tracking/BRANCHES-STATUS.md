@@ -1,7 +1,7 @@
 # Statut des branches de travail
 
 **Rapprochement : 2026-10-12, sur `main` = `200b6935f5622e93d9add104e1f0e46dae6f6e6b`.**  
-**État observé avant ce rapprochement :** 46 références de branche distantes (dont `main` et la branche de session `ccr-c4afa630-5uz1ic`) et trois PR ouvertes (#170, #182, #183).
+**État observé avant ce rapprochement :** 44 références de branche distantes (dont `main` et la branche de session `ccr-c4afa630-5uz1ic`) et trois PR ouvertes (#170, #182, #183).
 
 Ce registre remplace l'inventaire du 11 octobre. Il réalise le passage d'hygiène annoncé par [l'instantané de reprise](RECOVERY-STATUS-2026-10-11.md), § 5 : pour chaque tête sans PR ouverte, il consigne s'il reste du contenu unique. Il recommande ; il **n'autorise ni fusion ni suppression**. Aucune branche n'a été supprimée ni réécrite pendant ce rapprochement. Les reprises sont portées par de nouvelles branches `rebase/…`, et les branches d'origine restent intactes.
 
