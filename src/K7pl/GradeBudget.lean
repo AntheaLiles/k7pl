@@ -80,6 +80,55 @@ theorem workAggregate_empty (κ : TemporalProfile Empty) :
   · exact le_iSup_of_le ∅ (by simp)
 
 
+/-- Canonical zero temporal profile. -/
+def zeroTemporalProfile {L : Type u} : TemporalProfile L := fun _ => (0, 0)
+
+/-- The sum-of-finite-subsets work aggregate of the zero profile is zero. -/
+theorem workAggregate_zero {L : Type u} :
+    workAggregate (zeroTemporalProfile (L := L)) = 0 := by
+  unfold workAggregate zeroTemporalProfile
+  apply le_antisymm
+  · apply iSup_le
+    intro F
+    simp
+  · exact bot_le
+
+/-- The depth aggregate of the zero profile is zero, including on empty levels. -/
+theorem depthAggregate_zero {L : Type u} :
+    depthAggregate (zeroTemporalProfile (L := L)) = 0 := by
+  unfold depthAggregate zeroTemporalProfile
+  apply le_antisymm
+  · apply iSup_le
+    intro ℓ
+    exact bot_le
+  · exact bot_le
+
+/-- The scalarized cost of the zero temporal profile is zero. -/
+theorem costBudget_zero {L : Type u} :
+    costBudget (zeroTemporalProfile (L := L)) = 0 := by
+  unfold costBudget
+  rw [workAggregate_zero, depthAggregate_zero]
+  simp
+
+/-- Every per-level work bound is included in the work supremum. -/
+theorem work_le_workAggregate {L : Type u} (κ : TemporalProfile L) (ℓ : L) :
+    (κ ℓ).1 ≤ workAggregate κ := by
+  unfold workAggregate
+  exact le_iSup_of_le {ℓ} (by simp)
+
+/-- Every per-level depth bound is included in the depth supremum. -/
+theorem depth_le_depthAggregate {L : Type u} (κ : TemporalProfile L) (ℓ : L) :
+    (κ ℓ).2 ≤ depthAggregate κ := by
+  unfold depthAggregate
+  exact le_iSup_of_le ℓ rfl
+
+/-- The least-scalar-bound property for max(workAggregate, depthAggregate). -/
+theorem costBudget_le_of_bounds {L : Type u} (κ : TemporalProfile L) (b : ℕ∞)
+    (hw : workAggregate κ ≤ b) (hd : depthAggregate κ ≤ b) :
+    costBudget κ ≤ b := by
+  unfold costBudget
+  exact max_le hw hd
+
 /-- Extended truncated subtraction for budget bounds.
 
 An infinite budget remains infinite after any subtraction. A finite budget
