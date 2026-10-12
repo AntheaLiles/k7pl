@@ -34,10 +34,10 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # The 12 October source integration intentionally supersedes three of those files;
     # keep the snapshot traceable without treating the old state as the live tree.
     integrated_source_blobs = {
-        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "c016ca0f4635baecc9e773b71ff33d16ef9bbd1a",
-        "spec/Spec/C3/LeSystemeGradue.lean": "5c1590106841bc26a09a639f3f95740e5fc72097",
+        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "ec5d081dc41dbb704544db19e2928b313921eb41",
+        "spec/Spec/C3/LeSystemeGradue.lean": "3aa8238a0ef8832bf8f5abb42e7219817ead8bb4",
         "spec/Spec/C3/GrammaireDesTypes.lean": "3df5f24c41375de24d4254516be2863c437b9d6a",
-        "spec/Spec/C3/ReglesDeTypage.lean": "7a8d0d2fe1c1d71a515bced05bcab5cdb10e74bb",
+        "spec/Spec/C3/ReglesDeTypage.lean": "9dfa32a623aa2c7433716014aad3f33d88ba128f",
     }
     for path, expected_blob in integrated_source_blobs.items():
         actual_blob = subprocess.run(
