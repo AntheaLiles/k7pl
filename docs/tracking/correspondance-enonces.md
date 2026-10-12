@@ -32,7 +32,7 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 23 | — | `req:schema_reinvocation_compatibility` | requirement | language | compatibilité de la ré-invocation | §2.6 | 0 |
 | 24 | — | `thm:schema_effacement` | lemma | language | schéma d'effacement | §2.6 | 2 |
 | 25 | — | `thm:lemme_capacite` | lemma | language | lemme de capacité | §2.6 | 1 |
-| 26 | 10 | `thm:morphismes_modes` | proposition | language | ordre structurel des modes | §3.1 | 0 |
+| 26 | 10 | `thm:morphismes_modes` | proposition | language | ordre structurel des trois modes de référence | §3.1 | 0 |
 | 27 | 11 | `thm:completude_graduee` | proposition | language | complétude graduée | §3.1 | 0 |
 | 28 | — | `thm:completude_verificateur` | requirement | compilation | le vérificateur n'émet que des codes de la correspondance | §3.1 | 0 |
 | 29 | 12 | `thm:deadlock_acyclique` | theorem | language | absence de deadlock par acyclicité du graphe de sessions | §3.2 | 0 |
@@ -58,14 +58,14 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 49 | — | `thm:revocation_ffi` | requirement | representation | révocation à la frontière étrangère | §4.5 | 0 |
 | 50 | 21 | `thm:traduction_metalangage` | theorem | language | la traduction préserve le typage | §4.6 | 11 |
 | 51 | — | `thm:simulation` | theorem | language | simulation de la relation de réduction par la traduction | §4.6 | 1 |
-| 52 | 22 | `thm:fidelite_interprete` | theorem | language | fidélité de l'interpréteur de référence | §4.6 | 3 |
+| 52 | 22 | `thm:fidelite_interprete` | theorem | language | fidélité de l'interpréteur de référence | §4.6 | 2 |
 | 53 | 36 | `thm:preservation` | theorem | language | préservation | §4.7 | 3 |
 | 54 | 37 | `thm:progres` | theorem | language | progrès | §4.7 | 0 |
 | 55 | 38 | `thm:correction_ressource` | theorem | language | correction de ressource | §4.7 | 0 |
 | 56 | 39 | `thm:stratification_journal` | theorem | language | stratification du journal | §4.7 | 0 |
 | 57 | — | `thm:relation_produit` | lemma | language | relation logique sur un produit de structures ordonnées | §4.7 | 0 |
 | 58 | 40 | `thm:lemme_fondamental` | lemma | language | lemme fondamental | §4.7 | 4 |
-| 59 | 41 | `thm:commutation_traduction` | lemma | language | commutation de la traduction et de la substitution | §4.7 | 1 |
+| 59 | 41 | `thm:commutation_traduction` | lemma | language | commutation de la traduction et de la substitution | §4.7 | 0 |
 | 60 | 42 | `thm:image_fix` | theorem | language | image du point fixe déductif | §4.7 | 0 |
 | 61 | 43 | `thm:cloture_sortage` | lemma | language | clôture du bon sortage par substitution | §4.8 | 0 |
 | 62 | 44 | `thm:confinement_sortes` | lemma | language | confinement des canaux distingués | §4.8 | 2 |
