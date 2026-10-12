@@ -69,6 +69,20 @@ theorem finite_multiplicity_compatibility (n : ℕ) (β k : ℕ∞) :
           congr 1
           exact Nat.mul_sub_left_distrib n b k
 
+/-- Exact extended-natural arithmetic counterpart of C2's truncated-subtraction
+compatibility law: it holds for every finite multiplier, or for any multiplier
+when the subtracted cost is zero. This does not establish that a K7PL rule
+actually depends on this law. -/
+theorem truncated_sub_mul_compatibility (u β k : ℕ∞)
+    (h : u ≠ ⊤ ∨ k = 0) :
+    u * truncatedSub β k = truncatedSub (u * β) (u * k) := by
+  rcases h with hu | hk
+  · cases u with
+    | top => exact False.elim (hu rfl)
+    | coe n => simpa using finite_multiplicity_compatibility n β k
+  · subst k
+    simp [truncatedSub]
+
 /-- The law cannot be extended to an infinite multiplier: with budget and cost
 both equal to 2, the left side is 0 while the right side is ∞. -/
 theorem infinite_multiplicity_counterexample :
