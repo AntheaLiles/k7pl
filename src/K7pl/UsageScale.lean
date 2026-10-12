@@ -2,20 +2,17 @@
 --
 -- SPDX-License-Identifier: CECILL-2.1
 
-import Mathlib.Algebra.Group.Defs
+import Mathlib.Algebra.Order.Ring.NNRat
+import Mathlib.Algebra.Order.Ring.WithTop
 import Mathlib.Data.ENat.Lattice
 
 /-!
-# Generic formal interface for usage scaling
+# Usage scaling interface
 
-This module formalizes the algebraic action selected as the C1 `Scale_Usage`
-interface. It is parametric in the usage carrier and its multiplicative monoid
-structure, and it explicitly leaves mode, level, and budget unchanged.
-
-This is a reusable interface theorem, not yet the concrete K7PL instance:
-the usage carrier must still be instantiated with the normative
-`ℚ≥0 ∪ {ω}` structure, and the operation must still be connected to the
-actual typing rules, conversions, and exponential structure.
+The grade has four coordinates. Scaling changes only usage, never
+monotonicity, level, or budget. The abstract laws are parametric; the
+canonical usage carrier below is the nonnegative rationals with a top value.
+This is not yet a proof that the K7PL typing rules preserve their contracts.
 -/
 
 namespace K7pl.UsageScale
@@ -25,14 +22,17 @@ universe u v w x
 variable {U : Type u} {M : Type v} {L : Type w}
 variable {Var : Type x}
 
-/-- The four-coordinate grade shape; only `usage` is scaled. `monotonicity` is not a structural mode. -/
+/-- Canonical usage carrier: nonnegative rationals with a greatest value. -/
+abbrev Usage := WithTop ℚ≥0
+
+/-- The four-coordinate grade shape; only usage is scaled. -/
 structure Grade (U : Type u) (M : Type v) (L : Type w) where
   usage : U
   monotonicity : M
   level : L
   budget : ℕ∞
 
-/-- The componentwise action on a grade, requiring only multiplicative laws. -/
+/-- Scaling acts multiplicatively on usage alone. -/
 def scaleUsage [Monoid U] (a : U) (g : Grade U M L) : Grade U M L :=
   { g with usage := a * g.usage }
 
@@ -48,51 +48,84 @@ def scaleUsage [Monoid U] (a : U) (g : Grade U M L) : Grade U M L :=
 @[simp] theorem scaleUsage_budget [Monoid U] (a : U) (g : Grade U M L) :
     (scaleUsage a g).budget = g.budget := rfl
 
-/-- Scaling by the neutral usage leaves every grade component unchanged. -/
+/-- Unit scaling leaves the whole grade unchanged. -/
 theorem scaleUsage_one [Monoid U] (g : Grade U M L) :
     scaleUsage (1 : U) g = g := by
   cases g with
   | mk usage monotonicity level budget =>
       simp [scaleUsage]
 
-/-- Successive scaling composes by multiplication in the usage carrier. -/
+/-- Successive scaling composes by multiplication. -/
 theorem scaleUsage_comp [Monoid U] (a b : U) (g : Grade U M L) :
     scaleUsage a (scaleUsage b g) = scaleUsage (a * b) g := by
   cases g with
-  | mk usage mode level budget =>
+  | mk usage monotonicity level budget =>
       simp [scaleUsage, mul_assoc]
+
+/-- The usage projection selected by C-01. -/
+def piU (g : Grade Usage M L) : Usage := g.usage
+
+@[simp] theorem piU_eq_usage (g : Grade Usage M L) :
+    piU g = g.usage := rfl
+
+/-- The selected scaling action on grades with the canonical usage carrier. -/
+def scaleUsageK7pl (a : Usage) (g : Grade Usage M L) : Grade Usage M L :=
+  scaleUsage a g
+
+theorem scaleUsageK7pl_one (g : Grade Usage M L) :
+    scaleUsageK7pl 1 g = g := scaleUsage_one g
+
+theorem scaleUsageK7pl_comp (a b : Usage) (g : Grade Usage M L) :
+    scaleUsageK7pl a (scaleUsageK7pl b g) =
+      scaleUsageK7pl (a * b) g := scaleUsage_comp a b g
+
+/-- The chosen extension has the zero-times-infinity convention of C2. -/
+theorem usage_zero_mul_top : (0 : Usage) * (⊤ : Usage) = 0 := by
+  simp [Usage]
+
+theorem usage_top_mul_zero : (⊤ : Usage) * (0 : Usage) = 0 := by
+  simp [Usage]
+
+theorem usage_one_mul_top : (1 : Usage) * (⊤ : Usage) = ⊤ := by
+  simp [Usage]
+
+theorem usage_top_mul_one : (⊤ : Usage) * (1 : Usage) = ⊤ := by
+  simp [Usage]
+
+theorem usage_top_mul_top : (⊤ : Usage) * (⊤ : Usage) = ⊤ := by
+  simp [Usage]
 
 /-- A context is a partial map from variables to grades. -/
 abbrev Context (Var : Type x) (U : Type u) (M : Type v) (L : Type w) :=
   Var → Option (Grade U M L)
 
-/-- The reference context action applies usage scaling to present bindings only. -/
+/-- Scale the usages in present context bindings. -/
 def scaleUsageContext [Monoid U] (a : U) (Δ : Context Var U M L) :
     Context Var U M L :=
   fun x => Option.map (scaleUsage a) (Δ x)
 
-/-- Context scaling preserves the domain/support of the context. -/
+/-- Scaling preserves the support of a context. -/
 theorem scaleUsageContext_isSome [Monoid U] (a : U)
     (Δ : Context Var U M L) (x : Var) :
     (scaleUsageContext a Δ x).isSome = (Δ x).isSome := by
   cases h : Δ x <;> simp [scaleUsageContext, h]
 
-/-- Identity scaling acts pointwise as the identity on contexts. -/
+/-- Unit scaling acts pointwise as the identity on contexts. -/
 theorem scaleUsageContext_one [Monoid U] (Δ : Context Var U M L) :
     scaleUsageContext (1 : U) Δ = Δ := by
   funext x
   cases h : Δ x with
-  | none => rfl
+  | none => simp [scaleUsageContext, h]
   | some g => simp [scaleUsageContext, h, scaleUsage_one]
 
-/-- Successive context scalings compose, under the same usage monoid contract. -/
+/-- Successive context scalings compose on every present binding. -/
 theorem scaleUsageContext_comp [Monoid U] (a b : U)
     (Δ : Context Var U M L) :
     scaleUsageContext a (scaleUsageContext b Δ) =
       scaleUsageContext (a * b) Δ := by
   funext x
   cases h : Δ x with
-  | none => rfl
+  | none => simp [scaleUsageContext, h]
   | some g => simp [scaleUsageContext, h, scaleUsage_comp]
 
 end K7pl.UsageScale

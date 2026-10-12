@@ -21,42 +21,42 @@ universe u
 /-- A structural mode consists of contractible grades and a weakening permission. -/
 structure Mode (R : Type u) [Semiring R] where
   contractible : Ideal R
-  weakening : Prop
+  weakening : R → Prop
 
 /-- Strict linear mode: only the zero ideal is contractible; weakening is denied. -/
 def linear (R : Type u) [Semiring R] : Mode R :=
-  ⟨⊥, False⟩
+  ⟨⊥, fun _ => False⟩
 
 /-- Affine mode: only the zero ideal is contractible; weakening is allowed. -/
 def affine (R : Type u) [Semiring R] : Mode R :=
-  ⟨⊥, True⟩
+  ⟨⊥, fun _ => True⟩
 
 /-- Unrestricted mode: every grade is contractible and weakening is allowed. -/
 def unrestricted (R : Type u) [Semiring R] : Mode R :=
-  ⟨⊤, True⟩
+  ⟨⊤, fun _ => True⟩
 
 /-- A structural-mode morphism may add contraction and weakening permissions. -/
 structure Morphism {R : Type u} [Semiring R] (m n : Mode R) : Prop where
   contractible_mono : m.contractible ≤ n.contractible
-  weakening_mono : m.weakening → n.weakening
+  weakening_mono : ∀ r, m.weakening r → n.weakening r
 
 /-- Morphisms compose because both permissions are monotone. -/
 theorem Morphism.trans {R : Type u} [Semiring R] {a b c : Mode R}
     (f : Morphism a b) (g : Morphism b c) : Morphism a c := by
   exact ⟨le_trans f.contractible_mono g.contractible_mono,
-    fun h => g.weakening_mono (f.weakening_mono h)⟩
+    fun r h => g.weakening_mono r (f.weakening_mono r h)⟩
 
 /-- The reference structural-mode chain Lin → Aff. -/
 theorem linear_to_affine (R : Type u) [Semiring R] :
     Morphism (linear R) (affine R) := by
   refine ⟨le_rfl, ?_⟩
-  intro h
+  intro r h
   exact h.elim
 
 /-- The reference structural-mode chain Aff → Unr. -/
 theorem affine_to_unrestricted (R : Type u) [Semiring R] :
     Morphism (affine R) (unrestricted R) := by
-  exact ⟨bot_le, fun _ => True.intro⟩
+  exact ⟨bot_le, fun _ _ => True.intro⟩
 
 /-- The composite reference structural-mode morphism Lin → Unr. -/
 theorem linear_to_unrestricted (R : Type u) [Semiring R] :
@@ -65,17 +65,17 @@ theorem linear_to_unrestricted (R : Type u) [Semiring R] :
 
 /-- Rel is retained only as an algebraic candidate, not a reference language mode. -/
 def relationalCandidate (R : Type u) [Semiring R] : Mode R :=
-  ⟨⊤, False⟩
+  ⟨⊤, fun _ => False⟩
 
 /-- The relational candidate may map to Unr in the abstract permission order. -/
 theorem relational_to_unrestricted (R : Type u) [Semiring R] :
     Morphism (relationalCandidate R) (unrestricted R) := by
-  exact ⟨le_rfl, fun h => h.elim⟩
+  exact ⟨le_rfl, fun _ h => h.elim⟩
 
 /-- Aff → Rel is not a morphism: weakening would have to map True to False. -/
 theorem affine_not_to_relational (R : Type u) [Semiring R] :
     ¬ Morphism (affine R) (relationalCandidate R) := by
   intro h
-  exact h.weakening_mono True.intro
+  exact h.weakening_mono 0 True.intro
 
 end K7pl.StructuralModes
