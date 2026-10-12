@@ -530,6 +530,10 @@ jobs:
       - name: Audit the axioms (Spec)
         run: scripts/axiom-audit.sh Spec Spec
 
+      - name: Audit the axioms (Spec.C3.EffectiveKernel)
+        if: ${{ !cancelled() }}
+        run: scripts/axiom-audit.sh Spec.C3.EffectiveKernel Spec
+
       # SpecExt and SpecBib are separate roots: `--root Spec` does not cover them.
       - name: Audit the axioms (SpecExt)
         if: ${{ !cancelled() }}

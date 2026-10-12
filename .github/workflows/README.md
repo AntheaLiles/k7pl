@@ -85,13 +85,17 @@ La surface de spécification exécute :
 
 ```
 python3 scripts/controle.py --format github
+lake exe cache get                                                 # le noyau C3 importe Mathlib
 lake build Spec
 scripts/axiom-audit.sh Spec Spec
+scripts/axiom-audit.sh Spec.C3.EffectiveKernel Spec
 scripts/axiom-audit.sh SpecExt SpecExt
 scripts/axiom-audit.sh SpecBib SpecBib
 lake exe spec --output _out/spec --with-tex
 tectonic -X compile --keep-logs -Z deterministic-mode main.tex     # avec SOURCE_DATE_EPOCH
 ```
+
+La bibliothèque `Spec` a deux racines : le document `Spec` et le noyau Lean des règles effectives `Spec.C3.EffectiveKernel`. Ce dernier importe Mathlib ; il reste hors des modules Verso, où la commande `lemma` de Mathlib rendrait ambiguë la directive `lemma` de `SpecExt`. Comme `axiom-audit` n'audite que la clôture d'import de la racine qu'il reçoit, le noyau a son propre audit.
 
 `SOURCE_DATE_EPOCH` vaut la date du commit construit ; sur un événement `pull_request`, c'est celle du commit de fusion synthétique de GitHub. Avec `-Z deterministic-mode`, cela retire deux sources de variation connues (date de construction, chemins absolus). Cela ne démontre **pas** que deux compilations donnent les mêmes octets : le bundle TeX de Tectonic est téléchargé à l'exécution et n'est pas épinglé, et aucun contrôle ne compile deux fois ni ne compare deux empreintes. Le PDF n'est donc **pas** présenté comme reproductible. Le journal de compilation est conservé (artefact `spec-pdf-log`) et résumé, sans seuil bloquant : aucun build sain n'a encore été observé.
 
