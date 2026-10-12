@@ -151,6 +151,8 @@ $`u = \omega`_, et ce n'est pas une affaire de convention à choisir mais une re
 :::
 
 ::::
+Un correspondant arithmétique Lean de ce domaine précis est formulé par `K7pl.GradeBudget.truncated_sub_mul_compatibility`: multiplicité finie, ou coût nul. La correspondance reste limitée à l'identité sur `ℕ∞`; elle n'établit pas que la loi est invoquée dans une dérivation K7PL ni que l'action budgétaire existe pour les autres grades.
+
 Ce lemme arithmétique reste disponible pour une architecture où une même multiplicité agit
 simultanément sur le budget et sur l'effet. Il n'est pas requis par `Scale_Usage`, qui laisse le budget
 inchangé, et il ne doit donc plus être présenté comme une prémisse générale de la substitution.
