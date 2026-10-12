@@ -24,7 +24,7 @@ This is the current entry point for project tracking. It answers what is current
 ## Active registers
 
 - [Decisions and ratifications](DECISIONS.md)
-- [Anomalies](ANOMALIES.md)
+- [Migration decisions and validation evidence](../migration/L1-DECISIONS.md) — current source findings and residual limits
 - [PR-02 campaign cards](FICHES-PR02.md)
 - [Primitives and T-68](primitives.md)
 - [Module hypotheses](hypotheses-de-module.md)
