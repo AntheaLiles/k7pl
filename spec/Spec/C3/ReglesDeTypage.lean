@@ -290,6 +290,41 @@ theorem letUnitTypable
     apply ValueTyping.var
     simp [extendTypeEnv, emptyTypeEnv]
 
+
+/-- A concrete application derivation for the identity function applied to unit.
+This exercises the effective App constructor while retaining the layer/effect-indexed
+context-composition contract instead of silently replacing it by addition. -/
+theorem applicationOfIdentityTypable
+    {Var : Type uVar} [DecidableEq Var]
+    {Effect : Type uEffect} {Monotonicity : Type uMono} {Level : Type uLevel}
+    {Layer : Type uLayer} (layer : Layer)
+    (contextCombine : ContextComposition Var Effect Layer)
+    (effectOne : Effect) (effectMul : Effect → Effect → Effect)
+    (x : Var) (m : Monotonicity) (ℓ : Level) (β : ℕ∞) :
+    let r : Grade Monotonicity Level :=
+      { usage := 1, monotonicity := m, level := ℓ, budget := β }
+    ComputationTyping layer contextCombine effectOne effectMul emptyTypeEnv
+      (contextCombine layer effectOne zeroContext (scaleContext (piU r) zeroContext))
+      (.app (.lam x .unit r (.ret (.var x))) .unit)
+      (.returned effectOne .unit) (effectMul effectOne effectOne) := by
+  let r : Grade Monotonicity Level :=
+    { usage := 1, monotonicity := m, level := ℓ, budget := β }
+  have typedFunction :
+      ComputationTyping layer contextCombine effectOne effectMul emptyTypeEnv
+        zeroContext (.lam x .unit r (.ret (.var x)))
+        (.arrow r .unit (.returned effectOne .unit) effectOne) effectOne := by
+    exact identityComputationTypable layer contextCombine effectOne effectMul
+      x .unit m ℓ β
+  have typedArgument : ValueTyping emptyTypeEnv zeroContext .unit .unit :=
+    ValueTyping.unit
+  exact ComputationTyping.app (layer := layer)
+    (contextCombine := contextCombine) (effectOne := effectOne)
+    (effectMul := effectMul) (env := emptyTypeEnv)
+    (Γ := zeroContext) (Δ := zeroContext) (function := .lam x .unit r (.ret (.var x)))
+    (argument := .unit) (r := r) (A := .unit)
+    (C := .returned effectOne .unit) (ε := effectOne) (ε₀ := effectOne)
+    typedFunction typedArgument
+
 end K7pl.Spec.C3.EffectiveKernel
 
 #doc (Manual) "Règles de typage" =>
@@ -314,7 +349,7 @@ Le contexte du noyau est explicitement l'observation d'usage `π_U`, tandis que 
 de l'argument, puis utilise une opération de composition contextuelle indexée par l'effet. Cette opération reste un paramètre explicite :
 son instanciation par `⊠` est indexée par la couche et n'est pas supposée globalement additive.
 La règle `Let` utilise ce même opérateur avec l'effet traversé, au lieu de remplacer silencieusement `⊠` par une addition.
-Un théorème compilé construit la dérivation de `λx. return x` sous un grade arbitraire pour les trois coordonnées non liées à l'usage.
+Des théorèmes compilés construisent les dérivations de `λx. return x`, de `let x := (); return x` et de l'application de l'identité à l'unité, sous un grade arbitraire pour les trois coordonnées non liées à l'usage.
 
 Cette tranche est un fragment du système C3, pas son jeu complet. Le porteur et la composition des effets restent des paramètres explicites ;
 aucune loi d'effet n'est supposée. La composition contextuelle complète `⊠`, la définition et le domaine de `ψ`, la consommation de budget,
