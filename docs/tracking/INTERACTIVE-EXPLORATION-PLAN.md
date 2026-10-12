@@ -35,10 +35,10 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 > **As a researcher**, I want to navigate from one project artifact to related artifacts, so that I can follow the reasoning and provenance across repository layers.
 
 **Critères d'acceptation**
-- [ ] Le prototype représente plusieurs types d'objets distincts.
-- [ ] Les relations ont un type explicite lorsque celui-ci est connu.
-- [ ] La navigation permet de revenir au point de départ.
-- [ ] La provenance de chaque relation peut être retrouvée.
+- [x] Le prototype représente plusieurs types d'objets distincts (pages, sections, figures, tableaux, listings, énoncés, bibliographie).
+- [x] Les relations ont un type explicite lorsque celui-ci est connu (`contains`, `references`, `cites`).
+- [x] La navigation permet de revenir au point de départ grâce au contrôle de remise à zéro du nœud sélectionné.
+- [x] La provenance de la relation est affichée par un lien vers la page dans laquelle elle a été rendue ; elle reste limitée au contexte HTML, sans prétention de ligne source exacte.
 - [ ] Les relations historiques ou hypothétiques sont distinguées des relations courantes.
 
 ### US-03 — Explorer le graphe de connaissance
@@ -51,7 +51,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Les types d'objets sont visibles dans la liste et les nœuds ; les relations `contains`, `references` et `cites` ont des libellés distincts.
 - [x] La profondeur du voisinage (1–3 niveaux) et les types de relations affichés sont contrôlables depuis l'interface.
 - [x] Chaque nœud fournit un lien vers son objet dans le HTML documentaire rendu ; le graphe n'est pas le seul moyen de navigation.
-- [ ] Le graphe n'est pas la seule modalité de navigation.
+- [x] Le graphe n'est pas la seule modalité de navigation : le document Verso reste consultable, et les listes textuelles proposent les mêmes objets et relations.
 
 ### US-04 — Comprendre sans simplifier abusivement
 
