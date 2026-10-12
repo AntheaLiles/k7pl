@@ -67,3 +67,8 @@ C'est ce même défaut de projections et de diagonale qui, en creux, définit le
 strict de la couche 1 : _C_ elle-même, sans aucune structure additionnelle, est déjà ce fragment.
 Restituer sélectivement ces deux opérations est le rôle de la comonade exponentielle, construite à
 la section suivante.
+
+
+## Portée des dépendances catégoriques
+
+Cette section fixe la structure catégorique normative visée : la catégorie ambiante est une SMCC, et l'absence de diagonale/projections générales porte la discipline de ressources du tenseur. Cette définition du cadre ne constitue pas encore l'interprétation des dérivations K7PL dans ce cadre ni sa correction. Il faut distinguer P1a (engagement sur la structure catégorique) de P1b (fonction d'interprétation des dérivations et preuve de correction). Une référence externe à la métathéorie des SMCC peut fournir un résultat dans son propre cadre, mais ne démontre pas à elle seule que les règles, grades, modes et effets de K7PL instancient ses hypothèses. Le mapping des constructions utilisées et les hypothèses exactes importées doivent rester explicitement traçables.

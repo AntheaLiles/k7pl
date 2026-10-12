@@ -302,38 +302,17 @@ simulation de la relation de réduction par la traduction
 :::
 
 :::statement +titled
-Chaque pas de K7PL est suivi par au moins un pas du métalangage
+Simulation avant sur les configurations complètes, sous un contrat d'adéquation à définir
 
-$`\langle c \mid \mu \mid \tau \rangle \to \langle c' \mid \mu' \mid \tau' \rangle` entraîne
-$`\llbracket c \rrbracket \to^{+} \llbracket c' \rrbracket` modulo $`\equiv`, et la trace
-$`\tau'` étend $`\tau` par l'image des événements du pas.
+Soient Cₛ = ⟨c, μ, τ⟩ et Cₛ' = ⟨c', μ', τ'⟩ deux configurations source, et P, P' des configurations cibles. Le résultat attendu est une simulation avant : pour chaque pas source Cₛ → Cₛ', si Cₛ est reliée à P par une relation d'adéquation R_cfg, il existe P' tel que P →ₜ⁺ P' et R_cfg(Cₛ', P'), à équivalence structurelle cible près. R_cfg doit relier explicitement le terme, l'état d'arène et la trace source.
 :::
 
 :::proofsketch
-Par induction sur la dérivation du pas, en suivant le terme image. Les réductions pures se rangent
-en trois groupes. (1) Les $`\beta`-réductions — application, `let` sur `return`, `force` sur `thunk`,
-`unbox` sur `box`, `open` sur `pack`, instanciation — traduisent la coupure d'une introduction et
-d'une élimination : la traduction de gauche se réduit en un pas de communication vers
-$`(\nu x)(\llbracket c \rrbracket \mid \overline{x}\langle \llbracket v \rrbracket \rangle)`, qui est
-$`\llbracket c[v/x] \rrbracket` modulo $`\equiv` par le théorème
-{num "thm:commutation_traduction"}[]. (2) Les éliminations de produit, de somme, de conjonction
-additive, d'unité, de vecteur vide et de repli sont des communications sur un canal linéaire suivies
-d'un aiguillage, un pas chacune. (3) Le parcours d'un vecteur non vide se déplie en deux pas, comme
-dans la source. La congruence se transporte directement : un contexte d'évaluation se traduit en un
-contexte de séquentialisation, et $`\to^{+}` y est stable.
+L'induction annoncée par l'ancienne esquisse ne suffit pas encore à démontrer cet énoncé sur les configurations complètes. Elle couvre des groupes de réductions pures, puis annonce une simulation des réductions à effet ; mais les clauses de traduction par constructeur ne sont pas toutes définies dans la source, et la relation cible n'est pas encore instanciée pour l'état d'arène μ.
 
-Reste la trace, qui est le point délicat. La composition parallèle du métalangage est commutative, et
-ne distingue pas deux événements que la source ordonne. Deux émissions $`\overline{t}\langle\rangle`
-sur un même canal de temps ne seraient donc pas ordonnées par la seule coupure du `let`. L'énoncé
-n'est vrai que si la traduction _enfile_ le canal de temps : chaque événement consomme le canal reçu et
-rend le canal suivant, de sorte que le préfixage de la séquence impose l'ordre. C'est une exigence sur
-la traduction, non une conséquence de la préservation du typage ; avec elle, les cas
-$`\mathbf{tick}` et $`\mathsf{operation}_\varepsilon` sont chacun un pas de communication qui étend
-la trace d'un événement. Sans elle, le contre-exemple $`\mathsf{let}\;x \leftarrow \mathbf{tick}\;\mathsf{in}\;\mathbf{tick}`
-est une trace à deux événements non ordonnés. L'opération à portée se traduit en un contexte, et se
-traite comme un `let`. Non démontrée : les clauses de traduction pour les opérations et pour $`\mathbf{tick}`
-ne sont données qu'en prose, et la proposition est l'hypothèse Sim du théorème
-{num "thm:fidelite_interprete"}[], et elle en est aussi la dette.
+Avant la preuve par cas, le contrat doit fixer : (1) la grammaire des configurations cibles et leur état de mémoire ; (2) R_cfg comme relation typée qui relie terme, état d'arène et traces d'exécution ; (3) l'équivalence structurelle cible et la stabilité de la simulation sous cette équivalence ; (4) une clause de traduction par règle source, y compris opérations, tick, gestionnaires à portée et déclenchement de When ; (5) la conservation des événements et de leur ordre causal, sans imposer un ordre total entre fibrilles indépendantes ; (6) la commutation de traduction avec la substitution et ses conditions de fraîcheur ; (7) la représentation, le carrier et le type de l'observation de latence de When. P3-B ne ratifie pas cette dernière représentation ; aucun carrier particulier n'est donc fixé ici.
+
+Cette proposition reste under-review / proofsketch. Aucune preuve de simulation, de bisimulation, d'équivalence observationnelle ou de pleine abstraction ne découle de cette reformulation du contrat.
 :::
 
 ::::

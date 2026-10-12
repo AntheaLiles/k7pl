@@ -3,6 +3,7 @@
 -- SPDX-License-Identifier: CECILL-2.1
 
 import K7pl.Arith
+import K7pl.GradeBudget
 import K7pl.Semantics
 
 /-!

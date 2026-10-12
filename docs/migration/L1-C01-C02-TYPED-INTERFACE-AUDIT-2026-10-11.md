@@ -149,3 +149,10 @@ La source C2 porte encore textuellement l'étiquette « candidate » : cette div
 5. exécuter le test structurel `tests/python/test_stage_c_interface_audit.py`. Ce test vérifie la cohérence documentaire et quelques témoins arithmétiques élémentaires ; il n'établit ni les lois d'un mode, ni les règles K7PL, ni un théorème Lean.
 
 Les SHA de fichier consignés au §1 permettent de signaler toute dérive ultérieure de source. Tout changement de ces sources doit déclencher une nouvelle revue, et non une mise à jour automatique du statut épistémique.
+
+
+## Mise à jour de portée — intégration de source du 12 octobre 2026
+
+Ce fichier est un **instantané d’audit historique** de l’état mentionné au début du document ; ses tableaux de signatures et son §5 consignent ce qui restait ouvert lors de cet audit. Les décisions D3–D11 et l’intégration source ultérieure le complètent et supersèdent les choix explicitement marqués « ouverts » ci-dessous, sans promouvoir les esquisses en preuves : D3 retient `Cost_Budget : K → 𝔅` totale sous le contrat scalaire ; D4 retient `sup ∅=0` dans `ℕ∞` ; D5 établit le principe de couverture, dont la forme `Cost_Budget(κ)≤β` est une normalisation logique lorsque `ω` est maximal ; D6 maintient `Consume` partielle sur `Adm` ; D7 sépare le domaine de `ψ` de celui de `Consume` ; D8 fixe globalement `ω ⊖ ω=ω` ; D9–D10 gardent la loi de multiplicité conditionnelle et excluent son emploi comme prémisse universelle ; D11 reste un audit partiel des sites historiques.
+
+La source C2 harmonisée est présentée dans la [note d’intégration de source C-01–C-09](L1-C-SOURCE-INTEGRATION-2026-10-12.md). Les signatures textuelles et la compilation Verso ne démontrent ni les lois des interfaces ni la correction de ressource ; C demeure **NON SATISFAITE**.
