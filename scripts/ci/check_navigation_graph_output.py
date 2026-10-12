@@ -141,6 +141,8 @@ def check(site_root: Path, expected_ref: str) -> list[str]:
         errors.append("interactive page must provide a direct link to the selected document object")
     if page_source.count('id="detail-level"') != 1 or page_source.count('id="object-detail"') != 1:
         errors.append("interactive page must provide progressive object-detail controls")
+    if page_source.count('id="explanation-level"') != 1 or page_source.count('id="authored-explanation"') != 1:
+        errors.append("interactive page must expose authored progressive explanations")
     if 'class="graph-scroll"' not in page_source or "défilement horizontal possible" not in page_source:
         errors.append("interactive graph must remain horizontally navigable on narrow screens")
     if "<noscript>" not in page_source or "La vue interactive nécessite JavaScript" not in page_source:
@@ -225,6 +227,64 @@ def check(site_root: Path, expected_ref: str) -> list[str]:
                 continue
             if fragment not in target_facts.ids:
                 errors.append(f"graph node {node_id!r} targets missing anchor {target_path}#{fragment}")
+
+    explanations = graph.get("explanations")
+    allowed_explanation_levels = {
+        "intro", "concept", "detail", "formalization", "verification", "sources"
+    }
+    if not isinstance(explanations, list) or not explanations:
+        errors.append("graph must expose at least one authored progressive explanation")
+        explanations = []
+    for explanation_index, explanation in enumerate(explanations):
+        if not isinstance(explanation, dict):
+            errors.append(f"explanation {explanation_index} is not an object")
+            continue
+        if not isinstance(explanation.get("title"), str) or not explanation["title"].strip():
+            errors.append(f"explanation {explanation_index} has no title")
+        if not isinstance(explanation.get("notice"), str) or not explanation["notice"].strip():
+            errors.append(f"explanation {explanation_index} has no epistemic notice")
+        target_node_ids = explanation.get("target_node_ids")
+        if not isinstance(target_node_ids, list) or not target_node_ids:
+            errors.append(f"explanation {explanation_index} has no target nodes")
+        else:
+            for target_node_id in target_node_ids:
+                if not isinstance(target_node_id, str) or target_node_id not in node_ids:
+                    errors.append(f"explanation {explanation_index} targets unknown node {target_node_id!r}")
+        levels = explanation.get("levels")
+        if not isinstance(levels, dict) or not allowed_explanation_levels.issubset(levels):
+            errors.append(f"explanation {explanation_index} must define all six progressive levels")
+            continue
+        for level_name in sorted(allowed_explanation_levels):
+            level = levels.get(level_name)
+            if not isinstance(level, dict) or not isinstance(level.get("text"), str) or not level["text"].strip():
+                errors.append(f"explanation {explanation_index} has no text for level {level_name!r}")
+                continue
+            sources = level.get("sources")
+            if not isinstance(sources, list) or not sources:
+                errors.append(f"explanation {explanation_index} level {level_name!r} has no canonical source links")
+                continue
+            for source_index, source in enumerate(sources):
+                if not isinstance(source, dict) or not isinstance(source.get("label"), str) or not isinstance(source.get("url"), str):
+                    errors.append(f"explanation {explanation_index} level {level_name!r} source {source_index} is malformed")
+                    continue
+                parts = urlsplit(source["url"])
+                if parts.scheme or parts.netloc or not parts.path:
+                    errors.append(f"explanation {explanation_index} level {level_name!r} has a non-local source URL")
+                    continue
+                source_path = posixpath.normpath(unquote(parts.path)).lstrip("/")
+                source_file = site_root / source_path
+                if not source_file.is_file():
+                    errors.append(f"explanation {explanation_index} points to missing source HTML {source_path!r}")
+                    continue
+                if parts.fragment:
+                    try:
+                        source_facts = parse_html(source_file)
+                    except (OSError, UnicodeDecodeError) as exc:
+                        errors.append(f"cannot inspect explanation source {source_path!r}: {exc}")
+                        continue
+                    fragment = unquote(parts.fragment)
+                    if fragment not in source_facts.ids:
+                        errors.append(f"explanation {explanation_index} points to missing source anchor {source_path}#{fragment}")
 
     edge_counts: Counter[str] = Counter()
     for index, edge in enumerate(edges):

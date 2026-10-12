@@ -45,7 +45,9 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
             '<label for="search">Recherche</label><input id="search" type="search">'
             '<label for="depth">Profondeur</label><select id="depth"></select><button id="reset-selection" type="button">Revenir au point de départ</button>'
             '<label for="detail-level">Niveau de lecture</label><select id="detail-level"></select>'
-            '<section><p id="object-detail">Contexte</p></section><div class="graph-scroll" tabindex="0" aria-label="Graphe relationnel, défilement horizontal possible"></div>'
+            '<section><p id="object-detail">Contexte</p></section>'
+            '<label for="explanation-level">Niveau progressif</label><select id="explanation-level"></select><div id="authored-explanation">Explication</div>'
+            '<div class="graph-scroll" tabindex="0" aria-label="Graphe relationnel, défilement horizontal possible"></div>'
             '<input type="checkbox" data-edge-kind="contains">'
             '<input type="checkbox" data-edge-kind="references">'
             '<input type="checkbox" data-edge-kind="cites">'
@@ -75,6 +77,19 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
                 },
             ],
             "unresolved_links": [],
+            "explanations": [{
+                "id": "fixture-explanation",
+                "title": "Pourquoi cette section ?",
+                "notice": "Synthèse éditoriale non normative.",
+                "target_node_ids": ["Spec/page.html", "Spec/page.html#lbl-section"],
+                "levels": {
+                    level: {
+                        "text": "Texte explicatif de test.",
+                        "sources": [{"label": "Source canonique", "url": "Spec/page.html#lbl-section"}],
+                    }
+                    for level in ("intro", "concept", "detail", "formalization", "verification", "sources")
+                },
+            }],
         }
         (self.site / "navigation" / "graph.json").write_text(json.dumps(graph), encoding="utf-8")
 

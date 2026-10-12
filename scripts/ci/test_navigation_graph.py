@@ -21,6 +21,7 @@ class NavigationGraphTests(unittest.TestCase):
             '<html><head><base href="./"><title>K7PL</title></head><body>'
             '<h1 id="home-heading">Accueil</h1>'
             '<p><a class="k7-ref" href="Spec/C3/page.html#lbl-sec-chapter">Chapitre</a></p>'
+            '<p><a class="k7-ref" href="Spec/C4/#lbl-sec-index">Section en route dossier</a></p>'
             '</body></html>',
             encoding="utf-8",
         )
@@ -41,6 +42,14 @@ class NavigationGraphTests(unittest.TestCase):
             '<html><head><base href="./../../"><title>Catégorie ambiante</title></head><body>'
             '<h1 id="ambient-heading">Catégorie ambiante</h1>'
             '<span class="k7-anchor" id="lbl-sec-ambient"></span>'
+            '</body></html>',
+            encoding="utf-8",
+        )
+        (self.site / "Spec" / "C4").mkdir(parents=True, exist_ok=True)
+        (self.site / "Spec" / "C4" / "index.html").write_text(
+            '<html><head><base href="./../../"><title>Route dossier</title></head><body>'
+            '<h1 id="index-heading">Route dossier</h1>'
+            '<span class="k7-anchor" id="lbl-sec-index"></span>'
             '</body></html>',
             encoding="utf-8",
         )
@@ -75,6 +84,19 @@ class NavigationGraphTests(unittest.TestCase):
         figure_id = "Spec/C3/page.html#lbl-fig-demo"
         target_id = "Spec/C2/ambient.html#ambient-heading"
         self.assertTrue(any(edge["source"] == figure_id and edge["target"] == target_id for edge in graph["edges"]))
+
+    def test_resolves_directory_routes_to_rendered_index_pages(self) -> None:
+        graph = build_graph(self.site)
+        target = next(
+            node for node in graph["nodes"]
+            if node["url"] == "Spec/C4/index.html#lbl-sec-index"
+        )
+        self.assertTrue(any(
+            edge["source"] == "index.html"
+            and edge["target"] == target["id"]
+            and edge["kind"] == "references"
+            for edge in graph["edges"]
+        ))
 
     def test_fails_when_an_explicit_internal_link_is_unresolved(self) -> None:
         page = self.site / "Spec" / "C3" / "page.html"

@@ -58,11 +58,11 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 > **As a scientific reader**, I want progressive levels of explanation, so that I can approach a complex concept without losing access to its formal details.
 
 **Critères d'acceptation**
-- [ ] Une vue introductive existe pour le prototype.
-- [ ] Une vue conceptuelle explicite les notions principales.
-- [ ] La formalisation reste accessible.
-- [ ] Les preuves, tests ou limites disponibles restent accessibles.
-- [ ] Les simplifications pédagogiques ne remplacent pas les sources canoniques.
+- [x] Une première vue introductive et conceptuelle est disponible pour l’idée directrice exposée dans C1 Introduction, avec six niveaux de lecture ; la couverture reste limitée à cette entrée.
+- [x] Le niveau conceptuel distingue l’hypothèse organisatrice de la démonstration d’une propriété.
+- [x] Le niveau de formalisation renvoie explicitement au système gradué (C3), sans qualifier ce renvoi de dépendance de preuve.
+- [x] Le niveau « preuves et vérifications » renvoie aux stratégies de vérification et de test (C6), en conservant la distinction entre construction et propriété établie.
+- [x] Chaque niveau renvoie à une ou plusieurs ancres de la spécification ; l’interface indique explicitement que le texte éditorial n’est pas normatif.
 
 ### US-05 — Relier la théorie et les matériaux de recherche
 
@@ -150,7 +150,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 ### US-04 — Présentation progressive : fonctionnalité d’interface et limite actuelle
 
-Le navigateur de graphe offre maintenant trois niveaux d’accès à l’objet sélectionné : repère typé, texte disponible dans le HTML rendu et lien direct vers la page documentaire. Les textes sont extraits du rendu existant et ne sont pas réécrits par heuristique. Cela facilite la progression dans l’interface, mais ne satisfait pas à lui seul les critères d’explication introductive ou conceptuelle : ceux-ci exigent un contenu pédagogique canonique et validé, non encore défini dans les sources.
+Le navigateur distingue désormais deux mécanismes. Les niveaux « repère typé », « texte disponible dans le HTML rendu » et « page documentaire » affichent les informations qui existent déjà dans le rendu. Une seconde commande présente une explication éditoriale explicitement rédigée en six niveaux (introduction, vue conceptuelle, détails et limites, formalisation, preuves et vérifications, sources et provenance) pour le point d’entrée C1 Introduction. Chaque niveau lie les sections Verso utilisées ; le contenu est annoncé comme non normatif. Les autres objets affichent honnêtement l’absence d’explication associée : aucune explication n’est générée à partir des relations du graphe. L’extension de cette couverture et sa revue par l’auteure restent ouvertes.
 
 ### P4 — Graphe
 
