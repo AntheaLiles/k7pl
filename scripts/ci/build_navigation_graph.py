@@ -15,6 +15,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote, unquote, urljoin, urlsplit
 
+from navigation_explanations import EXPLANATION_CATALOG
+
 
 VOID_TAGS = {
     "area", "base", "br", "col", "embed", "hr", "img", "input", "link",
@@ -131,7 +133,9 @@ def make_node(
     }
 
 
-def normalize_target(page: str, base_href: str, href: str) -> str | None:
+def normalize_target(
+    page: str, base_href: str, href: str, available_pages: set[str] | None = None
+) -> str | None:
     parts = urlsplit(href.strip())
     if parts.scheme or parts.netloc or href.strip().startswith(("mailto:", "data:", "javascript:")):
         return None
@@ -142,6 +146,12 @@ def normalize_target(page: str, base_href: str, href: str) -> str | None:
         target_path = page
     if target_path == ".." or target_path.startswith("../"):
         return None
+    # Verso may emit "chapter/#label", although the multi-page renderer writes
+    # the document to "chapter/index.html". Resolve only against rendered files.
+    if available_pages is not None and target_path not in available_pages:
+        index_target = posixpath.join(target_path, "index.html")
+        if index_target in available_pages:
+            target_path = index_target
     fragment = unquote(resolved.fragment)
     return f"{target_path}#{fragment}" if fragment else target_path
 
@@ -187,6 +197,7 @@ def build_graph(site_root: Path) -> dict:
         raise ValueError(f"no rendered HTML pages found under {site_root}")
 
     pages = {record["path"]: record for record in (parse_page(path, site_root) for path in page_paths)}
+    available_pages = set(pages)
     nodes: dict[str, dict[str, str]] = {}
     anchor_to_node: dict[str, str] = {}
     element_to_node: dict[tuple[str, int], str] = {}
@@ -298,7 +309,7 @@ def build_graph(site_root: Path) -> dict:
             if "k7-ref" not in classes_here and not in_citation:
                 continue
             href = element.attrs["href"] or ""
-            target = normalize_target(page, record["base_href"], href)
+            target = normalize_target(page, record["base_href"], href, available_pages)
             if target is None:
                 continue
             target_keys.add(target)
@@ -382,7 +393,7 @@ def build_graph(site_root: Path) -> dict:
         )
         raise ValueError(f"{len(unresolved)} explicit internal navigation links could not be resolved:\n{examples}")
 
-    return {
+    graph = {
         "schema_version": 1,
         "generated_from": "rendered Verso HTML; only explicit cross-references and citation links are used",
         "summary": {
@@ -397,6 +408,32 @@ def build_graph(site_root: Path) -> dict:
         "edges": edges,
         "unresolved_links": unresolved,
     }
+    graph["explanations"] = resolve_authored_explanations(graph["nodes"])
+    return graph
+
+
+def resolve_authored_explanations(nodes: list[dict[str, str]]) -> list[dict]:
+    """Attach editorial explanations only to explicitly named rendered source nodes."""
+    explanations: list[dict] = []
+    for spec in EXPLANATION_CATALOG:
+        source_url = spec["target_url"]
+        source_page = source_url.split("#", 1)[0]
+        document_nodes = [
+            node["id"] for node in nodes
+            if node.get("kind") == "document" and node.get("page") == source_page
+        ]
+        # Unit fixtures intentionally model a subset of the publication.
+        if not document_nodes:
+            continue
+        target_nodes = [node["id"] for node in nodes if node.get("url") == source_url]
+        if not target_nodes:
+            raise ValueError(
+                f"authored explanation target does not resolve to a rendered node: {source_url}"
+            )
+        explanation = {key: value for key, value in spec.items() if key != "target_url"}
+        explanation["target_node_ids"] = sorted(set(document_nodes + target_nodes))
+        explanations.append(explanation)
+    return explanations
 
 
 HTML_TEMPLATE = r"""<!doctype html>
@@ -466,6 +503,21 @@ input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font
 <button id="reset-selection" type="button">Revenir au point de départ</button>
 <div class="detail-controls"><label for="detail-level">Niveau de lecture <select id="detail-level"><option value="marker">Repère</option><option value="content">Texte rendu disponible</option><option value="document">Page documentaire</option></select></label></div>
 <section class="panel" aria-labelledby="object-detail-heading"><h3 id="object-detail-heading">Détail de l’objet sélectionné</h3><p id="object-detail" aria-live="polite">Sélectionner un objet pour afficher son contexte.</p></section>
+<section class="panel" aria-labelledby="authored-explanation-heading">
+<h3 id="authored-explanation-heading">Explication rédigée</h3>
+<p class="muted">Synthèse éditoriale non normative. Les niveaux sont explicitement rédigés et leurs renvois vérifiés ; le graphe ne fabrique pas d’explication à partir des liens.</p>
+<label for="explanation-level">Niveau de lecture
+<select id="explanation-level">
+<option value="intro" selected>1. Introduction</option>
+<option value="concept">2. Vue conceptuelle</option>
+<option value="detail">3. Détails et limites</option>
+<option value="formalization">4. Formalisation</option>
+<option value="verification">5. Preuves et vérifications</option>
+<option value="sources">6. Sources et provenance</option>
+</select>
+</label>
+<div id="authored-explanation" aria-live="polite"><p>Une explication sera affichée si une entrée rédigée est liée à l’objet sélectionné.</p></div>
+</section>
 <noscript><p>La vue interactive nécessite JavaScript. Les pages documentaires restent consultables et les vues statiques sont disponibles dans le <a href="figures.html">catalogue des figures</a>, les <a href="semantic-graph.html">références C6</a> et les <a href="semantic-graph-c3.html">références C3</a>.</p></noscript>
 <div class="graph-scroll" tabindex="0" role="region" aria-label="Graphe relationnel, défilement horizontal possible">
 <svg id="graph" viewBox="0 0 1000 640" role="img" aria-label="Graphe des relations explicites autour de l'objet sélectionné">
@@ -489,6 +541,7 @@ const nodeList = document.getElementById("node-list");
 const search = document.getElementById("search");
 const depthControl = document.getElementById("depth");
 const detailControl = document.getElementById("detail-level");
+const explanationControl = document.getElementById("explanation-level");
 const resetButton = document.getElementById("reset-selection");
 let entryNodeId = null;
 let listLimit = 120;
@@ -514,6 +567,7 @@ function selectNode(id) {
   document.getElementById("selected").textContent = node.kind + " — " + nodeLabel(node);
   document.getElementById("selected-link").href = openHref(node);
   renderObjectDetail();
+  renderAuthoredExplanation();
 }
 function renderList() {
   const query = search.value.trim().toLocaleLowerCase();
@@ -661,6 +715,65 @@ function renderObjectDetail() {
   link.textContent = node.page ? "Ouvrir la page documentaire (" + node.page + ")" : "Ouvrir la page documentaire";
   panel.appendChild(link);
 }
+function renderAuthoredExplanation() {
+  const panel = document.getElementById("authored-explanation");
+  panel.replaceChildren();
+  const node = byId.get(selectedId);
+  if (!node) {
+    const message = document.createElement("p");
+    message.textContent = "Aucun objet sélectionné.";
+    panel.appendChild(message);
+    return;
+  }
+  const entries = Array.isArray(graphData.explanations) ? graphData.explanations : [];
+  const explanation = entries.find(function (entry) {
+    return Array.isArray(entry.target_node_ids) && entry.target_node_ids.includes(node.id);
+  });
+  if (!explanation) {
+    const message = document.createElement("p");
+    message.textContent = "Aucune explication rédigée n’est encore rattachée à cet objet. Le site ne déduit pas un discours conceptuel depuis la structure du graphe ; la source canonique reste accessible.";
+    panel.appendChild(message);
+    const link = document.createElement("a");
+    link.href = openHref(node);
+    link.textContent = "Consulter la source canonique";
+    panel.appendChild(link);
+    return;
+  }
+  const heading = document.createElement("h4");
+  heading.textContent = explanation.title;
+  panel.appendChild(heading);
+  const notice = document.createElement("p");
+  notice.className = "muted";
+  notice.textContent = explanation.notice;
+  panel.appendChild(notice);
+  const level = explanation.levels && explanation.levels[explanationControl.value];
+  if (!level || typeof level.text !== "string") {
+    const missing = document.createElement("p");
+    missing.textContent = "Aucun texte n’est fourni à ce niveau pour cette explication.";
+    panel.appendChild(missing);
+    return;
+  }
+  const body = document.createElement("p");
+  body.textContent = level.text;
+  panel.appendChild(body);
+  const sources = Array.isArray(level.sources) ? level.sources : [];
+  if (sources.length) {
+    const sourceHeading = document.createElement("h5");
+    sourceHeading.textContent = "Sources canoniques";
+    panel.appendChild(sourceHeading);
+    const list = document.createElement("ul");
+    sources.forEach(function (source) {
+      if (!source || typeof source.url !== "string" || typeof source.label !== "string") return;
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = "../" + source.url;
+      link.textContent = source.label;
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+    panel.appendChild(list);
+  }
+}
 function renderRelations() {
   const list = document.getElementById("relations");
   list.replaceChildren();
@@ -706,6 +819,7 @@ resetButton.addEventListener("click", function () {
 });
 depthControl.addEventListener("change", function () { renderGraph(); renderRelations(); });
 detailControl.addEventListener("change", renderObjectDetail);
+explanationControl.addEventListener("change", renderAuthoredExplanation);
 document.querySelectorAll("[data-edge-kind]").forEach(function (control) {
   control.addEventListener("change", function () { renderGraph(); renderRelations(); });
 });

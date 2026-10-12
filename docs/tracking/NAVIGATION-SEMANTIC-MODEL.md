@@ -84,11 +84,17 @@ Critères d'acceptation du premier prototype :
 - [x] le prototype n'ajoute aucune dépendance d'exécution au site publié ;
 - [ ] une revue humaine confirme que la vue aide à comprendre les relations sans exagérer leur portée.
 
-## 7. Hors périmètre explicite
+## 7. Explications progressives dans l’interface
+
+Les textes de lecture graduée constituent une couche éditoriale distincte des arêtes du graphe. Leur catalogue est tenu dans [`navigation_explanations.py`](../../scripts/ci/navigation_explanations.py) : chaque entrée indique son nœud cible et fournit, pour chaque niveau, des liens vers les ancres Verso canoniques. Le catalogue ne crée aucune relation entre objets et ne modifie ni le statut normatif ni le statut de preuve des sources. Le validateur vérifie que les nœuds cibles, textes de niveau et destinations HTML/ancres existent. Lorsqu’aucune entrée ne cible un objet, l’interface le signale au lieu d’inventer une explication.
+
+La couverture initiale est volontairement limitée au point d’entrée « Introduction » de C1. Elle démontre le mécanisme, sans prétendre que l’ensemble des concepts K7PL bénéficie déjà de niveaux rédigés ou validés humainement.
+
+## 8. Hors périmètre explicite
 
 Ce modèle ne prétend pas encore relier formellement les propositions Lean aux implémentations et aux tests. Cette relation doit être recherchée dans les annotations et conventions existantes ; elle ne doit pas être supposée. L'accessibilité PDF/UA des figures reste un chantier distinct.
 
-## 8. Audit de traçabilité et limite du prototype — 11 octobre 2026
+## 9. Audit de traçabilité et limite du prototype — 11 octobre 2026
 
 Le générateur courant fait trois choses distinctes et ne doit pas les fusionner :
 
