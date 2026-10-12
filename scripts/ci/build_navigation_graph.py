@@ -570,7 +570,7 @@ function renderGraph() {
     const p = positions.get(node.id);
     if (!p) return;
     const group = addSvg("g", {
-      class: "node " + (node.id === selectedId ? "node-root" : ""),
+      class: "node node-kind-" + node.kind + " " + (node.id === selectedId ? "node-root" : ""),
       tabindex: "0",
       role: "button",
       "aria-label": node.kind + " — " + nodeLabel(node),
