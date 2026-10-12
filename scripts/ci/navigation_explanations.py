@@ -6,7 +6,7 @@ Each explanation explicitly names a rendered source anchor and links back to the
 canonical Verso material. It does not add or infer scientific relations.
 """
 
-INTRO = "c1-prolegomenes/c1-introduction/index.html#lbl-sec-c1-introduction"
+INTRO = "c1-prolegomenes/c1-introduction/index.html"
 GRADED_SYSTEM = "c3-types/c3-le-systeme-gradue/index.html#lbl-sec-c3-le-systeme-gradue"
 VERIFICATION = "c6-compilation/c6-strategies-de-verification-et/index.html#lbl-sec-c6-strategies-de-verification-et"
 
