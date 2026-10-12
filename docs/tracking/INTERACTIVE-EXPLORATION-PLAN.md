@@ -148,6 +148,10 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Préserver les liens vers les sources canoniques, avec retour vers la page Verso rendue.
 - [x] Ajouter les garde-fous de génération nécessaires à la CI : références/citations et ancres rendues non résolues font échouer le build.
 
+### US-04 — Présentation progressive : fonctionnalité d’interface et limite actuelle
+
+Le navigateur de graphe offre maintenant trois niveaux d’accès à l’objet sélectionné : repère typé, texte disponible dans le HTML rendu et lien direct vers la page documentaire. Les textes sont extraits du rendu existant et ne sont pas réécrits par heuristique. Cela facilite la progression dans l’interface, mais ne satisfait pas à lui seul les critères d’explication introductive ou conceptuelle : ceux-ci exigent un contenu pédagogique canonique et validé, non encore défini dans les sources.
+
 ### P4 — Graphe
 
 - [x] Définir un modèle initial borné : nœuds de types rendus, arêtes `contains` structurelles et arêtes `references`/`cites` explicites ; provenance conservée dans `graph.json`.
