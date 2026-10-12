@@ -35,7 +35,7 @@ Only the budget coordinate changes; usage, monotonicity, level, and support
 are preserved. The proof argument makes the admissible domain visible in the
 API, even though the underlying subtraction is total on ℕ∞.
 -/
-def psiContext (κ : GradeBudget.K L)
+noncomputable def psiContext (κ : GradeBudget.K L)
     (Δ : UsageScale.Context Var UsageScale.Usage M L)
     (_admissible : psiAdmissible κ Δ) :
     UsageScale.Context Var UsageScale.Usage M L :=
@@ -60,7 +60,7 @@ private theorem scaledBindingBudget
       have hg : { g₀ with usage := a * g₀.usage } = g := by
         simpa [UsageScale.scaleUsageContext, UsageScale.scaleUsage, hd] using h
       subst g
-      exact ⟨g₀, hd, rfl⟩
+      exact ⟨g₀, rfl, rfl⟩
 
 /-- The usage-scaling action preserves ψ admissibility. -/
 theorem psiAdmissible_scale

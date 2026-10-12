@@ -94,3 +94,13 @@ la trace d'exécution instrumentée.
 
 **État à la création de cet addendum :** compilation et CI sur la nouvelle tête en attente.
 La porte C reste NON SATISFAITE ; aucun GO D–J n'est déduit de ces résultats d'interface.
+
+
+## 8. Retour de la première compilation Lean
+
+La première CI après l’ajout de `BudgetTransport.lean` a bien découvert le module (contrôle d’accessibilité : 16 fichiers Lean compilables depuis les racines de build), puis signalé deux erreurs dans ce nouveau module :
+
+1. `psiContext` dépend de `GradeBudget.costBudgetK`, déclaré `noncomputable` ; sa définition doit donc être explicitement `noncomputable`.
+2. Dans le cas d’une liaison présente, l’élimination de `Δ x` a déjà réécrit le but ; le premier témoin d’égalité se prouve par `rfl`, et non par l’équation locale `hd`.
+
+Le commit suivant applique ces deux corrections. La compilation complète et les autres contrôles de ce nouveau commit restent à vérifier ; aucune réussite n’est supposée à partir du run précédent.
