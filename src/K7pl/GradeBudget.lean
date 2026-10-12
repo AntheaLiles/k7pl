@@ -3,6 +3,7 @@
 -- SPDX-License-Identifier: CECILL-2.1
 
 import Mathlib.Data.ENat.Monoid
+import Mathlib.Data.ENat.Lattice
 import Mathlib.Tactic.NormNum
 
 /-!
@@ -23,7 +24,7 @@ abbrev TemporalProfile (L : Type u) := L → ℕ∞ × ℕ∞
 
 /-- Supremum of accumulated work over all finite sets of levels. -/
 noncomputable def workAggregate {L : Type u} (κ : TemporalProfile L) : ℕ∞ :=
-  ⨆ F : Finset L, ∑ ℓ ∈ F, (κ ℓ).1
+  ⨆ F : Finset L, (∑ ℓ ∈ F, (κ ℓ).1)
 
 /-- Supremum of per-level depth. On an empty level type, this is zero. -/
 noncomputable def depthAggregate {L : Type u} (κ : TemporalProfile L) : ℕ∞ :=
@@ -148,7 +149,7 @@ theorem truncated_sub_mul_compatibility (u β k : ℕ∞)
     | top => exact False.elim (hu rfl)
     | coe n => simpa using finite_multiplicity_compatibility n β k
   · subst k
-    simp [truncatedSub]
+    rw [truncatedSub_zero, mul_zero, truncatedSub_zero]
 
 /-- The law cannot be extended to an infinite multiplier: with budget and cost
 both equal to 2, the left side is 0 while the right side is ∞. -/
