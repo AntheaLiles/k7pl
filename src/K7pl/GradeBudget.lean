@@ -260,4 +260,47 @@ theorem profileConsume_conservation {L : Type u} (β : ℕ∞)
   unfold profileConsume
   exact truncatedSub_add_of_le β (costBudget κ) h
 
+/-! ## Named bridge to the C2 temporal domain
+
+C2 fixes the canonical carrier as K = (ℕ∞ × ℕ∞)^L. The alias below makes that
+carrier explicit in Lean. The named K-level functions are deliberately thin
+wrappers over the proved generic profile operations: their definitional
+equalities are checkable, while their correspondence to the operational
+K7PL rules remains a separate proof obligation.
+-/
+
+/-- C2's canonical temporal-profile carrier (for a level type `L`). -/
+abbrev K (L : Type u) := TemporalProfile L
+
+/-- C2's named scalar cost on the canonical carrier K. -/
+noncomputable def costBudgetK {L : Type u} (κ : K L) : ℕ∞ :=
+  costBudget κ
+
+/-- The D5 coverage predicate on the canonical carrier K. -/
+def admK {L : Type u} (β : ℕ∞) (κ : K L) : Prop :=
+  costBudgetK κ ≤ β
+
+/-- The D6 partial-consumption interface: a result is available only with an
+admissibility witness. This is the formal K-level interface, not yet a proof
+that each operational rule invokes it correctly. -/
+noncomputable def consumeK {L : Type u} (β : ℕ∞) (κ : K L)
+    (_admissible : admK β κ) : ℕ∞ :=
+  truncatedSub β (costBudgetK κ)
+
+/-- The named K-level cost is definitionally the scalarization max(W,D). -/
+theorem costBudgetK_eq_max {L : Type u} (κ : K L) :
+    costBudgetK κ = max (workAggregate κ) (depthAggregate κ) := by
+  rfl
+
+/-- D5's canonical K-level predicate is exactly budget coverage. -/
+theorem admK_iff_coverage {L : Type u} (β : ℕ∞) (κ : K L) :
+    admK β κ ↔ costBudgetK κ ≤ β := Iff.rfl
+
+/-- D6 conservation on the admitted K-level domain. -/
+theorem consumeK_conservation {L : Type u} (β : ℕ∞)
+    (κ : K L) (h : admK β κ) :
+    consumeK β κ h + costBudgetK κ = β := by
+  unfold consumeK
+  exact truncatedSub_add_of_le β (costBudgetK κ) h
+
 end K7pl.GradeBudget
