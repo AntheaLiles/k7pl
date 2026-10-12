@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: CECILL-2.1
 
 import Mathlib.Data.ENat.Monoid
-import Mathlib.Algebra.Order.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Data.ENat.Lattice
 import Mathlib.Tactic.NormNum
 
