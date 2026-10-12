@@ -9,7 +9,7 @@ SPDX-License-Identifier: CC-BY-4.0
 **Révision auditée de `main` :** `232eb9afca0fdd7d87d2250eceaeeb8a381b271c` (11 octobre 2026).  
 **Frontière :** C-01 et C-02 seulement. Cet audit décrit les sources avant la décision d'autrice consignée ci-dessous ; il n'est pas une preuve formelle. Les sources Verso/Spec décrivent les objets, propositions et esquisses ; leur compilation n'en fait pas des déclarations de théorèmes Lean.
 
-**Mise à jour postérieure à l'audit :** le 11 octobre 2026, l'autrice a retenu comme interfaces de référence les signatures de π_U, Bang_𝒢 et Scale_Usage. Leur normalisation dans les sources et les preuves restent à réaliser. Voir [la note de ratification C-01](L1-C01-INTERFACE-RATIFICATION-2026-10-11.md).
+**Mise à jour postérieure à l’audit :** l’autrice a ratifié `π_U`, `Bang_𝒢` et `Scale_Usage` comme interfaces de référence le 11 octobre 2026 ; les sources ont été harmonisées le 12 octobre. Cette harmonisation reste documentaire : les lois de cohérence, de naturalité, de composition et leur compatibilité avec les règles attendent encore leurs preuves. Voir [la note de ratification C-01](L1-C01-INTERFACE-RATIFICATION-2026-10-11.md) et le [dossier d’intégration source](L1-C-SOURCE-INTEGRATION-2026-10-12.md).
 
 ## 1. Sources exactes et portée de la preuve
 

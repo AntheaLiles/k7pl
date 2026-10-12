@@ -222,7 +222,7 @@ Les obligations restantes sont bornées et classées dans la matrice C-01 à C-0
 
 ## 11. Matrice des obligations résiduelles de C
 
-**Écart critique entre décision d’autrice et source normative.** La décision du 11 octobre 2026 retient π_U, Bang_𝒢 et Scale_Usage comme signatures de référence. C2 les qualifie encore textuellement de candidates : cette divergence doit être résolue par une modification distincte, qui explicite domaines et préconditions. La décision ne prouve ni les lois des interfaces ni leur compatibilité avec les règles. C2 déclare par ailleurs Cost_Budget : (ℕ∞×ℕ∞)^ℒ ⇀ ℕ∞ comme fonction partielle, puis expose Cost_Budget(κ)=max(W(κ),D(κ)) sans condition de domaine. La totalité/partialité du coût demeure une question indépendante.
+**État après harmonisation source du 12 octobre 2026.** C2 présente désormais `π_U`, `Bang_𝒢` et `Scale_Usage` comme interfaces de référence ratifiées. D3–D4 retiennent `Cost_Budget : K → ℕ∞` totale sous le contrat scalaire `max(W,D)`, avec `sup ∅ = 0`. D5 normalise l’admissibilité en `Cost_Budget(κ) ≤ β`, D6 maintient `Consume` partielle sur `Adm`, D7 sépare le domaine de `ψ` de celui de `Consume`, et D8 ratifie globalement `ω ⊖ ω = ω`. Cette harmonisation retire une divergence documentaire de signature ; elle ne prouve ni les lois des interfaces, ni les agrégateurs, ni leur compatibilité règle par règle.
 
 Cette matrice consolide les audits de source existants et les séances 59–62 ; elle n'est ni une preuve ni une validation indépendante. Les fichiers sous spec/Spec sont des sources Verso contenant définitions textuelles, énoncés et esquisses, non des déclarations Lean correspondant automatiquement à des théorèmes machine-vérifiés. Leur compilation vérifie parsing/rendu et les contrôles associés, pas la vérité mathématique des propositions exposées.
 
@@ -311,7 +311,7 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Portée exacte de cette décharge conditionnelle :** il s'agit d'une démonstration mathématique sur papier des lois agrégées, sous le contrat ci-dessus ; ce n'est ni une preuve Lean ni la preuve que le manuscrit normatif fournit déjà ces signatures et ces opérations. Reste à vérifier que l'effet normatif utilise exactement ces compositions, que ℕ∞ a les propriétés de complétude/addition invoquées, et que le domaine de κ est celui-ci.
 
-**Divergence de signature qui bloque encore la clôture :** C2 écrit Cost_Budget comme fonction partielle, alors que max(W,D) définit une valeur pour toute famille κ de ce type. L'autrice doit confirmer si la partialité est intentionnelle et préciser son domaine, ou si la signature est totale sous le contrat scalaire/P3. Il ne faut pas modifier cette flèche sans cette décision.
+**Obligation résiduelle après D3–D4 :** le choix total/partiel est décidé : `Cost_Budget` est totale sous le contrat scalaire retenu. Il reste à formaliser les types canoniques de `K`, `W`, `D` et `ℕ∞`, à définir exactement les supremums et les opérations de composition, puis à prouver les propriétés de borne, monotonie, nullité et compatibilité budgétaire réellement requises. La décision de totalité n’établit pas ces lois.
 
 **Dépendances :** ordre et supremums de ℕ∞, définition normative de κ, Adm/Consume et contrat de ψ.
 
@@ -323,7 +323,7 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Verdict : C-06 OUVERT.** L’esquisse n’est pas exhaustive : elle annonce 34 règles mais C3 en contient 49 occurrences, et classe incorrectement Inj parmi les règles à deux prémisses qui partagent l’usage. Cela réfute la complétude de l’esquisse, non le théorème de substitution dans son ensemble. Aucun contre-exemple typé au théorème entier n’est établi et aucune preuve Lean correspondante n’a été trouvée.
 
-**Contrat cible :** préserver terme, instanciation du type et famille d’effets, avec conclusion sous Δ ⊠₁ Scale_Usage(π_U(r),Δ′). Les signatures π_U et Scale_Usage sont ratifiées comme références, mais C2 reste à harmoniser. Conv!/coerce, w/c, ψ, When/Adm/Consume et le domaine de Cost_Budget sont des dépendances ouvertes. φ_n porte sur les multiplicités effectives ; un grade d’usage rationnel ne permet pas de définir φ_a par analogie, et n=ω requiert ses hypothèses propres.
+**Contrat cible :** préserver le terme, l’instanciation du type et la famille d’effets, avec conclusion sous `Δ ⊠₁ Scale_Usage(π_U(r), Δ′)`. Les signatures `π_U` et `Scale_Usage` sont harmonisées dans la source de référence ; leurs lois ne sont pas encore prouvées. `Conv!`/`coerce`, `w`/`c`, `ψ`, `When`/`Adm`/`Consume` et les garanties exactes de `Cost_Budget` restent des dépendances à traiter. `φ_n` porte sur les multiplicités effectives ; un grade d’usage rationnel ne permet pas de définir `φ_a` par analogie, et `n=ω` requiert ses hypothèses propres.
 
 **Cas recensés :** Var, Ret, Th, Let, Fo, Box, Unbox, Lam, App, Pair, Inj, Pack, Open, One, OneE, Split, Case, Op, Tick, Del, Sub, SubBox, les deux règles Alw, Now, Wait, When, Sc, Fold, Unfold, Gen, Inst, Out, Cop, With, Proj, VecI, VecE, Slice, Par, Vmap, Spawn, New, Send, Guard, Free, At, Move et Try, ainsi que ConvCtx/Conv!. L’élimination d’Arena, Fix/Declassify et la traduction/sortage ne sont pas réputés couverts sans leurs règles et contrats propres.
 
