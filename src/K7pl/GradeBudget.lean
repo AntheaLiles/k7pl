@@ -303,10 +303,7 @@ theorem finite_budget_rejects_unbounded_cost {L : Type u}
     (b : ℕ) (κ : K L) (hcost : costBudgetK κ = ⊤) :
     ¬ admK (b : ℕ∞) κ := by
   intro hadm
-  have hle : (⊤ : ℕ∞) ≤ (b : ℕ∞) := by
-    simpa [admK, hcost] using hadm
-  have heq : (⊤ : ℕ∞) = (b : ℕ∞) := le_antisymm hle le_top
-  exact (WithTop.coe_ne_top b) heq.symm
+  simp [admK, hcost] at hadm
 
 /-- Every admitted profile with a finite natural budget has finite scalar cost.
 The witness is the same admissibility precondition required by partial Consume. -/
