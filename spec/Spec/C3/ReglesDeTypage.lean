@@ -255,6 +255,18 @@ groupes, dans l'ordre où l'induction du chapitre 4 (§{num "sec:c4-le-calcul-de
 rencontre. Ce qui suit n'est plus un inventaire mais un jeu. Chaque groupe a son coût, et c'est ce
 compte qui a réduit ce qui paraissait un chantier ouvert à une liste bornée de décisions.
 
+Une première tranche du jeu de règles est désormais définie comme du Lean compilable dans cette même source Verso, sous le nom
+`K7pl.Spec.C3.EffectiveKernel`. Elle relie une grammaire interne à des jugements inductifs effectifs :
+`ValueTyping` porte `Var`, l'unité et `Pair` ; `ComputationTyping` porte `Ret`, `Lam` et `App`.
+Le contexte du noyau est explicitement la projection d'usage `π_U`, tandis que le type de fonction conserve le grade complet
+(usage, coordonnée monotone, niveau, budget). La règle `App` ne met à l'échelle que le contexte de l'argument, par `π_U(r)`.
+Un théorème compilé construit la dérivation de `λx. return x` sous un grade arbitraire pour les trois coordonnées non liées à l'usage.
+
+Cette tranche est un fragment exécutable, pas le jeu complet de C3. Le porteur et la composition des effets restent des paramètres explicites ;
+aucune loi d'effet n'est supposée. La composition complète `⊠`, `ψ`, la consommation de budget, les conversions, les règles restantes,
+la substitution générale et la simulation ne sont pas couverts par ce noyau. Ils restent des obligations de formalisation et de preuve,
+pas des conséquences de sa compilation.
+
 Les règles _structurelles_ se réduisent à une seule, et c'est le premier gain de la gradation. Dans
 un système gradué, l'affaiblissement et la contraction ne sont pas des règles mais des conséquences
 de l'arithmétique des grades : affaiblir, c'est produire une liaison au grade nul ; contracter,
