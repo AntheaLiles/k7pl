@@ -25,6 +25,11 @@ truncated subtraction. In particular, `∞ ⊖ ∞ = ∞`, not the residual of a
 def truncatedSub (β k : ℕ∞) : ℕ∞ :=
   if β = ⊤ then ⊤ else β - k
 
+/-- The zero-cost case leaves the budget unchanged. -/
+@[simp] theorem truncatedSub_zero (β : ℕ∞) :
+    truncatedSub β 0 = β := by
+  cases β <;> simp [truncatedSub]
+
 @[simp] theorem truncatedSub_top (k : ℕ∞) :
     truncatedSub ⊤ k = ⊤ := by
   simp [truncatedSub]
