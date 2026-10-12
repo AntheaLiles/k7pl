@@ -213,19 +213,19 @@ tag := "sec:c2-interface-cout-budgetaire"
 
 {label "sec:c2-interface-cout-budgetaire"}
 
-La famille temporelle normative est K = (ℕ∞ × ℕ∞)^ℒ. La convention ratifiée D4 autorise ℒ vide et fixe sup ∅ = 0 dans ℕ∞. En conséquence, W et D sont totales sur K, et la décision D3 retient Cost_Budget : K → ℕ∞ totale, sous ces conventions.
+La famille temporelle normative est `K = (ℕ∞ × ℕ∞)^ℒ`. La convention ratifiée D4 autorise ℒ vide et fixe `sup ∅ = 0` dans ℕ∞. En conséquence, W et D sont totales sur K, et la décision D3 retient `Cost_Budget : K → ℕ∞` totale, sous ces conventions.
 
-La définition canonique est Cost_Budget(κ) = max(W(κ), D(κ)), où W et D sont définis dans la section suivante. Cette scalarisation borne simultanément le travail agrégé et la profondeur agrégée. Elle n'ajoute aucune action budgétaire à Scale_Usage et n'implique aucune multiplication globale du grade complet 𝒢.
+La définition canonique est `Cost_Budget(κ) = max(W(κ), D(κ))`, où W et D sont définis dans la section suivante. Cette scalarisation borne simultanément le travail agrégé et la profondeur agrégée. Elle n'ajoute aucune action budgétaire à `Scale_Usage` et n'implique aucune multiplication globale du grade complet 𝒢.
 
-Le principe d'admissibilité ratifié par D5 est la couverture du coût annoncé : Adm(β, κ) signifie que Cost_Budget(κ) ≤ β. Comme ℕ∞ inclut ω comme élément maximal, cette formule réalise le principe de couverture ; la clause séparée β = ω est redondante et n'ajoute aucune garantie distincte.
+Le principe d'admissibilité ratifié par D5 est la couverture du coût annoncé : `Adm(β, κ)` signifie que `Cost_Budget(κ) ≤ β`. Comme ℕ∞ inclut ω comme élément maximal, cette formule réalise le principe de couverture ; la clause séparée `β = ω` est redondante et n'ajoute aucune garantie distincte.
 
-La consommation reste une opération partielle, même si Cost_Budget est totale : Consume(β, κ) est définie uniquement si Adm(β, κ) est satisfaite, et vaut alors β ⊖ Cost_Budget(κ). La soustraction tronquée ⊖ est, elle, définie globalement sur ℕ∞, selon la convention de C2 prolongée par D8, notamment ω ⊖ ω = ω. Il ne faut donc pas déplacer la partialité de Consume vers Cost_Budget ni la confondre avec le domaine de ψ.
+La consommation reste une opération partielle, même si `Cost_Budget` est totale : `Consume(β, κ)` est définie uniquement si `Adm(β, κ)` est satisfaite, et vaut alors `β ⊖ Cost_Budget(κ)`. La soustraction tronquée ⊖ est, elle, définie globalement sur ℕ∞, selon la convention de C2 prolongée par D8, notamment `ω ⊖ ω = ω`. Il ne faut donc pas déplacer la partialité de `Consume` vers `Cost_Budget` ni la confondre avec le domaine de ψ.
 
 Le domaine de ψ est conceptuellement indépendant de la définissabilité de Consume. Une ψ structurellement définie ne suffit pas à autoriser une traversée budgétaire : les règles de composition doivent vérifier séparément l'admissibilité du budget pour chaque liaison affectée. Inversement, l'admissibilité n'établit pas à elle seule que ψ est définie pour des contextes incompatibles. Les règles qui utilisent Δ₁ ⊠ε Δ₂ doivent rendre explicites ces deux obligations.
 
 Les signatures canoniques et leurs domaines sont explicités ci-dessous. On note K = (ℕ∞ × ℕ∞)^ℒ et 𝔅 = ℕ∞.
 
-```text
+```
 Adm : 𝔅 × K → Prop
 Adm(β, κ) ↔ Cost_Budget(κ) ≤ β
 
@@ -235,9 +235,9 @@ Consume(β, κ) = β ⊖ Cost_Budget(κ)
 
 Ici Adm exprime la couverture du coût annoncé. Puisque ω est l’élément maximal de 𝔅, le disjoint β = ω de la formule historique est redondant, et non une seconde clause sémantique. Consume est définie sur le sous-domaine admissible et reste donc partielle sur 𝔅 × K.
 
-Pour un effet bien formé ε = (ε₀, κ_ε) et un contexte bien formé Δ = {xᵢ :_{⟨uᵢ,mᵢ,ℓᵢ,βᵢ⟩} Vᵢ}, la transformation structurelle ψ conserve les clés, les types et les trois coordonnées non budgétaires, et applique la soustraction totale liaison par liaison :
+Pour un effet bien formé `ε = (ε₀, κ_ε)` et un contexte bien formé `Δ = {xᵢ :_{⟨uᵢ,mᵢ,ℓᵢ,βᵢ⟩} Vᵢ}`, la transformation structurelle ψ conserve les clés, les types et les trois coordonnées non budgétaires, et applique la soustraction totale liaison par liaison :
 
-```text
+```
 ψ(Δ, ε) =
   {xᵢ :_{⟨uᵢ,mᵢ,ℓᵢ, βᵢ ⊖ Cost_Budget(κ_ε)⟩} Vᵢ}
 ```
@@ -423,14 +423,14 @@ l'exponentielle d'usage, ainsi qu'une action `Scale_Usage` compatible avec `Box`
 substitution. La préservation du niveau dans l'interprétation logique et la consommation du budget
 par `Consume` doivent rester indépendantes de cette projection.
 
-L'interface de référence est donc π_U : 𝒢 → 𝓡 et Bang_𝒢(r,A) := !_{π_U(r)}A. Le grade syntaxique conserve les quatre composantes ; le noyau comonadique est indexé par 𝓡. Cette décision n'introduit aucune multiplication globale sur 𝒢 et ne ferme pas les obligations de preuve de la substitution, des coercions, de la counité w ni de la comultiplication c. Une indexation multi-composante demeure une généralisation éventuelle, hors du contrat normatif actuel.
+L'interface de référence est donc `π_U : 𝒢 → 𝓡` et `Bang_𝒢(r,A) := !_{π_U(r)}A`. Le grade syntaxique conserve les quatre composantes ; le noyau comonadique est indexé par 𝓡. Cette décision n'introduit aucune multiplication globale sur 𝒢 et ne ferme pas les obligations de preuve de la substitution, des coercions, de la counité w ni de la comultiplication c. Une indexation multi-composante demeure une généralisation éventuelle, hors du contrat normatif actuel.
 
-## Action de référence de mise à l'échelle d'usage
+# Action de référence de mise à l'échelle d'usage
 %%%
 tag := "sec:c2-action-candidate-scale-usage"
 %%%
 
-La décision d'autrice retient Scale_Usage comme action contextuelle de référence. Elle agit uniquement sur la composante d'usage du grade complet ; l'action liaison par liaison n'est définie que pour les contextes dont les clés et les types sont compatibles :
+La décision d'autrice retient `Scale_Usage` comme action contextuelle de référence. Elle agit uniquement sur la composante d'usage du grade complet ; l'action liaison par liaison n'est définie que pour les contextes dont les clés et les types sont compatibles :
 
 ::::formula (label := "eq:scale-usage-grade") (kind := "formule")
 ```
@@ -640,17 +640,17 @@ d'intervalles n'est donc pas, à elle seule, un morphisme de modes.
 
 Au sens de la théorie des modes introduite par Hanukaev et Eades {cite "hanukaevUnificationGradedSubstructural2026"}[], un mode est un triplet (Rₘ, Cont(m), Weak(m)) : une algèbre de grades, un idéal de grades contractables et un prédicat d'affaiblissement. La décision de périmètre ratifiée dans D-16 retient trois modes structurels de référence pour le langage actuel :
 
-M_Lin = (𝓡, {0}, false),
-M_Aff = (𝓡, {0}, true),
-M_Unr = (𝓡, 𝓡, true).
+`M_Lin = (𝓡, {0}, false)`,
+`M_Aff = (𝓡, {0}, true)`,
+`M_Unr = (𝓡, 𝓡, true)`. 
 
-Le mode structurel M_Rel = (𝓡, 𝓡, false) n'appartient pas au périmètre normatif actuel. Cela ne supprime pas l'intervalle d'usage U_Rel = [1..ω] : U_Rel reste une strate syntaxique d'annotations d'usage, distincte d'un mode structurel. La note d'opportunité L1-REL-MODE-OPPORTUNITIES-2026-10-11.md conserve M_Rel comme piste séparée, sans lui attribuer de règle normative.
+Le mode structurel `M_Rel = (𝓡, 𝓡, false)` n'appartient pas au périmètre normatif actuel. Cela ne supprime pas l'intervalle d'usage `U_Rel = [1..ω]` : `U_Rel` reste une strate syntaxique d'annotations d'usage, distincte d'un mode structurel. La note d'opportunité `L1-REL-MODE-OPPORTUNITIES-2026-10-11.md` conserve `M_Rel` comme piste séparée, sans lui attribuer de règle normative.
 
 Les applications identité du porteur 𝓡 fournissent, sous le contrat de morphisme retenu, les candidats Lin → Aff, Aff → Unr et Lin → Unr. Ce constat structurel ne suffit pas à prouver que le jugement de typage K7PL réalise effectivement ces permissions. Les règles de typage et leurs conversions doivent satisfaire le contrat d'algèbre, d'idéal de contraction et de Weak ; les états under-review/proofsketch demeurent inchangés. L'inclusion ensembliste des intervalles d'usage n'est pas une preuve de morphisme.
 
 Les intervalles syntaxiques restent distincts :
-U_Lin = [1..1], U_Aff = [0..1], U_Rel = [1..ω], U_Unr = [0..ω].
-Ils ne sont pas en général des sous-algèbres du semi-anneau : par exemple [0..1] n'est pas fermé par addition. La correspondance normative se limite donc aux trois modes retenus et ne doit pas inférer un quatrième mode structurel de l'existence de U_Rel.
+`U_Lin = [1..1]`, `U_Aff = [0..1]`, `U_Rel = [1..ω]`, `U_Unr = [0..ω]`.
+Ils ne sont pas en général des sous-algèbres du semi-anneau : par exemple [0..1] n'est pas fermé par addition. La correspondance normative se limite donc aux trois modes retenus et ne doit pas inférer un quatrième mode structurel de l'existence de `U_Rel`.
 
 ::::figure (label := "fig:fragments-emboites") (src := "fragments-nestings") (alt := "Trois cadres emboites, du plus large au plus etroit — fragment cartesien, qui admet affaiblissement et contraction ; fragment affine, qui n'admet que l'affaiblissement ; fragment lineaire strict, qui n'admet ni l'un ni l'autre.") (width := "90")
 :::caption

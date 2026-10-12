@@ -355,9 +355,9 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
 
 : $`\psi`
 
-  L'opération de contexte ψ agit sur un contexte entier. Elle se distingue de Ψ_grade, interface au niveau grade dans la loi distributive. Dans le contexte, ψ laisse inchangées les composantes d'usage, de monotonie et de niveau ; sa composante budgétaire utilise le coût de l'effet. La famille temporelle normative est κ : ℒ → (ℕ∞ × ℕ∞), et Cost_Budget(κ) est désormais une fonction totale, définie en C2 par max(W(κ),D(κ)) sous la convention sup ∅ = 0. L'arithmétique de budget s'écrit β ⊖ Cost_Budget(κ), avec la soustraction tronquée globale de C2 prolongée par D8, notamment ω ⊖ ω = ω.
+  L'opération de contexte ψ agit sur un contexte entier. Elle se distingue de `Ψ_grade`, interface au niveau grade dans la loi distributive. Dans le contexte, ψ laisse inchangées les composantes d'usage, de monotonie et de niveau ; sa composante budgétaire utilise le coût de l'effet. La famille temporelle normative est κ : ℒ → (ℕ∞ × ℕ∞), et `Cost_Budget(κ)` est désormais une fonction totale, définie en C2 par `max(W(κ),D(κ))` sous la convention `sup ∅ = 0`. L'arithmétique de budget s'écrit `β ⊖ Cost_Budget(κ)`, avec la soustraction tronquée globale de C2 prolongée par D8, notamment `ω ⊖ ω = ω`.
 
-Le domaine de ψ n'est pas défini par celui de Consume. ψ peut être définie structurellement même si le budget ne couvre pas le coût ; cette définissabilité ne rend toutefois pas la traversée autorisée. Adm(β,κ) exprime séparément la couverture du coût, et Consume(β,κ) n'est disponible que lorsque Adm est satisfaite. Une règle qui compose des contextes doit donc vérifier explicitement l'admissibilité des liaisons traversées, indépendamment de la compatibilité structurelle qui rend ψ définie. La seule valeur temporelle imputée au budget d'exécution est Cost_Budget(κ) ; aucune coordonnée de grade n'est implicitement mise à l'échelle.
+Le domaine de ψ n'est pas défini par celui de `Consume`. ψ peut être définie structurellement même si le budget ne couvre pas le coût ; cette définissabilité ne rend toutefois pas la traversée autorisée. `Adm(β,κ)` exprime séparément la couverture du coût, et `Consume(β,κ)` n'est disponible que lorsque `Adm` est satisfaite. Une règle qui compose des contextes doit donc vérifier explicitement l'admissibilité des liaisons traversées, indépendamment de la compatibilité structurelle qui rend ψ définie. La seule valeur temporelle imputée au budget d'exécution est `Cost_Budget(κ)` ; aucune coordonnée de grade n'est implicitement mise à l'échelle.
 
 Ces appariements se lisent mieux rassemblés, et ils sont peu nombreux.
 
@@ -372,7 +372,7 @@ Action de chaque composante du grade sur chaque composante de l'effet
   * sur $`(\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`
   * sens de ψ
 * * répétition effective n, distincte de l'usage u
-  * itération φ_n(ε)
+  * itération `φ_n(ε)`
   * multiplication de la famille temporelle par n
   * traverse inchangé pour la coordonnée d'usage
 * * niveau $`\ell`
@@ -386,7 +386,7 @@ Action de chaque composante du grade sur chaque composante de l'effet
 * * budget $`\beta`
   * —
   * —
-  * β ⊖ Cost_Budget(κ), arithmétique totale ; l'admissibilité du franchissement est distincte, portée par Adm
+  * `β ⊖ Cost_Budget(κ)`, arithmétique totale ; l'admissibilité du franchissement est distincte, portée par `Adm`
 :::
 ::::
 
@@ -406,7 +406,7 @@ La composition de contextes, définie à partir des deux fonctions de la loi dis
 :::
 ::::
 
-où l'addition est celle des grades, composante par composante, et où ψ agit liaison par liaison. La compatibilité structurelle des liaisons est une condition de définissabilité de ψ ; le budget ne fait pas partie de cette condition. Le domaine de la composition de contextes est toutefois partiel : en plus de la définissabilité de ψ et de la compatibilité des clés/types pour l'addition, chaque budget traversé doit satisfaire Adm(β,κ(ε)). L'absence d'admissibilité interdit la règle de composition ; elle ne doit pas être encodée en faisant passer la soustraction ou Cost_Budget pour des fonctions partielles. L'associativité est revendiquée seulement sur le domaine où toutes les compositions successives sont définies, et ses conditions doivent être vérifiées.
+où l'addition est celle des grades, composante par composante, et où ψ agit liaison par liaison. La compatibilité structurelle des liaisons est une condition de définissabilité de ψ ; le budget ne fait pas partie de cette condition. Le domaine de la composition de contextes est toutefois partiel : en plus de la définissabilité de ψ et de la compatibilité des clés/types pour l'addition, chaque budget traversé doit satisfaire `Adm(β,κ(ε))`. L'absence d'admissibilité interdit la règle de composition ; elle ne doit pas être encodée en faisant passer la soustraction ou `Cost_Budget` pour des fonctions partielles. L'associativité est revendiquée seulement sur le domaine où toutes les compositions successives sont définies, et ses conditions doivent être vérifiées.
 
 La séparation entre les interfaces de loi distributive et le relèvement de contexte répond à une question que le chapitre 2 avait laissée
 ouverte. Les deux fonctions ne mêlent jamais deux composantes du grade entre elles : chacune apparie

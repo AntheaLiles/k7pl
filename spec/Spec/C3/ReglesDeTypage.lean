@@ -114,7 +114,7 @@ _totale_ : $`\psi(\cdot,\varepsilon)` y est définie partout.
 :::
 
 :::proofsketch
-Par la définition ({num "eq:boxtimes"}[]), Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂, ε). Lorsque l'effet a un coût temporel nul, la composante budgétaire de ψ est l'identité puisque β ⊖ 0 = β ; si les domaines structurels sont satisfaits, le produit mixte se réduit donc à l'addition point par point. Cela ne rend pas ψ partielle selon l'admissibilité : la définissabilité structurelle de ψ et l'autorisation de traversée sont deux obligations distinctes. Toute règle qui compose des contextes doit vérifier la compatibilité des clés/types et Adm pour chaque budget traversé. La soustraction tronquée et Cost_Budget sont totales ; la partialité du passage est portée par son domaine d'admissibilité, pas par ces fonctions.
+Par la définition ({num "eq:boxtimes"}[]), Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂, ε). Lorsque l'effet a un coût temporel nul, la composante budgétaire de ψ est l'identité puisque β ⊖ 0 = β ; si les domaines structurels sont satisfaits, le produit mixte se réduit donc à l'addition point par point. Cela ne rend pas ψ partielle selon l'admissibilité : la définissabilité structurelle de ψ et l'autorisation de traversée sont deux obligations distinctes. Toute règle qui compose des contextes doit vérifier la compatibilité des clés/types et Adm pour chaque budget traversé. La soustraction tronquée et `Cost_Budget` sont totales ; la partialité du passage est portée par son domaine d'admissibilité, pas par ces fonctions.
 :::
 
 ::::
