@@ -89,12 +89,12 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 ### P0 — Cadrage et inventaire
 
 - [x] Actualiser l'audit des figures et moteurs de rendu ([audit figures HTML/PDF](DIAGRAMS-AND-RENDERING-AUDIT.md)) : la cause du défaut HTML est documentée, les sources et sorties sont inventoriées, les rendus statiques comparés et les contrôles automatiques définis. Les points de validation PDF/UA avec la chaîne réelle, l'inspection du nouvel artefact PDF et la revue humaine restent séparément ouverts ci-dessous.
-- [ ] Inventorier les capacités actuelles de Verso utilisées par K7PL.
-- [ ] Inventorier les générateurs et extensions sous `tools/`.
-- [ ] Identifier les structures Lean actuellement disponibles pour représenter les objets documentaires.
-- [ ] Identifier les mécanismes existants de génération de documentation, statuts, bibliographie et traçabilité.
-- [ ] Cartographier les matériaux susceptibles d'entrer dans l'enveloppe : `spec/`, `src/`, `tests/`, `docs/`, bibliographie, historique et décisions.
-- [ ] Identifier les doublons de modèle qu'il serait dangereux d'introduire.
+- [x] Inventorier les capacités actuelles de Verso utilisées par K7PL ; relevé des extensions, du contrat de version et de la génération dans [l'inventaire technique](INTERACTIVE-EXPLORATION-INVENTORY.md), § 1.
+- [x] Inventorier les générateurs et extensions sous `tools/` et `scripts/` dans [l'inventaire technique](INTERACTIVE-EXPLORATION-INVENTORY.md), §§ 2–3.
+- [x] Identifier les structures Lean actuellement disponibles pour représenter les objets documentaires et leurs limites ; voir [l'inventaire technique](INTERACTIVE-EXPLORATION-INVENTORY.md), § 2.
+- [x] Identifier les mécanismes existants de génération de documentation, statuts, bibliographie et traçabilité ; voir [l'inventaire technique](INTERACTIVE-EXPLORATION-INVENTORY.md), §§ 3–4.
+- [x] Cartographier les matériaux susceptibles d'entrer dans l'enveloppe (`spec/`, `src/`, `tests/`, `docs/`, bibliographie, historique et décisions) dans [l'inventaire technique](INTERACTIVE-EXPLORATION-INVENTORY.md), § 4.
+- [x] Identifier les doublons de modèle qu'il serait dangereux d'introduire ; décision de ne pas créer de modèle parallèle ni de fusionner les deux stratégies de graphe sans comparaison préalable ([inventaire technique](INTERACTIVE-EXPLORATION-INVENTORY.md), § 5).
 
 #### Sous-chantier figures et rendu HTML/PDF
 
@@ -188,8 +188,8 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 ## Point de reprise — preuve de valeur navigation (11 octobre 2026)
 
-Le run CI `38092815528` construit et déploie les trois pages de navigation ; l'inspection de son artefact Pages montre 67 pages HTML et 53 liens locaux valides dans le sous-ensemble de navigation, sans ancre locale visée manquante. C'est une vérification reproductible de l'artefact, pas un test utilisateur ni une preuve de bon fonctionnement des URL publiques.
+Le run CI `38092815528` cité plus haut est le point de comparaison historique, antérieur à la PR #150. Cette PR est maintenant fusionnée. Son run de validation [#38093986701](https://github.com/AntheaLiles/k7pl/actions/runs/38093986701) a terminé avec succès ; la génération et la validation contrôlent désormais la fraîcheur des pages, les liens/fragments locaux et la correspondance univoque entre chaque figure du catalogue et son ancre documentaire rendue.
 
-Une correction de réversibilité et un contrôle automatique des liens/fraîcheur sont préparés dans la [PR #150](https://github.com/AntheaLiles/k7pl/pull/150). Après validation de la PR et déploiement, refaire l'inspection du nouvel artefact. Maintenir ouvertes la comparaison manuelle/prototype, l'essai réel mobile/clavier/sans JavaScript et la revue de valeur humaine. Ne pas modifier le tableau de bord global généré `docs/STATUS.md`.
+Cette validation établit la cohérence mécanique du HTML construit dans le run de PR. Elle ne prouve pas que le site public a été redéployé après cette correction ni que ses URL fonctionnent dans un navigateur. La validation directe du site publié, les essais clavier/mobile/sans JavaScript et la comparaison manuelle/prototype restent ouverts ; le protocole préenregistré dans [le dossier de preuve de valeur](NAVIGATION-PROTOTYPE.md) n'a pas encore été exécuté. Ne pas modifier le tableau de bord global généré `docs/STATUS.md`.
 
-Le prochain parcours sémantique est bloqué, pas autorisé par défaut : aucune relation entre définition, théorème, preuve, implémentation et test ne sera ajoutée sur la seule base des noms de modules, imports ou proximités de fichiers.
+Le prochain parcours sémantique reste bloqué par cette porte de valeur d'usage : aucune relation entre définition, théorème, preuve, implémentation et test ne sera ajoutée sur la seule base des noms de modules, imports ou proximités de fichiers.
