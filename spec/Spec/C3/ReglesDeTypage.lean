@@ -7,11 +7,239 @@
 
 import VersoManual
 import SpecExt
+import Mathlib.Algebra.Order.Ring.Basic
+import Mathlib.Algebra.Order.Ring.NNRat
+import Mathlib.Algebra.Order.Ring.WithTop
+import Mathlib.Data.ENat.Lattice
 
 open Verso.Genre Manual
 open SpecExt
 
 set_option linter.unusedVariables false
+
+/-!
+## Noyau Lean exécutable des règles C3 (fragment projeté)
+
+Ce noyau est déclaré dans la source Verso elle-même : la compilation de Spec
+compile ces définitions. Les contextes du jugement ci-dessous représentent
+explicitement l'observation d'usage π_U ; ils ne prétendent pas implémenter
+la composition complète ⊠, la consommation de budget ou la transformation
+d'effet ψ. La flèche conserve néanmoins le grade complet à quatre
+coordonnées, et App ne projette ce grade que pour mettre le contexte d'argument
+à l'échelle. Les règles non présentes dans ce fragment restent non formalisées.
+-/
+
+namespace K7pl.Spec.C3.EffectiveKernel
+
+universe u v w z
+
+/-- Portée normative d'usage : rationnels non négatifs et usage non borné. -/
+abbrev Usage := WithTop ℚ≥0
+
+/-- Le grade complet : usage, coordonnée monotone, niveau et budget. -/
+structure Grade (Monotonicity Level : Type) where
+  usage : Usage
+  monotonicity : Monotonicity
+  level : Level
+  budget : ℕ∞
+
+/-- π_U observe uniquement la composante d'usage du grade complet. -/
+def piU {Monotonicity Level : Type} (r : Grade Monotonicity Level) : Usage :=
+  r.usage
+
+/-- Scale_Usage agit sur l'usage et conserve les trois autres coordonnées. -/
+def scaleUsage {Monotonicity Level : Type}
+    (a : Usage) (r : Grade Monotonicity Level) : Grade Monotonicity Level :=
+  { r with usage := a * r.usage }
+
+@[simp] theorem scaleUsage_usage {Monotonicity Level : Type}
+    (a : Usage) (r : Grade Monotonicity Level) :
+    (scaleUsage a r).usage = a * r.usage := rfl
+
+@[simp] theorem scaleUsage_monotonicity {Monotonicity Level : Type}
+    (a : Usage) (r : Grade Monotonicity Level) :
+    (scaleUsage a r).monotonicity = r.monotonicity := rfl
+
+@[simp] theorem scaleUsage_level {Monotonicity Level : Type}
+    (a : Usage) (r : Grade Monotonicity Level) :
+    (scaleUsage a r).level = r.level := rfl
+
+@[simp] theorem scaleUsage_budget {Monotonicity Level : Type}
+    (a : Usage) (r : Grade Monotonicity Level) :
+    (scaleUsage a r).budget = r.budget := rfl
+
+theorem scaleUsage_one {Monotonicity Level : Type}
+    (r : Grade Monotonicity Level) :
+    scaleUsage (1 : Usage) r = r := by
+  cases r
+  simp [scaleUsage]
+
+theorem scaleUsage_comp {Monotonicity Level : Type}
+    (a b : Usage) (r : Grade Monotonicity Level) :
+    scaleUsage a (scaleUsage b r) = scaleUsage (a * b) r := by
+  cases r
+  simp [scaleUsage, mul_assoc]
+
+/-- Type grammar for the executable core fragment. -/
+inductive ValueType where
+  | base : String → ValueType
+  | unit : ValueType
+  | tensor : ValueType → ValueType → ValueType
+  deriving DecidableEq, Repr
+
+/-- The value grammar for Var, Pair and the unit value. -/
+inductive Value (Var : Type u) where
+  | var : Var → Value Var
+  | unit : Value Var
+  | pair : Value Var → Value Var → Value Var
+  deriving DecidableEq, Repr
+
+/-- The computation grammar for Ret, Lam and App.
+Lam carries its elaborated full grade explicitly. -/
+inductive Computation (Var : Type u) (Monotonicity Level : Type) where
+  | ret : Value Var → Computation Var Monotonicity Level
+  | lam : Var → ValueType → Grade Monotonicity Level →
+      Computation Var Monotonicity Level → Computation Var Monotonicity Level
+  | app : Computation Var Monotonicity Level → Value Var →
+      Computation Var Monotonicity Level
+  deriving DecidableEq, Repr
+
+/-- Computation types include effect-return and graded function types. -/
+inductive ComputationType (Effect : Type v) (Monotonicity Level : Type) where
+  | returned : Effect → ValueType → ComputationType Effect Monotonicity Level
+  | arrow : Grade Monotonicity Level → ValueType →
+      ComputationType Effect Monotonicity Level → Effect →
+      ComputationType Effect Monotonicity Level
+
+/-- A type environment is distinct from its quantitative usage context. -/
+abbrev TypeEnv (Var : Type u) := Var → Option ValueType
+
+/-- The usage observation of a typing context: π_U at each binding. -/
+abbrev UsageContext (Var : Type u) := Var → Usage
+
+def emptyTypeEnv {Var : Type u} : TypeEnv Var := fun _ => none
+
+def zeroContext {Var : Type u} : UsageContext Var := fun _ => 0
+
+def addContext {Var : Type u}
+    (left right : UsageContext Var) : UsageContext Var :=
+  fun x => left x + right x
+
+/-- Pointwise scaling uses the usage projection, not the complete grade. -/
+def scaleContext {Var : Type u}
+    (r : Usage) (context : UsageContext Var) : UsageContext Var :=
+  fun x => r * context x
+
+def singletonContext [DecidableEq Var] (x : Var) : UsageContext Var :=
+  fun y => if y = x then 1 else 0
+
+def eraseContext [DecidableEq Var]
+    (x : Var) (context : UsageContext Var) : UsageContext Var :=
+  fun y => if y = x then 0 else context y
+
+def extendTypeEnv [DecidableEq Var]
+    (env : TypeEnv Var) (x : Var) (A : ValueType) : TypeEnv Var :=
+  fun y => if y = x then some A else env y
+
+@[simp] theorem addContext_assoc {Var : Type u}
+    (Γ Δ Θ : UsageContext Var) :
+    addContext (addContext Γ Δ) Θ = addContext Γ (addContext Δ Θ) := by
+  funext x
+  simp [addContext, add_assoc]
+
+@[simp] theorem scaleContext_add {Var : Type u}
+    (r : Usage) (Γ Δ : UsageContext Var) :
+    scaleContext r (addContext Γ Δ) =
+      addContext (scaleContext r Γ) (scaleContext r Δ) := by
+  funext x
+  simp [scaleContext, addContext, mul_add]
+
+@[simp] theorem scaleContext_comp {Var : Type u}
+    (r s : Usage) (Γ : UsageContext Var) :
+    scaleContext r (scaleContext s Γ) = scaleContext (r * s) Γ := by
+  funext x
+  simp [scaleContext, mul_assoc]
+
+@[simp] theorem eraseContext_singleton [DecidableEq Var]
+    (x : Var) :
+    eraseContext x (singletonContext x) = zeroContext := by
+  funext y
+  by_cases h : y = x <;> simp [eraseContext, singletonContext, zeroContext, h]
+
+/-- The value rules in the current executable fragment. -/
+inductive ValueTyping {Var : Type u} [DecidableEq Var]
+    (env : TypeEnv Var) :
+    UsageContext Var → Value Var → ValueType → Prop where
+  | var {x A} (lookup : env x = some A) :
+      ValueTyping env (singletonContext x) (.var x) A
+  | unit :
+      ValueTyping env zeroContext .unit .unit
+  | pair {Γ Δ v w A B}
+      (left : ValueTyping env Γ v A)
+      (right : ValueTyping env Δ w B) :
+      ValueTyping env (addContext Γ Δ) (.pair v w) (.tensor A B)
+
+/-- Effective resource-sensitive rules Ret, Lam and App on π_U.
+The effect carrier and composition operation are explicit parameters; no
+algebraic laws for effects are assumed by this inductive definition. -/
+inductive ComputationTyping {Var : Type u} [DecidableEq Var]
+    {Effect : Type v} {Monotonicity : Type w} {Level : Type z}
+    (effectOne : Effect) (effectMul : Effect → Effect → Effect)
+    (env : TypeEnv Var) :
+    UsageContext Var → Computation Var Monotonicity Level →
+    ComputationType Effect Monotonicity Level → Effect → Prop where
+  | ret {Γ value A}
+      (typedValue : ValueTyping env Γ value A) :
+      ComputationTyping effectOne effectMul env Γ (.ret value)
+        (.returned effectOne A) effectOne
+  | lam {Γ x A r body C ε}
+      (fresh : env x = none)
+      (boundUsage : Γ x = piU r)
+      (typedBody : ComputationTyping effectOne effectMul
+        (extendTypeEnv env x A) Γ body C ε) :
+      ComputationTyping effectOne effectMul env (eraseContext x Γ)
+        (.lam x A r body) (.arrow r A C ε) effectOne
+  | app {Γ Δ function argument r A C ε₀ ε}
+      (typedFunction : ComputationTyping effectOne effectMul env Γ function
+        (.arrow r A C ε) ε₀)
+      (typedArgument : ValueTyping env Δ argument A) :
+      ComputationTyping effectOne effectMul env
+        (addContext Γ (scaleContext (piU r) Δ))
+        (.app function argument) C (effectMul ε₀ ε)
+
+/-- A typed identity computation exists for every effect algebra and base type.
+This exercises the actual Var, Ret and Lam constructors in the kernel. -/
+theorem identityComputationTypable
+    {Var : Type u} [DecidableEq Var]
+    {Effect : Type v} {Monotonicity : Type w} {Level : Type z}
+    (effectOne : Effect) (effectMul : Effect → Effect → Effect)
+    (x : Var) (A : ValueType) (m : Monotonicity) (ℓ : Level)
+    (β : ℕ∞) :
+    ComputationTyping effectOne effectMul emptyTypeEnv zeroContext
+      (.lam x A ({ usage := 1, monotonicity := m, level := ℓ, budget := β })
+        (.ret (.var x)))
+      (.arrow ({ usage := 1, monotonicity := m, level := ℓ, budget := β })
+        A (.returned effectOne A) effectOne) effectOne := by
+  let r : Grade Monotonicity Level :=
+    { usage := 1, monotonicity := m, level := ℓ, budget := β }
+  have bodyTyping :
+      ComputationTyping effectOne effectMul (extendTypeEnv emptyTypeEnv x A)
+        (singletonContext x) (.ret (.var x))
+        (.returned effectOne A) effectOne := by
+    apply ComputationTyping.ret
+    apply ValueTyping.var
+    simp [extendTypeEnv, emptyTypeEnv]
+  have lambdaTyping :
+      ComputationTyping effectOne effectMul emptyTypeEnv
+        (eraseContext x (singletonContext x)) (.lam x A r (.ret (.var x)))
+        (.arrow r A (.returned effectOne A) effectOne) effectOne := by
+    exact ComputationTyping.lam (effectOne := effectOne) (effectMul := effectMul)
+      (env := emptyTypeEnv) (Γ := singletonContext x) (x := x) (A := A)
+      (r := r) (body := .ret (.var x)) (C := .returned effectOne A) (ε := effectOne)
+      (by simp [emptyTypeEnv]) (by simp [singletonContext, r]) bodyTyping
+  simpa [r, eraseContext_singleton] using lambdaTyping
+
+end K7pl.Spec.C3.EffectiveKernel
 
 #doc (Manual) "Règles de typage" =>
 %%%
