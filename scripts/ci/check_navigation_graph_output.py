@@ -135,6 +135,12 @@ def check(site_root: Path, expected_ref: str) -> list[str]:
         errors.append("interactive page contains an unresolved revision placeholder")
     if page_source.count('id="search"') != 1 or page_source.count('id="depth"') != 1:
         errors.append("interactive page must expose exactly one node search and one depth control")
+    if page_source.count('id="reset-selection"') != 1:
+        errors.append("interactive page must provide a return-to-start control")
+    if 'id="node-list"' not in page_source or 'id="relations"' not in page_source:
+        errors.append("interactive page must expose text lists as an alternative to the graph drawing")
+    if "Source de la relation" not in page_source:
+        errors.append("interactive page must expose each relation's source page in its details")
     for kind in EDGE_KINDS:
         if f'data-edge-kind="{kind}"' not in page_source:
             errors.append(f"interactive page has no filter for relation type {kind!r}")
