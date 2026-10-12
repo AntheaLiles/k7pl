@@ -92,7 +92,7 @@ class NavigationGraphTests(unittest.TestCase):
         inject_navigation_link(page, self.site)
         content = page.read_text(encoding="utf-8")
         self.assertEqual(content.count('id="k7pl-navigation-entry"'), 1)
-        self.assertIn('href="navigation/index.html"', content)
+        self.assertIn('href="navigation/index.html?node=Spec%2FC3%2Fpage.html"', content)
 
 
 if __name__ == "__main__":
