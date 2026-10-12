@@ -56,11 +56,12 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
             "generated_ref": "abc123",
             "generated_from": "rendered Verso HTML",
             "summary": {
-                "pages": 2, "nodes": 2, "edges": 1,
+                "pages": 2, "nodes": 3, "edges": 1,
                 "references": 0, "citations": 0, "containment": 1,
             },
             "nodes": [
                 {"id": "index.html", "kind": "document", "label": "K7PL", "url": "index.html", "page": "index.html"},
+                {"id": "Spec/page.html", "kind": "document", "label": "Chapitre", "url": "Spec/page.html", "page": "Spec/page.html"},
                 {"id": "Spec/page.html#lbl-section", "kind": "section", "label": "Chapitre", "url": "Spec/page.html#lbl-section", "page": "Spec/page.html"},
             ],
             "edges": [
