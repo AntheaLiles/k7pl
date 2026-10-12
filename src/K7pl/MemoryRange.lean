@@ -2,6 +2,8 @@
 --
 -- SPDX-License-Identifier: CECILL-2.1
 
+import Mathlib.Data.Nat.Basic
+
 /-!
 # Finite range arithmetic for the memory proof profile
 

@@ -2,6 +2,7 @@
 --
 -- SPDX-License-Identifier: CECILL-2.1
 
+import Mathlib.Algebra.Order.Ring.Basic
 import Mathlib.Algebra.Order.Ring.NNRat
 import Mathlib.Algebra.Order.Ring.WithTop
 import Mathlib.Data.ENat.Lattice
@@ -152,7 +153,7 @@ theorem scaleUsageVector_add (a : Usage)
 /-- Multiplication by a canonical usage scalar is monotone. -/
 theorem usage_mul_mono_left (a x y : Usage) (h : x ≤ y) :
     a * x ≤ a * y := by
-  exact mul_le_mul_left' h a
+  gcongr
 
 /-- Multiplication by a canonical usage scalar is additive. -/
 theorem usage_mul_add (a x y : Usage) :
