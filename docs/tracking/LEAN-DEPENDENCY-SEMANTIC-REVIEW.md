@@ -96,3 +96,12 @@ The block is marked as a definition and defines an interface as a judgment with 
 ### Acceptance condition for these cases
 
 Before migration, the classification review must decide for each component its object kind, logical role where applicable, epistemic state, scope, evidence/provenance, and normative effect. The split must preserve labels and cross-references deliberately, and must not be carried out as a mechanical edit before those decisions are ratified.
+
+
+## 7. Audit ciblé C-08 — mémoire abstraite et profil Π
+
+L'analyse détaillée, limitée à la révision de `main` du 11 octobre 2026 (`1dc5beb460a426a2974c0415766670f9ed25c510`), est consignée dans [C-08 — Audit de justification de la sûreté mémoire, H1/H2/H3 et profil Π](../migration/L1-C08-MEMORY-SAFETY-AUDIT-2026-10-11.md).
+
+Précision du constat H1 : les labels établissent une référence syntaxique unidirectionnelle `thm:introduction_unique → thm:surete_spatiale`, pas un cycle syntaxique. L'esquisse ne montre pas que le théorème de sûreté est utilisé comme prémisse pour établir H1 ; elle laisse surtout ouvert le cas racine de l'élimination de l'arène. L'hypothèse n'est donc pas indépendamment démontrée par les sources examinées. H2 (dénotation des intervalles) et H3 (absence de capture d'une capacité linéaire par le fragment cartésien) gardent leurs obligations propres.
+
+Cet ajout est documentaire uniquement. Aucune hypothèse, règle ou classification normative n'est modifiée, aucune preuve n'est revendiquée et la porte C demeure ouverte.

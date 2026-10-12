@@ -225,11 +225,29 @@ def svg_edge(x1: int, y1: int, x2: int, y2: int, label: str) -> str:
     )
 
 
-def build(root: Path, output: Path, ref: str, source_path: str, source_label: str, start_line: int, end_line: int) -> None:
+def build(
+    root: Path,
+    output: Path,
+    ref: str,
+    source_path: str,
+    source_label: str,
+    start_line: int,
+    end_line: int,
+    peer_graph: str | None = None,
+    peer_title: str | None = None,
+) -> None:
     targets = label_index(root)
     source, edges = extract_edges(root, source_path, source_label, targets, start_line, end_line)
     site_root = output.parent.parent
     source_page_href = rendered_label_href(site_root, output, source.label)
+    if bool(peer_graph) != bool(peer_title):
+        fail("--peer-graph and --peer-title must be supplied together")
+    if peer_graph and (Path(peer_graph).name != peer_graph or not peer_graph.endswith(".html")):
+        fail("--peer-graph must be a local HTML filename")
+    peer_link = (
+        f'<a href="{html.escape(peer_graph, quote=True)}">{html.escape(peer_title or "")}</a>'
+        if peer_graph else ""
+    )
     tikz_manifest = json.loads((root / "spec" / "figures" / "tikz" / "manifest.json").read_text(encoding="utf-8"))
     tikz_by_stem = {item["asset_stem"]: item for item in tikz_manifest["figures"]}
 
@@ -285,6 +303,9 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
         ),
         None,
     )
+    # The C3 reference-only view has no provenance column; do not reserve its width.
+    if figure_node is None:
+        width = 650
 
     provenance_summary = ""
     if figure_node is not None:
@@ -325,9 +346,28 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
         svg_path = root / "spec" / "figures" / f"{stem}.svg"
         if not svg_path.is_file():
             fail(f"figure SVG is missing for provenance graph: {svg_path.relative_to(root)}")
+        manifest_url = github_url(ref, "spec/figures/tikz/manifest.json")
+        renderer_url = github_url(ref, renderer_path)
+        workflow_url = github_url(ref, workflow_path)
+        svg_href = f"../figures/{quote(stem, safe='-')}.svg"
+        output_links = (
+            f'<li>SVG publié : <a href="{html.escape(svg_href, quote=True)}">{html.escape(stem)}.svg</a></li>'
+        )
+        if pdf_path.is_file():
+            pdf_href = f"../figures/{quote(stem, safe='-')}.pdf"
+            output_links += (
+                f'<li>PDF publié : <a href="{html.escape(pdf_href, quote=True)}">{html.escape(stem)}.pdf</a></li>'
+            )
         provenance_summary = (
-            f'<p>La chaîne de provenance de la figure <a href="../figures/{quote(stem, safe="-")}.svg">{html.escape(stem)}</a> '
-            f'est étayée par le manifeste TikZ et la validation CI.</p>'
+            '<section aria-labelledby="provenance-links-title">'
+            '<h3 id="provenance-links-title">Liens de provenance vérifiables</h3><ul>'
+            f'<li>Source graphique canonique : <a href="{html.escape(tex_url, quote=True)}">{html.escape(tex_path)}</a></li>'
+            f'<li>Manifeste : <a href="{html.escape(manifest_url, quote=True)}">spec/figures/tikz/manifest.json</a></li>'
+            f'<li>Renderer : <a href="{html.escape(renderer_url, quote=True)}">{html.escape(renderer_path)}</a></li>'
+            f'<li>Workflow de validation : <a href="{html.escape(workflow_url, quote=True)}">{html.escape(workflow_path)}</a></li>'
+            f'{output_links}</ul>'
+            f'<p>La chaîne de provenance est étayée par le manifeste et le workflow ; elle décrit la production des artefacts, pas une relation scientifique.</p>'
+            '</section>'
         )
 
     svg = (
@@ -365,7 +405,7 @@ def build(root: Path, output: Path, ref: str, source_path: str, source_label: st
         )
 
     page = f"""<!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="fr" data-k7pl-generated-ref="{html.escape(ref, quote=True)}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Graphe sémantique — {html.escape(source.title)}</title>
 <style>
 :root {{ color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.5; }}
@@ -379,6 +419,7 @@ li {{ margin: .5rem 0; }}
 </style></head>
 <body>
 <nav aria-label="Navigation du prototype"><a href="figures.html">Catalogue des figures</a>
+{peer_link}
 <a href="{html.escape(source_page_href, quote=True)}">Section rendue</a>
 <a href="{html.escape(source_url, quote=True)}">Source Lean/Verso</a></nav>
 <h1>Graphe local : {html.escape(source.title)}</h1>
@@ -404,10 +445,15 @@ def main() -> int:
     parser.add_argument("--label", default="sec:c6-le-processus-de-compilation")
     parser.add_argument("--start-line", type=int, default=22)
     parser.add_argument("--end-line", type=int, default=50)
+    parser.add_argument("--peer-graph", help="local HTML filename for another graph view")
+    parser.add_argument("--peer-title", help="accessible link text for --peer-graph")
     args = parser.parse_args()
     root = args.repo_root.resolve()
     output = args.output if args.output.is_absolute() else root / args.output
-    build(root, output, args.ref, args.source, args.label, args.start_line, args.end_line)
+    build(
+        root, output, args.ref, args.source, args.label,
+        args.start_line, args.end_line, args.peer_graph, args.peer_title
+    )
     return 0
 
 

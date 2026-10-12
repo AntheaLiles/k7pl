@@ -12,16 +12,16 @@
   flow/.style={-{Stealth[length=2mm]}, line width=.65pt},
   node distance=4mm
 ]
-\node[phase] (parse) {1\quad Parse};
-\node[phase, right=of parse] (config) {1.5\quad Config\\Analysis};
-\node[phase, right=of config] (type) {2\quad Type\\Check};
-\node[phase, right=of type] (resolve) {2.5\quad Resolution};
-\node[phase, right=of resolve] (purity) {3\quad Purity\\Check};
-\node[phase, below=10mm of purity] (proof) {4\quad Term\\Proof};
-\node[phase, left=of proof] (constraints) {5\quad Constraint\\Solve};
-\node[phase, left=of constraints] (optimize) {6\quad Optimize};
-\node[phase, left=of optimize] (codegen) {7\quad CodeGen};
-\node[phase, left=of codegen] (link) {8\quad Link};
+\node[phase] (parse) {Phase 1 : Parse};
+\node[phase, right=of parse] (config) {Phase 1.5 : ConfigAnalysis};
+\node[phase, right=of config] (type) {Phase 2 : TypeCheck};
+\node[phase, right=of type] (resolve) {Phase 2.5 : Résolution};
+\node[phase, right=of resolve] (purity) {Phase 3 : PurityCheck};
+\node[phase, below=10mm of purity] (proof) {Phase 4 : TermProof};
+\node[phase, left=of proof] (constraints) {Phase 5 : ConstraintSolve};
+\node[phase, left=of constraints] (optimize) {Phase 6 : Optimize};
+\node[phase, left=of optimize] (codegen) {Phase 7 : CodeGen};
+\node[phase, left=of codegen] (link) {Phase 8 : Link};
 \draw[flow] (parse) -- (config);
 \draw[flow] (config) -- (type);
 \draw[flow] (type) -- (resolve);

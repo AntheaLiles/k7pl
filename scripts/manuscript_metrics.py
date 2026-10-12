@@ -28,7 +28,7 @@ SPEC = ROOT / "spec"
 INCLUDE = re.compile(r"^\{include \d+ Spec\.([\w.]+)\}", re.M)
 DOC = re.compile(r'^#doc \(Manual\) "(.*)" =>', re.M)
 HEAD = re.compile(r"^(#+) (.*)$", re.M)
-THM = re.compile(r"^::::thm(.*)$", re.M)
+THM = re.compile(r"^::::(thm|definition|axiom|postulate|hypothesis|theorem|lemma|corollary|proposition|conjecture|requirement|literature|example|counterexample)(.*)$", re.M)
 ARG = re.compile(r'\((\w+) := "([^"]*)"\)')
 NUM = re.compile(r'\{num "([^"]+)"\}')
 
@@ -74,29 +74,52 @@ def args_of(line: str) -> dict[str, str]:
 
 
 def statements() -> list[dict]:
+    """Inventory legacy and ontology-aware statement directives in document order."""
     rows = []
     counter = 0
+    directive_kinds = {
+        "definition": "definition", "axiom": "assumption", "postulate": "assumption",
+        "hypothesis": "assumption", "theorem": "result", "lemma": "result",
+        "corollary": "result", "proposition": "result", "conjecture": "result",
+        "requirement": "requirement", "literature": "literature", "example": "example",
+        "counterexample": "counterexample",
+    }
     for mod, number in walk():
         for m in THM.finditer(mod.text):
             counter += 1
-            a = args_of(m.group(1))
-            block = mod.text[m.end() : mod.text.find("\n::::\n", m.end())]
+            directive, argline = m.group(1), m.group(2)
+            a = args_of(argline)
+            close = mod.text.find("\n::::\n", m.end())
+            block = mod.text[m.end(): close if close >= 0 else len(mod.text)]
             title = re.search(r"^:::title\n(.*?)\n:::", block, re.S | re.M)
             stmt = re.search(r"^:::statement[^\n]*\n(.*?)\n:::", block, re.S | re.M)
-            stmt_title = stmt.group(1).split("\n", 1)[0] if stmt and "+titled" in mod.text[m.end() : m.end() + 400] else ""
-            rows.append(
-                {
-                    "numero": counter,
-                    "label": a.get("label", ""),
-                    "statut": a.get("status", "theoreme"),
-                    "niveau": a.get("level", "langage"),
-                    "titre": " ".join(title.group(1).split()) if title else "",
-                    "enonce": " ".join(stmt_title.split()),
-                    "module": mod.name,
-                    "section": number,
-                    "esquisse": ":::proofsketch" in block,
-                }
-            )
+            stmt_title = stmt.group(1).split("\n", 1)[0] if stmt and "+titled" in mod.text[m.end():m.end() + 400] else ""
+            legacy = directive == "thm"
+            kind = ({"definition": "definition", "exigence": "requirement", "litterature": "literature"}.get(a.get("status", "theoreme"), "result")
+                    if legacy else directive_kinds[directive])
+            role = ({"conjecture": "conjecture", "proposition": "proposition"}.get(a.get("status", "theoreme"), "theorem")
+                    if legacy and kind == "result" else
+                    (a.get("role") or (directive if directive in {"theorem", "lemma", "corollary", "proposition", "conjecture", "axiom", "postulate", "hypothesis"} else "")))
+            state = ({"conjecture": "proposed", "proposition": "under-review"}.get(a.get("status", "theoreme"), "under-review")
+                     if legacy and kind == "result" else
+                     (a.get("state") or ("proposed" if directive == "conjecture" else
+                      "not-applicable" if kind not in {"result", "assumption"} else "under-review")))
+            rows.append({
+                "numero": counter, "label": a.get("label", ""),
+                "path": (Path("spec") / mod.path.relative_to(SPEC)).as_posix(),
+                "line": mod.text.count("\n", 0, m.start()) + 1,
+                "statut": a.get("status", "theoreme") if legacy else (role or kind),
+                "niveau": a.get("level", "langage"),
+                "titre": " ".join(title.group(1).split()) if title else "",
+                "enonce": " ".join(stmt_title.split()), "module": mod.name, "section": number,
+                "esquisse": ":::proofsketch" in block, "directive": directive,
+                "kind": kind, "role": role, "state": state,
+                "evidence": a.get("evidence", "proofsketch" if legacy and kind == "result" else "none"),
+                "scope": a.get("scope", "legacy-unspecified" if legacy else ""),
+                "source": a.get("source", ""), "formalArtifact": a.get("formalArtifact", ""),
+                "dependencies": sorted(set(re.findall(r'\{num\s+"((?:thm|req|def|lit|ex|cex):[^"]+)"\}', block))),
+                "legacy": legacy,
+            })
     cited = Counter()
     for mod, _ in walk():
         for lab in NUM.findall(mod.text):
@@ -151,8 +174,8 @@ def summary() -> dict:
         "enonces": len(st),
         "enonces_par_statut": dict(by_status),
         "enonces_par_niveau": dict(by_level),
-        "enonces_ouverts": sum(by_status[s] for s in ("proposition", "conjecture", "exigence")),
-        "enonces_sans_esquisse": [r["label"] for r in st if not r["esquisse"] and r["statut"] not in ("exigence", "definition")],
+        "enonces_ouverts": sum(r["state"] in ("proposed", "under-review", "supported") for r in st),
+        "enonces_sans_esquisse": [r["label"] for r in st if r["kind"] == "result" and not r["esquisse"]],
         **dict(count),
         "cles_citees": len(keys),
         "labels": len(labels),
@@ -197,10 +220,10 @@ def md_summary() -> str:
 
 def md_statements() -> str:
     rows = statements()
-    out = ["| No. | Label | Status | Level | Title | Section | References |", "|---:|---|---|---|---|---|---:|"]
+    out = ["| No. | Label | Kind | Role | Epistemic state | Evidence | Scope | Level | Title | Section | References |", "|---:|---|---|---|---|---|---|---|---|---|---:|"]
     for r in rows:
         loc = f"§{r['section']}" if r["section"] else r["module"]
-        out.append(f"| {r['numero']} | `{r['label']}` | {STATUS_LABELS.get(r['statut'], r['statut'])} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | {r['titre']} | {loc} | {r['renvois']} |")
+        out.append(f"| {r['numero']} | `{r['label']}` | {r['kind']} | {r['role'] or '—'} | {r['state']} | {r['evidence']} | {r['scope']} | {LEVEL_LABELS.get(r['niveau'], r['niveau'])} | {r['titre']} | {loc} | {r['renvois']} |")
     return "\n".join(out)
 
 

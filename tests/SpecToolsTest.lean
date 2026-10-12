@@ -40,6 +40,10 @@ def found (text : String) : List (String × Nat) :=
   [("a ", none), ("terminaison", some 2), (" b", none)]
 #guard translateHtml "<html><span class=\"\">Table of Contents</span>" ==
   "<html lang=\"fr\"><span class=\"\">Table des matières</span>"
+#guard translateHtml "<html><title>Cross-Reference Redirection</title>" ==
+  "<html lang=\"fr\"><title>Redirection des références croisées</title>"
+#guard translateHtml "<html><h1>Cross-Reference Redirection</h1>" ==
+  "<html lang=\"fr\"><h1>Redirection des références croisées</h1>"
 #guard translateJs "setCount(`${n} result${n === 1 ? \"\" : \"s\"}`);" ==
   "setCount(`${n} résultat${n === 1 ? \"\" : \"s\"}`);"
 #guard translateHtml (translateHtml "<html><title>Search</title>") == translateHtml "<html><title>Search</title>"

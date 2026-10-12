@@ -88,7 +88,9 @@ block_extension Block.float (info : FloatInfo) where
       let n := info.number.getD 0
       let (slots, others) := splitSlots contents
       let descH : Output.Html ← match findSlot slots "desc" with
-        | some s => do pure {{<div class="k7-desc">{{← s.content.mapM goB}}</div>}}
+        | some s => do
+          let descId := "k7-desc-" ++ info.arg
+          pure {{<div id={{descId}} class="k7-desc">{{← s.content.mapM goB}}</div>}}
         | none => pure .empty
       let noteH : Output.Html ← match findSlot slots "note" with
         | some s => do pure {{<div class="k7-note">{{← s.content.mapM goB}}</div>}}
@@ -113,7 +115,11 @@ block_extension Block.float (info : FloatInfo) where
           -- Keep this URL site-root-relative; prepending the page-depth prefix here applies
           -- that prefix twice and breaks images on nested pages.
           let style := s!"max-width: {info.width}%"
-          pure {{<img class="k7-img" src={{"figures/" ++ info.arg ++ ".svg"}} alt={{info.alt}} style={{style}}/>}}
+          match findSlot slots "desc" with
+          | some _ =>
+            pure {{<img class="k7-img" src={{"figures/" ++ info.arg ++ ".svg"}} alt={{info.alt}} aria-describedby={{"k7-desc-" ++ info.arg}} style={{style}}/>}}
+          | none =>
+            pure {{<img class="k7-img" src={{"figures/" ++ info.arg ++ ".svg"}} alt={{info.alt}} style={{style}}/>}}
         else
           pure (Output.Html.seq (← others.mapM goB))
       -- tables and listings put their caption above, figures below
@@ -135,13 +141,34 @@ block_extension Block.float (info : FloatInfo) where
         | none => pure .empty
       let head : Verso.Output.TeX := .seq #[.raw s!"\\par\\noindent\{\\small\\textbf\{{floatName info.kind} {n} : }", capTeX, .raw "}",
         ← extra "desc", ← extra "note", ← extra "source", .raw "\\par\n"]
-      let mut out : Array Verso.Output.TeX := #[.raw "\n\\begin{center}\n", ← texAnchor id]
+      let mut out : Array Verso.Output.TeX := #[.raw "\n"]
+      -- Keep a figure together with its caption and long description. Without the
+      -- minipage, TeX may move the explanation to the next page (notably for the matrix).
       if info.kind == "figure" then
-        -- If the project preamble provides the qvfigure accessibility helpers, wrap the image
-        -- in a tagged Figure structure. Keep the fallback for the ordinary Verso PDF build.
-        out := out.push (.raw ("\\ifdefined\\qvalt\\qvalt{" ++ texEscape info.alt ++ "}\\fi\n"))
-        out := out.push (.raw s!"\\includegraphics[width={(info.width.toNat?.getD 90).toFloat / 100.0}\\linewidth,keepaspectratio]\{figures/{info.arg}.pdf}\n")
+        out := out.push (.raw "\\begin{minipage}{\\linewidth}\n")
+      out := out.push (.raw "\\begin{center}\n")
+      out := out.push (← texAnchor id)
+      if info.kind == "figure" then
+        -- Prefer a project-specific tagged Figure wrapper when it is provided.
+        -- The user's Org/LaTeX preamble uses LaTeX's native tagged-graphic alt key instead.
+        -- Plain CI builds without tagging support retain a compatible non-tagged fallback.
+        let width := (info.width.toNat?.getD 90).toFloat / 100.0
+        let widthOption := s!"{width}"
+        let escapedAlt := texEscape info.alt
+        -- Build the filename with the existing, already-tested interpolation form;
+        -- concatenate the option list so braces around alt remain literal TeX braces.
+        let graphicPath := "{figures/" ++ info.arg ++ ".pdf}\n"
+        let plainGraphic := "\\includegraphics[width=" ++ widthOption ++ "\\linewidth,keepaspectratio]" ++ graphicPath
+        let taggedGraphic := "\\includegraphics[alt={" ++ escapedAlt ++ "},width=" ++ widthOption ++ "\\linewidth,keepaspectratio]" ++ graphicPath
+        out := out.push (.raw "\\ifdefined\\qvalt\n")
+        out := out.push (.raw ("\\qvalt{" ++ escapedAlt ++ "}\n"))
+        out := out.push (.raw plainGraphic)
         out := out.push (.raw "\\ifdefined\\qvaltfin\\qvaltfin\\fi\n")
+        out := out.push (.raw "\\else\n\\ifdefined\\tagpdfsetup\n")
+        out := out.push (.raw taggedGraphic)
+        out := out.push (.raw "\\else\n")
+        out := out.push (.raw plainGraphic)
+        out := out.push (.raw "\\fi\n\\fi\n")
         out := out.push head
       else if info.kind == "table" then
         out := out.push head
@@ -165,6 +192,8 @@ block_extension Block.float (info : FloatInfo) where
         out := out.push head
         for b in others do out := out.push (← goB b)
       out := out.push (.raw "\\end{center}\n")
+      if info.kind == "figure" then
+        out := out.push (.raw "\\end{minipage}\n")
       pure (.seq out)
   extraCss := [
 r#"

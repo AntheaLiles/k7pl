@@ -1,6 +1,6 @@
 # Décisions — ce qui est tranché, ce qui attend
 
-**État au 1er octobre 2026.** Une ligne par décision. « Tranché » renvoie à la source qui le dit ; « à ratifier » veut dire qu'un compte rendu de séance l'a **appliquée** en suivant la recommandation du dossier, sans que l'auteur l'ait confirmée par écrit.
+**État de synthèse au 11 octobre 2026 ; les dates historiques restent indiquées par entrée.** Une ligne par décision. « Tranché » renvoie à la source qui le dit ; « à ratifier » veut dire qu'un compte rendu de séance l'a **appliquée** en suivant la recommandation du dossier, sans que l'autrice l'ait confirmée par écrit.
 
 ## Tranchées
 
@@ -20,7 +20,7 @@
 | `ARB-PR-07` / `D-2` | socle homotopique ou famille modale et graduée | **famille modale et graduée** ; imports ciblés instruits un à un | motif écrit au §1.2 (guide de lecture) |
 | `ARB-PR-06` | préservation graduée de bout en bout | **objectif déclaré** : la revendication devient une preuve, sans dénaturer le projet (passe par passe, fragment monomorphisé d'abord) | `PREUVE-02` en tête ; énoncé écrit au §6.2 ; reste conjecture jusqu'à la preuve |
 | `split/pr10-1-outillage-spec` | Le travail historique sur `{printindex}` est abandonné pour la branche courante : son mécanisme est remplacé par la liste canonique `tools/SpecExt/IndexTerms.lean` et l'indexation actuelle ; aucune fusion de cette branche n'est requise. | index / provenance |
-| `ARB-PR-04` | promesse du rejeu bit-à-bit | **à instruire** avant de trancher | [`instruction-arb-pr-04-rejeu-binaire`](../research/instruction-arb-pr-04-rejeu-binaire.md) |
+| `ARB-PR-04` | promesse générale du rejeu bit-à-bit | **formulation historique remplacée** : rejeu logique sémantique ; identité bit-à-bit conditionnée au profil de représentation Π | décision postérieure ci-dessous ; conserver l'instruction historique comme provenance |
 | `T-68` | mots des 44 primitives | **avant-dernier** dans l'ordre de finition (avant la release) | [`primitives.md`](primitives.md) |
 | — | annexe E | **fondue dans le manuscrit** : grammaires et règles au ch. 3, sémantique et sortes au ch. 4, table des glyphes au ch. 1 | `STRUCT-23` ; [journal](../history/2026-10-01-pr-02-15-fusion-annexe-e.md) |
 | `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
@@ -29,7 +29,7 @@
 ## À ratifier (appliquées, non confirmées)
 
 | `QA-28` | réouverture de la question sur les quatre composantes du grade | **à nouveau en revue** : l'élision reste admise comme convention de présentation, mais l'action scalaire et la séparation grade/modes restent à établir | décision d'auteur du 7 octobre 2026, reprise dans PR #54 |
-| `ARB-PR-04` / PR-54 | statut des résultats de cohérence | ratification : `thm:coherence_axiome`, `thm:action_parallele`, `thm:morphismes_modes` et `thm:substitution` sont des propositions ; `thm:coherence_usage` est une proposition distincte | PR #54, séance C des 7–8 octobre 2026 |
+| `ARB-PR-04` / PR-54 | statut épistémique des résultats de cohérence | **à confirmer par l'autrice** : `thm:coherence_axiome`, `thm:action_parallele`, `thm:morphismes_modes` et `thm:substitution` restent des propositions ; `thm:coherence_usage` est une proposition distincte. La PR #54 est fusionnée, mais sa fusion ne vaut pas ratification scientifique des statuts. | [PR #54 fusionnée le 8 octobre](https://github.com/AntheaLiles/k7pl/pull/54), séances C des 7–8 octobre 2026 |
 
 | | Décision appliquée | À confirmer |
 |---|---|---|
@@ -48,7 +48,7 @@
 |---|---|---|
 | `D-5` ✅ | **où écrire pendant la finition ?** | **Tranchée le 1er octobre 2026 : le Verso fait foi**, les fichiers Org sont archivés ; les contrôles sont portés (`scripts/controle.py`) |
 | `D-6` ✅ | sous-titre du document | le sous-titre du manuscrit, « A functional layered programming language », fait foi (`ANOM-16`) ; le dépôt n'en porte aucun |
-| `D-7` | annexes B, C, D squelettiques ([`ANOM-04`](ANOMALIES.md)) | décider avant la première release |
+| `D-7` | périmètre éditorial des annexes B/C/D ([`ANOM-04`](ANOMALIES.md)) | **OUVERT — décision de l'autrice requise.** Choisir développer séparément, regrouper comme annexe d'outillage, ou différer hors du document normatif. L'absence actuelle des modules B/C/D de `spec/` et la conservation des prototypes dans `tooling/prototypes-bcd/` sont des faits d'arborescence, pas une ratification de l'option de différer. Voir [`L1-ANNEXES-EXTRACTION.md`](../migration/L1-ANNEXES-EXTRACTION.md). |
 | `D-8` | rétablir au glossaire les trois couches ([`ANOM-06`](ANOMALIES.md)) | oui : le corps du document les définit, le glossaire doit suivre |
 | `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
 
@@ -59,7 +59,41 @@
 | Extraction B/C/D | Les lots d'extraction documentaire sont portés par `docs/migration/` ; ils qualifient et extraient le corpus sans réécrire les sources historiques. | migration sémantique |
 | `ARB-PR-04` | Le rejeu logique reste sémantique ; le rejeu bit-à-bit relève de la conformité au profil de représentation. | assurance / conformance |
 | `D8` | La passe physique de documentation est clôturée ; les décisions de migration restantes relèvent de `docs/migration/`. | architecture documentaire |
+| ANOM-09 | **Résolution technique vérifiée sur candidate** `9c34e7aaa99e00809c00d56812ab2160b55c276d`, run CI [`38131422345`](https://github.com/AntheaLiles/k7pl/actions/runs/38131422345): index paginé aux pp. imprimées 277–278, 287 pages, cadres rouges supprimés, aucune cible `idx-*` non résolue dans `main.log`, garde CI dédiée réussie. Cette clôture concerne ANOM-09 sur la candidate, pas la validation globale L1/L5. | rendu PDF / test / CI |
 | `P1–P6` | Les portes restent la séquence de release : P1 blocages scientifiques, P2 assertions ouvertes, P3 décisions auteur, P4 implémentation, P5 stabilisation documentaire, P6 release. | release |
+
+## État scientifique C — mise à jour du 11 octobre 2026
+
+| Sujet | État établi par les registres | Ce qui reste ouvert |
+|---|---|---|
+| Livraison PR #54 | Fusionnée le 8 octobre 2026 et intégrée à main ; aucune action de revue/fusion de cette PR ne reste à faire. | Cette livraison ne ferme pas l'étape scientifique C et n'autorise pas D–F. |
+| Grade / exponentielle / coût (séances 59–62) | L'exploration de conception est bornée ; les séances enregistrent une interface de référence pour π_U, Scale_Usage, φ_n, conversions, W/D et le coût scalaire. | La source normative C2 marque encore π_U et Scale_Usage comme candidats et écrit Cost_Budget comme fonction partielle alors que max(W,D) est présenté sans restriction de domaine. L'autrice doit ratifier la promotion et préciser totalité/partialité ; les lois de coerce, w/c, substitution et ψ restent ouvertes. Voir le [registre des objets C](../migration/L1-THEORY-OBJECTS.md). |
+| When / P3 | **P3-B ratifiée par l'autrice le 11 octobre 2026** : l'attente environnementale est une latence de surveillance de l'orchestrateur ; elle ne s'impute pas au coût d'exécution de l'automate déclenché. | Formaliser la séparation latence/coût d'exécution, le rôle de l'orchestrateur et le contrat budgétaire de l'automate ; la preuve de correction de ressource reste à produire. |
+| Discipline budgétaire / option C | **Orientation ratifiée pour instruction le 11 octobre 2026** : budgets validés à la compilation, exécution de l'automate tenue dans les bornes, garde-fous modulés par couche K7PL. | Définir le contrat par couche et prouver la correction entre validation statique et exécution réelle ; les garde-fous ne remplacent pas la preuve ; aucune signature n'est encore fixée. |
+| Sim / PREUVE-07 | Simulation avant, distincte de la préservation de typage et de la traduction syntaxique ; l'énoncé narratif reste ouvert. | Clauses de traduction effet/temps, invariant du canal chaîné, cas de réduction et relation d'observation cible ; pas d'inférence de bisimulation ou de pleine abstraction. |
+| Mémoire H1/H2/H3 | La revue enregistre une circularité argumentative potentielle pour H1, pas un cycle syntaxique ; H2 et H3 sont des obligations séparées. | H1 doit être prouvée indépendamment ou conservée comme hypothèse avec portée explicite ; prouver H2 et H3 dans leurs contrats respectifs. |
+
+### Décision d'autrice — P3-B / When (11 octobre 2026)
+
+**Décision ratifiée.** `when` est un déclencheur réactif : il surveille l'environnement et lance une séquence d'actions lorsqu'un événement survient. Contrairement à `case`, qui filtre des conditions (type, expression régulière, etc.), `when` exprime une attente d'événement. L'autrice retient P3-B : une attente environnementale, même de durée non bornée, relève de l'orchestrateur qui agrège les surveillances connues et lance les automates ad hoc ; elle ne doit pas être imputée au coût d'exécution de l'automate déclenché.
+
+**Rationale.** L'événement peut ne jamais survenir dans un temps fini. Cette possibilité doit rester visible comme latence de surveillance sans être confondue avec les ressources consommées par l'automate une fois lancé. La séparation évite d'attribuer au calcul conditionné par `when` un temps d'exécution antérieur à son déclenchement.
+
+**Portée.** Cette décision fixe l'intention normative de P3 pour `when`. Elle ne ratifie pas une représentation mathématique particulière de la latence (coordonnée distincte, projection ou autre interface typée), ni une politique complète d'ordonnancement, de concurrence, de réarmement ou d'équité de l'orchestrateur.
+
+**Conséquences et limites.** Le modèle devra rendre séparément observable la latence et contrôler le coût d'exécution propre à l'automate déclenché. Il reste à définir la frontière formelle du déclenchement, les budgets respectifs, les paramètres et le domaine de `ψ`, la précondition `Adm`, le résultat `Consume`, la scalarisation de coût et la compatibilité avec les règles de composition et la substitution. Aucune modification de `spec/` ou de `src/` n'est effectuée par cette ratification documentaire ; C-04 et la porte C demeurent ouverts.
+
+### Décision d'autrice — discipline budgétaire et garde-fous (11 octobre 2026)
+
+**Orientation ratifiée pour instruction : option C.** Les budgets doivent être validés lors de la compilation. L'exécution de l'automate déclenché doit se résoudre dans les bornes budgétées. Les mécanismes complémentaires sont des garde-fous, et leur rôle doit être modulé selon la couche K7PL concernée.
+
+**Rationale.** La vérification statique porte l'engagement principal de conformité aux budgets ; les protections additionnelles ne doivent ni remplacer cette validation ni masquer un dépassement. Comme les couches K7PL n'ont pas nécessairement les mêmes objets, opérations ni garanties temporelles, le principe doit être décliné et justifié couche par couche plutôt que codé comme une règle uniforme sans preuve.
+
+**Portée.** Cette ratification retient l'option C comme orientation de conception et de recherche, pas comme un contrat formel entièrement défini. Elle ne fixe ni les métriques de budget par couche, ni la sémantique exacte de la validation à la compilation, ni les garde-fous d'exécution, ni les relations de composition entre budgets.
+
+**Obligations ouvertes.** Définir ce que signifie validation de budget à la compilation pour chaque couche ; préciser les bornes et les observables ; démontrer un théorème de correction reliant l'acceptation statique au comportement effectif de l'automate sous ses hypothèses ; distinguer cette preuve des garde-fous d'exécution, de leur portée et de leurs modes de défaillance ; prouver la composition des coûts inter-couches. Jusqu'à ce que ces éléments soient typés et prouvés, le principe ne prouve pas par lui-même que l'exécution respecte les budgets. Aucun changement normatif dans spec/ ou src/ n'est effectué par cet enregistrement.
+
+**Règle épistémique.** Les séances 59–62 établissent la provenance des choix de conception, non la vérité des lois mathématiques correspondantes. Les fichiers Verso/Lean qui affichent des blocs d'énoncé et des esquisses ne sont pas, de ce seul fait, des preuves Lean vérifiées. Un résultat de build n'autorise ni la promotion d'une proposition au statut établi ni l'intégration normative de D, E ou F.
 
 ## Ce qui n'a pas été rapproché
 

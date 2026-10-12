@@ -7,10 +7,16 @@ SPDX-License-Identifier: CC-BY-4.0
 
 This is the current entry point for project tracking. It answers what is current, open, blocked, decided, or next. It does not duplicate generated measurements or normative specification text.
 
+## Recovery gate
+
+- [Recovery status snapshot — 2026-10-11](RECOVERY-STATUS-2026-10-11.md) — baseline, open PRs, branch handling, and restart order after interrupted sessions.
+- [Project master plan](PROJECT-MASTER-PLAN.md) — active scientific and release workstreams. **Stage C is still open; D–F and downstream E–J must not start substantive work until the C exit gate is explicitly satisfied.**
+- [Stage C theoretical-object register](../migration/L1-THEORY-OBJECTS.md) — C-01–C-09 residual obligations and explicit exit criteria.
+- [Branch status](BRANCHES-STATUS.md) — branch classification; recheck live refs before merge or deletion.
+
 ## Current state
 
 - [Project status](../STATUS.md) — generated CI and repository facts.
-- [Project master plan](PROJECT-MASTER-PLAN.md) — active scientific and release workstreams.
 - [L1 migration qualification register](../migration/L1-SUIVI.md) — current C-stage object and boundary analysis.
 - [Specification ↔ Lean traceability](correspondance-enonces.md) — current lexical traceability view.
 - [Statement correspondence](correspondance-enonces.md) — current generated statement traceability view.
@@ -26,17 +32,20 @@ This is the current entry point for project tracking. It answers what is current
 
 ## Active methodological work
 
-- [OpenSSF criteria checklist](OPENSSF-CHECKLIST.md) — auditable checklist for FLOSS Best Practices Passing/Silver/Gold and OSPS Baseline Levels 1–3; boxes require evidence, and N/A decisions must be justified.
-
-- [Lean statement-command plan](LEAN-STATEMENT-COMMANDS-PLAN.md) — dedicated plan for distinguishing definitions, assumptions, axioms, hypotheses, theorems, proofs, examples, and related statement kinds in the specification source.
+- [OpenSSF / CII operational status](../security/OPENSSF-ROADMAP.md) — current open security, release, and BadgeApp gates.
+- [Human actions](../security/ACTIONS-HUMAINES.md) — ordered checklist for settings, decisions, BadgeApp, and publication.
+- [Lean statement-command plan](LEAN-STATEMENT-COMMANDS-PLAN.md) — C8 statement ontology, validation, migration and proof-bearing exposition.
 - [Migration register](../migration/README.md) — active semantic migration lots only.
+- [Interactive exploration plan](INTERACTIVE-EXPLORATION-PLAN.md) — navigation prototype, evaluation, graph and accessibility residuals.
 
 ## Historical records
 
-- [Coherence review (closed 2026-10-09)](../history/2026-10-09-coherence-review.md) — retained audit checklist and closure context; not an active task list.
-The physical documentation-architecture programme is closed. Its final state is preserved in [the historical architecture plan](../history/2026-10-08-documentation-architecture-plan.md) and [the historical legacy-migration programme](../history/2026-10-08-legacy-documentation-migration-programme.md).
+- [OpenSSF criterion checklist (2026-10-10)](../history/2026-10-10-openssf-conformance-checklist.md) — archived working inventory; not a current status source.
+- [Original OpenSSF remediation plan (2026-10-10)](../history/2026-10-10-openssf-remediation-plan.md) — historical plan before the current automation wave.
+- [OpenSSF automation closeout (2026-10-10)](../history/2026-10-10-openssf-automation-closeout.md) — prepared work and items still unverified.
+- [Coherence review (closed 2026-10-09)](../history/2026-10-09-coherence-review.md) — retained audit checklist and closure context.
 
-Historical PR-02 plans and dated campaign reports remain under [docs/history/](../history/).
+The physical documentation-architecture programme is closed. Its final state is preserved in [the historical architecture plan](../history/2026-10-08-documentation-architecture-plan.md) and [the historical legacy-documentation migration programme](../history/2026-10-08-legacy-documentation-migration-programme.md). Historical PR-02 plans and dated campaign reports remain under [docs/history/](../history/).
 
 ## Reading rule
 

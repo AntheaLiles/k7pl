@@ -88,7 +88,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 ### P0 — Cadrage et inventaire
 
-- [ ] Traiter l'audit préparatoire des figures et moteurs de rendu ([audit figures HTML/PDF](DIAGRAMS-AND-RENDERING-AUDIT.md)) : établir la cause du défaut HTML, inventori­er les sources et sorties, comparer les moteurs et définir les contrôles d'accessibilité.
+- [x] Actualiser l'audit des figures et moteurs de rendu ([audit figures HTML/PDF](DIAGRAMS-AND-RENDERING-AUDIT.md)) : la cause du défaut HTML est documentée, les sources et sorties sont inventoriées, les rendus statiques comparés et les contrôles automatiques définis. Les points de validation PDF/UA avec la chaîne réelle, l'inspection du nouvel artefact PDF et la revue humaine restent séparément ouverts ci-dessous.
 - [ ] Inventorier les capacités actuelles de Verso utilisées par K7PL.
 - [ ] Inventorier les générateurs et extensions sous `tools/`.
 - [ ] Identifier les structures Lean actuellement disponibles pour représenter les objets documentaires.
@@ -103,10 +103,19 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Inventorier les 12 figures déclarées, leurs modules, noms d'assets, sources modifiables et fonctions explicatives ; le SVG LSP non référencé est recensé comme reliquat (voir l'inventaire de l'audit).
 - [x] Définir le contrat minimal de métadonnées : objectif explicatif, type, source/sorties, légende, alt, description longue, note de lecture, provenance, objets liés, statut épistémique et critères de validation (audit, §5).
 - [x] Réaliser le POC TikZ sur trois figures, vérifier les sorties PDF/SVG et la reproductibilité, comparer les éléments sémantiques aux SVG canoniques et consigner la décision dans [les résultats du POC](tikz-poc/RESULTS.md).
-- [ ] Évaluer TikZJax/isomorphic-tikzjax seulement si un besoin d'affichage interactif dans le navigateur reste démontré ; le POC actuel vise des rendus statiques.
-- [ ] Vérifier la transmission des métadonnées d'accessibilité au PDF final et valider le balisage avec le préambule personnalisé réel.
+- [x] Ajouter le contrat HTML d'accessibilité : alternatives courtes, descriptions longues reliées, titres/descriptions internes aux copies SVG servies par le site et descriptions longues dans le catalogue généré (PR #149).
+- [x] Inspecter l'artefact HTML courant du run CI #38091879446 : 67 pages, 12 figures déclarées avec `alt` et `aria-describedby` valides ; les 12 SVG déclarés ont `role="img"`, un `<title>` et un `<desc>` non vides ainsi que des références `aria-labelledby` et `aria-describedby` concordantes. Les étapes d'enrichissement SVG et de validation HTML ont réussi.
+- [x] Inspecter le PDF courant de CI #38091879446 à 120 dpi : pipeline page imprimée 242, automate page 106 et matrice page 98 ; la matrice est réunie avec sa légende/description après le correctif `minipage`, et les trois figures restent discernables en niveaux de gris.
+- [x] Relancer le POC TikZ dans le run #38091879272 ; le job de compilation/conversion et de comparaison des sorties déterministes a réussi sur la tête courante.
+- [x] Vérifier les artefacts HTML/PDF de la tête courante après les dernières retouches d'alt, descriptions longues et métadonnées SVG ; le rendu HTML/TeX, l'enrichissement, la validation d'assets et la compilation PDF réussissent sur le run #38091879446.
+- [x] Décision de ne pas ajouter TikZJax/isomorphic-tikzjax à ce stade : les artefacts déterministes PDF/SVG répondent au besoin démontré ; aucun besoin d'édition/rendu interactif navigateur n'est établi. Réouvrir ce point seulement si un cas d'usage interactif concret est documenté.
+- [x] Inspecter les artefacts HTML et PDF de CI du 10 octobre ; relever les 12 figures HTML, les alternatives présentes, les dimensions proportionnelles, et détecter dans le PDF que la matrice et sa description sont séparées par un saut de page.
+- [x] Après la correction ciblée du renderer, vérifier sur le PDF #38091879446 que la matrice reste groupée avec sa légende et sa description sur la page imprimée 98.
+- [x] Retrouver et réintégrer au dossier de preuve la copie archivée du préambule article (`docs/archives/outillage-org/preamble-article.tex`) et la configuration d'export (`docs/archives/outillage-org/my-export-config.el`). Le fichier source de `preamble-tikz.tex`, référencé dans un ancien document mais absent des archives consultées, n'a pas été retrouvé.
+- [ ] Comparer les empreintes des copies archivées avec les fichiers locaux actuels avant de déclarer cette chaîne identique ; inspecter le PDF réellement produit par cette chaîne. L'artefact du build Verso/Tectonic inspecté annonce `Tagged: no` et ne constitue pas une validation PDF/UA.
 - [x] Intégrer la génération TikZ au build canonique : un job CI dédié génère et valide les paires PDF/SVG, puis les transmet au rendu Verso ; les artefacts dérivés ne sont pas suivis dans Git.
-- [ ] Vérifier le balisage PDF/UA avec le préambule personnalisé réel, puis décider figure par figure des autres candidats ; aucune migration globale n'est autorisée par le seul résultat du POC.
+- [ ] Faire contrôler le PDF de publication avec le préambule personnalisé réel, un validateur PDF/UA et une revue humaine avec lecteur d'écran ; ne pas revendiquer de conformité avant ces contrôles.
+- [ ] Terminer la revue humaine à taille d'insertion après correction de pagination, puis décider figure par figure d'éventuels autres candidats ; aucune migration globale n'est autorisée par le seul résultat du POC.
 
 ### P1 — Cas d'usage et démonstration de valeur
 
@@ -115,13 +124,14 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Définir les objets et relations strictement nécessaires à cette tranche ; aucune relation conceptuelle n'est inférée depuis la simple proximité de fichiers.
 - [x] Définir les critères de validation avant la revue de l'interface (cadrage du prototype).
 - [x] Produire une première représentation navigable dans le rendu HTML publié : le catalogue de provenance est généré et validé en CI, puis déployé avec succès via GitHub Pages.
-- [ ] Comparer le parcours manuel actuel au parcours prototype, y compris le retour à la source canonique.
-- [ ] Décider explicitement si cette tranche apporte assez de valeur pour poursuivre vers un parcours définition → preuve → implémentation → test.
+- [ ] Comparer le parcours manuel actuel au parcours prototype avec des lecteurs non familiers ; le protocole, les mesures et le seuil de décision sont préenregistrés dans [le dossier de preuve de valeur](NAVIGATION-PROTOTYPE.md). Aucune mesure utilisateur n'est disponible à ce stade.
+- [x] Décision de phase du 2026-10-11 : **réorienter**. Conserver la tranche de provenance, suspendre l'extension sémantique et conditionner tout élargissement à la comparaison utilisateur et à la traçabilité explicite de chaque relation.
 
 ### P2 — Modèle documentaire et sémantique
 
 - [x] Proposer un premier vocabulaire de nœuds, de relations et de provenance dans [le modèle sémantique minimal](NAVIGATION-SEMANTIC-MODEL.md) ; il reste à le valider par un prototype.
-- [x] Produire et valider en CI le premier graphe local sur les références explicites et citations de la section C6 ; les ancres des pages rendues sont résolues ou font échouer la génération. La revue humaine de la valeur explicative reste ouverte.
+- [x] Produire et valider en CI le graphe local C6 sur les références explicites et citations ; les ancres des pages rendues sont résolues ou font échouer la génération. La revue humaine de la valeur explicative reste ouverte.
+- [x] Ajouter une seconde tranche C3 et relier les deux vues pour vérifier que le générateur s'applique à plusieurs sections sans fusionner citations et références.
 - [ ] Définir et tester les catégories minimales d'objets nécessaires.
 - [ ] Définir et tester les catégories minimales de relations nécessaires.
 - [ ] Distinguer au minimum état courant, historique, hypothèse et preuve, sans les confondre avec l'état de validation d'une relation.
@@ -134,16 +144,16 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [ ] Définir le point d'entrée du générateur.
 - [ ] Déterminer quelles fonctionnalités peuvent être obtenues avec Verso existant.
 - [ ] Développer uniquement les extensions nécessaires au prototype.
-- [ ] Générer une première navigation multi-niveaux.
+- [x] Générer une première navigation multi-niveaux reliant le catalogue de provenance et deux graphes locaux.
 - [x] Préserver les liens vers les sources canoniques, avec retour vers la page Verso rendue.
 - [x] Ajouter les garde-fous de génération nécessaires à la CI : références/citations et ancres rendues non résolues font échouer le build.
 
 ### P4 — Graphe
 
 - [ ] Définir le modèle de graphe à partir des relations sémantiques.
-- [ ] Générer une première vue graphe limitée au cas d'usage démontré.
+- [x] Générer deux vues graphe limitées à des plages de source explicites et validées par CI.
 - [ ] Ajouter filtrage ou limitation de profondeur si nécessaire.
-- [ ] Permettre le retour du graphe vers la vue documentaire.
+- [x] Permettre le retour du graphe vers la section Verso rendue et sa source canonique.
 - [ ] Évaluer si la vue graphe améliore réellement la compréhension.
 
 ### P5 — Extension progressive
@@ -174,4 +184,12 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [ ] La provenance des éléments présentés est vérifiable.
 - [ ] Une évaluation comparative du parcours avant/après est produite.
 - [ ] Les bénéfices et limites sont documentés.
-- [ ] Une décision explicite est prise : poursuivre, réorienter ou abandonner l'industrialisation.
+- [x] Une décision explicite est prise : réorienter la démonstration, maintenir la comparaison utilisateur comme prérequis à toute extension.
+
+## Point de reprise — preuve de valeur navigation (11 octobre 2026)
+
+Le run CI `38092815528` construit et déploie les trois pages de navigation ; l'inspection de son artefact Pages montre 67 pages HTML et 53 liens locaux valides dans le sous-ensemble de navigation, sans ancre locale visée manquante. C'est une vérification reproductible de l'artefact, pas un test utilisateur ni une preuve de bon fonctionnement des URL publiques.
+
+Une correction de réversibilité et un contrôle automatique des liens/fraîcheur sont préparés dans la [PR #150](https://github.com/AntheaLiles/k7pl/pull/150). Après validation de la PR et déploiement, refaire l'inspection du nouvel artefact. Maintenir ouvertes la comparaison manuelle/prototype, l'essai réel mobile/clavier/sans JavaScript et la revue de valeur humaine. Ne pas modifier le tableau de bord global généré `docs/STATUS.md`.
+
+Le prochain parcours sémantique est bloqué, pas autorisé par défaut : aucune relation entre définition, théorème, preuve, implémentation et test ne sera ajoutée sur la seule base des noms de modules, imports ou proximités de fichiers.

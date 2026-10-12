@@ -39,7 +39,10 @@ block_extension Block.texsetup where
   \edef\specidx@cur{\getpagerefnumber{#1}}%
   \ifx\specidx@cur\specidx@last\else
     \ifx\specidx@last\relax\else, \fi
-    \hyperref[#1]{\specidx@cur}%
+    \begingroup
+      \hypersetup{hidelinks}%
+      \hyperref[#1]{\specidx@cur}%
+    \endgroup
     \let\specidx@last\specidx@cur
   \fi}
 \newcommand{\specidxentry}[2]{%

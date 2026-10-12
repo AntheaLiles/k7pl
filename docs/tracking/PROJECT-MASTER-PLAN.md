@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # K7PL — Project Master Plan
 
 **Status:** ACTIVE PLANNING  
-**Snapshot:** 2026-10-10  
+**Snapshot:** 2026-10-11  
 **Scope:** scientific/formal workstreams A–J and documentation architecture
 
 This document is the project-level execution map. It does not replace the detailed registers, decision logs, theoretical-object register, assurance case, or documentation-migration plan.
@@ -41,8 +41,8 @@ Therefore:
 |---|---|---|---|
 | A — finalize #50 | DONE | #50 merged | repository entry-point/security baseline incorporated |
 | B — freeze CI/documentation baseline | DONE | #53 merged; current main baseline | execution baseline remains identifiable and reproducible |
-| C — theoretical objects | IN PROGRESS | #54 | theoretical interfaces closed; residual work explicit as proof/semantic/decision obligations |
-| D — singularities | NOT STARTED in this sequence | BLOQ-12 / singularity work | singularity treatment resolved without hidden architectural change |
+| C — theoretical objects | IN PROGRESS — PR #54 integrated; exit gate not met | [#54 merged 2026-10-08](https://github.com/AntheaLiles/k7pl/pull/54) is historical delivery evidence; current obligations live in the C registers | signatures/directions explicit; external dependencies separated; remaining proof, semantic, representation and authorial decisions bounded |
+| D — singularities | BLOCKED — C exit gate not met; no D semantic changes | BLOQ-12 / IMPL-07, after the C5 representation boundary is explicit | only reopen after C7 passes; then classify the object/interface, normative status, typing/semantics, invariants, proof obligations and exact formal correspondence; authorial alternatives remain unchosen |
 | E — ∥ | NOT STARTED | PR-02 continuation | parallel construct formally and semantically integrated |
 | F — spawn | NOT STARTED | PR-02 continuation | spawn semantics and typing integrated |
 | G — ratifications and T-68 | PARTIALLY PREPARED | DECISIONS.md / primitives.md | outstanding decisions ratified and T-68 closed |
@@ -110,9 +110,9 @@ The baseline freezes execution evidence, not mathematical conclusions.
 
 **Objective.** Stabilize the theoretical objects and their epistemic boundaries before reopening dependent constructs.
 
-**Current state.** IN PROGRESS in #54.
+**Current state (verified 2026-10-11).** PR #54 was merged on 2026-10-08. Its changes are integrated on `main`; no review/merge task for #54 remains. This closes the delivery step, not workstream C. The interface decisions recorded in sessions 59–62 narrow the remaining work but do not prove their mathematical properties or silently ratify every normative consequence.
 
-The architectural exploration is substantially closed. The remaining work must be demonstrative, semantic, or decisional rather than a new uncontrolled architectural search.
+The architectural exploration is substantially closed. The remaining work must be demonstrative, semantic, representation-related, or authorial rather than a new uncontrolled architectural search. Do not modify an open statement merely to obtain a successful build.
 
 ### C1 — Object and boundary control
 
@@ -130,7 +130,7 @@ object → signature → normative role → dependencies → invoked property �
 
 ### C2 — Modes and grades
 
-The current stabilized boundary is:
+The design boundary recorded in sessions 59–62 is:
 
 - 𝓡 carries the usage component;
 - 𝒢 carries the complete grade;
@@ -138,6 +138,8 @@ The current stabilized boundary is:
 - Consume and ⊖ concern budget consumption;
 - φₙ concerns effective repetition multiplicity;
 - Cost_Budget is the scalar interface for temporal cost.
+
+**Normative-source discrepancy still blocks C.** C2 in the current Verso source still labels π_U and Scale_Usage as architectural candidates, while the session record treats them as the intended interface. The same source writes Cost_Budget with a partial-function arrow, then gives max(W,D) without a domain restriction. Sessions do not silently promote a candidate to normative status or resolve that total/partial signature conflict. Record the author’s decision and align the source only after that decision; until then the exit gate remains open.
 
 The following identifications remain forbidden unless proved:
 
@@ -151,11 +153,20 @@ The following identifications remain forbidden unless proved:
 
 Temporal constructs must be analysed by layer.
 
-For When, the current architectural resolution is:
+For `When`, the authorial P3 decision was ratified on 2026-10-11 as **P3-B**:
 
-- unbounded cost is exposed rather than hidden;
-- finite-budget compatibility is mediated by the effect crossing through ψ;
-- Adm remains distinct from ⊖.
+- `When` is a reactive event trigger, distinct from `case` condition filtering;
+- the orchestrator watches and aggregates known environmental events and launches ad hoc automata when their triggers occur;
+- environmental waiting latency, even if unbounded, is not charged to the execution budget of the triggered automaton;
+- latency must remain observable and be represented separately from the triggered automaton's execution cost;
+- the typed representation of that separation, its relation to `ε[ω/k]` and the C2 temporal carrier, and the exact `ψ`/`Adm`/`Consume` contract remain open proof/interface obligations.
+
+This ratification does not establish that the current normative `When` rule already implements P3-B. Do not rewrite `spec/` or Lean semantics until the relevant carriers, domains, and affected assertions are specified for a separate normative change.
+
+**Discipline budgétaire — option C retenue comme orientation d'autrice le 11 octobre 2026.** Les budgets doivent être validés lors de la compilation ; l'exécution de chaque automate doit rester dans ses bornes budgétées ; les autres contrôles sont des garde-fous, dont le rôle varie selon la couche K7PL. Il s'agit d'un principe de conception à formaliser, pas d'une propriété déjà prouvée.
+
+La formalisation doit, pour chaque couche, préciser (i) les ressources et métriques bornées, (ii) le sens de validation à la compilation, (iii) les hypothèses d'exécution, (iv) les garde-fous et ce qu'ils ne garantissent pas, et (v) la preuve reliant acceptation statique et coût observable à l'exécution. La composition inter-couches doit préserver ces bornes ou en expliquer explicitement les conditions. Ne pas supposer que le contrôle statique garantit la ressource réelle sans un théorème de correction reliant le modèle aux exécutions.
+
 
 ### C4 — Operational semantics
 
@@ -173,14 +184,18 @@ The representation profile Π is not a semantic property of the language. Logica
 
 ### C6 — Remaining interface/proof obligations
 
-The residual C work includes, at minimum:
+The interface records from sessions 59–62 are design evidence, not a proof certificate. The residual C work includes, at minimum:
 
-- naturality, identity and composition for coerce;
-- compatibility with w and c;
-- substitution closure under conversions and Scale_Usage;
-- the interaction between ψ and Cost_Budget;
-- exact W/D aggregators and their properties;
-- remaining semantic and memory obligations, including Sim and H1/H2.
+- verify explicit carriers, signatures and directions for `𝒢`, `π_U`, `Bang_𝒢`, `Scale_Usage`, `φ_n`, `coerce`, `w`, `c`, `ψ`, `Adm`, `Consume`, `W`, `D` and `Cost_Budget`; keep `𝓡` separate from the complete grade `𝒢`;
+- prove identity/composition/naturality for `coerce`, its compatibility with `w`/`c`, and the stated reverse direction `r ≼ r' ⇒ π_U(r) ≥ π_U(r')`;
+- prove substitution for the actual typing domain, including conversions, `SubBox`, `Scale_Usage`, effects via `ψ` and repetitions via `φ_n`; do not extend the effective-multiplicity result to rational usage grades;
+- prove the `When`/`ψ`/`Adm`/`Consume` contract rule by rule, including that a non-bounded effect is exposed and is rejected when it must cross a finite budget;
+- validate the definitions and required laws of `W`/`D` and `Cost_Budget` over the stated level-indexed family, rather than treating the session notes or an informal calculation as a proof;
+- complete the directional simulation obligation `Sim` from source reduction to target reduction, including traces, effects, time-channel threading, structural congruence and every reduction case;
+- resolve or explicitly retain as open the memory hypotheses H1/H2 (with H3 kept distinct), without a circular justification; keep abstract-memory claims separate from representation-profile `Π` claims;
+- classify every remaining item as mathematical proof, semantic obligation, external formal dependency, representation question or authorial decision. The exact hypotheses, missing cases, dependencies and closure evidence are registered in [L1-THEORY-OBJECTS.md](../migration/L1-THEORY-OBJECTS.md), with the memory dependency reviewed in [LEAN-DEPENDENCY-SEMANTIC-REVIEW.md](LEAN-DEPENDENCY-SEMANTIC-REVIEW.md).
+
+**D handoff dependency (BLOQ-12; tracking only).** The current Th. 18 reclassification is a proposition about representation, not a theorem that the singularity operations form a wheel homomorphism. Keep logical replay as a semantic property and bitwise identity as representation-profile conformance under `Π`; the proposition’s requirements (injective observation/representation, exact `select`, and K7PL-specified arithmetic) must not be silently strengthened. Until the C7 exit gate is satisfied, D may only carry this dependency forward: do not choose among the singularity-algebra alternatives, add a normative propagation table, or change `spec/`. Those alternatives affect observable error classes and operation laws and remain authorial decisions.
 
 ### C7 — C exit gate
 
@@ -515,8 +530,10 @@ Every missing link must be explicit.
 
 At the current snapshot:
 
-1. complete the review of #54 and merge only once its current head is green and its scientific scope is accepted;
-2. continue the remaining C proof/interface obligations and open C8 statement-command taxonomy as a dedicated sub-workstream;
+The OpenSSF/security workstream is tracked separately in [the operational roadmap](../security/OPENSSF-ROADMAP.md) and [the human-action register](../security/ACTIONS-HUMAINES.md); it is intentionally not duplicated in this scientific execution queue.
+
+1. treat #54 as integrated delivery evidence only; continue the bounded C obligations in the current registers and keep open epistemic states open;
+2. continue the remaining C proof/interface obligations and the C8 statement-command taxonomy as a dedicated sub-workstream;
 3. do not reopen the completed physical documentation migration; use docs/migration/ only for the remaining semantic lots;
 4. open D only after the C exit gate is satisfied;
 5. execute E, then F;
@@ -525,8 +542,7 @@ At the current snapshot:
 8. establish the bounded implementation-conformance case I;
 9. exercise J and P1–P6;
 10. complete the semantic migration lots that remain justified, then maintain the closed physical architecture without recreating a migration work queue.
-11. keep the OpenSSF remediation campaign on temporary hold; its genuinely open items remain in `docs/security/OPENSSF-ROADMAP.md` and human-only actions in `docs/security/ACTIONS-HUMAINES.md`.
-12. start K as a separate research question via issue #122; do not treat Lean formalization as automatic legal, contractual, or organizational compliance.
+11. start K as a separate research question via issue #122; do not treat Lean formalization as automatic legal, contractual, or organizational compliance.
 
 If a stage exposes a new architectural dependency, stop the downstream progression and reclassify the dependency rather than silently carrying it forward.
 
@@ -562,18 +578,32 @@ Routine progress belongs in the dedicated registers.
 
 ## 23. K — Lean tools for project-compliance assurance
 
-**Status:** OPEN — exploration only  
-**Anchor:** [GitHub issue #122](https://github.com/AntheaLiles/k7pl/issues/122)
+**Status:** OPEN — prototype merged; expanded evaluation branch created; do not close until independent CI runs and corpus review are complete  
+**Anchor:** [GitHub issue #122](https://github.com/AntheaLiles/k7pl/issues/122) · [decision, coverage and extension note](../research/LEAN-COMPLIANCE-ASSURANCE.md) · [merged prototype PR #128](https://github.com/AntheaLiles/k7pl/pull/128) · [evaluation branch](https://github.com/AntheaLiles/k7pl/tree/research/lean-assurance-evaluation-2026-10-11)
 
-The question is whether Lean can support a bounded, useful form of project-compliance assurance for constraints derived from standards, contracts, regulations, and business rules. This is not yet a decision to implement a compliance engine.
+The current `main` head was checked as `86959948ff36deb6e8ee0985cf22740787696720`. Its global CI run [#1006](https://github.com/AntheaLiles/k7pl/actions/runs/38094667153) is **failed** at `Vérification / Spécification Verso`; the Lean implementation job succeeded. Do not quote an older green run as the current `main` status. Prototype PR #128 and documentation PR #147 are merged; issue #122 remains open.
 
-The first phase must distinguish:
+The historical prototype evidence is retained: CI #891 and run #38086816755 each ran five timing samples against the same generated SPDX document SHA-256 `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c`, validator script hash `279ed992c4cf534539a27179cacefa998c35fee7e1cf2427e5268c95dad3fe03`, and lock hash `300e52cba5c20930dfd2e7a9a1ef6042d057e56336de6ae58c67ff14b0646632`. Median `pyspdxtools` time was 304.564 ms then 277.628 ms; wrapper medians 316.976 and 288.930 ms; CLI process medians 381.283 and 345.772 ms. These are two runs with five within-run samples each, not a robust benchmark. Historical reports did not directly establish cache hit/miss state.
 
-- the object being checked (requirements, constraints, decisions, artefacts, or their relations);
-- mechanically provable properties from traceability evidence, empirical facts, and accountable human judgements;
-- versioning, applicability, exceptions, conflicts, and provenance of constraints;
-- Lean-specific formalization from simpler rule engines, structured registers, and existing compliance tooling.
+The isolated branch `research/lean-assurance-evaluation-2026-10-11` extends the non-blocking SPDX negative harness from seven mutations to 17 structured mutations, two raw-input cases (malformed JSON and wrong root type), and explicit command/tool-absence controls. It adds tests that each probe changes the fixture and that summaries do not claim schema coverage. The timing report records effective tool versions, runner/image information when available, and hashes of the SBOM generator, source manifest, Lean configuration, benchmark script, validator script, negative corpus and hash lock; cache observations are explicitly qualified as incomplete.
 
-**Exit criterion:** a short decision note defines one assurance claim, its evidence boundary, alternatives considered, one bounded non-safety-critical demonstrator with counterexamples, and a go/no-go recommendation. No normative K7PL or Lean implementation changes are authorized by this workstream alone.
+The first measurement run, [#38118745654](https://github.com/AntheaLiles/k7pl/actions/runs/38118745654), produced a successful Python job and evidence artefact [`k7pl-independent-spdx-validation-38118745654`](https://github.com/AntheaLiles/k7pl/actions/runs/38118745654/artifacts/11694647851), but the overall workflow was later **cancelled** after a newer branch commit; this measurement job is retained but does not count as a full CI pass. Two later full workflows, [#38118879020](https://github.com/AntheaLiles/k7pl/actions/runs/38118879020) and [#38119278580](https://github.com/AntheaLiles/k7pl/actions/runs/38119278580), ended **success**, including Python tooling, Lean build/tests/lint/axiom audits, TikZ, Verso/PDF and security/REUSE checks. Their validation artefacts are [#38118879020](https://github.com/AntheaLiles/k7pl/actions/runs/38118879020/artifacts/11694648121) and [#38119278580](https://github.com/AntheaLiles/k7pl/actions/runs/38119278580/artifacts/11694790463).
 
-The OpenSSF remediation campaign is temporarily paused and tracked separately. Its outstanding release/security actions remain open and must be resumed before any release action that depends on them.
+The three measurement jobs share the same generated SBOM SHA `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c`, validator SHA `279ed992c4cf534539a27179cacefa998c35fee7e1cf2427e5268c95dad3fe03`, generator SHA `dbd9cdc4709a2b3d8a3d4dd46c17d6513437e06ac1f7567cecd52552271612f4`, benchmark SHA `28b270b277c41dece4ccbeac3a0b2d56c5b9d1e34c5ad26bde04ac7c59334bf9`, negative-corpus SHA `0ae239b0c0d025ec64972a825d9043ee22bb95895c2a6e789b6a6cefceda5af8`, and lock SHA `300e52cba5c20930dfd2e7a9a1ef6042d057e56336de6ae58c67ff14b0646632`. They also share Python 3.13.16, spdx-tools 0.8.5 and runner image `ubuntu24 / 20261004.327.1 / X64`. Five invocations per job yielded:
+- Validator medians: 242.982, 307.206, 318.769 ms;
+- wrapper medians: 252.959, 319.455, 331.760 ms;
+- full CLI medians: 304.341, 382.304, 397.243 ms.
+
+From the first to second measurement the medians rose about 26%; from the second to third they rose 3.8–3.9%. Across all three, the external validator accounts for about 80% of the CLI median; the wrapper adds roughly 10–13 ms and full process overhead above the wrapper adds 51–65 ms. This is descriptive decomposition, not a universal performance claim. The first run is not a full CI success, leaving **two** full CI successes. One further completed full PR run with unchanged benchmark/script/lock/input hashes is still required for the three-full-run threshold.
+
+The pip cache inventory remains 5.7 MB / 70 files, with no direct pip hit/miss indicator in these reports. The full-run job logs independently show a hit for the Lake dependencies GitHub Actions cache key `lake-deps-e0afe00d1e73d08b1c131b31105a6363eda1755c2a87cdb6d3243da5453a5845` and for the Tectonic cache in the TikZ job. Those are caches used in different jobs, not proof of a pip-cache hit. No runner-specific CPU load or physical runner identity is recorded; causal attribution of timing differences to cache, host load, network or the validator alone is not justified.
+
+The two artifact reports produce the same negative-corpus distribution: 17 structured mutations and two raw-input cases, direct `pyspdxtools` return code 0 for five observations and nonzero for 15; local wrapper statuses four `PASS`, 15 `FAIL`, one `ERROR`. #885 remains caught locally while accepted upstream; empty document-name string, unsubstantiated `licenseDeclared = "MIT"`, and a duplicate relation were accepted by the external tool and need different interpretations: normative ambiguity for the empty document name, no proof of external truth for MIT, and no general standard uniqueness constraint for relation objects (the latter violates only the narrow K7PL profile).
+
+Scientific boundary remains fixed: theorem `Compliance.SbomAudit.verifyContract_sound` covers the declared predicate on the normalized finite Lean model. It does not prove parser fidelity, full SPDX conformance, output conformance on its own, inventory exhaustivity, dependency graph completeness, upstream fact truth, vulnerability absence, licence compatibility or organizational/legal compliance.
+
+**Current recommendation:** GO for maintaining the bounded research prototype and completing this evidence evaluation. NO-GO for production-gate use, global compliance claims, or SBOM-exhaustivity claims. Extension decisions: CycloneDX—NO-GO unless a consumer requires it; OSV—GO with existing external scanner/adaptor, NO-GO for Lean reimplementation of a vulnerability engine; Syft/Grype—GO for bounded artifact-based comparison, NO-GO for a Lean replacement; ORT—GO for a policy/use-case-driven comparative evaluation, NO-GO for a bespoke license engine; fuzzing—GO for a bounded non-blocking `lean-fuzz` custom-target PoC at the JSON parsing boundary, NO-GO as a blocking gate before oracle/reproducibility/reduction qualification; SAST Lean—NO-GO for integration/gating, with `pc-sast-lean` only a research scaffold lacking real-language source extraction; WCAG/ARIA—NO-GO for general Lean compliance claims, GO to retain focused automated checks with human/assistive-technology evaluation.
+
+**Remaining work before closure:** one more completed independent full PR CI run is needed to meet the three-full-run threshold using identical benchmark/source/tool/lock/input hashes. Inspect its JSON artefact, error/diagnostic outputs and cache log; review probe expectations against SPDX 2.3; record what the independent validator does not detect; update this note and the workstream with observed rather than inferred results; then allow the final CI run to validate the evidence update. The completed full run #38119278580 validates the current commit; no branch write should occur before its terminal result (now success) because the workflow cancels an in-progress pull-request run when a newer commit arrives. Do not close issue #122 or merge the evaluation PR before those steps and an accountable human decision. Do not modify normative `spec/` or K7PL implementation as part of this research pass.
+
+The OpenSSF/security track is separate. Its operational status and ordered human actions remain in `docs/security/OPENSSF-ROADMAP.md` and `docs/security/ACTIONS-HUMAINES.md`; nothing in workstream K implies BadgeApp submission or a security attestation.

@@ -44,14 +44,14 @@ maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément
 Deux sources, deux motifs, une même recommandation — et huit phases logiques n'en contredisent
 aucun.
 
-::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Chaine lineaire des phases de compilation — Parse, ConfigAnalysis, TypeCheck, Resolution, PurityCheck, TermProof, ConstraintSolve, Optimize, CodeGen, Link. Deux phases intercalaires portent un numero fractionnaire, 1.5 et 2.5.") (width := "90")
+::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : huit phases principales et deux étapes intercalaires, lues en aller-retour.") (width := "90")
 :::caption
 Les huit phases du pipeline de compilation
 :::
 
 :::desc
-L'ordre des huit vérifications, et les deux phases intercalaires que la numérotation fractionnaire
-distingue des huit.
+Dix étapes forment un serpentin : la rangée supérieure se lit de gauche à droite ; la flèche descend
+vers TermProof, puis la rangée inférieure se lit de droite à gauche jusqu'à Link ; 1.5 et 2.5 sont intercalaires.
 :::
 ::::
 
@@ -152,7 +152,7 @@ une boucle fusionnée multiplie les grades de ses deux corps, un appel intégré
 les enchaîner une fois. Ce que la suite linéaire décrit n'est donc pas le modèle défendu, et l'écart
 se referme par un énoncé plutôt que par une figure.
 
-::::thm (label := "thm:stabilisation_pipeline")
+::::theorem (label := "thm:stabilisation_pipeline") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
 :::title
 stabilisation du pipeline
 :::
@@ -171,8 +171,8 @@ fondé, la suite des tours est finie. Un tour qui ne modifie pas le terme est le
 de la mise en ligne, seul à pouvoir engendrer de nouvelles obligations de grade, est traité par la
 borne que ce chapitre lui donne déjà.
 :::
-::::
 
+::::
 Le recours à un solveur externe pose enfin la question de la _stratégie_ de vérification des
 obligations de budget, et l'arbitrage y est plus contraint qu'il n'en a l'air. La littérature le
 pose dans ses propres termes : les techniques d'analyse de ressource _automatisées_ sont restreintes

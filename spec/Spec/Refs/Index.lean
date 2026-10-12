@@ -19,34 +19,4 @@ file := "refs-index"
 tag := "refs-index"
 %%%
 
-* absence de blocage
-* acyclicité
-* amortissement
-* analyse de coût
-* atomicité
-* borne de temps d'exécution
-* cohérence de la subsomption
-* compilation séparée
-* confidentialité
-* convergence
-* décidabilité
-* differential testing
-* édition de liens
-* effacement de phase
-* emprunt
-* inférence de type
-* intégrité
-* localité
-* mécanisation
-* ordonnancement
-* partage en lecture
-* préservation du typage
-* principalité
-* productivité
-* progression
-* réplication
-* reprise après panne
-* substitution
-* terminaison
-* unification
-* vérification bidirectionnelle
+{printindex}

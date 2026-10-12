@@ -12,6 +12,7 @@ import manuscript_metrics as mm
 
 from . import corpus
 from .journal import ko, ok
+from . import statement_ontology
 
 STATUSES = {"theoreme", "proposition", "conjecture", "definition", "exigence", "litterature"}
 LEVELS = {"langage", "compilation", "representation", "deploiement"}
@@ -91,16 +92,18 @@ def float_families_listed():
 def seal():
     """The seal carries only declared statuses and levels; nothing unproven is a theorem."""
     bad = []
-    for r in mm.statements():
-        if r["statut"] not in STATUSES:
-            bad.append(f"{r['label']} : statut « {r['statut']} »")
-        if r["niveau"] not in LEVELS:
-            bad.append(f"{r['label']} : niveau « {r['niveau']} »")
-        if r["statut"] == "theoreme" and not r["esquisse"]:
-            bad.append(f"{r['label']} : théorème sans esquisse de preuve")
-        if r["statut"] == "exigence" and r["esquisse"]:
-            bad.append(f"{r['label']} : une exigence ne porte pas d'esquisse")
-    labels = [r["label"] for r in mm.statements()]
+    rows = mm.statements()
+    for r in rows:
+        if r["legacy"]:
+            if r["statut"] not in STATUSES:
+                bad.append(f"{r['label']} : statut historique « {r['statut']} »")
+            if r["niveau"] not in LEVELS:
+                bad.append(f"{r['label']} : niveau « {r['niveau']} »")
+            if r["statut"] == "theoreme" and not r["esquisse"]:
+                bad.append(f"{r['label']} : théorème historique sans esquisse de preuve")
+            if r["statut"] == "exigence" and r["esquisse"]:
+                bad.append(f"{r['label']} : une exigence historique ne porte pas d'esquisse")
+    labels = [r["label"] for r in rows if r["label"]]
     bad += [f"étiquette en double : {l}" for l in {l for l in labels if labels.count(l) > 1}]
     if bad:
         ko("sceau : %s" % bad[:4])
@@ -181,3 +184,4 @@ def run():
     for check in (judgement_context, one_glyph_per_modality, hashing_claims, grades_and_sizes, float_families_listed,
                   seal, propagated_mentions, route_of_each_commitment, symbols_in_the_normative_table):
         check()
+    statement_ontology.run()

@@ -141,6 +141,8 @@ Il ne faut donc pas transformer cette recherche en alternative éditoriale entre
 
 **État :** DÉCISION ARRÊTÉE ; SÉDIMENTATION ET PREUVES À CONDUIRE.
 
+**Clarification et décisions d'autrice du 11 octobre 2026.** L'« option A » de cette section désigne le choix architectural de conserver la structure temporelle supplémentaire ; elle ne doit pas être confondue avec la « lecture A » de la séance 55 sur le budget. P3-B est ratifiée : `When` est un déclencheur réactif ; l'attente d'un événement relève de l'orchestrateur et non du coût d'exécution de l'automate déclenché. Séparément, l'option C est retenue comme orientation de conception pour les budgets : validation à la compilation, exécution tenue dans les bornes budgétées, garde-fous dont le rôle varie selon la couche. Ces choix ne fixent pas encore la représentation mathématique de la latence, les signatures de `ψ`/`Adm`/`Consume`, les contrats par couche ou la preuve reliant le contrôle statique à l'exécution. La preuve de correction de ressource, la formalisation de l'orchestration et la résolution du domaine de `Cost_Budget` restent ouvertes ; la porte C n'est pas close.
+
 ## 4. T-68 — minimalité des 44 primitives
 
 T-68 constitue désormais un chantier scientifique autonome et bloquant pour l'étape d'implémentation/mécanisation.
@@ -180,70 +182,92 @@ Cela ne signifie pas qu'aucun prototype exploratoire ne puisse exister ; cela si
 
 **État :** CHANTIER MAJEUR ; BLOQUANT POUR LA STABILISATION DE L'IMPLÉMENTATION ET DE LA MÉCANISATION.
 
-## 5. Annexes B, C et D
+## 5. Annexes B, C et D — D-7 reste ouvert
 
-### Décision
+### État établi, et non décision normative
 
-Les annexes B, C et D ne font pas partie de la spécification normative à venir.
+L'arbre `main` observé au 2026-10-11 (`86959948ff36deb6e8ee0985cf22740787696720`) importe `AnnexeA` dans `spec/Spec.lean` et ne contient pas de modules `spec/Spec/AnnexeB.lean`, `AnnexeC.lean` ou `AnnexeD.lean`. Les prototypes sont conservés dans `tooling/prototypes-bcd/`, les sources Org dans `docs/archives/manuscrit-org/`. La séparation physique actuelle est donc un fait ; elle ne prouve pas que l'autrice ait ratifié le périmètre éditorial.
 
-Elles correspondent à des ébauches d'outils complémentaires :
+Le registre central [`docs/tracking/DECISIONS.md`](../tracking/DECISIONS.md) garde D-7 ouvert. L'affirmation antérieure de ce dossier (« DÉCISION ARRÊTÉE ») était trop forte et doit être lue comme une proposition d'analyse historique, non comme une décision d'autrice. Aucun texte normatif ne doit être changé pour rationaliser a posteriori ce retrait.
 
-- annexe B : LSP / REPL ;
-- annexe C : Sushi ;
-- annexe D : Sugoi.
+Les options, avec conséquences et sources, sont comparées dans [`L1-ANNEXES-EXTRACTION.md`](L1-ANNEXES-EXTRACTION.md). Pour choisir sans refaire l'analyse :
 
-Ces éléments doivent sortir de la spécification et être traités dans une branche de travail distincte consacrée à l'outillage complémentaire.
+| Choix | Effet | Coût/risque principal |
+|---|---|---|
+| **A — développer séparément** | trois annexes, chacune avec statut réel de l'outil, interfaces, preuves/tests et dépendances | maintenance triple et obligations de vérification par outil |
+| **B — regrouper** | une annexe « Outillage complémentaire » explicitement non normative, avec trois sous-sections | réécriture des renvois ; risque de suggérer que les prototypes sont implémentés |
+| **C — différer** | garder le Verso normatif sur A seule et conserver B/C/D comme sources/prototypes hors norme | moindre visibilité de l'intention historique ; il faut expliciter la frontière |
 
-Ils ne sont pas, par principe, des composantes de la future bibliothèque standard.
+Le rendu actuel ressemble factuellement à C ; ce constat ne vaut pas ratification de C. L'autrice doit choisir A, B ou C avant toute modification normative.
 
-### Conséquence normative
+### Conséquence méthodologique
 
-Le problème historique d'ANOM-04 n'est donc pas de « compléter » les annexes jusqu'à leur donner une fausse complétude.
+La qualification doit séparer : (1) les propriétés déjà décrites dans le corps normatif ; (2) les mécanismes seulement utilisés par les prototypes ; (3) les formats, commandes et politiques propres à ces prototypes ; (4) les hypothèses ou garanties non démontrées. La présence d'un concept dans un prototype ne le rend pas normatif, et la présence d'une description dans une ancienne annexe n'établit pas qu'un outil existe.
 
-La correction consiste à rétablir la frontière entre :
+### Action autorisée avant arbitrage
 
-1. ce que la spécification formalise et rend normatif ;
-2. les outils susceptibles d'exploiter cette spécification ;
-3. les futurs composants éventuels de l'écosystème ;
-4. les idées ou prototypes qui ne font pas partie du langage.
+- Conserver les sources historiques et les prototypes existants avec leur provenance.
+- Vérifier et corriger les registres, liens et affirmations de statut.
+- Ne pas restaurer/effacer les annexes de `spec/` ni réécrire des propositions normatives avant décision explicite.
+- Après le choix d'auteur, mettre à jour les documents de suivi concernés et les critères L1 ; toute réécriture normative ultérieure doit être une modification distincte et traçable.
 
-Les annexes doivent donc être retirées du corpus normatif, avec conservation de leur provenance et de leur statut historique.
-
-### Action de migration
-
-1. Identifier les renvois du corps de la spécification vers B, C et D.
-2. Pour chaque renvoi, déterminer s'il décrit une propriété normative ou seulement un outil.
-3. Réécrire le texte normatif lorsqu'il dépend actuellement du matériau outillage.
-4. Déplacer le matériau d'outillage dans une branche/documentation dédiée, sans le promouvoir dans la stdlib.
-5. Conserver la provenance de la décision dans le registre de migration.
-6. Vérifier ensuite que la spécification peut être comprise et formalisée sans ces trois annexes.
-
-**État :** DÉCISION ARRÊTÉE ; EXTRACTION DE L'OUTILLAGE À EFFECTUER.
+**État :** ANALYSE COMPARATIVE PRÉPARÉE ; DÉCISION D'AUTEUR REQUISE.
 
 ## 6. Synthèse des décisions arrêtées
 
 | Point | Décision | Prochaine preuve/action | Bloquant |
 |---|---|---|---|
-| ARB-PR-04 | Reproductibilité paramétrée par `Π`, pas de rejeu bit-à-bit général | Formaliser `Π), `E_repro`, puis assurer la traçabilité | Non |
+| ARB-PR-04 | Reproductibilité paramétrée par `Π`, pas de rejeu bit-à-bit général | Formaliser `Π` et `E_repro`, puis assurer la traçabilité | Non |
 | Imports | Modes + types gradués = NORMATIF ; Calf/Decalf = DÉPENDANCE FORMELLE ; récursion gardée multi-horloges = qualification par couche | Construire les chaînes de cohérence et la sédimentation | Oui pour la clôture théorique |
-| `when` | Option A retenue | Sédimenter la structure supplémentaire et établir les invariants | Oui pour la formalisation temporelle |
+| `when` | Structure temporelle supplémentaire retenue ; distincte de la lecture budgétaire de la séance 55 | P3-B ratifiée le 11 octobre 2026 : la latence environnementale relève de l'orchestrateur, pas du budget d'exécution de l'automate déclenché. Formaliser leur représentation distincte et prouver le contrat `When`/`ψ`/`Adm`/`Consume` ; clôture C toujours ouverte | Oui pour la formalisation temporelle et la clôture C |
 | T-68 | Audit autonome de minimalité des 44 primitives | Primitive → obligation → règle → propriété → preuve | **Oui : implémentation/mécanisation** |
 | Annexes B/C/D | Sortie de la spécification ; branche outillage séparée ; pas stdlib par défaut | Extraire les renvois et créer la frontière d'outillage | Oui pour la cohérence normative |
 
 ## 7. Décisions restant ouvertes
 
-Aucune décision d'auteur supplémentaire n'est requise pour engager les cinq chantiers ci-dessus.
+Les analyses techniques ci-dessus ne remplacent pas les décisions réservées à l'autrice. En particulier, D-7/ANOM-04 reste ouvert. Les autres décisions et preuves scientifiques conservent leur propre statut ; aucun état fermé n'est inféré depuis un compte rendu historique sans provenance.
 
-Les choix futurs doivent porter sur les résultats produits par ces chantiers, notamment lorsqu'une preuve, un contre-exemple ou une analyse de sédimentation révélera une contrainte nouvelle. Ils ne doivent pas rouvrir les décisions arrêtées ici sans élément scientifique nouveau.
+## 8. Fiches courtes pour arbitrage
 
-## 8. Provenance
+### D-7 / ANOM-04 — périmètre des prototypes B, C et D
+
+- **A — développer séparément :** conserver trois annexes à l'avenir, en vérifiant le statut réel de chaque outil et toutes les garanties annoncées.
+- **B — regrouper :** une annexe « Outillage complémentaire » avec les trois prototypes, et une frontière explicite entre langage spécifié et outils.
+- **C — différer :** garder le document normatif sur A seule jusqu'à implémentation vérifiable, avec provenance dans `tooling/prototypes-bcd/` et `docs/archives/manuscrit-org/`.
+
+Effet commun : aucune modification du contenu normatif n'est proposée dans cette PR. Choisir une option et l'inscrire explicitement dans D-7 est nécessaire pour clôturer ANOM-04.
+
+### D-9 / ANOM-09 — index paginé
+
+- **État de départ mesuré :** le PDF de `main` au SHA `86959948` avait une liste statique de 31 termes sans pages, visible pages 277–278.
+- **Voie technique testée dans cette branche :** réutiliser l'extension existante `SpecExt.printindex`, qui agrège les marques automatiques issues de `IndexTerms.lean` et émet des références de pages en TeX ; les liens HTML sont des liens de sections. Le résultat doit être contrôlé dans le PDF réellement construit, pas uniquement par compilation.
+- **Preuve observée :** sur la candidate `9c34e7aaa99e00809c00d56812ab2160b55c276d`, run [`38131422345`](https://github.com/AntheaLiles/k7pl/actions/runs/38131422345) terminé avec `success`; `spec-pdf` (`11699506098`) contient 287 pages et un index paginé aux pages imprimées 277–278. `ordonnancement` mène à `64, 82, 99, 171, 175, 233`; les cadres rouges hyperref ont disparu au rendu; le journal `spec-pdf-log` (`11699366281`) ne contient pas de cibles `idx-*` non résolues, et la garde CI dédiée a réussi. **État : techniquement résolu sur cette candidate.**
+
+### D-10 / ANOM-10 — interface HTML localisée
+
+- **Configurable dans le dépôt :** `tools/SpecExt/Translate.lean` remplace une liste explicite de chaînes HTML/JS après génération ; `tools/SpecMain.lean` déclenche cette passe ; `tests/SpecToolsTest.lean` teste des cas unitaires. Cela établit une localisation partielle contrôlée par le dépôt, pas une interface entièrement traduite.
+- **Dépend de l'amont :** les chaînes de navigation et de recherche sont émises par Verso v4.34.0 (par ex. `VersoManual.lean` et `static-web/search/search-box.js`). La configuration `HtmlConfig` consultée expose les options de table des matières mais aucune option de locale/localisation n'a été trouvée. Le remplacement local peut casser en cas de modification des chaînes.
+- **Proposition upstream préparée, non soumise :**
+
+  **Titre :** `Add configurable locale/i18n for Verso manual UI and search`
+
+  **Problème observé :** K7PL doit remplacer des chaînes après génération ; dans Verso v4.34.0, `HtmlConfig` n'expose pas de locale, tandis que `VersoManual.lean`, `static-web/search/search-box.js` et `search-page.js` émettent des chaînes UI en dur.
+
+  **Demande :** exposer un catalogue centralisé de messages UI (navigation, recherche, compteurs, états vides, libellés ARIA, titres utilitaires) avec locale de repli documentée et exemple `fr`.
+
+  **Critères d'acceptation proposés :** les chaînes visibles/accessibilité relèvent du catalogue ; le repli des clés absentes est déterministe ; tests de page de recherche, suggestions, résultats vides, compteurs et titres ; locale ou fournisseur de messages configurable depuis `HtmlConfig`.
+
+  **État :** fiche prête pour révision humaine ; ticket non soumis et aucune réponse upstream connue.
+- **Critère de clôture :** couverture des chaînes dans le rendu HTML réel documentée ; les chaînes hors du contrôle local restent ouvertes jusqu'à une capacité upstream ou à une autre stratégie explicitement choisie.
+
+## 9. Provenance
 
 Sources principales de la migration :
 
-- `docs/suivi/DECISIONS.md` — arbitrages et décisions historiques ;
-- `docs/suivi/primitives.md` — inventaire et justification lexicale des primitives ;
-- `docs/suivi/factorisations-refusees.md` — contre-exemples aux factorisations ;
-- `docs/suivi/hypotheses-de-module.md` — hypothèses de formalisation et obstacles ;
-- `docs/suivi/ANOMALIES.md` — état des anomalies de conversion et des annexes.
+- [`docs/tracking/DECISIONS.md`](../tracking/DECISIONS.md) — arbitrages et décisions historiques ;
+- [`docs/tracking/primitives.md`](../tracking/primitives.md) — inventaire et justification lexicale des primitives ;
+- [`docs/tracking/factorisations-refusees.md`](../tracking/factorisations-refusees.md) — contre-exemples aux factorisations ;
+- [`docs/tracking/hypotheses-de-module.md`](../tracking/hypotheses-de-module.md) — hypothèses de formalisation et obstacles ;
+- [`docs/tracking/ANOMALIES.md`](../tracking/ANOMALIES.md) — état des anomalies de conversion et des annexes.
 
 Les formulations de ce document sont une qualification de migration. Elles ne valent pas preuve mathématique des propriétés qu'elles prescrivent de démontrer.

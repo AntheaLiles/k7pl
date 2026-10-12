@@ -63,11 +63,11 @@ Si la provenance ne peut pas être retrouvée, l'arête ne doit pas être affich
 
 ## 5. Première tranche sémantique proposée
 
-Le premier prototype exécutable porte sur les lignes 22–50 de `spec/Spec/C6/LeProcessusDeCompilation.lean`. Il relie la section à sa figure explicitement référencée et aux sources bibliographiques citées dans son introduction, puis ajoute la provenance technique de la figure déjà validée par le POC TikZ. Cette tranche est volontairement bornée pour garder le graphe lisible.
+La première tranche exécutable porte sur les lignes 22–50 de `spec/Spec/C6/LeProcessusDeCompilation.lean`. Elle relie la section à sa figure explicitement référencée et aux sources bibliographiques citées dans son introduction, puis ajoute la provenance technique de la figure validée par le POC TikZ. Une seconde tranche, lignes 22–50 de `spec/Spec/C3/LeSystemeGradue.lean`, vérifie la réutilisation du générateur sur des références vers une autre section et plusieurs citations. Les deux vues se relient mutuellement ; chacune reste volontairement bornée.
 
 Le prototype représente uniquement les arêtes `num` et `cite` présentes dans cette plage source, chacune avec un lien vers son emplacement source exact. Les labels canoniques sont résolus vers les ancres des pages HTML produites par Verso ; une ancre manquante ou ambiguë fait échouer la génération. Le graphe revient à la section rendue et expose aussi sa source Lean/Verso. La provenance figure → source TikZ → SVG/PDF est un autre type d'arête, étayé par le manifeste et la CI. Le graphe ne déduit pas que les citations sont des prémisses formelles ni que les références sont des dépendances de preuve.
 
-Une tranche suivante pourra porter sur `sec:c3-le-systeme-gradue` dans `spec/Spec/C3/LeSystemeGradue.lean`, dont les références explicites relient plusieurs sections et un théorème. Le résultat actuel est une vue locale, navigable, et non un graphe exhaustif de K7PL.
+Le résultat actuel est un petit ensemble de vues locales navigables, pas un graphe exhaustif de K7PL. La plage C3 n'est pas représentative de toutes les références de la section et ne doit pas être interprétée comme un inventaire complet.
 
 ## 6. Génération et validation
 
@@ -80,10 +80,26 @@ Critères d'acceptation du premier prototype :
 - [x] les références non résolues sont signalées et ne deviennent pas des liens inventés ;
 - [x] les citations restent distinctes des références à des objets de la spécification ;
 - [x] la vue retourne à la source canonique et à la page documentaire rendue ;
-- [ ] les tests couvrent les labels manquants, les références non résolues, les citations multiples et les ancres ;
+- [x] les tests couvrent les labels sources absents, les références/citations non résolues, plusieurs clés bibliographiques dans une citation et les ancres manquantes ;
 - [x] le prototype n'ajoute aucune dépendance d'exécution au site publié ;
 - [ ] une revue humaine confirme que la vue aide à comprendre les relations sans exagérer leur portée.
 
 ## 7. Hors périmètre explicite
 
 Ce modèle ne prétend pas encore relier formellement les propositions Lean aux implémentations et aux tests. Cette relation doit être recherchée dans les annotations et conventions existantes ; elle ne doit pas être supposée. L'accessibilité PDF/UA des figures reste un chantier distinct.
+
+## 8. Audit de traçabilité et limite du prototype — 11 octobre 2026
+
+Le générateur courant fait trois choses distinctes et ne doit pas les fusionner :
+
+1. `references` est extrait d'un rôle Verso `num` vers un label résolu dans les déclarations canoniques ; la provenance conservée est le fichier source, la ligne, le label cible, le fichier et la ligne de la déclaration.
+2. `cites` est extrait d'un rôle Verso `cite` vers une clé existante de `docs/bibliography/references.json` ; la provenance est la ligne de citation et la clé bibliographique.
+3. La chaîne figure → source TikZ → rendu SVG/PDF → renderer/workflow est une **provenance de génération**, fondée sur la correspondance exacte `canonical_verso` du manifeste et sur les étapes de build CI. Elle ne signifie pas que le code du renderer démontre une propriété de la figure.
+
+La vue C6/C3 ne produit pas d'arêtes `imports`, `tested-by` ou `implemented-by`. La simple présence d'une commande `import`, d'un fichier de test au nom similaire, d'une citation ou d'un objet voisin n'est pas suffisante pour inférer un lien scientifique. Les dépendances structurelles éventuelles devront être conservées dans une catégorie distincte et explicitement typées ; elles ne font pas partie des arêtes scientifiques actuelles.
+
+Le contrôle de sortie ajouté à la CI vérifie que les trois pages existent, qu'elles portent la révision attendue, que chaque lien local cible un fichier existant et que toute ancre HTML locale ciblée apparaît une seule fois. Les liens GitHub `blob` sont contrôlés contre la révision du build, le chemin canonique existant et, lorsqu'un fragment `L<n>` est présent, les lignes réellement disponibles. Des tests négatifs couvrent la cible Verso absente, la référence/citation non résolue, l'ancre rendue absente, les liens/ancres locaux cassés et la sortie périmée. Ces contrôles valident la cohérence mécanique des liens, non la pertinence scientifique d'une relation.
+
+La couche de validation d'une arête (extraite, passée dans la CI, revue par une personne) reste orthogonale au statut épistémique du contenu visé (proposition, hypothèse, résultat publié, preuve). La CI ne peut pas accorder une validation humaine.
+
+Le choix de phase est **réorienter** : ne pas étendre le modèle à définition → théorème → preuve → implémentation → test avant résultat positif de la comparaison d'usage du prototype étroit et avant identification de relations explicites ou de métadonnées canoniques capables de les attester.

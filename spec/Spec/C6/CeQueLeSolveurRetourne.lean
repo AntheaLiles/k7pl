@@ -57,7 +57,7 @@ document. Une interface de module doit énoncer trois choses : ce qu'une unité 
 environnement, ce qu'elle est, et ce qu'elle produit dans le monde. Le jugement germinal du chapitre
 1 en porte exactement trois.
 
-::::thm (label := "thm:interface_jugement") (status := "definition")
+::::definition (label := "thm:interface_jugement") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "compilation")
 :::title
 l'interface d'une unité de compilation est son jugement
 :::
@@ -67,7 +67,19 @@ Trois obligations, trois composantes
 
 Le jugement $`\Delta \vdash_{\mathcal{G}} t : A \mid \mathcal{E}` porte exactement les trois
 obligations d'une interface : $`\Delta` dit ce que l'unité _exige_, $`A` ce qu'elle _est_,
-$`\mathcal{E}` ce qu'elle _produit_. C'est une définition : l'interface _est_ le jugement. Elle s'accompagne d'une clôture _locale_ : pour les formes de déclaration énumérées dans ce chapitre, aucune obligation ne demande une quatrième composante, et aucune des trois n'est vide de contenu d'interface.
+$`\mathcal{E}` ce qu'elle _produit_. C'est une définition : l'interface _est_ le jugement.
+:::
+::::
+
+::::proposition (label := "thm:interface_jugement_cloture") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
+:::title
+clôture locale de l’interface
+:::
+
+:::statement +titled
+Clôture locale
+
+Elle s'accompagne d'une clôture _locale_ : pour les formes de déclaration énumérées dans ce chapitre, aucune obligation ne demande une quatrième composante, et aucune des trois n'est vide de contenu d'interface.
 :::
 
 :::proofsketch
@@ -76,7 +88,6 @@ de déclaration de ce chapitre, que chacune se range dans l'une des trois compos
 n'en demande une quatrième. L'énumération est finie et se conduit à la lecture. La clôture ne vaut que pour ces formes : elle est suffisante, non nécessaire, et une extension qui exigerait une quatrième composante — l'extension probabiliste du chapitre 4, dont le raisonnement statique demande deux notions que K7PL n'a pas — ne la contredit pas mais appelle la clause de révision de l'axiome (chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]).
 :::
 ::::
-
 Deux échecs historiques symétriques donnent la mesure de cet énoncé, et c'est ce qui le rend
 intéressant plutôt que tautologique. {rmq}[Chacun porte deux des trois obligations, aucun les
 trois.] Standard ML a des signatures riches et pas d'effets dans son interface {cite "macqueenHistoryStandardML2020"}[].
@@ -129,7 +140,7 @@ déchargée, énoncée dans le vocabulaire de la source et non dans celui du sol
 le compte de ressource consommé ; et l'état du solveur à l'épuisement. De cette forme suit une
 propriété que le développeur peut exiger.
 
-::::thm (label := "thm:rejet_reproductible")
+::::theorem (label := "thm:rejet_reproductible") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
 :::title
 reproductibilité du rejet
 :::
@@ -164,8 +175,8 @@ actionnable : un développeur ne peut pas travailler contre un avis qui change.
 n'est donc pas une propriété agréable de plus, c'est la condition sans laquelle les trois points qui
 suivent n'auraient pas d'objet.
 :::
-::::
 
+::::
 # Ce qu'un rejet propose, et pourquoi il n'y a que trois voies
 %%%
 tag := "c6-ce-que-le-solveur-retourne-ce-qu-un-rejet-propose-et-pour"
@@ -460,7 +471,7 @@ Ce que ce document adopte reste le hachage, pour ce qu'il donne par ailleurs —
 l'équivalence sémantique de deux programmes syntaxiquement distincts —, mais il ne peut plus se
 présenter comme la seule voie.
 
-::::thm (label := "thm:abaissement_grades") (status := "conjecture") (level := "compilation")
+::::conjecture (label := "thm:abaissement_grades") (level := "compilation") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "compilation")
 :::title
 l'abaissement préserve le jugement gradué
 :::
@@ -485,8 +496,8 @@ n'accomplit qu'une tâche se vérifie isolément. Le grade étant une grandeur s
 établir n'est pas qu'aucun observateur cible ne distingue plus que la source, mais que l'annotation
 portée par la source a une image dans la cible et que cette image ne l'affaiblit pas.
 :::
-::::
 
+::::
 La distinction qui commande cet énoncé est celle qu'établit la littérature sur la compilation
 vérifiée : préserver le _comportement_ et être _pleinement abstrait_ ne sont pas la même exigence {cite "pattersonNext700Compiler"}[],
 et c'est la première qui est en jeu ici.

@@ -1,15 +1,15 @@
-# Inventaire mécanique des énoncés existants — C8.0
+# Inventaire mécanique des énoncés existants — C8.0 (base pré-migration)
 
-> **État : inventaire de référence provisoire, à valider.** Ce relevé décrit la syntaxe héritée ; il ne constitue ni une classification sémantique approuvée, ni une preuve de validité mathématique. Aucun énoncé source n'a été modifié pour produire ce document.
+> **État : instantané historique pré-migration.** Ce relevé décrit la syntaxe héritée au commit de référence ; il ne constitue ni une classification sémantique approuvée, ni une preuve de validité mathématique. À la date de ce relevé, aucun énoncé source n'avait été modifié. La migration ratifiée est maintenant documentée dans le [registre de migration C8](LEAN-STATEMENT-MIGRATION.md).
 
 - Référence du relevé : branche `main`, arbre Git `20a228f137f507aac9b3e8c9f2e1776f29fa635a`.
 - Périmètre exploratoire : fichiers `spec/Spec/**/*.lean` contenant des directives `::::thm`.
 - Méthode : lecture des directives, extraction des arguments littéraux `label`, `status`, `level`, titre et présence des créneaux `:::statement` / `:::proofsketch`.
-- Les lignes désignent le début de la directive dans le fichier au commit de référence. Toute modification des sources peut les décaler ; il faudra régénérer le relevé avant migration.
+- Les lignes désignent le début de la directive dans le fichier au commit de référence. Elles sont des repères historiques et ne correspondent plus nécessairement aux lignes courantes ; la régénération des inventaires courants fait partie du point C8.4.
 - `status` est conservé comme **champ historique**, pas comme taxonomie cible. `level` est lui aussi conservé tel quel ; il ne doit pas être assimilé au futur `scope`.
 - La présence de `:::proofsketch` indique uniquement une esquisse textuelle. Elle ne prouve pas qu'une preuve soit correcte, ni que Lean vérifie l'énoncé.
 
-## 1. Contrôle de couverture
+## 1. Contrôle de couverture de la base pré-migration
 
 - Énoncés relevés : **69**.
 - Fichiers sources recensés : **21**.

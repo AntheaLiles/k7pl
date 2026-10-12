@@ -1,0 +1,1695 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-10-10",
+  "source": {
+    "repository": "ossf/best-practices-badge",
+    "commit": "1059cb310a63cbcf0e1ada5fef0d7e9870a02ff1",
+    "metal": {
+      "path": "criteria/criteria.yml",
+      "blob_sha": "7804ec1a56e6423d58b23fc67e9ec9d4a6d43e7b"
+    },
+    "baseline": {
+      "path": "criteria/baseline_criteria.yml",
+      "blob_sha": "b7f3742959f7197b0e83fe49c7d92de05a578ba5"
+    },
+    "note": "Pinned source observation only. --check-upstream detects changes. This registry is never updated automatically."
+  },
+  "sections": {
+    "passing": {
+      "description_good": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "interact": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "contribution": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "contribution_requirements": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "floss_license": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "floss_license_osi": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "license_location": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "documentation_basics": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "documentation_interface": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "sites_https": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "discussion": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "english": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "maintained": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "repo_public": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "repo_track": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "repo_interim": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "repo_distributed": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "version_unique": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "version_semver": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "version_tags": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "release_notes": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "release_notes_vulns": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "report_process": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "report_tracker": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "report_responses": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "enhancement_responses": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "report_archive": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "vulnerability_report_process": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "vulnerability_report_private": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "vulnerability_report_response": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "build": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "build_common_tools": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "build_floss_tools": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "test": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "test_invocation": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "test_most": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "test_continuous_integration": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "test_policy": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "tests_are_added": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "tests_documented_added": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "warnings": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "warnings_fixed": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "warnings_strict": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "know_secure_design": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "know_common_errors": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_published": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_call": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_floss": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_keylength": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_working": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_weaknesses": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_pfs": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_password_storage": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_random": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "delivery_mitm": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "delivery_unsigned": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "vulnerabilities_fixed_60_days": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "vulnerabilities_critical_fixed": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "no_leaked_credentials": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "static_analysis": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "static_analysis_common_vulnerabilities": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "static_analysis_fixed": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "static_analysis_often": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "dynamic_analysis": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "dynamic_analysis_unsafe": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "dynamic_analysis_enable_assertions": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "dynamic_analysis_fixed": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      }
+    },
+    "silver": {
+      "achieve_passing": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "contribution_requirements": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "dco": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "governance": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "code_of_conduct": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "roles_responsibilities": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "access_continuity": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "bus_factor": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "documentation_roadmap": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "documentation_architecture": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "documentation_security": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "documentation_quick_start": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "documentation_current": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "documentation_achievements": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "accessibility_best_practices": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "internationalization": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "sites_password_security": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "maintenance_or_update": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "report_tracker": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "vulnerability_report_credit": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "vulnerability_response_process": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "coding_standards": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "coding_standards_enforced": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "build_standard_variables": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "build_preserve_debug": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "build_non_recursive": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "build_repeatable": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "installation_common": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "installation_standard_variables": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "installation_development_quick": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "external_dependencies": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "dependency_monitoring": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "updateable_reused_components": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "interfaces_current": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "automated_integration_testing": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "regression_tests_added50": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "test_statement_coverage80": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "test_policy_mandated": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "tests_documented_added": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "warnings_strict": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "implement_secure_design": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_weaknesses": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_algorithm_agility": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_credential_agility": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_used_network": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_tls12": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_certificate_verification": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_verification_private": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "signed_releases": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "version_tags_signed": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "input_validation": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "hardening": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "assurance_case": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "static_analysis_common_vulnerabilities": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "dynamic_analysis_unsafe": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      }
+    },
+    "gold": {
+      "achieve_silver": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "bus_factor": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "contributors_unassociated": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "copyright_per_file": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "license_per_file": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "repo_distributed": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "small_tasks": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "require_2FA": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "secure_2FA": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "code_review_standards": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "two_person_review": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "build_reproducible": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "test_invocation": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "test_continuous_integration": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "test_statement_coverage90": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "test_branch_coverage80": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_used_network": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "crypto_tls12": {
+        "na_allowed": true,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "security_review": {
+        "na_allowed": false,
+        "na_justification_required": false,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "hardening": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": true,
+        "future": false,
+        "obsolete": false
+      },
+      "dynamic_analysis": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "dynamic_analysis_enable_assertions": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": true,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      }
+    },
+    "baseline-1": {
+      "osps_ac_01_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_ac_02_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_ac_03_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_ac_03_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_01_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_01_03": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_03_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_03_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_07_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_do_01_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_do_02_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_gv_02_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_gv_03_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_le_02_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_le_02_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_le_03_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_le_03_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_01_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_01_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_02_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_04_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_05_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_05_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_02_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      }
+    },
+    "baseline-2": {
+      "osps_ac_04_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_02_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_04_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_05_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_06_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_do_06_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_do_07_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_gv_01_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_gv_01_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_gv_03_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_le_01_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_03_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_06_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_sa_01_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_sa_02_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_sa_03_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_01_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_03_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_04_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      }
+    },
+    "baseline-3": {
+      "osps_ac_04_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_01_04": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_02_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_br_07_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_do_03_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_do_03_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_do_04_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_do_05_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_gv_04_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_02_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_04_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_06_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_06_03": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_qa_07_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_sa_03_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_04_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_05_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_05_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_05_03": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_06_01": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      },
+      "osps_vm_06_02": {
+        "na_allowed": true,
+        "na_justification_required": true,
+        "met_justification_required": false,
+        "met_url_required": false,
+        "future": false,
+        "obsolete": false
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Lean statement-command taxonomy and proof-bearing exposition plan
 
-**Status:** IN PROGRESS — C8 (ontology and 69-block classification ratified; mechanical inventory and source-level semantic audit B01–B11 complete; implementation, proof-obligation resolution, and controlled migration pending)  
+**Status:** IN PROGRESS — C8 (ontology and 69-block classification ratified; shared directives and structural controls implemented on stacked branches; controlled migration is present as 74 objects across 21 files, preserving 69 historical labels and adding five companion objects; current exact-head CI must be checked on PR #139 rather than inferred from a historical SHA; bibliography, semantic hypothesis attachment, and mathematical proof obligations remain open; prose reduction is deferred)  
 **Scope:** specification source in `spec/`, Verso extensions in `tools/SpecExt/`, statement inventories and controls  
 **Purpose:** make the mathematical and epistemic nature of specification statements explicit while reducing explanatory prose that merely labels or repeats that nature
 
@@ -127,7 +127,7 @@ The current `::::thm` should not be removed first. Migration must proceed in lay
 
 Build a complete inventory of all current statement blocks and classify each occurrence independently.
 
-**Progress recorded 2026-10-10:** the mechanical inventory covers 69 active `::::thm` blocks across 21 source files. The source-level semantic review B01–B11 is complete, and the [69-block classification ratification ledger](LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) records the ratified nature, logical role, epistemic state, scope, visible support, and remaining qualification for every block. This ratifies classification only, not mathematical validity or Lean proof. The dependency checker and inventory drift controls remain part of the assurance gate. H1, bounded disclosure/`Declassify`, representation admissibility, simulation/fidelity, several algebraic compatibility laws, and the composite-object splits remain open proof or migration obligations. C8.0 is therefore **not closed**.
+**Progress recorded 2026-10-10:** the mechanical inventory covers 69 active `::::thm` blocks across 21 source files. The source-level semantic review B01–B11 is complete, and the [69-block classification ratification ledger](LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) records the ratified nature, logical role, epistemic state, scope, visible support, and remaining qualification for every block. This ratifies classification only, not mathematical validity or Lean proof. The dependency checker and inventory drift controls remain part of the assurance gate. The controlled migration is now applied on branch `feat/c8-controlled-statement-migration`: the 69 ratified labels are retained, five complementary objects are added, and the six composite cases are recorded in the [migration register](LEAN-STATEMENT-MIGRATION.md). This is a source migration, not mathematical validation. H1, bounded disclosure/`Declassify`, representation admissibility, simulation/fidelity, and several algebraic compatibility laws remain open proof obligations. The historical CI run on `f6624d36e875e053384c9d276a283732e3782e40` passed on that revision only; it does not validate later branch heads. The controlled migration register currently describes 74 objects (69 historical labels plus five companion objects). The mechanical checks compare source and register fields, resolve direct statement references, preserve the 69 historical levels, and reject lost or duplicate labels. The generated correspondence view is rebuilt by `scripts/suivi.py all` and its diff is checked in CI. Dependency cycles are diagnostic alerts requiring semantic review, not proof of scientific circularity and not a blocking cycle-free assertion. Inspect the current #139 head's own CI checks before merge. Bibliographic source resolution and semantic adequacy of hypothesis attachment remain open for C8.6/C8.7; mathematical proof obligations also remain open. C8.0 is therefore **not closed**.
 
 Required fields:
 
@@ -149,6 +149,7 @@ The output is a ratified taxonomy, not merely a list of command names.
 
 ### C8.2 — Extension refactoring
 
+**C8.2/C8.3 validated on PR #134 exact head `0a2171c3c3a188a9d2802bd6779392d393eefe07` (CI run [#1024](https://github.com/AntheaLiles/k7pl/actions/runs/38121483338), 2026-10-11).** `tools/SpecExt/Theorem.lean` uses the shared `StatementInfo` record, legacy `::::thm` mapping, specialized command front ends, metadata validation, separate scope/provenance/formal-artifact fields, and role/kind-specific counters for new blocks. Python inventory/ontology controls, including the fixed legacy metrics parser and inventory argument extraction, passed alongside Lean implementation/tests, Verso and PDF rendering on that exact head. The result is mechanical/build evidence only; the source migration has a separate gate in PR #139, and C8 remains open.
 Refactor `tools/SpecExt/Theorem.lean` into a representation that can encode the ratified taxonomy.
 
 The preferred architecture is one internal statement representation with validated variants rather than a copy-pasted renderer for every command. Surface commands may remain distinct for authoring clarity while sharing the same internal representation and rendering infrastructure.
@@ -179,6 +180,8 @@ Controls should reject at least:
 - proof blocks detached from an eligible parent.
 
 ### C8.4 — Controlled migration
+
+**Validated (2026-10-10):** the source migration on `feat/c8-controlled-statement-migration` passes exact-head CI at `f6624d36e875e053384c9d276a283732e3782e40`. The 69 historical labels survive across the 21 source files; five complementary objects separate the six composite cases. The source/register drift checker confirms 74 active rows, label coverage, direct reference resolution, and the absence of syntactic dependency cycles. Python tooling, Verso HTML/TeX rendering, and PDF compilation pass. See [the migration register](LEAN-STATEMENT-MIGRATION.md). This validates representation and rendering, not mathematical truth or proof adequacy.
 
 Migrate the existing statements without changing their mathematical content.
 
