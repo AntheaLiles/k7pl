@@ -47,7 +47,7 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
             '<input type="checkbox" data-edge-kind="contains">'
             '<input type="checkbox" data-edge-kind="references">'
             '<input type="checkbox" data-edge-kind="cites">'
-            '<ul id="node-list"></ul><ul id="relations"></ul><p id="summary">Chargement</p><script>const provenanceLabel = "Source de la relation"; fetch("./graph.json");</script>'
+            '<ul id="node-list"></ul><ul id="relations"></ul><p><span id="selected"></span><a id="selected-link" href="../index.html">Ouvrir</a></p><p id="summary">Chargement</p><script>const provenanceLabel = "Source de la relation"; fetch("./graph.json");</script>'
             '</body></html>',
             encoding="utf-8",
         )
