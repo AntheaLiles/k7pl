@@ -221,4 +221,42 @@ theorem top_disjunct_iff_le (cost budget : ℕ∞) :
     · exact hle
   · exact Or.inr
 
+
+/-- If the announced cost is covered by the budget, truncated subtraction
+leaves a residual whose addition to the cost recovers the original budget.
+This is an arithmetic fact about the chosen bound convention on ℕ∞. -/
+theorem truncatedSub_add_of_le (β k : ℕ∞) (h : k ≤ β) :
+    truncatedSub β k + k = β := by
+  cases β with
+  | top =>
+      simp [truncatedSub]
+  | coe b =>
+      cases k with
+      | top =>
+          simp at h
+      | coe k =>
+          have hk : k ≤ b := by simpa using h
+          simp [truncatedSub, Nat.sub_add_cancel hk]
+
+/-- Generic profile-level admissibility: the scalarized profile cost is
+covered by the supplied budget. This is not yet the canonical K7PL predicate
+because TemporalProfile has not been identified with the normative domain K. -/
+def profileAdmissible {L : Type u} (β : ℕ∞) (κ : TemporalProfile L) : Prop :=
+  costBudget κ ≤ β
+
+/-- Profile-level consumption is available only with a proof of admissibility.
+It models the partial domain contract from D6, but is not yet K7PL Consume. -/
+def profileConsume {L : Type u} (β : ℕ∞) (κ : TemporalProfile L)
+    (_admissible : profileAdmissible β κ) : ℕ∞ :=
+  truncatedSub β (costBudget κ)
+
+/-- On the admitted profile domain, the residual plus the announced scalar cost
+recovers the budget under the selected ℕ∞ convention. This theorem does not
+show that a concrete K7PL operational step respects the budget. -/
+theorem profileConsume_conservation {L : Type u} (β : ℕ∞)
+    (κ : TemporalProfile L) (h : profileAdmissible β κ) :
+    profileConsume β κ h + costBudget κ = β := by
+  unfold profileConsume
+  exact truncatedSub_add_of_le β (costBudget κ) h
+
 end K7pl.GradeBudget
