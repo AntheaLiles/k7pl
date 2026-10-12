@@ -152,6 +152,8 @@ def check(site_root: Path, expected_ref: str) -> list[str]:
         errors.append("interactive page must load its co-generated graph.json")
     if len(page.scripts) != 1 or page.scripts[0].get("src"):
         errors.append("interactive page must have exactly one inline script and no remote script dependency")
+    if "<noscript>" not in page_source or "La vue interactive nécessite JavaScript" not in page_source:
+        errors.append("interactive page must provide an explicit no-script fallback")
 
     nav_links = set(page.links)
     for href in EXPECTED_NAV_LINKS:
