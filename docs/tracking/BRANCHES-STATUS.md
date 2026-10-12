@@ -6,6 +6,19 @@
 
 Ce registre remplace l'inventaire du 11 octobre. Il réalise le passage d'hygiène annoncé par [l'instantané de reprise](RECOVERY-STATUS-2026-10-11.md), § 5 : pour chaque tête sans PR ouverte, il consigne s'il reste du contenu unique. Il recommande ; il **n'autorise ni fusion ni suppression**. Aucune branche n'a été supprimée ni réécrite pendant ce rapprochement. Les reprises sont portées par de nouvelles branches `rebase/…`, et les branches d'origine restent intactes.
 
+## 0. Renommage `obsolete/` et `valuable/` (12 octobre 2026)
+
+À la demande de l'autrice, chaque branche de travail a reçu un préfixe qui indique son sort :
+
+- **`obsolete/<nom d'origine>`** : 34 branches qui n'apportent plus rien à `main`, sections 2 à 4 ci-dessous. Elles sont prévues pour suppression **après la fusion de la PR qui porte ce registre**. Cette PR restaure aussi le seul contenu encore unique de la pile `research/*` (voir section 3).
+- **`valuable/<nom d'origine>`** : 5 branches à conserver : `claude/lean4-reuse-init-qvzlcg` et les quatre `split/pr10-*`, section 5. Pour `split/pr10-1-outillage-spec`, le préfixe suit la consigne « les `split/*` sont valuable » ; son commit `c4aea10` est aussi contenu dans `split/pr10-2`, `-3` et `-4`, et son seul résidu utile a été fusionné par #185.
+
+Le nouveau nom pointe exactement sur le SHA indiqué dans les tableaux ; les 39 correspondances ont été vérifiées après création. Ne sont pas renommées : `main`, `ccr-c4afa630-5uz1ic` (tête de la PR de ce registre) et `automation/generated-status` (PR générée automatiquement).
+
+**État au moment de l'écriture :** les nouveaux noms existent, mais **les anciens noms n'ont pas été supprimés**. La suppression a été refusée par le contrôle des actions destructives de la session de l'agent. Chaque branche existe donc provisoirement sous ses deux noms, sur le même commit. Supprimer un ancien nom ne perd aucun contenu, puisque le nouveau nom pointe sur le même SHA.
+
+Dans les tableaux ci-dessous, les branches sont désignées par leur nom d'origine.
+
 ## Méthode et limites
 
 Faits observés, dans l'ordre :
@@ -52,6 +65,8 @@ Le rebase sur `main` ne laisse aucun changement. Ces branches peuvent être supp
 
 Ce sont les étapes empilées des décisions D3 à D11 et de l'audit indépendant de la porte C. Elles ont été fusionnées dans la pile de #170, pas dans `main`. `git cherry` contre la tête de #170 ne trouve aucun patch sans équivalent, sauf pour `research/l1-rel-mode-opportunities-2026-10-11` : ses deux patchs restants portent sur des fichiers que #170 reprend et révise (`L1-REL-MODE-OPPORTUNITIES-2026-10-11.md`, D-16 dans `DECISIONS.md`).
 
+**Correction du 12 octobre.** L'équivalence de patch ne suffisait pas. Le commit de fusion `a353c09` de #170 a conservé l'ancienne version de deux registres de `docs/migration/`. Les consignations D3, D5, D6 et D7 de `L1-C01-C02-TYPED-INTERFACE-AUDIT-2026-10-11.md`, ainsi qu'une phrase de `L1-THEORY-OBJECTS.md`, manquaient donc à `main`. Le registre typé indiquait encore « D3 — OUVERT », alors que `DECISIONS.md` consigne D-17 à D-21. La PR de ce registre reporte à l'identique le résidu de `research/d11-audit-multiplicity-sites-2026-10-11` (`37160f8`), qui est aussi celui de `research/c-gate-independent-audit-2026-10-11`. Les résidus des autres branches de la pile en sont des versions antérieures.
+
 | Branche | Tête | PR (base) |
 |---|---|---|
 | `research/mode-scope-c01-c02-2026-10-11` | `ec7076f` | #171 (pile #170) |
@@ -67,7 +82,7 @@ Ce sont les étapes empilées des décisions D3 à D11 et de l'audit indépendan
 | `research/c-gate-independent-audit-2026-10-11` | `596a957` | #181 |
 | `research/l1-rel-mode-opportunities-2026-10-11` | `f1901f8` | aucune PR |
 
-Action proposée : #183 étant fusionnée, ces branches peuvent être supprimées après votre vérification. Leur contenu est dans `main`.
+Action proposée : ces branches peuvent être supprimées après la fusion de la PR de ce registre, qui contient la restauration ci-dessus.
 
 ## 4. Branches supersédées — aucun résidu utile
 
