@@ -142,7 +142,7 @@ La décision ne constitue pas une définition formelle de `K`, ni une preuve Lea
 
 **Décision d’autrice : principe de couverture ratifié ; forme canonique normalisée.** Un budget `β` est admissible lorsque `Cost_Budget(κ)≤β`. Dans `ℕ∞`, si `ω` est le maximum, la formulation `β=ω ∨ Cost_Budget(κ)≤β` lui est logiquement équivalente ; retenir la seule comparaison est une normalisation logique, pas une nouvelle ratification d’autrice.
 
-La définition formelle des types et de l’ordre, ainsi que les preuves de correction et l’usage de cette précondition dans chaque règle, restent ouverts. Cette décision ne détermine pas le domaine de `Consume` (D6) ni celui de `ψ` (D7). Voir [la note D5](../migration/L1-D5-ADM-PRINCIPLE-2026-10-11.md).
+Le lemme Lean `K7pl.GradeBudget.top_disjunct_iff_le` vérifie seulement l’identité d’ordre dans `ℕ∞` ; il ne définit ni `Cost_Budget`, ni le prédicat formel K7PL `Adm`, ni leurs usages dans les règles. La définition formelle des types et de l’ordre, la formalisation de `Cost_Budget`, la preuve de correction et l’usage de cette précondition dans chaque règle restent ouverts. Cette décision ne détermine pas le domaine de `Consume` (D6) ni celui de `ψ` (D7). Voir [la note D5](../migration/L1-D5-ADM-PRINCIPLE-2026-10-11.md).
 
 
 ## D-20 — Domaine partiel de `Consume` (11 octobre 2026)
