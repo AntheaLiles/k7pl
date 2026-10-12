@@ -20,7 +20,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Le nombre de mentions dans les lots est supérieur au nombre de labels uniques parce que certains résultats sont relus comme dépendances de plusieurs blocs. Les recouvrements ne constituent pas des blocs supplémentaires.
 
-**Intégration des notes (depuis le 12 octobre 2026).** La note B01 a été intégrée puis supprimée : ses obligations ouvertes figurent dans le [registre de migration](LEAN-STATEMENT-MIGRATION.md), section « Obligations ouvertes issues de la revue sémantique C8 », et sont signalées dans les blocs de `SixSchemasDeMetatheorie.lean`. Dernière version de la note : commit `3e2f45c65e0d5a083eae9ed1bb9715aeb2392714`. Les colonnes « Lot(s) de revue » conservent l'historique de couverture.
+**Intégration des notes (depuis le 12 octobre 2026).** Les notes B01 et B02 ont été intégrées puis supprimées : leurs obligations ouvertes figurent dans le [registre de migration](LEAN-STATEMENT-MIGRATION.md), section « Obligations ouvertes issues de la revue sémantique C8 », qui donne aussi le commit de la dernière version de chaque note, et sont signalées dans les blocs concernés de `spec/`. Les colonnes « Lot(s) de revue » conservent l'historique de couverture.
 
 ## 2. Matrice détaillée
 
