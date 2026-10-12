@@ -41,8 +41,6 @@
 | | Question | Éléments | Effet |
 |---|---|---|---|
 | — | les quatre imports ciblés : lesquels verser, où | « validés » d'après le compte rendu du 1er octobre, **non versés** au texte ; le dernier est écarté pour `BLOQ-06` (corrigé autrement) | trois instructions à conduire (`BIB-10` pour les modes) |
-| `thm:schema_reinvocation` | domaine de `n` dans le schéma de ré-invocation bornée : entiers finis, ou `ℕ∞` avec un traitement explicite de `ω` | l'énoncé dit « entier fini » mais quantifie sur `n ∈ ℕ∞` ; relevé par la revue sémantique C8, lot 01 ; obligation reportée au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative de l'énoncé ; `req:schema_reinvocation_compatibility` et `thm:image_fix` en dépendent |
-| `thm:raffinement` | scinder ou non le bloc composé : construction du système de raffinement d'un côté, ses trois lectures (effacement, non-interférence, ordre de précision) de l'autre | options : (a) scinder en une construction et trois énoncés dépendants, chacun avec ses prémisses ; (b) garder le bloc et énumérer, dans l'énoncé, les prémisses de chaque lecture ; (c) garder le texte actuel avec la note d'obligation ouverte. Relevé par la revue sémantique C8, lot 02 ; détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative ; `thm:schema_effacement` cite `thm:raffinement` |
 
 ## Nouvelles, nées de la conversion
 
@@ -63,6 +61,9 @@
 | `D8` | La passe physique de documentation est clôturée ; les décisions de migration restantes relèvent de `docs/migration/`. | architecture documentaire |
 | ANOM-09 | **Résolution technique vérifiée sur candidate** `9c34e7aaa99e00809c00d56812ab2160b55c276d`, run CI [`38131422345`](https://github.com/AntheaLiles/k7pl/actions/runs/38131422345): index paginé aux pp. imprimées 277–278, 287 pages, cadres rouges supprimés, aucune cible `idx-*` non résolue dans `main.log`, garde CI dédiée réussie. Cette clôture concerne ANOM-09 sur la candidate, pas la validation globale L1/L5. | rendu PDF / test / CI |
 | `P1–P6` | Les portes restent la séquence de release : P1 blocages scientifiques, P2 assertions ouvertes, P3 décisions auteur, P4 implémentation, P5 stabilisation documentaire, P6 release. | release |
+| `thm:raffinement` (12 octobre 2026) | **Décision de l'autrice : scinder (option a).** La construction du système de raffinement garde le label historique ; ses trois lectures deviennent les corollaires `thm:raffinement_effacement`, `thm:raffinement_non_interference` et `thm:raffinement_precision`, chacun avec ses prémisses. États hérités sans promotion (`under-review`). La formulation des prémisses reste à valider. | spécification C2 ; registre de migration ; contrôle d'inventaire |
+| `thm:sedimentation` (12 octobre 2026) | **Décision de l'autrice : corriger** le résidu éditorial de la scission C8.4 (« (i) … repris ici ; » sans second membre). L'énoncé dit désormais qu'il vaut pour des conteneurs non gradués et renvoie à `req:sedimentation_graduee`. | spécification C2 |
+| `thm:schema_reinvocation` (12 octobre 2026) | **Domaine de `n` : `ℕ∞` avec traitement explicite de `ω`.** Avis de l'autrice, retenu après vérification de cohérence : `φ_n` est défini pour `n ∈ ℕ∞` (C3, monoïde des transformateurs, avec `ε^ω = ⋁ ε^m`), `Usage = WithTop ℚ≥0` contient l'usage non borné, la règle Sc quantifie sur `ℕ∞`. Le cas fini reste la ré-invocation séquentielle bornée de toutes les instances ; le cas `ω` est énoncé à part et sa compatibilité est une obligation distincte. Restent ouverts : existence des suprema, lien avec le service répliqué de la traduction, titre « bornée ». | spécification C2 ; registre de migration |
 
 ## État scientifique C — mise à jour du 11 octobre 2026
 

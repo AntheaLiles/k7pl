@@ -60,41 +60,97 @@ Trois dispositifs, une seule structure
 Soit $`\mathcal{T}` la catégorie du métalangage, $`\mathcal{D}` celle des dérivations de K7PL, et
 $`\llbracket \cdot \rrbracket` la traduction du théorème {num "thm:traduction_metalangage"}[]. _Si_
 $`\llbracket \cdot \rrbracket` est un foncteur préservant le typage — dette unique que ce théorème acquitte —, alors
-$`(\mathcal{D}, \mathcal{T}, \llbracket \cdot \rrbracket)` est un système de raffinement de types,
-et il s'ensuit que :
-
-_(i)_ l'effacement de la Phase 8 est l'action de $`\llbracket \cdot \rrbracket` sur les objets ;
-
-_(ii)_ la non-interférence du chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) est l'énoncé que
-$`\mathcal{T}` ne distingue pas deux dérivations de même image ;
-
-_(iii)_ la relation de précision $`\sqsubseteq`, restreinte aux objets d'une même fibre, est l'ordre
-de cette fibre, et l'ordre de précision modal $`\mathrm{Unr} \sqsubseteq \mathrm{Aff} \sqsubseteq \mathrm{Lin}` en est la
-restriction à la dimension d'usage.
+$`(\mathcal{D}, \mathcal{T}, \llbracket \cdot \rrbracket)` est un système de raffinement de types.
+Les trois corollaires qui suivent en sont les trois lectures ; chacun porte ses prémisses propres.
 :::
 
 :::proofsketch
 Que $`\llbracket \cdot \rrbracket` soit un foncteur est le contenu du
-théorème {num "thm:traduction_metalangage"}[] : il envoie une composition de dérivations sur la
+théorème {num "thm:traduction_metalangage"}[] : il envoie une composition de dérivations sur la
 coupure correspondante et l'identité sur l'identité. La fibre au-dessus d'un type $`S` du
-métalangage est faite des types de K7PL d'image $`S` ; deux tels types ne peuvent différer que par
+métalangage est faite des types de K7PL d'image $`S` ; deux tels types ne peuvent différer que par
 ce que le foncteur n'emporte pas, c'est-à-dire par leurs grades et par les effets latents qu'ils
-portent. Or c'est précisément sur ces dimensions que le
+portent.
+:::
+
+:::note
+_Obligation ouverte._ La construction ne vaut que sous sa prémisse : les catégories $`\mathcal{D}`
+et $`\mathcal{T}`, le foncteur et la préservation du typage restent à fixer complètement, et la
+réserve sur l'induction de la traduction (note ci-dessous) s'applique. Que la prémisse soit
+plausible n'établit aucune des trois lectures.
+:::
+::::
+
+::::corollary (label := "thm:raffinement_effacement") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "none") (scope := "metatheory")
+:::title
+l'effacement comme action sur les objets
+:::
+
+:::statement +titled
+Première lecture
+
+Sous les hypothèses du théorème {num "thm:raffinement"}[], si la Phase 8 efface exactement ce que
+$`\llbracket \cdot \rrbracket` n'emporte pas — les grades et les effets —, alors l'effacement de la
+Phase 8 est l'action de $`\llbracket \cdot \rrbracket` sur les objets.
+:::
+
+:::note
+_Obligation ouverte._ Reste à établir que la Phase 8 efface exactement les grades et les effets :
+son domaine doit coïncider avec ce que la traduction n'emporte pas.
+:::
+::::
+
+::::corollary (label := "thm:raffinement_non_interference") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "none") (scope := "security")
+:::title
+la non-interférence comme indiscernabilité dans la base
+:::
+
+:::statement +titled
+Deuxième lecture
+
+Sous les hypothèses du théorème {num "thm:raffinement"}[], et pour une relation d'observation fixée
+sur $`\mathcal{T}`, qui détermine ce que la sémantique cible distingue, la non-interférence du
+chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) est l'énoncé que $`\mathcal{T}` ne distingue
+pas deux dérivations de même image.
+:::
+
+:::note
+_Obligation ouverte._ Restent à définir la relation d'observation sur $`\mathcal{T}`, les
+observations qu'admet la sémantique cible et la notion de « même image », puis à montrer que la
+non-interférence du chapitre 1 s'énonce bien ainsi.
+:::
+::::
+
+::::corollary (label := "thm:raffinement_precision") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+:::title
+la précision comme ordre des fibres
+:::
+
+:::statement +titled
+Troisième lecture
+
+Sous les hypothèses du théorème {num "thm:raffinement"}[], si $`\sqsubseteq` est définie sur les
+seules dimensions que $`\llbracket \cdot \rrbracket` n'emporte pas — grades et effets latents — et si
+sa restriction à une fibre est un ordre, alors la relation de précision $`\sqsubseteq`, restreinte aux
+objets d'une même fibre, est l'ordre de cette fibre, et l'ordre de précision modal
+$`\mathrm{Unr} \sqsubseteq \mathrm{Aff} \sqsubseteq \mathrm{Lin}` en est la restriction à la dimension
+d'usage.
+:::
+
+:::proofsketch
+C'est précisément sur les dimensions que le foncteur n'emporte pas que le
 §{num "sec:c2-adjonctions-et-enrichissement"}[] définit $`\sqsubseteq`, et l'ordre annoncé y est
 donc l'ordre de la fibre plutôt qu'une structure ajoutée. Les morphismes verticaux sont les
-foncteurs d'inclusion du §{num "sec:c2-la-comonade-exponentielle-et"}[] : passer de
+foncteurs d'inclusion du §{num "sec:c2-la-comonade-exponentielle-et"}[] : passer de
 $`\mathrm{Lin}\,T` à $`\mathrm{Unr}\,T` ne change pas le terme, seulement ce qu'on s'autorise à en
 faire, et l'inclusion se projette donc sur une identité.
 :::
 
 :::note
-_Obligation ouverte._ La seule prémisse — une traduction fonctorielle qui préserve le typage — ne
-suffit pas visiblement aux trois lectures. La lecture _(ii)_ demande une relation d'observation et la
-liste des observations qu'admet la sémantique cible ; la lecture _(iii)_ demande d'énoncer la
-restriction de $`\sqsubseteq` à une fibre et ses propriétés d'ordre, puis de montrer qu'elle coïncide
-avec l'ordre de la fibre. Restent à définir précisément « même image », l'indiscernabilité
-observationnelle, les morphismes verticaux et l'ordre en jeu, et à donner pour chaque lecture les
-prémisses ou lemmes qu'elle exige. Que la prémisse soit plausible n'établit pas le bloc entier.
+_Obligation ouverte._ Restent à énoncer les propriétés d'ordre de la restriction de $`\sqsubseteq` à
+une fibre, à montrer qu'elle coïncide avec l'ordre de la fibre et à définir les morphismes
+verticaux. L'enrichissement de $`\sqsubseteq` à tous les morphismes reste un engagement distinct
+(voir ci-dessous).
 :::
 ::::
 S'il tient, il dispense de poser ce que le §{num "sec:c2-adjonctions-et-enrichissement"}[]
