@@ -8,11 +8,12 @@ import argparse
 import hashlib
 import html
 import json
+import os
 import posixpath
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urljoin, urlsplit
+from urllib.parse import quote, unquote, urljoin, urlsplit
 
 
 VOID_TAGS = {
@@ -392,12 +393,22 @@ HTML_TEMPLATE = r"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="k7pl-generated-ref" content="__GENERATED_REF__">
 <title>Explorer les relations — K7PL</title>
 <style>
 :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
 body { max-width: 1200px; margin: 0 auto; padding: 1.2rem; line-height: 1.45; }
 a { text-underline-offset: .15em; }
 .controls { display: grid; grid-template-columns: minmax(16rem, 1fr) 2fr; gap: 1rem; align-items: start; }
+.graph-controls { display: flex; flex-wrap: wrap; gap: .8rem 1.2rem; align-items: center; margin: .8rem 0; }
+.graph-controls label { display: inline-flex; gap: .4rem; align-items: center; }
+select, button, input { font: inherit; }
+button, select { padding: .35rem .5rem; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #0969da; outline-offset: 2px; }
+.node-kind { font-weight: 650; }
+.node-kind-statement .node-card { stroke-dasharray: 5 2; }
+.node-kind-figure .node-card { rx: 18; }
+.node-kind-bibliography .node-card { stroke-dasharray: 2 2; }
 .panel { border: 1px solid #8c959f; border-radius: .4rem; padding: .8rem; min-width: 0; }
 input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font: inherit; }
 #node-list { max-height: 28rem; overflow: auto; padding-left: 1.2rem; }
@@ -417,10 +428,16 @@ input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font
 </style>
 </head>
 <body>
-<p><a href="../index.html">Retour à la spécification</a></p>
+<nav aria-label="Navigation du site" class="site-nav"><a href="../index.html">Retour à la spécification</a> · <a href="figures.html">Catalogue des figures</a> · <a href="semantic-graph.html">Références C6</a> · <a href="semantic-graph-c3.html">Références C3</a></nav>
 <h1>Explorer les relations explicites de K7PL</h1>
 <p>Cette vue est dérivée des liens et citations présents dans le HTML Verso. Elle n'infère ni dépendance de code, ni preuve, ni statut épistémique absent de la source.</p>
 <p id="summary" class="muted" role="status">Chargement du graphe…</p>
+<div class="graph-controls" role="group" aria-label="Filtres du graphe">
+  <label for="depth">Profondeur du voisinage <select id="depth"><option value="1">1 niveau</option><option value="2" selected>2 niveaux</option><option value="3">3 niveaux</option></select></label>
+  <label><input type="checkbox" data-edge-kind="contains" checked> Structure</label>
+  <label><input type="checkbox" data-edge-kind="references" checked> Références</label>
+  <label><input type="checkbox" data-edge-kind="cites" checked> Citations</label>
+</div>
 <div class="controls">
 <section class="panel" aria-labelledby="nodes-title">
 <h2 id="nodes-title">Objets navigables</h2>
@@ -449,6 +466,12 @@ let selectedId = null;
 const byId = new Map();
 const nodeList = document.getElementById("node-list");
 const search = document.getElementById("search");
+const depthControl = document.getElementById("depth");
+function activeEdgeKinds() {
+  return new Set(Array.from(document.querySelectorAll("[data-edge-kind]"))
+    .filter(function (control) { return control.checked; })
+    .map(function (control) { return control.dataset.edgeKind; }));
+}
 function addSvg(tag, attrs, parent) {
   const element = document.createElementNS(svgNS, tag);
   Object.keys(attrs || {}).forEach(function (key) { element.setAttribute(key, attrs[key]); });
@@ -493,13 +516,15 @@ function renderList() {
 function neighborhood(rootId) {
   const distance = new Map([[rootId, 0]]);
   const queue = [rootId];
-  const maxDepth = 2;
+  const maxDepth = Number(depthControl.value) || 2;
   const maxNodes = 24;
+  const enabledKinds = activeEdgeKinds();
   while (queue.length) {
     const current = queue.shift();
     const depth = distance.get(current);
     if (depth >= maxDepth) continue;
     graphData.edges.forEach(function (edge) {
+      if (!enabledKinds.has(edge.kind)) return;
       let other = null;
       if (edge.source === current) other = edge.target;
       else if (edge.target === current) other = edge.source;
@@ -512,7 +537,7 @@ function neighborhood(rootId) {
   return {
     distance: distance,
     nodes: Array.from(distance.keys()).map(function (id) { return byId.get(id); }).filter(Boolean),
-    edges: graphData.edges.filter(function (edge) { return distance.has(edge.source) && distance.has(edge.target); }),
+    edges: graphData.edges.filter(function (edge) { return enabledKinds.has(edge.kind) && distance.has(edge.source) && distance.has(edge.target); }),
     clipped: distance.size >= maxNodes
   };
 }
@@ -572,7 +597,8 @@ function renderGraph() {
 function renderRelations() {
   const list = document.getElementById("relations");
   list.replaceChildren();
-  const edges = graphData.edges.filter(function (edge) { return edge.source === selectedId || edge.target === selectedId; });
+  const enabledKinds = activeEdgeKinds();
+  const edges = graphData.edges.filter(function (edge) { return enabledKinds.has(edge.kind) && (edge.source === selectedId || edge.target === selectedId); });
   if (!edges.length) {
     const li = document.createElement("li");
     li.textContent = "Aucune relation explicite trouvée pour cet objet.";
@@ -597,17 +623,23 @@ function renderRelations() {
   });
 }
 search.addEventListener("input", renderList);
+depthControl.addEventListener("change", function () { renderGraph(); renderRelations(); });
+document.querySelectorAll("[data-edge-kind]").forEach(function (control) {
+  control.addEventListener("change", function () { renderGraph(); renderRelations(); });
+});
 fetch("./graph.json").then(function (response) {
   if (!response.ok) throw new Error("Impossible de charger graph.json");
   return response.json();
 }).then(function (data) {
   graphData = data;
   graphData.nodes.forEach(function (node) { byId.set(node.id, node); });
+  const requestedId = new URLSearchParams(window.location.search).get("node");
+  const requested = requestedId ? graphData.nodes.find(function (node) { return node.id === requestedId; }) : null;
   const preferred = graphData.nodes.find(function (node) {
     return node.kind === "figure" && node.id.includes("LesContraintesDeValeur.html#lbl-fig-session-automate");
   });
   const fallback = graphData.nodes.find(function (node) { return node.kind === "figure"; }) || graphData.nodes[0];
-  selectedId = (preferred || fallback).id;
+  selectedId = (requested || preferred || fallback).id;
   renderList();
   selectNode(selectedId);
 }).catch(function (error) {
@@ -630,10 +662,10 @@ def inject_navigation_link(page_path: Path, site_root: Path) -> None:
         None,
     )
     if base_href:
-        href = "navigation/index.html"
+        href = "navigation/index.html?node=" + quote(page_path.relative_to(site_root).as_posix(), safe="")
     else:
         rel = page_path.relative_to(site_root).as_posix()
-        href = posixpath.relpath("navigation/index.html", posixpath.dirname(rel) or ".")
+        href = posixpath.relpath("navigation/index.html", posixpath.dirname(rel) or ".") + "?node=" + quote(rel, safe="")
     entry = (
         '<p id="k7pl-navigation-entry" style="margin-top:2rem;padding-top:.8rem;'
         'border-top:1px solid #8c959f"><a href="' + html.escape(href, quote=True) +
@@ -650,17 +682,20 @@ def inject_navigation_link(page_path: Path, site_root: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--site", type=Path, required=True, help="rendered Verso HTML root, e.g. _out/spec/html-multi")
+    parser.add_argument("--ref", default=os.environ.get("GITHUB_SHA", "local"), help="source revision embedded in generated outputs")
     args = parser.parse_args()
     site_root = args.site.resolve()
     try:
         graph = build_graph(site_root)
+        graph["generated_ref"] = args.ref
         navigation_dir = site_root / "navigation"
         navigation_dir.mkdir(parents=True, exist_ok=True)
         (navigation_dir / "graph.json").write_text(
             json.dumps(graph, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
-        (navigation_dir / "index.html").write_text(HTML_TEMPLATE, encoding="utf-8")
+        page = HTML_TEMPLATE.replace("__GENERATED_REF__", html.escape(args.ref, quote=True))
+        (navigation_dir / "index.html").write_text(page, encoding="utf-8")
         for page in sorted(
             path for path in site_root.rglob("*.html")
             if "navigation" not in path.relative_to(site_root).parts
