@@ -431,6 +431,7 @@ input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font
 <nav aria-label="Navigation du site" class="site-nav"><a href="../index.html">Retour à la spécification</a> · <a href="figures.html">Catalogue des figures</a> · <a href="semantic-graph.html">Références C6</a> · <a href="semantic-graph-c3.html">Références C3</a></nav>
 <h1>Explorer les relations explicites de K7PL</h1>
 <p>Cette vue est dérivée des liens et citations présents dans le HTML Verso. Elle n'infère ni dépendance de code, ni preuve, ni statut épistémique absent de la source.</p>
+<noscript><p>La vue interactive nécessite JavaScript. Les pages documentaires restent consultables, et les vues statiques sont disponibles dans le <a href="figures.html">catalogue des figures</a>, les <a href="semantic-graph.html">références C6</a> et les <a href="semantic-graph-c3.html">références C3</a>.</p></noscript>
 <p id="summary" class="muted" role="status">Chargement du graphe…</p>
 <div class="graph-controls" role="group" aria-label="Filtres du graphe">
   <label for="depth">Profondeur du voisinage <select id="depth"><option value="1">1 niveau</option><option value="2" selected>2 niveaux</option><option value="3">3 niveaux</option></select></label>
