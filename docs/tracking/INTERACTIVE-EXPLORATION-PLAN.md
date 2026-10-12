@@ -50,7 +50,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Les nœuds ne sont pas limités aux fichiers : pages, sections, figures, tableaux, listings, énoncés et entrées bibliographiques rendus sont classés séparément.
 - [x] Les types d'objets sont visibles dans la liste et les nœuds ; les relations `contains`, `references` et `cites` ont des libellés distincts.
 - [x] La profondeur du voisinage (1–3 niveaux) et les types de relations affichés sont contrôlables depuis l'interface.
-- [x] Chaque nœud fournit un lien vers son objet dans le HTML documentaire rendu ; le graphe n'est pas le seul moyen de navigation.
+- [x] Le nœud sélectionné expose un lien direct vers son objet dans le HTML documentaire rendu ; les liens de source des relations offrent un retour supplémentaire.
 - [x] Le graphe n'est pas la seule modalité de navigation : le document Verso reste consultable, et les listes textuelles proposent les mêmes objets et relations.
 
 ### US-04 — Comprendre sans simplifier abusivement
