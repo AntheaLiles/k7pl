@@ -232,6 +232,7 @@ footer {{ margin-top: 2rem; border-top: 1px solid currentColor; padding-top: 1re
 <h1>Provenance des figures K7PL</h1>
 <p>Catalogue généré à partir des déclarations de figures Verso et du manifeste des sources TikZ. Il relie chaque figure à sa déclaration, sa source graphique et ses rendus publiés ; il ne prétend pas encore représenter les relations conceptuelles de la spécification.</p>
 <nav aria-label="Sources de la chaîne de rendu">
+<a href="index.html">Exploration générale</a>
 <a href="{html.escape(renderer_url, quote=True)}">Renderer Verso</a>
 <a href="{html.escape(workflow_url, quote=True)}">Workflow de validation</a>
 <a href="{html.escape(manifest_url, quote=True)}">Manifeste des sources TikZ</a>
