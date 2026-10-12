@@ -44,6 +44,8 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
             '<a href="semantic-graph-c3.html">C3</a></nav><noscript>La vue interactive nécessite JavaScript.</noscript>'
             '<label for="search">Recherche</label><input id="search" type="search">'
             '<label for="depth">Profondeur</label><select id="depth"></select><button id="reset-selection" type="button">Revenir au point de départ</button>'
+            '<label for="detail-level">Niveau de lecture</label><select id="detail-level"></select>'
+            '<section><p id="object-detail">Contexte</p></section><div class="graph-scroll" tabindex="0" aria-label="Graphe relationnel, défilement horizontal possible"></div>'
             '<input type="checkbox" data-edge-kind="contains">'
             '<input type="checkbox" data-edge-kind="references">'
             '<input type="checkbox" data-edge-kind="cites">'
@@ -60,9 +62,9 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
                 "references": 0, "citations": 0, "containment": 1,
             },
             "nodes": [
-                {"id": "index.html", "kind": "document", "label": "K7PL", "url": "index.html", "page": "index.html"},
-                {"id": "Spec/page.html", "kind": "document", "label": "Chapitre", "url": "Spec/page.html", "page": "Spec/page.html"},
-                {"id": "Spec/page.html#lbl-section", "kind": "section", "label": "Chapitre", "url": "Spec/page.html#lbl-section", "page": "Spec/page.html"},
+                {"id": "index.html", "kind": "document", "label": "K7PL", "description": "", "url": "index.html", "page": "index.html"},
+                {"id": "Spec/page.html", "kind": "document", "label": "Chapitre", "description": "", "url": "Spec/page.html", "page": "Spec/page.html"},
+                {"id": "Spec/page.html#lbl-section", "kind": "section", "label": "Chapitre", "description": "Chapitre", "url": "Spec/page.html#lbl-section", "page": "Spec/page.html"},
             ],
             "edges": [
                 {
