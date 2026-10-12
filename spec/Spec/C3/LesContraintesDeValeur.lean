@@ -384,6 +384,7 @@ singularités, et non déléguée à IEEE 754. La réalisation de (iii) est une 
 test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
 :::
 
+:::note
 Ce que l'énoncé _ne dit pas_ : l'encodage n'est pas un homomorphisme de la théorie des roues vers
 les flottants. En roues $`x/0 = \bot`, donc $`1/0 = \bot`, tandis qu'en IEEE 754 $`1/0 = +\infty` ;
 et la propagation de la charge utile d'un NaN à travers $`+` est seulement recommandée par la norme,
@@ -391,6 +392,7 @@ non exigée, les opérations invalides produisant le NaN par défaut. Les lois d
 par exemple $`\bot + y = \bot`, ne tiennent donc sur les valeurs encodées que parce que la table de
 propagation de (iii) les impose : c'est K7PL qui les spécifie, aucun effet ne dépendant de la
 machine.
+:::
 ::::
 ::::requirement (label := "thm:representation_inobservable") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "representation")
 :::title

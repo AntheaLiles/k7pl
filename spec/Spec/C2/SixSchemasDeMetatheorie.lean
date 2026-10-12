@@ -154,12 +154,12 @@ schéma de ré-invocation bornée
 
 :::statement +titled
 Employer $`n` fois, c'est invoquer $`n` fois en séquence
-:::
 
 Pour $`t` de contexte $`\Delta` et d'effet $`\varepsilon`, et pour un entier fini $`n \in \mathbb{N}_\infty`,
 la ré-invocation $`\mathsf{reinvo}(n,t)` combine deux actions distinctes : le contexte est mis à
 l'échelle par $`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et l'effet devient
 $`\varphi_n(\varepsilon)`.
+:::
 ::::
 
 ::::requirement (label := "req:schema_reinvocation_compatibility") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "metatheory")
@@ -169,7 +169,6 @@ compatibilité de la ré-invocation
 
 :::statement +titled
 Compatibilité contexte/effet
-:::
 
 L'associativité requiert séparément la composition des mises à l'échelle
 et celle des transformations d'effet ; l'unité est $`n=1`.
@@ -179,6 +178,7 @@ $`\varphi_n` sur les effets. Leur compatibilité constitue une obligation propre
 finie ; elle n'est pas une instance automatique d'une loi uniforme sur le grade complet. Sur le
 budget, cette compatibilité reste distincte de $`Scale_Usage` et ne doit pas introduire une
 multiplication du budget tant qu'aucune telle action n'est définie.
+:::
 ::::
 Certaines constructions en sont des instances directes : la traduction d'un grade fini, le parcours
 d'un vecteur, l'opération à portée et l'image bornée du point fixe déductif. L'expansion d'une macro

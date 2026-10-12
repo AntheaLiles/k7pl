@@ -79,3 +79,30 @@ A retained explanatory sketch.
 :::
 ::::'''
     assert violations(source) == []
+
+
+def test_text_outside_slots_is_rejected():
+    source = '''::::lemma (label := "thm:outside") (role := "lemma") (state := "under-review") (evidence := "none") (scope := "metatheory")
+:::statement +titled
+Title only
+:::
+
+This paragraph is not inside any slot and would not be rendered.
+::::'''
+    errors = violations(source)
+    assert any("texte hors slot" in error for error in errors)
+
+
+def test_note_slot_is_accepted():
+    source = '''::::lemma (label := "thm:noted") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
+:::statement
+Candidate result.
+:::
+:::proofsketch
+Sketch.
+:::
+:::note
+Open obligation, rendered with the statement.
+:::
+::::'''
+    assert violations(source) == []
