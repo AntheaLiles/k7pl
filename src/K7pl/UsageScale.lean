@@ -22,6 +22,9 @@ namespace K7pl.UsageScale
 
 universe u v w x
 
+variable {U : Type u} {M : Type v} {L : Type w}
+variable {Var : Type x}
+
 /-- The four-coordinate grade shape; only `usage` is scaled. `monotonicity` is not a structural mode. -/
 structure Grade (U : Type u) (M : Type v) (L : Type w) where
   usage : U
