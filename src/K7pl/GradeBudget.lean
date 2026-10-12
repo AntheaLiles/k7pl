@@ -296,6 +296,26 @@ theorem costBudgetK_eq_max {L : Type u} (κ : K L) :
 theorem admK_iff_coverage {L : Type u} (β : ℕ∞) (κ : K L) :
     admK β κ ↔ costBudgetK κ ≤ β := Iff.rfl
 
+/-- An unbounded profile cost cannot be admitted against a finite natural budget.
+This is the explicit infinity/finite-budget boundary required by D5-D6; it is
+still a property of the K-level budget model, not of an operational typing rule. -/
+theorem finite_budget_rejects_unbounded_cost {L : Type u}
+    (b : ℕ) (κ : K L) (hcost : costBudgetK κ = ⊤) :
+    ¬ admK (b : ℕ∞) κ := by
+  intro hadm
+  have hle : (⊤ : ℕ∞) ≤ (b : ℕ∞) := by
+    simpa [admK, hcost] using hadm
+  have heq : (⊤ : ℕ∞) = (b : ℕ∞) := le_antisymm hle le_top
+  exact (WithTop.coe_ne_top b) heq.symm
+
+/-- Every admitted profile with a finite natural budget has finite scalar cost.
+The witness is the same admissibility precondition required by partial Consume. -/
+theorem admitted_finite_budget_has_finite_cost {L : Type u}
+    (b : ℕ) (κ : K L) (hadm : admK (b : ℕ∞) κ) :
+    costBudgetK κ ≠ ⊤ := by
+  intro hcost
+  exact (finite_budget_rejects_unbounded_cost b κ hcost) hadm
+
 /-- D6 conservation on the admitted K-level domain. -/
 theorem consumeK_conservation {L : Type u} (β : ℕ∞)
     (κ : K L) (h : admK β κ) :
