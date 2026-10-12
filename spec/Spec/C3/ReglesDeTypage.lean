@@ -31,13 +31,13 @@ coordonnées, et App ne projette ce grade que pour mettre le contexte d'argument
 
 namespace K7pl.Spec.C3.EffectiveKernel
 
-universe u v w z
+universe uVar uMono uLevel uEffect
 
 /-- Portée normative d'usage : rationnels non négatifs et usage non borné. -/
 abbrev Usage := WithTop ℚ≥0
 
 /-- Le grade complet : usage, coordonnée monotone, niveau et budget. -/
-structure Grade (Monotonicity Level : Type) where
+structure Grade (Monotonicity : Type uMono) (Level : Type uLevel) where
   usage : Usage
   monotonicity : Monotonicity
   level : Level
@@ -88,7 +88,7 @@ inductive ValueType where
   deriving DecidableEq, Repr
 
 /-- The value grammar for Var, Pair and the unit value. -/
-inductive Value (Var : Type u) where
+inductive Value (Var : Type uVar) where
   | var : Var → Value Var
   | unit : Value Var
   | pair : Value Var → Value Var → Value Var
@@ -96,7 +96,7 @@ inductive Value (Var : Type u) where
 
 /-- The computation grammar for Ret, Lam and App.
 Lam carries its elaborated full grade explicitly. -/
-inductive Computation (Var : Type u) (Monotonicity Level : Type) where
+inductive Computation (Var : Type uVar) (Monotonicity : Type uMono) (Level : Type uLevel) where
   | ret : Value Var → Computation Var Monotonicity Level
   | lam : Var → ValueType → Grade Monotonicity Level →
       Computation Var Monotonicity Level → Computation Var Monotonicity Level
@@ -105,28 +105,28 @@ inductive Computation (Var : Type u) (Monotonicity Level : Type) where
   deriving DecidableEq, Repr
 
 /-- Computation types include effect-return and graded function types. -/
-inductive ComputationType (Effect : Type v) (Monotonicity Level : Type) where
+inductive ComputationType (Effect : Type uEffect) (Monotonicity : Type uMono) (Level : Type uLevel) where
   | returned : Effect → ValueType → ComputationType Effect Monotonicity Level
   | arrow : Grade Monotonicity Level → ValueType →
       ComputationType Effect Monotonicity Level → Effect →
       ComputationType Effect Monotonicity Level
 
 /-- A type environment is distinct from its quantitative usage context. -/
-abbrev TypeEnv (Var : Type u) := Var → Option ValueType
+abbrev TypeEnv (Var : Type uVar) := Var → Option ValueType
 
 /-- The usage observation of a typing context: π_U at each binding. -/
-abbrev UsageContext (Var : Type u) := Var → Usage
+abbrev UsageContext (Var : Type uVar) := Var → Usage
 
-def emptyTypeEnv {Var : Type u} : TypeEnv Var := fun _ => none
+def emptyTypeEnv {Var : Type uVar} : TypeEnv Var := fun _ => none
 
-def zeroContext {Var : Type u} : UsageContext Var := fun _ => 0
+def zeroContext {Var : Type uVar} : UsageContext Var := fun _ => 0
 
-def addContext {Var : Type u}
+def addContext {Var : Type uVar}
     (left right : UsageContext Var) : UsageContext Var :=
   fun x => left x + right x
 
 /-- Pointwise scaling uses the usage projection, not the complete grade. -/
-def scaleContext {Var : Type u}
+def scaleContext {Var : Type uVar}
     (r : Usage) (context : UsageContext Var) : UsageContext Var :=
   fun x => r * context x
 
@@ -141,20 +141,20 @@ def extendTypeEnv [DecidableEq Var]
     (env : TypeEnv Var) (x : Var) (A : ValueType) : TypeEnv Var :=
   fun y => if y = x then some A else env y
 
-@[simp] theorem addContext_assoc {Var : Type u}
+@[simp] theorem addContext_assoc {Var : Type uVar}
     (Γ Δ Θ : UsageContext Var) :
     addContext (addContext Γ Δ) Θ = addContext Γ (addContext Δ Θ) := by
   funext x
   simp [addContext, add_assoc]
 
-@[simp] theorem scaleContext_add {Var : Type u}
+@[simp] theorem scaleContext_add {Var : Type uVar}
     (r : Usage) (Γ Δ : UsageContext Var) :
     scaleContext r (addContext Γ Δ) =
       addContext (scaleContext r Γ) (scaleContext r Δ) := by
   funext x
   simp [scaleContext, addContext, mul_add]
 
-@[simp] theorem scaleContext_comp {Var : Type u}
+@[simp] theorem scaleContext_comp {Var : Type uVar}
     (r s : Usage) (Γ : UsageContext Var) :
     scaleContext r (scaleContext s Γ) = scaleContext (r * s) Γ := by
   funext x
@@ -167,7 +167,7 @@ def extendTypeEnv [DecidableEq Var]
   by_cases h : y = x <;> simp [eraseContext, singletonContext, zeroContext, h]
 
 /-- The value rules in the current executable fragment. -/
-inductive ValueTyping {Var : Type u} [DecidableEq Var]
+inductive ValueTyping {Var : Type uVar} [DecidableEq Var]
     (env : TypeEnv Var) :
     UsageContext Var → Value Var → ValueType → Prop where
   | var {x A} (lookup : env x = some A) :
@@ -182,8 +182,8 @@ inductive ValueTyping {Var : Type u} [DecidableEq Var]
 /-- Effective resource-sensitive rules Ret, Lam and App on π_U.
 The effect carrier and composition operation are explicit parameters; no
 algebraic laws for effects are assumed by this inductive definition. -/
-inductive ComputationTyping {Var : Type u} [DecidableEq Var]
-    {Effect : Type v} {Monotonicity : Type w} {Level : Type z}
+inductive ComputationTyping {Var : Type uVar} [DecidableEq Var]
+    {Effect : Type uEffect} {Monotonicity : Type uMono} {Level : Type uLevel}
     (effectOne : Effect) (effectMul : Effect → Effect → Effect)
     (env : TypeEnv Var) :
     UsageContext Var → Computation Var Monotonicity Level →
@@ -210,8 +210,8 @@ inductive ComputationTyping {Var : Type u} [DecidableEq Var]
 /-- A typed identity computation exists for every effect algebra and base type.
 This exercises the actual Var, Ret and Lam constructors in the kernel. -/
 theorem identityComputationTypable
-    {Var : Type u} [DecidableEq Var]
-    {Effect : Type v} {Monotonicity : Type w} {Level : Type z}
+    {Var : Type uVar} [DecidableEq Var]
+    {Effect : Type uEffect} {Monotonicity : Type uMono} {Level : Type uLevel}
     (effectOne : Effect) (effectMul : Effect → Effect → Effect)
     (x : Var) (A : ValueType) (m : Monotonicity) (ℓ : Level)
     (β : ℕ∞) :
