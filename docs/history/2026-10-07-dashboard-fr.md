@@ -138,7 +138,7 @@ Et la **validation des statuts déduits** dans `fiches-statuts.csv` (`confiance 
 
 ### C. L'ouvrage de reprise, hors fiches
 
-* **Les anomalies relevées par l'audit de la conversion** : [`ANOMALIES.md`](../tracking/ANOMALIES.md) (lettres d'annexes périmées, tableau des engagements mal formé, commentaires d'auteur obsolètes, annexes squelettiques…). Aucune n'a été corrigée : le manuscrit porte « ne rien modifier sans l'accord de l'auteur ».
+* **Les anomalies relevées par l'audit de la conversion** : l'ancien registre `ANOMALIES.md` (retiré le 12 octobre 2026) consignait notamment les lettres d'annexes périmées, le tableau des engagements et les commentaires d'auteur obsolètes. Le statut « aucune n'a été corrigée » décrit cet instantané du 7 octobre et ne doit pas être lu comme l'état actuel du dépôt.
 * **Regénérer le PDF de référence.** Le PDF `main.pdf` hérité date du 9 septembre ; les fiches citent ses numéros de pages et d'énoncés. Le PDF courant est produit par la CI (`spec-pdf`) ; la table de correspondance [`correspondance-enonces.md`](../tracking/correspondance-enonces.md) relie les numéros d'alors aux numéros d'aujourd'hui.
 
 ### D. Portes proposées avant de passer à l'implémentation
@@ -151,7 +151,7 @@ Critères de sortie suggérés — à ajuster :
 | P2 | tout énoncé ouvert a sa route et son hypothèse nommées, et aucune prose ne le dit acquis | `scripts/controle.py` (propagation) |
 | P3 | décisions `ARB-PR-03`, `-04`, `-06`, `-07` et `T-68` tranchées | [`DECISIONS.md`](../tracking/DECISIONS.md) |
 | P4 | les huit exigences `IMPL` sont lues comme un cahier des charges de l'implémentation | lot `IMPL` : 0 ouverte, ou reportées avec motif |
-| P5 | `REECR` appliqué, anomalies levées, relecture d'ensemble faite | lot `REECR` : 0 ouverte ; [`ANOMALIES.md`](../tracking/ANOMALIES.md) vide |
+| P5 | `REECR` appliqué, anomalies levées, relecture d'ensemble faite | lot `REECR` : 0 ouverte ; `ANOMALIES.md` vide |
 | P6 | première version publiée de la spécification | release `spec-v0.1.0` (PDF archivé sur Zenodo) |
 
 ---
