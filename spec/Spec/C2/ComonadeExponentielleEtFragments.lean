@@ -650,7 +650,7 @@ Les applications identité du porteur 𝓡 fournissent, sous le contrat de morph
 
 Les intervalles syntaxiques restent distincts :
 `U_Lin = [1..1]`, `U_Aff = [0..1]`, `U_Rel = [1..ω]`, `U_Unr = [0..ω]`.
-Ils ne sont pas en général des sous-algèbres du semi-anneau : par exemple [0..1] n'est pas fermé par addition. La correspondance normative se limite donc aux trois modes retenus et ne doit pas inférer un quatrième mode structurel de l'existence de `U_Rel`.
+Ils ne sont pas en général des sous-algèbres du semi-anneau : par exemple `[0..1]` n'est pas fermé par addition. La correspondance normative se limite donc aux trois modes retenus et ne doit pas inférer un quatrième mode structurel de l'existence de `U_Rel`.
 
 ::::figure (label := "fig:fragments-emboites") (src := "fragments-nestings") (alt := "Trois cadres emboites, du plus large au plus etroit — fragment cartesien, qui admet affaiblissement et contraction ; fragment affine, qui n'admet que l'affaiblissement ; fragment lineaire strict, qui n'admet ni l'un ni l'autre.") (width := "90")
 :::caption
