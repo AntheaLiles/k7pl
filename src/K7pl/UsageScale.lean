@@ -72,6 +72,11 @@ def piU (g : Grade Usage M L) : Usage := g.usage
 @[simp] theorem piU_eq_usage (g : Grade Usage M L) :
     piU g = g.usage := rfl
 
+/-- The grade-indexed exponential interface factors through the usage projection. -/
+def bangGrade (bang : Usage → Type u → Type u)
+    (g : Grade Usage M L) (A : Type u) : Type u :=
+  bang (piU g) A
+
 /-- The selected scaling action on grades with the canonical usage carrier. -/
 def scaleUsageK7pl (a : Usage) (g : Grade Usage M L) : Grade Usage M L :=
   scaleUsage a g

@@ -303,4 +303,25 @@ theorem consumeK_conservation {L : Type u} (β : ℕ∞)
   unfold consumeK
   exact truncatedSub_add_of_le β (costBudgetK κ) h
 
+/-- Contract for a budget-boundary step after its rule proves admissibility. -/
+structure BudgetBoundaryCertificate (L : Type u) where
+  /-- Budget available before the boundary. -/
+  budgetBefore : ℕ∞
+  /-- Temporal profile whose cost is charged at the boundary. -/
+  profile : K L
+  /-- The rule's proof that the declared cost is covered. -/
+  admissible : admK budgetBefore profile
+  /-- Budget remaining after consumption. -/
+  budgetAfter : ℕ∞
+  /-- The rule must consume exactly the certified profile cost. -/
+  residual_is_consume :
+    budgetAfter = consumeK budgetBefore profile admissible
+
+/-- Every budget-boundary certificate conserves budget and charged profile cost. -/
+theorem BudgetBoundaryCertificate.conservation {L : Type u}
+    (step : BudgetBoundaryCertificate L) :
+    step.budgetAfter + costBudgetK step.profile = step.budgetBefore := by
+  rw [step.residual_is_consume]
+  exact consumeK_conservation step.budgetBefore step.profile step.admissible
+
 end K7pl.GradeBudget
