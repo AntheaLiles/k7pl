@@ -160,6 +160,20 @@ theorem usage_mul_add (a x y : Usage) :
     a * (x + y) = a * x + a * y := by
   exact mul_add a x y
 
+/-- A budget-only transformer preserves every other context grade coordinate. -/
+def transportBudgetContext (budgetMap : Var → ℕ∞ → ℕ∞)
+    (Δ : Context Var Usage M L) : Context Var Usage M L :=
+  fun x =>
+    Option.map (fun g => {g with budget := budgetMap x g.budget}) (Δ x)
+
+/-- Usage scaling commutes with every context transformer that changes only budgets. -/
+theorem scaleUsageContext_transportBudget_commute (a : Usage)
+    (budgetMap : Var → ℕ∞ → ℕ∞) (Δ : Context Var Usage M L) :
+    scaleUsageContext a (transportBudgetContext budgetMap Δ) =
+      transportBudgetContext budgetMap (scaleUsageContext a Δ) := by
+  funext x
+  cases h : Δ x <;> simp [scaleUsageContext, transportBudgetContext, h]
+
 /-- Scaling preserves the support of a context. -/
 theorem scaleUsageContext_isSome [Monoid U] (a : U)
     (Δ : Context Var U M L) (x : Var) :
