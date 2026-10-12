@@ -137,13 +137,14 @@ def check_incoming_figure_links(html_root: Path) -> int:
     stems = set(catalog.figure_card_ids)
     if not stems:
         fail("figure catalog contains no figure-card anchors")
-    navigation_paths = {(html_root / relative).resolve() for relative in PAGES}
     found: Counter[str] = Counter()
 
     # Pages use a relative Verso <base>; the synthetic /k7pl/ prefix models the
     # repository-page deployment path while keeping validation independent of host DNS.
     for page in sorted(html_root.rglob("*.html")):
-        if page.resolve() in navigation_paths:
+        # Only rendered specification pages count as figure entry points. Navigation pages may
+        # link to the catalog as a destination without representing a particular figure.
+        if "navigation" in page.relative_to(html_root).parts:
             continue
         _, rendered = parse_html(page)
         document_url = "https://navigation.invalid/k7pl/" + page.relative_to(html_root).as_posix()
