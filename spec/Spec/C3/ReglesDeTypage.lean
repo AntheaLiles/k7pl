@@ -205,25 +205,25 @@ inductive ComputationTyping {Var : Type uVar} [DecidableEq Var]
   | lam {Γ x A r body C ε}
       (fresh : env x = none)
       (boundUsage : Γ x = piU r)
-      (typedBody : ComputationTyping contextCombine effectOne effectMul
+      (typedBody : ComputationTyping layer contextCombine effectOne effectMul
         (extendTypeEnv env x A) Γ body C ε) :
-      ComputationTyping contextCombine effectOne effectMul env (eraseContext x Γ)
+      ComputationTyping layer contextCombine effectOne effectMul env (eraseContext x Γ)
         (.lam x A r body) (.arrow r A C ε) effectOne
   | app {Γ Δ function argument r A C ε₀ ε}
-      (typedFunction : ComputationTyping contextCombine effectOne effectMul env Γ function
+      (typedFunction : ComputationTyping layer contextCombine effectOne effectMul env Γ function
         (.arrow r A C ε) ε₀)
       (typedArgument : ValueTyping env Δ argument A) :
-      ComputationTyping contextCombine effectOne effectMul env
+      ComputationTyping layer contextCombine effectOne effectMul env
         (contextCombine layer ε₀ Γ (scaleContext (piU r) Δ))
         (.app function argument) C (effectMul ε₀ ε)
   | let1 {Γ₁ Γ₂ x A first body C ε₁ ε₂}
       (fresh : env x = none)
-      (typedFirst : ComputationTyping contextCombine effectOne effectMul env Γ₁ first
+      (typedFirst : ComputationTyping layer contextCombine effectOne effectMul env Γ₁ first
         (.returned ε₁ A) ε₁)
       (boundUsage : Γ₂ x = 1)
-      (typedBody : ComputationTyping contextCombine effectOne effectMul
+      (typedBody : ComputationTyping layer contextCombine effectOne effectMul
         (extendTypeEnv env x A) Γ₂ body C ε₂) :
-      ComputationTyping contextCombine effectOne effectMul env
+      ComputationTyping layer contextCombine effectOne effectMul env
         (contextCombine layer ε₁ Γ₁ (eraseContext x Γ₂))
         (.let1 first x body) C (effectMul ε₁ ε₂)
 
@@ -237,7 +237,7 @@ theorem identityComputationTypable
     (effectOne : Effect) (effectMul : Effect → Effect → Effect)
     (x : Var) (A : ValueType) (m : Monotonicity) (ℓ : Level)
     (β : ℕ∞) :
-    ComputationTyping contextCombine effectOne effectMul emptyTypeEnv zeroContext
+    ComputationTyping layer contextCombine effectOne effectMul emptyTypeEnv zeroContext
       (.lam x A ({ usage := 1, monotonicity := m, level := ℓ, budget := β })
         (.ret (.var x)))
       (.arrow ({ usage := 1, monotonicity := m, level := ℓ, budget := β })
@@ -245,14 +245,14 @@ theorem identityComputationTypable
   let r : Grade Monotonicity Level :=
     { usage := 1, monotonicity := m, level := ℓ, budget := β }
   have bodyTyping :
-      ComputationTyping contextCombine effectOne effectMul (extendTypeEnv emptyTypeEnv x A)
+      ComputationTyping layer contextCombine effectOne effectMul (extendTypeEnv emptyTypeEnv x A)
         (singletonContext x) (.ret (.var x))
         (.returned effectOne A) effectOne := by
     apply ComputationTyping.ret
     apply ValueTyping.var
     simp [extendTypeEnv, emptyTypeEnv]
   have lambdaTyping :
-      ComputationTyping contextCombine effectOne effectMul emptyTypeEnv
+      ComputationTyping layer contextCombine effectOne effectMul emptyTypeEnv
         (eraseContext x (singletonContext x)) (.lam x A r (.ret (.var x)))
         (.arrow r A (.returned effectOne A) effectOne) effectOne := by
     exact ComputationTyping.lam (layer := layer) (contextCombine := contextCombine)
