@@ -97,11 +97,13 @@ lean_lib SpecExt where
   roots := #[`SpecExt]
   leanOptions := k7plSpecOptions
 
-/-- Specification of the language, written with Verso (`spec/`). -/
+/-- Specification of the language, written with Verso (`spec/`). The effective typing kernel of
+C3 is a second root: it imports Mathlib, so it stays outside the Verso document modules, whose
+`lemma` directive would otherwise clash with Mathlib's `lemma` command. -/
 @[default_target]
 lean_lib Spec where
   srcDir := "spec"
-  roots := #[`Spec]
+  roots := #[`Spec, `Spec.C3.EffectiveKernel]
   leanOptions := k7plSpecOptions
 
 /-- HTML generator for the specification: `lake exe spec --output _out/spec`. -/

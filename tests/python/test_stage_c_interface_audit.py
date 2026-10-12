@@ -4,7 +4,7 @@
 """Structural consistency checks for the non-normative Stage C interface audit.
 
 These checks detect drift between the historical audit, the current Verso source, and the recorded source integration.
-The C3 rules source pin below is updated when its compiled effective-kernel fragment is extended.
+The C3 rules and effective-kernel source pins below are updated when the compiled kernel fragment is extended.
 They are not formal proofs of K7PL's mathematical claims. Reference-interface ratification is distinct from proof of the interface laws.
 """
 
@@ -38,7 +38,8 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
         "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "a024ae7fcb82b0ffe555e41a72fead8f9fbbc977",
         "spec/Spec/C3/LeSystemeGradue.lean": "4ba4a66c555c9cfa0a4feee14eb954589567d5b9",
         "spec/Spec/C3/GrammaireDesTypes.lean": "3df5f24c41375de24d4254516be2863c437b9d6a",
-        "spec/Spec/C3/ReglesDeTypage.lean": "e2b3fda8c91b5f7e50efb10ddc61ee881289a5e8",
+        "spec/Spec/C3/ReglesDeTypage.lean": "d02af7bfec743a3ebb7cf40e3120a769d074d913",
+        "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():
         actual_blob = subprocess.run(
