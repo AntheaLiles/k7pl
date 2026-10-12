@@ -395,3 +395,20 @@ Cet addendum actualise les choix de conception du présent registre ; il ne modi
 Les notes de décision détaillées figurent dans [D3](L1-D3-COST-BUDGET-RATIFICATION-2026-10-11.md), [D4](L1-D4-EMPTY-SUPREMUM-2026-10-11.md), [D5](L1-D5-ADM-PRINCIPLE-2026-10-11.md), [D6](L1-D6-CONSUME-PARTIAL-DOMAIN-2026-10-11.md), [D7](L1-D7-PSI-INDEPENDENT-DOMAIN-2026-10-11.md), [D8](L1-D8-GLOBAL-TRUNCATED-SUBTRACTION-2026-10-11.md), [D9](L1-D9-ADMISSIBLE-MULTIPLICITY-LAW-2026-10-11.md), [D10](L1-D10-RESTRICT-MULTIPLICITY-LAW-2026-10-11.md) et [D11](L1-D11-AUDIT-MULTIPLICITY-SITES-2026-10-11.md).
 
 **État de la porte : NON SATISFAITE.** Les décisions réduisent l'ambiguïté de l'interface ; elles ne remplacent aucune preuve Lean de C-01 à C-09, aucun audit par règle et aucune revue indépendante de la tête finale.
+
+
+## Addendum — état des preuves Lean sur la branche PR #170 (12 octobre 2026)
+
+Cet addendum met à jour l'état d'implémentation après les notes D3–D11 précédentes. Il ne remplace pas les audits historiques et ne change aucun critère de sortie C.
+
+- **C-01 / C-03 — usage et exponentialité.** `src/K7pl/UsageScale.lean` fournit le porteur `Usage := WithTop ℚ≥0`, `π_U`, une famille `bangGrade` paramétrée et l'action d'usage sur un grade à quatre coordonnées. Le module prouve l'identité, la composition, la préservation des composantes non-usage, les lois d'additivité/monotonie sur le porteur et le contexte d'usages projeté, et la commutation avec un transport de contexte qui modifie uniquement le budget. Il ne prouve pas les lois comonadiques, `coerce/w/c`, l'ordre complet de sous-typage, la substitution ni l'instanciation normative de `ψ`.
+
+- **C-02 — modes.** `src/K7pl/StructuralModes.lean` formalise un idéal de contraction et un prédicat d'affaiblissement par grade ; les morphismes Lin→Aff→Unr et Lin→Unr sont prouvés sous ce contrat abstrait. `Rel` reste un candidat hors périmètre normatif. Le lien aux règles source et l'instance normative restent ouverts.
+
+- **C-04 / D3–D8 — budget et When.** `src/K7pl/GradeBudget.lean` définit un profil temporel, les agrégateurs travail/profondeur, le coût maximum, `Adm`, `Consume` et la conservation sur domaine admissible. `BudgetBoundaryCertificate` exprime ce qu'une règle concrète doit fournir. `src/K7pl/WhenBoundary.lean` sépare l'observation de latence (type abstrait) du profil d'exécution déclenché et prouve la conservation conditionnelle au certificat. Ni le contrat `When`/orchestrateur ni `ψ` ne sont encore reliés aux règles effectives.
+
+- **C-08 — mémoire.** `src/K7pl/MemoryRange.lean` prouve un sous-lemme arithmétique sur des intervalles disjoints ; `src/K7pl/MemoryCapability.lean` prouve la préservation d'un invariant abstrait « jeton d'arène + capacité d'écriture ≤ 1 » et l'exclusivité de capacités en parallèle sous cet invariant. Aucun des deux modules ne prouve encore H1/H2/H3 sur les règles K7PL réelles ; H3 reste sans preuve.
+
+- **C-05 — compositions de coût.** Les agrégateurs et leurs propriétés de base sont formalisés, mais les lois des compositions syntaxiques normatives, les observations d'exécution et la correction de ressource règle par règle ne le sont pas.
+
+- **Statut global.** C-06 (substitution exhaustive), C-07 (simulation règle par règle), C-09 (instanciation des dépendances), l'achèvement de D11 et la revue indépendante restent ouverts. Ces résultats Lean sont des modèles de référence et ne suffisent pas à satisfaire la porte C ni à autoriser GO D–J.
