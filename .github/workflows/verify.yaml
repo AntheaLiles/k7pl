@@ -576,6 +576,18 @@ jobs:
           --peer-graph semantic-graph.html
           --peer-title "Graphe du processus de compilation (C6)"
 
+      - name: Generate the interactive navigation graph
+        run: >-
+          python3 scripts/ci/build_navigation_graph.py
+          --site _out/spec/html-multi
+          --ref "$GITHUB_SHA"
+
+      - name: Validate the interactive navigation graph
+        run: >-
+          python3 scripts/ci/check_navigation_graph_output.py
+          --site _out/spec/html-multi
+          --ref "$GITHUB_SHA"
+
       - name: Validate navigation links, anchors, provenance and freshness
         run: >-
           python3 scripts/ci/check_navigation_outputs.py
