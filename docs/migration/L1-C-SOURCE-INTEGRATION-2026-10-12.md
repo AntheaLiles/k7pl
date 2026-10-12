@@ -67,3 +67,30 @@ Après chaque modification de la branche, vérifier sur le SHA exact les jobs `I
 ## 6. Verdict
 
 **La porte scientifique C reste NON SATISFAITE.** Cette tranche matérialise les décisions, délimite les affirmations et ajoute une preuve arithmétique ciblée ; elle ne donne pas de preuve formelle des interfaces K7PL, de la correction de ressource, de la substitution, de la simulation ou du modèle mémoire. La liste R-02 est sourcée dans [la revue indépendante Qwen, R-02](../peer-review/pr-02/qwen.md), mais la comparaison des proofsketches courants donne un résultat adverse plus précis : aucun usage direct de la loi de multiplicité n’est visible dans `boxtimes_addition` (cas d’effet nul), `substitution` (action `Scale_Usage` factorisée), `commutation_traduction` ou `expansion_macro` (effets composés dans l’ordre des occurrences). `correction_ressource` reste indéterminée faute de transitions instrumentées détaillées ; le cas APP du lemme fondamental reste conditionnel à une ré-invocation réelle d’effet par `φ_n`. Ce constat ne réfute pas une dépendance d’une version historique non retrouvée. Th. 47 est séparé en cas LET/APP et `48/27` reste une référence double non expliquée. L’audit D11 demeure partiel jusqu’à l’alignement des dérivations historiques sur les sources précises.
+
+
+## 7. C-01 — pont formel explicite pour ψ et Scale_Usage (12 octobre 2026)
+
+Le nouveau module `src/K7pl/BudgetTransport.lean` donne une instance explicite,
+au niveau des interfaces, de la cohérence C2 entre `Scale_Usage` et `ψ`.
+Le prédicat `psiAdmissible` exige que chaque liaison présente ait un budget
+couvrant le coût scalaire du profil traversé. `psiContext` requiert cette preuve
+en argument et soustrait le coût uniquement à la composante budgétaire.
+
+Les obligations formelles ajoutées sont :
+
+- `psiAdmissible_scale` : une mise à l'échelle d'usage préserve le domaine admissible de `ψ` ;
+- `psiContext_scale_commute` : l'action `Scale_Usage` commute avec cette instance de `ψ`, sous certificat d'admissibilité ;
+- `psiContext_binding_conserves_budget` : pour chaque liaison présente, le budget résiduel plus le coût facturé égale le budget initial.
+
+Le module est importé par le point d'entrée `src/K7pl.lean`, pour que la construction
+soit soumise à la compilation d'implémentation Lean. Ce résultat comble un écart entre
+le transport générique de budget et la loi d'interface C2 ; il ne ferme pas la preuve
+opérationnelle. La fonction `ψ` normative doit encore être identifiée à cette instance,
+les conditions structurelles de son domaine doivent être intégrées, et les règles
+effectives `Box`, `App`, `Let`, `When` et la substitution doivent établir leurs
+certificats au site d'appel. Le profil temporel facturé n'est toujours pas relié à
+la trace d'exécution instrumentée.
+
+**État à la création de cet addendum :** compilation et CI sur la nouvelle tête en attente.
+La porte C reste NON SATISFAITE ; aucun GO D–J n'est déduit de ces résultats d'interface.
