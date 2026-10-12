@@ -324,4 +324,157 @@ theorem BudgetBoundaryCertificate.conservation {L : Type u}
   rw [step.residual_is_consume]
   exact consumeK_conservation step.budgetBefore step.profile step.admissible
 
+
+/-! ## Reference temporal-profile composition
+
+These operators implement C2's per-level reference equations: sequential
+composition adds both work and depth; parallel composition adds work and
+takes the maximum of the two depths. They are profile-level constructors,
+not yet the effect composition or transition rules of the K7PL language.
+-/
+
+/-- Sequential composition of temporal profiles: work and depth both add. -/
+def sequentialProfile {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) : TemporalProfile L :=
+  fun ℓ => ((κ₁ ℓ).1 + (κ₂ ℓ).1, (κ₁ ℓ).2 + (κ₂ ℓ).2)
+
+/-- Parallel composition: work adds while depth is the maximum. -/
+def parallelProfile {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) : TemporalProfile L :=
+  fun ℓ => ((κ₁ ℓ).1 + (κ₂ ℓ).1, max (κ₁ ℓ).2 (κ₂ ℓ).2)
+
+/-- Sequential profile composition is associative. -/
+theorem sequentialProfile_assoc {L : Type u}
+    (κ₁ κ₂ κ₃ : TemporalProfile L) :
+    sequentialProfile (sequentialProfile κ₁ κ₂) κ₃ =
+      sequentialProfile κ₁ (sequentialProfile κ₂ κ₃) := by
+  funext ℓ
+  apply Prod.ext
+  · simp [sequentialProfile, add_assoc]
+  · simp [sequentialProfile, add_assoc]
+
+/-- Parallel profile composition is associative. -/
+theorem parallelProfile_assoc {L : Type u}
+    (κ₁ κ₂ κ₃ : TemporalProfile L) :
+    parallelProfile (parallelProfile κ₁ κ₂) κ₃ =
+      parallelProfile κ₁ (parallelProfile κ₂ κ₃) := by
+  funext ℓ
+  apply Prod.ext
+  · simp [parallelProfile, add_assoc]
+  · simp [parallelProfile, max_assoc]
+
+/-- Parallel composition is commutative as a cost-profile operation. -/
+theorem parallelProfile_comm {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    parallelProfile κ₁ κ₂ = parallelProfile κ₂ κ₁ := by
+  funext ℓ
+  apply Prod.ext
+  · simp [parallelProfile, add_comm]
+  · simp [parallelProfile, max_comm]
+
+/-- The zero profile is a left identity for sequential composition. -/
+theorem sequentialProfile_zero_left {L : Type u}
+    (κ : TemporalProfile L) :
+    sequentialProfile (zeroTemporalProfile (L := L)) κ = κ := by
+  funext ℓ
+  apply Prod.ext <;> simp [sequentialProfile, zeroTemporalProfile]
+
+/-- The zero profile is a right identity for sequential composition. -/
+theorem sequentialProfile_zero_right {L : Type u}
+    (κ : TemporalProfile L) :
+    sequentialProfile κ (zeroTemporalProfile (L := L)) = κ := by
+  funext ℓ
+  apply Prod.ext <;> simp [sequentialProfile, zeroTemporalProfile]
+
+/-- The zero profile is a left identity for parallel composition. -/
+theorem parallelProfile_zero_left {L : Type u}
+    (κ : TemporalProfile L) :
+    parallelProfile (zeroTemporalProfile (L := L)) κ = κ := by
+  funext ℓ
+  apply Prod.ext <;> simp [parallelProfile, zeroTemporalProfile]
+
+/-- The zero profile is a right identity for parallel composition. -/
+theorem parallelProfile_zero_right {L : Type u}
+    (κ : TemporalProfile L) :
+    parallelProfile κ (zeroTemporalProfile (L := L)) = κ := by
+  funext ℓ
+  apply Prod.ext <;> simp [parallelProfile, zeroTemporalProfile]
+
+/-- The work aggregate of a sequential profile is bounded by the sum of the
+individual work aggregates. This direction is the one needed for a safe
+scalar budget upper bound; it does not claim completeness for an unbounded
+family without an additional supremum theorem. -/
+theorem workAggregate_sequential_le_add {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    workAggregate (sequentialProfile κ₁ κ₂) ≤
+      workAggregate κ₁ + workAggregate κ₂ := by
+  unfold workAggregate sequentialProfile
+  apply iSup_le
+  intro F
+  rw [Finset.sum_add_distrib]
+  exact add_le_add
+    (le_iSup_of_le F le_rfl)
+    (le_iSup_of_le F le_rfl)
+
+/-- The depth aggregate of a sequential profile is bounded by the sum of the
+individual depth aggregates. -/
+theorem depthAggregate_sequential_le_add {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    depthAggregate (sequentialProfile κ₁ κ₂) ≤
+      depthAggregate κ₁ + depthAggregate κ₂ := by
+  unfold depthAggregate sequentialProfile
+  apply iSup_le
+  intro ℓ
+  exact add_le_add
+    (le_iSup_of_le ℓ le_rfl)
+    (le_iSup_of_le ℓ le_rfl)
+
+/-- The depth aggregate of a parallel profile is exactly the maximum of the
+separate depth aggregates. -/
+theorem depthAggregate_parallel_eq_max {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    depthAggregate (parallelProfile κ₁ κ₂) =
+      max (depthAggregate κ₁) (depthAggregate κ₂) := by
+  unfold depthAggregate parallelProfile
+  apply le_antisymm
+  · apply iSup_le
+    intro ℓ
+    exact max_le_max
+      (le_iSup_of_le ℓ le_rfl)
+      (le_iSup_of_le ℓ le_rfl)
+  · apply max_le
+    · apply iSup_le
+      intro ℓ
+      exact le_iSup_of_le ℓ (le_max_left _ _)
+    · apply iSup_le
+      intro ℓ
+      exact le_iSup_of_le ℓ (le_max_right _ _)
+
+/-- Sequential composition admits a scalar cost upper bound computed from
+the separate work and depth bounds. -/
+theorem costBudget_sequential_le {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    costBudget (sequentialProfile κ₁ κ₂) ≤
+      max (workAggregate κ₁ + workAggregate κ₂)
+          (depthAggregate κ₁ + depthAggregate κ₂) := by
+  unfold costBudget
+  exact max_le_max
+    (workAggregate_sequential_le_add κ₁ κ₂)
+    (depthAggregate_sequential_le_add κ₁ κ₂)
+
+/-- Parallel composition admits the expected scalar cost upper bound. The
+work component is additive; its depth component is the maximum. -/
+theorem costBudget_parallel_le {L : Type u}
+    (κ₁ κ₂ : TemporalProfile L) :
+    costBudget (parallelProfile κ₁ κ₂) ≤
+      max (workAggregate κ₁ + workAggregate κ₂)
+          (max (depthAggregate κ₁) (depthAggregate κ₂)) := by
+  unfold costBudget
+  rw [depthAggregate_parallel_eq_max]
+  apply max_le_max
+  · rw [show workAggregate (parallelProfile κ₁ κ₂) =
+      workAggregate (sequentialProfile κ₁ κ₂) by rfl]
+    exact workAggregate_sequential_le_add κ₁ κ₂
+  · exact le_rfl
+
 end K7pl.GradeBudget

@@ -104,3 +104,29 @@ La première CI après l’ajout de `BudgetTransport.lean` a bien découvert le 
 2. Dans le cas d’une liaison présente, l’élimination de `Δ x` a déjà réécrit le but ; le premier témoin d’égalité se prouve par `rfl`, et non par l’équation locale `hd`.
 
 Le commit suivant applique ces deux corrections. La compilation complète et les autres contrôles de ce nouveau commit restent à vérifier ; aucune réussite n’est supposée à partir du run précédent.
+
+
+## 9. CI complète du pont C-01 et formalisation supplémentaire C-05
+
+Le run [#38248910876](https://github.com/AntheaLiles/k7pl/actions/runs/38248910876), exécuté sur
+`1ceeebfc2e9787dde6d5c0fb45bc02f6e59b102e`, s'est terminé avec succès le 12 octobre 2026.
+Les jobs d'implémentation Lean, de tests Python, de spécification Verso (HTML/TeX), de PDF,
+de figures TikZ, de REUSE, des contrôles rapides, de sécurité et le job agrégé `CI OK` ont
+tous réussi ; `lake test` a signalé **27/27 tests passés**, `lake lint` a réussi et les deux
+audits d'axiomes (bibliothèque et tests) ont réussi. Ce résultat confirme la compilation et
+les contrôles de la tête exacte citée, non la fermeture scientifique de C.
+
+La nouvelle extension de `src/K7pl/GradeBudget.lean` formalise les opérations de référence
+`sequentialProfile` (addition travail/profondeur) et `parallelProfile` (addition du travail,
+maximum des profondeurs), leurs lois d'associativité, commutativité parallèle et identités
+nulles, ainsi que :
+- la borne supérieure du travail agrégé après séquencement ;
+- la borne supérieure de profondeur après séquencement ;
+- l'égalité entre profondeur agrégée parallèle et maximum des profondeurs agrégées ;
+- les bornes de coût scalaire pour les deux compositions.
+
+Limite importante : l'égalité complète du travail agrégé avec la somme de deux suprémums
+n'est pas affirmée pour une famille de niveaux arbitraire ; seule la borne supérieure utile
+au budget est prouvée dans ce module. Les constructions restent des profils de référence :
+le lien avec les véritables opérations d'effet, le domaine canonique des règles et les traces
+d'exécution doit être prouvé séparément. **C demeure NON SATISFAITE et aucun GO D–J n'est déduit.**
