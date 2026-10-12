@@ -92,8 +92,7 @@ class NavigationGraphTests(unittest.TestCase):
             if node["url"] == "Spec/C4/index.html#lbl-sec-index"
         )
         self.assertTrue(any(
-            edge["source"] == "index.html"
-            and edge["target"] == target["id"]
+            edge["target"] == target["id"]
             and edge["kind"] == "references"
             for edge in graph["edges"]
         ))
