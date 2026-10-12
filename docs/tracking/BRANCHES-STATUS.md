@@ -1,7 +1,8 @@
 # Statut des branches de travail
 
 **Rapprochement : 2026-10-12, sur `main` = `200b6935f5622e93d9add104e1f0e46dae6f6e6b`.**  
-**État observé avant ce rapprochement :** 44 références de branche distantes (dont `main` et la branche de session `ccr-c4afa630-5uz1ic`) et trois PR ouvertes (#170, #182, #183).
+**État observé avant ce rapprochement :** 44 références de branche distantes (dont `main` et la branche de session `ccr-c4afa630-5uz1ic`) et trois PR ouvertes (#170, #182, #183).  
+**Mise à jour du même jour :** #183 a été fusionnée ; `main` = `ee0d05a`, dont l'arbre est identique à la tête de #183. La branche `research/c-kernel-effective-rules-2026-10-12` a été supprimée à la fusion.
 
 Ce registre remplace l'inventaire du 11 octobre. Il réalise le passage d'hygiène annoncé par [l'instantané de reprise](RECOVERY-STATUS-2026-10-11.md), § 5 : pour chaque tête sans PR ouverte, il consigne s'il reste du contenu unique. Il recommande ; il **n'autorise ni fusion ni suppression**. Aucune branche n'a été supprimée ni réécrite pendant ce rapprochement. Les reprises sont portées par de nouvelles branches `rebase/…`, et les branches d'origine restent intactes.
 
@@ -20,8 +21,8 @@ Limites : l'équivalence de patch n'est pas une équivalence sémantique. Un ré
 
 | PR | Branche (tête) | État vérifié le 12 octobre | Action proposée |
 |---|---|---|---|
-| [#183](https://github.com/AntheaLiles/k7pl/pull/183) | `research/c-kernel-effective-rules-2026-10-12` (`64d98e7`) | CI complète verte, run [38293553896](https://github.com/AntheaLiles/k7pl/actions/runs/38293553896). Contient tout l'arbre de #170 : `git diff b055e38 9a1409a2` est vide. Noyau C3 compilé et audité (258 déclarations sous `Spec.C3.EffectiveKernel`). | Fusion : décision de l'autrice. La porte C reste **NON SATISFAITE**. |
-| [#170](https://github.com/AntheaLiles/k7pl/pull/170) | `research/c01-interface-ratification-2026-10-11` (`9a1409a`) | CI verte (run [38284102750](https://github.com/AntheaLiles/k7pl/actions/runs/38284102750)), mais fusion par rebase impossible : trois commits de fusion (`0d575f7`, `a353c09`, `5de8d73`). | Fermer sans fusion si #183 est fusionnée. L'historique reste consultable via `refs/pull/170/head`. Ne pas réécrire la branche. |
+| [#183](https://github.com/AntheaLiles/k7pl/pull/183) | `research/c-kernel-effective-rules-2026-10-12` (`64d98e7`) | **Fusionnée** le 12 octobre, après une CI complète verte (run [38293553896](https://github.com/AntheaLiles/k7pl/actions/runs/38293553896)). Elle contenait tout l'arbre de #170 : `git diff b055e38 9a1409a2` est vide. Noyau C3 compilé et audité (258 déclarations sous `Spec.C3.EffectiveKernel`). | Aucune. La porte C reste **NON SATISFAITE**. |
+| [#170](https://github.com/AntheaLiles/k7pl/pull/170) | `research/c01-interface-ratification-2026-10-11` (`9a1409a`) | Tout son contenu est dans `main` depuis la fusion de #183. Elle est désormais en conflit avec `main` sur les épingles de `tests/python/test_stage_c_interface_audit.py`, que #183 a mises à jour. Par ailleurs, la fusion par rebase était impossible : trois commits de fusion (`0d575f7`, `a353c09`, `5de8d73`). | Fermer sans fusion, puis supprimer la branche. L'historique reste consultable via `refs/pull/170/head`. Ne pas réécrire la branche. |
 | [#182](https://github.com/AntheaLiles/k7pl/pull/182) | `feat/semantic-navigation-rendered-links` (`cc415a4`) | Diff vide avec `main` : contenu intégré par #141, la tête est une fusion de `main`. | Fermer sans fusion, puis supprimer la branche. |
 | [#184](https://github.com/AntheaLiles/k7pl/pull/184) | `rebase/feat/navigation-graph-mvp` (`be612be`) | Brouillon. Rebase sans conflit de `feat/navigation-graph-mvp` (`f24763a`) : approche « graphe dérivé du HTML rendu », concurrente de `build_semantic_graph.py` dans `main`. | Décision de conception. Ensuite, supprimer les deux branches. |
 | [#185](https://github.com/AntheaLiles/k7pl/pull/185) | `rebase/split/pr10-1-outillage-spec` (`f2b17f1`) | Brouillon. Seul résidu de `split/pr10-1-outillage-spec` (`c4aea10`) : deux lignes de `writing-rules.md` documentant `{printindex}`, `{idx}` et `{gloss}`. | Fusionner ou fermer. Ensuite, supprimer les deux branches. |
@@ -66,7 +67,7 @@ Ce sont les étapes empilées des décisions D3 à D11 et de l'audit indépendan
 | `research/c-gate-independent-audit-2026-10-11` | `596a957` | #181 |
 | `research/l1-rel-mode-opportunities-2026-10-11` | `f1901f8` | aucune PR |
 
-Action proposée : supprimer ces branches après la fusion de #183, ou de #170 par une autre méthode. Avant cela, une PR séparée par branche ne ferait que dupliquer #170.
+Action proposée : #183 étant fusionnée, ces branches peuvent être supprimées après votre vérification. Leur contenu est dans `main`.
 
 ## 4. Branches supersédées — aucun résidu utile
 
