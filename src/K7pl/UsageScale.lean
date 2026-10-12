@@ -22,10 +22,10 @@ namespace K7pl.UsageScale
 
 universe u v w x
 
-/-- The four-coordinate grade shape; only `usage` is scaled. -/
+/-- The four-coordinate grade shape; only `usage` is scaled. `monotonicity` is not a structural mode. -/
 structure Grade (U : Type u) (M : Type v) (L : Type w) where
   usage : U
-  mode : M
+  monotonicity : M
   level : L
   budget : ℕ∞
 
@@ -36,8 +36,8 @@ def scaleUsage [Monoid U] (a : U) (g : Grade U M L) : Grade U M L :=
 @[simp] theorem scaleUsage_usage [Monoid U] (a : U) (g : Grade U M L) :
     (scaleUsage a g).usage = a * g.usage := rfl
 
-@[simp] theorem scaleUsage_mode [Monoid U] (a : U) (g : Grade U M L) :
-    (scaleUsage a g).mode = g.mode := rfl
+@[simp] theorem scaleUsage_monotonicity [Monoid U] (a : U) (g : Grade U M L) :
+    (scaleUsage a g).monotonicity = g.monotonicity := rfl
 
 @[simp] theorem scaleUsage_level [Monoid U] (a : U) (g : Grade U M L) :
     (scaleUsage a g).level = g.level := rfl
@@ -49,7 +49,7 @@ def scaleUsage [Monoid U] (a : U) (g : Grade U M L) : Grade U M L :=
 theorem scaleUsage_one [Monoid U] (g : Grade U M L) :
     scaleUsage (1 : U) g = g := by
   cases g with
-  | mk usage mode level budget =>
+  | mk usage monotonicity level budget =>
       simp [scaleUsage]
 
 /-- Successive scaling composes by multiplication in the usage carrier. -/
