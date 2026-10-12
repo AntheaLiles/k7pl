@@ -186,6 +186,14 @@ il faut de plus que $`f` soit monotone : elle l'est, tout élément de $`\mathc
 forme normale $`\varphi_n \circ \pi_S` dont les deux facteurs le sont.
 :::
 
+:::note
+_Obligation ouverte._ Restent à définir l'objet trace et son ordre, la composition d'une trace avec
+un effet résiduel, $`\tau\cdot\varepsilon`, et les lois de préservation de l'ordre requises de part
+et d'autre de ce produit, puis à montrer comment l'inégalité séquentielle se relève le long de
+chaque chaîne de l'ordre partiel. L'esquisse emploie aussi la forme normale
+$`\varphi_n \circ \pi_S` et la clôture de la monotonie par composition : ces dépendances sont à
+expliciter. La preuve reste esquissée et conditionnelle.
+:::
 ::::
 La quantité que cet énoncé fait décroître décide d'une question qu'on croirait devoir traiter à
 part.
@@ -236,6 +244,14 @@ l'abaissement, qui est une propriété du compilateur. La transcription en assis
 donc ces deux points comme hypothèses de module, et non comme lemmes.
 :::
 
+:::note
+_Obligation ouverte._ L'énoncé porte sur le progrès local d'un calcul clos. Le progrès global d'un
+pool en est distinct : il demande en outre la configuration du pool, le critère « au moins un membre
+avance » et la prémisse d'acyclicité qui exclut le blocage mutuel, et le progrès local ne suffit pas
+à l'établir. Les deux hypothèses nommées dans l'esquisse — totalité de chaque opération à effet sur
+ses arguments bien typés, conformité de l'arène à l'abaissement — sont des prémisses de l'énoncé et
+non des détails de réalisation.
+:::
 ::::
 La forme de l'énoncé de préservation mérite qu'on s'y arrête à son tour, car elle décide d'une
 question qu'on croirait devoir traiter à part. La quantité qu'il fait décroître n'est pas le coût
@@ -309,6 +325,15 @@ ce qui est immédiat aux règles qui n'emploient pas la variable, et se ramène 
 de $`\varphi` et $`\psi` à celles qui composent deux contextes.
 :::
 
+:::note
+_Obligation ouverte._ La machine instrumentée n'est pas définie dans ce bloc. Restent à fixer la
+configuration et la relation de transition instrumentées, la valeur initiale de $`\nu`, sa mise à
+jour par règle, création et retrait de liaison compris, son indexation par contexte et par membre, et
+le compte des liaisons partagées sans double compte ni perte de propriété. Restent à prouver les cas
+d'usage de variable, de composition, de substitution et de concurrence, en situant les appels aux
+lois de cohérence de $`\varphi` et $`\psi`. La préservation non instrumentée n'implique pas ce
+théorème ; les résultats de la littérature cités plus bas motivent la route sans l'établir.
+:::
 ::::
 La forme de machine instrumentée est empruntée à un système modal gradué où elle a déjà servi {cite "erikssonGradedModalType2025"}[].
 Ce théorème n'est pas un de plus : trois propriétés en descendent, et deux figurent déjà à ce
