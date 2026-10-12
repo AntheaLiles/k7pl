@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Révision vérifiée :** main, SHA 414ce6a1d2347de11397002980f3e0fe0b1e8205, 11 octobre 2026.  
 **Source de règles :** [ReglesDeTypage.lean](https://github.com/AntheaLiles/k7pl/blob/414ce6a1d2347de11397002980f3e0fe0b1e8205/spec/Spec/C3/ReglesDeTypage.lean), blob 11abe4803e93a13a2d24c847dad323337094502f.  
-**Sources transversales :** [registre L1](L1-THEORY-OBJECTS.md), [audit C-03](L1-C03-CONVERSION-LAWS-AUDIT-2026-10-11.md), [C8 batch 01](../tracking/LEAN-SEMANTIC-AUDIT-BATCH-01.md), [C8 batch 11](../tracking/LEAN-SEMANTIC-AUDIT-BATCH-11.md), [dossier d’évidence C](L1-STAGE-C-EVIDENCE-DOSSIER-2026-10-11.md).  
+**Sources transversales :** [registre L1](L1-THEORY-OBJECTS.md), [audit C-03](L1-C03-CONVERSION-LAWS-AUDIT-2026-10-11.md), [C8 batch 01, intégré au registre de migration](../tracking/LEAN-STATEMENT-MIGRATION.md), [C8 batch 11](../tracking/LEAN-SEMANTIC-AUDIT-BATCH-11.md), [dossier d’évidence C](L1-STAGE-C-EVIDENCE-DOSSIER-2026-10-11.md).  
 **Verdict : C-06 OUVERT ; porte C NON SATISFAITE.** Rapport non normatif ; aucune décision d’autrice n’est inférée.
 
 ## 1. Résultat de l’audit

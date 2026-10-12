@@ -41,6 +41,7 @@
 | | Question | Éléments | Effet |
 |---|---|---|---|
 | — | les quatre imports ciblés : lesquels verser, où | « validés » d'après le compte rendu du 1er octobre, **non versés** au texte ; le dernier est écarté pour `BLOQ-06` (corrigé autrement) | trois instructions à conduire (`BIB-10` pour les modes) |
+| `thm:schema_reinvocation` | domaine de `n` dans le schéma de ré-invocation bornée : entiers finis, ou `ℕ∞` avec un traitement explicite de `ω` | l'énoncé dit « entier fini » mais quantifie sur `n ∈ ℕ∞` ; relevé par la revue sémantique C8, lot 01 ; obligation reportée au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative de l'énoncé ; `req:schema_reinvocation_compatibility` et `thm:image_fix` en dépendent |
 
 ## Nouvelles, nées de la conversion
 

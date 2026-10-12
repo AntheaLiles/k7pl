@@ -55,6 +55,14 @@ composante par composante. Le seul cas non immédiat est celui du lieur : il de
 substituée ne soit pas capturée par le lieur que $`T` produit, ce que l'hypothèse d'hygiène fournit.
 :::
 
+:::note
+_Obligation ouverte._ Les trois hypothèses (récurrence structurelle, aucune variable libre
+introduite, respect des liaisons) ne fixent pas à elles seules les équations de compatibilité dont
+dépend la commutation. Restent à expliciter l'action de $`T` sur les variables et sur chaque
+constructeur, lieurs compris, la substitution sans capture et l'équivalence de renommage, puis la
+condition latérale exacte qui rend valide le cas du lieur. Jusque-là, le schéma reste
+sous-spécifié.
+:::
 ::::
 Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qu'il faut
 établir, et rien de plus : non pas que la traduction préserve le jugement, mais que chaque règle de
@@ -81,6 +89,12 @@ d'une instance est donc d'exhiber une dérivation par règle, et l'énoncé gén
 refait.
 :::
 
+:::note
+_Obligation ouverte._ Restent à définir les formes de jugement de la source et de la cible, la
+traduction des contextes et l'obligation propre à chaque règle, prémisses et conditions latérales
+comprises. L'admissibilité de la composition des dérivations dépend du système cible effectif.
+L'énoncé général ne dispense aucune instance de remplir cette obligation.
+:::
 ::::
 Le troisième est un fait de théorie des graphes, employé deux fois par ce document et qu'il serait
 vain de démontrer deux fois.
@@ -129,6 +143,13 @@ est retiré et l'autre non ; la stabilité de $`p` l'exclut, puisqu'elle demand
 une restriction d'une mutilation.
 :::
 
+:::note
+_Obligation ouverte._ Pour une structure quelconque, la stabilité des éléments retenus ne définit
+pas à elle seule une application sur tous les éléments d'origine, ni un retrait qui préserve
+l'identité et la composition. Restent à définir la structure ou la catégorie, la source et la cible
+de $`\rho_p`, son action sur les objets et les opérations, et la condition exacte de stabilité ;
+puis à vérifier chacune des cinq instances contre cette interface.
+:::
 ::::
 Cinq constructions en sont des instances, et les reconnaître comme telles dispense de vérifier cinq
 fois la même chose. La _projection conservatrice_ retire les opérations d'une sorte et garde le
@@ -159,6 +180,13 @@ Pour $`t` de contexte $`\Delta` et d'effet $`\varepsilon`, et pour un entier fin
 la ré-invocation $`\mathsf{reinvo}(n,t)` combine deux actions distinctes : le contexte est mis à
 l'échelle par $`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et l'effet devient
 $`\varphi_n(\varepsilon)`.
+:::
+:::note
+_Obligation ouverte._ L'énoncé parle d'un entier fini mais quantifie sur $`n \in \mathbb{N}_\infty`,
+qui contient un élément infini : le domaine de $`n` (entiers finis, ou $`\mathbb{N}_\infty` avec un
+traitement explicite de $`\omega`) reste à fixer. L'associativité, l'unité et la compatibilité
+entre mise à l'échelle et action sur les effets ne sont pas établies par ce bloc ; elles relèvent
+de l'exigence qui suit. Aucune multiplication du budget ne doit en être déduite.
 :::
 ::::
 
@@ -216,6 +244,13 @@ une dérivation. Que l'oubli soit une fibre est le théorème {num "thm:raffine
 le système de raffinement dont la traduction est le foncteur.
 :::
 
+:::note
+_Obligation ouverte._ Les trois résultats cités ne donnent pas à eux seuls la conclusion que « ce
+qu'elle oublie est exactement la fibre ». Restent à définir les systèmes de raffinement et leur
+morphisme, l'application dont on prend les fibres, puis à vérifier que les hypothèses du théorème de
+raffinement cité correspondent bien à la transformation du schéma. Les citations ne valent pas
+validation de la conclusion composée.
+:::
 ::::
 Quatre constructions en sont des instances, et la quatrième est celle qui coûtait le plus cher : la
 fidélité de l'interpréteur de référence. Elle cesse d'être une propriété à établir construction par
@@ -252,5 +287,12 @@ de contraction n'est disponible qu'aux grades qui l'admettent. Il n'y a pas de d
 garantie ne coûte donc aucune vérification.
 :::
 
+:::note
+_Obligation ouverte._ L'argument vaut relativement à des règles que le bloc ne cite pas :
+introduction et accès de la capacité, règle de contraction et grades qui l'admettent, notion
+formelle d'accès concurrents. Restent à les citer ou à les énoncer, puis à vérifier si la conclusion
+découle de la seule linéarité ou demande en outre une propriété de la sémantique opérationnelle. Le
+résultat demeure conditionnel jusque-là.
+:::
 ::::
 {bibliography}
