@@ -470,6 +470,7 @@ const search = document.getElementById("search");
 const depthControl = document.getElementById("depth");
 const resetButton = document.getElementById("reset-selection");
 let entryNodeId = null;
+let listLimit = 120;
 function activeEdgeKinds() {
   return new Set(Array.from(document.querySelectorAll("[data-edge-kind]"))
     .filter(function (control) { return control.checked; })
@@ -498,8 +499,9 @@ function renderList() {
   const matches = graphData.nodes.filter(function (node) {
     if (node.kind === "document" && !query) return false;
     return (nodeLabel(node) + " " + node.kind + " " + node.id).toLocaleLowerCase().includes(query);
-  }).slice(0, 120);
-  matches.forEach(function (node) {
+  });
+  const visibleMatches = matches.slice(0, listLimit);
+  visibleMatches.forEach(function (node) {
     const li = document.createElement("li");
     const button = document.createElement("button");
     button.type = "button";
@@ -511,6 +513,16 @@ function renderList() {
     li.append(button, link);
     nodeList.appendChild(li);
   });
+  if (matches.length > visibleMatches.length) {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Afficher les " + Math.min(120, matches.length - visibleMatches.length) +
+      " résultats suivants (" + visibleMatches.length + " sur " + matches.length + ")";
+    button.addEventListener("click", function () { listLimit += 120; renderList(); });
+    li.appendChild(button);
+    nodeList.appendChild(li);
+  }
   if (!matches.length) {
     const li = document.createElement("li");
     li.textContent = "Aucun objet correspondant.";
@@ -632,10 +644,11 @@ function renderRelations() {
     list.appendChild(li);
   });
 }
-search.addEventListener("input", renderList);
+search.addEventListener("input", function () { listLimit = 120; renderList(); });
 resetButton.addEventListener("click", function () {
   if (entryNodeId) {
     search.value = "";
+    listLimit = 120;
     renderList();
     selectNode(entryNodeId);
   }
