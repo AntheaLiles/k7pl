@@ -26,6 +26,7 @@ Start with:
 - [Navigation graph implementation](../scripts/ci/navigation_graph/README.md): generated HTML graph, node/edge contracts, build commands and validation limits.
 - [Proof visualization roadmap](tracking/PROOF-VISUALIZATION-ROADMAP.md): Paperproof extraction workspace, static site views, source provenance and remaining extension gates.
 - [Proof visualization coverage matrix](tracking/PROOF-VISUALIZATION-COVERAGE.md): evidence-based coverage by proof form, tactic, context, data provenance, and HTML/PDF integration.
+- [Proof visualization human review](tracking/PROOF-VISUALIZATION-HUMAN-REVIEW.md): browser/PDF inspection checklist separate from automated CI evidence.
 
 ## Assess the current state
 

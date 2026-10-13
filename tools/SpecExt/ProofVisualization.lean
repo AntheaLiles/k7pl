@@ -45,7 +45,7 @@ private def proofIOError {α : Type} (message : String) : IO α :=
   throw (IO.userError message)
 
 private def loadProofArtifact (slug : String) : IO Json := do
-  if !(["eval-double", "scale-usage-comp", "project-usage-context-scale"] : List String).contains slug then
+  if !(["eval-double", "scale-usage-comp", "project-usage-context-scale", "grade-budget-finite-multiplicity", "memory-capability-allocate-unique"] : List String).contains slug then
     throw <| IO.userError s!"Unknown proof visualization identifier: {slug}"
 
   let artifactText ← IO.FS.readFile (proofDataRoot / s!"{slug}.json")
@@ -75,7 +75,9 @@ private def loadProofArtifact (slug : String) : IO Json := do
   let (expectedDeclaration, expectedSource) := match slug with
     | "eval-double" => ("K7pl.Arith.eval_double", "src/K7pl/Arith.lean")
     | "scale-usage-comp" => ("K7pl.UsageScale.scaleUsage_comp", "src/K7pl/UsageScale.lean")
-    | _ => ("K7pl.UsageScale.projectUsageContext_scale", "src/K7pl/UsageScale.lean")
+    | "project-usage-context-scale" => ("K7pl.UsageScale.projectUsageContext_scale", "src/K7pl/UsageScale.lean")
+    | "grade-budget-finite-multiplicity" => ("K7pl.GradeBudget.finite_multiplicity_compatibility", "src/K7pl/GradeBudget.lean")
+    | _ => ("K7pl.MemoryCapability.allocate_preserves_unique", "src/K7pl/MemoryCapability.lean")
   if declaration != expectedDeclaration || sourcePath != expectedSource then
     throw <| IO.userError s!"Proof artifact identity does not match the curated target {slug}"
   let sourceLines := proofField identity "sourceLines"
@@ -236,8 +238,9 @@ block_extension Block.proofVisualization (slug : String) where
       .raw ("\\noindent\\textit{Déclaration Lean : }\\texttt{" ++ declaration ++ "}\\par\n"),
       .raw ("\\noindent\\textit{Source canonique : }\\texttt{" ++ sourcePath ++ "}\\par\n"),
       .raw ("\\noindent\\textit{Révision source : }\\texttt{" ++ revision ++ "}\\par\n"),
-      .raw ("\\noindent\\textit{SHA-256 source : }\\texttt{" ++ sourceHash ++ "}\\par\n"),
-      .raw ("\\noindent\\textit{Extracteur : }\\texttt{" ++ extractorRevision ++ "}, Lean \\texttt{" ++ extractorToolchain ++ "}\\par\n"),
+      .raw ("\\noindent\\textit{SHA-256 source :}\\par\n\\noindent\\texttt{" ++ sourceHash ++ "}\\par\n"),
+      .raw ("\\noindent\\textit{Révision de l'extracteur : }\\texttt{" ++ extractorRevision ++ "}\\par\n"),
+      .raw ("\\noindent\\textit{Lean de l'extracteur : }\\texttt{" ++ extractorToolchain ++ "}\\par\n"),
       .raw ("\\noindent\\emph{Les transitions affichées sont des observations dérivées, non une preuve indépendante ni une correspondance normative. Le build K7PL sous Lean 4.34.0 reste un contrôle séparé.}\\par\n")
     ]
     for i in [:steps.size] do
@@ -295,7 +298,7 @@ meta instance : FromArgs ProofVisualizationArgs m where
 meta def proofviz : DirectiveExpanderOf ProofVisualizationArgs
   | {slug}, stxs => do
     let slug := slug.getD ""
-    if !(["eval-double", "scale-usage-comp", "project-usage-context-scale"] : List String).contains slug then
+    if !(["eval-double", "scale-usage-comp", "project-usage-context-scale", "grade-budget-finite-multiplicity", "memory-capability-allocate-unique"] : List String).contains slug then
       throwError s!"proofviz: unknown proof visualization slug '{slug}'"
     if !stxs.isEmpty then
       throwError "proofviz: content blocks are not accepted; the JSON artifact is authoritative"

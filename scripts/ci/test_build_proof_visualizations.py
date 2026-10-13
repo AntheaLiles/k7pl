@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
 # SPDX-License-Identifier: Apache-2.0
-"""Offline contract tests for Paperproof extraction and static HTML generation."""
+"""Offline contract tests for Paperproof extraction and the Verso data contract."""
 
 import json
 import tempfile
@@ -59,29 +59,6 @@ class PaperproofExportTests(unittest.TestCase):
         self.assertEqual(artifact["provenance"]["paperproofRevision"], viz.PAPERPROOF_REVISION)
         self.assertFalse(artifact["guarantees"]["k7plMainToolchainVerifiedByThisArtifact"])
 
-    def test_renderer_distinguishes_goal_transitions_and_created_branches(self):
-        url = f"https://github.com/AntheaLiles/k7pl/blob/{REV}/src/K7pl/Arith.lean#L3-L12"
-        page = viz.render_step(STEP, 1, url)
-        self.assertIn("Objectif avant la tactique", page)
-        self.assertIn("Objectifs après (1)", page)
-        self.assertIn("Objectifs créés hors de la branche associée (1)", page)
-        self.assertIn(f"blob/{REV}/src/K7pl/Arith.lean#L11-L11", page)
-
-    def test_html_escapes_goal_and_hypothesis_text(self):
-        goal = {"type": "<script>alert(1)</script>", "hyps": [{"username": "<h>", "type": "P", "isProof": "proof"}]}
-        rendered = viz.render_goal(goal, "Objectif")
-        self.assertNotIn("<script>", rendered)
-        self.assertIn("&lt;script&gt;", rendered)
-        self.assertIn("&lt;h&gt;", rendered)
-
-    def test_nav_injection_is_idempotent(self):
-        with tempfile.TemporaryDirectory() as temp:
-            nav = Path(temp) / "index.html"
-            nav.write_text('<nav><a href="../index.html">Retour</a></nav>', encoding="utf-8")
-            viz.inject_nav_link(nav)
-            viz.inject_nav_link(nav)
-            self.assertEqual(nav.read_text(encoding="utf-8").count("Visualisations de preuves"), 1)
-
     def test_extractor_stages_exact_source_inside_workspace_and_cleans_it(self):
         with tempfile.TemporaryDirectory() as root_dir, \
              tempfile.TemporaryDirectory() as extractor_dir, \
@@ -112,22 +89,29 @@ class PaperproofExportTests(unittest.TestCase):
             self.assertFalse(staged_paths[0].exists())
             self.assertFalse((Path(output_dir) / ".sample-proof.paperproof.json").exists())
 
-    def test_site_validator_rejects_stale_source_revision(self):
-        with tempfile.TemporaryDirectory() as temp:
-            site = Path(temp)
-            (site / "navigation").mkdir()
-            (site / "navigation/index.html").write_text(
-                '<nav><a href="../proofs/index.html">Visualisations de preuves</a></nav>', encoding="utf-8")
-            output = site / "proofs"
-            (output / "data").mkdir(parents=True)
-            artifact = viz.build_artifact(TARGET, EXPORT, SOURCE, REV, "leanprover/lean4:v4.34.0")
-            (output / "index.html").write_text(viz.render_index([artifact], REV), encoding="utf-8")
-            (output / "sample-proof.html").write_text(viz.render_proof(artifact), encoding="utf-8")
-            (output / "data/sample-proof.json").write_text(json.dumps(artifact), encoding="utf-8")
-            viz.validate_site(site, [artifact], REV)
-            stale = viz.build_artifact(TARGET, EXPORT, SOURCE, "e" * 40, "leanprover/lean4:v4.34.0")
-            with self.assertRaisesRegex(ValueError, "source revision mismatch"):
-                viz.validate_site(site, [stale], REV)
+
+    def test_every_curated_target_resolves_to_one_real_declaration(self):
+        repo_root = Path(viz.__file__).resolve().parents[2]
+        self.assertGreaterEqual(len(viz.TARGETS), 5)
+        seen = set()
+        for target in viz.TARGETS:
+            identity = (target["source"], target["declaration"])
+            self.assertNotIn(identity, seen)
+            seen.add(identity)
+            source_path = repo_root / target["source"]
+            self.assertTrue(source_path.is_file(), f"missing source: {target['source']}")
+            source = source_path.read_text(encoding="utf-8")
+            line = viz.declaration_line(source, target["declaration"])
+            self.assertGreater(line, 0, target["declaration"])
+
+    def test_artifact_preserves_full_observed_steps_without_claiming_authority(self):
+        artifact = viz.build_artifact(TARGET, EXPORT, SOURCE, REV, "leanprover/lean4:v4.34.0")
+        step = artifact["extracted"]["steps"][0]
+        self.assertEqual(step["tacticDependsOn"], ["h"])
+        self.assertEqual(step["goalsAfter"][0]["id"], "?m.2")
+        self.assertEqual(step["spawnedGoals"][0]["id"], "?m.3")
+        self.assertEqual(artifact["schemaVersion"], "k7pl.proof-visualization/v1")
+        self.assertFalse(artifact["guarantees"]["semanticCorrespondenceToNormativeSpecificationEstablished"])
 
 
 if __name__ == "__main__":

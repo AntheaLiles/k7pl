@@ -5,57 +5,57 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Registre de couverture des visualisations de preuves
 
-État du registre : 2026-10-13. Ce document décrit ce que le prototype implémente et ce que les tests établissent ; il ne transforme pas une fonctionnalité plausible de Paperproof en garantie K7PL.
+État : 2026-10-13. Le registre décrit ce que le prototype implémente et ce que les tests établissent. Il ne déduit pas de garantie à partir d'une syntaxe simplement présente dans un fichier.
 
 ## Échelle de statut
 
-- **Pris en charge** : la propriété est présente dans le contrat et démontrée par un test représentatif.
-- **Partiel** : certaines données sont conservées ou rendues, mais la chaîne de bout en bout ou une dimension essentielle n'est pas validée.
-- **Identifié mais non représenté** : la construction est présente dans le corpus ou reconnue comme besoin, sans représentation dédiée validée.
-- **Non pris en charge** : le modèle actuel n'a pas de représentation pour cette famille.
-- **Non évalué** : l'absence de test ou de cas source ne permet pas de conclure.
+- **Validé sur les cibles sélectionnées** : extraction réelle et rendu HTML/TeX passés pour cette déclaration dans une exécution CI identifiée.
+- **En validation CI** : cible ajoutée au corpus et soumise au pipeline, sans résultat encore établi pour le commit qui l'ajoute.
+- **Partiel** : information conservée mais une dimension sémantique, un rendu ou un test de régression manque.
+- **Identifié mais non représenté** : besoin ou construction repérée, sans représentation dédiée validée.
+- **Non évalué** : l'absence de cas ciblé ne permet pas de conclure.
 
-Une vérification lexicale des fichiers n'est pas un analyseur Lean : elle repère des candidats à la couverture, mais peut aussi trouver des occurrences dans les commentaires ou chaînes. Le statut « observé » doit être confirmé par inspection du code et, pour la couverture du générateur, par une extraction réelle.
+Une recherche lexicale n'est pas un analyseur Lean : elle peut compter des commentaires, des chaînes ou de la syntaxe non exécutable. La présence d'un nom de tactique n'est donc pas une preuve de sa prise en charge.
 
-## Corpus d'amorçage
+## Corpus et preuves de validation
 
-L'inventaire initial porte sur les modules Lean de src/ et les tests Lean de tests/ présents dans le dépôt. Les principales familles tactiques repérées dans les sources comprennent intro, exact, apply, refine, constructor, cases, induction, rw, simp, rfl, change, subst, have, funext, ext, rcases, omega, by_cases et decide. Cette liste est indicative et n'est pas une mesure quantitative de couverture.
+Les trois premières cibles ont été extraites avec Lean 4.34.0, consommées par les backends Verso HTML et TeX et incluses dans le PDF dans le run CI 38447082870.
 
-Les trois cibles sélectionnées sont des déclarations réelles ; leurs sélections éditoriales ne constituent pas un lien normatif inféré :
-
-| Déclaration | Forme et comportements ciblés | Statut du générateur | Limite explicite |
+| Déclaration canonique | Comportements ciblés | Statut dans le corpus courant | Limite explicite |
 |---|---|---|---|
-| K7pl.Arith.eval_double | Preuve par tactiques, simp, ring | Partiel : cible configurée ; extraction end-to-end à confirmer après correction du chemin d'entrée | Le build K7PL sous Lean 4.34.0 et l'extraction Paperproof sous Lean 4.34.0 sont deux contrôles distincts |
-| K7pl.UsageScale.scaleUsage_comp | cases, simp, contexte de variables paramétriques | Partiel : cible configurée ; extraction end-to-end à confirmer après correction du chemin d'entrée | Une sortie du parseur ne démontre pas la fidélité sémantique de toutes les transitions |
-| K7pl.UsageScale.projectUsageContext_scale | funext, cases, hypothèses de cas, simp | Partiel : cible configurée ; extraction end-to-end à confirmer après correction du chemin d'entrée | La disponibilité des hypothèses est celle rapportée par l'exporteur, pas une reconstruction complète des portées lexicales |
+| K7pl.Arith.eval_double | by, simp, ring | Validé sur les cibles sélectionnées | Ne garantit pas l'explication sémantique de toute simplification |
+| K7pl.UsageScale.scaleUsage_comp | cases, simp, contexte paramétrique | Validé sur les cibles sélectionnées | Une sortie d'extracteur ne prouve pas que chaque lien de branche est interprété correctement |
+| K7pl.UsageScale.projectUsageContext_scale | funext, cases, objectifs de cas, simp | Validé sur les cibles sélectionnées | La liste d'hypothèses rapportée n'est pas un modèle exhaustif de toutes les portées lexicales |
+| K7pl.GradeBudget.finite_multiplicity_compatibility | cases imbriqués, have, simp, objectifs dépendant des cas | En validation CI | L'extraction et l'association des branches doivent être confirmées pour le commit qui ajoute cette cible |
+| K7pl.MemoryCapability.allocate_preserves_unique | intro, by_cases, subst, have, simp, omega | En validation CI | La présence de ces tactiques ne démontre pas la couverture générale de toutes leurs formes |
 
 ## Couverture par dimension
 
-| Dimension / famille | Statut | Données ou tests présents | Informations perdues, reconstruites ou non établies |
+| Dimension / famille | Statut | Données présentes et tests | Lacunes connues |
 |---|---|---|---|
-| Reconnaissance des trois déclarations ciblées | Partiel | Liste de cibles explicite ; contrôle de ligne de déclaration et provenance dans le contrat JSON | La compatibilité de chaque cible n'est pas démontrée tant que l'extraction réelle n'a pas réussi sous le workspace isolé |
-| Séquences de tactiques « by » | Partiel | Modèle steps, chaîne de tactique, position, état avant/après ; tests de schéma synthétiques | Le workspace d'extraction est maintenant épinglé sur Lean 4.34.0 ; le statut restera non établi jusqu'à la réussite de l'extraction réelle des cibles en CI |
-| simp, cases, funext, ring dans les cibles sélectionnées | Partiel | Présence dans les scripts sélectionnés ; tests de rendu synthétiques | Les effets observés sur les objectifs réels ne sont pas prouvés par des fixtures Python |
-| intro, exact, apply, refine, constructor, induction, rw, rfl, change, subst, have, ext, rcases, omega, by_cases, decide | Identifié mais non représenté dans un corpus de tests propre à chaque famille | Plusieurs familles sont présentes dans les modules et/ou tests actuels ; le schéma ne maintient pas de registre de capacité par tactique | Aucune prise en charge universelle n'est revendiquée ; la reconnaissance, l'observation de l'effet et l'explication sémantique sont des capacités distinctes |
-| Objectifs avant/après et objectifs créés | Partiel | Champs goalBefore, goalsAfter, spawnedGoals ; test Python synthétique de branchement | Sémantique et association des branches non comparées à un corpus extrait et inspecté |
-| Hypothèses affichées dans un objectif | Partiel | Le rendu lit les champs hyps et échappe leur texte ; test synthétique d'échappement | Pas de suivi formel de l'introduction, de la suppression ou de la dépendance des hypothèses entre transitions |
-| Contextes de tactique, objectifs multiples et blocs case | Partiel | Le JSON peut préserver les listes d'objectifs/hypothèses exposées par Paperproof | Pas de modèle explicite de contexte lexical, de foyer de tactique ou de sémantique des branches ; tests synthétiques seulement |
-| Variables de section, lieurs lexicaux et portées imbriquées | Identifié mais non représenté | Besoin repéré à partir des modules paramétriques et contextes de preuve | Le prototype ne distingue pas contexte d'élaboration, contexte de tactique et portée lexicale |
-| Preuves par termes, termes élaborés et sous-preuves locales | Identifié mais non représenté | Famille identifiée dans le plan de développement | Le prototype rend des traces de tactiques ; il n'expose pas un arbre de terme élaboré ou ses annotations |
-| Blocs structurés calc | Non évalué | Aucun cas de test ciblé et aucun cas confirmé dans l'inventaire lexical initial | L'absence de cas repéré ne prouve ni l'absence de calc dans tout le dépôt ni son incompatibilité |
-| Définitions, expressions et types inductifs | Non pris en charge | Pas de modèle ou de rendu dédié dans le prototype actuel | Arbre de terme, type inductif et trace tactique doivent rester des vues distinctes |
-| Dépendances entre déclarations | Non pris en charge par ce générateur | Aucun graphe de dépendances produit par les vues de preuve | Ne pas confondre dépendance entre déclarations, utilisation de théorèmes dans une tactique, ni progression des objectifs |
-| Inconnues et export incomplet | Partiel | Validation du JSON ; le générateur refuse les étapes absentes ou les localisations mal formées | Pas encore de classification explicite par famille de tactique ; une sortie non conforme échoue au lieu d'inventer un résultat |
-| Provenance, révision et empreinte source | Partiel | Commit, chemin canonique, URL ancrée, empreinte SHA-256 et versions consignés ; test de révision obsolète | L'empreinte prouve l'identité du contenu haché, pas la correspondance entre le contenu et un objet de spécification |
-| Sortie web | Partiel | Prototype HTML statique, échappement et contrôle de liens ; tests unitaires Python | Un bloc Verso dédié produit la vue HTML à partir du JSON partagé ; compilation et inspection humaine de cette sortie restent nécessaires |
-| Sortie PDF issue du même modèle | Non pris en charge actuellement | Le site Verso génère déjà du HTML et du TeX, mais aucune extension de preuve ne consomme les artefacts JSON | Le backend TeX du bloc Verso consomme le même JSON que le HTML ; la compilation PDF et l'inspection de pagination doivent encore être validées |
-| Intégration à la compilation Verso | Non pris en charge actuellement | La collecte JSON est configurée avant le rendu et le bloc proofviz définit des backends Verso HTML/TeX ; la validation CI complète reste en cours | Le premier bloc de contenu Verso est implémenté ; les builds et rendus réels doivent confirmer le contrat dans les deux backends |
-| Extraction native Lean 4.34.0 | Non évalué | La compilation K7PL racine utilise Lean 4.34.0 ; l'exporteur Paperproof est verrouillé sur Lean 4.34.0 | Le build racine ne valide pas l'extracteur isolé ; la compatibilité de Paperproof doit être démontrée par sa compilation et par l'extraction de chaque cible |
+| Identité de déclaration, chemin source, révision, lignes, SHA-256 | Partiel mais testé | JSON versionné, manifeste, liens Git ancrés, contrôle de révision côté Verso ; test unitaire de provenance | La provenance identifie l'entrée et la révision ; elle n'établit pas de correspondance normative |
+| Séquences de tactiques by | Partiel | steps, tacticString, position, goalBefore, goalsAfter, spawnedGoals ; export réel sur les cibles validées | Pas de garantie pour toutes les constructions de preuve, ni pour toutes les tactiques d'une famille |
+| simp, ring, cases, funext | Validé sur au moins une cible chacun | Présents dans des exportations réelles des trois premières cibles | La validation d'un exemple ne vaut pas validation de toutes les options, macros ou cas limites |
+| intro, by_cases, subst, have, omega | En validation CI pour le corpus élargi | Famille ciblée par allocate_preserves_unique | Le statut reste attaché au résultat du prochain run, puis devra être inspecté humainement |
+| apply, refine, constructor, induction, rw, rfl, change, ext, rcases, decide | Identifié dans le corpus / couverture dédiée incomplète | Plusieurs formes sont présentes ailleurs dans les sources Lean actuelles | Pas de test d'extraction et de rendu propre à chaque famille |
+| Objectifs avant/après et objectifs créés | Partiel | Les champs d'export sont conservés ; cas synthétique de branchement en test Python ; les premières cibles sont extraites réellement | La sémantique et l'appariement des branches ne sont pas validés pour toutes les formes de preuve |
+| Hypothèses et contextes locaux | Partiel | L'export conserve les hypothèses rapportées pour chaque état ; le renderer les affiche sans JavaScript | Aucun modèle dédié du contexte lexical, des sections, du foyer de tactique ou des changements de portée indépendants des buts |
+| Blocs case, branches imbriquées et objectifs multiples | Partiel | Représentation de goalsAfter et spawnedGoals ; nouvelles cibles avec branchements soumis à CI | Un objectif créé et une branche syntaxique ne sont pas des notions équivalentes ; inspecter la correspondance réelle |
+| Preuves par termes, calc, sous-preuves locales | Identifié mais non représenté | Familles à inventorier explicitement | Pas d'arbre de terme élaboré ni d'explication dédiée pour ces formes |
+| Définitions, expressions et types inductifs | Non pris en charge par cette vue | Aucun modèle ou rendu spécialisé dans le générateur de traces tactiques | À concevoir comme vues séparées, et non comme faux arbres tactiques |
+| Dépendances entre déclarations | Non pris en charge par ce générateur | Le graphe de navigation existant n'est pas utilisé pour inférer ici des dépendances de preuve | Ne pas confondre dépendance entre déclarations, théorèmes employés et transitions d'objectifs |
+| Export inconnu ou incomplet | Partiel | L'extracteur échoue sur erreur ; validateur JSON refuse les étapes/localisations requises manquantes ; test négatif | La classification est par contrat de données, pas encore par famille de syntaxe/tactique |
+| Sortie HTML Verso | Intégrée, testée en CI pour trois cibles | Block extension Verso, HTML structuré, tests de compilation et validation de liens | Inspection humaine de clavier, viewport étroit et compréhension des branches à terminer |
+| Sortie TeX/PDF Verso | Intégrée, compilée en CI pour trois cibles | Même JSON et même manifeste, sortie TeX dédiée ; PDF compile avec succès | Inspection humaine des sauts de page et de la longueur des lignes à compléter |
+| JavaScript | Non requis pour le contenu essentiel | Le bloc utilise HTML structuré/CSS et informations lisibles directement ; HTML sans dépendance de rendu JavaScript | Les améliorations d'interaction ne doivent pas cacher l'état essentiel |
+| Conformité SPDX/REUSE | Validée par CI sur le premier incrément natif | Code de l'adaptateur et extension sous Apache-2.0, texte LICENSES/Apache-2.0.txt ; REUSE passe | Refaire la validation automatiquement après l'extension du corpus |
 
-## Interprétation des preuves disponibles
+## Ce que les tests établissent
 
-Les tests Python actuels établissent des propriétés du validateur de données et du rendu HTML sur des fixtures synthétiques. Ils ne valident pas les effets des tactiques sur des objectifs réels. Le workflow racine compile K7PL sous Lean 4.34.0, mais ne prouve pas qu'un autre workspace extrait fidèlement les mêmes sources. Enfin, une page HTML et un lien de navigation ajoutés après la compilation ne démontrent pas une intégration Verso.
+Le run 38447082870 établit pour les trois premières cibles : build de l'implémentation Lean, compilation Verso, extraction Paperproof sous Lean 4.34.0, rendu HTML et TeX, génération PDF, validateurs de navigation et REUSE. Les tests Python valident le contrat d'export sur des fixtures synthétiques, le refus des données incomplètes, la provenance et la copie temporaire exacte du fichier source. Ils ne valident pas à eux seuls la sémantique de toutes les transitions.
 
-## Prochain seuil de validation
+Le commit qui ajoute les deux nouvelles cibles doit passer son propre run CI pour faire évoluer leur statut. Même après ce passage, la généralisation au registre entier des tactiques reste non établie.
 
-Le prochain résultat CI doit établir successivement : (1) l'extraction réelle des trois cibles, (2) la validation du contrat JSON et de la provenance, puis (3) la production documentaire. La réussite de cette étape ne suffira toujours pas à déclarer le générateur achevé : il faudra intégrer les artefacts à une extension Verso commune aux sorties HTML et TeX, puis ajouter des cas représentatifs pour les autres familles du corpus.
+## Validation humaine nécessaire
+
+Consulter les artefacts CI, comparer chaque transition au script Lean source et consigner les branches trompeuses ou omises. Inspecter le site avec clavier et largeur mobile, puis les pages PDF contenant les cinq vues. La réussite CI n'établit ni l'utilité pédagogique ni l'absence de surcharge visuelle.
