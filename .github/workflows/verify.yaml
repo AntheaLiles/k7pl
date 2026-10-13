@@ -558,7 +558,6 @@ jobs:
           python3 scripts/ci/build_proof_visualizations.py
           --repo-root .
           --data-dir _out/proof-visualizations/data
-          --data-only
           --ref "$GITHUB_SHA"
           --extractor-dir tooling/paperproof-export
 
