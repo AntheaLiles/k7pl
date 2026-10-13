@@ -306,6 +306,14 @@ dépendance par construction du typage, et non par une hypothèse à honorer. Ce
 manquante de cet énoncé est devenu une lecture de ses règles.
 :::
 
+:::note
+_Obligation ouverte._ La simulation du graphe d'attente est reportée sur le typage, sans être
+encore démontrée. Restent à définir indépendamment la relation de dépendance statique et la relation
+d'attente dynamique, puis à prouver l'invariant qui les relie sur tous les états atteignables, avec
+un cas pour {sc}[Guard], l'émission et la consommation de message, les types résiduels de boîte et
+`Timeout`. Restent aussi à séparer explicitement les états terminaux et la progression par
+expiration du blocage mutuel proprement dit.
+:::
 ::::
 Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. {rmq}[Le câblage est
 donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet

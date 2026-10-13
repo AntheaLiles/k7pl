@@ -1316,6 +1316,14 @@ d'effet neutre, de sorte que l'entrelacement ne distingue aucun état. La diffé
 est celle des deux compositions : $`\max(s_1, s_2) \le s_1 + s_2`.
 :::
 
+:::note
+_Obligation ouverte._ Restent à préciser le sens de « la même valeur » (égalité syntaxique,
+dénotationnelle ou observationnelle), la sémantique de $`c_1 \parallel c_2` et de la composition
+séquentielle, l'hypothèse de terminaison et le traitement des erreurs et de la divergence, puis à
+déduire l'indépendance des deux branches des règles de la couche 3 plutôt que du seul caractère
+cartésien. La comparaison porte sur la composante formelle de profondeur, non sur un temps
+d'horloge ; son orientation est à confirmer, l'esquisse concluant $`\max(s_1, s_2) \le s_1 + s_2`.
+:::
 ::::
 Ce que cet énoncé achète mérite d'être dit, car il est facile et n'en est pas moins un résultat. _Le
 parallélisme de couche 3 n'a pas besoin d'être vérifié_ : il est sûr par la structure du fragment,
