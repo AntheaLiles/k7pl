@@ -776,6 +776,15 @@ licite puisque le lemme de substitution garantit que $`x` n'apparaît que dans l
 grade est non nul.
 :::
 
+:::note
+_Obligation ouverte._ L'énoncé quantifie sur des termes quelconques. Restent à préciser s'il porte
+sur des termes bruts ou sur des dérivations bien typées, le domaine de la traduction et la
+convention de substitution source, la condition de fraîcheur qui empêche le nom restreint $`x` de
+capturer un nom des traductions de $`c` ou de $`v`, et l'α-équivalence du calcul cible. Restent
+aussi à vérifier chaque constructeur, en particulier les lieurs, les modalités graduées et les
+constructions à effet. Le schéma de commutation cité garde ses propres obligations ouvertes ; le
+citer ne les décharge pas.
+:::
 ::::
 Cette commutation est ce que le cas de l'application réclamait, et elle rend mécaniques les trois
 premiers des quatre groupes de l'induction.
@@ -863,6 +872,15 @@ plus tard au rang $`h`, appliquer $`f` exactement $`h` fois donne le plus petit 
 applications postérieures à la stabilisation étant l'identité.
 :::
 
+:::note
+_Obligation ouverte._ La conclusion ne se réduit pas à la terminaison. Restent à définir la clause
+de traduction de $`\mathbf{fix}` indépendamment de ce théorème, à montrer que l'opérateur traduit
+réalise $`f` sur chaque élément du support fini, à justifier la borne exacte de $`h` pas selon la
+convention de hauteur, et à prouver typage et bon sortage par récurrence sur la ré-invocation,
+contre les clauses effectives de la traduction. La compatibilité de la ré-invocation finie
+(exigence du chapitre 2) reste à décharger. Égalité sémantique, typage et terminaison sont trois
+arguments distincts.
+:::
 ::::
 ## Ce que ce cas apprend, et qui n'était pas prévu
 %%%
