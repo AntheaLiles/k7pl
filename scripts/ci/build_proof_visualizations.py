@@ -360,7 +360,7 @@ def main() -> int:
     for artifact in artifacts:
         slug = artifact["slug"]
         (data_dir / f"{slug}.json").write_text(
-            json.dumps(artifact, ensure_ascii=False, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
+            json.dumps(artifact, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     manifest = {
         "schemaVersion": SCHEMA_VERSION,
         "sourceRevision": args.ref,
@@ -370,7 +370,7 @@ def main() -> int:
         "declarations": [item["identity"]["declaration"] for item in artifacts],
         "limits": ["Curated tactic proofs only", "No inferred normative correspondence", "JSON contains observations, not proof evidence"],
     }
-    (data_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
+    (data_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     if args.data_only:
         print(f"Generated {len(artifacts)} proof data artifacts for {args.ref}")
@@ -387,9 +387,9 @@ def main() -> int:
         slug = artifact["slug"]
         (output / f"{slug}.html").write_text(render_proof(artifact), encoding="utf-8")
         (output / "data" / f"{slug}.json").write_text(
-            json.dumps(artifact, ensure_ascii=False, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
+            json.dumps(artifact, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     (output / "index.html").write_text(render_index(artifacts, args.ref), encoding="utf-8")
-    (output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
+    (output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     inject_nav_link(site / "navigation" / "index.html")
     validate_site(site, artifacts, args.ref)
     print(f"Generated {len(artifacts)} transitional static proof views for {args.ref}")
