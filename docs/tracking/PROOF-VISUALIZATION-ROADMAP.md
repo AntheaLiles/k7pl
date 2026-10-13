@@ -85,9 +85,9 @@ The long-term path is rule/statement → formalization/declaration → proof or 
 ## Verification record
 
 The relevant checks are:
-- scripts/ci/test_build_proof_visualizations.py: JSON schema shape, malformed/missing export data, source provenance, escaping, goal/branch rendering, idempotent navigation injection and stale-revision rejection.
-- scripts/ci/check_lean_modules.py and the root Lean build: the ordinary K7PL Lean sources/tests under the root toolchain.
-- scripts/ci/build_proof_visualizations.py during the Verso job: actual Paperproof extraction and site generation.
-- existing navigation and HTML validators: local links, anchors and freshness for the site outputs they cover.
+- scripts/ci/test_build_proof_visualizations.py: offline tests for required export fields, rejection of empty/incomplete exports, source/declaration lookup, provenance claims, preservation of observed goal fields, and temporary source staging/cleanup. These tests use a synthetic Paperproof export; they do not execute Paperproof or test the Verso HTML/TeX renderers.
+- The Verso renderer and full extraction path are exercised by the dedicated CI job: root specification build, pinned Paperproof extraction, HTML/TeX rendering, PDF generation, and downstream navigation/asset validation. Inspect the step logs for the exact commit before claiming this passed.
+- scripts/ci/check_lean_modules.py and the root Lean build: the ordinary K7PL Lean sources/tests under the root toolchain; this does not by itself validate the separate extraction workspace.
+- Existing navigation and HTML validators: local links, anchors, provenance and freshness only for the generated outputs and checks they explicitly cover. They do not independently prove semantic fidelity of each goal transition.
 
 A passing Python unit test validates the renderer contract, not Paperproof's runtime compatibility. A passing root Lean build validates K7PL's compilation, not that the separate extractor ran. Completion of the static proof pipeline is determined by the end-to-end CI step; human usability remains separately open.
