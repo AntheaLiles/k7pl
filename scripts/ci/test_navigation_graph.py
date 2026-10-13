@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 
 from build_navigation_graph import build_graph, inject_navigation_link
+from navigation_explanations import EXPLANATION_CATALOG
 
 
 class NavigationGraphTests(unittest.TestCase):
@@ -63,6 +64,25 @@ class NavigationGraphTests(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.temp.cleanup()
+
+
+    def test_progressive_explanations_are_curated_and_have_six_levels(self) -> None:
+        expected_levels = {
+            "intro", "concept", "detail", "formalization", "verification", "sources"
+        }
+        entries = {entry["id"]: entry for entry in EXPLANATION_CATALOG}
+        self.assertIn("k7pl-graded-design", entries)
+        self.assertIn("k7pl-graded-system", entries)
+        self.assertEqual(len(entries), len(EXPLANATION_CATALOG))
+        for entry in entries.values():
+            self.assertEqual(set(entry["levels"]), expected_levels)
+            self.assertIn("non normative", entry["notice"].lower())
+            for level in entry["levels"].values():
+                self.assertTrue(level["text"].strip())
+                self.assertTrue(level["sources"])
+                for source in level["sources"]:
+                    self.assertTrue(source["label"].strip())
+                    self.assertTrue(source["url"].endswith(".html") or ".html#" in source["url"])
 
     def test_extracts_explicit_reference_and_citation_edges(self) -> None:
         graph = build_graph(self.site)
