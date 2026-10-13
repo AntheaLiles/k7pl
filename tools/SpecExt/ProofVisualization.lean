@@ -198,7 +198,7 @@ block_extension Block.proofVisualization (slug : String) where
             <p>{{"Tactique observée : "}}<code>{{tactic}}</code>{{s!" · Source : ligne {line}, colonne {column}"}}</p>
             {{proofGoalHtml "Objectif avant la tactique" (proofField step "goalBefore")}}
             {{proofGoalCollectionHtml "Objectifs après" (proofArrayField step "goalsAfter") "Aucun objectif après n'est associé à cette transition dans l'export."}}
-            {{proofGoalCollectionHtml "Objectifs créés hors de la branche associée" (proofArrayField step "spawnedGoals") "Aucun objectif supplémentaire n'est rapporté pour cette transition."}}
+            {{proofGoalCollectionHtml "Autres objectifs rapportés par l’export" (proofArrayField step "spawnedGoals") "Aucun objectif supplémentaire n'est rapporté pour cette transition."}}
           </li>}}
     let state ← HtmlT.state
     pure {{<section class="k7-proofviz" {{state.htmlId id}}>
@@ -264,7 +264,7 @@ block_extension Block.proofVisualization (slug : String) where
         output := output.push (.raw "\\noindent\\textit{Aucun objectif supplémentaire rapporté pour cette transition.}\\par\n")
       else
         for j in [:spawned.size] do
-          output := appendProofGoalTeX output s!"Objectif créé hors de la branche associée {j + 1}" spawned[j]!
+          output := appendProofGoalTeX output s!"Autre objectif rapporté par l’export {j + 1}" spawned[j]!
     output := output.push (.raw "\\par\\addvspace{0.6em}\n")
     pure (.seq output)
   extraCss := [
