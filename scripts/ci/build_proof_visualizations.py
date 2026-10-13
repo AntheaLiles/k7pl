@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any
 
 PAPERPROOF_REVISION = "05c68e9cb8e881f9e971abb94efd231a269e0229"
-PAPERPROOF_TOOLCHAIN = "leanprover/lean4:v4.29.0-rc8"
+PAPERPROOF_TOOLCHAIN = "leanprover/lean4:v4.34.0"
 SCHEMA_VERSION = "k7pl.proof-visualization/v1"
 REPOSITORY_URL = "https://github.com/AntheaLiles/k7pl"
 TARGETS = (
@@ -319,8 +319,8 @@ def extract_one(root: Path, extractor: Path, target: dict[str, str], revision: s
             result = subprocess.run(command, cwd=extractor, text=True, capture_output=True, check=False)
             if result.returncode or not raw_path.is_file():
                 raise RuntimeError(
-                    f"Paperproof extraction failed for {target['declaration']} (exit {result.returncode}).\\n"
-                    f"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}")
+                    f"Paperproof extraction failed for {target['declaration']} (exit {result.returncode}).\n"
+                    f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}")
             raw = json.loads(raw_path.read_text(encoding="utf-8"))
             return build_artifact(target, raw, source, revision, main_toolchain, source_bytes)
         finally:
@@ -337,8 +337,8 @@ def validate_lock(extractor: Path) -> None:
     mathlib = packages.get("mathlib", {})
     if pp.get("rev") != PAPERPROOF_REVISION or pp.get("subDir") != "lean":
         raise ValueError("Paperproof must remain pinned to the reviewed commit and lean subdirectory")
-    if mathlib.get("inputRev") != "v4.29.0-rc8":
-        raise ValueError("the isolated Paperproof workspace must keep its matching Mathlib release")
+    if mathlib.get("inputRev") != "v4.34.0":
+        raise ValueError("the isolated Paperproof workspace must use Mathlib v4.34.0")
 
 
 def main() -> int:
