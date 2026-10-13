@@ -130,15 +130,15 @@ private def appendProofGoalTeX (output : Array Verso.Output.TeX) (heading : Stri
     Array Verso.Output.TeX := Id.run do
   let mut result := output
   let goalType := SpecExt.texEscape (proofStringField goal "type" "Type indisponible dans l'export")
-  result := result.push (.raw ("\par\noindent\textit{" ++ SpecExt.texEscape heading ++ "}\par\n\begingroup\small\ttfamily\sloppy\n"))
-  result := result.push (.raw (goalType ++ "\par\n\endgroup\n"))
+  result := result.push (.raw ("\\par\\noindent\\textit{" ++ SpecExt.texEscape heading ++ "}\\par\n\\begingroup\\small\\ttfamily\\sloppy\n"))
+  result := result.push (.raw (goalType ++ "\\par\n\\endgroup\n"))
   let hypotheses := proofArrayField goal "hyps"
   for hypothesis in hypotheses do
     let username := SpecExt.texEscape (proofStringField hypothesis "username" "?")
     let hypothesisType := SpecExt.texEscape (proofStringField hypothesis "type" "type non fourni")
-    result := result.push (.raw ("\noindent\texttt{" ++ username ++ "} : \texttt{" ++ hypothesisType ++ "}\par\n"))
+    result := result.push (.raw ("\\noindent\\texttt{" ++ username ++ "} : \\texttt{" ++ hypothesisType ++ "}\\par\n"))
   if hypotheses.isEmpty then
-    result := result.push (.raw "\noindent\textit{Aucune hypothèse rapportée dans cet export.}\par\n")
+    result := result.push (.raw "\\noindent\\textit{Aucune hypothèse rapportée dans cet export.}\\par\n")
   return result
 
 block_extension Block.proofVisualization (slug : String) where
@@ -211,14 +211,14 @@ block_extension Block.proofVisualization (slug : String) where
     let extractorRevision := SpecExt.texEscape (proofStringField provenance "paperproofRevision" "révision inconnue")
     let steps := proofArrayField extracted "steps"
     let mut output : Array Verso.Output.TeX := #[
-      .raw ("\par\addvspace{0.6em}\noindent\textbf{Observation dérivée : " ++ title ++ "}\par\n"),
-      .raw ("\noindent\textit{Commentaire éditorial : }" ++ description ++ "\par\n"),
-      .raw ("\noindent\textit{Déclaration Lean : }\texttt{" ++ declaration ++ "}\par\n"),
-      .raw ("\noindent\textit{Source canonique : }\texttt{" ++ sourcePath ++ "}\par\n"),
-      .raw ("\noindent\textit{Révision source : }\texttt{" ++ revision ++ "}\par\n"),
-      .raw ("\noindent\textit{SHA-256 source : }\texttt{" ++ sourceHash ++ "}\par\n"),
-      .raw ("\noindent\textit{Extracteur : }\texttt{" ++ extractorRevision ++ "}, Lean \texttt{" ++ extractorToolchain ++ "}\par\n"),
-      .raw ("\noindent\emph{Les transitions affichées sont des observations dérivées, non une preuve indépendante ni une correspondance normative. Le build K7PL sous Lean 4.34.0 reste un contrôle séparé.}\par\n")
+      .raw ("\\par\\addvspace{0.6em}\\noindent\\textbf{Observation dérivée : " ++ title ++ "}\\par\n"),
+      .raw ("\\noindent\\textit{Commentaire éditorial : }" ++ description ++ "\\par\n"),
+      .raw ("\\noindent\\textit{Déclaration Lean : }\\texttt{" ++ declaration ++ "}\\par\n"),
+      .raw ("\\noindent\\textit{Source canonique : }\\texttt{" ++ sourcePath ++ "}\\par\n"),
+      .raw ("\\noindent\\textit{Révision source : }\\texttt{" ++ revision ++ "}\\par\n"),
+      .raw ("\\noindent\\textit{SHA-256 source : }\\texttt{" ++ sourceHash ++ "}\\par\n"),
+      .raw ("\\noindent\\textit{Extracteur : }\\texttt{" ++ extractorRevision ++ "}, Lean \\texttt{" ++ extractorToolchain ++ "}\\par\n"),
+      .raw ("\\noindent\\emph{Les transitions affichées sont des observations dérivées, non une preuve indépendante ni une correspondance normative. Le build K7PL sous Lean 4.34.0 reste un contrôle séparé.}\\par\n")
     ]
     for i in [:steps.size] do
       let step := steps[i]!
@@ -227,22 +227,22 @@ block_extension Block.proofVisualization (slug : String) where
       let start := proofField position "start"
       let line := proofNatField start "line" + 1
       let column := proofNatField start "character" + 1
-      output := output.push (.raw ("\par\medskip\noindent\textbf{Étape " ++ toString (i + 1) ++ " : }\texttt{" ++ tactic ++ "}\par\n"))
-      output := output.push (.raw ("\noindent\textit{Position source : }ligne " ++ toString line ++ ", colonne " ++ toString column ++ ".\par\n"))
+      output := output.push (.raw ("\\par\\medskip\\noindent\\textbf{Étape " ++ toString (i + 1) ++ " : }\\texttt{" ++ tactic ++ "}\\par\n"))
+      output := output.push (.raw ("\\noindent\\textit{Position source : }ligne " ++ toString line ++ ", colonne " ++ toString column ++ ".\\par\n"))
       output := appendProofGoalTeX output "Objectif avant la tactique" (proofField step "goalBefore")
       let after := proofArrayField step "goalsAfter"
       if after.isEmpty then
-        output := output.push (.raw "\noindent\textit{Aucun objectif après n'est associé à cette transition dans l'export.}\par\n")
+        output := output.push (.raw "\\noindent\\textit{Aucun objectif après n'est associé à cette transition dans l'export.}\\par\n")
       else
         for j in [:after.size] do
           output := appendProofGoalTeX output s!"Objectif après {j + 1}" after[j]!
       let spawned := proofArrayField step "spawnedGoals"
       if spawned.isEmpty then
-        output := output.push (.raw "\noindent\textit{Aucun objectif supplémentaire rapporté pour cette transition.}\par\n")
+        output := output.push (.raw "\\noindent\\textit{Aucun objectif supplémentaire rapporté pour cette transition.}\\par\n")
       else
         for j in [:spawned.size] do
           output := appendProofGoalTeX output s!"Objectif créé hors de la branche associée {j + 1}" spawned[j]!
-    output := output.push (.raw "\par\addvspace{0.6em}\n")
+    output := output.push (.raw "\\par\\addvspace{0.6em}\n")
     pure (.seq output)
   extraCss := [
 r#"
