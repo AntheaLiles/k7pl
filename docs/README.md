@@ -23,7 +23,7 @@ Start with:
 - [Interactive exploration inventory](tracking/INTERACTIVE-EXPLORATION-INVENTORY.md): canonical sources, generators, validators and current limits.
 - [Navigation prototype](tracking/NAVIGATION-PROTOTYPE.md): implementation contract, all-page coverage and deployment/usage limits.
 - [Navigation semantic model](tracking/NAVIGATION-SEMANTIC-MODEL.md): allowed relation types, provenance and epistemic-status boundaries.
-- [Navigation graph implementation](../scripts/ci/knowledge_graph/README.md): generated HTML graph, node/edge contracts, build commands and validation limits.
+- [Navigation graph implementation](../scripts/ci/navigation_graph/README.md): generated HTML graph, node/edge contracts, build commands and validation limits.
 
 ## Assess the current state
 
