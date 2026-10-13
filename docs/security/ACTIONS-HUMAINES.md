@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Actions humaines — parcours de clôture OpenSSF
+# Actions humaines — clôture OpenSSF et recette de navigation
 
 | | |
 |---|---|
@@ -12,7 +12,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | Mode d'emploi | Suivre les phases dans l'ordre. Ne cocher une case qu'après observation effective ; inscrire la preuve, la date et la décision dans le registre approprié. |
 | Registres | [État opérationnel](OPENSSF-ROADMAP.md) · [Décisions D1–D11](DECISIONS-REQUISES.md) · [Analyse BadgeApp](BADGE-AUTOMATION.md) · [Matrice des critères](BADGE-CONFORMANCE-MATRIX.md) |
 
-Cette liste est centrée sur les gestes, décisions et preuves qui exigent la mainteneuse. Les cases de la matrice ne sont pas des réponses enregistrées sur BadgeApp. Les rapports d'agents ne constituent pas une revue de sécurité humaine. La réussite de la CI ne prouve ni un réglage administrateur ni une publication de bout en bout.
+Les sections 0 à 5 concernent la clôture OpenSSF. La section 6 est un volet distinct consacré à la recette humaine du premier chantier de navigation interactive, regroupé ici à la demande de la mainteneuse pour disposer d'une checklist d'actions humaines unique. Cette liste est centrée sur les gestes, décisions et preuves qui exigent la mainteneuse. Les cases de la matrice ne sont pas des réponses enregistrées sur BadgeApp. Les rapports d'agents ne constituent pas une revue de sécurité humaine. La réussite de la CI ne prouve ni un réglage administrateur ni une publication de bout en bout.
 
 ## 0. Valider puis intégrer le socle
 
