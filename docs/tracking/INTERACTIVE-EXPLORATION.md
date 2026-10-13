@@ -5,8 +5,9 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Enveloppe interactive de présentation et d'exploration de K7PL
 
-**Statut :** projet architectural proposé  
-**Date :** 2026-10-08  
+**Statut :** architecture cible proposée ; un prototype technique partiel est déjà intégré au site  
+**Date de cadrage :** 2026-10-08  
+**État du prototype au 13 octobre 2026 :** le HTML Verso rendu alimente un graphe statique de navigation avec recherche, voisinage contrôlable, filtres par relations explicites, liste textuelle, retours vers les sources et deux explications éditoriales progressives. Ce prototype ne relie pas encore de manière générale spécification, implémentation, preuves, tests, décisions et historique. L’évaluation comparative avec des lecteurs, la revue du site publié et toute extension à de nouvelles relations restent des portes ouvertes.  
 **Audience :** chercheurs, contributeurs, reviewers et lecteurs de K7PL.
 
 ## Intention
