@@ -110,13 +110,13 @@ private def proofGoalHtml (heading : String) (goal : Json) : Output.Html := Id.r
     let hypothesisType := proofStringField hypothesis "type" "type non fourni"
     let role := proofRole hypothesis
     hypothesisItems := hypothesisItems.push
-      {{<li><strong>{{username}}</strong> : <code>{{hypothesisType}}</code> <span class="k7-proofviz-role">{{role}}</span></li>}}
+      {{<li><strong>{{username}}</strong>{{" : "}}<code>{{hypothesisType}}</code> <span class="k7-proofviz-role">{{role}}</span></li>}}
   let hypothesisBlock : Output.Html :=
     if hypotheses.isEmpty then
-      {{<p class="k7-proofviz-muted">Aucune hypothèse n'est rapportée pour cet objectif dans cet export.</p>}}
+      {{<p class="k7-proofviz-muted">{{"Aucune hypothèse n'est rapportée pour cet objectif dans cet export."}}</p>}}
     else
-      {{<details><summary>Hypothèses et variables ({{toString hypotheses.size}})</summary><ul>{{Output.Html.seq hypothesisItems}}</ul></details>}}
-  return {{<section class="k7-proofviz-goal" aria-label={{heading}}><h5>{{heading}}</h5><pre>{{goalType}}</pre>{{hypothesisBlock}}</section>}}
+      {{<details><summary>{{"Hypothèses et variables (" ++ toString hypotheses.size ++ ")"}}</summary><ul>{{Output.Html.seq hypothesisItems}}</ul></details>}}
+  return {{<section class="k7-proofviz-goal"><h5>{{heading}}</h5><pre>{{goalType}}</pre>{{hypothesisBlock}}</section>}}
 
 private def proofGoalCollectionHtml (heading : String) (goals : Array Json) (emptyMessage : String) : Output.Html := Id.run do
   if goals.isEmpty then
@@ -124,7 +124,7 @@ private def proofGoalCollectionHtml (heading : String) (goals : Array Json) (emp
   let mut items : Array Output.Html := #[]
   for i in [:goals.size] do
     items := items.push (proofGoalHtml s!"{heading} {i + 1}" goals[i]!)
-  return {{<section class="k7-proofviz-outcomes"><h5>{{heading}} ({{toString goals.size}})</h5>{{Output.Html.seq items}}</section>}}
+  return {{<section class="k7-proofviz-outcomes"><h5>{{heading ++ " (" ++ toString goals.size ++ ")"}}</h5>{{Output.Html.seq items}}</section>}}
 
 private def appendProofGoalTeX (output : Array Verso.Output.TeX) (heading : String) (goal : Json) :
     Array Verso.Output.TeX := Id.run do
@@ -172,8 +172,8 @@ block_extension Block.proofVisualization (slug : String) where
       let column := proofNatField start "character" + 1
       renderedSteps := renderedSteps.push
         {{<li class="k7-proofviz-step">
-            <h4>Étape {{toString (i + 1)}}</h4>
-            <p>Tactique observée : <code>{{tactic}}</code> · Source : ligne {{toString line}}, colonne {{toString column}}</p>
+            <h4>{{"Étape " ++ toString (i + 1)}}</h4>
+            <p>{{"Tactique observée : "}}<code>{{tactic}}</code>{{s!" · Source : ligne {line}, colonne {column}"}}</p>
             {{proofGoalHtml "Objectif avant la tactique" (proofField step "goalBefore")}}
             {{proofGoalCollectionHtml "Objectifs après" (proofArrayField step "goalsAfter") "Aucun objectif après n'est associé à cette transition dans l'export."}}
             {{proofGoalCollectionHtml "Objectifs créés hors de la branche associée" (proofArrayField step "spawnedGoals") "Aucun objectif supplémentaire n'est rapporté pour cette transition."}}
@@ -181,15 +181,15 @@ block_extension Block.proofVisualization (slug : String) where
     let state ← HtmlT.state
     pure {{<section class="k7-proofviz" {{state.htmlId id}}>
         <header class="k7-proofviz-header">
-          <p class="k7-proofviz-kicker">Observation dérivée · non normative</p>
+          <p class="k7-proofviz-kicker">{{"Observation dérivée · non normative"}}</p>
           <h3>{{title}}</h3>
           <p>{{description}}</p>
-          <p>Déclaration Lean : <code>{{declaration}}</code></p>
-          <p>Source canonique : <a href={{sourceUrl}}>{{sourcePath}}</a> · Révision <code>{{revision}}</code></p>
-          <p>SHA-256 source : <code>{{sourceHash}}</code></p>
+          <p>{{"Déclaration Lean : "}}<code>{{declaration}}</code></p>
+          <p>{{"Source canonique : "}}<a href={{sourceUrl}}>{{sourcePath}}</a>{{" · Révision "}}<code>{{revision}}</code></p>
+          <p>{{"SHA-256 source : "}}<code>{{sourceHash}}</code></p>
         </header>
-        <p class="k7-proofviz-notice">Ces états et transitions sont des observations de l'extracteur Paperproof. Ils ne constituent pas une preuve indépendante et ne démontrent aucune correspondance normative. La compilation K7PL sous Lean 4.34.0 reste un contrôle séparé.</p>
-        <p>Extracteur : <code>{{extractorRevision}}</code> · Lean de l'extracteur : <code>{{extractorToolchain}}</code></p>
+        <p class="k7-proofviz-notice">{{"Ces états et transitions sont des observations de l'extracteur Paperproof. Ils ne constituent pas une preuve indépendante et ne démontrent aucune correspondance normative. La compilation K7PL sous Lean 4.34.0 reste un contrôle séparé."}}</p>
+        <p>{{"Extracteur : "}}<code>{{extractorRevision}}</code>{{" · Lean de l'extracteur : "}}<code>{{extractorToolchain}}</code></p>
         <ol class="k7-proofviz-steps">{{Output.Html.seq renderedSteps}}</ol>
       </section>}}
   toTeX := some fun _ _ _ data _ => do
@@ -266,20 +266,21 @@ section
 variable {m : Type → Type} [Monad m] [MonadError m]
 
 structure ProofVisualizationArgs where
-  slug : String := ""
+  slug : Option String := none
 
 meta instance : FromArgs ProofVisualizationArgs m where
   fromArgs := ProofVisualizationArgs.mk <$> .named (Name.mkSimple "slug") .string true
 
-end
-
 @[directive]
 meta def proofviz : DirectiveExpanderOf ProofVisualizationArgs
   | {slug}, stxs => do
+    let slug := slug.getD ""
     if !(["eval-double", "scale-usage-comp", "project-usage-context-scale"] : List String).contains slug then
       throwError s!"proofviz: unknown proof visualization slug '{slug}'"
     if !stxs.isEmpty then
       throwError "proofviz: content blocks are not accepted; the JSON artifact is authoritative"
     ``(Verso.Doc.Block.other (SpecExt.Block.proofVisualization $(quote slug)) #[])
+
+end
 
 end SpecExt
