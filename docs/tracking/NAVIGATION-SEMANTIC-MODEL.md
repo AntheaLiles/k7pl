@@ -109,3 +109,12 @@ Le contrôle de sortie ajouté à la CI vérifie que les trois pages existent, q
 La couche de validation d'une arête (extraite, passée dans la CI, revue par une personne) reste orthogonale au statut épistémique du contenu visé (proposition, hypothèse, résultat publié, preuve). La CI ne peut pas accorder une validation humaine.
 
 Le choix de phase est **réorienter** : ne pas étendre le modèle à définition → théorème → preuve → implémentation → test avant résultat positif de la comparaison d'usage du prototype étroit et avant identification de relations explicites ou de métadonnées canoniques capables de les attester.
+
+
+## 10. Contrat d’affichage du contexte — 13 octobre 2026
+
+Le panneau « Texte rendu disponible » ne doit pas se limiter au titre d’une section lorsqu’un contexte rédactionnel immédiat est disponible. Le générateur extrait désormais les paragraphes qui suivent le titre jusqu’au titre suivant, avec une longueur maximale ; il ne présente pas le texte d’une sous-section comme contexte de sa section parente. Cet extrait est une aide à l’orientation tirée du HTML rendu : ce n’est ni une définition formellement identifiée, ni une relation du graphe, ni une attestation du statut épistémique de l’objet. Le lien vers la source documentaire canonique reste indispensable.
+
+La vue SVG positionne maintenant tous les niveaux sélectionnés, de 1 à 3. La limite de voisinage à 24 nœuds demeure volontaire : le rendu peut être tronqué, tandis que la liste et les relations textuelles continuent de fournir une navigation alternative. Les tests de régression couvrent l’arrêt de l’extrait au prochain titre et la prise en charge du troisième niveau.
+
+Ces corrections améliorent le comportement de l’interface ; elles ne ferment pas la revue humaine de sa valeur, la vérification du site public sur navigateur mobile/clavier ni le protocole comparatif d’utilisabilité.
