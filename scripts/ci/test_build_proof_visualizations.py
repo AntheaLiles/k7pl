@@ -32,7 +32,7 @@ STEP = {
     "goalsAfter": [{"username": "case_a", "type": "Q", "hyps": [], "id": "?m.2"}],
     "tacticDependsOn": ["fvar.h"],
     "spawnedGoals": [{"username": "case_b", "type": "R", "hyps": [], "id": "?m.3"}],
-    "position": {"start": {"line": 10, "character": 2}, "stop": {"line": 10, "character": 9}},
+    "position": {"start": {"line": 3, "character": 2}, "stop": {"line": 3, "character": 9}},
     "theorems": [],
 }
 EXPORT = {"steps": [STEP], "allGoals": [GOAL]}
@@ -74,6 +74,45 @@ class PaperproofExportTests(unittest.TestCase):
         broken = {"steps": [dict(STEP, position={})], "allGoals": []}
         with self.assertRaisesRegex(ValueError, "position.start"):
             viz.validate_export(broken)
+
+    def test_rejects_source_positions_outside_the_actual_file(self):
+        bad_step = dict(STEP, position={
+            "start": {"line": 99, "character": 0},
+            "stop": {"line": 99, "character": 3},
+        })
+        with self.assertRaisesRegex(ValueError, "fall outside the source span"):
+            viz.build_artifact(
+                TARGET, {"steps": [bad_step], "allGoals": [GOAL]},
+                SOURCE, REV, "leanprover/lean4:v4.34.0"
+            )
+
+    def test_rejects_reversed_source_positions(self):
+        bad_step = dict(STEP, position={
+            "start": {"line": 3, "character": 9},
+            "stop": {"line": 3, "character": 2},
+        })
+        with self.assertRaisesRegex(ValueError, "stop before its start"):
+            viz.validate_export({"steps": [bad_step], "allGoals": [GOAL]})
+
+    def test_checkout_revision_requires_a_full_sha(self):
+        with self.assertRaisesRegex(ValueError, "full, lowercase 40-character"):
+            viz.validate_checkout_revision(Path("."), "main")
+
+    def test_checkout_revision_rejects_a_stale_or_mismatched_tree(self):
+        checked_out = "e" * 40
+        with patch.object(
+            viz.subprocess, "run",
+            return_value=SimpleNamespace(returncode=0, stdout=checked_out + "\n", stderr="")
+        ):
+            with self.assertRaisesRegex(ValueError, "Source revision mismatch"):
+                viz.validate_checkout_revision(Path("."), REV)
+
+    def test_checkout_revision_accepts_the_exact_checkout_sha(self):
+        with patch.object(
+            viz.subprocess, "run",
+            return_value=SimpleNamespace(returncode=0, stdout=REV + "\n", stderr="")
+        ):
+            viz.validate_checkout_revision(Path("."), REV)
 
     def test_source_and_provenance_are_separated_from_verification(self):
         artifact = viz.build_artifact(TARGET, EXPORT, SOURCE, REV, "leanprover/lean4:v4.34.0")
