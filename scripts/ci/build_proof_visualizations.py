@@ -92,6 +92,9 @@ def validate_export(value: Any) -> dict[str, Any]:
             for coordinate in ("line", "character"):
                 if type(point.get(coordinate)) is not int or point[coordinate] < 0:
                     raise ValueError(f"steps[{index}].position.{end}.{coordinate} must be a nonnegative integer")
+        start, stop = position["start"], position["stop"]
+        if (stop["line"], stop["character"]) < (start["line"], start["character"]):
+            raise ValueError(f"steps[{index}].position has a stop before its start")
     return data
 
 
@@ -108,7 +111,18 @@ def build_artifact(target: dict[str, str], export_value: Any, source: str, revis
                    main_toolchain: str, source_bytes: bytes | None = None) -> dict[str, Any]:
     export = validate_export(export_value)
     start = declaration_line(source, target["declaration"])
-    step_ends = [step["position"]["stop"]["line"] + 1 for step in export["steps"]]
+    source_line_count = len(source.splitlines())
+    step_ends = []
+    for index, step in enumerate(export["steps"]):
+        position = step["position"]
+        start_line = position["start"]["line"] + 1
+        stop_line = position["stop"]["line"] + 1
+        if start_line < start or stop_line > source_line_count:
+            raise ValueError(
+                f"steps[{index}] position lines {start_line}-{stop_line} fall outside "
+                f"the source span (declaration starts at {start}, file has {source_line_count} lines)"
+            )
+        step_ends.append(stop_line)
     end = max([start, *step_ends])
     source_url = f"{REPOSITORY_URL}/blob/{revision}/{target['source']}#L{start}-L{end}"
     goals = sorted(export["allGoals"], key=lambda item: str(item.get("id", "")) if isinstance(item, dict) else str(item))
@@ -189,11 +203,27 @@ def validate_lock(extractor: Path) -> None:
         raise ValueError("the isolated Paperproof workspace must use Mathlib v4.34.0")
 
 
+def validate_checkout_revision(root: Path, revision: str) -> None:
+    """Refuse provenance labels that do not identify the exact checked-out source tree."""
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("--ref must be a full, lowercase 40-character Git commit SHA")
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=root, text=True, capture_output=True, check=False
+    )
+    if result.returncode:
+        raise RuntimeError(f"Unable to resolve the checked-out Git revision: {result.stderr.strip()}")
+    checkout_revision = result.stdout.strip()
+    if checkout_revision != revision:
+        raise ValueError(
+            f"Source revision mismatch: --ref is {revision}, but the checked-out HEAD is {checkout_revision}"
+        )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=Path("."))
     parser.add_argument("--data-dir", type=Path, default=Path("_out/proof-visualizations/data"))
-    parser.add_argument("--ref", required=True)
+    parser.add_argument("--ref", required=True, help="full Git commit SHA matching the checked-out source tree")
     parser.add_argument("--extractor-dir", type=Path, default=Path("tooling/paperproof-export"))
     parser.add_argument("--main-toolchain", default="leanprover/lean4:v4.34.0")
     args = parser.parse_args()
@@ -201,6 +231,7 @@ def main() -> int:
     root = args.repo_root.resolve()
     extractor = (root / args.extractor_dir).resolve()
     data_dir = (root / args.data_dir).resolve()
+    validate_checkout_revision(root, args.ref)
     validate_lock(extractor)
     data_dir.mkdir(parents=True, exist_ok=True)
 
