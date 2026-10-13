@@ -187,12 +187,12 @@ Ce protocole porte sur le PDF effectivement destiné à publication, pas sur un 
 
 ### P3 — Génération Verso
 
-- [x] Définir le point d'entrée du générateur : `scripts/ci/build_navigation_graph.py --site ... --ref ...`, appelé par `verify.yaml`.
+- [x] Définir le point d'entrée du générateur : `scripts/ci/knowledge_graph/build_navigation_graph.py --site ... --ref ...`, appelé par `verify.yaml`.
 - [x] Exploiter le HTML généré par Verso pour les ancres, liens explicites, types de blocs et citations, sans ajouter d'extension Lean pour cette première vue.
 - [x] Pour la première vue, aucun nouveau bloc Verso n'est nécessaire : le générateur dérive la navigation du HTML rendu et réutilise les métadonnées et classes existantes.
 - [x] Générer une première navigation multi-niveaux reliant le catalogue de provenance et deux graphes locaux.
 - [x] Préserver les liens vers les sources canoniques, avec retour vers la page Verso rendue.
-- [x] Documenter le contrat du générateur dans les docstrings et commentaires du code et dans le [dossier du prototype](NAVIGATION-PROTOTYPE.md) : périmètre d'extraction, résolution des URL, injection idempotente, portée des extraits et limites des explications éditoriales.
+- [x] Documenter le contrat du générateur dans les docstrings et commentaires du code, le [README du composant](../../scripts/ci/knowledge_graph/README.md) et le [dossier du prototype](NAVIGATION-PROTOTYPE.md) : périmètre d'extraction, résolution des URL, injection idempotente, portée des extraits et limites des explications éditoriales.
 - [x] Ajouter les garde-fous de génération nécessaires à la CI : références/citations et ancres rendues non résolues font échouer le build.
 
 ### US-04 — Présentation progressive : fonctionnalité d’interface et limite actuelle
@@ -244,3 +244,8 @@ Le run CI `38092815528` cité plus haut est le point de comparaison historique, 
 Cette validation établit la cohérence mécanique du HTML construit dans le run de PR. Elle ne prouve pas que le site public a été redéployé après cette correction ni que ses URL fonctionnent dans un navigateur. La validation directe du site publié, les essais clavier/mobile/sans JavaScript et la comparaison manuelle/prototype restent ouverts ; le protocole préenregistré dans [le dossier de preuve de valeur](NAVIGATION-PROTOTYPE.md) n'a pas encore été exécuté. Ne pas modifier le tableau de bord global généré `docs/STATUS.md`.
 
 Le prochain parcours sémantique reste bloqué par cette porte de valeur d'usage : aucune relation entre définition, théorème, preuve, implémentation et test ne sera ajoutée sur la seule base des noms de modules, imports ou proximités de fichiers.
+
+
+### Clôture humaine du premier chantier
+
+Les vérifications qui exigent un navigateur, une décision éditoriale ou des participants sont regroupées dans [Actions humaines — clôture de la navigation interactive](../security/ACTIONS-HUMAINES.md#6-cloture-humaine-du-premier-chantier-de-navigation-interactive). Les cases restent ouvertes jusqu’à l’inscription d’une preuve datée ; la CI seule ne permet pas de les cocher.
