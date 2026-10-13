@@ -71,6 +71,7 @@ Ces corrections ne changent pas le sens d'un énoncé, mais touchent le texte du
 | Objet | Constat | Options |
 |---|---|---|
 | Registre de ratification des classifications C8.0 | `LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md` a été supprimé par #205 ; ses règles et décisions transversales sont reprises sans réécriture dans le [registre de migration](LEAN-STATEMENT-MIGRATION.md), section « Règles de classification ratifiées (C8.0) ». Dernière version : [`6eb9f86`](https://github.com/AntheaLiles/k7pl/blob/6eb9f86b24527a0de982012233246788c2fc56d4/docs/tracking/LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) | (a) en rester là ; (b) le restaurer comme pièce autonome |
+| Archive `valuable/claude/lean4-reuse-init-qvzlcg` (PR #10, non fusionnée) | 13 comptes rendus PR-02 numérotés 21 à 33, en collision avec la série 21 à 62 de `main`, et 16 notes d'analyse et de ratification absentes de `main`. Leur revue contre les registres C actuels reste à faire ; elle conditionne toute suppression. Détail : [`BRANCHES-STATUS.md`](BRANCHES-STATUS.md), section 5 | (A) verser les comptes rendus dans `docs/history/` sous un nom de série distinct ; (B) garder la branche comme archive référencée (état actuel) ; (C) reprise sélective note par note après revue, dans un lot de `docs/migration/` |
 
 ### Actions humaines en attente (hors décision)
 

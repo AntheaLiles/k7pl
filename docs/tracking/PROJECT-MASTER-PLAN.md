@@ -225,6 +225,8 @@ D must identify:
 
 D must not solve a singularity by introducing an implicit new algebra, mode, effect, budget operator, or representation assumption. Such a requirement returns to C.
 
+**Before the C exit gate passes.** D stays blocked. A D session may only perform bounded dependency triage: locate the exact singular object and the claims involved, classify their dependencies on C, record the evidence, and stop before any normative decision, architectural extension or source change. No E/F work may start in parallel to bypass the gate. Historical branches such as `valuable/split/pr10-3-singularites` are material, not authority to merge their former approach into `spec/` (see [BRANCHES-STATUS.md](BRANCHES-STATUS.md)). This rule is carried over from the [recovery snapshot of 11 October 2026](https://github.com/AntheaLiles/k7pl/blob/f1d25e42ffb8badd62918f713142794a957aff4b/docs/tracking/RECOVERY-STATUS-2026-10-11.md), deleted after verification.
+
 **Exit criterion.** BLOQ-12 and related obligations are formally resolved, explicitly weakened/re-scoped with authorial ratification, or isolated as a bounded non-blocking open result.
 
 ## 8. E — ∥
@@ -401,6 +403,10 @@ Generated Markdown and status files are maintained through their authoritative g
 ### X5 — Green CI is necessary but insufficient
 
 A green verification gate establishes execution of configured checks; it does not establish scientific correctness.
+
+### X6 — Distinct completion states
+
+A workstream may be marked complete only when its own exit criteria are evidenced. Keep these states distinct: implemented, compiled, tested, reviewed, author-ratified, scientifically established, operationally exercised, and released. No downstream stage may silently promote an upstream claim. (Carried over from the [recovery snapshot of 11 October 2026](https://github.com/AntheaLiles/k7pl/blob/f1d25e42ffb8badd62918f713142794a957aff4b/docs/tracking/RECOVERY-STATUS-2026-10-11.md).)
 
 ## 15. Documentation architecture as a cross-cutting workstream
 
