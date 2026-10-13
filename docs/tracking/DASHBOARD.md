@@ -9,7 +9,6 @@ This is the current entry point for project tracking. It answers what is current
 
 ## Recovery gate
 
-- [Recovery status snapshot — 2026-10-11](RECOVERY-STATUS-2026-10-11.md) — baseline, open PRs, branch handling, and restart order after interrupted sessions.
 - [Project master plan](PROJECT-MASTER-PLAN.md) — active scientific and release workstreams. **Stage C is still open; D–F and downstream E–J must not start substantive work until the C exit gate is explicitly satisfied.**
 - [Stage C theoretical-object register](../migration/L1-THEORY-OBJECTS.md) — C-01–C-09 residual obligations and explicit exit criteria.
 - [Branch status](BRANCHES-STATUS.md) — branch classification; recheck live refs before merge or deletion.

@@ -4,7 +4,7 @@
 **État observé avant ce rapprochement :** 44 références de branche distantes (dont `main` et la branche de session `ccr-c4afa630-5uz1ic`) et trois PR ouvertes (#170, #182, #183).  
 **Mises à jour du même jour :** #183 a été fusionnée (`ee0d05a`, arbre identique à sa tête), puis #184 et #185 (`main` = `96e1b1e`). Les branches `research/c-kernel-effective-rules-2026-10-12`, `rebase/feat/navigation-graph-mvp` et `rebase/split/pr10-1-outillage-spec` ont été supprimées à la fusion.
 
-Ce registre remplace l'inventaire du 11 octobre. Il réalise le passage d'hygiène annoncé par [l'instantané de reprise](RECOVERY-STATUS-2026-10-11.md), § 5 : pour chaque tête sans PR ouverte, il consigne s'il reste du contenu unique. Il recommande ; il **n'autorise ni fusion ni suppression**. Aucune branche n'a été supprimée ni réécrite pendant ce rapprochement. Les reprises sont portées par de nouvelles branches `rebase/…`, et les branches d'origine restent intactes.
+Ce registre remplace l'inventaire du 11 octobre. Il réalise le passage d'hygiène annoncé par [l'instantané de reprise du 11 octobre](https://github.com/AntheaLiles/k7pl/blob/f1d25e42ffb8badd62918f713142794a957aff4b/docs/tracking/RECOVERY-STATUS-2026-10-11.md), § 5 : pour chaque tête sans PR ouverte, il consigne s'il reste du contenu unique. Il recommande ; il **n'autorise ni fusion ni suppression**. Aucune branche n'a été supprimée ni réécrite pendant ce rapprochement. Les reprises sont portées par de nouvelles branches `rebase/…`, et les branches d'origine restent intactes.
 
 ## 0. Renommage `obsolete/` et `valuable/` (12 octobre 2026)
 
@@ -115,6 +115,8 @@ La PR #10 a été fermée sans fusion. La branche contient un commit unique de 1
 
 **Constat bloquant.** `main` contient déjà une **autre** série de séances « PR-02 21 à 62 », datée du 7 octobre (`docs/history/2026-10-07-pr-02-21-grade-architecture.md` et suivants). Les numéros 21 à 33 sont donc en collision avec des sujets différents : ce sont deux trajectoires PR-02 distinctes. De plus, les notes de recherche citent les anciens répertoires de suivi et de recherche d'avant la migration physique. `scripts/ci/check_documentation_architecture.py` refuse ces chemins hors de `docs/history`, `docs/archives` et `docs/migration`. Je n'ai donc produit ni rebase ni PR.
 
+**Revue contre les registres C : non faite.** L'instantané de reprise du 11 octobre demandait de conserver cette archive jusqu'à ce que ses notes propres soient comparées aux registres C actuels (`L1-THEORY-OBJECTS.md`, `DECISIONS.md`, registre de migration C8). Une revue a été lancée le 13 octobre 2026 en quatre lots, puis interrompue avant tout résultat. Elle reste à faire : aucune conclusion n'en est tirée ici, et la branche reste conservée.
+
 Options, sans choix de ma part :
 
 - **A** : verser les comptes rendus 21 à 33 dans `docs/history/` sous un nom de série distinct. Ce renommage est une décision. Il faudrait ensuite rapprocher leurs conclusions de la matrice C-01 à C-09.
@@ -145,4 +147,4 @@ Reprendre une partie de ce texte demande une décision d'autrice et, pour D, la 
 2. Avant de supprimer une branche, revérifier sa tête : une tête différente de celle du tableau invalide la ligne.
 3. Les branches de la section 5 restent conservées tant qu'une décision explicite de l'autrice n'est pas consignée dans [`DECISIONS.md`](DECISIONS.md).
 4. Les branches de migration cumulative ne remplacent jamais les portes de sortie. En particulier, `split/pr10-3-singularites` ne permet pas de contourner l'étape C.
-5. [`RECOVERY-STATUS-2026-10-11.md`](RECOVERY-STATUS-2026-10-11.md) reste un instantané daté ; il n'a pas été modifié.
+5. L'instantané de reprise du 11 octobre (`RECOVERY-STATUS-2026-10-11.md`) a été vérifié point par point le 13 octobre 2026, puis supprimé ; ses règles encore utiles sont dans [le plan maître](PROJECT-MASTER-PLAN.md) (§ 7 et X6). Dernière version : [`f1d25e4`](https://github.com/AntheaLiles/k7pl/blob/f1d25e42ffb8badd62918f713142794a957aff4b/docs/tracking/RECOVERY-STATUS-2026-10-11.md).
