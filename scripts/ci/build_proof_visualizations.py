@@ -78,6 +78,14 @@ def validate_export(value: Any) -> dict[str, Any]:
         for field in ("goalsAfter", "spawnedGoals"):
             if not isinstance(step.get(field), list):
                 raise ValueError(f"steps[{index}].{field} must be an array")
+        dependencies = step.get("tacticDependsOn")
+        if not isinstance(dependencies, list):
+            raise ValueError(f"steps[{index}].tacticDependsOn must be an array")
+        for dependency_index, dependency in enumerate(dependencies):
+            if not isinstance(dependency, str) or not dependency.strip():
+                raise ValueError(
+                    f"steps[{index}].tacticDependsOn[{dependency_index}] must be a non-empty string identifier"
+                )
         position = as_dict(step.get("position"), f"steps[{index}].position")
         for end in ("start", "stop"):
             point = as_dict(position.get(end), f"steps[{index}].position.{end}")
