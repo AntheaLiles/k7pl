@@ -192,6 +192,7 @@ Ce protocole porte sur le PDF effectivement destiné à publication, pas sur un 
 - [x] Pour la première vue, aucun nouveau bloc Verso n'est nécessaire : le générateur dérive la navigation du HTML rendu et réutilise les métadonnées et classes existantes.
 - [x] Générer une première navigation multi-niveaux reliant le catalogue de provenance et deux graphes locaux.
 - [x] Préserver les liens vers les sources canoniques, avec retour vers la page Verso rendue.
+- [x] Documenter le contrat du générateur dans les docstrings et commentaires du code et dans le [dossier du prototype](NAVIGATION-PROTOTYPE.md) : périmètre d'extraction, résolution des URL, injection idempotente, portée des extraits et limites des explications éditoriales.
 - [x] Ajouter les garde-fous de génération nécessaires à la CI : références/citations et ancres rendues non résolues font échouer le build.
 
 ### US-04 — Présentation progressive : fonctionnalité d’interface et limite actuelle
