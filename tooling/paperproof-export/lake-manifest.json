@@ -15,18 +15,6 @@
       "configFile": "lakefile.lean"
     },
     {
-      "url": "https://github.com/leanprover-community/mathlib4",
-      "type": "git",
-      "subDir": null,
-      "scope": "",
-      "rev": "698d2b68b870f1712040ab0c233d34372d4b56df",
-      "name": "mathlib",
-      "manifestFile": "lake-manifest.json",
-      "inputRev": "v4.29.0-rc8",
-      "inherited": false,
-      "configFile": "lakefile.lean"
-    },
-    {
       "url": "https://github.com/leanprover-community/plausible",
       "type": "git",
       "subDir": null,
@@ -42,7 +30,7 @@
       "url": "https://github.com/leanprover-community/LeanSearchClient",
       "type": "git",
       "subDir": null,
-      "scope": "",
+      "scope": "leanprover-community",
       "rev": "c5d5b8fe6e5158def25cd28eb94e4141ad97c843",
       "name": "LeanSearchClient",
       "manifestFile": "lake-manifest.json",
@@ -54,7 +42,7 @@
       "url": "https://github.com/leanprover-community/import-graph",
       "type": "git",
       "subDir": null,
-      "scope": "",
+      "scope": "leanprover-community",
       "rev": "db22912cdd820b2a2bd84bd25273cb322ff09ead",
       "name": "importGraph",
       "manifestFile": "lake-manifest.json",
