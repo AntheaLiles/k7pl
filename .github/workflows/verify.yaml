@@ -549,6 +549,19 @@ jobs:
           name: tikz-figure-assets
           path: spec/figures
 
+      - name: Restore pinned Paperproof extraction dependencies
+        working-directory: tooling/paperproof-export
+        run: lake exe cache get
+
+      - name: Extract structured proof observations for Verso
+        run: >-
+          python3 scripts/ci/build_proof_visualizations.py
+          --repo-root .
+          --data-dir _out/proof-visualizations/data
+          --data-only
+          --ref "$GITHUB_SHA"
+          --extractor-dir tooling/paperproof-export
+
       - name: Render the specification (HTML and TeX)
         run: lake exe spec --output _out/spec --with-tex
 
@@ -597,17 +610,6 @@ jobs:
       - name: Validate generated HTML image assets
         run: python3 scripts/ci/check_spec_html_assets.py _out/spec/html-multi
 
-      - name: Restore pinned Paperproof extraction dependencies
-        working-directory: tooling/paperproof-export
-        run: lake exe cache get
-
-      - name: Generate static tactic-proof visualizations
-        run: >-
-          python3 scripts/ci/build_proof_visualizations.py
-          --repo-root .
-          --site _out/spec/html-multi
-          --ref "$GITHUB_SHA"
-          --extractor-dir tooling/paperproof-export
 
       - name: Summary
         if: ${{ !cancelled() }}
