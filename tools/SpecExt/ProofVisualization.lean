@@ -159,11 +159,12 @@ private def appendProofGoalTeX (output : Array Verso.Output.TeX) (heading : Stri
 
 block_extension Block.proofVisualization (slug : String) where
   data := toJson slug
+  traverse _ _ _ := pure none
   toHtml := some fun _ _ id data _ => do
     let slug ← match fromJson? (α := String) data with
       | .ok value => pure value
-      | .error error => liftIO <| throw <| IO.userError s!"Invalid proof visualization block data: {error}"
-    let artifact ← liftIO <| loadProofArtifact slug
+      | .error error => liftM <| throw <| IO.userError s!"Invalid proof visualization block data: {error}"
+    let artifact ← liftM <| loadProofArtifact slug
     let identity := proofField artifact "identity"
     let editorial := proofField artifact "editorial"
     let provenance := proofField artifact "provenance"
@@ -211,8 +212,8 @@ block_extension Block.proofVisualization (slug : String) where
   toTeX := some fun _ _ _ data _ => do
     let slug ← match fromJson? (α := String) data with
       | .ok value => pure value
-      | .error error => liftIO <| throw <| IO.userError s!"Invalid proof visualization block data: {error}"
-    let artifact ← liftIO <| loadProofArtifact slug
+      | .error error => liftM <| throw <| IO.userError s!"Invalid proof visualization block data: {error}"
+    let artifact ← liftM <| loadProofArtifact slug
     let identity := proofField artifact "identity"
     let editorial := proofField artifact "editorial"
     let provenance := proofField artifact "provenance"
