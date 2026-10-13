@@ -187,7 +187,8 @@ que sur demande, par la plus petite modification, et on consigne le changement (
 | `{num "sec:x"}[]` | renvoi numéroté, lien vers l'objet (section, énoncé, formule, figure, tableau, listing) — remplace `\ref` |
 | `{label "sec:x"}` | étiquette de la section courante (`(display := "A.1")` impose le numéro affiché) |
 | `{cite "CLÉ1,CLÉ2"}[]` | citation numérique `[3, 5–7]`, numérotée par chapitre (`{refsection}`) ; la clé doit exister dans `docs/bibliography/references.json` |
-| `::::thm (label := "thm:x") (status := "proposition") (level := "representation")` | énoncé scellé ; créneaux `:::title`, `:::statement`, `:::proofsketch`. `status` : `theoreme` (défaut), `proposition`, `conjecture`, `definition`, `exigence`, `litterature` ; `level` : `langage` (défaut), `compilation`, `representation`, `deploiement` |
+| `::::theorem (label := "thm:x") (scope := "metatheory")`, et ses directives sœurs | énoncé : définition, prémisse, résultat, exigence, résultat de la littérature, exemple ; voir « Énoncés : directives spécialisées » ci-dessous |
+| `::::thm (label := "thm:x") (status := …) (level := …)` | **historique**, conservé pour compatibilité ; `spec/` ne l'emploie plus. `status` : `theoreme`, `proposition`, `conjecture`, `definition`, `exigence`, `litterature` |
 | `::::formula (label := "eq:x") (kind := "formule")` | formule(s) : blocs de code contenant du LaTeX mathématique, `:::caption` |
 | `::::figure (label := "fig:x") (src := "nom") (alt := "…") (width := "90")` | figure `spec/figures/nom.{svg,pdf}` ; créneaux `:::caption`, `:::desc`, `:::note`, `:::source` |
 | `::::k7table (label := "tab:x") (align := "lZ{1.0}")` | tableau légendé autour d'un `:::table +header` ; `align` : colonnes `tabularx` du PDF |
@@ -201,8 +202,97 @@ que sur demande, par la plus petite modification, et on consigne le changement (
 | `{missing "label"}[]` | renvoi non résolu du manuscrit d'origine, imprimé `??` — à remplacer par `{num}` dès que l'étiquette existe |
 
 Les étiquettes suivent `sec:`, `thm:`, `eq:`, `fig:`, `tab:`, `lst:`. Un énoncé corrigé **change de
-sceau**, il ne perd pas son étiquette ni ne se renumérote à la main : le compteur d'énoncés est
-global et suit l'ordre du document.
+sceau** (son `role` ou son `state`), il ne perd pas son étiquette ni ne se renumérote à la main :
+chaque rôle (ou chaque nature, pour un objet sans rôle) a son compteur, qui suit l'ordre du
+document ; les anciens blocs `::::thm` partageaient un compteur unique.
+
+#### Énoncés : directives spécialisées
+
+Toutes les directives d'énoncé partagent une représentation interne (`StatementInfo`, dans
+`tools/SpecExt/Theorem.lean`) et une même validation. Elles séparent la nature de l'objet, son rôle,
+son état épistémique, son appui et sa portée. Contrat repris de
+`docs/tracking/LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md`, supprimé après intégration (dernière
+version :
+[`2bdb06e`](https://github.com/AntheaLiles/k7pl/blob/2bdb06e5e42857cef5c2f9084f6b6b7245bed46b/docs/tracking/LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md)) ;
+les décisions qui le fondent sont dans `docs/tracking/DECISIONS.md` (taxonomie C8, 9 octobre 2026).
+
+| Directive | Nature (`kind`) | Rôle par défaut | État par défaut | Numérotée | Étiquette |
+|---|---|---|---|---|---|
+| `::::theorem`, `::::lemma`, `::::corollary`, `::::proposition` | `result` | le nom de la directive | `under-review` | oui | requise |
+| `::::conjecture` | `result` | `conjecture` | `proposed` | oui | requise |
+| `::::axiom`, `::::postulate` | `assumption` | `axiom`, `postulate` | `under-review` | oui | requise |
+| `::::hypothesis` | `assumption` | `hypothesis` | `under-review` | non | facultative |
+| `::::definition` | `definition` | — | `not-applicable` | oui | requise |
+| `::::requirement` | `requirement` | — | `not-applicable` | oui | requise |
+| `::::literature` | `literature` | — | `not-applicable` | oui | requise |
+| `::::example`, `::::counterexample` | `example`, `counterexample` | — | `not-applicable` | non | facultative |
+
+Arguments, tous nommés :
+
+- `label` : étiquette `thm:…` ;
+- `scope` : **obligatoire**, vocabulaire fermé : `syntax`, `metatheory`, `graphs`, `resources`,
+  `memory-safety`, `security`, `operational-semantics`, `graded-typing`, `effects`,
+  `logical-relations`, `translation`, `fixed-points`, `interoperability`, `concurrency`,
+  `ffi-safety`, `representation`, `compiler-interface`, `compilation`, `resource-accounting`,
+  `literature`, `runtime`. Une étiquette de portée ne vaut pas garantie : les hypothèses et les
+  limites restent dans le texte de l'énoncé ;
+- `state` : `proposed`, `under-review`, `supported`, `established`, `refuted` ou `withdrawn` pour un
+  résultat ou une prémisse ; `not-applicable` pour tout autre objet. Le rôle et l'état sont
+  indépendants ;
+- `evidence` : `none` (défaut), `written-proof`, `proofsketch`, `literature`, `computation`,
+  `counterexample`, `lean-proof`. Une démonstration écrite, une esquisse et une preuve Lean sont
+  trois choses distinctes ;
+- `role` : remplace le rôle par défaut, s'il est compatible avec la nature ;
+- `source` : provenance bibliographique, obligatoire pour `::::literature` et avec
+  `evidence := "literature"` ;
+- `formalArtifact` : déclaration Lean vérifiée (`Module.declaration`), obligatoire avec
+  `evidence := "lean-proof"` et refusée sinon ;
+- `level` : domaine historique (`langage` par défaut, `compilation`, `representation`,
+  `deploiement`), conservé tel quel ; ce n'est pas la portée ;
+- `+unnumbered` : objet local non numéroté.
+
+Créneaux : `:::title` ; `:::statement`, ou `:::statement +titled` dont le premier paragraphe devient
+le titre de l'énoncé ; `:::proofsketch` ; `:::note`, comme tout autre créneau, rendu en paragraphe
+simple. Le texte placé hors créneau n'est pas rendu.
+
+```text
+::::theorem (label := "thm:exemple") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
+:::title
+Titre court
+:::
+:::statement
+Le texte de l'énoncé.
+:::
+:::proofsketch
+L'argument, explicitement incomplet.
+:::
+::::
+```
+
+**Validation à la compilation** (`lake build Spec`). Sont refusés :
+
+- un objet numéroté sans étiquette ;
+- un état, un type d'appui ou une portée hors vocabulaire, ou une portée absente ;
+- un résultat ou une prémisse sans état épistémique, ou un autre objet dont l'état n'est pas
+  `not-applicable` ;
+- un rôle incompatible avec la nature, ou une conjecture marquée `established` ;
+- un résultat de la littérature sans `source` ;
+- `lean-proof` sans `formalArtifact`, ou `formalArtifact` sans `lean-proof` ;
+- `proofsketch`, `written-proof` ou `lean-proof` sur un objet qui n'est pas un résultat ;
+- une hypothèse de portée `global`.
+
+**Contrôle d'ontologie** (`scripts/controles/statement_ontology.py`, lancé par
+`scripts/controle.py`). Il reprend ces règles et ajoute :
+
+- `evidence := "proofsketch"` exige un créneau `:::proofsketch` ; ce créneau n'est admis qu'avec
+  `evidence` égal à `proofsketch` ou `literature` ;
+- le texte hors créneau est refusé.
+
+**Limites.** Ces contrôles sont structurels. Ils ne valident ni une preuve, ni l'adéquation d'une
+esquisse, ni l'attache d'une hypothèse à l'argument qu'elle qualifie. La présence de `source` est
+exigée, pas sa résolution bibliographique. Aucune métadonnée ne remplace une preuve : passer un
+énoncé à `established`, changer son rôle ou déclarer `lean-proof` est un changement de statut
+scientifique, qui demande l'accord de l'autrice et, pour `lean-proof`, l'artefact formel testé.
 
 ### Vérifier
 
@@ -330,7 +420,7 @@ Correspondances Org-mode → Verso, pour la réécriture des sources existantes 
 | `\textsc{x}`                          | `{sc}[x]`                                      |
 | `#+NAME:` + `#+CAPTION:` + tableau    | `::::k7table (label := …)` + `:::caption` + `:::table +header` |
 | `#+NAME:` + `#+CAPTION:` + `[[fichier.drawio]]` | `::::figure (label := …) (src := …)`  |
-| `#+BEGIN_EXPORT latex` `\begin{theorem}[…]` | `::::thm` + `:::statement` + `:::proofsketch` |
+| `#+BEGIN_EXPORT latex` `\begin{theorem}[…]` | `::::theorem` (ou la directive de sa nature) + `:::statement` + `:::proofsketch` |
 | `#+BEGIN_EXPORT latex` `\begin{align*}` + `\captionof{formule}` | `::::formula (kind := "formule")` |
 | `# commentaire`                       | `:::comment` + bloc de code                    |
 | `#+PRINT_BIBLIOGRAPHY:`               | `{bibliography}`                               |
