@@ -115,7 +115,45 @@ La PR #10 a été fermée sans fusion. La branche contient un commit unique de 1
 
 **Constat bloquant.** `main` contient déjà une **autre** série de séances « PR-02 21 à 62 », datée du 7 octobre (`docs/history/2026-10-07-pr-02-21-grade-architecture.md` et suivants). Les numéros 21 à 33 sont donc en collision avec des sujets différents : ce sont deux trajectoires PR-02 distinctes. De plus, les notes de recherche citent les anciens répertoires de suivi et de recherche d'avant la migration physique. `scripts/ci/check_documentation_architecture.py` refuse ces chemins hors de `docs/history`, `docs/archives` et `docs/migration`. Je n'ai donc produit ni rebase ni PR.
 
-**Revue contre les registres C : non faite.** L'instantané de reprise du 11 octobre demandait de conserver cette archive jusqu'à ce que ses notes propres soient comparées aux registres C actuels (`L1-THEORY-OBJECTS.md`, `DECISIONS.md`, registre de migration C8). Une revue a été lancée le 13 octobre 2026 en quatre lots, puis interrompue avant tout résultat. Elle reste à faire : aucune conclusion n'en est tirée ici, et la branche reste conservée.
+**Revue contre les registres C (13 octobre 2026).** L'instantané de reprise du 11 octobre demandait de comparer les notes propres de cette archive aux registres C actuels avant toute décision. La revue a été faite en lecture seule, en quatre lots, sur `d39d012` comparé à `main` `489b082`. Registres consultés : `L1-THEORY-OBJECTS.md` et les audits `docs/migration/`, `DECISIONS.md`, le registre de migration C8, `fiches-statuts.csv`, `docs/history/`, `docs/research/` et `spec/`. Un échantillon de citations de chaque lot a été revérifié dans `main`. La revue classe les notes ; elle ne vaut ni preuve ni ratification, et ne recommande aucune des options ci-dessous.
+
+| Lot | Fichiers de l'archive | Unité | Couvert | Partiel | Absent | Dépassé | Hors C | Autre |
+|---|---|---|---|---|---|---|---|---|
+| 1 | comptes rendus 21 à 33 ; `analyses-decisions/README.md`, `00-index-design.md`, `00-index-ratifications.md` | 16 fichiers | 0 | 11 | 1 | 3 | — | 1 non scientifique |
+| 2 | `analyses-decisions/01` à `07` | 31 points | 2 | 10 | 10 | 6 | 3 | — |
+| 3 | `analyses-decisions/ratifications-*` (5 notes) | 31 points | 5 | 16 | 7 | 2 | — | 1 non vérifié |
+| 4 | études `∥` et `spawn`, `instruction-des-decisions.md`, notes et tables T-68, `t68_renommer.py`, `vocabulaire.py` | 48 points | 4 | 14 | 9 | 6 | 10 | 5 outillage |
+
+Pour le lot 3, « couvert » signifie consigné à l'identique et « partiel », consigné autrement. « Hors C » renvoie aux étapes E (`∥`), F (`spawn`), D (singularités) et G2 (T-68). « Dépassé » : `main` porte un état ultérieur, auquel une reprise devrait confronter la note.
+
+Constats transversaux :
+
+- **Ce que `main` a déjà reçu.** Les 25 autres comptes rendus de l'archive sont dans `docs/history/` : 24 sont identiques à l'octet, le 15 ne diffère que par un chemin de lien. D'autres commits ont apporté la séance 28 (`5fa5634`), l'outillage d'index en français (`abd88ea`), `docs/research/sources-singularites.md` et `scripts/verif_singularites.py` (`b6683da`). Les autres modifications de `spec/` faites dans l'archive sont absentes : sur les lignes qu'elle ajoute, 0 sur 40 se retrouvent dans `AxiomatiqueGerminale.lean` et 11 sur 286 dans `SemantiqueOperationnelle.lean`. Ces modifications n'ont pas été revues une à une.
+- **Une autre spécification.** Les notes décrivent la spécification de la trajectoire archive : elles citent des labels et des règles absents de `main` (`eq:reductions-orientees`, `eq:traduction-fils`, `thm:chaine_fils`, `thm:correspondance_niveaux`, règles `Nxt` et `Loc`) et les chemins d'avant la migration physique.
+- **Décisions alléguées.** Aucune note n'est une preuve ni une ratification. Plusieurs présentent pourtant comme prises des décisions de l'autrice, souvent par des citations datées du 6 octobre, que `DECISIONS.md` ne consigne pas ou qu'il contredit (`D-7`). Elles sont listées dans [`DECISIONS.md`](DECISIONS.md), section « Décisions attribuées à l'autrice par l'archive, non consignées ».
+
+Constats scientifiques de l'archive, absents des registres de `main` et **non vérifiés** ici ; chacun relève d'une instruction C avant toute reprise :
+
+- `φ_n(ε) = ε^n` ne serait pas un morphisme de monoïde si l'effet est non commutatif, puisque `(εδ)^n ≠ ε^n δ^n` (séance 24, `instruction-des-decisions.md`). `spec/Spec/C3/ReglesDeTypage.lean`, l. 642–645 et 657, place `φ_n` dans `End_mon(ℰ)` ; la justification donnée, `φ_n ∘ φ_m = φ_{nm}`, porte sur la composition des `φ_n`. La revue n'a pas établi si `ℰ` est commutatif. Objets C-01, C-03, C-06.
+- `at`, `wait` et `when` ne se réduisent pas sur un terme clos : les introductions temporelles sont des calculs, leurs éliminations attendent des valeurs (`spec/Spec/C3/GrammaireDesTermes.lean`, l. 33). Risque signalé pour `thm:progres` (séances 29 et 32, `instruction-des-decisions.md`). Objet C-07.
+- `Λα.c` et le copatron manquent aux formes terminales de `thm:progres` ; les branches de `Guard` ne codent pas le message multiple (séance 29).
+- La monotonie en `ℓ` serait fausse sur les types de fonction (`FACT-07`, séance 28).
+- `spawn`, `send` et `guard` n'ont pas de traduction dans `thm:confinement_sortes` ; aucune clause ne couple `Spawn`, `Send` et `Move` ; `w` et `s` ne sont pas définis ; `Tick` est scalaire (analyses 02 et 03). Étapes F et C-07.
+
+Contenus propres de l'archive, utilisables seulement si l'autrice choisit une reprise sélective (option C) :
+
+- **Rédactions normatives non intégrées**, qui exigeraient un mandat : loi distributive et lemme d'indices (24) ; schémas de réduction (29, 31, 32) ; phases de 0 à 10 (32) ; §3.2 et singularités (31 à 33) ; `E_repro` « sur une machine » et topologie SPSC (31) ; ordre de préservation du §6.1 (22) ; phrases du guide de lecture pour `STRUCT-15` et `TRANS-08` (21, 25).
+- **Pièces de recherche ou de suivi** : dossiers de conception (`00-index-design.md`) et verdicts sur 15 fiches, avec cinq questions de modèle (`00-index-ratifications.md`) ; grille V0 à V7 et carte des ambivalences de `∥` (E) ; options O1 à O4 et grille E1 à E10 pour `spawn` (F) ; tableau d'impacts de `∘` et `δ` (D) ; troisième relevé BIB (28) ; table codes et prémisses (17 sur 48) et table `TRANS-06` (32) ; hypothèses de module « `ℒ` fini » et « `⟦operation⟧` sans fil » (29).
+- **Outillage T-68** : les collisions relevées restent vérifiables sur `main` (`at` pour deux formes, `open` et `unpack`). Les tables, `t68_renommer.py` et `vocabulaire.py` emploient les chemins d'avant la migration et leurs comptes sont faux sur `main`, qui compte 45 entrées (`docs/migration/L1-T68-AUDIT.md`).
+
+Écarts internes à `main` relevés par la revue, **non corrigés** ici :
+
+- `spec/Spec/C3/LesContraintesDeValeur.lean`, l. 403, écrit « en roues `1/0 = ⊥` » ; `docs/research/sources-singularites.md`, l. 39, donne `1/0 = ∞` d'après le résumé de Carlström. Quelle affirmation vaut reste à établir sur la source ; la correction toucherait `spec/` (voir `DECISIONS.md`).
+- `docs/research/sources-singularites.md`, l. 50 et 55, et l'en-tête de `scripts/verif_singularites.py` disent la règle par réunion d'étiquettes écrite au manuscrit. Le Verso de `main` garde quatre singularités (`LesContraintesDeValeur.lean`, l. 366–368) : cette réécriture n'existe que dans l'archive.
+- `ARB-PR-04` : `fiches-statuts.csv`, l. 125, et `FICHES-PR02.md`, l. 270, gardent « orientation B puis C à confirmer », alors que `DECISIONS.md` consigne une formulation remplacée.
+- Signalé par le lot 1 mais non retenu après vérification : `PREUVE-08` « partielle » (`fiches-statuts.csv`, l. 63) est cohérent avec le registre C8, où `thm:troncature_comonade` est `under-review` avec preuve esquissée.
+
+La branche reste conservée.
 
 Options, sans choix de ma part :
 

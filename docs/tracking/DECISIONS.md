@@ -71,7 +71,25 @@ Ces corrections ne changent pas le sens d'un énoncé, mais touchent le texte du
 | Objet | Constat | Options |
 |---|---|---|
 | Registre de ratification des classifications C8.0 | `LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md` a été supprimé par #205 ; ses règles et décisions transversales sont reprises sans réécriture dans le [registre de migration](LEAN-STATEMENT-MIGRATION.md), section « Règles de classification ratifiées (C8.0) ». Dernière version : [`6eb9f86`](https://github.com/AntheaLiles/k7pl/blob/6eb9f86b24527a0de982012233246788c2fc56d4/docs/tracking/LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) | (a) en rester là ; (b) le restaurer comme pièce autonome |
-| Archive `valuable/claude/lean4-reuse-init-qvzlcg` (PR #10, non fusionnée) | 13 comptes rendus PR-02 numérotés 21 à 33, en collision avec la série 21 à 62 de `main`, et 16 notes d'analyse et de ratification absentes de `main`. Leur revue contre les registres C actuels reste à faire ; elle conditionne toute suppression. Détail : [`BRANCHES-STATUS.md`](BRANCHES-STATUS.md), section 5 | (A) verser les comptes rendus dans `docs/history/` sous un nom de série distinct ; (B) garder la branche comme archive référencée (état actuel) ; (C) reprise sélective note par note après revue, dans un lot de `docs/migration/` |
+| Archive `valuable/claude/lean4-reuse-init-qvzlcg` (PR #10, non fusionnée) | 13 comptes rendus PR-02 numérotés 21 à 33, en collision avec la série 21 à 62 de `main`, et 16 notes d'analyse et de ratification absentes de `main`. Revue contre les registres C faite le 13 octobre 2026, en lecture seule : sur 126 lignes classées, 11 sont couvertes par `main`, 51 le sont en partie, 27 sont absentes, 17 dépassées, 13 hors C et 7 d'une autre nature ; les notes décrivent une autre trajectoire de la spécification. La revue ne tranche rien. Détail : [`BRANCHES-STATUS.md`](BRANCHES-STATUS.md), section 5 ; décisions alléguées : section suivante | (A) verser les comptes rendus dans `docs/history/` sous un nom de série distinct ; (B) garder la branche comme archive référencée (état actuel) ; (C) reprise sélective note par note après revue, dans un lot de `docs/migration/` |
+
+### Décisions attribuées à l'autrice par l'archive, non consignées
+
+La revue de l'archive `valuable/claude/lean4-reuse-init-qvzlcg` (13 octobre 2026, [`BRANCHES-STATUS.md`](BRANCHES-STATUS.md), section 5) relève des décisions que ses notes attribuent à l'autrice, souvent par des citations datées du 6 octobre 2026, et que ce registre ne consigne pas ou contredit. Aucune n'est tenue ici pour prise. Pour chacune : (a) la confirmer, puis la consigner et en instruire la reprise, avec un mandat explicite et une portée minimale pour tout changement de `spec/` ; (b) l'écarter ; (c) la laisser à l'archive, sans statut.
+
+| Objet | Ce que l'archive affirme | État dans `main` |
+|---|---|---|
+| `T-68` | vocabulaire des primitives renommé « en bloc » (`t68-vocabulaire-en-bloc.md`, `analyses-decisions/README.md` §5) | seul « avant-dernier dans l'ordre de finition » est consigné (ligne `T-68` ci-dessus) ; compte et minimalité dans [`L1-T68-AUDIT.md`](../migration/L1-T68-AUDIT.md) |
+| `STRUCT-06` | phases de compilation renumérotées de 0 à 10 (« Renumérote toutes les phases… », séance 32) | `spec/Spec/C6/LeProcessusDeCompilation.lean` garde les phases intercalaires 1.5 et 2.5 |
+| `BLOQ-12` | `∘` et `δ` définis par réunion d'étiquettes, « appliquée, à ratifier » (séances 31 à 33 ; « Les singularités sont à définir… ») | le Verso garde quatre singularités (`LesContraintesDeValeur.lean`, l. 366–368) ; la citation et les alternatives (i) à (iv) ne figurent que dans `docs/research/sources-singularites.md` |
+| `ANOM-17` | corrections des grammaires (`declassify`, formes temporelles, `at_n`, `move`) et voies `slice`, `∥`, `guard`, `try` (« Les grammaires sont à définir », séances 31 et 32, `ratifications-anom-17.md`) | citation introuvable ; corrections absentes du Verso |
+| `ANOM-09`, `ANOM-10` | rédaction demandée (« Ok alors rédige ANOM-09 et ANOM-10 », séance 32) | citation introuvable ; `ANOM-09` (index sans pages) est traitée par la correction « Index PDF » ci-dessous |
+| `PREUVE-08` | graduation additive de la troncature « tenue pour ratifiée » (séance 30) | aucune entrée ici ; fiche « partielle » (`fiches-statuts.csv`, l. 63) ; `thm:troncature_comonade` en `under-review` au registre C8 |
+| `D-7` | « tranchée » (séance 30, `README.md`, `00-index-ratifications.md`) | **ouverte** (ligne `D-7` ci-dessous) |
+| `TRANS-06`, `REECR-16`, `thm:determinisme_parallele` | fermés ou corrigés dans l'archive | `TRANS-06` ouverte et `REECR-16` partielle (`fiches-statuts.csv`, l. 118 et 151) ; `thm:determinisme_parallele` en attente ci-dessus |
+| éléments « appliqués, à ratifier » | ordre de préservation du §6.1 (séance 22) ; `TRANS-02`, module × ordre (25) ; trois précisions de la séance 28 ; `E_repro` « sur une machine » et topologie SPSC (31) | non consignés ; absents du Verso |
+
+Relevé par la même revue, touchant `spec/` : `LesContraintesDeValeur.lean`, l. 403, écrit « en roues `1/0 = ⊥` », alors que `docs/research/sources-singularites.md`, l. 39, donne `1/0 = ∞` d'après le résumé de Carlström. L'affirmation exacte reste à établir sur la source ; une correction du manuscrit attend l'accord de l'autrice.
 
 ### Actions humaines en attente (hors décision)
 
