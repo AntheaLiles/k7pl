@@ -37,6 +37,7 @@ This is the current entry point for project tracking. It answers what is current
 - [Migration register](../migration/README.md) — active semantic migration lots only.
 - [Interactive exploration plan](INTERACTIVE-EXPLORATION-PLAN.md) — navigation prototype, evaluation, graph and accessibility residuals.
 - [Proof visualization roadmap](PROOF-VISUALIZATION-ROADMAP.md) — Paperproof proof-tree prototype, ranked technical extensions, verification commands, and human validation still required.
+- [Proof visualization coverage matrix](PROOF-VISUALIZATION-COVERAGE.md) — observed Lean proof families, implementation status, test evidence, and limits.
 
 ## Historical records
 
