@@ -38,4 +38,4 @@ Les éléments suivants restent à vérifier dans les réglages et services rée
 - présence, portée, date de dernière rotation et propriétaire des secrets configurés, sans en afficher les valeurs ;
 - procédure de révocation et possibilité de continuité si la mainteneuse est indisponible.
 
-Voir [ACTIONS-HUMAINES.md](ACTIONS-HUMAINES.md) et [la checklist OpenSSF](../tracking/OPENSSF-CHECKLIST.md). Aucun de ces points ne doit être coché sur la seule base de cette politique.
+Voir [ACTIONS-HUMAINES.md](ACTIONS-HUMAINES.md) et [la checklist OpenSSF archivée](../history/2026-10-10-openssf-conformance-checklist.md). Aucun de ces points ne doit être coché sur la seule base de cette politique.
