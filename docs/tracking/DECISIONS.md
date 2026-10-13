@@ -51,6 +51,31 @@
 | `thm:stratification_journal` | énoncer dans le théorème la prémisse de non-interférence observationnelle qu'emploie l'esquisse, ou prouver directement la préservation des observations | l'esquisse suppose qu'un pas au-dessus de `ℓ` n'influence aucun pas ultérieur observable ; cette propriété n'est tenue que pour le fragment séquentiel et reste conjecturale sous concurrence. Options : (a) ajouter cette prémisse, avec celle du déterminisme de rejeu, à l'énoncé ; (b) garder l'énoncé et prouver directement la préservation des observations ; (c) garder le texte actuel avec la note. Relevé par la revue sémantique C8, lot 04 ; détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative ; portée du théorème |
 | `thm:relation_produit` | traitement du cas du budget, que l'esquisse déclare « à écrire » | options : (a) restreindre l'énoncé aux trois facteurs couverts et séparer le budget en une exigence ouverte ; (b) garder l'énoncé et écrire le lemme du budget ; (c) garder le texte actuel avec la note. Relevé par la revue sémantique C8, lot 04 ; détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative ; un nouvel objet en cas de séparation |
 | `thm:progres` | séparer ou non le progrès local d'un calcul clos et le progrès global d'un pool ; faire entrer ou non dans l'énoncé les deux hypothèses de l'esquisse (totalité des opérations à effet, conformité de l'arène) | le titre de l'énoncé (« … et le pool avec lui ») annonce le progrès global, mais l'énoncé ne porte que sur le progrès local. Options : (a) scinder en un progrès local, hypothèses dans l'énoncé, et un progrès global, avec configuration du pool et prémisse d'acyclicité ; (b) garder un bloc et y écrire les deux formes avec leurs prémisses ; (c) garder le texte actuel avec la note. Relevé par la revue sémantique C8, lot 03 ; détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | modification normative ; `thm:deadlock_acyclique` porte l'exclusion du blocage mutuel |
+| `thm:distributivite_tronquee` | lecture de la « nécessité » de l'énoncé (« l'égalité est fausse ») | vérification manuelle consignée au lot 09, non mécanisée, sous la convention D8 (`ω ⊖ ω = ω`) et `0·ω = 0` : la loi tient pour `u` fini ou `k = 0` ; pour `u = ω` et `k ≠ 0`, elle échoue pour `β = k`, mais tient par exemple pour `β = ω`. « Fausse » se lit donc « n'est pas une identité ». Options : (a) reformuler en « n'est pas une identité » ; (b) restreindre l'énoncé au domaine où la loi tient ; (c) texte actuel avec la note. Détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md), lot 09 | correction normative d'un énoncé |
+| `thm:boxtimes_addition` | totalité de l'égalité | l'énoncé dit l'égalité _totale_ ; l'esquisse la conditionne à des « domaines structurels satisfaits ». Options : (a) restreindre l'énoncé à ces domaines ; (b) compléter l'esquisse pour établir la totalité ; (c) texte actuel avec la note. Relevé à l'intégration du lot 10 (absent de la note d'audit) ; détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | correction normative d'un énoncé, ou complément de preuve |
+| `thm:relation_produit`, `thm:coherence_subsomption` | domaine d'usage nommé dans les esquisses | les deux esquisses désignent l'usage par `ℕ∞` (`\mathbb{N}_\infty`), alors que la portée normative d'usage est `WithTop ℚ≥0` : usages rationnels admis en C2, type `Usage` de `Spec.C3.EffectiveKernel`. Options : (a) corriger les esquisses vers `WithTop ℚ≥0` ; (b) justifier dans chaque esquisse la restriction à `ℕ∞` ; (c) texte actuel. Relevé aux lots 04 et 11 ; détail au [registre de migration](LEAN-STATEMENT-MIGRATION.md) | correction d'esquisse ; énoncés inchangés |
+
+### Corrections éditoriales en attente d'accord
+
+Ces corrections ne changent pas le sens d'un énoncé, mais touchent le texte du manuscrit : elles attendent l'accord de l'autrice. Relevées à l'intégration des notes de revue sémantique C8 (lots 05, 07, 10) et de la scission de `thm:raffinement`.
+
+| Lieu | Constat | Options | Effet |
+|---|---|---|---|
+| `thm:schema_reinvocation` (`spec/Spec/C2/SixSchemasDeMetatheorie.lean`) | le titre « schéma de ré-invocation bornée » ne couvre plus le cas `ω`, traité explicitement depuis la décision du 12 octobre 2026 | (a) retitrer pour couvrir les deux cas ; (b) garder le titre pour le cas fini et nommer à part le cas `ω` ; (c) laisser | titre seul |
+| `thm:terminaison_lfp` (`spec/Spec/C2/AdjonctionsEtEnrichissement.lean`, l. 399) | « /indexée/ » : italique héritée du format Org, que le rendu affiche avec ses barres obliques | (a) remplacer par l'italique Verso `_indexée_` ; (b) laisser | typographie |
+| `thm:fidelite_interprete` (`spec/Spec/C4/CalculDeProcessusSousJacent.lean`, l. 344–345) | « Alors tout est fidèle à la sémantique de K7PL » : sujet implicite ; d'après le titre, l'interpréteur de référence | (a) expliciter le sujet ; (b) laisser | formulation |
+| `spec/Spec/C1/GuideDeLecture.lean`, l. 59 et 132 | « le théorème {num thm:raffinement} en dérive l'autre part » (l'ordre des fibres) : depuis la scission du 12 octobre 2026, l'ordre des fibres relève du corollaire `thm:raffinement_precision` ; les deux renvois sont restés sur la construction | (a) renvoyer vers `thm:raffinement_precision` ; (b) laisser le renvoi sur la construction, qui reste la source des trois corollaires | renvoi |
+
+### Question documentaire
+
+| Objet | Constat | Options |
+|---|---|---|
+| Registre de ratification des classifications C8.0 | `LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md` a été supprimé par #205 ; ses règles et décisions transversales sont reprises sans réécriture dans le [registre de migration](LEAN-STATEMENT-MIGRATION.md), section « Règles de classification ratifiées (C8.0) ». Dernière version : [`6eb9f86`](https://github.com/AntheaLiles/k7pl/blob/6eb9f86b24527a0de982012233246788c2fc56d4/docs/tracking/LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md) | (a) en rester là ; (b) le restaurer comme pièce autonome |
+
+### Actions humaines en attente (hors décision)
+
+- **Branches `audit/*` fusionnées.** Les douze branches `audit/c8-cloture`, `audit/c8-etat-registres`, `audit/c8-lot-02-raffinement`, `audit/c8-lot-04` à `audit/c8-lot-11` et `audit/figures-rendu` n'ont plus aucun commit absent de `main` (`git cherry`, 13 octobre 2026). Leur suppression ne perd rien.
+- **Branches `obsolete/*` et `valuable/*`.** Leur suppression ou leur conservation reste à décider branche par branche ; état dans [`BRANCHES-STATUS.md`](BRANCHES-STATUS.md).
 
 ## Nouvelles, nées de la conversion
 
@@ -74,6 +99,7 @@
 | `thm:raffinement` (12 octobre 2026) | **Décision de l'autrice : scinder (option a).** La construction du système de raffinement garde le label historique ; ses trois lectures deviennent les corollaires `thm:raffinement_effacement`, `thm:raffinement_non_interference` et `thm:raffinement_precision`, chacun avec ses prémisses. États hérités sans promotion (`under-review`). La formulation des prémisses reste à valider. | spécification C2 ; registre de migration ; contrôle d'inventaire |
 | `thm:sedimentation` (12 octobre 2026) | **Décision de l'autrice : corriger** le résidu éditorial de la scission C8.4 (« (i) … repris ici ; » sans second membre). L'énoncé dit désormais qu'il vaut pour des conteneurs non gradués et renvoie à `req:sedimentation_graduee`. | spécification C2 |
 | `thm:schema_reinvocation` (12 octobre 2026) | **Domaine de `n` : `ℕ∞` avec traitement explicite de `ω`.** Avis de l'autrice, retenu après vérification de cohérence : `φ_n` est défini pour `n ∈ ℕ∞` (C3, monoïde des transformateurs, avec `ε^ω = ⋁ ε^m`), `Usage = WithTop ℚ≥0` contient l'usage non borné, la règle Sc quantifie sur `ℕ∞`. Le cas fini reste la ré-invocation séquentielle bornée de toutes les instances ; le cas `ω` est énoncé à part et sa compatibilité est une obligation distincte. Restent ouverts : existence des suprema, lien avec le service répliqué de la traduction, titre « bornée ». | spécification C2 ; registre de migration |
+| Taxonomie des énoncés C8 (9 octobre 2026) | Quinze décisions de conception ratifiées (ontologie multidimensionnelle, rôles, états, exigences, hypothèses, littérature, preuve, portée, numérotation, commandes, CI, migration, réduction de prose, porte de sortie) ; voir la section « Décision d'autrice — taxonomie des énoncés C8 » ci-dessous. | spécification ; outillage `SpecExt` ; contrôles |
 
 ## État scientifique C — mise à jour du 11 octobre 2026
 
@@ -107,6 +133,38 @@
 **Obligations ouvertes.** Définir ce que signifie validation de budget à la compilation pour chaque couche ; préciser les bornes et les observables ; démontrer un théorème de correction reliant l'acceptation statique au comportement effectif de l'automate sous ses hypothèses ; distinguer cette preuve des garde-fous d'exécution, de leur portée et de leurs modes de défaillance ; prouver la composition des coûts inter-couches. Jusqu'à ce que ces éléments soient typés et prouvés, le principe ne prouve pas par lui-même que l'exécution respecte les budgets. Aucun changement normatif dans spec/ ou src/ n'est effectué par cet enregistrement.
 
 **Règle épistémique.** Les séances 59–62 établissent la provenance des choix de conception, non la vérité des lois mathématiques correspondantes. Les fichiers Verso/Lean qui affichent des blocs d'énoncé et des esquisses ne sont pas, de ce seul fait, des preuves Lean vérifiées. Un résultat de build n'autorise ni la promotion d'une proposition au statut établi ni l'intégration normative de D, E ou F.
+
+## Décision d'autrice — taxonomie des énoncés C8 (9 octobre 2026)
+
+**Statut :** décisions de conception ratifiées par l'autrice le 9 octobre 2026, en réponse aux questions de calibrage C8. Elles fixent des contraintes ; elles ne prouvent pas que l'implémentation les respecte. Texte ratifié reproduit sans traduction ni réécriture depuis `LEAN-STATEMENT-COMMANDS-DECISIONS.md`, supprimé après intégration (dernière version : [`9d6b874`](https://github.com/AntheaLiles/k7pl/blob/9d6b874ae42a8615d9a6a7c90a0b84948a1d30d3/docs/tracking/LEAN-STATEMENT-COMMANDS-DECISIONS.md)).
+
+> 1. **Ontology:** target a strict multidimensional model separating object kind, logical/expository role, epistemic state, evidence, and scope. A hybrid representation is an acceptable migration state, not the target.
+> 2. **Result roles:** theorem (major established result), lemma (established dependency), corollary (directly derived established result), proposition (other established result), conjecture (not established). The first four are expository roles, not a truth hierarchy.
+> 3. **Epistemic state:** `proposed`, `under-review`, `supported`, `established`, `refuted`, `withdrawn`. Role and state are independent.
+> 4. **Requirements:** one generic requirement object with explicit scope and normative effect.
+> 5. **Assumptions:** hypotheses local to a result/argument are structured premises of that result/argument. Axiom/postulate are not normatively distinguished without justification.
+> 6. **Literature:** external results are documentary objects with bibliographic provenance and explicit K7PL usage; they are not automatically K7PL-established results.
+> 7. **Future work:** selected external results may later be reimplemented as formal proofs. Track that as a separate improvement, with explicit source/result/formal-artifact traceability.
+> 8. **Evidence:** written mathematical demonstrations and machine-checked Lean proofs are distinct. Proof sketches are explicitly incomplete. Machine-checking requires an identified formal artifact.
+> 9. **Scope:** model explicit scope separately from the existing domain `level`.
+> 10. **Labels and numbering:** per-type counters are allowed. Labels are required for numbered/referenced objects and optional for local examples. Preserve existing labels/references during initial migration; document deliberate renumbering.
+> 11. **Commands:** expose specialized authoring commands backed by one shared validated representation.
+> 12. **CI:** fail on mechanically decidable structural and consistency violations. Do not pretend that scientific judgments are mechanically proven.
+> 13. **Migration:** use small, buildable, independently reviewable PRs. Preserve source statement text, labels, references, assumptions, and epistemic status during the initial migration.
+> 14. **Prose reduction:** only after structural migration is validated; deletion requires evidence that the information is represented losslessly elsewhere.
+> 15. **Exit gate:** C8 remains open until inventories, build/render, blocking checks, traceability, and qualitative prose review all pass.
+
+**Questions d'implémentation posées le même jour (non des questions de calibrage), avec leur état au 13 octobre 2026 :**
+
+| Question (texte d'origine) | État | Où |
+|---|---|---|
+| Which exact finite vocabulary and compatibility mapping should be used for `scope`? | **Tranchée** : vocabulaire fermé de 21 identifiants, distinct de `level` | `SCOPES` dans `scripts/controles/statement_ontology.py` |
+| How should epistemic state, evidence kind, and formal-artifact identifiers be represented in Verso directive arguments without permitting invalid combinations? | **Tranchée** : arguments `state`, `evidence`, `formalArtifact` des directives spécialisées, validés à la compilation et par le contrôle d'ontologie | `tools/SpecExt/Theorem.lean`, `scripts/controles/statement_ontology.py` |
+| Which existing statement instances have ambiguous kind/role/state assignments and therefore require explicit author review? | **Tranchée** par la ratification des 69 blocs (C8.0) | [registre de migration](LEAN-STATEMENT-MIGRATION.md), « Règles de classification ratifiées (C8.0) » |
+| Which generated outputs and CI jobs consume the current statement inventory or depend on the shared theorem counter? | **Recensée** avant C8.2 (`Theorem.lean`, `manuscript_metrics.py`, `notation.py`, `structure.py`, `couverture.py`) | instantané pré-migration, § 4 « Consommateurs à préserver » |
+| What bibliographic identifier format will connect an external result to its sources and any later formal reimplementation? | **Ouverte** : les sources restent des chaînes libres ; aucune résolution canonique | C8.6/C8.7, [registre de migration](LEAN-STATEMENT-MIGRATION.md), « Obligations de clôture C8.0 » |
+
+**Suivi demandé le même jour, encore ouvert :** évaluer quels résultats de littérature méritent une réimplémentation formelle (critères : valeur d'assurance, dépendances, faisabilité, licences et accès aux sources). Ce n'est pas un préalable à l'enregistrement d'un résultat de littérature, et aucun résultat de littérature ne doit être marqué vérifié par machine avant que l'artefact formel existe et soit testé. Aucune tâche de suivi n'a été repérée dans `docs/` au 13 octobre 2026.
 
 ## Ce qui n'a pas été rapproché
 
