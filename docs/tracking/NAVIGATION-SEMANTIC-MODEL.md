@@ -88,7 +88,7 @@ Critères d'acceptation du premier prototype :
 
 Les textes de lecture graduée constituent une couche éditoriale distincte des arêtes du graphe. Leur catalogue est tenu dans [`navigation_explanations.py`](../../scripts/ci/navigation_graph/navigation_explanations.py) : chaque entrée indique son nœud cible et fournit, pour chaque niveau, des liens vers les ancres Verso canoniques. Le catalogue ne crée aucune relation entre objets et ne modifie ni le statut normatif ni le statut de preuve des sources. Le validateur vérifie que les nœuds cibles, textes de niveau et destinations HTML/ancres existent. Lorsqu’aucune entrée ne cible un objet, l’interface le signale au lieu d’inventer une explication.
 
-La couverture initiale est volontairement limitée au point d’entrée « Introduction » de C1. Elle démontre le mécanisme, sans prétendre que l’ensemble des concepts K7PL bénéficie déjà de niveaux rédigés ou validés humainement.
+La couverture éditoriale vérifiée sur cette branche comprend deux entrées rédigées : « Introduction » de C1 et « Le système gradué » de C3. Elle démontre que le mécanisme gère plusieurs cibles ; elle ne signifie pas que l’ensemble des concepts K7PL bénéficie de niveaux rédigés ou validés humainement.
 
 ## 8. Hors périmètre explicite
 
