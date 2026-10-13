@@ -82,3 +82,29 @@ Aucune session avec utilisateur n'a été menée pour ce compte rendu. Les mesur
 ## Limites d'interprétation
 
 Le graphe C6/C3 formalise uniquement des rôles `num`/`cite` explicites sur deux plages de texte fixées, plus une chaîne de génération technique documentée par le manifeste TikZ et la CI. Une citation ne devient pas une prémisse ; une référence Verso ne devient pas une dépendance de preuve ; un import ne devient pas une justification scientifique. Aucun lien `tested-by` ou `implemented-by` n'est produit par heuristique. Le parcours « définition → théorème → preuve → implémentation → test » reste une tranche future séparée, bloquée tant que la valeur du prototype présent et l'attestation de chaque relation requise ne sont pas établies.
+
+
+## Couverture du navigateur relationnel — état au 13 octobre 2026
+
+Le générateur `scripts/ci/build_navigation_graph.py` parcourt les fichiers HTML rendus sous le répertoire de sortie Verso, à l'exclusion du sous-répertoire `navigation/` qu'il produit lui-même. Il ajoute une entrée contextuelle à chaque page documentaire rendue, avec un paramètre qui transmet la page de départ. Cette boucle porte sur l'ensemble des sorties HTML générées, donc sur les pages des chapitres présents au build ; elle ne constitue pas la preuve qu'une URL publique donnée a été ouverte et testée.
+
+Le graphe est lui aussi dérivé de l'ensemble de ces pages. Il représente les pages, titres/sections, figures, tableaux, listings, énoncés et entrées bibliographiques reconnus par les marqueurs HTML existants. Les arêtes `contains` décrivent la hiérarchie documentaire ; `references` et `cites` viennent de liens explicites rendus. Le générateur échoue lorsqu'une référence interne de cette portée ne peut pas être résolue. Il n'infère toujours pas de relations de preuve, d'implémentation ou de test.
+
+Il faut distinguer la couverture de navigation de la couverture éditoriale progressive :
+- l'entrée de navigation et la possibilité de rechercher/sélectionner des objets sont produites pour l'ensemble des pages HTML rendues ;
+- les explications en six niveaux sont rédigées manuellement et attachées seulement aux cibles inscrites dans `scripts/ci/navigation_explanations.py` ;
+- dans l'état de cette branche, deux entrées disposent de ces explications : l'idée directrice de C1 Introduction et les distinctions grade/modalité/mode de C3 ;
+- pour les autres objets, l'interface doit annoncer l'absence d'une explication dédiée et proposer le retour à la source canonique. Elle ne génère pas de vulgarisation à partir des seules arêtes.
+
+Le graphe interactif requiert JavaScript pour charger `navigation/graph.json`. Les pages Verso, le catalogue de figures et les vues sémantiques statiques restent disponibles comme solutions de navigation distinctes ; elles ne constituent pas une version sans JavaScript du graphe complet. La liste des objets et des relations fournit une alternative textuelle au dessin SVG, mais l'accessibilité et l'utilité doivent encore être évaluées sur le site publié, au clavier et sur mobile.
+
+### Contrat du code
+
+- `build_graph` extrait les nœuds et les trois catégories d'arêtes autorisées à partir des pages rendues ; il exclut les sorties de navigation générées pour éviter l'auto-alimentation.
+- `normalize_target` applique la résolution d'URL de Verso, y compris le `base href` et les destinations de type répertoire lorsqu'un `index.html` existe.
+- `section_context` extrait un contexte textuel borné pour une section, jusqu'au titre suivant ; ce texte n'est ni une définition normativement identifiée ni une relation sémantique.
+- `resolve_authored_explanations` rattache uniquement les explications explicitement cataloguées à leurs destinations HTML canoniques.
+- `inject_navigation_link` ajoute le point d'entrée de manière idempotente à chaque page rendue.
+- `check_navigation_graph_output.py` et ses tests contrôlent notamment les ancres, liens, nœuds, arêtes, marqueurs de fraîcheur et renvois des explications.
+
+Les docstrings et commentaires du générateur explicitent désormais ces contrats principaux. Ce travail de documentation n'implique pas que chaque comportement visuel ait été validé humainement.
