@@ -88,10 +88,35 @@ Le workflow de vérification utilise `python3 -m unittest discover -s scripts/ci
 
 **Décision de portée :** cet inventaire clôt le relevé documentaire P0 seulement. Il n'autorise ni élargissement du graphe sémantique, ni revendication d'accessibilité PDF/UA, ni migration globale des figures. Les prochains jalons restent la vérification humaine sur les artefacts effectivement publiés et l'évaluation comparative préenregistrée du parcours de provenance ; toute extension dépend de preuves de valeur et de relations explicites.
 
+## 7. Figures déclarées dans Verso
+
+Repris sans réécriture de l'audit des figures et du rendu (`docs/tracking/DIAGRAMS-AND-RENDERING-AUDIT.md`, supprimé après intégration ; [dernière version](https://github.com/AntheaLiles/k7pl/blob/a384592abac4aef13965ab98e2494567cfd37620/docs/tracking/DIAGRAMS-AND-RENDERING-AUDIT.md)). L'état décrit est celui de la tête `5d527c5ee6b74c993903607addb5852f4e914b1c` (PR #149).
+
+Les douze déclarations de figures présentes dans la spécification sont inventoriées ci-dessous. Les trois figures réimplémentées utilisent des sources TikZ ; les neuf autres conservent leurs sources draw.io. Les assets `services-lsp.svg` et `services-lsp.pdf` restent des reliquats non référencés ; leur source Mermaid historique se trouve dans l'archive Org, pas dans `spec/figures/sources/`. Ce n'est pas une treizième déclaration Verso manquante.
+
+| Module Verso | Identifiant | Asset publié | Source géométrique | Fonction explicative |
+|---|---|---|---|---|
+| `spec/Spec/C1/AxiomatiqueGerminale.lean` | `fig:specialisation-couches` | `specialisation-du-jugement` | `spec/figures/sources/specialisation-du-jugement.drawio` | Relier le jugement germinal aux trois couches du langage |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | `fig:dualite-algebre-coalgebre` | `co-algebra-duality` | `spec/figures/sources/co-algebra-duality.drawio` | Expliquer la dualité entre algèbre initiale et coalgèbre terminale |
+| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | `fig:fragments-emboites` | `fragments-nestings` | `spec/figures/sources/fragments-nestings.drawio` | Comparer les règles structurelles autorisées dans les fragments |
+| `spec/Spec/C3/LeSystemeGradue.lean` | `fig:modalites-structurelles` | `matrice-contraction-affaiblissement` | `spec/figures/tikz/structural-modes.tex` | Montrer les combinaisons de contraction/affaiblissement retenues |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` | `fig:session-automate` | `session-protocol-as-automata` | `spec/figures/tikz/session-protocol.tex` | Expliquer la progression d'un automate de protocole de session |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` | `fig:session-dualite` | `session-protocol-as-dual-exchange` | `spec/figures/sources/session-protocol-as-dual-exchange.drawio` | Comparer les deux extrémités d'un protocole dual |
+| `spec/Spec/C4/EchelleLocale.lean` | `fig:rexp-complexite` | `rexp-hierarchy-complexity` | `spec/figures/sources/rexp-hierarchy-complexity.drawio` | Comparer les classes de complexité des R-expressions |
+| `spec/Spec/C4/EchelleDeLActeur.lean` | `fig:arene-partition` | `soa-partitionning` | `spec/figures/sources/soa-partitionning.drawio` | Rendre visible la partition statique de mémoire entre fibrilles |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | `fig:acteur-cycle-de-vie` | `virtual-actor-lca` | `spec/figures/sources/virtual-actor-lca.drawio` | Expliquer le cycle de vie d'un acteur virtuel |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | `fig:circuit-breaker` | `session-circuit-breaker` | `spec/figures/sources/session-circuit-breaker.drawio` | Expliquer le rejet ou l'acceptation d'un message selon le tag d'état |
+| `spec/Spec/C6/LeProcessusDeCompilation.lean` | `fig:comp-process` | `compilation-process` | `spec/figures/tikz/compilation-pipeline.tex` | Exposer les phases de la chaîne de compilation |
+| `spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean` | `fig:cycle-reactif` | `unidirectionnal-reactive-cycle` | `spec/figures/sources/unidirectionnal-reactive-cycle.drawio` | Relier les étapes du cycle réactif aux trois couches |
+
+La CI vérifie les sorties des trois sources TikZ, leur reproductibilité et leur correspondance avec les déclarations Verso. Les neuf figures draw.io sont inventoriées, mais leur fidélité visuelle et leur accessibilité restent à évaluer séparément. La revue des rendus TikZ à taille de publication reste humaine : la CI ne prouve ni leur lisibilité ni leur valeur explicative.
+
+Le changelog conserve un compte historique de treize figures. L'artefact HTML CI courant contient douze figures K7PL déclarées et copie également `services-lsp.svg`, qui n'est référencé par aucune déclaration Verso courante. Le SVG existe bien sous `spec/figures/` ; le PDF homonyme est également présent comme asset binaire, mais ni `spec/figures/sources/services-lsp.drawio` ni `spec/figures/services-lsp.mmd` ne sont présents dans l'arbre courant. Une source Mermaid historique est retrouvable dans `docs/archives/manuscrit-org/K7_LSP_REPL.org`. La décision technique retenue pour cette PR est de **conserver les reliquats sans les supprimer ni les archiver** : leur utilité éditoriale et leur destination relèvent d'une décision de maintenance distincte. Le treizième fichier copié n'est pas une treizième déclaration Verso.
+
 ## Références de suivi
 
 - [Plan d'exploration interactive](INTERACTIVE-EXPLORATION-PLAN.md)
 - [Modèle sémantique minimal](NAVIGATION-SEMANTIC-MODEL.md)
 - [Prototype de navigation](NAVIGATION-PROTOTYPE.md)
-- [Audit des figures et du rendu](DIAGRAMS-AND-RENDERING-AUDIT.md)
+- [Audit des figures et du rendu, dernière version](https://github.com/AntheaLiles/k7pl/blob/a384592abac4aef13965ab98e2494567cfd37620/docs/tracking/DIAGRAMS-AND-RENDERING-AUDIT.md) (contenu repris au § 7 et dans le [plan](INTERACTIVE-EXPLORATION-PLAN.md), sous-chantier figures)
 - [Résultats du POC TikZ](tikz-poc/RESULTS.md)

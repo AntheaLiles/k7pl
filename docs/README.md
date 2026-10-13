@@ -32,7 +32,7 @@ Start with:
 
 - [Method](METHOD.md): current methodological rules for producing and evaluating project artefacts.
 - [CONTRIBUTING.md](../CONTRIBUTING.md): contribution workflow and repository rules.
-- [Diagram and rendering audit](tracking/DIAGRAMS-AND-RENDERING-AUDIT.md): preliminary findings, rendering strategy, accessibility and validation work.
+- [Figures and rendering](tracking/INTERACTIVE-EXPLORATION-PLAN.md): figure contract, accessibility rules and the PDF/UA protocol (figures sub-plan); the figure inventory is in [the interactive envelope inventory](tracking/INTERACTIVE-EXPLORATION-INVENTORY.md), § 7.
 - [src/](../src/): Lean implementation.
 - [tests/](../tests/): executable tests.
 
