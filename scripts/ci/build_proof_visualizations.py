@@ -344,24 +344,23 @@ def validate_lock(extractor: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=Path("."))
-    parser.add_argument("--site", type=Path, required=True)
+    parser.add_argument("--site", type=Path, help="Optional transitional static-site output (not the native Verso path)")
+    parser.add_argument("--data-dir", type=Path, default=Path("_out/proof-visualizations/data"))
+    parser.add_argument("--data-only", action="store_true", help="Emit versioned JSON data for native Verso rendering only")
     parser.add_argument("--ref", required=True)
     parser.add_argument("--extractor-dir", type=Path, default=Path("tooling/paperproof-export"))
     parser.add_argument("--main-toolchain", default="leanprover/lean4:v4.34.0")
     args = parser.parse_args()
     root = args.repo_root.resolve()
-    site = args.site.resolve()
     extractor = (root / args.extractor_dir).resolve()
+    data_dir = (root / args.data_dir).resolve()
     validate_lock(extractor)
-    output = site / "proofs"
-    (output / "data").mkdir(parents=True, exist_ok=True)
-    artifacts = [extract_one(root, extractor, target, args.ref, args.main_toolchain, output) for target in TARGETS]
+    data_dir.mkdir(parents=True, exist_ok=True)
+    artifacts = [extract_one(root, extractor, target, args.ref, args.main_toolchain, data_dir) for target in TARGETS]
     for artifact in artifacts:
         slug = artifact["slug"]
-        (output / f"{slug}.html").write_text(render_proof(artifact), encoding="utf-8")
-        (output / "data" / f"{slug}.json").write_text(
-            json.dumps(artifact, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    (output / "index.html").write_text(render_index(artifacts, args.ref), encoding="utf-8")
+        (data_dir / f"{slug}.json").write_text(
+            json.dumps(artifact, ensure_ascii=False, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
     manifest = {
         "schemaVersion": SCHEMA_VERSION,
         "sourceRevision": args.ref,
@@ -369,12 +368,31 @@ def main() -> int:
         "extractorToolchain": PAPERPROOF_TOOLCHAIN,
         "paperproofRevision": PAPERPROOF_REVISION,
         "declarations": [item["identity"]["declaration"] for item in artifacts],
-        "limits": ["Curated tactic proofs only", "No inferred normative correspondence", "HTML is a derived view, not proof evidence"],
+        "limits": ["Curated tactic proofs only", "No inferred normative correspondence", "JSON contains observations, not proof evidence"],
     }
-    (output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    (data_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
+
+    if args.data_only:
+        print(f"Generated {len(artifacts)} proof data artifacts for {args.ref}")
+        for artifact in artifacts:
+            print(f"  {artifact['identity']['declaration']}: {len(artifact['extracted']['steps'])} tactic observations")
+        return 0
+
+    if args.site is None:
+        parser.error("--site is required unless --data-only is set")
+    site = args.site.resolve()
+    output = site / "proofs"
+    (output / "data").mkdir(parents=True, exist_ok=True)
+    for artifact in artifacts:
+        slug = artifact["slug"]
+        (output / f"{slug}.html").write_text(render_proof(artifact), encoding="utf-8")
+        (output / "data" / f"{slug}.json").write_text(
+            json.dumps(artifact, ensure_ascii=False, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
+    (output / "index.html").write_text(render_index(artifacts, args.ref), encoding="utf-8")
+    (output / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
     inject_nav_link(site / "navigation" / "index.html")
     validate_site(site, artifacts, args.ref)
-    print(f"Generated {len(artifacts)} static proof views for {args.ref}")
+    print(f"Generated {len(artifacts)} transitional static proof views for {args.ref}")
     for artifact in artifacts:
         print(f"  {artifact['identity']['declaration']}: {len(artifact['extracted']['steps'])} tactic observations")
     return 0
