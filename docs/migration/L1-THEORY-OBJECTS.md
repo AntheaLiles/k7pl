@@ -357,7 +357,7 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Profil Π :** identifier la révision de spécification, représentation/formalisation, chaîne d'exécution, architecture et paramètres matériels, paramètres d'exécution et sources pertinentes de non-déterminisme. Séparer la sûreté abstraite, E_repro, égalité binaire et garanties ABI.
 
-**Dépendances :** ModelesDeMemoire.lean, LEAN-DEPENDENCY-SEMANTIC-REVIEW.md, H1/H2/H3 et contrôles propres à Π.
+**Dépendances :** ModelesDeMemoire.lean, LEAN-STATEMENT-MIGRATION.md (obligations de clôture C8.0, qui reprennent la revue des dépendances), H1/H2/H3 et contrôles propres à Π.
 
 **Critère de clôture :** H1 indépendamment prouvée ou expressément acceptée comme hypothèse avec portée indiquée ; H2 et H3 prouvées séparément ; revendications concrètes testées/prouvées sur un profil versionné.
 

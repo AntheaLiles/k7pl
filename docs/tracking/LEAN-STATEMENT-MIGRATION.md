@@ -25,11 +25,62 @@ La migration conserve les textes mathématiques, les labels historiques, les ré
 
 La migration conserve les 69 labels historiques et les références `{num}`. Le rendu spécialisé utilise les compteurs par rôle/type prévus par l’implémentation commune ; la numérotation affichée peut donc différer de l’ancien compteur global. Ce changement est intentionnel et ne change pas les cibles des références nommées. La vue [correspondance des énoncés](correspondance-enonces.md) est générée depuis `spec/` par `scripts/suivi.py enonces`; la CI exécute aussi `scripts/suivi.py all` et vérifie l’absence de dérive générée. Elle distingue le numéro historique du PDF relu du numéro ordinal d’inventaire, qui n’est pas présenté comme le numéro rendu. La build HTML/TeX/PDF confirme l’expansion/rendu du corpus ; la vérification humaine des compteurs effectivement affichés et de l’interprétation des références nommées reste requise.
 
+## Règles de classification ratifiées (C8.0)
+
+Cette section reprend sans réécriture les règles et les décisions transversales du registre de ratification des classifications (`docs/tracking/LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md`, supprimé après intégration ; [dernière version](https://github.com/AntheaLiles/k7pl/blob/6eb9f86b24527a0de982012233246788c2fc56d4/docs/tracking/LEAN-STATEMENT-CLASSIFICATION-RATIFICATION.md)). Le détail bloc par bloc de ce registre est porté par les colonnes de la table « Classification courante » ci-dessous, qui fait désormais référence ; les changements postérieurs (séparations C8.4, décisions de l'autrice du 12 octobre 2026) y sont signalés ligne à ligne.
+
+**Décision ratifiée :** les classifications ci-dessous ratifient la nature documentaire, le rôle logique visé, l’état épistémique actuel, la portée et le type d’appui visible pour les 69 labels de la base examinée. Cette ratification est une décision de classification, **pas une validation des résultats mathématiques** et pas une déclaration de preuve Lean.
+
+### Règles appliquées
+
+- **Rôle logique** : `theorem` pour un résultat majeur visé ; `lemma` lorsqu’il sert principalement de dépendance ; `corollary` pour une conséquence directement dérivée ; `proposition` pour un autre résultat ; `conjecture` pour une revendication explicitement non établie. Le rôle ne détermine pas la vérité ni le statut épistémique.
+- **État épistémique** : `under-review` lorsque la revendication reste à vérifier ; `supported` seulement lorsqu’un argument mathématique visible est suffisant au niveau de la revendication générale sans prétendre à une vérification Lean ; `proposed` pour une conjecture ou une revendication explicitement non démontrée. Aucun résultat n’est classé `established`, `refuted` ou `withdrawn` dans cette ratification.
+- **Définitions et exigences** : pas de rôle logique ni d’état de vérité applicable à l’objet en tant que tel. Toute propriété de correction ou de clôture qui accompagne une définition est classée séparément.
+- **Résultats de littérature** : l’attribution documentaire externe est séparée de toute revendication propre à K7PL. Une citation n’établit pas automatiquement un résultat K7PL.
+- **Appui** : une esquisse textuelle n’est pas une preuve Lean. Une obligation manquante demeure une obligation, même si le rôle et la portée sont ratifiés.
+- **Portée** : elle est volontairement étroite et décrit ce que l’énoncé revendique, avec ses hypothèses. Elle ne masque pas les obligations de preuve listées dans les notes d’audit.
+
+### Décisions transversales ratifiées
+
+1. **Les 69 blocs ont une classification documentaire décidée.** La décision porte sur les objets, leurs rôles, leurs états actuels et leurs portées. Elle ne transforme pas les esquisses en preuves.
+2. **Aucune promotion à `established`.** Le seul bloc classé `supported` est `thm:tri_topologique`, parce que son argument inductif standard couvre le résultat de graphe fini annoncé. Cela n’affirme pas l’existence d’une preuve Lean ni ne valide les usages qui en dépendent.
+3. **Objets composés à scinder dans la future migration :**
+   - `thm:elaboration` : définition d’élaboration et propriété de préservation du sens ;
+   - `thm:interface_jugement` : définition d’interface et clôture locale des formes énumérées ;
+   - `thm:schema_reinvocation` : identité de ré-invocation et obligation de compatibilité contexte/effet ;
+   - `thm:homomorphisme_roues` : clauses sémantiques (encodage et sélection) et exigence d’implémentation arithmétique ;
+   - `thm:sedimentation` : résultat non gradué de littérature et extension graduée ouverte ;
+   - `thm:preservation_type` : préservation par réduction et conjecture d’abaissement MLIR.
+4. **Dépendances argumentatives non résolues :** H1 entre `thm:introduction_unique` et `thm:surete_spatiale`, la preuve de `thm:divulgation_delimitee` et le cas `Declassify`, la simulation de `thm:simulation`, les obligations de fidélité de `thm:fidelite_interprete`, et les signatures/relations encore incomplètes identifiées dans les lots B01–B11.
+5. **Aucune migration source n’est autorisée par ce document seul.** La migration devra préserver texte, labels, références, hypothèses et états ; les scissions sémantiques des objets composés nécessitent une PR distincte avec traçabilité explicite et validation de build.
+
+État au 13 octobre 2026 : les six scissions du point 3 sont faites (C8.4, voir « Objets composites séparés ») ; la scission de `thm:raffinement` s'y ajoute (décision du 12 octobre 2026).
+
+### Suite de clôture C8 (telle que ratifiée)
+
+- Ratification des classifications : **terminée** pour les 69 blocs, avec les six scissions conceptuelles explicitement enregistrées.
+- Résolution des obligations mathématiques et argumentatives : **ouverte**.
+- Implémentation de l’ontologie, validation structurelle/consistance par CI, inventaire régénéré et migration contrôlée : **ouvert**.
+- Clôture C8 : interdite tant que les critères d’acceptation de la migration et de traçabilité ne sont pas satisfaits.
+
 ## Provenance et obligations restantes
 
 La provenance bibliographique du résultat non gradué de sédimentation n’est pas encore reliée à un identifiant bibliographique résolu. Le champ `source` le marque explicitement comme non résolu ; le point 4 (traçabilité et rendus) doit établir la référence exacte. Les contrôles structurels n’établissent ni la vérité mathématique des énoncés ni l’adéquation sémantique de leurs hypothèses.
 
 Nombre de lignes dans ce registre : **77** (69 labels historiques ratifiés + 5 objets complémentaires C8.4 + 3 corollaires issus de la scission de `thm:raffinement`).
+
+### Obligations de clôture C8.0
+
+Reprises de la matrice de couverture de la revue sémantique, de la revue des dépendances à risque et des registres de classification initiaux, supprimés après intégration (dernières versions : [matrice](https://github.com/AntheaLiles/k7pl/blob/0da924a3a03846e1ede4d601a14dcf79cee57b9b/docs/tracking/LEAN-SEMANTIC-AUDIT-COVERAGE-MATRIX.md), [revue des dépendances](https://github.com/AntheaLiles/k7pl/blob/5629e95130a15b66eaf753571a68e9618c13f9e5/docs/tracking/LEAN-DEPENDENCY-SEMANTIC-REVIEW.md), [registre initial](https://github.com/AntheaLiles/k7pl/blob/2a3d0041c92a949c198de5ce60ca4f36a23ab9b3/docs/tracking/LEAN-STATEMENT-CLASSIFICATION-REGISTER.md), [notes de tri](https://github.com/AntheaLiles/k7pl/blob/072292a222d3e61627769ddc0dd3294a9ac83cc0/docs/tracking/LEAN-STATEMENT-CLASSIFICATION-REVIEW.md)). La couverture documentaire des 69 labels historiques par les lots B01–B11 est complète ; elle ne vaut pas résolution des obligations. **C8.0 n'est pas clos.**
+
+1. **H1 (sûreté spatiale).** La référence directe est unidirectionnelle (`thm:introduction_unique → thm:surete_spatiale`) : il s'agit d'une circularité argumentative potentielle, non d'un cycle syntaxique. L'origine de H1 est à établir sans justification circulaire ; trois voies sont ouvertes et aucune n'est ratifiée (voir [DECISIONS](DECISIONS.md)). H2 et H3 restent des prémisses distinctes. Détail : [audit C-08](../migration/L1-C08-MEMORY-SAFETY-AUDIT-2026-10-11.md).
+2. **Divulgation délimitée.** Le cycle syntaxique `thm:lemme_fondamental ↔ thm:divulgation_delimitee` a été supprimé par restriction de portée (#117), non par preuve. Restent la relation de libération, la clôture des échappatoires, le traitement des valeurs substituées et le cas `Declassify`, ainsi que la vérification que les autres usages du lemme fondamental n'exigent pas ce cas.
+3. **Représentation.** Pour `thm:representation_inobservable` : relation de représentation admissible et signatures de `repr` et `obs` (#116 a fixé la forme par invariance).
+4. **Simulation et fidélité.** `thm:fidelite_interprete` dépend de l'existence d'une simulation sans référence syntaxique inverse : dette argumentative, à lever en établissant `thm:simulation` indépendamment.
+5. **Nature des arêtes de dépendance.** L'extracteur ne relève que les références directes `{num "thm:…"}`. Chaque arête reste à classer : prémisse de preuve, hypothèse énoncée, résultat dérivé, obligation ouverte, citation documentaire ou mention contextuelle. Les alertes de cycle sont des diagnostics à examiner, non des preuves de circularité.
+6. **Traçabilité.** Références bibliographiques et attache sémantique des hypothèses locales : ouvertes au titre de C8.6/C8.7.
+
+Dépendances structurantes à traiter ensemble : substitution → substitution simultanée → lemme fondamental ; traduction vers le métalangage → raffinement et fidélité (préservation du typage, simulation, préservation des traces et adéquation observationnelle sont des résultats distincts) ; effets et budget (`thm:temps_mononiveau`, `thm:boxtimes_addition`, `thm:coherence_axiome`, `thm:coherence_usage`, `thm:action_parallele`, `thm:distributivite_tronquee`), qui demandent une signature explicite des opérations et de leurs domaines ; préservation du type et conjecture d'abaissement, suivies séparément ; engagements de représentation (`thm:isomorphisme_memoire`, `thm:homomorphisme_roues`, `thm:representation_inobservable`), distincts entre eux.
 
 ## Classification courante
 | Label | Source | Nature | Rôle | État | Appui | Scope tag | Portée détaillée ratifiée | Niveau historique | Note de migration |
