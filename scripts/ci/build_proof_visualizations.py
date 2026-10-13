@@ -88,7 +88,7 @@ def declaration_line(source: str, name: str) -> int:
 
 
 def build_artifact(target: dict[str, str], export_value: Any, source: str, revision: str,
-                   main_toolchain: str) -> dict[str, Any]:
+                   main_toolchain: str, source_bytes: bytes | None = None) -> dict[str, Any]:
     export = validate_export(export_value)
     start = declaration_line(source, target["declaration"])
     step_ends = [step["position"]["stop"]["line"] + 1 for step in export["steps"]]
@@ -103,7 +103,7 @@ def build_artifact(target: dict[str, str], export_value: Any, source: str, revis
             "declaration": target["declaration"], "source": target["source"],
             "sourceRevision": revision, "declarationLine": start,
             "sourceLines": {"start": start, "end": end}, "sourceUrl": source_url,
-            "sourceSha256": hashlib.sha256(source.encode("utf-8")).hexdigest(),
+            "sourceSha256": hashlib.sha256(source_bytes if source_bytes is not None else source.encode("utf-8")).hexdigest(),
         },
         "editorial": {"title": target["title"], "description": target["description"]},
         "provenance": {
@@ -302,7 +302,8 @@ def validate_site(site: Path, artifacts: list[dict[str, Any]], revision: str) ->
 def extract_one(root: Path, extractor: Path, target: dict[str, str], revision: str,
                 main_toolchain: str, output_root: Path) -> dict[str, Any]:
     source_path = root / target["source"]
-    source = source_path.read_text(encoding="utf-8")
+    source_bytes = source_path.read_bytes()
+    source = source_bytes.decode("utf-8")
     raw_path = output_root / f".{target['slug']}.paperproof.json"
 
     # Paperproof's Lean frontend rejects source paths outside its Lake workspace.
@@ -311,7 +312,7 @@ def extract_one(root: Path, extractor: Path, target: dict[str, str], revision: s
     raw_path.unlink(missing_ok=True)
     with tempfile.TemporaryDirectory(prefix="k7pl-proof-source-", dir=extractor) as staging_dir:
         staged_path = Path(staging_dir) / source_path.name
-        staged_path.write_text(source, encoding="utf-8")
+        staged_path.write_bytes(source_bytes)
         command = ["lake", "exe", "terminal", str(staged_path.resolve()),
                    target["declaration"], str(raw_path.resolve())]
         try:
@@ -321,7 +322,7 @@ def extract_one(root: Path, extractor: Path, target: dict[str, str], revision: s
                     f"Paperproof extraction failed for {target['declaration']} (exit {result.returncode}).\\n"
                     f"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}")
             raw = json.loads(raw_path.read_text(encoding="utf-8"))
-            return build_artifact(target, raw, source, revision, main_toolchain)
+            return build_artifact(target, raw, source, revision, main_toolchain, source_bytes)
         finally:
             raw_path.unlink(missing_ok=True)
 
