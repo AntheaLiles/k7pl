@@ -12,6 +12,7 @@ import html
 import json
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -303,17 +304,26 @@ def extract_one(root: Path, extractor: Path, target: dict[str, str], revision: s
     source_path = root / target["source"]
     source = source_path.read_text(encoding="utf-8")
     raw_path = output_root / f".{target['slug']}.paperproof.json"
-    command = ["lake", "exe", "terminal", str(source_path.resolve()), target["declaration"], str(raw_path.resolve())]
-    result = subprocess.run(command, cwd=extractor, text=True, capture_output=True, check=False)
-    if result.returncode or not raw_path.is_file():
-        raise RuntimeError(
-            f"Paperproof extraction failed for {target['declaration']} (exit {result.returncode}).\n"
-            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}")
-    try:
-        raw = json.loads(raw_path.read_text(encoding="utf-8"))
-        return build_artifact(target, raw, source, revision, main_toolchain)
-    finally:
-        raw_path.unlink(missing_ok=True)
+
+    # Paperproof's Lean frontend rejects source paths outside its Lake workspace.
+    # Stage an exact text copy inside that workspace; source links and provenance
+    # continue to refer to the canonical repository file, never to this temporary copy.
+    raw_path.unlink(missing_ok=True)
+    with tempfile.TemporaryDirectory(prefix="k7pl-proof-source-", dir=extractor) as staging_dir:
+        staged_path = Path(staging_dir) / source_path.name
+        staged_path.write_text(source, encoding="utf-8")
+        command = ["lake", "exe", "terminal", str(staged_path.resolve()),
+                   target["declaration"], str(raw_path.resolve())]
+        try:
+            result = subprocess.run(command, cwd=extractor, text=True, capture_output=True, check=False)
+            if result.returncode or not raw_path.is_file():
+                raise RuntimeError(
+                    f"Paperproof extraction failed for {target['declaration']} (exit {result.returncode}).\\n"
+                    f"stdout:\\n{result.stdout}\\nstderr:\\n{result.stderr}")
+            raw = json.loads(raw_path.read_text(encoding="utf-8"))
+            return build_artifact(target, raw, source, revision, main_toolchain)
+        finally:
+            raw_path.unlink(missing_ok=True)
 
 
 def validate_lock(extractor: Path) -> None:
