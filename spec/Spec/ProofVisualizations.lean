@@ -21,11 +21,12 @@ et des hypothèses rapportés par l'extracteur Paperproof. Elles complètent les
 Lean sans s'y substituer. Elles ne constituent ni une preuve indépendante, ni une
 validation de correspondance entre une déclaration Lean et un énoncé normatif.
 
-La compilation K7PL principale reste exécutée sous Lean 4.34.0. Le workspace
-d'extraction de cette première tranche utilise Paperproof et Lean 4.29.0-rc8 ;
-la provenance de chaque vue expose cette différence. La compatibilité de cet
-extracteur ancien ne doit pas être généralisée aux constructions qui n'ont pas été
-testées sur des sources réelles.
+La compilation K7PL principale et le workspace d'extraction sont tous deux
+épinglés sur Lean 4.34.0. La CI a confirmé l'extraction des trois premières cibles
+sélectionnées sous cette version. Les deux exemples supplémentaires ci-dessous
+élargissent le corpus ; leur statut d'extraction doit être établi par la CI de ce
+commit. Cela ne constitue pas une garantie de prise en charge universelle des
+constructions Lean.
 
 ## Conservation sémantique de double
 
@@ -40,4 +41,14 @@ testées sur des sources réelles.
 ## Projection du contexte d'usage et mise à l'échelle
 
 ::::proofviz (slug := "project-usage-context-scale")
+::::
+
+## Compatibilité de la multiplication finie avec la consommation de budget
+
+::::proofviz (slug := "grade-budget-finite-multiplicity")
+::::
+
+## Préservation de l’unicité après allocation d’une capacité
+
+::::proofviz (slug := "memory-capability-allocate-unique")
 ::::

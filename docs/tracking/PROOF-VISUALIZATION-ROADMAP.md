@@ -22,26 +22,23 @@ The proof-view JSON uses schema k7pl.proof-visualization/v1. It stores declarati
 
 The detailed coverage status and test evidence are maintained in [the proof visualization coverage matrix](PROOF-VISUALIZATION-COVERAGE.md). It deliberately distinguishes corpus presence from demonstrated extractor support.
 
-## 2. Milestone M1 — real by proofs in the published site
+## 2. M1 — extraction et rendu natif dans Verso
 
-The implementation uses Paperproof's upstream terminal exporter, not a copied parser or a dependency in K7PL's primary Lake workspace. Paperproof's example workspace is pinned to an older Lean/Mathlib line than K7PL's Lean 4.34.0. The isolated workspace therefore pins Paperproof to commit 05c68e9cb8e881f9e971abb94efd231a269e0229 and Mathlib v4.29.0-rc8, with transitive revisions locked. The root toolchain and normative sources are not changed to satisfy this auxiliary tool.
+Paperproof reste une dépendance épinglée dans un workspace Lake isolé, mais celui-ci utilise désormais Lean 4.34.0 et Mathlib v4.34.0. K7PL ne change pas son toolchain racine ni ses dépendances normatives. Le script d'extraction produit seulement les artefacts JSON et leur manifeste : il ne fabrique plus de pages HTML autonomes ni de liens injectés après le rendu.
 
-Selected real declarations:
-- K7pl.Arith.eval_double — short simplification and ring proof in src/K7pl/Arith.lean.
-- K7pl.UsageScale.scaleUsage_comp — record/case proof in src/K7pl/UsageScale.lean.
-- K7pl.UsageScale.projectUsageContext_scale — function extensionality and none/some cases in src/K7pl/UsageScale.lean.
+Le bloc proofviz de tools/SpecExt/ProofVisualization.lean consomme le même schéma JSON versionné pour ses deux backends Verso. Le renderer HTML utilise des nœuds structurés et du CSS ; le renderer TeX échappe les valeurs avant leur émission. La page de document spec/Spec/ProofVisualizations.lean appelle le bloc par des identifiants contrôlés. La CI exécute l'extraction avant la compilation Verso, puis construit HTML et TeX et compile le PDF.
 
-The script scripts/ci/build_proof_visualizations.py invokes the upstream terminal command, validates its JSON shape, and emits static pages under proofs/, JSON data under proofs/data/, and a manifest. It creates source links pinned to the exact revision that produced the site. The page works without JavaScript and provides a text-based catalogue and disclosure controls for hypotheses. CI runs the ordinary K7PL build independently from the extraction workspace.
+Le run CI 38447082870 a validé cette chaîne sous Lean 4.34.0 pour trois déclarations réelles : K7pl.Arith.eval_double, K7pl.UsageScale.scaleUsage_comp et K7pl.UsageScale.projectUsageContext_scale. Le commit courant élargit le corpus à K7pl.GradeBudget.finite_multiplicity_compatibility et K7pl.MemoryCapability.allocate_preserves_unique ; leur statut est « en validation CI » jusqu'à la réussite du run qui les introduit.
 
-**What M1 can claim when its end-to-end CI job passes:** the selected real source declarations were processed by the pinned Paperproof extractor; the expected observations were serialized and rendered; source paths, revisions and generated files passed mechanical checks. It cannot claim that Paperproof's old toolchain independently confirms K7PL's current build, that extraction proves normative correspondence, or that the view is usable/accessibile without human evaluation.
+Le registre de couverture détaillé se trouve dans [PROOF-VISUALIZATION-COVERAGE.md](PROOF-VISUALIZATION-COVERAGE.md). Il sépare les constructions présentes dans le corpus, les capacités réellement extraites, les validations par test et les limites encore ouvertes.
 
-Reproduction instructions are in tooling/paperproof-export/README.md. The exporter and output contract have offline regression tests in scripts/ci/test_build_proof_visualizations.py.
+Le pipeline n'affirme pas qu'une vue est une preuve indépendante, ni qu'un énoncé Lean correspond à une déclaration normative. Il n'infère aucune relation depuis les noms ou la proximité des fichiers. Les exemples sélectionnés ne démontrent pas une couverture universelle de Lean.
 
 ## 3. M2 — human assessment of the visualization
 
 **Human action still required:** inspect the generated proof pages on a current browser, keyboard-only and mobile-sized viewport; compare their transitions to the exact Lean source; record whether the view helps a reader understand goal changes rather than simply restating tactic syntax. Record any export failures and the relevant Paperproof/Lean versions. This is a usability/review action, not a CI property.
 
-Exit condition: at least the three selected views have been inspected, misleading or missing transitions are recorded, and the result is retained in the tracking record. If the exporter cannot elaborate a source on its isolated toolchain, record the exact failure and reduce the target set only with documented reasons; do not weaken the root Lean build.
+Exit condition: all currently selected views have been inspected, misleading or missing transitions are recorded, and the result is retained in the tracking record. If the exporter cannot elaborate a source on its isolated toolchain, record the exact failure and reduce the target set only with documented reasons; do not weaken the root Lean build.
 
 ## 4. M3 — validate explicit formalArtifact references
 
