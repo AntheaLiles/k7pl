@@ -20,6 +20,8 @@ The pipeline separates four things:
 
 The proof-view JSON uses schema k7pl.proof-visualization/v1. It stores declaration identity, exact source revision and lines, source SHA-256, extractor/toolchain provenance, Paperproof's step order, allGoals, and explicit non-claims. A missing or unsupported view must never be interpreted as a missing or unverified proof. No relation between a normative statement and a declaration is inferred from similar names or proximity.
 
+The detailed coverage status and test evidence are maintained in [the proof visualization coverage matrix](PROOF-VISUALIZATION-COVERAGE.md). It deliberately distinguishes corpus presence from demonstrated extractor support.
+
 ## 2. Milestone M1 — real by proofs in the published site
 
 The implementation uses Paperproof's upstream terminal exporter, not a copied parser or a dependency in K7PL's primary Lake workspace. Paperproof's example workspace is pinned to an older Lean/Mathlib line than K7PL's Lean 4.34.0. The isolated workspace therefore pins Paperproof to commit 05c68e9cb8e881f9e971abb94efd231a269e0229 and Mathlib v4.29.0-rc8, with transitive revisions locked. The root toolchain and normative sources are not changed to satisfy this auxiliary tool.
