@@ -133,6 +133,52 @@ def make_node(
     }
 
 
+def section_context(elements: list[Element], heading: Element, max_chars: int = 480) -> str:
+    """Return a bounded excerpt of prose immediately following a heading.
+
+    The excerpt is derived from rendered HTML, not treated as a definition or
+    as evidence for a scientific relation. Stop at the next heading so a
+    subsection's text is not presented as the parent section's introduction.
+    """
+    try:
+        heading_index = next(index for index, element in enumerate(elements) if element is heading)
+    except StopIteration:
+        return ""
+
+    excerpts: list[str] = []
+    used = 0
+    for element in elements[heading_index + 1:]:
+        if element.tag in HEADING_TAGS:
+            break
+        if element.tag != "p":
+            continue
+
+        current: Element | None = element
+        in_navigation_entry = False
+        while current is not None:
+            if current.attrs.get("id") == "k7pl-navigation-entry":
+                in_navigation_entry = True
+                break
+            current = current.parent
+        if in_navigation_entry:
+            continue
+
+        text = element.text()
+        if not text:
+            continue
+        remaining = max_chars - used
+        if remaining <= 0:
+            break
+        if len(text) > remaining:
+            trimmed = text[:remaining].rsplit(" ", 1)[0].rstrip()
+            text = (trimmed or text[:remaining].rstrip()) + "…"
+        excerpts.append(text)
+        used += len(text) + 1
+        if used >= max_chars or text.endswith("…"):
+            break
+    return " ".join(excerpts)
+
+
 def normalize_target(
     page: str, base_href: str, href: str, available_pages: set[str] | None = None
 ) -> str | None:
@@ -229,7 +275,8 @@ def build_graph(site_root: Path) -> dict:
                 node_id = f"{page}#{element_id}" if element_id else f"{page}#heading-{heading_number}"
                 label = element.text() or f"Section {heading_number}"
                 url = f"{page}#{element_id}" if element_id else page
-                nodes[node_id] = make_node(node_id, "section", label, url, page, element.text())
+                description = section_context(elements, element) or element.text()
+                nodes[node_id] = make_node(node_id, "section", label, url, page, description)
                 if element_id:
                     anchor_to_node[f"{page}#{element_id}"] = node_id
                 if heading_stack:
@@ -520,7 +567,7 @@ input[type="search"] { box-sizing: border-box; width: 100%; padding: .6rem; font
 </section>
 <noscript><p>La vue interactive nécessite JavaScript. Les pages documentaires restent consultables et les vues statiques sont disponibles dans le <a href="figures.html">catalogue des figures</a>, les <a href="semantic-graph.html">références C6</a> et les <a href="semantic-graph-c3.html">références C3</a>.</p></noscript>
 <div class="graph-scroll" tabindex="0" role="region" aria-label="Graphe relationnel, défilement horizontal possible">
-<svg id="graph" viewBox="0 0 1000 640" role="img" aria-label="Graphe des relations explicites autour de l'objet sélectionné">
+<svg id="graph" viewBox="0 0 1000 760" role="img" aria-label="Graphe des relations explicites autour de l'objet sélectionné">
 <title>Relations explicites de l'objet sélectionné</title>
 <desc>Les liens sont extraits des références internes, citations et structures de sections de la spécification Verso.</desc>
 <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8c959f"></path></marker></defs>
@@ -641,15 +688,16 @@ function renderGraph() {
   const view = neighborhood(selectedId);
   const positions = new Map();
   const root = byId.get(selectedId);
-  positions.set(selectedId, {x: 500, y: 320});
-  [1, 2].forEach(function (depth) {
+  positions.set(selectedId, {x: 500, y: 380});
+  const maxDepth = Math.min(3, Number(depthControl.value) || 2);
+  for (let depth = 1; depth <= maxDepth; depth += 1) {
     const layer = view.nodes.filter(function (node) { return view.distance.get(node.id) === depth; });
     layer.forEach(function (node, index) {
       const angle = (2 * Math.PI * index / Math.max(1, layer.length)) - Math.PI / 2;
-      const radius = depth === 1 ? 165 : 275;
-      positions.set(node.id, {x: 500 + radius * Math.cos(angle), y: 320 + radius * Math.sin(angle)});
+      const radius = 85 + depth * 80;
+      positions.set(node.id, {x: 500 + radius * Math.cos(angle), y: 380 + radius * Math.sin(angle)});
     });
-  });
+  }
   view.edges.forEach(function (edge) {
     const a = positions.get(edge.source);
     const b = positions.get(edge.target);
