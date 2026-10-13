@@ -38,7 +38,7 @@ exemple le job `status` ajouté à `ci.yaml` sur `main` après l'audit) n'y figu
 | [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md) | registre actif des écarts et actions encore ouvertes |
 | [`IMPLEMENTATION-STATUS.md`](IMPLEMENTATION-STATUS.md) | ce qui a été fait, ce qui ne l'a pas été, et la validation réellement exécutée |
 | [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md) | décisions qui reviennent à la mainteneuse (D1 à D11) |
-| [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) | réglages GitHub, compte, Zenodo, site des bonnes pratiques |
+| [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) | réglages GitHub, compte, Zenodo et BadgeApp ; la section 6 du registre rassemble séparément la recette humaine de navigation interactive |
 | [`THREAT-MODEL.md`](THREAT-MODEL.md) | actifs, acteurs, chemins d'attaque, privilèges des workflows |
 | [`ASSURANCE-CASE.md`](ASSURANCE-CASE.md) | revendications de sécurité étayées, et celles qui ne sont pas (encore) vraies |
 | [`GOVERNANCE.md`](GOVERNANCE.md) | modèle de décision, rôles réels et limites de continuité |
