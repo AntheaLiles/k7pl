@@ -142,6 +142,14 @@ définis point par point, ainsi que la multiplication scalaire de $`\varphi_n`.
 Elle est donc un isomorphisme de quantales ordonnées sur ce sous-ensemble, lequel est clos par
 produit et par borne supérieure puisque la concentration en $`\ell` l'est.
 :::
+:::note
+_Obligation ouverte._ Restent à définir la concentration comme prédicat sur $`\kappa` et à vérifier
+chaque opération de la signature effective de quantale ordonnée — produit séquentiel, opération
+parallèle (somme des travaux, maximum des profondeurs), bornes supérieures —, en nommant
+l'opération que désigne « produit ». Si la structure n'est une sous-quantale que pour une signature
+restreinte, l'énoncé doit l'être aussi. Reste encore à relier, par la sémantique opérationnelle, la
+prémisse sur les $`\mathbf{tick}` émis au support de $`\kappa`.
+:::
 ::::
 La lecture qu'il faut en faire est celle que le chapitre 1 a déjà pratiquée sur les contextes. Une
 zone non restreinte n'était pas une seconde zone mais la partie de grade $`\omega` de la première ;
