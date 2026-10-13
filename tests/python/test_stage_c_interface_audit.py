@@ -37,10 +37,10 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # Non-normative `:::note` slots added while integrating the C8 semantic audit notes also
     # move these pins; the interface strings checked below are unchanged by those notes.
     integrated_source_blobs = {
-        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "5342f7d6b389ab529a92a9eef6eba7ca0181a3b2",
-        "spec/Spec/C3/LeSystemeGradue.lean": "95d8a468b314ae3882bca6fc7f259b7010129580",
+        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "0cc432629d65447d9b0d2062f5a15c018437ece2",
+        "spec/Spec/C3/LeSystemeGradue.lean": "8e1bb0c6fa532548ec03d082effc7ebba0f34535",
         "spec/Spec/C3/GrammaireDesTypes.lean": "60df0208198163e9bf76dea24391e29d1f23834f",
-        "spec/Spec/C3/ReglesDeTypage.lean": "480dc34c1af9946b9ce41a5eb44f9324fac9c015",
+        "spec/Spec/C3/ReglesDeTypage.lean": "556e38093b4106c53eee7540aada0fd5c5c9fda8",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():

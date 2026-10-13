@@ -653,6 +653,11 @@ une clause de relation logique sensible à la divulgation et un cas de preuve di
 extension n'est pas établie par le présent lemme.
 :::
 
+:::note
+_Obligation ouverte._ L'énoncé est restreint au fragment sans `Declassify`. Restent à définir les
+substitutions apparentées, la projection d'observation et les clauses de la relation ; l'extension à
+la déclassification relève d'une relation de libération à poser et à prouver séparément.
+:::
 ::::
 La non-interférence graduée (théorème {num "thm:non_interference"}[]) s'en déduit en une ligne,
 donnée ici pour montrer que rien d'autre n'est employé. Soit un programme dont une entrée est liée

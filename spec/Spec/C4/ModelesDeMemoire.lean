@@ -77,6 +77,13 @@ propre contexte de typage, $`t_2` ne peut construire aucun terme bien typé opé
 l'absence se lit sur la dérivation, sans analyse supplémentaire.
 :::
 
+:::note
+_Obligation ouverte._ La conclusion reste conditionnelle à H1, que ce bloc suppose sans la
+décharger. H1 est attendue de la loi unique d'introduction, dont le cas de l'élimination de l'arène
+n'est pas écrit : tant qu'il ne l'est pas, H1 doit être établie indépendamment ou conservée comme
+hypothèse, sans justification circulaire. H2 et H3 restent des prémisses distinctes, et aucune ne
+remplace H1.
+:::
 ::::
 Une hypothèse porte tout, et elle n'est pas gratuite : (H3). Les deux autres sont des lemmes sur la règle d'introduction ; la « région » s'y entend comme une discipline de portée, que le polymorphisme paramétrique ordinaire suffit à définir. {rmq}[C'est le sens unique d'imbrication des
 délimiteurs qui tient l'hypothèse. Ce théorème dit ce qui casse dans l'autre sens.] La preuve
@@ -123,6 +130,12 @@ décharge ; des cellules d'indices distincts étant des régions distinctes, deu
 $`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) se lit sur la règle {sc}[Slice] (§{num "sec:g-regles"}[]) : une capacité sur un segment ne naît que de l'élimination de l'arène, linéaire en l'arène, ou de la découpe d'une capacité détenue, qui la consomme ; par induction sur la dérivation, deux capacités sur un même segment en contexte clos exigeraient deux consommations de la même ressource linéaire, impossible sans diagonale. Reste à écrire l'élimination de l'arène, exception déclarée du jeu de règles : (H1) en dépend.
 :::
 
+:::note
+_Obligation ouverte._ Le bloc réunit trois conclusions — unicité par région, absence de cycle des
+destinations, terminaison de la construction d'une arène — dont les mesures et les obligations
+diffèrent ; elles sont à suivre séparément. Le cas de l'élimination de l'arène reste à écrire, et H1
+en dépend : la sûreté spatiale ne peut pas s'appuyer sur ce bloc tant qu'il manque.
+:::
 ::::
 Ce que les arènes viennent de faire pour l'acteur, la mémoire physique le fait sur sept niveaux, et
 c'est ici qu'il faut le dire puisque la section précédente vient d'en poser le cas principal. Cette

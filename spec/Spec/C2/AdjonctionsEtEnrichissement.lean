@@ -261,6 +261,12 @@ aucune déclassification n'est employée ; le traitement de la communication dem
 Cette extension n'est pas démontrée ici.
 :::
 
+:::note
+_Obligation ouverte._ L'état de conjecture est maintenu. Restent à définir l'ensemble
+d'échappatoires, sa clôture et la clause relationnelle de libération, puis à prouver le cas
+`Declassify` ; la non-interférence du fragment séquentiel ne couvre ni la communication ni la
+déclassification.
+:::
 ::::
 Le mode de défaillance que cette formulation ferme est celui contre lequel elle a été construite. {rmq}[C'est
 la quantification, et elle seule, qui distingue cet énoncé de la non-interférence.] Dans l'attaque

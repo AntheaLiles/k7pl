@@ -154,6 +154,11 @@ imbriqués, où aucune mesure structurelle n'est disponible, et c'est ce que le 
 achète. Le paramorphisme linéaire est admis au même titre.
 :::
 
+:::note
+_Obligation ouverte._ La quantification porte sur les plis dépendamment typés du schéma terminant,
+non sur des fonctions arbitraires pouvant diverger. Restent à énoncer la relation d'évaluation, les
+restrictions de récursion structurelle et l'ordre bien fondé dans lequel l'indice décroît.
+:::
 ::::
 S'il tient, la terminaison de la couche 3 cesse d'être une obligation de preuve séparée : elle
 devient une lecture du jugement de typage, et la Phase 4 de la compilation
@@ -331,6 +336,11 @@ $`s` est indexé par une taille, chaque `yield` en fait décroître l'indice au 
 $`\nu G` produit donc au moins un élément de $`G(\nu G)` avant tout appel récursif ultérieur. C'est
 une observation en temps fini, non un épuisement.
 :::
+:::note
+_Obligation ouverte._ L'égalité $`\omega \ominus 1 = \omega` ne suffit pas : une mesure infinie peut
+rester inchangée indéfiniment. Restent à établir la condition de garde qui impose un constructeur
+productif avant tout dépliage récursif, et que chaque observation finie est atteinte en temps fini.
+:::
 ::::
 
 S'il tient, les deux volets de la Phase 4 de la compilation
@@ -402,6 +412,12 @@ deux, il n'affirme pas qu'elles ont la même conclusion sémantique, et rien n'e
 pour l'autre au-delà du schéma.
 :::
 
+:::note
+_Obligation ouverte._ Le schéma vaut comme deux instances aux conclusions et hypothèses distinctes :
+épuisement structurel fini pour $`\mu`, production en temps fini de chaque observation pour $`\nu`.
+La productivité n'est pas la terminaison, et les deux mesures ne partagent pas le même argument de
+bonne fondation.
+:::
 ::::
 S'il tient, les deux théorèmes précédents cessent d'être deux théorèmes : ils se retrouvent en
 spécialisant $`\ell` — le théorème {num "thm:terminaison_couche_3"}[] pour $`\ell = 3`, le théorème {num "thm:productivite_couche_2"}[]
@@ -496,6 +512,11 @@ troncature à $`r` niveaux les préserve, chacune étant une équation entre tra
 dont les deux membres se tronquent au même rang.
 :::
 
+:::note
+_Obligation ouverte._ Restent à donner les types exacts de $`\lambda`, de la counité, de la
+comultiplication et des compositions, puis à vérifier composante par composante les deux diagrammes
+de cohérence et leur préservation par troncature.
+:::
 ::::
 L'énoncé n'est pas propre à ce document : c'est celui de la classe des schémas issus de comonades,
 dont l'histomorphisme est l'instance où $`N` est la cofree {cite "hinzeUnifyingStructuredRecursion2016"}[].
@@ -590,6 +611,12 @@ la littérature ; la préservation par troncature est le seul point propre à K7
 sur papier : elle n'a pas été mécanisée. Les bornes $`O(r)` en espace et $`O(n \cdot r)` en temps de ce
 qui suit reposent sur cette structure.
 :::
+:::note
+_Obligation ouverte._ La preuve reste sur papier. Restent à vérifier le typage de chaque équation en
+$`T`, $`\delta` et $`\lambda`, en particulier au rang limite, à conduire une récurrence complète sur
+le rang, et à séparer les faits standard de la comonade cofree du résultat propre à K7PL, la
+préservation par troncature.
+:::
 ::::
 ::::proposition (label := "thm:fenetre_grade") (level := "langage") (role := "proposition") (state := "proposed") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
@@ -611,6 +638,10 @@ configuration, dont le grade est la profondeur maximale que le solveur vérifie.
 réduction des deux dernières à la première ; non démontrée ici, elle donne à P3 sa forme générale.
 :::
 
+:::note
+_Obligation ouverte._ L'identification n'est pas démontrée. Restent, pour chaque représentation
+concrète, une application vers la fenêtre commune et retour, et la preuve que les bornes coïncident.
+:::
 ::::
 La troncature n'est pas propre à ce pli : elle est la même fenêtre sur un objet coinductif que la
 borne de profondeur de pile de l'automate à pile (chapitre 4) et la taille de pile précalculée du

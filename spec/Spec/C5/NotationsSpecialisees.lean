@@ -150,6 +150,12 @@ plutôt que lu : la résolution de `bind-to` par recherche dirigée par le type
 — une recherche ambiguë y est refusée plutôt que résolue arbitrairement.
 :::
 
+:::note
+_Obligation ouverte._ L'argument par inspection ne vaut que si l'inventaire des mécanismes qui
+produisent de la syntaxe est complet : reste à l'énumérer, macros et résolution de `bind-to`
+comprises, et à relier la frontière de phase, l'index de portée et la paramétricité de niveau méta à
+des règles formelles plutôt qu'à la prose.
+:::
 ::::
 Ce que ce théorème ajoute n'est pas une garantie de plus mais un _second_ bénéfice au même
 dispositif. Le chapitre 3 justifie le confinement de la Phase 0 par la sûreté : une macro n'a aucune
@@ -237,6 +243,11 @@ métavariable par sa définition, et celui d'un lieur par le décalage d'indice 
 portée impose.
 :::
 
+:::note
+_Obligation ouverte._ Restent à préciser la convention de fraîcheur et de renommage que recouvre «
+$`\sigma` ne touche aucune variable liée par $`M` », et l'α-équivalence modulo laquelle le cas du
+lieur établit l'égalité.
+:::
 ::::
 ::::conjecture (label := "thm:hygiene_graduee") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "syntax")
 :::title
@@ -257,6 +268,10 @@ substitution et la loi de compatibilité de l'action ; l'énoncé n'était simpl
 démontré ici.
 :::
 
+:::note
+_Obligation ouverte._ L'état de conjecture est maintenu : les cas gradués du contexte et de l'effet
+restent à prouver, et la version graduée n'hérite pas du résultat non gradué par son seul nom.
+:::
 ::::
 ::::requirement (label := "thm:resucrage") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "syntax")
 :::title
@@ -270,6 +285,10 @@ L'α-équivalence de surface est préservée par l'expansion. Cette propriété 
 l'énoncé sur l'AST : elle demande une algèbre de liaison de surface, que le document n'a pas.
 :::
 
+:::note
+_Obligation ouverte._ L'exigence reste séparée tant qu'aucune algèbre de liaison de surface ni aucun
+désucrage compositionnel ne sont fournis ; l'hygiène sur l'AST du noyau ne l'établit pas.
+:::
 ::::
 Ce que cet énoncé rend inexprimable importe plus que ce qu'il évite. {rmq}[Pas une discipline
 appliquée, un type qui ne laisse pas la question se poser.] La conclusion n'est pas qu'une capture

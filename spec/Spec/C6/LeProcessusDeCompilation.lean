@@ -172,6 +172,11 @@ de la mise en ligne, seul à pouvoir engendrer de nouvelles obligations de grade
 borne que ce chapitre lui donne déjà.
 :::
 
+:::note
+_Obligation ouverte._ La terminaison suppose que tout tour qui modifie le terme consomme au moins
+une unité du budget, que le budget ne croît jamais et qu'un tour sans changement est reconnu comme
+point fixe : ces prémisses opérationnelles restent à énoncer et à tester.
+:::
 ::::
 Le recours à un solveur externe pose enfin la question de la _stratégie_ de vérification des
 obligations de budget, et l'arbitrage y est plus contraint qu'il n'en a l'air. La littérature le

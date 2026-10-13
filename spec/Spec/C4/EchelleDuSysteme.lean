@@ -140,6 +140,11 @@ L'argument porte sur la fonction, donc sur la valeur dénotée ; il ne porte pa
 représentation.
 :::
 
+:::note
+_Obligation ouverte._ La complétude du journal est une prémisse explicite de l'énoncé. Restent à
+définir le schéma du journal, la relation $`\approx_{\text{obs}}` et les composantes d'état
+comparées, puis à montrer que le rejeu substitue exactement les résultats de capacité consignés.
+:::
 ::::
 ::::corollary (label := "thm:rejeu_binaire") (level := "representation") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "runtime")
 :::title
@@ -172,6 +177,13 @@ $`E_{\text{repro}}` n'est fixée par ce document, et le journal n'en consigne au
 est portée par l'environnement d'exécution, non par le langage.
 :::
 
+:::note
+_Obligation ouverte._ Restent à définir l'application de représentation et une sérialisation
+déterministe, et à fixer le profil $`E_{\text{repro}}`. Le sens de la prémisse est à vérifier : pour
+passer de l'égalité observationnelle à l'identité binaire, il faut que deux états
+observationnellement égaux aient la même représentation, ce que l'injectivité de la représentation
+ne donne pas. Hypothèses d'environnement et conclusion binaire sont à suivre séparément.
+:::
 ::::
 Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représentation_
 $`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}}, \mathrm{arch}, \mathrm{mem}, \mathrm{round}, v_{\mathrm{schéma}} \rangle` : versions des trois
@@ -340,6 +352,11 @@ théorème {num "thm:tri_topologique"}[]) et l'ordre qu'il donne est l'ordre d'
 nœud n'y est atteint qu'après ses dépendances, jusqu'au câblage complet.
 :::
 
+:::note
+_Obligation ouverte._ L'acyclicité donne un ordre, non la terminaison de chaque initialisation :
+restent à poser la terminaison locale de l'initialisation d'un nœud et la correspondance exacte
+entre attentes dynamiques et arêtes de $`G`.
+:::
 ::::
 Les espaces de noms se lisent sur ce même graphe : un namespace en retient la restriction à une
 dimension choisie — la pureté, l'effet, le couplage — ce qui remplace la hiérarchie de dossiers
@@ -492,6 +509,13 @@ masquage binaire de l'anneau ; la réduction consomme les deux messages simulta
 atomique de pointeurs, garantissant l'atomicité verrou-libre sans synchronisation supplémentaire.
 :::
 
+:::note
+_Obligation ouverte._ La condition « les deux boîtes sont non vides » ne suffit que si elle comprend
+l'appariement des charges, la compatibilité des motifs et toutes les conditions de garde : le
+prédicat d'appariement et la transition atomique restent à préciser. L'atomicité verrou-libre de
+l'échange de pointeurs est une obligation de raffinement distincte, que l'équation au niveau source
+ne prouve pas.
+:::
 ::::
 Cette boîte est un seul objet, $`\mathsf{Mailbox} = \Sigma_{c \in \mathsf{Chan}}\,\mathsf{Bag}(\mathsf{Cap}(c))` :
 un multi-ensemble de ressources linéaires indexé par canal, muni d'une règle de consommation
@@ -571,6 +595,11 @@ contrainte sur une sortie, non sur une entrée, et elle relève de l'exigence ci
 ce théorème. Au retour, la passerelle restitue la capacité à l'acteur.
 :::
 
+:::note
+_Obligation ouverte._ L'énoncé suppose qu'aucun alias ni accès non suivi ne contourne le contexte
+typé ; cette prémisse est à expliciter. La révocation côté hôte après le retour relève de l'exigence
+qui suit et ne se replie pas dans ce théorème.
+:::
 ::::
 ::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "ffi-safety")
 :::title
@@ -587,6 +616,11 @@ la passerelle, qui doit invalider la référence côté hôte — par une table 
 génération, ou un mécanisme équivalent — et dont la vérification sort du système de types.
 :::
 
+:::note
+_Obligation ouverte._ Restent à définir la condition observable après le retour et à tester la
+réalisation de la passerelle à la frontière étrangère, invalidation des poignées obsolètes comprise.
+Cette exigence ne se vérifie pas par le typage.
+:::
 ::::
 Les deux clauses de cet énoncé n'ont pas le même statut, et le dire évite de leur prêter la même
 force. {rmq}[Une contrainte d'entrée se démontre, une contrainte de sortie s'organise. Seule la

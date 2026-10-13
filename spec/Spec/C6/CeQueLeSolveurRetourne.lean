@@ -69,6 +69,11 @@ Le jugement $`\Delta \vdash_{\mathcal{G}} t : A \mid \mathcal{E}` porte exacteme
 obligations d'une interface : $`\Delta` dit ce que l'unité _exige_, $`A` ce qu'elle _est_,
 $`\mathcal{E}` ce qu'elle _produit_. C'est une définition : l'interface _est_ le jugement.
 :::
+:::note
+_Obligation ouverte._ La portée de « exactement les trois obligations » est celle des formes de
+déclaration énumérées dans ce chapitre, dont la clôture locale fait l'objet de l'énoncé qui suit ;
+une extension demandant une quatrième composante relève de la clause de révision.
+:::
 ::::
 
 ::::proposition (label := "thm:interface_jugement_cloture") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
@@ -176,6 +181,12 @@ n'est donc pas une propriété agréable de plus, c'est la condition sans laquel
 suivent n'auraient pas d'objet.
 :::
 
+:::note
+_Obligation ouverte._ La configuration du solveur fait partie de l'entrée : le message est fonction
+de la source à configuration fixée, non indépendamment de toute configuration. Restent à préciser
+cette configuration et à tester l'identité octet à octet des diagnostics, emplacement et code
+compris, sur des compilations répétées.
+:::
 ::::
 # Ce qu'un rejet propose, et pourquoi il n'y a que trois voies
 %%%
@@ -497,6 +508,11 @@ n'accomplit qu'une tâche se vérifie isolément. Le grade étant une grandeur s
 portée par la source a une image dans la cible et que cette image ne l'affaiblit pas.
 :::
 
+:::note
+_Obligation ouverte._ L'état de conjecture est maintenu. Le schéma de préservation ne s'applique
+qu'une fois chaque règle d'abaissement dotée d'une image dérivable : restent, passe par passe, la
+correspondance des grades, la règle de typage cible et la dépendance à P1b.
+:::
 ::::
 La distinction qui commande cet énoncé est celle qu'établit la littérature sur la compilation
 vérifiée : préserver le _comportement_ et être _pleinement abstrait_ ne sont pas la même exigence {cite "pattersonNext700Compiler"}[],
