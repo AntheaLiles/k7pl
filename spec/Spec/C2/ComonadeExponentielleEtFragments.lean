@@ -147,6 +147,14 @@ ne peut pas valoir les deux. _Aucune définition de $`\ominus` ne rend donc la l
 $`u = \omega`_, et ce n'est pas une affaire de convention à choisir mais une restriction à porter.
 :::
 
+:::note
+_Obligation ouverte._ L'esquisse n'énumère pas tous les cas. Restent à les traiter un à un sous la
+définition par cas de $`\ominus` donnée plus haut : $`u` nul, fini non nul ou infini, $`k` nul, et
+chaque combinaison finie ou infinie de $`\beta` et $`k`, $`k = \omega` compris. La nécessité se lit
+au sens où la loi n'est pas une identité pour $`u = \omega` et $`k \neq 0` : elle échoue pour
+certains $`\beta`, par exemple $`\beta = k`, et non pour tous. Ce lemme n'est pas une prémisse
+générale de $`\operatorname{Scale}_{\mathrm{Usage}}`.
+:::
 ::::
 Un correspondant arithmétique Lean de ce domaine précis est formulé par `K7pl.GradeBudget.truncated_sub_mul_compatibility`: multiplicité finie, ou coût nul. La correspondance reste limitée à l'identité sur `ℕ∞`; elle n'établit pas que la loi est invoquée dans une dérivation K7PL ni que l'action budgétaire existe pour les autres grades.
 
@@ -176,6 +184,14 @@ ne peut pas être étendue aux grades d'usage rationnels sans définir séparém
 et l'action $`\varphi_r` sur les effets.
 :::
 
+:::note
+_Obligation ouverte._ Le bloc est une condition de compatibilité, non un résultat établi par son
+esquisse. Restent à définir le produit contexte-effet, $`\psi`, l'action $`r\cdot(-)` sur les
+contextes, l'action $`\varphi_r` et le domaine admissible des grades indépendamment de l'égalité
+visée, puis à prouver la composante de budget sur ce domaine exact. Restreindre la quantification à
+un domaine non encore défini n'établit pas la loi ; le calcul pour une multiplicité entière ne
+s'étend pas aux grades rationnels.
+:::
 ::::
 ::::lemma (label := "thm:coherence_usage") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "effects")
 :::title
@@ -198,6 +214,12 @@ composantes. Aucune action $`\varphi_u` sur les effets n'est requise, ce qui ren
 avec les usages rationnels.
 :::
 
+:::note
+_Obligation ouverte._ L'argument par composantes vaut sous l'interface factorisée. Restent à citer
+les définitions précises des contextes et des effets à quatre composantes, de $`\psi` et de
+$`\operatorname{Scale}_{\mathrm{Usage}}`, à vérifier que les deux membres sont définis sur le même
+domaine, usages rationnels et non bornés compris, et à écrire les quatre égalités de composantes.
+:::
 ::::
 La loi `coherence_usage` est maintenant la condition pertinente pour l'action contextuelle
 factorisée. Le lemme de substitution et les règles `Box`/`App` peuvent l'invoquer une fois le support
