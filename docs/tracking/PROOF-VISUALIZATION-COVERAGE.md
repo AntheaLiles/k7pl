@@ -19,43 +19,43 @@ Une recherche lexicale n'est pas un analyseur Lean : elle peut compter des comme
 
 ## Corpus et preuves de validation
 
-Les trois premières cibles ont été extraites avec Lean 4.34.0, consommées par les backends Verso HTML et TeX et incluses dans le PDF dans le run CI 38447082870.
+Le run CI 38451997922 valide les cinq cibles avec Lean 4.34.0 : extraction Paperproof réelle, consommation du même JSON par les backends Verso HTML et TeX, et compilation du PDF. Le journal de ce run rapporte respectivement 2, 2, 5, 17 et 8 observations tactiques. Cette preuve porte sur le commit de fusion de test compilé par CI ; elle n'est ni une validation humaine ni une garantie générale de couverture.
 
 | Déclaration canonique | Comportements ciblés | Statut dans le corpus courant | Limite explicite |
 |---|---|---|---|
 | K7pl.Arith.eval_double | by, simp, ring | Validé sur les cibles sélectionnées | Ne garantit pas l'explication sémantique de toute simplification |
 | K7pl.UsageScale.scaleUsage_comp | cases, simp, contexte paramétrique | Validé sur les cibles sélectionnées | Une sortie d'extracteur ne prouve pas que chaque lien de branche est interprété correctement |
 | K7pl.UsageScale.projectUsageContext_scale | funext, cases, objectifs de cas, simp | Validé sur les cibles sélectionnées | La liste d'hypothèses rapportée n'est pas un modèle exhaustif de toutes les portées lexicales |
-| K7pl.GradeBudget.finite_multiplicity_compatibility | cases imbriqués, have, simp, objectifs dépendant des cas | En validation CI | L'extraction et l'association des branches doivent être confirmées pour le commit qui ajoute cette cible |
-| K7pl.MemoryCapability.allocate_preserves_unique | intro, by_cases, subst, have, simp, omega | En validation CI | La présence de ces tactiques ne démontre pas la couverture générale de toutes leurs formes |
+| K7pl.GradeBudget.finite_multiplicity_compatibility | cases imbriqués, have, simp, objectifs dépendant des cas | Validé sur les cibles sélectionnées | 17 observations tactiques extraites ; l'association sémantique des branches reste à inspecter |
+| K7pl.MemoryCapability.allocate_preserves_unique | intro, by_cases, subst, have, simp, omega | Validé sur les cibles sélectionnées | 8 observations tactiques extraites ; la présence ne démontre pas la couverture générale de toutes leurs formes |
 
 ## Couverture par dimension
 
 | Dimension / famille | Statut | Données présentes et tests | Lacunes connues |
 |---|---|---|---|
-| Identité de déclaration, chemin source, révision, lignes, SHA-256 | Partiel mais testé | JSON versionné, manifeste, liens Git ancrés, contrôle de révision côté Verso ; test unitaire de provenance | La provenance identifie l'entrée et la révision ; elle n'établit pas de correspondance normative |
+| Identité de déclaration, chemin source, révision, lignes, SHA-256 | Partiel mais testé | JSON versionné, manifeste, liens Git ancrés, contrôle de révision côté Verso et vérification Python que --ref correspond à HEAD ; tests négatifs de provenance/positions | La provenance identifie l'entrée et la révision ; elle n'établit pas de correspondance normative et la fidélité sémantique reste hors contrat |
 | Séquences de tactiques by | Partiel | steps, tacticString, position, goalBefore, goalsAfter, spawnedGoals ; export réel sur les cibles validées | Pas de garantie pour toutes les constructions de preuve, ni pour toutes les tactiques d'une famille |
 | simp, ring, cases, funext | Validé sur au moins une cible chacun | Présents dans des exportations réelles des trois premières cibles | La validation d'un exemple ne vaut pas validation de toutes les options, macros ou cas limites |
-| intro, by_cases, subst, have, omega | En validation CI pour le corpus élargi | Famille ciblée par allocate_preserves_unique | Le statut reste attaché au résultat du prochain run, puis devra être inspecté humainement |
+| intro, by_cases, subst, have, omega | Observé dans une cible extraite réelle ; couverture de famille partielle | Famille ciblée par allocate_preserves_unique | Une seule preuve par famille ne garantit pas le traitement de toutes les variantes ou macros |
 | apply, refine, constructor, induction, rw, rfl, change, ext, rcases, decide | Identifié dans le corpus / couverture dédiée incomplète | Plusieurs formes sont présentes ailleurs dans les sources Lean actuelles | Pas de test d'extraction et de rendu propre à chaque famille |
 | Objectifs avant/après et objectifs créés | Partiel | Les champs d'export sont conservés ; cas synthétique de branchement en test Python ; les premières cibles sont extraites réellement | La sémantique et l'appariement des branches ne sont pas validés pour toutes les formes de preuve |
 | Identifiants de dépendance d’une tactique | Partiel | `tacticDependsOn` est validé et conservé ; HTML et TeX rapprochent les identifiants par égalité exacte avec les identifiants d’hypothèses présents dans les instantanés de buts de la même transition ; les identifiants non résolus restent visibles comme tels | Il s’agit de dépendances locales rapportées par Paperproof, pas d’un graphe de dépendance entre déclarations ni d’une preuve sémantique d’utilisation ; l’inspection visuelle reste nécessaire |
 | Hypothèses et contextes locaux | Partiel | L'export conserve les hypothèses rapportées pour chaque état ; le renderer les affiche sans JavaScript | Aucun modèle dédié du contexte lexical, des sections, du foyer de tactique ou des changements de portée indépendants des buts |
-| Blocs case, branches imbriquées et objectifs multiples | Partiel | Représentation de goalsAfter et spawnedGoals ; nouvelles cibles avec branchements soumis à CI | Un objectif créé et une branche syntaxique ne sont pas des notions équivalentes ; inspecter la correspondance réelle |
+| Blocs case, branches imbriquées et objectifs multiples | Partiel | Représentation de goalsAfter et spawnedGoals ; extraction réelle de cas imbriqués sur les cinq cibles dans le run 38451997922 | Un objectif créé et une branche syntaxique ne sont pas des notions équivalentes ; inspecter la correspondance réelle |
 | Preuves par termes, calc, sous-preuves locales | Identifié mais non représenté | Familles à inventorier explicitement | Pas d'arbre de terme élaboré ni d'explication dédiée pour ces formes |
 | Définitions, expressions et types inductifs | Non pris en charge par cette vue | Aucun modèle ou rendu spécialisé dans le générateur de traces tactiques | À concevoir comme vues séparées, et non comme faux arbres tactiques |
 | Dépendances entre déclarations | Non pris en charge par ce générateur | Le graphe de navigation existant n'est pas utilisé pour inférer ici des dépendances de preuve | Ne pas confondre dépendance entre déclarations, théorèmes employés et transitions d'objectifs |
 | Export inconnu ou incomplet | Partiel | L'extracteur échoue sur erreur ; validateur JSON refuse les étapes/localisations requises manquantes ; test négatif | La classification est par contrat de données, pas encore par famille de syntaxe/tactique |
-| Sortie HTML Verso | Intégrée, testée en CI pour trois cibles | Block extension Verso, HTML structuré, tests de compilation et validation de liens | Inspection humaine de clavier, viewport étroit et compréhension des branches à terminer |
-| Sortie TeX/PDF Verso | Intégrée, compilée en CI pour trois cibles | Même JSON et même manifeste, sortie TeX dédiée ; PDF compile avec succès | Inspection humaine des sauts de page et de la longueur des lignes à compléter |
+| Sortie HTML Verso | Intégrée, compilée en CI pour cinq cibles | Block extension Verso, HTML structuré, tests de compilation et validation de liens dans le run 38451997922 | Inspection humaine de clavier, viewport étroit et compréhension des branches à terminer |
+| Sortie TeX/PDF Verso | Intégrée, compilée en CI pour cinq cibles | Même JSON et même manifeste, sortie TeX dédiée ; compilation PDF réussie dans le run 38451997922 | Inspection humaine des sauts de page et de la longueur des lignes à compléter |
 | JavaScript | Non requis pour le contenu essentiel | Le bloc utilise HTML structuré/CSS et informations lisibles directement ; HTML sans dépendance de rendu JavaScript | Les améliorations d'interaction ne doivent pas cacher l'état essentiel |
 | Conformité SPDX/REUSE | Validée par CI sur le premier incrément natif | Code de l'adaptateur et extension sous Apache-2.0, texte LICENSES/Apache-2.0.txt ; REUSE passe | Refaire la validation automatiquement après l'extension du corpus |
 
 ## Ce que les tests établissent
 
-Le run 38447082870 établit pour les trois premières cibles : build de l'implémentation Lean, compilation Verso, extraction Paperproof sous Lean 4.34.0, rendu HTML et TeX, génération PDF, validateurs de navigation et REUSE. Les tests Python valident le contrat d'export sur des fixtures synthétiques, le refus des données incomplètes, la provenance, les identifiants de dépendance et la copie temporaire exacte du fichier source. Ils ne valident pas à eux seuls la sémantique de toutes les transitions ni le confort visuel du nouvel affichage de dépendances ; ces propriétés doivent être confirmées sur le commit courant et par inspection humaine.
+Le run 38451997922 établit pour les cinq cibles le build Lean racine, l'extraction Paperproof sous Lean 4.34.0, le rendu HTML/TeX via Verso, la compilation PDF, les contrôles de navigation et REUSE. Le journal d'extraction rapporte les cinq comptes d'observations indiqués plus haut. Les tests Python, qui restent hors ligne et utilisent un export synthétique, testent le contrat d'entrée, les positions source, la provenance, les identifiants de dépendance et le nettoyage de la copie temporaire ; ils ne remplacent pas l'extraction réelle ni l'inspection visuelle.
 
-Le commit qui ajoute les deux nouvelles cibles doit passer son propre run CI pour faire évoluer leur statut. Même après ce passage, la généralisation au registre entier des tactiques reste non établie.
+Le contrat Python est renforcé pour refuser un --ref qui ne correspond pas au SHA de HEAD réellement contrôlé et des positions tactiques hors du fichier source ou inversées. Ces contrôles réduisent le risque de produire des liens de provenance trompeurs ; ils ne valident pas la sémantique des transitions. Même après ce run, la généralisation au registre entier des tactiques reste non établie.
 
 ## Validation humaine nécessaire
 
