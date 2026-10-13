@@ -25,6 +25,7 @@ Start with:
 - [Navigation semantic model](tracking/NAVIGATION-SEMANTIC-MODEL.md): allowed relation types, provenance and epistemic-status boundaries.
 - [Navigation graph implementation](../scripts/ci/navigation_graph/README.md): generated HTML graph, node/edge contracts, build commands and validation limits.
 - [Proof visualization roadmap](tracking/PROOF-VISUALIZATION-ROADMAP.md): Paperproof extraction workspace, static site views, source provenance and remaining extension gates.
+- [Proof visualization coverage matrix](tracking/PROOF-VISUALIZATION-COVERAGE.md): evidence-based coverage by proof form, tactic, context, data provenance, and HTML/PDF integration.
 
 ## Assess the current state
 
