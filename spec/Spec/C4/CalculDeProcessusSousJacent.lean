@@ -323,6 +323,13 @@ Avant la preuve par cas, le contrat doit fixer : (1) la grammaire des configurat
 Cette proposition reste under-review / proofsketch. Aucune preuve de simulation, de bisimulation, d'équivalence observationnelle ou de pleine abstraction ne découle de cette reformulation du contrat.
 :::
 
+:::note
+_Obligation ouverte._ Le contrat en sept points de l'esquisse couvre ce que la revue demande ; reste
+à le remplir, puis à conduire la preuve par cas, congruence et opérations à portée comprises, en
+montrant que la traduction conserve les événements de chaque pas source et leur ordre causal. Les
+conditions de fraîcheur de la commutation avec la substitution (point 6) restent à décharger.
+L'énoncé reste ouvert tant que l'analyse par cas et l'argument d'ordre ne sont pas conduits.
+:::
 ::::
 ::::theorem (label := "thm:fidelite_interprete") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
@@ -368,6 +375,14 @@ discipline de ressource garantit – il n'a pas à le dire, ces garanties étant
 l'exécution et effacées à la Phase 8.
 :::
 
+:::note
+_Obligation ouverte._ L'énoncé reste conditionnel à Sim, qui n'est pas établie : il ne vaut pas
+garantie acquise. Restent à définir les observations source et cible et la relation qui les relie, à
+préciser le sens de l'adéquation requise et à montrer comment la simulation la fournit. Une
+simulation avant ne donne qu'un sens de la correspondance : ni pleine abstraction ni équivalence
+comportementale dans les deux sens n'en découlent, et toute propriété de ce genre demanderait son
+propre énoncé. L'exclusion des grades et des raffinements est conservée.
+:::
 ::::
 La dette qu'il reste à acquitter n'est donc plus « prouver l'interpréteur correct » mais « établir
 que $`\llbracket \cdot \rrbracket` préserve le typage », ce que le théorème {num "thm:traduction_metalangage"}[]
