@@ -99,7 +99,7 @@ Sources principales (toutes relues à la révision de base) :
 - [Traduction, thm:simulation et fidélité](https://github.com/AntheaLiles/k7pl/blob/de1f6bed21b4c773a58f3cd0af93867bb3e07401/spec/Spec/C4/CalculDeProcessusSousJacent.lean#L151-L384)
 - [Système de sortes cible](https://github.com/AntheaLiles/k7pl/blob/de1f6bed21b4c773a58f3cd0af93867bb3e07401/spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean#L150-L245)
 - [Système multi-acteurs et contraintes de représentation](https://github.com/AntheaLiles/k7pl/blob/de1f6bed21b4c773a58f3cd0af93867bb3e07401/spec/Spec/C4/EchelleDuSysteme.lean#L160-L245)
-- [Audit sémantique transversal déjà consigné — batch 07](../tracking/LEAN-SEMANTIC-AUDIT-BATCH-07.md)
+- [Audit sémantique transversal déjà consigné — batch 07, dernière version](https://github.com/AntheaLiles/k7pl/blob/2f615cdc1fdb77a47e4af45907c871a93434fcde/docs/tracking/LEAN-SEMANTIC-AUDIT-BATCH-07.md) ; ses obligations ouvertes sont reprises au [registre de migration](../tracking/LEAN-STATEMENT-MIGRATION.md)
 - [Implémentation Lean du compteur](https://github.com/AntheaLiles/k7pl/blob/de1f6bed21b4c773a58f3cd0af93867bb3e07401/src/K7pl/Semantics.lean) et [ses tests](https://github.com/AntheaLiles/k7pl/blob/de1f6bed21b4c773a58f3cd0af93867bb3e07401/tests/SemanticsTest.lean)
 
 ## 5. Décision de sémantique à ratifier avant de compléter Sim

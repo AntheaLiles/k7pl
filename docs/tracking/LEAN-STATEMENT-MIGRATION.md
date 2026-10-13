@@ -180,3 +180,12 @@ Source : `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean`. Dernière version d
 |---|---|---|---|
 | `thm:cloture_sortage` | Induction directe sous la relation de substitution volontairement discrète ; aucun défaut substantiel relevé. | Note d'obligation ouverte. | Prémisse d'égalité des sortes à conserver ; substitution sans capture et renommage des noms liés conformes à l'affectation de sortes. Aucun résultat plus large (raffinement non discret) ne doit en être déduit. |
 | `thm:confinement_sortes` | Argument de sortage plausible ; l'induction dépend de clauses de traduction et de propriétés d'étiquetage à expliciter. | Note d'obligation ouverte. | Obligation de sortage par règle source et préservation par clause de traduction ; prémisses d'étiquetage `φ` et de niveau des valeurs par constructeur d'effet ; absence de nom nouveau dans la ré-invocation. Dépendance réciproque avec `thm:traduction_metalangage` à consigner comme induction simultanée, ou à ordonner. Conclusion limitée à la grammaire et aux sortes définies ici. |
+
+### Lot 07 — simulation et fidélité de l'interpréteur
+
+Source : `spec/Spec/C4/CalculDeProcessusSousJacent.lean`. Dernière version de la note : commit `2f615cdc1fdb77a47e4af45907c871a93434fcde`.
+
+| Label | Constat provisoire | Appliqué dans `spec/` | Reste ouvert |
+|---|---|---|---|
+| `thm:simulation` | Explicitement non démontré ; l'ordre des événements n'est pas une conséquence de la préservation du typage. | Note d'obligation ouverte. L'esquisse avait déjà été reformulée en contrat de sept points (configurations cibles, `R_cfg`, équivalence structurelle, clauses par règle, ordre causal, commutation avec la substitution, latence de When). | Remplir le contrat ; preuve par cas, congruence et opérations à portée comprises ; conservation des événements et de leur ordre causal ; conditions de `thm:commutation_traduction` (lot 05). Reste ouvert. |
+| `thm:fidelite_interprete` | Composition conditionnelle plausible ; sa prémisse principale (Sim) n'est pas prouvée, et la notion de fidélité dépasse l'implication affichée. | Note d'obligation ouverte. | Observations source et cible et relation entre elles ; sens de l'adéquation requise ; apport exact de la simulation avant. Aucune pleine abstraction ni équivalence dans les deux sens. Exclusion des grades et raffinements conservée. Observation hors note d'audit : l'énoncé dit « Alors tout est fidèle à la sémantique de K7PL », sans sujet explicite (l'interpréteur de référence, d'après le titre) ; correction éditoriale soumise à l'accord de l'autrice. |
