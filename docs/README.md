@@ -24,6 +24,7 @@ Start with:
 - [Navigation prototype](tracking/NAVIGATION-PROTOTYPE.md): implementation contract, all-page coverage and deployment/usage limits.
 - [Navigation semantic model](tracking/NAVIGATION-SEMANTIC-MODEL.md): allowed relation types, provenance and epistemic-status boundaries.
 - [Navigation graph implementation](../scripts/ci/navigation_graph/README.md): generated HTML graph, node/edge contracts, build commands and validation limits.
+- [Proof visualization roadmap](tracking/PROOF-VISUALIZATION-ROADMAP.md): Paperproof extraction workspace, static site views, source provenance and remaining extension gates.
 
 ## Assess the current state
 

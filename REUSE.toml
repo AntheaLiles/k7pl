@@ -9,6 +9,8 @@ version = 1
 path = [
   "lean-toolchain",
   "lake-manifest.json",
+  "tooling/paperproof-export/lean-toolchain",
+  "tooling/paperproof-export/lake-manifest.json",
   "zenodo.json",
   "zenodo.files.json",
   ".claude/settings.json",
