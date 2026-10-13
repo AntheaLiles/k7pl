@@ -5,42 +5,48 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Paperproof extraction workspace
 
-This is an isolated compatibility workspace for exporting tactic-proof observations used by K7PL's static documentation. It is not imported by the normative specification or by K7PL's regular implementation build.
+This is an isolated Lake workspace that extracts a curated set of real K7PL tactic proofs into versioned JSON observations. The root K7PL implementation and normative specification remain on their existing Lean 4.34.0 toolchain and dependency graph.
 
-## Why a separate workspace?
+## Compatibility and dependency boundary
 
-K7PL's canonical toolchain is declared in the repository root and currently uses Lean 4.34.0. The reviewed Paperproof source revision uses an older Lean/Mathlib stack (Lean 4.29.0-rc8 in its example workspace, with a nested library toolchain also present in upstream). Updating K7PL's root toolchain or adding an incompatible Paperproof dependency would risk unrelated builds. This workspace pins Paperproof to commit 05c68e9cb8e881f9e971abb94efd231a269e0229 and uses a matching Mathlib release. Its lockfile pins transitive package revisions.
+The workspace is now pinned to `leanprover/lean4:v4.34.0` and Mathlib `v4.34.0`, matching the root K7PL toolchain release without adding Paperproof to the root Lake workspace. Paperproof is pinned to upstream commit `05c68e9cb8e881f9e971abb94efd231a269e0229`; its parser and terminal are built from upstream source, not copied into K7PL. The lockfile records the full dependency graph. This is a compatibility experiment for the selected declarations, not a claim that every tactic syntax or elaboration pattern is supported.
 
-Paperproof's upstream terminal program extracts observed tactic steps and their goals into JSON. K7PL reuses this upstream extractor; it does not vendor or patch its parser. The K7PL adapter stages a byte-for-byte copy of each selected source file in a temporary directory inside this isolated Lake workspace, because the terminal frontend rejects input paths outside its workspace root. Source positions remain meaningful because the staged file preserves the original bytes and line structure. The staged path is temporary and is never recorded as source provenance; the emitted artifact points to the canonical K7PL path, commit, and source hash. The Python adapter validates and serializes the resulting JSON.
+Paperproof's terminal interface rejects source paths outside its own Lake workspace. The Python adapter therefore stages a byte-for-byte copy of each selected source file in a temporary directory inside this isolated workspace. The copied bytes preserve the source positions, but the staging path is never used as provenance: artifacts refer to the canonical K7PL path, exact Git revision, source line range and SHA-256 of the original bytes. Temporary source and terminal JSON files are cleaned up even when extraction fails.
 
-## Reproduce locally
+## Reproduce the pipeline
 
-First build the normal K7PL documentation site with the root toolchain and the repository's documented figure prerequisites. Then run:
+From the repository root, install the pinned toolchains and build the isolated extractor:
 
     cd tooling/paperproof-export
     lake exe cache get
+    lake build terminal
     cd ../..
+
+Then extract JSON observations at a specific source revision:
+
     python3 scripts/ci/build_proof_visualizations.py \
-      --site _out/spec/html-multi \
+      --repo-root . \
+      --data-dir _out/proof-visualizations/data \
+      --data-only \
       --ref "$(git rev-parse HEAD)" \
       --extractor-dir tooling/paperproof-export
 
-The extractor calls the upstream command with a source file, fully qualified declaration name, and temporary JSON output path. The renderer writes static pages under _out/spec/html-multi/proofs/, raw structured artifacts under proofs/data/, and a manifest.json. It adds a link to the existing navigation index. The output is generated during CI and is not committed as hand-maintained site content.
+The extract step runs before `lake exe spec --output _out/spec --with-tex`. The `proofviz` Verso directive in `spec/Spec/ProofVisualizations.lean` reads that same JSON manifest in both the HTML and TeX backends. The TeX output is subsequently used by the PDF build. The previous standalone HTML mode remains transitional only; CI uses `--data-only` and does not inject a post-render navigation link.
 
 ## Current targets
 
-- K7pl.Arith.eval_double in src/K7pl/Arith.lean.
-- K7pl.UsageScale.scaleUsage_comp in src/K7pl/UsageScale.lean.
-- K7pl.UsageScale.projectUsageContext_scale in src/K7pl/UsageScale.lean.
+- `K7pl.Arith.eval_double` in `src/K7pl/Arith.lean`.
+- `K7pl.UsageScale.scaleUsage_comp` in `src/K7pl/UsageScale.lean`.
+- `K7pl.UsageScale.projectUsageContext_scale` in `src/K7pl/UsageScale.lean`.
 
-These targets are selected examples, not a declaration inventory. Source links are anchored to the exact source revision that produced the site. Target labels and short descriptions are editorial; proof scripts, theorem statements, tactics, hypotheses and goals are taken from source and Paperproof's output.
+These declarations are selected examples, not a complete inventory. Editorial titles and descriptions are separate from exported tactic steps, hypotheses and goals. A source-name similarity or shared module does not establish a normative correspondence.
 
 ## Contract and limits
 
-The output schema is k7pl.proof-visualization/v1. Each JSON artifact carries the declaration identity, source path and SHA-256, revision, line span, extractor revision, both toolchains, exported steps/goals, and explicit non-claims. The Python validator refuses exports without tactic steps, positions, before-goals or after/spawned-goal arrays. It does not fill in missing goal states. All goal and hypothesis text is HTML escaped.
+The output schema is `k7pl.proof-visualization/v1`. Each JSON artifact carries declaration identity, canonical source path, revision, source hash, line span, extractor revision, both toolchain identifiers, exported steps and goals. The adapter refuses exports without tactic steps, positions, before-goals, or after/spawned-goal arrays. Missing states are not invented. The Verso renderer validates schema, exact curated declaration/path mapping, source URL and line span, and consistency between artifact and manifest revision. HTML text uses Verso's structured HTML representation; TeX text is escaped before insertion into output.
 
-The site is static, has no JavaScript runtime requirement for these views, supports keyboard disclosure via native details/summary, uses text labels and outlines rather than color-only distinctions, and collapses transitions into a single column on small screens. This is a mechanical accessibility baseline, not a claim of conformance or successful human usability evaluation.
+The public Lean 4.34.0 `InfoTree` API includes `TacticInfo` nodes with metavariable contexts and goals before and after tactics. Paperproof uses this general public mechanism. The extractor's actual compatibility is nevertheless established only when the pinned workspace builds and exports each selected K7PL declaration in CI. A successful root K7PL build alone is not evidence of exporter compatibility. Nor do extracted observations constitute independent proof terms or a verified mapping between Lean declarations and normative statements.
 
-The separate extractor toolchain is not evidence that the main K7PL toolchain verified an object. The root K7PL CI build checks the canonical source independently under Lean 4.34.0. The generated JSON and any views rendered from it are derived observations, not proofs; the extractor does not establish a normative-to-Lean correspondence. If a declaration cannot be exported or its export violates the contract, generation fails instead of making a placeholder claim. The currently curated target set is not a compatibility guarantee for every Lean 4.34.0 source construct: the extractor runs under Lean 4.29.0-rc8, so source-level compatibility and behavioural equivalence must be demonstrated per target before this adapter is relied on more broadly.
+The curated target set is intentionally narrow. The presence of a tactic family in source does not by itself demonstrate that its transition was extracted or rendered faithfully. The current coverage matrix separates corpus observations, adapter capabilities, test evidence, unsupported dimensions, and outstanding human validation.
 
-Paperproof's upstream interface is documented in https://github.com/Paper-Proof/paperproof, in particular its terminal export source. Upstream license: MIT. No Paperproof dependency is added to the root Lake workspace.
+Upstream Paperproof license: MIT. No Paperproof source is copied or modified in this repository; its revision remains a pinned dependency in this isolated workspace.
