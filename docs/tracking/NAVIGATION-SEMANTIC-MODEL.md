@@ -86,7 +86,7 @@ Critères d'acceptation du premier prototype :
 
 ## 7. Explications progressives dans l’interface
 
-Les textes de lecture graduée constituent une couche éditoriale distincte des arêtes du graphe. Leur catalogue est tenu dans [`navigation_explanations.py`](../../scripts/ci/knowledge_graph/navigation_explanations.py) : chaque entrée indique son nœud cible et fournit, pour chaque niveau, des liens vers les ancres Verso canoniques. Le catalogue ne crée aucune relation entre objets et ne modifie ni le statut normatif ni le statut de preuve des sources. Le validateur vérifie que les nœuds cibles, textes de niveau et destinations HTML/ancres existent. Lorsqu’aucune entrée ne cible un objet, l’interface le signale au lieu d’inventer une explication.
+Les textes de lecture graduée constituent une couche éditoriale distincte des arêtes du graphe. Leur catalogue est tenu dans [`navigation_explanations.py`](../../scripts/ci/navigation_graph/navigation_explanations.py) : chaque entrée indique son nœud cible et fournit, pour chaque niveau, des liens vers les ancres Verso canoniques. Le catalogue ne crée aucune relation entre objets et ne modifie ni le statut normatif ni le statut de preuve des sources. Le validateur vérifie que les nœuds cibles, textes de niveau et destinations HTML/ancres existent. Lorsqu’aucune entrée ne cible un objet, l’interface le signale au lieu d’inventer une explication.
 
 La couverture initiale est volontairement limitée au point d’entrée « Introduction » de C1. Elle démontre le mécanisme, sans prétendre que l’ensemble des concepts K7PL bénéficie déjà de niveaux rédigés ou validés humainement.
 
@@ -122,7 +122,7 @@ Ces corrections améliorent le comportement de l’interface ; elles ne ferment 
 
 ## 11. Emplacement de l’implémentation
 
-Le graphe de navigation dérivé du HTML, son validateur, le catalogue éditorial et les tests sont regroupés dans [`scripts/ci/knowledge_graph/`](../../scripts/ci/knowledge_graph/README.md). Cette séparation clarifie la responsabilité du composant sans fusionner les mécanismes dont les sources et garanties diffèrent :
+Le graphe de navigation dérivé du HTML, son validateur, le catalogue éditorial et les tests sont regroupés dans [`scripts/ci/navigation_graph/`](../../scripts/ci/navigation_graph/README.md). Cette séparation clarifie la responsabilité du composant sans fusionner les mécanismes dont les sources et garanties diffèrent :
 
 - le graphe documentaire large, dérivé de la structure et des liens du HTML réellement rendu ;
 - les deux graphes sémantiques C6/C3, extraits des rôles Verso explicites sur des plages source bornées ;
