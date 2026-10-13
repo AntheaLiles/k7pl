@@ -42,7 +42,7 @@ The proofviz directive in spec/Spec/ProofVisualizations.lean reads the same JSON
 - K7pl.GradeBudget.finite_multiplicity_compatibility in src/K7pl/GradeBudget.lean: nested cases, have and simp.
 - K7pl.MemoryCapability.allocate_preserves_unique in src/K7pl/MemoryCapability.lean: intro, by_cases, subst, have, simp and omega.
 
-The first three declarations were extracted and rendered through Verso HTML/TeX under Lean 4.34.0 in CI run 38447082870. The latter two are part of the expanded corpus in this branch; their support status is pending the current CI result and must not be assumed in advance. These examples are selected cases, not a complete inventory.
+All five declarations were extracted and rendered through Verso HTML/TeX under Lean 4.34.0, and the PDF compilation succeeded, in CI run 38451997922. Its log reports 2, 2, 5, 17 and 8 tactic observations for the five declarations. These examples are selected cases, not a complete inventory; browser/PDF inspection and broader family coverage remain open.
 
 Editorial titles and descriptions are separate from exported tactic steps, hypotheses and goals. A source-name similarity or shared module does not establish a normative correspondence.
 
