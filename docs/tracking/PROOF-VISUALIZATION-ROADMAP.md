@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # K7PL proof and construction visualization roadmap
 
-**State updated: 2026-10-13.** A first static proof-view pipeline is being added to the existing Verso site. Its extraction depends on a separate, pinned Lean workspace. Generated site artifacts and CI evidence will determine whether the whole chain is operational; an editor screenshot or a successful root build alone is not the acceptance criterion.
+**State updated: 2026-10-13.** The first proof-view pipeline is end-to-end CI-validated for five selected declarations. Extraction uses a separate, pinned workspace on Lean 4.34.0; the same versioned data is consumed by Verso's HTML and TeX backends, and the resulting PDF compiles. This validates the selected corpus and build chain, not every Lean proof form or the human usability of the views.
 
 ## 1. Architecture and authority
 
@@ -28,7 +28,7 @@ Paperproof reste une dépendance épinglée dans un workspace Lake isolé, mais 
 
 Le bloc proofviz de tools/SpecExt/ProofVisualization.lean consomme le même schéma JSON versionné pour ses deux backends Verso. Le renderer HTML utilise des nœuds structurés et du CSS ; le renderer TeX échappe les valeurs avant leur émission. La page de document spec/Spec/ProofVisualizations.lean appelle le bloc par des identifiants contrôlés. La CI exécute l'extraction avant la compilation Verso, puis construit HTML et TeX et compile le PDF.
 
-Le run CI 38447082870 a validé cette chaîne sous Lean 4.34.0 pour trois déclarations réelles : K7pl.Arith.eval_double, K7pl.UsageScale.scaleUsage_comp et K7pl.UsageScale.projectUsageContext_scale. Le commit courant élargit le corpus à K7pl.GradeBudget.finite_multiplicity_compatibility et K7pl.MemoryCapability.allocate_preserves_unique ; leur statut est « en validation CI » jusqu'à la réussite du run qui les introduit.
+Le run CI 38451997922 a validé la chaîne complète pour les cinq déclarations réelles du corpus courant. Son journal confirme les exportations Paperproof sous Lean 4.34.0 (2, 2, 5, 17 et 8 observations tactiques), puis la compilation du bloc Verso, les sorties HTML/TeX et le PDF. Le run correspond au commit de fusion de test de la PR ; il établit le fonctionnement des cinq cibles sur cet arbre compilé. Il ne démontre ni la couverture universelle de Lean, ni la fidélité sémantique de chaque transition, ni l'utilité pédagogique des vues.
 
 Le registre de couverture détaillé se trouve dans [PROOF-VISUALIZATION-COVERAGE.md](PROOF-VISUALIZATION-COVERAGE.md). Il sépare les constructions présentes dans le corpus, les capacités réellement extraites, les validations par test et les limites encore ouvertes.
 
@@ -85,7 +85,7 @@ The long-term path is rule/statement → formalization/declaration → proof or 
 ## Verification record
 
 The relevant checks are:
-- scripts/ci/test_build_proof_visualizations.py: offline tests for required export fields, rejection of empty/incomplete exports, source/declaration lookup, provenance claims, preservation of observed goal fields, and temporary source staging/cleanup. These tests use a synthetic Paperproof export; they do not execute Paperproof or test the Verso HTML/TeX renderers.
+- scripts/ci/test_build_proof_visualizations.py: offline tests for required export fields, rejection of empty/incomplete exports, monotonic and in-file source positions, exact checkout-SHA provenance, source/declaration lookup, preservation of observed goal fields, and temporary source staging/cleanup. These tests use a synthetic Paperproof export; they do not execute Paperproof or test the Verso HTML/TeX renderers.
 - The Verso renderer and full extraction path are exercised by the dedicated CI job: root specification build, pinned Paperproof extraction, HTML/TeX rendering, PDF generation, and downstream navigation/asset validation. Inspect the step logs for the exact commit before claiming this passed.
 - scripts/ci/check_lean_modules.py and the root Lean build: the ordinary K7PL Lean sources/tests under the root toolchain; this does not by itself validate the separate extraction workspace.
 - Existing navigation and HTML validators: local links, anchors, provenance and freshness only for the generated outputs and checks they explicitly cover. They do not independently prove semantic fidelity of each goal transition.
