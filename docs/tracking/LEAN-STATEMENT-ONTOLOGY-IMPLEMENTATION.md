@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # C8 — Shared statement ontology: implementation contract
 
-**Status:** the shared representation, legacy compatibility and structural controls passed CI on PR #134 exact head `0a2171c3c3a188a9d2802bd6779392d393eefe07` (run [#1024](https://github.com/AntheaLiles/k7pl/actions/runs/38121483338), 2026-10-11). PR #134 remains open and unmerged; validation of the migrated source belongs to PR #139.
+**Status:** the shared representation, legacy compatibility and structural controls passed CI on PR #134 exact head `0a2171c3c3a188a9d2802bd6779392d393eefe07` (run [#1024](https://github.com/AntheaLiles/k7pl/actions/runs/38121483338), 2026-10-11). PR #134 was merged on 2026-10-11 (`f5a7ade`); the migrated source was merged the same day with PR #139 (`e9b5d2b`). That run validates only the head recorded above, not later revisions of `main`.
 
 This document records the shared implementation and structural-control slice of C8. On the exact head recorded above, Python tooling tests, quick checks, Lean implementation/tests, Verso rendering, and PDF compilation succeeded. These results validate that revision's build and mechanical controls only; they do not validate the migrated source blocks or establish any mathematical claim.
 
