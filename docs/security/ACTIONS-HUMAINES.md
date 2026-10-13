@@ -117,4 +117,35 @@ Pour chaque point NAV-H03 à NAV-H08, consigner **Réussi / Échec / Non applica
 - [ ] **NAV-H11 — Enregistrer les données et appliquer la règle préenregistrée.** Pour chaque participant anonymisé, noter temps, exactitude des six éléments, transitions, sources homonymes/erronées, demandes d'aide, échec du retour et tout écart au protocole. Publier les observations individuelles anonymisées et les échecs, pas uniquement une moyenne. Poursuivre l'extension seulement si l'exactitude n'est pas inférieure au parcours manuel et si la médiane du temps parmi les réussites baisse d'au moins 20 %, ou si l'achèvement exact augmente d'au moins 25 points sans hausse des erreurs de source. Ces seuils sont des critères locaux exploratoires, pas une preuve statistique généralisable.
 - [ ] **NAV-H12 — Ratifier le résultat et la prochaine étape.** Inscrire le résultat dans `NAVIGATION-PROTOTYPE.md`, y compris les cas où le parcours manuel est plus rapide. Si la règle n'est pas satisfaite, conserver le prototype étroit et ne pas étendre les relations ou la couverture éditoriale sur la seule base de l'existence du graphe. Si la règle est satisfaite, soumettre une proposition de deuxième parcours avec chaque relation justifiée par une source explicite et un nouveau critère d'acceptation.
 
+### 6.4. Fiche de résultats à remplir
+
+Copier/compléter la ligne correspondante après chaque essai ; conserver l'URL exacte du run CI et l'URL de la page testée.
+
+| Contrôle | Résultat (Réussi / Échec / N/A) | Date et SHA `main` | Navigateur, appareil ou largeur | Preuve, défaut ou issue |
+|---|---|---|---|---|
+| NAV-H01 — CI de PR et revue | À remplir | — | — | |
+| NAV-H02 — CI de `main` et publication | À remplir | — | — | |
+| NAV-H03 — accueil + chapitres C1–C7 | À remplir | — | — | |
+| NAV-H04 — contrôles interactifs et profondeur 3 | À remplir | — | — | |
+| NAV-H05 — clavier et focus | À remplir | — | — | |
+| NAV-H06 — petit écran et zoom | À remplir | — | — | |
+| NAV-H07 — JavaScript désactivé | À remplir | — | — | |
+| NAV-H08 — exactitude éditoriale C1/C3 | À remplir | — | — | |
+| NAV-H09 — compte rendu de recette | À remplir | — | — | |
+
+Pour le protocole comparatif NAV-H10/NAV-H11, consigner une ligne par participant dans une copie de ce tableau, sans information permettant de l'identifier :
+
+| Participant anonymisé | Condition (manuel / prototype) | Temps (s) ou échec à 300 s | Éléments exacts (0–6) | Transitions | Sources erronées / homonymes | Aide demandée ? | Retour correct ? | Écart au protocole |
+|---|---|---|---:|---:|---:|---|---|---|
+| P01 | À affecter aléatoirement | | | | | | | |
+| P02 | À affecter aléatoirement | | | | | | | |
+| P03 | À affecter aléatoirement | | | | | | | |
+| P04 | À affecter aléatoirement | | | | | | | |
+| P05 | À affecter aléatoirement | | | | | | | |
+| P06 | À affecter aléatoirement | | | | | | | |
+| P07 | À affecter aléatoirement | | | | | | | |
+| P08 | À affecter aléatoirement | | | | | | | |
+
+Ne pas remplir fictivement ces tableaux : ils constituent un support de consignation, pas une preuve déjà recueillie.
+
 **Règle d'état :** NAV-H01 à NAV-H09 ferment la recette technique uniquement lorsque tous les points pertinents ont une preuve datée et qu'aucun échec n'est sans correction ou décision documentée. NAV-H10 à NAV-H12 restent une porte de preuve de valeur avant extension ; ne revendiquer ni bénéfice d'usage ni compréhension accrue avant leur exécution.
