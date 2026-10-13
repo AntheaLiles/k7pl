@@ -137,7 +137,9 @@ private def proofGoalHtml (heading : String) (goal : Json) : Output.Html := Id.r
       {{<p class="k7-proofviz-muted">{{"Aucune hypothèse n'est rapportée pour cet objectif dans cet export."}}</p>}}
     else
       {{<details><summary>{{"Hypothèses et variables (" ++ toString hypotheses.size ++ ")"}}</summary><ul>{{Output.Html.seq hypothesisItems}}</ul></details>}}
-  return {{<section class="k7-proofviz-goal"><h5>{{heading}}</h5><pre>{{goalType}}</pre>{{hypothesisBlock}}</section>}}
+  let goalName := proofStringField goal "username" "nom non fourni"
+  let goalId := proofStringField goal "id" "identifiant non fourni"
+  return {{<section class="k7-proofviz-goal"><h5>{{heading}}</h5><p class="k7-proofviz-muted">{{"Nom rapporté : " ++ goalName ++ " · Identifiant d’export : " ++ goalId}}</p><pre>{{goalType}}</pre>{{hypothesisBlock}}</section>}}
 
 private def proofGoalCollectionHtml (heading : String) (goals : Array Json) (emptyMessage : String) : Output.Html := Id.run do
   if goals.isEmpty then
@@ -151,7 +153,12 @@ private def appendProofGoalTeX (output : Array Verso.Output.TeX) (heading : Stri
     Array Verso.Output.TeX := Id.run do
   let mut result := output
   let goalType := SpecExt.texEscape (proofStringField goal "type" "Type indisponible dans l'export")
-  result := result.push (.raw ("\\par\\noindent\\textit{" ++ SpecExt.texEscape heading ++ "}\\par\n\\begingroup\\small\\ttfamily\\sloppy\n"))
+  let goalName := SpecExt.texEscape (proofStringField goal "username" "nom non fourni")
+  let goalId := SpecExt.texEscape (proofStringField goal "id" "identifiant non fourni")
+  result := result.push (.raw ("\\par\\noindent\\textit{" ++ SpecExt.texEscape heading ++ "}\\par\n"))
+  result := result.push (.raw ("\\noindent\\textit{Nom rapporté : }\\texttt{" ++ goalName ++ "}\\par\n"))
+  result := result.push (.raw ("\\noindent\\textit{Identifiant d'export : }\\texttt{" ++ goalId ++ "}\\par\n"))
+  result := result.push (.raw ("\\begingroup\\small\\ttfamily\\sloppy\n"))
   result := result.push (.raw (goalType ++ "\\par\n\\endgroup\n"))
   let hypotheses := proofArrayField goal "hyps"
   for hypothesis in hypotheses do
@@ -160,6 +167,41 @@ private def appendProofGoalTeX (output : Array Verso.Output.TeX) (heading : Stri
     result := result.push (.raw ("\\noindent\\texttt{" ++ username ++ "} : \\texttt{" ++ hypothesisType ++ "}\\par\n"))
   if hypotheses.isEmpty then
     result := result.push (.raw "\\noindent\\textit{Aucune hypothèse rapportée dans cet export.}\\par\n")
+  return result
+
+private def proofDependencyLabel (goals : Array Json) (dependencyId : String) : Option String := Id.run do
+  for goal in goals do
+    for hypothesis in proofArrayField goal "hyps" do
+      if proofStringField hypothesis "id" == dependencyId then
+        let username := proofStringField hypothesis "username" "?"
+        let hypothesisType := proofStringField hypothesis "type" "type non fourni"
+        return some (username ++ " : " ++ hypothesisType)
+  return none
+
+private def proofDependenciesHtml (step : Json) : Output.Html := Id.run do
+  let dependencies := proofArrayField step "tacticDependsOn"
+  if dependencies.isEmpty then
+    return {{<section class="k7-proofviz-dependencies"><h5>{{"Dépendances locales rapportées par Paperproof"}}</h5><p class="k7-proofviz-muted">{{"Aucun identifiant de dépendance n’est fourni dans l’export pour cette tactique."}}</p></section>}}
+  let observedGoals := #[proofField step "goalBefore"] ++ proofArrayField step "goalsAfter" ++ proofArrayField step "spawnedGoals"
+  let mut items : Array Output.Html := #[]
+  for dependency in dependencies do
+    let dependencyId := proofString dependency "identifiant non fourni"
+    let label := (proofDependencyLabel observedGoals dependencyId).getD "non résolu parmi les hypothèses rapportées pour cette transition"
+    items := items.push {{<li><code>{{dependencyId}}</code>{{" — " ++ label}}</li>}}
+  return {{<section class="k7-proofviz-dependencies"><h5>{{"Dépendances locales rapportées par Paperproof"}}</h5><p class="k7-proofviz-muted">{{"La résolution ci-dessous repose sur une correspondance exacte d’identifiant dans les hypothèses de l’export ; elle ne crée aucune dépendance absente."}}</p><ul>{{Output.Html.seq items}}</ul></section>}}
+
+private def appendProofDependenciesTeX (output : Array Verso.Output.TeX) (step : Json) :
+    Array Verso.Output.TeX := Id.run do
+  let dependencies := proofArrayField step "tacticDependsOn"
+  let mut result := output.push (.raw ("\\noindent\\textit{Dépendances locales rapportées par Paperproof :}\\par\n"))
+  if dependencies.isEmpty then
+    return result.push (.raw ("\\noindent Aucun identifiant de dépendance n’est fourni dans l’export pour cette tactique.\\par\n"))
+  let observedGoals := #[proofField step "goalBefore"] ++ proofArrayField step "goalsAfter" ++ proofArrayField step "spawnedGoals"
+  result := result.push (.raw ("\\noindent\\textit{Résolution par identifiants observés :}\\par\n"))
+  for dependency in dependencies do
+    let dependencyId := SpecExt.texEscape (proofString dependency "identifiant non fourni")
+    let label := SpecExt.texEscape ((proofDependencyLabel observedGoals (proofString dependency)).getD "non résolu parmi les hypothèses rapportées pour cette transition")
+    result := result.push (.raw ("\\noindent\\texttt{" ++ dependencyId ++ "} -- " ++ label ++ "\\par\n"))
   return result
 
 block_extension Block.proofVisualization (slug : String) where
@@ -196,6 +238,7 @@ block_extension Block.proofVisualization (slug : String) where
         {{<li class="k7-proofviz-step">
             <h4>{{"Étape " ++ toString (i + 1)}}</h4>
             <p>{{"Tactique observée : "}}<code>{{tactic}}</code>{{s!" · Source : ligne {line}, colonne {column}"}}</p>
+            {{proofDependenciesHtml step}}
             {{proofGoalHtml "Objectif avant la tactique" (proofField step "goalBefore")}}
             {{proofGoalCollectionHtml "Objectifs après" (proofArrayField step "goalsAfter") "Aucun objectif après n'est associé à cette transition dans l'export."}}
             {{proofGoalCollectionHtml "Autres objectifs rapportés par l’export" (proofArrayField step "spawnedGoals") "Aucun objectif supplémentaire n'est rapporté pour cette transition."}}
@@ -252,6 +295,7 @@ block_extension Block.proofVisualization (slug : String) where
       let column := proofNatField start "character" + 1
       output := output.push (.raw ("\\par\\medskip\\noindent\\textbf{Étape " ++ toString (i + 1) ++ " : }\\texttt{" ++ tactic ++ "}\\par\n"))
       output := output.push (.raw ("\\noindent\\textit{Position source : }ligne " ++ toString line ++ ", colonne " ++ toString column ++ ".\\par\n"))
+      output := appendProofDependenciesTeX output step
       output := appendProofGoalTeX output "Objectif avant la tactique" (proofField step "goalBefore")
       let after := proofArrayField step "goalsAfter"
       if after.isEmpty then
@@ -277,6 +321,7 @@ r#"
 .k7-proofviz-step { margin: 1.3rem 0; }
 .k7-proofviz-step h4 { margin-bottom: .3rem; }
 .k7-proofviz-goal, .k7-proofviz-outcomes { margin: .6rem 0; padding: .6rem; border: 1px solid currentColor; border-radius: .25rem; }
+.k7-proofviz-dependencies { margin: .6rem 0; padding: .6rem; border-left: .2rem solid currentColor; }
 .k7-proofviz-goal pre { white-space: pre-wrap; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 .k7-proofviz-goal li { margin: .25rem 0; }
 .k7-proofviz-role { font-size: .8em; border: 1px solid currentColor; border-radius: 1rem; padding: .05rem .3rem; }
