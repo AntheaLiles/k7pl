@@ -7,6 +7,8 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
 import build_proof_visualizations as viz
 
@@ -79,6 +81,36 @@ class PaperproofExportTests(unittest.TestCase):
             viz.inject_nav_link(nav)
             viz.inject_nav_link(nav)
             self.assertEqual(nav.read_text(encoding="utf-8").count("Visualisations de preuves"), 1)
+
+    def test_extractor_stages_exact_source_inside_workspace_and_cleans_it(self):
+        with tempfile.TemporaryDirectory() as root_dir, \
+             tempfile.TemporaryDirectory() as extractor_dir, \
+             tempfile.TemporaryDirectory() as output_dir:
+            root = Path(root_dir)
+            extractor = Path(extractor_dir)
+            source_path = root / TARGET["source"]
+            source_path.parent.mkdir(parents=True)
+            source_path.write_text(SOURCE, encoding="utf-8")
+            staged_paths = []
+
+            def fake_run(command, cwd, text, capture_output, check):
+                staged = Path(command[3]).resolve()
+                self.assertTrue(staged.is_relative_to(extractor.resolve()))
+                self.assertEqual(staged.read_text(encoding="utf-8"), SOURCE)
+                self.assertEqual(command[4], TARGET["declaration"])
+                Path(command[5]).write_text(json.dumps(EXPORT), encoding="utf-8")
+                staged_paths.append(staged)
+                return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+            with patch.object(viz.subprocess, "run", side_effect=fake_run):
+                artifact = viz.extract_one(
+                    root, extractor, TARGET, REV, "leanprover/lean4:v4.34.0", Path(output_dir)
+                )
+
+            self.assertEqual(artifact["identity"]["sourceSha256"], viz.hashlib.sha256(SOURCE.encode("utf-8")).hexdigest())
+            self.assertTrue(staged_paths)
+            self.assertFalse(staged_paths[0].exists())
+            self.assertFalse((Path(output_dir) / ".sample-proof.paperproof.json").exists())
 
     def test_site_validator_rejects_stale_source_revision(self):
         with tempfile.TemporaryDirectory() as temp:
