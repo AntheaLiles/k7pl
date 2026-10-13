@@ -4,6 +4,7 @@
 
 import SpecExt.Basic
 import SpecExt.Render
+import SpecExt.ProofVisualization
 import SpecExt.Label
 import SpecExt.Slots
 import SpecExt.Theorem
