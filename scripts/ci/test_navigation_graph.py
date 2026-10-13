@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from build_navigation_graph import build_graph, inject_navigation_link
+from build_navigation_graph import HTML_TEMPLATE, build_graph, inject_navigation_link
 from navigation_explanations import EXPLANATION_CATALOG
 
 
@@ -21,6 +21,9 @@ class NavigationGraphTests(unittest.TestCase):
         (self.site / "index.html").write_text(
             '<html><head><base href="./"><title>K7PL</title></head><body>'
             '<h1 id="home-heading">Accueil</h1>'
+            '<p>Cette page expose le contexte immédiat du parcours de navigation.</p>'
+            '<h2 id="home-limitations">Limites</h2>'
+            '<p>Ce passage appartient à la sous-section et ne doit pas être repris comme contexte de l’accueil.</p>'
             '<p><a class="k7-ref" href="Spec/C3/page.html#lbl-sec-chapter">Chapitre</a></p>'
             '<p><a class="k7-ref" href="Spec/C4/#lbl-sec-index">Section en route dossier</a></p>'
             '</body></html>',
@@ -83,6 +86,18 @@ class NavigationGraphTests(unittest.TestCase):
                 for source in level["sources"]:
                     self.assertTrue(source["label"].strip())
                     self.assertTrue(source["url"].endswith(".html") or ".html#" in source["url"])
+
+    def test_section_nodes_include_only_immediate_rendered_context(self) -> None:
+        graph = build_graph(self.site)
+        nodes = {node["id"]: node for node in graph["nodes"]}
+        description = nodes["index.html#home-heading"]["description"]
+        self.assertIn("contexte immédiat du parcours", description)
+        self.assertNotIn("appartient à la sous-section", description)
+
+    def test_graph_template_positions_the_third_selected_depth(self) -> None:
+        self.assertIn('value="3"', HTML_TEMPLATE)
+        self.assertIn('viewBox="0 0 1000 760"', HTML_TEMPLATE)
+        self.assertIn("depth <= maxDepth", HTML_TEMPLATE)
 
     def test_extracts_explicit_reference_and_citation_edges(self) -> None:
         graph = build_graph(self.site)
