@@ -456,6 +456,15 @@ la produit. C'est ce que la loi distributive prescrit et ce que la famille index
 pas une hypothèse ajoutée mais la structure de $`\mathcal{E}`.
 :::
 
+:::note
+_Obligation ouverte._ Restent à définir la relation de rejeu, l'alphabet des traces, l'action de
+$`\pi^{\flat}_\ell` sur les étiquettes, les valeurs et le temps, et la fonction d'observation d'un
+observateur de niveau $`\ell`. Effacer un pas au-dessus de $`\ell` et sa durée ne suffit pas : il faut
+encore que ce pas n'influence ni le contrôle ni les pas ultérieurs de niveau au plus $`\ell`. C'est
+une prémisse de non-interférence observationnelle, que le chapitre 2 ne tient que pour le fragment
+séquentiel et, sous concurrence, à l'état de conjecture. La portée du déterminisme invoqué pour
+l'unicité du rejeu reste à ajuster à cette relation.
+:::
 ::::
 Deux remarques closent ce point. La première est que le rejeu intégral de P4 en est le cas où
 l'observateur atteint le niveau le plus haut, la projection devenant l'identité~: P4 n'est pas
@@ -580,6 +589,13 @@ non-interaction : c'est ce que la remarque de la section affirmait sans le dire.
 facteur reste à écrire.
 :::
 
+:::note
+_Obligation ouverte._ L'esquisse laisse ouverts le cas du budget et le détail de chaque facteur.
+Restent à définir la signature des opérations et le prédicat de compatibilité de chaque facteur et du
+produit, la relation sur la composante budget et trace, puis à vérifier chaque opération et la
+clause modale composante par composante. Tant que le cas du budget n'est pas écrit, la compatibilité
+du produit n'est pas établie.
+:::
 ::::
 ::::lemma (label := "thm:lemme_fondamental") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "logical-relations")
 :::title
