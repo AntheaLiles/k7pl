@@ -25,7 +25,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 **Critères d'acceptation**
 - [x] Un point d'entrée contextuel est présent sur chaque page rendue ; il ouvre le graphe sur cette page, puis la recherche permet de sélectionner un objet précis.
-- [ ] La page présente sa définition ou son contexte immédiat.
+- [x] Le panneau de détail présente le libellé et, pour les sections, un extrait borné des paragraphes précédant le titre suivant dans le HTML rendu ; si aucun contexte n’est disponible, l’interface le signale sans fabriquer une définition.
 - [ ] Les relations disponibles vers documentation, décisions, sources et vérifications sont navigables.
 - [ ] Chaque relation renvoie à une source canonique.
 - [x] Le prototype distingue les relations structurelles `contains` des références `references` et citations `cites` explicitement rendues ; aucune relation de preuve, d'implémentation ou de test n'est inférée.
@@ -49,7 +49,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [x] Le graphe peut être ouvert depuis chaque page documentaire ; l'entrée transmet la page courante comme nœud initial, puis la liste de recherche permet de sélectionner un objet précis.
 - [x] Les nœuds ne sont pas limités aux fichiers : pages, sections, figures, tableaux, listings, énoncés et entrées bibliographiques rendus sont classés séparément.
 - [x] Les types d'objets sont visibles dans la liste et les nœuds ; les relations `contains`, `references` et `cites` ont des libellés distincts.
-- [x] La profondeur du voisinage (1–3 niveaux) et les types de relations affichés sont contrôlables depuis l'interface.
+- [x] La profondeur du voisinage (1–3 niveaux) et les types de relations affichés sont contrôlables depuis l'interface ; le dessin positionne aussi les nœuds du troisième niveau sélectionné (test de régression).
 - [x] Le nœud sélectionné expose un lien direct vers son objet dans le HTML documentaire rendu ; les liens de source des relations offrent un retour supplémentaire.
 - [x] Le graphe n'est pas la seule modalité de navigation : le document Verso reste consultable, et les listes textuelles proposent les mêmes objets et relations.
 
