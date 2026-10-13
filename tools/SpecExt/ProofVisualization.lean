@@ -56,6 +56,8 @@ private def loadProofArtifact (slug : String) : IO Json := do
 
   if proofStringField artifact "schemaVersion" != "k7pl.proof-visualization/v1" then
     throw <| IO.userError s!"Unsupported proof artifact schema for {slug}"
+  if proofStringField manifest "schemaVersion" != "k7pl.proof-visualization/v1" then
+    throw <| IO.userError "Unsupported proof manifest schema"
   if proofStringField artifact "status" != "extracted" then
     throw <| IO.userError s!"Proof artifact {slug} is not marked extracted"
   if proofStringField artifact "slug" != slug then
@@ -67,6 +69,20 @@ private def loadProofArtifact (slug : String) : IO Json := do
   let sourcePath := proofStringField identity "source"
   let sourceUrl := proofStringField identity "sourceUrl"
   let revision := proofStringField identity "sourceRevision"
+  let (expectedDeclaration, expectedSource) := match slug with
+    | "eval-double" => ("K7pl.Arith.eval_double", "src/K7pl/Arith.lean")
+    | "scale-usage-comp" => ("K7pl.UsageScale.scaleUsage_comp", "src/K7pl/UsageScale.lean")
+    | _ => ("K7pl.UsageScale.projectUsageContext_scale", "src/K7pl/UsageScale.lean")
+  if declaration != expectedDeclaration || sourcePath != expectedSource then
+    throw <| IO.userError s!"Proof artifact identity does not match the curated target {slug}"
+  let sourceLines := proofField identity "sourceLines"
+  let lineStart := proofNatField sourceLines "start"
+  let lineEnd := proofNatField sourceLines "end"
+  if lineStart == 0 || lineEnd < lineStart then
+    throw <| IO.userError s!"Invalid source-line range for {declaration}"
+  let expectedSourceUrl := s!"https://github.com/AntheaLiles/k7pl/blob/{revision}/{sourcePath}#L{lineStart}-L{lineEnd}"
+  if sourceUrl != expectedSourceUrl then
+    throw <| IO.userError s!"Source URL does not match canonical source identity for {declaration}"
   let manifestRevision := proofStringField manifest "sourceRevision"
   if revision.isEmpty || revision != manifestRevision then
     throw <| IO.userError s!"Stale or mixed proof artifact revision for {declaration}"
@@ -110,7 +126,7 @@ private def proofGoalHtml (heading : String) (goal : Json) : Output.Html := Id.r
     let hypothesisType := proofStringField hypothesis "type" "type non fourni"
     let role := proofRole hypothesis
     hypothesisItems := hypothesisItems.push
-      {{<li><strong>{{username}}</strong>{{" : "}}<code>{{hypothesisType}}</code> <span class="k7-proofviz-role">{{role}}</span></li>}}
+      {{<li><strong>{{username}}</strong>{{" : "}}<code>{{hypothesisType}}</code>{{" "}}<span class="k7-proofviz-role">{{role}}</span></li>}}
   let hypothesisBlock : Output.Html :=
     if hypotheses.isEmpty then
       {{<p class="k7-proofviz-muted">{{"Aucune hypothèse n'est rapportée pour cet objectif dans cet export."}}</p>}}
