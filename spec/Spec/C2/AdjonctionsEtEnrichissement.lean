@@ -405,6 +405,13 @@ stationnarité, et le plus petit par le théorème de Knaster et Tarski, tout po
 chaîne issue de $`\bot`.
 :::
 
+:::note
+_Obligation ouverte._ Restent à citer la définition exacte de $`\mathsf{Trellis}_{\text{fin}}` et de
+son ordre, les propriétés de support fini, de minimum, de borne supérieure et de hauteur qu'emploie
+l'esquisse, à vérifier la convention « au plus $`h` étapes » et à nommer le résultat de complétude
+qui donne le plus petit point fixe. La monotonie de $`f` reste une prémisse ; les constructions non
+monotones demeurent exclues.
+:::
 ::::
 C'est le troisième critère de terminaison de ce document, et les trois sont de même nature. {rmq}[Trois
 critères, un seul geste. La garantie se lit sur le type, jamais sur la forme du terme.] Le pli

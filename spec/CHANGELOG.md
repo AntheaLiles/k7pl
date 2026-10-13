@@ -29,6 +29,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - Chapitre 2 (système de raffinement ; algèbres, coalgèbres et points fixes) et chapitre 4 (calcul de processus sous-jacent) : six blocs portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 02), dont `thm:raffinement`, `thm:non_interference` et `thm:traduction_metalangage`. Ni énoncé, ni esquisse, ni état épistémique ne change.
 - Chapitre 4 (sémantique opérationnelle) : `thm:preservation`, `thm:progres` et `thm:correction_ressource` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 03). Ni énoncé, ni esquisse, ni état épistémique ne change.
 - Chapitre 4 (sémantique opérationnelle) : `thm:stratification_journal` et `thm:relation_produit` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 04). Ni énoncé, ni esquisse, ni état épistémique ne change.
+- Chapitres 2 et 4 : `thm:commutation_traduction`, `thm:image_fix` et `thm:terminaison_lfp` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 05). Ni énoncé, ni esquisse, ni état épistémique ne change.
 
 ## [0.0.0-alpha.2]
 
