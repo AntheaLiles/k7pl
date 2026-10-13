@@ -9,9 +9,9 @@ Ce document trace les actions humaines qui ne peuvent pas être remplacées par 
 
 ## État des validations automatisées
 
-- Pipeline natif Verso HTML + TeX et compilation PDF : réussi dans le run 38447082870 pour les trois premières cibles.
-- Extraction dans le workspace Paperproof épinglé sur Lean 4.34.0 : réussie pour ces trois cibles.
-- Les deux cibles supplémentaires du commit suivant sont en attente de validation de leur propre run CI.
+- Pipeline natif Verso HTML + TeX et compilation PDF : réussi dans le run 38451997922 pour les cinq cibles du corpus.
+- Extraction dans le workspace Paperproof épinglé sur Lean 4.34.0 : les journaux du même run confirment 2, 2, 5, 17 et 8 observations tactiques pour les cinq déclarations.
+- Cette preuve est automatisée et porte sur l'arbre de fusion de test de la PR ; les inspections humaines des cinq vues web et PDF restent ouvertes.
 - Contrôles Python, intégrité de la provenance, compilation Lean/Verso, validateurs de navigation et REUSE : couverts par CI ; consulter le run associé au commit exact avant d'enregistrer une validation.
 
 ## Contrôles humains à effectuer
@@ -26,7 +26,7 @@ Ce document trace les actions humaines qui ne peuvent pas être remplacées par 
 
 ## Inspection initiale déjà effectuée
 
-Sur l'artefact du run 38447082870 (trois vues), les pages PDF 297–298 ont été inspectées. Le contenu reste lisible, mais la ligne de métadonnées comprenant le SHA-256 et le toolchain était longue ; le renderer TeX a été ajusté dans le commit suivant pour séparer ces valeurs. Le paragraphe d'introduction indiquant Lean 4.29.0-rc8 était aussi obsolète et a été corrigé. Ces pages ne valident pas les deux nouvelles vues ni le PDF du commit courant.
+Sur l'artefact du run 38447082870 (trois vues), les pages PDF 297–298 ont été inspectées. Le contenu restait lisible, mais la ligne de métadonnées comprenant le SHA-256 et le toolchain était longue ; le renderer TeX a ensuite été ajusté pour séparer ces valeurs. Le paragraphe d'introduction indiquant Lean 4.29.0-rc8 a également été corrigé. Cette inspection antérieure ne valide pas les cinq vues produites par le run 38451997922 : elles doivent toutes être contrôlées sur les artefacts de ce run ou d'un run ultérieur.
 
 ## Critère de clôture
 
