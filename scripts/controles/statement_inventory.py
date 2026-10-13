@@ -3,9 +3,10 @@
 # SPDX-License-Identifier: CC0-1.0
 """Check the active C8 statement inventory against the controlled migration register.
 
-The pre-migration inventory remains a historical snapshot. This checker compares the current
-source ontology with the migration register and verifies syntactic statement references;
-it does not validate mathematical truth or proof adequacy.
+The pre-migration inventory remains a frozen historical snapshot, kept as an appendix of the
+migration register. This checker compares the current source ontology with the migration register
+and verifies syntactic statement references; it does not validate mathematical truth or proof
+adequacy.
 """
 
 from __future__ import annotations
@@ -23,7 +24,10 @@ if str(SCRIPTS) not in sys.path:
 import manuscript_metrics as mm  # noqa: E402
 
 DEFAULT_INVENTORY = ROOT / "docs" / "tracking" / "LEAN-STATEMENT-MIGRATION.md"
-HISTORICAL_INVENTORY = ROOT / "docs" / "tracking" / "LEAN-STATEMENT-INVENTORY.md"
+# The frozen pre-migration snapshot is the appendix of the migration register.
+HISTORICAL_INVENTORY = DEFAULT_INVENTORY
+HISTORICAL_TABLE_START = "### 2. Inventaire détaillé"
+HISTORICAL_TABLE_END = "### 3. Classification sémantique encore requise"
 EXPECTED_COMPANION_LABELS = {
     "def:elaboration",
     "req:schema_reinvocation_compatibility",
@@ -101,14 +105,17 @@ def inventory_rows(path: Path) -> list[dict[str, object]]:
     return rows
 
 
+def historical_table(text: str) -> str:
+    """Return the detailed table of the frozen pre-migration snapshot."""
+    return text.split(HISTORICAL_TABLE_START, 1)[1].split(HISTORICAL_TABLE_END, 1)[0]
+
+
 def historical_labels(path: Path | None = None) -> set[str]:
     """Read the 69 labels from the immutable pre-migration inventory snapshot."""
     path = path or HISTORICAL_INVENTORY
     text = path.read_text(encoding="utf-8")
     try:
-        table = text.split("## 2. Inventaire détaillé", 1)[1].split(
-            "## 3. Classification sémantique encore requise", 1
-        )[0]
+        table = historical_table(text)
     except IndexError as exc:
         raise ValueError(f"{path}: expected historical inventory headings are missing") from exc
     return set(HISTORICAL_ROW.findall(table))
@@ -119,9 +126,7 @@ def historical_levels(path: Path | None = None) -> dict[str, str]:
     path = path or HISTORICAL_INVENTORY
     text = path.read_text(encoding="utf-8")
     try:
-        table = text.split("## 2. Inventaire détaillé", 1)[1].split(
-            "## 3. Classification sémantique encore requise", 1
-        )[0]
+        table = historical_table(text)
     except IndexError as exc:
         raise ValueError(f"{path}: expected historical inventory headings are missing") from exc
     return {

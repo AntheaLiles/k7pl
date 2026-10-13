@@ -82,6 +82,93 @@ Reprises de la matrice de couverture de la revue sémantique, de la revue des d�
 
 Dépendances structurantes à traiter ensemble : substitution → substitution simultanée → lemme fondamental ; traduction vers le métalangage → raffinement et fidélité (préservation du typage, simulation, préservation des traces et adéquation observationnelle sont des résultats distincts) ; effets et budget (`thm:temps_mononiveau`, `thm:boxtimes_addition`, `thm:coherence_axiome`, `thm:coherence_usage`, `thm:action_parallele`, `thm:distributivite_tronquee`), qui demandent une signature explicite des opérations et de leurs domaines ; préservation du type et conjecture d'abaissement, suivies séparément ; engagements de représentation (`thm:isomorphisme_memoire`, `thm:homomorphisme_roues`, `thm:representation_inobservable`), distincts entre eux.
 
+## Feuille de route C8 et porte de sortie
+
+Reprise du plan des commandes d'énoncés (`LEAN-STATEMENT-COMMANDS-PLAN.md`, supprimé après intégration ; [dernière version](https://github.com/AntheaLiles/k7pl/blob/9696c27219f13ffd6b5e88bcd0f88f83c2f7b564/docs/tracking/LEAN-STATEMENT-COMMANDS-PLAN.md)). Les sections de motivation de ce plan (§ 1 à 4, 6, 7 et 9 : problème épistémique, principe de conception, ontologie préliminaire, réduction de prose, séquence, contrôles antérieurs, livrables) restent consultables dans cette dernière version. Ses décisions ratifiées (§ 10) sont dans [DECISIONS](DECISIONS.md), section « Décision d'autrice — taxonomie des énoncés C8 (9 octobre 2026) ». La « Suite de clôture C8 » ci-dessus reproduit l'état ratifié ; l'état courant est dans le tableau suivant.
+
+| Étape | Objet | État au 13 octobre 2026 | Trace |
+|---|---|---|---|
+| C8.0 — inventaire | inventaire et classification de chaque bloc | classification des 69 blocs ratifiée ; **non clos** : « Obligations de clôture C8.0 » ci-dessus | ce registre ; instantané en annexe |
+| C8.1 — ontologie | taxonomie ratifiée | **fait** (décisions du 9 octobre 2026) | [DECISIONS](DECISIONS.md) |
+| C8.2 — extension | représentation partagée et directives spécialisées | **fait** : PR #134 fusionnée le 11 octobre 2026 (`f5a7ade`) ; CI #1024 verte sur sa tête exacte `0a2171c` | `tools/SpecExt/Theorem.lean` ; contrat dans `.claude/skills/writing-rules.md` |
+| C8.3 — contrôles | contrôles structurels bloquants | **en place** depuis #134 ; voir « Contrôles mécaniques du registre ». La couverture de chacune des règles listées au plan n'a pas été réauditée lors de cette intégration | `scripts/controles/` |
+| C8.4 — migration contrôlée | migration sans changement de contenu mathématique | **faite** : PR #139 fusionnée le 11 octobre 2026 (`e9b5d2b`) ; 69 labels historiques et huit objets complémentaires | ce registre |
+| C8.5 — réduction de prose | après validation de la taxonomie | **non commencée** | — |
+| C8.6 — traçabilité | spécification ↔ Lean ; littérature, prémisses et exemples ↔ provenance | **ouverte** (obligation de clôture 6) | — |
+| C8.7 — porte de sortie | dix critères | **ouverte** : C8 n'est pas clos | — |
+
+Texte d'origine des étapes encore ouvertes et de la contrainte scientifique du plan, reproduit sans traduction :
+
+> ##### C8.5 — Prose reduction
+>
+> Only after the taxonomy is mechanically validated, perform a separate editorial pass.
+>
+> For every explanatory paragraph adjacent to a structured statement ask:
+>
+> 1. Does it add an assumption?
+> 2. Does it add scope?
+> 3. Does it add interpretation?
+> 4. Does it add motivation?
+> 5. Does it add a limitation?
+> 6. Or does it merely announce the kind or evidential status of the following block?
+>
+> Only the sixth category is a candidate for deletion.
+>
+> The before/after word count is evidence of reduction, not its justification.
+>
+> ##### C8.6 — Traceability
+>
+> Extend the specification ↔ Lean inventory so that the distinction between:
+>
+> `normative statement → formal target → proof/evidence`
+>
+> and
+>
+> `literature result / assumption / example → provenance or local support`
+>
+> is explicit.
+>
+> This work feeds H-semantic traceability but must not be used to claim semantic correspondence merely because labels coincide.
+>
+> ##### C8.7 — Exit gate
+>
+> C8 closes only when:
+>
+> 1. every numbered statement has a validated kind and role;
+> 2. definitions, assumptions, requirements, results, literature claims, and examples are structurally distinguishable;
+> 3. local hypotheses cannot silently become global normative statements;
+> 4. proof and proof-sketch blocks have validated parent kinds;
+> 5. open claims remain open in generated inventories and propagation checks;
+> 6. provenance requirements are enforced for literature claims;
+> 7. the current statement inventory is regenerated from source;
+> 8. the specification builds and renders;
+> 9. the existing mathematical content is unchanged except for explicitly ratified classification;
+> 10. a prose-reduction pass demonstrates that removed text was structurally redundant rather than scientifically necessary.
+>
+> #### 8. Scientific constraint
+>
+> This refactoring is documentary/formal infrastructure. It must not be used to manufacture mathematical certainty.
+>
+> In particular:
+>
+> - changing proposition → theorem is a scientific status change, not a formatting change;
+> - adding a proof slot is not a proof;
+> - marking a literature result as established does not make it a K7PL result;
+> - turning a prose assumption into an axiom changes the explicit foundational surface and requires authorial ratification;
+> - deleting prose is legitimate only when the represented information remains recoverable elsewhere.
+>
+> The taxonomy exists to make these distinctions harder to violate, not easier to conceal.
+
+## Contrôles mécaniques du registre
+
+Repris de `LEAN-STATEMENT-ONTOLOGY-CONTROLS.md`, supprimé après intégration ([dernière version](https://github.com/AntheaLiles/k7pl/blob/2bdb06e5e42857cef5c2f9084f6b6b7245bed46b/docs/tracking/LEAN-STATEMENT-ONTOLOGY-CONTROLS.md)).
+
+- `scripts/manuscript_metrics.py` inventorie les directives historiques et spécialisées et expose la nature, le rôle logique, l’état épistémique, l’appui, la portée et les références.
+- `scripts/controles/statement_ontology.py` contrôle les métadonnées des directives spécialisées ; il est intégré aux contrôles de notation (`scripts/controle.py`). Ses règles, et celles que la compilation applique déjà, sont décrites dans `.claude/skills/writing-rules.md`, section « Énoncés : directives spécialisées ».
+- `scripts/controles/statement_inventory.py` compare les 77 objets sources à la table « Classification courante » de ce registre, vérifie les 69 labels historiques plus exactement huit compagnons (cinq issus de C8.4, trois de la scission de `thm:raffinement`), détecte les dérives de champs et de références, et compare chaque niveau historique à l’instantané pré-migration reproduit en annexe. `--dependency-cycles` est un diagnostic non bloquant : toute composante détectée est une alerte de revue sémantique, pas une preuve de circularité scientifique.
+
+Ces contrôles sont mécaniques et structurels. Ils ne prouvent pas la vérité mathématique, ne valident pas une preuve écrite, ne résolvent pas automatiquement les références bibliographiques et ne vérifient pas la bonne attache argumentative d’une hypothèse locale. Aucun énoncé n’a été promu à `established`.
+
 ## Classification courante
 | Label | Source | Nature | Rôle | État | Appui | Scope tag | Portée détaillée ratifiée | Niveau historique | Note de migration |
 |---|---|---|---|---|---|---|---|---|
@@ -313,3 +400,181 @@ Sources : les 37 labels non couverts par les lots 01 à 10, répartis dans C2 à
 | `thm:troncature_comonade` | Énoncé large pour tout foncteur ; preuve sur papier. | Note d'obligation ouverte. | Typage des équations en `T`, `δ`, `λ` (rang limite) ; récurrence complète ; faits standard séparés du résultat K7PL (séparation : décision de l'autrice, voir [DECISIONS](DECISIONS.md)). |
 | `thm:fenetre_grade` | Identification explicitement non démontrée. | Note d'obligation ouverte. | Applications de représentation vers la fenêtre commune et retour ; coïncidence des bornes. |
 | `thm:preservation_type` | Bloc composé : préservation par réduction et conjecture d'abaissement MLIR. | Note d'obligation ouverte. La conjecture `thm:abaissement_grades` est déjà un objet distinct (C8.4). | Préservation du noyau et conjecture suivies séparément, avec P2 et P1b. |
+
+## Annexe — inventaire mécanique des énoncés existants, C8.0 (base pré-migration, figée)
+
+Cette annexe reproduit sans modification, hors niveaux de titres, `LEAN-STATEMENT-INVENTORY.md`, supprimé après intégration ([dernière version](https://github.com/AntheaLiles/k7pl/blob/e9b5d2b282117c3bca37787e08819d801b1ef360/docs/tracking/LEAN-STATEMENT-INVENTORY.md)). Elle est **figée** : `scripts/controles/statement_inventory.py` y lit les 69 labels historiques et leurs niveaux (§ 2), et un test en épingle l'empreinte. Ses § 3 à 5 décrivent l'état au moment du relevé, non l'état courant ; la suite est tenue dans « Feuille de route C8 et porte de sortie ».
+
+> **État : instantané historique pré-migration.** Ce relevé décrit la syntaxe héritée au commit de référence ; il ne constitue ni une classification sémantique approuvée, ni une preuve de validité mathématique. À la date de ce relevé, aucun énoncé source n'avait été modifié. La migration ratifiée est maintenant documentée dans le [registre de migration C8](LEAN-STATEMENT-MIGRATION.md).
+
+- Référence du relevé : branche `main`, arbre Git `20a228f137f507aac9b3e8c9f2e1776f29fa635a`.
+- Périmètre exploratoire : fichiers `spec/Spec/**/*.lean` contenant des directives `::::thm`.
+- Méthode : lecture des directives, extraction des arguments littéraux `label`, `status`, `level`, titre et présence des créneaux `:::statement` / `:::proofsketch`.
+- Les lignes désignent le début de la directive dans le fichier au commit de référence. Elles sont des repères historiques et ne correspondent plus nécessairement aux lignes courantes ; la régénération des inventaires courants fait partie du point C8.4.
+- `status` est conservé comme **champ historique**, pas comme taxonomie cible. `level` est lui aussi conservé tel quel ; il ne doit pas être assimilé au futur `scope`.
+- La présence de `:::proofsketch` indique uniquement une esquisse textuelle. Elle ne prouve pas qu'une preuve soit correcte, ni que Lean vérifie l'énoncé.
+
+### 1. Contrôle de couverture de la base pré-migration
+
+- Énoncés relevés : **69**.
+- Fichiers sources recensés : **21**.
+- Labels dupliqués dans ce relevé : **0**.
+- Créneau `:::proofsketch` : **65 présent**, **4 absent**.
+
+#### Répartition par statut historique
+
+| Statut hérité | Nombre |
+|---|---:|
+| `conjecture` | 2 |
+| `definition` | 2 |
+| `exigence` | 4 |
+| `proposition` | 18 |
+| `theoreme` | 43 |
+| **Total** | **69** |
+
+#### Répartition par niveau historique
+
+| Niveau hérité | Nombre |
+|---|---:|
+| `compilation` | 2 |
+| `langage` | 62 |
+| `representation` | 5 |
+| **Total** | **69** |
+
+#### Répartition par fichier
+
+| Source | Énoncés |
+|---|---:|
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 7 |
+| `spec/Spec/C4/ModelesDeMemoire.lean` | 2 |
+| `spec/Spec/C5/LeTheoremeDElaboration.lean` | 1 |
+| `spec/Spec/C2/SystemeDeRaffinement.lean` | 3 |
+| `spec/Spec/C5/NotationsSpecialisees.lean` | 4 |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | 6 |
+| `spec/Spec/C3/GrammaireDesTypes.lean` | 1 |
+| `spec/Spec/C3/LeSystemeGradue.lean` | 3 |
+| `spec/Spec/C3/ReglesDeTypage.lean` | 6 |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 8 |
+| `spec/Spec/C4/EchelleDeLActeur.lean` | 1 |
+| `spec/Spec/C5/CeQuUneMacroDeclare.lean` | 1 |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` | 3 |
+| `spec/Spec/C6/CeQueLeSolveurRetourne.lean` | 3 |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 7 |
+| `spec/Spec/C4/CalculDeProcessusSousJacent.lean` | 3 |
+| `spec/Spec/C6/LeProcessusDeCompilation.lean` | 1 |
+| `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 2 |
+| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 2 |
+| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 4 |
+| `spec/Spec/C3/StructuresOuvertesEffetsEtMetaTheorie.lean` | 1 |
+| **Total** | **69** |
+
+### 2. Inventaire détaillé
+
+Le statut et le niveau sont les valeurs explicites présentes dans la directive ; en l'absence d'argument, la valeur par défaut de l'implémentation actuelle est reportée (`theoreme` et `langage`). Le titre est transcrit du créneau `:::title`, avec espaces normalisés.
+
+| Source | Ligne | Label | Statut historique | Niveau historique | Titre | Esquisse |
+|---|---:|---|---|---|---|---|
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 35 | `thm:schema_commutation` | theoreme | langage | schéma de commutation | oui |
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 63 | `thm:schema_preservation` | theoreme | langage | schéma de préservation par traduction | oui |
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 88 | `thm:tri_topologique` | theoreme | langage | tri topologique | oui |
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 111 | `thm:schema_restriction` | theoreme | langage | schéma de restriction | oui |
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 150 | `thm:schema_reinvocation` | theoreme | langage | schéma de ré-invocation bornée | oui |
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 188 | `thm:schema_effacement` | theoreme | langage | schéma d'effacement | oui |
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 227 | `thm:lemme_capacite` | theoreme | langage | lemme de capacité | oui |
+| `spec/Spec/C4/ModelesDeMemoire.lean` | 41 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | oui |
+| `spec/Spec/C4/ModelesDeMemoire.lean` | 99 | `thm:introduction_unique` | proposition | langage | loi unique d'introduction des ressources d'écriture | oui |
+| `spec/Spec/C5/LeTheoremeDElaboration.lean` | 30 | `thm:elaboration` | definition | langage | élaboration | oui |
+| `spec/Spec/C2/SystemeDeRaffinement.lean` | 52 | `thm:raffinement` | theoreme | langage | structure de raffinement | oui |
+| `spec/Spec/C2/SystemeDeRaffinement.lean` | 152 | `thm:non_interference` | theoreme | langage | non-interférence graduée, fragment séquentiel | oui |
+| `spec/Spec/C2/SystemeDeRaffinement.lean` | 191 | `thm:determinisme_observationnel` | conjecture | langage | déterminisme observationnel | oui |
+| `spec/Spec/C5/NotationsSpecialisees.lean` | 126 | `thm:staticite_syntaxe` | theoreme | langage | staticité de la syntaxe | oui |
+| `spec/Spec/C5/NotationsSpecialisees.lean` | 217 | `thm:hygiene` | theoreme | langage | hygiène des expansions | oui |
+| `spec/Spec/C5/NotationsSpecialisees.lean` | 241 | `thm:hygiene_graduee` | proposition | langage | hygiène graduée des expansions | oui |
+| `spec/Spec/C5/NotationsSpecialisees.lean` | 261 | `thm:resucrage` | exigence | langage | préservation de l'α-équivalence de surface | non |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | 118 | `thm:determinisme_rejeu` | theoreme | langage | déterminisme logique du rejeu | oui |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | 144 | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | oui |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | 320 | `thm:liberte_initialisation` | theoreme | langage | liberté d'initialisation par DAG topologique | oui |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | 469 | `thm:sync_motifs_jonction` | theoreme | langage | synchronisation atomique des motifs de jonction | oui |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | 548 | `thm:surete_ffi` | theoreme | langage | sûreté FFI par la passerelle de capacité | oui |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | 575 | `thm:revocation_ffi` | exigence | representation | révocation à la frontière étrangère | non |
+| `spec/Spec/C3/GrammaireDesTypes.lean` | 123 | `thm:temps_mononiveau` | theoreme | langage | le cas mononiveau redonne la forme plate | oui |
+| `spec/Spec/C3/LeSystemeGradue.lean` | 130 | `thm:morphismes_modes` | proposition | langage | ordre structurel des modes | oui |
+| `spec/Spec/C3/LeSystemeGradue.lean` | 521 | `thm:completude_graduee` | proposition | langage | complétude graduée | oui |
+| `spec/Spec/C3/LeSystemeGradue.lean` | 555 | `thm:completude_verificateur` | exigence | compilation | le vérificateur n'émet que des codes de la correspondance | non |
+| `spec/Spec/C3/ReglesDeTypage.lean` | 103 | `thm:boxtimes_addition` | theoreme | langage | $`\boxtimes` généralise l'addition ponctuelle | oui |
+| `spec/Spec/C3/ReglesDeTypage.lean` | 386 | `thm:coherence_subsomption` | proposition | langage | cohérence de la subsomption | oui |
+| `spec/Spec/C3/ReglesDeTypage.lean` | 726 | `thm:commutation_monoide` | theoreme | langage | commutation des deux familles | oui |
+| `spec/Spec/C3/ReglesDeTypage.lean` | 1319 | `thm:determinisme_parallele` | theoreme | langage | déterminisme du parallélisme de couche 3 | oui |
+| `spec/Spec/C3/ReglesDeTypage.lean` | 1605 | `thm:substitution` | proposition | langage | substitution sur trois niveaux | oui |
+| `spec/Spec/C3/ReglesDeTypage.lean` | 1696 | `thm:substitution_simultanee` | theoreme | langage | substitution simultanée — corollaire de la substitution élémentaire | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 137 | `thm:preservation` | theoreme | langage | préservation | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 195 | `thm:progres` | theoreme | langage | progrès | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 290 | `thm:correction_ressource` | theoreme | langage | correction de ressource | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 393 | `thm:stratification_journal` | theoreme | langage | stratification du journal | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 535 | `thm:relation_produit` | proposition | langage | relation logique sur un produit de structures ordonnées | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 561 | `thm:lemme_fondamental` | theoreme | langage | lemme fondamental | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 717 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | oui |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 792 | `thm:image_fix` | theoreme | langage | image du point fixe déductif | oui |
+| `spec/Spec/C4/EchelleDeLActeur.lean` | 142 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | oui |
+| `spec/Spec/C5/CeQuUneMacroDeclare.lean` | 96 | `thm:expansion_macro` | theoreme | langage | la règle d'expansion est dérivable | oui |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` | 274 | `thm:deadlock_acyclique` | theoreme | langage | absence de deadlock par acyclicité du graphe de sessions | oui |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` | 350 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | oui |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` | 384 | `thm:representation_inobservable` | exigence | representation | aucune liberté de représentation n'est observable | non |
+| `spec/Spec/C6/CeQueLeSolveurRetourne.lean` | 60 | `thm:interface_jugement` | definition | langage | l'interface d'une unité de compilation est son jugement | oui |
+| `spec/Spec/C6/CeQueLeSolveurRetourne.lean` | 132 | `thm:rejet_reproductible` | theoreme | langage | reproductibilité du rejet | oui |
+| `spec/Spec/C6/CeQueLeSolveurRetourne.lean` | 463 | `thm:abaissement_grades` | conjecture | compilation | l'abaissement préserve le jugement gradué | oui |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 132 | `thm:terminaison_couche_3` | theoreme | langage | terminaison de la couche 3 — l'instance inductive | oui |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 216 | `thm:sedimentation` | theoreme | langage | bonne définition de la sédimentation | oui |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 294 | `thm:productivite_couche_2` | theoreme | langage | productivité de la couche 2 — l'instance coinductive | oui |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 342 | `thm:progression_polarisee` | theoreme | langage | progression, paramétrée par la couche | oui |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 454 | `thm:loi_historique` | theoreme | langage | loi distributive de l'historique | oui |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 526 | `thm:troncature_comonade` | theoreme | langage | la troncature est un morphisme de comonades | oui |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 576 | `thm:fenetre_grade` | proposition | langage | une fenêtre est un grade | oui |
+| `spec/Spec/C4/CalculDeProcessusSousJacent.lean` | 151 | `thm:traduction_metalangage` | proposition | langage | la traduction préserve le typage | oui |
+| `spec/Spec/C4/CalculDeProcessusSousJacent.lean` | 299 | `thm:simulation` | proposition | langage | simulation de la relation de réduction par la traduction | oui |
+| `spec/Spec/C4/CalculDeProcessusSousJacent.lean` | 340 | `thm:fidelite_interprete` | proposition | langage | fidélité de l'interpréteur de référence | oui |
+| `spec/Spec/C6/LeProcessusDeCompilation.lean` | 155 | `thm:stabilisation_pipeline` | theoreme | langage | stabilisation du pipeline | oui |
+| `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 187 | `thm:cloture_sortage` | theoreme | langage | clôture du bon sortage par substitution | oui |
+| `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 214 | `thm:confinement_sortes` | theoreme | langage | confinement des canaux distingués | oui |
+| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 234 | `thm:divulgation_delimitee` | proposition | langage | divulgation délimitée | oui |
+| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 381 | `thm:terminaison_lfp` | theoreme | langage | terminaison du point fixe déductif | oui |
+| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 125 | `thm:distributivite_tronquee` | theoreme | langage | distributivité du produit sur la soustraction tronquée | oui |
+| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 158 | `thm:coherence_axiome` | proposition | langage | condition de compatibilité de l'action graduée | oui |
+| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 182 | `thm:coherence_usage` | proposition | langage | cohérence de l'action d'usage | oui |
+| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 280 | `thm:action_parallele` | proposition | langage | compatibilité de l'itération et de la mise en parallèle | oui |
+| `spec/Spec/C3/StructuresOuvertesEffetsEtMetaTheorie.lean` | 253 | `thm:preservation_type` | theoreme | langage | préservation du type | oui |
+
+### 3. Classification sémantique encore requise
+
+Les champs suivants **ne peuvent pas être déduits de façon fiable** du seul ancien `status` ou du titre. Ils restent à examiner occurrence par occurrence à partir du contenu intégral de l'énoncé et de ses dépendances :
+
+- **Nature de l'objet** : résultat K7PL, définition, exigence, axiome/postulat, hypothèse locale, résultat de littérature, exemple/contre-exemple ou autre objet documentaire.
+- **Rôle logique/expositif** : théorème, lemme, corollaire, proposition, conjecture, ou rôle différent selon l'ontologie ratifiée.
+- **État épistémique** : proposé, en revue, étayé, établi, réfuté ou retiré. Les valeurs héritées ne sont pas automatiquement équivalentes à ces états.
+- **Portée (`scope`)** : à déterminer séparément du `level` hérité.
+- **Type d'appui** : argument textuel, esquisse de preuve, preuve rédigée complète, preuve Lean vérifiée, référence externe, ou absence d'appui explicite.
+- **Hypothèses et dépendances** : prémisses locales, autres énoncés invoqués, références bibliographiques et éventuelle accroche vers `src/`.
+
+Aucune de ces dimensions n'est remplie par inférence dans cet inventaire mécanique. La prochaine étape est une annotation sémantique contrôlée et vérifiée, puis une comparaison avec les compteurs, contrôles et rendus actuels. Le document ne doit pas être utilisé comme autorisation de migrer les énoncés.
+
+### 4. Consommateurs à préserver
+
+Le contrôle des dépendances a identifié au minimum les points suivants :
+
+- `tools/SpecExt/Theorem.lean` : type interne `ThmInfo`, valeurs par défaut, rendu HTML/LaTeX, slot `proofsketch` et compteur partagé `theoreme`.
+- `scripts/manuscript_metrics.py` : extraction textuelle des directives et calculs par statut/niveau, y compris la métrique des énoncés « ouverts ».
+- `scripts/controles/notation.py` : liste fermée des statuts/niveaux, exigence d'esquisse pour certains objets, interdiction d'esquisse sur les exigences et propagation des références d'énoncés ouverts.
+- `scripts/controles/structure.py` : préfixe `thm:`, unicité des labels et vérification des références.
+- `scripts/controles/couverture.py` : couverture des énoncés par accroches vers les déclarations Lean et publication des métriques de couverture.
+
+Cette liste est le minimum confirmé par inspection ; les références supplémentaires doivent être recherchées avant C8.2. Les règles existantes ne doivent pas être supprimées avant que leurs équivalents cibles soient testés.
+
+### 5. Limites et contrôles de la présente étape
+
+Ce document a été établi par rapprochement des résultats de recherche GitHub et de la lecture des fichiers sources listés. Il n'a pas encore été régénéré par un script exécuté dans l'environnement du dépôt. Avant de considérer C8.0 clos, il faut :
+
+1. automatiser la génération du relevé depuis l'arbre de travail ;
+2. vérifier que les nombres, labels, statuts, niveaux, lignes et slots concordent avec les sources ;
+3. vérifier les chemins d'inclusion et rechercher les formes d'énoncés hors de `spec/Spec/**/*.lean` ;
+4. faire valider la classification sémantique sans modifier les énoncés ;
+5. consigner les exceptions et les dépendances non résolues.

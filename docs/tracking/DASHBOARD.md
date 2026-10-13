@@ -34,7 +34,7 @@ This is the current entry point for project tracking. It answers what is current
 
 - [OpenSSF / CII operational status](../security/OPENSSF-ROADMAP.md) — current open security, release, and BadgeApp gates.
 - [Human actions](../security/ACTIONS-HUMAINES.md) — ordered checklist for settings, decisions, BadgeApp, and publication.
-- [Lean statement-command plan](LEAN-STATEMENT-COMMANDS-PLAN.md) — C8 statement ontology, validation, migration and proof-bearing exposition.
+- [C8 statement register](LEAN-STATEMENT-MIGRATION.md) — C8 statement ontology, classification, roadmap, exit gate and frozen pre-migration snapshot.
 - [Migration register](../migration/README.md) — active semantic migration lots only.
 - [Interactive exploration plan](INTERACTIVE-EXPLORATION-PLAN.md) — navigation prototype, evaluation, graph and accessibility residuals.
 

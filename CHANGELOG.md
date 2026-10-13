@@ -15,6 +15,12 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Contrôle d'inventaire des énoncés C8 (`scripts/controles/statement_inventory.py`) : l'instantané
+  pré-migration, qui fixe les 69 labels historiques et leurs niveaux, est désormais une annexe figée
+  de `docs/tracking/LEAN-STATEMENT-MIGRATION.md` ; un test en épingle l'empreinte SHA-256.
+
 ## [0.0.0-alpha.1]
 
 - CI : les diagnostics Lean et les violations REUSE sont désormais annotés selon une politique sélective et priorisée, sans ajouter de permissions d'écriture sur les pull requests (#64, #66).

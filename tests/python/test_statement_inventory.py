@@ -14,6 +14,8 @@ CONTROLS = ROOT / "scripts" / "controles"
 if str(CONTROLS) not in sys.path:
     sys.path.insert(0, str(CONTROLS))
 
+import hashlib  # noqa: E402
+
 import statement_inventory as inventory  # noqa: E402
 
 
@@ -125,3 +127,23 @@ def test_all_historical_labels_survive_with_only_declared_companion_objects():
     assert historical <= active
     assert active - historical == inventory.EXPECTED_COMPANION_LABELS
     assert len(inventory.EXPECTED_COMPANION_LABELS) == 8
+
+
+# SHA-256 of the detailed table of the pre-migration snapshot. The digest was computed on
+# LEAN-STATEMENT-INVENTORY.md (last version e9b5d2b2) before the snapshot moved, unchanged, into
+# the appendix of the migration register. The level and label checks read this table, so any
+# edit to it must fail here rather than silently rebase the historical baseline.
+FROZEN_HISTORICAL_TABLE_SHA256 = "88e8213a23c0103db2a6f6789ffb175553f83adb051839040fc67225d7f66c10"
+
+
+def test_historical_snapshot_is_frozen():
+    text = inventory.HISTORICAL_INVENTORY.read_text(encoding="utf-8")
+    table = inventory.historical_table(text)
+    assert hashlib.sha256(table.encode("utf-8")).hexdigest() == FROZEN_HISTORICAL_TABLE_SHA256
+    assert len(inventory.HISTORICAL_ROW.findall(table)) == 69
+
+
+def test_historical_snapshot_follows_the_classification_table():
+    text = inventory.DEFAULT_INVENTORY.read_text(encoding="utf-8")
+    assert text.index("## Classification courante") < text.index(inventory.HISTORICAL_TABLE_START)
+    assert text.index(inventory.HISTORICAL_TABLE_START) < text.index(inventory.HISTORICAL_TABLE_END)
