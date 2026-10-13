@@ -36,6 +36,7 @@ This is the current entry point for project tracking. It answers what is current
 - [C8 statement register](LEAN-STATEMENT-MIGRATION.md) — C8 statement ontology, classification, roadmap, exit gate and frozen pre-migration snapshot.
 - [Migration register](../migration/README.md) — active semantic migration lots only.
 - [Interactive exploration plan](INTERACTIVE-EXPLORATION-PLAN.md) — navigation prototype, evaluation, graph and accessibility residuals.
+- [Proof visualization roadmap](PROOF-VISUALIZATION-ROADMAP.md) — Paperproof proof-tree prototype, ranked technical extensions, verification commands, and human validation still required.
 
 ## Historical records
 
