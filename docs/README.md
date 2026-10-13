@@ -18,7 +18,11 @@ Start with:
 - [Architecture](ARCHITECTURE.md): project structure, conceptual layers, and relationships between specification, formalisation, implementation, proofs, and tests.
 - [Research](RESEARCH.md): scientific problem, hypothesis, object, expected contributions, and validation strategy.
 - [Specification](../spec/): the normative language specification.
-- [Interactive exploration](tracking/INTERACTIVE-EXPLORATION.md): proposed interactive presentation and knowledge navigation layer.
+- [Interactive exploration](tracking/INTERACTIVE-EXPLORATION.md): architecture and current prototype scope.
+- [Interactive exploration plan](tracking/INTERACTIVE-EXPLORATION-PLAN.md): user stories, acceptance criteria, implementation status and validation gates.
+- [Interactive exploration inventory](tracking/INTERACTIVE-EXPLORATION-INVENTORY.md): canonical sources, generators, validators and current limits.
+- [Navigation prototype](tracking/NAVIGATION-PROTOTYPE.md): implementation contract, all-page coverage and deployment/usage limits.
+- [Navigation semantic model](tracking/NAVIGATION-SEMANTIC-MODEL.md): allowed relation types, provenance and epistemic-status boundaries.
 
 ## Assess the current state
 
