@@ -558,7 +558,7 @@ Detailed evidence remains in:
 - docs/tracking/FICHES-PR02.md — PR-02 tracking;
 - docs/migration/L1-THEORY-OBJECTS.md — theoretical-object boundaries;
 - docs/history/2026-10-08-documentation-architecture-plan.md — completed physical documentation migration record;
-- docs/tracking/LEAN-STATEMENT-COMMANDS-PLAN.md — C8 statement-command taxonomy and proof-bearing exposition;
+- docs/tracking/LEAN-STATEMENT-MIGRATION.md — C8 statement register: classification, roadmap, exit gate and frozen pre-migration snapshot;
 - scripts/controles/couverture.py — initial specification/Lean coverage infrastructure.
 
 The master plan should not duplicate theorem statements or historical session reports.
