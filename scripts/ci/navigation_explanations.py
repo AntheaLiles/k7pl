@@ -95,5 +95,77 @@ EXPLANATION_CATALOG = [
                 ],
             },
         },
-    }
+    },
+    {
+        "id": "k7pl-graded-system",
+        "title": "Que distingue un grade, une modalité et un mode ?",
+        "target_url": GRADED_SYSTEM,
+        "notice": (
+            "Synthèse éditoriale non normative, rédigée à partir de la section C3. "
+            "Les définitions et statuts de la spécification Verso font autorité."
+        ),
+        "levels": {
+            "intro": {
+                "text": (
+                    "Le système gradué de K7PL organise des contraintes d’usage dans un "
+                    "même langage. Pour le lire correctement, il faut distinguer la valeur "
+                    "qui annote une liaison, le domaine autorisé pour cette valeur et les "
+                    "permissions structurelles associées à un type."
+                ),
+                "sources": [source("Le système gradué (C3)", GRADED_SYSTEM)],
+            },
+            "concept": {
+                "text": (
+                    "Un grade est une annotation portée par une liaison : il exprime les "
+                    "conditions et la quantité d’usage de cette liaison. Une modalité est "
+                    "un intervalle de grades autorisés par un type. Un mode structurel décrit "
+                    "plus précisément une algèbre de grades, les grades contractables et "
+                    "la permission d’affaiblissement. Ces notions sont liées, mais ne sont "
+                    "pas interchangeables."
+                ),
+                "sources": [source("Définitions et distinctions (C3)", GRADED_SYSTEM)],
+            },
+            "detail": {
+                "text": (
+                    "Les intervalles d’usage Lin [1..1], Aff [0..1], Rel [1..ω] et Unr "
+                    "[0..ω] classent les usages permis par la syntaxe. La section précise "
+                    "que ces intervalles ne sont ni l’ordre de sous-typage, ni l’ordre de "
+                    "précision, et qu’ils ne forment pas automatiquement une algèbre de modes."
+                ),
+                "sources": [source("Intervalles d’usage et leurs limites (C3)", GRADED_SYSTEM)],
+            },
+            "formalization": {
+                "text": (
+                    "Le périmètre normatif décrit dans C3 retient trois modes structurels "
+                    "de référence : Lin, Aff et Unr. Le quadruplet structurel candidat Rel "
+                    "reste une possibilité théorique séparée ; il ne devient pas normatif "
+                    "parce que l’intervalle d’usage Rel existe. Il faut donc lire les "
+                    "annotations, les intervalles et les triplets de mode comme trois niveaux "
+                    "de formalisation distincts."
+                ),
+                "sources": [source("Modes structurels de référence (C3)", GRADED_SYSTEM)],
+            },
+            "verification": {
+                "text": (
+                    "La proposition sur les morphismes entre les trois modes est explicitement "
+                    "marquée under-review avec une esquisse de preuve. La section précise les "
+                    "obligations encore ouvertes et avertit que cette esquisse ne démontre ni "
+                    "la réalisation des permissions par les règles de typage K7PL, ni la "
+                    "préservation de leur dénotation. Un candidat formel ne doit pas être "
+                    "présenté comme un résultat établi."
+                ),
+                "sources": [source("Proposition et obligations ouvertes (C3)", GRADED_SYSTEM)],
+            },
+            "sources": {
+                "text": (
+                    "C3 cite des travaux sur les systèmes gradués et les théories de modes. "
+                    "Ces citations documentent les choix de conception ; leur présence ne "
+                    "signifie pas que les propriétés spécifiques de K7PL sont démontrées par "
+                    "ces références. Les états et obligations internes restent à consulter "
+                    "dans la source Verso."
+                ),
+                "sources": [source("Section canonique C3 et ses citations", GRADED_SYSTEM)],
+            },
+        },
+    },
 ]
