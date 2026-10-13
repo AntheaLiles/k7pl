@@ -3,10 +3,10 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Prototype de navigation — provenance des figures
+# Prototype de navigation — provenance des figures et relations documentaires
 
-**Statut :** catalogue généré en CI et déployé sur GitHub Pages ; comparaison d'usage et revue humaine encore ouvertes.  
-**Périmètre :** navigation de provenance des figures, et non graphe sémantique général.
+**Statut :** les catalogues statiques de provenance et le graphe de navigation HTML sont générés et contrôlés en CI ; les tests humains et la comparaison d'usage restent ouverts.  
+**Périmètre :** provenance technique des figures et navigation documentaire dérivée du HTML. Les graphes sémantiques C6/C3 restent des vues distinctes et bornées ; aucun graphe de preuve général n’est revendiqué.
 
 ## Cas d'usage retenu
 
@@ -86,13 +86,13 @@ Le graphe C6/C3 formalise uniquement des rôles `num`/`cite` explicites sur deux
 
 ## Couverture du navigateur relationnel — état au 13 octobre 2026
 
-Le générateur `scripts/ci/build_navigation_graph.py` parcourt les fichiers HTML rendus sous le répertoire de sortie Verso, à l'exclusion du sous-répertoire `navigation/` qu'il produit lui-même. Il ajoute une entrée contextuelle à chaque page documentaire rendue, avec un paramètre qui transmet la page de départ. Cette boucle porte sur l'ensemble des sorties HTML générées, donc sur les pages des chapitres présents au build ; elle ne constitue pas la preuve qu'une URL publique donnée a été ouverte et testée.
+Le générateur `scripts/ci/knowledge_graph/build_navigation_graph.py` parcourt les fichiers HTML rendus sous le répertoire de sortie Verso, à l'exclusion du sous-répertoire `navigation/` qu'il produit lui-même. Il ajoute une entrée contextuelle à chaque page documentaire rendue, avec un paramètre qui transmet la page de départ. Cette boucle porte sur l'ensemble des sorties HTML générées, donc sur les pages des chapitres présents au build ; elle ne constitue pas la preuve qu'une URL publique donnée a été ouverte et testée.
 
 Le graphe est lui aussi dérivé de l'ensemble de ces pages. Il représente les pages, titres/sections, figures, tableaux, listings, énoncés et entrées bibliographiques reconnus par les marqueurs HTML existants. Les arêtes `contains` décrivent la hiérarchie documentaire ; `references` et `cites` viennent de liens explicites rendus. Le générateur échoue lorsqu'une référence interne de cette portée ne peut pas être résolue. Il n'infère toujours pas de relations de preuve, d'implémentation ou de test.
 
 Il faut distinguer la couverture de navigation de la couverture éditoriale progressive :
 - l'entrée de navigation et la possibilité de rechercher/sélectionner des objets sont produites pour l'ensemble des pages HTML rendues ;
-- les explications en six niveaux sont rédigées manuellement et attachées seulement aux cibles inscrites dans `scripts/ci/navigation_explanations.py` ;
+- les explications en six niveaux sont rédigées manuellement et attachées seulement aux cibles inscrites dans `scripts/ci/knowledge_graph/navigation_explanations.py` ;
 - dans l'état de cette branche, deux entrées disposent de ces explications : l'idée directrice de C1 Introduction et les distinctions grade/modalité/mode de C3 ;
 - pour les autres objets, l'interface doit annoncer l'absence d'une explication dédiée et proposer le retour à la source canonique. Elle ne génère pas de vulgarisation à partir des seules arêtes.
 
@@ -105,6 +105,6 @@ Le graphe interactif requiert JavaScript pour charger `navigation/graph.json`. L
 - `section_context` extrait un contexte textuel borné pour une section, jusqu'au titre suivant ; ce texte n'est ni une définition normativement identifiée ni une relation sémantique.
 - `resolve_authored_explanations` rattache uniquement les explications explicitement cataloguées à leurs destinations HTML canoniques.
 - `inject_navigation_link` ajoute le point d'entrée de manière idempotente à chaque page rendue.
-- `check_navigation_graph_output.py` et ses tests contrôlent notamment les ancres, liens, nœuds, arêtes, marqueurs de fraîcheur et renvois des explications.
+- [`check_navigation_graph_output.py`](../../scripts/ci/knowledge_graph/check_navigation_graph_output.py) et ses tests contrôlent notamment les ancres, liens, nœuds, arêtes, marqueurs de fraîcheur et renvois des explications.
 
-Les docstrings et commentaires du générateur explicitent désormais ces contrats principaux. Ce travail de documentation n'implique pas que chaque comportement visuel ait été validé humainement.
+Le contrat technique du composant, ses limites et ses commandes de validation sont décrits dans [scripts/ci/knowledge_graph/README.md](../../scripts/ci/knowledge_graph/README.md). Les docstrings et commentaires du générateur explicitent également les contrats principaux. Ce travail de documentation n'implique pas que chaque comportement visuel ait été validé humainement.
