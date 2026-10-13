@@ -210,6 +210,12 @@ raffine la sorte, ce qui obligerait à vérifier que le raffinement traverse cha
 rend la vérification vide.
 :::
 
+:::note
+_Obligation ouverte._ La preuve reste élémentaire parce que $`\#` est l'égalité ; un raffinement non
+discret des sortes demanderait un autre argument, que ce lemme n'établit pas. Reste à vérifier que
+la substitution sans capture et le renommage des noms liés respectent la même affectation de
+sortes.
+:::
 ::::
 ::::lemma (label := "thm:confinement_sortes") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
@@ -255,6 +261,15 @@ ne peut donc entrer dans un terme traduit que par son contexte, c'est-à-dire pa
 l'offre.
 :::
 
+:::note
+_Obligation ouverte._ Restent à énoncer l'obligation de sortage de chaque règle source et à montrer
+que chaque clause de la traduction la préserve, à citer les prémisses exactes d'étiquetage des effets
+et de niveau des valeurs, et à établir, à partir de sa clause de traduction, que la ré-invocation
+séquentielle ne crée aucun nom. Ce lemme suit une induction parallèle à celle du théorème de
+traduction, qui renvoie lui-même au système de sortes pour les canaux distingués : la preuve doit
+être une induction simultanée, aux hypothèses d'induction appariées, ou suivre un ordre de
+dépendance qui évite cette réciprocité.
+:::
 ::::
 # La clause de session de la relation logique
 %%%

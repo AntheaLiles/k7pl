@@ -30,6 +30,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - Chapitre 4 (sémantique opérationnelle) : `thm:preservation`, `thm:progres` et `thm:correction_ressource` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 03). Ni énoncé, ni esquisse, ni état épistémique ne change.
 - Chapitre 4 (sémantique opérationnelle) : `thm:stratification_journal` et `thm:relation_produit` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 04). Ni énoncé, ni esquisse, ni état épistémique ne change.
 - Chapitres 2 et 4 : `thm:commutation_traduction`, `thm:image_fix` et `thm:terminaison_lfp` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 05). Ni énoncé, ni esquisse, ni état épistémique ne change.
+- Chapitre 4 (système de sortes du métalangage) : `thm:cloture_sortage` et `thm:confinement_sortes` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 06). Ni énoncé, ni esquisse, ni état épistémique ne change.
 
 ## [0.0.0-alpha.2]
 
