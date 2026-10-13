@@ -94,7 +94,7 @@ La campagne ne sera close qu'une fois les preuves humaines et externes enregistr
 
 ### 6.1. Préconditions de publication
 
-- [ ] **NAV-H01 — Revoir et intégrer la PR de navigation.** Ouvrir la [PR #208](https://github.com/AntheaLiles/k7pl/pull/208), relire le déplacement sous `scripts/ci/knowledge_graph/`, le `README.md`, le workflow et les tests. Vérifier que la dernière exécution CI sur la tête de PR est entièrement verte ; ne pas assimiler les jobs déjà réussis à la réussite du workflow agrégé. Fusionner seulement après cette vérification.
+- [ ] **NAV-H01 — Revoir et intégrer la PR de navigation.** Ouvrir la [PR #208](https://github.com/AntheaLiles/k7pl/pull/208), relire le déplacement sous `scripts/ci/navigation_graph/`, le `README.md`, le workflow et les tests. Vérifier que la dernière exécution CI sur la tête de PR est entièrement verte ; ne pas assimiler les jobs déjà réussis à la réussite du workflow agrégé. Fusionner seulement après cette vérification.
 - [ ] **NAV-H02 — Vérifier le build et la publication du même SHA de `main`.** Après fusion, relever le SHA exact de `main`, puis ouvrir le run GitHub Actions correspondant. Contrôler au minimum « Spécification Verso », « Contrôles rapides », « Tests de l'outillage Python » et le job de publication GitHub Pages lorsqu'il est déclenché. Vérifier que le site publié correspond au SHA testé ; une PR verte ou un artefact chargé avant la publication ne suffit pas.
 
 ### 6.2. Recette manuelle du site publié
