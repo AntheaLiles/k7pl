@@ -30,7 +30,7 @@ STEP = {
     "tacticString": "cases h",
     "goalBefore": GOAL,
     "goalsAfter": [{"username": "case_a", "type": "Q", "hyps": [], "id": "?m.2"}],
-    "tacticDependsOn": ["h"],
+    "tacticDependsOn": ["fvar.h"],
     "spawnedGoals": [{"username": "case_b", "type": "R", "hyps": [], "id": "?m.3"}],
     "position": {"start": {"line": 10, "character": 2}, "stop": {"line": 10, "character": 9}},
     "theorems": [],
@@ -46,6 +46,29 @@ class PaperproofExportTests(unittest.TestCase):
     def test_rejects_empty_export_instead_of_fabricating_steps(self):
         with self.assertRaisesRegex(ValueError, "no tactic steps"):
             viz.validate_export({"steps": [], "allGoals": []})
+
+    def test_rejects_missing_tactic_dependency_ids(self):
+        broken = dict(STEP)
+        broken.pop("tacticDependsOn")
+        with self.assertRaisesRegex(ValueError, r"tacticDependsOn must be an array"):
+            viz.validate_export({"steps": [broken], "allGoals": [GOAL]})
+
+    def test_rejects_malformed_tactic_dependency_ids(self):
+        broken = dict(STEP, tacticDependsOn=["fvar.h", 7])
+        with self.assertRaisesRegex(ValueError, r"tacticDependsOn\[1\] must be a non-empty string identifier"):
+            viz.validate_export({"steps": [broken], "allGoals": [GOAL]})
+
+    def test_preserves_exact_dependency_identifiers_for_context_resolution(self):
+        artifact = viz.build_artifact(TARGET, EXPORT, SOURCE, REV, "leanprover/lean4:v4.34.0")
+        step = artifact["extracted"]["steps"][0]
+        known_ids = {
+            hypothesis["id"]
+            for goal in [step["goalBefore"], *step["goalsAfter"], *step["spawnedGoals"]]
+            for hypothesis in goal["hyps"]
+            if isinstance(hypothesis.get("id"), str)
+        }
+        self.assertEqual(step["tacticDependsOn"], ["fvar.h"])
+        self.assertIn(step["tacticDependsOn"][0], known_ids)
 
     def test_rejects_missing_source_positions(self):
         broken = {"steps": [dict(STEP, position={})], "allGoals": []}
@@ -107,7 +130,7 @@ class PaperproofExportTests(unittest.TestCase):
     def test_artifact_preserves_full_observed_steps_without_claiming_authority(self):
         artifact = viz.build_artifact(TARGET, EXPORT, SOURCE, REV, "leanprover/lean4:v4.34.0")
         step = artifact["extracted"]["steps"][0]
-        self.assertEqual(step["tacticDependsOn"], ["h"])
+        self.assertEqual(step["tacticDependsOn"], ["fvar.h"])
         self.assertEqual(step["goalsAfter"][0]["id"], "?m.2")
         self.assertEqual(step["spawnedGoals"][0]["id"], "?m.3")
         self.assertEqual(artifact["schemaVersion"], "k7pl.proof-visualization/v1")
