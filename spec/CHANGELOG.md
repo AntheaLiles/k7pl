@@ -35,6 +35,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - Chapitre 3 : `thm:deadlock_acyclique` et `thm:determinisme_parallele` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 08). Ni énoncé, ni esquisse, ni état épistémique ne change.
 - Chapitre 2 (comonade exponentielle et fragments) : `thm:distributivite_tronquee`, `thm:coherence_axiome` et `thm:coherence_usage` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 09). Ni énoncé, ni esquisse, ni état épistémique ne change.
 - Chapitre 3 : `thm:temps_mononiveau`, `thm:morphismes_modes` et `thm:boxtimes_addition` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 10). Ni énoncé, ni esquisse, ni état épistémique ne change.
+- Chapitres 2 à 6 : les 37 blocs couverts par le lot 11 de la revue sémantique C8 portent une note « Obligation ouverte ». Ni énoncé, ni esquisse, ni état épistémique ne change.
 
 ## [0.0.0-alpha.2]
 

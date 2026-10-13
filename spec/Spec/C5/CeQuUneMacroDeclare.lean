@@ -136,6 +136,10 @@ code produit résultent de leur composition dans l'ordre des occurrences. Une ex
 un mécanisme différent de duplication ou d'ordonnancement devrait cependant fournir sa propre loi de
 transport d'effet.
 :::
+:::note
+_Obligation ouverte._ Reste à aligner la règle {sc}[Expand] formelle sur l'ordre des occurrences et
+sur l'énoncé exact du lemme de substitution, métavariables répétées ou inutilisées comprises.
+:::
 ::::
 # Ce que le vérificateur contrôle avant expansion
 %%%

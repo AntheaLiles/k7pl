@@ -376,6 +376,12 @@ singularité de façon déterministe, d'où l'injectivité (i). L'égalité de c
 en masquage vectoriel sans branchement ; la nature binaire du masque garantit que la charge utile de
 la branche inactive est annihilée plutôt que corrompue, d'où (ii).
 :::
+:::note
+_Obligation ouverte._ Les clauses (i) et (ii) sont des propriétés de représentation ; la propagation
+des singularités dans l'arithmétique relève de l'exigence de réalisation séparée. Restent des tests
+différentiels sur toutes les paires de singularités et toutes les combinaisons de cible et de
+compilateur du profil pris en charge.
+:::
 ::::
 
 ::::requirement (label := "req:homomorphisme_roues_realisation") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "representation")
@@ -419,6 +425,10 @@ d'une même valeur ; elle ne formule pas une injectivité de l'application des v
 vers leurs observations.
 :::
 
+:::note
+_Obligation ouverte._ La formulation par invariance est en place. Restent à définir la relation de
+représentation admissible et les signatures des applications de représentation et d'observation.
+:::
 ::::
 Exigence vérifiée par test différentiel, non démontrée. Elle absorbe cinq dispositions : l'élision est bornée par
 une version de schéma, la purge par la rotation du journal, le bourrage par la règle d'abaissement,

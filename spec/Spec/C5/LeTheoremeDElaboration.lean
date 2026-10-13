@@ -64,6 +64,12 @@ factorisée $`\operatorname{Scale}_{\mathrm{Usage}}`. Les formes qui effectuent 
 ré-invocation finie ajoutent leur obligation propre sur $`\varphi_n` ; cette obligation ne peut être
 étendue par défaut aux grades complets ni aux usages rationnels.
 :::
+:::note
+_Obligation ouverte._ La définition de $`\mathrm{Elab}` est déjà séparée de ce théorème. Restent à
+énoncer les conditions de typage et de portée sous lesquelles l'égalité des sens est démontrée, et à
+décharger pour cette instance les obligations du schéma de commutation, que sa citation ne décharge
+pas.
+:::
 ::::
 Trois conséquences en découlent, et elles dispensent d'autant d'arguments locaux. La _staticité de
 la syntaxe_ (théorème {num "thm:staticite_syntaxe"}[]) en est un corollaire : si aucune forme de

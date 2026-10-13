@@ -268,6 +268,10 @@ Par induction structurelle sur la règle de réduction. La $`\beta`-réduction l
 contexte linéaire, les substitutions consommant et produisant des ressources de façon isomorphe —
 argument qui n'est valide que sous la condition de séparation rappelée dans l'énoncé.
 :::
+:::note
+_Obligation ouverte._ La préservation par réduction est suivie séparément de la conjecture
+d'abaissement vers MLIR ; les obligations P2 et P1b restent attachées à chacune.
+:::
 ::::
 
 Le volet évaluation est un corollaire de la préservation du §{num "sec:g-semantique"}[] ; le volet abaissement MLIR est celui de la conjecture {num "thm:abaissement_grades"}[], non démontré.

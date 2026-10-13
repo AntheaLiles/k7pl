@@ -529,6 +529,11 @@ exprimées, et le théorème est faux. La ranger du côté de l'intégrité, com
 est donc la condition de l'énoncé et non un aménagement de présentation.
 :::
 
+:::note
+_Obligation ouverte._ La table code ⟷ prémisse manquante est à générer ou à vérifier contre la
+grammaire et les règles courantes, et l'inventaire fini des codes à versionner. La réciproque — tout
+programme dérivable est accepté — n'en découle pas ; elle relève de l'exigence qui suit.
+:::
 ::::
 ::::requirement (label := "thm:completude_verificateur") (level := "compilation") (state := "not-applicable") (evidence := "none") (scope := "graded-typing")
 :::title
@@ -543,6 +548,10 @@ manquantes. Route : mesure — chaque code émis par l'implémentation est compa
 démonstration, si le vérificateur est dérivé des règles.
 :::
 
+:::note
+_Obligation ouverte._ Exigence d'implémentation, distincte de l'énoncé logique de complétude : sa
+vérification passe par la mesure ou par la dérivation du vérificateur à partir des règles.
+:::
 ::::
 Ce théorème est ce qui donne son statut à `ERR-TOP-001` (chapitre~5,
 §{num "sec:c5-s-expressions-universelles"}[]) : le refus d'une imbrication de délimiteurs n'est pas

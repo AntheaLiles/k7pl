@@ -171,6 +171,12 @@ Arrow répartit les mêmes données en un tampon par champ ; aucun réencodage 
 et le passage de l'une à l'autre est une transposition en $`O(n)`.
 :::
 
+:::note
+_Obligation ouverte._ Restent à vérifier, contre les versions épinglées d'Arrow, de Cap'n Proto et
+de MLIR, les contrats exacts d'alignement, de bitmap de validité, de propriété et d'écriture du
+pointeur de liste ; une garantie générique d'alignement sur 64 bits ne remplace pas le contrat
+précis de chaque format.
+:::
 ::::
 Les deux spécifications sont normatives sur ce point, et c'est d'elles que l'énoncé tire sa forme.
 Arrow définit le tampon primitif contigu et l'omission licite du bitmap de validité quand le compte

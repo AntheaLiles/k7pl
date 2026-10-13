@@ -330,6 +330,11 @@ $`n\max(s_1,s_2)=\max(ns_1,ns_2)`.
 L'énoncé ne présuppose aucune transformation du budget ; celle-ci relève de `Cost_Budget`.
 :::
 
+:::note
+_Obligation ouverte._ Le domaine des multiplicités et l'opération parallèle exacte sur les effets
+restent à expliciter ; la loi ne s'étend ni à une multiplicité rationnelle ni à l'itération infinie
+sans action définie et preuve propre.
+:::
 ::::
 L'interface budgétaire est désormais fixée sous les hypothèses normatives retenues. Le grade porte un budget $`\beta \in \mathbb{N}_\infty`, tandis que la composante temporelle normative est la famille $`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`. Les agrégateurs $`W` et $`D` et la scalarisation `Cost_Budget` sont définis ci-dessous ; la consommation reste séparée et n'intervient que lorsque l'effet traverse effectivement un contexte par $`\psi`.
 

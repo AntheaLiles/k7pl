@@ -433,6 +433,11 @@ $`r \preccurlyeq s \preccurlyeq t` — à vérifier pour chacune des quatre fami
 produit, la fonctorialité d'un produit de catégories l'étant composante par composante. La conversion de chaque facteur se définit ainsi. Sur le niveau, la monotonie et le budget, la conversion est l'_identité_ sur la valeur sous-jacente : seule l'étiquette change, de sorte que l'identité et la composition sont immédiates. Sur l'usage, c'est le morphisme canonique de comonades gradués $`!_{u} \Rightarrow !_{u'}` pour $`u \geq u'` : la dérivation (compteur) de $`\omega` vers $`1` et l'affaiblissement de $`1` vers $`0`. Seule équation à vérifier : l'affaiblissement composé à la dérivation est l'affaiblissement, $`w \circ \varepsilon = w`, qui est la naturalité de $`w`. Reste à la vérifier dans la construction du chapitre 2 ; tant qu'elle ne l'est pas, la proposition demeure une proposition.
 :::
 
+:::note
+_Obligation ouverte._ L'état de proposition est maintenu : la fonctorialité du transport — identité
+et composition — reste à vérifier pour chacune des quatre familles de conversion, interaction entre
+usage et coercion comprise, puis à clore par produit.
+:::
 ::::
 La forme de cette preuve est celle qu'emploie la cohérence de la subsomption pour un calcul
 monadique {cite "schwinghammerCoherenceSubsumptionMonadic2009"}[]. La condition qu'elle demande n'est pas encore acquise ici : K7PL doit vérifier les conversions
@@ -752,6 +757,12 @@ le besoin se réduit aux bornes supérieures finies, que le monoïde ordonné pa
 condition s'écrit sur la règle, elle n'est pas supposée.
 :::
 
+:::note
+_Obligation ouverte._ Restent à vérifier que la projection respecte chaque relation de la
+présentation, et à confronter monotonie et équation d'itération finie à la structure effective de
+monoïde ordonné. Le cas $`n = \omega` dépend de la préservation des suprema et ne se déduit pas de
+la multiplicativité finie.
+:::
 ::::
 La réserve est dans l'hypothèse et non dans la preuve, ce qui est la bonne place. Une extension de
 $`\mathcal{E}_0` qui poserait une équation reliant une opération interceptable à une opération
@@ -1678,6 +1689,12 @@ restriction serait le contenu même de la discipline plutôt qu'un défaut — o
 second message d'une session avant le premier.
 :::
 
+:::note
+_Obligation ouverte._ Les hypothèses quantitatives sont des obligations distinctes, à suivre
+séparément : formation des types en contexte d'usages annulés, lois de
+$`\mathrm{Scale}_{\mathrm{Usage}}`, commutation avec $`\psi`, compatibilité des conversions de grade
+complet et action $`\varphi_n` pour les effets répétés. Le cas {sc}[When] reste ouvert.
+:::
 ::::
 Une forme simultanée en découle, et elle n'est pas un corollaire immédiat sous la discipline
 ci-dessus.
@@ -1714,6 +1731,11 @@ toutes les liaisons sont bien retirées. C'est le seul point où la forme simult
 que la forme simple.
 :::
 
+:::note
+_Obligation ouverte._ Le corollaire hérite des obligations du lemme élémentaire. L'indifférence à
+l'ordre repose sur le caractère d'application finie du contexte ; sous des zones ordonnées, la
+substitution suit l'ordre inverse de chaque zone, comme l'esquisse le dit.
+:::
 ::::
 Une remarque sur le statut de ce qui précède. Le proofsketch de substitution est une cible de preuve, non une démonstration complète vérifiée. L'inventaire courant compte 49 occurrences de règles en C3 ; l'audit C-06 fournit une matrice de ces occurrences et le test associé contrôle uniquement la correspondance structurelle entre le texte source et cette matrice. Aucun de ces contrôles ne démontre le théorème de substitution ni ses cas par constructeur. L'état under-review / proofsketch doit donc être conservé tant que les cas, conversions, contraintes de fraîcheur et dépendances de domaine n'ont pas été justifiés.
 
