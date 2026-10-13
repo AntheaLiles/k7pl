@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
-# SPDX-License-Identifier: CECILL-2.1
+# SPDX-License-Identifier: Apache-2.0
 """Offline contract tests for Paperproof extraction and static HTML generation."""
 
 import json
