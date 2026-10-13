@@ -132,6 +132,13 @@ _totale_ : $`\psi(\cdot,\varepsilon)` y est définie partout.
 Par la définition ({num "eq:boxtimes"}[]), Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂, ε). Lorsque l'effet a un coût temporel nul, la composante budgétaire de ψ est l'identité puisque β ⊖ 0 = β ; si les domaines structurels sont satisfaits, le produit mixte se réduit donc à l'addition point par point. Cela ne rend pas ψ partielle selon l'admissibilité : la définissabilité structurelle de ψ et l'autorisation de traversée sont deux obligations distinctes. Toute règle qui compose des contextes doit vérifier la compatibilité des clés/types et Adm pour chaque budget traversé. La soustraction tronquée et `Cost_Budget` sont totales ; la partialité du passage est portée par son domaine d'admissibilité, pas par ces fonctions.
 :::
 
+:::note
+_Obligation ouverte._ Reste à définir la composante temporelle nulle sur la structure complète :
+travail et profondeur nuls à chaque niveau, non une seule coordonnée ni un seul niveau. Restent aussi
+à énoncer la condition de liaisons communes à $`\Delta_1` et $`\Delta_2`, dont dépend la définition
+de $`\Delta_1 + \Delta_2` et qui est distincte de la totalité de $`\psi`, et à montrer que le domaine
+de $`\psi` est sans restriction sur ce sous-ensemble d'effets.
+:::
 ::::
 Ce lemme n'est pas une commodité de calcul : il situe K7PL par rapport à la forme reçue. Des
 présentations indépendantes des systèmes gradués écrivent la règle d'application en multipliant le

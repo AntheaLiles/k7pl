@@ -133,6 +133,13 @@ Sous les triplets ci-dessus, les identités du porteur de grades donnent les mor
 Chaque identité conserve le porteur et son ordre. Le passage `Lin → Aff` introduit l'affaiblissement ; `Aff → Unr` étend les grades contractables de `{0}` à 𝓡 ; `Lin → Unr` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
 :::
 
+:::note
+_Obligation ouverte._ Restent à énoncer les conditions de morphisme de modes avec leur sens
+(inclusion des grades contractables, implication d'affaiblissement), à vérifier que $`\{0\}` et
+$`\mathcal{R}` sont des idéaux de l'algèbre de grades, puis à contrôler chaque flèche contre ces
+conditions. La proposition reste conditionnelle aux triplets candidats ; elle ne s'identifie ni aux
+inclusions d'intervalles d'usage ni au sous-typage.
+:::
 ::::
 La structure des intervalles d'usage ne doit donc pas être traitée comme une algèbre de modes. Les règles structurelles courantes fixent Lin, Aff et Unr ; toute future introduction d'un mode Rel nécessitera un arbitrage distinct, un contrat explicite et une justification dans les règles, plutôt que l'inférence depuis `U_Rel`.
 
