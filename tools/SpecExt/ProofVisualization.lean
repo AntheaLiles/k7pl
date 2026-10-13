@@ -41,6 +41,9 @@ private def proofArrayField (value : Json) (key : String) : Array Json :=
 private def proofNatField (value : Json) (key : String) (fallback : Nat := 0) : Nat :=
   (fromJson? (α := Nat) (proofField value key)).toOption.getD fallback
 
+private def proofIOError {α : Type} (message : String) : IO α :=
+  throw (IO.userError message)
+
 private def loadProofArtifact (slug : String) : IO Json := do
   if !(["eval-double", "scale-usage-comp", "project-usage-context-scale"] : List String).contains slug then
     throw <| IO.userError s!"Unknown proof visualization identifier: {slug}"
@@ -163,7 +166,7 @@ block_extension Block.proofVisualization (slug : String) where
   toHtml := some fun _ _ id data _ => do
     let slug ← match fromJson? (α := String) data with
       | .ok value => pure value
-      | .error error => liftM <| throw <| IO.userError s!"Invalid proof visualization block data: {error}"
+      | .error error => liftM (proofIOError s!"Invalid proof visualization block data: {error}")
     let artifact ← liftM <| loadProofArtifact slug
     let identity := proofField artifact "identity"
     let editorial := proofField artifact "editorial"
@@ -212,7 +215,7 @@ block_extension Block.proofVisualization (slug : String) where
   toTeX := some fun _ _ _ data _ => do
     let slug ← match fromJson? (α := String) data with
       | .ok value => pure value
-      | .error error => liftM <| throw <| IO.userError s!"Invalid proof visualization block data: {error}"
+      | .error error => liftM (proofIOError s!"Invalid proof visualization block data: {error}")
     let artifact ← liftM <| loadProofArtifact slug
     let identity := proofField artifact "identity"
     let editorial := proofField artifact "editorial"
