@@ -22,11 +22,11 @@ Lean sans s'y substituer. Elles ne constituent ni une preuve indépendante, ni u
 validation de correspondance entre une déclaration Lean et un énoncé normatif.
 
 La compilation K7PL principale et le workspace d'extraction sont tous deux
-épinglés sur Lean 4.34.0. La CI a confirmé l'extraction des trois premières cibles
-sélectionnées sous cette version. Les deux exemples supplémentaires ci-dessous
-élargissent le corpus ; leur statut d'extraction doit être établi par la CI de ce
-commit. Cela ne constitue pas une garantie de prise en charge universelle des
-constructions Lean.
+épinglés sur Lean 4.34.0. Le run CI 38451997922 a confirmé l'extraction des cinq
+cibles sélectionnées, leur rendu par les backends Verso HTML/TeX et la compilation
+du PDF. Cette validation porte sur les exemples présents dans ce corpus ; elle ne
+garantit pas une prise en charge universelle des constructions Lean et ne remplace
+pas l'inspection humaine des transitions et de la lisibilité.
 
 ## Conservation sémantique de double
 
