@@ -277,7 +277,6 @@ block_extension Block.proofVisualization (slug : String) where
           </details>
         </header>
         <p class="k7-proofviz-notice">{{"Ces états et transitions sont des observations de l'extracteur Paperproof. Ils ne constituent pas une preuve indépendante et ne démontrent aucune correspondance normative. La compilation K7PL sous Lean 4.34.0 reste un contrôle séparé."}}</p>
-        <p>{{"Extracteur : "}}<code>{{extractorRevision}}</code>{{" · Lean de l'extracteur : "}}<code>{{extractorToolchain}}</code></p>
         <ol class="k7-proofviz-steps">{{Output.Html.seq renderedSteps}}</ol>
       </section>}}
   toTeX := some fun _ _ _ data _ => do
