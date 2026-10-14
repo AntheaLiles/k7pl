@@ -234,6 +234,21 @@ block_extension Block.proofVisualization (slug : String) where
       let start := proofField position "start"
       let line := proofNatField start "line" + 1
       let column := proofNatField start "character" + 1
+      let spawnedGoals := proofArrayField step "spawnedGoals"
+      let spawnedGoalsBlock : Output.Html :=
+        if spawnedGoals.isEmpty then
+          {{<p class="k7-proofviz-no-branch">{{"Aucun objectif supplémentaire n’est rapporté pour cette tactique."}}</p>}}
+        else
+          {{<div class="k7-proofviz-branch-lane" role="group" aria-label={{"Objectifs supplémentaires rapportés par la tactique " ++ tactic}}>
+              <span class="k7-proofviz-branch-connector" aria-hidden="true">{{"↳"}}</span>
+              <div class="k7-proofviz-branch-description">
+                <strong>{{"Objectifs supplémentaires rapportés par Paperproof"}}</strong>
+                <p>{{"Ces objectifs sont associés à cette tactique dans l’export. Leur association à un nom de cas ou à une branche syntaxique n’est pas inférée."}}</p>
+              </div>
+              <div class="k7-proofviz-branch-target">
+                {{proofGoalCollectionHtml "Objectifs supplémentaires" spawnedGoals "Aucun objectif supplémentaire n'est rapporté."}}
+              </div>
+            </div>}}
       renderedSteps := renderedSteps.push
         {{<li class="k7-proofviz-step">
             <header class="k7-proofviz-step-header">
@@ -257,12 +272,9 @@ block_extension Block.proofVisualization (slug : String) where
                 {{proofGoalCollectionHtml "Objectifs après" (proofArrayField step "goalsAfter") "Aucun objectif après n'est associé à cette transition dans l'export."}}
               </div>
             </div>
+            {{spawnedGoalsBlock}}
             <div class="k7-proofviz-support">
               {{proofDependenciesHtml step}}
-              <div class="k7-proofviz-spawned">
-                {{proofGoalCollectionHtml "Objectifs supplémentaires rapportés par l’export" (proofArrayField step "spawnedGoals") "Aucun objectif supplémentaire n'est rapporté pour cette transition."}}
-                <p class="k7-proofviz-muted">{{"Cette liste est conservée séparément : le rendu ne reconstruit pas de lien de branche précis à partir de ces observations."}}</p>
-              </div>
             </div>
           </li>}}
     let state ← HtmlT.state
@@ -368,22 +380,29 @@ block_extension Block.proofVisualization (slug : String) where
 .k7-proofviz-provenance p { margin: .35rem 0; overflow-wrap: anywhere; }
 .k7-proofviz-notice { padding: .7rem .85rem; border-left: .25rem solid #b9822d; border-radius: 0 .4rem .4rem 0; background: #fff6e5; color: #563c17; }
 .k7-proofviz-steps { list-style: none; margin: 1.2rem 0; padding: 0; counter-reset: k7-proofviz-step; }
-.k7-proofviz-step { margin: 1.1rem 0; padding: 1rem; border: 1px solid var(--k7pv-line); border-radius: .8rem; background: var(--k7pv-card); box-shadow: 0 2px 8px rgb(32 48 72 / 7%); }
-.k7-proofviz-step-header { display: flex; align-items: flex-start; gap: .75rem; padding-bottom: .75rem; border-bottom: 1px solid var(--k7pv-line); }
-.k7-proofviz-step-number { display: grid; flex: 0 0 2rem; width: 2rem; height: 2rem; place-items: center; border-radius: 50%; background: #304f7c; color: #fff; font-size: .85rem; font-weight: 750; }
+.k7-proofviz-step { display: grid; grid-template-columns: minmax(0, 1fr) 1.6rem minmax(7.5rem, .52fr) 1.6rem minmax(0, 1fr); align-items: stretch; gap: .45rem; margin: 1.1rem 0; padding: 1rem; border: 1px solid var(--k7pv-line); border-radius: .8rem; background: var(--k7pv-card); box-shadow: 0 2px 8px rgb(32 48 72 / 7%); }
+.k7-proofviz-step-header { grid-column: 1 / -1; display: flex; align-items: flex-start; gap: .75rem; padding-bottom: .75rem; border-bottom: 1px solid var(--k7pv-line); }
+.k7-proofviz-step-number { display: grid; flex: 0 0 2rem; width: 2rem; height: 2rem; place-items: center; border-radius: 50%; background: #0969da; color: #fff; font-size: .85rem; font-weight: 750; }
 .k7-proofviz-step-summary { min-width: 0; flex: 1; }
 .k7-proofviz-step-summary h4 { margin: 0 0 .35rem; font-size: 1rem; }
 .k7-proofviz-step-summary p { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: 0; }
-.k7-proofviz-step-summary code { max-width: 100%; padding: .3rem .5rem; border-radius: .35rem; background: var(--k7pv-tactic-bg); font-weight: 650; white-space: pre-wrap; overflow-wrap: anywhere; }
 .k7-proofviz-position { color: #596a80; font-size: .83rem; }
-.k7-proofviz-transition { display: grid; grid-template-columns: minmax(0, 1fr) 1.6rem minmax(7.5rem, .52fr) 1.6rem minmax(0, 1fr); align-items: stretch; gap: .45rem; margin-top: 1rem; }
+.k7-proofviz-transition { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) 1.6rem minmax(7.5rem, .52fr) 1.6rem minmax(0, 1fr); align-items: stretch; gap: .45rem; margin-top: .25rem; }
 .k7-proofviz-state { min-width: 0; }
-.k7-proofviz-arrow { display: grid; place-items: center; align-self: center; color: #6a7b92; font-size: 1.55rem; font-weight: 750; }
-.k7-proofviz-tactic { display: flex; min-width: 0; flex-direction: column; align-self: center; gap: .55rem; padding: .75rem .6rem; border: 1px dashed #91a3bd; border-radius: .55rem; background: var(--k7pv-tactic-bg); text-align: center; }
+.k7-proofviz-arrow { display: grid; place-items: center; align-self: center; color: #8c959f; font-size: 1.55rem; font-weight: 750; }
+.k7-proofviz-tactic { display: flex; min-width: 0; flex-direction: column; align-self: center; gap: .55rem; padding: .75rem .6rem; border: 1.5px dashed #0969da; border-radius: .3rem; background: var(--k7pv-tactic-bg); text-align: center; }
 .k7-proofviz-tactic-label { color: #596a80; font-size: .73rem; font-weight: 700; letter-spacing: .045em; text-transform: uppercase; }
 .k7-proofviz-tactic code { display: block; max-width: 100%; overflow-wrap: anywhere; white-space: pre-wrap; font-size: .9em; font-weight: 750; }
 .k7-proofviz-state > .k7-proofviz-goal, .k7-proofviz-state > .k7-proofviz-outcomes { height: 100%; margin: 0; }
-.k7-proofviz-goal, .k7-proofviz-outcomes { min-width: 0; margin: .55rem 0; padding: .75rem; border: 1px solid var(--k7pv-line); border-radius: .6rem; }
+.k7-proofviz-goal, .k7-proofviz-outcomes { min-width: 0; margin: .55rem 0; padding: .75rem; border: 1px solid var(--k7pv-line); border-radius: .3rem; }
+.k7-proofviz-branch-lane { grid-column: 3 / -1; display: grid; grid-template-columns: minmax(7.5rem, .52fr) 1.1rem minmax(0, 1fr); align-items: stretch; gap: .45rem; padding-top: .5rem; }
+.k7-proofviz-branch-connector { display: grid; place-items: start center; border-top: 2px dashed #8c959f; color: #8c959f; font-size: 1.35rem; line-height: 1.2; }
+.k7-proofviz-branch-description { min-width: 0; padding: .6rem; border: 1px dashed var(--k7pv-line); border-radius: .3rem; background: var(--k7pv-surface); font-size: .86rem; }
+.k7-proofviz-branch-description strong { display: block; line-height: 1.35; }
+.k7-proofviz-branch-description p { margin: .45rem 0 0; }
+.k7-proofviz-branch-target { min-width: 0; }
+.k7-proofviz-branch-target > .k7-proofviz-outcomes { margin: 0; padding: 0; border: 0; background: transparent; }
+.k7-proofviz-no-branch { grid-column: 3 / -1; margin: 0; padding: .2rem .5rem; color: #596a80; font-size: .82rem; }
 .k7-proofviz-goal { border-left: .28rem solid var(--k7pv-goal-line); background: var(--k7pv-goal-bg); }
 .k7-proofviz-outcomes { background: var(--k7pv-surface); }
 .k7-proofviz-goal h5, .k7-proofviz-outcomes h5 { margin: 0 0 .6rem; font-size: .9rem; line-height: 1.35; }
@@ -403,9 +422,13 @@ block_extension Block.proofVisualization (slug : String) where
 @media (max-width: 48rem) {
   .k7-proofviz { padding: .7rem; }
   .k7-proofviz-step { padding: .7rem; }
+  .k7-proofviz-step { grid-template-columns: minmax(0, 1fr); }
   .k7-proofviz-transition { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
   .k7-proofviz-arrow { transform: rotate(90deg); font-size: 1.25rem; }
   .k7-proofviz-tactic { justify-self: stretch; padding: .55rem .7rem; }
+  .k7-proofviz-branch-lane { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .k7-proofviz-branch-connector { min-height: 1rem; border-top: 0; border-left: 2px dashed #8c959f; }
+  .k7-proofviz-no-branch { grid-column: 1 / -1; }
   .k7-proofviz-support { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-color-scheme: dark) {
@@ -419,8 +442,9 @@ block_extension Block.proofVisualization (slug : String) where
 }
 @media print {
   .k7-proofviz { padding: .4rem; box-shadow: none; }
-  .k7-proofviz-step { break-inside: avoid; box-shadow: none; }
+  .k7-proofviz-step { grid-template-columns: minmax(0, 1fr) 1.1rem minmax(6.5rem, .55fr) 1.1rem minmax(0, 1fr); break-inside: avoid; box-shadow: none; }
   .k7-proofviz-transition { grid-template-columns: minmax(0, 1fr) 1.1rem minmax(6.5rem, .55fr) 1.1rem minmax(0, 1fr); }
+  .k7-proofviz-branch-lane { grid-template-columns: minmax(6.5rem, .55fr) .7rem minmax(0, 1fr); }
   .k7-proofviz-support { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 "#
