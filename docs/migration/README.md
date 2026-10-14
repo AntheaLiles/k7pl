@@ -28,7 +28,11 @@ Entry points:
 - [Decision analyses and author choices](L1-DECISIONS.md)
 - [Annexes B/C/D options](L1-ANNEXES-EXTRACTION.md)
 - [Theory objects](L1-THEORY-OBJECTS.md)
+- [Theoretical foundations and temporal sedimentation](L1-THEORY-SEDIMENTATION.md) — instruction file (IN PROGRESS) for the theory imports decided in L1-DECISIONS.md, separating what the specification already states from what remains to be demonstrated.
 - [C-01–C-09 source integration and remaining proof obligations (2026-10-12)](L1-C-SOURCE-INTEGRATION-2026-10-12.md)
+- [Independent revalidation of the Stage C exit gate (2026-10-12)](L1-C-GATE-REVALIDATION-2026-10-12.md) — dated verdict on the PR #170 candidate branch: gate C not satisfied, no go for D–J.
+- [Stage C effective-rule evidence matrix (2026-10-12)](L1-C-EFFECTIVE-RULE-EVIDENCE-MATRIX-2026-10-12.md) — inventory of the 49 C3 typing-rule occurrences against `src/K7pl/`; each is marked ABSENT (no mechanised rule or rule-specific preservation proof). An inventory finding, not a proof.
+- [C-08 memory-safety justification audit: H1/H2/H3 and profile Π (2026-10-11)](L1-C08-MEMORY-SAFETY-AUDIT-2026-10-11.md) — provisional documentary audit: spatial safety is stated under H1, H2 and H3, whose justifications the audit finds incomplete (H1 is not demonstrated independently); no normative decision.
 - [T-68 primitive audit](L1-T68-AUDIT.md)
 - [Archive PR #10: selective recovery, piece by piece (2026-10-14)](L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md)
 - [Stage C instruction of the archive's scientific findings (2026-10-14)](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md)
