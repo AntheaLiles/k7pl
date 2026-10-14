@@ -2,5 +2,22 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
+# Conventional Commits: <type>(<scope>): <description>
+# See CONTRIBUTING.md, section "Commit messages".
+extends:
+  - "@commitlint/config-conventional"
 rules:
+  type-enum:
+    - 2
+    - always
+    # Standard Conventional Commits types, plus the two project types used in the history:
+    # `licensing` (SPDX headers, REUSE, license texts) and `a11y` (accessibility).
+    - [feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert, licensing, a11y]
+  # Chapter scopes are written in upper case (for example `C8`).
+  scope-case: [2, always, [lower-case, upper-case]]
+  # Dependabot writes sentence-case subjects ("Bump …").
+  subject-case: [0]
   header-max-length: [2, always, 100]
+  # Dependabot and release notes produce long body lines (URLs, tables).
+  body-max-line-length: [0]
+  footer-max-line-length: [0]
