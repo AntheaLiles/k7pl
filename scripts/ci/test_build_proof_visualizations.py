@@ -202,7 +202,7 @@ class ProofVisualizationRendererContractTests(unittest.TestCase):
         self.assertIn("extraCss := [", self.renderer)
 
     def test_renderer_keeps_essential_content_in_static_html(self):
-        self.assertNotRegex(self.renderer, r"<script\\b")
+        self.assertNotIn("<script", self.renderer.lower())
         self.assertIn('class="k7-proofviz-step-header"', self.renderer)
         self.assertIn('class="k7-proofviz-goal"', self.renderer)
         self.assertIn('class="k7-proofviz-dependencies"', self.renderer)
