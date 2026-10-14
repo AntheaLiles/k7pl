@@ -5,121 +5,145 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Changelog
 
-Toutes les modifications notables de ce projet sont consignées dans ce fichier.
+All notable changes to this project are recorded in this file.
 
-Ce fichier suit l'implémentation et le dépôt (releases `vX.Y.Z`) ; la
-spécification a son propre historique dans [`spec/CHANGELOG.md`](spec/CHANGELOG.md)
+This file tracks the implementation and the repository (releases `vX.Y.Z`); the
+specification has its own history in [`spec/CHANGELOG.md`](spec/CHANGELOG.md)
 (releases `spec-vX.Y.Z`).
 
-Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
+The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Proof visualizations: observations of five selected Lean proofs, extracted with Paperproof in an
+  isolated Lake workspace (`tooling/paperproof-export`, Lean 4.34.0) and rendered natively by a Verso
+  extension (`tools/SpecExt/ProofVisualization.lean`) in HTML and TeX (#216); transition layout (#221).
+  These are non-normative observations; their human review is tracked in
+  `docs/tracking/PROOF-VISUALIZATION-HUMAN-REVIEW.md`.
+- Navigation of the published specification: figure-provenance catalog (#136), semantic reference
+  graphs (#138, #141, #144, #146, #150), a graph derived from the rendered Verso HTML (#184), a
+  searchable interactive relation graph published with the site (#196) and progressive explanations
+  (#208).
+- Figures: reproducible TikZ pipeline for HTML and PDF (#127, #133, #135, #142); every figure of
+  the specification is now a TikZ source under `spec/figures/tikz/`, whose PDF and SVG are generated
+  in CI and not tracked (#223). Long descriptions of figures are linked, and PDF page splits inside
+  figures are prevented (#149).
+- C8 statement ontology: shared ontology and controls for statement blocks (#131, #134) and
+  migration of 69 statements (#139).
+- Compliance: Lean prototype of a Lake-manifest-to-SPDX consistency audit (`K7plCompliance`,
+  `sbomAudit`) (#128) and bounded assurance evaluation tests (#151).
+- CI: automated checks of the OpenSSF badge criteria (#129).
+
 ### Changed
 
-- Contrôle d'inventaire des énoncés C8 (`scripts/controles/statement_inventory.py`) : l'instantané
-  pré-migration, qui fixe les 69 labels historiques et leurs niveaux, est désormais une annexe figée
-  de `docs/tracking/LEAN-STATEMENT-MIGRATION.md` ; un test en épingle l'empreinte SHA-256.
+- C8 statement inventory check (`scripts/controles/statement_inventory.py`): the pre-migration
+  snapshot, which fixes the 69 historical labels and their levels, is now a frozen appendix of
+  `docs/tracking/LEAN-STATEMENT-MIGRATION.md`; a test pins its SHA-256 digest.
+- CI: Conventional Commits enforcement restored in commitlint, with the project types `licensing`
+  and `a11y` (#224).
+- `K7pl.MemoryCapability` no longer imports the whole of `Mathlib.Tactic` (#225).
 
 ## [0.0.0-alpha.1]
 
-- CI : les diagnostics Lean et les violations REUSE sont désormais annotés selon une politique sélective et priorisée, sans ajouter de permissions d'écriture sur les pull requests (#64, #66).
+- CI: Lean diagnostics and REUSE violations are now annotated according to a selective, prioritised policy, without adding write permissions on pull requests (#64, #66).
 
 ### Fixed
 
-- CI : annotations de `controle.py` échappées et dédoublonnées ; clé du cache Tectonic liée aux sources
-  (un cache à clé fixe n'était jamais réécrit) ; vérification des liens sans `archives/`.
+- CI: `controle.py` annotations escaped and deduplicated; Tectonic cache key tied to the sources
+  (a cache with a fixed key was never rewritten); link check without `archives/`.
 
 ### Added
 
-- Audit OpenSSF (`docs/security/`) : six audits indépendants (Scorecard, bonnes pratiques CII, gouvernance GitHub,
-  chaîne d'approvisionnement, assurance, qualité), matrice consolidée, plan de remédiation, décisions et actions
-  humaines requises, modèle de menace et registre des revendications. Rapports d'agents, non validés par une personne.
-- CI : `scripts/ci/check_lean_modules.py` (modules Lean que `lake build` ne compile jamais), audits d'axiomes de
-  `SpecExt`, `SpecBib` et des modules de test, entrée `use_cache` de `verify.yaml`, `scripts/ci/check_manifest.py`
-  (contrôle du manifeste Lake) et tests de `scripts/ci/` (tous lancés par `unittest discover`).
-- `zenodo.yaml` : archivage Zenodo des octets de la release publiée, après vérification de la release et de
-  l'attestation du PDF ; échoue par défaut tant que le concept Zenodo n'est pas déclaré.
+- OpenSSF audit (`docs/security/`): six independent audits (Scorecard, CII best practices, GitHub governance,
+  supply chain, assurance, quality), consolidated matrix, remediation plan, decisions and required human
+  actions, threat model and claims register. Agent reports, not validated by a person.
+- CI: `scripts/ci/check_lean_modules.py` (Lean modules that `lake build` never compiles), axiom audits of
+  `SpecExt`, `SpecBib` and of the test modules, `use_cache` input of `verify.yaml`, `scripts/ci/check_manifest.py`
+  (Lake manifest check) and tests of `scripts/ci/` (all run by `unittest discover`).
+- `zenodo.yaml`: Zenodo archiving of the bytes of the published release, after verification of the release and
+  of the PDF attestation; fails by default as long as the Zenodo concept is not declared.
 
-- Badges DOI (Zenodo), Software Heritage (origine, et répertoire de la release `0.0.0-alpha.1`
-  avec son SWHID qualifié, à mettre à jour à chaque release `spec-vX.Y.Z`) et fair-software.eu
-  dans le README, avec `.howfairis.yml` : le critère « registre » y est déclaré hors sujet, le
-  critère « checklist » reste non satisfait (4 sur 5).
-- CI : jobs parallèles `quick`, `impl`, `spec` et contrôle agrégé `CI OK` ; audit d'axiomes
-  ciblé (`scripts/axiom-audit.sh`) ; concurrence, délais d'expiration et déclencheurs durcis ; annotations et résumés de job, audit d'axiomes de la spécification, vérification des
-  liens locaux.
-- Le manuscrit de la spécification en Verso (`spec/`), converti de l'Org-mode ; extensions Verso
-  (`tools/SpecExt/` : renvois, énoncés scellés, formules, figures, tableaux, citations par
-  chapitre, remarques marginales, listes) ; bibliographie générée (`tools/SpecBib.lean`,
+- DOI (Zenodo), Software Heritage (origin, and directory of the `0.0.0-alpha.1` release
+  with its qualified SWHID, to be updated at each `spec-vX.Y.Z` release) and fair-software.eu badges
+  in the README, with `.howfairis.yml`: the "registry" criterion is declared out of scope there, the
+  "checklist" criterion remains unsatisfied (4 out of 5).
+- CI: parallel jobs `quick`, `impl`, `spec` and aggregated check `CI OK`; targeted axiom
+  audit (`scripts/axiom-audit.sh`); hardened concurrency, timeouts and triggers; job annotations and summaries, axiom audit of the specification, check of the
+  local links.
+- The specification manuscript in Verso (`spec/`), converted from Org-mode; Verso extensions
+  (`tools/SpecExt/`: cross-references, sealed statements, formulas, figures, tables, per-chapter
+  citations, margin notes, lists); generated bibliography (`tools/SpecBib.lean`,
   `docs/bibliography/references.json`).
-- Conversion Org → Verso reproductible (`scripts/org2verso/`), chaîne bibliographique
-  (`scripts/biblio/`), conversion Org → Markdown (`scripts/org2md.py`), mesures du manuscrit et
-  vues du suivi (`scripts/manuscript_metrics.py`, `scripts/suivi.py`).
-- Contrôles sur le Verso (`scripts/controles/`, `scripts/controle.py`, lancés en CI) : algèbre aux bornes, sceaux, propagation, croisement grammaire × règles, structure.
-- `docs/` : suivi (tableau de bord, 190 fiches de la campagne PR-02, décisions, anomalies),
-  relectures, méthode, recherche, journal de séances ; `archives/` : manuscrit Org figé et ancien
-  outillage.
-- Initialisation du dépôt (structure, licences REUSE, CI, projet Lake).
-- Dépendances Mathlib, CSLib et Verso, épinglées sur Lean v4.34.0.
-- Exemples : `K7pl.Arith` (Mathlib), `K7pl.Semantics` (CSLib) et leurs tests.
-- Spécification en Verso (`spec/`) et générateur HTML (`lake exe spec`).
-- CI : compilation, tests et génération de la spécification ; lint Conventional Commits.
+- Reproducible Org → Verso conversion (`scripts/org2verso/`), bibliography chain
+  (`scripts/biblio/`), Org → Markdown conversion (`scripts/org2md.py`), manuscript metrics and
+  tracking views (`scripts/manuscript_metrics.py`, `scripts/suivi.py`).
+- Checks on the Verso (`scripts/controles/`, `scripts/controle.py`, run in CI): algebra at the bounds, seals, propagation, grammar × rules cross-check, structure.
+- `docs/`: tracking (dashboard, 190 records of the PR-02 campaign, decisions, anomalies),
+  reviews, method, research, session log; `archives/`: frozen Org manuscript and former
+  tooling.
+- Repository initialisation (structure, REUSE licences, CI, Lake project).
+- Mathlib, CSLib and Verso dependencies, pinned on Lean v4.34.0.
+- Examples: `K7pl.Arith` (Mathlib), `K7pl.Semantics` (CSLib) and their tests.
+- Specification in Verso (`spec/`) and HTML generator (`lake exe spec`).
+- CI: build, tests and generation of the specification; Conventional Commits lint.
 
-- Options Lean strictes (`autoImplicit` désactivé, avertissements bloquants),
-  linters Mathlib, `lake lint` (Batteries) et audit des axiomes en CI.
-- Publication de la spécification sur GitHub Pages.
-- CI de sécurité : actionlint, gitleaks, OpenSSF Scorecard ; Dependabot pour les
-  GitHub Actions ; actions épinglées par SHA.
-- Montée de version groupée de Lean, Mathlib, CSLib et Verso
-  (`scripts/bump-lean.sh`, workflow mensuel).
+- Strict Lean options (`autoImplicit` disabled, blocking warnings),
+  Mathlib linters, `lake lint` (Batteries) and axiom audit in CI.
+- Publication of the specification on GitHub Pages.
+- Security CI: actionlint, gitleaks, OpenSSF Scorecard; Dependabot for
+  GitHub Actions; actions pinned by SHA.
+- Grouped version bump of Lean, Mathlib, CSLib and Verso
+  (`scripts/bump-lean.sh`, monthly workflow).
 - `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CITATION.cff`,
-  modèles d'issues et de pull request.
-- Hook `SessionStart` pour les sessions Claude Code sur le web.
-- PDF de la spécification généré en CI (Verso → TeX → LuaLaTeX, artefact `spec-pdf`).
-- Publication sur Zenodo à chaque release `spec-vX.Y.Z` (`scripts/sync_zenodo.py`,
-  adapté de quickViz) ; le PDF est aussi joint à la release. Les releases de
-  l'implémentation (`vX.Y.Z`) sont indépendantes.
+  issue and pull request templates.
+- `SessionStart` hook for Claude Code sessions on the web.
+- PDF of the specification generated in CI (Verso → TeX → LuaLaTeX, `spec-pdf` artifact).
+- Publication on Zenodo at each `spec-vX.Y.Z` release (`scripts/sync_zenodo.py`,
+  adapted from quickViz); the PDF is also attached to the release. Implementation
+  releases (`vX.Y.Z`) are independent.
 
 ### Changed
 
-- `release.yaml` refondu pour les releases immuables : poussée du tag, contrôles (tag sur `main`, `CI OK`), build
-  sans cache, brouillon de release avec PDF, somme et attestation ; la publication reste un geste humain. Corrige
-  deux défauts qui l'empêchaient de joindre le PDF (upload après publication d'une release immuable ; absence de
-  `GH_REPO`). Non encore exécuté de bout en bout.
-- `sync_zenodo.py` : plus de branche d'état `zenodo-state`, instance et concept déclarés explicitement, refus avant
-  tout appel réseau si la configuration est incomplète.
-- `bump-lean.yaml` : un job de construction sans secret, un job d'ouverture de PR qui n'exécute aucun code Lean ;
-  `check_manifest.py` lie chacun des 14 paquets à son dépôt et compare, en réseau, les paquets hérités aux manifestes
-  publiés à l'amont (`--check-upstream`). Une nouvelle dépendance transitive fait échouer le contrôle jusqu'à ce
-  qu'une personne l'ajoute à la liste.
-- `release.yaml` : le tag est revérifié juste avant la création du brouillon ; les notes de la release séparent
-  les commandes de vérification d'avant et d'après publication.
-- `sync_zenodo.py` : toute erreur après l'envoi de la publication écrit le DOI et sort avec le code 3 (au lieu
-  d'un succès silencieux en cas de relecture refusée) ; `NEW` refuse de s'exécuter si `GITHUB_RUN_ATTEMPT` n'est
-  pas `1`.
-- `sync_zenodo.py` (suite d'un réaudit indépendant) : une relecture qui n'est pas un objet, une erreur de rapport ou
-  une interruption n'empêchent plus d'écrire le DOI ; seules les réponses 400, 401, 403, 404 et 422 prouvent
-  qu'aucune publication n'a eu lieu ; un jeton mal formé est refusé sans être affiché.
-- `CONTRIBUTING.md` : critères exacts de `commitlint` (chaque commit est lu, en-tête de 100 caractères au plus) et procédure de
-  contrôle local ; marche à suivre quand le contrôle de manifeste refuse une nouvelle dépendance, que `check_manifest.py` indique
-  désormais dans son message d'échec.
-- `check_manifest.py` est lancé par le job d'impact de `ci.yaml` à chaque exécution, et contrôle aussi `configFile`,
-  `manifestFile`, `version` et `fixedToolchain` ; `check_lean_modules.py` refuse un `srcDir` calculé ; `impact.py`
-  cite les chemins qu'il affiche.
-- Hook de session : elan installé par version et somme enregistrée, plus de `curl … | sh` sur `master`.
-- Dependabot : délai de sept jours (`cooldown`) avant de proposer une nouvelle version.
-- `ci.yaml` : `scripts/ci/impact.py` est la seule source des chemins qui forcent la vérification complète (une
-  regex shell redondante, dont cinq alternatives sur huit ne correspondaient à rien, est supprimée) ;
-  `scripts/axiom-audit.sh` déclenche aussi le build de la spécification.
-- Compilation du PDF : `SOURCE_DATE_EPOCH` et `-Z deterministic-mode` ; journal de compilation conservé. Le PDF
-  n'est pas pour autant démontré reproductible.
-- README : badge de CI corrigé (il pointait vers un workflow supprimé) ; flux de publication décrit comme non encore
-  exécuté de bout en bout. `CONTRIBUTING.md` et `SECURITY.md` alignés sur ces changements.
-- `LICENSE` devient `LICENSE.md` ; les références (README, règles de rédaction) sont mises à jour.
-  Mise en forme Markdown du fichier, texte inchangé (deux puces et leurs paragraphes
-  s'affichaient en blocs de code).
-- `CITATION.cff` : version `0.0.0-alpha.1`, celle du tag `spec-v0.0.0-alpha.1` ; le contrôle de
-  release du job `zenodo` compare ces deux valeurs et avait échoué sur `0.0.0`.
-- Les spécifications passent d'Org-mode à Verso.
-- Le code source (identifiants, docstrings, commentaires) est désormais en anglais.
-- `CITATION.cff` décrit la spécification (CC-BY-4.0, ORCID) en vue du DOI Zenodo.
+- `release.yaml` redesigned for immutable releases: tag push, checks (tag on `main`, `CI OK`), build
+  without cache, release draft with PDF, checksum and attestation; publication remains a human action. Fixes
+  two defects that prevented it from attaching the PDF (upload after publication of an immutable release; missing
+  `GH_REPO`). Not yet run end to end.
+- `sync_zenodo.py`: no more `zenodo-state` state branch, instance and concept declared explicitly, refusal before
+  any network call if the configuration is incomplete.
+- `bump-lean.yaml`: a build job without secrets, a PR-opening job that runs no Lean code;
+  `check_manifest.py` ties each of the 14 packages to its repository and compares, over the network, the inherited
+  packages with the manifests published upstream (`--check-upstream`). A new transitive dependency makes the check
+  fail until a person adds it to the list.
+- `release.yaml`: the tag is re-checked just before the draft is created; the release notes separate
+  the verification commands for before and after publication.
+- `sync_zenodo.py`: any error after the publication is sent writes the DOI and exits with code 3 (instead
+  of a silent success when the read-back is refused); `NEW` refuses to run if `GITHUB_RUN_ATTEMPT` is
+  not `1`.
+- `sync_zenodo.py` (following an independent re-audit): a read-back that is not an object, a report error or
+  an interruption no longer prevents writing the DOI; only 400, 401, 403, 404 and 422 responses prove
+  that no publication took place; a malformed token is refused without being displayed.
+- `CONTRIBUTING.md`: exact `commitlint` criteria (every commit is read, header of at most 100 characters) and local
+  check procedure; steps to follow when the manifest check refuses a new dependency, which `check_manifest.py` now
+  states in its failure message.
+- `check_manifest.py` is run by the impact job of `ci.yaml` at every run, and also checks `configFile`,
+  `manifestFile`, `version` and `fixedToolchain`; `check_lean_modules.py` refuses a computed `srcDir`; `impact.py`
+  quotes the paths it prints.
+- Session hook: elan installed by version and recorded checksum, no more `curl … | sh` on `master`.
+- Dependabot: seven-day delay (`cooldown`) before proposing a new version.
+- `ci.yaml`: `scripts/ci/impact.py` is the only source of the paths that force the full verification (a
+  redundant shell regex, five of whose eight alternatives matched nothing, is removed);
+  `scripts/axiom-audit.sh` also triggers the build of the specification.
+- PDF compilation: `SOURCE_DATE_EPOCH` and `-Z deterministic-mode`; compilation log kept. The PDF
+  is not thereby shown to be reproducible.
+- README: CI badge fixed (it pointed to a deleted workflow); publication flow described as not yet
+  run end to end. `CONTRIBUTING.md` and `SECURITY.md` aligned with these changes.
+- `LICENSE` becomes `LICENSE.md`; the references (README, writing rules) are updated.
+  Markdown formatting of the file, text unchanged (two bullets and their paragraphs
+  were displayed as code blocks).
+- `CITATION.cff`: version `0.0.0-alpha.1`, that of the `spec-v0.0.0-alpha.1` tag; the release
+  check of the `zenodo` job compares these two values and had failed on `0.0.0`.
+- The specifications move from Org-mode to Verso.
+- The source code (identifiers, docstrings, comments) is now in English.
+- `CITATION.cff` describes the specification (CC-BY-4.0, ORCID) with a view to the Zenodo DOI.

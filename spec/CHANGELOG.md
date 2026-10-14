@@ -26,6 +26,8 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Ajouté
 
+- Page « Visualisations de preuves » (`Spec.ProofVisualizations`, `1f16d55`) : observations dérivées de Paperproof pour cinq preuves Lean sélectionnées, extraites dans un espace Lake isolé et rendues en HTML et en TeX ; mise en page par transitions (#221). Ce sont des observations non normatives : ni preuve indépendante, ni correspondance établie avec un énoncé du manuscrit.
+- Chapitre 3 (règles de typage) : un noyau Lean exécutable d'un fragment projeté des règles C3 est déclaré dans la source Verso (`805498e`), puis compilé et audité comme module racine `Spec.C3.EffectiveKernel` (`ee0d05a`, #183). Les règles absentes de ce fragment restent non formalisées.
 - Chapitre 2, section « Six schémas de métathéorie » : six blocs portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 01). Ni énoncé, ni esquisse, ni état épistémique ne change ; le détail est tenu dans `docs/tracking/LEAN-STATEMENT-MIGRATION.md`.
 - Chapitre 2 (système de raffinement ; algèbres, coalgèbres et points fixes) et chapitre 4 (calcul de processus sous-jacent) : six blocs portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 02), dont `thm:raffinement`, `thm:non_interference` et `thm:traduction_metalangage`. Ni énoncé, ni esquisse, ni état épistémique ne change.
 - Chapitre 4 (sémantique opérationnelle) : `thm:preservation`, `thm:progres` et `thm:correction_ressource` portent une note « Obligation ouverte » issue de la revue sémantique C8 (lot 03). Ni énoncé, ni esquisse, ni état épistémique ne change.
@@ -46,7 +48,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 - L'index (§8.7) contient les trente et un termes du manuscrit et leur liste canonique est portée par `tools/SpecExt/IndexTerms.lean`. La génération reconnaît ces termes dans le texte ; les pages du PDF et l'interface HTML restent des points distincts de l'indexation (`ANOM-09`, `ANOM-10`).
 
-- L'annexe E (présentation formelle) est fondue dans le manuscrit : grammaires et règles de typage au chapitre 3, sémantique opérationnelle et sortes du métalangage au chapitre 4, table des glyphes au chapitre 1. Les annexes restantes sont A à D.
+- L'annexe E (présentation formelle) est fondue dans le manuscrit : grammaires et règles de typage au chapitre 3, sémantique opérationnelle et sortes du métalangage au chapitre 4, table des glyphes au chapitre 1. Les annexes B, C et D sont ensuite retirées du document ; `tooling/prototypes-bcd/` en conserve des prototypes Lean (`d84021f`). Seule l'annexe A reste dans la spécification.
 - §1.2 : le choix d'une famille modale et graduée comme socle est écrit, avec son motif.
 - §6.2 : la préservation graduée de bout en bout est déclarée comme objectif.
 
