@@ -245,6 +245,7 @@ block_extension Block.proofVisualization (slug : String) where
                 <strong>{{"Objectifs supplémentaires rapportés par Paperproof"}}</strong>
                 <p>{{"Ces objectifs sont associés à cette tactique dans l’export. Leur association à un nom de cas ou à une branche syntaxique n’est pas inférée."}}</p>
               </div>
+              <span class="k7-proofviz-branch-arrow" aria-hidden="true">{{"→"}}</span>
               <div class="k7-proofviz-branch-target">
                 {{proofGoalCollectionHtml "Objectifs supplémentaires" spawnedGoals "Aucun objectif supplémentaire n'est rapporté."}}
               </div>
@@ -395,12 +396,13 @@ block_extension Block.proofVisualization (slug : String) where
 .k7-proofviz-tactic code { display: block; max-width: 100%; overflow-wrap: anywhere; white-space: pre-wrap; font-size: .9em; font-weight: 750; }
 .k7-proofviz-state > .k7-proofviz-goal, .k7-proofviz-state > .k7-proofviz-outcomes { height: 100%; margin: 0; }
 .k7-proofviz-goal, .k7-proofviz-outcomes { min-width: 0; margin: .55rem 0; padding: .75rem; border: 1px solid var(--k7pv-line); border-radius: .3rem; }
-.k7-proofviz-branch-lane { grid-column: 3 / -1; display: grid; grid-template-columns: minmax(7.5rem, .52fr) 1.1rem minmax(0, 1fr); align-items: stretch; gap: .45rem; padding-top: .5rem; }
-.k7-proofviz-branch-connector { display: grid; place-items: start center; border-top: 2px dashed #8c959f; color: #8c959f; font-size: 1.35rem; line-height: 1.2; }
-.k7-proofviz-branch-description { min-width: 0; padding: .6rem; border: 1px dashed var(--k7pv-line); border-radius: .3rem; background: var(--k7pv-surface); font-size: .86rem; }
+.k7-proofviz-branch-lane { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) 1.6rem minmax(7.5rem, .52fr) 1.6rem minmax(0, 1fr); grid-template-rows: auto auto; align-items: stretch; gap: .3rem .45rem; padding-top: .25rem; }
+.k7-proofviz-branch-connector { grid-column: 3; grid-row: 1; display: grid; min-height: .75rem; place-items: center; border-left: 2px dashed #8c959f; color: #8c959f; font-size: 1.15rem; line-height: 1; }
+.k7-proofviz-branch-description { grid-column: 3; grid-row: 2; min-width: 0; padding: .6rem; border: 1px dashed var(--k7pv-line); border-radius: .3rem; background: var(--k7pv-surface); font-size: .86rem; }
 .k7-proofviz-branch-description strong { display: block; line-height: 1.35; }
 .k7-proofviz-branch-description p { margin: .45rem 0 0; }
-.k7-proofviz-branch-target { min-width: 0; }
+.k7-proofviz-branch-arrow { grid-column: 4; grid-row: 2; display: grid; place-items: center; color: #8c959f; font-size: 1.35rem; }
+.k7-proofviz-branch-target { grid-column: 5; grid-row: 2; min-width: 0; }
 .k7-proofviz-branch-target > .k7-proofviz-outcomes { margin: 0; padding: 0; border: 0; background: transparent; }
 .k7-proofviz-no-branch { grid-column: 3 / -1; margin: 0; padding: .2rem .5rem; color: #596a80; font-size: .82rem; }
 .k7-proofviz-goal { border-left: .28rem solid var(--k7pv-goal-line); background: var(--k7pv-goal-bg); }
@@ -412,7 +414,7 @@ block_extension Block.proofVisualization (slug : String) where
 .k7-proofviz-goal ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: .4rem; margin: .55rem 0 0; padding: 0; list-style: none; }
 .k7-proofviz-goal li { min-width: 0; margin: 0; padding: .5rem .6rem; border-left: .2rem solid var(--k7pv-hyp-line); border-radius: .25rem; background: var(--k7pv-hyp-bg); overflow-wrap: anywhere; }
 .k7-proofviz-role { display: inline-block; margin-left: .2rem; font-size: .72rem; opacity: .8; }
-.k7-proofviz-support { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: .7rem; margin-top: .8rem; }
+.k7-proofviz-support { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: .7rem; margin-top: .8rem; }
 .k7-proofviz-dependencies, .k7-proofviz-spawned { min-width: 0; margin: 0; padding: .7rem; border: 1px solid var(--k7pv-line); border-radius: .55rem; background: var(--k7pv-surface); }
 .k7-proofviz-dependencies { border-top: .2rem solid #7690ba; }
 .k7-proofviz-dependencies h5, .k7-proofviz-spawned h5 { margin: 0 0 .4rem; font-size: .88rem; }
@@ -426,8 +428,11 @@ block_extension Block.proofVisualization (slug : String) where
   .k7-proofviz-transition { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
   .k7-proofviz-arrow { transform: rotate(90deg); font-size: 1.25rem; }
   .k7-proofviz-tactic { justify-self: stretch; padding: .55rem .7rem; }
-  .k7-proofviz-branch-lane { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); gap: .3rem; }
-  .k7-proofviz-branch-connector { min-height: 1rem; border-top: 0; border-left: 2px dashed #8c959f; }
+  .k7-proofviz-branch-lane { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto auto; gap: .3rem; }
+  .k7-proofviz-branch-connector { grid-column: 1; grid-row: 1; min-height: 1rem; border-top: 0; border-left: 2px dashed #8c959f; }
+  .k7-proofviz-branch-description { grid-column: 1; grid-row: 2; }
+  .k7-proofviz-branch-arrow { grid-column: 1; grid-row: 3; transform: rotate(90deg); }
+  .k7-proofviz-branch-target { grid-column: 1; grid-row: 4; }
   .k7-proofviz-no-branch { grid-column: 1 / -1; }
   .k7-proofviz-support { grid-template-columns: minmax(0, 1fr); }
 }
@@ -444,7 +449,7 @@ block_extension Block.proofVisualization (slug : String) where
   .k7-proofviz { padding: .4rem; box-shadow: none; }
   .k7-proofviz-step { grid-template-columns: minmax(0, 1fr) 1.1rem minmax(6.5rem, .55fr) 1.1rem minmax(0, 1fr); break-inside: avoid; box-shadow: none; }
   .k7-proofviz-transition { grid-template-columns: minmax(0, 1fr) 1.1rem minmax(6.5rem, .55fr) 1.1rem minmax(0, 1fr); }
-  .k7-proofviz-branch-lane { grid-template-columns: minmax(6.5rem, .55fr) .7rem minmax(0, 1fr); }
+  .k7-proofviz-branch-lane { grid-template-columns: minmax(0, 1fr) 1.1rem minmax(6.5rem, .55fr) .7rem minmax(0, 1fr); }
   .k7-proofviz-support { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 "#
