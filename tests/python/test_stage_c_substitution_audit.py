@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 K7PL contributors
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
 # SPDX-License-Identifier: CC0-1.0
 
