@@ -30,6 +30,8 @@ Entry points:
 - [Theory objects](L1-THEORY-OBJECTS.md)
 - [C-01–C-09 source integration and remaining proof obligations (2026-10-12)](L1-C-SOURCE-INTEGRATION-2026-10-12.md)
 - [T-68 primitive audit](L1-T68-AUDIT.md)
+- [Archive PR #10: selective recovery, piece by piece (2026-10-14)](L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md)
+- [Stage C instruction of the archive's scientific findings (2026-10-14)](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md)
 
 ## L2–L4
 
