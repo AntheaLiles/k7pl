@@ -249,7 +249,7 @@ block_extension Block.proofVisualization (slug : String) where
               </div>
               <span class="k7-proofviz-arrow k7-proofviz-arrow-before" aria-hidden="true">{{"→"}}</span>
               <div class="k7-proofviz-tactic">
-                <span class="k7-proofviz-tactic-label">Tactique observée</span>
+                <span class="k7-proofviz-tactic-label">{{"Tactique observée"}}</span>
                 <code>{{tactic}}</code>
               </div>
               <span class="k7-proofviz-arrow k7-proofviz-arrow-after" aria-hidden="true">{{"→"}}</span>
@@ -261,7 +261,7 @@ block_extension Block.proofVisualization (slug : String) where
               {{proofDependenciesHtml step}}
               <div class="k7-proofviz-spawned">
                 {{proofGoalCollectionHtml "Objectifs supplémentaires rapportés par l’export" (proofArrayField step "spawnedGoals") "Aucun objectif supplémentaire n'est rapporté pour cette transition."}}
-                <p class="k7-proofviz-muted">Cette liste est conservée séparément : le rendu ne reconstruit pas de lien de branche précis à partir de ces observations.</p>
+                <p class="k7-proofviz-muted">{{"Cette liste est conservée séparément : le rendu ne reconstruit pas de lien de branche précis à partir de ces observations."}}</p>
               </div>
             </div>
           </li>}}
@@ -274,7 +274,7 @@ block_extension Block.proofVisualization (slug : String) where
           <p class="k7-proofviz-identity">{{"Déclaration Lean : "}}<code>{{declaration}}</code></p>
           <p class="k7-proofviz-identity">{{"Source canonique : "}}<a href={{sourceUrl}}>{{sourcePath}}</a></p>
           <details class="k7-proofviz-provenance">
-            <summary>Provenance de l’extraction et empreintes</summary>
+            <summary>{{"Provenance de l’extraction et empreintes"}}</summary>
             <p>{{"Révision source : "}}<code>{{revision}}</code></p>
             <p>{{"SHA-256 source : "}}<code>{{sourceHash}}</code></p>
             <p>{{"Révision de l’extracteur : "}}<code>{{extractorRevision}}</code></p>
