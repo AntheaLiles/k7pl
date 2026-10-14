@@ -5,126 +5,126 @@ SPDX-License-Identifier: CC0-1.0
 
 # k7pl
 
-k7pl est un langage de programmation implémenté en Lean 4 avec Mathlib et CSLib. Sa spécification est écrite en Verso.
+k7pl is a programming language implemented in Lean 4 with Mathlib and CSLib. Its specification is written in Verso.
 
-## Architecture du dépôt
+## Repository architecture
 
-- `src/` : implémentation Lean 4 (CECILL-2.1).
-- `tests/` : tests Lean (CECILL-2.1).
-- `spec/` : spécification Verso (CC-BY-4.0), source normative courante.
-- `tools/` : générateur et extensions Verso, bibliographie générée.
-- `docs/` : suivi, décisions, recherche, audits ; point d'entrée : `docs/tracking/DASHBOARD.md`.
-- `docs/archives/` : ancien manuscrit et outillage figés ; ne pas les corriger pour modifier la version courante.
-- `.claude/rules/` : règles spécialisées.
-- `.claude/skills/` : procédures réutilisables.
-- `.claude/agents/` : rôles spécialisés et paramètres de modèle.
+- `src/`: Lean 4 implementation (CECILL-2.1).
+- `tests/`: Lean tests (CECILL-2.1).
+- `spec/`: Verso specification (CC-BY-4.0), current normative source.
+- `tools/`: Verso generator and extensions, generated bibliography.
+- `docs/`: tracking, decisions, research, audits; entry point: `docs/tracking/DASHBOARD.md`.
+- `docs/archives/`: frozen former manuscript and tooling; do not correct them to change the current version.
+- `.claude/rules/`: specialised rules.
+- `.claude/skills/`: reusable procedures.
+- `.claude/agents/`: specialised roles and model settings.
 
-Code, identifiants, commentaires et docstrings : anglais. Documentation, spécification, issues, PR et messages de commit : français.
+Only the specification (`spec/`) is written in French. Everything else is in English: code, identifiers, comments, docstrings, documentation, tracking, agent, rule and skill files, issues, PRs and commit messages.
 
-## Invariants non négociables
+## Non-negotiable invariants
 
-`spec/`, `src/`, `tests/` et `docs/` sont des objets de nature différente. Une affirmation de spécification, une définition Lean, une preuve et un test ne sont jamais interchangeables.
+`spec/`, `src/`, `tests/` and `docs/` are objects of different kinds. A specification claim, a Lean definition, a proof and a test are never interchangeable.
 
-Le manuscrit porte « ne rien modifier sans l'accord de l'auteur ». Toute modification normative de `spec/` exige donc une demande explicite et une portée minimale.
+The manuscript carries the instruction « ne rien modifier sans l'accord de l'auteur » ("change nothing without the author's consent"). Any normative change to `spec/` therefore requires an explicit request and a minimal scope.
 
-Ne jamais introduire `sorry`, `admit`, nouvel `axiom` ou `native_decide`. Ne jamais affaiblir un contrôle pour faire passer CI, Scorecard ou CII.
+Never introduce `sorry`, `admit`, a new `axiom` or `native_decide`. Never weaken a check to make CI, Scorecard or CII pass.
 
-Ne jamais inventer une revue, un contributeur, une signature, une provenance, un SBOM, une preuve de reproductibilité ou une conformité.
+Never invent a review, a contributor, a signature, provenance, an SBOM, a proof of reproducibility or compliance.
 
-Lire `.claude/rules/project.md` pour toute tâche substantielle, puis la règle spécialisée de la zone modifiée. Lire `.claude/skills/writing-rules.md` avant toute modification de code, test ou spécification.
+Read `.claude/rules/project.md` for any substantial task, then the specialised rule for the area being changed. Read `.claude/skills/writing-rules.md` before any change to code, tests or the specification.
 
-## Séparation épistémique
+## Epistemic separation
 
-Une tâche traversant la spécification et Lean doit expliciter :
+A task that spans the specification and Lean must make explicit:
 
-`specification → formalisation → implémentation → preuve → test`.
+`specification → formalisation → implementation → proof → test`.
 
-Ne jamais adapter silencieusement la spécification à l'implémentation, ni l'implémentation à une interprétation non établie de la spécification.
+Never silently adapt the specification to the implementation, nor the implementation to an unestablished interpretation of the specification.
 
-Les statuts suivants sont distincts : intuition, définition, assertion argumentée, propriété formalisée, propriété prouvée, propriété testée.
+The following statuses are distinct: intuition, definition, argued assertion, formalised property, proved property, tested property.
 
-## Routage des agents
+## Agent routing
 
-Les agents sont des rôles, les skills sont des procédures. La session principale reste l'architecte et l'intégrateur.
+Agents are roles; skills are procedures. The main session remains the architect and the integrator.
 
-### Spécification
+### Specification
 
-- `spec-architect` : conception, dépendances, arbitrages interchapitres ; lecture principalement.
-- `formal-reviewer` : revue antagoniste, hypothèses et contre-exemples ; lecture.
-- `spec-editor` : édition Verso explicitement demandée.
-- `consistency-auditor` : cohérence `spec ↔ Lean ↔ tests ↔ docs`.
+- `spec-architect`: design, dependencies, cross-chapter trade-offs; mostly read-only.
+- `formal-reviewer`: adversarial review, hypotheses and counterexamples; read-only.
+- `spec-editor`: Verso editing, when explicitly requested.
+- `consistency-auditor`: consistency `spec ↔ Lean ↔ tests ↔ docs`.
 
 ### Lean
 
-- `theorem-prover` : preuves pour des énoncés déjà stabilisés.
-- `lean-implementer` : implémentation de `src/` et `tests/`.
-- `lean-debugger` : diagnostic et correctifs minimaux.
-- `verification-specialist` : vérification indépendante du changement.
+- `theorem-prover`: proofs of statements that are already stabilised.
+- `lean-implementer`: implementation of `src/` and `tests/`.
+- `lean-debugger`: diagnosis and minimal fixes.
+- `verification-specialist`: independent verification of the change.
 
 ### Assurance
 
-Les agents `scorecard-specialist`, `cii-specialist`, `github-governance-specialist`, `supply-chain-release-specialist`, `security-assurance-specialist` et `quality-reproducibility-specialist` forment une couche indépendante d'assurance OpenSSF/sécurité.
+The agents `scorecard-specialist`, `cii-specialist`, `github-governance-specialist`, `supply-chain-release-specialist`, `security-assurance-specialist` and `quality-reproducibility-specialist` form an independent OpenSSF/security assurance layer.
 
-## Modèles
+## Models
 
-Les paramètres `model`, `effort` et `isolation` des subagents sont définis dans leurs fichiers. Ne pas les dupliquer dans une consigne ad hoc ni les remplacer arbitrairement.
+The `model`, `effort` and `isolation` settings of the subagents are defined in their files. Do not duplicate them in an ad hoc instruction, and do not override them arbitrarily.
 
-Pour les tâches d'architecture, de théorie, de sécurité, de gouvernance ou d'intégration, la session principale privilégie Opus 5.5 avec effort `high`. Les rôles opérationnels utilisent Sonnet 5.5 avec effort `high` quand leur définition l'indique.
+For architecture, theory, security, governance or integration tasks, the main session prefers Opus 5.5 with effort `high`. Operational roles use Sonnet 5.5 with effort `high` when their definition says so.
 
 ## Orchestration
 
-Pour une tâche locale, utiliser un seul agent pertinent.
+For a local task, use a single relevant agent.
 
-Pour une tâche substantielle, suivre deux vagues :
+For a substantial task, follow two waves:
 
-1. **Audit** : lancer les agents concernés en parallèle, sans modifications concurrentes des mêmes fichiers. Chaque agent produit faits observés, preuves, écarts, recommandations et actions humaines restantes.
-2. **Implémentation** : après comparaison des rapports, répartir les fichiers par frontière de responsabilité, intégrer les changements retenus, puis faire vérifier l'ensemble.
+1. **Audit**: launch the relevant agents in parallel, without concurrent changes to the same files. Each agent produces observed facts, evidence, gaps, recommendations and remaining human actions.
+2. **Implementation**: after comparing the reports, split the files along responsibility boundaries, integrate the retained changes, then have the whole verified.
 
-Ne jamais lancer simultanément plusieurs agents en écriture sur le même fichier.
+Never run several agents that write to the same file at the same time.
 
-Pour une chaîne `spec → Lean`, préférer :
+For a `spec → Lean` chain, prefer:
 
 `spec-architect → formal-reviewer → (theorem-prover | lean-implementer) → consistency-auditor → verification-specialist`.
 
-Pour une correction Lean locale :
+For a local Lean fix:
 
 `lean-debugger → verification-specialist`.
 
-Pour une modification éditoriale explicitement autorisée :
+For an explicitly authorised editorial change:
 
 `spec-editor → validate-spec`.
 
-Pour un audit OpenSSF transversal, utiliser les six agents d'assurance en parallèle, puis intégrer leurs conclusions avant toute modification.
+For a cross-cutting OpenSSF audit, use the six assurance agents in parallel, then integrate their conclusions before any change.
 
 ## Validation
 
-Un changement n'est pas terminé parce qu'un agent dit qu'il est terminé.
+A change is not finished because an agent says it is finished.
 
-Pour Lean, exécuter au minimum les contrôles pertinents parmi :
+For Lean, run at least the relevant checks among:
 
 `lake build`, `lake test`, `lake lint`, `reuse lint`.
 
-Pour `spec/`, utiliser les contrôles Verso du dépôt, notamment :
+For `spec/`, use the repository's Verso checks, in particular:
 
 `lake build Spec`, `lake exe spec --output _out/spec --with-tex`, `python3 scripts/controle.py`.
 
-Vérifier également les contrôles de suivi lorsque les fichiers concernés changent.
+Also run the tracking checks when the files they cover change.
 
-Classer les résultats :
+Classify the results:
 
 `VERIFIED` · `PARTIAL` · `PREPARED` · `HUMAN ACTION REQUIRED` · `BLOCKED` · `FUTURE`.
 
-Une validation externe ou humaine ne doit jamais être présentée comme déjà acquise.
+An external or human validation must never be presented as already obtained.
 
 ## Documentation
 
-Les règles détaillées de style, structure, REUSE, tests et commits restent dans `.claude/skills/writing-rules.md`.
+The detailed rules on style, structure, REUSE, tests and commits remain in `.claude/skills/writing-rules.md`.
 
-Les procédures métier sont dans les skills spécialisées :
+Domain procedures are in the specialised skills:
 
-- `.claude/skills/spec/` pour Verso ;
-- `.claude/skills/lean/` pour Lean 4 ;
-- `.claude/skills/research/` pour la recherche ;
-- `.claude/skills/engineering/` pour planification, vérification et revue.
+- `.claude/skills/spec/` for Verso;
+- `.claude/skills/lean/` for Lean 4;
+- `.claude/skills/research/` for research;
+- `.claude/skills/engineering/` for planning, verification and review.
 
-Le hook `SessionStart` (`scripts/claude-session-start.sh`) prépare l'environnement Lean des sessions web quand le réseau le permet.
+The `SessionStart` hook (`scripts/claude-session-start.sh`) prepares the Lean environment of web sessions when the network allows it.

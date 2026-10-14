@@ -3,35 +3,35 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Règles de développement Lean 4
+# Lean 4 development rules
 
 ## Architecture
 
-Respecter les frontières existantes de `src/`, `tests/` et `tools/`.
+Respect the existing boundaries of `src/`, `tests/` and `tools/`.
 
-Les imports doivent rester minimaux et explicites. Ne jamais remplacer quelques imports par `import Mathlib` ou `import Cslib`.
+Imports must stay minimal and explicit. Never replace a few imports with `import Mathlib` or `import Cslib`.
 
-## Preuves
+## Proofs
 
-Avant d'utiliser un lemme, une définition ou une tactique inconnue :
+Before using an unfamiliar lemma, definition or tactic:
 
-- rechercher le symbole dans le dépôt ;
-- vérifier avec Lean (`#check`, `exact?`, `apply?`, etc.) ;
-- consulter la documentation/source quand nécessaire.
+- search for the symbol in the repository;
+- check it with Lean (`#check`, `exact?`, `apply?`, etc.);
+- consult the documentation/source when necessary.
 
-Ne jamais inventer un nom d'API Lean.
+Never invent a Lean API name.
 
-Aucun `sorry`, `admit`, nouvel `axiom` ou `native_decide`.
+No `sorry`, `admit`, new `axiom` or `native_decide`.
 
-Les théorèmes principaux correspondant aux affirmations de correction du langage sont des objets normatifs : un agent de preuve peut construire la preuve et les lemmes intermédiaires, mais ne change pas silencieusement leur énoncé.
+The main theorems that correspond to the language's correctness claims are normative objects: a proof agent may build the proof and the intermediate lemmas, but does not silently change their statement.
 
 ## Tests
 
-Toute nouvelle fonctionnalité ou correction significative doit avoir un contrôle adapté : exemple, propriété, test de rejet, invariant ou preuve, selon la nature de la propriété.
+Every new feature or significant fix must have a suitable check: example, property, rejection test, invariant or proof, depending on the nature of the property.
 
-Un test doit être capable d'échouer si la propriété visée est cassée.
+A test must be able to fail if the targeted property is broken.
 
-## Validation minimale
+## Minimal validation
 
 ```
 lake build
@@ -40,6 +40,6 @@ lake lint
 reuse lint
 ```
 
-Pour `spec/`, utiliser aussi les contrôles Verso prévus par le dépôt.
+For `spec/`, also use the Verso checks provided by the repository.
 
-Toute modification de `lakefile.lean`, `lean-toolchain` ou `.github/workflows/` doit être explicitement signalée dans la PR.
+Any change to `lakefile.lean`, `lean-toolchain` or `.github/workflows/` must be explicitly reported in the PR.

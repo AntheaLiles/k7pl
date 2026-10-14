@@ -3,50 +3,50 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Stratégie de vérification
+# Verification strategy
 
-La première question n'est pas « quel test écrire ? », mais « quelle propriété doit être vraie, et quelle erreur le contrôle doit détecter ? ».
+The first question is not "which test should I write?", but "which property must hold, and which error must the check detect?".
 
-## Contrat de vérification
+## Verification contract
 
-Pour tout changement substantiel, expliciter :
+For any substantial change, make explicit:
 
 ```
-Propriété
-→ niveau de la propriété
-→ oracle / preuve
-→ erreur détectable
-→ contrôle choisi
-→ résultat observé
+Property
+→ level of the property
+→ oracle / proof
+→ detectable error
+→ chosen check
+→ observed result
 ```
 
-## Niveaux
+## Levels
 
-Ne pas confondre :
+Do not conflate:
 
-- syntaxe ;
-- typage ;
-- sémantique ;
-- invariant interne ;
-- propriété métathéorique ;
-- comportement de compilation ;
-- rendu de la spécification ;
-- reproductibilité d'un artefact.
+- syntax;
+- typing;
+- semantics;
+- internal invariant;
+- metatheoretical property;
+- compilation behaviour;
+- rendering of the specification;
+- reproducibility of an artefact.
 
-Une vérification plus faible ne peut pas être utilisée comme preuve d'une propriété plus forte.
+A weaker verification cannot be used as proof of a stronger property.
 
-## Preuve vs test
+## Proof vs test
 
-Les tests explorent des comportements sélectionnés.
+Tests explore selected behaviours.
 
-Une preuve établit une proposition dans le système formel considéré.
+A proof establishes a proposition in the formal system under consideration.
 
-Une absence d'échec de test n'est jamais présentée comme une preuve de correction formelle.
+An absence of test failures is never presented as a proof of formal correctness.
 
-## Régression
+## Regression
 
-Toute correction de bug doit chercher un contrôle qui aurait échoué avant la correction et qui reste pertinent après celle-ci.
+Every bug fix must look for a check that would have failed before the fix and that remains relevant after it.
 
-## Reproductibilité
+## Reproducibility
 
-Un artefact n'est reproductible que si plusieurs exécutions indépendantes produisent un résultat conforme au critère défini. Le simple épinglage des dépendances ne constitue pas une démonstration.
+An artefact is reproducible only if several independent runs produce a result that meets the defined criterion. Merely pinning dependencies is not a demonstration.
