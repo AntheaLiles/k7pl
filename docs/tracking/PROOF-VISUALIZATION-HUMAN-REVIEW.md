@@ -21,7 +21,7 @@ Ce document trace les actions humaines qui ne peuvent pas être remplacées par 
 - [ ] Vérifier que les hypothèses affichées sont celles rapportées par l'export et ne sont pas interprétées comme un suivi complet de la portée lexicale.
 - [ ] Ouvrir le site généré, naviguer au clavier sans souris, vérifier les disclosures d'hypothèses et contrôler la lisibilité à largeur mobile.
 - [ ] Comparer le panneau objectif-avant → nœud de tactique → objectifs-après à une capture Paperproof : valider l'ordre de lecture, le contraste, la longueur des tactiques et la distinction entre contexte, objectifs ordinaires et `spawnedGoals`.
-- [ ] Vérifier que la flèche encode seulement la succession de la transition observée ; ne pas interpréter visuellement les objectifs supplémentaires comme des branches exactes lorsque le JSON n'en établit pas les liens.
+- [ ] Vérifier que la lane pointillée des `spawnedGoals` exprime uniquement leur association explicite à la tactique dans l’export ; ne pas inférer un nom de cas, une branche syntaxique ou des dépendances entre objectifs.
 - [ ] Contrôler la provenance repliable au clavier et vérifier que la révision et le lien source restent accessibles sans imposer la lecture du SHA-256 dans le flux principal.
 - [ ] Confirmer que le contenu essentiel reste compréhensible sans JavaScript et que les liens source pointent vers le fichier et la révision attendus.
 - [ ] Inspecter toutes les pages PDF contenant les cinq vues après validation du commit étendu. Vérifier pagination, lignes longues, expressions de buts, hypothèses et continuité des branches.
@@ -29,7 +29,7 @@ Ce document trace les actions humaines qui ne peuvent pas être remplacées par 
 
 ## Limite spécifique à la refonte de mise en page
 
-La branche de refonte place l'objectif avant, un nœud de tactique et les objectifs après dans un schéma de transition sur écran large, empile ces éléments sur un écran étroit, et différencie visuellement tactique, objectif et hypothèses, et replie les empreintes de provenance. Les `spawnedGoals` restent dans un panneau séparé ; le renderer ne prétend pas reconstruire le graphe complet de Paperproof. Il s'agit d'une amélioration de structure, non d'une validation de fidélité graphique ou sémantique. Cette présentation doit être examinée à partir du nouvel artefact de CI, pas d'une version mise en cache du site publié.
+La refonte applique au contenu de preuve la grammaire de la vue graphe sémantique existante : nœuds distincts, connecteurs directionnels et relations secondaires en pointillés. Sur écran large, l'objectif avant, la tactique et les objectifs après suivent un axe horizontal ; sur écran étroit, l'ordre est conservé en empilement vertical. Les `spawnedGoals` ont une lane séparée attachée à la tactique car cette relation est explicitement enregistrée dans le champ d'export. Le layout ne prétend pas reconstruire les labels `case` ni un graphe global complet de Paperproof. Il doit être inspecté sur l'artefact du commit retenu, pas sur une copie mise en cache du site.
 
 ## Inspection initiale déjà effectuée
 
