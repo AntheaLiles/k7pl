@@ -180,6 +180,30 @@ jobs:
         if: ${{ !cancelled() }}
         run: scripts/axiom-audit.sh K7pl K7pl
 
+      # axiom-audit imports the module named by its root and audits that module and its
+      # submodules. There is no `Compliance` module, so `--root Compliance` cannot be used: every
+      # Compliance.* root of tools/ in lakefile.lean is audited, the roots of K7plCompliance
+      # (Compliance.SbomAudit, Compliance.RequirementEvidence) and of the sbomAudit CLI
+      # (Compliance.SbomAuditMain). A new root is audited without editing this workflow.
+      - name: Audit the axioms (compliance tooling)
+        if: ${{ !cancelled() }}
+        run: |
+          set -euo pipefail
+          roots="$(python3 scripts/ci/check_lean_modules.py --roots-in tools | grep '^Compliance\.')" || {
+            echo "::error::lakefile.lean declares no Compliance.* root in tools/"
+            exit 1
+          }
+          status=0
+          for root in $roots; do
+            echo "::group::axiom-audit $root"
+            scripts/axiom-audit.sh "$root" "+$root" || {
+              echo "::error::the axiom audit of $root failed"
+              status=1
+            }
+            echo "::endgroup::"
+          done
+          exit "$status"
+
       # axiom-audit audits one root namespace per run and the test modules are flat (ArithTest,
       # SemanticsTest, MainTest): `--root K7plTests` matches no module and fails with "unknown
       # module prefix". The roots are read from lakefile.lean, so a new test module is audited
