@@ -48,3 +48,12 @@ This applies particularly to Lean and test counts, build and test results, toolc
 ## Current versus historical material
 
 A current document describes the state presently claimed by the project. A historical document explains a previous state, decision, or line of reasoning. Historical material must not become normative merely through accumulation or detail.
+
+## Retained method material
+
+The files in [method/](method/) come from the former working folder; their origin is recorded in [the provenance table](history/2026-10-07-provenance-migration.md). They are written in French and carry their own dates. This index describes them; it does not decide which of their rules remain current.
+
+- [charte-redaction.md](method/charte-redaction.md) — writing charter (7 September 2026): sentence-length measurements of the manuscript compared with seven reference style guides, and the rules derived from them.
+- [doctrine.md](method/doctrine.md) — project doctrine (28 August 2026): the order of prevalence (postulates, then axiom, then proofs) and the author's arbitrations on what is postulated and what is constructed.
+- [doctrine-e.md](method/doctrine-e.md) — "Doctrine E" (9 September 2026): every commitment names the route by which it will be discharged — literature, proof or measurement.
+- [protocole.md](method/protocole.md) — working protocol of the former Org-mode setup (28 August 2026): five roles for verification against the literature and the processing invariants they follow.
