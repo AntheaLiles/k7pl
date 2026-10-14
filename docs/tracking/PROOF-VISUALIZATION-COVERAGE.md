@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Registre de couverture des visualisations de preuves
 
-État : 2026-10-13. Le registre décrit ce que le prototype implémente et ce que les tests établissent. Il ne déduit pas de garantie à partir d'une syntaxe simplement présente dans un fichier.
+État : 2026-10-14. Le registre décrit ce que le prototype implémente et ce que les tests établissent. Il ne déduit pas de garantie à partir d'une syntaxe simplement présente dans un fichier. Le run CI [38457573950](https://github.com/AntheaLiles/k7pl/actions/runs/38457573950) valide l'ancienne sortie en liste verticale. Le rendu structuré de cette branche et ses tests de structure doivent être validés par un nouveau run avant d'être considérés comme compilés.
 
 ## Échelle de statut
 
@@ -19,7 +19,7 @@ Une recherche lexicale n'est pas un analyseur Lean : elle peut compter des comme
 
 ## Corpus et preuves de validation
 
-Le run CI 38451997922 valide les cinq cibles avec Lean 4.34.0 : extraction Paperproof réelle, consommation du même JSON par les backends Verso HTML et TeX, et compilation du PDF. Le journal de ce run rapporte respectivement 2, 2, 5, 17 et 8 observations tactiques. Cette preuve porte sur le commit de fusion de test compilé par CI ; elle n'est ni une validation humaine ni une garantie générale de couverture.
+Le run CI 38457573950 valide l'extraction Paperproof pour cinq cibles sous Lean 4.34.0, la compilation Verso HTML/TeX, la génération du PDF, les contrôles de navigation et le résultat global. Les journaux antérieurs (run 38451997922) rapportent respectivement 2, 2, 5, 17 et 8 observations tactiques. Ces runs ne valident pas le nouveau rendu responsive de cette branche ; ils ne constituent ni une validation humaine ni une garantie générale de couverture.
 
 | Déclaration canonique | Comportements ciblés | Statut dans le corpus courant | Limite explicite |
 |---|---|---|---|
@@ -46,16 +46,16 @@ Le run CI 38451997922 valide les cinq cibles avec Lean 4.34.0 : extraction Paper
 | Définitions, expressions et types inductifs | Non pris en charge par cette vue | Aucun modèle ou rendu spécialisé dans le générateur de traces tactiques | À concevoir comme vues séparées, et non comme faux arbres tactiques |
 | Dépendances entre déclarations | Non pris en charge par ce générateur | Le graphe de navigation existant n'est pas utilisé pour inférer ici des dépendances de preuve | Ne pas confondre dépendance entre déclarations, théorèmes employés et transitions d'objectifs |
 | Export inconnu ou incomplet | Partiel | L'extracteur échoue sur erreur ; validateur JSON refuse les étapes/localisations requises manquantes ; test négatif | La classification est par contrat de données, pas encore par famille de syntaxe/tactique |
-| Sortie HTML Verso | Intégrée, compilée en CI pour cinq cibles | Block extension Verso, HTML structuré, tests de compilation et validation de liens dans le run 38451997922 | Inspection humaine de clavier, viewport étroit et compréhension des branches à terminer |
-| Sortie TeX/PDF Verso | Intégrée, compilée en CI pour cinq cibles | Même JSON et même manifeste, sortie TeX dédiée ; compilation PDF réussie dans le run 38451997922 | Inspection humaine des sauts de page et de la longueur des lignes à compléter |
-| JavaScript | Non requis pour le contenu essentiel | Le bloc utilise HTML structuré/CSS et informations lisibles directement ; HTML sans dépendance de rendu JavaScript | Les améliorations d'interaction ne doivent pas cacher l'état essentiel |
+| Sortie HTML Verso | Intégrée ; refonte responsive en attente de CI | Block extension Verso, même artefact JSON ; cette branche ajoute des panneaux objectif-avant → objectifs-après, styles de contexte et provenance repliable ; tests source-level ajoutés | Le run 38457573950 ne valide que l'ancien empilement vertical ; aucune arête entre branches n'est reconstruite à partir de spawnedGoals ; compilation du nouveau markup et inspection humaine restent requises |
+| Sortie TeX/PDF Verso | Intégrée et compilée en CI pour la sortie précédente | Même JSON et même manifeste, sortie TeX dédiée ; PDF produit lors du run 38457573950 | La refonte actuelle concerne le renderer HTML ; inspection humaine du PDF et évolution de la composition TeX restent à faire |
+| Contrat structurel du renderer HTML | Partiel, tests source-level ajoutés dans cette branche ; CI en attente | Assertions vérifiant la présence des zones avant/après, la séparation de spawnedGoals, le layout responsive, le mode sombre et le contenu statique | Ces tests vérifient des chaînes dans le code source, non le DOM rendu, les captures d'écran, les styles calculés ou le sens des transitions |\n| JavaScript | Non requis pour le contenu essentiel | Le bloc utilise HTML structuré/CSS et informations lisibles directement ; HTML sans dépendance de rendu JavaScript | Les améliorations d'interaction ne doivent pas cacher l'état essentiel |
 | Conformité SPDX/REUSE | Validée par CI sur le premier incrément natif | Code de l'adaptateur et extension sous Apache-2.0, texte LICENSES/Apache-2.0.txt ; REUSE passe | Refaire la validation automatiquement après l'extension du corpus |
 
 ## Ce que les tests établissent
 
-Le run 38451997922 établit pour les cinq cibles le build Lean racine, l'extraction Paperproof sous Lean 4.34.0, le rendu HTML/TeX via Verso, la compilation PDF, les contrôles de navigation et REUSE. Le journal d'extraction rapporte les cinq comptes d'observations indiqués plus haut. Les tests Python, qui restent hors ligne et utilisent un export synthétique, testent le contrat d'entrée, les positions source, la provenance, les identifiants de dépendance et le nettoyage de la copie temporaire ; ils ne remplacent pas l'extraction réelle ni l'inspection visuelle.
+Le run 38457573950 établit pour les cinq cibles le build Lean racine, l'extraction Paperproof sous Lean 4.34.0, le rendu HTML/TeX via Verso, la génération PDF, les contrôles de navigation et REUSE pour la version précédente de la vue. Les tests Python offline utilisent des exports synthétiques pour tester le contrat de données, les positions source, la provenance, les identifiants de dépendance et le nettoyage de la copie temporaire ; ils ne remplacent pas l'extraction réelle.
 
-Le contrat Python est renforcé pour refuser un --ref qui ne correspond pas au SHA de HEAD réellement contrôlé et des positions tactiques hors du fichier source ou inversées. Ces contrôles réduisent le risque de produire des liens de provenance trompeurs ; ils ne valident pas la sémantique des transitions. Même après ce run, la généralisation au registre entier des tactiques reste non établie.
+Cette branche ajoute trois tests source-level de la structure HTML/CSS prévue. Ils ne compilent pas Verso et ne confirment ni le DOM final, ni le CSS calculé, ni la lisibilité. Le nouveau commit doit passer l'extraction/compilation/PDF dans CI ; puis l'inspection humaine doit comparer la vue à la source Lean. Le contrôle de provenance (HEAD correspondant à --ref et bornes de positions) réduit les liens trompeurs sans valider la sémantique des transitions. La généralisation à toutes les familles de tactiques reste non établie.
 
 ## Validation humaine nécessaire
 
