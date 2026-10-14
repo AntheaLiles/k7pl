@@ -196,7 +196,10 @@ class ProofVisualizationRendererContractTests(unittest.TestCase):
         self.assertIn('proofGoalHtml "Objectif avant la tactique"', self.renderer)
         self.assertIn('proofArrayField step "goalsAfter"', self.renderer)
         self.assertIn('proofArrayField step "spawnedGoals"', self.renderer)
-        self.assertIn("ne reconstruit pas de lien de branche précis", self.renderer)
+        self.assertIn('class="k7-proofviz-branch-lane"', self.renderer)
+        self.assertIn('class="k7-proofviz-branch-arrow"', self.renderer)
+        self.assertIn("Leur association à un nom de cas ou à une branche syntaxique n’est pas inférée.", self.renderer)
+        self.assertIn(".k7-proofviz-branch-lane { grid-column: 1 / -1;", self.renderer)
 
     def test_rendering_has_responsive_layout_and_accessible_provenance(self):
         self.assertIn('class="k7-proofviz-provenance"', self.renderer)
