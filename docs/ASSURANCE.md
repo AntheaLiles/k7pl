@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 This document states why scientific and formal claims should be considered adequately supported within an explicitly bounded scope. It is not a declaration of absolute correctness and is distinct from software supply-chain assurance.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-06  
+**Last updated:** 2026-10-14  
 **Audience:** researchers, reviewers, maintainers.
 
 ## 1. Scope and status vocabulary
@@ -37,7 +37,7 @@ Statuses are ESTABLISHED, PARTIAL, UNDER REVIEW, IN PROGRESS, OPEN, BLOCKED, and
 
 **Argument:** Coherence is assessed through adversarial review, explicit issue tracking, and consistency analysis.
 
-**Evidence:** Existing review and tracking material under the legacy documentation tree.
+**Evidence:** Peer-review material in [peer-review/](peer-review/README.md), active registers reachable from [tracking/DASHBOARD.md](tracking/DASHBOARD.md), the semantic qualification register in [migration/](migration/README.md), and the closed [coherence review (2026-10-09)](history/2026-10-09-coherence-review.md).
 
 **Status:** UNDER REVIEW
 

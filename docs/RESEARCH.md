@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 K7PL is a research project on the design and formal treatment of a programming language whose specification, formalisation, implementation, proofs, and executable tests remain traceable but distinct.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-06  
+**Last updated:** 2026-10-14  
 **Audience:** researchers, reviewers, contributors.
 
 ## Research problem
@@ -49,4 +49,4 @@ See [ASSURANCE.md](ASSURANCE.md) and [STATUS.md](STATUS.md).
 
 Open questions include the characterization of the mathematical foundations, the architecture of formal semantics, completeness of specification-to-formalisation correspondence, and properties for which implementation conformance can ultimately be established.
 
-Detailed research history remains in the existing legacy material until the planned migration programme.
+Detailed research history is kept in [research/](research/) (working analyses, research questions and corpus notes), [bibliography/](bibliography/) (the machine-readable bibliography and former sourcing lists), [peer-review/](peer-review/README.md) and [history/](history/). This material is provenance and evidence; it does not become a current research claim merely by being retained.
