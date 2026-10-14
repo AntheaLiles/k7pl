@@ -247,12 +247,12 @@ block_extension Block.proofVisualization (slug : String) where
               <div class="k7-proofviz-state k7-proofviz-state-before">
                 {{proofGoalHtml "Objectif avant la tactique" (proofField step "goalBefore")}}
               </div>
-              <span class="k7-proofviz-arrow k7-proofviz-arrow-before" aria-hidden="true">→</span>
+              <span class="k7-proofviz-arrow k7-proofviz-arrow-before" aria-hidden="true">{{"→"}}</span>
               <div class="k7-proofviz-tactic">
                 <span class="k7-proofviz-tactic-label">Tactique observée</span>
                 <code>{{tactic}}</code>
               </div>
-              <span class="k7-proofviz-arrow k7-proofviz-arrow-after" aria-hidden="true">→</span>
+              <span class="k7-proofviz-arrow k7-proofviz-arrow-after" aria-hidden="true">{{"→"}}</span>
               <div class="k7-proofviz-state k7-proofviz-state-after">
                 {{proofGoalCollectionHtml "Objectifs après" (proofArrayField step "goalsAfter") "Aucun objectif après n'est associé à cette transition dans l'export."}}
               </div>
