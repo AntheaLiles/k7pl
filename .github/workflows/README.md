@@ -111,17 +111,36 @@ Sur `main`, Pages est publié seulement lorsqu'une modification affecte le build
 
 Une modification uniquement liée à l'implémentation ne reconstruit donc pas le manuscrit ni sa publication.
 
-## Statut généré (`docs/STATUS.md`)
+## Generated status (`docs/STATUS.md`)
 
-Sur un push sur `main`, une fois `CI OK` réussi, le job `status` de `ci.yaml` exécute `scripts/generate_status.py` puis, si nécessaire, pousse la branche `automation/generated-status` et ouvre ou met à jour sa PR vers `main`. Il déclenche ensuite explicitement `CI` par `workflow_dispatch` sur le commit généré ; cette exception est nécessaire car les événements créés par `GITHUB_TOKEN` ne relancent pas les workflows ordinaires. `docs/STATUS.md` est un fichier généré : il ne se modifie pas à la main.
+On a push to `main`, once `CI OK` has succeeded, the `status` job of `ci.yaml` runs `scripts/generate_status.py`. When the file changes, the job force-pushes one generated commit to `automation/generated-status`, dispatches `ci.yaml` (`workflow_dispatch`) on that branch, then opens the pull request to `main` if none is open. `docs/STATUS.md` is a generated file: do not edit it by hand.
 
-C'est le seul job de `ci.yaml` qui écrit dans le dépôt : `contents: write` et `pull-requests: write`, avec `persist-credentials: true` à l'extraction (nécessaire à la poussée). Observations, à ne pas lire comme des garanties :
+**Why a dispatch.** The push is made with `GITHUB_TOKEN`: the `pull_request` run it causes is held until a maintainer approves it (observed as `action_required` on PR #218), and nothing else runs on the generated commit. A `workflow_dispatch` event created with `GITHUB_TOKEN` does start a run. The dispatched run is an ordinary CI run on the head of `automation/generated-status`:
 
-- le réglage « Allow GitHub Actions to create and approve pull requests » doit être activé pour que `gh pr create` aboutisse ; `docs/security/ACTIONS-HUMAINES.md` § 1.5 en tient compte ;
-- une PR créée avec `GITHUB_TOKEN` ne déclenche pas automatiquement les workflows `pull_request` : le job `status` contourne ce mécanisme en déclenchant explicitement `workflow_dispatch` sur la branche générée ; la première exécution réelle de ce flux reste à observer avant de considérer le mécanisme comme vérifié ;
-- le job n'exécute que du code déjà fusionné sur `main` ; la branche `automation/generated-status` n'est pas protégée par le ruleset de `main`.
+- its impact job compares that head with its merge base with `origin/main`, computed from the checkout (no workflow input is read). A commit that only changes `docs/STATUS.md` therefore gets what a pull request changing that file gets: the documentation-architecture check, the local link check, and the three invariant checks (REUSE, Conventional Commits, Security). Any other change pushed to the branch is classified like in any pull request. A head that is already on `main` gets the full validation; a branch with no history in common with `main` fails the impact job, and so `CI OK`. Every other manual dispatch still runs the full validation;
+- `CI OK` aggregates these jobs as in every run and fails if one of them fails;
+- `status` and `deploy-pages` only run on a push to `main`: the dispatched run publishes nothing and dispatches nothing.
 
-Voir `docs/security/DECISIONS-REQUISES.md`, D11.
+A `pull_request` run on this branch (once approved, or after a push by a person) is no longer skipped: it is an ordinary run as well.
+
+**Required check.** The `CI OK` check run of the dispatched run is attached to the generated commit, which is the head of the status pull request, so the ruleset should count it as the required `CI OK`. This is an expectation, to be confirmed on the first run after this change is merged. Earlier evidence is consistent with it but does not establish it: on 2026-10-07, run [37590999187](https://github.com/AntheaLiles/k7pl/actions/runs/37590999187), dispatched with `GITHUB_TOKEN`, reported `CI OK` on `59608821`, the head of PR #36, which was merged twelve minutes later.
+
+**Before this change** the job posted, through the checks API, a check run named `CI OK` with conclusion `success` on the generated commit, without running any check on it (`checks: write`). That synthetic check and `checks: write` are gone. The commits that carry it (for example `6b9fdc6`, head of PR #218) are not on `main`: merging the status pull requests wrote new commits (observed for PR #218 and PR #226).
+
+The `status` job is the only job of `ci.yaml` that writes to the repository:
+
+| Permission | Use |
+|---|---|
+| `contents: write` | push `automation/generated-status` (`persist-credentials: true` at checkout; the job uploads no artifact) |
+| `pull-requests: write` | list and open the status pull request |
+| `actions: write` | dispatch `ci.yaml` on the generated commit |
+
+Observations, not guarantees:
+
+- the setting "Allow GitHub Actions to create and approve pull requests" must be enabled for `gh pr create` to succeed; `docs/security/ACTIONS-HUMAINES.md` § 1.5 takes it into account;
+- the job only runs code already merged on `main`; `automation/generated-status` is not protected by the `main` ruleset, so a person with write access can push to it (the dispatched or `pull_request` run then classifies that push too).
+
+See `docs/security/DECISIONS-REQUISES.md`, D11.
 
 ## Vérification complète
 

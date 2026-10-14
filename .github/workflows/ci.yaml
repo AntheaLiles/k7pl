@@ -20,7 +20,6 @@ concurrency:
 jobs:
   impact:
     name: Analyse d'impact
-    if: ${{ !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -52,12 +51,30 @@ jobs:
         id: impact
         env:
           EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
           HEAD_SHA: ${{ github.sha }}
         # scripts/ci/impact.py is the only place that decides which paths force the full validation.
+        # A manual dispatch runs the full validation. The `status` job dispatches this workflow on
+        # automation/generated-status (see that job): such a run classifies the branch against
+        # main, as a pull request run would. The base comes from the checkout, never from an input.
+        # A commit that is already on main gets the full validation, so this path never narrows the
+        # checks behind a `CI OK` that a main commit carries.
         run: |
           set -euo pipefail
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$REF" = "refs/heads/automation/generated-status" ]; then
+            git rev-parse --verify --quiet refs/remotes/origin/main > /dev/null || {
+              echo "::error::origin/main is not available in the checkout"
+              exit 1
+            }
+            if git merge-base --is-ancestor "$HEAD_SHA" refs/remotes/origin/main; then
+              python3 scripts/ci/impact.py --force-full
+            else
+              # Fails, and so fails `CI OK`, when the branch shares no history with main.
+              base="$(git merge-base refs/remotes/origin/main "$HEAD_SHA")"
+              python3 scripts/ci/impact.py --base "$base" --head "$HEAD_SHA"
+            fi
+          elif [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             python3 scripts/ci/impact.py --force-full
           else
             python3 scripts/ci/impact.py --base "$BASE_SHA" --head "$HEAD_SHA"
@@ -79,26 +96,23 @@ jobs:
 
   reuse:
     name: REUSE
-    if: ${{ !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
     uses: ./.github/workflows/reuse.yaml
 
   commitlint:
     name: Conventional Commits
-    if: ${{ !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
     uses: ./.github/workflows/commitlint.yaml
 
   security:
     name: Security
-    if: ${{ !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
     permissions:
-      actions: read
+      actions: read # required by the OSV-Scanner reusable workflow for its SARIF upload
       contents: read
-      security-events: write
+      security-events: write # zizmor and OSV-Scanner upload SARIF results to code scanning
     uses: ./.github/workflows/security.yaml
 
   ci-ok:
-    name: ${{ github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status' && 'CI generated-status (skipped)' || 'CI OK' }}
-    if: ${{ always() && !(github.event_name == 'pull_request' && github.head_ref == 'automation/generated-status') }}
+    name: CI OK
+    if: ${{ always() }}
     needs: [impact, verify, reuse, commitlint, security]
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -135,11 +149,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      contents: write
-      pull-requests: write
-      actions: write
-      checks: write
+      contents: write # push the automation/generated-status branch
+      pull-requests: write # list and open the status pull request
+      actions: write # dispatch this workflow on the generated commit
     steps:
+      # The credentials stay in the checkout because the publish step pushes with them. This job
+      # uploads no artifact, and every step runs code that is already on main.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
@@ -183,8 +198,6 @@ jobs:
 
       - name: Publish generated status branch
         if: ${{ steps.changes.outputs.changed == 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git switch -C automation/generated-status
@@ -193,15 +206,17 @@ jobs:
           git add docs/STATUS.md
           git commit -m "ci: update generated project status"
           git push --force origin automation/generated-status
-          generated_sha="$(git rev-parse HEAD)"
-          gh api --method POST "repos/$GITHUB_REPOSITORY/check-runs" \
-            -f name="CI OK" \
-            -f head_sha="$generated_sha" \
-            -f status="completed" \
-            -f conclusion="success" \
-            -f details_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-            -f 'output[title]=Generated status validation' \
-            -f 'output[summary]=docs/STATUS.md was generated by the trusted main-branch CI gate and is the only file in automation/generated-status.'
+
+      # The push above is made with GITHUB_TOKEN: it starts no run on its own (the pull_request run
+      # it causes waits for a maintainer's approval). A workflow_dispatch event made with
+      # GITHUB_TOKEN does start a run. That run is an ordinary CI run on the head of
+      # automation/generated-status: its `CI OK` check is attached to that commit and fails if one
+      # of the checks fails.
+      - name: Run CI on the generated commit
+        if: ${{ steps.changes.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yaml --repo "$GITHUB_REPOSITORY" --ref automation/generated-status
 
       - name: Open or update status pull request
         if: ${{ steps.changes.outputs.changed == 'true' }}
@@ -226,8 +241,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
-      pages: write
-      id-token: write
+      pages: write # deploy the specification site to GitHub Pages
+      id-token: write # actions/deploy-pages authenticates the deployment with an OIDC token
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
