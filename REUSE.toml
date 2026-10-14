@@ -21,7 +21,8 @@ path = [
   ".github/annotation-policy.json",
   ".github/lean-problem-matcher.json",
   ".github/lean-spec-warning-problem-matcher.json",
-  ".github/reuse-problem-matcher.json"
+  ".github/reuse-problem-matcher.json",
+  "scripts/ci/badge_criteria_registry.json"
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
