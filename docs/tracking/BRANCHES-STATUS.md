@@ -115,7 +115,7 @@ La PR #10 a été fermée sans fusion. La branche contient un commit unique de 1
 
 **Constat bloquant.** `main` contient déjà une **autre** série de séances « PR-02 21 à 62 », datée du 7 octobre (`docs/history/2026-10-07-pr-02-21-grade-architecture.md` et suivants). Les numéros 21 à 33 sont donc en collision avec des sujets différents : ce sont deux trajectoires PR-02 distinctes. De plus, les notes de recherche citent les anciens répertoires de suivi et de recherche d'avant la migration physique. `scripts/ci/check_documentation_architecture.py` refuse ces chemins hors de `docs/history`, `docs/archives` et `docs/migration`. Je n'ai donc produit ni rebase ni PR.
 
-**Revue contre les registres C (13 octobre 2026).** L'instantané de reprise du 11 octobre demandait de comparer les notes propres de cette archive aux registres C actuels avant toute décision. La revue a été faite en lecture seule, en quatre lots, sur `d39d012` comparé à `main` `489b082`. Registres consultés : `L1-THEORY-OBJECTS.md` et les audits `docs/migration/`, `DECISIONS.md`, le registre de migration C8, `fiches-statuts.csv`, `docs/history/`, `docs/research/` et `spec/`. Un échantillon de citations de chaque lot a été revérifié dans `main`. La revue classe les notes ; elle ne vaut ni preuve ni ratification, et ne recommande aucune des options ci-dessous.
+**Revue contre les registres C (13 octobre 2026).** L'instantané de reprise du 11 octobre demandait de comparer les notes propres de cette archive aux registres C actuels avant toute décision. La revue a été faite en lecture seule, en quatre lots, sur `d39d012` comparé à `main` `489b082`. Registres consultés : `L1-THEORY-OBJECTS.md` et les audits `docs/migration/`, `DECISIONS.md`, le registre de migration C8, `fiches-statuts.csv`, `docs/history/`, `docs/research/` et `spec/`. Un échantillon de citations de chaque lot a été revérifié dans `main`. La revue classe les notes ; elle ne vaut ni preuve ni ratification, et ne recommandait aucune option.
 
 | Lot | Fichiers de l'archive | Unité | Couvert | Partiel | Absent | Dépassé | Hors C | Autre |
 |---|---|---|---|---|---|---|---|---|
@@ -149,17 +149,13 @@ Contenus propres de l'archive, utilisables seulement si l'autrice choisit une re
 Écarts internes à `main` relevés par la revue, **non corrigés** ici :
 
 - `spec/Spec/C3/LesContraintesDeValeur.lean`, l. 403, écrit « en roues `1/0 = ⊥` » ; `docs/research/sources-singularites.md`, l. 39, donne `1/0 = ∞` d'après le résumé de Carlström. Quelle affirmation vaut reste à établir sur la source ; la correction toucherait `spec/` (voir `DECISIONS.md`).
-- `docs/research/sources-singularites.md`, l. 50 et 55, et l'en-tête de `scripts/verif_singularites.py` disent la règle par réunion d'étiquettes écrite au manuscrit. Le Verso de `main` garde quatre singularités (`LesContraintesDeValeur.lean`, l. 366–368) : cette réécriture n'existe que dans l'archive.
+- `docs/research/sources-singularites.md`, l. 50 et 55, et l'en-tête de `scripts/verif_singularites.py` disent la règle par réunion d'étiquettes écrite au manuscrit. Le Verso de `main` garde quatre singularités (`LesContraintesDeValeur.lean`, l. 366–368) : cette réécriture n'existe que dans l'archive. Formulation corrigée le 14 octobre 2026 (PR #220).
 - `ARB-PR-04` : `fiches-statuts.csv`, l. 125, et `FICHES-PR02.md`, l. 270, gardent « orientation B puis C à confirmer », alors que `DECISIONS.md` consigne une formulation remplacée.
 - Signalé par le lot 1 mais non retenu après vérification : `PREUVE-08` « partielle » (`fiches-statuts.csv`, l. 63) est cohérent avec le registre C8, où `thm:troncature_comonade` est `under-review` avec preuve esquissée.
 
 La branche reste conservée.
 
-Options, sans choix de ma part :
-
-- **A** : verser les comptes rendus 21 à 33 dans `docs/history/` sous un nom de série distinct. Ce renommage est une décision. Il faudrait ensuite rapprocher leurs conclusions de la matrice C-01 à C-09.
-- **B** : garder la branche comme archive référencée (statut actuel).
-- **C** : reprise sélective, note par note, après revue scientifique, dans un lot de `docs/migration/`.
+**Choix de l'autrice (13 octobre 2026) : option C**, reprise sélective note par note dans un lot de `docs/migration/`. Sort de chaque pièce, obligations et propositions non appliquées : [lot de reprise](../migration/L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md) ; constats scientifiques instruits contre `main` : [instruction C](../migration/L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md). Les options A (verser les comptes rendus dans `docs/history/`) et B (archive référencée sans reprise) ne sont pas retenues ; le versement éventuel des comptes rendus reste une question distincte ([`DECISIONS.md`](DECISIONS.md)). La branche reste conservée.
 
 ### `split/pr10-2-troncature-conformite` (`99bc514`), `split/pr10-3-singularites` (`927a6fd`) et `split/pr10-4-manuscrit-semantique` (`b0d2cbf`)
 
