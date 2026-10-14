@@ -247,4 +247,4 @@ Versions datées : [point de reprise du 11 octobre](https://github.com/AntheaLil
 
 ### Clôture humaine du premier chantier
 
-Les vérifications qui exigent un navigateur, une décision éditoriale ou des participants sont regroupées dans [Actions humaines — clôture de la navigation interactive](../security/ACTIONS-HUMAINES.md#6-cloture-humaine-du-premier-chantier-de-navigation-interactive). Les cases restent ouvertes jusqu’à l’inscription d’une preuve datée ; la CI seule ne permet pas de les cocher.
+Les vérifications qui exigent un navigateur, une décision éditoriale ou des participants sont regroupées dans [Actions humaines — clôture de la navigation interactive](../security/ACTIONS-HUMAINES.md#6-clôture-humaine-du-premier-chantier-de-navigation-interactive). Les cases restent ouvertes jusqu’à l’inscription d’une preuve datée ; la CI seule ne permet pas de les cocher.
