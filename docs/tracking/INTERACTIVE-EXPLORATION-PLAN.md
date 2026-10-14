@@ -115,7 +115,8 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 - [ ] Comparer les empreintes des copies archivées avec les fichiers locaux actuels avant de déclarer cette chaîne identique ; inspecter le PDF réellement produit par cette chaîne. L'artefact du build Verso/Tectonic inspecté annonce `Tagged: no` et ne constitue pas une validation PDF/UA.
 - [x] Intégrer la génération TikZ au build canonique : un job CI dédié génère et valide les paires PDF/SVG, puis les transmet au rendu Verso ; les artefacts dérivés ne sont pas suivis dans Git.
 - [ ] Faire contrôler le PDF de publication avec le préambule personnalisé réel, un validateur PDF/UA et une revue humaine avec lecteur d'écran ; ne pas revendiquer de conformité avant ces contrôles.
-- [ ] Terminer la revue humaine à taille d'insertion après correction de pagination, puis décider figure par figure d'éventuels autres candidats ; aucune migration globale n'est autorisée par le seul résultat du POC.
+- [x] Passer le POC en production (décision de l'autrice du 13 octobre 2026 : toutes les figures d'illustration sont codées en TikZ) : les neuf figures draw.io restantes sont redessinées en TikZ, à contenu inchangé, et le contrôle de la chaîne exige une source TikZ pour chaque déclaration `::::figure` ; le workflow du POC est retiré.
+- [ ] Terminer la revue humaine des douze figures TikZ à taille d'insertion et en niveaux de gris ; aucune revue visuelle n'est présumée faite par la CI.
 
 ##### Contrat minimal d'une figure utile
 

@@ -25,7 +25,7 @@ Chaque figure de la spécification expose un lien « Sources et rendus ». Il ou
 
 Pour chaque déclaration, le catalogue relie :
 - l'emplacement exact de la déclaration Verso ;
-- le fichier source graphique canonique : le manifeste TikZ pour les trois figures réimplémentées, ou le fichier draw.io homonyme pour les autres ;
+- le fichier source graphique canonique : la source TikZ désignée par le manifeste ;
 - le SVG publié et, lorsqu'il existe, le PDF ;
 - le renderer tools/SpecExt/Float.lean, le workflow de CI et le manifeste de sources TikZ.
 

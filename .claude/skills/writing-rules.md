@@ -19,7 +19,7 @@ tests, des spécifications et des messages de commit dans ce dépôt.
 | `spec/Spec.lean`               | Racine de la spécification Verso : titre, `{texsetup}`, inclusion des chapitres | CC-BY-4.0  |
 | `spec/Spec/<Ch>.lean`          | Un chapitre (`C1`…`C7`, `Refs`, `AnnexeA`…`AnnexeD`) : titre, `{refsection}`, introduction, `{include}` des sections | CC-BY-4.0  |
 | `spec/Spec/<Ch>/<Section>.lean` | Une section de niveau 2 : ses sous-sections (`#`, `##`…) et ses blocs | CC-BY-4.0  |
-| `spec/figures/`                | Figures : `<nom>.svg` (HTML), `<nom>.pdf` (PDF), `sources/` (drawio, mermaid) | CC-BY-4.0  |
+| `spec/figures/`                | Figures : sources TikZ canoniques dans `tikz/` (avec `manifest.json`), dont `<nom>.svg` (HTML) et `<nom>.pdf` (PDF) sont générés et non suivis ; `sources/` conserve les anciennes sources drawio et mermaid | CC-BY-4.0  |
 | `spec/CHANGELOG.md`            | Versions de la spécification (releases `spec-vX.Y.Z`)           | CC-BY-4.0  |
 | `tools/SpecMain.lean`          | Générateur de la spécification (`lake exe spec`)                | CECILL-2.1 |
 | `tools/SpecExt/`, `tools/SpecExt.lean` | Extensions Verso de la spécification (renvois, énoncés, formules, figures, citations…) | CECILL-2.1 |

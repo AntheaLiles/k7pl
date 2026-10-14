@@ -14,6 +14,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Modifié
 
+- Figures : les neuf figures encore dessinées dans draw.io sont redessinées en TikZ (décision de l'autrice du 13 octobre 2026 : toutes les figures d'illustration sont codées en TikZ). Contenu, légendes, textes alternatifs et descriptions sont inchangés ; le style suit les trois figures TikZ existantes. Les PDF et SVG sont désormais générés pour les douze figures.
 - `thm:raffinement` est scindé (décision de l'autrice du 12 octobre 2026) : le théorème garde la construction du système de raffinement ; ses trois lectures deviennent les corollaires `thm:raffinement_effacement`, `thm:raffinement_non_interference` et `thm:raffinement_precision`, chacun avec ses prémisses. Aucun état épistémique n'est promu ; la numérotation affichée des énoncés suivants change.
 - `thm:schema_reinvocation` : le domaine de `n` est `ℕ∞`, avec un traitement explicite de `ω` (décision de l'autrice du 12 octobre 2026). Le cas fini reste la ré-invocation séquentielle bornée ; l'exigence de compatibilité nomme le cas `ω` comme obligation distincte.
 

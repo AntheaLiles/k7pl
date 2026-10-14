@@ -34,7 +34,7 @@ cp out/tikz-production/* spec/figures/
 lake exe spec --output _out/spec --with-tex
 ```
 
-Les PDF/SVG des trois figures TikZ sont des artefacts générés et ignorés par Git ; la CI les produit puis les injecte avant le rendu. Pour un rendu local identique à la CI, exécuter ces étapes avant `lake exe spec`.
+Toutes les figures de la spécification sont codées en TikZ (`spec/figures/tikz/`) ; leurs PDF/SVG sont des artefacts générés et ignorés par Git ; la CI les produit puis les injecte avant le rendu. Pour un rendu local identique à la CI, exécuter ces étapes avant `lake exe spec`.
 
 ## Spécifications
 
