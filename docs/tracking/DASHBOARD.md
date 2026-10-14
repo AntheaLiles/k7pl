@@ -17,8 +17,7 @@ This is the current entry point for project tracking. It answers what is current
 
 - [Project status](../STATUS.md) — generated CI and repository facts.
 - [L1 migration qualification register](../migration/L1-SUIVI.md) — current C-stage object and boundary analysis.
-- [Specification ↔ Lean traceability](correspondance-enonces.md) — current lexical traceability view.
-- [Statement correspondence](correspondance-enonces.md) — current generated statement traceability view.
+- [Statement correspondence](correspondance-enonces.md) — generated view (`scripts/suivi.py`) of the numbered specification statements, their labels and their reviewed-PDF numbers; it does not map statements to Lean declarations.
 
 ## Active registers
 
