@@ -5,6 +5,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # POC TikZ — rendu partagé HTML/PDF
 
+**Clos le 14 octobre 2026.** Décision de l'autrice du 13 octobre 2026 : le POC est validé et passe en production ; toutes les figures d'illustration de la spécification sont codées en TikZ (`spec/figures/tikz/`, générées par `scripts/ci/build_tikz_figures.sh` dans le job `tikz-assets` de `verify.yaml`). Le workflow `tikz-poc.yaml`, ses deux scripts, le manifeste de ce dossier et les SVG de référence draw.io sont retirés ; [dernière version du dossier](https://github.com/AntheaLiles/k7pl/tree/6d98c66c7b64edc39ae8f5f913bfbd245371887a/docs/tracking/tikz-poc). Ce document reste le compte rendu du POC : ses mentions « trois figures » décrivent l'état du 10 octobre 2026.
+
 **Statut :** trois figures de production sont désormais générées depuis les sources TikZ versionnées ; les autres figures ne sont pas migrées. La validation PDF/UA reste ouverte.
 **But :** vérifier qu'une source TikZ commune peut produire des sorties PDF et SVG statiques, avec une compilation contrôlée et des métadonnées d'accessibilité explicites.
 

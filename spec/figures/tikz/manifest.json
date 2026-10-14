@@ -18,6 +18,60 @@
       "source": "structural-modes.tex",
       "asset_stem": "matrice-contraction-affaiblissement",
       "canonical_verso": "spec/Spec/C3/LeSystemeGradue.lean#fig:modalites-structurelles"
+    },
+    {
+      "id": "specialisation-du-jugement",
+      "source": "specialisation-du-jugement.tex",
+      "asset_stem": "specialisation-du-jugement",
+      "canonical_verso": "spec/Spec/C1/AxiomatiqueGerminale.lean#fig:specialisation-couches"
+    },
+    {
+      "id": "co-algebra-duality",
+      "source": "co-algebra-duality.tex",
+      "asset_stem": "co-algebra-duality",
+      "canonical_verso": "spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean#fig:dualite-algebre-coalgebre"
+    },
+    {
+      "id": "fragments-nestings",
+      "source": "fragments-nestings.tex",
+      "asset_stem": "fragments-nestings",
+      "canonical_verso": "spec/Spec/C2/ComonadeExponentielleEtFragments.lean#fig:fragments-emboites"
+    },
+    {
+      "id": "session-protocol-as-dual-exchange",
+      "source": "session-protocol-as-dual-exchange.tex",
+      "asset_stem": "session-protocol-as-dual-exchange",
+      "canonical_verso": "spec/Spec/C3/LesContraintesDeValeur.lean#fig:session-dualite"
+    },
+    {
+      "id": "rexp-hierarchy-complexity",
+      "source": "rexp-hierarchy-complexity.tex",
+      "asset_stem": "rexp-hierarchy-complexity",
+      "canonical_verso": "spec/Spec/C4/EchelleLocale.lean#fig:rexp-complexite"
+    },
+    {
+      "id": "soa-partitionning",
+      "source": "soa-partitionning.tex",
+      "asset_stem": "soa-partitionning",
+      "canonical_verso": "spec/Spec/C4/EchelleDeLActeur.lean#fig:arene-partition"
+    },
+    {
+      "id": "virtual-actor-lca",
+      "source": "virtual-actor-lca.tex",
+      "asset_stem": "virtual-actor-lca",
+      "canonical_verso": "spec/Spec/C4/EchelleDuSysteme.lean#fig:acteur-cycle-de-vie"
+    },
+    {
+      "id": "session-circuit-breaker",
+      "source": "session-circuit-breaker.tex",
+      "asset_stem": "session-circuit-breaker",
+      "canonical_verso": "spec/Spec/C4/EchelleDuSysteme.lean#fig:circuit-breaker"
+    },
+    {
+      "id": "unidirectionnal-reactive-cycle",
+      "source": "unidirectionnal-reactive-cycle.tex",
+      "asset_stem": "unidirectionnal-reactive-cycle",
+      "canonical_verso": "spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean#fig:cycle-reactif"
     }
   ]
 }

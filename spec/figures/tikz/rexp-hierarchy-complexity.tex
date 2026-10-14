@@ -1,0 +1,19 @@
+% SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+% SPDX-License-Identifier: CC-BY-4.0
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usetikzlibrary{arrows.meta,positioning}
+\begin{document}
+\begin{tikzpicture}[
+  font=\sffamily\small,
+  box/.style={draw, rounded corners=2pt, align=center, line width=.65pt, minimum height=12mm},
+  arrow/.style={-{Stealth[length=2mm]}, line width=.7pt}
+]
+\node[box, minimum width=40mm] (linear) {@linear --- DFA\\O(n) ; O(1)/bloc};
+\node[box, minimum width=40mm, right=10mm of linear] (poly) {@polynomial --- NFA};
+\node[box, minimum width=52mm, right=10mm of poly] (stack) {@stack --- PDA\\profondeur bornée par un grade};
+\draw[arrow] (linear) -- (poly);
+\draw[arrow] (poly) -- (stack);
+\end{tikzpicture}
+\end{document}
