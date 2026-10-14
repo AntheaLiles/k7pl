@@ -190,6 +190,9 @@ class ProofVisualizationRendererContractTests(unittest.TestCase):
 
     def test_goal_transition_and_spawned_goals_remain_distinct(self):
         self.assertIn('class="k7-proofviz-transition"', self.renderer)
+        self.assertIn('class="k7-proofviz-tactic"', self.renderer)
+        self.assertIn('class="k7-proofviz-arrow-before"', self.renderer)
+        self.assertIn('class="k7-proofviz-arrow-after"', self.renderer)
         self.assertIn('proofGoalHtml "Objectif avant la tactique"', self.renderer)
         self.assertIn('proofArrayField step "goalsAfter"', self.renderer)
         self.assertIn('proofArrayField step "spawnedGoals"', self.renderer)
