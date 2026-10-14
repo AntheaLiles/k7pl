@@ -46,7 +46,7 @@ L'extension du site peut donc commencer par réutiliser les structures déjà tr
 | [`build_tikz_figures.sh`](../../scripts/ci/build_tikz_figures.sh) et [`check_tikz_figures.py`](../../scripts/ci/check_tikz_figures.py) | Génèrent et vérifient des paires PDF/SVG pour les trois sources TikZ répertoriées dans le manifeste. | Chaîne de build et artefacts statiques ; la génération déterministe ne prouve ni l'accessibilité PDF/UA ni l'équivalence visuelle à toute taille d'insertion. |
 | [`tikz-poc.yaml`](../../.github/workflows/tikz-poc.yaml) | Compile deux fois les trois figures du POC et compare les sorties produites. | Workflow dédié de reproductibilité du POC ; il ne justifie aucune migration supplémentaire. |
 
-Le workflow de vérification utilise `python3 -m unittest discover -s scripts/ci -p 'test_*.py'` pour les tests de scripts. L'existence de tests automatisés n'implique pas que tous les générateurs soient appelés en production : en particulier, `build_navigation_graph.py` reste distinct de `build_semantic_graph.py`.
+Le job « Analyse d'impact » de [`ci.yaml`](../../.github/workflows/ci.yaml) exécute `python3 -m unittest discover -s scripts/ci -p 'test_*.py'` ; le workflow de vérification exécute `python3 -m pytest tests/python`, où se trouvent notamment les tests de navigation et de provenance. L'existence de tests automatisés n'implique pas que tous les générateurs soient appelés en production : en particulier, `build_navigation_graph.py` reste distinct de `build_semantic_graph.py`.
 
 ## 4. Où vivent les informations — sans confondre leur autorité
 
@@ -110,6 +110,8 @@ Les douze déclarations de figures présentes dans la spécification sont invent
 | `spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean` | `fig:cycle-reactif` | `unidirectionnal-reactive-cycle` | `spec/figures/sources/unidirectionnal-reactive-cycle.drawio` | Relier les étapes du cycle réactif aux trois couches |
 
 La CI vérifie les sorties des trois sources TikZ, leur reproductibilité et leur correspondance avec les déclarations Verso. Les neuf figures draw.io sont inventoriées, mais leur fidélité visuelle et leur accessibilité restent à évaluer séparément. La revue des rendus TikZ à taille de publication reste humaine : la CI ne prouve ni leur lisibilité ni leur valeur explicative.
+
+**Vérification du 14 octobre 2026.** Le tableau ci-dessus est identique sur `99a7375`. Contrairement au texte repris, la source Mermaid de `services-lsp` est versionnée : `spec/figures/sources/services-lsp.mmd` (depuis `72ed010`).
 
 Le changelog conserve un compte historique de treize figures. L'artefact HTML CI courant contient douze figures K7PL déclarées et copie également `services-lsp.svg`, qui n'est référencé par aucune déclaration Verso courante. Le SVG existe bien sous `spec/figures/` ; le PDF homonyme est également présent comme asset binaire, mais ni `spec/figures/sources/services-lsp.drawio` ni `spec/figures/services-lsp.mmd` ne sont présents dans l'arbre courant. Une source Mermaid historique est retrouvable dans `docs/archives/manuscrit-org/K7_LSP_REPL.org`. La décision technique retenue pour cette PR est de **conserver les reliquats sans les supprimer ni les archiver** : leur utilité éditoriale et leur destination relèvent d'une décision de maintenance distincte. Le treizième fichier copié n'est pas une treizième déclaration Verso.
 

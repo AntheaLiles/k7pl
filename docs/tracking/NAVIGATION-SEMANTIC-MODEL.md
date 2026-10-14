@@ -88,13 +88,13 @@ Critères d'acceptation du premier prototype :
 
 Les textes de lecture graduée constituent une couche éditoriale distincte des arêtes du graphe. Leur catalogue est tenu dans [`navigation_explanations.py`](../../scripts/ci/navigation_graph/navigation_explanations.py) : chaque entrée indique son nœud cible et fournit, pour chaque niveau, des liens vers les ancres Verso canoniques. Le catalogue ne crée aucune relation entre objets et ne modifie ni le statut normatif ni le statut de preuve des sources. Le validateur vérifie que les nœuds cibles, textes de niveau et destinations HTML/ancres existent. Lorsqu’aucune entrée ne cible un objet, l’interface le signale au lieu d’inventer une explication.
 
-La couverture éditoriale vérifiée sur cette branche comprend deux entrées rédigées : « Introduction » de C1 et « Le système gradué » de C3. Elle démontre que le mécanisme gère plusieurs cibles ; elle ne signifie pas que l’ensemble des concepts K7PL bénéficie de niveaux rédigés ou validés humainement.
+La couverture éditoriale vérifiée sur `main` (PR #208) comprend deux entrées rédigées : « Introduction » de C1 et « Le système gradué » de C3. Elle démontre que le mécanisme gère plusieurs cibles ; elle ne signifie pas que l’ensemble des concepts K7PL bénéficie de niveaux rédigés ou validés humainement.
 
 ## 8. Hors périmètre explicite
 
 Ce modèle ne prétend pas encore relier formellement les propositions Lean aux implémentations et aux tests. Cette relation doit être recherchée dans les annotations et conventions existantes ; elle ne doit pas être supposée. L'accessibilité PDF/UA des figures reste un chantier distinct.
 
-## 9. Audit de traçabilité et limite du prototype — 11 octobre 2026
+## 9. Garanties actuelles du générateur C6/C3
 
 Le générateur courant fait trois choses distinctes et ne doit pas les fusionner :
 
@@ -104,11 +104,9 @@ Le générateur courant fait trois choses distinctes et ne doit pas les fusionne
 
 La vue C6/C3 ne produit pas d'arêtes `imports`, `tested-by` ou `implemented-by`. La simple présence d'une commande `import`, d'un fichier de test au nom similaire, d'une citation ou d'un objet voisin n'est pas suffisante pour inférer un lien scientifique. Les dépendances structurelles éventuelles devront être conservées dans une catégorie distincte et explicitement typées ; elles ne font pas partie des arêtes scientifiques actuelles.
 
-Le contrôle de sortie ajouté à la CI vérifie que les trois pages existent, qu'elles portent la révision attendue, que chaque lien local cible un fichier existant et que toute ancre HTML locale ciblée apparaît une seule fois. Les liens GitHub `blob` sont contrôlés contre la révision du build, le chemin canonique existant et, lorsqu'un fragment `L<n>` est présent, les lignes réellement disponibles. Des tests négatifs couvrent la cible Verso absente, la référence/citation non résolue, l'ancre rendue absente, les liens/ancres locaux cassés et la sortie périmée. Ces contrôles valident la cohérence mécanique des liens, non la pertinence scientifique d'une relation.
+Le contrôle de sortie ajouté à la CI vérifie que les trois pages existent, qu'elles portent la révision attendue, que chaque lien local cible un fichier existant et que toute ancre HTML locale ciblée apparaît une seule fois. Les liens GitHub `blob` sont contrôlés contre la révision du build, le chemin canonique existant et, lorsqu'un fragment `L<n>` est présent, les lignes réellement disponibles. Des tests négatifs couvrent la cible Verso absente, la référence/citation non résolue, l'ancre rendue absente, les liens/ancres locaux cassés et la sortie périmée. Ces contrôles valident la cohérence mécanique des liens, non la pertinence scientifique d'une relation. La page `navigation/index.html` et `navigation/graph.json` du navigateur relationnel relèvent d'un autre validateur, [`check_navigation_graph_output.py`](../../scripts/ci/navigation_graph/check_navigation_graph_output.py).
 
-La couche de validation d'une arête (extraite, passée dans la CI, revue par une personne) reste orthogonale au statut épistémique du contenu visé (proposition, hypothèse, résultat publié, preuve). La CI ne peut pas accorder une validation humaine.
-
-Le choix de phase est **réorienter** : ne pas étendre le modèle à définition → théorème → preuve → implémentation → test avant résultat positif de la comparaison d'usage du prototype étroit et avant identification de relations explicites ou de métadonnées canoniques capables de les attester.
+Le choix de phase (**réorienter**) et sa condition d'extension sont tenus dans le [plan](INTERACTIVE-EXPLORATION-PLAN.md), phase P1. La séparation entre validation d'une arête et statut épistémique est posée au § 4. [Version datée du 11 octobre de cette section](https://github.com/AntheaLiles/k7pl/blob/0d9384f72d9d965b647cca54f0837019664a5988/docs/tracking/NAVIGATION-SEMANTIC-MODEL.md).
 
 
 ## 10. Contrat d’affichage du contexte — 13 octobre 2026

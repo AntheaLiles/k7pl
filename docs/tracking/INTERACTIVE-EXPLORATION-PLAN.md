@@ -98,7 +98,7 @@ Le projet doit démontrer une amélioration réelle de la compréhension avant d
 
 #### Sous-chantier figures et rendu HTML/PDF
 
-- [x] Reproduire le défaut dans l'artefact HTML de CI : les 12 références de figures sortent de la racine à cause du double préfixe entre l'URL et le `<base href>` de Verso. La correction a été déployée ; le job GitHub Pages et la validation de l'artefact publié réussissent. Le navigateur de recherche ne permet pas un contrôle HTTP direct de la page en ligne.
+- [x] Reproduire le défaut dans l'artefact HTML de CI : les 12 références de figures sortent de la racine à cause du double préfixe entre l'URL et le `<base href>` de Verso. La correction a été déployée ; le job GitHub Pages et la validation de l'artefact publié réussissent.
 - [x] Corriger la cause démontrée et valider le contrôle automatisé des images locales : [PR #124 fusionnée](https://github.com/AntheaLiles/k7pl/pull/124), CI complète verte (build Verso, contrôle HTML, PDF). Le déploiement GitHub Pages et la validation de l'artefact publié sont réussis ; le défaut de rendu est clos.
 - [x] Inventorier les 12 figures déclarées, leurs modules, noms d'assets, sources modifiables et fonctions explicatives ; le SVG LSP non référencé est recensé comme reliquat (voir [l'inventaire](INTERACTIVE-EXPLORATION-INVENTORY.md), § 7).
 - [x] Définir le contrat minimal de métadonnées : objectif explicatif, type, source/sorties, légende, alt, description longue, note de lecture, provenance, objets liés, statut épistémique et critères de validation (contrat ci-dessous).
@@ -145,13 +145,13 @@ Pour le PDF, l'intégration doit transmettre les métadonnées au backend TeX et
 
 Une future vue graphe devra offrir une alternative navigable au clavier et une liste ou table accessible, ainsi que des liens vers les sources. Le graphe ne doit jamais être l'unique moyen d'obtenir les relations.
 
-##### Portée des conclusions de rendu établies au 10 octobre 2026
+##### Portée des conclusions de rendu
 
-- **Établi par les contrôles disponibles :** génération PDF/SVG déterministe ; égalité SHA-256 des trois rendus TikZ entre deux runs POC ; PDF complet compilé avec succès ; inspection visuelle de la pagination corrigée sur le PDF du run #38090151252 ; 12 images déclarées avec alternatives et descriptions longues reliées dans cet artefact HTML ; 12 SVG déclarés avec titre et description non vides ; tests du vérificateur, de l'enrichissement SVG et du catalogue passés avant les toutes dernières assertions explicites d'attributs SVG.
-- **Observé sur le PDF CI inspecté :** `pdfinfo` indique `Tagged: no` et la recherche dans les octets PDF ne trouve pas `/StructTreeRoot`. Le préambule personnalisé réel n'est pas disponible dans le dépôt ; cette observation ne prouve rien sur une autre chaîne de publication.
+- **Établi par les contrôles disponibles :** génération PDF/SVG déterministe et égalité SHA-256 des trois rendus TikZ du POC entre deux runs ; PDF complet compilé ; pagination corrigée et 12 figures HTML accessibles, inspectées sur l'artefact du run [#38091879446](https://github.com/AntheaLiles/k7pl/actions/runs/38091879446) (cases ci-dessus). Les tests du vérificateur, de l'enrichissement SVG et du catalogue passent, y compris les assertions explicites d'attributs SVG, sur le run [#38458868467](https://github.com/AntheaLiles/k7pl/actions/runs/38458868467) (`main`, 13 octobre 2026).
+- **Observé sur le PDF CI inspecté :** `pdfinfo` indique `Tagged: no` et la recherche dans les octets PDF ne trouve pas `/StructTreeRoot`. La copie archivée du préambule n'a pas été comparée à la copie locale de l'autrice ; cette observation ne prouve rien sur une autre chaîne de publication.
 - **Non établi :** PDF/UA sur le PDF de publication construit avec la copie locale effective du préambule, validation veraPDF du profil déclaré, lecture par un lecteur d'écran, bénéfice explicatif pour les lecteurs et revue éditoriale humaine indépendante. L'artefact de CI de la spécification utilise toujours la chaîne Tectonic standard : il ne démontre pas le résultat de la configuration Org/LuaLaTeX.
-- **Périmètre externe restant :** confirmer que la copie locale de `~/.emacs.d/latex/preamble-article.tex` correspond bien à l'archive versionnée (blob `33816e66eda838c9646e40c0c46f5a21a66f444a`) et que `my-export-config.el` correspond à la source archivée (blob `ab63b5d3b11d51ffb19074f6f3d24b0819a0542b`). La version exacte de `preamble-tikz.tex`, référencée par un ancien `protocole.tex` mais absente des archives consultées, n'a pas été retrouvée ; elle n'est pas nécessaire à la génération des trois figures autonomes de K7PL.
-- **Dépendance humaine/externe :** après comparaison des fichiers locaux, reconstruire le document concerné avec sa commande et ses versions réellement utilisées ; exécuter un validateur PDF/UA adapté (par exemple veraPDF configuré pour le profil PDF/UA annoncé) ; faire examiner l'arbre de structure et l'ordre de lecture par une personne utilisant un lecteur d'écran ; relire les figures au format d'insertion et en niveaux de gris.
+
+Les dépendances externes (comparaison des copies locales du préambule et de la configuration, validation PDF/UA, lecteur d'écran, relecture au format d'insertion) sont détaillées dans le protocole ci-dessous et dans les cases ouvertes du sous-chantier. [Version datée du 10 octobre de cette section](https://github.com/AntheaLiles/k7pl/blob/64e866bd20856118e3c8e872a195651bfa36a4b9/docs/tracking/INTERACTIVE-EXPLORATION-PLAN.md).
 
 ##### Protocole reproductible du contrôle PDF/UA
 
@@ -237,14 +237,13 @@ Le navigateur distingue désormais deux mécanismes. Les niveaux « repère typ�
 - [ ] Les bénéfices et limites sont documentés.
 - [x] Une décision explicite est prise : réorienter la démonstration, maintenir la comparaison utilisateur comme prérequis à toute extension.
 
-## Point de reprise — preuve de valeur navigation (11 octobre 2026)
+## Portes ouvertes de la navigation
 
-Le run CI `38092815528` cité plus haut est le point de comparaison historique, antérieur à la PR #150. Cette PR est maintenant fusionnée. Son run de validation [#38093986701](https://github.com/AntheaLiles/k7pl/actions/runs/38093986701) a terminé avec succès ; la génération et la validation contrôlent désormais la fraîcheur des pages, les liens/fragments locaux et la correspondance univoque entre chaque figure du catalogue et son ancre documentaire rendue.
-
-Cette validation établit la cohérence mécanique du HTML construit dans le run de PR. Elle ne prouve pas que le site public a été redéployé après cette correction ni que ses URL fonctionnent dans un navigateur. La validation directe du site publié, les essais clavier/mobile/sans JavaScript et la comparaison manuelle/prototype restent ouverts ; le protocole préenregistré dans [le dossier de preuve de valeur](NAVIGATION-PROTOTYPE.md) n'a pas encore été exécuté. Ne pas modifier le tableau de bord global généré `docs/STATUS.md`.
+La PR #150 est fusionnée : la génération et la validation contrôlent la fraîcheur des pages, les liens et fragments locaux et la correspondance univoque entre chaque figure du catalogue et son ancre documentaire (run [#38093986701](https://github.com/AntheaLiles/k7pl/actions/runs/38093986701)). Les constats statiques de l'audit du 11 octobre sur l'artefact du run [#38092815528](https://github.com/AntheaLiles/k7pl/actions/runs/38092815528) (trois pages de catalogue sans script, règle CSS à 560 px, défilement horizontal des graphes, lien d'entrée unique pour chacune des 12 figures, liens GitHub épinglés au SHA) sont désormais imposés à chaque build par [`check_navigation_outputs.py`](../../scripts/ci/check_navigation_outputs.py). La publication GitHub Pages a réussi sur le run [#38458868467](https://github.com/AntheaLiles/k7pl/actions/runs/38458868467) (`99a7375`, 13 octobre 2026) ; le fonctionnement des URL publiques dans un navigateur, les essais clavier, mobile et sans JavaScript et la comparaison manuelle/prototype restent à conduire par une personne.
 
 Le prochain parcours sémantique reste bloqué par cette porte de valeur d'usage : aucune relation entre définition, théorème, preuve, implémentation et test ne sera ajoutée sur la seule base des noms de modules, imports ou proximités de fichiers.
 
+Versions datées : [point de reprise du 11 octobre](https://github.com/AntheaLiles/k7pl/blob/64e866bd20856118e3c8e872a195651bfa36a4b9/docs/tracking/INTERACTIVE-EXPLORATION-PLAN.md), [audit statique de l'artefact publié](https://github.com/AntheaLiles/k7pl/blob/8df3ad9c1c4b04caf33bcec226784491639ba387/docs/tracking/NAVIGATION-PROTOTYPE.md).
 
 ### Clôture humaine du premier chantier
 
