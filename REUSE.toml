@@ -118,3 +118,11 @@ path = "tests/examples/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 K7PL contributors"
 SPDX-License-Identifier = "CECILL-C"
+
+# Documentation of lib/: CC-BY-4.0, like the rest of the documentation,
+# instead of being aggregated with the CECILL-C annotation above.
+[[annotations]]
+path = "lib/README.md"
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC-BY-4.0"
