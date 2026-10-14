@@ -176,5 +176,37 @@ class PaperproofExportTests(unittest.TestCase):
         self.assertFalse(artifact["guarantees"]["semanticCorrespondenceToNormativeSpecificationEstablished"])
 
 
+class ProofVisualizationRendererContractTests(unittest.TestCase):
+    """Source-level guard for the static Verso renderer's layout contract.
+
+    These assertions protect the intended structure; the Verso build and browser/PDF
+    review are still required to validate the produced output.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        repo_root = Path(__file__).resolve().parents[2]
+        cls.renderer = (repo_root / "tools/SpecExt/ProofVisualization.lean").read_text(encoding="utf-8")
+
+    def test_goal_transition_and_spawned_goals_remain_distinct(self):
+        self.assertIn('class="k7-proofviz-transition"', self.renderer)
+        self.assertIn('proofGoalHtml "Objectif avant la tactique"', self.renderer)
+        self.assertIn('proofArrayField step "goalsAfter"', self.renderer)
+        self.assertIn('proofArrayField step "spawnedGoals"', self.renderer)
+        self.assertIn("ne reconstruit pas de lien de branche précis", self.renderer)
+
+    def test_rendering_has_responsive_layout_and_accessible_provenance(self):
+        self.assertIn('class="k7-proofviz-provenance"', self.renderer)
+        self.assertIn("@media (max-width: 48rem)", self.renderer)
+        self.assertIn("@media (prefers-color-scheme: dark)", self.renderer)
+        self.assertIn("extraCss := [", self.renderer)
+
+    def test_renderer_keeps_essential_content_in_static_html(self):
+        self.assertNotRegex(self.renderer, r"<script\\b")
+        self.assertIn('class="k7-proofviz-step-header"', self.renderer)
+        self.assertIn('class="k7-proofviz-goal"', self.renderer)
+        self.assertIn('class="k7-proofviz-dependencies"', self.renderer)
+
+
 if __name__ == "__main__":
     unittest.main()
