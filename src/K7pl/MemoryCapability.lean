@@ -3,7 +3,6 @@
 -- SPDX-License-Identifier: CECILL-2.1
 
 import Mathlib.Data.Nat.Basic
-import Mathlib.Tactic
 
 /-!
 # Linear arena-capability invariant
