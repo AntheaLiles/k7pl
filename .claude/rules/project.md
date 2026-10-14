@@ -3,35 +3,35 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Règles globales du projet
+# Project-wide rules
 
-k7pl est un langage de programmation en cours de conception, avec une spécification en Verso et une implémentation en Lean 4.
+k7pl is a programming language under design, with a specification in Verso and an implementation in Lean 4.
 
-## Sources de vérité
+## Sources of truth
 
-- `spec/` est la source normative de la spécification courante.
-- `src/` est la source de l'implémentation Lean.
-- `tests/` contient les contrôles exécutables.
-- `docs/` contient le suivi, les décisions, les audits et les matériaux de recherche.
-- `docs/archives/` conserve l'ancien manuscrit et l'ancien outillage ; ne pas les modifier pour corriger la version courante.
+- `spec/` is the normative source of the current specification.
+- `src/` is the source of the Lean implementation.
+- `tests/` contains the executable checks.
+- `docs/` contains tracking, decisions, audits and research material.
+- `docs/archives/` keeps the former manuscript and the former tooling; do not modify them to correct the current version.
 
-Une affirmation dans la spécification, une définition Lean, une preuve et un test sont des objets différents. Ne jamais les considérer comme interchangeables.
+A claim in the specification, a Lean definition, a proof and a test are different objects. Never treat them as interchangeable.
 
 ## Invariants
 
-Ne pas introduire :
+Do not introduce:
 
-- `sorry`, `admit`, nouvel `axiom` ou `native_decide` ;
-- dépendance non maîtrisée ;
-- modification silencieuse du manuscrit ;
-- affaiblissement d'un contrôle pour faire passer CI, Scorecard ou CII.
+- `sorry`, `admit`, a new `axiom` or `native_decide`;
+- an uncontrolled dependency;
+- a silent change to the manuscript;
+- a weakened check to make CI, Scorecard or CII pass.
 
-Avant toute modification importante, lire la règle spécialisée correspondant à la zone touchée.
+Before any significant change, read the specialised rule for the area being touched.
 
-## Discipline de travail
+## Working discipline
 
-Préférer la plus petite modification démontrant le résultat demandé. Ne pas refactorer un domaine non concerné.
+Prefer the smallest change that demonstrates the requested result. Do not refactor an unrelated area.
 
-Une tâche qui traverse `spec/` et `src/` doit expliciter la relation entre les deux avant l'implémentation.
+A task that spans `spec/` and `src/` must make the relation between the two explicit before implementation.
 
-Une décision non certaine doit être marquée comme hypothèse, question ouverte ou action humaine requise ; ne jamais la présenter comme un fait établi.
+An uncertain decision must be marked as a hypothesis, an open question or a required human action; never present it as an established fact.

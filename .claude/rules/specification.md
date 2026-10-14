@@ -3,54 +3,54 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Règles de travail sur la spécification
+# Rules for working on the specification
 
-## Statut
+## Status
 
-`spec/` est la source normative de « K7PL : KonSept Programming Language ».
+`spec/` is the normative source of "K7PL : KonSept Programming Language".
 
-Le manuscrit porte « ne rien modifier sans l'accord de l'auteur ». Une modification du contenu conceptuel, d'un énoncé, d'une définition ou d'une structure du manuscrit exige donc une demande explicite.
+The manuscript carries the instruction « ne rien modifier sans l'accord de l'auteur » ("change nothing without the author's consent"). A change to the conceptual content, a statement, a definition or a structure of the manuscript therefore requires an explicit request.
 
-## Avant d'éditer
+## Before editing
 
-Identifier :
+Identify:
 
-1. le chapitre et la section concernés ;
-2. les définitions utilisées ;
-3. les énoncés dépendants ;
-4. les références croisées et citations ;
-5. le statut actuel de l'assertion ;
-6. les fiches de suivi ou obligations liées.
+1. the chapter and section concerned;
+2. the definitions used;
+3. the dependent statements;
+4. the cross-references and citations;
+5. the current status of the assertion;
+6. the related tracking cards or obligations.
 
-Ne jamais corriger un énoncé simplement parce que l'implémentation est plus facile ainsi.
+Never correct a statement merely because it makes the implementation easier.
 
-## Statuts épistémiques
+## Epistemic statuses
 
-Distinguer au minimum :
+Distinguish at least:
 
-- intuition ;
-- définition ;
-- exigence ;
-- assertion argumentée ;
-- proposition ;
-- théorème ;
-- conjecture ;
-- propriété formalisée ;
-- propriété mécanisée et prouvée.
+- intuition;
+- definition;
+- requirement;
+- argued assertion;
+- proposition;
+- theorem;
+- conjecture;
+- formalised property;
+- mechanised and proved property.
 
-« Formellement exprimé » ne signifie pas « démontré ».
+"Formally expressed" does not mean "proved".
 
-## Énoncés
+## Statements
 
-Un théorème principal ne doit pas être modifié par un agent sans accord explicite.
+A main theorem must not be modified by an agent without explicit agreement.
 
-Une preuve manquante doit conduire à un problème de preuve ou à une reformulation proposée, pas à une réécriture opportuniste du texte.
+A missing proof must lead to a proof problem or a proposed reformulation, not to an opportunistic rewriting of the text.
 
 ## Verso
 
-Respecter la structure existante, les labels, les sceaux, les bibliographies et les extensions de `tools/SpecExt`.
+Respect the existing structure, labels, seals (the status markers of statements), bibliographies and the extensions in `tools/SpecExt`.
 
-Après une modification pertinente :
+After a relevant change:
 
 ```
 lake build Spec
@@ -58,8 +58,8 @@ lake exe spec --output _out/spec --with-tex
 python3 scripts/controle.py
 ```
 
-Si le suivi est concerné, exécuter également `python3 scripts/suivi.py all`.
+If tracking is affected, also run `python3 scripts/suivi.py all`.
 
-## Recherche
+## Research
 
-Toute affirmation externe nouvelle doit être sourcée. Les agents ne doivent pas convertir une hypothèse de conception en fait littéraire sans source.
+Every new external claim must be sourced. Agents must not turn a design hypothesis into a fact from the literature without a source.

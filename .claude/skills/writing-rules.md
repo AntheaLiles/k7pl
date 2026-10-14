@@ -3,96 +3,97 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Règles de rédaction du projet k7pl
+# k7pl writing rules
 
-Ce document rassemble toutes les règles à suivre pour écrire du code, des
-tests, des spécifications et des messages de commit dans ce dépôt.
+This document gathers all the rules to follow when writing code, tests,
+specifications and commit messages in this repository.
 
-## 1. Structure du dépôt
+## 1. Repository structure
 
-| Chemin                         | Rôle                                                            | Licence    |
+| Path                           | Role                                                            | License    |
 |--------------------------------|-----------------------------------------------------------------|------------|
-| `src/Main.lean`                | Point d'entrée historique (`Main.hello`)                        | CECILL-2.1 |
-| `src/K7pl.lean`                | Racine de la bibliothèque : importe tous les modules `K7pl.*`   | CECILL-2.1 |
-| `src/K7pl/`                    | Implémentation du langage en Lean 4 (Mathlib, CSLib)            | CECILL-2.1 |
-| `tests/`                       | Tests en Lean 4 (un fichier `<Module>Test.lean` par module)     | CECILL-2.1 |
-| `spec/Spec.lean`               | Racine de la spécification Verso : titre, `{texsetup}`, inclusion des chapitres | CC-BY-4.0  |
-| `spec/Spec/<Ch>.lean`          | Un chapitre (`C1`…`C7`, `Refs`, `AnnexeA`…`AnnexeD`) : titre, `{refsection}`, introduction, `{include}` des sections | CC-BY-4.0  |
-| `spec/Spec/<Ch>/<Section>.lean` | Une section de niveau 2 : ses sous-sections (`#`, `##`…) et ses blocs | CC-BY-4.0  |
-| `spec/figures/`                | Figures : sources TikZ canoniques dans `tikz/` (avec `manifest.json`), dont `<nom>.svg` (HTML) et `<nom>.pdf` (PDF) sont générés et non suivis ; `sources/` conserve les anciennes sources drawio et mermaid | CC-BY-4.0  |
-| `spec/CHANGELOG.md`            | Versions de la spécification (releases `spec-vX.Y.Z`)           | CC-BY-4.0  |
-| `tools/SpecMain.lean`          | Générateur de la spécification (`lake exe spec`)                | CECILL-2.1 |
-| `tools/SpecExt/`, `tools/SpecExt.lean` | Extensions Verso de la spécification (renvois, énoncés, formules, figures, citations…) | CECILL-2.1 |
-| `tools/SpecBib.lean`           | Bibliographie, **générée** par `scripts/biblio/biblio.py`        | CECILL-2.1 |
-| `docs/bibliography/references.json` | Notices des œuvres citées (source de `SpecBib.lean`)       | CC-BY-4.0  |
-| `docs/`                        | Documentation courante, suivi, recherche, méthode, assurance et preuves | CC-BY-4.0  |
-| `docs/archives/`               | Manuscrit Org figé, ancien outillage                             | CC-BY-4.0 / CECILL-2.1 |
-| `LICENSES/`                    | Textes complets des licences (gérés par `reuse download`)       | —          |
-| `scripts/`                     | Maintenance (montée de version, hook de session, Zenodo), conversion Org → Verso (`org2verso/`), bibliographie (`biblio/`), mesures et suivi | CECILL-2.1 |
-| `zenodo.json`, `zenodo.files.json` | Métadonnées Zenodo (communes, par PDF) — via `REUSE.toml`   | CECILL-2.1 |
-| `.github/workflows/`           | CI : build/tests/lint/axiomes, Pages, REUSE, commits, sécurité  | CECILL-2.1 |
-| `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Modèles d'issues et de PR | CECILL-2.1 |
-| `.github/dependabot.yml`       | Mises à jour des GitHub Actions                                 | CECILL-2.1 |
-| `.claude/`                     | Consignes et hook de session pour les agents                    | CECILL-2.1 |
-| `lakefile.lean`                | Configuration Lake (bibliothèques, exécutables, dépendances)    | CECILL-2.1 |
-| `lake-manifest.json`           | Révisions exactes des dépendances (via `REUSE.toml`)            | CECILL-2.1 |
-| `lean-toolchain`               | Version de Lean fixée (via `REUSE.toml`)                        | CECILL-2.1 |
-| `.commitlintrc.yaml`           | Configuration du lint Conventional Commits                      | CECILL-2.1 |
-| `REUSE.toml`                   | Licences des fichiers qui ne peuvent pas porter d'en-tête       | CECILL-2.1 |
-| `LICENSE.md`                   | Présentation des licences, en français                          | —          |
-| `README.md`, `CHANGELOG.md`    | Documentation du projet                                         | CECILL-2.1 |
-| `CONTRIBUTING.md`, `SECURITY.md` | Déroulement des contributions, signalement de vulnérabilités  | CECILL-2.1 |
-| `CODE_OF_CONDUCT.md`           | Contributor Covenant 2.1 (traduction française)                 | CC-BY-4.0  |
-| `CITATION.cff`                 | Comment citer la spécification (DOI Zenodo)                     | CECILL-2.1 |
+| `src/Main.lean`                | Historical entry point (`Main.hello`)                           | CECILL-2.1 |
+| `src/K7pl.lean`                | Library root: imports every `K7pl.*` module                     | CECILL-2.1 |
+| `src/K7pl/`                    | Implementation of the language in Lean 4 (Mathlib, CSLib)       | CECILL-2.1 |
+| `tests/`                       | Lean 4 tests (one `<Module>Test.lean` file per module)          | CECILL-2.1 |
+| `spec/Spec.lean`               | Root of the Verso specification: title, `{texsetup}`, inclusion of the chapters | CC-BY-4.0  |
+| `spec/Spec/<Ch>.lean`          | One chapter (`C1`…`C7`, `Refs`, `AnnexeA`…`AnnexeD`): title, `{refsection}`, introduction, `{include}` of the sections | CC-BY-4.0  |
+| `spec/Spec/<Ch>/<Section>.lean` | One level-2 section: its subsections (`#`, `##`…) and its blocks | CC-BY-4.0  |
+| `spec/figures/`                | Figures: canonical TikZ sources in `tikz/` (with `manifest.json`), from which `<name>.svg` (HTML) and `<name>.pdf` (PDF) are generated and not tracked; `sources/` keeps the former drawio and mermaid sources | CC-BY-4.0  |
+| `spec/CHANGELOG.md`            | Specification versions (`spec-vX.Y.Z` releases)                | CC-BY-4.0  |
+| `tools/SpecMain.lean`          | Specification generator (`lake exe spec`)                       | CECILL-2.1 |
+| `tools/SpecExt/`, `tools/SpecExt.lean` | Verso extensions of the specification (cross-references, statements, formulas, figures, citations…) | CECILL-2.1 |
+| `tools/SpecBib.lean`           | Bibliography, **generated** by `scripts/biblio/biblio.py`       | CECILL-2.1 |
+| `docs/bibliography/references.json` | Records of the cited works (source of `SpecBib.lean`)      | CC-BY-4.0  |
+| `docs/`                        | Current documentation, tracking, research, method, assurance and evidence | CC-BY-4.0  |
+| `docs/archives/`               | Frozen Org manuscript, former tooling                           | CC-BY-4.0 / CECILL-2.1 |
+| `LICENSES/`                    | Full license texts (managed with `reuse download`)              | —          |
+| `scripts/`                     | Maintenance (version bump, session hook, Zenodo), Org → Verso conversion (`org2verso/`), bibliography (`biblio/`), metrics and tracking | CECILL-2.1 |
+| `zenodo.json`, `zenodo.files.json` | Zenodo metadata (shared, per PDF) — via `REUSE.toml`        | CECILL-2.1 |
+| `.github/workflows/`           | CI: build/tests/lint/axioms, Pages, REUSE, commits, security    | CECILL-2.1 |
+| `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Issue and PR templates | CECILL-2.1 |
+| `.github/dependabot.yml`       | GitHub Actions updates                                          | CECILL-2.1 |
+| `.claude/`                     | Instructions and session hook for agents                        | CECILL-2.1 |
+| `lakefile.lean`                | Lake configuration (libraries, executables, dependencies)       | CECILL-2.1 |
+| `lake-manifest.json`           | Exact revisions of the dependencies (via `REUSE.toml`)          | CECILL-2.1 |
+| `lean-toolchain`               | Pinned Lean version (via `REUSE.toml`)                          | CECILL-2.1 |
+| `.commitlintrc.yaml`           | Configuration of the Conventional Commits lint                  | CECILL-2.1 |
+| `REUSE.toml`                   | Licenses of the files that cannot carry a header                | CECILL-2.1 |
+| `LICENSE.md`                   | Overview of the licenses, in French                             | —          |
+| `README.md`, `CHANGELOG.md`    | Project documentation                                           | CECILL-2.1 |
+| `CONTRIBUTING.md`, `SECURITY.md` | Contribution workflow, vulnerability reporting                | CECILL-2.1 |
+| `CODE_OF_CONDUCT.md`           | Contributor Covenant 2.1 (French translation)                   | CC-BY-4.0  |
+| `CITATION.cff`                 | How to cite the specification (Zenodo DOI)                      | CECILL-2.1 |
 
-Dépendances (toutes épinglées sur la version de `lean-toolchain`) :
+Dependencies (all pinned to the version in `lean-toolchain`):
 
-- **Mathlib** : mathématiques et tactiques (`ring`, `simp`, `omega`…).
-- **CSLib** : fondements de l'informatique (LTS, lambda-calcul, relations…).
-- **Verso** : écriture de la spécification (genre `Manual`).
+- **Mathlib**: mathematics and tactics (`ring`, `simp`, `omega`…).
+- **CSLib**: foundations of computer science (LTS, lambda calculus, relations…).
+- **Verso**: writing the specification (`Manual` genre).
 
-Les bibliothèques écrites **dans le langage k7pl** (et non en Lean) sont
-recommandées sous `CECILL-C` (copyleft faible), voir `LICENSE.md`.
+Libraries written **in the k7pl language** (not in Lean) are
+recommended under `CECILL-C` (weak copyleft), see `LICENSE.md`.
 
-## 2. Langues
+## 2. Languages
 
-- **Anglais** pour tout le code source : identifiants, docstrings, commentaires,
-  messages affichés, noms de tests, scripts et workflows.
-- **Français** pour la documentation : README, CONTRIBUTING, SECURITY, CHANGELOG,
-  règles de rédaction, spécification Verso (`spec/`), issues et PR.
-- Messages de commit : français ou anglais, au format Conventional Commits.
+- **French** only for the specification (`spec/`).
+- **English** for everything else: all source code (identifiers, docstrings,
+  comments, displayed messages, test names, scripts and workflows), the
+  documentation (README, CONTRIBUTING, SECURITY, CHANGELOG, these writing
+  rules), tracking, agent, rule and skill files, issues and PRs.
+- Commit messages: English, in the Conventional Commits format (§9).
 
-## 3. Conventions de nommage
+## 3. Naming conventions
 
-- Fichiers `.lean` (code, tests **et** spécifications Verso) : **CamelCase**,
-  un module par fichier, le nom de fichier correspond au nom du module.
-  Ex. `src/K7pl/Parser.lean` → module `K7pl.Parser`,
+- `.lean` files (code, tests **and** Verso specifications): **CamelCase**,
+  one module per file, the file name matches the module name.
+  E.g. `src/K7pl/Parser.lean` → module `K7pl.Parser`,
   `spec/Spec/SyntaxRules.lean` → module `Spec.SyntaxRules`.
-- Fichiers de test : nom du module testé suivi de `Test`, à la racine de `tests/`.
-  Ex. `src/K7pl/Parser.lean` → `tests/ParserTest.lean` (module `ParserTest`).
-  Ne pas créer de module de test sous `K7pl.*` : ce préfixe appartient à `src/`.
-- Identifiants Lean : `lowerCamelCase` pour les fonctions et valeurs
-  (`parseExpr`, `testHello`), `UpperCamelCase` pour les types, structures,
-  classes et espaces de noms (`Expr`, `TypeEnv`). Théorèmes en `snake_case`
-  à la manière de Mathlib (`eval_double`).
+- Test files: name of the tested module followed by `Test`, at the root of `tests/`.
+  E.g. `src/K7pl/Parser.lean` → `tests/ParserTest.lean` (module `ParserTest`).
+  Do not create a test module under `K7pl.*`: that prefix belongs to `src/`.
+- Lean identifiers: `lowerCamelCase` for functions and values
+  (`parseExpr`, `testHello`), `UpperCamelCase` for types, structures,
+  classes and namespaces (`Expr`, `TypeEnv`). Theorems in `snake_case`,
+  as in Mathlib (`eval_double`).
 
-## 4. En-têtes REUSE
+## 4. REUSE headers
 
-Chaque fichier commence par un en-tête SPDX avec l'année et le nom de
-l'auteur : `SPDX-FileCopyrightText: <année> Cyprien PIERRE` (ou le nom de la
-personne qui contribue).
+Every file starts with an SPDX header giving the year and the author's
+name: `SPDX-FileCopyrightText: <year> Cyprien PIERRE` (or the name of the
+person contributing).
 
-| Fichier                                         | Préfixe de commentaire | Identifiant SPDX |
-|-------------------------------------------------|------------------------|------------------|
-| `.lean` dans `src/`, `tests/`, `tools/`, racine | `--`                   | `CECILL-2.1`     |
-| `.lean` dans `spec/` (Verso)                    | `--`                   | `CC-BY-4.0`      |
-| `.yaml`, `.yml`, `.toml`                        | `#`                    | `CECILL-2.1`     |
-| `.md`                                           | `<!-- … -->`           | `CECILL-2.1`     |
-| `.gitignore`, `.gitattributes`, `.editorconfig` | `#` + `REUSE.toml`     | `CECILL-2.1`     |
-| `lean-toolchain`, `lake-manifest.json`          | aucun → `REUSE.toml`   | `CECILL-2.1`     |
-| Bibliothèque écrite en k7pl                     | selon la syntaxe       | `CECILL-C`       |
+| File                                            | Comment prefix          | SPDX identifier  |
+|-------------------------------------------------|-------------------------|------------------|
+| `.lean` in `src/`, `tests/`, `tools/`, root     | `--`                    | `CECILL-2.1`     |
+| `.lean` in `spec/` (Verso)                      | `--`                    | `CC-BY-4.0`      |
+| `.yaml`, `.yml`, `.toml`                        | `#`                     | `CECILL-2.1`     |
+| `.md`                                           | `<!-- … -->`            | `CECILL-2.1`     |
+| `.gitignore`, `.gitattributes`, `.editorconfig` | `#` + `REUSE.toml`      | `CECILL-2.1`     |
+| `lean-toolchain`, `lake-manifest.json`          | none → `REUSE.toml`     | `CECILL-2.1`     |
+| Library written in k7pl                         | according to the syntax | `CECILL-C`       |
 
-Lean 4 (code) :
+Lean 4 (code):
 
 ```lean
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
@@ -100,7 +101,7 @@ Lean 4 (code) :
 -- SPDX-License-Identifier: CC0-1.0
 ```
 
-Verso (`spec/`) :
+Verso (`spec/`):
 
 ```lean
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
@@ -108,7 +109,7 @@ Verso (`spec/`) :
 -- SPDX-License-Identifier: CC-BY-4.0
 ```
 
-YAML, TOML, fichiers de configuration Git et EditorConfig :
+YAML, TOML, Git configuration files and EditorConfig:
 
 ```yaml
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
@@ -116,7 +117,7 @@ YAML, TOML, fichiers de configuration Git et EditorConfig :
 # SPDX-License-Identifier: CC0-1.0
 ```
 
-Markdown :
+Markdown:
 
 ```markdown
 <!--
@@ -125,194 +126,196 @@ SPDX-License-Identifier: CC0-1.0
 -->
 ```
 
-Fichier sans commentaire possible : ajouter dans `REUSE.toml`
+File that cannot hold a comment: add it to `REUSE.toml`
 
 ```toml
 [[annotations]]
-path = "chemin/du/fichier"
+path = "path/to/the/file"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CECILL-2.1"
 ```
 
-Toute nouvelle licence utilisée doit avoir son texte dans `LICENSES/` :
-`reuse download <IDENTIFIANT>`. Vérifier avec `reuse lint`.
+Every new license used must have its text in `LICENSES/`:
+`reuse download <IDENTIFIER>`. Check with `reuse lint`.
 
-## 5. Ajouter un module `.lean`
+## 5. Adding a `.lean` module
 
-1. Créer `src/K7pl/<Module>.lean` (CamelCase) avec l'en-tête SPDX CECILL-2.1.
-2. Déclarer le contenu dans `namespace K7pl.<Module>` … `end K7pl.<Module>`.
-3. Ajouter `import K7pl.<Module>` dans `src/K7pl.lean`.
-4. Créer `tests/<Module>Test.lean` avec l'en-tête SPDX :
-   - vérifications à la compilation (`#guard`, `#guard_msgs`, `example`) ;
-   - tests de propriétés avec `plausible` quand un invariant s'y prête ;
-   - une liste `def tests : List (String × Bool)` exécutée par `lake test`.
-5. Mettre à jour `lakefile.lean` : ajouter `` `<Module>Test `` aux `roots` de
-   `lean_lib K7plTests`, puis importer le module de test dans
-   `tests/MainTest.lean` et concaténer sa liste `tests`.
-6. Pour une nouvelle dépendance : `require` dans `lakefile.lean`, puis
-   `lake update <paquet>` et commit de `lake-manifest.json`.
-7. Ajouter une ligne dans `CHANGELOG.md`, section `[Unreleased]`.
-8. Vérifier : `lake build && lake test && lake lint && reuse lint`.
+1. Create `src/K7pl/<Module>.lean` (CamelCase) with the CECILL-2.1 SPDX header.
+2. Declare the content in `namespace K7pl.<Module>` … `end K7pl.<Module>`.
+3. Add `import K7pl.<Module>` to `src/K7pl.lean`.
+4. Create `tests/<Module>Test.lean` with the SPDX header:
+   - compile-time checks (`#guard`, `#guard_msgs`, `example`);
+   - property tests with `plausible` when an invariant lends itself to it;
+   - a list `def tests : List (String × Bool)` run by `lake test`.
+5. Update `lakefile.lean`: add `` `<Module>Test `` to the `roots` of
+   `lean_lib K7plTests`, then import the test module in
+   `tests/MainTest.lean` and concatenate its `tests` list.
+6. For a new dependency: `require` in `lakefile.lean`, then
+   `lake update <package>` and commit `lake-manifest.json`.
+7. Add a line to `CHANGELOG.md`, section `[Unreleased]`.
+8. Check: `lake build && lake test && lake lint && reuse lint`.
 
-Importer Mathlib et CSLib **module par module** (`import Mathlib.Tactic.Ring`),
-jamais `import Mathlib` ni `import Cslib` en entier : la compilation reste rapide.
+Import Mathlib and CSLib **module by module** (`import Mathlib.Tactic.Ring`),
+never `import Mathlib` or `import Cslib` as a whole: compilation stays fast.
 
-## 6. Écrire dans la spécification (Verso)
+## 6. Writing in the specification (Verso)
 
-La spécification est écrite en [Verso](https://github.com/leanprover/verso), genre `Manual`.
-Ce sont des fichiers Lean : `lake build` les compile, et toute erreur (renvoi vers une étiquette
-inconnue, clé bibliographique absente, balisage invalide) fait échouer la compilation ou le rendu.
+The specification is written in [Verso](https://github.com/leanprover/verso), `Manual` genre.
+These are Lean files: `lake build` compiles them, and any error (cross-reference to an unknown
+label, missing bibliography key, invalid markup) makes compilation or rendering fail.
 
-**Le manuscrit porte « ne rien modifier sans l'accord de l'auteur »** : on ne corrige son texte
-que sur demande, par la plus petite modification, et on consigne le changement (fiche, journal).
+**The manuscript carries the instruction « ne rien modifier sans l'accord de l'auteur »**
+("change nothing without the author's consent"): its text is corrected only on request, by the
+smallest change, and the change is recorded (tracking card, log).
 
 ### Structure
 
-- `spec/Spec.lean` inclut les chapitres dans l'ordre du document ; chaque chapitre `Spec/<Ch>.lean`
-  ouvre une section de bibliographie (`{refsection "c3-types"}`), porte son introduction, puis
-  `{include 0 Spec.<Ch>.<Section>}` pour chacune de ses sections ; son module de **dernière**
-  section se termine par `{bibliography}` (la liste des œuvres citées dans le chapitre).
-- Un module de section commence par `#doc (Manual) "Titre" =>`, puis un bloc `%%%` de
-  métadonnées (`file := "…"` : nom de la page HTML ; `tag := "…"` : nom canonique, stable, de la
-  section ; `number := false` pour les annexes, dont le numéro (`A.`, `A.1.`) est écrit dans le
-  titre), puis `{label "sec:…"}` si la section est référencée.
-- Nommer un nouveau module en CamelCase ASCII, sans accent ; ajouter son `import` et son
-  `{include}` dans le module du chapitre.
+- `spec/Spec.lean` includes the chapters in document order; each chapter `Spec/<Ch>.lean`
+  opens a bibliography section (`{refsection "c3-types"}`), carries its introduction, then
+  `{include 0 Spec.<Ch>.<Section>}` for each of its sections; the module of its **last**
+  section ends with `{bibliography}` (the list of the works cited in the chapter).
+- A section module starts with `#doc (Manual) "Title" =>`, then a `%%%` metadata block
+  (`file := "…"`: name of the HTML page; `tag := "…"`: canonical, stable name of the
+  section; `number := false` for the annexes, whose number (`A.`, `A.1.`) is written in the
+  title), then `{label "sec:…"}` if the section is referenced.
+- Name a new module in ASCII CamelCase, without accents; add its `import` and its
+  `{include}` to the chapter module.
 
-### Extensions de la spécification (`tools/SpecExt/`)
+### Specification extensions (`tools/SpecExt/`)
 
-| À écrire | Rôle |
+| What to write | Role |
 |---|---|
-| `{num "sec:x"}[]` | renvoi numéroté, lien vers l'objet (section, énoncé, formule, figure, tableau, listing) — remplace `\ref` |
-| `{label "sec:x"}` | étiquette de la section courante (`(display := "A.1")` impose le numéro affiché) |
-| `{cite "CLÉ1,CLÉ2"}[]` | citation numérique `[3, 5–7]`, numérotée par chapitre (`{refsection}`) ; la clé doit exister dans `docs/bibliography/references.json` |
-| `::::theorem (label := "thm:x") (scope := "metatheory")`, et ses directives sœurs | énoncé : définition, prémisse, résultat, exigence, résultat de la littérature, exemple ; voir « Énoncés : directives spécialisées » ci-dessous |
-| `::::thm (label := "thm:x") (status := …) (level := …)` | **historique**, conservé pour compatibilité ; `spec/` ne l'emploie plus. `status` : `theoreme`, `proposition`, `conjecture`, `definition`, `exigence`, `litterature` |
-| `::::formula (label := "eq:x") (kind := "formule")` | formule(s) : blocs de code contenant du LaTeX mathématique, `:::caption` |
-| `::::figure (label := "fig:x") (src := "nom") (alt := "…") (width := "90")` | figure `spec/figures/nom.{svg,pdf}` ; créneaux `:::caption`, `:::desc`, `:::note`, `:::source` |
-| `::::k7table (label := "tab:x") (align := "lZ{1.0}")` | tableau légendé autour d'un `:::table +header` ; `align` : colonnes `tabularx` du PDF |
-| `::::listing (label := "lst:x")` | code source légendé |
-| `{rmq}[…]` | remarque marginale numérotée (« RMQ n. ») |
-| `{sc}[…]` | petites capitales |
-| `{listof "figure"}` | liste des figures, `"table"`, `"formule"`, `"listing"` |
-| `{printindex}` | index à pages (PDF) et à sections (HTML) ; les termes de `tools/SpecExt/IndexTerms.lean` sont reconnus dans le texte à la génération (`SpecExt.AutoMark`), sans balisage à la main |
-| `{idx "terme"}[texte]`, `{gloss "définition"}[texte]` | marques posées par la reconnaissance automatique (index, infobulle du glossaire) ; ne s'écrivent pas à la main |
-| `:::comment` + bloc de code | commentaire d'auteur, conservé dans la source, jamais rendu |
-| `{missing "label"}[]` | renvoi non résolu du manuscrit d'origine, imprimé `??` — à remplacer par `{num}` dès que l'étiquette existe |
+| `{num "sec:x"}[]` | numbered cross-reference, link to the object (section, statement, formula, figure, table, listing) — replaces `\ref` |
+| `{label "sec:x"}` | label of the current section (`(display := "A.1")` forces the displayed number) |
+| `{cite "KEY1,KEY2"}[]` | numeric citation `[3, 5–7]`, numbered per chapter (`{refsection}`); the key must exist in `docs/bibliography/references.json` |
+| `::::theorem (label := "thm:x") (scope := "metatheory")`, and its sibling directives | statement: definition, premise, result, requirement, result from the literature, example; see "Statements: specialised directives" below |
+| `::::thm (label := "thm:x") (status := …) (level := …)` | **historical**, kept for compatibility; `spec/` no longer uses it. `status`: `theoreme`, `proposition`, `conjecture`, `definition`, `exigence`, `litterature` |
+| `::::formula (label := "eq:x") (kind := "formule")` | formula(s): code blocks containing mathematical LaTeX, `:::caption` |
+| `::::figure (label := "fig:x") (src := "name") (alt := "…") (width := "90")` | figure `spec/figures/name.{svg,pdf}`; slots `:::caption`, `:::desc`, `:::note`, `:::source` |
+| `::::k7table (label := "tab:x") (align := "lZ{1.0}")` | captioned table around a `:::table +header`; `align`: `tabularx` columns of the PDF |
+| `::::listing (label := "lst:x")` | captioned source code |
+| `{rmq}[…]` | numbered margin note ("RMQ n.") |
+| `{sc}[…]` | small capitals |
+| `{listof "figure"}` | list of figures, `"table"`, `"formule"`, `"listing"` |
+| `{printindex}` | index with pages (PDF) and with sections (HTML); the terms of `tools/SpecExt/IndexTerms.lean` are recognised in the text at generation time (`SpecExt.AutoMark`), without hand markup |
+| `{idx "term"}[text]`, `{gloss "definition"}[text]` | marks placed by the automatic recognition (index, glossary tooltip); not written by hand |
+| `:::comment` + code block | author's comment, kept in the source, never rendered |
+| `{missing "label"}[]` | unresolved cross-reference of the original manuscript, printed `??` — to be replaced by `{num}` as soon as the label exists |
 
-Les étiquettes suivent `sec:`, `thm:`, `eq:`, `fig:`, `tab:`, `lst:`. Un énoncé corrigé **change de
-sceau** (son `role` ou son `state`), il ne perd pas son étiquette ni ne se renumérote à la main :
-chaque rôle (ou chaque nature, pour un objet sans rôle) a son compteur, qui suit l'ordre du
-document ; les anciens blocs `::::thm` partageaient un compteur unique.
+Labels follow `sec:`, `thm:`, `eq:`, `fig:`, `tab:`, `lst:`. A corrected statement **changes its
+seal** (its `role` or its `state`); it neither loses its label nor is renumbered by hand:
+each role (or each kind, for an object without a role) has its own counter, which follows the
+document order; the former `::::thm` blocks shared a single counter.
 
-#### Énoncés : directives spécialisées
+#### Statements: specialised directives
 
-Toutes les directives d'énoncé partagent une représentation interne (`StatementInfo`, dans
-`tools/SpecExt/Theorem.lean`) et une même validation. Elles séparent la nature de l'objet, son rôle,
-son état épistémique, son appui et sa portée. Contrat repris de
-`docs/tracking/LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md`, supprimé après intégration (dernière
-version :
-[`2bdb06e`](https://github.com/AntheaLiles/k7pl/blob/2bdb06e5e42857cef5c2f9084f6b6b7245bed46b/docs/tracking/LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md)) ;
-les décisions qui le fondent sont dans `docs/tracking/DECISIONS.md` (taxonomie C8, 9 octobre 2026).
+All statement directives share an internal representation (`StatementInfo`, in
+`tools/SpecExt/Theorem.lean`) and the same validation. They separate the kind of the object, its
+role, its epistemic state, its support and its scope. Contract taken from
+`docs/tracking/LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md`, deleted after integration (last
+version:
+[`2bdb06e`](https://github.com/AntheaLiles/k7pl/blob/2bdb06e5e42857cef5c2f9084f6b6b7245bed46b/docs/tracking/LEAN-STATEMENT-ONTOLOGY-IMPLEMENTATION.md));
+the decisions it rests on are in `docs/tracking/DECISIONS.md` (C8 taxonomy, 9 October 2026).
 
-| Directive | Nature (`kind`) | Rôle par défaut | État par défaut | Numérotée | Étiquette |
+| Directive | Kind (`kind`) | Default role | Default state | Numbered | Label |
 |---|---|---|---|---|---|
-| `::::theorem`, `::::lemma`, `::::corollary`, `::::proposition` | `result` | le nom de la directive | `under-review` | oui | requise |
-| `::::conjecture` | `result` | `conjecture` | `proposed` | oui | requise |
-| `::::axiom`, `::::postulate` | `assumption` | `axiom`, `postulate` | `under-review` | oui | requise |
-| `::::hypothesis` | `assumption` | `hypothesis` | `under-review` | non | facultative |
-| `::::definition` | `definition` | — | `not-applicable` | oui | requise |
-| `::::requirement` | `requirement` | — | `not-applicable` | oui | requise |
-| `::::literature` | `literature` | — | `not-applicable` | oui | requise |
-| `::::example`, `::::counterexample` | `example`, `counterexample` | — | `not-applicable` | non | facultative |
+| `::::theorem`, `::::lemma`, `::::corollary`, `::::proposition` | `result` | the directive's name | `under-review` | yes | required |
+| `::::conjecture` | `result` | `conjecture` | `proposed` | yes | required |
+| `::::axiom`, `::::postulate` | `assumption` | `axiom`, `postulate` | `under-review` | yes | required |
+| `::::hypothesis` | `assumption` | `hypothesis` | `under-review` | no | optional |
+| `::::definition` | `definition` | — | `not-applicable` | yes | required |
+| `::::requirement` | `requirement` | — | `not-applicable` | yes | required |
+| `::::literature` | `literature` | — | `not-applicable` | yes | required |
+| `::::example`, `::::counterexample` | `example`, `counterexample` | — | `not-applicable` | no | optional |
 
-Arguments, tous nommés :
+Arguments, all named:
 
-- `label` : étiquette `thm:…` ;
-- `scope` : **obligatoire**, vocabulaire fermé : `syntax`, `metatheory`, `graphs`, `resources`,
+- `label`: a `thm:…` label;
+- `scope`: **mandatory**, closed vocabulary: `syntax`, `metatheory`, `graphs`, `resources`,
   `memory-safety`, `security`, `operational-semantics`, `graded-typing`, `effects`,
   `logical-relations`, `translation`, `fixed-points`, `interoperability`, `concurrency`,
   `ffi-safety`, `representation`, `compiler-interface`, `compilation`, `resource-accounting`,
-  `literature`, `runtime`. Une étiquette de portée ne vaut pas garantie : les hypothèses et les
-  limites restent dans le texte de l'énoncé ;
-- `state` : `proposed`, `under-review`, `supported`, `established`, `refuted` ou `withdrawn` pour un
-  résultat ou une prémisse ; `not-applicable` pour tout autre objet. Le rôle et l'état sont
-  indépendants ;
-- `evidence` : `none` (défaut), `written-proof`, `proofsketch`, `literature`, `computation`,
-  `counterexample`, `lean-proof`. Une démonstration écrite, une esquisse et une preuve Lean sont
-  trois choses distinctes ;
-- `role` : remplace le rôle par défaut, s'il est compatible avec la nature ;
-- `source` : provenance bibliographique, obligatoire pour `::::literature` et avec
-  `evidence := "literature"` ;
-- `formalArtifact` : déclaration Lean vérifiée (`Module.declaration`), obligatoire avec
-  `evidence := "lean-proof"` et refusée sinon ;
-- `level` : domaine historique (`langage` par défaut, `compilation`, `representation`,
-  `deploiement`), conservé tel quel ; ce n'est pas la portée ;
-- `+unnumbered` : objet local non numéroté.
+  `literature`, `runtime`. A scope label is not a guarantee: the hypotheses and the limits
+  stay in the text of the statement;
+- `state`: `proposed`, `under-review`, `supported`, `established`, `refuted` or `withdrawn` for a
+  result or a premise; `not-applicable` for any other object. Role and state are
+  independent;
+- `evidence`: `none` (default), `written-proof`, `proofsketch`, `literature`, `computation`,
+  `counterexample`, `lean-proof`. A written proof, a sketch and a Lean proof are
+  three distinct things;
+- `role`: replaces the default role, if it is compatible with the kind;
+- `source`: bibliographic provenance, mandatory for `::::literature` and with
+  `evidence := "literature"`;
+- `formalArtifact`: verified Lean declaration (`Module.declaration`), mandatory with
+  `evidence := "lean-proof"` and refused otherwise;
+- `level`: historical domain (`langage` by default, `compilation`, `representation`,
+  `deploiement`), kept as is; it is not the scope;
+- `+unnumbered`: local unnumbered object.
 
-Créneaux : `:::title` ; `:::statement`, ou `:::statement +titled` dont le premier paragraphe devient
-le titre de l'énoncé ; `:::proofsketch` ; `:::note`, comme tout autre créneau, rendu en paragraphe
-simple. Le texte placé hors créneau n'est pas rendu.
+Slots: `:::title`; `:::statement`, or `:::statement +titled`, whose first paragraph becomes
+the statement's title; `:::proofsketch`; `:::note`, like any other slot, rendered as a plain
+paragraph. Text placed outside a slot is not rendered.
 
 ```text
-::::theorem (label := "thm:exemple") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
+::::theorem (label := "thm:example") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
-Titre court
+Short title
 :::
 :::statement
-Le texte de l'énoncé.
+The text of the statement.
 :::
 :::proofsketch
-L'argument, explicitement incomplet.
+The argument, explicitly incomplete.
 :::
 ::::
 ```
 
-**Validation à la compilation** (`lake build Spec`). Sont refusés :
+**Compile-time validation** (`lake build Spec`). The following are refused:
 
-- un objet numéroté sans étiquette ;
-- un état, un type d'appui ou une portée hors vocabulaire, ou une portée absente ;
-- un résultat ou une prémisse sans état épistémique, ou un autre objet dont l'état n'est pas
-  `not-applicable` ;
-- un rôle incompatible avec la nature, ou une conjecture marquée `established` ;
-- un résultat de la littérature sans `source` ;
-- `lean-proof` sans `formalArtifact`, ou `formalArtifact` sans `lean-proof` ;
-- `proofsketch`, `written-proof` ou `lean-proof` sur un objet qui n'est pas un résultat ;
-- une hypothèse de portée `global`.
+- a numbered object without a label;
+- a state, an evidence type or a scope outside the vocabulary, or a missing scope;
+- a result or a premise without an epistemic state, or another object whose state is not
+  `not-applicable`;
+- a role incompatible with the kind, or a conjecture marked `established`;
+- a result from the literature without `source`;
+- `lean-proof` without `formalArtifact`, or `formalArtifact` without `lean-proof`;
+- `proofsketch`, `written-proof` or `lean-proof` on an object that is not a result;
+- a hypothesis with `global` scope.
 
-**Contrôle d'ontologie** (`scripts/controles/statement_ontology.py`, lancé par
-`scripts/controle.py`). Il reprend ces règles et ajoute :
+**Ontology check** (`scripts/controles/statement_ontology.py`, run by
+`scripts/controle.py`). It repeats these rules and adds:
 
-- `evidence := "proofsketch"` exige un créneau `:::proofsketch` ; ce créneau n'est admis qu'avec
-  `evidence` égal à `proofsketch` ou `literature` ;
-- le texte hors créneau est refusé.
+- `evidence := "proofsketch"` requires a `:::proofsketch` slot; that slot is only allowed with
+  `evidence` equal to `proofsketch` or `literature`;
+- text outside a slot is refused.
 
-**Limites.** Ces contrôles sont structurels. Ils ne valident ni une preuve, ni l'adéquation d'une
-esquisse, ni l'attache d'une hypothèse à l'argument qu'elle qualifie. La présence de `source` est
-exigée, pas sa résolution bibliographique. Aucune métadonnée ne remplace une preuve : passer un
-énoncé à `established`, changer son rôle ou déclarer `lean-proof` est un changement de statut
-scientifique, qui demande l'accord de l'autrice et, pour `lean-proof`, l'artefact formel testé.
+**Limits.** These checks are structural. They validate neither a proof, nor the adequacy of a
+sketch, nor the attachment of a hypothesis to the argument it qualifies. The presence of `source`
+is required, not its bibliographic resolution. No metadata replaces a proof: moving a
+statement to `established`, changing its role or declaring `lean-proof` is a change of
+scientific status, which requires the author's agreement and, for `lean-proof`, the tested formal
+artefact.
 
-### Vérifier
+### Checking
 
-1. `lake build Spec` (compilation ; les avertissements sont des erreurs).
-2. `lake exe spec --output _out/spec --with-tex` (rendu ; un renvoi ou une clé inconnus font échouer).
-3. `python3 scripts/manuscript_metrics.py summary`, et `python3 scripts/suivi.py all` si des fiches ont changé d'état.
-4. Ajouter une ligne dans `spec/CHANGELOG.md` (commit de type `docs(spec)`).
+1. `lake build Spec` (compilation; warnings are errors).
+2. `lake exe spec --output _out/spec --with-tex` (rendering; an unknown cross-reference or key makes it fail).
+3. `python3 scripts/manuscript_metrics.py summary`, and `python3 scripts/suivi.py all` if tracking cards changed state.
+4. Add a line to `spec/CHANGELOG.md` (commit of type `docs(spec)`).
 
-La bibliographie : ajouter une œuvre = ajouter sa notice à `docs/bibliography/references.json` (champs de
-`scripts/biblio/biblio.py`), puis `python3 scripts/biblio/biblio.py lean docs/bibliography/references.json
+The bibliography: adding a work = adding its record to `docs/bibliography/references.json` (fields of
+`scripts/biblio/biblio.py`), then `python3 scripts/biblio/biblio.py lean docs/bibliography/references.json
 tools/SpecBib.lean`.
 
-## 7. Style Lean 4
+## 7. Lean 4 style
 
-Les règles suivent celles de Mathlib ; les linters de Mathlib (`mathlibStandardSet`)
-sont actifs sur `src/`, et tout avertissement fait échouer la compilation
-(`warningAsError`). `lake lint` (Batteries `runLinter`) vérifie en plus les
-docstrings manquantes et les défauts courants.
+The rules follow Mathlib's; the Mathlib linters (`mathlibStandardSet`)
+are active on `src/`, and any warning makes compilation fail
+(`warningAsError`). `lake lint` (Batteries `runLinter`) additionally checks
+missing docstrings and common defects.
 
-En-tête et documentation de module :
+Header and module documentation:
 
 ```lean
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
@@ -349,157 +352,169 @@ Why this representation was chosen (only the non-obvious choices).
 -/
 ```
 
-Les sections sont dans cet ordre ; celles qui n'ont pas de contenu sont omises
-(`Notation` seulement si le module en introduit, `References` seulement s'il y en a).
+The sections come in this order; those without content are omitted
+(`Notation` only if the module introduces notation, `References` only if there are any).
 
-Docstrings :
+Docstrings:
 
-- Toute définition, structure, inductive, **constructeur** et théorème principal
-  a un docstring `/-- … -/` ; les lemmes réutilisables aussi.
-- Phrase complète en anglais, terminée par un point ; lignes suivantes non indentées.
-- Écrire pour l'infobulle de l'éditeur : concis, autonome, complète la signature
-  sans la paraphraser.
-- Toute tactique, commande ou attribut défini dans le projet a un docstring.
+- Every definition, structure, inductive, **constructor** and main theorem
+  has a `/-- … -/` docstring; so do reusable lemmas.
+- Complete sentence in English, ending with a period; following lines not indented.
+- Write for the editor tooltip: concise, self-contained, complementing the signature
+  without paraphrasing it.
+- Every tactic, command or attribute defined in the project has a docstring.
 
-Commentaires : expliquer le *pourquoi* (choix de représentation, `WellFounded`
-plutôt que du carburant…), jamais le *quoi* que le type exprime déjà.
+Comments: explain the *why* (choice of representation, `WellFounded`
+rather than fuel…), never the *what* that the type already expresses.
 
-Preuves et axiomes :
+Proofs and axioms:
 
-- Aucun `sorry`/`admit` dans le code fusionné (bloqué par `warningAsError`).
-- Aucun `axiom` nouveau, aucun `native_decide` : l'audit des axiomes en CI
-  n'accepte que `propext`, `Classical.choice` et `Quot.sound` sous `K7pl`.
-- Séparer définitions et preuves quand un module grossit
-  (`K7pl/Foo/Defs.lean` pour les définitions, `K7pl/Foo/Basic.lean` pour les lemmes).
-- Fichiers de 1500 lignes au plus (`linter.style.longFile`), lignes de 100 caractères au plus.
+- No `sorry`/`admit` in merged code (blocked by `warningAsError`).
+- No new `axiom`, no `native_decide`: the axiom audit in CI
+  only accepts `propext`, `Classical.choice` and `Quot.sound` under `K7pl`.
+- Separate definitions and proofs when a module grows
+  (`K7pl/Foo/Defs.lean` for definitions, `K7pl/Foo/Basic.lean` for lemmas).
+- Files of at most 1500 lines (`linter.style.longFile`), lines of at most 100 characters.
 
-Mise en forme :
+Layout:
 
-- Ordre dans un fichier : en-tête SPDX, ligne vide, `import`, documentation de
-  module `/-! … -/`, `open`, puis `namespace`. Les `import` doivent précéder
-  toute autre commande.
-- Un `import` par ligne, triés : dépendances externes (Mathlib, Cslib, Verso)
-  d'abord, puis les modules du projet.
-- `open` limité au strict nécessaire ; préférer `open X in` pour un usage local.
-- Tout le contenu d'un module dans `namespace K7pl.<Module>` … `end K7pl.<Module>`.
-- Indentation de 2 espaces, pas de tabulations, lignes de 100 caractères au plus.
-- Définitions internes marquées `private`.
-- Pas de `sorry` dans le code fusionné.
+- Order within a file: SPDX header, blank line, `import`, module documentation
+  `/-! … -/`, `open`, then `namespace`. The `import`s must precede
+  every other command.
+- One `import` per line, sorted: external dependencies (Mathlib, Cslib, Verso)
+  first, then the project's modules.
+- `open` limited to what is strictly necessary; prefer `open X in` for a local use.
+- All the content of a module inside `namespace K7pl.<Module>` … `end K7pl.<Module>`.
+- 2-space indentation, no tabs, lines of at most 100 characters.
+- Internal definitions marked `private`.
+- No `sorry` in merged code.
 
-## 8. Style Verso et réécriture depuis Org-mode
+## 8. Verso style and rewriting from Org-mode
 
-Style :
+Style:
 
-- Un fichier = un chapitre = un `#doc (Manual) "Titre" =>`.
-- Titres de section avec `#`, `##`, `###` (relatifs au chapitre) ; pas de saut de niveau.
-- Une phrase par ligne : les diffs restent lisibles, le rendu n'est pas affecté.
-- Tout exemple de code Lean passe par un bloc ` ```lean ` (vérifié) ; les
-  exemples dans la syntaxe k7pl utilisent un bloc sans langue en attendant
-  un surligneur dédié.
-- Métadonnées de chapitre dans un bloc `%%%` (ex. `shortTitle := "…"`).
+- One file = one chapter = one `#doc (Manual) "Title" =>`.
+- Section headings with `#`, `##`, `###` (relative to the chapter); no skipped level.
+- One sentence per line: diffs stay readable, rendering is not affected.
+- Every Lean code example goes in a ` ```lean ` block (checked); examples
+  in k7pl syntax use a block without a language until a dedicated
+  highlighter exists.
+- Chapter metadata in a `%%%` block (e.g. `shortTitle := "…"`).
 
-Correspondances Org-mode → Verso, pour la réécriture des sources existantes :
+Org-mode → Verso correspondences, for rewriting the existing sources:
 
 | Org-mode                              | Verso                                          |
 |---------------------------------------|------------------------------------------------|
-| `#+TITLE: Titre`                      | `#doc (Manual) "Titre" =>`                     |
-| `#+AUTHOR: Nom`                       | `%%%` `authors := ["Nom"]` `%%%`               |
-| `* Section`, `** Sous-section`         | `# Section`, `## Sous-section`                 |
-| `/italique/`, `*gras*`                | `_italique_`, `*gras*`                         |
+| `#+TITLE: Title`                      | `#doc (Manual) "Title" =>`                     |
+| `#+AUTHOR: Name`                      | `%%%` `authors := ["Name"]` `%%%`              |
+| `* Section`, `** Subsection`          | `# Section`, `## Subsection`                   |
+| `/italic/`, `*bold*`                  | `_italic_`, `*bold*`                           |
 | `=code=`, `~code~`                    | `` `code` ``                                   |
-| `[[url][texte]]`                      | `[texte](url)`                                 |
+| `[[url][text]]`                       | `[text](url)`                                  |
 | `- item`, `1. item`                   | `* item`, `1. item`                            |
-| `#+BEGIN_SRC lean … #+END_SRC`        | ` ```lean … ``` ` (vérifié par Lean)           |
+| `#+BEGIN_SRC lean … #+END_SRC`        | ` ```lean … ``` ` (checked by Lean)            |
 | `#+BEGIN_SRC k7pl … #+END_SRC`        | ` ``` … ``` `                                  |
-| `#+BEGIN_QUOTE … #+END_QUOTE`         | `> citation`                                   |
-| `#+INCLUDE: "autre.org"`              | `import Spec.Autre` + `{include 0 Spec.Autre}` |
+| `#+BEGIN_QUOTE … #+END_QUOTE`         | `> quotation`                                  |
+| `#+INCLUDE: "other.org"`              | `import Spec.Other` + `{include 0 Spec.Other}` |
 | `\ref{label}`, `[[tab:x]]`, `\eqref{x}` | `{num "label"}[]`, `({num "x"}[])`          |
-| `#+LATEX: \label{sec:x}` sous un titre | `{label "sec:x"}` sous le titre               |
-| `[cite:@clé;@clé]`                    | `{cite "clé,clé"}[]`                           |
-| `[rmq:texte]`                         | `{rmq}[texte]`                                 |
+| `#+LATEX: \label{sec:x}` under a heading | `{label "sec:x"}` under the heading         |
+| `[cite:@key;@key]`                    | `{cite "key,key"}[]`                           |
+| `[rmq:text]`                          | `{rmq}[text]`                                  |
 | `\textsc{x}`                          | `{sc}[x]`                                      |
-| `#+NAME:` + `#+CAPTION:` + tableau    | `::::k7table (label := …)` + `:::caption` + `:::table +header` |
-| `#+NAME:` + `#+CAPTION:` + `[[fichier.drawio]]` | `::::figure (label := …) (src := …)`  |
-| `#+BEGIN_EXPORT latex` `\begin{theorem}[…]` | `::::theorem` (ou la directive de sa nature) + `:::statement` + `:::proofsketch` |
+| `#+NAME:` + `#+CAPTION:` + table      | `::::k7table (label := …)` + `:::caption` + `:::table +header` |
+| `#+NAME:` + `#+CAPTION:` + `[[file.drawio]]` | `::::figure (label := …) (src := …)`    |
+| `#+BEGIN_EXPORT latex` `\begin{theorem}[…]` | `::::theorem` (or the directive of its kind) + `:::statement` + `:::proofsketch` |
 | `#+BEGIN_EXPORT latex` `\begin{align*}` + `\captionof{formule}` | `::::formula (kind := "formule")` |
-| `# commentaire`                       | `:::comment` + bloc de code                    |
+| `# comment`                           | `:::comment` + code block                      |
 | `#+PRINT_BIBLIOGRAPHY:`               | `{bibliography}`                               |
 | `#+LATEX: \listoffigures`             | `{listof "figure"}`                            |
-| `TODO` / `DRAFT` dans un titre        | commentaire `-- TODO:` dans le source          |
+| `TODO` / `DRAFT` in a heading         | `-- TODO:` comment in the source               |
 
-Cette table résume `scripts/org2verso/` : la conversion du manuscrit Org est reproductible
-(`python3 scripts/org2verso/convert.py --src docs/archives/manuscrit-org --meta spec/figures --out <dossier>`
-donne les modules actuels, au caractère près, à la date de la conversion).
+This table summarises `scripts/org2verso/`: the conversion of the Org manuscript is reproducible
+(`python3 scripts/org2verso/convert.py --src docs/archives/manuscrit-org --meta spec/figures --out <directory>`
+produces the current modules, character for character, as of the date of the conversion).
 
 ## 9. Conventional Commits
 
-Format : `<type>(<scope>): <description>`
+Format: `<type>(<scope>): <description>`
 
-- Description à l'infinitif, en minuscules, sans point final.
-- `scope` : module ou zone touchée (`parser`, `typechecker`, `spec`, `ci`, `reuse`…).
-- Types :
+- Messages are written in English.
+- Description in the imperative mood (`add`, not `added` or `adds`), starting with a
+  lower-case letter, without a final period.
+- `scope`: module or area touched (`parser`, `typechecker`, `spec`, `ci`, `reuse`…), in lower
+  case; chapter scopes are written in upper case (`C8`).
+- Header (`<type>(<scope>): <description>`) of at most 100 characters.
+- Types:
 
-| Type       | Usage                                              |
-|------------|----------------------------------------------------|
-| `feat`     | nouvelle fonctionnalité                            |
-| `fix`      | correction de bogue                                |
-| `docs`     | documentation, spécifications                      |
-| `style`    | mise en forme sans changement de comportement      |
-| `refactor` | restructuration sans changement de comportement    |
-| `perf`     | amélioration de performance                        |
-| `test`     | ajout ou correction de tests                       |
-| `build`    | Lake, toolchain, dépendances                       |
-| `ci`       | intégration continue                               |
-| `chore`    | maintenance diverse                                |
+| Type        | Use                                                |
+|-------------|----------------------------------------------------|
+| `feat`      | new feature                                        |
+| `fix`       | bug fix                                            |
+| `docs`      | documentation, specifications                      |
+| `style`     | formatting without behaviour change                |
+| `refactor`  | restructuring without behaviour change             |
+| `perf`      | performance improvement                            |
+| `test`      | adding or fixing tests                             |
+| `build`     | Lake, toolchain, dependencies                      |
+| `ci`        | continuous integration                             |
+| `chore`     | miscellaneous maintenance                          |
+| `revert`    | reverting an earlier commit                        |
+| `licensing` | SPDX headers, REUSE, license texts                 |
+| `a11y`      | accessibility                                      |
 
-Exemples :
+Examples:
 
 ```
-feat(parser): ajouter support des expressions lambda
-fix(typechecker): corriger la résolution des types polymorphes
-docs(spec): documenter la syntaxe des annotations
+feat(parser): add support for lambda expressions
+fix(typechecker): fix the resolution of polymorphic types
+docs(spec): document the annotation syntax
 ```
 
-Changement incompatible : ajouter `!` après le scope
-(`feat(parser)!: …`) et un pied de page `BREAKING CHANGE: …`.
+Breaking change: add `!` after the scope
+(`feat(parser)!: …`) and a `BREAKING CHANGE: …` footer.
 
-Le format est vérifié en CI par commitlint (`.github/workflows/commitlint.yaml`,
-configuration `.commitlintrc.yaml`). Vérification locale du dernier commit :
+The format is checked in CI by commitlint (`.github/workflows/commitlint.yaml`,
+configuration `.commitlintrc.yaml`, which extends `@commitlint/config-conventional`).
+The configuration enforces the type list above, the scope case (lower case or upper case),
+the 100-character header and the absence of a final period. It does not enforce the case of
+the description (Dependabot writes "Bump …"), the length of body and footer lines, or the
+language of the message. [`CONTRIBUTING.md`](../../CONTRIBUTING.md), section
+"Commit messages", describes the same rules. Local check of the last commit:
 `npx --yes -p @commitlint/cli -p @commitlint/config-conventional commitlint --from HEAD~1`.
 
-## 10. Travailler avec un agent (Claude Code)
+## 10. Working with an agent (Claude Code)
 
-- Un patch n'est terminé que si `lake build`, `lake test` et `lake lint` passent,
-  localement ou en CI : ne jamais le déclarer fini sur la seule relecture.
-- Ne jamais inventer un nom de lemme : le vérifier (`#check`, `exact?`, recherche
-  dans les sources de Mathlib/CSLib) avant de l'utiliser.
-- Ne jamais introduire `sorry`, `axiom`, `native_decide`, ni désactiver un linter
-  ou un test pour faire passer la CI.
-- Les théorèmes principaux (énoncés de correction du langage) sont validés par
-  un humain : un agent peut proposer des lemmes intermédiaires et des preuves, mais
-  ne modifie pas l'énoncé d'un théorème principal sans accord explicite.
-- Les rôles Claude Code sont séparés : architecture de la spec, édition de la spec,
-  revue formelle, preuve Lean, implémentation Lean, diagnostic, cohérence transverse
-  et vérification. Ne pas utiliser un agent généraliste quand un rôle spécialisé existe.
-- Pour une tâche qui traverse `spec/` et `src/`, ne pas passer directement de
-  « demande » à « code » : établir d'abord le contrat et ses dépendances, puis faire
-  vérifier la cohérence entre spécification, formalisation, preuve, tests et documentation.
-- Les skills sous `.claude/skills/` décrivent les procédures réutilisables ; les règles
-  sous `.claude/rules/` définissent les invariants ; les agents sous `.claude/agents/`
-  définissent les rôles et leurs paramètres de modèle. Les trois niveaux sont complémentaires.
-- Toucher `lakefile.lean`, `lean-toolchain` ou `.github/workflows/` demande
-  une mention explicite dans la description de la PR.
+- A patch is finished only if `lake build`, `lake test` and `lake lint` pass,
+  locally or in CI: never declare it finished on review alone.
+- Never invent a lemma name: check it (`#check`, `exact?`, search
+  in the Mathlib/CSLib sources) before using it.
+- Never introduce `sorry`, `axiom`, `native_decide`, nor disable a linter
+  or a test to make CI pass.
+- The main theorems (correctness statements of the language) are validated by
+  a human: an agent may propose intermediate lemmas and proofs, but
+  does not modify the statement of a main theorem without explicit agreement.
+- The Claude Code roles are separate: spec architecture, spec editing,
+  formal review, Lean proof, Lean implementation, diagnosis, cross-cutting consistency
+  and verification. Do not use a general-purpose agent when a specialised role exists.
+- For a task that spans `spec/` and `src/`, do not go straight from
+  "request" to "code": first establish the contract and its dependencies, then have
+  the consistency between specification, formalisation, proof, tests and documentation checked.
+- The skills under `.claude/skills/` describe reusable procedures; the rules
+  under `.claude/rules/` define the invariants; the agents under `.claude/agents/`
+  define the roles and their model settings. The three levels are complementary.
+- Touching `lakefile.lean`, `lean-toolchain` or `.github/workflows/` requires
+  an explicit mention in the PR description.
 
-## 11. Checklist avant commit
+## 11. Checklist before committing
 
-- [ ] En-tête SPDX présent et correct
-- [ ] Identifiant SPDX valide (`CECILL-2.1`, `CC-BY-4.0`, `CECILL-C`)
-- [ ] Copyright avec année et nom
-- [ ] Fichier dans le bon dossier
-- [ ] Code source en anglais, documentation en français
-- [ ] Docstrings sur les nouvelles déclarations, documentation de module à jour
-- [ ] Test associé si nouveau module
-- [ ] Aucun `sorry`, aucun nouvel axiome
-- [ ] `CHANGELOG.md` mis à jour
-- [ ] Message de commit conforme Conventional Commits
-- [ ] `lake build`, `lake test`, `lake lint` et `reuse lint` passent
+- [ ] SPDX header present and correct
+- [ ] Valid SPDX identifier (`CECILL-2.1`, `CC-BY-4.0`, `CECILL-C`)
+- [ ] Copyright with year and name
+- [ ] File in the right directory
+- [ ] Only `spec/` in French; everything else (code, documentation, commit messages) in English
+- [ ] Docstrings on new declarations, module documentation up to date
+- [ ] Associated test if new module
+- [ ] No `sorry`, no new axiom
+- [ ] `CHANGELOG.md` updated
+- [ ] Commit message follows Conventional Commits
+- [ ] `lake build`, `lake test`, `lake lint` and `reuse lint` pass

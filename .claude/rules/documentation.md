@@ -3,17 +3,18 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Règles de documentation
+# Documentation rules
 
-- Code Lean, identifiants, commentaires et docstrings : anglais.
-- Documentation du projet, suivi, issues, PR : français.
-- Messages de commit : français, Conventional Commits.
-- Chaque nouveau fichier doit respecter REUSE.
+- Only the specification (`spec/`) is written in French; everything else is in English.
+- Lean code, identifiers, comments and docstrings: English.
+- Project documentation, tracking, issues, PRs: English.
+- Commit messages: English, Conventional Commits.
+- Every new file must comply with REUSE.
 
-Les documents produits par les agents doivent distinguer explicitement faits observés, interprétations, décisions, hypothèses et actions restantes.
+Documents produced by agents must explicitly distinguish observed facts, interpretations, decisions, hypotheses and remaining actions.
 
-Ne pas transformer un rapport d'audit en documentation normative sans décision explicite.
+Do not turn an audit report into normative documentation without an explicit decision.
 
-Pour une affirmation importante, conserver une trace de la source ou du contrôle qui la justifie.
+For an important claim, keep a record of the source or the check that justifies it.
 
-Les modifications de `spec/` suivent également les règles de traçabilité du suivi existant.
+Changes to `spec/` also follow the traceability rules of the existing tracking.
