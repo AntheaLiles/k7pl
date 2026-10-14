@@ -50,3 +50,36 @@ See [ASSURANCE.md](ASSURANCE.md) and [STATUS.md](STATUS.md).
 Open questions include the characterization of the mathematical foundations, the architecture of formal semantics, completeness of specification-to-formalisation correspondence, and properties for which implementation conformance can ultimately be established.
 
 Detailed research history is kept in [research/](research/) (working analyses, research questions and corpus notes), [bibliography/](bibliography/) (the machine-readable bibliography and former sourcing lists), [peer-review/](peer-review/README.md) and [history/](history/). This material is provenance and evidence; it does not become a current research claim merely by being retained.
+
+## Research and bibliography material
+
+The files below are indexed so that each is reachable from a current page. Most come from the former working folder (origin recorded in [the provenance table](history/2026-10-07-provenance-migration.md)), are written in French and carry their own dates. An entry here does not promote a file's conclusions to current research claims.
+
+### docs/research/
+
+- [2026-09-08-analyse-b-et-f.md](research/2026-09-08-analyse-b-et-f.md) — analyses B and F (8 September 2026): cost, risk and opportunity of the rule shape for the terminal coalgebra (B), and an attempt to show that a finite biproduct is necessary to K7PL and that codereliction matters (F).
+- [2026-09-08-analyse-b-approfondie.md](research/2026-09-08-analyse-b-approfondie.md) — analysis B revisited after the author's correction (8 September 2026): where the earlier analysis was wrong and what decision B-b actually commits to.
+- [2026-09-09-focus-f-route-4.md](research/2026-09-09-focus-f-route-4.md) — research focus F, route 4 (9 September 2026): the intuitionistic and probabilistic opening through measurable cones; verdict F4-3.
+- [LEAN-COMPLIANCE-ASSURANCE.md](research/LEAN-COMPLIANCE-ASSURANCE.md) — workstream K, Lean-tooled compliance assurance: the bounded Lake→SPDX 2.3 demonstrator, its evaluation runs, limits and extension decisions.
+- [ancienne-annexe-e-preambule.md](research/ancienne-annexe-e-preambule.md) — preamble of the former Annex E (formal presentation), kept verbatim after the annex was merged into chapters 1, 3 and 4 on 1 October 2026.
+- [arc-g-methode.md](research/arc-g-methode.md) — arc G naming method (31 August 2026): a five-step method written before any reading for the arc.
+- [arc-g-collecte.md](research/arc-g-collecte.md) — arc G, step 3 (2 September 2026): collection of the names used elsewhere, by category; it records, it does not choose.
+- [commentaires-du-manuscrit.md](research/commentaires-du-manuscrit.md) — author comments removed from the manuscript text on 1 October 2026 (`ANOM-05`), reproduced with their location.
+- [corpus.md](research/corpus.md) — the literature corpus and what it allows one to read (28 August 2026, with a state note of 3 September); publisher abstracts removed.
+- [instruction-arb-pr-04-rejeu-binaire.md](research/instruction-arb-pr-04-rejeu-binaire.md) — instruction of `ARB-PR-04` (1 October 2026): what the document promises for bit-for-bit replay; it instructs, it does not decide.
+- [manques.md](research/manques.md) — corpus gaps (28 August 2026): missing sources by arc and commitment, with their resolution status.
+- [questions.md](research/questions.md) — research question sets (28 August 2026), each with its status and follow-up.
+- [rapport-qa-28.md](research/rapport-qa-28.md) — QA-28 instruction report (2 September 2026): does every binding need all four grade components?
+- [registre-empirique.md](research/registre-empirique.md) — empirical register: the G entries, questions answered by measurement rather than by proof or reasoning.
+- [sources-singularites.md](research/sources-singularites.md) — sources for the singularity propagations (`BLOQ-12`, `IMPL-07`): what is sourced and at which verification level.
+
+### docs/bibliography/
+
+- [references.json](bibliography/references.json) — the selected bibliography (251 entries), machine-readable source of the generated `tools/SpecBib.lean`; see [PROVENANCE.md](PROVENANCE.md).
+- [decisions-bibliographiques.json](bibliography/decisions-bibliographiques.json) — dated decisions to keep uncited keys in the bibliography; referenced only by the archived former tooling.
+- [verifications-pr02.md](bibliography/verifications-pr02.md) — bibliographic checks of the PR-02 campaign (`BIB` cards instructed by online search on 1 October 2026).
+- [a-ajouter-collection.md](bibliography/a-ajouter-collection.md) — keys requested for the project collection; marked absorbed on 3 September 2026 and kept for the trace.
+- [a-charger.md](bibliography/a-charger.md) — DOIs to load: the three of twenty still missing on 3 September 2026.
+- [a-sourcer-manques.md](bibliography/a-sourcer-manques.md) — sourcing of the corpus gaps (31 August 2026), distinguishing identifiers verified online from those given from memory.
+- [a-sourcer-nommage.md](bibliography/a-sourcer-nommage.md) — empirical naming literature for arc G (QG-8 to QG-11, 3 September 2026): eleven references not in the collection, no longer blocking.
+- [a-traiter.md](bibliography/a-traiter.md) — state of the references on 3 September 2026 after the switch to two BibTeX files; its open points are marked settled.
