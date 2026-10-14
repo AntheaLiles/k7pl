@@ -20,7 +20,7 @@ Ce document trace les actions humaines qui ne peuvent pas être remplacées par 
 - [ ] Pour les preuves à branches, confirmer que les objectifs et les noms de cas ne sont pas présentés comme équivalents lorsque l'export n'établit pas cette relation.
 - [ ] Vérifier que les hypothèses affichées sont celles rapportées par l'export et ne sont pas interprétées comme un suivi complet de la portée lexicale.
 - [ ] Ouvrir le site généré, naviguer au clavier sans souris, vérifier les disclosures d'hypothèses et contrôler la lisibilité à largeur mobile.
-- [ ] Comparer le panneau objectif-avant → objectifs-après à une capture Paperproof : valider l'ordre de lecture, le contraste, la longueur des tactiques et la distinction entre contexte, objectifs ordinaires et `spawnedGoals`.
+- [ ] Comparer le panneau objectif-avant → nœud de tactique → objectifs-après à une capture Paperproof : valider l'ordre de lecture, le contraste, la longueur des tactiques et la distinction entre contexte, objectifs ordinaires et `spawnedGoals`.
 - [ ] Vérifier que la flèche encode seulement la succession de la transition observée ; ne pas interpréter visuellement les objectifs supplémentaires comme des branches exactes lorsque le JSON n'en établit pas les liens.
 - [ ] Contrôler la provenance repliable au clavier et vérifier que la révision et le lien source restent accessibles sans imposer la lecture du SHA-256 dans le flux principal.
 - [ ] Confirmer que le contenu essentiel reste compréhensible sans JavaScript et que les liens source pointent vers le fichier et la révision attendus.
@@ -29,7 +29,7 @@ Ce document trace les actions humaines qui ne peuvent pas être remplacées par 
 
 ## Limite spécifique à la refonte de mise en page
 
-La branche de refonte place l'objectif avant et les objectifs après côte à côte sur un écran large, les empile sur un écran étroit, différencie visuellement tactique, objectif et hypothèses, et replie les empreintes de provenance. Les `spawnedGoals` restent dans un panneau séparé ; le renderer ne prétend pas reconstruire le graphe complet de Paperproof. Il s'agit d'une amélioration de structure, non d'une validation de fidélité graphique ou sémantique. Cette présentation doit être examinée à partir du nouvel artefact de CI, pas d'une version mise en cache du site publié.
+La branche de refonte place l'objectif avant, un nœud de tactique et les objectifs après dans un schéma de transition sur écran large, empile ces éléments sur un écran étroit, et différencie visuellement tactique, objectif et hypothèses, et replie les empreintes de provenance. Les `spawnedGoals` restent dans un panneau séparé ; le renderer ne prétend pas reconstruire le graphe complet de Paperproof. Il s'agit d'une amélioration de structure, non d'une validation de fidélité graphique ou sémantique. Cette présentation doit être examinée à partir du nouvel artefact de CI, pas d'une version mise en cache du site publié.
 
 ## Inspection initiale déjà effectuée
 
