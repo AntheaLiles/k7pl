@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 K7PL separates what it specifies from what it formalizes, implements, proves, and tests.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-06  
+**Last updated:** 2026-10-14  
 **Audience:** researchers, reviewers, contributors.
 
 ## Conceptual architecture
@@ -45,12 +45,14 @@ A successful proof, test, compilation, or review must not be interpreted as esta
 | Tests | tests/ | Executable behavioural checks |
 | Specification tooling | tools/ | Verso generator and extensions |
 | Auxiliary tooling | scripts/ | Maintenance, analysis, CI support |
+| Tooling prototypes | tooling/ | Non-normative B/C/D annex prototypes (prototypes-bcd/) and the isolated Paperproof extraction workspace (paperproof-export/) |
+| Example library | lib/ | Example K7PL library file (lib-exemple.k7, licensed CECILL-C through REUSE.toml) |
 | Scientific documentation | docs/ | Current research, method, assurance, status, review navigation |
-| Historical material | docs/ and archives/ | Historical evidence and provenance |
+| Historical material | docs/history/ and docs/archives/ | Dated historical records; frozen former manuscript and tooling |
 | Automation | .github/ | CI, security, release, repository automation |
 | Agent infrastructure | .claude/ | Claude Code rules, skills, agents |
 
-The detailed historical documentation tree is intentionally not being moved by this change.
+The physical documentation migration closed on 2026-10-08; the [migration register](migration/README.md) is now the register for semantic qualification. The current entry points (this file, [README.md](README.md), [RESEARCH.md](RESEARCH.md), [METHOD.md](METHOD.md), [ASSURANCE.md](ASSURANCE.md), [PROVENANCE.md](PROVENANCE.md) and the generated [STATUS.md](STATUS.md)) sit at the top of `docs/`. Supporting material is grouped by epistemic area: [tracking/](tracking/DASHBOARD.md), [research/](research/), [bibliography/](bibliography/), [method/](method/), [peer-review/](peer-review/README.md), [security/](security/README.md), [migration/](migration/README.md), [history/](history/) and [archives/](archives/README.md).
 
 ## Authority rules
 
