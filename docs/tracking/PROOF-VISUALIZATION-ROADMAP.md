@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # K7PL proof and construction visualization roadmap
 
-**State updated: 2026-10-13.** The first proof-view pipeline is end-to-end CI-validated for five selected declarations. Extraction uses a separate, pinned workspace on Lean 4.34.0; the same versioned data is consumed by Verso's HTML and TeX backends, and the resulting PDF compiles. This validates the selected corpus and build chain, not every Lean proof form or the human usability of the views.
+**State updated: 2026-10-14.** The initial proof-view pipeline is CI-validated for five selected declarations. Run [38457573950](https://github.com/AntheaLiles/k7pl/actions/runs/38457573950) completed the Paperproof extraction, Verso HTML/TeX compilation, PDF generation, navigation checks, REUSE and overall verification successfully. That run validates the former vertical-list renderer, not the visual follow-up described below. Extraction uses an isolated workspace pinned to Lean 4.34.0; these results do not establish general coverage of Lean proof forms or human usability.
 
 ## 1. Architecture and authority
 
@@ -33,6 +33,16 @@ Le run CI 38451997922 a validé la chaîne complète pour les cinq déclarations
 Le registre de couverture détaillé se trouve dans [PROOF-VISUALIZATION-COVERAGE.md](PROOF-VISUALIZATION-COVERAGE.md). Il sépare les constructions présentes dans le corpus, les capacités réellement extraites, les validations par test et les limites encore ouvertes.
 
 Le pipeline n'affirme pas qu'une vue est une preuve indépendante, ni qu'un énoncé Lean correspond à une déclaration normative. Il n'infère aucune relation depuis les noms ou la proximité des fichiers. Les exemples sélectionnés ne démontrent pas une couverture universelle de Lean.
+
+### Rendering follow-up — structured, responsive transitions
+
+The former HTML rendering was integrated into Verso, but remained a vertical list: each tactic was followed by separately stacked before/after goals and metadata. It was valid generated HTML, but did not resemble Paperproof's visual explanation of proof progress.
+
+The renderer follow-up introduces a static HTML/CSS transition panel for each observed tactic: the goal before and goals after are placed side-by-side on wide viewports and stacked on narrow viewports; tactic syntax has a distinct visual treatment; reported hypotheses are displayed as separate context items; extraction provenance is available in a disclosure rather than dominating the reading flow. No JavaScript is required for essential content.
+
+The view deliberately retains `spawnedGoals` separately from `goalsAfter`. It does not derive edges between spawned goals and specific branches when the exported fields do not establish those edges. This is a more legible transition layout, not yet a faithful reconstruction of Paperproof's complete proof-tree graph. The TeX backend continues to use the same versioned artifact and remains a static linear presentation; its typography and pagination require separate human review.
+
+The renderer-source tests guard the intended structural contract only. The actual Verso compilation must still be checked on the exact revision, followed by human inspection of HTML and PDF at desktop/mobile widths. Neither source-string assertions nor a successful build establishes visual quality or semantic fidelity.
 
 ## 3. M2 — human assessment of the visualization
 
