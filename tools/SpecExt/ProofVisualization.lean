@@ -240,14 +240,19 @@ block_extension Block.proofVisualization (slug : String) where
               <span class="k7-proofviz-step-number" aria-hidden="true">{{toString (i + 1)}}</span>
               <div class="k7-proofviz-step-summary">
                 <h4>{{"Étape " ++ toString (i + 1)}}</h4>
-                <p><code>{{tactic}}</code><span class="k7-proofviz-position">{{s!"Source : ligne {line}, colonne {column}"}}</span></p>
+                <p class="k7-proofviz-position">{{s!"Source : ligne {line}, colonne {column}"}}</p>
               </div>
             </header>
             <div class="k7-proofviz-transition">
               <div class="k7-proofviz-state k7-proofviz-state-before">
                 {{proofGoalHtml "Objectif avant la tactique" (proofField step "goalBefore")}}
               </div>
-              <span class="k7-proofviz-arrow" aria-hidden="true">→</span>
+              <span class="k7-proofviz-arrow k7-proofviz-arrow-before" aria-hidden="true">→</span>
+              <div class="k7-proofviz-tactic">
+                <span class="k7-proofviz-tactic-label">Tactique observée</span>
+                <code>{{tactic}}</code>
+              </div>
+              <span class="k7-proofviz-arrow k7-proofviz-arrow-after" aria-hidden="true">→</span>
               <div class="k7-proofviz-state k7-proofviz-state-after">
                 {{proofGoalCollectionHtml "Objectifs après" (proofArrayField step "goalsAfter") "Aucun objectif après n'est associé à cette transition dans l'export."}}
               </div>
@@ -371,9 +376,12 @@ block_extension Block.proofVisualization (slug : String) where
 .k7-proofviz-step-summary p { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: 0; }
 .k7-proofviz-step-summary code { max-width: 100%; padding: .3rem .5rem; border-radius: .35rem; background: var(--k7pv-tactic-bg); font-weight: 650; white-space: pre-wrap; overflow-wrap: anywhere; }
 .k7-proofviz-position { color: #596a80; font-size: .83rem; }
-.k7-proofviz-transition { display: grid; grid-template-columns: minmax(0, 1fr) 2.1rem minmax(0, 1fr); align-items: stretch; gap: .55rem; margin-top: 1rem; }
+.k7-proofviz-transition { display: grid; grid-template-columns: minmax(0, 1fr) 1.6rem minmax(7.5rem, .52fr) 1.6rem minmax(0, 1fr); align-items: stretch; gap: .45rem; margin-top: 1rem; }
 .k7-proofviz-state { min-width: 0; }
-.k7-proofviz-arrow { display: grid; place-items: center; align-self: center; color: #6a7b92; font-size: 1.7rem; font-weight: 700; }
+.k7-proofviz-arrow { display: grid; place-items: center; align-self: center; color: #6a7b92; font-size: 1.55rem; font-weight: 750; }
+.k7-proofviz-tactic { display: flex; min-width: 0; flex-direction: column; align-self: center; gap: .55rem; padding: .75rem .6rem; border: 1px dashed #91a3bd; border-radius: .55rem; background: var(--k7pv-tactic-bg); text-align: center; }
+.k7-proofviz-tactic-label { color: #596a80; font-size: .73rem; font-weight: 700; letter-spacing: .045em; text-transform: uppercase; }
+.k7-proofviz-tactic code { display: block; max-width: 100%; overflow-wrap: anywhere; white-space: pre-wrap; font-size: .9em; font-weight: 750; }
 .k7-proofviz-state > .k7-proofviz-goal, .k7-proofviz-state > .k7-proofviz-outcomes { height: 100%; margin: 0; }
 .k7-proofviz-goal, .k7-proofviz-outcomes { min-width: 0; margin: .55rem 0; padding: .75rem; border: 1px solid var(--k7pv-line); border-radius: .6rem; }
 .k7-proofviz-goal { border-left: .28rem solid var(--k7pv-goal-line); background: var(--k7pv-goal-bg); }
@@ -395,21 +403,24 @@ block_extension Block.proofVisualization (slug : String) where
 @media (max-width: 48rem) {
   .k7-proofviz { padding: .7rem; }
   .k7-proofviz-step { padding: .7rem; }
-  .k7-proofviz-transition { grid-template-columns: minmax(0, 1fr); gap: .35rem; }
-  .k7-proofviz-arrow { transform: rotate(90deg); font-size: 1.35rem; }
+  .k7-proofviz-transition { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .k7-proofviz-arrow { transform: rotate(90deg); font-size: 1.25rem; }
+  .k7-proofviz-tactic { justify-self: stretch; padding: .55rem .7rem; }
   .k7-proofviz-support { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-color-scheme: dark) {
   .k7-proofviz { --k7pv-ink: #e6ecf5; --k7pv-line: #3b4759; --k7pv-surface: #1c2532; --k7pv-card: #202a38; --k7pv-goal-bg: #3a242a; --k7pv-goal-line: #ed9297; --k7pv-hyp-bg: #203a31; --k7pv-hyp-line: #77caa0; --k7pv-tactic-bg: #283956; }
   .k7-proofviz-kicker, .k7-proofviz-position, .k7-proofviz-muted { color: #b8c5d8; }
   .k7-proofviz-notice { background: #3a3020; color: #f4ddb2; border-left-color: #dcb15e; }
+  .k7-proofviz-tactic { border-color: #6d83a4; }
+  .k7-proofviz-tactic-label { color: #b8c5d8; }
   .k7-proofviz-goal pre { background: #212a37; color: #f4f6fa; }
   .k7-proofviz-step-number { background: #91b6f3; color: #14243b; }
 }
 @media print {
   .k7-proofviz { padding: .4rem; box-shadow: none; }
   .k7-proofviz-step { break-inside: avoid; box-shadow: none; }
-  .k7-proofviz-transition { grid-template-columns: minmax(0, 1fr) 1.2rem minmax(0, 1fr); }
+  .k7-proofviz-transition { grid-template-columns: minmax(0, 1fr) 1.1rem minmax(6.5rem, .55fr) 1.1rem minmax(0, 1fr); }
   .k7-proofviz-support { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 "#
