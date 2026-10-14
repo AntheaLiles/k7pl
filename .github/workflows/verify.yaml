@@ -502,14 +502,17 @@ jobs:
           install -m 0755 "$RUNNER_TEMP/tectonic" "$RUNNER_TEMP/tectonic-bin"
           echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
 
+      # The TikZ and PDF jobs pull different LaTeX packages: each has its own key prefix. With a
+      # shared key, the first job to save made the other one's exact hit, and that job never saved
+      # its own packages.
       - name: Cache Tectonic files
         if: ${{ inputs.use_cache }}
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/Tectonic
-          key: tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
+          key: tectonic-tikz-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
           restore-keys: |
-            tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
+            tectonic-tikz-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
 
       - name: Generate TikZ figures
         run: bash scripts/ci/build_tikz_figures.sh
@@ -746,10 +749,11 @@ jobs:
         with:
           path: ~/.cache/Tectonic
           # An exact hit is never rewritten: the key follows the sources, so that a new LaTeX
-          # package pulled in by the specification is saved by the next run.
-          key: tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
+          # package pulled in by the specification is saved by the next run. The prefix differs from
+          # the TikZ job's (see there).
+          key: tectonic-pdf-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
           restore-keys: |
-            tectonic-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
+            tectonic-pdf-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
 
       # SOURCE_DATE_EPOCH and `-Z deterministic-mode` remove two known sources of variation (the
       # build date and absolute paths). They do not pin the TeX bundle, which Tectonic downloads
