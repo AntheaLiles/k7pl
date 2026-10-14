@@ -6,7 +6,9 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Sources des propagations de singularités (`BLOQ-12`, `IMPL-07`)
 
-Demande de l'auteur : « Les singularités sont à définir, leurs propagations réelles sont à sourcer dans les références. » Ce document dit, pour chaque propagation du §3.2 du chapitre 3, ce qui est sourcé, à quel **niveau de vérification**, et ce qui est une extension de K7PL.
+Demande de l'auteur : « Les singularités sont à définir, leurs propagations réelles sont à sourcer dans les références. » Ce document dit, pour chaque propagation envisagée pour le §3.2 du chapitre 3, ce qui est sourcé, à quel **niveau de vérification**, et ce qui est une extension de K7PL.
+
+**Statut dans `main` (vérifié le 14 octobre 2026).** Les règles de propagation discutées ici ont été écrites au §3.2 sur la branche non fusionnée `split/pr10-3-singularites` (commit `927a6fd`), jamais fusionnée. Le Verso de `main` nomme quatre singularités (`spec/Spec/C3/LesContraintesDeValeur.lean`, l. 352 et 366-368) sans définir `∘` ni `δ`, sans règle de combinaison ni table de propagation. Les mentions « le manuscrit » ci-dessous désignent ce texte non fusionné. Instruction : [constats de l'archive PR #10](../migration/L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md), § 6.
 
 ## Niveau de vérification atteint
 
@@ -37,22 +39,22 @@ Le 7 octobre 2026, les pages des éditeurs (Cambridge, Springer), d'arXiv, de Wi
 |---|---|---|---|
 | `⊥` absorbe `+`, `·`, `1/·` sur les classes `0, x, ∞, ⊥` | Carlström (axiome `0/0 + x = 0/0`) ; Bergstra–Ponse (valeur d'erreur qui se propage) ; Anderson (nullité) | résumé (Carlström : l'axiome rappelé, non lu) ; **calculé** sur la roue des fractions de GF(2), GF(3), GF(5) | l'axiome tient sur le modèle |
 | `1/0 = ∞`, `0/0 = ⊥`, `1/∞ = 0`, `1/⊥ = ⊥` | Carlström, Setzer | résumé pour `1/0` et `0/0` ; `1/∞ = 0` et `1/⊥ = ⊥` **calculés** | |
-| `∞ + ∞ = ⊥`, `0 · ∞ = ⊥`, `∞ · ∞ = ∞`, `x + ∞ = ∞`, `x · ∞ = ∞` (`x ≠ 0`) | aucun énoncé lu ; Carlström pour la construction | **calculé** sur la construction `(ad + bc, bd)`, `(ac, bd)` | le manuscrit le dit déjà : valeurs calculées, non citées |
+| `∞ + ∞ = ⊥`, `0 · ∞ = ⊥`, `∞ · ∞ = ∞`, `x + ∞ = ∞`, `x · ∞ = ∞` (`x ≠ 0`) | aucun énoncé lu ; Carlström pour la construction | **calculé** sur la construction `(ad + bc, bd)`, `(ac, bd)` | le texte non fusionné le disait : valeurs calculées, non citées ; `main` n'a pas de table |
 | `∞ + ∞ = ∞` en IEEE 754 (signes égaux) : **écart** avec la roue | IEEE 754-2019 | résumés secondaires | la roue n'a qu'un infini ; l'arithmétique transréelle et IEEE ont deux infinis signés |
 | `0/0`, `∞ − ∞`, `0 · ∞` rendent un NaN, lu `⊥` | IEEE 754-2019 | résumés secondaires | |
-| règle d'entrée : `±∞ → ∞`, `±0 → 0`, tout NaN `→ ⊥` | aucune : choix de K7PL (identification des signes) | extension de K7PL | écrit comme tel |
+| règle d'entrée : `±∞ → ∞`, `±0 → 0`, tout NaN `→ ⊥` | aucune : choix de K7PL (identification des signes) | extension de K7PL | écrit comme tel sur la branche non fusionnée ; absent de `main` |
 | classes `∘`, `δ`, `∘δ` et leur propagation (réunion d'étiquettes, valeur de la roue oubliée) | **aucune** | **extension de K7PL, non sourcée** | voir plus bas ; la forme est celle d'un produit de la roue par le semi-treillis des étiquettes, que rien dans les sources atteintes ne contredit ni n'appuie |
 
 ## Ce que les sources infirment, ou ce que le calcul infirme
 
-1. **« Une roue n'a que deux éléments hors du corps »** : vrai de la roue des fractions d'un corps, faux d'une roue quelconque. Corrigé au §3.2.
+1. **« Une roue n'a que deux éléments hors du corps »** : vrai de la roue des fractions d'un corps, faux d'une roue quelconque. Corrigé au §3.2 sur la branche non fusionnée ; cette phrase n'est pas dans le Verso de `main`.
 2. **Les lois de la roue sur l'extension** (`∘`, `δ` bornes supérieures, `∘ ⋆ δ = ⊥`, `⊥` absorbant) : la séance 32 ne les avait pas vérifiées et écrivait que « `+` et `·` restent commutatives et associatives sur les six classes ». **C'est faux** : `(∞ + ∞) + ∘ = ⊥ + ∘ = ⊥` mais `∞ + (∞ + ∘) = ∞ + ∘ = ∘`. Plus généralement, si `∘` absorbe `∞`, associativité de `+` et `∞ + ∞ = ⊥` forcent `⊥ + ∘ = ∘`, et `∘ ⋆ δ = ⊥` est alors incompatible avec l'associativité (`(∘ + δ) + δ = δ` mais `∘ + (δ + δ) = ⊥`). Le calcul exhaustif est `scripts/verif_singularites.py` (modèle fini, axiomes **rappelés**, non lus).
-3. **Réécriture** : une erreur est un ensemble d'étiquettes ; `+`, `·`, `/` font la réunion ; `∘δ` est une cinquième singularité ; `⊥` n'absorbe plus les erreurs. Le programme confirme associativité, commutativité, neutres, involution de l'inverse, multiplicativité de l'inverse et tous les autres axiomes rappelés, **sauf** `0/0 + x = 0/0` pour `x` porteur d'étiquette : l'extension n'est donc **pas une roue**. Le manuscrit l'écrit.
+3. **Réécriture** : une erreur est un ensemble d'étiquettes ; `+`, `·`, `/` font la réunion ; `∘δ` est une cinquième singularité ; `⊥` n'absorbe plus les erreurs. Le programme confirme associativité, commutativité, neutres, involution de l'inverse, multiplicativité de l'inverse et tous les autres axiomes rappelés, **sauf** `0/0 + x = 0/0` pour `x` porteur d'étiquette : l'extension n'est donc **pas une roue**. Cette réécriture a été écrite au §3.2 sur la branche non fusionnée `split/pr10-3-singularites` (commit `927a6fd`), le 7 octobre 2026 ; le Verso de `main` ne la contient pas.
 
 ## Alternatives laissées à l'auteur (`BLOQ-12`)
 
 * (i) retirer `∘`, `δ` (et `∘δ`) de l'encodage : le reste est inchangé, les quatre classes de la roue suffisent ;
-* (ii) garder la réunion d'étiquettes (appliquée) ;
+* (ii) garder la réunion d'étiquettes (écrite sur la branche non fusionnée ; non appliquée dans `main`) ;
 * (iii) une priorité fixe (`∘` l'emporte sur `δ`, qui l'emporte sur `⊥`) : six classes, associative sans doute aussi (quotient de (ii), non vérifié séparément), mais asymétrique et arbitraire ;
 * (iv) renoncer à ce que `∘` absorbe `∞` : `∘ + ∞ = ⊥`, mais l'inverse cesse alors d'être multiplicatif (`1/(∘ · ∞) = ⊥` contre `1/∘ · 1/∞ = ∘`), ce qu'un essai local a confirmé (non conservé dans le dépôt).
 

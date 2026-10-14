@@ -118,6 +118,8 @@ temporelle globale.
 
 **Interface temporelle retenue (séances 59–62 ; preuve non acquise).** `When` produit la famille non bornée `κ_ω(ℓ)=⟨ω,ω⟩`, notée `ε[ω/k]`. `W` agrège les sommes finies de travail et `D` le supremum ponctuel de profondeur ; D3–D4 retiennent `Cost_Budget(κ)=max(W(κ),D(κ))` comme fonction totale sous le contrat scalaire et `sup ∅=0`. La forme canonique de couverture est `Adm(β,κ) ↔ Cost_Budget(κ)≤β` (D5) ; `Consume(β,κ)` demeure partielle sur `Adm` (D6), tandis que D7 sépare son domaine du domaine structurel de `ψ`. La composition `Δ₁ ⊠_ε Δ₂ = Δ₁ + ψ(Δ₂,ε)` est licite seulement si les conditions de compatibilité et d’admissibilité requises par la règle sont satisfaites. Cela remplace la bifurcation architecturale antérieure, mais ne prouve pas la correction de ressource. Il faut encore formaliser le support d’observation de la latence P3-B, prouver chaque règle et traiter les cas-frontières.
 
+**Instruction des constats d'archive — formes temporelles (14 octobre 2026, non normatif).** Voir [l'instruction C des constats de l'archive PR #10](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md), §§ 3 et 7. Sur `main`, `delay`, `always`, `at`, `now`, `wait` et `when` n'ont aucun schéma de réduction ; `always`, `at`, `now` et `wait` sont classés calculs mais typés au format d'un jugement de valeur ; `□V`, `◇V`, `○V`, `○C` et `◇C` manquent à la grammaire des types. Le calcul clos `delay (return ())` n'est ni terminal ni réductible : `thm:progres` est faux tel qu'énoncé sur ce terme (esquisse papier). Obligations T1–T5 ; décisions D-T1 et D-T2. **Traçabilité :** depuis `6371e19` (12 octobre 2026), la conclusion de `When` dans C3 conserve `ε` au lieu de `ε[ω/k]` ; ce changement normatif n'est pas tracé, et le paragraphe précédent décrit encore l'ancienne règle.
+
 ## 5. Sémantique et concurrence
 
 | Objet | Statut | Fonction | Dette principale |
@@ -242,6 +244,8 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 
 **Manques et décisions :** (i) rendre canoniques \(\mathbb M\) et \(\mathcal L\) et leurs opérations ; (ii) typer exactement \(\varphi_n,\psi,W,D,\mathrm{Adm},\mathrm{Consume}\) et leur domaine ; (iii) résoudre explicitement la partialité de \(\mathrm{Cost\_Budget}\) ; (iv) normaliser dans les sources les signatures ratifiées \(\pi_U\), \(\mathrm{Bang}_{\mathcal G}\) et \(\mathrm{Scale\_Usage}\). La compilation ou les notes de séance ne constituent pas une preuve des propriétés mathématiques.
 
+**Instruction des constats d'archive (14 octobre 2026, non normatif).** Voir [l'instruction C](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md), §§ 1 et 5. (1) `ℰ₀` étant non commutatif, `φ_n` n'est pas un endomorphisme de monoïde pour `n ≥ 2` dans le modèle libre (`φ₂(ab) = abab ≠ aabb`) ; la justification de C3 n'établit que la loi d'action `n ↦ φ_n`, et celle-ci échoue au cas ω (`φ_ω ∘ φ_m ≠ φ_ω` pour `2 ≤ m < ω`) sans hypothèse non posée telle que `1 ⊑ ε`. Obligations O-φ1 à O-φ4 ; décisions D-φ1 à D-φ3. (2) `w`, `s`, le codomaine de `δ_ℓ` et `ℓ̂` pour les effets sans niveau (`Spawn`, `Send`, `Move`, `Vmap`) ne sont pas définis ; le résidu `κ ∈ ℕ∞^ℒ` subsiste dans `LeSystemeDeSortesDuMetalangage.lean`, l. 103-104. Obligation S2 ; décisions D-S1, D-S2.
+
 **Critère de clôture :** les signatures et domaines des interfaces réellement invoquées sont explicites et cohérents à travers les règles ; les lois requises sont démontrées sous hypothèses déclarées ; les statuts candidats/non normatifs ont été ratifiés par la personne responsable ou conservés explicitement comme ouverts.
 
 ### C-02 — Domaines et directions des relations modales
@@ -249,6 +253,8 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 **Classe :** obligation mathématique et correspondance formelle ; PARTIEL, porte ouverte.
 
 **Distinction obligatoire.** Maintenir distincts : (a) l'inclusion ensembliste des intervalles \(U_m\), (b) le sous-typage des grades complets \(\preccurlyeq\), (c) l'ordre de précision \(\sqsubseteq\), et (d) le morphisme structurel entre les modes \(M_m\). Aucun de ces objets ne doit être déduit d'un autre par ressemblance de nom ou par inclusion d'intervalles.
+
+**Non-relation à ne pas invoquer : monotonie en `ℓ` de la relation logique (instruction du 14 octobre 2026).** Avec les clauses de `eq:relation-logique` (C4 l. 500-521), `ℓ ↦ ℛ_ℓ⟦A⟧` n'est monotone dans aucune direction uniforme sur l'univers non restreint ; l'inclusion `ℓ ⊑ ℓ′ ⇒ ℛ_ℓ′ ⊆ ℛ_ℓ` vaut aux types positifs et échoue au cas `⊸` par contravariance. Aucun énoncé de `main` ne l'invoque. Obligation O-ℓ1 et décision D-ℓ : voir [l'instruction C](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md), § 2.
 
 **Direction de projection : déduction papier vérifiée.** Les règles source définissent `r ≼ r′` par les composantes de grade. Avec la définition ratifiée `π_U(r)=u`, la projection de cette conjonction donne `r ≼ r′ → π_U(r) ≥ π_U(r′)`. Cette implication se démontre sur papier à partir des définitions écrites ; elle ne constitue pas une preuve Lean de la correction des coercions ni de leur naturalité. Voir l’audit, §3.
 
@@ -342,6 +348,8 @@ La source C3 définit \(\varphi_n:\mathcal E\to\mathcal E\) pour une multiplicit
 **Dépendances :** thm:commutation_traduction, thm:traduction_metalangage, thm:confinement_sortes, interprétation cible et PREUVE-07 ; audit C8 batch 07.
 
 **Critère de clôture :** énoncé entièrement typé, preuve par chaque cas de réduction, invariant trace/canal établi et hypothèse exacte d'adéquation explicitée. Sinon Sim reste OPEN.
+
+**C-07.P — progrès local et couverture de `→` (instruction du 14 octobre 2026, non normatif).** Contre-exemples clos à `thm:progres` tel qu'énoncé : `Λα.return ()`, `delay (return ())`, `(let y ← return () in let () = y in Λα.return ())[W]`, `⟨⟨⟩⟩` si l'indice vide est admis, et les constructeurs de couches 1-2 sans pas local (`∥`, `try`, `at_n`, `new`, `spawn`). `Guard` lie un seul message par branche, alors que `thm:sync_motifs_jonction` revendique la jonction comme opération native. `thm:confinement_sortes` revendique « tous les cas » sans clause de traduction pour `spawn`, `send`, `guard`, `new`, `free`. Obligations P1-P6 et S1 ; décisions D-P1, D-P2, D-S3. Voir [l'instruction C](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md), §§ 4 et 5, et l'[audit C-07](C-07-SIMULATION-AUDIT.md), condition 9.
 
 **Audit détaillé du 11 octobre 2026 (base auditée : `de1f6bed21b4c773a58f3cd0af93867bb3e07401`):** [C-07 — Audit de la simulation source → métalangage](C-07-SIMULATION-AUDIT.md). Le dossier distingue le contrat mathématique de simulation, les preuves de traduction, les tests exécutables et la conformité à `Π`; il consigne les lacunes sans modifier la sémantique normative ni promouvoir le statut épistémique. La décision sur l'ordre temporel inter-fibrilles est réservée à ratification de l'autrice.
 

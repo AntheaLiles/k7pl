@@ -125,5 +125,6 @@ C-07 ne pourra être clos qu'après :
 6. énoncé distinct de la fidélité de l'interpréteur, en identifiant l'adéquation cible et les observations utilisées;
 7. éventuelle conformité à un profil `Π` évaluée indépendamment, sans l'utiliser comme preuve de simulation;
 8. evidence Lean et tests nommés exactement selon ce qu'ils vérifient.
+9. ajout du 14 octobre 2026 : levée des contre-exemples C-07.P à `thm:progres` (liste terminale, contextes `E.i` et `E[W]`, schémas des éliminations, domaine de l'énoncé local, règles globales), conformité de l'esquisse de `thm:sync_motifs_jonction` à la forme réelle de `Guard`, et délimitation du domaine de `thm:confinement_sortes` aux règles dont la traduction est écrite ; voir [l'instruction C des constats de l'archive](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md), §§ 4 et 5.
 
 **Conclusion : C-07 reste OPEN.** Cet audit spécifie des lacunes, un contrat de preuve attendu et des contre-exemples discriminants; il n'établit pas `Sim`, ne prouve pas que toutes les traductions possibles sont incorrectes, ne promeut aucun énoncé et n'autorise pas de modification normative en aval.

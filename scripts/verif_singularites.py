@@ -2,7 +2,10 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Exhaustive check of the singularity algebra of the specification (chapter 3, section 3.2).
+"""Exhaustive check of candidate singularity algebras for chapter 3, section 3.2.
+
+None of the candidate rules below is written in the specification on main: the specification
+names four singularities without any combination rule (checked on 14 October 2026).
 
     verif_singularites.py
 
@@ -12,10 +15,12 @@ checked against the wheel axioms *as recalled* (they were not read in Carlstrom'
 
 * ``wheel``: the wheel of fractions itself (expected: every axiom holds);
 * ``sup``: the extension with two absorbing error classes whose join of distinct classes is the
-  bottom class (the rule written before 7 October 2026; expected: associativity fails);
+  bottom class (the rule of review session 32, never merged into main; expected: associativity
+  fails);
 * ``flags``: the extension in which an error class is a non-empty set of flags among
-  {circ, delta}, combined by union, the value of the wheel part being forgotten (the rule now
-  written; expected: every axiom holds except ``0/0 + x = 0/0`` on flagged elements).
+  {circ, delta}, combined by union, the value of the wheel part being forgotten (the rule written
+  on the unmerged branch split/pr10-3-singularites, commit 927a6fd; not in the specification on
+  main; expected: every axiom holds except ``0/0 + x = 0/0`` on flagged elements).
 
 The script exits with status 1 if an outcome differs from its expectation.
 """
@@ -131,7 +136,8 @@ def main() -> int:
             ok = expected(bad)
             status |= not ok
             print(f"{'ok  ' if ok else 'FAIL'} {kind:6} GF({p}) : axiomes en défaut = {sorted(bad) or 'aucun'}")
-    # the counterexample to associativity quoted in the specification
+    # the counterexample to associativity of the session-32 rule
+    # (quoted in docs/research/sources-singularites.md)
     elts, add, _, _ = model(3, "sup")
     inf, circ = ("inf",), ("C",)
     print("contre-exemple : (inf+inf)+circ =", add(add(inf, inf), circ), "; inf+(inf+circ) =", add(inf, add(inf, circ)))
