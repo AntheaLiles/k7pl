@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 K7PL contributors
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
 # SPDX-License-Identifier: CC0-1.0
 """Structural consistency checks for the non-normative Stage C interface audit.
