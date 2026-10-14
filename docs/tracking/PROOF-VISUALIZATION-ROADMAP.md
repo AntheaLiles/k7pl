@@ -38,7 +38,7 @@ Le pipeline n'affirme pas qu'une vue est une preuve indépendante, ni qu'un éno
 
 The former HTML rendering was integrated into Verso, but remained a vertical list: each tactic was followed by separately stacked before/after goals and metadata. It was valid generated HTML, but did not resemble Paperproof's visual explanation of proof progress.
 
-The renderer follow-up introduces a static HTML/CSS transition panel for each observed tactic: the goal before and goals after are placed side-by-side on wide viewports and stacked on narrow viewports; tactic syntax has a distinct visual treatment; reported hypotheses are displayed as separate context items; extraction provenance is available in a disclosure rather than dominating the reading flow. No JavaScript is required for essential content.
+The renderer follow-up introduces a static HTML/CSS transition panel for each observed tactic: the goal before, a central tactic node and the reported goals after are arranged as an explicit transition on wide viewports and stacked on narrow viewports. Goal types and hypotheses receive distinct visual treatments; extraction provenance is available in a disclosure rather than dominating the reading flow. No JavaScript is required for essential content.
 
 The view deliberately retains `spawnedGoals` separately from `goalsAfter`. It does not derive edges between spawned goals and specific branches when the exported fields do not establish those edges. This is a more legible transition layout, not yet a faithful reconstruction of Paperproof's complete proof-tree graph. The TeX backend continues to use the same versioned artifact and remains a static linear presentation; its typography and pagination require separate human review.
 
