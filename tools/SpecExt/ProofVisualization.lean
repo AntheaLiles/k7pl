@@ -258,6 +258,7 @@ block_extension Block.proofVisualization (slug : String) where
                 {{proofGoalCollectionHtml "Objectifs supplémentaires rapportés par l’export" (proofArrayField step "spawnedGoals") "Aucun objectif supplémentaire n'est rapporté pour cette transition."}}
                 <p class="k7-proofviz-muted">Cette liste est conservée séparément : le rendu ne reconstruit pas de lien de branche précis à partir de ces observations.</p>
               </div>
+            </div>
           </li>}}
     let state ← HtmlT.state
     pure {{<section class="k7-proofviz" {{state.htmlId id}}>
