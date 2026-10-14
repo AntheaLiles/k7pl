@@ -3,53 +3,60 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Sécurité et assurance de la chaîne d'approvisionnement
+# Security and supply-chain assurance
 
-Ce dossier rassemble l'audit OpenSSF mené sur le dépôt et ses suites. Il traite de la **sécurité de la chaîne de construction et de
-publication** (workflows, dépendances, releases, comptes). Il ne dit rien de la correction scientifique du langage : celle-ci relève de
-[`../ASSURANCE.md`](../ASSURANCE.md). L'état factuel courant du dépôt est produit par la CI dans [`../STATUS.md`](../STATUS.md).
+This directory gathers the OpenSSF audit carried out on the repository and its follow-up work. It covers the **security of the build and
+publication chain** (workflows, dependencies, releases, accounts). It says nothing about the scientific correctness of the language, which
+belongs to [`../ASSURANCE.md`](../ASSURANCE.md). The current factual state of the repository is produced by CI in [`../STATUS.md`](../STATUS.md).
 
-**État technique au 2026-10-11 : automatisation de la PR #129 intégrée et registres raccordés à l'état post-fusion.** Le HEAD observé de `main` est `86959948ff36deb6e8ee0985cf22740787696720`. Le run CI `38094667153` a d'abord rencontré une erreur TLS à `Install elan`, puis la tentative 2 a terminé en succès (`CI OK`), avec tests, builds Lean/Verso, PDF et contrôles sécurité passés. Le workflow standard a déployé [GitHub Pages](https://anthealiles.github.io/k7pl/) et rafraîchi la branche/PR du statut généré (`automation/generated-status`, [PR #148](https://github.com/AntheaLiles/k7pl/pull/148)). Le job de dérive BadgeApp est resté `skipped` et aucun artefact de dérive n'a été produit ; la lecture ponctuelle read-only des Blob SHA amont ne remplace pas cette preuve. Les étapes humaines restent dans [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md). Les archives du 2026-10-10 restent historiques. Aucun niveau OpenSSF, réponse BadgeApp enregistrée ou revue humaine n'est revendiqué.
+**Where the current state is kept.** Open security, release and BadgeApp gates are tracked in [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md); the
+maintainer-only steps are in [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md). The latest dated operational snapshot in this directory is the
+post-merge state of PR #129 observed on 2026-10-11 (`main` head `86959948`, CI run `38094667153` green on its second attempt, BadgeApp drift
+job `skipped`), recorded in section 18 of [`IMPLEMENTATION-STATUS.md`](IMPLEMENTATION-STATUS.md); it does not describe later `main` heads. The
+2026-10-10 archives remain historical. No OpenSSF level, recorded BadgeApp answer or human review is claimed.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-11  
-**Audience:** la mainteneuse, les relecteurs, les agents.
+**Last updated:** 2026-10-14  
+**Audience:** the maintainer, reviewers, agents.
 
-## Identifiants de commit cités
+## Commit identifiers cited
 
-La branche de cette campagne a été **aplatie en un seul commit** (décision de la mainteneuse, pour que `commitlint` passe sur la PR), puis fusionnée dans
-`main` **par rebase** : les trois commits de la PR sont devenus `b94a4e3`, `ab070c6` et `da1abb1`. Tout identifiant de commit cité dans ce dossier qui ne
-figure pas dans l'historique de `main` (par exemple `3fd82f1`, `ce606a9`, `25eb642`, `5e4edcf`, `c9372cb`, `b8ee3b6`, `cb3c7e5`, `a9b20ab`) désigne l'historique
-de la branche **avant** l'aplatissement ou avant le rebase : il n'est plus joignable. Les numéros de run de CI, eux, restent valides ; `b5f6146` et `4a8c34f`
-sont des commits de `main`.
+The branch of this campaign was **squashed into a single commit** (maintainer's decision, so that `commitlint` passes on the PR), then merged
+into `main` **by rebase**: the three commits of the PR became `b94a4e3`, `ab070c6` and `da1abb1`. Any commit identifier cited in this
+directory that is not in the history of `main` (for example `3fd82f1`, `ce606a9`, `25eb642`, `5e4edcf`, `c9372cb`, `b8ee3b6`, `cb3c7e5`,
+`a9b20ab`) refers to the branch history **before** the squash or before the rebase: it is no longer reachable. CI run numbers remain valid;
+`b5f6146` and `4a8c34f` are commits of `main`.
 
-## Nature des documents
+## Nature of the documents
 
-Ces documents sont des **enregistrements datés** d'une campagne conduite par des agents ; ils ne sont **pas validés par la mainteneuse**
-et ne deviennent pas normatifs par leur détail. Ils décrivent l'état du dépôt à la date et au commit indiqués. Ce qui change depuis (par
-exemple le job `status` ajouté à `ci.yaml` sur `main` après l'audit) n'y figure que s'il est mentionné explicitement.
+These documents are **dated records** of a campaign conducted by agents; they are **not validated by the maintainer** and do not become
+normative through their level of detail. They describe the state of the repository at the date and commit they state. Later changes (for
+example the `status` job added to `ci.yaml` on `main` after the audit) appear in them only where explicitly mentioned. The Markdown documents
+listed below are still written in French.
 
-| Document | Rôle |
+| Document | Role |
 |---|---|
-| [`OPENSSF-AUDIT.md`](OPENSSF-AUDIT.md) | matrice des écarts consolidée des six audits |
-| [`BADGE-AUTOMATION.md`](BADGE-AUTOMATION.md) | état vérifié de BadgeApp, analyse des propositions et règle de synchronisation prudente |
-| [`BADGE-CONFORMANCE-MATRIX.md`](BADGE-CONFORMANCE-MATRIX.md) | matrice de conformité critère par critère et états probatoires datés |
-| `scripts/ci/check_badge_proposals.py` | contrôle local de cohérence, génération d'URL de proposition et détection read-only des dérives upstream |
-| [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md) | registre actif des écarts et actions encore ouvertes |
-| [`IMPLEMENTATION-STATUS.md`](IMPLEMENTATION-STATUS.md) | ce qui a été fait, ce qui ne l'a pas été, et la validation réellement exécutée |
-| [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md) | décisions qui reviennent à la mainteneuse (D1 à D11) |
-| [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) | réglages GitHub, compte, Zenodo et BadgeApp ; la section 6 du registre rassemble séparément la recette humaine de navigation interactive |
-| [`THREAT-MODEL.md`](THREAT-MODEL.md) | actifs, acteurs, chemins d'attaque, privilèges des workflows |
-| [`ASSURANCE-CASE.md`](ASSURANCE-CASE.md) | revendications de sécurité étayées, et celles qui ne sont pas (encore) vraies |
-| [`GOVERNANCE.md`](GOVERNANCE.md) | modèle de décision, rôles réels et limites de continuité |
-| [`SECRETS-POLICY.md`](SECRETS-POLICY.md) | règles de gestion des secrets et vérifications administratives encore requises |
-| [`workstreams/`](workstreams/) | rapports bruts des agents : audits, changements, validations, audits finaux |
+| [`OPENSSF-AUDIT.md`](OPENSSF-AUDIT.md) | consolidated gap matrix of the six audits |
+| [`BADGE-AUTOMATION.md`](BADGE-AUTOMATION.md) | verified BadgeApp state, analysis of the proposals and cautious synchronisation rule |
+| [`BADGE-CONFORMANCE-MATRIX.md`](BADGE-CONFORMANCE-MATRIX.md) | criterion-by-criterion conformance matrix and dated evidential states |
+| [`scripts/ci/check_badge_proposals.py`](../../scripts/ci/check_badge_proposals.py) | local consistency check, proposal-URL generation and read-only detection of upstream drift |
+| [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md) | active register of gaps and actions still open |
+| [`IMPLEMENTATION-STATUS.md`](IMPLEMENTATION-STATUS.md) | what was done, what was not, and the validation actually run |
+| [`DECISIONS-REQUISES.md`](DECISIONS-REQUISES.md) | decisions that belong to the maintainer (D1 to D11) |
+| [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md) | GitHub, account, Zenodo and BadgeApp settings; section 6 of the register separately gathers the human acceptance checklist for interactive navigation |
+| [`THREAT-MODEL.md`](THREAT-MODEL.md) | assets, actors, attack paths, workflow privileges |
+| [`ASSURANCE-CASE.md`](ASSURANCE-CASE.md) | security claims that are supported, and those that are not (yet) true |
+| [`GOVERNANCE.md`](GOVERNANCE.md) | decision model, actual roles and continuity limits |
+| [`SECRETS-POLICY.md`](SECRETS-POLICY.md) | secret-handling rules and administrative checks still required |
+| [`TOOLING-EVALUATION.md`](TOOLING-EVALUATION.md) | prospective evaluation of security tools (OSV-Scanner for Lake dependencies with a separate SBOM, Lean fuzzing and SAST, zizmor for workflows, branch governance); adopts no tool and claims no coverage |
+| [`LEAN-SECURITY-TOOLCHAIN.md`](LEAN-SECURITY-TOOLCHAIN.md) | target architecture and phases of a Lean 4 security-tooling programme (format-independent data model, adapters, SPDX/CycloneDX strategy); the bounded Lake→SPDX 2.3 demonstrator is documented in [`../research/LEAN-COMPLIANCE-ASSURANCE.md`](../research/LEAN-COMPLIANCE-ASSURANCE.md) |
+| [`workstreams/`](workstreams/) | raw agent reports: audits, changes, validations, final audits |
 
-## Vocabulaire des statuts
+## Status vocabulary
 
-Pour la sécurité : `VERIFIED`, `PARTIAL`, `PREPARED`, `HUMAN ACTION REQUIRED`, `BLOCKED`, `FUTURE` (voir `.claude/rules/security.md`).
-Le vocabulaire de [`../METHOD.md`](../METHOD.md) (`ESTABLISHED`, `UNDER REVIEW`, …) s'applique aux affirmations scientifiques : les deux
-ne se mélangent pas.
+For security: `VERIFIED`, `PARTIAL`, `PREPARED`, `HUMAN ACTION REQUIRED`, `BLOCKED`, `FUTURE` (see `.claude/rules/security.md`).
+The vocabulary of [`../METHOD.md`](../METHOD.md) (`ESTABLISHED`, `UNDER REVIEW`, …) applies to scientific claims: the two are not mixed.
 
+## Historical records
 
-Les anciennes checklists et le plan de remédiation initial sont conservés sous [docs/history/](../history/) comme traces datées ; ils ne constituent plus des registres actifs. Les rapports de workstreams restent des pièces justificatives historiques, pas des listes de tâches à dérouler.
+The former checklists and the initial remediation plan are kept under [docs/history/](../history/) as dated traces; they are no longer active registers. The workstream reports remain historical supporting evidence, not task lists to work through.
