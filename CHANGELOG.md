@@ -45,6 +45,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
   and `a11y` (#224).
 - `K7pl.MemoryCapability` no longer imports the whole of `Mathlib.Tactic` (#225).
 - Compliance audit: reject an empty Lake inventory, state the exact Boolean/predicate equivalence in Lean, and cover the empty-inventory behavior in model and CLI regression tests.
+- SPDX assurance research: preserve a case-by-case non-gating negative-corpus review and attach workflow identity plus hashes of the corpus, validator, generator, configuration and dependency locks to v2 probe reports.
 
 ## [0.0.0-alpha.1]
 
