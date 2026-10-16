@@ -41,6 +41,9 @@ def sampleInput : AuditInput :=
 example : InventoryContract sampleInput := by
   exact verifyContract_sound sampleInput (by decide)
 
+example : verifyContract sampleInput = true ↔ InventoryContract sampleInput := by
+  exact verifyContract_iff_inventoryContract sampleInput
+
 def malformedManifest : Json :=
   Json.mkObj [
     ("name", toJson "k7pl"),
@@ -57,6 +60,15 @@ def emptySbom : Json :=
     ("packages", Json.arr #[]),
     ("relationships", Json.arr #[])
   ]
+
+def emptyInventoryReport : AuditReport :=
+  auditTexts
+    "{\"name\":\"k7pl\",\"packages\":[]}"
+    "{\"spdxVersion\":\"SPDX-2.3\",\"SPDXID\":\"SPDXRef-DOCUMENT\",\"packages\":[],\"relationships\":[]}"
+    "manifest.json" "spdx.json"
+
+def duplicateRelationshipInput : AuditInput :=
+  { sampleInput with relationships := [sampleRelationship, sampleRelationship] }
 
 def tests : List (String × Bool) :=
   [ ("valid normalized inventory passes", verifyContract sampleInput)
@@ -84,6 +96,13 @@ def tests : List (String × Bool) :=
       (auditTexts "{" "{}" "manifest.json" "spdx.json").status == "ERROR")
   , ("invalid SPDX JSON reports ERROR",
       (auditTexts "{\"name\":\"k7pl\",\"packages\":[]}" "{" "manifest.json" "spdx.json").status == "ERROR")
+  , ("duplicate relationship targets are rejected",
+      !(verifyContract duplicateRelationshipInput))
+  , ("empty inventory is rejected",
+      !(verifyContract { sampleInput with manifestPackages := [], packages := [], relationships := [] }))
+  , ("empty inventory reports FAIL with a profile-specific diagnostic",
+      emptyInventoryReport.status == "FAIL" &&
+      emptyInventoryReport.diagnostics.any (fun item => item.ruleId == "SBOM-EMPTY-INVENTORY"))
   , ("valid input has no diagnostics", (auditIssues sampleInput).isEmpty)
   , ("missing required manifest field is rejected",
       match parseAuditInput malformedManifest emptySbom with
