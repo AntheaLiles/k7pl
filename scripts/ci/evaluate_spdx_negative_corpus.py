@@ -99,6 +99,12 @@ def _unsupported_spdx_version(document: dict[str, Any]) -> None:
     document["spdxVersion"] = "SPDX-9.9"
 
 
+def _unknown_top_level_field(document: dict[str, Any]) -> None:
+    # Probe whether the external validator rejects, ignores, or preserves an undeclared JSON field.
+    # The observation is intentionally non-blocking and does not assume a particular parser policy.
+    document["k7plProbeUnknownProperty"] = "probe-only"
+
+
 def _missing_download_location(document: dict[str, Any]) -> None:
     document["packages"][0].pop("downloadLocation", None)
 
@@ -175,6 +181,7 @@ PROBES: tuple[tuple[str, str, Callable[[dict[str, Any]], None]], ...] = (
     ("missing-document-namespace", "Remove documentNamespace, a required document identity field.", _missing_namespace),
     ("missing-spdx-version", "Remove the declared SPDX specification version.", _missing_spdx_version),
     ("unsupported-spdx-version", "Use an unsupported SPDX version token.", _unsupported_spdx_version),
+    ("unknown-top-level-field", "Add an undeclared top-level JSON property and observe the validator/parser policy.", _unknown_top_level_field),
     ("spdx-2.2-version-in-2.3-run", "Declare SPDX-2.2 while the invocation explicitly selects SPDX-2.3.", _spdx_22_version),
     ("missing-document-name", "Remove the document name field.", _missing_document_name),
     ("empty-document-name", "Set the document name to an empty string.", _empty_document_name),
