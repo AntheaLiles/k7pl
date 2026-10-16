@@ -1,0 +1,60 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+# Revue du corpus négatif SPDX 2.3 — issue #122
+
+## Portée et provenance de l'observation
+
+Cette note qualifie les observations du corpus exploratoire non bloquant de K7PL. Le rapport source est l'artefact [`k7pl-independent-spdx-validation-38953520978`](https://github.com/AntheaLiles/k7pl/actions/runs/38953520978/artifacts/12068874964), issu du workflow [#38953520978](https://github.com/AntheaLiles/k7pl/actions/runs/38953520978), run le 16 octobre 2026. Son `workflow.pullRequestHeadSha` est `a70a92d995e87343c50fda9b23f7fc82248f7c42` et son `workflow.checkedOutSha` est `0c2fb47b45860025b7a467ce82d894e20c3c2d23`. Cet artefact précède l'ajout du champ de provenance au rapport de corpus ; il est donc référencé comme **observation historique de comportement**, et non comme rapport de provenance conforme à la version v2 ensuite ajoutée.
+
+L'entrée positive générée a le SHA-256 `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c`. Version observée du validateur : `spdx-tools 0.8.5`; Python : `3.13.16`; plateforme du job : `Linux-6.17.0-1022-azure-x86_64-with-glibc2.39`. L'évaluation comprend 17 mutations structurées, deux entrées JSON brutes, un contrôle positif et deux contrôles d'erreur d'outil. Les hashes ci-dessous identifient les octets sérialisés de chaque cas observé.
+
+**Règle d'interprétation.** Un code de retour externe nul montre uniquement que cette version du validateur a accepté l'entrée testée. Il n'établit ni la vérité des métadonnées, ni l'exhaustivité du SBOM, ni la conformité globale du projet. La classification normative est prudente : « invalide » signifie que la violation est identifiable dans le format/version invoqué ; « profil local » signifie que K7PL impose une contrainte plus étroite ; « ambigu/factuel » appelle une revue humaine et ne doit pas alimenter une porte bloquante sans oracle qualifié. Référence normative épinglée : [spécification SPDX 2.3 — conformance](https://spdx.github.io/spdx-spec/v2.3/conformance/) et [création du document](https://spdx.github.io/spdx-spec/v2.3/document-creation-information/). Défaut historique du validateur suivi séparément : [spdx/tools-python #885](https://github.com/spdx/tools-python/issues/885).
+
+## Observations par cas
+
+Codes wrapper : `0/PASS`, `1/FAIL`, `2/ERROR`. `SPDX-TOOLS-VALIDATION` désigne le rejet par le validateur externe ; `SPDX-PREFLIGHT-PACKAGE-NAME` est le garde local K7PL pour les noms de paquets ; `SPDX-INPUT-JSON` et `SPDX-PREFLIGHT-DOCUMENT` concernent les entrées brutes.
+
+| Cas | Défaut recherché / règle concernée | Qualification attendue | SHA-256 de l'entrée mutée | Validateur externe | Wrapper K7PL observé | Interprétation / écart |
+|---|---|---|---|---|---|---|
+| `positive-control` | Document SPDX 2.3 généré par K7PL | Contrôle positif | `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c` | rc `0` | rc `0`, `PASS`, aucun diagnostic | Contrôle positif accepté ; seulement la validité reconnue par cette chaîne et pour ces octets. |
+| `missing-document-namespace` | Champ d'identité `documentNamespace` absent | Invalide : champ requis pour le profil et le document SPDX 2.3 | `1e9e2266a4735e96b2b91742041dc2ea18acf6db8e9dfcdd09a9d3f7b61c7918` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `missing-spdx-version` | Champ de version SPDX absent | Invalide : champ requis | `95595ee2000c898ec264b51a99a3a6958095c159e4d53f7c192a6b6eb78cb4f7` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `unsupported-spdx-version` | Version déclarée `SPDX-9.9` | Invalide pour l'outil/version disponible | `60ebbaf97640cd10e8dacd1fe4ee888bde51c68e95ea7410e9541699984eaa86` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `spdx-2.2-version-in-2.3-run` | Document déclaré SPDX 2.2 alors que la commande demande `--version SPDX-2.3` | Divergence de version/exécution ; pas une preuve que tout document SPDX 2.2 serait invalide sous sa propre version | `32d68aa2d22ed316ceae16bc1baf830c3ec7ac0c831d43c0d9ede6f60771d381` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet attendu pour ce contrat d'exécution. |
+| `missing-document-name` | Champ `name` du document absent | Invalide : champ requis | `f5a4c84cdcb771e240d0dd89b5529e5262f303c5ad0c700e6d00658377b847c2` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `empty-document-name` | Champ `name` présent mais chaîne vide | Ambiguïté à qualifier humainement : champ requis, format texte sur une ligne, mais longueur minimale non explicitement établie dans la clause examinée | `3cccc7ae6d7a4ad64d08e24ee6eeeac316a3f404dcf1ae860f28f7fbf9b4fa22` | rc `0` | rc `0`, `PASS`, aucun diagnostic | Acceptation observée. Ne pas classer automatiquement comme violation normative ni modifier le garde sans décision sur le texte SPDX 2.3. |
+| `missing-package-name` | Champ `packages[i].name` absent | Invalide : nom du package requis | `2c734ec378c420b9faffeb3193628d6c0f2dba7ecaedbe77d268eb3fb005fedc` | rc `1` | rc `1`, `FAIL`, `SPDX-PREFLIGHT-PACKAGE-NAME` | Rejet observé ; le garde local s'applique avant l'appel externe dans le wrapper. |
+| `null-package-name` | `packages[i].name = null` | Invalide : type incompatible et champ requis | `9eb3d827dfc4b1bce18cb65dfa53d2c4997659d0aacd93f3e125622370353d6c` | rc `1` | rc `1`, `FAIL`, `SPDX-PREFLIGHT-PACKAGE-NAME` | Rejet observé conforme à l'attente. |
+| `missing-package-download-location` | Champ `downloadLocation` absent | Invalide : champ requis | `297f1f8e8776c149059911f0af313c59fbe29cffbc632adf56639f6de21921da` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `empty-package-download-location` | `downloadLocation = ""` | Invalide pour le contrat testé : valeur ne correspondant pas aux marqueurs SPDX documentés ni à une localisation valide | `fc18774b04367826724fa93928e6eac387862f8737891327f5df1af90ff24b9d` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `invalid-license-expression` | Expression déclarée `GPL-2.0 AND (` malformée | Invalide syntaxiquement comme expression de licence | `5e22519435043b5fa396d9d852590a57d5e618f7a99b179a51f129748ffc2115` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `unsupported-license-assertion` | Remplacer `NOASSERTION` par `MIT` sans joindre de preuve externe | Assertion syntaxiquement plausible ; vérité factuelle invérifiable par ce test | `553aaec25624f13a02f3899b2bdd29f095acdc13a2a19f2aad8fb68040c71f1d` | rc `0` | rc `0`, `PASS`, aucun diagnostic | Acceptation attendue du point de vue syntaxique. Elle ne prouve ni que MIT est la bonne licence, ni que l'assertion est fausse. |
+| `dangling-relationship-reference` | `relatedSpdxElement` référence un identifiant inexistant | Invalide : référence SPDX non résolue | `5f497a24819fa5eb522f1fbee3b50bae6db943c6a406d08132f4fa2802a41140` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `inconsistent-relationship-source` | `spdxElementId` source référence un identifiant non déclaré | Invalide : référence SPDX non résolue | `a4470fe9db71f6fafb7606b26b63c6b90ea664117c15182c46be6515d3951a1e` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `duplicate-package-spdxid` | Deux packages possèdent le même `SPDXID` | Invalide : collisions d'identifiants SPDX | `de5c88c3412c2bb99bb748f5920488aa4e7545ea5af9a615bd1fea562c2651c7` | rc `1` | rc `1`, `FAIL`, `SPDX-TOOLS-VALIDATION` | Rejet observé conforme à l'attente. |
+| `duplicate-relationship` | Dupliquer une relation `DESCRIBES` et sa cible | Pas de règle d'unicité globale confirmée dans le standard examiné ; divergent du profil local K7PL à cibles distinctes | `0d82be84a25ccc778d7f351c26361754aeda354cf47daddcb11aa8f33ed58341` | rc `0` | rc `0`, `PASS`, aucun diagnostic | Acceptation externe observée. Le modèle Lean de K7PL impose un profil plus strict (une relation par package et cibles distinctes) ; ne généraliser pas cette contrainte à tout SPDX. |
+| `empty-package-name-upstream-885` | Nom de package chaîne vide ; cas lié à l'issue amont #885 | À distinguer : règle locale K7PL exige un nom non vide ; portée normative exacte de la chaîne vide à revoir comme ci-dessus | `a7cde117a3f2251bc47ca005e76c9fe383fa6ecd35e1d87488622ff699396078` | rc `0` | rc `1`, `FAIL`, `SPDX-PREFLIGHT-PACKAGE-NAME` | Le garde K7PL intercepte le cas que `spdx-tools 0.8.5` accepte. Cela confirme le comportement de ce cas, pas une couverture universelle des défauts amont. |
+| `malformed-json` | Texte JSON tronqué `{"packages": [` | Entrée illisible ; le résultat doit être `ERROR` dans le wrapper | `1f0d174ea93165e37174d0ee0860cf0ea8b0408cee59c8bcfefce74505d4442a` | rc `1` | rc `2`, `ERROR`, `SPDX-INPUT-JSON` | Classification d'erreur correcte ; le validateur externe ne fournit qu'un code non nul dans ce cas. |
+| `json-root-array` | JSON syntaxiquement valide, racine `[]` au lieu d'un objet | Structure du document invalide | `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945` | rc `1` | rc `1`, `FAIL`, `SPDX-PREFLIGHT-DOCUMENT` | Rejet structurel observé. |
+
+## Contrôles de défaillance de l'outil
+
+| Contrôle | Attente | Observation | Limite |
+|---|---|---|---|
+| Exécutable externe volontairement inexistant | Échec de lancement ; aucune conclusion de validation | `returnCode = null`, erreur système `[Errno 2] No such file or directory` | Simulation d'un outil absent seulement. |
+| `pyspdxtools` retiré du `PATH` du wrapper | `ERROR`, code de sortie 2 et diagnostic explicite | rc `2`, `ERROR`, `SPDX-VALIDATOR-CLI-MISSING` | Ne couvre pas les timeouts, crashes, bases corrompues, sorties incohérentes ou tous les défauts internes de l'outil. |
+
+## Résultat interprétatif
+
+Dans l'artefact observé, le code externe est nul pour cinq des vingt observations qui incluent le contrôle positif : le contrôle positif, le nom de document vide, l'assertion de licence `MIT`, la relation dupliquée et le nom de package vide associé à #885. Le wrapper produit quatre `PASS`, quinze `FAIL` et un `ERROR` : le cas de nom de package vide est rejeté par le garde local, contrairement au validateur externe. Ces nombres décrivent seulement ce corpus, pas la couverture de SPDX 2.3 ni un taux de faux négatifs général.
+
+Avant de rendre le corpus bloquant, un responsable humain doit :
+1. décider du traitement normatif du nom vide pour `document name` et `package name` à partir du texte SPDX 2.3 applicable ;
+2. ratifier formellement la frontière entre SPDX générique et profil local K7PL, notamment l'unicité des relations `DESCRIBES` ;
+3. réexécuter le corpus après le changement de provenance et vérifier que chaque rapport lie le commit, la tête de PR, le document positif, les empreintes des scripts/configurations et les versions effectives ;
+4. conserver les observations brutes et les écarts ; ne pas supprimer une mutation parce qu'elle surprend.
+
+Le corpus reste expérimental et **non bloquant**.
