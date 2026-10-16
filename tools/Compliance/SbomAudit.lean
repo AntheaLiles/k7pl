@@ -76,6 +76,7 @@ def InventoryContract (input : AuditInput) : Prop :=
   (input.manifestName == "k7pl") = true ∧
   (input.spdxVersion == "SPDX-2.3") = true ∧
   (input.documentId == "SPDXRef-DOCUMENT") = true ∧
+  (input.manifestPackages.isEmpty == false) = true ∧
   allDistinct (input.manifestPackages.map (fun item => item.name)) = true ∧
   (input.manifestPackages.all (fun item => item.name != "" && item.url != "")) = true ∧
   allDistinct (input.packages.map (fun item => item.name)) = true ∧
@@ -102,6 +103,7 @@ def verifyContract (input : AuditInput) : Bool :=
   (input.manifestName == "k7pl") &&
   (input.spdxVersion == "SPDX-2.3") &&
   (input.documentId == "SPDXRef-DOCUMENT") &&
+  (input.manifestPackages.isEmpty == false) &&
   allDistinct (input.manifestPackages.map (fun item => item.name)) &&
   input.manifestPackages.all (fun item => item.name != "" && item.url != "") &&
   allDistinct (input.packages.map (fun item => item.name)) &&
@@ -128,6 +130,18 @@ theorem verifyContract_sound (input : AuditInput) (h : verifyContract input = tr
     InventoryContract input := by
   simp only [verifyContract, Bool.and_eq_true] at h
   simpa only [InventoryContract, and_assoc] using h
+
+/-- Completeness: every normalized input satisfying the declared contract is accepted. -/
+theorem verifyContract_complete (input : AuditInput) (h : InventoryContract input) :
+    verifyContract input = true := by
+  simpa only [InventoryContract, verifyContract, Bool.and_eq_true, and_assoc] using h
+
+/-- The Boolean checker and the declared model predicate characterize exactly the same inputs. -/
+theorem verifyContract_iff_inventoryContract (input : AuditInput) :
+    verifyContract input = true ↔ InventoryContract input := by
+  constructor
+  · exact verifyContract_sound input
+  · exact verifyContract_complete input
 
 structure Diagnostic where
   ruleId : String
@@ -157,6 +171,9 @@ def auditIssues (input : AuditInput) : List Diagnostic :=
     [diagnostic "SBOM-SPDX-VERSION" "The document must declare SPDX-2.3 for this prototype." "spdx"]) ++
   (if input.documentId == "SPDXRef-DOCUMENT" then [] else
     [diagnostic "SBOM-DOCUMENT-ID" "The document ID must be SPDXRef-DOCUMENT." "spdx"]) ++
+  (if input.manifestPackages.isEmpty then
+    [diagnostic "SBOM-EMPTY-INVENTORY" "The Lake manifest must contain at least one package for this K7PL audit profile." "lake-manifest.json"]
+   else []) ++
   (if allDistinct (input.manifestPackages.map (fun item => item.name)) then [] else
     [diagnostic "SBOM-MANIFEST-DUPLICATE-NAME" "The Lake manifest contains duplicate package names." "lake-manifest.json"]) ++
   (if input.manifestPackages.all (fun item => item.name != "" && item.url != "") then [] else
