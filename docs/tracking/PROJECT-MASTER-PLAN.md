@@ -50,7 +50,7 @@ Therefore:
 | I — implementation conformance | OPEN | IMPL obligations / ASSURANCE.md | bounded conformance claim with evidence |
 | J — release / PDF / Zenodo | PARTIAL | release gate P6; OpenSSF tracking in `docs/security/` | real tag-triggered release, attestation verification, Zenodo sandbox and reproducibility evidence |
 | Documentation architecture | DONE | #58 + #60; D8 validated | physical architecture closed; semantic migration remains tracked separately in docs/migration/ |
-| K — Lean tools for project-compliance assurance | OPEN — research question | [issue #122](https://github.com/AntheaLiles/k7pl/issues/122) | bounded assurance claim, evidence boundary, comparison with simpler alternatives, and go/no-go demonstrator note |
+| K — Lean tools for project-compliance assurance | OPEN — human decision pending | [issue #122](https://github.com/AntheaLiles/k7pl/issues/122) | bounded assurance claim, formal checker/predicate equivalence, regression evidence for boundary cases, qualified external validation and timing evidence, comparison with alternatives, and an accountable GO/NO-GO decision |
 
 Main baseline is intentionally a dated snapshot rather than a maintained live SHA. For the current execution state, use the commit SHA attached to the CI run/PR under review; this plan does not assert a dynamic baseline.
 
