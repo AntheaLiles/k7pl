@@ -188,6 +188,27 @@ jobs:
           assert mismatch_report["status"] == "FAIL", mismatch_report
           assert any(d["ruleId"] == "SBOM-INVENTORY-MISMATCH" for d in mismatch_report["diagnostics"]), mismatch_report
 
+          # An empty pair is structurally parseable but not a valid K7PL dependency inventory.
+          empty_manifest = Path(os.environ["RUNNER_TEMP"]) / "empty-manifest.json"
+          empty_manifest.write_text('{"name":"k7pl","packages":[]}', encoding="utf-8")
+          empty_sbom = Path(os.environ["RUNNER_TEMP"]) / "empty-inventory.spdx.json"
+          empty_sbom.write_text(json.dumps({
+              "spdxVersion": "SPDX-2.3",
+              "SPDXID": "SPDXRef-DOCUMENT",
+              "packages": [],
+              "relationships": [],
+          }), encoding="utf-8")
+          empty_inventory = subprocess.run(
+              ["lake", "exe", "sbomAudit", str(empty_manifest), str(empty_sbom)],
+              check=False, capture_output=True, text=True,
+          )
+          assert empty_inventory.returncode == 1, (
+              empty_inventory.returncode, empty_inventory.stdout, empty_inventory.stderr
+          )
+          empty_report = json.loads(empty_inventory.stdout)
+          assert empty_report["status"] == "FAIL", empty_report
+          assert any(d["ruleId"] == "SBOM-EMPTY-INVENTORY" for d in empty_report["diagnostics"]), empty_report
+
           def sha256(path):
               digest = hashlib.sha256()
               with open(path, "rb") as stream:
@@ -228,6 +249,7 @@ jobs:
               "negativeCases": [
                   {"case": "malformed manifest JSON", "exitCode": malformed.returncode, "status": malformed_report["status"]},
                   {"case": "mutated package revision", "exitCode": mismatch.returncode, "status": mismatch_report["status"]},
+                  {"case": "empty manifest and SPDX inventory", "exitCode": empty_inventory.returncode, "status": empty_report["status"]},
               ],
           }
           with open(evidence_path, "w", encoding="utf-8") as stream:
