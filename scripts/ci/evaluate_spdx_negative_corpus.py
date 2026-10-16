@@ -40,6 +40,57 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _workflow_context() -> dict[str, str | int | None]:
+    """Return available GitHub Actions provenance without inferring missing run identity."""
+    pull_request_head_sha: str | None = None
+    event_path = os.environ.get("GITHUB_EVENT_PATH")
+    if event_path:
+        try:
+            with open(event_path, encoding="utf-8") as stream:
+                event = json.load(stream)
+            if isinstance(event, dict):
+                pull_request = event.get("pull_request")
+                if isinstance(pull_request, dict):
+                    head = pull_request.get("head")
+                    if isinstance(head, dict) and isinstance(head.get("sha"), str):
+                        pull_request_head_sha = head["sha"]
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            # Keep the field explicitly null instead of treating malformed metadata as provenance.
+            pass
+
+    def integer_env(name: str) -> int | None:
+        raw = os.environ.get(name)
+        if raw is None:
+            return None
+        try:
+            return int(raw)
+        except ValueError:
+            return None
+
+    return {
+        "runId": integer_env("GITHUB_RUN_ID"),
+        "runAttempt": integer_env("GITHUB_RUN_ATTEMPT"),
+        "checkedOutSha": os.environ.get("GITHUB_SHA"),
+        "pullRequestHeadSha": pull_request_head_sha,
+    }
+
+
+def _tool_input_hashes() -> dict[str, str]:
+    """Hash source/configuration files that determine the observed corpus result."""
+    paths = {
+        "negativeCorpusScriptSha256": Path(__file__).resolve(),
+        "sbomGeneratorSha256": ROOT / "scripts" / "ci" / "lake_manifest_to_spdx.py",
+        "spdxValidatorWrapperSha256": WRAPPER,
+        "benchmarkScriptSha256": ROOT / "scripts" / "ci" / "benchmark_spdx_validator.py",
+        "lakeManifestSha256": ROOT / "lake-manifest.json",
+        "lakefileSha256": ROOT / "lakefile.lean",
+        "leanToolchainSha256": ROOT / "lean-toolchain",
+        "ciRequirementsLockSha256": ROOT / "scripts" / "requirements-ci.txt",
+        "spdxValidatorRequirementsLockSha256": ROOT / "scripts" / "requirements-spdx-validator.txt",
+    }
+    return {name: sha256_file(path) for name, path in paths.items()}
+
+
 def _missing_namespace(document: dict[str, Any]) -> None:
     document.pop("documentNamespace", None)
 
@@ -276,7 +327,9 @@ def run_probes(input_path: Path) -> dict[str, Any]:
     except PackageNotFoundError:
         validator_version = None
     base: dict[str, Any] = {
-        "schemaVersion": "k7pl.spdx-negative-probe/v1",
+        "schemaVersion": "k7pl.spdx-negative-probe/v2",
+        "workflow": _workflow_context(),
+        "toolInputs": {},
         "probeOnly": True,
         "blockingControl": False,
         "measuredAt": datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
@@ -306,6 +359,12 @@ def run_probes(input_path: Path) -> dict[str, Any]:
             "This result does not establish SBOM completeness, vulnerability absence, license compatibility, or global compliance.",
         ],
     }
+    try:
+        base["toolInputs"] = _tool_input_hashes()
+    except OSError as error:
+        base["status"] = "ERROR"
+        base["error"] = f"Unable to fingerprint experiment inputs: {error}"
+        return base
     if validator_version != EXPECTED_VALIDATOR_VERSION:
         base["status"] = "ERROR"
         base["error"] = f"Expected spdx-tools {EXPECTED_VALIDATOR_VERSION}, got {validator_version!r}"
