@@ -95,7 +95,7 @@ Ce choix est volontairement conservateur : la configuration doit d'abord produir
 - [ ] N'envisager un blocage qu'après examen des constats, des faux positifs et de l'effet sur les PR.
 - [ ] Revoir périodiquement la version épinglée et les règles d'analyse, comme toute dépendance de sécurité.
 
-## 4. Gouvernance des branches et actions GitHub
+## 5. Gouvernance des branches et actions GitHub
 
 Les avertissements génériques sur la protection de branche ne doivent pas être corrigés mécaniquement au prix d'une règle impossible à satisfaire ou d'un verrouillage de l'unique mainteneuse. Le dépôt a historiquement un seul humain en mesure de relire ; une approbation exigée sans second relecteur serait une protection inopérante ou un blocage. Un fichier `CODEOWNERS` pointant vers la seule mainteneuse ne crée pas de revue indépendante.
 
@@ -114,7 +114,7 @@ Les avertissements génériques sur la protection de branche ne doivent pas êtr
 
 Les paramètres de dépôt sont distincts des fichiers versionnés. Cette pull request peut documenter la politique et la procédure de vérification ; elle ne prouve pas que les paramètres effectifs ont changé. Après toute modification dans GitHub, relever la configuration observée, le périmètre des branches, les checks exigés et un test de fonctionnement sans fusionner de changement risqué.
 
-## 5. Ordre de travail proposé
+## 6. Ordre de travail proposé
 
 1. **SBOM** : étude de faisabilité du générateur compatible Lake, puis contrôle du document produit par un validateur standard.
 2. **SAST Lean** : corpus contrôlé et évaluation de `pc-sast-lean` avant décision d'intégration.
@@ -123,7 +123,7 @@ Les paramètres de dépôt sont distincts des fichiers versionnés. Cette pull r
 
 Aucune de ces pistes ne doit être intégrée uniquement pour améliorer un score. Les statuts ne passeront à `VERIFIED` qu'après une vérification observable, consignée avec son résultat.
 
-## 6. Revue de maturité et compatibilité — 16 octobre 2026
+## 7. Revue de maturité et compatibilité — 16 octobre 2026
 
 Les versions ci-dessous décrivent un instantané de recherche, pas nécessairement celles exécutées dans K7PL. Toute mise à jour de pin exige une comparaison contrôlée.
 
