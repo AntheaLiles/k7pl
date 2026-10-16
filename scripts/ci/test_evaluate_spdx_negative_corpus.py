@@ -53,6 +53,7 @@ class NegativeCorpusTests(unittest.TestCase):
         self.assertEqual(len(names), len(set(names)))
         self.assertIn("empty-package-name-upstream-885", names)
         self.assertIn("unsupported-license-assertion", names)
+        self.assertIn("unknown-top-level-field", names)
         self.assertIn("spdx-2.2-version-in-2.3-run", names)
         self.assertIn("duplicate-relationship", names)
 
