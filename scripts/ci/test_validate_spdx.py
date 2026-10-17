@@ -42,6 +42,16 @@ class PreflightTests(unittest.TestCase):
         issues = preflight_issues({"packages": [{"name": "   "}]})
         self.assertEqual([issue["ruleId"] for issue in issues], ["SPDX-PREFLIGHT-PACKAGE-NAME"])
 
+    def test_unicode_and_ascii_control_whitespace_only_names_are_rejected(self) -> None:
+        # Keep the wrapper str.strip() behavior explicit at its Unicode boundary.
+        for name in ("\u00a0", "\u2003", "\u3000", "\x0b", "\x1c"):
+            with self.subTest(codepoint=f"U+{ord(name):04X}"):
+                issues = preflight_issues({"packages": [{"name": name}]})
+                self.assertEqual(
+                    [issue["ruleId"] for issue in issues],
+                    ["SPDX-PREFLIGHT-PACKAGE-NAME"],
+                )
+
     def test_non_object_package_is_rejected(self) -> None:
         issues = preflight_issues({"packages": ["not-an-object"]})
         self.assertEqual([issue["ruleId"] for issue in issues], ["SPDX-PREFLIGHT-PACKAGE"])
