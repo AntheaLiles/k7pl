@@ -186,14 +186,16 @@ theorem satisfiedAssessmentRequiresEvidence
   unfold assessEvidence at h
   cases hEmpty : (currentEvidence requirement evidence).isEmpty with
   | true =>
-      simp [hEmpty] at h
+      cases hException : exceptions.any (fun exception => validException requirement exception now) with
+      | true => simp [hEmpty, hException] at h
+      | false => simp [hEmpty, hException] at h
   | false =>
       cases hConflict : conflictingEvidence (currentEvidence requirement evidence) with
       | true =>
           simp [hEmpty, hConflict] at h
       | false =>
           cases hVerified : allCurrentEvidenceVerifiedAndReviewed (currentEvidence requirement evidence) with
-          | true => exact hVerified
+          | true => simpa [hEmpty, hConflict, hVerified] using hVerified
           | false => simp [hEmpty, hConflict, hVerified] at h
 
 /-- The full assessor cannot report satisfaction without current, reviewed evidence. -/
