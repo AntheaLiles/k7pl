@@ -367,6 +367,19 @@ Le workflow complet [#39019317531](https://github.com/AntheaLiles/k7pl/actions/r
 
 Cette observation lève la lacune documentaire du run #39017583679, dont seul le job Python avait terminé avant annulation du workflow global. Elle n’est pas la validation des modifications ajoutées dans ce commit de suivi : la prochaine CI doit être associée au nouveau head.
 
+### Deuxième exécution indépendante — workflow complet #39025036478 (17 octobre 2026)
+
+Le workflow [#39025036478](https://github.com/AntheaLiles/k7pl/actions/runs/39025036478) a terminé `success` sur le head PR `fc07954e2dfc8a246eb868627977f20d44638743` (merge checkout `6b645b69e7226b7c7aa6fe4e529537e68ab0102a`). Artefact [`k7pl-independent-spdx-validation-39025036478`](https://github.com/AntheaLiles/k7pl/actions/runs/39025036478/artifacts/12097997017).
+
+- ZIP SHA-256 `598fdf15c7a6c37b5bc37b390510e3939d4a75beb7d7c9a68ca3c7883c372634`; corpus report `1e6f3c4dfc64a3e02fc6801657dbb498e0cc2765673c501eb16b10ea9d61cb6a`; validation positive `2510ccb0e74e0d4b1d7ed864cc9b246de312b28c281253c9252e6f4ee65afb8e`; benchmark `94071280866de2816a633bedd36031ca209cb5a448c98a860347495b5cf2aba9`.
+- Positive SPDX SHA-256 `a795763270df820df406f0f140cb352a469d636c6d7ec6f99447aef07fba161c`, 14 paquets ; `spdx-tools 0.8.5` et wrapper `PASS`. Temps d’invocation `443.623 ms`, dont `430.650 ms` pour le sous-processus externe.
+- Corpus `OBSERVED`, non bloquant : 18 mutations structurées et deux JSON bruts ; code externe `0` sur six observations et `1` sur quinze ; wrapper quatre `PASS`, seize `FAIL`, un `ERROR`. Le champ racine inconnu est accepté par l’externe et rejeté par le garde K7PL.
+- Cinq répétitions intra-run sur Ubuntu 24.04 image `20261012.334.1`, Python 3.13.16 : CLI médiane `359.846 ms` (min `355.450`, max `366.627`), wrapper médiane `298.932 ms` (min `295.076`, max `306.701`), validateur médiane `286.386 ms` (min `282.801`, max `294.306`). Les hashes pertinents concordent avec #39019317531 : deux workflows indépendants testent le même jeu effectif, mais les répétitions de chaque workflow ne sont pas des exécutions indépendantes.
+
+Limites normatives : [spdx/tools-python #885](https://github.com/spdx/tools-python/issues/885) reste ouvert ; la PR corrective [#896](https://github.com/spdx/tools-python/pull/896) n’est pas fusionnée au 17 octobre 2026. L’issue [spdx/spec #650](https://github.com/spdx/spdx-spec/issues/650) demeure ouverte sur les propriétés supplémentaires. Le texte SPDX 2.3 exige `documentNamespace`, contrairement à la liste `required` du schéma JSON 2.3 publié ; SPDX 2.3.1 corrige ce décalage ([différences officielles](https://spdx.github.io/spdx-spec/v2.3.1/diffs-from-previous-editions/)). Schéma, outil externe et conformité normative sont trois couches distinctes.
+
+Une troisième exécution complète réussie sur les mêmes sources/outils/entrées reste nécessaire avant d’affirmer que le seuil courant de reproductibilité est atteint.
+
 ### Résultats d’assurance hors SBOM — 17 octobre 2026
 
 Le run complet [#39018661164](https://github.com/AntheaLiles/k7pl/actions/runs/39018661164) a terminé `success` sur le head `920ba1170d6855a5fc6acb07e3ed093ea56b1a5e`. Hors validation SPDX, il apporte trois résultats circonscrits :
