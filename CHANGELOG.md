@@ -47,6 +47,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - Compliance audit: reject an empty Lake inventory, state the exact Boolean/predicate equivalence in Lean, and cover the empty-inventory behavior in model and CLI regression tests.
 - Compliance audit: align Lean package-name validation with the SPDX wrapper for empty, ASCII-whitespace-only and Unicode-whitespace-only names; add regressions for both layers.
 - SPDX assurance research: preserve a case-by-case non-gating negative-corpus review and attach workflow identity plus hashes of the corpus, validator, generator, configuration and dependency locks to v2 probe reports.
+- SPDX validation: reject undeclared SPDX 2.3 root properties in the wrapper after confirming that `spdx-tools 0.8.5` accepted a field forbidden by the pinned JSON Schema; add unit and CLI regressions.
 - Added an empirical probe for an undeclared top-level SPDX JSON field; the new probe remains non-blocking until its external-validator behavior is observed and interpreted.
 
 ## [0.0.0-alpha.1]
