@@ -195,11 +195,11 @@ def auditIssues (input : AuditInput) : List Diagnostic :=
   (if allDistinct (input.manifestPackages.map (fun item => item.name)) then [] else
     [diagnostic "SBOM-MANIFEST-DUPLICATE-NAME" "The Lake manifest contains duplicate package names." "lake-manifest.json"]) ++
   (if input.manifestPackages.all (fun item => hasNonWhitespace item.name && item.url != "") then [] else
-    [diagnostic "SBOM-MANIFEST-EMPTY-IDENTITY" "A manifest package has an empty or ASCII-whitespace-only name, or an empty repository URL." "lake-manifest.json"]) ++
+    [diagnostic "SBOM-MANIFEST-EMPTY-IDENTITY" "A manifest package has an empty or whitespace-only name, or an empty repository URL." "lake-manifest.json"]) ++
   (if allDistinct (input.packages.map (fun item => item.name)) then [] else
     [diagnostic "SBOM-DUPLICATE-PACKAGE-NAME" "The SPDX inventory contains duplicate package names." "spdx"]) ++
   (if input.packages.all (fun item => hasNonWhitespace item.name && item.downloadLocation != "") then [] else
-    [diagnostic "SBOM-PACKAGE-EMPTY-IDENTITY" "An SPDX package has an empty or ASCII-whitespace-only name, or an empty download location." "spdx"]) ++
+    [diagnostic "SBOM-PACKAGE-EMPTY-IDENTITY" "An SPDX package has an empty or whitespace-only name, or an empty download location." "spdx"]) ++
   (if allDistinct (input.packages.map (fun item => item.spdxId)) then [] else
     [diagnostic "SBOM-DUPLICATE-SPDX-ID" "The SPDX inventory contains duplicate package identifiers." "spdx"]) ++
   (if input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT") then [] else
