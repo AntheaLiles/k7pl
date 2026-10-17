@@ -64,6 +64,17 @@ class PreflightTests(unittest.TestCase):
         issues = preflight_issues([])
         self.assertEqual([issue["ruleId"] for issue in issues], ["SPDX-PREFLIGHT-DOCUMENT"])
 
+    def test_unknown_root_property_is_rejected_by_pinned_spdx_23_schema_guard(self) -> None:
+        document = {
+            "packages": [{"name": "mathlib"}],
+            "k7plProbeUnknownProperty": "probe-only",
+        }
+        issues = preflight_issues(document)
+        self.assertEqual(
+            [(issue["ruleId"], issue["artifact"]) for issue in issues],
+            [("SPDX-PREFLIGHT-UNKNOWN-DOCUMENT-FIELD", "document.k7plProbeUnknownProperty")],
+        )
+
     def test_multiple_preflight_issues_keep_rule_ids_and_paths(self) -> None:
         issues = preflight_issues({
             "packages": [
@@ -81,6 +92,32 @@ class PreflightTests(unittest.TestCase):
                 ("SPDX-PREFLIGHT-PACKAGE", "packages[2]"),
             ],
         )
+
+    def test_cli_rejects_unknown_root_property_before_external_validator(self) -> None:
+        document = {
+            "packages": [{"name": "mathlib"}],
+            "k7plProbeUnknownProperty": "probe-only",
+        }
+        with TemporaryDirectory() as temporary_directory:
+            path = Path(temporary_directory) / "unknown-field.spdx.json"
+            path.write_text(json.dumps(document), encoding="utf-8")
+            captured = io.StringIO()
+            with (
+                patch("validate_spdx.version", return_value=VALIDATOR_VERSION),
+                patch("validate_spdx.shutil.which", return_value="/usr/bin/pyspdxtools"),
+                patch("validate_spdx.subprocess.run") as external_validator,
+                redirect_stdout(captured),
+            ):
+                exit_code = main(["validate_spdx.py", str(path)])
+
+        report = json.loads(captured.getvalue())
+        self.assertEqual(exit_code, 1)
+        self.assertEqual(report["status"], "FAIL")
+        self.assertEqual(
+            [item["ruleId"] for item in report["diagnostics"]],
+            ["SPDX-PREFLIGHT-UNKNOWN-DOCUMENT-FIELD"],
+        )
+        external_validator.assert_not_called()
 
     def test_cli_rejects_empty_package_name_before_external_validator(self) -> None:
         document = {"packages": [{"name": ""}]}
