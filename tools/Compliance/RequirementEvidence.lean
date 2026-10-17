@@ -195,7 +195,7 @@ theorem satisfiedAssessmentRequiresEvidence
           simp [hEmpty, hConflict] at h
       | false =>
           cases hVerified : allCurrentEvidenceVerifiedAndReviewed (currentEvidence requirement evidence) with
-          | true => simp [hEmpty, hConflict, hVerified]
+          | true => simp
           | false => simp [hEmpty, hConflict, hVerified] at h
 
 /-- The full assessor cannot report satisfaction without current, reviewed evidence. -/
@@ -223,8 +223,7 @@ theorem requirementSatisfiedRequiresReviewedEvidence
               | notApplicable =>
                   simp [hWellFormed, hDecisions, hConflict, hStatus] at h
               | applicable =>
-                  have hEvidence : assessEvidence requirement evidence exceptions now = .satisfied := by
-                    simpa [hWellFormed, hDecisions, hConflict, hStatus] using h
+                  have hEvidence : assessEvidence requirement evidence exceptions now = .satisfied := h
                   exact satisfiedAssessmentRequiresEvidence requirement evidence exceptions now hEvidence
 
 end Compliance.RequirementEvidence
