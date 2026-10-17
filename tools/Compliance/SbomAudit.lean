@@ -50,7 +50,7 @@ def lowerHexDigit (c : Char) : Bool :=
   c.isDigit || c == 'a' || c == 'b' || c == 'c' || c == 'd' || c == 'e' || c == 'f'
 
 /--
-Recognise the whitespace code points removed by Python 3.13's String.strip, so the normalized
+Recognise the whitespace code points removed by Python 3.13's str.strip(), so the normalized
 Lean inventory-name check agrees with the wrapper's blank-name preflight. Keep this set explicit:
 a future Python Unicode-table change must be reviewed rather than silently changing the contract.
 -/
