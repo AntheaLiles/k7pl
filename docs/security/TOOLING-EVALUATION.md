@@ -157,3 +157,31 @@ Les versions ci-dessous décrivent un instantané de recherche, pas nécessairem
 5. Ne revendiquer ni couverture de vulnérabilités, ni compatibilité juridique, ni conformité WCAG globale sur la seule base de tests automatisés.
 
 Références vérifiées au 16 octobre 2026 ; réévaluer tag, licence, dépendances, code publié, activité et formats avant toute adoption.
+
+## 8. Résultats observés — 17 octobre 2026 (hors SPDX/SBOM)
+
+Les observations ci-dessous proviennent du workflow complet [#39018661164](https://github.com/AntheaLiles/k7pl/actions/runs/39018661164), sur le head `920ba1170d6855a5fc6acb07e3ed093ea56b1a5e` de cette branche de recherche. Elles qualifient des exécutions ciblées ; elles ne valent pas attestation de conformité globale.
+
+### Adaptateur OSV, analyse statique des workflows
+
+- Le scan OSV-Scanner utilisant l’action épinglée `v2.6.0` a transmis **14 dépendances Lake** et affiché `No issues found`. Le résultat signifie uniquement qu’aucun avis n’a été retourné pour cette exécution et cette source de données ; il ne prouve ni l’exhaustivité de l’index OSV ni l’absence de vulnérabilités.
+- `scripts/ci/test_lake_manifest_to_osv.py` a réussi avec neuf méthodes de test. Deux nouveaux tests couvrent dix mutations négatives du manifeste (clés inconnues, type/inherited invalides, traversal, révision mal formée, URL hors allowlist, doublon et formes JSON mal typées) et treize rotations bénignes de la liste valide, en vérifiant que chaque SHA de commit est conservé. Ce sont des tests déterministes de mutation et de projection, **pas** un campagne de fuzzing guidé par couverture.
+- `actionlint` a signalé zéro erreur sur les dix workflows analysés. `zizmor v1.20.0`, persona `regular`, avec `online-audits: false`, a traité `.github/` et produit `results: []` dans son artefact SARIF. C’est une observation sur la version, le persona et les contrôles exécutés ; l’absence de constat ne prouve pas l’absence de défauts et l’audit en ligne n’était pas activé.
+
+### Artefacts Verso et accessibilité
+
+Dans le même workflow, la génération HTML/TeX, l’enrichissement des SVG publiés avec des noms/descriptions accessibles et la validation des images HTML ont réussi. Les tests hors ligne de `scripts/ci/test_enrich_figure_svg_metadata.py` vérifient notamment le titre et la description SVG, `role="img"`, `aria-labelledby`/`aria-describedby`, et rejettent un `alt` vide ou une description longue inexistante. Ce sont des contrats automatisés précis sur les artefacts générés. Aucune revue humaine complète au clavier ou avec lecteur d’écran n’est consignée ici ; aucune conformité WCAG 2.2 globale n’est revendiquée.
+
+### Fuzzing et SAST Lean : décision de non-adoption
+
+- `lean-fuzz` fournit un générateur de grammaires et des cibles personnalisées, mais son `lean-toolchain` est `v4.29.0` contre `v4.34.0` pour K7PL ; les métadonnées du dépôt ne déclarent pas de licence et la dernière tête observée date du 24 avril 2026. **NO-GO comme dépendance** tant que licence, compatibilité et cible K7PL avec oracle/rejeu qualifiés ne sont pas établis.
+- `pc-sast-lean` est un échafaudage de recherche proof-carrying SAST. Son `lean-toolchain` est `v4.12.0`, le dépôt ne déclare pas de licence dans les métadonnées, et son README précise que l’extraction de vrais programmes TypeScript/Python/Java n’est pas implémentée. **NO-GO pour l’adoption ou une réimplémentation de production** : la preuve sur l’IR jouet n’établit pas la fidélité d’un extracteur réel.
+- Les compilations avec avertissements fatals, `lake lint`, les tests et les audits d’axiomes restent utiles mais ont chacun leur portée. Le contrôle `zizmor` analyse les workflows GitHub Actions ; il ne constitue pas un SAST du code Lean. Il faut un corpus de défauts positifs/négatifs défini et une mesure des faux positifs/non-détections avant toute revendication de couverture SAST Lean.
+
+### Syft, Grype et ORT
+
+Aucun artefact de livraison concret ni politique de licences à appliquer n’a été sélectionné dans ce workstream. Syft/Grype restent **NO-GO pour une intégration en gate** tant qu’un artefact cible et un protocole de comparaison ne sont pas désignés. ORT reste **NO-GO pour une intégration de production** tant qu’une décision de politique open source, une source d’inventaire adaptée à Lake et un jeu de résultats de référence n’existent pas. Ce sont des alternatives à évaluer sur un besoin explicite, non des remplaçants automatiques du modèle Lean.
+
+### Suite hors SBOM
+
+La PR [#230](https://github.com/AntheaLiles/k7pl/pull/230) introduit séparément un modèle non normatif de traçabilité « exigence → source/version → artefact/version → applicabilité → preuve/revue → exception ». Sa validation reste conditionnée à une CI complète sur le head corrigé ; elle n’est pas comptée ici comme un résultat formel acquis. Le modèle ne prétend pas interpréter une loi ou démontrer la conformité d’un projet.
