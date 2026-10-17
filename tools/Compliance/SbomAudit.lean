@@ -49,6 +49,10 @@ deriving Repr, Inhabited
 def lowerHexDigit (c : Char) : Bool :=
   c.isDigit || c == 'a' || c == 'b' || c == 'c' || c == 'd' || c == 'e' || c == 'f'
 
+/-- Reject empty strings and strings containing only ASCII whitespace. -/
+def hasNonWhitespace (value : String) : Bool :=
+  value.trimAscii.toString != ""
+
 def validRevision (revision : String) : Bool :=
   revision.length == 40 && revision.toList.all lowerHexDigit
 
@@ -78,9 +82,9 @@ def InventoryContract (input : AuditInput) : Prop :=
   (input.documentId == "SPDXRef-DOCUMENT") = true ∧
   (input.manifestPackages.isEmpty == false) = true ∧
   allDistinct (input.manifestPackages.map (fun item => item.name)) = true ∧
-  (input.manifestPackages.all (fun item => item.name != "" && item.url != "")) = true ∧
+  (input.manifestPackages.all (fun item => hasNonWhitespace item.name && item.url != "")) = true ∧
   allDistinct (input.packages.map (fun item => item.name)) = true ∧
-  (input.packages.all (fun item => item.name != "" && item.downloadLocation != "")) = true ∧
+  (input.packages.all (fun item => hasNonWhitespace item.name && item.downloadLocation != "")) = true ∧
   allDistinct (input.packages.map (fun item => item.spdxId)) = true ∧
   (input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT")) = true ∧
   (input.manifestPackages.all (fun item => validRevision item.rev)) = true ∧
@@ -105,9 +109,9 @@ def verifyContract (input : AuditInput) : Bool :=
   (input.documentId == "SPDXRef-DOCUMENT") &&
   (input.manifestPackages.isEmpty == false) &&
   allDistinct (input.manifestPackages.map (fun item => item.name)) &&
-  input.manifestPackages.all (fun item => item.name != "" && item.url != "") &&
+  input.manifestPackages.all (fun item => hasNonWhitespace item.name && item.url != "") &&
   allDistinct (input.packages.map (fun item => item.name)) &&
-  input.packages.all (fun item => item.name != "" && item.downloadLocation != "") &&
+  input.packages.all (fun item => hasNonWhitespace item.name && item.downloadLocation != "") &&
   allDistinct (input.packages.map (fun item => item.spdxId)) &&
   input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT") &&
   input.manifestPackages.all (fun item => validRevision item.rev) &&
@@ -176,12 +180,12 @@ def auditIssues (input : AuditInput) : List Diagnostic :=
    else []) ++
   (if allDistinct (input.manifestPackages.map (fun item => item.name)) then [] else
     [diagnostic "SBOM-MANIFEST-DUPLICATE-NAME" "The Lake manifest contains duplicate package names." "lake-manifest.json"]) ++
-  (if input.manifestPackages.all (fun item => item.name != "" && item.url != "") then [] else
-    [diagnostic "SBOM-MANIFEST-EMPTY-IDENTITY" "A manifest package has an empty name or repository URL." "lake-manifest.json"]) ++
+  (if input.manifestPackages.all (fun item => hasNonWhitespace item.name && item.url != "") then [] else
+    [diagnostic "SBOM-MANIFEST-EMPTY-IDENTITY" "A manifest package has an empty or ASCII-whitespace-only name, or an empty repository URL." "lake-manifest.json"]) ++
   (if allDistinct (input.packages.map (fun item => item.name)) then [] else
     [diagnostic "SBOM-DUPLICATE-PACKAGE-NAME" "The SPDX inventory contains duplicate package names." "spdx"]) ++
-  (if input.packages.all (fun item => item.name != "" && item.downloadLocation != "") then [] else
-    [diagnostic "SBOM-PACKAGE-EMPTY-IDENTITY" "An SPDX package has an empty name or download location." "spdx"]) ++
+  (if input.packages.all (fun item => hasNonWhitespace item.name && item.downloadLocation != "") then [] else
+    [diagnostic "SBOM-PACKAGE-EMPTY-IDENTITY" "An SPDX package has an empty or ASCII-whitespace-only name, or an empty download location." "spdx"]) ++
   (if allDistinct (input.packages.map (fun item => item.spdxId)) then [] else
     [diagnostic "SBOM-DUPLICATE-SPDX-ID" "The SPDX inventory contains duplicate package identifiers." "spdx"]) ++
   (if input.packages.all (fun item => item.spdxId != "" && item.spdxId != "SPDXRef-DOCUMENT") then [] else
