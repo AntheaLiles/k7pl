@@ -145,6 +145,7 @@ def _report(
         "limitations": [
             "The external validator checks the supplied SPDX document; it does not establish that the SBOM inventories every build/runtime dependency or shipped artifact.",
             "K7PL preflight guards package names because spdx/tools-python issue #885 reports that an empty PackageName may not be flagged by the external validator.",
+            "K7PL preflight also rejects undeclared SPDX 2.3 document-root properties because the pinned v2.3 JSON Schema sets additionalProperties=false; this root-only guard is not full JSON Schema validation.",
             "This result is not a proof of vulnerability absence, licence compatibility, provenance of upstream dependencies, or overall legal/regulatory compliance.",
         ],
     }
