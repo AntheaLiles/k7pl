@@ -73,5 +73,75 @@ class ConversionTests(unittest.TestCase):
             convert_manifest(REAL_MANIFEST, REAL_LAKEFILE, "leanprover/lean4:v4.0.1\n")
 
 
+    def test_deterministic_adversarial_mutation_corpus_rejects_untrusted_manifest_shapes(self):
+        """Bounded mutation testing for the real Lake-to-OSV input boundary (no network)."""
+        cases = []
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["unexpectedRootField"] = "must not be ignored"
+        cases.append(("unknown-root-key", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"][0]["unexpectedPackageField"] = "must not be ignored"
+        cases.append(("unknown-package-key", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"][0]["type"] = "archive"
+        cases.append(("non-git-package", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"][0]["inherited"] = "false"
+        cases.append(("non-boolean-inherited", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"][0]["scope"] = "../../outside"
+        cases.append(("path-traversal-scope", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"][0]["rev"] = "A" * 40
+        cases.append(("uppercase-revision", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"][0]["url"] = "https://example.invalid/attacker/repo"
+        cases.append(("untrusted-repository", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"].append(copy.deepcopy(candidate["packages"][0]))
+        cases.append(("duplicate-package", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"][0] = None
+        cases.append(("non-object-package", candidate))
+
+        candidate = copy.deepcopy(REAL_MANIFEST)
+        candidate["packages"] = None
+        cases.append(("non-list-package-container", candidate))
+
+        for case_name, candidate in cases:
+            with self.subTest(case=case_name):
+                with self.assertRaises(ValueError):
+                    convert_manifest(candidate, REAL_LAKEFILE, REAL_TOOLCHAIN)
+
+    def test_adversarial_mutation_corpus_does_not_change_valid_pin_projection(self):
+        """Permutation is benign: normalized OSV output must retain every exact commit pin."""
+        baseline = convert_manifest(REAL_MANIFEST, REAL_LAKEFILE, REAL_TOOLCHAIN)
+        for rotation in range(1, len(REAL_MANIFEST["packages"])):
+            candidate = copy.deepcopy(REAL_MANIFEST)
+            candidate["packages"] = (
+                candidate["packages"][rotation:] + candidate["packages"][:rotation]
+            )
+            with self.subTest(rotation=rotation):
+                projected = convert_manifest(candidate, REAL_LAKEFILE, REAL_TOOLCHAIN)
+                self.assertEqual(projected, baseline)
+                projected_pins = {
+                    item["package"]["name"]: item["package"]["commit"]
+                    for item in projected["results"][0]["packages"]
+                }
+                for package in REAL_MANIFEST["packages"]:
+                    self.assertEqual(
+                        projected_pins[package["url"].removeprefix("https://")],
+                        package["rev"],
+                    )
+
 if __name__ == "__main__":
     unittest.main()
