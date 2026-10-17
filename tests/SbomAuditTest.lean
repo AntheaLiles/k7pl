@@ -11,6 +11,8 @@ namespace SbomAuditTest
 
 def sampleRevision : String := "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
+def unicodeWhitespaceOnlyName : String := String.singleton (Char.ofNat 160)
+
 def sampleManifestPackage : ManifestPackage :=
   { name := "alpha"
     url := "https://github.com/example/alpha"
@@ -86,6 +88,12 @@ def tests : List (String × Bool) :=
   , ("whitespace-only SPDX package name is rejected",
       !(verifyContract { sampleInput with
         packages := [{ sampleSbomPackage with name := "   " }] }))
+  , ("Unicode whitespace-only manifest package name is rejected",
+      !(verifyContract { sampleInput with
+        manifestPackages := [{ sampleManifestPackage with name := unicodeWhitespaceOnlyName }] }))
+  , ("Unicode whitespace-only SPDX package name is rejected",
+      !(verifyContract { sampleInput with
+        packages := [{ sampleSbomPackage with name := unicodeWhitespaceOnlyName }] }))
   , ("whitespace-only manifest package name has an identity diagnostic",
       (auditIssues { sampleInput with
         manifestPackages := [{ sampleManifestPackage with name := "   " }] }).any
