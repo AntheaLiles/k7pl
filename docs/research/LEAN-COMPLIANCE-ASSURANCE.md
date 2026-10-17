@@ -352,3 +352,15 @@ Artefact [`k7pl-independent-spdx-validation-39017583679`](https://github.com/Ant
 - Corpus négatif : SHA-256 `4f1280bd678827cdbc1e9a4e66f6b0b86f3e74e3c512fbd328b3a4aba089a03c`; 18 mutations structurées et deux cas de JSON brut, état `OBSERVED`, contrôle non bloquant. Pour `unknown-top-level-field`, le validateur externe accepte encore (`rc=0`) mais le wrapper renvoie désormais `rc=1`, `FAIL`, `SPDX-PREFLIGHT-UNKNOWN-DOCUMENT-FIELD`. La revue par cas est dans [`SPDX-NEGATIVE-CORPUS-REVIEW.md`](SPDX-NEGATIVE-CORPUS-REVIEW.md).
 
 Les hashes des outils inclus dans cet artefact caractérisent le code effectivement exécuté au head `2376ab6…`. Le wrapper a ensuite reçu une modification documentaire dans le rapport `limitations`; il faut un nouvel artefact lié au nouveau SHA de source avant d’affirmer que les champs du rapport final sont validés sur la tête courante. De même, ce run ne complète pas à lui seul le protocole d’au moins trois exécutions CI indépendantes pour le benchmark : les cinq répétitions sont des échantillons d’un seul runner et d’un seul job.
+
+### Résultats d’assurance hors SBOM — 17 octobre 2026
+
+Le run complet [#39018661164](https://github.com/AntheaLiles/k7pl/actions/runs/39018661164) a terminé `success` sur le head `920ba1170d6855a5fc6acb07e3ed093ea56b1a5e`. Hors validation SPDX, il apporte trois résultats circonscrits :
+
+- le test de l’adaptateur Lake→OSV rejette dix mutations adversariales prédéfinies du manifeste et vérifie, par treize rotations de l’entrée valide, la stabilité de la projection des 14 pins de commit ;
+- OSV-Scanner v2.6.0 a scanné 14 dépendances et renvoyé `No issues found`, sans que cela ne prouve l’absence de vulnérabilités non indexées ;
+- actionlint rapporte zéro erreur sur dix workflows ; zizmor v1.20.0 (`regular`, audits en ligne désactivés) ne produit aucun résultat dans son SARIF ; la génération de la spécification et les contrats automatisés d’accessibilité des images/SVG générés ont réussi.
+
+Ces résultats ne constituent pas une couverture SAST du code Lean ni une certification WCAG. Les évaluations de `lean-fuzz` et `pc-sast-lean` concluent à une non-adoption en l’état : versions Lean incompatibles et licences non déclarées dans les métadonnées, et, pour le SAST, extraction source réelle non implémentée. Syft/Grype/ORT restent à évaluer à partir d’un artefact ou d’une politique concrète.
+
+Un deuxième volet distinct, la traceabilité des exigences et des preuves versionnées, est proposé dans la [PR #230](https://github.com/AntheaLiles/k7pl/pull/230). Son statut reste expérimental jusqu’à une CI complète verte sur le head corrigé. La note générale des outils et les critères de non-adoption sont détaillés dans [`../security/TOOLING-EVALUATION.md`](../security/TOOLING-EVALUATION.md).
