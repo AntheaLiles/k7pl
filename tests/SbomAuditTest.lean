@@ -80,6 +80,20 @@ def tests : List (String × Bool) :=
       !(verifyContract { sampleInput with packages := [{ sampleSbomPackage with downloadLocation := "https://example.invalid/alpha" }] }))
   , ("empty component identity is rejected",
       !(verifyContract { sampleInput with packages := [{ sampleSbomPackage with name := "" }] }))
+  , ("whitespace-only manifest package name is rejected",
+      !(verifyContract { sampleInput with
+        manifestPackages := [{ sampleManifestPackage with name := "   " }] }))
+  , ("whitespace-only SPDX package name is rejected",
+      !(verifyContract { sampleInput with
+        packages := [{ sampleSbomPackage with name := "   " }] }))
+  , ("whitespace-only manifest package name has an identity diagnostic",
+      (auditIssues { sampleInput with
+        manifestPackages := [{ sampleManifestPackage with name := "   " }] }).any
+        (fun item => item.ruleId == "SBOM-MANIFEST-EMPTY-IDENTITY"))
+  , ("whitespace-only SPDX package name has an identity diagnostic",
+      (auditIssues { sampleInput with
+        packages := [{ sampleSbomPackage with name := "   " }] }).any
+        (fun item => item.ruleId == "SBOM-PACKAGE-EMPTY-IDENTITY"))
   , ("unknown licence metadata remains NOASSERTION",
       !(verifyContract { sampleInput with packages := [{ sampleSbomPackage with licenseDeclared := "MIT" }] }))
   , ("invented dependency edge is rejected",
