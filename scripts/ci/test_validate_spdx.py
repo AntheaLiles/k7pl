@@ -20,6 +20,18 @@ from unittest.mock import patch
 from validate_spdx import main, preflight_issues, sha256_file, validate
 
 
+PYTHON313_STRIP_WHITESPACE_CODEPOINTS = (
+    0x0009, 0x000A, 0x000B, 0x000C, 0x000D, 0x001C, 0x001D, 0x001E, 0x001F,
+    0x0020, 0x0085, 0x00A0, 0x1680, 0x2000, 0x2001, 0x2002, 0x2003, 0x2004,
+    0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200A, 0x2028, 0x2029, 0x202F,
+    0x205F, 0x3000,
+)
+PYTHON313_NON_WHITESPACE_BOUNDARY_CODEPOINTS = (
+    0x0008, 0x000E, 0x001B, 0x0021, 0x0084, 0x0086, 0x009F, 0x00A1, 0x167F,
+    0x1681, 0x1FFF, 0x200B, 0x2027, 0x202A, 0x205E, 0x3001, 0xFEFF,
+)
+
+
 VALIDATOR_VERSION = "0.8.5"
 
 
@@ -42,15 +54,29 @@ class PreflightTests(unittest.TestCase):
         issues = preflight_issues({"packages": [{"name": "   "}]})
         self.assertEqual([issue["ruleId"] for issue in issues], ["SPDX-PREFLIGHT-PACKAGE-NAME"])
 
-    def test_unicode_and_ascii_control_whitespace_only_names_are_rejected(self) -> None:
-        # Keep the wrapper str.strip() behavior explicit at its Unicode boundary.
-        for name in ("\u00a0", "\u2003", "\u3000", "\x0b", "\x1c"):
-            with self.subTest(codepoint=f"U+{ord(name):04X}"):
+    def test_python_313_strip_whitespace_set_matches_runtime_and_is_rejected(self) -> None:
+        observed = tuple(
+            code_point for code_point in range(0x110000)
+            if chr(code_point).strip() == ""
+        )
+        self.assertEqual(observed, PYTHON313_STRIP_WHITESPACE_CODEPOINTS)
+
+        for code_point in PYTHON313_STRIP_WHITESPACE_CODEPOINTS:
+            name = chr(code_point)
+            with self.subTest(codepoint=f"U+{code_point:04X}"):
+                self.assertEqual(name.strip(), "")
                 issues = preflight_issues({"packages": [{"name": name}]})
                 self.assertEqual(
                     [issue["ruleId"] for issue in issues],
                     ["SPDX-PREFLIGHT-PACKAGE-NAME"],
                 )
+
+    def test_non_whitespace_boundary_code_points_are_not_treated_as_blank(self) -> None:
+        for code_point in PYTHON313_NON_WHITESPACE_BOUNDARY_CODEPOINTS:
+            name = chr(code_point)
+            with self.subTest(codepoint=f"U+{code_point:04X}"):
+                self.assertNotEqual(name.strip(), "")
+                self.assertEqual(preflight_issues({"packages": [{"name": name}]}), [])
 
     def test_non_object_package_is_rejected(self) -> None:
         issues = preflight_issues({"packages": ["not-an-object"]})

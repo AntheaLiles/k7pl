@@ -13,6 +13,16 @@ def sampleRevision : String := "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 def unicodeWhitespaceOnlyName : String := String.singleton (Char.ofNat 160)
 
+def python313StripWhitespaceCodePoints : List Nat :=
+  [0x0009, 0x000a, 0x000b, 0x000c, 0x000d, 0x001c, 0x001d, 0x001e, 0x001f,
+   0x0020, 0x0085, 0x00a0, 0x1680, 0x2000, 0x2001, 0x2002, 0x2003, 0x2004,
+   0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200a, 0x2028, 0x2029, 0x202f,
+   0x205f, 0x3000]
+
+def python313NonWhitespaceBoundaryCodePoints : List Nat :=
+  [0x0008, 0x000e, 0x001b, 0x0021, 0x0084, 0x0086, 0x009f, 0x00a1, 0x167f,
+   0x1681, 0x1fff, 0x200b, 0x2027, 0x202a, 0x205e, 0x3001, 0xfeff]
+
 def sampleManifestPackage : ManifestPackage :=
   { name := "alpha"
     url := "https://github.com/example/alpha"
@@ -39,6 +49,11 @@ def sampleInput : AuditInput :=
     documentId := "SPDXRef-DOCUMENT"
     packages := [sampleSbomPackage]
     relationships := [sampleRelationship] }
+
+def matchingNameInput (name : String) : AuditInput :=
+  { sampleInput with
+    manifestPackages := [{ sampleManifestPackage with name := name }]
+    packages := [{ sampleSbomPackage with name := name }] }
 
 example : InventoryContract sampleInput := by
   exact verifyContract_sound sampleInput (by decide)
@@ -94,6 +109,14 @@ def tests : List (String × Bool) :=
   , ("Unicode whitespace-only SPDX package name is rejected",
       !(verifyContract { sampleInput with
         packages := [{ sampleSbomPackage with name := unicodeWhitespaceOnlyName }] }))
+  , ("Python 3.13 str.strip whitespace set is rejected by the Lean inventory contract",
+      python313StripWhitespaceCodePoints.all (fun codePoint =>
+        let name := String.singleton (Char.ofNat codePoint)
+        !(hasNonWhitespace name) && !(verifyContract (matchingNameInput name))))
+  , ("non-whitespace boundary code points remain valid inventory names",
+      python313NonWhitespaceBoundaryCodePoints.all (fun codePoint =>
+        let name := String.singleton (Char.ofNat codePoint)
+        hasNonWhitespace name && verifyContract (matchingNameInput name)))
   , ("whitespace-only manifest package name has an identity diagnostic",
       (auditIssues { sampleInput with
         manifestPackages := [{ sampleManifestPackage with name := "   " }] }).any
