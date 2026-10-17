@@ -223,7 +223,8 @@ theorem requirementSatisfiedRequiresReviewedEvidence
               | notApplicable =>
                   simp [hWellFormed, hDecisions, hConflict, hStatus] at h
               | applicable =>
-                  have hEvidence : assessEvidence requirement evidence exceptions now = .satisfied := h
+                  have hEvidence : assessEvidence requirement evidence exceptions now = .satisfied := by
+                    simpa [hWellFormed, hDecisions, hConflict, hStatus] using h
                   exact satisfiedAssessmentRequiresEvidence requirement evidence exceptions now hEvidence
 
 end Compliance.RequirementEvidence
