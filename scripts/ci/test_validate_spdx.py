@@ -270,6 +270,14 @@ class ValidatorDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report["input"]["sha256"], expected_digest)
         self.assertEqual(report["validator"]["version"], VALIDATOR_VERSION)
         self.assertEqual(report["diagnostics"], [])
+        self.assertTrue(
+            any("additionalProperties=false" in limitation for limitation in report["limitations"]),
+            report["limitations"],
+        )
+        self.assertTrue(
+            any("root-only guard" in limitation for limitation in report["limitations"]),
+            report["limitations"],
+        )
         run.assert_called_once()
         self.assertEqual(run.call_args.args[0][-3:], [str(path), "--version", "SPDX-2.3"])
 
