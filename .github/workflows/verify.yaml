@@ -209,6 +209,48 @@ jobs:
           assert empty_report["status"] == "FAIL", empty_report
           assert any(d["ruleId"] == "SBOM-EMPTY-INVENTORY" for d in empty_report["diagnostics"]), empty_report
 
+          # The Lean model and CLI must reject blank package names using the same whitespace set
+          # as the Python preflight wrapper (including Unicode separators such as U+00A0).
+          blank_name = "\u00a0"
+          blank_revision = "a" * 40
+          blank_url = "https://github.com/example/alpha"
+          blank_manifest = Path(os.environ["RUNNER_TEMP"]) / "blank-name-manifest.json"
+          blank_manifest.write_text(json.dumps({
+              "name": "k7pl",
+              "packages": [{"name": blank_name, "url": blank_url, "rev": blank_revision}],
+          }), encoding="utf-8")
+          blank_sbom = Path(os.environ["RUNNER_TEMP"]) / "blank-name.spdx.json"
+          blank_sbom.write_text(json.dumps({
+              "spdxVersion": "SPDX-2.3",
+              "SPDXID": "SPDXRef-DOCUMENT",
+              "packages": [{
+                  "name": blank_name,
+                  "SPDXID": "SPDXRef-Package-alpha",
+                  "versionInfo": blank_revision,
+                  "downloadLocation": blank_url,
+                  "licenseDeclared": "NOASSERTION",
+                  "licenseConcluded": "NOASSERTION",
+                  "copyrightText": "NOASSERTION",
+              }],
+              "relationships": [{
+                  "spdxElementId": "SPDXRef-DOCUMENT",
+                  "relationshipType": "DESCRIBES",
+                  "relatedSpdxElement": "SPDXRef-Package-alpha",
+              }],
+          }), encoding="utf-8")
+          blank_name_audit = subprocess.run(
+              ["lake", "exe", "sbomAudit", str(blank_manifest), str(blank_sbom)],
+              check=False, capture_output=True, text=True,
+          )
+          assert blank_name_audit.returncode == 1, (
+              blank_name_audit.returncode, blank_name_audit.stdout, blank_name_audit.stderr
+          )
+          blank_name_report = json.loads(blank_name_audit.stdout)
+          assert blank_name_report["status"] == "FAIL", blank_name_report
+          blank_rule_ids = {item["ruleId"] for item in blank_name_report["diagnostics"]}
+          assert "SBOM-MANIFEST-EMPTY-IDENTITY" in blank_rule_ids, blank_name_report
+          assert "SBOM-PACKAGE-EMPTY-IDENTITY" in blank_rule_ids, blank_name_report
+
           def sha256(path):
               digest = hashlib.sha256()
               with open(path, "rb") as stream:
