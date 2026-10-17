@@ -49,9 +49,23 @@ deriving Repr, Inhabited
 def lowerHexDigit (c : Char) : Bool :=
   c.isDigit || c == 'a' || c == 'b' || c == 'c' || c == 'd' || c == 'e' || c == 'f'
 
-/-- Reject empty strings and strings containing only ASCII whitespace. -/
+/--
+Recognise the whitespace code points removed by Python 3.13's String.strip, so the normalized
+Lean inventory-name check agrees with the wrapper's blank-name preflight. Keep this set explicit:
+a future Python Unicode-table change must be reviewed rather than silently changing the contract.
+-/
+def isInventoryNameWhitespace (c : Char) : Bool :=
+  c.isWhitespace ||
+  c.val == 0x0b || c.val == 0x0c ||
+  (c.val >= 0x1c && c.val <= 0x1f) ||
+  c.val == 0x85 || c.val == 0xa0 || c.val == 0x1680 ||
+  (c.val >= 0x2000 && c.val <= 0x200a) ||
+  c.val == 0x2028 || c.val == 0x2029 || c.val == 0x202f ||
+  c.val == 0x205f || c.val == 0x3000
+
+/-- Reject empty strings and strings containing only the whitespace set used by the wrapper. -/
 def hasNonWhitespace (value : String) : Bool :=
-  value.trimAscii.toString != ""
+  value.toList.any (fun c => !isInventoryNameWhitespace c)
 
 def validRevision (revision : String) : Bool :=
   revision.length == 40 && revision.toList.all lowerHexDigit
