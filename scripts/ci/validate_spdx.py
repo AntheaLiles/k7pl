@@ -21,6 +21,28 @@ from typing import Any
 EXPECTED_VALIDATOR_VERSION = "0.8.5"
 REPORT_SCHEMA = "k7pl.spdx-validation/v1"
 
+# Root properties from spdx/spdx-spec@v2.3/schemas/spdx-schema.json. The schema declares
+# additionalProperties=false at the document root. This is a targeted gap guard, not a recursive
+# SPDX schema implementation; nested validation remains the external validator's responsibility.
+SPDX_23_DOCUMENT_FIELDS = frozenset({
+    "SPDXID",
+    "annotations",
+    "comment",
+    "creationInfo",
+    "dataLicense",
+    "externalDocumentRefs",
+    "hasExtractedLicensingInfos",
+    "name",
+    "revieweds",
+    "spdxVersion",
+    "documentNamespace",
+    "documentDescribes",
+    "packages",
+    "files",
+    "snippets",
+    "relationships",
+})
+
 
 def preflight_issues(document: object) -> list[dict[str, str]]:
     """Reject obvious required-field gaps, including the currently reported upstream name gap."""
@@ -39,6 +61,17 @@ def preflight_issues(document: object) -> list[dict[str, str]]:
             "message": "The SPDX JSON packages field must be an array.",
             "artifact": "packages",
         }]
+
+    for field in sorted(document):
+        if field not in SPDX_23_DOCUMENT_FIELDS:
+            issues.append({
+                "ruleId": "SPDX-PREFLIGHT-UNKNOWN-DOCUMENT-FIELD",
+                "message": (
+                    "The SPDX-2.3 JSON Schema rejects undeclared document-level properties "
+                    "(additionalProperties is false at the document root)."
+                ),
+                "artifact": f"document.{field}",
+            })
 
     for index, package in enumerate(packages):
         artifact = f"packages[{index}]"
