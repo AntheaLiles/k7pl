@@ -128,6 +128,12 @@ rewritten as though nothing had changed.
   displayed by the code, workflows and scripts, documentation (README, CONTRIBUTING, writing
   rules, `docs/`), tracking, agent and rule files, issues, pull requests and commit messages.
 
+Strings rendered into the specification (Verso extensions, generated bibliography, navigation
+texts) follow the specification and stay in French. File names are in English. Historical and
+evidence records (`docs/history/`, `docs/archives/`, `docs/peer-review/`, dated audits) are not
+translated: they are kept until their content has been analysed and arbitrated (moved elsewhere,
+abandoned, etc.), then deleted progressively.
+
 The CI does not check the language. French text outside `spec/` that predates this rule is
 listed, with the detection method used, in the translation backlog
 [`docs/tracking/LANGUAGE-MIGRATION.md`](docs/tracking/LANGUAGE-MIGRATION.md).

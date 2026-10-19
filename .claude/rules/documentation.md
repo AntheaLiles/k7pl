@@ -9,6 +9,9 @@ SPDX-License-Identifier: CC0-1.0
 - Lean code, identifiers, comments and docstrings: English.
 - Project documentation, tracking, issues, PRs: English.
 - Commit messages: English, Conventional Commits.
+- Strings rendered into the specification follow it and stay in French.
+- File names: English.
+- Historical and evidence records (`docs/history/`, `docs/archives/`, `docs/peer-review/`, dated audits) are not translated. They are kept until their content has been analysed and arbitrated (moved elsewhere, abandoned, etc.), then deleted progressively; each deletion records where the content went or why it was abandoned.
 - Every new file must comply with REUSE.
 
 Documents produced by agents must explicitly distinguish observed facts, interpretations, decisions, hypotheses and remaining actions.
