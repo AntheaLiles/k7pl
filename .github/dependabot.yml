@@ -6,7 +6,10 @@ version: 2
 updates:
   # Lean dependencies are bumped by .github/workflows/bump-lean.yaml.
   - package-ecosystem: github-actions
-    directory: /
+    # The workflows and the local composite actions (.github/actions/*), which pin actions too.
+    directories:
+      - /
+      - /.github/actions/*
     schedule:
       interval: weekly
     # Wait a week before proposing a freshly published release, so that a compromised release
