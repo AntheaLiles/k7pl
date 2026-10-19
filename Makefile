@@ -4,10 +4,13 @@
 PYTHON ?= python3
 KLEAN_PACKAGE := src/k/.build/klean-output/k7pl2lean
 
-.PHONY: help k-check export-lean proof formal-chain test spec check clean
+.PHONY: help extract-code k-check export-lean proof formal-chain test spec check clean
 
 help:
-	@printf '%s\n' 'Targets: k-check, export-lean, proof, formal-chain, test, spec, check, clean'
+	@printf '%s\n' 'Targets: extract-code, k-check, export-lean, proof, formal-chain, test, spec, check, clean'
+
+extract-code:
+	lake exe spec --extract-code-only
 
 k-check:
 	$(MAKE) -C src/k check
