@@ -154,7 +154,7 @@ jobs:
             --output "$RUNNER_TEMP/k7pl-sbom-evidence.json"
 
       - name: Upload scoped SBOM audit evidence
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: k7pl-sbom-evidence-${{ github.run_id }}
           path: |
@@ -322,7 +322,7 @@ jobs:
             --output "$RUNNER_TEMP/k7pl-spdx-negative-probes.json"
 
       - name: Upload independent SPDX validation evidence
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: k7pl-independent-spdx-validation-${{ github.run_id }}
           path: |
@@ -381,7 +381,7 @@ jobs:
         run: python3 scripts/ci/check_tikz_figures.py --generated out/tikz-production
 
       - name: Upload generated TikZ figure assets
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: tikz-figure-assets
           path: out/tikz-production/*
@@ -464,7 +464,7 @@ jobs:
         run: scripts/axiom-audit.sh SpecBib SpecBib
 
       - name: Download generated TikZ figure assets
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: tikz-figure-assets
           path: spec/figures
@@ -553,7 +553,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload the specification (HTML)
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: spec-html
           path: _out/spec/html-multi
@@ -561,7 +561,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload the specification (TeX)
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: spec-tex
           path: _out/spec/tex
@@ -585,7 +585,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: spec-tex
           path: _out/spec/tex
@@ -656,7 +656,7 @@ jobs:
 
       - name: Upload the compilation log
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: spec-pdf-log
           path: _out/spec/tex/main.log
@@ -664,7 +664,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload the specification (PDF)
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: spec-pdf
           path: out/k7pl-spec.pdf
