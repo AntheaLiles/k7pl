@@ -20,14 +20,14 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.workflow = (ROOT / ".github/workflows/k7pl-semantics.yaml").read_text(encoding="utf-8")
 
     def test_verso_is_the_only_maintained_k_definition(self) -> None:
-        self.assertIn('k7plK file := "src/k/.build/generated/semantics.k"', self.page)
+        self.assertIn('```k7plK (file := "src/k/.build/generated/semantics.k")', self.page)
         self.assertFalse((ROOT / "src/k/semantics.k").exists())
         self.assertIn("$(K_SOURCE)", self.k_make)
         self.assertIn("lake exe spec --extract-code-only", self.k_make)
         self.assertIn("SpecExt.CodeArtifacts.extractArtifacts sourceDoc", self.spec_main)
 
     def test_python_verifier_is_generated_from_the_verso_page(self) -> None:
-        self.assertIn('pythonScript file := "src/k/.build/generated/check_k_examples.py"', self.page)
+        self.assertIn('```pythonScript (file := "src/k/.build/generated/check_k_examples.py")', self.page)
         self.assertIn("EXPECTED_OUTPUTS = {", self.page)
         self.assertIn("$(PYTHON_CHECK)", self.k_make)
         self.assertIn('"add.k7": "6"', self.page)
