@@ -64,6 +64,9 @@ jobs:
           test: false
           lint: false
 
+      - name: Fetch the Mathlib cache for the root Verso build
+        run: lake exe cache get
+
       - name: Record K toolchain
         run: |
           command -v kompile
