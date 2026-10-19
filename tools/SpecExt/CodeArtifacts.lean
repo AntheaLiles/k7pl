@@ -19,7 +19,7 @@ namespace SpecExt.CodeArtifacts
 structure CodeArtifactConfig where
   file : String
 
-/--
+/-
 The output target is required: generated artifacts must never be implicitly written to
 a developer-maintained source file.
 -/
@@ -52,7 +52,7 @@ block_extension Block.savedCode (target : String) (language : String) (source : 
 @[code_block]
 meta def k7plK : CodeBlockExpanderOf CodeArtifactConfig
   | { file }, code => do
-    let source := code.getVersoCodeBlock
+    let source := code.getString
     ``(Block.other
       (Block.savedCode $(quote file) $(quote ("k" : String)) $(quote source))
       #[Block.code $(quote source)])
@@ -61,7 +61,7 @@ meta def k7plK : CodeBlockExpanderOf CodeArtifactConfig
 @[code_block]
 meta def pythonScript : CodeBlockExpanderOf CodeArtifactConfig
   | { file }, code => do
-    let source := code.getVersoCodeBlock
+    let source := code.getString
     ``(Block.other
       (Block.savedCode $(quote file) $(quote ("python" : String)) $(quote source))
       #[Block.code $(quote source)])
