@@ -139,6 +139,9 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # Root workspace only. tooling/paperproof-export/lake-manifest.json is not scanned:
+      # lake_manifest_to_osv.py checks a manifest against the root allow-list, lakefile.lean and
+      # lean-toolchain, and refuses that one (Paperproof is not allowed, cslib and verso missing).
       - name: Validate and convert the Lake manifest
         run: python3 scripts/ci/lake_manifest_to_osv.py --output lake-osv-scanner.json
       - name: Upload OSV-Scanner custom lockfile
@@ -153,15 +156,16 @@ jobs:
     name: Scan pinned Lake revisions (OSV)
     needs: lake-osv-manifest
     permissions:
-      actions: read
+      actions: read # read by the reusable workflow's SARIF upload (codeql-action#2117)
       contents: read
-      security-events: write
+      security-events: write # the reusable workflow uploads its SARIF results to Code Scanning
     uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@c7c7bcb0773cc4678a674ada03a66cc5c4325476 # v2.6.0
     with:
       download-artifact: lake-osv-scanner-deps
       scan-args: |-
         --lockfile=osv-scanner:lake-osv-scanner.json
-      # First observation phase: publish findings, but do not block the only maintainer before
-      # the baseline, coverage and false-positive behavior have been reviewed.
-      fail-on-vuln: false
+      # Blocking: the scans of main before this switch reported no vulnerability. An advisory
+      # published later against a pinned revision fails this job, and so `CI OK`, until the
+      # dependency is bumped or the finding is assessed. The SARIF upload still runs.
+      fail-on-vuln: true
       upload-sarif: true
