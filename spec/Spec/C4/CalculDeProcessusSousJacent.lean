@@ -150,7 +150,7 @@ Cette dernière remarque suggère l'énoncé que cette section doit à la lectur
 
 ::::theorem (label := "thm:traduction_metalangage") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
-la traduction préserve le typage
+préservation du typage sur le fragment sans effets
 :::
 
 :::statement +titled

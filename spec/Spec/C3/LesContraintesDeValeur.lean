@@ -267,9 +267,7 @@ intuitionniste entière, dont la recherche de preuve certifiée est un problème
 Son admissibilité n'a d'ailleurs pas à être supposée, puisqu'elle s'obtient indépendamment de la
 théorie des modes dans les cadres qui paramètrent produits et implications — ordonnés, linéaires,
 affines, cartésiens — par une telle théorie {cite "licataFibrationalFrameworkSubstructural2017"}[].
-Le second est que la preuve procède par coinduction sur le dépliage plutôt que par induction sur la
-structure, un graphe se laissant mieux traiter comme structure coinductive dès le départ, les
-algorithmes de graphes n'étant pas structurellement récursifs dans leurs présentations usuelles {cite "kidneyFormalisingGraphAlgorithms2025"}[].
+L'acyclicité du graphe statique ne s'étend pas, à elle seule, au graphe d'attente dynamique. Le résultat ci-dessous distingue donc la simulation (Sim), qui reste à établir, de la conséquence qu'elle autoriserait : un sous-graphe d'un graphe acyclique est acyclique.
 
 ::::theorem (label := "thm:deadlock_acyclique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "concurrency")
 :::title
@@ -289,14 +287,8 @@ Sous (Sim), le graphe dynamique d'attente est un sous-graphe du graphe statique 
 :::note
 _Obligation ouverte._ (Sim) reste à établir. Il faut définir indépendamment la relation de dépendance statique et la relation d'attente dynamique, puis prouver l'invariant qui les relie sur tous les états atteignables, avec un cas pour {sc}[Guard], l'émission et la consommation de message, les types résiduels de boîte et `Timeout`. Il faut aussi démontrer séparément que, dans le réseau fermé considéré, tout état non terminal bloqué induit un cycle d'attente, tout en distinguant les expirations de délai du blocage mutuel.
 :::
-::::Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. {rmq}[Le câblage est
-donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet
-coinductif par induction.] Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné
-en entier à la compilation : fini, statique, il se traite inductivement, et le tri topologique de la
-Phase 1.5 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie
-au fil des activations et n'est jamais donné. L'acyclicité du premier n'implique donc pas
-mécaniquement celle du second, et c'est pourquoi l'énoncé porte sur les états atteignables et non
-sur le câblage.
+::::
+Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. {rmq}[Le câblage est donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet coinductif par induction.] Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné en entier à la compilation : fini, statique, il se traite inductivement, et le tri topologique de la Phase 1.5 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie au fil des activations et n'est jamais donné. L'acyclicité du premier n'implique donc pas mécaniquement celle du second, et c'est pourquoi l'énoncé porte sur les états atteignables et non sur le câblage.
 
 À ce stade, la Phase 1.5 établit uniquement l'acyclicité du graphe statique de dépendances. Tant que (Sim) et l'implication entre blocage et cycle d'attente ne sont pas démontrées, l'absence générale de blocage mutuel n'est pas une garantie de compilation. `Timeout` demeure une voie de progrès à l'exécution, distincte d'une preuve d'absence de deadlock.
 
