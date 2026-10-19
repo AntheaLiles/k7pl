@@ -13,7 +13,6 @@ on:
       - "proofs/**"
       - "spec/formal-chain/**"
       - "scripts/ci/test_code_artifact_contract.py"
-      - "scripts/extract_verso_code.py"
       - "spec/Spec.lean"
       - "spec/Spec/**"
       - "tools/**"
