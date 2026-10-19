@@ -42,6 +42,10 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertIn("code.getString", self.extension)
         self.assertNotIn("getVersoCodeBlock", self.extension)
         self.assertIn('import SpecExt.CodeArtifacts', self.page)
+        self.assertIn("open SpecExt.CodeArtifacts", self.page)
+        self.assertIn("# Définition K expérimentale", self.page)
+        self.assertIn("# Script Python de vérification des exemples", self.page)
+        self.assertNotIn("**", self.page)
         self.assertFalse((ROOT / "scripts/extract_verso_code.py").exists())
 
     def test_extract_only_mode_bypasses_rendering(self) -> None:
