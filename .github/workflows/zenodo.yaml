@@ -79,7 +79,7 @@ jobs:
         run: |
           set -euo pipefail
           version="${TAG#spec-v}"
-          cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
+          cff="$(bash scripts/ci/citation_version.sh)"
           if [ "$cff" != "$version" ]; then
             echo "::error::CITATION.cff déclare '$cff' mais la release est '$TAG'"
             exit 1
