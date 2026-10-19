@@ -25,7 +25,7 @@ restent responsables de vérifier le code généré.
 
 ## Définition K expérimentale
 
-```{k7plK file := "src/k/.build/generated/semantics.k"}
+```k7plK (file := "src/k/.build/generated/semantics.k")
  // SPDX-FileCopyrightText: 2026 K7PL contributors
  // SPDX-License-Identifier: CECILL-2.1
  //
@@ -97,7 +97,7 @@ Ce script exécute **krun** sur les programmes maintenus sous **tests/examples/*
 résultats attendus. Il est lui aussi généré depuis Verso : il ne constitue pas une seconde source
 à maintenir dans le dépôt.
 
-```{pythonScript file := "src/k/.build/generated/check_k_examples.py"}
+```pythonScript (file := "src/k/.build/generated/check_k_examples.py")
 #!/usr/bin/env python3
 # SPDX-FileCopyrightText: 2026 K7PL contributors
 # SPDX-License-Identifier: CECILL-2.1
