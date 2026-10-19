@@ -89,7 +89,7 @@ mutual
     for b in intro do collectBlock b
     for p in subParts do collectPart p
 
-  private partial def collectBlock (block : Block Manual) :
+  private partial def collectBlock (block : Verso.Doc.Block Manual) :
       StateT (HashMap String String) (Except String) Unit := do
     match block with
     | .other which contents => do
