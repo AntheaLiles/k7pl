@@ -53,18 +53,18 @@ block_extension Block.savedCode (target : String) (language : String) (source : 
 meta def k7plK : CodeBlockExpanderOf CodeArtifactConfig
   | { file }, code => do
     let source := code.getString
-    ``(Block.other
+    ``(Verso.Doc.Block.other
       (Block.savedCode $(quote file) $(quote ("k" : String)) $(quote source))
-      #[Block.code $(quote source)])
+      #[Verso.Doc.Block.code $(quote source)])
 
 /-- An executable Python script whose contents are extracted during the Verso build. -/
 @[code_block]
 meta def pythonScript : CodeBlockExpanderOf CodeArtifactConfig
   | { file }, code => do
     let source := code.getString
-    ``(Block.other
+    ``(Verso.Doc.Block.other
       (Block.savedCode $(quote file) $(quote ("python" : String)) $(quote source))
-      #[Block.code $(quote source)])
+      #[Verso.Doc.Block.code $(quote source)])
 
 private def allowedTarget (language target : String) : Bool :=
   let components := target.splitOn "/"
