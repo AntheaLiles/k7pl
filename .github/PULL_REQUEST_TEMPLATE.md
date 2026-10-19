@@ -5,14 +5,14 @@ SPDX-License-Identifier: CC0-1.0
 
 ## Description
 
-<!-- Ce que change cette PR, et pourquoi. Lier l'issue : « Closes #… ». -->
+<!-- What this PR changes, and why. Link the issue: "Closes #…". -->
 
 ## Checklist
 
-- [ ] En-tête SPDX présent et correct sur les nouveaux fichiers
-- [ ] Code source en anglais, documentation en français
-- [ ] Test associé si nouveau module, ou exemple vérifié dans la spécification
-- [ ] Aucun `sorry`, aucun nouvel axiome (ou discussion préalable dans une issue)
-- [ ] `CHANGELOG.md` ou `spec/CHANGELOG.md` mis à jour lorsque le changement le requiert
-- [ ] Commits conformes à Conventional Commits
-- [ ] Contrôles adaptés à la surface du changement exécutés ; voir `.github/workflows/README.md`
+- [ ] SPDX header present and correct on new files
+- [ ] Only `spec/` in French; everything else (code, documentation, commit messages) in English
+- [ ] Associated test if new module, or checked example in the specification
+- [ ] No `sorry`, no new axiom (or prior discussion in an issue)
+- [ ] `CHANGELOG.md` or `spec/CHANGELOG.md` updated when the change requires it
+- [ ] Commits follow Conventional Commits
+- [ ] Checks suited to the surface of the change have been run; see `.github/workflows/README.md`
