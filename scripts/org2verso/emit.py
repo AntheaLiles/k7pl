@@ -481,8 +481,6 @@ def emit_theorem(text: str, kw: dict, ctx: Ctx) -> Chunk:
                     DIAG.warn("option-théorème", kv)
     labels: list[str] = []
     rest = t[i:]
-    for lm in re.finditer(r"\\label\{([^}]*)\}", rest):
-        pass
     # labels placed before \begin{statement}
     head_end = rest.find("\\begin{statement}")
     head = rest[:head_end] if head_end >= 0 else rest

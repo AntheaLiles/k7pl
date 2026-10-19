@@ -276,7 +276,6 @@ class Builder:
         root = Sec(0, "", 0)
         stack: list[Sec] = [root]
         top: Sec | None = None
-        counters = [0, 0, 0, 0, 0, 0]
         for b in blocks:
             if b.type == "heading":
                 lvl = b.data["level"]
@@ -300,7 +299,6 @@ class Builder:
                 if b.type == "keyword" and b.data["name"] in ("TITLE", "AUTHOR"):
                     continue
                 if b.type == "comment":
-                    ctx2 = ctx
                     # header comment, before the title: attached to the chapter afterwards
                     root.blocks.append(directive("comment", "", [emit.code_block(b.data["text"])], 3))
                     continue
