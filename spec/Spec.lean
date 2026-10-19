@@ -17,6 +17,7 @@ import Spec.C7
 import Spec.Refs
 import Spec.AnnexeA
 import Spec.ProofVisualizations
+import Spec.CodeArtifacts
 
 open Verso.Genre Manual
 open SpecExt
@@ -56,4 +57,6 @@ DOI : [10.5281/zenodo.23040451](https://doi.org/10.5281/zenodo.23040451) · Sour
 {include 0 Spec.AnnexeA}
 
 {include 0 Spec.ProofVisualizations}
+
+{include 0 Spec.CodeArtifacts}
 

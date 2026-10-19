@@ -53,7 +53,7 @@ dans [`docs/archives/`](docs/archives/).
 
 | Dossier | Contenu |
 |---|---|
-| [`src/`](src/) | implémentation Lean existante et définition K expérimentale sous [`src/k/`](src/k/) |
+| [`src/`](src/) | implémentation Lean ; la définition K est générée dans `src/k/.build/generated/` depuis Verso |
 | [`proofs/`](proofs/) | preuves Lean maintenues et modules KLean générés à la construction |
 | [`tests/`](tests/), [`tests/examples/`](tests/examples/) | tests Lean/Python et programmes K7PL `.k7` |
 | [`spec/`](spec/) | spécification normative Verso, figures et exposé expérimental sous `spec/formal-chain/` |
@@ -64,9 +64,9 @@ dans [`docs/archives/`](docs/archives/).
 
 ## Chaîne expérimentale K → Lean
 
-Une tranche expérimentale de sémantique K est maintenue dans `src/k/semantics.k`; ses programmes source de test utilisent l’extension `.k7` dans `tests/examples/`. Les preuves Lean maintenues sont sous `proofs/K7PL/`; les modules KLean sont générés pendant la construction et ignorés par Git. L’exposé expérimental Verso est dans `spec/formal-chain/`, distinct de la spécification normative.
+Une tranche expérimentale de sémantique K est décrite dans `spec/Spec/CodeArtifacts.lean`, à côté de sa documentation Verso. Le bloc K génère `src/k/.build/generated/semantics.k`; le bloc Python génère le vérificateur des exemples au même endroit. Ces fichiers sont ignorés par Git et ne doivent pas être modifiés directement. Les programmes source de test utilisent l’extension `.k7` dans `tests/examples/`. Les preuves Lean maintenues sont sous `proofs/K7PL/`; les modules KLean sont générés pendant la construction. L’exposé Verso Blueprint reste dans `spec/formal-chain/`, séparé de la spécification normative.
 
-`make formal-chain` compile la définition K, exécute les exemples, exporte le KORE vers KLean, construit les preuves et rend l’exposé Verso. Ce prototype ne formalise pas K7PL complet : le lien entre la fonction K `typeOf` et le jugement Lean `HasType` reste à établir.
+`make k-check` extrait le code depuis Verso, compile la définition K et exécute les exemples. `make formal-chain` prolonge ce flux par l’export du KORE vers KLean, la construction des preuves et le rendu de l’exposé Verso. Ce prototype ne formalise pas K7PL complet : le lien entre la fonction K `typeOf` et le jugement Lean `HasType` reste à établir.
 
 ## Contribuer
 

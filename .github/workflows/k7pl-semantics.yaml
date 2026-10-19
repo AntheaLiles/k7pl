@@ -12,6 +12,10 @@ on:
       - "docs/formal-semantics.md"
       - "proofs/**"
       - "spec/formal-chain/**"
+      - "spec/Spec.lean"
+      - "spec/Spec/**"
+      - "tools/**"
+      - "Makefile"
       - "scripts/ci/patch_klean_prelude.py"
       - "scripts/ci/test_patch_klean_prelude.py"
       - "REUSE.toml"
@@ -24,6 +28,10 @@ on:
       - "docs/formal-semantics.md"
       - "proofs/**"
       - "spec/formal-chain/**"
+      - "spec/Spec.lean"
+      - "spec/Spec/**"
+      - "tools/**"
+      - "Makefile"
       - "scripts/ci/patch_klean_prelude.py"
       - "scripts/ci/test_patch_klean_prelude.py"
       - "REUSE.toml"
@@ -45,6 +53,16 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+
+      - name: Install the repository-pinned Lean toolchain
+        uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
+        with:
+          auto-config: false
+          use-github-cache: false
+          use-mathlib-cache: false
+          build: false
+          test: false
+          lint: false
 
       - name: Record K toolchain
         run: |
@@ -124,16 +142,6 @@ jobs:
           test "$(cat "$PROOF_ROOT/lean-toolchain")" = "leanprover/lean4:v4.34.0"
           echo "Staged generated Klean sources into proofs/ (ignored by Git)."
 
-      - name: Install the repository-pinned Lean toolchain
-        uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
-        with:
-          auto-config: false
-          use-github-cache: false
-          use-mathlib-cache: false
-          build: false
-          test: false
-          lint: false
-
       - name: Build the Klean-generated Lean project
         shell: bash
         working-directory: ${{ github.workspace }}/proofs
@@ -182,7 +190,9 @@ jobs:
           rm -rf "$ARTIFACT_ROOT" "$ARCHIVE"
           mkdir -p "$ARTIFACT_ROOT/proofs" "$ARTIFACT_ROOT/spec/formal-chain" "$ARTIFACT_ROOT/src/k" "$ARTIFACT_ROOT/tests/examples" "$ARTIFACT_ROOT/docs"
 
-          cp -a "$GITHUB_WORKSPACE/src/k/semantics.k" "$GITHUB_WORKSPACE/src/k/Makefile" "$ARTIFACT_ROOT/src/k/"
+          cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/semantics.k" "$ARTIFACT_ROOT/src/k/semantics.k"
+          cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/check_k_examples.py" "$ARTIFACT_ROOT/src/k/check_k_examples.py"
+          cp -a "$GITHUB_WORKSPACE/src/k/Makefile" "$ARTIFACT_ROOT/src/k/"
           cp -a "$GITHUB_WORKSPACE/tests/examples/add.k7" "$GITHUB_WORKSPACE/tests/examples/select.k7" "$ARTIFACT_ROOT/tests/examples/"
           cp -a "$GITHUB_WORKSPACE/docs/formal-semantics.md" "$ARTIFACT_ROOT/docs/"
           cp -a "$RUNNER_TEMP/klean-output/k7pl2lean" "$ARTIFACT_ROOT/klean-output"

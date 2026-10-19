@@ -6,9 +6,12 @@ SPDX-License-Identifier: CC-BY-4.0
 # Sémantique opérationnelle K — prototype
 
 Ce dossier décrit une sémantique exécutable K pour un sous-langage expérimental de K7PL.
-La définition maintenue se trouve dans `src/k/semantics.k`; les expressions source sont
-dans `tests/examples/` et utilisent l'extension `.k7`. La définition K conserve
-l'extension `.k`.
+La source éditable de la définition est le bloc K de `spec/Spec/CodeArtifacts.lean`; le bloc
+Python de la même page contient le vérificateur des programmes d'exemple. `lake exe spec
+--extract-code-only` génère `src/k/.build/generated/semantics.k` et
+`src/k/.build/generated/check_k_examples.py`. Ces artefacts sont ignorés par Git et ne doivent
+pas être édités directement. Les programmes source sont dans `tests/examples/` et utilisent
+l'extension `.k7`.
 
 ## Périmètre
 
