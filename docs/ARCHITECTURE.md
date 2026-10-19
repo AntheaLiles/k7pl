@@ -41,7 +41,9 @@ A successful proof, test, compilation, or review must not be interpreted as esta
 | Layer | Location | Role |
 |---|---|---|
 | Normative specification | spec/ | Authoritative language specification |
-| Formalisation and implementation | src/ | Lean formal representation and executable implementation |
+| Experimental exposition | spec/formal-chain/ | Verso Blueprint exposition of the experimental chain, separate from the normative spec/Spec/ |
+| Formalisation and implementation | src/ | Lean formal representation and executable implementation; src/k/ builds the experimental K definition extracted from spec/Spec/CodeArtifacts.lean |
+| Experimental K → Lean proofs | proofs/ | Separate Lake package for the experimental K → Lean chain; the KLean-generated modules are built in CI and not tracked |
 | Tests | tests/ | Executable behavioural checks |
 | Specification tooling | tools/ | Verso generator and extensions |
 | Auxiliary tooling | scripts/ | Maintenance, analysis, CI support |
