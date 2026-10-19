@@ -21,10 +21,7 @@ tag := "c2-six-schemas-de-metatheorie"
 
 {label "sec:c2-six-schemas-de-metatheorie"}
 
-Six énoncés reviennent dans ce document sous des habillages différents, et chacun est démontré ici
-une fois pour toutes. Ce ne sont pas des théorèmes sur K7PL mais sur la forme de ses démonstrations :
-les chapitres qui suivent les instancient plutôt qu'ils ne les refont. {rmq}[Écrire le schéma avant
-ses instances évite d'écrire trois fois la même récurrence, et rend visible ce qu'elles partagent.]
+Six schémas de preuve réutilisables sont rassemblés ici. Ils portent sur la forme générale des raisonnements, non sur les propriétés de K7PL prises comme acquises. Leur statut varie : chaque schéma est accompagné de ses hypothèses et des obligations qui restent à vérifier pour l'appliquer au système effectif.
 
 Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le
 désucrage d'une forme de surface, la traduction vers le métalangage et l'abaissement vers la
@@ -40,13 +37,10 @@ schéma de commutation
 :::statement +titled
 Transformer puis substituer, ou l'inverse
 
-Soit $`T` une transformation définie par récurrence sur la structure des termes, qui n'introduit
-aucune variable libre et respecte les liaisons. Alors, à renommage près des variables liées,
+Soit $`T` une transformation définie par récurrence sur la structure des termes. Supposons qu'elle n'introduise aucune variable libre, respecte les liaisons et que chacune de ses clauses soit compatible avec la substitution : action sur les variables, action sur chaque constructeur, traitement des lieurs et évitement de capture compris. Alors, à renommage près des variables liées,
 $$`T \circ \text{subst} \;=\; \text{subst} \circ T.`
 
-Le schéma est paramétré par trois données, et les nommer dit ce qu'une instance doit fournir : le
-_langage objet_ sur lequel $`T` opère ; les _règles de construction_ par lesquelles la récurrence
-procède ; et la _discipline de liaison_, qui fixe l'ordre d'occurrence et l'évitement de capture.
+Une instance doit préciser le langage objet, les clauses de définition de $`T`, la substitution sans capture et l'équivalence de renommage, puis vérifier leur compatibilité.
 :::
 
 :::proofsketch

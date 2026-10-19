@@ -21,28 +21,9 @@ tag := "c6-le-processus-de-compilation"
 
 {label "sec:c6-le-processus-de-compilation"}
 
-Compiler un programme K7PL, c'est établir, dans un ordre que presque rien ne permet d'inverser — la Phase~5 et la suivante font exception, leur ordre étant un choix d'ingénieur que la section sur la vérification et le test reconnaît —, chacun des
-trois ordres de vérification du jugement germinal du chapitre 1 — puis effacer entièrement les
-preuves qui les ont établies, ne laissant dans le binaire final que le terme qu'elles autorisent. Le
-pipeline présenté en figure {num "fig:comp-process"}[] décrit cet ordre ; chaque étape n'est là que
-parce que la précédente devait l'être acquise avant elle.
+Compiler un programme K7PL consiste à établir les obligations du jugement germinal du chapitre 1, puis à effacer les informations réservées à la compilation du binaire final. La dépendance entre les étapes est majoritairement ordonnée, mais les phases 5 (décharge des obligations) et 6 (optimisation) forment un sous-processus itératif : une optimisation peut engendrer de nouvelles obligations, qui doivent être revérifiées avant de poursuivre.
 
-Un point de lecture s'impose avant de le suivre, car il évite une méprise sur ce que ces huit étapes
-sont, et lève une objection de comptage. Ce ne sont pas huit _passes_ mais huit _ordres de
-vérification_, chacun supposant le précédent acquis. La figure en montre dix, deux d'entre elles
-portant un numéro fractionnaire : ce sont des _points de contrôle_ intercalaires — la vérification
-d'acyclicité en 1.5, la résolution de configuration en 2.5 — et non des ordres supplémentaires,
-puisqu'elles n'établissent aucune des trois composantes du jugement. La numérotation fractionnaire
-dit exactement cela, et le compte reste de huit. Une implantation en comptera bien davantage, et
-c'est la configuration recommandée plutôt qu'une tension. Le cadre nanopass critique le compilateur
-organisé en un petit nombre de passes monolithiques, difficile à comprendre et à maintenir, où même
-un développeur expérimenté introduit des défauts subtils en modifiant une passe. Il recommande à la
-place une collection de passes très fines n'accomplissant chacune qu'une seule tâche, structure qui
-_aligne_ l'implantation sur l'organisation logique {cite "sarkarEDUCATIONALPEARLNanopass2005"}[]. La
-littérature sur la compilation vérifiée y ajoute une seconde raison, indépendante de la
-maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément {cite "pattersonNext700Compiler"}[].
-Deux sources, deux motifs, une même recommandation — et huit phases logiques n'en contredisent
-aucun.
+Le pipeline compte huit phases logiques de vérification et deux points de contrôle intercalaires, en 1.5 et 2.5. Il ne faut pas confondre ce compte logique avec le nombre de passes d'une implémentation. La figure décrit les dépendances principales ; elle ne signifie pas que les phases 5 et 6 s'exécutent une seule fois. Une implantation peut utiliser de nombreuses passes fines, chacune responsable d'une tâche distincte et vérifiable isolément {cite "sarkarEDUCATIONALPEARLNanopass2005", "pattersonNext700Compiler"}[].
 
 ::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : huit phases principales et deux étapes intercalaires, lues en aller-retour.") (width := "90")
 :::caption
@@ -154,28 +135,21 @@ se referme par un énoncé plutôt que par une figure.
 
 ::::theorem (label := "thm:stabilisation_pipeline") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
 :::title
-stabilisation du pipeline
+stabilisation conditionnelle du pipeline
 :::
 
 :::statement +titled
-La boucle d'analyse et d'optimisation termine
+Terminaison sous contrat de budget
 
-La boucle $`\text{Vérification} \to \text{Optimisation} \to \text{Vérification}` atteint un point
-fixe en un nombre fini de tours, sous un budget de spécialisation fini.
+Si le budget de spécialisation est fini, ne croît jamais, et si chaque tour qui modifie le terme consomme strictement au moins une unité de ce budget tandis qu'un tour sans modification est reconnu comme point fixe, alors la boucle $`\text{Vérification} \to \text{Optimisation} \to \text{Vérification}` termine en un nombre fini de tours.
 :::
 
 :::proofsketch
-Chaque tour qui modifie le terme consomme au moins une unité du budget de spécialisation, lequel est
-fini et ne croît jamais ; la mesure décroît donc strictement, et l'ordre sur les budgets étant bien
-fondé, la suite des tours est finie. Un tour qui ne modifie pas le terme est le point fixe. Le cas
-de la mise en ligne, seul à pouvoir engendrer de nouvelles obligations de grade, est traité par la
-borne que ce chapitre lui donne déjà.
+Le nombre de tours modifiant le terme est borné par le budget initial, puisque chaque tel tour le décrémente strictement et qu'il ne peut pas croître. Un tour sans changement termine la boucle par définition du point fixe. La conclusion dépend entièrement du respect opérationnel de ce contrat par chaque transformation, en particulier l'inlining et la monomorphisation.
 :::
 
 :::note
-_Obligation ouverte._ La terminaison suppose que tout tour qui modifie le terme consomme au moins
-une unité du budget, que le budget ne croît jamais et qu'un tour sans changement est reconnu comme
-point fixe : ces prémisses opérationnelles restent à énoncer et à tester.
+_Obligation ouverte._ Le contrat de budget est maintenant explicité comme hypothèse, mais il reste à prouver et à tester sur l'implémentation que chaque transformation qui modifie le terme consomme le budget, que le budget ne peut pas être réaugmenté et qu'un tour sans changement est détecté. La terminaison effective du pipeline n'est pas encore établie.
 :::
 ::::
 Le recours à un solveur externe pose enfin la question de la _stratégie_ de vérification des

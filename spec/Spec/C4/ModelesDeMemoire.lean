@@ -127,7 +127,7 @@ mesure qui fonde la terminaison des catamorphismes (chapitre 3, §{num "sec:c3-l
 Le lemme de portée (H2) se démontre : deux segments $`[a,b]` et $`[c,d]` d'une même arène sont
 disjoints exactement lorsque $`b < c` ou $`d < a`, formule de l'arithmétique linéaire que le solveur
 décharge ; des cellules d'indices distincts étant des régions distinctes, deux capacités de
-$`\mathsf{Range}` disjoints ne dénotent pas la même région. L'unicité (H1) se lit sur la règle {sc}[Slice] (§{num "sec:g-regles"}[]) : une capacité sur un segment ne naît que de l'élimination de l'arène, linéaire en l'arène, ou de la découpe d'une capacité détenue, qui la consomme ; par induction sur la dérivation, deux capacités sur un même segment en contexte clos exigeraient deux consommations de la même ressource linéaire, impossible sans diagonale. Reste à écrire l'élimination de l'arène, exception déclarée du jeu de règles : (H1) en dépend.
+$`\mathsf{Range}` disjoints ne dénotent pas la même région. Pour le cas de la découpe d'une capacité déjà détenue, la consommation linéaire interdit de dériver deux capacités à partir de la même ressource. Cette esquisse ne couvre toutefois pas encore le cas de l'élimination de l'arène, dont la règle reste à écrire. H1 n'est donc pas établie dans son périmètre complet : elle doit rester une hypothèse du théorème de sûreté spatiale jusqu'à ce que tous les cas d'introduction soient définis et prouvés.
 :::
 
 :::note
@@ -173,7 +173,7 @@ Les sept niveaux de gestion mémoire de K7PL
   * Tas avec ownership
   * Données mutables (transfert linéaire/affin)
   * L2
-  * $`O(1)` amorti
+  * borne au pire cas à spécifier
 * * 5
   * Déduplication canonique
   * Graphes immuables partagés (hash-consing BLAKE3)
@@ -191,6 +191,8 @@ Les sept niveaux de gestion mémoire de K7PL
   * $`O(1)`
 :::
 ::::
+
+Pour le tas avec ownership, la table ne fournit donc pas de borne de coût acquise. Conformément à P3, une opération dont le coût est seulement amorti ne peut pas être présentée comme satisfaisant une exigence de borne temporelle au pire cas. Le régime reste descriptif tant que les opérations admises et leurs bornes au pire cas ne sont pas spécifiées ; aucun coût d'exécution général ne doit être inféré de la seule propriété d'ownership.
 
 Le cinquième régime appelle une précision que le tableau ne peut pas porter, et dont la réponse
 n'est pas indifférente. La déduplication canonique est un partage de graphe ; reste à dire si ce

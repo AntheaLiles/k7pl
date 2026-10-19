@@ -33,9 +33,7 @@ prête plus qu'il n'établit. Une _obligation_ est une preuve à fournir au vér
 terme et non par le document. Une _exigence_ est une contrainte que l'implémentation doit
 satisfaire, et dont ni la démonstration ni la réfutation n'appartiennent à ce texte.
 
-Cette convention a une conséquence que le lecteur peut exiger : là où aucun de ces sept mots
-n'apparaît, l'énoncé est une conséquence de ce qui précède, et le renvoi qui l'accompagne dit d'où
-il vient.
+Cette convention fixe le vocabulaire des statuts, mais l'absence d'un marqueur ne suffit pas à établir qu'un énoncé découle de ce qui précède. Toute affirmation normative ou tout résultat doit être rattaché à une définition, une preuve, une réserve ou une obligation identifiable.
 
 Il y a onze engagements, et leur brièveté est en soi une donnée : la plupart de ce qui en fut un au
 cours de la rédaction est devenu soit un théorème, soit une réserve explicite.
@@ -111,26 +109,7 @@ ces deux protocoles ne les acquitte pas ; cela dit ce qu'un pair devrait refaire
 contredire. Les autres sont des propositions dont on saurait dire ce qu'il faudrait pour les
 établir.
 
-Une règle gouverne désormais cette table, et elle vaut d'être posée parce qu'un engagement qui ne
-dit pas comment il se lèvera n'est pas un engagement mais un aveu. {rmq}[Trois routes seulement. Une
-quatrième — « on verra » — n'en est pas une.] _Tout engagement de ce document nomme la route par
-laquelle il se lèvera, et il n'y en a que trois._ La _littérature_ : l'énoncé est déjà établi
-ailleurs, et il suffit de le référencer dans sa source primaire plutôt que de le redémontrer. La
-_démonstration_ : il ne l'est pas, et ce document ou sa mécanisation doit le prouver — auquel cas
-l'engagement porte le nom du théorème qui l'acquittera. La _mesure_ : il ne se démontre pas du tout,
-étant un énoncé sur l'usage ou sur une réalisation, et l'engagement porte alors le protocole qui le
-trancherait.
-
-Trois conséquences suivent, et la première a déjà joué. Un engagement dont la route est la
-démonstration _cesse d'être un engagement le jour où le théorème est écrit_ : la fidélité de
-l'interpréteur de référence en était sortie, la section sur la traduction passant pour avoir démontré que celle-ci préserve le
-typage ; elle y est rentrée, l'induction étant planifiée et non conduite. La table le dit maintenant — un document qui ne relit pas ses
-engagements finit par s'accuser de dettes qu'il a payées, ou par se croire quitte de celles qu'il n'a pas payées. La deuxième est qu'un engagement dont la
-route est la mesure ne se lèvera jamais par la lecture, et qu'il est vain de l'y attendre. La
-troisième est qu'un engagement _sans route nommée_ est une anomalie : il en reste un dans cette
-table, l'enrichissement sur les préordres pour la part qui excède l'ordre des fibres, et sa route
-est la démonstration — le théorème {num "thm:raffinement"}[] en dérive l'autre part, et rien
-n'établit encore celle-là.
+Chaque engagement nomme la voie prévue pour le lever : la littérature lorsqu'un résultat externe est réutilisé, la démonstration lorsqu'une propriété doit être établie, la mesure lorsqu'elle porte sur l'usage ou une réalisation. Un engagement de démonstration ne cesse d'être ouvert que lorsque la preuve est établie ; nommer sa route ne l'acquitte pas. De même, un protocole de mesure écrit n'est pas une mesure exécutée. Dans la table actuelle, l'enrichissement sur les préordres au-delà de l'ordre des fibres a bien une route — la démonstration — mais sa preuve reste ouverte.
 
 Une lecture est une analogie qui organise sans engager. Il n'en reste que deux, et c'est le résultat
 d'un travail. La plupart des analogies de la première rédaction ont été soit démontrées — le

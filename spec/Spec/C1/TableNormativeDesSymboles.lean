@@ -21,10 +21,7 @@ tag := "c1-table-normative"
 
 {label "sec:c1-table-normative"}
 
-Ce document emploie un symbole par objet, et un objet par symbole. La table {num "tab:c1-symboles"}[]
-en fixe la correspondance, et elle est _normative_ : aucune section ultérieure n'introduit de
-variante locale, et un symbole absent de cette table n'a pas de sens dans ce document. Une table
-descriptive documenterait la divergence ; celle-ci l'interdit. {rmq}[La distinction entre $`\Delta`
+Cette table fixe les symboles de référence partagés entre chapitres et leur sens normatif. Une notation locale supplémentaire peut être introduite dans une section, à condition d'être définie à son premier emploi et de ne pas redéfinir un symbole déjà fixé ici. {rmq}[La distinction entre $`\Delta`
 et $`\Gamma` est celle qui coûte le plus cher à enfreindre : elle sépare ce que le langage exige de
 ce que la métathéorie manipule.]
 
@@ -41,7 +38,9 @@ Les symboles du document et l'objet que chacun dénote
 * * $`\Gamma`
   * contexte catégorique ou métathéorique, _jamais_ une zone du jugement
 * * $`\mathcal{R}`
-  * semi-anneau ordonné des grades
+  * semi-anneau ordonné de la composante d'usage des grades
+* * $`\mathcal{G}`
+  * porteur complet des grades, produit des composantes d'usage, de monotonie, de niveau et de budget
 * * $`r,\ q`
   * grades individuels
 * * $`\mathbb{N}_\infty`
@@ -60,8 +59,10 @@ Les symboles du document et l'objet que chacun dénote
   * ordre de précision de l'information
 * * $`\preccurlyeq`
   * sous-typage modal, produit mixte sur les quatre composantes
-* * $`\varphi_r,\ \psi_r`
-  * action du grade sur l'effet, sur le contexte
+* * $`\varphi_n`, $`\psi(\Delta,\varepsilon)`
+  * transformation de l'effet par multiplicité effective, et transformation d'un contexte sous un effet
+* * $`\Phi_{\mathrm{dist}}`, $`\Psi_{\mathrm{grade}}`
+  * interfaces de niveau grade de la loi distributive graduée ; distinctes de $`\varphi_n` et de $`\psi`
 * * $`\Delta_1 + \Delta_2`
   * addition ponctuelle de contextes
 * * $`\boxtimes_\varepsilon`

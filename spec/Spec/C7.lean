@@ -24,11 +24,7 @@ tag := "c7-integration"
 
 {refsection "c7-integration"}
 
-Chaque pièce de K7PL est fondée et s'articule avec ses voisines. Reste une question plus exigeante :
-l'ensemble tient-il lorsqu'un programme réel sollicite plusieurs mécanismes à la fois, sous une
-contrainte que la théorie prise pièce par pièce ne rencontre jamais — un budget de temps par image,
-une bibliothèque utilisable sans connaître ses usages futurs ? Deux études de cas y répondent,
-sollicitant la pile entière depuis deux angles.
+Ce chapitre présente trois études de cas qui composent plusieurs mécanismes de K7PL : une architecture réactive, un environnement de développement interactif et un moteur déductif sur arènes. Elles illustrent des scénarios d'intégration ; elles ne constituent pas, à elles seules, une preuve générale de correction ni une validation empirique des performances.
 
 {include 0 Spec.C7.EtudeDeCasIArchitectureReactiveNative}
 

@@ -155,34 +155,15 @@ identité binaire du rejeu, sous environnement reproductible
 Le pas que la pureté ne franchit pas
 
 Sous l'hypothèse $`E_{\text{repro}}` — ordonnancement, mode d'arrondi flottant, version de la
-chaîne de compilation et architecture, comportement des NaN compris, identiques entre l'exécution et le rejeu — et sous l'hypothèse d'injectivité de la représentation sur les valeurs observables, l'égalité du théorème précédent
-est une identité binaire : $`\text{Rejeu}(J(H), S_0) =_{\text{bit}} S_{\text{final}}`.
+chaîne de compilation et architecture, comportement des NaN compris, identiques entre l'exécution et le rejeu — et sous l'hypothèse supplémentaire $`H_{\mathrm{repr}}` que l'application de représentation $`\operatorname{repr}_{\Pi}` est extensionnelle pour l'équivalence observationnelle sur les états atteignables ($`x \approx_{\mathrm{obs}} y \Rightarrow \operatorname{repr}_{\Pi}(x)=\operatorname{repr}_{\Pi}(y)`), l'égalité observationnelle du théorème précédent entraîne l'identité des représentations binaires : $`\operatorname{repr}_{\Pi}(\text{Rejeu}(J(H),S_0))=\operatorname{repr}_{\Pi}(S_{\text{final}})`. Cette hypothèse de représentation reste à établir ; elle ne découle pas de l'injectivité seule.
 :::
 
 :::proofsketch
-Sous $`E_{\text{repro}}`, la représentation d'une valeur dénotée est fonction de la seule chaîne de
-compilation, et l'ordre d'évaluation est fixé ; l'égalité observationnelle du
-théorème {num "thm:determinisme_rejeu"}[] se transporte alors en identité de représentation.
-
-_Trois rejeux, une seule relation._ Ce document en distingue trois — le rejeu logique, l'identité
-binaire, et le rejeu stratifié par niveau du §{num "sec:g-semantique"}[] — et ils ne sont pas trois notions mais _trois
-instances de la même_ : l'égalité modulo une projection. Le premier projette sur l'observation, le
-deuxième sur la représentation, le troisième sur un niveau. Les trois sont donc des instances du
-schéma de restriction (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
-théorème {num "thm:schema_restriction"}[]), et ce qui les sépare est leur critère, non leur forme.
-Une hypothèse supplémentaire est en outre requise ici et le dire évite de la découvrir : l'identité
-binaire demande que la représentation soit _injective_ sur les valeurs observables, faute de quoi
-deux dénotations distinctes pourraient partager une image. Aucune des trois composantes de
-$`E_{\text{repro}}` n'est fixée par ce document, et le journal n'en consigne aucune : l'hypothèse
-est portée par l'environnement d'exécution, non par le langage.
+Le théorème de rejeu logique fournit une équivalence observationnelle entre l'état rejoué et l'état original. L'égalité des représentations n'en découle que si $`H_{\mathrm{repr}}` est vérifiée pour les états atteignables du profil considéré. Cette condition est distincte de l'injectivité et n'est pas établie par l'esquisse actuelle.
 :::
 
 :::note
-_Obligation ouverte._ Restent à définir l'application de représentation et une sérialisation
-déterministe, et à fixer le profil $`E_{\text{repro}}`. Le sens de la prémisse est à vérifier : pour
-passer de l'égalité observationnelle à l'identité binaire, il faut que deux états
-observationnellement égaux aient la même représentation, ce que l'injectivité de la représentation
-ne donne pas. Hypothèses d'environnement et conclusion binaire sont à suivre séparément.
+_Obligation ouverte._ Restent à définir l'application de représentation $`\operatorname{repr}_{\Pi}`, la relation $`\approx_{\mathrm{obs}}`, une sérialisation déterministe et le profil $`\Pi`. Il faut établir explicitement $`H_{\mathrm{repr}}` pour le profil visé, puis vérifier que l'environnement satisfait $`E_{\text{repro}}`. Sans ces deux résultats distincts, l'identité binaire n'est pas établie.
 :::
 ::::
 Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représentation_

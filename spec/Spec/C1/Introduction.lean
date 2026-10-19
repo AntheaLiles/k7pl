@@ -52,6 +52,4 @@ Cette troisième catégorie n'est pas une liste de manques : c'est l'état d'un 
 objets sont identifiés et les dépendances connues. Un programme de recherche se distingue d'une
 dette en ce qu'il sait ce qu'il cherche.
 
-Une exigence tient d'un bout à l'autre, et le lecteur est fondé à l'opposer au texte. Aucune
-affirmation ne figure sans qu'un postulat, un théorème ou une construction établie la porte, et ce
-qui n'est pas porté est nommé comme tel.
+Le document distingue les postulats, les constructions, les résultats démontrés et les obligations ouvertes. Cette convention est une exigence de rédaction : le statut annoncé doit correspondre à l'état effectif des définitions et des preuves, et les résultats non établis doivent rester explicitement conditionnels.

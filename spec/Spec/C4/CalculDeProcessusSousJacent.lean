@@ -156,33 +156,19 @@ la traduction préserve le typage
 :::statement +titled
 Adéquation typée de la lecture par processus
 
-Il existe une traduction $`\llbracket \cdot \rrbracket` des dérivations de K7PL vers les termes du
-métalangage, telle que pour tout jugement $`\Delta \vdash_{\mathcal{G}} t : A \mid \mathcal{E}` et
-tout canal frais $`z`,
-$$`\llbracket t \rrbracket_z \;\vdash\; \llbracket \Delta \rrbracket_{\mathcal{G}},\; z : \llbracket A \rrbracket`
-soit un séquent dérivable du métalangage, où $`\llbracket \Delta \rrbracket_{\mathcal{G}}` envoie
-chaque liaison de grade $`\omega` sur un service répliqué, chaque liaison de grade $`n` fini sur un
-canal linéaire _ré-invoqué $`n` fois en séquence_, et toute autre sur un canal linéaire simple.
+Pour tout jugement du fragment sans effets observables $`\Delta \vdash_{\mathcal{G}} t : A \mid \mathcal{E}=\emptyset` et tout canal frais $`z`, la traduction candidate $`\llbracket t \rrbracket_z` doit produire un séquent dérivable du métalangage,
+$$`\llbracket t \rrbracket_z \;\vdash\; \llbracket \Delta \rrbracket_{\mathcal{G}},\; z : \llbracket A \rrbracket`,
+où $`\llbracket \Delta \rrbracket_{\mathcal{G}}` envoie chaque liaison de grade $`\omega` sur un service répliqué, chaque liaison de grade $`n` fini sur un canal linéaire ré-invoqué $`n` fois en séquence, et toute autre sur un canal linéaire simple. L'énoncé ne couvre pas encore la traduction générale des effets vers des canaux distingués.
 :::
 
 :::proofsketch
-Par induction sur la dérivation. Les cas de la couche 3 sont ceux de la traduction usuelle des
-propositions comme sessions : une abstraction devient une réception, une application une coupure sur
-un canal frais, un couple une émission suivie du reste. Les cas de la couche 2 suivent les six
-correspondances ci-dessus, chacune envoyant une règle de K7PL sur une règle du calcul — l'acteur sur
-le point fixe gardé, la jonction sur $`J \triangleright P`, le séquencement sur le préfixage. La
-composante $`\mathcal{G}` dirige le choix entre canal linéaire et service répliqué, ce qui est
-licite parce que le grade $`\omega` est l'image du fragment cartésien. La composante $`\mathcal{E}`
-n'est pas traduite : elle n'a pas de contrepartie dans le calcul.
+Pour le fragment sans effets observables, l'induction se conduit sur la dérivation : l'abstraction devient une réception, l'application une coupure sur canal frais et le couple une émission suivie de la continuation. Le grade détermine le choix entre canal linéaire et service répliqué, sous les hypothèses du fragment cartésien. Cette esquisse reste conditionnelle tant que les formes exactes des jugements source et cible, les contextes et les clauses par règle ne sont pas fixés.
+
+Les calculs effectueux ne sont pas couverts par cet énoncé. Leur correspondance envisagée — émissions sur des canaux distingués — exige une extension explicite du jugement cible et une preuve séparée de préservation ; la présente esquisse ne conclut donc pas que $`\mathcal{E}` est préservée ou effacée.
 :::
 
 :::note
-_Obligation ouverte._ L'induction n'est conduite que dans son plan. Restent à fixer les formes de
-jugement source et cible, puis à conduire l'induction règle par règle, prémisses et conditions
-latérales comprises, en particulier pour la ré-invocation finie, les services répliqués, les effets
-(la composante $`\mathcal{E}` n'est pas traduite), les types dépendants pragmatiques et le point
-fixe. Ce théorème est une dépendance de preuve, non un fondement vérifié ; toute limite du fragment
-cible doit rester explicite.
+_Obligation ouverte._ Restent à fixer les formes des jugements source et cible, leurs contextes, les clauses par règle et les conditions latérales, notamment pour la ré-invocation finie, les services répliqués, les types dépendants pragmatiques et le point fixe. Pour étendre la traduction aux effets, il faudra définir la correspondance avec les canaux distingués dans le jugement cible et conduire l'induction correspondante. Le résultat demeure sous revue et conditionnel.
 :::
 ::::
 Une seconde voie existe pour les cas de la couche 3, plus directe, et elle rejoint un choix déjà
@@ -230,8 +216,7 @@ acteur envoie sur un point fixe gardé par une réception, sa coalgèbre termina
 de ce point fixe. Un motif de jonction envoie sur la construction homonyme, dont l'atomicité est
 celle de la règle. Le séquencement d'effets envoie sur le préfixage, et c'est ici que la marque de
 non-commutativité du produit de la quantale trouve son image~: préfixer n'est pas commutatif non
-plus. Un effet devient une émission sur le canal distingué de sa sorte, et l'opération
-$`\mathbf{tick}` une émission sur celui du temps. Une capacité linéaire devient un canal linéaire,
+plus. La correspondance candidate traduirait un effet en émission sur le canal distingué de sa sorte et l'opération $`\mathbf{tick}` en émission sur celui du temps ; ces cas ne sont pas encore couverts par l'induction de préservation du typage. Une capacité linéaire devient un canal linéaire,
 une capacité de lecture un service répliqué — le choix étant dicté par le grade, ce qui est licite
 puisque le grade $`\omega` est l'image du fragment cartésien.
 

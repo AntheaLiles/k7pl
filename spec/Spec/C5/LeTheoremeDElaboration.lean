@@ -71,16 +71,9 @@ décharger pour cette instance les obligations du schéma de commutation, que sa
 pas.
 :::
 ::::
-Trois conséquences en découlent, et elles dispensent d'autant d'arguments locaux. La _staticité de
-la syntaxe_ (théorème {num "thm:staticite_syntaxe"}[]) en est un corollaire : si aucune forme de
-surface n'a de sens propre, aucune n'étend la grammaire du noyau. La _dérivabilité de l'expansion_
-(théorème {num "thm:expansion_macro"}[]) en est l'instance pour les macros. Et la transparence de la
-défonctionnalisation, que le chapitre 6 emploie, en est l'instance pour une passe du compilateur —
-le morphisme de correction que le premier postulat réclame étant ici l'identité sur le sens.
+Si le théorème d'élaboration est établi sous ses hypothèses effectives, il pourra soutenir des résultats sur la staticité de la syntaxe et sur l'expansion des macros. Leur statut ne découle toutefois pas de la seule définition récursive de l'élaboration : chaque instance doit satisfaire les obligations de commutation, de substitution et de préservation du sens. La correction de la défonctionnalisation relève en outre d'un argument de compilation distinct.
 
-Le tableau {num "tab:c5-formes-de-surface"}[] rassemble les six formes, ce qu'elles écrivent et ce
-qu'elles élaborent. Chacune tombe sous le théorème qui précède, et aucune ne demande d'argument
-propre.
+Le tableau {num "tab:c5-formes-de-surface"}[] rassemble les six formes, ce qu'elles écrivent et ce qu'elles élaborent. Il décrit les correspondances prévues ; il ne dispense pas de vérifier chaque instance.
 
 ::::k7table (label := "tab:c5-formes-de-surface") (align := "lZ{1.0}Z{1.0}")
 :::caption
