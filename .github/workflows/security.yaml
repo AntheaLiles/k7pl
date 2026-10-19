@@ -78,21 +78,45 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
-      security-events: write
+      security-events: write # upload the SARIF results to Code Scanning
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Audit workflow definitions
+        id: zizmor
         uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
         with:
           inputs: ./.github/
-          # Initial observation: keep findings visible in Code Scanning without making them
-          # a merge gate; use a fixed analyzer version and disable online-only audits initially.
+          # A fixed analyzer version, without the online-only audits. The findings go to Code
+          # Scanning, and the next step makes any of them fail this job.
           version: v1.20.0
           persona: regular
           online-audits: false
           advanced-security: true
+      # With SARIF output zizmor exits 0 whatever it finds, so the gate reads the results that the
+      # step above uploaded. A missing or malformed file fails the step.
+      - name: Fail on any zizmor finding
+        env:
+          SARIF: ${{ steps.zizmor.outputs.output-file }}
+        run: |
+          python3 -I - "$SARIF" <<'PY'
+          import json
+          import sys
+
+          with open(sys.argv[1], encoding="utf-8") as stream:
+              sarif = json.load(stream)
+          results = [result for run in sarif["runs"] for result in run["results"]]
+          for result in results:
+              location = (result.get("locations") or [{}])[0].get("physicalLocation", {})
+              uri = location.get("artifactLocation", {}).get("uri", "?")
+              line = location.get("region", {}).get("startLine", "?")
+              print(f"{result.get('ruleId', '?')}: {uri!r}, line {line}")
+          if results:
+              print(f"::error::zizmor reported {len(results)} finding(s), listed above")
+              sys.exit(1)
+          print("zizmor reported no finding.")
+          PY
 
   gitleaks:
     runs-on: ubuntu-latest
