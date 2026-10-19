@@ -18,7 +18,7 @@ all: check
 
 # Verso remains the editable source. Generated K/Python files live under ignored .build/.
 extract-code:
-	cd ../.. && lake exe spec --extract-code-only
+	cd ../.. && $(PYTHON) scripts/extract_verso_code.py
 
 kompile: extract-code
 	mkdir -p .build
