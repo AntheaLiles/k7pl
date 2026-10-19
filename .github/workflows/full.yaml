@@ -9,8 +9,9 @@ on:
     - cron: "17 3 * * *"
   workflow_dispatch:
 
+# Passed to verify.yaml, whose jobs only read the repository.
 permissions:
-  contents: read
+  contents: read # checkout
 
 concurrency:
   group: full-verification

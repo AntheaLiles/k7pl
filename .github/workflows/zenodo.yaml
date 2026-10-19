@@ -31,8 +31,9 @@ on:
   release:
     types: [published]
 
+# Default for the job below, which sets its own: read the repository and the release assets.
 permissions:
-  contents: read
+  contents: read # checkout; gh release download and verify
 
 concurrency:
   group: zenodo
