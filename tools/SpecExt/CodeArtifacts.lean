@@ -34,7 +34,7 @@ meta instance : FromArgs CodeArtifactConfig m where
       .named `file (ValDesc.string.as "repository-relative generated file") false
 end
 
-/--
+/-
 Stores the code payload in the document tree while preserving normal code rendering.
 The payload is consumed by the pre-render extraction pass in SpecMain.
 -/
