@@ -44,6 +44,14 @@ lean_lib MiniTests where
 lean_exe mainTest where
   srcDir := "tests"
   root := `MainTest
+
+lean_lib MiniTools where
+  srcDir := "tools"
+  roots := #[`Ext]
+
+lean_lib MiniDoc where
+  srcDir := "spec"
+  roots := #[`Doc]
 """
 
 BASE_FILES = {
@@ -53,6 +61,9 @@ BASE_FILES = {
     "src/Mini/Leaf.lean": "def Mini.leaf := 1\n",
     "tests/ATest.lean": "import Mini\n#guard 1 + 1 == 2\n",
     "tests/MainTest.lean": "import ATest\ndef main : IO Unit := pure ()\n",
+    "tools/Ext.lean": "import Ext.Part\n",
+    "tools/Ext/Part.lean": "def Ext.part := 1\n",
+    "spec/Doc.lean": "import Ext\n",
 }
 
 
@@ -206,9 +217,62 @@ class OrphanDetectionTests(RepoCase):
         self.assertEqual(code, 0)
         self.assertEqual(
             out.strip(),
-            "check_lean_modules: 5 Lean file(s) under src, tests, all reachable from the 4 root(s) "
-            "of 3 lean_lib/lean_exe target(s).",
+            "check_lean_modules: 8 Lean file(s) under src, tests, tools, spec, all reachable from "
+            "the 6 root(s) of 5 lean_lib/lean_exe target(s).",
         )
+
+    def test_default_scan_covers_tools_and_spec(self):
+        # Before tools/ and spec/ were scanned, both orphans passed with exit status 0.
+        cases = {
+            "tools": dict(tools__Ext__Orphan_dot_lean="def Ext.orphan := 1\n"),
+            "spec": dict(spec__Doc__Orphan_dot_lean="#doc orphan\n"),
+        }
+        for label, overrides in cases.items():
+            with self.subTest(directory=label):
+                repo = self.make_repo(**overrides)
+                code, out, _ = run(repo)
+                self.assertEqual(code, 1, out)
+                self.assertIn(f"{label}/", out)
+                self.assertEqual(run(repo, "--dirs", "src", "tests")[0], 0)
+
+    def test_tooling_is_not_scanned_by_default(self):
+        repo = self.make_repo(tooling__prototype__Annex_dot_lean="def annex := 1\n")
+        self.assertEqual(run(repo)[0], 0)
+        code, out, _ = run(repo, "--dirs", *check.DEFAULT_SCAN_DIRS, "tooling")
+        self.assertEqual(code, 1)
+        self.assertIn("tooling/prototype/Annex.lean", out)
+
+    def test_a_nested_lake_workspace_is_skipped_and_named(self):
+        for lakefile in ("lakefile.lean", "lakefile.toml"):
+            with self.subTest(lakefile=lakefile):
+                repo = self.make_repo(
+                    **{f"spec__chain__{lakefile.replace('.', '_dot_')}": "-- own workspace\n"},
+                    spec__chain__Blueprint_dot_lean="def blueprint := 1\n",
+                )
+                code, out, _ = run(repo)
+                self.assertEqual(code, 0, out)
+                self.assertEqual(
+                    out.splitlines()[-1],
+                    "check_lean_modules: not scanned: spec/chain/, a separate Lake workspace with "
+                    "its own lakefile",
+                )
+
+    def test_without_its_lakefile_the_same_directory_is_scanned(self):
+        repo = self.make_repo(spec__chain__Blueprint_dot_lean="def blueprint := 1\n")
+        code, out, _ = run(repo)
+        self.assertEqual(code, 1)
+        self.assertIn("spec/chain/Blueprint.lean", out)
+        self.assertNotIn("not scanned", out)
+
+    def test_an_orphan_beside_a_nested_workspace_is_still_reported(self):
+        repo = self.make_repo(
+            spec__chain__lakefile_dot_lean="-- own workspace\n",
+            spec__Orphan_dot_lean="def orphan := 1\n",
+        )
+        code, out, _ = run(repo)
+        self.assertEqual(code, 1)
+        self.assertIn("  spec/Orphan.lean", out)
+        self.assertIn("not scanned: spec/chain/", out)
 
     def test_incomplete_import_is_ignored_not_a_crash(self):
         repo = self.make_repo(src__Mini_dot_lean="import Mini.Leaf\nimport all\n")
@@ -435,10 +499,31 @@ class RealRepositoryTests(unittest.TestCase):
         names = {target.name for target in targets}
         self.assertTrue({"K7pl", "K7plTests", "mainTest"} <= names, names)
         reachable = check.reachable_files(REPO_ROOT, targets)
-        for expected in ("src/K7pl/Arith.lean", "src/K7pl/Semantics.lean", "tests/ArithTest.lean"):
-            self.assertIn(REPO_ROOT / expected, reachable)
+        expected_files = (
+            "src/K7pl/Arith.lean",
+            "src/K7pl/Semantics.lean",
+            "tests/ArithTest.lean",
+            "tools/SpecExt/IndexCore.lean",
+            "spec/Spec.lean",
+        )
         scanned = check.scan(REPO_ROOT, list(check.DEFAULT_SCAN_DIRS))
-        self.assertGreaterEqual(len(scanned), 7)
+        for expected in expected_files:
+            self.assertIn(REPO_ROOT / expected, reachable)
+            self.assertIn(REPO_ROOT / expected, scanned)
+        # 106 files at 7af5581, when tools/ and spec/ joined the scan (src 11, tests 6, tools 24,
+        # spec 65 outside the separate workspace spec/formal-chain/).
+        self.assertGreaterEqual(len(scanned), 100)
+
+    def test_real_nested_workspaces_are_named_not_hidden(self):
+        workspaces = check.nested_workspaces(REPO_ROOT, list(check.DEFAULT_SCAN_DIRS))
+        self.assertIn(REPO_ROOT / "spec" / "formal-chain", workspaces)
+        code, out, _ = run(REPO_ROOT)
+        self.assertEqual(code, 0, out)
+        self.assertIn("not scanned: spec/formal-chain/, a separate Lake workspace", out)
+
+    def test_every_source_directory_of_the_package_is_scanned(self):
+        targets = check.parse_lakefile(REPO_ROOT / "lakefile.lean")
+        self.assertEqual({target.src_dir for target in targets}, set(check.DEFAULT_SCAN_DIRS))
 
     def test_real_test_roots_are_what_the_axiom_audit_loop_iterates_over(self):
         code, out, _ = run(REPO_ROOT, "--roots-in", "tests")
