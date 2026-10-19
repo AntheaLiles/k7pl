@@ -20,7 +20,13 @@ Scope and limits (the script fails loudly rather than guess):
   missing root file, a missing scanned directory). Nothing is ever a silent pass;
 * imports are read from the file header only, after comments are removed, following the header
   grammar of Lean 4.34 (`[module] [prelude] ([public] [meta] import [all] Name)*`);
-* it checks reachability, not that a reachable module is actually tested or audited.
+* it checks reachability, not that a reachable module is actually tested or audited;
+* by default it scans the source directories of the package's targets: `src/`, `tests/`, `tools/`
+  and `spec/`. `tooling/` is not scanned: it holds stand-alone Lake projects and prototypes that
+  no target of this package builds;
+* a directory under a scanned one that holds its own `lakefile.lean` or `lakefile.toml` (such as
+  `spec/formal-chain/`) is a separate Lake workspace, built by its own targets: it is skipped, and
+  every skipped workspace is named in the output.
 
 Exit status: 0 when every scanned file is reachable, 1 when an orphan is found, 2 when the
 repository cannot be analysed.
@@ -35,7 +41,8 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-DEFAULT_SCAN_DIRS = ("src", "tests")
+DEFAULT_SCAN_DIRS = ("src", "tests", "tools", "spec")
+LAKEFILES = ("lakefile.lean", "lakefile.toml")
 
 DECLARATION = re.compile(
     r"^(?P<kind>lean_lib|lean_exe)[ \t]+(?P<name>\S+)[ \t]+where\b(?P<rest>[^\n]*)$",
@@ -232,14 +239,33 @@ def reachable_files(repo: Path, targets: list[Target]) -> set[Path]:
     return seen
 
 
+def nested_workspaces(repo: Path, scan_dirs: list[str]) -> list[Path]:
+    """Directories under the scanned ones (the repository root aside) that hold their own lakefile."""
+    found: set[Path] = set()
+    for scan_dir in scan_dirs:
+        for name in LAKEFILES:
+            for lakefile in (repo / scan_dir).rglob(name):
+                if ".lake" not in lakefile.parts and lakefile.parent != repo:
+                    found.add(lakefile.parent)
+    return sorted(found)
+
+
 def scan(repo: Path, scan_dirs: list[str]) -> list[Path]:
-    """Every `.lean` file under the scanned directories (the `.lake` directories excluded)."""
+    """Every `.lean` file under the scanned directories.
+
+    The `.lake` directories and the separate Lake workspaces (`nested_workspaces`) are excluded.
+    """
+    for scan_dir in scan_dirs:
+        if not (repo / scan_dir).is_dir():
+            raise Unrecognized(f"scanned directory {scan_dir}/ does not exist")
+    workspaces = nested_workspaces(repo, scan_dirs)
     files: list[Path] = []
     for scan_dir in scan_dirs:
-        directory = repo / scan_dir
-        if not directory.is_dir():
-            raise Unrecognized(f"scanned directory {scan_dir}/ does not exist")
-        files.extend(p for p in directory.rglob("*.lean") if ".lake" not in p.parts)
+        files.extend(
+            p
+            for p in (repo / scan_dir).rglob("*.lean")
+            if ".lake" not in p.parts and not any(p.is_relative_to(w) for w in workspaces)
+        )
     return sorted(files)
 
 
@@ -265,6 +291,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         reachable = reachable_files(repo, targets)
         files = scan(repo, args.dirs)
+        workspaces = nested_workspaces(repo, args.dirs)
     except Unrecognized as error:
         print(f"check_lean_modules: cannot analyse the repository: {error}", file=sys.stderr)
         return 2
@@ -277,13 +304,18 @@ def main(argv: list[str] | None = None) -> int:
             "`lake build` never compiles them. Import each one from a reachable module, or list "
             "it in the `roots` of a lean_lib of lakefile.lean."
         )
-        return 1
-    print(
-        f"check_lean_modules: {len(files)} Lean file(s) under {', '.join(args.dirs)}, all "
-        f"reachable from the {sum(len(t.roots) for t in targets)} root(s) of "
-        f"{len(targets)} lean_lib/lean_exe target(s)."
-    )
-    return 0
+    else:
+        print(
+            f"check_lean_modules: {len(files)} Lean file(s) under {', '.join(args.dirs)}, all "
+            f"reachable from the {sum(len(t.roots) for t in targets)} root(s) of "
+            f"{len(targets)} lean_lib/lean_exe target(s)."
+        )
+    for workspace in workspaces:
+        print(
+            f"check_lean_modules: not scanned: {workspace.relative_to(repo).as_posix()}/, a separate "
+            "Lake workspace with its own lakefile"
+        )
+    return 1 if orphans else 0
 
 
 if __name__ == "__main__":
