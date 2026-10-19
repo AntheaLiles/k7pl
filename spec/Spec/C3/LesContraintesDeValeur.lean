@@ -273,17 +273,78 @@ algorithmes de graphes n'étant pas structurellement récursifs dans leurs prés
 
 ::::theorem (label := "thm:deadlock_acyclique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "concurrency")
 :::title
-absence de deadlock par acyclicité du graphe de sessions
+acyclicité dynamique des attentes sous simulation
 :::
 
 :::statement +titled
-Absence de blocage mutuel
+Acyclicité du graphe dynamique d'attente, sous hypothèse de simulation
 
-Pour un réseau fermé d'acteurs $`N` dont les canaux sont typés par des protocoles de session duaux, supposons que le graphe statique de dépendances soit acyclique et que (Sim) tienne : dans tout état atteignable, chaque attente d'un acteur $`a` envers un acteur $`b` correspond à une arête $`(a,b)` du graphe statique. Alors le graphe dynamique d'attente de tout état atteignable est acyclique. Cette conclusion exclut les cycles d'attente ; l'absence de tout état bloqué exige en plus d'établir que tout état non terminal bloqué dans le réseau fermé induit un tel cycle, les expirations de `Timeout` étant traitées séparément.
+Soit un réseau fermé d'acteurs $`N` dont les canaux sont typés par des protocoles de session duaux. Supposons que le graphe statique de dépendances soit acyclique et que (Sim) tienne : dans tout état atteignable, chaque attente d'un acteur $`a` envers un acteur $`b` correspond à une arête $`(a,b)` du graphe statique. Alors le graphe dynamique d'attente de tout état atteignable est acyclique. Cette conclusion exclut les cycles d'attente ; l'absence de tout état bloqué exige en plus d'établir que tout état non terminal bloqué dans le réseau fermé induit un tel cycle, les expirations de `Timeout` étant traitées séparément.
 :::
 
 :::proofsketch
 Sous (Sim), le graphe dynamique d'attente est un sous-graphe du graphe statique de dépendances. Un sous-graphe d'un graphe acyclique est acyclique. Cet argument n'établit donc que l'absence de cycles d'attente sous (Sim) ; il ne prouve pas, à lui seul, que tout état non terminal sans transition formerait un cycle. Cette dernière implication relève d'une obligation distincte de progrès et de traitement des expirations.
+:::
+
+:::note
+_Obligation ouverte._ (Sim) reste à établir. Il faut définir indépendamment la relation de dépendance statique et la relation d'attente dynamique, puis prouver l'invariant qui les relie sur tous les états atteignables, avec un cas pour {sc}[Guard], l'émission et la consommation de message, les types résiduels de boîte et `Timeout`. Il faut aussi démontrer séparément que, dans le réseau fermé considéré, tout état non terminal bloqué induit un cycle d'attente, tout en distinguant les expirations de délai du blocage mutuel.
+:::
+::::Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. {rmq}[Le câblage est
+donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet
+coinductif par induction.] Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné
+en entier à la compilation : fini, statique, il se traite inductivement, et le tri topologique de la
+Phase 1.5 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie
+au fil des activations et n'est jamais donné. L'acyclicité du premier n'implique donc pas
+mécaniquement celle du second, et c'est pourquoi l'énoncé porte sur les états atteignables et non
+sur le câblage.
+
+À ce stade, la Phase 1.5 établit uniquement l'acyclicité du graphe statique de dépendances. Tant que (Sim) et l'implication entre blocage et cycle d'attente ne sont pas démontrées, l'absence générale de blocage mutuel n'est pas une garantie de compilation. `Timeout` demeure une voie de progrès à l'exécution, distincte d'une preuve d'absence de deadlock.
+
+::::figure (label := "fig:session-dualite") (src := "session-protocol-as-dual-exchange") (alt := "Le meme protocole vu comme un echange entre deux extremites. L'extremite A porte Send de Int puis Recv de Bool puis End, l'extremite B porte Recv de Int puis Send de Bool puis End. Deux fleches croisees figurent l'envoi de l'entier puis celui du booleen ; une note rappelle que les deux extremites se terminent ensemble.") (width := "75")
+:::caption
+Le même protocole, lu comme échange dual entre deux extrémités
+:::
+
+:::desc
+Le protocole précédent vu depuis ses deux bouts, pour montrer que la dualité ne complète pas le type
+mais le relit.
+:::
+::::
+
+Quand une contrainte de valeur échoue, K7PL distingue trois régimes plutôt qu'un seul. Un état
+illégal viole un invariant que le système de types rejette avant même la génération de code —
+l'accès hors bornes prouvé impossible en est un cas. Un état indésirable atteint l'exécution mais
+reste un échec ordinaire, représenté par un `Result`. Un état transitoire, enfin, n'est l'échec de
+rien : une condition temporaire — un tampon plein — résorbable par un gestionnaire, modélisée comme
+un effet algébrique (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) plutôt que
+confondue avec une erreur définitive. La théorie des roues instancie ce premier régime pour
+l'arithmétique : une opération invalide ($`0/0`) ne lève pas d'exception mais produit une
+singularité — $`\bot`, $`\infty`, $`\circ`, $`\delta`, constructeurs d'un type algébrique `Wheel<T>`
+distinct du flottant IEEE 754 sous-jacent, dont la conversion reste explicite dans les deux sens.
+Ces singularités se propagent algébriquement à travers les opérations vectorielles, sans jamais
+introduire de branchement ; si $`\bot` atteint la sortie d'une fonction, le résultat est simplement
+l'absence de donnée — un échec prouvé plutôt que silencieux.
+
+::::proposition (label := "thm:homomorphisme_roues") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "representation")
+:::title
+représentation des singularités de la théorie des roues
+:::
+
+:::statement +titled
+Encodage des singularités et masquage vectoriel
+
+Soit $`i : \text{Wheel} \to \text{Float64}` l'encodage qui associe à chacune des quatre
+singularités ($`\bot, \infty, \circ, \delta`) un motif de bits déterministe dans la charge utile
+d'un NaN silencieux IEEE 754. Alors (i) $`i` est injective sur ces quatre singularités ; (ii)
+$`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement.
+:::
+
+:::proofsketch
+La norme IEEE 754 laisse libres les bits de charge utile d'un NaN silencieux ; K7PL y encode chaque
+singularité de façon déterministe, d'où l'injectivité (i). L'égalité de couche 3 est l'identité bit
+à bit plutôt que l'égalité IEEE 754 standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
+en masquage vectoriel sans branchement ; la nature binaire du masque garantit que la charge utile de
+la branche inactive est annihilée plutôt que corrompue, d'où (ii).
 :::
 :::note
 _Obligation ouverte._ Les clauses (i) et (ii) sont des propriétés de représentation ; la propagation
