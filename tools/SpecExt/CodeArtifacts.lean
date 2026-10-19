@@ -7,7 +7,7 @@ import Lean.DocString.Syntax
 import VersoManual
 
 open Lean Elab
-open Lean.Doc
+open Lean.Doc.Syntax
 open Verso.Doc Elab
 open Verso.Genre Manual
 open Verso.ArgParse
@@ -23,10 +23,14 @@ structure CodeArtifactConfig where
 The output target is required: generated artifacts must never be implicitly written to
 a developer-maintained source file.
 -/
+section
+variable {m : Type → Type}
+
 meta instance : FromArgs CodeArtifactConfig m where
   fromArgs :=
     CodeArtifactConfig.mk <$>
       .named `file (ValDesc.string.as "repository-relative generated file") false
+end
 
 /--
 Stores the code payload in the document tree while preserving normal code rendering.
@@ -88,10 +92,10 @@ mutual
         | .arr #[.str target, .str language, .str source] => do
           if !allowedTarget language target then
             throw s!"Refusing unsafe or unsupported code-artifact target '{target}' (language '{language}')."
+          if (← get).contains target then
+            throw s!"Duplicate code-artifact target '{target}'."
           let source := withFinalNewline source
-          modify fun saved =>
-            saved.alter target fun prior =>
-              some (prior.getD "" ++ source)
+          modify fun saved => saved.insert target source
         | other =>
           throw s!"Malformed code-artifact metadata: {other.compress}"
       for child in contents do collectBlock child
