@@ -6,6 +6,7 @@ import VersoManual
 import SpecExt.CodeArtifacts
 
 open Verso.Genre Manual
+open SpecExt.CodeArtifacts
 
 #doc (Manual) "Artefacts exécutables expérimentaux" =>
 %%%
@@ -13,17 +14,17 @@ number := false
 tag := "experimental-code-artifacts"
 %%%
 
-Cette section est un support d’ingénierie **non normatif**. Les blocs marqués ci-dessous sont les
+Cette section est un support d’ingénierie non normatif. Les blocs marqués ci-dessous sont les
 sources éditables de la définition K expérimentale et de son script de vérification. Le constructeur
-Verso extrait ces blocs dans **src/k/.build/generated/** ; ces fichiers sont des artefacts générés,
+Verso extrait ces blocs dans src/k/.build/generated/ ; ces fichiers sont des artefacts générés,
 ignorés par Git, et ne doivent pas être modifiés directement.
 
-La commande **lake exe spec --extract-code-only** effectue uniquement l’extraction, sans produire le
-site. La cible **make k-check** extrait ensuite la définition, la compile avec K et exécute les
+La commande lake exe spec --extract-code-only effectue uniquement l’extraction, sans produire le
+site. La cible make k-check extrait ensuite la définition, la compile avec K et exécute les
 programmes d’exemple. L’extraction n’est pas en elle-même une validation : les compilateurs et tests
 restent responsables de vérifier le code généré.
 
-## Définition K expérimentale
+# Définition K expérimentale
 
 ```k7plK (file := "src/k/.build/generated/semantics.k")
  // SPDX-FileCopyrightText: 2026 K7PL contributors
@@ -91,9 +92,9 @@ restent responsables de vérifier le code généré.
  endmodule
 ```
 
-## Script Python de vérification des exemples
+# Script Python de vérification des exemples
 
-Ce script exécute **krun** sur les programmes maintenus sous **tests/examples/** et vérifie leurs
+Ce script exécute krun sur les programmes maintenus sous tests/examples/ et vérifie leurs
 résultats attendus. Il est lui aussi généré depuis Verso : il ne constitue pas une seconde source
 à maintenir dans le dépôt.
 
