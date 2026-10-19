@@ -38,3 +38,11 @@ if [ "$update" = true ]; then
   lake update
 fi
 echo "Bumped to $version. Next: lake build && lake test, then update CHANGELOG.md."
+
+# The isolated Paperproof extraction workspace keeps its own pins (toolchain, Mathlib, Paperproof
+# revision), tied to Paperproof compatibility: it is never bumped here. Say so, with its toolchain.
+paperproof_workspace=tooling/paperproof-export
+if [ -f "$paperproof_workspace/lean-toolchain" ]; then
+  echo "Not bumped: $paperproof_workspace stays on $(cat "$paperproof_workspace/lean-toolchain")" \
+    "(pinned for Paperproof; bump it separately once Paperproof supports $version)."
+fi

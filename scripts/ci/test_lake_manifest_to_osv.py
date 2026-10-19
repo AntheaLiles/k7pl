@@ -6,13 +6,16 @@
 
 import copy
 import json
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "ci"))
 
+import check_manifest  # noqa: E402
 from lake_manifest_to_osv import convert_manifest  # noqa: E402
 
 REAL_MANIFEST = json.loads((ROOT / "lake-manifest.json").read_text(encoding="utf-8"))
@@ -142,6 +145,60 @@ class ConversionTests(unittest.TestCase):
                         projected_pins[package["url"].removeprefix("https://")],
                         package["rev"],
                     )
+
+class SharedLoadingTests(unittest.TestCase):
+    """Loading and validation come from check_manifest.py: the same rules, the same workspace choice."""
+
+    SCRIPT = ROOT / "scripts" / "ci" / "lake_manifest_to_osv.py"
+    PAPERPROOF = ROOT / check_manifest.PAPERPROOF_DIRECTORY
+
+    def run_cli(self, *args):
+        return subprocess.run([sys.executable, str(self.SCRIPT), *args], cwd=ROOT, check=False,
+                              capture_output=True, text=True)
+
+    def test_the_paperproof_workspace_is_converted_under_its_own_rules(self):
+        manifest = json.loads((self.PAPERPROOF / "lake-manifest.json").read_text(encoding="utf-8"))
+        lakefile = (self.PAPERPROOF / "lakefile.lean").read_text(encoding="utf-8")
+        toolchain = (self.PAPERPROOF / "lean-toolchain").read_text(encoding="utf-8")
+        result = convert_manifest(manifest, lakefile, toolchain, check_manifest.PAPERPROOF_WORKSPACE)
+        names = {item["package"]["name"] for item in result["results"][0]["packages"]}
+        self.assertIn("github.com/Paper-Proof/paperproof", names)
+        self.assertEqual(len(names), len(manifest["packages"]))
+        with self.assertRaisesRegex(ValueError, "invalid Lake manifest"):
+            convert_manifest(manifest, lakefile, toolchain)  # the root workspace refuses Paperproof
+
+    def test_cli_picks_the_workspace_from_the_manifest_path(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "osv.json"
+            completed = self.run_cli("--manifest", str(self.PAPERPROOF / "lake-manifest.json"),
+                                     "--output", str(output))
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertIn("10 pinned Lake Git dependencies", completed.stdout)
+            # The same bytes elsewhere are judged by the root workspace's rules, and refused.
+            copied = Path(tmp) / "lake-manifest.json"
+            copied.write_bytes((self.PAPERPROOF / "lake-manifest.json").read_bytes())
+            completed = self.run_cli("--manifest", str(copied), "--output", str(output))
+            self.assertEqual(completed.returncode, 1)
+            self.assertIn("Paperproof: not one of the known packages", completed.stderr)
+
+    def test_cli_refuses_oversized_and_symlinked_manifests(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "osv.json"
+            big = Path(tmp) / "big.json"
+            big.write_text(" " * (check_manifest.MAX_MANIFEST_BYTES + 1), encoding="utf-8")
+            completed = self.run_cli("--manifest", str(big), "--output", str(output))
+            self.assertEqual(completed.returncode, 1)
+            self.assertIn("is larger than", completed.stderr)
+            link = Path(tmp) / "link.json"
+            try:
+                link.symlink_to(ROOT / "lake-manifest.json")
+            except OSError:
+                self.skipTest("symbolic links are not available")
+            completed = self.run_cli("--manifest", str(link), "--output", str(output))
+            self.assertEqual(completed.returncode, 1)
+            self.assertIn("not a regular file", completed.stderr)
+            self.assertFalse(output.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

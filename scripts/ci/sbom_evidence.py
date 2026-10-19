@@ -21,7 +21,11 @@ generated the scoped SPDX inventory and `lake exe sbomAudit` has audited it agai
    - a package named U+00A0 (a Unicode blank) in both files: FAIL/1,
      `SBOM-MANIFEST-EMPTY-IDENTITY` and `SBOM-PACKAGE-EMPTY-IDENTITY`;
 
-3. writes the evidence JSON (`k7pl.ci-evidence/v1`) and a summary for the job.
+3. for each `--extra-inventory MANIFEST SBOM` (the separate SPDX document of another Lake
+   workspace of the repository, such as the Paperproof extractor's), checks in Python that the
+   document lists exactly the manifest's (name, url, rev) with one DESCRIBES relationship each.
+   `sbomAudit` does not cover these documents: its contract requires the manifest name `k7pl`;
+4. writes the evidence JSON (`k7pl.ci-evidence/v1`) and a summary for the job.
 
 It runs only inside GitHub Actions: `GITHUB_RUN_ID`, `GITHUB_RUN_ATTEMPT`, `GITHUB_SHA`,
 `GITHUB_WORKFLOW` and `GITHUB_STEP_SUMMARY` are required; `GITHUB_EVENT_PATH` is optional.
@@ -44,7 +48,7 @@ from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
 
-from check_manifest import clean
+from check_manifest import clean, workspace_for
 from lake_manifest_to_spdx import TOOL_NAME as SBOM_TOOL_NAME
 from lake_manifest_to_spdx import TOOL_VERSION as SBOM_TOOL_VERSION
 
@@ -291,6 +295,70 @@ def manifest_component_count(manifest_path: Path) -> int:
     return len(packages)
 
 
+def check_inventory(manifest: object, sbom: object, label: str) -> int:
+    """Python cross-check of a document that sbomAudit does not audit; returns its package count.
+
+    The SPDX packages must be exactly the manifest's (name, url, rev), without duplicates, and each
+    must be the target of one DESCRIBES relationship from the document, and nothing else.
+    """
+    require(isinstance(manifest, dict) and isinstance(manifest.get("packages"), list) and manifest["packages"],
+            f"{label}: the manifest has no package list")
+    require(isinstance(sbom, dict) and sbom.get("spdxVersion") == "SPDX-2.3"
+            and sbom.get("SPDXID") == "SPDXRef-DOCUMENT", f"{label}: not an SPDX-2.3 document")
+    packages = sbom.get("packages")
+    relationships = sbom.get("relationships")
+    require(isinstance(packages, list) and isinstance(relationships, list), f"{label}: no package or relationship list")
+    require(all(isinstance(p, dict) for p in manifest["packages"] + packages + relationships),
+            f"{label}: an entry is not an object")
+    expected = sorted((p.get("name"), p.get("url"), p.get("rev")) for p in manifest["packages"])
+    found = sorted((p.get("name"), p.get("downloadLocation"), p.get("versionInfo")) for p in packages)
+    require(all(isinstance(v, str) for item in expected + found for v in item),
+            f"{label}: a name, url or rev is missing")
+    require(len(set(expected)) == len(expected), f"{label}: the manifest lists a package twice")
+    require(found == expected, f"{label}: the SPDX packages differ from the manifest's (name, url, rev)")
+    ids = sorted(p.get("SPDXID") for p in packages)
+    require(len(set(ids)) == len(ids), f"{label}: duplicate SPDXID")
+    described = sorted(
+        (r.get("spdxElementId"), r.get("relationshipType"), r.get("relatedSpdxElement")) for r in relationships
+    )
+    require(described == [("SPDXRef-DOCUMENT", "DESCRIBES", spdx_id) for spdx_id in ids],
+            f"{label}: the relationships are not exactly one DESCRIBES per package")
+    return len(expected)
+
+
+def extra_inventories(pairs: list[list[Path]], root: Path, sbom_names: set[str]) -> list[dict[str, Any]]:
+    """Evidence for the separate SPDX documents of the repository's other Lake workspaces."""
+    results = []
+    for manifest_path, sbom_path in pairs:
+        workspace = workspace_for(root, manifest_path)
+        require(not workspace.is_root,
+                f"{manifest_path}: --extra-inventory is for another Lake workspace of the repository, not the root one")
+        require(sbom_path.name not in sbom_names, f"{sbom_path.name}: two documents with the same name")
+        sbom_names.add(sbom_path.name)
+        with open(manifest_path, encoding="utf-8") as stream:
+            manifest = json.load(stream)
+        with open(sbom_path, encoding="utf-8") as stream:
+            sbom = json.load(stream)
+        components = check_inventory(manifest, sbom, workspace.directory)
+        sources = [
+            {"artifact": f"{workspace.directory}/{name}", "sha256": sha256_file(root / workspace.directory / name)}
+            for name in ("lakefile.lean", "lean-toolchain")
+        ]
+        results.append({
+            "workspace": workspace.directory,
+            "inputs": [
+                {"artifact": workspace.manifest_label(), "sha256": sha256_file(manifest_path)},
+                *sources,
+                {"artifact": sbom_path.name, "sha256": sha256_file(sbom_path)},
+            ],
+            "components": components,
+            "checkedBy": "scripts/ci/sbom_evidence.py: the SPDX packages are exactly the manifest's "
+                         "(name, url, rev), each with one DESCRIBES relationship",
+            "auditedBySbomAudit": False,
+        })
+    return results
+
+
 def produce(args: argparse.Namespace, env: Mapping[str, str], run_audit: AuditRunner) -> dict[str, Any]:
     scratch = args.scratch_dir or env.get("RUNNER_TEMP")
     if not scratch:
@@ -300,10 +368,18 @@ def produce(args: argparse.Namespace, env: Mapping[str, str], run_audit: AuditRu
         report = check_report(json.load(stream))
     negative_cases = run_negative_cases(args.manifest, args.sbom, Path(scratch), run_audit)
     evidence = build_evidence(report, negative_cases, args.manifest, args.sbom, args.root, env)
+    if args.extra_inventory:
+        evidence["additionalInventories"] = extra_inventories(args.extra_inventory, args.root, {args.sbom.name})
     with open(args.output, "w", encoding="utf-8") as stream:
         json.dump(evidence, stream, indent=2, sort_keys=True)
         stream.write("\n")
     lines = summary_lines(evidence, manifest_component_count(args.manifest))
+    for inventory in evidence.get("additionalInventories", []):
+        lines.append(
+            f"- Separate inventory of `{inventory['workspace']}`: {inventory['components']} components, "
+            f"SPDX SHA-256 `{inventory['inputs'][-1]['sha256']}`; cross-checked against its manifest by "
+            "sbom_evidence.py, not audited by sbomAudit (its contract requires the manifest name k7pl)."
+        )
     with open(summary_path, "a", encoding="utf-8") as summary:
         summary.write("\n".join(lines) + "\n")
     return evidence
@@ -319,6 +395,10 @@ def main(argv: list[str] | None = None, env: Mapping[str, str] | None = None,
     parser.add_argument("--output", type=Path, required=True, help="where to write the evidence JSON")
     parser.add_argument("--root", type=Path, default=ROOT, help="repository root (default: this checkout)")
     parser.add_argument("--scratch-dir", type=Path, help="directory for the negative inputs (default: RUNNER_TEMP)")
+    parser.add_argument(
+        "--extra-inventory", nargs=2, type=Path, action="append", metavar=("MANIFEST", "SBOM"),
+        help="the separate SPDX document of another Lake workspace and its manifest (repeatable)",
+    )
     args = parser.parse_args(argv)
     environment = os.environ if env is None else env
     annotate = environment.get("GITHUB_ACTIONS") == "true"

@@ -17,6 +17,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts" / "ci"))
 
+import check_manifest  # noqa: E402
 from lake_manifest_to_spdx import generate_sbom, normalize_created  # noqa: E402
 
 REAL_MANIFEST = json.loads((ROOT / "lake-manifest.json").read_text(encoding="utf-8"))
@@ -106,6 +107,72 @@ class SbomTests(unittest.TestCase):
     def test_source_date_epoch_is_used_when_timestamp_is_omitted(self):
         with patch.dict(os.environ, {"SOURCE_DATE_EPOCH": "1791590400"}):
             self.assertEqual(normalize_created(), "2026-10-10T00:00:00Z")
+
+
+PAPERPROOF_DIR = ROOT / check_manifest.PAPERPROOF_DIRECTORY
+PAPERPROOF_LABEL = f"{check_manifest.PAPERPROOF_DIRECTORY}/lake-manifest.json"
+PAPERPROOF_MANIFEST = json.loads((PAPERPROOF_DIR / "lake-manifest.json").read_text(encoding="utf-8"))
+PAPERPROOF_LAKEFILE = (PAPERPROOF_DIR / "lakefile.lean").read_text(encoding="utf-8")
+PAPERPROOF_TOOLCHAIN = (PAPERPROOF_DIR / "lean-toolchain").read_text(encoding="utf-8")
+SCRIPT = ROOT / "scripts" / "ci" / "lake_manifest_to_spdx.py"
+
+
+class WorkspaceDocumentTests(unittest.TestCase):
+    """One document per Lake workspace; the root document keeps its identity."""
+
+    def paperproof(self):
+        return generate_sbom(PAPERPROOF_MANIFEST, PAPERPROOF_LAKEFILE, PAPERPROOF_TOOLCHAIN, CREATED,
+                             check_manifest.PAPERPROOF_WORKSPACE)
+
+    def test_the_root_document_keeps_its_name_and_comments(self):
+        result = generate_sbom(REAL_MANIFEST, REAL_LAKEFILE, REAL_TOOLCHAIN, CREATED)
+        self.assertEqual(result["name"], "K7PL Lake dependency inventory")
+        self.assertTrue(result["comment"].startswith(
+            "Scoped inventory generated from lake-manifest.json. It covers only the package entries"))
+        self.assertTrue(all(p["packageComment"].startswith("Listed in lake-manifest.json. ")
+                            for p in result["packages"]))
+
+    def test_the_paperproof_document_says_what_it_describes(self):
+        result = self.paperproof()
+        self.assertEqual(result["name"], f"K7PL Lake dependency inventory ({check_manifest.PAPERPROOF_DIRECTORY})")
+        self.assertIn(f"generated from {PAPERPROOF_LABEL}", result["comment"])
+        self.assertIn("not a dependency of the k7pl Lake package", result["comment"])
+        self.assertTrue(all(p["packageComment"].startswith(f"Listed in {PAPERPROOF_LABEL}. ")
+                            for p in result["packages"]))
+        by_name = {p["name"]: p for p in result["packages"]}
+        self.assertEqual(set(by_name), {p["name"] for p in PAPERPROOF_MANIFEST["packages"]})
+        for entry in PAPERPROOF_MANIFEST["packages"]:
+            self.assertEqual(by_name[entry["name"]]["versionInfo"], entry["rev"])
+            self.assertEqual(by_name[entry["name"]]["downloadLocation"], entry["url"])
+
+    def test_the_two_documents_have_distinct_namespaces(self):
+        root = generate_sbom(REAL_MANIFEST, REAL_LAKEFILE, REAL_TOOLCHAIN, CREATED)
+        self.assertNotEqual(root["documentNamespace"], self.paperproof()["documentNamespace"])
+
+    def test_the_paperproof_manifest_is_refused_under_the_root_rules(self):
+        with self.assertRaisesRegex(ValueError, "invalid Lake manifest"):
+            generate_sbom(PAPERPROOF_MANIFEST, PAPERPROOF_LAKEFILE, PAPERPROOF_TOOLCHAIN, CREATED)
+
+    def test_cli_defaults_to_the_files_of_the_manifest_workspace(self):
+        with tempfile.TemporaryDirectory() as directory:
+            outputs = [Path(directory) / name for name in ("first.spdx.json", "second.spdx.json")]
+            for output in outputs:
+                completed = subprocess.run(
+                    [sys.executable, str(SCRIPT), "--manifest", PAPERPROOF_LABEL,
+                     "--created", CREATED, "--output", str(output)],
+                    cwd=ROOT, check=False, capture_output=True, text=True,
+                )
+                self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertEqual(outputs[0].read_bytes(), outputs[1].read_bytes())
+            self.assertEqual(json.loads(outputs[0].read_text(encoding="utf-8")), self.paperproof())
+            # An explicit lakefile still overrides the workspace default (and is checked).
+            completed = subprocess.run(
+                [sys.executable, str(SCRIPT), "--manifest", PAPERPROOF_LABEL,
+                 "--lakefile", "lakefile.lean", "--created", CREATED, "--output", str(outputs[0])],
+                cwd=ROOT, check=False, capture_output=True, text=True,
+            )
+            self.assertEqual(completed.returncode, 1)
+            self.assertIn("inconsistent Lake inputs", completed.stderr)
 
 
 if __name__ == "__main__":

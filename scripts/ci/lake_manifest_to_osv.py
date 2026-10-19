@@ -8,6 +8,11 @@
 This adapter emits repository identities and exact Git commit hashes, not invented semantic
 versions or package-manager identities. It is a vulnerability-query input, not an SPDX or CycloneDX
 SBOM, and does not imply that OSV contains advisories for every dependency.
+
+The manifest is read and validated by `check_manifest.py` (`load_workspace_inputs`,
+`validated_manifest`): a manifest that this adapter converts is one that check would accept, for
+the Lake workspace it belongs to (the root one unless `--manifest` names the manifest of the
+Paperproof workspace, `check_manifest.PAPERPROOF_DIRECTORY`).
 """
 
 from __future__ import annotations
@@ -17,29 +22,18 @@ import json
 import sys
 from pathlib import Path
 
-from check_manifest import check_consistency, check_manifest
+from check_manifest import ROOT_WORKSPACE, Workspace, load_workspace_inputs, validated_manifest
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MANIFEST = ROOT / "lake-manifest.json"
 DEFAULT_OUTPUT = ROOT / "lake-osv-scanner.json"
-MAX_MANIFEST_BYTES = 1 << 20
 
 
 def convert_manifest(
-    manifest: object, lakefile: str, toolchain: str
+    manifest: object, lakefile: str, toolchain: str, workspace: Workspace = ROOT_WORKSPACE
 ) -> dict[str, object]:
     """Convert only a structurally valid manifest consistent with Lake's declared pins."""
-    errors = check_manifest(manifest)
-    if errors:
-        raise ValueError("invalid Lake manifest:\n" + "\n".join(f"- {error}" for error in errors))
-
-    assert isinstance(manifest, dict)  # established by check_manifest above
-    consistency_errors = check_consistency(manifest, lakefile, toolchain)
-    if consistency_errors:
-        raise ValueError(
-            "inconsistent Lake inputs:\n"
-            + "\n".join(f"- {error}" for error in consistency_errors)
-        )
+    manifest = validated_manifest(manifest, lakefile, toolchain, workspace)
 
     packages = manifest["packages"]
     assert isinstance(packages, list)
@@ -58,13 +52,8 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        raw = args.manifest.read_bytes()
-        if len(raw) > MAX_MANIFEST_BYTES:
-            raise ValueError(f"manifest exceeds {MAX_MANIFEST_BYTES} bytes")
-        manifest = json.loads(raw)
-        lakefile = (ROOT / "lakefile.lean").read_text(encoding="utf-8")
-        toolchain = (ROOT / "lean-toolchain").read_text(encoding="utf-8")
-        result = convert_manifest(manifest, lakefile, toolchain)
+        inputs = load_workspace_inputs(ROOT, args.manifest)
+        result = convert_manifest(inputs.manifest, inputs.lakefile, inputs.toolchain, inputs.workspace)
         encoded = json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
         args.output.write_text(encoded, encoding="utf-8")
     except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as error:
