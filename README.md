@@ -7,109 +7,121 @@ SPDX-License-Identifier: CC-BY-4.0
 
 [![Lean Build](https://github.com/AntheaLiles/k7pl/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/AntheaLiles/k7pl/actions/workflows/ci.yaml)
 
-K7PL est un langage de programmation dont l'implémentation est écrite en
-[Lean 4](https://lean-lang.org/), avec [Mathlib](https://github.com/leanprover-community/mathlib4)
-et [CSLib](https://github.com/leanprover/cslib). Sa spécification est écrite en
+K7PL is a programming language whose implementation is written in
+[Lean 4](https://lean-lang.org/), with [Mathlib](https://github.com/leanprover-community/mathlib4)
+and [CSLib](https://github.com/leanprover/cslib). Its specification is written in
 [Verso](https://github.com/leanprover/verso).
 
-## Comprendre le projet
+## Understanding the project
 
-Le parcours documentaire courant commence par [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), puis [`docs/RESEARCH.md`](docs/RESEARCH.md) et la spécification normative dans [`spec/`](spec/). L'état factuel est produit par CI dans [`docs/STATUS.md`](docs/STATUS.md), tandis que [`docs/ASSURANCE.md`](docs/ASSURANCE.md) expose l'argument d'assurance scientifique. Les matériaux historiques et de suivi sont organisés selon l'architecture documentaire décrite dans `docs/migration/README.md`.
+The current documentation path starts with [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), then [`docs/RESEARCH.md`](docs/RESEARCH.md) and the normative specification in [`spec/`](spec/). The factual state is produced by CI in [`docs/STATUS.md`](docs/STATUS.md), while [`docs/ASSURANCE.md`](docs/ASSURANCE.md) sets out the scientific assurance case. Historical and tracking material is organised according to the documentation architecture described in [`docs/README.md`](docs/README.md) and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
-## Démarrage
+## Getting started
 
-La version de Lean est fixée dans `lean-toolchain` ; [elan](https://github.com/leanprover/elan)
-l'installe automatiquement.
+The Lean version is pinned in `lean-toolchain`; [elan](https://github.com/leanprover/elan)
+installs it automatically.
 
 ```sh
-lake exe cache get                # télécharge les binaires Mathlib précompilés
-lake build                        # compile l'implémentation (src/) et la spécification (spec/)
-lake test                         # lance les tests (tests/)
-lake lint                         # linter Batteries
-reuse lint                        # vérifie la conformité REUSE
+lake exe cache get                # downloads the precompiled Mathlib binaries
+lake build                        # builds the implementation (src/) and the specification (spec/)
+lake test                         # runs the tests (tests/)
+lake lint                         # Batteries linter
+reuse lint                        # checks REUSE compliance
 
-# Avant le rendu de la spécification : Tectonic 0.15.0 et Poppler (pdftocairo) doivent être installés.
+# Before rendering the specification: Tectonic 0.15.0 and Poppler (pdftocairo) must be installed.
 SOURCE_DATE_EPOCH=946684800 bash scripts/ci/build_tikz_figures.sh
 cp out/tikz-production/* spec/figures/
 lake exe spec --output _out/spec --with-tex
 ```
 
-Toutes les figures de la spécification sont codées en TikZ (`spec/figures/tikz/`) ; leurs PDF/SVG sont des artefacts générés et ignorés par Git ; la CI les produit puis les injecte avant le rendu. Pour un rendu local identique à la CI, exécuter ces étapes avant `lake exe spec`.
+All the figures of the specification are written in TikZ (`spec/figures/tikz/`); their PDF/SVG files are generated artefacts ignored by Git; CI produces them and then injects them before rendering. For a local rendering identical to CI, run these steps before `lake exe spec`.
 
-## Spécifications
+## Specification
 
-La spécification du langage — le manuscrit « K7PL : KonSept Programming Language », sept
-chapitres, les références du document et quatre annexes — est dans [`spec/`](spec/), écrite en
-Verso, sous licence CC-BY-4.0. Elle est publiée sur <https://anthealiles.github.io/k7pl/> lorsque
-la CI de `main` reconstruit la spécification. Le flux qui joindra son PDF à chaque release `spec-vX.Y.Z` et l'archivera
-sur Zenodo est décrit dans [`CONTRIBUTING.md`](CONTRIBUTING.md) ; il n'a pas encore été exécuté de bout en bout.
+The language specification — the manuscript "K7PL : KonSept Programming Language", seven
+chapters, the document's references, annex A, a page of extracted tactic traces and a
+non-normative page of experimental executable artefacts — is in [`spec/`](spec/), written in
+Verso (in French), under the CC-BY-4.0 license. It is published at
+<https://anthealiles.github.io/k7pl/> when the CI of `main` rebuilds the specification. The flow
+that will attach its PDF to each `spec-vX.Y.Z` release and archive it on Zenodo is described in
+[`CONTRIBUTING.md`](CONTRIBUTING.md); it has not yet been run end to end.
 
-Le manuscrit est encore en cours de correction (campagne de relecture PR-02) : le point
-d'entrée est le [tableau de bord](docs/tracking/DASHBOARD.md), qui dit où il en est et ce
-qu'il reste à faire avant d'implémenter le langage. Le manuscrit Org-mode d'origine est figé
-dans [`docs/archives/`](docs/archives/).
+The former annexes B, C and D are no longer part of `spec/`: since commit `d84021f`, their
+material is kept as tooling prototypes in [`tooling/prototypes-bcd/`](tooling/prototypes-bcd/),
+outside the normative specification. Their future editorial scope is an open decision (`D-7` in
+[`docs/tracking/DECISIONS.md`](docs/tracking/DECISIONS.md)).
+
+The manuscript is still being corrected (review campaign PR-02): the entry point is the
+[dashboard](docs/tracking/DASHBOARD.md), which states where it stands and what remains to be
+done before implementing the language. The original Org-mode manuscript is frozen
+in [`docs/archives/`](docs/archives/).
 
 ## Organisation
 
-| Dossier | Contenu |
+| Directory | Contents |
 |---|---|
-| [`src/`](src/) | implémentation Lean ; la définition K est générée dans `src/k/.build/generated/` depuis Verso |
-| [`proofs/`](proofs/) | preuves Lean maintenues et modules KLean générés à la construction |
-| [`tests/`](tests/), [`tests/examples/`](tests/examples/) | tests Lean/Python et programmes K7PL `.k7` |
-| [`spec/`](spec/) | spécification normative Verso, figures et exposé expérimental sous `spec/formal-chain/` |
-| [`tools/`](tools/) | générateur de la spécification et extensions Verso (`SpecExt/`) ; bibliography (`SpecBib.lean`, generated from [`docs/bibliography/references.json`](docs/bibliography/references.json)) |
-| [`docs/`](docs/) | documentation courante, assurance, recherche, méthode, suivi et archives historiques |
-| [`scripts/`](scripts/) | maintenance, conversion Org → Verso, mesures et suivi |
-| [`docs/archives/`](docs/archives/) | manuscrit Org et outillage d'avant la conversion |
+| [`src/`](src/) | Lean implementation; the K definition is generated from Verso into `src/k/.build/generated/` |
+| [`proofs/`](proofs/) | maintained Lean proofs, and KLean modules generated at build time |
+| [`tests/`](tests/), [`tests/examples/`](tests/examples/) | Lean/Python tests, and K7PL `.k7` programs |
+| [`spec/`](spec/) | normative Verso specification, figures, and an experimental exposition under `spec/formal-chain/` |
+| [`tools/`](tools/) | specification generator and Verso extensions (`SpecExt/`); bibliography (`SpecBib.lean`, generated from [`docs/bibliography/references.json`](docs/bibliography/references.json)); Lean compliance and audit models (`Compliance/`) |
+| [`tooling/`](tooling/) | currently holds the Paperproof extraction workspace (`paperproof-export/`) and the B/C/D prototypes (`prototypes-bcd/`) |
+| [`lib/`](lib/) | libraries written in K7PL (currently one example file, `lib-exemple.k7`) |
+| [`docs/`](docs/) | current documentation, assurance, research, method, tracking and historical archives |
+| [`scripts/`](scripts/) | maintenance, Org → Verso conversion, metrics and tracking |
+| [`docs/archives/`](docs/archives/) | Org manuscript and tooling from before the conversion |
 
-## Chaîne expérimentale K → Lean
+## Experimental K → Lean chain
 
-Une tranche expérimentale de sémantique K est décrite dans `spec/Spec/CodeArtifacts.lean`, à côté de sa documentation Verso. Le bloc K génère `src/k/.build/generated/semantics.k`; le bloc Python génère le vérificateur des exemples au même endroit. Ces fichiers sont ignorés par Git et ne doivent pas être modifiés directement. Les programmes source de test utilisent l’extension `.k7` dans `tests/examples/`. Les preuves Lean maintenues sont sous `proofs/K7PL/`; les modules KLean sont générés pendant la construction. L’exposé Verso Blueprint reste dans `spec/formal-chain/`, séparé de la spécification normative.
+An experimental slice of K semantics is described in `spec/Spec/CodeArtifacts.lean`, next to its Verso documentation. The K block generates `src/k/.build/generated/semantics.k`; the Python block generates the checker of the examples in the same place. These files are ignored by Git and must not be modified directly. The test source programs use the `.k7` extension in `tests/examples/`. The maintained Lean proofs are under `proofs/K7PL/`; the KLean modules are generated during the build. The Verso Blueprint exposition stays in `spec/formal-chain/`, separate from the normative specification.
 
-`make k-check` extrait le code depuis Verso, compile la définition K et exécute les exemples. `make formal-chain` prolonge ce flux par l’export du KORE vers KLean, la construction des preuves et le rendu de l’exposé Verso. Ce prototype ne formalise pas K7PL complet : le lien entre la fonction K `typeOf` et le jugement Lean `HasType` reste à établir.
+`make k-check` extracts the code from Verso, compiles the K definition and runs the examples. `make formal-chain` extends this flow with the export of KORE to KLean, the build of the proofs and the rendering of the Verso exposition. This prototype does not formalise the whole of K7PL: the link between the K function `typeOf` and the Lean judgement `HasType` remains to be established.
 
-## Contribuer
+## Contributing
 
 [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu)
 [![DEI](https://img.shields.io/badge/DEI-DEI.md-6f42c1)](DEI.md)
 
-Voir [`CONTRIBUTING.md`](CONTRIBUTING.md) (déroulement), les
-[règles de rédaction](.claude/skills/writing-rules.md) et le
-[code de conduite](CODE_OF_CONDUCT.md). Les vulnérabilités se signalent en privé :
-voir [`SECURITY.md`](SECURITY.md).
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) (workflow), the
+[writing rules](.claude/skills/writing-rules.md) and the
+[code of conduct](CODE_OF_CONDUCT.md). Vulnerabilities are reported privately:
+see [`SECURITY.md`](SECURITY.md).
 
-## Citer k7pl
+## Citing k7pl
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23040451.svg)](https://doi.org/10.5281/zenodo.23040451)
 [![SWH origin](https://archive.softwareheritage.org/badge/origin/https://doi.org/10.5281/zenodo.23040451/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://doi.org/10.5281/zenodo.23040451)
 
-Les versions de la spécification doivent être archivées sur [Zenodo](https://zenodo.org)
-avec un DOI, leur PDF étant joint à la release GitHub correspondante. Ce flux n'a pas encore été
-exécuté de bout en bout : la release `spec-v0.0.0-alpha.1` n'a pas de PDF joint (voir
-[`CONTRIBUTING.md`](CONTRIBUTING.md)). Voir
-[`CITATION.cff`](CITATION.cff) (bouton « Cite this repository » sur GitHub). DOI : [10.5281/zenodo.23040451](https://doi.org/10.5281/zenodo.23040451).
+Versions of the specification are meant to be archived on [Zenodo](https://zenodo.org)
+with a DOI, their PDF being attached to the corresponding GitHub release. This flow has not yet been
+run end to end: the `spec-v0.0.0-alpha.1` release has no PDF attached (see
+[`CONTRIBUTING.md`](CONTRIBUTING.md)). See
+[`CITATION.cff`](CITATION.cff) (the "Cite this repository" button on GitHub). DOI: [10.5281/zenodo.23040451](https://doi.org/10.5281/zenodo.23040451).
 
 [![SWH directory](https://archive.softwareheritage.org/badge/swh:1:dir:b81695cfdce2e418f8a8431b79e8894ee7310c50/)](https://archive.softwareheritage.org/swh:1:dir:b81695cfdce2e418f8a8431b79e8894ee7310c50;origin=https://doi.org/10.5281/zenodo.23040451;visit=swh:1:snp:e8d0a0046dc9e4509fc52655611c04a49414fa89;anchor=swh:1:rel:6c1db6481a70f65688c0cf1f8eb8cbfcf1e128b9)
 
-## Sécurité
+## Security
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/AntheaLiles/k7pl/badge)](https://scorecard.dev/viewer/?uri=github.com/AntheaLiles/k7pl)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/15239/badge)](https://www.bestpractices.dev/projects/15239)
 
-Les vulnérabilités ne doivent pas être signalées dans les issues publiques. Utilisez le
-[signalement privé GitHub](https://github.com/AntheaLiles/k7pl/security/advisories/new) et indiquez
-le commit concerné, les étapes de reproduction et l'impact supposé. Le périmètre couvre notamment
-la cohérence de la spécification et de ses preuves, l'implémentation du langage et la chaîne de
-construction. Voir [`SECURITY.md`](SECURITY.md) pour la politique complète, les délais de réponse
-et les limites connues de la chaîne de construction.
+Vulnerabilities must not be reported in public issues. Use
+[GitHub private reporting](https://github.com/AntheaLiles/k7pl/security/advisories/new) and give
+the affected commit, the reproduction steps and the presumed impact. The scope covers in particular
+the consistency of the specification and its proofs, the implementation of the language and the build
+chain. See [`SECURITY.md`](SECURITY.md) for the full policy, the response times
+and the known limits of the build chain.
 
-## Licences
+## Licenses
 
 [![REUSE status](https://api.reuse.software/badge/github.com/AntheaLiles/k7pl)](https://api.reuse.software/info/github.com/AntheaLiles/k7pl)
 
-- Code : [CeCILL 2.1](LICENSES/CECILL-2.1.txt)
-- Bibliothèques écrites dans K7PL : [CeCILL-C](LICENSES/CECILL-C.txt)
-- Spécifications et documentation : [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)
-- Infrastructure et configuration : [CC0-1.0](LICENSES/CC0-1.0.txt)
+- Code: [CeCILL 2.1](LICENSES/CECILL-2.1.txt)
+- Libraries written in K7PL: [CeCILL-C](LICENSES/CECILL-C.txt)
+- Specifications and documentation: [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)
+- Infrastructure and configuration: [CC0-1.0](LICENSES/CC0-1.0.txt)
+- Three proof-visualization files: [Apache-2.0](LICENSES/Apache-2.0.txt) —
+  `tools/SpecExt/ProofVisualization.lean`, `scripts/ci/build_proof_visualizations.py` and
+  `scripts/ci/test_build_proof_visualizations.py`
 
-Voir [`LICENSE.md`](LICENSE.md) pour le détail.
+See [`LICENSE.md`](LICENSE.md) for the details and the mapping from paths to licenses.
