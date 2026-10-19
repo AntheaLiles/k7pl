@@ -39,6 +39,8 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertIn('target.endsWith ".k"', self.extension)
         self.assertIn('target.endsWith ".py"', self.extension)
         self.assertIn("collectPart text", self.extension)
+        self.assertIn("code.getString", self.extension)
+        self.assertNotIn("getVersoCodeBlock", self.extension)
         self.assertIn('import SpecExt.CodeArtifacts', self.page)
         self.assertFalse((ROOT / "scripts/extract_verso_code.py").exists())
 
