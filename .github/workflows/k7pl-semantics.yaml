@@ -1,0 +1,223 @@
+# SPDX-FileCopyrightText: 2026 K7PL contributors
+#
+# SPDX-License-Identifier: CC0-1.0
+
+name: K7PL formal semantics
+
+on:
+  pull_request:
+    paths:
+      - "src/k/**"
+      - "tests/examples/**"
+      - "docs/formal-semantics.md"
+      - "proofs/**"
+      - "spec/formal-chain/**"
+      - "scripts/ci/patch_klean_prelude.py"
+      - "scripts/ci/test_patch_klean_prelude.py"
+      - "REUSE.toml"
+      - ".github/workflows/k7pl-semantics.yaml"
+  push:
+    branches: [main]
+    paths:
+      - "src/k/**"
+      - "tests/examples/**"
+      - "docs/formal-semantics.md"
+      - "proofs/**"
+      - "spec/formal-chain/**"
+      - "scripts/ci/patch_klean_prelude.py"
+      - "scripts/ci/test_patch_klean_prelude.py"
+      - "REUSE.toml"
+      - ".github/workflows/k7pl-semantics.yaml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  k-smoke:
+    name: Compile K semantics, execute examples, export to Lean
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    container:
+      image: runtimeverificationinc/kframework-k:ubuntu-jammy-7.1.337
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Record K toolchain
+        run: |
+          command -v kompile
+          command -v krun
+          kompile --version
+          python3 --version
+          python3 -m pip --version
+
+      - name: Compile K definition and run examples
+        run: make -C src/k check
+
+      - name: Install the pinned Klean generator
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m venv "$RUNNER_TEMP/klean-venv"
+          "$RUNNER_TEMP/klean-venv/bin/python" -m pip install --disable-pip-version-check "kframework==7.1.337"
+          "$RUNNER_TEMP/klean-venv/bin/klean" --help
+          echo "$RUNNER_TEMP/klean-venv/bin" >> "$GITHUB_PATH"
+
+      - name: Export the compiled KORE definition to Lean
+        id: export_lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          KLEAN_OUT="$RUNNER_TEMP/klean-output"
+          EVIDENCE="$GITHUB_WORKSPACE/.formal-chain-evidence"
+          rm -rf "$KLEAN_OUT" "$EVIDENCE"
+          mkdir -p "$KLEAN_OUT" "$EVIDENCE"
+          klean "$GITHUB_WORKSPACE/src/k/.build/kompiled" k7pl2lean \
+            --library K7PL2Lean --output "$KLEAN_OUT"
+
+          PACKAGE="$KLEAN_OUT/k7pl2lean"
+          test -d "$PACKAGE"
+          # Klean's published template currently defaults to Lean 4.30.0. K7PL pins 4.34.0;
+          # overwrite the generated toolchain only as an explicit compatibility probe, then build.
+          cp "$GITHUB_WORKSPACE/lean-toolchain" "$PACKAGE/lean-toolchain"
+
+          for path in \
+            "$PACKAGE/K7PL2Lean.lean" \
+            "$PACKAGE/lakefile.toml" \
+            "$PACKAGE/lean-toolchain" \
+            "$PACKAGE/K7PL2Lean/Prelude.lean" \
+            "$PACKAGE/K7PL2Lean/Sorts.lean" \
+            "$PACKAGE/K7PL2Lean/Inj.lean" \
+            "$PACKAGE/K7PL2Lean/Func.lean" \
+            "$PACKAGE/K7PL2Lean/Rewrite.lean"; do
+            test -s "$path" || { echo "Missing Klean output: $path" >&2; exit 1; }
+          done
+
+          {
+            printf '%s\\n' "## Generated Klean package"
+            find "$PACKAGE" -maxdepth 2 -type f -print | sort | tee "$EVIDENCE/klean-files.txt"
+            printf '%s\\n' "## Generated toolchain"
+            tee "$EVIDENCE/klean-toolchain.txt" < "$PACKAGE/lean-toolchain"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Test and apply the pinned Klean/Lean compatibility shim
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s "$GITHUB_WORKSPACE/scripts/ci" -p test_patch_klean_prelude.py
+          python3 "$GITHUB_WORKSPACE/scripts/ci/patch_klean_prelude.py" \
+            "$RUNNER_TEMP/klean-output/k7pl2lean/K7PL2Lean/Prelude.lean" \
+            | tee "$GITHUB_WORKSPACE/.formal-chain-evidence/klean-patch-report.txt"
+
+      - name: Stage generated Klean modules into the maintained proof project
+        shell: bash
+        run: |
+          set -euo pipefail
+          PACKAGE="$RUNNER_TEMP/klean-output/k7pl2lean"
+          PROOF_ROOT="$GITHUB_WORKSPACE/proofs"
+          rm -rf "$PROOF_ROOT/K7PL2Lean" "$PROOF_ROOT/K7PL2Lean.lean"
+          cp -a "$PACKAGE/K7PL2Lean" "$PROOF_ROOT/K7PL2Lean"
+          cp "$PACKAGE/K7PL2Lean.lean" "$PROOF_ROOT/K7PL2Lean.lean"
+          test "$(cat "$PROOF_ROOT/lean-toolchain")" = "leanprover/lean4:v4.34.0"
+          echo "Staged generated Klean sources into proofs/ (ignored by Git)."
+
+      - name: Install the repository-pinned Lean toolchain
+        uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
+        with:
+          auto-config: false
+          use-github-cache: false
+          use-mathlib-cache: false
+          build: false
+          test: false
+          lint: false
+
+      - name: Build the Klean-generated Lean project
+        shell: bash
+        working-directory: ${{ github.workspace }}/proofs
+        run: |
+          set -euo pipefail
+          lean --version
+          lake --version
+          BUILD_LOG="$RUNNER_TEMP/k7pl-lake-build.log"
+          lake build K7PL2Lean K7PL 2>&1 | tee "$BUILD_LOG"
+          if grep -Fq "sorryAx" "$BUILD_LOG"; then
+            echo "::error::Lean axiom audit found sorryAx in the build output."
+            exit 1
+          fi
+          grep -Fq "'K7PL.MachineSoundness.rewrites_preserve_machine_typing' depends on axioms:" "$BUILD_LOG" || {
+            echo "::error::Missing axiom audit for rewrites_preserve_machine_typing." >&2
+            exit 1
+          }
+          grep -Fq "'K7PL.MachineSoundness.end_to_end_preservation' depends on axioms:" "$BUILD_LOG" || {
+            echo "::error::Missing axiom audit for end_to_end_preservation." >&2
+            exit 1
+          }
+
+      - name: Render Verso Blueprint documentation
+        id: blueprint
+        shell: bash
+        working-directory: ${{ github.workspace }}/spec/formal-chain
+        run: |
+          set -euo pipefail
+          lake exe vbp build
+          test -d _out/site/html-multi
+          html_count=$(find _out/site/html-multi -type f -name '*.html' | wc -l)
+          test "$html_count" -gt 0
+          {
+            printf '%s\\n' "## Verso Blueprint"
+            printf 'Generated HTML files: %s\\n' "$html_count"
+            printf '%s\\n' "Output: spec/formal-chain/_out/site/html-multi/"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Package formal-chain build evidence
+        if: ${{ success() && steps.export_lean.outcome == 'success' && steps.blueprint.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ARTIFACT_ROOT="$RUNNER_TEMP/k7pl-formal-chain"
+          ARCHIVE="$RUNNER_TEMP/k7pl-formal-chain-${GITHUB_RUN_ID}.tar.gz"
+          rm -rf "$ARTIFACT_ROOT" "$ARCHIVE"
+          mkdir -p "$ARTIFACT_ROOT/proofs" "$ARTIFACT_ROOT/spec/formal-chain" "$ARTIFACT_ROOT/src/k" "$ARTIFACT_ROOT/tests/examples" "$ARTIFACT_ROOT/docs"
+
+          cp -a "$GITHUB_WORKSPACE/src/k/semantics.k" "$GITHUB_WORKSPACE/src/k/Makefile" "$ARTIFACT_ROOT/src/k/"
+          cp -a "$GITHUB_WORKSPACE/tests/examples/add.k7" "$GITHUB_WORKSPACE/tests/examples/select.k7" "$ARTIFACT_ROOT/tests/examples/"
+          cp -a "$GITHUB_WORKSPACE/docs/formal-semantics.md" "$ARTIFACT_ROOT/docs/"
+          cp -a "$RUNNER_TEMP/klean-output/k7pl2lean" "$ARTIFACT_ROOT/klean-output"
+          cp -a "$GITHUB_WORKSPACE/proofs/K7PL2Lean.lean" "$ARTIFACT_ROOT/proofs/"
+          cp -a "$GITHUB_WORKSPACE/proofs/K7PL2Lean" "$ARTIFACT_ROOT/proofs/"
+          cp -a "$GITHUB_WORKSPACE/proofs/lakefile.toml" "$GITHUB_WORKSPACE/proofs/lean-toolchain" "$GITHUB_WORKSPACE/proofs/lake-manifest.json" "$GITHUB_WORKSPACE/proofs/README.md" "$GITHUB_WORKSPACE/proofs/K7PL.lean" "$GITHUB_WORKSPACE/proofs/Makefile" "$ARTIFACT_ROOT/proofs/"
+          cp -a "$GITHUB_WORKSPACE/proofs/K7PL" "$ARTIFACT_ROOT/proofs/"
+
+          cp -a "$GITHUB_WORKSPACE/spec/formal-chain/BlueprintK7PL.lean" "$GITHUB_WORKSPACE/spec/formal-chain/BlueprintK7PLMain.lean" "$GITHUB_WORKSPACE/spec/formal-chain/lakefile.lean" "$GITHUB_WORKSPACE/spec/formal-chain/lean-toolchain" "$GITHUB_WORKSPACE/spec/formal-chain/lake-manifest.json" "$GITHUB_WORKSPACE/spec/formal-chain/Makefile" "$ARTIFACT_ROOT/spec/formal-chain/"
+          cp -a "$GITHUB_WORKSPACE/spec/formal-chain/BlueprintK7PL" "$ARTIFACT_ROOT/spec/formal-chain/"
+          mkdir -p "$ARTIFACT_ROOT/spec/formal-chain/_out/site"
+          cp -a "$GITHUB_WORKSPACE/spec/formal-chain/_out/site/html-multi" "$ARTIFACT_ROOT/spec/formal-chain/_out/site/"
+          cp -a "$GITHUB_WORKSPACE/.formal-chain-evidence" "$ARTIFACT_ROOT/evidence"
+
+          html_count=$(find "$ARTIFACT_ROOT/spec/formal-chain/_out/site/html-multi" -type f -name '*.html' | wc -l)
+          test "$html_count" -gt 0
+          (
+            cd "$ARTIFACT_ROOT"
+            {
+              find . -type f ! -path './MANIFEST.txt' -print
+              printf '%s\n' './MANIFEST.txt'
+            } | LC_ALL=C sort | sed 's#^\./#k7pl-formal-chain/#'
+          ) > "$ARTIFACT_ROOT/MANIFEST.txt"
+          tar -czf "$ARCHIVE" -C "$RUNNER_TEMP" k7pl-formal-chain
+          test -s "$ARCHIVE"
+          tar -tzf "$ARCHIVE" > "$RUNNER_TEMP/k7pl-formal-chain-${GITHUB_RUN_ID}.manifest.txt"
+          file_count=$(wc -l < "$RUNNER_TEMP/k7pl-formal-chain-${GITHUB_RUN_ID}.manifest.txt")
+          echo "Packaged $file_count files ($html_count HTML files) into $ARCHIVE"
+          ls -lh "$ARCHIVE"
+
+      - name: Upload formal-chain sources, HTML, and evidence
+        if: ${{ success() && steps.export_lean.outcome == 'success' && steps.blueprint.outcome == 'success' }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: k7pl-formal-chain-${{ github.run_id }}
+          path: ${{ runner.temp }}/k7pl-formal-chain-${{ github.run_id }}.tar.gz
+          retention-days: 14
+          if-no-files-found: error

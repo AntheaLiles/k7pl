@@ -53,12 +53,20 @@ dans [`docs/archives/`](docs/archives/).
 
 | Dossier | Contenu |
 |---|---|
-| [`src/`](src/), [`tests/`](tests/) | implémentation du langage en Lean 4 et ses tests |
-| [`spec/`](spec/) | la spécification (Verso) et ses figures |
+| [`src/`](src/) | implémentation Lean existante et définition K expérimentale sous [`src/k/`](src/k/) |
+| [`proofs/`](proofs/) | preuves Lean maintenues et modules KLean générés à la construction |
+| [`tests/`](tests/), [`tests/examples/`](tests/examples/) | tests Lean/Python et programmes K7PL `.k7` |
+| [`spec/`](spec/) | spécification normative Verso, figures et exposé expérimental sous `spec/formal-chain/` |
 | [`tools/`](tools/) | générateur de la spécification et extensions Verso (`SpecExt/`) ; bibliography (`SpecBib.lean`, generated from [`docs/bibliography/references.json`](docs/bibliography/references.json)) |
 | [`docs/`](docs/) | documentation courante, assurance, recherche, méthode, suivi et archives historiques |
 | [`scripts/`](scripts/) | maintenance, conversion Org → Verso, mesures et suivi |
 | [`docs/archives/`](docs/archives/) | manuscrit Org et outillage d'avant la conversion |
+
+## Chaîne expérimentale K → Lean
+
+Une tranche expérimentale de sémantique K est maintenue dans `src/k/semantics.k`; ses programmes source de test utilisent l’extension `.k7` dans `tests/examples/`. Les preuves Lean maintenues sont sous `proofs/K7PL/`; les modules KLean sont générés pendant la construction et ignorés par Git. L’exposé expérimental Verso est dans `spec/formal-chain/`, distinct de la spécification normative.
+
+`make formal-chain` compile la définition K, exécute les exemples, exporte le KORE vers KLean, construit les preuves et rend l’exposé Verso. Ce prototype ne formalise pas K7PL complet : le lien entre la fonction K `typeOf` et le jugement Lean `HasType` reste à établir.
 
 ## Contribuer
 
