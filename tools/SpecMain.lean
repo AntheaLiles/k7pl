@@ -26,11 +26,6 @@ def outputDir (args : List String) : System.FilePath :=
 text before rendering (`SpecExt.autoMark`), and the interface of the HTML pages is put in French
 afterwards (`SpecExt.Translate`). -/
 def main (args : List String) : IO UInt32 := do
-  -- Extract executable artifacts before either the normal HTML/PDF render or the extract-only pass.
-  let extractionCode ← SpecExt.CodeArtifacts.extractArtifacts (%doc Spec)
-  if extractionCode != 0 then return extractionCode
-  if args.contains "--extract-code-only" then return 0
-
   let code ← manualMain (SpecExt.autoMark (%doc Spec)) (options := args) (config := config)
   let html := outputDir args / "html-multi"
   if code == 0 && (← html.isDir) then

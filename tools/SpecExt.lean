@@ -19,4 +19,3 @@ import SpecExt.Index
 import SpecExt.AutoMark
 import SpecExt.Translate
 import SpecExt.Setup
-import SpecExt.CodeArtifacts
