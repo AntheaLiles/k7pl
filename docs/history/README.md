@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 This directory holds dated historical records: former working notes, the PR-02 campaign reports, superseded tracking views, and closed programmes. They explain earlier states, decisions and lines of reasoning; none of them describes the current state of the project. Current tracking starts at [the dashboard](../tracking/DASHBOARD.md).
 
-Each file keeps its original language (mostly French); the titles below are translated.
+Each file keeps its original language (mostly French); the titles below are translated. Every Markdown file of this directory must be linked from this index: `scripts/ci/test_history_index.py` checks it on every pull request.
 
 ## Former working notes, 28 August – 9 September 2026
 
