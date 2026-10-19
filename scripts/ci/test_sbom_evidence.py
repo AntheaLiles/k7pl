@@ -18,6 +18,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import check_manifest
 import lake_manifest_to_spdx
 import sbom_evidence
 
@@ -120,10 +121,10 @@ class Workspace:
             "--root", str(ROOT),
         ]
 
-    def run(self, audit=None, env=None):
+    def run(self, audit=None, env=None, extra=()):
         stdout, stderr = io.StringIO(), io.StringIO()
         with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
-            code = sbom_evidence.main(self.argv(), env=self.env if env is None else env,
+            code = sbom_evidence.main([*self.argv(), *extra], env=self.env if env is None else env,
                                       run_audit=audit or FakeAudit(self.manifest_data))
         return code, stdout.getvalue(), stderr.getvalue()
 
@@ -383,6 +384,92 @@ class EvidenceTests(unittest.TestCase):
         lines = err.splitlines()
         self.assertEqual(len(lines), 1, lines)
         self.assertTrue(lines[0].startswith("::error::"), lines)
+
+
+PAPERPROOF = check_manifest.PAPERPROOF_WORKSPACE
+PAPERPROOF_MANIFEST_PATH = ROOT / PAPERPROOF.directory / "lake-manifest.json"
+
+
+class ExtraInventoryTests(unittest.TestCase):
+    """The Paperproof workspace's separate SPDX document: hashed, cross-checked, never called audited."""
+
+    def paperproof_sbom(self, ws, mutate=None):
+        inputs = check_manifest.load_workspace_inputs(ROOT, PAPERPROOF_MANIFEST_PATH)
+        sbom = lake_manifest_to_spdx.generate_sbom(
+            inputs.manifest, inputs.lakefile, inputs.toolchain, CREATED, inputs.workspace)
+        if mutate:
+            mutate(sbom)
+        path = ws.dir / "k7pl-paperproof-export-lake.spdx.json"
+        path.write_text(json.dumps(sbom), encoding="utf-8")
+        return path
+
+    def test_the_separate_document_is_recorded_and_summarised(self):
+        ws = Workspace(self)
+        sbom = self.paperproof_sbom(ws)
+        code, _, err = ws.run(extra=("--extra-inventory", str(PAPERPROOF_MANIFEST_PATH), str(sbom)))
+        self.assertEqual((code, err), (0, ""))
+        evidence = json.loads(ws.output.read_text(encoding="utf-8"))
+        [inventory] = evidence["additionalInventories"]
+        self.assertEqual(inventory["workspace"], PAPERPROOF.directory)
+        self.assertEqual(inventory["components"], len(json.loads(PAPERPROOF_MANIFEST_PATH.read_text(encoding="utf-8"))["packages"]))
+        self.assertIs(inventory["auditedBySbomAudit"], False)
+        self.assertEqual([item["artifact"] for item in inventory["inputs"]], [
+            f"{PAPERPROOF.directory}/lake-manifest.json",
+            f"{PAPERPROOF.directory}/lakefile.lean",
+            f"{PAPERPROOF.directory}/lean-toolchain",
+            "k7pl-paperproof-export-lake.spdx.json",
+        ])
+        self.assertEqual(inventory["inputs"][0]["sha256"], sha256(PAPERPROOF_MANIFEST_PATH))
+        self.assertEqual(inventory["inputs"][3]["sha256"], sha256(sbom))
+        # The root inventory is untouched by the extra document.
+        self.assertEqual(sbom_evidence.input_sha256(evidence, "k7pl-lake.spdx.json"), sha256(ws.sbom))
+        summary = ws.summary.read_text(encoding="utf-8")
+        self.assertIn(f"- Separate inventory of `{PAPERPROOF.directory}`: {inventory['components']} components, "
+                      f"SPDX SHA-256 `{sha256(sbom)}`", summary)
+        self.assertIn("not audited by sbomAudit", summary)
+
+    def test_without_extra_inventory_the_evidence_has_no_such_key(self):
+        ws = Workspace(self)
+        self.assertEqual(ws.run()[0], 0)
+        self.assertNotIn("additionalInventories", json.loads(ws.output.read_text(encoding="utf-8")))
+
+    def test_a_document_that_does_not_match_its_manifest_is_refused(self):
+        mutations = {
+            "revision": lambda d: d["packages"][0].update(versionInfo="0" * 40),
+            "url": lambda d: d["packages"][0].update(downloadLocation="https://github.com/evil/x"),
+            "extra package": lambda d: d["packages"].append({**d["packages"][0], "name": "extra", "SPDXID": "SPDXRef-x"}),
+            "missing package": lambda d: d["packages"].pop(),
+            "missing relationship": lambda d: d["relationships"].pop(),
+            "dependency edge": lambda d: d["relationships"].append({
+                "spdxElementId": d["packages"][0]["SPDXID"], "relationshipType": "DEPENDS_ON",
+                "relatedSpdxElement": d["packages"][1]["SPDXID"]}),
+            "version": lambda d: d.update(spdxVersion="SPDX-2.2"),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(label=label):
+                ws = Workspace(self)
+                sbom = self.paperproof_sbom(ws, mutate)
+                code, _, err = ws.run(extra=("--extra-inventory", str(PAPERPROOF_MANIFEST_PATH), str(sbom)))
+                self.assertEqual(code, 1, label)
+                self.assertIn(PAPERPROOF.directory, err)
+                self.assertFalse(ws.output.exists())
+
+    def test_the_root_manifest_is_not_an_extra_inventory(self):
+        ws = Workspace(self)
+        code, _, err = ws.run(extra=("--extra-inventory", str(ROOT / "lake-manifest.json"), str(ws.sbom)))
+        self.assertEqual(code, 1)
+        self.assertIn("not the root one", err)
+
+    def test_two_documents_cannot_share_a_name(self):
+        ws = Workspace(self)
+        same_name = ws.dir / "copy"
+        same_name.mkdir()
+        sbom = self.paperproof_sbom(ws)
+        clash = same_name / ws.sbom.name
+        clash.write_bytes(sbom.read_bytes())
+        code, _, err = ws.run(extra=("--extra-inventory", str(PAPERPROOF_MANIFEST_PATH), str(clash)))
+        self.assertEqual(code, 1)
+        self.assertIn("two documents with the same name", err)
 
 
 if __name__ == "__main__":

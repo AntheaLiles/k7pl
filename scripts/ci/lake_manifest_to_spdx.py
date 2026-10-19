@@ -8,6 +8,13 @@
 This is an inventory of packages listed by Lake, not a claim that the manifest contains a
 complete direct/transitive dependency graph. Unknown licence and copyright data remain
 NOASSERTION. It does not inventory build tools, GitHub Actions, or generated artifacts.
+
+One document describes one Lake workspace. By default it is the root workspace (the `k7pl`
+package); `--manifest <workspace>/lake-manifest.json` with the isolated Paperproof extraction
+workspace (`check_manifest.PAPERPROOF_DIRECTORY`) describes that workspace instead, in a separate
+document whose name and comments say so.
+The manifest is read and validated by `check_manifest.py` (`load_workspace_inputs`,
+`validated_manifest`) against the lakefile and toolchain of its own workspace.
 """
 
 from __future__ import annotations
@@ -22,11 +29,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from check_manifest import check_consistency, check_manifest
+from check_manifest import ROOT_WORKSPACE, Workspace, load_workspace_inputs, validated_manifest
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MANIFEST = ROOT / "lake-manifest.json"
-MAX_MANIFEST_BYTES = 1 << 20
+DOCUMENT_NAME = "K7PL Lake dependency inventory"
 TOOL_NAME = "k7pl-lake-sbom"
 TOOL_VERSION = "0.1.0"
 
@@ -80,19 +87,11 @@ def generate_sbom(
     lakefile: str,
     toolchain: str,
     created: str,
+    workspace: Workspace = ROOT_WORKSPACE,
 ) -> dict[str, Any]:
-    """Build SPDX 2.3 JSON only from a valid manifest consistent with the repository's pins."""
-    errors = check_manifest(manifest)
-    if errors:
-        raise ValueError("invalid Lake manifest:\n" + "\n".join(f"- {error}" for error in errors))
-    assert isinstance(manifest, dict)  # established by check_manifest above
-
-    consistency_errors = check_consistency(manifest, lakefile, toolchain)
-    if consistency_errors:
-        raise ValueError(
-            "inconsistent Lake inputs:\n"
-            + "\n".join(f"- {error}" for error in consistency_errors)
-        )
+    """Build SPDX 2.3 JSON only from a valid manifest consistent with its workspace's pins."""
+    manifest = validated_manifest(manifest, lakefile, toolchain, workspace)
+    source = workspace.manifest_label()
 
     created_utc = normalize_created(created)
     canonical = _canonical_manifest(manifest)
@@ -117,7 +116,7 @@ def generate_sbom(
                 "licenseDeclared": "NOASSERTION",
                 "copyrightText": "NOASSERTION",
                 "packageComment": (
-                    "Listed in lake-manifest.json. versionInfo is the exact resolved Git commit, "
+                    f"Listed in {source}. versionInfo is the exact resolved Git commit, "
                     "not a semantic version. "
                     f"Requested inputRev: {input_rev}; inherited: {inherited}; scope: {scope or '(empty)'}. "
                     "The manifest is a flattened package inventory and does not establish a complete "
@@ -133,18 +132,23 @@ def generate_sbom(
             }
         )
 
+    name = DOCUMENT_NAME if workspace.is_root else f"{DOCUMENT_NAME} ({workspace.directory})"
+    scope = "" if workspace.is_root else (
+        "This is the isolated Lake workspace of the Paperproof proof-visualization extractor, used to "
+        "build the specification site; it is not a dependency of the k7pl Lake package. "
+    )
     return {
         "spdxVersion": "SPDX-2.3",
         "dataLicense": "CC0-1.0",
         "SPDXID": "SPDXRef-DOCUMENT",
-        "name": "K7PL Lake dependency inventory",
+        "name": name,
         "documentNamespace": namespace,
         "creationInfo": {
             "creators": [f"Tool: {TOOL_NAME}-{TOOL_VERSION}"],
             "created": created_utc,
         },
         "comment": (
-            "Scoped inventory generated from lake-manifest.json. It covers only the package entries "
+            f"Scoped inventory generated from {source}. {scope}It covers only the package entries "
             "in that manifest; it does not assert completeness for build tools, CI actions, source files, "
             "generated artifacts, or direct/transitive dependency edges. Unknown licence and copyright "
             "information is represented as NOASSERTION."
@@ -157,8 +161,12 @@ def generate_sbom(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
-    parser.add_argument("--lakefile", type=Path, default=ROOT / "lakefile.lean")
-    parser.add_argument("--toolchain", type=Path, default=ROOT / "lean-toolchain")
+    parser.add_argument(
+        "--lakefile", type=Path, help="default: the lakefile.lean of the manifest's Lake workspace"
+    )
+    parser.add_argument(
+        "--toolchain", type=Path, help="default: the lean-toolchain of the manifest's Lake workspace"
+    )
     parser.add_argument(
         "--created",
         help="ISO 8601 timestamp with timezone; defaults to SOURCE_DATE_EPOCH or current UTC time",
@@ -171,14 +179,9 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        raw = args.manifest.read_bytes()
-        if len(raw) > MAX_MANIFEST_BYTES:
-            raise ValueError(f"manifest exceeds {MAX_MANIFEST_BYTES} bytes")
-        manifest = json.loads(raw)
-        lakefile = args.lakefile.read_text(encoding="utf-8")
-        toolchain = args.toolchain.read_text(encoding="utf-8")
+        inputs = load_workspace_inputs(ROOT, args.manifest, args.lakefile, args.toolchain)
         created = normalize_created(args.created)
-        result = generate_sbom(manifest, lakefile, toolchain, created)
+        result = generate_sbom(inputs.manifest, inputs.lakefile, inputs.toolchain, created, inputs.workspace)
         encoded = json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
         if args.output is None:
             sys.stdout.write(encoded)

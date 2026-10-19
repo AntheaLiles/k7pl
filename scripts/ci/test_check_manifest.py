@@ -917,6 +917,164 @@ class OutputInjectionTests(unittest.TestCase):
         self.assertEqual(check_manifest.clean("plain text: ok"), "plain text: ok")
 
 
+PAPERPROOF_DIR = ROOT / check_manifest.PAPERPROOF_DIRECTORY
+PAPERPROOF_MANIFEST_PATH = PAPERPROOF_DIR / "lake-manifest.json"
+PAPERPROOF_MANIFEST = json.loads(PAPERPROOF_MANIFEST_PATH.read_text(encoding="utf-8"))
+PAPERPROOF_LAKEFILE = (PAPERPROOF_DIR / "lakefile.lean").read_text(encoding="utf-8")
+PAPERPROOF_TOOLCHAIN = (PAPERPROOF_DIR / "lean-toolchain").read_text(encoding="utf-8")
+PAPERPROOF = check_manifest.PAPERPROOF_WORKSPACE
+
+
+def paperproof_changing(package_name, /, **changes):
+    manifest = copy.deepcopy(PAPERPROOF_MANIFEST)
+    package = next(p for p in manifest["packages"] if p["name"] == package_name)
+    package.update(changes)
+    return manifest
+
+
+class WorkspaceTests(unittest.TestCase):
+    """The isolated Paperproof workspace has its own allow-list; the root one is not loosened."""
+
+    def make_repository(self, paperproof_manifest=None):
+        """A temporary repository root holding both workspaces' manifest, lakefile and toolchain."""
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        for name, text in (("lakefile.lean", REAL_LAKEFILE), ("lean-toolchain", REAL_TOOLCHAIN)):
+            (root / name).write_text(text, encoding="utf-8")
+        (root / "lake-manifest.json").write_text(json.dumps(REAL_MANIFEST), encoding="utf-8")
+        workspace = root / check_manifest.PAPERPROOF_DIRECTORY
+        workspace.mkdir(parents=True)
+        (workspace / "lakefile.lean").write_text(PAPERPROOF_LAKEFILE, encoding="utf-8")
+        (workspace / "lean-toolchain").write_text(PAPERPROOF_TOOLCHAIN, encoding="utf-8")
+        manifest = paperproof_manifest if paperproof_manifest is not None else PAPERPROOF_MANIFEST
+        (workspace / "lake-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+        return root
+
+    def run_main(self, *argv):
+        stdout, stderr = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            code = check_manifest.main(list(argv), ls_remote=no_network, fetch=FakeUpstream({}))
+        return code, stdout.getvalue(), stderr.getvalue()
+
+    def test_the_real_paperproof_manifest_passes_offline(self):
+        self.assertEqual(run(ROOT, PAPERPROOF_MANIFEST_PATH, False, no_network), [])
+        self.assertEqual(check_structure(PAPERPROOF_MANIFEST, PAPERPROOF), [])
+        self.assertEqual(
+            check_consistency(PAPERPROOF_MANIFEST, PAPERPROOF_LAKEFILE, PAPERPROOF_TOOLCHAIN, PAPERPROOF), []
+        )
+
+    def test_the_paperproof_allow_list_is_exactly_what_its_manifest_holds(self):
+        real = {p["name"]: p["url"].removeprefix("https://github.com/") for p in PAPERPROOF_MANIFEST["packages"]}
+        self.assertEqual(dict(check_manifest.PAPERPROOF_ALLOWED_PACKAGES), real)
+
+    def test_shared_names_are_bound_to_the_same_repositories(self):
+        for name, repository in check_manifest.PAPERPROOF_ALLOWED_PACKAGES.items():
+            if name in check_manifest.ALLOWED_PACKAGES:
+                with self.subTest(name=name):
+                    self.assertEqual(repository, check_manifest.ALLOWED_PACKAGES[name])
+
+    def test_paperproof_is_refused_in_the_root_workspace(self):
+        paperproof = next(p for p in PAPERPROOF_MANIFEST["packages"] if p["name"] == "Paperproof")
+        manifest = copy.deepcopy(REAL_MANIFEST)
+        manifest["packages"].append({**paperproof, "inherited": True})
+        errors = check_structure(manifest)
+        self.assertTrue(any("Paperproof: not one of the known packages" in e for e in errors), errors)
+        self.assertTrue(any("is not in the allow-list" in e for e in errors), errors)
+        self.assertNotIn("Paperproof", check_manifest.ALLOWED_PACKAGES)
+        self.assertNotIn("Paper-Proof/paperproof", check_manifest.ALLOWED_REPOSITORIES)
+
+    def test_root_only_packages_are_refused_in_the_paperproof_workspace(self):
+        for name in ("cslib", "verso", "subverso", "MD4Lean", "illuminate"):
+            with self.subTest(name=name):
+                root_package = next(p for p in REAL_MANIFEST["packages"] if p["name"] == name)
+                manifest = copy.deepcopy(PAPERPROOF_MANIFEST)
+                manifest["packages"].append({**root_package, "inherited": True})
+                errors = check_structure(manifest, PAPERPROOF)
+                self.assertTrue(any(f"{name}: not one of the known packages" in e for e in errors), errors)
+
+    def test_paperproof_cannot_borrow_another_repository(self):
+        errors = check_structure(paperproof_changing("Paperproof", url="https://github.com/evil/paperproof"), PAPERPROOF)
+        self.assertTrue(any("is not in the allow-list" in e for e in errors), errors)
+        errors = check_structure(
+            paperproof_changing("Paperproof", url="https://github.com/leanprover-community/mathlib4"), PAPERPROOF
+        )
+        self.assertTrue(any("is not the repository of this package" in e for e in errors), errors)
+
+    def test_a_commit_pinned_requirement_must_be_resolved_to_that_commit(self):
+        manifest = paperproof_changing("Paperproof", rev="0" * 40)
+        self.assertEqual(check_structure(manifest, PAPERPROOF), [])  # well formed: only the pin can tell
+        errors = check_consistency(manifest, PAPERPROOF_LAKEFILE, PAPERPROOF_TOOLCHAIN, PAPERPROOF)
+        self.assertTrue(any("Paperproof: manifest rev" in e and "required by lakefile.lean" in e for e in errors), errors)
+
+    def test_only_mathlib_follows_the_paperproof_toolchain(self):
+        release = check_manifest.parse_toolchain(PAPERPROOF_TOOLCHAIN)
+        self.assertIsNotNone(release)
+        errors = check_consistency(PAPERPROOF_MANIFEST, PAPERPROOF_LAKEFILE, "leanprover/lean4:v4.0.1\n", PAPERPROOF)
+        self.assertEqual(sum("lean-toolchain is 'v4.0.1'" in e for e in errors), 1, errors)
+        self.assertTrue(any(f"`require mathlib` is pinned to {release!r}" in e for e in errors), errors)
+
+    def test_the_rules_follow_the_location_never_the_content(self):
+        # The same bytes outside the workspace directory are checked against the root workspace.
+        with tempfile.TemporaryDirectory() as tmp:
+            copied = Path(tmp) / "lake-manifest.json"
+            copied.write_text(PAPERPROOF_MANIFEST_PATH.read_text(encoding="utf-8"), encoding="utf-8")
+            self.assertIs(check_manifest.workspace_for(ROOT, copied), check_manifest.ROOT_WORKSPACE)
+            errors = run(ROOT, copied, False, no_network)
+        self.assertTrue(any("Paperproof: not one of the known packages" in e for e in errors), errors)
+        self.assertTrue(any("lakefile package 'k7pl'" in e for e in errors), errors)
+        directory = Path(check_manifest.PAPERPROOF_DIRECTORY)
+        indirect = ROOT / directory / ".." / directory.name / "lake-manifest.json"
+        self.assertIs(check_manifest.workspace_for(ROOT, indirect), PAPERPROOF)
+        self.assertIs(check_manifest.workspace_for(ROOT, None), check_manifest.ROOT_WORKSPACE)
+        self.assertIs(check_manifest.workspace_for(ROOT, ROOT / "lake-manifest.json"), check_manifest.ROOT_WORKSPACE)
+
+    def test_the_root_manifest_in_the_paperproof_directory_is_refused(self):
+        root = self.make_repository(paperproof_manifest=REAL_MANIFEST)
+        code, _, err = self.run_main("--root", str(root), "--manifest", str(root / PAPERPROOF.directory / "lake-manifest.json"))
+        self.assertEqual(code, 1)
+        self.assertIn("cslib: not one of the known packages", err)
+        self.assertIn("add `name: owner/repo` to PAPERPROOF_ALLOWED_PACKAGES", err)
+
+    def test_the_cli_names_the_workspace_it_checked(self):
+        root = self.make_repository()
+        code, out, _ = self.run_main("--root", str(root), "--manifest", str(root / PAPERPROOF.directory / "lake-manifest.json"))
+        self.assertEqual(code, 0)
+        self.assertIn(f"{check_manifest.PAPERPROOF_DIRECTORY}/lake-manifest.json: all checks passed", out)
+        code, out, _ = self.run_main("--root", str(root))
+        self.assertEqual(code, 0)
+        self.assertTrue(out.startswith("lake-manifest.json: all checks passed"), out)
+
+    def test_network_checks_are_refused_for_the_paperproof_workspace(self):
+        for flags in ((True, False), (False, True), (True, True)):
+            with self.subTest(flags=flags):
+                errors = run(ROOT, PAPERPROOF_MANIFEST_PATH, flags[0], no_network, upstream=flags[1],
+                             fetch=FakeUpstream({}))
+                self.assertEqual(len(errors), 1, errors)
+                self.assertIn("root workspace only", errors[0])
+
+    def test_validated_manifest_is_shared_by_the_converters(self):
+        self.assertIs(check_manifest.validated_manifest(REAL_MANIFEST, REAL_LAKEFILE, REAL_TOOLCHAIN), REAL_MANIFEST)
+        with self.assertRaisesRegex(ValueError, "invalid Lake manifest"):
+            check_manifest.validated_manifest(PAPERPROOF_MANIFEST, REAL_LAKEFILE, REAL_TOOLCHAIN)
+        with self.assertRaisesRegex(ValueError, "inconsistent Lake inputs"):
+            check_manifest.validated_manifest(REAL_MANIFEST, REAL_LAKEFILE, "leanprover/lean4:v4.0.1\n")
+        self.assertIs(
+            check_manifest.validated_manifest(PAPERPROOF_MANIFEST, PAPERPROOF_LAKEFILE, PAPERPROOF_TOOLCHAIN, PAPERPROOF),
+            PAPERPROOF_MANIFEST,
+        )
+
+    def test_load_workspace_inputs_reads_the_files_of_the_manifest_workspace(self):
+        inputs = check_manifest.load_workspace_inputs(ROOT, PAPERPROOF_MANIFEST_PATH)
+        self.assertIs(inputs.workspace, PAPERPROOF)
+        self.assertEqual((inputs.manifest, inputs.lakefile, inputs.toolchain),
+                         (PAPERPROOF_MANIFEST, PAPERPROOF_LAKEFILE, PAPERPROOF_TOOLCHAIN))
+        inputs = check_manifest.load_workspace_inputs(ROOT)
+        self.assertIs(inputs.workspace, check_manifest.ROOT_WORKSPACE)
+        self.assertEqual((inputs.manifest, inputs.lakefile, inputs.toolchain),
+                         (REAL_MANIFEST, REAL_LAKEFILE, REAL_TOOLCHAIN))
+
+
 class ProcessTests(unittest.TestCase):
     """The script as a command: its exit status is what the workflow sees."""
 
@@ -955,6 +1113,12 @@ class ProcessTests(unittest.TestCase):
         result = self.run_script("--no-such-option")
         self.assertEqual(result.returncode, 2)
         self.assertIn("usage:", result.stderr)
+
+    def test_the_paperproof_manifest_passes_from_the_command_line(self):
+        manifest = f"{check_manifest.PAPERPROOF_DIRECTORY}/lake-manifest.json"
+        result = self.run_script("--manifest", manifest)
+        self.assertEqual((result.returncode, result.stderr), (0, ""))
+        self.assertIn(f"{manifest}: all checks passed", result.stdout)
 
     def test_help_documents_the_upstream_option(self):
         result = self.run_script("--help")

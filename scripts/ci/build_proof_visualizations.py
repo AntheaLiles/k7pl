@@ -16,7 +16,13 @@ from pathlib import Path
 from typing import Any
 
 PAPERPROOF_REVISION = "05c68e9cb8e881f9e971abb94efd231a269e0229"
+# The extractor's own toolchain, a reviewed pin tied to Paperproof compatibility: it is compared
+# with the lean-toolchain of the extractor workspace and is NOT the K7PL toolchain, which is read from
+# the root lean-toolchain (see read_main_toolchain) and may move ahead of it.
 PAPERPROOF_TOOLCHAIN = "leanprover/lean4:v4.34.0"
+TOOLCHAIN_RE = re.compile(r"leanprover/lean4:(v[0-9]+\.[0-9]+\.[0-9]+(?:-rc[0-9]+)?)")
+# The isolated Lake workspace of the extractor, relative to the repository root.
+DEFAULT_EXTRACTOR_DIR = Path("tooling/paperproof-export")
 SCHEMA_VERSION = "k7pl.proof-visualization/v1"
 REPOSITORY_URL = "https://github.com/AntheaLiles/k7pl"
 TARGETS = (
@@ -151,7 +157,8 @@ def build_artifact(target: dict[str, str], export_value: Any, source: str, revis
             "proofAuthority": "Lean kernel checking is independent of this visualization artifact.",
         },
         "limits": [
-            "The extractor runs under a separate Lean toolchain; this artifact does not replace the K7PL Lean 4.34.0 build.",
+            f"The extractor runs under a separate Lean toolchain ({PAPERPROOF_TOOLCHAIN}); this artifact "
+            f"does not replace the K7PL build under {main_toolchain}.",
             "Paperproof reports observed tactic goals and hypotheses, not a universal representation of all Lean proof forms.",
             "This curated target list is not an exhaustive inventory of declarations.",
             "No normative specification-to-declaration correspondence is inferred.",
@@ -189,18 +196,34 @@ def extract_one(root: Path, extractor: Path, target: dict[str, str], revision: s
             raw_path.unlink(missing_ok=True)
 
 
+def toolchain_release(toolchain: str) -> str:
+    """The release (`vX.Y.Z`) named by a `leanprover/lean4:vX.Y.Z` toolchain string."""
+    match = TOOLCHAIN_RE.fullmatch(toolchain)
+    if not match:
+        raise ValueError(f"unrecognised Lean toolchain: {toolchain!r}")
+    return match.group(1)
+
+
+def read_main_toolchain(root: Path) -> str:
+    """The K7PL toolchain, read from the root lean-toolchain (the default of --main-toolchain)."""
+    toolchain = (root / "lean-toolchain").read_text(encoding="utf-8").strip()
+    toolchain_release(toolchain)  # refuse anything but one plain release
+    return toolchain
+
+
 def validate_lock(extractor: Path) -> None:
     toolchain = (extractor / "lean-toolchain").read_text(encoding="utf-8").strip()
     if toolchain != PAPERPROOF_TOOLCHAIN:
         raise ValueError(f"Paperproof toolchain drift: expected {PAPERPROOF_TOOLCHAIN}, got {toolchain}")
+    mathlib_release = toolchain_release(PAPERPROOF_TOOLCHAIN)
     lock = json.loads((extractor / "lake-manifest.json").read_text(encoding="utf-8"))
     packages = {item["name"]: item for item in lock.get("packages", [])}
     pp = packages.get("Paperproof", {})
     mathlib = packages.get("mathlib", {})
     if pp.get("rev") != PAPERPROOF_REVISION or pp.get("subDir") != "lean":
         raise ValueError("Paperproof must remain pinned to the reviewed commit and lean subdirectory")
-    if mathlib.get("inputRev") != "v4.34.0":
-        raise ValueError("the isolated Paperproof workspace must use Mathlib v4.34.0")
+    if mathlib.get("inputRev") != mathlib_release:
+        raise ValueError(f"the isolated Paperproof workspace must use Mathlib {mathlib_release}")
 
 
 def validate_checkout_revision(root: Path, revision: str) -> None:
@@ -224,11 +247,15 @@ def main() -> int:
     parser.add_argument("--repo-root", type=Path, default=Path("."))
     parser.add_argument("--data-dir", type=Path, default=Path("_out/proof-visualizations/data"))
     parser.add_argument("--ref", required=True, help="full Git commit SHA matching the checked-out source tree")
-    parser.add_argument("--extractor-dir", type=Path, default=Path("tooling/paperproof-export"))
-    parser.add_argument("--main-toolchain", default="leanprover/lean4:v4.34.0")
+    parser.add_argument("--extractor-dir", type=Path, default=DEFAULT_EXTRACTOR_DIR)
+    parser.add_argument(
+        "--main-toolchain",
+        help="K7PL toolchain recorded in the artifacts (default: the content of <repo-root>/lean-toolchain)",
+    )
     args = parser.parse_args()
 
     root = args.repo_root.resolve()
+    main_toolchain = args.main_toolchain or read_main_toolchain(root)
     extractor = (root / args.extractor_dir).resolve()
     data_dir = (root / args.data_dir).resolve()
     validate_checkout_revision(root, args.ref)
@@ -236,7 +263,7 @@ def main() -> int:
     data_dir.mkdir(parents=True, exist_ok=True)
 
     artifacts = [
-        extract_one(root, extractor, target, args.ref, args.main_toolchain, data_dir)
+        extract_one(root, extractor, target, args.ref, main_toolchain, data_dir)
         for target in TARGETS
     ]
     for artifact in artifacts:
@@ -249,7 +276,7 @@ def main() -> int:
     manifest = {
         "schemaVersion": SCHEMA_VERSION,
         "sourceRevision": args.ref,
-        "mainToolchain": args.main_toolchain,
+        "mainToolchain": main_toolchain,
         "extractorToolchain": PAPERPROOF_TOOLCHAIN,
         "paperproofRevision": PAPERPROOF_REVISION,
         "declarations": [item["identity"]["declaration"] for item in artifacts],

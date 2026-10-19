@@ -36,6 +36,11 @@
 # itself pins; an upstream tag moved before the bump. The reviewer of the pull request still reads
 # the diff of lake-manifest.json.
 #
+# The isolated Paperproof extraction workspace (PAPERPROOF_WORKSPACE below) is NOT bumped: its
+# toolchain, Mathlib and Paperproof revision are pinned together for Paperproof compatibility and
+# move by a reviewed, manual change. The build summary and the pull request body state both
+# toolchains, so that the divergence a bump creates is visible; nothing here blocks the bump.
+#
 # A pull request opened with GITHUB_TOKEN does not trigger the other workflows; BUMP_TOKEN is
 # therefore required so that the generated pull request receives the normal CI checks. The
 # GITHUB_TOKEN of this workflow is read-only and is not used to write anything.
@@ -52,6 +57,10 @@ permissions:
 concurrency:
   group: bump-lean
   cancel-in-progress: false
+
+env:
+  # The isolated Lake workspace of the Paperproof extractor (not bumped, see above).
+  PAPERPROOF_WORKSPACE: tooling/paperproof-export
 
 jobs:
   build:
@@ -83,6 +92,11 @@ jobs:
           else
             echo "newer=false" >> "$GITHUB_OUTPUT"
           fi
+          {
+            echo "### Lean toolchains"
+            echo "- K7PL (root workspace): \`$current\`; latest common release: \`$latest\`"
+            echo "- Paperproof extraction workspace (\`$PAPERPROOF_WORKSPACE\`, not bumped): \`$(cat "$PAPERPROOF_WORKSPACE/lean-toolchain")\`"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Update the toolchain and the requirements
         if: steps.version.outputs.newer == 'true'
@@ -170,6 +184,19 @@ jobs:
       - name: Regenerate lean-toolchain and lakefile.lean
         run: scripts/bump-lean.sh --no-update "$LATEST"
 
+      # Read from this clean checkout, for the pull request body only. The format is checked so
+      # that nothing but a toolchain name reaches the body.
+      - name: Record the toolchain of the Paperproof workspace (not bumped)
+        id: paperproof
+        run: |
+          set -euo pipefail
+          toolchain="$(cat "$PAPERPROOF_WORKSPACE/lean-toolchain")"
+          [[ "$toolchain" =~ ^leanprover/lean4:v[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+            echo "::error::unexpected toolchain in $PAPERPROOF_WORKSPACE/lean-toolchain: '$toolchain'"
+            exit 1
+          }
+          echo "toolchain=$toolchain" >> "$GITHUB_OUTPUT"
+
       - name: Download the resolved manifest (untrusted)
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -221,6 +248,12 @@ jobs:
             `scripts/ci/check_manifest.py --check-tags --check-upstream` avant l'ouverture de cette PR.
             `lake build` et `lake test` passent dans le job `build` du workflow qui a ouvert cette PR.
             Penser à ajouter une ligne dans `CHANGELOG.md`.
+
+            The isolated Paperproof extraction workspace (`${{ env.PAPERPROOF_WORKSPACE }}`) is not
+            bumped: it stays on `${{ steps.paperproof.outputs.toolchain }}`, pinned with its Mathlib and
+            Paperproof revision for Paperproof compatibility. Once merged, the K7PL toolchain
+            (`leanprover/lean4:${{ env.LATEST }}`) and the extractor's differ until a person bumps that
+            workspace after checking Paperproof; the proof-visualization artifacts record both.
           add-paths: |
             lean-toolchain
             lakefile.lean
