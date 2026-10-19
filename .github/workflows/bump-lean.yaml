@@ -91,7 +91,7 @@ jobs:
         run: scripts/bump-lean.sh --no-update "$LATEST"
 
       - if: steps.version.outputs.newer == 'true'
-        uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
+        uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1.6.2
         with:
           auto-config: false
           use-github-cache: false
@@ -122,7 +122,7 @@ jobs:
       # open-pr, never taken from here.
       - name: Hand over the resolved manifest
         if: steps.version.outputs.newer == 'true'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: lake-manifest
           path: lake-manifest.json
@@ -171,7 +171,7 @@ jobs:
         run: scripts/bump-lean.sh --no-update "$LATEST"
 
       - name: Download the resolved manifest (untrusted)
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: lake-manifest
           path: ${{ runner.temp }}/untrusted
