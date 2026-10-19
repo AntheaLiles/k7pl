@@ -36,9 +36,27 @@ EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
 EXPECTED_SPEC_BUILD_EXACT = {"scripts/controle.py", "scripts/manuscript_metrics.py"}
 EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/")
 EXPECTED_SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
-EXPECTED_TRACKING_VIEWS_EXACT = {"docs/tracking/fiches-statuts.csv"}
+EXPECTED_TRACKING_VIEWS_EXACT = {
+    "docs/tracking/fiches-statuts.csv",
+    "docs/peer-review/pr-02/taches-consolidees.md",
+    "docs/history/correspondance-theoremes-org.md",
+    "docs/tracking/FICHES-PR02.md",
+    "docs/tracking/correspondance-enonces.md",
+    "scripts/suivi.py",
+    "scripts/manuscript_metrics.py",
+}
 EXPECTED_LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 EXPECTED_LIGHT_EXACT = {"CITATION.cff"}
+# Added on top of the surface a path belongs to (test_impact_coverage.py derives them from code).
+EXPECTED_PYTHON_TEST_READ_EXACT = {"docs/tracking/LEAN-STATEMENT-MIGRATION.md"}
+EXPECTED_PYTHON_TEST_READ_PREFIXES = ("docs/migration/L1-", "src/")
+EXPECTED_SPEC_CHECK_READ_PREFIXES = ("src/",)
+EXPECTED_LEAN_BUILD_READ_EXACT = {
+    "tools/SpecExt/IndexCore.lean",
+    "tools/SpecExt/IndexTerms.lean",
+    "tools/SpecExt/Translate.lean",
+}
+EXPECTED_LEAN_BUILD_READ_PREFIXES = ("tools/Compliance/",)
 
 
 class ImpactTests(unittest.TestCase):
@@ -162,6 +180,11 @@ class SurfaceTableTests(unittest.TestCase):
         self.assertEqual(impact.TRACKING_VIEWS_EXACT, EXPECTED_TRACKING_VIEWS_EXACT)
         self.assertEqual(impact.LIGHT_PREFIXES, EXPECTED_LIGHT_PREFIXES)
         self.assertEqual(impact.LIGHT_EXACT, EXPECTED_LIGHT_EXACT)
+        self.assertEqual(impact.PYTHON_TEST_READ_EXACT, EXPECTED_PYTHON_TEST_READ_EXACT)
+        self.assertEqual(impact.PYTHON_TEST_READ_PREFIXES, EXPECTED_PYTHON_TEST_READ_PREFIXES)
+        self.assertEqual(impact.SPEC_CHECK_READ_PREFIXES, EXPECTED_SPEC_CHECK_READ_PREFIXES)
+        self.assertEqual(impact.LEAN_BUILD_READ_EXACT, EXPECTED_LEAN_BUILD_READ_EXACT)
+        self.assertEqual(impact.LEAN_BUILD_READ_PREFIXES, EXPECTED_LEAN_BUILD_READ_PREFIXES)
 
     def assert_surfaces(self, path, **expected):
         result = classify([path])
@@ -171,9 +194,9 @@ class SurfaceTableTests(unittest.TestCase):
         self.assertEqual(actual, wanted, path)
 
     def test_lean_paths(self):
-        for prefix in EXPECTED_LEAN_PREFIXES:
-            with self.subTest(prefix=prefix):
-                self.assert_surfaces(f"{prefix}Anything.lean", lean_build=True)
+        # couverture.py (controle.py and the `real_lean` pytest fixture) scans src/, not tests/.
+        self.assert_surfaces("src/Anything.lean", lean_build=True, spec_check=True, python_tests=True)
+        self.assert_surfaces("tests/Anything.lean", lean_build=True)
 
     def test_python_test_paths(self):
         paths = sorted(EXPECTED_PYTHON_TEST_EXACT) + [f"{p}test_example.py" for p in EXPECTED_PYTHON_TEST_PREFIXES]
@@ -206,6 +229,96 @@ class SurfaceTableTests(unittest.TestCase):
     def test_markdown_in_a_validated_directory_adds_the_link_check(self):
         self.assert_surfaces("spec/CHANGELOG.md", docs_links=True, spec_check=True, spec_build=True, python_tests=True)
         self.assert_surfaces("tests/NOTES.markdown", docs_links=True, lean_build=True)
+
+
+class ReadByAnotherSurfaceTests(unittest.TestCase):
+    """Files that a check reads although they belong to another surface add that check.
+
+    Before these rules, each path below triggered its own surface only (the link check for the
+    Markdown files, `spec_build` for tools/), so a pull request could break the reading check
+    without running it.
+    """
+
+    def surfaces(self, path):
+        result = classify([path])
+        self.assertFalse(result["unclassified"], f"{path} is unknown")
+        self.assertFalse(result["full"], path)
+        return {key for key in (*SURFACES, "tracking_views") if result[key]}
+
+    def test_documents_read_by_the_python_tests(self):
+        paths = sorted(EXPECTED_PYTHON_TEST_READ_EXACT) + [
+            "docs/migration/L1-THEORY-OBJECTS.md",
+            "docs/migration/L1-C06-SUBSTITUTION-AUDIT-2026-10-11.md",
+        ]
+        for path in paths:
+            with self.subTest(path=path):
+                self.assertEqual(self.surfaces(path), {"docs_links", "python_tests"})
+
+    def test_the_migration_prefix_is_not_the_whole_directory(self):
+        for path in ("docs/migration/README.md", "docs/migration/L5-VALIDATION.md"):
+            with self.subTest(path=path):
+                self.assertEqual(self.surfaces(path), {"docs_links"})
+
+    def test_lean_sources_are_scanned_by_the_coverage_control(self):
+        self.assertEqual(
+            self.surfaces("src/K7pl/Syntax.lean"), {"lean_build", "spec_check", "python_tests"}
+        )
+        self.assertEqual(self.surfaces("tests/ArithTest.lean"), {"lean_build"})
+
+    def test_tools_built_by_the_implementation_job(self):
+        paths = sorted(EXPECTED_LEAN_BUILD_READ_EXACT) + [
+            "tools/Compliance/SbomAudit.lean",
+            "tools/Compliance/SbomAuditMain.lean",
+            "tools/Compliance/RequirementEvidence.lean",
+        ]
+        for path in paths:
+            with self.subTest(path=path):
+                self.assertEqual(
+                    self.surfaces(path), {"spec_check", "spec_build", "python_tests", "lean_build"}
+                )
+
+    def test_other_tools_stay_on_the_specification_surface(self):
+        for path in ("tools/SpecExt/Float.lean", "tools/SpecBib.lean", "tools/SpecMain.lean"):
+            with self.subTest(path=path):
+                self.assertNotIn("lean_build", self.surfaces(path))
+
+    def test_inputs_outputs_and_code_of_the_tracking_views(self):
+        expected = {
+            "docs/tracking/fiches-statuts.csv": {"tracking_views"},
+            "docs/peer-review/pr-02/taches-consolidees.md": {"docs_links", "tracking_views"},
+            "docs/history/correspondance-theoremes-org.md": {"docs_links", "tracking_views"},
+            "docs/tracking/FICHES-PR02.md": {"docs_links", "tracking_views"},
+            "docs/tracking/correspondance-enonces.md": {"docs_links", "tracking_views"},
+            "scripts/suivi.py": {"python_tests", "tracking_views"},
+            "scripts/manuscript_metrics.py": {"spec_check", "spec_build", "python_tests", "tracking_views"},
+        }
+        self.assertEqual(set(expected), EXPECTED_TRACKING_VIEWS_EXACT)
+        for path, surfaces in expected.items():
+            with self.subTest(path=path):
+                self.assertEqual(self.surfaces(path), surfaces)
+
+    def test_separate_lake_workspaces(self):
+        # spec/formal-chain/ stays on the specification surface: controle.py's lexical guard reads
+        # every spec/**/*.lean. No verify.yaml check reads proofs/ (k7pl-semantics.yaml builds it
+        # on its own path filter), so it stays unclassified, hence fully validated.
+        self.assertEqual(
+            self.surfaces("spec/formal-chain/BlueprintK7PL.lean"),
+            {"spec_check", "spec_build", "python_tests", "tracking_views"},
+        )
+        for path in ("proofs/K7PL/Proof.lean", "proofs/lakefile.toml"):
+            with self.subTest(path=path):
+                result = classify([path])
+                self.assertTrue(result["full"] and result["unclassified"], path)
+
+    def test_executable_code_artifacts_feed_the_specification_build(self):
+        for path in ("spec/Spec/CodeArtifacts.lean", "tools/SpecExt/CodeArtifacts.lean"):
+            with self.subTest(path=path):
+                self.assertTrue({"spec_check", "spec_build"} <= self.surfaces(path))
+
+    def test_other_tracking_documents_stay_light(self):
+        for path in ("docs/tracking/DASHBOARD.md", "docs/history/pr-02-plan-de-traitement.md"):
+            with self.subTest(path=path):
+                self.assertEqual(self.surfaces(path), {"docs_links"})
 
 
 class EdgeClassificationTests(unittest.TestCase):

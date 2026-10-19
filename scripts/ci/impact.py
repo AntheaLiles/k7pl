@@ -29,11 +29,39 @@ SPEC_BUILD_EXACT = {
 }
 SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/")
 SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
-TRACKING_VIEWS_EXACT = {"docs/tracking/fiches-statuts.csv"}
+# `scripts/suivi.py check` and `all`, then `git diff --exit-code -- docs/tracking/`: the program,
+# the module it imports, its inputs and the views it regenerates.
+TRACKING_VIEWS_EXACT = {
+    "docs/tracking/fiches-statuts.csv",
+    "docs/peer-review/pr-02/taches-consolidees.md",
+    "docs/history/correspondance-theoremes-org.md",
+    "docs/tracking/FICHES-PR02.md",
+    "docs/tracking/correspondance-enonces.md",
+    "scripts/suivi.py",
+    "scripts/manuscript_metrics.py",
+}
 LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 LIGHT_EXACT = {"CITATION.cff"}
 PYTHON_TEST_EXACT = {"scripts/generate_status.py", "scripts/suivi.py"}
 PYTHON_TEST_PREFIXES = ("tests/python/",)
+
+# Files that a check reads although they belong to another surface. These rules only add the
+# check to whatever else the path triggers; test_impact_coverage.py derives the need from the code
+# of the checks and fails when a file they read does not trigger them.
+# tests/python reads the statement migration register (through statement_inventory.py) and the
+# stage C audits; couverture.py scans src/ for coupling anchors, in controle.py and in the
+# `real_lean` pytest fixture.
+PYTHON_TEST_READ_EXACT = {"docs/tracking/LEAN-STATEMENT-MIGRATION.md"}
+PYTHON_TEST_READ_PREFIXES = ("docs/migration/L1-", "src/")
+SPEC_CHECK_READ_PREFIXES = ("src/",)
+# Imported by tests/SpecToolsTest.lean and tests/SbomAuditTest.lean, or roots of K7plCompliance and
+# sbomAudit: only the `impl` job builds them.
+LEAN_BUILD_READ_EXACT = {
+    "tools/SpecExt/IndexCore.lean",
+    "tools/SpecExt/IndexTerms.lean",
+    "tools/SpecExt/Translate.lean",
+}
+LEAN_BUILD_READ_PREFIXES = ("tools/Compliance/",)
 
 
 def starts(path: str, prefixes: tuple[str, ...]) -> bool:
@@ -82,6 +110,15 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
 
         if path in TRACKING_VIEWS_EXACT or path.startswith("spec/"):
             tracking_views = True
+
+        if path in PYTHON_TEST_READ_EXACT or starts(path, PYTHON_TEST_READ_PREFIXES):
+            python_tests = True
+
+        if starts(path, SPEC_CHECK_READ_PREFIXES):
+            spec_check = True
+
+        if path in LEAN_BUILD_READ_EXACT or starts(path, LEAN_BUILD_READ_PREFIXES):
+            lean_build = True
 
         if path in FULL_EXACT or starts(path, FULL_PREFIXES):
             full = True
