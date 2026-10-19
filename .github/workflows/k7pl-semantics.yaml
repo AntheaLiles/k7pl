@@ -12,6 +12,7 @@ on:
       - "docs/formal-semantics.md"
       - "proofs/**"
       - "spec/formal-chain/**"
+      - "scripts/ci/test_code_artifact_contract.py"
       - "spec/Spec.lean"
       - "spec/Spec/**"
       - "tools/**"
@@ -28,6 +29,7 @@ on:
       - "docs/formal-semantics.md"
       - "proofs/**"
       - "spec/formal-chain/**"
+      - "scripts/ci/test_code_artifact_contract.py"
       - "spec/Spec.lean"
       - "spec/Spec/**"
       - "tools/**"
@@ -74,6 +76,9 @@ jobs:
           kompile --version
           python3 --version
           python3 -m pip --version
+
+      - name: Test Verso executable-code extraction contract
+        run: python3 scripts/ci/test_code_artifact_contract.py
 
       - name: Compile K definition and run examples
         run: make -C src/k check
