@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2026 K7PL contributors
+# SPDX-License-Identifier: CC0-1.0
+/.lake/
+/K7PL2Lean.lean
+/K7PL2Lean/
+/_out/

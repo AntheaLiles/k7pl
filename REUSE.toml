@@ -8,6 +8,10 @@ version = 1
 [[annotations]]
 path = [
   "lean-toolchain",
+  "proofs/lean-toolchain",
+  "proofs/lake-manifest.json",
+  "spec/formal-chain/lean-toolchain",
+  "spec/formal-chain/lake-manifest.json",
   "lake-manifest.json",
   "tooling/paperproof-export/lean-toolchain",
   "tooling/paperproof-export/lake-manifest.json",
@@ -27,6 +31,15 @@ SPDX-License-Identifier = "CC0-1.0"
 [[annotations]]
 path = [
   ".gitignore",
+  "Makefile",
+  "src/k/.gitignore",
+  "src/k/Makefile",
+  "proofs/Makefile",
+  "spec/formal-chain/Makefile",
+  "proofs/.gitignore",
+  "proofs/lakefile.toml",
+  "spec/formal-chain/.gitignore",
+  "spec/formal-chain/lakefile.lean",
   ".gitattributes",
   ".editorconfig",
   ".commitlintrc.yaml",
@@ -95,4 +108,12 @@ SPDX-License-Identifier = "CC0-1.0"
 path = "lib/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CECILL-C"
+
+# Plain K program inputs are parsed as source expressions, so licensing metadata
+# is declared here instead of prefixing the expression with a source comment.
+[[annotations]]
+path = "tests/examples/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 K7PL contributors"
 SPDX-License-Identifier = "CECILL-C"
