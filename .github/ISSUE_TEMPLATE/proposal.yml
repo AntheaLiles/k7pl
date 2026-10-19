@@ -2,37 +2,37 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-name: Proposition
-description: Proposer une évolution du langage, de la spécification ou de l'outillage.
+name: Proposal
+description: Propose a change to the language, the specification or the tooling.
 labels: [enhancement]
 body:
   - type: dropdown
     id: area
     attributes:
-      label: Domaine
+      label: Area
       options:
-        - Langage (syntaxe, sémantique, typage)
-        - Spécification (spec/)
-        - Implémentation (src/)
-        - Outillage (CI, scripts, dépendances)
+        - Language (syntax, semantics, typing)
+        - Specification (spec/)
+        - Implementation (src/)
+        - Tooling (CI, scripts, dependencies)
     validations:
       required: true
   - type: textarea
     id: motivation
     attributes:
       label: Motivation
-      description: Le problème à résoudre ou le besoin.
+      description: The problem to solve or the need.
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
-      label: Proposition
-      description: La solution envisagée, avec un exemple si possible.
+      label: Proposal
+      description: The envisaged solution, with an example if possible.
     validations:
       required: true
   - type: textarea
     id: soundness
     attributes:
-      label: Impact sur les preuves
-      description: Nouveaux axiomes, théorèmes à revoir, compatibilité avec l'existant.
+      label: Impact on proofs
+      description: New axioms, theorems to revisit, compatibility with what already exists.

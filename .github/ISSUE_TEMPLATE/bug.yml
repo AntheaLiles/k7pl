@@ -2,35 +2,35 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-name: Bogue
-description: Un comportement de l'implémentation, des tests ou de la spécification ne correspond pas à l'attendu.
+name: Bug
+description: A behaviour of the implementation, the tests or the specification does not match what was expected.
 labels: [bug]
 body:
   - type: textarea
     id: description
     attributes:
       label: Description
-      description: Ce qui se passe, et ce qui était attendu.
+      description: What happens, and what was expected.
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
       label: Reproduction
-      description: Fichier ou extrait Lean minimal, commandes lancées (`lake build`, `lake test`…).
+      description: Minimal Lean file or excerpt, commands run (`lake build`, `lake test`…).
       render: lean
     validations:
       required: true
   - type: textarea
     id: output
     attributes:
-      label: Sortie obtenue
-      description: Messages d'erreur ou résultat complet.
+      label: Actual output
+      description: Error messages or full result.
       render: text
   - type: input
     id: commit
     attributes:
       label: Commit
-      description: Résultat de `git rev-parse HEAD`.
+      description: Output of `git rev-parse HEAD`.
     validations:
       required: true
