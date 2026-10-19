@@ -13,17 +13,19 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions: read-all
+# The only job declares every permission it uses. Publishing results forbids write permissions at
+# the workflow level and allows id-token: write only in the job that runs the Scorecard action.
+permissions: {}
 
 jobs:
   analysis:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
-      security-events: write
-      id-token: write
+      security-events: write # upload the SARIF results to Code Scanning
+      id-token: write # publish_results: the results are authenticated with a GitHub OIDC token
       contents: read
-      actions: read
+      actions: read # read by codeql-action/upload-sarif for the workflow run (codeql-action#2117)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
