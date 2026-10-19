@@ -19,7 +19,7 @@ k7pl is a programming language implemented in Lean 4 with Mathlib and CSLib. Its
 - `.claude/skills/`: reusable procedures.
 - `.claude/agents/`: specialised roles and model settings.
 
-Only the specification (`spec/`) is written in French. Everything else is in English: code, identifiers, comments, docstrings, documentation, tracking, agent, rule and skill files, issues, PRs and commit messages.
+Only the specification (`spec/`) is written in French. Everything else is in English: code, identifiers, comments, docstrings, documentation, tracking, agent, rule and skill files, issues, PRs and commit messages. Strings that are rendered into the specification follow it and stay in French. File names are in English. Historical and evidence records (`docs/history/`, `docs/archives/`, `docs/peer-review/`, dated audits) are not translated: they are kept until their content has been analysed and arbitrated (moved elsewhere, abandoned, etc.), then deleted progressively.
 
 ## Non-negotiable invariants
 

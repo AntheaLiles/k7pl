@@ -62,6 +62,12 @@ recommended under `CECILL-C` (weak copyleft), see `LICENSE.md`.
   documentation (README, CONTRIBUTING, SECURITY, CHANGELOG, these writing
   rules), tracking, agent, rule and skill files, issues and PRs.
 - Commit messages: English, in the Conventional Commits format (§9).
+- Strings rendered into the specification (Verso extensions, generated
+  bibliography, navigation texts) follow the specification and stay in French.
+- File names: English.
+- Historical and evidence records (`docs/history/`, `docs/archives/`,
+  `docs/peer-review/`, dated audits) are not translated; they are deleted
+  progressively once their content has been analysed and arbitrated.
 
 ## 3. Naming conventions
 

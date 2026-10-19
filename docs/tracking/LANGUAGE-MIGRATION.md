@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Status:** IN PROGRESS. Inventory of the French text that remains outside `spec/`.
 **Snapshot:** `main` at `7af5581`, plus the branch `docs/english-policy` that introduces this file.
-**Nature:** tracking register. It lists work; it decides nothing about historical records (see category (c)).
+**Nature:** tracking register. It lists work; the owner's decisions of 2026-10-19 are recorded under "Rule".
 
 ## Rule
 
@@ -18,6 +18,17 @@ are written in English. The rule is stated in [`CONTRIBUTING.md`](../../CONTRIBU
 [`.claude/CLAUDE.md`](../../.claude/CLAUDE.md), [`.claude/rules/documentation.md`](../../.claude/rules/documentation.md)
 and [`.claude/skills/writing-rules.md`](../../.claude/skills/writing-rules.md), §2. No CI check
 enforces it.
+
+**Owner's decisions of 2026-10-19** (answers to the questions this register raised):
+
+- historical and evidence records (category (c)) are **not translated**. They are kept as they are
+  until their content has been analysed and arbitrated (moved elsewhere, abandoned, etc.), then
+  **deleted progressively**; each deletion records where the content went or why it was abandoned;
+- the specification stays in French: strings rendered into it (category (d), and the fixtures that
+  mirror its text) follow it and stay French;
+- **file names are in English**: the French file names outside `spec/` are to be renamed (see
+  "Coupled changes": several are read by scripts and tests). Whether module file names under
+  `spec/` are renamed as well is not yet decided.
 
 ## Already translated
 
@@ -156,11 +167,11 @@ documents, and a rename is a separate change (open question 6).
 | `docs/tracking/correspondance-enonces.md` | `python3 scripts/suivi.py enonces` | the heading is in `scripts/suivi.py`; the statement titles are extracted from `spec/` and are French by origin |
 | `tools/SpecBib.lean` (pass 2 only) | `scripts/biblio/biblio.py` from `docs/bibliography/references.json` | bibliographic data (author names, titles of cited works), not prose to translate |
 
-## (c) Historical and evidence records — owner decision
+## (c) Historical and evidence records — not translated, deleted after arbitration
 
-Translating these files changes the wording of records whose value lies in their fidelity (what was
-written, observed or decided at the time). Whether to translate them, keep them as they are, or add
-English summaries is an **owner decision**; this register makes no recommendation.
+Owner's decision of 2026-10-19: these records are not translated. Each is kept until its content has
+been analysed and arbitrated (moved elsewhere, abandoned, etc.), then deleted. The table below is
+therefore also the inventory of records still to arbitrate.
 
 | Area | Files | French lines |
 |---|--:|--:|
@@ -233,19 +244,22 @@ The path rules may misclassify a few files; the owner may move them between (a) 
 
 ## Open questions for the owner
 
-1. Records (category (c)): translate, keep as they are, or keep them and add English summaries?
+1. ~~Records (category (c)): translate, keep as they are, or add English summaries?~~ Decided
+   2026-10-19: not translated; deleted progressively after arbitration.
 2. Strings rendered into the French specification (`tools/SpecExt/`, `scripts/biblio/biblio.py`
    output, `navigation_explanations.py`): they belong to the French deliverable; do they count as
-   part of `spec/` for the language rule and stay French?
+   part of `spec/` for the language rule and stay French? Decided 2026-10-19: they stay French.
 3. Test fixtures and probes that mirror French spec text (`tests/python/conftest.py`,
    `tests/python/test_controles.py`, `tests/SpecToolsTest.lean`, `scripts/controles/donnees/sondes.json`):
-   they must follow the language of `spec/`; confirm that they stay French.
+   they must follow the language of `spec/`; confirm that they stay French. Follows from the
+   2026-10-19 decision: they stay French.
 4. `tooling/prototypes-bcd/*.lean`: former annex text, outside `spec/` since `d84021f`; its language
    follows the open decision `D-7` in [`DECISIONS.md`](DECISIONS.md)? (The paths under `tooling/` are
    expected to move to `tools/` in a later change.)
 5. Public metadata (`CITATION.cff`, `zenodo.json`, `zenodo.files.json`) describe a French
    specification: English only, or English with the French title kept as a proper name?
-6. French file names (`ACTIONS-HUMAINES.md`, `DECISIONS-REQUISES.md`, `fiches-statuts.csv`,
-   `correspondance-enonces.md`…): rename, or keep the names and translate the content only?
+6. ~~French file names: rename, or keep the names?~~ Decided 2026-10-19: file names are in English;
+   the renaming (with the coupled script and test changes) is a follow-up. Open: does it include
+   the module file names under `spec/`?
 7. While a document is still French, may an English paragraph be added to it, or is the file
    translated first?
