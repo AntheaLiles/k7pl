@@ -53,8 +53,10 @@ on:
         type: boolean
         default: true
 
+# Every job only reads the repository (checkout). The Pages deployment, which writes, is a job of
+# ci.yaml, not of this reusable workflow.
 permissions:
-  contents: read
+  contents: read # checkout
 
 env:
   # The isolated Lake workspace of the Paperproof extractor. scripts/ci/check_manifest.py

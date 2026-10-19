@@ -51,8 +51,9 @@ on:
     - cron: "43 5 3 * *"
   workflow_dispatch:
 
+# Read only: the pull request is opened with BUMP_TOKEN, never with GITHUB_TOKEN (see above).
 permissions:
-  contents: read
+  contents: read # checkout
 
 concurrency:
   group: bump-lean
