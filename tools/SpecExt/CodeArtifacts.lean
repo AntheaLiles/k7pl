@@ -8,8 +8,8 @@ import VersoManual
 
 open Lean Elab
 open Lean.Doc.Syntax
-open Verso.Doc Elab
-open Verso.Genre Manual
+open Verso Doc Elab
+open Verso Genre Manual
 open Verso.ArgParse
 open Std (HashMap)
 
