@@ -144,7 +144,7 @@ jobs:
               fail "lakefile.lean déclare '$lake_version' mais la release est '$TAG'"
             changelog=CHANGELOG.md
           else
-            cff="$(sed -n 's/^version: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' CITATION.cff)"
+            cff="$(bash scripts/ci/citation_version.sh)"
             [ "$cff" = "$VERSION" ] || fail "CITATION.cff déclare '$cff' mais la release est '$TAG'"
             changelog=spec/CHANGELOG.md
           fi

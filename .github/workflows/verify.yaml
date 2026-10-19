@@ -104,25 +104,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install elan
-        uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
+      # elan, the toolchain, the .lake/packages cache (its own key: the spec job builds other
+      # packages) and the Mathlib binary cache, which this job fetches even without use_cache.
+      - name: Set up Lean
+        id: lean
+        uses: ./.github/actions/setup-lean
         with:
-          auto-config: false
-          use-github-cache: false
-          use-mathlib-cache: false
-          build: false
-          test: false
-          lint: false
-
-      - name: Restore the Lake dependencies
-        if: ${{ inputs.use_cache }}
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: .lake/packages
-          key: lake-deps-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
-
-      - name: Fetch the Mathlib cache
-        run: lake exe cache get || echo "Mathlib cache unavailable, full rebuild ahead"
+          lake-cache-key: ${{ inputs.use_cache && format('lake-deps-impl-{0}', hashFiles('lake-manifest.json', 'lean-toolchain')) || '' }}
+          mathlib-cache: "true"
 
       # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The scan
       # covers src/ and tests/ only, and any declared lean_lib counts as a root, even one that this
@@ -178,7 +167,7 @@ jobs:
         run: lake test
 
       - name: Lint
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
         run: lake lint
 
       - name: Summary
@@ -191,7 +180,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Audit the axioms (K7pl)
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
         run: scripts/axiom-audit.sh K7pl K7pl
 
       # axiom-audit imports the module named by its root and audits that module and its
@@ -200,7 +189,7 @@ jobs:
       # (Compliance.SbomAudit, Compliance.RequirementEvidence) and of the sbomAudit CLI
       # (Compliance.SbomAuditMain). A new root is audited without editing this workflow.
       - name: Audit the axioms (compliance tooling)
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
         run: |
           set -euo pipefail
           roots="$(python3 scripts/ci/check_lean_modules.py --roots-in tools | grep '^Compliance\.')" || {
@@ -223,7 +212,7 @@ jobs:
       # module prefix". The roots are read from lakefile.lean, so a new test module is audited
       # without editing this workflow; every root is audited even if an earlier one fails.
       - name: Audit the axioms (tests)
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
         run: |
           set -euo pipefail
           roots="$(python3 scripts/ci/check_lean_modules.py --roots-in tests)"
@@ -353,8 +342,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      TECTONIC_VERSION: 0.15.0
-      TECTONIC_SHA256: dfb82876f2986862996e564fa507a9e576e0c1e3bee63c2c1bd677c2543e6407
       SOURCE_DATE_EPOCH: "946684800"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -366,18 +353,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends poppler-utils
 
+      # Version and SHA-256 are recorded in the action, once for both Tectonic jobs.
       - name: Install pinned Tectonic
-        shell: bash
-        run: |
-          set -euo pipefail
-          archive="tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-musl.tar.gz"
-          url="https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic@${TECTONIC_VERSION}/$archive"
-          curl --proto '=https' --tlsv1.2 --fail --location --silent --show-error \
-            "$url" --output "$RUNNER_TEMP/$archive"
-          echo "$TECTONIC_SHA256  $RUNNER_TEMP/$archive" | sha256sum --check --strict
-          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
-          install -m 0755 "$RUNNER_TEMP/tectonic" "$RUNNER_TEMP/tectonic-bin"
-          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+        id: tectonic
+        uses: ./.github/actions/setup-tectonic
 
       # The TikZ and PDF jobs pull different LaTeX packages: each has its own key prefix. With a
       # shared key, the first job to save made the other one's exact hit, and that job never saved
@@ -387,12 +366,14 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/Tectonic
-          key: tectonic-tikz-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
+          key: tectonic-tikz-${{ runner.os }}-${{ steps.tectonic.outputs.version }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
           restore-keys: |
-            tectonic-tikz-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
+            tectonic-tikz-${{ runner.os }}-${{ steps.tectonic.outputs.version }}-
 
       - name: Generate TikZ figures
-        run: bash scripts/ci/build_tikz_figures.sh
+        env:
+          TECTONIC_BIN_DIR: ${{ steps.tectonic.outputs.bin-dir }}
+        run: PATH="$TECTONIC_BIN_DIR:$PATH" bash scripts/ci/build_tikz_figures.sh
 
       - name: Validate generated TikZ figure assets
         run: python3 scripts/ci/check_tikz_figures.py --generated out/tikz-production
@@ -407,6 +388,8 @@ jobs:
 
       - name: Summarise TikZ figure assets
         if: ${{ success() }}
+        env:
+          TECTONIC_VERSION: ${{ steps.tectonic.outputs.version }}
         run: |
           {
             echo "### TikZ figure assets"
@@ -444,26 +427,14 @@ jobs:
           esac
           echo "epoch=$epoch" >> "$GITHUB_OUTPUT"
 
-      - name: Install elan
-        uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
+      # As in impl, with its own .lake/packages cache key; without use_cache (release builds), the
+      # Mathlib binary cache is not fetched either.
+      - name: Set up Lean
+        id: lean
+        uses: ./.github/actions/setup-lean
         with:
-          auto-config: false
-          use-github-cache: false
-          use-mathlib-cache: false
-          build: false
-          test: false
-          lint: false
-
-      - name: Restore the Lake dependencies
-        if: ${{ inputs.use_cache }}
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: .lake/packages
-          key: lake-deps-${{ hashFiles('lake-manifest.json', 'lean-toolchain') }}
-
-      - name: Fetch the Mathlib cache
-        if: ${{ inputs.use_cache }}
-        run: lake exe cache get || echo "Mathlib cache unavailable, full rebuild ahead"
+          lake-cache-key: ${{ inputs.use_cache && format('lake-deps-spec-{0}', hashFiles('lake-manifest.json', 'lean-toolchain')) || '' }}
+          mathlib-cache: ${{ inputs.use_cache }}
 
       - name: Register the Lean problem matcher
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
@@ -478,16 +449,16 @@ jobs:
         run: scripts/axiom-audit.sh Spec Spec
 
       - name: Audit the axioms (Spec.C3.EffectiveKernel)
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
         run: scripts/axiom-audit.sh Spec.C3.EffectiveKernel Spec
 
       # SpecExt and SpecBib are separate roots: `--root Spec` does not cover them.
       - name: Audit the axioms (SpecExt)
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
         run: scripts/axiom-audit.sh SpecExt SpecExt
 
       - name: Audit the axioms (SpecBib)
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
         run: scripts/axiom-audit.sh SpecBib SpecBib
 
       - name: Download generated TikZ figure assets
@@ -607,9 +578,6 @@ jobs:
     needs: spec
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      TECTONIC_VERSION: 0.15.0
-      TECTONIC_SHA256: dfb82876f2986862996e564fa507a9e576e0c1e3bee63c2c1bd677c2543e6407
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -621,17 +589,8 @@ jobs:
           path: _out/spec/tex
 
       - name: Install Tectonic
-        shell: bash
-        run: |
-          set -euo pipefail
-          archive="tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-musl.tar.gz"
-          url="https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic@${TECTONIC_VERSION}/$archive"
-          curl --proto '=https' --tlsv1.2 --fail --location --silent --show-error \
-            "$url" --output "$RUNNER_TEMP/$archive"
-          echo "$TECTONIC_SHA256  $RUNNER_TEMP/$archive" | sha256sum --check --strict
-          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
-          install -m 0755 "$RUNNER_TEMP/tectonic" "$RUNNER_TEMP/tectonic-bin"
-          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+        id: tectonic
+        uses: ./.github/actions/setup-tectonic
 
       - name: Cache Tectonic files
         if: ${{ inputs.use_cache }}
@@ -641,9 +600,9 @@ jobs:
           # An exact hit is never rewritten: the key follows the sources, so that a new LaTeX
           # package pulled in by the specification is saved by the next run. The prefix differs from
           # the TikZ job's (see there).
-          key: tectonic-pdf-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
+          key: tectonic-pdf-${{ runner.os }}-${{ steps.tectonic.outputs.version }}-${{ hashFiles('tools/SpecExt/**', 'tools/SpecMain.lean', 'lake-manifest.json', 'spec/figures/tikz/**') }}
           restore-keys: |
-            tectonic-pdf-${{ runner.os }}-${{ env.TECTONIC_VERSION }}-
+            tectonic-pdf-${{ runner.os }}-${{ steps.tectonic.outputs.version }}-
 
       # SOURCE_DATE_EPOCH and `-Z deterministic-mode` remove two known sources of variation (the
       # build date and absolute paths). They do not pin the TeX bundle, which Tectonic downloads
@@ -652,8 +611,10 @@ jobs:
         working-directory: _out/spec/tex
         env:
           SOURCE_DATE_EPOCH: ${{ needs.spec.outputs.source_date_epoch }}
+          TECTONIC_BIN_DIR: ${{ steps.tectonic.outputs.bin-dir }}
         run: |
           set -euo pipefail
+          export PATH="$TECTONIC_BIN_DIR:$PATH"
           case "$SOURCE_DATE_EPOCH" in
             ''|*[!0-9]*)
               echo "::error::SOURCE_DATE_EPOCH is not a number: '$SOURCE_DATE_EPOCH'"

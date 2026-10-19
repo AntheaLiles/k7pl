@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# The Lean set-up shared by verify.yaml (impl, spec) and bump-lean.yaml (build). It holds the one
+# pinned reference to leanprover/lean-action and to the actions/cache used for .lake/packages.
+# It receives no secret and needs no token permission beyond the job's own.
+name: Set up Lean
+description: >-
+  Install elan and the toolchain named by lean-toolchain with leanprover/lean-action (nothing
+  else: no build, test, lint, nor lean-action's own caches), optionally restore .lake/packages
+  from the Actions cache under the caller's key, and optionally fetch the Mathlib binary cache.
+
+inputs:
+  lake-cache-key:
+    description: >-
+      Key of the Actions cache of .lake/packages; empty (the default) restores and saves nothing.
+      The caller builds it, for instance from hashFiles('lake-manifest.json', 'lean-toolchain').
+    required: false
+    default: ""
+  mathlib-cache:
+    description: >-
+      "true" runs `lake exe cache get`; its failure only prints a message, and the build then
+      compiles Mathlib.
+    required: false
+    default: "false"
+
+runs:
+  using: composite
+  steps:
+    - name: Install elan
+      uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1.6.1
+      with:
+        auto-config: false
+        use-github-cache: false
+        use-mathlib-cache: false
+        build: false
+        test: false
+        lint: false
+
+    # An exact hit is never saved again: the key is the caller's, so that jobs whose
+    # .lake/packages differ (different built packages) do not overwrite each other.
+    - name: Restore the Lake dependencies
+      if: ${{ inputs.lake-cache-key != '' }}
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: .lake/packages
+        key: ${{ inputs.lake-cache-key }}
+
+    - name: Fetch the Mathlib cache
+      if: ${{ inputs.mathlib-cache == 'true' }}
+      shell: bash
+      run: lake exe cache get || echo "Mathlib cache unavailable, full rebuild ahead"
