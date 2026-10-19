@@ -10,7 +10,7 @@ help:
 	@printf '%s\n' 'Targets: extract-code, k-check, export-lean, proof, formal-chain, test, spec, check, clean'
 
 extract-code:
-	python3 scripts/extract_verso_code.py
+	lake exe spec --extract-code-only
 
 k-check:
 	$(MAKE) -C src/k check
