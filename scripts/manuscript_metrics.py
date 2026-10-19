@@ -133,7 +133,6 @@ def summary() -> dict:
     mods = walk()
     chapters = [(m, n) for m, n in mods if m.name and "." not in m.name]
     sections = [(m, n) for m, n in mods if "." in m.name]
-    texts = {m.name: m.text for m, _ in mods}
     count = Counter()
     keys = set()
     labels = set()

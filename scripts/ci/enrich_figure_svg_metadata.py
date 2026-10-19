@@ -8,7 +8,6 @@ import argparse
 import re
 import sys
 import xml.etree.ElementTree as ET
-from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
