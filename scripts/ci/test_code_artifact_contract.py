@@ -40,6 +40,7 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertIn('target.endsWith ".py"', self.extension)
         self.assertIn("collectPart text", self.extension)
         self.assertIn('import SpecExt.CodeArtifacts', self.page)
+        self.assertFalse((ROOT / "scripts/extract_verso_code.py").exists())
 
     def test_extract_only_mode_bypasses_rendering(self) -> None:
         self.assertIn('args.contains "--extract-code-only"', self.spec_main)
