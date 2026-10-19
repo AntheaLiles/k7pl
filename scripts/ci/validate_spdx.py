@@ -7,7 +7,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import shutil
@@ -17,6 +16,8 @@ import time
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
+
+from file_digest import sha256_file
 
 EXPECTED_VALIDATOR_VERSION = "0.8.5"
 REPORT_SCHEMA = "k7pl.spdx-validation/v1"
@@ -94,14 +95,6 @@ def preflight_issues(document: object) -> list[dict[str, str]]:
                 "artifact": f"{artifact}.name",
             })
     return issues
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _report(

@@ -98,6 +98,7 @@ class NegativeCorpusTests(unittest.TestCase):
             "negativeCorpusScriptSha256",
             "sbomGeneratorSha256",
             "spdxValidatorWrapperSha256",
+            "digestHelperSha256",
             "benchmarkScriptSha256",
             "lakeManifestSha256",
             "lakefileSha256",
