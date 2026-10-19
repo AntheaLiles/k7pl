@@ -5,6 +5,7 @@
 import VersoManual
 import Spec
 import SpecExt
+import SpecExt.CodeArtifacts
 
 open Verso.Genre Manual
 
@@ -26,7 +27,11 @@ def outputDir (args : List String) : System.FilePath :=
 text before rendering (`SpecExt.autoMark`), and the interface of the HTML pages is put in French
 afterwards (`SpecExt.Translate`). -/
 def main (args : List String) : IO UInt32 := do
-  let code ← manualMain (SpecExt.autoMark (%doc Spec)) (options := args) (config := config)
+  let sourceDoc := %doc Spec
+  let extractionCode ← SpecExt.CodeArtifacts.extractArtifacts sourceDoc
+  if extractionCode != 0 then return extractionCode
+  if args.contains "--extract-code-only" then return 0
+  let code ← manualMain (SpecExt.autoMark sourceDoc) (options := args) (config := config)
   let html := outputDir args / "html-multi"
   if code == 0 && (← html.isDir) then
     let n ← SpecExt.Translate.translateTree html
