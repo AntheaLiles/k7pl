@@ -45,17 +45,110 @@ Une instance doit préciser le langage objet, les clauses de définition de $`T`
 
 :::proofsketch
 Par récurrence sur le terme. Les cas des constructeurs sont immédiats, $`T` y étant définie
+composante par composante. Le seul cas non immédiat est celui du lieur : il demande que la variable substituée ne soit pas capturée par le lieur produit par -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Six schémas de métathéorie" =>
+%%%
+file := "c2-six-schemas-de-metatheorie"
+tag := "c2-six-schemas-de-metatheorie"
+%%%
+
+{label "sec:c2-six-schemas-de-metatheorie"}
+
+Six schémas de preuve réutilisables sont rassemblés ici. Ils portent sur la forme générale des raisonnements, non sur les propriétés de K7PL prises comme acquises. Leur statut varie : chaque schéma est accompagné de ses hypothèses et des obligations qui restent à vérifier pour l'appliquer au système effectif.
+
+Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le
+désucrage d'une forme de surface, la traduction vers le métalangage et l'abaissement vers la
+représentation intermédiaire ont ceci de commun qu'ils sont définis par récurrence sur la structure
+des termes et qu'ils doivent commuter avec la substitution — faute de quoi le sens dépendrait de
+l'ordre dans lequel on transforme et on substitue.
+
+::::lemma (label := "thm:schema_commutation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
+:::title
+schéma de commutation
+:::
+
+:::statement +titled
+Transformer puis substituer, ou l'inverse
+
+Soit $`T` une transformation définie par récurrence sur la structure des termes. Supposons qu'elle n'introduise aucune variable libre, respecte les liaisons et que chacune de ses clauses soit compatible avec la substitution : action sur les variables, action sur chaque constructeur, traitement des lieurs et évitement de capture compris. Alors, à renommage près des variables liées,
+$$`T \circ \text{subst} \;=\; \text{subst} \circ T.`
+
+Une instance doit préciser le langage objet, les clauses de définition de $`T`, la substitution sans capture et l'équivalence de renommage, puis vérifier leur compatibilité.
+:::
+
+:::proofsketch
+Par récurrence sur le terme. Les cas des constructeurs sont immédiats, $`T` y étant définie
+composante par composante. T`, condition que l'instance doit vérifier dans sa clause de compatibilité du lieur.
+:::
+
+:::note
+_Obligation ouverte._ Le schéma suppose explicitement la compatibilité de toutes les clauses de -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Six schémas de métathéorie" =>
+%%%
+file := "c2-six-schemas-de-metatheorie"
+tag := "c2-six-schemas-de-metatheorie"
+%%%
+
+{label "sec:c2-six-schemas-de-metatheorie"}
+
+Six schémas de preuve réutilisables sont rassemblés ici. Ils portent sur la forme générale des raisonnements, non sur les propriétés de K7PL prises comme acquises. Leur statut varie : chaque schéma est accompagné de ses hypothèses et des obligations qui restent à vérifier pour l'appliquer au système effectif.
+
+Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le
+désucrage d'une forme de surface, la traduction vers le métalangage et l'abaissement vers la
+représentation intermédiaire ont ceci de commun qu'ils sont définis par récurrence sur la structure
+des termes et qu'ils doivent commuter avec la substitution — faute de quoi le sens dépendrait de
+l'ordre dans lequel on transforme et on substitue.
+
+::::lemma (label := "thm:schema_commutation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
+:::title
+schéma de commutation
+:::
+
+:::statement +titled
+Transformer puis substituer, ou l'inverse
+
+Soit $`T` une transformation définie par récurrence sur la structure des termes. Supposons qu'elle n'introduise aucune variable libre, respecte les liaisons et que chacune de ses clauses soit compatible avec la substitution : action sur les variables, action sur chaque constructeur, traitement des lieurs et évitement de capture compris. Alors, à renommage près des variables liées,
+$$`T \circ \text{subst} \;=\; \text{subst} \circ T.`
+
+Une instance doit préciser le langage objet, les clauses de définition de $`T`, la substitution sans capture et l'équivalence de renommage, puis vérifier leur compatibilité.
+:::
+
+:::proofsketch
+Par récurrence sur le terme. Les cas des constructeurs sont immédiats, $`T` y étant définie
 composante par composante. Le seul cas non immédiat est celui du lieur : il demande que la variable
 substituée ne soit pas capturée par le lieur que $`T` produit, ce que l'hypothèse d'hygiène fournit.
 :::
 
 :::note
-_Obligation ouverte._ Les trois hypothèses (récurrence structurelle, aucune variable libre
-introduite, respect des liaisons) ne fixent pas à elles seules les équations de compatibilité dont
-dépend la commutation. Restent à expliciter l'action de $`T` sur les variables et sur chaque
-constructeur, lieurs compris, la substitution sans capture et l'équivalence de renommage, puis la
-condition latérale exacte qui rend valide le cas du lieur. Jusque-là, le schéma reste
-sous-spécifié.
+T` avec la substitution. Pour chaque instance, restent à expliciter les actions sur les variables, chaque constructeur et les lieurs, ainsi que la substitution sans capture et l'équivalence de renommage, puis à vérifier la condition latérale du cas du lieur. Tant que ces obligations ne sont pas remplies, l'instance reste sous-spécifiée.
 :::
 ::::
 Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qu'il faut

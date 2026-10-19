@@ -260,13 +260,7 @@ assure la fidélité de session et la sûreté de communication mais non l'absen
 L'hypothèse d'acyclicité fait ici tout le travail, et figure à ce titre dans l'énoncé plutôt que
 dans la preuve.
 
-Deux appuis techniques valent d'être nommés avant la preuve, puisqu'ils bornent ce qu'elle suppose.
-Le premier est que l'élimination des coupures y porte sur le seul fragment multiplicatif de la
-logique linéaire — celui qu'engendrent les types de session — et non sur la logique linéaire
-intuitionniste entière, dont la recherche de preuve certifiée est un problème à part entière {cite "ALLAIS-MCBRIDE"}[].
-Son admissibilité n'a d'ailleurs pas à être supposée, puisqu'elle s'obtient indépendamment de la
-théorie des modes dans les cadres qui paramètrent produits et implications — ordonnés, linéaires,
-affines, cartésiens — par une telle théorie {cite "licataFibrationalFrameworkSubstructural2017"}[].
+L’argument utilise l’élimination des coupures dans le seul fragment multiplicatif de la logique linéaire engendré par les types de session, et non dans la logique linéaire intuitionniste entière, où la recherche de preuve certifiée constitue un problème distinct {cite "ALLAIS-MCBRIDE"}[]. L’admissibilité de cette coupure peut s’établir indépendamment de la théorie des modes dans les cadres qui paramètrent produits et implications — ordonnés, linéaires, affines ou cartésiens {cite "licataFibrationalFrameworkSubstructural2017"}[].
 L'acyclicité du graphe statique ne s'étend pas, à elle seule, au graphe d'attente dynamique. Le résultat ci-dessous distingue donc la simulation (Sim), qui reste à établir, de la conséquence qu'elle autoriserait : un sous-graphe d'un graphe acyclique est acyclique.
 
 ::::theorem (label := "thm:deadlock_acyclique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "concurrency")

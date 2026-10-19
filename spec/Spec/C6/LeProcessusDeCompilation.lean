@@ -141,7 +141,7 @@ stabilisation conditionnelle du pipeline
 :::statement +titled
 Terminaison sous contrat de budget
 
-Si le budget de spécialisation est fini, ne croît jamais, et si chaque tour qui modifie le terme consomme strictement au moins une unité de ce budget tandis qu'un tour sans modification est reconnu comme point fixe, alors la boucle $`\text{Vérification} \to \text{Optimisation} \to \text{Vérification}` termine en un nombre fini de tours.
+Si chaque tour de vérification/optimisation termine, si le budget de spécialisation est fini et ne croît jamais, et si chaque tour qui modifie le terme consomme strictement au moins une unité de ce budget tandis qu'un tour sans modification est reconnu comme point fixe, alors la boucle $`\text{Vérification} \to \text{Optimisation} \to \text{Vérification}` termine en un nombre fini de tours.
 :::
 
 :::proofsketch
@@ -149,7 +149,7 @@ Le nombre de tours modifiant le terme est borné par le budget initial, puisque 
 :::
 
 :::note
-_Obligation ouverte._ Le contrat de budget est maintenant explicité comme hypothèse, mais il reste à prouver et à tester sur l'implémentation que chaque transformation qui modifie le terme consomme le budget, que le budget ne peut pas être réaugmenté et qu'un tour sans changement est détecté. La terminaison effective du pipeline n'est pas encore établie.
+_Obligation ouverte._ Il reste à établir que chaque tour individuel de vérification/optimisation termine, que chaque transformation modifiant le terme consomme le budget, que ce budget ne peut pas être réaugmenté et qu'un tour sans changement est détecté. La terminaison effective du pipeline n'est pas encore établie.
 :::
 ::::
 Le recours à un solveur externe pose enfin la question de la _stratégie_ de vérification des
