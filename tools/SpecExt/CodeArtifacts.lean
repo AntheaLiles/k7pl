@@ -25,6 +25,8 @@ a developer-maintained source file.
 -/
 section
 variable {m : Type → Type}
+  [Monad m] [MonadInfoTree m] [MonadResolveName m] [MonadEnv m] [MonadError m]
+  [MonadLiftT CoreM m] [MonadLog m] [AddMessageContext m] [MonadOptions m]
 
 meta instance : FromArgs CodeArtifactConfig m where
   fromArgs :=
