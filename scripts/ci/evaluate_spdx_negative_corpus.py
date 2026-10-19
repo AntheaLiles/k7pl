@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import argparse
 import copy
-import hashlib
 import json
 import os
 import platform
@@ -27,17 +26,11 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any, Callable
 
+from file_digest import sha256_file
+
 EXPECTED_VALIDATOR_VERSION = "0.8.5"
 ROOT = Path(__file__).resolve().parents[2]
 WRAPPER = ROOT / "scripts" / "ci" / "validate_spdx.py"
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _workflow_context() -> dict[str, str | int | None]:
@@ -81,6 +74,7 @@ def _tool_input_hashes() -> dict[str, str]:
         "negativeCorpusScriptSha256": Path(__file__).resolve(),
         "sbomGeneratorSha256": ROOT / "scripts" / "ci" / "lake_manifest_to_spdx.py",
         "spdxValidatorWrapperSha256": WRAPPER,
+        "digestHelperSha256": ROOT / "scripts" / "ci" / "file_digest.py",
         "benchmarkScriptSha256": ROOT / "scripts" / "ci" / "benchmark_spdx_validator.py",
         "lakeManifestSha256": ROOT / "lake-manifest.json",
         "lakefileSha256": ROOT / "lakefile.lean",

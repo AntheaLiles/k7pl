@@ -8,7 +8,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import platform
@@ -21,19 +20,13 @@ from importlib.metadata import PackageNotFoundError, version as package_version
 from pathlib import Path
 from typing import Any
 
+from file_digest import sha256_file
+
 ROOT = Path(__file__).resolve().parents[2]
 VALIDATOR = ROOT / "scripts" / "ci" / "validate_spdx.py"
 LOCKFILE = ROOT / "scripts" / "requirements-spdx-validator.txt"
 EXPECTED_VALIDATOR_VERSION = "0.8.5"
 METRICS = ("processWallMs", "wrapperElapsedMs", "validatorElapsedMs")
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def validate_repetitions(value: int) -> int:
@@ -215,6 +208,7 @@ def run_benchmark(input_path: Path, repetitions: int) -> dict[str, Any]:
         "cacheObservation": cache_state,
         "toolInputs": {
             "validatorScriptSha256": sha256_file(VALIDATOR),
+            "digestHelperScriptSha256": sha256_file(ROOT / "scripts" / "ci" / "file_digest.py"),
             "benchmarkScriptSha256": sha256_file(Path(__file__).resolve()),
             "negativeCorpusScriptSha256": sha256_file(ROOT / "scripts" / "ci" / "evaluate_spdx_negative_corpus.py"),
             "sbomGeneratorScriptSha256": sha256_file(ROOT / "scripts" / "ci" / "lake_manifest_to_spdx.py"),
