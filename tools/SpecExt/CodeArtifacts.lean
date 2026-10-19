@@ -41,8 +41,12 @@ The payload is consumed by the pre-render extraction pass in SpecMain.
 block_extension Block.savedCode (target : String) (language : String) (source : String) where
   data := .arr #[.str target, .str language, .str source]
   traverse _ _ _ := pure none
-  toTeX := some fun _ goB _ _ contents => contents.mapM goB
-  toHtml := some fun _ goB _ _ contents => contents.mapM goB
+  toTeX := some fun _ goB _ _ contents => do
+    let rendered ← contents.mapM goB
+    pure <| .seq rendered
+  toHtml := some fun _ goB _ _ contents => do
+    let rendered ← contents.mapM goB
+    pure <| Verso.Output.Html.fromArray rendered
 
 /-- An executable K definition whose contents are extracted during the Verso build. -/
 @[code_block]
