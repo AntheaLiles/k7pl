@@ -27,7 +27,7 @@ restent responsables de vérifier le code généré.
 # Définition K expérimentale
 
 ```k7plK (file := "src/k/.build/generated/semantics.k")
- // SPDX-FileCopyrightText: 2026 K7PL contributors
+ // SPDX-FileCopyrightText: 2026 Cyprien PIERRE
  // SPDX-License-Identifier: CECILL-2.1
  //
  // Experimental operational semantics for a deliberately small K7PL subset.
@@ -100,7 +100,7 @@ résultats attendus. Il est lui aussi généré depuis Verso : il ne constitue p
 
 ```pythonScript (file := "src/k/.build/generated/check_k_examples.py")
 #!/usr/bin/env python3
-# SPDX-FileCopyrightText: 2026 K7PL contributors
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 # SPDX-License-Identifier: CECILL-2.1
 """Run the experimental K7PL example corpus and check expected results."""
 
