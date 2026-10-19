@@ -10,13 +10,13 @@ publication chain** (workflows, dependencies, releases, accounts). It says nothi
 belongs to [`../ASSURANCE.md`](../ASSURANCE.md). The current factual state of the repository is produced by CI in [`../STATUS.md`](../STATUS.md).
 
 **Where the current state is kept.** Open security, release and BadgeApp gates are tracked in [`OPENSSF-ROADMAP.md`](OPENSSF-ROADMAP.md); the
-maintainer-only steps are in [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md). The latest dated operational snapshot in this directory is the
+maintainer-only steps are in [`ACTIONS-HUMAINES.md`](ACTIONS-HUMAINES.md). The latest dated snapshot of the OpenSSF campaign's operational state is the
 post-merge state of PR #129 observed on 2026-10-11 (`main` head `86959948`, CI run `38094667153` green on its second attempt, BadgeApp drift
 job `skipped`), recorded in section 18 of [`IMPLEMENTATION-STATUS.md`](IMPLEMENTATION-STATUS.md); it does not describe later `main` heads. The
 2026-10-10 archives remain historical. No OpenSSF level, recorded BadgeApp answer or human review is claimed.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-14  
+**Last updated:** 2026-10-19  
 **Audience:** the maintainer, reviewers, agents.
 
 ## Commit identifiers cited
@@ -48,7 +48,7 @@ listed below are still written in French.
 | [`ASSURANCE-CASE.md`](ASSURANCE-CASE.md) | security claims that are supported, and those that are not (yet) true |
 | [`GOVERNANCE.md`](GOVERNANCE.md) | decision model, actual roles and continuity limits |
 | [`SECRETS-POLICY.md`](SECRETS-POLICY.md) | secret-handling rules and administrative checks still required |
-| [`TOOLING-EVALUATION.md`](TOOLING-EVALUATION.md) | prospective evaluation of security tools (OSV-Scanner for Lake dependencies with a separate SBOM, Lean fuzzing and SAST, zizmor for workflows, branch governance); adopts no tool and claims no coverage |
+| [`TOOLING-EVALUATION.md`](TOOLING-EVALUATION.md) | prospective evaluation of security tools (OSV-Scanner for Lake dependencies with a separate SBOM, Lean fuzzing and SAST, zizmor for workflows, branch governance), with a dated maturity review (2026-10-16) and observed results (2026-10-17); declares no tool adopted and claims no coverage |
 | [`LEAN-SECURITY-TOOLCHAIN.md`](LEAN-SECURITY-TOOLCHAIN.md) | target architecture and phases of a Lean 4 security-tooling programme (format-independent data model, adapters, SPDX/CycloneDX strategy); the bounded Lake→SPDX 2.3 demonstrator is documented in [`../research/LEAN-COMPLIANCE-ASSURANCE.md`](../research/LEAN-COMPLIANCE-ASSURANCE.md) |
 | [`workstreams/`](workstreams/) | raw agent reports: audits, changes, validations, final audits |
 

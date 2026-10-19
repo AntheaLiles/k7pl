@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 K7PL is a research project on the design and formal treatment of a programming language whose specification, formalisation, implementation, proofs, and executable tests remain traceable but distinct.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-14  
+**Last updated:** 2026-10-19  
 **Audience:** researchers, reviewers, contributors.
 
 ## Research problem
@@ -53,14 +53,17 @@ Detailed research history is kept in [research/](research/) (working analyses, r
 
 ## Research and bibliography material
 
-The files below are indexed so that each is reachable from a current page. Most come from the former working folder (origin recorded in [the provenance table](history/2026-10-07-provenance-migration.md)), are written in French and carry their own dates. An entry here does not promote a file's conclusions to current research claims.
+The files below are indexed so that each is reachable from a current page. Many come from the former working folder (origin recorded in [the provenance table](history/2026-10-07-provenance-migration.md)); most are written in French, and each carries its own dates. An entry here does not promote a file's conclusions to current research claims.
 
 ### docs/research/
 
 - [2026-09-08-analyse-b-et-f.md](research/2026-09-08-analyse-b-et-f.md) — analyses B and F (8 September 2026): cost, risk and opportunity of the rule shape for the terminal coalgebra (B), and an attempt to show that a finite biproduct is necessary to K7PL and that codereliction matters (F).
 - [2026-09-08-analyse-b-approfondie.md](research/2026-09-08-analyse-b-approfondie.md) — analysis B revisited after the author's correction (8 September 2026): where the earlier analysis was wrong and what decision B-b actually commits to.
 - [2026-09-09-focus-f-route-4.md](research/2026-09-09-focus-f-route-4.md) — research focus F, route 4 (9 September 2026): the intuitionistic and probabilistic opening through measurable cones; verdict F4-3.
-- [LEAN-COMPLIANCE-ASSURANCE.md](research/LEAN-COMPLIANCE-ASSURANCE.md) — workstream K, Lean-tooled compliance assurance: the bounded Lake→SPDX 2.3 demonstrator, its evaluation runs, limits and extension decisions.
+- [LEAN-COMPLIANCE-ASSURANCE.md](research/LEAN-COMPLIANCE-ASSURANCE.md) — workstream K (issue #122), Lean-tooled compliance assurance: the bounded Lake→SPDX 2.3 demonstrator, its evaluation runs, limits and extension decisions.
+- [LEAN-COMPLIANCE-DECISION.md](research/LEAN-COMPLIANCE-DECISION.md) — proposed research decision for issue #122 (17 October 2026): conditional go for a bounded hybrid demonstrator (Lake inventory consistency, independent SPDX validation, separate OSV query); no-go for a general production compliance gate or legal/regulatory compliance claims.
+- [REQUIREMENT-EVIDENCE-MODEL.md](research/REQUIREMENT-EVIDENCE-MODEL.md) — non-normative research demonstrator for requirement-to-evidence traceability (`tools/Compliance/RequirementEvidence.lean`), a second work item of issue #122; in English.
+- [SPDX-NEGATIVE-CORPUS-REVIEW.md](research/SPDX-NEGATIVE-CORPUS-REVIEW.md) — review of the non-blocking SPDX 2.3 negative corpus (issue #122): case-by-case observations from workflow run #39025036478 and the human decisions required before the corpus could become blocking.
 - [ancienne-annexe-e-preambule.md](research/ancienne-annexe-e-preambule.md) — preamble of the former Annex E (formal presentation), kept verbatim after the annex was merged into chapters 1, 3 and 4 on 1 October 2026.
 - [arc-g-methode.md](research/arc-g-methode.md) — arc G naming method (31 August 2026): a five-step method written before any reading for the arc.
 - [arc-g-collecte.md](research/arc-g-collecte.md) — arc G, step 3 (2 September 2026): collection of the names used elsewhere, by category; it records, it does not choose.
