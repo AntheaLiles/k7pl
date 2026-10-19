@@ -3,55 +3,84 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Contribuer à k7pl
+# Contributing to k7pl
 
-Merci de votre intérêt pour k7pl. Ce document décrit le déroulement d'une
-contribution ; les règles détaillées de rédaction (structure, nommage, en-têtes
-SPDX, style Lean et Verso) sont dans
-[`.claude/skills/writing-rules.md`](.claude/skills/writing-rules.md), qui fait
-référence pour les humains comme pour les agents.
+Thank you for your interest in k7pl. This document describes the workflow of a
+contribution; the detailed writing rules (structure, naming, SPDX headers,
+Lean and Verso style) are in
+[`.claude/skills/writing-rules.md`](.claude/skills/writing-rules.md), which is
+the reference for humans and agents alike.
 
-En participant, vous acceptez le [code de conduite](CODE_OF_CONDUCT.md).
+By participating, you accept the [code of conduct](CODE_OF_CONDUCT.md).
 
-## Mettre en place l'environnement
+## Setting up the environment
 
 ```sh
 git clone https://github.com/AntheaLiles/k7pl.git && cd k7pl
-lake exe cache get   # binaires Mathlib précompilés (elan installe la bonne version de Lean)
+lake exe cache get   # precompiled Mathlib binaries (elan installs the right Lean version)
 lake build && lake test
 pip install reuse && reuse lint
 ```
 
-## Déroulement
+## Workflow
 
-1. Ouvrir une issue pour toute proposition non triviale (changement du langage,
-   nouvelle dépendance), afin d'en discuter avant d'écrire le code.
-2. Créer une branche courte depuis `main` (`feat/lambda`, `fix/parser-precedence`…).
-3. Faire des commits au format [Conventional Commits](https://www.conventionalcommits.org/fr/),
-   avec `CHANGELOG.md` à jour. La CI vérifie **chaque commit** de la PR avec `.commitlintrc.yaml` :
-   en-tête de 100 caractères au plus, type parmi `feat`, `fix`, `docs`, `style`, `refactor`, `perf`,
-   `test`, `build`, `ci`, `chore`, portée en minuscules, sujet sans majuscule initiale ni point final.
-   Un seul commit refusé fait échouer `CI OK`, et corriger un message déjà poussé oblige à réécrire
-   l'historique de la branche : vérifier **avant** de pousser (voir « Vérifier ses commits »).
-4. Ouvrir une pull request vers `main` en remplissant le modèle.
-5. Le check `CI OK` doit passer. Il agrège l'analyse d'impact, les contrôles ciblés selon les
-   fichiers modifiés (Lean : compilation, tests, lint, audit des axiomes ; spécification :
-   contrôles, compilation, rendu), REUSE, Conventional Commits, actionlint et gitleaks.
-6. Toute fonctionnalité nouvelle ou modification majeure doit être accompagnée de tests automatisés
-   couvrant son comportement attendu et les régressions plausibles. Si un test automatisé n'est pas
-   pertinent ou possible, expliquer pourquoi dans la PR et consigner le contrôle alternatif. Les
-   corrections de bogues doivent ajouter un test de régression lorsqu'un test peut raisonnablement
-   reproduire le défaut.
-7. Fusion selon le ruleset GitHub : l'historique linéaire est requis, mais le dépôt n'impose pas une méthode particulière (merge, rebase ou squash). Les contrôles de build vérifient la tête de la pull
-   request, pas chaque commit pris isolément ; `commitlint`, lui, les lit tous.
+1. Open an issue for any non-trivial proposal (change to the language,
+   new dependency), so that it is discussed before the code is written.
+2. Create a short-lived branch from `main` (`feat/lambda`, `fix/parser-precedence`…).
+3. Write commits in the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+   format (see [Commit messages](#commit-messages)), with `CHANGELOG.md` up to date. CI checks
+   **every commit** of the PR with `.commitlintrc.yaml`. A single rejected commit makes `CI OK`
+   fail, and fixing a message that has already been pushed requires rewriting the history of the
+   branch: check **before** pushing (see [Checking your commits](#checking-your-commits)).
+4. Open a pull request against `main` and fill in the template.
+5. The `CI OK` check must pass. It aggregates the impact analysis, the checks targeted at the
+   changed files (Lean: compilation, tests, lint, axiom audit; specification: checks, compilation,
+   rendering), REUSE, Conventional Commits, actionlint and gitleaks.
+6. Every new feature or major change must come with automated tests covering its expected
+   behaviour and the plausible regressions. If an automated test is not relevant or not possible,
+   explain why in the PR and record the alternative check. Bug fixes must add a regression test
+   when a test can reasonably reproduce the defect.
+7. Merging follows the GitHub ruleset: a linear history is required, but the repository does not impose a particular method (merge, rebase or squash). The build checks verify the head of the pull
+   request, not each commit taken in isolation; `commitlint`, on the other hand, reads all of them.
 
-Ne jamais réécrire l'historique d'une branche partagée (pas de force-push sur
-`main`, ni sur la branche d'une autre personne).
+Never rewrite the history of a shared branch (no force-push to
+`main`, nor to someone else's branch).
 
-### Vérifier ses commits
+## Commit messages
 
-Avec Node installé (ce dépôt n'a pas de `package.json` : l'outil s'installe dans un dossier temporaire,
-à côté d'une copie de la configuration, dont `extends` se résout depuis ce dossier) :
+Commit messages are written in English and follow
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
+
+```
+<type>(<scope>): <description>
+```
+
+CI checks every commit of a pull request with commitlint (`.github/workflows/commitlint.yaml`).
+Its configuration, `.commitlintrc.yaml`, extends `@commitlint/config-conventional` and sets:
+
+- **Types**: the standard types `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`,
+  `build`, `ci`, `chore` and `revert`, plus two project types used in the history: `licensing`
+  (SPDX headers, REUSE, license texts) and `a11y` (accessibility).
+- **Scope**: in lower case (`parser`, `spec`, `ci`…), or in upper case for chapter scopes such
+  as `C8`.
+- **Header**: at most 100 characters.
+- **Body and footer**: line length not limited (Dependabot and release notes produce long
+  lines: URLs, tables).
+- **Subject case**: not enforced, because Dependabot writes sentence-case subjects ("Bump …").
+
+The other rules of `@commitlint/config-conventional` still apply, in particular: a non-empty
+type in lower case, a non-empty subject without a final period, no leading or trailing
+whitespace in the header, and a blank line before the body and before the footer (warning only).
+
+commitlint does not check the language: writing commit messages in English is a project rule
+(see [Languages](#languages)). The style conventions (imperative mood, lower-case initial,
+examples) and breaking changes (`!` after the scope and a `BREAKING CHANGE: …` footer) are
+described in the [writing rules](.claude/skills/writing-rules.md), §9.
+
+### Checking your commits
+
+With Node installed (this repository has no `package.json`: the tool is installed in a temporary
+directory, next to a copy of the configuration, whose `extends` is resolved from that directory):
 
 ```sh
 mkdir -p /tmp/commitlint && cp .commitlintrc.yaml /tmp/commitlint/
@@ -60,129 +89,132 @@ mkdir -p /tmp/commitlint && cp .commitlintrc.yaml /tmp/commitlint/
 /tmp/commitlint/node_modules/.bin/commitlint --cwd . --config /tmp/commitlint/.commitlintrc.yaml --from origin/main
 ```
 
-Sans message d'erreur, la plage `origin/main..HEAD` est conforme à ce que contrôle la CI.
+If no error message is printed, the range `origin/main..HEAD` complies with what CI checks.
 
-## Revue
+## Review
 
-Aujourd'hui, aucune revue par une seconde personne n'a lieu : k7pl est porté par une seule
-personne, qui fusionne ses propres pull requests une fois le check `CI OK` réussi. Le ruleset de
-`main` n'exige aucune approbation. Les agents d'assistance (Claude Code) rédigent, proposent et
-vérifient des changements ; ils ne constituent pas une revue indépendante. Ce constat est un écart
-structurel explicite, pas une approbation implicite.
+Today, no review by a second person takes place: k7pl is carried by a single
+person, who merges their own pull requests once the `CI OK` check has passed. The ruleset of
+`main` requires no approval. The assistant agents (Claude Code) draft, propose and
+check changes; they do not constitute an independent review. This observation is an explicit
+structural gap, not an implicit approval.
 
-Pour chaque PR, l'autrice effectue une auto-revue avant fusion : adéquation au besoin et au périmètre,
-analyse des effets sur la sémantique et les interfaces, tests ajoutés ou mis à jour, documentation et
-changelog cohérents, dépendances et licences justifiées, absence de secrets, permissions CI minimales,
-liens et références valides, résultat de tous les contrôles requis. Pour une modification sensible,
-la PR doit décrire les risques résiduels et les preuves qui restent à vérifier. Cette auto-revue et la
-CI ne remplacent pas l'examen indépendant par une autre personne.
+For each PR, the author performs a self-review before merging: fitness for the need and the scope,
+analysis of the effects on the semantics and the interfaces, tests added or updated, consistent
+documentation and changelog, justified dependencies and licenses, absence of secrets, minimal CI
+permissions, valid links and references, result of every required check. For a sensitive change,
+the PR must describe the residual risks and the evidence that remains to be verified. This
+self-review and CI do not replace an independent examination by another person.
 
-Le projet ne revendique pas satisfaire le critère OpenSSF exigeant une revue par une personne autre
-que l'auteur. Les exigences et responsabilités de gouvernance sont décrites dans
-[`docs/security/GOVERNANCE.md`](docs/security/GOVERNANCE.md) ; l'état de l'audit est suivi dans
+The project does not claim to meet the OpenSSF criterion that requires a review by a person other
+than the author. The governance requirements and responsibilities are described in
+[`docs/security/GOVERNANCE.md`](docs/security/GOVERNANCE.md); the state of the audit is tracked in
 [`docs/security/OPENSSF-AUDIT.md`](docs/security/OPENSSF-AUDIT.md).
 
-## Corriger la spécification
+## Correcting the specification
 
-Le manuscrit est écrit en Verso (`spec/Spec/`, un module par chapitre et par section de
-niveau 2) ; les règles d'écriture et les extensions disponibles (`{num}`, `{cite}`, `thm`,
-`formula`, `figure`…) sont dans les [règles de rédaction](.claude/skills/writing-rules.md), §6 et §8.
-Avant d'écrire, lire le [tableau de bord](docs/tracking/DASHBOARD.md) ; après un changement
-notable, mettre à jour `docs/tracking/fiches-statuts.csv` puis lancer `python3 scripts/suivi.py all`.
-Un énoncé corrigé change de sceau (`status`, `level` de la directive `thm`), il ne se réécrit
-pas à l'identique.
+The manuscript is written in Verso (`spec/Spec/`, one module per chapter and per level-2
+section); the writing rules and the available extensions (`{num}`, `{cite}`, `thm`,
+`formula`, `figure`…) are in the [writing rules](.claude/skills/writing-rules.md), §6 and §8.
+Before writing, read the [dashboard](docs/tracking/DASHBOARD.md); after a
+notable change, update `docs/tracking/fiches-statuts.csv` then run `python3 scripts/suivi.py all`.
+A corrected statement changes its seal (`status`, `level` of the `thm` directive); it is not
+rewritten as though nothing had changed.
 
-## Langues
+## Languages
 
-- **Français** : documentation (README, CONTRIBUTING, spécification Verso,
-  règles de rédaction), issues et pull requests.
-- **Anglais** : code source Lean (identifiants, docstrings, commentaires),
-  messages affichés par le code, workflows et scripts.
-- **Bilingue** : messages de commit, selon le contexte, à condition de respecter
-  Conventional Commits ; aucune langue n'est imposée par la CI.
+- **French**: the specification (`spec/`) only.
+- **English**: everything else — source code (identifiers, docstrings, comments), messages
+  displayed by the code, workflows and scripts, documentation (README, CONTRIBUTING, writing
+  rules, `docs/`), tracking, agent and rule files, issues, pull requests and commit messages.
 
+The CI does not check the language. French text outside `spec/` that predates this rule is
+listed, with the detection method used, in the translation backlog
+[`docs/tracking/LANGUAGE-MIGRATION.md`](docs/tracking/LANGUAGE-MIGRATION.md).
 
-## Preuves et axiomes
+## Proofs and axioms
 
-- Aucun `sorry` ni `admit` : tout avertissement fait échouer la compilation.
-- Seuls les axiomes standard `propext`, `Classical.choice` et `Quot.sound`
-  sont admis sous `K7pl` ; la CI le vérifie avec `axiom-audit`. Ajouter un
-  axiome demande une discussion préalable dans une issue.
+- No `sorry` or `admit`: any warning makes compilation fail.
+- Only the standard axioms `propext`, `Classical.choice` and `Quot.sound`
+  are allowed under `K7pl`; CI checks this with `axiom-audit`. Adding an
+  axiom requires a prior discussion in an issue.
 
-## Mettre à jour Lean et les dépendances
+## Updating Lean and dependencies
 
-Lean, Mathlib, CSLib et Verso montent ensemble :
-`scripts/bump-lean.sh vX.Y.Z`, puis `lake build && lake test`. Le workflow
-`Bump Lean` ouvre automatiquement une PR chaque mois quand une nouvelle version
-commune existe.
+Lean, Mathlib, CSLib and Verso are upgraded together:
+`scripts/bump-lean.sh vX.Y.Z`, then `lake build && lake test`. The
+`Bump Lean` workflow automatically opens a PR every month when a new common
+version exists.
 
-Le job d'impact de la CI lance `scripts/ci/check_manifest.py` (hors ligne) à chaque exécution : le
-manifeste `lake-manifest.json` ne doit contenir que les 14 paquets connus, chacun lié à son dépôt.
-Une nouvelle dépendance, y compris transitive, fait donc échouer la CI **volontairement** jusqu'à ce
-qu'une personne l'ait relue et ajoutée à `ALLOWED_PACKAGES` dans `scripts/ci/check_manifest.py`
-(`nom: propriétaire/dépôt`) ; la PR de `Bump Lean` n'aboutit pas seule dans ce cas.
+The CI impact job runs `scripts/ci/check_manifest.py` (offline) on every run: the
+manifest `lake-manifest.json` must contain only the 14 known packages, each tied to its repository.
+A new dependency, including a transitive one, therefore makes CI fail **on purpose** until
+a person has reviewed it and added it to `ALLOWED_PACKAGES` in `scripts/ci/check_manifest.py`
+(`name: owner/repository`); in that case the `Bump Lean` PR does not succeed on its own.
 
-## Publier une version
+## Publishing a release
 
-La spécification et l'implémentation ont des versions **indépendantes** :
+The specification and the implementation have **independent** versions:
 
-| Release    | Tag            | Version déclarée dans           | Changelog            | Effet                               |
-|------------|----------------|---------------------------------|----------------------|-------------------------------------|
-| Spécification | `spec-vX.Y.Z` | `CITATION.cff` (`version`)     | `spec/CHANGELOG.md`  | brouillon de release avec le PDF, sa somme SHA-256 et son attestation ; archivage Zenodo après publication |
-| Implémentation | `vX.Y.Z`     | `lakefile.lean` (`version`)    | `CHANGELOG.md`       | contrôles avant publication ; ni artefact ni Zenodo |
+| Release        | Tag           | Version declared in             | Changelog            | Effect                              |
+|----------------|---------------|---------------------------------|----------------------|-------------------------------------|
+| Specification  | `spec-vX.Y.Z` | `CITATION.cff` (`version`)      | `spec/CHANGELOG.md`  | draft release with the PDF, its SHA-256 checksum and its attestation; Zenodo archiving after publication |
+| Implementation | `vX.Y.Z`      | `lakefile.lean` (`version`)     | `CHANGELOG.md`       | checks before publication; neither artefact nor Zenodo |
 
-Les releases de ce dépôt sont conçues pour être **immuables** (la release existante l'est ; le réglage du
-dépôt est à confirmer, voir [`docs/security/ACTIONS-HUMAINES.md`](docs/security/ACTIONS-HUMAINES.md), § 1.6) : une
-fois publiée, une release immuable ne peut plus recevoir, remplacer ni perdre d'asset, et son tag ne peut plus bouger. La CI prépare donc tout *avant* la
-publication, et **ne publie jamais** : la publication est un geste humain, irréversible. Une erreur
-après publication impose une nouvelle version, et le nom d'un tag publié n'est pas réutilisable.
+The releases of this repository are designed to be **immutable** (the existing release is; the
+repository setting remains to be confirmed, see [`docs/security/ACTIONS-HUMAINES.md`](docs/security/ACTIONS-HUMAINES.md), § 1.6): once
+published, an immutable release can no longer receive, replace or lose an asset, and its tag can no longer move. CI therefore prepares everything *before*
+publication, and **never publishes**: publication is a human, irreversible act. An error
+after publication requires a new version, and the name of a published tag cannot be reused.
 
-> **Statut.** Ce flux est écrit et vérifié par des outils statiques et des tests de ses scripts, mais
-> il **n'a jamais été exécuté de bout en bout**. Avant la première release de spécification, suivre la
-> liste de [`docs/security/ACTIONS-HUMAINES.md`](docs/security/ACTIONS-HUMAINES.md) (§ 5) : environnements
-> protégés, règle de tags, décision sur le DOI, répétition sur le sandbox Zenodo.
+> **Status.** This flow is written and checked by static tools and by tests of its scripts, but
+> it **has never been run end to end**. Before the first specification release, follow the
+> list in [`docs/security/ACTIONS-HUMAINES.md`](docs/security/ACTIONS-HUMAINES.md) (§ 5): protected
+> environments, tag rule, decision on the DOI, rehearsal on the Zenodo sandbox.
 
-### Spécification (`spec-vX.Y.Z`)
+### Specification (`spec-vX.Y.Z`)
 
-1. Dans une PR : passer `[Unreleased]` de `spec/CHANGELOG.md` en
-   `## [X.Y.Z] - AAAA-MM-JJ`, et mettre à jour `version` et `date-released`
-   dans `CITATION.cff`.
-2. Après fusion, poser le tag sur un commit de `main` et le pousser :
-   `git tag spec-vX.Y.Z <commit> && git push origin spec-vX.Y.Z`. Ne pas créer la release à la main.
-3. `release.yaml` contrôle les métadonnées, que le commit est sur `main` et que `CI OK` y a réussi,
-   reconstruit sans cache Actions, puis crée une release **en brouillon** contenant le PDF
-   (`k7pl-spec.pdf`), sa somme (`.sha256`) et l'attestation (`.sigstore.json`).
-4. Relire le brouillon, rejouer en local les commandes « Avant publication » de ses notes
-   (`sha256sum -c`, puis `gh attestation verify --bundle` avec `--source-digest` et
-   `--deny-self-hosted-runners`), puis le **publier**. GitHub génère alors l'attestation de la
-   release : `gh release verify` et `gh release verify-asset` ne fonctionnent qu'à partir de là.
-5. La publication déclenche `zenodo.yaml`, qui vérifie les assets publiés avant de les déposer. Il
-   refuse de publier tant que les variables `ZENODO_ENV` (exactement `production` ou `sandbox`) et
-   `ZENODO_CONCEPT_RECID` (l'identifiant du concept, ou `NEW` pour en créer un) ne sont pas
-   renseignées dans l'environnement `zenodo`. Après un run avec `NEW`, renseigner la variable avec
-   l'identifiant affiché dans le résumé du job, et **ne jamais rejouer ce run** : avec `NEW`, le
-   script refuse de s'exécuter si `GITHUB_RUN_ATTEMPT` n'est pas `1`, et un échec après l'envoi de
-   la publication (code de sortie 3) écrit le DOI et l'identifiant du concept dans le résumé du job.
-6. Vérifier que le DOI de `CITATION.cff` et du README est le bon.
+1. In a PR: turn `[Unreleased]` in `spec/CHANGELOG.md` into
+   `## [X.Y.Z] - YYYY-MM-DD`, and update `version` and `date-released`
+   in `CITATION.cff`.
+2. After merging, put the tag on a commit of `main` and push it:
+   `git tag spec-vX.Y.Z <commit> && git push origin spec-vX.Y.Z`. Do not create the release by hand.
+3. `release.yaml` checks the metadata, that the commit is on `main` and that `CI OK` succeeded on it,
+   rebuilds without the Actions cache, then creates a **draft** release containing the PDF
+   (`k7pl-spec.pdf`), its checksum (`.sha256`) and the attestation (`.sigstore.json`).
+4. Review the draft, replay locally the commands of the "Avant publication" ("before
+   publication") section of its notes (`sha256sum -c`, then `gh attestation verify --bundle` with
+   `--source-digest` and `--deny-self-hosted-runners`), then **publish** it. GitHub then generates
+   the release attestation: `gh release verify` and `gh release verify-asset` only work from that
+   point on.
+5. Publication triggers `zenodo.yaml`, which checks the published assets before depositing them. It
+   refuses to publish as long as the variables `ZENODO_ENV` (exactly `production` or `sandbox`) and
+   `ZENODO_CONCEPT_RECID` (the concept identifier, or `NEW` to create one) are not
+   set in the `zenodo` environment. After a run with `NEW`, set the variable to
+   the identifier shown in the job summary, and **never re-run that run**: with `NEW`, the
+   script refuses to run if `GITHUB_RUN_ATTEMPT` is not `1`, and a failure after the
+   publication has been sent (exit code 3) writes the DOI and the concept identifier to the job
+   summary.
+6. Check that the DOI in `CITATION.cff` and in the README is the right one.
 
-Métadonnées Zenodo : `zenodo.json` (communes) et `zenodo.files.json` (par PDF) ; le script y ajoute
-à l'exécution le tag, le commit, l'URL de la release et la somme SHA-256 du PDF. `ZENODO_ENV=sandbox`
-publie sur sandbox.zenodo.org avec un jeton du sandbox.
+Zenodo metadata: `zenodo.json` (shared) and `zenodo.files.json` (per PDF); at run time, the script
+adds the tag, the commit, the release URL and the SHA-256 checksum of the PDF. `ZENODO_ENV=sandbox`
+publishes to sandbox.zenodo.org with a sandbox token.
 
-Un essai à blanc existe : le workflow `Release`, lancé à la main (`workflow_dispatch`), rejoue les
-contrôles et la construction sans rien écrire. Il n'est disponible qu'une fois ce workflow sur
-`main`, exige un commit déjà sur `main` et une version dont les métadonnées sont prêtes.
+A dry run exists: the `Release` workflow, started by hand (`workflow_dispatch`), replays the
+checks and the build without writing anything. It is only available once this workflow is on
+`main`, and requires a commit already on `main` and a version whose metadata are ready.
 
-### Implémentation (`vX.Y.Z`)
+### Implementation (`vX.Y.Z`)
 
-1. Dans une PR : passer `[Unreleased]` de `CHANGELOG.md` en `## [X.Y.Z] - AAAA-MM-JJ`
-   et mettre à jour `version` dans `lakefile.lean`.
-2. Après fusion, pousser le tag `vX.Y.Z` sur un commit de `main`. `release.yaml` contrôle et vérifie
-   l'implémentation **avant** toute publication ; il ne produit aucun artefact (une bibliothèque
-   Lake est consommée en source, par son tag).
-3. Quand ce run est vert, créer la release depuis le tag (notes tirées de `CHANGELOG.md`) : la publier
-   la rend immuable.
+1. In a PR: turn `[Unreleased]` in `CHANGELOG.md` into `## [X.Y.Z] - YYYY-MM-DD`
+   and update `version` in `lakefile.lean`.
+2. After merging, push the tag `vX.Y.Z` on a commit of `main`. `release.yaml` checks and verifies
+   the implementation **before** any publication; it produces no artefact (a Lake library
+   is consumed as source, through its tag).
+3. When that run is green, create the release from the tag (notes taken from `CHANGELOG.md`):
+   publishing it makes it immutable.
 
-## Sécurité
+## Security
 
-Ne pas signaler de vulnérabilité dans une issue publique : voir [SECURITY.md](SECURITY.md).
+Do not report a vulnerability in a public issue: see [SECURITY.md](SECURITY.md).
