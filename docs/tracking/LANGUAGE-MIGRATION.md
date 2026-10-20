@@ -144,7 +144,7 @@ Indexes, registers, plans, guides and policies that the project keeps current.
 | Agent definitions | 8 | `.claude/agents/`: `consistency-auditor`, `formal-reviewer`, `lean-debugger`, `lean-implementer`, `spec-architect`, `spec-editor`, `theorem-prover`, `verification-specialist` (the six assurance agents are already English) |
 | Skills | 15 | every `SKILL.md` under `.claude/skills/engineering/`, `lean/`, `research/` and `spec/` |
 | CI documentation | 1 | `.github/workflows/README.md` |
-| READMEs next to code | 3 | `scripts/ci/navigation_graph/README.md`, `scripts/org2verso/README.md`, `tooling/prototypes-bcd/README.md` |
+| READMEs next to code | 3 | `scripts/ci/navigation_graph/README.md`, `scripts/org2verso/README.md`, `tools/prototypes-bcd/README.md` (translated when `tooling/` was folded into `tools/`) |
 | `docs/` root | 1 | `docs/PROVENANCE.md` (partly French) |
 | `docs/tracking/` | 15 | `DECISIONS.md`, `INTERACTIVE-EXPLORATION.md`, `INTERACTIVE-EXPLORATION-INVENTORY.md`, `INTERACTIVE-EXPLORATION-PLAN.md`, `LEAN-STATEMENT-MIGRATION.md`, `NAVIGATION-PROTOTYPE.md`, `NAVIGATION-SEMANTIC-MODEL.md`, `PROJECT-MASTER-PLAN.md`, `PROOF-VISUALIZATION-COVERAGE.md`, `PROOF-VISUALIZATION-HUMAN-REVIEW.md`, `PROOF-VISUALIZATION-ROADMAP.md`, `factorisations-refusees.md`, `fiches-statuts.csv`, `hypotheses-de-module.md`, `primitives.md` |
 | `docs/security/` | 12 | `ACTIONS-HUMAINES.md`, `ASSURANCE-CASE.md`, `BADGE-AUTOMATION.md`, `BADGE-CONFORMANCE-MATRIX.md`, `DECISIONS-REQUISES.md`, `GOVERNANCE.md`, `LEAN-SECURITY-TOOLCHAIN.md`, `OPENSSF-ROADMAP.md`, `README.md`, `SECRETS-POLICY.md`, `THREAT-MODEL.md`, `TOOLING-EVALUATION.md` |
@@ -197,7 +197,7 @@ those citations describe the files as they were and no longer match the translat
 | `scripts/controles/` | 9 | `algebre.py`, `couverture.py`, `croise.py`, `donnees/sondes.json`, `indexation.py`, `notation.py`, `semantique.py`, `statement_ontology.py`, `structure.py` | check messages; `sondes.json` holds passages that must match the French spec text |
 | Other scripts | 3 | `scripts/org2verso/convert.py`, `scripts/suivi.py`, `scripts/sync_zenodo.py` | messages, generated headings |
 | Tests | 4 | `tests/SpecToolsTest.lean`, `tests/python/conftest.py`, `tests/python/test_controles.py`, `tests/python/test_stage_c_interface_audit.py` | fixtures that mirror French spec text, assertions on French documents |
-| `tooling/prototypes-bcd/` | 3 | `AnnexeB.lean`, `AnnexeC.lean`, `AnnexeD.lean` | text extracted from the former annexes B, C and D |
+| `tools/prototypes-bcd/` | 3 | `AnnexB.lean`, `AnnexC.lean`, `AnnexD.lean` | text extracted from the former annexes B, C and D |
 | `tools/SpecExt/` | 2 | `ProofVisualization.lean`, `Translate.lean` | strings rendered into the French specification (HTML and PDF) |
 
 Pass 2 adds 32 files with short French strings: `lib/lib-exemple.k7` (a comment in a K7PL library
@@ -253,9 +253,9 @@ The path rules may misclassify a few files; the owner may move them between (a) 
    `tests/python/test_controles.py`, `tests/SpecToolsTest.lean`, `scripts/controles/donnees/sondes.json`):
    they must follow the language of `spec/`; confirm that they stay French. Follows from the
    2026-10-19 decision: they stay French.
-4. `tooling/prototypes-bcd/*.lean`: former annex text, outside `spec/` since `d84021f`; its language
-   follows the open decision `D-7` in [`DECISIONS.md`](DECISIONS.md)? (The paths under `tooling/` are
-   expected to move to `tools/` in a later change.)
+4. `tools/prototypes-bcd/*.lean`: former annex text, outside `spec/` since `d84021f`; its language
+   follows the open decision `D-7` in [`DECISIONS.md`](DECISIONS.md)? (Moved from `tooling/` to
+   `tools/`, with English file names.)
 5. Public metadata (`CITATION.cff`, `zenodo.json`, `zenodo.files.json`) describe a French
    specification: English only, or English with the French title kept as a proper name?
 6. ~~French file names: rename, or keep the names?~~ Decided 2026-10-19: file names are in English;
