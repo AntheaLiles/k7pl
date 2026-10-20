@@ -53,7 +53,7 @@ A successful proof, test, compilation, or review must not be interpreted as esta
 | Automation | .github/ | CI, security, release, repository automation |
 | Agent infrastructure | .claude/ | Claude Code rules, skills, agents |
 
-The physical documentation migration closed on 2026-10-08; the [migration register](migration/README.md) is now the register for semantic qualification. The current entry points (this file, [README.md](README.md), [RESEARCH.md](RESEARCH.md), [METHOD.md](METHOD.md), [ASSURANCE.md](ASSURANCE.md), [PROVENANCE.md](PROVENANCE.md) and the generated [STATUS.md](STATUS.md)) sit at the top of `docs/`. Supporting material is grouped by epistemic area: [tracking/](tracking/DASHBOARD.md), [research/](research/), [bibliography/](bibliography/), [method/](method/), [peer-review/](peer-review/README.md), [security/](security/README.md), [migration/](migration/README.md), [history/](history/) and [archives/](archives/README.md).
+The physical documentation migration closed on 2026-10-08; the [migration register](migration/README.md) is now the register for semantic qualification. The current entry points (this file, [README.md](README.md), [RESEARCH.md](RESEARCH.md), [METHOD.md](METHOD.md), [ASSURANCE.md](ASSURANCE.md), [PROVENANCE.md](PROVENANCE.md) and the generated [STATUS.md](STATUS.md)) sit at the top of `docs/`. Supporting material is grouped by epistemic area: [tracking/](tracking/DASHBOARD.md), [research/](research/), [bibliography/](bibliography/), [decisions/](decisions/README.md) (architecture decision records), [method/](method/), [peer-review/](peer-review/README.md), [security/](security/README.md), [migration/](migration/README.md), [history/](history/) and [archives/](archives/README.md).
 
 ## Authority rules
 
