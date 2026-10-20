@@ -60,25 +60,7 @@ jobs:
         # main, as a pull request run would. The base comes from the checkout, never from an input.
         # A commit that is already on main gets the full validation, so this path never narrows the
         # checks behind a `CI OK` that a main commit carries.
-        run: |
-          set -euo pipefail
-          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$REF" = "refs/heads/automation/generated-status" ]; then
-            git rev-parse --verify --quiet refs/remotes/origin/main > /dev/null || {
-              echo "::error::origin/main is not available in the checkout"
-              exit 1
-            }
-            if git merge-base --is-ancestor "$HEAD_SHA" refs/remotes/origin/main; then
-              python3 scripts/ci/impact.py --force-full
-            else
-              # Fails, and so fails `CI OK`, when the branch shares no history with main.
-              base="$(git merge-base refs/remotes/origin/main "$HEAD_SHA")"
-              python3 scripts/ci/impact.py --base "$base" --head "$HEAD_SHA"
-            fi
-          elif [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            python3 scripts/ci/impact.py --force-full
-          else
-            python3 scripts/ci/impact.py --base "$BASE_SHA" --head "$HEAD_SHA"
-          fi
+        run: bash scripts/ci/ci_impact.sh
 
   verify:
     name: Vérification
@@ -162,18 +144,7 @@ jobs:
 
       - name: Check whether STATUS already covers the current history
         id: baseline
-        run: |
-          set -euo pipefail
-          generated_for="$(sed -n 's/^\*\*Generated for commit:\*\* \([0-9a-f]\{40\}\)$/\1/p' docs/STATUS.md)"
-          if [ -n "$generated_for" ] \
-            && git fetch --no-tags origin "$generated_for" >/dev/null 2>&1 \
-            && git merge-base --is-ancestor "$generated_for" "$GITHUB_SHA" \
-            && [ -z "$(git diff --name-only "$generated_for" "$GITHUB_SHA" -- . ':(exclude)docs/STATUS.md')" ]; then
-            echo "current=true" >> "$GITHUB_OUTPUT"
-            echo "STATUS already describes the latest substantive commit ($generated_for); only docs/STATUS.md changed afterwards."
-          else
-            echo "current=false" >> "$GITHUB_OUTPUT"
-          fi
+        run: bash scripts/ci/ci_status_baseline.sh
 
       - name: Generate STATUS.md
         if: ${{ steps.baseline.outputs.current != 'true' }}
@@ -189,23 +160,11 @@ jobs:
       - name: Check for generated changes
         id: changes
         if: ${{ steps.baseline.outputs.current != 'true' }}
-        run: |
-          if git diff --quiet -- docs/STATUS.md; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
+        run: bash scripts/ci/ci_status_changes.sh
 
       - name: Publish generated status branch
         if: ${{ steps.changes.outputs.changed == 'true' }}
-        run: |
-          set -euo pipefail
-          git switch -C automation/generated-status
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/STATUS.md
-          git commit -m "ci: update generated project status"
-          git push --force origin automation/generated-status
+        run: bash scripts/ci/ci_status_publish.sh
 
       # The push above is made with GITHUB_TOKEN: it starts no run on its own (the pull_request run
       # it causes waits for a maintainer's approval). A workflow_dispatch event made with
@@ -222,16 +181,7 @@ jobs:
         if: ${{ steps.changes.outputs.changed == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          count="$(gh pr list --head automation/generated-status --base main --state open --json number --jq 'length')"
-          if [ "$count" -eq 0 ]; then
-            gh pr create \
-              --base main \
-              --head automation/generated-status \
-              --title "ci: update generated project status" \
-              --body "Automated update of docs/STATUS.md from the CI verification gate. This file is generated; no manual status editing is required."
-          fi
+        run: bash scripts/ci/ci_status_pull_request.sh
 
 
   deploy-pages:
