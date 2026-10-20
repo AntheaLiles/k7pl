@@ -71,16 +71,19 @@ décharger pour cette instance les obligations du schéma de commutation, que sa
 pas.
 :::
 ::::
-Trois conséquences en découlent, et elles dispensent d'autant d'arguments locaux. La _staticité de
-la syntaxe_ (théorème {num "thm:staticite_syntaxe"}[]) en est un corollaire : si aucune forme de
-surface n'a de sens propre, aucune n'étend la grammaire du noyau. La _dérivabilité de l'expansion_
+Trois conséquences en découlent, sous les conditions que le théorème laisse à énoncer ; elles ne
+dispensent d'autant d'arguments locaux qu'une fois ces conditions établies et les obligations de
+chaque instance déchargées. La _staticité de la syntaxe_ (théorème {num "thm:staticite_syntaxe"}[])
+en est un corollaire : si aucune forme de surface n'a de sens propre, aucune n'étend la grammaire du
+noyau. La _dérivabilité de l'expansion_
 (théorème {num "thm:expansion_macro"}[]) en est l'instance pour les macros. Et la transparence de la
 défonctionnalisation, que le chapitre 6 emploie, en est l'instance pour une passe du compilateur —
 le morphisme de correction que le premier postulat réclame étant ici l'identité sur le sens.
 
 Le tableau {num "tab:c5-formes-de-surface"}[] rassemble les six formes, ce qu'elles écrivent et ce
-qu'elles élaborent. Chacune tombe sous le théorème qui précède, et aucune ne demande d'argument
-propre.
+qu'elles élaborent. Chacune tombe sous le théorème qui précède, qui ne dispense pas de vérifier
+chaque instance : celles qui effectuent une ré-invocation finie y ajoutent leur obligation propre
+sur $`\varphi_n`.
 
 ::::k7table (label := "tab:c5-formes-de-surface") (align := "lZ{1.0}Z{1.0}")
 :::caption
