@@ -133,7 +133,7 @@ est la démonstration — le théorème {num "thm:raffinement"}[] en dérive l'a
 n'établit encore celle-là.
 
 Une lecture est une analogie qui organise sans engager. Il n'en reste que deux, et c'est le résultat
-d'un travail. La plupart des analogies de la première rédaction ont été soit démontrées — le
+d'un travail. La plupart des analogies de la première rédaction ont été soit esquissées — le
 namespace comme inclusion fonctorielle, l'orchestrateur comme coalgèbre, le grade de présence comme
 fragment affine — soit requalifiées en réserve.
 
