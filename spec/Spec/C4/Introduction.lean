@@ -19,6 +19,8 @@ file := "c4-introduction"
 tag := "c4-introduction"
 %%%
 
+Toute fonction ou groupe de fonctions mis en production est un _automate_.
+
 Le chapitre 3 a dit ce qu'est un type ; celui-ci dit comment un programme s'exécute. Un type de
 session, un typestate, une capabilité restent ce que le chapitre 3 en a dit ; ce chapitre en donne
 le modèle d'exécution. La dichotomie qu'Ousterhout établit entre langages système et langages de
