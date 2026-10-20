@@ -465,7 +465,7 @@ pour toutes ; que la borne tienne dans le budget est une _obligation_, décharg�
 programme. Confondre les deux reviendrait à demander au solveur ce que la métathéorie doit fournir.
 
 Une réserve accompagne ces trois niveaux et dit ce que le système _ne_ fait pas. {rmq}[Un lecteur
-pressé conclurait le contraire de ce qui précède.] Ce que l'appareil établit est une _correction_ :
+pressé conclurait le contraire de ce qui précède.] Ce que l'appareil doit établir est une _correction_ :
 le coût reste sous la borne, et la borne sous le budget. Caractériser une _classe de complexité_
 demanderait en plus une *complétude* — que toute fonction de la classe soit typable —, laquelle
 exige que le langage d'indices soit exactement aussi expressif que la classe. La logique linéaire
@@ -519,7 +519,7 @@ Cette condition est la _loi candidate de cohérence_ de $`\varphi` et $`\psi`. E
 quantifiée sur tout grade $`r` qu'après définition du domaine d'action correspondant, et elle porte alors sur tout
 contexte $`\Delta` et tout effet $`\varepsilon`, mettre à l'échelle après transport doit revenir à
 transporter après mise à l'échelle, l'effet étant échelonné du même facteur. {rmq}[Le Prolégomène
-pose la condition et dit où elle est acquittée. La preuve est au §{num "sec:g-regles"}[], là où la loi sert.] Elle
+pose la condition et dit où elle est acquittée. La preuve est due au §{num "sec:g-regles"}[], là où la loi sert.] Elle
 est une obligation du §{num "sec:g-regles"}[] (théorème {num "thm:coherence_axiome"}[]),
 là où le lemme de substitution, la relation logique et la traduction l'emploient l'une après
 l'autre.

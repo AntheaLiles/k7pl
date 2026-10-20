@@ -40,7 +40,7 @@ principe plus général : ils sont posés, et l'on aurait pu en poser d'autres. 
 est le cas le plus net : il montre à quelle condition un postulat absent se rattrape sans en ajouter
 un. Elle et l'effacement relèvent d'une même analyse de dépendance, sous un treillis générique de
 niveaux {cite "choudhuryDependentDependencyCalculus2022"}[], {cite "liuConsistencyDependentCalculus2025"}[].
-Le chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]) établit que graduer une liaison sur
+Le chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]) énonce que graduer une liaison sur
 une structure ordonnée est un procédé unique, dont la monotonie et la confidentialité sont deux
 instances. Celle-ci n'ajoute donc rien à l'appareil : elle emploie ce qui est déjà là, c'est la
 forme que la clôture énoncée ci-après réclame d'une extension.
