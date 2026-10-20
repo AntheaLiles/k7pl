@@ -43,7 +43,9 @@ schéma de commutation
 Transformer puis substituer, ou l'inverse
 
 Soit $`T` une transformation définie par récurrence sur la structure des termes, qui n'introduit
-aucune variable libre et respecte les liaisons. Alors, à renommage près des variables liées,
+aucune variable libre et respecte les liaisons. Supposons de plus que chacune de ses clauses soit
+compatible avec la substitution : action sur les variables, action sur chaque constructeur,
+traitement des lieurs et évitement de capture compris. Alors, à renommage près des variables liées,
 $$`T \circ \text{subst} \;=\; \text{subst} \circ T.`
 
 Le schéma est paramétré par trois données, et les nommer dit ce qu'une instance doit fournir : le
@@ -54,16 +56,18 @@ procède ; et la _discipline de liaison_, qui fixe l'ordre d'occurrence et l'é
 :::proofsketch
 Par récurrence sur le terme. Les cas des constructeurs sont immédiats, $`T` y étant définie
 composante par composante. Le seul cas non immédiat est celui du lieur : il demande que la variable
-substituée ne soit pas capturée par le lieur que $`T` produit, ce que l'hypothèse d'hygiène fournit.
+substituée ne soit pas capturée par le lieur que $`T` produit, ce que l'hypothèse de compatibilité
+fournit pour la clause du lieur.
 :::
 
 :::note
-_Obligation ouverte._ Les trois hypothèses (récurrence structurelle, aucune variable libre
+_Obligation ouverte._ Les trois premières hypothèses (récurrence structurelle, aucune variable libre
 introduite, respect des liaisons) ne fixent pas à elles seules les équations de compatibilité dont
-dépend la commutation. Restent à expliciter l'action de $`T` sur les variables et sur chaque
-constructeur, lieurs compris, la substitution sans capture et l'équivalence de renommage, puis la
-condition latérale exacte qui rend valide le cas du lieur. Jusque-là, le schéma reste
-sous-spécifié.
+dépend la commutation ; l'énoncé suppose donc explicitement la compatibilité de chaque clause de
+$`T` avec la substitution. Pour chaque instance, restent à expliciter l'action de $`T` sur les
+variables et sur chaque constructeur, lieurs compris, la substitution sans capture et l'équivalence
+de renommage, puis à vérifier la condition latérale du cas du lieur. Tant que ces obligations ne
+sont pas remplies, l'instance reste sous-spécifiée.
 :::
 ::::
 Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qu'il faut
