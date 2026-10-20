@@ -292,18 +292,98 @@ def test_couverture_statement_anchor_covers_normative_label(tmp_path, monkeypatc
     (src / "K7pl" / "Algebre.lean").write_text(
         "namespace K7pl.Algebre\n\n"
         "-- Énoncé thm:exemple := add_le_add\n"
+        "-- Énoncé thm:exigence := add_le_add\n"
         "theorem add_le_add : True := trivial\n\n"
         "end K7pl.Algebre\n",
         encoding="utf-8",
     )
     monkeypatch.setattr(couverture, "SRC", src)
     monkeypatch.setattr(couverture, "normative_ids", lambda: (
-        [{"label": "thm:exemple", "statut": "theoreme"}],
+        [{"label": "thm:exemple", "kind": "result", "role": "theorem"},
+         {"label": "thm:exigence", "kind": "requirement", "role": ""},
+         {"label": "thm:conj", "kind": "result", "role": "conjecture"}],
         {"formules": [], "regles": []},
     ))
     table, stats = couverture.matrix()
     assert stats["theoremes_couverts"] == 1
-    assert "| Énoncés `theoreme` (directive `thm`) | 1 | 1 | 100 % |" in table
+    assert stats["ouverts_couverts"] == 1
+    assert "| Énoncés `theorem`, `lemma`, `corollary`, `proposition` | 1 | 1 | 100 % |" in table
+    assert "| Énoncés `conjecture` et exigences (`requirement`) | 2 | 1 | 50 % |" in table
+
+
+def _statement_block(directive: str, label: str) -> str:
+    """One C8 statement block, as `manuscript_metrics.statements()` parses it."""
+    return f'::::{directive} (label := "{label}")\n:::title\n{label}\n:::\n:::statement\nx\n:::\n::::\n\n'
+
+
+def test_couverture_families_follow_c8_fields_on_mini_corpus(patched):
+    """Regression: the statement families are selected on the C8 `kind`/`role`, not on `statut`.
+
+    Since the C8 directive migration `manuscript_metrics.statements()` fills `statut` with
+    `role or kind`. A matrix still filtering on the legacy values (`theoreme`, `exigence`) misses
+    every `::::theorem`/`::::lemma`/`::::corollary` and every requirement. Expected counts are
+    written by hand: the legacy `thm:exemple` seal (role `theorem`) plus one block per C8
+    directive; definitions and literature belong to neither family. The families follow the
+    ratified C8 result roles (theorem, lemma, corollary, proposition vs conjecture).
+    """
+    from controles import couverture
+
+    blocks = "".join(_statement_block(d, lab) for d, lab in [
+        ("theorem", "thm:t"), ("lemma", "thm:l"), ("corollary", "thm:c"),
+        ("proposition", "thm:p"), ("conjecture", "thm:j"), ("requirement", "req:r"),
+        ("definition", "def:d"), ("literature", "thm:lit"),
+    ])
+    marker = "Il y a une règle de typage Var"
+    mutate(patched, "Spec/C2/Fondements.lean", marker, blocks + marker)
+    table, stats = couverture.matrix()
+    assert stats["theoremes"] == 5, "theorem, lemma, corollary, proposition and the legacy theorem seal"
+    assert stats["ouverts"] == 2, "the conjecture and the requirement"
+    assert stats["hors_familles"] == 2, "definition and literature belong to neither family"
+    assert "| Énoncés `theorem`, `lemma`, `corollary`, `proposition` | 5 | 0 | 0 % |" in table
+    assert "| Énoncés `conjecture` et exigences (`requirement`) | 2 | 0 | 0 % |" in table
+
+
+def test_couverture_families_follow_c8_fields_on_real_spec(real_lean):
+    """Regression on the real `spec/`: theorem-like statements and requirements are all counted.
+
+    Before the fix the published block read « Énoncés `theoreme` … 0 » and left the
+    requirements out, although the specification carries dozens of theorem-like statements.
+    Families (decision recorded in `couverture.py`, after the ratified C8 result roles):
+    theorem-like = result with role `theorem`, `lemma`, `corollary` or `proposition`; the other
+    family = result with role `conjecture`, plus every requirement; the remaining kinds
+    (definition, literature…) are in neither. The epistemic `state` plays no part.
+    """
+    import manuscript_metrics as mm
+
+    rows = mm.statements()
+    theorem_like = [r for r in rows if r["kind"] == "result"
+                    and r["role"] in {"theorem", "lemma", "corollary", "proposition"}]
+    requirements = [r for r in rows if r["kind"] == "requirement"]
+    conjectures = [r for r in rows if r["kind"] == "result" and r["role"] == "conjecture"]
+    assert theorem_like and requirements, "the real spec/ carries theorem-like statements and requirements"
+    _, stats = real_lean.matrix()
+    assert stats["theoremes"] == len(theorem_like)
+    assert stats["ouverts"] == len(conjectures) + len(requirements)
+    assert stats["theoremes"] + stats["ouverts"] + stats["hors_familles"] == len(rows), \
+        "every registered statement is either in a family or explicitly outside both"
+
+
+def test_couverture_rule_anchor_counts_as_declared_link(tmp_path, monkeypatch):
+    """A `Regle` anchor alone is a declared link: the block must not claim that none exists."""
+    from controles import couverture
+
+    src = tmp_path / "src"
+    (src / "K7pl").mkdir(parents=True)
+    (src / "K7pl" / "Algebre.lean").write_text(
+        "namespace K7pl.Algebre\n\n-- Regle Var := Var\ndef Var : Type := Nat\n\nend K7pl.Algebre\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(couverture, "SRC", src)
+    monkeypatch.setattr(couverture, "normative_ids", lambda: ([], {"formules": [], "regles": ["Var"]}))
+    _, stats = couverture.matrix()
+    assert stats["regles_couverts"] == 1
+    assert stats["accroches"] == 1
+    assert "Aucun lien n'est encore déclaré" not in couverture.render_block()
 
 
 def test_couverture_malformed_anchor_is_caught(tmp_path, monkeypatch):
