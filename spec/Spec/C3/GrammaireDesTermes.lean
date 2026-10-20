@@ -58,7 +58,7 @@ $`\mathsf{operation}_{\varepsilon}`, non un constructeur de plus. $`\mathsf{scop
 la forme des opérations _à portée_, qui prennent un calcul en argument et ne sont pas des effets
 algébriques ordinaires~; sa règle est écrite au §{num "sec:g-regles"}[] et la structure qu'elle
 suppose y est construite. Et l'expansion de macro, dont le théorème~{num "thm:expansion_macro"}[]
-établit la dérivabilité, n'a pas de forme dans cette grammaire parce qu'elle n'en est pas une~: elle
+énonce la dérivabilité, n'a pas de forme dans cette grammaire parce qu'elle n'en est pas une~: elle
 opère en Phase~0, sur l'arbre, avant que cette grammaire ne s'applique.
 
 Le vocabulaire de cette grammaire suit une règle qui explique une apparente redondance. Les
