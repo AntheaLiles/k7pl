@@ -38,9 +38,11 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # move these pins; the interface strings checked below are unchanged by those notes.
     # So does the B-01 alignment of proof vocabulary (2026-10-19), which rewords status claims
     # in LeSystemeGradue.lean and ReglesDeTypage.lean without touching those strings.
+    # So do its extension (2026-10-20: « fibrille » for an execution unit in LeSystemeGradue.lean)
+    # and the owner's « cofibre » -> « _cofree_ » fix in ComonadeExponentielleEtFragments.lean.
     integrated_source_blobs = {
-        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "0cc432629d65447d9b0d2062f5a15c018437ece2",
-        "spec/Spec/C3/LeSystemeGradue.lean": "4258dce6eb68b1f8e3d4be0280cd29529ef2800e",
+        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "5037ca1133c4a8d63343142096188a104beb9da0",
+        "spec/Spec/C3/LeSystemeGradue.lean": "15c1bc33d41168bd2315c77f122dff23a1880d74",
         "spec/Spec/C3/GrammaireDesTypes.lean": "60df0208198163e9bf76dea24391e29d1f23834f",
         "spec/Spec/C3/ReglesDeTypage.lean": "68a5e36c51baf43691b830ca1bc64c1d2af3ad97",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
