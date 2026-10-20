@@ -553,7 +553,7 @@ la construction comonadique actuellement établie porte cependant sur l'indice d
 
 Deux précisions négatives, qui évitent au lecteur de situer _C_ ailleurs qu'elle n'est. K7PL ne
 suppose pas son exponentielle _libre_ : la structure de comonoïde gradué y est donnée, non
-construite comme comonoïde cocommutatif cofibre sur $`A`, de sorte que _C_ n'est pas une catégorie
+construite comme comonoïde cocommutatif _cofree_ sur $`A`, de sorte que _C_ n'est pas une catégorie
 de Lafont. Et K7PL ne suppose pas de biproduits finis. Ces deux abstentions vont ensemble, et il
 faut dire dans quel sens : c'est la _liberté_ de l'exponentielle qui porte le risque, l'additivité
 n'y suffisant pas. Une exponentielle libre jointe aux biproduits finis donne la structure de
@@ -565,7 +565,7 @@ codéréliction, lorsqu'elle existe, est _unique_, ce qui rend la vérification 
 plutôt qu'affaire d'appréciation.
 
 L'abstention de K7PL est donc plus robuste que sa formulation ne le laissait croire, et c'est la
-première qui la porte : l'exponentielle étant _donnée_ et non construite comme cofibre, aucun des
+première qui la porte : l'exponentielle étant _donnée_ et non construite comme _cofree_, aucun des
 deux résultats ne s'applique. {rmq}[Ce qui protège n'est pas de refuser l'addition, c'est de refuser
 la liberté de l'exponentielle. La nuance décide de quels modèles restent admissibles.] Le langage
 n'a aucun usage de la structure différentielle, et n'a pas à en hériter par inadvertance ; mais un
