@@ -19,6 +19,7 @@ class DocumentationArchitectureTests(unittest.TestCase):
         for rel in (
             "docs/archives",
             "docs/bibliography",
+            "docs/decisions",
             "docs/history",
             "docs/method",
             "docs/migration",
@@ -47,6 +48,10 @@ class DocumentationArchitectureTests(unittest.TestCase):
 
     def test_clean_tree(self):
         self.assertEqual(check(self.root), [])
+
+    def test_missing_decision_records_directory_is_rejected(self):
+        (self.root / "docs/decisions").rmdir()
+        self.assertIn("required directory missing: docs/decisions", check(self.root))
 
     def test_root_biblio_is_rejected(self):
         path = self.root / "biblio/references.json"

@@ -25,6 +25,7 @@ LEGACY_PATHS = (
 REQUIRED_DIRS = (
     "docs/archives",
     "docs/bibliography",
+    "docs/decisions",
     "docs/history",
     "docs/method",
     "docs/migration",
