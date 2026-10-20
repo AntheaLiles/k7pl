@@ -160,22 +160,27 @@ stabilisation du pipeline
 :::statement +titled
 La boucle d'analyse et d'optimisation termine
 
-La boucle $`\text{Vérification} \to \text{Optimisation} \to \text{Vérification}` atteint un point
-fixe en un nombre fini de tours, sous un budget de spécialisation fini.
+Supposons que chaque tour termine, que tout tour qui modifie le terme consomme au moins une unité du
+budget de spécialisation, que ce budget soit fini et ne croisse jamais, et qu'un tour sans
+changement soit reconnu comme point fixe. Alors la boucle
+$`\text{Vérification} \to \text{Optimisation} \to \text{Vérification}` atteint un point fixe en un
+nombre fini de tours.
 :::
 
 :::proofsketch
-Chaque tour qui modifie le terme consomme au moins une unité du budget de spécialisation, lequel est
-fini et ne croît jamais ; la mesure décroît donc strictement, et l'ordre sur les budgets étant bien
-fondé, la suite des tours est finie. Un tour qui ne modifie pas le terme est le point fixe. Le cas
+Par hypothèse, chaque tour termine, et chaque tour qui modifie le terme consomme au moins une unité
+du budget de spécialisation, lequel est fini et ne croît jamais ; la mesure décroît donc
+strictement, et l'ordre sur les budgets étant bien fondé, la suite des tours est finie. Un tour qui
+ne modifie pas le terme est reconnu comme le point fixe. Le cas
 de la mise en ligne, seul à pouvoir engendrer de nouvelles obligations de grade, est traité par la
 borne que ce chapitre lui donne déjà.
 :::
 
 :::note
-_Obligation ouverte._ La terminaison suppose que tout tour qui modifie le terme consomme au moins
-une unité du budget, que le budget ne croît jamais et qu'un tour sans changement est reconnu comme
-point fixe : ces prémisses opérationnelles restent à énoncer et à tester.
+_Obligation ouverte._ Les prémisses opérationnelles de l'énoncé — terminaison de chaque tour,
+consommation d'au moins une unité du budget par tout tour qui modifie le terme, budget qui ne croît
+jamais, reconnaissance d'un tour sans changement comme point fixe — restent à établir pour chaque
+transformation, l'intégration et la monomorphisation comprises, et à tester.
 :::
 ::::
 Le recours à un solveur externe pose enfin la question de la _stratégie_ de vérification des
@@ -200,7 +205,7 @@ cette pièce. Sa limite est nette et vaut d'être reprise plutôt qu'omise : ell
 langage fonctionnel simple, avec des listes et des fonctions de potentiel linéaires, et ses auteurs
 annoncent que les idées s'appliquent plus largement — ce qui n'est pas l'établir.
 
-Cette itération termine, mais sous une condition qu'il faut nommer. Chaque optimisation retire une
+Cette itération ne termine que sous une condition qu'il faut nommer. Chaque optimisation retire une
 construction~: la déforestation supprime une structure intermédiaire, la défonctionnalisation une
 application d'ordre supérieur, la fusion de boucles une itération. Sur ces trois-là, une mesure
 entière décroît strictement et l'itération s'arrête. L'_inlining_ fait exception~: il ne retire une
@@ -212,9 +217,10 @@ l'intégration adopte~: un _budget de spécialisation_, grade porté par l'unit�
 chaque intégration et chaque monomorphisation décrémentent, et dont l'épuisement arrête la
 duplication au lieu d'échouer. Ce budget est le même objet que celui qui borne la monomorphisation,
 laquelle n'est qu'une intégration dirigée par les types~: une seule décision les gouverne.
-L'itération est alors un point fixe atteint en un nombre de tours borné par la somme des budgets,
-chaque tour terminant puisque les trois autres optimisations font strictement décroître une mesure
-entière que rien n'augmente.
+Sous les prémisses du théorème {num "thm:stabilisation_pipeline"}[], l'itération est alors un point
+fixe atteint en un nombre de tours borné par la somme des budgets ; que chaque tour termine, les
+trois autres optimisations faisant strictement décroître une mesure entière que rien n'augmente, est
+l'une de ces prémisses, et elle reste à établir.
 
 Pour ne pas dépendre d'une preuve non vérifiée, chaque indice fourni par le développeur —
 `invariant`, `witness`, `lemma` — est soumis, en mode `+verify`, à un test par propriétés dont le
