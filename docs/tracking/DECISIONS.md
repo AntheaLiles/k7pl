@@ -144,17 +144,29 @@ Ces corrections ne changent pas le sens d'un énoncé, mais touchent le texte du
 
 ### Answers of 20 October 2026 on PR #246
 
-The owner answered the questions raised by the review of PR #246 (« resolve foundational guarantee contradictions »). Q1, Q3 and Q6 are the numbers of that review's questions, unrelated to the Q1–Q6 of the KLean plan (row 53). Recording an answer proves nothing; each change to `spec/` is made and checked separately, and no statement changes state.
+The owner answered the questions raised by the review of PR #246 (« resolve foundational guarantee contradictions »). Q1–Q6 below are the numbers of that review's questions. They are unrelated to the questions Q1–Q7 of the KLean plan ([`docs/decisions/README.md`](../decisions/README.md), « Open questions of the KLean plan »), whose Q1–Q6 row 53 answers. Recording an answer proves nothing; each change to `spec/` is made and checked separately, and no statement changes state.
 
 | Question | Owner's decision | Where it applies |
 |---|---|---|
 | Q1 | Redo PR #246 as a clean pull request from `main` that takes over its correct parts and credits it; the owner closes #246. | the rows below, and the status wording PR #246 corrected in C1, C2, C5, C6 and C7 |
+| Q2 `thm:progres` | « vérifie ce qui change réellement et les effets d'opportunités avant de me faire une proposition avec plusieurs choix ». **2026-10-20:** options A–D are prepared on paper; they await the owner's choice. No statement changed. | C4 `SemantiqueOperationnelle` |
 | Q3 (a) `thm:deadlock_acyclique` | Keep the conclusion « absence de blocage » and make the simulation of the dynamic wait graph by the static dependency graph an explicit premise (Sim); do not weaken the conclusion to an acyclic graph; keep the author's argument through the typing of `Guard`. | C3 `LesContraintesDeValeur`; C4 `EchelleDuSysteme` (« Lot 0 » row 22) |
 | Q3 (b) effects and `thm:traduction_metalangage` | Align every passage on the text's own choice: effects are translated as communications on distinguished channels; do not restrict the theorem to effect-free code. | C4 `CalculDeProcessusSousJacent`; C2 `SystemeDeRaffinement` |
 | Q3 (c) `thm:rejeu_binaire` | Option (a) of its row above: representation invariance `H_repr` replaces injectivity. | C4 `EchelleDuSysteme` |
 | Q3 (d) `thm:stabilisation_pipeline` | Move the operational premises into the statement. | C6 `LeProcessusDeCompilation` |
 | Q3 (e) `thm:schema_commutation` | Add the substitution-compatibility hypothesis proposed by PR #246. | C2 `SixSchemasDeMetatheorie` |
+| Q4 (this review) scope of the mandate | « concerne les éléments remontés par ChatGPT »: the editorial and contradiction mandate covers the items raised by ChatGPT's analysis of C1–C7, not the additional findings of the agent's verification of that analysis. Not to be confused with Q4 of the KLean plan (fragments and laws of grades). | C1–C7 |
+| Q5 (this review) process proposals | « oui »: the process proposals of decision 49 are validated; recorded as [ADR-0011](../decisions/0011-decision-records-roles-and-workstream-n.md) (row 49 above). Not to be confused with Q5 of the KLean plan (`Classical.choice`). | `docs/decisions/` |
 | Q6 (decision 52) | Write the definition of an automaton in the C4 introduction as the document's stance only, without announcing the structure that follows. | C4 `Introduction` |
+
+### Answers of 20 October 2026 on PRs #252 and #256
+
+The owner answered the questions left in the descriptions of PR #252 (B-01, decision 42) and PR #256 (figure alt texts, decision 51). Both answers were applied by PR #259 and are recorded in `spec/CHANGELOG.md`, « Unreleased », « Corrigé » (l. 35-36 on `main` at `7d522ab`).
+
+| Question | Owner's decision | Where it applies |
+|---|---|---|
+| PR #252: similar status claims next to the listed « Lot 0 » rows, left out of its scope | Yes: include these extra passages in B-01. | eight passages in C1–C4 (`spec/CHANGELOG.md` l. 35) |
+| PR #256: the caption of `fig:circuit-breaker` says « fibre » where the drawing says « Fibrille » | « ne pas confondre fibre, fibrille et co-fibre »; « cofibre » in C2 meant _cofree_ and is written as the plain English word in italics, « _cofree_ ». | C3 (an execution unit is a « fibrille »), C2 (two occurrences of _cofree_), the `fig:circuit-breaker` caption (`spec/CHANGELOG.md` l. 36-37) |
 
 ## Architecture decision records
 
