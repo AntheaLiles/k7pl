@@ -72,7 +72,7 @@ existait, ce qui est la preuve la plus convaincante que ce document puisse offri
 sédimentation annoncée au chapitre 1 n'était pas qu'une image. Deux réserves l'accompagnent. Trois
 combinaisons ne prouvent pas qu'une combinatoire tienne partout — d'autres, non examinées,
 pourraient révéler des frictions qu'aucun chapitre n'a anticipées. Et les garanties de performance
-avancées ci-dessus sont des conséquences de propriétés déjà prouvées — arènes en $`O(1)`, _diffing_
+avancées ci-dessus sont des conséquences de propriétés énoncées plus haut — arènes en $`O(1)`, _diffing_
 borné —, non des mesures : ce document raisonne sur ce que le système de types garantit, il n'a
 chronométré aucun rendu.
 
