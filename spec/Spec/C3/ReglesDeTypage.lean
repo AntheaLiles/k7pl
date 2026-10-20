@@ -705,7 +705,7 @@ introduirait une équation reliant une opération interceptable à une opératio
 commutation, donc les formes normales, donc la décidabilité de l'appartenance à $`\mathcal{M}`.
 C'est le point où ce monoïde est fragile.
 
-### La commutation, démontrée
+### La commutation, esquissée
 %%%
 tag := "g-scoped-le-monoide-des-transformateurs-la-commutation-demon"
 %%%
@@ -825,7 +825,7 @@ $`\pi^{\flat}_{\ell}` se définit sans rien ajouter : elle efface de $`\varphi` 
 $`\ell`. Ce que voit l'observateur de niveau $`\ell` est donc, des deux côtés, ce qui lui est
 accessible — et rien de ce qui a été effacé ne subsiste par sa durée.
 
-La commutation démontrée plus haut vaut pour les deux projections, et pour la même raison. Sur
+La commutation esquissée plus haut vaut pour les deux projections, et pour la même raison. Sur
 $`\mathcal{E}_0` l'argument est celui du théorème ; sur le facteur temporel, $`\pi^{\dagger}` agit
 comme l'identité et $`\pi^{\flat}` comme une restriction, or l'une et l'autre commutent avec la
 multiplication scalaire de $`\varphi_n`, qui opère point par point. Les formes normales survivent
