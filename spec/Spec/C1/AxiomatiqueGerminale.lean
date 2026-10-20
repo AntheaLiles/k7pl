@@ -111,8 +111,8 @@ _L'indice $`\mathcal{G}` n'est pas une composante du jugement._ Il désigne le p
 _Il n'y a pas de composante de complexité._ Une version antérieure de ce dispositif en portait une,
 notée $`\mathcal{C}` ; elle a été répartie sur les composantes existantes, et le
 §{num "sec:c1-de-la-loi-distributive"}[] dit où. C'est ce qui rend les contraintes de coût
-vérifiables plutôt qu'affirmées, et la répartition n'est licite qu'à une condition, énoncée et
-démontrée au même endroit.
+vérifiables plutôt qu'affirmées, et la répartition n'est licite qu'à une condition, énoncée au
+même endroit.
 
 Ce jugement porte _une seule zone de contexte_, quand la littérature en emploie couramment deux. La
 présentation usuelle d'un calcul linéaire-non-linéaire sépare un contexte non restreint,
@@ -460,7 +460,7 @@ que l'exécution consomme et ce que le budget alloue s'intercale une troisième 
 synthétisée_, celle que les règles de typage calculent. Trois niveaux se lisent donc sur un jugement
 — le budget, qui est ce qu'on accorde ; la borne, qui est ce que le système déduit ; le coût, qui
 est ce qui advient — et deux inégalités les relient, de statuts différents {cite "mannucciResourceBoundedTypeTheory2025"}[].
-Que le coût reste sous la borne est un _théorème de correction_ du système d'effets, établi une fois
+Que le coût reste sous la borne est un _théorème de correction_ du système d'effets, à établir une fois
 pour toutes ; que la borne tienne dans le budget est une _obligation_, déchargée programme par
 programme. Confondre les deux reviendrait à demander au solveur ce que la métathéorie doit fournir.
 
@@ -615,7 +615,7 @@ Trois propriétés sont incompatibles deux à deux dès qu'on les veut ensemble 
 observables, l'élimination dépendante, et un lemme de substitution. Une théorie des types qui
 possède les trois est _inconsistante_, et le résultat est démontré {cite "pedrotFireTriangleHow2020"}[].
 Il est possible d'en avoir deux, jamais trois. Or K7PL a les trois ingrédients apparents : une trace
-d'effets, des types qui dépendent de valeurs, et un lemme de substitution démontré au §{num "sec:g-regles"}[]. Rien dans ce document ne dit pourquoi il n'est pas
+d'effets, des types qui dépendent de valeurs, et un lemme de substitution esquissé au §{num "sec:g-regles"}[]. Rien dans ce document ne dit pourquoi il n'est pas
 visé.
 
 Il y échappe, et il y échappe structurellement plutôt que par une clause ajoutée. Son lemme de
