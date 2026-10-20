@@ -56,7 +56,10 @@ la profondeur de l'arbre — décroît strictement à chaque étape, produisant 
 sur une arène linéaire plutôt qu'une nouvelle structure entière. Lorsque deux branches de l'arbre
 partagent le même hachage BLAKE3 — la même déduplication canonique que le chapitre 4
 (§{num "sec:c4-echelle-de-l-acteur"}[]) a établie pour l'état des acteurs —, le diffing s'arrête sur
-cette branche en $`O(1)` sans la comparer nœud par nœud. Le vecteur de correctifs qui en résulte
+cette branche en $`O(1)` sans la comparer nœud par nœud. L'égalité des condensats ne vaut égalité
+des branches que si celles-ci sont hachées sous une représentation canonique, et sous l'hypothèse de
+résistance aux collisions que le chapitre 4 déclare : une hypothèse cryptographique, non un
+théorème du langage. Le vecteur de correctifs qui en résulte
 redescend enfin en couche 1, où il est appliqué au DOM réel.
 
 Cette dernière étape révèle que l'isolation entre couches n'est pas qu'une discipline de style. La
