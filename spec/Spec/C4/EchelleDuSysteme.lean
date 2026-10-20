@@ -311,8 +311,9 @@ Deux choix voisins appellent le même traitement : le régime asynchrone du chap
 rendez-vous synchrone, exprimable par encodage en appel-retour {cite "castellanTwoSidesSame2019"}[]
 au prix d'un aller-retour, et le critère d'atomicité des jonctions exclut par construction les
 objets concurrents qui ne se linéarisent pas, dont il en existe d'utiles {cite "oliveiravaleCompositionalTheoryLinearizability2023"}[].
-K7PL établit l'absence de blocage ; il n'établit ni le progrès global, que des systèmes linéaires
-minimaux obtiennent du seul typage {cite "jacobsSelfDualDistillationSession2022"}[], ni la
+K7PL énonce l'absence de blocage sous la simulation du graphe d'attente
+(théorème {num "thm:deadlock_acyclique"}[]) ; il n'établit ni le progrès global, que des systèmes
+linéaires minimaux obtiennent du seul typage {cite "jacobsSelfDualDistillationSession2022"}[], ni la
 terminaison équitable, propriété qu'appellerait son régime asynchrone {cite "PADOVANI"}[].
 
 L'isolation entre acteurs procède du même déplacement : la garantie vient d'une preuve du
