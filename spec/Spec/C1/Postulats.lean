@@ -312,7 +312,7 @@ C'est l'absence de _data race_ exigée par P4, et la garantie de sûreté mémoi
 l'une ni l'autre n'est une propriété vérifiée après coup sur le langage : toutes deux se déduisent
 de deux faits, et non d'un seul — l'absence de diagonale dans _C_, qui interdit de _dupliquer_ une
 capacité, et l'unicité de son introduction, qui interdit d'en _créer deux_ pour la même région.
-Le théorème qui les porte est établi au chapitre 4 (§{num "sec:c4-modeles-de-memoire"}[]), là où les
+Le théorème qui les porte est énoncé au chapitre 4 (§{num "sec:c4-modeles-de-memoire"}[]), là où les
 fibrilles et les arènes existent. Deux fibrilles exécutées en parallèle sous des contextes disjoints
 ne peuvent détenir la même capacité d'écriture, et aucune opération mutante concurrente n'est donc
 typable. {rmq}[Le Prolégomène énonce ce que le document devra tenir. Il ne le tient pas lui-même.]
