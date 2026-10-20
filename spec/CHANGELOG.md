@@ -20,6 +20,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Corrigé
 
+- Vocabulaire de preuve aligné sur l'état enregistré des énoncés (mandat de l'autrice du 19 octobre 2026, liste « Lot 0 » de la méta-revue PR-03) : dans 22 des 27 passages relevés, « démontré », « établi » ou « prouvé » deviennent « esquissé », « conjecturé », « énoncé » ou « à établir » lorsque l'énoncé visé est en revue ou proposé. Aucun énoncé, label, hypothèse, métadonnée ni étiquette de section ne change. Les cinq passages restants attendent une décision (`thm:progres`, absence de blocage) ou la vérification d'une attribution bibliographique.
 - `thm:sedimentation` : l'énoncé, tronqué lors de sa séparation en un résultat de littérature et une exigence, dit désormais qu'il vaut pour des conteneurs non gradués et renvoie à l'exigence graduée.
 
 - Le texte placé hors des emplacements nommés d'un bloc d'énoncé n'était pas rendu, en HTML comme en PDF. Cinq blocs sont rétablis sans changement de texte : `thm:schema_reinvocation`, `req:schema_reinvocation_compatibility`, `req:homomorphisme_roues_realisation`, `thm:expansion_macro` et `thm:temps_mononiveau` (ligne parasite supprimée). Le contrôle d'ontologie des énoncés rejette désormais ce cas.
