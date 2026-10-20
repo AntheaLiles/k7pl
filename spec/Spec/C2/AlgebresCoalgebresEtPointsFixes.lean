@@ -455,7 +455,7 @@ propriétés qu'il faudrait établir séparément pour chaque couche : ce sont l
 existence et unicité d'un morphisme vers ou depuis un point fixe — énoncée dans deux catégories
 duales l'une de l'autre.
 
-::::figure (label := "fig:dualite-algebre-coalgebre") (src := "co-algebra-duality") (alt := "Deux categories en vis-a-vis. A gauche la categorie C porte l'algebre initiale mu F, de structure in qui envoie F de mu F sur mu F, et fonde la terminaison. A droite la categorie C oppose porte la coalgebre terminale nu F, de structure out qui envoie nu F sur F de nu F, et fonde la productivite. Une fleche relie les deux et porte « meme construction, lue dans la categorie opposee ».") (width := "90")
+::::figure (label := "fig:dualite-algebre-coalgebre") (src := "co-algebra-duality") (alt := "Deux catégories en vis-à-vis. À gauche, la catégorie C porte l'algèbre initiale mu F, de structure in, isomorphisme de F de mu F sur mu F, qui fonde la terminaison. À droite, la catégorie C opposée porte la coalgèbre terminale nu F, de structure out, isomorphisme de nu F sur F de nu F, qui fonde la productivité. Une double flèche en pointillés relie les deux et porte « même construction, lue dans la catégorie opposée ».") (width := "90")
 :::caption
 Dualité algèbre initiale / coalgèbre terminale, dans C et C^op
 :::

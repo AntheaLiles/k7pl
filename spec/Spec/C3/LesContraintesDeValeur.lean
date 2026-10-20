@@ -330,7 +330,7 @@ détection de cycle, temporisation globale — n'a à la surveiller. S'il tombe,
 le `Timeout`, c'est-à-dire sur une détection à l'exécution, ce qui la ferait sortir du système de
 types et rentrer dans le coût.
 
-::::figure (label := "fig:session-dualite") (src := "session-protocol-as-dual-exchange") (alt := "Le meme protocole vu comme un echange entre deux extremites. L'extremite A porte Send de Int puis Recv de Bool puis End, l'extremite B porte Recv de Int puis Send de Bool puis End. Deux fleches croisees figurent l'envoi de l'entier puis celui du booleen ; une note rappelle que les deux extremites se terminent ensemble.") (width := "75")
+::::figure (label := "fig:session-dualite") (src := "session-protocol-as-dual-exchange") (alt := "Le même protocole vu comme un échange entre deux extrémités, en diagramme de séquence à deux lignes de vie. L'extrémité A, à gauche, porte Send de Int puis Recv de Bool puis End ; l'extrémité B, à droite, porte Recv de Int puis Send de Bool puis End. Deux flèches horizontales se succèdent de haut en bas : Send(Int) va de A vers B, puis Send(Bool) va de B vers A. Une note couvrant les deux lignes de vie indique End : les deux extrémités se terminent ensemble.") (width := "75")
 :::caption
 Le même protocole, lu comme échange dual entre deux extrémités
 :::
