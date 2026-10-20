@@ -134,7 +134,7 @@ Confidence: **journal** means a session report names the card; **card** means th
 | `IMPL-03` | ✅ closed | Protocole de réglage du test différentiel | [journal](../history/2026-10-01-pr-02-17-impl-et-struct.md) · protocole du test différentiel écrit en fin de §6.3 |
 | `IMPL-04` | ⬜ open | Structure réelle des boîtes aux lettres et protocole d'appariement atomique |  |
 | `IMPL-05` | ✅ closed | Révocation d'une capacité exportée à la frontière FFI | [journal](../history/2026-10-01-pr-02-09-port-et-fact2.md) · thm:revocation_ffi : première exigence du document |
-| `IMPL-06` | 🟡 partial | Profil de représentation `Π` unique | [journal](../history/2026-10-01-pr-02-17-impl-et-struct.md) · Π défini au §4.5 ; Th. 20 et rejeu requalifiés en conformité ; Th. 36 non requalifié |
+| `IMPL-06` | 🟡 partial | Profil de représentation `Π` unique | [journal](../history/2026-10-01-pr-02-17-impl-et-struct.md) · Π défini au §4.5 ; Th. 20 (thm:isomorphisme_memoire) et rejeu (thm:rejeu_binaire) requalifiés en conformité ; Th. 36 (thm:abaissement_grades) non requalifié |
 | `IMPL-07` | ⬜ open | Table de propagation des singularités |  |
 | `IMPL-08` | 🟡 partial | Renforcer le croisement mécanique grammaire × règles | [journal](../history/2026-10-01-pr-02-17-impl-et-struct.md) · productions dégénérées et types non engendrés contrôlés (mutation vérifiée) ; arités et build sur symbole absent restent à porter |
 | `IMPL-09` | ✅ closed | Hypothèses de module à porter en assistant de preuve | [journal](../tracking/hypotheses-de-module.md) · inventaire écrit dans docs/tracking/hypotheses-de-module.md |
