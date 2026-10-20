@@ -519,7 +519,7 @@ Cette condition est la _loi candidate de cohérence_ de $`\varphi` et $`\psi`. E
 quantifiée sur tout grade $`r` qu'après définition du domaine d'action correspondant, et elle porte alors sur tout
 contexte $`\Delta` et tout effet $`\varepsilon`, mettre à l'échelle après transport doit revenir à
 transporter après mise à l'échelle, l'effet étant échelonné du même facteur. {rmq}[Le Prolégomène
-pose la condition et dit où elle est acquittée. La preuve est due au §{num "sec:g-regles"}[], là où la loi sert.] Elle
+pose la condition et dit où elle est acquittée. La preuve est attendue au §{num "sec:g-regles"}[], là où la loi sert.] Elle
 est une obligation du §{num "sec:g-regles"}[] (théorème {num "thm:coherence_axiome"}[]),
 là où le lemme de substitution, la relation logique et la traduction l'emploient l'une après
 l'autre.
