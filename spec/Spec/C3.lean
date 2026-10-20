@@ -34,11 +34,11 @@ l'une de l'autre. La modalité, trace au niveau des types de la stratification e
 (§{num "sec:c2-la-comonade-exponentielle-et"}[]), détermine si une ressource se copie librement,
 s'abandonne sans y avoir touché, ou doit être consommée exactement une fois. La contrainte de valeur
 ne dit rien de l'usage et tout du contenu : taille, intervalle, état, protocole, dimension physique.
-Aucune des deux ne conditionne l'autre — sous la seule condition de séparation posée par P2, que le
-§{num "sec:c3-les-contraintes-de-valeur"}[] respecte en n'admettant que des indices exclus du suivi
-de ressource. De chaque notion, ce chapitre ne retient que ce qu'elle est en tant que type ; la
-manière dont elle s'exécute relève du chapitre 4, séparation qui prolonge au niveau du document
-l'orthogonalité qu'il construit au niveau des types.
+Aucune des deux ne conditionne l'autre hors des trois couplages que P2 nomme — sous la condition de
+séparation posée par ce postulat, que le §{num "sec:c3-les-contraintes-de-valeur"}[] respecte en
+n'admettant que des indices exclus du suivi de ressource. De chaque notion, ce chapitre ne retient
+que ce qu'elle est en tant que type ; la manière dont elle s'exécute relève du chapitre 4,
+séparation qui prolonge au niveau du document l'orthogonalité qu'il construit au niveau des types.
 
 {include 0 Spec.C3.LeSystemeGradue}
 
