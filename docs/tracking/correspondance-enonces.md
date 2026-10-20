@@ -38,7 +38,7 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 29 | 10 | `thm:morphismes_modes` | proposition | language | ordre structurel des trois modes de référence | §3.1 | 0 |
 | 30 | 11 | `thm:completude_graduee` | proposition | language | complétude graduée | §3.1 | 0 |
 | 31 | — | `thm:completude_verificateur` | requirement | compilation | le vérificateur n'émet que des codes de la correspondance | §3.1 | 0 |
-| 32 | 12 | `thm:deadlock_acyclique` | theorem | language | absence de deadlock par acyclicité du graphe de sessions | §3.2 | 0 |
+| 32 | 12 | `thm:deadlock_acyclique` | theorem | language | absence de deadlock par acyclicité du graphe de sessions | §3.2 | 1 |
 | 33 | 13 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | §3.2 | 1 |
 | 34 | — | `req:homomorphisme_roues_realisation` | requirement | representation | réalisation de l’arithmétique des roues | §3.2 | 0 |
 | 35 | — | `thm:representation_inobservable` | requirement | representation | aucune liberté de représentation n'est observable | §3.2 | 0 |
@@ -78,8 +78,8 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 69 | — | `thm:resucrage` | requirement | language | préservation de l'α-équivalence de surface | §5.2 | 0 |
 | 70 | — | `def:elaboration` | definition | language | fonction d’élaboration | §5.3 | 0 |
 | 71 | — | `thm:elaboration` | theorem | language | élaboration | §5.3 | 2 |
-| 72 | 25 | `thm:expansion_macro` | corollary | language | la règle d'expansion est dérivable | §5.4 | 3 |
-| 73 | — | `thm:stabilisation_pipeline` | theorem | language | stabilisation du pipeline | §6.1 | 0 |
+| 72 | 25 | `thm:expansion_macro` | corollary | language | la règle d'expansion est dérivable | §5.4 | 4 |
+| 73 | — | `thm:stabilisation_pipeline` | theorem | language | stabilisation du pipeline | §6.1 | 1 |
 | 74 | 26 | `thm:interface_jugement` | definition | language | l'interface d'une unité de compilation est son jugement | §6.2 | 0 |
 | 75 | — | `thm:interface_jugement_cloture` | proposition | language | clôture locale de l’interface | §6.2 | 0 |
 | 76 | 27 | `thm:rejet_reproductible` | theorem | language | reproductibilité du rejet | §6.2 | 3 |
