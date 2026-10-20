@@ -45,9 +45,8 @@ A successful proof, test, compilation, or review must not be interpreted as esta
 | Formalisation and implementation | src/ | Lean formal representation and executable implementation; src/k/ builds the experimental K definition extracted from spec/Spec/CodeArtifacts.lean |
 | Experimental K → Lean proofs | proofs/ | Separate Lake package for the experimental K → Lean chain; the KLean-generated modules are built in CI and not tracked |
 | Tests | tests/ | Executable behavioural checks |
-| Specification tooling | tools/ | Verso generator and extensions |
+| Specification tooling | tools/ | Verso generator and extensions; the isolated Paperproof extraction workspace (tools/paperproof-export/, a separate Lake workspace); the non-normative B/C/D annex prototypes (tools/prototypes-bcd/, lean_lib K7plPrototypes) |
 | Auxiliary tooling | scripts/ | Maintenance, analysis, CI support |
-| Tooling prototypes | tooling/ | Non-normative B/C/D annex prototypes (prototypes-bcd/) and the isolated Paperproof extraction workspace (paperproof-export/) |
 | Example library | lib/ | Example K7PL library file (lib-exemple.k7, licensed CECILL-C through REUSE.toml) |
 | Scientific documentation | docs/ | Current research, method, assurance, status, review navigation |
 | Historical material | docs/history/ and docs/archives/ | Dated historical records; frozen former manuscript and tooling |

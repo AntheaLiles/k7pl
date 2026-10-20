@@ -13,7 +13,7 @@ SPDX-License-Identifier: CC-BY-4.0
 Observation sur `main` au commit [`86959948ff36deb6e8ee0985cf22740787696720`](https://github.com/AntheaLiles/k7pl/commit/86959948ff36deb6e8ee0985cf22740787696720) :
 
 - `spec/Spec.lean` importe l'annexe A ; les modules `spec/Spec/AnnexeB.lean`, `AnnexeC.lean` et `AnnexeD.lean` n'existent pas dans l'arbre courant.
-- Le matériau prototype correspondant existe déjà dans [`tooling/prototypes-bcd/AnnexeB.lean`](../../tooling/prototypes-bcd/AnnexeB.lean), [`AnnexeC.lean`](../../tooling/prototypes-bcd/AnnexeC.lean) et [`AnnexeD.lean`](../../tooling/prototypes-bcd/AnnexeD.lean). Les sources Org historiques restent dans [`docs/archives/manuscrit-org/`](../archives/manuscrit-org/).
+- Le matériau prototype correspondant existe déjà dans [`tools/prototypes-bcd/AnnexB.lean`](../../tools/prototypes-bcd/AnnexB.lean), [`AnnexC.lean`](../../tools/prototypes-bcd/AnnexC.lean) et [`AnnexD.lean`](../../tools/prototypes-bcd/AnnexD.lean). Les sources Org historiques restent dans [`docs/archives/manuscrit-org/`](../archives/manuscrit-org/).
 - La recherche des étiquettes `sec:annexe-lsp-repl`, `sec:annexe-sushi` et `sec:annexe-sugoi` ne trouve, dans le code courant indexé, que les prototypes d'outillage et les registres de migration ; aucun résultat correspondant n'a été retrouvé dans `spec/`.
 - Le registre central [`docs/tracking/DECISIONS.md`](../tracking/DECISIONS.md) garde D-7 ouvert (« décider avant la première release »). Le texte précédent de ce dossier affirmait au contraire qu'une décision définitive avait été prise. Aucune source consultée ne permet de traiter cette affirmation du dossier comme une ratification explicite de l'autrice.
 
@@ -27,7 +27,7 @@ Conséquence : la séparation physique actuelle entre le Verso normatif et les p
 | C — Sushi | shell d'administration utilisant la syntaxe d'appel universelle et le REPL | Les commandes, combinateurs et conventions de shell ne deviennent pas des primitives ou une partie implicite de la bibliothèque standard. |
 | D — Sugoi | prototype de gestion de paquets et de services | Séparer les propriétés garanties par K7PL des formats, protocoles, politiques de distribution, commandes et mécanismes de déploiement propres à l'outil. Une idée de vérification locale dans un prototype n'est pas une preuve de sûreté du produit. |
 
-Sources de provenance : [B historique](../archives/manuscrit-org/K7_LSP_REPL.org), [C historique](../archives/manuscrit-org/K7_Sushi.org), [D historique](../archives/manuscrit-org/K7_Sugoi.org), leurs variantes Verso dans `tooling/prototypes-bcd/`, et l'inventaire de conversion [`scripts/org2verso/convert.py`](../../scripts/org2verso/convert.py). Ces sources décrivent le contenu et son origine ; elles ne décident pas à elles seules du périmètre de la prochaine release.
+Sources de provenance : [B historique](../archives/manuscrit-org/K7_LSP_REPL.org), [C historique](../archives/manuscrit-org/K7_Sushi.org), [D historique](../archives/manuscrit-org/K7_Sugoi.org), leurs variantes Verso dans `tools/prototypes-bcd/`, et l'inventaire de conversion [`scripts/org2verso/convert.py`](../../scripts/org2verso/convert.py). Ces sources décrivent le contenu et son origine ; elles ne décident pas à elles seules du périmètre de la prochaine release.
 
 ## 3. Options de décision
 
@@ -53,7 +53,7 @@ Sources de provenance : [B historique](../archives/manuscrit-org/K7_LSP_REPL.org
 
 ### Option C — Différer les annexes hors du document normatif jusqu'à l'implémentation
 
-**Principe :** garder le Verso normatif actuel limité à la spécification du langage ; conserver les prototypes dans `tooling/prototypes-bcd/` et les sources initiales dans l'archive, sans présenter les trois contenus comme annexes de la release courante.
+**Principe :** garder le Verso normatif actuel limité à la spécification du langage ; conserver les prototypes dans `tools/prototypes-bcd/` et les sources initiales dans l'archive, sans présenter les trois contenus comme annexes de la release courante.
 
 **Avantages :** limite les engagements publiés à ce qui est réellement spécifié ; ne nécessite aucune modification du contenu normatif maintenant ; maintient une provenance récupérable pour une décision ultérieure.
 

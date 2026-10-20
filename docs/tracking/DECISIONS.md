@@ -102,7 +102,7 @@ Ces corrections ne changent pas le sens d'un énoncé, mais touchent le texte du
 |---|---|---|
 | `D-5` ✅ | **où écrire pendant la finition ?** | **Tranchée le 1er octobre 2026 : le Verso fait foi**, les fichiers Org sont archivés ; les contrôles sont portés (`scripts/controle.py`) |
 | `D-6` ✅ | sous-titre du document | le sous-titre du manuscrit, « A functional layered programming language », fait foi ; le dépôt n'en porte aucun |
-| `D-7` | périmètre éditorial futur des prototypes B/C/D ([dossier d'extraction](../migration/L1-ANNEXES-EXTRACTION.md)) | **DÉCISION ÉDITORIALE OUVERTE — anomalie de référence normative résolue.** `spec/` ne dépend plus des prototypes B/C/D, qui restent dans `tooling/prototypes-bcd/`; leurs sources Org sont archivées. L'autrice doit encore décider si leur présentation future sera séparée, regroupée ou différée. Ne pas inférer cette préférence de leur absence de `spec/`. |
+| `D-7` | périmètre éditorial futur des prototypes B/C/D ([dossier d'extraction](../migration/L1-ANNEXES-EXTRACTION.md)) | **DÉCISION ÉDITORIALE OUVERTE — anomalie de référence normative résolue.** `spec/` ne dépend plus des prototypes B/C/D, qui restent dans `tools/prototypes-bcd/`; leurs sources Org sont archivées. L'autrice doit encore décider si leur présentation future sera séparée, regroupée ou différée. Ne pas inférer cette préférence de leur absence de `spec/`. |
 | `D-8` ✅ | rétablir au glossaire les trois couches | réalisé : `spec/Spec/Refs/ListeDesGlosses.lean` contient les entrées `couche 1`, `couche 2` et `couche 3` |
 | `D-9` ✅ | première release `spec-v0.1.0` : quand ? | **porte P6**, après P1 à P5 : tranchée le 1er octobre 2026 |
 

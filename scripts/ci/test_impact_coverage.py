@@ -112,9 +112,9 @@ LEAN_TARGETS = {
     # verify.yaml, job `impl` (full || lean_build): `lake build K7pl K7plTests K7plCompliance
     # sbomAudit`, then `lake test` (the test driver, mainTest).
     "lean_build": ("K7pl", "K7plTests", "mainTest", "K7plCompliance", "sbomAudit"),
-    # verify.yaml, job `spec` (full || spec_build): `lake build Spec`, the axiom audits of SpecExt
-    # and SpecBib, `lake exe spec`.
-    "spec_build": ("Spec", "SpecExt", "SpecBib", "spec"),
+    # verify.yaml, job `spec` (full || spec_build): `lake build Spec`, `lake build K7plPrototypes`,
+    # the axiom audits of SpecExt and SpecBib, `lake exe spec`.
+    "spec_build": ("Spec", "K7plPrototypes", "SpecExt", "SpecBib", "spec"),
 }
 
 PATH_TYPES = {"Path", "PurePath", "PosixPath", "PurePosixPath"}

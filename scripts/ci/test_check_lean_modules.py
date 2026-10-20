@@ -235,12 +235,12 @@ class OrphanDetectionTests(RepoCase):
                 self.assertIn(f"{label}/", out)
                 self.assertEqual(run(repo, "--dirs", "src", "tests")[0], 0)
 
-    def test_tooling_is_not_scanned_by_default(self):
-        repo = self.make_repo(tooling__prototype__Annex_dot_lean="def annex := 1\n")
+    def test_a_directory_outside_the_source_directories_is_not_scanned_by_default(self):
+        repo = self.make_repo(extra__prototype__Annex_dot_lean="def annex := 1\n")
         self.assertEqual(run(repo)[0], 0)
-        code, out, _ = run(repo, "--dirs", *check.DEFAULT_SCAN_DIRS, "tooling")
+        code, out, _ = run(repo, "--dirs", *check.DEFAULT_SCAN_DIRS, "extra")
         self.assertEqual(code, 1)
-        self.assertIn("tooling/prototype/Annex.lean", out)
+        self.assertIn("extra/prototype/Annex.lean", out)
 
     def test_a_nested_lake_workspace_is_skipped_and_named(self):
         for lakefile in ("lakefile.lean", "lakefile.toml"):
@@ -504,6 +504,7 @@ class RealRepositoryTests(unittest.TestCase):
             "src/K7pl/Semantics.lean",
             "tests/ArithTest.lean",
             "tools/SpecExt/IndexCore.lean",
+            "tools/prototypes-bcd/AnnexB.lean",
             "spec/Spec.lean",
         )
         scanned = check.scan(REPO_ROOT, list(check.DEFAULT_SCAN_DIRS))
@@ -517,13 +518,25 @@ class RealRepositoryTests(unittest.TestCase):
     def test_real_nested_workspaces_are_named_not_hidden(self):
         workspaces = check.nested_workspaces(REPO_ROOT, list(check.DEFAULT_SCAN_DIRS))
         self.assertIn(REPO_ROOT / "spec" / "formal-chain", workspaces)
+        self.assertIn(REPO_ROOT / "tools" / "paperproof-export", workspaces)
         code, out, _ = run(REPO_ROOT)
         self.assertEqual(code, 0, out)
         self.assertIn("not scanned: spec/formal-chain/, a separate Lake workspace", out)
+        self.assertIn("not scanned: tools/paperproof-export/, a separate Lake workspace", out)
 
     def test_every_source_directory_of_the_package_is_scanned(self):
+        # Every srcDir is a scanned directory or lies under one (tools/prototypes-bcd/ is scanned
+        # as part of tools/), and every scanned directory is a srcDir.
         targets = check.parse_lakefile(REPO_ROOT / "lakefile.lean")
-        self.assertEqual({target.src_dir for target in targets}, set(check.DEFAULT_SCAN_DIRS))
+        src_dirs = {target.src_dir for target in targets}
+        scanned = set(check.DEFAULT_SCAN_DIRS)
+        unscanned = {
+            src_dir
+            for src_dir in src_dirs
+            if not any(src_dir == d or src_dir.startswith(d + "/") for d in scanned)
+        }
+        self.assertEqual(unscanned, set())
+        self.assertEqual(scanned - src_dirs, set())
 
     def test_real_test_roots_are_what_the_axiom_audit_loop_iterates_over(self):
         code, out, _ = run(REPO_ROOT, "--roots-in", "tests")

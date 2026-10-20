@@ -91,7 +91,9 @@ This map describes the licenses actually declared, not the policy. It was
 computed with `reuse spdx` (reuse 6.2.0) and by reading the SPDX headers, on
 the commit that introduced it (based on `main` at `7af5581`). Run `reuse spdx`
 to recompute it; where this map and `reuse spdx` disagree, `reuse spdx`
-describes the current state. Counts are numbers of files.
+describes the current state. Counts are numbers of files. The former `tooling/`
+directory has since been folded into `tools/`: its two rows give the new paths
+and the new file names of the B/C/D prototypes, with unchanged counts.
 
 | Path | License | Declared by | Exceptions and notes |
 |------|---------|-------------|----------------------|
@@ -103,8 +105,8 @@ describes the current state. Counts are numbers of files.
 | `scripts/` | `CECILL-2.1` (55) | headers | `Apache-2.0` (2): `scripts/ci/build_proof_visualizations.py`, `scripts/ci/test_build_proof_visualizations.py`. `CC-BY-4.0` (2): `scripts/ci/navigation_graph/README.md`, `scripts/ci/navigation_graph/navigation_explanations.py`. `CC0-1.0` (19): `scripts/ci/build_figure_provenance.py`, `scripts/ci/build_semantic_graph.py`, `scripts/ci/build_tikz_figures.sh`, `scripts/ci/check_navigation_outputs.py`, `scripts/ci/check_tikz_figures.py`, `scripts/ci/enrich_figure_svg_metadata.py`, `scripts/ci/test_enrich_figure_svg_metadata.py`, `scripts/ci/patch_klean_prelude.py`, `scripts/ci/test_patch_klean_prelude.py`, the five Python files of `scripts/ci/navigation_graph/` other than `navigation_explanations.py`, `scripts/controles/statement_inventory.py`, `scripts/requirements-ci.txt`, `scripts/requirements-spdx-validator.txt` (headers), and `scripts/ci/badge_criteria_registry.json`, `scripts/controles/donnees/sondes.json` (`REUSE.toml`) |
 | `lakefile.lean` | `CECILL-2.1` | header | none |
 | `proofs/` | `CC0-1.0` (10), `CC-BY-4.0` (1) | headers | `README.md`: `CC-BY-4.0`; the Lean files `K7PL.lean` and `K7PL/*.lean` (5) are `CC0-1.0`, like the Lake files and `Makefile` |
-| `tooling/paperproof-export/` | mixed (4) | headers and `REUSE.toml` | `lakefile.lean`: `CECILL-2.1`; `lake-manifest.json`, `lean-toolchain`: `CC0-1.0` (`REUSE.toml`); `README.md`: `CC-BY-4.0` |
-| `tooling/prototypes-bcd/` | `CC-BY-4.0` (4) | headers | `AnnexeB.lean`, `AnnexeC.lean`, `AnnexeD.lean`, `README.md` |
+| `tools/paperproof-export/` | mixed (4) | headers and `REUSE.toml` | `lakefile.lean`: `CECILL-2.1`; `lake-manifest.json`, `lean-toolchain`: `CC0-1.0` (`REUSE.toml`); `README.md`: `CC-BY-4.0` |
+| `tools/prototypes-bcd/` | `CC-BY-4.0` (4) | headers | `AnnexB.lean`, `AnnexC.lean`, `AnnexD.lean`, `README.md` |
 | `lib/` | `CECILL-C` (1) | header and `REUSE.toml` (`lib/**`) | `lib/README.md`: `CC-BY-4.0` (header and `REUSE.toml` override) |
 | `spec/` (except `spec/formal-chain/`) | `CC-BY-4.0` (94) | headers; `REUSE.toml` for `spec/figures/**` | none |
 | `spec/formal-chain/` | `CC0-1.0` (5), `CECILL-2.1` (3), `CC-BY-4.0` (1) | headers | `CECILL-2.1`: `BlueprintK7PL.lean`, `BlueprintK7PL/Blueprint.lean`, `BlueprintK7PLMain.lean`; `CC-BY-4.0`: `BlueprintK7PL/Chapters/Semantics.lean`; `CC0-1.0`: `.gitignore`, `Makefile`, `lake-manifest.json`, `lakefile.lean`, `lean-toolchain` |
@@ -146,8 +148,8 @@ The following facts are recorded without any decision.
   `CC0-1.0` for 28, `CC-BY-4.0` for 4 and `Apache-2.0` for 3. By directory:
   `src/` 11 `CECILL-2.1`; `tests/` 14 `CECILL-2.1` and 7 `CC0-1.0`; `tools/`
   22 `CECILL-2.1`, 1 `CC0-1.0` and 1 `Apache-2.0`; `scripts/` 53
-  `CECILL-2.1`, 15 `CC0-1.0`, 2 `Apache-2.0` and 1 `CC-BY-4.0`; `tooling/` 1
-  `CECILL-2.1` and 3 `CC-BY-4.0`; `proofs/` 5 `CC0-1.0`; `lakefile.lean`
+  `CECILL-2.1`, 15 `CC0-1.0`, 2 `Apache-2.0` and 1 `CC-BY-4.0`; `tooling/` (now
+  `tools/paperproof-export/` and `tools/prototypes-bcd/`) 1 `CECILL-2.1` and 3 `CC-BY-4.0`; `proofs/` 5 `CC0-1.0`; `lakefile.lean`
   `CECILL-2.1`.
 - The policy above and `.claude/skills/writing-rules.md` (at `7af5581`)
   give `CECILL-2.1` for project software: the table of section 4 of

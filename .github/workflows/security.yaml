@@ -139,7 +139,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      # Root workspace only. tooling/paperproof-export/lake-manifest.json is not scanned:
+      # Root workspace only. tools/paperproof-export/lake-manifest.json is not scanned:
       # lake_manifest_to_osv.py checks a manifest against the root allow-list, lakefile.lean and
       # lean-toolchain, and refuses that one (Paperproof is not allowed, cslib and verso missing).
       - name: Validate and convert the Lake manifest

@@ -61,7 +61,7 @@ concurrency:
 
 env:
   # The isolated Lake workspace of the Paperproof extractor (not bumped, see above).
-  PAPERPROOF_WORKSPACE: tooling/paperproof-export
+  PAPERPROOF_WORKSPACE: tools/paperproof-export
 
 jobs:
   build:

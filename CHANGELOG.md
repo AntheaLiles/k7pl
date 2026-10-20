@@ -18,7 +18,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 ### Added
 
 - Proof visualizations: observations of five selected Lean proofs, extracted with Paperproof in an
-  isolated Lake workspace (`tooling/paperproof-export`, Lean 4.34.0) and rendered natively by a Verso
+  isolated Lake workspace (`tools/paperproof-export`, Lean 4.34.0) and rendered natively by a Verso
   extension (`tools/SpecExt/ProofVisualization.lean`) in HTML and TeX (#216); transition layout (#221).
   These are non-normative observations; their human review is tracked in
   `docs/tracking/PROOF-VISUALIZATION-HUMAN-REVIEW.md`.
@@ -44,6 +44,10 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - CI: Conventional Commits enforcement restored in commitlint, with the project types `licensing`
   and `a11y` (#224).
 - `K7pl.MemoryCapability` no longer imports the whole of `Mathlib.Tactic` (#225).
+- `tooling/` is folded into `tools/`: the Paperproof workspace is now `tools/paperproof-export/`,
+  and the B/C/D prototypes are `tools/prototypes-bcd/` with English file names (`AnnexB.lean`,
+  `AnnexC.lean`, `AnnexD.lean`). The prototypes become the non-default `lean_lib`
+  `K7plPrototypes`, which the `spec` job of `verify.yaml` builds.
 - Compliance audit: reject an empty Lake inventory, state the exact Boolean/predicate equivalence in Lean, and cover the empty-inventory behavior in model and CLI regression tests.
 - Compliance audit: align Lean package-name validation with the SPDX wrapper for empty, ASCII-whitespace-only and Unicode-whitespace-only names; add regressions for both layers.
 - SPDX assurance research: preserve a case-by-case non-gating negative-corpus review and attach workflow identity plus hashes of the corpus, validator, generator, configuration and dependency locks to v2 probe reports.

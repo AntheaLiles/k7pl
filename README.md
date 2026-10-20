@@ -47,7 +47,7 @@ that will attach its PDF to each `spec-vX.Y.Z` release and archive it on Zenodo 
 [`CONTRIBUTING.md`](CONTRIBUTING.md); it has not yet been run end to end.
 
 The former annexes B, C and D are no longer part of `spec/`: since commit `d84021f`, their
-material is kept as tooling prototypes in [`tooling/prototypes-bcd/`](tooling/prototypes-bcd/),
+material is kept as tooling prototypes in [`tools/prototypes-bcd/`](tools/prototypes-bcd/),
 outside the normative specification. Their future editorial scope is an open decision (`D-7` in
 [`docs/tracking/DECISIONS.md`](docs/tracking/DECISIONS.md)).
 
@@ -64,8 +64,7 @@ in [`docs/archives/`](docs/archives/).
 | [`proofs/`](proofs/) | maintained Lean proofs, and KLean modules generated at build time |
 | [`tests/`](tests/), [`tests/examples/`](tests/examples/) | Lean/Python tests, and K7PL `.k7` programs |
 | [`spec/`](spec/) | normative Verso specification, figures, and an experimental exposition under `spec/formal-chain/` |
-| [`tools/`](tools/) | specification generator and Verso extensions (`SpecExt/`); bibliography (`SpecBib.lean`, generated from [`docs/bibliography/references.json`](docs/bibliography/references.json)); Lean compliance and audit models (`Compliance/`) |
-| [`tooling/`](tooling/) | currently holds the Paperproof extraction workspace (`paperproof-export/`) and the B/C/D prototypes (`prototypes-bcd/`) |
+| [`tools/`](tools/) | specification generator and Verso extensions (`SpecExt/`); bibliography (`SpecBib.lean`, generated from [`docs/bibliography/references.json`](docs/bibliography/references.json)); Lean compliance and audit models (`Compliance/`); the isolated Paperproof extraction workspace (`paperproof-export/`); the non-normative B/C/D prototypes (`prototypes-bcd/`) |
 | [`lib/`](lib/) | libraries written in K7PL (currently one example file, `lib-exemple.k7`) |
 | [`docs/`](docs/) | current documentation, assurance, research, method, tracking and historical archives |
 | [`scripts/`](scripts/) | maintenance, Org → Verso conversion, metrics and tracking |

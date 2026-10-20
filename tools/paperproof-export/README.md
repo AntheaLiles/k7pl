@@ -17,7 +17,7 @@ Paperproof's terminal interface rejects source paths outside its own Lake worksp
 
 From the repository root:
 
-    cd tooling/paperproof-export
+    cd tools/paperproof-export
     lake exe cache get
     lake build terminal
     cd ../..
@@ -26,7 +26,7 @@ From the repository root:
       --repo-root . \
       --data-dir _out/proof-visualizations/data \
       --ref "$(git rev-parse HEAD)" \
-      --extractor-dir tooling/paperproof-export
+      --extractor-dir tools/paperproof-export
 
 Run the Verso document build afterwards:
 
