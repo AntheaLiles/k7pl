@@ -5,6 +5,7 @@
 """Regression checks for the native Lean/Verso executable-code pipeline."""
 
 from pathlib import Path
+import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -17,7 +18,12 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.spec_main = (ROOT / "tools/SpecMain.lean").read_text(encoding="utf-8")
         self.k_make = (ROOT / "src/k/Makefile").read_text(encoding="utf-8")
         self.root_make = (ROOT / "Makefile").read_text(encoding="utf-8")
-        self.workflow = (ROOT / ".github/workflows/k7pl-semantics.yaml").read_text(encoding="utf-8")
+        self.workflow_file = workflow = (ROOT / ".github/workflows/k7pl-semantics.yaml").read_text(encoding="utf-8")
+        # The workflow and the scripts/ci step scripts that it runs.
+        self.step_scripts = sorted(set(re.findall(r"\bscripts/ci/k7pl_semantics_\w+\.sh\b", workflow)))
+        self.workflow = "\n".join(
+            [workflow] + [(ROOT / name).read_text(encoding="utf-8") for name in self.step_scripts]
+        )
 
     def test_verso_is_the_only_maintained_k_definition(self) -> None:
         self.assertIn('```k7plK (file := "src/k/.build/generated/semantics.k")', self.page)
@@ -74,8 +80,13 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertNotIn("extract_verso_code.py", self.workflow)
 
     def test_workflow_packages_the_generated_sources(self) -> None:
+        self.assertIn("scripts/ci/k7pl_semantics_package_evidence.sh", self.step_scripts)
         self.assertIn(".build/generated/semantics.k", self.workflow)
         self.assertIn(".build/generated/check_k_examples.py", self.workflow)
+
+    def test_step_scripts_trigger_the_workflow(self) -> None:
+        # Both the pull_request and the push path filters.
+        self.assertEqual(self.workflow_file.count('- "scripts/ci/k7pl_semantics_*.sh"'), 2)
 
 
 if __name__ == "__main__":
