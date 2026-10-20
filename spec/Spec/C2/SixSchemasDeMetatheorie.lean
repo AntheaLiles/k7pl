@@ -21,9 +21,11 @@ tag := "c2-six-schemas-de-metatheorie"
 
 {label "sec:c2-six-schemas-de-metatheorie"}
 
-Six énoncés reviennent dans ce document sous des habillages différents, et chacun est démontré ici
+Six énoncés reviennent dans ce document sous des habillages différents, et chacun est énoncé ici
 une fois pour toutes. Ce ne sont pas des théorèmes sur K7PL mais sur la forme de ses démonstrations :
-les chapitres qui suivent les instancient plutôt qu'ils ne les refont. {rmq}[Écrire le schéma avant
+les chapitres qui suivent les instancient plutôt qu'ils ne les refont. Leur statut varie : chaque
+schéma porte ses hypothèses et les obligations qui restent à vérifier pour l'appliquer au système
+effectif. {rmq}[Écrire le schéma avant
 ses instances évite d'écrire trois fois la même récurrence, et rend visible ce qu'elles partagent.]
 
 Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le
