@@ -3,56 +3,55 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Sémantique opérationnelle K — prototype
+# K operational semantics — prototype
 
-Ce dossier décrit une sémantique exécutable K pour un sous-langage expérimental de K7PL.
-La source éditable de la définition est le bloc K de `spec/Spec/CodeArtifacts.lean`; le bloc
-Python de la même page contient le vérificateur des programmes d'exemple. `lake exe spec
---extract-code-only` génère `src/k/.build/generated/semantics.k` et
-`src/k/.build/generated/check_k_examples.py`. Ces artefacts sont ignorés par Git et ne doivent
-pas être édités directement. Les programmes source sont dans `tests/examples/` et utilisent
-l'extension `.k7`.
+This document describes an executable K semantics for an experimental sublanguage of K7PL.
+The editable source of the definition is the K block of `spec/Spec/CodeArtifacts.lean`; the
+Python block of the same page holds the checker for the example programs. `lake exe spec
+--extract-code-only` generates `src/k/.build/generated/semantics.k` and
+`src/k/.build/generated/check_k_examples.py`. These artefacts are ignored by Git and must not be
+edited directly. The source programs are in `tests/examples/` and use the `.k7` extension.
 
-## Périmètre
+## Scope
 
-| Construct | Représentation K | Comportement |
+| Construct | K representation | Behaviour |
 |---|---|---|
-| Littéral entier | `Int` builtin | Valeur entière |
-| Littéral booléen | `Bool` builtin | Valeur booléenne |
-| `(+ e1 e2)` | `k7Add` | Addition entière stricte, gauche-à-droite |
-| `(< e1 e2)` | `k7Lt` | Comparaison entière |
-| `(select c e1 e2)` | `k7Select` | Évalue la condition puis sélectionne une branche |
-| Types de base | `IntType`, `BoolType` | Classificateur partiel `typeOf` |
+| Integer literal | builtin `Int` | Integer value |
+| Boolean literal | builtin `Bool` | Boolean value |
+| `(+ e1 e2)` | `k7Add` | Strict integer addition, left to right |
+| `(< e1 e2)` | `k7Lt` | Integer comparison |
+| `(select c e1 e2)` | `k7Select` | Evaluates the condition, then selects a branch |
+| Base types | `IntType`, `BoolType` | Partial classifier `typeOf` |
 
-Les exemples exécutés par CI sont `(+ 1 (+ 2 3)) → 6` et
+The examples run by CI are `(+ 1 (+ 2 3)) → 6` and
 `(select (< 1 2) (+ 1 2) (+ 10 20)) → 3`.
 
-## Reproduire
+## Reproduce
 
-Depuis la racine du dépôt, avec K disponible :
+From the repository root, with K available:
 
 ```sh
 make k-check
 krun --definition src/k/.build/kompiled tests/examples/add.k7
 ```
 
-Pour exécuter aussi l'export vers Lean, les preuves et l'exposé Verso, avec `klean`
-`kframework==7.1.337` et Lean `v4.34.0` :
+To also run the export to Lean, the proofs and the Verso exposition, with `klean`
+`kframework==7.1.337` and Lean `v4.34.0`:
 
 ```sh
 make formal-chain
 ```
 
-## Frontière de confiance
+## Trust boundary
 
-`klean` consomme la définition K compilée en KORE et génère une relation `Rewrites` sur des
-configurations K complètes, incluant les transitions auxiliaires de strictness (heat/cool) et
-les frames de continuation. Le paquet Lean prouve `preservation`/`progress` pour la relation
-expressionnelle `SurfaceStep` et la préservation de `MachineTyping` pour la relation générée
-`Rewrites` du sous-langage. L'audit d'axiomes autorise `[propext]` et interdit `sorryAx`.
+`klean` consumes the K definition compiled to KORE and generates a `Rewrites` relation on
+complete K configurations, including the auxiliary strictness transitions (heat/cool) and the
+continuation frames. The Lean package proves `preservation`/`progress` for the expression
+relation `SurfaceStep` and the preservation of `MachineTyping` for the generated relation
+`Rewrites` of the sublanguage. The axiom audit allows `[propext]` and forbids `sorryAx`.
 
-La fonction K `typeOf` n'est pas exportée comme des règles de `Rewrites`; sa correspondance
-avec le jugement Lean structurel `HasType` reste à prouver. Le résultat ne formalise pas les
-fragments de ressources, grades, effets, acteurs, capacités ou la grammaire normative complète.
-La traduction KORE→Lean, les fonctions hookées et la fidélité de cette définition à la
-spécification constituent des obligations de confiance distinctes.
+The K function `typeOf` is not exported as `Rewrites` rules; its correspondence with the
+structural Lean judgement `HasType` remains to be proved. The result does not formalise the
+fragments of resources, grades, effects, actors, capabilities, or the complete normative grammar.
+The KORE→Lean translation, the hooked functions and the fidelity of this definition to the
+specification are separate trust obligations.

@@ -38,6 +38,7 @@ enforces it.
 | `CONTRIBUTING.md`, `README.md` | translated on `docs/english-policy`, pending merge (`README.md` includes the sections merged by PR #232) |
 | `.github/PULL_REQUEST_TEMPLATE.md`, `.github/ISSUE_TEMPLATE/*.yml` (3 files) | translated on `docs/english-policy`, pending merge |
 | `CHANGELOG.md`, `docs/tracking/BRANCHES-STATUS.md` | done on `main` (PR #227) |
+| `docs/formal-semantics.md`, `proofs/README.md` | translated on `docs/translations-figures-positioning`, pending merge |
 | `LICENSE.md` | in progress in open PR #233 (translation and path-to-license map); still French on `main` |
 | `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/ASSURANCE.md`, `docs/METHOD.md`, `docs/RESEARCH.md`, `docs/tracking/DASHBOARD.md`, `docs/migration/README.md`, `docs/peer-review/README.md` | already English (their first heading is checked by `scripts/ci/check_documentation_architecture.py`) |
 
@@ -151,7 +152,7 @@ Indexes, registers, plans, guides and policies that the project keeps current.
 | `docs/method/` | 4 | `charte-redaction.md`, `doctrine.md`, `doctrine-e.md`, `protocole.md` |
 | `docs/research/` (undated) | 14 | `LEAN-COMPLIANCE-ASSURANCE.md`, `LEAN-COMPLIANCE-DECISION.md`, `SPDX-NEGATIVE-CORPUS-REVIEW.md`, `ancienne-annexe-e-preambule.md`, `arc-g-collecte.md`, `arc-g-methode.md`, `commentaires-du-manuscrit.md`, `corpus.md` (2,507 lines), `instruction-arb-pr-04-rejeu-binaire.md`, `manques.md`, `questions.md`, `rapport-qa-28.md`, `registre-empirique.md`, `sources-singularites.md` |
 | `docs/migration/` registers | 5 | `L1-ANNEXES-EXTRACTION.md`, `L1-DECISIONS.md`, `L1-SUIVI-EXTRACTION.md`, `L1-THEORY-OBJECTS.md`, `L1-THEORY-SEDIMENTATION.md` |
-| Experimental K → Lean chain (PR #232) | 3 | `CHECKPOINT.md` (dated 18 October 2026), `docs/formal-semantics.md`, `proofs/README.md` |
+| Experimental K → Lean chain (PR #232) | 3 | `CHECKPOINT.md` (dated 18 October 2026), `docs/formal-semantics.md`, `proofs/README.md` (these two translated on `docs/translations-figures-positioning`, pending merge) |
 | `docs/bibliography/` | 7 | `a-ajouter-collection.md`, `a-charger.md`, `a-sourcer-manques.md`, `a-sourcer-nommage.md`, `a-traiter.md`, `verifications-pr02.md`, `decisions-bibliographiques.json` (French `motif` fields) |
 
 Translating the content of a file does not rename it: French file names (for example

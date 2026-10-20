@@ -3,21 +3,21 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# Couche de preuves K7PL
+# K7PL proof layer
 
-Ce package Lake rassemble les preuves Lean maintenues de la chaîne sémantique expérimentale.
-`K7PL/Proof.lean` définit le jugement structurel `HasType` et `SurfaceStep`, avec les théorèmes
-`preservation` et `progress`. `K7PL/Bridge.lean` relie des pas concrets à la relation générée.
-`K7PL/MachineSoundness.lean` prouve la préservation de `MachineTyping` pour les constructeurs
-de la relation KLean `Rewrites`, y compris les frames de continuation. `K7PL/Example.lean`
-contient les témoins concrets de bout en bout.
+This Lake package gathers the maintained Lean proofs of the experimental semantic chain.
+`K7PL/Proof.lean` defines the structural judgement `HasType` and `SurfaceStep`, with the theorems
+`preservation` and `progress`. `K7PL/Bridge.lean` links concrete steps to the generated relation.
+`K7PL/MachineSoundness.lean` proves the preservation of `MachineTyping` for the constructors
+of the KLean relation `Rewrites`, including the continuation frames. `K7PL/Example.lean`
+holds the concrete end-to-end witnesses.
 
-Les modules KLean sont générés pendant la construction sous `K7PL2Lean/` et
-`K7PL2Lean.lean`; ils sont ignorés par Git et ne sont pas des sources maintenues. À partir de
-la racine du dépôt, `make proof` compile K, génère et adapte KLean, copie les modules générés
-dans ce package, puis lance `lake build`.
+The KLean modules are generated during the build under `K7PL2Lean/` and
+`K7PL2Lean.lean`; they are ignored by Git and are not maintained sources. From
+the repository root, `make proof` compiles K, generates and adapts KLean, copies the generated
+modules into this package, then runs `lake build`.
 
-Limite formelle : le sous-langage contient des entiers, booléens, addition, comparaison et
-`select`. KLean n'encode pas les équations de la fonction K `typeOf` comme constructeurs de
-`Rewrites`; aucune équivalence entre `typeOf` et le jugement `HasType` n'est revendiquée.
-Ce résultat ne constitue pas une preuve de sûreté du K7PL complet.
+Formal limit: the sublanguage contains integers, booleans, addition, comparison and
+`select`. KLean does not encode the equations of the K function `typeOf` as constructors of
+`Rewrites`; no equivalence between `typeOf` and the judgement `HasType` is claimed.
+This result does not constitute a safety proof of the complete K7PL.
