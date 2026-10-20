@@ -359,7 +359,7 @@ qui pointent une signature plutôt qu'un point d'unification arbitraire.
 Le cas Lin porte une propriété plus forte qu'une simple comptabilité d'usage : une valeur `Lin T`
 est le témoin qu'une seule référence existe, prouvée à la compilation plutôt que vérifiée à
 l'exécution. Cette unicité, empruntée à Clean, rend la mutation physique en place fonctionnellement
-pure : aucune fibre ne peut observer d'état intermédiaire, puisqu'aucune autre référence ne peut
+pure : aucune fibrille ne peut observer d'état intermédiaire, puisqu'aucune autre référence ne peut
 exister pour l'observer. La performance du bas niveau et la pureté mathématique (P1, P3) cessent
 ainsi d'être en tension — l'une est la preuve constructive de l'autre.
 
