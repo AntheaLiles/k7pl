@@ -139,8 +139,22 @@ Ces corrections ne changent pas le sens d'un énoncé, mais touchent le texte du
 | 49 | process | Proposals for ADRs, roles and the workstream are requested from the agent, inspired by comparable K / Lean 4 projects; they are pending the owner's validation. | KLean instruction, N-5…N-7 | the proposals, then their validation by the owner. **Note of 2026-10-20:** the owner validated the proposals (« oui »); record: [ADR-0011](../decisions/0011-decision-records-roles-and-workstream-n.md) |
 | 50 | Lean version | The Lean version is not changed now (`leanprover/lean4:v4.34.0` in `lean-toolchain`, `proofs/` and `spec/formal-chain/`); a migration to v4.36 (or later) is to be planned. | KLean instruction, ADR-010, N-9, N-10 | the migration plan |
 | 51 | TikZ figures | « le dessin fait toujours foi et l'alt-text doit correspondre au dessin ». The other figure questions are taken later. | PR-03, finding R-14; question C-08 (question (4) of the « TikZ en production » row above) | the alignment of the `alt` texts; questions (1)–(3), (5) and (6) of that row |
-| 52 | automata | No ambiguity: « toute fonction ou groupe de fonctions mise en production est appelé automate ». What remains to discuss is which automata each K7PL layer creates and how types and categories are used; the rest is already documented. | PR-03, finding R-13; question C-04 (status of the automata hierarchy) | which automata each layer creates; the use of types and categories |
+| 52 | automata | No ambiguity: « toute fonction ou groupe de fonctions mise en production est appelé automate ». What remains to discuss is which automata each K7PL layer creates and how types and categories are used; the rest is already documented. **2026-10-20, owner (Q6 below):** the definition is written at the head of the C4 introduction, as the document's stance only. | PR-03, finding R-13; question C-04 (status of the automata hierarchy) | which automata each layer creates; the use of types and categories |
 | 53 | remaining items of the KLean plan | ADR-003…010, Q1–Q6, N-8: « ok => à faire ». | KLean instruction, §§ 5.1, 5.2 and 5.4 | the work itself |
+
+### Answers of 20 October 2026 on PR #246
+
+The owner answered the questions raised by the review of PR #246 (« resolve foundational guarantee contradictions »). Q1, Q3 and Q6 are the numbers of that review's questions, unrelated to the Q1–Q6 of the KLean plan (row 53). Recording an answer proves nothing; each change to `spec/` is made and checked separately, and no statement changes state.
+
+| Question | Owner's decision | Where it applies |
+|---|---|---|
+| Q1 | Redo PR #246 as a clean pull request from `main` that takes over its correct parts and credits it; the owner closes #246. | the rows below, and the status wording PR #246 corrected in C1, C2, C5, C6 and C7 |
+| Q3 (a) `thm:deadlock_acyclique` | Keep the conclusion « absence de blocage » and make the simulation of the dynamic wait graph by the static dependency graph an explicit premise (Sim); do not weaken the conclusion to an acyclic graph; keep the author's argument through the typing of `Guard`. | C3 `LesContraintesDeValeur`; C4 `EchelleDuSysteme` (« Lot 0 » row 22) |
+| Q3 (b) effects and `thm:traduction_metalangage` | Align every passage on the text's own choice: effects are translated as communications on distinguished channels; do not restrict the theorem to effect-free code. | C4 `CalculDeProcessusSousJacent`; C2 `SystemeDeRaffinement` |
+| Q3 (c) `thm:rejeu_binaire` | Option (a) of its row above: representation invariance `H_repr` replaces injectivity. | C4 `EchelleDuSysteme` |
+| Q3 (d) `thm:stabilisation_pipeline` | Move the operational premises into the statement. | C6 `LeProcessusDeCompilation` |
+| Q3 (e) `thm:schema_commutation` | Add the substitution-compatibility hypothesis proposed by PR #246. | C2 `SixSchemasDeMetatheorie` |
+| Q6 (decision 52) | Write the definition of an automaton in the C4 introduction as the document's stance only, without announcing the structure that follows. | C4 `Introduction` |
 
 ## Architecture decision records
 
