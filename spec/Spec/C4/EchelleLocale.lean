@@ -159,7 +159,7 @@ R-expression sur des AST plutôt que sur du texte —, l'annotation devrait êtr
 survivrait sans condition est la minimalisation des automates _déterministes_, qui ne dépend pas de
 la symétrie des données.
 
-::::figure (label := "fig:rexp-complexite") (src := "rexp-hierarchy-complexity") (alt := "Trois niveaux emboites de complexite des R-expressions. Au centre, arobase linear, un automate deterministe lineaire en la longueur du texte, constant par bloc. Autour, arobase polynomial, un automate non deterministe. A l'exterieur, arobase stack, un automate a pile, de profondeur bornee par un grade.") (width := "90")
+::::figure (label := "fig:rexp-complexite") (src := "rexp-hierarchy-complexity") (alt := "Trois classes de complexité des R-expressions, disposées en chaîne de gauche à droite et reliées par deux flèches. D'abord arobase linear, un automate déterministe (DFA), en O(n) et O(1) par bloc ; puis arobase polynomial, un automate non déterministe (NFA) ; enfin arobase stack, un automate à pile (PDA), de profondeur bornée par un grade.") (width := "90")
 :::caption
 Hiérarchie de complexité des R-expressions
 :::

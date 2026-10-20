@@ -62,7 +62,7 @@ un acteur n'est jamais qu'une reprise de sa coalgèbre à l'endroit exact où el
 L'orchestrateur charge l'instantané, rejoue les messages consignés depuis, puis relâche le handler —
 une activation atomique, bornée par la taille de l'instantané, elle-même un grade $`r`.
 
-::::figure (label := "fig:acteur-cycle-de-vie") (src := "virtual-actor-lca") (alt := "Cycle a deux etats. De Desactivé vers Actif, l'activation charge l'instantane et rejoue le journal. Sur Actif, une boucle figure le traitement de message. D'Actif vers Desactivé, l'inactivite gèle l'état, le persiste et libère la memoire.") (width := "90")
+::::figure (label := "fig:acteur-cycle-de-vie") (src := "virtual-actor-lca") (alt := "Cycle à deux états. Un point initial mène à Désactivé. De Désactivé vers Actif, l'activation charge l'instantané et rejoue le journal. Sur Actif, une boucle figure le traitement de message. D'Actif vers Désactivé, l'inactivité gèle l'état, le persiste et libère la mémoire.") (width := "90")
 :::caption
 Cycle de vie d'un acteur virtuel
 :::
