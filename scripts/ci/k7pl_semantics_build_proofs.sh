@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CECILL-2.1
+
+# Builds K7PL2Lean and K7PL in the proof project and audits the build log: it must not contain
+# sorryAx, and it must report the axioms of the two machine-soundness theorems.
+#
+# Called by: .github/workflows/k7pl-semantics.yaml, job `k-smoke`, step "Build the Klean-generated
+# Lean project", with working-directory `proofs`.
+# Environment: RUNNER_TEMP (set by the runner).
+#
+#   bash "$GITHUB_WORKSPACE/scripts/ci/k7pl_semantics_build_proofs.sh"
+set -euo pipefail
+
+lean --version
+lake --version
+BUILD_LOG="$RUNNER_TEMP/k7pl-lake-build.log"
+lake build K7PL2Lean K7PL 2>&1 | tee "$BUILD_LOG"
+if grep -Fq "sorryAx" "$BUILD_LOG"; then
+  echo "::error::Lean axiom audit found sorryAx in the build output."
+  exit 1
+fi
+grep -Fq "'K7PL.MachineSoundness.rewrites_preserve_machine_typing' depends on axioms:" "$BUILD_LOG" || {
+  echo "::error::Missing axiom audit for rewrites_preserve_machine_typing." >&2
+  exit 1
+}
+grep -Fq "'K7PL.MachineSoundness.end_to_end_preservation' depends on axioms:" "$BUILD_LOG" || {
+  echo "::error::Missing axiom audit for end_to_end_preservation." >&2
+  exit 1
+}
