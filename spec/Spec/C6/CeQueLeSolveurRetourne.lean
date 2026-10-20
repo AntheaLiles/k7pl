@@ -204,7 +204,7 @@ Les deux premières voies emploient ce que le document possède déjà : le déc
 et les indices `invariant`, `witness` et `lemma` sont soumis au test par propriétés décrit
 ci-dessus. La troisième porte une contrainte, et elle est structurelle plutôt que stylistique : _le
 budget relevé doit être écrit dans la source_. S'il vivait dans une configuration, la
-reproductibilité que le théorème {num "thm:rejet_reproductible"}[] établit se perdrait aussitôt — le
+reproductibilité que le théorème {num "thm:rejet_reproductible"}[] énonce se perdrait aussitôt — le
 message dépendrait d'un fichier que la source ne mentionne pas, et l'objectif de compilation
 reproductible deviendrait inatteignable.
 
