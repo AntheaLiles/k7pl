@@ -21,11 +21,11 @@ tag := "c6-le-processus-de-compilation"
 
 {label "sec:c6-le-processus-de-compilation"}
 
-Compiler un programme K7PL, c'est établir, dans un ordre que presque rien ne permet d'inverser — la Phase~5 et la suivante font exception, leur ordre étant un choix d'ingénieur que la section sur la vérification et le test reconnaît —, chacun des
+Compiler un programme K7PL, c'est établir, dans un ordre que presque rien ne permet d'inverser — la Phase~5 et la suivante font exception, leur ordre étant un choix d'ingénieur que la section sur la vérification et le test reconnaît ; une optimisation pouvant engendrer des contraintes que la Phase~5 avait déjà déchargées, ces deux phases sont à itérer jusqu'à stabilisation plutôt qu'à enchaîner une fois —, chacun des
 trois ordres de vérification du jugement germinal du chapitre 1 — puis effacer entièrement les
 preuves qui les ont établies, ne laissant dans le binaire final que le terme qu'elles autorisent. Le
-pipeline présenté en figure {num "fig:comp-process"}[] décrit cet ordre ; chaque étape n'est là que
-parce que la précédente devait l'être acquise avant elle.
+pipeline présenté en figure {num "fig:comp-process"}[] décrit cet ordre sans figurer cette itération ;
+hors d'elle, chaque étape n'est là que parce que la précédente devait être acquise avant elle.
 
 Un point de lecture s'impose avant de le suivre, car il évite une méprise sur ce que ces huit étapes
 sont, et lève une objection de comptage. Ce ne sont pas huit _passes_ mais huit _ordres de
