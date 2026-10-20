@@ -136,11 +136,30 @@ Ces corrections ne changent pas le sens d'un énoncé, mais touchent le texte du
 | 46 | `thm:progres` | « modifier l'énoncé pour qu'il soit vrai sans corrompre l'intention »: direction of option (a) of the rows `thm:progres` and D-P1 above. | PR-03, finding R-12; question C-02 | exact text of the statement, pending |
 | 47 | traceability | Workstream to instruct: « tous les éléments de traçabilité calculés et exposés de manière fiable et prouvés par de l'outillage Lean ». | session action list | the instruction of the workstream and its implementation |
 | 48 | K code blocks | « les codeblocs K dans les fichiers Verso sont normatifs ». | KLean instruction, N-2 (the page `spec/Spec/CodeArtifacts.lean` calls itself « support d'ingénierie non normatif ») | aligning the wording of that page and of the documents that repeat it |
-| 49 | process | Proposals for ADRs, roles and the workstream are requested from the agent, inspired by comparable K / Lean 4 projects; they are pending the owner's validation. | KLean instruction, N-5…N-7 | the proposals, then their validation by the owner |
+| 49 | process | Proposals for ADRs, roles and the workstream are requested from the agent, inspired by comparable K / Lean 4 projects; they are pending the owner's validation. | KLean instruction, N-5…N-7 | the proposals, then their validation by the owner. **Note of 2026-10-20:** the owner validated the proposals (« oui »); record: [ADR-0011](../decisions/0011-decision-records-roles-and-workstream-n.md) |
 | 50 | Lean version | The Lean version is not changed now (`leanprover/lean4:v4.34.0` in `lean-toolchain`, `proofs/` and `spec/formal-chain/`); a migration to v4.36 (or later) is to be planned. | KLean instruction, ADR-010, N-9, N-10 | the migration plan |
 | 51 | TikZ figures | « le dessin fait toujours foi et l'alt-text doit correspondre au dessin ». The other figure questions are taken later. | PR-03, finding R-14; question C-08 (question (4) of the « TikZ en production » row above) | the alignment of the `alt` texts; questions (1)–(3), (5) and (6) of that row |
 | 52 | automata | No ambiguity: « toute fonction ou groupe de fonctions mise en production est appelé automate ». What remains to discuss is which automata each K7PL layer creates and how types and categories are used; the rest is already documented. | PR-03, finding R-13; question C-04 (status of the automata hierarchy) | which automata each layer creates; the use of types and categories |
 | 53 | remaining items of the KLean plan | ADR-003…010, Q1–Q6, N-8: « ok => à faire ». | KLean instruction, §§ 5.1, 5.2 and 5.4 | the work itself |
+
+## Architecture decision records
+
+One row per record of [`docs/decisions/`](../decisions/README.md) ([ADR-0011](../decisions/0011-decision-records-roles-and-workstream-n.md)); the content lives only in the record. ADR-0001…0010 are the English port of the KLean plan's drafts ADR-001…010. A record is accepted when the owner merges the PR that sets its status to Accepted.
+
+| ADR | Title | Status | Owner decisions above |
+|---|---|---|---|
+| [ADR-0001](../decisions/0001-trust-order-and-normative-k-text.md) | Trust order and normative status of the K text | Proposed; partly decided | 48, 44 |
+| [ADR-0002](../decisions/0002-one-concept-one-home.md) | One concept, one home (no Lean mirror) | Proposed | 44 (related) |
+| [ADR-0003](../decisions/0003-k-blocks-in-verso-and-extraction.md) | K blocks in Verso and extraction | Proposed; partly decided | 48, 53 |
+| [ADR-0004](../decisions/0004-k7pl-profile-of-k.md) | K7PL profile of K | Proposed | 53; 43, 52 (related) |
+| [ADR-0005](../decisions/0005-executable-axiom-policy.md) | Executable axiom policy | Proposed — awaiting Q5 | 53; 43 (related) |
+| [ADR-0006](../decisions/0006-klean-as-audited-translator.md) | klean, an audited translator | Proposed; partly decided | 43, 53 |
+| [ADR-0007](../decisions/0007-computed-assurance-statuses.md) | Computed assurance statuses | Proposed | 53; 47 (related) |
+| [ADR-0008](../decisions/0008-initial-out-of-scope.md) | Initially out of scope | Proposed | 53 |
+| [ADR-0009](../decisions/0009-layer-3-array-representation.md) | Representation of layer-3 arrays | Proposed — awaiting Q3 | 53; 43, 52 (related) |
+| [ADR-0010](../decisions/0010-pinned-versions-and-upgrades.md) | Pinned versions and version upgrades | Proposed; partly decided | 50, 53 |
+| [ADR-0011](../decisions/0011-decision-records-roles-and-workstream-n.md) | Decision records, roles and workstream N | Accepted at merge | 49 |
+| [ADR-0012](../decisions/0012-k-as-normative-home-of-c3-c4.md) | K as the normative home of the C3/C4 grammar and semantics | Accepted at merge | 44 |
 
 ## État scientifique C — mise à jour du 11 octobre 2026
 
