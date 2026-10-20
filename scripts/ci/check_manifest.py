@@ -56,7 +56,7 @@ Usage (from the repository root):
 
     python3 scripts/ci/check_manifest.py
     python3 scripts/ci/check_manifest.py --manifest /path/to/untrusted/lake-manifest.json
-    python3 scripts/ci/check_manifest.py --manifest tooling/paperproof-export/lake-manifest.json
+    python3 scripts/ci/check_manifest.py --manifest tools/paperproof-export/lake-manifest.json
     python3 scripts/ci/check_manifest.py --check-tags --check-upstream
 
 Exit status: 0 when every check passes, 1 when a check fails, 2 on a usage error.
@@ -129,7 +129,7 @@ TOOLCHAIN_PINNED = ("mathlib", "cslib", "verso")
 # Its packages, taken from its manifest as of commit cc835b2 (13 October 2026): Paperproof (pinned
 # by commit), Mathlib (pinned to its own lean-toolchain release) and the packages Mathlib brings.
 # The names it shares with the root workspace are bound to the same repositories.
-PAPERPROOF_DIRECTORY = "tooling/paperproof-export"
+PAPERPROOF_DIRECTORY = "tools/paperproof-export"
 PAPERPROOF_ALLOWED_PACKAGES = {
     "Paperproof": "Paper-Proof/paperproof",
     **{

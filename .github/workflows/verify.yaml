@@ -61,7 +61,7 @@ permissions:
 env:
   # The isolated Lake workspace of the Paperproof extractor. scripts/ci/check_manifest.py
   # (PAPERPROOF_DIRECTORY) and build_proof_visualizations.py (DEFAULT_EXTRACTOR_DIR) name it too.
-  PAPERPROOF_WORKSPACE: tooling/paperproof-export
+  PAPERPROOF_WORKSPACE: tools/paperproof-export
 
 jobs:
   quick:
@@ -446,6 +446,11 @@ jobs:
 
       - name: Build the specification
         run: lake build Spec
+
+      # The B/C/D prototypes (tools/prototypes-bcd/) are a non-default lean_lib that `Spec` does not
+      # import. check_lean_modules.py counts their roots as reachable, so this job builds them.
+      - name: Build the B/C/D prototypes
+        run: lake build K7plPrototypes
 
       - name: Audit the axioms (Spec)
         run: scripts/axiom-audit.sh Spec Spec

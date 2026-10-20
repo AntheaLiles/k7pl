@@ -22,7 +22,7 @@ PAPERPROOF_REVISION = "05c68e9cb8e881f9e971abb94efd231a269e0229"
 PAPERPROOF_TOOLCHAIN = "leanprover/lean4:v4.34.0"
 TOOLCHAIN_RE = re.compile(r"leanprover/lean4:(v[0-9]+\.[0-9]+\.[0-9]+(?:-rc[0-9]+)?)")
 # The isolated Lake workspace of the extractor, relative to the repository root.
-DEFAULT_EXTRACTOR_DIR = Path("tooling/paperproof-export")
+DEFAULT_EXTRACTOR_DIR = Path("tools/paperproof-export")
 SCHEMA_VERSION = "k7pl.proof-visualization/v1"
 REPOSITORY_URL = "https://github.com/AntheaLiles/k7pl"
 TARGETS = (

@@ -106,6 +106,14 @@ lean_lib Spec where
   roots := #[`Spec, `Spec.C3.EffectiveKernel]
   leanOptions := k7plSpecOptions
 
+/-- Non-normative prototypes extracted from the former annexes B, C and D
+(`tools/prototypes-bcd/`). They are Verso documents that `Spec` does not import. Not a default
+target: the `spec` job of verify.yaml builds it explicitly. -/
+lean_lib K7plPrototypes where
+  srcDir := "tools/prototypes-bcd"
+  roots := #[`AnnexB, `AnnexC, `AnnexD]
+  leanOptions := k7plSpecOptions
+
 /-- HTML generator for the specification: `lake exe spec --output _out/spec`. -/
 lean_exe spec where
   srcDir := "tools"

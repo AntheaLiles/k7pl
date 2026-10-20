@@ -22,8 +22,8 @@ Scope and limits (the script fails loudly rather than guess):
   grammar of Lean 4.34 (`[module] [prelude] ([public] [meta] import [all] Name)*`);
 * it checks reachability, not that a reachable module is actually tested or audited;
 * by default it scans the source directories of the package's targets: `src/`, `tests/`, `tools/`
-  and `spec/`. `tooling/` is not scanned: it holds stand-alone Lake projects and prototypes that
-  no target of this package builds;
+  and `spec/`. A target whose `srcDir` lies under one of them (`tools/prototypes-bcd/`) is scanned
+  as part of it; a directory outside them is not scanned;
 * a directory under a scanned one that holds its own `lakefile.lean` or `lakefile.toml` (such as
   `spec/formal-chain/`) is a separate Lake workspace, built by its own targets: it is skipped, and
   every skipped workspace is named in the output.
