@@ -281,7 +281,10 @@ Absence de blocage mutuel
 
 Soit un réseau d'acteurs $`N` dont les canaux sont typés par des protocoles de session duaux au sens
 qui précède, _et dont le graphe de dépendances est acyclique_ au sens du chapitre 4
-(§{num "sec:c4-echelle-de-l-acteur"}[]). Alors $`N` n'atteint jamais d'état de blocage mutuel.
+(§{num "sec:c4-echelle-de-l-acteur"}[]). Supposons de plus la _simulation du graphe d'attente_
+(Sim) : pour tous acteurs $`a` et $`b` de $`N` et tout état atteignable, si $`a` attend un message
+de $`b`, alors l'arête $`(a,b)` appartient à ce graphe de dépendances. Alors $`N` n'atteint jamais
+d'état de blocage mutuel.
 :::
 
 :::proofsketch
@@ -293,22 +296,23 @@ multiplicatif, il existe toujours une communication réductible : une progressi
 qu'une attente circulaire. L'énoncé porte sur les états atteignables et se prouve donc par
 coinduction sur le dépliage, l'acyclicité du câblage étant l'invariant qui l'amorce : aucun état
 atteignable ne présente de cycle dans la relation « attend un message de ». L'étape de préservation
-est ce que cette esquisse doit encore établir, et elle se réduit à un énoncé unique — la _simulation
-du graphe d'attente_ : pour tous acteurs $`a` et $`b` et tout état atteignable, si $`a` attend un
-message de $`b`, alors l'arête $`(a,b)` est au graphe de câblage. Sous cette simulation, tout cycle
-d'attente serait un cycle de câblage, et l'acyclicité vérifiée en Phase 1.5 conclut.
+se réduit à un énoncé unique, la simulation du graphe d'attente, que l'énoncé pose en prémisse
+(Sim) : sous cette simulation, tout cycle d'attente serait un cycle de câblage, et l'acyclicité
+vérifiée en Phase 1.5 conclut.
 
 _Cette simulation n'est plus un emprunt._ Depuis que la couche 2 a ses règles (§{num "sec:g-regles"}[],
 §{num "sec:g-couche2"}[]), le graphe de câblage n'est plus un objet posé au-dehors : il est celui
 des dépendances entre boîtes aux lettres, que le jugement porte. Une attente est une instance de {sc}[Guard]
 sur une boîte, et la boîte y est une liaison du contexte ; l'arête d'attente est donc une arête de
-dépendance par construction du typage, et non par une hypothèse à honorer. Ce qui était la prémisse
-manquante de cet énoncé est devenu une lecture de ses règles.
+dépendance par construction du typage, et non par une hypothèse que l'exécution aurait à honorer.
+Ce qui était la prémisse manquante de cet énoncé est devenu une lecture de ses règles ; tant que
+cette lecture n'est pas conduite règle par règle, elle figure dans l'énoncé comme prémisse (Sim).
 :::
 
 :::note
-_Obligation ouverte._ La simulation du graphe d'attente est reportée sur le typage, sans être
-encore démontrée. Restent à définir indépendamment la relation de dépendance statique et la relation
+_Obligation ouverte._ La simulation du graphe d'attente, prémisse (Sim) de l'énoncé, est reportée
+sur le typage, sans être encore démontrée ; jusque-là, l'énoncé ne vaut que sous elle. Restent à
+définir indépendamment la relation de dépendance statique et la relation
 d'attente dynamique, puis à prouver l'invariant qui les relie sur tous les états atteignables, avec
 un cas pour {sc}[Guard], l'émission et la consommation de message, les types résiduels de boîte et
 `Timeout`. Restent aussi à séparer explicitement les états terminaux et la progression par
@@ -324,11 +328,13 @@ au fil des activations et n'est jamais donné. L'acyclicité du premier n'impliq
 mécaniquement celle du second, et c'est pourquoi l'énoncé porte sur les états atteignables et non
 sur le câblage.
 
-L'absence de blocage mutuel est donc une propriété de compilation, et non une promesse
-conditionnelle : le tri topologique de la Phase 1.5 la décide, et aucun mécanisme d'exécution —
-détection de cycle, temporisation globale — n'a à la surveiller. S'il tombe, la garantie retombe sur
-le `Timeout`, c'est-à-dire sur une détection à l'exécution, ce qui la ferait sortir du système de
-types et rentrer dans le coût.
+Sous (Sim), l'absence de blocage mutuel serait donc une propriété de compilation : le tri
+topologique de la Phase 1.5 la déciderait, et aucun mécanisme d'exécution — détection de cycle,
+temporisation globale — n'aurait à la surveiller. Tant que (Sim) n'est pas démontrée, la Phase 1.5
+n'établit que l'acyclicité du graphe statique de dépendances, et l'absence de blocage mutuel reste
+une garantie conditionnelle. Si l'énoncé tombe, la garantie retombe sur le `Timeout`, c'est-à-dire
+sur une détection à l'exécution, ce qui la ferait sortir du système de types et rentrer dans le
+coût.
 
 ::::figure (label := "fig:session-dualite") (src := "session-protocol-as-dual-exchange") (alt := "Le même protocole vu comme un échange entre deux extrémités, en diagramme de séquence à deux lignes de vie. L'extrémité A, à gauche, porte Send de Int puis Recv de Bool puis End ; l'extrémité B, à droite, porte Recv de Int puis Send de Bool puis End. Deux flèches horizontales se succèdent de haut en bas : Send(Int) va de A vers B, puis Send(Bool) va de B vers A. Une note couvrant les deux lignes de vie indique End : les deux extrémités se terminent ensemble.") (width := "75")
 :::caption
