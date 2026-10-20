@@ -43,8 +43,10 @@ survient à l'exécution, le Replay Debugger n'a besoin d'aucune instrumentation
 Le journal Cap'n Proto que le chapitre 4 (§{num "sec:c4-echelle-du-systeme"}[]) a construit pour la
 reprise après panne est ce dont un débogueur temporel a besoin pour rejouer, mettre en pause et
 faire défiler l'exécution. La pureté des gestionnaires (chapitre 3,
-§{num "sec:c3-purete-des-gestionnaires"}[]) garantit que ce rejeu reproduit fidèlement l'original,
-sans divergence entre les deux exécutions.
+§{num "sec:c3-purete-des-gestionnaires"}[]) fait que, pour un journal complet, ce rejeu reproduit
+l'état final de l'original à l'observation près, sous réserve que le
+théorème {num "thm:determinisme_rejeu"}[], qui l'énonce et dont la preuve n'est qu'esquissée, soit
+établi.
 
 La bibliothèque standard, enfin, ne propose aucune vérité qui échapperait au chapitre 3.
 `Decimal128` est un type de raffinement garantissant l'absence d'erreur de représentation décimale
@@ -52,5 +54,5 @@ pour les calculs financiers. `Timestamp`, `Duration` et `TimeWindow(T, n, unit)`
 dépendants pragmatiques paramétrés par une unité, au même titre que les dimensions physiques du
 chapitre 3 (§{num "sec:c3-les-contraintes-de-valeur"}[]). Le module `stdunit` instancie ce même
 mécanisme de contrainte de valeur pour les unités du système international, érigé en bibliothèque
-plutôt qu'écrit à la main à chaque usage. Une bibliothèque, dans K7PL, n'est jamais qu'une
+plutôt qu'écrit à la main à chaque usage. Dans ces exemples, une bibliothèque n'est qu'une
 collection de contraintes déjà nommées.
