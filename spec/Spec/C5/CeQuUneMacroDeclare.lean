@@ -146,9 +146,11 @@ sur l'énoncé exact du lemme de substitution, métavariables répétées ou inu
 tag := "c5-ce-qu-une-macro-declare-ce-que-le-verificateur-controle-a"
 %%%
 
-C'est le critère auquel cette interface se juge, et il est rempli : les quatre contrôles portent sur
-le _corps de la macro_, sont syntaxiques, et se font _une fois pour toutes_ à la définition. Un site
-d'appel ne lit ensuite que la déclaration.
+C'est le critère auquel cette interface se juge : les quatre contrôles portent sur le _corps de la
+macro_, sont syntaxiques, et se font _une fois pour toutes_ à la définition. Un site d'appel ne lit
+ensuite que la déclaration. Que ces contrôles suffisent dépend toutefois de leur alignement avec la
+règle {sc}[Expand] et le lemme de substitution, métavariables répétées ou inutilisées comprises : ce
+point reste soumis à l'obligation ouverte du théorème {num "thm:expansion_macro"}[].
 
 ::::k7table (label := "tab:c5-controles-avant-expansion") (align := "lZ{1.33}Z{0.67}")
 :::caption
