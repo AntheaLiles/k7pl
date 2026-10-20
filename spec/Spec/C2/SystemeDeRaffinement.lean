@@ -46,8 +46,10 @@ Ce que K7PL possède déjà est ce triplet. La catégorie des termes est celle d
 au chapitre 4 (§{num "sec:c4-le-calcul-de-processus"}[]) ; celle des dérivations est faite des
 jugements de K7PL, avec leurs composantes $`\mathcal{G}` et $`\mathcal{E}` ; et le foncteur est la
 traduction $`\llbracket \cdot \rrbracket`, qui envoie une dérivation sur un processus sans emporter
-ni les grades ni les effets. C'est cette dernière propriété — le foncteur oublie ce que la Phase 8
-efface — qui fait de l'ensemble un système de raffinement et non une simple traduction.
+ni les grades ni les effets latents que portent les types — les opérations à effet, elles, y
+deviennent des communications sur des canaux distingués. C'est cet oubli — le foncteur oublie ce
+que la Phase 8 efface — qui fait de l'ensemble un système de raffinement et non une simple
+traduction.
 
 ::::theorem (label := "thm:raffinement") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title

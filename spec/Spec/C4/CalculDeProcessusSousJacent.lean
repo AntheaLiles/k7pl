@@ -173,14 +173,18 @@ correspondances ci-dessus, chacune envoyant une règle de K7PL sur une règle du
 le point fixe gardé, la jonction sur $`J \triangleright P`, le séquencement sur le préfixage. La
 composante $`\mathcal{G}` dirige le choix entre canal linéaire et service répliqué, ce qui est
 licite parce que le grade $`\omega` est l'image du fragment cartésien. La composante $`\mathcal{E}`
-n'est pas traduite : elle n'a pas de contrepartie dans le calcul.
+a pour image les canaux distingués : une opération à effet devient une communication sur le canal
+réservé à sa sorte, et $`\mathbf{tick}` une émission sur celui du temps. Le séquent cible doit alors
+compter ces canaux dans son contexte, à côté de $`\llbracket \Delta \rrbracket_{\mathcal{G}}` ;
+l'énoncé les laisse implicites.
 :::
 
 :::note
 _Obligation ouverte._ L'induction n'est conduite que dans son plan. Restent à fixer les formes de
 jugement source et cible, puis à conduire l'induction règle par règle, prémisses et conditions
 latérales comprises, en particulier pour la ré-invocation finie, les services répliqués, les effets
-(la composante $`\mathcal{E}` n'est pas traduite), les types dépendants pragmatiques et le point
+(chaque opération devenant une communication sur un canal distingué, que le contexte cible doit
+porter et que le système de sortes confine), les types dépendants pragmatiques et le point
 fixe. Ce théorème est une dépendance de preuve, non un fondement vérifié ; toute limite du fragment
 cible doit rester explicite.
 :::
@@ -277,9 +281,10 @@ La première concerne l'_effacement_. Le chapitre 2 (§{num "sec:c2-adjonctions-
 signale que l'architecture de K7PL est un système de raffinement de types, soit un foncteur des
 dérivations vers les termes sous-jacents, sans exhiber ce foncteur. C'est
 $`\llbracket \cdot \rrbracket` : une dérivation de K7PL porte $`\mathcal{G}` et $`\mathcal{E}` ; son
-image ne les porte pas. L'effacement de la Phase 8 n'est donc pas une opération de compilation qu'il
-faudrait justifier séparément — c'est l'action de ce foncteur sur les objets, et la non-interférence
-du chapitre 1 est l'énoncé que le métalangage ne voit pas la dérivation.
+image ne porte ni les grades ni les effets latents des types, ses opérations à effet y devenant des
+communications sur des canaux distingués. L'effacement de la Phase 8 n'est donc pas une opération
+de compilation qu'il faudrait justifier séparément — c'est l'action de ce foncteur sur les objets,
+et la non-interférence du chapitre 1 est l'énoncé que le métalangage ne voit pas la dérivation.
 
 La deuxième concerne l'_échelle du système_. Le §{num "sec:c4-echelle-du-systeme"}[] pose que
 l'orchestrateur est une coalgèbre sans exhiber le foncteur qui l'engendre. Sous la traduction, un
@@ -388,16 +393,17 @@ La dette qu'il reste à acquitter n'est donc plus « prouver l'interpréteur cor
 que $`\llbracket \cdot \rrbracket` préserve le typage », ce que le théorème {num "thm:traduction_metalangage"}[]
 énonce, dont l'induction est planifiée et non conduite.
 
-Une réserve doit fermer cette section, car la lecture a un coût que sa commodité pourrait masquer.
-La composante $`\mathcal{E}` n'a pas d'image dans le métalangage : ce qui s'y raisonne est la
-structure de communication et de contrôle, non les effets — ni, par conséquent, le temps, que le
+Une réserve vaudrait pour une traduction qui s'en tiendrait à la communication et au contrôle, et
+la commodité de la lecture pourrait la masquer. La composante $`\mathcal{E}` n'y aurait pas d'image
+dans le métalangage : ce qui s'y raisonnerait serait la structure de communication et de contrôle,
+non les effets — ni, par conséquent, le temps, que le
 chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) y a logé sous la forme d'une opération
 $`\mathbf{tick}`. Un interpréteur prouvé fidèle au métalangage ne serait donc prouvé fidèle qu'à
 cette part-là, et les garanties de la Phase 3 comme celles de la Phase 7 resteraient à établir
 ailleurs. Il faut se garder d'en tirer que les effets échapperaient à tout traitement structurel :
 ils sont gradués comme le contexte l'est, et la correction conjointe des deux gradations est un
 résultat établi sur ce régime d'évaluation {cite "torczonEffectsCoeffectsCallbypushvalue2024"}[]. Ce
-qui échappe au métalangage échappe au métalangage, non au système de types.
+qui échapperait au métalangage échapperait au métalangage, non au système de types.
 
 Cette réserve n'a pas à être définitive, et ce document choisit de ne pas s'y tenir. Un effet peut
 se traduire dans un calcul de processus, et par un procédé classique : une opération à effet devient
