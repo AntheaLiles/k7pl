@@ -67,7 +67,10 @@ DOM. Une fuite de pointeur DOM vers la couche 2 est ainsi rendue non typable, pa
 déconseillée. Les animations prolongent ce même cycle sans y ajouter de mécanisme : ce sont des
 transformations pures de couche 3, pilotées par un flux temporel coinductif de couche 2 dont la
 productivité (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) garantit qu'une nouvelle
-image est toujours disponible en temps fini. Les arènes de couche 1 qui portent ce cycle sont
+image est toujours disponible en temps fini. La productivité ne fournit pas pour autant, à elle
+seule, une borne de latence par image : le respect d'un budget d'image exige une borne de coût
+distincte et une validation dédiée. Les arènes de couche 1 qui portent ce cycle sont
 réutilisées par rotation plutôt que libérées et réallouées : aucun ramasse-miettes ne vient
-interrompre le rythme d'affichage. C'est la promesse que P3 faisait depuis le chapitre 1, tenue ici
-sous une contrainte que la théorie seule ne pouvait pas mettre à l'épreuve.
+interrompre le rythme d'affichage. Cette architecture est compatible avec l'objectif de P3, mais ne
+démontre pas à elle seule le respect d'une échéance fixe : celui-ci reste à établir par les bornes
+de coût et par une validation du scénario concret.
