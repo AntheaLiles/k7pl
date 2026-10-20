@@ -150,8 +150,8 @@ ordinaires tandis qu'un terme, tiré de la théorie des modes, contraint la mani
 employé. Le cadre exprime les produits et implications non associatifs, ordonnés, linéaires,
 affines, pertinents et cartésiens, les foncteurs, les (co)monades et les adjonctions — et
 l'admissibilité de la coupure y est démontrée _indépendamment_ de la théorie des modes choisie {cite "licataFibrationalFrameworkSubstructural2017"}[].
-Ce dernier point est le plus utile ici : ce que ce document démontre sur ses trois couches n'a pas à
-être redémontré si une quatrième s'ajoutait, pourvu qu'elle s'exprime comme un mode de la même
+Ce dernier point est le plus utile ici : ce que ce document esquisse sur ses trois couches n'a pas à
+être repris si une quatrième s'ajoutait, pourvu qu'elle s'exprime comme un mode de la même
 théorie.
 
 Des langages implantent ces modes, et l'un d'eux est en production. Un travail récent dote OCaml de
@@ -182,7 +182,7 @@ une caractérisation qui demande la logique affine non commutative {cite "pradic
 Trois arcs de recherche distincts, un même prix.
 
 La voie évidente est le _contexte ordonné_, et son prix est chiffré : l'extension est conservative —
-rien de ce qui est démontré ici ne serait perdu — mais elle coûte un troisième contexte et quatre
+rien de ce qui est énoncé ici ne serait perdu — mais elle coûte un troisième contexte et quatre
 implications au lieu d'une, dont deux directionnelles {cite "polakowNaturalDeductionIntuitionistic1999"}[].
 Ce document ne la retient pas, et pour une raison qui n'est pas le prix : les trois besoins portent
 _trois ordres différents_ — séquentiel par session, partiel sur les durées d'emprunt, total sur les

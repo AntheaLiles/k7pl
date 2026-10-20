@@ -309,7 +309,7 @@ plutôt que supposé acquis ici.
 
 Trois préservations circulent donc dans ce document, et les nommer sépare ce qui est acquis de ce
 qui ne l'est pas. La _préservation par évaluation_ porte les grades et les effets, et elle est
-démontrée au §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[]). La _préservation par abaissement_ porte
+esquissée au §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[]). La _préservation par abaissement_ porte
 les grades à travers la compilation, et elle est énoncée sans être démontrée (théorème {num "thm:abaissement_grades"}[]).
 Le présent énoncé est la _préservation du type_, qui couvre les deux mouvements mais oublie le grade
 ; il est plus large et plus pauvre. {rmq}[Trois noms plutôt qu'un seul mot. Ce qui manque devient
