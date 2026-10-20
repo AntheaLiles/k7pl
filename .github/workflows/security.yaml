@@ -40,20 +40,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Compare pinned criteria blob IDs with upstream
-        run: |
-          set +e
-          python3 scripts/ci/check_badge_proposals.py --check-upstream --report "$RUNNER_TEMP/badge-criteria-drift.json"
-          result=$?
-          if [ "$result" -eq 0 ]; then
-            echo "OpenSSF BadgeApp criteria are unchanged from the pinned registry." >> "$GITHUB_STEP_SUMMARY"
-          elif [ "$result" -eq 1 ]; then
-            echo "::warning::OpenSSF BadgeApp criteria changed upstream; review the report and update the registry deliberately."
-            echo "**Upstream criteria drift detected.** The pinned registry was not modified." >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "::warning::Could not verify OpenSSF BadgeApp criteria drift; inspect the report and retry."
-            echo "**Upstream check unavailable.** This is not evidence that the criteria are unchanged." >> "$GITHUB_STEP_SUMMARY"
-          fi
-          exit 0
+        run: bash scripts/ci/security_badge_criteria_drift.sh
       - name: Preserve drift-check report
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
