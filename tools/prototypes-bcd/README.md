@@ -3,12 +3,19 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
 -->
 
-# K7PL — Prototypes d'outillage B/C/D
+# K7PL — B/C/D tooling prototypes
 
-Ce répertoire conserve le matériau extrait des anciennes annexes normatives B, C et D.
+This directory keeps the material extracted from the former normative annexes B, C and D
+(`AnnexB.lean`: LSP and REPL; `AnnexC.lean`: sushi; `AnnexD.lean`: sugoi).
 
-Ces documents sont des prototypes d'outillage et ne constituent ni la spécification normative ni la future bibliothèque standard.
+These documents are tooling prototypes: they are neither the normative specification nor the
+future standard library.
 
-La provenance des fichiers est conservée dans leur contenu et leurs en-têtes. Cette branche est dédiée au développement et à la qualification ultérieure de ces prototypes.
+The provenance of the files is kept in their content and their headers. This directory is
+dedicated to the later development and qualification of these prototypes.
 
-Le contenu n'est pas inclus dans spec/ et ne doit pas être interprété comme une extension normative du langage.
+The content is not included in `spec/` and must not be read as a normative extension of the
+language.
+
+The files are the roots of the non-default `lean_lib` `K7plPrototypes` (`lakefile.lean`), which
+the `spec` job of `.github/workflows/verify.yaml` builds with `lake build K7plPrototypes`.
