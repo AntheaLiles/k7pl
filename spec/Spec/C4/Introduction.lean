@@ -43,7 +43,7 @@ trois échelles ci-après ne sont pas trois instances d'un même foncteur obtenu
 seule sortie. Elles diffèrent par les deux, l'échelle locale produisant une valeur, celle de
 l'acteur une observation et un état suivant, celle du système une transition de processus.
 
-Ce qui les unit est plus fort qu'une identité de foncteur, et c'est, conjecturons-le, un théorème plutôt qu'une
+Ce qui les unit est plus fort qu'une identité de foncteur, et ce serait un théorème plutôt qu'une
 construction. La même source établit comment _relever_ une adjonction entre catégories de valeurs de
 sortie en une adjonction entre catégories d'automates. Les trois couches étant reliées par les
 shifts adjoints du chapitre 1, leurs catégories de sortie le sont aussi, et le relèvement fournit
