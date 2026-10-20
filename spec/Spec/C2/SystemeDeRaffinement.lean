@@ -23,7 +23,7 @@ tag := "c2-le-systeme-de-raffinement"
 
 Les quatre sections précédentes ont construit des objets qui, pris un à un, appartiennent au corpus
 de la sémantique de la logique linéaire. Prises ensemble, elles font autre chose, et c'est ce que
-cette section établit : elles sont les constituants d'un unique foncteur, dont trois dispositifs que
+cette section énonce : elles sont les constituants d'un unique foncteur, dont trois dispositifs que
 ce document obtenait séparément ne sont que trois lectures.
 
 Le cadre est celui des systèmes de raffinement de types {cite "melliesFunctorsAreType2015"}[]. On y
