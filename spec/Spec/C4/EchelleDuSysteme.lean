@@ -548,7 +548,7 @@ coût constant par activation que le chapitre 4 annonce tombe avec lui.
 
 La dualité des protocoles de session, elle, se vérifie au moment où un message arrive : le runtime
 lit le tag d'état placé en tête du message et le compare au protocole attendu. En cas de désaccord,
-le message est rejeté — un _circuit breaker_ — avant même que la fibre de l'acteur ne soit
+le message est rejeté — un _circuit breaker_ — avant même que la fibrille de l'acteur ne soit
 réveillée, de sorte qu'une désynchronisation malveillante ou accidentelle ne coûte qu'une lecture de
 tag, une comparaison entière et un échange de pointeur. La sécurité du transport prolonge cette même
 discipline : les prises de contact du protocole Noise sont elles-mêmes des DFA de couche 3, en temps

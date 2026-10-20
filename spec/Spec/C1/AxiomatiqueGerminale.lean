@@ -736,7 +736,7 @@ constructeurs suffit à toute famille strictement positive {cite "altenkirchInde
 
 Cette unification a une seconde lecture, purement calculatoire. Le fragment
 $`\Delta_{\omega} \vdash \cdot`, où tout est de grade non contraint, est un $`\lambda`-calcul
-linéaire pur : c'est le micro-modèle d'exécution d'une fibre. Le fragment où des grades contraints
+linéaire pur : c'est le micro-modèle d'exécution d'une fibrille. Le fragment où des grades contraints
 apparaissent relève, lui, de la traduction vers un $`\pi`-calcul enrichi de motifs de jonction : celle de la couche 2 séquentielle est un fragment d'un tel calcul, acteurs, boîtes aux lettres et jonctions étant des objets de la cible et de l'abaissement — c'est le macro-modèle
 des acteurs et des clusters. K7PL se résume ainsi à l'équation fondamentale
 $`K7PL = (\lambda\text{-linéaire}) \subset (\pi\text{-calcul} + \text{Join Patterns})`.
