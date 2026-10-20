@@ -14,7 +14,8 @@ number := false
 tag := "experimental-code-artifacts"
 %%%
 
-Cette section est un support d’ingénierie non normatif. Les blocs marqués ci-dessous sont les
+Les blocs de code K de cette section sont normatifs. Le script Python qui les accompagne est un
+outil de vérification ; il n’est pas normatif. Les blocs marqués ci-dessous sont les
 sources éditables de la définition K expérimentale et de son script de vérification. Le constructeur
 Verso extrait ces blocs dans src/k/.build/generated/ ; ces fichiers sont des artefacts générés,
 ignorés par Git, et ne doivent pas être modifiés directement.
