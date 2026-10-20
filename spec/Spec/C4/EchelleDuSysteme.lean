@@ -639,7 +639,7 @@ peut fuir, et le postulat de sûreté mémoire s'arrête à la passerelle.
 
 ::::figure (label := "fig:circuit-breaker") (src := "session-circuit-breaker") (alt := "Diagramme de sequence a trois lignes de vie — pair distant, runtime de couche 1, fibrille de l'acteur. Le pair envoie un message portant un tag d'etat. Un cadre alternatif separe les deux cas — si le tag est conforme au protocole attendu, le runtime reveille la fibrille qui traite le message ; sinon le runtime rejette, et la fibrille n'est jamais reveillee, a cout nul pour elle.") (width := "90")
 :::caption
-Le circuit breaker de session : rejet avant réveil de la fibre
+Le circuit breaker de session : rejet avant réveil de la fibrille
 :::
 
 :::desc
