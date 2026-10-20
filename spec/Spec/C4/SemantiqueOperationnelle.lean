@@ -376,7 +376,7 @@ Cet argument ne porte pas ici, et il faut dire pourquoi. Le lemme de substitutio
 esquissé_ (§{num "sec:g-regles"}[]), et il ne l'a pas été pour la sémantique opérationnelle mais
 pour les relations logiques du §{num "sec:g-relation-logique"}[] et pour la traduction vers le
 métalangage, qui en ont besoin quelle que soit la présentation retenue. Le coût que la machine à
-environnements permettrait d'éviter est donc un coût déjà payé, et payé pour autre chose.
+environnements permettrait d'éviter est donc un coût déjà engagé, et engagé pour autre chose.
 
 Ce document retient donc _un seul objet_ : la relation $`\longrightarrow` ci-dessus est la
 définition de l'exécution, et rien d'autre ne l'est. Une machine à environnements, si elle vient,
@@ -535,7 +535,7 @@ au-dessus, la relation est totale, ce qui signifie exactement qu'aucune informat
 Comme le $`!_r` est _une_ modalité dont l'indice est un quadruplet, la clause n'inspecte que la
 troisième composante — et le chapitre 1 énonce que $`\varphi` et $`\psi` ne mêlent jamais deux
 composantes du grade entre elles. La relation est donc bien définie sur la structure produit sans
-qu'il faille rien vérifier de plus : c'est la première des deux conditions de la clause de session, et elle est acquise par un résultat
+qu'il faille rien vérifier de plus : c'est la première des deux conditions de la clause de session, et elle repose sur un énoncé
 déjà écrit.
 
 _La relation sur les contextes ne demande aucune définition nouvelle._ Deux substitutions closes
