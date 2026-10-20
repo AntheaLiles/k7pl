@@ -47,8 +47,8 @@ Ce n'est pas seulement un ordre de grandeur : la pièce traite le suivi d'emprun
 _expressions régulières_, les dérivées de Brzozowski exprimant les conséquences d'un emprunt sur
 l'accessibilité et l'étoile de Kleene résumant les chaînes d'accès — c'est-à-dire l'appareil même du
 chapitre 4, employé sur le problème du chapitre 3. La formalisation la plus proche de ce que ce
-document devra porter n'est donc pas à construire, elle est à transposer, et le grade y remplacerait
-l'emprunt.
+document devra porter serait donc à transposer plutôt qu'à construire, le grade y remplaçant
+l'emprunt ; que la transposition tienne reste à établir.
 
 Trois pièces couvrent par ailleurs la propriété la plus difficile à mécaniser de ce document. La
 non-interférence _insensible à la terminaison_ — la variante qu'un langage total peut viser —
