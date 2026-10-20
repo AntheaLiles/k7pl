@@ -51,6 +51,7 @@ Therefore:
 | J — release / PDF / Zenodo | PARTIAL | release gate P6; OpenSSF tracking in `docs/security/` | real tag-triggered release, attestation verification, Zenodo sandbox and reproducibility evidence |
 | Documentation architecture | DONE | #58 + #60; D8 validated | physical architecture closed; semantic migration remains tracked separately in docs/migration/ |
 | K — Lean tools for project-compliance assurance | OPEN — human decision pending | [issue #122](https://github.com/AntheaLiles/k7pl/issues/122) | bounded assurance claim, formal checker/predicate equivalence, regression evidence for boundary cases, qualified external validation and timing evidence, comparison with alternatives, and an accountable GO/NO-GO decision |
+| N — Normative executable semantics (K → KLean → Lean) | OPEN — framing; exit criteria not met | [§24](#24-n--normative-executable-semantics-k--klean--lean); [ADR-0011](../decisions/0011-decision-records-roles-and-workstream-n.md), [ADR-0012](../decisions/0012-k-as-normative-home-of-c3-c4.md) | C3/C4 grammar and semantics held in normative K blocks; Lean proofs on the KLean-generated types under the axiom policy; gates G1–G10 green (proposed, see §24) |
 
 Main baseline is intentionally a dated snapshot rather than a maintained live SHA. For the current execution state, use the commit SHA attached to the CI run/PR under review; this plan does not assert a dynamic baseline.
 
@@ -549,6 +550,7 @@ The OpenSSF/security workstream is tracked separately in [the operational roadma
 9. exercise J and P1–P6;
 10. complete the semantic migration lots that remain justified, then maintain the closed physical architecture without recreating a migration work queue.
 11. start K as a separate research question via issue #122; do not treat Lean formalization as automatic legal, contractual, or organizational compliance.
+12. frame N (ADR-0001…0010, questions Q1–Q7) and run its wave-0 items N1 inside the branches that own the files; rewrite C3/C4 in K only under explicit specification mandates.
 
 If a stage exposes a new architectural dependency, stop the downstream progression and reclassify the dependency rather than silently carrying it forward.
 
@@ -561,6 +563,7 @@ Detailed evidence remains in:
 - docs/STATUS.md — generated repository/CI status;
 - docs/ASSURANCE.md — assurance case;
 - docs/tracking/DECISIONS.md — decisions and ratifications;
+- docs/decisions/ — architecture decision records (ADR-0001…), indexed by DECISIONS.md;
 - docs/tracking/FICHES-PR02.md — PR-02 tracking;
 - docs/migration/L1-THEORY-OBJECTS.md — theoretical-object boundaries;
 - docs/history/2026-10-08-documentation-architecture-plan.md — completed physical documentation migration record;
@@ -613,3 +616,68 @@ Scientific boundary remains fixed: `verifyContract_sound`, `verifyContract_compl
 **Remaining work before closure:** two current-harness full workflows (#39019317531 and #39025036478) succeeded with matching source/tool/input hashes; one further successful full workflow on the same hashes is required for the three-run criterion. Keep negative probes non-blocking. Human review remains required for empty SPDX names, strict root-field handling in light of issue #650, and the local relationship-uniqueness profile. Do not close issue #122 or merge PR #229 or #230 without an accountable human decision; do not modify normative `spec/` or K7PL implementation.
 
 The OpenSSF/security track is separate. Its operational status and ordered human actions remain in `docs/security/OPENSSF-ROADMAP.md` and `docs/security/ACTIONS-HUMAINES.md`; nothing in workstream K implies BadgeApp submission or a security attestation.
+
+## 24. N — Normative executable semantics (K → KLean → Lean)
+
+**Status:** OPEN — framing in progress; no exit criterion met
+**Anchor:** [decision records](../decisions/README.md) · [ADR-0011](../decisions/0011-decision-records-roles-and-workstream-n.md) (this workstream) · [ADR-0012](../decisions/0012-k-as-normative-home-of-c3-c4.md) (owner decision 44) · [owner decisions 43, 44, 47, 48, 50, 52, 53](DECISIONS.md#owner-decisions-of-1920-october-2026) · `spec/Spec/CodeArtifacts.lean` · `proofs/` · `.github/workflows/k7pl-semantics.yaml`
+
+**Objective.** Make the K definition held in the Verso specification the normative definition of the K7PL grammar and semantics, translate it to Lean with klean, and prove the properties the specification requires on the generated types (owner decisions 44 and 48).
+
+**Scope.** The K code blocks of `spec/` and their extraction; the K build and K execution as witnesses; klean generation and its Prelude (decision 43, option (c)); Lean proofs on the generated types in `proofs/`; the gates G1–G10 and work packages WP0–WP11 of the plan « Workflow KLean K7PL » (session document, not deposited; its ADRs are ported as ADR-0001…0010). Out of scope: the content of C decisions, the status register (H), the release (J), compliance tooling (K).
+
+**Starting point (`main` `be35c5e`, 2026-10-20).** The K block of `spec/Spec/CodeArtifacts.lean` covers a five-construct S-expression subset and is declared normative (PR #255); it is extracted by `lake exe spec --extract-code-only`; `proofs/` proves preservation over all generated `Rewrites` constructors of that subset (`rewrites_preserve_machine_typing`), while `preservation`/`progress` still use the hand-written mirrors `SurfaceStep`/`HasType`; the K workflow runs separately from the `CI OK` aggregation.
+
+**Relations.**
+
+- **C — theoretical objects:** N moves C3/C4 normative content into K blocks (decision 44) and depends on C decisions (ψ, decision 45; `thm:progres`, decision 46). N does not stabilize a C commitment; the C exit gate stays C's.
+- **H — traceability:** N produces evidence (generated types, theorems, axiom reports); H owns the register and, after decision 47, the computed status model. N keeps no status vocabulary of its own ([ADR-0007](../decisions/0007-computed-assurance-statuses.md) is proposed, not accepted).
+- **I — implementation conformance:** the K definition run by `krun` becomes the executable reference model; I's conformance case is differential testing of the implementation against it.
+- **J — release:** once the K model, the Lean proofs and the differential tests exist, add the release-gate item « no release unless they are up to date ».
+- **K — compliance tooling:** unchanged. The letter K denotes workstream K, not the K Framework.
+
+Sub-items N0, N1, … are unrelated to the items N-1…N-11 of the KLean instruction cited in `DECISIONS.md`.
+
+### N0 — Framing
+
+ADR-0001…0010 (Proposed; ADR-0001, 0003, 0006 and 0010 partly decided), ADR-0011 and ADR-0012 (Accepted at merge); open questions Q1–Q7; the open parts of decisions 43 (`-r`, patched Prelude, or both), 44 (rewriting C3/C4, mandate scope), 47 (instruction), 50 (migration plan to v4.36+) and 52 (automata per layer).
+
+**Exit criterion (not met).** Each of ADR-0001…0010 Accepted, Rejected or Superseded by the owner's merge; Q1–Q7 answered.
+
+### N1 — Wave 0: work needing no new decision
+
+From the KLean instruction (§7, wave 0). State on `main` `be35c5e`: none started. The K workflow's shell now lives in `scripts/ci/k7pl_semantics_*.sh`.
+
+| Item | Action | Files | Coordinate with |
+|---|---|---|---|
+| A1 | `proofs/` gate: warnings as errors and/or `scripts/axiom-audit.sh K7PL` in the K workflow; the generated `K7PL2Lean` is not audited as blocking while its Prelude keeps the collection-hook axioms | `proofs/lakefile.toml`, `scripts/ci/k7pl_semantics_build_proofs.sh` (flag in the PR) | `ci/verify-refactor` |
+| A2 | non-blocking inventory of `axiom` declarations in the generated package | K workflow, a script | — |
+| A3 | extraction determinism: extract twice, compare bytes, record SHA-256 of each file | K workflow or a test | — |
+| A4 | README and version table for the klean shim | `scripts/ci/` | — |
+| A5 | non-blocking lean4checker spike on `proofs/` with Lean 4.34.0 | new job | security hardening (pinning) |
+| A6 | English research note: the plan as a proposal, and the klean 7.1.337 facts | `docs/research/` | English-policy and index branches |
+| A7 | translate `docs/formal-semantics.md` and `proofs/README.md` | docs | English-policy backlog |
+| A8 | K workflow in the impact classifier and in `CI OK` | `scripts/ci/impact.py`, `ci.yaml` | `ci/impact-coverage`, `ci/status-dispatch` (do it there) |
+| A9 | digest pinning of the K image, hash pinning of klean | `k7pl-semantics.yaml`, `scripts/ci/k7pl_semantics_install_klean.sh` | security hardening, Paperproof supply chain |
+
+**Exit criterion (proposed; not met).** A1–A9 merged or explicitly dropped by the owner; the `proofs/` gate fails on a `sorry` or a disallowed axiom in any maintained declaration.
+
+### N2 — Tooling after decisions (wave 2)
+
+The VersoK block contract as an evolution of `SpecExt.CodeArtifacts`, manifest and source map, `kompile` error mapping, build targets (instruction item N-8, Lake or Make), fixture corpus, KORE reader and profile linter, full klean audit, extension of the axiom audit. Depends on ADR-0003, 0004, 0006.
+
+**Exit criterion (proposed; not met).** G1–G4 implemented and green on the K blocks.
+
+### N3 — Normative and proof work (wave 3)
+
+Rewriting of C3/C4 in K blocks (decision 44) under specification mandates; project-owned Prelude without collection-hook axioms (decision 43); removal or derogation of the Lean mirrors (ADR-0002); WP6 grammar obligations, WP7 sealing (after Q1), WP8 automata and orchestrator (after Q2, Q3), WP9 typing, grades and refinement (after Q4, Q7).
+
+**Exit criterion (proposed; not met).** The C3/C4 grammar and semantics are normative K blocks; the properties the specification requires are proved on the generated types and pass the axiom audit of ADR-0005 (or its accepted successor).
+
+### N4 — Gates and campaigns (wave 4)
+
+G5–G10 (axioms and kernel re-check, trace replay, golden and differential tests, status non-regression, orphan rules, HTML/PDF), test campaigns T2–T6, computed status badges once H's status model exists.
+
+**Exit criterion (proposed; not met).** G1–G10 green on `main`; statuses shown in the specification are computed.
+
+**Workstream exit criterion (proposed, to be confirmed by the owner; not met).** N0–N4 exit criteria met.
