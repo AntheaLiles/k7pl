@@ -373,7 +373,7 @@ une _machine abstraite_ à grands pas et à environnements, avec une règle de m
 typage. L'argument principal en est qu'on évite ainsi d'avoir à démontrer un lemme de substitution.
 
 Cet argument ne porte pas ici, et il faut dire pourquoi. Le lemme de substitution est _déjà
-démontré_ (§{num "sec:g-regles"}[]), et il ne l'a pas été pour la sémantique opérationnelle mais
+esquissé_ (§{num "sec:g-regles"}[]), et il ne l'a pas été pour la sémantique opérationnelle mais
 pour les relations logiques du §{num "sec:g-relation-logique"}[] et pour la traduction vers le
 métalangage, qui en ont besoin quelle que soit la présentation retenue. Le coût que la machine à
 environnements permettrait d'éviter est donc un coût déjà payé, et payé pour autre chose.
@@ -411,7 +411,7 @@ tag := "g-semantique-la-stratification-du-journal"
 %%%
 
 La trace $`\tau` qu'une configuration accumule est le journal, et la projection dont P4 a besoin est
-$`\pi^{\flat}_{\ell}`. L'énoncé que le chapitre 4 formule se laisse alors écrire, et se démontre.
+$`\pi^{\flat}_{\ell}`. L'énoncé que le chapitre 4 formule se laisse alors écrire, et sa preuve s'esquisse.
 
 ::::theorem (label := "thm:stratification_journal") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "operational-semantics")
 :::title
@@ -533,7 +533,7 @@ _La clause de la modalité graduée est la seule qui décide_, et c'est là que 
 observateur de niveau $`\ell` lit ce que le niveau du grade lui accorde, et rien d'autre ;
 au-dessus, la relation est totale, ce qui signifie exactement qu'aucune information n'en descend.
 Comme le $`!_r` est _une_ modalité dont l'indice est un quadruplet, la clause n'inspecte que la
-troisième composante — et le chapitre 1 établit que $`\varphi` et $`\psi` ne mêlent jamais deux
+troisième composante — et le chapitre 1 énonce que $`\varphi` et $`\psi` ne mêlent jamais deux
 composantes du grade entre elles. La relation est donc bien définie sur la structure produit sans
 qu'il faille rien vérifier de plus : c'est la première des deux conditions de la clause de session, et elle est acquise par un résultat
 déjà écrit.
@@ -685,7 +685,7 @@ _correspondants_. Le second, qui est le vrai, est qu'un canal créé par un calc
 ne l'assure. Il y faut le système de sortes du métalangage, qui est l'objet que cette extension doit construire. Tant qu'il n'est pas posé, la relation est définie sur les deux premières strates et la
 non-interférence l'est autant.
 
-L'énoncé honnête est donc celui-ci. _La non-interférence graduée est démontrée pour le fragment sans
+L'énoncé honnête est donc celui-ci. _La non-interférence graduée est esquissée pour le fragment sans
 communication_, temps compris — ce qui est plus que ce que la plupart des systèmes gradués
 établissent, le canal temporel y étant le plus souvent laissé de côté — _et elle attend, pour le
 fragment avec canaux, un objet unique partagé avec la preuve de traduction_. Un seul travail reste,
@@ -813,7 +813,7 @@ la substitution puisqu'il n'agit pas sur les termes. Le cas (d), les opérations
 par la ré-invocation séquentielle et sa clause est écrite.
 
 Le cas (c), les canaux distingués, est réglé par le système de sortes (§{num "sec:g-sortes"}[]). Le
-théorème {num "thm:confinement_sortes"}[] établit que la traduction ne produit que des termes bien
+théorème {num "thm:confinement_sortes"}[] énonce que la traduction ne produit que des termes bien
 sortés, et qu'aucun canal distingué n'y est lié ni transmis.
 
 ## Le point fixe déductif, et pourquoi son image est celle du cas (d)

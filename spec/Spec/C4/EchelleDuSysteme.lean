@@ -111,7 +111,7 @@ Cette persistance n'a de valeur que si elle rend le système rejouable (P4). Tou
 pourrait tirer d'une source non déterministe — horloge, générateur aléatoire — transite par un
 contexte implicite unique, passé silencieusement à chaque appel mais dont toute modification est
 explicite et journalisée. Au rejeu, le runtime substitue à chaque appel non déterministe la valeur
-consignée, ce qui établit le rejeu logique défini par P4. Une identité bit à bit ne suit que sous le
+consignée, ce sur quoi repose le rejeu logique défini par P4 (théorème {num "thm:determinisme_rejeu"}[]). Une identité bit à bit ne suit que sous le
 profil de représentation $`\Pi` et les hypothèses $`E_{\text{repro}}` du théorème de représentation
 binaire ci-dessous ; elle n'est pas une propriété intrinsèque de la persistance ni du langage.
 
@@ -526,7 +526,7 @@ $`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme 
 reprise de leurs énoncés sur cette définition unique reste à faire.
 
 L'énoncé est _local_ : il porte sur une jonction prise isolément. {rmq}[L'atomicité locale est
-démontrée, la localité ne l'est pas. Les deux mots se ressemblent et ne disent pas la même chose.]
+esquissée, la localité ne l'est pas. Les deux mots se ressemblent et ne disent pas la même chose.]
 La propriété dont l'architecture a besoin est distincte et ne s'en déduit pas — la _localité_ au
 sens de Herlihy et Wing, c'est-à-dire la conservation de la correction lorsque des objets corrects
 sont composés horizontalement, ce que le graphe de câblage fait par construction. Son traitement
