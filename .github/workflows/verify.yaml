@@ -134,24 +134,7 @@ jobs:
       # workspace has its own manifest, inventoried in a separate document: sbom_evidence.py checks
       # it against that manifest in Python; sbomAudit does not audit it (its contract is k7pl's).
       - name: Audit the scoped Lake-to-SPDX inventory
-        run: |
-          set -euo pipefail
-          python3 scripts/ci/lake_manifest_to_spdx.py \
-            --created 2026-10-10T00:00:00Z \
-            --output "$RUNNER_TEMP/k7pl-lake.spdx.json"
-          python3 scripts/ci/lake_manifest_to_spdx.py \
-            --manifest "$PAPERPROOF_WORKSPACE/lake-manifest.json" \
-            --created 2026-10-10T00:00:00Z \
-            --output "$RUNNER_TEMP/k7pl-paperproof-export-lake.spdx.json"
-          lake exe sbomAudit lake-manifest.json "$RUNNER_TEMP/k7pl-lake.spdx.json" \
-            > "$RUNNER_TEMP/k7pl-sbom-audit.json"
-          python3 scripts/ci/sbom_evidence.py \
-            --report "$RUNNER_TEMP/k7pl-sbom-audit.json" \
-            --manifest lake-manifest.json \
-            --sbom "$RUNNER_TEMP/k7pl-lake.spdx.json" \
-            --extra-inventory "$PAPERPROOF_WORKSPACE/lake-manifest.json" \
-              "$RUNNER_TEMP/k7pl-paperproof-export-lake.spdx.json" \
-            --output "$RUNNER_TEMP/k7pl-sbom-evidence.json"
+        run: bash scripts/ci/verify_sbom_audit.sh
 
       - name: Upload scoped SBOM audit evidence
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -174,12 +157,7 @@ jobs:
 
       - name: Summary
         if: ${{ !cancelled() }}
-        run: |
-          {
-            echo "### Implementation"
-            echo "- Modules: $(find src tests -name '*.lean' | wc -l)"
-            echo "- Lean: $(cat lean-toolchain)"
-          } >> "$GITHUB_STEP_SUMMARY"
+        run: bash scripts/ci/verify_summary.sh implementation
 
       - name: Audit the axioms (K7pl)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
@@ -192,22 +170,7 @@ jobs:
       # (Compliance.SbomAuditMain). A new root is audited without editing this workflow.
       - name: Audit the axioms (compliance tooling)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: |
-          set -euo pipefail
-          roots="$(python3 scripts/ci/check_lean_modules.py --roots-in tools | grep '^Compliance\.')" || {
-            echo "::error::lakefile.lean declares no Compliance.* root in tools/"
-            exit 1
-          }
-          status=0
-          for root in $roots; do
-            echo "::group::axiom-audit $root"
-            scripts/axiom-audit.sh "$root" "+$root" || {
-              echo "::error::the axiom audit of $root failed"
-              status=1
-            }
-            echo "::endgroup::"
-          done
-          exit "$status"
+        run: bash scripts/ci/verify_audit_axioms.sh tools Compliance
 
       # axiom-audit audits one root namespace per run and the test modules are flat (ArithTest,
       # SemanticsTest, MainTest): `--root K7plTests` matches no module and fails with "unknown
@@ -215,19 +178,7 @@ jobs:
       # without editing this workflow; every root is audited even if an earlier one fails.
       - name: Audit the axioms (tests)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: |
-          set -euo pipefail
-          roots="$(python3 scripts/ci/check_lean_modules.py --roots-in tests)"
-          status=0
-          for root in $roots; do
-            echo "::group::axiom-audit $root"
-            scripts/axiom-audit.sh "$root" "+$root" || {
-              echo "::error::the axiom audit of $root failed"
-              status=1
-            }
-            echo "::endgroup::"
-          done
-          exit "$status"
+        run: bash scripts/ci/verify_audit_axioms.sh tests
 
   python-tests:
     name: Tests de l'outillage Python
@@ -271,40 +222,7 @@ jobs:
             --output "$RUNNER_TEMP/k7pl-paperproof-export-spdx-validation.spdx.json"
 
       - name: Validate SPDX 2.3 with spdx-tools
-        run: |
-          set -euo pipefail
-          for name in k7pl-spdx-validation k7pl-paperproof-export-spdx-validation; do
-            python3 scripts/ci/validate_spdx.py "$RUNNER_TEMP/$name.spdx.json" > "$RUNNER_TEMP/$name.json"
-          done
-          python3 - "$RUNNER_TEMP/k7pl-spdx-validation.json" \
-            "$RUNNER_TEMP/k7pl-paperproof-export-spdx-validation.json" <<'PY'
-          import json
-          import os
-          import sys
-
-          reports = []
-          for path in sys.argv[1:]:
-              with open(path, encoding="utf-8") as stream:
-                  report = json.load(stream)
-              assert report["schemaVersion"] == "k7pl.spdx-validation/v1", report
-              assert report["status"] == "PASS", report
-              assert report["validator"]["name"] == "spdx-tools", report
-              assert report["validator"]["version"] == "0.8.5", report
-              assert report["diagnostics"] == [], report
-              assert len(report["input"]["sha256"]) == 64, report
-              assert isinstance(report["elapsedMs"], (int, float)), report
-              assert isinstance(report["validator"]["elapsedMs"], (int, float)), report
-              reports.append(report)
-          print("Independent SPDX 2.3 validator: PASS (spdx-tools 0.8.5)")
-          report, paperproof = reports
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
-              summary.write("### Independent SPDX 2.3 validation\n")
-              summary.write("- Validator: `spdx-tools 0.8.5` (hash-locked runtime closure).\n")
-              summary.write("- Result: PASS; generated JSON validated against SPDX 2.3.\n")
-              summary.write("- SBOM SHA-256: `" + report["input"]["sha256"] + "`\n")
-              summary.write("- Wrapper elapsed: `" + str(report["elapsedMs"]) + " ms`; validator subprocess: `" + str(report["validator"]["elapsedMs"]) + " ms`.\n")
-              summary.write("- Separate document of the Paperproof workspace: PASS; SHA-256 `" + paperproof["input"]["sha256"] + "`\n")
-          PY
+        run: bash scripts/ci/verify_validate_spdx.sh
 
       - name: Measure repeated SPDX validation cost
         run: |
@@ -392,13 +310,7 @@ jobs:
         if: ${{ success() }}
         env:
           TECTONIC_VERSION: ${{ steps.tectonic.outputs.version }}
-        run: |
-          {
-            echo "### TikZ figure assets"
-            echo "Tectonic: ${TECTONIC_VERSION} (SHA-256 checked)"
-            echo "SOURCE_DATE_EPOCH: ${SOURCE_DATE_EPOCH}"
-            sha256sum out/tikz-production/*.pdf out/tikz-production/*.svg
-          } >> "$GITHUB_STEP_SUMMARY"
+        run: bash scripts/ci/verify_summary.sh tikz
 
   spec:
     name: Spécification Verso
@@ -418,16 +330,7 @@ jobs:
       # commit, so the date is that of the merge computation, not of the last commit of the branch.
       - name: Record the commit date of the source
         id: source-date
-        run: |
-          set -euo pipefail
-          epoch="$(git log -1 --format=%ct)"
-          case "$epoch" in
-            ''|*[!0-9]*)
-              echo "::error::unexpected commit date: '$epoch'"
-              exit 1
-              ;;
-          esac
-          echo "epoch=$epoch" >> "$GITHUB_OUTPUT"
+        run: bash scripts/ci/verify_source_date_epoch.sh
 
       # As in impl, with its own .lake/packages cache key; without use_cache (release builds), the
       # Mathlib binary cache is not fetched either.
@@ -550,12 +453,7 @@ jobs:
 
       - name: Summary
         if: ${{ !cancelled() }}
-        run: |
-          {
-            echo "### Specification"
-            echo "- HTML pages: $(find _out/spec/html-multi -name '*.html' 2>/dev/null | wc -l)"
-            echo "- Verso modules: $(find spec -name '*.lean' | wc -l)"
-          } >> "$GITHUB_STEP_SUMMARY"
+        run: bash scripts/ci/verify_summary.sh specification
 
       - name: Upload the specification (HTML)
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -619,45 +517,17 @@ jobs:
         env:
           SOURCE_DATE_EPOCH: ${{ needs.spec.outputs.source_date_epoch }}
           TECTONIC_BIN_DIR: ${{ steps.tectonic.outputs.bin-dir }}
-        run: |
-          set -euo pipefail
-          export PATH="$TECTONIC_BIN_DIR:$PATH"
-          case "$SOURCE_DATE_EPOCH" in
-            ''|*[!0-9]*)
-              echo "::error::SOURCE_DATE_EPOCH is not a number: '$SOURCE_DATE_EPOCH'"
-              exit 1
-              ;;
-          esac
-          tectonic -X compile --keep-logs -Z deterministic-mode main.tex
-          mkdir -p "$GITHUB_WORKSPACE/out"
-          cp main.pdf "$GITHUB_WORKSPACE/out/k7pl-spec.pdf"
+        run: bash "$GITHUB_WORKSPACE/scripts/ci/verify_compile_pdf.sh"
 
       - name: Reject unresolved index page references
         working-directory: _out/spec/tex
         shell: bash
-        run: |
-          set -euo pipefail
-          if grep -F 'Hyper reference' main.log | grep -F 'idx-' | grep -F 'undefined'; then
-            echo "::error::The generated index contains a page reference without an emitted target."
-            exit 1
-          fi
+        run: bash "$GITHUB_WORKSPACE/scripts/ci/verify_check_index_references.sh"
 
       # Informative only: no healthy build has been observed yet, so no threshold is enforced.
       - name: Summarise the compilation log
         if: ${{ !cancelled() }}
-        run: |
-          log=_out/spec/tex/main.log
-          {
-            echo "### PDF compilation log"
-            if [ -f "$log" ]; then
-              echo "- Lines in the log: $(wc -l < "$log")"
-              echo "- Lines containing 'Warning': $(grep -a -c 'Warning' "$log" || true)"
-              echo "- Lines containing 'Undefined' or 'undefined': $(grep -a -c -i 'undefined' "$log" || true)"
-              echo "- Lines containing 'Missing character': $(grep -a -c 'Missing character' "$log" || true)"
-            else
-              echo "- No log found at $log"
-            fi
-          } >> "$GITHUB_STEP_SUMMARY"
+        run: bash scripts/ci/verify_summary.sh pdf-log
 
       - name: Upload the compilation log
         if: ${{ !cancelled() }}

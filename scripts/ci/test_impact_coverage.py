@@ -49,8 +49,9 @@ Limits (this is a lower bound, not a proof that every read is covered):
   many jobs and workflows whose conditions are not modelled here. Its files are analysed only when
   an entry point reaches them.
 * The step conditions are transcribed by hand in `ENTRY_POINTS` and `LEAN_TARGETS`. The workflow
-  tests only check that `verify.yaml` runs no other Python program outside `scripts/ci/` and
-  builds no other Lake target; they do not parse its conditions.
+  tests only check that `verify.yaml`, with the `scripts/ci/*.sh` step scripts that it runs, runs
+  no other Python program outside `scripts/ci/` and builds no other Lake target; they do not parse
+  its conditions.
 """
 
 from __future__ import annotations
@@ -415,9 +416,17 @@ def lean_reachable(names: tuple[str, ...]) -> set[Path]:
     return seen
 
 
+def step_scripts() -> list[Path]:
+    """The `scripts/ci/*.sh` files that verify.yaml names: the shell of its steps."""
+    names = re.findall(r"\bscripts/ci/[\w-]+\.sh\b", VERIFY.read_text(encoding="utf-8"))
+    return [ROOT / name for name in sorted(set(names))]
+
+
 def workflow_text() -> str:
-    """verify.yaml without its comment lines."""
+    """verify.yaml and the step scripts that it runs, without their comment lines."""
     lines = VERIFY.read_text(encoding="utf-8").splitlines()
+    for script in step_scripts():
+        lines += script.read_text(encoding="utf-8").splitlines()
     return "\n".join(line for line in lines if not line.lstrip().startswith("#"))
 
 
@@ -645,6 +654,13 @@ class WorkflowConsistencyTests(unittest.TestCase):
             (named & declared) - known, set(), "verify.yaml builds a Lake target missing from LEAN_TARGETS"
         )
         self.assertEqual(known - named, set(), "LEAN_TARGETS names a target that verify.yaml does not build")
+
+    def test_the_step_scripts_are_read_with_the_workflow(self):
+        scripts = {path.relative_to(ROOT).as_posix() for path in step_scripts()}
+        self.assertTrue({"scripts/ci/verify_sbom_audit.sh", "scripts/ci/verify_audit_axioms.sh"} <= scripts)
+        for path in step_scripts():
+            self.assertTrue(path.is_file(), f"verify.yaml runs {path}, which does not exist")
+        self.assertIn("lake exe sbomAudit lake-manifest.json", workflow_text())
 
 
 class LeanCoverageTests(unittest.TestCase):
