@@ -71,6 +71,9 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - L'annexe E (présentation formelle) est fondue dans le manuscrit : grammaires et règles de typage au chapitre 3, sémantique opérationnelle et sortes du métalangage au chapitre 4, table des glyphes au chapitre 1. Les annexes B, C et D sont ensuite retirées du document ; `tooling/prototypes-bcd/` en conserve des prototypes Lean (`d84021f`). Seule l'annexe A reste dans la spécification.
 - §1.2 : le choix d'une famille modale et graduée comme socle est écrit, avec son motif.
 - §6.2 : la préservation graduée de bout en bout est déclarée comme objectif.
+- Anomalies corrigées : lettres d'annexes écrites en dur remplacées par des renvois ; étiquettes d'annexes sans lettre ; en-tête et colonne « Route » du tableau des engagements ; trois couches rétablies au glossaire ; étiquette `fig:comp-process` ; commentaires d'auteur retirés du texte (`docs/research/commentaires-du-manuscrit.md`).
+- Les chapitres d'exemple (`Introduction`, `Expressions`) sont remplacés par le manuscrit.
+- Titre aligné sur la spécification Org-mode : « K7PL : KonSept Programming Language ».
 
 ### Corrigé
 - PREUVE-08 : la troncature préserve les lois de comonade pour tout foncteur (convention d'écartement) ; la comonade tronquée est graduée par la somme des profondeurs, non par le produit (§2.3, théorème de troncature, désormais un théorème).
@@ -96,10 +99,3 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
   59 énoncés scellés, 38 formules, 13 figures, 27 tableaux, 7 codes sources, 250 œuvres citées.
 - Figures (`spec/figures/`) : SVG et PDF dérivés des exports drawio, et leurs sources.
 - Page d'introduction : ORCID, DOI Zenodo, dépôt GitHub, écusson officiel CC BY 4.0 et mention © Cyprien PIERRE 2026.
-
-### Changed
-
-- Anomalies corrigées : lettres d'annexes écrites en dur remplacées par des renvois ; étiquettes d'annexes sans lettre ; en-tête et colonne « Route » du tableau des engagements ; trois couches rétablies au glossaire ; étiquette `fig:comp-process` ; commentaires d'auteur retirés du texte (`docs/research/commentaires-du-manuscrit.md`).
-
-- Les chapitres d'exemple (`Introduction`, `Expressions`) sont remplacés par le manuscrit.
-- Titre aligné sur la spécification Org-mode : « K7PL : KonSept Programming Language ».
