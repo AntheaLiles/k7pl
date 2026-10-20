@@ -87,39 +87,7 @@ jobs:
           REF_TYPE: ${{ github.ref_type }}
           INPUT_KIND: ${{ inputs.kind }}
           INPUT_VERSION: ${{ inputs.version }}
-        run: |
-          set -euo pipefail
-          fail() { echo "::error::$1"; exit 1; }
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            dry_run=true
-            version="$INPUT_VERSION"
-            case "$INPUT_KIND" in
-              spec) kind=spec; tag="spec-v$version" ;;
-              implementation) kind=implementation; tag="v$version" ;;
-              *) fail "unknown kind '$INPUT_KIND'" ;;
-            esac
-          else
-            dry_run=false
-            [ "$REF_TYPE" = "tag" ] || fail "expected a tag, got $REF_TYPE '$REF_NAME'"
-            tag="$REF_NAME"
-            case "$tag" in
-              spec-v*) kind=spec; version="${tag#spec-v}" ;;
-              v*) kind=implementation; version="${tag#v}" ;;
-              *) fail "tag '$tag' is neither spec-vX.Y.Z nor vX.Y.Z" ;;
-            esac
-          fi
-          semver='^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z][0-9A-Za-z.-]*)?$'
-          [[ "$version" =~ $semver ]] || fail "'$version' is not a version (X.Y.Z or X.Y.Z-pre.release)"
-          {
-            echo "kind=$kind"
-            echo "version=$version"
-            echo "tag=$tag"
-            echo "dry_run=$dry_run"
-          } >> "$GITHUB_OUTPUT"
-          if [ "$dry_run" = "true" ]; then
-            echo "Rehearsal of $tag: checks and build only. No draft, no attestation, nothing written." \
-              >> "$GITHUB_STEP_SUMMARY"
-          fi
+        run: bash scripts/ci/release_resolve.sh
 
       # The notes of a specification release come from its section of spec/CHANGELOG.md; the file
       # is written here, in a read-only job, and handed to the job that holds write permissions.
@@ -128,65 +96,19 @@ jobs:
           KIND: ${{ steps.resolve.outputs.kind }}
           VERSION: ${{ steps.resolve.outputs.version }}
           TAG: ${{ steps.resolve.outputs.tag }}
-        run: |
-          set -euo pipefail
-          fail() { echo "::error::$1"; exit 1; }
-          # Lines of the `## [VERSION]` section of a changelog, without the heading itself.
-          section() {
-            awk -v heading="## [$2]" '
-              index($0, heading) == 1 { found = 1; next }
-              found && index($0, "## [") == 1 { exit }
-              found { print }
-            ' "$1"
-          }
-          if [ "$KIND" = "implementation" ]; then
-            lake_version="$(sed -n 's/^ *version := v!"\(.*\)"$/\1/p' lakefile.lean)"
-            [ "$lake_version" = "$VERSION" ] ||
-              fail "lakefile.lean déclare '$lake_version' mais la release est '$TAG'"
-            changelog=CHANGELOG.md
-          else
-            cff="$(bash scripts/ci/citation_version.sh)"
-            [ "$cff" = "$VERSION" ] || fail "CITATION.cff déclare '$cff' mais la release est '$TAG'"
-            changelog=spec/CHANGELOG.md
-          fi
-          # Written to a file, not piped into grep -q: with pipefail, grep closing the pipe early
-          # could make a successful check look like a failure.
-          section "$changelog" "$VERSION" > release-notes.md
-          grep -q '[^[:space:]]' release-notes.md ||
-            fail "$changelog n'a pas de section '## [$VERSION]' non vide"
+        run: bash scripts/ci/release_check_metadata.sh
 
       - name: Check that the tagged commit is on main
         env:
           TAG: ${{ steps.resolve.outputs.tag }}
           DRY_RUN: ${{ steps.resolve.outputs.dry_run }}
-        run: |
-          set -euo pipefail
-          fail() { echo "::error::$1"; exit 1; }
-          git rev-parse --verify --quiet refs/remotes/origin/main > /dev/null ||
-            fail "origin/main is not available in the checkout"
-          if [ "$DRY_RUN" != "true" ]; then
-            tag_commit="$(git rev-parse "refs/tags/$TAG^{commit}")"
-            [ "$tag_commit" = "$GITHUB_SHA" ] ||
-              fail "tag $TAG points at $tag_commit but this run was triggered for $GITHUB_SHA: the tag moved"
-          fi
-          git merge-base --is-ancestor "$GITHUB_SHA" refs/remotes/origin/main ||
-            fail "commit $GITHUB_SHA is not an ancestor of origin/main: refusing to release it"
-          echo "$GITHUB_SHA is on main."
+        run: bash scripts/ci/release_check_on_main.sh
 
       # The check run must come from GitHub Actions: another app could post a run with that name.
       - name: Check that CI OK succeeded on the tagged commit
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          count="$(gh api --paginate "repos/$GH_REPO/commits/$GITHUB_SHA/check-runs?per_page=100" \
-            --jq '.check_runs[] | select(.name == "CI OK" and .conclusion == "success" and .app.slug == "github-actions") | .id' \
-            | wc -l)"
-          if [ "$count" -lt 1 ]; then
-            echo "::error::no successful 'CI OK' check run from GitHub Actions on $GITHUB_SHA"
-            exit 1
-          fi
-          echo "CI OK succeeded on $GITHUB_SHA."
+        run: bash scripts/ci/release_check_ci_ok.sh
 
       - name: Hand over the release notes
         if: ${{ steps.resolve.outputs.kind == 'spec' && steps.resolve.outputs.dry_run != 'true' }}
