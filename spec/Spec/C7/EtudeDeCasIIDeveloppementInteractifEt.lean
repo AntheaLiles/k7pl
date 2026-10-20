@@ -28,9 +28,10 @@ montre que ces pratiques, d'ordinaire portées par des outils séparés du langa
 système de types et de la journalisation déjà construits.
 
 Un système de vérification n'est utile au développement quotidien que s'il explique ses refus autant
-qu'il les prononce. Cette seconde étude de cas montre que K7PL n'a besoin d'aucun outil
-supplémentaire pour cela : l'explication est déjà contenue dans les mécanismes des chapitres 3 et 4,
-il ne restait qu'à les mettre à la disposition du développeur au moment où il en a besoin.
+qu'il les prononce. Pour la complétion d'un trou typé et le rejeu d'une exécution, les deux usages
+examinés ici, K7PL n'a besoin d'aucun outil supplémentaire : l'explication est déjà contenue dans
+les mécanismes des chapitres 3 et 4, il ne restait qu'à les mettre à la disposition du développeur
+au moment où il en a besoin.
 
 Un trou, écrit `_`, est le point le moins précis du treillis de précision pour le type attendu
 (chapitre 3, §{num "sec:c3-structures-ouvertes-effets-et"}[]). Lorsqu'un développeur en laisse un
