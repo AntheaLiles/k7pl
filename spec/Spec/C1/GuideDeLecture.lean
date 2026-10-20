@@ -33,9 +33,9 @@ prête plus qu'il n'établit. Une _obligation_ est une preuve à fournir au vér
 terme et non par le document. Une _exigence_ est une contrainte que l'implémentation doit
 satisfaire, et dont ni la démonstration ni la réfutation n'appartiennent à ce texte.
 
-Cette convention a une conséquence que le lecteur peut exiger : là où aucun de ces sept mots
-n'apparaît, l'énoncé est une conséquence de ce qui précède, et le renvoi qui l'accompagne dit d'où
-il vient.
+Cette convention fixe le vocabulaire des statuts, mais l'absence d'un marqueur ne suffit pas à
+établir qu'un énoncé découle de ce qui précède. Toute affirmation normative ou tout résultat doit
+être rattaché à une définition, une preuve, une réserve ou une obligation identifiable.
 
 Il y a onze engagements, et leur brièveté est en soi une donnée : la plupart de ce qui en fut un au
 cours de la rédaction est devenu soit un théorème, soit une réserve explicite.
