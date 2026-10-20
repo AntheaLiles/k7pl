@@ -29,9 +29,9 @@ pris. La _préservation du typage par la traduction_ (chapitre 4, théorème {nu
 est _planifiée_ (§{num "sec:g-traduction"}[]), non conduite. Ses trois premiers groupes se réduisent au lemme de
 commutation, et ses quatre cas résistants au foncteur d'effacement, le système de sortes, et
 l'appareil de ré-invocation bornée que les deux derniers partagent. La _non-interférence graduée_
-(théorème {num "thm:non_interference"}[]) est démontrée sur le fragment sans communication, temps
+(théorème {num "thm:non_interference"}[]) est esquissée sur le fragment sans communication, temps
 compris (§{num "sec:g-relation-logique"}[]) ; son extension attend le même système de sortes. La
-_divulgation délimitée_ (théorème {num "thm:divulgation_delimitee"}[]) est démontrée sous la même
+_divulgation délimitée_ (théorème {num "thm:divulgation_delimitee"}[]) est conjecturée sous la même
 réserve, la relation étant celle-là même requantifiée. _Cette réserve est précisée depuis le
 §{num "sec:g-sortes"}[]_ : le système de sortes rend la clause de session définissable, de sorte que les trois
 preuves s'étendent en principe à la strate qu'elles laissaient ; l'extension n'est pas conduite. Les trois reposent sur le lemme de substitution

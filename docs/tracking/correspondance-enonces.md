@@ -53,7 +53,7 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 44 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 7 |
 | 45 | 16 | `thm:surete_spatiale` | theorem | language | sûreté spatiale par capacités linéaires | §4.4 | 2 |
 | 46 | — | `thm:introduction_unique` | proposition | language | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
-| 47 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 1 |
+| 47 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 2 |
 | 48 | — | `thm:rejeu_binaire` | corollary | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 2 |
 | 49 | 18 | `thm:liberte_initialisation` | lemma | language | liberté d'initialisation par DAG topologique | §4.5 | 0 |
 | 50 | 19 | `thm:sync_motifs_jonction` | lemma | language | synchronisation atomique des motifs de jonction | §4.5 | 1 |

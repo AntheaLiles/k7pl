@@ -313,13 +313,13 @@ La première ligne est celle qui porte le second obstacle de la clause de sessio
 $`\ell' \not\sqsubseteq \ell` a ses événements étiquetés $`\ell'`, donc une sorte que
 $`\pi^{\flat}_{\ell}` efface, donc la relation totale : un observateur de niveau $`\ell` n'en
 apprend rien. _C'est la même clause que celle de la modalité graduée sur les valeurs_, transposée
-des grades aux sortes. Le théorème {num "thm:confinement_sortes"}[] garantit que la transposition
-est licite ; sans lui, un programme pourrait fabriquer un canal dont la sorte ne dirait pas la
+des grades aux sortes. Le théorème {num "thm:confinement_sortes"}[] énonce ce qui rend la transposition
+licite ; sans lui, un programme pourrait fabriquer un canal dont la sorte ne dirait pas la
 vérité sur ses événements.
 
 Le lemme fondamental (théorème {num "thm:lemme_fondamental"}[]) s'étend en conséquence à la strate
 des sessions, ses cas nouveaux étant ceux des règles de communication, chacun réglé par la clause
-correspondante. _La non-interférence graduée et la divulgation délimitée restent donc bornées
+correspondante. _La non-interférence graduée, esquissée, et la divulgation délimitée, conjecturée, restent donc bornées
 au fragment sans communication_, le fragment avec communication n'ayant pas encore de règles démontrées.
 
 # Les incertitudes, et ce qu'elles sont
