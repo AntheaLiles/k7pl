@@ -77,71 +77,21 @@ jobs:
         run: python3 scripts/sync_zenodo.py --check-config
 
       - name: Check that the release matches CITATION.cff and spec/CHANGELOG.md
-        run: |
-          set -euo pipefail
-          version="${TAG#spec-v}"
-          cff="$(bash scripts/ci/citation_version.sh)"
-          if [ "$cff" != "$version" ]; then
-            echo "::error::CITATION.cff déclare '$cff' mais la release est '$TAG'"
-            exit 1
-          fi
-          grep -q "^## \[$version\]" spec/CHANGELOG.md || {
-            echo "::error::spec/CHANGELOG.md ne contient pas la section '## [$version]'"
-            exit 1
-          }
+        run: bash scripts/ci/zenodo_check_release_metadata.sh
 
       - name: Check that gh can verify releases and attestations
-        run: |
-          set -euo pipefail
-          gh --version
-          gh release verify --help > /dev/null || {
-            echo "::error::this gh has no 'gh release verify': refusing to publish unverified assets"
-            exit 1
-          }
-          gh release verify-asset --help > /dev/null || {
-            echo "::error::this gh has no 'gh release verify-asset': refusing to publish unverified assets"
-            exit 1
-          }
-          gh attestation verify --help > /dev/null
+        run: bash scripts/ci/zenodo_check_gh.sh
 
       - name: Download the published assets
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          mkdir out
-          gh release download "$TAG" --dir out \
-            --pattern k7pl-spec.pdf \
-            --pattern k7pl-spec.pdf.sha256 \
-            --pattern k7pl-spec.pdf.sigstore.json
-          for f in k7pl-spec.pdf k7pl-spec.pdf.sha256 k7pl-spec.pdf.sigstore.json; do
-            [ -f "out/$f" ] || { echo "::error::asset $f is missing from release $TAG"; exit 1; }
-          done
+        run: bash scripts/ci/zenodo_download_assets.sh
 
       # Nothing is rebuilt: the bytes verified here are the bytes uploaded below.
       - name: Verify the release, the PDF and its build attestation
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh release verify "$TAG"
-          gh release verify-asset "$TAG" out/k7pl-spec.pdf
-          gh attestation verify out/k7pl-spec.pdf \
-            --repo "$GH_REPO" \
-            --bundle out/k7pl-spec.pdf.sigstore.json \
-            --signer-workflow "$GH_REPO/.github/workflows/release.yaml" \
-            --source-ref "refs/tags/$TAG" \
-            --source-digest "$GITHUB_SHA" \
-            --deny-self-hosted-runners
-          # The checksum only detects corruption: it authenticates nothing.
-          (cd out && sha256sum --check --strict k7pl-spec.pdf.sha256)
-          {
-            echo "## Vérification avant dépôt"
-            echo
-            echo "- \`gh release verify $TAG\` : réussi"
-            echo "- \`gh release verify-asset $TAG k7pl-spec.pdf\` : réussi"
-            echo "- \`gh attestation verify\` (bundle, \`release.yaml\`, \`refs/tags/$TAG\`, \`$GITHUB_SHA\`) : réussi"
-          } >> "$GITHUB_STEP_SUMMARY"
+        run: bash scripts/ci/zenodo_verify_assets.sh
 
       - name: Publish on Zenodo
         env:
