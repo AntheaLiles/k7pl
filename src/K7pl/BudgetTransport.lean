@@ -16,6 +16,12 @@ subtracts only that cost from the budget coordinate.
 These are interface-level proofs. They do not establish that K7PL's actual
 typing or operational rules invoke ψ at the right sites, or that their
 profiles describe the cost of concrete executions.
+
+Known divergence: decision D-21 (`docs/tracking/DECISIONS.md`) states that
+the domain of ψ is independent of where budget consumption is defined. This
+model ties them: ψ requires the per-binding cost certificate `psiAdmissible`
+and subtracts the cost. The model stays as it is until the domain and codomain
+of ψ are specified (decision 45); it is not a model of ψ as D-21 describes it.
 -/
 
 namespace K7pl.BudgetTransport

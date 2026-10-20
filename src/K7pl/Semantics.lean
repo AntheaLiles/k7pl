@@ -9,6 +9,7 @@ import Cslib.Foundations.Semantics.LTS.Basic
 
 A counter described as a labelled transition system (`Cslib.LTS`), and a multistep execution.
 This module is the reference example of a CSLib-based development.
+It is not the operational semantics of K7PL, which the specification defines (chapter C4).
 
 ## Main definitions
 
