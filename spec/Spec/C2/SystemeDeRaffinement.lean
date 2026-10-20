@@ -40,7 +40,7 @@ fibres de ce système de raffinement en sont le premier emploi ; la famille d'ef
 de sécurité, construite ci-après, le deuxième ; et la gradation indexée des effets, que le chapitre
 1 (§{num "sec:c1-axiomatique-germinale"}[]) vient de poser, le troisième. Cette dernière notion est
 elle-même inspirée de la vue fibrée et destinée à donner la sémantique d'un système à raffinements {cite "kuraCategoryTheoreticFrameworkDependent2026"}[]
-— c'est-à-dire de ce que le présent théorème établit être K7PL.
+— c'est-à-dire de ce que le présent théorème énonce être K7PL.
 
 Ce que K7PL possède déjà est ce triplet. La catégorie des termes est celle du métalangage construit
 au chapitre 4 (§{num "sec:c4-le-calcul-de-processus"}[]) ; celle des dérivations est faite des

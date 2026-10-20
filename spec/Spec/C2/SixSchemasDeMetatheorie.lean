@@ -242,7 +242,7 @@ exactement la fibre.
 :::
 
 :::proofsketch
-Trois conditions, et chacune est déjà établie. La commutation à la substitution est le
+Trois conditions, et chacune est déjà esquissée. La commutation à la substitution est le
 théorème {num "thm:schema_commutation"}[]. L'envoi des dérivations sur des dérivations est le
 théorème {num "thm:schema_preservation"}[], dont la condition est que l'image de chaque règle soit
 une dérivation. Que l'oubli soit une fibre est le théorème {num "thm:raffinement"}[], qui construit
