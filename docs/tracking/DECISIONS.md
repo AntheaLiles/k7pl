@@ -192,6 +192,44 @@ One row per record of [`docs/decisions/`](../decisions/README.md) ([ADR-0011](..
 | [ADR-0011](../decisions/0011-decision-records-roles-and-workstream-n.md) | Decision records, roles and workstream N | Accepted at merge | 49 |
 | [ADR-0012](../decisions/0012-k-as-normative-home-of-c3-c4.md) | K as the normative home of the C3/C4 grammar and semantics | Accepted at merge | 44 |
 
+## Decision identifier concordance
+
+**Status (2026-10-20):** a reading aid, not a decision. Several series of identifiers start with « D ». Nothing is renumbered, and the dated records keep their own numbers. When citing from another file, use the form of the last column. Line numbers in other files are those of `main` at `7d522ab`.
+
+| Series | Where it lives | What it numbers | Cite from elsewhere as |
+|---|---|---|---|
+| `D-1`, `D-2`, `D-5`…`D-25` | this file: « Tranchées » and « Tranchées le 1er octobre 2026 (suite) » (`D-1`, `D-2`, `D-9`), « Nouvelles, nées de la conversion » (`D-5`…`D-9`; `D-9` is listed twice), the untitled rows `D-10`…`D-14`, sections `D-15`…`D-25` | owner decisions and open register questions | `D-n` |
+| `D-1`…`D-4` of the PR-02 treatment plan | [`pr-02-plan-de-traitement.md`](../history/pr-02-plan-de-traitement.md) l. 93-141 | the four decisions put to the owner on 30 September 2026 | `D-1` and `D-2` are the decisions of this file; `D-3` is `ARB-PR-03` and `D-4` is `ARB-PR-04` (« À ratifier », « Tranchées le 1er octobre 2026 (suite) »): cite them by their `ARB-PR` identifier. This is why this file has no `D-3` or `D-4`. |
+| `D1`…`D11` (no hyphen) | [typed-interface audit](../migration/L1-C01-C02-TYPED-INTERFACE-AUDIT-2026-10-11.md) § 5 (l. 127-143, dated, historical); notes `L1-D3`…`L1-D11` of `docs/migration/`; [theory-objects register](../migration/L1-THEORY-OBJECTS.md) (l. 54, 393-403) | gate-C decisions of 11 October 2026 on grade interfaces, modes, cost and budget | `L1-Dn`; `D2`…`D11` are `D-16`…`D-25` of this file (table below) |
+| `DOC-D0`…`DOC-D8` | [documentation architecture plan](../history/2026-10-08-documentation-architecture-plan.md) l. 262-340 | steps of the documentation migration of 8 October 2026, not decisions | `DOC-Dn`, as [`PROJECT-MASTER-PLAN.md`](PROJECT-MASTER-PLAN.md) l. 452 does |
+| `D-P1`, `D-P2`, `D-T1`, `D-T2`, `D-φ1`…`D-φ3`, `D-ℓ`, `D-S1`…`D-S3` | this file, « Attendent une décision de l'auteur »; source: [instruction C](../migration/L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md) §§ 1-5 | open questions drawn from the findings of the PR #10 archive | as written; the letter keeps them apart |
+| `D1`…`D11` of the OpenSSF audit | [`DECISIONS-REQUISES.md`](../security/DECISIONS-REQUISES.md) l. 16-117 | human decisions required by the security audit | `SEC-Dn` (proposed here; the files of `docs/security/` write `Dn`) |
+| `[D-1]`…`[D-4]` of the CLAUDE review | [`claude.md`](../peer-review/pr-02/claude.md) l. 2251-2331 | review findings | `C/D-n`, as the consolidated cards do |
+
+**Bare « Dn » in this file.** `D8` in the row « Décisions postérieures au 1er octobre 2026 » is `DOC-D8`. Everywhere else a bare `Dn` is `L1-Dn`: « convention D8 » in the row `thm:distributivite_tronquee`, the « D7 note » of decision 45, « D3–D8 » and « D11 » in « État scientifique C », and the cross-references in the bodies of `D-17`…`D-25`. In the same way, `PROJECT-MASTER-PLAN.md` l. 52 (« D8 validated ») and l. 448 (« D7/D8 documentation pass ») mean `DOC-D8` and `DOC-D7`/`DOC-D8`.
+
+**`L1-Dn` and `D-n`.** Each pair was checked on 2026-10-20 by its subject and by the option the owner chose.
+
+| `L1-Dn` | This file | Subject |
+|---|---|---|
+| `D1` | no `D-n`; « État scientifique C » and the [C-01 note](../migration/L1-C01-INTERFACE-RATIFICATION-2026-10-11.md) | reference interfaces `π_U`, `Bang_𝒢`, `Scale_Usage` |
+| `D2` | `D-16` (written « D16 » in `L1-THEORY-OBJECTS.md` l. 63) | modes `M_Lin`, `M_Aff`, `M_Unr`; `Rel` not active |
+| `D3` | `D-17` | `Cost_Budget` total, option A |
+| `D4` | `D-18` | `sup ∅ = 0` in `ℕ∞`, option A |
+| `D5` | `D-19` | admissibility: the budget covers the announced cost, option B |
+| `D6` | `D-20` | `Consume` partial, defined on `Adm`, option A |
+| `D7` | `D-21` | domain of `ψ` independent of `Consume`, option B |
+| `D8` | `D-22` | one global truncated subtraction, `ω ⊖ ω = ω`, option A |
+| `D9` | `D-23` | multiplicity law on the admissible domain, option A |
+| `D10` | `D-24` | multiplicity law as a conditional lemma, `n = ω` not included by default, option A |
+| `D11` | `D-25` | audit the proofs before fixing the hypotheses, option A |
+
+**Divergences between paired entries (questions for the owner, not resolved here):**
+
+1. `D-17` repeats, after its own decision, a paragraph « D4 — Supremum sur domaine vide : DÉCIDÉ », which is the subject of `D-18`. Keep both, or leave D4 to `D-18` only?
+2. `D5`: the typed-interface audit (l. 139) says « DÉCIDÉ, formule exacte ouverte », and the [D5 note](../migration/L1-D5-ADM-PRINCIPLE-2026-10-11.md) (l. 14-18, 32) ratifies the principle only. `D-19` is headed « forme canonique normalisée », and `L1-THEORY-OBJECTS.md` l. 398 says that `Adm(β,κ)` is « normalisée en `Cost_Budget(κ)≤β` ». Both call this a logical normalisation, not an owner ratification. Does the owner ratify `Adm(β,κ) ↔ Cost_Budget(κ) ≤ β` as the canonical form?
+3. `D6`: the typed-interface audit (l. 141) and the [D6 note](../migration/L1-D6-CONSUME-PARTIAL-DOMAIN-2026-10-11.md) (l. 16-18) keep `β ⊖ Cost_Budget(κ)` as the « valeur candidate », while `D-20` says « sa valeur retenue ». Is this value retained, or still a candidate?
+
 ## État scientifique C — mise à jour du 11 octobre 2026
 
 | Sujet | État établi par les registres | Ce qui reste ouvert |

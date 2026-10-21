@@ -394,6 +394,8 @@ P1a (cadre catégorique annoncé par C) reste distinct de P1b (interprétation �
 
 Cet addendum actualise les choix de conception du présent registre ; il ne modifie pas les critères de preuve des lots C.
 
+**Identifiers (note of 2026-10-20).** `D3`…`D11` here are recorded as `D-17`…`D-25` in [`DECISIONS.md`](../tracking/DECISIONS.md#decision-identifier-concordance), and « D16 » (« Correction critique de C — modes et intervalles », l. 63) is `D-16` there; that section maps every « D » series.
+
 - **D3–D4 — coût :** `Cost_Budget : K → 𝔅` est retenue totale sous le contrat scalaire `max(W,D)`, et `sup ∅=0` dans `ℕ∞`. Les définitions de `W`, `D`, de `K` et leurs lois de composition restent à formaliser.
 - **D5–D7 — admissibilité et transport :** `Adm(β,κ)` est normalisée en `Cost_Budget(κ)≤β` sous l'ordre de `ℕ∞` ; cette simplification équivaut à la formulation avec `β=ω` lorsque `ω` est le maximum, sans constituer une nouvelle décision d'autrice. `Consume` reste partielle sur `Adm`, tandis que le domaine de `ψ` est conceptuellement indépendant. Leur articulation dans les règles reste à prouver.
 - **D8 — soustraction :** une convention globale est retenue, dont `ω ⊖ ω=ω` ; les couches ne définissent pas chacune une variante de `⊖`. Une couche peut toutefois imposer localement si et dans quelles règles l'opération `Consume` est requise : ce choix de portée ne modifie pas la loi globale.
