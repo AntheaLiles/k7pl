@@ -26,135 +26,134 @@ tag := "c5-syntaxe"
 
 {refsection "c5-syntaxe"}
 
-Les trois chapitres précédents ont défini K7PL sans montrer à quoi il ressemble sur une page.
-Celui-ci comble l'écart sans introduire le moindre contenu sémantique nouveau : une seule grammaire
-— l'expression symbolique préfixée — porte à sa surface les distinctions déjà établies. Un
-délimiteur n'invente rien ; il annonce au compilateur, au seul endroit où cette annonce a un coût,
-lequel des trois fragments gouverne l'expression qu'il ouvre. Deux réserves portent sur le
-dispositif plutôt que sur son réglage. La délimitation par régions répond bien au défaut des
-systèmes substructurels bâtis sur une discipline globale unique, mal adaptée aux motifs d'usage
-hétérogènes {cite "herlihyModularSubstructuralConstraints2026"}[]. Mais ce travail tient pour acquis
-que les contraintes soient personnalisables, quand K7PL en fige trois — choix défendable pour un
-langage autonome, qui n'en exclut pas moins les usages mixtes. Et là où le typage quantitatif a été
-appliqué aux netlists, les auteurs concluent sur le risque que la linéarité rende le langage
-inutilement verbeux, jusqu'à envisager d'y renoncer {cite "demuijnck-hughesWiringCircuitsEasy2023"}[].
-C'est le risque principal du dispositif, que ce chapitre ne conjure qu'en pariant sur la rareté des
-changements de fragment.
+Ce chapitre définit la surface de K7PL sans ajouter de sémantique aux trois chapitres précédents :
+une grammaire symbolique préfixée exprime les distinctions déjà établies. Ses délimiteurs indiquent
+le fragment qui gouverne une expression et les frontières auxquelles ce fragment change. Ce choix
+privilégie une syntaxe fixe et une compilation homogène, au prix d'une extension du noyau plus
+limitée et d'un risque de verbosité.
 
-Trois arbitrages en découlent, dont le prix est nommé plutôt que caché. Un délimiteur marque les
-points où le fragment change, non chaque expression : lecture conforme au principe de Flat-Wiring.
-Mais qui interdit de vérifier le marquage par simple comptage, décider si un délimiteur est requis
-supposant de connaître le fragment de la fonction appelée. Le marquage est donc vérifié en Phase
-1.5, après résolution des noms, et non en Phase 1 : un fichier isolé ne suffit pas à l'établir, ce
-qui est le prix de la lecture retenue.
+La délimitation par régions répond au problème identifié dans les systèmes substructurels dont les
+contraintes d'usage sont définies globalement : une discipline unique s'adapte mal à des domaines aux
+besoins hétérogènes {cite "herlihyModularSubstructuralConstraints2026"}[]. K7PL en retient toutefois
+trois fragments fixes, là où cette littérature explore la personnalisation des contraintes ; les
+usages mixtes restent donc hors de portée. La seconde limite est ergonomique : dans l'étude du typage
+quantitatif des circuits, les auteurs constatent que la linéarité peut imposer une verbosité excessive,
+au point d'envisager de l'assouplir {cite "demuijnck-hughesWiringCircuitsEasy2023"}[]. K7PL assume ce
+risque en faisant l'hypothèse que les changements de fragment sont suffisamment rares pour justifier
+un marquage aux frontières plutôt qu'à chaque expression.
 
-Le deuxième porte sur le statut des glyphes, et il détermine la place qu'ils occupent dans le
-langage. Un glyphe n'est pas une notation primitive : c'est une _macro_ de la bibliothèque standard,
-qui s'expanse en constructions du noyau portant l'algorithme et ses annotations. Son alias textuel
-n'est pas une autre notation mais un autre nom de la même macro, de sorte qu'associativité et
-priorité sont celles de l'expansion — identiques par construction, quelle que soit l'orthographe
-employée.
+Ce choix a une conséquence sur la compilation. La nécessité d'un délimiteur ne peut pas toujours être
+vérifiée par la syntaxe locale ou par simple comptage : elle dépend du fragment auquel appartient la
+fonction appelée. Le contrôle intervient donc en Phase 1.5, après résolution des noms, plutôt qu'en
+Phase 1. Un fichier isolé ne suffit pas à vérifier ce marquage ; c'est le coût assumé de cette
+stratégie.
 
-La solution que ce choix écarte serait la plus naturelle dans la tradition dont ce chapitre se
-réclame : faire du glyphe une _macro de lecture_, c'est-à-dire une extension de l'analyseur
-lui-même. L'argument contre est de portée et non de mécanique. Un langage dont la surface est
-extensible par l'analyseur devient une _île_ — l'outillage extérieur, les analyseurs statiques, les
-éditeurs, tout ce qui lit du code sans l'exécuter, cesse de pouvoir le lire {cite "hickeyHistoryClojure2020"}[].
-Un glyphe qui est une macro ordinaire laisse la grammaire fixe et l'AST lisible par quiconque ; une
-macro de lecture les rend dépendants du programme lu. C'est le même motif qui fait de la staticité
-de la syntaxe un théorème plutôt qu'une convention (§{num "sec:c5-ce-qu-une-macro-declare"}[]).
+Le deuxième arbitrage concerne les glyphes. Ils ne constituent pas des primitives syntaxiques, mais
+des macros de la bibliothèque standard qui s'expansent en constructions du noyau et en annotations.
+Un alias textuel désigne la même macro : les deux graphies partagent donc, par construction, son
+associativité, sa priorité et son expansion.
 
-La conséquence dépasse la question de l'affichage : la difficulté de K7PL est de comprendre le noyau
-et ses annotations, et l'ergonomie vient de macro-fonctions composées que des experts préparent
-au-dessus de lui, comme le ferait une bibliothèque. Les glyphes tacites hérités d'APL, BQN et Uiua
-sont de cet ordre, au même titre qu'une recherche en logique floue : de l'outillage de bibliothèque,
-non des primitives du langage.
+Cette décision écarte les _macros de lecture_, qui étendent l'analyseur lui-même. L'enjeu n'est pas
+leur faisabilité technique, mais la stabilité de la surface du langage. Lorsque l'analyse dépend de
+la configuration du programme lu, les outils qui ne l'exécutent pas — analyseurs statiques, éditeurs
+et autres consommateurs du code — risquent de ne plus disposer d'une grammaire commune. C'est le
+problème de l'« île » décrit dans la réflexion de Hickey sur l'histoire de Clojure
+{cite "hickeyHistoryClojure2020"}[]. Avec des macros ordinaires, la grammaire reste fixe et l'AST
+demeure lisible indépendamment des extensions de la bibliothèque. La staticité syntaxique est ainsi
+une propriété de conception, formalisée au §{num "sec:c5-ce-qu-une-macro-declare"}[], et non une
+simple convention.
 
-Ce pari appelle un état de la mesure, écrit ici plutôt qu'attendu d'un relecteur. L'argument adverse
-le plus courant — la syntaxe conventionnelle serait plus accessible — perd son appui. Une mesure des
-taux d'exactitude de novices sur six langages, dont un témoin aux mots-clés tirés au hasard de la
-table ASCII, trouve que les langages à syntaxe traditionnelle de type C, Perl et Java ne donnent
-_pas_ de taux significativement supérieurs à ce témoin, tandis que ceux qui s'en écartent, si {cite "stefikEmpiricalInvestigationProgramming2013"}[].
-Le résultat est négatif et non positif : il retire un appui à l'objection, il n'établit pas qu'un
-glyphe vaille mieux qu'un mot. Et son cadre — des novices, des tâches d'exactitude, un contexte
-d'enseignement — n'est pas celui d'un praticien qui compose des trains. La question du transport
-doit donc être posée dans la même phrase que la citation, et elle reste ouverte.
+Le troisième arbitrage en découle : les R- et X-expressions appartiennent à la syntaxe du noyau
+plutôt qu'à une bibliothèque extensible par de nouvelles formes syntaxiques de même niveau. Le noyau
+renonce ainsi à un point d'extension supplémentaire, sans interdire la création d'autres langages de
+motifs. Ceux-ci se définissent en macros, dans la bibliothèque, et restent soumis aux règles communes
+d'élaboration.
 
-La mesure qui porte le plus directement sur ce document lui est en revanche _défavorable_, et
-l'omettre serait la faute que sa méthode bibliographique interdit. Un essai contrôlé randomisé sur
-la propriété, les actifs et le typestate — le jeu de traits même de ce langage — trouve la condition
-à types avancés plus _lente_, à variance élevée. Quatre participants sur dix n'y ont plus assez de
-leurs quatre heures pour se déclarer satisfaits, contre un seul au témoin, et un abandon survient
-après une heure quinze {cite "coblenzCanAdvancedType2020"}[]. La portée en est bornée — dix
-participants par condition, quatorze analysés, un tutoriel bref, un langage évalué distinct de
-celui-ci — mais aucune mesure favorable ne lui fait pendant. Ce document ne peut donc pas invoquer
-l'utilisabilité de ses traits comme un acquis : ce qu'il peut invoquer est ce qu'ils _garantissent_,
-et la question de leur coût d'apprentissage reste posée.
+L'enjeu ergonomique se déplace donc vers la composition de macros-fonctions au-dessus du noyau et vers
+les annotations qu'il expose. Les glyphes tacites hérités d'APL, de BQN et d'Uiua relèvent de cette
+couche de bibliothèque, au même titre qu'une fonction de recherche en logique floue : ils constituent
+des moyens de composition spécialisés, non des primitives supplémentaires.
 
-Une seconde étude, de méthode différente, conclut au même endroit — et c'est cette convergence qui
-donne au constat son poids. Elle porte sur les barrières à l'adoption des langages _à vérification
-intégrée_, c'est-à-dire la classe où celui-ci se range, et procède en deux temps : modélisation
-thématique de discussions de développeurs sur des forums publics, puis enquête déclarative. Les deux
-obstacles qu'elle relève ne sont pas théoriques — une courbe d'apprentissage abrupte, et des
-problèmes d'utilisabilité — et ses recommandations portent sur l'interface des outils et sur ce qui
-accompagne le langage, non sur le langage lui-même {cite "oliveiraWhatChallengesDevelopers2025"}[].
-Ce qui freine l'adoption de cette classe n'est donc pas ce qu'elle démontre, mais ce qu'elle coûte à
-apprendre et ce que son outillage donne. Ce document consacre sa substance au premier et renvoie le
-second au chapitre 6, qui décrit un pipeline sans l'avoir construit ; le déséquilibre est assumé au
-chapitre 1 comme une réserve de position, et il est ici mesuré.
+Ce choix s'inscrit dans deux traditions. Pour Iverson, la notation est un outil de pensée qui façonne
+les opérations intellectuelles autant qu'elle les exprime
+{cite "iversonNotationToolThought1980a"}[]. Cette thèse motive l'exploration des glyphes tacites de
+la couche 3, sans démontrer à elle seule leur supériorité ergonomique. La tradition Lisp apporte un
+second principe : la représentation arborescente commune du code et des données permet de traiter
+configuration, macro et AST comme des objets compatibles. La syntaxe parenthésée de la couche 2
+s'inspire plus particulièrement de Lisps applicatifs modernes — TXR Lisp, Gerbil et LFE — dont les
+usages illustrent la possibilité d'orchestrer des systèmes réels à partir de listes imbriquées.
 
-Reste à dire ce que la littérature empirique du _nommage_ apporte à ces choix, et la réponse est :
-moins qu'on ne l'attendrait, pour une raison d'objet. Une revue systématique de la lisibilité,
-cinquante-quatre études primaires dépouillées, recense onze travaux comme la littérature du nommage.
-Aucun des onze n'a pour objet les noms de _fonctions_ ou de _méthodes_, neuf portant sur les
-identifiants en général et deux nommant explicitement les variables {cite "oliveiraEvaluatingCodeReadability2020"}[].
+Ces justifications conceptuelles ne suffisent pas à établir la facilité d'apprentissage de K7PL. Les
+résultats empiriques disponibles éclairent certaines objections, mais leur portée doit être délimitée.
 
-Or ce que ce chapitre choisit, ce sont des noms de fonctions, en nombre fini et fixés une fois ; ce
-que la littérature mesure, ce sont des noms de variables, écrits par l'utilisateur et gouvernés par
-convention. Les deux ne relèvent pas du même problème, et aucune mesure faite sur le second ne se
-transporte au premier.
+Une étude comparant six langages, dont un témoin doté de mots-clés générés aléatoirement, montre que
+Java et Perl, représentatifs d'une syntaxe de tradition C, n'obtiennent pas de taux d'exactitude
+significativement supérieurs à ce témoin, contrairement à Python, Ruby et Quorum
+{cite "stefikEmpiricalInvestigationProgramming2013"}[]. Ce résultat affaiblit l'argument selon lequel
+une syntaxe conventionnelle serait nécessairement plus accessible ; il ne démontre pas la supériorité
+d'une notation symbolique. L'étude porte sur des novices, des tâches d'exactitude et un contexte
+d'enseignement, non sur la composition de trains par des praticiens. Le transfert à K7PL reste donc
+à établir.
 
-La même revue ajoute une raison de prudence sur la qualité de la preuve : l'opinion personnelle sert
-de variable de réponse dans trente des cinquante-quatre études et en est la seule dans neuf,
-trente-sept pour cent n'exercent qu'une compétence cognitive, et cinq pour cent seulement observent
-un signe physique. Un point survit pourtant au tri, et il va contre l'intuition : les identifiants
-_courts_ prennent _plus_ de temps à comprendre. La brièveté n'est donc pas un critère de choix, et
-ce chapitre ne l'invoque nulle part comme tel.
+Une étude contrôlée randomisée portant sur Obsidian, qui combine propriété, actifs et typestate,
+fournit un résultat plus directement défavorable à l'hypothèse d'une utilisation sans surcoût
+{cite "coblenzCanAdvancedType2020"}[]. Sur les vingt participants initiaux — dix par condition —,
+quatorze ont été retenus pour l'analyse. Quatre participants sur dix dans la condition Obsidian,
+contre un dans la condition Solidity, n'ont pas disposé de suffisamment de temps pour achever une
+solution jugée satisfaisante. Un participant d'Obsidian a abandonné après une heure quinze. Sur la
+tâche ouverte _Casino_, le temps moyen parmi les solutions compilantes analysées était de 64 minutes
+pour Obsidian, contre 37 pour Solidity ; cette différence était statistiquement significative, mais
+l'effectif était faible et les groupes comparés potentiellement biaisés par les performances aux
+tâches précédentes. Les tâches antérieures ne montraient pas le même écart de temps.
 
-Une dernière précaution vise les arguments tirés de grands corpus, que ce chapitre s'interdit et
-qu'il faut dire pourquoi. Sur quatre millions et demi de projets non forkés de GitHub, plus de
-quatre cent vingt-huit millions de fichiers ne comptent que quatre-vingt-cinq millions de fichiers
-_uniques_. Sept fichiers sur dix sont donc le clone d'un fichier déjà créé, et le taux varie d'un
-ordre de grandeur entre écosystèmes : six pour cent de fichiers distincts en JavaScript, soixante en
-Java {cite "lopesDejaVuMapCode2017"}[]. Une comparaison de conventions de nommage _entre langages_
-tirée d'un tel corpus compte donc le même fichier un nombre de fois qui dépend du langage, et le
-sens du biais est connu : elle surestime l'homogénéité des écosystèmes les plus dupliqués. Aucune
-des conventions posées ici ne s'appuie sur un tel comptage.
+La portée de ce résultat reste limitée : tutoriel bref, langage distinct de K7PL, petit effectif et
+tâche complexe. Il suffit néanmoins à interdire de présenter l'utilisabilité de traits comparables
+comme acquise. K7PL peut revendiquer les garanties que son système entend établir ; le coût
+d'apprentissage et d'utilisation de ces garanties reste une question empirique ouverte.
 
-Une dernière remarque porte sur la méthode plutôt que sur les résultats, et elle explique pourquoi
-ces quatre paragraphes existent. Mêler théorie des types et méthode empirique n'est pas une
-commodité de présentation mais une discipline, avec ses conditions, et la littérature de la
-conception de langage interdisciplinaire les énonce {cite "coblenzInterdisciplinaryProgrammingLanguage2018"}[].
-La condition appliquée ici est la plus exigeante : rapporter la mesure _défavorable_ au même titre
-que les autres, alors qu'elle porte sur le jeu de traits de ce document et qu'aucune mesure
-favorable ne lui fait pendant. Un chapitre qui ne citerait que ce qui l'arrange ne ferait pas de la
-conception interdisciplinaire, il en emprunterait le vocabulaire.
+Une étude complémentaire examine les obstacles à l'adoption des langages à vérification intégrée à
+partir de discussions publiques de développeurs, puis d'une enquête déclarative
+{cite "oliveiraWhatChallengesDevelopers2025"}[]. Elle identifie principalement une courbe
+d'apprentissage abrupte et des problèmes d'utilisabilité. Ses recommandations concernent notamment
+les interfaces des outils, les ressources pédagogiques et l'intégration aux environnements de
+développement. Ces résultats situent les difficultés d'adoption dans l'apprentissage et l'outillage
+autant que dans les garanties du langage. Ce document développe surtout le premier aspect ; le
+chapitre 6 décrit le pipeline d'outillage sans prétendre en fournir une réalisation achevée. Ce
+déséquilibre constitue une limite de portée, non une preuve d'utilisabilité.
 
-Le troisième suit du deuxième. Faire des R- et X-expressions une syntaxe bénie plutôt qu'une
-bibliothèque interdit d'en ajouter une troisième _au même niveau_ : le noyau choisit l'homogénéité
-de compilation sur l'extensibilité, et n'offre pas de point d'extension. Cela ne ferme pas
-l'extension du langage, cela en déplace le lieu — un troisième langage de motifs s'écrit en macros,
-dans la bibliothèque, où il est soumis aux mêmes règles que tout le reste.
+La littérature empirique du nommage est elle aussi moins directement pertinente qu'il n'y paraît.
+Une revue systématique consacrée à la lisibilité du code recense 54 études primaires, dont onze sur
+les conventions de nommage. Aucune de ces onze études ne porte spécifiquement sur les noms de
+fonctions ou de méthodes : neuf concernent les identifiants en général et deux les noms de variables
+{cite "oliveiraEvaluatingCodeReadability2020"}[]. Or K7PL fixe un ensemble fini de noms de fonctions,
+tandis que la littérature examine principalement des identifiants produits par les programmeurs et
+régis par des conventions. Les résultats ne sont donc pas directement transposables.
 
-Deux traditions le portent. Celle d'Iverson soutient qu'une notation bien conçue ne décrit pas la
-pensée mais la façonne {cite "iversonNotationToolThought1980a"}[]. Elle justifie le pari le plus
-visible du chapitre : les glyphes tacites de la couche 3, hérités à travers APL puis BQN et Uiua, ne
-sont pas un raccourci pour experts mais une autre manière d'exprimer une composition, souvent plus
-courte à raisonner. Celle de Lisp, où code et donnée partagent une représentation arborescente,
-permet de traiter une configuration, une macro et l'AST qu'un outil consulte comme un seul objet. La
-syntaxe parenthésée de la couche 2 doit plus précisément aux Lisps applicatifs modernes — TXR Lisp,
-Gerbil, LFE — qu'à la tradition générale, eux seuls ayant montré qu'une liste imbriquée reste
-praticable pour orchestrer des systèmes réels.
+Cette revue invite également à distinguer les mesures observées des perceptions déclarées : trente
+études sur 54 recueillent l'opinion des participants, neuf en font leur unique variable de réponse,
+37 % ne mobilisent qu'une compétence cognitive et 5 % seulement observent un indicateur physique. Un
+résultat recensé va à l'encontre de l'intuition selon laquelle la brièveté faciliterait toujours la
+lecture : les identifiants courts peuvent prendre davantage de temps à comprendre. La brièveté ne
+constitue donc pas, à elle seule, un critère de qualité ; aucune des conventions de nommage exposées
+ici ne repose sur cette hypothèse.
+
+Les comparaisons tirées de grands corpus exigent une précaution supplémentaire. L'étude DéjàVu porte
+sur 4,5 millions de projets GitHub non forkés et plus de 428 millions de fichiers, dont seulement
+85 millions sont uniques. La duplication varie fortement selon les écosystèmes : environ 6 % des
+fichiers JavaScript sont distincts, contre 60 % des fichiers Java
+{cite "lopesDejaVuMapCode2017"}[]. Un comptage brut des conventions de nommage par langage sur un tel
+corpus pondérerait différemment les écosystèmes selon leur taux de duplication et pourrait surestimer
+l'homogénéité des plus dupliqués. Ce chapitre ne fonde donc aucune de ses conventions sur de telles
+fréquences.
+
+La conception d'un langage exige ainsi de distinguer les arguments formels, les choix d'ingénierie et
+les résultats empiriques, sans faire passer les uns pour les autres. La littérature sur la conception
+interdisciplinaire des langages insiste sur cette articulation
+{cite "coblenzInterdisciplinaryProgrammingLanguage2018"}[]. Son application impose ici de rapporter
+aussi les résultats défavorables, de circonscrire leur domaine de validité et de ne pas extrapoler
+au-delà des populations ou des tâches étudiées. Les données disponibles ne démontrent ni la supériorité
+ergonomique de la syntaxe de K7PL ni l'inutilité de ses garanties : elles identifient des hypothèses
+de conception et des coûts potentiels qu'une évaluation propre au langage devra mesurer.
 
 {include 0 Spec.C5.SExpressionsUniverselles}
 
