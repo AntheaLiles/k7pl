@@ -27,6 +27,7 @@ This is the current entry point for project tracking. It answers what is current
 - [Primitives and T-68](primitives.md)
 - [Module hypotheses](hypotheses-de-module.md)
 - [Empirical register](../research/registre-empirique.md)
+- [Figure sheets](FIGURE-SHEETS.md) — the twelve specification figures read from their TikZ sources and compared with caption, alt text and text; findings for the owner.
 
 ## Active methodological work
 
