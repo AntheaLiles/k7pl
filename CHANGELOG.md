@@ -60,15 +60,9 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## [0.0.0-alpha.1]
 
-- CI: Lean diagnostics and REUSE violations are now annotated according to a selective, prioritised policy, without adding write permissions on pull requests (#64, #66).
-
-### Fixed
-
-- CI: `controle.py` annotations escaped and deduplicated; Tectonic cache key tied to the sources
-  (a cache with a fixed key was never rewritten); link check without `archives/`.
-
 ### Added
 
+- CI: Lean diagnostics and REUSE violations are now annotated according to a selective, prioritised policy, without adding write permissions on pull requests (#64, #66).
 - OpenSSF audit (`docs/security/`): six independent audits (Scorecard, CII best practices, GitHub governance,
   supply chain, assurance, quality), consolidated matrix, remediation plan, decisions and required human
   actions, threat model and claims register. Agent reports, not validated by a person.
@@ -101,7 +95,6 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - Examples: `K7pl.Arith` (Mathlib), `K7pl.Semantics` (CSLib) and their tests.
 - Specification in Verso (`spec/`) and HTML generator (`lake exe spec`).
 - CI: build, tests and generation of the specification; Conventional Commits lint.
-
 - Strict Lean options (`autoImplicit` disabled, blocking warnings),
   Mathlib linters, `lake lint` (Batteries) and axiom audit in CI.
 - Publication of the specification on GitHub Pages.
@@ -160,3 +153,8 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - The specifications move from Org-mode to Verso.
 - The source code (identifiers, docstrings, comments) is now in English.
 - `CITATION.cff` describes the specification (CC-BY-4.0, ORCID) with a view to the Zenodo DOI.
+
+### Fixed
+
+- CI: `controle.py` annotations escaped and deduplicated; Tectonic cache key tied to the sources
+  (a cache with a fixed key was never rewritten); link check without `archives/`.
