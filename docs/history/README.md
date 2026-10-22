@@ -109,6 +109,18 @@ All dated 7 October 2026; they cover the architecture of the grade and the stage
 - [61](2026-10-07-pr-02-61-coercion-transport-closure.md) — closing the transport law of graded coercions.
 - [62](2026-10-07-pr-02-62-theory-object-closure-boundary.md) — closure boundary of the theoretical objects.
 
+## Closed figure-rendering workstream
+
+- [Figure-sheet closure (2026-10-22)](2026-10-22-figure-sheets-closure.md) — source-level reconciliation of twelve specification figures with captions, alt text and surrounding prose; includes closure evidence and scope limits.
+- [TikZ proof of concept (2026-10-14)](2026-10-14-tikz-poc.md) — closed evaluation of shared PDF/SVG rendering from TikZ sources.
+- [TikZ proof-of-concept results (2026-10-14)](2026-10-14-tikz-poc-results.md) — technical outcomes, rendered-output inspection and known limits.
+
+## Closed figure-rendering workstream
+
+- [Figure-sheet closure (2026-10-22)](2026-10-22-figure-sheets-closure.md) — source-level reconciliation of twelve specification figures with captions, alt text and surrounding prose; includes closure evidence and scope limits.
+- [TikZ proof of concept (2026-10-14)](2026-10-14-tikz-poc.md) — closed evaluation of shared PDF/SVG rendering from TikZ sources.
+- [TikZ proof-of-concept results (2026-10-14)](2026-10-14-tikz-poc-results.md) — technical outcomes, rendered-output inspection and known limits.
+
 ## Superseded tracking views
 
 - [2026-10-01-registre-obligations.md](2026-10-01-registre-obligations.md) — historical obligations register, snapshot of 2026-10-01 produced by the former Org tooling; not the current register.

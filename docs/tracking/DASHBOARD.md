@@ -27,7 +27,6 @@ This is the current entry point for project tracking. It answers what is current
 - [Primitives and T-68](primitives.md)
 - [Module hypotheses](hypotheses-de-module.md)
 - [Empirical register](../research/registre-empirique.md)
-- [Figure sheets](FIGURE-SHEETS.md) — the twelve specification figures read from their TikZ sources and compared with caption, alt text and text; findings for the owner.
 
 ## Active methodological work
 
@@ -41,6 +40,12 @@ This is the current entry point for project tracking. It answers what is current
 - [Proof visualization human review](PROOF-VISUALIZATION-HUMAN-REVIEW.md) — manual validation still required for source fidelity, keyboard/mobile use, and PDF pagination.
 
 ## Historical records
+
+- [Figure-sheet closure (2026-10-22)](../history/2026-10-22-figure-sheets-closure.md) — closed audit of the twelve production figures, source corrections and HTML/PDF validation evidence.
+- [TikZ proof of concept (2026-10-14)](../history/2026-10-14-tikz-poc.md) and [results](../history/2026-10-14-tikz-poc-results.md) — completed evaluation retained as historical evidence, not active tracking.
+
+- [Figure-sheet closure (2026-10-22)](../history/2026-10-22-figure-sheets-closure.md) — closed audit of the twelve production figures, source corrections and HTML/PDF validation evidence.
+- [TikZ proof of concept (2026-10-14)](../history/2026-10-14-tikz-poc.md) and [results](../history/2026-10-14-tikz-poc-results.md) — completed evaluation retained as historical evidence, not active tracking.
 
 - [OpenSSF criterion checklist (2026-10-10)](../history/2026-10-10-openssf-conformance-checklist.md) — archived working inventory; not a current status source.
 - [Original OpenSSF remediation plan (2026-10-10)](../history/2026-10-10-openssf-remediation-plan.md) — historical plan before the current automation wave.
