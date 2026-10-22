@@ -34,7 +34,7 @@ EXPECTED_PYTHON_TEST_PREFIXES = ("tests/python/",)
 EXPECTED_LEAN_PREFIXES = ("src/", "tests/")
 EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
 EXPECTED_SPEC_BUILD_EXACT = {"scripts/controle.py", "scripts/manuscript_metrics.py"}
-EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/")
+EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/", "scripts/biblio/")
 EXPECTED_SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
 EXPECTED_TRACKING_VIEWS_EXACT = {
     "docs/tracking/fiches-statuts.csv",
