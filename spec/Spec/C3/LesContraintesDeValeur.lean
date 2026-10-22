@@ -137,14 +137,15 @@ le sens de ce que le paragraphe précédent revendique. Un type de session n'en 
 distribuée : le même automate, sauf que ses transitions sont déclenchées par l'échange de messages
 entre deux extrémités plutôt que par des appels locaux.
 
-::::figure (label := "fig:session-automate") (src := "session-protocol-as-automata") (alt := "Automate de session avec un état initial, EXPECT_INT, EXPECT_BOOL et un état final en double cercle.") (width := "90")
+::::figure (label := "fig:session-automate") (src := "session-protocol-as-automata") (alt := "Automate de session : un point initial plein mène à SEND_INT ; send(Int) mène à RECV_BOOL, puis recv(Bool) mène à l’état final en double cercle, avec un disque violet au centre.") (width := "90")
 :::caption
 Un protocole de session comme automate à états
 :::
 
 :::desc
-Le point initial plein mène à `EXPECT_INT`. La transition `send(Int)` mène à `EXPECT_BOOL` ; la transition
-`recv(Bool)` mène à l'état final non étiqueté, représenté par un double cercle.
+Le point initial plein mène à `SEND_INT`, état dont l'action suivante est `send(Int)`. Cette transition
+mène à `RECV_BOOL`, état dont l'action suivante est `recv(Bool)` ; cette dernière mène à l'état final
+non étiqueté, représenté par un double cercle contenant un petit disque violet.
 :::
 
 :::note
@@ -156,7 +157,8 @@ Chaque extrémité d'un canal de session est une ressource linéaire de $`\Delta
 §{num "sec:c2-la-comonade-exponentielle-et"}[]), et le protocole qu'elle porte s'accompagne de son
 dual — à un `Send(T,P)` correspond nécessairement un `Recv(T,P^⊥)` du côté opposé. Cette dualité
 n'est ni une hypothèse ni même une définition : elle est une _conséquence_, et c'est ce qui permet à
-ce chapitre de n'ajouter aucun constructeur de type.
+ce chapitre de n'ajouter aucun constructeur de type. La figure {num "fig:session-dualite"}[] montre
+le même échange du point de vue des deux extrémités.
 
 La grammaire ci-dessus — $`\mathsf{Send}`, $`\mathsf{Recv}`, $`\mathsf{select}`, $`\mathsf{offer}`,
 $`\mathsf{End}` — est une _syntaxe de surface_. L'élaboration la traduit en emboîtements

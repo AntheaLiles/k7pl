@@ -24,14 +24,14 @@ tag := "c6-le-processus-de-compilation"
 Compiler un programme K7PL, c'est établir, dans un ordre que presque rien ne permet d'inverser — la Phase~5 et la suivante font exception, leur ordre étant un choix d'ingénieur que la section sur la vérification et le test reconnaît ; une optimisation pouvant engendrer des contraintes que la Phase~5 avait déjà déchargées, ces deux phases sont à itérer jusqu'à stabilisation plutôt qu'à enchaîner une fois —, chacun des
 trois ordres de vérification du jugement germinal du chapitre 1 — puis effacer entièrement les
 preuves qui les ont établies, ne laissant dans le binaire final que le terme qu'elles autorisent. Le
-pipeline présenté en figure {num "fig:comp-process"}[] décrit cet ordre sans figurer cette itération ;
-hors d'elle, chaque étape n'est là que parce que la précédente devait être acquise avant elle.
+pipeline présenté en figure {num "fig:comp-process"}[] décrit le parcours linéaire hors de l'itération ; la boucle entre les phases 5 et 6 représente leur
+réexécution jusqu'à stabilisation. Hors de cette boucle, chaque étape suppose la précédente acquise.
 
 Un point de lecture s'impose avant de le suivre, car il évite une méprise sur ce que ces huit étapes
 sont, et lève une objection de comptage. Ce ne sont pas huit _passes_ mais huit _ordres de
 vérification_, chacun supposant le précédent acquis. La figure en montre dix, deux d'entre elles
-portant un numéro fractionnaire : ce sont des _points de contrôle_ intercalaires — la vérification
-d'acyclicité en 1.5, la résolution de configuration en 2.5 — et non des ordres supplémentaires,
+portant un numéro fractionnaire : ce sont des _points de contrôle_ intercalaires — l'analyse de configuration en 1.5, qui comprend la vérification
+d'acyclicité, puis sa résolution en 2.5 — et non des ordres supplémentaires,
 puisqu'elles n'établissent aucune des trois composantes du jugement. La numérotation fractionnaire
 dit exactement cela, et le compte reste de huit. Une implantation en comptera bien davantage, et
 c'est la configuration recommandée plutôt qu'une tension. Le cadre nanopass critique le compilateur
@@ -44,14 +44,15 @@ maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément
 Deux sources, deux motifs, une même recommandation — et huit phases logiques n'en contredisent
 aucun.
 
-::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : huit phases principales et deux étapes intercalaires, lues en aller-retour.") (width := "90")
+::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : huit ordres de vérification et deux points de contrôle intercalaires. Une boucle entre ConstraintSolve (phase 5) et Optimize (phase 6) indique leur itération jusqu'à stabilisation.") (width := "90")
 :::caption
 Les huit phases du pipeline de compilation
 :::
 
 :::desc
 Dix étapes forment un serpentin : la rangée supérieure se lit de gauche à droite ; la flèche descend
-vers TermProof, puis la rangée inférieure se lit de droite à gauche jusqu'à Link ; 1.5 et 2.5 sont intercalaires.
+vers TermProof, puis la rangée inférieure se lit de droite à gauche jusqu'à Link. La boucle entre
+ConstraintSolve et Optimize indique leur itération jusqu'à stabilisation ; 1.5 et 2.5 sont intercalaires.
 :::
 ::::
 
