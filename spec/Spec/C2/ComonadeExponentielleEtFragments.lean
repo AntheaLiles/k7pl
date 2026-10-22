@@ -678,14 +678,15 @@ Les intervalles syntaxiques restent distincts :
 `U_Lin = [1..1]`, `U_Aff = [0..1]`, `U_Rel = [1..ω]`, `U_Unr = [0..ω]`.
 Ils ne sont pas en général des sous-algèbres du semi-anneau : par exemple `[0..1]` n'est pas fermé par addition. La correspondance normative se limite donc aux trois modes retenus et ne doit pas inférer un quatrième mode structurel de l'existence de `U_Rel`.
 
-::::figure (label := "fig:fragments-emboites") (src := "fragments-nestings") (alt := "Trois cadres emboites, du plus large au plus etroit — fragment cartesien, qui admet affaiblissement et contraction ; fragment affine, qui n'admet que l'affaiblissement ; fragment lineaire strict, qui n'admet ni l'un ni l'autre.") (width := "90")
+::::figure (label := "fig:fragments-emboites") (src := "fragments-nestings") (alt := "Trois cadres emboîtés : le fragment cartésien admet affaiblissement et contraction ; le fragment affine admet l'affaiblissement seul ; le fragment linéaire strict n'admet ni l'un ni l'autre.") (width := "90")
 :::caption
 Emboîtement des trois fragments logiques par restriction successive des règles structurelles
 :::
 
 :::desc
-Les trois fragments comme trois restrictions successives d'une même construction, et non comme trois
-systèmes bâtis séparément.
+Les cadres expriment l'inclusion des ensembles de règles structurelles. Ils ne préjugent ni l'existence
+des foncteurs d'inclusion F_1→2 et F_2→3, ni la réalisation de ces permissions par le jugement de
+typage.
 :::
 ::::
 

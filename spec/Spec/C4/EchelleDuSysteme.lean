@@ -546,11 +546,22 @@ S'il tient, l'activation conditionnelle d'un acteur ne coûte aucun verrou et se
 son motif. S'il tombe, il faut une synchronisation à l'exécution pour apparier les messages, et le
 coût constant par activation que le chapitre 4 annonce tombe avec lui.
 
-La dualité des protocoles de session, elle, se vérifie au moment où un message arrive : le runtime
-lit le tag d'état placé en tête du message et le compare au protocole attendu. En cas de désaccord,
-le message est rejeté — un _circuit breaker_ — avant même que la fibrille de l'acteur ne soit
-réveillée, de sorte qu'une désynchronisation malveillante ou accidentelle ne coûte qu'une lecture de
-tag, une comparaison entière et un échange de pointeur. La sécurité du transport prolonge cette même
+La dualité des protocoles de session se vérifie à l'arrivée d'un message : le runtime lit le tag
+d'état placé en tête et le compare au protocole attendu. En cas de désaccord, il renvoie un rejet au
+pair distant — un _circuit breaker_ — avant que la fibrille de l'acteur ne soit réveillée. Le runtime
+effectue une lecture de tag, une comparaison entière et un échange de pointeur ; la fibrille n'est
+ni réveillée ni exécutée sur ce chemin.
+
+::::figure (label := "fig:circuit-breaker") (src := "session-circuit-breaker") (alt := "Diagramme de séquence à trois lignes de vie : pair distant, runtime de couche 1 et fibrille de l'acteur. Le pair envoie un message avec un tag d'état. Si le tag est conforme, le runtime réveille la fibrille qui traite le message ; sinon, il renvoie un rejet au pair distant sans réveiller la fibrille.") (width := "90")
+:::caption
+Le circuit breaker de session : rejet avant réveil de la fibrille
+:::
+
+:::desc
+Le chemin conforme réveille la fibrille ; le chemin non conforme renvoie un rejet au pair distant
+sans la réveiller. Les opérations de rejet sont payées par le runtime.
+:::
+:::: La sécurité du transport prolonge cette même
 discipline : les prises de contact du protocole Noise sont elles-mêmes des DFA de couche 3, en temps
 constant et sans allocation, et l'autorisation repose sur des jetons de capacité — Biscuit — dont la
 vérification, parce qu'ils sont des types linéaires, se réduit à leur consommation par l'acteur qui
@@ -644,16 +655,7 @@ S'il tient, la frontière d'exécution cesse d'être un trou dans la discipline 
 est un cas. S'il tombe sur sa seconde clause, l'appel étranger redevient un point où une capacité
 peut fuir, et le postulat de sûreté mémoire s'arrête à la passerelle.
 
-::::figure (label := "fig:circuit-breaker") (src := "session-circuit-breaker") (alt := "Diagramme de sequence a trois lignes de vie — pair distant, runtime de couche 1, fibrille de l'acteur. Le pair envoie un message portant un tag d'etat. Un cadre alternatif separe les deux cas — si le tag est conforme au protocole attendu, le runtime reveille la fibrille qui traite le message ; sinon le runtime rejette, et la fibrille n'est jamais reveillee, a cout nul pour elle.") (width := "90")
-:::caption
-Le circuit breaker de session : rejet avant réveil de la fibrille
-:::
 
-:::desc
-L'ordre des opérations au rejet : ce qui se décide avant que la fibrille ne soit réveillée, et ce
-que le rejet lui coûte.
-:::
-::::
 
 Rien de ce qui précède n'a besoin d'être réinventé pour la programmation probabiliste : elle en est
 une spécialisation directe. Chaque pièce y a déjà son nom.
