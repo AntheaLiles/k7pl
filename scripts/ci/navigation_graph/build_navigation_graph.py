@@ -21,6 +21,7 @@ import html
 import json
 import os
 import posixpath
+import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
