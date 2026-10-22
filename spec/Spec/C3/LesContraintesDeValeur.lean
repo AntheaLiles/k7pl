@@ -160,6 +160,17 @@ n'est ni une hypothèse ni même une définition : elle est une _conséquence_, 
 ce chapitre de n'ajouter aucun constructeur de type. La figure {num "fig:session-dualite"}[] montre
 le même échange du point de vue des deux extrémités.
 
+::::figure (label := "fig:session-dualite") (src := "session-protocol-as-dual-exchange") (alt := "Le même protocole vu comme un échange entre deux extrémités, en diagramme de séquence à deux lignes de vie. L'extrémité A, à gauche, porte Send de Int puis Recv de Bool puis End ; l'extrémité B, à droite, porte Recv de Int puis Send de Bool puis End. Deux flèches horizontales se succèdent de haut en bas : Send(Int) va de A vers B, puis Send(Bool) va de B vers A. Une note couvrant les deux lignes de vie indique End : les deux extrémités se terminent ensemble.") (width := "75")
+:::caption
+Le même protocole, lu comme échange dual entre deux extrémités
+:::
+
+:::desc
+Le protocole précédent vu depuis ses deux bouts, pour montrer que la dualité ne complète pas le type
+mais le relit.
+:::
+::::
+
 La grammaire ci-dessus — $`\mathsf{Send}`, $`\mathsf{Recv}`, $`\mathsf{select}`, $`\mathsf{offer}`,
 $`\mathsf{End}` — est une _syntaxe de surface_. L'élaboration la traduit en emboîtements
 d'implications linéaires, seule construction que le chapitre 2 ait eu à fournir
@@ -338,16 +349,7 @@ une garantie conditionnelle. Si l'énoncé tombe, la garantie retombe sur le `Ti
 sur une détection à l'exécution, ce qui la ferait sortir du système de types et rentrer dans le
 coût.
 
-::::figure (label := "fig:session-dualite") (src := "session-protocol-as-dual-exchange") (alt := "Le même protocole vu comme un échange entre deux extrémités, en diagramme de séquence à deux lignes de vie. L'extrémité A, à gauche, porte Send de Int puis Recv de Bool puis End ; l'extrémité B, à droite, porte Recv de Int puis Send de Bool puis End. Deux flèches horizontales se succèdent de haut en bas : Send(Int) va de A vers B, puis Send(Bool) va de B vers A. Une note couvrant les deux lignes de vie indique End : les deux extrémités se terminent ensemble.") (width := "75")
-:::caption
-Le même protocole, lu comme échange dual entre deux extrémités
-:::
 
-:::desc
-Le protocole précédent vu depuis ses deux bouts, pour montrer que la dualité ne complète pas le type
-mais le relit.
-:::
-::::
 
 Quand une contrainte de valeur échoue, K7PL distingue trois régimes plutôt qu'un seul. Un état
 illégal viole un invariant que le système de types rejette avant même la génération de code —

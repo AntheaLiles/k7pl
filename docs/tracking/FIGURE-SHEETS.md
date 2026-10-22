@@ -5,8 +5,9 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Figure sheets
 
-**Status:** OPEN. Findings listed for the owner; nothing in `spec/` was changed to produce this file.
-**Snapshot:** `main` at `7d522ab` (2026-10-20).
+**Status:** SOURCE CORRECTIONS APPLIED — rendered SVG/PDF review pending.
+**Audit baseline:** `main` at `c97dc2957d83f2ada7ade0e1681cdeec5f4ff710` (2026-10-22).
+**Remediation:** branch `fix/figure-sheets-closure-2026-10-22`, PR #273. The historical finding descriptions below are superseded by the Resolution register; they are retained as audit provenance.
 **Nature:** tracking register (item 30). One sheet per figure of the specification: what the TikZ
 source draws, compared with the caption, the alt text, the long description and the text around the
 figure.
@@ -55,20 +56,50 @@ contradicts its drawing (details in each sheet).
 
 | # | Label | Source | Block | Alt vs drawing | Findings |
 |--:|---|---|---|---|---|
-| 1 | `fig:comp-process` | `compilation-pipeline.tex` | C6 `LeProcessusDeCompilation.lean:47` | matches | FS-01 (mismatch), FS-02 (acknowledged by the text) |
-| 2 | `fig:session-automate` | `session-protocol.tex` | C3 `LesContraintesDeValeur.lean:140` | matches | FS-03 (interpretation) |
+| 1 | `fig:comp-process` | `compilation-pipeline.tex` | C6 `LeProcessusDeCompilation.lean:47` | matches | resolved: FS-01–02 |
+| 2 | `fig:session-automate` | `session-protocol.tex` | C3 `LesContraintesDeValeur.lean:140` | matches | resolved: FS-03 |
 | 3 | `fig:modalites-structurelles` | `structural-modes.tex` | C3 `LeSystemeGradue.lean:315` | matches | none |
-| 4 | `fig:specialisation-couches` | `specialisation-du-jugement.tex` | C1 `AxiomatiqueGerminale.lean:824` | matches | FS-04 (omission), FS-05 (mismatch) |
-| 5 | `fig:dualite-algebre-coalgebre` | `co-algebra-duality.tex` | C2 `AlgebresCoalgebresEtPointsFixes.lean:458` | matches | FS-06 (interpretation) |
-| 6 | `fig:fragments-emboites` | `fragments-nestings.tex` | C2 `ComonadeExponentielleEtFragments.lean:681` | matches | FS-07 (interpretation) |
-| 7 | `fig:session-dualite` | `session-protocol-as-dual-exchange.tex` | C3 `LesContraintesDeValeur.lean:339` | matches | FS-08 (placement) |
-| 8 | `fig:rexp-complexite` | `rexp-hierarchy-complexity.tex` | C4 `EchelleLocale.lean:162` | matches | FS-09 (mismatch), FS-10 (mismatch), FS-11 (interpretation) |
-| 9 | `fig:arene-partition` | `soa-partitionning.tex` | C4 `EchelleDeLActeur.lean:113` | matches | FS-12 (omission) |
+| 4 | `fig:specialisation-couches` | `specialisation-du-jugement.tex` | C1 `AxiomatiqueGerminale.lean:824` | matches | resolved: FS-04–05 |
+| 5 | `fig:dualite-algebre-coalgebre` | `co-algebra-duality.tex` | C2 `AlgebresCoalgebresEtPointsFixes.lean:458` | matches | resolved: FS-06 |
+| 6 | `fig:fragments-emboites` | `fragments-nestings.tex` | C2 `ComonadeExponentielleEtFragments.lean:681` | matches | resolved: FS-07 |
+| 7 | `fig:session-dualite` | `session-protocol-as-dual-exchange.tex` | C3 `LesContraintesDeValeur.lean:339` | matches | resolved: FS-08 |
+| 8 | `fig:rexp-complexite` | `rexp-hierarchy-complexity.tex` | C4 `EchelleLocale.lean:162` | matches | resolved: FS-09–11 |
+| 9 | `fig:arene-partition` | `soa-partitionning.tex` | C4 `EchelleDeLActeur.lean:113` | matches | resolved: FS-12 |
 | 10 | `fig:acteur-cycle-de-vie` | `virtual-actor-lca.tex` | C4 `EchelleDuSysteme.lean:65` | matches | none |
-| 11 | `fig:circuit-breaker` | `session-circuit-breaker.tex` | C4 `EchelleDuSysteme.lean:647` | matches | FS-13 (mismatch), FS-14 (interpretation), FS-15 (placement) |
-| 12 | `fig:cycle-reactif` | `unidirectionnal-reactive-cycle.tex` | C7 `EtudeDeCasIArchitectureReactiveNative.lean:37` | matches | FS-16 (mismatch) |
+| 11 | `fig:circuit-breaker` | `session-circuit-breaker.tex` | C4 `EchelleDuSysteme.lean:647` | matches | resolved: FS-13–15 |
+| 12 | `fig:cycle-reactif` | `unidirectionnal-reactive-cycle.tex` | C7 `EtudeDeCasIArchitectureReactiveNative.lean:37` | matches | resolved: FS-16 |
 
 Paths in the sheets are relative to `spec/Spec/` unless they start with `spec/`.
+
+
+## Resolution register
+
+The following edits are present on PR #273. “Resolved” here means that the internal mismatch or under-specification recorded by the sheet has been corrected at source level; it does not assert that the underlying mathematical or runtime property has been proved.
+
+| Finding | Resolution applied |
+|---|---|
+| FS-01 | Phase 1.5 is labelled as configuration analysis including acyclicity; Phase 2.5 is configuration resolution. The surrounding text uses the same numbering. |
+| FS-02 | The compilation diagram now shows the Phase 5/6 iteration to stabilisation; caption, alt text, long description and prose agree. |
+| FS-03 | Automaton states are named `SEND_INT` and `RECV_BOOL`, describing the action still to perform. |
+| FS-04 | The layer-3 grade domain and non-empty affine context at layer 2 are shown in the specialisation diagram. |
+| FS-05 | Layer 1 uses the domain equality `𝒢 = 𝒢_budget`, not membership of a budget value in a grade. |
+| FS-06 | The diagram shows the same initial algebra as a terminal `F^op)-coalgebra in `C^op`; it no longer conflates it with `νF` in `C`. |
+| FS-07 | The description limits nesting to structural-rule sets and explicitly disclaims unproved inclusion functors and typing realisation. |
+| FS-08 | The dual-exchange diagram has been moved beside the prose that explains session duality and is cited there. |
+| FS-09–10 | The figure and table now cover all four annotations, including `@backtrack` and `@polynomial`. |
+| FS-11 | The misleading unlabelled hierarchy arrows are removed; the four annotations are shown as a classification, not a total order. |
+| FS-12 | The caption no longer claims SWMR; the description says the figure depicts disjoint write capabilities only. |
+| FS-13 | The body text now says “fibrille”, as required by the owner’s terminology decision and the figure. |
+| FS-14 | The undefined `F) and the claim of zero cost for it are removed; the reply to the peer and the runtime cost are stated in prose. |
+| FS-15 | The circuit-breaker figure is placed directly after the paragraph that explains it. |
+| FS-16 | The diagram adds DOM application and labels the return edge as a later external event; text and alt no longer imply that applying patches creates the next event. |
+
+### Validation still required
+
+- [ ] Check the rendered SVG and PDF for each of the twelve TikZ figures at readable scale, including arrow routing, overlap, line wrapping and the accessibility text in the generated site.
+- [ ] Pass the relevant GitHub Actions checks on the final PR head.
+- [ ] Reconcile any rendering defects found above before changing the status to CLOSED.
+
 
 ## Sheets
 
@@ -416,12 +447,6 @@ three layers and the point where it closes the cycle.
   This is a matter of spelling, not of agreement with the drawing; it is listed so that the owner can
   decide whether it falls under decision 51.
 
-## Remaining actions
+## Closure criteria
 
-| Action | Owner | Status |
-|---|---|---|
-| Decide FS-01, FS-05, FS-09, FS-10 and FS-16 (text or drawing to change) | owner | HUMAN ACTION REQUIRED |
-| Close FS-13 (text changed by PR #263) | owner merges PR #263 | PREPARED |
-| Answer the interpretation questions FS-03, FS-06, FS-07, FS-11 and FS-14 | owner (FS-06: with the formal reviewer) | HUMAN ACTION REQUIRED |
-| Decide the placement questions FS-08 and FS-15, and the omissions FS-04 and FS-12 | owner | HUMAN ACTION REQUIRED |
-| Check the rendered SVG and PDF of each figure against these sheets | maintainer | FUTURE |
+The prose and TikZ sources have been reconciled in PR #273. Do not mark this register CLOSED until the three checks in “Validation still required” have passed. The unrelated `services-lsp.svg/pdf` decision remains outside this twelve-figure register.
