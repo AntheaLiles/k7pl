@@ -248,7 +248,7 @@ $`\mathcal{X}`_, les exécutions $`P(s_1)` et $`P(s_2)` sont indiscernables à c
 :::proofsketch
 Non démontré : l'énoncé est une proposition, et ce croquis n'en est que le plan. La quantification
 est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell` produisent
-des sorties indiscernables — ce serait la non-interférence, que la déclassification viole par
+des sorties indiscernables — ce serait la non-interférence, que la déclassification suspend par
 construction — mais que deux états qui s'accordent _en outre_ sur les échappatoires le fassent. La
 route envisagée est la paramétricité, obtenue au moyen de types existentiels {cite "algehedSimpleNoninterferenceParametricity2019"}[] : il faut construire une relation logique qui relie deux
 états s'accordant sur $`\ell` et sur $`\mathcal{X}`. Le lemme fondamental
