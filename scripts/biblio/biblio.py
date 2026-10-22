@@ -159,15 +159,17 @@ def slim(src: str, keys_file: str, out: str) -> None:
 # --------------------------------------------------------------------------------------
 
 
-def names(ps: list[dict]) -> str:
+def names(ps: list[dict], *, et_al: bool = False) -> str:
+    selected = ps[:1] if et_al and len(ps) > 2 else ps
     out = []
-    for p in ps:
+    for p in selected:
         last = clean(p["last"]).upper()
         if p.get("lineage"):
             last += " " + clean(p["lineage"])
         first = clean(p["first"])
         out.append(f"{last}, {first}" if first else last)
-    return "; ".join(out)
+    rendered = "; ".join(out)
+    return rendered + (" et al." if et_al and len(ps) > 2 else "")
 
 
 def stop(s: str) -> str:
@@ -187,18 +189,19 @@ def fmt(rec: dict) -> tuple[list[tuple[bool, str]], str | None, str | None]:
         if text:
             parts.append((it, text))
 
-    authors = names(persons["author"]) if "author" in persons else ""
-    editors = names(persons["editor"]) if "editor" in persons else ""
-    lead = authors or (editors + " (éd.)" if editors else "")
-    if lead:
-        add(stop(lead) + " ")
+    authors = names(persons["author"], et_al=True) if persons.get("author") else ""
+    editors = names(persons["editor"]) if persons.get("editor") else ""
+    if authors:
+        add(authors + ", ")
+    elif editors:
+        add(stop(editors + " (éd.)") + " ")
     doi = g("doi") or None
     url = g("url") or None
     if doi:
         url = None
     elif url and url.startswith("https://doi.org/"):
         doi, url = url[len("https://doi.org/") :], None
-    online = bool(doi or url)
+    online = bool(url)
     title = g("title")
     sub = g("subtitle")
     if sub:
@@ -213,7 +216,7 @@ def fmt(rec: dict) -> tuple[list[tuple[bool, str]], str | None, str | None]:
                 add(f"{editors} (éd.). ")
         add(container, True)
         add(" [en ligne]" if online else "")
-        add(". ")
+        add(", ")
     else:
         add(title, True)
         add(" [en ligne]" if online else "")
