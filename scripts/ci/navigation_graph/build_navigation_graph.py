@@ -949,37 +949,196 @@ fetch("./graph.json").then(function (response) {
 """
 
 
-def inject_navigation_link(page_path: Path, site_root: Path) -> None:
-    """Add one contextual navigation link to a rendered page, idempotently.
+BIB_ITEM_RE = re.compile(
+    r'(?P<item><li\b(?=[^>]*\bid=["\'](?P<identifier>bib-[^"\']+)["\'])[^>]*>.*?</li\s*>)',
+    re.IGNORECASE | re.DOTALL,
+)
+BIB_LINK_RE = re.compile(r'href=(["\'])(?:[^"\']*?)#(bib-[^"\']+)\1', re.IGNORECASE)
+DIV_TAG_RE = re.compile(r"</?div\b[^>]*>", re.IGNORECASE)
+LIST_ITEM_TAG_RE = re.compile(r"<\s*(/?)li\b[^>]*>", re.IGNORECASE)
 
-    The href accounts for Verso's base URL and nested path layout. Existing
-    entries are preserved so repeated builds do not duplicate the control.
+LICENSE_FOOTER = (
+    '<footer id="k7pl-license-footer" aria-label="Licence de la spécification K7PL" '
+    'style="margin-top:2rem;padding:.9rem 0;border-top:1px solid #8c959f;'
+    'font-size:.85rem;text-align:center">'
+    '<p style="margin:.2rem 0">Spécification K7PL : © Cyprien PIERRE, 2026 · '
+    '<a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>'
+    '</p></footer>'
+)
+
+
+def bibliography_div_spans(content: str) -> list[tuple[int, int]]:
+    """Return the source spans of every rendered bibliography container."""
+    spans: list[tuple[int, int]] = []
+    covered_until = -1
+    for opening in re.finditer(r"<div\b[^>]*>", content, re.IGNORECASE):
+        if opening.start() < covered_until:
+            continue
+        class_match = re.search(r'\bclass\s*=\s*(["\'])(.*?)\1', opening.group(), re.IGNORECASE)
+        if class_match is None or "k7-bib" not in class_match.group(2).split():
+            continue
+        depth = 0
+        end = None
+        for token in DIV_TAG_RE.finditer(content, opening.start()):
+            if token.group().startswith("</"):
+                depth -= 1
+            else:
+                depth += 1
+            if depth == 0:
+                end = token.end()
+                break
+        if end is None:
+            raise ValueError("unclosed .k7-bib container in rendered HTML")
+        spans.append((opening.start(), end))
+        covered_until = end
+    return spans
+
+
+def localize_page_references(site_root: Path) -> None:
+    """Move only each page's directly cited bibliography entries to its own bottom.
+
+    The source bibliography items are collected before any page is rewritten, so
+    a citation can be localized even when its original section bibliography is
+    on another HTML page. TeX is not involved in this post-render HTML pass.
     """
+    pages = sorted(path for path in site_root.rglob("*.html") if path.is_file())
+    originals = {page: page.read_text(encoding="utf-8") for page in pages}
+    reference_items: dict[str, str] = {}
+
+    for content in originals.values():
+        for start, end in bibliography_div_spans(content):
+            block = content[start:end]
+            for match in BIB_ITEM_RE.finditer(block):
+                identifier = match.group("identifier")
+                item = match.group("item")
+                reference_items.setdefault(identifier, item)
+
+    for page, original in originals.items():
+        identifiers = list(dict.fromkeys(match.group(2) for match in BIB_LINK_RE.finditer(original)))
+        missing = [identifier for identifier in identifiers if identifier not in reference_items]
+        if missing:
+            raise ValueError(
+                f"page {page.relative_to(site_root).as_posix()} cites missing bibliography entries: "
+                + ", ".join(missing)
+            )
+
+        updated = original
+        for start, end in reversed(bibliography_div_spans(updated)):
+            updated = updated[:start] + updated[end:]
+
+        # All citation targets become page-local anchors; the copied bibliography
+        # items below retain their stable IDs and the chapter-local citation numbers.
+        updated = BIB_LINK_RE.sub(lambda match: 'href="#' + match.group(2) + '"', updated)
+        if identifiers:
+            items = "".join(reference_items[identifier] for identifier in identifiers)
+            bibliography = (
+                '<div class="k7-bib k7-page-bibliography">'
+                '<div class="k7-bib-title">Références citées sur cette page</div>'
+                '<ol>' + items + '</ol></div>'
+            )
+            marker = "</body>"
+            if marker not in updated.lower():
+                raise ValueError(f"HTML page with citations has no closing body tag: {page}")
+            index = updated.lower().rfind(marker)
+            updated = updated[:index] + bibliography + updated[index:]
+
+        if updated != original:
+            page.write_text(updated, encoding="utf-8")
+
+
+def add_license_footer(page_path: Path) -> None:
+    """Add the specification's CC BY 4.0 notice to every generated HTML page."""
     content = page_path.read_text(encoding="utf-8")
-    if 'id="k7pl-navigation-entry"' in content:
+    if 'id="k7pl-license-footer"' in content:
         return
+    marker = "</body>"
+    if marker not in content.lower():
+        raise ValueError(f"HTML page has no closing body tag: {page_path}")
+    index = content.lower().rfind(marker)
+    page_path.write_text(content[:index] + LICENSE_FOOTER + content[index:], encoding="utf-8")
+
+
+def _enclosing_list_item_start(content: str, position: int) -> int | None:
+    """Find the closest opening <li> that contains the character position."""
+    stack: list[int] = []
+    for token in LIST_ITEM_TAG_RE.finditer(content, 0, position):
+        if token.group(1):
+            if stack:
+                stack.pop()
+        else:
+            stack.append(token.start())
+    return stack[-1] if stack else None
+
+
+def _matching_list_item_end(content: str, opening_start: int) -> int | None:
+    """Return the end offset of the closing tag paired with one opening <li>."""
+    depth = 0
+    for token in LIST_ITEM_TAG_RE.finditer(content, opening_start):
+        if token.group(1):
+            depth -= 1
+        else:
+            depth += 1
+        if depth == 0:
+            return token.end()
+    return None
+
+
+def insert_toc_navigation_link(content: str, href: str) -> str:
+    """Place the relation explorer after the experimental-code entry in the ToC."""
+    marker = 'class="k7pl-toc-navigation"'
+    if marker in content:
+        return content
+    target = "Artefacts exécutables expérimentaux"
+    for anchor in re.finditer(r"<a\b[^>]*>.*?</a\s*>", content, re.IGNORECASE | re.DOTALL):
+        visible_text = html.unescape(re.sub(r"<[^>]+>", "", anchor.group())).strip()
+        if " ".join(visible_text.split()) != target:
+            continue
+        item_start = _enclosing_list_item_start(content, anchor.start())
+        if item_start is None:
+            continue
+        item_end = _matching_list_item_end(content, item_start)
+        if item_end is None:
+            continue
+        entry = (
+            '<li class="k7pl-toc-navigation"><a href="' + html.escape(href, quote=True) +
+            '">Explorer les relations explicites de K7PL</a></li>'
+        )
+        return content[:item_end] + entry + content[item_end:]
+    return content
+
+
+def inject_navigation_link(page_path: Path, site_root: Path) -> None:
+    """Add a contextual link and a ToC entry, preserving existing HTML idempotently."""
+    original = page_path.read_text(encoding="utf-8")
+    content = original
     parser = DOMBuilder()
     parser.feed(content)
     base_href = next(
         (element.attrs.get("href") or "." for element in descendants(parser.root) if element.tag == "base"),
         None,
     )
+    relative_page = page_path.relative_to(site_root).as_posix()
     if base_href:
-        href = "navigation/index.html?node=" + quote(page_path.relative_to(site_root).as_posix(), safe="")
+        navigation_href = "navigation/index.html"
+        contextual_href = navigation_href + "?node=" + quote(relative_page, safe="")
     else:
-        rel = page_path.relative_to(site_root).as_posix()
-        href = posixpath.relpath("navigation/index.html", posixpath.dirname(rel) or ".") + "?node=" + quote(rel, safe="")
-    entry = (
-        '<p id="k7pl-navigation-entry" style="margin-top:2rem;padding-top:.8rem;'
-        'border-top:1px solid #8c959f"><a href="' + html.escape(href, quote=True) +
-        '">Explorer les relations explicites de K7PL</a></p>'
-    )
-    marker = "</body>"
-    if marker not in content.lower():
-        raise ValueError(f"HTML page has no closing body tag: {page_path}")
-    index = content.lower().rfind(marker)
-    content = content[:index] + entry + content[index:]
-    page_path.write_text(content, encoding="utf-8")
+        navigation_href = posixpath.relpath("navigation/index.html", posixpath.dirname(relative_page) or ".")
+        contextual_href = navigation_href + "?node=" + quote(relative_page, safe="")
+
+    content = insert_toc_navigation_link(content, navigation_href)
+    if 'id="k7pl-navigation-entry"' not in content:
+        entry = (
+            '<p id="k7pl-navigation-entry" style="margin-top:2rem;padding-top:.8rem;'
+            'border-top:1px solid #8c959f"><a href="' + html.escape(contextual_href, quote=True) +
+            '">Explorer les relations explicites de K7PL</a></p>'
+        )
+        marker = "</body>"
+        if marker not in content.lower():
+            raise ValueError(f"HTML page has no closing body tag: {page_path}")
+        index = content.lower().rfind(marker)
+        content = content[:index] + entry + content[index:]
+    if content != original:
+        page_path.write_text(content, encoding="utf-8")
 
 
 def main() -> int:
@@ -990,6 +1149,7 @@ def main() -> int:
     args = parser.parse_args()
     site_root = args.site.resolve()
     try:
+        localize_page_references(site_root)
         graph = build_graph(site_root)
         graph["generated_ref"] = args.ref
         navigation_dir = site_root / "navigation"
@@ -1005,6 +1165,8 @@ def main() -> int:
             if "navigation" not in path.relative_to(site_root).parts
         ):
             inject_navigation_link(page, site_root)
+        for page in sorted(path for path in site_root.rglob("*.html") if path.is_file()):
+            add_license_footer(page)
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
