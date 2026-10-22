@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Figure sheets
 
-**Status:** SOURCE CORRECTIONS APPLIED — rendered SVG/PDF review pending.
+**Status:** SOURCE CORRECTIONS APPLIED — rendered SVG/PDF review pending. No closure is claimed until the generated assets and HTML accessibility metadata have been inspected.
 **Audit baseline:** `main` at `c97dc2957d83f2ada7ade0e1681cdeec5f4ff710` (2026-10-22).
 **Remediation:** branch `fix/figure-sheets-closure-2026-10-22`, PR #273. The historical finding descriptions below are superseded by the Resolution register; they are retained as audit provenance.
 **Nature:** tracking register (item 30). One sheet per figure of the specification: what the TikZ
