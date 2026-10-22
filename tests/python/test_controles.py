@@ -491,7 +491,7 @@ def test_vocabulary_scan_reports_source_location_and_ignores_unrelated_words(tmp
     source = spec_root / "Spec" / "Example.lean"
     source.parent.mkdir(parents=True)
     source.write_text(
-        "Le disque violet est visible.\\nUne violation du contrat est décrite.\\n",
+        "Le disque violet est visible.\nUne violation du contrat est décrite.\n",
         encoding="utf-8",
     )
 
@@ -500,5 +500,5 @@ def test_vocabulary_scan_reports_source_location_and_ignores_unrelated_words(tmp
     assert findings[0].path == source
     assert findings[0].term.lower() == "violation"
     assert findings[0].line == 2
-    assert findings[0].column == len("Une violation du contrat est décrite.") - len("violation") + 1
+    assert findings[0].column == len("Une ") + 1
 
