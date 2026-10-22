@@ -8,7 +8,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from .build_navigation_graph import add_license_footer, insert_toc_navigation_link, localize_page_references
+from .build_navigation_graph import (
+    add_license_footer, decorate_intro_badges, insert_toc_navigation_link,
+    localize_page_references,
+)
 from .check_navigation_graph_output import check
 
 
@@ -118,6 +121,26 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
         page.write_text(page.read_text(encoding="utf-8").replace('id="k7pl-navigation-entry"', 'id="ordinary-footer"'), encoding="utf-8")
         errors = check(self.site, "abc123")
         self.assertTrue(any("interactive navigation entry" in error for error in errors))
+
+    def test_metadata_links_become_badges_only_in_the_rendered_html(self) -> None:
+        page = self.site / "index.html"
+        page.write_text(
+            '<!doctype html><html><head></head><body>'
+            '<p>Cyprien PIERRE — <a href="https://orcid.org/0009-0009-9040-6795">'
+            'ORCID 0009-0009-9040-6795</a></p>'
+            '<p>DOI : <a href="https://doi.org/10.5281/zenodo.23040451">'
+            '10.5281/zenodo.23040451</a> · Source : '
+            '<a href="https://github.com/AntheaLiles/k7pl">github.com/AntheaLiles/k7pl</a></p>'
+            '</body></html>',
+            encoding="utf-8",
+        )
+        decorate_intro_badges(self.site)
+        result = page.read_text(encoding="utf-8")
+        self.assertIn('alt="ORCID"', result)
+        self.assertIn('src="https://zenodo.org/badge/DOI/10.5281/zenodo.23040451.svg"', result)
+        self.assertIn('alt="GitHub"', result)
+        self.assertNotIn('>10.5281/zenodo.23040451</a>', result)
+        self.assertIn('id="k7pl-metadata-badge-styles"', result)
 
     def test_localizes_only_references_cited_on_each_page(self) -> None:
         (self.site / "index.html").write_text(
