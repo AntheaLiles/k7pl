@@ -368,7 +368,7 @@ peut être plus permissive que celle de la plus contrainte de ses captures, c'es
 — au sens du treillis $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` — des modalités capturées. Une
 fermeture qui capture une ressource `Lin` doit elle-même être `Lin`, quelles que soient ses autres
 captures. L'autoriser à être `Unr` permettrait de l'invoquer plusieurs fois, donc de dupliquer la
-ressource linéaire qu'elle referme, en violation directe de l'absence de contraction (chapitre 2,
+ressource linéaire qu'elle referme, ce qui contredirait directement l'absence de contraction (chapitre 2,
 §{num "sec:c2-la-comonade-exponentielle-et"}[]). La défonctionnalisation du chapitre 6, qui remplace
 chaque fermeture par un tag entier, doit préserver ce contrat : le tag hérite du grade de la
 fermeture qu'il remplace.
@@ -382,7 +382,7 @@ est donc comptée comme consommée dans toutes. Cette règle est délibérément
 compromis usuel des systèmes gradués, qui retiennent l'usage maximal d'une branche plutôt que de
 raisonner sur la valeur qui décide du chemin {cite "deamorimReallyNaturalLinear2014"}[]. Elle
 rejette des programmes corrects — un tampon libéré dans la branche d'erreur et transmis dans la
-branche nominale sera refusé, alors qu'aucune exécution ne viole la linéarité — et n'en accepte
+branche nominale sera refusé, alors que chaque exécution respecte la linéarité — et n'en accepte
 aucun d'incorrect. Les théories à multiplicités dépendantes lèvent cette restriction en faisant
 dépendre le grade de la valeur qui décide du branchement {cite "doreDependentMultiplicitiesDependent2025"}[]
 ; K7PL y renonce conformément à P3, au prix d'un ensemble de programmes acceptés strictement plus
