@@ -129,6 +129,7 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
         source_page = self.site / "Spec" / "page.html"
         source_page.write_text(
             '<!doctype html><html><head><base href="../"></head><body>'
+            '<p><a href="../Spec/page.html#bib-c1-used">1</a></p>'
             '<div class="k7-bib"><div class="k7-bib-title">Références</div><ol>'
             '<li id="bib-c1-used" value="1">Source utilisée</li>'
             '<li id="bib-c1-second" value="2">Seconde source utilisée</li>'
@@ -141,14 +142,17 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
         localize_page_references(self.site)
 
         page = (self.site / "index.html").read_text(encoding="utf-8")
-        self.assertIn('href="#bib-c1-second"', page)
+        self.assertIn('href="index.html#bib-c1-second"', page)
         self.assertIn('id="bib-c1-second"', page)
         self.assertIn('id="bib-c1-used"', page)
         self.assertNotIn('id="bib-c1-unused"', page)
         self.assertNotIn("Spec/page.html#bib-c1-second", page)
         self.assertEqual(page.count("Références citées sur cette page"), 1)
         self.assertLess(page.index('id="bib-c1-second"'), page.index('id="bib-c1-used"'))
-        self.assertNotIn('class="k7-bib"', source_page.read_text(encoding="utf-8"))
+        nested = source_page.read_text(encoding="utf-8")
+        self.assertNotIn('class="k7-bib"', nested)
+        self.assertIn('href="Spec/page.html#bib-c1-used"', nested)
+        self.assertIn('id="bib-c1-used"', nested)
 
     def test_relation_explorer_follows_experimental_artifacts_in_toc(self) -> None:
         toc = (
