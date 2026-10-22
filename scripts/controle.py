@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from controles import algebre, couverture, croise, indexation, notation, semantique, structure  # noqa: E402
+from controles import algebre, couverture, croise, indexation, notation, semantique, structure, vocabulaire  # noqa: E402
 from controles import journal  # noqa: E402
 from controles.journal import failures  # noqa: E402
 
@@ -47,7 +47,7 @@ def main() -> int:
     parser.add_argument("--format", choices=("text", "github"), default="text")
     journal.github = parser.parse_args().format == "github"
     _lexical_guard()
-    for module in (structure, algebre, notation, croise, semantique, couverture, indexation):
+    for module in (structure, algebre, notation, croise, semantique, couverture, indexation, vocabulaire):
         name = module.__name__.rsplit(".", 1)[-1]
         journal.group(name)
         module.run()
