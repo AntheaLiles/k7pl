@@ -12,9 +12,9 @@
   arrow/.style={-{Stealth[length=2mm]}, line width=.7pt}
 ]
 \node[box] (germ) at (0,0) {Jugement germinal\\$\Delta \vdash_{G} t : A \mid E$};
-\node[box] (l3) at (-62mm,-28mm) {Couche 3 --- $\Delta = \Delta_{\omega}$\\$E = \varnothing$};
-\node[box] (l2) at (0,-28mm) {Couche 2 --- $\Delta = \Delta_{\text{aff}}$\\$E$ actif, tick};
-\node[box] (l1) at (62mm,-28mm) {Couche 1 --- $\Delta = \Delta_{\text{lin}}$\\$G \ni{}$ budget, $E \ni{}$ tick};
+\node[box] (l3) at (-62mm,-28mm) {Couche 3 --- $\Delta = \Delta_{\omega}$\\$E = \varnothing$\\$\mathcal{G} = \mathcal{G}_{\text{pile}}$};
+\node[box] (l2) at (0,-28mm) {Couche 2 --- $\Delta = \Delta_{\text{aff}} \ne \varnothing$\\$E$ actif, $\mathbf{tick}$};
+\node[box] (l1) at (62mm,-28mm) {Couche 1 --- $\Delta = \Delta_{\text{lin}}$\\$\mathcal{G} = \mathcal{G}_{\text{budget}}$\\$E \ni \mathbf{tick}$};
 \draw[arrow] (germ.south west) to[out=-120, in=90] (l3.north);
 \draw[arrow] (germ) -- (l2);
 \draw[arrow] (germ.south east) to[out=-60, in=90] (l1.north);

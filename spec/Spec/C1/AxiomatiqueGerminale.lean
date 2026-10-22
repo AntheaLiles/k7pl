@@ -821,7 +821,7 @@ les grades, un $`\mathbf{tick}` dans les effets :
 ```
 ::::
 
-::::figure (label := "fig:specialisation-couches") (src := "specialisation-du-jugement") (alt := "Arbre à trois branches. Le jugement germinal, Delta prouve t de type A avec effet E, se specialise en trois instances de couche — couche 3 ou le contexte est omega et l'effet vide, couche 2 ou le contexte est affine avec effet actif et tick, couche 1 ou le contexte est lineaire avec budget dans le grade et tick dans l'effet.") (width := "90")
+::::figure (label := "fig:specialisation-couches") (src := "specialisation-du-jugement") (alt := "Arbre à trois branches depuis le jugement germinal. Couche 3 : domaine de grades G_pile, contexte omega et effet vide. Couche 2 : contexte affine non vide et effet actif avec tick. Couche 1 : contexte linéaire, domaine de grades G_budget et effet contenant tick.") (width := "90")
 :::caption
 Spécialisation du jugement germinal en trois instances de couche
 :::

@@ -13,9 +13,9 @@
   node distance=4mm
 ]
 \node[phase] (parse) {Phase 1 : Parse};
-\node[phase, right=of parse] (config) {Phase 1.5 : ConfigAnalysis};
+\node[phase, right=of parse] (config) {Phase 1.5 : ConfigAnalysis\\(acyclicity)};
 \node[phase, right=of config] (type) {Phase 2 : TypeCheck};
-\node[phase, right=of type] (resolve) {Phase 2.5 : Résolution};
+\node[phase, right=of type] (resolve) {Phase 2.5 : Résolution de configuration};
 \node[phase, right=of resolve] (purity) {Phase 3 : PurityCheck};
 \node[phase, below=10mm of purity] (proof) {Phase 4 : TermProof};
 \node[phase, left=of proof] (constraints) {Phase 5 : ConstraintSolve};
@@ -29,6 +29,7 @@
 \draw[flow] (purity.south) -- (proof.north);
 \draw[flow] (proof.west) -- (constraints.east);
 \draw[flow] (constraints.west) -- (optimize.east);
+\draw[flow] (optimize.north) to[bend left=35] node[above, fill=white, inner sep=1pt] {jusqu'à stabilisation} (constraints.north);
 \draw[flow] (optimize.west) -- (codegen.east);
 \draw[flow] (codegen.west) -- (link.east);
 \end{tikzpicture}

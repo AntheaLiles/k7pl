@@ -455,14 +455,13 @@ propriétés qu'il faudrait établir séparément pour chaque couche : ce sont l
 existence et unicité d'un morphisme vers ou depuis un point fixe — énoncée dans deux catégories
 duales l'une de l'autre.
 
-::::figure (label := "fig:dualite-algebre-coalgebre") (src := "co-algebra-duality") (alt := "Deux catégories en vis-à-vis. À gauche, la catégorie C porte l'algèbre initiale mu F, de structure in, isomorphisme de F de mu F sur mu F, qui fonde la terminaison. À droite, la catégorie C opposée porte la coalgèbre terminale nu F, de structure out, isomorphisme de nu F sur F de nu F, qui fonde la productivité. Une double flèche en pointillés relie les deux et porte « même construction, lue dans la catégorie opposée ».") (width := "90")
+::::figure (label := "fig:dualite-algebre-coalgebre") (src := "co-algebra-duality") (alt := "Deux catégories en vis-à-vis. Dans C, mu F est l'algèbre initiale, de structure in : F(mu F) ≅ mu F. Dans C^op, le même objet mu F est la coalgèbre terminale de F^op, de structure in^op : mu F ≅ F^op(mu F). La double flèche en pointillés indique que l'algèbre devient une coalgèbre dans la catégorie opposée ; elle ne relie pas mu F à nu F dans C.") (width := "90")
 :::caption
 Dualité algèbre initiale / coalgèbre terminale, dans C et C^op
 :::
 
 :::desc
-La terminaison et la productivité mises face à face : une seule propriété, lue dans deux catégories
-duales l'une de l'autre.
+L'algèbre initiale (mu F, in) dans C devient la coalgèbre terminale de F^op dans C^op : le même objet et le morphisme opposé. Le dessin ne présente donc pas nu F comme un second point fixe terminal dans C.
 :::
 ::::
 
