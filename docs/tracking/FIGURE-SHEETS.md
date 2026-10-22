@@ -25,10 +25,12 @@ figure.
   `\\` line break is shown as ` / `, `\_` as `_`, and `---` as `—`.
 - The caption (`:::caption`), the alt text (`alt :=`), the long description (`:::desc`) and the note
   (`:::note`) come from the `::::figure` block in `spec/`. Line numbers are those of the snapshot.
-- **Cited text.** Only `fig:comp-process` is cited by `{num}` (C6 `LeProcessusDeCompilation.lean:27`).
-  The other eleven figures are placed in the text without a reference; for them, "adjacent text" is
-  the paragraph before and after the block, plus the passages elsewhere that describe the same
-  object, found by searching the labels drawn. Each sheet names the passages it used.
+- **Citations in the original audit baseline.** Initially only `fig:comp-process` was cited by `{num}` (C6
+  `LeProcessusDeCompilation.lean:27`). PR #273 adds a `{num}` reference to `fig:session-dualite` beside
+  the explanation of session duality and moves that figure beside the reference. The other ten figures
+  remain without a `{num}` reference; for them, the adjacent text is the paragraph before and after the
+  block plus passages elsewhere that describe the same object. Each historical sheet names the passages
+  used in the baseline review.
 - **Rule for the initial audit.** Owner's decision 51 (2026-10-19, [`DECISIONS.md`](DECISIONS.md)): « le dessin fait
   toujours foi et l'alt-text doit correspondre au dessin ». That decision directly governs alt text; it did
   not by itself authorize changes to captions, descriptions or body text. Accordingly, the initial audit
@@ -67,11 +69,11 @@ contradicts its drawing (details in each sheet).
 | 4 | `fig:specialisation-couches` | `specialisation-du-jugement.tex` | C1 `AxiomatiqueGerminale.lean:824` | matches | resolved: FS-04–05 |
 | 5 | `fig:dualite-algebre-coalgebre` | `co-algebra-duality.tex` | C2 `AlgebresCoalgebresEtPointsFixes.lean:458` | matches | resolved: FS-06 |
 | 6 | `fig:fragments-emboites` | `fragments-nestings.tex` | C2 `ComonadeExponentielleEtFragments.lean:681` | matches | resolved: FS-07 |
-| 7 | `fig:session-dualite` | `session-protocol-as-dual-exchange.tex` | C3 `LesContraintesDeValeur.lean:339` | matches | resolved: FS-08 |
-| 8 | `fig:rexp-complexite` | `rexp-hierarchy-complexity.tex` | C4 `EchelleLocale.lean:162` | matches | resolved: FS-09–11 |
+| 7 | `fig:session-dualite` | `session-protocol-as-dual-exchange.tex` | C3 `LesContraintesDeValeur.lean:162` | matches | resolved: FS-08 |
+| 8 | `fig:rexp-complexite` | `rexp-hierarchy-complexity.tex` | C4 `EchelleLocale.lean:167` | matches | resolved: FS-09–11 |
 | 9 | `fig:arene-partition` | `soa-partitionning.tex` | C4 `EchelleDeLActeur.lean:113` | matches | resolved: FS-12 |
 | 10 | `fig:acteur-cycle-de-vie` | `virtual-actor-lca.tex` | C4 `EchelleDuSysteme.lean:65` | matches | none |
-| 11 | `fig:circuit-breaker` | `session-circuit-breaker.tex` | C4 `EchelleDuSysteme.lean:647` | matches | resolved: FS-13–15 |
+| 11 | `fig:circuit-breaker` | `session-circuit-breaker.tex` | C4 `EchelleDuSysteme.lean:555` | matches | resolved: FS-13–15 |
 | 12 | `fig:cycle-reactif` | `unidirectionnal-reactive-cycle.tex` | C7 `EtudeDeCasIArchitectureReactiveNative.lean:37` | matches | resolved: FS-16 |
 
 Paths in the sheets are relative to `spec/Spec/` unless they start with `spec/`.
