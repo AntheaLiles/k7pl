@@ -39,7 +39,7 @@ TEXT_SUFFIXES = {
 # Do not broaden this to \\bviol\\w*\\b: that would incorrectly match words such as
 # "violet", whose spelling overlaps but whose lexeme is unrelated.
 FORBIDDEN_LEXEME = re.compile(
-    r"\\b(?:"
+    r"\b(?:"
     r"viol(?:s|er|e|es|ent|ons|ez|ais|ait|ions|iez|aient|ai|as|a|âmes|âtes|èrent|"
     r"erai|eras|era|erons|erez|eront|erais|erait|erions|eriez|eraient|asse|asses|ât|"
     r"assions|assiez|assent|ant|é|ée|és|ées)?"
@@ -54,7 +54,7 @@ FORBIDDEN_LEXEME = re.compile(
     r"|inviolable(?:s)?"
     r"|inviolabilité(?:s)?"
     r"|inviolablement"
-    r")\\b",
+    r")\b",
     re.IGNORECASE,
 )
 
@@ -84,8 +84,8 @@ def find_forbidden_terms(text: str, path: Path = Path("<memory>")) -> list[Findi
     """Find lexical-family matches, preserving line and column coordinates."""
     findings = []
     for match in FORBIDDEN_LEXEME.finditer(text):
-        line = text.count("\\n", 0, match.start()) + 1
-        previous_newline = text.rfind("\\n", 0, match.start())
+        line = text.count("\n", 0, match.start()) + 1
+        previous_newline = text.rfind("\n", 0, match.start())
         column = match.start() - previous_newline
         findings.append(Finding(path=path, term=match.group(0), line=line, column=column))
     return findings
