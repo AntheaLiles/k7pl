@@ -420,3 +420,85 @@ def test_couverture_scan_on_real_src(real_lean):
     # whatever the current coverage is, scanning the real sources must not report malformed anchors
     g = real_lean.scan()
     assert g["malformed"] == []
+
+
+# ---------------------------------------------------------------- vocabulary policy
+
+@pytest.mark.parametrize(
+    "term",
+    [
+        "viol",
+        "viols",
+        "violer",
+        "viole",
+        "violons",
+        "violais",
+        "violait",
+        "violions",
+        "violiez",
+        "violaient",
+        "violai",
+        "violâmes",
+        "violèrent",
+        "violerai",
+        "violerait",
+        "violasse",
+        "violassent",
+        "violé",
+        "violée",
+        "violés",
+        "violées",
+        "violation",
+        "violations",
+        "violence",
+        "violences",
+        "violent",
+        "violente",
+        "violents",
+        "violentes",
+        "violemment",
+        "violenté",
+        "violentée",
+        "violeur",
+        "violeuse",
+        "violateur",
+        "violatrice",
+        "violable",
+        "violabilité",
+        "inviolable",
+        "inviolabilité",
+        "inviolablement",
+    ],
+)
+def test_prohibited_lexical_family_is_detected(term):
+    from controles import vocabulaire
+
+    findings = vocabulaire.find_forbidden_terms(f"Contexte : {term}.")
+    assert [finding.term.lower() for finding in findings] == [term.lower()]
+
+
+def test_unrelated_words_with_overlapping_letters_are_allowed():
+    from controles import vocabulaire
+
+    assert vocabulaire.find_forbidden_terms("Le marqueur violet est visible.") == []
+    assert vocabulaire.find_forbidden_terms("Le violon reste un exemple distinct.") == []
+
+
+def test_vocabulary_scan_reports_source_location_and_ignores_unrelated_words(tmp_path):
+    from controles import vocabulaire
+
+    spec_root = tmp_path / "spec"
+    source = spec_root / "Spec" / "Example.lean"
+    source.parent.mkdir(parents=True)
+    source.write_text(
+        "Le disque violet est visible.\\nUne violation du contrat est décrite.\\n",
+        encoding="utf-8",
+    )
+
+    findings = vocabulaire.scan(spec_root)
+    assert len(findings) == 1
+    assert findings[0].path == source
+    assert findings[0].term.lower() == "violation"
+    assert findings[0].line == 2
+    assert findings[0].column == len("Une violation du contrat est décrite.") - len("violation") + 1
+
