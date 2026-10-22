@@ -60,6 +60,13 @@ python3 scripts/controle.py
 
 If tracking is affected, also run `python3 scripts/suivi.py all`.
 
+
+## Vocabulary invariant
+
+Follow the lexical exclusion defined in [the writing rules](../skills/writing-rules.md). The registered French lexical family and its covered inflections and derivatives are prohibited in authored textual sources under `spec/`. Do not make global substitutions: preserve technical meaning, formal premises and conclusions, scope, labels and epistemic status. When a safe equivalent is uncertain, record the problem for author arbitration.
+
+`python3 scripts/controle.py` enforces this rule and reports source positions.
+
 ## Research
 
 Every new external claim must be sourced. Agents must not turn a design hypothesis into a fact from the literature without a source.
