@@ -100,7 +100,7 @@ Classes de motifs et bornes : machine, temps, espace, classe reconnue
 :::
 ::::
 
-Cette hiérarchie est celle des machines, et n'est qu'une coupe d'un espace à deux dimensions. La
+Cette classification est celle des machines, et n'est qu'une coupe d'un espace à deux dimensions. La
 seconde dimension est précisément celle où ce chapitre se déplacera s'il tient sa promesse. Le
 compte rendu coalgébrique de la théorie des automates ne gradue pas seulement du déterministe au non
 déterministe. Il ajoute l'_alternant_, et surtout il indexe toute la construction par le choix du
