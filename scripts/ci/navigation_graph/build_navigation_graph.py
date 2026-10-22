@@ -1080,8 +1080,12 @@ def decorate_intro_badges(site_root: Path) -> None:
 
     page = candidates[0]
     original = page.read_text(encoding="utf-8")
+    if all(css_class in original for _, _, _, _, css_class in METADATA_BADGES):
+        return
     updated = original
     for href, label, alt, image_url, css_class in METADATA_BADGES:
+        if css_class in updated:
+            continue
         updated, replaced = _replace_anchor_label_with_badge(
             updated, href, label, alt, image_url, css_class
         )
