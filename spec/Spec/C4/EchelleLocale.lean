@@ -72,6 +72,11 @@ Classes de motifs et bornes : machine, temps, espace, classe reconnue
   * $`O(n)`, $`O(1)` par bloc
   * $`O(1)`
   * langages réguliers
+* * R-expression `@polynomial`
+  * automate fini non déterministe (NFA)
+  * temps polynomial en la taille de l'entrée et du motif ; borne précise non fixée ici
+  * nombre d'états actifs, dépend du motif
+  * langages réguliers
 * * R-expression `@stack`
   * automate à pile
   * polynomial en $`n`
@@ -159,14 +164,15 @@ R-expression sur des AST plutôt que sur du texte —, l'annotation devrait êtr
 survivrait sans condition est la minimalisation des automates _déterministes_, qui ne dépend pas de
 la symétrie des données.
 
-::::figure (label := "fig:rexp-complexite") (src := "rexp-hierarchy-complexity") (alt := "Trois classes de complexité des R-expressions, disposées en chaîne de gauche à droite et reliées par deux flèches. D'abord arobase linear, un automate déterministe (DFA), en O(n) et O(1) par bloc ; puis arobase polynomial, un automate non déterministe (NFA) ; enfin arobase stack, un automate à pile (PDA), de profondeur bornée par un grade.") (width := "90")
+::::figure (label := "fig:rexp-complexite") (src := "rexp-hierarchy-complexity") (alt := "Quatre cadres juxtaposés, sans flèche d'ordre. @linear : DFA, O(n) et O(1) par bloc ; @polynomial : NFA, temps polynomial ; @stack : PDA, profondeur de pile bornée par un grade ; @backtrack : retour arrière explicite, cas à coût exponentiel.") (width := "90")
 :::caption
-Hiérarchie de complexité des R-expressions
+Quatre annotations de calcul des R-expressions
 :::
 
 :::desc
-Les trois classes de complexité qu'une R-expression peut atteindre, et l'automate qui répond à
-chacune.
+Les quatre annotations décrivent des modèles distincts, pas une hiérarchie totale : @linear utilise
+un DFA ; @polynomial un NFA ; @stack un PDA dont la pile est bornée par un grade ; @backtrack autorise
+le retour arrière explicite et constitue le cas à coût exponentiel mentionné.
 :::
 ::::
 

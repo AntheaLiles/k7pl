@@ -7,13 +7,11 @@
 \begin{document}
 \begin{tikzpicture}[
   font=\sffamily\small,
-  box/.style={draw, rounded corners=2pt, align=center, line width=.65pt, minimum height=12mm},
-  arrow/.style={-{Stealth[length=2mm]}, line width=.7pt}
+  box/.style={draw, rounded corners=2pt, align=center, line width=.65pt, minimum height=16mm}
 ]
-\node[box, minimum width=40mm] (linear) {@linear --- DFA\\O(n) ; O(1)/bloc};
-\node[box, minimum width=40mm, right=10mm of linear] (poly) {@polynomial --- NFA};
-\node[box, minimum width=52mm, right=10mm of poly] (stack) {@stack --- PDA\\profondeur bornée par un grade};
-\draw[arrow] (linear) -- (poly);
-\draw[arrow] (poly) -- (stack);
+\node[box, text width=34mm, minimum width=34mm] (linear) at (18mm,0) {@linear --- DFA\\$O(n)$ ; $O(1)$/bloc};
+\node[box, text width=34mm, minimum width=34mm] (poly) at (59mm,0) {@polynomial --- NFA\\temps polynomial};
+\node[box, text width=40mm, minimum width=40mm] (stack) at (100mm,0) {@stack --- PDA\\pile bornée par un grade};
+\node[box, text width=44mm, minimum width=44mm] (backtrack) at (148mm,0) {@backtrack --- retour arrière\\coût exponentiel};
 \end{tikzpicture}
 \end{document}
