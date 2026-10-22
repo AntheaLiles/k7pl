@@ -17,7 +17,7 @@
 \node[initial] (start) {};
 \node[state, right=10mm of start] (int) {SEND\_INT};
 \node[state, right=15mm of int] (bool) {RECV\_BOOL};
-\node[final, right=15mm of bool] (done) {};
+\node[final, right=23mm of bool] (done) {};
 \node[circle, fill=violet!70!blue, draw=violet!70!blue, minimum size=2mm, inner sep=0pt] at (done.center) {};
 \draw[transition] (start) -- (int);
 \draw[transition] (int) -- node[above, fill=white, inner sep=1pt] {send(Int)} (bool);
