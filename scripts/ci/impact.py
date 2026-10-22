@@ -27,7 +27,7 @@ SPEC_BUILD_EXACT = {
     "scripts/controle.py",
     "scripts/manuscript_metrics.py",
 }
-SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/")
+SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/", "scripts/biblio/")
 SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
 # `scripts/suivi.py check` and `all`, then `git diff --exit-code -- docs/tracking/`: the program,
 # the module it imports, its inputs and the views it regenerates.
