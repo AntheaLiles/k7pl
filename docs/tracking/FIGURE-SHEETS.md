@@ -90,7 +90,7 @@ The following edits are present on PR #273. “Resolved” here means that the i
 | FS-11 | The misleading unlabelled hierarchy arrows are removed; the four annotations are shown as a classification, not a total order. |
 | FS-12 | The caption no longer claims SWMR; the description says the figure depicts disjoint write capabilities only. |
 | FS-13 | The body text now says “fibrille”, as required by the owner’s terminology decision and the figure. |
-| FS-14 | The undefined `F` and the claim of zero cost for it are removed; the reply to the peer and the runtime cost are stated in prose. |
+| FS-14 | The undefined `F` and the claim of zero cost for it are removed. Rejection is local to the runtime; its operations are attributed to the runtime, and no reply to the peer is asserted because the specification does not require one. |
 | FS-15 | The circuit-breaker figure is placed directly after the paragraph that explains it. |
 | FS-16 | The diagram adds DOM application and labels the return edge as a later external event; text and alt no longer imply that applying patches creates the next event. |
 
