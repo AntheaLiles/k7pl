@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Figure sheets
 
-**Status:** SOURCE CORRECTIONS APPLIED — manual visual review complete; final-head CI and generated HTML accessibility metadata pending. The register remains open until those checks pass.
+**Status:** CLOSED (2026-10-22). All sixteen findings FS-01–FS-16 are resolved at source level. The twelve manifest figures were visually reviewed, their generated HTML SVG accessibility metadata was verified, and the figure-relevant CI workflow passed. This closure resolves diagram/text mismatches; it does not claim proofs of the underlying mathematical or runtime properties.
 **Audit baseline:** `main` at `c97dc2957d83f2ada7ade0e1681cdeec5f4ff710` (2026-10-22).
 **Remediation:** branch `fix/figure-sheets-closure-2026-10-22`, PR #273. The historical finding descriptions below are superseded by the Resolution register; they are retained as audit provenance.
 **Nature:** tracking register (item 30). One sheet per figure of the specification: what the TikZ
@@ -104,8 +104,8 @@ The following edits are present on PR #273. “Resolved” here means that the i
 ### Validation
 
 - [x] Manually inspect all twelve figure renders at readable scale, including arrow routing, overlap and line wrapping. The latest source versions of `session-protocol`, `fragments-nestings` and `session-circuit-breaker` were recompiled and checked after their last layout edits.
-- [ ] Inspect the generated HTML SVGs from the final PR head. The preceding successful HTML build had `role="img"`, `aria-labelledby`, `aria-describedby`, a non-empty `<title>` and a non-empty `<desc>` on all twelve figure SVGs; this needs reconfirmation after the final source edits.
-- [ ] Pass the relevant GitHub Actions checks on the final PR head.
+- [x] Inspect the generated HTML SVGs from the figure source revision `2f6eabbcbac6b82fcc75fb1f908e7c372379526a`: all twelve manifest SVGs have `role="img"`, `aria-labelledby`, `aria-describedby`, a non-empty `<title>` and a non-empty `<desc>`. Verified in the `spec-html` artifact from [CI run 39753065113](https://github.com/AntheaLiles/k7pl/actions/runs/39753065113) (artifact `12414054700`).
+- [x] Pass the figure-relevant GitHub Actions checks on source revision `2f6eabbcbac6b82fcc75fb1f908e7c372379526a`: [CI run 39753065113](https://github.com/AntheaLiles/k7pl/actions/runs/39753065113) completed successfully, including the TikZ-generation and generated-HTML-image validation jobs.
 - [x] Fix the render defects found during review: session-state label clearance, fragment-sheet label room and circuit-breaker note/lifeline overlap.
 
 
@@ -457,6 +457,13 @@ three layers and the point where it closes the cycle.
   have no TikZ source; their fate remains question (5) of the « TikZ en production » row of
   [`DECISIONS.md`](DECISIONS.md).
 
-## Closure criteria
+## Closure evidence
 
-The prose and TikZ sources have been reconciled in PR #273. Do not mark this register CLOSED until the three checks in “Validation still required” have passed. The unrelated `services-lsp.svg/pdf` decision remains outside this twelve-figure register.
+The figure register is closed for the twelve sources declared by `spec/figures/tikz/manifest.json`.
+
+- Source revision reviewed: `2f6eabbcbac6b82fcc75fb1f908e7c372379526a` on PR #273.
+- Rendered outputs: the `tikz-figure-assets` artifact (`12414253396`) contains a PDF/SVG pair for every manifest entry. All twelve PDF renders were inspected for legibility, line wrapping, arrow routing and overlaps.
+- Published HTML: the `spec-html` artifact (`12414054700`) contains the twelve referenced figure SVGs. Each has `role="img"`, `aria-labelledby`, `aria-describedby`, a non-empty `<title>` and a non-empty `<desc>`. The figure-image validation job passed.
+- CI: [run 39753065113](https://github.com/AntheaLiles/k7pl/actions/runs/39753065113) completed successfully on that source revision. The follow-up commit that closes this register changes only this tracking document; it does not alter the validated specification or figure sources.
+
+The independent K7PL formal-semantics workflow is tracked separately from the figure-sheet criteria. The unrelated `services-lsp.svg/pdf` decision remains outside this twelve-figure register.
