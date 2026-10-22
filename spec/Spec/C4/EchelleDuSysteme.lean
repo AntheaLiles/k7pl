@@ -395,7 +395,7 @@ signale un module trop dépendant d'autrui. La centralité, fraction des plus co
 traversant un module donné, signale un objet devenu un point de passage obligé. Ces deux métriques
 sont des avertissements et non des garanties : rien n'établit qu'un score élevé corresponde à un
 défaut, seulement qu'il y corrèle dans la pratique observée ailleurs. Seule l'acyclicité est ici une
-garantie, dont la violation est une erreur de compilation. La modestie ne vaut d'ailleurs pas de
+garantie, dont le non-respect entraîne une erreur de compilation. La modestie ne vaut d'ailleurs pas de
 toute grandeur calculée : la stabilité numérique, elle, est démontrable dans le cadre du langage et
 ne reste un avertissement que faute d'avoir été instrumentée.
 
