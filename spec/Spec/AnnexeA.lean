@@ -66,7 +66,7 @@ une correction dite en une phrase, et rien qui suppose un serveur de langage à 
 
 Une distinction de plus est employée ici, et elle vient d'ailleurs, ce qu'il faut déclarer. Les
 messages de ce langage se répartissent en trois niveaux — le _signal_, qui dit ce qui est faux à un
-endroit ; la _règle_, qui dit quel invariant a été violé ; la _connaissance_, qui dit pourquoi cet
+endroit ; la _règle_, qui précise quel invariant n'est pas respecté ; la _connaissance_, qui dit pourquoi cet
 invariant existe. Cette stratification n'est pas une invention de la littérature des messages
 d'erreur : c'est la taxonomie des niveaux de contrôle cognitif d'un opérateur {cite "rasmussenSkillsRulesKnowledge1983"}[],
 et aucune des dix lignes directrices de la revue ne la nomme. L'appliquer aux diagnostics d'un
