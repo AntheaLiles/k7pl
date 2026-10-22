@@ -18,7 +18,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from controles import algebre, couverture, croise, indexation, notation, semantique, structure, vocabulaire  # noqa: E402
+from controles import (  # noqa: E402
+    algebre, couverture, croise, indexation, notation, semantique, structure, vocabulaire
+)
 from controles import journal  # noqa: E402
 from controles.journal import failures  # noqa: E402
 
