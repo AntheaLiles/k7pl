@@ -34,14 +34,15 @@ que sur une séquence de mutations. K7PL n'y répond par aucun cadriciel sépar�
 réactif traverse les trois couches à chaque image, et chaque étape de ce cycle n'est qu'une instance
 d'un mécanisme déjà construit.
 
-::::figure (label := "fig:cycle-reactif") (src := "unidirectionnal-reactive-cycle") (alt := "Cycle ferme a six etapes traversant les trois couches — evenement en couche 1, flux FRP en couche 2, nouvel etat en couche 2, X-expression en couche 2, diffing en couche 3, liste de patches en couche 1, qui referme le cycle sur l'evenement.") (width := "90")
+::::figure (label := "fig:cycle-reactif") (src := "unidirectionnal-reactive-cycle") (alt := "Cycle réactif à sept étapes : événement en couche 1, flux FRP en couche 2, nouvel état en couche 2, X-expression en couche 2, diffing en couche 3, vecteur de correctifs et application au DOM en couche 1. La flèche de retour, étiquetée « nouvel événement externe », ne représente pas un effet automatique des patches.") (width := "90")
 :::caption
 Le cycle réactif unidirectionnel à travers les trois couches
 :::
 
 :::desc
-Le trajet d'un événement à travers les trois couches, et le point où il referme le cycle sur
-lui-même.
+Le trajet d'un événement traverse les trois couches, puis le vecteur de correctifs est appliqué au
+DOM en couche 1. La flèche de retour représente un événement externe ultérieur, non un événement
+produit automatiquement par l'application des patches.
 :::
 ::::
 
@@ -60,7 +61,9 @@ cette branche en $`O(1)` sans la comparer nœud par nœud. L'égalité des conde
 des branches que si celles-ci sont hachées sous une représentation canonique, et sous l'hypothèse de
 résistance aux collisions que le chapitre 4 déclare : une hypothèse cryptographique, non un
 théorème du langage. Le vecteur de correctifs qui en résulte
-redescend enfin en couche 1, où il est appliqué au DOM réel.
+redescend enfin en couche 1, où il est appliqué au DOM réel. La flèche de retour de la figure
+représente la capture d'un événement externe ultérieur ; elle ne signifie pas que l'application des
+patches produit elle-même un nouvel événement.
 
 Cette dernière étape révèle que l'isolation entre couches n'est pas qu'une discipline de style. La
 couche 1 détient seule la `WriteCap(DOM)`, capabilité graduée au sens du chapitre 3

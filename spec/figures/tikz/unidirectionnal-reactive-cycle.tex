@@ -15,12 +15,14 @@
 \node[box] (state) at (160mm,0) {Nouvel état --- L2};
 \node[box] (xexpr) at (112mm,-22mm) {X-expression --- L2};
 \node[box] (diff) at (58mm,-22mm) {Diffing --- L3};
-\node[box] (patches) at (8mm,0) {Liste de patches --- L1};
-\draw[arrow] (patches.north) to[out=90, in=180] (event.west);
+\node[box] (patches) at (8mm,0) {Vecteur de correctifs --- L1};
+\node[box, text width=46mm, minimum width=46mm] (dom) at (8mm,-30mm) {Application des patches au DOM --- L1};
+\draw[arrow] (patches.south) -- (dom.north);
+\draw[arrow] (dom.west) to[out=180, in=180, looseness=1.3] node[left, align=center] {nouvel événement\\externe} (event.west);
 \draw[arrow] (event) -- (flux);
 \draw[arrow] (flux.east) to[out=0, in=90] (state.north);
 \draw[arrow] (state.south) to[out=-90, in=0] (xexpr.east);
 \draw[arrow] (xexpr) -- (diff);
-\draw[arrow] (diff.west) to[out=180, in=-90] (patches.south);
+\draw[arrow] (diff.west) to[out=180, in=0] (patches.east);
 \end{tikzpicture}
 \end{document}

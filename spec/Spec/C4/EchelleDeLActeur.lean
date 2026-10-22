@@ -110,13 +110,14 @@ La preuve de grade établie à la compilation devient ici une partition mémoire
 parallélisme sans mutex de K7PL n'est rien d'autre que cette correspondance rendue explicite : un
 type prouvé disjoint occupe une mémoire physiquement disjointe.
 
-::::figure (label := "fig:arene-partition") (src := "soa-partitionning") (alt := "Une arene SoA figuree comme un seul bloc contigu, coupee en deux segments — segment 0 a k et segment k+1 a 2k. Chaque segment est rattache a une capacite d'ecriture distincte, WriteCap de la fibrille A et WriteCap de la fibrille B.") (width := "90")
+::::figure (label := "fig:arene-partition") (src := "soa-partitionning") (alt := "Une arène SoA représentée comme un bloc contigu, partagé en deux segments : segment 0 à k avec WriteCap de la fibrille A ; segment k+1 à 2k avec WriteCap de la fibrille B.") (width := "90")
 :::caption
-Partitionnement statique d'une arène SoA entre fibrilles concurrentes (SWMR)
+Partitionnement statique d'une arène SoA entre deux fibrilles concurrentes
 :::
 
 :::desc
-Ce que devient en mémoire une preuve de disjonction établie à la compilation.
+La figure montre les capacités d'écriture disjointes attribuées aux deux fibrilles. Elle ne représente
+pas les droits de lecture d'une discipline SWMR complète.
 :::
 ::::
 
