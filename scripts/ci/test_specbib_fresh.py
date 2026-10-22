@@ -26,6 +26,9 @@ ROOT = Path(__file__).resolve().parents[2]
 GENERATOR = ROOT / "scripts" / "biblio" / "biblio.py"
 REFERENCES = ROOT / "docs" / "bibliography" / "references.json"
 COMMITTED = ROOT / "tools" / "SpecBib.lean"
+CITE_RENDERER = ROOT / "tools" / "SpecExt" / "Cite.lean"
+sys.path.insert(0, str(GENERATOR.parent))
+import biblio
 REGENERATE = (
     "python3 scripts/biblio/biblio.py lean docs/bibliography/references.json tools/SpecBib.lean"
 )
@@ -94,6 +97,63 @@ class SpecBibFreshnessTests(unittest.TestCase):
     def test_the_comparison_is_not_vacuous(self):
         self.assertGreater(len(ENTRY_KEY.findall(self.generated)), 200)
         self.assertIn("def SpecBib.entries : Array SpecBib.Entry := #[", self.generated)
+
+
+class BibliographyFormattingTests(unittest.TestCase):
+    @staticmethod
+    def author(last: str, first: str) -> dict:
+        return {"last": last, "first": first, "lineage": ""}
+
+    def test_three_authors_and_doi_use_compact_reference(self):
+        record = {
+            "type": "inproceedings",
+            "persons": {"author": [
+                self.author("Becker", "Brett A."),
+                self.author("Denny", "Paul"),
+                self.author("Pettit", "Raymond"),
+            ]},
+            "title": "Compiler Error Messages Considered Unhelpful",
+            "booktitle": "Proceedings of a Conference",
+            "location": "Aberdeen Scotland Uk",
+            "publisher": "ACM",
+            "year": "2019",
+            "pages": "177--210",
+            "doi": "10.1145/3344429.3372508",
+            "url": "https://dl.acm.org/doi/10.1145/3344429.3372508",
+            "urldate": "2026-08-19",
+        }
+        parts, doi, url = biblio.fmt(record)
+        rendered = "".join(text for _, text in parts)
+        self.assertEqual(
+            rendered,
+            "BECKER, Brett A. et al., Compiler Error Messages Considered Unhelpful. "
+            "In: Proceedings of a Conference, Aberdeen Scotland Uk: ACM, 2019, p. 177–210.",
+        )
+        self.assertEqual(doi, "10.1145/3344429.3372508")
+        self.assertIsNone(url)
+        self.assertNotIn("[en ligne]", rendered)
+        self.assertNotIn("[visité le", rendered)
+        self.assertNotIn("Disp. à l’adr.", rendered)
+
+    def test_one_or_two_authors_are_all_retained(self):
+        record = {
+            "type": "article",
+            "persons": {"author": [
+                self.author("Becker", "Brett A."),
+                self.author("Denny", "Paul"),
+            ]},
+            "title": "A title",
+            "year": "2020",
+        }
+        parts, _, _ = biblio.fmt(record)
+        rendered = "".join(text for _, text in parts)
+        self.assertTrue(rendered.startswith("BECKER, Brett A.; DENNY, Paul, A title."))
+
+    def test_html_and_tex_doi_labels_match(self):
+        source = CITE_RENDERER.read_text(encoding="utf-8")
+        self.assertIn('Output.Html.text true " DOI: "', source)
+        self.assertIn('s!" DOI: \\href', source)
+        self.assertNotIn("Disp. à l’adr. DOI:", source)
 
 
 if __name__ == "__main__":
