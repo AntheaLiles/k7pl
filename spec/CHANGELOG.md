@@ -27,6 +27,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
 ### Corrigé
 
+- Vocabulaire : reformulation contextuelle des passages concernant les invariants, les protocoles, la linéarité, les dérivations et la déclassification ; ajout d’un contrôle lexical ciblé aux vérifications de la spécification.
 - Statuts annoncés, repris de la PR #246 et refaits depuis `main` (décision de l'autrice du 20 octobre 2026) : le guide de lecture ne tient plus un énoncé sans marqueur pour une conséquence de ce qui précède, et l'introduction du chapitre 1 pose une exigence de rédaction au lieu d'affirmer qu'aucune affirmation ne figure sans appui établi.
 - Chapitre 2 : les trois paragraphes d'ouverture, qui annonçaient la suite et le résultat du système de raffinement, sont retirés ; le chapitre s'ouvre sur sa première section (décision de l'autrice du 20 octobre 2026). Les six schémas de métathéorie y sont « énoncés » une fois pour toutes, et non « démontrés » (ligne 1 de la liste « Lot 0 »).
 - Chapitre 3 : l'ouverture ne donne plus la condition de séparation de P2 comme « seule » réserve à l'indépendance de la modalité d'usage et de la contrainte de valeur ; elle en excepte aussi les trois couplages que P2 nomme. P2 est inchangé (mandat de l'autrice du 20 octobre 2026 sur les points relevés par la revue longitudinale ChatGPT).
