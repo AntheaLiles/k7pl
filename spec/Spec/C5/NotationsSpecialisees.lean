@@ -178,14 +178,14 @@ L'hygiène des macros cesse alors d'être un dispositif pour devenir un théorè
 typée reçoit un AST indexé par une portée et ne peut produire d'occurrence hors de cet index, de
 sorte qu'une capture accidentelle n'est pas évitée mais inexprimable. C'est la garantie par
 inexpressibilité du chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]), appliquée ici à la capture
-de nom. La seconde occurrence est ailleurs et de même forme — une violation de couche n'est pas
-refusée par une règle, elle échoue à se dériver faute de la ressource que le jugement ambiant ne
-porte pas. Ce que ces deux cas ajoutent au critère du chapitre 1 est le lieu où la structure porte
+de nom. La seconde occurrence est ailleurs et de même forme : un terme qui franchit une frontière de
+couche n'est pas rejeté par une règle ; aucune dérivation ne le produit, faute de la ressource que
+le jugement ambiant ne porte pas. Ce que ces deux cas ajoutent au critère du chapitre 1 est le lieu où la structure porte
 l'interdit : l'index d'un préfaisceau ici, la ressource d'un contexte là.
 
-Et il faut en écrire le revers, qui se paie exactement où le gain se prend. Une violation
-inexprimable ne se _diagnostique_ pas : il n'y a rien à refuser, donc rien à expliquer, et le
-lecteur reçoit un échec de dérivation là où une règle de rejet aurait produit un message. C'est ce
+Et il faut en écrire le revers, qui se paie exactement où le gain se prend. Un cas inexprimable ne dispose pas d'un diagnostic dédié : aucune règle spécifique n'en signale
+la cause ; le lecteur reçoit un échec de dérivation là où une règle de rejet aurait produit un
+message. C'est ce
 que la stratification des diagnostics de l'annexe des codes d'erreur doit compenser, et c'est
 pourquoi elle n'est pas un ornement.
 
