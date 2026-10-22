@@ -46,8 +46,8 @@ def found (text : String) : List (String × Nat) :=
   "<html lang=\"fr\"><h1>Redirection des références croisées</h1>"
 #guard translateJs "setCount(`${n} result${n === 1 ? \"\" : \"s\"}`);" ==
   "setCount(`${n} résultat${n === 1 ? \"\" : \"s\"}`);"
-#guard (translateHtml "<html><head></head><body><a href=\"https://github.com/AntheaLiles/k7pl\">Source Code</a><a href=\"https://github.com/AntheaLiles/k7pl/issues\">Report Issues</a></body></html>").contains "k7pl-source-icon-link"
-#guard (translateHtml "<html><head></head><body><a href=\"https://github.com/AntheaLiles/k7pl/issues\">Report Issues</a></body></html>").contains "k7pl-bug-icon"
+#guard ((translateHtml "<html><head></head><body><a href=\"https://github.com/AntheaLiles/k7pl\">Source Code</a><a href=\"https://github.com/AntheaLiles/k7pl/issues\">Report Issues</a></body></html>").splitOn "k7pl-source-icon-link").length > 1
+#guard ((translateHtml "<html><head></head><body><a href=\"https://github.com/AntheaLiles/k7pl/issues\">Report Issues</a></body></html>").splitOn "k7pl-bug-icon").length > 1
 #guard translateHtml (translateHtml "<html><head></head><title>Search</title>") == translateHtml "<html><head></head><title>Search</title>"
 
 /-- The thirty-one terms of the manuscript's index are all declared. -/
@@ -63,9 +63,9 @@ def tests : List (String × Bool) :=
    ("index: sort key folds accents", sortKey "édition de liens" == "editiondeliens"),
    ("index: thirty-one terms", indexComplete),
    ("translate: language and navigation",
-     (translateHtml "<html><head></head>>Source Code<" ).contains "k7pl-github-icon"),
+     ((translateHtml "<html><head></head>>Source Code<").splitOn "k7pl-github-icon").length > 1),
    ("translate: bug icon",
-     (translateHtml "<html><head></head>>Report Issues<").contains "k7pl-bug-icon"),
+     ((translateHtml "<html><head></head>>Report Issues<").splitOn "k7pl-bug-icon").length > 1),
    ("translate: idempotent", translateHtml (translateHtml "<html><head></head><title>Search</title>") == translateHtml "<html><head></head><title>Search</title>")]
 
 end SpecToolsTest
