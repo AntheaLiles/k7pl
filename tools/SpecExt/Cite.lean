@@ -177,7 +177,7 @@ block_extension Block.bibliography (refsec : Option String) where
               if it then {{<em>{{t}}</em>}} else Output.Html.text true t
             let link : Output.Html := match doi, url with
               | some d, _ =>
-                Output.Html.seq #[Output.Html.text true " Disp. à l’adr. DOI: ", {{<a href={{"https://doi.org/" ++ d}}>{{d}}</a>}}]
+                Output.Html.seq #[Output.Html.text true " DOI: ", {{<a href={{"https://doi.org/" ++ d}}>{{d}}</a>}}]
               | none, some u =>
                 Output.Html.seq #[Output.Html.text true " Disp. à l’adr. ", {{<a href={{u}}>{{u}}</a>}}]
               | none, none => .empty
@@ -204,7 +204,7 @@ block_extension Block.bibliography (refsec : Option String) where
             let ps : List String := parts.map fun ((it : Bool), (t : String)) =>
               if it then s!"\\emph\{{texEscape t}}" else texEscape t
             let link := match doi, url with
-              | some d, _ => s!" Disp. à l’adr. DOI: \\href\{https://doi.org/{d}}\{{texEscape d}}"
+              | some d, _ => s!" DOI: \\href\{https://doi.org/{d}}\{{texEscape d}}"
               | none, some u => s!" Disp. à l’adr. \\url\{{u}}"
               | none, none => ""
             "".intercalate ps ++ link
