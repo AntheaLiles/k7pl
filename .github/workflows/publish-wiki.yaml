@@ -107,7 +107,9 @@ jobs:
           find "$WIKI_DIR" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf -- {} +
           cp -a "$RUNNER_TEMP/k7pl-wiki-content/." "$WIKI_DIR/"
           git -C "$WIKI_DIR" add --all
-          git -C "$WIKI_DIR" diff --cached --check
+          # Source Markdown may use trailing spaces for hard line breaks; preserve it verbatim.
+          # Check non-Markdown resources and the JSON manifest without rewriting Markdown semantics.
+          git -C "$WIKI_DIR" diff --cached --check -- . ':!*.md'
 
           if git -C "$WIKI_DIR" diff --cached --quiet; then
             echo "Wiki is already synchronized with ${GITHUB_SHA}."
