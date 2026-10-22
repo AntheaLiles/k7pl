@@ -26,7 +26,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: k7pl-wiki-\${{ github.ref }}
+  group: k7pl-wiki-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -48,9 +48,9 @@ jobs:
       - name: Build the publication and provenance manifest
         env:
           K7PL_DOCS_SOURCE: docs
-          K7PL_WIKI_DEST: \${{ runner.temp }}/k7pl-wiki-content
-          K7PL_REPOSITORY: \${{ github.repository }}
-          K7PL_SOURCE_REF: \${{ github.sha }}
+          K7PL_WIKI_DEST: ${{ runner.temp }}/k7pl-wiki-content
+          K7PL_REPOSITORY: ${{ github.repository }}
+          K7PL_SOURCE_REF: ${{ github.sha }}
         run: node scripts/ci/wiki_export.mjs
 
   publish:
@@ -72,14 +72,14 @@ jobs:
       - name: Build the publication and provenance manifest
         env:
           K7PL_DOCS_SOURCE: docs
-          K7PL_WIKI_DEST: \${{ runner.temp }}/k7pl-wiki-content
-          K7PL_REPOSITORY: \${{ github.repository }}
-          K7PL_SOURCE_REF: \${{ github.sha }}
+          K7PL_WIKI_DEST: ${{ runner.temp }}/k7pl-wiki-content
+          K7PL_REPOSITORY: ${{ github.repository }}
+          K7PL_SOURCE_REF: ${{ github.sha }}
         run: node scripts/ci/wiki_export.mjs
 
       - name: Sync wiki without rewriting history
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           set -euo pipefail
@@ -87,7 +87,7 @@ jobs:
           WIKI_DIR="$RUNNER_TEMP/k7pl-wiki"
           gh auth setup-git
 
-          if ! git clone "https://github.com/\${GITHUB_REPOSITORY}.wiki.git" "$WIKI_DIR"; then
+          if ! git clone "https://github.com/${GITHUB_REPOSITORY}.wiki.git" "$WIKI_DIR"; then
             echo "::error::The GitHub Wiki repository is not initialized or cannot be read."
             echo "::error::Initialize the wiki once in GitHub, confirm that the repository token can write to it, and rerun this workflow."
             exit 1
@@ -110,9 +110,9 @@ jobs:
           git -C "$WIKI_DIR" diff --cached --check
 
           if git -C "$WIKI_DIR" diff --cached --quiet; then
-            echo "Wiki is already synchronized with \${GITHUB_SHA}."
+            echo "Wiki is already synchronized with ${GITHUB_SHA}."
             exit 0
           fi
 
-          git -C "$WIKI_DIR" commit -m "docs(wiki): publish docs at \${GITHUB_SHA:0:12}"
-          git -C "$WIKI_DIR" push origin "HEAD:\${WIKI_BRANCH}"
+          git -C "$WIKI_DIR" commit -m "docs(wiki): publish docs at ${GITHUB_SHA:0:12}"
+          git -C "$WIKI_DIR" push origin "HEAD:${WIKI_BRANCH}"
