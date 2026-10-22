@@ -22,7 +22,7 @@ number := false
 
 ::::k7table (label := "tab:err-protocoles") (align := "lZ{1.00}")
 :::caption
-Codes rejetant une violation de protocole ou de topologie distribuée
+Codes de rejet liés aux protocoles et à la topologie distribuée
 :::
 
 :::table +header
