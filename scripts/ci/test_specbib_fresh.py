@@ -152,7 +152,8 @@ class BibliographyFormattingTests(unittest.TestCase):
     def test_html_and_tex_doi_labels_match(self):
         source = CITE_RENDERER.read_text(encoding="utf-8")
         self.assertIn('Output.Html.text true " DOI: "', source)
-        self.assertIn('s!" DOI: \\href', source)
+        self.assertIn('some d, _ => s!" DOI: ', source)
+        self.assertIn('https://doi.org/{d}', source)
         self.assertNotIn("Disp. à l’adr. DOI:", source)
 
 
