@@ -101,7 +101,9 @@ The following edits are present on PR #273. “Resolved” here means that the i
 - [ ] Reconcile any rendering defects found above before changing the status to CLOSED.
 
 
-## Sheets
+## Original audit sheets (historical snapshot)
+
+The following per-figure sheets preserve the descriptions and findings as first recorded against the audit baseline. They are not the current status of those findings: the Resolution register above supersedes each finding ID. The current TikZ sources and Verso blocks on PR #273 are the authoritative remediation evidence.
 
 ### 1. `fig:comp-process` — compilation pipeline
 
