@@ -407,6 +407,17 @@ Style:
   highlighter exists.
 - Chapter metadata in a `%%%` block (e.g. `shortTitle := "…"`).
 
+
+### Prohibited lexical family in the French specification
+
+The lexical family registered in `scripts/controles/vocabulaire.py`, including its listed grammatical forms and derivatives, is prohibited in authored textual sources under `spec/`. The check is lexical, not a ban on matching character sequences: unrelated words such as `violet` remain valid.
+
+Do not use a blind global replacement. Choose a context-sensitive formulation that preserves the technical claim and its epistemic status. Examples include `non-respect de l'invariant`, `exigence non satisfaite`, `écart au protocole`, `rejet à la compilation`, `cas inexprimable` and `absence de dérivation`, as appropriate to the actual meaning.
+
+Do not change a formal statement's premises, conclusion, scope, seal (`state`/`role`) or evidence status as a side effect of lexical editing. For claims about declassification or non-interference, state exactly which property is retained, weakened or suspended and under what conditions. If no equivalent wording is clear, request author arbitration instead of inventing a substitute.
+
+The rule is enforced by `scripts/controle.py` through `scripts/controles/vocabulaire.py`.
+
 Org-mode → Verso correspondences, for rewriting the existing sources:
 
 | Org-mode                              | Verso                                          |
