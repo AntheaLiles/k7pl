@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from .build_navigation_graph import add_license_footer, insert_toc_navigation_link, localize_page_references
 from .check_navigation_graph_output import check
 
 
@@ -117,6 +118,62 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
         page.write_text(page.read_text(encoding="utf-8").replace('id="k7pl-navigation-entry"', 'id="ordinary-footer"'), encoding="utf-8")
         errors = check(self.site, "abc123")
         self.assertTrue(any("interactive navigation entry" in error for error in errors))
+
+    def test_localizes_only_references_cited_on_each_page(self) -> None:
+        (self.site / "index.html").write_text(
+            '<!doctype html><html><head><base href="./"></head><body>'
+            '<p><span class="k7-cite"><a href="Spec/page.html#bib-c1-second">2</a>, '
+            '<a href="Spec/page.html#bib-c1-used">1</a></span></p></body></html>',
+            encoding="utf-8",
+        )
+        source_page = self.site / "Spec" / "page.html"
+        source_page.write_text(
+            '<!doctype html><html><head><base href="../"></head><body>'
+            '<div class="k7-bib"><div class="k7-bib-title">Références</div><ol>'
+            '<li id="bib-c1-used" value="1">Source utilisée</li>'
+            '<li id="bib-c1-second" value="2">Seconde source utilisée</li>'
+            '<li id="bib-c1-unused" value="3">Source non citée sur cette page</li>'
+            '</ol></div></body></html>',
+            encoding="utf-8",
+        )
+
+        localize_page_references(self.site)
+        localize_page_references(self.site)
+
+        page = (self.site / "index.html").read_text(encoding="utf-8")
+        self.assertIn('href="#bib-c1-second"', page)
+        self.assertIn('id="bib-c1-second"', page)
+        self.assertIn('id="bib-c1-used"', page)
+        self.assertNotIn('id="bib-c1-unused"', page)
+        self.assertNotIn("Spec/page.html#bib-c1-second", page)
+        self.assertEqual(page.count("Références citées sur cette page"), 1)
+        self.assertLess(page.index('id="bib-c1-second"'), page.index('id="bib-c1-used"'))
+        self.assertNotIn('class="k7-bib"', source_page.read_text(encoding="utf-8"))
+
+    def test_relation_explorer_follows_experimental_artifacts_in_toc(self) -> None:
+        toc = (
+            '<html><body><nav><ul>'
+            '<li><a href="Spec/CodeArtifacts.html">Artefacts exécutables expérimentaux</a></li>'
+            '<li><a href="Spec/Annexe.html">Annexe</a></li>'
+            '</ul></nav></body></html>'
+        )
+        updated = insert_toc_navigation_link(toc, "navigation/index.html")
+        self.assertIn(
+            '</a></li><li class="k7pl-toc-navigation"><a href="navigation/index.html">'
+            'Explorer les relations explicites de K7PL</a></li><li><a href="Spec/Annexe.html">',
+            updated,
+        )
+        self.assertEqual(insert_toc_navigation_link(updated, "navigation/index.html"), updated)
+
+    def test_license_footer_is_present_and_idempotent(self) -> None:
+        page = self.site / "index.html"
+        add_license_footer(page)
+        first = page.read_text(encoding="utf-8")
+        add_license_footer(page)
+        second = page.read_text(encoding="utf-8")
+        self.assertIn('id="k7pl-license-footer"', first)
+        self.assertIn("creativecommons.org/licenses/by/4.0/", first)
+        self.assertEqual(first, second)
 
 
 if __name__ == "__main__":
