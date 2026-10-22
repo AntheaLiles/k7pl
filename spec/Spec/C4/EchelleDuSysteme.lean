@@ -547,19 +547,20 @@ son motif. S'il tombe, il faut une synchronisation à l'exécution pour apparier
 coût constant par activation que le chapitre 4 annonce tombe avec lui.
 
 La dualité des protocoles de session se vérifie à l'arrivée d'un message : le runtime lit le tag
-d'état placé en tête et le compare au protocole attendu. En cas de désaccord, il renvoie un rejet au
-pair distant — un _circuit breaker_ — avant que la fibrille de l'acteur ne soit réveillée. Le runtime
-effectue une lecture de tag, une comparaison entière et un échange de pointeur ; la fibrille n'est
-ni réveillée ni exécutée sur ce chemin.
+d'état placé en tête et le compare au protocole attendu. En cas de désaccord, le runtime rejette localement le message — un _circuit breaker_ — avant que la
+fibrille de l'acteur ne soit réveillée. Il effectue une lecture de tag, une comparaison entière et
+un échange de pointeur ; la fibrille n'est ni réveillée ni exécutée sur ce chemin. Le texte ne
+spécifie pas de réponse au pair distant.
 
-::::figure (label := "fig:circuit-breaker") (src := "session-circuit-breaker") (alt := "Diagramme de séquence à trois lignes de vie : pair distant, runtime de couche 1 et fibrille de l'acteur. Le pair envoie un message avec un tag d'état. Si le tag est conforme, le runtime réveille la fibrille qui traite le message ; sinon, il renvoie un rejet au pair distant sans réveiller la fibrille.") (width := "90")
+::::figure (label := "fig:circuit-breaker") (src := "session-circuit-breaker") (alt := "Diagramme de séquence à trois lignes de vie : pair distant, runtime de couche 1 et fibrille de l'acteur. Le pair envoie un message avec un tag d'état. Si le tag est conforme, le runtime réveille la fibrille qui traite le message ; sinon, il rejette localement le message sans réveiller la fibrille. Les opérations de rejet sont payées par le runtime.") (width := "90")
 :::caption
 Le circuit breaker de session : rejet avant réveil de la fibrille
 :::
 
 :::desc
-Le chemin conforme réveille la fibrille ; le chemin non conforme renvoie un rejet au pair distant
-sans la réveiller. Les opérations de rejet sont payées par le runtime.
+Le chemin conforme réveille la fibrille. Sur le chemin non conforme, le runtime rejette localement
+le message sans réveiller la fibrille et paie les opérations de rejet ; aucune réponse au pair distant
+n'est spécifiée par ce diagramme.
 :::
 ::::
 
