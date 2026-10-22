@@ -691,7 +691,7 @@ Un second geste accompagne la condition de clôture et gouverne la manière dont
 ses garanties. Il mérite d'être nommé ici, faute de quoi chacun de ses emplois passerait pour une
 astuce locale.
 
-Une violation est dite _inexprimable_ lorsque le terme qui la commettrait n'a pas de dérivation —
+Un cas est dit _inexprimable_ lorsque le terme qui le réaliserait n'admet aucune dérivation —
 non parce qu'une règle l'interdit, mais parce qu'aucune règle ne le produit. La garantie est alors
 une propriété de la grammaire et du jeu de règles, et non le résultat d'une vérification. Il n'y a
 rien à détecter, rien à surveiller à l'exécution, et rien qui puisse être contourné : ce qui n'a pas
@@ -707,7 +707,7 @@ vérificateur la rejetterait (chapitre 4). {rmq}[Interdire demande un gardien. R
 n'en demande aucun, et c'est là toute la différence de coût.]
 
 Les quatre se lisent comme un seul énoncé : dans la fibration des dérivations sur les termes, l'ensemble
-des morphismes qui commettraient la violation est vide, $`\mathrm{Hom}(-,-) = \emptyset`, parce qu'une
+des morphismes qui réaliseraient un tel cas est vide, $`\mathrm{Hom}(-,-) = \emptyset`, parce qu'une
 prémisse manque. Il s'ensuit une obligation de présentation, qui n'est pas encore remplie : chaque
 famille de codes d'erreur du compilateur doit se rattacher à la prémisse manquante qui la produit,
 de sorte que les familles actuelles se réduisent à quatre diagnostics, un par mécanisme.
