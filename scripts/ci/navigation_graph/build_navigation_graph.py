@@ -1019,6 +1019,90 @@ def page_local_anchor_href(page_path: Path, site_root: Path, content: str, ident
     return target + "#" + identifier
 
 
+ORCID_URL = "https://orcid.org/0009-0009-9040-6795"
+DOI_URL = "https://doi.org/10.5281/zenodo.23040451"
+SOURCE_URL = "https://github.com/AntheaLiles/k7pl"
+METADATA_BADGES = (
+    (ORCID_URL, "ORCID 0009-0009-9040-6795",
+     "ORCID", "https://img.shields.io/badge/ORCID-0009--0009--9040--6795-A6CE39?logo=orcid&logoColor=white&style=for-the-badge",
+     "k7pl-orcid-badge"),
+    (DOI_URL, "10.5281/zenodo.23040451",
+     "DOI", "https://zenodo.org/badge/DOI/10.5281/zenodo.23040451.svg",
+     "k7pl-doi-badge"),
+    (SOURCE_URL, "github.com/AntheaLiles/k7pl",
+     "GitHub", "https://img.shields.io/badge/GitHub-source-181717?logo=github&logoColor=white&style=for-the-badge",
+     "k7pl-github-badge"),
+)
+
+
+def _replace_anchor_label_with_badge(
+    content: str, href: str, expected_label: str, alt: str, image_url: str, css_class: str
+) -> tuple[str, bool]:
+    """Replace an exact link label, but leave other links to the same URL alone."""
+    pattern = re.compile(
+        r'(?P<opening><a\b[^>]*\bhref=["\']' + re.escape(href) + r'["\'][^>]*>)'
+        r'(?P<label>.*?)</a\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    replaced = False
+
+    def substitute(match: re.Match[str]) -> str:
+        nonlocal replaced
+        visible_label = html.unescape(re.sub(r"<[^>]+>", "", match.group("label"))).strip()
+        if visible_label != expected_label or replaced:
+            return match.group(0)
+        replaced = True
+        src = html.escape(image_url, quote=True)
+        label = html.escape(alt, quote=True)
+        return (
+            match.group("opening")
+            + '<img alt="' + label + '" class="k7pl-metadata-badge ' + css_class
+            + '" src="' + src + '">'
+            + "</a>"
+        )
+
+    return pattern.sub(substitute, content), replaced
+
+
+def decorate_intro_badges(site_root: Path) -> None:
+    """Render metadata badges in HTML only, leaving the shared Verso/PDF source intact."""
+    candidates = [
+        page for page in site_root.rglob("*.html")
+        if page.is_file()
+        and ORCID_URL in page.read_text(encoding="utf-8")
+        and DOI_URL in page.read_text(encoding="utf-8")
+    ]
+    if len(candidates) != 1:
+        raise ValueError(
+            "expected one Verso introduction page containing the canonical ORCID and DOI links; "
+            f"found {len(candidates)}"
+        )
+
+    page = candidates[0]
+    original = page.read_text(encoding="utf-8")
+    updated = original
+    for href, label, alt, image_url, css_class in METADATA_BADGES:
+        updated, replaced = _replace_anchor_label_with_badge(
+            updated, href, label, alt, image_url, css_class
+        )
+        if not replaced:
+            raise ValueError(
+                f"could not locate metadata link {href!r} with the expected label {label!r}"
+            )
+
+    styles = (
+        '<style id="k7pl-metadata-badge-styles">'
+        '.k7pl-metadata-badge{max-width:100%;vertical-align:middle}'
+        '.k7pl-orcid-badge,.k7pl-github-badge{height:2em}'
+        '.k7pl-doi-badge{height:1.35em}'
+        '</style>'
+    )
+    if "id=\"k7pl-metadata-badge-styles\"" not in updated:
+        updated = updated.replace("</head>", styles + "</head>", 1)
+    if updated != original:
+        page.write_text(updated, encoding="utf-8")
+
+
 def localize_page_references(site_root: Path) -> None:
     """Move only each page's directly cited bibliography entries to its own bottom.
 
@@ -1179,6 +1263,7 @@ def main() -> int:
     args = parser.parse_args()
     site_root = args.site.resolve()
     try:
+        decorate_intro_badges(site_root)
         localize_page_references(site_root)
         graph = build_graph(site_root)
         graph["generated_ref"] = args.ref
