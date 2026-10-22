@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Figure sheets
 
-**Status:** SOURCE CORRECTIONS APPLIED — rendered SVG/PDF review pending. No closure is claimed until the generated assets and HTML accessibility metadata have been inspected.
+**Status:** SOURCE CORRECTIONS APPLIED — manual visual review complete; final-head CI and generated HTML accessibility metadata pending. The register remains open until those checks pass.
 **Audit baseline:** `main` at `c97dc2957d83f2ada7ade0e1681cdeec5f4ff710` (2026-10-22).
 **Remediation:** branch `fix/figure-sheets-closure-2026-10-22`, PR #273. The historical finding descriptions below are superseded by the Resolution register; they are retained as audit provenance.
 **Nature:** tracking register (item 30). One sheet per figure of the specification: what the TikZ
@@ -14,11 +14,13 @@ figure.
 
 ## How the sheets were made
 
-- **Read from the TikZ source, not from a rendered image.** Each sheet transcribes the nodes and
-  arrows of `spec/figures/tikz/<source>.tex`, the twelve sources listed in
-  [`spec/figures/tikz/manifest.json`](../../spec/figures/tikz/manifest.json). No SVG or PDF was opened. Positions
-  ("left", "below", "loop") are read from the coordinates and the `positioning` keys of the source;
-  what a reader sees after rendering (overlaps, legibility, colour) was not checked.
+- **Original audit method.** The initial sheets transcribed the nodes and arrows of
+  `spec/figures/tikz/<source>.tex`, the twelve sources listed in
+  [`spec/figures/tikz/manifest.json`](../../spec/figures/tikz/manifest.json), without opening rendered SVG/PDF
+  assets. Positions ("left", "below", "loop") were read from coordinates and TikZ positioning keys.
+  This describes the audit baseline only. On PR #273, all twelve figure renders were subsequently reviewed
+  at readable scale; the latest revisions to the session automaton, fragment nesting and circuit breaker
+  were recompiled and visually checked. Final-head CI and the corresponding HTML metadata remain pending.
 - Labels are copied as written in the source: TeX math is kept as written (`$\Delta_{\omega}$`), a
   `\\` line break is shown as ` / `, `\_` as `_`, and `---` as `—`.
 - The caption (`:::caption`), the alt text (`alt :=`), the long description (`:::desc`) and the note
@@ -27,19 +29,22 @@ figure.
   The other eleven figures are placed in the text without a reference; for them, "adjacent text" is
   the paragraph before and after the block, plus the passages elsewhere that describe the same
   object, found by searching the labels drawn. Each sheet names the passages it used.
-- **Rule applied.** Owner's decision 51 (2026-10-19, [`DECISIONS.md`](DECISIONS.md)): « le dessin fait
-  toujours foi et l'alt-text doit correspondre au dessin ». The decision covers the alt text. It does
-  not authorise changes to captions, descriptions or body text: the findings below are listed for the
-  owner, not applied.
+- **Rule for the initial audit.** Owner's decision 51 (2026-10-19, [`DECISIONS.md`](DECISIONS.md)): « le dessin fait
+  toujours foi et l'alt-text doit correspondre au dessin ». That decision directly governs alt text; it did
+  not by itself authorize changes to captions, descriptions or body text. Accordingly, the initial audit
+  recorded those findings without applying them. The owner later requested this remediation PR, which
+  applies warranted source, caption, description and prose changes while keeping unproved mathematical
+  and runtime claims explicitly scoped.
 - **Kinds of finding.** *Mismatch*: the drawing and a text say different things. *Omission*: one of
   them shows or states something the other leaves out, without contradiction (only omissions that a
   reader could notice are listed). *Interpretation*: the finding depends on a reading that the text
   does not settle; it is marked as such and is a question, not a verdict.
 
-## Alt texts fixed in `59c5493`: verification
+## Historical verification of alt texts fixed in `59c5493`
 
-Commit `59c5493` rewrote four alt texts to match the drawings. Each was compared again with its TikZ
-source on the snapshot:
+Commit `59c5493` rewrote four alt texts to match the drawings on the earlier audit snapshot. This table
+records that historical check, not the final source state: PR #273 has since revised several of these
+figures again. The Resolution register below records current remediation.
 
 | Figure | Alt text now says | Drawing | Verdict |
 |---|---|---|---|
@@ -89,17 +94,22 @@ The following edits are present on PR #273. “Resolved” here means that the i
 | FS-09–10 | The figure and table now cover all four annotations, including `@backtrack` and `@polynomial`. |
 | FS-11 | The misleading unlabelled hierarchy arrows are removed; the four annotations are shown as a classification, not a total order. |
 | FS-12 | The caption no longer claims SWMR; the description says the figure depicts disjoint write capabilities only. |
-| FS-13 | The body text now says “fibrille”, as required by the owner’s terminology decision and the figure. |
+| FS-13 | Already corrected on `main` by PR #263. The current body text, caption, alt and description consistently use “fibrille”; re-verified during this pass. |
 | FS-14 | The undefined `F` and the claim of zero cost for it are removed. Rejection is local to the runtime; its operations are attributed to the runtime, and no reply to the peer is asserted because the specification does not require one. |
 | FS-15 | The circuit-breaker figure is placed directly after the paragraph that explains it. |
 | FS-16 | The diagram adds DOM application and labels the return edge as a later external event; text and alt no longer imply that applying patches creates the next event. |
 
-### Validation still required
+### Validation
 
-- [ ] Check the rendered SVG and PDF for each of the twelve TikZ figures at readable scale, including arrow routing, overlap, line wrapping and the accessibility text in the generated site.
+- [x] Manually inspect all twelve figure renders at readable scale, including arrow routing, overlap and line wrapping. The latest source versions of `session-protocol`, `fragments-nestings` and `session-circuit-breaker` were recompiled and checked after their last layout edits.
+- [ ] Inspect the generated HTML SVGs from the final PR head. The preceding successful HTML build had `role="img"`, `aria-labelledby`, `aria-describedby`, a non-empty `<title>` and a non-empty `<desc>` on all twelve figure SVGs; this needs reconfirmation after the final source edits.
 - [ ] Pass the relevant GitHub Actions checks on the final PR head.
-- [ ] Reconcile any rendering defects found above before changing the status to CLOSED.
+- [x] Fix the render defects found during review: session-state label clearance, fragment-sheet label room and circuit-breaker note/lifeline overlap.
 
+
+**Additional accessibility cleanup:** the French alt texts for `fig:fragments-emboites`,
+`fig:arene-partition`, `fig:circuit-breaker`, `fig:cycle-reactif` and `fig:specialisation-couches` now use
+correct accents. This was a spelling/accessibility correction, not a separate FS finding.
 
 ## Original audit sheets (historical snapshot)
 
@@ -442,12 +452,8 @@ three layers and the point where it closes the cycle.
 ## Out of scope
 
 - `spec/figures/services-lsp.svg` and `services-lsp.pdf` are not declared by any `::::figure` block and
-  have no TikZ source; their fate is question (5) of the « TikZ en production » row of
+  have no TikZ source; their fate remains question (5) of the « TikZ en production » row of
   [`DECISIONS.md`](DECISIONS.md).
-- Four alt texts are written without accents (`fig:fragments-emboites`, `fig:arene-partition`,
-  `fig:circuit-breaker`, `fig:cycle-reactif`) and one mostly without (`fig:specialisation-couches`).
-  This is a matter of spelling, not of agreement with the drawing; it is listed so that the owner can
-  decide whether it falls under decision 51.
 
 ## Closure criteria
 
