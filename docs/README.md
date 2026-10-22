@@ -53,7 +53,7 @@ Start with:
 
 The documentation tree has been reorganized into explicit epistemic areas: `tracking/`, `history/`, `peer-review/`, `research/`, `method/`, `bibliography/`, `migration/`, `archives/`, and `security/`. No current document should silently become normative merely because it is old or detailed.
 
-The completed coherence-review workstream is preserved as a dated record in [history/2026-10-09-coherence-review.md](history/2026-10-09-coherence-review.md); its checklist is historical evidence, not an active task list. The OpenSSF checklist and initial remediation plan are likewise retained under history/; use the active security roadmap and human-action register for current work.
+The completed coherence-review workstream is preserved as a dated record in [history/2026-10-09-coherence-review.md](history/2026-10-09-coherence-review.md); its checklist is historical evidence, not an active task list. The closed figure-sheet audit and TikZ proof of concept are likewise retained under `history/`, not as active tracking. The closed figure-sheet audit and TikZ proof of concept are likewise retained under `history/`, not as active tracking. The OpenSSF checklist and initial remediation plan are likewise retained under history/; use the active security roadmap and human-action register for current work.
 
 See also [archives/](archives/) for frozen historical implementation material.
 
