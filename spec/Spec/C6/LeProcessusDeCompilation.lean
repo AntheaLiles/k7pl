@@ -46,7 +46,7 @@ aucun.
 
 ::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : huit ordres de vérification et deux points de contrôle intercalaires. Une boucle entre ConstraintSolve (phase 5) et Optimize (phase 6) indique leur itération jusqu'à stabilisation.") (width := "90")
 :::caption
-Les huit phases du pipeline de compilation
+Les huit ordres de vérification du pipeline de compilation
 :::
 
 :::desc
