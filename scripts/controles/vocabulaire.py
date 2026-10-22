@@ -27,7 +27,6 @@ TEXT_SUFFIXES = {
     ".md",
     ".mermaid",
     ".mmd",
-    ".svg",
     ".tex",
     ".txt",
     ".xml",
