@@ -40,8 +40,10 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # in LeSystemeGradue.lean and ReglesDeTypage.lean without touching those strings.
     # So do its extension (2026-10-20: « fibrille » for an execution unit in LeSystemeGradue.lean)
     # and the owner's « cofibre » -> « _cofree_ » fix in ComonadeExponentielleEtFragments.lean.
+    # 2026-10-22: the fig:fragments-emboites alternative text/description was narrowed to its
+    # structural-rule scope; formal interface strings are independently checked below.
     integrated_source_blobs = {
-        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "5037ca1133c4a8d63343142096188a104beb9da0",
+        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "1080a623283f1ce85ec3084b724487f59df395f0",
         "spec/Spec/C3/LeSystemeGradue.lean": "15c1bc33d41168bd2315c77f122dff23a1880d74",
         "spec/Spec/C3/GrammaireDesTypes.lean": "60df0208198163e9bf76dea24391e29d1f23834f",
         "spec/Spec/C3/ReglesDeTypage.lean": "68a5e36c51baf43691b830ca1bc64c1d2af3ad97",
