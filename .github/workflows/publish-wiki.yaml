@@ -1,0 +1,118 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CC0-1.0
+
+name: Publish documentation wiki
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '!docs/archives/**'
+      - 'scripts/ci/wiki_export.mjs'
+      - 'scripts/ci/test_wiki_export.mjs'
+      - '.github/workflows/publish-wiki.yaml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '!docs/archives/**'
+      - 'scripts/ci/wiki_export.mjs'
+      - 'scripts/ci/test_wiki_export.mjs'
+      - '.github/workflows/publish-wiki.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: k7pl-wiki-\${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate wiki export
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Test the exporter
+        run: node --test scripts/ci/test_wiki_export.mjs
+
+      - name: Build the publication and provenance manifest
+        env:
+          K7PL_DOCS_SOURCE: docs
+          K7PL_WIKI_DEST: \${{ runner.temp }}/k7pl-wiki-content
+          K7PL_REPOSITORY: \${{ github.repository }}
+          K7PL_SOURCE_REF: \${{ github.sha }}
+        run: node scripts/ci/wiki_export.mjs
+
+  publish:
+    name: Publish the validated wiki
+    needs: validate
+    if: >-
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the canonical source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build the publication and provenance manifest
+        env:
+          K7PL_DOCS_SOURCE: docs
+          K7PL_WIKI_DEST: \${{ runner.temp }}/k7pl-wiki-content
+          K7PL_REPOSITORY: \${{ github.repository }}
+          K7PL_SOURCE_REF: \${{ github.sha }}
+        run: node scripts/ci/wiki_export.mjs
+
+      - name: Sync wiki without rewriting history
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +x
+          WIKI_DIR="$RUNNER_TEMP/k7pl-wiki"
+          gh auth setup-git
+
+          if ! git clone "https://github.com/\${GITHUB_REPOSITORY}.wiki.git" "$WIKI_DIR"; then
+            echo "::error::The GitHub Wiki repository is not initialized or cannot be read."
+            echo "::error::Initialize the wiki once in GitHub, confirm that the repository token can write to it, and rerun this workflow."
+            exit 1
+          fi
+
+          WIKI_BRANCH="$(git -C "$WIKI_DIR" branch --show-current)"
+          if [ -z "$WIKI_BRANCH" ]; then
+            echo "::error::Could not determine the wiki default branch; refusing to guess a push target."
+            exit 1
+          fi
+
+          git -C "$WIKI_DIR" config user.name "github-actions[bot]"
+          git -C "$WIKI_DIR" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # The wiki is a generated mirror, not an authoring surface. Replace its
+          # worktree, but retain the existing Git history and push only fast-forward.
+          find "$WIKI_DIR" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf -- {} +
+          cp -a "$RUNNER_TEMP/k7pl-wiki-content/." "$WIKI_DIR/"
+          git -C "$WIKI_DIR" add --all
+          git -C "$WIKI_DIR" diff --cached --check
+
+          if git -C "$WIKI_DIR" diff --cached --quiet; then
+            echo "Wiki is already synchronized with \${GITHUB_SHA}."
+            exit 0
+          fi
+
+          git -C "$WIKI_DIR" commit -m "docs(wiki): publish docs at \${GITHUB_SHA:0:12}"
+          git -C "$WIKI_DIR" push origin "HEAD:\${WIKI_BRANCH}"
