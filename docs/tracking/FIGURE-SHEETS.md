@@ -83,14 +83,14 @@ The following edits are present on PR #273. “Resolved” here means that the i
 | FS-03 | Automaton states are named `SEND_INT` and `RECV_BOOL`, describing the action still to perform. |
 | FS-04 | The layer-3 grade domain and non-empty affine context at layer 2 are shown in the specialisation diagram. |
 | FS-05 | Layer 1 uses the domain equality `𝒢 = 𝒢_budget`, not membership of a budget value in a grade. |
-| FS-06 | The diagram shows the same initial algebra as a terminal `F^op)-coalgebra in `C^op`; it no longer conflates it with `νF` in `C`. |
+| FS-06 | The diagram shows the same initial algebra as a terminal `F^op`-coalgebra in `C^op`; it no longer conflates it with `νF` in `C`. |
 | FS-07 | The description limits nesting to structural-rule sets and explicitly disclaims unproved inclusion functors and typing realisation. |
 | FS-08 | The dual-exchange diagram has been moved beside the prose that explains session duality and is cited there. |
 | FS-09–10 | The figure and table now cover all four annotations, including `@backtrack` and `@polynomial`. |
 | FS-11 | The misleading unlabelled hierarchy arrows are removed; the four annotations are shown as a classification, not a total order. |
 | FS-12 | The caption no longer claims SWMR; the description says the figure depicts disjoint write capabilities only. |
 | FS-13 | The body text now says “fibrille”, as required by the owner’s terminology decision and the figure. |
-| FS-14 | The undefined `F) and the claim of zero cost for it are removed; the reply to the peer and the runtime cost are stated in prose. |
+| FS-14 | The undefined `F` and the claim of zero cost for it are removed; the reply to the peer and the runtime cost are stated in prose. |
 | FS-15 | The circuit-breaker figure is placed directly after the paragraph that explains it. |
 | FS-16 | The diagram adds DOM application and labels the return edge as a later external event; text and alt no longer imply that applying patches creates the next event. |
 
