@@ -492,8 +492,7 @@ tag := "refs-liste-des-glosses"
 
 : type de session
 
-  Type qui décrit la suite ordonnée des émissions et des réceptions qu'un canal admet, et dont la
-  violation se rejette à la compilation.
+  Type qui décrit la suite ordonnée des émissions et des réceptions qu'un canal admet, et dont le non-respect entraîne un rejet à la compilation.
 
 : typestate
 
