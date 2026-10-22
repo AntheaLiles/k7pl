@@ -561,7 +561,9 @@ Le circuit breaker de session : rejet avant réveil de la fibrille
 Le chemin conforme réveille la fibrille ; le chemin non conforme renvoie un rejet au pair distant
 sans la réveiller. Les opérations de rejet sont payées par le runtime.
 :::
-:::: La sécurité du transport prolonge cette même
+::::
+
+La sécurité du transport prolonge cette même
 discipline : les prises de contact du protocole Noise sont elles-mêmes des DFA de couche 3, en temps
 constant et sans allocation, et l'autorisation repose sur des jetons de capacité — Biscuit — dont la
 vérification, parce qu'ils sont des types linéaires, se réduit à leur consommation par l'acteur qui
