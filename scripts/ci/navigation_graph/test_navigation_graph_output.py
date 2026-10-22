@@ -136,6 +136,8 @@ class InteractiveNavigationOutputTests(unittest.TestCase):
         )
         decorate_intro_badges(self.site)
         result = page.read_text(encoding="utf-8")
+        decorate_intro_badges(self.site)
+        self.assertEqual(page.read_text(encoding="utf-8"), result)
         self.assertIn('alt="ORCID"', result)
         self.assertIn('src="https://zenodo.org/badge/DOI/10.5281/zenodo.23040451.svg"', result)
         self.assertIn('alt="GitHub"', result)
