@@ -11,4 +11,5 @@ Ported from the checks of the former Org tooling (preserved under `docs/archives
 * `notation`   — one symbol per object, status seals, propagation of open statements;
 * `croise`     — the grammar of terms against the typing rules, and the counts the prose states;
 * `structure`  — appendix letters, tables, comments, hand-written counts, unique labels.
+* `vocabulaire` — prohibited lexical-family forms in authored specification sources.
 """
