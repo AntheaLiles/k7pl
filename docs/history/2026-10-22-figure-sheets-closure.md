@@ -31,7 +31,7 @@ figure.
   remain without a `{num}` reference; for them, the adjacent text is the paragraph before and after the
   block plus passages elsewhere that describe the same object. Each historical sheet names the passages
   used in the baseline review.
-- **Rule for the initial audit.** Owner's decision 51 (2026-10-19, [`DECISIONS.md`](DECISIONS.md)): « le dessin fait
+- **Rule for the initial audit.** Owner's decision 51 (2026-10-19, [`DECISIONS.md`](../tracking/DECISIONS.md)): « le dessin fait
   toujours foi et l'alt-text doit correspondre au dessin ». That decision directly governs alt text; it did
   not by itself authorize changes to captions, descriptions or body text. Accordingly, the initial audit
   recorded those findings without applying them. The owner later requested this remediation PR, which
@@ -455,7 +455,7 @@ three layers and the point where it closes the cycle.
 
 - `spec/figures/services-lsp.svg` and `services-lsp.pdf` are not declared by any `::::figure` block and
   have no TikZ source; their fate remains question (5) of the « TikZ en production » row of
-  [`DECISIONS.md`](DECISIONS.md).
+  [`DECISIONS.md`](../tracking/DECISIONS.md).
 
 ## Closure evidence
 
