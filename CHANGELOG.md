@@ -39,6 +39,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Changed
 
+- Specification wording: context-sensitive vocabulary cleanup and a source-anchored lexical-family check integrated into `scripts/controle.py`; unrelated words such as `violet` remain allowed.
 - C8 statement inventory check (`scripts/controles/statement_inventory.py`): the pre-migration
   snapshot, which fixes the 69 historical labels and their levels, is now a frozen appendix of
   `docs/tracking/LEAN-STATEMENT-MIGRATION.md`; a test pins its SHA-256 digest.
