@@ -995,6 +995,30 @@ def bibliography_div_spans(content: str) -> list[tuple[int, int]]:
     return spans
 
 
+def page_local_anchor_href(page_path: Path, site_root: Path, content: str, identifier: str) -> str:
+    """Resolve a same-page anchor against the base URL used by the rendered HTML."""
+    relative_page = page_path.relative_to(site_root).as_posix()
+    base = re.search(
+        r"<base\b[^>]*\bhref\s*=\s*([\"'])(.*?)\1",
+        content,
+        re.IGNORECASE,
+    )
+    if base is None:
+        return "#" + identifier
+
+    base_url = urlsplit(html.unescape(base.group(2)))
+    if base_url.scheme or base_url.netloc:
+        # Absolute base URLs are deployment roots; site-relative paths preserve
+        # the current document location below that root.
+        target = relative_page
+    else:
+        base_directory = posixpath.normpath(
+            posixpath.join(posixpath.dirname(relative_page) or ".", base_url.path or ".")
+        )
+        target = posixpath.relpath(relative_page, base_directory)
+    return target + "#" + identifier
+
+
 def localize_page_references(site_root: Path) -> None:
     """Move only each page's directly cited bibliography entries to its own bottom.
 
@@ -1029,7 +1053,12 @@ def localize_page_references(site_root: Path) -> None:
 
         # All citation targets become page-local anchors; the copied bibliography
         # items below retain their stable IDs and the chapter-local citation numbers.
-        updated = BIB_LINK_RE.sub(lambda match: 'href="#' + match.group(2) + '"', updated)
+        updated = BIB_LINK_RE.sub(
+            lambda match: 'href="' + html.escape(
+                page_local_anchor_href(page, site_root, original, match.group(2)), quote=True
+            ) + '"',
+            updated,
+        )
         if identifiers:
             items = "".join(reference_items[identifier] for identifier in identifiers)
             bibliography = (
