@@ -120,4 +120,4 @@ Le changelog conserve un compte historique de treize figures. L'artefact HTML CI
 - [Modèle sémantique minimal](NAVIGATION-SEMANTIC-MODEL.md)
 - [Prototype de navigation](NAVIGATION-PROTOTYPE.md)
 - [Audit des figures et du rendu, dernière version](https://github.com/AntheaLiles/k7pl/blob/a384592abac4aef13965ab98e2494567cfd37620/docs/tracking/DIAGRAMS-AND-RENDERING-AUDIT.md) (contenu repris au § 7 et dans le [plan](INTERACTIVE-EXPLORATION-PLAN.md), sous-chantier figures)
-- [Résultats du POC TikZ](tikz-poc/RESULTS.md)
+- [Résultats du POC TikZ](../history/2026-10-14-tikz-poc-results.md)
