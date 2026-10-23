@@ -70,7 +70,7 @@ jobs:
             echo "::error::TLC accepted a property whose counterexample is expected"
             exit 1
           fi
-          if ! grep -F "The invariant NoCommitAfterCancelRequest" "$log" >/dev/null; then
+          if ! grep -F "Invariant NoCommitAfterCancelRequest" "$log" >/dev/null; then
             echo "::error::TLC stopped before reaching the expected property"
             exit 1
           fi
