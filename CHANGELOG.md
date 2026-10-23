@@ -17,7 +17,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
-- R8 OS-design research: compare language-isolated, capability-based, hardware-compartment, microkernel, unikernel, and verified-compilation architectures; extend the analysis to TempleOS, Oberon, GNU Hurd, Multics, FreeBSD, PICK multi-value systems, DBOS, Plan 9 and Inferno. Distinguish OS protection from runtime, database, transaction and namespace models. Non-normative; no OS architecture is ratified.
+- R8 OS-design research: compare language-isolated, capability-based, hardware-compartment, microkernel, unikernel, and verified-compilation architectures; extend the analysis to TempleOS, Oberon, GNU Hurd, Multics, FreeBSD, PICK, DBOS, Plan 9, Inferno, A2/Bluebottle, 9front, Harvey, MINIX 3, QNX Neutrino, OpenBSD pledge/unveil, CubeOS RoboCube, Redox, Medley Interlisp and k23. Distinguish OS protection from runtime, database, transaction and namespace models, and separate the CubeSats framework from the historical RoboCube RTOS. Non-normative; no OS architecture is ratified.
 
 - R7 OS-design research: distinguish logical replay from crash consistency and external-effect semantics; specify open obligations for durable logs/checkpoints, linear-resource recovery, retries, budgets, and fault-injection testing. Non-normative; no end-to-end crash-recovery guarantee is claimed.
 
