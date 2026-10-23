@@ -61,6 +61,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 ### Security and research
 
 - Assurance tooling: add deterministic adversarial mutation tests for the Lake-to-OSV adapter and record the observed OSV-Scanner, actionlint, zizmor, and generated-figure accessibility results with their limitations. This does not introduce a general fuzzer, a Lean SAST claim, or a blocking vulnerability gate.
+- R1 OS-design research: compare typed, software, kernel, and hardware capabilities; specify revocation and in-flight-operation semantics; document FFI ownership modes, device-access boundaries, and formal obligations. Non-normative; no security guarantee is marked established.
 
 ## [0.0.0-alpha.1]
 

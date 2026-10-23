@@ -32,3 +32,7 @@ Commencer par R0. R1, R2 et R3 peuvent ensuite progresser en parallèle ; R8 peu
 - Le tableau de bord du dépôt indique que l’étape C est ouverte. Ces recherches ne constituent pas une autorisation de démarrer les étapes aval.
 
 Chaque rapport doit présenter sources primaires, date/version, hypothèses, résultats, limites, contre-exemples, obligations restantes et recommandations priorisées.
+
+## Executed report — R1
+
+- [R1 — Authority, Capabilities, Revocation, and FFI Boundaries](R1-authority-capabilities-ffi-boundaries.md): source-grounded authority model, revocation semantics, FFI contracts, adversarial cases, and open enforcement obligations. Non-normative.
