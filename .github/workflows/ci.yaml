@@ -117,8 +117,8 @@ jobs:
         run: |
           set -euo pipefail
           curl --fail --location --retry 3 "$TLC_URL" --output "$RUNNER_TEMP/tla2tools.jar"
-          printf '%s  %s\\n' "$TLC_SHA256" "$RUNNER_TEMP/tla2tools.jar" | sha256sum --check -
-          printf '%s  %s\\n' "$TLC_SHA1" "$RUNNER_TEMP/tla2tools.jar" | sha1sum --check -
+          printf '%s  %s\n' "$TLC_SHA256" "$RUNNER_TEMP/tla2tools.jar" | sha256sum --check -
+          printf '%s  %s\n' "$TLC_SHA1" "$RUNNER_TEMP/tla2tools.jar" | sha1sum --check -
 
       - name: Check nominal model
         run: java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config R9ActorCancellation.cfg R9ActorCancellation
@@ -166,7 +166,7 @@ jobs:
             "verify=$VERIFY_RESULT" \
             "reuse=$REUSE_RESULT" \
             "commitlint=$COMMITLINT_RESULT" \
-            "security=$SECURITY_RESULT" \\
+            "security=$SECURITY_RESULT" \
             "r9-tlc=$R9_TLC_RESULT"; do
             echo "$pair"
             result="${pair#*=}"
