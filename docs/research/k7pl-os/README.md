@@ -8,7 +8,7 @@ Dix dossiers autonomes (R0–R9) cadrent les recherches nécessaires pour évalu
 | [R1](R1-autorite-capacites-revocation-FFI.md) | Autorité, capacités et révocation FFI | P1 |
 | [R2](R2-compilation-surete-source-binaire.md) | Correction de compilation source → binaire | P1 |
 | [R3](R3-confidentialite-integrite-non-interference.md) | Confidentialité, intégrité et non-interférence | P1 |
-| [R4](R4-concurrence-protocoles-vivacite-annulation.md) | Protocoles, vivacité et annulation | P2 |
+| [R4](R4-concurrence-protocoles-vivacite-annulation.md) | Protocoles, vivacité et annulation — rapport exécuté | P2 |
 | [R5](R5-memoire-emprunt-aliasing-logique-separation.md) | Permissions mémoire et logique de séparation | P2 |
 | [R6](R6-grades-budgets-WCET-temps-reel.md) | Grades, budgets et WCET | P3 |
 | [R7](R7-pannes-ressources-lineaires-persistance.md) | Pannes, ressources linéaires et persistance | P3 |

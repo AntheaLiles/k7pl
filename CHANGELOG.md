@@ -17,6 +17,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
+- R4 OS-design research: audit the static-DAG/dynamic-wait-graph proof obligation, separate local/global progress from fair termination, and define testable contracts for timeout, cancellation, crash recovery, and resource cleanup. Non-normative; liveness guarantees remain conditional where the model or fairness assumptions are open.
 - GitHub Wiki publication from docs/, excluding docs/archives/**, with deterministic page names, export tests, navigation indexes, and a commit-bound SHA-256 manifest.
 - Proof visualizations: observations of five selected Lean proofs, extracted with Paperproof in an
   isolated Lake workspace (`tools/paperproof-export`, Lean 4.34.0) and rendered natively by a Verso
