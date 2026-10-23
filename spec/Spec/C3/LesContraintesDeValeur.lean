@@ -352,7 +352,7 @@ coût.
 
 
 Quand une contrainte de valeur échoue, K7PL distingue trois régimes plutôt qu'un seul. Un état
-illégal viole un invariant que le système de types rejette avant même la génération de code —
+illégal ne respecte pas un invariant que le système de types contrôle avant même la génération de code —
 l'accès hors bornes prouvé impossible en est un cas. Un état indésirable atteint l'exécution mais
 reste un échec ordinaire, représenté par un `Result`. Un état transitoire, enfin, n'est l'échec de
 rien : une condition temporaire — un tampon plein — résorbable par un gestionnaire, modélisée comme
