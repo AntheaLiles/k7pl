@@ -17,6 +17,7 @@ Start with:
 
 - [Architecture](ARCHITECTURE.md): project structure, conceptual layers, and relationships between specification, formalisation, implementation, proofs, and tests.
 - [Research](RESEARCH.md): scientific problem, hypothesis, object, expected contributions, and validation strategy.
+- [K7PL / OS research dossiers](research/k7pl-os/README.md): ten research briefs on threat modelling, authority, compiler correctness, information flow, concurrency, memory, real-time budgets, failure recovery, OS comparisons, and model checking.
 - [Specification](../spec/): the normative language specification.
 - [Interactive exploration](tracking/INTERACTIVE-EXPLORATION.md): architecture and current prototype scope.
 - [Interactive exploration plan](tracking/INTERACTIVE-EXPLORATION-PLAN.md): user stories, acceptance criteria, implementation status and validation gates.
