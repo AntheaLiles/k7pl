@@ -13,7 +13,7 @@ Dix dossiers autonomes (R0–R9) cadrent les recherches nécessaires pour évalu
 | [R6](R6-grades-budgets-WCET-temps-reel.md) | Grades, budgets et WCET — rapport exécuté | P3 |
 | [R7](R7-pannes-ressources-lineaires-persistance.md) | Pannes, ressources linéaires et persistance — rapport exécuté | P3 |
 | [R8](R8-comparaison-systemes-exploitation.md) | Comparaison d’OS et d’architectures voisines — rapport exécuté | P2, parallèle |
-| [R9](R9-model-checking-contre-exemples-tracabilite.md) | Model checking et traçabilité | P3, transversal |
+| [R9](R9-model-checking-contre-exemples-tracabilite.md) | Model checking, contre-exemples et traçabilité — prototype préparé, exécution TLC restante | P3, transversal |
 
 ## Executed reports
 
@@ -54,3 +54,8 @@ Chaque rapport doit présenter sources primaires, date/version, hypothèses, ré
 ## Executed report — R8
 
 - [R8 — OS and neighbouring architectures](R8-comparaison-systemes-exploitation.md): comparison of Theseus, Tock, Genode, CHERIoT RTOS, seL4, MirageOS, Verve, Cogent and adjacent designs, extended with TempleOS, Oberon, GNU Hurd, Multics, FreeBSD, PICK, DBOS, Plan 9, Inferno, A2/Bluebottle, 9front, Harvey, MINIX 3, QNX Neutrino, OpenBSD pledge/unveil, Qubes OS, Redox and k23. Also distinguishes Medley Interlisp as a development environment and separates OS isolation from runtime and database architecture. Non-normative; no target architecture is ratified.
+
+
+## R9 — Model checking et traçabilité
+
+- [R9 — Model checking, contre-exemples et traçabilité](R9-model-checking-contre-exemples-tracabilite.md) : comparaison TLA+/TLC, Apalache, Lean et tests à état ; modèle borné d’annulation, configurations nominale et négative, témoin à convertir en régression et convention de traçabilité. L’exécution TLC reste une validation ouverte ; aucun résultat de cet outil n’est revendiqué.
