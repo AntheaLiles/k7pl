@@ -36,3 +36,7 @@ Chaque rapport doit présenter sources primaires, date/version, hypothèses, ré
 ## Executed report — R1
 
 - [R1 — Authority, Capabilities, Revocation, and FFI Boundaries](R1-authority-capabilities-ffi-boundaries.md): source-grounded authority model, revocation semantics, FFI contracts, adversarial cases, and open enforcement obligations. Non-normative.
+
+## Executed report — R2
+
+- [R2 — Source-to-Binary Correctness and Zero-Overhead Assurance](R2-source-to-binary-correctness.md): source-grounded pipeline audit, semantic-preservation contract, TCB boundaries, and a staged performance-assurance plan. Non-normative.
