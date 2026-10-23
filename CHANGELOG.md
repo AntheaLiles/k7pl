@@ -17,6 +17,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
+- R3 OS-design research: define relational confidentiality/integrity obligations, observation boundaries, controlled declassification and endorsement, timing-channel limits, and adversarial test cases. Non-normative; no global information-flow guarantee is claimed.
 - GitHub Wiki publication from docs/, excluding docs/archives/**, with deterministic page names, export tests, navigation indexes, and a commit-bound SHA-256 manifest.
 - Proof visualizations: observations of five selected Lean proofs, extracted with Paperproof in an
   isolated Lake workspace (`tools/paperproof-export`, Lean 4.34.0) and rendered natively by a Verso
