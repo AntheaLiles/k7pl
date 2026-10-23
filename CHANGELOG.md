@@ -17,6 +17,8 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
+- R0 OS-design research: add a versioned threat model, observation model, assurance matrix, falsification cases, and architecture gates. Non-normative; no OS guarantee is promoted to established status.
+
 - GitHub Wiki publication from docs/, excluding docs/archives/**, with deterministic page names, export tests, navigation indexes, and a commit-bound SHA-256 manifest.
 - Proof visualizations: observations of five selected Lean proofs, extracted with Paperproof in an
   isolated Lake workspace (`tools/paperproof-export`, Lean 4.34.0) and rendered natively by a Verso

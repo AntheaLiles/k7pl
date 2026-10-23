@@ -15,6 +15,10 @@ Dix dossiers autonomes (R0–R9) cadrent les recherches nécessaires pour évalu
 | [R8](R8-comparaison-systemes-exploitation.md) | Comparaison d’OS et d’architectures voisines | P2, parallèle |
 | [R9](R9-model-checking-contre-exemples-tracabilite.md) | Model checking et traçabilité | P3, transversal |
 
+## Executed reports
+
+- [R0 — Threat Model and Assurance Matrix](R0-threat-model-assurance-matrix.md): audited snapshot of 2026-10-23; non-normative, with architecture gates and open proof obligations.
+
 ## Ordre de lancement
 
 Commencer par R0. R1, R2 et R3 peuvent ensuite progresser en parallèle ; R8 peut être lancé dès le départ. R4 et R5 approfondissent concurrence et mémoire. R6 et R7 dépendent du modèle d’exécution retenu. R9 soutient tous les chantiers sans remplacer les preuves Lean.
