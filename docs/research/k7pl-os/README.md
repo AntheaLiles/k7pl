@@ -28,3 +28,7 @@ Commencer par R0. R1, R2 et R3 peuvent ensuite progresser en parallèle ; R8 peu
 - Le tableau de bord du dépôt indique que l’étape C est ouverte. Ces recherches ne constituent pas une autorisation de démarrer les étapes aval.
 
 Chaque rapport doit présenter sources primaires, date/version, hypothèses, résultats, limites, contre-exemples, obligations restantes et recommandations priorisées.
+
+## Executed report — R2
+
+- [R2 — Source-to-Binary Correctness and Zero-Overhead Assurance](R2-source-to-binary-correctness.md): source-grounded pipeline audit, semantic-preservation contract, TCB boundaries, and a staged performance-assurance plan. Non-normative.

@@ -59,6 +59,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 ### Security and research
 
 - Assurance tooling: add deterministic adversarial mutation tests for the Lake-to-OSV adapter and record the observed OSV-Scanner, actionlint, zizmor, and generated-figure accessibility results with their limitations. This does not introduce a general fuzzer, a Lean SAST claim, or a blocking vulnerability gate.
+- R2 OS-design research: map source-to-binary assurance boundaries, define the semantic observations a compiler must preserve, compare verified compilation and translation validation, and stage the zero-overhead target. Non-normative; no end-to-end compiler guarantee is marked established.
 
 ## [0.0.0-alpha.1]
 
