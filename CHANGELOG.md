@@ -17,6 +17,10 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
+- R6 OS-design research: audit abstract grade/budget arithmetic against operational cost semantics, compilation, binary-level WCET analysis, CPU budgets, scheduling feasibility, and target-specific assumptions. Non-normative; no end-to-end real-time guarantee is claimed.
+
+- R3 OS-design research: define relational confidentiality/integrity obligations, observation boundaries, controlled declassification and endorsement, timing-channel limits, and adversarial test cases. Non-normative; no global information-flow guarantee is claimed.
+
 - R0 OS-design research: add a versioned threat model, observation model, assurance matrix, falsification cases, and architecture gates. Non-normative; no OS guarantee is promoted to established status.
 
 - GitHub Wiki publication from docs/, excluding docs/archives/**, with deterministic page names, export tests, navigation indexes, and a commit-bound SHA-256 manifest.
@@ -62,6 +66,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 - Assurance tooling: add deterministic adversarial mutation tests for the Lake-to-OSV adapter and record the observed OSV-Scanner, actionlint, zizmor, and generated-figure accessibility results with their limitations. This does not introduce a general fuzzer, a Lean SAST claim, or a blocking vulnerability gate.
 - R1 OS-design research: compare typed, software, kernel, and hardware capabilities; specify revocation and in-flight-operation semantics; document FFI ownership modes, device-access boundaries, and formal obligations. Non-normative; no security guarantee is marked established.
+- R2 OS-design research: map source-to-binary assurance boundaries, define the semantic observations a compiler must preserve, compare verified compilation and translation validation, and stage the zero-overhead target. Non-normative; no end-to-end compiler guarantee is marked established.
 
 ## [0.0.0-alpha.1]
 
