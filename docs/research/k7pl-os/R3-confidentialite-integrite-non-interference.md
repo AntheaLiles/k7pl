@@ -67,14 +67,14 @@ La classification binaire « public / secret » peut être insuffisante : compar
 
 ## 4. Forme minimale de la non-interférence
 
-Pour une politique fixée, notons (s_1 \approx_L s_2) l'équivalence des états initiaux pour l'observateur (L), et (operatorname{Obs}_L(P,s)) l'observation produite par le programme (P). Un énoncé de base est :
+Pour une politique fixée, notons \(s_1 \approx_L s_2\) l'équivalence des états initiaux pour l'observateur \(L\), et \(\operatorname{Obs}_L(P,s)\) l'observation produite par le programme \(P\). Un énoncé de base est :
 
-[
+\[
 s_1 \approx_L s_2 \implies
 \operatorname{Obs}_L(P,s_1)=\operatorname{Obs}_L(P,s_2).
-]
+\]
 
-Cette formule est seulement un squelette. Il faut définir (operatorname{Obs}) : valeurs finales, messages, ordre, erreurs, terminaison, coût, délais et effets de bord. Pour des programmes interactifs, concurrents ou probabilistes, une trace, une relation de simulation ou une équivalence de distributions peut être nécessaire. Une simulation à sens unique ne suffit pas automatiquement à établir l'égalité des observations dans les deux sens.
+Cette formule est seulement un squelette. Il faut définir \(\operatorname{Obs}\) : valeurs finales, messages, ordre, erreurs, terminaison, coût, délais et effets de bord. Pour des programmes interactifs, concurrents ou probabilistes, une trace, une relation de simulation ou une équivalence de distributions peut être nécessaire. Une simulation à sens unique ne suffit pas automatiquement à établir l'égalité des observations dans les deux sens.
 
 ### Contre-exemples discriminants
 
