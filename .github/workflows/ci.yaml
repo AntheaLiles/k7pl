@@ -92,10 +92,60 @@ jobs:
       security-events: write # zizmor and OSV-Scanner upload SARIF results to code scanning
     uses: ./.github/workflows/security.yaml
 
+  r9-tlc:
+    name: R9 TLA+ model check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: docs/research/k7pl/models
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check Java runtime
+        run: java -version
+
+      - name: Fetch and verify pinned TLC
+        env:
+          TLC_URL: https://github.com/tlaplus/tlaplus/releases/download/v1.7.4/tla2tools.jar
+          TLC_SHA256: 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
+          TLC_SHA1: bee4a54f3ee3d4afc347c3240ec2d9e93b075104
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 "$TLC_URL" --output "$RUNNER_TEMP/tla2tools.jar"
+          printf '%s  %s\\n' "$TLC_SHA256" "$RUNNER_TEMP/tla2tools.jar" | sha256sum --check -
+          printf '%s  %s\\n' "$TLC_SHA1" "$RUNNER_TEMP/tla2tools.jar" | sha1sum --check -
+
+      - name: Check nominal model
+        run: java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config R9ActorCancellation.cfg R9ActorCancellation
+
+      - name: Check the intended counterexample
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/r9-negative-tlc.log"
+          set +e
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config R9-NaiveCancelClaim.cfg R9ActorCancellation >"$log" 2>&1
+          rc=$?
+          set -e
+          cat "$log"
+          if [ "$rc" -eq 0 ]; then
+            echo "::error::TLC accepted a property whose counterexample is expected"
+            exit 1
+          fi
+          if ! grep -F "Invariant NoCommitAfterCancelRequest" "$log" >/dev/null; then
+            echo "::error::TLC stopped before the expected invariant failure"
+            exit 1
+          fi
+
   ci-ok:
     name: CI OK
     if: ${{ always() }}
-    needs: [impact, verify, reuse, commitlint, security]
+    needs: [impact, verify, reuse, commitlint, security, r9-tlc]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -108,6 +158,7 @@ jobs:
           REUSE_RESULT: ${{ needs.reuse.result }}
           COMMITLINT_RESULT: ${{ needs.commitlint.result }}
           SECURITY_RESULT: ${{ needs.security.result }}
+          R9_TLC_RESULT: ${{ needs.r9-tlc.result }}
         run: |
           set -euo pipefail
           for pair in \
@@ -115,7 +166,8 @@ jobs:
             "verify=$VERIFY_RESULT" \
             "reuse=$REUSE_RESULT" \
             "commitlint=$COMMITLINT_RESULT" \
-            "security=$SECURITY_RESULT"; do
+            "security=$SECURITY_RESULT" \\
+            "r9-tlc=$R9_TLC_RESULT"; do
             echo "$pair"
             result="${pair#*=}"
             [ "$result" = success ] || {
