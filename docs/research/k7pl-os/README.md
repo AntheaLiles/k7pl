@@ -10,7 +10,7 @@ Dix dossiers autonomes (R0–R9) cadrent les recherches nécessaires pour évalu
 | [R3](R3-confidentialite-integrite-non-interference.md) | Confidentialité, intégrité et non-interférence — rapport exécuté | P1 |
 | [R4](R4-concurrence-protocoles-vivacite-annulation.md) | Protocoles, vivacité et annulation | P2 |
 | [R5](R5-memoire-emprunt-aliasing-logique-separation.md) | Permissions mémoire et logique de séparation | P2 |
-| [R6](R6-grades-budgets-WCET-temps-reel.md) | Grades, budgets et WCET | P3 |
+| [R6](R6-grades-budgets-WCET-temps-reel.md) | Grades, budgets et WCET — rapport exécuté | P3 |
 | [R7](R7-pannes-ressources-lineaires-persistance.md) | Pannes, ressources linéaires et persistance | P3 |
 | [R8](R8-comparaison-systemes-exploitation.md) | Comparaison d’OS et d’architectures voisines | P2, parallèle |
 | [R9](R9-model-checking-contre-exemples-tracabilite.md) | Model checking et traçabilité | P3, transversal |
@@ -40,3 +40,8 @@ Chaque rapport doit présenter sources primaires, date/version, hypothèses, ré
 ## Executed report — R2
 
 - [R2 — Source-to-Binary Correctness and Zero-Overhead Assurance](R2-source-to-binary-correctness.md): source-grounded pipeline audit, semantic-preservation contract, TCB boundaries, and a staged performance-assurance plan. Non-normative.
+
+
+## Executed report — R6
+
+- [R6 — Grades, budgets, WCET and real-time constraints](R6-grades-budgets-WCET-temps-reel.md): audit of the Lean budget model, cost semantics, compilation-to-binary obligations, WCET analysis, scheduling feasibility, and adversarial cases. Non-normative; no end-to-end timing guarantee is claimed.
