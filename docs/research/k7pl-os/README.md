@@ -15,6 +15,10 @@ Dix dossiers autonomes (R0–R9) cadrent les recherches nécessaires pour évalu
 | [R8](R8-comparaison-systemes-exploitation.md) | Comparaison d’OS et d’architectures voisines | P2, parallèle |
 | [R9](R9-model-checking-contre-exemples-tracabilite.md) | Model checking et traçabilité | P3, transversal |
 
+## Executed reports
+
+- [R0 — Threat Model and Assurance Matrix](R0-threat-model-assurance-matrix.md): audited snapshot of 2026-10-23; non-normative, with architecture gates and open proof obligations.
+
 ## Ordre de lancement
 
 Commencer par R0. R1, R2 et R3 peuvent ensuite progresser en parallèle ; R8 peut être lancé dès le départ. R4 et R5 approfondissent concurrence et mémoire. R6 et R7 dépendent du modèle d’exécution retenu. R9 soutient tous les chantiers sans remplacer les preuves Lean.
@@ -28,6 +32,10 @@ Commencer par R0. R1, R2 et R3 peuvent ensuite progresser en parallèle ; R8 peu
 - Le tableau de bord du dépôt indique que l’étape C est ouverte. Ces recherches ne constituent pas une autorisation de démarrer les étapes aval.
 
 Chaque rapport doit présenter sources primaires, date/version, hypothèses, résultats, limites, contre-exemples, obligations restantes et recommandations priorisées.
+
+## Executed report — R1
+
+- [R1 — Authority, Capabilities, Revocation, and FFI Boundaries](R1-authority-capabilities-ffi-boundaries.md): source-grounded authority model, revocation semantics, FFI contracts, adversarial cases, and open enforcement obligations. Non-normative.
 
 ## Executed report — R2
 
