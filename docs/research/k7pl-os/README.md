@@ -53,4 +53,4 @@ Chaque rapport doit présenter sources primaires, date/version, hypothèses, ré
 
 ## Executed report — R8
 
-- [R8 — OS and neighbouring architectures](R8-comparaison-systemes-exploitation.md): comparison of Theseus, Tock, Genode, CHERIoT RTOS, seL4, MirageOS, Verve, Cogent, and adjacent designs. Non-normative; no target architecture is ratified.
+- [R8 — OS and neighbouring architectures](R8-comparaison-systemes-exploitation.md): comparison of Theseus, Tock, Genode, CHERIoT RTOS, seL4, MirageOS, Verve, Cogent and adjacent designs, extended with TempleOS, Oberon, GNU Hurd, Multics, FreeBSD, the PICK multi-value family, DBOS, Plan 9 and Inferno. Distinguishes OS security boundaries from database and runtime architectures. Non-normative; no target architecture is ratified.
