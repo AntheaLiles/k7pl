@@ -17,6 +17,8 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
+- R9 model-checking research: compare TLC, Apalache, Lean and stateful testing; add a bounded actor-cancellation TLA+ model, nominal and negative configurations, a counterexample-to-test vector and a bidirectional traceability convention. TLC execution remains an open validation step; no checker result is claimed. Non-normative.
+
 - R8 OS-design research: compare language-isolated, capability-based, hardware-compartment, microkernel, unikernel, and verified-compilation architectures; extend the analysis to TempleOS, Oberon, GNU Hurd, Multics, FreeBSD, PICK, DBOS, Plan 9, Inferno, A2/Bluebottle, 9front, Harvey, MINIX 3, QNX Neutrino, OpenBSD pledge/unveil, Qubes OS, Redox, Medley Interlisp and k23. Distinguish OS protection from runtime, database, transaction and namespace models. Correct a mistaken candidate identification to Qubes OS. Non-normative; no OS architecture is ratified.
 
 - R7 OS-design research: distinguish logical replay from crash consistency and external-effect semantics; specify open obligations for durable logs/checkpoints, linear-resource recovery, retries, budgets, and fault-injection testing. Non-normative; no end-to-end crash-recovery guarantee is claimed.
