@@ -1323,17 +1323,17 @@ Mettre en parallèle ne change pas ce qui est calculé
 Pour $`c_1` et $`c_2` de couche 3, les calculs $`c_1 \parallel c_2` et
 $`\mathsf{let}\;x \leftarrow c_1\;\mathsf{in}\;\mathsf{let}\;y \leftarrow c_2\;\mathsf{in}\;\mathsf{return}\,(x,y)`
 rendent la même valeur sous la sémantique de couche 3. Leurs profils de coût diffèrent : la profondeur
-du calcul parallèle est $`\max(s_1,s_2)`$, celle du calcul séquentiel est $`s_1+s_2`$, et
-$`\max(s_1,s_2) \le s_1+s_2`$. Les deux calculs n’introduisent aucun effet algébrique.
+du calcul parallèle est $`\max(s_1,s_2)`, celle du calcul séquentiel est $`s_1+s_2`, et
+$`\max(s_1,s_2) \le s_1+s_2`. Les deux calculs n’introduisent aucun effet algébrique.
 :::
 
 :::proofsketch
 La spécialisation de la couche 3 en C1 fixe $`\Delta=\Delta_{\omega}`, $`\mathcal{G}=\mathcal{G}_{\text{pile}}`
-et $`\mathcal{E}=\emptyset`$. Aucune opération algébrique observable ne peut donc intervenir entre
+et $`\mathcal{E}=\emptyset`. Aucune opération algébrique observable ne peut donc intervenir entre
 les branches. Le profil de pile reste statiquement décrit par les types et les grades de pile ; il ne
-constitue pas un effet de $`\mathcal{E}`$. Le coût est suivi séparément par la gradation temporelle :
-la composition parallèle donne une profondeur $`\max(s_1,s_2)`$, la composition séquentielle
-$`s_1+s_2`$. Cette inégalité compare des profondeurs formelles, non des effets observables.
+constitue pas un effet de $`\mathcal{E}`. Le coût est suivi séparément par la gradation temporelle :
+la composition parallèle donne une profondeur $`\max(s_1,s_2)`, la composition séquentielle
+$`s_1+s_2`. Cette inégalité compare des profondeurs formelles, non des effets observables.
 :::
 
 :::note
@@ -1342,7 +1342,7 @@ la récursion générale est exclue et les constructions récursives admises doi
 de taille décroissante. La formalisation de cette garantie est suivie par
 {num "thm:terminaison_couche_3"}[] et reste sous revue en C2 ; ce statut n’autorise pas la divergence
 d’un terme valide de couche 3. Il reste à définir le sens de « même valeur » (syntaxique,
-dénotationnel ou observationnel), la sémantique de $`c_1 \parallel c_2`$ et de la composition
+dénotationnel ou observationnel), la sémantique de $`c_1 \parallel c_2` et de la composition
 séquentielle, le traitement des erreurs hors du domaine considéré et la dérivation de l’indépendance
 des branches à partir des règles de la couche 3.
 :::
