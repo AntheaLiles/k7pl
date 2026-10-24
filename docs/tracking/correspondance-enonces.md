@@ -55,7 +55,7 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 46 | — | `thm:introduction_unique` | proposition | language | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
 | 47 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 2 |
 | 48 | — | `thm:rejeu_binaire` | corollary | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 2 |
-| 49 | 18 | `thm:liberte_initialisation` | lemma | language | liberté d'initialisation par DAG topologique | §4.5 | 0 |
+| 49 | 18 | `thm:liberte_initialisation` | lemma | language | ordre d'initialisation par DAG topologique | §4.5 | 0 |
 | 50 | 19 | `thm:sync_motifs_jonction` | lemma | language | transition de jonction sur appariement admissible | §4.5 | 1 |
 | 51 | 20 | `thm:surete_ffi` | theorem | language | retrait de capacité d’écriture dans le contexte linéaire | §4.5 | 0 |
 | 52 | — | `thm:revocation_ffi` | requirement | representation | révocation à la frontière étrangère | §4.5 | 0 |
