@@ -50,14 +50,14 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 41 | — | `thm:determinisme_parallele` | theorem | language | déterminisme du parallélisme de couche 3 | §3.6 | 0 |
 | 42 | 34 | `thm:substitution` | lemma | language | substitution sur trois niveaux | §3.6 | 6 |
 | 43 | 35 | `thm:substitution_simultanee` | corollary | language | substitution simultanée — corollaire de la substitution élémentaire | §3.6 | 1 |
-| 44 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 7 |
+| 44 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 6 |
 | 45 | 16 | `thm:surete_spatiale` | theorem | language | sûreté spatiale par capacités linéaires | §4.4 | 2 |
 | 46 | — | `thm:introduction_unique` | proposition | language | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
-| 47 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 3 |
+| 47 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 2 |
 | 48 | — | `thm:rejeu_binaire` | corollary | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 2 |
 | 49 | 18 | `thm:liberte_initialisation` | lemma | language | liberté d'initialisation par DAG topologique | §4.5 | 0 |
-| 50 | 19 | `thm:sync_motifs_jonction` | lemma | language | synchronisation atomique des motifs de jonction | §4.5 | 1 |
-| 51 | 20 | `thm:surete_ffi` | theorem | language | sûreté FFI par la passerelle de capacité | §4.5 | 0 |
+| 50 | 19 | `thm:sync_motifs_jonction` | lemma | language | transition de jonction sur appariement admissible | §4.5 | 1 |
+| 51 | 20 | `thm:surete_ffi` | theorem | language | retrait de capacité d’écriture dans le contexte linéaire | §4.5 | 0 |
 | 52 | — | `thm:revocation_ffi` | requirement | representation | révocation à la frontière étrangère | §4.5 | 0 |
 | 53 | 21 | `thm:traduction_metalangage` | theorem | language | la traduction préserve le typage | §4.6 | 11 |
 | 54 | — | `thm:simulation` | theorem | language | simulation de la relation de réduction par la traduction | §4.6 | 1 |
