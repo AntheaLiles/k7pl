@@ -130,22 +130,23 @@ pas les droits de lecture d'une discipline SWMR complète.
 
 Le passage d'un état de la coalgèbre au suivant traverse enfin une promotion à deux vitesses. Un
 `HandlerResult` est produit par un gestionnaire de couche 2 dont le corps calcule en couche 3, sur
-des tableaux dont la disposition est celle d'Arrow. Il est d'abord validé, puis transféré vers
-l'arène canonique de couche 1 ; ce transfert franchit une frontière de fragment et acquitte à ce
-titre la transposition que le théorème {num "thm:isomorphisme_memoire"}[] signale. L'arène en
-calcule un condensat cryptographique (BLAKE3), déterministe et _résistant aux collisions_. La
-comparaison de deux condensats déjà calculés est en $`O(1)` ; leur calcul sur une structure de
-taille $`n` est en $`O(n)`, payé une fois à la construction. Sous l'hypothèse de résistance aux
-collisions — qui est une hypothèse cryptographique déclarée, non un théorème du langage —, l'égalité
-des condensats vaut égalité structurelle, et la déduplication s'y ramène. La transition
-$`\text{out} : \nu G \to G(\nu G)` du chapitre 2 n'est, physiquement, que ce commit suivi de ce
-hachage. Les objets canoniques devenus orphelins sont purgés lors de la rotation du journal plutôt
-que par un ramasse-miettes. Pour les structures continues de grande taille, une projection
-optionnelle sur le réseau de Leech accélère l'indexation vectorielle approchée, sans jamais s'y
-substituer à l'égalité exacte que le hachage garantit.
+des tableaux dont la disposition est celle d'Arrow. Il est validé, puis transféré vers l'arène
+canonique de couche 1. La conformité de ce transfert au domaine sans copie de la proposition
+{num "thm:isomorphisme_memoire"}[] dépend des contrats de disposition, d’alignement, de schéma et de
+propriété ; elle reste à vérifier pour le profil cible.
 
-Cette identité de format n'est pas propre à la promotion canonique : elle vaut de bout en bout entre
-l'arène et le réseau.
+L'arène calcule un condensat cryptographique (BLAKE3), déterministe et conçu pour résister aux
+collisions. La comparaison de deux condensats déjà calculés est en $`O(1)` ; le calcul du condensat
+d'une structure de taille $`n` est en $`O(n)`, payé à la construction. La résistance aux collisions
+est une hypothèse cryptographique, non une propriété d'injectivité : deux structures distinctes
+peuvent avoir le même condensat. Le condensat sert donc de filtre ; une déduplication exacte doit
+confirmer l'égalité structurelle lorsque les condensats correspondent.
+
+La transition $`\text{out} : \nu G \to G(\nu G)` du chapitre 2 est réalisée ici par le commit et le
+calcul du condensat. Les objets canoniques devenus orphelins sont purgés lors de la rotation du
+journal plutôt que par un ramasse-miettes. Pour les structures continues de grande taille, une
+projection optionnelle sur le réseau de Leech accélère l'indexation vectorielle approchée, mais ne
+remplace pas une comparaison structurelle exacte.
 
 ::::proposition (label := "thm:isomorphisme_memoire") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "interoperability")
 :::title
