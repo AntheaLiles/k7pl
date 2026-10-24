@@ -7,7 +7,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Date de rédaction :** 2026-10-24  
 **Statut :** document de travail non normatif ; registre initial, incomplet par construction.  
-**Révision de référence du dépôt :** `AntheaLiles/k7pl@6062a683aa8c14c9bb396632ec070cba69c90623`.  
+**Révision de rédaction initiale :** `AntheaLiles/k7pl@6062a683aa8c14c9bb396632ec070cba69c90623`.
+**Base de consolidation de la PR #300 :** `AntheaLiles/k7pl@76d8c1c5cb54ebaa6ab43d78b53979f63a0de8fd`.
 **Périmètre :** évolutions à examiner pour la spécification K7PL, son modèle formel et sa future toolchain MLIR/LLVM. Aucune modification normative n'est décidée par ce document.
 
 ## 1. Objet et règle de lecture
