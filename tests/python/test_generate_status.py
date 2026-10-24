@@ -11,6 +11,7 @@ exercise its edge cases (hidden directories, symbolic links, case, directories n
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
@@ -146,6 +147,52 @@ def test_axiom_traceability_lists_expected_dependencies_not_run_status(tmp_path)
     assert "`propext`" in rendered
     assert "ne prouve pas que le commit courant a passé l’audit" in rendered
     assert "rapport des dépendances effectivement observées" in rendered
+
+
+def test_axiom_traceability_requires_matching_current_commit_and_contract(tmp_path):
+    contract = tmp_path / "axiom-contract.json"
+    contract.write_text(
+        json.dumps({
+            "schemaVersion": 1,
+            "declarations": [
+                {"name": "A.zero", "axioms": [], "role": "constructive theorem"},
+                {"name": "A.extensional", "axioms": ["propext"], "role": "extensionality"},
+            ],
+        }),
+        encoding="utf-8",
+    )
+    contract_sha = hashlib.sha256(contract.read_bytes()).hexdigest()
+    report = tmp_path / "audit.json"
+    report.write_text(
+        json.dumps({
+            "kind": "lean-axiom-dependency-audit",
+            "status": "passed",
+            "sourceCommit": "a" * 40,
+            "workflowRunId": "12345",
+            "leanVersion": "Lean version 4.34.0",
+            "contractSha256": contract_sha,
+            "declarations": [
+                {"name": "A.zero", "expectedAxioms": [], "observedAxioms": [], "matchesContract": True},
+                {"name": "A.extensional", "expectedAxioms": ["propext"], "observedAxioms": ["propext"], "matchesContract": True},
+            ],
+        }),
+        encoding="utf-8",
+    )
+
+    rendered = "\n".join(gs.render_axiom_traceability(contract, report, expected_commit="a" * 40))
+    assert "**Axiom audit status:** PASS" in rendered
+    assert "**Axiom audit run ID:** 12345" in rendered
+    assert "**Axiom audit evidence for commit:** " + "a" * 40 in rendered
+    assert "| `A.extensional` | `propext` | PASS |" in rendered
+
+    with pytest.raises(ValueError, match="expected"):
+        gs.render_axiom_traceability(contract, report, expected_commit="b" * 40)
+
+    report_data = json.loads(report.read_text(encoding="utf-8"))
+    report_data["contractSha256"] = "f" * 64
+    report.write_text(json.dumps(report_data), encoding="utf-8")
+    with pytest.raises(ValueError, match="contract hash"):
+        gs.render_axiom_traceability(contract, report, expected_commit="a" * 40)
 
 
 def test_axiom_traceability_absence_is_explicit(tmp_path):
