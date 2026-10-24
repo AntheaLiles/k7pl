@@ -44,9 +44,17 @@ Chaque rapport doit présenter sources primaires, date/version, hypothèses, ré
 - [R2 — Source-to-Binary Correctness and Zero-Overhead Assurance](R2-source-to-binary-correctness.md): source-grounded pipeline audit, semantic-preservation contract, TCB boundaries, and a staged performance-assurance plan. Non-normative.
 
 
+## Executed report — R5
+
+- [R5 — Memory permissions, borrowing, aliasing and separation logic](R5-memoire-emprunt-aliasing-logique-separation.md): audits the grade/capability distinction, spatial safety and H1/H2/H3 premises, borrowing, alias provenance, FFI and weak-memory obligations. Non-normative; end-to-end memory safety remains unestablished.
+
 ## Executed report — R4
 
 - [R4 — Concurrency, protocols, liveness and cancellation](R4-concurrence-protocoles-vivacite-annulation.md): analysis of the static dependency DAG versus the dynamic wait graph, local/global progress, fairness assumptions, cancellation, timeout and recovery contracts. Non-normative; liveness remains conditional where the semantics or fairness model is open.
+
+## Executed report — R5
+
+- [R5 — Memory permissions, borrowing, aliasing and separation logic](R5-memoire-emprunt-aliasing-logique-separation.md): audits the grade/capability distinction, spatial safety and H1/H2/H3 premises, borrowing, alias provenance, FFI and weak-memory obligations. Non-normative; end-to-end memory safety remains unestablished.
 
 ## Executed report — R6
 
