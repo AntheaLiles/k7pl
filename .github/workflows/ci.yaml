@@ -238,6 +238,7 @@ jobs:
         id: baseline
         env:
           REQUIRE_AXIOM_AUDIT: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.refresh_axiom_status == true && inputs.axiom_source_sha != '' }}
+          STATUS_EVIDENCE_SHA: ${{ inputs.axiom_source_sha || github.sha }}
         run: bash scripts/ci/ci_status_baseline.sh
 
       - name: Retrieve matching K7PL axiom audit evidence
@@ -247,6 +248,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           EVENT_NAME: ${{ github.event_name }}
           SOURCE_SHA: ${{ inputs.axiom_source_sha || github.sha }}
+          CURRENT_SHA: ${{ github.sha }}
         run: bash scripts/ci/ci_status_fetch_axioms.sh
 
       - name: Generate STATUS.md
