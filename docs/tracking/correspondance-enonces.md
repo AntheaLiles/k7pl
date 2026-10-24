@@ -11,11 +11,11 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 2 | 33 | `thm:coherence_axiome` | proposition | language | condition de compatibilité de l'action graduée | §2.2 | 1 |
 | 3 | — | `thm:coherence_usage` | lemma | language | cohérence de l'action d'usage | §2.2 | 0 |
 | 4 | — | `thm:action_parallele` | lemma | language | compatibilité de l'itération et de la mise en parallèle | §2.2 | 0 |
-| 5 | 1 | `thm:terminaison_couche_3` | corollary | language | terminaison de la couche 3 — l'instance inductive | §2.3 | 1 |
+| 5 | 1 | `thm:terminaison_couche_3` | corollary | language | terminaison de la couche 3 — l'instance inductive | §2.3 | 3 |
 | 6 | 2 | `thm:sedimentation` | literature | language | bonne définition de la sédimentation | §2.3 | 1 |
 | 7 | — | `req:sedimentation_graduee` | requirement | language | extension graduée de la sédimentation | §2.3 | 0 |
-| 8 | 3 | `thm:productivite_couche_2` | corollary | language | productivité de la couche 2 — l'instance coinductive | §2.3 | 1 |
-| 9 | 4 | `thm:progression_polarisee` | theorem | language | progression, paramétrée par la couche | §2.3 | 4 |
+| 8 | 3 | `thm:productivite_couche_2` | corollary | language | productivité de la couche 2 — l'instance coinductive | §2.3 | 3 |
+| 9 | 4 | `thm:progression_polarisee` | theorem | language | progression, paramétrée par la couche | §2.3 | 5 |
 | 10 | 5 | `thm:loi_historique` | theorem | language | loi distributive de l'historique | §2.3 | 0 |
 | 11 | — | `thm:troncature_comonade` | theorem | language | la troncature est un morphisme de comonades | §2.3 | 3 |
 | 12 | — | `thm:fenetre_grade` | proposition | language | une fenêtre est un grade | §2.3 | 0 |
@@ -53,7 +53,7 @@ Generated view from `spec/`. The inventory number is a global ordinal in documen
 | 44 | 15 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | §4.3 | 6 |
 | 45 | 16 | `thm:surete_spatiale` | theorem | language | sûreté spatiale par capacités linéaires | §4.4 | 2 |
 | 46 | — | `thm:introduction_unique` | proposition | language | loi unique d'introduction des ressources d'écriture | §4.4 | 0 |
-| 47 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 2 |
+| 47 | 17 | `thm:determinisme_rejeu` | theorem | language | déterminisme logique du rejeu | §4.5 | 1 |
 | 48 | — | `thm:rejeu_binaire` | corollary | representation | identité binaire du rejeu, sous environnement reproductible | §4.5 | 2 |
 | 49 | 18 | `thm:liberte_initialisation` | lemma | language | ordre d'initialisation par DAG topologique | §4.5 | 0 |
 | 50 | 19 | `thm:sync_motifs_jonction` | lemma | language | transition de jonction sur appariement admissible | §4.5 | 1 |
