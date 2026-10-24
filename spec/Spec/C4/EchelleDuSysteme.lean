@@ -382,10 +382,11 @@ du runtime.
 _Obligation ouverte._ Classer chaque initialiseur par couche. Pour un calcul bien typé de couche 3
 restreint à un schéma inductif admis, la terminaison relève de l'invariant normatif de couche 3
 ({num "thm:terminaison_couche_3"}[]) ; sa preuve générique reste en revue, sans autoriser la
-divergence d'un terme valide. Si l'initialiseur attend une communication ou exécute une opération à
-effet, cet invariant ne suffit pas : les conditions de progrès correspondantes doivent être posées.
-Restent à établir la progression requise de l'ordonnanceur et la correspondance entre attentes
-dynamiques et arêtes de $`G`.
+divergence d'un terme valide. Si l'initialiseur dépend d'une communication ou d'une opération à
+effet, il faut appliquer le contrat de sa couche : la productivité de couche 2 impose chaque
+observation en temps fini sous sa garde ({num "thm:productivite_couche_2"}[]), mais ne garantit ni
+la terminaison du flux entier ni la sélection de l'acteur par l'ordonnanceur. Restent à établir les
+hypothèses de progrès de l'exécution et la correspondance entre attentes dynamiques et arêtes de $`G`.
 :::
 ::::
 Les espaces de noms se lisent sur ce même graphe : un namespace en retient la restriction à une
