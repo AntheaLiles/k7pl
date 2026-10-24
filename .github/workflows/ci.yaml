@@ -9,6 +9,16 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      refresh_axiom_status:
+        description: "Regenerate STATUS.md with completed K7PL axiom audit evidence"
+        required: false
+        type: boolean
+        default: false
+      axiom_source_sha:
+        description: "Exact main commit covered by the formal-semantics axiom audit"
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -208,7 +218,7 @@ jobs:
           echo "CI OK"
   status:
     name: Generated status
-    if: ${{ needs.ci-ok.result == 'success' && ( (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ) }}
+    if: ${{ needs.ci-ok.result == 'success' && ( (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.refresh_axiom_status == true && inputs.axiom_source_sha == github.sha) ) }}
     needs: [ci-ok, impact, verify, reuse, commitlint, security]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -227,7 +237,7 @@ jobs:
       - name: Check whether STATUS already covers the current history
         id: baseline
         env:
-          REQUIRE_AXIOM_AUDIT: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' }}
+          REQUIRE_AXIOM_AUDIT: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.refresh_axiom_status == true && inputs.axiom_source_sha == github.sha }}
         run: bash scripts/ci/ci_status_baseline.sh
 
       - name: Retrieve matching K7PL axiom audit evidence
@@ -236,7 +246,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           EVENT_NAME: ${{ github.event_name }}
-          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_SHA: ${{ inputs.axiom_source_sha || github.sha }}
         run: bash scripts/ci/ci_status_fetch_axioms.sh
 
       - name: Generate STATUS.md
