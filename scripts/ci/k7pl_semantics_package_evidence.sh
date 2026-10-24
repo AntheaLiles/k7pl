@@ -30,6 +30,7 @@ cp -a "$RUNNER_TEMP/klean-output/k7pl2lean" "$ARTIFACT_ROOT/klean-output"
 cp -a "$GITHUB_WORKSPACE/proofs/K7PL2Lean.lean" "$ARTIFACT_ROOT/proofs/"
 cp -a "$GITHUB_WORKSPACE/proofs/K7PL2Lean" "$ARTIFACT_ROOT/proofs/"
 cp -a "$GITHUB_WORKSPACE/proofs/lakefile.toml" "$GITHUB_WORKSPACE/proofs/lean-toolchain" "$GITHUB_WORKSPACE/proofs/lake-manifest.json" "$GITHUB_WORKSPACE/proofs/README.md" "$GITHUB_WORKSPACE/proofs/K7PL.lean" "$GITHUB_WORKSPACE/proofs/Makefile" "$ARTIFACT_ROOT/proofs/"
+cp -a "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" "$ARTIFACT_ROOT/proofs/"
 cp -a "$GITHUB_WORKSPACE/proofs/K7PL" "$ARTIFACT_ROOT/proofs/"
 
 cp -a "$GITHUB_WORKSPACE/spec/formal-chain/BlueprintK7PL.lean" "$GITHUB_WORKSPACE/spec/formal-chain/BlueprintK7PLMain.lean" "$GITHUB_WORKSPACE/spec/formal-chain/lakefile.lean" "$GITHUB_WORKSPACE/spec/formal-chain/lean-toolchain" "$GITHUB_WORKSPACE/spec/formal-chain/lake-manifest.json" "$GITHUB_WORKSPACE/spec/formal-chain/Makefile" "$ARTIFACT_ROOT/spec/formal-chain/"
