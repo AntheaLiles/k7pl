@@ -127,6 +127,32 @@ def test_render_status_layout():
         assert line in lines, line
 
 
+def test_axiom_traceability_lists_expected_dependencies_not_run_status(tmp_path):
+    contract = tmp_path / "axiom-contract.json"
+    contract.write_text(
+        json.dumps({
+            "declarations": [
+                {"name": "A.zero", "axioms": [], "role": "constructive theorem"},
+                {"name": "A.extensional", "axioms": ["propext"], "role": "extensionality"},
+            ]
+        }),
+        encoding="utf-8",
+    )
+    rendered = "\\n".join(gs.render_axiom_traceability(contract))
+    assert "Expected axiom dependencies" in rendered
+    assert "`A.zero`" in rendered
+    assert "∅ (aucun axiome attendu)" in rendered
+    assert "`propext`" in rendered
+    assert "not evidence that the current commit has passed the audit" in rendered
+    assert "run-specific observed dependency report" in rendered
+
+
+def test_axiom_traceability_absence_is_explicit(tmp_path):
+    rendered = "\\n".join(gs.render_axiom_traceability(tmp_path / "missing.json"))
+    assert "No axiom dependency contract is present" in rendered
+    assert "no declaration-level dependency claims" in rendered
+
+
 def test_render_status_needs_every_fact():
     with pytest.raises(KeyError):
         render(ci_results={key: value for key, value in CI_RESULTS.items() if key != "Security"})
