@@ -218,7 +218,7 @@ jobs:
           echo "CI OK"
   status:
     name: Generated status
-    if: ${{ needs.ci-ok.result == 'success' && ( (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.refresh_axiom_status == true && inputs.axiom_source_sha == github.sha) ) }}
+    if: ${{ needs.ci-ok.result == 'success' && ( (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.refresh_axiom_status == true && inputs.axiom_source_sha != '') ) }}
     needs: [ci-ok, impact, verify, reuse, commitlint, security]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -237,7 +237,7 @@ jobs:
       - name: Check whether STATUS already covers the current history
         id: baseline
         env:
-          REQUIRE_AXIOM_AUDIT: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.refresh_axiom_status == true && inputs.axiom_source_sha == github.sha }}
+          REQUIRE_AXIOM_AUDIT: ${{ github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.refresh_axiom_status == true && inputs.axiom_source_sha != '' }}
         run: bash scripts/ci/ci_status_baseline.sh
 
       - name: Retrieve matching K7PL axiom audit evidence
@@ -259,7 +259,8 @@ jobs:
           K7PL_COMMITLINT_RESULT: ${{ needs.commitlint.result }}
           K7PL_SECURITY_RESULT: ${{ needs.security.result }}
           K7PL_AXIOM_AUDIT_REPORT: ${{ steps.axiom-evidence.outputs.report_path }}
-        run: python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION"
+          K7PL_STATUS_SOURCE_COMMIT: ${{ inputs.axiom_source_sha || github.sha }}
+        run: python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION" --source-commit "$K7PL_STATUS_SOURCE_COMMIT"
 
       - name: Check for generated changes
         id: changes
