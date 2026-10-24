@@ -33,7 +33,7 @@ fi
 
 echo "current=$current" >> "$GITHUB_OUTPUT"
 if [ "$current" = true ]; then
-  echo "STATUS already covers the substantive history and the required evidence."
+  echo "STATUS already covers the substantive history and any evidence required by this event."
 else
   echo "STATUS regeneration required."
 fi
