@@ -45,9 +45,9 @@ et effets exposés ainsi que les conditions de retour et d'échec. La déclarati
 porte un attribut explicite `unsafe` : il signale les obligations propres à cette frontière et
 n'autorise ni un mode d'exécution non sûr général ni l'affaiblissement des invariants du code K7PL.
 L'attribut est porté par la liste d'attributs de la déclaration dans la notation à expressions
-symboliques. L'élaboration doit préserver cet attribut jusqu'à la vérification de l'interface et
-rejeter une déclaration étrangère qui ne le porte pas ; l'attribut ne confère aucun droit implicite. Le système ne
-peut attribuer au code étranger aucun droit implicite sur l'état interne protégé. La préservation de
+symboliques. L'élaboration doit le préserver jusqu'à la vérification de l'interface et rejeter une
+déclaration étrangère qui ne le porte pas. Cet attribut ne confère aucun droit sur l'état interne
+protégé. La préservation de
 ces invariants doit être établie pour toutes les transitions autorisées par le contrat, y compris les
 transitions d'échec ; elle ne suppose pas que le service étranger respecte fonctionnellement son
 contrat.
@@ -669,10 +669,6 @@ La seconde clause ne découle pas du système de types. La réalisation doit ét
 retour l'interface étrangère ne peut plus accéder au tampon transféré. La représentation des
 références, le mécanisme de révocation et les moyens de vérification restent ouverts ; le modèle
 abstrait ne démontre pas à lui seul cette propriété.
-
-S'il tient, la frontière d'exécution cesse d'être un trou dans la discipline de propriété : elle en
-est un cas. S'il tombe sur sa seconde clause, l'appel étranger redevient un point où une capacité
-peut fuir, et le postulat de sûreté mémoire s'arrête à la passerelle.
 
 
 
