@@ -91,6 +91,14 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 
 **Critère de clôture :** chaque garantie globale citée dans les chapitres système pointe vers un contrat, ses hypothèses, son périmètre et un statut de preuve.
 
+**Résultat de l'instruction — 2026-10-24 : portée clarifiée.** Le terme « isolation » dans le modèle abstrait d'acteur désigne l'encapsulation vis-à-vis des transitions de communication définies par ce modèle. Il ne constitue pas une preuve d'inaccessibilité physique, de confinement de code natif arbitraire ou de révocation d'un accès déjà accordé à une autre composante. La source normative C1/AxiomatiqueGerminale a été ajustée dans la PR #302 pour éviter cette lecture plus forte. C4/EchelleDuSysteme maintient séparément le contrat de frontière `unsafe`, l'obligation de préserver les invariants lors des transitions autorisées et les obligations de réalisation.
+
+**Chaîne d'évidence K7PL :** pour le sous-langage K7PL effectivement implémenté en K, les quatre règles de calcul racine (addition, comparaison et les deux branches de `select`) disposent maintenant chacune d'un pont explicite vers le constructeur `Rewrites` généré par KLean. Les preuves d'entrée se trouvent dans `proofs/K7PL/Bridge.lean`; la table de correspondance est publiée dans `docs/formal-semantics.md`. Les preuves de préservation sur la relation générée et sur le petit pas de surface restent des résultats distincts. La correspondance générale pour tous les pas de contexte/continuation et l'équivalence entre le classificateur K `typeOf` et le jugement Lean `HasType` ne sont pas affirmées.
+
+**Rôle du cas K7OS :** le modèle de frontière native et son contre-exemple TLC sont des instruments de falsification qui rendent explicite la prémisse externe nécessaire. Ils ne sont ni une sémantique normative de K7PL ni une preuve que K7PL confine lui-même du natif arbitraire. Aucun mécanisme matériel n'est choisi.
+
+**Statut :** la décision de portée de D-01 est instruite et intégrée ; aucune garantie de confinement natif concret n'est déclarée démontrée. La simulation générale entre toutes les configurations et traces, les contrats FFI complets et leur raffinement vers une réalisation restent des obligations séparées à traiter dans les deltas liés à l'interface, aux traces et à la chaîne de compilation.
+
 #### SPEC-D-02 — Définir un vocabulaire d'assurance cohérent
 
 **Nature :** clarification éditoriale et exigence de traçabilité de l'assurance.
