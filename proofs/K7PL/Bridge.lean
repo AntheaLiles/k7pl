@@ -37,4 +37,43 @@ theorem add_root_is_klean_rewrite (i j : SortInt) :
     (_DotVar0 := ⟨0⟩) (_DotVar1 := SortK.dotk)
     (by rfl)
 
+/-- Embed a Boolean result at its minimal K subsort, as Klean does. -/
+def initialBoolState (b : SortBool) : SortGeneratedTopCell :=
+  { k := { val := SortK.kseq ((@Inj.inj SortBool SortKItem) b) SortK.dotk }
+    generatedCounter := { val := 0 } }
+
+/-- The labelled K comparison rule is a constructor of generated Rewrites. -/
+theorem less_than_root_is_klean_rewrite (i j : SortInt) :
+    Rewrites
+      (initialState
+        (SortK7Exp.k7Lt
+          ((@Inj.inj SortInt SortK7Exp) i)
+          ((@Inj.inj SortInt SortK7Exp) j)))
+      (initialBoolState (i < j)) := by
+  exact Rewrites.k7LessThanEval
+    (I := i) (J := j) (_Val0 := i < j) (by rfl)
+
+/-- The true branch of K's conditional rule is represented by the generated rewrite. -/
+theorem select_true_root_is_klean_rewrite (thenExpr elseExpr : SortK7Exp) :
+    Rewrites
+      (initialState
+        (SortK7Exp.k7Select
+          (SortK7Exp.inj_SortBool true) thenExpr elseExpr))
+      (initialState thenExpr) := by
+  exact Rewrites.k7SelectTrue
+
+/-- The false branch of K's conditional rule is represented by the generated rewrite. -/
+theorem select_false_root_is_klean_rewrite (thenExpr elseExpr : SortK7Exp) :
+    Rewrites
+      (initialState
+        (SortK7Exp.k7Select
+          (SortK7Exp.inj_SortBool false) thenExpr elseExpr))
+      (initialState elseExpr) := by
+  exact Rewrites.k7SelectFalse
+
+#print axioms K7PL.Bridge.add_root_is_klean_rewrite
+#print axioms K7PL.Bridge.less_than_root_is_klean_rewrite
+#print axioms K7PL.Bridge.select_true_root_is_klean_rewrite
+#print axioms K7PL.Bridge.select_false_root_is_klean_rewrite
+
 end K7PL.Bridge
