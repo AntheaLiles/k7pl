@@ -369,7 +369,7 @@ Les fichiers suivants constituent les premiers lieux de confrontation du registr
 ### Annexes
 
 - [Capacités et mémoire](../../../spec/Spec/AnnexeA/CapabilitesEtMemoire.lean) : aligner vocabulaire, codes d'erreur et contrats sur les règles réellement spécifiées.
-- [Frontières de couches](../../../spec/Spec/AnnexeA/FrontieresDeCouchesEtDisciplineDe.lean), [protocoles et topologie](../../../spec/Spec/AnnexeA/ProtocolesSessionsEtTopologieDistribuee.lean), [contraintes de valeur et preuves résiduelles](../../../spec/Spec/AnnexeA/ContraintesDeValeurEtPreuvesResiduel(le).lean) : éliminer les glissements entre intention architecturale, hypothèse et garantie.
+- [Frontières de couches](../../../spec/Spec/AnnexeA/FrontieresDeCouchesEtDisciplineDe.lean), [protocoles et topologie](../../../spec/Spec/AnnexeA/ProtocolesSessionsEtTopologieDistribuee.lean), [contraintes de valeur et preuves résiduelles](../../../spec/Spec/AnnexeA/ContraintesDeValeurEtPreuvesResiduel%28le%29.lean) : éliminer les glissements entre intention architecturale, hypothèse et garantie.
 
 ## 7. Ordre de travail proposé après dépouillement complet
 
