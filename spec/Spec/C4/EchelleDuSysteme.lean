@@ -86,8 +86,8 @@ représentation exigée par le modèle abstrait.
 ::::
 
 Pour une réalisation fondée sur des instantanés, le coût du gel dépend du format de l'état et du
-journal. Le théorème {num "thm:isomorphisme_memoire"}[] ne démontre pas à lui seul que toute
-représentation se transfère sans copie. Un format compatible avec la disposition en colonnes peut
+journal. La possibilité d'un transfert sans copie dépend de la correspondance entre la représentation
+et le journal ; elle n'est pas garantie pour toutes les représentations. Un format compatible avec la disposition en colonnes peut
 permettre un transfert de segment ; une liste de structures peut nécessiter une transposition en
 $`O(n)`. Ces coûts décrivent des représentations déterminées, non une propriété générale du cycle
 de vie.
@@ -463,7 +463,7 @@ mécanisme de sélection, sans imposer sa syntaxe à K7PL {cite "SPIRV"}[]. Le m
 opérations de mémoire partagée est acquisition-libération : une libération ordonne les accès qui la
 précèdent, une acquisition ordonne ceux qui la suivent, et leur appariement établit l'antériorité
 entre deux fibrilles. Ce choix ne définit pas de profil matériel et ne fournit pas de borne de temps
-absolue. Toute borne chiffrée ultérieure devra nommer le profil d'exécution auquel elle s'applique.
+absolue. Toute borne de temps d'exécution chiffrée devra nommer le profil auquel elle s'applique.
 Pour la réalisation choisie, les barrières nécessaires et suffisantes doivent être justifiées par la
 preuve de raffinement et les hypothèses de progrès, non par le seul comptage des opérations.
 
@@ -594,7 +594,7 @@ abstrait. Elle ne démontre ni l’absence d’autres droits ou alias vers le ta
 d’un appel natif. La révocation après retour relève de l’exigence distincte qui suit.
 :::
 ::::
-::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "open") (evidence := "none") (scope := "ffi-safety")
+::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "ffi-safety")
 :::title
 révocation à la frontière étrangère
 :::
