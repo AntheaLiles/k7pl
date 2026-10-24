@@ -652,9 +652,9 @@ ouverts ; aucun mécanisme particulier n'est imposé ici.
 :::
 
 :::note
-_Obligation ouverte._ Restent à définir la condition observable après le retour et à tester la
-réalisation de la passerelle à la frontière étrangère, invalidation des poignées obsolètes comprise.
-Cette exigence ne se vérifie pas par le typage.
+_Obligation ouverte._ Restent à définir la condition observable après le retour et à vérifier que
+la réalisation de la passerelle empêche tout accès ultérieur non autorisé au tampon transféré. Le
+mécanisme de vérification et de révocation reste ouvert ; cette exigence ne se vérifie pas par le typage.
 :::
 ::::
 Les deux clauses de cet énoncé n'ont pas le même statut, et le dire évite de leur prêter la même
