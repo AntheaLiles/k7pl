@@ -48,9 +48,9 @@ done
 
 # Preserve exact dependencies, not merely the presence of a #print axioms message. Empty
 # dependency sets are accepted only when Lean explicitly reports that no axioms are used.
-python3 "$GITHUB_WORKSPACE/scripts/ci/k7pl_semantics_axiom_report.py" \\
-  --log "$BUILD_LOG" \\
-  --contract "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" \\
-  --output "$RUNNER_TEMP/k7pl-axiom-audit.json" \\
-  --source-commit "$(git -C "$GITHUB_WORKSPACE" rev-parse HEAD)" \\
+python3 "$GITHUB_WORKSPACE/scripts/ci/k7pl_semantics_axiom_report.py" \
+  --log "$BUILD_LOG" \
+  --contract "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" \
+  --output "$RUNNER_TEMP/k7pl-axiom-audit.json" \
+  --source-commit "$(git -C "$GITHUB_WORKSPACE" rev-parse HEAD)" \
   --lean-version "$(lean --version)"
