@@ -94,12 +94,15 @@ dont il provient. Le système de types (chapitre 3, §{num "sec:c3-le-systeme-gr
 lors à un offset issu d'une `ReadCap` sur une région d'indexer une autre région. La confusion entre
 deux objets d'une même arène SoA est ainsi rendue non typable, plutôt que détectée à l'exécution.
 
-Chaque entité de cet espace est référencée par un `EntityRef` de 64 bits — 32 bits d'index, 32 bits
-de génération. La destruction procède par échange avec le dernier élément (_swap-and-pop_) pour
-préserver la contiguïté de l'arène en $`O(1)`, tandis que l'incrément de génération à chaque
-réutilisation d'un index prévient structurellement la confusion ABA. Une référence pendante vers un
-index recyclé porte encore l'ancienne génération, et se distingue donc de la nouvelle occupante sans
-qu'aucune vérification supplémentaire ne soit nécessaire.
+`EntityRef` désigne une entité et sa durée de vie, sans conférer à lui seul un droit d'accès.
+L'encodage par index et génération — par exemple 32 bits pour chaque champ dans une référence de
+64 bits — est une possibilité de réalisation, non une garantie de sûreté en soi. Toute opération qui
+utilise une référence doit préserver l'identité et la durée de vie de l'entité visée : une référence
+invalide ou périmée ne doit autoriser aucun accès ni effet sur une autre entité. Cette propriété doit
+rester vraie après destruction, réutilisation d'un emplacement, restauration d'état et épuisement ou
+réinitialisation des générations. L'implémentation peut employer une validation ou un autre mécanisme,
+mais sa conformité à cette propriété doit être établie ; la seule présence d'un champ de génération
+ne suffit pas à la démontrer.
 
 C'est ici que les grades fractionnaires du chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]) trouvent
 leur réalisation physique. Une arène est statiquement partitionnée en segments d'index contigus, un
