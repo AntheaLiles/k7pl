@@ -20,7 +20,7 @@ current=false
 if [ -n "$generated_for" ] \
   && git fetch --no-tags origin "$generated_for" >/dev/null 2>&1 \
   && git merge-base --is-ancestor "$generated_for" "$GITHUB_SHA" \
-  && [ -z "$(git diff --name-only "$generated_for" "$GITHUB_SHA" -- . ':(exclude)docs/STATUS.md') ]; then
+  && [ -z "$(git diff --name-only "$generated_for" "$GITHUB_SHA" -- . ':(exclude)docs/STATUS.md')" ]; then
   current=true
 fi
 
