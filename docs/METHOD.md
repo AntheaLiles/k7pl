@@ -37,7 +37,7 @@ Review is adversarial evidence. A review should distinguish confirmed defects, c
 
 ## Status vocabulary
 
-Use bounded statuses: ESTABLISHED, PARTIAL, UNDER REVIEW, IN PROGRESS, OPEN, BLOCKED, NOT STARTED. These labels do not imply absolute correctness.
+Use bounded statuses: ESTABLISHED, PARTIAL, UNDER REVIEW, IN PROGRESS, OPEN, BLOCKED, NOT STARTED. These are claim- or workstream-level progress states, not statement kinds or evidence types; they do not imply absolute correctness. For statement-level qualifications (specified, formalised, paper proof, Lean proof, finite model checking, test, measurement, assumption, exclusion, open obligation), follow the controlled distinctions in the normative [Guide de lecture](../spec/Spec/C1/GuideDeLecture.lean). A declaration's metadata records the declared epistemic state and evidence kind; only the corresponding source artefact and a successful, provenance-bearing report establish that an automated check actually ran and passed.
 
 ## Automation preference
 
