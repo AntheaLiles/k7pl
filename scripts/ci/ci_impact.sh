@@ -8,7 +8,6 @@
 #   - workflow_dispatch on automation/generated-status (dispatched by the `status` job): the
 #     branch is classified against origin/main, as a pull request would be; a commit already on
 #     main gets the full validation; no shared history fails;
-#   - workflow_run from K7PL formal semantics: the full validation of the current default branch;
 #   - any other workflow_dispatch: the full validation;
 #   - pull_request and push: BASE_SHA..HEAD_SHA.
 # The base comes from the checkout (full history), never from an input.
@@ -20,11 +19,7 @@
 #   bash scripts/ci/ci_impact.sh
 set -euo pipefail
 
-if [ "$EVENT_NAME" = "workflow_run" ]; then
-  # Revalidate the default branch before regenerating STATUS.md from the completed proof workflow.
-  # The status job separately checks that the upstream proof run matches the checked-out commit.
-  python3 scripts/ci/impact.py --force-full
-elif [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$REF" = "refs/heads/automation/generated-status" ]; then
+if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$REF" = "refs/heads/automation/generated-status" ]; then
   git rev-parse --verify --quiet refs/remotes/origin/main > /dev/null || {
     echo "::error::origin/main is not available in the checkout"
     exit 1
