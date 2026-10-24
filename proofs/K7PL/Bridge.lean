@@ -51,7 +51,9 @@ theorem less_than_root_is_klean_rewrite (i j : SortInt) :
           ((@Inj.inj SortInt SortK7Exp) j)))
       (initialBoolState (i < j)) := by
   exact Rewrites.k7LessThanEval
-    (I := i) (J := j) (_Val0 := i < j) (by rfl)
+    (I := i) (J := j) (_Val0 := i < j)
+    (_DotVar0 := ⟨0⟩) (_DotVar1 := SortK.dotk)
+    (by rfl)
 
 /-- The true branch of K's conditional rule is represented by the generated rewrite. -/
 theorem select_true_root_is_klean_rewrite (thenExpr elseExpr : SortK7Exp) :
