@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Date de rédaction :** 2026-10-24  
 **Statut :** document de travail non normatif ; registre initial, incomplet par construction.  
-**Révision de référence du dépôt :** \`AntheaLiles/k7pl@6062a683aa8c14c9bb396632ec070cba69c90623\`.  
+**Révision de référence du dépôt :** `AntheaLiles/k7pl@6062a683aa8c14c9bb396632ec070cba69c90623`.  
 **Périmètre :** évolutions à examiner pour la spécification K7PL, son modèle formel et sa future toolchain MLIR/LLVM. Aucune modification normative n'est décidée par ce document.
 
 ## 1. Objet et règle de lecture
@@ -23,18 +23,18 @@ Le registre distingue quatre états qui ne sont pas interchangeables :
 - **Résultat démontré** : un théorème est effectivement vérifié dans le noyau Lean ou un autre outil dont la portée est explicitée.
 - **Obligation ouverte** : hypothèse, définition, preuve, validation ou relation de correspondance encore nécessaire.
 
-Les étiquettes Verso telles que \`under-review\` et \`proofsketch\`, une compilation réussie, un test, un modèle borné ou un job CI ne doivent pas être présentés comme un théorème général. Les identifiants SPEC-D-xx de ce registre sont provisoires : ils ne sont ni des identifiants normatifs ni des noms de théorèmes à créer immédiatement.
+Les étiquettes Verso telles que `under-review` et `proofsketch`, une compilation réussie, un test, un modèle borné ou un job CI ne doivent pas être présentés comme un théorème général. Les identifiants SPEC-D-xx de ce registre sont provisoires : ils ne sont ni des identifiants normatifs ni des noms de théorèmes à créer immédiatement.
 
 Ce document ne prescrit pas encore la rédaction définitive des clauses normatives. Pour chaque ligne, l'étape suivante est : relire la source courante, établir le besoin exact, choisir le niveau normatif adéquat, fixer les dépendances, puis définir des critères de clôture vérifiables.
 
 ## 2. Provenance et limites de la consolidation
 
-Le registre prend en compte les rapports R0, R1, R2, R3, R6, R7, R8 et R9 présents dans le dépôt au moment de sa rédaction. Les rapports détaillés R4 et R5 ont été consultés sur leurs branches de recherche, mais leurs PR restent ouvertes et ne sont pas encore intégrées à la révision courante de \`main\` :
+Le registre prend en compte les rapports R0, R1, R2, R3, R6, R7, R8 et R9 présents dans le dépôt au moment de sa rédaction. Les rapports détaillés R4 et R5 ont été consultés sur leurs branches de recherche, mais leurs PR restent ouvertes et ne sont pas encore intégrées à la révision courante de `main` :
 
-- R4 : [PR #286 — concurrence, protocoles, vivacité et annulation](https://github.com/AntheaLiles/k7pl/pull/286), branche \`research/r4-concurrency-liveness-cancellation-reconciled-2026-10-23\`, tête \`ed14fe8512bf88b4813677e2602f4f4b247af101\).
-- R5 : [PR #287 — permissions mémoire, emprunt, aliasing et logique de séparation](https://github.com/AntheaLiles/k7pl/pull/287), branche \`research/r5-memory-borrowing-aliasing-separation-2026-10-23\`, tête \`a9454e41f391adcdb6908757f05b707e04a93153\`.
+- R4 : [PR #286 — concurrence, protocoles, vivacité et annulation](https://github.com/AntheaLiles/k7pl/pull/286), branche `research/r4-concurrency-liveness-cancellation-reconciled-2026-10-23`, tête `ed14fe8512bf88b4813677e2602f4f4b247af101\).
+- R5 : [PR #287 — permissions mémoire, emprunt, aliasing et logique de séparation](https://github.com/AntheaLiles/k7pl/pull/287), branche `research/r5-memory-borrowing-aliasing-separation-2026-10-23`, tête `a9454e41f391adcdb6908757f05b707e04a93153`.
 
-Leur contenu est exploité comme résultat de recherche provisoire ; leur intégration définitive au registre dépendra de la réconciliation et de la relecture des rapports fusionnés. Il ne faut pas prétendre que R4 et R5 sont déjà présents dans \`main\`.
+Leur contenu est exploité comme résultat de recherche provisoire ; leur intégration définitive au registre dépendra de la réconciliation et de la relecture des rapports fusionnés. Il ne faut pas prétendre que R4 et R5 sont déjà présents dans `main`.
 
 Les rapports s'appuient eux-mêmes sur plusieurs révisions antérieures du dépôt. Le SHA de référence ci-dessus désigne la base de création de ce registre, pas un nouvel audit exhaustif de chaque fichier normatif à ce SHA. Avant toute modification de la spec, les constats liés à C1–C6 et aux annexes devront être revérifiés sur la tête de branche alors courante.
 
@@ -53,7 +53,7 @@ Les points suivants doivent guider le dépouillement ; ils ne valent pas preuve 
 9. **Abstraction et réalisation.** La machine abstraite normative doit être distincte des profils concrets. Aucun matériel n'est choisi dans ce registre.
 10. **DMA et autorité matérielle.** L'autorité effective d'un périphérique doit être traitée explicitement ; son contrôle par des capacités matérielles est une exigence à évaluer au niveau du contrat, sans sélectionner ici une technologie.
 11. **Grades et budgets.** Ne pas ajouter de coordonnée aux grades au seul motif qu'une propriété reste ouverte. Déterminer d'abord si elle relève de la sémantique graduée, d'un contrat distinct, de la compilation, du runtime ou d'une hypothèse de plateforme.
-12. **Temps.** Travail, profondeur, budget abstrait, coût machine, WCET, échéance et latence d'attente environnementale sont des notions distinctes. La décision de recherche séparant la latence d'attente de \`When\` du coût d'exécution doit être conservée ; la représentation formelle précise de cette observation reste ouverte.
+12. **Temps.** Travail, profondeur, budget abstrait, coût machine, WCET, échéance et latence d'attente environnementale sont des notions distinctes. La décision de recherche séparant la latence d'attente de `When` du coût d'exécution doit être conservée ; la représentation formelle précise de cette observation reste ouverte.
 
 ## 4. Registre des deltas à instruire
 
@@ -369,7 +369,7 @@ Les fichiers suivants constituent les premiers lieux de confrontation du registr
 ### Annexes
 
 - [Capacités et mémoire](../../../spec/Spec/AnnexeA/CapabilitesEtMemoire.lean) : aligner vocabulaire, codes d'erreur et contrats sur les règles réellement spécifiées.
-- [Frontières de couches](../../../spec/Spec/AnnexeA/FrontieresDeCouchesEtDisciplineDe.lean), [protocoles et topologie](../../../spec/Spec/AnnexeA/ProtocolesSessionsEtTopologieDistribuee.lean), [contraintes de valeur et preuves résiduelles](../../../spec/Spec/AnnexeA/ContraintesDeValeurEtPreuvesResiduel(le)s.lean) : éliminer les glissements entre intention architecturale, hypothèse et garantie.
+- [Frontières de couches](../../../spec/Spec/AnnexeA/FrontieresDeCouchesEtDisciplineDe.lean), [protocoles et topologie](../../../spec/Spec/AnnexeA/ProtocolesSessionsEtTopologieDistribuee.lean), [contraintes de valeur et preuves résiduelles](../../../spec/Spec/AnnexeA/ContraintesDeValeurEtPreuvesResiduel(le).lean) : éliminer les glissements entre intention architecturale, hypothèse et garantie.
 
 ## 7. Ordre de travail proposé après dépouillement complet
 
