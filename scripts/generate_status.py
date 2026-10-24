@@ -169,7 +169,7 @@ def render_status(
         "## Generation",
         "",
         "The authoritative generator is [scripts/generate_status.py](../scripts/generate_status.py). CI is responsible for updating this file; manual edits are not part of the project workflow."
-    ]
+    ])
     return "\n".join(lines) + "\n"
 
 
