@@ -31,6 +31,10 @@ grep -Fq "'K7PL.MachineSoundness.end_to_end_preservation' depends on axioms:" "$
 }
 
 for declaration in \
+  "K7PL.Bridge.add_root_is_klean_rewrite" \
+  "K7PL.Bridge.less_than_root_is_klean_rewrite" \
+  "K7PL.Bridge.select_true_root_is_klean_rewrite" \
+  "K7PL.Bridge.select_false_root_is_klean_rewrite" \
   "K7PL.NativeBoundary.enforcedBoundary_step_preserves_protected" \
   "K7PL.NativeBoundary.enforcedBoundary_trace_preserves_protected" \
   "K7PL.NativeBoundary.unconfined_native_write_counterexample" \
