@@ -197,6 +197,14 @@ jobs:
           test -s "$RUNNER_TEMP/k7pl-axiom-audit.json"
           cp "$RUNNER_TEMP/k7pl-axiom-audit.json" "$GITHUB_WORKSPACE/.formal-chain-evidence/axiom-audit.json"
 
+      - name: Publish standalone axiom audit for STATUS.md
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: k7pl-axiom-audit-${{ github.run_id }}
+          path: ${{ runner.temp }}/k7pl-axiom-audit.json
+          retention-days: 14
+          if-no-files-found: error
+
       - name: Render Verso Blueprint documentation
         id: blueprint
         shell: bash
