@@ -21,6 +21,6 @@ run_case() {
   fi
 }
 
-run_case conforming-call.k7 'boundaryResult\\(0,[[:space:]]*7\\)'
-run_case native-write-confined.k7 'boundaryResult\\(0,[[:space:]]*0\\)'
-run_case native-write-unconfined.k7 'boundaryResult\\(9,[[:space:]]*0\\)'
+run_case conforming-call.k7 'boundaryResult[[:space:]]*\([[:space:]]*0[[:space:]]*,[[:space:]]*7[[:space:]]*\)'
+run_case native-write-confined.k7 'boundaryResult[[:space:]]*\([[:space:]]*0[[:space:]]*,[[:space:]]*0[[:space:]]*\)'
+run_case native-write-unconfined.k7 'boundaryResult[[:space:]]*\([[:space:]]*9[[:space:]]*,[[:space:]]*0[[:space:]]*\)'
