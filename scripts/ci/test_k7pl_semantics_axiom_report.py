@@ -79,6 +79,19 @@ class TestK7plSemanticsAxiomReport(unittest.TestCase):
                 lean_version="z",
             )
 
+    def test_contract_cannot_expand_the_project_axiom_allowlist(self):
+        altered = json.loads(json.dumps(CONTRACT))
+        altered["policy"]["allowedStandardAxioms"].append("Lean.ofReduceBool")
+        altered["declarations"][0]["axioms"] = ["Lean.ofReduceBool"]
+        with self.assertRaisesRegex(AuditError, "changes the project allowlist"):
+            parse_report(
+                make_log(overrides={altered["declarations"][0]["name"]: ["Lean.ofReduceBool"]}),
+                altered,
+                source_commit="x",
+                workflow_run_id="y",
+                lean_version="z",
+            )
+
     def test_conflicting_duplicate_reports_fail(self):
         name = "K7PL.Bridge.add_root_is_klean_rewrite"
         log = make_log() + f"info: repeated: '{name}' does not depend on any axioms\n"
