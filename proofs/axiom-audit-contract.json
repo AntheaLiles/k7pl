@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Expected #print axioms dependency sets for the KLean-generated K7PL proof slice used by the D-01 assurance chain.",
+  "policy": {
+    "forbiddenAxioms": ["sorryAx"],
+    "allowedStandardAxioms": ["propext", "Classical.choice", "Quot.sound"],
+    "matching": "exact-set"
+  },
+  "declarations": [
+    {
+      "name": "K7PL.Proof.preservation",
+      "axioms": [],
+      "role": "surface-step type preservation"
+    },
+    {
+      "name": "K7PL.Proof.progress",
+      "axioms": [],
+      "role": "surface-step progress"
+    },
+    {
+      "name": "K7PL.MachineSoundness.rewrites_preserve_machine_typing",
+      "axioms": ["propext"],
+      "role": "preservation of generated machine transitions"
+    },
+    {
+      "name": "K7PL.MachineSoundness.end_to_end_preservation",
+      "axioms": ["propext"],
+      "role": "end-to-end preservation over generated configurations"
+    },
+    {
+      "name": "K7PL.Bridge.add_root_is_klean_rewrite",
+      "axioms": ["propext"],
+      "role": "KLean bridge: addition root rule"
+    },
+    {
+      "name": "K7PL.Bridge.less_than_root_is_klean_rewrite",
+      "axioms": ["propext"],
+      "role": "KLean bridge: comparison root rule"
+    },
+    {
+      "name": "K7PL.Bridge.select_true_root_is_klean_rewrite",
+      "axioms": ["propext"],
+      "role": "KLean bridge: select true root rule"
+    },
+    {
+      "name": "K7PL.Bridge.select_false_root_is_klean_rewrite",
+      "axioms": ["propext"],
+      "role": "KLean bridge: select false root rule"
+    },
+    {
+      "name": "K7PL.NativeBoundary.enforcedBoundary_step_preserves_protected",
+      "axioms": [],
+      "role": "D-01 abstract enforced-boundary single-step invariant"
+    },
+    {
+      "name": "K7PL.NativeBoundary.enforcedBoundary_trace_preserves_protected",
+      "axioms": [],
+      "role": "D-01 abstract enforced-boundary trace invariant"
+    },
+    {
+      "name": "K7PL.NativeBoundary.unconfined_native_write_trace_replay",
+      "axioms": [],
+      "role": "D-01 exact one-step negative trace replay"
+    },
+    {
+      "name": "K7PL.NativeBoundary.unconfined_native_write_counterexample",
+      "axioms": [],
+      "role": "D-01 abstract unconfined counterexample"
+    },
+    {
+      "name": "K7PL.Example.root_add_klean_preserves_type",
+      "axioms": ["propext"],
+      "role": "example-specific KLean preservation witness"
+    },
+    {
+      "name": "K7PL.Example.nested_add_example_evaluates_to_six",
+      "axioms": ["propext"],
+      "role": "nested-add execution witness"
+    },
+    {
+      "name": "K7PL.Example.add_example_end_to_end",
+      "axioms": ["propext"],
+      "role": "combined type-and-execution example witness"
+    }
+  ]
+}
