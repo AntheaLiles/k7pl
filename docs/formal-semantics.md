@@ -42,6 +42,26 @@ To also run the export to Lean, the proofs and the Verso exposition, with `klean
 make formal-chain
 ```
 
+## D-01 — frontière native (modèle de profil, non normatif)
+
+Le modèle séparé src/k/.build/generated/models/native-boundary.k est extrait d'un bloc
+k7osModel dans la page Verso. Il compare trois cas : appel natif conforme au contrat,
+écriture refusée sous l'hypothèse abstraite d'une frontière appliquée, et écriture native qui
+modifie l'état protégé quand aucune frontière n'est appliquée. Ce modèle n'ajoute aucune
+construction à la grammaire normative de K7PL et ne choisit pas de mécanisme matériel.
+
+La même transition abstraite est explorée par TLC avec deux configurations : la configuration
+BoundaryEnforced = TRUE doit préserver ProtectedIntegrity ; la configuration négative doit
+produire un contre-exemple. Lean prouve la préservation pour toutes les traces finies du modèle
+abstrait et présente un témoin d'échec du profil non confiné. La CI joue également les trois
+exemples K.
+
+Ces résultats sont des corroborations à partir de modèles distincts, pas encore un théorème de
+simulation K↔TLA+ ni une preuve que le modèle correspond à la sémantique normative complète de
+K7PL. Les sources et journaux TLC sont empaquetés avec les sources K, les preuves Lean et la
+documentation Verso dans le workflow de sémantique formelle. La relation de projection entre les
+configurations K complètes, les états TLA+ et K7PL.NativeBoundary.State reste explicitement ouverte.
+
 ## Trust boundary
 
 `klean` consumes the K definition compiled to KORE and generates a `Rewrites` relation on
