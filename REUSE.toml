@@ -10,6 +10,7 @@ path = [
   "lean-toolchain",
   "proofs/lean-toolchain",
   "proofs/lake-manifest.json",
+  "proofs/axiom-audit-contract.json",
   "spec/formal-chain/lean-toolchain",
   "spec/formal-chain/lake-manifest.json",
   "lake-manifest.json",
