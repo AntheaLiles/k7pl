@@ -87,8 +87,13 @@ La métaprogrammation exploite l'homoiconicité. Une macro transforme un AST en 
 Phase 0, avant la vérification ; cette signature décrit l'entrée et la sortie de l'expansion, non
 les effets autorisés pendant son exécution. L'évaluation `comptime`, marquée par le sigil `#`,
 évalue une expression de couche 2 ou 3 pour produire une constante dans la section binaire `.rodata`.
-Les effets disponibles dépendent du contrat du macro-système et du profil de réalisation ; l'ordre
-des phases ne suffit pas à les déterminer.
+Cette phase ne change pas les invariants de la couche de l'expression : un calcul de couche 3 reste
+pur ($`\mathcal{E}=\emptyset`), terminant selon les schémas admis et doté d'un coût de pile gradué
+statiquement. Une expression de couche 2 conserve son contrat de productivité et ses effets ; elle
+n'hérite pas de la terminaison ni de la pureté de couche 3. La façon dont une telle expression fournit
+une constante doit être définie par le contrat de `comptime`. Le régime d'effets général des macros
+et des opérations accessibles en Phase 0 reste distinct et dépend du contrat du macro-système et du
+profil de réalisation : l'ordre des phases ne suffit pas à le déterminer.
 
 Terra illustre la génération de code bas niveau à la compilation à partir d'un langage de
 métaprogrammation de haut niveau. Racket fournit des mécanismes de séparation des phases et
