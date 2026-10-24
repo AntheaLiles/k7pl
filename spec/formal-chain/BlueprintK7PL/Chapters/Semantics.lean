@@ -7,6 +7,7 @@ import K7PL.Proof
 import K7PL.Bridge
 import K7PL.Example
 import K7PL.MachineSoundness
+import K7PL.NativeBoundary
 
 open Verso.Genre
 open Verso.Genre.Manual
@@ -100,4 +101,43 @@ et de la sortie.
 Cet exemple est un témoin concret en complément du théorème général de
 préservation machine pour le sous-langage ; il ne démontre pas la sûreté du
 langage K7PL complet.
+:::
+
+:::definition "d01_native_boundary_model" (parent := "subset")
+Le modèle de profil K7OS, extrait séparément depuis le document Verso, représente
+un appel natif conforme, une écriture native refusée sous une hypothèse abstraite
+de frontière appliquée et la même écriture lorsqu'aucune frontière n'est appliquée.
+Ce modèle est non normatif et n'ajoute pas de syntaxe au langage K7PL.
+:::
+
+:::theorem "d01_boundary_preservation" (parent := "subset") (lean := "K7PL.NativeBoundary.enforcedBoundary_trace_preserves_protected")
+Pour le modèle de transition abstrait D-01, toute trace finie du profil à frontière
+appliquée préserve la valeur de l'état protégé.
+:::
+
+:::proof "d01_boundary_preservation"
+Lean vérifie la preuve par induction sur la trace. Elle porte sur le modèle explicite
+K7PL.NativeBoundary.Step, pas sur du code natif arbitraire ni sur un mécanisme
+matériel particulier.
+:::
+
+:::theorem "d01_unconfined_counterexample" (parent := "subset") (lean := "K7PL.NativeBoundary.unconfined_native_write_counterexample")
+Le profil partagé sans frontière appliquée admet une écriture native qui modifie
+l'état protégé. Ce contre-exemple interdit d'inférer la protection du seul système
+de types quand le code étranger peut écrire arbitrairement dans le domaine partagé.
+:::
+
+:::proof "d01_unconfined_counterexample"
+Le témoin est prouvé atteignable dans le modèle Lean. TLC doit en outre trouver
+l'état violant ProtectedIntegrity dans la configuration négative. Le modèle K
+exécute séparément les cas conforme, confiné et non confiné. Ces exécutions ne
+constituent pas encore une simulation formelle entre les trois représentations.
+:::
+
+:::definition "d01_evidence_boundary" (parent := "subset")
+TLC explore exhaustivement les états du modèle fini et de sa configuration ; Lean
+prouve un énoncé sur son propre système de transition ; K exécute le modèle sous
+krun. Aucun résultat TLC n'est injecté comme axiome Lean et aucune preuve Lean
+n'est déduite du seul succès CI. La relation de projection K↔TLA+↔Lean demeure
+une obligation distincte.
 :::
