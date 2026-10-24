@@ -7,6 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Date de rédaction :** 2026-10-24  
 **Mise à jour D-01/D-02 :** 2026-10-25 ; D-01 intégré par la fusion de la PR #302, merge commit `662d14c3494834517c70125ed11953923514738a`. Les changements en cours sur D-02 sont proposés dans une PR distincte et ne sont pas encore intégrés à main.
+
 **Statut :** document de travail non normatif ; registre initial, incomplet par construction.  
 **Révision de rédaction initiale :** `AntheaLiles/k7pl@6062a683aa8c14c9bb396632ec070cba69c90623`.
 **Base de consolidation de la PR #300 :** `AntheaLiles/k7pl@76d8c1c5cb54ebaa6ab43d78b53979f63a0de8fd`.
