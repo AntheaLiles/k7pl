@@ -267,10 +267,12 @@ qu'elle dérive. Cette fonction est monotone par construction, puisqu'ajouter de
 faire dériver davantage, et son grade porte donc la marque du
 §{num "sec:c2-adjonctions-et-enrichissement"}[] sans que le programmeur ait à l'écrire. Le programme
 entier est alors $`\mathbf{fix}\,f`. Sa terminaison dépend des propriétés du domaine des relations
-et de la fonction $`f`. L’énoncé de terminaison par point fixe ({num "thm:terminaison_lfp"}[]) reste
-en revue : il suppose notamment un ordre muni d'un minimum, une hauteur finie et la monotonie de
-$`f`. Un univers de constantes fini ne suffit pas, à lui seul, à établir que le domaine des relations
-satisfait ces hypothèses ; leur relation au domaine effectif doit encore être formalisée.
+et de la fonction $`f`. La garantie de terminaison de couche 3 demeure un invariant du langage :
+les calculs admis doivent respecter le schéma récursif à indice décroissant défini par C1/C2. Le
+constructeur supplémentaire de point fixe n'est admissible que si son typage impose les hypothèses
+de son théorème ({num "thm:terminaison_lfp"}[]) : minimum, hauteur finie du domaine et monotonie de
+$`f`. Cet énoncé reste en revue. Un univers de constantes fini ne suffit pas à prouver que le domaine
+des relations a une hauteur finie ; cette correspondance doit encore être établie.
 
 Deux précisions achèvent le tableau. L'itération naïve recalcule à chaque tour ce qu'elle savait
 déjà ; l'évaluation _semi-naïve_ ne considère que les faits nouveaux du tour précédent, et c'est
@@ -323,14 +325,21 @@ ferait faute de mieux, mais les conséquences d'une architecture dont l'acyclici
 commutativité limitée sont trois faces. Les lever demanderait de défaire ces trois choix ensemble,
 et non d'ajouter une règle de composition.
 
-Deux choix voisins appellent le même traitement : le régime asynchrone du chapitre 3 écarte le
-rendez-vous synchrone, exprimable par encodage en appel-retour {cite "castellanTwoSidesSame2019"}[]
-au prix d'un aller-retour, et le critère d'atomicité des jonctions exclut par construction les
-objets concurrents qui ne se linéarisent pas, dont il en existe d'utiles {cite "oliveiravaleCompositionalTheoryLinearizability2023"}[].
-K7PL énonce l'absence de blocage sous la simulation du graphe d'attente
-(théorème {num "thm:deadlock_acyclique"}[]) ; il n'établit ni le progrès global, que des systèmes
-linéaires minimaux obtiennent du seul typage {cite "jacobsSelfDualDistillationSession2022"}[], ni la
-terminaison équitable, propriété qu'appellerait son régime asynchrone {cite "PADOVANI"}[].
+Deux propriétés de progrès expliquent pourquoi la vivacité intervient dans cette architecture.
+En couche 2, la productivité coinductive exige qu'un acteur ou un flux bien typé produise chaque
+observation en temps fini, sans exiger la terminaison du flux entier ({num "thm:progression_polarisee"}[]
+et {num "thm:productivite_couche_2"}[]). Cette obligation est un invariant du contrat de couche ;
+les preuves correspondantes sont toutefois encore en revue en C2, notamment la garde productive.
+
+À l'échelle du système, la productivité locale ne garantit ni que l'ordonnanceur sélectionne un acteur,
+ni que les messages deviennent observables. Le cas d'une file interrogée sous modèle mémoire faible
+donne une raison concrète d'invoquer l'équité mémoire : sans propagation équitable des écritures, un
+consommateur peut continuer à sonder sans observer la publication d'un producteur
+{cite "lahavMakingWeakMemory2021"}[]. L’absence de blocage est une autre propriété, établie seulement
+sous la simulation du graphe d'attente ({num "thm:deadlock_acyclique"}[]) ; elle n'implique ni le
+progrès global ni la terminaison équitable {cite "jacobsSelfDualDistillationSession2022"}[]
+{cite "PADOVANI"}[]. Ces dernières propriétés dépendent aussi du profil d’ordonnancement et des
+hypothèses de communication ; elles ne sont pas déduites du seul typage.
 
 Le modèle abstrait ne fixe pas le mécanisme d'isolation entre acteurs. Les garanties de typage
 peuvent établir des propriétés logiques d'accès dans le modèle ; elles ne démontrent pas, à elles
