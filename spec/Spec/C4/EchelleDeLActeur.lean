@@ -105,13 +105,229 @@ mais sa conformité à cette propriété doit être établie ; la seule présenc
 ne suffit pas à la démontrer.
 
 C'est ici que les grades fractionnaires du chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]) trouvent
-leur réalisation physique. Une arène est statiquement partitionnée en segments d'index contigus, un
-par fibrille concurrente : la fibrille $`A` reçoit `WriteCap(Arena<T>, Range(0,k))`, la fibrille
-$`B` reçoit `WriteCap(Arena<T>, Range(k+1,2k))`, et ces zones d'écriture ne se chevauchent jamais.
-La preuve de grade établie à la compilation devient ici une partition mémoire effective, alignée sur
-64 octets et placée sur le nœud NUMA local des cœurs assignés pour éliminer le _false sharing_. Le
-parallélisme sans mutex de K7PL n'est rien d'autre que cette correspondance rendue explicite : un
-type prouvé disjoint occupe une mémoire physiquement disjointe.
+leur réalisation physique normative. Une arène est partitionnée statiquement en segments d'index
+contigus, un par fibrille concurrente : la fibrille -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Échelle de l'acteur" =>
+%%%
+file := "c4-echelle-de-l-acteur"
+tag := "c4-echelle-de-l-acteur"
+%%%
+
+{label "sec:c4-echelle-de-l-acteur"}
+
+Trois filiations se rejoignent ici. Le modèle d'acteurs de Hewitt, Bishop et Steiger donne la brique :
+une entité dont le comportement se définit par la réaction à un message plutôt que par un état
+partagé — ce que le chapitre 2 reformule en coalgèbre terminale. Le calcul de processus communicants
+de Hoare complète l'intuition côté communication, un canal typé dont l'alternance stricte d'émission
+et de réception fonde la dualité des protocoles du chapitre 3 et la synchronisation par anneaux
+verrou-libres du §{num "sec:c4-echelle-du-systeme"}[]. Pony montre enfin, plus près de K7PL, qu'un
+modèle d'acteurs zéro-copie et sans ramasse-miettes peut reposer sur des capacités de référence
+prouvées à la compilation plutôt que sur un arbitrage à l'exécution — la lecture graduée que ce
+chapitre hérite du §{num "sec:c3-le-systeme-gradue"}[].
+
+La coalgèbre terminale qui définit un acteur (chapitre 2,
+§{num "sec:c2-algebres-coalgebres-et-points"}[]) a besoin d'un lieu où loger son espace d'état ;
+cette section décrit ce lieu et les opérations qui le maintiennent cohérent d'un pas de transition
+au suivant.
+
+Ce lieu est privé, et il vaut la peine de dire ce que cette privauté rapporte. K7PL ne se passe pas
+d'état global par hygiène : dans une sémantique par objets, l'état n'est pas caché par convention,
+il est partie de la structure interne d'un objet et *ne joue aucun rôle dans son comportement
+observable* — ce qui rend la localité et la mono-filature d'un acteur modélisables au lieu d'être
+postulées {cite "REDDY-GLOBAL"}[]. C'est la même discipline que le chapitre 3 applique aux valeurs,
+transposée aux processus : ce qui n'est pas observable n'a pas à être décrit.
+
+Deux acquis suivent de cette configuration, et sont revendiqués ici plutôt que redécouverts. Le
+premier tient à la conjonction d'un fil à état privé et d'une composante de niveau dans le grade. Le
+_canal de terminaison_ — la fuite d'information par le fait qu'un calcul termine ou non — a une
+bande passante limitée en séquentiel et devient bien plus dangereux en concurrent, ce qui autorise
+déjà une garantie par couche plutôt que globale. Le remède publié consiste à placer les actions
+potentiellement non terminantes, ou celles dont le temps dépend de valeurs sensibles, dans des fils
+séparés portant chacun une _étiquette courante_ qui suit la sensibilité observée et restreint où le
+fil peut écrire {cite "stefanAddressingCovertTermination2012"}[]. Or un acteur _est_ un fil à état
+privé, et la composante de niveau du grade _est_ cette étiquette. Le dispositif se lit presque terme
+à terme dans ce document sans y avoir été imposé.
+
+Une réserve doit accompagner cet acquis, car elle porte sur un canal _voisin et distinct_. Le canal
+de terminaison n'est pas le canal de _temporisation_, et le remède ci-dessus ne ferme que le
+premier. Pour le second, la propriété visée est la non-interférence probabiliste, qu'un système de
+types suffit à garantir — mais les systèmes qui l'obtiennent le font au prix de restrictions
+_sévères_, imposées précisément pour empêcher les fuites par le temps {cite "smithNewTypeSystem2001"}[].
+La non-interférence temporelle ne s'ajoute donc pas à un système de types : elle en restreint
+l'expressivité, et de combien est une question de conception que ce document n'a pas tranchée. S'y
+ajoute un trou documenté dans lequel ce langage se place exactement : les descriptions matérielles à
+contrôle de flot savent éliminer les canaux de temporisation, les langages logiciels savent garantir
+la non-interférence. Mais les deux se construisent indépendamment et il n'existe aucune abstraction
+pour _composer_ leurs garanties {cite "zagieboyloUsingInformationFlow2019"}[]. Un unikernel est la
+jonction des deux.
+
+Le second tient au pont entre les deux vocabulaires que ce chapitre emploie sans les relier. Il pose
+que l'espace d'état d'un acteur est une instance de coalgèbre terminale, et le chapitre 3 pose les
+types de session ; le pont entre les deux est affirmé et non construit. Il l'a été ailleurs, et
+littéralement : les types de session _sont_ des états de coalgèbres, et la dualité des protocoles,
+que le chapitre 3 pose comme définition, s'y obtient comme conséquence {cite "keizerSessionCoalgebrasCoalgebraic2021"}[].
+C'est l'unification que ce chapitre annonce en ouverture, appliquée à l'endroit précis où il ne l'a
+pas faite.
+
+Un mot de vocabulaire s'impose avant d'y venir, car ce chapitre nomme une chose et en emploie deux.
+Une _arène_ est une *disposition* — un bloc contigu, des composants rangés par famille, des
+références qui sont des décalages. Une _région_ est une *discipline de portée* — le moment où une
+allocation cesse d'être atteignable. Ce document a besoin des deux et n'a nommé que la première, de
+sorte que la seconde s'y devine sans jamais s'y écrire. La nommer ne coûte pas l'appareil qu'on
+redoute : la complication habituelle des systèmes à régions est en principe inutile, le
+polymorphisme paramétrique ordinaire y suffisant, par une traduction qui préserve les types et le
+sens {cite "fluetMonadicRegions2006"}[]. Le noyau portant déjà de la quantification, la portée
+d'arène est une application du polymorphisme existant et non un dispositif de plus.
+
+Cet espace d'état suit une architecture à composants (ECS) : les composants d'une même famille sont
+rangés contigument, en tableau de structures inversé (SoA), dans une arène PIA — un bloc où toute
+référence n'est qu'un offset relatif, jamais un pointeur absolu. Cela rend la mobilité de l'arène
+entière $`O(1)` par `mremap` ou RDMA, sans qu'aucune référence n'ait à être réécrite. Un offset n'y
+est cependant pas un entier ordinaire : il est statiquement teinté par la capabilité de la région
+dont il provient. Le système de types (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]) interdit dès
+lors à un offset issu d'une `ReadCap` sur une région d'indexer une autre région. La confusion entre
+deux objets d'une même arène SoA est ainsi rendue non typable, plutôt que détectée à l'exécution.
+
+`EntityRef` désigne une entité et sa durée de vie, sans conférer à lui seul un droit d'accès.
+L'encodage par index et génération — par exemple 32 bits pour chaque champ dans une référence de
+64 bits — est une possibilité de réalisation, non une garantie de sûreté en soi. Toute opération qui
+utilise une référence doit préserver l'identité et la durée de vie de l'entité visée : une référence
+invalide ou périmée ne doit autoriser aucun accès ni effet sur une autre entité. Cette propriété doit
+rester vraie après destruction, réutilisation d'un emplacement, restauration d'état et épuisement ou
+réinitialisation des générations. L'implémentation peut employer une validation ou un autre mécanisme,
+mais sa conformité à cette propriété doit être établie ; la seule présence d'un champ de génération
+ne suffit pas à la démontrer.
+
+A` reçoit `WriteCap(Arena<T>, Range(0,k))`, la
+fibrille -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Échelle de l'acteur" =>
+%%%
+file := "c4-echelle-de-l-acteur"
+tag := "c4-echelle-de-l-acteur"
+%%%
+
+{label "sec:c4-echelle-de-l-acteur"}
+
+Trois filiations se rejoignent ici. Le modèle d'acteurs de Hewitt, Bishop et Steiger donne la brique :
+une entité dont le comportement se définit par la réaction à un message plutôt que par un état
+partagé — ce que le chapitre 2 reformule en coalgèbre terminale. Le calcul de processus communicants
+de Hoare complète l'intuition côté communication, un canal typé dont l'alternance stricte d'émission
+et de réception fonde la dualité des protocoles du chapitre 3 et la synchronisation par anneaux
+verrou-libres du §{num "sec:c4-echelle-du-systeme"}[]. Pony montre enfin, plus près de K7PL, qu'un
+modèle d'acteurs zéro-copie et sans ramasse-miettes peut reposer sur des capacités de référence
+prouvées à la compilation plutôt que sur un arbitrage à l'exécution — la lecture graduée que ce
+chapitre hérite du §{num "sec:c3-le-systeme-gradue"}[].
+
+La coalgèbre terminale qui définit un acteur (chapitre 2,
+§{num "sec:c2-algebres-coalgebres-et-points"}[]) a besoin d'un lieu où loger son espace d'état ;
+cette section décrit ce lieu et les opérations qui le maintiennent cohérent d'un pas de transition
+au suivant.
+
+Ce lieu est privé, et il vaut la peine de dire ce que cette privauté rapporte. K7PL ne se passe pas
+d'état global par hygiène : dans une sémantique par objets, l'état n'est pas caché par convention,
+il est partie de la structure interne d'un objet et *ne joue aucun rôle dans son comportement
+observable* — ce qui rend la localité et la mono-filature d'un acteur modélisables au lieu d'être
+postulées {cite "REDDY-GLOBAL"}[]. C'est la même discipline que le chapitre 3 applique aux valeurs,
+transposée aux processus : ce qui n'est pas observable n'a pas à être décrit.
+
+Deux acquis suivent de cette configuration, et sont revendiqués ici plutôt que redécouverts. Le
+premier tient à la conjonction d'un fil à état privé et d'une composante de niveau dans le grade. Le
+_canal de terminaison_ — la fuite d'information par le fait qu'un calcul termine ou non — a une
+bande passante limitée en séquentiel et devient bien plus dangereux en concurrent, ce qui autorise
+déjà une garantie par couche plutôt que globale. Le remède publié consiste à placer les actions
+potentiellement non terminantes, ou celles dont le temps dépend de valeurs sensibles, dans des fils
+séparés portant chacun une _étiquette courante_ qui suit la sensibilité observée et restreint où le
+fil peut écrire {cite "stefanAddressingCovertTermination2012"}[]. Or un acteur _est_ un fil à état
+privé, et la composante de niveau du grade _est_ cette étiquette. Le dispositif se lit presque terme
+à terme dans ce document sans y avoir été imposé.
+
+Une réserve doit accompagner cet acquis, car elle porte sur un canal _voisin et distinct_. Le canal
+de terminaison n'est pas le canal de _temporisation_, et le remède ci-dessus ne ferme que le
+premier. Pour le second, la propriété visée est la non-interférence probabiliste, qu'un système de
+types suffit à garantir — mais les systèmes qui l'obtiennent le font au prix de restrictions
+_sévères_, imposées précisément pour empêcher les fuites par le temps {cite "smithNewTypeSystem2001"}[].
+La non-interférence temporelle ne s'ajoute donc pas à un système de types : elle en restreint
+l'expressivité, et de combien est une question de conception que ce document n'a pas tranchée. S'y
+ajoute un trou documenté dans lequel ce langage se place exactement : les descriptions matérielles à
+contrôle de flot savent éliminer les canaux de temporisation, les langages logiciels savent garantir
+la non-interférence. Mais les deux se construisent indépendamment et il n'existe aucune abstraction
+pour _composer_ leurs garanties {cite "zagieboyloUsingInformationFlow2019"}[]. Un unikernel est la
+jonction des deux.
+
+Le second tient au pont entre les deux vocabulaires que ce chapitre emploie sans les relier. Il pose
+que l'espace d'état d'un acteur est une instance de coalgèbre terminale, et le chapitre 3 pose les
+types de session ; le pont entre les deux est affirmé et non construit. Il l'a été ailleurs, et
+littéralement : les types de session _sont_ des états de coalgèbres, et la dualité des protocoles,
+que le chapitre 3 pose comme définition, s'y obtient comme conséquence {cite "keizerSessionCoalgebrasCoalgebraic2021"}[].
+C'est l'unification que ce chapitre annonce en ouverture, appliquée à l'endroit précis où il ne l'a
+pas faite.
+
+Un mot de vocabulaire s'impose avant d'y venir, car ce chapitre nomme une chose et en emploie deux.
+Une _arène_ est une *disposition* — un bloc contigu, des composants rangés par famille, des
+références qui sont des décalages. Une _région_ est une *discipline de portée* — le moment où une
+allocation cesse d'être atteignable. Ce document a besoin des deux et n'a nommé que la première, de
+sorte que la seconde s'y devine sans jamais s'y écrire. La nommer ne coûte pas l'appareil qu'on
+redoute : la complication habituelle des systèmes à régions est en principe inutile, le
+polymorphisme paramétrique ordinaire y suffisant, par une traduction qui préserve les types et le
+sens {cite "fluetMonadicRegions2006"}[]. Le noyau portant déjà de la quantification, la portée
+d'arène est une application du polymorphisme existant et non un dispositif de plus.
+
+Cet espace d'état suit une architecture à composants (ECS) : les composants d'une même famille sont
+rangés contigument, en tableau de structures inversé (SoA), dans une arène PIA — un bloc où toute
+référence n'est qu'un offset relatif, jamais un pointeur absolu. Cela rend la mobilité de l'arène
+entière $`O(1)` par `mremap` ou RDMA, sans qu'aucune référence n'ait à être réécrite. Un offset n'y
+est cependant pas un entier ordinaire : il est statiquement teinté par la capabilité de la région
+dont il provient. Le système de types (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]) interdit dès
+lors à un offset issu d'une `ReadCap` sur une région d'indexer une autre région. La confusion entre
+deux objets d'une même arène SoA est ainsi rendue non typable, plutôt que détectée à l'exécution.
+
+`EntityRef` désigne une entité et sa durée de vie, sans conférer à lui seul un droit d'accès.
+L'encodage par index et génération — par exemple 32 bits pour chaque champ dans une référence de
+64 bits — est une possibilité de réalisation, non une garantie de sûreté en soi. Toute opération qui
+utilise une référence doit préserver l'identité et la durée de vie de l'entité visée : une référence
+invalide ou périmée ne doit autoriser aucun accès ni effet sur une autre entité. Cette propriété doit
+rester vraie après destruction, réutilisation d'un emplacement, restauration d'état et épuisement ou
+réinitialisation des générations. L'implémentation peut employer une validation ou un autre mécanisme,
+mais sa conformité à cette propriété doit être établie ; la seule présence d'un champ de génération
+ne suffit pas à la démontrer.
+
+B` reçoit `WriteCap(Arena<T>, Range(k+1,2k))`, et leurs zones d'écriture doivent rester
+disjointes. Les segments doivent être alignés sur 64 octets et placés sur le nœud NUMA local des
+cœurs assignés afin de limiter le _false sharing_.
+
+La preuve de grade établit la disjonction dans le modèle de types ; elle ne prouve pas, à elle seule,
+la correspondance entre ces segments et des zones physiques disjointes. La réalisation doit établir
+cette correspondance ainsi que le respect des contraintes d'alignement et de placement. Le
+parallélisme sans mutex est donc une exigence architecturale dont la conformité concrète reste à
+justifier par le raffinement du modèle mémoire.
 
 ::::figure (label := "fig:arene-partition") (src := "soa-partitionning") (alt := "Une arène SoA représentée comme un bloc contigu, partagé en deux segments : segment 0 à k avec WriteCap de la fibrille A ; segment k+1 à 2k avec WriteCap de la fibrille B.") (width := "90")
 :::caption
