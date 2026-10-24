@@ -67,6 +67,8 @@ Les points suivants doivent guider le dépouillement ; ils ne valent pas preuve 
 
 18. **Garanties inconditionnelles.** L'ambition porte sur les invariants internes explicitement définis, et non sur une garantie inconditionnelle de terminaison, de disponibilité d'un service étranger, de progrès sous tout ordonnanceur ou de respect de toute échéance. Ces propriétés ont des contrats et prémisses propres ; leur échec ne doit pas annuler la sûreté mémoire ou l'intégrité interne.
 
+**Deltas concernés par les décisions 13–18 :** SPEC-D-01 (périmètre des garanties intrinsèques), SPEC-D-04 (obligations des opérations et abstractions unsafe), SPEC-D-05 (contrat d'interopérabilité et séparation des responsabilités), SPEC-D-08 (préconditions et comportements hors contrat), SPEC-D-18 (préservation des états et traces), SPEC-D-19 (préservation par la toolchain). Ces lignes restent à instruire ; les décisions ci-dessus ne constituent ni une formalisation Lean ni une preuve.
+
 ## 4. Registre des deltas à instruire
 
 Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des commits normatifs. « Cible » désigne les fichiers à examiner, non une décision définitive de déplacer ou réécrire leur contenu.
