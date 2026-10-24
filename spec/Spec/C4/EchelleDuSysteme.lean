@@ -429,10 +429,11 @@ anneau SPSC borné et alloué avant exécution, ou une table d'entrées, sont de
 L'absence de verrou, le coût des retraits groupés et la correction concurrente doivent être justifiés
 pour la représentation et la cible retenues. Un motif de jonction $`x(u) \mid y(v) \triangleright P`
 décrit les messages requis par une transition sans imposer un masquage binaire ou un automate concret.
-Une analyse de couverture ou de performance, éventuellement PEPA (_Performance Evaluation Process
-Algebra_, Hillston) {cite "hillstonCompositionalApproachPerformance"}[], peut évaluer les
-combinaisons de messages ; elle ne remplace pas la définition sémantique du motif ni la preuve du
-raffinement :
+La couverture syntaxique des combinaisons doit être établie par une analyse statique du motif. Un
+modèle de performance, éventuellement exprimé en PEPA (_Performance Evaluation Process Algebra_,
+Hillston) {cite "hillstonCompositionalApproachPerformance"}[], peut analyser un comportement
+quantifié ; il ne remplace ni l'analyse de couverture, ni la définition sémantique du motif, ni la
+preuve de raffinement :
 
 ::::listing (label := "lst:motif-jonction")
 :::caption
@@ -446,9 +447,10 @@ Un motif de jonction, dont la couverture des combinaisons de messages se vérifi
 ```
 ::::
 
-Un acteur attendant simultanément un résultat et l'expiration d'une horloge n'a besoin d'aucune
-conditionnelle : les deux issues sont deux clauses du même motif, et l'absence de couverture d'une
-combinaison de messages est une erreur de compilation plutôt qu'un cas oublié à l'exécution.
+Un acteur peut exprimer l'attente simultanée d'un résultat et d'une échéance par deux clauses d'un
+même motif. Dans le profil qui adopte la couverture exhaustive, les combinaisons admissibles non
+couvertes sont à rejeter en compilation ; l'analyse exacte dépend du prédicat d'appariement qui reste
+à formaliser.
 
 Une réalisation qui utilise une file en mémoire partagée doit respecter le modèle mémoire choisi.
 Les tailles des lignes de cache et les mesures prises pour limiter le faux partage dépendent de la
@@ -660,8 +662,7 @@ Ces trois constructeurs sont la quatrième instance du procédé du chapitre 2
 (§{num "sec:c2-adjonctions-et-enrichissement"}[]), l'ordre étant ici celui du temps. Deux raisons
 rendent leur emprunt direct plutôt qu'analogique. L'analyse dont ils proviennent est paramétrique
 dans le modèle de coût, ce qui la laisse compatible avec un référentiel de coût à déclarer pour chaque profil. Le présent
-chapitre ne fixe ni une machine cible ni sa hiérarchie de caches. Et son
-régime de communication est asynchrone au sens du $`\pi`-calcul asynchrone, c'est-à-dire celui que
+chapitre ne fixe ni machine cible ni hiérarchie de caches. Son régime de communication est asynchrone au sens du $`\pi`-calcul asynchrone, c'est-à-dire celui que
 le chapitre 3 a retenu. Ce que K7PL n'emprunte pas est la sémantique de réécriture temporisée sur
 laquelle leur correction est établie : la nôtre reste à écrire.
 
