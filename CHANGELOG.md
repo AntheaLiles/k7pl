@@ -25,6 +25,8 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 - R6 OS-design research: audit abstract grade/budget arithmetic against operational cost semantics, compilation, binary-level WCET analysis, CPU budgets, scheduling feasibility, and target-specific assumptions. Non-normative; no end-to-end real-time guarantee is claimed.
 
+- R4 OS-design research: audit the static-DAG/dynamic-wait-graph proof obligation, separate local/global progress from fair termination, and define testable contracts for timeout, cancellation, crash recovery, and resource cleanup. Non-normative; liveness guarantees remain conditional where the model or fairness assumptions are open.
+
 - R3 OS-design research: define relational confidentiality/integrity obligations, observation boundaries, controlled declassification and endorsement, timing-channel limits, and adversarial test cases. Non-normative; no global information-flow guarantee is claimed.
 
 - R0 OS-design research: add a versioned threat model, observation model, assurance matrix, falsification cases, and architecture gates. Non-normative; no OS guarantee is promoted to established status.

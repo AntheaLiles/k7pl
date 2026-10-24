@@ -44,6 +44,10 @@ Chaque rapport doit présenter sources primaires, date/version, hypothèses, ré
 - [R2 — Source-to-Binary Correctness and Zero-Overhead Assurance](R2-source-to-binary-correctness.md): source-grounded pipeline audit, semantic-preservation contract, TCB boundaries, and a staged performance-assurance plan. Non-normative.
 
 
+## Executed report — R4
+
+- [R4 — Concurrency, protocols, liveness and cancellation](R4-concurrence-protocoles-vivacite-annulation.md): analysis of the static dependency DAG versus the dynamic wait graph, local/global progress, fairness assumptions, cancellation, timeout and recovery contracts. Non-normative; liveness remains conditional where the semantics or fairness model is open.
+
 ## Executed report — R6
 
 - [R6 — Grades, budgets, WCET and real-time constraints](R6-grades-budgets-WCET-temps-reel.md): audit of the Lean budget model, cost semantics, compilation-to-binary obligations, WCET analysis, scheduling feasibility, and adversarial cases. Non-normative; no end-to-end timing guarantee is claimed.
