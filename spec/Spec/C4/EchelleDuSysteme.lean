@@ -33,27 +33,23 @@ vérifiable plutôt qu'arbitraire. Comment ils communiquent entre eux et vers l'
 clôture, ce que cette machinerie offre sans rien y ajouter à un domaine qui semblait lui être
 étranger.
 
-Les acteurs s'exécutent en anneau 0 dans un unikernel, tous dans le même espace d'adressage
-physique, sans changements de contexte ni purges de TLB — l'isolation entre eux repose, _pour le
-code compilé par K7PL_, entièrement sur les preuves du système de types plutôt que sur une unité de
-gestion mémoire. Cet énoncé demande d'être borné, faute de quoi il promet plus qu'il ne tient. Les
-résultats de sûreté robuste sur lesquels il s'appuie portent sur des langages à modèle mémoire
-_abstrait_, où cacher un emplacement se fait en ne le partageant pas, et où un bac à sable serait
-effectivement inutile. Un unikernel a un modèle _concret_ : du code non fiable peut y deviner ou
-calculer une adresse et la déréférencer, ce qui justifie le bac à sable {cite "sammlerHighlevelBenefitsLowlevel2020"}[].
-L'affirmation n'est donc pas fausse, elle est vraie d'un cadre que la cible ne satisfait pas
-entièrement. Elle vaut du _code que K7PL compile_, dont le typage exclut la fabrication d'adresse,
-et non du code étranger que la passerelle FFI introduit. Pour celui-là, un confinement concret reste
-nécessaire, et ce document ne le fournit pas.
+Cette section décrit le modèle abstrait du système et les obligations qui en découlent.
+Les descriptions d'environnements d'exécution, de disposition mémoire, de synchronisation et de
+persistance qui suivent sont des exemples de réalisation, non des exigences architecturales de K7PL.
+Elles ne suffisent pas, à elles seules, à établir la conformité d'une implémentation ni la portée
+d'une garantie normative.
 
-Une voie existe pourtant, et sa forme importe autant que son existence : la vérification dynamique
-de contrats aux _frontières_ entre code vérifié et code non fiable, par des capabilités linéaires,
-obtient la compilation pleinement abstraite {cite "vanstrydonckLinearCapabilitiesFully2019"}[]. La
-différence à retenir est celle qui décide de ce que ce document peut en tirer : la non-duplicabilité
-y est tenue par le _matériel_ et non par le typage. Une garantie statique comme celle de ce document
-ne vaut que du code qu'elle a typé~; une capabilité linéaire matérielle vaut de tout code, y compris
-étranger. Les deux ne sont donc pas concurrentes mais complémentaires, et la passerelle est
-l'endroit où la seconde prendrait le relais de la première.
+Le modèle abstrait doit distinguer les états des acteurs, leurs transitions et les interactions avec
+l'environnement. À la frontière d'une interface étrangère, le contrat doit spécifier les valeurs
+et effets exposés ainsi que les conditions de retour et d'échec. Le système ne peut attribuer au
+code étranger aucun droit implicite sur l'état interne protégé. La préservation de ces invariants
+doit être établie pour toutes les transitions autorisées par le contrat, y compris les transitions
+d'échec ; elle ne suppose pas que le service étranger respecte fonctionnellement son contrat.
+
+Ces exigences ne sélectionnent aucun mécanisme de séparation concret. Le modèle abstrait ne
+démontre pas à lui seul qu'une implémentation native empêche un code étranger d'accéder à des
+adresses internes : cette correspondance et les restrictions effectives imposées à l'exécution
+restent des obligations de conformité propres à l'implémentation et au profil visé.
 
 Un acteur virtuel n'est, lui, qu'une adresse logique. Un acteur inactif se désactive, son état
 persisté en un instantané journalisé et sa mémoire restituée, si bien qu'un nombre d'entités que la
