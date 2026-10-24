@@ -203,12 +203,16 @@ d'élision de champ en sont trois projections. Il en résulte que les théorème
 propriétés de _conformité du compilateur_ à un profil donné, vérifiées par le pipeline de validation
 de la phase 7, et non des théorèmes du calcul des types.
 
-La supervision surveille cette continuité par battements de cœur et applique des politiques de
-redémarrage garanties par un invariant de vivacité : un acteur en panne finit toujours par redevenir
-actif. Après une partition réseau, deux répliques d'un même acteur convergent en appliquant la
-fusion algébrique que leur type CRDT porte déjà (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]).
-La convergence n'est pas surveillée depuis l'extérieur : elle est une conséquence du type lui-même,
-invoquée au moment voulu.
+Une réalisation peut surveiller la continuité des acteurs par battements de cœur et politiques de
+redémarrage. Ces mécanismes ne suffisent pas à garantir la reprise : l'énoncé « un acteur en panne
+finit par redevenir actif » dépend notamment du comportement de l'ordonnanceur, de la disponibilité
+des ressources, du superviseur et de la conservation de l'état. Les hypothèses de progrès requises
+doivent être explicitées dans le profil de déploiement.
+
+Une structure CRDT définit une opération de fusion des états et peut permettre aux répliques de
+converger après une partition si les mises à jour finissent par leur parvenir et si elles appliquent
+la même opération. Le type CRDT ne garantit pas à lui seul la livraison des mises à jour ; les
+hypothèses de communication et de reprise restent à préciser pour le profil concerné.
 
 Cette population d'acteurs ne s'assemble pas librement. Le compilateur construit, en amont de toute
 exécution, le graphe de dépendances entre gabarits d'acteurs et le prouve acyclique. Cette
@@ -336,31 +340,30 @@ modèle et les hypothèses d'exécution qu'elle retient.
 
 ::::lemma (label := "thm:liberte_initialisation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "runtime")
 :::title
-liberté d'initialisation par DAG topologique
+ordre d'initialisation par DAG topologique
 :::
 
 :::statement +titled
-Câblage complet sans interblocage
+Ordre compatible avec les dépendances
 
 Si le graphe de dépendances $`G` des acteurs et canaux est acyclique — vérifié en Phase 1.5
-(chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) —, la phase d'initialisation atteint un
-état entièrement câblé sans interblocage : $`\text{Acyclique}(G) \implies \exists` un tri
-topologique $`T` tel que $`\forall n \in T`, l'initialisation de $`n` se termine sans blocage.
+(chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) —, il existe un tri topologique $`T`
+dans lequel chaque dépendance précède le nœud qui en dépend. Cet ordre exclut une dépendance
+circulaire ; il ne garantit pas, à lui seul, que chaque initialiseur termine ni que l'ordonnanceur
+fait progresser toutes les initialisations.
 :::
 
 :::proofsketch
-Un interblocage à l'initialisation impliquerait une attente circulaire, correspondant
-structurellement à un cycle dans $`G` ; la Phase 1.5 calcule le tri topologique de $`G` et échoue la
-compilation si un cycle est détecté (`ERR-ARC-001`). Étant donné $`G` acyclique, le tri topologique
-existe (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
-théorème {num "thm:tri_topologique"}[]) et l'ordre qu'il donne est l'ordre d'initialisation : chaque
-nœud n'y est atteint qu'après ses dépendances, jusqu'au câblage complet.
+La Phase 1.5 calcule le tri topologique et échoue la compilation si un cycle est détecté
+(`ERR-ARC-001`). Pour un graphe acyclique, l'existence de cet ordre découle du théorème
+{num "thm:tri_topologique"}[] (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[]). L'argument
+établit l'ordre des dépendances, non la terminaison des opérations d'initialisation ni le progrès
+du runtime.
 :::
 
 :::note
-_Obligation ouverte._ L'acyclicité donne un ordre, non la terminaison de chaque initialisation :
-restent à poser la terminaison locale de l'initialisation d'un nœud et la correspondance exacte
-entre attentes dynamiques et arêtes de $`G`.
+_Obligation ouverte._ Poser les hypothèses de terminaison locale et de progrès de l'ordonnanceur,
+et établir la correspondance entre attentes dynamiques et arêtes de $`G`.
 :::
 ::::
 Les espaces de noms se lisent sur ce même graphe : un namespace en retient la restriction à une
