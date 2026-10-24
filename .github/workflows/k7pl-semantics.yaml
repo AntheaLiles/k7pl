@@ -10,6 +10,10 @@ on:
       - "src/k/**"
       - "tests/examples/**"
       - "docs/formal-semantics.md"
+      - "docs/research/k7pl-os/models/D01NativeBoundary.tla"
+      - "docs/research/k7pl-os/models/D01-NativeBoundary*.cfg"
+      - "scripts/ci/k7pl_os_boundary_check.sh"
+      - "tests/examples/native-boundary/**"
       - "proofs/**"
       - "spec/formal-chain/**"
       - "scripts/ci/test_code_artifact_contract.py"
@@ -46,7 +50,78 @@ permissions:
   contents: read
 
 jobs:
+  d01-tlc:
+    name: TLC model check and evidence for D01
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: docs/research/k7pl-os/models
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Fetch and verify pinned TLC
+        env:
+          TLC_URL: https://github.com/tlaplus/tlaplus/releases/download/v1.7.4/tla2tools.jar
+          TLC_SHA256: 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
+          TLC_SHA1: bee4a54f3ee3d4afc347c3240ec2d9e93b075104
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 "$TLC_URL" --output "$RUNNER_TEMP/tla2tools.jar"
+          printf '%s  %s\n' "$TLC_SHA256" "$RUNNER_TEMP/tla2tools.jar" | sha256sum --check -
+          printf '%s  %s\n' "$TLC_SHA1" "$RUNNER_TEMP/tla2tools.jar" | sha1sum --check -
+
+      - name: Check enforced-boundary profile
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/d01-tlc-evidence"
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary.cfg D01NativeBoundary 2>&1 | tee "$GITHUB_WORKSPACE/d01-tlc-evidence/enforced.log"
+
+      - name: Require counterexample for unconfined profile
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$GITHUB_WORKSPACE/d01-tlc-evidence/unconfined.log"
+          set +e
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary >"$log" 2>&1
+          rc=$?
+          set -e
+          cat "$log"
+          if [ "$rc" -eq 0 ]; then
+            echo "::error::TLC accepted an unconfined profile despite the expected integrity counterexample"
+            exit 1
+          fi
+          if ! grep -F "Invariant ProtectedIntegrity" "$log" >/dev/null; then
+            echo "::error::TLC stopped before the expected D01 ProtectedIntegrity counterexample"
+            exit 1
+          fi
+
+      - name: Preserve model, configurations, toolchain identity and TLC output
+        run: |
+          set -euo pipefail
+          cp D01NativeBoundary.tla D01-NativeBoundary.cfg D01-NativeBoundary-Unconfined.cfg "$GITHUB_WORKSPACE/d01-tlc-evidence/"
+          sha256sum "$GITHUB_WORKSPACE/d01-tlc-evidence/"* > "$GITHUB_WORKSPACE/d01-tlc-evidence/SHA256SUMS"
+          java -version 2> "$GITHUB_WORKSPACE/d01-tlc-evidence/java-version.txt"
+          sha256sum "$RUNNER_TEMP/tla2tools.jar" > "$GITHUB_WORKSPACE/d01-tlc-evidence/tla2tools.jar.sha256"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: d01-tlc-evidence
+          path: d01-tlc-evidence/
+          retention-days: 14
+          if-no-files-found: error
+
   k-smoke:
+    needs: d01-tlc
     name: Compile K semantics, execute examples, export to Lean
     runs-on: ubuntu-22.04
     timeout-minutes: 45
@@ -80,6 +155,9 @@ jobs:
       - name: Compile K definition and run examples
         run: make -C src/k check
 
+      - name: Compile and exercise the separate K7OS native-boundary profile model
+        run: make -C src/k boundary-check
+
       - name: Install the pinned Klean generator
         shell: bash
         run: bash scripts/ci/k7pl_semantics_install_klean.sh
@@ -112,6 +190,12 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/spec/formal-chain
         run: bash "$GITHUB_WORKSPACE/scripts/ci/k7pl_semantics_render_blueprint.sh"
+
+      - name: Attach the checked TLC model and counterexample to the formal-chain evidence
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: d01-tlc-evidence
+          path: .formal-chain-evidence/tla-d01
 
       - name: Package formal-chain build evidence
         if: ${{ success() && steps.export_lean.outcome == 'success' && steps.blueprint.outcome == 'success' }}

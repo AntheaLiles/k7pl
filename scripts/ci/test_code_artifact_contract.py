@@ -35,10 +35,18 @@ class CodeArtifactContractTests(unittest.TestCase):
     def test_page_declares_the_k_blocks_normative(self) -> None:
         # Owner decision of 2026-10-19: the K code blocks of the Verso files are normative;
         # the Python checker stays a verification tool.
-        self.assertIn("Les blocs de code K de cette section sont normatifs.", self.page)
-        self.assertIn("outil de vérification ; il n’est pas normatif.", self.page)
-        self.assertNotIn("support d’ingénierie non normatif", self.page)
+        self.assertIn("Le bloc K de sémantique du sous-langage K7PL ci-dessous est la source éditable normative", self.page)
+        self.assertIn("Le modèle K7OS séparé est explicitement non normatif", self.page)
+        self.assertIn("outil de vérification et n'est pas normatif", self.page)
         self.assertIn('tag := "experimental-code-artifacts"', self.page)
+
+    def test_k7os_profile_model_is_separate_and_extracted_from_verso(self) -> None:
+        self.assertIn('k7osModel (file := "src/k/.build/generated/models/native-boundary.k")', self.page)
+        self.assertIn('meta def k7osModel : CodeBlockExpanderOf CodeArtifactConfig', self.extension)
+        self.assertIn('"k7os-model"', self.extension)
+        self.assertIn('target.startsWith "src/k/.build/generated/models/"', self.extension)
+        self.assertIn("boundary-check", self.k_make)
+        self.assertIn("k7pl_os_boundary_check.sh", self.k_make)
 
     def test_python_verifier_is_generated_from_the_verso_page(self) -> None:
         self.assertIn('```pythonScript (file := "src/k/.build/generated/check_k_examples.py")', self.page)

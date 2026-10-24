@@ -66,6 +66,15 @@ meta def pythonScript : CodeBlockExpanderOf CodeArtifactConfig
       (Block.savedCode $(quote file) $(quote ("python" : String)) $(quote source))
       #[Verso.Doc.Block.code $(quote source)])
 
+/-- A non-normative K7OS profile model, kept separate from normative K7PL semantics. -/
+@[code_block]
+meta def k7osModel : CodeBlockExpanderOf CodeArtifactConfig
+  | { file }, code => do
+    let source := code.getString
+    ``(Verso.Doc.Block.other
+      (Block.savedCode $(quote file) $(quote ("k7os-model" : String)) $(quote source))
+      #[Verso.Doc.Block.code $(quote source)])
+
 private def allowedTarget (language target : String) : Bool :=
   let components := target.splitOn "/"
   let safeComponents := components.all fun component =>
@@ -75,6 +84,8 @@ private def allowedTarget (language target : String) : Bool :=
     match language with
     | "k" => target.endsWith ".k"
     | "python" => target.endsWith ".py"
+    | "k7os-model" =>
+        target.startsWith "src/k/.build/generated/models/" && target.endsWith ".k"
     | _ => false
   safeComponents && safeSeparators &&
     target.startsWith "src/k/.build/generated/" && expectedExtension

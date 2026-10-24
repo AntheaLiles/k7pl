@@ -7,14 +7,16 @@ KRUN ?= krun
 KLEAN ?= klean
 K_BACKEND ?= llvm
 DEFINITION := .build/kompiled
+BOUNDARY_DEFINITION := .build/native-boundary-kompiled
 GENERATED_DIR := .build/generated
 K_SOURCE := $(GENERATED_DIR)/semantics.k
+BOUNDARY_SOURCE := $(GENERATED_DIR)/models/native-boundary.k
 PYTHON_CHECK := $(GENERATED_DIR)/check_k_examples.py
 EXAMPLES := ../../tests/examples
 KLEAN_OUTPUT := .build/klean-output
 
-.PHONY: all extract-code kompile run-example check export-lean clean
-all: check
+.PHONY: all extract-code kompile run-example check boundary-kompile boundary-check export-lean clean
+all: check boundary-check
 
 # Verso remains the editable source. Generated K/Python files live under ignored .build/.
 extract-code:
@@ -29,6 +31,15 @@ run-example: kompile
 
 check: kompile
 	$(PYTHON) $(PYTHON_CHECK) --definition "$(DEFINITION)" --examples "$(EXAMPLES)" --krun "$(KRUN)"
+
+# This separately compiled model is non-normative and is not exported by the default KLean pipeline.
+boundary-kompile: extract-code
+	mkdir -p .build
+	test -s "$(BOUNDARY_SOURCE)"
+	$(KOMPILE) "$(BOUNDARY_SOURCE)" --backend $(K_BACKEND) --main-module K7OS-NATIVE-BOUNDARY --syntax-module K7OS-NATIVE-BOUNDARY-SYNTAX --output-definition "$(BOUNDARY_DEFINITION)"
+
+boundary-check: boundary-kompile
+	bash ../../scripts/ci/k7pl_os_boundary_check.sh "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
 
 export-lean: kompile
 	rm -rf $(KLEAN_OUTPUT)
