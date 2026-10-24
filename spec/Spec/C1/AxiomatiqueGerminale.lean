@@ -85,12 +85,15 @@ $`\nu G` soit _terminale_ signifie que toute coalgèbre admet vers elle un uniqu
 états qui se comportent identiquement — mêmes réponses aux mêmes messages, et récursivement — ont
 donc la même image, et sont par là indiscernables. Or l'environnement d'un acteur n'interagit avec
 lui que par messages, c'est-à-dire à travers cette image. Il en résulte que la structure interne
-d'un état n'est pas atteignable depuis l'extérieur, non parce qu'une discipline l'interdirait mais
-parce que rien dans le vocabulaire de l'interaction ne permet de la nommer. C'est ce que l'on entend
-en disant qu'un acteur n'expose que son comportement observable. L'isolation par types du chapitre 4
-(§{num "sec:c4-echelle-du-systeme"}[]) repose sur cet énoncé : l'isolation n'y est pas ajoutée à
-l'acteur, elle est ce que sa définition lui donne. L'unification de ces deux régimes — le calcul qui
-termine et l'interaction qui perdure — s'opère en un unique point fixe minimal, le jugement :
+d'un état n'est pas atteignable par les seules transitions de communication définies dans ce modèle,
+car le vocabulaire d'interaction ne permet pas de la nommer. Cette encapsulation est une propriété
+logique du modèle d'acteur. Elle ne démontre pas l'inaccessibilité physique de la mémoire ni le
+confinement d'un composant natif arbitraire. L'isolation par types du chapitre 4
+(§{num "sec:c4-echelle-du-systeme"}[]) vaut uniquement pour les accès décrits par les règles du
+modèle. Toute réalisation concrète doit établir la correspondance des représentations et le respect
+des invariants sous son profil d'exécution ; le typage d'une interface étrangère ne remplace pas une
+frontière dont l'efficacité est établie. L'unification de ces deux régimes — le calcul qui termine
+et l'interaction qui perdure — s'opère en un unique point fixe minimal, le jugement :
 
 ::::formula (label := "eq:axiome-germinal") (kind := "equation")
 ```
