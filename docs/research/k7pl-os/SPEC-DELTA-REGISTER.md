@@ -14,7 +14,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Ce registre transforme les résultats de recherche R0–R9 et les décisions de conception exprimées au cours des échanges en un inventaire traçable des compléments, ajustements, clarifications et obligations de preuve à instruire dans la spécification.
 
-L'objectif premier est la fiabilité du **langage K7PL et de sa toolchain**. L'OS envisagé en K7PL est un cas d'étude exigeant, utile pour révéler les lacunes de la sémantique, des types, des capacités, des effets, de la concurrence et de la compilation. Il ne doit pas devenir une spécification indépendante qui dicterait prématurément le langage ou choisirait son matériel.
+L'objectif premier est la fiabilité du **langage K7PL et de sa toolchain**. L'OS envisagé en K7PL est un cas d'étude exigeant, utile pour révéler les lacunes de la sémantique, des types, des capacités, des effets, de la concurrence et de la compilation. Il ne doit pas devenir une spécification indépendante qui dicterait prématurément le langage ou choisirait son matériel. Les variantes d'architecture, les mécanismes système et les objectifs de réalisation déjà étudiés sont conservés séparément dans [K7OS — Exploration conjointe](K7OS-EXPLORATION-CONJOINTE.md), afin que leur retrait d'une clause normative ne soit pas interprété comme un abandon de la cible.
 
 Le registre distingue quatre états qui ne sont pas interchangeables :
 
@@ -29,14 +29,16 @@ Ce document ne prescrit pas encore la rédaction définitive des clauses normati
 
 ## 2. Provenance et limites de la consolidation
 
-Le registre prend en compte les rapports R0, R1, R2, R3, R6, R7, R8 et R9 présents dans le dépôt au moment de sa rédaction. Les rapports détaillés R4 et R5 ont été consultés sur leurs branches de recherche, mais leurs PR restent ouvertes et ne sont pas encore intégrées à la révision courante de `main` :
+Le registre a été rédigé initialement à partir de la révision `6062a683aa8c14c9bb396632ec070cba69c90623` et des rapports disponibles alors. Pour la présente mise à jour sur la PR #300, la base de comparaison de la spécification est `main@76d8c1c5cb54ebaa6ab43d78b53979f63a0de8fd` (2026-10-24). Ce SHA est une base de travail pour cette PR, pas l'affirmation que tous les fichiers normatifs ont fait l'objet d'un nouvel audit exhaustif.
 
-- R4 : [PR #286 — concurrence, protocoles, vivacité et annulation](https://github.com/AntheaLiles/k7pl/pull/286), branche `research/r4-concurrency-liveness-cancellation-reconciled-2026-10-23`, tête `ed14fe8512bf88b4813677e2602f4f4b247af101\).
-- R5 : [PR #287 — permissions mémoire, emprunt, aliasing et logique de séparation](https://github.com/AntheaLiles/k7pl/pull/287), branche `research/r5-memory-borrowing-aliasing-separation-2026-10-23`, tête `a9454e41f391adcdb6908757f05b707e04a93153`.
+Les dossiers R0–R9 sont désormais tous présents dans le dépôt de travail. Les PR R4 et R5, ouvertes lors de la rédaction initiale du registre, ont été fusionnées avant cette révision :
 
-Leur contenu est exploité comme résultat de recherche provisoire ; leur intégration définitive au registre dépendra de la réconciliation et de la relecture des rapports fusionnés. Il ne faut pas prétendre que R4 et R5 sont déjà présents dans `main`.
+- R4 — [PR #286, concurrence, protocoles, vivacité et annulation](https://github.com/AntheaLiles/k7pl/pull/286), fusionnée le 2026-10-24 à 12:49:29 UTC ; commit de fusion `7db485bdeba67195a3827406d5c4b6449c54af32`.
+- R5 — [PR #287, permissions mémoire, emprunt, aliasing et logique de séparation](https://github.com/AntheaLiles/k7pl/pull/287), fusionnée le 2026-10-24 à 12:52:26 UTC ; commit de fusion `76d8c1c5cb54ebaa6ab43d78b53979f63a0de8fd`.
 
-Les rapports s'appuient eux-mêmes sur plusieurs révisions antérieures du dépôt. Le SHA de référence ci-dessus désigne la base de création de ce registre, pas un nouvel audit exhaustif de chaque fichier normatif à ce SHA. Avant toute modification de la spec, les constats liés à C1–C6 et aux annexes devront être revérifiés sur la tête de branche alors courante.
+Leur présence dans `main` établit l'intégration des **rapports de recherche**, non celle de leurs recommandations dans les clauses normatives. Les sources d'analyse de R0–R9 sont des snapshots de dates et de commits différents ; les liens doivent être lus comme provenance de la recherche. Avant de modifier une règle normative ou de déclarer une obligation close, il faut confronter la clause à la tête courante, établir ses hypothèses et vérifier l'artefact de preuve pertinent.
+
+Les éléments d'architecture système retirés ou rendus non prescriptifs ne doivent pas disparaître. Le dossier [K7OS — Exploration conjointe](K7OS-EXPLORATION-CONJOINTE.md) les conserve comme cibles historiques, variantes de réalisation, mécanismes candidats et obligations ouvertes. Le registre présent reste centré sur les évolutions du langage K7PL, de son modèle formel et de sa toolchain ; le dossier K7OS garde les options propres au système d'exploitation. Les deux se référencent sans confondre une option d'architecture avec une exigence normative du langage.
 
 ## 3. Décisions et contraintes de conception déjà exprimées
 
@@ -71,7 +73,7 @@ Les points suivants doivent guider le dépouillement ; ils ne valent pas preuve 
 
 ## 4. Registre des deltas à instruire
 
-Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des commits normatifs. « Cible » désigne les fichiers à examiner, non une décision définitive de déplacer ou réécrire leur contenu.
+Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des commits normatifs. « Cible » désigne les fichiers à examiner, non une décision définitive de déplacer ou réécrire leur contenu. Chaque delta doit être affecté au bon niveau : garantie du langage, contrat de profil, preuve de raffinement, runtime/noyau, hypothèse de plateforme ou cible propre à K7OS. Les choix de réalisation qui ne sont pas universels sont reportés dans [K7OS — Exploration conjointe](K7OS-EXPLORATION-CONJOINTE.md), sans être supprimés de l'historique de recherche.
 
 ### A. Périmètre normatif, hypothèses et états des preuves
 
@@ -441,7 +443,7 @@ L'ordre suivant permet de réduire les ambiguïtés en amont et d'éviter de cor
 
 ### P0 — Stabiliser les revendications et leur périmètre
 
-1. Revalider les rapports R0–R9 contre une tête de dépôt commune et intégrer définitivement les rapports R4/R5.
+1. Les rapports R4/R5 étant fusionnés dans `main` (PR #286/#287), confronter leurs constats à la tête courante des sources normatives ; leur intégration documentaire ne vaut pas clôture des obligations de preuve. Reporter les cibles système retirées des clauses générales dans [K7OS — Exploration conjointe](K7OS-EXPLORATION-CONJOINTE.md).
 2. Marquer chaque revendication à portée globale comme garantie, objectif, hypothèse ou obligation ouverte.
 3. Corriger les formulations absolues sur l'isolation, le progrès, la mémoire, le rejeu, le temps réel et la correction de compilation lorsque leurs prémisses manquent.
 4. Figer uniquement les distinctions conceptuelles nécessaires : langage vs système, sûreté vs vivacité, capacité logique vs autorité effective, coût abstrait vs WCET, modèle de panne vs profil nominal.
@@ -496,3 +498,22 @@ Ce registre ne sera considéré comme exploitable pour planifier les modificatio
 - les états de preuve ne seront pas déduits du style du texte, du nom du théorème ou de la seule réussite de CI.
 
 **Conclusion provisoire.** Les recherches convergent vers un besoin de contrats et de relations de préservation, pas vers l'ajout immédiat de primitives ou de coordonnées de grade. Les évolutions les plus structurantes concernent la frontière sûr/unsafe, le modèle mémoire et l'autorité effective, la sémantique complète des acteurs et des traces, la distinction entre sûreté et vivacité, et la chaîne de correction source–IR–binaire. Ce registre sera affiné au fil du QCM et du dépouillement des rapports ; il ne déclare aucune de ces propriétés démontrée.
+
+## 9. Traçabilité vers l'exploration K7OS
+
+Les deltas ci-dessous ont deux destinations possibles qui doivent rester distinctes : la définition et l'assurance de K7PL d'une part, la conception d'un système concret K7OS d'autre part. Un même thème peut nécessiter les deux, avec des obligations différentes.
+
+| Famille de deltas | Traitement K7PL à poursuivre | Conservation / exploration K7OS |
+|---|---|---|
+| D-01 à D-03 — garanties, statuts de preuve, menaces et TCB | Définir les garanties intrinsèques et les hypothèses de profil ; traçabilité des preuves | Profils de menace, frontières de confiance, options d'isolation et démarrage |
+| D-04 à D-08 — unsafe, FFI, capacités, mémoire et hors-domaine | Contrats du langage, sémantique et preuves H1/H2/H3 ; simulation vers l'exécution | Tables de handles, frontières natives, isolation, stratégie DMA, modèles d'autorité candidats |
+| D-09 à D-10 — confidentialité, intégrité et observables | Relations d'équivalence, observations, déclassification et obligations relationnelles | Canaux temporels/auxiliaires, journaux, observateurs et profils de co-résidence |
+| D-11 à D-13 — attente, progression, erreur, timeout et annulation | Formaliser `Sim`, transitions et propriétés distinctes de progrès/terminaison | Ordonnanceur, files, protocoles candidats, arbitrage commit/annulation et récupération |
+| D-14 à D-15 et D-22 — grades, budget, WCET et coût | Clarifier coûts abstraits et contrats ; relier source et binaire | Quotas, cible temps réel, mesures matérielles, latence, coûts de changement de domaine |
+| D-16 à D-17 — panne, journal, checkpoint et commit | Définir la sémantique abstraite du modèle de panne pris en charge | Supervision, battements de cœur, snapshots, journaux, durabilité et effets externes |
+| D-18 à D-21 — simulation, compilation, TCB et traçabilité | Relations de préservation de la source aux IR/binaires ; preuve et evidence ledger | Outillage de build, mécanismes de confinement de phase 0, signature/provenance, configuration de déploiement |
+| D-23 à D-24 — machine abstraite, profils et comparaison | Exprimer la machine abstraite sans choisir un matériel ; préciser les préconditions de réalisation | Comparer domaine partagé, unikernel, micro-noyau, capacités matérielles et multikernel |
+| D-25 — model checking et correspondance sémantique | Lier les traces bornées à des projections définies vers la sémantique | Banc de falsification K7OS, vecteurs de test, traces de concurrence et de reprise |
+
+Les 25 lignes restent provisoires. La présence d'une piste dans le dossier K7OS ne clôt pas le delta associé ; inversement, une exigence du langage n'impose pas le mécanisme système utilisé pour la satisfaire.
+

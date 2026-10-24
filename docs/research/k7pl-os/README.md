@@ -4,6 +4,11 @@ Dix dossiers autonomes (R0–R9) cadrent les recherches nécessaires pour évalu
 
 Le [registre provisoire des évolutions à instruire dans la spécification](SPEC-DELTA-REGISTER.md) consolide les apports de R0–R9, les décisions de conception déjà exprimées et les obligations normatives ou de preuve à examiner. Il est non normatif et ne constitue pas encore une autorisation de réécrire les chapitres concernés.
 
+Le dossier [K7OS — Exploration conjointe](K7OS-EXPLORATION-CONJOINTE.md) conserve les choix d'architecture système, mécanismes, profils et cibles déjà étudiés lorsque ceux-ci ne doivent pas figurer comme prescriptions universelles de K7PL. Il complète le registre sans le remplacer : aucune architecture de K7OS n'est ratifiée par ces documents.
+
+Les rapports R4 et R5 ont été intégrés à `main` par les PR [#286](https://github.com/AntheaLiles/k7pl/pull/286) et [#287](https://github.com/AntheaLiles/k7pl/pull/287) le 2026-10-24. Leur statut reste non normatif ; la fusion des rapports ne clôt pas leurs obligations formelles.
+
+
 | ID | Sujet | Priorité |
 |---|---|---:|
 | [R0](R0-modele-menace-matrice-assurance.md) | Modèle de menace et matrice d’assurance | P0 |
@@ -51,10 +56,6 @@ Chaque rapport doit présenter sources primaires, date/version, hypothèses, ré
 ## Executed report — R4
 
 - [R4 — Concurrency, protocols, liveness and cancellation](R4-concurrence-protocoles-vivacite-annulation.md): analysis of the static dependency DAG versus the dynamic wait graph, local/global progress, fairness assumptions, cancellation, timeout and recovery contracts. Non-normative; liveness remains conditional where the semantics or fairness model is open.
-
-## Executed report — R5
-
-- [R5 — Memory permissions, borrowing, aliasing and separation logic](R5-memoire-emprunt-aliasing-logique-separation.md): audits the grade/capability distinction, spatial safety and H1/H2/H3 premises, borrowing, alias provenance, FFI and weak-memory obligations. Non-normative; end-to-end memory safety remains unestablished.
 
 ## Executed report — R6
 
