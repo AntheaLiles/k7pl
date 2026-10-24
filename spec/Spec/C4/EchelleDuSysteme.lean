@@ -636,7 +636,7 @@ qui suit. Les conditions permettant de relier cette propriété abstraite à une
 restent à établir.
 :::
 ::::
-::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "ffi-safety")
+::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "open") (evidence := "none") (scope := "ffi-safety")
 :::title
 révocation à la frontière étrangère
 :::
