@@ -166,6 +166,7 @@ def render_axiom_traceability(
     lines.extend([
         "**Axiom audit status:** PASS",
         "**Axiom audit run ID:** " + run_id,
+        "**Axiom audit run:** [ouvrir l'exécution CI](https://github.com/AntheaLiles/k7pl/actions/runs/" + run_id + ")",
         "**Axiom audit Lean version:** " + lean_version,
         "**Axiom audit contract SHA-256:** " + contract_sha,
         "",
