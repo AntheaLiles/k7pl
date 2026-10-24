@@ -427,7 +427,7 @@ Le modèle abstrait définit les canaux typés, les messages admissibles et les 
 communication ; il ne fixe ni la représentation du transport ni le coût de chaque opération. Un
 anneau SPSC borné et alloué avant exécution, ou une table d'entrées, sont des réalisations possibles.
 L'absence de verrou, le coût des retraits groupés et la correction concurrente doivent être justifiés
-pour la représentation et la cible retenues. Un motif de jonction $`x(u) \\mid y(v) \\triangleright P`
+pour la représentation et la cible retenues. Un motif de jonction $`x(u) \mid y(v) \triangleright P`
 décrit les messages requis par une transition sans imposer un masquage binaire ou un automate concret.
 Une analyse de couverture ou de performance, éventuellement PEPA (_Performance Evaluation Process
 Algebra_, Hillston) {cite "hillstonCompositionalApproachPerformance"}[], peut évaluer les
@@ -480,8 +480,8 @@ transition de jonction sur appariement admissible
 :::statement +titled
 Condition nécessaire à une transition
 
-Soit $`J \\triangleq x\\langle u \\rangle \\mid y\\langle v \\rangle \\triangleright P` un motif de
-jonction. Une transition $`M \\xrightarrow{J} P` n'est autorisée que si $`M` contient
+Soit $`J \triangleq x\langle u \rangle \mid y\langle v \rangle \triangleright P` un motif de
+jonction. Une transition $`M \xrightarrow{J} P` n'est autorisée que si $`M` contient
 simultanément un appariement de messages sur $`x` et $`y` compatible avec le motif et
 satisfaisant ses conditions de garde. La seule présence de messages sur chacun des deux canaux est
 nécessaire, mais ne suffit pas à caractériser la transition. Le prédicat d'appariement et la règle
@@ -490,7 +490,7 @@ complète de consommation restent à formaliser.
 
 :::proofsketch
 La règle {sc}[Guard] (§{num "sec:g-couche2"}[]) relie le motif à la consommation de ressources
-linéaires ; le produit tensoriel $`x \\otimes y` exprime l'exigence simultanée des deux
+linéaires ; le produit tensoriel $`x \otimes y` exprime l'exigence simultanée des deux
 messages. Cet argument ne définit ni le choix d'un appariement admissible ni la réalisation
 atomique de la consommation. Un anneau SPSC, un masquage binaire ou un échange atomique de
 pointeurs sont des choix d'implémentation ; aucun ne découle de la règle abstraite et chacun
@@ -505,7 +505,7 @@ La propriété sémantique ne démontre ni l'atomicité d'une réalisation ni so
 ::::
 
 La boîte aux lettres abstraite est un multi-ensemble de ressources linéaires indexé par canal,
-$`\\mathsf{Mailbox} = \\Sigma_{c \\in \\mathsf{Chan}}\\,\\mathsf{Bag}(\\mathsf{Cap}(c))`. La relation de
+$`\mathsf{Mailbox} = \Sigma_{c \in \mathsf{Chan}}\,\mathsf{Bag}(\mathsf{Cap}(c))`. La relation de
 transition doit définir l'appariement et la consommation conjointe des messages retenus ; la
 représentation et la primitive atomique éventuelles relèvent du raffinement.
 Quatre résultats de ce document en sont des lectures : l'activation
@@ -522,11 +522,9 @@ sont composés horizontalement, ce que le graphe de câblage fait par constructi
 compositionnel est un problème à part entière, dont la formulation connue ne repose ni sur
 l'atomicité ni directement sur l'ordre _happens-before_, et qui signale qu'un modèle compositionnel
 naïf produit des comportements émergents à l'élément neutre {cite "oliveiravaleCompositionalTheoryLinearizability2023"}[].
-K7PL revendique donc l'atomicité locale et non la localité.
-
-S'il tient, l'activation conditionnelle d'un acteur ne coûte aucun verrou et se lit sur le type de
-son motif. S'il tombe, il faut une synchronisation à l'exécution pour apparier les messages, et le
-coût constant par activation que le chapitre 4 annonce tombe avec lui.
+K7PL revendique l'atomicité de la transition dans le modèle abstrait, non la localité compositionnelle.
+Cette propriété ne prouve ni l'absence de verrou ni un coût constant par activation ; ces garanties
+dépendent du raffinement, de l'ordonnanceur et du profil d'exécution retenu.
 
 Dans le modèle abstrait, un message dont l'étiquette d'état ne correspond pas au protocole attendu
 est rejeté avant la reprise de l'acteur. Une lecture de tag, une comparaison entière et un échange de
@@ -661,8 +659,8 @@ le relais et énonce l'inévitabilité sans l'échéance.
 Ces trois constructeurs sont la quatrième instance du procédé du chapitre 2
 (§{num "sec:c2-adjonctions-et-enrichissement"}[]), l'ordre étant ici celui du temps. Deux raisons
 rendent leur emprunt direct plutôt qu'analogique. L'analyse dont ils proviennent est paramétrique
-dans le modèle de coût, ce qui la laisse compatible avec le référentiel que le
-§{num "sec:c4-echelle-du-systeme"}[] vient de fixer — une machine, sa hiérarchie de caches. Et son
+dans le modèle de coût, ce qui la laisse compatible avec un référentiel de coût à déclarer pour chaque profil. Le présent
+chapitre ne fixe ni une machine cible ni sa hiérarchie de caches. Et son
 régime de communication est asynchrone au sens du $`\pi`-calcul asynchrone, c'est-à-dire celui que
 le chapitre 3 a retenu. Ce que K7PL n'emprunte pas est la sémantique de réécriture temporisée sur
 laquelle leur correction est établie : la nôtre reste à écrire.
