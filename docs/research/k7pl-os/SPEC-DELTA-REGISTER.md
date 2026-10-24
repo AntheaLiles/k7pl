@@ -359,7 +359,7 @@ Les fichiers suivants constituent les premiers lieux de confrontation du registr
 
 - [Sémantique opérationnelle](../../../spec/Spec/C4/SemantiqueOperationnelle.lean) : clarifier configuration, transition, état mémoire, trace, observation et coûts.
 - [Modèles de mémoire](../../../spec/Spec/C4/ModelesDeMemoire.lean), [échelle de l'acteur](../../../spec/Spec/C4/EchelleDeLActeur.lean) et [échelle du système](../../../spec/Spec/C4/EchelleDuSysteme.lean) : revisiter H1/H2/H3, frontières de confiance, configurations multi-acteurs, pannes et profils.
-- [Calcul de processus sous-jacent](../../../spec/Spec/C4/CalculDeProcessusSousjacent.lean) et [preuves ouvertes](../../../spec/Spec/C4/CeQueChaquePreuveOuverteYPuise.lean) : fermer la relation de traduction sans confondre simulation, bisimulation et équivalence observationnelle.
+- [Calcul de processus sous-jacent](../../../spec/Spec/C4/CalculDeProcessusSousJacent.lean) et [preuves ouvertes](../../../spec/Spec/C4/CeQueChaquePreuveOuverteYPuise.lean) : fermer la relation de traduction sans confondre simulation, bisimulation et équivalence observationnelle.
 
 ### C5–C6 — Élaboration et compilation
 
@@ -369,7 +369,7 @@ Les fichiers suivants constituent les premiers lieux de confrontation du registr
 ### Annexes
 
 - [Capacités et mémoire](../../../spec/Spec/AnnexeA/CapabilitesEtMemoire.lean) : aligner vocabulaire, codes d'erreur et contrats sur les règles réellement spécifiées.
-- [Frontières de couches](../../../spec/Spec/AnnexeA/FrontieresDeCouchesEtDisciplineDe.lean), [protocoles et topologie](../../../spec/Spec/AnnexeA/ProtocolesSessionsEtTopologieDistribuee.lean), [contraintes de valeur et preuves résiduelles](../../../spec/Spec/AnnexeA/ContraintesDeValeurEtPreuvesResiduel%28le%29.lean) : éliminer les glissements entre intention architecturale, hypothèse et garantie.
+- [Frontières de couches](../../../spec/Spec/AnnexeA/FrontieresDeCouchesEtDisciplineDe.lean), [protocoles et topologie](../../../spec/Spec/AnnexeA/ProtocolesSessionsEtTopologieDistribuee.lean), [contraintes de valeur et preuves résiduelles](../../../spec/Spec/AnnexeA/ContraintesDeValeurEtPreuvesResiduelles.lean) : éliminer les glissements entre intention architecturale, hypothèse et garantie.
 
 ## 7. Ordre de travail proposé après dépouillement complet
 
