@@ -70,7 +70,7 @@ class TestK7plSemanticsAxiomReport(unittest.TestCase):
     def test_unexpected_extra_axiom_fails_even_if_contract_is_changed(self):
         altered = json.loads(json.dumps(CONTRACT))
         altered["declarations"][0]["axioms"] = ["Lean.ofReduceBool"]
-        with self.assertRaisesRegex(AuditError, "unapproved axiom"):
+        with self.assertRaisesRegex(AuditError, "forbidden axiom|unapproved axiom"):
             parse_report(
                 make_log(overrides={altered["declarations"][0]["name"]: ["Lean.ofReduceBool"]}),
                 altered,
