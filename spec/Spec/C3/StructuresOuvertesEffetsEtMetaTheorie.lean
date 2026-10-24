@@ -148,7 +148,9 @@ propriété doit être établie à la frontière concernée.
 La compilation reproductible reste un objectif, non une propriété garantie. La viser signifie que la
 conception du compilateur n'introduit pas délibérément de variabilité, par exemple des horodatages,
 des chemins absolus ou un ordre d'itération instable. La garantir demanderait de contrôler
-l'environnement de compilation entier, ce que ce document n'établit pas.La frontière limite les propriétés que K7PL peut attribuer au code étranger ; elle ne supprime
+l'environnement de compilation entier, ce que ce document n'établit pas.
+
+La frontière limite les propriétés que K7PL peut attribuer au code étranger ; elle ne supprime
 pas les obligations de sûreté du système qui l'appelle. K7PL ne garantit pas la correction
 fonctionnelle d'un service étranger, mais reste responsable du contrat qu'il expose et de la sûreté
 de l'interaction. Le code étranger ne reçoit aucun droit implicite sur l'état interne protégé, et les
