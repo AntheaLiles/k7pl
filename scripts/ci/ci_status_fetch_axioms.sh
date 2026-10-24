@@ -14,6 +14,29 @@ set -euo pipefail
 : "${RUNNER_TEMP:?RUNNER_TEMP is required}"
 : "${GITHUB_REPOSITORY:?GITHUB_REPOSITORY is required}"
 : "${GH_TOKEN:?GH_TOKEN is required}"
+: "${CURRENT_SHA:?CURRENT_SHA is required}"
+
+if [[ ! "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ || ! "$CURRENT_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+  echo "::error::Source and current commit identifiers must be full 40-character SHA-1 values."
+  exit 1
+fi
+
+if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$SOURCE_SHA" != "$CURRENT_SHA" ]; then
+  git fetch --no-tags origin "$SOURCE_SHA" >/dev/null 2>&1 || {
+    echo "::error::Could not fetch the audited source commit $SOURCE_SHA."
+    exit 1
+  }
+  git merge-base --is-ancestor "$SOURCE_SHA" "$CURRENT_SHA" || {
+    echo "::error::The audited commit $SOURCE_SHA is not an ancestor of $CURRENT_SHA."
+    exit 1
+  }
+  changed="$(git diff --name-only "$SOURCE_SHA" "$CURRENT_SHA" -- . ':(exclude)docs/STATUS.md')"
+  if [ -n "$changed" ]; then
+    echo "::error::The audited commit is stale relative to substantive changes in $CURRENT_SHA:"
+    printf '%s\\n' "$changed"
+    exit 1
+  fi
+fi
 
 out="$RUNNER_TEMP/k7pl-axiom-evidence"
 report="$RUNNER_TEMP/k7pl-axiom-audit.json"
