@@ -28,6 +28,12 @@ schéma porte ses hypothèses et les obligations qui restent à vérifier pour l
 effectif. {rmq}[Écrire le schéma avant
 ses instances évite d'écrire trois fois la même récurrence, et rend visible ce qu'elles partagent.]
 
+Le mot « schéma » désigne ici un patron conditionnel, et non un résultat acquis sur le langage. Le
+champ state décrit l'état épistémique de l'énoncé ; le champ evidence décrit le type d'appui déclaré.
+Ni le rôle lemma, ni une esquisse, ni une compilation de la documentation ne valide les hypothèses
+d'une instance. Le Guide de lecture fixe la qualification de l'évidence ; les obligations propres à
+chaque schéma restent indiquées ci-dessous.
+
 Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le
 désucrage d'une forme de surface, la traduction vers le métalangage et l'abaissement vers la
 représentation intermédiaire ont ceci de commun qu'ils sont définis par récurrence sur la structure
