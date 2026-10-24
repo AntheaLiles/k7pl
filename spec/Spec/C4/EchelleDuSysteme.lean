@@ -266,8 +266,11 @@ une fonction $`f` d'un tuple de relations dans lui-même, chaque règle contribu
 qu'elle dérive. Cette fonction est monotone par construction, puisqu'ajouter des faits ne peut qu'en
 faire dériver davantage, et son grade porte donc la marque du
 §{num "sec:c2-adjonctions-et-enrichissement"}[] sans que le programmeur ait à l'écrire. Le programme
-entier est alors $`\mathbf{fix}\,f`, dont le théorème {num "thm:terminaison_lfp"}[] garantit la
-terminaison dès que le domaine est de hauteur finie — ce qu'un univers de constantes fini assure.
+entier est alors $`\mathbf{fix}\,f`. Sa terminaison dépend des propriétés du domaine des relations
+et de la fonction $`f`. L’énoncé de terminaison par point fixe ({num "thm:terminaison_lfp"}[]) reste
+en revue : il suppose notamment un ordre muni d'un minimum, une hauteur finie et la monotonie de
+$`f`. Un univers de constantes fini ne suffit pas, à lui seul, à établir que le domaine des relations
+satisfait ces hypothèses ; leur relation au domaine effectif doit encore être formalisée.
 
 Deux précisions achèvent le tableau. L'itération naïve recalcule à chaque tour ce qu'elle savait
 déjà ; l'évaluation _semi-naïve_ ne considère que les faits nouveaux du tour précédent, et c'est
