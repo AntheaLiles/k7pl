@@ -63,6 +63,8 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 
 #### SPEC-D-01 — Délimiter les garanties intrinsèques de K7PL
 
+**Nature :** clarification normative et correction des sur-affirmations.
+
 **Sources :** R0, R1, R2, R3, R5, R8.  
 **Cibles à examiner :** C1/Postulats ; C1/AxiomatiqueGerminale ; C4/EchelleDuSysteme ; Annexe A/FrontieresDeCouchesEtDisciplineDe.
 
@@ -74,6 +76,8 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 
 #### SPEC-D-02 — Définir un vocabulaire d'assurance cohérent
 
+**Nature :** clarification éditoriale et exigence de traçabilité de l'assurance.
+
 **Sources :** R0, R2, R3, R6, R7, R9.  
 **Cibles :** C1/GuideDeLecture ; C2/SixSchemasDeMetatheorie ; documentation d'assurance et de statut des résultats.
 
@@ -82,6 +86,8 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 **Critère de clôture :** toutes les revendications normatives ou métathéoriques importantes ont un statut et un type d'évidence explicitement identifiables ; une CI verte est décrite comme un résultat de CI et non comme une preuve générale de sécurité.
 
 #### SPEC-D-03 — Structurer les profils de menace et la base de confiance
+
+**Nature :** ajout/clarification des contrats de profil et des hypothèses.
 
 **Sources :** R0, R1, R3, R8.  
 **Cibles :** C1/Postulats ; C4/EchelleDuSysteme ; Annexe A/FrontieresDeCouchesEtDisciplineDe.
@@ -96,6 +102,8 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 
 #### SPEC-D-04 — Définir les obligations bilatérales de unsafe
 
+**Nature :** précision normative du régime unsafe.
+
 **Sources :** R1, R2, R5.  
 **Cibles :** C3/ReglesDeTypage ; C3/GrammaireDesTypes ; C4/SemantiqueOperationnelle ; C5/LeTheoremeDElaboration ; Annexe A/CapabilitesEtMemoire.
 
@@ -106,6 +114,8 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 **Critère de clôture :** chaque opération non sûre possède un contrat vérifiable ; une abstraction sûre reste sûre pour tout usage qui respecte son interface, sous des hypothèses explicites sur ses dépendances.
 
 #### SPEC-D-05 — Distinguer contrat FFI et confinement du code natif
+
+**Nature :** ajout de contrats d'interface et clarification des hypothèses de confiance.
 
 **Sources :** R0, R1, R2, R3, R8.  
 **Cibles :** C3/StructuresOuvertesEffetsEtMetaTheorie ; C4/EchelleDuSysteme ; C4/EchelleDeLActeur ; C5/LeTheoremeDElaboration ; C6/LeProcessusDeCompilation.
@@ -118,6 +128,8 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 
 #### SPEC-D-06 — Relier les capacités et le comptage abstrait à l'autorité effective
 
+**Nature :** précision sémantique et obligations de preuve d'application.
+
 **Sources :** R1, R5, R7.  
 **Cibles :** C2/AdjonctionsEtEnrichissement ; C3/ReglesDeTypage ; C4/EchelleDeLActeur ; Annexe A/CapabilitesEtMemoire ; modules d'implémentation MemoryCapability et MemoryRange, à titre de points de comparaison et non de preuves normatives automatiques.
 
@@ -126,6 +138,8 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 **Critère de clôture :** l'unicité ou la restriction des droits n'est pas déduite uniquement du comptage abstrait ; une relation relie les capacités source aux opérations qu'elles autorisent effectivement dans le modèle d'exécution.
 
 #### SPEC-D-07 — Compléter le modèle mémoire : régions, aliasing, emprunts et provenance
+
+**Nature :** compléments sémantiques et formalisation manquante ; aucune primitive n'est décidée ici.
 
 **Sources :** R1, R5, R8.  
 **Cibles :** C3/ReglesDeTypage ; C4/ModelesDeMemoire ; C4/EchelleDeLActeur ; Annexe A/CapabilitesEtMemoire ; Annexe A/ContraintesDeValeurEtPreuvesResiduelles.
@@ -143,6 +157,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-08 — Définir les comportements hors domaine et la sémantique de unsafe
 
+**Nature :** clarification normative nécessaire aux optimisations.
+
 **Sources :** R1, R2, R5.  
 **Cibles :** C1/AxiomatiqueGerminale ; C3/ReglesDeTypage ; C4/SemantiqueOperationnelle ; C6/LeProcessusDeCompilation.
 
@@ -153,6 +169,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 ### C. Confidentialité, intégrité et observables
 
 #### SPEC-D-09 — Formaliser confidentialité, intégrité et non-interférence comme contrats distincts
+
+**Nature :** ajout/instanciation de contrats relationnels, sous périmètre explicite.
 
 **Sources :** R0, R3, R8.  
 **Cibles :** C1/Postulats ; C2/SixSchemasDeMetatheorie ; C2/AdjonctionsEtEnrichissement ; C3/LeSystemeGradue ; C3/ReglesDeTypage ; C4/SemantiqueOperationnelle.
@@ -165,6 +183,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-10 — Nommer les observables et les exclusions de canaux auxiliaires
 
+**Nature :** définition normative des observations et précision des exclusions.
+
 **Sources :** R0, R3, R6, R9.  
 **Cibles :** C1/Postulats ; C4/SemantiqueOperationnelle ; C4/CalculDeProcessusSousjacent ; C6/StrategiesDeVerificationEtDeTest.
 
@@ -173,6 +193,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 **Point de cohérence :** les temps restent pertinents pour les budgets et le WCET même si la non-interférence temporelle est reportée. Il faut donc distinguer observation de coût, observabilité par un adversaire et obligation de confidentialité.
 
 #### SPEC-D-11 — Relier le calcul d'acteurs au graphe d'attente réel
+
+**Nature :** complément de sémantique opérationnelle et obligation de simulation.
 
 **Sources :** R4, R9.  
 **Cibles :** C3/LesContraintesDeValeur ; C3/ReglesDeTypage ; C4/SemantiqueOperationnelle ; C4/EchelleDuSysteme ; C4/CalculDeProcessusSousjacent.
@@ -183,6 +205,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-12 — Séparer fidélité de protocole, progrès, absence de blocage, famine et terminaison
 
+**Nature :** clarification des propriétés et des prémisses de théorèmes.
+
 **Sources :** R4, R9.  
 **Cibles :** C3/LesContraintesDeValeur ; C4/SemantiqueOperationnelle ; C4/CalculDeProcessusSousjacent.
 
@@ -191,6 +215,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 **Critère de clôture :** aucun théorème d'absence de blocage ne se fonde uniquement sur le tri topologique tant que l'exhaustivité du graphe d'attente et la relation Sim ne sont pas démontrées. La dualité de sessions ne doit pas être présentée comme preuve de progression globale.
 
 #### SPEC-D-13 — Définir les contrats d'annulation, timeout et erreurs de protocole
+
+**Nature :** complément normatif des transitions et des états terminaux.
 
 **Sources :** R4, R7, R9.  
 **Cibles :** C3/ReglesDeTypage ; C4/SemantiqueOperationnelle ; C4/EchelleDuSysteme ; Annexe A/ProtocolesSessionsEtTopologieDistribuee.
@@ -203,6 +229,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-14 — Définir la quantité représentée par les grades de budget
 
+**Nature :** clarification de la sémantique des grades et ajout des obligations de coût.
+
 **Sources :** R2, R4, R6, R9.  
 **Cibles :** C1/AxiomatiqueGerminale ; C2/SystemeDeRaffinement ; C3/EffectiveKernel ; C3/LeSystemeGradue ; C3/ReglesDeTypage ; C4/SemantiqueOperationnelle.
 
@@ -213,6 +241,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 **Critère de clôture :** un théorème relie le jugement de grade au coût de la sémantique opérationnelle instrumentée sur un fragment explicitement annoncé ; les obligations de composition ouvertes sont listées.
 
 #### SPEC-D-15 — Séparer coût abstrait, coût machine, WCET et faisabilité d'échéance
+
+**Nature :** clarification des contrats et extension d'assurance dépendante de la cible.
 
 **Sources :** R2, R6, R8.  
 **Cibles :** C1/AxiomatiqueGerminale ; C4/SemantiqueOperationnelle ; C6/LeProcessusDeCompilation ; C6/CeQueLeSolveurRetourne ; C6/StrategiesDeVerificationEtDeTest.
@@ -227,6 +257,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-16 — Décomposer le modèle de panne et les garanties de récupération
 
+**Nature :** définition de profils/ extensions et explicitation des exclusions.
+
 **Sources :** R0, R4, R7, R8, R9.  
 **Cibles :** C4/EchelleDuSysteme ; C4/SemantiqueOperationnelle ; C4/ModelesDeMemoire ; Annexe A/CapabilitesEtMemoire ; Annexe A/ProtocolesSessionsEtTopologieDistribuee.
 
@@ -235,6 +267,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 **Critère de clôture :** les propriétés démontrées sous un modèle de panne ne sont pas généralisées à un autre sans hypothèse ou preuve supplémentaire.
 
 #### SPEC-D-17 — Préciser journal, checkpoint, commit et effets externes
+
+**Nature :** complément de sémantique pour les extensions de persistance.
 
 **Sources :** R4, R7, R9.  
 **Cibles :** C4/EchelleDuSysteme ; C4/SemantiqueOperationnelle ; Annexe A/ProtocolesSessionsEtTopologieDistribuee.
@@ -247,6 +281,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-18 — Établir la relation d'adéquation entre source et exécution
 
+**Nature :** définition formelle de la relation de simulation et obligations de preuve.
+
 **Sources :** R2, R4, R5, R9.  
 **Cibles :** C4/SemantiqueOperationnelle ; C4/CalculDeProcessusSousjacent ; C5/LeTheoremeDElaboration ; C6/LeProcessusDeCompilation ; audits C-04/C-07/C-08.
 
@@ -255,6 +291,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 **Critère de clôture :** chaque règle source couverte possède un cas de simulation ; le résultat ne revendique ni bisimulation, ni équivalence observationnelle, ni pleine abstraction si seule une simulation avant est établie.
 
 #### SPEC-D-19 — Spécifier la préservation à chaque étape de la chaîne MLIR/LLVM
+
+**Nature :** contrat normatif de compilation et feuille de route de preuve.
 
 **Sources :** R2, R5, R6, R8.  
 **Cibles :** C5/LeTheoremeDElaboration ; C6/LeProcessusDeCompilation ; C6/CeQueLeSolveurRetourne ; C6/StrategiesDeVerificationEtDeTest ; CodeArtifacts et formal-chain comme expériences distinctes.
@@ -265,6 +303,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-20 — Déclarer la base de confiance et l'assurance reproductible
 
+**Nature :** précision des hypothèses et compléments de traçabilité de la toolchain.
+
 **Sources :** R0, R2, R9.  
 **Cibles :** C5/phase 0 et élaboration ; C6/ProcessusDeCompilation ; documentation d'assurance ; CI, dépendances et artefacts de build.
 
@@ -274,6 +314,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-21 — Établir la traçabilité exigences–définitions–preuves–tests
 
+**Nature :** exigence transversale d'assurance ; partiellement documentaire, pas une nouvelle règle du langage à elle seule.
+
 **Sources :** R0, R2, R3, R4, R5, R6, R7, R9.  
 **Cibles :** identifiants normatifs, déclarations Lean, tests, modèles bornés et documentation d'assurance.
 
@@ -282,6 +324,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 **Critère de clôture :** tout résultat d'assurance est classé par type de preuve, version, périmètre, paramètres, hypothèses, contre-exemples connus et exigence soutenue.
 
 #### SPEC-D-22 — Encadrer les revendications d'absence de surcoût
+
+**Nature :** clarification des engagements de performance et critères expérimentaux.
 
 **Sources :** R2, R6.  
 **Cibles :** C5/élaboration et effacement ; C6/pipeline et optimisation ; contraintes de grade/budget.
@@ -294,6 +338,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-23 — Découpler machine abstraite normative et profils concrets
 
+**Nature :** clarification d'architecture sémantique et des préconditions de réalisation.
+
 **Sources :** R0, R1, R6, R7, R8.  
 **Cibles :** C1/Postulats ; C4/EchelleDuSysteme ; C4/ModelesDeMemoire ; Annexe A/FrontieresDeCouchesEtDisciplineDe.
 
@@ -303,6 +349,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 #### SPEC-D-24 — Exploiter les comparaisons d'OS comme critères de falsification
 
+**Nature :** méthode d'évaluation non normative ; ne doit pas devenir une exigence de langage par simple analogie.
+
 **Sources :** R0, R1, R2, R6, R7, R8.  
 **Cibles :** C7/études de cas ; architecture de validation et tests d'acceptation.
 
@@ -311,6 +359,8 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 **Limite :** cette ligne organise l'évaluation de l'OS comme banc d'essai ; elle ne ratifie aucune architecture, aucun noyau et aucun composant matériel.
 
 #### SPEC-D-25 — Relier les modèles bornés et contre-exemples à la sémantique K7PL
+
+**Nature :** méthode de vérification et contrat de traçabilité entre modèle, preuve et test.
 
 **Sources :** R4, R6, R7, R9.  
 **Cibles :** C3/C4 ; tests ; modèles TLA+/TLC ou Apalache ; preuve Lean ; documentation d'assurance.
