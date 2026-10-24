@@ -33,7 +33,8 @@ grep -Fq "'K7PL.MachineSoundness.end_to_end_preservation' depends on axioms:" "$
 for declaration in \
   "K7PL.NativeBoundary.enforcedBoundary_step_preserves_protected" \
   "K7PL.NativeBoundary.enforcedBoundary_trace_preserves_protected" \
-  "K7PL.NativeBoundary.unconfined_native_write_counterexample"; do
+  "K7PL.NativeBoundary.unconfined_native_write_counterexample" \
+  "K7PL.NativeBoundary.unconfined_native_write_trace_replay"; do
   grep -Fq "'$declaration' depends on axioms:" "$BUILD_LOG" || {
     echo "::error::Missing axiom audit for $declaration." >&2
     exit 1

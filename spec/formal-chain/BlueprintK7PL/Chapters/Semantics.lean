@@ -121,6 +121,18 @@ K7PL.NativeBoundary.Step, pas sur du code natif arbitraire ni sur un mécanisme
 matériel particulier.
 :::
 
+:::theorem "d01_unconfined_trace_replay" (parent := "subset") (lean := "K7PL.NativeBoundary.unconfined_native_write_trace_replay")
+Le témoin TLC d'une écriture native non confinée est rejoué comme une trace Lean exacte :
+état initial `(protected=0, service=0)`, action `nativeWrite(1)`, état final
+`(protected=1, service=0)`.
+:::
+
+:::proof "d01_unconfined_trace_replay"
+La preuve Lean construit une transition `Step` puis ferme la trace avec `Steps.nil`.
+Le modèle TLC limité au même domaine fini doit fournir le même événement final.
+Cette liaison reste un témoin précis, pas un théorème de projection pour toutes les traces.
+:::
+
 :::theorem "d01_unconfined_counterexample" (parent := "subset") (lean := "K7PL.NativeBoundary.unconfined_native_write_counterexample")
 Le profil partagé sans frontière appliquée admet une écriture native qui modifie
 l'état protégé. Ce contre-exemple interdit d'inférer la protection du seul système

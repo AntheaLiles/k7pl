@@ -11,6 +11,7 @@ on:
       - "tests/examples/**"
       - "docs/formal-semantics.md"
       - "docs/research/k7pl-os/models/D01NativeBoundary.tla"
+      - "docs/research/k7pl-os/models/D01-NativeBoundary-ExpectedCounterexample.json"
       - "docs/research/k7pl-os/models/D01-NativeBoundary*.cfg"
       - "scripts/ci/k7pl_os_boundary_check.sh"
       - "tests/examples/native-boundary/**"
@@ -108,7 +109,7 @@ jobs:
       - name: Preserve model, configurations, toolchain identity and TLC output
         run: |
           set -euo pipefail
-          cp D01NativeBoundary.tla D01-NativeBoundary.cfg D01-NativeBoundary-Unconfined.cfg "$GITHUB_WORKSPACE/d01-tlc-evidence/"
+          cp D01NativeBoundary.tla D01-NativeBoundary.cfg D01-NativeBoundary-Unconfined.cfg D01-NativeBoundary-ExpectedCounterexample.json "$GITHUB_WORKSPACE/d01-tlc-evidence/"
           sha256sum "$GITHUB_WORKSPACE/d01-tlc-evidence/"* > "$GITHUB_WORKSPACE/d01-tlc-evidence/SHA256SUMS"
           java -version 2> "$GITHUB_WORKSPACE/d01-tlc-evidence/java-version.txt"
           sha256sum "$RUNNER_TEMP/tla2tools.jar" > "$GITHUB_WORKSPACE/d01-tlc-evidence/tla2tools.jar.sha256"
