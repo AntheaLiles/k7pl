@@ -8,20 +8,20 @@ CONSTANT BoundaryEnforced
 ASSUME BoundaryEnforced \in BOOLEAN
 
 Values == {0, 1}
-Events == {"ConformingCall", "NativeWriteRejected", "NativeWriteBypass"}
+Events == {"Init", "ConformingCall", "NativeWriteRejected", "NativeWriteBypass"}
 
-VARIABLES protectedValue, serviceValue, trace
-vars == <<protectedValue, serviceValue, trace>>
+VARIABLES protectedValue, serviceValue, lastEvent
+vars == <<protectedValue, serviceValue, lastEvent>>
 
 Init ==
     /\ protectedValue = 0
     /\ serviceValue = 0
-    /\ trace = <<>>
+    /\ lastEvent = "Init"
 
 TypeOK ==
     /\ protectedValue \in Values
     /\ serviceValue \in Values
-    /\ trace \in Seq(Events)
+    /\ lastEvent \in Events
 
 ProtectedIntegrity == protectedValue = 0
 
@@ -29,17 +29,17 @@ ConformingCall(v) ==
     /\ v \in Values
     /\ protectedValue' = protectedValue
     /\ serviceValue' = v
-    /\ trace' = Append(trace, "ConformingCall")
+    /\ lastEvent' = "ConformingCall"
 
 NativeWrite(v) ==
     /\ v \in Values
     /\ IF BoundaryEnforced
           THEN
             /\ protectedValue' = protectedValue
-            /\ trace' = Append(trace, "NativeWriteRejected")
+            /\ lastEvent' = "NativeWriteRejected"
           ELSE
             /\ protectedValue' = v
-            /\ trace' = Append(trace, "NativeWriteBypass")
+            /\ lastEvent' = "NativeWriteBypass"
     /\ UNCHANGED serviceValue
 
 Next ==
