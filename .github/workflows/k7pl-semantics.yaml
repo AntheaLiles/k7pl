@@ -38,6 +38,8 @@ on:
       - "proofs/**"
       - "spec/formal-chain/**"
       - "scripts/ci/test_code_artifact_contract.py"
+      - "scripts/ci/k7pl_semantics_axiom_report.py"
+      - "scripts/ci/test_k7pl_semantics_axiom_report.py"
       - "spec/Spec.lean"
       - "spec/Spec/**"
       - "tools/**"
