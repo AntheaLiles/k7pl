@@ -91,6 +91,46 @@ sortie entière `3`. Ce témoin explicite utilise `Rewrites.k7AddEval`.
 Le pont d’exemple rapporte `[propext]`; la CI interdit `sorryAx`.
 :::
 
+:::theorem "root_add_rule_bridge" (parent := "subset") (lean := "K7PL.Bridge.add_root_is_klean_rewrite")
+La règle racine d’addition K est un constructeur explicite de la relation `Rewrites`
+générée par KLean, pour deux entiers arbitraires.
+:::
+
+:::proof "root_add_rule_bridge"
+Le terme Lean construit la configuration complète initiale et utilise le constructeur
+`Rewrites.k7AddEval` produit à partir de la définition K compilée.
+:::
+
+:::theorem "root_less_than_rule_bridge" (parent := "subset") (lean := "K7PL.Bridge.less_than_root_is_klean_rewrite")
+La règle racine de comparaison K relie deux littéraux entiers à la configuration
+complète contenant le résultat booléen calculé.
+:::
+
+:::proof "root_less_than_rule_bridge"
+Le pont cible `Rewrites.k7LessThanEval`. Il établit le pas racine et ne déclare pas
+une équivalence générale entre `typeOf` et `HasType`.
+:::
+
+:::theorem "root_select_true_rule_bridge" (parent := "subset") (lean := "K7PL.Bridge.select_true_root_is_klean_rewrite")
+Quand la condition de `select` est vraie, la règle racine K mène à la branche vraie
+sans évaluer la branche ignorée.
+:::
+
+:::proof "root_select_true_rule_bridge"
+Le pont utilise le constructeur généré `Rewrites.k7SelectTrue` sur les configurations
+complètes. Les transitions heat/cool qui amènent la condition à une valeur sont distinctes.
+:::
+
+:::theorem "root_select_false_rule_bridge" (parent := "subset") (lean := "K7PL.Bridge.select_false_root_is_klean_rewrite")
+Quand la condition de `select` est fausse, la règle racine K mène à la branche fausse
+sans évaluer la branche ignorée.
+:::
+
+:::proof "root_select_false_rule_bridge"
+Le pont utilise le constructeur généré `Rewrites.k7SelectFalse`. Les pas de contexte
+et l’intégralité de la simulation de `SurfaceStep` restent hors de sa portée.
+:::
+
 :::theorem "nested_add_end_to_end" (parent := "subset") (lean := "K7PL.Example.add_example_end_to_end")
 Pour `tests/examples/add.k7`, K réduit `(+ 1 (+ 2 3))` à `6`; Lean compose
 une trace explicite de transitions `Rewrites` et vérifie le type de l’entrée
