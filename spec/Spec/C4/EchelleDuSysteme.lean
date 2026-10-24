@@ -33,11 +33,16 @@ vérifiable plutôt qu'arbitraire. Comment ils communiquent entre eux et vers l'
 clôture, ce que cette machinerie offre sans rien y ajouter à un domaine qui semblait lui être
 étranger.
 
-Cette section décrit le modèle abstrait du système et les obligations qui en découlent.
-Les descriptions d'environnements d'exécution, de disposition mémoire, de synchronisation et de
-persistance qui suivent sont des exemples de réalisation, non des exigences architecturales de K7PL.
-Elles ne suffisent pas, à elles seules, à établir la conformité d'une implémentation ni la portée
-d'une garantie normative.
+Cette section décrit le modèle abstrait du système et les obligations qui en découlent. Les détails
+de runtime, de synchronisation, de persistance et de placement mémoire sont des choix de réalisation
+sauf lorsqu'une exigence est explicitement posée ; ils ne fixent pas, à eux seuls, une architecture.
+Cette réserve ne retire ni les contraintes de représentation explicitement normatives — notamment
+ECS/SoA/PIA, l'alignement et le placement NUMA définis dans « EchelleDeLActeur » — ni les invariants
+des couches. La couche 3 reste cartésienne et pure ($`\mathcal{E}=\emptyset`), ses calculs valides
+terminent selon les schémas récursifs admis et leur coût de pile est statiquement gradué. La couche 2
+exige la productivité de chaque observation sous sa garde typée, sans exiger la terminaison du flux
+entier. Le statut « under-review » des preuves concerne leur formalisation ; il n'autorise ni un terme
+valide de couche 3 à diverger ni un flux valide de couche 2 à omettre l'observation requise.
 
 Le modèle abstrait doit distinguer les états des acteurs, leurs transitions et les interactions avec
 l'environnement. À la frontière d'une interface étrangère, le contrat doit spécifier les valeurs
@@ -374,8 +379,13 @@ du runtime.
 :::
 
 :::note
-_Obligation ouverte._ Poser les hypothèses de terminaison locale et de progrès de l'ordonnanceur,
-et établir la correspondance entre attentes dynamiques et arêtes de $`G`.
+_Obligation ouverte._ Classer chaque initialiseur par couche. Pour un calcul bien typé de couche 3
+restreint à un schéma inductif admis, la terminaison relève de l'invariant normatif de couche 3
+({num "thm:terminaison_couche_3"}[]) ; sa preuve générique reste en revue, sans autoriser la
+divergence d'un terme valide. Si l'initialiseur attend une communication ou exécute une opération à
+effet, cet invariant ne suffit pas : les conditions de progrès correspondantes doivent être posées.
+Restent à établir la progression requise de l'ordonnanceur et la correspondance entre attentes
+dynamiques et arêtes de $`G`.
 :::
 ::::
 Les espaces de noms se lisent sur ce même graphe : un namespace en retient la restriction à une
