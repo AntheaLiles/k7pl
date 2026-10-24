@@ -628,9 +628,11 @@ ce théorème. Au retour, la passerelle restitue la capacité à l'acteur.
 :::
 
 :::note
-_Obligation ouverte._ L'énoncé suppose qu'aucun alias ni accès non suivi ne contourne le contexte
-typé ; cette prémisse est à expliciter. La révocation côté hôte après le retour relève de l'exigence
-qui suit et ne se replie pas dans ce théorème.
+_Portée de l'énoncé._ L'argument concerne le contexte typé de l'acteur dans le modèle abstrait. Il
+ne démontre pas qu'un appel natif ne conserve aucun alias, ne contourne pas ce contexte ou n'accède
+pas à la mémoire par un autre chemin. La révocation après le retour relève de l'exigence distincte
+qui suit. Les conditions permettant de relier cette propriété abstraite à une réalisation native
+restent à établir.
 :::
 ::::
 ::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "ffi-safety")
@@ -661,9 +663,10 @@ elle suit de l'élimination de coupure. Que l'hôte ne le retienne pas est une c
 _sortie_ — sur ce qu'un tiers peut encore faire après coup —, et la directionalité de la restriction
 est ce qui sépare les deux régimes de raisonnement substructurel. Capabilités, bac à sable et
 protocoles d'autorisation relèvent du second, dont la sûreté demande un argument dédié {cite "gouniSecurityReasoningSubstructural2026"}[].
-La seconde clause repose donc sur la discipline de représentation de la passerelle — l'hôte n'ayant
-détenu que des offsets relatifs bornés par le cycle de vie de la passerelle plutôt qu'un pointeur
-absolu — et non sur le système de types.
+La seconde clause ne découle pas du système de types. La réalisation doit établir qu'après le
+retour l'interface étrangère ne peut plus accéder au tampon transféré. La représentation des
+références, le mécanisme de révocation et les moyens de vérification restent ouverts ; le modèle
+abstrait ne démontre pas à lui seul cette propriété.
 
 S'il tient, la frontière d'exécution cesse d'être un trou dans la discipline de propriété : elle en
 est un cas. S'il tombe sur sa seconde clause, l'appel étranger redevient un point où une capacité
