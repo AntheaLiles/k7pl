@@ -9,6 +9,10 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["K7PL formal semantics"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
@@ -205,7 +209,18 @@ jobs:
           echo "CI OK"
   status:
     name: Generated status
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.ci-ok.result == 'success' }}
+    if: >-
+      ${{
+        needs.ci-ok.result == 'success' &&
+        (
+          (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+          (github.event_name == 'workflow_run' &&
+           github.event.workflow_run.name == 'K7PL formal semantics' &&
+           github.event.workflow_run.conclusion == 'success' &&
+           github.event.workflow_run.head_branch == 'main' &&
+           github.event.workflow_run.head_sha == github.sha)
+        )
+      }}
     needs: [ci-ok, impact, verify, reuse, commitlint, security]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -223,7 +238,21 @@ jobs:
 
       - name: Check whether STATUS already covers the current history
         id: baseline
+        env:
+          REQUIRE_AXIOM_AUDIT: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha == github.sha }}
         run: bash scripts/ci/ci_status_baseline.sh
+
+      - name: Retrieve matching K7PL axiom audit evidence
+        id: axiom-evidence
+        if: ${{ steps.baseline.outputs.current != 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          SOURCE_SHA: ${{ github.sha }}
+          UPSTREAM_RUN_ID: ${{ github.event.workflow_run.id || '' }}
+          UPSTREAM_HEAD_SHA: ${{ github.event.workflow_run.head_sha || '' }}
+          UPSTREAM_CONCLUSION: ${{ github.event.workflow_run.conclusion || '' }}
+        run: bash scripts/ci/ci_status_fetch_axioms.sh
 
       - name: Generate STATUS.md
         if: ${{ steps.baseline.outputs.current != 'true' }}
@@ -234,6 +263,7 @@ jobs:
           K7PL_REUSE_RESULT: ${{ needs.reuse.result }}
           K7PL_COMMITLINT_RESULT: ${{ needs.commitlint.result }}
           K7PL_SECURITY_RESULT: ${{ needs.security.result }}
+          K7PL_AXIOM_AUDIT_REPORT: ${{ steps.axiom-evidence.outputs.report_path }}
         run: python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION"
 
       - name: Check for generated changes
