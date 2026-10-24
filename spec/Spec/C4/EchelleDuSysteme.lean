@@ -167,10 +167,9 @@ $`\text{Rejeu}(J(H), S_0) =_{\text{bit}} S_{\text{final}}`.
 :::
 
 :::proofsketch
-Sous $`E_{\text{repro}}`, la représentation d'une valeur dénotée est fonction de la seule chaîne de
-compilation, et l'ordre d'évaluation est fixé ; l'égalité observationnelle du
-théorème {num "thm:determinisme_rejeu"}[] se transporte alors, par $`H_{\text{repr}}`, en identité
-de représentation.
+Si l'égalité observationnelle du théorème précédent est établie, $`E_{\text{repro}}` fixe la
+représentation d'une valeur dénotée et l'ordre d'évaluation ; $`H_{\text{repr}}` transporte alors
+cette égalité en identité de représentation.
 
 _Trois rejeux, une seule relation._ Ce document en distingue trois — le rejeu logique, l'identité
 binaire, et le rejeu stratifié par niveau du §{num "sec:g-semantique"}[] — et ils ne sont pas trois notions mais _trois
@@ -198,10 +197,11 @@ Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représe
 $`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}}, \mathrm{arch}, \mathrm{mem}, \mathrm{round}, v_{\mathrm{schéma}} \rangle` : versions des trois
 spécifications de disposition, architecture et comportement NaN, modèle mémoire, mode d'arrondi,
 version de schéma. $`E_{\text{repro}}`, la portée « une machine » du modèle mémoire et la convention
-d'élision de champ en sont trois projections. Il en résulte que les théorèmes de disposition
-({num "thm:isomorphisme_memoire"}[]) et de rejeu binaire ({num "thm:rejeu_binaire"}[]) sont des
-propriétés de _conformité du compilateur_ à un profil donné, vérifiées par le pipeline de validation
-de la phase 7, et non des théorèmes du calcul des types.
+d'élision de champ en sont trois projections. Les énoncés de disposition ({num "thm:isomorphisme_memoire"}[]) et de rejeu binaire
+({num "thm:rejeu_binaire"}[]) expriment des obligations de conformité du compilateur à un profil
+donné, non des résultats du calcul des types. La phase 7 a pour rôle de contrôler cette conformité ;
+ce contrôle ne remplace pas la formalisation des hypothèses et des preuves encore ouvertes associées
+à ces énoncés.
 
 Une réalisation peut surveiller la continuité des acteurs par battements de cœur et politiques de
 redémarrage. Ces mécanismes ne suffisent pas à garantir la reprise : l'énoncé « un acteur en panne
