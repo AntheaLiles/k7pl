@@ -14,6 +14,7 @@ reports are hard failures.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -134,7 +135,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
-        contract = json.loads(args.contract.read_text(encoding="utf-8"))
+        contract_bytes = args.contract.read_bytes()
+        contract = json.loads(contract_bytes)
         log = args.log.read_text(encoding="utf-8", errors="replace")
         report = parse_report(
             log,
@@ -143,6 +145,7 @@ def main(argv: list[str] | None = None) -> int:
             workflow_run_id=args.workflow_run_id,
             lean_version=args.lean_version,
         )
+        report["contractSha256"] = hashlib.sha256(contract_bytes).hexdigest()
     except (OSError, json.JSONDecodeError, AuditError) as error:
         print(f"axiom dependency audit failed: {error}", file=sys.stderr)
         return 1
