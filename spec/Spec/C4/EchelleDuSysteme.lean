@@ -98,13 +98,11 @@ Ce schéma est un exemple d'implémentation, non une exigence du modèle abstrai
 système, d'endormissement ou de sémaphore et les coûts annoncés doivent être vérifiés pour la
 réalisation retenue.
 
-La source citée pour ce modèle est une note d'ingénierie, et elle est citée à bon droit pour ce
-qu'elle établit : un choix de conception et ses mesures. Elle ne démontre pas la correction de
-l'anneau, et il ne faut pas lui faire dire ce qu'elle ne dit pas. La correction d'une file bornée
-concurrente sous modèle mémoire faible est, elle, vérifiée mécaniquement dans une logique de
-séparation dédiée, dont les assertions portent des _vues_ munies d'une structure de treillis,
-l'antériorité s'y exprimant comme un transfert de vue {cite "mevelFormalVerificationConcurrent2021"}[].
-C'est cette preuve qui porte la correction ; la note porte l'ingénierie.
+La note d'ingénierie citée documente une réalisation de file et ses mesures, mais ne constitue pas
+une preuve de correction. Les travaux sur les files bornées concurrentes sous modèle mémoire faible
+présentent des preuves mécaniques en logique de séparation, où l'ordre entre accès est exprimé par
+un transfert de vue {cite "mevelFormalVerificationConcurrent2021"}[]. Ces preuves portent sur le modèle
+et l'implémentation qu'elles étudient ; elles ne valident pas automatiquement une réalisation K7PL.
 
 Pour une file concurrente fondée sur un modèle mémoire faible, le progrès du consommateur peut
 dépendre d'une hypothèse d'équité mémoire : le système mémoire propage équitablement les écritures
