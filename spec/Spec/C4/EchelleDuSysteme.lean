@@ -113,13 +113,242 @@ de barrières. Les résultats cités portent sur des modèles déterminés ; ils
 correction d'une réalisation K7PL qui n'a pas été spécifiée. Le choix des barrières et la preuve de
 progrès restent des obligations de raffinement.
 
-Cette persistance n'a de valeur que si elle rend le système rejouable (P4). Tout ce que l'exécution
-pourrait tirer d'une source non déterministe — horloge, générateur aléatoire — transite par un
-contexte implicite unique, passé silencieusement à chaque appel mais dont toute modification est
-explicite et journalisée. Au rejeu, le runtime substitue à chaque appel non déterministe la valeur
-consignée, ce sur quoi repose le rejeu logique défini par P4 (théorème {num "thm:determinisme_rejeu"}[]). Une identité bit à bit ne suit que sous le
-profil de représentation $`\Pi` et les hypothèses $`E_{\text{repro}}` du théorème de représentation
-binaire ci-dessous ; elle n'est pas une propriété intrinsèque de la persistance ni du langage.
+Dans un profil qui retient la persistance avec rejeu, les sources non déterministes — horloge,
+générateur aléatoire et autres entrées de l'environnement — doivent être consignées dans le journal
+puis remplacées par les valeurs enregistrées lors du rejeu. Le résultat observationnel attendu dépend
+de la complétude du journal et de la fidélité du runtime ; il ne découle pas de la seule persistance.
+L'identité bit à bit est une propriété distincte, conditionnée par le profil de représentation -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Échelle du système" =>
+%%%
+file := "c4-echelle-du-systeme"
+tag := "c4-echelle-du-systeme"
+%%%
+
+{label "sec:c4-echelle-du-systeme"}
+
+À l'échelle du système, la coalgèbre qui produit l'état suivant n'est plus celle d'un acteur isolé,
+mais celle de l'orchestrateur tout entier, dont l'état est composé des états de tous les acteurs
+qu'il supervise. Le foncteur qui l'engendre est exhibé au §{num "sec:c4-le-calcul-de-processus"}[] :
+sous la lecture de la couche 2 comme calcul de processus, un système est un terme — composition
+parallèle d'acteurs sous restriction des canaux privés —, et le foncteur cherché est le produit des
+foncteurs de comportement individuels, restreint aux transitions que la topologie de coupures
+autorise. Cette section suit quatre questions que doit résoudre une telle coalgèbre à grande
+échelle. Comment ses composants naissent et persistent. Comment la forme de leur assemblage reste
+vérifiable plutôt qu'arbitraire. Comment ils communiquent entre eux et vers l'extérieur. Et, en
+clôture, ce que cette machinerie offre sans rien y ajouter à un domaine qui semblait lui être
+étranger.
+
+Cette section décrit le modèle abstrait du système et les obligations qui en découlent.
+Les descriptions d'environnements d'exécution, de disposition mémoire, de synchronisation et de
+persistance qui suivent sont des exemples de réalisation, non des exigences architecturales de K7PL.
+Elles ne suffisent pas, à elles seules, à établir la conformité d'une implémentation ni la portée
+d'une garantie normative.
+
+Le modèle abstrait doit distinguer les états des acteurs, leurs transitions et les interactions avec
+l'environnement. À la frontière d'une interface étrangère, le contrat doit spécifier les valeurs
+et effets exposés ainsi que les conditions de retour et d'échec. La déclaration de cette interface
+porte un attribut explicite `unsafe` : il signale les obligations propres à cette frontière et
+n'autorise ni un mode d'exécution non sûr général ni l'affaiblissement des invariants du code K7PL.
+L'attribut est porté par la liste d'attributs de la déclaration dans la notation à expressions
+symboliques. L'élaboration doit le préserver jusqu'à la vérification de l'interface et rejeter une
+déclaration étrangère qui ne le porte pas. Cet attribut ne confère aucun droit sur l'état interne
+protégé. La préservation de
+ces invariants doit être établie pour toutes les transitions autorisées par le contrat, y compris les
+transitions d'échec ; elle ne suppose pas que le service étranger respecte fonctionnellement son
+contrat.
+
+Par défaut, l'état interne protégé comprend tout état dont K7PL assure la représentation, les
+transitions, l'autorité, l'intégrité ou la durée de vie. Cela inclut notamment l'état des acteurs ;
+les régions mémoire, les capacités, l'identité et la durée de vie des objets ; les messages, les
+boîtes aux lettres et les états de protocole ; l'état de l'orchestrateur et de l'ordonnanceur ; les
+instantanés et les journaux ; ainsi que les budgets et le contexte temporel gérés par K7PL. Cette
+énumération illustre la règle générale et ne limite pas sa portée aux catégories citées. Le contrat
+peut exposer des valeurs, observations ou opérations déterminées ; cette exposition n'accorde aucun
+droit supplémentaire au-delà de ce qu'il autorise explicitement. Les chemins d'échec, d'annulation,
+de reprise et de restauration sont soumis à la même exigence de préservation.
+
+Ces exigences ne sélectionnent aucun mécanisme de séparation concret. Le modèle abstrait ne
+démontre pas à lui seul qu'une implémentation native empêche un code étranger d'accéder à des
+adresses internes : cette correspondance et les restrictions effectives imposées à l'exécution
+restent des obligations de conformité propres à l'implémentation et au profil visé.
+
+Un acteur virtuel est une adresse logique dans le modèle abstrait. Le cycle de vie distingue les
+états actif et inactif et exige la préservation de l'état observable lors des transitions. Une
+réalisation peut sérialiser l'état inactif dans un instantané journalisé, restituer sa mémoire puis
+rejouer les messages consignés lors de la réactivation. L'instantané, le journal, la restitution
+physique et l'atomicité de l'activation sont des choix de réalisation ; les coûts et les limites de
+capacité dépendent du profil retenu.
+
+::::figure (label := "fig:acteur-cycle-de-vie") (src := "virtual-actor-lca") (alt := "Cycle à deux états. Un point initial mène à Désactivé. De Désactivé vers Actif, l'activation charge l'instantané et rejoue le journal. Sur Actif, une boucle figure le traitement de message. D'Actif vers Désactivé, l'inactivité gèle l'état, le persiste et libère la mémoire.") (width := "90")
+:::caption
+Exemple de cycle de vie par instantané et rejeu
+:::
+
+:::desc
+Ce schéma illustre une réalisation possible par instantané et rejeu ; il ne fixe pas la
+représentation exigée par le modèle abstrait.
+:::
+::::
+
+Pour une réalisation fondée sur des instantanés, le coût du gel dépend du format de l'état et du
+journal. La possibilité d'un transfert sans copie dépend de la correspondance entre la représentation
+et le journal ; elle n'est pas garantie pour toutes les représentations. Un format compatible avec la disposition en colonnes peut
+permettre un transfert de segment ; une liste de structures peut nécessiter une transposition en
+$`O(n)`. Ces coûts décrivent des représentations déterminées, non une propriété générale du cycle
+de vie.
+
+Une réalisation peut employer le modèle LMAX Disruptor : un compteur 64 bits incrémenté par le
+producteur et sondé par le consommateur, avec publication en _release_ et consommation en _acquire_.
+Ce schéma est un exemple d'implémentation, non une exigence du modèle abstrait. L'absence d'appel
+système, d'endormissement ou de sémaphore et les coûts annoncés doivent être vérifiés pour la
+réalisation retenue.
+
+La source citée pour ce modèle est une note d'ingénierie, et elle est citée à bon droit pour ce
+qu'elle établit : un choix de conception et ses mesures. Elle ne démontre pas la correction de
+l'anneau, et il ne faut pas lui faire dire ce qu'elle ne dit pas. La correction d'une file bornée
+concurrente sous modèle mémoire faible est, elle, vérifiée mécaniquement dans une logique de
+séparation dédiée, dont les assertions portent des _vues_ munies d'une structure de treillis,
+l'antériorité s'y exprimant comme un transfert de vue {cite "mevelFormalVerificationConcurrent2021"}[].
+C'est cette preuve qui porte la correction ; la note porte l'ingénierie.
+
+Pour une file concurrente fondée sur un modèle mémoire faible, le progrès du consommateur peut
+dépendre d'une hypothèse d'équité mémoire : le système mémoire propage équitablement les écritures
+publiées {cite "lahavMakingWeakMemory2021"}[]. Cette hypothèse ne découle pas de la seule présence
+de barrières. Les résultats cités portent sur des modèles déterminés ; ils n'établissent pas la
+correction d'une réalisation K7PL qui n'a pas été spécifiée. Le choix des barrières et la preuve de
+progrès restent des obligations de raffinement.
+
+\Pi`
+et les hypothèses -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Échelle du système" =>
+%%%
+file := "c4-echelle-du-systeme"
+tag := "c4-echelle-du-systeme"
+%%%
+
+{label "sec:c4-echelle-du-systeme"}
+
+À l'échelle du système, la coalgèbre qui produit l'état suivant n'est plus celle d'un acteur isolé,
+mais celle de l'orchestrateur tout entier, dont l'état est composé des états de tous les acteurs
+qu'il supervise. Le foncteur qui l'engendre est exhibé au §{num "sec:c4-le-calcul-de-processus"}[] :
+sous la lecture de la couche 2 comme calcul de processus, un système est un terme — composition
+parallèle d'acteurs sous restriction des canaux privés —, et le foncteur cherché est le produit des
+foncteurs de comportement individuels, restreint aux transitions que la topologie de coupures
+autorise. Cette section suit quatre questions que doit résoudre une telle coalgèbre à grande
+échelle. Comment ses composants naissent et persistent. Comment la forme de leur assemblage reste
+vérifiable plutôt qu'arbitraire. Comment ils communiquent entre eux et vers l'extérieur. Et, en
+clôture, ce que cette machinerie offre sans rien y ajouter à un domaine qui semblait lui être
+étranger.
+
+Cette section décrit le modèle abstrait du système et les obligations qui en découlent.
+Les descriptions d'environnements d'exécution, de disposition mémoire, de synchronisation et de
+persistance qui suivent sont des exemples de réalisation, non des exigences architecturales de K7PL.
+Elles ne suffisent pas, à elles seules, à établir la conformité d'une implémentation ni la portée
+d'une garantie normative.
+
+Le modèle abstrait doit distinguer les états des acteurs, leurs transitions et les interactions avec
+l'environnement. À la frontière d'une interface étrangère, le contrat doit spécifier les valeurs
+et effets exposés ainsi que les conditions de retour et d'échec. La déclaration de cette interface
+porte un attribut explicite `unsafe` : il signale les obligations propres à cette frontière et
+n'autorise ni un mode d'exécution non sûr général ni l'affaiblissement des invariants du code K7PL.
+L'attribut est porté par la liste d'attributs de la déclaration dans la notation à expressions
+symboliques. L'élaboration doit le préserver jusqu'à la vérification de l'interface et rejeter une
+déclaration étrangère qui ne le porte pas. Cet attribut ne confère aucun droit sur l'état interne
+protégé. La préservation de
+ces invariants doit être établie pour toutes les transitions autorisées par le contrat, y compris les
+transitions d'échec ; elle ne suppose pas que le service étranger respecte fonctionnellement son
+contrat.
+
+Par défaut, l'état interne protégé comprend tout état dont K7PL assure la représentation, les
+transitions, l'autorité, l'intégrité ou la durée de vie. Cela inclut notamment l'état des acteurs ;
+les régions mémoire, les capacités, l'identité et la durée de vie des objets ; les messages, les
+boîtes aux lettres et les états de protocole ; l'état de l'orchestrateur et de l'ordonnanceur ; les
+instantanés et les journaux ; ainsi que les budgets et le contexte temporel gérés par K7PL. Cette
+énumération illustre la règle générale et ne limite pas sa portée aux catégories citées. Le contrat
+peut exposer des valeurs, observations ou opérations déterminées ; cette exposition n'accorde aucun
+droit supplémentaire au-delà de ce qu'il autorise explicitement. Les chemins d'échec, d'annulation,
+de reprise et de restauration sont soumis à la même exigence de préservation.
+
+Ces exigences ne sélectionnent aucun mécanisme de séparation concret. Le modèle abstrait ne
+démontre pas à lui seul qu'une implémentation native empêche un code étranger d'accéder à des
+adresses internes : cette correspondance et les restrictions effectives imposées à l'exécution
+restent des obligations de conformité propres à l'implémentation et au profil visé.
+
+Un acteur virtuel est une adresse logique dans le modèle abstrait. Le cycle de vie distingue les
+états actif et inactif et exige la préservation de l'état observable lors des transitions. Une
+réalisation peut sérialiser l'état inactif dans un instantané journalisé, restituer sa mémoire puis
+rejouer les messages consignés lors de la réactivation. L'instantané, le journal, la restitution
+physique et l'atomicité de l'activation sont des choix de réalisation ; les coûts et les limites de
+capacité dépendent du profil retenu.
+
+::::figure (label := "fig:acteur-cycle-de-vie") (src := "virtual-actor-lca") (alt := "Cycle à deux états. Un point initial mène à Désactivé. De Désactivé vers Actif, l'activation charge l'instantané et rejoue le journal. Sur Actif, une boucle figure le traitement de message. D'Actif vers Désactivé, l'inactivité gèle l'état, le persiste et libère la mémoire.") (width := "90")
+:::caption
+Exemple de cycle de vie par instantané et rejeu
+:::
+
+:::desc
+Ce schéma illustre une réalisation possible par instantané et rejeu ; il ne fixe pas la
+représentation exigée par le modèle abstrait.
+:::
+::::
+
+Pour une réalisation fondée sur des instantanés, le coût du gel dépend du format de l'état et du
+journal. La possibilité d'un transfert sans copie dépend de la correspondance entre la représentation
+et le journal ; elle n'est pas garantie pour toutes les représentations. Un format compatible avec la disposition en colonnes peut
+permettre un transfert de segment ; une liste de structures peut nécessiter une transposition en
+$`O(n)`. Ces coûts décrivent des représentations déterminées, non une propriété générale du cycle
+de vie.
+
+Une réalisation peut employer le modèle LMAX Disruptor : un compteur 64 bits incrémenté par le
+producteur et sondé par le consommateur, avec publication en _release_ et consommation en _acquire_.
+Ce schéma est un exemple d'implémentation, non une exigence du modèle abstrait. L'absence d'appel
+système, d'endormissement ou de sémaphore et les coûts annoncés doivent être vérifiés pour la
+réalisation retenue.
+
+La source citée pour ce modèle est une note d'ingénierie, et elle est citée à bon droit pour ce
+qu'elle établit : un choix de conception et ses mesures. Elle ne démontre pas la correction de
+l'anneau, et il ne faut pas lui faire dire ce qu'elle ne dit pas. La correction d'une file bornée
+concurrente sous modèle mémoire faible est, elle, vérifiée mécaniquement dans une logique de
+séparation dédiée, dont les assertions portent des _vues_ munies d'une structure de treillis,
+l'antériorité s'y exprimant comme un transfert de vue {cite "mevelFormalVerificationConcurrent2021"}[].
+C'est cette preuve qui porte la correction ; la note porte l'ingénierie.
+
+Pour une file concurrente fondée sur un modèle mémoire faible, le progrès du consommateur peut
+dépendre d'une hypothèse d'équité mémoire : le système mémoire propage équitablement les écritures
+publiées {cite "lahavMakingWeakMemory2021"}[]. Cette hypothèse ne découle pas de la seule présence
+de barrières. Les résultats cités portent sur des modèles déterminés ; ils n'établissent pas la
+correction d'une réalisation K7PL qui n'a pas été spécifiée. Le choix des barrières et la preuve de
+progrès restent des obligations de raffinement.
+
+E_{\text{repro}}` ; elle n'est pas intrinsèque à la persistance ni au langage.
 
 ::::theorem (label := "thm:determinisme_rejeu") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "runtime")
 :::title
