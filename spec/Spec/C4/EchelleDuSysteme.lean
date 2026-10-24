@@ -604,36 +604,27 @@ les effets et les garanties doivent être précisés à leur niveau respectif.
 
 ::::theorem (label := "thm:surete_ffi") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "ffi-safety")
 :::title
-sûreté FFI par la passerelle de capacité
+retrait de capacité d’écriture dans le contexte linéaire
 :::
 
 :::statement +titled
-Exclusivité d'accès à la frontière d'exécution
+Disponibilité de la capacité pendant l’appel
 
-Si un acteur transfère la propriété d'un tampon $`B` à la passerelle FFI pour un appel étranger,
-_l'acteur ne peut accéder à $`B` pendant l'exécution de l'appel_.
+Dans le modèle abstrait, si l’appel FFI transfère `WriteCap(B)` du contexte linéaire de l’acteur
+à celui de la passerelle, cette capacité n’est plus disponible dans le contexte de l’acteur pendant
+l’appel. Toute opération dont le typage exige cette capacité est donc rejetée dans ce contexte.
 :::
 
 :::proofsketch
-Le tampon $`B` est modélisé par une capacité linéaire `WriteCap(B)` ; l'appel FFI est une coupure du
-contexte linéaire qui transfère cette capacité de l'acteur vers la passerelle. Par élimination de
-coupure, `WriteCap(B)` disparaît du contexte de l'acteur — toute tentative d'accès ultérieur y est
-structurellement rejetée, non détectée après coup.
-
-_Ce que cet énoncé ne dit plus, et pourquoi il a cessé de le dire._ Une seconde clause y figurait :
-que le système hôte ne puisse accéder à $`B` après le retour. Elle ne suit pas de la même preuve, et
-la remarque qui suit la réfute : le système de types sait _retirer_ une capacité du contexte d'un
-terme qu'il gouverne, il ne sait pas la _révoquer_ chez un pair qu'il ne gouverne pas. C'est une
-contrainte sur une sortie, non sur une entrée, et elle relève de l'exigence ci-après plutôt que de
-ce théorème. Au retour, la passerelle restitue la capacité à l'acteur.
+Le transfert retire `WriteCap(B)` du contexte linéaire de l’acteur et la confie à la passerelle.
+L’élimination de coupure conserve ce retrait pendant l’appel ; une dérivation qui exige cette
+capacité ne peut donc pas être construite à partir du contexte de l’acteur.
 :::
 
 :::note
-_Portée de l'énoncé._ L'argument concerne le contexte typé de l'acteur dans le modèle abstrait. Il
-ne démontre pas qu'un appel natif ne conserve aucun alias, ne contourne pas ce contexte ou n'accède
-pas à la mémoire par un autre chemin. La révocation après le retour relève de l'exigence distincte
-qui suit. Les conditions permettant de relier cette propriété abstraite à une réalisation native
-restent à établir.
+_Portée de l’énoncé._ Cette esquisse concerne uniquement la capacité `WriteCap(B)` dans le modèle
+abstrait. Elle ne démontre ni l’absence d’autres droits ou alias vers le tampon ni la conformité
+d’un appel natif. La révocation après retour relève de l’exigence distincte qui suit.
 :::
 ::::
 ::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "open") (evidence := "none") (scope := "ffi-safety")
@@ -658,18 +649,9 @@ la réalisation de la passerelle empêche tout accès ultérieur non autorisé a
 mécanisme de vérification et de révocation reste ouvert ; cette exigence ne se vérifie pas par le typage.
 :::
 ::::
-Les deux clauses de cet énoncé n'ont pas le même statut, et le dire évite de leur prêter la même
-force. {rmq}[Une contrainte d'entrée se démontre, une contrainte de sortie s'organise. Seule la
-première est ici un théorème.] Que l'acteur perde l'accès est une contrainte sur une _entrée_, et
-elle suit de l'élimination de coupure. Que l'hôte ne le retienne pas est une contrainte sur une
-_sortie_ — sur ce qu'un tiers peut encore faire après coup —, et la directionalité de la restriction
-est ce qui sépare les deux régimes de raisonnement substructurel. Capabilités, bac à sable et
-protocoles d'autorisation relèvent du second, dont la sûreté demande un argument dédié {cite "gouniSecurityReasoningSubstructural2026"}[].
-La seconde clause ne découle pas du système de types. La réalisation doit établir qu'après le
-retour l'interface étrangère ne peut plus accéder au tampon transféré. La représentation des
-références, le mécanisme de révocation et les moyens de vérification restent ouverts ; le modèle
-abstrait ne démontre pas à lui seul cette propriété.
-
+Le retrait d’une capacité du contexte typé et la révocation d’un accès déjà accordé sont des
+obligations distinctes ; la seconde exige un argument de sûreté propre à la frontière
+{cite "gouniSecurityReasoningSubstructural2026"}[].
 
 
 Rien de ce qui précède n'a besoin d'être réinventé pour la programmation probabiliste : elle en est
