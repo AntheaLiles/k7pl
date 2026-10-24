@@ -89,6 +89,15 @@ None of these gates exists in the repository yet.
 - The status vocabulary must be reconciled with the other vocabularies in use (decision-47
   instruction, session note).
 
+- **D-02 vocabulary note (2026-10-25; not a ratification of this proposed ADR):** the normative
+  Guide de lecture now separates object kind/role, epistemic state, evidence kind, bounded
+  assurance-claim status, and observed CI result. The terms proposed above (`defined`, `proved`,
+  `traced`, etc.) therefore require an explicit derivation rule from source artefacts and run
+  reports; they must not be reused as synonyms for C8's author-declared state/evidence fields.
+  The current `docs/STATUS.md` contract table will expose expected axiom dependencies, while only
+  the run-specific report can attest that the observed dependency sets matched. The full
+  manuscript-wide audit remains open under SPEC-D-02.
+
 ## More Information
 
 ### Notes on the port
