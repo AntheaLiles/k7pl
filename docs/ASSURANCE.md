@@ -15,7 +15,7 @@ This document states why scientific and formal claims should be considered adequ
 
 The case covers relationships among specification, formalisation, implementation, proofs, tests, reviews, reproducibility, and documentation.
 
-Statuses are ESTABLISHED, PARTIAL, UNDER REVIEW, IN PROGRESS, OPEN, BLOCKED, and NOT STARTED. “Established” means established against explicit criteria and scope; it does not mean globally or absolutely proven.
+The statuses ESTABLISHED, PARTIAL, UNDER REVIEW, IN PROGRESS, OPEN, BLOCKED, and NOT STARTED describe the progress of an assurance claim or workstream. “Established” means established against explicit criteria and scope; it does not mean globally or absolutely proven. They are not substitutes for the statement-level epistemic state and evidence kind defined in the normative [Guide de lecture](../spec/Spec/C1/GuideDeLecture.lean). A claim may be specified or formalised while its proof obligation remains open.
 
 ## 2. Claims
 
@@ -139,3 +139,14 @@ The reverse direction is also required: a Lean theorem must be traceable to the 
 5. Expand reproducibility evidence where current CI evidence is insufficient.
 
 These gaps are intentionally visible.
+
+
+## 6. D-01 — Intrinsic guarantees and native boundary
+
+**Treatment status:** scoped closure recorded in [SPEC-DELTA-REGISTER.md](research/k7pl-os/SPEC-DELTA-REGISTER.md), following the merge of [PR #302](https://github.com/AntheaLiles/k7pl/pull/302) (merge commit `662d14c3494834517c70125ed11953923514738a`).
+
+The normative correction in [AxiomatiqueGerminale.lean](../spec/Spec/C1/AxiomatiqueGerminale.lean) limits actor isolation to the communication transitions of the abstract model. It does not claim physical inaccessibility or confinement of arbitrary native code. The finite model and TLC counterexample are non-normative falsification evidence for the distinction between an enforced boundary and an unconfined native write.
+
+For the implemented K7PL expression subset, [Bridge.lean](../proofs/K7PL/Bridge.lean) gives one-way Lean witnesses for the root addition, integer comparison, and both conditional branches against constructors of the KLean-generated `Rewrites` relation. [MachineSoundness.lean](../proofs/K7PL/MachineSoundness.lean) separately proves preservation for that generated relation under the explicit `MachineTyping` invariant. These results do not establish general source-to-machine simulation for every heat/cool/context/continuation transition, equivalence of K's `typeOf` and Lean's `HasType`, physical native confinement, or correctness of an FFI implementation.
+
+The per-declaration expected axiom dependencies and their run-specific observed report are being connected to generated status in the D-02 assurance-vocabulary work. Until the exact audit report is attached to a successful formal-semantics run for the relevant commit, a dependency contract is not evidence that the run passed.
