@@ -25,7 +25,12 @@ if [ -n "$generated_for" ] \
 fi
 
 if [ "$current" = true ] && [ "${REQUIRE_AXIOM_AUDIT:-false}" = "true" ]; then
-  if ! grep -Fxq "**Axiom audit evidence for commit:** ${STATUS_EVIDENCE_SHA:-$GITHUB_SHA}" docs/STATUS.md \
+  evidence_sha="${STATUS_EVIDENCE_SHA:-$GITHUB_SHA}"
+  if [[ ! "$evidence_sha" =~ ^[0-9a-f]{40}$ ]] \
+    || ! git fetch --no-tags origin "$evidence_sha" >/dev/null 2>&1 \
+    || ! git merge-base --is-ancestor "$evidence_sha" "$GITHUB_SHA" \
+    || [ -n "$(git diff --name-only "$evidence_sha" "$GITHUB_SHA" -- . ':(exclude)docs/STATUS.md')" ] \
+    || ! grep -Fxq "**Axiom audit evidence for commit:** $evidence_sha" docs/STATUS.md \
     || ! grep -Fxq "**Axiom audit status:** PASS" docs/STATUS.md; then
     current=false
   fi
