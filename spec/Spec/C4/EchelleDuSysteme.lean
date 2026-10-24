@@ -592,14 +592,14 @@ est structurel plutôt que conventionnel : une _virtqueue_ se compose de trois z
 déclaré — table de descripteurs, anneau disponible côté pilote, anneau utilisé côté périphérique —,
 de sorte que la propriété se lit dans l'endroit où l'on écrit {cite "VIRTIO"}[].
 
-Une opération manque cependant : le système de types sait retirer une capacité de son contexte, non
-la _révoquer_ chez un pair qui l'a reçue. Les protocoles d'accès distant y pourvoient par une
-invalidation explicite, signal du protocole annulant l'étiquette d'une région préalablement annoncée {cite "recioRemoteDirectMemory2007a"}[].
-Le destructeur d'une capacité exportée (chapitre 3, §{num "sec:c3-le-systeme-gradue"}[]) devrait en
-émettre une, faute de quoi P3 cesse de valoir au-delà de la frontière. C'est le troisième point où
-ce document franchit une frontière de confiance sans l'avoir tracée — les deux autres étant
-l'exécution de macros avant vérification et l'importation depuis une source distante (chapitre 5,
-§{num "sec:c5-mise-en-pratique"}[]).
+Le système de types peut retirer une capacité du contexte qu'il gouverne, mais ne suffit pas à
+révoquer un accès déjà accordé à un composant étranger. Des protocoles d'accès distant emploient
+notamment des mécanismes explicites d'invalidation {cite "recioRemoteDirectMemory2007a"}[], sans que
+cet exemple impose une réalisation à K7PL. Le contrat de frontière doit garantir qu'une capacité
+révoquée ne permet plus d'accès ; le mécanisme qui établit cette propriété reste ouvert. Cette
+frontière FFI, l'exécution des macros avant vérification et l'importation de sources externes
+(chapitre 5, §{num "sec:c5-mise-en-pratique"}[]) sont trois cas distincts dont les autorités,
+les effets et les garanties doivent être précisés à leur niveau respectif.
 
 ::::theorem (label := "thm:surete_ffi") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "ffi-safety")
 :::title
