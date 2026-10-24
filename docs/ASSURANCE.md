@@ -7,8 +7,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 This document states why scientific and formal claims should be considered adequately supported within an explicitly bounded scope. It is not a declaration of absolute correctness and is distinct from software supply-chain assurance.
 
-**Document version:** 1.0.0  
-**Last updated:** 2026-10-14  
+**Document version:** 1.1.0  
+**Last updated:** 2026-10-25  
 **Audience:** researchers, reviewers, maintainers.
 
 ## 1. Scope and status vocabulary
