@@ -86,7 +86,7 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 **Sources :** R0, R1, R3, R8.  
 **Cibles :** C1/Postulats ; C4/EchelleDuSysteme ; Annexe A/FrontieresDeCouchesEtDisciplineDe.
 
-**Delta candidat :** décrire plusieurs familles de profils indépendantes, leurs capacités adversariales, les ressources protégées, les observations retenues, les hypothèses, exclusions et garanties attendues. Identifier la base de confiance par couche : code K7PL, code natif, compiler, runtime, pilotes, périphériques et environnement initial.
+**Delta candidat :** décrire plusieurs familles de profils indépendantes, leurs capacités adversariales, les ressources protégées, les observations retenues, les hypothèses, exclusions et garanties attendues. Identifier la base de confiance par couche : code K7PL, code natif, compilateur, runtime, pilotes, périphériques et environnement initial.
 
 **Points à ne pas figer :** la structure exacte de l'espace des profils, le matériel, les mécanismes concrets d'isolation et le périmètre final de chaque extension.
 
@@ -128,7 +128,7 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 #### SPEC-D-07 — Compléter le modèle mémoire : régions, aliasing, emprunts et provenance
 
 **Sources :** R1, R5, R8.  
-**Cibles :** C3/ReglesDeTypage ; C4/ModelesDeMemoire ; C4/EchelleDeLActeur ; Annexe A/CapabilitesEtMemoire ; Annexe A/ContraintesDeValeurEtPreuvesResiduel(le)s.
+**Cibles :** C3/ReglesDeTypage ; C4/ModelesDeMemoire ; C4/EchelleDeLActeur ; Annexe A/CapabilitesEtMemoire ; Annexe A/ContraintesDeValeurEtPreuvesResiduelles.
 
 **Delta candidat :** préciser l'identité d'une région, la provenance d'une référence ou d'un offset, les bornes de chaque accès, l'allocation/destruction, la durée de vie, le recyclage et les générations, le découpage/recomposition de plages, les références vides et les débordements. Déterminer comment la source exprime propriété exclusive, lecture partagée, emprunt mutable, réemprunt et restitution des droits.
 
