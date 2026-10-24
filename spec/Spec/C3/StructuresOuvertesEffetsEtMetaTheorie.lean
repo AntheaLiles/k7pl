@@ -158,14 +158,15 @@ visée sans être garantie. La viser signifie que rien dans la conception du com
 délibérément de variabilité — pas d'horodatage dans les artefacts, pas de chemin absolu, pas d'ordre
 d'itération dépendant d'une table de hachage. La garantir demanderait de contrôler l'environnement
 de compilation entier, ce que ce document ne fait pas ; c'est un objectif déclaré, non une propriété
-établie, et la distinction est celle qui sépare partout ailleurs ici un théorème d'une intention. Ce
-qui subsiste au-delà de cette frontière doit être dit, puisque c'est la question même : rien. Une
-macro s'exécute avec les capacités du compilateur, un import distant ramène du code dont l'origine
-n'est pas attestée, une capacité exportée n'obéit plus au système de types. Les garanties que ce
-document construit — sûreté spatiale, terminaison, déterminisme — valent _en deçà_ de cette
-frontière et ne prétendent rien au-delà. Un langage qui revendique la vérification avant mise en
-production doit la tracer ; celui-ci la franchit trois fois, la nomme désormais, et n'y oppose
-encore aucun dispositif.
+établie, et la distinction est celle qui sépare partout ailleurs ici un théorème d'une intention. La frontière limite les propriétés que K7PL peut attribuer au code étranger ; elle ne supprime
+pas les obligations de sûreté du système qui l'appelle. K7PL ne garantit pas la correction
+fonctionnelle d'un service étranger, mais reste responsable du contrat qu'il expose et de la sûreté
+de l'interaction. Le code étranger ne reçoit aucun droit implicite sur l'état interne protégé, et les
+invariants gérés par K7PL doivent être préservés même si ce code ne respecte pas son contrat. Ces
+propriétés doivent être établies pour les transitions normales comme pour les chemins d'échec ; le
+seul typage du code K7PL ne démontre pas la conformité de la frontière native. Les mécanismes
+propres aux macros, aux imports et aux interfaces étrangères doivent être évalués selon leurs
+contrats respectifs, sans déduire d'une garantie interne une garantie de correction du fournisseur.
 
 Lorsque la source est un modèle de langage, la discipline retenue veut que seule la forme des types
 franchisse la frontière, jamais les valeurs. Il importe de ne pas confondre cette discipline avec
