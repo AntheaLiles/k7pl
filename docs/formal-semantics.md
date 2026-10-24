@@ -26,6 +26,28 @@ edited directly. The source programs are in `tests/examples/` and use the `.k7` 
 The examples run by CI are `(+ 1 (+ 2 3)) → 6` and
 `(select (< 1 2) (+ 1 2) (+ 10 20)) → 3`.
 
+## Rule-by-rule correspondence with KLean
+
+The maintained Lean proof project now gives explicit one-way bridges for each computational
+root rule in this experimental K7PL subset. The source rule labels are the labels in the editable
+Verso K definition; the target constructors are generated from the compiled K definition by
+KLean.
+
+| K rule | Generated KLean constructor | Lean evidence |
+|---|---|---|
+| `k7AddEval` | `Rewrites.k7AddEval` | `K7PL.Bridge.add_root_is_klean_rewrite` |
+| `k7LessThanEval` | `Rewrites.k7LessThanEval` | `K7PL.Bridge.less_than_root_is_klean_rewrite` |
+| `k7SelectTrue` | `Rewrites.k7SelectTrue` | `K7PL.Bridge.select_true_root_is_klean_rewrite` |
+| `k7SelectFalse` | `Rewrites.k7SelectFalse` | `K7PL.Bridge.select_false_root_is_klean_rewrite` |
+
+These results establish the listed root transitions over complete generated configurations. They
+do **not** yet establish a general simulation theorem for every expression-level
+`SurfaceStep`, including all evaluation-context/continuation transitions. The generated
+`Rewrites` relation has a separate preservation theorem for `MachineTyping`; this does not, by
+itself, prove that the K classifier `typeOf` is equivalent to the Lean judgment `HasType`.
+The broader relation, including source contexts, remains an explicit proof obligation. A green
+build or a successful example run does not discharge it.
+
 ## Reproduce
 
 From the repository root, with K available:
