@@ -41,13 +41,15 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # So do its extension (2026-10-20: « fibrille » for an execution unit in LeSystemeGradue.lean)
     # and the owner's « cofibre » -> « _cofree_ » fix in ComonadeExponentielleEtFragments.lean.
     # 2026-10-23: prohibited-vocabulary wording cleanup in LeSystemeGradue.lean; audit claims are unchanged.
+    # 2026-10-24: the Layer-3 parallelism statement records explicit depth profiles and purity;
+    # its corrected Verso math delimiters and source-integrity pin are kept synchronized here.
     # 2026-10-22: the fig:fragments-emboites alternative text/description was narrowed to its
     # structural-rule scope; formal interface strings are independently checked below.
     integrated_source_blobs = {
         "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "1080a623283f1ce85ec3084b724487f59df395f0",
         "spec/Spec/C3/LeSystemeGradue.lean": "1d6849a5b1b8d0747b3c70ac53ec13e02d7ffbb7",
         "spec/Spec/C3/GrammaireDesTypes.lean": "60df0208198163e9bf76dea24391e29d1f23834f",
-        "spec/Spec/C3/ReglesDeTypage.lean": "68a5e36c51baf43691b830ca1bc64c1d2af3ad97",
+        "spec/Spec/C3/ReglesDeTypage.lean": "ac11edad16bec18a96126371a624977e0659416b",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():
