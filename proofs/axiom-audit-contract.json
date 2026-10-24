@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "purpose": "Expected #print axioms dependency sets for the KLean-generated K7PL proof slice used by the D-01 assurance chain.",
   "policy": {
-    "forbiddenAxioms": ["sorryAx"],
+    "forbiddenAxioms": ["sorryAx", "Lean.ofReduceBool"],
     "allowedStandardAxioms": ["propext", "Classical.choice", "Quot.sound"],
     "matching": "exact-set"
   },
