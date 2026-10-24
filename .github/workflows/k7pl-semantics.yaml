@@ -18,6 +18,8 @@ on:
       - "proofs/**"
       - "spec/formal-chain/**"
       - "scripts/ci/test_code_artifact_contract.py"
+      - "scripts/ci/k7pl_semantics_axiom_report.py"
+      - "scripts/ci/test_k7pl_semantics_axiom_report.py"
       - "spec/Spec.lean"
       - "spec/Spec/**"
       - "tools/**"
@@ -185,6 +187,13 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/proofs
         run: bash "$GITHUB_WORKSPACE/scripts/ci/k7pl_semantics_build_proofs.sh"
+
+      - name: Attach exact axiom dependency audit to formal-chain evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s "$RUNNER_TEMP/k7pl-axiom-audit.json"
+          cp "$RUNNER_TEMP/k7pl-axiom-audit.json" "$GITHUB_WORKSPACE/.formal-chain-evidence/axiom-audit.json"
 
       - name: Render Verso Blueprint documentation
         id: blueprint
