@@ -97,7 +97,7 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 
 **Rôle du cas K7OS :** le modèle de frontière native et son contre-exemple TLC sont des instruments de falsification qui rendent explicite la prémisse externe nécessaire. Ils ne sont ni une sémantique normative de K7PL ni une preuve que K7PL confine lui-même du natif arbitraire. Aucun mécanisme matériel n'est choisi.
 
-**Statut :** la décision de portée de D-01 est instruite et intégrée ; aucune garantie de confinement natif concret n'est déclarée démontrée. La simulation générale entre toutes les configurations et traces, les contrats FFI complets et leur raffinement vers une réalisation restent des obligations séparées à traiter dans les deltas liés à l'interface, aux traces et à la chaîne de compilation.
+**Clôture du traitement D-01 dans le périmètre instruit :** la portée des garanties intrinsèques est clarifiée dans la source normative et dans ce registre ; les quatre règles de calcul racine du sous-langage effectivement implémenté disposent de ponts unidirectionnels explicites vers les transitions KLean générées. Cette clôture ne déclare pas démontrée l'isolation physique ni le confinement concret d'un code natif arbitraire. La simulation générale des pas de contexte/continuation, la projection complète entre représentations, les contrats FFI et la preuve de leur réalisation restent des obligations distinctes, à traiter dans les travaux de sémantique opérationnelle, d'interface et de correction source-vers-binaire.
 
 #### SPEC-D-02 — Définir un vocabulaire d'assurance cohérent
 
