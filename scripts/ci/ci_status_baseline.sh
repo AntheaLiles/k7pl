@@ -25,7 +25,7 @@ if [ -n "$generated_for" ] \
 fi
 
 if [ "$current" = true ] && [ "${REQUIRE_AXIOM_AUDIT:-false}" = "true" ]; then
-  if ! grep -Fxq "**Axiom audit evidence for commit:** $GITHUB_SHA" docs/STATUS.md \
+  if ! grep -Fxq "**Axiom audit evidence for commit:** ${STATUS_EVIDENCE_SHA:-$GITHUB_SHA}" docs/STATUS.md \
     || ! grep -Fxq "**Axiom audit status:** PASS" docs/STATUS.md; then
     current=false
   fi
