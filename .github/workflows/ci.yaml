@@ -46,6 +46,9 @@ jobs:
       - name: Test the CI scripts
         run: python3 -m unittest discover -s scripts/ci -p 'test_*.py'
 
+      - name: Check CI shell-script syntax
+        run: find scripts/ci -type f -name '*.sh' -print0 | xargs -0 -r -n1 bash -n
+
       # A pull request may change lake-manifest.json (a person, an agent), not only the one that
       # bump-lean.yaml opens. These are the offline checks: no network, no upstream code.
       - name: Check the Lake manifest
