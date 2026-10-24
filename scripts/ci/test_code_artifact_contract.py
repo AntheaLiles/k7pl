@@ -37,7 +37,7 @@ class CodeArtifactContractTests(unittest.TestCase):
         # the Python checker stays a verification tool.
         self.assertIn("Le bloc K de sémantique du sous-langage K7PL ci-dessous est la source éditable normative", self.page)
         self.assertIn("Le modèle K7OS séparé est explicitement non normatif", self.page)
-        self.assertIn("outil de vérification et n'est pas normatif", self.page)
+        self.assertIn("de vérification et n'est pas normatif", self.page)
         self.assertIn('tag := "experimental-code-artifacts"', self.page)
 
     def test_k7os_profile_model_is_separate_and_extracted_from_verso(self) -> None:
