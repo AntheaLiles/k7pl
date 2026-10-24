@@ -33,7 +33,7 @@ fi
 
 echo "current=$current" >> "$GITHUB_OUTPUT"
 if [ "$current" = true ]; then
-  echo "STATUS already covers the substantive history and any evidence required by this event."
+  echo "STATUS already describes the latest substantive commit ($generated_for); only docs/STATUS.md changed afterwards."
 else
   echo "STATUS regeneration required."
 fi
