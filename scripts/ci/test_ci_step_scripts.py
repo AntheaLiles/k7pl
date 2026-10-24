@@ -136,6 +136,38 @@ class StatusScriptTests(StepScriptCase):
         self.assertEqual(len(self.calls("gh")), 1)
 
 
+class AxiomEvidenceScriptTests(StepScriptCase):
+    """Generated status must never infer a passing axiom audit from an absent artifact."""
+
+    def setUp(self):
+        super().setUp()
+        self.stub("gh", 'if [ "$1" = "run" ] && [ "$2" = "list" ]; then printf "[]"; else exit 2; fi')
+
+    def fetch(self, **overrides):
+        env = {
+            "EVENT_NAME": "push",
+            "SOURCE_SHA": "a" * 40,
+            "CURRENT_SHA": "a" * 40,
+            "GITHUB_REPOSITORY": "AntheaLiles/k7pl",
+            "GH_TOKEN": "test-token",
+        }
+        env.update(overrides)
+        return self.run_script("ci_status_fetch_axioms.sh", **env)
+
+    def test_missing_successful_run_is_not_available_not_a_pass(self):
+        result = self.fetch()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.output.read_text(), "available=false\nreport_path=\n")
+        self.assertIn("No completed successful K7PL formal-semantics run", result.stdout)
+        self.assertEqual(len(self.calls("gh")), 1)
+
+    def test_malformed_source_commit_fails_closed(self):
+        result = self.fetch(SOURCE_SHA="not-a-commit")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("full 40-character SHA-1", result.stdout)
+        self.assertEqual(self.calls("gh"), [])
+
+
 class BadgeDriftScriptTests(StepScriptCase):
     """security.yaml, job `badge-criteria-drift` (schedule and manual runs only)."""
 
