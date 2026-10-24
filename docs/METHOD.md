@@ -7,8 +7,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 This document records methodological rules currently applicable to K7PL work. Earlier working rules and doctrine are kept in [method/](method/); dated historical decisions are in [history/](history/), and the frozen former tooling is in [archives/](archives/README.md). None of these becomes current method merely by being retained.
 
-**Document version:** 1.0.0  
-**Last updated:** 2026-10-14  
+**Document version:** 1.1.0  
+**Last updated:** 2026-10-25  
 **Audience:** contributors, reviewers, agents.
 
 ## Artefact discipline
