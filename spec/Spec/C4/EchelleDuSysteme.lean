@@ -41,10 +41,13 @@ d'une garantie normative.
 
 Le modèle abstrait doit distinguer les états des acteurs, leurs transitions et les interactions avec
 l'environnement. À la frontière d'une interface étrangère, le contrat doit spécifier les valeurs
-et effets exposés ainsi que les conditions de retour et d'échec. Le système ne peut attribuer au
-code étranger aucun droit implicite sur l'état interne protégé. La préservation de ces invariants
-doit être établie pour toutes les transitions autorisées par le contrat, y compris les transitions
-d'échec ; elle ne suppose pas que le service étranger respecte fonctionnellement son contrat.
+et effets exposés ainsi que les conditions de retour et d'échec. La déclaration de cette interface
+porte le marqueur `unsafe` : il signale les obligations propres à cette frontière et n'autorise ni
+un mode d'exécution non sûr général ni l'affaiblissement des invariants du code K7PL. Le système ne
+peut attribuer au code étranger aucun droit implicite sur l'état interne protégé. La préservation de
+ces invariants doit être établie pour toutes les transitions autorisées par le contrat, y compris les
+transitions d'échec ; elle ne suppose pas que le service étranger respecte fonctionnellement son
+contrat.
 
 Par défaut, l'état interne protégé comprend tout état dont K7PL assure la représentation, les
 transitions, l'autorité, l'intégrité ou la durée de vie. Cela inclut notamment l'état des acteurs ;
