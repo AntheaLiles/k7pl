@@ -55,6 +55,18 @@ Les points suivants doivent guider le dépouillement ; ils ne valent pas preuve 
 11. **Grades et budgets.** Ne pas ajouter de coordonnée aux grades au seul motif qu'une propriété reste ouverte. Déterminer d'abord si elle relève de la sémantique graduée, d'un contrat distinct, de la compilation, du runtime ou d'une hypothèse de plateforme.
 12. **Temps.** Travail, profondeur, budget abstrait, coût machine, WCET, échéance et latence d'attente environnementale sont des notions distinctes. La décision de recherche séparant la latence d'attente de `When` du coût d'exécution doit être conservée ; la représentation formelle précise de cette observation reste ouverte.
 
+13. **Abstraction sûre.** Toute abstraction exposée comme sûre doit préserver les invariants internes de K7PL pour tout usage conforme à son contrat, même si elle délègue un service au code étranger. La correction fonctionnelle de ce service n'est pas garantie par K7PL et ne doit pas être une prémisse implicite de la sûreté mémoire interne.
+
+14. **Frontière d'interopérabilité.** Le code K7PL n'est pas conçu comme un mode où l'auteur peut désactiver arbitrairement la sûreté. Le marquage à définir concerne les opérations, déclarations ou modules qui ouvrent une interaction avec du code étranger et engagent un contrat externe. « Interface unsafe » reste un terme de travail.
+
+15. **Responsabilités.** Le pilote ou la bibliothèque étrangère porte la responsabilité de respecter son contrat de service. K7PL spécifie le protocole, les représentations, les effets et les erreurs observables ; il ne certifie pas l'implémentation étrangère. Cela ne confère aucun droit d'accès à la mémoire, aux capacités ou aux états internes protégés de K7PL.
+
+16. **Natif hostile.** L'absence d'accès étranger aux états internes K7PL est plus forte qu'une convention ABI. Elle requiert une frontière effectivement appliquée ou une restriction dont l'efficacité est formellement justifiée. Un espace mémoire partagé autorisant des lectures/écritures arbitraires du natif est incompatible avec cette exigence.
+
+17. **Signalement des écarts.** Le contrat précise les violations détectables, leur signalement et les garanties restantes après détection. Ne pas promettre la détection de tout comportement arbitraire : seuls les écarts observables par le protocole ou un mécanisme défini peuvent être signalés. Un écart non détecté ne donne pas au code étranger un droit sur les états protégés.
+
+18. **Garanties inconditionnelles.** L'ambition porte sur les invariants internes explicitement définis, et non sur une garantie inconditionnelle de terminaison, de disponibilité d'un service étranger, de progrès sous tout ordonnanceur ou de respect de toute échéance. Ces propriétés ont des contrats et prémisses propres ; leur échec ne doit pas annuler la sûreté mémoire ou l'intégrité interne.
+
 ## 4. Registre des deltas à instruire
 
 Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des commits normatifs. « Cible » désigne les fichiers à examiner, non une décision définitive de déplacer ou réécrire leur contenu.
