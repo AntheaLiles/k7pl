@@ -15,6 +15,7 @@ written file.
 
 import argparse
 import datetime
+import hashlib
 import json
 import os
 import re
@@ -57,53 +58,135 @@ def generated_date(commit_date: str) -> str:
     return datetime.datetime.fromisoformat(commit_date.replace("Z", "+00:00")).date().isoformat()
 
 
-def render_axiom_traceability(contract_path: Path) -> list[str]:
-    """Render the expected axiom dependencies without misrepresenting them as a run result."""
+def render_axiom_traceability(
+    contract_path: Path,
+    report_path: Path | None = None,
+    expected_commit: str | None = None,
+) -> list[str]:
+    """Render expected axiom sets and, only when validated, observed run evidence."""
     heading = [
         "## Traçabilité des dépendances aux axiomes",
         "",
-        "Le tableau ci-dessous est le contrat versionné des dépendances attendues. Il indique les axiomes "
-        "dont chaque déclaration est censée dépendre ; un ensemble vide impose que Lean indique explicitement "
-        "qu’elle ne dépend d’aucun axiome. **Ce tableau ne prouve pas que le commit courant a passé l’audit.** "
-        "Le rapport des dépendances effectivement observées est produit pour chaque exécution par "
-        "[le workflow de sémantique formelle K7PL](../.github/workflows/k7pl-semantics.yaml), puis "
-        "inclus dans l’artefact d’évidence de la chaîne formelle.",
+        "Le tableau ci-dessous est le contrat versionné des dépendances attendues. Un ensemble vide impose que Lean indique explicitement qu'une déclaration ne dépend d'aucun axiome ; un rapport absent n'est jamais interprété comme un ensemble vide.",
         "",
     ]
     if not contract_path.is_file():
-        return heading + [
-            "Aucun contrat de dépendance aux axiomes n’existe à ce chemin ; aucune dépendance par déclaration "
-            "n’est donc publiée pour cette arborescence.",
+        lines = heading + [
+            "Aucun contrat de dépendance aux axiomes n'existe à ce chemin ; aucune dépendance par déclaration n'est publiée pour cette arborescence.",
+            "",
+            "**Axiom audit evidence for commit:** " + (expected_commit or "unknown"),
+            "**Axiom audit status:** NOT AVAILABLE",
             "",
         ]
+        return lines
+
     try:
-        contract = json.loads(contract_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as error:
-        raise ValueError(f"invalid axiom dependency contract {contract_path}: {error}") from error
+        contract_bytes = contract_path.read_bytes()
+        contract = json.loads(contract_bytes)
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"cannot read axiom dependency contract {contract_path}: {error}") from error
     declarations = contract.get("declarations")
     if not isinstance(declarations, list) or not declarations:
         raise ValueError(f"axiom dependency contract {contract_path} has no declarations")
+
+    expected_by_name: dict[str, dict] = {}
     lines = heading + [
         "| Déclaration Lean | Axiomes attendus | Rôle / périmètre |",
         "|---|---|---|",
     ]
-    seen = set()
     for item in declarations:
+        if not isinstance(item, dict):
+            raise ValueError(f"invalid declaration entry in {contract_path}: {item!r}")
         name = item.get("name")
         axioms = item.get("axioms")
         role = item.get("role", "")
-        if not isinstance(name, str) or not name or name in seen:
+        if not isinstance(name, str) or not name or name in expected_by_name:
             raise ValueError(f"invalid or duplicate declaration in {contract_path}: {name!r}")
         if not isinstance(axioms, list) or any(not isinstance(axiom, str) for axiom in axioms):
             raise ValueError(f"invalid axiom set for {name} in {contract_path}")
+        if len(set(axioms)) != len(axioms):
+            raise ValueError(f"duplicate axiom in expected set for {name} in {contract_path}")
         if not isinstance(role, str):
             raise ValueError(f"invalid role for {name} in {contract_path}")
-        seen.add(name)
+        expected_by_name[name] = item
         displayed_axioms = ", ".join(f"`{axiom}`" for axiom in sorted(axioms)) if axioms else "∅ (aucun axiome attendu)"
         safe_role = role.replace("|", "\\|")
         lines.append(f"| `{name}` | {displayed_axioms} | {safe_role} |")
     lines.append("")
-    lines.append("L’évidence d’une exécution n’est acceptée que si son rapport d’audit correspond exactement à ces ensembles ; un rapport absent n’est jamais interprété comme un ensemble vide.")
+
+    lines.extend([
+        "## Audit des axiomes du commit généré",
+        "",
+        "**Axiom audit evidence for commit:** " + (expected_commit or "unknown"),
+    ])
+    if report_path is None or not report_path.is_file():
+        lines.extend([
+            "**Axiom audit status:** NOT AVAILABLE",
+            "",
+            "Aucun rapport d'audit réussi correspondant à ce commit n'a été récupéré. Les ensembles attendus ci-dessus ne constituent pas une preuve d'exécution ; aucun statut de preuve actuel n'est déduit.",
+            "",
+        ])
+        return lines
+
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"cannot read axiom audit report {report_path}: {error}") from error
+
+    contract_sha = hashlib.sha256(contract_bytes).hexdigest()
+    if report.get("kind") != "lean-axiom-dependency-audit" or report.get("status") != "passed":
+        raise ValueError("axiom audit report is not a successful lean-axiom-dependency-audit report")
+    if report.get("contractSha256") != contract_sha:
+        raise ValueError("axiom audit report contract hash does not match the checked-in contract")
+    if expected_commit and report.get("sourceCommit") != expected_commit:
+        raise ValueError(
+            f"axiom audit report is for commit {report.get('sourceCommit')!r}, expected {expected_commit!r}"
+        )
+    run_id = report.get("workflowRunId")
+    lean_version = report.get("leanVersion")
+    if not isinstance(run_id, str) or not run_id or run_id == "unknown":
+        raise ValueError("axiom audit report has no workflow run identifier")
+    if not isinstance(lean_version, str) or not lean_version or lean_version == "unknown":
+        raise ValueError("axiom audit report has no Lean version")
+    observed_entries = report.get("declarations")
+    if not isinstance(observed_entries, list) or len(observed_entries) != len(expected_by_name):
+        raise ValueError("axiom audit report declaration count does not match the checked-in contract")
+
+    observed_by_name = {}
+    for item in observed_entries:
+        if not isinstance(item, dict) or not isinstance(item.get("name"), str):
+            raise ValueError("invalid declaration entry in axiom audit report")
+        name = item["name"]
+        if name in observed_by_name:
+            raise ValueError(f"duplicate declaration in axiom audit report: {name}")
+        observed_by_name[name] = item
+    if set(observed_by_name) != set(expected_by_name):
+        raise ValueError("axiom audit report declarations do not match the checked-in contract")
+
+    lines.extend([
+        "**Axiom audit status:** PASS",
+        "**Axiom audit run ID:** " + run_id,
+        "**Axiom audit Lean version:** " + lean_version,
+        "**Axiom audit contract SHA-256:** " + contract_sha,
+        "",
+        "| Déclaration Lean | Axiomes observés | Concordance exacte |",
+        "|---|---|---|",
+    ])
+    for name, expected in expected_by_name.items():
+        item = observed_by_name[name]
+        expected_axioms = sorted(expected["axioms"])
+        observed_axioms = item.get("observedAxioms")
+        if (
+            sorted(observed_axioms) if isinstance(observed_axioms, list) and
+            all(isinstance(axiom, str) for axiom in observed_axioms) else None
+        ) != expected_axioms:
+            raise ValueError(f"observed axiom set for {name} does not match the contract")
+        if item.get("expectedAxioms") != expected_axioms or item.get("matchesContract") is not True:
+            raise ValueError(f"axiom audit report does not attest an exact contract match for {name}")
+        displayed_observed = ", ".join(f"`{axiom}`" for axiom in observed_axioms) if observed_axioms else "∅ (aucun axiome)"
+        lines.append(f"| `{name}` | {displayed_observed} | PASS |")
+    lines.append("")
+    lines.append("Le statut PASS correspond au seul commit indiqué ci-dessus et aux déclarations du contrat versionné ; il ne prouve ni leur correspondance normative complète ni la sûreté générale de K7PL.")
     lines.append("")
     return lines
 
@@ -117,6 +200,7 @@ def render_status(
     verification: str,
     ci_results: dict[str, str],
     counts: dict[str, int],
+    axiom_report_path: Path | None = None,
 ) -> str:
     """The generated part of `docs/STATUS.md`, before its coverage block is refreshed."""
     lines = [
@@ -160,7 +244,11 @@ def render_status(
         "These counts are generated from the current Git tree and are not estimates of formalisation completeness.",
         "",
     ]
-    lines.extend(render_axiom_traceability(Path("proofs/axiom-audit-contract.json")))
+    lines.extend(render_axiom_traceability(
+        Path("proofs/axiom-audit-contract.json"),
+        report_path=axiom_report_path,
+        expected_commit=commit,
+    ))
     lines.extend([
         "## Scientific status",
         "",
@@ -197,6 +285,11 @@ def main():
             "Security": a.security_result.upper(),
         },
         counts={name: count_lean_files(Path(name)) for name in ("src", "tests", "spec")},
+        axiom_report_path=(
+            Path(os.environ["K7PL_AXIOM_AUDIT_REPORT"])
+            if os.environ.get("K7PL_AXIOM_AUDIT_REPORT")
+            else None
+        ),
     )
     Path(a.output).write_text(text, encoding="utf-8")
     couverture.update_status(Path(a.output))
