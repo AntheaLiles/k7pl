@@ -48,9 +48,9 @@ theorem enforcedBoundary_step_preserves_protected
   cases step <;> rfl
 
 theorem enforcedBoundary_trace_preserves_protected
-    {events : List Event} {final : State}
-    (trace : Steps .enforcedBoundary initial events final) :
-    final.protectedValue = initial.protectedValue := by
+    {start final : State} {events : List Event}
+    (trace : Steps .enforcedBoundary start events final) :
+    final.protectedValue = start.protectedValue := by
   induction trace with
   | nil _ => rfl
   | cons step rest ih =>
