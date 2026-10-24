@@ -38,6 +38,21 @@ else
   # Select only a successful run for this exact commit; PR runs and stale evidence do not qualify.
   runs="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow k7pl-semantics.yaml --branch main --commit "$SOURCE_SHA" --limit 30 --json databaseId,status,conclusion,headSha)"
   candidate_run="$(printf '%s' "$runs" | jq -r --arg sha "$SOURCE_SHA" '[.[] | select(.headSha == $sha and .status == "completed" and .conclusion == "success")][0].databaseId // empty')"
+
+  # The trusted status-dispatch job runs as the final job of the formal-semantics workflow. The
+  # workflow itself may still be marked in_progress when this dispatched CI starts, so poll briefly
+  # for its completed result rather than misreporting its just-produced artifact as absent.
+  if [ -z "$candidate_run" ] && [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+    for attempt in $(seq 1 36); do
+      runs="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow k7pl-semantics.yaml --branch main --commit "$SOURCE_SHA" --limit 30 --json databaseId,status,conclusion,headSha)"
+      candidate_run="$(printf '%s' "$runs" | jq -r --arg sha "$SOURCE_SHA" '[.[] | select(.headSha == $sha and .status == "completed" and .conclusion == "success")][0].databaseId // empty')"
+      [ -n "$candidate_run" ] && break
+      active_run="$(printf '%s' "$runs" | jq -r --arg sha "$SOURCE_SHA" '[.[] | select(.headSha == $sha and .status != "completed")][0].databaseId // empty')"
+      [ -z "$active_run" ] && break
+      echo "Waiting for matching formal-semantics run $active_run to finish (attempt $attempt/36)."
+      sleep 5
+    done
+  fi
 fi
 
 if [ -z "$candidate_run" ]; then
