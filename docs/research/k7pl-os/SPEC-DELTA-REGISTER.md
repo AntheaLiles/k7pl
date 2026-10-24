@@ -6,6 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # Registre provisoire des évolutions de la spécification après R0–R9
 
 **Date de rédaction :** 2026-10-24  
+**Mise à jour D-01/D-02 :** 2026-10-25 ; D-01 intégré par la fusion de la PR #302, merge commit `662d14c3494834517c70125ed11953923514738a`. Les changements en cours sur D-02 sont proposés dans une PR distincte et ne sont pas encore intégrés à main.
 **Statut :** document de travail non normatif ; registre initial, incomplet par construction.  
 **Révision de rédaction initiale :** `AntheaLiles/k7pl@6062a683aa8c14c9bb396632ec070cba69c90623`.
 **Base de consolidation de la PR #300 :** `AntheaLiles/k7pl@76d8c1c5cb54ebaa6ab43d78b53979f63a0de8fd`.
@@ -99,6 +100,8 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 
 **Clôture du traitement D-01 dans le périmètre instruit :** la portée des garanties intrinsèques est clarifiée dans la source normative et dans ce registre ; les quatre règles de calcul racine du sous-langage effectivement implémenté disposent de ponts unidirectionnels explicites vers les transitions KLean générées. Cette clôture ne déclare pas démontrée l'isolation physique ni le confinement concret d'un code natif arbitraire. La simulation générale des pas de contexte/continuation, la projection complète entre représentations, les contrats FFI et la preuve de leur réalisation restent des obligations distinctes, à traiter dans les travaux de sémantique opérationnelle, d'interface et de correction source-vers-binaire.
 
+**Provenance de clôture :** la PR [#302](https://github.com/AntheaLiles/k7pl/pull/302) a été fusionnée le 24 octobre 2026 à 22:09:25 UTC, avec le commit de fusion `662d14c3494834517c70125ed11953923514738a`. Ce commit établit l'intégration des changements ; la preuve reste attachée à ses artefacts : le modèle TLC est un contrôle du modèle fini/configuré, les ponts Lean sont des témoins unidirectionnels pour quatre règles racines, et les théorèmes de préservation ont les énoncés précis définis dans leurs modules. La clôture D-01 ne transforme pas ces niveaux d'évidence en simulation générale du langage ou en preuve de confinement natif.
+
 #### SPEC-D-02 — Définir un vocabulaire d'assurance cohérent
 
 **Nature :** clarification éditoriale et exigence de traçabilité de l'assurance.
@@ -109,6 +112,13 @@ Les priorités sont des priorités d'instruction, pas l'ordre obligatoire des co
 **Delta candidat :** définir et utiliser de manière cohérente les distinctions entre spécifié, formalisé, démontré, vérifié par model checking dans un domaine fini, testé, mesuré, supposé, exclu et ouvert. Les esquisses de preuve et les propositions sous revue ne doivent pas être présentées comme résultats établis.
 
 **Critère de clôture :** toutes les revendications normatives ou métathéoriques importantes ont un statut et un type d'évidence explicitement identifiables ; une CI verte est décrite comme un résultat de CI et non comme une preuve générale de sécurité.
+
+**Résultat de la première instruction — 2026-10-25 : vocabulaire et traçabilité d'axiomes explicités, couverture globale encore ouverte.** La source normative C1/GuideDeLecture distingue maintenant la présence d'une clause spécifiée, l'existence d'une formalisation, une démonstration écrite, une preuve vérifiée par Lean avec audit d'axiomes, le model checking dans le périmètre du modèle/configuration, le test, la mesure, l'hypothèse, l'exclusion et l'obligation ouverte. Elle sépare ces qualifications des métadonnées C8 (`kind/role`, `state`, `evidence`) et des états d'assurance d'un document ou chantier. C2/SixSchemasDeMetatheorie rappelle que le statut de schéma n'acquitte pas les obligations de ses instances. Les documents [ASSURANCE.md](../../ASSURANCE.md) et [METHOD.md](../../METHOD.md) rappellent la séparation des niveaux.
+
+**Rétablissement de la chaîne axiomes → théorèmes → statut :** le contrat versionné [proofs/axiom-audit-contract.json](../../proofs/axiom-audit-contract.json) fixe, pour chaque déclaration retenue dans la tranche KLean, l'ensemble exact d'axiomes attendu. Le vérificateur `scripts/ci/k7pl_semantics_axiom_report.py` compare cet ensemble au rapport `#print axioms` du build, refuse les déclarations absentes, les rapports contradictoires, les dépendances différentes et les axiomes non autorisés, puis produit un JSON associé au commit, à l'exécution CI et à la version de Lean. L'artefact formel contient le contrat, le résultat observé et les sources utilisées. Le générateur de `docs/STATUS.md` expose la matrice attendue, en indiquant expressément qu'elle n'est pas une preuve de réussite de la dernière exécution ; le rapport calculé de l'exécution est la preuve de contrôle correspondante. Les tests couvrent les rapports manquants, les écarts de dépendances, les rapports contradictoires, les axiomes non autorisés et `sorryAx`.
+
+**Limite et prochaine étape :** cette première tranche ne satisfait pas encore le critère de clôture global de D-02. Il reste à inventorier les revendications normatives et métathéoriques importantes du manuscrit, à contrôler la cohérence de leurs champs C8 et de leurs identifiants d'artefacts, à distinguer les hypothèses de preuve des résultats calculés, et à assurer la traçabilité automatique des états d'exécution dans les vues publiées. Le travail de cette PR est donc une avancée vérifiable de D-02, pas la déclaration prématurée de sa clôture.
+
 
 #### SPEC-D-03 — Structurer les profils de menace et la base de confiance
 
