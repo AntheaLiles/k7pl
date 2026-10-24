@@ -2,6 +2,8 @@
 
 Dix dossiers autonomes (R0–R9) cadrent les recherches nécessaires pour évaluer les garanties d’un système d’exploitation envisagé en K7PL. Ils sont préparatoires : ils ne modifient pas implicitement la spécification normative et ne déclarent aucune garantie acquise.
 
+Le [registre provisoire des évolutions à instruire dans la spécification](SPEC-DELTA-REGISTER.md) consolide les apports de R0–R9, les décisions de conception déjà exprimées et les obligations normatives ou de preuve à examiner. Il est non normatif et ne constitue pas encore une autorisation de réécrire les chapitres concernés.
+
 | ID | Sujet | Priorité |
 |---|---|---:|
 | [R0](R0-modele-menace-matrice-assurance.md) | Modèle de menace et matrice d’assurance | P0 |
