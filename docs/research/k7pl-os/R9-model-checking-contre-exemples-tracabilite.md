@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # R9 — Model checking, contre-exemples et traçabilité
 
 **Date de l’étude :** 2026-10-24  
-**Instantané audité :** \`AntheaLiles/k7pl@f2f3df2a8598a16fdb7899b42c641e3c57665a09\`  
+**Instantané audité :** `AntheaLiles/k7pl@f2f3df2a8598a16fdb7899b42c641e3c57665a09`  
 **Statut :** dossier de recherche non normatif. Le modèle borné proposé est un prototype d’exploration ; son équivalence avec la sémantique K7PL n’est pas établie. Les propriétés générales de session, d’annulation, de coût et de compilation restent à démontrer.
 
 ## 1. Résultat
@@ -15,7 +15,7 @@ Le workflow recommandé combine quatre outils avec des rôles séparés : TLA+/T
 
 Le prototype livré dans [models/R9ActorCancellation.tla](models/R9ActorCancellation.tla) représente un acteur A, un service B, une requête, une demande d’annulation et un effet externe validé au plus une fois. Il rend visible une distinction critique : **demander l’annulation n’équivaut pas à recevoir l’accusé d’annulation**. Si la requête a été acceptée, le commit et l’interruption peuvent être deux transitions concurrentes. Le modèle autorise soit l’interruption avant commit, soit le commit avant accusé. Il impose qu’un accusé d’annulation ne soit pas émis après validation de l’effet.
 
-Les fichiers du modèle comprennent une [configuration nominale](models/R9ActorCancellation.cfg), une [configuration négative](models/R9-NaiveCancelClaim.cfg) qui recherche un contre-exemple à une hypothèse trop forte, et un [vecteur de test](models/R9-CancelRace-Test-Vector.md). Ils sont préparés pour une exécution reproductible. **TLC n’a pas été exécuté dans l’environnement de rédaction** : l’exécutable n’était pas présent et le conteneur ne pouvait pas le récupérer sur le réseau. Le rapport ne présente donc aucun journal TLC comme déjà observé ; les commandes à exécuter et les critères de sortie sont définis plus bas.
+Les fichiers du modèle comprennent une [configuration nominale](models/R9ActorCancellation.cfg), une [configuration négative](models/R9-NaiveCancelClaim.cfg) et un [vecteur de test](models/R9-CancelRace-Test-Vector.md). Le job [R9 TLA+ model check du workflow CI](../../../.github/workflows/ci.yaml) exécute les deux configurations avec un JAR TLC identifié et vérifié par SHA-256 et SHA-1. Les runs [CI #1998](https://github.com/AntheaLiles/k7pl/actions/runs/40083251090) et [CI #2001](https://github.com/AntheaLiles/k7pl/actions/runs/40083746248) ont confirmé le résultat nominal et le contre-exemple attendu. La portée reste celle du modèle borné décrit ci-dessous : ces résultats n’établissent pas sa correspondance avec la sémantique normative complète de K7PL.
 
 ## 2. Constats K7PL au snapshot audité
 
@@ -108,7 +108,7 @@ Ces invariants portent uniquement sur la sûreté de ce modèle. Il n’y a ni h
 
 ## 5. Contre-exemple attendu et conversion en tests
 
-Le témoin suivant est déduit de la relation de transition. Il n’est pas présenté comme un export d’un lancement TLC.
+Le témoin suivant a été produit par TLC avec la configuration négative. La même séquence apparaît dans les runs [CI #1998](https://github.com/AntheaLiles/k7pl/actions/runs/40083251090) et [CI #2001](https://github.com/AntheaLiles/k7pl/actions/runs/40083746248) ; le tableau ci-dessous en normalise les états et le crédit restant.
 
 La propriété candidate **NoCommitAfterCancelRequest** dit : dès que cancelRequested vaut vrai, aucun effet ne peut être validé. C’est plus fort que « l’accusé d’annulation confirme qu’aucun effet n’a été validé ».
 
@@ -121,6 +121,14 @@ La propriété candidate **NoCommitAfterCancelRequest** dit : dès que cancelReq
 | S4 | Commit | Completed | Done | Committed | vrai | faux | 1 | (0, 0) |
 
 La séquence Send → Accept → CancelRequest → EffectCommit réfute l’hypothèse trop forte. Les invariants nominaux restent cohérents : aucun accusé n’a été émis, un seul effet est validé et les crédits ne deviennent pas négatifs.
+
+### Résultats observés dans la CI
+
+- **Configuration nominale :** TLC termine sans erreur ; 9 états générés, 9 états distincts, file d’attente vide et profondeur maximale de recherche 5. Les invariants déclarés dans le fichier de configuration nominale sont satisfaits sur l’ensemble fini accessible.
+- **Configuration négative :** TLC indique que l’invariant NoCommitAfterCancelRequest n’est pas satisfait et produit la séquence Send → Accept → CancelRequest → EffectCommit. La recherche s’interrompt au premier contre-exemple : 9 états générés, 9 distincts, 3 encore en file et profondeur de recherche complète annoncée égale à 5. Ce résultat est attendu et est traité comme une réussite du test négatif par le job CI.
+- **Environnement :** la sortie TLC indique « TLC2 Version 2.19 of 08 August 2024 ». Le workflow télécharge le JAR depuis la release v1.7.4 de TLA+ Tools et vérifie son SHA-256 (936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88) et son SHA-1 (bee4a54f3ee3d4afc347c3240ec2d9e93b075104).
+
+Ce contrôle valide le modèle TLA+ et les invariants qu’il contient pour cette instance finie. Il ne prouve ni que le modèle couvre tous les comportements normatifs de K7PL, ni que son abstraction d’annulation correspond au contrat réel du runtime.
 
 Le fichier [R9-CancelRace-Test-Vector.md](models/R9-CancelRace-Test-Vector.md) conserve le témoin et son oracle. La configuration [R9-NaiveCancelClaim.cfg](models/R9-NaiveCancelClaim.cfg) demande au model checker de chercher le contre-exemple attendu ; [R9ActorCancellation.cfg](models/R9ActorCancellation.cfg) ne vérifie que les invariants nominaux.
 
@@ -187,17 +195,17 @@ Limites :
 - le modèle n’inclut ni multi-participants, ni duplication des messages, ni crash durable, ni révocation de capacités, ni FFI adversarial ;
 - la trace reste abstraite ; sa correspondance avec les événements source et cible est ouverte ;
 - TLC, Apalache, tests à état et Lean n’ont pas été exécutés ensemble sur ce prototype ; aucun résultat d’outil non observé n’est déclaré ;
-- le CI K7PL ne vérifie pas actuellement la syntaxe ni les invariants de ces fichiers TLA+. Une CI documentaire verte ne doit pas être lue comme un résultat TLC.
+- le CI vérifie désormais la syntaxe du modèle et les invariants spécifiés pour cette instance bornée. Il ne vérifie pas la correspondance sémantique avec K7PL ; la réussite du job ne doit pas être interprétée comme une preuve sur le système complet.
 
-Critères de sortie :
-1. Exécuter le modèle nominal avec TLC et enregistrer version, configuration, résultat et compte d’états.
-2. Reproduire S0–S4 avec la configuration négative.
-3. Faire exécuter les oracles sur un modèle de référence, puis sur le runtime lorsqu’il existe.
-4. Relier modèle, propriétés, témoins, tests, exigences normatives, définitions Lean et théorèmes.
-5. Étudier la vivacité à part, avec les hypothèses d’équité explicites.
-6. Garder ouvertes les obligations C-07 et C4 jusqu’à établissement des relations sur états, traces et attente.
+Critères de sortie — état après les exécutions CI :
 
-R9 fournit une méthode, un modèle et un témoin définis pour être reproduits. L’exécution TLC reste l’étape empirique ouverte. Aucun statut de preuve n’est promu et aucune étape aval de K7PL n’est autorisée par ce rapport.
+1. **Atteint pour le modèle borné :** TLC a vérifié les invariants nominaux et reproduit le témoin attendu ; la version de l’outil, les empreintes et les runs sont référencés.
+2. **À poursuivre si un modèle de référence ou un runtime devient disponible :** exécuter les oracles de test sur ce composant et relier les traces observées à la projection normative.
+3. **Ouvert :** relier modèle, propriétés, témoins, tests, exigences normatives, définitions Lean et théorèmes par une correspondance sémantique, pas par la seule identité des noms.
+4. **Ouvert séparément :** étudier la vivacité avec des hypothèses d’équité explicites.
+5. **Ouvert :** fermer les obligations C-07 et C4 concernant les configurations, les états, les traces et la représentation de l’attente.
+
+R9 fournit maintenant un modèle borné dont l’exploration TLC est exécutée et intégrée à la CI. La preuve de correspondance avec la sémantique normative et l’exécution K7PL demeure une obligation distincte. Aucun statut de preuve global n’est promu et aucune étape aval de K7PL n’est autorisée par ce rapport.
 
 ## 8. Références méthodologiques
 
