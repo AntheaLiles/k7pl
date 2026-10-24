@@ -26,6 +26,10 @@ DEPENDS = re.compile(r"'(?P<name>[^']+)' depends on axioms:\s*\[(?P<axioms>[^]]*
 NO_AXIOMS = re.compile(r"'(?P<name>[^']+)' does not depend on any axioms")
 
 
+PROJECT_ALLOWED_STANDARD_AXIOMS = frozenset({"propext", "Classical.choice", "Quot.sound"})
+PROJECT_REQUIRED_FORBIDDEN_AXIOMS = frozenset({"sorryAx", "Lean.ofReduceBool"})
+
+
 class AuditError(ValueError):
     """The build log does not satisfy the declared axiom-audit contract."""
 
@@ -42,6 +46,16 @@ def parse_report(text: str, contract: dict, *, source_commit: str, workflow_run_
     allowed = set(policy.get("allowedStandardAxioms", []))
     if policy.get("matching") != "exact-set":
         raise AuditError("contract policy.matching must be 'exact-set'")
+    if allowed != PROJECT_ALLOWED_STANDARD_AXIOMS:
+        raise AuditError(
+            "contract changes the project allowlist: "
+            f"expected {sorted(PROJECT_ALLOWED_STANDARD_AXIOMS)}, observed {sorted(allowed)}"
+        )
+    if not PROJECT_REQUIRED_FORBIDDEN_AXIOMS <= forbidden:
+        raise AuditError(
+            "contract omits required forbidden axiom markers: "
+            f"{sorted(PROJECT_REQUIRED_FORBIDDEN_AXIOMS - forbidden)}"
+        )
 
     expected = contract.get("declarations")
     if not isinstance(expected, list) or not expected:
