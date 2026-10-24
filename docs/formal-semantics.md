@@ -52,9 +52,10 @@ construction à la grammaire normative de K7PL et ne choisit pas de mécanisme m
 
 La même transition abstraite est explorée par TLC avec deux configurations : la configuration
 BoundaryEnforced = TRUE doit préserver ProtectedIntegrity ; la configuration négative doit
-produire un contre-exemple. Lean prouve la préservation pour toutes les traces finies du modèle
-abstrait et présente un témoin d'échec du profil non confiné. La CI joue également les trois
-exemples K.
+produire un contre-exemple. Le témoin négatif est fixé sur la valeur 1 : l'état initial
+(protected=0, service=0), l'action NativeWrite(1), puis l'état (protected=1, service=0).
+Lean prouve la préservation pour toutes les traces finies du profil confiné et rejoue explicitement
+ce témoin en un pas. La CI joue également les trois exemples K avec les mêmes valeurs.
 
 Ces résultats sont des corroborations à partir de modèles distincts, pas encore un théorème de
 simulation K↔TLA+ ni une preuve que le modèle correspond à la sémantique normative complète de

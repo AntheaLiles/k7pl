@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "D01-CE-NATIVE-WRITE-UNCONFINED-01",
+  "model": "D01NativeBoundary",
+  "configuration": "D01-NativeBoundary-Unconfined.cfg",
+  "initial": {
+    "protectedValue": 0,
+    "serviceValue": 0,
+    "lastEvent": "Init"
+  },
+  "actions": [
+    {
+      "name": "NativeWrite",
+      "argument": 1
+    }
+  ],
+  "final": {
+    "protectedValue": 1,
+    "serviceValue": 0,
+    "lastEvent": "NativeWriteBypass"
+  },
+  "violatedInvariant": "ProtectedIntegrity",
+  "kExample": "tests/examples/native-boundary/native-write-unconfined.k7",
+  "leanReplay": "K7PL.NativeBoundary.unconfined_native_write_trace_replay",
+  "scope": "one-step counterexample replay; not a general K-to-TLA+-to-Lean simulation theorem"
+}

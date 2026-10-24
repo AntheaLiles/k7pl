@@ -56,6 +56,11 @@ theorem enforcedBoundary_trace_preserves_protected
   | cons step rest ih =>
       exact ih.trans (enforcedBoundary_step_preserves_protected step)
 
+/-- Exact one-step replay of the D-01 TLC counterexample with the shared value 1. -/
+theorem unconfined_native_write_trace_replay :
+    Steps .sharedUnconfined initial [.nativeWrite 1] ⟨1, 0⟩ := by
+  exact Steps.cons (Step.bypassedNativeWrite initial 1) (Steps.nil ⟨1, 0⟩)
+
 theorem unconfined_native_write_counterexample :
     ∃ final,
       Step .sharedUnconfined initial (.nativeWrite 1) final ∧
@@ -66,6 +71,7 @@ theorem unconfined_native_write_counterexample :
 
 #print axioms K7PL.NativeBoundary.enforcedBoundary_step_preserves_protected
 #print axioms K7PL.NativeBoundary.enforcedBoundary_trace_preserves_protected
+#print axioms K7PL.NativeBoundary.unconfined_native_write_trace_replay
 #print axioms K7PL.NativeBoundary.unconfined_native_write_counterexample
 
 end K7PL.NativeBoundary
