@@ -14,16 +14,18 @@ number := false
 tag := "experimental-code-artifacts"
 %%%
 
-Les blocs de code K de cette section sont normatifs. Le script Python qui les accompagne est un
-outil de vérification ; il n’est pas normatif. Les blocs marqués ci-dessous sont les
-sources éditables de la définition K expérimentale et de son script de vérification. Le constructeur
-Verso extrait ces blocs dans src/k/.build/generated/ ; ces fichiers sont des artefacts générés,
-ignorés par Git, et ne doivent pas être modifiés directement.
+Le bloc K de sémantique du sous-langage K7PL ci-dessous est la source éditable normative
+pour ce sous-langage expérimental. Le modèle K7OS séparé est explicitement non normatif :
+il explore une hypothèse de profil sans l'imposer au langage. Le script Python est un outil
+de vérification et n'est pas normatif. Les artefacts sont extraits dans
+`src/k/.build/generated/` ; ces fichiers sont générés, ignorés par Git, et ne doivent pas
+être modifiés directement.
 
-La commande lake exe spec --extract-code-only effectue uniquement l’extraction, sans produire le
-site. La cible make k-check extrait ensuite la définition, la compile avec K et exécute les
-programmes d’exemple. L’extraction n’est pas en elle-même une validation : les compilateurs et tests
-restent responsables de vérifier le code généré.
+La commande `lake exe spec --extract-code-only` effectue uniquement l'extraction, sans produire
+le site. `make k-check` compile la sémantique du sous-langage et exécute ses exemples.
+`make boundary-check` compile séparément le modèle K7OS et vérifie ses trois résultats.
+L'extraction seule ne valide pas le code : les compilateurs et tests restent responsables
+de vérifier les fichiers générés.
 
 # Définition K expérimentale
 
@@ -90,6 +92,55 @@ restent responsables de vérifier le code généré.
 
    rule typeOf((select C:K7Exp E1:K7Exp E2:K7Exp)) => typeOf(E1)
      requires typeOf(C) ==K BoolType andBool typeOf(E1) ==K typeOf(E2)
+ endmodule
+```
+
+
+# Modèle d'exécution K7OS : frontière native (profil non normatif)
+
+Ce bloc est un modèle d'exploration du système envisagé, pas une règle du langage K7PL.
+Le booléen passé à nativeWrite représente uniquement l'hypothèse abstraite d'une frontière
+appliquée. Il ne modélise ni une MMU, ni un IOMMU, ni une isolation matérielle particulière.
+La définition reste éditée ici, puis extraite par Verso.
+
+```k7osModel (file := "src/k/.build/generated/models/native-boundary.k")
+ // SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+ // SPDX-License-Identifier: CECILL-2.1
+ //
+ // Non-normative K7OS profile model. It does not extend the K7PL language semantics.
+
+ module K7OS-NATIVE-BOUNDARY-SYNTAX
+   imports INT
+   imports BOOL
+
+   syntax BoundaryOp ::= "conformingCall" "(" Int ")" [symbol(conformingCall)]
+                       | "nativeWrite" "(" Bool "," Int ")" [symbol(nativeWrite)]
+                       | "boundaryResult" "(" Int "," Int ")" [symbol(boundaryResult)]
+ endmodule
+
+ module K7OS-NATIVE-BOUNDARY
+   imports K7OS-NATIVE-BOUNDARY-SYNTAX
+
+   configuration <os>
+                   <k> $PGM:BoundaryOp </k>
+                   <protected> 0 </protected>
+                   <service> 0 </service>
+                 </os>
+
+   rule <k> conformingCall(I:Int) => boundaryResult(P:Int, I) </k>
+        <protected> P:Int </protected>
+        <service> _S:Int => I </service>
+        [label(k7osConformingCall)]
+
+   rule <k> nativeWrite(true, I:Int) => boundaryResult(P:Int, S:Int) </k>
+        <protected> P:Int </protected>
+        <service> S:Int </service>
+        [label(k7osNativeWriteRejected)]
+
+   rule <k> nativeWrite(false, I:Int) => boundaryResult(I, S:Int) </k>
+        <protected> P:Int => I </protected>
+        <service> S:Int </service>
+        [label(k7osNativeWriteBypass)]
  endmodule
 ```
 

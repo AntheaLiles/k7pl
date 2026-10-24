@@ -4,7 +4,7 @@
 PYTHON ?= python3
 KLEAN_PACKAGE := src/k/.build/klean-output/k7pl2lean
 
-.PHONY: help extract-code k-check export-lean proof formal-chain test spec check clean
+.PHONY: help extract-code k-check k-boundary-check export-lean proof formal-chain test spec check clean
 
 help:
 	@printf '%s\n' 'Targets: extract-code, k-check, export-lean, proof, formal-chain, test, spec, check, clean'
@@ -14,6 +14,9 @@ extract-code:
 
 k-check:
 	$(MAKE) -C src/k check
+
+k-boundary-check:
+	$(MAKE) -C src/k boundary-check
 
 export-lean:
 	$(MAKE) -C src/k export-lean
@@ -37,7 +40,7 @@ test:
 spec:
 	lake exe spec --output _out/spec --with-tex
 
-check: k-check formal-chain test
+check: k-check k-boundary-check formal-chain test
 
 clean:
 	$(MAKE) -C src/k clean

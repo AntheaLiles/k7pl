@@ -147,6 +147,28 @@ jobs:
             exit 1
           fi
 
+      - name: Check D01 native-boundary model with enforced boundary
+        run: java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary.cfg D01NativeBoundary
+
+      - name: Check D01 native-boundary counterexample without enforcement
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/d01-native-boundary-negative.log"
+          set +e
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary >"$log" 2>&1
+          rc=$?
+          set -e
+          cat "$log"
+          if [ "$rc" -eq 0 ]; then
+            echo "::error::TLC accepted the unconfined profile despite the expected integrity counterexample"
+            exit 1
+          fi
+          if ! grep -F "Invariant ProtectedIntegrity" "$log" >/dev/null; then
+            echo "::error::TLC stopped before the expected D01 ProtectedIntegrity counterexample"
+            exit 1
+          fi
+
   ci-ok:
     name: CI OK
     if: ${{ always() }}
