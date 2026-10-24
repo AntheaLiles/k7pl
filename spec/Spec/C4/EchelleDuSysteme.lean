@@ -585,12 +585,12 @@ grades que l'orchestrateur résout en affectations physiques concrètes au dépl
 celui-ci si aucun nœud du cluster ne les satisfait.
 
 Lorsque la communication franchit la frontière du système lui-même, vers un système d'exploitation
-hôte, la même discipline s'applique une dernière fois. La propriété d'un tampon transféré par la
-passerelle VirtIO {cite "VIRTIO"}[] reste une capabilité linéaire, que l'hôte ne peut retenir après
-le retour — la frontière change de nature, le mécanisme qui la traverse ne change pas. Le modèle y
-est structurel plutôt que conventionnel : une _virtqueue_ se compose de trois zones à propriétaire
-déclaré — table de descripteurs, anneau disponible côté pilote, anneau utilisé côté périphérique —,
-de sorte que la propriété se lit dans l'endroit où l'on écrit {cite "VIRTIO"}[].
+hôte, le contrat doit préciser la propriété du tampon transféré par la passerelle VirtIO {cite "VIRTIO"}[].
+Le protocole VirtIO définit une _virtqueue_ composée de zones distinctes — table de descripteurs,
+anneau disponible côté pilote, anneau utilisé côté périphérique —, mais cette organisation ne prouve
+pas à elle seule que l'hôte ne conserve aucun accès après le retour. La réalisation doit établir les
+conditions de transfert, de restitution et de révocation ; le mécanisme qui garantit ces propriétés
+reste ouvert.
 
 Le système de types peut retirer une capacité du contexte qu'il gouverne, mais ne suffit pas à
 révoquer un accès déjà accordé à un composant étranger. Des protocoles d'accès distant emploient
@@ -643,11 +643,12 @@ révocation à la frontière étrangère
 :::statement +titled
 Ce que le système de types ne peut pas tenir seul
 
-Après le retour de la passerelle, le système hôte ne doit plus accéder à $`B`. Cette clause n'est
-pas un théorème du langage : le typage retire une capacité du contexte d'un terme qu'il gouverne, il
-ne la révoque pas chez un pair qu'il ne gouverne pas. Elle est une _exigence_ sur la réalisation de
-la passerelle, qui doit invalider la référence côté hôte — par une table de poignées, une
-génération, ou un mécanisme équivalent — et dont la vérification sort du système de types.
+Après le retour de la passerelle, l'interface étrangère ne doit plus pouvoir accéder à $`B`, selon
+le contrat de transfert défini pour cet appel. Cette clause n'est pas un théorème du langage : le
+typage retire une capacité du contexte d'un terme qu'il gouverne, mais ne révoque pas à lui seul un
+accès détenu par un composant étranger. La réalisation doit établir cette propriété. La représentation
+des références, le mécanisme de restitution ou de révocation et les moyens de vérification restent
+ouverts ; aucun mécanisme particulier n'est imposé ici.
 :::
 
 :::note
