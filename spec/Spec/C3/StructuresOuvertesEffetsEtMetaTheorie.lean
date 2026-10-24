@@ -137,28 +137,18 @@ constituait une restriction non exprimée dans celui-ci, c'est-à-dire le seul c
 principe de complétude graduée du §{num "sec:c3-le-systeme-gradue"}[]. La ranger dans $`\mathcal{E}`
 est ce qui rend ce principe énonçable.
 
-Trois dispositifs répondent ensuite à la question opératoire — que faire de ce qui franchit —, et
-K7PL les arrête ici. Le premier est le _confinement_ des macros. Une macro s'exécute avec des
-capacités, comme tout le reste, et n'a aucune raison d'en détenir plus que le programme qu'elle
-produit. La Phase 0 l'exécute donc en bac à sable complet — accès en lecture aux seules définitions
-que son site d'appel a en portée, aucune écriture hors de l'arbre qu'elle construit, aucun effet du
-monde extérieur. La conséquence est nette et vaut d'être acceptée plutôt que découverte : une macro
-ne peut ni lire un fichier, ni interroger le réseau, ni consulter l'horloge. Ce que les systèmes de
-macros usuels autorisent, celui-ci l'interdit, et c'est le prix de la vérification avant mise en
-production.
+Les mécanismes de traitement de ces frontières ne sont pas fixés ici. Pour les macros exécutées
+avant vérification, les sources importées et les interfaces FFI, le contrat et le profil de réalisation
+doivent préciser les autorités accessibles, les effets permis, les hypothèses de provenance et les
+garanties attendues. Le confinement des macros, la signature des paquets et la vérification dynamique
+des contrats sont des stratégies possibles, non des mécanismes imposés par ce passage. Aucune de ces
+stratégies ne suffit, à elle seule, à démontrer la préservation des invariants internes : cette
+propriété doit être établie à la frontière concernée.
 
-Le deuxième est la _signature des paquets_, avec chaîne de confiance. Un paquet porte une signature,
-et celle-ci une chaîne remontant à une racine que le projet consommateur déclare : la confiance
-cesse d'être attachée à l'origine du code — une adresse, un dépôt — pour l'être à une identité
-vérifiable et révocable. L'effet `Import` ne se résout qu'à une source dont la chaîne valide, et un
-maillon révoqué invalide tout ce qu'il a signé.
-
-Le troisième est la _compilation reproductible_, et son statut diffère des deux autres : elle est
-visée sans être garantie. La viser signifie que rien dans la conception du compilateur n'introduit
-délibérément de variabilité — pas d'horodatage dans les artefacts, pas de chemin absolu, pas d'ordre
-d'itération dépendant d'une table de hachage. La garantir demanderait de contrôler l'environnement
-de compilation entier, ce que ce document ne fait pas ; c'est un objectif déclaré, non une propriété
-établie, et la distinction est celle qui sépare partout ailleurs ici un théorème d'une intention. La frontière limite les propriétés que K7PL peut attribuer au code étranger ; elle ne supprime
+La compilation reproductible reste un objectif, non une propriété garantie. La viser signifie que la
+conception du compilateur n'introduit pas délibérément de variabilité, par exemple des horodatages,
+des chemins absolus ou un ordre d'itération instable. La garantir demanderait de contrôler
+l'environnement de compilation entier, ce que ce document n'établit pas.La frontière limite les propriétés que K7PL peut attribuer au code étranger ; elle ne supprime
 pas les obligations de sûreté du système qui l'appelle. K7PL ne garantit pas la correction
 fonctionnelle d'un service étranger, mais reste responsable du contrat qu'il expose et de la sûreté
 de l'interaction. Le code étranger ne reçoit aucun droit implicite sur l'état interne protégé, et les
