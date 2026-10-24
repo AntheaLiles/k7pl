@@ -157,22 +157,21 @@ comprises, et à relier la frontière de phase, l'index de portée et la paramé
 des règles formelles plutôt qu'à la prose.
 :::
 ::::
-Ce que ce théorème ajoute n'est pas une garantie de plus mais un _second_ bénéfice au même
-dispositif. Le chapitre 3 justifie le confinement de la Phase 0 par la sûreté : une macro n'a aucune
-raison de détenir plus de capacités que le programme qu'elle produit. Il achète aussi la
-compilabilité statique, et le document ne le dit nulle part. La comparaison rend la chose nette : ce
-qui empêche APL d'être compilé statiquement tient en une phrase de ses concepteurs — la syntaxe
-d'une instruction après exécution peut différer de ce qu'elle était avant {cite "saalConsiderationsDesignCompiler1978"}[].
-Cette phrase est inécrivable pour K7PL, et elle l'est par théorème.
+Ce théorème porte sur la staticité de la syntaxe ; il ne fixe pas, à lui seul, la politique d'effets
+du macro-système. Un confinement de la Phase 0 peut limiter les capacités des macros et contribuer à
+la sûreté, mais ce mécanisme reste une option de réalisation à spécifier, non une conséquence du
+théorème. La comparaison avec APL reste pertinente : la syntaxe d'une instruction après exécution
+peut différer de sa forme antérieure {cite "saalConsiderationsDesignCompiler1978"}[]. Pour K7PL, la
+staticité revendiquée doit découler de la relation formelle entre syntaxe, expansion et élaboration,
+non d'un mécanisme de confinement non spécifié.
 
-Une condition supplémentaire doit être nommée, car on la confond aisément avec le confinement
-lui-même. Qu'une valeur soit close à la compilation ne suffit pas à rendre libre le produit engendré
-par le métaniveau. Il y faut la _générativité_, l'axiome qui internalise le fait qu'un métaprogramme
-ne peut pas inspecter la structure des termes du niveau objet. C'est de lui, non de la clôture, que
-se tire la fermeture de l'univers des sommes de produits par la somme dépendante {cite "kovacsClosurefreeFunctionalProgramming2024"}[].
-La formulation juste n'est donc pas que la valeur soit close, mais que le métaniveau soit
-_paramétrique_ en l'objet. C'est ce que le confinement de la Phase 0 réalise, et le dire ainsi évite
-d'attribuer à la clôture un travail qu'elle ne fait pas.
+Une condition supplémentaire doit être nommée, car elle est distincte du confinement. Qu'une valeur
+soit close à la compilation ne suffit pas à rendre libre le produit engendré par le métaniveau. Il y
+faut la _générativité_, qui internalise le fait qu'un métaprogramme ne peut pas inspecter la structure
+des termes du niveau objet. C'est de cette propriété, non de la clôture, que se tire la fermeture de
+l'univers des sommes de produits par la somme dépendante {cite "kovacsClosurefreeFunctionalProgramming2024"}[].
+La paramétricité du métaniveau en l'objet doit donc être établie dans le modèle formel ; elle ne peut
+être attribuée au confinement tant que celui-ci n'est pas une exigence de réalisation.
 
 L'hygiène des macros cesse alors d'être un dispositif pour devenir un théorème : une macro bien
 typée reçoit un AST indexé par une portée et ne peut produire d'occurrence hors de cet index, de
@@ -328,11 +327,11 @@ transformation étant ici l'expansion et les deux niveaux le méta et l'objet. U
 strates produit des énoncés de cette forme parce que chacune doit traverser l'autre sans la
 déformer, et c'est le schéma qui porte cette raison une fois pour toutes.
 
-Une économie accompagne cet énoncé et vaut d'être signalée, car elle retire un travail qu'on
-attendrait. L'expansion a lieu en Phase 0, dans le bac à sable où une macro ne peut ni lire un
-fichier, ni interroger le réseau, ni consulter l'horloge : $`\mathcal{E} = \emptyset` pendant toute
-l'expansion. _L'hygiène n'interagit donc pas avec les effets_, et la démonstration n'a aucun cas
-d'effet à traiter. C'est la distinction de phase qui paie ici, et non une clause ajoutée.
+La Phase 0 sépare l'expansion de macro de l'exécution du programme, mais ne fixe pas à elle seule
+les effets disponibles pendant l'expansion. Un profil peut retenir un confinement où
+$`\mathcal{E} = \emptyset` ; dans ce cas, la preuve d'hygiène n'a pas à traiter d'effets d'expansion.
+Ce profil n'est toutefois pas imposé ici. La sûreté de la frontière et la propriété d'hygiène doivent
+être justifiées par des arguments distincts, quel que soit le régime d'effets retenu.
 
 Reste à dire de quoi la visibilité de l'anaphore est faite, faute de quoi `binds` resterait un mot.
 Une macro y déclare, dans son type, l'_extension_ de l'index de portée qu'elle opère : là où une
