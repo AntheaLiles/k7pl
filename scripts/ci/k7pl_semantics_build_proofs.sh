@@ -39,8 +39,9 @@ for declaration in \
   "K7PL.NativeBoundary.enforcedBoundary_trace_preserves_protected" \
   "K7PL.NativeBoundary.unconfined_native_write_counterexample" \
   "K7PL.NativeBoundary.unconfined_native_write_trace_replay"; do
-  grep -Fq "'$declaration' depends on axioms:" "$BUILD_LOG" || {
+  if ! grep -Fq "'$declaration' depends on axioms:" "$BUILD_LOG" \
+      && ! grep -Fq "'$declaration' does not depend on any axioms" "$BUILD_LOG"; then
     echo "::error::Missing axiom audit for $declaration." >&2
     exit 1
-  }
+  fi
 done
