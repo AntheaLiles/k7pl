@@ -5,6 +5,7 @@
 """Regression checks for the native Lean/Verso executable-code pipeline."""
 
 from pathlib import Path
+import json
 import re
 import unittest
 
@@ -47,6 +48,29 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertIn('target.startsWith "src/k/.build/generated/models/"', self.extension)
         self.assertIn("boundary-check", self.k_make)
         self.assertIn("k7pl_os_boundary_check.sh", self.k_make)
+
+    def test_d01_counterexample_vector_is_aligned_across_tools(self) -> None:
+        vector_path = ROOT / "docs/research/k7pl-os/models/D01-NativeBoundary-ExpectedCounterexample.json"
+        vector = json.loads(vector_path.read_text(encoding="utf-8"))
+        self.assertEqual(vector["id"], "D01-CE-NATIVE-WRITE-UNCONFINED-01")
+        self.assertEqual(vector["initial"], {"protectedValue": 0, "serviceValue": 0, "lastEvent": "Init"})
+        self.assertEqual(vector["actions"], [{"name": "NativeWrite", "argument": 1}])
+        self.assertEqual(
+            vector["final"],
+            {"protectedValue": 1, "serviceValue": 0, "lastEvent": "NativeWriteBypass"},
+        )
+        self.assertEqual(vector["violatedInvariant"], "ProtectedIntegrity")
+
+        tla = (ROOT / "docs/research/k7pl-os/models/D01NativeBoundary.tla").read_text(encoding="utf-8")
+        negative_cfg = (ROOT / "docs/research/k7pl-os/models/D01-NativeBoundary-Unconfined.cfg").read_text(encoding="utf-8")
+        k_example = (ROOT / vector["kExample"]).read_text(encoding="utf-8")
+        lean = (ROOT / "proofs/K7PL/NativeBoundary.lean").read_text(encoding="utf-8")
+        blueprint = (ROOT / "spec/formal-chain/BlueprintK7PL/Chapters/Semantics.lean").read_text(encoding="utf-8")
+        self.assertIn("Values == {0, 1}", tla)
+        self.assertIn("BoundaryEnforced = FALSE", negative_cfg)
+        self.assertIn("nativeWrite(false, 1)", k_example)
+        self.assertIn("Steps .sharedUnconfined initial [.nativeWrite 1] ⟨1, 0⟩", lean)
+        self.assertIn('lean := "K7PL.NativeBoundary.unconfined_native_write_trace_replay"', blueprint)
 
     def test_python_verifier_is_generated_from_the_verso_page(self) -> None:
         self.assertIn('```pythonScript (file := "src/k/.build/generated/check_k_examples.py")', self.page)
