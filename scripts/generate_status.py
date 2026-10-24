@@ -265,6 +265,7 @@ def render_status(
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--output", default="docs/STATUS.md")
+    p.add_argument("--source-commit", default=os.environ.get("K7PL_STATUS_SOURCE_COMMIT", ""), help="Commit to which repository facts and axiom evidence are bound")
     p.add_argument("--verification", default=os.environ.get("K7PL_VERIFICATION", "unknown"))
     p.add_argument("--impact-result", default=os.environ.get("K7PL_IMPACT_RESULT", "unknown"))
     p.add_argument("--verify-result", default=os.environ.get("K7PL_VERIFY_RESULT", "unknown"))
@@ -272,9 +273,24 @@ def main():
     p.add_argument("--commitlint-result", default=os.environ.get("K7PL_COMMITLINT_RESULT", "unknown"))
     p.add_argument("--security-result", default=os.environ.get("K7PL_SECURITY_RESULT", "unknown"))
     a = p.parse_args()
+    head = sh("git", "rev-parse", "HEAD")
+    commit = a.source_commit or head
+    if not re.fullmatch(r"[0-9a-f]{40}", commit):
+        p.error("--source-commit must be a full 40-character SHA-1 commit identifier")
+    if commit != head:
+        ancestor = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", commit, head],
+            capture_output=True,
+            check=False,
+        )
+        if ancestor.returncode != 0:
+            p.error("--source-commit must be an ancestor of HEAD")
+        changed = sh("git", "diff", "--name-only", commit, head, "--", ".", ":(exclude)docs/STATUS.md")
+        if changed:
+            p.error("--source-commit is stale: files other than docs/STATUS.md changed afterwards")
     text = render_status(
-        commit=sh("git", "rev-parse", "HEAD"),
-        date=sh("git", "show", "-s", "--format=%cI", "HEAD"),
+        commit=commit,
+        date=sh("git", "show", "-s", "--format=%cI", commit),
         version=implementation_version(Path("lakefile.lean").read_text()),
         toolchain=Path("lean-toolchain").read_text().strip(),
         verification=a.verification.upper(),
