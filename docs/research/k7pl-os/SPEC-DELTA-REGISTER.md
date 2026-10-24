@@ -323,16 +323,16 @@ Ces hypothèses sont indépendantes et doivent chacune être justifiées. Les th
 
 | Dossier | Apport retenu pour la spec | Deltas concernés |
 |---|---|---|
-| R0 — Menaces et assurance | Profils, actifs, adversaires, observables, hypothèses, frontières et tests de falsification | SPEC-D-01 à D-03, D-05, D-09, D-10, D-16, D-20, D-23 |
-| R1 — Autorité et FFI | Distinction type linéaire / capacité effective / droit noyau / droit matériel ; révocation et confinement natif | SPEC-D-04 à D-06, D-08, D-20 |
-| R2 — Source vers binaire | Simulation sur configurations, séparation du coût fonctionnel/abstrait/machine, TCB et absence de surcoût | SPEC-D-01, D-04, D-05, D-08, D-14, D-15, D-18 à D-22 |
-| R3 — Confidentialité et intégrité | Non-interférence relationnelle, déclassement, endorsement, observables et canaux temporels | SPEC-D-02, D-03, D-09, D-10, D-18 à D-20 |
-| R4 — Concurrence et annulation | Graphe d'attente dynamique, Sim, équité, distinctions entre sûreté/progrès/vivacité/terminaison, courses d'annulation | SPEC-D-11 à D-13, D-16, D-17, D-18, D-25 |
-| R5 — Mémoire et séparation | H1/H2/H3, régions, aliasing, emprunt, provenance, permissions et frontière FFI | SPEC-D-04 à D-08, D-18, D-19 |
-| R6 — Grades et temps réel | Définition du coût abstrait, composition des budgets, relation coût-source/coût-machine, WCET et scheduling | SPEC-D-10, D-14, D-15, D-19, D-22 à D-24 |
-| R7 — Pannes et persistance | État volatile/durable, journal, checkpoint, commit, effets externes, incarnation et récupération des ressources | SPEC-D-06, D-13, D-16, D-17, D-21, D-23, D-25 |
-| R8 — Comparaison d'OS | Distinction entre protection du langage, noyau, matériel, compilation et système complet ; profils à comparer sans en choisir un | SPEC-D-01, D-03, D-05, D-06, D-15, D-19, D-23, D-24 |
-| R9 — Model checking et traçabilité | Modèle fini, témoin de course, différence entre test, exploration bornée et preuve générale | SPEC-D-02, D-10 à D-13, D-18, D-21, D-25 |
+| [R0 — Menaces et assurance](R0-threat-model-assurance-matrix.md) | Profils, actifs, adversaires, observables, hypothèses, frontières et tests de falsification | SPEC-D-01 à D-03, D-05, D-09, D-10, D-16, D-20, D-23 |
+| [R1 — Autorité et FFI](R1-authority-capabilities-ffi-boundaries.md) | Distinction type linéaire / capacité effective / droit noyau / droit matériel ; révocation et confinement natif | SPEC-D-04 à D-06, D-08, D-20 |
+| [R2 — Source vers binaire](R2-source-to-binary-correctness.md) | Simulation sur configurations, séparation du coût fonctionnel/abstrait/machine, TCB et absence de surcoût | SPEC-D-01, D-04, D-05, D-08, D-14, D-15, D-18 à D-22 |
+| [R3 — Confidentialité et intégrité](R3-confidentialite-integrite-non-interference.md) | Non-interférence relationnelle, déclassement, endorsement, observables et canaux temporels | SPEC-D-02, D-03, D-09, D-10, D-18 à D-20 |
+| [R4 — Concurrence et annulation](https://github.com/AntheaLiles/k7pl/pull/286/files) | Graphe d'attente dynamique, Sim, équité, distinctions entre sûreté/progrès/vivacité/terminaison, courses d'annulation | SPEC-D-11 à D-13, D-16, D-17, D-18, D-25 |
+| [R5 — Mémoire et séparation](https://github.com/AntheaLiles/k7pl/pull/287/files) | H1/H2/H3, régions, aliasing, emprunt, provenance, permissions et frontière FFI | SPEC-D-04 à D-08, D-18, D-19 |
+| [R6 — Grades et temps réel](R6-grades-budgets-WCET-temps-reel.md) | Définition du coût abstrait, composition des budgets, relation coût-source/coût-machine, WCET et scheduling | SPEC-D-10, D-14, D-15, D-19, D-22 à D-24 |
+| [R7 — Pannes et persistance](R7-pannes-ressources-lineaires-persistance.md) | État volatile/durable, journal, checkpoint, commit, effets externes, incarnation et récupération des ressources | SPEC-D-06, D-13, D-16, D-17, D-21, D-23, D-25 |
+| [R8 — Comparaison d'OS](R8-comparaison-systemes-exploitation.md) | Distinction entre protection du langage, noyau, matériel, compilation et système complet ; profils à comparer sans en choisir un | SPEC-D-01, D-03, D-05, D-06, D-15, D-19, D-23, D-24 |
+| [R9 — Model checking et traçabilité](R9-model-checking-contre-exemples-tracabilite.md) | Modèle fini, témoin de course, différence entre test, exploration bornée et preuve générale | SPEC-D-02, D-10 à D-13, D-18, D-21, D-25 |
 
 ## 6. Points de contrôle dans les sources Lean existantes
 
