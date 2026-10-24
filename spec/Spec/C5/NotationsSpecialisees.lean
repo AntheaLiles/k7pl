@@ -138,11 +138,12 @@ de la Phase 0, et aucune exécution ne la modifie.
 
 :::proofsketch
 Par inspection de la grammaire, en quatre points. La seule construction qui produit un arbre est la
-_macro_, fonction pure de couche 2 d'un AST vers un AST. Elle s'exécute en Phase 0, en bac à sable,
-avant toute vérification et donc avant toute exécution du programme. Son type porte la portée, de
-sorte qu'elle ne peut produire d'occurrence hors de l'index qu'elle reçoit — c'est l'hygiène
-ci-dessus. Et aucune règle du jugement germinal ne construit un nom à partir d'une valeur : les noms
-sont des données de la dérivation, non de l'évaluation.
+_macro_, qui transforme un AST en AST. Elle s'exécute en Phase 0, avant la vérification et
+l'exécution du programme. Cette phase ne suffit pas à déterminer les effets accessibles à la macro :
+ils dépendent du contrat du macro-système. Son type porte la portée, de sorte qu'elle ne peut produire
+d'occurrence hors de l'index qu'elle reçoit — c'est l'hygiène ci-dessus. Aucune règle du jugement
+germinal ne construit un nom à partir d'une valeur : les noms sont des données de la dérivation, non
+de l'évaluation.
 
 Un seul cas demande d'être regardé, car c'est le seul endroit du langage où un nom soit _produit_
 plutôt que lu : la résolution de `bind-to` par recherche dirigée par le type
