@@ -83,30 +83,28 @@ de couche 3, si bien qu'un calcul de couche 2 destiné à y figurer doit d'abord
 un `let` avant d'être injecté, sous peine de la même erreur `ERR-TOP-001` rencontrée au
 §{num "sec:c5-s-expressions-universelles"}[].
 
-La métaprogrammation exploite enfin l'homoiconicité elle-même. Une macro est une fonction pure de
-couche 2 qui reçoit un AST et en retourne un autre, exécutée en Phase 0 avant toute vérification.
-L'évaluation `comptime`, marquée par le sigil `#`, exécute du code pur de couche 2 ou 3 pour
-produire une constante déposée directement dans la section binaire `.rodata`.
+La métaprogrammation exploite l'homoiconicité. Une macro transforme un AST en un autre AST en
+Phase 0, avant la vérification ; cette signature décrit l'entrée et la sortie de l'expansion, non
+les effets autorisés pendant son exécution. L'évaluation `comptime`, marquée par le sigil `#`,
+évalue une expression de couche 2 ou 3 pour produire une constante dans la section binaire `.rodata`.
+Les effets disponibles dépendent du contrat du macro-système et du profil de réalisation ; l'ordre
+des phases ne suffit pas à les déterminer.
 
-Deux modèles répondent chacun à une moitié du problème. Terra montre qu'un langage de
-métaprogrammation de haut niveau peut engendrer à la compilation du code bas niveau optimisé —
-exactement le rapport qu'entretient la couche 2 avec les couches 1 et 3 quand elle génère leurs
-structures. Racket montre que cette génération ne reste sûre que si les phases sont strictement
-isolées, un effet de bord du macro-système ne pouvant contaminer le code produit : c'est la
-discipline d'hygiène reprise ici.
+Terra illustre la génération de code bas niveau à la compilation à partir d'un langage de
+métaprogrammation de haut niveau. Racket fournit des mécanismes de séparation des phases et
+d'hygiène. Ces modèles éclairent des aspects distincts de la métaprogrammation, mais n'imposent pas
+à K7PL un mécanisme de confinement ni ne prouvent l'absence d'effets pendant l'expansion.
 
-L'isolation ne suffit cependant pas à garantir la modularité : l'expansion de macro est une
-_élaboration_ au sens de la littérature sur les effets d'ordre supérieur. Celle-ci établit que les
-opérations prenant des calculs en argument — ce qu'un gestionnaire est — brisent la modularité des
-effets algébriques lorsqu'on les encode naïvement, l'encodage n'appartenant alors à aucune interface
-d'effet. Mais elle établit aussi qu'une élaboration convenablement structurée la rétablit, en se
-composant par cas séparés {cite "bachpoulsenHeftyAlgebrasModular2023"}[]. Ce que K7PL perd ici, il
-le perd donc par le choix de son encodage et non par une impossibilité. K7PL ne garantit pas cette
-modularité, et ce défaut n'est pas indépendant du précédent : c'est parce qu'une opération
-introduite par macro n'appartient à aucune interface qu'on ne peut ni la confiner ni raisonner sur
-ce qu'elle fait. Modulariser l'élaboration — en donnant aux opérations d'ordre supérieur une
-interface propre plutôt qu'en les encodant — servirait donc les deux à la fois, la modularité et le
-confinement.
+Le confinement des phases et la modularité des effets sont deux propriétés distinctes. L'expansion
+de macro relève de l'_élaboration_ au sens de la littérature sur les effets d'ordre supérieur. Celle-ci
+établit que les opérations prenant des calculs en argument — comme un gestionnaire — brisent la
+modularité des effets algébriques lorsqu'elles sont encodées naïvement, sans interface d'effet. Une
+élaboration structurée peut rétablir cette modularité en composant les cas séparément
+{cite "bachpoulsenHeftyAlgebrasModular2023"}[]. Le modèle actuel ne définit pas encore une interface
+d'effets pour toutes les opérations introduites par macro et n'établit donc ni leur régime d'effets
+ni la modularité complète de l'élaboration. Un confinement peut limiter leurs capacités, sans
+suffire à établir cette modularité. Une interface propre aux opérations d'ordre supérieur permettrait
+de traiter séparément ces obligations.
 
 Encore faut-il dire de quel type est cet AST, faute de quoi l'hygiène resterait une discipline
 d'implémentation plutôt qu'une propriété. L'AST de K7PL est l'algèbre initiale d'une signature à
