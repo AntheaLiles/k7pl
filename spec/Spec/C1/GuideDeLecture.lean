@@ -22,8 +22,8 @@ tag := "c1-guide-de-lecture"
 Quatre mots ont ici un sens fixe et ne s'emploient pas l'un pour l'autre. Les énoncés qui suivent
 sont de forces très inégales, et c'est à ces mots qu'on les reconnaît. Un _postulat_ est posé et non
 dérivé : les quatre du chapitre 1 sont de cette espèce, et ils servent de filtre d'évaluation plutôt
-que de nomenclature. Un _théorème_ est démontré ou esquissé, dans un environnement nommé, sa réserve
-écrite dans l'esquisse. Un _engagement_ est tenu pour vrai sans démonstration, et le dit ; la liste
+que de nomenclature. Un _théorème_ est un énoncé de résultat. Sa démonstration, son esquisse éventuelle et sa réserve
+sont des éléments distincts : le nom du bloc ne vaut ni preuve acquise ni validation de sa portée. Un _engagement_ est tenu pour vrai sans démonstration, et le dit ; la liste
 en est donnée ci-dessous, exhaustive et courte. Une _lecture_ est une analogie organisatrice, sans
 force démonstrative : le mot sert quand une structure éclaire sans engager.
 
@@ -33,9 +33,57 @@ prête plus qu'il n'établit. Une _obligation_ est une preuve à fournir au vér
 terme et non par le document. Une _exigence_ est une contrainte que l'implémentation doit
 satisfaire, et dont ni la démonstration ni la réfutation n'appartiennent à ce texte.
 
-Cette convention fixe le vocabulaire des statuts, mais l'absence d'un marqueur ne suffit pas à
-établir qu'un énoncé découle de ce qui précède. Toute affirmation normative ou tout résultat doit
-être rattaché à une définition, une preuve, une réserve ou une obligation identifiable.
+Ces quatre termes décrivent la nature ou la fonction d'un énoncé, pas son état épistémique ni le
+type d'évidence qui l'appuie. L'absence d'un marqueur ne suffit pas à établir qu'un énoncé découle
+de ce qui précède. Toute affirmation normative ou tout résultat doit être rattaché à une définition,
+une preuve, une réserve ou une obligation identifiable.
+
+### État épistémique et qualification de l'évidence
+
+Les qualifications suivantes décrivent ce qui a effectivement été établi. Elles ne sont pas
+interchangeables ; chacune doit être bornée par son objet, ses hypothèses, son périmètre et sa
+provenance.
+
+- **Spécifié** : un engagement ou une règle est écrit dans la source normative et possède un
+  identifiant stable. Cela établit sa présence dans le texte, pas sa cohérence ni sa vérité.
+- **Formalisé** : une définition ou un énoncé existe dans un artefact formel identifiable. Sans
+  lien justifié vers la clause normative, cela ne prouve pas que l'artefact représente cette clause ;
+  formalisé ne signifie pas démontré.
+- **Démontré sur papier** : une dérivation explicite établit la conclusion à partir des prémisses
+  énoncées. Une esquisse de preuve n'est pas une telle dérivation complète ; une preuve rédigée
+  n'est pas pour autant une preuve vérifiée par machine.
+- **Prouvé par Lean** : le noyau Lean vérifie la déclaration dans l'environnement et avec la version
+  de Lean identifiés, et l'audit de ses dépendances d'axiomes satisfait la politique applicable.
+  La preuve établit la proposition Lean ; le lien vers la spécification et la validité des hypothèses
+  restent à justifier séparément.
+- **Vérifié par model checking** : l'outil a exploré l'espace d'états défini par le modèle, la
+  configuration et les bornes effectivement utilisées. Une propriété vérifiée ne dépasse pas ce
+  modèle ; un contre-exemple réfute la propriété dans ce périmètre, pas automatiquement une
+  affirmation sur toute réalisation.
+- **Testé** : un programme ou un cas a été exécuté dans les conditions consignées. Le résultat
+  porte sur les exécutions et assertions testées, pas sur tous les comportements possibles.
+- **Mesuré** : un protocole a produit des observations pour un environnement, un corpus et des unités
+  identifiés. Une mesure n'est ni une preuve mathématique ni une garantie universelle.
+- **Supposé** : une prémisse est admise explicitement et peut conditionner les résultats qui en
+  dépendent ; elle n'est pas établie par ces résultats.
+- **Exclu** : le cas est placé hors du périmètre d'une garantie. Cette exclusion ne prouve ni sa
+  sûreté ni sa fausseté ; elle doit être visible à la frontière du contrat.
+- **Ouvert** : une obligation a été identifiée mais son critère de satisfaction n'est pas établi.
+  Une esquisse, un contrôle absent ou une exécution non concluante ne la ferme pas.
+
+Le modèle de métadonnées C8 sépare le type et le rôle de l'objet (kind, role), son état
+épistémique (state) et le type d'appui déclaré (evidence). Les états autorisés sont
+proposed, under-review, supported, established, refuted, withdrawn et not-applicable ; les types
+d'appui sont none, written-proof, proofsketch, literature, computation, counterexample et lean-proof.
+Ces champs ne remplacent pas le résultat réel d'un outil : une valeur lean-proof, un état déclaré
+ou un badge Verso ne vaut pas à lui seul un rapport de compilation et d'audit concluant. Un lien
+normatif–formel doit être justifié, et les rapports calculés doivent conserver le commit, les versions
+d'outils et le résultat observé.
+
+Les états d'assurance d'un document ou d'un chantier (par exemple PARTIAL ou OPEN) relèvent encore
+d'un niveau différent ; ils ne doivent pas être déduits automatiquement du rôle d'un énoncé. Une CI
+verte signifie que les contrôles configurés ont réussi sur leur périmètre d'impact, non que toutes
+les revendications de K7PL sont prouvées.
 
 Il y a onze engagements, et leur brièveté est en soi une donnée : la plupart de ce qui en fut un au
 cours de la rédaction est devenu soit un théorème, soit une réserve explicite.
