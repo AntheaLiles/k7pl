@@ -1320,27 +1320,30 @@ déterminisme du parallélisme de couche 3
 :::statement +titled
 Mettre en parallèle ne change pas ce qui est calculé
 
-Pour $`c_1` et $`c_2` de couche 3, les calculs $`c_1 \parallel c_2` et
-$`\mathsf{let}\;x \leftarrow c_1\;\mathsf{in}\;\mathsf{let}\;y \leftarrow c_2\;\mathsf{in}\;\mathsf{return}\,(x,y)`
-rendent la même valeur. Leurs effets diffèrent sur la seule composante de profondeur, où le premier
-majore le second.
+Pour $`c_1` et $`c_2` de couche 3, les calculs $`c_1 \\parallel c_2` et
+$`\\mathsf{let}\\;x \\leftarrow c_1\\;\\mathsf{in}\\;\\mathsf{let}\\;y \\leftarrow c_2\\;\\mathsf{in}\\;\\mathsf{return}\\,(x,y)`
+rendent la même valeur sous la sémantique de couche 3. Leurs profils de coût diffèrent : la profondeur
+du calcul parallèle est $`\\max(s_1,s_2)`$, celle du calcul séquentiel est $`s_1+s_2`$, et
+$`\\max(s_1,s_2) \\le s_1+s_2`$. Les deux calculs n’introduisent aucun effet algébrique.
 :::
 
 :::proofsketch
-La couche 3 est le fragment cartésien, et son seul effet est le coût : deux branches parallèles
-n'ont donc aucune opération par laquelle interférer, et il n'y a rien à ordonner. Formellement,
-l'égalité des valeurs suit de ce que $`\varepsilon_1` et $`\varepsilon_2` y ont une composante
-d'effet neutre, de sorte que l'entrelacement ne distingue aucun état. La différence de profondeur
-est celle des deux compositions : $`\max(s_1, s_2) \le s_1 + s_2`.
+La spécialisation de la couche 3 fixe $`\\mathcal{E}=\\emptyset`$ : aucune opération algébrique
+observable ne peut intervenir entre les branches. Le coût reste décrit séparément par la gradation
+temporelle ; il ne constitue pas un élément de $`\\mathcal{E}`$. Dans le modèle de coût, la
+composition parallèle donne une profondeur $`\\max(s_1,s_2)`$, tandis que la composition
+séquentielle donne $`s_1+s_2`$. Cette inégalité compare les profondeurs, non des effets
+observables.
 :::
 
 :::note
-_Obligation ouverte._ Restent à préciser le sens de « la même valeur » (égalité syntaxique,
-dénotationnelle ou observationnelle), la sémantique de $`c_1 \parallel c_2` et de la composition
-séquentielle, l'hypothèse de terminaison et le traitement des erreurs et de la divergence, puis à
-déduire l'indépendance des deux branches des règles de la couche 3 plutôt que du seul caractère
-cartésien. La comparaison porte sur la composante formelle de profondeur, non sur un temps
-d'horloge ; son orientation est à confirmer, l'esquisse concluant $`\max(s_1, s_2) \le s_1 + s_2`.
+_Obligation ouverte._ Définir le sens de « même valeur » (syntaxique, dénotationnel ou
+observationnel) et la sémantique de $`c_1 \\parallel c_2`$ et de la composition séquentielle.
+La comparaison s’appuie sur la garantie de terminaison de couche 3 spécifiée par
+{num "thm:terminaison_couche_3"}[] ; la preuve de cette garantie reste sous revue en C2. Il reste
+aussi à traiter les erreurs et la divergence éventuelle hors du domaine des termes typés concernés,
+puis à déduire l’indépendance des branches des règles de la couche 3. La borne est une relation entre
+profondeurs formelles, non une mesure de temps d’horloge.
 :::
 ::::
 Ce que cet énoncé achète mérite d'être dit, car il est facile et n'en est pas moins un résultat. _Le
