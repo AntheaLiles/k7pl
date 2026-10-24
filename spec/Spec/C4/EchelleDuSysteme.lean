@@ -46,6 +46,16 @@ code étranger aucun droit implicite sur l'état interne protégé. La préserva
 doit être établie pour toutes les transitions autorisées par le contrat, y compris les transitions
 d'échec ; elle ne suppose pas que le service étranger respecte fonctionnellement son contrat.
 
+Par défaut, l'état interne protégé comprend tout état dont K7PL assure la représentation, les
+transitions, l'autorité, l'intégrité ou la durée de vie. Cela inclut notamment l'état des acteurs ;
+les régions mémoire, les capacités, l'identité et la durée de vie des objets ; les messages, les
+boîtes aux lettres et les états de protocole ; l'état de l'orchestrateur et de l'ordonnanceur ; les
+instantanés et les journaux ; ainsi que les budgets et le contexte temporel gérés par K7PL. Cette
+énumération illustre la règle générale et ne limite pas sa portée aux catégories citées. Le contrat
+peut exposer des valeurs, observations ou opérations déterminées ; cette exposition n'accorde aucun
+droit supplémentaire au-delà de ce qu'il autorise explicitement. Les chemins d'échec, d'annulation,
+de reprise et de restauration sont soumis à la même exigence de préservation.
+
 Ces exigences ne sélectionnent aucun mécanisme de séparation concret. Le modèle abstrait ne
 démontre pas à lui seul qu'une implémentation native empêche un code étranger d'accéder à des
 adresses internes : cette correspondance et les restrictions effectives imposées à l'exécution
