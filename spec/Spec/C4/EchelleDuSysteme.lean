@@ -67,36 +67,36 @@ démontre pas à lui seul qu'une implémentation native empêche un code étrang
 adresses internes : cette correspondance et les restrictions effectives imposées à l'exécution
 restent des obligations de conformité propres à l'implémentation et au profil visé.
 
-Un acteur virtuel n'est, lui, qu'une adresse logique. Un acteur inactif se désactive, son état
-persisté en un instantané journalisé et sa mémoire restituée, si bien qu'un nombre d'entités que la
-mémoire physique ne pourrait jamais héberger simultanément trouve place dans le système. Réactiver
-un acteur n'est jamais qu'une reprise de sa coalgèbre à l'endroit exact où elle s'était arrêtée.
-L'orchestrateur charge l'instantané, rejoue les messages consignés depuis, puis relâche le handler —
-une activation atomique, bornée par la taille de l'instantané, elle-même un grade $`r`.
+Un acteur virtuel est une adresse logique dans le modèle abstrait. Le cycle de vie distingue les
+états actif et inactif et exige la préservation de l'état observable lors des transitions. Une
+réalisation peut sérialiser l'état inactif dans un instantané journalisé, restituer sa mémoire puis
+rejouer les messages consignés lors de la réactivation. L'instantané, le journal, la restitution
+physique et l'atomicité de l'activation sont des choix de réalisation ; les coûts et les limites de
+capacité dépendent du profil retenu.
 
 ::::figure (label := "fig:acteur-cycle-de-vie") (src := "virtual-actor-lca") (alt := "Cycle à deux états. Un point initial mène à Désactivé. De Désactivé vers Actif, l'activation charge l'instantané et rejoue le journal. Sur Actif, une boucle figure le traitement de message. D'Actif vers Désactivé, l'inactivité gèle l'état, le persiste et libère la mémoire.") (width := "90")
 :::caption
-Cycle de vie d'un acteur virtuel
+Exemple de cycle de vie par instantané et rejeu
 :::
 
 :::desc
-Les deux états d'un acteur virtuel et les deux transitions qui les relient, dont la reprise de
-coalgèbre à l'activation.
+Ce schéma illustre une réalisation possible par instantané et rejeu ; il ne fixe pas la
+représentation exigée par le modèle abstrait.
 :::
 ::::
 
-Le _gel_ qui précède la persistance tient son coût du théorème {num "thm:isomorphisme_memoire"}[]
-plutôt que d'une convention. Un état d'acteur dont les champs sont des scalaires ou des tableaux de
-scalaires se persiste par transfert de segment, sans copie ni traduction — sa disposition est déjà
-celle du journal. Un état contenant une liste de structures exige au contraire une transposition en
-$`O(n)`, la disposition colonnaire de la couche 3 ne coïncidant pas avec la liste composite du
-format de journal. Le gel n'est donc pas une étape uniforme : il est gratuit sur le premier cas,
-linéaire sur le second, et c'est la forme de l'état — non sa taille — qui décide.
+Pour une réalisation fondée sur des instantanés, le coût du gel dépend du format de l'état et du
+journal. Le théorème {num "thm:isomorphisme_memoire"}[] ne démontre pas à lui seul que toute
+représentation se transfère sans copie. Un format compatible avec la disposition en colonnes peut
+permettre un transfert de segment ; une liste de structures peut nécessiter une transposition en
+$`O(n)`. Ces coûts décrivent des représentations déterminées, non une propriété générale du cycle
+de vie.
 
-La notification entre fibrilles qui accompagne ce cycle emprunte le modèle LMAX Disruptor : un
-compteur 64 bits, incrémenté par le producteur et sondé par le consommateur, avec un ordre mémoire
-asymétrique — _release_ à la publication, _acquire_ à la consommation — qui élimine tout appel
-système, tout endormissement de fil, tout sémaphore.
+Une réalisation peut employer le modèle LMAX Disruptor : un compteur 64 bits incrémenté par le
+producteur et sondé par le consommateur, avec publication en _release_ et consommation en _acquire_.
+Ce schéma est un exemple d'implémentation, non une exigence du modèle abstrait. L'absence d'appel
+système, d'endormissement ou de sémaphore et les coûts annoncés doivent être vérifiés pour la
+réalisation retenue.
 
 La source citée pour ce modèle est une note d'ingénierie, et elle est citée à bon droit pour ce
 qu'elle établit : un choix de conception et ses mesures. Elle ne démontre pas la correction de
@@ -106,18 +106,12 @@ séparation dédiée, dont les assertions portent des _vues_ munies d'une struct
 l'antériorité s'y exprimant comme un transfert de vue {cite "mevelFormalVerificationConcurrent2021"}[].
 C'est cette preuve qui porte la correction ; la note porte l'ingénierie.
 
-Ce dispositif appelle une hypothèse que l'invariant de vivacité de ce chapitre suppose sans la
-nommer, et l'omission n'est pas anodine. Sous modèle mémoire faible, les notions usuelles d'équité
-entre _fils_ sont insuffisantes pour établir qu'un consommateur qui sonde finit par voir ce qu'un
-producteur a publié. Il y faut l'_équité mémoire_, à savoir que le système mémoire exécute
-équitablement ses propres étapes de propagation {cite "lahavMakingWeakMemory2021"}[]. La condition
-est établie pour le modèle acquisition-libération, qui est celui retenu ici — c'est un des quatre
-pour lesquels elle l'est —, de sorte que l'invariant tient. Mais il tient _sous cette hypothèse_, et
-non par la seule pose des deux barrières. Le mode de défaillance est documenté et il est concret :
-plusieurs implantations publiées d'exclusion mutuelle se bloquent lorsque trop peu de barrières sont
-employées. Ce chapitre en pose deux — à la publication et à la consommation — et écrit qu'il n'y en
-a aucune ailleurs. Cette économie est correcte, et c'est l'équité mémoire qui la rend correcte
-plutôt que le comptage des barrières.
+Pour une file concurrente fondée sur un modèle mémoire faible, le progrès du consommateur peut
+dépendre d'une hypothèse d'équité mémoire : le système mémoire propage équitablement les écritures
+publiées {cite "lahavMakingWeakMemory2021"}[]. Cette hypothèse ne découle pas de la seule présence
+de barrières. Les résultats cités portent sur des modèles déterminés ; ils n'établissent pas la
+correction d'une réalisation K7PL qui n'a pas été spécifiée. Le choix des barrières et la preuve de
+progrès restent des obligations de raffinement.
 
 Cette persistance n'a de valeur que si elle rend le système rejouable (P4). Tout ce que l'exécution
 pourrait tirer d'une source non déterministe — horloge, générateur aléatoire — transite par un
@@ -334,19 +328,14 @@ K7PL énonce l'absence de blocage sous la simulation du graphe d'attente
 linéaires minimaux obtiennent du seul typage {cite "jacobsSelfDualDistillationSession2022"}[], ni la
 terminaison équitable, propriété qu'appellerait son régime asynchrone {cite "PADOVANI"}[].
 
-L'isolation entre acteurs procède du même déplacement : la garantie vient d'une preuve du
-compilateur et non d'un mécanisme d'exécution. La stratégie est celle de Singularity, qui a établi
-que des processus isolés logiciellement peuvent partager un espace d'adressage tout en restant
-incapables de se corrompre, dès lors que le compilateur a vérifié leurs propriétés d'accès. Le gain
-est l'élimination des changements de contexte et des purges de TLB. Le prix est que tout le poids de
-l'isolation se déplace vers la correction du compilateur, là où une MMU la maintiendrait
-indépendamment de tout bogue en amont. La terminalité de la coalgèbre qui définit un acteur garantit l'indiscernabilité comportementale _logique_, non l'absence de canaux cachés physiques. C'est un pari, non une conséquence, mais il n'est pas isolé.
-Le modèle de composants de WebAssembly en donne une réalisation déployée : la mémoire linéaire y est
-bornée par construction, les valeurs franchissent la frontière par un modèle d'interface plutôt que
-par des pointeurs, et aucun composant n'atteint la mémoire d'un autre sans unité de gestion mémoire {cite "groupWebAssemblySpecification,groupWebAssemblySpecAddendum,groupWebAssemblyCodeMetadata"}[].
-Ces deux postulats ont un coût d'expressivité assumé et non démontré : P3 exclut les algorithmes
-dont la terminaison n'est pas structurellement évidente, P4 les ordonnancements non déterministes
-que certains systèmes sensibles à la latence préfèrent.
+Le modèle abstrait ne fixe pas le mécanisme d'isolation entre acteurs. Les garanties de typage
+peuvent établir des propriétés logiques d'accès dans le modèle ; elles ne démontrent pas, à elles
+seules, l'absence de canaux cachés ni l'inaccessibilité physique de la mémoire. Un espace
+d'adressage partagé, une isolation assurée par le compilateur ou un modèle de composants comme
+WebAssembly constituent des options de réalisation aux hypothèses distinctes
+{cite "groupWebAssemblySpecification,groupWebAssemblySpecAddendum,groupWebAssemblyCodeMetadata"}[].
+Aucune n'est imposée ici. Toute réalisation doit établir sa correspondance avec les invariants du
+modèle et les hypothèses d'exécution qu'elle retient.
 
 ::::lemma (label := "thm:liberte_initialisation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "runtime")
 :::title
@@ -434,17 +423,16 @@ alternatif ou de rétroaction qui les assemblent reconstituent le DAG des dépen
 de diagrammes d'architecture n'est donc pas un outil séparé du langage, mais une interprétation
 supplémentaire de cette même description.
 
-La communication entre ces acteurs réalise, à l'exécution, ce que le chapitre 3 avait établi comme
-type. Un canal typé s'échange sur un anneau SPSC sans verrou, dont toute la mémoire est allouée au
-démarrage — P3 appliqué au transport {cite "thompsonDisruptorHighPerformance2011"}[]. Ses entrées
-sont tabulées plutôt que chaînées, de sorte qu'un retrait groupé ne coûte pas plus qu'un retrait
-unitaire {cite "DPDK-RING"}[]. C'est cette seconde propriété, non l'absence de verrou, qui fonde la
-borne de coût du transport. Un motif de jonction $`x(u) \mid y(v) \triangleright P`, produit
-tensoriel de $`\Delta` abaissé en automate, se résout par un simple masquage binaire — encore un DFA
-compilé, au sens du §{num "sec:c4-echelle-locale"}[]. L'exhaustivité d'un tel motif se vérifie par
-une analyse stochastique — PEPA (_Performance Evaluation Process Algebra_, Hillston) {cite "hillstonCompositionalApproachPerformance"}[]
-— qui calcule si toute combinaison de messages possible est bien couverte
-({num "lst:motif-jonction"}[]) :
+Le modèle abstrait définit les canaux typés, les messages admissibles et les transitions de
+communication ; il ne fixe ni la représentation du transport ni le coût de chaque opération. Un
+anneau SPSC borné et alloué avant exécution, ou une table d'entrées, sont des réalisations possibles.
+L'absence de verrou, le coût des retraits groupés et la correction concurrente doivent être justifiés
+pour la représentation et la cible retenues. Un motif de jonction $`x(u) \\mid y(v) \\triangleright P`
+décrit les messages requis par une transition sans imposer un masquage binaire ou un automate concret.
+Une analyse de couverture ou de performance, éventuellement PEPA (_Performance Evaluation Process
+Algebra_, Hillston) {cite "hillstonCompositionalApproachPerformance"}[], peut évaluer les
+combinaisons de messages ; elle ne remplace pas la définition sémantique du motif ni la preuve du
+raffinement :
 
 ::::listing (label := "lst:motif-jonction")
 :::caption
@@ -462,83 +450,65 @@ Un acteur attendant simultanément un résultat et l'expiration d'une horloge n'
 conditionnelle : les deux issues sont deux clauses du même motif, et l'absence de couverture d'une
 combinaison de messages est une erreur de compilation plutôt qu'un cas oublié à l'exécution.
 
-Deux conditions matérielles gouvernent ce dispositif, et elles doivent être posées avant l'énoncé
-qui en dépend. Les processeurs réordonnent instructions, charges et stockages : rendre les
-changements visibles dans l'ordre entre deux fils exige des _barrières mémoire_, que le compilateur
-émet en plus de celles du matériel {cite "thompsonDisruptorHighPerformance2011"}[]. Et la ligne de
-cache, communément 64 octets, étant la granularité des protocoles de cohérence, deux variables
-indépendantes qu'elle héberge se comportent en contention comme une seule — le _faux partage_. Les
-curseurs de production et de consommation d'un anneau occupent donc des lignes distinctes,
-contrainte que la représentation SoA n'impose pas et que l'abaissement doit garantir.
+Une réalisation qui utilise une file en mémoire partagée doit respecter le modèle mémoire choisi.
+Les tailles des lignes de cache et les mesures prises pour limiter le faux partage dépendent de la
+cible ; séparer les curseurs de production et de consommation peut être utile, mais ce choix
+d'implantation n'est pas imposé par l'équation source. Les barrières effectivement émises doivent
+être justifiées par le modèle mémoire et le raffinement de la réalisation.
 
-Sur le premier point, K7PL suit la discipline de SPIR-V, qui ne définit pas un modèle mémoire mais
-en _sélectionne_ un, par une instruction unique en tête de module fixant conjointement adressage et
-modèle mémoire {cite "SPIRV"}[]. Le modèle devient ainsi explicite et vérifiable au lieu d'être
-déduit du code, et plusieurs cibles restent possibles sans que la sémantique du langage en dépende.
-Le modèle retenu est _acquisition-libération_ : une libération ordonne les accès qui la précèdent,
-une acquisition ceux qui la suivent, et leur appariement établit l'antériorité entre deux fils. Une
-conséquence doit être écrite au moment où le modèle est choisi, plutôt que découverte au moment où
-une borne serait chiffrée. Sélectionner un modèle mémoire ne nomme pas la _machine_ contre laquelle
-les bornes de ce document valent, et une borne de temps d'exécution au pire cas n'a pas de sens
-absolu : elle vaut d'un profil matériel — un jeu d'instructions, une hiérarchie de caches, un nombre
-de cœurs. Ce document ne pose pas ce profil et n'en a pas besoin, n'ayant chiffré aucune borne.
-_Toute borne chiffrée qu'il porterait un jour serait donc relative à un profil, et devrait le
-nommer._ La réserve est ici plutôt qu'à l'endroit où elle deviendrait nécessaire, faute de quoi un
-lecteur prêterait à ces bornes une portée que le modèle seul ne leur donne pas. C'est le plus faible
-qui suffise à la discipline du chapitre 3 — une écriture exclusive, des lectures partagées —, et il
-fixe les barrières : libération à la publication d'un message, acquisition à sa consommation, aucune
-ailleurs. La cohérence séquentielle coûterait davantage sans rien apporter à un transport où la
-propriété interdit déjà l'écriture concurrente.
+Le modèle mémoire utilisé par une réalisation doit être déclaré explicitement. SPIR-V illustre un
+mécanisme de sélection, sans imposer sa syntaxe à K7PL {cite "SPIRV"}[]. Le modèle retenu pour les
+opérations de mémoire partagée est acquisition-libération : une libération ordonne les accès qui la
+précèdent, une acquisition ordonne ceux qui la suivent, et leur appariement établit l'antériorité
+entre deux fibrilles. Ce choix ne définit pas de profil matériel et ne fournit pas de borne de temps
+absolue. Toute borne chiffrée ultérieure devra nommer le profil d'exécution auquel elle s'applique.
+Pour la réalisation choisie, les barrières nécessaires et suffisantes doivent être justifiées par la
+preuve de raffinement et les hypothèses de progrès, non par le seul comptage des opérations.
 
-La _portée_ de ces contraintes se déduit de l'architecture plutôt qu'elle ne se choisit. {rmq}[Une
-seule portée à déclarer là où SPIR-V en distingue plusieurs, et c'est la stratification qui la
-donne.] Le modèle acquisition-libération gouverne la mémoire partagée d'une _machine_. C'est là, et
-là seulement, que deux fibrilles voient le même anneau et que la question de l'ordre se pose. Entre
-machines, aucune mémoire n'est partagée — la communication passe par le journal, dont l'ordre relève
-de P4 et non du modèle mémoire. Le cœur n'est pas davantage une portée distincte : deux fibrilles
-d'un même cœur ne s'exécutent pas simultanément, et l'ordre du programme y suffit. Le comptage de
-$`\mathbf{tick}` acquiert par là le référentiel qui lui manquait — une machine, sa hiérarchie de
-caches, son protocole de cohérence.[^fn2]
-
-[^fn2]: La conformité du code engendré au modèle déclaré est une propriété de l'abaissement, qui se vérifie sur un compilateur et non dans un document.
+Dans un profil où plusieurs fibrilles partagent la mémoire d'une même instance d'exécution, le
+modèle acquisition-libération gouverne cette mémoire partagée. Entre instances distinctes, l'ordre
+des messages dépend du protocole de communication retenu ; le journal est une option, non une
+architecture imposée. Le modèle abstrait ne fixe ni le nombre de machines, ni la hiérarchie de caches,
+ni le nombre de cœurs. Toute garantie temporelle chiffrée doit déclarer le profil qui lui donne un
+référentiel.
 
 ::::lemma (label := "thm:sync_motifs_jonction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "concurrency")
 :::title
-synchronisation atomique des motifs de jonction
+transition de jonction sur appariement admissible
 :::
 
 :::statement +titled
-Activation conditionnelle synchrone
+Condition nécessaire à une transition
 
-Soit $`J \triangleq x\langle u \rangle \mid y\langle v \rangle \triangleright P` un motif de
-jonction. L'acteur réagit par $`P` si et seulement si des messages pour $`x` et $`y` sont
-simultanément présents dans la boîte aux lettres $`M` :
-$`M(x) \neq \emptyset \land M(y) \neq \emptyset \iff M \xrightarrow{J} P`.
+Soit $`J \\triangleq x\\langle u \\rangle \\mid y\\langle v \\rangle \\triangleright P` un motif de
+jonction. Une transition $`M \\xrightarrow{J} P` n'est autorisée que si $`M` contient
+simultanément un appariement de messages sur $`x` et $`y` compatible avec le motif et
+satisfaisant ses conditions de garde. La seule présence de messages sur chacun des deux canaux est
+nécessaire, mais ne suffit pas à caractériser la transition. Le prédicat d'appariement et la règle
+complète de consommation restent à formaliser.
 :::
 
 :::proofsketch
-La consommation simultanée n'est pas un protocole d'appariement à construire : c'est l'opération
-native de la règle {sc}[Guard] (§{num "sec:g-couche2"}[]), dont la prémisse décompose le
-motif de la boîte en $`\sum_i m_i[\overline{V_i}] \cdot E_i` et dont la conclusion rend la
-continuation de motif. Le motif $`J` est une coupure de logique linéaire exigeant $`x` et $`y`
-simultanément — le produit tensoriel $`x \otimes y` du chapitre 1
-(§{num "sec:c1-axiomatique-germinale"}[]) — et la boîte aux lettres est un multi-ensemble de
-ressources linéaires stocké dans un anneau SPSC. Le compilateur abaisse $`J` en automate évalué par
-masquage binaire de l'anneau ; la réduction consomme les deux messages simultanément par échange
-atomique de pointeurs, garantissant l'atomicité verrou-libre sans synchronisation supplémentaire.
+La règle {sc}[Guard] (§{num "sec:g-couche2"}[]) relie le motif à la consommation de ressources
+linéaires ; le produit tensoriel $`x \\otimes y` exprime l'exigence simultanée des deux
+messages. Cet argument ne définit ni le choix d'un appariement admissible ni la réalisation
+atomique de la consommation. Un anneau SPSC, un masquage binaire ou un échange atomique de
+pointeurs sont des choix d'implémentation ; aucun ne découle de la règle abstraite et chacun
+demande une preuve de raffinement.
 :::
 
 :::note
-_Obligation ouverte._ La condition « les deux boîtes sont non vides » ne suffit que si elle comprend
-l'appariement des charges, la compatibilité des motifs et toutes les conditions de garde : le
-prédicat d'appariement et la transition atomique restent à préciser. L'atomicité verrou-libre de
-l'échange de pointeurs est une obligation de raffinement distincte, que l'équation au niveau source
-ne prouve pas.
+_Obligation ouverte._ Formaliser le prédicat d'appariement — types, motifs, charges et gardes —,
+la sélection des messages et la transition qui les consomme ensemble sans double consommation.
+La propriété sémantique ne démontre ni l'atomicité d'une réalisation ni son absence de verrou.
 :::
 ::::
-Cette boîte est un seul objet, $`\mathsf{Mailbox} = \Sigma_{c \in \mathsf{Chan}}\,\mathsf{Bag}(\mathsf{Cap}(c))` :
-un multi-ensemble de ressources linéaires indexé par canal, muni d'une règle de consommation
-atomique multi-places. Quatre résultats de ce document en sont des lectures : l'activation
+
+La boîte aux lettres abstraite est un multi-ensemble de ressources linéaires indexé par canal,
+$`\\mathsf{Mailbox} = \\Sigma_{c \\in \\mathsf{Chan}}\\,\\mathsf{Bag}(\\mathsf{Cap}(c))`. La relation de
+transition doit définir l'appariement et la consommation conjointe des messages retenus ; la
+représentation et la primitive atomique éventuelles relèvent du raffinement.
+Quatre résultats de ce document en sont des lectures : l'activation
 conditionnelle ci-dessus ; le circuit breaker de session, qui compare le tag d'un message à ce que la
 boîte attend ; la ré-invocation séquentielle d'un grade fini ; et la traduction d'un service répliqué
 $`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme sa restriction ; la
@@ -558,32 +528,29 @@ S'il tient, l'activation conditionnelle d'un acteur ne coûte aucun verrou et se
 son motif. S'il tombe, il faut une synchronisation à l'exécution pour apparier les messages, et le
 coût constant par activation que le chapitre 4 annonce tombe avec lui.
 
-La dualité des protocoles de session se vérifie à l'arrivée d'un message : le runtime lit le tag
-d'état placé en tête et le compare au protocole attendu. En cas de désaccord, le runtime rejette localement le message — un _circuit breaker_ — avant que la
-fibrille de l'acteur ne soit réveillée. Il effectue une lecture de tag, une comparaison entière et
-un échange de pointeur ; la fibrille n'est ni réveillée ni exécutée sur ce chemin. Le texte ne
-spécifie pas de réponse au pair distant.
+Dans le modèle abstrait, un message dont l'étiquette d'état ne correspond pas au protocole attendu
+est rejeté avant la reprise de l'acteur. Une lecture de tag, une comparaison entière et un échange de
+pointeur sont une réalisation possible, non une prescription du langage ; les opérations exactes et
+leur coût dépendent du runtime. Le comportement du pair distant en cas de rejet reste non spécifié.
 
 ::::figure (label := "fig:circuit-breaker") (src := "session-circuit-breaker") (alt := "Diagramme de séquence à trois lignes de vie : pair distant, runtime de couche 1 et fibrille de l'acteur. Le pair envoie un message avec un tag d'état. Si le tag est conforme, le runtime réveille la fibrille qui traite le message ; sinon, il rejette localement le message sans réveiller la fibrille. Les opérations de rejet sont payées par le runtime.") (width := "90")
 :::caption
-Le circuit breaker de session : rejet avant réveil de la fibrille
+Exemple de circuit breaker de session : rejet avant reprise de l'acteur
 :::
 
 :::desc
-Le chemin conforme réveille la fibrille. Sur le chemin non conforme, le runtime rejette localement
-le message sans réveiller la fibrille et paie les opérations de rejet ; aucune réponse au pair distant
-n'est spécifiée par ce diagramme.
+Ce diagramme illustre une réalisation possible : un message conforme déclenche le traitement de
+l'acteur, tandis qu'un tag non conforme est rejeté avant sa reprise. Il ne fixe ni les opérations du
+runtime ni la réponse du pair distant.
 :::
 ::::
 
-La sécurité du transport prolonge cette même
-discipline : les prises de contact du protocole Noise sont elles-mêmes des DFA de couche 3, en temps
-constant et sans allocation, et l'autorisation repose sur des jetons de capacité — Biscuit — dont la
-vérification, parce qu'ils sont des types linéaires, se réduit à leur consommation par l'acteur qui
-les détient. Le placement matériel de ces acteurs obéit au même principe déclaratif que leurs
-capabilités logiques : `:numa-local`, `:cache-aligned`, `:simd-capable` et `:gpu-offload` sont des
-grades que l'orchestrateur résout en affectations physiques concrètes au déploiement, rejetant
-celui-ci si aucun nœud du cluster ne les satisfait.
+Le modèle abstrait ne fixe ni le protocole de transport ni le format des jetons d'autorisation.
+Noise pour l'établissement de session et Biscuit pour les jetons sont des options de réalisation ;
+leurs coûts et propriétés de sécurité doivent être établis indépendamment des grades K7PL. Les
+contraintes d'alignement et de placement NUMA de l'arène des acteurs sont précisées dans
+« EchelleDeLActeur ». D'autres grades matériels, par exemple SIMD ou GPU, ainsi que leur résolution
+par l'orchestrateur, ne sont pas définis par ce passage.
 
 Lorsque la communication franchit la frontière du système lui-même, vers un système d'exploitation
 hôte, le contrat doit préciser la propriété du tampon transféré par la passerelle VirtIO {cite "VIRTIO"}[].
@@ -667,8 +634,8 @@ une spécialisation directe. Chaque pièce y a déjà son nom.
   §{num "sec:c2-algebres-coalgebres-et-points"}[]) orchestrant des fonctions de vraisemblance pures
   de couche 3.
 
-* Les poids d'importance vivent dans des registres atomiques de l'arène, accessibles en $`O(1)` sans
-  verrou.
+* Une réalisation peut stocker les poids d'importance dans des registres atomiques de l'arène ;
+  le coût $`O(1)` et l'absence de verrou doivent alors être établis pour le profil retenu.
 
 * La libération des ressources, le calcul terminé, est la restitution de l'arène et jamais un
   ramasse-miettes. L'architecture en trois couches absorbe donc l'infrastructure d'exécution de
