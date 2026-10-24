@@ -141,7 +141,7 @@ de types quand le code étranger peut écrire arbitrairement dans le domaine par
 
 :::proof "d01_unconfined_counterexample"
 Le témoin est prouvé atteignable dans le modèle Lean. TLC doit en outre trouver
-l'état violant ProtectedIntegrity dans la configuration négative. Le modèle K
+le contre-exemple à l'invariant ProtectedIntegrity dans la configuration négative. Le modèle K
 exécute séparément les cas conforme, confiné et non confiné. Ces exécutions ne
 constituent pas encore une simulation formelle entre les trois représentations.
 :::
