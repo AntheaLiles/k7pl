@@ -11,6 +11,7 @@ exercise its edge cases (hidden directories, symbolic links, case, directories n
 
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import subprocess
@@ -138,7 +139,7 @@ def test_axiom_traceability_lists_expected_dependencies_not_run_status(tmp_path)
         }),
         encoding="utf-8",
     )
-    rendered = "\\n".join(gs.render_axiom_traceability(contract))
+    rendered = "\n".join(gs.render_axiom_traceability(contract))
     assert "Expected axiom dependencies" in rendered
     assert "`A.zero`" in rendered
     assert "∅ (aucun axiome attendu)" in rendered
@@ -148,7 +149,7 @@ def test_axiom_traceability_lists_expected_dependencies_not_run_status(tmp_path)
 
 
 def test_axiom_traceability_absence_is_explicit(tmp_path):
-    rendered = "\\n".join(gs.render_axiom_traceability(tmp_path / "missing.json"))
+    rendered = "\n".join(gs.render_axiom_traceability(tmp_path / "missing.json"))
     assert "No axiom dependency contract is present" in rendered
     assert "no declaration-level dependency claims" in rendered
 
