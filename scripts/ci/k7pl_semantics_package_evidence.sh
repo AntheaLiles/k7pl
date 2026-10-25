@@ -17,7 +17,7 @@ set -euo pipefail
 ARTIFACT_ROOT="$RUNNER_TEMP/k7pl-formal-chain"
 ARCHIVE="$RUNNER_TEMP/k7pl-formal-chain-${GITHUB_RUN_ID}.tar.gz"
 rm -rf "$ARTIFACT_ROOT" "$ARCHIVE"
-mkdir -p "$ARTIFACT_ROOT/proofs" "$ARTIFACT_ROOT/spec/formal-chain" "$ARTIFACT_ROOT/src/k/models" "$ARTIFACT_ROOT/tests/examples/native-boundary" "$ARTIFACT_ROOT/docs"
+mkdir -p "$ARTIFACT_ROOT/proofs" "$ARTIFACT_ROOT/spec/formal-chain" "$ARTIFACT_ROOT/src/k/models" "$ARTIFACT_ROOT/tests/examples/native-boundary" "$ARTIFACT_ROOT/wiki"
 
 cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/semantics.k" "$ARTIFACT_ROOT/src/k/semantics.k"
 cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/models/native-boundary.k" "$ARTIFACT_ROOT/src/k/models/native-boundary.k"
@@ -25,7 +25,7 @@ cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/check_k_examples.py" "$ARTIFACT_
 cp -a "$GITHUB_WORKSPACE/src/k/Makefile" "$ARTIFACT_ROOT/src/k/"
 cp -a "$GITHUB_WORKSPACE/tests/examples/add.k7" "$GITHUB_WORKSPACE/tests/examples/select.k7" "$ARTIFACT_ROOT/tests/examples/"
 cp -a "$GITHUB_WORKSPACE/tests/examples/native-boundary/." "$ARTIFACT_ROOT/tests/examples/native-boundary/"
-cp -a "$GITHUB_WORKSPACE/docs/formal-semantics.md" "$ARTIFACT_ROOT/docs/"
+cp -a "$GITHUB_WORKSPACE/wiki/semantics.md" "$ARTIFACT_ROOT/wiki/"
 cp -a "$RUNNER_TEMP/klean-output/k7pl2lean" "$ARTIFACT_ROOT/klean-output"
 cp -a "$GITHUB_WORKSPACE/proofs/K7PL2Lean.lean" "$ARTIFACT_ROOT/proofs/"
 cp -a "$GITHUB_WORKSPACE/proofs/K7PL2Lean" "$ARTIFACT_ROOT/proofs/"
