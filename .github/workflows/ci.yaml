@@ -110,6 +110,51 @@ jobs:
           HEAD_SHA: ${{ github.sha }}
         run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/main.ts classify --shadow --base "$BASE_SHA" --head "$HEAD_SHA"
 
+  external-links:
+    name: External links
+    # F0, owner decision 2026-10-25: external links are checked
+    # online, first as report-only (this job), then blocking after
+    # an explicit cutover decision following a clean first pass.
+    # Transitory form: lychee, pinned by the same full SHA already
+    # used in verify.yaml (v2.9.0), WITHOUT --offline, with
+    # continue-on-error. The local-link job in verify.yaml is
+    # unchanged and stays strict and blocking.
+    #
+    # What this lychee step does NOT yet provide, and what the
+    # Deno port of the external-link checker must add before the
+    # blocking cutover (tracked, not silently assumed):
+    #   - explicit HEAD-then-GET fallback per URL (lychee's own
+    #     request handling is used here, not the specified one);
+    #   - 429 handling with Retry-After honoured and capped at
+    #     60 s (only lychee's generic --max-retries /
+    #     --retry-wait-time are set here);
+    #   - a structured JSON report artefact (this step's report
+    #     is its log output);
+    #   - per-URL exceptions with reason, manual verification
+    #     and 90-day expiry, without wildcard or per-domain
+    #     entries (no exclusion is applied at all today: every
+    #     failing URL is reported, none is silently skipped);
+    #   - UNVERIFIED mapped to failure (impossible to observe
+    #     while the job is continue-on-error; the cutover must
+    #     remove continue-on-error AND land the Deno checker).
+    # Until then, a green CI does NOT mean external links were
+    # verified: it means this report-only job ran.
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check external links (report only)
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --no-progress --timeout 30 --max-retries 3 --retry-wait-time 5 '**/*.md'
+          fail: true
+
   verify:
     name: Vérification
     needs: impact
