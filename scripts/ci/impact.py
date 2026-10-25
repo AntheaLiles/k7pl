@@ -41,7 +41,7 @@ SPEC_BUILD_PREFIXES = ("spec/", "tools/", "scripts/controles/", "scripts/biblio/
 SPEC_CHECK_EXACT = set()
 LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 LIGHT_EXACT = {"CITATION.cff"}
-PYTHON_TEST_EXACT = {"scripts/generate_status.py", "scripts/suivi.py"}
+PYTHON_TEST_EXACT = {"scripts/generate_status.py"}
 PYTHON_TEST_PREFIXES = ("tests/python/",)
 
 # Files that a check reads although they belong to another surface. These rules only add the

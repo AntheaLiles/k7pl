@@ -29,7 +29,7 @@ EXPECTED_FULL_EXACT = {
 }
 EXPECTED_FULL_PREFIXES = (".github/workflows/", "scripts/ci/")
 SURFACES = ("full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests")
-EXPECTED_PYTHON_TEST_EXACT = {"scripts/generate_status.py", "scripts/suivi.py"}
+EXPECTED_PYTHON_TEST_EXACT = {"scripts/generate_status.py"}
 EXPECTED_PYTHON_TEST_PREFIXES = ("tests/python/",)
 EXPECTED_LEAN_PREFIXES = ("src/", "tests/")
 EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
@@ -290,7 +290,6 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
         # tracking-view inputs now classify without tracking_views.
         expected = {
             "wiki/roadmap.md": {"docs_links"},
-            "scripts/suivi.py": {"python_tests"},
             "scripts/manuscript_metrics.py": {"spec_check", "spec_build", "python_tests"},
         }
         for path, surfaces in expected.items():

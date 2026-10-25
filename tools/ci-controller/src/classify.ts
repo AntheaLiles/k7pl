@@ -54,7 +54,6 @@ export const LIGHT_PREFIXES = [
 export const LIGHT_EXACT = new Set(["CITATION.cff"]);
 export const PYTHON_TEST_EXACT = new Set([
   "scripts/generate_status.py",
-  "scripts/suivi.py",
 ]);
 export const PYTHON_TEST_PREFIXES = ["tests/python/"];
 export const PYTHON_TEST_READ_EXACT = new Set(["wiki/assurance.md"]);
