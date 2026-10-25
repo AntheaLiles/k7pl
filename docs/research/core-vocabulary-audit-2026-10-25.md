@@ -300,3 +300,29 @@ Cette exception a été explicitement réexaminée le 25 octobre 2026 sur le HEA
 - **Décision de nettoyage :** conserver l'original intact et son bandeau, conserver les références entrantes, compléter l'inventaire avec ce constat et laisser la phase 2 de consolidation ouverte pour le retrait de chemin uniquement. Ne pas déclarer la consolidation documentaire complètement terminée.
 
 Cette réévaluation porte sur la conservation et les dépendances documentaires ; elle ne revérifie pas les DOI ou l'état courant des publications. Tout réemploi scientifique d'une référence du fichier exige une vérification bibliographique séparée.
+
+### 10.8 Décision ADR-0012 et sous-langage KLean : engagement accepté, migration incomplète
+
+L'ADR [0012](../decisions/0012-k-as-normative-home-of-c3-c4.md), présent dans le HEAD de départ sous le blob SHA **e56b06897fa38dbb2e02cce11ea47b5ac0672e68**, porte le statut **Accepted**. Il consigne la décision propriétaire du 19 octobre de faire de K la source normative de la grammaire et de la sémantique C3/C4, les preuves Lean devant travailler sur les types générés par KLean. Il précise simultanément que la réécriture complète n'a pas commencé : aucun bloc K ne définit C3/C4 en entier ; le sous-langage livré couvre cinq formes source seulement ; les preuves de proofs/ portent sur les types générés de ce sous-langage. La portée du mandat pour réécrire les sources normatives reste une question ouverte de l'ADR.
+
+**État observé des artefacts.**
+
+- **spec/Spec/CodeArtifacts.lean** contient la définition K expérimentale extraite de Verso : littéraux Int et Bool, opérations +, <, select, et une fonction de classification de types partielle typeOf. L'entête du bloc dit expressément que ce n'est pas le jugement de typage complet. Le script généré teste les exemples add.k7 et select.k7.
+- **proofs/K7PL/Proof.lean** définit un jugement HasType sur les constructeurs KLean générés, une relation SurfaceStep, puis des preuves de préservation et de progrès sur ce fragment. Le commentaire précise que SurfaceStep n'est pas définitionnellement Rewrites, et que la correspondance entre les équations K de typeOf et HasType n'est pas prouvée.
+- **proofs/K7PL/MachineSoundness.lean** établit une préservation de l'invariant de typage sur la relation Rewrites de configurations générées, mais utilise le jugement structurel explicite ; il ne revendique pas l'équivalence du classificateur K et de ce jugement.
+- **spec/Spec/C3/EffectiveKernel.lean** est un second fragment Lean, directement attaché à la spécification, pour sept formes C3. Aucun théorème ne relie actuellement ce fragment au sous-langage K de cinq formes.
+
+Ces comptes ne peuvent pas être additionnés. **Cinq formes du prototype K plus sept formes du fragment Lean ne signifient pas douze formes couvertes du noyau**, car les formes, AST, jugements et relations opérationnelles ne sont pas reliés entre eux. Aucun test de add.k7 ou de select.k7 ne compte comme test des 48 alternatives C3 sans un lien de traduction vérifié.
+
+### 10.9 Objections de sémantique opérationnelle déjà inscrites aux décisions
+
+Les documents courants contiennent des obligations plus fortes qu'une simple absence de couverture :
+
+- **D-T1 reste ouvert** dans docs/tracking/DECISIONS.md : la catégorie de always/now, le type grammatical de declassify, des formes temporelles et de at_n/move, et l'alignement entre grammaires, règles et réduction ne sont pas décidés.
+- **D-T2 reste ouvert** pour la représentation de l'attente de When. La décision P3-B porte seulement sur la séparation observable de la latence environnementale et du coût de l'automate déclenché ; elle ne fixe pas l'interface exacte ni la sémantique de transition. Les deux décisions apparaissent encore parmi les questions en attente d'une décision de l'autrice dans le registre.
+- **D-P1 / décision 46** relève une contradiction entre la prose de C4 qui annonce une correspondance exacte entre règles d'élimination et réductions pures et les schémas réellement écrits. L'instruction consigne l'absence de pas pour Out, When, Alw⁻, Wait, Slice, Guard et fix, ainsi que des contextes manquants E.i et E[W] pour Proj et Inst, et une règle Unfold mal triée. Le registre précise que l'analyse du 20 octobre est une esquisse papier, non mécanisée.
+- **P-a, contre-exemple candidat de préservation pour VecE** : le registre note que iter₁ [] (return ((),())) peut être typé par VecE en F₁(1⊗1), puis réduit par le cas vide documenté vers return () de type F₁ 1. C'est un contre-exemple candidat inscrit dans une esquisse manuelle, pas encore une réfutation mécanisée ; il exige néanmoins une instruction explicite avant que préservation soit revendiquée comme acquise.
+- **P-b, règle Unfold mal triée** : le même registre note que unfold (fold v) → v transforme un calcul en valeur tandis que la configuration opérationnelle est de la forme ⟨c | μ | τ⟩. Cette incohérence de sortes n'est pas résolue par l'inventaire lexical.
+- **D-ν/Out/Cop** : la présence du bloc eq:regles-nu en C3 et l'existence des formes Out/Cop ne prouvent pas qu'une règle opérationnelle de dépliage et une correspondance avec le terme out c sont complètes. Le texte DONE du registre primitives.md annonçant que deux règles manquent doit être instruit contre les distinctions entre règles de type, constructeurs de termes et pas opérationnels.
+
+Ces faits restent classés « contradictoire » ou « à vérifier » ; aucun texte normatif n'a été modifié dans cette PR. Ils empêchent de déclarer la chaîne sémantique complète ou les théorèmes généraux de préservation/progrès acquis.
