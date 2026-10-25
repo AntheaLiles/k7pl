@@ -1,0 +1,95 @@
+{
+  "$id": "https://example.invalid/k7pl/ci/evidence.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One stage of the CI proof chain. SPDX: CECILL-2.1, see tools/ci-controller/README.md and REUSE.toml. A record is not a proof: it is a checkable claim about a stage, validated by tools/ci-controller against .github/ci/components.yaml.",
+  "properties": {
+    "claims": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "class": {
+            "enum": ["execution", "verification", "proof"],
+            "type": "string"
+          },
+          "property": { "minLength": 1, "type": "string" }
+        },
+        "required": ["class", "property"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "commit": {
+      "description": "Full commit SHA the stage ran on.",
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "depends_on": {
+      "description": "Stage ids this record's inputs were produced by. Optional in slice 1; when present, every entry must be a declared stage and must cover the stage's required inputs.",
+      "items": { "minLength": 1, "type": "string" },
+      "type": "array"
+    },
+    "exit_code": {
+      "description": "Tool exit code. A non-zero exit code with any claim is rejected by the validator: a failed stage claims nothing.",
+      "maximum": 255,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "inputs": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "path": { "minLength": 1, "type": "string" },
+          "sha256": { "pattern": "^[0-9a-f]{64}$", "type": "string" }
+        },
+        "required": ["path", "sha256"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "outputs": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "path": { "minLength": 1, "type": "string" },
+          "sha256": { "pattern": "^[0-9a-f]{64}$", "type": "string" }
+        },
+        "required": ["path", "sha256"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "run": {
+      "description": "Workflow run identifier (opaque, not hashed into digests).",
+      "minLength": 1,
+      "type": "string"
+    },
+    "stage": {
+      "description": "Stage id, must be declared in .github/ci/components.yaml (stages).",
+      "minLength": 1,
+      "type": "string"
+    },
+    "tool": {
+      "additionalProperties": false,
+      "properties": {
+        "name": { "minLength": 1, "type": "string" },
+        "source": { "minLength": 1, "type": "string" },
+        "version": { "minLength": 1, "type": "string" }
+      },
+      "required": ["name", "version", "source"],
+      "type": "object"
+    }
+  },
+  "required": [
+    "stage",
+    "commit",
+    "run",
+    "tool",
+    "inputs",
+    "outputs",
+    "exit_code",
+    "claims"
+  ],
+  "title": "K7PL CI evidence record",
+  "type": "object"
+}
