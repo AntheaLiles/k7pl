@@ -30,17 +30,29 @@ jobs:
 
   badge-criteria-drift:
     name: Detect upstream BadgeApp criteria drift
+    # Unchanged by F3: schedule and manual runs only, never on
+    # pull_request. A drift therefore fails a scheduled or manual
+    # run, not a PR; the registry update that fixes it is a
+    # deliberate manual change, reviewed from the report.
     if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
+      security-events: write # F3: upload the drift SARIF to Code Scanning
+      actions: read # read by codeql-action/upload-sarif (codeql-action#2117)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Compare pinned criteria blob IDs with upstream
         run: bash scripts/ci/security_badge_criteria_drift.sh
+      - name: Upload drift SARIF to Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          sarif_file: ${{ runner.temp }}/badge-criteria-drift.sarif
+          category: badge-criteria-drift
       - name: Preserve drift-check report
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
