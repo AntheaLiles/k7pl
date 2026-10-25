@@ -326,3 +326,14 @@ Les documents courants contiennent des obligations plus fortes qu'une simple abs
 - **D-ν/Out/Cop** : la présence du bloc eq:regles-nu en C3 et l'existence des formes Out/Cop ne prouvent pas qu'une règle opérationnelle de dépliage et une correspondance avec le terme out c sont complètes. Le texte DONE du registre primitives.md annonçant que deux règles manquent doit être instruit contre les distinctions entre règles de type, constructeurs de termes et pas opérationnels.
 
 Ces faits restent classés « contradictoire » ou « à vérifier » ; aucun texte normatif n'a été modifié dans cette PR. Ils empêchent de déclarer la chaîne sémantique complète ou les théorèmes généraux de préservation/progrès acquis.
+
+### 10.10 Couverture des permaliens de source ajoutés dans la matrice
+
+Le HEAD de la branche comprend désormais des liens vers les lignes exactes des sources pour :
+- les **48/48** formes de terme : ligne de règle C3 ou équation C2, puis lien C4 ou décision ouverte là où la relation de réduction est formulée ou manque ;
+- les **25/25** entrées de types/sessions : ligne correspondante dans `eq:grammaire-types` ; les lignes des règles Vec/Cap, Lam/App, Pack/Open, Gen/Inst, Fold/Unfold et Out/Cop sont ajoutées lorsque pertinentes ;
+- les **4/4** coordonnées de grade, **2/2** entrées d'effet et **2/2** objets adjacents (point fixe et observation coinductive) ;
+- les **19 lignes** du catalogue lexical C5, avec un ancrage aux énoncés de réservation, aux exemples ou aux tableaux de glyphes. Les cinq mots-clés explicitement déclarés réservés sont distingués des têtes de forme seulement observées dans des exemples.
+- les **7 formes** du noyau Lean C3 qui possèdent un AST/jugement, avec des permaliens vers les constructeurs et règles. Trois dérivations d'exemple sont liées séparément ; elles ne sont pas comptées comme tests de conformité.
+
+Ces nombres mesurent la **présence d'un permalien vérifiable**, pas la couverture de preuve, d'exécution ou de tests. Les 0/48 tests par forme dans la matrice restent inchangés. Le lien d'élaboration depuis la syntaxe concrète S-expression, la correspondance au K normatif visé par ADR-0012, et la preuve des propriétés opérationnelles générales restent absents ou ouverts.
