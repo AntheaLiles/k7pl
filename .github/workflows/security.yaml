@@ -59,7 +59,10 @@ jobs:
         with:
           name: badge-criteria-drift-${{ github.run_id }}
           path: ${{ runner.temp }}/badge-criteria-drift.json
-          if-no-files-found: warn
+          # F1, owner decision 2026-10-25: a missing drift report
+          # must fail, not warn silently: the report is the
+          # evidence the drift verdict rests on.
+          if-no-files-found: error
           retention-days: 90
   actionlint:
     runs-on: ubuntu-latest
