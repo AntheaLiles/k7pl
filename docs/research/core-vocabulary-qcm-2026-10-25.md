@@ -801,7 +801,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 
 ### Q-TERM-025 — Point fixe déductif
 
-**Objet exact :** `fix v` / eq:regle-fix. Point fixe d'une fonction monotone sur Trellis_fin, sous effet pur ; stabilisation bornée par la hauteur finie.  
+**Objet exact :** `fix v` / eq:regle-fix. Selon la description du registre, point fixe d'une fonction monotone sur Trellis_fin, sous effet pur ; la stabilisation bornée est affirmée par le registre, mais sa preuve n'est pas déclarée vérifiée dans le présent dossier.  
 **Statut :** objet conceptuel à vérifier contre le blocage de contrôle T-68 ; forme de surface écrite.  
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
@@ -1475,7 +1475,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 
 ### Q-TERM-046 — Réception gardée
 
-**Objet exact :** `guard v {mᵢ(x̄ᵢ) ↦ cᵢ}` / Guard. Attendre et consommer un message conforme à un motif, puis poursuivre selon le motif restant.  
+**Objet exact :** `guard v {mᵢ(x̄ᵢ) ↦ cᵢ}` / Guard. Attendre et consommer un message conforme à un motif, puis poursuivre avec le calcul de la branche sélectionnée.  
 **Statut :** lemme non ratifié ; le token courant est un fait de grammaire, pas une preuve de priorité lexicale.  
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
