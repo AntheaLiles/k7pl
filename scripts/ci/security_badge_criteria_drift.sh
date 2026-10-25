@@ -31,7 +31,10 @@ result=$?
 set -e
 
 if [ -f "$REPORT" ]; then
-  python3 scripts/ci/badge_criteria_drift_sarif.py --report "$REPORT" --output "$SARIF"
+  # Reporting must not mask the verdict: a SARIF failure is
+  # annotated, and the upload step (always()) fails on a missing
+  # file, but the script's exit status stays the check's result.
+  python3 scripts/ci/badge_criteria_drift_sarif.py --report "$REPORT" --output "$SARIF" || echo "::error::Failed to generate BadgeApp drift SARIF."
 else
   echo "::error::BadgeApp criteria drift report was not produced; no SARIF to upload."
   exit 1
