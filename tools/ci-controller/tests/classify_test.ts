@@ -60,7 +60,7 @@ Deno.test("spec surface", () => {
   assert(!result.lean_build);
 });
 
-Deno.test("wiki research is docs links only (preserved quirk)", () => {
+Deno.test("wiki research is docs links only (D1: wiki is not normative)", () => {
   const result = classify(["wiki/research.md"]);
   assert(result.docs_links);
   assert(!result.spec_check);
@@ -73,6 +73,13 @@ Deno.test("ci change forces full", () => {
   assert(result.spec_build);
   assert(result.lean_build);
   assert(result.docs_links);
+});
+
+Deno.test("non-markdown docs path forces full (F9)", () => {
+  const result = classify(["docs/notes.txt"]);
+  assert(result.full);
+  assert(result.unclassified);
+  assertEquals(result.unknown_paths, ["docs/notes.txt"]);
 });
 
 Deno.test("unknown path forces full", () => {

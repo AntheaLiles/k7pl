@@ -188,19 +188,6 @@ def corpus(tmp_path):
 
 
 @pytest.fixture
-def primitives(corpus, monkeypatch):
-    """A stub `docs/tracking/primitives.md` beside the mini-corpus, declaring the Var rule.
-
-    The croisée check reads that file through `corpus.SPEC.parent`, so pointing SPEC at the
-    tmp corpus and writing the stub next to it is enough for the three-way cross-check.
-    """
-    doc = corpus.parent / "docs" / "suivi" / "primitives.md"
-    doc.parent.mkdir(parents=True, exist_ok=True)
-    doc.write_text("REGLE: Var\n", encoding="utf-8")
-    return doc
-
-
-@pytest.fixture
 def patched(corpus, monkeypatch):
     """Point every reader of the corpus at the mini-corpus, with a fresh cache each time."""
     import manuscript_metrics as mm

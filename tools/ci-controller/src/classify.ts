@@ -9,11 +9,16 @@
  * classifier is the contract of slice 1, and any behaviour change
  * is a separate, owner-approved decision.
  *
- * Known quirk preserved on purpose: wiki/research.md classifies
- * as docs_links only, although scripts/controles/croise.py reads
- * it (see the CI audit). Changing that rule would change which
- * checks run on wiki/research.md changes, and is therefore an
- * open decision, not a silent port correction.
+ * wiki/research.md classifies as docs_links only. This was a
+ * preserved quirk while scripts/controles/croise.py read it (see
+ * the CI audit); since D1 (owner decision 2026-10-25) removed that
+ * leg, it is now the correct rule: the wiki is a view of what is
+ * to be done and what is done, not a normative constituent, so no
+ * specification check reads it as a normative input.
+ *
+ * Owner-approved divergence, 2026-10-25 (F9): docs/ was removed
+ * from LIGHT_PREFIXES in both the Python classifier and this port
+ * in the same commit, so parity is preserved by changing both.
  *
  * Rule order, copied from impact.py classify(): per path, the
  * additive "read by another surface" rules run first, then a
@@ -45,8 +50,11 @@ export const SPEC_BUILD_PREFIXES = [
   "scripts/biblio/",
 ];
 export const SPEC_CHECK_EXACT = new Set<string>();
+// F9, owner decision 2026-10-25: docs/ removed from the light
+// prefixes. A non-markdown docs/ path is now unclassified and
+// forces full validation; Markdown docs/ files stay light through
+// the generic isMarkdown rule, not through this prefix.
 export const LIGHT_PREFIXES = [
-  "docs/",
   ".claude/",
   ".github/ISSUE_TEMPLATE/",
   "LICENSES/",
