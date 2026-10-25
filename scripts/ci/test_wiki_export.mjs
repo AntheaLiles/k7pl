@@ -20,13 +20,13 @@ async function fixture(t) {
   await mkdir(path.join(docs, "data"), { recursive: true });
   await mkdir(path.join(root, "spec"), { recursive: true });
   const fence = String.fromCharCode(96).repeat(3);
-  await writeFile(path.join(docs, "README.md"),
-    "# K7PL Documentation\n\n[Nested page](tracking/DASHBOARD.md#state)\n\n" +
+  await writeFile(path.join(docs, "HOME.md"),
+    "# K7PL Wiki\n\n[Nested page](tracking/DASHBOARD.md#state)\n\n" +
     "[Resource](data/references.json)\n\n[Archive](archives/README.md)\n\n" +
     "[Specification](../spec/SPEC.md)\n\n[reference][design]\n\n" +
     fence + "md\n[not a link](missing.md)\n" + fence + "\n\n" +
     "[design]: tracking/DASHBOARD.md\n");
-  await writeFile(path.join(docs, "tracking", "DASHBOARD.md"), "# Dashboard\n\n[Home](../README.md)\n");
+  await writeFile(path.join(docs, "tracking", "DASHBOARD.md"), "# Dashboard\n\n[Home](../HOME.md)\n");
   await writeFile(path.join(docs, "archives", "README.md"), "# Frozen archive\n");
   await writeFile(path.join(docs, "security", "workstreams", "cii", "AUDIT.md"), "# CII audit\n");
   await writeFile(path.join(docs, "security", "workstreams", "scorecard", "AUDIT.md"), "# Scorecard audit\n");
@@ -47,6 +47,7 @@ test("excludes docs/archives and publishes pages, resources, indexes, and proven
     "K7PL--Publication.md",
   ]) assert.ok(names.includes(name), "missing expected output: " + name);
   assert.equal(names.includes("README.md"), false);
+  assert.equal(names.includes("HOME.md"), false);
   assert.equal(result.excludedPaths[0], "docs/archives/**");
 
   const home = await readFile(path.join(f.output, "Home.md"), "utf8");
@@ -81,10 +82,10 @@ test("keeps flattened page names distinct when source basenames collide", async 
 
 test("fails rather than silently excluding a required source page", async (t) => {
   const f = await fixture(t);
-  await rm(path.join(f.docs, "README.md"));
+  await rm(path.join(f.docs, "HOME.md"));
   await assert.rejects(
     buildWikiExport({ sourceDir: f.docs, destDir: f.output, repository: "owner/repo", sourceRef: "abc123" }),
-    /docs\/README\.md is required/,
+    /docs\/HOME\.md is required/,
   );
 });
 

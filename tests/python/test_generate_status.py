@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Tests for `scripts/generate_status.py`, the generator of `docs/STATUS.md`.
+"""Tests for `scripts/generate_status.py`, the generator of `wiki/STATUS.md`.
 
 The counts used to come from `bash -lc "find <dir> -type f -name '*.lean' | wc -l"`; the
 differential test below keeps `find` as the oracle of `count_lean_files` on a tree built to
@@ -226,7 +226,7 @@ def test_main_writes_the_facts_of_the_working_tree(tmp_path, monkeypatch):
     write(repo / "lakefile.lean", 'package demo where\n  version := v!"9.9.9"\n')
     for rel in ("src/A.lean", "src/K/B.lean", "tests/T.lean", "spec/S.lean", "spec/T.lean", "spec/U.lean"):
         write(repo / rel, "-- module\n")
-    write(repo / "docs" / "STATUS.md", "stale\n")
+    write(repo / "wiki" / "STATUS.md", "stale\n")
     for args in (("init", "--quiet"), ("add", "--all"), ("commit", "--quiet", "-m", "demo")):
         subprocess.run(["git", "-c", "commit.gpgsign=false", *args], cwd=repo, env=env, check=True)
     commit = subprocess.run(
@@ -244,8 +244,8 @@ def test_main_writes_the_facts_of_the_working_tree(tmp_path, monkeypatch):
     monkeypatch.setattr(sys, "argv", ["generate_status.py", "--verification", "success"])
     gs.main()
 
-    text = (repo / "docs" / "STATUS.md").read_text(encoding="utf-8")
-    assert refreshed == [Path("docs/STATUS.md")]
+    text = (repo / "wiki" / "STATUS.md").read_text(encoding="utf-8")
+    assert refreshed == [Path("wiki/STATUS.md")]
     assert text == render(
         commit=commit,
         date="2026-10-14T23:30:00+02:00",

@@ -17,41 +17,32 @@ class DocumentationArchitectureTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.addCleanup(self.tmp.cleanup)
         for rel in (
-            "docs/archives",
-            "docs/bibliography",
-            "docs/decisions",
-            "docs/history",
-            "docs/method",
-            "docs/migration",
-            "docs/peer-review",
-            "docs/research",
-            "docs/security",
-            "docs/tracking",
+            "wiki",
         ):
             (self.root / rel).mkdir(parents=True)
         for rel, heading in {
-            "docs/README.md": "# K7PL Documentation",
-            "docs/ARCHITECTURE.md": "# K7PL Architecture",
-            "docs/ASSURANCE.md": "# K7PL Scientific Assurance Case",
-            "docs/METHOD.md": "# K7PL Method",
-            "docs/PROVENANCE.md": "# Document provenance",
-            "docs/RESEARCH.md": "# K7PL Research",
-            "docs/STATUS.md": "# K7PL Status",
-            "docs/tracking/DASHBOARD.md": "# K7PL Project Dashboard",
-            "docs/migration/README.md": "# Migration register",
-            "docs/peer-review/README.md": "# Peer review",
+            "wiki/HOME.md": "# K7PL Wiki",
+            "wiki/understanding.md": "# Understanding K7PL",
+            "wiki/layers.md": "# The Three Layers",
+            "wiki/research.md": "# Research",
+            "wiki/assurance.md": "# Assurance",
+            "wiki/method.md": "# Method",
+            "wiki/STATUS.md": "# K7PL Status",
         }.items():
             path = self.root / rel
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(heading + "\n", encoding="utf-8")
-        (self.root / "docs/bibliography/references.json").write_text("{}\n", encoding="utf-8")
+        (self.root / "wiki/references.json").write_text("{}\n", encoding="utf-8")
 
     def test_clean_tree(self):
         self.assertEqual(check(self.root), [])
 
-    def test_missing_decision_records_directory_is_rejected(self):
-        (self.root / "docs/decisions").rmdir()
-        self.assertIn("required directory missing: docs/decisions", check(self.root))
+    def test_docs_directory_is_no_longer_required(self):
+        # Research closing of 2026-10-25: docs/ is deleted with its
+        # last files (docs/research/ was the last directory); the
+        # clean tree above already has no docs/ directory.
+        self.assertFalse((self.root / "docs").exists())
+        self.assertEqual(check(self.root), [])
 
     def test_root_biblio_is_rejected(self):
         path = self.root / "biblio/references.json"
@@ -61,6 +52,7 @@ class DocumentationArchitectureTests(unittest.TestCase):
 
     def test_current_archive_path_is_allowed(self):
         path = self.root / "docs/README.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("# K7PL Documentation\nSee docs/archives/.\n", encoding="utf-8")
         self.assertEqual(check(self.root), [])
 
@@ -70,11 +62,13 @@ class DocumentationArchitectureTests(unittest.TestCase):
 
     def test_bare_archive_reference_is_allowed(self):
         path = self.root / "docs/README.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("# K7PL Documentation\nHistorical material is kept in archives/.\n", encoding="utf-8")
         self.assertEqual(check(self.root), [])
 
     def test_legacy_reference_in_link_is_rejected(self):
         path = self.root / "docs/README.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("# K7PL Documentation\nSee [the old tracker](docs/suivi/README.md).\n", encoding="utf-8")
         self.assertTrue(any("obsolete path reference" in e for e in check(self.root)))
 
@@ -85,6 +79,6 @@ class DocumentationArchitectureTests(unittest.TestCase):
         self.assertEqual(check(self.root), [])
 
     def test_non_english_entry_point_is_rejected(self):
-        path = self.root / "docs/PROVENANCE.md"
-        path.write_text("# Provenance des documents\n", encoding="utf-8")
+        path = self.root / "wiki/method.md"
+        path.write_text("# Méthode K7PL\n", encoding="utf-8")
         self.assertTrue(any("non-English or unexpected" in e for e in check(self.root)))

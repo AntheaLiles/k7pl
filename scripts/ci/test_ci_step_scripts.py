@@ -73,9 +73,9 @@ class StatusScriptTests(StepScriptCase):
 
     def test_baseline_is_current_when_only_status_changed_since_its_commit(self):
         self.git("init", "-q", "-b", "main")
-        base = self.commit("docs/STATUS.md", "# K7PL Status\n", "c1")
+        base = self.commit("wiki/STATUS.md", "# K7PL Status\n", "c1")
         self.git("remote", "add", "origin", str(self.work))
-        head = self.commit("docs/STATUS.md", f"# K7PL Status\n\n**Generated for commit:** {base}\n", "c2")
+        head = self.commit("wiki/STATUS.md", f"# K7PL Status\n\n**Generated for commit:** {base}\n", "c2")
         result = self.run_script("ci_status_baseline.sh", GITHUB_SHA=head)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(self.outputs(), "current=true\n")
@@ -83,9 +83,9 @@ class StatusScriptTests(StepScriptCase):
 
     def test_baseline_is_stale_after_another_change_or_without_a_marker(self):
         self.git("init", "-q", "-b", "main")
-        base = self.commit("docs/STATUS.md", "# K7PL Status\n", "c1")
+        base = self.commit("wiki/STATUS.md", "# K7PL Status\n", "c1")
         self.git("remote", "add", "origin", str(self.work))
-        self.commit("docs/STATUS.md", f"# K7PL Status\n\n**Generated for commit:** {base}\n", "c2")
+        self.commit("wiki/STATUS.md", f"# K7PL Status\n\n**Generated for commit:** {base}\n", "c2")
         head = self.commit("src.txt", "change", "c3")
         self.assertEqual(self.run_script("ci_status_baseline.sh", GITHUB_SHA=head).returncode, 0)
         self.git("checkout", "-q", base)
@@ -94,9 +94,9 @@ class StatusScriptTests(StepScriptCase):
 
     def test_changes_reports_whether_status_was_rewritten(self):
         self.git("init", "-q", "-b", "main")
-        self.commit("docs/STATUS.md", "# K7PL Status\n", "c1")
+        self.commit("wiki/STATUS.md", "# K7PL Status\n", "c1")
         self.assertEqual(self.run_script("ci_status_changes.sh").returncode, 0)
-        (self.work / "docs" / "STATUS.md").write_text("# K7PL Status\n\nnew\n")
+        (self.work / "wiki" / "STATUS.md").write_text("# K7PL Status\n\nnew\n")
         self.assertEqual(self.run_script("ci_status_changes.sh").returncode, 0)
         self.assertEqual(self.outputs(), "changed=false\nchanged=true\n")
 
@@ -108,7 +108,7 @@ class StatusScriptTests(StepScriptCase):
             ["switch", "-C", "automation/generated-status"],
             ["config", "user.name", "github-actions[bot]"],
             ["config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"],
-            ["add", "docs/STATUS.md"],
+            ["add", "wiki/STATUS.md"],
             ["commit", "-m", "ci: update generated project status"],
             ["push", "--force", "origin", "automation/generated-status"],
         ])

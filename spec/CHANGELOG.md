@@ -78,6 +78,11 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 - Titre aligné sur la spécification Org-mode : « K7PL : KonSept Programming Language ».
 
 ### Corrigé
+- PREUVE-03 (partielle) : le fil de temps enfilé contredisait le système de sortes ; genre `maillon`, capacités d'émission, de réception et de restriction corrigées, clause de transfert au bon sortage ; traduction du fil par niveau, proposition `thm:chaine_fils` sur un fragment ; clause de session précisée (correspondance des noms, comparaison des fils) ; l'induction sur les règles de communication n'est pas conduite (§4.6, §4.7, §4.8).
+- ANOM-17 (partielle) : schémas de réduction du point fixe (déplié exactement `h` fois), du copatron sous l'observation, de `try` à corps terminal et des cinq règles globales de la couche 2 avec la règle locale `Loc` ; contextes `E.i`, `E[W]`, `out E`, `try E catch h` ; table de couverture des constructeurs ; esquisses du progrès, de la préservation et de la simulation relues (§4.7, §4.6). Les constructeurs dont la réduction n'est pas déterminée par le texte restent sans schéma et sont instruits.
+- PREUVE-07 / BLOQ-07 : clause de `return` avec transfert du canal de temps ; le domaine de la simulation et du progrès est borné aux formes qui se réduisent (§4.4, §4.6).
+- FACT-07 : la relation logique du §4.7 est une seule famille indexée par le treillis, trois énoncés en sont des lectures ; sa non-monotonie en ℓ est dite.
+- BIB-15 : §4.2, la file bornée prouvée (plusieurs producteurs et consommateurs) et l'anneau décrit (un producteur, un consommateur) sont dits distincts.
 - PREUVE-08 : la troncature préserve les lois de comonade pour tout foncteur (convention d'écartement) ; la comonade tronquée est graduée par la somme des profondeurs, non par le produit (§2.3, théorème de troncature, désormais un théorème).
 - IMPL-06 : l'abaissement gradué se lit comme une propriété de conformité du compilateur à un profil de représentation (§6.2).
 - BLOQ-05 : niveaux de lecture ℓ et de production ℓ̂ distingués ; clauses sur Op et Case ; Tick bien formé.

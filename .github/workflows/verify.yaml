@@ -81,14 +81,6 @@ jobs:
         if: ${{ inputs.full || inputs.spec_check }}
         run: python3 scripts/controle.py --format github
 
-      - name: Check generated tracking views
-        if: ${{ inputs.tracking_views }}
-        run: |
-          set -euo pipefail
-          python3 scripts/suivi.py check
-          python3 scripts/suivi.py all
-          git diff --exit-code -- docs/tracking/
-
       - name: Check the local links
         if: ${{ inputs.full || inputs.docs_links }}
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0

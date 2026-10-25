@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Generate `docs/STATUS.md` from repository facts and the results of the CI jobs.
+"""Generate `wiki/STATUS.md` from repository facts and the results of the CI jobs.
 
 The `status` job of ci.yaml runs it on main, from the repository root:
 
@@ -203,7 +203,7 @@ def render_status(
     counts: dict[str, int],
     axiom_report_path: Path | None = None,
 ) -> str:
-    """The generated part of `docs/STATUS.md`, before its coverage block is refreshed."""
+    """The generated part of `wiki/STATUS.md`, before its coverage block is refreshed."""
     lines = [
         "<!-- GENERATED CONTENT START -->",
         "<!--",
@@ -253,7 +253,7 @@ def render_status(
     lines.extend([
         "## Scientific status",
         "",
-        "See [ASSURANCE.md](ASSURANCE.md) for scientific status. CI success does not imply specification coherence, complete specification/formalisation correspondence, or implementation conformance.",
+        "See [assurance](assurance.md) for scientific status. CI success does not imply specification coherence, complete specification/formalisation correspondence, or implementation conformance.",
         "",
         "## Generation",
         "",
@@ -264,7 +264,7 @@ def render_status(
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--output", default="docs/STATUS.md")
+    p.add_argument("--output", default="wiki/STATUS.md")
     p.add_argument("--source-commit", default=os.environ.get("K7PL_STATUS_SOURCE_COMMIT", ""), help="Commit to which repository facts and axiom evidence are bound")
     p.add_argument("--verification", default=os.environ.get("K7PL_VERIFICATION", "unknown"))
     p.add_argument("--impact-result", default=os.environ.get("K7PL_IMPACT_RESULT", "unknown"))
@@ -285,9 +285,9 @@ def main():
         )
         if ancestor.returncode != 0:
             p.error("--source-commit must be an ancestor of HEAD")
-        changed = sh("git", "diff", "--name-only", commit, head, "--", ".", ":(exclude)docs/STATUS.md")
+        changed = sh("git", "diff", "--name-only", commit, head, "--", ".", ":(exclude)wiki/STATUS.md")
         if changed:
-            p.error("--source-commit is stale: files other than docs/STATUS.md changed afterwards")
+            p.error("--source-commit is stale: files other than wiki/STATUS.md changed afterwards")
     text = render_status(
         commit=commit,
         date=sh("git", "show", "-s", "--format=%cI", commit),

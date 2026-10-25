@@ -4,8 +4,8 @@
 
 """Bibliography pipeline of the specification.
 
-    biblio.py slim <source.bib> <keys.txt> <references.json>   # extracts the cited entries
-    biblio.py lean <references.json> <SpecBib.lean>            # generates the Lean module
+    biblio.py slim <source.bib> <keys.txt> wiki/references.json   # extracts the cited entries
+    biblio.py lean wiki/references.json <SpecBib.lean>            # generates the Lean module
 
 The full Zotero library (abstracts, local file paths, uncited entries) stays out of the
 repository; only the bibliographic metadata of the works the specification cites is kept. The

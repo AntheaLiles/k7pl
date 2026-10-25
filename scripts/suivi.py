@@ -2,18 +2,23 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Renders the derived tracking views (`docs/tracking/`).
+"""FROZEN — retired tracking-view generator, 2026-10-25.
 
-    python3 scripts/suivi.py check      # the status table covers exactly the review cards
-    python3 scripts/suivi.py fiches     # docs/tracking/FICHES-PR02.md
-    python3 scripts/suivi.py enonces    # docs/tracking/correspondance-enonces.md
-    python3 scripts/suivi.py all
-
-Human-maintained inputs: `docs/tracking/fiches-statuts.csv` (one row per card: status, confidence,
-proof, note) and the prose of the dashboard. What is produced: every count, every register.
-The cards themselves (titles, findings) live in `docs/peer-review/pr-02/taches-consolidees.md`. DASHBOARD.md is a navigation view and is not generated.
-
-Generated statement views use the English controlled vocabulary defined below; source labels and levels remain in their canonical repository vocabulary.
+This script formerly rendered the derived tracking views (`docs/tracking/`)
+from `docs/tracking/fiches-statuts.csv` and
+`docs/peer-review/pr-02/taches-consolidees.md`. In the complete
+tracking, review and method closing of 2026-10-25, the unclosed
+cards were carried into `wiki/roadmap.md`, the views and the status
+table were deleted, and this generator was frozen: its `fiches`,
+`enonces` and `all` commands now refuse with a frozen notice and
+write nothing. Its `check` function survives only as a unit-tested
+function on synthetic corpora (see `tests/python/test_suivi.py`);
+it is no longer a live gate on repository files, and the workflow
+step that ran it is removed. The history read is corrected here
+as well (Q6 of that closing): the script no longer reads the
+deleted `docs/history/` snapshot — the "reviewed number" column
+it produced from that snapshot is abandoned, and no reviewed
+number from it may be quoted as a current fact.
 """
 
 from __future__ import annotations
@@ -29,7 +34,9 @@ import manuscript_metrics as mm  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 TRACKING = ROOT / "docs" / "tracking"
-HISTORY = ROOT / "docs" / "history"
+# Frozen: these paths name the deleted inputs, for the unit-tested
+# `check` function on synthetic corpora only. Nothing in this file
+# reads them for a live run any more; `main` refuses generation.
 CARDS = ROOT / "docs" / "peer-review" / "pr-02" / "taches-consolidees.md"
 STATUTS = TRACKING / "fiches-statuts.csv"
 
@@ -172,13 +179,10 @@ def write(path: Path, text: str) -> None:
 
 
 def relu_numbers() -> dict[str, str]:
-    """Statement label → number printed in the PDF the reviewers read (September 9), from the
-    snapshot of the former Org tooling."""
-    snap = HISTORY / "correspondance-theoremes-org.md"
-    if not snap.exists():
-        return {}
-    rows = re.findall(r"^\| (—|\d+) \| \d+ \| `(thm:[^`]+)` \|", snap.read_text(encoding="utf-8"), re.M)
-    return {lab: relu for relu, lab in rows}
+    """Statement label → reviewed number: abandoned with the deleted
+    `docs/history/` Org snapshot (Q6, 2026-10-25). Always empty now;
+    no reviewed number from that snapshot may be quoted as current."""
+    return {}
 
 
 def render_enonces() -> str:
@@ -204,17 +208,12 @@ def render_enonces() -> str:
 def main() -> int:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     if cmd == "check":
+        if not CARDS.exists() or not STATUTS.exists():
+            print("scripts/suivi.py is FROZEN (2026-10-25): its inputs are deleted; check() survives only as a unit-tested function on synthetic corpora.")
+            return 2
         return check()
-    if cmd in ("fiches", "all"):
-        if check():
-            return 1
-        write(TRACKING / "FICHES-PR02.md", render_fiches())
-    if cmd in ("enonces", "all"):
-        write(TRACKING / "correspondance-enonces.md", render_enonces())
-    if cmd not in ("check", "fiches", "enonces", "all"):
-        print(__doc__)
-        return 2
-    return 0
+    print("scripts/suivi.py is FROZEN (2026-10-25): the tracking views are deleted and the card source of truth is wiki/roadmap.md; nothing is generated.")
+    return 2
 
 
 if __name__ == "__main__":

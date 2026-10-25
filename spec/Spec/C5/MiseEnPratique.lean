@@ -107,7 +107,7 @@ le programmeur l'omet, l'élaborateur remplit la seconde composante par recherch
 exactement une signification {cite "racordonStateCoherenceLand2025"}[], et dont la preuve formelle
 en présence de non-déterminisme est récente et non triviale {cite "BOTTU"}[], {cite "schrijversCOCHISStableCoherent2019"}[].
 Ici elle ne coûte rien : la structure fixe le sens, la recherche n'est qu'un sucre, et une recherche
-ambiguë est refusée en Phase 0 plutôt que résolue arbitrairement. La cohérence est une condition
+ambiguë est refusée en Phase 1 plutôt que résolue arbitrairement. La cohérence est une condition
 d'erreur, non une obligation de métathéorie. L'unicité du type d'état par gabarit (chapitre 4,
 §{num "sec:c4-echelle-du-systeme"}[]) est la condition sous laquelle le sucre aboutit ; la voie
 modulaire, où l'association est portée par une structure plutôt que déduite, est activement conçue

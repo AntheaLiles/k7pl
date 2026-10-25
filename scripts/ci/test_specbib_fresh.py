@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Freshness of `tools/SpecBib.lean`, generated from `docs/bibliography/references.json`.
+"""Freshness of `tools/SpecBib.lean`, generated from `wiki/references.json`.
 
 The Lean bibliography is committed, so a notice added to `references.json` without regenerating
 it is silently missing from the specification build. These tests run the documented generator
@@ -24,13 +24,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 GENERATOR = ROOT / "scripts" / "biblio" / "biblio.py"
-REFERENCES = ROOT / "docs" / "bibliography" / "references.json"
+REFERENCES = ROOT / "wiki" / "references.json"
 COMMITTED = ROOT / "tools" / "SpecBib.lean"
 CITE_RENDERER = ROOT / "tools" / "SpecExt" / "Cite.lean"
 sys.path.insert(0, str(GENERATOR.parent))
 import biblio
 REGENERATE = (
-    "python3 scripts/biblio/biblio.py lean docs/bibliography/references.json tools/SpecBib.lean"
+    "python3 scripts/biblio/biblio.py lean wiki/references.json tools/SpecBib.lean"
 )
 ENTRY_KEY = re.compile(r'^  \("((?:[^"\\]|\\.)*)", \[', re.MULTILINE)
 
@@ -76,7 +76,7 @@ class SpecBibFreshnessTests(unittest.TestCase):
         excerpt = [line[:160] for line in diff][:20]
         self.fail(
             "tools/SpecBib.lean differs from what scripts/biblio/biblio.py generates from "
-            f"docs/bibliography/references.json. Regenerate it with:\n  {REGENERATE}\n"
+            f"wiki/references.json. Regenerate it with:\n  {REGENERATE}\n"
             + "\n".join(excerpt)
         )
 

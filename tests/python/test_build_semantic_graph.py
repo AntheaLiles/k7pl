@@ -18,7 +18,9 @@ def fixture_repo(tmp_path: Path) -> Path:
     source_dir = spec / "Spec" / "C6"
     target_dir = spec / "Spec" / "C3"
     tikz_dir = spec / "figures" / "tikz"
-    bib_dir = root / "docs" / "bibliography"
+    # The bibliography data moved from docs/bibliography/ to wiki/ in the
+    # bibliography lot (2026-10-25); the script reads wiki/references.json.
+    bib_dir = root / "wiki"
     for directory in (source_dir, target_dir, tikz_dir, spec / "figures"):
         directory.mkdir(parents=True, exist_ok=True)
     bib_dir.mkdir(parents=True)

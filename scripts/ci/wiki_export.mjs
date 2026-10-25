@@ -2,8 +2,11 @@
 // SPDX-License-Identifier: CECILL-2.1
 /**
  * Deterministic GitHub Wiki export. Markdown pages are flattened into a
- * collision-checked namespace; other files live under assets/. docs/archives/
- * is intentionally excluded. No external runtime dependency is required.
+ * collision-checked namespace; other files live under assets/. A top-level
+ * archives/ directory in the source is intentionally excluded, as is the
+ * temporary migration matrix (_migration-matrix.md), which is a working
+ * tool for the docs/ → wiki/ refactor and not a published page.
+ * No external runtime dependency is required.
  */
 import { createHash } from "node:crypto";
 import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
@@ -76,7 +79,7 @@ function resolveDestination(rawDestination, isImage, sourceRelative, context) {
       return sourceUrl(isImage ? "image" : "link", target, context, suffix);
     }
     if (statSync(target).isDirectory()) {
-      const readme = docsRelative ? docsRelative + "/README.md" : "README.md";
+      const readme = docsRelative ? docsRelative + "/README.md" : "HOME.md";
       if (context.pageTargets.has(readme)) {
         return context.pageTargets.get(readme).replace(/\.md$/i, "") + suffix;
       }
@@ -127,7 +130,7 @@ export function rewriteMarkdown(markdown, sourceRelative, context) {
 
 function safePageComponent(value) { return value.replace(/[^A-Za-z0-9._-]/g, "-"); }
 function candidatePageName(sourceRelative) {
-  if (sourceRelative === "README.md") return "Home.md";
+  if (sourceRelative === "HOME.md") return "Home.md";
   return sourceRelative.replace(/\.md$/i, "").split("/").map(safePageComponent).join("--") + ".md";
 }
 function groupForPage(sourceRelative) {
@@ -151,7 +154,7 @@ async function listFiles(root, relativePath = "") {
     if (!relativePath && entry.name === "archives") continue;
     const absolute = join(root, ...childRelative.split("/"));
     if (entry.isSymbolicLink()) {
-      throw new Error("Symbolic links are not supported in docs/: " + childRelative);
+      throw new Error("Symbolic links are not supported in the source directory: " + childRelative);
     }
     if (entry.isDirectory()) result.push(...await listFiles(root, childRelative));
     else if (entry.isFile()) result.push({ relative: childRelative, absolute });
@@ -170,16 +173,18 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
     throw new Error("Documentation directory not found: " + source);
   }
   if (isWithin(source, destination) || isWithin(destination, source)) {
-    throw new Error("The export destination must be outside docs/");
+    throw new Error("The export destination must be outside the source directory");
   }
 
-  const sourceFiles = await listFiles(source);
+  const sourceName = basename(source);
+  const sourceFiles = (await listFiles(source))
+    .filter((file) => file.relative !== "_migration-matrix.md");
   const includedDocs = new Set(sourceFiles.map((file) => file.relative));
   const markdownFiles = sourceFiles
     .filter((file) => /\.md$/i.test(file.relative))
     .sort((a, b) => a.relative.localeCompare(b.relative));
-  if (!markdownFiles.some((file) => file.relative === "README.md")) {
-    throw new Error("docs/README.md is required to generate the wiki Home page");
+  if (!markdownFiles.some((file) => file.relative === "HOME.md")) {
+    throw new Error(sourceName + "/HOME.md is required to generate the wiki Home page");
   }
 
   const groups = new Map();
@@ -195,10 +200,10 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
   const reserved = new Set([
     "Home.md", GENERATED_PUBLICATION, GENERATED_MANIFEST, GENERATED_SIDEBAR, ...indexTargets,
   ]);
-  const pageTargets = new Map([["README.md", "Home.md"]]);
+  const pageTargets = new Map([["HOME.md", "Home.md"]]);
   const used = new Set(reserved);
   for (const file of markdownFiles) {
-    if (file.relative === "README.md") continue;
+    if (file.relative === "HOME.md") continue;
     let candidate = candidatePageName(file.relative);
     if (used.has(candidate)) {
       candidate = candidate.replace(/\.md$/i, "") + "--" + sha256(file.relative).slice(0, 8) + ".md";
@@ -218,24 +223,24 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
     const bytes = await readFile(file.absolute);
     const sourceMarkdown = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
     let rendered = rewriteMarkdown(sourceMarkdown, file.relative, context);
-    if (file.relative === "README.md") {
+    if (file.relative === "HOME.md") {
       rendered =
-        "> This wiki is generated from docs/README.md at commit " + sourceRef.slice(0, 12) +
+        "> This wiki is generated from " + sourceName + "/HOME.md at commit " + sourceRef.slice(0, 12) +
         " (source commit: https://github.com/" + repository + "/commit/" + sourceRef +
-        "). Edit source files in docs/ through a pull request; this wiki is a publication target, not a source of truth.\n>\n" +
+        "). Edit source files in " + sourceName + "/ through a pull request; this wiki is a publication target, not a source of truth.\n>\n" +
         "> [Publication provenance](K7PL--Publication) · [Page manifest](Publication-manifest.json)\n\n" +
         rendered;
     }
     const target = pageTargets.get(file.relative);
     await writeFile(join(destination, target), rendered, "utf8");
     renderedPages.push({
-      source: "docs/" + file.relative,
+      source: sourceName + "/" + file.relative,
       target,
       title: titleOf(sourceMarkdown, basename(file.relative, ".md")),
       group: groupForPage(file.relative),
     });
     manifestFiles.push({
-      source: "docs/" + file.relative,
+      source: sourceName + "/" + file.relative,
       target,
       kind: "page",
       source_sha256: sha256(bytes),
@@ -250,7 +255,7 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
     await mkdir(dirname(targetPath), { recursive: true });
     await copyFile(file.absolute, targetPath);
     manifestFiles.push({
-      source: "docs/" + file.relative,
+      source: sourceName + "/" + file.relative,
       target,
       kind: "resource",
       source_sha256: sha256(bytes),
@@ -264,12 +269,12 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
     const lines = [
       "# Documentation index: " + group,
       "",
-      "Generated from the canonical K7PL docs/ tree.",
+      "Generated from the canonical K7PL " + sourceName + "/ tree.",
       "",
     ];
     for (const file of files) {
-      if (file.relative === "README.md") continue;
-      const page = renderedPages.find((item) => item.source === "docs/" + file.relative);
+      if (file.relative === "HOME.md") continue;
+      const page = renderedPages.find((item) => item.source === sourceName + "/" + file.relative);
       if (page) lines.push("- [" + page.title.replace(/[\[\]]/g, "") + "](" +
         page.target.replace(/\.md$/i, "") + ") (" + file.relative + ")");
     }
@@ -280,7 +285,10 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
 
   const quickLinks = [
     ["Architecture", "ARCHITECTURE.md"],
+    ["Understanding", "understanding.md"],
+    ["Layers", "layers.md"],
     ["Research", "RESEARCH.md"],
+    ["Research", "research.md"],
     ["Method", "METHOD.md"],
     ["Assurance", "ASSURANCE.md"],
     ["Provenance", "PROVENANCE.md"],
@@ -309,8 +317,8 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
     repository,
     source_ref: sourceRef,
     source_commit_url: "https://github.com/" + repository + "/commit/" + sourceRef,
-    source_directory: "docs/",
-    excluded_paths: ["docs/archives/**"],
+    source_directory: sourceName + "/",
+    excluded_paths: [sourceName + "/archives/**"],
     page_count: renderedPages.length,
     resource_count: sourceFiles.length - markdownFiles.length,
     generated_files: [
@@ -321,10 +329,10 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
   const publication = [
     "# K7PL wiki publication",
     "",
-    "- Canonical source: docs/ at commit " + sourceRef.slice(0, 12) +
+    "- Canonical source: " + sourceName + "/ at commit " + sourceRef.slice(0, 12) +
       " (https://github.com/" + repository + "/commit/" + sourceRef + ").",
     "- Source of truth: the repository, changed through pull requests.",
-    "- Export scope: every file below docs/ except docs/archives/**.",
+    "- Export scope: every file below " + sourceName + "/ except " + sourceName + "/archives/** and the temporary _migration-matrix.md.",
     "- Markdown pages use deterministic, collision-checked wiki names; source paths and SHA-256 hashes are recorded in Publication-manifest.json.",
     "- Non-Markdown files are copied under assets/ and hashed in the manifest.",
     "- Links to excluded archive files point back to the immutable source commit.",
@@ -335,7 +343,7 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
     "- Markdown source pages: " + renderedPages.length,
     "- Non-Markdown resources: " + (sourceFiles.length - markdownFiles.length),
     "- Generated indexes: " + generatedIndexes.length,
-    "- Excluded directory: docs/archives/",
+    "- Excluded directory: " + sourceName + "/archives/",
     "",
     "The manifest records source paths, output paths, source digests, and published digests. It does not claim that GitHub's renderer validates Markdown semantics or external URLs.",
     "",
@@ -348,14 +356,14 @@ export async function buildWikiExport({ sourceDir, destDir, repository, sourceRe
     resourceCount: sourceFiles.length - markdownFiles.length,
     indexCount: generatedIndexes.length,
     files: sortedManifestFiles.length,
-    excludedPaths: ["docs/archives/**"],
+    excludedPaths: [sourceName + "/archives/**"],
     outputDir: destination,
   };
 }
 
 const currentFile = fileURLToPath(import.meta.url);
 if (process.argv[1] && resolve(process.argv[1]) === currentFile) {
-  const sourceDir = process.env.K7PL_DOCS_SOURCE || "docs";
+  const sourceDir = process.env.K7PL_DOCS_SOURCE || "wiki";
   const destDir = process.env.K7PL_WIKI_DEST || "wiki-export";
   const repository = process.env.K7PL_REPOSITORY || process.env.GITHUB_REPOSITORY;
   const sourceRef = process.env.K7PL_SOURCE_REF || process.env.GITHUB_SHA;

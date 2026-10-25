@@ -67,8 +67,8 @@ python3 scripts/ci/navigation_graph/check_navigation_graph_output.py --site _out
 Les deux commandes du générateur et du validateur supposent que la sortie HTML multipage existe déjà. En CI, `--ref` reçoit le SHA exact qui produit l'artefact, ce qui permet de détecter les sorties périmées. Ne pas substituer une sortie locale construite depuis un autre SHA à cette preuve de fraîcheur.
 
 Voir aussi :
-- [Architecture de l'enveloppe interactive](../../../docs/tracking/INTERACTIVE-EXPLORATION.md)
-- [Plan fonctionnel et critères d'acceptation](../../../docs/tracking/INTERACTIVE-EXPLORATION-PLAN.md)
-- [Inventaire technique](../../../docs/tracking/INTERACTIVE-EXPLORATION-INVENTORY.md)
-- [Prototype et limites de validation](../../../docs/tracking/NAVIGATION-PROTOTYPE.md)
-- [Modèle sémantique minimal](../../../docs/tracking/NAVIGATION-SEMANTIC-MODEL.md)
+- [Architecture de l'enveloppe interactive](../../../wiki/understanding.md#interactive-exploration)
+- [Plan fonctionnel et critères d'acceptation](../../../wiki/understanding.md#interactive-exploration)
+- [Inventaire technique](../../../wiki/understanding.md#interactive-exploration)
+- [Prototype et limites de validation](../../../wiki/understanding.md#interactive-exploration)
+- [Modèle sémantique minimal](../../../wiki/understanding.md#navigation-model)

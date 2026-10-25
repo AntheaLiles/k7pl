@@ -340,7 +340,7 @@ celui du fragment ambiant, que le délimiteur a déjà annoncé (chapitre 5,
 écrit précisément dans le fragment que l'on a ouvert. Le second est l'_inférence locale_ : à
 l'intérieur d'une définition annotée, grades et types des liaisons internes sont inférés, la
 signature ne portant que sur la frontière. Ces deux dispositifs relèvent de l'élaboration et non du
-système de types : ce que la Phase 2 reçoit est la signature complète, reconstituée, et le parcours
+système de types : ce que la Phase 3 reçoit est la signature complète, reconstituée, et le parcours
 bidirectionnel qui suit est inchangé. L'inférence complète des modes de propriété est d'ailleurs
 attestée sur un système à trois axes {cite "lorenzenOxidizingOCamlModal2024"}[] ; le renoncement de
 K7PL porte sur le système gradué général, non sur cet axe.

@@ -4,7 +4,7 @@
 
 """Checks on the specification, reading the Verso sources (`spec/`).
 
-Ported from the checks of the former Org tooling (preserved under `docs/archives/outillage-org/`). Run them all with
+Ported from the checks of the former Org tooling (deleted in the 2026-10-25 archives closure; each file's fate is traced in the migration matrix in `wiki/`). Run them all with
 `python3 scripts/controle.py`; each module is one family of questions:
 
 * `algebre`    — laws of the algebra at the absorbing elements, size sorts, the conventions of ω;

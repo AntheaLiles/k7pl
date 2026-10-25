@@ -1,10 +1,11 @@
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
 # SPDX-License-Identifier: CC0-1.0
-"""Check the active C8 statement inventory against the controlled migration register.
+"""Check the active C8 statement inventory against the assurance appendix.
 
-The pre-migration inventory remains a frozen historical snapshot, kept as an appendix of the
-migration register. This checker compares the current source ontology with the migration register
+The pre-migration inventory remains a frozen historical snapshot, kept as an appendix of
+the assurance page (moved there in the complete tracking, review and method closing of
+2026-10-25, from the deleted controlled migration register). This checker compares the current source ontology with the migration register
 and verifies syntactic statement references; it does not validate mathematical truth or proof
 adequacy.
 """
@@ -23,8 +24,8 @@ if str(SCRIPTS) not in sys.path:
 
 import manuscript_metrics as mm  # noqa: E402
 
-DEFAULT_INVENTORY = ROOT / "docs" / "tracking" / "LEAN-STATEMENT-MIGRATION.md"
-# The frozen pre-migration snapshot is the appendix of the migration register.
+DEFAULT_INVENTORY = ROOT / "wiki" / "assurance.md"
+# The frozen pre-migration snapshot is the appendix of the assurance page.
 HISTORICAL_INVENTORY = DEFAULT_INVENTORY
 HISTORICAL_TABLE_START = "### 2. Inventaire détaillé"
 HISTORICAL_TABLE_END = "### 3. Classification sémantique encore requise"
@@ -71,7 +72,7 @@ def source_inventory() -> list[dict[str, object]]:
 
 
 def inventory_rows(path: Path) -> list[dict[str, object]]:
-    """Read ontology rows from the current controlled migration register."""
+    """Read ontology rows from the current statement inventory (assurance appendix)."""
     text = path.read_text(encoding="utf-8")
     try:
         table = text.split("## Classification courante", 1)[1]

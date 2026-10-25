@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-# Writes `current=true` when docs/STATUS.md covers the substantive commit and, when
+# Writes `current=true` when wiki/STATUS.md covers the substantive commit and, when
 # REQUIRE_AXIOM_AUDIT=true, includes PASS evidence for the current GITHUB_SHA. This lets a
 # successful K7PL formal-semantics workflow refresh a status generated before its evidence existed.
 #
@@ -15,12 +15,12 @@
 #   bash scripts/ci/ci_status_baseline.sh
 set -euo pipefail
 
-generated_for="$(sed -n 's/^\*\*Generated for commit:\*\* \([0-9a-f]\{40\}\)$/\1/p' docs/STATUS.md)"
+generated_for="$(sed -n 's/^\*\*Generated for commit:\*\* \([0-9a-f]\{40\}\)$/\1/p' wiki/STATUS.md)"
 current=false
 if [ -n "$generated_for" ] \
   && git fetch --no-tags origin "$generated_for" >/dev/null 2>&1 \
   && git merge-base --is-ancestor "$generated_for" "$GITHUB_SHA" \
-  && [ -z "$(git diff --name-only "$generated_for" "$GITHUB_SHA" -- . ':(exclude)docs/STATUS.md')" ]; then
+  && [ -z "$(git diff --name-only "$generated_for" "$GITHUB_SHA" -- . ':(exclude)wiki/STATUS.md')" ]; then
   current=true
 fi
 
@@ -29,16 +29,16 @@ if [ "$current" = true ] && [ "${REQUIRE_AXIOM_AUDIT:-false}" = "true" ]; then
   if [[ ! "$evidence_sha" =~ ^[0-9a-f]{40}$ ]] \
     || ! git fetch --no-tags origin "$evidence_sha" >/dev/null 2>&1 \
     || ! git merge-base --is-ancestor "$evidence_sha" "$GITHUB_SHA" \
-    || [ -n "$(git diff --name-only "$evidence_sha" "$GITHUB_SHA" -- . ':(exclude)docs/STATUS.md')" ] \
-    || ! grep -Fxq "**Axiom audit evidence for commit:** $evidence_sha" docs/STATUS.md \
-    || ! grep -Fxq "**Axiom audit status:** PASS" docs/STATUS.md; then
+    || [ -n "$(git diff --name-only "$evidence_sha" "$GITHUB_SHA" -- . ':(exclude)wiki/STATUS.md')" ] \
+    || ! grep -Fxq "**Axiom audit evidence for commit:** $evidence_sha" wiki/STATUS.md \
+    || ! grep -Fxq "**Axiom audit status:** PASS" wiki/STATUS.md; then
     current=false
   fi
 fi
 
 echo "current=$current" >> "$GITHUB_OUTPUT"
 if [ "$current" = true ]; then
-  echo "STATUS already describes the latest substantive commit ($generated_for); only docs/STATUS.md changed afterwards."
+  echo "STATUS already describes the latest substantive commit ($generated_for); only wiki/STATUS.md changed afterwards."
 else
   echo "STATUS regeneration required."
 fi

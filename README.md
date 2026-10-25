@@ -14,7 +14,7 @@ and [CSLib](https://github.com/leanprover/cslib). Its specification is written i
 
 ## Understanding the project
 
-The current documentation path starts with [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), then [`docs/RESEARCH.md`](docs/RESEARCH.md) and the normative specification in [`spec/`](spec/). The factual state is produced by CI in [`docs/STATUS.md`](docs/STATUS.md), while [`docs/ASSURANCE.md`](docs/ASSURANCE.md) sets out the scientific assurance case. Historical and tracking material is organised according to the documentation architecture described in [`docs/README.md`](docs/README.md) and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+The current documentation path starts with [`wiki/HOME.md`](wiki/HOME.md), then [`wiki/understanding.md`](wiki/understanding.md), [`wiki/layers.md`](wiki/layers.md) and [`wiki/research.md`](wiki/research.md), and the normative specification in [`spec/`](spec/). The factual state is produced by CI in `wiki/STATUS.md`, while [`wiki/assurance.md`](wiki/assurance.md) sets out the scientific assurance case. Historical and tracking material is organised according to the documentation architecture described in [`wiki/HOME.md`](wiki/HOME.md) and [`wiki/understanding.md`](wiki/understanding.md).
 
 ## Getting started
 
@@ -49,12 +49,14 @@ that will attach its PDF to each `spec-vX.Y.Z` release and archive it on Zenodo 
 The former annexes B, C and D are no longer part of `spec/`: since commit `d84021f`, their
 material is kept as tooling prototypes in [`tools/prototypes-bcd/`](tools/prototypes-bcd/),
 outside the normative specification. Their future editorial scope is an open decision (`D-7` in
-[`docs/tracking/DECISIONS.md`](docs/tracking/DECISIONS.md)).
+[`wiki/decisions.md`](wiki/decisions.md)).
 
 The manuscript is still being corrected (review campaign PR-02): the entry point is the
-[dashboard](docs/tracking/DASHBOARD.md), which states where it stands and what remains to be
-done before implementing the language. The original Org-mode manuscript is frozen
-in [`docs/archives/`](docs/archives/).
+[roadmap](wiki/roadmap.md), which states where it stands and what remains to be
+done before implementing the language. The original Org-mode manuscript was converted
+to Verso in [`spec/`](spec/); its annexes and former tooling were closed
+in 2026-10-25, integrated into `spec/`, `scripts/` and `tools/` or
+explicitly abandoned, as traced in git history.
 
 ## Organisation
 
@@ -64,11 +66,10 @@ in [`docs/archives/`](docs/archives/).
 | [`proofs/`](proofs/) | maintained Lean proofs, and KLean modules generated at build time |
 | [`tests/`](tests/), [`tests/examples/`](tests/examples/) | Lean/Python tests, and K7PL `.k7` programs |
 | [`spec/`](spec/) | normative Verso specification, figures, and an experimental exposition under `spec/formal-chain/` |
-| [`tools/`](tools/) | specification generator and Verso extensions (`SpecExt/`); bibliography (`SpecBib.lean`, generated from [`docs/bibliography/references.json`](docs/bibliography/references.json)); Lean compliance and audit models (`Compliance/`); the isolated Paperproof extraction workspace (`paperproof-export/`); the non-normative B/C/D prototypes (`prototypes-bcd/`) |
+| [`tools/`](tools/) | specification generator and Verso extensions (`SpecExt/`); bibliography (`SpecBib.lean`, generated from [`wiki/references.json`](wiki/references.json)); Lean compliance and audit models (`Compliance/`); the isolated Paperproof extraction workspace (`paperproof-export/`); the non-normative B/C/D prototypes (`prototypes-bcd/`) |
 | [`lib/`](lib/) | libraries written in K7PL (currently one example file, `lib-exemple.k7`) |
-| [`docs/`](docs/) | current documentation, assurance, research, method, tracking and historical archives |
+| [`wiki/`](wiki/) | consolidated project documentation (entry, layers, research; further pages added lot by lot) |
 | [`scripts/`](scripts/) | maintenance, Org → Verso conversion, metrics and tracking |
-| [`docs/archives/`](docs/archives/) | Org manuscript and tooling from before the conversion |
 
 ## Experimental K → Lean chain
 

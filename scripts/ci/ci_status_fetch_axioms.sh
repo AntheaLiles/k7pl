@@ -30,7 +30,7 @@ if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$SOURCE_SHA" != "$CURRENT_SHA" 
     echo "::error::The audited commit $SOURCE_SHA is not an ancestor of $CURRENT_SHA."
     exit 1
   }
-  changed="$(git diff --name-only "$SOURCE_SHA" "$CURRENT_SHA" -- . ':(exclude)docs/STATUS.md')"
+  changed="$(git diff --name-only "$SOURCE_SHA" "$CURRENT_SHA" -- . ':(exclude)wiki/STATUS.md')"
   if [ -n "$changed" ]; then
     echo "::error::The audited commit is stale relative to substantive changes in $CURRENT_SHA:"
     printf '%s\n' "$changed"
