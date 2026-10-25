@@ -16,6 +16,7 @@ The [consolidated core-vocabulary inventory](../research/core-vocabulary-histori
 - [Arc G naming method](2026-10-25-arc-g-methode.md) — archived source copy; the pre-cleanup source is also preserved on the inventory baseline.
 - [Arc G name collection](2026-10-25-arc-g-collecte.md) — archived source copy; comparisons and past naming choices are not ratifications.
 - [Research-question register](2026-10-25-research-questions-register.md) — broad historical register retained for provenance; only its lexical branch is relevant to the current inventory.
+- [Corpus-gap sourcing list](../bibliography/a-sourcer-manques.md) — the historical verification log dated 31 August 2026. Its content is marked historical and excluded from the current research index; replacing the old path was blocked by a tooling safety check, so this remains the sole outstanding retirement.
 - [Corpus-gap register](https://github.com/AntheaLiles/k7pl/blob/67deffa0dbacc30975430c0bff5a2da4e1bacb79/docs/research/manques.md) — immutable snapshot of the version before its active path was retired.
 - [Bibliography acquisition list](https://github.com/AntheaLiles/k7pl/blob/67deffa0dbacc30975430c0bff5a2da4e1bacb79/docs/bibliography/a-charger.md) — immutable snapshot; not a current acquisition queue.
 - [Empirical naming bibliography](https://github.com/AntheaLiles/k7pl/blob/c88c968e66e5951bbf300efe3e39a515df8d8aa3/docs/bibliography/a-sourcer-nommage.md) — immutable baseline snapshot; no longer a prerequisite for the completed Arc G method.
