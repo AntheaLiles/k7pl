@@ -145,9 +145,18 @@ Le nettoyage doit maintenant suivre un seul registre d'inventaire et ne pas lanc
 - Marquer les sources d'autorité et les propositions non ratifiées.
 - Éviter les duplications : V-05 est la porte d'entrée pour la proposition T-68 déposée ; le lot L1-PR10 conserve ses liens à toutes les pièces originales.
 
-### Phase 2 — prochaine étape de documentation
+### Phase 2 — hygiène non destructive des sources historiques (en cours)
 
-Pour chaque document historique existant, lui ajouter — ou vérifier — un bandeau uniforme contenant la date, le statut (archive, extract, superseded, proposition), le chemin de l'inventaire et la source d'autorité courante. Le bandeau doit distinguer les fichiers conservés en archive des dossiers de recherche encore activement consultés. Ne pas réécrire les analyses historiques elles-mêmes.
+**Première passe réalisée le 25 octobre 2026** : des bandeaux de statut et un renvoi vers le présent inventaire ont été ajoutés aux sept sources anciennes les plus directement susceptibles d'être réutilisées pour le vocabulaire ou le corpus :
+
+- [Méthode Arc G](arc-g-methode.md) et [collecte Arc G](arc-g-collecte.md) : instantanés datés, méthode/collecte non normative et noms non ratifiés.
+- [Ensembles de questions](questions.md) et [manques de corpus](manques.md) : états historiques et balises à revérifier avant de rouvrir une question ou une acquisition.
+- [Liste de chargement](../bibliography/a-charger.md) et [sourçage des manques](../bibliography/a-sourcer-manques.md) : listes d'acquisition datées, pas backlog courant.
+- [Sourçage du nommage](../bibliography/a-sourcer-nommage.md) : piste empirique explicitement non bloquante pour l'Arc G achevé.
+
+Cette intervention est volontairement additive : elle conserve le texte, mais pose devant le lecteur le statut temporel et le point d'entrée courant. Les documents de `docs/history/` possèdent déjà leur propre index et leur bannière d'archive ; l'inventaire les référence sans copier leurs contenus. Les sources originales de PR #10 restent consultables par les permaliens inscrits dans le registre de reprise, et aucune copie supplémentaire n'est créée.
+
+**Reste à faire**, par lots limités : vérifier les analyses de recherche voisines qui ne sont pas propres au vocabulaire, remplacer les résumés répétés de T-68 par des renvois vers V-05/inventaire là où ils n'apportent rien de distinct, puis ne supprimer une note que si sa provenance et ses objections sont déjà préservées dans une source de remplacement. Ne pas réécrire les analyses historiques ni lancer de nettoyage global.
 
 ### Phase 3 — réduction contrôlée de la duplication
 
