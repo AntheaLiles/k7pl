@@ -89,4 +89,4 @@ Le chantier reste **partiel** tant que la chaîne par forme n'est pas reliée au
 
 `docs/bibliography/a-sourcer-manques.md` a été relu sur le HEAD de départ de la branche : 224 lignes, bandeau historique explicite, contenu unique de provenance daté du 31 août 2026. La recherche ciblée a retrouvé les backlinks documentaires et aucun consommateur d'exécution identifiable ; cette observation ne prouve pas une absence absolue de dépendance, mais le fichier est exclu du registre courant de vocabulaire et de la génération bibliographique connue. Le contrôle de sécurité ayant bloqué son retrait reste respecté.
 
-**État :** exception réexaminée ; fichier préservé ; retraite physique toujours bloquée/non effectuée. La phase 2 de consolidation reste ouverte sur ce point. Ce statut est différent de « exception ignorée » et de « consolidation terminée ».
+**État :** exception réexaminée ; fichier préservé ; retrait physique toujours bloqué/non effectué. La phase 2 de consolidation reste ouverte sur ce point. Ce statut est différent de « exception ignorée » et de « consolidation terminée ».
