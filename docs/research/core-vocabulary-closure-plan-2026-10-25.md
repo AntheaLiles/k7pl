@@ -66,3 +66,21 @@ La préparation est close seulement si :
 ## 5. Limites de clôture
 
 La documentation du questionnaire peut être prête alors que le vocabulaire reste non stabilisé. La stabilisation n'est pas acquise par la présence de tous les QCM : elle exige les décisions de l'autrice, les obligations scientifiques traitées, l'intégration explicitement autorisée et la vérification des artefacts affectés. Une CI verte prouverait que les contrôles exécutés ont réussi, non que les lemmes choisis sont sémantiquement supérieurs.
+
+## 6. État après fusion de la PR #306 et réponse Q-METH-002
+
+Révision d'observation : `main` à `a3ac6afece9eecd53064afbd295c710fbbe7eb40`, le 25 octobre 2026. La PR #306 est fusionnée ; ses inventaires préexistants sont prolongés sans ouvrir un registre concurrent.
+
+**Décision méthodologique enregistrée :** VOC-2026-10-25-001, Q-METH-002 option A — arbitrage global après audit ontologique. Cette décision ne ratifie aucun lemme ou token et n'autorise aucune modification normative.
+
+### Ordre révisé des actions immédiates
+
+1. **P1 — fermer le périmètre du contrôle croisé.** Le contrôle `EXPECTED` couvre 46/48 alternatives de terme ; `fix` et `declassify` sont hors du motif d'extraction courant et renvoient à des équations séparées. Toute adaptation devra conserver la détection des omissions existantes et être testée.
+2. **P2 — fermer la matrice sémantique.** Le fragment `EffectiveKernel` représente sept formes et trois types de valeur ; aucun parseur de surface général n'a été relié. Les relations term-level temporelles, système et mémoire doivent être reliées à leurs sources C4 par identifiants précis.
+3. **P2 — réconcilier les statuts contradictoires.** Priorités : statut `under-review`/`proofsketch` face à la prose de C4, fiche `ν/Out/Cop`, obligations de `When`, dérivabilité de Vec et correction de `Slice`/`Cap`.
+4. **P2 — suivre les preuves et les tests.** Ne compter qu'une preuve qui correspond au jugement et aux hypothèses de la règle ; ne compter qu'un test ayant une correspondance explicite avec la forme. Les tests du compteur et du sous-langage K expérimental ne sont pas des tests de conformité des 48 termes.
+5. **P3/P5 — différer la ratification lexicale globale.** Compléter l'inventaire de macro/alias, des occurrences, des consommateurs et des conventions de nommage avant de présenter une passe cohérente d'arbitrages. Ne pas interpréter la réponse Q-METH-002 comme un choix de noms.
+
+### Critère de sortie réaffirmé
+
+Le chantier reste **partiel** tant que la chaîne par forme n'est pas reliée aux sources opérationnelles, au fragment Lean effectif, aux hypothèses de preuve et à des tests de conformité. La CI du commit de base est verte, mais son job Lean était ignoré ; ce résultat n'est donc ni une recompilation des preuves après ces modifications ni une preuve de correction scientifique. L'étude de `docs/bibliography/a-sourcer-manques.md` reste une exception historique explicitement conservée, sans contournement de son blocage.

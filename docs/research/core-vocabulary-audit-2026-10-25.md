@@ -238,3 +238,51 @@ Les cases inconnues du registre doivent rester « non établi » jusqu'à l'appa
 - [Plan de clôture](core-vocabulary-closure-plan-2026-10-25.md) : dépendances, critères de sortie et blocages.
 
 L'intégralité de ce lot est non normative. Il ne résout pas les écarts de contrôle identifiés, ne renomme aucun fichier ou token et ne met pas à jour les preuves. Aucun résultat de CI ou de compilation n'est revendiqué sur cette base.
+
+## 10. Addendum vérifié au HEAD courant après fusion de la PR #306
+
+### 10.1 Identité de la révision et périmètre
+
+- HEAD de `main` observé le 25 octobre 2026 : `a3ac6afece9eecd53064afbd295c710fbbe7eb40` (commit de fusion de la PR #306).
+- L'audit initial porte sur `c88c968e66e5951bbf300efe3e39a515df8d8aa3`. Le tree GitHub du HEAD courant contient 854 chemins, contre 745 dans la photographie initiale. Ces nombres correspondent à deux révisions différentes et ne mesurent pas le seul diff de la PR #306.
+- Le contrôle `main` CI run [40190879024](https://github.com/AntheaLiles/k7pl/actions/runs/40190879024) est terminé avec une conclusion globale `success`. Le job de vérification de l'implémentation Lean a été `skipped`, et un contrôle de dérive BadgeApp également ignoré ; cette exécution n'établit donc pas la recompilation Lean complète. Wiki export, Scorecard, spec Verso, PDF et contrôles disponibles ont réussi.
+- La revue GitHub a examiné les sources à la révision exacte et leurs blobs : `spec/Spec/C3/GrammaireDesTermes.lean` (93be642a9c0ed5990f560be4657e1ff3dfafc45f), `spec/Spec/C3/GrammaireDesTypes.lean` (60df0208198163e9bf76dea24391e29d1f23834f), `spec/Spec/C3/ReglesDeTypage.lean` (ac11edad16bec18a96126371a624977e0659416b), `spec/Spec/C3/EffectiveKernel.lean` (127039c7b93fee5696f2c0b1c81805ba29726bb0), `scripts/controles/croise.py` (a3c367a8cfd3fc2139e829b534e7ca6696b76024) et `docs/tracking/primitives.md` (91a52cd8888c42ac629aaaacff814ba0f587d139).
+
+### 10.2 Conclusions sur les unités et la chaîne de couverture
+
+1. La grammaire a **48 alternatives** de terme, réparties en 9 valeurs et 39 calculs. Le dictionnaire `EXPECTED` de `croise.py` compte 46 entrées, 9 valeurs et 37 calculs. Ses deux écarts sont `fix` et `declassify`, qui ont des équations spécifiques référencées séparément (`eq:regle-fix` et `eq:regle-declassify`) : ils ne doivent être ni supprimés ni renommés pour faire coïncider le comptage.
+2. La matrice de migration qui annonce 49 occurrences et 48 noms distincts compte les occurrences de règles ; `Alw` y apparaît deux fois. Les 45 entrées `DOING` du registre `primitives.md` sont un troisième dénominateur, daté du 8 octobre 2026. Aucun de ces cardinaux n'est en contradiction avant d'avoir distingué leurs unités, mais l'absence de `fix`/`declassify` du contrôle automatisé demeure un défaut de couverture explicite.
+3. La couverture AST/Lean n'est ni nulle ni complète. `spec/Spec/C3/EffectiveKernel.lean` contient de vrais inductifs : `Value` avec `var`, `unit`, `pair`, et `Computation` avec `ret`, `lam`, `app`, `let1`, ainsi que `ValueTyping` et `ComputationTyping`. Le lien de règle existe donc pour **7/48 formes**. Le module est explicitement projeté et conserve `ContextComposition` comme paramètre ; son commentaire dit qu'il ne formalise pas `⊠` complet, la consommation du budget ni `ψ`. Aucun parseur/élaboreur liant les orthographes de surface à ces constructeurs n'a été identifié dans ce lot. `ValueType` ne comprend que `base`, `unit`, `tensor` parmi les types de la grammaire.
+4. C4 comprend 12 patrons purs explicites dans `eq:reductions-pures` et un treizième cas (vecteur non vide) exposé en prose ; `eq:reductions-effets` contient l'opération, l'instance `tick` du schéma d'opération, la progression interne de `scoped` et son retour interprété. Ce comptage de patrons ne peut pas être lu comme 13/48 formes « implémentées » : une introduction peut être la partie gauche d'un redex uniquement avec son éliminateur, et les couches temporelles et système requièrent une relation explicite.
+5. Les tests actuels ne forment pas un corpus de conformité des 48 termes : `tests/SemanticsTest.lean` teste un LTS compteur ; les exemples `.k7` `add.k7` et `select.k7` appartiennent au sous-langage K expérimental (`Int`, `Bool`, `+`, `<`, `select`). `docs/formal-semantics.md` précise qu'il n'existe pas encore de simulation générale reliant toutes les transitions de `SurfaceStep` à KLean. Aucun des 48 IDs n'a de test dédié relié dans le registre.
+
+### 10.3 Contradictions et lacunes prioritaires encore ouvertes
+
+| ID | Constat | Nature | Suite requise, sans modification normative implicite |
+|---|---|---|---|
+| CV-COV-01 | 48 formes de surface, mais seulement 46 clés `EXPECTED`; `fix` et `declassify` sont des règles-éq. hors du motif d'extraction `\\textsc{...}\\frac`. | Lacune du contrôle de couverture. | Étendre l'audit des sources de règles et décider comment tester les deux références spéciales ; ne pas affaiblir le contrôle existant. |
+| CV-COV-02 | Le fragment Lean formalise 7 formes ; la conversion surface→AST et le reste des formes ne sont pas reliés. | Couverture formelle partielle. | Ajouter à la matrice les liens exacts pour chaque forme restante ; distinguer représentation, jugement, exécution et test. |
+| CV-COV-03 | L'ouverture de C4 affirme que préservation/progrès sont « démontrés », alors que les blocs des théorèmes portent `under-review` et `proofsketch`. | Contradiction entre prose et statut de preuve. | Corriger le statut documentaire sous la procédure appropriée ; ne pas déclarer la preuve mécanisée. |
+| CV-COV-04 | `primitives.md` affiche une fiche DONE sur `ν` disant que ses deux règles manquent, alors que C3 contient `eq:regles-nu`, `Out` et `Cop`. | Décalage de registre historique et de source actuelle. | Comparer précisément le périmètre des règles, les hypothèses et les preuves avant de modifier le statut de la fiche. |
+| CV-COV-05 | `WhenBoundary.lean` est un modèle de conservation budgétaire abstrait et non une définition de la règle opérationnelle `When`. | Modèle relié par concept, pas par transition. | Raccorder C-04/D-T2 à une observation de latence typée et à la correction des ressources. |
+| CV-COV-06 | Le type `Vec` est décrit comme dérivé, mais `VecI`/`VecE` possèdent leurs règles et un parcours opérationnel. | Dérivabilité non établie par le seul nom du type. | Comparer les obligations de grade et de contexte du pli indexé à celles d'une construction candidate. |
+| CV-COV-07 | `Slice`/`Cap` ont une grammaire et une règle de typage, mais aucun raccord term-level à une preuve de correction mémoire n'a été établi. | Interface mémoire partiellement formalisée. | Relier règle normative, invariant de capacité, transition mémoire et test de conformité. |
+| CV-COV-08 | Les alias glyphiques sont spécifiés comme macros/AST équivalents, mais les théorèmes généraux d'expansion/hygiène restent en revue. | Frontière de phase et preuve incomplète. | Relier chaque paire à sa déclaration de macro, son AST produit et un test d'équivalence, sans la compter comme primitive nouvelle. |
+
+### 10.4 Conventions de casse et portée du vocabulaire
+
+- La grammaire emploie une majorité de mots de surface minuscules (`return`, `let`, `thunk`, `when`, `declassify`) mais aussi des symboles et des formes mixtes avec paramètres (`λ`, `Λ`, `iter_V`, `operation_ε`, `scoped_f`, `at_n`, `new_E`, `move_{n→m}`). Ce n'est pas une convention de casse unique.
+- Le guide `.claude/skills/writing-rules.md` prescrit CamelCase pour les fichiers/modules Lean, lowerCamelCase pour fonctions/valeurs, UpperCamelCase pour types/structures/classes/namespaces, et snake_case pour les théorèmes. Les noms des règles (`Var`, `OneE`, `Slice`) sont des labels formels ; ils ne doivent pas être assimilés aux mots de surface.
+- `lambda` est répertorié comme lemme dans `primitives.md`, tandis que la production de calcul actuelle écrit `λx.c` : le token observé est symbolique, non le mot ASCII `lambda`. `thunk` est un mot de surface et une règle `Th`; `when` est une forme de calcul dont la catégorie d'exécution reste à fermer malgré la décision architecturale P3-B.
+- Le tableau standard de glyphes de `TableDesGlyphes.lean` comporte 28 couples glyphe/alias ; les glyphes de R-expressions appartiennent à une autre table. Ces alias appartiennent aux macros de bibliothèque et ne doivent pas être ajoutés au décompte des 48 formes du noyau.
+- Aucune propriété de mémorabilité ou d'efficacité cognitive des conventions n'est déclarée mesurée. Ces critères restent des hypothèses à tester, distinctes de la correspondance formelle et de la cohérence avec les grades, les budgets et les garanties temporelles.
+
+### 10.5 Effet de la réponse de l'autrice et ordre des travaux
+
+Le 25 octobre 2026, l'autrice a répondu **A** à Q-METH-002 : arbitrage lexical global après audit ontologique. Cette réponse est enregistrée sous `VOC-2026-10-25-001` dans le registre de décisions. Elle fixe l'ordre de travail, pas un lexique normatif ; aucune forme n'est renommée ni ratifiée.
+
+Ordre suivant : (1) fermer les unités de comptage et les exceptions `fix`/`declassify` dans le contrôle ; (2) terminer la matrice règle→réduction→AST→preuve→test par couche et par forme ; (3) réconcilier les statuts ν/Out/Cop, When, Vec, Slice/Cap et l'état `under-review` des théorèmes ; (4) vérifier exhaustivement les déclarations de macros, alias, consommateurs et occurrences lexicales ; (5) seulement ensuite soumettre la ratification globale des lemmes/tokens. L'exception historique `docs/bibliography/a-sourcer-manques.md` est conservée et n'est pas contournée.
+
+### 10.6 Limites de l'exécution
+
+Le clone Git local et les tests locaux n'ont pas pu être exécutés dans cet environnement, faute de résolution DNS vers `github.com`. L'examen des sources s'est fait via l'API GitHub sur le SHA explicite. La CI citée ci-dessus appartient au commit de base, pas aux modifications de cette branche. Ce rapport reste donc un audit **partiel**, à faire vérifier par les contrôles de la PR et par une exécution de la chaîne Lean ciblée lorsqu'elle sera déclenchée.
