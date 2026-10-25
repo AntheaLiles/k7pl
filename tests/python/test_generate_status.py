@@ -145,8 +145,8 @@ def test_axiom_traceability_lists_expected_dependencies_not_run_status(tmp_path)
     assert "`A.zero`" in rendered
     assert "∅ (aucun axiome attendu)" in rendered
     assert "`propext`" in rendered
-    assert "ne prouve pas que le commit courant a passé l’audit" in rendered
-    assert "rapport des dépendances effectivement observées" in rendered
+    assert "**Axiom audit status:** NOT AVAILABLE" in rendered
+    assert "ne constituent pas une preuve d'exécution" in rendered
 
 
 def test_axiom_traceability_requires_matching_current_commit_and_contract(tmp_path):
@@ -197,7 +197,7 @@ def test_axiom_traceability_requires_matching_current_commit_and_contract(tmp_pa
 
 def test_axiom_traceability_absence_is_explicit(tmp_path):
     rendered = "\n".join(gs.render_axiom_traceability(tmp_path / "missing.json"))
-    assert "Aucun contrat de dépendance aux axiomes n’existe" in rendered
+    assert "Aucun contrat de dépendance aux axiomes n'existe" in rendered
     assert "aucune dépendance par déclaration" in rendered
 
 
