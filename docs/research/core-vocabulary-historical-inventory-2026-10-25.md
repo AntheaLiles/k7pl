@@ -39,7 +39,7 @@ Les fichiers historiques ne sont pas supprimés ou déplacés par ce lot. L'inve
 | H-G03 | [questions.md](questions.md), corpus de questions du 28 août 2026 | Registre des questions de recherche, dont les questions nommage QG-8 à QG-11 et leurs états. | Inventaire historique de recherche ; statut enregistré à l'époque. | Ne pas confondre « question close » avec « candidat de nom validé » ou avec lecture intégrale de toutes les études citées. |
 | H-G04 | [manques.md](manques.md), 28 août 2026 avec suivis ultérieurs | Manques de corpus par arc et par engagement ; références à la littérature empirique du nommage et au corpus APL/BQN/Uiua. | Historique des lacunes et de leur évolution. | Une mention « manque levé » ne remplace pas l'inspection de la source utilisée ; une absence constatée en août n'est pas automatiquement un état bibliographique de 2026-10-25. |
 | H-G05 | [a-sourcer-nommage.md](../bibliography/a-sourcer-nommage.md), 3 septembre 2026 | Onze références supplémentaires issues de la revue d'Oliveira et al.; indication explicite que les questions Arc G ont été closes sans ces lectures et que les références ne débloquent plus l'arc. | Liste de sourçage historique, non bloquante pour Arc G selon sa propre note. | Ne pas présenter les onze lectures comme requise avant de finir le présent QCM. Elles peuvent servir à un protocole empirique distinct. |
-| H-G06 | [a-sourcer-manques.md](../bibliography/a-sourcer-manques.md), 31 août 2026 | Historique de vérification de sources manquantes, notamment documentation BQN et Uiua ; les statuts de vérification sont datés. | Note bibliographique de travail. | Les revendications d'absence ou de statut de publication sont historiques : les revérifier avant toute affirmation actuelle sur ces langages. |
+| H-G06 | Sourçage historique des lacunes de corpus (31 août 2026; document conservé sous son intitulé daté) | État des vérifications bibliographiques à cette date, notamment les références liées à la notation. | Source de travail historique, non bloquante pour le choix lexical actuel. | Ne pas traiter une vérification d’août comme preuve de disponibilité ou d’indisponibilité actuelle ; le point d’entrée courant reste cet inventaire. |
 | H-G07 | [a-charger.md](../bibliography/a-charger.md), 3 septembre 2026 et lots antérieurs | Liste de chargement Zotero incluant un volet historique « T-68 × question 30 » et d'autres fondations. | Liste d'acquisition historisée ; non une décision de vocabulaire. | Ne pas la réactiver comme liste d'achats sans réexaminer ce qui est déjà dans refs et ce qui bloque réellement une décision. |
 | H-G08 | [protocole.md](../method/protocole.md), 28 août 2026 | Ancien protocole de lecture de littérature : source primaire, correspondance passage/énoncé, journal des contradictions, résultats établis versus titres cités. | Méthode historique du dispositif Org-mode ; le travail courant est gouverné par le dashboard et les règles actuelles. | Réutiliser la discipline de provenance et de réfutation ; ne pas réactiver l'ancien outillage ni les anciens chemins. |
 
@@ -145,18 +145,17 @@ Le nettoyage doit maintenant suivre un seul registre d'inventaire et ne pas lanc
 - Marquer les sources d'autorité et les propositions non ratifiées.
 - Éviter les duplications : V-05 est la porte d'entrée pour la proposition T-68 déposée ; le lot L1-PR10 conserve ses liens à toutes les pièces originales.
 
-### Phase 2 — hygiène non destructive des sources historiques (en cours)
+### Phase 2 — retrait des anciens registres des chemins actifs (partiellement réalisé le 25 octobre 2026)
 
-**Première passe réalisée le 25 octobre 2026** : des bandeaux de statut et un renvoi vers le présent inventaire ont été ajoutés aux sept sources anciennes les plus directement susceptibles d'être réutilisées pour le vocabulaire ou le corpus :
+La première passe a ajouté un statut historique aux sept sources. La seconde a retiré six registres de leur emplacement de travail et les a retirés de l’index actif.
 
-- [Méthode Arc G](arc-g-methode.md) et [collecte Arc G](arc-g-collecte.md) : instantanés datés, méthode/collecte non normative et noms non ratifiés.
-- [Ensembles de questions](questions.md) et [manques de corpus](manques.md) : états historiques et balises à revérifier avant de rouvrir une question ou une acquisition.
-- [Liste de chargement](../bibliography/a-charger.md) et [sourçage des manques](../bibliography/a-sourcer-manques.md) : listes d'acquisition datées, pas backlog courant.
-- [Sourçage du nommage](../bibliography/a-sourcer-nommage.md) : piste empirique explicitement non bloquante pour l'Arc G achevé.
+- Les copies historiques de la méthode Arc G, de la collecte et du registre général de questions se trouvent sous [docs/history](../history/README.md).
+- Les versions de référence des autres registres retirés sont accessibles par des permaliens épinglés vers la baseline `main` `c88c968e66e5951bbf300efe3e39a515df8d8aa3`. Leurs anciens emplacements de travail ne contiennent plus que des renvois.
+- Un document de sourçage bibliographique daté conserve encore son contenu à son ancien emplacement, avec son bandeau historique. La tentative de remplacement de ce chemin a été bloquée par un contrôle de sécurité de l’outil ; je n’ai pas contourné ce blocage. C’est le seul retrait d’emplacement restant dans cette passe.
+- `docs/tracking/primitives.md` est exclu de ce lot : `docs/migration/L1-T68-AUDIT.md`, `scripts/controles/croise.py` et les tests CI en dépendent. Le supprimer avant une migration distincte du consommateur et de ses tests casserait un contrôle actif. Il reste une entrée de compatibilité T-68, pas une décision définitive sur la minimalité des primitives.
+- Aucun contenu source n’est supprimé de l’historique Git. Les liens épinglés préservent la provenance sans tenter de reconstruire les sources dont le transfert a été bloqué.
 
-Cette intervention est volontairement additive : elle conserve le texte, mais pose devant le lecteur le statut temporel et le point d'entrée courant. Les documents de `docs/history/` possèdent déjà leur propre index et leur bannière d'archive ; l'inventaire les référence sans copier leurs contenus. Les sources originales de PR #10 restent consultables par les permaliens inscrits dans le registre de reprise, et aucune copie supplémentaire n'est créée.
-
-**Reste à faire**, par lots limités : vérifier les analyses de recherche voisines qui ne sont pas propres au vocabulaire, remplacer les résumés répétés de T-68 par des renvois vers V-05/inventaire là où ils n'apportent rien de distinct, puis ne supprimer une note que si sa provenance et ses objections sont déjà préservées dans une source de remplacement. Ne pas réécrire les analyses historiques ni lancer de nettoyage global.
+La consolidation est unifiée au niveau de l’index et de la provenance, mais la suppression physique d’un ancien fichier de sourçage n’a pas pu être achevée. Ne pas considérer cette phase comme entièrement close tant que ce point n’a pas été réinstruit.
 
 ### Phase 3 — réduction contrôlée de la duplication
 
