@@ -183,3 +183,16 @@ La consolidation est unifiée au niveau de l’index et de la provenance, mais l
 - [Index des archives Org](../archives/README.md)
 - [Index des documents historiques](../history/README.md)
 - [Index de la recherche](../RESEARCH.md)
+
+## 11. Réévaluation documentée de l'exception de sourçage — 25 octobre 2026
+
+L'exception concernant `docs/bibliography/a-sourcer-manques.md` a été réévaluée pour la continuation de l'audit vocabulaire, sans modifier le fichier concerné.
+
+- **Existence et intégrité documentaire :** fichier présent au HEAD de référence, 224 lignes, blob SHA `0cdbe66fd41668bd3a9887a3ee97cab0f2322a79`, avec bandeau historique du 31 août 2026 et renvoi à l'inventaire.
+- **Valeur conservée :** il trace les seize entrées du registre de lacunes historique, leurs sources et les changements de statut connus à cette date ; il ne vaut pas preuve actuelle de disponibilité d'une publication. La valeur est la provenance, non le statut courant de chaque lacune.
+- **Références entrantes :** la recherche exacte GitHub a identifié les mentions de `docs/history/README.md`, `docs/history/2026-09-02-plan.md`, `docs/history/2026-10-07-provenance-migration.md`, `docs/tracking/LANGUAGE-MIGRATION.md` et le présent inventaire. Elles maintiennent la traçabilité historique.
+- **Consommateurs :** les recherches ciblées dans le code, les contrôles et les tests n'ont identifié aucun lecteur d'exécution de ce Markdown. La génération bibliographique courante est documentée à partir de `docs/bibliography/references.json`. Cette absence d'occurrence repérée n'est pas assimilée à une preuve absolue sur toutes les formes indirectes de dépendance.
+- **Sécurité :** le contrôle de sécurité de l'outil avait bloqué le remplacement du chemin. Aucune action n'a été prise pour contourner ce blocage, supprimer le fichier ou le réécrire par une route alternative.
+- **Verdict :** exception réexaminée, originale préservée et backlinks conservés ; retrait physique non réalisé, donc phase 2 partiellement close et consolidation globale non déclarée terminée.
+
+Référence au compte rendu de l'audit courant : [addendum 10.7](core-vocabulary-audit-2026-10-25.md).

@@ -84,3 +84,9 @@ Révision d'observation : `main` à `a3ac6afece9eecd53064afbd295c710fbbe7eb40`, 
 ### Critère de sortie réaffirmé
 
 Le chantier reste **partiel** tant que la chaîne par forme n'est pas reliée aux sources opérationnelles, au fragment Lean effectif, aux hypothèses de preuve et à des tests de conformité. La CI du commit de base est verte, mais son job Lean était ignoré ; ce résultat n'est donc ni une recompilation des preuves après ces modifications ni une preuve de correction scientifique. L'étude de `docs/bibliography/a-sourcer-manques.md` reste une exception historique explicitement conservée, sans contournement de son blocage.
+
+### Réévaluation de l'exception historique
+
+`docs/bibliography/a-sourcer-manques.md` a été relu sur le HEAD de départ de la branche : 224 lignes, bandeau historique explicite, contenu unique de provenance daté du 31 août 2026. La recherche ciblée a retrouvé les backlinks documentaires et aucun consommateur d'exécution identifiable ; cette observation ne prouve pas une absence absolue de dépendance, mais le fichier est exclu du registre courant de vocabulaire et de la génération bibliographique connue. Le contrôle de sécurité ayant bloqué son retrait reste respecté.
+
+**État :** exception réexaminée ; fichier préservé ; retraite physique toujours bloquée/non effectuée. La phase 2 de consolidation reste ouverte sur ce point. Ce statut est différent de « exception ignorée » et de « consolidation terminée ».
