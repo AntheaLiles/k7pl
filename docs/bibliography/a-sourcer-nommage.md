@@ -3,6 +3,8 @@
 Établi le 3 septembre 2026, cadrage revu le soir même.
 Ces onze références sont celles que la revue systématique `oliveiraEvaluatingCodeReadability2020` cite comme la littérature du nommage.
 
+> **Statut historique — piste non bloquante pour Arc G.** Ce fichier conserve une liste de sourçage datée du 3 septembre 2026. Il indique lui-même que les questions de méthode d'Arc G ont été closes sans ces lectures supplémentaires et que celles-ci ne bloquent plus ce chantier. Ne pas traiter cette liste comme une dette bibliographique courante ; voir l'[inventaire consolidé des sources historiques](../research/core-vocabulary-historical-inventory-2026-10-25.md). Ces études peuvent servir à une étude empirique distincte si une question mesurable est préenregistrée.
+
 **Aucune n'est au fonds, et c'est vérifié** — les dix DOI ont été cherchés dans `refs-pour-citations.bib`
 le 3 septembre au soir, aucun n'y figure ; la onzième, sans DOI, n'y est pas non plus par son titre.
 

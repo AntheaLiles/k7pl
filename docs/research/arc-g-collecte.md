@@ -2,6 +2,8 @@
 
 *Conduite le 2 septembre 2026, par CATÉGORIE et non par langage*
 
+> **Statut historique — collecte non normative.** Ce document relève les terminologies rencontrées au 2 septembre 2026 ; ses tableaux ne prescrivent pas les noms du noyau et ses statuts de corpus sont datés. Toute réutilisation doit distinguer analogie et identité sémantique, puis consulter `spec/`, les décisions actuelles et l'[inventaire consolidé des sources historiques](core-vocabulary-historical-inventory-2026-10-25.md). Les mots qu'il rapporte ne constituent pas des ratifications lexicales.
+
 ## CE QUE CETTE COLLECTE EST, ET CE QU'ELLE N'EST PAS
 
 > ***ELLE RELÈVE CE QUE LES AUTRES ONT NOMMÉ. Elle ne dit pas ce que K7PL doit nommer, et surtout pas qu'il doit nommer COMME EUX.***

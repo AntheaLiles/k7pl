@@ -3,6 +3,8 @@
 > **Dix-sept des vingt DOI de cette liste sont désormais au fonds.** Ce qui suit est le solde,
 > revérifié le 3 septembre au soir contre `refs-pour-citations.bib`. Le reste du fichier est
 > conservé pour sa trace : chaque entrée y porte le motif de sa demande.
+>
+> **Statut historique — liste d'acquisition non prescriptive.** Ne pas réactiver cette liste comme backlog bibliographique courant sans vérifier les entrées présentes dans la bibliographie maintenue et la question scientifique qui dépendrait réellement de la source. Pour les références de nommage et T-68, voir l'[inventaire consolidé des sources historiques](../research/core-vocabulary-historical-inventory-2026-10-25.md). Les statuts de septembre 2026 ne déterminent pas le travail restant aujourd'hui.
 
 ## Le solde — trois DOI
 

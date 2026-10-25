@@ -2,6 +2,8 @@
 
 *Phase d'ouverture, cinq temps. Écrite le 31 août 2026, AVANT toute lecture de l'arc.*
 
+> **Statut historique — non normatif.** Cette méthode décrit la construction d'Arc G à la date indiquée ; ses nombres, son inventaire des espaces de noms et ses classements ne décrivent pas nécessairement l'état actuel du langage. Avant toute réutilisation, confronter chaque constat à `spec/`, à `docs/tracking/DECISIONS.md` et à l'[inventaire consolidé des sources historiques](core-vocabulary-historical-inventory-2026-10-25.md). Une proposition issue de ce texte ne constitue pas une décision ratifiée.
+
 ## CE QUI GOUVERNE CETTE MÉTHODE
 
 > ***L'ARC G EXIGE UNE MÉTHODE, ET CETTE MÉTHODE EST ELLE-MÊME UN LIVRABLE.*** — *Anthea, 28 août*

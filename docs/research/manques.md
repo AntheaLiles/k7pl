@@ -2,6 +2,8 @@
 
 28 août 2026
 
+> **Statut de provenance.** Inventaire des lacunes de corpus établi le 28 août 2026 et ensuite amendé ; les mentions « manque », « clos » ou « versé au fonds » restent liées à leur date et à l'objet précis qu'elles visaient. Avant de rouvrir une acquisition, vérifier les sources effectivement disponibles et les registres actuels. Les éléments qui concernent Arc G/T-68 sont indexés dans l'[inventaire consolidé des sources historiques](core-vocabulary-historical-inventory-2026-10-25.md) ; une lacune bibliographique n'établit pas, à elle seule, une lacune de preuve.
+
 ## MANQUES DE CORPUS
 
 ### \[DONE\] \[#A\] La cohérence au sens de Kelly et Mac Lane
