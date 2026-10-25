@@ -171,3 +171,28 @@ jobs:
       # dependency is bumped or the finding is assessed. The SARIF upload still runs.
       fail-on-vuln: true
       upload-sarif: true
+
+  # Guard against a silent OSV skip (open diagnostic, 2026-10-25: OSV was observed
+  # systematically skipped with no if-condition in this file to explain it, and the
+  # underlying cause — parent job, inner reusable-workflow job, or SARIF upload —
+  # is still undiagnosed from a real run). A skipped scan must not read as a clean
+  # scan: this job runs always and fails unless the scan actually succeeded. It
+  # makes a skip visible; it does not explain it, and it does not replace the
+  # run-level diagnosis.
+  osv-guard:
+    name: OSV scan actually ran
+    needs: lake-osv-scan
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Fail unless the OSV scan succeeded
+        run: |
+          result='${{ needs.lake-osv-scan.result }}'
+          if [ "$result" != "success" ]; then
+            echo "::error::OSV scan did not succeed (result: $result); a skipped scan is not a clean scan."
+            exit 1
+          fi
+          echo "OSV scan succeeded."

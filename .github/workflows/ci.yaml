@@ -29,7 +29,7 @@ concurrency:
 
 jobs:
   impact:
-    name: Analyse d'impact
+    name: Impact analysis
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -156,7 +156,7 @@ jobs:
           fail: true
 
   verify:
-    name: Vérification
+    name: Verification
     needs: impact
     uses: ./.github/workflows/verify.yaml
     with:
@@ -372,7 +372,7 @@ jobs:
 
 
   deploy-pages:
-    name: Publication GitHub Pages
+    name: Publish GitHub Pages
     if: ${{ always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.impact.outputs.spec_build == 'true' && needs.ci-ok.result == 'success' }}
     needs: [impact, verify, ci-ok]
     runs-on: ubuntu-latest

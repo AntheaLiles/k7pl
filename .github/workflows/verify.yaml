@@ -158,8 +158,9 @@ jobs:
       # axiom-audit imports the module named by its root and audits that module and its
       # submodules. There is no `Compliance` module, so `--root Compliance` cannot be used: every
       # Compliance.* root of tools/ in lakefile.lean is audited, the roots of K7plCompliance
-      # (Compliance.SbomAudit, Compliance.RequirementEvidence) and of the sbomAudit CLI
-      # (Compliance.SbomAuditMain). A new root is audited without editing this workflow.
+      # (Compliance.SbomAudit; RequirementEvidence was deleted in the CI tranche 2, its
+      # traceability model transcribed into the proof-evidence schema) and of the sbomAudit
+      # CLI (Compliance.SbomAuditMain). A new root is audited without editing this workflow.
       - name: Audit the axioms (compliance tooling)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
         run: bash scripts/ci/verify_audit_axioms.sh tools Compliance
