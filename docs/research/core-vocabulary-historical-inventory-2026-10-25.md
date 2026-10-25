@@ -23,9 +23,9 @@ Les fichiers historiques ne sont pas supprimés ou déplacés par ce lot. L'inve
 | C-05 | [Sémantique opérationnelle](../../spec/Spec/C4/SemantiqueOperationnelle.lean) | Réductions et configuration spécifiées. | Les obligations non déchargées et les décisions temporelles ouvertes restent ouvertes. |
 | C-06 | [Table des glyphes](../../spec/Spec/C1/TableDesGlyphes.lean) et [chapitre C5](../../spec/Spec/C5.lean) | Frontière courante entre noyau, macros, alias et formes de surface. | Les glyphes/alias de la bibliothèque ne sont pas à ajouter comme primitives autonomes. |
 | C-07 | [Registre des primitives](../tracking/primitives.md) | État courant des entrées et des propositions. | Les entrées DOING ne sont pas le cardinal des primitives normatives. |
-| C-08 | [Audit T-68](L1-T68-AUDIT.md) | Audit de minimalité, critère par obligations, anomalies à instruire. | État OPEN/IN PROGRESS ; il interdit de présenter un cardinal final comme établi. |
+| C-08 | [Audit T-68](../migration/L1-T68-AUDIT.md) | Audit de minimalité, critère par obligations, anomalies à instruire. | État OPEN/IN PROGRESS ; il interdit de présenter un cardinal final comme établi. |
 | C-09 | [Décisions actuelles](../tracking/DECISIONS.md) | État des choix déjà ratifiés et des arbitrages ouverts. | Une décision d'autrice peut fixer une option sans prouver ses conséquences mathématiques. |
-| C-10 | [Plan directeur](../tracking/PROJECT-MASTER-PLAN.md), [statut des branches](../tracking/BRANCHES-STATUS.md), [décisions L1](L1-DECISIONS.md) | Dépendances, statut des propositions historiques et gouvernance. | Ce sont des registres datés ; vérifier les objets normatifs auxquels ils renvoient. |
+| C-10 | [Plan directeur](../tracking/PROJECT-MASTER-PLAN.md), [statut des branches](../tracking/BRANCHES-STATUS.md), [décisions L1](../migration/L1-DECISIONS.md) | Dépendances, statut des propositions historiques et gouvernance. | Ce sont des registres datés ; vérifier les objets normatifs auxquels ils renvoient. |
 | C-11 | [Factorisations refusées](../tracking/factorisations-refusees.md) | Sept tests négatifs contre les fusions abusives. | Ne pas les résumer à une liste de noms : conserver les obligations qui motivent chaque refus. |
 | C-12 | [Contrôle croisé actuel](../../scripts/controles/croise.py) | Contrôle structurel grammaire/règles/registre. | Le contrôle a une table explicite de correspondance ; les formes fix et declassify présentes dans la grammaire ne sont pas dans EXPECTED. C'est une lacune de couverture à instruire, pas une raison de supprimer ces formes. |
 | C-13 | [Contrôle lexical actuel](../../scripts/controles/vocabulaire.py) | Politique lexicale ciblée sur une famille française interdite dans spec. | Ce script n'est pas le renommage automatique T-68 de l'archive PR #10 ; les deux ne doivent pas être confondus. |
@@ -69,7 +69,7 @@ Les fichiers historiques ne sont pas supprimés ou déplacés par ce lot. L'inve
 
 ### 5.2 Pièces déposées en main depuis le commit d'archive
 
-Le registre de migration maître est [L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md](L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md). Sa table (§ 4) est le relevé de provenance de référence pour les pièces V-02/V-03/V-05/V-06/V-07.
+Le registre de migration maître est [L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md](../migration/L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md). Sa table (§ 4) est le relevé de provenance de référence pour les pièces V-02/V-03/V-05/V-06/V-07.
 
 | ID | Fichier courant | Objet lexical ou ontologique pertinent | Traitement recommandé dans ce chantier |
 |---|---|---|---|
@@ -81,7 +81,7 @@ Le registre de migration maître est [L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md](L1
 
 ### 5.3 Sources originales de la proposition T-68 (sur le commit d'archive)
 
-La provenance précise est dans [L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md](L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md), § 3.2–3.4 et § 4, avec les liens immuables vers d39d012. Les sources d'origine sont :
+La provenance précise est dans [L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md](../migration/L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md), § 3.2–3.4 et § 4, avec les liens immuables vers d39d012. Les sources d'origine sont :
 
 | Source originale | Permalien à l'archive | Contenu et statut |
 |---|---|---|
@@ -94,7 +94,7 @@ La provenance précise est dans [L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md](L1-PR10
 
 ### 5.4 Analyses voisines conservées dans l'archive
 
-Le lot PR #10 recovery liste 13 comptes rendus de session 21–33 et 16 notes d'analyse de décisions qui n'ont pas été déposés en entier. Certaines conclusions ont été reprises comme obligations sous C-01 à C-09 dans [L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md) ; elles ne sont pas des décisions normatives. Pour les détails, les lignes sources de d39d012 figurent dans le lot de reprise, §§ 3.1–3.3.
+Le lot PR #10 recovery liste 13 comptes rendus de session 21–33 et 16 notes d'analyse de décisions qui n'ont pas été déposés en entier. Certaines conclusions ont été reprises comme obligations sous C-01 à C-09 dans [L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md](../migration/L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md) ; elles ne sont pas des décisions normatives. Pour les détails, les lignes sources de d39d012 figurent dans le lot de reprise, §§ 3.1–3.3.
 
 Les rapports de session de l'archive ne doivent pas être copiés en vrac dans docs/history : la séquence 21–33 y ferait collision avec la série courante PR-02 21–62. Le lot de reprise conserve les liens d'origine et les verdicts de dépôt, ce qui suffit comme index sans introduire une seconde série de rapports quasi identiques.
 
@@ -167,11 +167,11 @@ Pour chaque document historique existant, lui ajouter — ou vérifier — un ba
 ## 10. Références d'accès rapides
 
 - [Spécification courante — C3, grammaire et typage](../../spec/Spec/C3/GrammaireDesTermes.lean)
-- [Audit de minimalité T-68](L1-T68-AUDIT.md)
+- [Audit de minimalité T-68](../migration/L1-T68-AUDIT.md)
 - [Registre courant des décisions](../tracking/DECISIONS.md)
 - [Registre courant des primitives](../tracking/primitives.md)
-- [Fichier de reprise PR #10](L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md)
-- [Instruction scientifique des constats d'archive](L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md)
+- [Fichier de reprise PR #10](../migration/L1-PR10-ARCHIVE-RECOVERY-2026-10-14.md)
+- [Instruction scientifique des constats d'archive](../migration/L1-C-ARCHIVE-FINDINGS-INSTRUCTION-2026-10-14.md)
 - [Index des archives Org](../archives/README.md)
 - [Index des documents historiques](../history/README.md)
 - [Index de la recherche](../RESEARCH.md)

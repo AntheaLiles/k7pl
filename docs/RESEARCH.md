@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 K7PL is a research project on the design and formal treatment of a programming language whose specification, formalisation, implementation, proofs, and executable tests remain traceable but distinct.
 
 **Document version:** 1.0.0  
-**Last updated:** 2026-10-19  
+**Last updated:** 2026-10-25  
 **Audience:** researchers, reviewers, contributors.
 
 ## Research problem
@@ -66,6 +66,12 @@ The files below are indexed so that each is reachable from a current page. Many 
 - [REQUIREMENT-EVIDENCE-MODEL.md](research/REQUIREMENT-EVIDENCE-MODEL.md) — non-normative research demonstrator for requirement-to-evidence traceability (`tools/Compliance/RequirementEvidence.lean`), a second work item of issue #122; in English.
 - [SPDX-NEGATIVE-CORPUS-REVIEW.md](research/SPDX-NEGATIVE-CORPUS-REVIEW.md) — review of the non-blocking SPDX 2.3 negative corpus (issue #122): case-by-case observations from workflow run #39025036478 and the human decisions required before the corpus could become blocking.
 - [ancienne-annexe-e-preambule.md](research/ancienne-annexe-e-preambule.md) — preamble of the former Annex E (formal presentation), kept verbatim after the annex was merged into chapters 1, 3 and 4 on 1 October 2026.
+- [core-vocabulary-audit-2026-10-25.md](research/core-vocabulary-audit-2026-10-25.md) — current-SHA audit and initial findings for the non-normative core-vocabulary workstream.
+- [core-vocabulary-historical-inventory-2026-10-25.md](research/core-vocabulary-historical-inventory-2026-10-25.md) — consolidated provenance inventory for Arc G, T-68, PR #10 and the archived Org toolchain; authority and cleanup status for each source family.
+- [core-vocabulary-ontology-2026-10-25.md](research/core-vocabulary-ontology-2026-10-25.md) — non-normative ontology and lexical register, distinguishing current term forms from open minimality claims.
+- [core-vocabulary-qcm-2026-10-25.md](research/core-vocabulary-qcm-2026-10-25.md) — individual lexical QCMs, token-vs-lemma questions and explicitly blocked decisions.
+- [core-vocabulary-decisions-2026-10-25.md](research/core-vocabulary-decisions-2026-10-25.md) — append-only decision register template; author choice, scientific justification, ratification, integration and verification remain distinct.
+- [core-vocabulary-closure-plan-2026-10-25.md](research/core-vocabulary-closure-plan-2026-10-25.md) — dependency-ordered closure plan and exit criteria for the vocabulary workstream.
 - [arc-g-methode.md](research/arc-g-methode.md) — arc G naming method (31 August 2026): a five-step method written before any reading for the arc.
 - [arc-g-collecte.md](research/arc-g-collecte.md) — arc G, step 3 (2 September 2026): collection of the names used elsewhere, by category; it records, it does not choose.
 - [commentaires-du-manuscrit.md](research/commentaires-du-manuscrit.md) — author comments removed from the manuscript text on 1 October 2026 (`ANOM-05`), reproduced with their location.

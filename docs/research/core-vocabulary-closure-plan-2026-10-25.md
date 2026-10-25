@@ -2,7 +2,7 @@
 
 # K7PL — plan de clôture du chantier vocabulaire du noyau
 
-> Plan non normatif. Baseline : main @ c88c968e66e5951bbf300efe3e39a515df8d8aa3. Aucun point ne vaut autorisation de modifier la théorie ou de fusionner une PR.
+> Plan non normatif. Baseline : main @ c88c968e66e5951bbf300efe3e39a515df8d8aa3. Aucun point ne vaut autorisation de modifier la théorie ou de fusionner une PR. L'[inventaire consolidé des sources historiques](core-vocabulary-historical-inventory-2026-10-25.md) devient le point d'entrée unique pour préserver la provenance et organiser le nettoyage documentaire futur.
 
 ## 1. Principe de progression
 
