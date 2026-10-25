@@ -272,7 +272,6 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
         paths = sorted(EXPECTED_LEAN_BUILD_READ_EXACT) + [
             "tools/Compliance/SbomAudit.lean",
             "tools/Compliance/SbomAuditMain.lean",
-            "tools/Compliance/RequirementEvidence.lean",
         ]
         for path in paths:
             with self.subTest(path=path):

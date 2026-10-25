@@ -673,7 +673,6 @@ class LeanCoverageTests(unittest.TestCase):
         expected = {
             "tools/SpecExt/IndexTerms.lean",
             "tools/Compliance/SbomAuditMain.lean",
-            "tools/Compliance/RequirementEvidence.lean",
             "tests/MainTest.lean",
         }
         self.assertEqual(expected - impl, set())
