@@ -34,6 +34,13 @@ refuse autrement.] Ce n'est donc pas une restriction sur ce qu'un acteur peut fa
 l'endroit où le non-déterminisme entre : au bord, sous forme de valeur journalisable, et non au
 cœur.
 
+Le résultat d'un tel gestionnaire n'est pas un effet exécuté mais une _description_ d'effets, une
+liste d'instructions que l'exécutif réalise ; c'est cette exécution, non la transition, qui est
+journalisée. Cette sémantique d'instructions est celle du point fixe initial du chapitre 2 lu comme
+syntaxe libre des effets, et elle rassemble sous un seul objet le résultat de gestionnaire, la trace,
+la ré-invocation séquentielle d'un grade fini et l'itération de l'opération à portée. À distinguer du
+_gestionnaire d'effet_ du chapitre 2, qui interprète des opérations pour éliminer un effet.
+
 Deux énoncés en dépendent, et c'est pourquoi la définition est écrite plutôt que supposée. Le
 déterminisme du rejeu (chapitre 4) tient de ce que la transition est une fonction, et le cas d'usage
 réactif (chapitre 7) de ce que le journal des capacités suffit à la reconstituer.
@@ -113,7 +120,7 @@ rester rejouable.
 
 Cette ouverture appelle une réserve, et elle porte sur une notion que ce document emploie sans
 l'avoir définie : la _frontière de confiance_. Trois situations la franchissent, et le langage les
-traite différemment sans que rien ne justifie cet écart. La Phase~0 exécute des macros avant toute
+traite différemment sans que rien ne justifie cet écart. La Phase~1 exécute des macros avant toute
 vérification, de sorte que du code d'origine arbitraire s'exécute dans le compilateur. L'effet
 `Import` admet une source distante, jusqu'à un modèle de langage. Et une capacité exportée par la
 passerelle FFI (chapitre~4, §{num "sec:c4-echelle-du-systeme"}[]) échappe au système de types dès

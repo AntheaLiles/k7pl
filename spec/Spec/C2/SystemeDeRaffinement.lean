@@ -185,7 +185,7 @@ demeure enfin du côté de ce que le terme _exige_, sans migrer dans la forme de
 que la partition du jugement germinal réclame.
 
 Une généralisation s'impose, que la lecture qui précède rend naturelle et que le chapitre 1
-réclamait sans savoir la formuler. L'effacement de la Phase 8 est binaire : ce qui appartient à la
+réclamait sans savoir la formuler. L'effacement de la Phase 10 est binaire : ce qui appartient à la
 compilation disparaît, ce qui appartient à l'exécution demeure. C'est un treillis à deux points, et
 rien n'oblige à s'y tenir. Si l'on se donne un treillis de niveaux $`(\mathcal{L}, \leq)` — celui-là
 même sur lequel le §{num "sec:c2-adjonctions-et-enrichissement"}[] fait porter la modalité de
@@ -197,7 +197,7 @@ l'instance à deux points, la compilation étant le niveau haut et l'exécution 
 Ce déplacement a une conséquence qui vaut d'être dite, car elle change ce qu'un énoncé de sécurité
 doit prouver. La non-interférence cesse d'être une propriété unique pour devenir une famille : pour
 chaque $`\ell`, deux dérivations de même image sous $`\llbracket \cdot \rrbracket_\ell` sont
-indiscernables par un observateur de niveau $`\ell`. L'effacement de la Phase 8 en est le cas où
+indiscernables par un observateur de niveau $`\ell`. L'effacement de la Phase 10 en est le cas où
 $`\mathcal{L}` n'a que deux points, et la confidentialité le cas où il en a davantage — un seul
 mécanisme, deux emplois. Ce document ne conduit pas la preuve de cette famille d'énoncés ; il en
 fixe la forme, qui est la moitié du travail et celle qui décide de l'autre.

@@ -345,7 +345,7 @@ changement de disposition, ce qu'aucun énoncé de représentation n'admet.
   Le multiplicateur demande d'être nommé pour ce qu'il est, car deux grandeurs se confondaient ici
   et ne sont pas la même. Le _grade d'usage_ $`u` d'une liaison dit combien de fois une ressource
   est employée ; la _multiplicité d'exécution_ $`n` d'un calcul dit combien de fois ce calcul est
-  lancé. La seconde entraîne la première — un bloc exécuté $`n` fois emploie $`n` fois chacune de
+  lancé. La signature de $`\varphi` en découle : le grade $`r` ne détermine pas la multiplicité d'exécution, qui est fournie par le combinateur de contrôle de la règle en jeu — séquencement, parcours de vecteur, opération à portée —, de sorte que $`\varphi` est une fonction _indexée_ par ce combinateur, $`\varphi_n : \mathcal{E} \to \mathcal{E}`, et non une fonction de $`\mathcal{R} \times \mathcal{E}` seule. La seconde entraîne la première — un bloc exécuté $`n` fois emploie $`n` fois chacune de
   ses ressources — mais la réciproque est fausse, et c'est la seconde qui gouverne l'itération de
   l'effet. La distinction paraît fine et elle décide de ce qu'un gestionnaire peut faire
   (§{num "sec:g-regles"}[]) : ce qui borne une réexécution n'est pas la
@@ -423,7 +423,7 @@ rend le canal temporel énonçable, et c'est là que la preuve de non-interfére
 
 De cette quantale découle une opération d'_itération_ induite, qui donne son annotation d'effet à un
 flux coinductif de couche 2 (chapitre 4, §{num "sec:c4-echelle-locale"}[]) et son critère à la Phase
-3 du compilateur (chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) : sans elle, une boucle
+5 du compilateur (chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) : sans elle, une boucle
 n'aurait tout simplement pas d'effet calculable. Leur intégration au système de types et leur
 composition sans pile de monades sont traitées au chapitre 3
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) ; leur résorption statique par _inlining_, au
@@ -663,7 +663,7 @@ celle de l'exécution, où ne subsiste que ce qui produit une valeur observable.
 De cette distinction découle la propriété dont dépend toute la fin du pipeline, la
 _non-interférence_ : le comportement entrée-sortie d'un programme ne peut dépendre de ce qui
 appartient à la phase de compilation {cite "niuCostawareLogicalFramework2022"}[]. C'est elle, et non
-une simple convention d'ingénierie, qui autorise la Phase 8 du chapitre 6 à purger les blocs de
+une simple convention d'ingénierie, qui autorise la Phase 10 du chapitre 6 à purger les blocs de
 spécification sans changer le programme. C'est elle aussi qui impose la règle générale du
 §{num "sec:c3-les-contraintes-de-valeur"}[] — aucun éliminateur ne discrimine sur un argument
 appartenant à la phase de compilation. Les cinq mécanismes d'effacement que les chapitres suivants
@@ -754,7 +754,13 @@ c'est-à-dire une transition de réseau de Petri dont plusieurs places d'entrée
 seul tenant. Le séquencement des actions est le produit non commutatif de la quantale d'effets, et
 son itération l'opération induite. La couche 2 n'est donc pas définie par soustraction — ni pure, ni
 linéaire stricte — mais par cette liste positive : c'est un calcul de processus dont ce document
-construit chaque constituant avant de les nommer ensemble. Le chapitre 4
+construit chaque constituant avant de les nommer ensemble. La frontière est déclarée ici, faute de quoi « couche 2 » désignerait deux objets : (a) le
+fragment affine du $`\lambda`-calcul gradué, dont les règles sont écrites au
+§{num "sec:g-regles"}[], et (b) le calcul de processus — acteurs, canaux, boîtes aux lettres, jonctions,
+arènes, supervision — que les chapitres 4 et 7 décrivent et que la traduction construit dans la cible.
+Le noyau formel contient (a) et les règles de la couche 2 concurrente écrites au
+§{num "sec:g-couche2"}[] ; (b) est l'image de (a) sous la traduction, non une identification du langage
+source à un langage concurrent. Le chapitre 4
 (§{num "sec:c4-le-calcul-de-processus"}[]) construit ce métalangage, donne la traduction et en tire
 trois conséquences — le foncteur d'effacement, celui de l'échelle du système, et la voie vers la
 fidélité de l'interpréteur de référence (chapitre 6,
@@ -853,7 +859,7 @@ l'intérieur d'un langage impur, en la capturant par une comonade. Cela donne un
 en sens inverse et préservant les égalités du calcul {cite "choudhuryRecoveringPurityComonads2020"}[].
 Ce document ne la retient pas, et le motif n'est pas pédagogique. Recouvrer la pureté la rend
 _relative_ : elle devient ce qu'une modalité isole d'un ambiant impur, et l'ambiant reste la
-référence. K7PL exige qu'elle soit _absolue_ — la couche 2 est pure par construction, non par
+référence. K7PL exige qu'elle soit _absolue_ — la couche 3 est pure par construction, non par
 soustraction —, et ce qui rend cette exigence tenable est le traitement _algébrique_ des effets. Un
 effet y est une opération _ajoutée_ à un calcul pur, avec sa théorie équationnelle ; il n'est pas
 une propriété ambiante dont il faudrait se déprendre. La pureté n'a donc rien à recouvrer,
@@ -898,7 +904,12 @@ Sédimentation triadique : fragments logiques, couches et garanties
 
 La table {num "tab:sedimentation"}[] n'anticipe qu'un résultat ; chacune de ses colonnes sera
 reconstruite en son lieu propre — le mécanisme catégorique au chapitre 2, la garantie formelle au
-chapitre 3 pour ce qui concerne les valeurs, au chapitre 4 pour ce qui concerne l'exécution.
+chapitre 3 pour ce qui concerne les valeurs, au chapitre 4 pour ce qui concerne l'exécution. Elle donne
+la lecture par _singletons_ de l'usage : ses trois lignes sont les fragments
+$`\pi_{\mathbb{U}}^{-1}(\{\omega\})`, $`\pi_{\mathbb{U}}^{-1}(\{0,1\})` et $`\pi_{\mathbb{U}}^{-1}(\{1\})`, images
+réciproques de singletons de $`\mathbb{U}` par la projection de la décomposition ci-dessus ; les modalités de type du
+chapitre 3 sont, elles, des intervalles, que la table ne liste pas et dont ces trois fragments sont des cas
+particuliers.
 
 Deux lectures s'y ajoutent, qui ne se voient pas au premier passage et dont le reste du document se
 sert. La première est que la sédimentation ne fait pas qu'_ordonner_ des garanties : elle

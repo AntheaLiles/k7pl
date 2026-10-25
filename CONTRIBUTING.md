@@ -108,16 +108,16 @@ self-review and CI do not replace an independent examination by another person.
 
 The project does not claim to meet the OpenSSF criterion that requires a review by a person other
 than the author. The governance requirements and responsibilities are described in
-[`docs/security/GOVERNANCE.md`](docs/security/GOVERNANCE.md); the state of the audit is tracked in
-[`docs/security/OPENSSF-AUDIT.md`](docs/security/OPENSSF-AUDIT.md).
+[`wiki/security.md`](wiki/security.md); the state of the audit is tracked in
+[`wiki/security.md`](wiki/security.md).
 
 ## Correcting the specification
 
 The manuscript is written in Verso (`spec/Spec/`, one module per chapter and per level-2
 section); the writing rules and the available extensions (`{num}`, `{cite}`, `thm`,
 `formula`, `figure`…) are in the [writing rules](.claude/skills/writing-rules.md), §6 and §8.
-Before writing, read the [dashboard](docs/tracking/DASHBOARD.md); after a
-notable change, update `docs/tracking/fiches-statuts.csv` then run `python3 scripts/suivi.py all`.
+Before writing, read the [roadmap](wiki/roadmap.md); after a
+notable change, update the roadmap section that owns the work (the tracking generator `scripts/suivi.py` is frozen since 2026-10-25 and no longer regenerates card views).
 A corrected statement changes its seal (`status`, `level` of the `thm` directive); it is not
 rewritten as though nothing had changed.
 
@@ -136,7 +136,7 @@ abandoned, etc.), then deleted progressively.
 
 The CI does not check the language. French text outside `spec/` that predates this rule is
 listed, with the detection method used, in the translation backlog
-[`docs/tracking/LANGUAGE-MIGRATION.md`](docs/tracking/LANGUAGE-MIGRATION.md).
+[`wiki/roadmap.md`, "Finish the language migration"](wiki/roadmap.md).
 
 ## Proofs and axioms
 
@@ -168,14 +168,14 @@ The specification and the implementation have **independent** versions:
 | Implementation | `vX.Y.Z`      | `lakefile.lean` (`version`)     | `CHANGELOG.md`       | checks before publication; neither artefact nor Zenodo |
 
 The releases of this repository are designed to be **immutable** (the existing release is; the
-repository setting remains to be confirmed, see [`docs/security/ACTIONS-HUMAINES.md`](docs/security/ACTIONS-HUMAINES.md), § 1.6): once
+repository setting remains to be confirmed, see [`wiki/security.md`](wiki/security.md), § 1.6): once
 published, an immutable release can no longer receive, replace or lose an asset, and its tag can no longer move. CI therefore prepares everything *before*
 publication, and **never publishes**: publication is a human, irreversible act. An error
 after publication requires a new version, and the name of a published tag cannot be reused.
 
 > **Status.** This flow is written and checked by static tools and by tests of its scripts, but
 > it **has never been run end to end**. Before the first specification release, follow the
-> list in [`docs/security/ACTIONS-HUMAINES.md`](docs/security/ACTIONS-HUMAINES.md) (§ 5): protected
+> list in [`wiki/security.md`](wiki/security.md) (§ 5): protected
 > environments, tag rule, decision on the DOI, rehearsal on the Zenodo sandbox.
 
 ### Specification (`spec-vX.Y.Z`)

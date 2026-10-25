@@ -162,7 +162,7 @@ tout canal frais $`z`,
 $$`\llbracket t \rrbracket_z \;\vdash\; \llbracket \Delta \rrbracket_{\mathcal{G}},\; z : \llbracket A \rrbracket`
 soit un séquent dérivable du métalangage, où $`\llbracket \Delta \rrbracket_{\mathcal{G}}` envoie
 chaque liaison de grade $`\omega` sur un service répliqué, chaque liaison de grade $`n` fini sur un
-canal linéaire _ré-invoqué $`n` fois en séquence_, et toute autre sur un canal linéaire simple.
+canal linéaire _ré-invoqué $`n` fois en séquence_ (ce que le modèle mémoire, non la catégorie ambiante, justifie), et toute autre sur un canal linéaire simple.
 :::
 
 :::proofsketch
@@ -336,6 +336,54 @@ conditions de fraîcheur de la commutation avec la substitution (point 6) resten
 L'énoncé reste ouvert tant que l'analyse par cas et l'argument d'ordre ne sont pas conduits.
 :::
 ::::
+
+Les clauses qui manquaient s'écrivent, en enfilant le canal de temps. La traduction d'un calcul prend un
+canal de résultat $`z` et un couple de canaux de temps, $`t` reçu et $`t'` rendu, linéaires :
+
+::::formula (label := "eq:traduction-temps") (kind := "formule")
+```
+\begin{align*}
+\llbracket \mathbf{tick} \rrbracket_{z,t,t'} &= \overline{t}\langle \ell,\, t' \rangle \mid \overline{z}\langle () \rangle\\
+\llbracket \mathsf{operation}_\varepsilon(v) \rrbracket_{z,t,t'} &= \overline{t}\langle \varepsilon,\, t' \rangle \mid \llbracket \mathsf{operation} \rrbracket(\llbracket v \rrbracket, z)\\
+\llbracket \mathsf{let}\;x \leftarrow c_1\;\mathsf{in}\;c_2 \rrbracket_{z,t,t'} &= (\nu x, t'')\bigl(\llbracket c_1 \rrbracket_{x,t,t''} \mid x(x').\llbracket c_2 \rrbracket_{z,t'',t'}\bigr)
+\end{align*}
+```
+:::caption
+Clauses de traduction avec le canal de temps enfilé : chaque événement consomme le canal reçu et
+rend le suivant
+:::
+::::
+
+Le canal étant linéaire, $`t''` n'existe qu'une fois que $`c_1` a émis son dernier événement ; le
+`let` ordonne donc les traces de $`c_1` et de $`c_2` sans que la composition parallèle, commutative, y
+intervienne. Pour $`\mathbf{tick}`, un pas du métalangage — la réception de l'émission sur $`t` — étend
+la trace de $`\langle \mathbf{1}, \delta_\ell \rangle` et rend $`t'`, ce qui est le cas $`\mathbf{tick}` de
+la simulation. Ces clauses sont celles du cas mononiveau : la version par niveau, et ce qu'elle exige du
+système de sortes — un genre de plus pour les maillons —, est au §{num "sec:g-sortes-fil"}[]
+(formule {num "eq:traduction-fils"}[], proposition {num "thm:chaine_fils"}[]).
+
+Un calcul qui n'émet rien doit rendre le canal de temps tel qu'il l'a reçu, et les trois clauses
+ci-dessus ne le disent pas : sans clause pour $`\mathsf{return}\;v`, un `let` dont la première branche est pure
+laisserait $`t''` sans lien avec le journal. Cette clause est
+$`\llbracket \mathsf{return}\;v \rrbracket_{z,t,t'} = \overline{z}\langle \llbracket v \rrbracket \rangle \mid [t \leftrightarrow t']`,
+où $`[t \leftrightarrow t']` est le transfert de la logique linéaire, l'identité de la cible, que la grammaire
+du métalangage ne listait pas ; il disparaît par sa propre réduction, et les éliminations pures traduisent
+leur sujet puis passent $`t` et $`t'` à leur corps inchangés. Le domaine de la simulation est celui de la
+relation : $`\to` a des schémas pour les formes des blocs ({num "eq:reductions-pures"}[]),
+({num "eq:reductions-pures-suite"}[]), ({num "eq:reductions-effets"}[]) et
+({num "eq:reductions-couche2"}[]), auxquels s'ajoutent ceux de la formule
+({num "eq:reductions-orientees"}[]) et ({num "eq:reductions-modalites"}[]), proposés à la ratification ; tous les
+constructeurs de la grammaire des termes ont désormais un schéma (table {num "tab:couverture-reductions"}[]), mais
+la traduction n'a de clause que pour une partie d'entre eux, et la proposition ne porte que sur celle-là : la traduction n'écrit de clause que pour $`\mathsf{return}`,
+$`\mathsf{let}`, $`\mathbf{tick}` et $`\mathsf{operation}` ; le point fixe a son image (théorème
+{num "thm:image_fix"}[]), mais le copatron, la récupération, la mise en parallèle, la découpe et les cinq
+constructeurs de couche 2 n'ont pas de clause, et leur simulation n'est pas acquise. On ignore même si chaque pas source y est suivi
+d'un pas cible au moins : engendrer une fibrille, créer une boîte ou rendre le résultat d'un corps qui
+a réussi ne communiquent pas, et l'énoncé pourrait y devoir s'entendre $`\to^{*}`. L'induction sur les
+schémas à clause reste à conduire ; elle ne demande plus que la commutation du
+théorème {num "thm:commutation_traduction"}[].
+
+
 ::::theorem (label := "thm:fidelite_interprete") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
 fidélité de l'interpréteur de référence
@@ -377,7 +425,7 @@ Ce qui reste hors du périmètre y reste _par construction_ et non par défaut 
 n'emporte ni les grades ni les raffinements, et c'est cet oubli qui fait d'elle un système de
 raffinement plutôt qu'une simple traduction. Un interpréteur fidèle ne dira donc rien de ce qu'une
 discipline de ressource garantit – il n'a pas à le dire, ces garanties étant établies avant
-l'exécution et effacées à la Phase 8.
+l'exécution et effacées à la Phase 10.
 :::
 
 :::note
@@ -399,7 +447,7 @@ dans le métalangage : ce qui s'y raisonnerait serait la structure de communicat
 non les effets — ni, par conséquent, le temps, que le
 chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) y a logé sous la forme d'une opération
 $`\mathbf{tick}`. Un interpréteur prouvé fidèle au métalangage ne serait donc prouvé fidèle qu'à
-cette part-là, et les garanties de la Phase 3 comme celles de la Phase 7 resteraient à établir
+cette part-là, et les garanties de la Phase 5 comme celles de la Phase 9 resteraient à établir
 ailleurs. Il faut se garder d'en tirer que les effets échapperaient à tout traitement structurel :
 ils sont gradués comme le contexte l'est, et la correction conjointe des deux gradations est un
 résultat établi sur ce régime d'évaluation {cite "torczonEffectsCoeffectsCallbypushvalue2024"}[]. Ce

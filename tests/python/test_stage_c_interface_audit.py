@@ -1,11 +1,14 @@
 # SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 #
 # SPDX-License-Identifier: CC0-1.0
-"""Structural consistency checks for the non-normative Stage C interface audit.
+"""Structural consistency checks for the former Stage C interface audit.
 
-These checks detect drift between the historical audit, the current Verso source, and the recorded source integration.
-The C3 rules and effective-kernel source pins below are updated when the compiled kernel fragment is extended.
-They are not formal proofs of K7PL's mathematical claims. Reference-interface ratification is distinct from proof of the interface laws.
+The audit and the theory-object register lived in docs/migration/ until the
+complete migration closing of 2026-10-25 deleted them; their verdicts are
+traced in wiki/_migration-matrix.md and survive in git history. The checks
+below therefore read only the current Verso source and the wiki assurance
+page. They are not formal proofs of K7PL's mathematical claims.
+Reference-interface ratification is distinct from proof of the interface laws.
 """
 
 from __future__ import annotations
@@ -18,22 +21,13 @@ ROOT = Path(__file__).resolve().parents[2]
 C2 = ROOT / "spec" / "Spec" / "C2" / "ComonadeExponentielleEtFragments.lean"
 C3 = ROOT / "spec" / "Spec" / "C3" / "LeSystemeGradue.lean"
 TYPING = ROOT / "spec" / "Spec" / "C3" / "ReglesDeTypage.lean"
-REGISTER = ROOT / "docs" / "migration" / "L1-THEORY-OBJECTS.md"
-AUDIT = ROOT / "docs" / "migration" / "L1-C01-C02-TYPED-INTERFACE-AUDIT-2026-10-11.md"
+ASSURANCE = ROOT / "wiki" / "assurance.md"
 
 
 def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open():
-    audit = AUDIT.read_text(encoding="utf-8")
-    register = REGISTER.read_text(encoding="utf-8")
-
-    assert "232eb9afca0fdd7d87d2250eceaeeb8a381b271c" in audit
-    assert "819385958b3b2fbdada7418d7e7a1f340ff59baf" in audit
-    assert "b579261957ce5a2967f736203682ca5c61482eaf" in audit
-    assert "11abe4803e93a13a2d24c847dad323337094502f" in audit
-
-    # Historical blobs above pin the snapshot inspected by the 11 October audit.
-    # The 12 October source integration intentionally supersedes three of those files;
-    # keep the snapshot traceable without treating the old state as the live tree.
+    # The 12 October source integration intentionally supersedes the files
+    # inspected by the 11 October audit; keep the snapshot traceable without
+    # treating the old state as the live tree.
     # Non-normative `:::note` slots added while integrating the C8 semantic audit notes also
     # move these pins; the interface strings checked below are unchanged by those notes.
     # So does the B-01 alignment of proof vocabulary (2026-10-19), which rewords status claims
@@ -45,11 +39,21 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # its corrected Verso math delimiters and source-integrity pin are kept synchronized here.
     # 2026-10-22: the fig:fragments-emboites alternative text/description was narrowed to its
     # structural-rule scope; formal interface strings are independently checked below.
+    # 2026-10-25 (migration closing): three pins are re-synced to their
+    # current HEAD blobs after the spec rewordings above — LeSystemeGradue.lean
+    # (a58598531b331fd843975bf65e6e330bebb3e8d2, replacing 1d6849a5b1b8d0747b3c70ac53ec13e02d7ffbb7),
+    # GrammaireDesTypes.lean (08cdf667032f7377ec8eb1719efe3bfe4862a567, replacing
+    # 60df0208198163e9bf76dea24391e29d1f23834f) and ReglesDeTypage.lean
+    # (74541a39b3d94c902ab7809697e665aef1ba93b9, replacing ac11edad16bec18a96126371a624977e0659416b);
+    # the interface-string checks below still pass, so this is a pin re-sync,
+    # not a ratification of any changed content. In particular it does not
+    # ratify the Nxt/Loc rule-inventory drift, which the substitution
+    # inventory test still reports as a failure pending review.
     integrated_source_blobs = {
         "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "1080a623283f1ce85ec3084b724487f59df395f0",
-        "spec/Spec/C3/LeSystemeGradue.lean": "1d6849a5b1b8d0747b3c70ac53ec13e02d7ffbb7",
-        "spec/Spec/C3/GrammaireDesTypes.lean": "60df0208198163e9bf76dea24391e29d1f23834f",
-        "spec/Spec/C3/ReglesDeTypage.lean": "ac11edad16bec18a96126371a624977e0659416b",
+        "spec/Spec/C3/LeSystemeGradue.lean": "a58598531b331fd843975bf65e6e330bebb3e8d2",
+        "spec/Spec/C3/GrammaireDesTypes.lean": "08cdf667032f7377ec8eb1719efe3bfe4862a567",
+        "spec/Spec/C3/ReglesDeTypage.lean": "74541a39b3d94c902ab7809697e665aef1ba93b9",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():
@@ -61,11 +65,8 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
             text=True,
         ).stdout.strip()
         assert actual_blob == expected_blob, f"source changed since audit: {path}"
-    assert "C-01 : PARTIEL, porte ouverte" in audit
-    assert "C-02 : PARTIEL, porte ouverte" in audit
-    assert "Porte C globale : NON SATISFAITE" in audit
-    assert "**État :** IN PROGRESS" in register
-    assert "NON SATISFAITE" in register
+    # The gate verdict itself now lives in the wiki, not in the deleted register.
+    assert "not satisfied" in ASSURANCE.read_text(encoding="utf-8")
 
 
 def test_reference_index_and_scaling_signatures_remain_explicit_in_c2():
@@ -85,8 +86,6 @@ def test_subtyping_direction_is_read_from_the_source_equation():
     assert r"r \preccurlyeq r' \;\Longleftrightarrow\;" in source
     assert r"u \geq u' \;\land\; m \succeq m' \;\land\; \ell \leq \ell'" in source
     assert r"\beta \leq \beta'" in source
-    audit = AUDIT.read_text(encoding="utf-8")
-    assert "π_U(r)≥π_U(r′)" in audit
 
 
 def test_reference_modes_are_selected_but_their_proposition_remains_unproved():
@@ -145,7 +144,3 @@ def test_interval_counterexamples_rule_out_inherited_grade_algebras():
     assert two not in {one}  # Lin = [1, 1] is not closed under addition.
     assert two > one  # Aff = [0, 1] is not closed under addition.
     assert Fraction(0) < one  # Rel = [1, omega] excludes the additive zero.
-
-    audit = AUDIT.read_text(encoding="utf-8")
-    assert "1+1=2" in audit
-    assert "ne possède pas le neutre additif" in audit

@@ -8,7 +8,7 @@ Le manuscrit pose des énoncés (`::::thm`), nomme des formules (`::::formula`) 
 de typage (`\\textsc{R} \\frac{…}{…}`) : ce sont les **identifiants normatifs** du projet. Chacun
 d'eux est une dette de vérification tant qu'aucune preuve Lean ne le rejoint. Cette matrice
 extrait les identifiants de `spec/`, cherche dans `src/` les accroches de couplage, et publie le
-résultat dans `docs/STATUS.md` (bloc délimité, régénéré par la CI) :
+résultat dans `wiki/STATUS.md` (bloc délimité, régénéré par la CI) :
 
 * `Formule N := M` — la formule d'étiquette `N` est l'énoncé formalisé par le lemme `M` ;
 * `Énoncé thm:N := M` — le lemme `M` est déclaré comme formalisation de l'énoncé `thm:N` ;
@@ -20,7 +20,7 @@ est la seule acceptée, et une accroche mal formée est un échec — jamais un 
 accroche n'existe, la matrice affiche 0 % : c'est le point de départ, pas une anomalie.
 
     python3 scripts/controles/couverture.py            # compte rendu
-    python3 scripts/controles/couverture.py --update   # régénère le bloc de docs/STATUS.md
+    python3 scripts/controles/couverture.py --update   # régénère le bloc de wiki/STATUS.md
 """
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ else:
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 SRC = ROOT / "src"
-STATUS = ROOT / "docs" / "STATUS.md"
+STATUS = ROOT / "wiki" / "STATUS.md"
 
 BEGIN = "<!-- BEGIN:COUVERTURE -->"
 END = "<!-- END:COUVERTURE -->"
@@ -185,7 +185,7 @@ def _row(family: str, total: int, linked: int) -> str:
 
 
 def matrix() -> tuple[str, dict]:
-    # The rendered strings stay in French, like the rest of the generated block of docs/STATUS.md.
+    # The rendered strings stay in French, like the rest of the generated block of wiki/STATUS.md.
     g = scan()
     st = g["enonces"]
     th = [r for r in st if statement_family(r) == "theoremes"]
@@ -276,7 +276,7 @@ def run() -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--update", action="store_true", help="régénère le bloc de docs/STATUS.md")
+    parser.add_argument("--update", action="store_true", help="régénère le bloc de wiki/STATUS.md")
     args = parser.parse_args()
     if args.update:
         update_status()

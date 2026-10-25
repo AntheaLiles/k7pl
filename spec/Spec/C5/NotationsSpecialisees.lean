@@ -136,7 +136,7 @@ La syntaxe est fixée avant toute exécution
 
 Aucune construction de K7PL ne calcule un nom ; toute opération d'espace de noms vit au niveau
 macro, où elle est typée par `binds`. Par conséquent la syntaxe d'un programme est fixée à l'issue
-de la Phase 0, et aucune exécution ne la modifie.
+de la Phase 1, et aucune exécution ne la modifie.
 :::
 
 :::proofsketch
@@ -150,7 +150,7 @@ de l'évaluation.
 
 Un seul cas demande d'être regardé, car c'est le seul endroit du langage où un nom soit _produit_
 plutôt que lu : la résolution de `bind-to` par recherche dirigée par le type
-(§{num "sec:c5-mise-en-pratique"}[]). Elle ne menace pas l'énoncé, s'achevant elle aussi en Phase 0
+(§{num "sec:c5-mise-en-pratique"}[]). Elle ne menace pas l'énoncé, s'achevant elle aussi en Phase 1
 — une recherche ambiguë y est refusée plutôt que résolue arbitrairement.
 :::
 

@@ -9,10 +9,10 @@ on:
     paths:
       - "src/k/**"
       - "tests/examples/**"
-      - "docs/formal-semantics.md"
-      - "docs/research/k7pl-os/models/D01NativeBoundary.tla"
-      - "docs/research/k7pl-os/models/D01-NativeBoundary-ExpectedCounterexample.json"
-      - "docs/research/k7pl-os/models/D01-NativeBoundary*.cfg"
+      - "wiki/semantics.md"
+      - "theoretical-projects/k7os/models/D01NativeBoundary.tla"
+      - "theoretical-projects/k7os/models/D01-NativeBoundary-ExpectedCounterexample.json"
+      - "theoretical-projects/k7os/models/D01-NativeBoundary*.cfg"
       - "scripts/ci/k7pl_os_boundary_check.sh"
       - "tests/examples/native-boundary/**"
       - "proofs/**"
@@ -34,7 +34,7 @@ on:
     paths:
       - "src/k/**"
       - "tests/examples/**"
-      - "docs/formal-semantics.md"
+      - "wiki/semantics.md"
       - "proofs/**"
       - "spec/formal-chain/**"
       - "scripts/ci/test_code_artifact_contract.py"
@@ -63,7 +63,7 @@ jobs:
       contents: read
     defaults:
       run:
-        working-directory: docs/research/k7pl-os/models
+        working-directory: theoretical-projects/k7os/models
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

@@ -33,23 +33,17 @@ EXPECTED_PYTHON_TEST_EXACT = {"scripts/generate_status.py", "scripts/suivi.py"}
 EXPECTED_PYTHON_TEST_PREFIXES = ("tests/python/",)
 EXPECTED_LEAN_PREFIXES = ("src/", "tests/")
 EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
-EXPECTED_SPEC_BUILD_EXACT = {"scripts/controle.py", "scripts/manuscript_metrics.py"}
-EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "docs/bibliography/", "scripts/controles/", "scripts/biblio/")
-EXPECTED_SPEC_CHECK_EXACT = {"docs/tracking/primitives.md"}
-EXPECTED_TRACKING_VIEWS_EXACT = {
-    "docs/tracking/fiches-statuts.csv",
-    "docs/peer-review/pr-02/taches-consolidees.md",
-    "docs/history/correspondance-theoremes-org.md",
-    "docs/tracking/FICHES-PR02.md",
-    "docs/tracking/correspondance-enonces.md",
-    "scripts/suivi.py",
-    "scripts/manuscript_metrics.py",
-}
+EXPECTED_SPEC_BUILD_EXACT = {"scripts/controle.py", "scripts/manuscript_metrics.py", "wiki/references.json"}
+EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "scripts/controles/", "scripts/biblio/")
+EXPECTED_SPEC_CHECK_EXACT = set()
+# Retired 2026-10-25 with the tracking folder: no path triggers
+# tracking_views on its own any more (see test_tracking_views_surface).
+EXPECTED_TRACKING_VIEWS_EXACT = set()
 EXPECTED_LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 EXPECTED_LIGHT_EXACT = {"CITATION.cff"}
 # Added on top of the surface a path belongs to (test_impact_coverage.py derives them from code).
-EXPECTED_PYTHON_TEST_READ_EXACT = {"docs/tracking/LEAN-STATEMENT-MIGRATION.md"}
-EXPECTED_PYTHON_TEST_READ_PREFIXES = ("docs/migration/L1-", "src/")
+EXPECTED_PYTHON_TEST_READ_EXACT = {"wiki/assurance.md"}
+EXPECTED_PYTHON_TEST_READ_PREFIXES = ("src/",)
 EXPECTED_SPEC_CHECK_READ_PREFIXES = ("src/",)
 EXPECTED_LEAN_BUILD_READ_EXACT = {
     "tools/SpecExt/IndexCore.lean",
@@ -79,9 +73,13 @@ class ImpactTests(unittest.TestCase):
         self.assertFalse(result["full"])
 
     def test_tracking_views_surface(self):
-        self.assertTrue(classify(["spec/Spec/C1.lean"])["tracking_views"])
-        self.assertTrue(classify(["docs/tracking/fiches-statuts.csv"])["tracking_views"])
+        # Retired 2026-10-25: the tracking views are frozen and deleted,
+        # so no single path triggers tracking_views any more; only a
+        # full validation sets it (see classify with force_full).
+        self.assertFalse(classify(["spec/Spec/C1.lean"])["tracking_views"])
+        self.assertFalse(classify(["wiki/roadmap.md"])["tracking_views"])
         self.assertFalse(classify(["docs/other.md"])["tracking_views"])
+        self.assertTrue(classify(["spec/Spec/C1.lean"], force_full=True)["tracking_views"])
 
     def test_spec_surface(self):
         result = classify(["spec/Spec/C1.lean"])
@@ -90,10 +88,11 @@ class ImpactTests(unittest.TestCase):
         self.assertFalse(result["lean_build"])
 
     def test_spec_tracking_file(self):
-        result = classify(["docs/tracking/primitives.md"])
+        # The primitive list moved to wiki/research.md in 2026-10-25;
+        # it is read by croise.py on the specification-build surface.
+        result = classify(["wiki/research.md"])
         self.assertTrue(result["docs_links"])
-        self.assertTrue(result["spec_check"])
-        self.assertFalse(result["spec_build"])
+        self.assertFalse(result["spec_check"])
 
     def test_ci_change_forces_full(self):
         result = classify([".github/workflows/ci.yaml"])
@@ -177,7 +176,9 @@ class SurfaceTableTests(unittest.TestCase):
         self.assertEqual(impact.SPEC_BUILD_EXACT, EXPECTED_SPEC_BUILD_EXACT)
         self.assertEqual(impact.SPEC_BUILD_PREFIXES, EXPECTED_SPEC_BUILD_PREFIXES)
         self.assertEqual(impact.SPEC_CHECK_EXACT, EXPECTED_SPEC_CHECK_EXACT)
-        self.assertEqual(impact.TRACKING_VIEWS_EXACT, EXPECTED_TRACKING_VIEWS_EXACT)
+        # TRACKING_VIEWS_EXACT was retired with the tracking folder in
+        # 2026-10-25; tracking_views is set only by a full validation.
+        self.assertFalse(hasattr(impact, "TRACKING_VIEWS_EXACT"))
         self.assertEqual(impact.LIGHT_PREFIXES, EXPECTED_LIGHT_PREFIXES)
         self.assertEqual(impact.LIGHT_EXACT, EXPECTED_LIGHT_EXACT)
         self.assertEqual(impact.PYTHON_TEST_READ_EXACT, EXPECTED_PYTHON_TEST_READ_EXACT)
@@ -246,16 +247,18 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
         return {key for key in (*SURFACES, "tracking_views") if result[key]}
 
     def test_documents_read_by_the_python_tests(self):
-        paths = sorted(EXPECTED_PYTHON_TEST_READ_EXACT) + [
-            "docs/migration/L1-THEORY-OBJECTS.md",
-            "docs/migration/L1-C06-SUBSTITUTION-AUDIT-2026-10-11.md",
-        ]
+        paths = sorted(EXPECTED_PYTHON_TEST_READ_EXACT)
         for path in paths:
             with self.subTest(path=path):
                 self.assertEqual(self.surfaces(path), {"docs_links", "python_tests"})
 
-    def test_the_migration_prefix_is_not_the_whole_directory(self):
-        for path in ("docs/migration/README.md", "docs/migration/L5-VALIDATION.md"):
+    def test_deleted_migration_files_trigger_docs_links_only(self):
+        # The migration closing of 2026-10-25 deleted docs/migration/;
+        # no python test reads it any more, so its paths no longer
+        # trigger the python_tests surface.
+        for path in ("docs/migration/L1-THEORY-OBJECTS.md",
+                     "docs/migration/L1-C06-SUBSTITUTION-AUDIT-2026-10-11.md",
+                     "docs/migration/README.md", "docs/migration/L5-VALIDATION.md"):
             with self.subTest(path=path):
                 self.assertEqual(self.surfaces(path), {"docs_links"})
 
@@ -283,16 +286,13 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
                 self.assertNotIn("lean_build", self.surfaces(path))
 
     def test_inputs_outputs_and_code_of_the_tracking_views(self):
+        # Retired 2026-10-25 with the tracking folder: the former
+        # tracking-view inputs now classify without tracking_views.
         expected = {
-            "docs/tracking/fiches-statuts.csv": {"tracking_views"},
-            "docs/peer-review/pr-02/taches-consolidees.md": {"docs_links", "tracking_views"},
-            "docs/history/correspondance-theoremes-org.md": {"docs_links", "tracking_views"},
-            "docs/tracking/FICHES-PR02.md": {"docs_links", "tracking_views"},
-            "docs/tracking/correspondance-enonces.md": {"docs_links", "tracking_views"},
-            "scripts/suivi.py": {"python_tests", "tracking_views"},
-            "scripts/manuscript_metrics.py": {"spec_check", "spec_build", "python_tests", "tracking_views"},
+            "wiki/roadmap.md": {"docs_links"},
+            "scripts/suivi.py": {"python_tests"},
+            "scripts/manuscript_metrics.py": {"spec_check", "spec_build", "python_tests"},
         }
-        self.assertEqual(set(expected), EXPECTED_TRACKING_VIEWS_EXACT)
         for path, surfaces in expected.items():
             with self.subTest(path=path):
                 self.assertEqual(self.surfaces(path), surfaces)
@@ -303,7 +303,7 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
         # on its own path filter), so it stays unclassified, hence fully validated.
         self.assertEqual(
             self.surfaces("spec/formal-chain/BlueprintK7PL.lean"),
-            {"spec_check", "spec_build", "python_tests", "tracking_views"},
+            {"spec_check", "spec_build", "python_tests"},
         )
         for path in ("proofs/K7PL/Proof.lean", "proofs/lakefile.toml"):
             with self.subTest(path=path):
@@ -316,7 +316,7 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
                 self.assertTrue({"spec_check", "spec_build"} <= self.surfaces(path))
 
     def test_other_tracking_documents_stay_light(self):
-        for path in ("docs/tracking/DASHBOARD.md", "docs/history/pr-02-plan-de-traitement.md"):
+        for path in ("wiki/roadmap.md", "wiki/method.md"):
             with self.subTest(path=path):
                 self.assertEqual(self.surfaces(path), {"docs_links"})
 

@@ -116,7 +116,6 @@ la correspondance entre ces segments et des zones physiques disjointes. La réal
 cette correspondance ainsi que le respect des contraintes d'alignement et de placement. Le
 parallélisme sans mutex est donc une exigence architecturale dont la conformité concrète reste à
 justifier par le raffinement du modèle mémoire.
-
 ::::figure (label := "fig:arene-partition") (src := "soa-partitionning") (alt := "Une arène SoA représentée comme un bloc contigu, partagé en deux segments : segment 0 à k avec WriteCap de la fibrille A ; segment k+1 à 2k avec WriteCap de la fibrille B.") (width := "90")
 :::caption
 Partitionnement statique d'une arène SoA entre deux fibrilles concurrentes

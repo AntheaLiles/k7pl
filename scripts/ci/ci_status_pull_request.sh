@@ -19,5 +19,5 @@ if [ "$count" -eq 0 ]; then
     --base main \
     --head automation/generated-status \
     --title "ci: update generated project status" \
-    --body "Automated update of docs/STATUS.md from the CI verification gate. This file is generated; no manual status editing is required."
+    --body "Automated update of wiki/STATUS.md from the CI verification gate. This file is generated; no manual status editing is required."
 fi

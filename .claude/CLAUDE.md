@@ -13,7 +13,7 @@ k7pl is a programming language implemented in Lean 4 with Mathlib and CSLib. Its
 - `tests/`: Lean tests (CECILL-2.1).
 - `spec/`: Verso specification (CC-BY-4.0), current normative source.
 - `tools/`: Verso generator and extensions, generated bibliography.
-- `docs/`: tracking, decisions, research, audits; entry point: `docs/tracking/DASHBOARD.md`.
+- `docs/`: decisions, research, audits and migration registers (the tracking and peer-review folders closed in 2026-10-25); entry point: `wiki/HOME.md`, work plan: `wiki/roadmap.md`.
 - `docs/archives/`: frozen former manuscript and tooling; do not correct them to change the current version.
 - `.claude/rules/`: specialised rules.
 - `.claude/skills/`: reusable procedures.

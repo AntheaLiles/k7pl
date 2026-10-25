@@ -17,7 +17,7 @@ Il n'existe pas de branche `dev` servant de zone « moins vérifiée ». Les bra
 
 | Workflow | Déclenchement | Fonction |
 |---|---|---|
-| `ci.yaml` | PR, push sur `main`, manuel | Orchestration : classification d'impact, contrôles ciblés, contrôles invariants et `CI OK` ; sur `main`, publication de Pages (`deploy-pages`) et régénération de `docs/STATUS.md` (`status`) |
+| `ci.yaml` | PR, push sur `main`, manuel | Orchestration : classification d'impact, contrôles ciblés, contrôles invariants et `CI OK` ; sur `main`, publication de Pages (`deploy-pages`) et régénération de `wiki/STATUS.md` (`status`) |
 | `verify.yaml` | `workflow_call` | Chaîne réutilisable de validation Lean/Verso |
 | `full.yaml` | Quotidien, manuel | Vérification complète du projet |
 | `release.yaml` | Push d'un tag `spec-v*` ou `v*`, essai manuel | Contrôles avant publication ; brouillon de release attesté pour `spec-vX.Y.Z` (voir « Releases ») |
@@ -42,8 +42,8 @@ Les surfaces sont les suivantes.
 |---|---|
 | `src/**`, `tests/**` | build Lean, tests, lint, audit des axiomes |
 | `scripts/axiom-audit.sh` | build Lean **et** build de la spécification : le script est appelé par les deux chaînes |
-| `spec/**`, `tools/**`, `docs/bibliography/**`, `scripts/controle.py`, `scripts/controles/**`, `scripts/manuscript_metrics.py` | contrôles statiques, build Verso, audit des axiomes, rendu HTML/TeX, PDF |
-| `docs/tracking/primitives.md` | contrôles statiques de la spécification |
+| `spec/**`, `tools/**`, `wiki/references.json`, `scripts/controle.py`, `scripts/controles/**`, `scripts/manuscript_metrics.py` | contrôles statiques, build Verso, audit des axiomes, rendu HTML/TeX, PDF |
+| `wiki/research.md` (Primitive inventory) | contrôles statiques de la spécification |
 | `*.md` | contrôle des liens locaux |
 | `docs/**`, `.claude/**`, `.github/ISSUE_TEMPLATE/**`, `LICENSES/**`, `CITATION.cff` | documentation/configuration légère ; contrôles invariants seulement, avec contrôle des liens pour Markdown |
 | `.github/workflows/**`, `.github/dependabot.yml` | vérification complète |
@@ -101,7 +101,7 @@ La bibliothèque `Spec` a deux racines : le document `Spec` et le noyau Lean des
 
 L'entrée `use_cache` de `verify.yaml` (défaut `true`) permet de construire sans restaurer les caches de `.lake/packages` et de Tectonic : `release.yaml` l'utilise à `false`.
 
-Une modification de `docs/tracking/primitives.md` nécessite les contrôles statiques mais pas le build/rendu Verso, car ce fichier est consommé directement par `scripts/controles/croise.py`.
+Une modification de `wiki/research.md` (table Primitive inventory) nécessite les contrôles statiques mais pas le build/rendu Verso, car cette table est consommée directement par `scripts/controles/croise.py`.
 
 Le PDF est un artefact dérivé : il n'est produit que lorsque le build de la spécification est nécessaire.
 
@@ -111,13 +111,13 @@ Sur `main`, Pages est publié seulement lorsqu'une modification affecte le build
 
 Une modification uniquement liée à l'implémentation ne reconstruit donc pas le manuscrit ni sa publication.
 
-## Generated status (`docs/STATUS.md`)
+## Generated status (`wiki/STATUS.md`)
 
-On a push to `main`, once `CI OK` has succeeded, the `status` job of `ci.yaml` runs `scripts/generate_status.py`. When the file changes, the job force-pushes one generated commit to `automation/generated-status`, dispatches `ci.yaml` (`workflow_dispatch`) on that branch, then opens the pull request to `main` if none is open. `docs/STATUS.md` is a generated file: do not edit it by hand.
+On a push to `main`, once `CI OK` has succeeded, the `status` job of `ci.yaml` runs `scripts/generate_status.py`. When the file changes, the job force-pushes one generated commit to `automation/generated-status`, dispatches `ci.yaml` (`workflow_dispatch`) on that branch, then opens the pull request to `main` if none is open. `wiki/STATUS.md` is a generated file: do not edit it by hand.
 
 **Why a dispatch.** The push is made with `GITHUB_TOKEN`: the `pull_request` run it causes is held until a maintainer approves it (observed as `action_required` on PR #218), and nothing else runs on the generated commit. A `workflow_dispatch` event created with `GITHUB_TOKEN` does start a run. The dispatched run is an ordinary CI run on the head of `automation/generated-status`:
 
-- its impact job compares that head with its merge base with `origin/main`, computed from the checkout (no workflow input is read). A commit that only changes `docs/STATUS.md` therefore gets what a pull request changing that file gets: the documentation-architecture check, the local link check, and the three invariant checks (REUSE, Conventional Commits, Security). Any other change pushed to the branch is classified like in any pull request. A head that is already on `main` gets the full validation; a branch with no history in common with `main` fails the impact job, and so `CI OK`. Every other manual dispatch still runs the full validation;
+- its impact job compares that head with its merge base with `origin/main`, computed from the checkout (no workflow input is read). A commit that only changes `wiki/STATUS.md` therefore gets what a pull request changing that file gets: the documentation-architecture check, the local link check, and the three invariant checks (REUSE, Conventional Commits, Security). Any other change pushed to the branch is classified like in any pull request. A head that is already on `main` gets the full validation; a branch with no history in common with `main` fails the impact job, and so `CI OK`. Every other manual dispatch still runs the full validation;
 - `CI OK` aggregates these jobs as in every run and fails if one of them fails;
 - `status` and `deploy-pages` only run on a push to `main`: the dispatched run publishes nothing and dispatches nothing.
 
@@ -137,10 +137,10 @@ The `status` job is the only job of `ci.yaml` that writes to the repository:
 
 Observations, not guarantees:
 
-- the setting "Allow GitHub Actions to create and approve pull requests" must be enabled for `gh pr create` to succeed; `docs/security/ACTIONS-HUMAINES.md` § 1.5 takes it into account;
+- the setting "Allow GitHub Actions to create and approve pull requests" must be enabled for `gh pr create` to succeed; `wiki/security.md` (human actions) takes it into account;
 - the job only runs code already merged on `main`; `automation/generated-status` is not protected by the `main` ruleset, so a person with write access can push to it (the dispatched or `pull_request` run then classifies that push too).
 
-See `docs/security/DECISIONS-REQUISES.md`, D11.
+See `wiki/security.md`, maintainer decisions (D11).
 
 ## Vérification complète
 
@@ -162,7 +162,7 @@ Les releases sont séparées de la CI de PR. Les releases GitHub de ce dépôt s
 
 **Ce que l'attestation prouve.** Le PDF a été attesté par une exécution de `release.yaml` de ce dépôt, au tag et au commit indiqués, sur un runner hébergé par GitHub. **Ce qu'elle ne prouve pas** : que le PDF est reproductible, que les entrées du build (toolchain, bundle TeX) sont exemptes de code malveillant, que le commit a été relu, ni quoi que ce soit sur la vérité de la spécification. L'identité liée est un workflow, pas une personne. Le PDF est construit par un job et attesté par un autre ; il transite par un artefact du même run.
 
-**Les contrôles du job `check` protègent de l'erreur, pas d'un acteur capable de pousser un tag** : pour un tag poussé, GitHub exécute le workflow du commit tagué. Les barrières réelles sont la restriction de la **création** des tags (contournement limité au rôle administrateur), l'environnement `zenodo` protégé (dont le relecteur est la même identité que celle des agents : une porte manuelle, non une revue indépendante) et la relecture humaine du brouillon (voir `docs/security/ACTIONS-HUMAINES.md`).
+**Les contrôles du job `check` protègent de l'erreur, pas d'un acteur capable de pousser un tag** : pour un tag poussé, GitHub exécute le workflow du commit tagué. Les barrières réelles sont la restriction de la **création** des tags (contournement limité au rôle administrateur), l'environnement `zenodo` protégé (dont le relecteur est la même identité que celle des agents : une porte manuelle, non une revue indépendante) et la relecture humaine du brouillon (voir `wiki/security.md`, human actions).
 
 **Statut.** Ce flux est écrit et vérifié par `actionlint`, `zizmor` hors ligne et des tests de ses blocs de script, mais **n'a jamais été exécuté de bout en bout**. La seule release existante (`spec-v0.0.0-alpha.1`) n'a aucun artefact joint et ne peut plus en recevoir. La première release produite par ce flux doit être précédée d'une répétition sur le sandbox Zenodo.
 
@@ -185,7 +185,7 @@ Un DOI Zenodo est irréversible : `zenodo.yaml` échoue donc par défaut et ne r
 
 `scripts/sync_zenodo.py` refuse, avant tout appel réseau, de publier si `ZENODO_ENV` n'est pas exactement `production` ou `sandbox`, ou si `ZENODO_CONCEPT_RECID` est absent ou invalide (un entier, ou `NEW` pour créer explicitement un nouveau concept). Une release déjà archivée n'est pas republiée. Un run avec `NEW` ne doit jamais être rejoué : renseigner ensuite la variable avec l'identifiant affiché dans le résumé du job. `NEW` ne peut pas savoir que l'enregistrement existe déjà ; le script refuse donc de s'exécuter, avant tout appel réseau, si `GITHUB_RUN_ATTEMPT` est absent ou différent de `1` (un « Re-run » est refusé). Toute erreur après l'envoi de la demande de publication (réponse inattendue, connexion perdue, échec du rapport) écrit le DOI, le résumé (concept, « ne pas rejouer ») et sort avec le code 3 ; une interruption est ré-élevée après ce rapport ; seules les réponses 400, 401, 403, 404 et 422 à la demande de publication prouvent qu'aucune publication n'a eu lieu ; une réponse perdue ou une erreur 5xx y est signalée comme « publication incertaine », à vérifier sur Zenodo avant toute reprise.
 
-Il n'y a plus de branche `zenodo-state` ni d'écriture dans le dépôt. L'origine du DOI `10.5281/zenodo.23040451` cité par le dépôt n'est pas établie par celui-ci : c'est une décision de l'autrice (voir `docs/security/DECISIONS-REQUISES.md`, D1).
+Il n'y a plus de branche `zenodo-state` ni d'écriture dans le dépôt. L'origine du DOI `10.5281/zenodo.23040451` cité par le dépôt n'est pas établie par celui-ci : c'est une décision de l'autrice (voir `wiki/security.md`, maintainer decisions, D1).
 
 Le workflow `bump-lean.yaml` sépare la construction (`contents: read`, aucun secret : il exécute du code amont) de l'ouverture de la PR (environnement `bump-lean`, qui détient `BUMP_TOKEN` et n'exécute aucun code Lean ; il contrôle le manifeste avec `scripts/ci/check_manifest.py --check-tags --check-upstream`, dont l'en-tête de `bump-lean.yaml` liste ce qui est vérifié et ce qui ne l'est pas : une nouvelle dépendance transitive fait échouer ce contrôle jusqu'à ce qu'une personne l'ajoute à `ALLOWED_PACKAGES`). Une PR créée avec `GITHUB_TOKEN` ne déclenche pas les workflows de PR normaux ; `BUMP_TOKEN` reste donc requis.
 

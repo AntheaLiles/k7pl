@@ -27,7 +27,7 @@ preuves qui les ont établies, ne laissant dans le binaire final que le terme qu
 pipeline présenté en figure {num "fig:comp-process"}[] décrit le parcours linéaire hors de l'itération ; la boucle entre les phases 5 et 6 représente leur
 réexécution jusqu'à stabilisation. Hors de cette boucle, chaque étape suppose la précédente acquise.
 
-Un point de lecture s'impose avant de le suivre, car il évite une méprise sur ce que ces huit étapes
+Un point de lecture s'impose avant de le suivre, car il évite une méprise sur ce que ces étapes
 sont, et lève une objection de comptage. Ce ne sont pas huit _passes_ mais huit _ordres de
 vérification_, chacun supposant le précédent acquis. La figure en montre dix, deux d'entre elles
 portant un numéro fractionnaire : ce sont des _points de contrôle_ intercalaires — l'analyse de configuration en 1.5, qui comprend la vérification
@@ -57,14 +57,25 @@ ConstraintSolve et Optimize indique leur itération jusqu'à stabilisation ; 1.5
 ::::
 
 Tout commence par construire l'arbre syntaxique du texte du chapitre 5 et par y désucrer les sigils
-en attributs — un travail purement syntaxique, qui ne discute encore aucun des trois ordres. Une
-passe de configuration lui succède aussitôt. Elle collecte, à partir des définitions d'acteurs et
+en attributs (Phase 0) — un travail purement syntaxique, qui ne discute encore aucun des trois ordres.
+
+Les macros s'exécutent alors (Phase 1), sur cet arbre et avant toute vérification, dans le bac à
+sable du chapitre 3 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) : une macro n'y lit que les
+définitions que son site d'appel a en portée, n'écrit que dans l'arbre qu'elle construit et n'a
+aucun effet sur le monde extérieur. L'arbre ne change plus à l'issue de cette phase, et la syntaxe du
+programme est fixée (théorème {num "thm:expansion_macro"}[]). L'expansion n'est pas pour autant
+l'élaboration Surface → Noyau du théorème {num "thm:elaboration"}[], dont elle n'est qu'une
+instance, ni la résolution que la Phase 4 conduit plus loin.
+
+Une passe de configuration (Phase 2) lui succède aussitôt. Elle collecte, à partir des définitions d'acteurs et
 des `strand` de workflow, les ressources externes que le programme engage — fichiers, URL, capacités
 réseau — et en produit un manifeste validable avant même qu'un type n'ait été inféré. Une dépendance
 externe manquante est ainsi découverte avant que le reste du pipeline n'ait été investi dans un
-programme qui ne pourrait pas s'exécuter.
+programme qui ne pourrait pas s'exécuter. C'est aussi là que le tri topologique du graphe de câblage
+établit son acyclicité (chapitre 4, §{num "sec:c4-echelle-du-systeme"}[]) : un cycle y produit
+`ERR-ARC-001`.
 
-Vient alors l'établissement conjoint de la modalité $`\Delta` et du type $`A`. L'algorithme de Damas
+Vient alors (Phase 3) l'établissement conjoint de la modalité $`\Delta` et du type $`A`. L'algorithme de Damas
 et Milner en fournit le squelette. Sa propriété de principalité — un programme accepté reçoit le
 type le plus général possible — vaut du fragment sans grade. Ce chapitre en montre l'adaptation aux
 modalités et aux types dépendants pragmatiques, au prix assumé au chapitre 3
@@ -95,7 +106,7 @@ encore connu —, le vérificateur reprend, une fois la source résolue, exactem
 arrêté. La monomorphisation, elle, ne s'exécute qu'une seule fois : les phases suivantes n'auront
 plus jamais à réinférer un type déjà rendu concret.
 
-Une phase d'élaboration referme la composante $`A` du jugement. Les types existentiels du chapitre 3
+La phase de résolution (Phase 4) referme la composante $`A` du jugement. Les types existentiels du chapitre 3
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) y reçoivent leurs `pack~/~unpack` explicites,
 effacés en surface mais nécessaires au cœur vérifié. Un contexte complet — portant simultanément
 toutes les variables d'unification encore ouvertes — permet de résoudre chaque égalité
@@ -104,16 +115,16 @@ globale reconstruite à chaque pas. Ce qui reste, une fois cette résolution ach
 différemment selon la couche. En couche 3, une variable non résolue reçoit par défaut le type
 `Unit`, ou le programme est rejeté. En couche 2, seules les variables de rangée se généralisent, le
 reste retombant sur `Unit`. En couche 1, il n'existe plus de variable d'unification à généraliser :
-la linéarité stricte a déjà tout déterminé en Phase 2.
+la linéarité stricte a déjà tout déterminé en Phase 3.
 
-La composante $`\mathcal{E}` ne peut se vérifier qu'à présent, une fois $`A` stabilisé : tout
+La composante $`\mathcal{E}` ne peut se vérifier qu'à présent (Phase 5), une fois $`A` stabilisé : tout
 `perform` doit être couvert par un gestionnaire, sous peine d'une erreur immédiate (`ERR-EFF-001`),
 et tout bloc `[ ]` doit satisfaire $`\mathcal{E} = \emptyset` — la vérification de pureté qui, au
 chapitre 5 (§{num "sec:c5-mise-en-pratique"}[]), rejetait un `HandlerResult` égaré en couche 3. Le
-narrowing déjà mobilisé en Phase 2 raffine au passage le type de chaque branche d'un `match`, de
+narrowing déjà mobilisé en Phase 3 raffine au passage le type de chaque branche d'un `match`, de
 sorte que cette vérification ne recommence rien depuis le début.
 
-Sait-on désormais qu'un terme n'a pas d'effet caché : c'est alors, et alors seulement, que sa
+Sait-on désormais qu'un terme n'a pas d'effet caché : c'est alors (Phase 6), et alors seulement, que sa
 terminaison ou sa productivité — la dernière propriété structurelle à établir avant le recours à un
 solveur — devient une question qui a un sens. Ces deux propriétés ne font ici qu'une seule
 vérification, et c'est une conséquence directe du choix arrêté au chapitre 2
@@ -126,32 +137,76 @@ de phases du pipeline est inchangé : c'est le contenu de celle-ci qui se simpli
 Pour les automates du chapitre 4 (§{num "sec:c4-echelle-locale"}[]), la complexité du motif est
 validée contre son annotation, et la profondeur d'un PDA supervisé contre le grade qui la borne.
 
-Ce qui subsiste après cette preuve structurelle — bornes numériques, débit, contraintes de rangée —
+Ce qui subsiste après cette preuve structurelle (Phase 7) — bornes numériques, débit, contraintes de rangée —
 n'a rien de plus simple à établir sans aide extérieure. Un solveur pour les contraintes de rangée
 les résout par ensembles disjoints, tandis que le reste est exporté vers un solveur SMT externe, sur
 les théories dédiées du chapitre 3 (§{num "sec:c3-les-contraintes-de-valeur"}[]). Ces théories
 doivent être nommées, faute de quoi la prévisibilité annoncée reste une intention~: l'arithmétique
 linéaire sur les entiers et les rationnels pour les bornes de taille et les grades fractionnaires,
 les tableaux pour les accès d'arène, les fonctions non interprétées pour les prédicats de
-raffinement opaques. Toutes sont décidables, ce qui fonde l'argument de terminaison de la Phase~5 ;
+raffinement opaques. Toutes sont décidables, ce qui fonde l'argument de terminaison de la Phase~7 ;
 leur combinaison ne l'est pas nécessairement, et la dette est ici de nommer ce sur quoi le
 compilateur se restreint. Soit $`\mathcal{T}_{\text{K7PL}}` la combinaison de ces théories. Le
 compilateur ne soumet au solveur que le fragment
 $`\mathcal{T}_0 \subseteq \mathcal{T}_{\text{K7PL}}` dont la décidabilité est acquise ; toute
 obligation hors de $`\mathcal{T}_0` est _rejetée à la compilation_ avec un code d'erreur, et jamais
 soumise. Ce que ce document ne fait pas encore est de délimiter $`\mathcal{T}_0`, et l'argument de
-terminaison de la Phase 5 vaut de ce fragment plutôt que de la combinaison entière. Le solveur reste
+terminaison de la Phase 7 vaut de ce fragment plutôt que de la combinaison entière. Le solveur reste
 une boîte noire pour les obligations internes à une compilation, reproduites dans le même
 environnement. Pour celles qui traversent la frontière de paquet, un _certificat_ est exigé : une
 réponse négative ne se croit pas sur parole, les solveurs modernes sachant produire des preuves
-vérifiables indépendamment. La Phase~5 porte cette clause. Une réserve porte sur l'ordre de cette phase et de la suivante. Les optimisations
-que la Phase~6 conduit — déforestation, _inlining_, défonctionnalisation — transforment les
-contextes et peuvent donc engendrer des contraintes de grades que la Phase~5 avait déjà déchargées~:
+vérifiables indépendamment. La Phase~7 porte cette clause. Une réserve porte sur l'ordre de cette phase et de la suivante. Les optimisations
+que la Phase~8 conduit — déforestation, _inlining_, défonctionnalisation — transforment les
+contextes et peuvent donc engendrer des contraintes de grades que la Phase~7 avait déjà déchargées~:
 une boucle fusionnée multiplie les grades de ses deux corps, un appel intégré substitue son contexte
 à l'échelle de son propre grade. Le pipeline suppose ici une dépendance à sens unique qui n'est pas
 établie, et la conduite correcte est d'itérer les deux phases jusqu'à stabilisation plutôt que de
 les enchaîner une fois. Ce que la suite linéaire décrit n'est donc pas le modèle défendu, et l'écart
 se referme par un énoncé plutôt que par une figure.
+
+Ce que chaque passe doit préserver n'est pas la même chose pour toutes, et le document ne l'avait pas
+déclaré. Quatre invariants se distinguent, qui ne sont pas comparables : la dénotation, le jugement
+gradué, la trace projetée, la représentation. La trace $`\tau` est à la fois une grandeur de coût que
+P3 veut minimiser et un observable de sûreté que la composante de niveau veut non divulgant ; si la
+durée est observable au niveau $`\ell`, fusion de boucles, déforestation et _inlining_ ne sont pas
+admissibles dans le code où la non-interférence temporelle est revendiquée.
+
+::::k7table (label := "tab:invariants-de-passe") (align := "lll")
+:::caption
+Ordre de préservation : ce que chaque invariant porte et qui doit le préserver
+:::
+
+:::table +header
+* * Invariant
+  * Objet
+  * Qui doit le préserver
+* * $`P_{\text{dén}}`
+  * la dénotation dans la catégorie ambiante
+  * toutes les passes
+* * $`P_{\text{grad}}`
+  * le jugement gradué $`\Delta \vdash_{\mathcal{G}} c : C \mid \varepsilon`
+  * les passes d'abaissement
+* * $`P_{\text{trace}}(\ell)`
+  * la trace projetée $`\pi_\ell(\tau)`
+  * les passes appliquées à une unité $`\ell`-sensible
+* * $`P_{\text{repr}}`
+  * l'identité binaire de l'état observable
+  * l'environnement, sous le profil $`\Pi`
+:::
+::::
+
+La règle d'interaction en découle : _une unité marquée $`\ell`-sensible n'admet que les passes qui
+préservent $`P_{\text{trace}}(\ell)`_. Le point fixe est alors itéré exactement $`h` fois dans le code
+$`\ell`-sensible et évalué de façon semi-naïve ailleurs ; fusion et déforestation sont admises partout
+sauf dans le code $`\ell`-sensible. Le marquage est la composante de niveau que le jugement porte déjà :
+aucun mécanisme nouveau. Le théorème d'abaissement devient « $`P_{\text{grad}}`
+est l'obligation de chaque passe », forme sous laquelle il se mécanise passe par passe, et la
+compilation reproductible reçoit son critère : toute passe appliquée est déterministe et respecte
+$`P_{\text{trace}}(\ell)` pour le niveau du binaire. Cette déclaration est proposée à la ratification
+de l'auteur ; elle ne résout pas le conflit entre P3 et la non-interférence temporelle, elle le
+localise.
+
+
 
 ::::theorem (label := "thm:stabilisation_pipeline") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
 :::title

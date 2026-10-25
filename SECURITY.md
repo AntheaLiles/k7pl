@@ -85,8 +85,8 @@ couvre pas ce qu'elles téléchargent ensuite.
 
 ## Documentation associée
 
-- [Registre des revendications de sécurité et d'assurance](docs/security/ASSURANCE-CASE.md) : état des preuves et limites, sans prétendre à une conformité démontrée.
-- [Plan de remédiation OpenSSF](docs/security/OPENSSF-ROADMAP.md) : actions préparées, bloquées et futures.
-- [Gouvernance du projet](docs/security/GOVERNANCE.md) : rôles, décisions, revue et limites de continuité.
-- [Politique de gestion des secrets](docs/security/SECRETS-POLICY.md) : règles et vérifications opérationnelles à confirmer.
-- [Évaluation prospective des outils de sécurité](docs/security/TOOLING-EVALUATION.md) : pistes SBOM, SAST Lean, fuzzing et gouvernance GitHub ; aucune adoption n'est présumée.
+- [Registre des revendications de sécurité et d'assurance](wiki/security.md) : état des preuves et limites, sans prétendre à une conformité démontrée.
+- [Plan de remédiation OpenSSF](wiki/security.md) : actions préparées, bloquées et futures.
+- [Gouvernance du projet](wiki/security.md) : rôles, décisions, revue et limites de continuité.
+- [Politique de gestion des secrets](wiki/security.md) : règles et vérifications opérationnelles à confirmer.
+- [Évaluation prospective des outils de sécurité](wiki/security.md) : pistes SBOM, SAST Lean, fuzzing et gouvernance GitHub ; aucune adoption n'est présumée.

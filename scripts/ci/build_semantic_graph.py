@@ -127,7 +127,7 @@ def extract_edges(root: Path, source_path: str, source_label: str, targets: dict
     if source is None or source.path != source_path:
         fail(f"source label {source_label!r} is not declared in {source_path}")
 
-    bibliography_path = "docs/bibliography/references.json"
+    bibliography_path = "wiki/references.json"
     try:
         bibliography = json.loads((root / bibliography_path).read_text(encoding="utf-8"))["entries"]
     except (OSError, json.JSONDecodeError, KeyError, TypeError) as exc:

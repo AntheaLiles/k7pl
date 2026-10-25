@@ -36,7 +36,7 @@ file under it.
 Limits (this is a lower bound, not a proof that every read is covered):
 
 * Paths built otherwise are not seen: strings relative to the working directory
-  (`Path("docs/STATUS.md")`, `open("lakefile.lean")`), f-strings, variables, globs, command-line
+  (`Path("wiki/STATUS.md")`, `open("lakefile.lean")`), f-strings, variables, globs, command-line
   arguments, environment variables, attributes of other modules, names assigned more than once.
 * A directory read is expanded to all its files (hidden directories and `__pycache__` aside):
   the suffix filters and exclusions of the code are not seen, which can only over-approximate.
@@ -78,19 +78,27 @@ ENTRY_POINTS: dict[str, tuple[frozenset[str], ...]] = {
     # verify.yaml: job `quick`, step "Check the specification" (full || spec_check); job
     # `python-tests`, step "Check the real corpus with the tooling under test" (python_tests).
     "scripts/controle.py": (frozenset({"spec_check"}), frozenset({"python_tests"})),
-    # verify.yaml: job `quick`, step "Check generated tracking views" (tracking_views).
-    "scripts/suivi.py": (frozenset({"tracking_views"}),),
+    # No suivi entry any more: the tracking-view step was removed from
+    # verify.yaml in 2026-10-25 when the tracking folder closed and
+    # scripts/suivi.py was frozen; see NOT_RUN_BY_A_CHECK.
 }
 # verify.yaml: job `python-tests`, step "Test the Python tooling": `pytest tests/python`.
 PYTEST_STEPS = (frozenset({"python_tests"}),)
 
 # Python files under scripts/ (outside scripts/ci/) that read repository files but that no
 # impact-gated step runs.
-NOT_RUN_BY_A_CHECK: dict[str, str] = {}
+NOT_RUN_BY_A_CHECK: dict[str, str] = {
+    "scripts/suivi.py": (
+        "frozen 2026-10-25 with the tracking folder: its generation "
+        "commands refuse, and its check() survives only as a unit-tested "
+        "function on synthetic corpora (tests/python/test_suivi.py); no "
+        "workflow step runs it on repository files any more"
+    ),
+}
 
 # (reader, path read): over-approximations of the analysis.
 EXEMPT_READS = {
-    ("scripts/controles/couverture.py", "docs/STATUS.md"): (
+    ("scripts/controles/couverture.py", "wiki/STATUS.md"): (
         "default target of update_status(), a writer that only the `status` job of ci.yaml calls "
         "(through generate_status.py) after the CI gate; no check reads the file"
     ),
@@ -616,12 +624,7 @@ class ReadCoverageTests(unittest.TestCase):
         seen = {(entry, reader, read) for entry, _, reader, _, _, read in observed_reads()}
         expected = {
             ("tests/python/test_statement_inventory.py", "scripts/controles/statement_inventory.py",
-             "docs/tracking/LEAN-STATEMENT-MIGRATION.md"),
-            ("tests/python/test_stage_c_interface_audit.py",
-             "tests/python/test_stage_c_interface_audit.py", "docs/migration/L1-THEORY-OBJECTS.md"),
-            ("scripts/suivi.py", "scripts/suivi.py", "docs/peer-review/pr-02/taches-consolidees.md"),
-            ("scripts/suivi.py", "scripts/suivi.py", "docs/tracking/FICHES-PR02.md"),
-            ("scripts/suivi.py", "scripts/manuscript_metrics.py", "spec/Spec.lean"),
+             "wiki/assurance.md"),
             ("scripts/controle.py", "scripts/controles/couverture.py", "src/K7pl.lean"),
         }
         self.assertEqual(expected - seen, set())

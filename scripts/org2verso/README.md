@@ -6,18 +6,29 @@ SPDX-License-Identifier: CECILL-2.1
 # org2verso — conversion du manuscrit Org-mode en Verso
 
 Programme à usage unique devenu outil de reproductibilité : il a produit `spec/` à partir du
-manuscrit Org-mode du 1er octobre 2026 (figé dans [`docs/archives/manuscrit-org/`](../../docs/archives/manuscrit-org/)).
+manuscrit Org-mode du 1er octobre 2026 (anciennement figé dans `docs/archives/manuscrit-org/`, supprimé lors de la clôture des archives du 2026-10-25 ; voir la matrice de migration).
 **Depuis cette conversion, la source de référence est le Verso** ; on n'exécute plus ce programme
-pour écrire, seulement pour vérifier que la conversion se rejoue à l'identique ou pour convertir un
+pour écrire, seulement pour vérifier que la conversion se rejoue ou pour convertir un
 état plus récent des sources Org.
+
+Note du 2026-10-25, mise à jour à la clôture des archives : les chapitres Org, les références,
+le fichier maître, les annexes et l'ancien outillage ont été supprimés de l'arbre après
+vérification de leur transposition ou abandon explicite (voir la matrice de migration) ;
+`docs/archives/` ne subsiste plus. Pour rejouer
+la conversion, il faut donc pointer `--src` vers une extraction des sources Org antérieure à
+cette suppression (historique git), et non vers l'arbre courant. Le rejeu du 2026-10-25 a
+généré 66 fichiers Lean, 0 référence non résolue, 1 avertissement — mais il ne reproduit pas
+`spec/` à l'identique : le Verso a été retouché après la conversion, dans chaque fichier de
+chapitre, et les modules d'annexes B à E ne sont plus importés par `spec/Spec.lean`. Le rejeu
+vérifie donc la correspondance des sections, pas l'identité byte à byte avec le Verso courant.
 
 ```sh
 pip install pymupdf                     # PDF → SVG des figures
 # optionnel, pour les diagrammes mermaid : npm install @mermaid-js/mermaid-cli
 python3 scripts/org2verso/convert.py \
-    --src docs/archives/manuscrit-org --meta spec/figures \
+    --src <extraction des sources Org antérieure à 2026-10-25> --meta spec/figures \
     --out /tmp/rejeu --report /tmp/rejeu/rapport.md [--mmdc chemin/vers/mmdc]
-diff -r spec/Spec /tmp/rejeu/spec/Spec    # aucune différence attendue
+diff -r spec/Spec /tmp/rejeu/spec/Spec    # écarts attendus : retouches Verso post-conversion
 ```
 
 | Fichier | Rôle |
@@ -34,8 +45,8 @@ les commentaires Org deviennent des blocs `:::comment` (non rendus) ; les `\ref`
 `{num}` ; les annexes portent leur lettre dans le titre.
 
 Le rapport de conversion liste les renvois non résolus (aucun aujourd'hui) et les avertissements
-de l'analyseur (un : l'en-tête du tableau `tab:engagements` est incomplet dans la source Org
-archivée, voir [`c1-prolegomenes.org`](../../docs/archives/manuscrit-org/chapitres/c1-prolegomenes.org).
+de l'analyseur (un : l'en-tête du tableau `tab:engagements` était incomplet dans la source Org
+archivée, aujourd'hui supprimée après transposition).
 Le tableau courant est structuré dans [`GuideDeLecture.lean`](../../spec/Spec/C1/GuideDeLecture.lean)).
 
 Autres scripts : [`../biblio/`](../biblio/) (bibliographie), [`../org2md.py`](../org2md.py) (notes

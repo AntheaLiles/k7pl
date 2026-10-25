@@ -68,6 +68,16 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"
 
+# Projets théoriques non normatifs (k7os, …) : même licence que la
+# documentation. Les fichiers déplacés hors de docs/ en 2026-10-25 avaient
+# perdu la couverture docs/** ; cette règle la leur rend, sans toucher à
+# leurs en-têtes propres quand ils en ont un (precedence aggregate).
+[[annotations]]
+path = "theoretical-projects/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC-BY-4.0"
+
 # Ancien outillage Org : le code reste du logiciel.
 [[annotations]]
 path = "docs/archives/outillage-org/**"
@@ -78,13 +88,13 @@ SPDX-License-Identifier = "CECILL-2.1"
 # Données bibliographiques : métadonnées réutilisables ; les décisions
 # bibliographiques restent documentaires.
 [[annotations]]
-path = "docs/bibliography/references.json"
+path = "wiki/references.json"
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = "docs/bibliography/decisions-bibliographiques.json"
+path = "wiki/bibliography-decisions.json"
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"

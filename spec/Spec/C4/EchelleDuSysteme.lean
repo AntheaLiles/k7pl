@@ -536,8 +536,29 @@ représentation et la primitive atomique éventuelles relèvent du raffinement.
 Quatre résultats de ce document en sont des lectures : l'activation
 conditionnelle ci-dessus ; le circuit breaker de session, qui compare le tag d'un message à ce que la
 boîte attend ; la ré-invocation séquentielle d'un grade fini ; et la traduction d'un service répliqué
-$`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme sa restriction ; la
-reprise de leurs énoncés sur cette définition unique reste à faire.
+$`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme sa restriction :
+l'activation conditionnelle est la consommation atomique multi-places sur $`\mathsf{Bag}(\mathsf{Cap}(c))`
+pour deux canaux ; le circuit breaker est la comparaison du tag d'un message à l'indice de la somme ; la
+ré-invocation d'un grade fini est le service répliqué $`n` fois sur un canal de la boîte ; la
+traduction $`!x(y).P` en est la restriction au grade $`\omega`. La reprise formelle de leurs énoncés sur
+cette définition unique reste à faire : c'est une réécriture, non une découverte.
+
+La structure physique de cette boîte tient en une phrase : _un anneau SPSC par couple (émetteur, boîte), et une
+file de jonction par acteur_. La capacité d'écriture d'un canal est linéaire, de sorte qu'un anneau n'a qu'un
+producteur, et la boîte n'a qu'un consommateur, l'acteur qui la détient ; l'indexation de $`\mathsf{Mailbox}`
+par canal est cette même partition. Aucune des deux extrémités n'a besoin de comparer-et-échanger, et les deux
+barrières de ce chapitre — libération à la publication, acquisition à la consommation — suffisent. La file de
+jonction est l'état que l'acteur tient pour ses motifs en attente, au sens du calcul de jonction
+{cite "fournetReflexiveCHAMJoincalculus1996"}[] : pour chaque motif, l'ensemble des anneaux non vides dont il a besoin,
+lisible par masquage binaire. L'appariement atomique n'est alors pas un protocole entre pairs : l'acteur étant
+l'unique consommateur de ses anneaux, consommer deux messages revient à avancer deux curseurs de consommation que
+lui seul écrit, et les producteurs, qui ne lisent ce curseur que pour savoir s'il reste de la place, tolèrent de
+le voir en retard. Quand plusieurs anneaux portent un message qui convient au motif, l'acteur les examine dans
+l'ordre fixe des identifiants d'émetteur : le choix est une fonction de l'état de la boîte, que le journal
+restitue, et non une source de non-déterminisme de plus. Deux coûts se nomment. Une file à plusieurs producteurs
+simplifierait la topologie, mais au prix d'un comparer-et-échanger que P3 refuse ; et le nombre d'anneaux croît avec
+celui des émetteurs. Cette borne mémoire est connue à la compilation : le graphe de câblage est donné en entier, et
+chaque anneau a une capacité qui est un grade ; une boîte créée à l'exécution par {sc}[New] porte le sien.
 
 L'énoncé est _local_ : il porte sur une jonction prise isolément. {rmq}[L'atomicité locale est
 esquissée, la localité ne l'est pas. Les deux mots se ressemblent et ne disent pas la même chose.]
@@ -642,6 +663,11 @@ mécanisme de vérification et de révocation reste ouvert ; cette exigence ne s
 Le retrait d’une capacité du contexte typé et la révocation d’un accès déjà accordé sont des
 obligations distinctes ; la seconde exige un argument de sûreté propre à la frontière
 {cite "gouniSecurityReasoningSubstructural2026"}[].
+
+S'il tient, la frontière d'exécution cesse d'être un trou dans la discipline de propriété : elle en
+est un cas. S'il tombe sur sa seconde clause, l'appel étranger redevient un point où une capacité
+peut fuir, et le postulat de sûreté mémoire s'arrête à la passerelle.
+
 
 
 Rien de ce qui précède n'a besoin d'être réinventé pour la programmation probabiliste : elle en est

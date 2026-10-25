@@ -23,7 +23,7 @@ tag := "c3-les-contraintes-de-valeur"
 
 Deux filiations gouvernent cette section. Les types liquides de Rondon, Kawaguchi et Jhala
 établissent qu'un raffinement reste décidable si sa vérification est déléguée à un solveur plutôt
-qu'intégrée à l'unification — c'est le partage que K7PL reprend entre le narrowing et la Phase 5
+qu'intégrée à l'unification — c'est le partage que K7PL reprend entre le narrowing et la Phase 7
 (chapitre 6). Le tracé exact de ce partage est assumé pour ce qu'il est : il ne suit d'aucune
 nécessité logique. Certaines contraintes de taille se vérifieraient par narrowing au prix
 d'annotations supplémentaires, certaines existentielles se délégueraient au solveur. Le critère
@@ -303,7 +303,7 @@ d'état de blocage mutuel.
 :::proofsketch
 Le jeton linéaire `Lin(SessionEndpoint)` force la progression : une session ne peut être abandonnée,
 elle doit atteindre `end` ou traiter un `Timeout`. Le graphe de dépendances est acyclique par
-vérification en Phase 1.5, un cycle produisant `ERR-ARC-001`. Par tri topologique de ce graphe
+vérification en Phase 2, un cycle produisant `ERR-ARC-001`. Par tri topologique de ce graphe
 (chapitre 2, théorème {num "thm:tri_topologique"}[]) et élimination des coupures sur le fragment
 multiplicatif, il existe toujours une communication réductible : une progression possible plutôt
 qu'une attente circulaire. L'énoncé porte sur les états atteignables et se prouve donc par
@@ -336,7 +336,7 @@ Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. 
 donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet
 coinductif par induction.] Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné
 en entier à la compilation : fini, statique, il se traite inductivement, et le tri topologique de la
-Phase 1.5 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie
+Phase 2 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie
 au fil des activations et n'est jamais donné. L'acyclicité du premier n'implique donc pas
 mécaniquement celle du second, et c'est pourquoi l'énoncé porte sur les états atteignables et non
 sur le câblage.
@@ -361,7 +361,9 @@ un effet algébrique (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}
 confondue avec une erreur définitive. La théorie des roues instancie ce premier régime pour
 l'arithmétique : une opération invalide ($`0/0`) ne lève pas d'exception mais produit une
 singularité — $`\bot`, $`\infty`, $`\circ`, $`\delta`, constructeurs d'un type algébrique `Wheel<T>`
-distinct du flottant IEEE 754 sous-jacent, dont la conversion reste explicite dans les deux sens.
+distinct du flottant IEEE 754 sous-jacent, dont la conversion reste explicite dans les deux sens. Les deux
+premières viennent de la théorie des roues {cite "carlstromWheelsDivisionZero2004"}[] ; les deux dernières, et
+leur combinaison $`\circ\delta`, sont une extension de K7PL, définie plus bas.
 Ces singularités se propagent algébriquement à travers les opérations vectorielles, sans jamais
 introduire de branchement ; si $`\bot` atteint la sortie d'une fonction, le résultat est simplement
 l'absence de donnée — un échec prouvé plutôt que silencieux.
@@ -383,7 +385,8 @@ $`\text{select}(m, i(x), y) = i(x)` si $`m`, $`y` sinon, exactement.
 :::proofsketch
 La norme IEEE 754 laisse libres les bits de charge utile d'un NaN silencieux ; K7PL y encode chaque
 singularité de façon déterministe, d'où l'injectivité (i). L'égalité de couche 3 est l'identité bit
-à bit plutôt que l'égalité IEEE 754 standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
+à bit sur les valeurs finies et l'égalité de classe sur les singularités, plutôt que l'égalité IEEE 754
+standard, défectueuse pour `NaN`. L'opérateur `select` s'abaisse
 en masquage vectoriel sans branchement ; la nature binaire du masque garantit que la charge utile de
 la branche inactive est annihilée plutôt que corrompue, d'où (ii).
 :::
@@ -411,7 +414,8 @@ test différentiel (§{num "sec:c6-le-processus-de-compilation"}[]).
 
 :::note
 Ce que l'énoncé _ne dit pas_ : l'encodage n'est pas un homomorphisme de la théorie des roues vers
-les flottants. En roues $`x/0 = \bot`, donc $`1/0 = \bot`, tandis qu'en IEEE 754 $`1/0 = +\infty` ;
+les flottants. En roues, $`0/0 = \bot` et $`1/0 = \infty`, un seul infini non signé ; IEEE 754 a deux infinis, $`1/{+0} = +\infty`
+et $`1/{-0} = -\infty`, que l'encodage doit distinguer ou identifier explicitement ;
 et la propagation de la charge utile d'un NaN à travers $`+` est seulement recommandée par la norme,
 non exigée, les opérations invalides produisant le NaN par défaut. Les lois de la théorie des roues,
 par exemple $`\bot + y = \bot`, ne tiennent donc sur les valeurs encodées que parce que la table de

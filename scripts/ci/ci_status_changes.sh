@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-# Writes `changed=true` to GITHUB_OUTPUT when the working tree's docs/STATUS.md differs from the
+# Writes `changed=true` to GITHUB_OUTPUT when the working tree's wiki/STATUS.md differs from the
 # index (scripts/generate_status.py rewrote it), `changed=false` otherwise.
 #
 # Called by: .github/workflows/ci.yaml, job `status`, step "Check for generated changes" (id
@@ -13,7 +13,7 @@
 #   bash scripts/ci/ci_status_changes.sh
 set -euo pipefail
 
-if git diff --quiet -- docs/STATUS.md; then
+if git diff --quiet -- wiki/STATUS.md; then
   echo "changed=false" >> "$GITHUB_OUTPUT"
 else
   echo "changed=true" >> "$GITHUB_OUTPUT"

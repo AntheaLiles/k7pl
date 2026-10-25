@@ -15,6 +15,12 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## [Unreleased]
 
+### Ajouté
+
+- Suivi : séance 33 (`docs/journal/2026-10-07-pr-02-33-sources-des-singularites.md`), note de sources des propagations de singularités (`docs/recherche/sources-singularites.md`) vérification exhaustive de l'algèbre des singularités (`scripts/verif_singularites.py`) et contrôle des tables de propagation du §3.2 contre la roue des fractions (`scripts/controles/singularites.py`) ; notice d'IEEE 754-2019 dans `biblio/references.json`.
+- Générateur de la spécification : index à pages et reconnaissance automatique des termes de l'index, du glossaire et des acronymes (`tools/SpecExt/Index.lean`, `AutoMark.lean`, `IndexCore.lean`, `IndexTerms.lean`), interface HTML en français (`tools/SpecExt/Translate.lean`), tests (`tests/SpecToolsTest.lean`, `lakefile.lean`), garde `scripts/controles/indexation.py` (`ANOM-09`, `ANOM-10`).
+- Contrôles sur le Verso : sondes sémantiques, vocabulaire de l'axiome, règles sans prémisse, productions dégénérées, types non engendrés, catalogue des codes d'erreur.
+
 ### Added
 
 - K7OS exploration portfolio: preserve the previously studied shared-address-space/unikernel target, alternative isolation architectures, actor-memory constraints, native/FFI and DMA boundaries, concurrency, cancellation, recovery, persistence, budgets, boot and build-chain options in a separate non-normative dossier. Update the SPEC-D register to reflect merged R4/R5 reports and map language obligations separately from OS-realization decisions. No target architecture or new normative K7PL guarantee is ratified.
@@ -29,10 +35,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - R6 OS-design research: audit abstract grade/budget arithmetic against operational cost semantics, compilation, binary-level WCET analysis, CPU budgets, scheduling feasibility, and target-specific assumptions. Non-normative; no end-to-end real-time guarantee is claimed.
 
 - R4 OS-design research: audit the static-DAG/dynamic-wait-graph proof obligation, separate local/global progress from fair termination, and define testable contracts for timeout, cancellation, crash recovery, and resource cleanup. Non-normative; liveness guarantees remain conditional where the model or fairness assumptions are open.
-
-- R3 OS-design research: define relational confidentiality/integrity obligations, observation boundaries, controlled declassification and endorsement, timing-channel limits, and adversarial test cases. Non-normative; no global information-flow guarantee is claimed.
-
-- R0 OS-design research: add a versioned threat model, observation model, assurance matrix, falsification cases, and architecture gates. Non-normative; no OS guarantee is promoted to established status.
+- R3 OS-design research: define relational confidentiality/integrity obligations, observation boundaries, controlled declassification and endorsement, timing-channel limits, and adversarial test cases. Non-normative; no global information-flow guarantee is claimed.- R0 OS-design research: add a versioned threat model, observation model, assurance matrix, falsification cases, and architecture gates. Non-normative; no OS guarantee is promoted to established status.
 
 - GitHub Wiki publication from docs/, excluding docs/archives/**, with deterministic page names, export tests, navigation indexes, and a commit-bound SHA-256 manifest.
 - Proof visualizations: observations of five selected Lean proofs, extracted with Paperproof in an
@@ -78,9 +81,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - Assurance tooling: add deterministic adversarial mutation tests for the Lake-to-OSV adapter and record the observed OSV-Scanner, actionlint, zizmor, and generated-figure accessibility results with their limitations. This does not introduce a general fuzzer, a Lean SAST claim, or a blocking vulnerability gate.
 - R1 OS-design research: compare typed, software, kernel, and hardware capabilities; specify revocation and in-flight-operation semantics; document FFI ownership modes, device-access boundaries, and formal obligations. Non-normative; no security guarantee is marked established.
 - R2 OS-design research: map source-to-binary assurance boundaries, define the semantic observations a compiler must preserve, compare verified compilation and translation validation, and stage the zero-overhead target. Non-normative; no end-to-end compiler guarantee is marked established.
-- R5 OS-design research: distinguish abstract capability counting from a complete memory-safety argument; map H1/H2/H3, borrowing, fractional permissions, alias provenance, FFI, and weak-memory proof obligations. Non-normative; end-to-end memory safety remains unestablished.
-
-## [0.0.0-alpha.1]
+- R5 OS-design research: distinguish abstract capability counting from a complete memory-safety argument; map H1/H2/H3, borrowing, fractional permissions, alias provenance, FFI, and weak-memory proof obligations. Non-normative; end-to-end memory safety remains unestablished.## [0.0.0-alpha.1]
 
 ### Added
 
