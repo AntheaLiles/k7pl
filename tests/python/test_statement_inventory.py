@@ -23,7 +23,7 @@ def test_current_inventory_matches_all_active_statement_blocks():
     errors = inventory.check_inventory()
     assert errors == [], "\n".join(errors)
     rows = inventory.source_inventory()
-    assert len(rows) == 77
+    assert len(rows) == 81
     assert len({row["path"] for row in rows}) == 21
 
 
@@ -126,7 +126,7 @@ def test_all_historical_labels_survive_with_only_declared_companion_objects():
     assert len(historical) == 69
     assert historical <= active
     assert active - historical == inventory.EXPECTED_COMPANION_LABELS
-    assert len(inventory.EXPECTED_COMPANION_LABELS) == 8
+    assert len(inventory.EXPECTED_COMPANION_LABELS) == 12
 
 
 # SHA-256 of the detailed table of the pre-migration snapshot. The digest was computed on

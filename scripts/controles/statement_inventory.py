@@ -39,6 +39,12 @@ EXPECTED_COMPANION_LABELS = {
     "thm:raffinement_effacement",
     "thm:raffinement_non_interference",
     "thm:raffinement_precision",
+    # Author decision 2026-10-25: no statement in excess, only a traceability
+    # gap — these four statements present in spec/ are all counted.
+    "thm:chaine_fils",
+    "thm:correspondance_niveaux",
+    "thm:loi_distributive_conditions",
+    "thm:substitution_indices",
 }
 HISTORICAL_ROW = re.compile(r"^\| `[^\`]+` \| \d+ \| `(?P<label>[^\`]+)` \|", re.M)
 HISTORICAL_LEVEL_ROW = re.compile(
