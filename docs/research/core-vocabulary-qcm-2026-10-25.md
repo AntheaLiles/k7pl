@@ -36,7 +36,7 @@ Les objets complets et les règles sont détaillés dans le [registre ontologiqu
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — variable liée**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Occurrence d'un nom lié, dans un jugement qui impose ses grades et les autres liaisons nulles. Risque connu : Le mot « variable » peut désigner l'objet abstrait aussi bien que son occurrence concrète.  
@@ -68,7 +68,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — valeur unité**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Valeur unique de type unité, distincte du type 1 et de son éliminateur. Risque connu : « Trivial » est trop large ; « unité » peut référer au type.  
@@ -100,7 +100,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — paire linéaire**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Construction de valeur tensorielle qui additionne les contextes consommés. Risque connu : Paire décrit l'arité ; tenseur nomme aussi le type ; composition peut sembler une opération sur contextes.  
@@ -132,7 +132,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — injection**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Introduire une branche indexée dans une somme disjointe. Risque connu : Injection est terme logique reçu ; marquage n'expose pas la somme.  
@@ -164,7 +164,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — promotion**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Convention anglophone/code potentiellement familière à certains programmeurs ; dépend de l'expérience et de la langue de travail, non mesurée ici.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Introduire !ᵣ V en mettant le contexte à l'échelle du grade complet. Risque connu : Promotion peut laisser croire à une seule dimension monotone ; emboîtage ne rend pas les obligations du grade.  
@@ -196,7 +196,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — suspension**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Convention anglophone/code potentiellement familière à certains programmeurs ; dépend de l'expérience et de la langue de travail, non mesurée ici.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Construire une valeur contenant un calcul et son effet déclaré. Risque connu : Le mot doit éviter de promettre partage, mémoïsation ou une politique d'évaluation non spécifiée.  
@@ -228,7 +228,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — empaquetage existentiel**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Associer le témoin de type W à une valeur de V[W/α]. Risque connu : Le témoin doit rester visible conceptuellement ; « conditionnement » peut évoquer une hypothèse logique.  
@@ -260,7 +260,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — repliage**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Introduire le type inductif en repliant une valeur du corps déplié. Risque connu : Le candidat doit rester cohérent avec l'élimination unfold sans confondre le pli indexé d'un vecteur.  
@@ -292,7 +292,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — littéral de vecteur**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Valeur d'un vecteur de longueur connue ; le type Vec est déclaré dérivé, mais ses règles restent à auditer. Risque connu : « Littéral » suppose une forme de surface ; « introduction » décrit plutôt la règle.  
@@ -324,7 +324,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — retour**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Convention anglophone/code potentiellement familière à certains programmeurs ; dépend de l'expérience et de la langue de travail, non mesurée ici.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Former un calcul de type F₁V qui restitue v sans ajouter d'effet non trivial. Risque connu : Retour peut évoquer la fin d'une fonction ; production omet l'effet unité ; injection dans un calcul est précis mais lourd.  
@@ -356,7 +356,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — liaison séquentielle**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Lier le résultat du premier calcul dans le second et composer contextes et effets. Risque connu : « Séquencement » seul perd la liaison ; « bind »/« enchaînement » peuvent importer des hypothèses monadiques.  
@@ -388,7 +388,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — abstraction de calcul**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Abstraire un calcul sur un argument gradué ; le type fonctionnel porte usage et effet. Risque connu : Lambda nomme le symbole ; abstraction doit distinguer calcul, type et confidentialité.  
@@ -420,7 +420,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — application**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Appliquer un calcul-fonction à une valeur, avec mise à l'échelle du contexte par l'usage de l'argument. Risque connu : Appel est familier mais peut suggérer exécution ordinaire ; le grade et l'effet sont constitutifs.  
@@ -452,7 +452,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — forçage**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Récupérer le calcul suspendu avec l'effet qu'il déclare. Risque connu : Forçage peut suggérer répétition ; reprise peut laisser entendre que le calcul a déjà commencé.  
@@ -484,7 +484,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — discrimination de somme**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Choisir la branche de somme correspondant à l'étiquette ; la règle impose aussi une contrainte de niveau. Risque connu : Sélection peut masquer la preuve de branche ; discrimination est exact mais moins familier.  
@@ -516,7 +516,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** choisir un lemme français qui désigne précisément cette règle sans perdre la sorte, la ressource ou la contrainte distinctive.
 
 **A — élimination de l'unité**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence à tester contre la définition ci-dessus.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Consommer une valeur d'unité puis poursuivre sans liaison de donnée utile. Risque connu : Consommation risque une lecture de coût ou de ressource ; liaison d'unité surdécrit la syntaxe.  
@@ -550,7 +550,7 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — décomposition de paire**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Extraire les deux composants d'une valeur tensorielle en les liant sous contraintes graduées. Risque connu : Décomposition a une collision avec le produit module×ordre du grade ; la sorte doit être nommée.  
@@ -582,7 +582,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — offre d'observations**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Offrir plusieurs calculs indexés accessibles sous le même contexte par choix d'observation. Risque connu : « Record » ou « objet » importerait un modèle de champs ; « conjonction » est exact mais logique.  
@@ -614,7 +614,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — projection additive**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Sélectionner un calcul dans la famille indexée. Risque connu : Projection collisionne avec πℓ ; sélection est plus claire mais peut effacer le connecteur logique.  
@@ -646,7 +646,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — restitution**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Convention anglophone/code potentiellement familière à certains programmeurs ; dépend de l'expérience et de la langue de travail, non mesurée ici.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Exposer une valeur de grade r depuis !ᵣV et composer les contextes sous les obligations de modalité. Risque connu : Extraction collisionne avec l'extraction de preuve ; sortie est imprécis ; restitution peut impliquer un retour de ressource.  
@@ -678,7 +678,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — ouverture existentielle**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Substituer témoin de type et valeur, sous condition de fraîcheur et de non-fuite du type. Risque connu : Ouverture est large et collisionne avec le mot-clé Lean ; dépaquetage est descriptif mais peu théorique.  
@@ -710,7 +710,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — dépliage**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Exposer un cran de la structure du point fixe inductif. Risque connu : Dépliage est symétrique à repliage ; décomposition inductive est explicite mais longue.  
@@ -742,7 +742,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — généralisation de type**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Généraliser un calcul par rapport à une variable de type absente du contexte. Risque connu : Généralisation est aussi le terme de la résolution de variables d'unification ; abstraction est plus large.  
@@ -774,7 +774,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — instanciation de type**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Instancier une variable de type abstraite par substitution d'un type. Risque connu : Application décrit la forme d'appel ; substitution nomme une opération métathéorique plus large.  
@@ -806,7 +806,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — point fixe déductif**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Point fixe d'une fonction monotone sur Trellis_fin, sous effet pur ; stabilisation bornée par la hauteur finie. Risque connu : Récursion bornée risque d'être comprise comme récursion générale ; itération de Kleene nomme aussi un procédé.  
@@ -838,7 +838,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — déclassification**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Opération contrôlée de déclassification associée à un niveau de confidentialité. Risque connu : Le terme doit conserver la condition de sécurité, plutôt que suggérer une permission générale de divulguer.  
@@ -870,7 +870,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — itération de vecteur**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Parcourir le vecteur en composant les effets indexés et en respectant les grades des positions. Risque connu : Pli indexé est une hypothèse de factorisation ; ne pas la choisir lexicalement comme si le théorème de dérivation existait.  
@@ -902,7 +902,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — opération de signature**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Déclencher une opération de signature à effet selon le modèle, avec contrainte de niveau. Risque connu : perform décrit un acte de surface ; raise importe le modèle des exceptions.  
@@ -934,7 +934,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — opération à portée**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Opération recevant un calcul dont la sémantique dépend d'une transformation de portée soumise à ses propres lois. Risque connu : « Gestionnaire » nomme une valeur et « handle » une action de surface ; aucun ne doit remplacer la construction.  
@@ -966,7 +966,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** trouver un nom qui rende la règle sans confondre l'objet formel, l'action de surface ou une opération voisine.
 
 **A — différé d'un pas**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat de référence ; vérifier la correspondance exacte avec la définition.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Reporter un calcul d'un pas ; ce n'est pas une durée arbitraire. Risque connu : Délai peut évoquer une quantité de temps libre plutôt qu'un pas de sémantique.  
@@ -1000,7 +1000,7 @@ Limite/conséquence : La longueur ne doit pas masquer une obligation distincte.
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — garantie permanente**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Poser une disponibilité permanente sous le contexte requis. Risque connu : « Garantie » est parlant mais peut sur-promettre ; la catégorie grammaticale valeur/calcul reste bloquée par D-T1.  
@@ -1032,7 +1032,7 @@ Limite/conséquence : ne pas ratifier avant fermeture des dépendances théoriqu
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — lecture permanente**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Utiliser une valeur disponible sous garantie permanente ; distinct de la localisation at_n. Risque connu : Le token at est une préposition faible et collisionne avec at_n ; le nom doit rendre l'action.  
@@ -1064,7 +1064,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — garantie immédiate**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Introduire une disponibilité immédiate distincte de permanence et d'éventualité. Risque connu : « Maintenant » peut indiquer une horloge ; D-T1 bloque la catégorie exacte.  
@@ -1096,7 +1096,7 @@ Limite/conséquence : ne pas ratifier avant fermeture des dépendances théoriqu
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — attente temporelle**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Transformer une garantie pour le pas suivant en garantie éventuelle selon la règle temporelle. Risque connu : Attendre évoque potentiellement une attente bloquante et non bornée ; la règle exacte doit commander le nom.  
@@ -1128,7 +1128,7 @@ Limite/conséquence : ne pas ratifier avant fermeture des dépendances théoriqu
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — liaison éventuelle**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Poursuivre par substitution lorsque la valeur devient disponible ; latence environnementale distincte du coût de l'automate. Risque connu : Lorsque la représentation de l'attente et la correction de ressource restent ouvertes, aucun candidat ne doit être ratifié.  
@@ -1160,7 +1160,7 @@ Limite/conséquence : ne pas ratifier avant fermeture des dépendances théoriqu
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — observation coinductive**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Observer un cran du point fixe coinductif ; pour les tailles finies, l'observation consomme une unité de disponibilité. Risque connu : Observation peut collisionner avec équivalence observationnelle ; extraction collisionne avec les preuves.  
@@ -1192,7 +1192,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — copatron**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Définir une structure coinductive par les réponses aux observations indexées. Risque connu : Copatron est le terme historique ; son usage français et son extension doivent être clarifiés.  
@@ -1224,7 +1224,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — mise en parallèle**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Exécuter les calculs sans ordonner leurs pas ; travail sommé et profondeur déterminée par un maximum. Risque connu : Le nom doit suggérer l'indépendance des pas sans promettre un ordonnanceur ou une synchronisation.  
@@ -1256,7 +1256,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — application vectorisée**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Terme scientifique/familial potentiellement familier à un lecteur formé ; aucune mesure d'apprentissage pour ce contexte n'est disponible.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Appliquer la fonction à chaque élément ; la profondeur annoncée ne dépend pas de la longueur. Risque connu : Map est familier mais anglais ; élément-par-élément peut masquer le coût en profondeur.  
@@ -1288,7 +1288,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — localisation**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Convention anglophone/code potentiellement familière à certains programmeurs ; dépend de l'expérience et de la langue de travail, non mesurée ici.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Exécuter le calcul dans un lieu nommé auquel ses ressources sont rattachées. Risque connu : Placement peut évoquer une décision d'ordonnanceur ; le token at collisionne avec la lecture permanente.  
@@ -1320,7 +1320,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — déplacement**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Transporter une valeur sérialisable vers un lieu dominant, payer le coût réseau sans la copier. Risque connu : Le nom doit faire percevoir la contrainte de lieux dominants, et ne pas suggérer migration d'un processus entier.  
@@ -1352,7 +1352,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — récupération**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Délimiter un calcul susceptible d'échouer et définir un recours, sans garantir l'absence de panne. Risque connu : Rattrapage peut suggérer la prévention ; récupération n'expose pas seul les conditions de déclenchement.  
@@ -1384,7 +1384,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — engendrement**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Convention anglophone/code potentiellement familière à certains programmeurs ; dépend de l'expérience et de la langue de travail, non mesurée ici.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Engendrer une tâche concurrente sans présupposer que le parent doit attendre son achèvement. Risque connu : Le nom ne doit pas présupposer jonction, ordre d'exécution ou stratégie d'ordonnancement.  
@@ -1416,7 +1416,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — création de boîte aux lettres**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Créer une boîte vide dont les messages admissibles sont déterminés par un motif. Risque connu : Allocation peut confondre communication et mémoire ; le motif admissible est une contrainte centrale.  
@@ -1448,7 +1448,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — émission**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Déposer un message dans une boîte sans attendre sa lecture. Risque connu : Envoi peut suggérer un rendez-vous ; émission ne garantit pas la réception ; dépôt de message est précis mais long.  
@@ -1480,7 +1480,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — réception gardée**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Attendre et consommer un message conforme à un motif, puis poursuivre selon le motif restant. Risque connu : Filtrage suggère une donnée déjà disponible ; réception décrit mieux attente et consommation. L'atomicité multi-message est ouverte.  
@@ -1512,7 +1512,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — libération**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Transparence lexicale plausible, mais l'association verbale seule ne permet pas de conclure à la mémorabilité.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Détruire une boîte seulement si son motif est épuisé et qu'aucun message admissible ne reste. Risque connu : Clôture peut laisser une ressource lisible ; destruction ne rend pas le prérequis d'épuisement.  
@@ -1544,7 +1544,7 @@ Limite/conséquence : les conséquences sur les autres mots de la famille doiven
 **Objectif :** rendre l'effet fonctionnel, les contraintes temporelles/ressources et la portée exacte visibles sans introduire une garantie absente de la règle.
 
 **A — découpe de capacité**  
-Origine : Lemme actuel ou mot descriptif recensé dans primitives.md ; sa présence ne prouve pas ratification.  
+Origine : lemme descriptif de départ utilisé dans ce dossier ; sa présence ne prouve pas ratification.  
 Ancrage scientifique : Candidat nominal à vérifier contre la règle et ses préconditions.  
 Mnémonique : Composé descriptif qui explicite le référent, au prix d'une plus grande longueur ; facilité d'apprentissage non mesurée.  
 Écologique : Expose directement l'action nominalisée ; vérifier qu'il rend aussi visible la ressource/condition de typage exigée par la règle. Référent à contrôler : Consommer une capacité d'écriture sur un segment et produire deux capacités sur des segments disjoints. Risque connu : Partition collisionne avec la relation de disjonction ; découpe doit préciser que la capacité est consommée.  
