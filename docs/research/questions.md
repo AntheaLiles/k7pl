@@ -2,6 +2,8 @@
 
 28 août 2026
 
+> **Statut de provenance.** Ce fichier provient du registre de questions de recherche du 28 août 2026 et a reçu des mises à jour successives. Les balises et conclusions qu'il contient sont à vérifier dans les registres actuels avant de reprendre une tâche ou de déclarer une question ouverte. Pour les questions touchant au vocabulaire du noyau, utiliser l'[inventaire consolidé des sources historiques](core-vocabulary-historical-inventory-2026-10-25.md), puis `docs/tracking/DECISIONS.md` et l'audit T-68 courant. Une question historique ne vaut ni décision de conception ni preuve.
+
 ## QUESTIONS DE RECHERCHE
 
 ### \[DONE\] \[#A\] La catégorie que le chapitre 2 emploie est-elle celle de CO-KLEISLI ou celle d'EILENBERG-MOORE ?

@@ -4,6 +4,8 @@
 Les identifiants marqués **✓vérifié** ont été confirmés en ligne le jour même ; les autres sont donnés
 de mémoire et portent leur réserve.
 
+> **Statut historique — sourcing daté.** Cette fiche conserve l'état de vérification du 31 août 2026 et ne fait pas autorité sur la disponibilité actuelle d'une publication. Avant de déclarer un manque ouvert, vérifier la notice bibliographique courante, le support accessible et le résultat de la publication. Les entrées Arc G/T-68 sont indexées dans l'[inventaire consolidé des sources historiques](../research/core-vocabulary-historical-inventory-2026-10-25.md).
+
 ---
 
 ## A. LES MANQUES QUI BLOQUENT UN ENGAGEMENT
