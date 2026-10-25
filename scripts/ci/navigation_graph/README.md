@@ -52,7 +52,7 @@ L'interface interactive charge `navigation/graph.json` avec JavaScript et propos
 
 Les explications progressives sont aujourd'hui rédigées pour deux cibles seulement : l'idée directrice de C1 Introduction et les distinctions grade/modalité/mode de C3. Pour tout autre nœud, l'interface indique qu'aucune explication dédiée n'est disponible et propose la source canonique au lieu de fabriquer une vulgarisation.
 
-La génération et les tests vérifient la cohérence mécanique du HTML ; ils ne prouvent pas l'utilité pour le lecteur, l'accessibilité réelle dans un navigateur, la lisibilité sur mobile ni le bon fonctionnement du site public. Ces points restent consignés comme actions humaines dans `docs/security/ACTIONS-HUMAINES.md` et dans le plan de suivi interactif.
+La génération et les tests vérifient la cohérence mécanique du HTML ; ils ne prouvent pas l'utilité pour le lecteur, l'accessibilité réelle dans un navigateur, la lisibilité sur mobile ni le bon fonctionnement du site public. Ces points restent consignés comme actions humaines dans `wiki/security.md` et dans le plan de suivi interactif.
 
 ## Développement et validation
 
