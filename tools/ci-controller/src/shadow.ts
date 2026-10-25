@@ -7,11 +7,13 @@
  * classifier on the same changed-path range, compare their
  * surfaces and unknown paths, and fail on any divergence.
  *
- * Shadow mode is diagnostic only in slice 1: it is NOT wired
- * into ci.yaml or into any aggregator. Wiring it in is a
- * separate, owner-reviewed step (see README.md, cutover
- * criteria). The Python run writes its GITHUB_OUTPUT to a
- * temporary file so it never clobbers the runner's output file.
+ * Shadow mode is diagnostic only: since slice 3 it is wired into
+ * ci.yaml as the controller-shadow job, which is NOT in the
+ * ci-ok aggregator's needs and runs with continue-on-error.
+ * Promoting it to a gate is a separate, owner-reviewed step
+ * (see README.md, cutover criteria). The Python run writes its
+ * GITHUB_OUTPUT to a temporary file so it never clobbers the
+ * runner's output file.
  */
 
 import { type Classification, classify, SURFACE_KEYS } from "./classify.ts";

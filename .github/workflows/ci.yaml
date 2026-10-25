@@ -75,6 +75,41 @@ jobs:
         # checks behind a `CI OK` that a main commit carries.
         run: bash scripts/ci/ci_impact.sh
 
+  controller-shadow:
+    name: Controller shadow
+    # Shadow diagnostic only, owner-approved 2026-10-25 (slice 3).
+    # This job is deliberately NOT in ci-ok's needs and runs with
+    # continue-on-error: a divergence is reported in its logs, it
+    # never gates CI OK and never replaces the Python classifier.
+    # The Python classifier in the `impact` job stays the only
+    # source of truth until a cutover decision promotes the Deno
+    # controller. Runs on push and pull_request only: a manual
+    # dispatch has no base range for the shadow comparison.
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+        with:
+          deno-version: v2.9.8
+
+      - name: Validate the component registry
+        run: deno run --allow-read tools/ci-controller/src/main.ts validate-registry
+
+      - name: Compare Deno and Python classifiers (shadow)
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/main.ts classify --shadow --base "$BASE_SHA" --head "$HEAD_SHA"
+
   verify:
     name: Vérification
     needs: impact

@@ -41,9 +41,10 @@ toolchains:
   - id: deno
     version: 2.9.8
     source: denoland/setup-deno
-    note: Exact version installed for slice 1 development; the
-      setup-deno action SHA is resolved at implementation time
-      (see tools/ci-controller/README.md).
+    note: Resolved at slice 3 implementation time by git ls-remote
+      on denoland/setup-deno: tag v2.0.5, commit
+      22d081ff2d3a40755e97629de92e3bcbfa7cf2ed, used by the
+      controller-shadow job in .github/workflows/ci.yaml.
 
 components:
   - id: specification
