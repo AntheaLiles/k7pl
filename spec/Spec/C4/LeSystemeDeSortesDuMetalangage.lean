@@ -512,10 +512,6 @@ qui l'a créée par {sc}[New], fixé à la création. Qu'un pas de la couche 2 c
 étendant $`\theta` des localisations que {sc}[New] crée des deux côtés à un niveau $`\sqsubseteq \ell`,
 est ce que l'induction du lemme fondamental doit établir : elle n'est pas conduite.
 
-Le lemme fondamental (théorème {num "thm:lemme_fondamental"}[]) s'étendrait en conséquence à la strate
-des sessions, ses cas nouveaux étant ceux des règles de communication, chacun appelant la clause
-correspondante. _La non-interférence graduée et la divulgation délimitée restent donc bornées
-
 Le lemme fondamental (théorème {num "thm:lemme_fondamental"}[]) s'étend en conséquence à la strate
 des sessions, ses cas nouveaux étant ceux des règles de communication, chacun réglé par la clause
 correspondante. _La non-interférence graduée, esquissée, et la divulgation délimitée, conjecturée, restent donc bornées
