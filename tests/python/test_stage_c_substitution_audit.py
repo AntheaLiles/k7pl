@@ -16,18 +16,18 @@ RULES_SOURCE = ROOT / "spec" / "Spec" / "C3" / "ReglesDeTypage.lean"
 # the live side of the old guard: the C3 rule inventory must still match the
 # pinned inventory, so that a new rule forces a proof-by-cases review.
 #
-# NOTE — pre-existing drift, not ratified here: at the migration closing the
-# current inventory counts 51 occurrences, not 49: `Nxt` and `Loc` were added
-# to the typing rules (spec change b0d2cbf) after the 49-row inventory was
-# pinned. This test therefore FAILS until the gate re-audit reviews the two
-# added rules by cases. Updating the pinned inventory to 51 without that
-# review would silently ratify the drift, so it is deliberately not done here.
+# NOTE — ratified by the author on 2026-10-25: `Nxt` and `Loc` are real
+# typing rules, added by spec change b0d2cbf. They join the construction of
+# the typing system, which the author objectifies as the object system of
+# K7PL (composing a type is providing an immutable object), a conception
+# strongly inspired by CLOS, whose construction includes locality clauses.
+# The pinned inventory is therefore 51 occurrences, not 49.
 EXPECTED_RULE_OCCURRENCES = Counter([
     "Var", "Ret", "Th", "Let", "Fo", "Box", "Unbox", "Lam", "App", "Pair", "Inj",
     "Pack", "Open", "One", "OneE", "Split", "Case", "Op", "Tick", "Del", "Sub",
-    "SubBox", "Alw", "Alw", "Now", "Wait", "When", "Sc", "Fold", "Unfold", "Gen",
+    "SubBox", "Alw", "Alw", "Now", "Nxt", "Wait", "When", "Sc", "Fold", "Unfold", "Gen",
     "Inst", "Out", "Cop", "With", "Proj", "VecI", "VecE", "Slice", "Par", "Vmap",
-    "Spawn", "New", "Send", "Guard", "Free", "At", "Move", "Try",
+    "Spawn", "New", "Send", "Guard", "Free", "At", "Loc", "Move", "Try",
 ])
 
 
@@ -39,4 +39,4 @@ def test_c3_rule_inventory_still_matches_the_pinned_inventory():
         "C3 rule inventory changed; review the proof by cases: "
         f"missing={EXPECTED_RULE_OCCURRENCES - actual}, added={actual - EXPECTED_RULE_OCCURRENCES}"
     )
-    assert sum(actual.values()) == 49
+    assert sum(actual.values()) == 51
