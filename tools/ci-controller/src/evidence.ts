@@ -46,6 +46,30 @@ export interface Evidence {
   exit_code: number;
   claims: EvidenceClaim[];
   depends_on?: string[];
+  traceability?: EvidenceTraceability;
+}
+
+/**
+ * Requirement-to-evidence traceability, transcribed from the deleted
+ * tools/Compliance/RequirementEvidence model (no live consumer):
+ * the data model and structural rules only, not the assessor.
+ * Applicability is an explicit decision; an applicable requirement
+ * needs a named decider and a rationale; exceptions need a reason,
+ * an approver, and an expiry. Expiry itself is enforced by the
+ * consumer at report time (records carry no clock); a record never
+ * claims satisfaction on its own.
+ */
+export interface EvidenceTraceability {
+  requirementId: string;
+  applicability: string;
+  sourceRef?: string;
+  sourceRevision?: number;
+  artifactId?: string;
+  artifactRevision?: number;
+  decidedBy?: string;
+  rationale?: string;
+  evidence?: { status: string; reviewedBy?: string }[];
+  exceptions?: { reason: string; approvedBy: string; expiresAt: number }[];
 }
 
 const SHA256 = /^[0-9a-f]{64}$/;
@@ -100,6 +124,7 @@ export function validateEvidenceSchema(value: unknown): string[] {
     "exit_code",
     "claims",
     "depends_on",
+    "traceability",
   ];
   for (const key of Object.keys(value)) {
     if (!allowed.includes(key)) {
@@ -196,6 +221,150 @@ export function validateEvidenceSchema(value: unknown): string[] {
           value["depends_on"][i] === ""
         ) {
           errors.push(`depends_on[${i}]: expected a non-empty stage id`);
+        }
+      }
+    }
+  }
+  if (value["traceability"] !== undefined) {
+    const t = value["traceability"];
+    if (!isRecord(t)) {
+      errors.push("traceability: expected an object");
+    } else {
+      for (const key of Object.keys(t)) {
+        if (
+          ![
+            "requirementId",
+            "applicability",
+            "sourceRef",
+            "sourceRevision",
+            "artifactId",
+            "artifactRevision",
+            "decidedBy",
+            "rationale",
+            "evidence",
+            "exceptions",
+          ].includes(key)
+        ) {
+          errors.push(`traceability: unexpected property ${key}`);
+        }
+      }
+      if (typeof t["requirementId"] !== "string" || t["requirementId"] === "") {
+        errors.push("traceability.requirementId: expected a non-empty string");
+      }
+      if (
+        !["applicable", "notApplicable", "unresolved"].includes(
+          String(t["applicability"]),
+        )
+      ) {
+        errors.push(
+          "traceability.applicability: expected one of applicable, notApplicable, unresolved",
+        );
+      }
+      if (t["applicability"] === "applicable") {
+        if (typeof t["decidedBy"] !== "string" || t["decidedBy"] === "") {
+          errors.push(
+            "traceability.decidedBy: expected a non-empty string for an applicable requirement",
+          );
+        }
+        if (typeof t["rationale"] !== "string" || t["rationale"] === "") {
+          errors.push(
+            "traceability.rationale: expected a non-empty string for an applicable requirement",
+          );
+        }
+      }
+      for (
+        const key of ["sourceRef", "artifactId"]
+      ) {
+        if (
+          t[key] !== undefined &&
+          (typeof t[key] !== "string" || t[key] === "")
+        ) {
+          errors.push(`traceability.${key}: expected a non-empty string`);
+        }
+      }
+      for (const key of ["sourceRevision", "artifactRevision"]) {
+        if (
+          t[key] !== undefined &&
+          (typeof t[key] !== "number" || !Number.isInteger(t[key]) ||
+            (t[key] as number) < 0)
+        ) {
+          errors.push(`traceability.${key}: expected a non-negative integer`);
+        }
+      }
+      if (t["evidence"] !== undefined) {
+        if (!Array.isArray(t["evidence"])) {
+          errors.push("traceability.evidence: expected an array");
+        } else {
+          for (let i = 0; i < t["evidence"].length; i++) {
+            const item = t["evidence"][i];
+            if (!isRecord(item)) {
+              errors.push(`traceability.evidence[${i}]: expected an object`);
+              continue;
+            }
+            if (
+              !["verified", "unreviewed", "disputed"].includes(
+                String(item["status"]),
+              )
+            ) {
+              errors.push(
+                `traceability.evidence[${i}].status: expected one of verified, unreviewed, disputed`,
+              );
+            }
+            if (
+              item["reviewedBy"] !== undefined &&
+              (typeof item["reviewedBy"] !== "string" ||
+                item["reviewedBy"] === "")
+            ) {
+              errors.push(
+                `traceability.evidence[${i}].reviewedBy: expected a non-empty string`,
+              );
+            }
+            for (const key of Object.keys(item)) {
+              if (key !== "status" && key !== "reviewedBy") {
+                errors.push(
+                  `traceability.evidence[${i}]: unexpected property ${key}`,
+                );
+              }
+            }
+          }
+        }
+      }
+      if (t["exceptions"] !== undefined) {
+        if (!Array.isArray(t["exceptions"])) {
+          errors.push("traceability.exceptions: expected an array");
+        } else {
+          for (let i = 0; i < t["exceptions"].length; i++) {
+            const item = t["exceptions"][i];
+            if (!isRecord(item)) {
+              errors.push(`traceability.exceptions[${i}]: expected an object`);
+              continue;
+            }
+            for (const key of ["reason", "approvedBy"]) {
+              if (typeof item[key] !== "string" || item[key] === "") {
+                errors.push(
+                  `traceability.exceptions[${i}].${key}: expected a non-empty string`,
+                );
+              }
+            }
+            if (
+              typeof item["expiresAt"] !== "number" ||
+              !Number.isInteger(item["expiresAt"]) ||
+              (item["expiresAt"] as number) < 0
+            ) {
+              errors.push(
+                `traceability.exceptions[${i}].expiresAt: expected a non-negative integer`,
+              );
+            }
+            for (const key of Object.keys(item)) {
+              if (
+                key !== "reason" && key !== "approvedBy" && key !== "expiresAt"
+              ) {
+                errors.push(
+                  `traceability.exceptions[${i}]: unexpected property ${key}`,
+                );
+              }
+            }
+          }
         }
       }
     }

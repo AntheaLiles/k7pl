@@ -78,6 +78,53 @@
       },
       "required": ["name", "version", "source"],
       "type": "object"
+    },
+    "traceability": {
+      "additionalProperties": false,
+      "description": "Optional requirement-to-evidence traceability, transcribed from tools/Compliance/RequirementEvidence (deleted 2026-10-25: non-normative model with no live consumer). The data model and its structural rules are preserved here, not the assessor: applicability is an explicit decision tied to a source revision; evidence from an obsolete revision cannot establish the current result; missing evidence means needsEvidenceReview, never nonCompliant; conflicting decisions or evidence are failures, not votes; exceptions are scoped to revisions, require a reason and approver, and expire. No assessor function is provided: with no consumer, the block is validated structurally only, so it cannot become dead logic posing as a check.",
+      "properties": {
+        "applicability": {
+          "enum": ["applicable", "notApplicable", "unresolved"],
+          "type": "string"
+        },
+        "artifactId": { "minLength": 1, "type": "string" },
+        "artifactRevision": { "minimum": 0, "type": "integer" },
+        "decidedBy": { "minLength": 1, "type": "string" },
+        "evidence": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "reviewedBy": { "minLength": 1, "type": "string" },
+              "status": {
+                "enum": ["verified", "unreviewed", "disputed"],
+                "type": "string"
+              }
+            },
+            "required": ["status"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "exceptions": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "approvedBy": { "minLength": 1, "type": "string" },
+              "expiresAt": { "minimum": 0, "type": "integer" },
+              "reason": { "minLength": 1, "type": "string" }
+            },
+            "required": ["reason", "approvedBy", "expiresAt"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "rationale": { "minLength": 1, "type": "string" },
+        "requirementId": { "minLength": 1, "type": "string" },
+        "sourceRef": { "minLength": 1, "type": "string" },
+        "sourceRevision": { "minimum": 0, "type": "integer" }
+      },
+      "required": ["requirementId", "applicability"],
+      "type": "object"
     }
   },
   "required": [

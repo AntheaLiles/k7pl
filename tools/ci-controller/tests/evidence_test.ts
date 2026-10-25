@@ -178,3 +178,54 @@ Deno.test("unexpected top-level property is rejected", () => {
     JSON.stringify(errors),
   );
 });
+
+Deno.test("traceability block from RequirementEvidence validates structurally", () => {
+  const record = baseRecord({
+    traceability: {
+      requirementId: "REQ-SBOM-01",
+      applicability: "applicable",
+      decidedBy: "owner",
+      rationale: "SBOM coherence is in scope for this release.",
+      evidence: [{ status: "verified", reviewedBy: "owner" }],
+      exceptions: [],
+    },
+  });
+  assertEquals(validateEvidenceSchema(record), []);
+});
+
+Deno.test("traceability rejects applicable without decider or rationale", () => {
+  const noDecider = validateEvidenceSchema(baseRecord({
+    traceability: { requirementId: "R1", applicability: "applicable" },
+  }));
+  assert(
+    noDecider.some((e) => e.includes("decidedBy")),
+    JSON.stringify(noDecider),
+  );
+  assert(
+    noDecider.some((e) => e.includes("rationale")),
+    JSON.stringify(noDecider),
+  );
+});
+
+Deno.test("traceability rejects bad enums and exception without expiry", () => {
+  const badEnum = validateEvidenceSchema(baseRecord({
+    traceability: { requirementId: "R1", applicability: "maybe" },
+  }));
+  assert(
+    badEnum.some((e) => e.includes("applicability")),
+    JSON.stringify(badEnum),
+  );
+  const badException = validateEvidenceSchema(baseRecord({
+    traceability: {
+      requirementId: "R1",
+      applicability: "applicable",
+      decidedBy: "owner",
+      rationale: "x",
+      exceptions: [{ reason: "bot blocks CI", approvedBy: "owner" }],
+    },
+  }));
+  assert(
+    badException.some((e) => e.includes("expiresAt")),
+    JSON.stringify(badException),
+  );
+});
