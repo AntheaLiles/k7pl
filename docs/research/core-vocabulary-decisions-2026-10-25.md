@@ -21,7 +21,7 @@ Un même choix peut être choisi par l'autrice avant d'être justifié scientifi
 
 ## 2. État initial par question
 
-Aucune réponse de l'autrice n'a été reçue au moment de créer ce registre. « En instruction » décrit donc le travail documentaire préparé, pas une ratification.
+La table ci-dessus conserve la photographie initiale lors de la création du registre. Les réponses postérieures sont consignées sans effacer cet état initial dans le journal append-only de la section 5.
 
 | ID stable | Type de décision | Statut courant | Objet / dépendance | Réponse d'autrice | Justification enregistrée | Sources réévaluées | Statut scientifique | Statut de ratification normative | Artefacts et vérification |
 |---|---|---|---|---|---|---|---|---|---|
@@ -121,3 +121,19 @@ Statut de clôture:
 - Toute réponse lexicalement liée à une autre (par ex. at / at_n, pack / open, fold / unfold, Op / Sc, When / Wait) doit référencer l'autre question et préciser si le choix se fait ensemble.
 - Les questions qui dépendent d'un blocage théorique restent « À préciser » même si un terme est préféré verbalement.
 - Aucune entrée n'autorise, à elle seule, une modification globale de spec/, un renommage de fichiers, une modification de macros, ou une fusion de PR.
+
+## 5. Journal append-only des réponses explicites
+
+### VOC-2026-10-25-001 — Q-METH-002
+
+- **Date de réponse :** 25 octobre 2026.
+- **Révision d'observation :** `main` à `a3ac6afece9eecd53064afbd295c710fbbe7eb40` (après fusion de la PR #306).
+- **Réponse exacte de l'autrice :** « Arbitrage K7PL Q-METH-002 : option A. Enregistre explicitement ma réponse comme choix méthodologique, sans la confondre avec une ratification normative, et poursuis les analyses indépendantes. »
+- **Choix enregistré :** A — lot global après audit ontologique.
+- **Type :** choix méthodologique explicite.
+- **Statut :** choisi par l'autrice comme méthode de clôture lexicale ; justification scientifique et clôture ontologique toujours en cours.
+- **Ratification normative :** aucune. Cette réponse n'autorise ni renommage, ni modification de `spec/`, de macros, d'AST, de preuves ou de tests.
+- **Conséquence :** achever l'audit des écarts et des relations formelles avant toute ratification de lemmes ou tokens. Les analyses indépendantes continuent sans attendre d'autres QCM.
+- **Sources de cadrage :** `docs/research/core-vocabulary-qcm-2026-10-25.md` (Q-METH-002), `docs/migration/L1-T68-AUDIT.md`, `scripts/controles/croise.py`, `spec/Spec/C3/EffectiveKernel.lean`.
+- **Contrôles :** aucun test ni preuve ne valide une préférence méthodologique ; le choix est enregistré comme acte de décision, non comme résultat scientifique.
+- **Clôture :** choix méthodologique enregistré ; audit ontologique ouvert ; intégration normative non autorisée.

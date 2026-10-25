@@ -2,7 +2,7 @@
 
 # K7PL — catalogue QCM du vocabulaire du noyau
 
-> **Statut : proposition de recherche non normative.** Photographie de main au SHA c88c968e66e5951bbf300efe3e39a515df8d8aa3. Chaque réponse vaut décision d'autrice sur le choix lexical, pas preuve scientifique de validité, minimalité ou correction. Pour la provenance des candidats et les statuts historiques, consulter l'[inventaire consolidé](core-vocabulary-historical-inventory-2026-10-25.md).
+> **Statut : proposition de recherche non normative.** Photographie initiale de main au SHA c88c968e66e5951bbf300efe3e39a515df8d8aa3 ; les réponses ultérieures citent leur révision dans le journal de décision. Une réponse vaut décision de méthode ou préférence selon son type, pas preuve scientifique de validité, minimalité ou correction. Pour la provenance des candidats et les statuts historiques, consulter l'[inventaire consolidé](core-vocabulary-historical-inventory-2026-10-25.md).
 
 ## 1. Règle de réponse
 
@@ -1660,6 +1660,14 @@ B — **familles successives** : ouvrir des questions par famille, mais ne ratif
 C — **mot par mot dans primitives.md** : seulement avec les dépendances et les conflits reliés et les réponses précédentes enregistrées.  
 L'archive PR #10 a proposé la ratification en bloc sans ratification de l'autrice.  
 Autre — ______. Précision — ______. Justification — ______.
+
+
+**Réponse explicite de l'autrice — 25 octobre 2026 — enregistrée sous VOC-2026-10-25-001.**
+
+- **Choix retenu : A — lot global après audit ontologique.** Les lemmes et tokens ne seront pas ratifiés individuellement tant que les contradictions de périmètre, de catégorisation et de chaîne formelle n'auront pas été délimitées.
+- **Statut :** choix méthodologique de l'autrice ; il ne constitue ni une ratification scientifique de chaque terme proposé, ni une autorisation de changer les formes normatives.
+- **Conséquences immédiates :** poursuivre la vérification des règles, de l'AST Lean, des réductions, des preuves et des tests ; maintenir les questions lexicales ouvertes jusqu'à la clôture ontologique.
+- **Référence de décision :** `docs/research/core-vocabulary-decisions-2026-10-25.md`, entrée VOC-2026-10-25-001.
 
 ## 7. Blocages qui ne sont pas des votes lexicaux
 
