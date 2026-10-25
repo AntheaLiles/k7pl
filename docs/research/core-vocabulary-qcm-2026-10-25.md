@@ -2,7 +2,7 @@
 
 # K7PL — catalogue QCM du vocabulaire du noyau
 
-> **Statut : proposition de recherche non normative.** Photographie de main au SHA c88c968e66e5951bbf300efe3e39a515df8d8aa3. Chaque réponse vaut décision d'autrice sur le choix lexical, pas preuve scientifique de validité, minimalité ou correction.
+> **Statut : proposition de recherche non normative.** Photographie de main au SHA c88c968e66e5951bbf300efe3e39a515df8d8aa3. Chaque réponse vaut décision d'autrice sur le choix lexical, pas preuve scientifique de validité, minimalité ou correction. Pour la provenance des candidats et les statuts historiques, consulter l'[inventaire consolidé](core-vocabulary-historical-inventory-2026-10-25.md).
 
 ## 1. Règle de réponse
 

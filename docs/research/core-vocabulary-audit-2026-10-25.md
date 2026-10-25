@@ -2,7 +2,7 @@
 
 # K7PL — dossier scientifique de préparation du vocabulaire du noyau
 
-> **Statut : recherche non normative — photographie du 25 octobre 2026.** Ce dossier ne ratifie aucun lemme, token ou objet théorique. Il ne modifie ni la grammaire, ni les règles, ni les preuves, ni les macros. Révision examinée : `c88c968e66e5951bbf300efe3e39a515df8d8aa3`.
+> **Statut : recherche non normative — photographie du 25 octobre 2026.** Ce dossier ne ratifie aucun lemme, token ou objet théorique. Il ne modifie ni la grammaire, ni les règles, ni les preuves, ni les macros. Révision examinée : `c88c968e66e5951bbf300efe3e39a515df8d8aa3`. Les sources historiques et leur statut sont centralisés dans l'[inventaire consolidé](core-vocabulary-historical-inventory-2026-10-25.md).
 
 ## 1. Objet et portée épistémique
 

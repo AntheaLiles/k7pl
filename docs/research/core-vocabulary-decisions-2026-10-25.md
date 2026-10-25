@@ -2,7 +2,7 @@
 
 # K7PL — registre des décisions de vocabulaire
 
-> Registre préparatoire non normatif. Baseline : main @ c88c968e66e5951bbf300efe3e39a515df8d8aa3. Ce fichier ne consigne aucune décision déjà prise au nom de l'autrice. Les réponses devront être append-only : une nouvelle réponse corrige ou remplace explicitement une précédente, sans l'effacer.
+> Registre préparatoire non normatif. Baseline : main @ c88c968e66e5951bbf300efe3e39a515df8d8aa3. Ce fichier ne consigne aucune décision déjà prise au nom de l'autrice. Les réponses devront être append-only : une nouvelle réponse corrige ou remplace explicitement une précédente, sans l'effacer. L'[inventaire consolidé des sources historiques](core-vocabulary-historical-inventory-2026-10-25.md) détermine les provenances de départ ; une attribution historique n'est pas une décision courante.
 
 ## 1. Statuts distincts
 

@@ -2,7 +2,7 @@
 
 # K7PL — registre ontologique et lexical
 
-> Non normatif. État initial dérivé de main au SHA c88c968e66e5951bbf300efe3e39a515df8d8aa3. La présence d'une forme syntaxique n'est pas un verdict de minimalité ; un lemme candidat n'est pas une ratification.
+> Non normatif. État initial dérivé de main au SHA c88c968e66e5951bbf300efe3e39a515df8d8aa3. La présence d'une forme syntaxique n'est pas un verdict de minimalité ; un lemme candidat n'est pas une ratification. Les sources historiques, propositions non ratifiées et liens d'origine sont réunis dans l'[inventaire consolidé](core-vocabulary-historical-inventory-2026-10-25.md).
 
 ## 1. Légende
 
