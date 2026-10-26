@@ -81,7 +81,20 @@ components:
       - spec_build
       - python_tests
     read_inputs:
-      - src/
+      # D2 slice 2: src/ is read by the spec checks only, not
+      # by the spec build — a read input may restrict its
+      # surfaces, instead of triggering the whole component.
+      - path: src/
+        surfaces:
+          - spec_check
+      # D2 slice 2: genuine inputs of the spec checks and build
+      # (the legacy classifier's spec-build exact/prefix rules,
+      # now declared here instead of hidden in a table).
+      - scripts/controle.py
+      - scripts/controles/
+      - scripts/biblio/
+      - scripts/manuscript_metrics.py
+      - wiki/references.json
     allowed_claim_classes:
       - execution
       - verification
@@ -119,6 +132,12 @@ components:
       - tests/
     excludes:
       - src/k/
+      # D2 slice 2: tests/python/ is Python tests, not Lean
+      # tests; without this exclusion the derivation would
+      # over-trigger lean_build for Python test files, which
+      # the legacy classifier's rule order (python_tests
+      # before lean_build) does not.
+      - tests/python/
     build_command: lake build K7pl K7plTests K7plCompliance sbomAudit
     check_command: lake test
     cache_determinants:
@@ -296,6 +315,16 @@ components:
       - full-validation
     impact_surfaces:
       - full
+    read_inputs:
+      # D2 slice 2: the legacy classifier's full-exact files
+      # (toolchain and manifest files whose change forces full
+      # validation), now declared here instead of hidden in a table.
+      - .github/dependabot.yml
+      - lakefile.lean
+      - lean-toolchain
+      - lake-manifest.json
+      - scripts/sync_zenodo.py
+      - scripts/requirements-zenodo.txt
     allowed_claim_classes:
       - execution
     notes:
