@@ -432,3 +432,16 @@ export async function runLakeToSpdx(
 // Re-exported so callers of the SPDX port need not import the OSV
 // module for the workspace that describes a document.
 export { PAPERPROOF_WORKSPACE };
+
+/** Direct CLI entry point with a narrow SOURCE_DATE_EPOCH environment read. */
+if (import.meta.main) {
+  const env = { SOURCE_DATE_EPOCH: Deno.env.get("SOURCE_DATE_EPOCH") };
+  const result = await runLakeToSpdx(Deno.args, ".", env);
+  if (result.stdout !== "") {
+    await Deno.stdout.write(new TextEncoder().encode(result.stdout));
+  }
+  if (result.stderr !== "") {
+    await Deno.stderr.write(new TextEncoder().encode(result.stderr));
+  }
+  Deno.exit(result.exitCode);
+}
