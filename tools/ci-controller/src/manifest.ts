@@ -16,12 +16,11 @@
  * `--check-upstream`) are implemented for the root workspace
  * only, exactly as in the Python script.
  *
- * Wiring: this module is not referenced by src/main.ts yet.
- * The parent wires it later as a `check-manifest` command by
- * calling {@link runCheckManifestCommand} with the CLI
- * arguments (its return value is the process exit code), or by
- * calling {@link runCheckManifest} directly. Running this file
- * itself (`deno run src/manifest.ts ...`) also works.
+ * The workflow invokes this module directly as a CLI with
+ * `deno run --allow-read --allow-env=GITHUB_ACTIONS
+ * tools/ci-controller/src/manifest.ts`. It remains a standalone
+ * command so the main controller CLI does not need to import this
+ * validator or expand its permission set.
  *
  * Known divergences from the Python script (runtime, not
  * contract, differences):
@@ -1394,7 +1393,7 @@ export async function runCheckManifestCommand(
     ) {
       console.error(
         "To accept a new dependency after reviewing it, add `name: owner/repo` to " +
-          `${workspace.allowListName} in scripts/ci/check_manifest.py (see CONTRIBUTING.md).`,
+          `${workspace.allowListName} in tools/ci-controller/src/manifest.ts (see CONTRIBUTING.md).`,
       );
     }
     return 1;
