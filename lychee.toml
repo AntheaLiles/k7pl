@@ -44,7 +44,16 @@ exclude = [
 
 # gnu.org rate-limits the runner (429 on hurd pages, which
 # load in a browser). Slow this host down instead of
-# accepting 429s: one request at a time, 5 s apart.
+# accepting 429s: one request at a time, 30 s apart.
+# 5 s proved insufficient: run 40353676170 (2026-10-26)
+# still reported 429 on https://www.gnu.org/software/hurd/hurd.html
+# twice, after lychee's 3 retries at 5 s, while the same page
+# returns 200 outside the runner. Only 3 gnu.org URLs exist
+# in the repository, so 30 s costs at most ~90 s of job time.
+# If 30 s still fails on the next run, the fallback is an
+# exact-URL exclusion for hurd.html with the same 90-day
+# re-verification as the entries above — not a per-domain
+# entry and not an accepted 429.
 [hosts."www.gnu.org"]
 concurrency = 1
-request_interval = "5s"
+request_interval = "30s"
