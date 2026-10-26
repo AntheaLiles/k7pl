@@ -54,7 +54,9 @@ Deno.test("manual dispatch always forces full validation", async () => {
   assertEquals(git.calls, []);
 });
 
-Deno.test("generated-status dispatch forces full validation when head is on main", async () => {
+Deno.test(
+  "generated-status dispatch forces full validation when head is on main",
+  async () => {
   const git = mockGit({
     "rev-parse --verify --quiet refs/remotes/origin/main": {
       code: 0, stdout: "mainsha\n", stderr: "",
@@ -74,7 +76,9 @@ Deno.test("generated-status dispatch forces full validation when head is on main
   assertEquals(git.calls.length, 2);
 });
 
-Deno.test("generated-status dispatch classifies against merge base", async () => {
+Deno.test(
+  "generated-status dispatch classifies against merge base",
+  async () => {
   const git = mockGit({
     "rev-parse --verify --quiet refs/remotes/origin/main": {
       code: 0, stdout: "mainsha\n", stderr: "",
@@ -96,7 +100,9 @@ Deno.test("generated-status dispatch classifies against merge base", async () =>
   );
 });
 
-Deno.test("generated-status dispatch fails closed when main is unavailable", async () => {
+Deno.test(
+  "generated-status dispatch fails closed when main is unavailable",
+  async () => {
   const git = mockGit({
     "rev-parse --verify --quiet refs/remotes/origin/main": {
       code: 1, stdout: "", stderr: "missing ref",
@@ -136,9 +142,11 @@ Deno.test("missing merge base fails closed", async () => {
 
 Deno.test("ordinary events require both SHAs", async () => {
   await assertRejects(
-    () => classifierArgs({ EVENT_NAME: "push", HEAD_SHA: "head456" }, async () => ({
-      code: 0, stdout: "", stderr: "",
-    })),
+    () =>
+      classifierArgs(
+        { EVENT_NAME: "push", HEAD_SHA: "head456" },
+        async () => ({ code: 0, stdout: "", stderr: "" }),
+      ),
     "BASE_SHA and HEAD_SHA are required",
   );
 });
