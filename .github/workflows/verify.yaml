@@ -111,11 +111,12 @@ jobs:
       - name: Set up Deno
         uses: ./.github/actions/setup-deno
 
-      # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The scan
-      # covers src/ and tests/ only, and any declared lean_lib counts as a root, even one that this
-      # job does not build (no default target).
+      # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The
+      # Deno port scans src/, tests/, tools/ and spec/ using the declared roots; separate Lake
+      # workspaces such as spec/formal-chain/ are reported and excluded.
       # The check sits right before the build, after the Mathlib cache: the steps that run even
-      # after a failure (lint, audits) must not start from a cold Mathlib.
+      # after a failure (lint, audits) must not start from a cold Mathlib. The Python port remains
+      # in-tree until the Deno migration has passed a full green cycle.
       - name: Check that every Lean file is built
         run: deno run --allow-read tools/ci-controller/src/lean_modules.ts
 
