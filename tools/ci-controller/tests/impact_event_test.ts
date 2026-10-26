@@ -37,11 +37,14 @@ function mockGit(
 Deno.test("pull request and push events use the supplied base/head", async () => {
   const git = mockGit({});
   assertEquals(
-    await classifierArgs({
-      EVENT_NAME: "pull_request",
-      BASE_SHA: "base123",
-      HEAD_SHA: "head456",
-    }, git.run),
+    await classifierArgs(
+      {
+        EVENT_NAME: "pull_request",
+        BASE_SHA: "base123",
+        HEAD_SHA: "head456",
+      },
+      git.run,
+    ),
     ["--base", "base123", "--head", "head456"],
   );
   assertEquals(git.calls, []);
@@ -126,11 +129,14 @@ Deno.test(
     });
     await assertRejects(
       () =>
-        classifierArgs({
-          EVENT_NAME: "workflow_dispatch",
-          REF: "refs/heads/automation/generated-status",
-          HEAD_SHA: "head456",
-        }, git.run),
+        classifierArgs(
+          {
+            EVENT_NAME: "workflow_dispatch",
+            REF: "refs/heads/automation/generated-status",
+            HEAD_SHA: "head456",
+          },
+          git.run,
+        ),
       "origin/main is not available",
     );
   },
