@@ -80,13 +80,11 @@ jobs:
           REF: ${{ github.ref }}
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
           HEAD_SHA: ${{ github.sha }}
-        # scripts/ci/impact.py is the only place that decides which paths force the full validation.
-        # A manual dispatch runs the full validation. The `status` job dispatches this workflow on
-        # automation/generated-status (see that job): such a run classifies the branch against
-        # main, as a pull request run would. The base comes from the checkout, never from an input.
-        # A commit that is already on main gets the full validation, so this path never narrows the
-        # checks behind a `CI OK` that a main commit carries.
-        run: bash scripts/ci/ci_impact.sh
+        # The Deno adapter owns event routing; scripts/ci/impact.py remains the sole
+        # classifier until the Deno/Python parity gate passes its historical-range criteria.
+        # Manual dispatch is full validation; generated-status dispatch classifies against
+        # origin/main from the checkout, never from a workflow input.
+        run: deno run --allow-run=git,python3 --allow-env=EVENT_NAME,REF,BASE_SHA,HEAD_SHA tools/ci-controller/src/impact_event.ts
 
   controller-shadow:
     name: Controller shadow
