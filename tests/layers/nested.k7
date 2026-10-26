@@ -3,4 +3,4 @@
 ;; SPDX-License-Identifier: CECILL-C
 
 ;; A refused inclusion is still read in its own layer: the refusal nested in it is reported too.
-[f (g {h})] ; refused: ERR-TOP-001, ERR-TOP-003
+[f (g {h})] ;; refused: ERR-TOP-001, ERR-TOP-003

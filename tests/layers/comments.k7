@@ -1,0 +1,10 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;;; A heading
+;;;; A sub-heading
+;; A standard comment, which may hold delimiters: ( [ { and a quote pair "".
+(run this ;; not this ( [ {
+  and this
+  [a;b ; c])

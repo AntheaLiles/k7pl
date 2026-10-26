@@ -845,6 +845,55 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot: answers of 2026-10-26 (Q-LEX-001 to
+  Q-LEX-006).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-26-003 to
+  VOC-2026-10-26-011. In short: sigils are read apart and
+  trains are written glyph by glyph, each glyph a macro
+  composed in layer 3; identifiers are English kebab-case,
+  with `?` before the name (`?increase-counter`); a number's
+  type is a property (`:num int32`, three letters and a bit
+  width, refinable by `:unit mm`); strings wait for a
+  research step; `;;` comments to the end of the line,
+  `;;;` and `;;;;` headings, `;(`, `;[`, `;{` disable a
+  tree, a lone `;` is an ordinary character; types are set
+  in layer 1 only (option D of Q-LEX-005); unbalanced
+  delimiters get codes for an opener never closed, a closer
+  with no opener, a closer of another pair, an unclosed
+  string and an odd number of quotes in a comment, under a
+  new segment named by a dedicated study, one code per
+  kind, a closer looking for its opener further out.
+  Owner message of the same day, quoted as given:
+  "l'écriture d'un délimiteur DOIT, et c'est bien sa
+  nature, définir la limite de couche"; "la manipulation
+  des types se fait en couche 1. La couche 2 orchestre et
+  "produit" et la couche 3 calcule et termine"; notations
+  such as `Vector(n, T)` "ne respecte pas la syntaxe de
+  K7PL" and are to be formalised "soit en S-Expression
+  suivant les prescriptions de K7PL, soit dans un format
+  algorytmique neutre"; "La couche 3 consiste à réaliser
+  des opérations dans la stack et la couche 2 dans le
+  heap, y définir des types est incohérent"; annex A "devra
+  être recomposée à partir des implémentations K, Lean et
+  TLA+", kept in French for now, with the
+  internationalisation of messages to explore; the file
+  renames are finished once PR #309 is merged;
+  method: "on recherche, on énumère, on objective puis on
+  choisis". Spec anchors: the memory row of
+  `tab:dimensions` (chapter 1: layer 1 linear arenas,
+  layer 2 heap, layer 3 stack) and `tab:delimiteurs`
+  (chapter 5). No sentence of `spec/` states yet that types
+  are set in layer 1 only; the types lot adds it.
+  Applied on 2026-10-26: the comment rule and the
+  delimiter rule in chapter 5. Still open, in the second
+  part of the reading lot (Q-LEX-101 to Q-ERR-004 in
+  [questions](questions.md)): the contract mark `!`, the
+  sigil set, glyph recognition, disabled trees, `a;`, the
+  layer of declarations such as `(defvar ...)` and
+  `(champ valeur : Int)`, the formalisation of type
+  notations, number kinds and units, strings, the
+  reading-error segment and messages.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Layer grammar, refusal codes, and K as their
   home.** Owner decisions of 2026-10-26. The grammar of
   the three delimiter pairs is the author's: `[ ]`

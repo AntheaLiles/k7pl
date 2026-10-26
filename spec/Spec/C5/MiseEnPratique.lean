@@ -133,7 +133,7 @@ ERR-TOP-001
 
 ```
 [defn incrémente-borné? [valeur borne]
-  (HandlerResult :état valeur :réponse (Ok valeur))]  ; rejeté : ERR-TOP-001
+  (HandlerResult :état valeur :réponse (Ok valeur))]  ;; rejeté : ERR-TOP-001
 ```
 ::::
 

@@ -531,6 +531,210 @@ obligations do.
 - Fibred bimodal architecture: set aside by the
   same decision.
 
+## Reading lot: research of 2026-10-26
+
+Research asked by the author in the answers to the reading lot
+(Q-LEX-002, Q-LEX-003, Q-LEX-006) and in the message of the same
+day. Each paragraph separates what the source says from what this
+page infers for K7PL; nothing here is a decision. The candidates
+built from it are the second part of the reading lot in
+[questions](questions.md).
+
+### Strings in text-handling languages
+
+Sources read on 2026-10-26.
+
+- **SNOBOL4.** Literals are enclosed in apostrophes or double
+  quotation marks; "the beginning and ending marks must be the
+  same"; a literal may contain the other mark; "The null string is
+  represented by two successive marks". No escape is described.
+  Source: SNOBOL4 tutorial, chapter 1,
+  https://www.regressive.org/snobol4/docs/burks/tutorial/ch1.htm.
+- **Icon, as described by the Unicon reference.** Double quotes,
+  escape sequences from a table, and "Incomplete string literals
+  may be continued on the next line if the last character on a
+  line is an underscore (_). In that case, the underscore, the
+  newline, and any whitespace at the beginning of the next line
+  are not part of the string literal." Source: Unicon Language
+  Reference, Unicon Technical Report 8c, 2017,
+  http://unicon.org/utr/utr8.pdf. The Icon reference itself was
+  not checked.
+- **Tcl.** Two groupings: double quotes, with substitutions, and
+  braces, with "No substitutions" and braces that "nest within the
+  word"; backslash sequences `\a \b \f \n \r \t \v \\ \ooo \xhh
+  \uhhhh \Uhhhhhhhh`; for backslash-newline, "A single space
+  character replaces the backslash, newline, and all spaces and
+  tabs after the newline." Source: Tcl 8.6 manual page `Tcl`
+  (rules 4, 6 and 9),
+  https://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm.
+- **Emacs Lisp.** Double quotes; a backslash before a double quote
+  or a backslash; "an escaped newline—one that is preceded by
+  ‘\’—does not become part of the string"; "The newline character
+  is not special in the read syntax for strings"; an escaped space
+  is ignored too. Source: GNU Emacs Lisp Reference Manual, "Syntax
+  for Strings",
+  https://www.gnu.org/software/emacs/manual/html_node/elisp/Syntax-for-Strings.html.
+- **TeX.** No string type: each input character is paired with one
+  of 16 category codes, and the input processor forms character,
+  control-sequence and parameter tokens from these pairs; verbatim
+  text is obtained by changing category codes. Source: V. Eijkhout,
+  *TeX by Topic*, chapter 2, "Category codes" (free edition, 2007).
+- **SQL.** Single quotes; a quote inside is written twice
+  (`'Dianne''s horse'`); "Two string constants that are only
+  separated by whitespace with at least one newline are
+  concatenated", which the PostgreSQL manual says is specified by
+  SQL; `E'…'` backslash escapes and dollar quoting are PostgreSQL
+  extensions. Source: PostgreSQL manual, "Lexical Structure",
+  section 4.1.2,
+  https://www.postgresql.org/docs/current/sql-syntax-lexical.html.
+- **Raku.** A family of quoting forms: `Q` (or `｢…｣`) takes its
+  content literally; `q` (`'…'`) processes backslash escapes
+  without interpolation; `qq` (`"…"`) also interpolates variables
+  and `{…}` blocks; adverbs combine these behaviours; any non-word
+  character may delimit, bracket pairs nest; heredocs `q:to/END/`
+  strip the terminator's indentation. The page says nothing about
+  a backslash at the end of a line. Source: Raku documentation,
+  "Quoting constructs", https://docs.raku.org/language/quoting.
+- **TXR Lisp.** Not checked: the manual
+  (https://www.nongnu.org/txr/txr-manpage.html) refused every
+  connection from this session. A 2013 post by its author on the
+  txr-users list says string literals are single-line and have no
+  backslash-newline continuation
+  (https://lists.nongnu.org/archive/html/txr-users/2013-07/msg00004.html);
+  to verify against the current manual.
+
+Inferred for K7PL, not decided: four separate questions come out of
+this — how a quote or a control character is escaped (backslash,
+doubling, none), what a line break inside a literal means (kept,
+dropped after a mark such as `\` or `_`, forbidden), whether a
+literal interpolates, and whether raw or heredoc forms exist. Tcl's
+brace form cannot be borrowed as such: `{ }` opens layer 1 in K7PL.
+
+### Glyphs and trains: BQN and Uiua
+
+- **BQN.** "Otherwise, a single character forms a token. Only the
+  specified set of characters can be used; others result in an
+  error." Names are formed from letters, digits and `_`; their
+  first character gives their role; numbers use `¯∞π0123456789`;
+  a string doubles its double quote; `#` opens a comment. Source:
+  BQN specification, "Tokens",
+  https://mlochbaum.github.io/BQN/spec/token.html.
+- **Uiua.** Primitives are glyphs; each can also be typed as its
+  all-lowercase name, which the formatter replaces with the glyph;
+  user-defined names need an uppercase letter. Source, secondary:
+  APL Wiki, "Uiua" (the uiua.org pages returned 404 to this
+  session).
+
+Inferred for K7PL, not decided: the author's answer (glyphs are
+macros composed in layer 3) leaves open how the reader cuts
+`+´÷≠` — from a closed list of glyphs as in BQN, from Unicode symbol
+categories, or from names that a formatter turns into glyphs as in
+Uiua.
+
+### Error codes and messages
+
+- **K7PL.** The glossary defines a code as `ERR`, a three-letter
+  segment naming the protected invariant, and an order number;
+  annex A distinguishes three levels of message — signal, rule,
+  knowledge — after Rasmussen.
+- **Rust.** Codes `E` and four digits (`E0001` to `E0806`), each
+  with its own explanation page in the error index. Source:
+  https://doc.rust-lang.org/error_codes/error-index.html.
+- **GHC.** Codes `[GHC-12345]`, emitted since GHC 9.6.1, documented
+  in a community index of errors and warnings with summaries and,
+  for some, examples. Source: https://errors.haskell.org/.
+- **Parinfer 3.13.1.** Eight named errors, already listed in
+  Q-LEX-006.
+- **Translation.** rustc makes diagnostics translatable with
+  Fluent resources (`.ftl`), one identifier per message; as of
+  October 2024 that infrastructure "is waiting for a
+  yet-to-be-proposed redesign". Source: rustc dev guide,
+  "Translation",
+  https://rustc-dev-guide.rust-lang.org/diagnostics/translation.html.
+  Fluent presents itself as "A localization system for
+  natural-sounding translations" in which "translations are
+  asymmetric". Source: https://projectfluent.org/.
+
+### Numbers and units
+
+- **IEEE 754-2019** (named in chapter 3, not in the bibliography) defines binary
+  and decimal floating-point interchange formats; the widths
+  16, 32, 64 and 128 for binary and 32, 64 and 128 for decimal are
+  the candidates for `flo` and `dec`.
+- **UCUM**, version 2.2 (2024-06-17), "a code system intended to
+  include all units of measures being contemporarily used in
+  international science, engineering, and business", with SI and
+  non-SI units and a case-insensitive variant of every symbol
+  (degree Celsius: `Cel`, `CEL`). Source: https://ucum.org/ucum.
+
+### Notations of the specification that are not K7PL
+
+Found on 2026-10-26 in the inline code spans of `spec/Spec/`, math
+spans excluded (heuristic scan: it may miss a span split across
+lines). Two families. Type notations, in three incompatible styles
+— application `Vector(n, T)`, angle brackets `WriteCap<T>`,
+juxtaposition `Vec n T`:
+
+- `Aff → Unr` — C3/LeSystemeGradue.lean:133
+- `Chan(p)` — C1/AxiomatiqueGerminale.lean:169
+- `Dest T` — C3/LeSystemeGradue.lean:444, C3/LeSystemeGradue.lean:466
+- `File(Closed)` — C3/LesContraintesDeValeur.lean:130
+- `File(Open)` — C3/LesContraintesDeValeur.lean:130
+- `Incomplete A B` — C2/AdjonctionsEtEnrichissement.lean:60, C2/AlgebresCoalgebresEtPointsFixes.lean:54, C3/LeSystemeGradue.lean:445, C3/LeSystemeGradue.lean:466
+- `Lin T` — AnnexeA/CapabilitesEtMemoire.lean:36, C3/LeSystemeGradue.lean:359
+- `Lin → Aff` — C3/LeSystemeGradue.lean:133
+- `Lin → Unr` — C3/LeSystemeGradue.lean:133
+- `Lin(SessionEndpoint)` — C3/LesContraintesDeValeur.lean:304
+- `Lin_k T` — C3/LeSystemeGradue.lean:451
+- `Range(0,k)` — C1/Postulats.lean:106
+- `ReadCap<T>` — C3/LeSystemeGradue.lean:394, C3/LeSystemeGradue.lean:400
+- `recv(Bool)` — C3/LesContraintesDeValeur.lean:147
+- `Recv(T,P^⊥)` — C3/LesContraintesDeValeur.lean:158
+- `Result(T, OutOfBounds)` — C3/LesContraintesDeValeur.lean:79
+- `Result(T, OverflowError)` — C3/LesContraintesDeValeur.lean:454
+- `Result<Float64, Singularity>` — AnnexeA/ContraintesDeValeurEtPreuvesResiduelles.lean:42
+- `send(Int)` — C3/LesContraintesDeValeur.lean:146
+- `Send(Int, Recv(Bool, End))` — C3/LesContraintesDeValeur.lean:152
+- `Send(T,P)` — C3/LesContraintesDeValeur.lean:158
+- `SharedChan(p)` — C1/AxiomatiqueGerminale.lean:170, C1/AxiomatiqueGerminale.lean:182
+- `TimeWindow(T, n, unit)` — C7/EtudeDeCasIIDeveloppementInteractifEt.lean:53
+- `Vec n T` — C2/AdjonctionsEtEnrichissement.lean:83, C4/EchelleDeLActeur.lean:159, C4/EchelleDeLActeur.lean:173
+- `Vector(n, T)` — C3/LesContraintesDeValeur.lean:71
+- `Vector(n,T)` — C2/AdjonctionsEtEnrichissement.lean:59, C6/LeProcessusDeCompilation.lean:248
+- `Wheel<T>` — C3/LesContraintesDeValeur.lean:363
+- `WriteCap(Arena<T>, Range(0,k))` — C4/EchelleDeLActeur.lean:109
+- `WriteCap(Arena<T>, Range(k+1,2k))` — C4/EchelleDeLActeur.lean:110
+- `WriteCap(B)` — C4/EchelleDuSysteme.lean:624, C4/EchelleDuSysteme.lean:630, C4/EchelleDuSysteme.lean:636
+- `WriteCap(DOM)` — C7/EtudeDeCasIArchitectureReactiveNative.lean:69
+- `WriteCap<T>` — C3/LeSystemeGradue.lean:392
+- `{x : T | p}` — C3/LesContraintesDeValeur.lean:85
+- `λx. (f x) g (h x)` — C5/NotationsSpecialisees.lean:45
+- `λx. f(g(x))` — C5/NotationsSpecialisees.lean:45
+
+Metalanguage formulas written as code although they are
+mathematics:
+
+- `Adm(β, κ)` — C2/ComonadeExponentielleEtFragments.lean:241, C2/ComonadeExponentielleEtFragments.lean:243
+- `Adm(β,κ(ε))` — C1/AxiomatiqueGerminale.lean:412
+- `Adm(β,κ)` — C1/AxiomatiqueGerminale.lean:363
+- `C(κ)` — C2/ComonadeExponentielleEtFragments.lean:294
+- `Consume(β, κ)` — C2/ComonadeExponentielleEtFragments.lean:243
+- `Consume(β,κ)` — C1/AxiomatiqueGerminale.lean:363
+- `Cost_Budget(κ)` — C1/AxiomatiqueGerminale.lean:361, C1/AxiomatiqueGerminale.lean:363
+- `Cost_Budget(κ) : ℕ∞` — C2/ComonadeExponentielleEtFragments.lean:241
+- `Cost_Budget(κ) = max(W(κ), D(κ))` — C2/ComonadeExponentielleEtFragments.lean:239
+- `Cost_Budget(κ) ≤ β` — C2/ComonadeExponentielleEtFragments.lean:241
+- `Cost_Budget(κ)≤C(κ)` — C2/ComonadeExponentielleEtFragments.lean:296
+- `max(W(κ),D(κ))` — C1/AxiomatiqueGerminale.lean:361
+- `n(β ⊖ k)=nβ ⊖ nk` — C3/ReglesDeTypage.lean:994
+- `R_cfg(Cₛ', P')` — C4/CalculDeProcessusSousJacent.lean:320
+- `Scale_Usage(1,Δ)=Δ` — C2/ComonadeExponentielleEtFragments.lean:478
+- `Scale_Usage(\pi_U(r),\Delta')` — C3/ReglesDeTypage.lean:1633
+- `Scale_Usage(a,Scale_Usage(b,Δ))=Scale_Usage(a·b,Δ)` — C2/ComonadeExponentielleEtFragments.lean:480
+- `Scale_Usage(a,Δ₁+Δ₂)=Scale_Usage(a,Δ₁)+Scale_Usage(a,Δ₂)` — C2/ComonadeExponentielleEtFragments.lean:482
+- `Scale_Usage(n,Δ₂)` — C3/ReglesDeTypage.lean:571
+- `β ⊖ Cost_Budget(κ)` — C1/AxiomatiqueGerminale.lean:361, C1/AxiomatiqueGerminale.lean:392, C2/ComonadeExponentielleEtFragments.lean:243
+
 ## Research lot closure
 
 The research closing of 2026-10-25 closed the 53 files of

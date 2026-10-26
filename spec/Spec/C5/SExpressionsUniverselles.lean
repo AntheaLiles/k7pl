@@ -108,8 +108,10 @@ arbres valides, là où le choix priorisé d'une grammaire d'expressions d'analy
 silence. Une ambiguïté devient alors une chose qu'on peut voir et refuser, plutôt qu'une chose que
 l'analyseur tranche pour soi.
 
-Il n'existe pas de parenthèse ordinaire, neutre vis-à-vis des couches : `( )` est toujours le
-délimiteur de la couche 2, et toute expression composée porte le délimiteur de son fragment. Le
+L'écriture d'un délimiteur doit définir la limite de sa couche, et c'est sa nature :
+`{je suis en couche 1} (je suis en couche 2 [et maintenant en couche 3])`. Il n'existe donc pas de
+parenthèse ordinaire, neutre vis-à-vis des couches : `( )` est toujours le délimiteur de la couche 2,
+et toute expression composée porte le délimiteur de son fragment. Le
 délimiteur ne _change_, en revanche, qu'au point précis où le fragment change. Tant qu'un appel
 demeure dans le fragment ambiant, il reprend le délimiteur du bloc qui l'entoure : `[ ]` dans un
 bloc de couche 3, `( )` dans un bloc de couche 2. Une fonction pure, en particulier, étant
@@ -151,14 +153,15 @@ _variable fraîche_, donc un motif qui filtre tout et ne signale rien — c'est 
 critique classique de Standard ML relève sur les constructeurs {cite "appelCritiqueStandardML1993"}[].
 Avec elle, une étiquette inconnue est une erreur, parce qu'une étiquette n'est jamais liante.
 
-Le reste de la grammaire commune tient en quelques règles. Le point-virgule ouvre un commentaire, sa
-répétition en indiquant la portée — `;` en ligne, `;;` pour un bloc, `;;;` pour une section, `;;;;`
-pour un module — et sa mise entre parenthèses, crochets ou accolades désactive l'arbre entier qui
-suit sans rompre la syntaxe. La barre verticale sépare les rangs d'un littéral tableau :
-`[1 2 | 3 4]` dénote une matrice deux par deux, dont les rangs doivent avoir la même longueur. Le
-`let` n'introduit que des liaisons scopées, immuables et séquentielles — un `let*` implicite ; il
-n'existe pas de `var`, la mutation s'exprimant ailleurs, par un `HandlerResult` en couche 2 ou par
-transfert de capabilité en couche 1.
+Le reste de la grammaire commune tient en quelques règles. Deux points-virgules ouvrent un
+commentaire qui court jusqu'à la fin de la ligne : `;;` pour un commentaire courant, `;;;` pour un
+titre et `;;;;` pour un sous-titre. Un point-virgule seul écrit juste avant un délimiteur ouvrant —
+`;(`, `;[` ou `;{` — désactive l'arbre que ce délimiteur ouvre, sans rompre la syntaxe ; partout
+ailleurs, un point-virgule seul est un caractère ordinaire. La barre verticale sépare les rangs d'un
+littéral tableau : `[1 2 | 3 4]` dénote une matrice deux par deux, dont les rangs doivent avoir la
+même longueur. Le `let` n'introduit que des liaisons scopées, immuables et séquentielles — un `let*`
+implicite ; il n'existe pas de `var`, la mutation s'exprimant ailleurs, par un `HandlerResult` en
+couche 2 ou par transfert de capabilité en couche 1.
 
 Cinq mots-clés activent une preuve supplémentaire au moment de la vérification. Ils ne sont réservés
 qu'en position de tête d'une S-expression, pour ne pas restreindre leur usage comme noms ordinaires

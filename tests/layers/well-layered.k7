@@ -7,7 +7,7 @@
   (handler [pure [f x]] (effect (g [h y])))
   {resource (lend [view z]) [copy w]}
   [vector 1 -2 3.5 +4]
-  "a string with ( [ { delimiters, a \"quote\" and accents: é ≠"} ; a comment ( [ {
+  "a string with ( [ { delimiters, a \"quote\" and accents: é ≠"} ;; a comment ( [ {
 []
 ()
 {}

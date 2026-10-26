@@ -68,9 +68,14 @@ in [vocabulary](vocabulary.md), not recopied as registers.
 These rules are new content, in English; the verbatim catalogue
 below keeps its French.
 
-- **Dated preferences.** An individual answer is recorded as a
-  dated preference and ratified only in the global lot
-  (VOC-2026-10-26-002).
+- **Dated preferences.** An individual answer on a lemma or a
+  token of the core vocabulary (the verbatim catalogue below) is
+  recorded as a dated preference and ratified only in the global
+  lot (VOC-2026-10-26-002). The answers of the reading lot
+  (Q-LEX), which settle how a text is read rather than which word
+  names a construct, are recorded as the author's choices and
+  applied to `lexicon/` and `spec/` (reading of 2026-10-26, put
+  to the author for confirmation).
 - **The λ overlap is explained every time.** Whenever `lambda` is
   a candidate lemma, the question states that the symbol λ names
   two objects in the specification — the abstraction `λx.c`
@@ -133,6 +138,13 @@ an array literal `[1 2 | 3 4]` (chapter 5); the modifiers `´` and
   *For:* trains and confusables are visible at reading; *against:*
   the reader depends on the glyph table.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** B et C sont tous les deux vrais car B est la règle générale et C concerne la rédaction de trains à la BQN/Uiua sauf que les symboles sont en réalité des macros à définir pour ensuite les composer en couche 3. Il me semble que ce fonctionnement est bien documenté dans la spec.
+- **Clarification:** On respectera systématiquement l'anglais en kebab-case à notation infixe donc "Incrémente-compteur?" est totalement faux et devrait ressembler à "?increase-counter" si tant est que ce lemme soit nécessaire.
+- **Reading:** sigils are read apart at the start of an atom (option B, the general rule), and trains are written glyph by glyph (option C), each glyph being a macro to define and then compose in layer 3. Identifiers are English, in kebab-case; the contract mark `?` is written before the name (`?increase-counter`), and the name of the listing's function is itself questioned. Still to choose: whether `!` moves before the name too, the exact sigil set, and how the reader recognises a glyph (lot of 2026-10-26, second part).
+
 ### Q-LEX-002 — What is a number?
 
 **Object.** The lexical class `number`. **Facts in `spec/`:** `.` is
@@ -148,6 +160,12 @@ SI units as phantom parameters (chapter 3); sizes in types
 - **C — numbers typed by suffix** (`1u8`, `2.5d128`): the reader
   keeps the suffix, the type system interprets it.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-004), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** All kind of number shall be computable : reals, decimals, floats, integers, fixed point, complexes, irrationals, and so on. Preserves the infix notation. but the type of a number shall be defined as a property so (defvar alpha :num int32) shall be the targetted structure. Such way we can further precise alpha to construct its precise form with i.e. a unit symbol (units having their transformations rules in mathematics) so we can write (defvar alpha :num int32 :unit mm). I like the :num for the number property and 3 letter plus byte precisions for the number's type (flo16, dec32, int8, com64, you name it)
+- **Reading:** every kind of number is computable; a number keeps its usual written form; its type is a property, `:num`, written with three letters and a bit width (`int32`, `flo16`, `dec32`, `int8`, `com64`), and may be refined by further properties such as `:unit mm`. Still to enumerate and choose: the list of number kinds and their three-letter names, the meaning of the width for complex numbers, the unit vocabulary, and the delimiter of a declaration such as `(defvar alpha :num int32)`, since types are set in layer 1 (Q-LEX-005).
+
 ### Q-LEX-003 — What is a string?
 
 **Object.** The lexical class `string`. **Fact found while
@@ -161,6 +179,12 @@ their own.
 - **B — escapes of a closed list** (`\n`, `\t`, `\"`, `\\`,
   `\u{…}`), no raw line break.
 - **C — B plus raw strings** with a distinct opening mark.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-005), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** We shall further explore how strings are handled in SNOBOL (Icon), Tcl, Emacs Lisp, TeX, SQL, Raku and other "string-capable" languages.
+- **Reading:** no choice yet; a research step comes first, on SNOBOL and Icon, Tcl, Emacs Lisp, TeX, SQL, Raku and other languages built to handle text (see [research](research.md), "Strings in text-handling languages"). The proposal of `lexicon/syntax/tokens.k` stays as material to consider.
 
 ### Q-LEX-004 — Comments, and disabling a whole tree
 
@@ -176,6 +200,26 @@ of the line and does not implement the tree-disabling form.
 - **B — the disabled tree is not checked.** As A, but the
   disabled tree is skipped by every check, nesting included.
 - **C — keep line comments only** and amend chapter 5.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-006), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:**
+
+  ```text
+  ;; this is a standard comment
+  ;;; this is a heading comment as Emacs' outline mode handle
+  ;;;; so this is a sub heading
+
+  ;; in an s-expression
+  (this is run ;; not this
+    but this will run
+    hence ;(this will not run) but this will)
+
+  ;; this way a single semicolon used in an other context can be handle as an ascii char
+  ```
+
+- **Reading:** `;;` opens a comment to the end of the line, `;;;` a heading and `;;;;` a sub-heading, as in Emacs's outline mode; a semicolon written just before an opening delimiter (`;(`, `;[`, `;{`) disables the tree it opens; anywhere else a single semicolon is an ordinary character. Applied to chapter 5 on 2026-10-26. Still to choose: whether a disabled tree is still checked for nesting, and how `a;` reads (one atom or two).
 
 ### Q-LEX-005 — Delimiters in type, pattern and literal positions
 
@@ -211,6 +255,12 @@ already sends a layer 2 computation out of `[attributs]`.
   patterns only exist in layer 1, and the chapter 3 and 4
   notations are amended one by one.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-007), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** D
+- **Justification:** Types are setted in layer 1 only, layer 2 is used to orchestrate and layer 3 consume types to run pure and safe powerful calculation, this is really clear in the spec.
+- **Reading:** option D, with the reason the author gives: types are set in layer 1 only; layer 2 orchestrates and produces; layer 3 consumes types to compute purely and terminate. Notations such as `Vector(n, T)` do not follow the K7PL syntax and must be formalised, either as S-expressions following the K7PL prescriptions or in a neutral algorithmic format (owner message of 2026-10-26).
+
 ### Q-LEX-006 — Codes for unbalanced delimiters
 
 **Object.** The owner decided on 2026-10-26 that unbalanced
@@ -241,6 +291,261 @@ an unclosed string, and the three nesting refusals.
 - **Recovery after a closer of another pair.** Close the innermost
   opener and go on (as the prototype does), or look for a matching
   opener further out and report the openers left unclosed.
+
+Sub-questions as published: a — which infractions, b — numbering, c — granularity, d — recovery.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-008), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** 1, 2, 3, 4, 6
+- **Other:** Rule 5 require further exploration through K7PL's point of view and genneraly we shall explore TXR Lisp's, Raku's and Icon's way as they are precisely designed to handle texts
+- **Reading:** codes for an opener never closed, a closer with no opener, a closer of another pair, an unclosed string and an odd number of quotes inside a comment. A backslash at the end of a line in a string needs its own study from K7PL's point of view, with TXR Lisp, Raku and Icon as references.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-009), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** Generaly, the error codes requiers their own studies to provide clearer codes and messages.
+- **Reading:** a new segment for reading errors, outside `ERR-TOP`; its name and the messages come out of a dedicated study of error codes and messages.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-010), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** It's a syntax error that shall be easilly displayed through LSP and such kind of tools. Here, layer awareness is irrelevant because syntax itselve is corrupted hence the code can't and musn't compile.
+- **Reading:** one code per kind; the message names the delimiters; layers play no part in a corrupted syntax.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-011), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** Delimitors are precises and works by two. Nothing more, nothing less.
+- **Reading:** a closer looks for its matching opener further out; the openers in between are reported as never closed.
+
+## Lot of 2026-10-26, second part: reading details, types, numbers, strings, error codes
+
+Questions opened by the answers to the first part. They follow the
+same rules: options to enumerate and objectify, then the author's
+choice; **Other** and **Clarify** are always available. The
+options were built from the research recorded in
+[research](research.md), "Reading lot: research of 2026-10-26".
+
+Words in the examples (`defn`, `sig`, `defvar`…) are placeholders: they are chosen in the vocabulary lots, not here.
+
+### Reader details
+
+#### Q-LEX-101 — Where does the mark ! go?
+
+**Object.** Q-LEX-001 puts the contract mark `?` before the name (`?increase-counter`). The mark `!` of an impure function is still written after the name.
+
+**Facts.**
+
+- Annex A, `ERR-TOP-010`: « Fonction impure, suffixée `!` »; `ERR-TYP-009`: « Fonction suffixée `?` ».
+- Chapter 5 (`sec:c5-mise-en-pratique`): « Le suffixe `?` engage le contrat du chapitre 3 ».
+
+- **A — Before the name, like ?.** Example: `!write-log   ?increase-counter`. *For:* one position for the two contract marks; both are sigils (Q-LEX-102). *Against:* annex A and chapters 3 and 5 are rewritten for both marks.
+- **B — After the name.** Example: `write-log!   ?increase-counter`. *For:* no change for `!`. *Against:* two marks of one family in two positions.
+
+#### Q-LEX-102 — Which characters are sigils?
+
+**Object.** Q-LEX-001 (option B): a sigil at the start of an atom is read apart and attached to the atom that follows; Phase 0 turns it into an attribute (chapter 6). Choose every character that is a sigil.
+
+Several options may be chosen.
+
+- **1 — # — comptime.** Reserved for comptime evaluation (chapter 5, chapter 1 glyph table).
+- **2 — : — label or property.** `:état` in chapter 5; `:num int32`, `:unit mm` in Q-LEX-002.
+- **3 — @ — annotation.** `@linear`, `@polynomial`, `@:stream` (chapter 4).
+- **4 — ? — pure contract.** `?increase-counter` (Q-LEX-001).
+- **5 — ! — impure contract.** If Q-LEX-101 puts it before the name.
+- **6 — ^ — lens.** `^.` reads a field, `^=` updates it (chapter 5). As a sigil, `^.` becomes `^` attached to `.`.
+
+#### Q-LEX-103 — How does the reader recognise a glyph?
+
+**Object.** Glyphs are macros composed in layer 3 (Q-LEX-001), so the reader must cut `+´÷≠` into glyphs. On what basis?
+
+**Facts.**
+
+- Chapter 1: 28 layer 3 glyphs, each the alias of one standard-library macro, written by its Unicode code point; no two glyphs share a confusable skeleton.
+- BQN: « Otherwise, a single character forms a token. Only the specified set of characters can be used; others result in an error. » (BQN spec, Tokens (https://mlochbaum.github.io/BQN/spec/token.html)).
+- Uiua: each primitive can be typed as its lower-case name, which the formatter replaces with the glyph (APL Wiki, secondary source).
+
+- **A — A closed list of glyphs.** The reader knows the glyphs of the chapter 1 table and their modifiers; any other symbol character is part of a name. *For:* exact; confusables are checked at reading. *Against:* a new glyph changes the reader.
+- **B — Unicode symbol categories.** Every character of the Unicode categories Sm and So (mathematical and other symbols) forms a one-character token. *For:* the reader does not depend on the table. *Against:* a symbol character can no longer appear inside a name.
+- **C — A, with ASCII names turned into glyphs.** As A; each glyph can also be typed by the name of its macro, and the formatter writes the glyph (as Uiua does). *For:* no special keyboard needed. *Against:* a formatter becomes part of the toolchain.
+
+#### Q-LEX-104 — Is a disabled tree still checked?
+
+**Object.** Q-LEX-004: `;(`, `;[` or `;{` disables the tree it opens. Is that tree still checked?
+
+- **A — Balance and nesting.** Example: `[f ;(g x) y]   ;; refused: ( ) inside [ ] (ERR-TOP-001)`. *For:* a disabled tree can be re-enabled as it is. *Against:* a tree of another layer cannot be parked here.
+- **B — Balance only.** Example: `[f ;(g x) y]   ;; accepted: the tree is ignored once it is closed`. *For:* any tree can be parked. *Against:* re-enabling it may raise a nesting refusal.
+
+#### Q-LEX-105 — How does a; read?
+
+**Object.** A lone semicolon is an ordinary character (Q-LEX-004). Where does it belong when it touches a name?
+
+- **A — One atom.** Example: `a;   ->  the symbol a;`.
+- **B — Two atoms (what `lexicon/` reads today, material to consider).** What `lexicon/syntax/tokens.k` reads today; `a;b` stays one atom. Example: `a;   ->  a  and  ;`.
+- **C — Refused.** Example: `a;   ->  write a ; with a space`.
+
+### Types
+
+#### Q-TYP-001 — How are type notations written in the specification?
+
+**Object.** Types are set in layer 1 only (Q-LEX-005). The specification writes 35 type notations (47 occurrences) in three incompatible styles, none of them K7PL: application `Vector(n, T)`, angle brackets `WriteCap<T>`, juxtaposition `Vec n T`. Full list: `wiki/research.md`, « Notations of the specification that are not K7PL ».
+
+- **A — K7PL S-expressions in layer 1.** Example: `{Vector n T}   {Result T OutOfBounds}   {WriteCap {Arena T} {Range 0 k}}   {refine x T p}`. *For:* one syntax, checked by the reader like any listing. *Against:* prose about theory carries code syntax.
+- **B — A neutral algorithmic format.** Mathematical notation in math spans, as chapter 3 already writes its grammar of types; never as code. *For:* no confusion with K7PL code. *Against:* programs still need a K7PL form for the same types.
+- **C — By role.** K7PL S-expressions wherever a program is meant (listings, code spans); mathematical notation in rules, theorems and their proofs. *For:* each reader sees the notation of the task. *Against:* two notations of one object to keep aligned.
+
+#### Q-TYP-002 — Metalanguage formulas written as code
+
+**Object.** 20 formulas of the metalanguage are written as code spans although they are mathematics: `Cost_Budget(κ) ≤ β`, `Scale_Usage(a, Δ₁+Δ₂)=…`, `Adm(β, κ)`…
+
+- **A — Rewrite them as math spans.** *For:* code spans keep a single meaning: K7PL text.
+- **B — Keep them as they are.** *Against:* a reader may take them for K7PL.
+
+#### Q-TYP-003 — Where does a layer 2 or layer 3 function get its type?
+
+**Object.** Types are set in layer 1 only. Chapter 3: « Toute définition de plus haut niveau porte une signature »; default grades and local inference shorten it, and K7PL does not infer the grades of an unannotated definition.
+
+- **A — A layer 1 signature beside the definition.** Example: `{sig ?increase-counter {fn [int32 int32] {result int32 overflow}}} ⏎ [defn ?increase-counter [value bound] …]`. *For:* the definition stays entirely in its layer. *Against:* name repeated; signature and body can drift apart.
+- **B — The definition opens in layer 1.** Example: `{defn ?increase-counter :type {fn [int32 int32] {result int32 overflow}} ⏎   [value bound] ⏎   [select …]}`. *For:* one place per definition; the delimiters show where layer 1 ends. *Against:* every definition is written in braces.
+- **C — Types at the module interface only.** A layer 1 interface declares the exported types; inside the module, types are inferred. *For:* fewer annotations. *Against:* chapter 3 asks for a signature on every top-level definition.
+
+#### Q-TYP-004 — Declarations that carry a type inside ( )
+
+**Object.** Two declarations carry a type inside a layer 2 group: `(defvar alpha :num int32)` (Q-LEX-002) and `(champ valeur : Int)` (`lst:acteur`).
+
+- **A — They move to { }.** Example: `{defvar alpha :num int32}   {field value :num int32}`.
+- **B — The type part is a layer 1 group.** Example: `(defvar alpha {num int32})   (field value {num int32})`.
+- **C — A property is not a type definition.** `:num int32` names a type set elsewhere, in layer 1; using it in layer 2 is allowed. Example: `(defvar alpha :num int32)`.
+
+### Numbers
+
+#### Q-NUM-001 — Which number kinds get a three-letter name?
+
+**Object.** Q-LEX-002: every kind of number is computable; its type is a property `:num`, three letters and a bit width (`int32`, `flo16`, `dec32`, `com64`). Choose the kinds.
+
+**Facts.**
+
+- IEEE 754-2019 (named in chapter 3, not in the bibliography) defines binary floating-point formats of 16, 32, 64 and 128 bits and decimal formats of 32, 64 and 128 bits.
+
+Several options may be chosen.
+
+- **int — signed integers.** `int8` … `int128`.
+- **nat — unsigned integers (name in Q-NUM-002).** `nat8` … `nat128`, or the name chosen in Q-NUM-002.
+- **flo — binary floating point.** `flo16`, `flo32`, `flo64`, `flo128` (IEEE 754).
+- **dec — decimal floating point.** `dec32`, `dec64`, `dec128` (IEEE 754).
+- **fix — fixed point.** Notation chosen in Q-NUM-004.
+- **com — complex.** Width chosen in Q-NUM-003.
+- **rat — exact rationals.** Numerator and denominator of bounded width.
+- **rea — exact reals (name to choose).** Irrationals such as π or √2, computed to any requested precision.
+
+#### Q-NUM-002 — Name of the unsigned integers
+
+**Object.** Three letters and a width, like the other kinds.
+
+- **A — nat.** Example: `nat8  nat32`. *For:* the mathematical name of the non-negative integers.
+- **B — uin.** Example: `uin8  uin32`. *For:* close to the usual uint.
+- **C — int with a property.** Example: `:num int32 :sign none`. *Against:* no three-letter name of its own.
+
+#### Q-NUM-003 — What is the width of a complex number?
+
+**Object.** `com64` in Q-LEX-002.
+
+- **A — Total width.** Example: `com64 = two flo32`. *For:* same reading of the width as the other kinds: the size in memory.
+- **B — Width of each part.** Example: `com64 = two flo64`. *For:* the precision of the parts is read directly.
+
+#### Q-NUM-004 — How is a fixed-point type written?
+
+**Object.** A fixed-point number needs a total width and a position of the point.
+
+- **A — Integer and fraction bits.** Example: `fix16.16`.
+- **B — Total width and a scale property.** Example: `:num fix32 :scale 16`.
+- **C — Decimal digits.** Example: `:num fix :digits 12 :frac 2`. *For:* money and decimal quantities.
+
+#### Q-NUM-005 — Which unit vocabulary?
+
+**Object.** `(defvar alpha :num int32 :unit mm)`: a unit is a property; units have their own transformation rules (Q-LEX-002).
+
+**Facts.**
+
+- UCUM 2.2 (2024-06-17), « a code system intended to include all units of measures being contemporarily used in international science, engineering, and business », SI and non-SI units, a case-insensitive variant of every symbol; degree Celsius: `Cel` (ucum.org (https://ucum.org/ucum)).
+
+- **A — UCUM codes.** Example: `:unit mm   :unit Cel   :unit m/s`. *For:* a published grammar of units, ASCII only. *Against:* some codes differ from printed symbols.
+- **B — SI symbols as printed.** Example: `:unit mm   :unit °C   :unit m·s⁻¹`. *For:* what a reader expects. *Against:* non-ASCII; no published grammar for combinations.
+- **C — K7PL names, mapped to UCUM.** Example: `:unit millimetre`. *Against:* a third vocabulary.
+
+### Strings
+
+#### Q-STR-001 — How is a quote or a control character escaped?
+
+**Object.** Research in `wiki/research.md`, « Strings in text-handling languages ».
+
+- **A — Backslash escapes.** As Emacs Lisp, Tcl and Icon; the list of escapes to choose. Example: `"say \"hi\"\n"`.
+- **B — Doubled quote, no other escape.** As SQL (with single quotes) and BQN. Example: `"say ""hi"""`.
+- **C — No escape.** As SNOBOL4, with two kinds of quote marks: a literal can only contain the other mark.
+
+#### Q-STR-002 — What does a line break inside a literal mean?
+
+**Object.** This also settles Q-LEX-006 case 5 (a backslash at the end of a line).
+
+- **A — A character of the string.** As Emacs Lisp: « The newline character is not special in the read syntax for strings ».
+- **B — Dropped after a backslash.** Emacs Lisp drops an escaped newline; Tcl replaces backslash, newline and the following indentation with one space.
+- **C — Dropped after an underscore.** Unicon (Icon family): the underscore, the newline and the leading white space of the next line are not part of the literal.
+- **D — Forbidden; literals joined across lines.** One literal per line; two literals separated by a line break are concatenated, as SQL specifies.
+
+#### Q-STR-003 — Does a literal interpolate?
+
+- **A — Never.** *For:* a literal is a constant.
+- **B — Only in a distinct form.** As Raku's `qq` beside `q`.
+- **C — Always.** *Against:* every literal may run code.
+
+#### Q-STR-004 — Raw and heredoc forms
+
+Several options may be chosen.
+
+- **raw — A raw form.** Content taken literally, as Raku's `Q` or `｢…｣`.
+- **heredoc — Heredocs.** As Raku's `q:to/END/`, the terminator's indentation removed from every line.
+
+### Error codes and messages
+
+#### Q-ERR-001 — Segment of the reading errors
+
+**Object.** Q-LEX-006-b: a new segment for unbalanced delimiters, named by a study. The glossary defines a code as `ERR`, a three-letter segment naming the protected invariant, and an order number.
+
+- **RDR — reader.** `ERR-RDR-`: the invariant is a text that can be read.
+- **LEX — lexical analysis.** `ERR-LEX-`: also covers unclosed strings and comments.
+- **SYN — syntax.** `ERR-SYN-`: syntax in general.
+- **DLM — delimiters.** `ERR-DLM-`: delimiters only.
+
+#### Q-ERR-002 — Shape of a message
+
+**Facts.**
+
+- Annex A distinguishes three levels after Rasmussen: signal, rule, knowledge.
+- Rust: codes `E0001`…`E0806`, a page per code with explanation and examples (error index (https://doc.rust-lang.org/error_codes/error-index.html)). GHC: `[GHC-12345]` since 9.6.1, indexed at errors.haskell.org (https://errors.haskell.org/).
+
+- **A — Signal and correction.** One sentence each, as annex A today.
+- **B — Signal, rule, knowledge.** The three levels of the annex A introduction, each code carrying all three.
+- **C — Short message, code, explanation page.** As Rust's and GHC's indexes: the compiler prints little; each code has a page with examples.
+- **D — B and C.**
+
+#### Q-ERR-003 — Internationalising the messages
+
+**Facts.**
+
+- rustc makes its diagnostics translatable with Fluent resources, one identifier per message; as of October 2024 that infrastructure « is waiting for a yet-to-be-proposed redesign » (rustc dev guide (https://rustc-dev-guide.rust-lang.org/diagnostics/translation.html)).
+- Fluent: « translations are asymmetric »: a translation may use its language's grammar freely (projectfluent.org (https://projectfluent.org/)).
+
+- **A — A catalogue keyed by code, Fluent style.** *For:* one entry per code and language; the code is the key.
+- **B — Catalogues keyed by the French text.** In the manner of gettext. *Against:* changing the French text breaks every translation.
+- **C — French in annex A, translations generated beside it.** *For:* annex A stays the reference.
+- **D — Later.** Keep French only until the codes are stable.
+
+#### Q-ERR-004 — Recomposing annex A from K, Lean and TLA+
+
+**Object.** Owner message of 2026-10-26: annex A « devra être recomposée à partir des implémentations K, Lean et TLA+ ».
+
+- **A — Generated.** Each code is declared once, with its message, in the K, Lean or TLA+ text that emits it; the specification displays the generated table, as it displays the K files. *For:* one home per code. *Against:* Lean and TLA+ need the same declaration convention as K.
+- **B — Written, then checked.** Annex A stays hand-written; a check compares it word for word with the implementations, as `tools/layer-check` does for K now. *For:* editorial freedom. *Against:* two copies kept aligned by a check.
 
 ## The catalogue, verbatim
 
