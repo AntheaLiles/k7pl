@@ -5,34 +5,41 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # `tools/layer-check/`
 
-Checks the K7PL texts of the repository against the grammar of the three layers, using the K
-definition of [`lexicon/syntax/`](../../lexicon/syntax/) as the only judge.
+Checks the K7PL texts of the repository with the two K readers of
+[`lexicon/syntax/`](../../lexicon/syntax/), which are the only judges.
 
 - **Texts.** The code blocks without a language inside the `listing` directives of `spec/`, and the
   `.k7` files of the repository, except the inputs of the non-normative K7OS model
   (`tests/examples/native-boundary/`).
-- **Verdict.** For each text, `krun --output json` reports the refused inclusions of delimiters
-  (`ERR-TOP-001` to `ERR-TOP-003`), with their messages. A text passes when K emits exactly the
-  codes it declares, with a comment `; rejeté : ERR-…` (specification) or `; refused: ERR-…`
-  (tests); a text that declares nothing must emit nothing. A declared code that this grammar cannot
-  emit (a typing error, say) is reported as not checked here.
+- **Readers.** The balance reader (`balance.k`) reads every text as a stream of delimiters and
+  reports, with the line of the delimiter at fault, the delimiters that do not pair (`ERR-DLM-001`
+  to `ERR-DLM-003`) and the refused inclusions (`ERR-TOP-001` to `ERR-TOP-003`). The tree reader
+  (`refusals.k`) reads a text as a tree of expressions, along the grammar of the layers.
+- **Verdict.** A text passes when the balance reader emits exactly the codes it declares, with a
+  comment `;; rejeté : ERR-…` (specification) or `;; refused: ERR-…` (tests); a test may add the
+  expected line, `ERR-DLM-001 at line 6`. A text that declares nothing must emit nothing. A declared
+  code that these readers cannot emit (a typing error, say) is reported as not checked here.
+- **Agreement.** When the balance reader finds no delimiter fault, the tree reader must read the
+  text and emit the same `ERR-TOP` codes in the same order; when it finds one, the tree reader must
+  fail to read the text. This catches a difference between the two lexical syntaxes or between the
+  two readings of the grammar of the layers.
 - **Association.** Every message that K emits must be the text of the row of its code in annex A,
-  word for word, and every code that `lexicon/syntax/refusals.k` declares must have such a row and
-  be emitted by at least one text ([`tests/layers/`](../../tests/layers/) holds one probe per code).
+  word for word, and every code that `lexicon/syntax/codes.k` declares must have such a row and be
+  emitted by at least one text ([`tests/layers/`](../../tests/layers/) holds probes for every code).
 
-Run it from the repository root with `make -C src/k layers-check` (it compiles the grammar first),
+Run it from the repository root with `make -C src/k layers-check` (it compiles both readers first),
 or directly:
 
 ```sh
 deno run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts check \
-  --definition src/k/.build/layers-kompiled
+  --definition src/k/.build/layers-kompiled --balance src/k/.build/balance-kompiled
 ```
 
 The unit tests need no K installation: `deno task test` from this directory. Like
 `tools/ci-controller/` (pull request #309), the tool has no dependency outside Deno itself.
 
-**Limits.** K 7.1.337 aborts on the `locations` attribute for this definition, so a refusal is
-reported with its unit (file, line of the listing, label) but without a position inside it. Inline
-code spans of the specification are not checked: nothing in their markup says which ones are K7PL.
-Well-bracketedness itself (`[a (b]`, an unclosed delimiter) is refused by the K parser without an
-`ERR` code.
+**Limits.** K 7.1.337 aborts on the `locations` attribute for these definitions, so a line is the
+balance reader's own count of line breaks, and a column is not given. Inline code spans of the
+specification are not checked: nothing in their markup says which ones are K7PL. An unclosed string
+is refused by the K parser without an `ERR` code, until the author decides which segment it belongs
+to.

@@ -11,15 +11,17 @@ LEXICON := ../../lexicon
 DEFINITION := .build/kompiled
 BOUNDARY_DEFINITION := .build/native-boundary-kompiled
 LAYERS_DEFINITION := .build/layers-kompiled
+BALANCE_DEFINITION := .build/balance-kompiled
 GENERATED_DIR := .build/generated
 K_SOURCE := $(LEXICON)/lexicon.k
 BOUNDARY_SOURCE := $(LEXICON)/models/native-boundary.k
 LAYERS_SOURCE := $(LEXICON)/syntax/refusals.k
+BALANCE_SOURCE := $(LEXICON)/syntax/balance.k
 PYTHON_CHECK := $(GENERATED_DIR)/check_k_examples.py
 EXAMPLES := ../../tests/examples
 KLEAN_OUTPUT := .build/klean-output
 
-.PHONY: all extract-code kompile run-example check boundary-kompile boundary-check layers-kompile layers-check export-lean clean
+.PHONY: all extract-code kompile run-example check boundary-kompile boundary-check layers-kompile balance-kompile layers-check export-lean clean
 all: check boundary-check layers-check
 
 # The K sources live in lexicon/, which the Verso K blocks display. Verso still generates the
@@ -52,10 +54,16 @@ layers-kompile:
 	mkdir -p .build
 	$(KOMPILE) "$(LAYERS_SOURCE)" --backend $(K_BACKEND) --main-module REFUSALS --syntax-module TOKENS --gen-bison-parser --output-definition "$(LAYERS_DEFINITION)"
 
-# Checks the listings of the specification and the .k7 files against the grammar of the layers,
+# The balance reader reads a text as a stream of delimiters, so that delimiters that do not pair
+# are reported with their lines instead of failing to parse.
+balance-kompile:
+	mkdir -p .build
+	$(KOMPILE) "$(BALANCE_SOURCE)" --backend $(K_BACKEND) --main-module BALANCE --syntax-module SCANNER --gen-bison-parser --output-definition "$(BALANCE_DEFINITION)"
+
+# Checks the listings of the specification and the .k7 files with both readers, which must agree,
 # and the codes and messages that K emits against annex A.
-layers-check: layers-kompile
-	cd ../.. && $(DENO) run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts check --definition "src/k/$(LAYERS_DEFINITION)" --krun "$(KRUN)"
+layers-check: layers-kompile balance-kompile
+	cd ../.. && $(DENO) run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts check --definition "src/k/$(LAYERS_DEFINITION)" --balance "src/k/$(BALANCE_DEFINITION)" --krun "$(KRUN)"
 
 export-lean: kompile
 	rm -rf $(KLEAN_OUTPUT)

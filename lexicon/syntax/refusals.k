@@ -2,31 +2,19 @@
 // SPDX-License-Identifier: CECILL-2.1
 //
 // Refusals of the layer grammar: each forbidden inclusion of crossings.k produces its
-// code and its message, in the order of the text. A text is well layered exactly when
-// it produces no refusal. The messages are those of annex A (table
-// tab:err-frontieres): they are rendered in the specification and stay in French.
+// code and its message (codes.k), in the order of the text. A text is well layered exactly
+// when it produces no refusal. balance.k checks the same inclusions on a stream of
+// delimiters; tools/layer-check requires the two readers to agree.
 
 requires "reader.k"
+requires "codes.k"
 requires "tokens.k" // lexical syntax of the texts read by this definition
 
 module REFUSALS
   imports READER
+  imports CODES
 
-  syntax Code ::= "ERR-TOP-001" | "ERR-TOP-002" | "ERR-TOP-003"
-
-  // A message is kept as written, in a token sort of its own.
-  syntax Message ::= r"\\\"[^\\\"]*\\\"" [token]
-
-  syntax Refusal ::= refusal(Code, Message) [symbol(refusal)]
   syntax Refusals ::= List{Refusal, ""} [symbol(refusals)]
-
-  syntax Message ::= message(Code) [function, total]
-  rule message(ERR-TOP-001) => "Structure de couche 2 `( )` instanciée dans un bloc de couche 3 `[ ]`. Déplacer le calcul dans un `let` de couche 2 en amont."
-  rule message(ERR-TOP-002) => "Structure de couche 1 `{ }` instanciée dans un bloc de couche 3 `[ ]`. Déplacer le calcul dans un bloc `{ }` de couche 1 en amont."
-  rule message(ERR-TOP-003) => "Structure de couche 1 `{ }` instanciée dans un bloc de couche 2 `( )`. Déplacer le calcul dans un bloc `{ }` de couche 1 en amont."
-
-  syntax Refusal ::= refuse(Code) [function, total]
-  rule refuse(C) => refusal(C, message(C))
 
   syntax Refusals ::= Refusals "+++" Refusals [function, total, right]
   rule .Refusals +++ R:Refusals => R

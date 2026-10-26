@@ -102,7 +102,12 @@ voici. Une grammaire est _à pile visible_ lorsque la structure d'appel et de re
 l'alphabet lui-même. Trois paires de délimiteurs, ouvertures et fermetures distinctes et fixées, ne
 s'imbriquant que dans un seul sens : la définition est satisfaite par construction. La classe est
 celle où l'analyse est linéaire, où la vérification d'imbrication est décidable, et où l'algorithme
-central a été formellement vérifié {cite "jiaDerivativebasedParserGenerator2021"}[]. Un second trait
+central a été formellement vérifié {cite "jiaDerivativebasedParserGenerator2021"}[]. Le lecteur de
+`lexicon/syntax/balance.k` en est une mise en œuvre : il empile chaque délimiteur ouvrant avec sa
+ligne et dépile au fermant de sa paire. Il refuse ainsi, dès la lecture, un délimiteur jamais
+refermé, un fermant sans ouvrant et un fermant d'une autre paire que les délimiteurs encore ouverts
+(codes `ERR-DLM`, annexe {num "sec:annexe-a-codes"}[]), ainsi qu'une inclusion que la grammaire
+des couches refuse. Un second trait
 de cette approche compte pour un langage homoiconique : l'analyseur rend une _forêt_ de tous les
 arbres valides, là où le choix priorisé d'une grammaire d'expressions d'analyse élit une lecture en
 silence. Une ambiguïté devient alors une chose qu'on peut voir et refuser, plutôt qu'une chose que
@@ -156,8 +161,12 @@ Avec elle, une étiquette inconnue est une erreur, parce qu'une étiquette n'est
 Le reste de la grammaire commune tient en quelques règles. Deux points-virgules ouvrent un
 commentaire qui court jusqu'à la fin de la ligne : `;;` pour un commentaire courant, `;;;` pour un
 titre et `;;;;` pour un sous-titre. Un point-virgule seul écrit juste avant un délimiteur ouvrant —
-`;(`, `;[` ou `;{` — désactive l'arbre que ce délimiteur ouvre, sans rompre la syntaxe ; partout
-ailleurs, un point-virgule seul est un caractère ordinaire. La barre verticale sépare les rangs d'un
+`;(`, `;[` ou `;{` — désactive l'arbre que ce délimiteur ouvre, sans rompre la syntaxe : l'arbre
+désactivé reste lu et soumis aux mêmes règles d'équilibre et d'imbrication que les autres, car une
+déclaration peut en faire une composante du code, à la manière d'un _quote_ ou d'un _quasiquote_ de
+la famille Lisp. Partout ailleurs, un point-virgule seul est un caractère ordinaire : collé à la fin
+d'un nom, il forme un atome à part (`a;` se lit `a` puis `;`), et entre deux caractères d'un nom, il
+en fait partie (`a;b`). La barre verticale sépare les rangs d'un
 littéral tableau : `[1 2 | 3 4]` dénote une matrice deux par deux, dont les rangs doivent avoir la
 même longueur. Le `let` n'introduit que des liaisons scopées, immuables et séquentielles — un `let*`
 implicite ; il n'existe pas de `var`, la mutation s'exprimant ailleurs, par un `HandlerResult` en

@@ -6,7 +6,7 @@
 // one of the three it lacks. Adding them lets every bracketed text be read, so that a
 // refusal is attached to the rule it breaks instead of being a bare parse failure.
 // The codes are numbered from the most specific container (layer 3) to the most
-// generic one (layer 1); refusals.k gives their messages.
+// generic one (layer 1); codes.k gives their messages.
 
 requires "layers.k"
 

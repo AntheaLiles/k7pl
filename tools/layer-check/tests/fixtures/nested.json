@@ -29,7 +29,7 @@
                         "node": "KApply",
                         "label": {
                           "node": "KLabel",
-                          "name": "ERR-TOP-001_REFUSALS_Code",
+                          "name": "ERR-TOP-001_CODES_Code",
                           "params": []
                         },
                         "arity": 0,
@@ -56,7 +56,7 @@
                             "node": "KApply",
                             "label": {
                               "node": "KLabel",
-                              "name": "ERR-TOP-003_REFUSALS_Code",
+                              "name": "ERR-TOP-003_CODES_Code",
                               "params": []
                             },
                             "arity": 0,

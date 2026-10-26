@@ -14,6 +14,7 @@ import Spec.AnnexeA.CapabilitesEtMemoire
 import Spec.AnnexeA.ProtocolesSessionsEtTopologieDistribuee
 import Spec.AnnexeA.DistinctionDePhaseEtMetaprogrammation
 import Spec.AnnexeA.ContraintesDeValeurEtPreuvesResiduelles
+import Spec.AnnexeA.ReadingAndDelimiters
 
 open Verso.Genre Manual
 open SpecExt
@@ -33,12 +34,14 @@ number := false
 
 Le corpus source range ces codes par ordre alphabétique de préfixe. Cette annexe les regroupe par
 l'invariant qu'ils protègent, afin qu'un lecteur cherchant pourquoi un programme est rejeté trouve
-le chapitre correspondant plutôt qu'une liste sans principe. Trois écarts avec le corpus source sont
+le chapitre correspondant plutôt qu'une liste sans principe. Quatre écarts avec le corpus source sont
 assumés. Les trois premiers codes `ERR-TOP` nomment les trois inclusions de délimiteurs que la
 grammaire des couches refuse, numérotées du conteneur le plus spécifique (couche 3) au plus
 générique (couche 1) : `ERR-TOP-003`, un `{ }` à l'intérieur d'un `( )`, est ajouté, et le code que
 le corpus source numérotait `ERR-TOP-003` devient `ERR-TOP-004`. Ce dernier, mentionné au chapitre 6
 (§{num "sec:c6-le-processus-de-compilation"}[]) mais absent de la table source, est ajouté ici.
+Le segment `ERR-DLM`, absent lui aussi du corpus source, nomme les délimiteurs qui ne s'apparient
+pas, refusés dès la lecture du texte.
 `ERR-FFI-001` et `ERR-TYP-008`, qui y désignent tous deux
 une fuite de descripteur à travers la passerelle FFI, sont réunis sur une seule ligne. Cette table
 reste illustrative et non exhaustive : tout mécanisme nouveau engendrerait des codes qu'elle ne peut
@@ -92,3 +95,5 @@ le lecteur sait déjà, ce qu'aucune mesure du corpus ne tranche.
 {include 0 Spec.AnnexeA.DistinctionDePhaseEtMetaprogrammation}
 
 {include 0 Spec.AnnexeA.ContraintesDeValeurEtPreuvesResiduelles}
+
+{include 0 Spec.AnnexeA.ReadingAndDelimiters}

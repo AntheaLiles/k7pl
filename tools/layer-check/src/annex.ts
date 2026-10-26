@@ -4,7 +4,7 @@
 
 /**
  * Reads the code tables of annex A (`spec/Spec/AnnexeA/*.lean`) and the codes that the K
- * definition of the refusals declares.
+ * definitions of `lexicon/syntax/codes.k` declare.
  *
  * A table row is a line `* * <codes>` followed by a line `  * <trigger and correction>`; a first
  * cell may name several codes (`ERR-FFI-001` / `ERR-TYP-008`).

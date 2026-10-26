@@ -3,13 +3,20 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 /**
- * Verdicts on the units, from what K emits for each of them.
+ * Verdicts on the units, from what the two K readers emit for each of them.
  *
- * A unit may declare that it must be refused, with a comment such as `; rejeté : ERR-TOP-001`
- * (the form chapter 5 uses) or `; refused: ERR-TOP-001` (test files). Of the declared codes,
- * those that the K definition can emit must be exactly the codes it emits; a declared code
- * out of its reach (a typing error, say) is reported as not checked here, and the unit must
- * then emit no refusal. A unit that declares nothing must emit no refusal.
+ * A unit may declare that it must be refused, with a comment such as `;; rejeté : ERR-TOP-001`
+ * (the form chapter 5 uses) or `;; refused: ERR-TOP-001` (test files); a test may also give the
+ * line where a code is expected, `ERR-DLM-001 at line 2`, the first line of the unit being 1. Of
+ * the declared codes, those that the K readers can emit must be exactly the codes the balance
+ * reader emits; a declared code out of their reach (a typing error, say) is reported as not
+ * checked here, and the unit must then emit no refusal. A unit that declares nothing must emit
+ * no refusal.
+ *
+ * Agreement: the balance reader (`balance.k`) reads every text, the tree reader (`refusals.k`)
+ * only the texts whose delimiters pair. When the balance reader finds no delimiter fault, the
+ * tree reader must read the text and emit the same `ERR-TOP` codes in the same order; when it
+ * finds one, the tree reader must fail to read the text.
  *
  * Association: every refusal that K emits must carry the code and the message of a row of
  * annex A, word for word, and every code that K declares must have such a row and be emitted
@@ -19,14 +26,29 @@
 import type { Reading, Refusal } from "./kast.ts";
 import type { Unit } from "./units.ts";
 
-const DECLARED = /(?:rejet[ée]*|refused)\s*:\s*((?:ERR-[A-Z]+-\d+[\s,]*)+)/giu;
+const DECLARED =
+  /(?:rejet[ée]*|refused)\s*:\s*((?:ERR-[A-Z]+-\d+(?:\s+at\s+line\s+\d+)?[\s,]*)+)/giu;
+const DECLARED_ITEM = /(ERR-[A-Z]+-\d+)(?:\s+at\s+line\s+(\d+))?/g;
+
+export interface Declaration {
+  code: string;
+  line?: number;
+}
+
+export function declarations(code: string): Declaration[] {
+  const found: Declaration[] = [];
+  for (const m of code.matchAll(DECLARED)) {
+    for (const item of m[1].matchAll(DECLARED_ITEM)) {
+      found.push(
+        item[2] === undefined ? { code: item[1] } : { code: item[1], line: Number(item[2]) },
+      );
+    }
+  }
+  return found;
+}
 
 export function declaredCodes(code: string): string[] {
-  const declared = new Set<string>();
-  for (const m of code.matchAll(DECLARED)) {
-    for (const c of m[1].match(/ERR-[A-Z]+-\d+/g) ?? []) declared.add(c);
-  }
-  return [...declared].sort();
+  return [...new Set(declarations(code).map((d) => d.code))].sort();
 }
 
 export interface Verdict {
@@ -40,43 +62,66 @@ export interface Verdict {
 const sameSet = (a: string[], b: string[]) =>
   JSON.stringify([...new Set(a)].sort()) === JSON.stringify([...new Set(b)].sort());
 
+const isDelimiterFault = (r: Refusal) => r.code.startsWith("ERR-DLM-");
+
+/** Why the two readers disagree on a text, or undefined when they agree. */
+export function disagreement(balance: Refusal[], tree: Reading): string | undefined {
+  if (balance.some(isDelimiterFault)) {
+    return tree.kind === "read"
+      ? "the balance reader finds delimiters that do not pair, the tree reader reads the text"
+      : undefined;
+  }
+  if (tree.kind === "unreadable") {
+    return `the balance reader reads the text, the tree reader does not: ${tree.detail}`;
+  }
+  const fromBalance = balance.map((r) => r.code).join(", ");
+  const fromTree = tree.refusals.map((r) => r.code).join(", ");
+  return fromBalance === fromTree
+    ? undefined
+    : `the balance reader emits [${fromBalance}], the tree reader [${fromTree}]`;
+}
+
 export function judge(
   unit: Unit,
-  reading: Reading,
+  balance: Reading,
+  tree: Reading,
   kCodes: ReadonlySet<string>,
   annex: ReadonlyMap<string, string>,
 ): Verdict {
-  if (reading.kind === "unreadable") {
+  if (balance.kind === "unreadable") {
     return {
       unit,
       ok: false,
       refusals: [],
       unchecked: [],
-      reason: `not readable: ${reading.detail}`,
+      reason: `not readable: ${balance.detail}`,
     };
   }
-  const declared = declaredCodes(unit.code);
-  const checkable = declared.filter((c) => kCodes.has(c));
-  const unchecked = declared.filter((c) => !kCodes.has(c));
-  const emitted = reading.refusals.map((r) => r.code);
-  const verdict: Verdict = { unit, ok: true, refusals: reading.refusals, unchecked };
+  const declared = declarations(unit.code);
+  const declaredSet = declaredCodes(unit.code);
+  const checkable = declaredSet.filter((c) => kCodes.has(c));
+  const unchecked = declaredSet.filter((c) => !kCodes.has(c));
+  const emitted = balance.refusals.map((r) => r.code);
+  const verdict: Verdict = { unit, ok: true, refusals: balance.refusals, unchecked };
+  const fail = (reason: string): Verdict => ({ ...verdict, ok: false, reason });
   if (!sameSet(emitted, checkable)) {
-    verdict.ok = false;
-    verdict.reason = `declared [${checkable.join(", ")}], K emits [${emitted.join(", ")}]`;
-    return verdict;
+    return fail(`declared [${checkable.join(", ")}], K emits [${emitted.join(", ")}]`);
   }
-  for (const r of reading.refusals) {
+  for (const d of declared) {
+    if (d.line === undefined || !kCodes.has(d.code)) continue;
+    const lines = balance.refusals.filter((r) => r.code === d.code).map((r) => r.line);
+    if (!lines.includes(d.line)) {
+      return fail(
+        `declared ${d.code} at line ${d.line}, K emits it at lines [${lines.join(", ")}]`,
+      );
+    }
+  }
+  const disagree = disagreement(balance.refusals, tree);
+  if (disagree !== undefined) return fail(`readers disagree: ${disagree}`);
+  for (const r of balance.refusals) {
     const row = annex.get(r.code);
-    if (row === undefined) {
-      verdict.ok = false;
-      verdict.reason = `${r.code} has no row in annex A`;
-      return verdict;
-    }
-    if (row !== r.message) {
-      verdict.ok = false;
-      verdict.reason = `${r.code}: K emits "${r.message}", annex A says "${row}"`;
-      return verdict;
-    }
+    if (row === undefined) return fail(`${r.code} has no row in annex A`);
+    if (row !== r.message) return fail(`${r.code}: K emits "${r.message}", annex A says "${row}"`);
   }
   return verdict;
 }
@@ -99,7 +144,9 @@ export function associationProblems(
 
 export function formatVerdict(v: Verdict): string {
   const where = `${v.unit.file}:${v.unit.line} ${v.unit.label}`;
-  const codes = v.refusals.length === 0 ? "" : ` [${v.refusals.map((r) => r.code).join(", ")}]`;
+  const codes = v.refusals.length === 0
+    ? ""
+    : ` [${v.refusals.map((r) => (r.site ? `${r.code} ${r.site}` : r.code)).join(", ")}]`;
   const unchecked = v.unchecked.length === 0
     ? ""
     : ` (declared, not checked here: ${v.unchecked.join(", ")})`;

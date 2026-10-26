@@ -29,7 +29,9 @@ export const EXCLUDED: ReadonlyArray<{ prefix: string; reason: string }> = [
   },
 ];
 
-const SKIPPED_DIRS = new Set([".git", ".lake", "_out", "node_modules", ".build"]);
+// `.claude/` holds agent settings and, under `worktrees/`, temporary checkouts of the
+// repository, whose texts would be read twice.
+const SKIPPED_DIRS = new Set([".git", ".lake", "_out", "node_modules", ".build", ".claude"]);
 const FENCE = /^\s*```\s*([^\s`(]*)/;
 const FENCE_CLOSE = /^\s*```\s*$/;
 const LISTING = /^(:{3,})listing\b(.*)$/;

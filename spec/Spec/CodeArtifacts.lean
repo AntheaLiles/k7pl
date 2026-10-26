@@ -58,9 +58,15 @@ Le module `LEXICON` compose ces lemmes en une définition exécutable.
 
 # Lecture des textes par couches
 
-Le lecteur voit un texte comme une suite d'expressions ; sa syntaxe lexicale est tenue à part du
-module des règles. Le module `REFUSALS` rend, pour chaque inclusion refusée, son code et son message,
-ceux de l'annexe {num "sec:annexe-a-codes"}[].
+Deux lecteurs lisent un texte, et leurs codes, avec les messages de l'annexe
+{num "sec:annexe-a-codes"}[], leur sont communs.
+
+```K (file := "lexicon/syntax/codes.k")
+```
+
+Le premier voit un texte comme une suite d'expressions, selon la grammaire des couches ; sa syntaxe
+lexicale est tenue à part du module des règles. Le module `REFUSALS` rend, pour chaque inclusion
+refusée, son code et son message.
 
 ```K (file := "lexicon/syntax/reader.k")
 ```
@@ -69,6 +75,16 @@ ceux de l'annexe {num "sec:annexe-a-codes"}[].
 ```
 
 ```K (file := "lexicon/syntax/refusals.k")
+```
+
+Le second, le module `BALANCE`, voit un texte comme un flux de délimiteurs qu'il empile et dépile.
+Il lit aussi un texte dont les délimiteurs ne s'apparient pas, et en signale chaque défaut avec la
+ligne du délimiteur en cause. Les deux lecteurs doivent s'accorder sur chaque texte vérifié.
+
+```K (file := "lexicon/syntax/stream.k")
+```
+
+```K (file := "lexicon/syntax/balance.k")
 ```
 
 # Modèle d'exécution K7OS : frontière native (profil non normatif)
