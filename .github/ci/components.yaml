@@ -39,7 +39,7 @@ toolchains:
     source: lean-toolchain
   - id: k-framework
     version: "7.1.337"
-    source: runtimeverificationinc/kframework-k:ubuntu-jammy-7.1.337
+    source: runtimeverificationinc/kframework-k:ubuntu-jammy-7.1.337@sha256:a63698c015f2b349bb9807d486bf2a48a764237a018fd207c23ac7571519b12b
   - id: klean
     version: 7.1.337
     source: kframework==7.1.337
