@@ -44,6 +44,15 @@ export interface Stage {
   requiredClaimClasses: ClaimClass[];
 }
 
+/** A file or directory a component reads outside its own roots.
+ * `surfaces` restricts which of the component's impact surfaces
+ * the input triggers; null means all of them. A plain string in
+ * YAML is equivalent to { path, surfaces: null }. */
+export interface ReadInput {
+  path: string;
+  surfaces: ImpactSurface[] | null;
+}
+
 export interface Component {
   id: string;
   name: string;
@@ -55,7 +64,7 @@ export interface Component {
   dependsOn: string[];
   requiredChecks: string[];
   impactSurfaces: ImpactSurface[];
-  readInputs: string[];
+  readInputs: ReadInput[];
   allowedClaimClasses: ClaimClass[];
   notes: string[];
 }
@@ -104,6 +113,21 @@ function impactSurfaceList(value: YamlValue, what: string): ImpactSurface[] {
       );
     }
     return item;
+  });
+}
+
+function readInputList(value: YamlValue, what: string): ReadInput[] {
+  if (value === undefined || value === null) return [];
+  return asList(value, what).map((item, i) => {
+    if (typeof item === "string") return { path: item, surfaces: null };
+    const rec = asRecord(item, `${what}[${i}]`);
+    const surfacesValue = rec["surfaces"];
+    return {
+      path: asString(rec["path"], `${what}[${i}].path`),
+      surfaces: surfacesValue === undefined || surfacesValue === null
+        ? null
+        : impactSurfaceList(surfacesValue, `${what}[${i}].surfaces`),
+    };
   });
 }
 
@@ -170,10 +194,9 @@ function loadRegistry(text: string): Registry {
         rec["impact_surfaces"],
         `registry.components[${i}].impact_surfaces`,
       ),
-      readInputs: optionalStringList(
-        rec,
-        "read_inputs",
-        `registry.components[${i}]`,
+      readInputs: readInputList(
+        rec["read_inputs"],
+        `registry.components[${i}].read_inputs`,
       ),
       allowedClaimClasses: claimClassList(
         rec["allowed_claim_classes"],
@@ -260,7 +283,7 @@ export function validateRegistry(
         ...component.roots,
         ...component.excludes,
         ...component.cacheDeterminants,
-        ...component.readInputs,
+        ...component.readInputs.map((input) => input.path),
       ]
     ) {
       if (!existsOnDisk(repoRoot, path)) {
@@ -278,6 +301,15 @@ export function validateRegistry(
         errors.push(
           `component ${component.id}: unknown impact surface ${surface}`,
         );
+      }
+    }
+    for (const input of component.readInputs) {
+      for (const surface of input.surfaces ?? []) {
+        if (!component.impactSurfaces.includes(surface)) {
+          errors.push(
+            `component ${component.id}: read input ${input.path} triggers surface ${surface}, which is not one of its impact_surfaces`,
+          );
+        }
       }
     }
     for (const surface of new Set(component.impactSurfaces)) {
