@@ -71,7 +71,7 @@ jobs:
       # A pull request may change lake-manifest.json (a person, an agent), not only the one that
       # bump-lean.yaml opens. These are the offline checks: no network, no upstream code.
       - name: Check the Lake manifest
-        run: deno run --allow-read tools/ci-controller/src/manifest.ts
+        run: deno run --allow-read --allow-env=GITHUB_ACTIONS tools/ci-controller/src/manifest.ts
 
       - name: Run CI impact classifier
         id: impact
