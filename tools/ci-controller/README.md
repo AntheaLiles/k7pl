@@ -114,18 +114,24 @@ a proof claim for `lean-proof-build`), malformed digest, or any claim on a
 failed stage are all rejected. A record is a checkable claim about a stage, not
 a proof in itself.
 
-## Cutover criteria for slice 1 (all must hold before any workflow wiring)
+## Remaining classifier cutover criteria
 
-1. `deno task test`, `deno task check`, `deno task lint`, and
-   `deno task fmt --check` pass in this directory.
-2. `validate-registry` passes against the repository tree.
-3. Shadow mode agrees with the legacy classifier on the current `main` head and
-   on a representative set of historical ranges (documentation-only, spec-only,
-   Lean-only, CI-only, unknown path).
-4. The owner has reviewed the registry, the evidence schema, and the parity
-   tests, and has decided the open decisions listed in the slice-1 report
-   (notably the `wiki/research.md` classifier rule and the exact `setup-deno`
-   SHA).
-5. Only then: a separate change wires shadow mode into `ci.yaml` (as a
-   non-gating diagnostic first), and a later change makes the Deno classifier
-   authoritative. Neither is part of this slice.
+The Deno test, check, lint and format tasks now run in the blocking `impact`
+job. The remaining migration is staged: the Python classifier is still the
+source of truth for CI surface selection, and the Deno/Python comparison stays
+report-only until its evidence is reviewed.
+
+Before switching the authoritative impact-classifier call away from Python:
+
+1. The blocking Deno quality tasks must pass in a complete CI cycle.
+2. `validate-registry` must pass against the repository tree.
+3. Shadow mode must agree on the current base/head and representative
+   historical ranges (documentation-only, specification-only, Lean-only,
+   CI-only, and unknown paths); any divergence must be explained and resolved
+   rather than hidden by aggregate surface equality.
+4. The registry, evidence schema, and parity results must have been reviewed,
+   including the owner decisions recorded in the slice-1 report.
+5. Only a separate, explicit cutover change may make the Deno classifier
+   authoritative and move the parity job into the blocking gate. Keep the
+   Python reference and shell entry points in the repository until that
+   change has passed a complete green CI cycle.
