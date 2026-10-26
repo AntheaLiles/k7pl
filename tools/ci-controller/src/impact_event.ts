@@ -29,7 +29,10 @@ export async function classifierArgs(
   const ref = env.REF;
   const head = env.HEAD_SHA;
 
-  if (eventName === "workflow_dispatch" && ref === "refs/heads/automation/generated-status") {
+  if (
+    eventName === "workflow_dispatch" &&
+    ref === "refs/heads/automation/generated-status"
+  ) {
     const mainRef = "refs/remotes/origin/main";
     const available = await git(["rev-parse", "--verify", "--quiet", mainRef]);
     if (available.code !== 0) {
