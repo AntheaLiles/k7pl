@@ -7,7 +7,6 @@ import { classifierArgs, type CommandResult } from "../src/impact_event.ts";
 
 async function assertRejects(
   action: () => Promise<unknown>,
-  _errorType: unknown,
   message: string,
 ): Promise<void> {
   try {
@@ -109,7 +108,6 @@ Deno.test("generated-status dispatch fails closed when main is unavailable", asy
       REF: "refs/heads/automation/generated-status",
       HEAD_SHA: "head456",
     }, git.run),
-    Error,
     "origin/main is not available",
   );
 });
@@ -132,7 +130,6 @@ Deno.test("missing merge base fails closed", async () => {
       REF: "refs/heads/automation/generated-status",
       HEAD_SHA: "head456",
     }, git.run),
-    Error,
     "no merge base",
   );
 });
@@ -142,7 +139,6 @@ Deno.test("ordinary events require both SHAs", async () => {
     () => classifierArgs({ EVENT_NAME: "push", HEAD_SHA: "head456" }, async () => ({
       code: 0, stdout: "", stderr: "",
     })),
-    Error,
     "BASE_SHA and HEAD_SHA are required",
   );
 });
