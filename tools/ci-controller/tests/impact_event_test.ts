@@ -15,7 +15,9 @@ async function assertRejects(
     if (error instanceof Error && error.message.includes(message)) return;
     throw new Error(`unexpected rejection: ${String(error)}`);
   }
-  throw new Error(`expected rejection containing ${JSON.stringify(message)}`);
+  throw new Error(
+    `expected rejection containing ${JSON.stringify(message)}`,
+  );
 }
 
 function mockGit(
@@ -57,85 +59,108 @@ Deno.test("manual dispatch always forces full validation", async () => {
 Deno.test(
   "generated-status dispatch forces full validation when head is on main",
   async () => {
-  const git = mockGit({
-    "rev-parse --verify --quiet refs/remotes/origin/main": {
-      code: 0, stdout: "mainsha\n", stderr: "",
-    },
-    "merge-base --is-ancestor head456 refs/remotes/origin/main": {
-      code: 0, stdout: "", stderr: "",
-    },
-  });
-  assertEquals(
-    await classifierArgs({
-      EVENT_NAME: "workflow_dispatch",
-      REF: "refs/heads/automation/generated-status",
-      HEAD_SHA: "head456",
-    }, git.run),
-    ["--force-full"],
-  );
-  assertEquals(git.calls.length, 2);
-});
+    const git = mockGit({
+      "rev-parse --verify --quiet refs/remotes/origin/main": {
+        code: 0,
+        stdout: "mainsha\n",
+        stderr: "",
+      },
+      "merge-base --is-ancestor head456 refs/remotes/origin/main": {
+        code: 0,
+        stdout: "",
+        stderr: "",
+      },
+    });
+    assertEquals(
+      await classifierArgs({
+        EVENT_NAME: "workflow_dispatch",
+        REF: "refs/heads/automation/generated-status",
+        HEAD_SHA: "head456",
+      }, git.run),
+      ["--force-full"],
+    );
+    assertEquals(git.calls.length, 2);
+  },
+);
 
 Deno.test(
   "generated-status dispatch classifies against merge base",
   async () => {
-  const git = mockGit({
-    "rev-parse --verify --quiet refs/remotes/origin/main": {
-      code: 0, stdout: "mainsha\n", stderr: "",
-    },
-    "merge-base --is-ancestor head456 refs/remotes/origin/main": {
-      code: 1, stdout: "", stderr: "",
-    },
-    "merge-base refs/remotes/origin/main head456": {
-      code: 0, stdout: "mergebase123\n", stderr: "",
-    },
-  });
-  assertEquals(
-    await classifierArgs({
-      EVENT_NAME: "workflow_dispatch",
-      REF: "refs/heads/automation/generated-status",
-      HEAD_SHA: "head456",
-    }, git.run),
-    ["--base", "mergebase123", "--head", "head456"],
-  );
-});
+    const git = mockGit({
+      "rev-parse --verify --quiet refs/remotes/origin/main": {
+        code: 0,
+        stdout: "mainsha\n",
+        stderr: "",
+      },
+      "merge-base --is-ancestor head456 refs/remotes/origin/main": {
+        code: 1,
+        stdout: "",
+        stderr: "",
+      },
+      "merge-base refs/remotes/origin/main head456": {
+        code: 0,
+        stdout: "mergebase123\n",
+        stderr: "",
+      },
+    });
+    assertEquals(
+      await classifierArgs({
+        EVENT_NAME: "workflow_dispatch",
+        REF: "refs/heads/automation/generated-status",
+        HEAD_SHA: "head456",
+      }, git.run),
+      ["--base", "mergebase123", "--head", "head456"],
+    );
+  },
+);
 
 Deno.test(
   "generated-status dispatch fails closed when main is unavailable",
   async () => {
-  const git = mockGit({
-    "rev-parse --verify --quiet refs/remotes/origin/main": {
-      code: 1, stdout: "", stderr: "missing ref",
-    },
-  });
-  await assertRejects(
-    () => classifierArgs({
-      EVENT_NAME: "workflow_dispatch",
-      REF: "refs/heads/automation/generated-status",
-      HEAD_SHA: "head456",
-    }, git.run),
-    "origin/main is not available",
-  );
-});
+    const git = mockGit({
+      "rev-parse --verify --quiet refs/remotes/origin/main": {
+        code: 1,
+        stdout: "",
+        stderr: "missing ref",
+      },
+    });
+    await assertRejects(
+      () =>
+        classifierArgs({
+          EVENT_NAME: "workflow_dispatch",
+          REF: "refs/heads/automation/generated-status",
+          HEAD_SHA: "head456",
+        }, git.run),
+      "origin/main is not available",
+    );
+  },
+);
 
 Deno.test("missing merge base fails closed", async () => {
   const git = mockGit({
     "rev-parse --verify --quiet refs/remotes/origin/main": {
-      code: 0, stdout: "mainsha\n", stderr: "",
+      code: 0,
+      stdout: "mainsha\n",
+      stderr: "",
     },
     "merge-base --is-ancestor head456 refs/remotes/origin/main": {
-      code: 1, stdout: "", stderr: "",
+      code: 1,
+      stdout: "",
+      stderr: "",
     },
     "merge-base refs/remotes/origin/main head456": {
-      code: 1, stdout: "", stderr: "no merge base",
+      code: 1,
+      stdout: "",
+      stderr: "no merge base",
     },
   });
   await assertRejects(
-    () => classifierArgs({
-      EVENT_NAME: "workflow_dispatch",
-      REF: "refs/heads/automation/generated-status",
-      HEAD_SHA: "head456",
-    }, git.run),
+    () =>
+      classifierArgs({
+        EVENT_NAME: "workflow_dispatch",
+        REF: "refs/heads/automation/generated-status",
+        HEAD_SHA: "head456",
+      }, git.run),
     "no merge base",
   );
 });
