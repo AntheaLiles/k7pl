@@ -132,8 +132,11 @@ jobs:
     #     is its log output);
     #   - per-URL exceptions with reason, manual verification
     #     and 90-day expiry, without wildcard or per-domain
-    #     entries (no exclusion is applied at all today: every
-    #     failing URL is reported, none is silently skipped);
+    #     entries (transitory lychee form: lychee.toml holds
+    #     per-exact-URL exclusions verified 2026-10-26, to be
+    #     re-checked 2027-01-24, plus a gnu.org throttle for
+    #     the 429s; the Deno checker must still implement
+    #     expiry properly before the cutover);
     #   - UNVERIFIED mapped to failure (impossible to observe
     #     while the job is continue-on-error; the cutover must
     #     remove continue-on-error AND land the Deno checker).
@@ -152,7 +155,7 @@ jobs:
       - name: Check external links (report only)
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --no-progress --timeout 30 --max-retries 3 --retry-wait-time 5 '**/*.md'
+          args: --config lychee.toml --no-progress --timeout 30 --max-retries 3 --retry-wait-time 5 '**/*.md'
           fail: true
 
   verify:
