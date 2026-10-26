@@ -60,15 +60,21 @@ Deno.test("impact surfaces are declared per component (D2 slice 1)", () => {
   // Read-by rules, now declared: python tests read wiki/assurance.md
   // and src/, the lean build reads SpecExt index files and Compliance.
   assertEquals(byId.get("python-tooling")!.readInputs, [
-    "wiki/assurance.md",
-    "src/",
+    { path: "wiki/assurance.md", surfaces: null },
+    { path: "src/", surfaces: null },
   ]);
   assertEquals(byId.get("implementation")!.readInputs, [
-    "tools/SpecExt/IndexCore.lean",
-    "tools/SpecExt/IndexTerms.lean",
-    "tools/SpecExt/Translate.lean",
-    "tools/Compliance/",
+    { path: "tools/SpecExt/IndexCore.lean", surfaces: null },
+    { path: "tools/SpecExt/IndexTerms.lean", surfaces: null },
+    { path: "tools/SpecExt/Translate.lean", surfaces: null },
+    { path: "tools/Compliance/", surfaces: null },
   ]);
+  // A read input may restrict its surfaces: src/ triggers only
+  // spec_check for the specification component, not its build.
+  assertEquals(byId.get("specification")!.readInputs[0], {
+    path: "src/",
+    surfaces: ["spec_check"],
+  });
   for (const component of registry.components) {
     assert(
       component.impactSurfaces.length > 0,
@@ -94,7 +100,12 @@ Deno.test("registry validation rejects a missing read input", () => {
   const broken = {
     ...registry,
     components: registry.components.map((c) =>
-      c.id === "wiki" ? { ...c, readInputs: ["wiki-no-such-file.md"] } : c
+      c.id === "wiki"
+        ? {
+          ...c,
+          readInputs: [{ path: "wiki-no-such-file.md", surfaces: null }],
+        }
+        : c
     ),
   };
   const errors = validateRegistry(broken as never, REPO_ROOT);
