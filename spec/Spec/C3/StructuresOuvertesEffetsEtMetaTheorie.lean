@@ -78,7 +78,7 @@ L'accès à un champ d'un enregistrement ouvert est une lentille : un couple lec
 compose et respecte les lois catégoriques attendues d'un foncteur, ce qui autorise leur fusion à la
 compilation sans jamais matérialiser de structure intermédiaire.
 
-Un type s'ouvre différemment lorsqu'il choisit de ne pas révéler l'un de ses paramètres : `∃a. τ`
+Un type s'ouvre différemment lorsqu'il choisit de ne pas révéler l'un de ses paramètres : $`\exists a.\, \tau`
 empaquète une valeur d'un type réel mais dissimulé. L'introduction s'annote au site de définition ;
 l'élimination, une simple projection `e.τ`, ne demande aucun `unpack` explicite en surface —
 l'élaboration vers un langage noyau muni de `pack~/~unpack` reste interne et préserve à la fois la
@@ -86,7 +86,7 @@ solidité du typage et son effacement complet à la compilation. Cette projectio
 toutefois refusée lorsque le témoin du paquet porte un grade effaçable : c'est le filtrage sur
 paquet effacé que le §{num "sec:c3-les-contraintes-de-valeur"}[] a dû exclure pour préserver la
 canonicité {cite "johannDeepInductionInduction2020"}[], et le compilateur exige alors un `unpack`
-explicite (`ERR-TYP-011`). Qualifier l'existentielle par une contrainte, `∃a. Q ∧ τ`, permet
+explicite (`ERR-TYP-011`). Qualifier l'existentielle par une contrainte, $`\exists a.\, Q \wedge \tau`, permet
 d'empaqueter avec la valeur la preuve qu'elle satisfait $`Q` : c'est ainsi qu'un raffinement de coût
 ou un effet $`\mathcal{E}` peuvent voyager cachés derrière un type existentiel, sans que leur nature
 précise n'ait à être exposée à l'appelant.
@@ -97,7 +97,7 @@ D'abord, un effet peut être étiqueté : le foncteur $`E` porte, indexée par u
 transformations naturelles distinctes selon l'étiquette — deux lois de composition différentes pour
 un même effet `State`, par exemple, selon que l'étiquette distingue un état neuf d'un état ancien.
 Ensuite, deux effets se composent sans empiler de monades : si $`E \cong R \circ L` est la
-décomposition de $`E` par l'adjonction qui l'engendre — `State s ≅ (s →) ∘ (s ×)` en est l'exemple
+décomposition de $`E` par l'adjonction qui l'engendre — $`\mathsf{State}\;s \cong (s \to) \circ (s \times)` en est l'exemple
 canonique —, alors $`E \Join F \cong R \circ F \circ L` insère $`F` dans cette décomposition et en
 hérite les transformations de liaison, dès lors qu'est fournie la loi distributive graduée reliant
 les deux axes.

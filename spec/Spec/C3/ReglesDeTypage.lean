@@ -30,15 +30,15 @@ compte qui a réduit ce qui paraissait un chantier ouvert à une liste bornée d
 Une première tranche du jeu de règles est désormais définie comme du Lean compilable dans la source de la spécification,
 dans le module `Spec.C3.EffectiveKernel` que `lake build Spec` construit avec ce document, sous le nom `K7pl.Spec.C3.EffectiveKernel`. Elle relie une grammaire interne à des jugements inductifs :
 `ValueTyping` porte `Var`, l'unité et `Pair` ; `ComputationTyping` porte `Ret`, `Lam`, `App` et `Let`.
-Le contexte du noyau est explicitement l'observation d'usage `π_U`, tandis que le type de fonction conserve le grade complet
-(usage, coordonnée monotone, niveau, budget). La règle `App` projette le grade par `π_U(r)` pour mettre à l'échelle le contexte
+Le contexte du noyau est explicitement l'observation d'usage $`\pi_U`, tandis que le type de fonction conserve le grade complet
+(usage, coordonnée monotone, niveau, budget). La règle `App` projette le grade par $`\pi_U(r)` pour mettre à l'échelle le contexte
 de l'argument, puis utilise une opération de composition contextuelle indexée par l'effet. Cette opération reste un paramètre explicite :
-son instanciation par `⊠` est indexée par la couche et n'est pas supposée globalement additive.
-La règle `Let` utilise ce même opérateur avec l'effet traversé, au lieu de remplacer silencieusement `⊠` par une addition.
+son instanciation par $`\boxtimes` est indexée par la couche et n'est pas supposée globalement additive.
+La règle `Let` utilise ce même opérateur avec l'effet traversé, au lieu de remplacer silencieusement $`\boxtimes` par une addition.
 Des théorèmes compilés construisent les dérivations de `λx. return x`, de `let x := (); return x` et de l'application de l'identité à l'unité, sous un grade arbitraire pour les trois coordonnées non liées à l'usage.
 
 Cette tranche est un fragment du système C3, pas son jeu complet. Le porteur et la composition des effets restent des paramètres explicites ;
-aucune loi d'effet n'est supposée. La composition contextuelle complète `⊠`, la définition et le domaine de `ψ`, la consommation de budget,
+aucune loi d'effet n'est supposée. La composition contextuelle complète $`\boxtimes`, la définition et le domaine de $`\psi`, la consommation de budget,
 les conversions, les autres règles, la substitution générale et la simulation ne sont pas prouvés par ce noyau. Ils restent des obligations
 de formalisation et de preuve, pas des conséquences de sa compilation.
 
@@ -129,7 +129,7 @@ _totale_ : $`\psi(\cdot,\varepsilon)` y est définie partout.
 :::
 
 :::proofsketch
-Par la définition ({num "eq:boxtimes"}[]), Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂, ε). Lorsque l'effet a un coût temporel nul, la composante budgétaire de ψ est l'identité puisque β ⊖ 0 = β ; si les domaines structurels sont satisfaits, le produit mixte se réduit donc à l'addition point par point. Cela ne rend pas ψ partielle selon l'admissibilité : la définissabilité structurelle de ψ et l'autorisation de traversée sont deux obligations distinctes. Toute règle qui compose des contextes doit vérifier la compatibilité des clés/types et Adm pour chaque budget traversé. La soustraction tronquée et `Cost_Budget` sont totales ; la partialité du passage est portée par son domaine d'admissibilité, pas par ces fonctions.
+Par la définition ({num "eq:boxtimes"}[]), Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂, ε). Lorsque l'effet a un coût temporel nul, la composante budgétaire de ψ est l'identité puisque β ⊖ 0 = β ; si les domaines structurels sont satisfaits, le produit mixte se réduit donc à l'addition point par point. Cela ne rend pas ψ partielle selon l'admissibilité : la définissabilité structurelle de ψ et l'autorisation de traversée sont deux obligations distinctes. Toute règle qui compose des contextes doit vérifier la compatibilité des clés/types et Adm pour chaque budget traversé. La soustraction tronquée et $`\mathrm{Cost}_{\mathrm{Budget}}` sont totales ; la partialité du passage est portée par son domaine d'admissibilité, pas par ces fonctions.
 :::
 
 :::note
@@ -567,10 +567,10 @@ La forme d'une opération à portée : son effet est une fonction de l'effet de 
 :::
 ::::
 
-Le scalaire `n` agit sur le contexte comme un scalaire d'usage : `n·Δ₂`
-se lit sous l'architecture factorisée comme `Scale_Usage(n,Δ₂)`. La transformation
+Le scalaire $`n` agit sur le contexte comme un scalaire d'usage : $`n \cdot \Delta_2`
+se lit sous l'architecture factorisée comme $`\mathrm{Scale}_{\mathrm{Usage}}(n, \Delta_2)`. La transformation
 $`\varphi_n` sur l'effet est une opération distincte. La règle ne requiert donc
-aucune multiplication préalable de la composante budgétaire par `n`.
+aucune multiplication préalable de la composante budgétaire par $`n`.
 
 Ce qui distingue cette règle de {sc}[Op] tient entièrement à $`f`. L'effet d'une opération à portée
 n'est pas une constante mais une _fonction de l'effet de son argument_ : un gestionnaire qui
@@ -985,20 +985,20 @@ graduée survivent au produit.
 
 Trois familles d'opérations doivent être distinguées. L'agrégation des contextes combine des grades
 de liaisons ; une éventuelle multiplication de la grade algebra compose des indices ; enfin
-`r·Δ` met un contexte à l'échelle. La consommation budgétaire `β ⊖ k` est une
+$`r \cdot \Delta` met un contexte à l'échelle. La consommation budgétaire $`\beta \ominus k` est une
 quatrième opération, indexée par l'effet. Identifier ces quatre familles sous le mot « composition »
 était trop fort.
 
-Le cas du budget montre immédiatement pourquoi. La soustraction tronquée `⊖` intervient dans
+Le cas du budget montre immédiatement pourquoi. La soustraction tronquée $`\ominus` intervient dans
 $`\boxtimes` via $`\psi`, mais elle n'est pas la multiplication d'une grade algebra. La loi utile
-pour une répétition entière, `n(β ⊖ k)=nβ ⊖ nk`, est une loi de compatibilité
+pour une répétition entière, $`n(\beta \ominus k) = n\beta \ominus nk`, est une loi de compatibilité
 entre une action de multiplicité et la consommation ; elle ne définit pas l'opération de
 composition des grades.
 
-Le cas du niveau est plus contraignant encore. Le joint `⊔` est utilisé par les règles pour
+Le cas du niveau est plus contraignant encore. Le joint $`\sqcup` est utilisé par les règles pour
 agréger conservativement des annotations de confidentialité. Une construction standard d'une grade
 algebra à partir d'un treillis distributif donne au contraire, sous l'ordre retenu pour le treillis,
-`+ = ⊔` et `× = ⊓`. Il ne s'ensuit donc pas que l'opération requise par la
+$`+ = \sqcup` et $`\times = \sqcap`. Il ne s'ensuit donc pas que l'opération requise par la
 composition du niveau soit la multiplication de cette grade algebra. Une dualisation de l'ordre
 pourrait modifier cette correspondance, mais elle demanderait alors une preuve de compatibilité avec
 le sous-typage et la sémantique de confidentialité.
@@ -1625,12 +1625,12 @@ $`\Delta \boxtimes_{\mathbf{1}} (r\cdot\Delta') \vdash c[v/x] : C[j/i] \mid \var
 Deux clauses le conditionnent. La première est celle que le chapitre 3 pose : la formation des types
 s'effectue dans un contexte dont tous les usages sont annulés, faute de quoi un type pourrait
 dépendre d'une ressource consommée et la substitution cesserait d'être admissible. La seconde tient
-au facteur `r\cdot\Delta'` : substituer une valeur employée $`r` fois multiplie les exigences de
+au facteur $`r\cdot\Delta'` : substituer une valeur employée $`r` fois multiplie les exigences de
 son contexte d'autant, ce qui est la contrepartie de {sc}[App] et doit être vérifié cohérent avec
 l'action d'usage effectivement retenue.
 
 Sous l'architecture factorisée, la seconde clause doit être lue après projection du grade sur son
-usage : `Scale_Usage(\pi_U(r),\Delta')`. Le grade complet reste l'annotation de la liaison ; il n'est
+usage : $`\mathrm{Scale}_{\mathrm{Usage}}(\pi_U(r), \Delta')`. Le grade complet reste l'annotation de la liaison ; il n'est
 pas lui-même supposé agir multiplicativement sur toutes ses composantes.
 
 Une troisième réserve touche l'appel par poussée de valeur : le lemme ne substitue que des valeurs, ce

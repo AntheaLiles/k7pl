@@ -42,7 +42,7 @@ blocs imbriqués — remarque qui vise une syntaxe à expressions symboliques pl
 qui est donc à porter au compte de ce chapitre plutôt qu'à celui d'un outillage futur.
 
 Les trains composent ces primitifs sans nommer leurs arguments — un 2-train `(f g)` dénote
-`λx. f(g(x))`, un 3-train `(f g h)` dénote la fourche `λx. (f x) g (h x)` — tandis que les
+$`\lambda x.\, f(g(x))`, un 3-train `(f g h)` dénote la fourche $`\lambda x.\, (f\,x)\; g\; (h\,x)` — tandis que les
 modifieurs `´` (pli), `¨` (chacun), `↢` (liaison gauche) transforment une fonction en une autre. Les
 blocs concaténatifs comme `[dup * +]`, dans la tradition de Forth et Factor, portent leur effet de
 pile directement dans leur type : `[dup *]` a l'effet `(1 – 2)`.

@@ -51,7 +51,7 @@ termine en un nombre d'étapes borné par la taille de son argument. La terminai
 après coup : elle est une conséquence de l'initialité.
 
 Le catamorphisme ne suffit pas à porter cette récursion. Dès qu'un type imbriqué apparaît — un type
-paramétré dont la récursion s'accompagne d'un changement du paramètre, ce dont `Incomplete A B` est
+paramétré dont la récursion s'accompagne d'un changement du paramètre, ce dont $`\mathsf{Incomplete}\;A\;B` est
 le cas limite —, le pli ordinaire ne décrit plus que des transformations naturelles, limitation trop
 étroite pour l'usage {cite "birdGeneralisedFoldsNested1999"}[]. K7PL retient donc la forme générale,
 le pli dépendamment typé : il est défini par récursion bien fondée, existe pour tout type imbriqué,

@@ -621,19 +621,19 @@ retrait de capacité d’écriture dans le contexte linéaire
 :::statement +titled
 Disponibilité de la capacité pendant l’appel
 
-Dans le modèle abstrait, si l’appel FFI transfère `WriteCap(B)` du contexte linéaire de l’acteur
+Dans le modèle abstrait, si l’appel FFI transfère $`\mathsf{WriteCap}(B)` du contexte linéaire de l’acteur
 à celui de la passerelle, cette capacité n’est plus disponible dans le contexte de l’acteur pendant
 l’appel. Toute opération dont le typage exige cette capacité est donc rejetée dans ce contexte.
 :::
 
 :::proofsketch
-Le transfert retire `WriteCap(B)` du contexte linéaire de l’acteur et la confie à la passerelle.
+Le transfert retire $`\mathsf{WriteCap}(B)` du contexte linéaire de l’acteur et la confie à la passerelle.
 L’élimination de coupure conserve ce retrait pendant l’appel ; une dérivation qui exige cette
 capacité ne peut donc pas être construite à partir du contexte de l’acteur.
 :::
 
 :::note
-_Portée de l’énoncé._ Cette esquisse concerne uniquement la capacité `WriteCap(B)` dans le modèle
+_Portée de l’énoncé._ Cette esquisse concerne uniquement la capacité $`\mathsf{WriteCap}(B)` dans le modèle
 abstrait. Elle ne démontre ni l’absence d’autres droits ou alias vers le tampon ni la conformité
 d’un appel natif. La révocation après retour relève de l’exigence distincte qui suit.
 :::

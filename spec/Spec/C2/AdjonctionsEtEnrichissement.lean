@@ -56,8 +56,8 @@ coordonnées de son produit ; et les _constructeurs de la théorie noyau_ sont c
 dans cette phrase. Ce sont ces derniers dont le nombre est fixe, et cela ne dit rien du nombre des
 deux autres.
 
-Ensuite les familles indexées que le chapitre 3 emploie — `Vector(n,T)`, les rangées à grade de
-présence, `Incomplete A B` dont la forme change à chaque remplissage — sont admises d'office, sans
+Ensuite les familles indexées que le chapitre 3 emploie — $`\mathsf{Vector}(n, T)`, les rangées à grade de
+présence, $`\mathsf{Incomplete}\;A\;B` dont la forme change à chaque remplissage — sont admises d'office, sans
 qu'aucune primitive ne soit ajoutée pour les accueillir. Enfin, et c'est ce dont le
 §{num "sec:c2-algebres-coalgebres-et-points"}[] a besoin, *les conteneurs préservent les plus petits
 et les plus grands points fixes* {cite "damatoFormalisingInductiveCoinductive2024"}[] : $`\mu F` et
@@ -80,7 +80,7 @@ $`\text{Hom}(I,T)` s'identifient aux valeurs de $`T` elles-mêmes, il vient
 C'est cette lecture — un conteneur fini est déterminé par la façon dont il s'observe depuis un objet
 représentable, l'intuition centrale du lemme de Yoneda — que la théorie des types du chapitre 3
 exploite pour encoder les contraintes de taille sans recourir à des types dépendants complets :
-`Vec n T` n'est pas un type primitif supplémentaire, c'est une notation pour
+$`\mathsf{Vec}\;n\;T` n'est pas un type primitif supplémentaire, c'est une notation pour
 $`\text{Hom}(\text{Fin}(n), T)`.
 
 La dernière structure que _C_ doit porter est la relation de précision $`\sqsubseteq` annoncée au

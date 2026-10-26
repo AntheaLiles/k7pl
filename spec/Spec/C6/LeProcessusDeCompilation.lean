@@ -245,7 +245,7 @@ pose dans ses propres termes : les techniques d'analyse de ressource _automatis�
 à des familles de bornes relativement contraintes, tandis que les techniques plus _expressives_,
 admettant des bornes qui dépendent des valeurs, reposent sur des preuves écrites à la main {cite "knothLiquidResourceTypes2020"}[].
 Or les grades de ce document dépendent de valeurs — grades fractionnaires, rangées à grade de
-présence, `Vector(n,T)` — de sorte qu'une technique purement automatisée ne les couvrirait pas ; et
+présence, $`\mathsf{Vector}(n, T)` — de sorte qu'une technique purement automatisée ne les couvrirait pas ; et
 l'exigence de compilation bornée du §{num "sec:c6-exigence-compilation-bornee"}[] exclut les preuves
 manuelles. Le point de rencontre est donc étroit, et il a un nom : des types à raffinement augmentés
 d'_annotations de potentiel_, conduisant une analyse amortie. Ce n'est pas un dispositif à ajouter —

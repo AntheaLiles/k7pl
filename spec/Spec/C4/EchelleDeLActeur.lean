@@ -106,8 +106,8 @@ ne suffit pas à la démontrer.
 
 C'est ici que les grades fractionnaires du chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]) trouvent
 leur réalisation physique normative. Une arène est partitionnée statiquement en segments d'index
-contigus, un par fibrille concurrente : la fibrille $`A` reçoit `WriteCap(Arena<T>, Range(0,k))`, la
-fibrille $`B` reçoit `WriteCap(Arena<T>, Range(k+1,2k))`, et leurs zones d'écriture doivent rester
+contigus, un par fibrille concurrente : la fibrille $`A` reçoit $`\mathsf{WriteCap}(\mathsf{Arena}\;T, \mathsf{Range}(0,k))`, la
+fibrille $`B` reçoit $`\mathsf{WriteCap}(\mathsf{Arena}\;T, \mathsf{Range}(k+1,2k))`, et leurs zones d'écriture doivent rester
 disjointes. Les segments doivent être alignés sur 64 octets et placés sur le nœud NUMA local des
 cœurs assignés afin de limiter le _false sharing_.
 
@@ -156,7 +156,7 @@ correspondances de disposition, transfert zéro-copie
 Domaine exact du transfert sans copie
 
 Soit $`T` un type scalaire primitif de largeur fixe, et $`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}} \rangle` les versions des trois spécifications, avec un ordre des octets déclaré (_little-endian_ ni pour l'un ni pour l'autre invariant portable sans déclaration). Alors les trois dispositions suivantes
-coïncident bit à bit, la coïncidence étant vérifiée à la compilation par comparaison de trois entiers — largeur de créneau, alignement, ordre des champs — pour la version de schéma de l'artefact : le tampon de valeurs d'un `Vec n T` de couche 3 ; le tampon de valeurs d'un
+coïncident bit à bit, la coïncidence étant vérifiée à la compilation par comparaison de trois entiers — largeur de créneau, alignement, ordre des champs — pour la version de schéma de l'artefact : le tampon de valeurs d'un $`\mathsf{Vec}\;n\;T` de couche 3 ; le tampon de valeurs d'un
 tableau Arrow de type $`T` et de longueur $`n`, son _bitmap de validité_ étant omis ; et la charge
 utile d'une liste primitive Cap'n Proto de $`n` éléments de $`T`. Le transfert d'un pointeur y
 dispense de toute copie, à une condition et non par conséquence : le tampon doit déjà être un segment de message aligné, ce que l'arène produit, et l'écriture d'un mot de pointeur de liste reste requise côté Cap'n Proto.
@@ -170,7 +170,7 @@ dispositions sont alors transposées l'une de l'autre.
 :::proofsketch
 Un tableau primitif Arrow est un unique tampon contigu dont la taille vaut au moins la largeur de
 créneau multipliée par la longueur, et son bitmap de validité peut être omis lorsque le compte de
-nuls est nul : la couche 3 étant totale, un `Vec n T` n'a jamais de valeur absente. Une liste Cap'n
+nuls est nul : la couche 3 étant totale, un $`\mathsf{Vec}\;n\;T` n'a jamais de valeur absente. Une liste Cap'n
 Proto d'éléments non composites est de son côté un tableau plat de valeurs. Les trois
 représentations sont donc le même tableau contigu, et l'alignement sur 64 bits de l'abaissement MLIR
 satisfait le minimum de 8 octets qu'Arrow impose à la sérialisation. Hors de ce domaine, Cap'n Proto

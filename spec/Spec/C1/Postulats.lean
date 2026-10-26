@@ -86,7 +86,7 @@ forme que la clôture énoncée ci-après réclame d'une extension.
   L'orthogonalité est une orthogonalité _au niveau du jugement_, non une indépendance absolue des
   deux axes, et elle se qualifie en trois couplages nommés, qui sont des interfaces contrôlées entre
   eux, chacune justifiée séparément. Les destinations indexent la modalité linéaire par un paramètre
-  d'âge $`k` (`Lin_k`) : l'indice est clos à la compilation et se lit comme la même mesure
+  d'âge $`k` ($`\mathrm{Lin}_k`) : l'indice est clos à la compilation et se lit comme la même mesure
   décroissante que l'introduction unique. L'élimination d'un existentiel interdit la projection
   implicite quand le témoin porte un grade effaçable : le typage de la valeur y dépend du grade du
   contexte, par la condition de bord de {sc}[Open]. Le point fixe déductif exige que son type soit un
@@ -102,8 +102,8 @@ forme que la clôture énoncée ci-après réclame d'une extension.
 
   Elle vaut dans les deux sens. Un grade peut dépendre d'une valeur, pourvu que cette valeur soit
   close à la compilation : le chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]) en fait un usage
-  constant, avec les grades fractionnaires $`1/N` et le paramètre d'âge `Lin_k`, et le chapitre 4
-  (§{num "sec:c4-echelle-de-l-acteur"}[]) avec les segments d'arène `Range(0,k)`. {rmq}[La condition
+  constant, avec les grades fractionnaires $`1/N` et le paramètre d'âge $`\mathrm{Lin}_k`, et le chapitre 4
+  (§{num "sec:c4-echelle-de-l-acteur"}[]) avec les segments d'arène $`\mathsf{Range}(0,k)`. {rmq}[La condition
   de clôture appartient à ce postulat et n'est empruntée à aucun autre.] C'est la clôture qui rend
   le produit libre : une valeur close ne peut pas faire dépendre un grade d'un calcul que le
   vérificateur ne saurait conduire. La dépendance n'est donc pas absente de K7PL, elle y est

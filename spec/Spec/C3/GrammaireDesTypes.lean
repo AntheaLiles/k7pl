@@ -54,9 +54,9 @@ niveaux
 :::
 ::::
 
-Dans cette notation, `\mathcal{R}` désigne uniquement le semi-anneau porteur de la composante d'usage,
-tandis que `\mathcal{G}` désigne le produit des quatre composantes du grade. `\mathbb{N}_\infty` reste
-le sous-semi-anneau réservé aux indices de taille et ne doit pas remplacer `\mathcal{R}` dans la
+Dans cette notation, $`\mathcal{R}` désigne uniquement le semi-anneau porteur de la composante d'usage,
+tandis que $`\mathcal{G}` désigne le produit des quatre composantes du grade. $`\mathbb{N}_\infty` reste
+le sous-semi-anneau réservé aux indices de taille et ne doit pas remplacer $`\mathcal{R}` dans la
 grammaire générale des grades.
 
 Cette grammaire est _complète_ au sens précis où elle est croisée avec le jeu de règles, et le

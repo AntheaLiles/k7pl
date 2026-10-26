@@ -156,10 +156,10 @@ certains $`\beta`, par exemple $`\beta = k`, et non pour tous. Ce lemme n'est pa
 générale de $`\operatorname{Scale}_{\mathrm{Usage}}`.
 :::
 ::::
-Un correspondant arithmétique Lean de ce domaine précis est formulé par `K7pl.GradeBudget.truncated_sub_mul_compatibility`: multiplicité finie, ou coût nul. La correspondance reste limitée à l'identité sur `ℕ∞`; elle n'établit pas que la loi est invoquée dans une dérivation K7PL ni que l'action budgétaire existe pour les autres grades.
+Un correspondant arithmétique Lean de ce domaine précis est formulé par `K7pl.GradeBudget.truncated_sub_mul_compatibility`: multiplicité finie, ou coût nul. La correspondance reste limitée à l'identité sur $`\mathbb{N}_\infty`; elle n'établit pas que la loi est invoquée dans une dérivation K7PL ni que l'action budgétaire existe pour les autres grades.
 
 Ce lemme arithmétique reste disponible pour une architecture où une même multiplicité agit
-simultanément sur le budget et sur l'effet. Il n'est pas requis par `Scale_Usage`, qui laisse le budget
+simultanément sur le budget et sur l'effet. Il n'est pas requis par $`\mathrm{Scale}_{\mathrm{Usage}}`, qui laisse le budget
 inchangé, et il ne doit donc plus être présenté comme une prémisse générale de la substitution.
 ::::proposition (label := "thm:coherence_axiome") (level := "langage") (role := "proposition") (state := "proposed") (evidence := "proofsketch") (scope := "effects")
 :::title
@@ -223,7 +223,7 @@ domaine, usages rationnels et non bornés compris, et à écrire les quatre éga
 ::::
 La loi `coherence_usage` est maintenant la condition pertinente pour l'action contextuelle
 factorisée. Le lemme de substitution et les règles `Box`/`App` peuvent l'invoquer une fois le support
-d'indexation et `Scale_Usage` fixés. La relation logique, la traduction et les transformations
+d'indexation et $`\mathrm{Scale}_{\mathrm{Usage}}` fixés. La relation logique, la traduction et les transformations
 d'effet ne doivent pas être rétroactivement présentées comme des instances de la loi générale : elles
 ont leurs propres obligations, notamment pour les ré-invocations finies.
 
@@ -234,13 +234,13 @@ tag := "sec:c2-interface-cout-budgetaire"
 
 {label "sec:c2-interface-cout-budgetaire"}
 
-La famille temporelle normative est `K = (ℕ∞ × ℕ∞)^ℒ`. La convention ratifiée D4 autorise ℒ vide et fixe `sup ∅ = 0` dans ℕ∞. En conséquence, W et D sont totales sur K, et la décision D3 retient `Cost_Budget : K → ℕ∞` totale, sous ces conventions.
+La famille temporelle normative est $`K = (\mathbb{N}_\infty \times \mathbb{N}_\infty)^{\mathcal{L}}`. La convention ratifiée D4 autorise ℒ vide et fixe $`\sup \emptyset = 0` dans ℕ∞. En conséquence, W et D sont totales sur K, et la décision D3 retient $`\mathrm{Cost}_{\mathrm{Budget}} : K \to \mathbb{N}_\infty` totale, sous ces conventions.
 
-La définition canonique est `Cost_Budget(κ) = max(W(κ), D(κ))`, où W et D sont définis dans la section suivante. Cette scalarisation borne simultanément le travail agrégé et la profondeur agrégée. Elle n'ajoute aucune action budgétaire à `Scale_Usage` et n'implique aucune multiplication globale du grade complet 𝒢.
+La définition canonique est $`\mathrm{Cost}_{\mathrm{Budget}}(\kappa) = \max(W(\kappa), D(\kappa))`, où W et D sont définis dans la section suivante. Cette scalarisation borne simultanément le travail agrégé et la profondeur agrégée. Elle n'ajoute aucune action budgétaire à $`\mathrm{Scale}_{\mathrm{Usage}}` et n'implique aucune multiplication globale du grade complet 𝒢.
 
-Le principe d'admissibilité ratifié par D5 est la couverture du coût annoncé : `Adm(β, κ)` signifie que `Cost_Budget(κ) ≤ β`. Sous les types canoniques `β : ℕ∞` et `Cost_Budget(κ) : ℕ∞`, comme ω est maximal, la clause `β = ω` de la formulation disjonctive antérieure est logiquement redondante. Le module Lean `K7pl.GradeBudget` formalise cette identité d'ordre et expose maintenant le porteur `K L`, le coût `costBudgetK`, l'admissibilité `admK` et la consommation à précondition `consumeK`, avec conservation sur le domaine admis. Ce pont définit un modèle formel de référence pour les types et contrats de C2 ; il ne prouve pas encore que les règles de typage et transitions opérationnelles K7PL préservent l'admissibilité ni qu'elles invoquent `Consume` uniquement sur son domaine.
+Le principe d'admissibilité ratifié par D5 est la couverture du coût annoncé : $`\mathrm{Adm}(\beta, \kappa)` signifie que $`\mathrm{Cost}_{\mathrm{Budget}}(\kappa) \le \beta`. Sous les types canoniques $`\beta : \mathbb{N}_\infty` et $`\mathrm{Cost}_{\mathrm{Budget}}(\kappa) : \mathbb{N}_\infty`, comme ω est maximal, la clause $`\beta = \omega` de la formulation disjonctive antérieure est logiquement redondante. Le module Lean `K7pl.GradeBudget` formalise cette identité d'ordre et expose maintenant le porteur `K L`, le coût `costBudgetK`, l'admissibilité `admK` et la consommation à précondition `consumeK`, avec conservation sur le domaine admis. Ce pont définit un modèle formel de référence pour les types et contrats de C2 ; il ne prouve pas encore que les règles de typage et transitions opérationnelles K7PL préservent l'admissibilité ni qu'elles invoquent $`\mathrm{Consume}` uniquement sur son domaine.
 
-La consommation reste une opération partielle, même si `Cost_Budget` est totale : `Consume(β, κ)` est définie uniquement si `Adm(β, κ)` est satisfaite, et vaut alors `β ⊖ Cost_Budget(κ)`. La soustraction tronquée ⊖ est, elle, définie globalement sur ℕ∞, selon la convention de C2 prolongée par D8, notamment `ω ⊖ ω = ω`. Il ne faut donc pas déplacer la partialité de `Consume` vers `Cost_Budget` ni la confondre avec le domaine de ψ.
+La consommation reste une opération partielle, même si $`\mathrm{Cost}_{\mathrm{Budget}}` est totale : $`\mathrm{Consume}(\beta, \kappa)` est définie uniquement si $`\mathrm{Adm}(\beta, \kappa)` est satisfaite, et vaut alors $`\beta \ominus \mathrm{Cost}_{\mathrm{Budget}}(\kappa)`. La soustraction tronquée ⊖ est, elle, définie globalement sur ℕ∞, selon la convention de C2 prolongée par D8, notamment $`\omega \ominus \omega = \omega`. Il ne faut donc pas déplacer la partialité de $`\mathrm{Consume}` vers $`\mathrm{Cost}_{\mathrm{Budget}}` ni la confondre avec le domaine de ψ.
 
 Le domaine de ψ est conceptuellement indépendant de la définissabilité de Consume. Une ψ structurellement définie ne suffit pas à autoriser une traversée budgétaire : les règles de composition doivent vérifier séparément l'admissibilité du budget pour chaque liaison affectée. Inversement, l'admissibilité n'établit pas à elle seule que ψ est définie pour des contextes incompatibles. Les règles qui utilisent Δ₁ ⊠ε Δ₂ doivent rendre explicites ces deux obligations.
 
@@ -256,7 +256,7 @@ Consume(β, κ) = β ⊖ Cost_Budget(κ)
 
 Ici Adm exprime la couverture du coût annoncé. Puisque ω est l’élément maximal de 𝔅, le disjoint β = ω de la formule historique est redondant, et non une seconde clause sémantique. Consume est définie sur le sous-domaine admissible et reste donc partielle sur 𝔅 × K.
 
-Pour un effet bien formé `ε = (ε₀, κ_ε)` et un contexte bien formé `Δ = {xᵢ :_{⟨uᵢ,mᵢ,ℓᵢ,βᵢ⟩} Vᵢ}`, la transformation structurelle ψ conserve les clés, les types et les trois coordonnées non budgétaires, et applique la soustraction totale liaison par liaison :
+Pour un effet bien formé $`\varepsilon = (\varepsilon_0, \kappa_\varepsilon)` et un contexte bien formé $`\Delta = \{x_i :_{\langle u_i, m_i, \ell_i, \beta_i \rangle} V_i\}`, la transformation structurelle ψ conserve les clés, les types et les trois coordonnées non budgétaires, et applique la soustraction totale liaison par liaison :
 
 ```
 ψ(Δ, ε) =
@@ -291,9 +291,9 @@ pour la mise en parallèle. Le travail est additif dans les deux cas ; la profon
 séquencement et se combine par maximum en parallèle, ce qui donne les inégalités nécessaires pour
 une borne scalaire.
 
-Il possède surtout une propriété de minimalité : pour toute scalarisation scalaire `C(κ)` qui satisfait
+Il possède surtout une propriété de minimalité : pour toute scalarisation scalaire $`C(\kappa)` qui satisfait
 simultanément $`W(κ)\le C(κ)` et $`D(κ)\le C(κ)`, on a
-`Cost_Budget(κ)≤C(κ)`. Il s'agit donc de la plus petite borne scalaire qui
+$`\mathrm{Cost}_{\mathrm{Budget}}(\kappa) \le C(\kappa)`. Il s'agit donc de la plus petite borne scalaire qui
 domine les deux dimensions temporelles.
 
 Sous les deux hypothèses déjà normatives — budget scalaire et borne simultanée du travail et de la
@@ -327,7 +327,7 @@ $$`\varphi_n(\varepsilon_1 \parallel \varepsilon_2)
 Sur le travail, l'identité vient de la distributivité de la multiplication entière sur l'addition.
 Sur la profondeur, elle vient de la monotonie de la multiplication dans le supremum :
 $`n\max(s_1,s_2)=\max(ns_1,ns_2)`.
-L'énoncé ne présuppose aucune transformation du budget ; celle-ci relève de `Cost_Budget`.
+L'énoncé ne présuppose aucune transformation du budget ; celle-ci relève de $`\mathrm{Cost}_{\mathrm{Budget}}`.
 :::
 
 :::note
@@ -336,11 +336,11 @@ restent à expliciter ; la loi ne s'étend ni à une multiplicité rationnelle n
 sans action définie et preuve propre.
 :::
 ::::
-L'interface budgétaire est désormais fixée sous les hypothèses normatives retenues. Le grade porte un budget $`\beta \in \mathbb{N}_\infty`, tandis que la composante temporelle normative est la famille $`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`. Les agrégateurs $`W` et $`D` et la scalarisation `Cost_Budget` sont définis ci-dessous ; la consommation reste séparée et n'intervient que lorsque l'effet traverse effectivement un contexte par $`\psi`.
+L'interface budgétaire est désormais fixée sous les hypothèses normatives retenues. Le grade porte un budget $`\beta \in \mathbb{N}_\infty`, tandis que la composante temporelle normative est la famille $`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`. Les agrégateurs $`W` et $`D` et la scalarisation $`\mathrm{Cost}_{\mathrm{Budget}}` sont définis ci-dessous ; la consommation reste séparée et n'intervient que lorsque l'effet traverse effectivement un contexte par $`\psi`.
 
 Une extension concurrente pourrait ultérieurement raffiner la famille temporelle par plusieurs composantes de coût, mais cette extension n'appartient pas à la définition normative actuelle. Elle ne doit donc pas décider aujourd'hui de la structure du grade ni de la consommation budgétaire.
 
-Le rôle du budget est ainsi séparé de la mise à l'échelle d'usage : $`Scale_{\mathrm{Usage}}` laisse la composante budgétaire inchangée, tandis que `Cost_Budget` et `Consume` décrivent la consommation provoquée par un effet effectivement traversé par $`\psi`.
+Le rôle du budget est ainsi séparé de la mise à l'échelle d'usage : $`Scale_{\mathrm{Usage}}` laisse la composante budgétaire inchangée, tandis que $`\mathrm{Cost}_{\mathrm{Budget}}` et $`\mathrm{Consume}` décrivent la consommation provoquée par un effet effectivement traversé par $`\psi`.
 
 Il n'est pas non plus établi qu'un usage infini soit interdit dès qu'un effet a un coût non nul. L'admissibilité dépend de la condition $`Adm` et de la valeur du budget ; aucune telle exclusion ne doit être déduite de la seule factorisation de l'index.
 
@@ -445,18 +445,18 @@ r \preccurlyeq r'
 ```
 
 pour que la projection de la subsomption complète porte la même direction que la coercion de
-l'exponentielle d'usage, ainsi qu'une action `Scale_Usage` compatible avec `Box`, `App` et
+l'exponentielle d'usage, ainsi qu'une action $`\mathrm{Scale}_{\mathrm{Usage}}` compatible avec `Box`, `App` et
 substitution. La préservation du niveau dans l'interprétation logique et la consommation du budget
-par `Consume` doivent rester indépendantes de cette projection.
+par $`\mathrm{Consume}` doivent rester indépendantes de cette projection.
 
-L'interface de référence est donc `π_U : 𝒢 → 𝓡` et `Bang_𝒢(r,A) := !_{π_U(r)}A`. Le grade syntaxique conserve les quatre composantes ; le noyau comonadique est indexé par 𝓡. Cette décision n'introduit aucune multiplication globale sur 𝒢 et ne ferme pas les obligations de preuve de la substitution, des coercions, de la counité w ni de la comultiplication c. Une indexation multi-composante demeure une généralisation éventuelle, hors du contrat normatif actuel.
+L'interface de référence est donc $`\pi_U : \mathcal{G} \to \mathcal{R}` et $`\mathrm{Bang}_{\mathcal{G}}(r, A) := {!}_{\pi_U(r)}A`. Le grade syntaxique conserve les quatre composantes ; le noyau comonadique est indexé par 𝓡. Cette décision n'introduit aucune multiplication globale sur 𝒢 et ne ferme pas les obligations de preuve de la substitution, des coercions, de la counité w ni de la comultiplication c. Une indexation multi-composante demeure une généralisation éventuelle, hors du contrat normatif actuel.
 
 # Action de référence de mise à l'échelle d'usage
 %%%
 tag := "sec:c2-action-candidate-scale-usage"
 %%%
 
-La décision d'autrice retient `Scale_Usage` comme action contextuelle de référence. Elle agit uniquement sur la composante d'usage du grade complet ; l'action liaison par liaison n'est définie que pour les contextes dont les clés et les types sont compatibles :
+La décision d'autrice retient $`\mathrm{Scale}_{\mathrm{Usage}}` comme action contextuelle de référence. Elle agit uniquement sur la composante d'usage du grade complet ; l'action liaison par liaison n'est définie que pour les contextes dont les clés et les types sont compatibles :
 
 ::::formula (label := "eq:scale-usage-grade") (kind := "formule")
 ```
@@ -471,20 +471,20 @@ La décision d'autrice retient `Scale_Usage` comme action contextuelle de réfé
 
 Sur un contexte, l'action s'applique liaison par liaison. Elle ne définit donc aucune multiplication
 scalaire du niveau, de la monotonie ou du budget. Le budget conserve sa valeur jusqu'à l'application
-explicite de `Consume` par transport d'un effet.
+explicite de $`\mathrm{Consume}` par transport d'un effet.
 
 Les lois minimales requises par les règles sont :
 
-`Scale_Usage(1,Δ)=Δ`,
+$`\mathrm{Scale}_{\mathrm{Usage}}(1, \Delta) = \Delta`,
 
-`Scale_Usage(a,Scale_Usage(b,Δ))=Scale_Usage(a·b,Δ)`,
+$`\mathrm{Scale}_{\mathrm{Usage}}(a, \mathrm{Scale}_{\mathrm{Usage}}(b, \Delta)) = \mathrm{Scale}_{\mathrm{Usage}}(a \cdot b, \Delta)`,
 
-`Scale_Usage(a,Δ₁+Δ₂)=Scale_Usage(a,Δ₁)+Scale_Usage(a,Δ₂)` lorsqu'une addition de contextes est définie,
+$`\mathrm{Scale}_{\mathrm{Usage}}(a, \Delta_1 + \Delta_2) = \mathrm{Scale}_{\mathrm{Usage}}(a, \Delta_1) + \mathrm{Scale}_{\mathrm{Usage}}(a, \Delta_2)` lorsqu'une addition de contextes est définie,
 
 et la monotonie de l'action par rapport à l'ordre de sous-typage sur les grades.
 
 Ces lois portent sur l'action contextuelle. Elles ne constituent pas une définition de `MulG`, et
-elles ne disent rien à elles seules de la transformation des effets par `φ_n`. Le point temporel
+elles ne disent rien à elles seules de la transformation des effets par $`\varphi_n`. Le point temporel
 scalaire/bidimensionnel reste donc hors du domaine de cette action.
 
 Statut : interface de référence ratifiée. Les lois d'identité, de composition, d'additivité et de monotonie sont des obligations mathématiques sur les domaines indiqués ; leur présence sous forme de formule ne vaut ni preuve Lean ni preuve de compatibilité avec toutes les conversions et règles du langage.
@@ -666,17 +666,17 @@ d'intervalles n'est donc pas, à elle seule, un morphisme de modes.
 
 Au sens de la théorie des modes introduite par Hanukaev et Eades {cite "hanukaevUnificationGradedSubstructural2026"}[], un mode est un triplet (Rₘ, Cont(m), Weak(m)) : une algèbre de grades, un idéal de grades contractables et un prédicat d'affaiblissement. La décision de périmètre ratifiée dans D-16 retient trois modes structurels de référence pour le langage actuel :
 
-`M_Lin = (𝓡, {0}, false)`,
-`M_Aff = (𝓡, {0}, true)`,
-`M_Unr = (𝓡, 𝓡, true)`. 
+$`M_{\mathrm{Lin}} = (\mathcal{R}, \{0\}, \mathrm{false})`,
+$`M_{\mathrm{Aff}} = (\mathcal{R}, \{0\}, \mathrm{true})`,
+$`M_{\mathrm{Unr}} = (\mathcal{R}, \mathcal{R}, \mathrm{true})`. 
 
-Le mode structurel `M_Rel = (𝓡, 𝓡, false)` n'appartient pas au périmètre normatif actuel. Cela ne supprime pas l'intervalle d'usage `U_Rel = [1..ω]` : `U_Rel` reste une strate syntaxique d'annotations d'usage, distincte d'un mode structurel. La note d'opportunité `L1-REL-MODE-OPPORTUNITIES-2026-10-11.md` conserve `M_Rel` comme piste séparée, sans lui attribuer de règle normative.
+Le mode structurel $`M_{\mathrm{Rel}} = (\mathcal{R}, \mathcal{R}, \mathrm{false})` n'appartient pas au périmètre normatif actuel. Cela ne supprime pas l'intervalle d'usage $`U_{\mathrm{Rel}} = [1..\omega]` : $`U_{\mathrm{Rel}}` reste une strate syntaxique d'annotations d'usage, distincte d'un mode structurel. La note d'opportunité `L1-REL-MODE-OPPORTUNITIES-2026-10-11.md` conserve $`M_{\mathrm{Rel}}` comme piste séparée, sans lui attribuer de règle normative.
 
 Les applications identité du porteur 𝓡 fournissent, sous le contrat de morphisme retenu, les candidats Lin → Aff, Aff → Unr et Lin → Unr. Ce constat structurel ne suffit pas à prouver que le jugement de typage K7PL réalise effectivement ces permissions. Les règles de typage et leurs conversions doivent satisfaire le contrat d'algèbre, d'idéal de contraction et de Weak ; les états under-review/proofsketch demeurent inchangés. L'inclusion ensembliste des intervalles d'usage n'est pas une preuve de morphisme.
 
 Les intervalles syntaxiques restent distincts :
-`U_Lin = [1..1]`, `U_Aff = [0..1]`, `U_Rel = [1..ω]`, `U_Unr = [0..ω]`.
-Ils ne sont pas en général des sous-algèbres du semi-anneau : par exemple `[0..1]` n'est pas fermé par addition. La correspondance normative se limite donc aux trois modes retenus et ne doit pas inférer un quatrième mode structurel de l'existence de `U_Rel`.
+$`U_{\mathrm{Lin}} = [1..1]`, $`U_{\mathrm{Aff}} = [0..1]`, $`U_{\mathrm{Rel}} = [1..\omega]`, $`U_{\mathrm{Unr}} = [0..\omega]`.
+Ils ne sont pas en général des sous-algèbres du semi-anneau : par exemple $`[0..1]` n'est pas fermé par addition. La correspondance normative se limite donc aux trois modes retenus et ne doit pas inférer un quatrième mode structurel de l'existence de $`U_{\mathrm{Rel}}`.
 
 ::::figure (label := "fig:fragments-emboites") (src := "fragments-nestings") (alt := "Trois cadres emboîtés : le fragment cartésien admet affaiblissement et contraction ; le fragment affine admet l'affaiblissement seul ; le fragment linéaire strict n'admet ni l'un ni l'autre.") (width := "90")
 :::caption

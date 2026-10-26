@@ -68,7 +68,7 @@ l'effacement comme distinction de phase et en tire la conservativité sur la th�
 sous-jacente {cite "THEOCHARIS"}[]. Ce document ne l'emprunte pas, mais elle reste disponible si la
 restriction du §{num "sec:c3-structures-ouvertes-effets-et"}[] se révélait trop coûteuse.
 
-Les contraintes de taille en sont l'illustration la plus directe : `Vector(n, T)` n'introduit aucun
+Les contraintes de taille en sont l'illustration la plus directe : $`\mathsf{Vector}(n, T)` n'introduit aucun
 mécanisme propre, elle réutilise l'isomorphisme $`\text{Hom}(\text{Fin}(n),T) \cong \text{Vec}(n,T)`
 établi au chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]). Cet isomorphisme fixe la
 sémantique du type, non sa représentation machine : celle-ci relève de l'abaissement (chapitre 6,
@@ -76,13 +76,13 @@ sémantique du type, non sa représentation machine : celle-ci relève de l'abai
 d'exécution efficace avec des invariants effaçables reste explicite — c'est à cette condition que la
 complexité de la structure résultante demeure prévisible, comme P3 l'exige {cite "allaisBuiltinTypesViewed2023"}[].
 L'accès `(arr i)` porte la contrainte $`0 \le i < n` ; le compilateur en prouve la validité, ou la
-transforme en `Result(T, OutOfBounds)` lorsque la preuve échoue — jamais une vérification dynamique
-silencieuse. Les dimensions physiques (types SI, `Velocity = Length / Time`) suivent le même
+transforme en $`\mathsf{Result}(T, \mathsf{OutOfBounds})` lorsque la preuve échoue — jamais une vérification dynamique
+silencieuse. Les dimensions physiques (types SI, $`\mathsf{Velocity} = \mathsf{Length} / \mathsf{Time}`) suivent le même
 principe par des paramètres fantômes : la contrainte est vérifiée puis intégralement effacée, sans
 laisser au binaire final la moindre trace de son unité.
 
 Lorsque la contrainte ne se laisse pas encoder aussi directement, K7PL délègue. Un type de
-raffinement `{x : T | p}` engage une obligation de preuve résolue par le solveur SMT du chapitre 6,
+raffinement $`\{x : T \mid p\}` engage une obligation de preuve résolue par le solveur SMT du chapitre 6,
 sur des théories dédiées : `K7PL.Map` pour les cartes finies, `K7PL.SI` pour les dimensions
 physiques, `K7PL.Age` pour l'ordre linéaire des destinations. Des lemmes explicites la guident si
 nécessaire. Lorsque le prédicat porte sur les valeurs _internes_ à une structure — les éléments
@@ -127,7 +127,7 @@ transformation que ce document a opérée ailleurs pour l'hygiène — passer d'
 tenir à jour.
 
 Une troisième famille de contraintes ne porte pas sur une valeur figée mais sur son évolution. Le
-typestate est un paramètre de type qui suit une grammaire d'états — `File(Open)`, `File(Closed)` —
+typestate est un paramètre de type qui suit une grammaire d'états — $`\mathsf{File}(\mathsf{Open})`, $`\mathsf{File}(\mathsf{Closed})` —
 chaque transition validée par unification de ce paramètre, sans le moindre coût à l'exécution. La
 règle ci-dessus en fixe le prix, et il faut l'écrire : un typestate se vérifie, il ne se filtre pas.
 Un programme qui aurait besoin de brancher à l'exécution sur l'état d'un fichier doit porter un tag
@@ -143,19 +143,19 @@ Un protocole de session comme automate à états
 :::
 
 :::desc
-Le point initial plein mène à `SEND_INT`, état dont l'action suivante est `send(Int)`. Cette transition
-mène à `RECV_BOOL`, état dont l'action suivante est `recv(Bool)` ; cette dernière mène à l'état final
+Le point initial plein mène à `SEND_INT`, état dont l'action suivante est $`\mathsf{send}(\mathsf{Int})`. Cette transition
+mène à `RECV_BOOL`, état dont l'action suivante est $`\mathsf{recv}(\mathsf{Bool})` ; cette dernière mène à l'état final
 non étiqueté, représenté par un double cercle contenant un petit disque violet.
 :::
 
 :::note
-L'automate représenté est celui du protocole `Send(Int, Recv(Bool, End))`.
+L'automate représenté est celui du protocole $`\mathsf{Send}(\mathsf{Int}, \mathsf{Recv}(\mathsf{Bool}, \mathbf{End}))`.
 :::
 ::::
 
 Chaque extrémité d'un canal de session est une ressource linéaire de $`\Delta` (chapitre 2,
 §{num "sec:c2-la-comonade-exponentielle-et"}[]), et le protocole qu'elle porte s'accompagne de son
-dual — à un `Send(T,P)` correspond nécessairement un `Recv(T,P^⊥)` du côté opposé. Cette dualité
+dual — à un $`\mathsf{Send}(T, P)` correspond nécessairement un $`\mathsf{Recv}(T, P^{\perp})` du côté opposé. Cette dualité
 n'est ni une hypothèse ni même une définition : elle est une _conséquence_, et c'est ce qui permet à
 ce chapitre de n'ajouter aucun constructeur de type. La figure {num "fig:session-dualite"}[] montre
 le même échange du point de vue des deux extrémités.
@@ -301,7 +301,7 @@ d'état de blocage mutuel.
 :::
 
 :::proofsketch
-Le jeton linéaire `Lin(SessionEndpoint)` force la progression : une session ne peut être abandonnée,
+Le jeton linéaire $`\mathrm{Lin}(\mathsf{SessionEndpoint})` force la progression : une session ne peut être abandonnée,
 elle doit atteindre `end` ou traiter un `Timeout`. Le graphe de dépendances est acyclique par
 vérification en Phase 2, un cycle produisant `ERR-ARC-001`. Par tri topologique de ce graphe
 (chapitre 2, théorème {num "thm:tri_topologique"}[]) et élimination des coupures sur le fragment
@@ -360,7 +360,7 @@ rien : une condition temporaire — un tampon plein — résorbable par un gesti
 un effet algébrique (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) plutôt que
 confondue avec une erreur définitive. La théorie des roues instancie ce premier régime pour
 l'arithmétique : une opération invalide ($`0/0`) ne lève pas d'exception mais produit une
-singularité — $`\bot`, $`\infty`, $`\circ`, $`\delta`, constructeurs d'un type algébrique `Wheel<T>`
+singularité — $`\bot`, $`\infty`, $`\circ`, $`\delta`, constructeurs d'un type algébrique $`\mathsf{Wheel}(T)`
 distinct du flottant IEEE 754 sous-jacent, dont la conversion reste explicite dans les deux sens. Les deux
 premières viennent de la théorie des roues {cite "carlstromWheelsDivisionZero2004"}[] ; les deux dernières, et
 leur combinaison $`\circ\delta`, sont une extension de K7PL, définie plus bas.
@@ -451,6 +451,6 @@ le NaN par la proposition {num "thm:homomorphisme_roues"}[], l'ordre des segment
 réallocation (`mremap`). Toutes disent la même chose.
 
 L'overflow entier suit la même logique par couche : rejet statique en couche 3, où le solveur SMT
-doit prouver que l'opération reste dans les bornes ; `Result(T, OverflowError)` en couche 2, où
+doit prouver que l'opération reste dans les bornes ; $`\mathsf{Result}(T, \mathsf{OverflowError})` en couche 2, où
 l'origine des valeurs n'est plus toujours statiquement bornée. Dans les deux cas, aucun dépassement
 silencieux n'est jamais toléré.

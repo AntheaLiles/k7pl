@@ -47,9 +47,9 @@ grade qui appartient à la modalité de son type. Les confondre reviendrait à c
 l'ensemble où il vit, ce qui passe inaperçu tant que l'ensemble est unique et cesse de passer dès
 qu'il y en a trois.
 
-La distinction des fragments du chapitre 2 porte sur des sous-domaines d'usage du porteur `𝒢`. Ce que cette
+La distinction des fragments du chapitre 2 porte sur des sous-domaines d'usage du porteur $`\mathcal{G}`. Ce que cette
 section ajoute, c'est que ces domaines syntaxiques sont distingués par leurs bornes d'usage, tandis que
-l'annotation complète reste un quadruplet dans `𝒢` et ne se confond pas avec le seul semi-anneau d'usage.
+l'annotation complète reste un quadruplet dans $`\mathcal{G}` et ne se confond pas avec le seul semi-anneau d'usage.
 
 Ces sous-ensembles sont des _intervalles_, et les écrire ainsi corrige une imprécision que la
 notation par singletons entretenait. Une modalité dit ce qu'une ressource _peut_ subir, non ce
@@ -117,8 +117,8 @@ $`\preccurlyeq`, ni l'ordre de précision $`\sqsubseteq`.
 Pour raisonner sur les permissions structurelles, la définition de Hanukaev et Eades doit être utilisée explicitement {cite "hanukaevUnificationGradedSubstructural2026"}[] : un mode est un triplet (Rₘ, Cont(m), Weak(m)), où Rₘ est une algèbre de grades, Cont(m) un idéal de grades contractables et Weak(m) le prédicat d'affaiblissement.
 
 Le périmètre normatif actuel retient les trois modes structurels de référence :
-`M_Lin = (𝓡, {0}, false)`, `M_Aff = (𝓡, {0}, true)`, `M_Unr = (𝓡, 𝓡, true)`.
-Le quadruplet `M_Rel = (𝓡, 𝓡, false)` reste une possibilité théorique documentée séparément, mais n'est pas un mode normatif de la grammaire courante. Cela n'efface pas `U_Rel = [1..ω]`, qui demeure un intervalle d'usage syntaxique et ne doit pas être confondu avec un mode structurel.
+$`M_{\mathrm{Lin}} = (\mathcal{R}, \{0\}, \mathrm{false})`, $`M_{\mathrm{Aff}} = (\mathcal{R}, \{0\}, \mathrm{true})`, $`M_{\mathrm{Unr}} = (\mathcal{R}, \mathcal{R}, \mathrm{true})`.
+Le quadruplet $`M_{\mathrm{Rel}} = (\mathcal{R}, \mathcal{R}, \mathrm{false})` reste une possibilité théorique documentée séparément, mais n'est pas un mode normatif de la grammaire courante. Cela n'efface pas $`U_{\mathrm{Rel}} = [1..\omega]`, qui demeure un intervalle d'usage syntaxique et ne doit pas être confondu avec un mode structurel.
 
 ::::proposition (label := "thm:morphismes_modes") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
@@ -126,11 +126,11 @@ ordre structurel des trois modes de référence
 :::
 
 :::statement +titled
-Sous les triplets ci-dessus, les identités du porteur de grades donnent les morphismes candidats `M_Lin → M_Aff`, `M_Aff → M_Unr` et `M_Lin → M_Unr`, sous réserve du contrat exact de morphisme. Aucune comparaison structurelle n'est affirmée pour `U_Rel`, qui n'est qu'un intervalle d'usage dans le périmètre courant.
+Sous les triplets ci-dessus, les identités du porteur de grades donnent les morphismes candidats $`M_{\mathrm{Lin}} \to M_{\mathrm{Aff}}`, $`M_{\mathrm{Aff}} \to M_{\mathrm{Unr}}` et $`M_{\mathrm{Lin}} \to M_{\mathrm{Unr}}`, sous réserve du contrat exact de morphisme. Aucune comparaison structurelle n'est affirmée pour $`U_{\mathrm{Rel}}`, qui n'est qu'un intervalle d'usage dans le périmètre courant.
 :::
 
 :::proofsketch
-Chaque identité conserve le porteur et son ordre. Le passage `Lin → Aff` introduit l'affaiblissement ; `Aff → Unr` étend les grades contractables de `{0}` à 𝓡 ; `Lin → Unr` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
+Chaque identité conserve le porteur et son ordre. Le passage $`\mathrm{Lin} \to \mathrm{Aff}` introduit l'affaiblissement ; $`\mathrm{Aff} \to \mathrm{Unr}` étend les grades contractables de $`\{0\}` à 𝓡 ; $`\mathrm{Lin} \to \mathrm{Unr}` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
 :::
 
 :::note
@@ -141,7 +141,7 @@ conditions. La proposition reste conditionnelle aux triplets candidats ; elle ne
 inclusions d'intervalles d'usage ni au sous-typage.
 :::
 ::::
-La structure des intervalles d'usage ne doit donc pas être traitée comme une algèbre de modes. Les règles structurelles courantes fixent Lin, Aff et Unr ; toute future introduction d'un mode Rel nécessitera un arbitrage distinct, un contrat explicite et une justification dans les règles, plutôt que l'inférence depuis `U_Rel`.
+La structure des intervalles d'usage ne doit donc pas être traitée comme une algèbre de modes. Les règles structurelles courantes fixent Lin, Aff et Unr ; toute future introduction d'un mode Rel nécessitera un arbitrage distinct, un contrat explicite et une justification dans les règles, plutôt que l'inférence depuis $`U_{\mathrm{Rel}}`.
 
 Ce mot de _mode_ demande d'être situé, faute de quoi ce document paraîtrait seul de son espèce alors
 qu'il ne l'est pas. Un cadre général existe, dont ce chapitre est une instance : un calcul des
@@ -356,7 +356,7 @@ développeur y perd en concision d'écriture, le §{num "sec:c3-structures-ouver
 nomme ; ce qu'il y gagne est un modèle de coût de compilation prévisible, et des messages d'erreur
 qui pointent une signature plutôt qu'un point d'unification arbitraire.
 
-Le cas Lin porte une propriété plus forte qu'une simple comptabilité d'usage : une valeur `Lin T`
+Le cas Lin porte une propriété plus forte qu'une simple comptabilité d'usage : une valeur $`\mathrm{Lin}\,T`
 est le témoin qu'une seule référence existe, prouvée à la compilation plutôt que vérifiée à
 l'exécution. Cette unicité, empruntée à Clean, rend la mutation physique en place fonctionnellement
 pure : aucune fibrille ne peut observer d'état intermédiaire, puisqu'aucune autre référence ne peut
@@ -389,15 +389,15 @@ dépendre le grade de la valeur qui décide du branchement {cite "doreDependentM
 petit.
 
 Les capabilités raffinent cette même idée en grades véritablement numériques plutôt qu'en trois
-points discrets. Une `WriteCap<T>` porte un grade linéaire strict, $`\mathcal{G}=1` : sa duplication
+points discrets. Une $`\mathsf{WriteCap}(T)` porte un grade linéaire strict, $`\mathcal{G}=1` : sa duplication
 est exclue par l'absence de diagonale, comme tout objet du fragment linéaire strict. Une
-`ReadCap<T>` n'est pas une fraction de cette capacité, et la distinction est essentielle : diviser
+$`\mathsf{ReadCap}(T)` n'est pas une fraction de cette capacité, et la distinction est essentielle : diviser
 un grade linéaire produit, par la contraction du §{num "sec:c2-la-comonade-exponentielle-et"}[],
 deux capacités _séparées_ — c'est ce que le tenseur sert à dire —, non deux lecteurs d'une même
 région.
 
 Le partage en lecture vit de l'autre côté de l'adjonction du
-§{num "sec:c2-la-comonade-exponentielle-et"}[] : une `ReadCap<T>` est l'image, par le foncteur qui
+§{num "sec:c2-la-comonade-exponentielle-et"}[] : une $`\mathsf{ReadCap}(T)` est l'image, par le foncteur qui
 va du fragment linéaire au fragment cartésien, de la région gouvernée par la `WriteCap`. C'est là,
 où la diagonale existe, que $`N` lecteurs simultanés sont exprimables ; le grade $`r` n'y compte
 plus des détenteurs mais reste ce qu'il est partout ailleurs, un indice d'usage. Le solveur SMT
@@ -441,14 +441,14 @@ qui déclare ses dépendances par grade se teste donc en isolation aussi naturel
 pur, sans infrastructure ni double de test construit à la main.
 
 Une destination pousse cette logique un cran plus loin : c'est une `WriteCap` non plus sur une
-valeur existante, mais sur un emplacement qui n'existe pas encore. Le type `Dest T` est cette
-capacité d'écriture unique vers un trou ; `Incomplete A B` décrit une structure de type $`A` dont
+valeur existante, mais sur un emplacement qui n'existe pas encore. Le type $`\mathsf{Dest}\;T` est cette
+capacité d'écriture unique vers un trou ; $`\mathsf{Incomplete}\;A\;B` décrit une structure de type $`A` dont
 $`B` — un produit tensoriel de destinations — reste à remplir. Les primitives `hollow_alloc`,
 `fill`, `fillLeaf`, `fillComp` et `finalize` manipulent ce grade exactement comme une `WriteCap`
 ordinaire ; la finalisation, qui clôt la structure, n'est qu'un changement d'offset en $`O(1)`.
 Remplir une destination par une valeur qui contiendrait elle-même une destination non résolue
 créerait un cycle de dépendance. K7PL l'exclut par un paramètre d'âge $`k` sur les types linéaires,
-`Lin_k T`, garantissant qu'une destination ne se remplit que par une valeur dont les destinations
+$`\mathrm{Lin}_k\,T`, garantissant qu'une destination ne se remplit que par une valeur dont les destinations
 propres portent un âge strictement inférieur. C'est, au niveau des types, une instance du même
 principe que la mesure strictement décroissante qui fonde la terminaison des catamorphismes
 (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) : construire une structure par
@@ -463,7 +463,7 @@ initialisée. La distinction entre une multiplicité proprement linéaire et un 
 que le calcul de destinations retient, et pour cette raison {cite "bagrelDestinationCalculusLinear2025"}[].
 Le point s'écrit plutôt qu'il ne se suppose, la chaîne de sous-typage de ce chapitre _monte_ vers
 l'affine : sans exclusion explicite, la règle générale autoriserait ce que la sûreté interdit.
-`Dest T` et `Incomplete A B` sont donc hors de la portée de {sc}[SubBox] sur la composante d'usage,
+$`\mathsf{Dest}\;T` et $`\mathsf{Incomplete}\;A\;B` sont donc hors de la portée de {sc}[SubBox] sur la composante d'usage,
 et `finalize` est la seule sortie de leur linéarité.
 
 Un même exemple traverse les trois modalités et rend visible ce qu'elles coûtent et ce qu'elles
