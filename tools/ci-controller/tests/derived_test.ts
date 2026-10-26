@@ -58,6 +58,89 @@ Deno.test("derived classifier maps spec-build inputs declared in the registry", 
   assertEquals(result.full, false);
 });
 
+Deno.test("derived classifier honours legacy light paths and the axiom-audit exact rule", () => {
+  // Cutover C0: these paths used to diverge (light paths fell
+  // through to full, axiom-audit.sh picked up python_tests from
+  // the scripts/ root). They must now agree with the legacy
+  // classifier exactly, per path.
+  for (
+    const path of [
+      ".claude/settings.json",
+      ".github/ISSUE_TEMPLATE/bug.md",
+      "LICENSES/CC0-1.0.txt",
+      "CITATION.cff",
+      "scripts/axiom-audit.sh",
+    ]
+  ) {
+    const divergences = derivedDivergences(
+      derived([path]),
+      classify([path]),
+    );
+    assertEquals(divergences, [], `${path} must agree with legacy`);
+  }
+  const audit = derived(["scripts/axiom-audit.sh"]);
+  assertEquals(audit.lean_build, true);
+  assertEquals(audit.spec_build, true);
+  assertEquals(audit.python_tests, false);
+  assertEquals(audit.full, false);
+});
+
+Deno.test("derived classifier keeps non-Markdown docs-tree files fail-closed", () => {
+  // Cutover C0, author decision 2026-10-26: non-Markdown files
+  // under wiki/ or theoretical-projects/ force full, as the
+  // legacy classifier leaves them unclassified. Exceptions: the
+  // TLA models (tla_model_check, D2) and declared read inputs
+  // (wiki/references.json, a spec-build input).
+  for (
+    const path of ["wiki/notes.json", "theoretical-projects/k7os/notes.txt"]
+  ) {
+    const divergences = derivedDivergences(
+      derived([path]),
+      classify([path]),
+    );
+    assertEquals(divergences, [], `${path} must agree with legacy`);
+    assertEquals(derived([path]).full, true);
+  }
+  const tla = derived(["theoretical-projects/k7os/models/D01.tla"]);
+  assertEquals(tla.full, false);
+  assertEquals(tla.surfaces.tla_model_check, true);
+  const refs = derived(["wiki/references.json"]);
+  assertEquals(refs.full, false);
+  assertEquals(refs.spec_build, true);
+});
+
+Deno.test("derived classifier maps K read inputs to the K surfaces", () => {
+  // Cutover C1: the former k7pl-semantics.yaml path filters,
+  // declared as read inputs of k-semantics instead of hidden
+  // filters. A spec file outside Spec//formal-chain, and a
+  // tools/ file outside the extractor, must NOT trigger K.
+  const spec = derived(["spec/Spec/Foo.lean"]);
+  assertEquals(spec.surfaces.k_compile, true);
+  assertEquals(spec.surfaces.k_examples, true);
+  assertEquals(spec.surfaces.klean_export, true);
+  const otherSpec = derived(["spec/Notes.txt"]);
+  assertEquals(otherSpec.surfaces.k_compile, false);
+  assertEquals(otherSpec.surfaces.k_examples, false);
+  const extractor = derived(["tools/SpecMain.lean"]);
+  assertEquals(extractor.surfaces.k_compile, true);
+  assertEquals(extractor.surfaces.klean_export, true);
+  const compliance = derived(["tools/Compliance/Foo.lean"]);
+  assertEquals(compliance.surfaces.k_compile, false);
+  assertEquals(compliance.lean_build, true);
+  const examples = derived(["tests/examples/add.k7"]);
+  assertEquals(examples.surfaces.k_examples, true);
+  assertEquals(examples.surfaces.k_compile, false);
+  assertEquals(examples.lean_build, true);
+  // Author decision 2026-10-26, temporary until PR #311:
+  // wiki/semantics.md keeps triggering K, in addition to
+  // docs_links from the Markdown rule.
+  const semantics = derived(["wiki/semantics.md"]);
+  assertEquals(semantics.surfaces.k_compile, true);
+  assertEquals(semantics.surfaces.k_examples, true);
+  assertEquals(semantics.surfaces.klean_export, true);
+  assertEquals(semantics.docs_links, true);
+});
+
 Deno.test("derived classifier maps K, proofs and TLA to their new surfaces", () => {
   const k = derived(["src/k/foo.k"]);
   assertEquals(k.surfaces.k_compile, true);
@@ -122,18 +205,10 @@ Deno.test("derived-shadow documents the known divergences, it does not hide them
     "theoretical-projects/k7os/models/D01.tla",
     // Intended D2 behaviour: K surfaces, no Lean over-triggering.
     "src/k/foo.k",
-    // Registry gaps to close before cutover: light paths and the
-    // axiom-audit script are claimed by no component.
-    ".claude/settings.json",
-    "CITATION.cff",
-    "scripts/axiom-audit.sh",
-    // Non-Markdown wiki/theoretical files: legacy leaves them
-    // unclassified (hence full), the registry maps them to links.
-    "wiki/notes.json",
-    "theoretical-projects/k7os/notes.txt",
     // wiki/references.json is a spec-build input, but the wiki
     // root also claims it for docs_links; conservative extra
-    // surface, legacy spec branch does not set it.
+    // surface, kept intentionally, legacy spec branch does not
+    // set it.
     "wiki/references.json",
   ];
   for (const path of divergentPaths) {
