@@ -49,6 +49,19 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
+      - name: Check, lint, format and test the Deno controller
+        working-directory: tools/ci-controller
+        shell: bash
+        run: |
+          set -euo pipefail
+          deno task check
+          deno task lint
+          deno task fmt
+          deno task test
+
       - name: Test the CI scripts
         run: python3 -m unittest discover -s scripts/ci -p 'test_*.py'
 
@@ -58,7 +71,7 @@ jobs:
       # A pull request may change lake-manifest.json (a person, an agent), not only the one that
       # bump-lean.yaml opens. These are the offline checks: no network, no upstream code.
       - name: Check the Lake manifest
-        run: python3 scripts/ci/check_manifest.py
+        run: deno run --allow-read tools/ci-controller/src/manifest.ts
 
       - name: Run CI impact classifier
         id: impact
