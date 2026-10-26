@@ -120,9 +120,12 @@ a proof in itself.
 ## Remaining classifier cutover criteria
 
 The Deno test, check, lint and format tasks now run in the blocking `impact`
-job. The remaining migration is staged: the Python classifier is still the
-source of truth for CI surface selection, and the Deno/Python comparison stays
-report-only until its evidence is reviewed.
+job. Event routing for the impact classifier is also implemented in
+`src/impact_event.ts`; it preserves the existing Python classifier as the
+source of truth while replacing the shell wrapper in the workflow. The legacy
+`scripts/ci/ci_impact.sh` remains for compatibility and its regression tests.
+The migration is still staged: the Deno/Python comparison stays report-only
+until parity evidence is reviewed.
 
 Before switching the authoritative impact-classifier call away from Python:
 
