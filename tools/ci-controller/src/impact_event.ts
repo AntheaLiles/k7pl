@@ -86,8 +86,8 @@ if (import.meta.main) {
       stdin: "inherit",
       stdout: "inherit",
       stderr: "inherit",
-    });
-    const result = await child.output();
+    }).spawn();
+    const result = await child.status;
     Deno.exit(result.code);
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));
