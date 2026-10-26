@@ -74,8 +74,11 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
       - name: Check documentation architecture
-        run: python3 scripts/ci/check_documentation_architecture.py
+        run: deno run --allow-read tools/ci-controller/src/documentation_architecture.ts
 
       - name: Check the specification
         if: ${{ inputs.full || inputs.spec_check }}
@@ -381,8 +384,11 @@ jobs:
 
       # Offline checks of the workspace's manifest (its own allow-list, pins and toolchain) before
       # `lake exe cache get` clones and runs code from the packages it names.
+      - name: Set up Deno for manifest validation
+        uses: ./.github/actions/setup-deno
+
       - name: Check the Paperproof workspace manifest
-        run: python3 scripts/ci/check_manifest.py --manifest "$PAPERPROOF_WORKSPACE/lake-manifest.json"
+        run: deno run --allow-read --allow-env=GITHUB_ACTIONS tools/ci-controller/src/manifest.ts --manifest "$PAPERPROOF_WORKSPACE/lake-manifest.json"
 
       # Keyed on the workspace's own manifest and toolchain: its packages differ from the root's.
       - name: Restore the Paperproof workspace's Lake packages
