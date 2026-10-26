@@ -53,6 +53,17 @@ fail-closed rule (an unknown path forces full validation). It writes the
 surfaces to `GITHUB_OUTPUT` when that variable is set, in the same key order as
 the Python classifier.
 
+D2 slice 1 (descriptive only): `.github/ci/components.yaml` now also declares,
+per component, `impact_surfaces` and, where applicable, `read_inputs` (the
+former "read by another surface" rules). `validate-registry` checks them (known
+surface vocabulary, non-empty, no duplicates, read inputs existing on disk). The
+classifier does **not** read them yet: it still uses its own tables, and the new
+surface names (`axiom_audit`, `k_compile`, `k_examples`, `klean_export`,
+`tla_model_check`) are derivation targets, not outputs. Deriving the classifier
+from the registry is the next D2 slice, in shadow first, with a parity test —
+and with the deduplication refactor for `axiom_audit`, so the same audit is
+never run twice under two names.
+
 ## Shadow mode
 
 `classify --shadow` runs the legacy Python classifier and the Deno classifier on
