@@ -148,6 +148,16 @@ jobs:
           test: false
           lint: false
 
+      # The pinned setup action downloads a ZIP archive; the RuntimeVerification
+      # K image does not include unzip, so install that prerequisite first.
+      - name: Install Deno archive prerequisite
+        shell: bash
+        run: |
+          set -euo pipefail
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y unzip
+          rm -rf /var/lib/apt/lists/*
+
       # Same Deno pin as the controller-shadow job in ci.yaml.
       - name: Set up Deno
         uses: ./.github/actions/setup-deno
