@@ -63,6 +63,185 @@ framed them are closed with the research lot, their
 verdicts carried here, in [decisions](decisions.md) and
 in [vocabulary](vocabulary.md), not recopied as registers.
 
+## Working rules added on 2026-10-26
+
+These rules are new content, in English; the verbatim catalogue
+below keeps its French.
+
+- **Dated preferences.** An individual answer is recorded as a
+  dated preference and ratified only in the global lot
+  (VOC-2026-10-26-002).
+- **The λ overlap is explained every time.** Whenever `lambda` is
+  a candidate lemma, the question states that the symbol λ names
+  two objects in the specification — the abstraction `λx.c`
+  (rule `Lam`) and, in chapter 3, a natural transformation of the
+  graded distributive law — and that the candidate must only ever
+  name the first (owner instruction of 2026-10-26).
+- **Proposals are material, not decisions.** A definition already
+  written in `lexicon/` before its question is answered (for
+  example the lexical classes of `lexicon/syntax/tokens.k`) is
+  listed in the question as material to consider, never as the
+  default answer.
+- **Clickable form.** The questions of a lot are also published
+  as a clickable questionnaire; the answers given there are
+  copied into [decisions](decisions.md) with their date, and the
+  question here records the choice.
+
+## Lot of 2026-10-26: reading and delimiters
+
+New questions, in English, for the reading of a K7PL text by
+`lexicon/syntax/`. Each one is answered along the M-A sequence
+(Q-METH-001): non-collision, scientific exactness, family and grade
+invariants, provisional ecological grid, mnemonic arguments,
+brevity. Each has the options **Other** (another proposal) and
+**Clarify** (ask for more analysis, sources or candidates).
+
+### Q-LEX-001 — What is a symbol?
+
+**Object.** The lexical class `symbol` of the author's grammar
+(`atom = symbol | number | string`). It decides which character
+sequences form one atom, hence how glyphs, sigils, suffixes, the
+dot and the bar are read.
+**Facts in `spec/`.** 28 glyphs of layer 3, each an alias of one
+standard-library macro, written by their Unicode code point, with
+a confusable-skeleton admission rule (chapter 1, glyph table);
+`#` reserved for comptime; `:` opens a label, in a namespace of
+its own (chapter 5); `@` marks complexity annotations (`@linear`,
+chapter 4); the suffixes `?` and `!` carry contracts (chapter 3,
+annex A: `ERR-TYP-009`, `ERR-TOP-010`); `.` is projection or
+decimal point by position (chapter 1); `|` separates the rows of
+an array literal `[1 2 | 3 4]` (chapter 5); the modifiers `´` and
+`¨` attach to glyphs in trains such as `+´÷≠` (chapter 5); Phase 0
+"désucre les sigils en attributs" (chapter 6).
+
+- **A — one rule, meaning later (proposal of `tokens.k`, material
+  to consider).** A symbol is any run of characters other than
+  white space, the six delimiters, `"` and `;`. Sigils, glyphs and
+  suffixes are parts of symbols; their meaning is given by Phase 0
+  and name resolution. *For:* one rule, a fixed reader. *Against:*
+  `+´÷≠` and `x.y` are single atoms: the reader sees neither the
+  train nor the projection.
+- **B — symbols and sigils.** As A, but `#`, `:` and `@` at the
+  start of an atom are read as sigils attached to the atom that
+  follows, so that Phase 0 can turn them into attributes as
+  chapter 6 says. *For:* matches chapter 6; *against:* three more
+  lexical rules.
+- **C — glyph-aware reading.** Each glyph of the chapter 1 table
+  is a token of its own (so `+´÷≠` reads as a train of glyphs),
+  identifiers follow Unicode identifier syntax (UAX #31,
+  https://www.unicode.org/reports/tr31/), sigils are separate.
+  *For:* trains and confusables are visible at reading; *against:*
+  the reader depends on the glyph table.
+
+### Q-LEX-002 — What is a number?
+
+**Object.** The lexical class `number`. **Facts in `spec/`:** `.` is
+also projection; `Decimal128`, overflow behaviour per layer and
+SI units as phantom parameters (chapter 3); sizes in types
+(`Vector(n, T)`).
+
+- **A — proposal of `tokens.k` (material to consider).** An
+  optionally signed decimal with an optional fractional part:
+  `[+-]?[0-9]+(\.[0-9]+)?`. `-2` is a number, `-` alone a symbol.
+- **B — A with exponents, radix prefixes and digit separators**
+  (`1.5e-3`, `0x1F`, `1_000`).
+- **C — numbers typed by suffix** (`1u8`, `2.5d128`): the reader
+  keeps the suffix, the type system interprets it.
+
+### Q-LEX-003 — What is a string?
+
+**Object.** The lexical class `string`. **Fact found while
+testing:** the builtin string literals of K reject non-ASCII
+characters in programs, so K7PL strings have a token sort of
+their own.
+
+- **A — proposal of `tokens.k` (material to consider).** Double
+  quotes; a backslash escapes the next character; a string may
+  span lines; any UTF-8 text.
+- **B — escapes of a closed list** (`\n`, `\t`, `\"`, `\\`,
+  `\u{…}`), no raw line break.
+- **C — B plus raw strings** with a distinct opening mark.
+
+### Q-LEX-004 — Comments, and disabling a whole tree
+
+**Object.** Chapter 5: `;` in a line, `;;` for a block, `;;;` for a
+section, `;;;;` for a module, "et sa mise entre parenthèses,
+crochets ou accolades désactive l'arbre entier qui suit sans
+rompre la syntaxe". `tokens.k` reads every `;` comment to the end
+of the line and does not implement the tree-disabling form.
+
+- **A — the delimited semicolon.** `(;)`, `[;]` or `{;}` written
+  before a tree disables that tree; the delimiter of the mark must
+  be admitted where it stands (the layer grammar still applies).
+- **B — the disabled tree is not checked.** As A, but the
+  disabled tree is skipped by every check, nesting included.
+- **C — keep line comments only** and amend chapter 5.
+
+### Q-LEX-005 — Delimiters in type, pattern and literal positions
+
+**Object.** The grammar of the layers is checked at reading,
+whatever a delimiter denotes. Chapter 5 also says that in
+binding, pattern or literal position a delimiter announces no
+layer. Three notations of `spec/` then fall foul of the grammar:
+the refinement type `{x : T | p}` (chapter 3) is refused inside
+any `( )` or `[ ]`, that is in every signature outside a layer 1
+block (`ERR-TOP-002`, `ERR-TOP-003`); applied type notations such
+as `Vector(n, T)`, `Result(T, OutOfBounds)`, `File(Open)` or
+`WriteCap(Arena<T>, Range(0,k))` (chapters 3 and 4) put `( )`
+inside the `[ ]` of a layer 3 signature (`ERR-TOP-001`), and are
+not S-expressions; a brace pattern or literal is refusable
+outside layer 1. `[ ]` lists such as `:requires [NetworkCap
+ClockCap]` or `[attributs]` are never refused, and chapter 5
+already sends a layer 2 computation out of `[attributs]`.
+
+- **A — types are written in `[ ]`.** Types and refinements are
+  compile-time, erased, pure objects; they take the layer 3
+  delimiter, admitted everywhere: `[Vector n T]`,
+  `[Result T OutOfBounds]`, and a refinement in a head form to
+  choose (`[refine x T p]`, `[x : T :where p]`; `[x : T | p]`
+  would collide with the row bar of array literals).
+- **B — a fourth, layer-neutral pair** for types, patterns and
+  literals (for example `⟨ ⟩`), admitted everywhere and containing
+  anything. *Against:* chapter 5 counts three pairs; `⟨ ⟩` already
+  writes pairs and the additive conjunction in chapters 3 and 4.
+- **C — a marker switches to a type mode.** After a marker such as
+  `:`, the next group is read as a type and nesting is not checked
+  in it. *Against:* the reader becomes position-dependent.
+- **D — keep the grammar as it is.** Refinement types and brace
+  patterns only exist in layer 1, and the chapter 3 and 4
+  notations are amended one by one.
+
+### Q-LEX-006 — Codes for unbalanced delimiters
+
+**Object.** The owner decided on 2026-10-26 that unbalanced
+delimiters get error codes, in the manner of Parinfer. Parinfer
+3.13.1 names eight errors (`parinfer.js`, `errorMessages`,
+https://github.com/parinfer/parinfer.js): `quote-danger`,
+`eol-backslash`, `unclosed-quote`, `unclosed-paren`,
+`unmatched-close-paren`, `unmatched-open-paren`,
+`leading-close-paren`, `unhandled`. A scratch prototype shows that
+K can read a text as a visibly pushdown automaton (push on an
+opener, pop on a closer) and report, with line numbers: an opener
+never closed, a closer with no opener, a closer of another pair,
+an unclosed string, and the three nesting refusals.
+
+- **Which infractions get a code** (several may be chosen): an
+  opener never closed; a closer with no opener; a closer of another
+  pair (`[ … )`); an unclosed string; a backslash at the end of a
+  line in a string; a quote inside a comment.
+- **Numbering.** A — continue `ERR-TOP` after `ERR-TOP-003`,
+  ordered from layer 3 to layer 1 (the specification-block code,
+  now `ERR-TOP-004`, moves again). B — a new three-letter segment
+  for reading errors (for example `ERR-RDR-` or `ERR-DLM-`),
+  leaving `ERR-TOP` as it is. C — `ERR-TOP-001` to `ERR-TOP-n` cover
+  every delimiter infraction, nesting and balance, ordered by
+  container layer then by kind.
+- **Granularity.** One code per kind, the delimiter named in the
+  message; or one code per kind and per delimiter (`[`, `(`, `{`).
+- **Recovery after a closer of another pair.** Close the innermost
+  opener and go on (as the prototype does), or look for a matching
+  opener further out and report the openers left unclosed.
+
 ## The catalogue, verbatim
 
 
@@ -479,7 +658,9 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 
 **Enregistrement :** choix ______ ; statut ______ ; justification facultative ______ ; objection au périmètre ______ ; conséquences sur les autres questions ______ ; conséquences formelles à vérifier ______.
 
-**Préférence datée de l'autrice — 26 octobre 2026 (VOC-2026-10-26-002) :** `lambda`, lemme retenu de la règle `Lam` dans le registre des primitives (candidats : lambda, fn, fun, abstraction) ; la lambda est une fonction anonyme, une fonction nommée se *définit*. Justification et recouvrement relevé (le symbole λ nomme aussi une transformation naturelle au chapitre 3) : entrée `Lam` de [primitives](primitives.md). Préférence, non ratification ; le choix du lemme français de cette question reste ouvert.
+**Dated preference of the author — 2026-10-26 (VOC-2026-10-26-002), new content in English:** `lambda`, the retained lemma of rule `Lam` in the primitives register (candidates: lambda, fn, fun, abstraction); a lambda is an anonymous function, a named function is *defined*. Argument: the `Lam` entry of [primitives](primitives.md). A preference, not a ratification; the choice of the French lemma asked by this question stays open.
+
+**λ overlap (rule of 2026-10-26, applies wherever `lambda` is a candidate, here option B):** the symbol λ names two different objects in the specification. In `λx.c` (rule `Lam`) it is the abstraction, a term former. In chapter 3 (`ReglesDeTypage.lean`, the graded distributive law), λ is a natural transformation, with naturality and compatibility conditions of its own. The surface word `lambda` only ever names the first; a lemma such as "abstraction lambda" must not suggest the second.
 
 ### Q-TERM-013 — Application
 
@@ -1721,12 +1902,12 @@ Ancrage : cohérent avec la doctrine du projet ; ce n'est pas la séquence histo
 C — **autre protocole séquentiel explicite** : ______. Aucune moyenne pondérée ne sera introduite sans justification et décision distinctes.  
 Autre — ______. Précision — ______. Réponse — ______.
 
-**Réponse explicite de l'autrice — 26 octobre 2026 — enregistrée sous VOC-2026-10-26-001.**
+**Explicit answer of the author — 2026-10-26 — recorded as VOC-2026-10-26-001 (new content, in English).**
 
-- **Choix retenu : A — M-A, extension séquentielle** : non-collision → exactitude scientifique → famille et invariants de grade → grille écologique provisoire → arguments mnémoniques → brièveté.
-- **Statut :** choix méthodologique de l'autrice ; il donne un rang au critère écologique et lève le blocage B-ONTO-07. Il ne ratifie aucun terme.
-- **Règle d'enregistrement (VOC-2026-10-26-002) :** une réponse individuelle à ce questionnaire est enregistrée comme préférence datée ; elle n'est ratifiée que dans le lot global (VOC-2026-10-25-001).
-- **Référence de décision :** [decisions](decisions.md), registre détaillé, section « Decided ».
+- **Choice: A — M-A, sequential extension**: non-collision → scientific exactness → family and grade invariants → provisional ecological grid → mnemonic arguments → brevity.
+- **Status:** the author's method choice; it gives the ecological criterion a rank and lifts blocker B-ONTO-07. It ratifies no term.
+- **Recording rule (VOC-2026-10-26-002):** an individual answer to this questionnaire is recorded as a dated preference; it is ratified only in the global lot (VOC-2026-10-25-001).
+- **Decision reference:** [decisions](decisions.md), itemised register, section "Decided".
 
 ### Q-METH-002 — fermeture du vocabulaire en bloc ou progressivement
 
@@ -1754,7 +1935,7 @@ Autre — ______. Précision — ______. Justification — ______.
 | B-ONTO-04 | When : correction de ressource et éventuelle modalité duale demandée dans l'audit. | Compléter la preuve ou modifier la proposition théorique sous ratification explicite. |
 | B-ONTO-05 | Vec : le type est déclaré dérivé, les règles du vecteur et la possibilité de pli indexé gradué exigent leur propre preuve. | Établir obligations conservées/perdues avant d'utiliser fold comme nom ou factorisation. |
 | B-ONTO-06 | ν / Out / Cop : règles présentes dans C3 mais récit de registre disant règles manquantes. | Rapprocher l'état du registre avec l'état normatif et les preuves réelles. |
-| B-ONTO-07 | Arc G : critères historiques ne donnent pas un rang ratifié au critère écologique. | Levé le 26 octobre 2026 : Q-METH-001, option A (VOC-2026-10-26-001), place la grille écologique provisoire au quatrième rang. |
+| B-ONTO-07 | Arc G : critères historiques ne donnent pas un rang ratifié au critère écologique. | Lifted on 2026-10-26: Q-METH-001, option A (VOC-2026-10-26-001), ranks the provisional ecological grid fourth. |
 
 ## 8. Conséquences de la réponse
 

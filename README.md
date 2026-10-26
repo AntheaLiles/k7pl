@@ -68,7 +68,7 @@ explicitly abandoned, as traced in git history.
 | [`tests/`](tests/), [`tests/examples/`](tests/examples/) | Lean/Python tests, and K7PL `.k7` programs |
 | [`spec/`](spec/) | normative Verso specification, figures, and an experimental exposition under `spec/formal-chain/` |
 | [`tools/`](tools/) | specification generator and Verso extensions (`SpecExt/`); bibliography (`SpecBib.lean`, generated from [`wiki/references.json`](wiki/references.json)); Lean compliance and audit models (`Compliance/`); the isolated Paperproof extraction workspace (`paperproof-export/`); the non-normative B/C/D prototypes (`prototypes-bcd/`); the checker of K7PL texts against the grammar of the layers (`layer-check/`) |
-| [`lib/`](lib/) | libraries written in K7PL (currently one example file, `lib-exemple.k7`) |
+| [`lib/`](lib/) | libraries written in K7PL (currently one example file, `lib-example.k7`) |
 | [`wiki/`](wiki/) | consolidated project documentation (entry, layers, research; further pages added lot by lot) |
 | [`scripts/`](scripts/) | maintenance, Org → Verso conversion, metrics and tracking |
 

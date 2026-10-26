@@ -55,8 +55,8 @@ Les trois délimiteurs comme annonces de phase
 ::::
 
 Ces trois paires ne s'imbriquent que dans un seul sens : `{ ... ( ... [ ... ] ... ) ... }`. Toute
-autre inclusion est rejetée en Phase 3, et chacune a son code, du conteneur le plus spécifique au
-plus générique : un `( )` à l'intérieur d'un `[ ]` (`ERR-TOP-001`), un `{ }` à l'intérieur d'un
+autre inclusion est rejetée dès la lecture du texte, en Phase 0, et chacune a son code, du conteneur
+le plus spécifique au plus générique : un `( )` à l'intérieur d'un `[ ]` (`ERR-TOP-001`), un `{ }` à l'intérieur d'un
 `[ ]` (`ERR-TOP-002`), un `{ }` à l'intérieur d'un `( )` (`ERR-TOP-003`). Cette contrainte n'est
 pas stylistique : elle découle directement des
 spécialisations du jugement germinal établies au chapitre 1

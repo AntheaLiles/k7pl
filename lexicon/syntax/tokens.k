@@ -5,6 +5,11 @@
 // the module that holds the rules, whose own parser would otherwise read K variables
 // as symbols.
 //
+// Status: proposal, not a decision. The author validates the lexical classes one by one
+// in the questionnaire (wiki/questions.md, lot "Reading and delimiters"), where the
+// definitions below are listed as material to consider; meanwhile they are what the
+// layer checker runs.
+//
 // - A symbol is any run of characters other than white space, the six delimiters,
 //   the double quote and the semicolon. Glyphs, sigils and suffixes such as `?` or `!`
 //   are therefore symbols at this level.

@@ -88,7 +88,7 @@ this project.
 | Tests | `tests/` | Executable behavioural checks |
 | Specification tooling | `tools/` | Verso generator and extensions; the isolated Paperproof extraction workspace (`tools/paperproof-export/`); the non-normative B/C/D annex prototypes (`tools/prototypes-bcd/`); the checker of K7PL texts against the grammar of the layers (`tools/layer-check/`) |
 | Auxiliary tooling | `scripts/` | Maintenance, analysis, CI support |
-| Example library | `lib/` | Example K7PL library file (`lib-exemple.k7`) |
+| Example library | `lib/` | Example K7PL library file (`lib-example.k7`) |
 | Scientific documentation | `wiki/` (this folder) | Consolidated project documentation, replacing `docs/` lot by lot |
 | Historical material | git history, traced in the migration matrix | Dated historical records. The former `docs/archives/` and `docs/history/` directories were closed in 2026-10-25: their verified content was integrated into `spec/`, `scripts/`, `tools/` or this wiki, or explicitly abandoned, and each action is traced in the migration matrix. |
 | Automation | `.github/` | CI, security, release, repository automation |
