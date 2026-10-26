@@ -639,6 +639,10 @@ class WorkflowConsistencyTests(unittest.TestCase):
         named.update(re.findall(r"\blake exe (\w+)", text))
         for args in re.findall(r"scripts/axiom-audit\.sh \S+((?: [\w.]+)+)", text):
             named.update(args.split())
+        # The Deno axiom-audit replacement names each root directly instead of passing
+        # roots through scripts/axiom-audit.sh. Count those roots in the same coverage set.
+        for root in re.findall(r"axiom_audit\.ts audit (\S+)", text):
+            named.add(root.split(".", maxsplit=1)[0])
         if re.search(r"\blake test\b", text):
             named.add("mainTest")
         known = {name for names in LEAN_TARGETS.values() for name in names}
@@ -649,10 +653,16 @@ class WorkflowConsistencyTests(unittest.TestCase):
 
     def test_the_step_scripts_are_read_with_the_workflow(self):
         scripts = {path.relative_to(ROOT).as_posix() for path in step_scripts()}
-        self.assertTrue({"scripts/ci/verify_sbom_audit.sh", "scripts/ci/verify_audit_axioms.sh"} <= scripts)
+        text = workflow_text()
+        self.assertIn("scripts/ci/verify_sbom_audit.sh", scripts)
+        # Axiom audits have been ported to Deno. Keep the old shell entry point in-tree
+        # until the full CI cycle is green, but verify the replacement steps are wired.
+        self.assertTrue((ROOT / "scripts/ci/verify_audit_axioms.sh").is_file())
+        self.assertIn("tools/ci-controller/src/axiom_audit.ts audit-roots tools Compliance", text)
+        self.assertIn("tools/ci-controller/src/axiom_audit.ts audit-roots tests", text)
         for path in step_scripts():
             self.assertTrue(path.is_file(), f"verify.yaml runs {path}, which does not exist")
-        self.assertIn("lake exe sbomAudit lake-manifest.json", workflow_text())
+        self.assertIn("lake exe sbomAudit lake-manifest.json", text)
 
 
 class LeanCoverageTests(unittest.TestCase):
