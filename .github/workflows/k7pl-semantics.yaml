@@ -131,7 +131,7 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 45
     container:
-      image: runtimeverificationinc/kframework-k:ubuntu-jammy-7.1.337
+      image: runtimeverificationinc/kframework-k:ubuntu-jammy-7.1.337@sha256:a63698c015f2b349bb9807d486bf2a48a764237a018fd207c23ac7571519b12b
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
