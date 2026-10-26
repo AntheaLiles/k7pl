@@ -148,6 +148,12 @@ jobs:
           test: false
           lint: false
 
+      # Same Deno pin as the controller-shadow job in ci.yaml.
+      - name: Set up Deno
+        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+        with:
+          deno-version: v2.9.8
+
       - name: Fetch the Mathlib cache for the root Verso build
         run: lake exe cache get
 
@@ -187,8 +193,9 @@ jobs:
 
       - name: Build the Klean-generated Lean project
         shell: bash
-        working-directory: ${{ github.workspace }}/proofs
-        run: bash "$GITHUB_WORKSPACE/scripts/ci/k7pl_semantics_build_proofs.sh"
+        run: |
+          deno run --allow-read --allow-run --allow-write tools/ci-controller/src/build_proofs.ts --build --workdir ${{ github.workspace }}/proofs --log-output "$RUNNER_TEMP/k7pl-lake-build.log"
+          deno run --allow-read --allow-write --allow-env tools/ci-controller/src/axiom_report.ts --log "$RUNNER_TEMP/k7pl-lake-build.log" --contract "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" --output "$RUNNER_TEMP/k7pl-axiom-audit.json" --source-commit "$(git -C "$GITHUB_WORKSPACE" rev-parse HEAD)" --lean-version "$(lean --version)"
 
       - name: Attach exact axiom dependency audit to formal-chain evidence
         shell: bash
