@@ -16,6 +16,26 @@ import {
 export const CLAIM_CLASSES = ["execution", "verification", "proof"] as const;
 export type ClaimClass = (typeof CLAIM_CLASSES)[number];
 
+// D2 slice 1: impact surfaces a component change may trigger. The
+// first seven are the legacy classifier's surfaces; the last five
+// are derivation targets declared in the registry, not yet emitted
+// by the classifier and not yet wired to jobs.
+export const IMPACT_SURFACES = [
+  "full",
+  "docs_links",
+  "spec_check",
+  "spec_build",
+  "lean_build",
+  "python_tests",
+  "tracking_views",
+  "axiom_audit",
+  "k_compile",
+  "k_examples",
+  "klean_export",
+  "tla_model_check",
+] as const;
+export type ImpactSurface = (typeof IMPACT_SURFACES)[number];
+
 export interface Stage {
   id: string;
   component: string;
@@ -34,6 +54,8 @@ export interface Component {
   cacheDeterminants: string[];
   dependsOn: string[];
   requiredChecks: string[];
+  impactSurfaces: ImpactSurface[];
+  readInputs: string[];
   allowedClaimClasses: ClaimClass[];
   notes: string[];
 }
@@ -68,6 +90,21 @@ function optionalStringList(
   const value = record[key];
   if (value === undefined || value === null) return [];
   return asStringList(value, `${what}.${key}`);
+}
+
+function isImpactSurface(value: string): value is ImpactSurface {
+  return (IMPACT_SURFACES as readonly string[]).includes(value);
+}
+
+function impactSurfaceList(value: YamlValue, what: string): ImpactSurface[] {
+  return asStringList(value, what).map((item) => {
+    if (!isImpactSurface(item)) {
+      throw new Error(
+        `${what}: unknown impact surface ${JSON.stringify(item)}`,
+      );
+    }
+    return item;
+  });
 }
 
 function loadRegistry(text: string): Registry {
@@ -127,6 +164,15 @@ function loadRegistry(text: string): Registry {
       requiredChecks: optionalStringList(
         rec,
         "required_checks",
+        `registry.components[${i}]`,
+      ),
+      impactSurfaces: impactSurfaceList(
+        rec["impact_surfaces"],
+        `registry.components[${i}].impact_surfaces`,
+      ),
+      readInputs: optionalStringList(
+        rec,
+        "read_inputs",
         `registry.components[${i}]`,
       ),
       allowedClaimClasses: claimClassList(
@@ -214,6 +260,7 @@ export function validateRegistry(
         ...component.roots,
         ...component.excludes,
         ...component.cacheDeterminants,
+        ...component.readInputs,
       ]
     ) {
       if (!existsOnDisk(repoRoot, path)) {
@@ -222,6 +269,23 @@ export function validateRegistry(
     }
     if (component.roots.length === 0) {
       errors.push(`component ${component.id}: no roots`);
+    }
+    if (component.impactSurfaces.length === 0) {
+      errors.push(`component ${component.id}: no impact_surfaces`);
+    }
+    for (const surface of component.impactSurfaces) {
+      if (!isImpactSurface(surface)) {
+        errors.push(
+          `component ${component.id}: unknown impact surface ${surface}`,
+        );
+      }
+    }
+    for (const surface of new Set(component.impactSurfaces)) {
+      if (component.impactSurfaces.filter((s) => s === surface).length > 1) {
+        errors.push(
+          `component ${component.id}: duplicate impact surface ${surface}`,
+        );
+      }
     }
   }
   // Acyclic component dependencies (DFS).
