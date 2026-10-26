@@ -17,14 +17,14 @@ Branch: `ci/slice3-branching` (PR #309; do not merge).
 
 ## Validation state
 
-- No local checkout or local command execution is available through the current GitHub connector session.
-- No workflow run for the latest head has been observed yet; the new TypeScript source/tests and workflow wiring have not been validated by CI.
+- Local execution remains unavailable: `deno --version` reported `deno: command not found`; `git clone --depth 1 --branch ci/slice3-branching https://github.com/AntheaLiles/k7pl.git /tmp/k7pl-ci-check` failed with `Could not resolve host: github.com`. No local test results are claimed.
+- GitHub Actions runs and commit statuses have not appeared for the latest connector-created commits (`fetch_commit_workflow_runs` returned no runs; combined status returned no statuses). The new TypeScript source/tests and workflow wiring therefore remain unvalidated by CI.
 - Do not remove legacy shell/Python implementations until their Deno replacements pass their focused tests and a complete green CI cycle.
 - Keep required checks blocking; no merge, no force-push, no edits to `main`.
 
 ## Next actions
 
-1. Confirm the latest commit's CI result and fix any evidence-backed failures.
+1. Arrange a CI-triggering push/event or confirm why connector-created commits have not triggered workflows, then fix any evidence-backed failures.
 2. Review the remaining shell/Python entry points against existing Deno ports and tests; migrate in small parity-checked slices.
 4. Keep the K Framework image pinned; its workflow installs `unzip` before Deno setup. A derived K image still requires a build/publish flow, immutable digest, and validation before adoption.
 5. Keep the classifier shadow check report-only until parity criteria are satisfied; do not switch the Python classifier's gating authority in this tranche.
