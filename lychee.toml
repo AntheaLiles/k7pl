@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CC0-1.0
+#
+# Lychee configuration for the external-links job in
+# .github/workflows/ci.yaml (and, by lychee's default config
+# loading, for any other lychee run from the repository root;
+# the local-links job in verify.yaml runs --offline, so the
+# external-only exclusions below do not affect it).
+#
+# Exceptions are per exact URL only — no wildcard, no
+# per-domain entry, as decided for F0 (2026-10-25). Every
+# exception below was manually verified on 2026-10-26 and
+# must be re-checked at review, 2027-01-24 (90 days).
+# An exception is a statement about lychee's checker, not
+# about the link: none of these URLs is dead, and none of
+# them is removed from the documents.
+#
+# Group 1 — DOI links blocked for automated checkers (403).
+# Each DOI resolves to a valid Crossref record (status ok,
+# verified 2026-10-26 via api.crossref.org); doi.org and
+# dl.acm.org return 403 to lychee and to automated fetches.
+exclude = [
+  "^https://doi\\.org/10\\.1142/S021819402450030X$",
+  "^https://doi\\.org/10\\.1145/3803862$",
+  "^https://doi\\.org/10\\.1145/1040305\\.1040327$",
+  "^https://doi\\.org/10\\.1145/3371102$",
+  "^https://doi\\.org/10\\.1145/2951913\\.2951924$",
+  "^https://doi\\.org/10\\.1145/3808252$",
+  # Group 2 — TLS failures in lychee's checker only.
+  # https://cecill.info/ loads in a browser (2026-10-26);
+  # lychee reports "SSL certificate not trusted / UnknownIssuer".
+  "^https://cecill\\.info/$",
+  # https://9p.io/plan9/about.html loads in a browser
+  # (2026-10-26); lychee reports a TLS HandshakeFailure.
+  "^https://9p\\.io/plan9/about\\.html$",
+  # Group 3 — lychee reports 404, a browser GET does not.
+  # https://git.9front.org/plan9front/plan9front/HEAD/info.html
+  # returns the gitweb page on a GET (2026-10-26). Treat as
+  # checker-dependent, NOT as a dead link; recheck first at
+  # review, before any other change to this entry.
+  "^https://git\\.9front\\.org/plan9front/plan9front/HEAD/info\\.html$",
+]
+
+# gnu.org rate-limits the runner (429 on hurd pages, which
+# load in a browser). Slow this host down instead of
+# accepting 429s: one request at a time, 5 s apart.
+[hosts."www.gnu.org"]
+concurrency = 1
+request_interval = "5s"
