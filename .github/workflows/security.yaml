@@ -142,10 +142,13 @@ jobs:
         with:
           persist-credentials: false
       # Root workspace only. tools/paperproof-export/lake-manifest.json is not scanned:
-      # lake_manifest_to_osv.py checks a manifest against the root allow-list, lakefile.lean and
-      # lean-toolchain, and refuses that one (Paperproof is not allowed, cslib and verso missing).
+      # the shared Deno manifest validator enforces the root allow-list, lakefile.lean and
+      # lean-toolchain before generating the OSV-Scanner lockfile.
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
       - name: Validate and convert the Lake manifest
-        run: python3 scripts/ci/lake_manifest_to_osv.py --output lake-osv-scanner.json
+        run: deno run --allow-read --allow-write tools/ci-controller/src/lake_to_osv.ts --output lake-osv-scanner.json
       - name: Upload OSV-Scanner custom lockfile
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
