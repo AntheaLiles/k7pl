@@ -115,7 +115,7 @@ jobs:
         run: |
           set -euo pipefail
           apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y git python3
+          DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y ca-certificates git python3
           rm -rf /var/lib/apt/lists/*
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
