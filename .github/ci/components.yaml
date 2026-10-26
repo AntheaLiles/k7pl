@@ -183,6 +183,60 @@ components:
       - k_compile
       - k_examples
       - klean_export
+    read_inputs:
+      # Cutover C1: inputs the K pipeline actually reads outside
+      # src/k/, declared here instead of hidden in the former
+      # k7pl-semantics.yaml path filters. The spec entries mirror
+      # those filters exactly (spec/Spec.lean, spec/Spec/,
+      # spec/formal-chain/): other spec/ files did not trigger
+      # the semantics workflow and do not trigger K here.
+      - path: spec/Spec.lean
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: spec/Spec/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: spec/formal-chain/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      # K extraction runs `lake exe spec --extract-code-only`;
+      # the extractor is tools/SpecMain.lean + tools/SpecExt/.
+      # The old filter was tools/ as a whole, but only these
+      # inputs affect extraction; the rest was over-triggering.
+      - path: tools/SpecMain.lean
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: tools/SpecExt/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      # K examples live under tests/examples/ (including the
+      # native-boundary profile); an examples change exercises
+      # the examples, it does not recompile the definition.
+      - path: tests/examples/
+        surfaces:
+          - k_examples
+      # Cutover C1, author decision 2026-10-26: wiki/semantics.md
+      # keeps triggering K (it was in the former semantics
+      # workflow's path filters). TEMPORARY: this page is meant
+      # to disappear in favour of a Lean document and the
+      # lexicon/lexemes models prepared in PR #311; once #311
+      # lands and the wiki lexical pages are closed, remove
+      # this read input.
+      - path: wiki/semantics.md
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
     allowed_claim_classes:
       - execution
     notes:
