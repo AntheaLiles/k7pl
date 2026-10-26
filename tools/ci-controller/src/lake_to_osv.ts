@@ -308,3 +308,15 @@ export function runLakeToOsv(argv: string[], repoRoot = "."): CliResult {
     };
   }
 }
+
+/** Direct CLI entry point, preserving the Python adapter's exit status. */
+if (import.meta.main) {
+  const result = runLakeToOsv(Deno.args);
+  if (result.stdout !== "") {
+    await Deno.stdout.write(new TextEncoder().encode(result.stdout));
+  }
+  if (result.stderr !== "") {
+    await Deno.stderr.write(new TextEncoder().encode(result.stderr));
+  }
+  Deno.exit(result.exitCode);
+}
