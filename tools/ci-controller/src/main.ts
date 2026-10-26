@@ -9,7 +9,11 @@
  *   classify --base <sha> --head <sha> [--force-full] [--paths ...]
  *     Classify changed paths into CI surfaces, in parity with
  *     scripts/ci/impact.py. With --shadow, also run the legacy
- *     Python classifier and fail on any divergence.
+ *     Python classifier and fail on any divergence. With
+ *     --derived, classify from the registry instead (shadow
+ *     only, never gating). With --derived-shadow, compare the
+ *     derived classifier with the legacy Deno classifier and
+ *     report every legacy-surface divergence (exit 1).
  *   validate-registry [--registry <path>] [--root <dir>]
  *     Load and validate .github/ci/components.yaml.
  *   validate-evidence --evidence <file> [--registry <path>]
@@ -26,6 +30,7 @@ import {
   formatClassification,
   githubOutputLines,
 } from "./classify.ts";
+import { deriveClassification, derivedDivergences } from "./derived.ts";
 import { validateEvidence, validateEvidenceSchema } from "./evidence.ts";
 import { loadRegistryFile, validateRegistry } from "./registry.ts";
 import { runShadow } from "./shadow.ts";
@@ -37,6 +42,8 @@ function usage(): string {
     "Usage:",
     "  deno run --allow-read --allow-run --allow-env --allow-write src/main.ts classify --base <sha> --head <sha> [--force-full] [--shadow]",
     "  deno run --allow-read --allow-run --allow-env --allow-write src/main.ts classify --paths <path...> [--force-full]",
+    "  deno run --allow-read --allow-run src/main.ts classify --paths <path...> --derived",
+    "  deno run --allow-read --allow-run src/main.ts classify --base <sha> --head <sha> --derived-shadow",
     "  deno run --allow-read src/main.ts validate-registry [--registry <path>] [--root <dir>]",
     "  deno run --allow-read src/main.ts validate-evidence --evidence <file> [--registry <path>]",
   ].join("\n");
@@ -63,7 +70,11 @@ function parseArgs(argv: string[]): Args {
           values.push(argv[++i]);
         }
         flags.set("paths", values.join("\n"));
-      } else if (["force-full", "shadow", "help"].includes(key)) {
+      } else if (
+        ["force-full", "shadow", "derived", "derived-shadow", "help"].includes(
+          key,
+        )
+      ) {
         flags.set(key, true);
       } else if (i + 1 < argv.length) {
         flags.set(key, argv[++i]);
@@ -129,6 +140,60 @@ async function runClassify(args: Args): Promise<number> {
       return 2;
     }
   }
+  if (args.flags.get("derived") === true) {
+    const registry = loadRegistryFile(DEFAULT_REGISTRY);
+    const derived = deriveClassification(registry, paths, forceFull);
+    console.log(formatClassification(paths, derived));
+    console.log(
+      `Derived surfaces: ${
+        Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
+      }`,
+    );
+    if (derived.unknown_paths.length > 0) {
+      console.log("Derived unclassified paths:");
+      for (const path of derived.unknown_paths) console.log(`  '${path}'`);
+    }
+    return 0;
+  }
+
+  if (args.flags.get("derived-shadow") === true) {
+    const registry = loadRegistryFile(DEFAULT_REGISTRY);
+    const legacy = classify(paths, forceFull);
+    const derived = deriveClassification(registry, paths, forceFull);
+    console.log("legacy:");
+    console.log(formatClassification(paths, legacy));
+    console.log("derived:");
+    console.log(formatClassification(paths, derived));
+    console.log(
+      `Derived surfaces: ${
+        Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
+      }`,
+    );
+    // Per-path comparison is primary: an aggregate comparison
+    // alone would hide divergences that cancel out (e.g. one
+    // unknown path under each classifier both forcing full).
+    const divergences = derivedDivergences(derived, legacy);
+    const perPath: string[] = [];
+    for (const path of paths) {
+      const singleDerived = deriveClassification(registry, [path]);
+      const singleLegacy = classify([path]);
+      const single = derivedDivergences(singleDerived, singleLegacy);
+      if (single.length > 0) {
+        perPath.push(`path ${path}: ${single.join(", ")}`);
+      }
+    }
+    if (divergences.length > 0 || perPath.length > 0) {
+      console.error("derived-shadow: DIVERGENCES (derived vs legacy):");
+      for (const divergence of divergences) {
+        console.error(`  aggregate: ${divergence}`);
+      }
+      for (const detail of perPath) console.error(`  ${detail}`);
+      return 1;
+    }
+    console.log("derived-shadow: derived and legacy classifiers agree");
+    return 0;
+  }
+
   const result = classify(paths, forceFull);
   console.log(formatClassification(paths, result));
   writeGithubOutput(githubOutputLines(result));
