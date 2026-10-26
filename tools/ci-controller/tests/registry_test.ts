@@ -46,6 +46,61 @@ Deno.test("proof chain edges are declared, and TLA+ is not derived from K", () =
   assertEquals(registry.stageById.get("klean-export")!.requires, ["k-compile"]);
 });
 
+Deno.test("impact surfaces are declared per component (D2 slice 1)", () => {
+  const registry = loadRegistryFile(REGISTRY_PATH);
+  const byId = new Map(registry.components.map((c) => [c.id, c]));
+  assertEquals(byId.get("lean-proofs")!.impactSurfaces, ["axiom_audit"]);
+  assertEquals(byId.get("ci-configuration")!.impactSurfaces, ["full"]);
+  assertEquals(byId.get("k-semantics")!.impactSurfaces, [
+    "k_compile",
+    "k_examples",
+    "klean_export",
+  ]);
+  assertEquals(byId.get("tla-models")!.impactSurfaces, ["tla_model_check"]);
+  // Read-by rules, now declared: python tests read wiki/assurance.md
+  // and src/, the lean build reads SpecExt index files and Compliance.
+  assertEquals(byId.get("python-tooling")!.readInputs, [
+    "wiki/assurance.md",
+    "src/",
+  ]);
+  assertEquals(byId.get("implementation")!.readInputs, [
+    "tools/SpecExt/IndexCore.lean",
+    "tools/SpecExt/IndexTerms.lean",
+    "tools/SpecExt/Translate.lean",
+    "tools/Compliance/",
+  ]);
+  for (const component of registry.components) {
+    assert(
+      component.impactSurfaces.length > 0,
+      `${component.id} must declare at least one impact surface`,
+    );
+  }
+});
+
+Deno.test("registry validation rejects an unknown impact surface", () => {
+  const registry = loadRegistryFile(REGISTRY_PATH);
+  const broken = {
+    ...registry,
+    components: registry.components.map((c) =>
+      c.id === "wiki" ? { ...c, impactSurfaces: ["no-such-surface"] } : c
+    ),
+  };
+  const errors = validateRegistry(broken as never, REPO_ROOT);
+  assert(errors.some((e) => e.includes("unknown impact surface")));
+});
+
+Deno.test("registry validation rejects a missing read input", () => {
+  const registry = loadRegistryFile(REGISTRY_PATH);
+  const broken = {
+    ...registry,
+    components: registry.components.map((c) =>
+      c.id === "wiki" ? { ...c, readInputs: ["wiki-no-such-file.md"] } : c
+    ),
+  };
+  const errors = validateRegistry(broken as never, REPO_ROOT);
+  assert(errors.some((e) => e.includes("does not exist")));
+});
+
 Deno.test("only the lean proof stage may emit proof claims", () => {
   const registry = loadRegistryFile(REGISTRY_PATH);
   const proofStages = registry.stages.filter((s) =>
