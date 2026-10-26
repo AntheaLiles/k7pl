@@ -64,13 +64,13 @@ export type CaptureFn = (
   cmd: string,
   args: string[],
   opts?: { cwd?: string },
-) => Promise<RunResult>;
+) => Promise<RunResult> | RunResult;
 
 export type InheritFn = (
   cmd: string,
   args: string[],
   opts?: { cwd?: string },
-) => Promise<number>;
+) => Promise<number> | number;
 
 const decoder = new TextDecoder();
 
@@ -291,9 +291,9 @@ export interface AuditRootsOptions {
   repoRoot?: string;
   runner?: Runner;
   /** Override for tests: audit one root. Defaults to {@link auditRoot}. */
-  audit?: (options: AuditRootOptions) => Promise<AuditRootResult>;
+  audit?: (options: AuditRootOptions) => Promise<AuditRootResult> | AuditRootResult;
   /** Override for tests: list the roots declared under the directory. */
-  listRoots?: (directory: string) => Promise<string[]>;
+  listRoots?: (directory: string) => Promise<string[]> | string[];
 }
 
 export interface AuditRootsResult {
@@ -302,10 +302,10 @@ export interface AuditRootsResult {
   audited: string[];
 }
 
-async function defaultListRoots(
+function defaultListRoots(
   repoRoot: string,
   directory: string,
-): Promise<string[]> {
+): string[] {
   const result = checkLeanModules(repoRoot, [], directory);
   if (result.code !== 0) {
     throw new Error(
