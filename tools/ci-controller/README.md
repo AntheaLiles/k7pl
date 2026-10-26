@@ -15,9 +15,12 @@ integrated in selected CI checks while the broader migration remains staged.
   the offline Lake-manifest check.
 - The blocking implementation job in `.github/workflows/verify.yaml` uses
   `src/lean_modules.ts` for Lean-module reachability.
-- The `controller-shadow` job uses the official Deno 2.9.8 Ubuntu image,
-  pinned by digest, and compares Deno's impact classifier with the Python
-  reference. That comparison remains report-only and is not a CI gate.
+- The `controller-shadow` job pins the hosted OS to `ubuntu-22.04`, installs
+  Deno 2.9.8 through the shared composite action, and compares Deno's impact
+  classifier with the Python reference. The official Deno container image was
+  evaluated but not used as a GitHub Actions job container: it does not include
+  Node.js, which JavaScript-based actions such as checkout require. The
+  comparison remains report-only and is not a CI gate.
 - Python and shell implementations remain in the repository while this
   migration is validated. Do not remove a legacy implementation until its
   Deno replacement has passed the relevant tests and a full green CI cycle.
