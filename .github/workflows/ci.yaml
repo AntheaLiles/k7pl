@@ -109,6 +109,16 @@ jobs:
           DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y git python3
           rm -rf /var/lib/apt/lists/*
 
+      - name: Test and lint the Deno controller
+        working-directory: tools/ci-controller
+        shell: bash
+        run: |
+          set -euo pipefail
+          deno task check
+          deno task lint
+          deno task fmt
+          deno task test
+
       - name: Validate the component registry
         run: deno run --allow-read tools/ci-controller/src/main.ts validate-registry
 
