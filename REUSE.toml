@@ -48,7 +48,8 @@ path = [
   ".gitleaks.toml",
   ".howfairis.yml",
   "pytest.ini",
-  "CITATION.cff"
+  "CITATION.cff",
+  "lychee.toml"
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
