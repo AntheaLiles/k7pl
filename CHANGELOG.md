@@ -23,6 +23,9 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
+- `lexicon/`, the home of every K file (owner decision of 2026-10-26): `lexicon/lexemes/` for the lemmas of the language, `lexicon/syntax/` for structure rules and syntactic sugar, `lexicon/models/` for the non-normative K7OS model. The `K` blocks of the specification display these files; `lake exe spec` refuses a K file that no block displays, and `lakefile.lean` makes `Spec` depend on `lexicon/` (`input_dir`).
+- Grammar of the three layers in K (`lexicon/syntax/`, module `LAYERS`), with the three refused inclusions of delimiters and their codes `ERR-TOP-001` to `ERR-TOP-003` and messages emitted by K. `tools/layer-check/` (Deno, no dependency) checks every listing of `spec/` and every `.k7` file against it, and the emitted messages against annex A; `make k-layers-check`, a CI step of `k7pl-semantics.yaml`, and one probe per code in `tests/layers/`.
+
 - K7OS exploration portfolio: preserve the previously studied shared-address-space/unikernel target, alternative isolation architectures, actor-memory constraints, native/FFI and DMA boundaries, concurrency, cancellation, recovery, persistence, budgets, boot and build-chain options in a separate non-normative dossier. Update the SPEC-D register to reflect merged R4/R5 reports and map language obligations separately from OS-realization decisions. No target architecture or new normative K7PL guarantee is ratified.
 
 

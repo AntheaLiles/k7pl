@@ -31,8 +31,10 @@ Codes rejetant une composition qui franchit une frontière de couche
 * * `ERR-TOP-001`
   * Structure de couche 2 `( )` instanciée dans un bloc de couche 3 `[ ]`. Déplacer le calcul dans un `let` de couche 2 en amont.
 * * `ERR-TOP-002`
-  * Structure de couche 1 `{ }` instanciée dans un bloc de couche 3 `[ ]`. Même correction.
+  * Structure de couche 1 `{ }` instanciée dans un bloc de couche 3 `[ ]`. Déplacer le calcul dans un bloc `{ }` de couche 1 en amont.
 * * `ERR-TOP-003`
+  * Structure de couche 1 `{ }` instanciée dans un bloc de couche 2 `( )`. Déplacer le calcul dans un bloc `{ }` de couche 1 en amont.
+* * `ERR-TOP-004`
   * Un nœud marqué comme bloc de spécification (doctest, assertion `comptime`) est référencé par un chemin de production. Isoler la spécification hors du graphe de dépendance de production.
 * * `ERR-TOP-005`
   * Projection tensorielle synchrone (réseau de Leech) demandée en couche 2. La retourner via un `HandlerResult`.

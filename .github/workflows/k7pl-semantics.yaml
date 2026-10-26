@@ -8,6 +8,9 @@ on:
   pull_request:
     paths:
       - "src/k/**"
+      - "lexicon/**"
+      - "tests/layers/**"
+      - "lib/**"
       - "tests/examples/**"
       - "wiki/semantics.md"
       - "theoretical-projects/k7os/models/D01NativeBoundary.tla"
@@ -33,6 +36,9 @@ on:
     branches: [main]
     paths:
       - "src/k/**"
+      - "lexicon/**"
+      - "tests/layers/**"
+      - "lib/**"
       - "tests/examples/**"
       - "wiki/semantics.md"
       - "proofs/**"
@@ -162,6 +168,32 @@ jobs:
 
       - name: Compile and exercise the separate K7OS native-boundary profile model
         run: make -C src/k boundary-check
+
+      - name: Fetch and verify pinned Deno
+        env:
+          DENO_URL: https://github.com/denoland/deno/releases/download/v2.9.8/deno-x86_64-unknown-linux-gnu.zip
+          DENO_SHA256: e890975bc2549807bbcc0b584ffafda72cc7c93349dd99c80483dd784f6c4609
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 "$DENO_URL" --output "$RUNNER_TEMP/deno.zip"
+          printf '%s  %s\n' "$DENO_SHA256" "$RUNNER_TEMP/deno.zip" | sha256sum --check -
+          python3 -c 'import sys, zipfile; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])' "$RUNNER_TEMP/deno.zip" "$RUNNER_TEMP/deno-bin"
+          chmod +x "$RUNNER_TEMP/deno-bin/deno"
+          echo "$RUNNER_TEMP/deno-bin" >> "$GITHUB_PATH"
+
+      - name: Test the layer checker
+        working-directory: tools/layer-check
+        shell: bash
+        run: |
+          set -euo pipefail
+          deno task fmt
+          deno task lint
+          deno task check
+          deno task test
+
+      - name: Check the listings and .k7 files against the grammar of the layers
+        run: make -C src/k layers-check
 
       - name: Install the pinned Klean generator
         shell: bash

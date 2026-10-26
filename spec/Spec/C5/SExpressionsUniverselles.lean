@@ -7,9 +7,11 @@
 
 import VersoManual
 import SpecExt
+import SpecExt.CodeArtifacts
 
 open Verso.Genre Manual
 open SpecExt
+open SpecExt.CodeArtifacts
 
 set_option linter.unusedVariables false
 
@@ -53,8 +55,10 @@ Les trois délimiteurs comme annonces de phase
 ::::
 
 Ces trois paires ne s'imbriquent que dans un seul sens : `{ ... ( ... [ ... ] ... ) ... }`. Toute
-autre inclusion — un `[ ]` contenant un `{ }`, ou un `( )` à l'intérieur d'un `[ ]` — est rejetée en
-Phase 3 (`ERR-TOP-001`). Cette contrainte n'est pas stylistique : elle découle directement des
+autre inclusion est rejetée en Phase 3, et chacune a son code, du conteneur le plus spécifique au
+plus générique : un `( )` à l'intérieur d'un `[ ]` (`ERR-TOP-001`), un `{ }` à l'intérieur d'un
+`[ ]` (`ERR-TOP-002`), un `{ }` à l'intérieur d'un `( )` (`ERR-TOP-003`). Cette contrainte n'est
+pas stylistique : elle découle directement des
 spécialisations du jugement germinal établies au chapitre 1
 (§{num "sec:c1-axiomatique-germinale"}[]). Le jugement de couche 3 n'admet que des liaisons de grade $`\omega` ; un bloc de couche 3 ne peut donc rien exiger qui soit affine ou linéaire. Le jugement de couche 1, à
 l'inverse, dispose de $`\Delta_{\text{lin}}`, dont le chapitre 2
@@ -64,6 +68,34 @@ couche 1, ce contexte fournissant tout ce dont la couche 2 a besoin. La récipro
 d'une ressource strictement linéaire à offrir. C'est cette même asymétrie qui permet à un calcul de
 couche 3 — n'ayant besoin que de $`\Delta_{\omega}`, présent dans les trois jugements — d'être
 invoqué depuis n'importe laquelle des trois couches.
+
+La grammaire des couches s'écrit en K ({num "lst:grammaire-couches"}[]) ; chaque production en
+transcrit une règle.
+
+::::listing (label := "lst:grammaire-couches")
+:::caption
+La grammaire des couches, en K
+:::
+
+```K (file := "lexicon/syntax/layers.k")
+```
+::::
+
+Des neuf manières de placer une paire de délimiteurs dans une autre, cette grammaire en admet six.
+Les trois autres s'y ajoutent comme les productions qui lui manquent
+({num "lst:inclusions-refusees"}[]) : tout texte bien parenthésé se lit alors, et chaque refus se
+rattache à la règle qu'il enfreint. La définition K émet elle-même le code et le message de chaque
+refus, ceux de l'annexe {num "sec:annexe-a-codes"}[] ; un texte est bien imbriqué exactement
+lorsqu'elle n'en émet aucun.
+
+::::listing (label := "lst:inclusions-refusees")
+:::caption
+Les trois inclusions refusées, chacune avec son code
+:::
+
+```K (file := "lexicon/syntax/crossings.k")
+```
+::::
 
 Cette contrainte a été posée pour un motif de couches, et elle rend gratuitement une propriété que
 voici. Une grammaire est _à pile visible_ lorsque la structure d'appel et de retour se lit dans
@@ -76,26 +108,29 @@ arbres valides, là où le choix priorisé d'une grammaire d'expressions d'analy
 silence. Une ambiguïté devient alors une chose qu'on peut voir et refuser, plutôt qu'une chose que
 l'analyseur tranche pour soi.
 
-Un délimiteur, cependant, ne s'écrit qu'au point précis où le fragment change — jamais à chaque
-expression, jamais seulement à l'ouverture d'une définition entière. Tant qu'un appel demeure dans
-le fragment ambiant, l'écriture ordinaire — des parenthèses — suffit. Une fonction pure, en
-particulier, étant compatible par construction avec n'importe quel fragment ambiant puisqu'elle ne
-requiert que $`\Delta_{\omega}`, un appel vers elle ne réclame aucun marquage tant qu'il reste par
-ailleurs dans le fragment de son appelant. Le délimiteur du fragment appelé n'apparaît qu'au site
-d'un appel qui franchit effectivement la frontière vers un fragment strictement plus contraint que
+Il n'existe pas de parenthèse ordinaire, neutre vis-à-vis des couches : `( )` est toujours le
+délimiteur de la couche 2, et toute expression composée porte le délimiteur de son fragment. Le
+délimiteur ne _change_, en revanche, qu'au point précis où le fragment change. Tant qu'un appel
+demeure dans le fragment ambiant, il reprend le délimiteur du bloc qui l'entoure : `[ ]` dans un
+bloc de couche 3, `( )` dans un bloc de couche 2. Une fonction pure, en particulier, étant
+compatible par construction avec n'importe quel fragment ambiant puisqu'elle ne requiert que
+$`\Delta_{\omega}`, peut être appelée depuis chacune des trois couches ; dans un bloc de couche 3,
+son appel s'écrit entre crochets comme le reste du bloc. Un délimiteur autre que celui du bloc
+n'apparaît qu'au site d'un appel qui franchit effectivement la frontière vers un fragment
+strictement plus contraint que
 l'ambiant : une couche 2 qui invoque une fonction dont la vérification exige le fragment cartésien
 strict, par exemple. La frontière est ainsi aussi visible dans le texte qu'elle l'est dans le graphe
 de dépendances que le principe de Flat-Wiring entend exposer.
 
-Cette granularité décide de ce que sanctionne `ERR-TOP-001`. Ce n'est pas la présence syntaxique
-d'une parenthèse ordinaire à l'intérieur d'un bloc `[ ]` : une telle parenthèse peut légitimement y
-figurer, du moment qu'elle n'exprime qu'une opération déjà compatible avec le fragment cartésien.
-C'est l'inverse — une expression dont la vérification exige une composante que le jugement ambiant
-ne porte pas, un `HandlerResult` par exemple, qui suppose $`\mathcal{E}` et $`\Delta_{\text{aff}}`,
+Cette granularité décide de ce que sanctionne `ERR-TOP-001`. Une parenthèse à l'intérieur d'un
+bloc `[ ]` n'y est jamais légitime : elle annonce la couche 2 dans un bloc qui n'en dispose pas, et
+une opération déjà compatible avec le fragment cartésien s'y écrit entre crochets. Ce que le code
+nomme est une expression dont la vérification exige une composante que le jugement ambiant ne porte
+pas, un `HandlerResult` par exemple, qui suppose $`\mathcal{E}` et $`\Delta_{\text{aff}}`,
 l'un et l'autre absents du jugement de couche 3. Le §{num "sec:c5-mise-en-pratique"}[] en donne un
 exemple complet.
 
-Le contrôle des délimiteurs rend la règle de portée explicite, mais il ne suffit pas à établir la propriété H3 de sûreté mémoire. H3 exige qu'aucune valeur cartésienne, fermeture duplicable, tuple, substitution ou conversion ne puisse capturer une capacité d'écriture linéaire encore accessible. La preuve doit couvrir les constructeurs et les frontières de couche effectivement admis, et rester distincte de H1 (unicité d'introduction d'une capacité) et H2 (dénotation des régions disjointes). Le rejet syntaxique ERR-TOP-001 est un contrôle nécessaire de cette discipline, non une preuve sémantique de H3.
+Le contrôle des délimiteurs rend la règle de portée explicite, mais il ne suffit pas à établir la propriété H3 de sûreté mémoire. H3 exige qu'aucune valeur cartésienne, fermeture duplicable, tuple, substitution ou conversion ne puisse capturer une capacité d'écriture linéaire encore accessible. La preuve doit couvrir les constructeurs et les frontières de couche effectivement admis, et rester distincte de H1 (unicité d'introduction d'une capacité) et H2 (dénotation des régions disjointes). Les rejets syntaxiques ERR-TOP-001 à ERR-TOP-003 sont un contrôle nécessaire de cette discipline, non une preuve sémantique de H3.
 
 Deux règles de portée doivent être énoncées avant le reste, car elles sont en usage partout dans ce
 chapitre et n'ont jamais été posées. Un lecteur les devine ; un vérificateur ne devine pas.
@@ -104,7 +139,9 @@ La première fixe la portée des _délimiteurs_. Ils s'appliquent aux positions 
 attendu, et là seulement. En position de liaison, de motif ou de littéral, ils ne marquent aucun
 fragment — un crochet qui ouvre un littéral tableau n'annonce pas la couche 3, et une accolade qui
 ouvre un motif n'annonce pas la couche 1. Sans cette règle, toute la syntaxe de liaison serait
-ambiguë ; avec elle, elle ne l'est pas, et rien d'autre n'est à ajouter.
+ambiguë ; avec elle, elle ne l'est pas. Elle porte sur ce qu'un délimiteur annonce, non sur son
+imbrication : en position de liaison, de motif ou de littéral comme ailleurs, un délimiteur ne
+s'imbrique que dans le sens que fixe la grammaire des couches.
 
 La seconde fixe le sigil _deux-points_. Il introduit une _étiquette_, et les étiquettes forment un
 espace de noms distinct de celui des variables : `:état` dans `(HandlerResult :état v :réponse r)`

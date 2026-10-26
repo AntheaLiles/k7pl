@@ -137,3 +137,15 @@ path = "lib/README.md"
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"
+
+# Layer checker (2026-10-26): JSON files cannot carry an SPDX header. The
+# TypeScript sources carry CECILL-2.1 headers; the configuration and the KAST
+# fixtures captured from krun are technical metadata (CC0).
+[[annotations]]
+path = [
+  "tools/layer-check/deno.json",
+  "tools/layer-check/tests/fixtures/*.json",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC0-1.0"

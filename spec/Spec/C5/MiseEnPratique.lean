@@ -42,10 +42,10 @@ Le cœur du calcul : une fonction pure de couche 3, totale et sans effet
 :::
 
 ```
-[defn incrémente-borné? (valeur borne)
-  (select (< valeur borne)
-          (Ok (+ valeur 1))
-          (Err Débordement))]
+[defn incrémente-borné? [valeur borne]
+  [select [< valeur borne]
+          [Ok [+ valeur 1]]
+          [Err Débordement]]]
 ```
 ::::
 
@@ -66,7 +66,7 @@ La couche 2 orchestre l'effet observable sans jamais muter l'état directement
 (defhandler gestionnaire-compteur (message état)
   (match message
     ((Incrémente n)
-     (match [incrémente-borné? (^. état valeur) (^. état borne)]
+     (match [incrémente-borné? [^. état valeur] [^. état borne]]
        ((Ok nouvelle-valeur)
         (HandlerResult :état (^= état valeur nouvelle-valeur) :réponse (Ok nouvelle-valeur)))
        ((Err e)
@@ -76,8 +76,10 @@ La couche 2 orchestre l'effet observable sans jamais muter l'état directement
 
 Le calcul de couche 3 est appelé depuis la couche 2, ce qui est légitime : le pur s'invoque de
 partout (§{num "sec:c5-s-expressions-universelles"}[]). C'est cette frontière, seule, que les
-crochets de l'appel signalent. Le reste du gestionnaire, qui ne quitte jamais la couche 2, s'écrit
-en parenthèses ordinaires — y compris la mise à jour de l'état par la lentille `^=`, qui préserve le
+crochets de l'appel signalent ; à l'intérieur, les lectures de l'état par la lentille `^.`
+s'écrivent elles aussi entre crochets, puisqu'elles se vérifient dans le fragment cartésien de
+l'appel. Le reste du gestionnaire, qui ne quitte jamais la couche 2, s'écrit entre parenthèses, le
+délimiteur de la couche 2 — y compris la mise à jour de l'état par la lentille `^=`, qui préserve le
 champ `borne` inchangé sans qu'aucun `HandlerResult` n'ait besoin de le répéter.
 
 L'acteur lui-même n'est qu'une déclaration : aucune logique n'y figure directement, seulement la
@@ -113,9 +115,9 @@ d'erreur, non une obligation de métathéorie. L'unicité du type d'état par ga
 modulaire, où l'association est portée par une structure plutôt que déduite, est activement conçue
 ailleurs {cite "VIVIEN"}[].
 
-Ici, `champ` et `bind-to` restent tous deux dans le fragment ambiant de la déclaration : ils
-s'écrivent en parenthèses ordinaires, et seule l'accolade d'ouverture de `defactor` annonce la
-couche 1. Ces trois déclarations respectent déjà la forme descendante
+Ici, `champ` et `bind-to` s'écrivent entre parenthèses, le délimiteur de la couche 2, que le bloc
+de couche 1 admet ; seule l'accolade d'ouverture de `defactor` annonce la couche 1. Ces trois
+déclarations respectent déjà la forme descendante
 `{ ... ( ... [ ... ] ... ) ... }` du §{num "sec:c5-s-expressions-universelles"}[] : `bind-to` relie
 l'acteur à son gestionnaire, qui appelle lui-même le calcul pur — chaque frontière franchie porte le
 délimiteur du fragment vers lequel elle mène, et pas une de plus.
@@ -130,13 +132,14 @@ ERR-TOP-001
 :::
 
 ```
-[defn incrémente-borné? (valeur borne)
+[defn incrémente-borné? [valeur borne]
   (HandlerResult :état valeur :réponse (Ok valeur))]  ; rejeté : ERR-TOP-001
 ```
 ::::
 
-La parenthèse ordinaire n'est pas ici en cause en elle-même — un appel à `select` ou à `^.`
-s'écrirait de la même manière dans ce même bloc, sans rien enfreindre. Ce qui est rejeté, c'est que
+La parenthèse n'est pas ici en cause comme simple notation : dans ce même bloc, un appel à `select`
+ou à `^.` s'écrit entre crochets sans rien enfreindre, et la parenthèse ne s'y trouve que parce que
+`HandlerResult` est une construction de couche 2. Ce qui est rejeté, c'est que
 `HandlerResult` suppose un état d'acteur et un effet de couche 2 — $`\mathcal{E}` et
 $`\Delta_{\text{aff}}` — dont le jugement de couche 3 ne dispose tout simplement pas ($`\Delta = \Delta_{\omega}`, chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]). Aucun délimiteur ne
 pourrait rendre cet appel légitime, puisqu'aucune transition vers la couche 2 n'est permise depuis

@@ -82,10 +82,11 @@ this project.
 | --- | --- | --- |
 | Normative specification | `spec/` | Authoritative language specification |
 | Experimental exposition | `spec/formal-chain/` | Verso Blueprint exposition of the experimental K → Lean chain, separate from the normative `spec/Spec/` |
-| Formalisation and implementation | `src/` | Lean formal representation and executable implementation; `src/k/` builds the experimental K definition extracted from `spec/Spec/CodeArtifacts.lean` |
+| Formalisation and implementation | `src/` | Lean formal representation and executable implementation; `src/k/` builds the K definitions of `lexicon/` |
+| K definitions | `lexicon/` | Every `.k` file of the project: the lemmas (`lexemes/`), the structure rules and syntactic sugar (`syntax/`), the non-normative K7OS model (`models/`); the `K` blocks of `spec/` display them |
 | Experimental K → Lean proofs | `proofs/` | Separate Lake package for the experimental K → Lean chain; KLean-generated modules are built in CI and are not tracked |
 | Tests | `tests/` | Executable behavioural checks |
-| Specification tooling | `tools/` | Verso generator and extensions; the isolated Paperproof extraction workspace (`tools/paperproof-export/`); the non-normative B/C/D annex prototypes (`tools/prototypes-bcd/`) |
+| Specification tooling | `tools/` | Verso generator and extensions; the isolated Paperproof extraction workspace (`tools/paperproof-export/`); the non-normative B/C/D annex prototypes (`tools/prototypes-bcd/`); the checker of K7PL texts against the grammar of the layers (`tools/layer-check/`) |
 | Auxiliary tooling | `scripts/` | Maintenance, analysis, CI support |
 | Example library | `lib/` | Example K7PL library file (`lib-exemple.k7`) |
 | Scientific documentation | `wiki/` (this folder) | Consolidated project documentation, replacing `docs/` lot by lot |

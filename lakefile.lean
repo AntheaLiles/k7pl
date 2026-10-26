@@ -97,6 +97,12 @@ lean_lib SpecExt where
   roots := #[`SpecExt]
   leanOptions := k7plSpecOptions
 
+/-- The K sources of the project (`lexicon/`). The `K` blocks of the specification display them,
+so the specification depends on them: a changed K file rebuilds it. -/
+input_dir lexicon where
+  path := "lexicon"
+  text := true
+
 /-- Specification of the language, written with Verso (`spec/`). The effective typing kernel of
 C3 is a second root: it imports Mathlib, so it stays outside the Verso document modules, whose
 `lemma` directive would otherwise clash with Mathlib's `lemma` command. -/
@@ -104,6 +110,7 @@ C3 is a second root: it imports Mathlib, so it stays outside the Verso document 
 lean_lib Spec where
   srcDir := "spec"
   roots := #[`Spec, `Spec.C3.EffectiveKernel]
+  needs := #[lexicon]
   leanOptions := k7plSpecOptions
 
 /-- Non-normative prototypes extracted from the former annexes B, C and D

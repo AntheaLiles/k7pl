@@ -396,7 +396,7 @@ les automates du chapitre 4 vers le dialecte `K7PL.FSM`. Les correspondances de 
 chapitre 4 (théorème {num "thm:isomorphisme_memoire"}[]) rendent cette génération de code directe _dans le domaine de ce théorème_ — les tampons de couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto, pour les scalaires primitifs —, une transposition en $`O(n)` étant requise dès qu'une liste de structures est en jeu. L'édition de liens
 qui referme le pipeline purge tout bloc de spécification — doctests, assertions `comptime` — sauf en
 mode `+introspect`, garantie que le DAG de dépendance rend structurelle plutôt que déclarative
-(`ERR-TOP-003`). Le binaire résultant, adressé par le condensat BLAKE3 de son AST normalisé plutôt
+(`ERR-TOP-004`). Le binaire résultant, adressé par le condensat BLAKE3 de son AST normalisé plutôt
 que par un numéro de version, identifie par un seul et même condensat deux programmes dont
 l'écriture diffère mais dont les arbres coïncident après normalisation — la dépendance ne se rompt
 jamais silencieusement. La normalisation décide ici une égalité _syntaxique canonique_, et rien de

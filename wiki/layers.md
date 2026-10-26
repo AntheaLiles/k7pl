@@ -50,6 +50,17 @@ In judgement form (from `AxiomatiqueGerminale.lean`):
 - L2: `Δ_aff ⊢_𝓖 t : A ∣ 𝓔`, with `Δ_aff ≠ ∅` and `𝓔 ∋ tick`.
 - L1: `Δ_lin ⊢_𝓖 t : A ∣ 𝓔`, with `𝓖 = 𝓖_budget` and `𝓔 ∋ tick`.
 
+In the text, each layer has its delimiter — `[ ]` for L3, `( )`
+for L2, `{ }` for L1 — and they nest in one direction only:
+`[ ]` contains atoms and `[ ]`; `( )` contains atoms, `( )` and
+`[ ]`; `{ }` contains all three (the author's grammar of
+2026-10-26). There is no layer-neutral parenthesis. The grammar is
+written in K in `lexicon/syntax/layers.k` and displayed in chapter 5
+(`sec:c5-s-expressions-universelles`); the three refused inclusions
+are `ERR-TOP-001` (`( )` in `[ ]`), `ERR-TOP-002` (`{ }` in `[ ]`)
+and `ERR-TOP-003` (`{ }` in `( )`), emitted by K with the messages
+of annex A.
+
 Two engineering consequences follow from the definitions and are
 frequently misread. First, in L1 time is read on two components at
 once: a finite budget in the grades and a `tick` in the effects.

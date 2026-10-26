@@ -33,9 +33,13 @@ number := false
 
 Le corpus source range ces codes par ordre alphabétique de préfixe. Cette annexe les regroupe par
 l'invariant qu'ils protègent, afin qu'un lecteur cherchant pourquoi un programme est rejeté trouve
-le chapitre correspondant plutôt qu'une liste sans principe. Deux écarts avec le corpus source sont
-assumés. `ERR-TOP-003`, mentionné au chapitre 6 (§{num "sec:c6-le-processus-de-compilation"}[]) mais
-absent de la table source, est ajouté ici. `ERR-FFI-001` et `ERR-TYP-008`, qui y désignent tous deux
+le chapitre correspondant plutôt qu'une liste sans principe. Trois écarts avec le corpus source sont
+assumés. Les trois premiers codes `ERR-TOP` nomment les trois inclusions de délimiteurs que la
+grammaire des couches refuse, numérotées du conteneur le plus spécifique (couche 3) au plus
+générique (couche 1) : `ERR-TOP-003`, un `{ }` à l'intérieur d'un `( )`, est ajouté, et le code que
+le corpus source numérotait `ERR-TOP-003` devient `ERR-TOP-004`. Ce dernier, mentionné au chapitre 6
+(§{num "sec:c6-le-processus-de-compilation"}[]) mais absent de la table source, est ajouté ici.
+`ERR-FFI-001` et `ERR-TYP-008`, qui y désignent tous deux
 une fuite de descripteur à travers la passerelle FFI, sont réunis sur une seule ligne. Cette table
 reste illustrative et non exhaustive : tout mécanisme nouveau engendrerait des codes qu'elle ne peut
 anticiper, et le regroupement thématique facilite la navigation sans garantir la complétude —

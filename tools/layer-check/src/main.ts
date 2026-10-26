@@ -1,0 +1,73 @@
+// SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+//
+// SPDX-License-Identifier: CECILL-2.1
+
+/**
+ * Checks the K7PL texts of the repository against the grammar of the layers.
+ *
+ *   deno run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts check \
+ *     --definition src/k/.build/layers-kompiled [--krun krun] [--root .]
+ *
+ * Run from the repository root, after `make -C src/k layers-kompile`. Exit status 1 when a
+ * text or the association between K and annex A fails.
+ */
+
+import { annexRows, declaredKCodes } from "./annex.ts";
+import { associationProblems, formatVerdict, judge, type Verdict } from "./check.ts";
+import { readWithK } from "./kast.ts";
+import { collectUnits } from "./units.ts";
+
+export const REFUSALS_SOURCE = "lexicon/syntax/refusals.k";
+export const ANNEX_DIR = "spec/Spec/AnnexeA";
+
+function option(args: string[], name: string, fallback?: string): string {
+  const i = args.indexOf(name);
+  const value = i >= 0 ? args[i + 1] : fallback;
+  if (value === undefined) throw new Error(`missing ${name}`);
+  return value;
+}
+
+export async function check(args: string[]): Promise<number> {
+  const root = option(args, "--root", ".");
+  const definition = option(args, "--definition");
+  const krun = option(args, "--krun", "krun");
+
+  const kCodes = declaredKCodes(await Deno.readTextFile(`${root}/${REFUSALS_SOURCE}`));
+  const annexSources: string[] = [];
+  for await (const entry of Deno.readDir(`${root}/${ANNEX_DIR}`)) {
+    if (entry.isFile && entry.name.endsWith(".lean")) {
+      annexSources.push(await Deno.readTextFile(`${root}/${ANNEX_DIR}/${entry.name}`));
+    }
+  }
+  const annex = annexRows(annexSources);
+  const units = await collectUnits(root);
+  const scratch = await Deno.makeTempDir({ prefix: "layer-check-" });
+  const verdicts: Verdict[] = [];
+  try {
+    for (const [i, unit] of units.entries()) {
+      const path = `${scratch}/unit-${i}.k7`;
+      await Deno.writeTextFile(path, unit.code.endsWith("\n") ? unit.code : `${unit.code}\n`);
+      const verdict = judge(unit, await readWithK(krun, definition, path), new Set(kCodes), annex);
+      verdicts.push(verdict);
+      console.log(formatVerdict(verdict));
+    }
+  } finally {
+    await Deno.remove(scratch, { recursive: true });
+  }
+  const problems = associationProblems(kCodes, annex, verdicts);
+  for (const p of problems) console.log(`FAIL association: ${p}`);
+  const failed = verdicts.filter((v) => !v.ok).length + problems.length;
+  console.log(
+    `${verdicts.length} text(s), ${kCodes.length} code(s) declared by K, ${failed} failure(s)`,
+  );
+  return failed === 0 ? 0 : 1;
+}
+
+if (import.meta.main) {
+  const [command, ...rest] = Deno.args;
+  if (command !== "check") {
+    console.error("usage: main.ts check --definition <kompiled> [--krun <krun>] [--root <dir>]");
+    Deno.exit(2);
+  }
+  Deno.exit(await check(rest));
+}

@@ -62,20 +62,21 @@ explicitly abandoned, as traced in git history.
 
 | Directory | Contents |
 |---|---|
-| [`src/`](src/) | Lean implementation; the K definition is generated from Verso into `src/k/.build/generated/` |
+| [`src/`](src/) | Lean implementation; `src/k/` builds the K definitions of `lexicon/` |
+| [`lexicon/`](lexicon/) | K definitions, displayed by the `K` blocks of `spec/`: the lemmas (`lexemes/`), the structure rules and syntactic sugar (`syntax/`), the non-normative K7OS model (`models/`) |
 | [`proofs/`](proofs/) | maintained Lean proofs, and KLean modules generated at build time |
 | [`tests/`](tests/), [`tests/examples/`](tests/examples/) | Lean/Python tests, and K7PL `.k7` programs |
 | [`spec/`](spec/) | normative Verso specification, figures, and an experimental exposition under `spec/formal-chain/` |
-| [`tools/`](tools/) | specification generator and Verso extensions (`SpecExt/`); bibliography (`SpecBib.lean`, generated from [`wiki/references.json`](wiki/references.json)); Lean compliance and audit models (`Compliance/`); the isolated Paperproof extraction workspace (`paperproof-export/`); the non-normative B/C/D prototypes (`prototypes-bcd/`) |
+| [`tools/`](tools/) | specification generator and Verso extensions (`SpecExt/`); bibliography (`SpecBib.lean`, generated from [`wiki/references.json`](wiki/references.json)); Lean compliance and audit models (`Compliance/`); the isolated Paperproof extraction workspace (`paperproof-export/`); the non-normative B/C/D prototypes (`prototypes-bcd/`); the checker of K7PL texts against the grammar of the layers (`layer-check/`) |
 | [`lib/`](lib/) | libraries written in K7PL (currently one example file, `lib-exemple.k7`) |
 | [`wiki/`](wiki/) | consolidated project documentation (entry, layers, research; further pages added lot by lot) |
 | [`scripts/`](scripts/) | maintenance, Org → Verso conversion, metrics and tracking |
 
 ## Experimental K → Lean chain
 
-An experimental slice of K semantics is described in `spec/Spec/CodeArtifacts.lean`, next to its Verso documentation. The K block generates `src/k/.build/generated/semantics.k`; the Python block generates the checker of the examples in the same place. These files are ignored by Git and must not be modified directly. The test source programs use the `.k7` extension in `tests/examples/`. The maintained Lean proofs are under `proofs/K7PL/`; the KLean modules are generated during the build. The Verso Blueprint exposition stays in `spec/formal-chain/`, separate from the normative specification.
+An experimental slice of K semantics lives in `lexicon/`, one file per lemma, and the `K` blocks of `spec/Spec/CodeArtifacts.lean` display it next to its Verso documentation. The Python block of that page generates the checker of the examples into `src/k/.build/generated/`, a file ignored by Git that must not be modified directly. The test source programs use the `.k7` extension in `tests/examples/`. The maintained Lean proofs are under `proofs/K7PL/`; the KLean modules are generated during the build. The Verso Blueprint exposition stays in `spec/formal-chain/`, separate from the normative specification.
 
-`make k-check` extracts the code from Verso, compiles the K definition and runs the examples. `make formal-chain` extends this flow with the export of KORE to KLean, the build of the proofs and the rendering of the Verso exposition. This prototype does not formalise the whole of K7PL: the link between the K function `typeOf` and the Lean judgement `HasType` remains to be established.
+`make k-check` compiles the K definition of `lexicon/`, extracts the Python checker from Verso and runs the examples. `make k-layers-check` checks the listings of the specification and the `.k7` files against the grammar of the layers (`lexicon/syntax/`), and the error codes and messages that K emits against annex A. `make formal-chain` extends this flow with the export of KORE to KLean, the build of the proofs and the rendering of the Verso exposition. This prototype does not formalise the whole of K7PL: the link between the K function `typeOf` and the Lean judgement `HasType` remains to be established.
 
 ## Contributing
 
