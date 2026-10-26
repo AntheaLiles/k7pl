@@ -193,7 +193,7 @@ Deno.test("fan-out audits every root and aggregates failures", async () => {
   const result = await auditRoots({
     directory: "tests",
     listRoots: () => ["A", "B"],
-    audit: async (options) => {
+    audit: (options) => {
       audited.push(options.root);
       return options.root === "B"
         ? { code: 1, errors: ["audit of B failed"], reused: false }
@@ -209,7 +209,7 @@ Deno.test("fan-out lists real roots from the repository lakefile", async () => {
   const result = await auditRoots({
     directory: "tools",
     repoRoot: REPO_ROOT,
-    audit: async () => ({ code: 0, errors: [], reused: false }),
+    audit: () => ({ code: 0, errors: [], reused: false }),
   });
   assertEquals(result.code, 0);
   assert(result.audited.length > 0);
