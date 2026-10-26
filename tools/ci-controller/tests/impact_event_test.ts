@@ -53,7 +53,10 @@ Deno.test("pull request and push events use the supplied base/head", async () =>
 Deno.test("manual dispatch always forces full validation", async () => {
   const git = mockGit({});
   assertEquals(
-    await classifierArgs({ EVENT_NAME: "workflow_dispatch" }, git.run),
+    await classifierArgs(
+      { EVENT_NAME: "workflow_dispatch" },
+      git.run,
+    ),
     ["--force-full"],
   );
   assertEquals(git.calls, []);
@@ -75,11 +78,14 @@ Deno.test(
       },
     });
     assertEquals(
-      await classifierArgs({
-        EVENT_NAME: "workflow_dispatch",
-        REF: "refs/heads/automation/generated-status",
-        HEAD_SHA: "head456",
-      }, git.run),
+      await classifierArgs(
+        {
+          EVENT_NAME: "workflow_dispatch",
+          REF: "refs/heads/automation/generated-status",
+          HEAD_SHA: "head456",
+        },
+        git.run,
+      ),
       ["--force-full"],
     );
     assertEquals(git.calls.length, 2);
@@ -107,11 +113,14 @@ Deno.test(
       },
     });
     assertEquals(
-      await classifierArgs({
-        EVENT_NAME: "workflow_dispatch",
-        REF: "refs/heads/automation/generated-status",
-        HEAD_SHA: "head456",
-      }, git.run),
+      await classifierArgs(
+        {
+          EVENT_NAME: "workflow_dispatch",
+          REF: "refs/heads/automation/generated-status",
+          HEAD_SHA: "head456",
+        },
+        git.run,
+      ),
       ["--base", "mergebase123", "--head", "head456"],
     );
   },
@@ -162,11 +171,14 @@ Deno.test("missing merge base fails closed", async () => {
   });
   await assertRejects(
     () =>
-      classifierArgs({
-        EVENT_NAME: "workflow_dispatch",
-        REF: "refs/heads/automation/generated-status",
-        HEAD_SHA: "head456",
-      }, git.run),
+      classifierArgs(
+        {
+          EVENT_NAME: "workflow_dispatch",
+          REF: "refs/heads/automation/generated-status",
+          HEAD_SHA: "head456",
+        },
+        git.run,
+      ),
     "no merge base",
   );
 });
