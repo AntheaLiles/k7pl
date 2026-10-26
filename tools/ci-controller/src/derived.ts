@@ -28,11 +28,13 @@
  *     removed) — these are the decided D2 behaviours, and
  *     their coverage preservation is proven in the
  *     orchestration slice, not here;
- *   - registry gaps to close before cutover: light paths
- *     (.claude/, .github/ISSUE_TEMPLATE/, LICENSES/,
- *     CITATION.cff) and scripts/axiom-audit.sh, which the
- *     legacy classifier treats specially and no component
- *     claims;
+ *   - closed in cutover C0: light paths (.claude/,
+ *     .github/ISSUE_TEMPLATE/, LICENSES/, CITATION.cff) and
+ *     scripts/axiom-audit.sh are now classifier-resident rules
+ *     in this file, reproducing the legacy treatment verbatim
+ *     (light = no surface; axiom-audit.sh = lean_build +
+ *     spec_build), instead of falling through to component
+ *     roots or to full;
  *   - other non-Markdown files under wiki/ and
  *     theoretical-projects/, which the legacy classifier
  *     leaves unclassified (hence full) while the registry
@@ -76,6 +78,50 @@ function componentMatches(component: Component, path: string): boolean {
   return !component.excludes.some((exclude) => matches(path, exclude));
 }
 
+// Classifier-resident rules, not components (the registry header says
+// so explicitly): the legacy classifier's light paths and its exact
+// surface rules. They are reproduced here verbatim so the derived
+// classifier does not over-trigger on paths the legacy classifier
+// deliberately treats as light, and does not mis-assign the one
+// script the legacy classifier routes by exact path.
+// - Light paths trigger no surface at all (the external-links job
+//   is not gated by a surface; a light-only change runs no other
+//   check). This matches the legacy LIGHT_PREFIXES / LIGHT_EXACT.
+// - scripts/axiom-audit.sh triggers lean_build + spec_build only,
+//   exactly as the legacy LEAN_AND_SPEC_BUILD_EXACT rule. It must
+//   NOT also pick up python_tests from the python-tooling root
+//   (scripts/), which is why the exact rule short-circuits the
+//   component matching below. Revisit when the script is ported
+//   to Deno (cutover C5): the ported command keeps these surfaces.
+const LIGHT_PREFIXES = [
+  ".claude/",
+  ".github/ISSUE_TEMPLATE/",
+  "LICENSES/",
+];
+const LIGHT_EXACT = new Set(["CITATION.cff"]);
+const EXACT_SURFACE_RULES: Record<string, DerivedSurface[]> = {
+  "scripts/axiom-audit.sh": ["lean_build", "spec_build"],
+};
+
+function isLight(path: string): boolean {
+  return LIGHT_EXACT.has(path) ||
+    LIGHT_PREFIXES.some((prefix) => path.startsWith(prefix));
+}
+
+// Cutover C0, author decision 2026-10-26: a non-Markdown file
+// under wiki/ or theoretical-projects/ stays fail-closed (full),
+// exactly as the legacy classifier leaves it unclassified — even
+// though the documentation components would otherwise map it to
+// docs_links. Two exceptions keep their normal treatment: files
+// claimed by the tla-models component (the D01 models, which D2
+// deliberately maps to tla_model_check) and declared read inputs
+// (wiki/references.json, a spec-build input). Markdown files are
+// unaffected: they map to docs_links in both classifiers.
+function isDocsTree(path: string): boolean {
+  return path.startsWith("wiki/") ||
+    path.startsWith("theoretical-projects/");
+}
+
 export function deriveClassification(
   registry: Registry,
   paths: readonly string[],
@@ -90,6 +136,39 @@ export function deriveClassification(
   for (const path of paths) {
     if (isMarkdown(path)) surfaces.docs_links = true;
     let claimed = false;
+    const exactSurfaces = EXACT_SURFACE_RULES[path];
+    if (exactSurfaces !== undefined) {
+      claimed = true;
+      for (const surface of exactSurfaces) surfaces[surface] = true;
+    } else if (isLight(path)) {
+      // Light path: claimed, no surface. See LIGHT_PREFIXES above.
+      claimed = true;
+    }
+    // Classifier-resident rules short-circuit component matching:
+    // an exact rule or a light path must not also pick up the
+    // surfaces of a component whose root happens to contain it.
+    if (exactSurfaces !== undefined || isLight(path)) {
+      if (!claimed && !isMarkdown(path)) unknown.push(path);
+      continue;
+    }
+    // Conservative docs-tree rule (C0 decision, see above): a
+    // non-Markdown file under wiki/ or theoretical-projects/
+    // forces full, unless the tla-models component claims it or
+    // it is a declared read input.
+    if (isDocsTree(path) && !isMarkdown(path)) {
+      const tlaComponent = registry.components.find((c) =>
+        c.id === "tla-models"
+      );
+      const claimedByTla = tlaComponent !== undefined &&
+        componentMatches(tlaComponent, path);
+      const isReadInput = registry.components.some((component) =>
+        component.readInputs.some((input) => matches(path, input.path))
+      );
+      if (!claimedByTla && !isReadInput) {
+        unknown.push(path);
+        continue;
+      }
+    }
     for (const component of registry.components) {
       if (componentMatches(component, path)) {
         claimed = true;
