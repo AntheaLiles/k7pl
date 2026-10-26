@@ -42,13 +42,19 @@ arbitrations), followed by the blockers that are not
 lexical votes (B-ONTO-01 to B-ONTO-07) and the
 consequences of an answer.
 
-One answer is already recorded, and only one: the author's
-method choice of 2026-10-25 (VOC-2026-10-25-001, question
-Q-METH-002, option A — a global lot after the ontological
-audit, no individual ratification of lemmas or tokens until
-the scope, categorisation and formal-chain contradictions
-are delimited). It is a method choice, not a ratification
-of any term, and it authorises no renaming. See
+Two method answers are recorded. The author's method choice
+of 2026-10-25 (VOC-2026-10-25-001, question Q-METH-002,
+option A — a global lot after the ontological audit, no
+individual ratification of lemmas or tokens until the scope,
+categorisation and formal-chain contradictions are
+delimited), and the arbitration sequence of 2026-10-26
+(VOC-2026-10-26-001, question Q-METH-001, option A), which
+lifts blocker B-ONTO-07. Individual answers are recorded as
+dated preferences, ratified only in the global lot
+(VOC-2026-10-26-002); the first is `lambda` for `Lam`
+(Q-TERM-012, and the `Lam` entry of
+[primitives](primitives.md)). None of them ratifies a term,
+and none authorises a renaming. See
 [decisions](decisions.md) and the roadmap section "Work
 the research lot follow-ups", which owns the answering
 work. The blockers are open items in the same roadmap
@@ -472,6 +478,8 @@ Limite/conséquence : Ne pas promouvoir sans vérifier les collisions de famille
 **Précision —** demander une analyse approfondie, une autre liste de candidats, une source ou un retour sur les critères : ______  
 
 **Enregistrement :** choix ______ ; statut ______ ; justification facultative ______ ; objection au périmètre ______ ; conséquences sur les autres questions ______ ; conséquences formelles à vérifier ______.
+
+**Préférence datée de l'autrice — 26 octobre 2026 (VOC-2026-10-26-002) :** `lambda`, lemme retenu de la règle `Lam` dans le registre des primitives (candidats : lambda, fn, fun, abstraction) ; la lambda est une fonction anonyme, une fonction nommée se *définit*. Justification et recouvrement relevé (le symbole λ nomme aussi une transformation naturelle au chapitre 3) : entrée `Lam` de [primitives](primitives.md). Préférence, non ratification ; le choix du lemme français de cette question reste ouvert.
 
 ### Q-TERM-013 — Application
 
@@ -1713,6 +1721,13 @@ Ancrage : cohérent avec la doctrine du projet ; ce n'est pas la séquence histo
 C — **autre protocole séquentiel explicite** : ______. Aucune moyenne pondérée ne sera introduite sans justification et décision distinctes.  
 Autre — ______. Précision — ______. Réponse — ______.
 
+**Réponse explicite de l'autrice — 26 octobre 2026 — enregistrée sous VOC-2026-10-26-001.**
+
+- **Choix retenu : A — M-A, extension séquentielle** : non-collision → exactitude scientifique → famille et invariants de grade → grille écologique provisoire → arguments mnémoniques → brièveté.
+- **Statut :** choix méthodologique de l'autrice ; il donne un rang au critère écologique et lève le blocage B-ONTO-07. Il ne ratifie aucun terme.
+- **Règle d'enregistrement (VOC-2026-10-26-002) :** une réponse individuelle à ce questionnaire est enregistrée comme préférence datée ; elle n'est ratifiée que dans le lot global (VOC-2026-10-25-001).
+- **Référence de décision :** [decisions](decisions.md), registre détaillé, section « Decided ».
+
 ### Q-METH-002 — fermeture du vocabulaire en bloc ou progressivement
 
 A — **lot global après audit ontologique** : ne pas figer de lemmes tant que les écarts de grammaire/règles et les statuts ouverts ne sont pas délimités ; arbitrage lexical en lot une fois les blocages levés.  
@@ -1739,7 +1754,7 @@ Autre — ______. Précision — ______. Justification — ______.
 | B-ONTO-04 | When : correction de ressource et éventuelle modalité duale demandée dans l'audit. | Compléter la preuve ou modifier la proposition théorique sous ratification explicite. |
 | B-ONTO-05 | Vec : le type est déclaré dérivé, les règles du vecteur et la possibilité de pli indexé gradué exigent leur propre preuve. | Établir obligations conservées/perdues avant d'utiliser fold comme nom ou factorisation. |
 | B-ONTO-06 | ν / Out / Cop : règles présentes dans C3 mais récit de registre disant règles manquantes. | Rapprocher l'état du registre avec l'état normatif et les preuves réelles. |
-| B-ONTO-07 | Arc G : critères historiques ne donnent pas un rang ratifié au critère écologique. | Répondre à Q-METH-001 avant de déclarer une décision lexicale méthodologiquement stable. |
+| B-ONTO-07 | Arc G : critères historiques ne donnent pas un rang ratifié au critère écologique. | Levé le 26 octobre 2026 : Q-METH-001, option A (VOC-2026-10-26-001), place la grille écologique provisoire au quatrième rang. |
 
 ## 8. Conséquences de la réponse
 

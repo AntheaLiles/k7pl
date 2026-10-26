@@ -70,6 +70,10 @@ record 0002.*
 Executable blocks live in the specification source and are
 extracted by tooling, rather than being maintained as separate
 executable files that could drift from the specification.
+For K, the owner decided otherwise on 2026-10-26: the K
+sources live in `lexicon/`, and the specification's `K`
+blocks display them; only the Python checker is still
+extracted (see "K sources live in `lexicon/`" below).
 *Status: proposed, partly decided by the owner. Provenance
 (secondary): architecture decision record 0003.*
 
@@ -327,7 +331,15 @@ in the current form).
 Owner decisions already given: item 48 (2026-10-19),
 K blocks normative (premise of clause 1, applied by
 PR #255); item 53, work requested, profile not
-accepted by it.
+accepted by it; 2026-10-26, every `.k` file lives in
+`lexicon/` (`lexemes/`, `syntax/`) — the option this
+record rejected and kept as plan B (canonical `.k`
+files included in Verso) is the one applied: each `K`
+block displays a file of `lexicon/`, read at
+elaboration, and the extraction pass refuses a K file
+that no block displays. The K blocks stay normative.
+The attribute contract (`module`, `id`) is not
+applied. The record stays Proposed.
 Follow-up: Roadmap: Build the remaining checks and
 tools; Ratify the applied decisions.
 
@@ -768,6 +780,80 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Layer grammar, refusal codes, and K as their
+  home.** Owner decisions of 2026-10-26. The grammar of
+  the three delimiter pairs is the author's: `[ ]`
+  (layer 3) contains only atoms and `[ ]`; `( )`
+  (layer 2) contains atoms, `( )` and `[ ]`; `{ }`
+  (layer 1) contains all three; an atom is a symbol, a
+  number or a string. There is no layer-neutral
+  "ordinary parenthesis". The grammar is written in K
+  (`lexicon/syntax/layers.k`, module `LAYERS`), with
+  the three refused inclusions as the productions it
+  lacks (`lexicon/syntax/crossings.k`); K emits the
+  code and the message of each refusal
+  (`lexicon/syntax/refusals.k`), and `tools/layer-check`
+  compares them word for word with annex A and checks
+  every listing of `spec/` and every `.k7` file.
+  Numbering rule: `ERR-TOP-001` to `ERR-TOP-n` name the
+  delimiter-composition infractions, from the most
+  specific container (layer 3) to the most generic
+  (layer 1) — `( )` in `[ ]` (001), `{ }` in `[ ]`
+  (002), `{ }` in `( )` (003, new) — and the category's
+  other codes continue the numbering: the former
+  `ERR-TOP-003` becomes `ERR-TOP-004`. Chapter 5 and its
+  listings were corrected accordingly, with the author's
+  rewrite of `lst:fonction-pure`. Still open, for the
+  owner: the wording of the messages of 002 and 003
+  (proposed; 002 no longer says "Même correction",
+  whose `let` of layer 2 would fall under 003); whether
+  these refusals happen at reading (Phase 0, as in K) or
+  in Phase 3, as chapter 5 still says; the lexical
+  classes of symbols, numbers and strings, proposed in
+  `lexicon/syntax/tokens.k` as hypotheses; braces and
+  brackets in type and attribute positions (refinement
+  types `{x : T | p}`, `:requires [...]`), which the
+  grammar refuses inside `( )` and `[ ]`; whether
+  `(champ ...)` in `lst:acteur` is meant as layer 2,
+  as the corrected prose now says. Provenance: owner
+  instructions of 2026-10-26 in the working session.
+  Follow-up: Roadmap: Work the research lot follow-ups.
+- **K sources live in `lexicon/`.** Owner decision of
+  2026-10-26: every `.k` file lives in the root
+  directory `lexicon/`, with `lexicon/lexemes/` for the
+  lemmas (primitive words of the language) and
+  `lexicon/syntax/` for structure rules and syntactic
+  sugar; the K modules carry no prefix or suffix
+  (`LAYERS`, not `K7PL-LAYERS`); the Verso block kind is
+  `K`. Applied: the subset semantics is split by lemma
+  (`literals`, `add`, `lt`, `select`) and composed by
+  `LEXICON` (`lexicon/lexicon.k`); the non-normative
+  K7OS model is `lexicon/models/native-boundary.k`
+  (module `NATIVE-BOUNDARY`). Rule labels are
+  unchanged; KLean derives the names of the generated
+  heat and cool constructors from module names, so the
+  Lean proofs follow the rename
+  (`K7PL_SYNTAX_k7Add1_heat` becomes `ADD_k7Add1_heat`).
+  This settles part of architecture record 0003 in the
+  direction of the option it had rejected (see that
+  record below). Provenance: owner instructions of
+  2026-10-26.
+  Follow-up: Roadmap: Ratify the applied decisions.
+- **Vocabulary arbitration sequence (Q-METH-001,
+  option A).** Author's answer of 2026-10-26
+  (VOC-2026-10-26-001): non-collision, then scientific
+  exactness, family and grade invariants, a provisional
+  ecological grid, mnemonic arguments, and brevity last.
+  It ranks the ecological criterion and lifts blocker
+  B-ONTO-07. Individual answers to the questionnaire are
+  recorded as dated preferences and ratified only in the
+  global lot (VOC-2026-10-26-002); the first is `lambda`
+  as the retained lemma of `Lam` (an anonymous function;
+  a named function is *defined*), argued in
+  [primitives](primitives.md). Method choice and
+  preference only: no term is ratified and nothing is
+  renamed. Provenance: owner answers of 2026-10-26.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Vocabulary method: global lot after the ontological
   audit.** No lemma or token is ratified individually
   until the scope, categorisation and formal-chain
@@ -1275,7 +1361,9 @@ contradiction to state, not to resolve in silence.
 ### Open, awaiting an owner decision
 
 - **Core-vocabulary ontological blockers.** Seven
-  blockers that are not lexical votes, all open:
+  blockers that are not lexical votes; B-ONTO-07 was
+  lifted on 2026-10-26 (see "Vocabulary arbitration
+  sequence" under Decided), the six others are open:
   B-ONTO-01 (cross-check count of 46 omits `fix` and
   `declassify`, present in the grammar and ruled in
   C3); B-ONTO-02 (categories and typing of temporal

@@ -97,6 +97,8 @@ Abréviation d'OCaml et de F#. Même argument de brièveté. Trois abréviations
 abstraction  
 Le terme scientifique. Exact. Personne ne l'écrit dans du code.
 
+Préférence datée de l'autrice (26 octobre 2026, VOC-2026-10-26-002) : `lambda`. La lambda est une fonction anonyme ; une fonction nommée se *définit*. Justification selon la séquence M-A (Q-METH-001, option A) : non-collision — aucun mot réservé ni alias de glyphe relevé ne s'écrit `lambda` ; le symbole λ désigne en revanche aussi, au chapitre 3, une transformation naturelle de la loi distributive graduée, recouvrement de notation à signaler, distinct du mot de surface ; exactitude — le mot nomme l'abstraction anonyme elle-même, quand `fn` et `fun` évoquent la *fonction*, que K7PL réserve à ce qui se définit sous un nom ; mnémonique — le mot de Church et de la famille Lisp ; brièveté — dernier critère, le seul qui préférerait `fn` ou `fun`. Préférence, non ratification : elle sera arbitrée dans le lot global (VOC-2026-10-25-001).
+
 ### DOING Appliquer un calcul à une valeur
 
     SYMBOLE: M V | FAMILLE: noyau_CBPV | REGLE: App | LEMME-RETENU | LEMME-CANDIDAT: application, apply, juxtaposition
