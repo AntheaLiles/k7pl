@@ -34,7 +34,9 @@ function mockGit(
   };
 }
 
-Deno.test("pull request and push events use the supplied base/head", async () => {
+Deno.test(
+  "pull request and push events use the supplied base/head",
+  async () => {
   const git = mockGit({});
   assertEquals(
     await classifierArgs(
