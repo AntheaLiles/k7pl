@@ -3,12 +3,24 @@ SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CECILL-2.1
 -->
 
-# K7PL CI controller (slice 1)
+# K7PL CI controller
 
-TypeScript controller for the K7PL CI, running under Deno. Slice 1 delivers
-three commands and no workflow integration: the controller is exercised locally
-and in shadow mode, and it is wired into `.github/workflows/ci.yaml` only after
-owner review (see cutover criteria below).
+TypeScript tooling for the K7PL CI, running under Deno. The controller is
+integrated in selected CI checks while the broader migration remains staged.
+
+## Current workflow integration
+
+- The blocking `impact` job in `.github/workflows/ci.yaml` runs the controller's
+  check, lint, format and test tasks. It uses the Deno manifest validator for
+  the offline Lake-manifest check.
+- The blocking implementation job in `.github/workflows/verify.yaml` uses
+  `src/lean_modules.ts` for Lean-module reachability.
+- The `controller-shadow` job uses the official Deno 2.9.8 Ubuntu image,
+  pinned by digest, and compares Deno's impact classifier with the Python
+  reference. That comparison remains report-only and is not a CI gate.
+- Python and shell implementations remain in the repository while this
+  migration is validated. Do not remove a legacy implementation until its
+  Deno replacement has passed the relevant tests and a full green CI cycle.
 
 ## Runtime
 
