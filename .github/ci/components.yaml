@@ -16,6 +16,21 @@
 # and sequences, plain/single/double-quoted scalars, booleans,
 # integers, and flow sequences. No anchors, tags, or block scalars.
 
+# D2 slice 1 (descriptive only, classifier not yet derived): every
+# component also declares `impact_surfaces` — the validation surfaces
+# a change under its roots triggers — and, where it reads files
+# outside its own roots, `read_inputs` — paths whose change triggers
+# that component's surfaces as well (the former classifier "read by
+# another surface" rules, now declared here). A path triggers the
+# surfaces of every component whose roots contain it, plus the
+# surfaces of every component whose read_inputs contain it. New
+# surface names (axiom_audit, k_compile, k_examples, klean_export,
+# tla_model_check) are declared here as derivation targets; they
+# are not yet emitted by the classifier and not yet wired to jobs.
+# The markdown rule (any .md/.markdown file triggers docs_links)
+# and the light/full exact-prefix rules remain classifier rules,
+# not components, and are not declared here.
+
 version: 1
 
 toolchains:
@@ -61,6 +76,12 @@ components:
     required_checks:
       - spec-check
       - spec-build
+    impact_surfaces:
+      - spec_check
+      - spec_build
+      - python_tests
+    read_inputs:
+      - src/
     allowed_claim_classes:
       - execution
       - verification
@@ -81,6 +102,10 @@ components:
       - spec-check
       - spec-build
       - lean-build
+    impact_surfaces:
+      - spec_check
+      - spec_build
+      - python_tests
     allowed_claim_classes:
       - execution
       - verification
@@ -105,6 +130,13 @@ components:
       - spec-tooling
     required_checks:
       - lean-build
+    impact_surfaces:
+      - lean_build
+    read_inputs:
+      - tools/SpecExt/IndexCore.lean
+      - tools/SpecExt/IndexTerms.lean
+      - tools/SpecExt/Translate.lean
+      - tools/Compliance/
     allowed_claim_classes:
       - execution
       - verification
@@ -128,6 +160,10 @@ components:
       - k-compile
       - k-examples
       - klean-export
+    impact_surfaces:
+      - k_compile
+      - k_examples
+      - klean_export
     allowed_claim_classes:
       - execution
     notes:
@@ -149,6 +185,8 @@ components:
     required_checks:
       - lean-proof-build
       - axiom-audit
+    impact_surfaces:
+      - axiom_audit
     allowed_claim_classes:
       - execution
       - proof
@@ -166,6 +204,8 @@ components:
     depends_on: []
     required_checks:
       - tla-model-check
+    impact_surfaces:
+      - tla_model_check
     allowed_claim_classes:
       - verification
     notes:
@@ -185,6 +225,8 @@ components:
     depends_on: []
     required_checks:
       - docs-links
+    impact_surfaces:
+      - docs_links
     allowed_claim_classes:
       - execution
     notes:
@@ -206,6 +248,11 @@ components:
     depends_on: []
     required_checks:
       - python-tests
+    impact_surfaces:
+      - python_tests
+    read_inputs:
+      - wiki/assurance.md
+      - src/
     allowed_claim_classes:
       - execution
       - verification
@@ -226,6 +273,8 @@ components:
     required_checks:
       - docs-links
       - wiki-export-validation
+    impact_surfaces:
+      - docs_links
     allowed_claim_classes:
       - execution
     notes:
@@ -245,6 +294,8 @@ components:
     depends_on: []
     required_checks:
       - full-validation
+    impact_surfaces:
+      - full
     allowed_claim_classes:
       - execution
     notes:
