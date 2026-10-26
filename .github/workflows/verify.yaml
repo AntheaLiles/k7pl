@@ -109,9 +109,7 @@ jobs:
 
       # Same Deno pin as the controller-shadow job in ci.yaml.
       - name: Set up Deno
-        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
-        with:
-          deno-version: v2.9.8
+        uses: ./.github/actions/setup-deno
 
       # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The scan
       # covers src/ and tests/ only, and any declared lean_lib counts as a root, even one that this
@@ -342,9 +340,7 @@ jobs:
 
       # Same Deno pin as the controller-shadow job in ci.yaml.
       - name: Set up Deno
-        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
-        with:
-          deno-version: v2.9.8
+        uses: ./.github/actions/setup-deno
 
       - name: Register the Lean problem matcher
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
