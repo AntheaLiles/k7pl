@@ -34,18 +34,32 @@ export async function classifierArgs(
     ref === "refs/heads/automation/generated-status"
   ) {
     const mainRef = "refs/remotes/origin/main";
-    const available = await git(["rev-parse", "--verify", "--quiet", mainRef]);
+    const available = await git([
+      "rev-parse",
+      "--verify",
+      "--quiet",
+      mainRef,
+    ]);
     if (available.code !== 0) {
       throw new Error("origin/main is not available in the checkout");
     }
-    if (!head) throw new Error("HEAD_SHA is required for generated-status dispatch");
+    if (!head) {
+      throw new Error("HEAD_SHA is required for generated-status dispatch");
+    }
 
-    const ancestor = await git(["merge-base", "--is-ancestor", head, mainRef]);
+    const ancestor = await git([
+      "merge-base",
+      "--is-ancestor",
+      head,
+      mainRef,
+    ]);
     if (ancestor.code === 0) return ["--force-full"];
 
     const base = await git(["merge-base", mainRef, head]);
     if (base.code !== 0 || base.stdout.trim() === "") {
-      throw new Error("generated-status branch has no merge base with origin/main");
+      throw new Error(
+        "generated-status branch has no merge base with origin/main",
+      );
     }
     return ["--base", base.stdout.trim(), "--head", head];
   }
@@ -54,7 +68,9 @@ export async function classifierArgs(
 
   const base = env.BASE_SHA;
   if (!base || !head) {
-    throw new Error("BASE_SHA and HEAD_SHA are required outside workflow_dispatch");
+    throw new Error(
+      "BASE_SHA and HEAD_SHA are required outside workflow_dispatch",
+    );
   }
   return ["--base", base, "--head", head];
 }
