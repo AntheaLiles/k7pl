@@ -55,11 +55,12 @@ toolchains:
     source: actions/setup-python
   - id: deno
     version: 2.9.8
-    source: denoland/setup-deno
-    note: Resolved at slice 3 implementation time by git ls-remote
-      on denoland/setup-deno: tag v2.0.5, commit
-      22d081ff2d3a40755e97629de92e3bcbfa7cf2ed, used by the
-      controller-shadow job in .github/workflows/ci.yaml.
+    source: denoland/deno and denoland/setup-deno
+    note: The impact job and the implementation/spec jobs install Deno
+      through the composite action, which pins setup-deno v2.0.5 at
+      22d081ff2d3a40755e97629de92e3bcbfa7cf2ed. The controller-shadow job
+      uses the official denoland/deno:ubuntu-2.9.8 image pinned to the
+      linux/amd64 manifest digest sha256:f64e93f8472f01e64118d48b26297e304014c778d51aaf7e491a41cc14d0ca6d.
 
 components:
   - id: specification
