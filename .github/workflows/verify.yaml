@@ -117,7 +117,7 @@ jobs:
       # The check sits right before the build, after the Mathlib cache: the steps that run even
       # after a failure (lint, audits) must not start from a cold Mathlib.
       - name: Check that every Lean file is built
-        run: python3 scripts/ci/check_lean_modules.py
+        run: deno run --allow-read tools/ci-controller/src/lean_modules.ts
 
       - name: Register the Lean problem matcher
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
