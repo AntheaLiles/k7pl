@@ -22,8 +22,10 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.workflow_file = workflow = (ROOT / ".github/workflows/k7pl-semantics.yaml").read_text(encoding="utf-8")
         # The workflow and the scripts/ci step scripts that it runs.
         self.step_scripts = sorted(set(re.findall(r"\bscripts/ci/k7pl_semantics_\w+\.sh\b", workflow)))
+        package_evidence = (ROOT / "tools/ci-controller/src/package_evidence.ts").read_text(encoding="utf-8")
         self.workflow = "\n".join(
-            [workflow] + [(ROOT / name).read_text(encoding="utf-8") for name in self.step_scripts]
+            [workflow, package_evidence]
+            + [(ROOT / name).read_text(encoding="utf-8") for name in self.step_scripts]
         )
 
     def test_verso_is_the_only_maintained_k_definition(self) -> None:
