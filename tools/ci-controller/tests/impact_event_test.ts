@@ -2,8 +2,21 @@
 //
 // SPDX-License-Identifier: CECILL-2.1
 
-import { assertEquals, assertRejects } from "./assert.ts";
+import { assertEquals } from "./assert.ts";
 import { classifierArgs, type CommandResult } from "../src/impact_event.ts";
+
+async function assertRejects(
+  action: () => Promise<unknown>,
+  message: string,
+): Promise<void> {
+  try {
+    await action();
+  } catch (error) {
+    if (error instanceof Error && error.message.includes(message)) return;
+    throw new Error(`unexpected rejection: ${String(error)}`);
+  }
+  throw new Error(`expected rejection containing ${JSON.stringify(message)}`);
+}
 
 function mockGit(
   results: Record<string, CommandResult>,
