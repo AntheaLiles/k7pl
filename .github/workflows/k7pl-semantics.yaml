@@ -166,7 +166,7 @@ jobs:
         run: lake exe cache get
 
       - name: Record K toolchain
-        run: bash scripts/ci/k7pl_semantics_record_toolchain.sh
+        run: deno run --allow-read --allow-run --allow-env=PATH tools/ci-controller/src/record_toolchain.ts
 
       - name: Test Verso executable-code extraction contract
         run: python3 scripts/ci/test_code_artifact_contract.py
@@ -178,26 +178,23 @@ jobs:
         run: make -C src/k boundary-check
 
       - name: Install the pinned Klean generator
-        shell: bash
-        run: bash scripts/ci/k7pl_semantics_install_klean.sh
+        run: deno run --allow-read --allow-write --allow-run --allow-env=RUNNER_TEMP,GITHUB_PATH tools/ci-controller/src/install_klean.ts
 
       - name: Export the compiled KORE definition to Lean
         id: export_lean
-        shell: bash
-        run: bash scripts/ci/k7pl_semantics_export_lean.sh
+        run: deno run --allow-read --allow-write --allow-run=klean --allow-env=RUNNER_TEMP,GITHUB_WORKSPACE,GITHUB_STEP_SUMMARY tools/ci-controller/src/export_lean.ts
 
       - name: Test and apply the pinned Klean/Lean compatibility shim
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m unittest discover -s "$GITHUB_WORKSPACE/scripts/ci" -p test_patch_klean_prelude.py
-          python3 "$GITHUB_WORKSPACE/scripts/ci/patch_klean_prelude.py" \
+          deno test --allow-read --allow-write tools/ci-controller/tests/klean_prelude_test.ts
+          deno run --allow-read --allow-write tools/ci-controller/src/klean_prelude.ts \
             "$RUNNER_TEMP/klean-output/k7pl2lean/K7PL2Lean/Prelude.lean" \
             | tee "$GITHUB_WORKSPACE/.formal-chain-evidence/klean-patch-report.txt"
 
       - name: Stage generated Klean modules into the maintained proof project
-        shell: bash
-        run: bash scripts/ci/k7pl_semantics_stage_klean.sh
+        run: deno run --allow-read --allow-write --allow-env=RUNNER_TEMP,GITHUB_WORKSPACE tools/ci-controller/src/stage_klean.ts
 
       - name: Build the Klean-generated Lean project
         shell: bash
@@ -222,9 +219,8 @@ jobs:
 
       - name: Render Verso Blueprint documentation
         id: blueprint
-        shell: bash
         working-directory: ${{ github.workspace }}/spec/formal-chain
-        run: bash "$GITHUB_WORKSPACE/scripts/ci/k7pl_semantics_render_blueprint.sh"
+        run: deno run --allow-read --allow-write --allow-run=lake --allow-env=GITHUB_STEP_SUMMARY tools/ci-controller/src/render_blueprint.ts
 
       - name: Attach the checked TLC model and counterexample to the formal-chain evidence
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -234,8 +230,7 @@ jobs:
 
       - name: Package formal-chain build evidence
         if: ${{ success() && steps.export_lean.outcome == 'success' && steps.blueprint.outcome == 'success' }}
-        shell: bash
-        run: bash scripts/ci/k7pl_semantics_package_evidence.sh
+        run: deno run --allow-read --allow-write --allow-run=tar --allow-env=GITHUB_WORKSPACE,RUNNER_TEMP,GITHUB_RUN_ID tools/ci-controller/src/package_evidence.ts
 
       - name: Upload formal-chain sources, HTML, and evidence
         if: ${{ success() && steps.export_lean.outcome == 'success' && steps.blueprint.outcome == 'success' }}
