@@ -38,7 +38,7 @@ function stubRunner(behavior: {
 }): StubRunner {
   const calls: string[] = [];
   let revParseCount = 0;
-  const capture: CaptureFn = async (cmd, args) => {
+  const capture: CaptureFn = (cmd, args) => {
     calls.push(`${cmd} ${args.join(" ")}`);
     if (cmd === "git" && args.includes("rev-parse")) {
       const value = behavior.revParse[
@@ -57,7 +57,7 @@ function stubRunner(behavior: {
     }
     return { code: 0, stdout: "", stderr: "" };
   };
-  const inherit: InheritFn = async (cmd, args) => {
+  const inherit: InheritFn = (cmd, args) => {
     calls.push(`${cmd} ${args.join(" ")}`);
     return behavior.inheritCode?.(cmd, args) ?? 0;
   };
@@ -165,8 +165,8 @@ Deno.test("fan-out restricts to <prefix>.* roots, bare prefix root excluded", as
   const result = await auditRoots({
     directory: "tools",
     prefix: "Compliance",
-    listRoots: async () => ["Compliance", "Compliance.Foo", "Other"],
-    audit: async (options) => {
+    listRoots: () => ["Compliance", "Compliance.Foo", "Other"],
+    audit: (options) => {
       audited.push(options.root);
       return { code: 0, errors: [], reused: false };
     },
@@ -181,8 +181,8 @@ Deno.test("fan-out with a prefix and no match is an error", async () => {
   const result = await auditRoots({
     directory: "tools",
     prefix: "Missing",
-    listRoots: async () => ["Compliance.Foo"],
-    audit: async () => ({ code: 0, errors: [], reused: false }),
+    listRoots: () => ["Compliance.Foo"],
+    audit: () => ({ code: 0, errors: [], reused: false }),
   });
   assertEquals(result.code, 1);
   assertEquals(result.audited, []);
@@ -192,7 +192,7 @@ Deno.test("fan-out audits every root and aggregates failures", async () => {
   const audited: string[] = [];
   const result = await auditRoots({
     directory: "tests",
-    listRoots: async () => ["A", "B"],
+    listRoots: () => ["A", "B"],
     audit: async (options) => {
       audited.push(options.root);
       return options.root === "B"
