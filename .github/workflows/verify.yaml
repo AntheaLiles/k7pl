@@ -107,6 +107,12 @@ jobs:
           lake-cache-key: ${{ inputs.use_cache && format('lake-deps-impl-{0}', hashFiles('lake-manifest.json', 'lean-toolchain')) || '' }}
           mathlib-cache: "true"
 
+      # Same Deno pin as the controller-shadow job in ci.yaml.
+      - name: Set up Deno
+        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+        with:
+          deno-version: v2.9.8
+
       # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The scan
       # covers src/ and tests/ only, and any declared lean_lib counts as a root, even one that this
       # job does not build (no default target).
@@ -153,7 +159,7 @@ jobs:
 
       - name: Audit the axioms (K7pl)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: scripts/axiom-audit.sh K7pl K7pl
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit K7pl K7pl
 
       # axiom-audit imports the module named by its root and audits that module and its
       # submodules. There is no `Compliance` module, so `--root Compliance` cannot be used: every
@@ -163,7 +169,7 @@ jobs:
       # CLI (Compliance.SbomAuditMain). A new root is audited without editing this workflow.
       - name: Audit the axioms (compliance tooling)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: bash scripts/ci/verify_audit_axioms.sh tools Compliance
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit-roots tools Compliance
 
       # axiom-audit audits one root namespace per run and the test modules are flat (ArithTest,
       # SemanticsTest, MainTest): `--root K7plTests` matches no module and fails with "unknown
@@ -171,7 +177,7 @@ jobs:
       # without editing this workflow; every root is audited even if an earlier one fails.
       - name: Audit the axioms (tests)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: bash scripts/ci/verify_audit_axioms.sh tests
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit-roots tests
 
   python-tests:
     name: Tests de l'outillage Python
@@ -334,6 +340,12 @@ jobs:
           lake-cache-key: ${{ inputs.use_cache && format('lake-deps-spec-{0}', hashFiles('lake-manifest.json', 'lean-toolchain')) || '' }}
           mathlib-cache: ${{ inputs.use_cache }}
 
+      # Same Deno pin as the controller-shadow job in ci.yaml.
+      - name: Set up Deno
+        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+        with:
+          deno-version: v2.9.8
+
       - name: Register the Lean problem matcher
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
 
@@ -349,20 +361,20 @@ jobs:
         run: lake build K7plPrototypes
 
       - name: Audit the axioms (Spec)
-        run: scripts/axiom-audit.sh Spec Spec
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit Spec Spec
 
       - name: Audit the axioms (Spec.C3.EffectiveKernel)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: scripts/axiom-audit.sh Spec.C3.EffectiveKernel Spec
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit Spec.C3.EffectiveKernel Spec
 
       # SpecExt and SpecBib are separate roots: `--root Spec` does not cover them.
       - name: Audit the axioms (SpecExt)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: scripts/axiom-audit.sh SpecExt SpecExt
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit SpecExt SpecExt
 
       - name: Audit the axioms (SpecBib)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: scripts/axiom-audit.sh SpecBib SpecBib
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit SpecBib SpecBib
 
       - name: Download generated TikZ figure assets
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
