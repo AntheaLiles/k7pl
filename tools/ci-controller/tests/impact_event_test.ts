@@ -7,6 +7,7 @@ import { classifierArgs, type CommandResult } from "../src/impact_event.ts";
 
 async function assertRejects(
   action: () => Promise<unknown>,
+  _errorType: unknown,
   message: string,
 ): Promise<void> {
   try {
