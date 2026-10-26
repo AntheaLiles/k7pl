@@ -1025,7 +1025,18 @@ export async function main(
 ): Promise<number> {
   const args = parseArgs(argv);
   if (args === null) return 2;
-  const environment = env ?? Deno.env.toObject();
+  // Read only the GitHub Actions variables used by this module. Keeping the
+  // CLI permission list explicit avoids granting blanket environment access.
+  const environment = env ?? {
+    GITHUB_ACTIONS: Deno.env.get("GITHUB_ACTIONS"),
+    GITHUB_EVENT_PATH: Deno.env.get("GITHUB_EVENT_PATH"),
+    RUNNER_TEMP: Deno.env.get("RUNNER_TEMP"),
+    GITHUB_RUN_ID: Deno.env.get("GITHUB_RUN_ID"),
+    GITHUB_RUN_ATTEMPT: Deno.env.get("GITHUB_RUN_ATTEMPT"),
+    GITHUB_WORKFLOW: Deno.env.get("GITHUB_WORKFLOW"),
+    GITHUB_SHA: Deno.env.get("GITHUB_SHA"),
+    GITHUB_STEP_SUMMARY: Deno.env.get("GITHUB_STEP_SUMMARY"),
+  };
   const annotate = environment["GITHUB_ACTIONS"] === "true";
   try {
     await produce(args, environment, runAudit);
