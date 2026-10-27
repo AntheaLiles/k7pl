@@ -2,12 +2,15 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Cross-check: the grammar of terms must cover the typing rules, and the lists must agree.
+"""Cross-check: the grammar of terms must cover the typing rules.
 
-Three objects should coincide: the grammar of terms (annex E), the set of typing rules, and the
-list of primitives (the "Primitive inventory" table in `wiki/research.md`, successor of the
-deleted `docs/tracking/primitives.md` since the complete tracking, review and method closing
-of 2026-10-25). This compares them and prints the counts.
+Two objects should coincide: the grammar of terms (annex E) and the set of typing rules.
+The third leg of the former three-way cross-check, the "Primitive inventory" table in
+`wiki/research.md`, was removed by owner decision 2026-10-25 (D1): annex E was folded into
+the rest of the specification, the primitive table is meant to be integrated in K and to
+disappear, so the leg was useless and blocking. The wiki is a view of what is to be done
+and what is done, not a normative constituent: no specification check reads it as a
+normative input.
 """
 
 from __future__ import annotations
@@ -194,20 +197,6 @@ def run():
     if unknown:
         good = False
         ko("règles absentes du tableau de croisement (scripts/controles/croise.py) : %s" % unknown)
-
-    primitives = (corpus.SPEC.parent / "wiki" / "research.md")
-    if primitives.exists():
-        section = primitives.read_text(encoding="utf-8")
-        section = section.split("## Primitive inventory", 1)[1].split("## ", 1)[0] if "## Primitive inventory" in section else ""
-        listed = set()
-        for rule in re.findall(r"^\| `([^`]+)` \|", section, re.M):
-            listed.update(x.strip().lower() for x in re.split(r"[,;/ ]+", rule.strip()) if x.strip())
-        missing = sorted(r for r in rules & set(EXPECTED) if r.lower() not in listed)
-        if missing:
-            good = False
-            ko("règles écrites sans entrée à la liste des primitives (wiki/research.md, Primitive inventory) : %s" % missing)
-    else:
-        ko("wiki/research.md introuvable — croisement à trois non conduit")
 
     types = corpus.formula("eq:grammaire-types")
     if types:

@@ -74,8 +74,11 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
       - name: Check documentation architecture
-        run: python3 scripts/ci/check_documentation_architecture.py
+        run: deno run --allow-read tools/ci-controller/src/documentation_architecture.ts
 
       - name: Check the specification
         if: ${{ inputs.full || inputs.spec_check }}
@@ -107,13 +110,18 @@ jobs:
           lake-cache-key: ${{ inputs.use_cache && format('lake-deps-impl-{0}', hashFiles('lake-manifest.json', 'lean-toolchain')) || '' }}
           mathlib-cache: "true"
 
-      # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The scan
-      # covers src/ and tests/ only, and any declared lean_lib counts as a root, even one that this
-      # job does not build (no default target).
+      # Same Deno pin as the controller-shadow job in ci.yaml.
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
+      # A Lean file that no lean_lib/lean_exe root reaches is never compiled by `lake build`. The
+      # Deno port scans src/, tests/, tools/ and spec/ using the declared roots; separate Lake
+      # workspaces such as spec/formal-chain/ are reported and excluded.
       # The check sits right before the build, after the Mathlib cache: the steps that run even
-      # after a failure (lint, audits) must not start from a cold Mathlib.
+      # after a failure (lint, audits) must not start from a cold Mathlib. The Python port remains
+      # in-tree until the Deno migration has passed a full green cycle.
       - name: Check that every Lean file is built
-        run: python3 scripts/ci/check_lean_modules.py
+        run: deno run --allow-read tools/ci-controller/src/lean_modules.ts
 
       - name: Register the Lean problem matcher
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
@@ -121,12 +129,19 @@ jobs:
       - name: Build the implementation and the tests
         run: lake build K7pl K7plTests K7plCompliance sbomAudit
 
-      # scripts/ci/sbom_evidence.py checks the report, replays four negative inputs through
-      # `lake exe sbomAudit` and writes the evidence JSON and the job summary. The Paperproof
-      # workspace has its own manifest, inventoried in a separate document: sbom_evidence.py checks
-      # it against that manifest in Python; sbomAudit does not audit it (its contract is k7pl's).
+      # Generate both inventories and the Lean audit report, then let the Deno evidence
+      # checker validate the report, replay four negative inputs through `lake exe sbomAudit`,
+      # check Paperproof's separate manifest/SPDX pair, and write the evidence JSON and job summary.
+      # The old shell/Python orchestrator remains in-tree during the staged migration.
       - name: Audit the scoped Lake-to-SPDX inventory
-        run: bash scripts/ci/verify_sbom_audit.sh
+        # Path resolution uses Deno.cwd(), which requires the env permission.
+        shell: bash
+        run: |
+          set -euo pipefail
+          deno run --allow-read --allow-write --allow-env tools/ci-controller/src/lake_to_spdx.ts --created 2026-10-10T00:00:00Z --output "$RUNNER_TEMP/k7pl-lake.spdx.json"
+          deno run --allow-read --allow-write --allow-env tools/ci-controller/src/lake_to_spdx.ts --manifest "$PAPERPROOF_WORKSPACE/lake-manifest.json" --created 2026-10-10T00:00:00Z --output "$RUNNER_TEMP/k7pl-paperproof-export-lake.spdx.json"
+          lake exe sbomAudit lake-manifest.json "$RUNNER_TEMP/k7pl-lake.spdx.json" > "$RUNNER_TEMP/k7pl-sbom-audit.json"
+          deno run --allow-read --allow-write --allow-run=lake --allow-env=GITHUB_ACTIONS,GITHUB_EVENT_PATH,RUNNER_TEMP,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_WORKFLOW,GITHUB_SHA,GITHUB_STEP_SUMMARY tools/ci-controller/src/sbom_evidence.ts --report "$RUNNER_TEMP/k7pl-sbom-audit.json" --manifest lake-manifest.json --sbom "$RUNNER_TEMP/k7pl-lake.spdx.json" --extra-inventory "$PAPERPROOF_WORKSPACE/lake-manifest.json" "$RUNNER_TEMP/k7pl-paperproof-export-lake.spdx.json" --output "$RUNNER_TEMP/k7pl-sbom-evidence.json"
 
       - name: Upload scoped SBOM audit evidence
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -153,16 +168,17 @@ jobs:
 
       - name: Audit the axioms (K7pl)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: scripts/axiom-audit.sh K7pl K7pl
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit K7pl K7pl
 
       # axiom-audit imports the module named by its root and audits that module and its
       # submodules. There is no `Compliance` module, so `--root Compliance` cannot be used: every
       # Compliance.* root of tools/ in lakefile.lean is audited, the roots of K7plCompliance
-      # (Compliance.SbomAudit, Compliance.RequirementEvidence) and of the sbomAudit CLI
-      # (Compliance.SbomAuditMain). A new root is audited without editing this workflow.
+      # (Compliance.SbomAudit; RequirementEvidence was deleted in the CI tranche 2, its
+      # traceability model transcribed into the proof-evidence schema) and of the sbomAudit
+      # CLI (Compliance.SbomAuditMain). A new root is audited without editing this workflow.
       - name: Audit the axioms (compliance tooling)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: bash scripts/ci/verify_audit_axioms.sh tools Compliance
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit-roots tools Compliance
 
       # axiom-audit audits one root namespace per run and the test modules are flat (ArithTest,
       # SemanticsTest, MainTest): `--root K7plTests` matches no module and fails with "unknown
@@ -170,7 +186,7 @@ jobs:
       # without editing this workflow; every root is audited even if an earlier one fails.
       - name: Audit the axioms (tests)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: bash scripts/ci/verify_audit_axioms.sh tests
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit-roots tests
 
   python-tests:
     name: Tests de l'outillage Python
@@ -333,6 +349,10 @@ jobs:
           lake-cache-key: ${{ inputs.use_cache && format('lake-deps-spec-{0}', hashFiles('lake-manifest.json', 'lean-toolchain')) || '' }}
           mathlib-cache: ${{ inputs.use_cache }}
 
+      # Same Deno pin as the controller-shadow job in ci.yaml.
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
       - name: Register the Lean problem matcher
         run: echo "::add-matcher::.github/lean-problem-matcher.json"
 
@@ -348,20 +368,20 @@ jobs:
         run: lake build K7plPrototypes
 
       - name: Audit the axioms (Spec)
-        run: scripts/axiom-audit.sh Spec Spec
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit Spec Spec
 
       - name: Audit the axioms (Spec.C3.EffectiveKernel)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: scripts/axiom-audit.sh Spec.C3.EffectiveKernel Spec
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit Spec.C3.EffectiveKernel Spec
 
       # SpecExt and SpecBib are separate roots: `--root Spec` does not cover them.
       - name: Audit the axioms (SpecExt)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: scripts/axiom-audit.sh SpecExt SpecExt
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit SpecExt SpecExt
 
       - name: Audit the axioms (SpecBib)
         if: ${{ !cancelled() && steps.lean.outcome == 'success' }}
-        run: scripts/axiom-audit.sh SpecBib SpecBib
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit SpecBib SpecBib
 
       - name: Download generated TikZ figure assets
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -371,8 +391,11 @@ jobs:
 
       # Offline checks of the workspace's manifest (its own allow-list, pins and toolchain) before
       # `lake exe cache get` clones and runs code from the packages it names.
+      - name: Set up Deno for manifest validation
+        uses: ./.github/actions/setup-deno
+
       - name: Check the Paperproof workspace manifest
-        run: python3 scripts/ci/check_manifest.py --manifest "$PAPERPROOF_WORKSPACE/lake-manifest.json"
+        run: deno run --allow-read --allow-env=GITHUB_ACTIONS tools/ci-controller/src/manifest.ts --manifest "$PAPERPROOF_WORKSPACE/lake-manifest.json"
 
       # Keyed on the workspace's own manifest and toolchain: its packages differ from the root's.
       - name: Restore the Paperproof workspace's Lake packages
@@ -528,7 +551,10 @@ jobs:
           name: spec-pdf-log
           path: _out/spec/tex/main.log
           retention-days: 14
-          if-no-files-found: warn
+          # F2, owner decision 2026-10-25: a missing compilation
+          # log must fail, not warn silently, like the PDF itself
+          # (already error below).
+          if-no-files-found: error
 
       - name: Upload the specification (PDF)
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

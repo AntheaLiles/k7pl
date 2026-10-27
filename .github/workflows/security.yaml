@@ -30,24 +30,39 @@ jobs:
 
   badge-criteria-drift:
     name: Detect upstream BadgeApp criteria drift
+    # Unchanged by F3: schedule and manual runs only, never on
+    # pull_request. A drift therefore fails a scheduled or manual
+    # run, not a PR; the registry update that fixes it is a
+    # deliberate manual change, reviewed from the report.
     if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
+      security-events: write # F3: upload the drift SARIF to Code Scanning
+      actions: read # read by codeql-action/upload-sarif (codeql-action#2117)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Compare pinned criteria blob IDs with upstream
         run: bash scripts/ci/security_badge_criteria_drift.sh
+      - name: Upload drift SARIF to Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          sarif_file: ${{ runner.temp }}/badge-criteria-drift.sarif
+          category: badge-criteria-drift
       - name: Preserve drift-check report
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: badge-criteria-drift-${{ github.run_id }}
           path: ${{ runner.temp }}/badge-criteria-drift.json
-          if-no-files-found: warn
+          # F1, owner decision 2026-10-25: a missing drift report
+          # must fail, not warn silently: the report is the
+          # evidence the drift verdict rests on.
+          if-no-files-found: error
           retention-days: 90
   actionlint:
     runs-on: ubuntu-latest
@@ -127,10 +142,13 @@ jobs:
         with:
           persist-credentials: false
       # Root workspace only. tools/paperproof-export/lake-manifest.json is not scanned:
-      # lake_manifest_to_osv.py checks a manifest against the root allow-list, lakefile.lean and
-      # lean-toolchain, and refuses that one (Paperproof is not allowed, cslib and verso missing).
+      # the shared Deno manifest validator enforces the root allow-list, lakefile.lean and
+      # lean-toolchain before generating the OSV-Scanner lockfile.
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
       - name: Validate and convert the Lake manifest
-        run: python3 scripts/ci/lake_manifest_to_osv.py --output lake-osv-scanner.json
+        run: deno run --allow-read --allow-write tools/ci-controller/src/lake_to_osv.ts --output lake-osv-scanner.json
       - name: Upload OSV-Scanner custom lockfile
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
@@ -156,3 +174,33 @@ jobs:
       # dependency is bumped or the finding is assessed. The SARIF upload still runs.
       fail-on-vuln: true
       upload-sarif: true
+
+  # Guard against a silent OSV skip (open diagnostic, 2026-10-25: OSV was observed
+  # systematically skipped with no if-condition in this file to explain it, and the
+  # underlying cause — parent job, inner reusable-workflow job, or SARIF upload —
+  # is still undiagnosed from a real run). A skipped scan must not read as a clean
+  # scan: this job runs always and fails unless the scan actually succeeded. It
+  # makes a skip visible; it does not explain it, and it does not replace the
+  # run-level diagnosis.
+  osv-guard:
+    name: OSV scan actually ran
+    needs: lake-osv-scan
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Fail unless the OSV scan succeeded
+        # zizmor template-injection (2026-10-26): never interpolate
+        # a ${{ }} expression into a run script, even for a
+        # runner-controlled value like a job result. Pass it
+        # through env instead; the script only reads the env var.
+        env:
+          OSV_SCAN_RESULT: ${{ needs.lake-osv-scan.result }}
+        run: |
+          if [ "$OSV_SCAN_RESULT" != "success" ]; then
+            echo "::error::OSV scan did not succeed (result: $OSV_SCAN_RESULT); a skipped scan is not a clean scan."
+            exit 1
+          fi
+          echo "OSV scan succeeded."

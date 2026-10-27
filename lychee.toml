@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CC0-1.0
+#
+# Lychee configuration for the external-links job in
+# .github/workflows/ci.yaml (and, by lychee's default config
+# loading, for any other lychee run from the repository root;
+# the local-links job in verify.yaml runs --offline, so the
+# external-only exclusions below do not affect it).
+#
+# Exceptions are per exact URL only — no wildcard, no
+# per-domain entry, as decided for F0 (2026-10-25). Every
+# exception below was manually verified on 2026-10-26 and
+# must be re-checked at review, 2027-01-24 (90 days).
+# An exception is a statement about lychee's checker, not
+# about the link: none of these URLs is dead, and none of
+# them is removed from the documents.
+#
+# Group 1 — DOI links blocked for automated checkers (403).
+# Each DOI resolves to a valid Crossref record (status ok,
+# verified 2026-10-26 via api.crossref.org); doi.org and
+# dl.acm.org return 403 to lychee and to automated fetches.
+exclude = [
+  "^https://doi\\.org/10\\.1142/S021819402450030X$",
+  "^https://doi\\.org/10\\.1145/3803862$",
+  "^https://doi\\.org/10\\.1145/1040305\\.1040327$",
+  "^https://doi\\.org/10\\.1145/3371102$",
+  "^https://doi\\.org/10\\.1145/2951913\\.2951924$",
+  "^https://doi\\.org/10\\.1145/3808252$",
+  # Group 2 — TLS failures in lychee's checker only.
+  # https://cecill.info/ loads in a browser (2026-10-26);
+  # lychee reports "SSL certificate not trusted / UnknownIssuer".
+  "^https://cecill\\.info/$",
+  # https://9p.io/plan9/about.html loads in a browser
+  # (2026-10-26); lychee reports a TLS HandshakeFailure.
+  "^https://9p\\.io/plan9/about\\.html$",
+  # Group 3 — lychee reports 404, a browser GET does not.
+  # https://git.9front.org/plan9front/plan9front/HEAD/info.html
+  # returns the gitweb page on a GET (2026-10-26). Treat as
+  # checker-dependent, NOT as a dead link; recheck first at
+  # review, before any other change to this entry.
+  "^https://git\\.9front\\.org/plan9front/plan9front/HEAD/info\\.html$",
+  # Exact URL exception: https://www.gnu.org/software/hurd/hurd.html
+  # GNU rate-limits repeated CI checks with HTTP 429 even after the
+  # 30-second host interval. The page is live (search result checked
+  # 2026-10-27; browser/indexed content confirms the GNU Hurd page).
+  # Re-check this exception by 2027-01-25 (90 days); do not widen it
+  # to all of gnu.org or treat HTTP 429 as an accepted status.
+  "^https://www\\.gnu\\.org/software/hurd/hurd\\.html$",
+  # Exact URL exception: GNU Mach's introduction page is cited twice in the
+  # K7OS comparison. The CI runner receives HTTP 429 for this host even with
+  # the 30-second host interval; this is a rate-limit result, not a dead page.
+  # Re-check by 2027-01-25 (90 days). Do not exclude all of gnu.org or accept 429.
+  "^https://www\\.gnu\\.org/software/hurd/gnumach-doc/Introduction\\.html$",
+  # Exact URL exception: the GNU/Hurd User's Guide, cited twice in the
+  # K7OS comparison, is the last gnu.org URL still checked. The runner's
+  # 429 moved from hurd.html (run 40411492295) to Introduction.html (run
+  # 40418281586) once the former was excepted. On 2026-10-26 (UTC) an
+  # automated fetch from outside the runner also got 429 (Retry-After: 4)
+  # for this page. Existence evidence, 2026-10-26: the exact URL is listed
+  # by a web search restricted to gnu.org; Wayback Machine 200 capture of
+  # 2026-01-04. Browser check by the owner pending. Re-check by 2027-01-24
+  # (90 days). Do not exclude all of gnu.org or accept 429.
+  "^https://www\\.gnu\\.org/software/hurd/users-guide/using_gnuhurd\\.html$",
+]
+
+# gnu.org rate-limits the runner (429 on hurd pages, which
+# load in a browser). Slow this host down instead of
+# accepting 429s: one request at a time, 30 s apart.
+# 5 s proved insufficient: run 40353676170 (2026-10-26)
+# still reported 429 on https://www.gnu.org/software/hurd/hurd.html
+# twice, after lychee's 3 retries at 5 s, while the same page
+# returns 200 outside the runner. Only 3 gnu.org URLs exist
+# in the repository, so 30 s costs at most ~90 s of job time.
+# If 30 s still fails on the next run, the fallback is an
+# exact-URL exclusion for hurd.html with the same 90-day
+# re-verification as the entries above — not a per-domain
+# entry and not an accepted 429.
+# 30 s did not suffice either: the three gnu.org URLs cited
+# today are exact-URL exceptions above, so this block now only
+# paces gnu.org URLs added later.
+[hosts."www.gnu.org"]
+concurrency = 1
+request_interval = "30s"
