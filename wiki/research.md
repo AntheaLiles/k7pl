@@ -1445,8 +1445,8 @@ as "un vieux (très vieux) dossier (il a plus d'un an) avec les
 prémisses K de K7PL", to be sorted, classed, evaluated and criticised
 against the current specification "sans y accorder trop
 d'importance". The archive is not added to the repository; this
-section is the whole of what is kept from it, pending the author's
-decision (remaining actions below).
+section is the whole of what is kept from it (the author's decision
+and the extraction are at its end).
 
 ### Facts
 
@@ -1540,12 +1540,90 @@ and boolean literals, flags, the length of a text, units, memory
 annotations for the doubled forms, transactional handlers, and a
 library of layer-2 orchestration patterns.
 
-### Remaining actions (author)
+### Decision and extracted value
 
-- Keep the archive in the repository (where, under which licence
-  header) or leave it out, this section being its record.
-- Say which inputs become questions; the fifth part takes those that
-  meet a question already open.
+The author chose on 2026-10-27 (Q-ARC-001, option A): the archive
+stays out of the repository, « Extract remaining value (eg lemme
+candidat, glyphes, etc.) Then trash it out. » What follows is that
+extraction, made mechanically from the quoted terminals of the
+archive's `syntax` declarations and compared with the code spans and
+listings of `spec/` and with `tab:glyphes`; the archive itself was
+then deleted. Nothing here is decided: these are candidates for the
+vocabulary lots.
+
+**Glyphs.** The archive's tacit layer reads 33 glyphs. Twelve are
+absent from `tab:glyphes`:
+
+| Glyph | Archive's name | Note |
+|---|---|---|
+| `´` | fold | named « pli » by chapter 5, absent from the table |
+| `¨` | each | named « chacun » by chapter 5, absent from the table |
+| `˜` | swap | BQN's Self/Swap |
+| `` ` `` | scan | |
+| `⌜` | table | BQN's Table |
+| `∘` | atop | |
+| `○` | over | |
+| `←` | definition (`mean ← +´÷≠`) | K7PL defines with `def` (Q-SPEC-203) |
+| `«` `»` | shift | `« s »` is now the view of a raw text (Q-STR-308) |
+| `√` | square root | written by chapter 5's standard deviation, absent from the table |
+| `⊐` | index of | |
+| `⊑` | pick | |
+
+Chapter 5 also writes `²` (square), which neither the table nor the
+archive holds. The aliases of these glyphs (`fold`, `each`, `sqrt`,
+`square`…) are the direction chosen by Q-LEX-505, each still to weigh.
+
+**Candidate lemmas.** Of the archive's 224 keyword terminals, 38 are
+already written by the specification (`lambda`, `let`, `match`,
+`pure`, `terminates`, `event`, `contract`, `logic`, `defactor`,
+`deftype`, `bind-to`, `spawn`, `send`, `dup`, `guard`, `when`…). The
+others, grouped, without the machine types (`i8`…`u64`, `f32`, `f64`,
+superseded by the number families), `true` and `false` (superseded by
+`t` and `f`, Q-LEX-506), and two words without meaning (`hello`,
+`sugoi`):
+
+- Definitions and declarations: `define`, `define-computation`,
+  `deftemplate`, `deftrait`, `definterface`, `defstream`, `defstage`,
+  `deforchestrator`, `defmemory`, `defcluster`, `defconversion`,
+  `deftype-layout`, `deftype-op`, `defsecurity-lattice`, `impl`,
+  `self`, `requires`, `needs-cap` — candidate envelopes of `def`
+  (Q-SPEC-204).
+- Layer-2 orchestration: `ask`, `ask-and-continue`, `scatter-gather`,
+  `collect-from`, `feed-to`, `msg-to`, `pipeline`, `consume`,
+  `connect`, `reply`, `on-message`, `init`, `handler-result`,
+  `stage-result`, `with-state`, `transfer`, `revoke`, `keep`, `quota`,
+  `priority`.
+- Control and quotation: `if`, `for`, `apply`, `quote`,
+  `quasiquote`, `unquote`, `lazy`, `mut`, `imm`.
+- Stack words of concatenative blocks, beside `dup`: `swap`, `rot`,
+  `nip`, `over`, `dip`, `pop`.
+- Bit operations: `bit-and`, `bit-or`, `bit-xor`, `bit-not`,
+  `bit-shift-left`, `bit-shift-right`.
+- Memory: `in-region`, `shared-mem`, `mem-load`, `mem-store`,
+  `mem-grow`, `mem-size`, and the flags `+stack`, `+region`, `+rc`,
+  `+arena` (doubled forms, Q-LEX-401 to Q-LEX-403; flags, Q-LEX-507).
+- Supervision and life cycle: `+restart-always`, `+restart-never`,
+  `+restart-max`, `+restart-with-state`, `+sandbox-none`,
+  `+sandbox-process`, `+sandbox-region`; the states `created`,
+  `idle`, `running`, `paused`, `restarting`, `crashed`, `completed`,
+  `dead`.
+- Streams: `backpressure` and its policies `block`, `drop-oldest`,
+  `drop-newest`, `error` (`ERR-CMP-002`).
+- Tests: `describe`, `it`, `expect`, `expect-err`, `fuzz`,
+  `:to-equal`.
+- Properties: `:emit`, `:new-state`, `:reply`, `:reply-to`,
+  `:on-timeout`, `:on-reply`, `:on-partial`, `:timeout`, `:invariant`,
+  `:guard`, `:unit`, `:dimension`, `:offset`, `:align`, `:padding`,
+  `:size`, `:policy`, `:growth-policy`, `:replicas`, `:targets`,
+  `:security`, `:read`, `:write`, `:read-write`, `:cpu`, `:memory`,
+  `:host`, `:port`, `:metrics`, `:logs`.
+
+**Other value**, already carried by the classification above: the
+allocation hierarchy and its annotations, commit or rollback of a
+`HandlerResult` with `emit` sent after commit, the backpressure
+policies, SI dimension vectors, `@` text patterns after TXR (now the
+author's reservation of `@`, Q-STR-307), and the layer-2 patterns
+`ask-and-continue`, `scatter-gather` and `saga`.
 
 ## Research lot closure
 
