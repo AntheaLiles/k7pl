@@ -51,7 +51,7 @@ function messageOf(node: KNode | undefined): string | undefined {
   return token.slice(1, -1);
 }
 
-const OPENING: Record<string, string> = { square: "[", paren: "(", brace: "{" };
+const OPENING: Record<string, string> = { square: "[", paren: "(", brace: "{", quote: '"' };
 const CLOSING: Record<string, string> = { square: "]", paren: ")", brace: "}" };
 /** Codes whose site is a closing delimiter; every other site is an opening one. */
 const AT_CLOSER = new Set(["ERR-DLM-002", "ERR-DLM-003"]);

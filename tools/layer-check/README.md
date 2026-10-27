@@ -23,6 +23,11 @@ Checks the K7PL texts of the repository with the two K readers of
   text and emit the same `ERR-TOP` codes in the same order; when it finds one, the tree reader must
   fail to read the text. This catches a difference between the two lexical syntaxes or between the
   two readings of the grammar of the layers.
+- **Lexical probes.** The `.k7` files of [`tests/lexical/`](../../tests/lexical/) give, after
+  `;; expect:`, the class (`Symbol`, `Train`, `Number`, `String`) the tree reader must give each
+  atom of the line; `kast --output json` reads them.
+- **Glyphs.** The glyphs of the `Train` token of `lexicon/syntax/tokens.k` must be the glyphs of the
+  table of chapter 1 (`tab:glyphes`) and the modifiers `´` and `¨` of chapter 5, no more, no less.
 - **Association.** Every message that K emits must be the text of the row of its code in annex A,
   word for word, and every code that `lexicon/syntax/codes.k` declares must have such a row and be
   emitted by at least one text ([`tests/layers/`](../../tests/layers/) holds probes for every code).
@@ -32,7 +37,7 @@ or directly:
 
 ```sh
 deno run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts check \
-  --definition src/k/.build/layers-kompiled --balance src/k/.build/balance-kompiled
+  --definition src/k/.build/layers-kompiled --balance src/k/.build/balance-kompiled --kast kast
 ```
 
 The unit tests need no K installation: `deno task test` from this directory. Like
@@ -40,6 +45,5 @@ The unit tests need no K installation: `deno task test` from this directory. Lik
 
 **Limits.** K 7.1.337 aborts on the `locations` attribute for these definitions, so a line is the
 balance reader's own count of line breaks, and a column is not given. Inline code spans of the
-specification are not checked: nothing in their markup says which ones are K7PL. An unclosed string
-is refused by the K parser without an `ERR` code, until the author decides which segment it belongs
-to.
+specification are not checked: nothing in their markup says which ones are K7PL. A quote inside a
+comment gets no code (Q-ERR-101): a comment runs to the end of its line.

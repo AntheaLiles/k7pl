@@ -41,6 +41,18 @@ Deno.test("a closing delimiter of another pair names the open delimiter it meets
   );
 });
 
+Deno.test("a string never closed is reported at its opening quote", () => {
+  // krun output of the balance reader for "(f \"a\nb\n".
+  const refusals = refusalsOf(fixture("open-string.json"));
+  assertEquals(
+    refusals.map((r) => [r.code, r.line, r.site]),
+    [
+      ["ERR-DLM-004", 1, '`"` line 1'],
+      ["ERR-DLM-001", 1, "`(` line 1"],
+    ],
+  );
+});
+
 Deno.test("a well layered text leaves no refusal", () => {
   assertEquals(refusalsOf(fixture("accepted.json")), []);
 });

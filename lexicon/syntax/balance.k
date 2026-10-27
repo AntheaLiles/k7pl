@@ -8,6 +8,7 @@
 // - ERR-DLM-001: an opening delimiter never closed;
 // - ERR-DLM-002: a closing delimiter while no delimiter is open;
 // - ERR-DLM-003: a closing delimiter of another pair than every delimiter still open;
+// - ERR-DLM-004: a string never closed, which runs to the end of the text (Q-ERR-101);
 // - ERR-TOP-001 to ERR-TOP-003: an opening delimiter that the grammar of the layers does
 //   not admit inside the delimiter it opens in (crossings.k).
 //
@@ -28,11 +29,14 @@ module LINES
 
   syntax Chars [hook(STRING.String)]
   syntax Chars ::= chars(Text) [function, total, hook(STRING.token2string)]
+                 | openChars(OpenText) [function, total, hook(STRING.token2string)]
                  | character(Int) [function, total, hook(STRING.chr)]
   syntax Int ::= occurrences(Chars, Chars) [function, total, hook(STRING.countAllOccurrences)]
 
   syntax Int ::= lineBreaks(Text) [function, total]
+                | openLineBreaks(OpenText) [function, total]
   rule lineBreaks(T) => occurrences(chars(T), character(10))
+  rule openLineBreaks(T) => occurrences(openChars(T), character(10))
 endmodule
 
 module BALANCE
@@ -44,6 +48,7 @@ module BALANCE
   imports K-EQUAL
 
   syntax Pair ::= "square" [symbol(square)] | "paren" [symbol(paren)] | "brace" [symbol(brace)]
+                | "quote" [symbol(quote)] // the double quotes of a string
 
   // The delimiters still open, the innermost first, each with the line where it opens.
   syntax Open ::= opened(Pair, Int) [symbol(opened)]
@@ -65,6 +70,7 @@ module BALANCE
   rule read(.Stream, S, _) => unclosed(S)
   rule read(_:Newline I, S, L) => read(I, S, L +Int 1)
   rule read(T:Text I, S, L) => read(I, S, L +Int lineBreaks(T))
+  rule read(T:OpenText I, S, L) => located(refuse(ERR-DLM-004), at(quote, L)) read(I, S, L +Int openLineBreaks(T))
   rule read(_:Word I, S, L) => read(I, S, L)
   rule read(`openSquare`(.KList) I, S, L) => push(I, S, L, square)
   rule read(`openParen`(.KList) I, S, L) => push(I, S, L, paren)

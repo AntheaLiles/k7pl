@@ -16,17 +16,19 @@ module STREAM
                 | ";[" [symbol(disabledSquare)]
                 | ";(" [symbol(disabledParen)]
                 | ";{" [symbol(disabledBrace)]
-                | Word | Text | Newline
+                | Word | Text | OpenText | Newline
 
   syntax Stream ::= List{Item, ""} [symbol(stream)]
 
-  syntax Word [token]    // a symbol or a number
+  syntax Word [token]    // a symbol, a train or a number
   syntax Text [token]    // a string literal, which may span lines
+  syntax OpenText [token] // a string never closed: it runs to the end of the text
   syntax Newline [token]
 endmodule
 
-// Lexical syntax of the stream (kompile --syntax-module SCANNER). A word follows the
-// symbols and numbers of tokens.k and a text its strings; comments are those of chapter 5.
+// Lexical syntax of the stream (kompile --syntax-module SCANNER). A word is a symbol, a
+// train or a number of tokens.k, and a text one of its strings; comments are those of
+// chapter 5.
 // tools/layer-check reads every text with both readers, so that a difference between the
 // two lexical syntaxes shows as a disagreement.
 module SCANNER
@@ -34,6 +36,7 @@ module SCANNER
 
   syntax Word ::= r"([^ \\t\\n\\r\\[\\](){}\\\";]|;[^ \\t\\n\\r\\[\\](){}\\\";])+|;" [token]
   syntax Text ::= r"\\\"([^\\\"\\\\]|\\\\.)*\\\"" [token]
+  syntax OpenText ::= r"\\\"([^\\\"\\\\]|\\\\.)*" [token]
   syntax Newline ::= r"\\r?\\n" [token]
 
   syntax #Layout ::= r"(;;[^\\n\\r]*)"

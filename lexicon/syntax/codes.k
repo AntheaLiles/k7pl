@@ -10,12 +10,14 @@
 // - ERR-TOP-001 to ERR-TOP-003: the three inclusions refused by the grammar of the layers
 //   (crossings.k), from the most specific container (layer 3) to the most generic one.
 // - ERR-DLM-001 to ERR-DLM-003: delimiters that do not pair (author's choices of
-//   2026-10-26, questionnaire Q-LEX-006 and Q-ERR-001: one code per kind of fault). Their
-//   messages are proposals, put to the author in the third part of the lot.
+//   2026-10-26, questionnaire Q-LEX-006 and Q-ERR-001: one code per kind of fault); their
+//   messages are confirmed by the author (2026-10-27, Q-ERR-102).
+// - ERR-DLM-004: a string never closed (author's choice of 2026-10-27, Q-ERR-101); its
+//   message is a proposal.
 
 module CODES
   syntax Code ::= "ERR-TOP-001" | "ERR-TOP-002" | "ERR-TOP-003"
-                | "ERR-DLM-001" | "ERR-DLM-002" | "ERR-DLM-003"
+                | "ERR-DLM-001" | "ERR-DLM-002" | "ERR-DLM-003" | "ERR-DLM-004"
 
   // A message is kept as written, in a token sort of its own.
   syntax Message ::= r"\\\"[^\\\"]*\\\"" [token]
@@ -29,6 +31,7 @@ module CODES
   rule message(ERR-DLM-001) => "Délimiteur ouvrant jamais refermé. Ajouter le délimiteur fermant de sa paire, ou retirer l'ouvrant."
   rule message(ERR-DLM-002) => "Délimiteur fermant sans délimiteur ouvrant. Retirer le fermant, ou ajouter l'ouvrant de sa paire."
   rule message(ERR-DLM-003) => "Délimiteur fermant d'une autre paire que les délimiteurs encore ouverts. Fermer le dernier délimiteur ouvert par le fermant de sa paire."
+  rule message(ERR-DLM-004) => "Chaîne jamais refermée : elle court jusqu'à la fin du texte. Ajouter le guillemet fermant."
 
   syntax Refusal ::= refuse(Code) [function, total]
   rule refuse(C) => refusal(C, message(C))

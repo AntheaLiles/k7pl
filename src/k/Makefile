@@ -5,6 +5,7 @@ PYTHON ?= python3
 DENO ?= deno
 KOMPILE ?= kompile
 KRUN ?= krun
+KAST ?= kast
 KLEAN ?= klean
 K_BACKEND ?= llvm
 LEXICON := ../../lexicon
@@ -61,9 +62,10 @@ balance-kompile:
 	$(KOMPILE) "$(BALANCE_SOURCE)" --backend $(K_BACKEND) --main-module BALANCE --syntax-module SCANNER --gen-bison-parser --output-definition "$(BALANCE_DEFINITION)"
 
 # Checks the listings of the specification and the .k7 files with both readers, which must agree,
-# and the codes and messages that K emits against annex A.
+# the codes and messages that K emits against annex A, the lexical probes of tests/lexical/ and
+# the glyphs of the reader against the table of chapter 1.
 layers-check: layers-kompile balance-kompile
-	cd ../.. && $(DENO) run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts check --definition "src/k/$(LAYERS_DEFINITION)" --balance "src/k/$(BALANCE_DEFINITION)" --krun "$(KRUN)"
+	cd ../.. && $(DENO) run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts check --definition "src/k/$(LAYERS_DEFINITION)" --balance "src/k/$(BALANCE_DEFINITION)" --krun "$(KRUN)" --kast "$(KAST)"
 
 export-lean: kompile
 	rm -rf $(KLEAN_OUTPUT)

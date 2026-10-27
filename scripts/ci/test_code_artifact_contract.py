@@ -85,6 +85,7 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertIn("BALANCE_SOURCE := $(LEXICON)/syntax/balance.k", self.k_make)
         self.assertIn("--main-module BALANCE --syntax-module SCANNER --gen-bison-parser", self.k_make)
         self.assertIn('--balance "src/k/$(BALANCE_DEFINITION)"', self.k_make)
+        self.assertIn('--kast "$(KAST)"', self.k_make)
         self.assertIn("make -C src/k layers-check", self.workflow)
 
     def test_d01_counterexample_vector_is_aligned_across_tools(self) -> None:
