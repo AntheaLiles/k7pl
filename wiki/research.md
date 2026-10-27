@@ -735,6 +735,143 @@ mathematics:
 - `Scale_Usage(n,Δ₂)` — C3/ReglesDeTypage.lean:571
 - `β ⊖ Cost_Budget(κ)` — C1/AxiomatiqueGerminale.lean:361, C1/AxiomatiqueGerminale.lean:392, C2/ComonadeExponentielleEtFragments.lean:243
 
+Status on 2026-10-27, after the author's answers Q-TYP-001 (option C,
+by role) and Q-TYP-002 (option A): the type notations of the theory
+prose and the formulas of the metalanguage, together with the other
+formulas of the same paragraphs, are math spans (160 occurrences,
+commit "docs(spec): write metalanguage formulas and theory type
+notations as math"). Still in code: the notations that stand for a
+program (annex A, `Lin T` and `Result<Float64, Singularity>`; chapter
+7, `TimeWindow(T, n, unit)` and `WriteCap(DOM)`), which wait for the
+K7PL writing of types (Q-TYP-101 to Q-TYP-104); and the judgement
+`Δ;Γ ⊢ C at d ▷ Δ';Γ'[m]` of chapter 3, which the notation check of
+`scripts/controles/notation.py` refuses in mathematics because Γ is
+used as a zone of the judgement (Q-NOT-001).
+
+## Reading lot: research of 2026-10-27
+
+Material for the third part of the reading lot
+([questions](questions.md)). Each claim carries its source; a source
+marked *secondary* is an encyclopaedia or a blog, to be replaced by
+the primary text before a claim enters `spec/`.
+
+### Glyphs and names
+
+- **Raku** allows in an ordinary identifier "embedded apostrophes `'`
+  and/or hyphens `-`, provided that the next character is each time
+  alphabetic" (`don't-do-that`). Source:
+  https://docs.raku.org/language/syntax.
+- **BQN**: "Word tokens are formed from the numeric characters
+  `¯∞π0123456789`" and the alphabetic characters
+  `_abc…xyzABC…XYZ`; an identifier begins with an alphabetic
+  character, so no name holds `-`, and a negative number is written
+  with the high minus `¯`. Source:
+  https://mlochbaum.github.io/BQN/spec/token.html.
+- **Chapter 1**, `tab:glyphes`: five of the 28 glyphs are ASCII
+  (`+`, `-`, `=`, `<`, `>`), which meets the kebab-case names of
+  Q-LEX-001 and the signed numbers of Q-LEX-002 (Q-LEX-201).
+
+### Kinds and widths of numbers
+
+- **IEEE 754-2019**: basic formats binary32, binary64, binary128,
+  decimal64, decimal128; interchange formats binary16, binary256,
+  decimal32, and any multiple of 32 bits. Source (*secondary*):
+  https://en.wikipedia.org/wiki/IEEE_754.
+- **Julia**: `Int8` to `Int128`, `UInt8` to `UInt128`, `Float16`,
+  `Float32`, `Float64`, and the arbitrary-precision `BigInt` and
+  `BigFloat`. Source:
+  https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/.
+- **Zig**: "arbitrary bit-width integers can be referenced by using an
+  identifier of `i` or `u` followed by digits", up to 65535 bits.
+  Source: https://ziglang.org/documentation/0.14.0/.
+- **Ada**: modular types, whose arithmetic wraps around a modulus
+  (RM 3.5.4); ordinary fixed point types, defined by a delta, and
+  decimal fixed point types, defined by a delta that is a power of ten
+  and a number of digits (RM 3.5.9). Sources:
+  https://www.adaic.org/resources/add_content/standards/05aarm/html/AA-3-5-4.html,
+  https://www.adaic.org/resources/add_content/standards/05aarm/html/AA-3-5-9.html
+  (the 2022 manual at ada-auth.org answered 503 on 2026-10-26).
+- **Scheme**: the numerical tower integer ⊂ rational ⊂ real ⊂
+  complex, "every integer is a rational with an implicit denominator
+  of 1", with exact and inexact numbers ("inexactness is a contagious
+  property"). Source (*secondary*):
+  https://en.wikipedia.org/wiki/Numerical_tower.
+- **Small floats**: bfloat16, 8 exponent and 7 fraction bits; the
+  8-bit formats E4M3 and E5M2, standardised by the OCP 8-bit Floating
+  Point Specification (OFP8) revision 1.0, 2023, and by the OCP
+  Microscaling (MX) specification 1.0. Source (*secondary*):
+  https://en.wikipedia.org/wiki/Minifloat.
+- **Posits**: "In March 2022, a standard was ratified and published by
+  the Posit Working Group" (Standard for Posit Arithmetic, 2022), each
+  posit width with a quire. Source (*secondary*):
+  https://en.wikipedia.org/wiki/Unum_(number_format).
+- **Intervals**: IEEE Std 1788-2015, Standard for Interval Arithmetic,
+  and IEEE Std 1788.1-2017, a simplified subset. Source (*secondary*):
+  https://en.wikipedia.org/wiki/Interval_arithmetic.
+- **Exact reals**: the iRRAM, "a C++ package for error-free real
+  arithmetic based on the concept of a Real-RAM". Source:
+  https://irram.uni-trier.de/.
+- **Exact algebraic numbers**: SageMath `QQbar` and its real subfield
+  `AA`. Source:
+  https://doc.sagemath.org/html/en/reference/number_fields/sage/rings/qqbar.html.
+- **Quaternions and octonions**: Boost.Math class templates
+  `quaternion` and `octonion`. Source (old documentation, Boost
+  1.34.1): https://www.boost.org/doc/libs/1_34_1/doc/html/boost_math/octonions.html.
+- **Fixed point notation**: in the Texas Instruments Q notation the
+  sign bit is "not counted in the m parameter"; in the ARM variant
+  "the m number also counts the sign bit"; a `U` prefix marks an
+  unsigned format. Source (*secondary*):
+  https://en.wikipedia.org/wiki/Q_(number_format).
+- Hyperreal and surreal numbers are left out of Q-NUM-101: they are
+  not computable in general, which Q-LEX-002 requires.
+
+### Escapes, raw strings and heredocs
+
+- **Rust**: quote escapes `\'` `\"`; ASCII escapes `\x41` (two hex
+  digits, up to 0x7F), `\n`, `\r`, `\t`, `\\`, `\0`; the Unicode escape
+  `\u{7FFF}` ("up to 6 hex digits", a Unicode scalar value). "Raw
+  string literals do not process any escapes": `r"…"`, and `r#"…"#`
+  with fewer than 256 `#`. Source:
+  https://doc.rust-lang.org/reference/tokens.html.
+- **Tcl**, rule 9: `\a` `\b` `\f` `\n` `\r` `\t` `\v` `\\`, `\ooo`,
+  `\xhh`, `\uhhhh`, `\Uhhhhhhhh`; for any other character "the
+  backslash is dropped and the following character is treated as an
+  ordinary character"; a backslash, a newline and the following spaces
+  or tabs are replaced by one space. Source:
+  https://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm.
+- **Raku**: "in the plain `Q` form, backslash escapes aren't allowed",
+  and `｢…｣` is its shortcut; for heredocs, "If the terminator is
+  indented, that amount of indention is removed from the string
+  literals". Source: https://docs.raku.org/language/quoting.
+- **Java** text blocks: `"""` followed by a line terminator; "the
+  position of the closing `"""` characters does have an effect if
+  placed on its own line". Source: https://openjdk.org/jeps/378.
+- **C#** raw string literals: three or more double quotes; "Any
+  whitespace to the left of the closing quotes is removed from all
+  lines of the raw string literal". Source:
+  https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string.
+- **Swift**: multi-line literals strip the indentation of the closing
+  delimiter (SE-0168); raw strings use `#"…"#` (SE-0200). Source
+  (*secondary*, proposal discussions): https://www.swift.org/blog/behind-SE-0200.
+- **Perl** 5.26: `<<~` removes the indentation of the terminator from
+  every line. Source (*secondary*):
+  https://www.effectiveperlprogramming.com/?p=2006.
+- **Zig**: "Multiline string literals have no escapes and can span
+  across multiple lines", each line starting with `\\`. Source:
+  https://ziglang.org/documentation/0.14.0/.
+
+### Identifiers left in the specification
+
+Found on 2026-10-27 in the code spans of `spec/Spec/` (Q-SPEC-002):
+snake_case primitives `hollow_alloc` (C3/LeSystemeGradue.lean),
+`alloc_range` (C4/ModelesDeMemoire.lean), `provenance_id`
+(C6/CeQueLeSolveurRetourne.lean); the law `coherence_usage`
+(C2/ComonadeExponentielleEtFragments.lean); number types `Int`
+(`lst:acteur`), `Float64` (annex A, `ERR-TYP-005`) and `Decimal128`
+(C7/EtudeDeCasIIDeveloppementInteractifEt.lean). The French
+identifiers of the four listings of chapter 5 are rewritten with them
+(Q-SPEC-001).
+
 ## Research lot closure
 
 The research closing of 2026-10-25 closed the 53 files of

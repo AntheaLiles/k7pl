@@ -845,6 +845,65 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, second part: answers of 2026-10-26
+  (Q-LEX-101 to Q-ERR-004).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-26-012 to
+  VOC-2026-10-26-033. In short: `?` and `!` are both
+  written before the name; the sigils are `#`, `:`, `@`,
+  `?` and `!` (`^` left out, the author being unsure);
+  glyphs come from the closed list of chapter 1, each
+  typeable by its alias through a formatter; a disabled
+  tree is read and checked; `a;` reads `a` then `;`; type
+  notations follow their role, the intention in
+  mathematics and programs in K7PL; the formulas of the
+  metalanguage are mathematics; a definition opens in
+  layer 1, where its type is set ("On va coder la stdlib
+  en layer 1 pour définir les fonctions et leurs
+  comportement dans les couches 2 et 3."); a declaration
+  that carries a type is written in `{ }`; the number
+  kinds `int`, `nat`, `flo`, `dec`, `fix`, `com`, `rat`
+  and exact reals are kept, and "La liste doit être
+  complete."; `nat` names the unsigned integers; the width
+  of a complex number is its total width, `com64` (two
+  `flo32`) the smallest, then `com128` and `com256`; a
+  fixed-point type is `fixM.N` (`fix4.16`); units are UCUM
+  codes; a backslash escapes; line breaks inside a literal
+  stay open until the trade-offs are evaluated; a literal
+  never interpolates; K7PL has a raw form and heredocs; the
+  delimiter errors form the segment `ERR-DLM`; a message
+  carries signal, rule and knowledge, and the compiler
+  prints a short message with its code, each code having
+  an explanation page; translations go through a catalogue
+  keyed by code; annex A is recomposed once it is
+  implemented, quoted as given: "On attend d'avoir
+  implémenté l'annexe A avant de la recomposée. l'avantage
+  c'est que l'on pourra construire un index cohérent et
+  consolidé suivi d'une page par code d'erreur comme GHC
+  et Rust."
+  Applied on 2026-10-27: the formulas of the metalanguage
+  and the type notations of the theory prose are math
+  spans (chapters 1 to 6, 160 occurrences); chapter 5
+  states that a disabled tree is read and checked and how
+  `a;` reads; `lexicon/syntax/balance.k` reads a text as a
+  pushdown automaton and emits `ERR-DLM-001` to
+  `ERR-DLM-003` with their lines, the messages being
+  proposals; annex A gains section A.8; `tools/layer-check`
+  requires the two readers to agree.
+  Not applied yet, with the reason: the contract marks
+  before the name, the sigils, types set in layer 1 only,
+  definitions opened in layer 1 and typed declarations in
+  `{ }` change the four listings of chapter 5 together, and
+  those listings need the K7PL writing of types — put to
+  the author as one rewrite (Q-SPEC-001, Q-TYP-101 to
+  Q-TYP-104); glyph recognition waits for Q-LEX-201, since
+  five ASCII glyphs meet kebab-case names and signed
+  numbers; number kinds, widths and literals, escapes, the
+  raw and heredoc notations: third part of the lot; message
+  shape, catalogue and the recomposition of annex A: at
+  that recomposition (Q-ERR-004). The program-meant type
+  notations (annex A, chapter 7) and the judgement with Γ
+  of chapter 3 stay in code (Q-NOT-001).
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot: answers of 2026-10-26 (Q-LEX-001 to
   Q-LEX-006).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-26-003 to

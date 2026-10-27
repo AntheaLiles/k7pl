@@ -342,6 +342,11 @@ Words in the examples (`defn`, `sig`, `defvar`…) are placeholders: they are ch
 - **A — Before the name, like ?.** Example: `!write-log   ?increase-counter`. *For:* one position for the two contract marks; both are sigils (Q-LEX-102). *Against:* annex A and chapters 3 and 5 are rewritten for both marks.
 - **B — After the name.** Example: `write-log!   ?increase-counter`. *For:* no change for `!`. *Against:* two marks of one family in two positions.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-012), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** the contract marks `?` and `!` are both written before the name (`?increase-counter`, `!write-log`). Annex A (`ERR-TOP-010`, `ERR-TYP-009`), chapter 5 and the listing `lst:fonction-pure` still write them as suffixes; they change together with the listings of chapter 5, whose rewrite is put to the author in the third part of the lot (Q-SPEC-001).
+
 #### Q-LEX-102 — Which characters are sigils?
 
 **Object.** Q-LEX-001 (option B): a sigil at the start of an atom is read apart and attached to the atom that follows; Phase 0 turns it into an attribute (chapter 6). Choose every character that is a sigil.
@@ -354,6 +359,12 @@ Several options may be chosen.
 - **4 — ? — pure contract.** `?increase-counter` (Q-LEX-001).
 - **5 — ! — impure contract.** If Q-LEX-101 puts it before the name.
 - **6 — ^ — lens.** `^.` reads a field, `^=` updates it (chapter 5). As a sigil, `^.` becomes `^` attached to `.`.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-013), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** 1, 2, 3, 4, 5
+- **Justification:** Je ne suis pas très sur pour `^`
+- **Reading:** `#`, `:`, `@`, `?` and `!` are sigils. `^` is not chosen and the author is unsure of it: its status comes back with more analysis in the third part (Q-LEX-202).
 
 #### Q-LEX-103 — How does the reader recognise a glyph?
 
@@ -369,12 +380,24 @@ Several options may be chosen.
 - **B — Unicode symbol categories.** Every character of the Unicode categories Sm and So (mathematical and other symbols) forms a one-character token. *For:* the reader does not depend on the table. *Against:* a symbol character can no longer appear inside a name.
 - **C — A, with ASCII names turned into glyphs.** As A; each glyph can also be typed by the name of its macro, and the formatter writes the glyph (as Uiua does). *For:* no special keyboard needed. *Against:* a formatter becomes part of the toolchain.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-014), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** Déjà expliqué : un glyphe est un caractère unicode attribué en alias d'un symbole
+- **Reading:** the reader knows the closed list of glyphs of the chapter 1 table, a glyph being a Unicode character given as the alias of a symbol; each glyph can also be typed by its alias, which a formatter turns into the glyph. Found while applying it: five glyphs of the table are ASCII characters (`+`, `-`, `=`, `<`, `>`); `-` also joins the words of kebab-case names, and `+` and `-` sign numbers. How a run such as `increase-counter`, `-2` or `+´÷≠` is cut is put to the author in the third part (Q-LEX-201).
+
 #### Q-LEX-104 — Is a disabled tree still checked?
 
 **Object.** Q-LEX-004: `;(`, `;[` or `;{` disables the tree it opens. Is that tree still checked?
 
 - **A — Balance and nesting.** Example: `[f ;(g x) y]   ;; refused: ( ) inside [ ] (ERR-TOP-001)`. *For:* a disabled tree can be re-enabled as it is. *Against:* a tree of another layer cannot be parked here.
 - **B — Balance only.** Example: `[f ;(g x) y]   ;; accepted: the tree is ignored once it is closed`. *For:* any tree can be parked. *Against:* re-enabling it may raise a nesting refusal.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-015), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** L'arbre commenté doit rester valide car il peut constituer une composante du code comme un quasiquote ou quote si un statement le précise
+- **Reading:** a disabled tree is read and checked like any other tree, for balance and for nesting. It stays a valid tree because a declaration may use it as a part of the code, as a quote or a quasiquote. Applied to chapter 5 and to the reader.
 
 #### Q-LEX-105 — How does a; read?
 
@@ -383,6 +406,11 @@ Several options may be chosen.
 - **A — One atom.** Example: `a;   ->  the symbol a;`.
 - **B — Two atoms (what `lexicon/` reads today, material to consider).** What `lexicon/syntax/tokens.k` reads today; `a;b` stays one atom. Example: `a;   ->  a  and  ;`.
 - **C — Refused.** Example: `a;   ->  write a ; with a space`.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-016), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** `a;` reads as the atom `a` followed by the atom `;`; `a;b` stays one atom. This is what `lexicon/syntax/tokens.k` already reads; stated in chapter 5.
 
 ### Types
 
@@ -394,12 +422,23 @@ Several options may be chosen.
 - **B — A neutral algorithmic format.** Mathematical notation in math spans, as chapter 3 already writes its grammar of types; never as code. *For:* no confusion with K7PL code. *Against:* programs still need a K7PL form for the same types.
 - **C — By role.** K7PL S-expressions wherever a program is meant (listings, code spans); mathematical notation in rules, theorems and their proofs. *For:* each reader sees the notation of the task. *Against:* two notations of one object to keep aligned.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-017), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** La spécification (dans le sens "expliquer l'intention") doit être écris en notation mathématique puis être présentée en code K7PL.
+- **Reading:** by role. The specification explains the intention in mathematical notation, then presents it in K7PL code. Applied: the type notations of the theory prose become math spans. Those that stand for a program (rows of annex A, case studies of chapter 7) wait for the K7PL writing of types, put to the author in the third part (Q-TYP-101).
+
 #### Q-TYP-002 — Metalanguage formulas written as code
 
 **Object.** 20 formulas of the metalanguage are written as code spans although they are mathematics: `Cost_Budget(κ) ≤ β`, `Scale_Usage(a, Δ₁+Δ₂)=…`, `Adm(β, κ)`…
 
 - **A — Rewrite them as math spans.** *For:* code spans keep a single meaning: K7PL text.
 - **B — Keep them as they are.** *Against:* a reader may take them for K7PL.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-018), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** the formulas of the metalanguage become math spans; code spans are kept for K7PL text and for identifiers (codes, labels, files, Lean names). Applied, together with the other formulas of the same paragraphs.
 
 #### Q-TYP-003 — Where does a layer 2 or layer 3 function get its type?
 
@@ -409,6 +448,12 @@ Several options may be chosen.
 - **B — The definition opens in layer 1.** Example: `{defn ?increase-counter :type {fn [int32 int32] {result int32 overflow}} ⏎   [value bound] ⏎   [select …]}`. *For:* one place per definition; the delimiters show where layer 1 ends. *Against:* every definition is written in braces.
 - **C — Types at the module interface only.** A layer 1 interface declares the exported types; inside the module, types are inferred. *For:* fewer annotations. *Against:* chapter 3 asks for a signature on every top-level definition.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-019), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** On va coder la stdlib en layer 1 pour définir les fonctions et leurs comportement dans les couches 2 et 3.
+- **Reading:** a definition opens in layer 1, where its type is set; its parameters and its body are written in the delimiters of their layer. The standard library will be written in layer 1, defining the functions and their behaviour in layers 2 and 3. The words of the form (`defn`, `:type`, the writing of a function type) were placeholders: the listings of chapter 5 are rewritten once they are chosen (Q-SPEC-001, Q-TYP-101).
+
 #### Q-TYP-004 — Declarations that carry a type inside ( )
 
 **Object.** Two declarations carry a type inside a layer 2 group: `(defvar alpha :num int32)` (Q-LEX-002) and `(champ valeur : Int)` (`lst:acteur`).
@@ -416,6 +461,11 @@ Several options may be chosen.
 - **A — They move to { }.** Example: `{defvar alpha :num int32}   {field value :num int32}`.
 - **B — The type part is a layer 1 group.** Example: `(defvar alpha {num int32})   (field value {num int32})`.
 - **C — A property is not a type definition.** `:num int32` names a type set elsewhere, in layer 1; using it in layer 2 is allowed. Example: `(defvar alpha :num int32)`.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-020), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a declaration that carries a type is written in `{ }`: `{defvar alpha :num int32}`, `{field value :num int32}`. It applies to `lst:acteur` with the rewrite of the listings (Q-SPEC-001).
 
 ### Numbers
 
@@ -438,6 +488,12 @@ Several options may be chosen.
 - **rat — exact rationals.** Numerator and denominator of bounded width.
 - **rea — exact reals (name to choose).** Irrationals such as π or √2, computed to any requested precision.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-021), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** int, nat, flo, dec, fix, com, rat, rea, OTHER
+- **Other:** La liste doit être complete.
+- **Reading:** every kind listed is kept, and the list must be complete: a research step enumerates the other kinds of numbers before the choice (third part, Q-NUM-101).
+
 #### Q-NUM-002 — Name of the unsigned integers
 
 **Object.** Three letters and a width, like the other kinds.
@@ -446,12 +502,23 @@ Several options may be chosen.
 - **B — uin.** Example: `uin8  uin32`. *For:* close to the usual uint.
 - **C — int with a property.** Example: `:num int32 :sign none`. *Against:* no three-letter name of its own.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-022), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** unsigned integers are `nat`: `nat8`, `nat32`.
+
 #### Q-NUM-003 — What is the width of a complex number?
 
 **Object.** `com64` in Q-LEX-002.
 
 - **A — Total width.** Example: `com64 = two flo32`. *For:* same reading of the width as the other kinds: the size in memory.
 - **B — Width of each part.** Example: `com64 = two flo64`. *For:* the precision of the parts is read directly.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-023), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** L'option A préserve la cohérence d'ensemble. Cependant, tel que posé cela indique que 'com8 = two flo4' et je pense que ce n'est pas une bonne idée d'encoder un float4 qui n'est pas standard sur le hardware alors il est probablement préférable d'encoder à minima un 'com64 = two flo32' pour avoir un seuil de précision et scale ensuite à com128 et com256.
+- **Reading:** the width of a complex number is its total width, as for the other kinds. Read literally, that would allow `com8`, two four-bit floats, a format that hardware does not provide; the smallest complex type is therefore `com64` (two `flo32`), for a floor of precision, followed by `com128` (two `flo64`) and `com256` (two `flo128`).
 
 #### Q-NUM-004 — How is a fixed-point type written?
 
@@ -460,6 +527,12 @@ Several options may be chosen.
 - **A — Integer and fraction bits.** Example: `fix16.16`.
 - **B — Total width and a scale property.** Example: `:num fix32 :scale 16`.
 - **C — Decimal digits.** Example: `:num fix :digits 12 :frac 2`. *For:* money and decimal quantities.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-024), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** On pourrait ainsi dire 'fix4.16' pour 4bit devant et 16bit derrière.
+- **Reading:** a fixed-point type is written with its integer bits and its fraction bits: `fix16.16`, `fix4.16` (4 bits before the point, 16 after). Whether the sign bit is counted is put to the author in the third part (Q-NUM-102).
 
 #### Q-NUM-005 — Which unit vocabulary?
 
@@ -473,6 +546,12 @@ Several options may be chosen.
 - **B — SI symbols as printed.** Example: `:unit mm   :unit °C   :unit m·s⁻¹`. *For:* what a reader expects. *Against:* non-ASCII; no published grammar for combinations.
 - **C — K7PL names, mapped to UCUM.** Example: `:unit millimetre`. *Against:* a third vocabulary.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-025), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** UCUM est cohérent
+- **Reading:** units are written with UCUM codes: `:unit mm`, `:unit Cel`, `:unit m/s`.
+
 ### Strings
 
 #### Q-STR-001 — How is a quote or a control character escaped?
@@ -483,6 +562,11 @@ Several options may be chosen.
 - **B — Doubled quote, no other escape.** As SQL (with single quotes) and BQN. Example: `"say ""hi"""`.
 - **C — No escape.** As SNOBOL4, with two kinds of quote marks: a literal can only contain the other mark.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-026), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a backslash escapes a quote or a control character; the list of escapes is chosen in the third part (Q-STR-101).
+
 #### Q-STR-002 — What does a line break inside a literal mean?
 
 **Object.** This also settles Q-LEX-006 case 5 (a backslash at the end of a line).
@@ -492,11 +576,22 @@ Several options may be chosen.
 - **C — Dropped after an underscore.** Unicon (Icon family): the underscore, the newline and the leading white space of the next line are not part of the literal.
 - **D — Forbidden; literals joined across lines.** One literal per line; two literals separated by a line break are concatenated, as SQL specifies.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-027), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** J'ai besoin d'une évaluation des tradeoff pour éviter un choix arbitraire
+- **Reading:** kept open: the author asks for an evaluation of the trade-offs, so that the choice is not arbitrary. It comes back in the third part (Q-STR-102), with case 5 of Q-LEX-006 (a backslash at the end of a line).
+
 #### Q-STR-003 — Does a literal interpolate?
 
 - **A — Never.** *For:* a literal is a constant.
 - **B — Only in a distinct form.** As Raku's `qq` beside `q`.
 - **C — Always.** *Against:* every literal may run code.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-028), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a literal never interpolates.
 
 #### Q-STR-004 — Raw and heredoc forms
 
@@ -504,6 +599,11 @@ Several options may be chosen.
 
 - **raw — A raw form.** Content taken literally, as Raku's `Q` or `｢…｣`.
 - **heredoc — Heredocs.** As Raku's `q:to/END/`, the terminator's indentation removed from every line.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-029), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** raw, heredoc
+- **Reading:** K7PL has a raw form and heredocs; their notations are chosen in the third part (Q-STR-103, Q-STR-104).
 
 ### Error codes and messages
 
@@ -515,6 +615,11 @@ Several options may be chosen.
 - **LEX — lexical analysis.** `ERR-LEX-`: also covers unclosed strings and comments.
 - **SYN — syntax.** `ERR-SYN-`: syntax in general.
 - **DLM — delimiters.** `ERR-DLM-`: delimiters only.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-030), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** DLM
+- **Reading:** the segment of the delimiter errors is `ERR-DLM`. Whether an unclosed string and an odd number of quotes in a comment fall under it is put to the author in the third part (Q-ERR-101).
 
 #### Q-ERR-002 — Shape of a message
 
@@ -528,6 +633,11 @@ Several options may be chosen.
 - **C — Short message, code, explanation page.** As Rust's and GHC's indexes: the compiler prints little; each code has a page with examples.
 - **D — B and C.**
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-031), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** D
+- **Reading:** each code carries the three levels of annex A (signal, rule, knowledge), and the compiler prints a short message with the code, each code having an explanation page with examples, as in Rust and GHC.
+
 #### Q-ERR-003 — Internationalising the messages
 
 **Facts.**
@@ -540,12 +650,348 @@ Several options may be chosen.
 - **C — French in annex A, translations generated beside it.** *For:* annex A stays the reference.
 - **D — Later.** Keep French only until the codes are stable.
 
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-032), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** messages are translated through a catalogue keyed by code, in the manner of Fluent.
+
 #### Q-ERR-004 — Recomposing annex A from K, Lean and TLA+
 
 **Object.** Owner message of 2026-10-26: annex A « devra être recomposée à partir des implémentations K, Lean et TLA+ ».
 
 - **A — Generated.** Each code is declared once, with its message, in the K, Lean or TLA+ text that emits it; the specification displays the generated table, as it displays the K files. *For:* one home per code. *Against:* Lean and TLA+ need the same declaration convention as K.
 - **B — Written, then checked.** Annex A stays hand-written; a check compares it word for word with the implementations, as `tools/layer-check` does for K now. *For:* editorial freedom. *Against:* two copies kept aligned by a check.
+
+**Answer of the author — 2026-10-26 (VOC-2026-10-26-033), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** On attend d'avoir implémenté l'annexe A avant de la recomposée. l'avantage c'est que l'on pourra construire un index cohérent et consolidé suivi d'une page par code d'erreur comme GHC et Rust.
+- **Reading:** annex A is recomposed once it is implemented, not before; the recomposition then builds a consolidated index and one page per error code, as GHC and Rust do. The message shape (Q-ERR-002) and the catalogue (Q-ERR-003) take effect at that recomposition; until then a new code is written in the current form of annex A.
+
+## Lot of 2026-10-27, third part: glyphs, types in K7PL, chapter 5, numbers, strings, error codes
+
+Questions opened by the answers to the second part, and points
+found while applying them. They follow the same rules: options to
+enumerate and objectify, then the author's choice; **Other** and
+**Clarify** are always available. The options were built from the
+research recorded in
+[research](research.md), "Reading lot: research of 2026-10-27".
+
+Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `Ok`, `Err`…) are the words the specification already uses, or placeholders.
+
+### Reader details
+
+#### Q-LEX-201 — How are the ASCII glyphs read?
+
+**Object.** Found while applying Q-LEX-103: five glyphs of the chapter 1 table are ASCII characters, `+` (`add`), `-` (`sub`), `=` (`eq`), `<` (`lt`) and `>` (`gt`). If the reader cuts every glyph of the closed list, `increase-counter` becomes `increase`, `-`, `counter`, and `-2` a glyph and a number.
+
+**Facts.**
+
+- Chapter 1, `tab:glyphes`: 28 glyphs, five of them ASCII.
+- Q-LEX-001: identifiers are English kebab-case, whose words are joined by `-`; Q-LEX-002 keeps signed numbers (`-2`, `+4`).
+- Raku allows in an identifier « embedded apostrophes `'` and/or hyphens `-`, provided that the next character is each time alphabetic » (Raku, Syntax (https://docs.raku.org/language/syntax)).
+- BQN has no `-` in names: « Word tokens are formed from the numeric characters `¯∞π0123456789` » and the alphabetic ones; a negative number is written with the high minus `¯` (BQN spec, Tokens (https://mlochbaum.github.io/BQN/spec/token.html)).
+
+- **A — A run of glyphs is a train; any other run is read whole.** A run made only of glyphs and modifiers is cut into glyphs; a run that holds any other character is a name or a number, as today. *For:* kebab-case names, signed numbers and the chapter 1 table stay as they are. *Against:* `x-1` is one name, never a subtraction (which is written `[- x 1]` anyway).
+
+  ```text
+  +´÷≠  ->  + ´ ÷ ≠        -  ->  the glyph sub
+  increase-counter  ->  one name        -2  ->  a number        <=  ->  < =
+  ```
+
+- **B — Raku's rule.** `-` belongs to a name only between two letters; anywhere else it is the glyph. Example: `increase-counter  ->  one name        x-1  ->  x  -  1`. *For:* a rule with a precedent. *Against:* no digit after a hyphen in a name (`vector-3d`); a prefix language gains nothing from reading `x-1` as three atoms.
+- **C — A non-ASCII code point for sub.** The table writes sub as `−` (U+2212, minus sign); `-` is then never a glyph. *For:* names and numbers keep `-`; the reader needs no rule. *Against:* chapter 1 changes; `−` and `-` look alike, the confusion the admission rule of the table guards against.
+
+#### Q-LEX-202 — What is ^?
+
+**Object.** Q-LEX-102 left `^` out of the sigils, the author being unsure. It writes the lenses of chapter 5: `[^. state value]` reads a field, `(^= state value new-value)` updates one (`lst:gestionnaire`).
+
+- **A — Not a sigil: ^. and ^= are names.** Each is one atom, the name of a lens macro. This is how the reader reads them today. *For:* no reading rule; other lenses get names of their own. *Against:* the family is a naming habit, which the reader does not see.
+- **B — A sigil, read apart like :.** `^.` is the sigil `^` attached to `.`, `^=` the sigil attached to `=`; Phase 0 makes it an attribute. *For:* the lens family is visible to the reader. *Against:* `=` is a glyph, and `.` means projection or decimal point (chapter 1).
+- **C — Glyphs of the chapter 1 table.** Each lens becomes a glyph of the closed list (Q-LEX-103), with an alias such as `view` or `set`. *For:* the lenses join the glyphs they are used with. *Against:* the table holds single code points; `^.` has two.
+
+### Writing types in K7PL
+
+#### Q-TYP-101 — How are type names written?
+
+**Object.** Types are set in layer 1 (Q-LEX-005, Q-TYP-003). Number types are written `int32`, `flo64` (Q-LEX-002); identifiers are English kebab-case (Q-LEX-001). The theory now writes `\mathsf{Result}`, `\mathsf{Vector}`, `\mathsf{WriteCap}` in mathematics (Q-TYP-001).
+
+- **A — Lowercase kebab-case, like int32.** Example: `{vector n t}   {result int32 overflow}   {write-cap {arena t}}`. *For:* one case for every identifier. *Against:* a type and a value look alike; only the layer tells them apart.
+- **B — Type constructors capitalised.** Example: `{Vector n T}   {Result int32 Overflow}   {WriteCap {Arena T}}`. *For:* types stand out, as in the theory and in most typed languages. *Against:* two cases, against “English kebab-case, systematically”; `int32` stays lowercase.
+
+#### Q-TYP-102 — How is a type variable told from a type name?
+
+- **A — By a binder.** A layer 1 form lists the variables of a type; any other name is a type name. Example: `{forall [t] {fn [t] t}}`. *For:* explicit, as the quantifiers of chapter 3. *Against:* every polymorphic type is wrapped.
+- **B — By a mark, ML style.** A name that starts with `'` is a type variable. Example: `{fn ['t] 't}`. *For:* short, with a precedent (Standard ML, OCaml). *Against:* one more reading rule; `'` is free today.
+- **C — By case.** A single capital letter is a variable. Example: `{fn [T] T}`. *Against:* only meaningful if type names are lowercase (Q-TYP-101 A).
+
+#### Q-TYP-103 — How is a function type written?
+
+**Object.** In layer 1 the grammar admits `[ ]` and `( )` inside `{ }`; but a delimiter defines the layer it opens, so a `[ ]` inside a type is a layer 3 group.
+
+- **A — Braces only.** Example: `{fn {int32 int32} {result int32 overflow}}`. *For:* a type is layer 1 all through. *Against:* a list of types and an applied type look alike.
+- **B — The parameters in [ ].** Example: `{fn [int32 int32] {result int32 overflow}}`. *For:* the parameter list stands out, as in a definition. *Against:* a layer 3 group inside a type, which is set in layer 1.
+- **C — An arrow head.** The last type is the result. Example: `{→ int32 int32 {result int32 overflow}}`. *For:* the notation of the theory. *Against:* `→` is non-ASCII; the ASCII `->` is two glyphs (Q-LEX-201).
+
+#### Q-TYP-104 — What does Int of lst:acteur become?
+
+**Object.** `(champ valeur : Int)` declares an integer field without a width; K7PL types carry one (Q-LEX-002).
+
+- **A — int64.** Example: `{field value :num int64}`.
+- **B — int32.** Example: `{field value :num int32}`.
+- **C — An unbounded integer.** If Q-NUM-101 keeps one. Example: `{field value :num big}`.
+
+### Rewriting chapter 5
+
+#### Q-SPEC-001 — The four listings and their prose
+
+**Object.** Your answers change the four listings of chapter 5 together: contract marks before the name (Q-LEX-101), English kebab-case (Q-LEX-001), definitions opened in layer 1 (Q-TYP-003), declarations with a type in `{ }` (Q-TYP-004). The prose follows: « Le préfixe `?` engage le contrat… »; a sentence states that types are set in layer 1 only, that layer 2 orchestrates and produces and that layer 3 computes and terminates; a sentence lists the sigils `#`, `:`, `@`, `?`, `!`; annex A writes « préfixée » for `ERR-TOP-010` and `ERR-TYP-009`. The type lines follow Q-TYP-101 to Q-TYP-104 (shown here with option A or B where it is shorter).
+
+Several options may be chosen.
+
+- **pure — lst:fonction-pure.**
+
+  ```text
+  {defn ?increment-bounded :type {fn [int32 int32] {result int32 overflow}}
+    [value bound]
+    [select [< value bound]
+            [Ok [+ value 1]]
+            [Err Overflow]]}
+  ```
+
+- **handler — lst:gestionnaire.** A handler is a definition too, so it opens in layer 1; its type, a handler of the counter's state, is written once Q-TYP-101 to Q-TYP-103 are answered.
+
+  ```text
+  {defhandler counter-handler :type …
+    (message state)
+    (match message
+      ((Increment n)
+       (match [?increment-bounded [^. state value] [^. state bound]]
+         ((Ok new-value)
+          (HandlerResult :state (^= state value new-value) :response (Ok new-value)))
+         ((Err e)
+          (HandlerResult :state state :response (Err e))))))}
+  ```
+
+- **actor — lst:acteur.** The prose that says « `champ` et `bind-to` s'écrivent entre parenthèses » changes: the fields are now in braces.
+
+  ```text
+  {defactor Counter
+    {field value :num int32}
+    {field bound :num int32}
+    (bind-to counter-handler)}
+  ```
+
+- **error — lst:erreur-remontee.** The refusal stays `ERR-TOP-001`: a `( )` inside the `[ ]` of the body.
+
+  ```text
+  {defn ?increment-bounded :type …
+    [value bound]
+    [Ok (HandlerResult :state value :response (Ok value))]}  ;; rejeté : ERR-TOP-001
+  ```
+
+
+#### Q-SPEC-002 — Other identifiers of the specification
+
+**Object.** Outside chapter 5, a few code spans still break the naming rules: snake_case primitives `hollow_alloc` (chapter 3), `alloc_range` (chapter 4), `provenance_id` (chapter 6); the law `coherence_usage` (chapter 2); number types `Float64` (annex A, `ERR-TYP-005`) and `Decimal128` (chapter 7).
+
+- **A — Rename them now.** The law name, which belongs to the metalanguage, is written in mathematics. Example: `hollow-alloc   alloc-range   provenance-id   flo64   dec128`.
+- **B — With the vocabulary lots.** They stay as they are until their lemma is chosen.
+
+#### Q-NOT-001 — A judgement with Γ
+
+**Object.** Chapter 3 (`sec:c3-structures-ouvertes-effets-et`) writes the judgement `Δ;Γ ⊢ C at d ▷ Δ';Γ'[m]`, which « décompose un contexte en un trou et son environnement ». Written in mathematics (Q-TYP-002), it fails a check of the specification: Δ is the only context of a judgement, Γ keeps its categorical sense (`scripts/controles/notation.py`). It stays in code until you choose.
+
+- **A — Two Δ zones.** Example: `Δ₁;Δ₂ ⊢ C at d ▷ Δ₁';Δ₂'[m]`. *For:* the notation rule holds everywhere.
+- **B — Keep it as code.** As a notation quoted from its source. *Against:* one formula of the metalanguage stays in a code span.
+- **C — Allow Γ in this judgement.** The rule names this judgement as an exception. *Against:* Γ gets two meanings again.
+
+### Numbers
+
+#### Q-NUM-101 — Which other kinds complete the list?
+
+**Object.** Kept so far: `int`, `nat`, `flo`, `dec`, `fix`, `com`, `rat` and exact reals (Q-NUM-001), and the list must be complete. These are the kinds found in standards and languages, every one computable (Q-LEX-002). Three-letter names are proposals.
+
+**Facts.**
+
+- Not listed, because not computable in general: hyperreals and surreal numbers.
+
+Several options may be chosen.
+
+- **big — big — unbounded integers.** Arbitrary precision: Julia `BigInt`, Scheme exact integers (Julia manual (https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)).
+- **mod — mod — modular integers.** Arithmetic wraps around a modulus: Ada `mod` types, RM 3.5.4 (Ada RM (https://www.adaic.org/resources/add_content/standards/05aarm/html/AA-3-5-4.html)).
+- **dfx — dfx — decimal fixed point.** A scale that is a power of ten, for money: Ada `delta … digits`, RM 3.5.9 (Ada RM (https://www.adaic.org/resources/add_content/standards/05aarm/html/AA-3-5-9.html)).
+- **bfl — bfl — bfloat16.** 8 exponent bits, 7 fraction bits; the first 16 bits of a `flo32`.
+- **f8 — 8-bit floats E4M3 and E5M2.** OCP 8-bit Floating Point Specification (OFP8), revision 1.0, 2023. Name to choose.
+- **pos — pos — posits.** Standard for Posit Arithmetic (2022), Posit Working Group; posit8 to posit32 and their quires.
+- **itv — itv — intervals.** IEEE Std 1788-2015, Standard for Interval Arithmetic, and its simplified subset 1788.1-2017.
+- **qua — qua — quaternions (and octonions).** Boost.Math `quaternion` and `octonion`.
+- **dua — dua — dual numbers.** `a + bε` with `ε² = 0`, the carrier of forward automatic differentiation.
+- **gau — gau — Gaussian integers.** Complex numbers with integer parts.
+- **alg — alg — exact algebraic numbers.** Exact arithmetic on roots of polynomials: SageMath `QQbar` (Sage reference (https://doc.sagemath.org/html/en/reference/number_fields/sage/rings/qqbar.html)).
+- **pad — pad — p-adic numbers.** To a chosen precision, as in number theory systems.
+
+#### Q-NUM-102 — Which floating-point widths?
+
+**Facts.**
+
+- IEEE 754-2019: basic formats binary32, binary64, binary128, decimal64, decimal128; interchange formats binary16, binary256, decimal32, and any multiple of 32 bits (Wikipedia, IEEE 754, secondary source).
+
+- **A — The basic formats.** Example: `flo32 flo64 flo128   dec64 dec128`.
+- **B — Basic and interchange formats.** Example: `flo16 flo32 flo64 flo128 flo256   dec32 dec64 dec128`.
+
+#### Q-NUM-103 — Which integer widths?
+
+**Facts.**
+
+- Julia: `Int8` to `Int128`, `UInt8` to `UInt128`.
+- Zig: « arbitrary bit-width integers can be referenced by using an identifier of `i` or `u` followed by digits », up to 65535 bits (Zig 0.14.0 reference (https://ziglang.org/documentation/0.14.0/)).
+
+- **A — Powers of two, 8 to 128.** Example: `int8 int16 int32 int64 int128`.
+- **B — Powers of two, 8 to 256.** Example: `… int256`.
+- **C — Any width.** Example: `int7 int24 nat12`. *For:* exact layouts for protocols and hardware registers.
+
+#### Q-NUM-104 — Does fix count the sign bit?
+
+**Object.** `fix4.16`: 4 bits before the point, 16 after (Q-NUM-004).
+
+**Facts.**
+
+- Q notation, Texas Instruments variant: the sign bit is « not counted in the m parameter »; ARM variant: « the m number also counts the sign bit »; a `U` prefix marks an unsigned format, `UQ` (Wikipedia, Q (number format), secondary source).
+
+- **A — Signed, the sign counted in the integer bits.** Example: `fix4.16  =  20 bits, sign included (ARM)`.
+- **B — Signed, the sign added.** Example: `fix4.16  =  21 bits (Texas Instruments)`.
+- **C — Unsigned, a property for signed.** Example: `fix4.16 unsigned,   :num fix4.16 :signed`.
+
+#### Q-NUM-105 — Which literal forms?
+
+**Object.** How a number is written in a text, whatever its type (Q-LEX-002 keeps the usual written form).
+
+Several options may be chosen.
+
+- **dec — Decimal with a fraction.** What the reader reads today. Example: `42   -2   3.25`.
+- **exp — Exponent.** Example: `1.5e-3`.
+- **radix — Radix prefixes.** Example: `0x1F   0b1010   0o17`.
+- **sep — Digit separator.** Example: `1_000_000`.
+- **rat — Rational.** Example: `1/3`.
+- **com — Complex.** Example: `3+4i`.
+- **spec — Infinities and NaN.** Example: `inf   -inf   nan`.
+
+### Strings
+
+#### Q-STR-101 — Which escapes?
+
+**Object.** Backslash escapes (Q-STR-001). `\"` and `\\` are needed anyway.
+
+**Facts.**
+
+- Rust: `\'` `\"`, `\x41` (two hex digits, up to 0x7F), `\n` `\r` `\t` `\\` `\0`, `\u{7FFF}` (« up to 6 hex digits », a Unicode scalar value) (Rust reference (https://doc.rust-lang.org/reference/tokens.html)).
+- Tcl: `\a` `\b` `\f` `\n` `\r` `\t` `\v` `\\`, octal `\ooo`, `\xhh`, `\uhhhh`, `\Uhhhhhhhh` (Tcl(n), rule 9 (https://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm)).
+
+Several options may be chosen.
+
+- **nrt — \n \r \t.** Line feed, carriage return, tab.
+- **nul — \0.** The null character.
+- **ctl — \a \b \f \v \e.** Bell, backspace, form feed, vertical tab, escape.
+- **uni — \u{…}.** A Unicode scalar value, 1 to 6 hex digits (Rust).
+- **hex — \xHH.** A byte or an ASCII character, two hex digits.
+- **oct — \ooo.** Octal, one to three digits (Tcl, C).
+
+#### Q-STR-102 — What does an unknown escape do?
+
+**Object.** For example `\q`.
+
+- **A — Refused.** A reading error with its code, as Rust does. *For:* every escape means something.
+- **B — The backslash is dropped.** Tcl: « the backslash is dropped and the following character is treated as an ordinary character ».
+- **C — Kept as written.** The backslash and the character stay in the string.
+
+#### Q-STR-103 — Line breaks inside a literal: the trade-offs
+
+**Object.** Q-STR-002 was kept open for an evaluation. Here each option is weighed along the M-A sequence. Two facts bear on all of them: heredocs exist for long texts (Q-STR-004), and the balance reader reports a fault at the line of the delimiter at fault.
+
+- **A — A character of the string (Emacs Lisp).** *For:* exactness: what is seen is the value; brevity. *Against:* non-collision: a forgotten quote swallows the rest of the text, and the error is found at the end of the file, far from the slip; diffs of literals spread over lines.
+- **B — Dropped after a backslash (Emacs Lisp, Tcl).** *For:* long lines can be folded. *Against:* a space after the backslash changes the meaning invisibly (Parinfer's `eol-backslash`); a forgotten quote still swallows the text.
+- **C — Dropped after an underscore (Unicon).** *For:* a visible continuation mark. *Against:* a reading rule of its own; same forgotten-quote cost as A.
+- **D — Forbidden; literals joined across lines (SQL).** *For:* non-collision: an unclosed quote is reported on its own line; every line of a text is read the same way; long texts go to heredocs. *Against:* a long literal is written as pieces; the joining rule is one more rule.
+
+#### Q-STR-104 — How is a raw string written?
+
+**Object.** Q-STR-004 keeps a raw form. Its delimiters must not be `( )`, `[ ]`, `{ }` (layers), `;` (comments) or a sigil (`#`, `:`, `@`, `?`, `!`).
+
+**Facts.**
+
+- Rust: « Raw string literals do not process any escapes », `r"…"` and `r#"…"#` with up to 255 `#` (Rust reference (https://doc.rust-lang.org/reference/tokens.html)).
+- Raku: « in the plain `Q` form, backslash escapes aren't allowed »; `｢…｣` is its shortcut (Raku, Quoting (https://docs.raku.org/language/quoting)).
+- Swift and C# delimit raw strings with `#"…"#` and with three or more quotes.
+
+- **A — Corner brackets ｢…｣ (Raku).** Example: `｢C:\path\no\escape｣`. *For:* no ASCII collision; can nest. *Against:* non-ASCII: typed through the editor or a formatter.
+- **B — A prefix r (Rust).** Example: `r"C:\path"   r#"he said "hi""#`. *Against:* `r` glued to a string changes meaning; `#` is the comptime sigil.
+- **C — Backquotes (Go).** Example: ``C:\path\no\escape``. *For:* ASCII, one character, free in K7PL. *Against:* a raw string cannot hold a backquote.
+
+#### Q-STR-105 — How is a heredoc written?
+
+**Facts.**
+
+- Java text blocks: `"""` then a line break; « the position of the closing `"""` characters does have an effect if placed on its own line » (JEP 378 (https://openjdk.org/jeps/378)); C#: « Any whitespace to the left of the closing quotes is removed from all lines » (C# reference (https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string)).
+- Raku heredocs `q:to/END/`: « If the terminator is indented, that amount of indention is removed »; Perl 5.26 `<<~` does the same.
+- Zig: « Multiline string literals have no escapes and can span across multiple lines », each line starting with `\\` (Zig reference (https://ziglang.org/documentation/0.14.0/)).
+
+- **A — Triple quotes (Java, C#, Swift).** *For:* no terminator word; the closing quotes set the indentation to remove. *Against:* a forgotten closing `"""` swallows the rest of the text.
+
+  ```text
+  """
+      first line
+      second line
+      """
+  ```
+
+- **B — A terminator word (Raku, Perl).** *Against:* the opening form is still to design; `<<` would be two glyphs (Q-LEX-201).
+
+  ```text
+  (heredoc END)
+      first line
+      END
+  ```
+
+- **C — A prefix on every line (Zig).** *For:* each line is read alone: nothing can swallow the text; no indentation rule. *Against:* a mark on every line.
+
+  ```text
+  \\first line
+  \\second line
+  ```
+
+
+### Error codes
+
+#### Q-ERR-101 — Where do an unclosed string and a quote in a comment go?
+
+**Object.** Q-LEX-006-a gives them codes; Q-ERR-001 names the segment of the delimiters `ERR-DLM`. The reader does not give them a code yet: a text with an unclosed string is refused by the K parser.
+
+**Facts.**
+
+- In K7PL a comment runs to the end of its line, so a quote inside it never opens a string. Parinfer's `quote-danger` guards its own inference of parentheses, which K7PL does not do.
+
+- **A — Both in ERR-DLM.** A quote delimits a string: `ERR-DLM-004` an unclosed string, `ERR-DLM-005` an odd number of quotes in a comment.
+- **B — A segment of their own.** For example `ERR-STR`.
+- **C — The unclosed string in ERR-DLM; no code for the comment.** Given the fact above.
+
+#### Q-ERR-102 — The recovery rule and the three messages
+
+**Object.** What `lexicon/syntax/balance.k` does now, from your answer to Q-LEX-006-d, and the messages of annex A, section A.8, which are proposals.
+
+**Facts.**
+
+- A closer of the pair of the innermost open delimiter closes it.
+- A closer whose pair is open further out closes that one; the delimiters opened since are reported `ERR-DLM-001`, never closed.
+- A closer whose pair is not open closes nothing: `ERR-DLM-003`, at the closer, naming the innermost open delimiter; with nothing open, `ERR-DLM-002`.
+- At the end of the text, each delimiter still open is reported `ERR-DLM-001`, in the order they opened.
+- `ERR-DLM-001` « Délimiteur ouvrant jamais refermé. Ajouter le délimiteur fermant de sa paire, ou retirer l'ouvrant. »
+- `ERR-DLM-002` « Délimiteur fermant sans délimiteur ouvrant. Retirer le fermant, ou ajouter l'ouvrant de sa paire. »
+- `ERR-DLM-003` « Délimiteur fermant d'une autre paire que les délimiteurs encore ouverts. Fermer le dernier délimiteur ouvert par le fermant de sa paire. »
+
+- **A — Confirm the rule and the messages.**
+- **B — Confirm the rule; messages changed in Other.**
+- **C — Change the rule (Other or Clarify).**
 
 ## The catalogue, verbatim
 
