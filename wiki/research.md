@@ -1019,12 +1019,14 @@ Q-LEX-304).
   https://mustache.github.io/mustache.5.html.
 - **Ada**: "A range has a lower bound and an upper bound and specifies
   a subset of the values of some scalar type (the type of the range)"
-  (http://www.ada-auth.org/standards/22rm/html/RM-3-5.html); "Discrete
-  types are either integer types or are defined by enumeration of their
-  values (enumeration types)"
-  (http://www.ada-auth.org/standards/22rm/html/RM-3-2.html), as
-  `type Color is (White, Red, Yellow, Green, Blue, Brown, Black);`
-  (http://www.ada-auth.org/standards/22rm/html/RM-3-5-1.html).
+  (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-3-5.html);
+  "Discrete types are either integer types or are defined by enumeration
+  of their values (enumeration types)"
+  (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-3-2.html),
+  as `type Color is (White, Red, Yellow, Green, Blue, Brown, Black);`
+  (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-3-5-1.html).
+  Ada 2022 reference manual, on the AdaIC mirror; ada-auth.org refused
+  connections from the CI runner on 2026-10-27.
 - **Raku**: ranges use "two dots, and optionally a caret which
   indicates that the endpoint marked with it is excluded". Source:
   https://docs.raku.org/type/Range.

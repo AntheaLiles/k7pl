@@ -1377,7 +1377,7 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 
 **Facts.**
 
-- Ada: « A range has a lower bound and an upper bound and specifies a subset of the values of some scalar type (the type of the range). » (Ada RM, 3.5 (http://www.ada-auth.org/standards/22rm/html/RM-3-5.html)); « Discrete types are either integer types or are defined by enumeration of their values (enumeration types). » (Ada RM, 3.2 (http://www.ada-auth.org/standards/22rm/html/RM-3-2.html)), as `type Color is (White, Red, Yellow, Green, Blue, Brown, Black);` (Ada RM, 3.5.1 (http://www.ada-auth.org/standards/22rm/html/RM-3-5-1.html)).
+- Ada: « A range has a lower bound and an upper bound and specifies a subset of the values of some scalar type (the type of the range). » (Ada RM, 3.5 (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-3-5.html)); « Discrete types are either integer types or are defined by enumeration of their values (enumeration types). » (Ada RM, 3.2 (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-3-2.html)), as `type Color is (White, Red, Yellow, Green, Blue, Brown, Black);` (Ada RM, 3.5.1 (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-3-5-1.html)).
 - Chapter 3 writes refinement types `{x : T | p}`: a range type is the refinement `{x : int | 1 ≤ x ≤ 31}`.
 
 - **A — A discrete type, by range or by enumeration.** `{{1..31}}` is the type of the integers from 1 to 31, `{{red amber green}}` the type of three values, as Ada's discrete types; the refinement of chapter 3 gives their meaning. *For:* types stay in layer 1; ranges and enumerations form one family; values come from `[[…]]` and `((…))`.
