@@ -845,6 +845,65 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, third part: answers of 2026-10-27
+  (Q-LEX-201 to Q-ERR-102).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-27-001 to
+  VOC-2026-10-27-021. In short: a run made only of glyphs
+  and modifiers is a train, any other run is read whole
+  (`increase-counter`, `-2`); lenses get clear names such
+  as `view` and `set`, and `^` is neither a sigil nor a
+  glyph; a type variable is introduced by a binder, and
+  "Polymorphisme est interdit en K7PL => tout est
+  monomorphé."; a function type is written flat, its head
+  being a true lemma rather than an arrow; the `Int` of
+  `lst:acteur` was historical, and `int` without a width
+  is a typed hole resolved in its family; the four
+  listings of chapter 5 are accepted with their prose,
+  `bind-to` standing for Haskell's `>>=` and not being a
+  chosen lemma; other identifiers of the specification wait
+  for the vocabulary lots; the judgement of chapter 3 takes
+  two Δ zones; the number kinds gain `mod`, `dfx`, `bfl`,
+  `flo8`, `pos`, `itv`, `qua`, `dua`, `gau`, `alg` and
+  `pad`, unbounded integers being refused ("un typed hole
+  évite un choix arbitraire"); floating-point widths are
+  those of IEEE 754-2019, integers take any width, and
+  `fix` counts the sign bit; literals are decimal with
+  fraction, exponent and `_`, rational, complex, `inf`,
+  `-inf` and `nan`, without radix prefixes; an unknown
+  escape is refused; a line break inside a string is a
+  character of it ("Important pour les docstrings"); a raw
+  string is written `""…""`, equivalent to Raku's corner
+  brackets, and paths should be valid inline; an unclosed
+  string gets a code in `ERR-DLM`, a quote in a comment
+  none; the recovery rule and the messages of `ERR-DLM-001`
+  to `ERR-DLM-003` are confirmed.
+  Applied on 2026-10-27: `lexicon/syntax/tokens.k` reads
+  trains, numbers and the decided literals, and
+  `tools/layer-check` checks its glyphs against
+  `tab:glyphes` and the classes of the probes of
+  `tests/lexical/`; `lexicon/syntax/balance.k` refuses an
+  unclosed string with `ERR-DLM-004` (message proposed) and
+  annex A.8 lists it; the four listings of chapter 5 are
+  rewritten (definitions opened in layer 1, contract marks
+  before the name, `view` and `set`, the flat function
+  type, `{field value :num int}`), with the layer roles and
+  the reading rules in its prose; the judgement of chapter
+  3 is written with two Δ zones.
+  Not applied yet, with the reason: the words `defn`,
+  `:type`, `fn`, `field`, `defhandler` and `bind-to` of the
+  listings are placeholders until the vocabulary lots and
+  the fourth part of this lot (Q-TYP-202, Q-SPEC-101); the
+  writing of type names (Q-TYP-201), what remains of `∀`
+  (Q-TYP-203), the escapes (Q-STR-201), the raw string and
+  its collision with `""` (Q-STR-202), inline paths
+  (Q-STR-203), heredocs (Q-STR-204), the code of an unknown
+  escape (Q-STR-205), the prose of `lst:acteur`
+  (Q-SPEC-102), the two 8-bit floats (Q-NUM-201), the name
+  of exact reals (Q-NUM-202) and the resolution of typed
+  holes (Q-NUM-203) are the fourth part of the lot; the
+  number kinds and widths enter the specification with the
+  writing of types.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, second part: answers of 2026-10-26
   (Q-LEX-101 to Q-ERR-004).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-26-012 to

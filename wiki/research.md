@@ -872,6 +872,98 @@ snake_case primitives `hollow_alloc` (C3/LeSystemeGradue.lean),
 identifiers of the four listings of chapter 5 are rewritten with them
 (Q-SPEC-001).
 
+## Reading lot: research of 2026-10-27, fourth part
+
+Material for the fourth part of the reading lot
+([questions](questions.md)). Each claim carries its source; a source
+marked *secondary* is an encyclopaedia or a blog, to be replaced by
+the primary text before a claim enters `spec/`.
+
+### Escapes and POSIX
+
+- **POSIX File Format Notation**: the escape sequences `\\`, `\a`,
+  `\b`, `\f`, `\n`, `\r`, `\t`, `\v`, each with its terminal action
+  ("Move the printing position to the start of the next line" for
+  `\n`). Source: POSIX.1-2024, XBD chapter 5,
+  https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap05.html.
+- **POSIX dollar-single-quotes** `$'…'`: `\"`, `\'`, `\\`, `\a`, `\b`,
+  `\e`, `\f`, `\n`, `\r`, `\t`, `\v`, `\cX` (a control character),
+  `\xXX` and `\ddd` (bytes, hexadecimal and octal); "The behavior of an
+  unescaped <backslash> immediately followed by any other character,
+  including <newline>, is unspecified." Source: POSIX.1-2024, Shell
+  Command Language,
+  https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html.
+
+### Raw strings, paths and heredocs
+
+- **Racket** here strings `#<<END`: the body ends before a line whose
+  only content is the terminator; "No escape sequences are recognized".
+  Source: https://docs.racket-lang.org/reference/reader.html.
+- **Lua** long brackets: a long literal "starts with an opening long
+  bracket of any level and ends at the first closing long bracket of
+  the same level"; they "do not interpret any escape sequences"; a
+  newline right after the opening bracket is dropped. Source:
+  https://www.lua.org/manual/5.4/manual.html.
+- **J** scripts, `0 : 0` (`noun define`): "the entry is terminated by a
+  lone right parenthesis". Source:
+  https://www.jsoftware.com/help/dictionary/dicth.htm.
+- **LaTeX** `verbatim`: its content "cannot include the string
+  `\end{verbatim}`"; "carriage returns and blanks are taken
+  literally". Source: https://latexref.xyz/verbatim.html.
+- **Python** triple quotes: "Unescaped newlines are also allowed and
+  retained"; three unescaped quotes of the opening kind terminate the
+  literal. Source:
+  https://docs.python.org/3/reference/lexical_analysis.html.
+- **Rebol** files: "The percent sign is necessary to prevent file names
+  from being interpreted as words within the language"; "If backslashes
+  are found they are converted to forward slashes"; a drive is written
+  `%/C/docs/file.txt`; a name with spaces goes in quotes,
+  `%"cool movie clip.mpg"`. Source:
+  https://www.rebol.com/docs/core23/rebolcore-12.html.
+- **Nix**: "A path literal must contain at least one slash to be
+  recognised as such." Source:
+  https://nix.dev/manual/nix/2.24/language/syntax.
+- **Common Lisp**: "When a double-quote is encountered, characters are
+  read from the input stream and accumulated until another double-quote
+  is encountered"; a line break is one of those characters. Source:
+  CLHS 2.4.5, https://www.lispworks.com/documentation/HyperSpec/Body/02_de.htm.
+
+### Types: names, function types, polymorphism
+
+- **Common Lisp**: the compound type specifier
+  `(function [arg-typespec [value-typespec]])`, "used only for
+  declaration and not for discrimination". Source:
+  https://www.lispworks.com/documentation/HyperSpec/Body/t_fn.htm.
+- **Typed Racket**: base types are capitalised, compound words joined by
+  hyphens (`Integer`, `Exact-Rational`); function types are written
+  `(-> …)`, the arguments first and the result last, as read from the
+  examples of the page. Source:
+  https://docs.racket-lang.org/ts-reference/type-ref.html.
+- **Carp**: `(Fn [<arg-type1> <arg-type2> ...] <return-type>) ;;
+  Function type`. Source:
+  https://github.com/carp-lang/Carp/blob/master/docs/LanguageGuide.md.
+- **Rust**: "A function pointer type, written using the fn keyword,
+  refers to a function whose identity is not necessarily known at
+  compile-time." Source:
+  https://doc.rust-lang.org/reference/types/function-pointer.html.
+- **MLton**: "Monomorphisation eliminates polymorphic values and
+  datatype declarations by duplicating them for each type at which they
+  are used." Source:
+  https://github.com/MLton/mlton/blob/master/doc/guide/src/Monomorphise.adoc.
+- **rustc**: the `type_length_limit` attribute "sets the maximum number
+  of type substitutions allowed when constructing a concrete type during
+  monomorphization" (https://doc.rust-lang.org/reference/attributes/limits.html);
+  an unbounded chain of instances fails with "reached the recursion
+  limit while instantiating"
+  (https://github.com/rust-lang/rust/blob/1.80.0/compiler/rustc_monomorphize/messages.ftl).
+
+### The bind of monads
+
+- **Rust** `Option::and_then`: "Returns `None` if the option is `None`,
+  otherwise calls `f` with the wrapped value and returns the result";
+  "Some languages call this operation flatmap." Source:
+  https://doc.rust-lang.org/std/option/enum.Option.html.
+
 ## Research lot closure
 
 The research closing of 2026-10-25 closed the 53 files of

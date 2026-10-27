@@ -702,6 +702,11 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `Ok`,
 - **B — Raku's rule.** `-` belongs to a name only between two letters; anywhere else it is the glyph. Example: `increase-counter  ->  one name        x-1  ->  x  -  1`. *For:* a rule with a precedent. *Against:* no digit after a hyphen in a name (`vector-3d`); a prefix language gains nothing from reading `x-1` as three atoms.
 - **C — A non-ASCII code point for sub.** The table writes sub as `−` (U+2212, minus sign); `-` is then never a glyph. *For:* names and numbers keep `-`; the reader needs no rule. *Against:* chapter 1 changes; `−` and `-` look alike, the confusion the admission rule of the table guards against.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a run made only of glyphs and modifiers is a train, cut into glyphs; any other run is read whole, as a name or a number. `increase-counter` is one name, `-2` a number, `+´÷≠` a train. Applied to chapter 5 and to the balance reader, whose list of glyphs is checked against `tab:glyphes`.
+
 #### Q-LEX-202 — What is ^?
 
 **Object.** Q-LEX-102 left `^` out of the sigils, the author being unsure. It writes the lenses of chapter 5: `[^. state value]` reads a field, `(^= state value new-value)` updates one (`lst:gestionnaire`).
@@ -709,6 +714,12 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `Ok`,
 - **A — Not a sigil: ^. and ^= are names.** Each is one atom, the name of a lens macro. This is how the reader reads them today. *For:* no reading rule; other lenses get names of their own. *Against:* the family is a naming habit, which the reader does not see.
 - **B — A sigil, read apart like :.** `^.` is the sigil `^` attached to `.`, `^=` the sigil attached to `=`; Phase 0 makes it an attribute. *For:* the lens family is visible to the reader. *Against:* `=` is a glyph, and `.` means projection or decimal point (chapter 1).
 - **C — Glyphs of the chapter 1 table.** Each lens becomes a glyph of the closed list (Q-LEX-103), with an alias such as `view` or `set`. *For:* the lenses join the glyphs they are used with. *Against:* the table holds single code points; `^.` has two.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-002), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** Je préfère des noms clairs comme "set" et "view"
+- **Reading:** the lenses get clear names, such as `view` and `set`, instead of `^.` and `^=`; `^` is neither a sigil nor a glyph. Applied to `lst:gestionnaire` and its prose with `view` and `set`.
 
 ### Writing types in K7PL
 
@@ -719,11 +730,23 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `Ok`,
 - **A — Lowercase kebab-case, like int32.** Example: `{vector n t}   {result int32 overflow}   {write-cap {arena t}}`. *For:* one case for every identifier. *Against:* a type and a value look alike; only the layer tells them apart.
 - **B — Type constructors capitalised.** Example: `{Vector n T}   {Result int32 Overflow}   {WriteCap {Arena T}}`. *For:* types stand out, as in the theory and in most typed languages. *Against:* two cases, against “English kebab-case, systematically”; `int32` stays lowercase.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** Je pense que nous pouvons trouver d'autres possibilités de rédactions.
+- **Reading:** kept open: the author expects other ways of writing type names than the two options. They come back, researched, in the fourth part of the lot (Q-TYP-201).
+
 #### Q-TYP-102 — How is a type variable told from a type name?
 
 - **A — By a binder.** A layer 1 form lists the variables of a type; any other name is a type name. Example: `{forall [t] {fn [t] t}}`. *For:* explicit, as the quantifiers of chapter 3. *Against:* every polymorphic type is wrapped.
 - **B — By a mark, ML style.** A name that starts with `'` is a type variable. Example: `{fn ['t] 't}`. *For:* short, with a precedent (Standard ML, OCaml). *Against:* one more reading rule; `'` is free today.
 - **C — By case.** A single capital letter is a variable. Example: `{fn [T] T}`. *Against:* only meaningful if type names are lowercase (Q-TYP-101 A).
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-004), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Polymorphisme est interdit en K7PL => tout est monomorphé.
+- **Reading:** a type variable is introduced by a binder. The author adds that polymorphism is forbidden in K7PL: everything is monomorphised. How this meets the type quantification of chapter 3 (`∀α. C`, `Λα. c`, `c[W]`) is put to the author in the fourth part (Q-TYP-203).
 
 #### Q-TYP-103 — How is a function type written?
 
@@ -733,6 +756,12 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `Ok`,
 - **B — The parameters in [ ].** Example: `{fn [int32 int32] {result int32 overflow}}`. *For:* the parameter list stands out, as in a definition. *Against:* a layer 3 group inside a type, which is set in layer 1.
 - **C — An arrow head.** The last type is the result. Example: `{→ int32 int32 {result int32 overflow}}`. *For:* the notation of the theory. *Against:* `→` is non-ASCII; the ASCII `->` is two glyphs (Q-LEX-201).
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-005), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** L'option C avec un vrais lemme à la place de la flèche
+- **Reading:** a function type is written with its parameter types and its result type flat after a head (option C), the head being a true lemma rather than an arrow; the lemma is chosen in the fourth part (Q-TYP-202). The listings keep the placeholder `fn` until then.
+
 #### Q-TYP-104 — What does Int of lst:acteur become?
 
 **Object.** `(champ valeur : Int)` declares an integer field without a width; K7PL types carry one (Q-LEX-002).
@@ -740,6 +769,17 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `Ok`,
 - **A — int64.** Example: `{field value :num int64}`.
 - **B — int32.** Example: `{field value :num int32}`.
 - **C — An unbounded integer.** If Q-NUM-101 keeps one. Example: `{field value :num big}`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-006), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:**
+
+  > Ici c'etait probablement une illustration historique d'un mécanisme lors duquel les types numériques n'étaient pas défini.
+  >
+  > On peut désormais considérer que "int" non précisé est un typed hole qui se résoudra dans la famille "int" des types.
+
+- **Reading:** the `Int` of `lst:acteur` was a historical illustration from before number types were defined. An `int` without a width is a typed hole, resolved within the family of `int` types: `{field value :num int}`. Applied to `lst:acteur`.
 
 ### Rewriting chapter 5
 
@@ -791,12 +831,27 @@ Several options may be chosen.
   ```
 
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-007), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** pure, handler, actor, error, OTHER
+- **Other:**
+
+  > "bind-to" n'est pas un lemme évalué, comparé et choisi.
+  > Ici je cherchais à représenter le `>>=` de haskell.
+
+- **Reading:** the four listings are accepted as shown, together with the prose they come with; the words fixed by the other answers of this part are applied in them (`view` and `set`, the flat function type, the typed hole `int`). The author adds that `bind-to` is not a lemma that was evaluated, compared and chosen: it stands for Haskell's `>>=`. The lemma, and what this means for the prose of `lst:acteur`, are put to the author in the fourth part (Q-SPEC-101).
+
 #### Q-SPEC-002 — Other identifiers of the specification
 
 **Object.** Outside chapter 5, a few code spans still break the naming rules: snake_case primitives `hollow_alloc` (chapter 3), `alloc_range` (chapter 4), `provenance_id` (chapter 6); the law `coherence_usage` (chapter 2); number types `Float64` (annex A, `ERR-TYP-005`) and `Decimal128` (chapter 7).
 
 - **A — Rename them now.** The law name, which belongs to the metalanguage, is written in mathematics. Example: `hollow-alloc   alloc-range   provenance-id   flo64   dec128`.
 - **B — With the vocabulary lots.** They stay as they are until their lemma is chosen.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-008), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** the snake_case identifiers and the number type names left in the specification wait for the vocabulary lots.
 
 #### Q-NOT-001 — A judgement with Γ
 
@@ -805,6 +860,11 @@ Several options may be chosen.
 - **A — Two Δ zones.** Example: `Δ₁;Δ₂ ⊢ C at d ▷ Δ₁';Δ₂'[m]`. *For:* the notation rule holds everywhere.
 - **B — Keep it as code.** As a notation quoted from its source. *Against:* one formula of the metalanguage stays in a code span.
 - **C — Allow Γ in this judgement.** The rule names this judgement as an exception. *Against:* Γ gets two meanings again.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-009), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** the judgement of chapter 3 is written with two Δ zones, `Δ₁;Δ₂ ⊢ C at d ▷ Δ₁';Δ₂'[m]`, in mathematics. Applied.
 
 ### Numbers
 
@@ -831,6 +891,13 @@ Several options may be chosen.
 - **alg — alg — exact algebraic numbers.** Exact arithmetic on roots of polynomials: SageMath `QQbar` (Sage reference (https://doc.sagemath.org/html/en/reference/number_fields/sage/rings/qqbar.html)).
 - **pad — pad — p-adic numbers.** To a chosen precision, as in number theory systems.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-010), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** mod, dfx, bfl, f8, pos, itv, qua, dua, gau, alg, pad
+- **Clarification:** f8 is specific but remains flo8
+- **Justification:** big étant arbitraire (soit du fait de l'implémentation) je le refuse => un typed hole évite un choix arbitraire
+- **Reading:** the kinds `mod`, `dfx`, `bfl`, the 8-bit floats, `pos`, `itv`, `qua`, `dua`, `gau`, `alg` and `pad` complete the list; the 8-bit floats remain `flo8`. Unbounded integers (`big`) are refused: their bound would be arbitrary or set by the implementation, and a typed hole avoids the arbitrary choice. How the two 8-bit formats are told apart, and the name of exact reals, are put in the fourth part (Q-NUM-201, Q-NUM-202).
+
 #### Q-NUM-102 — Which floating-point widths?
 
 **Facts.**
@@ -839,6 +906,11 @@ Several options may be chosen.
 
 - **A — The basic formats.** Example: `flo32 flo64 flo128   dec64 dec128`.
 - **B — Basic and interchange formats.** Example: `flo16 flo32 flo64 flo128 flo256   dec32 dec64 dec128`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-011), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** floating-point widths are the basic and interchange formats of IEEE 754-2019: `flo16`, `flo32`, `flo64`, `flo128`, `flo256`, `dec32`, `dec64`, `dec128`.
 
 #### Q-NUM-103 — Which integer widths?
 
@@ -851,6 +923,11 @@ Several options may be chosen.
 - **B — Powers of two, 8 to 256.** Example: `… int256`.
 - **C — Any width.** Example: `int7 int24 nat12`. *For:* exact layouts for protocols and hardware registers.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-012), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** integers take any width: `int7`, `int24`, `nat12`.
+
 #### Q-NUM-104 — Does fix count the sign bit?
 
 **Object.** `fix4.16`: 4 bits before the point, 16 after (Q-NUM-004).
@@ -862,6 +939,11 @@ Several options may be chosen.
 - **A — Signed, the sign counted in the integer bits.** Example: `fix4.16  =  20 bits, sign included (ARM)`.
 - **B — Signed, the sign added.** Example: `fix4.16  =  21 bits (Texas Instruments)`.
 - **C — Unsigned, a property for signed.** Example: `fix4.16 unsigned,   :num fix4.16 :signed`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-013), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a fixed-point type is signed and its integer bits count the sign bit (ARM convention): `fix4.16` is 20 bits.
 
 #### Q-NUM-105 — Which literal forms?
 
@@ -876,6 +958,12 @@ Several options may be chosen.
 - **rat — Rational.** Example: `1/3`.
 - **com — Complex.** Example: `3+4i`.
 - **spec — Infinities and NaN.** Example: `inf   -inf   nan`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-014), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** dec, exp, sep, rat, com, spec
+- **Justification:** Radix et autre registres de classifications sont plutot destinés à créer des matrices de nombres et pourra être modélisés pour instrumenter la couche 3
+- **Reading:** literals: decimal with a fraction, exponent, digit separator `_`, rational `1/3`, complex `3+4i`, `inf`, `-inf` and `nan`. Radix prefixes are refused: radixes and other registers of classification rather serve to build matrices of numbers, and may be modelled to instrument layer 3. Applied to `lexicon/syntax/tokens.k`.
 
 ### Strings
 
@@ -897,6 +985,12 @@ Several options may be chosen.
 - **hex — \xHH.** A byte or an ASCII character, two hex digits.
 - **oct — \ooo.** Octal, one to three digits (Tcl, C).
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-015), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** CLARIFY
+- **Clarification:** Besoin d'explications car je ne comprend pas trop les divergences de paradigme, est-ce qu'ici nous pourrions "simplement" suivre la norme POSIX ?
+- **Reading:** clarification asked: the author does not see why the languages differ, and asks whether K7PL could simply follow POSIX. Answered, with the POSIX escapes, in the fourth part (Q-STR-201).
+
 #### Q-STR-102 — What does an unknown escape do?
 
 **Object.** For example `\q`.
@@ -904,6 +998,11 @@ Several options may be chosen.
 - **A — Refused.** A reading error with its code, as Rust does. *For:* every escape means something.
 - **B — The backslash is dropped.** Tcl: « the backslash is dropped and the following character is treated as an ordinary character ».
 - **C — Kept as written.** The backslash and the character stay in the string.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-016), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** an unknown escape is refused, as Rust does. Its code is put in the fourth part (Q-STR-205).
 
 #### Q-STR-103 — Line breaks inside a literal: the trade-offs
 
@@ -913,6 +1012,12 @@ Several options may be chosen.
 - **B — Dropped after a backslash (Emacs Lisp, Tcl).** *For:* long lines can be folded. *Against:* a space after the backslash changes the meaning invisibly (Parinfer's `eol-backslash`); a forgotten quote still swallows the text.
 - **C — Dropped after an underscore (Unicon).** *For:* a visible continuation mark. *Against:* a reading rule of its own; same forgotten-quote cost as A.
 - **D — Forbidden; literals joined across lines (SQL).** *For:* non-collision: an unclosed quote is reported on its own line; every line of a text is read the same way; long texts go to heredocs. *Against:* a long literal is written as pieces; the joining rule is one more rule.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-017), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Important pour les docstrings
+- **Reading:** a line break inside a literal is a character of the string, as in Emacs Lisp; the author notes it matters for docstrings. This is what the readers already read.
 
 #### Q-STR-104 — How is a raw string written?
 
@@ -927,6 +1032,13 @@ Several options may be chosen.
 - **A — Corner brackets ｢…｣ (Raku).** Example: `｢C:\path\no\escape｣`. *For:* no ASCII collision; can nest. *Against:* non-ASCII: typed through the editor or a formatter.
 - **B — A prefix r (Rust).** Example: `r"C:\path"   r#"he said "hi""#`. *Against:* `r` glued to a string changes meaning; `#` is the comptime sigil.
 - **C — Backquotes (Go).** Example: ``C:\path\no\escape``. *For:* ASCII, one character, free in K7PL. *Against:* a raw string cannot hold a backquote.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-018), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** Double quote qui doivent se remplacer par les corner de Raku `""raw "string" writen""` : remplacement donc sémantiquement équivalent.
+- **Justification:** Concernant les path : j'aimerais que leurs syntaxe soient valides inline `from dos c/user/username/downloads` où "dos" réfère aux familles d'os windows, et peut être remplacé par bsd ou autres.
+- **Reading:** a raw string is written between doubled double quotes, `""raw "string" writen""`, an ASCII stand-in for Raku's corner brackets and equivalent to them. The author also wants paths valid inline, `from dos c/user/username/downloads`, where `dos` names the Windows family of systems and can be replaced by `bsd` or another family. The collision of `""` with the empty string and the inline paths are put in the fourth part (Q-STR-202, Q-STR-203).
 
 #### Q-STR-105 — How is a heredoc written?
 
@@ -961,6 +1073,21 @@ Several options may be chosen.
   ```
 
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-019), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:**
+
+  > Zig propose la méthode la plus claire mais elle reste à harmoniser avec les backslash, j'aimerais éviter de changer le sens sémentique des symboles et si \ indique un escape alors que signifie \\ ? Dans ce cas je préfèrerais un symbole sémantiquement correct pour indiquer du text comme § par exemple qui en plus se trouve disponible sur de nombreux layout de claviers.
+  >
+  > Cela donnerait :
+  > §Fist line
+  > §second line
+  >
+  > Comment fait TeX ? Comment font d'autres langages de script ? Éventuellement les Array languages et autres Lisp.
+
+- **Reading:** kept open. Zig's line prefix is the clearest, but `\\` would give the backslash, an escape, a second meaning; the author prefers a mark that means text, such as `§`, available on many keyboard layouts (`§First line` then `§second line`), and asks how TeX, other scripting languages, array languages and Lisps do it. Researched in the fourth part (Q-STR-204).
+
 ### Error codes
 
 #### Q-ERR-101 — Where do an unclosed string and a quote in a comment go?
@@ -974,6 +1101,11 @@ Several options may be chosen.
 - **A — Both in ERR-DLM.** A quote delimits a string: `ERR-DLM-004` an unclosed string, `ERR-DLM-005` an odd number of quotes in a comment.
 - **B — A segment of their own.** For example `ERR-STR`.
 - **C — The unclosed string in ERR-DLM; no code for the comment.** Given the fact above.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-020), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** an unclosed string gets a code in `ERR-DLM`; an odd number of quotes in a comment gets none, since a comment runs to the end of its line. Applied: `ERR-DLM-004`, its message a proposal.
 
 #### Q-ERR-102 — The recovery rule and the three messages
 
@@ -992,6 +1124,201 @@ Several options may be chosen.
 - **A — Confirm the rule and the messages.**
 - **B — Confirm the rule; messages changed in Other.**
 - **C — Change the rule (Other or Clarify).**
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-021), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** the recovery rule and the messages of `ERR-DLM-001` to `ERR-DLM-003` are confirmed.
+
+## Lot of 2026-10-27, fourth part: escapes, raw strings, paths, heredocs, types, bind, numbers
+
+Questions opened by the answers to the third part. They follow the
+same rules: options to enumerate and objectify, then the author's
+choice; **Other** and **Clarify** are always available. The
+options were built from the research recorded in
+[research](research.md), "Reading lot: research of 2026-10-27, fourth part".
+
+Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from`…) are placeholders.
+
+### Strings
+
+#### Q-STR-201 — Escapes, explained, and POSIX
+
+**Object.** You asked why languages differ, and whether K7PL could simply follow POSIX. An escape list answers three needs: writing the quote and the backslash themselves; writing control characters (line feed, tab…); writing any character by its number. Languages agree on the first need. On the second they differ by history: the C list comes from the controls of terminals. On the third they differ by what a string is: a sequence of bytes (C, POSIX: `\xHH` and `\ddd` give a byte) or of Unicode characters (Rust, Raku: `\u{…}` gives a code point). Every other escape is refused (Q-STR-102).
+
+**Facts.**
+
+- POSIX defines two lists. The File Format Notation: `\\` `\a` `\b` `\f` `\n` `\r` `\t` `\v` (POSIX.1-2024, XBD chapter 5 (https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap05.html)). The shell's dollar-single-quotes `$'…'` add `\"` `\'` `\e` `\cX` `\xXX` `\ddd` (bytes), and « The behavior of an unescaped <backslash> immediately followed by any other character, including <newline>, is unspecified » (POSIX.1-2024, Shell Command Language (https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html)).
+- Rust: `\n` `\r` `\t` `\\` `\0` `\'` `\"`, `\x41` up to 0x7F only, `\u{…}` a Unicode scalar value (Rust reference (https://doc.rust-lang.org/reference/tokens.html)).
+
+- **A — POSIX File Format Notation, and the quote.** Example: `\\  \"  \a  \b  \f  \n  \r  \t  \v`. *For:* a published standard list; every escape is a character. *Against:* no way to write a character by its number.
+- **B — POSIX dollar-single-quotes.** Example: `\"  \'  \\  \a  \b  \e  \f  \n  \r  \t  \v  \cX  \xHH  \ddd`. *For:* the fullest POSIX list. *Against:* `\xHH` and `\ddd` give bytes: a string could hold bytes that are not text.
+- **C — A, plus Unicode code points.** Example: `\\  \"  \a  \b  \f  \n  \r  \t  \v  \u{…}`. *For:* the POSIX controls, and any character by its code point, never a stray byte. *Against:* `\u{…}` comes from Rust, not POSIX.
+- **D — Rust's list.** Example: `\\  \"  \'  \n  \r  \t  \0  \x41  \u{…}`.
+
+#### Q-STR-202 — Raw strings and the empty string
+
+**Object.** Q-STR-104: a raw string is written between doubled double quotes, `""raw "string" writen""`. But `""` is also the empty string: the reader must tell `(f "" x)` from a raw string that opens.
+
+- **A — "" then a character opens a raw string.** `""` followed by a space, a delimiter or the end of a line is the empty string; followed by any other character, it opens a raw string, which closes at the next `""`. *Against:* a raw string can neither start with a space nor hold `""`.
+
+  ```text
+  (f "" x)          ;; the empty string
+  (f ""C:\path"" x)  ;; a raw string
+  ```
+
+- **B — Three quotes.** As C# and Python: the empty string stays `""`. Example: `"""raw "string" writen"""`. *For:* no collision; the content may hold `""`. *Against:* one quote more than your form; `"""` is also a heredoc candidate (Q-STR-204).
+- **C — Corner brackets in the text, "" only typed.** The file holds `｢…｣`; the editor or the formatter turns `""…""`, as typed, into corner brackets. *For:* no collision in the text. *Against:* non-ASCII characters in the files; a formatter becomes part of the toolchain.
+
+#### Q-STR-203 — Paths written inline
+
+**Object.** Your wish (Q-STR-104): `from dos c/user/username/downloads`, where `dos` names the Windows family of systems and can be replaced by `bsd` or another family. The reader already reads `c/user/username/downloads` as one symbol: it holds no space and no delimiter.
+
+**Facts.**
+
+- Rebol: « The percent sign is necessary to prevent file names from being interpreted as words »; backslashes are converted to forward slashes; a drive is written `%/C/docs/file.txt`; a name with spaces goes in quotes, `%"cool movie clip.mpg"` (REBOL/Core guide, Files (https://www.rebol.com/docs/core23/rebolcore-12.html)).
+- Nix: « A path literal must contain at least one slash to be recognised as such » (Nix manual, syntax (https://nix.dev/manual/nix/2.24/language/syntax)).
+
+- **A — A symbol with slashes, given its family by a form.** Example: `(from dos c/user/username/downloads)`. *For:* no new reading rule. *Against:* a path that holds a space or a delimiter cannot be written.
+- **B — A path mark, Rebol style.** Example: `(from dos %c/user/username/downloads)   (from bsd %"My Documents/notes")`. *For:* a path is a lexical class: the reader knows it; spaces through quotes. *Against:* `%` becomes a mark of its own.
+- **C — Nix's rule.** Any atom holding a slash is a path. *For:* no mark. *Against:* spaces cannot be written; `1/3` must stay a number.
+
+#### Q-STR-204 — Heredocs: § and the others
+
+**Object.** Your proposal: each line of a heredoc starts with `§` (U+00A7), like Zig's `\\` without giving the backslash a second meaning. Ordinary strings already span lines (Q-STR-103); a heredoc adds a text without escapes, whose indentation is not part of the text.
+
+**Facts.**
+
+- TeX: the `verbatim` environment ends at `\end{verbatim}`, whose content « cannot include the string `\end{verbatim}` »; « carriage returns and blanks are taken literally » (LaTeX2e reference (https://latexref.xyz/verbatim.html)).
+- Racket here strings `#<<END`: the body ends before a line holding only the terminator; « No escape sequences are recognized » (Racket reader (https://docs.racket-lang.org/reference/reader.html)).
+- Lua long brackets `[[…]]`, `[==[…]==]`: no escapes, a first line break dropped (Lua 5.4 manual (https://www.lua.org/manual/5.4/manual.html)). J `0 : 0` (`noun define`): « the entry is terminated by a lone right parenthesis » (J Dictionary, II.H Scripts (https://www.jsoftware.com/help/dictionary/dicth.htm)).
+- Python triple quotes: « Unescaped newlines are also allowed and retained » (Python reference (https://docs.python.org/3/reference/lexical_analysis.html)). Common Lisp: a string accumulates characters « until another double-quote is encountered », line breaks included (CLHS 2.4.5 (https://www.lispworks.com/documentation/HyperSpec/Body/02_de.htm)).
+- In K7PL, `[[…]]` and `)` are layer delimiters and `#` the comptime sigil: Lua's, J's and Racket's forms collide.
+
+- **A — § at the start of each line (your proposal).** The text of a line is what follows `§`; the lines are joined by line breaks; no escape; what precedes `§` is indentation, not text. *For:* each line is read alone: nothing can swallow the text; no indentation rule. *Against:* `§` is non-ASCII; a reading rule of its own, like `;;` for comments.
+
+  ```text
+  §First line
+  §second line
+  ```
+
+- **B — Triple quotes (Python, Java, C#).** *For:* familiar. *Against:* a forgotten closing `"""` swallows the rest of the text.
+
+  ```text
+  """
+      First line
+      second line
+      """
+  ```
+
+- **C — A terminator word, given by a form.** *Against:* the form and its word are still to design.
+
+  ```text
+  (text END)
+  First line
+  second line
+  END
+  ```
+
+#### Q-STR-205 — The code of an unknown escape
+
+**Object.** Q-STR-102: an unknown escape is refused. `ERR-DLM` names delimiters (Q-ERR-001), which an escape is not.
+
+- **A — A segment for strings: ERR-STR.** Example: `ERR-STR-001  unknown escape`.
+- **B — A segment for lexical errors: ERR-LEX.** Which later reading errors of a token would join.
+- **C — In ERR-DLM.** The escape lives between the delimiters of a string. *Against:* the segment no longer names one invariant.
+
+### Types in K7PL
+
+#### Q-TYP-201 — How are type names written? Other ways
+
+**Object.** You kept Q-TYP-101 open, expecting other ways than lowercase and capitalised names. Number types are written `int32`, as a property `:num`; chapter 1 (`tab:dimensions`) gives layer 1 a Lisp-2 namespace, with separate spaces.
+
+**Facts.**
+
+- Common Lisp writes types in lowercase, `integer`, `(function (integer) integer)` (CLHS, function (https://www.lispworks.com/documentation/HyperSpec/Body/t_fn.htm)); Typed Racket capitalises base types joined by hyphens, `Integer`, `Exact-Rational` (Typed Racket reference (https://docs.racket-lang.org/ts-reference/type-ref.html)).
+- C and POSIX mark many type names with a suffix, `size_t`, `pid_t`.
+
+- **A — Lowercase; the namespace of layer 1 tells types apart.** Example: `{vector n t}   {result int32 overflow}`. *For:* one case, as `int32`; the Lisp-2 namespace of layer 1 already separates types and values. *Against:* nothing in the text marks a type.
+- **B — Capitalised words joined by hyphens (Typed Racket).** Example: `{Vector n T}   {Result int32 Overflow}   {Exact-Rational}`. *Against:* two cases; `int32` stays lowercase.
+- **C — Every type position opened by a property.** Names stay lowercase; a type appears only after a property that announces it (`:num`, `:type`…), so the reader of the text always knows. Example: `{field value :num int}   {defn f :type {fn int32 {result int32 overflow}}}`. *Against:* a property to choose for each kind of position.
+- **D — A suffix.** Example: `{vector-t n t}   {result-t int32 overflow-t}`. *Against:* a suffix on every type name; `int32` would break the rule.
+
+#### Q-TYP-202 — The lemma of a function type
+
+**Object.** Q-TYP-103: a function type is written flat, parameters then result, after a true lemma. Weighed along the M-A sequence.
+
+**Facts.**
+
+- Chapter 3 writes computation types `V ⊸ C`, and chapter 2 the internal hom `[A ⊸ B]` beside `Hom`.
+- Common Lisp: `(function (integer) integer)`; Typed Racket: `(-> Integer Integer Integer)`, the last type being the result; Carp: `(Fn [Int] Int)`.
+- `lambda` is the preferred lemma of the abstraction `Lam` (VOC-2026-10-26-002), whose candidates included `fn` and `fun`.
+
+- **A — function.** Example: `{function int32 int32 {result int32 overflow}}`. *For:* exact: the type of functions; Common Lisp's word. *Against:* the longest.
+- **B — fn.** Example: `{fn int32 int32 {result int32 overflow}}`. *For:* brief; Carp, Rust. *Against:* non-collision: a candidate for `Lam`, which is the abstraction, not its type.
+- **C — arrow.** Example: `{arrow int32 int32 {result int32 overflow}}`. *For:* names the arrow of the theory. *Against:* the theory's arrow is `⊸`, linear, not `→`.
+- **D — hom.** Example: `{hom int32 int32 {result int32 overflow}}`. *For:* the word of chapter 2 for morphisms. *Against:* a categorical word in programs.
+
+#### Q-TYP-203 — Polymorphism forbidden: what remains of ∀?
+
+**Object.** Q-TYP-102: « Polymorphisme est interdit en K7PL => tout est monomorphé. » Chapter 3 has type quantification: `∀α. C` in the grammar of types, `Λα. c` and `c[W]` among the terms, with their typing rules.
+
+**Facts.**
+
+- MLton: « Monomorphisation eliminates polymorphic values and datatype declarations by duplicating them for each type at which they are used » (MLton guide, Monomorphise (https://github.com/MLton/mlton/blob/master/doc/guide/src/Monomorphise.adoc)).
+- rustc limits « the maximum number of type substitutions allowed when constructing a concrete type during monomorphization » (Rust reference, limits (https://doc.rust-lang.org/reference/attributes/limits.html)); an unbounded chain of instances fails with « reached the recursion limit while instantiating » (rustc 1.80.0, messages.ftl (https://github.com/rust-lang/rust/blob/1.80.0/compiler/rustc_monomorphize/messages.ftl)).
+
+- **A — Polymorphism at compile time only.** `∀` stays in the calculus; every instance is made at compile time, so no polymorphic value exists at run time; a definition that would need infinitely many instances is refused. *For:* chapter 3 keeps its rules.
+- **B — No type quantification.** Every type is written concrete; `∀α. C`, `Λα. c` and `c[W]` leave chapter 3. *Against:* a change of the core calculus and of its proofs.
+
+### bind-to
+
+#### Q-SPEC-101 — The lemma for Haskell's >>=
+
+**Object.** Q-SPEC-001: `bind-to` is not a lemma that was weighed; it stands for Haskell's `>>=`.
+
+**Facts.**
+
+- Rust's `Option::and_then`: « Some languages call this operation flatmap » (Rust std (https://doc.rust-lang.org/std/option/enum.Option.html)).
+- Written `>>=`, it would read as a train of three glyphs (Q-LEX-201).
+
+- **A — bind.** *For:* the name of the operation in the theory of monads.
+- **B — and-then.** *For:* reads as a sequence (Rust).
+- **C — flat-map.** *For:* names what it does on collections.
+- **D — then.** *For:* the shortest. *Against:* says nothing of the value passed on.
+
+#### Q-SPEC-102 — What the prose of lst:acteur says
+
+**Object.** Chapter 5 reads `bind-to` otherwise: « Un acteur est la paire additive dépendante (état : S) & Handler(S) du chapitre 3, et `bind-to` n'est qu'un accès de champ », the elaborator filling the handler by type-directed search when it is omitted.
+
+- **A — Rewrite it as a monadic bind.** The actor's state is bound to its handler as by `>>=`; the prose is rewritten from that reading.
+- **B — Keep the reading, change the lemma.** The form stays an access to the second component of the pair; only its lemma changes (Q-SPEC-101).
+
+### Numbers
+
+#### Q-NUM-201 — Two 8-bit floats
+
+**Object.** E4M3 and E5M2 (OCP OFP8) both take 8 bits; Q-NUM-101 names them `flo8`.
+
+- **A — A property for the exponent bits.** Example: `:num flo8 :exp 4     :num flo8 :exp 5`.
+- **B — Two names.** Example: `flo8e4   flo8e5`.
+- **C — flo8 is one format, a property marks the other.** Example: `flo8 (E4M3)     :num flo8 :exp 5`.
+
+#### Q-NUM-202 — The name of exact reals
+
+**Object.** Irrationals such as π or √2, computed to any requested precision (Q-NUM-001).
+
+- **A — rea.** *For:* real.
+- **B — cre.** *For:* computable real, the name of the theory.
+- **C — exr.** *For:* exact real.
+
+#### Q-NUM-203 — Typed holes: when and how are they resolved?
+
+**Object.** Q-TYP-104 and Q-NUM-101: a kind without a width, such as `int`, is a typed hole resolved within its family.
+
+- **A — From the uses, at compile time; refused if they fix no width.** A reading error with its code when nothing fixes the width.
+- **B — The smallest width that holds every value the solver can bound.** Refused if the solver bounds nothing. *For:* the solver of chapter 6 already bounds values.
+- **C — A default width per kind.** *Against:* the arbitrary choice that the hole is meant to avoid.
 
 ## The catalogue, verbatim
 
