@@ -13,17 +13,17 @@ k7pl is a programming language implemented in Lean 4 with Mathlib and CSLib. Its
 - `tests/`: Lean tests (CECILL-2.1).
 - `spec/`: Verso specification (CC-BY-4.0), current normative source.
 - `tools/`: Verso generator and extensions, generated bibliography.
-- `docs/`: decisions, research, audits and migration registers (the tracking and peer-review folders closed in 2026-10-25); entry point: `wiki/HOME.md`, work plan: `wiki/roadmap.md`.
-- `docs/archives/`: frozen former manuscript and tooling; do not correct them to change the current version.
+- `wiki/`: maintained project documentation and generated status views; entry point: `wiki/HOME.md`.
+- `theoretical-projects/k7os/`: research and models for the separate K7OS operating-system project.
 - `.claude/rules/`: specialised rules.
 - `.claude/skills/`: reusable procedures.
 - `.claude/agents/`: specialised roles and model settings.
 
-Only the specification (`spec/`) is written in French. Everything else is in English: code, identifiers, comments, docstrings, documentation, tracking, agent, rule and skill files, issues, PRs and commit messages. Strings that are rendered into the specification follow it and stay in French. File names are in English. Historical and evidence records (`docs/history/`, `docs/archives/`, `docs/peer-review/`, dated audits) are not translated: they are kept until their content has been analysed and arbitrated (moved elsewhere, abandoned, etc.), then deleted progressively.
+Only the specification (`spec/`) is written in French. Everything else is in English: code, identifiers, comments, docstrings, documentation, tracking, agent, rule and skill files, issues, PRs and commit messages. Strings that are rendered into the specification follow it and stay in French. File names are in English. Historical and evidence records that remain in the repository are not translated. Analyse and arbitrate each before moving or deleting it, and record the destination or reason for removal.
 
 ## Non-negotiable invariants
 
-`spec/`, `src/`, `tests/` and `docs/` are objects of different kinds. A specification claim, a Lean definition, a proof and a test are never interchangeable.
+`spec/`, `src/`, `tests/` and `wiki/` contain different kinds of project artefacts. A specification claim, a Lean definition, a proof and a test are never interchangeable.
 
 The manuscript carries the instruction « ne rien modifier sans l'accord de l'auteur » ("change nothing without the author's consent"). Any normative change to `spec/` therefore requires an explicit request and a minimal scope.
 

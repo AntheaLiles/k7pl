@@ -210,7 +210,7 @@ def test_croise_selftest_passes():
     assert not failures_of()
 
 
-def test_unknown_typing_rule_is_declared_or_fails(patched, primitives):
+def test_unknown_typing_rule_is_declared_or_fails(patched):
     """A rule absent from the EXPECTED table must surface as a failure (no silent coverage)."""
     from controles import croise
 

@@ -29,7 +29,7 @@ EXPECTED_FULL_EXACT = {
 }
 EXPECTED_FULL_PREFIXES = (".github/workflows/", "scripts/ci/")
 SURFACES = ("full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests")
-EXPECTED_PYTHON_TEST_EXACT = {"scripts/generate_status.py", "scripts/suivi.py"}
+EXPECTED_PYTHON_TEST_EXACT = {"scripts/generate_status.py"}
 EXPECTED_PYTHON_TEST_PREFIXES = ("tests/python/",)
 EXPECTED_LEAN_PREFIXES = ("src/", "tests/")
 EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
@@ -39,7 +39,7 @@ EXPECTED_SPEC_CHECK_EXACT = set()
 # Retired 2026-10-25 with the tracking folder: no path triggers
 # tracking_views on its own any more (see test_tracking_views_surface).
 EXPECTED_TRACKING_VIEWS_EXACT = set()
-EXPECTED_LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
+EXPECTED_LIGHT_PREFIXES = (".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 EXPECTED_LIGHT_EXACT = {"CITATION.cff"}
 # Added on top of the surface a path belongs to (test_impact_coverage.py derives them from code).
 EXPECTED_PYTHON_TEST_READ_EXACT = {"wiki/assurance.md"}
@@ -88,8 +88,10 @@ class ImpactTests(unittest.TestCase):
         self.assertFalse(result["lean_build"])
 
     def test_spec_tracking_file(self):
-        # The primitive list moved to wiki/research.md in 2026-10-25;
-        # it is read by croise.py on the specification-build surface.
+        # D1, owner decision 2026-10-25: the primitive leg that read
+        # wiki/research.md from croise.py was removed; the wiki is
+        # not a normative constituent, so research.md is docs_links
+        # only by design.
         result = classify(["wiki/research.md"])
         self.assertTrue(result["docs_links"])
         self.assertFalse(result["spec_check"])
@@ -104,6 +106,16 @@ class ImpactTests(unittest.TestCase):
         result = classify(["new-format.toml"])
         self.assertTrue(result["full"])
         self.assertTrue(result["unclassified"])
+
+    def test_non_markdown_docs_path_forces_full(self):
+        # F9, owner decision 2026-10-25: docs/ is no longer a light
+        # prefix. A non-markdown docs/ path is unclassified, hence
+        # full validation; a Markdown docs/ file stays light through
+        # the generic markdown rule (see test_markdown_is_light).
+        result = classify(["docs/notes.txt"])
+        self.assertTrue(result["full"])
+        self.assertTrue(result["unclassified"])
+        self.assertEqual(result["unknown_paths"], ["docs/notes.txt"])
 
     def test_mixed_surfaces_are_unioned(self):
         result = classify(["src/K7pl/Foo.lean", "docs/foo.md", "spec/Spec/C2.lean"])
@@ -272,7 +284,6 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
         paths = sorted(EXPECTED_LEAN_BUILD_READ_EXACT) + [
             "tools/Compliance/SbomAudit.lean",
             "tools/Compliance/SbomAuditMain.lean",
-            "tools/Compliance/RequirementEvidence.lean",
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -290,7 +301,6 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
         # tracking-view inputs now classify without tracking_views.
         expected = {
             "wiki/roadmap.md": {"docs_links"},
-            "scripts/suivi.py": {"python_tests"},
             "scripts/manuscript_metrics.py": {"spec_check", "spec_build", "python_tests"},
         }
         for path, surfaces in expected.items():

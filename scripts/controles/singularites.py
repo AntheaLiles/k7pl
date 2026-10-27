@@ -5,9 +5,15 @@
 """The propagation tables of the singularities (section 3.2) against the wheel of fractions.
 
 The two tables of the specification (`tab:propagation-addition`, `tab:propagation-produit`) are
-recomputed on the wheel of fractions of GF(5) (classes `0`, `x`, `inf`, `bot`), and the algebra of
-the error classes is checked exhaustively (`scripts/verif_singularites.py`).  Neither reads the
-article of Carlstrom: the construction and the axioms are the ones recalled in the specification.
+recomputed on the wheel of fractions of GF(5) (classes `0`, `x`, `inf`, `bot`), and the wheel
+algebra itself is checked exhaustively (`scripts/verif_singularites.py`, kind `wheel` only).
+Neither reads the article of Carlstrom: the construction and the axioms are the ones recalled
+in the specification.
+
+D3, owner decision 2026-10-25: only the wheel is branched as a check. The candidate
+extensions `sup` and `flags` explored in `scripts/verif_singularites.py` are research history,
+not checks: they are not in the specification, and this module no longer evaluates them.
+Their exploration survives in git history and in that script's own documentation.
 """
 
 from __future__ import annotations
@@ -103,10 +109,10 @@ def run() -> None:
         ok("auto-test : une case fausse est refusée")
     else:
         ko("auto-test : une table au contenu faux n'a pas été refusée")
-    for kind, expected in vs.EXPECTED.items():
-        for p in (2, 3, 5):
-            bad = vs.failures(p, kind)
-            if not expected(bad):
-                ko(f"algèbre des singularités « {kind} », GF({p}) : axiomes en défaut {sorted(bad)} (résultat inattendu)")
-                return
-    ok("algèbre des singularités : roue sans défaut ; erreurs par réunion, seul l'axiome 0/0 + x = 0/0 en défaut ; borne supérieure non associative")
+    # D3: wheel only. The sup/flags candidates are research history, not checks.
+    for p in (2, 3, 5):
+        bad = vs.failures(p, "wheel")
+        if bad:
+            ko(f"algèbre des singularités « wheel », GF({p}) : axiomes en défaut {sorted(bad)} (résultat inattendu)")
+            return
+    ok("algèbre des singularités : roue sans défaut sur GF(2), GF(3) et GF(5)")

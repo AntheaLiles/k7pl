@@ -4,6 +4,7 @@
 PYTHON ?= python3
 KOMPILE ?= kompile
 KRUN ?= krun
+DENO ?= deno
 KLEAN ?= klean
 K_BACKEND ?= llvm
 DEFINITION := .build/kompiled
@@ -39,7 +40,7 @@ boundary-kompile: extract-code
 	$(KOMPILE) "$(BOUNDARY_SOURCE)" --backend $(K_BACKEND) --main-module K7OS-NATIVE-BOUNDARY --syntax-module K7OS-NATIVE-BOUNDARY-SYNTAX --output-definition "$(BOUNDARY_DEFINITION)"
 
 boundary-check: boundary-kompile
-	bash ../../scripts/ci/k7pl_os_boundary_check.sh "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
+	$(DENO) run --allow-read --allow-run=krun ../../tools/ci-controller/src/os_boundary_check.ts "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
 
 export-lean: kompile
 	rm -rf $(KLEAN_OUTPUT)

@@ -175,17 +175,19 @@ class BadgeDriftScriptTests(StepScriptCase):
         self.stub("python3", f'echo "{{}}" > "${{@: -1}}"; exit {status}')
         return self.run_script("security_badge_criteria_drift.sh")
 
-    def test_every_outcome_exits_zero_and_is_stated(self):
+    def test_every_outcome_exits_with_its_status_and_is_stated(self):
+        # F3, owner decision 2026-10-25: drift and unavailable checks
+        # fail the job (exit 1 and 2) instead of warning and exiting 0.
         expected = {
             0: ("", "unchanged from the pinned registry"),
-            1: ("::warning::OpenSSF BadgeApp criteria changed upstream", "Upstream criteria drift detected"),
-            2: ("::warning::Could not verify", "This is not evidence that the criteria are unchanged"),
+            1: ("::error::OpenSSF BadgeApp criteria changed upstream", "Upstream criteria drift detected"),
+            2: ("::error::Could not verify", "This is not evidence that the criteria are unchanged"),
         }
         for status, (annotation, summary) in expected.items():
             with self.subTest(status=status):
                 self.summary.write_text("")
                 result = self.drift(status)
-                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(result.returncode, status, result.stderr)
                 self.assertIn(annotation, result.stdout)
                 self.assertIn(summary, self.summary.read_text())
         self.assertEqual(

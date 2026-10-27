@@ -78,23 +78,15 @@ ENTRY_POINTS: dict[str, tuple[frozenset[str], ...]] = {
     # verify.yaml: job `quick`, step "Check the specification" (full || spec_check); job
     # `python-tests`, step "Check the real corpus with the tooling under test" (python_tests).
     "scripts/controle.py": (frozenset({"spec_check"}), frozenset({"python_tests"})),
-    # No suivi entry any more: the tracking-view step was removed from
-    # verify.yaml in 2026-10-25 when the tracking folder closed and
-    # scripts/suivi.py was frozen; see NOT_RUN_BY_A_CHECK.
 }
 # verify.yaml: job `python-tests`, step "Test the Python tooling": `pytest tests/python`.
 PYTEST_STEPS = (frozenset({"python_tests"}),)
 
 # Python files under scripts/ (outside scripts/ci/) that read repository files but that no
 # impact-gated step runs.
-NOT_RUN_BY_A_CHECK: dict[str, str] = {
-    "scripts/suivi.py": (
-        "frozen 2026-10-25 with the tracking folder: its generation "
-        "commands refuse, and its check() survives only as a unit-tested "
-        "function on synthetic corpora (tests/python/test_suivi.py); no "
-        "workflow step runs it on repository files any more"
-    ),
-}
+# (Empty since the 2026-10-25 legacy triage deleted the frozen scripts/suivi.py
+# together with its synthetic-corpus test; no other such file is known.)
+NOT_RUN_BY_A_CHECK: dict[str, str] = {}
 
 # (reader, path read): over-approximations of the analysis.
 EXEMPT_READS = {
@@ -109,12 +101,9 @@ EXEMPT_READS = {
     ),
 }
 # (importer, imported): import edges that the closure must not follow.
-EXEMPT_EDGES = {
-    ("tests/python/test_suivi.py", "scripts/suivi.py"): (
-        "the fixture repoints CARDS and STATUTS to tmp_path and only calls check() and cards(); the "
-        "real inputs are checked through the scripts/suivi.py entry point"
-    ),
-}
+# (Empty since the 2026-10-25 legacy triage deleted scripts/suivi.py and
+# tests/python/test_suivi.py together.)
+EXEMPT_EDGES = {}
 
 # Lake targets that each job builds, by surface.
 LEAN_TARGETS = {
@@ -650,6 +639,10 @@ class WorkflowConsistencyTests(unittest.TestCase):
         named.update(re.findall(r"\blake exe (\w+)", text))
         for args in re.findall(r"scripts/axiom-audit\.sh \S+((?: [\w.]+)+)", text):
             named.update(args.split())
+        # The Deno axiom-audit replacement names each root directly instead of passing
+        # roots through scripts/axiom-audit.sh. Count those roots in the same coverage set.
+        for root in re.findall(r"axiom_audit\.ts audit (\S+)", text):
+            named.add(root.split(".", maxsplit=1)[0])
         if re.search(r"\blake test\b", text):
             named.add("mainTest")
         known = {name for names in LEAN_TARGETS.values() for name in names}
@@ -660,10 +653,20 @@ class WorkflowConsistencyTests(unittest.TestCase):
 
     def test_the_step_scripts_are_read_with_the_workflow(self):
         scripts = {path.relative_to(ROOT).as_posix() for path in step_scripts()}
-        self.assertTrue({"scripts/ci/verify_sbom_audit.sh", "scripts/ci/verify_audit_axioms.sh"} <= scripts)
+        text = workflow_text()
+        # The shell entry point remains in-tree, but its orchestration has moved
+        # to Deno. Test that it is preserved separately from the active step list.
+        self.assertTrue((ROOT / "scripts/ci/verify_sbom_audit.sh").is_file())
+        self.assertIn("tools/ci-controller/src/lake_to_spdx.ts", text)
+        self.assertIn("tools/ci-controller/src/sbom_evidence.ts", text)
+        # Axiom audits have been ported to Deno. Keep the old shell entry point in-tree
+        # until the full CI cycle is green, but verify the replacement steps are wired.
+        self.assertTrue((ROOT / "scripts/ci/verify_audit_axioms.sh").is_file())
+        self.assertIn("tools/ci-controller/src/axiom_audit.ts audit-roots tools Compliance", text)
+        self.assertIn("tools/ci-controller/src/axiom_audit.ts audit-roots tests", text)
         for path in step_scripts():
             self.assertTrue(path.is_file(), f"verify.yaml runs {path}, which does not exist")
-        self.assertIn("lake exe sbomAudit lake-manifest.json", workflow_text())
+        self.assertIn("lake exe sbomAudit lake-manifest.json", text)
 
 
 class LeanCoverageTests(unittest.TestCase):
@@ -684,7 +687,6 @@ class LeanCoverageTests(unittest.TestCase):
         expected = {
             "tools/SpecExt/IndexTerms.lean",
             "tools/Compliance/SbomAuditMain.lean",
-            "tools/Compliance/RequirementEvidence.lean",
             "tests/MainTest.lean",
         }
         self.assertEqual(expected - impl, set())

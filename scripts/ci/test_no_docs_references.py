@@ -34,8 +34,6 @@ ROOT = Path(__file__).resolve().parents[2]
 #   its LEGACY_PATHS list is intentional, and its own tests cover it.
 # - impact.py: LIGHT_PREFIXES classifies any future docs/ path in a
 #   diff as a light change; it never reads a docs/ file.
-# - suivi.py: frozen since 2026-10-25; its docs/ mentions are the
-#   prose of a script that generates nothing and is not run by CI.
 # - verif_singularites.py: a single historical comment quoting a
 #   deleted research file; the script reads spec/, not docs/.
 # - controles/croise.py, controles/couverture.py, controles/structure.py:
@@ -44,7 +42,6 @@ ROOT = Path(__file__).resolve().parents[2]
 ALLOWLIST = {
     "scripts/ci/check_documentation_architecture.py",
     "scripts/ci/impact.py",
-    "scripts/suivi.py",
     "scripts/verif_singularites.py",
     "scripts/controles/croise.py",
     "scripts/controles/couverture.py",

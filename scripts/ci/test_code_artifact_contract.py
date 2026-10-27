@@ -22,8 +22,10 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.workflow_file = workflow = (ROOT / ".github/workflows/k7pl-semantics.yaml").read_text(encoding="utf-8")
         # The workflow and the scripts/ci step scripts that it runs.
         self.step_scripts = sorted(set(re.findall(r"\bscripts/ci/k7pl_semantics_\w+\.sh\b", workflow)))
+        package_evidence = (ROOT / "tools/ci-controller/src/package_evidence.ts").read_text(encoding="utf-8")
         self.workflow = "\n".join(
-            [workflow] + [(ROOT / name).read_text(encoding="utf-8") for name in self.step_scripts]
+            [workflow, package_evidence]
+            + [(ROOT / name).read_text(encoding="utf-8") for name in self.step_scripts]
         )
 
     def test_verso_is_the_only_maintained_k_definition(self) -> None:
@@ -47,7 +49,8 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertIn('"k7os-model"', self.extension)
         self.assertIn('target.startsWith "src/k/.build/generated/models/"', self.extension)
         self.assertIn("boundary-check", self.k_make)
-        self.assertIn("k7pl_os_boundary_check.sh", self.k_make)
+        self.assertIn("tools/ci-controller/src/os_boundary_check.ts", self.k_make)
+        self.assertNotIn("k7pl_os_boundary_check.sh", self.k_make)
 
     def test_d01_counterexample_vector_is_aligned_across_tools(self) -> None:
         vector_path = ROOT / "theoretical-projects/k7os/models/D01-NativeBoundary-ExpectedCounterexample.json"
@@ -112,7 +115,8 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertNotIn("extract_verso_code.py", self.workflow)
 
     def test_workflow_packages_the_generated_sources(self) -> None:
-        self.assertIn("scripts/ci/k7pl_semantics_package_evidence.sh", self.step_scripts)
+        self.assertIn("tools/ci-controller/src/package_evidence.ts", self.workflow_file)
+        self.assertNotIn("scripts/ci/k7pl_semantics_package_evidence.sh", self.step_scripts)
         self.assertIn(".build/generated/semantics.k", self.workflow)
         self.assertIn(".build/generated/check_k_examples.py", self.workflow)
 

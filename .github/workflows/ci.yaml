@@ -29,7 +29,7 @@ concurrency:
 
 jobs:
   impact:
-    name: Analyse d'impact
+    name: Impact analysis
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -49,6 +49,19 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
+      - name: Check, lint, format and test the Deno controller
+        working-directory: tools/ci-controller
+        shell: bash
+        run: |
+          set -euo pipefail
+          deno task check
+          deno task lint
+          deno task fmt
+          deno task test
+
       - name: Test the CI scripts
         run: python3 -m unittest discover -s scripts/ci -p 'test_*.py'
 
@@ -58,7 +71,7 @@ jobs:
       # A pull request may change lake-manifest.json (a person, an agent), not only the one that
       # bump-lean.yaml opens. These are the offline checks: no network, no upstream code.
       - name: Check the Lake manifest
-        run: python3 scripts/ci/check_manifest.py
+        run: deno run --allow-read --allow-env=GITHUB_ACTIONS tools/ci-controller/src/manifest.ts
 
       - name: Run CI impact classifier
         id: impact
@@ -67,16 +80,100 @@ jobs:
           REF: ${{ github.ref }}
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
           HEAD_SHA: ${{ github.sha }}
-        # scripts/ci/impact.py is the only place that decides which paths force the full validation.
-        # A manual dispatch runs the full validation. The `status` job dispatches this workflow on
-        # automation/generated-status (see that job): such a run classifies the branch against
-        # main, as a pull request run would. The base comes from the checkout, never from an input.
-        # A commit that is already on main gets the full validation, so this path never narrows the
-        # checks behind a `CI OK` that a main commit carries.
-        run: bash scripts/ci/ci_impact.sh
+        # The Deno adapter owns event routing; scripts/ci/impact.py remains the sole
+        # classifier until the Deno/Python parity gate passes its historical-range criteria.
+        # Manual dispatch is full validation; generated-status dispatch classifies against
+        # origin/main from the checkout, never from a workflow input.
+        run: deno run --allow-run=git,python3 --allow-env=EVENT_NAME,REF,BASE_SHA,HEAD_SHA tools/ci-controller/src/impact_event.ts
+
+  controller-shadow:
+    name: Controller shadow
+    # Shadow diagnostic only, owner-approved 2026-10-25 (slice 3).
+    # This job is deliberately NOT in ci-ok's needs and runs with
+    # continue-on-error: a divergence is reported in its logs, it
+    # never gates CI OK and never replaces the Python classifier.
+    # The Python classifier in the `impact` job stays the only
+    # source of truth until a cutover decision promotes the Deno
+    # controller. Runs on push and pull_request only: a manual
+    # dispatch has no base range for the shadow comparison.
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+    # Pin the hosted OS release; the official Deno container omits Node.js, which
+    # JavaScript-based GitHub Actions need inside a job container. Keep checkout on
+    # the hosted runner and install the exact Deno version with the shared action.
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
+      - name: Validate the component registry
+        run: deno run --allow-read tools/ci-controller/src/main.ts validate-registry
+
+      - name: Compare Deno and Python classifiers (shadow)
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/main.ts classify --shadow --base "$BASE_SHA" --head "$HEAD_SHA"
+
+  external-links:
+    name: External links
+    # F0, owner decision 2026-10-25: external links are checked
+    # online, first as report-only (this job), then blocking after
+    # an explicit cutover decision following a clean first pass.
+    # Transitory form: lychee, pinned by the same full SHA already
+    # used in verify.yaml (v2.9.0), WITHOUT --offline, with
+    # continue-on-error. The local-link job in verify.yaml is
+    # unchanged and stays strict and blocking.
+    #
+    # What this lychee step does NOT yet provide, and what the
+    # Deno port of the external-link checker must add before the
+    # blocking cutover (tracked, not silently assumed):
+    #   - explicit HEAD-then-GET fallback per URL (lychee's own
+    #     request handling is used here, not the specified one);
+    #   - 429 handling with Retry-After honoured and capped at
+    #     60 s (only lychee's generic --max-retries /
+    #     --retry-wait-time are set here);
+    #   - a structured JSON report artefact (this step's report
+    #     is its log output);
+    #   - per-URL exceptions with reason, manual verification
+    #     and 90-day expiry, without wildcard or per-domain
+    #     entries (transitory lychee form: lychee.toml holds
+    #     per-exact-URL exclusions manually verified 2026-10-26, to be
+    #     re-checked by 2027-01-25; exact URL exceptions now cover the
+    #     GNU Hurd and GNU Mach pages after 429 persisted despite the
+    #     30-second host interval. The Deno checker must still implement
+    #     expiry properly before the cutover);
+    #   - UNVERIFIED mapped to failure (impossible to observe
+    #     while the job is continue-on-error; the cutover must
+    #     remove continue-on-error AND land the Deno checker).
+    # Until then, a green CI does NOT mean external links were
+    # verified: it means this report-only job ran.
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check external links (report only)
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config lychee.toml --no-progress --timeout 30 --max-retries 3 --retry-wait-time 5 '**/*.md'
+          fail: true
 
   verify:
-    name: Vérification
+    name: Verification
     needs: impact
     uses: ./.github/workflows/verify.yaml
     with:
@@ -292,7 +389,7 @@ jobs:
 
 
   deploy-pages:
-    name: Publication GitHub Pages
+    name: Publish GitHub Pages
     if: ${{ always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.impact.outputs.spec_build == 'true' && needs.ci-ok.result == 'success' }}
     needs: [impact, verify, ci-ok]
     runs-on: ubuntu-latest
