@@ -1156,6 +1156,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **C — A, plus Unicode code points.** Example: `\\  \"  \a  \b  \f  \n  \r  \t  \v  \u{…}`. *For:* the POSIX controls, and any character by its code point, never a stray byte. *Against:* `\u{…}` comes from Rust, not POSIX.
 - **D — Rust's list.** Example: `\\  \"  \'  \n  \r  \t  \0  \x41  \u{…}`.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-022), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** Explorons encore d'autres traditions dans les langages, celles-ci ne me satisfont pas. documentons les tout de même pour pouvoir les comparer avec d'autres approches.
+- **Reading:** kept open: the author is not satisfied by these traditions; others are to be explored, and all of them documented so that they can be compared with other approaches. Researched in the fifth part (Q-STR-301).
+
+
 #### Q-STR-202 — Raw strings and the empty string
 
 **Object.** Q-STR-104: a raw string is written between doubled double quotes, `""raw "string" writen""`. But `""` is also the empty string: the reader must tell `(f "" x)` from a raw string that opens.
@@ -1170,6 +1177,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **B — Three quotes.** As C# and Python: the empty string stays `""`. Example: `"""raw "string" writen"""`. *For:* no collision; the content may hold `""`. *Against:* one quote more than your form; `"""` is also a heredoc candidate (Q-STR-204).
 - **C — Corner brackets in the text, "" only typed.** The file holds `｢…｣`; the editor or the formatter turns `""…""`, as typed, into corner brackets. *For:* no collision in the text. *Against:* non-ASCII characters in the files; a formatter becomes part of the toolchain.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-023), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** traiter le sujet des string de manière homogène entre "" "sting" ""string"" et """string"""
+- **Reading:** kept open: strings are to be treated homogeneously across `""`, `"string"`, `""string""` and `"""string"""`. A homogeneous design is put in the fifth part (Q-STR-302).
+
+
 #### Q-STR-203 — Paths written inline
 
 **Object.** Your wish (Q-STR-104): `from dos c/user/username/downloads`, where `dos` names the Windows family of systems and can be replaced by `bsd` or another family. The reader already reads `c/user/username/downloads` as one symbol: it holds no space and no delimiter.
@@ -1182,6 +1196,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **A — A symbol with slashes, given its family by a form.** Example: `(from dos c/user/username/downloads)`. *For:* no new reading rule. *Against:* a path that holds a space or a delimiter cannot be written.
 - **B — A path mark, Rebol style.** Example: `(from dos %c/user/username/downloads)   (from bsd %"My Documents/notes")`. *For:* a path is a lexical class: the reader knows it; spaces through quotes. *Against:* `%` becomes a mark of its own.
 - **C — Nix's rule.** Any atom holding a slash is a path. *For:* no mark. *Against:* spaces cannot be written; `1/3` must stay a number.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-024), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** option A mais avec l'encodage HTTP pour les espaces.
+- **Reading:** a path is a symbol with slashes, given its family of systems by a form (option A); a space in a path is written with the percent-encoding of URLs, `%20`. The reader already reads such a path as one symbol; a probe of `tests/lexical/` checks it.
+
 
 #### Q-STR-204 — Heredocs: § and the others
 
@@ -1220,6 +1241,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
   END
   ```
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-025), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** je préfère préserver l'emploi des `"` pour le texte car les utilisateurs le comprennent.
+- **Reading:** a heredoc is written between triple quotes, as in Python, Java and C#: the double quote stays the mark of text, which users understand. How it fits with the other string forms is part of Q-STR-302.
+
+
 #### Q-STR-205 — The code of an unknown escape
 
 **Object.** Q-STR-102: an unknown escape is refused. `ERR-DLM` names delimiters (Q-ERR-001), which an escape is not.
@@ -1227,6 +1255,12 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **A — A segment for strings: ERR-STR.** Example: `ERR-STR-001  unknown escape`.
 - **B — A segment for lexical errors: ERR-LEX.** Which later reading errors of a token would join.
 - **C — In ERR-DLM.** The escape lives between the delimiters of a string. *Against:* the segment no longer names one invariant.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-026), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** lexical errors, an unknown escape among them, form the segment `ERR-LEX`. Its first code waits for the list of escapes (Q-STR-301).
+
 
 ### Types in K7PL
 
@@ -1244,6 +1278,18 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **C — Every type position opened by a property.** Names stay lowercase; a type appears only after a property that announces it (`:num`, `:type`…), so the reader of the text always knows. Example: `{field value :num int}   {defn f :type {fn int32 {result int32 overflow}}}`. *Against:* a property to choose for each kind of position.
 - **D — A suffix.** Example: `{vector-t n t}   {result-t int32 overflow-t}`. *Against:* a suffix on every type name; `int32` would break the rule.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-027), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:**
+
+  > L'option C reste ce qu'il y a de plus proche de la notion "typer une fonction c'est préparer un objet immuable" et que "K7PL préfère la clarté à la concision"
+  >
+  > par contre, les définitions il faudrait prévoir un mot comme Racket "define" générique qui permette de créer des enveloppe guides pour defhandler defunc defanything ce qui permet de proposer un defunc qui possède déjà son type de fonction, une définition composée permettrait ainsi d'élaborer des types raffinés. Toujours pas de l'objet mais très proche sans mutation
+
+- **Reading:** type names stay lowercase and a type appears only after a property that announces it (`:num`, `:type`…), the closest to « typer une fonction c'est préparer un objet immuable » and to K7PL's preference for clarity over brevity. Applied to the prose of chapter 5. The author also asks for a generic definition word, like Racket's `define`, from which guided envelopes are built (`defhandler`, `defunc`, `defanything`): a `defunc` would carry its function type, and a composed definition would build refined types — not objects, but close to them, without mutation. Researched in the fifth part (Q-SPEC-203).
+
+
 #### Q-TYP-202 — The lemma of a function type
 
 **Object.** Q-TYP-103: a function type is written flat, parameters then result, after a true lemma. Weighed along the M-A sequence.
@@ -1259,6 +1305,12 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **C — arrow.** Example: `{arrow int32 int32 {result int32 overflow}}`. *For:* names the arrow of the theory. *Against:* the theory's arrow is `⊸`, linear, not `→`.
 - **D — hom.** Example: `{hom int32 int32 {result int32 overflow}}`. *For:* the word of chapter 2 for morphisms. *Against:* a categorical word in programs.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-028), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** the head of a function type is `function`: `{function int32 int32 {result int32 overflow}}`. Applied to the listings of chapter 5.
+
+
 #### Q-TYP-203 — Polymorphism forbidden: what remains of ∀?
 
 **Object.** Q-TYP-102: « Polymorphisme est interdit en K7PL => tout est monomorphé. » Chapter 3 has type quantification: `∀α. C` in the grammar of types, `Λα. c` and `c[W]` among the terms, with their typing rules.
@@ -1270,6 +1322,19 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 
 - **A — Polymorphism at compile time only.** `∀` stays in the calculus; every instance is made at compile time, so no polymorphic value exists at run time; a definition that would need infinitely many instances is refused. *For:* chapter 3 keeps its rules.
 - **B — No type quantification.** Every type is written concrete; `∀α. C`, `Λα. c` and `c[W]` leave chapter 3. *Against:* a change of the core calculus and of its proofs.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-029), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Other:** lis les pièces fournis dans la justification, elles décrivent précisément le fonctionnement attendu. ensuite MLton et rustc proposent 2 approches complémentaires de la monomorphisation. K7PL essais de synthétiiser les bonnes idées donc on peut trouver un fonctionnement cohérent.
+- **Clarify:** Il serait pertinent que tu référence d'autres mécanismes de monomorphisation, que tu en explore les avantages, limites, inconvénients, opportunités et que tu essais de proposer un mécanisme qui tire le meilleur de tout cela en essayant de ne pas dénaturer la spec qui elle se base sur une revue de littérature scientifique rigoureuse et donne les objectifs à atteindre.
+- **Justification:**
+
+  > tes propositions semble ne pas tenir compte du processus décrits dans la spécification : https://anthealiles.github.io/k7pl/find/?domain=Verso.Genre.Manual.section&name=c6-le-processus-de-compilation
+  > https://anthealiles.github.io/k7pl/find/?domain=Verso.Genre.Manual.section&name=c6-ce-que-le-solveur-retourne
+
+- **Reading:** kept open. The author points to the two sections of chapter 6 that describe the expected process, the compilation process and what the solver returns, notes that MLton and rustc offer two complementary approaches to monomorphisation, and asks for other mechanisms with their advantages, limits, drawbacks and opportunities, then for a proposed mechanism that keeps the best of them without distorting the specification, which rests on a review of the literature and sets the goals. Researched in the fifth part (Q-TYP-301).
+
 
 ### bind-to
 
@@ -1287,12 +1352,36 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **C — flat-map.** *For:* names what it does on collections.
 - **D — then.** *For:* the shortest. *Against:* says nothing of the value passed on.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-030), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:**
+
+  > de mon point de vue, les constructions monadiques sont des "branchements" explicites déclarés avec le préfixe ":" donc ":bind something" et ":return somethingelse"
+  >
+  > je pense que nous manquons encore de l'inventaire complet des "branchement" (co)monadiques sans oublier l'héritage de CLOS avec les méthodes :around :before et :after ainsi que les divers lemmes exprimés dans la  spec/ autour des ressources, du temps etc.
+
+- **Reading:** the lemma is `bind`. Monadic constructions are explicit branchings declared with the prefix `:`, as `:bind something` and `:return somethingelse`. The complete inventory of (co)monadic branchings is still missing, CLOS's `:around`, `:before` and `:after` methods included, with the lemmas of the specification about resources, time and so on. Inventory in the fifth part (Q-SPEC-201).
+
+
 #### Q-SPEC-102 — What the prose of lst:acteur says
 
 **Object.** Chapter 5 reads `bind-to` otherwise: « Un acteur est la paire additive dépendante (état : S) & Handler(S) du chapitre 3, et `bind-to` n'est qu'un accès de champ », the elaborator filling the handler by type-directed search when it is omitted.
 
 - **A — Rewrite it as a monadic bind.** The actor's state is bound to its handler as by `>>=`; the prose is rewritten from that reading.
 - **B — Keep the reading, change the lemma.** The form stays an access to the second component of the pair; only its lemma changes (Q-SPEC-101).
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-031), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:**
+
+  > nous devons ajuster la construction en code K7PL pour faire porter la responsabilité au bon périmètre :
+  > a) dans un handler je bind des acteurs `{defhandler beta :bind actor-name}`
+  > a) dans un acteur je bind des fonctions productives ou terminante `{defactor actor-name :bind (selection algorythm) :result [transformation algorythm]}` => ceci est un exemple biensur
+
+- **Reading:** the code is adjusted so that responsibility lies at the right perimeter: a handler binds actors, `{defhandler beta :bind actor-name}`; an actor binds productive or terminating functions, `{defactor actor-name :bind (selection algorythm) :result [transformation algorythm]}` (an example). The rewrite of `lst:gestionnaire` and `lst:acteur`, with their prose, is put to the author in the fifth part (Q-SPEC-202).
+
 
 ### Numbers
 
@@ -1304,6 +1393,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **B — Two names.** Example: `flo8e4   flo8e5`.
 - **C — flo8 is one format, a property marks the other.** Example: `flo8 (E4M3)     :num flo8 :exp 5`.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-032), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** spécifier une "default value" en cas d'oubli : flo8 = flo8e4 by default ; la corrolaire fixN = two floN/2 ; etc. et ajouter un Warning (pas une erreur) invitant à préciser le type
+- **Reading:** the two 8-bit floats get two names, `flo8e4` and `flo8e5`; `flo8` alone means `flo8e4` by default, with a warning, not an error, inviting the programmer to give the format. The corollary is written « fixN = two floN/2 »: read as the complex numbers, `comN` being two `floN/2` (VOC-2026-10-26-023), to confirm in the fifth part (Q-NUM-301), with the codes of warnings.
+
+
 #### Q-NUM-202 — The name of exact reals
 
 **Object.** Irrationals such as π or √2, computed to any requested precision (Q-NUM-001).
@@ -1312,6 +1408,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **B — cre.** *For:* computable real, the name of the theory.
 - **C — exr.** *For:* exact real.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-033), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** rea dans le code et on y applique les logiques de calculs de la théorie "cre"
+- **Reading:** exact reals are named `rea` in code, and their computations follow the theory of computable reals (« cre »).
+
+
 #### Q-NUM-203 — Typed holes: when and how are they resolved?
 
 **Object.** Q-TYP-104 and Q-NUM-101: a kind without a width, such as `int`, is a typed hole resolved within its family.
@@ -1319,6 +1422,12 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **A — From the uses, at compile time; refused if they fix no width.** A reading error with its code when nothing fixes the width.
 - **B — The smallest width that holds every value the solver can bound.** Refused if the solver bounds nothing. *For:* the solver of chapter 6 already bounds values.
 - **C — A default width per kind.** *Against:* the arbitrary choice that the hole is meant to avoid.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-034), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** a typed hole is resolved to the smallest width that holds every value the solver can bound; it is refused when the solver bounds nothing. Applied to the prose of chapter 5; the code of that refusal is put in the fifth part (Q-NUM-302).
+
 
 ### Empty and doubled delimiters
 
@@ -1343,6 +1452,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **B — The unit value everywhere.** Each empty pair is the unit value, checked in its layer, as Rust's empty block. *For:* simple; Rust, Haskell. *Against:* the delimiter tells nothing more.
 - **C — Empty collections.** `[]` the empty vector (the vector literal of chapter 3), `()` the empty list, `{}` the empty record or map, as Clojure or Python. *Against:* K7PL delimiters announce layers, not data structures.
 - **D — Refused as an expression of its own.** An empty pair stands only inside a form (no parameters, no fields); alone, it is a reading error with its code, and the unit value is written with a lemma, as Scheme refuses `()`. *For:* no implicit meaning. *Against:* a lemma for a frequent value; a new code.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-035), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** la couche est elle même une datastructure puisqu'elle prend la forme d'une arène linéraire en couche 1, d'un heap en couche 2 et d'une stack en couche 3 => c'est donc bien une datastructure. en complément, la forme vide porte le sens du fragment cartésien et donc des grades etc. qui doivent être respectés et donc vérifié au comptime.
+- **Reading:** an empty pair is the empty data structure of its layer: `[]` the empty vector, `()` the empty list, `{}` the empty record or map. A layer is itself a data structure — a linear arena in layer 1, a heap in layer 2, a stack in layer 3 — and the empty form carries the meaning of its fragment, so its grades must hold and are checked at compile time. Applied to chapter 5.
+
 
 #### Q-LEX-302 — What does a doubled pair mean?
 
@@ -1371,6 +1487,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 
 - **E — Another notation per pair.** Each doubled pair gets a meaning of its own, chosen pair by pair: for example `[[e]]` the denotation `⟦e⟧` or a quotation, `{{e}}` an implicit argument (Agda, Lean). *Against:* three new notations, unrelated to each other.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-036), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** je préfère que `{{ atom }}` corresponde à `⦃ atom ⦄`, `(( atom ))` à `⦅ atom ⦆` et `[[ atom]]` à `⟦ atom ⟧` c'est à dire que ce soit sémantiquement équivalent.  mais que chaque forme doublée soit une précision ou forme spécifique dédiée à la couche source et dont l'usage permet d'apporter une précision forte sur une action mémorielle ou sur un grade ou sur une ressource ou autre => recherches à poursuivre => on peux considérer cela comme du sucre synthaxique ou comme une contrainte formelle pour accéder à un élément dont la modification doit être explicite (eg. utiliser une arene non standard, utiliser un schéma de résolution de graph de liste différent, augmenter le nombre de dimensions de l'array pour faire par exemple des cubes...)
+- **Reading:** the doubled pairs are the white brackets: `{{ atom }}` is `⦃ atom ⦄`, `(( atom ))` is `⦅ atom ⦆` and `[[ atom ]]` is `⟦ atom ⟧`, with the same meaning. Each doubled form is a precision, a form dedicated to its source layer, stating a memory action, a grade, a resource or another aspect explicitly; it may be read as syntactic sugar, or as a formal constraint for reaching an element whose change must be explicit (another arena than the standard one, another resolution scheme for a list graph, more dimensions for an array, such as cubes). Applied to the reader, which reads the white brackets as the doubled pairs of their layer; the meanings are researched in the fifth part (Q-LEX-401).
+
+
 #### Q-LEX-303 — With ranges: what does {{…}} hold?
 
 **Object.** If doubled pairs write ranges and collections (Q-LEX-302, D), `{{…}}` lives in layer 1, where types are set. You ask what it holds.
@@ -1390,6 +1513,13 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **B — A set of values, known at compile time.** `{{1..9}}` is the set of the nine values, a constant computed at compile time. *Against:* a value set in layer 1, where types are set.
 - **C — A repetition of declarations.** `{{…}}` repeats the declarations it holds for each value of a range, at compile time, as a macro would. Example: `{{i 1..4 {field reg-i :num int32}}}`. *Against:* a macro hidden in a delimiter; the declarations it makes are not in the text.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-037), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** idem Q-LEX-302
+- **Reading:** kept open, as Q-LEX-302: what `{{…}}` holds follows from the meaning of the doubled forms (Q-LEX-401).
+
+
 #### Q-LEX-304 — With ranges: how is a range written?
 
 **Object.** Today the reader reads `1..9` as one symbol: it holds no space and no delimiter. A range notation is a lexical class to add, checked like the others by the probes of `tests/lexical/`.
@@ -1408,6 +1538,13 @@ Several options may be chosen.
 - **open — No end, in layer 2 only.** `1..` has no end; layer 3 terminates, so only `((…))` may hold it. Example: `((1..))`.
 - **dims — Several ranges, a matrix.** `[[1..3 1..3]]` is the 3×3 matrix of index pairs, as BQN's `↕` given a list. Example: `[[1..3 1..3]]`.
 - **chars — Characters, by code point.** A range of code points in Unicode's notation; a range of characters written as characters waits for the character literal. Example: `[[U+0041..U+005A]]`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-038), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** on traite le cas des doubles délimiteurs avant de résoudre ce sujet
+- **Reading:** kept open until the doubled delimiters are settled.
+
 
 ## The catalogue, verbatim
 

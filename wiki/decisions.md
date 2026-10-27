@@ -845,6 +845,50 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, fourth part: answers of 2026-10-27
+  (Q-STR-201 to Q-LEX-304).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-27-022 to
+  VOC-2026-10-27-038. In short: a path is a symbol with
+  slashes, its spaces percent-encoded as in a URL; a
+  heredoc is written between triple quotes, the double
+  quote staying the mark of text; lexical errors form the
+  segment `ERR-LEX`; type names stay lowercase and a type
+  appears only after a property that announces it
+  (`:num`, `:type`); the head of a function type is
+  `function`; the lemma for Haskell's `>>=` is `bind`,
+  monadic constructions being branchings declared with `:`
+  (`:bind`, `:return`); a handler binds actors and an actor
+  binds productive or terminating functions; the 8-bit
+  floats are `flo8e4` and `flo8e5`, `flo8` alone meaning
+  `flo8e4` with a warning; exact reals are `rea`, computed
+  after the theory of computable reals; a typed hole is
+  resolved to the smallest width that holds every value
+  the solver can bound, and refused when it bounds nothing;
+  an empty pair is the empty data structure of its layer,
+  each layer being itself a data structure (linear arena,
+  heap, stack); a doubled pair is also written with white
+  brackets, `⦃ ⦄`, `⦅ ⦆` and `⟦ ⟧`, with the same
+  meaning, each doubled form being a precision dedicated to
+  its layer.
+  Applied on 2026-10-27: chapter 5 states the path,
+  type-position, empty-pair, doubled-pair and typed-hole
+  rules, and its listings write `function`; probes of
+  `tests/lexical/` and `tests/layers/` check that paths,
+  empty pairs and doubled pairs are read.
+  Not applied yet, with the reason: the reader does not
+  read the white brackets, because K's regular expressions
+  cannot keep them out of symbols, so a white bracket glued
+  to an atom would be read as part of it — the spacing rule
+  is put to the author (fifth part); the escapes, the
+  homogeneous design of strings, monomorphisation, the
+  inventory of branchings, the rewrite of the handler and
+  actor listings, a generic definition word, the codes of
+  warnings and of an unresolved typed hole, the reading of
+  « fixN = two floN/2 », and the meanings of the doubled
+  forms are the fifth part of the lot; ranges wait for the
+  doubled forms; the number kinds and widths enter the
+  specification with the writing of types.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, third part: answers of 2026-10-27
   (Q-LEX-201 to Q-ERR-102).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-27-001 to
