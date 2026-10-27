@@ -43,7 +43,7 @@ Le cœur du calcul : une fonction pure de couche 3, totale et sans effet
 :::
 
 ```
-{defn ?increment-bounded :type {fn int32 int32 {result int32 overflow}}
+{defn ?increment-bounded :type {function int32 int32 {result int32 overflow}}
   [value bound]
   [select [< value bound]
           [Ok [+ value 1]]
@@ -121,7 +121,9 @@ ailleurs {cite "VIVIEN"}[].
 
 Ici, les champs portent un type et s'écrivent donc entre accolades, en couche 1 ; `bind-to`
 s'écrit entre parenthèses, le délimiteur de la couche 2, que le bloc de couche 1 admet. Le type
-`int`, sans largeur, est un trou typé que l'élaboration résout dans la famille des entiers. Ces
+`int`, sans largeur, est un trou typé que l'élaboration résout dans la famille des entiers : à la
+plus petite largeur qui contient toutes les valeurs que le solveur sait borner, le programme étant
+refusé si le solveur n'en borne aucune. Ces
 trois déclarations respectent la forme descendante
 `{ ... ( ... [ ... ] ... ) ... }` du §{num "sec:c5-s-expressions-universelles"}[] : `bind-to` relie
 l'acteur à son gestionnaire, qui appelle lui-même le calcul pur — chaque frontière franchie porte le

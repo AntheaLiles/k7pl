@@ -16,6 +16,9 @@
 [increase-counter x-1 ^= ?pure !impure :label @linear #comptime] ;; expect: Symbol Symbol Symbol Symbol Symbol Symbol Symbol Symbol
 [1__0 0x1F infinity a; a;b] ;; expect: Symbol Symbol Symbol Symbol Symbol Symbol
 
+;;;; Paths, symbols with their spaces percent-encoded (Q-STR-203)
+[c/users/me/My%20Documents/notes dos] ;; expect: Symbol Symbol
+
 ;;;; Strings, which may span lines (Q-STR-103)
 ["text" "two
 lines"] ;; expect: String String

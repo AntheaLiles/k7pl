@@ -1,0 +1,11 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; Empty pairs are the empty structures of their layer (Q-LEX-301): each is read in its own
+;; layer. Doubled pairs (Q-LEX-302) are nested pairs of the same layer, and the grammar of
+;; the layers holds inside them as anywhere else.
+{record {} (list () [vector []]) [[matrix [1 2] [3 4]]]}
+{{declarations {field value :num int32}}}
+((orchestrate ((step)) [[compute]]))
+[[(misplaced)]] ;; refused: ERR-TOP-001 at line 11

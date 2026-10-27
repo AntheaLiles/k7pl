@@ -172,7 +172,16 @@ que dans un train, une suite faite seulement de glyphes et de modifieurs, comme 
 suite se lit d'un tenant, comme un nom ou un nombre : `increment-bounded`, `x-1` et `-2` sont chacun
 un atome. Un nombre s'écrit en décimal, avec une fraction et un exposant facultatifs et des chiffres
 que `_` peut grouper (`1_000_000`, `1.5e-3`), en rationnel (`1/3`) ou en complexe (`3+4i`), ou vaut
-`inf`, `-inf` ou `nan`. Deux points-virgules ouvrent un
+`inf`, `-inf` ou `nan`. Un chemin s'écrit comme un symbole dont les noms sont séparés par `/` ; un
+espace s'y code en pourcent, comme dans une URL (`c/users/me/My%20Documents`). Un type s'écrit en
+minuscules et n'apparaît qu'après une propriété qui l'annonce, `:num` ou `:type` par exemple
+(`:num int32`). Une paire vide est la structure vide de sa couche, chaque couche étant elle-même une
+structure de données — arène linéaire en couche 1, tas en couche 2, pile en couche 3 : `[]` est le
+vecteur vide, `()` la liste vide et `{}` l'enregistrement ou la table vide ; elle porte les grades de
+son fragment, vérifiés à la compilation. Une paire doublée, dont la paire intérieure est seule, s'écrit
+aussi en crochets blancs, de même sens : `[[ x ]]` est `⟦ x ⟧`, `(( x ))` est `⦅ x ⦆` et `{{ x }}`
+est `⦃ x ⦄`. Elle précise une forme propre à sa couche, dont les sens restent à fixer. Deux
+points-virgules ouvrent un
 commentaire qui court jusqu'à la fin de la ligne : `;;` pour un commentaire courant, `;;;` pour un
 titre et `;;;;` pour un sous-titre. Un point-virgule seul écrit juste avant un délimiteur ouvrant —
 `;(`, `;[` ou `;{` — désactive l'arbre que ce délimiteur ouvre, sans rompre la syntaxe : l'arbre
