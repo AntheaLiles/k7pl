@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-"""Tests for `scripts/controles/`: the checks must pass on a clean mini-corpus and FAIL on
+"""Tests for `scripts/spec_checks/`: the checks must pass on a clean mini-corpus and FAIL on
 mutations. A check that has never been seen failing is worth nothing — every test below is
 therefore paired with the mutation it is supposed to catch (auto-tests mutés)."""
 
@@ -15,7 +15,7 @@ from conftest import mutate
 
 
 def failures_of():
-    from controles import journal
+    from spec_checks import journal
 
     return list(journal.failures)
 
@@ -28,7 +28,7 @@ def has_failure(*needles):
 @pytest.fixture
 def struct(patched):
     """Run the structure checks on the (unmutated) mini-corpus once, expose the verdicts."""
-    from controles import structure
+    from spec_checks import structure
 
     structure.run()
     return failures_of()
@@ -40,7 +40,7 @@ def test_references_resolve_ok(struct):
 
 def test_unresolved_label_is_caught(patched):
     """Mutation: point {num} at a label that does not exist → structure must fail."""
-    from controles import structure
+    from spec_checks import structure
 
     mutate(patched, "Spec/C2/Fondements.lean", '{num "eq:pilote"}', '{num "eq:fantasme"}')
     structure.references_resolve()
@@ -49,7 +49,7 @@ def test_unresolved_label_is_caught(patched):
 
 def test_missing_directive_is_caught(patched):
     """Mutation: an explicit `{missing …}` mark → structure must fail."""
-    from controles import structure
+    from spec_checks import structure
 
     mutate(patched, "Spec/C2/Fondements.lean", "{num \"eq:pilote\"}", "{missing \"thm:absent\"}")
     structure.references_resolve()
@@ -58,7 +58,7 @@ def test_missing_directive_is_caught(patched):
 
 def test_duplicate_label_is_caught(patched):
     """Mutation: two seals sharing one label → uniqueness must fail."""
-    from controles import structure
+    from spec_checks import structure
 
     dup = '\n::::thm (label := "thm:exemple") (status := "proposition")\n:::title\nbis\n:::\n:::statement\nbis\n:::\n::::\n'
     mutate(patched, "Spec/C2/Fondements.lean", "Il y a une règle de typage Var", dup + "Il y a une règle")
@@ -68,7 +68,7 @@ def test_duplicate_label_is_caught(patched):
 
 def test_bad_label_prefix_is_caught(patched):
     """A formula labelled thm:… breaks the prefix convention."""
-    from controles import structure
+    from spec_checks import structure
 
     mutate(patched, "Spec/C2/Fondements.lean", '(label := "eq:pilote")', '(label := "thm:pilote")')
     structure.labels_unique_and_prefixed()
@@ -76,7 +76,7 @@ def test_bad_label_prefix_is_caught(patched):
 
 
 def test_hardcoded_appendix_letter_is_caught(patched):
-    from controles import structure
+    from spec_checks import structure
 
     mutate(patched, "Spec/C1.lean", "Le cadre pose", "Voir Annexe B pour le détail.\n\nLe cadre pose")
     structure.appendix_letters()
@@ -84,7 +84,7 @@ def test_hardcoded_appendix_letter_is_caught(patched):
 
 
 def test_author_comment_is_caught(patched):
-    from controles import structure
+    from spec_checks import structure
 
     mutate(patched, "Spec/C1.lean", "Le cadre pose", ":::comment\nTODO: clarifier ce point\n:::\n\nLe cadre pose")
     structure.no_author_comments()
@@ -95,7 +95,7 @@ def test_author_comment_is_caught(patched):
 
 
 def test_seal_ok_on_clean_corpus(patched):
-    from controles import notation
+    from spec_checks import notation
 
     notation.seal()
     assert not failures_of()
@@ -103,7 +103,7 @@ def test_seal_ok_on_clean_corpus(patched):
 
 def test_removed_sketch_fails_the_seal(patched):
     """Mutation: withdraw the proof sketch from a theorem → the seal must reject it."""
-    from controles import notation
+    from spec_checks import notation
 
     f = patched / "Spec" / "C2" / "Fondements.lean"
     text = f.read_text(encoding="utf-8").replace(
@@ -116,7 +116,7 @@ def test_removed_sketch_fails_the_seal(patched):
 
 def test_undeclared_status_fails_the_seal(patched):
     """A seal carrying an unknown status (lemma) must be rejected."""
-    from controles import notation
+    from spec_checks import notation
 
     f = patched / "Spec" / "C2" / "Fondements.lean"
     f.write_text(f.read_text(encoding="utf-8").replace('(status := "theoreme")', '(status := "lemme")'), encoding="utf-8")
@@ -126,7 +126,7 @@ def test_undeclared_status_fails_the_seal(patched):
 
 def test_exigence_with_sketch_fails(patched):
     """An exigence may not carry a proof sketch."""
-    from controles import notation
+    from spec_checks import notation
 
     f = patched / "Spec" / "C2" / "Fondements.lean"
     f.write_text(f.read_text(encoding="utf-8").replace('(status := "theoreme")', '(status := "exigence")'), encoding="utf-8")
@@ -136,7 +136,7 @@ def test_exigence_with_sketch_fails(patched):
 
 def test_assertive_verb_about_open_statement_is_caught(patched):
     """Mutation: an open statement (conjecture) asserted as established by a mention."""
-    from controles import notation
+    from spec_checks import notation
 
     mutate(patched, "Spec/C2/Fondements.lean", '(status := "theoreme")', '(status := "conjecture")')
     # move the citing sentence into the same module: {num thm:…}[] « établit » within 90 chars
@@ -147,87 +147,87 @@ def test_assertive_verb_about_open_statement_is_caught(patched):
     assert has_failure("énoncé ouvert dit acquis"), failures_of()
 
 
-# ---------------------------------------------------------------- algebre (auto-test muté)
+# ---------------------------------------------------------------- algebra (auto-test muté)
 
 
 def test_algebra_selftest_passes():
     """The built-in mutation self-test of the action law must itself pass."""
-    from controles import algebre
+    from spec_checks import algebra
 
-    algebre.selftest()
+    algebra.selftest()
     assert not failures_of()
 
 
 @pytest.mark.parametrize("minus,expected", [("minus_residue", 10), ("minus_truncated", 14)])
 def test_action_law_counterexamples(minus, expected):
-    from controles import algebre
+    from spec_checks import algebra
 
-    assert len(algebre.counterexamples(getattr(algebre, minus))) == expected
+    assert len(algebra.counterexamples(getattr(algebra, minus))) == expected
 
 
 def test_restricted_truncated_subtraction_is_clean():
-    from controles import algebre
+    from spec_checks import algebra
 
-    assert algebre.counterexamples(algebre.minus_truncated, restricted=True) == []
+    assert algebra.counterexamples(algebra.minus_truncated, restricted=True) == []
 
 
 def test_action_law_without_restriction_is_caught(patched):
     """Mutation: drop the finiteness restriction → the bound check must fail."""
-    from controles import algebre
+    from spec_checks import algebra
 
     mutate(patched, "Spec/C2/Fondements.lean",
            "restreinte aux usages finis ($`u \\neq \\omega`$)", "(sans restriction)")
-    algebre.action_law_at_the_bounds()
+    algebra.action_law_at_the_bounds()
     assert has_failure("loi d'action") or has_failure("FAUSSE") or has_failure("sans restriction")
 
 
 def test_missing_infinity_convention_is_caught(patched):
     """Mutation: erase ω·ω from the conventions of ℕ∞."""
-    from controles import algebre
+    from spec_checks import algebra
 
     mutate(patched, "Spec/C2/Fondements.lean", "$`\\omega \\cdot \\omega`$", "$`k \\cdot k`$")
-    algebre.conventions_of_infinity()
+    algebra.conventions_of_infinity()
     assert has_failure("jamais écrite", "ω · ω")
 
 
 def test_size_sorts_are_checked(patched):
     """Mutation: let 𝕊_μ keep ω — a size-ω fold would not terminate."""
-    from controles import algebre
+    from spec_checks import algebra
 
     mutate(patched, "Spec/C2/Fondements.lean",
            "$`\\mathbb{S}_\\mu \\;=\\; \\mathbb{N}_\\infty \\setminus \\{\\omega\\}`$", "$`\\mathbb{S}_\\mu \\;=\\; \\mathbb{N}_\\infty`$")
-    algebre.size_sorts_inhabited()
+    algebra.size_sorts_inhabited()
     assert has_failure("n'exclut pas ω")
 
 
-# ---------------------------------------------------------------- croise
+# ---------------------------------------------------------------- cross_check
 
 
 def test_croise_selftest_passes():
-    from controles import croise
+    from spec_checks import cross_check
 
-    croise.selftest()
+    cross_check.selftest()
     assert not failures_of()
 
 
 def test_unknown_typing_rule_is_declared_or_fails(patched):
     """A rule absent from the EXPECTED table must surface as a failure (no silent coverage)."""
-    from controles import croise
+    from spec_checks import cross_check
 
     mutate(patched, "Spec/C2/Fondements.lean", "La règle Var conclut",
            "\\textsc{Fantome}\\;\\frac{\\;\\Delta \\vdash t : T\\;}{\\;\\Delta \\vdash t : T\\;}\n\nLa règle Var conclut")
-    croise.run()
+    cross_check.run()
     assert has_failure("Fantome"), "une règle non déclarée dans le tableau doit être signalée"
 
 
-# ---------------------------------------------------------------- couverture
+# ---------------------------------------------------------------- statement_coverage
 
 
 def test_couverture_run_on_repo():
     """The coverage matrix must compute on the real corpus without malformed anchors."""
-    from controles import couverture
+    from spec_checks import statement_coverage
 
-    couverture.run()
+    statement_coverage.run()
     assert not failures_of()
 
 
@@ -235,7 +235,7 @@ def test_couverture_matrix_counts(tmp_path, monkeypatch):
     """Unit-level: lean_units finds namespaces and declarations; malformed anchors are reported."""
     import re
 
-    from controles import couverture
+    from spec_checks import statement_coverage
 
     src = tmp_path / "src"
     (src / "K7pl").mkdir(parents=True)
@@ -243,12 +243,12 @@ def test_couverture_matrix_counts(tmp_path, monkeypatch):
         "namespace K7pl.Algebre\n\n-- Formule eq:pilote := add_le_add\ntheorem add_le_add : True := trivial\n\nend K7pl.Algebre\n",
         encoding="utf-8",
     )
-    monkeypatch.setattr(couverture, "SRC", src)
-    units = dict(couverture.lean_units())
+    monkeypatch.setattr(statement_coverage, "SRC", src)
+    units = dict(statement_coverage.lean_units())
     assert "K7pl.Algebre" in units
     assert re.findall(r"theorem\s+([\w.']+)", units["K7pl.Algebre"]) == ["add_le_add"]
-    body = couverture._strip_comment_markers(units["K7pl.Algebre"])
-    assert couverture.ANCHOR_FORMULA.findall(body) == [("eq:pilote", "add_le_add")]
+    body = statement_coverage._strip_comment_markers(units["K7pl.Algebre"])
+    assert statement_coverage.ANCHOR_FORMULA.findall(body) == [("eq:pilote", "add_le_add")]
 
 
 def test_couverture_anchor_grammar_matches_midline(tmp_path, monkeypatch):
@@ -259,7 +259,7 @@ def test_couverture_anchor_grammar_matches_midline(tmp_path, monkeypatch):
     this control exists to prevent elsewhere. The three anchor grammars are exercised here on a
     file whose anchors all sit deep inside the namespace body.
     """
-    from controles import couverture
+    from spec_checks import statement_coverage
 
     src = tmp_path / "src"
     (src / "K7pl").mkdir(parents=True)
@@ -275,8 +275,8 @@ def test_couverture_anchor_grammar_matches_midline(tmp_path, monkeypatch):
         "end K7pl.Algebre\n",
         encoding="utf-8",
     )
-    monkeypatch.setattr(couverture, "SRC", src)
-    g = couverture.scan()
+    monkeypatch.setattr(statement_coverage, "SRC", src)
+    g = statement_coverage.scan()
     assert g["anchored_formulas"] == {"eq:pilote"}, "l'accroche Formule doit être vue hors première ligne"
     assert g["anchored_statements"] == {"thm:exemple"}, "l'accroche Énoncé doit être vue hors première ligne"
     assert g["covered_rules"] == {"Var"}, "l'accroche Regle doit être vue hors première ligne (regex sans re.M)"
@@ -285,7 +285,7 @@ def test_couverture_anchor_grammar_matches_midline(tmp_path, monkeypatch):
 
 def test_couverture_statement_anchor_covers_normative_label(tmp_path, monkeypatch):
     """A statement anchor must actually contribute to the corresponding normative coverage."""
-    from controles import couverture
+    from spec_checks import statement_coverage
 
     src = tmp_path / "src"
     (src / "K7pl").mkdir(parents=True)
@@ -297,14 +297,14 @@ def test_couverture_statement_anchor_covers_normative_label(tmp_path, monkeypatc
         "end K7pl.Algebre\n",
         encoding="utf-8",
     )
-    monkeypatch.setattr(couverture, "SRC", src)
-    monkeypatch.setattr(couverture, "normative_ids", lambda: (
+    monkeypatch.setattr(statement_coverage, "SRC", src)
+    monkeypatch.setattr(statement_coverage, "normative_ids", lambda: (
         [{"label": "thm:exemple", "kind": "result", "role": "theorem"},
          {"label": "thm:exigence", "kind": "requirement", "role": ""},
          {"label": "thm:conj", "kind": "result", "role": "conjecture"}],
         {"formules": [], "regles": []},
     ))
-    table, stats = couverture.matrix()
+    table, stats = statement_coverage.matrix()
     assert stats["theoremes_couverts"] == 1
     assert stats["ouverts_couverts"] == 1
     assert "| Énoncés `theorem`, `lemma`, `corollary`, `proposition` | 1 | 1 | 100 % |" in table
@@ -326,7 +326,7 @@ def test_couverture_families_follow_c8_fields_on_mini_corpus(patched):
     directive; definitions and literature belong to neither family. The families follow the
     ratified C8 result roles (theorem, lemma, corollary, proposition vs conjecture).
     """
-    from controles import couverture
+    from spec_checks import statement_coverage
 
     blocks = "".join(_statement_block(d, lab) for d, lab in [
         ("theorem", "thm:t"), ("lemma", "thm:l"), ("corollary", "thm:c"),
@@ -335,7 +335,7 @@ def test_couverture_families_follow_c8_fields_on_mini_corpus(patched):
     ])
     marker = "Il y a une règle de typage Var"
     mutate(patched, "Spec/C2/Fondements.lean", marker, blocks + marker)
-    table, stats = couverture.matrix()
+    table, stats = statement_coverage.matrix()
     assert stats["theoremes"] == 5, "theorem, lemma, corollary, proposition and the legacy theorem seal"
     assert stats["ouverts"] == 2, "the conjecture and the requirement"
     assert stats["hors_familles"] == 2, "definition and literature belong to neither family"
@@ -348,7 +348,7 @@ def test_couverture_families_follow_c8_fields_on_real_spec(real_lean):
 
     Before the fix the published block read « Énoncés `theoreme` … 0 » and left the
     requirements out, although the specification carries dozens of theorem-like statements.
-    Families (decision recorded in `couverture.py`, after the ratified C8 result roles):
+    Families (decision recorded in `statement_coverage.py`, after the ratified C8 result roles):
     theorem-like = result with role `theorem`, `lemma`, `corollary` or `proposition`; the other
     family = result with role `conjecture`, plus every requirement; the remaining kinds
     (definition, literature…) are in neither. The epistemic `state` plays no part.
@@ -370,7 +370,7 @@ def test_couverture_families_follow_c8_fields_on_real_spec(real_lean):
 
 def test_couverture_rule_anchor_counts_as_declared_link(tmp_path, monkeypatch):
     """A `Regle` anchor alone is a declared link: the block must not claim that none exists."""
-    from controles import couverture
+    from spec_checks import statement_coverage
 
     src = tmp_path / "src"
     (src / "K7pl").mkdir(parents=True)
@@ -378,17 +378,17 @@ def test_couverture_rule_anchor_counts_as_declared_link(tmp_path, monkeypatch):
         "namespace K7pl.Algebre\n\n-- Regle Var := Var\ndef Var : Type := Nat\n\nend K7pl.Algebre\n",
         encoding="utf-8",
     )
-    monkeypatch.setattr(couverture, "SRC", src)
-    monkeypatch.setattr(couverture, "normative_ids", lambda: ([], {"formules": [], "regles": ["Var"]}))
-    _, stats = couverture.matrix()
+    monkeypatch.setattr(statement_coverage, "SRC", src)
+    monkeypatch.setattr(statement_coverage, "normative_ids", lambda: ([], {"formules": [], "regles": ["Var"]}))
+    _, stats = statement_coverage.matrix()
     assert stats["regles_couverts"] == 1
     assert stats["accroches"] == 1
-    assert "Aucun lien n'est encore déclaré" not in couverture.render_block()
+    assert "Aucun lien n'est encore déclaré" not in statement_coverage.render_block()
 
 
 def test_couverture_malformed_anchor_is_caught(tmp_path, monkeypatch):
     """An anchor naming a nonexistent lemma is an error, never silence."""
-    from controles import couverture
+    from spec_checks import statement_coverage
 
     src = tmp_path / "src"
     (src / "K7pl").mkdir(parents=True)
@@ -399,8 +399,8 @@ def test_couverture_malformed_anchor_is_caught(tmp_path, monkeypatch):
         "end K7pl.Algebre\n",
         encoding="utf-8",
     )
-    monkeypatch.setattr(couverture, "SRC", src)
-    g = couverture.scan()
+    monkeypatch.setattr(statement_coverage, "SRC", src)
+    g = statement_coverage.scan()
     assert any("lemme_inexistant" in m for m in g["malformed"]), \
         "une accroche qui cite un lemme absent de src/ doit être signalée comme mal formée"
 
@@ -471,21 +471,21 @@ def test_couverture_scan_on_real_src(real_lean):
     ],
 )
 def test_prohibited_lexical_family_is_detected(term):
-    from controles import vocabulaire
+    from spec_checks import vocabulary
 
-    findings = vocabulaire.find_forbidden_terms(f"Contexte : {term}.")
+    findings = vocabulary.find_forbidden_terms(f"Contexte : {term}.")
     assert [finding.term.lower() for finding in findings] == [term.lower()]
 
 
 def test_unrelated_words_with_overlapping_letters_are_allowed():
-    from controles import vocabulaire
+    from spec_checks import vocabulary
 
-    assert vocabulaire.find_forbidden_terms("Le marqueur violet est visible.") == []
-    assert vocabulaire.find_forbidden_terms("Le violon reste un exemple distinct.") == []
+    assert vocabulary.find_forbidden_terms("Le marqueur violet est visible.") == []
+    assert vocabulary.find_forbidden_terms("Le violon reste un exemple distinct.") == []
 
 
 def test_vocabulary_scan_reports_source_location_and_ignores_unrelated_words(tmp_path):
-    from controles import vocabulaire
+    from spec_checks import vocabulary
 
     spec_root = tmp_path / "spec"
     source = spec_root / "Spec" / "Example.lean"
@@ -495,7 +495,7 @@ def test_vocabulary_scan_reports_source_location_and_ignores_unrelated_words(tmp
         encoding="utf-8",
     )
 
-    findings = vocabulaire.scan(spec_root)
+    findings = vocabulary.scan(spec_root)
     assert len(findings) == 1
     assert findings[0].path == source
     assert findings[0].term.lower() == "violation"

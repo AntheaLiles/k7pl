@@ -934,7 +934,7 @@ fetch("./graph.json").then(function (response) {
   const requestedId = new URLSearchParams(window.location.search).get("node");
   const requested = requestedId ? graphData.nodes.find(function (node) { return node.id === requestedId; }) : null;
   const preferred = graphData.nodes.find(function (node) {
-    return node.kind === "figure" && node.id.includes("LesContraintesDeValeur.html#lbl-fig-session-automate");
+    return node.kind === "figure" && node.id.includes("ValueConstraints.html#lbl-fig-session-automate");
   });
   const fallback = graphData.nodes.find(function (node) { return node.kind === "figure"; }) || graphData.nodes[0];
   entryNodeId = (requested || preferred || fallback).id;

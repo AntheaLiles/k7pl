@@ -90,7 +90,7 @@ def no_author_comments():
 
 
 def glossary_covers_layers():
-    text = corpus.raw("Refs.ListeDesGlosses")
+    text = corpus.raw("Refs.GlossList")
     missing = [t for t in ("couche 1", "couche 2", "couche 3") if f": {t}" not in text]
     if missing:
         ko("glossaire : termes centraux absents : %s" % missing)

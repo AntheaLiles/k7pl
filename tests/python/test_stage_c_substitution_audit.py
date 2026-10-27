@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[2]
-RULES_SOURCE = ROOT / "spec" / "Spec" / "C3" / "ReglesDeTypage.lean"
+RULES_SOURCE = ROOT / "spec" / "Spec" / "C3" / "TypingRules.lean"
 
 # Inventory-only guard, not a mathematical proof. The former C-06 audit and
 # the theory-object register lived in docs/migration/ until the complete

@@ -6,12 +6,12 @@
 
 The two tables of the specification (`tab:propagation-addition`, `tab:propagation-produit`) are
 recomputed on the wheel of fractions of GF(5) (classes `0`, `x`, `inf`, `bot`), and the wheel
-algebra itself is checked exhaustively (`scripts/verif_singularites.py`, kind `wheel` only).
+algebra itself is checked exhaustively (`scripts/check_singularities.py`, kind `wheel` only).
 Neither reads the article of Carlstrom: the construction and the axioms are the ones recalled
 in the specification.
 
 D3, owner decision 2026-10-25: only the wheel is branched as a check. The candidate
-extensions `sup` and `flags` explored in `scripts/verif_singularites.py` are research history,
+extensions `sup` and `flags` explored in `scripts/check_singularities.py` are research history,
 not checks: they are not in the specification, and this module no longer evaluates them.
 Their exploration survives in git history and in that script's own documentation.
 """
@@ -26,7 +26,7 @@ from . import corpus
 from .journal import ko, ok
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-import verif_singularites as vs  # noqa: E402
+import check_singularities as vs  # noqa: E402
 
 CLASSES = ("0", "x", "inf", "bot")
 HEADS = {"0": "0", "x": "x", "\\infty": "inf", "\\bot": "bot"}
@@ -91,14 +91,14 @@ def mismatches(label: str, op: str, text: str) -> list[str]:
 
 def selftest() -> bool:
     """A table with one wrong cell must be refused."""
-    text = corpus.raw("C3.LesContraintesDeValeur")
+    text = corpus.raw("C3.ValueConstraints")
     broken = text.replace("  * $`\\infty`\n  * $`\\bot`\n  * $`\\bot`\n* * $`a = \\bot`", "  * $`\\infty`\n  * $`\\infty`\n  * $`\\bot`\n* * $`a = \\bot`", 1)
     return broken != text and bool(mismatches("tab:propagation-addition", "add", broken))
 
 
 def run() -> None:
     print("\n[Singularités]")
-    text = corpus.raw("C3.LesContraintesDeValeur")
+    text = corpus.raw("C3.ValueConstraints")
     for label, op in (("tab:propagation-addition", "add"), ("tab:propagation-produit", "mul")):
         bad = mismatches(label, op, text)
         if bad:

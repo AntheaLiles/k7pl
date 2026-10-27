@@ -7,11 +7,11 @@
 
 import VersoManual
 import SpecExt
-import Spec.C5.SExpressionsUniverselles
-import Spec.C5.NotationsSpecialisees
-import Spec.C5.LeTheoremeDElaboration
-import Spec.C5.CeQuUneMacroDeclare
-import Spec.C5.MiseEnPratique
+import Spec.C5.UniversalSExpressions
+import Spec.C5.SpecialisedNotations
+import Spec.C5.ElaborationTheorem
+import Spec.C5.WhatAMacroDeclares
+import Spec.C5.InPractice
 
 open Verso.Genre Manual
 open SpecExt
@@ -155,12 +155,12 @@ au-delà des populations ou des tâches étudiées. Les données disponibles ne 
 ergonomique de la syntaxe de K7PL ni l'inutilité de ses garanties : elles identifient des hypothèses
 de conception et des coûts potentiels qu'une évaluation propre au langage devra mesurer.
 
-{include 0 Spec.C5.SExpressionsUniverselles}
+{include 0 Spec.C5.UniversalSExpressions}
 
-{include 0 Spec.C5.NotationsSpecialisees}
+{include 0 Spec.C5.SpecialisedNotations}
 
-{include 0 Spec.C5.LeTheoremeDElaboration}
+{include 0 Spec.C5.ElaborationTheorem}
 
-{include 0 Spec.C5.CeQuUneMacroDeclare}
+{include 0 Spec.C5.WhatAMacroDeclares}
 
-{include 0 Spec.C5.MiseEnPratique}
+{include 0 Spec.C5.InPractice}

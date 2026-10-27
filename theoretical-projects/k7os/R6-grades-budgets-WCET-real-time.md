@@ -33,10 +33,10 @@ L’étude se limite aux artefacts versionnés et aux sources scientifiques cit�
 
 Sources du dépôt :
 
-- [C2 — Adjonctions et enrichissement](../../spec/Spec/C2/AdjonctionsEtEnrichissement.lean)
+- [C2 — Adjonctions et enrichissement](../../spec/Spec/C2/AdjunctionsAndEnrichment.lean)
 - [Modèle Lean des budgets](../../src/K7pl/GradeBudget.lean)
 - [Mise à l’échelle des grades](../../src/K7pl/UsageScale.lean)
-- [Dossier de concurrence R4](R4-concurrence-protocoles-vivacite-annulation.md)
+- [Dossier de concurrence R4](R4-concurrency-protocols-liveness-cancellation.md)
 - [Rapport compilation source → binaire R2](R2-source-to-binary-correctness.md)
 - [Dossier d’assurance scientifique](../../wiki/assurance.md)
 

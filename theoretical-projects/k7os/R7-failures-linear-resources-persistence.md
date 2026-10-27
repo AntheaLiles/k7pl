@@ -33,12 +33,12 @@ Le rapport confronte les passages normatifs, les prototypes Lean disponibles et 
 
 Sources du dépôt :
 
-- [C4 — Échelle du système](../../spec/Spec/C4/EchelleDuSysteme.lean)
-- [C4 — Sémantique opérationnelle](../../spec/Spec/C4/SemantiqueOperationnelle.lean)
-- [C3 — Contraintes de valeur](../../spec/Spec/C3/LesContraintesDeValeur.lean)
-- [C3 — Règles de typage](../../spec/Spec/C3/ReglesDeTypage.lean)
-- [C4 — Dossier de concurrence R4](R4-concurrence-protocoles-vivacite-annulation.md)
-- [C4 — Dossier de sûreté mémoire R5](R5-memoire-emprunt-aliasing-logique-separation.md)
+- [C4 — Échelle du système](../../spec/Spec/C4/SystemScale.lean)
+- [C4 — Sémantique opérationnelle](../../spec/Spec/C4/OperationalSemantics.lean)
+- [C3 — Contraintes de valeur](../../spec/Spec/C3/ValueConstraints.lean)
+- [C3 — Règles de typage](../../spec/Spec/C3/TypingRules.lean)
+- [C4 — Dossier de concurrence R4](R4-concurrency-protocols-liveness-cancellation.md)
+- [C4 — Dossier de sûreté mémoire R5](R5-memory-borrowing-aliasing-separation-logic.md)
 - [R0 — Modèle de menace et matrice d’assurance](R0-threat-model-assurance-matrix.md)
 - [Dossier d’assurance scientifique](../../wiki/assurance.md)
 

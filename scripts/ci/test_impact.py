@@ -33,8 +33,8 @@ EXPECTED_PYTHON_TEST_EXACT = {"scripts/generate_status.py"}
 EXPECTED_PYTHON_TEST_PREFIXES = ("tests/python/",)
 EXPECTED_LEAN_PREFIXES = ("src/", "tests/")
 EXPECTED_LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
-EXPECTED_SPEC_BUILD_EXACT = {"scripts/controle.py", "scripts/manuscript_metrics.py", "wiki/references.json"}
-EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "scripts/controles/", "scripts/biblio/")
+EXPECTED_SPEC_BUILD_EXACT = {"scripts/check_spec.py", "scripts/manuscript_metrics.py", "wiki/references.json"}
+EXPECTED_SPEC_BUILD_PREFIXES = ("spec/", "tools/", "scripts/spec_checks/", "scripts/biblio/")
 EXPECTED_SPEC_CHECK_EXACT = set()
 # Retired 2026-10-25 with the tracking folder: no path triggers
 # tracking_views on its own any more (see test_tracking_views_surface).
@@ -89,7 +89,7 @@ class ImpactTests(unittest.TestCase):
 
     def test_spec_tracking_file(self):
         # D1, owner decision 2026-10-25: the primitive leg that read
-        # wiki/research.md from croise.py was removed; the wiki is
+        # wiki/research.md from cross_check.py was removed; the wiki is
         # not a normative constituent, so research.md is docs_links
         # only by design.
         result = classify(["wiki/research.md"])
@@ -207,7 +207,7 @@ class SurfaceTableTests(unittest.TestCase):
         self.assertEqual(actual, wanted, path)
 
     def test_lean_paths(self):
-        # couverture.py (controle.py and the `real_lean` pytest fixture) scans src/, not tests/.
+        # statement_coverage.py (check_spec.py and the `real_lean` pytest fixture) scans src/, not tests/.
         self.assert_surfaces("src/Anything.lean", lean_build=True, spec_check=True, python_tests=True)
         self.assert_surfaces("tests/Anything.lean", lean_build=True)
 
@@ -308,7 +308,7 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
                 self.assertEqual(self.surfaces(path), surfaces)
 
     def test_separate_lake_workspaces(self):
-        # spec/formal-chain/ stays on the specification surface: controle.py's lexical guard reads
+        # spec/formal-chain/ stays on the specification surface: check_spec.py's lexical guard reads
         # every spec/**/*.lean. No verify.yaml check reads proofs/ (k7pl-semantics.yaml builds it
         # on its own path filter), so it stays unclassified, hence fully validated.
         self.assertEqual(
@@ -364,7 +364,7 @@ class AxiomAuditClassificationTests(unittest.TestCase):
         self.assertTrue(result["spec_build"])
         self.assertFalse(result["full"])
         self.assertFalse(result["unclassified"])
-        self.assertFalse(result["spec_check"], "controle.py does not read the script")
+        self.assertFalse(result["spec_check"], "check_spec.py does not read the script")
         self.assertFalse(result["docs_links"])
 
     def test_plain_lean_changes_still_skip_the_specification_build(self):

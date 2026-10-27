@@ -18,9 +18,9 @@ from pathlib import Path
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
-C2 = ROOT / "spec" / "Spec" / "C2" / "ComonadeExponentielleEtFragments.lean"
-C3 = ROOT / "spec" / "Spec" / "C3" / "LeSystemeGradue.lean"
-TYPING = ROOT / "spec" / "Spec" / "C3" / "ReglesDeTypage.lean"
+C2 = ROOT / "spec" / "Spec" / "C2" / "ExponentialComonadAndFragments.lean"
+C3 = ROOT / "spec" / "Spec" / "C3" / "GradedSystem.lean"
+TYPING = ROOT / "spec" / "Spec" / "C3" / "TypingRules.lean"
 ASSURANCE = ROOT / "wiki" / "assurance.md"
 
 
@@ -57,11 +57,18 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # (08f3d573…, replacing 08cdf667…) and ReglesDeTypage.lean (4f83a512…, replacing 74541a39…).
     # The interface strings below are checked in their new notation; a pin re-sync, not a
     # ratification of any changed content.
+    # 2026-10-27 (owner request): the module files of spec/ get English names —
+    # ComonadeExponentielleEtFragments.lean becomes ExponentialComonadAndFragments.lean,
+    # LeSystemeGradue.lean GradedSystem.lean, GrammaireDesTypes.lean TypeGrammar.lean and
+    # ReglesDeTypage.lean TypingRules.lean; three blobs are unchanged. GradedSystem.lean is
+    # re-synced (fc7b98ac…, replacing bd6d774c…): its changes only name the renamed check
+    # script (scripts/check_spec.py) and the renamed figure asset (contraction-weakening-matrix).
+    # A pin re-sync, not a ratification of any changed content.
     integrated_source_blobs = {
-        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "25ea45a9aeb423505302ae4016af552bd3db4955",
-        "spec/Spec/C3/LeSystemeGradue.lean": "bd6d774c47059972ae2f3ed86cb1ea95c2101c2d",
-        "spec/Spec/C3/GrammaireDesTypes.lean": "08f3d573323e6f3411fb51897ef000362b81b822",
-        "spec/Spec/C3/ReglesDeTypage.lean": "4f83a5129ed1b764d1db487d389290a761ff0612",
+        "spec/Spec/C2/ExponentialComonadAndFragments.lean": "25ea45a9aeb423505302ae4016af552bd3db4955",
+        "spec/Spec/C3/GradedSystem.lean": "fc7b98ac9b6ff2bd01ed1378b5120c213675a2b4",
+        "spec/Spec/C3/TypeGrammar.lean": "08f3d573323e6f3411fb51897ef000362b81b822",
+        "spec/Spec/C3/TypingRules.lean": "4f83a5129ed1b764d1db487d389290a761ff0612",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():

@@ -234,7 +234,7 @@ def test_main_writes_the_facts_of_the_working_tree(tmp_path, monkeypatch):
     ).stdout.strip()
 
     refreshed = []
-    monkeypatch.setattr(gs.couverture, "update_status", refreshed.append)
+    monkeypatch.setattr(gs.statement_coverage, "update_status", refreshed.append)
     for name in ("VERIFICATION", "IMPACT", "VERIFY", "REUSE", "COMMITLINT", "SECURITY"):
         suffix = "" if name == "VERIFICATION" else "_RESULT"
         monkeypatch.delenv(f"K7PL_{name}{suffix}", raising=False)

@@ -22,9 +22,9 @@ Modèle d’autorité, invariants, scénarios adverses et répartition des oblig
 
 ## Sources
 
-- [Postulats C1](../../spec/Spec/C1/Postulats.lean)
-- [Grades C2](../../spec/Spec/C2/AdjonctionsEtEnrichissement.lean)
-- [Modèles mémoire C4](../../spec/Spec/C4/ModelesDeMemoire.lean)
+- [Postulats C1](../../spec/Spec/C1/Postulates.lean)
+- [Grades C2](../../spec/Spec/C2/AdjunctionsAndEnrichment.lean)
+- [Modèles mémoire C4](../../spec/Spec/C4/MemoryModels.lean)
 - [Invariant mémoire abstrait](../../src/K7pl/MemoryCapability.lean)
 - [Genode](https://www.genode.org/documentation/genode-foundations/25.05/architecture/Capability-based_security.html), [CHERIoT RTOS](https://github.com/CHERIoT-Platform/cheriot-rtos/blob/main/docs/architecture.md), [seL4](https://sel4.systems/Verification/)
 

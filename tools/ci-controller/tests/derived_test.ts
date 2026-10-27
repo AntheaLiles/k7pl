@@ -48,8 +48,8 @@ Deno.test("a src/ change alone triggers spec_check, not the spec build", () => {
 
 Deno.test("derived classifier maps spec-build inputs declared in the registry", () => {
   const result = derived([
-    "scripts/controle.py",
-    "scripts/controles/croise.py",
+    "scripts/check_spec.py",
+    "scripts/spec_checks/cross_check.py",
     "wiki/references.json",
   ]);
   assertEquals(result.spec_check, true);
@@ -184,7 +184,7 @@ Deno.test("derived and legacy classifiers agree on the core path set", () => {
     "src/Foo.lean",
     "tests/FooTest.lean",
     "tools/SpecExt/IndexCore.lean",
-    "scripts/controle.py",
+    "scripts/check_spec.py",
     "scripts/generate_status.py",
     "tests/python/test_foo.py",
     "wiki/assurance.md",

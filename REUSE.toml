@@ -111,7 +111,7 @@ SPDX-License-Identifier = "CC0-1.0"
 # Données de sondes : licence provisoire explicite, sous réserve de l'audit
 # des extraits provenant de sources tierces.
 [[annotations]]
-path = "scripts/controles/donnees/sondes.json"
+path = "scripts/spec_checks/data/probes.json"
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC0-1.0"

@@ -42,7 +42,7 @@ Les surfaces sont les suivantes.
 |---|---|
 | `src/**`, `tests/**` | build Lean, tests, lint, audit des axiomes |
 | `scripts/axiom-audit.sh` | build Lean **et** build de la spécification : le script est appelé par les deux chaînes |
-| `spec/**`, `tools/**`, `wiki/references.json`, `scripts/controle.py`, `scripts/controles/**`, `scripts/manuscript_metrics.py` | contrôles statiques, build Verso, audit des axiomes, rendu HTML/TeX, PDF |
+| `spec/**`, `tools/**`, `wiki/references.json`, `scripts/check_spec.py`, `scripts/spec_checks/**`, `scripts/manuscript_metrics.py` | contrôles statiques, build Verso, audit des axiomes, rendu HTML/TeX, PDF |
 | `wiki/research.md` (Primitive inventory) | contrôles statiques de la spécification |
 | `*.md` | contrôle des liens locaux |
 | `docs/**`, `.claude/**`, `.github/ISSUE_TEMPLATE/**`, `LICENSES/**`, `CITATION.cff` | documentation/configuration légère ; contrôles invariants seulement, avec contrôle des liens pour Markdown |
@@ -84,7 +84,7 @@ Le cache des dépendances Lake est partagé logiquement par l'implémentation et
 La surface de spécification exécute :
 
 ```
-python3 scripts/controle.py --format github
+python3 scripts/check_spec.py --format github
 lake exe cache get                                                 # le noyau C3 importe Mathlib
 lake build Spec
 scripts/axiom-audit.sh Spec Spec
@@ -101,7 +101,7 @@ La bibliothèque `Spec` a deux racines : le document `Spec` et le noyau Lean des
 
 L'entrée `use_cache` de `verify.yaml` (défaut `true`) permet de construire sans restaurer les caches de `.lake/packages` et de Tectonic : `release.yaml` l'utilise à `false`.
 
-Une modification de `wiki/research.md` (table Primitive inventory) nécessite les contrôles statiques mais pas le build/rendu Verso, car cette table est consommée directement par `scripts/controles/croise.py`.
+Une modification de `wiki/research.md` (table Primitive inventory) nécessite les contrôles statiques mais pas le build/rendu Verso, car cette table est consommée directement par `scripts/spec_checks/cross_check.py`.
 
 Le PDF est un artefact dérivé : il n'est produit que lorsque le build de la spécification est nécessaire.
 

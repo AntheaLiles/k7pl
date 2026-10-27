@@ -68,7 +68,7 @@ components:
     roots:
       - spec/
     build_command: lake build Spec
-    check_command: python3 scripts/controle.py --format github
+    check_command: python3 scripts/check_spec.py --format github
     cache_determinants:
       - lake-manifest.json
       - lean-toolchain
@@ -91,8 +91,8 @@ components:
       # D2 slice 2: genuine inputs of the spec checks and build
       # (the legacy classifier's spec-build exact/prefix rules,
       # now declared here instead of hidden in a table).
-      - scripts/controle.py
-      - scripts/controles/
+      - scripts/check_spec.py
+      - scripts/spec_checks/
       - scripts/biblio/
       - scripts/manuscript_metrics.py
       - wiki/references.json
@@ -105,7 +105,7 @@ components:
     roots:
       - tools/
     build_command: lake build Spec
-    check_command: python3 scripts/controle.py --format github
+    check_command: python3 scripts/check_spec.py --format github
     cache_determinants:
       - lake-manifest.json
       - lean-toolchain

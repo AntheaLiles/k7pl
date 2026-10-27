@@ -18,7 +18,7 @@ from pathlib import Path
 from . import corpus
 from .journal import ko, ok
 
-PROBES = Path(__file__).parent / "donnees" / "sondes.json"
+PROBES = Path(__file__).parent / "data" / "probes.json"
 
 
 def norm(text: str) -> str:

@@ -7,14 +7,14 @@
 
 import VersoManual
 import SpecExt
-import Spec.AnnexeA.FrontieresDeCouchesEtDisciplineDe
-import Spec.AnnexeA.PureteEtDisciplineDeLaCouche3
-import Spec.AnnexeA.TerminaisonEtProductivite
-import Spec.AnnexeA.CapabilitesEtMemoire
-import Spec.AnnexeA.ProtocolesSessionsEtTopologieDistribuee
-import Spec.AnnexeA.DistinctionDePhaseEtMetaprogrammation
-import Spec.AnnexeA.ContraintesDeValeurEtPreuvesResiduelles
-import Spec.AnnexeA.ReadingAndDelimiters
+import Spec.AnnexA.LayerBoundariesAndCompositionDiscipline
+import Spec.AnnexA.PurityAndLayer3Discipline
+import Spec.AnnexA.TerminationAndProductivity
+import Spec.AnnexA.CapabilitiesAndMemory
+import Spec.AnnexA.ProtocolsSessionsAndDistributedTopology
+import Spec.AnnexA.PhaseDistinctionAndMetaprogramming
+import Spec.AnnexA.ValueConstraintsAndResidualProofs
+import Spec.AnnexA.ReadingAndDelimiters
 
 open Verso.Genre Manual
 open SpecExt
@@ -82,18 +82,18 @@ opérateur fait d'une information — ce qu'un message d'erreur est. Le transpor
 n'est pas acquis, et la question de savoir à quel niveau un message doit s'adresser dépend de ce que
 le lecteur sait déjà, ce qu'aucune mesure du corpus ne tranche.
 
-{include 0 Spec.AnnexeA.FrontieresDeCouchesEtDisciplineDe}
+{include 0 Spec.AnnexA.LayerBoundariesAndCompositionDiscipline}
 
-{include 0 Spec.AnnexeA.PureteEtDisciplineDeLaCouche3}
+{include 0 Spec.AnnexA.PurityAndLayer3Discipline}
 
-{include 0 Spec.AnnexeA.TerminaisonEtProductivite}
+{include 0 Spec.AnnexA.TerminationAndProductivity}
 
-{include 0 Spec.AnnexeA.CapabilitesEtMemoire}
+{include 0 Spec.AnnexA.CapabilitiesAndMemory}
 
-{include 0 Spec.AnnexeA.ProtocolesSessionsEtTopologieDistribuee}
+{include 0 Spec.AnnexA.ProtocolsSessionsAndDistributedTopology}
 
-{include 0 Spec.AnnexeA.DistinctionDePhaseEtMetaprogrammation}
+{include 0 Spec.AnnexA.PhaseDistinctionAndMetaprogramming}
 
-{include 0 Spec.AnnexeA.ContraintesDeValeurEtPreuvesResiduelles}
+{include 0 Spec.AnnexA.ValueConstraintsAndResidualProofs}
 
-{include 0 Spec.AnnexeA.ReadingAndDelimiters}
+{include 0 Spec.AnnexA.ReadingAndDelimiters}

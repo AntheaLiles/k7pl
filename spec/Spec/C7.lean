@@ -7,9 +7,9 @@
 
 import VersoManual
 import SpecExt
-import Spec.C7.EtudeDeCasIArchitectureReactiveNative
-import Spec.C7.EtudeDeCasIIDeveloppementInteractifEt
-import Spec.C7.EtudeDeCasIIIMoteurDeductifSurArenes
+import Spec.C7.CaseStudyINativeReactiveArchitecture
+import Spec.C7.CaseStudyIIInteractiveDevelopmentAndLibrary
+import Spec.C7.CaseStudyIIIDeductiveEngineOnColumnarArenas
 
 open Verso.Genre Manual
 open SpecExt
@@ -32,8 +32,8 @@ l'abordent, sollicitant la pile entière depuis trois angles ; elles illustrent 
 d'intégration et ne constituent, à elles seules, ni une preuve générale de correction ni une
 validation empirique des performances.
 
-{include 0 Spec.C7.EtudeDeCasIArchitectureReactiveNative}
+{include 0 Spec.C7.CaseStudyINativeReactiveArchitecture}
 
-{include 0 Spec.C7.EtudeDeCasIIDeveloppementInteractifEt}
+{include 0 Spec.C7.CaseStudyIIInteractiveDevelopmentAndLibrary}
 
-{include 0 Spec.C7.EtudeDeCasIIIMoteurDeductifSurArenes}
+{include 0 Spec.C7.CaseStudyIIIDeductiveEngineOnColumnarArenas}

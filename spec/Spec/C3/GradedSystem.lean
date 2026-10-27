@@ -312,7 +312,7 @@ d'une ressource d'usage libre, ce qu'un système bâti uniquement sur des opéra
 peut structurellement pas faire. Le reste de cette section montre comment ce grade se propage, se
 divise et se recompose à travers les constructions du langage.
 
-::::figure (label := "fig:modalites-structurelles") (src := "matrice-contraction-affaiblissement") (alt := "Matrice 2 x 2 des autorisations de contraction et d'affaiblissement pour Lin, Aff, Unr et le cas non instancié.") (width := "90")
+::::figure (label := "fig:modalites-structurelles") (src := "contraction-weakening-matrix") (alt := "Matrice 2 x 2 des autorisations de contraction et d'affaiblissement pour Lin, Aff, Unr et le cas non instancié.") (width := "90")
 :::caption
 Contraction et affaiblissement, trois modalités sur quatre combinaisons possibles
 :::
@@ -517,7 +517,7 @@ codes porte sur des constructions hors du noyau — pour lesquelles l'exhibition
 contrainte de valeur — qui se ramènent chacune à l'absence d'une prémisse dans une règle nommée, et
 elle se vérifie mécaniquement : la table à deux colonnes code ⟷ prémisse manquante sur les
 constructeurs du noyau est un artefact exécutable, que le croisement des grammaires et des règles
-(`scripts/controle.py`) garde.
+(`scripts/check_spec.py`) garde.
 
 Le sens réciproque — un programme dérivable est accepté — n'est pas un théorème : c'est une
 propriété d'implémentation, énoncée ci-dessous comme exigence, et non une prémisse promue.

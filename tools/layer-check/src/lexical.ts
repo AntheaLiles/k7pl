@@ -15,7 +15,7 @@
  * The two lists must agree.
  */
 
-/** Modifiers that join glyphs in a train (chapter 5, `NotationsSpecialisees.lean`). */
+/** Modifiers that join glyphs in a train (chapter 5, `SpecialisedNotations.lean`). */
 export const MODIFIERS: readonly string[] = ["´", "¨"];
 
 const EXPECT = /;;\s*expect:\s*([A-Za-z ]+)/g;

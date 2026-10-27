@@ -87,7 +87,7 @@ def _emit_error(message: str, location: Location) -> None:
     fields = [
         "file=" + _property(location.path),
         "line=" + str(location.line),
-        "title=controle.py",
+        "title=check_spec.py",
     ]
     if location.column is not None:
         fields.insert(2, "col=" + str(location.column))

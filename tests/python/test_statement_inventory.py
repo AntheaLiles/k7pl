@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-CONTROLS = ROOT / "scripts" / "controles"
+CONTROLS = ROOT / "scripts" / "spec_checks"
 if str(CONTROLS) not in sys.path:
     sys.path.insert(0, str(CONTROLS))
 

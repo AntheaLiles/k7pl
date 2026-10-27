@@ -5,11 +5,11 @@
 """Checks on the specification, reading the Verso sources (`spec/`).
 
 Ported from the checks of the former Org tooling (deleted in the 2026-10-25 archives closure; each file's fate is traced in the migration matrix in `wiki/`). Run them all with
-`python3 scripts/controle.py`; each module is one family of questions:
+`python3 scripts/check_spec.py`; each module is one family of questions:
 
-* `algebre`    — laws of the algebra at the absorbing elements, size sorts, the conventions of ω;
+* `algebra`    — laws of the algebra at the absorbing elements, size sorts, the conventions of ω;
 * `notation`   — one symbol per object, status seals, propagation of open statements;
-* `croise`     — the grammar of terms against the typing rules, and the counts the prose states;
+* `cross_check` — the grammar of terms against the typing rules, and the counts the prose states;
 * `structure`  — appendix letters, tables, comments, hand-written counts, unique labels.
-* `vocabulaire` — prohibited lexical-family forms in authored specification sources.
+* `vocabulary` — prohibited lexical-family forms in authored specification sources.
 """

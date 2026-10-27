@@ -92,7 +92,7 @@ established against explicit criteria and scope; it never means globally
 or absolutely proven.
 
 **Statement-level epistemic state** (from the specification's reading
-guide, `spec/Spec/C1/GuideDeLecture.lean`): `proposed`, `under-review`,
+guide, `spec/Spec/C1/ReadingGuide.lean`): `proposed`, `under-review`,
 `supported`, `established`, `refuted`, `withdrawn`, `not-applicable`.
 The guide also fixes four kinds of statement — postulate (posed, not
 derived), theorem (a result statement, whose name alone is neither a
@@ -131,7 +131,7 @@ git history.
   sedimentation theorem and the related functor and glued-category
   constructions, listed there separately.
 - A second textual point, now resolved in [layers](layers.md):
-  `AxiomatiqueGerminale.lean` previously said "la couche 2 est pure
+  `GerminalAxiomatics.lean` previously said "la couche 2 est pure
   par construction"; the owner confirmed L3 is pure and terminating
   and L2 is productive with algebraic effects, and the sentence was
   corrected to "la couche 3" in the Lot 1 closing commit.

@@ -24,7 +24,7 @@ The distinction to preserve is:
 
 These are different guarantees, implemented at different layers. They may complement one another; none should be treated as another by terminology alone.
 
-The current system-scale source describes actors in ring 0 in one physical address space and notes that its type-system argument does not confine foreign code by itself. See [C4 — system scale, at the audited commit](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/EchelleDuSysteme.lean). Under that profile, native code capable of arbitrary loads and stores in the shared address space must either be part of the trusted computing base or be restricted by another enforceable boundary. A typed FFI signature is not such a boundary on its own.
+The current system-scale source describes actors in ring 0 in one physical address space and notes that its type-system argument does not confine foreign code by itself. See [C4 — system scale, at the audited commit](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/SystemScale.lean). Under that profile, native code capable of arbitrary loads and stores in the shared address space must either be part of the trusted computing base or be restricted by another enforceable boundary. A typed FFI signature is not such a boundary on its own.
 
 ## 2. Source audit: what is and is not established
 
@@ -36,7 +36,7 @@ The memory-model chapter states a spatial-safety theorem in terms of the linear 
 - **H2 — region correspondence:** disjoint ranges denote distinct regions;
 - **H3 — delimiter and capture discipline:** a duplicable value cannot capture a linear writing capability.
 
-The theorem is explicitly marked under review and has proof-sketch evidence. Its note leaves H1 open pending the arena-elimination rule; it also treats H2 and H3 as separate obligations. See [C4 — memory models](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/ModelesDeMemoire.lean).
+The theorem is explicitly marked under review and has proof-sketch evidence. Its note leaves H1 open pending the arena-elimination rule; it also treats H2 and H3 as separate obligations. See [C4 — memory models](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/MemoryModels.lean).
 
 This argument concerns which operations are derivable in the formal system under those hypotheses. It is not yet a proof that a raw pointer handed to foreign code is inaccessible after the call, that a malicious driver respects the region, or that the hardware maps the abstract region to the asserted physical range.
 
@@ -50,7 +50,7 @@ The current [MemoryRange.lean](https://github.com/AntheaLiles/k7pl/blob/4aea6766
 
 ### 2.3 Dynamic references and the ABA claim
 
-The actor-scale chapter describes EntityRef as a 64-bit handle containing a 32-bit index and a 32-bit generation, and claims that incrementing the generation when an index is reused prevents confusion with the previous occupant. See [C4 — actor scale](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/EchelleDeLActeur.lean).
+The actor-scale chapter describes EntityRef as a 64-bit handle containing a 32-bit index and a 32-bit generation, and claims that incrementing the generation when an index is reused prevents confusion with the previous occupant. See [C4 — actor scale](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/ActorScale.lean).
 
 A generation field is a useful stale-handle defence only if each operation validates the supplied generation against the current slot generation before accessing the object. The field alone does not check itself. The proof also needs a policy for wraparound, reset and snapshot restore, concurrent deletion/reuse, and code that caches a raw address after a successful lookup. If a stale handle's generation can eventually match a reused slot, the anti-ABA argument requires another condition or mechanism. If foreign code retains the raw address instead of the checked handle, validating the handle on a later lookup cannot retract that pointer.
 
@@ -301,8 +301,8 @@ Do not interpret successful compilation of MemoryCapability.lean as proof that a
 
 Sources below are first-party technical documentation. The retrieval date is 2026-10-23 unless a named release is specified.
 
-1. **K7PL C4, Models of Memory**, current main snapshot. It labels the spatial-safety result as under review, records H1–H3, and leaves arena elimination as an obligation. [Source file](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/ModelesDeMemoire.lean).
-2. **K7PL C4, Actor Scale**, current main snapshot. It describes the arena/region distinction, WriteCap partitioning and EntityRef index/generation layout; it is a specification source, not evidence that a runtime or hardware implementation enforces those claims. [Source file](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/EchelleDeLActeur.lean).
+1. **K7PL C4, Models of Memory**, current main snapshot. It labels the spatial-safety result as under review, records H1–H3, and leaves arena elimination as an obligation. [Source file](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/MemoryModels.lean).
+2. **K7PL C4, Actor Scale**, current main snapshot. It describes the arena/region distinction, WriteCap partitioning and EntityRef index/generation layout; it is a specification source, not evidence that a runtime or hardware implementation enforces those claims. [Source file](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/ActorScale.lean).
 3. **K7PL MemoryCapability.lean and MemoryRange.lean**, current main snapshot. These state the scope and limitations of the abstract invariants. [MemoryCapability](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/src/K7pl/MemoryCapability.lean), [MemoryRange](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/src/K7pl/MemoryRange.lean).
 4. **seL4 API Reference**, current documentation retrieved on 2026-10-23. The documented CNode operations distinguish single-slot deletion, capability minting and revocation of derived children. Applicability: concrete kernel capability management, not K7PL's current same-address-space model. [API reference](https://docs.sel4.systems/projects/sel4/api-doc.html).
 5. **seL4 Tutorials, Capabilities**, current documentation retrieved on 2026-10-23. Describes CNodes, CSpaces, object references and capability deletion/revocation. Applicability: illustrates a kernel-maintained capability-space design; it does not imply external effects or raw pointers are generally retractable. [Tutorial](https://docs.sel4.systems/Tutorials/capabilities.html).

@@ -26,13 +26,13 @@ Les décisions de conception devraient garder la sûreté mémoire comme propri�
 
 Sources du dépôt à la révision de base :
 
-- [C4 — modèles mémoire, sûreté spatiale et H1/H2/H3](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/spec/Spec/C4/ModelesDeMemoire.lean)
-- [C3 — règles de typage, arène, `Slice` et parallélisme](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/spec/Spec/C3/ReglesDeTypage.lean)
-- [C4 — arènes, offsets et capacités de région](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/spec/Spec/C4/EchelleDeLActeur.lean)
+- [C4 — modèles mémoire, sûreté spatiale et H1/H2/H3](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/spec/Spec/C4/MemoryModels.lean)
+- [C3 — règles de typage, arène, `Slice` et parallélisme](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/spec/Spec/C3/TypingRules.lean)
+- [C4 — arènes, offsets et capacités de région](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/spec/Spec/C4/ActorScale.lean)
 - [Modèle Lean de comptage des capacités](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/src/K7pl/MemoryCapability.lean)
 - [Modèle Lean d'intervalles](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/src/K7pl/MemoryRange.lean)
 - [Audit C-08 de la sûreté mémoire](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/docs/migration/L1-C08-MEMORY-SAFETY-AUDIT-2026-10-11.md)
-- [C5 — délimiteurs et frontières de fragments](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/spec/Spec/C5/SExpressionsUniverselles.lean)
+- [C5 — délimiteurs et frontières de fragments](https://github.com/AntheaLiles/k7pl/blob/ed03d4a86543eea0addf551747a8a81a43843127/spec/Spec/C5/UniversalSExpressions.lean)
 
 L'analyse porte sur les blocs documentaires et les deux modules Lean ci-dessus ; elle ne constitue pas une compilation nouvelle ni un audit exhaustif de chaque primitive, du backend ou du runtime. Les tests présentés plus loin sont des scénarios proposés, non des tests déjà exécutés.
 

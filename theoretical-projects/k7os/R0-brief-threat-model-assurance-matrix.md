@@ -19,7 +19,7 @@ Un modèle de menace versionné et une matrice comprenant : propriété ; advers
 ## Sources
 
 - `STATUS.md`, [ASSURANCE.md](../../wiki/assurance.md), [DASHBOARD.md](../../wiki/roadmap.md)
-- [Architecture système C4](../../spec/Spec/C4/EchelleDuSysteme.lean)
+- [Architecture système C4](../../spec/Spec/C4/SystemScale.lean)
 
 ## Critère de sortie
 

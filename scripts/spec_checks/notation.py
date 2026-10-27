@@ -135,7 +135,7 @@ def propagated_mentions():
 
 def route_of_each_commitment():
     """Every commitment names its route: littérature, démonstration or mesure (nothing else)."""
-    text = corpus.raw("C1.GuideDeLecture")
+    text = corpus.raw("C1.ReadingGuide")
     m = re.search(r'::::k7table[^\n]*"tab:engagements"[^\n]*\n(.*?)\n::::$', text, re.S | re.M)
     if not m:
         ko("la table des engagements est introuvable")

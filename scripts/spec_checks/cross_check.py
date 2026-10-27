@@ -196,7 +196,7 @@ def run():
     unknown = sorted(rules - set(EXPECTED) - NO_TERM)
     if unknown:
         good = False
-        ko("règles absentes du tableau de croisement (scripts/controles/croise.py) : %s" % unknown)
+        ko("règles absentes du tableau de croisement (scripts/spec_checks/cross_check.py) : %s" % unknown)
 
     types = corpus.formula("eq:grammaire-types")
     if types:

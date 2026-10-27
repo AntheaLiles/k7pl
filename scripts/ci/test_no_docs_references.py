@@ -12,7 +12,7 @@ script would fail or silently read nothing.
 
 Scope, deliberately narrow so the guard stays honest:
 - scanned: executable surfaces only -- scripts/ci (except test files),
-  scripts/controles, top-level scripts/*.py, and .github/workflows.
+  scripts/spec_checks, top-level scripts/*.py, and .github/workflows.
 - NOT scanned: tests/ and scripts/ci/test_*.py (their docs/ strings are
   synthetic fixtures, not reads of the repository), and prose files
   (.md), whose historical mentions are not executable paths.
@@ -34,18 +34,18 @@ ROOT = Path(__file__).resolve().parents[2]
 #   its LEGACY_PATHS list is intentional, and its own tests cover it.
 # - impact.py: LIGHT_PREFIXES classifies any future docs/ path in a
 #   diff as a light change; it never reads a docs/ file.
-# - verif_singularites.py: a single historical comment quoting a
+# - check_singularities.py: a single historical comment quoting a
 #   deleted research file; the script reads spec/, not docs/.
-# - controles/croise.py, controles/couverture.py, controles/structure.py:
+# - spec_checks/cross_check.py, spec_checks/statement_coverage.py, spec_checks/structure.py:
 #   historical comments/docstrings only; their live inputs are
 #   wiki/research.md, wiki/STATUS.md, and spec/ respectively.
 ALLOWLIST = {
     "scripts/ci/check_documentation_architecture.py",
     "scripts/ci/impact.py",
-    "scripts/verif_singularites.py",
-    "scripts/controles/croise.py",
-    "scripts/controles/couverture.py",
-    "scripts/controles/structure.py",
+    "scripts/check_singularities.py",
+    "scripts/spec_checks/cross_check.py",
+    "scripts/spec_checks/statement_coverage.py",
+    "scripts/spec_checks/structure.py",
 }
 
 SCAN_EXTENSIONS = {".py", ".sh", ".yaml", ".yml"}
@@ -54,7 +54,7 @@ SCAN_EXTENSIONS = {".py", ".sh", ".yaml", ".yml"}
 def scanned_files(root: Path) -> list[Path]:
     bases = [
         root / "scripts" / "ci",
-        root / "scripts" / "controles",
+        root / "scripts" / "spec_checks",
         root / ".github" / "workflows",
     ]
     files: list[Path] = []

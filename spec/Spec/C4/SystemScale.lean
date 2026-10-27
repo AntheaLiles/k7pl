@@ -37,7 +37,7 @@ Cette section décrit le modèle abstrait du système et les obligations qui en 
 de runtime, de synchronisation, de persistance et de placement mémoire sont des choix de réalisation
 sauf lorsqu'une exigence est explicitement posée ; ils ne fixent pas, à eux seuls, une architecture.
 Cette réserve ne retire ni les contraintes de représentation explicitement normatives — notamment
-ECS/SoA/PIA, l'alignement et le placement NUMA définis dans « EchelleDeLActeur » — ni les invariants
+ECS/SoA/PIA, l'alignement et le placement NUMA définis dans §{num "sec:c4-echelle-de-l-acteur"}[] — ni les invariants
 des couches. La couche 3 reste cartésienne et pure ($`\mathcal{E}=\emptyset`), ses calculs valides
 terminent selon les schémas récursifs admis et leur coût de pile est statiquement gradué. La couche 2
 exige la productivité de chaque observation sous sa garde typée, sans exiger la terminaison du flux
@@ -593,7 +593,7 @@ Le modèle abstrait ne fixe ni le protocole de transport ni le format des jetons
 Noise pour l'établissement de session et Biscuit pour les jetons sont des options de réalisation ;
 leurs coûts et propriétés de sécurité doivent être établis indépendamment des grades K7PL. Les
 contraintes d'alignement et de placement NUMA de l'arène des acteurs sont précisées dans
-« EchelleDeLActeur ». D'autres grades matériels, par exemple SIMD ou GPU, ainsi que leur résolution
+§{num "sec:c4-echelle-de-l-acteur"}[]. D'autres grades matériels, par exemple SIMD ou GPU, ainsi que leur résolution
 par l'orchestrateur, ne sont pas définis par ce passage.
 
 Lorsque la communication franchit la frontière du système lui-même, vers un système d'exploitation

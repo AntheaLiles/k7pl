@@ -15,7 +15,7 @@ import Spec.C5
 import Spec.C6
 import Spec.C7
 import Spec.Refs
-import Spec.AnnexeA
+import Spec.AnnexA
 import Spec.ProofVisualizations
 import Spec.CodeArtifacts
 
@@ -54,7 +54,7 @@ DOI : [10.5281/zenodo.23040451](https://doi.org/10.5281/zenodo.23040451) · Sour
 
 {include 0 Spec.Refs}
 
-{include 0 Spec.AnnexeA}
+{include 0 Spec.AnnexA}
 
 {include 0 Spec.ProofVisualizations}
 

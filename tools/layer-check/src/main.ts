@@ -32,9 +32,9 @@ import {
 import { collectUnits } from "./units.ts";
 
 export const CODES_SOURCE = "lexicon/syntax/codes.k";
-export const ANNEX_DIR = "spec/Spec/AnnexeA";
+export const ANNEX_DIR = "spec/Spec/AnnexA";
 export const TOKENS_SOURCE = "lexicon/syntax/tokens.k";
-export const GLYPH_TABLE = "spec/Spec/C1/TableDesGlyphes.lean";
+export const GLYPH_TABLE = "spec/Spec/C1/GlyphTable.lean";
 export const LEXICAL_PROBES = "tests/lexical";
 
 /** Runs the lexical probes; returns the number of failures. */

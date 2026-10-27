@@ -19,8 +19,8 @@ Les accroches vivent dans les commentaires de `src/` (anglais, docstrings) ; la 
 est la seule acceptée, et une accroche mal formée est un échec — jamais un silence. Tant qu'aucune
 accroche n'existe, la matrice affiche 0 % : c'est le point de départ, pas une anomalie.
 
-    python3 scripts/controles/couverture.py            # compte rendu
-    python3 scripts/controles/couverture.py --update   # régénère le bloc de wiki/STATUS.md
+    python3 scripts/spec_checks/statement_coverage.py            # compte rendu
+    python3 scripts/spec_checks/statement_coverage.py --update   # régénère le bloc de wiki/STATUS.md
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ import re
 import sys
 from pathlib import Path
 
-if __package__ in (None, ""):  # executable standalone: `python3 scripts/controles/couverture.py`
+if __package__ in (None, ""):  # executable standalone: `python3 scripts/spec_checks/statement_coverage.py`
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     from journal import ko, ok
 else:
@@ -119,13 +119,13 @@ def normative_ids() -> tuple[list[dict], dict]:
 
 
 def _modules():
-    from controles import corpus
+    from spec_checks import corpus
 
     return corpus.modules()
 
 
 def _everything():
-    from controles import corpus
+    from spec_checks import corpus
 
     return corpus.everything()
 
@@ -133,7 +133,7 @@ def _everything():
 def _corpus_available() -> bool:
     try:
         import manuscript_metrics  # noqa: F401
-        from controles import corpus  # noqa: F401
+        from spec_checks import corpus  # noqa: F401
 
         corpus.modules()
         return True
@@ -221,14 +221,14 @@ def render_block() -> str:
     note = (
         "Aucun lien n'est encore déclaré : chaque fiche `IMPL` doit joindre une accroche."
         if stats["accroches"] == 0
-        else "Régénérer : `python3 scripts/controles/couverture.py --update`."
+        else "Régénérer : `python3 scripts/spec_checks/statement_coverage.py --update`."
     )
     return "\n".join(
         [
             BEGIN,
             "## Liens déclarés spécification ↔ Lean",
             "",
-            "Identifiants normatifs extraits de `spec/` par `scripts/controles/couverture.py`, "
+            "Identifiants normatifs extraits de `spec/` par `scripts/spec_checks/statement_coverage.py`, "
             "rapprochés des accroches de couplage déclarées dans les commentaires de `src/` "
             "(`Formule eq:… := lemme`, `Énoncé thm:… := lemme`, `Regle … := …`). Un lien déclaré est "
             "une accroche lexicale vers une déclaration de `src/` : il n'atteste ni que cette déclaration "
@@ -259,7 +259,7 @@ def update_status(status_path: Path | None = None) -> None:
 
 
 def run() -> None:
-    """Check entry point (see `scripts/controle.py`): the matrix must be computable and clean."""
+    """Check entry point (see `scripts/check_spec.py`): the matrix must be computable and clean."""
     print("\n[Couverture spec ↔ Lean]")
     if not _corpus_available():
         ok("couverture : hors corpus Verso complet (mini-corpus de test), contrôle non conduit")

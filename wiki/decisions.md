@@ -1288,6 +1288,20 @@ contradiction to state, not to resolve in silence.
   specification stays French, and whether module
   file names under `spec/` are renamed is not yet
   decided. Decided 2026-10-19.
+  Decided 2026-10-27, owner instruction quoted as given:
+  "Tu peux finaliser le renommage des fichiers en
+  anglais." (after "Tu finaliseras les renommage des
+  fichiers quand la PR de Muse sera fusionnée", 2026-10-26;
+  PR #309 was replaced by #312, merged). The module file
+  names under `spec/` are renamed too. Applied on
+  2026-10-27: the 51 French module files of `spec/Spec/`,
+  `scripts/controle.py` and `scripts/controles/`
+  (`scripts/check_spec.py`, `scripts/spec_checks/`),
+  `scripts/verif_singularites.py`, two figure assets and
+  the K7OS dossier files, with every reference; contents
+  are not translated, and the frozen inventory of
+  [assurance](assurance.md) keeps the former names. The
+  list is in `CHANGELOG.md`.
   Follow-up: Rule carried — Roadmap: Finish the language migration.
 - **Interactive navigation, phase direction:
   reorient.** Recorded 2026-10-11: keep the

@@ -9,7 +9,7 @@ The `status` job of ci.yaml runs it on main, from the repository root:
     python3 scripts/generate_status.py --verification "$K7PL_VERIFICATION"
 
 The results of the other jobs come from the options or from the `K7PL_*_RESULT` environment
-variables. The coverage block of `scripts/controles/couverture.py` is then refreshed in the
+variables. The coverage block of `scripts/spec_checks/statement_coverage.py` is then refreshed in the
 written file.
 """
 
@@ -23,7 +23,7 @@ import stat
 import subprocess
 from pathlib import Path
 
-from controles import couverture
+from spec_checks import statement_coverage
 
 
 def sh(*args):
@@ -309,7 +309,7 @@ def main():
         ),
     )
     Path(a.output).write_text(text, encoding="utf-8")
-    couverture.update_status(Path(a.output))
+    statement_coverage.update_status(Path(a.output))
 
 
 if __name__ == "__main__":

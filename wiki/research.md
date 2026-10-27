@@ -675,65 +675,65 @@ lines). Two families. Type notations, in three incompatible styles
 — application `Vector(n, T)`, angle brackets `WriteCap<T>`,
 juxtaposition `Vec n T`:
 
-- `Aff → Unr` — C3/LeSystemeGradue.lean:133
-- `Chan(p)` — C1/AxiomatiqueGerminale.lean:169
-- `Dest T` — C3/LeSystemeGradue.lean:444, C3/LeSystemeGradue.lean:466
-- `File(Closed)` — C3/LesContraintesDeValeur.lean:130
-- `File(Open)` — C3/LesContraintesDeValeur.lean:130
-- `Incomplete A B` — C2/AdjonctionsEtEnrichissement.lean:60, C2/AlgebresCoalgebresEtPointsFixes.lean:54, C3/LeSystemeGradue.lean:445, C3/LeSystemeGradue.lean:466
-- `Lin T` — AnnexeA/CapabilitesEtMemoire.lean:36, C3/LeSystemeGradue.lean:359
-- `Lin → Aff` — C3/LeSystemeGradue.lean:133
-- `Lin → Unr` — C3/LeSystemeGradue.lean:133
-- `Lin(SessionEndpoint)` — C3/LesContraintesDeValeur.lean:304
-- `Lin_k T` — C3/LeSystemeGradue.lean:451
-- `Range(0,k)` — C1/Postulats.lean:106
-- `ReadCap<T>` — C3/LeSystemeGradue.lean:394, C3/LeSystemeGradue.lean:400
-- `recv(Bool)` — C3/LesContraintesDeValeur.lean:147
-- `Recv(T,P^⊥)` — C3/LesContraintesDeValeur.lean:158
-- `Result(T, OutOfBounds)` — C3/LesContraintesDeValeur.lean:79
-- `Result(T, OverflowError)` — C3/LesContraintesDeValeur.lean:454
-- `Result<Float64, Singularity>` — AnnexeA/ContraintesDeValeurEtPreuvesResiduelles.lean:42
-- `send(Int)` — C3/LesContraintesDeValeur.lean:146
-- `Send(Int, Recv(Bool, End))` — C3/LesContraintesDeValeur.lean:152
-- `Send(T,P)` — C3/LesContraintesDeValeur.lean:158
-- `SharedChan(p)` — C1/AxiomatiqueGerminale.lean:170, C1/AxiomatiqueGerminale.lean:182
-- `TimeWindow(T, n, unit)` — C7/EtudeDeCasIIDeveloppementInteractifEt.lean:53
-- `Vec n T` — C2/AdjonctionsEtEnrichissement.lean:83, C4/EchelleDeLActeur.lean:159, C4/EchelleDeLActeur.lean:173
-- `Vector(n, T)` — C3/LesContraintesDeValeur.lean:71
-- `Vector(n,T)` — C2/AdjonctionsEtEnrichissement.lean:59, C6/LeProcessusDeCompilation.lean:248
-- `Wheel<T>` — C3/LesContraintesDeValeur.lean:363
-- `WriteCap(Arena<T>, Range(0,k))` — C4/EchelleDeLActeur.lean:109
-- `WriteCap(Arena<T>, Range(k+1,2k))` — C4/EchelleDeLActeur.lean:110
-- `WriteCap(B)` — C4/EchelleDuSysteme.lean:624, C4/EchelleDuSysteme.lean:630, C4/EchelleDuSysteme.lean:636
-- `WriteCap(DOM)` — C7/EtudeDeCasIArchitectureReactiveNative.lean:69
-- `WriteCap<T>` — C3/LeSystemeGradue.lean:392
-- `{x : T | p}` — C3/LesContraintesDeValeur.lean:85
-- `λx. (f x) g (h x)` — C5/NotationsSpecialisees.lean:45
-- `λx. f(g(x))` — C5/NotationsSpecialisees.lean:45
+- `Aff → Unr` — C3/GradedSystem.lean:133
+- `Chan(p)` — C1/GerminalAxiomatics.lean:169
+- `Dest T` — C3/GradedSystem.lean:444, C3/GradedSystem.lean:466
+- `File(Closed)` — C3/ValueConstraints.lean:130
+- `File(Open)` — C3/ValueConstraints.lean:130
+- `Incomplete A B` — C2/AdjunctionsAndEnrichment.lean:60, C2/AlgebrasCoalgebrasAndFixedPoints.lean:54, C3/GradedSystem.lean:445, C3/GradedSystem.lean:466
+- `Lin T` — AnnexA/CapabilitiesAndMemory.lean:36, C3/GradedSystem.lean:359
+- `Lin → Aff` — C3/GradedSystem.lean:133
+- `Lin → Unr` — C3/GradedSystem.lean:133
+- `Lin(SessionEndpoint)` — C3/ValueConstraints.lean:304
+- `Lin_k T` — C3/GradedSystem.lean:451
+- `Range(0,k)` — C1/Postulates.lean:106
+- `ReadCap<T>` — C3/GradedSystem.lean:394, C3/GradedSystem.lean:400
+- `recv(Bool)` — C3/ValueConstraints.lean:147
+- `Recv(T,P^⊥)` — C3/ValueConstraints.lean:158
+- `Result(T, OutOfBounds)` — C3/ValueConstraints.lean:79
+- `Result(T, OverflowError)` — C3/ValueConstraints.lean:454
+- `Result<Float64, Singularity>` — AnnexA/ValueConstraintsAndResidualProofs.lean:42
+- `send(Int)` — C3/ValueConstraints.lean:146
+- `Send(Int, Recv(Bool, End))` — C3/ValueConstraints.lean:152
+- `Send(T,P)` — C3/ValueConstraints.lean:158
+- `SharedChan(p)` — C1/GerminalAxiomatics.lean:170, C1/GerminalAxiomatics.lean:182
+- `TimeWindow(T, n, unit)` — C7/CaseStudyIIInteractiveDevelopmentAndLibrary.lean:53
+- `Vec n T` — C2/AdjunctionsAndEnrichment.lean:83, C4/ActorScale.lean:159, C4/ActorScale.lean:173
+- `Vector(n, T)` — C3/ValueConstraints.lean:71
+- `Vector(n,T)` — C2/AdjunctionsAndEnrichment.lean:59, C6/CompilationProcess.lean:248
+- `Wheel<T>` — C3/ValueConstraints.lean:363
+- `WriteCap(Arena<T>, Range(0,k))` — C4/ActorScale.lean:109
+- `WriteCap(Arena<T>, Range(k+1,2k))` — C4/ActorScale.lean:110
+- `WriteCap(B)` — C4/SystemScale.lean:624, C4/SystemScale.lean:630, C4/SystemScale.lean:636
+- `WriteCap(DOM)` — C7/CaseStudyINativeReactiveArchitecture.lean:69
+- `WriteCap<T>` — C3/GradedSystem.lean:392
+- `{x : T | p}` — C3/ValueConstraints.lean:85
+- `λx. (f x) g (h x)` — C5/SpecialisedNotations.lean:45
+- `λx. f(g(x))` — C5/SpecialisedNotations.lean:45
 
 Metalanguage formulas written as code although they are
 mathematics:
 
-- `Adm(β, κ)` — C2/ComonadeExponentielleEtFragments.lean:241, C2/ComonadeExponentielleEtFragments.lean:243
-- `Adm(β,κ(ε))` — C1/AxiomatiqueGerminale.lean:412
-- `Adm(β,κ)` — C1/AxiomatiqueGerminale.lean:363
-- `C(κ)` — C2/ComonadeExponentielleEtFragments.lean:294
-- `Consume(β, κ)` — C2/ComonadeExponentielleEtFragments.lean:243
-- `Consume(β,κ)` — C1/AxiomatiqueGerminale.lean:363
-- `Cost_Budget(κ)` — C1/AxiomatiqueGerminale.lean:361, C1/AxiomatiqueGerminale.lean:363
-- `Cost_Budget(κ) : ℕ∞` — C2/ComonadeExponentielleEtFragments.lean:241
-- `Cost_Budget(κ) = max(W(κ), D(κ))` — C2/ComonadeExponentielleEtFragments.lean:239
-- `Cost_Budget(κ) ≤ β` — C2/ComonadeExponentielleEtFragments.lean:241
-- `Cost_Budget(κ)≤C(κ)` — C2/ComonadeExponentielleEtFragments.lean:296
-- `max(W(κ),D(κ))` — C1/AxiomatiqueGerminale.lean:361
-- `n(β ⊖ k)=nβ ⊖ nk` — C3/ReglesDeTypage.lean:994
-- `R_cfg(Cₛ', P')` — C4/CalculDeProcessusSousJacent.lean:320
-- `Scale_Usage(1,Δ)=Δ` — C2/ComonadeExponentielleEtFragments.lean:478
-- `Scale_Usage(\pi_U(r),\Delta')` — C3/ReglesDeTypage.lean:1633
-- `Scale_Usage(a,Scale_Usage(b,Δ))=Scale_Usage(a·b,Δ)` — C2/ComonadeExponentielleEtFragments.lean:480
-- `Scale_Usage(a,Δ₁+Δ₂)=Scale_Usage(a,Δ₁)+Scale_Usage(a,Δ₂)` — C2/ComonadeExponentielleEtFragments.lean:482
-- `Scale_Usage(n,Δ₂)` — C3/ReglesDeTypage.lean:571
-- `β ⊖ Cost_Budget(κ)` — C1/AxiomatiqueGerminale.lean:361, C1/AxiomatiqueGerminale.lean:392, C2/ComonadeExponentielleEtFragments.lean:243
+- `Adm(β, κ)` — C2/ExponentialComonadAndFragments.lean:241, C2/ExponentialComonadAndFragments.lean:243
+- `Adm(β,κ(ε))` — C1/GerminalAxiomatics.lean:412
+- `Adm(β,κ)` — C1/GerminalAxiomatics.lean:363
+- `C(κ)` — C2/ExponentialComonadAndFragments.lean:294
+- `Consume(β, κ)` — C2/ExponentialComonadAndFragments.lean:243
+- `Consume(β,κ)` — C1/GerminalAxiomatics.lean:363
+- `Cost_Budget(κ)` — C1/GerminalAxiomatics.lean:361, C1/GerminalAxiomatics.lean:363
+- `Cost_Budget(κ) : ℕ∞` — C2/ExponentialComonadAndFragments.lean:241
+- `Cost_Budget(κ) = max(W(κ), D(κ))` — C2/ExponentialComonadAndFragments.lean:239
+- `Cost_Budget(κ) ≤ β` — C2/ExponentialComonadAndFragments.lean:241
+- `Cost_Budget(κ)≤C(κ)` — C2/ExponentialComonadAndFragments.lean:296
+- `max(W(κ),D(κ))` — C1/GerminalAxiomatics.lean:361
+- `n(β ⊖ k)=nβ ⊖ nk` — C3/TypingRules.lean:994
+- `R_cfg(Cₛ', P')` — C4/UnderlyingProcessCalculus.lean:320
+- `Scale_Usage(1,Δ)=Δ` — C2/ExponentialComonadAndFragments.lean:478
+- `Scale_Usage(\pi_U(r),\Delta')` — C3/TypingRules.lean:1633
+- `Scale_Usage(a,Scale_Usage(b,Δ))=Scale_Usage(a·b,Δ)` — C2/ExponentialComonadAndFragments.lean:480
+- `Scale_Usage(a,Δ₁+Δ₂)=Scale_Usage(a,Δ₁)+Scale_Usage(a,Δ₂)` — C2/ExponentialComonadAndFragments.lean:482
+- `Scale_Usage(n,Δ₂)` — C3/TypingRules.lean:571
+- `β ⊖ Cost_Budget(κ)` — C1/GerminalAxiomatics.lean:361, C1/GerminalAxiomatics.lean:392, C2/ExponentialComonadAndFragments.lean:243
 
 Status on 2026-10-27, after the author's answers Q-TYP-001 (option C,
 by role) and Q-TYP-002 (option A): the type notations of the theory
@@ -745,7 +745,7 @@ program (annex A, `Lin T` and `Result<Float64, Singularity>`; chapter
 7, `TimeWindow(T, n, unit)` and `WriteCap(DOM)`), which wait for the
 K7PL writing of types (Q-TYP-101 to Q-TYP-104); and the judgement
 `Δ;Γ ⊢ C at d ▷ Δ';Γ'[m]` of chapter 3, which the notation check of
-`scripts/controles/notation.py` refuses in mathematics because Γ is
+`scripts/spec_checks/notation.py` refuses in mathematics because Γ is
 used as a zone of the judgement (Q-NOT-001).
 
 ## Reading lot: research of 2026-10-27
@@ -863,12 +863,12 @@ the primary text before a claim enters `spec/`.
 ### Identifiers left in the specification
 
 Found on 2026-10-27 in the code spans of `spec/Spec/` (Q-SPEC-002):
-snake_case primitives `hollow_alloc` (C3/LeSystemeGradue.lean),
-`alloc_range` (C4/ModelesDeMemoire.lean), `provenance_id`
-(C6/CeQueLeSolveurRetourne.lean); the law `coherence_usage`
-(C2/ComonadeExponentielleEtFragments.lean); number types `Int`
+snake_case primitives `hollow_alloc` (C3/GradedSystem.lean),
+`alloc_range` (C4/MemoryModels.lean), `provenance_id`
+(C6/WhatTheSolverReturns.lean); the law `coherence_usage`
+(C2/ExponentialComonadAndFragments.lean); number types `Int`
 (`lst:acteur`), `Float64` (annex A, `ERR-TYP-005`) and `Decimal128`
-(C7/EtudeDeCasIIDeveloppementInteractifEt.lean). The French
+(C7/CaseStudyIIInteractiveDevelopmentAndLibrary.lean). The French
 identifiers of the four listings of chapter 5 are rewritten with them
 (Q-SPEC-001).
 
@@ -1230,7 +1230,7 @@ Nine DONE verdicts from the register were already
 integrated into this page before this lot and are not
 reopened here. The Rule column is
 the machine-readable input repointed for
-`scripts/controles/croise.py`, which cross-checks the
+`scripts/spec_checks/cross_check.py`, which cross-checks the
 term grammar against the typing rules and this list;
 rule names beyond the checker's expected table (vector
 mapping, spawn, mailbox operations, recovery) are listed

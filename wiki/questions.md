@@ -855,7 +855,7 @@ Several options may be chosen.
 
 #### Q-NOT-001 — A judgement with Γ
 
-**Object.** Chapter 3 (`sec:c3-structures-ouvertes-effets-et`) writes the judgement `Δ;Γ ⊢ C at d ▷ Δ';Γ'[m]`, which « décompose un contexte en un trou et son environnement ». Written in mathematics (Q-TYP-002), it fails a check of the specification: Δ is the only context of a judgement, Γ keeps its categorical sense (`scripts/controles/notation.py`). It stays in code until you choose.
+**Object.** Chapter 3 (`sec:c3-structures-ouvertes-effets-et`) writes the judgement `Δ;Γ ⊢ C at d ▷ Δ';Γ'[m]`, which « décompose un contexte en un trou et son environnement ». Written in mathematics (Q-TYP-002), it fails a check of the specification: Δ is the only context of a judgement, Γ keeps its categorical sense (`scripts/spec_checks/notation.py`). It stays in code until you choose.
 
 - **A — Two Δ zones.** Example: `Δ₁;Δ₂ ⊢ C at d ▷ Δ₁';Δ₂'[m]`. *For:* the notation rule holds everywhere.
 - **B — Keep it as code.** As a notation quoted from its source. *Against:* one formula of the metalanguage stays in a code span.

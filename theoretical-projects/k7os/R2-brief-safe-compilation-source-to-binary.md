@@ -22,7 +22,7 @@ Diagramme de la chaîne source → IR → backend → binaire → runtime, TCB, 
 
 ## Sources
 
-[CompCert](https://compcert.org/), [Cogent](https://trustworthy.systems/projects/OLD/cogent), [Verve](https://www.microsoft.com/en-us/research/publication/safe-to-the-last-instruction-automated-verification-of-a-type-safe-operating-system/), [seL4](https://sel4.systems/Verification/), [noyau effectif C3](../../spec/Spec/C3/EffectiveKernel.lean), [sémantique C4](../../spec/Spec/C4/SemantiqueOperationnelle.lean).
+[CompCert](https://compcert.org/), [Cogent](https://trustworthy.systems/projects/OLD/cogent), [Verve](https://www.microsoft.com/en-us/research/publication/safe-to-the-last-instruction-automated-verification-of-a-type-safe-operating-system/), [seL4](https://sel4.systems/Verification/), [noyau effectif C3](../../spec/Spec/C3/EffectiveKernel.lean), [sémantique C4](../../spec/Spec/C4/OperationalSemantics.lean).
 
 ## Critère de sortie
 

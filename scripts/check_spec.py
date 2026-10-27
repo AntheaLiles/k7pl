@@ -5,7 +5,7 @@
 
 """Runs every check on the specification (reads spec/, read-only). Exit code 1 if any fails.
 
-    python3 scripts/controle.py [--format {text,github}]
+    python3 scripts/check_spec.py [--format {text,github}]
 
 The github format emits one log group per check, an ::error:: annotation per failure and a
 summary in $GITHUB_STEP_SUMMARY.
@@ -18,11 +18,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from controles import (  # noqa: E402
-    algebre, couverture, croise, indexation, notation, semantique, structure, vocabulaire
+from spec_checks import (  # noqa: E402
+    algebra, cross_check, indexing, notation, semantics, statement_coverage, structure, vocabulary
 )
-from controles import journal  # noqa: E402
-from controles.journal import failures  # noqa: E402
+from spec_checks import journal  # noqa: E402
+from spec_checks.journal import failures  # noqa: E402
 
 
 def _lexical_guard() -> None:
@@ -49,7 +49,7 @@ def main() -> int:
     parser.add_argument("--format", choices=("text", "github"), default="text")
     journal.github = parser.parse_args().format == "github"
     _lexical_guard()
-    for module in (structure, algebre, notation, croise, semantique, couverture, indexation, vocabulaire):
+    for module in (structure, algebra, notation, cross_check, semantics, statement_coverage, indexing, vocabulary):
         name = module.__name__.rsplit(".", 1)[-1]
         journal.group(name)
         module.run()

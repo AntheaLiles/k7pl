@@ -23,8 +23,8 @@ from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-    from controles import corpus
-    from controles.journal import ko, ok
+    from spec_checks import corpus
+    from spec_checks.journal import ko, ok
 else:
     from . import corpus
     from .journal import ko, ok

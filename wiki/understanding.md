@@ -100,7 +100,7 @@ this project.
   [layers](layers.md), then [research](research.md), then the
   specification in `spec/`.
 - **Understand the research:** [research](research.md), then the
-  specification's reading guide (`spec/Spec/C1/GuideDeLecture.lean`)
+  specification's reading guide (`spec/Spec/C1/ReadingGuide.lean`)
   for the fixed meanings of postulate, theorem, commitment, and reading.
 - **Work on the project:** [method](method.md) for the working
   method, and the repository `CONTRIBUTING.md` for contribution

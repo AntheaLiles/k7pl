@@ -40,7 +40,7 @@ def module_path(name: str) -> str:
 
 
 def raw(name: str) -> str:
-    """Raw text of a module (`C2.ComonadeExponentielleEtFragments`), or of a chapter (`C2`)."""
+    """Raw text of a module (`C2.ExponentialComonadAndFragments`), or of a chapter (`C2`)."""
     for n, _, t in modules():
         if n == name:
             return t

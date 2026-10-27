@@ -31,11 +31,11 @@ Les sources principales sont la documentation des projets, leurs descriptions ar
 
 Sources K7PL examinées au snapshot indiqué :
 
-- [C4 — Échelle du système](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/spec/Spec/C4/EchelleDuSysteme.lean)
-- [C4 — Sémantique opérationnelle](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/spec/Spec/C4/SemantiqueOperationnelle.lean)
+- [C4 — Échelle du système](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/spec/Spec/C4/SystemScale.lean)
+- [C4 — Sémantique opérationnelle](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/spec/Spec/C4/OperationalSemantics.lean)
 - [R0 — Modèle de menace et matrice d’assurance](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/docs/research/k7pl-os/R0-threat-model-assurance-matrix.md)
-- [R6 — Grades, budgets et WCET](R6-grades-budgets-WCET-temps-reel.md)
-- [R7 — Pannes, ressources linéaires et persistance](R7-pannes-ressources-lineaires-persistance.md)
+- [R6 — Grades, budgets et WCET](R6-grades-budgets-WCET-real-time.md)
+- [R7 — Pannes, ressources linéaires et persistance](R7-failures-linear-resources-persistence.md)
 
 Les conclusions ci-dessous distinguent les faits documentés par les projets de l’analyse sur leur transfert à K7PL. Les déclarations d’objectifs, les résultats démontrés sur une configuration donnée et les hypothèses restant dans le TCB sont gardés séparés. Aucun benchmark comparatif commun n’a été exécuté ; les chiffres de performance promotionnels ne servent donc pas à établir un classement.
 

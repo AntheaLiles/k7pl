@@ -6,9 +6,9 @@ SPDX-License-Identifier: CC-BY-4.0
 # The Three Layers
 
 > **Provenance — Lot 1 (pilot).**
-> Consolidated 2026-10-25 from `spec/Spec/C1/AxiomatiqueGerminale.lean`
+> Consolidated 2026-10-25 from `spec/Spec/C1/GerminalAxiomatics.lean`
 > (the formal definition, section "Spécialisation par couche"),
-> `spec/Spec/C1/GuideDeLecture.lean` (sedimentation as a reading), and
+> `spec/Spec/C1/ReadingGuide.lean` (sedimentation as a reading), and
 > `spec/Spec/C1/Introduction.lean` (the three maturity levels, including
 > "Arrêté").
 > Status: living and canonical for the definition of the layers.
@@ -43,7 +43,7 @@ removes from the full judgement, not by what it adds to it.
 | L2 | Orchestration | Affine form, non-empty | Active, containing `tick` | (general, as restricted by the affine form) | Weakening only | Terminal coalgebras `νF` | Productivity, controlled effects |
 | L1 | Infrastructure | Strict linear form | Containing `tick` | Budget grade domain `𝓖_budget` | None | Capabilities under `⊗` | Unique resources, supervision |
 
-In judgement form (from `AxiomatiqueGerminale.lean`):
+In judgement form (from `GerminalAxiomatics.lean`):
 
 - L3: `Δ_ω ⊢_𝓖 t : A`, with `𝓔 = ∅` and `𝓖 = 𝓖_pile`. A pure
   λ-calculus in the strict sense.
@@ -79,7 +79,7 @@ collapse the following distinct "threes":
 | **C2 / C3 / C4** | The foundational chapters of the specification: `spec/Spec/C2` (categorical foundations), `spec/Spec/C3` (types and the graded system), `spec/Spec/C4` (automata and execution). | Chapters organise the specification's content; they are not instances of the judgement. A chapter develops material for all layers where relevant. |
 | **Execution scales** | The three execution scales of chapter 4: local scale, actor scale, system (orchestrator) scale. | Scales describe where execution happens and at what grain; layers describe which judgement instance governs a term. The same execution scale can involve more than one layer, and the three scales are not three instances of the judgement. |
 | **Repository layers** | Parts of the repository: `spec/`, `src/`, `proofs/`, `tests/`, `tools/`, `scripts/`, `wiki/`. See [understanding](understanding.md). | A physical organisation of artefacts, not a language definition. Calling `src/` a "layer" in the same breath as L1 invites exactly the confusion this page exists to prevent. |
-| **Engineering dimensions** | Per-layer tables (paradigm, syntax, effects, termination, mutation, data, namespace, memory, recursion, branching) in `AxiomatiqueGerminale.lean`. | Consequences and synoptic summaries of the layer definitions, to be justified point by point in later chapters — not definitions themselves. |
+| **Engineering dimensions** | Per-layer tables (paradigm, syntax, effects, termination, mutation, data, namespace, memory, recursion, branching) in `GerminalAxiomatics.lean`. | Consequences and synoptic summaries of the layer definitions, to be justified point by point in later chapters — not definitions themselves. |
 
 Practical rule: whenever a text says "layer" without a number, or says
 "the three layers" while meaning chapters, scales, or repository parts,
@@ -154,7 +154,7 @@ design is absolute, not recovered: the pure layer is pure by
 construction, not by subtracting impurity from an impure ambient, and
 effects are operations added to a pure calculus with their own
 equational theory. **Textual note, now resolved:** the corresponding
-sentence in `AxiomatiqueGerminale.lean` previously read "la couche 2
+sentence in `GerminalAxiomatics.lean` previously read "la couche 2
 est pure par construction", which was inconsistent with L3 being the
 pure layer. The owner confirmed on 2026-10-25 that L3 is pure and
 terminating and L2 carries algebraic effects and is productive, and

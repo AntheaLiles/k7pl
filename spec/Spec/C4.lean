@@ -8,14 +8,14 @@
 import VersoManual
 import SpecExt
 import Spec.C4.Introduction
-import Spec.C4.EchelleLocale
-import Spec.C4.EchelleDeLActeur
-import Spec.C4.ModelesDeMemoire
-import Spec.C4.EchelleDuSysteme
-import Spec.C4.CalculDeProcessusSousJacent
-import Spec.C4.SemantiqueOperationnelle
-import Spec.C4.LeSystemeDeSortesDuMetalangage
-import Spec.C4.CeQueChaquePreuveOuverteYPuise
+import Spec.C4.LocalScale
+import Spec.C4.ActorScale
+import Spec.C4.MemoryModels
+import Spec.C4.SystemScale
+import Spec.C4.UnderlyingProcessCalculus
+import Spec.C4.OperationalSemantics
+import Spec.C4.MetalanguageSortSystem
+import Spec.C4.WhatEachOpenProofDrawsOn
 
 open Verso.Genre Manual
 open SpecExt
@@ -32,18 +32,18 @@ tag := "c4-automates"
 
 {include 0 Spec.C4.Introduction}
 
-{include 0 Spec.C4.EchelleLocale}
+{include 0 Spec.C4.LocalScale}
 
-{include 0 Spec.C4.EchelleDeLActeur}
+{include 0 Spec.C4.ActorScale}
 
-{include 0 Spec.C4.ModelesDeMemoire}
+{include 0 Spec.C4.MemoryModels}
 
-{include 0 Spec.C4.EchelleDuSysteme}
+{include 0 Spec.C4.SystemScale}
 
-{include 0 Spec.C4.CalculDeProcessusSousJacent}
+{include 0 Spec.C4.UnderlyingProcessCalculus}
 
-{include 0 Spec.C4.SemantiqueOperationnelle}
+{include 0 Spec.C4.OperationalSemantics}
 
-{include 0 Spec.C4.LeSystemeDeSortesDuMetalangage}
+{include 0 Spec.C4.MetalanguageSortSystem}
 
-{include 0 Spec.C4.CeQueChaquePreuveOuverteYPuise}
+{include 0 Spec.C4.WhatEachOpenProofDrawsOn}

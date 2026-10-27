@@ -32,13 +32,13 @@ Un grade, même porteur d'un niveau ou d'une précision, ne constitue pas par lu
 
 Sources de la révision de base :
 
-- [C1 — Postulats](../../spec/Spec/C1/Postulats.lean)
-- [C2 — Adjonctions et enrichissement](../../spec/Spec/C2/AdjonctionsEtEnrichissement.lean)
-- [C2 — Six schémas de métathéorie](../../spec/Spec/C2/SixSchemasDeMetatheorie.lean)
-- [C3 — Système gradué](../../spec/Spec/C3/LeSystemeGradue.lean)
-- [C3 — Règles de typage](../../spec/Spec/C3/ReglesDeTypage.lean)
-- [C4 — Modèles de mémoire](../../spec/Spec/C4/ModelesDeMemoire.lean)
-- [C4 — Échelle du système](../../spec/Spec/C4/EchelleDuSysteme.lean)
+- [C1 — Postulats](../../spec/Spec/C1/Postulates.lean)
+- [C2 — Adjonctions et enrichissement](../../spec/Spec/C2/AdjunctionsAndEnrichment.lean)
+- [C2 — Six schémas de métathéorie](../../spec/Spec/C2/SixMetatheorySchemas.lean)
+- [C3 — Système gradué](../../spec/Spec/C3/GradedSystem.lean)
+- [C3 — Règles de typage](../../spec/Spec/C3/TypingRules.lean)
+- [C4 — Modèles de mémoire](../../spec/Spec/C4/MemoryModels.lean)
+- [C4 — Échelle du système](../../spec/Spec/C4/SystemScale.lean)
 - [Modèle abstrait de capacité](../../src/K7pl/MemoryCapability.lean)
 - [Arithmétique des intervalles](../../src/K7pl/MemoryRange.lean)
 - [Cas d'assurance scientifique](../../wiki/assurance.md)
@@ -117,7 +117,7 @@ Obligations minimales :
 
 C2 décrit une relation de précision `\sqsubseteq` et exige la monotonie de la composition et du tenseur. Cette structure peut soutenir un raisonnement sur des raffinements, mais ne définit pas par elle-même les niveaux d'observation, les règles de flux ou l'équivalence de deux exécutions.
 
-Dans `SixSchemasDeMetatheorie.lean`, plusieurs schémas portent l'état `under-review`, une preuve de type `proofsketch` et des obligations ouvertes. Le schéma de préservation par traduction exige de définir les jugements source et cible, les contextes et les clauses propres à chaque règle. Il ne constitue pas une preuve de non-interférence et ne peut être instancié implicitement comme tel.
+Dans `SixMetatheorySchemas.lean`, plusieurs schémas portent l'état `under-review`, une preuve de type `proofsketch` et des obligations ouvertes. Le schéma de préservation par traduction exige de définir les jugements source et cible, les contextes et les clauses propres à chaque règle. Il ne constitue pas une preuve de non-interférence et ne peut être instancié implicitement comme tel.
 
 ### C3 : système gradué et déclassification
 

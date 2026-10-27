@@ -39,7 +39,7 @@ and that is why this research is long.
 | Dimension | Question asked | Where it is worked on |
 | --- | --- | --- |
 | Lexical | Which word should name this constituent, in which namespace, without collision, and with what mnemonic and brevity cost? | [primitives](primitives.md) (candidate words, argument for and against each) |
-| Syntactic | Which surface form, glyph or alias carries it, how does it parse, and how does it sit in the term grammar and the type grammar? | Term grammar and type grammar in `spec/` (C3); glyph table (C1/C5); the cross-check in `scripts/controles/croise.py` |
+| Syntactic | Which surface form, glyph or alias carries it, how does it parse, and how does it sit in the term grammar and the type grammar? | Term grammar and type grammar in `spec/` (C3); glyph table (C1/C5); the cross-check in `scripts/spec_checks/cross_check.py` |
 | Semantic | What does it mean — which typing rule governs it, which reduction, which model, which laws — and what is actually proved about it, as opposed to sketched? | Typing rules (C3), operational semantics (C4), Lean models in `src/` and `spec/`; [assurance](assurance.md) for the proof status of each claim |
 
 The three dimensions must not be collapsed: lexical coverage

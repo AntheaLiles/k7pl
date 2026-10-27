@@ -7,7 +7,7 @@
 None of the candidate rules below is written in the specification on main: the specification
 names four singularities without any combination rule (checked on 14 October 2026).
 
-    verif_singularites.py
+    check_singularities.py
 
 Model: the wheel of fractions of the finite field GF(p), p in {2, 3, 5} (pairs (a, b) modulo
 non-zero scalars; sum (ad + bc, bd), product (ac, bd), inverse (b, a)).  Three algebras are

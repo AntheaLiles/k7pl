@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 /**
- * Reads the code tables of annex A (`spec/Spec/AnnexeA/*.lean`) and the codes that the K
+ * Reads the code tables of annex A (`spec/Spec/AnnexA/*.lean`) and the codes that the K
  * definitions of `lexicon/syntax/codes.k` declare.
  *
  * A table row is a line `* * <codes>` followed by a line `  * <trigger and correction>`; a first
