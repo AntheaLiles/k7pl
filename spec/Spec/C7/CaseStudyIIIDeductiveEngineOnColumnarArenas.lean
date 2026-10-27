@@ -63,9 +63,11 @@ cette étude où le système gradué fait un travail qu'un système linéaire st
 Ce que cette étude n'établit pas doit être dit aussi. Elle ne comporte aucune mesure — le nombre de
 tours effectif sur un graphe réel, la localité des accès en régime semi-naïf, le coût de la coercion
 — et ces trois grandeurs décideront de la praticabilité. La négation stratifiée, absente ici,
-changerait le tableau : une règle qui conclut de l'_absence_ d'un fait n'est pas monotone, et le
-point fixe qui la contiendrait ne relèverait plus du théorème {num "thm:terminaison_lfp"}[]. La
-stratification est le remède connu ; ce document ne la traite pas.
+changerait le tableau sans le rompre : une règle qui conclut de l'_absence_ d'un fait n'est pas
+monotone, mais une requête dont les négations se stratifient s'évalue strate par strate, chacune
+relevant du théorème {num "thm:terminaison_lfp"}[] — c'est le corollaire
+{num "thm:terminaison_strates"}[], proposé et non démontré. Le compilateur découpe la requête en
+strates, et refuse celle dont une dépendance cyclique traverse une négation.
 
 Aucun mécanisme nouveau n'a dû être introduit dans ces études : elles n'ont fait que composer ce qui
 existait, ce qui est la preuve la plus convaincante que ce document puisse offrir que la

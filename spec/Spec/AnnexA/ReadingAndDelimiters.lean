@@ -41,3 +41,18 @@ Codes refusant un texte dont les délimiteurs ne s'apparient pas
   * Chaîne jamais refermée : elle court jusqu'à la fin du texte. Ajouter le guillemet fermant.
 :::
 ::::
+
+Un avertissement de lecture ne refuse pas le texte : il signale ce que la lecture a dû supposer.
+
+::::k7table (label := "tab:avertissements-lecture") (align := "lZ{1.00}")
+:::caption
+Avertissements émis à la lecture du texte
+:::
+
+:::table +header
+* * Code
+  * Déclencheur et correction
+* * `WRN-LEX-001`
+  * Étiquette de délimiteur qualifié non déclarée : le littéral reste un texte ordinaire, typé par l'étiquette. Déclarer le type de l'étiquette.
+:::
+::::

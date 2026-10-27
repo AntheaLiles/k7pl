@@ -23,7 +23,8 @@ def test_current_inventory_matches_all_active_statement_blocks():
     errors = inventory.check_inventory()
     assert errors == [], "\n".join(errors)
     rows = inventory.source_inventory()
-    assert len(rows) == 81
+    # 82 since 2026-10-27: thm:terminaison_strates, added by the author's choice Q-SPEC-301.
+    assert len(rows) == 82
     assert len({row["path"] for row in rows}) == 21
 
 
@@ -126,7 +127,8 @@ def test_all_historical_labels_survive_with_only_declared_companion_objects():
     assert len(historical) == 69
     assert historical <= active
     assert active - historical == inventory.EXPECTED_COMPANION_LABELS
-    assert len(inventory.EXPECTED_COMPANION_LABELS) == 12
+    # 13 since 2026-10-27: thm:terminaison_strates (Q-SPEC-301).
+    assert len(inventory.EXPECTED_COMPANION_LABELS) == 13
 
 
 # SHA-256 of the detailed table of the pre-migration snapshot. The digest was computed on

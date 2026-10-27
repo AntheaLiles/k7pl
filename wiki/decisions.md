@@ -892,7 +892,28 @@ contradiction to state, not to resolve in silence.
   propositions sont arbitraires et non satisfaisantes »).
   Not answered yet, carried into the seventh part: Q-STR-401,
   Q-LEX-610, Q-LEX-612 and Q-TYP-401.
-  Applied on 2026-10-27: the wiki only.
+  Applied on 2026-10-27 (`spec/CHANGELOG.md`): chapter 2
+  gains the corollary `thm:terminaison_strates` (state
+  proposed, proof sketched, its source added to the
+  bibliography), registered in the current classification of
+  [assurance](assurance.md) and in the inventory check, and
+  chapter 7 points to it; chapter 5 states the four sigils
+  and `@` for patterns, trains between brackets (the mean and
+  the standard deviation rewritten), the rewriting of glyphs
+  with a remark, the quote, `t` and `f`, `+name`, the head
+  words of `[[ … ]]`, texts without a character type, the
+  names of invisible characters, `WRN-LEX-001`, tag aliases,
+  holes declared by the tag's type, stratified negation in
+  `[sql|…|sql]` and the universe of a class complement;
+  chapter 6 the cache keyed by content; annex A the prefix
+  `WRN-` and `WRN-LEX-001` (message a proposal).
+  Not applied yet, with the reason: the rewrite of the handler
+  and actor listings waits for what the implicit handler
+  makes of a transition's result; the code of remarks waits
+  for its prefix; the refusal of a query that does not
+  stratify has no code yet; how a text type is written is put
+  to the seventh part; the reader of `lexicon/` does not read
+  the new forms yet.
   Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, fifth part (revised): answers of
   2026-10-27 (Q-STR-302 to Q-ARC-001).** Recorded verbatim

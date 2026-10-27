@@ -45,6 +45,9 @@ EXPECTED_COMPANION_LABELS = {
     "thm:correspondance_niveaux",
     "thm:loi_distributive_conditions",
     "thm:substitution_indices",
+    # Author decision 2026-10-27 (Q-SPEC-301, which revises Q-SPEC-206 to its option B):
+    # the stratified-negation corollary of thm:terminaison_lfp, state "proposed".
+    "thm:terminaison_strates",
 }
 HISTORICAL_ROW = re.compile(r"^\| `[^\`]+` \| \d+ \| `(?P<label>[^\`]+)` \|", re.M)
 HISTORICAL_LEVEL_ROW = re.compile(

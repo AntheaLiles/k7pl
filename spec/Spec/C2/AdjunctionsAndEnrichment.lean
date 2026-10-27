@@ -443,10 +443,49 @@ peut converger bien plus tôt, et rien n'est dit du nombre d'itérations effecti
 relèverait de la strate des obligations, comme toute proposition sur un résultat. Et l'hypothèse de
 monotonie porte plus qu'il n'y paraît : une règle qui conclut de l'absence d'un fait — la négation
 stratifiée du chapitre 7 (§{num "sec:c7-etude-de-cas-iii"}[]) — n'est pas monotone, et le point fixe
-qui la contiendrait ne relèverait pas de cet énoncé.[^fn3] Elle est nommée ici, où elle borne le
+qui la contiendrait ne relèverait pas de cet énoncé. Elle est nommée ici, où elle borne le
 théorème, plutôt que cinq chapitres plus loin, où elle ne ferait que le constater.
 
-[^fn3]: La stratification est le remède connu. Ce document ne la traite pas, et la restriction est donc réelle plutôt que théorique.
+Le remède connu est la stratification, que la littérature des bases de données décrit comme la
+clôture par composition des programmes qui ne nient que des relations données en entrée
+{cite "abiteboulFoundationsDatabases1995"}[]. Une relation niée y est fixée avant la récursion qui
+la lit ; une fois remplacée, avec son complément, par une constante, la fonction de dérivation
+redevient monotone, et le théorème s'applique strate par strate.
+
+::::corollary (label := "thm:terminaison_strates") (level := "langage") (role := "corollary") (state := "proposed") (evidence := "proofsketch") (scope := "fixed-points")
+:::title
+terminaison d'un point fixe stratifié
+:::
+
+:::statement +titled
+La négation stratifiée, ramenée au point fixe déductif
+
+Soit une requête de couche 3 dont les relations se répartissent en strates $`S_1, \dots, S_k`,
+telles qu'une relation lue positivement par une règle de $`S_i` soit fixée avant la requête ou
+calculée dans une strate $`S_j` avec $`j \le i`, et qu'une relation niée par une règle de $`S_i` soit
+fixée avant la requête ou calculée dans une strate $`S_j` avec $`j < i`. Si le domaine de chaque
+relation est un type de $`\mathsf{Trellis}_{\text{fin}}`, la négation s'y prenant comme complément,
+alors l'évaluation strate par strate termine : une fois fixées les relations des strates
+antérieures, la strate $`S_i` atteint le plus petit point fixe de sa fonction de dérivation en au plus
+$`h_i` étapes, $`h_i` étant la hauteur de son domaine.
+:::
+
+:::proofsketch
+Par récurrence sur $`i`. Les relations des strates antérieures étant fixées, chacune peut être
+remplacée, ainsi que son complément dans son domaine, par une constante ; la fonction de dérivation de
+$`S_i` ne lit alors ses propres relations que positivement, et elle est monotone. Le théorème
+{num "thm:terminaison_lfp"}[] s'applique à la strate $`S_i` : la suite issue de $`\bot` est
+stationnaire en au plus $`h_i` étapes et atteint le plus petit point fixe. La strate suivante lit ce
+point fixe comme une constante, et la récurrence se poursuit jusqu'à $`S_k`.
+:::
+
+:::note
+_Obligation ouverte._ Restent à définir la relation de dépendance entre règles dont les strates se
+lisent ; à établir que le compilateur décide si une requête se stratifie, une dépendance cyclique qui
+traverse une négation la rendant non stratifiable et refusée ; à nommer ce refus d'un code ; et à
+fixer l'univers où la négation se prend, le monde clos des valeurs présentes.
+:::
+::::
 
 Cette monotonie a une conséquence directe, la garantie de gradualité statique : si
 $`\Delta' \sqsubseteq \Delta` et $`e' \sqsubseteq e`, toute dérivation de $`\Delta \vdash e : A` se

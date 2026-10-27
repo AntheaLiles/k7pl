@@ -112,8 +112,10 @@ nouvelle n'apparaisse, et ne fabrique que les instances atteintes ; une table in
 arguments de type garde celles qui le sont déjà. Une instance est nommée par le condensat de l'AST
 normalisé de son générique et de ses arguments de type, comme le binaire l'est par le sien : une
 instance dont deux unités ont besoin est fabriquée une fois et liée une fois. Un générique d'une
-autre unité s'instancie dans l'unité qui l'emploie, sa source voyageant dans l'interface ; modifier
-cette source recompile donc les unités qui l'emploient, limite que le mécanisme laisse ouverte.
+autre unité s'instancie dans l'unité qui l'emploie, sa source voyageant dans l'interface. Les
+instances sont gardées dans un cache indexé par leur condensat : un changement de cette source qui
+laisse inchangé l'AST normalisé du générique ne recompile rien, et un changement réel ne recompile
+que les instances de ce générique, non les unités qui les emploient.
 Chaque instance nouvelle décrémente le budget de spécialisation écrit dans la source, et une instance
 déjà fabriquée ne coûte rien. Une chaîne d'instances dont les types croissent sur un cycle, comme
 en produit la récursion polymorphe, est refusée quel que soit le budget, et le refus nomme le cycle.

@@ -731,6 +731,34 @@
    "urldate": "2025-05-19",
    "volume": "26"
   },
+  "abiteboulFoundationsDatabases1995": {
+   "date": "1995",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Serge",
+      "last": "Abiteboul",
+      "lineage": ""
+     },
+     {
+      "first": "Richard",
+      "last": "Hull",
+      "lineage": ""
+     },
+     {
+      "first": "Victor",
+      "last": "Vianu",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Addison-Wesley",
+   "title": "Foundations of Databases",
+   "type": "book",
+   "url": "http://webdam.inria.fr/Alice/",
+   "urldate": "2026-10-27"
+  },
   "acetoAxiomatizingTropicalSemirings2001": {
    "booktitle": "Foundations of Software Science and Computation Structures",
    "date": "2001",
