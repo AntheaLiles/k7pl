@@ -106,6 +106,21 @@ encore connu —, le vérificateur reprend, une fois la source résolue, exactem
 arrêté. La monomorphisation, elle, ne s'exécute qu'une seule fois : les phases suivantes n'auront
 plus jamais à réinférer un type déjà rendu concret.
 
+Elle procède par collecte. Partant des racines de l'unité de compilation — ses points d'entrée et ce
+que son interface exporte —, elle suit les usages, instance par instance, jusqu'à ce qu'aucune
+nouvelle n'apparaisse, et ne fabrique que les instances atteintes ; une table indexée par les
+arguments de type garde celles qui le sont déjà. Une instance est nommée par le condensat de l'AST
+normalisé de son générique et de ses arguments de type, comme le binaire l'est par le sien : une
+instance dont deux unités ont besoin est fabriquée une fois et liée une fois. Un générique d'une
+autre unité s'instancie dans l'unité qui l'emploie, sa source voyageant dans l'interface ; modifier
+cette source recompile donc les unités qui l'emploient, limite que le mécanisme laisse ouverte.
+Chaque instance nouvelle décrémente le budget de spécialisation écrit dans la source, et une instance
+déjà fabriquée ne coûte rien. Une chaîne d'instances dont les types croissent sur un cycle, comme
+en produit la récursion polymorphe, est refusée quel que soit le budget, et le refus nomme le cycle.
+Rien n'est partagé à l'exécution, ni dictionnaire ni table (`ERR-POL-001`) : les rangées de la
+couche 2 s'instancient comme les types, et les gestionnaires d'effets gardent le passage de
+capacités, une capacité étant une valeur de couche 1.
+
 La phase de résolution (Phase 4) referme la composante $`A` du jugement. Les types existentiels du chapitre 3
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) y reçoivent leurs `pack~/~unpack` explicites,
 effacés en surface mais nécessaires au cœur vérifié. Un contexte complet — portant simultanément
@@ -270,8 +285,12 @@ nombre de contraintes qu'un tour suivant engendrera. La terminaison ne suit donc
 décroissance~; elle exige que l'intégration soit elle-même budgétée. La saturation par égalité l'est
 déjà — son graphe de réécritures est borné par un grade ---, et c'est le même dispositif que
 l'intégration adopte~: un _budget de spécialisation_, grade porté par l'unité de compilation, que
-chaque intégration et chaque monomorphisation décrémentent, et dont l'épuisement arrête la
-duplication au lieu d'échouer. Ce budget est le même objet que celui qui borne la monomorphisation,
+chaque intégration et chaque monomorphisation décrémentent, et dont l'épuisement arrête
+l'intégration au lieu d'échouer, ses appels restant en place. Il n'en va pas de même d'une instance
+qui manque encore : rien n'étant partagé à l'exécution, un appel générique laissé sans sa copie
+n'aurait aucun code à appeler, et le programme est refusé. Le refus nomme le générique, la chaîne
+d'instances qui y mène, le budget dépensé et celui qui suffirait. Ce budget est le même objet que
+celui qui borne la monomorphisation,
 laquelle n'est qu'une intégration dirigée par les types~: une seule décision les gouverne.
 Sous les prémisses du théorème {num "thm:stabilisation_pipeline"}[], l'itération est alors un point
 fixe atteint en un nombre de tours borné par la somme des budgets ; que chaque tour termine, les

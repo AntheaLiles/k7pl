@@ -28,7 +28,9 @@ compilateur sur son propre AST.
 La couche 3 admet, en plus de l'écriture nommée, une notation point-free héritée d'APL, de BQN et
 d'Uiua. Chaque opération de la bibliothèque standard y porte un glyphe Unicode concis et un alias
 textuel strictement équivalent au niveau de l'AST. `⌊` et `min`, `⊏` et `select` dénotent une seule
-et même macro : l'éditeur peut afficher l'un ou l'autre sans toucher au programme sous-jacent. Un
+et même macro : l'éditeur peut afficher l'un ou l'autre sans toucher au programme sous-jacent, dont
+les fichiers gardent l'alias. Les arités étant typées, un glyphe employé sous deux arités porte un
+alias pour chacune : `≠` seul est `length`, `≠` entre deux arguments est `neq`. Un
 service d'édition qui calcule sa réponse depuis les types plutôt que depuis le texte a son précédent
 opérationnel {cite "bourMerlinLanguageServer"}[].
 
@@ -41,8 +43,8 @@ signale que la difficulté technique n'est pas la sélection de l'affichage mais
 blocs imbriqués — remarque qui vise une syntaxe à expressions symboliques plus que toute autre, et
 qui est donc à porter au compte de ce chapitre plutôt qu'à celui d'un outillage futur.
 
-Les trains composent ces primitifs sans nommer leurs arguments — un 2-train `(f g)` dénote
-$`\lambda x.\, f(g(x))`, un 3-train `(f g h)` dénote la fourche $`\lambda x.\, (f\,x)\; g\; (h\,x)` — tandis que les
+Les trains composent ces primitifs sans nommer leurs arguments — un 2-train $`(f\;g)` dénote
+$`\lambda x.\, f(g(x))`, un 3-train $`(f\;g\;h)` dénote la fourche $`\lambda x.\, (f\,x)\; g\; (h\,x)` — tandis que les
 modifieurs `´` (pli), `¨` (chacun), `↢` (liaison gauche) transforment une fonction en une autre. Les
 blocs concaténatifs comme `[dup * +]`, dans la tradition de Forth et Factor, portent leur effet de
 pile directement dans leur type : `[dup *]` a l'effet `(1 – 2)`.

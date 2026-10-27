@@ -32,6 +32,8 @@ Codes émis lorsqu'une contrainte de valeur reste indécidée
   * Intervalle du témoin contredisant les contraintes inférées.
 * * `ERR-SMT-002`
   * `invariant` ou `witness` invalidé par un test de falsification.
+* * `ERR-SMT-003`
+  * Trou typé dont le solveur ne borne aucune valeur : aucune largeur ne s'en déduit. Préciser le type dans le code.
 * * `ERR-DPL-001`
   * Transformation pure manquante entre l'ancien et le nouveau schéma lors d'un hot-reload.
 * * `ERR-PKG-003`

@@ -24,11 +24,14 @@ tag := "c5-mise-en-pratique"
 Écrire du K7PL, c'est choisir, à chaque expression, le fragment le moins permissif que la tâche
 autorise, et laisser les délimiteurs en porter la trace. Avant de composer les trois couches sur un
 exemple complet, un mot sur ce que la notation tacite du §{num "sec:c5-notations-specialisees"}[]
-donne à voir une fois débarrassée de ses noms. La moyenne d'un tableau s'écrit `+´÷≠` : plier par
-addition, diviser par la longueur. Son écart-type s'écrit `√(+´(⊢-+´÷≠)²÷≠)` : la même moyenne
-soustraite à chaque élément, élevée au carré, repliée et divisée à son tour, puis passée à la
-racine. Aucun argument n'y est nommé ; le train se lit comme une composition de fonctions plutôt que
-comme une suite d'instructions, ce que le §{num "sec:c5-notations-specialisees"}[] annonçait.
+donne à voir une fois débarrassée de ses noms. La moyenne d'un tableau s'écrit
+`(fold add div length)` : plier par addition, diviser par la longueur ; l'éditeur l'affiche `(´+÷≠)`,
+chaque mot remplacé par son glyphe à sa place. Son écart-type s'écrit
+`(sqrt ((fold add (square (identity sub (fold add div length)))) div length))`, affiché
+`(√((´+(²(⊢-(´+÷≠))))÷≠))` : la même moyenne soustraite à chaque élément, élevée au carré, repliée
+et divisée à son tour, puis passée à la racine. Aucun argument n'y est nommé ; le train se lit comme
+une composition de fonctions plutôt que comme une suite d'instructions, ce que le
+§{num "sec:c5-notations-specialisees"}[] annonçait.
 
 Cette section construit maintenant un exemple unique — un compteur borné, répliqué en acteur — en
 remontant des trois couches jusqu'à leur composition, puis en examinant l'erreur la plus commune à
@@ -123,7 +126,8 @@ Ici, les champs portent un type et s'écrivent donc entre accolades, en couche 1
 s'écrit entre parenthèses, le délimiteur de la couche 2, que le bloc de couche 1 admet. Le type
 `int`, sans largeur, est un trou typé que l'élaboration résout dans la famille des entiers : à la
 plus petite largeur qui contient toutes les valeurs que le solveur sait borner, le programme étant
-refusé si le solveur n'en borne aucune. Ces
+refusé si le solveur n'en borne aucune (`ERR-SMT-003`) : le développeur précise alors son intention
+dans le code. Ces
 trois déclarations respectent la forme descendante
 `{ ... ( ... [ ... ] ... ) ... }` du §{num "sec:c5-s-expressions-universelles"}[] : `bind-to` relie
 l'acteur à son gestionnaire, qui appelle lui-même le calcul pur — chaque frontière franchie porte le

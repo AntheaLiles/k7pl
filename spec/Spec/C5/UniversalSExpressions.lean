@@ -167,20 +167,34 @@ Avec elle, une étiquette inconnue est une erreur, parce qu'une étiquette n'est
 Le reste de la grammaire commune tient en quelques règles. Les identifiants s'écrivent en anglais,
 en kebab-case, et les marques de contrat `?` et `!` se placent devant le nom
 (`?increment-bounded`). Cinq caractères sont des sigils, lus en tête d'un atome : `#`, `:`, `@`,
-`?` et `!` ; la Phase 0 en fait des attributs. Un glyphe de la table du chapitre 1 ne se lit seul
-que dans un train, une suite faite seulement de glyphes et de modifieurs, comme `+´÷≠` ; toute autre
-suite se lit d'un tenant, comme un nom ou un nombre : `increment-bounded`, `x-1` et `-2` sont chacun
-un atome. Un nombre s'écrit en décimal, avec une fraction et un exposant facultatifs et des chiffres
-que `_` peut grouper (`1_000_000`, `1.5e-3`), en rationnel (`1/3`) ou en complexe (`3+4i`), ou vaut
-`inf`, `-inf` ou `nan`. Un chemin s'écrit comme un symbole dont les noms sont séparés par `/` ; un
+`?` et `!` ; la Phase 0 en fait des attributs. Une définition s'écrit avec le mot générique `def` ;
+`defn`, qui définit une fonction, en est une enveloppe, c'est-à-dire `def` dont des propriétés sont
+déjà remplies. Une enveloppe est une macro de couche 1, développée à la compilation et ouverte à tout
+programme sous l'hygiène de `ERR-MAC-001` ; une enveloppe peut en étendre une autre et lui ajouter
+des propriétés, chaque étape raffinant le type des définitions qu'elle produit sans modifier celle
+qu'elle étend. Un train s'écrit en texte, ses mots séparés par des espaces, de gauche à droite et
+selon la logique des S-expressions : `(fold add div length)` est la moyenne d'un tableau. Chaque mot
+y porte une arité typée — monadique, dyadique, au plus triadique, jamais n-aire —, et c'est elle qui
+permet à l'élaboration de distinguer un train d'une application ; un glyphe employé sous deux arités
+porte donc un alias par arité. La forme en glyphes, `(´+÷≠)`, est une vue de l'éditeur, qui remplace
+chaque mot par son glyphe à sa place. Un glyphe de la table du chapitre 1 ne se lit seul que dans une
+suite faite seulement de glyphes et de modifieurs, comme `´+÷≠` ; toute autre suite se lit d'un
+tenant, comme un nom ou un nombre : `increment-bounded`, `x-1` et `-2` sont chacun un atome. Un
+nombre s'écrit en décimal, avec une fraction et un exposant facultatifs et des chiffres que `_` peut
+grouper (`1_000_000`, `1.5e-3`), en rationnel (`1/3`) ou en complexe (`3+4i`), ou vaut `inf`, `-inf`
+ou `nan`. Les valeurs booléennes s'écrivent `t` et `f`. Un chemin s'écrit comme un symbole dont les noms sont séparés par `/` ; un
 espace s'y code en pourcent, comme dans une URL (`c/users/me/My%20Documents`). Un type s'écrit en
 minuscules et n'apparaît qu'après une propriété qui l'annonce, `:num` ou `:type` par exemple
 (`:num int32`). Une paire vide est la structure vide de sa couche, chaque couche étant elle-même une
 structure de données — arène linéaire en couche 1, tas en couche 2, pile en couche 3 : `[]` est le
 vecteur vide, `()` la liste vide et `{}` l'enregistrement ou la table vide ; elle porte les grades de
-son fragment, vérifiés à la compilation. Une paire doublée, dont la paire intérieure est seule, s'écrit
-aussi en crochets blancs, de même sens : `[[ x ]]` est `⟦ x ⟧`, `(( x ))` est `⦅ x ⦆` et `{{ x }}`
-est `⦃ x ⦄`. Elle précise une forme propre à sa couche, dont les sens restent à fixer. Deux
+son fragment, vérifiés à la compilation. Une paire doublée, dont la paire intérieure est seule,
+précise une forme propre à sa couche et reste dans la couche de sa paire simple ; l'éditeur l'affiche
+en crochets blancs, de même sens : `[[ x ]]` est `⟦ x ⟧`, `(( x ))` est `⦅ x ⦆` et `{{ x }}` est
+`⦃ x ⦄`. En couche 3, `[[ … ]]` porte un intervalle, un stockage réservé dans le cadre de la fonction
+appelante et libéré avec lui, ou une fonction appliquée cellule par cellule. En couche 2, `(( … ))`
+est un crochet d'idiome : une fonction pure appliquée à des arguments à effet, chaque effet dans
+l'ordre. Le sens de `{{ … }}` en couche 1 reste à fixer. Deux
 points-virgules ouvrent un
 commentaire qui court jusqu'à la fin de la ligne : `;;` pour un commentaire courant, `;;;` pour un
 titre et `;;;;` pour un sous-titre. Un point-virgule seul écrit juste avant un délimiteur ouvrant —
@@ -191,9 +205,39 @@ la famille Lisp. Partout ailleurs, un point-virgule seul est un caractère ordin
 d'un nom, il forme un atome à part (`a;` se lit `a` puis `;`), et entre deux caractères d'un nom, il
 en fait partie (`a;b`). La barre verticale sépare les rangs d'un
 littéral tableau : `[1 2 | 3 4]` dénote une matrice deux par deux, dont les rangs doivent avoir la
-même longueur. Le `let` n'introduit que des liaisons scopées, immuables et séquentielles — un `let*`
+même longueur. Doublée, elle en sépare les plans, la troisième dimension :
+`[1 2 | 3 4 || 5 6 | 7 8]` ; répéter un délimiteur élève son niveau sans changer sa couche. Le `let` n'introduit que des liaisons scopées, immuables et séquentielles — un `let*`
 implicite ; il n'existe pas de `var`, la mutation s'exprimant ailleurs, par un `HandlerResult` en
 couche 2 ou par transfert de capabilité en couche 1.
+
+Le guillemet droit est la quatrième paire, celle du texte, et la répétition y élève aussi le niveau :
+`""` suivi d'une espace, d'un délimiteur ou d'une fin de ligne est le texte vide, `"s"` un texte,
+`""s""` un texte brut, et trois guillemets ouvrent un bloc. Un texte peut courir sur plusieurs
+lignes, dont les sauts font partie du texte. Dans un texte, `\` échappe le caractère qui le suit, et
+un échappement inconnu est refusé ; un caractère spécial s'écrit par son nom LaTeX, qui absorbe une
+seule espace après lui (`\guillemetright`), un caractère invisible par l'un des quelques noms que
+K7PL ajoute à ceux de LaTeX, et tout caractère par son point de code, `\u'…'`. Dans un texte brut,
+`\` reste littéral ; un guillemet s'y écrit `%22` et une espace initiale `%20`, comme dans une URL.
+Un caractère s'écrit comme un texte d'un caractère : `"a"`, `"μ"`, `"\lambda"`. La borne d'un type
+texte compte les octets de son encodage UTF-8, à partir de 0 pour le texte vide ; la longueur d'une
+ligne, que le formateur et l'analyseur de style mesurent pour garder le code lisible, se compte en
+graphèmes. Les deux mesures ne disent pas la même chose. Les fichiers gardent les formes ASCII ;
+l'éditeur affiche un texte brut `« s »`, comme il affiche une paire doublée en crochets blancs, `||`
+en `‖` et un train en glyphes.
+
+Un délimiteur qualifié nomme le type d'un littéral écrit dans un autre langage : `{sql|` est un seul
+délimiteur ouvrant, qui attend sa paire fermante `|sql}`, et ce qu'ils encadrent est le texte de ce
+langage, que K7PL ne compile pas. L'étiquette est un type de couche 1, déclaré avec une grammaire
+facultative qui peut valider le littéral ; une étiquette inconnue laisse le littéral en texte
+ordinaire, typé par l'étiquette tout de même, ce qui permet de prototyper avant de tout typer. Les
+quatre formes d'une même étiquette suivent leurs couches : `"sql|…|sql"` est un texte typé,
+`{sql|…|sql}` est déclaré et vérifié à la compilation, `(sql|…|sql)` est exécuté, et `[sql|…|sql]`
+est pur et termine, limité au fragment monotone. Un trou dans un littéral qualifié est un trou typé,
+passé en paramètre et jamais collé dans le texte ; un texte ordinaire n'interpole jamais. Une classe
+de caractères se nomme entre deux deux-points, `:alpha:`, à part de l'étiquette `:alpha` :
+`[:alpha: c]` est un prédicat, `[[:alpha:]]` la matrice des bornes de ses plages, `((:alpha:))` ses
+points de code dans l'ordre, produits à la demande, et `{{:alpha:}}` le type raffiné de ses
+caractères ; les noms POSIX y désignent les propriétés Unicode que leur associe l'UTS #18.
 
 Cinq mots-clés activent une preuve supplémentaire au moment de la vérification. Ils ne sont réservés
 qu'en position de tête d'une S-expression, pour ne pas restreindre leur usage comme noms ordinaires

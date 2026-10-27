@@ -325,7 +325,10 @@ d'un choix que l'isomorphisme ne détermine pas, l'unité de spécialisation —
 supérieur employée avec deux arguments fonctionnels distincts se spécialise en deux fonctions
 distinctes, et il faut décider si c'est ce qu'on veut {cite "brandonBetterDefunctionalizationLambda2023"}[].
 L'argument de transparence est conservé ; ce qui ne l'est pas est la conclusion de qualité qu'on en
-tirait.
+tirait. K7PL décide : une fonction d'ordre supérieur est copiée pour chaque argument fonctionnel
+distinct connu à la compilation, et chaque copie décrémente le même budget de spécialisation que les
+instances de types. Au-delà du budget, ses arguments fonctionnels sont défonctionnalisés en
+étiquettes, et la fonction choisit par un `case` sur cet ensemble clos, fixé à la compilation.
 
 Deux mécanismes de cette phase ont un compte rendu attesté. Les opérations d'effet et leurs
 gestionnaires compilent par le style à _passage de capacités_ combiné au passage de continuations

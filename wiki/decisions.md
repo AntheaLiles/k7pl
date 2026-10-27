@@ -916,7 +916,33 @@ contradiction to state, not to resolve in silence.
   the property of Lean's `@[specialize]` (Q-TYP-303), and
   the reading of `((:alpha:))` now that `⦅ ⦆` are idiom
   brackets (Q-LEX-402).
-  Applied on 2026-10-27: the wiki only.
+  Applied on 2026-10-27 (`spec/CHANGELOG.md`): chapter 5
+  states texts, escapes, raw texts, the character written
+  as a text, the two measures of length, the view rule,
+  qualified delimiters and their four forms, character
+  classes, the meanings of `[[ … ]]` and `(( … ))`, `||`,
+  `t` and `f`, `def` and its envelopes, and the trains in
+  text form with their view, the mean and the standard
+  deviation rewritten (the latter with parenthesised
+  trains of at most three words, so that no grouping rule
+  is assumed); chapter 6 states the mechanism of
+  monomorphisation, the exhaustion of the budget and the
+  specialisation of higher-order functions; annex A adds
+  `ERR-SMT-003`, its message a proposal.
+  Not applied yet, with the reason: the negation rule of
+  layer-3 queries waits for its limits (Q-SPEC-206); the
+  codes of a missing instance and of growth on a cycle are
+  not chosen; `WRN-NUM-001` and the defaults of two-segment
+  types wait for the number kinds to enter the
+  specification; the list of names of invisible characters
+  is to be drawn up; the glyph table does not yet carry an
+  alias per arity, its lemmas being weighed one by one; the
+  label fields `subject` and `uses` and their check are to
+  be built in `tools/SpecExt`; labels wait for the
+  vocabulary lots; the reader (`lexicon/syntax/`) does not
+  yet read qualified delimiters, raw texts with `%22`,
+  class names or booleans as such, and still reads glyph
+  runs, which files no longer need.
   Follow-up: Roadmap: Work the research lot follow-ups.
 - **Conversation of 2026-10-27 on texts, doubled and
   qualified delimiters, escapes and trains.** Decided in
