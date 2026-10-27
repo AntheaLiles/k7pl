@@ -49,11 +49,19 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # not a ratification of any changed content. In particular it does not
     # ratify the Nxt/Loc rule-inventory drift, which the substitution
     # inventory test still reports as a failure pending review.
+    # 2026-10-27: the author's choices Q-TYP-001 and Q-TYP-002 rewrite the formulas of the
+    # metalanguage and the type notations of the theory prose from code spans to math spans
+    # (e.g. `M_Lin = (𝓡, {0}, false)` becomes $`M_{\mathrm{Lin}} = (\mathcal{R}, \{0\}, \mathrm{false})`).
+    # Four pins are re-synced: ComonadeExponentielleEtFragments.lean (25ea45a9…, replacing
+    # 1080a623…), LeSystemeGradue.lean (bd6d774c…, replacing a5859853…), GrammaireDesTypes.lean
+    # (08f3d573…, replacing 08cdf667…) and ReglesDeTypage.lean (4f83a512…, replacing 74541a39…).
+    # The interface strings below are checked in their new notation; a pin re-sync, not a
+    # ratification of any changed content.
     integrated_source_blobs = {
-        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "1080a623283f1ce85ec3084b724487f59df395f0",
-        "spec/Spec/C3/LeSystemeGradue.lean": "a58598531b331fd843975bf65e6e330bebb3e8d2",
-        "spec/Spec/C3/GrammaireDesTypes.lean": "08cdf667032f7377ec8eb1719efe3bfe4862a567",
-        "spec/Spec/C3/ReglesDeTypage.lean": "74541a39b3d94c902ab7809697e665aef1ba93b9",
+        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "25ea45a9aeb423505302ae4016af552bd3db4955",
+        "spec/Spec/C3/LeSystemeGradue.lean": "bd6d774c47059972ae2f3ed86cb1ea95c2101c2d",
+        "spec/Spec/C3/GrammaireDesTypes.lean": "08f3d573323e6f3411fb51897ef000362b81b822",
+        "spec/Spec/C3/ReglesDeTypage.lean": "4f83a5129ed1b764d1db487d389290a761ff0612",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():
@@ -91,10 +99,11 @@ def test_subtyping_direction_is_read_from_the_source_equation():
 def test_reference_modes_are_selected_but_their_proposition_remains_unproved():
     source = C3.read_text(encoding="utf-8")
 
-    assert "M_Lin = (𝓡, {0}, false)" in source
-    assert "M_Aff = (𝓡, {0}, true)" in source
-    assert "M_Unr = (𝓡, 𝓡, true)" in source
-    assert "M_Rel = (𝓡, 𝓡, false)" in source
+    # Math spans since 2026-10-27 (Q-TYP-002); the triples themselves are unchanged.
+    assert r"M_{\mathrm{Lin}} = (\mathcal{R}, \{0\}, \mathrm{false})" in source
+    assert r"M_{\mathrm{Aff}} = (\mathcal{R}, \{0\}, \mathrm{true})" in source
+    assert r"M_{\mathrm{Unr}} = (\mathcal{R}, \mathcal{R}, \mathrm{true})" in source
+    assert r"M_{\mathrm{Rel}} = (\mathcal{R}, \mathcal{R}, \mathrm{false})" in source
     assert "n'est pas un mode normatif de la grammaire courante" in source
     statement = source.split('label := "thm:morphismes_modes"', maxsplit=1)[1].split("::::", maxsplit=1)[0]
     assert 'state := "under-review"' in statement
