@@ -114,7 +114,13 @@ silence. Une ambiguïté devient alors une chose qu'on peut voir et refuser, plu
 l'analyseur tranche pour soi.
 
 L'écriture d'un délimiteur doit définir la limite de sa couche, et c'est sa nature :
-`{je suis en couche 1} (je suis en couche 2 [et maintenant en couche 3])`. Il n'existe donc pas de
+`{je suis en couche 1} (je suis en couche 2 [et maintenant en couche 3])`. Chaque couche a son
+rôle : les types se posent en couche 1 seulement, la couche 2 orchestre et produit, la couche 3
+calcule et termine. Les types servent entre autres à construire la pile, où opère la couche 3, et le
+tas, où opère la couche 2 ; en définir dans l'une ou l'autre serait incohérent. Une définition
+s'ouvre donc en couche 1, où se pose son type, et ses paramètres et son corps s'écrivent dans le
+délimiteur de leur couche ; une déclaration qui porte un type s'écrit de même entre accolades
+(§{num "sec:c5-mise-en-pratique"}[]). Il n'existe donc pas de
 parenthèse ordinaire, neutre vis-à-vis des couches : `( )` est toujours le délimiteur de la couche 2,
 et toute expression composée porte le délimiteur de son fragment. Le
 délimiteur ne _change_, en revanche, qu'au point précis où le fragment change. Tant qu'un appel
@@ -158,7 +164,15 @@ _variable fraîche_, donc un motif qui filtre tout et ne signale rien — c'est 
 critique classique de Standard ML relève sur les constructeurs {cite "appelCritiqueStandardML1993"}[].
 Avec elle, une étiquette inconnue est une erreur, parce qu'une étiquette n'est jamais liante.
 
-Le reste de la grammaire commune tient en quelques règles. Deux points-virgules ouvrent un
+Le reste de la grammaire commune tient en quelques règles. Les identifiants s'écrivent en anglais,
+en kebab-case, et les marques de contrat `?` et `!` se placent devant le nom
+(`?increment-bounded`). Cinq caractères sont des sigils, lus en tête d'un atome : `#`, `:`, `@`,
+`?` et `!` ; la Phase 0 en fait des attributs. Un glyphe de la table du chapitre 1 ne se lit seul
+que dans un train, une suite faite seulement de glyphes et de modifieurs, comme `+´÷≠` ; toute autre
+suite se lit d'un tenant, comme un nom ou un nombre : `increment-bounded`, `x-1` et `-2` sont chacun
+un atome. Un nombre s'écrit en décimal, avec une fraction et un exposant facultatifs et des chiffres
+que `_` peut grouper (`1_000_000`, `1.5e-3`), en rationnel (`1/3`) ou en complexe (`3+4i`), ou vaut
+`inf`, `-inf` ou `nan`. Deux points-virgules ouvrent un
 commentaire qui court jusqu'à la fin de la ligne : `;;` pour un commentaire courant, `;;;` pour un
 titre et `;;;;` pour un sous-titre. Un point-virgule seul écrit juste avant un délimiteur ouvrant —
 `;(`, `;[` ou `;{` — désactive l'arbre que ce délimiteur ouvre, sans rompre la syntaxe : l'arbre

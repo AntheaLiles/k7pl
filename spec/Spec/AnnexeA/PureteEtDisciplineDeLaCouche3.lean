@@ -35,8 +35,8 @@ Codes protégeant la pureté et la totalité de la couche 3
 * * `ERR-LOG-001`
   * Conditionnelle impérative détectée. Utiliser `match`, `cond` ou `select`.
 * * `ERR-TOP-010`
-  * Fonction impure, suffixée `!`, appelée à l'intérieur d'un bloc pur de couche 3.
+  * Fonction impure, préfixée `!`, appelée à l'intérieur d'un bloc pur de couche 3.
 * * `ERR-TYP-009`
-  * Fonction suffixée `?` contenant un effet algébrique non géré.
+  * Fonction préfixée `?` contenant un effet algébrique non géré.
 :::
 ::::

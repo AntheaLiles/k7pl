@@ -196,7 +196,7 @@ Symétriquement, pour toute requête de sous-typage $`\upsilon \sqsubseteq A`, l
 extraire du programme la tranche minimale — le sous-ensemble de la dérivation, au sens des
 morphismes composés du chapitre 2 — qui suffit à expliquer pourquoi $`A` a été dérivé. Cette même
 tranche répond à la question inverse aux frontières de couches : un jugement
-`Δ;Γ ⊢ C at d ▷ Δ';Γ'[m]` décompose un contexte en un trou et son environnement, formalisant ce
+$`\Delta_1;\Delta_2 \vdash C\ \mathsf{at}\ d \triangleright \Delta_1';\Delta_2'[m]` décompose un contexte en un trou et son environnement, formalisant ce
 qu'une couche laisse à une autre le soin de compléter.
 
 Ce que ce chapitre a construit ne mérite le nom de système de types qu'à condition de satisfaire

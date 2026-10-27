@@ -34,7 +34,8 @@ Cette section construit maintenant un exemple unique — un compteur borné, ré
 remontant des trois couches jusqu'à leur composition, puis en examinant l'erreur la plus commune à
 leur frontière.
 
-Le cœur du calcul est une fonction pure de couche 3 ({num "lst:fonction-pure"}[]) :
+Le cœur du calcul est une fonction pure de couche 3 ({num "lst:fonction-pure"}[]). Sa définition
+s'ouvre en couche 1, où se pose son type ; ses paramètres et son corps s'écrivent entre crochets :
 
 ::::listing (label := "lst:fonction-pure")
 :::caption
@@ -42,14 +43,15 @@ Le cœur du calcul : une fonction pure de couche 3, totale et sans effet
 :::
 
 ```
-[defn incrémente-borné? [valeur borne]
-  [select [< valeur borne]
-          [Ok [+ valeur 1]]
-          [Err Débordement]]]
+{defn ?increment-bounded :type {fn int32 int32 {result int32 overflow}}
+  [value bound]
+  [select [< value bound]
+          [Ok [+ value 1]]
+          [Err Overflow]]}
 ```
 ::::
 
-Le suffixe `?` engage le contrat du chapitre 3 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) :
+Le préfixe `?` engage le contrat du chapitre 3 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) :
 cette fonction ne peut ni déclencher d'effet ni paniquer, elle ne peut que retourner une valeur —
 ici un `Result`, puisque le débordement reste une issue normale du calcul plutôt qu'une exception à
 lever.
@@ -63,24 +65,26 @@ La couche 2 orchestre l'effet observable sans jamais muter l'état directement
 :::
 
 ```
-(defhandler gestionnaire-compteur (message état)
+{defhandler counter-handler :type …
+  (message state)
   (match message
-    ((Incrémente n)
-     (match [incrémente-borné? [^. état valeur] [^. état borne]]
-       ((Ok nouvelle-valeur)
-        (HandlerResult :état (^= état valeur nouvelle-valeur) :réponse (Ok nouvelle-valeur)))
+    ((Increment n)
+     (match [?increment-bounded [view state value] [view state bound]]
+       ((Ok new-value)
+        (HandlerResult :state (set state value new-value) :response (Ok new-value)))
        ((Err e)
-        (HandlerResult :état état :réponse (Err e)))))))
+        (HandlerResult :state state :response (Err e))))))}
 ```
 ::::
 
 Le calcul de couche 3 est appelé depuis la couche 2, ce qui est légitime : le pur s'invoque de
 partout (§{num "sec:c5-s-expressions-universelles"}[]). C'est cette frontière, seule, que les
-crochets de l'appel signalent ; à l'intérieur, les lectures de l'état par la lentille `^.`
+crochets de l'appel signalent ; à l'intérieur, les lectures de l'état par la lentille `view`
 s'écrivent elles aussi entre crochets, puisqu'elles se vérifient dans le fragment cartésien de
-l'appel. Le reste du gestionnaire, qui ne quitte jamais la couche 2, s'écrit entre parenthèses, le
-délimiteur de la couche 2 — y compris la mise à jour de l'état par la lentille `^=`, qui préserve le
-champ `borne` inchangé sans qu'aucun `HandlerResult` n'ait besoin de le répéter.
+l'appel. Le gestionnaire s'ouvre en couche 1, comme toute définition ; son corps, qui ne quitte
+jamais la couche 2, s'écrit entre parenthèses, le délimiteur de la couche 2 — y compris la mise à
+jour de l'état par la lentille `set`, qui préserve le champ `bound` inchangé sans qu'aucun
+`HandlerResult` n'ait besoin de le répéter.
 
 L'acteur lui-même n'est qu'une déclaration : aucune logique n'y figure directement, seulement la
 topologie et le rattachement du gestionnaire ({num "lst:acteur"}[]).
@@ -91,10 +95,10 @@ L'acteur ne porte que sa topologie et le rattachement de son gestionnaire
 :::
 
 ```
-{defactor Compteur
-  (champ valeur : Int)
-  (champ borne : Int)
-  (bind-to gestionnaire-compteur)}
+{defactor Counter
+  {field value :num int}
+  {field bound :num int}
+  (bind-to counter-handler)}
 ```
 ::::
 
@@ -115,9 +119,10 @@ d'erreur, non une obligation de métathéorie. L'unicité du type d'état par ga
 modulaire, où l'association est portée par une structure plutôt que déduite, est activement conçue
 ailleurs {cite "VIVIEN"}[].
 
-Ici, `champ` et `bind-to` s'écrivent entre parenthèses, le délimiteur de la couche 2, que le bloc
-de couche 1 admet ; seule l'accolade d'ouverture de `defactor` annonce la couche 1. Ces trois
-déclarations respectent déjà la forme descendante
+Ici, les champs portent un type et s'écrivent donc entre accolades, en couche 1 ; `bind-to`
+s'écrit entre parenthèses, le délimiteur de la couche 2, que le bloc de couche 1 admet. Le type
+`int`, sans largeur, est un trou typé que l'élaboration résout dans la famille des entiers. Ces
+trois déclarations respectent la forme descendante
 `{ ... ( ... [ ... ] ... ) ... }` du §{num "sec:c5-s-expressions-universelles"}[] : `bind-to` relie
 l'acteur à son gestionnaire, qui appelle lui-même le calcul pur — chaque frontière franchie porte le
 délimiteur du fragment vers lequel elle mène, et pas une de plus.
@@ -132,13 +137,14 @@ ERR-TOP-001
 :::
 
 ```
-[defn incrémente-borné? [valeur borne]
-  (HandlerResult :état valeur :réponse (Ok valeur))]  ;; rejeté : ERR-TOP-001
+{defn ?increment-bounded :type …
+  [value bound]
+  [Ok (HandlerResult :state value :response (Ok value))]}  ;; rejeté : ERR-TOP-001
 ```
 ::::
 
 La parenthèse n'est pas ici en cause comme simple notation : dans ce même bloc, un appel à `select`
-ou à `^.` s'écrit entre crochets sans rien enfreindre, et la parenthèse ne s'y trouve que parce que
+ou à `view` s'écrit entre crochets sans rien enfreindre, et la parenthèse ne s'y trouve que parce que
 `HandlerResult` est une construction de couche 2. Ce qui est rejeté, c'est que
 `HandlerResult` suppose un état d'acteur et un effet de couche 2 — $`\mathcal{E}` et
 $`\Delta_{\text{aff}}` — dont le jugement de couche 3 ne dispose tout simplement pas ($`\Delta = \Delta_{\omega}`, chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]). Aucun délimiteur ne
