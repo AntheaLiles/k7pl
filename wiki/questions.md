@@ -1897,6 +1897,12 @@ Added on 2026-10-27 at the author's request, while the fifth part was open.
 - **B — English for new or rewritten objects only.** A label changes when its object is rewritten (as `lst:gestionnaire` and `lst:acteur` in Q-SPEC-202), not before. *For:* no mass rename. *Against:* two languages of labels for a long time.
 - **C — Labels unchanged; the link carried by fields.** Names stay as they are; the attachment to K and Lean is written in fields (Q-TRC-002). *For:* nothing published breaks. *Against:* the name alone no longer tells what it is about.
 
+**Author's remark of 2026-10-27, given in the conversation before answering, quoted as given.**
+
+> "l'inventaire figé de wiki/assurance.md garde les anciennes étiquettes, avec une table de correspondance, comme pour les noms de fichiers." non il faut lui donner directement les bons noms pour ne pas maintenir des fichiers de correspondances qui n'ont aucune valeur ajoutée.
+
+- **Reading:** no table of correspondence: if labels are renamed, the frozen inventory takes the new labels directly. Applied at once to file names, which the inventory and the notes of the stage C pins now give in English ([decisions](decisions.md)).
+
 #### Q-TRC-002 — How a statement is attached to what it is about and to its proof
 
 **Object.** A shared name makes the link readable, but alone it is a convention: nothing fails if the K element or the Lean proof is renamed or missing. The extension of the specification already has a field for the proof, `formalArtifact := "Module.declaration"`, required with `evidence := "lean-proof"`; no statement uses it yet (64 proof sketches, 12 without evidence, 1 from the literature), and the check of `scripts/spec_checks/statement_ontology.py` is syntactic: it does not look the declaration up. A metatheorem such as type preservation is about the whole calculus, not one type, so a statement may concern several elements, or none.
@@ -1917,6 +1923,12 @@ Added on 2026-10-27 at the author's request, while the fifth part was open.
   ```
 
 - **C — A separate table.** `wiki/assurance.md` maps each label to its K elements, its Lean proof and its tests; a script checks the table. *For:* the manuscript is not touched. *Against:* the link lives away from the statement.
+
+**Author's remark of 2026-10-27, given in the conversation before answering, quoted as given.**
+
+> "un lien vers une preuve pourrait faire échouer le build s'il est cassé" oui s'il s'agit d'une régression, autrement cela ferait un bon compteur pour la mise à jour du STATUS.md
+
+- **Reading:** a link that resolved and no longer does is a regression and fails the build; a link declared but not yet resolvable, such as a proof still to write, is counted, and the count feeds the generated `wiki/STATUS.md`.
 
 #### Q-TRC-003 — The form of the shared key
 

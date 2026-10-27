@@ -821,75 +821,75 @@ Le statut et le niveau sont les valeurs explicites présentes dans la directive 
 
 | Source | Ligne | Label | Statut historique | Niveau historique | Titre | Esquisse |
 |---|---:|---|---|---|---|---|
-| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 35 | `thm:schema_commutation` | theoreme | langage | schéma de commutation | oui |
-| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 63 | `thm:schema_preservation` | theoreme | langage | schéma de préservation par traduction | oui |
-| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 88 | `thm:tri_topologique` | theoreme | langage | tri topologique | oui |
-| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 111 | `thm:schema_restriction` | theoreme | langage | schéma de restriction | oui |
-| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 150 | `thm:schema_reinvocation` | theoreme | langage | schéma de ré-invocation bornée | oui |
-| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 188 | `thm:schema_effacement` | theoreme | langage | schéma d'effacement | oui |
-| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | 227 | `thm:lemme_capacite` | theoreme | langage | lemme de capacité | oui |
-| `spec/Spec/C4/ModelesDeMemoire.lean` | 41 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | oui |
-| `spec/Spec/C4/ModelesDeMemoire.lean` | 99 | `thm:introduction_unique` | proposition | langage | loi unique d'introduction des ressources d'écriture | oui |
-| `spec/Spec/C5/LeTheoremeDElaboration.lean` | 30 | `thm:elaboration` | definition | langage | élaboration | oui |
-| `spec/Spec/C2/SystemeDeRaffinement.lean` | 52 | `thm:raffinement` | theoreme | langage | structure de raffinement | oui |
-| `spec/Spec/C2/SystemeDeRaffinement.lean` | 152 | `thm:non_interference` | theoreme | langage | non-interférence graduée, fragment séquentiel | oui |
-| `spec/Spec/C2/SystemeDeRaffinement.lean` | 191 | `thm:determinisme_observationnel` | conjecture | langage | déterminisme observationnel | oui |
-| `spec/Spec/C5/NotationsSpecialisees.lean` | 126 | `thm:staticite_syntaxe` | theoreme | langage | staticité de la syntaxe | oui |
-| `spec/Spec/C5/NotationsSpecialisees.lean` | 217 | `thm:hygiene` | theoreme | langage | hygiène des expansions | oui |
-| `spec/Spec/C5/NotationsSpecialisees.lean` | 241 | `thm:hygiene_graduee` | proposition | langage | hygiène graduée des expansions | oui |
-| `spec/Spec/C5/NotationsSpecialisees.lean` | 261 | `thm:resucrage` | exigence | langage | préservation de l'α-équivalence de surface | non |
-| `spec/Spec/C4/EchelleDuSysteme.lean` | 118 | `thm:determinisme_rejeu` | theoreme | langage | déterminisme logique du rejeu | oui |
-| `spec/Spec/C4/EchelleDuSysteme.lean` | 144 | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | oui |
-| `spec/Spec/C4/EchelleDuSysteme.lean` | 320 | `thm:liberte_initialisation` | theoreme | langage | liberté d'initialisation par DAG topologique | oui |
-| `spec/Spec/C4/EchelleDuSysteme.lean` | 469 | `thm:sync_motifs_jonction` | theoreme | langage | synchronisation atomique des motifs de jonction | oui |
-| `spec/Spec/C4/EchelleDuSysteme.lean` | 548 | `thm:surete_ffi` | theoreme | langage | sûreté FFI par la passerelle de capacité | oui |
-| `spec/Spec/C4/EchelleDuSysteme.lean` | 575 | `thm:revocation_ffi` | exigence | representation | révocation à la frontière étrangère | non |
-| `spec/Spec/C3/GrammaireDesTypes.lean` | 123 | `thm:temps_mononiveau` | theoreme | langage | le cas mononiveau redonne la forme plate | oui |
-| `spec/Spec/C3/LeSystemeGradue.lean` | 130 | `thm:morphismes_modes` | proposition | langage | ordre structurel des modes | oui |
-| `spec/Spec/C3/LeSystemeGradue.lean` | 521 | `thm:completude_graduee` | proposition | langage | complétude graduée | oui |
-| `spec/Spec/C3/LeSystemeGradue.lean` | 555 | `thm:completude_verificateur` | exigence | compilation | le vérificateur n'émet que des codes de la correspondance | non |
-| `spec/Spec/C3/ReglesDeTypage.lean` | 103 | `thm:boxtimes_addition` | theoreme | langage | $`\boxtimes` généralise l'addition ponctuelle | oui |
-| `spec/Spec/C3/ReglesDeTypage.lean` | 386 | `thm:coherence_subsomption` | proposition | langage | cohérence de la subsomption | oui |
-| `spec/Spec/C3/ReglesDeTypage.lean` | 726 | `thm:commutation_monoide` | theoreme | langage | commutation des deux familles | oui |
-| `spec/Spec/C3/ReglesDeTypage.lean` | 1319 | `thm:determinisme_parallele` | theoreme | langage | déterminisme du parallélisme de couche 3 | oui |
-| `spec/Spec/C3/ReglesDeTypage.lean` | 1605 | `thm:substitution` | proposition | langage | substitution sur trois niveaux | oui |
-| `spec/Spec/C3/ReglesDeTypage.lean` | 1696 | `thm:substitution_simultanee` | theoreme | langage | substitution simultanée — corollaire de la substitution élémentaire | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 137 | `thm:preservation` | theoreme | langage | préservation | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 195 | `thm:progres` | theoreme | langage | progrès | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 290 | `thm:correction_ressource` | theoreme | langage | correction de ressource | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 393 | `thm:stratification_journal` | theoreme | langage | stratification du journal | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 535 | `thm:relation_produit` | proposition | langage | relation logique sur un produit de structures ordonnées | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 561 | `thm:lemme_fondamental` | theoreme | langage | lemme fondamental | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 717 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | oui |
-| `spec/Spec/C4/SemantiqueOperationnelle.lean` | 792 | `thm:image_fix` | theoreme | langage | image du point fixe déductif | oui |
-| `spec/Spec/C4/EchelleDeLActeur.lean` | 142 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | oui |
-| `spec/Spec/C5/CeQuUneMacroDeclare.lean` | 96 | `thm:expansion_macro` | theoreme | langage | la règle d'expansion est dérivable | oui |
-| `spec/Spec/C3/LesContraintesDeValeur.lean` | 274 | `thm:deadlock_acyclique` | theoreme | langage | absence de deadlock par acyclicité du graphe de sessions | oui |
-| `spec/Spec/C3/LesContraintesDeValeur.lean` | 350 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | oui |
-| `spec/Spec/C3/LesContraintesDeValeur.lean` | 384 | `thm:representation_inobservable` | exigence | representation | aucune liberté de représentation n'est observable | non |
-| `spec/Spec/C6/CeQueLeSolveurRetourne.lean` | 60 | `thm:interface_jugement` | definition | langage | l'interface d'une unité de compilation est son jugement | oui |
-| `spec/Spec/C6/CeQueLeSolveurRetourne.lean` | 132 | `thm:rejet_reproductible` | theoreme | langage | reproductibilité du rejet | oui |
-| `spec/Spec/C6/CeQueLeSolveurRetourne.lean` | 463 | `thm:abaissement_grades` | conjecture | compilation | l'abaissement préserve le jugement gradué | oui |
-| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 132 | `thm:terminaison_couche_3` | theoreme | langage | terminaison de la couche 3 — l'instance inductive | oui |
-| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 216 | `thm:sedimentation` | theoreme | langage | bonne définition de la sédimentation | oui |
-| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 294 | `thm:productivite_couche_2` | theoreme | langage | productivité de la couche 2 — l'instance coinductive | oui |
-| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 342 | `thm:progression_polarisee` | theoreme | langage | progression, paramétrée par la couche | oui |
-| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 454 | `thm:loi_historique` | theoreme | langage | loi distributive de l'historique | oui |
-| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 526 | `thm:troncature_comonade` | theoreme | langage | la troncature est un morphisme de comonades | oui |
-| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | 576 | `thm:fenetre_grade` | proposition | langage | une fenêtre est un grade | oui |
-| `spec/Spec/C4/CalculDeProcessusSousJacent.lean` | 151 | `thm:traduction_metalangage` | proposition | langage | la traduction préserve le typage | oui |
-| `spec/Spec/C4/CalculDeProcessusSousJacent.lean` | 299 | `thm:simulation` | proposition | langage | simulation de la relation de réduction par la traduction | oui |
-| `spec/Spec/C4/CalculDeProcessusSousJacent.lean` | 340 | `thm:fidelite_interprete` | proposition | langage | fidélité de l'interpréteur de référence | oui |
-| `spec/Spec/C6/LeProcessusDeCompilation.lean` | 155 | `thm:stabilisation_pipeline` | theoreme | langage | stabilisation du pipeline | oui |
-| `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 187 | `thm:cloture_sortage` | theoreme | langage | clôture du bon sortage par substitution | oui |
-| `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | 214 | `thm:confinement_sortes` | theoreme | langage | confinement des canaux distingués | oui |
-| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 234 | `thm:divulgation_delimitee` | proposition | langage | divulgation délimitée | oui |
-| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | 381 | `thm:terminaison_lfp` | theoreme | langage | terminaison du point fixe déductif | oui |
-| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 125 | `thm:distributivite_tronquee` | theoreme | langage | distributivité du produit sur la soustraction tronquée | oui |
-| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 158 | `thm:coherence_axiome` | proposition | langage | condition de compatibilité de l'action graduée | oui |
-| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 182 | `thm:coherence_usage` | proposition | langage | cohérence de l'action d'usage | oui |
-| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | 280 | `thm:action_parallele` | proposition | langage | compatibilité de l'itération et de la mise en parallèle | oui |
-| `spec/Spec/C3/StructuresOuvertesEffetsEtMetaTheorie.lean` | 253 | `thm:preservation_type` | theoreme | langage | préservation du type | oui |
+| `spec/Spec/C2/SixMetatheorySchemas.lean` | 35 | `thm:schema_commutation` | theoreme | langage | schéma de commutation | oui |
+| `spec/Spec/C2/SixMetatheorySchemas.lean` | 63 | `thm:schema_preservation` | theoreme | langage | schéma de préservation par traduction | oui |
+| `spec/Spec/C2/SixMetatheorySchemas.lean` | 88 | `thm:tri_topologique` | theoreme | langage | tri topologique | oui |
+| `spec/Spec/C2/SixMetatheorySchemas.lean` | 111 | `thm:schema_restriction` | theoreme | langage | schéma de restriction | oui |
+| `spec/Spec/C2/SixMetatheorySchemas.lean` | 150 | `thm:schema_reinvocation` | theoreme | langage | schéma de ré-invocation bornée | oui |
+| `spec/Spec/C2/SixMetatheorySchemas.lean` | 188 | `thm:schema_effacement` | theoreme | langage | schéma d'effacement | oui |
+| `spec/Spec/C2/SixMetatheorySchemas.lean` | 227 | `thm:lemme_capacite` | theoreme | langage | lemme de capacité | oui |
+| `spec/Spec/C4/MemoryModels.lean` | 41 | `thm:surete_spatiale` | theoreme | langage | sûreté spatiale par capacités linéaires | oui |
+| `spec/Spec/C4/MemoryModels.lean` | 99 | `thm:introduction_unique` | proposition | langage | loi unique d'introduction des ressources d'écriture | oui |
+| `spec/Spec/C5/ElaborationTheorem.lean` | 30 | `thm:elaboration` | definition | langage | élaboration | oui |
+| `spec/Spec/C2/RefinementSystem.lean` | 52 | `thm:raffinement` | theoreme | langage | structure de raffinement | oui |
+| `spec/Spec/C2/RefinementSystem.lean` | 152 | `thm:non_interference` | theoreme | langage | non-interférence graduée, fragment séquentiel | oui |
+| `spec/Spec/C2/RefinementSystem.lean` | 191 | `thm:determinisme_observationnel` | conjecture | langage | déterminisme observationnel | oui |
+| `spec/Spec/C5/SpecialisedNotations.lean` | 126 | `thm:staticite_syntaxe` | theoreme | langage | staticité de la syntaxe | oui |
+| `spec/Spec/C5/SpecialisedNotations.lean` | 217 | `thm:hygiene` | theoreme | langage | hygiène des expansions | oui |
+| `spec/Spec/C5/SpecialisedNotations.lean` | 241 | `thm:hygiene_graduee` | proposition | langage | hygiène graduée des expansions | oui |
+| `spec/Spec/C5/SpecialisedNotations.lean` | 261 | `thm:resucrage` | exigence | langage | préservation de l'α-équivalence de surface | non |
+| `spec/Spec/C4/SystemScale.lean` | 118 | `thm:determinisme_rejeu` | theoreme | langage | déterminisme logique du rejeu | oui |
+| `spec/Spec/C4/SystemScale.lean` | 144 | `thm:rejeu_binaire` | proposition | representation | identité binaire du rejeu, sous environnement reproductible | oui |
+| `spec/Spec/C4/SystemScale.lean` | 320 | `thm:liberte_initialisation` | theoreme | langage | liberté d'initialisation par DAG topologique | oui |
+| `spec/Spec/C4/SystemScale.lean` | 469 | `thm:sync_motifs_jonction` | theoreme | langage | synchronisation atomique des motifs de jonction | oui |
+| `spec/Spec/C4/SystemScale.lean` | 548 | `thm:surete_ffi` | theoreme | langage | sûreté FFI par la passerelle de capacité | oui |
+| `spec/Spec/C4/SystemScale.lean` | 575 | `thm:revocation_ffi` | exigence | representation | révocation à la frontière étrangère | non |
+| `spec/Spec/C3/TypeGrammar.lean` | 123 | `thm:temps_mononiveau` | theoreme | langage | le cas mononiveau redonne la forme plate | oui |
+| `spec/Spec/C3/GradedSystem.lean` | 130 | `thm:morphismes_modes` | proposition | langage | ordre structurel des modes | oui |
+| `spec/Spec/C3/GradedSystem.lean` | 521 | `thm:completude_graduee` | proposition | langage | complétude graduée | oui |
+| `spec/Spec/C3/GradedSystem.lean` | 555 | `thm:completude_verificateur` | exigence | compilation | le vérificateur n'émet que des codes de la correspondance | non |
+| `spec/Spec/C3/TypingRules.lean` | 103 | `thm:boxtimes_addition` | theoreme | langage | $`\boxtimes` généralise l'addition ponctuelle | oui |
+| `spec/Spec/C3/TypingRules.lean` | 386 | `thm:coherence_subsomption` | proposition | langage | cohérence de la subsomption | oui |
+| `spec/Spec/C3/TypingRules.lean` | 726 | `thm:commutation_monoide` | theoreme | langage | commutation des deux familles | oui |
+| `spec/Spec/C3/TypingRules.lean` | 1319 | `thm:determinisme_parallele` | theoreme | langage | déterminisme du parallélisme de couche 3 | oui |
+| `spec/Spec/C3/TypingRules.lean` | 1605 | `thm:substitution` | proposition | langage | substitution sur trois niveaux | oui |
+| `spec/Spec/C3/TypingRules.lean` | 1696 | `thm:substitution_simultanee` | theoreme | langage | substitution simultanée — corollaire de la substitution élémentaire | oui |
+| `spec/Spec/C4/OperationalSemantics.lean` | 137 | `thm:preservation` | theoreme | langage | préservation | oui |
+| `spec/Spec/C4/OperationalSemantics.lean` | 195 | `thm:progres` | theoreme | langage | progrès | oui |
+| `spec/Spec/C4/OperationalSemantics.lean` | 290 | `thm:correction_ressource` | theoreme | langage | correction de ressource | oui |
+| `spec/Spec/C4/OperationalSemantics.lean` | 393 | `thm:stratification_journal` | theoreme | langage | stratification du journal | oui |
+| `spec/Spec/C4/OperationalSemantics.lean` | 535 | `thm:relation_produit` | proposition | langage | relation logique sur un produit de structures ordonnées | oui |
+| `spec/Spec/C4/OperationalSemantics.lean` | 561 | `thm:lemme_fondamental` | theoreme | langage | lemme fondamental | oui |
+| `spec/Spec/C4/OperationalSemantics.lean` | 717 | `thm:commutation_traduction` | theoreme | langage | commutation de la traduction et de la substitution | oui |
+| `spec/Spec/C4/OperationalSemantics.lean` | 792 | `thm:image_fix` | theoreme | langage | image du point fixe déductif | oui |
+| `spec/Spec/C4/ActorScale.lean` | 142 | `thm:isomorphisme_memoire` | proposition | representation | correspondances de disposition, transfert zéro-copie | oui |
+| `spec/Spec/C5/WhatAMacroDeclares.lean` | 96 | `thm:expansion_macro` | theoreme | langage | la règle d'expansion est dérivable | oui |
+| `spec/Spec/C3/ValueConstraints.lean` | 274 | `thm:deadlock_acyclique` | theoreme | langage | absence de deadlock par acyclicité du graphe de sessions | oui |
+| `spec/Spec/C3/ValueConstraints.lean` | 350 | `thm:homomorphisme_roues` | proposition | representation | représentation des singularités de la théorie des roues | oui |
+| `spec/Spec/C3/ValueConstraints.lean` | 384 | `thm:representation_inobservable` | exigence | representation | aucune liberté de représentation n'est observable | non |
+| `spec/Spec/C6/WhatTheSolverReturns.lean` | 60 | `thm:interface_jugement` | definition | langage | l'interface d'une unité de compilation est son jugement | oui |
+| `spec/Spec/C6/WhatTheSolverReturns.lean` | 132 | `thm:rejet_reproductible` | theoreme | langage | reproductibilité du rejet | oui |
+| `spec/Spec/C6/WhatTheSolverReturns.lean` | 463 | `thm:abaissement_grades` | conjecture | compilation | l'abaissement préserve le jugement gradué | oui |
+| `spec/Spec/C2/AlgebrasCoalgebrasAndFixedPoints.lean` | 132 | `thm:terminaison_couche_3` | theoreme | langage | terminaison de la couche 3 — l'instance inductive | oui |
+| `spec/Spec/C2/AlgebrasCoalgebrasAndFixedPoints.lean` | 216 | `thm:sedimentation` | theoreme | langage | bonne définition de la sédimentation | oui |
+| `spec/Spec/C2/AlgebrasCoalgebrasAndFixedPoints.lean` | 294 | `thm:productivite_couche_2` | theoreme | langage | productivité de la couche 2 — l'instance coinductive | oui |
+| `spec/Spec/C2/AlgebrasCoalgebrasAndFixedPoints.lean` | 342 | `thm:progression_polarisee` | theoreme | langage | progression, paramétrée par la couche | oui |
+| `spec/Spec/C2/AlgebrasCoalgebrasAndFixedPoints.lean` | 454 | `thm:loi_historique` | theoreme | langage | loi distributive de l'historique | oui |
+| `spec/Spec/C2/AlgebrasCoalgebrasAndFixedPoints.lean` | 526 | `thm:troncature_comonade` | theoreme | langage | la troncature est un morphisme de comonades | oui |
+| `spec/Spec/C2/AlgebrasCoalgebrasAndFixedPoints.lean` | 576 | `thm:fenetre_grade` | proposition | langage | une fenêtre est un grade | oui |
+| `spec/Spec/C4/UnderlyingProcessCalculus.lean` | 151 | `thm:traduction_metalangage` | proposition | langage | la traduction préserve le typage | oui |
+| `spec/Spec/C4/UnderlyingProcessCalculus.lean` | 299 | `thm:simulation` | proposition | langage | simulation de la relation de réduction par la traduction | oui |
+| `spec/Spec/C4/UnderlyingProcessCalculus.lean` | 340 | `thm:fidelite_interprete` | proposition | langage | fidélité de l'interpréteur de référence | oui |
+| `spec/Spec/C6/CompilationProcess.lean` | 155 | `thm:stabilisation_pipeline` | theoreme | langage | stabilisation du pipeline | oui |
+| `spec/Spec/C4/MetalanguageSortSystem.lean` | 187 | `thm:cloture_sortage` | theoreme | langage | clôture du bon sortage par substitution | oui |
+| `spec/Spec/C4/MetalanguageSortSystem.lean` | 214 | `thm:confinement_sortes` | theoreme | langage | confinement des canaux distingués | oui |
+| `spec/Spec/C2/AdjunctionsAndEnrichment.lean` | 234 | `thm:divulgation_delimitee` | proposition | langage | divulgation délimitée | oui |
+| `spec/Spec/C2/AdjunctionsAndEnrichment.lean` | 381 | `thm:terminaison_lfp` | theoreme | langage | terminaison du point fixe déductif | oui |
+| `spec/Spec/C2/ExponentialComonadAndFragments.lean` | 125 | `thm:distributivite_tronquee` | theoreme | langage | distributivité du produit sur la soustraction tronquée | oui |
+| `spec/Spec/C2/ExponentialComonadAndFragments.lean` | 158 | `thm:coherence_axiome` | proposition | langage | condition de compatibilité de l'action graduée | oui |
+| `spec/Spec/C2/ExponentialComonadAndFragments.lean` | 182 | `thm:coherence_usage` | proposition | langage | cohérence de l'action d'usage | oui |
+| `spec/Spec/C2/ExponentialComonadAndFragments.lean` | 280 | `thm:action_parallele` | proposition | langage | compatibilité de l'itération et de la mise en parallèle | oui |
+| `spec/Spec/C3/OpenStructuresEffectsAndMetatheory.lean` | 253 | `thm:preservation_type` | theoreme | langage | préservation du type | oui |
 
 ### 3. Classification sémantique encore requise
 

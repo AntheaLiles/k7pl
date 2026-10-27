@@ -133,7 +133,12 @@ def test_all_historical_labels_survive_with_only_declared_companion_objects():
 # LEAN-STATEMENT-INVENTORY.md (last version e9b5d2b2) before the snapshot moved, unchanged, into
 # the appendix of the migration register. The level and label checks read this table, so any
 # edit to it must fail here rather than silently rebase the historical baseline.
-FROZEN_HISTORICAL_TABLE_SHA256 = "88e8213a23c0103db2a6f6789ffb175553f83adb051839040fc67225d7f66c10"
+# 2026-10-27 (author's instruction, « il faut lui donner directement les bons noms pour ne pas
+# maintenir des fichiers de correspondances qui n'ont aucune valeur ajoutée »): the snapshot names
+# the module files by their English names (renamed on 2026-10-27) instead of the former ones; its
+# 69 rows, labels, line numbers, statuses and levels are unchanged. The digest is re-synced
+# (replacing 88e8213a…); any other edit still fails here.
+FROZEN_HISTORICAL_TABLE_SHA256 = "40c420259d789cf9777836879f2ca06725e11f3658aad29f5cce9fd578e8569f"
 
 
 def test_historical_snapshot_is_frozen():

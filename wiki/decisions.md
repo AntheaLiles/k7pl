@@ -1343,9 +1343,18 @@ contradiction to state, not to resolve in silence.
   (`scripts/check_spec.py`, `scripts/spec_checks/`),
   `scripts/verif_singularites.py`, two figure assets and
   the K7OS dossier files, with every reference; contents
-  are not translated, and the frozen inventory of
-  [assurance](assurance.md) keeps the former names. The
-  list is in `CHANGELOG.md`.
+  are not translated. The list is in `CHANGELOG.md`.
+  Decided 2026-10-27, author's instruction quoted as given,
+  about the frozen inventory: "non il faut lui donner
+  directement les bons noms pour ne pas maintenir des
+  fichiers de correspondances qui n'ont aucune valeur
+  ajoutée." Applied the same day: the frozen inventory of
+  [assurance](assurance.md) and the notes of the stage C
+  pins name the files by their English names, the digest
+  that pins the inventory being re-synced; permalinks pinned
+  to older commits keep the paths of their commit, which
+  those commits hold. The same rule will hold for labels if
+  they are renamed (Q-TRC-001).
   Follow-up: Rule carried — Roadmap: Finish the language migration.
 - **Interactive navigation, phase direction:
   reorient.** Recorded 2026-10-11: keep the
