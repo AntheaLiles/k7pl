@@ -845,6 +845,70 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Conversation of 2026-10-27 on texts, doubled and
+  qualified delimiters, escapes and trains.** Decided in
+  the conversation that followed the opening of the fifth
+  part, the author's words quoted as given:
+  - Repetition: « répéter un délimiteur élève son niveau
+    sans changer sa couche », including `||` for the third
+    dimension — « Oui ! ». `|` separates the rows of an
+    array, `||` the third dimension.
+  - Texts: `"` is « un délimiteur typé (varchar 0-n) » with
+    « une forme vide `""`, une forme simple `"s"` et une
+    forme double `""s""` (à l'image de `{}`, `{s}` et
+    `{{s}}`) », the doubled form being raw.
+  - Qualified delimiters `tag|…|tag`: « le type (eg.
+    "sql") devra être défini et demain éventuellement les
+    règles syntaxiques propres à ce type implémenté pour
+    valider le littéral => ce littéral n'étant pas
+    "compilé" […] cela permettra d'apporter une certaine
+    expérience utilisateur »; the four forms of one tag
+    are retained — `"sql|…|sql"` typed text, `{sql|…|sql}`
+    declared and checked at compile time, `(sql|…|sql)`
+    executed, `[sql|…|sql]` pure and terminating — « avec
+    la couche 3 limitée au fragment monotone ».
+  - Layers: « ⦅…⦆ comme ⦃…⦄ interdit en couche 3 puisque
+    le délimiteur doublé reste dans la couche du
+    délimiteur simple ».
+  - Files and views: « les fichiers gardent ""s"" et
+    l'éditeur affiche « s » => pareil pour le reste »:
+    files keep ASCII; the editor shows `« s »`, the white
+    brackets, `‖` for `||` (« `‖` maintenu car il faut
+    tout de même distinguer la spec mathématique qui
+    modélise les comportements du code source qui les
+    soutiendra »), and `(not ((…)))` as the train
+    `(¬⦅…⦆)`.
+  - Holes: a hole in a qualified literal is « un trou
+    typé, il faut rouvrir Q-STR-003 à cet égard ».
+  - Escapes: in a text, « j'accepte que `\` échape le
+    caractère qui le suis »; special characters take
+    « les noms de LaTeX pour l'instant »; « Absorber une
+    seule espace après un nom LaTeX »; a code point is
+    written `\u'…'` rather than `\u{…}` (« pour éviter
+    d'introduire encore des guillemets droits » and
+    braces).
+  - Trains: « un train s'écris en text avec des espaces,
+    la forme glyphique est une vue avancée du même code »;
+    « on écris les trains de gauche à droite, en
+    préservant la logique s-exp, et pour que cela
+    fonctionne les arités sont spécifiés très clairement
+    (une arité doit donc être typé pour les symboles
+    monadique, diadique voir triadique mais jamais
+    n-air comme le reste du langage) ». After reading
+    chapter 5 on trains and arities, no head word marks a
+    train: the elaboration tells a train from an
+    application by the typed arities (`ERR-STK-001`); the
+    author: « Je pense que tu as raison sur ces
+    analyses. »
+  Settled questions of the fifth part, withdrawn:
+  Q-STR-301 (escapes) and Q-LEX-404 (spacing of white
+  brackets). The research is in [research](research.md),
+  « Conversation of 2026-10-27 ».
+  Applied on 2026-10-27: the wiki only. Not applied yet:
+  the reader (`tokens.k` reads glyph trains, not their
+  aliases), chapter 5 (examples, escapes, texts) and
+  annex A wait for the revised fifth part.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, fourth part: answers of 2026-10-27
   (Q-STR-201 to Q-LEX-304).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-27-022 to

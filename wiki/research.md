@@ -1312,6 +1312,240 @@ element to share a name with; the existing `formalArtifact` field and
 Verso's name resolution make a checked link possible without a new
 tool.
 
+### Conversation of 2026-10-27
+
+Sources read during the conversation that followed the opening of the
+fifth part; its decisions are in [decisions](decisions.md). They feed
+the revised fifth part.
+
+- **Qualified delimiters.** OCaml: `{%sql|...|}` stands for
+  `[%sql{|...|}]`; « Note that the word-delimited form, for example
+  {sql|...|sql}, should not be used for signaling that an extension
+  is in use. Indeed, the user cannot see from the code whether this
+  string literal has different semantics than they expect. Moreover,
+  giving semantics to a specific delimiter limits the freedom to
+  change the delimiter to avoid escaping issues. »
+  (https://ocaml.org/manual/5.2/extensionnodes.html). Haskell: « A
+  quasi-quote has the form [quoter| string |]. The ⟨quoter⟩ must be
+  the name of an imported quoter […] There must be no spaces in the
+  token [quoter|. » (https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/template_haskell.html).
+  Julia: « A non-standard string literal looks like a regular
+  double-quoted string literal, but is immediately prefixed by an
+  identifier »; « Users and packages may also define new non-standard
+  string literals » (https://docs.julialang.org/en/v1/manual/strings/).
+  Scribble: « A block of text can begin with a “|{” and terminated
+  accordingly with a “}|” »; « punctuation characters can be added
+  between the | and the braces […] used as a “here string”
+  replacement » (https://docs.racket-lang.org/scribble/reader.html).
+- **Dimensions by repetition.** Julia: « The number of semicolons in
+  the separator specifies the particular dimension, so ;;;
+  concatenates in the third dimension, ;;;; in the 4th, and so on. »
+  (https://docs.julialang.org/en/v1/manual/arrays/). Chapter 5: « La
+  barre verticale sépare les rangs d'un littéral tableau : `[1 2 | 3
+  4]` dénote une matrice deux par deux ».
+- **Pure queries.** Chapter 7, case study III: the facts in a layer-1
+  arena, « L'analyse est un acteur de couche 2, qui reçoit les faits,
+  calcule et répond aux requêtes. Le calcul lui-même est un fix de
+  couche 3 […]. Le théorème thm:terminaison_lfp en donne la
+  terminaison », and stratified negation is left out. PostgreSQL:
+  « When working with recursive queries it is important to be sure
+  that the recursive part of the query will eventually return no
+  tuples, or else the query will loop indefinitely. »
+  (https://www.postgresql.org/docs/current/queries-with.html); « A
+  dollar sign ($) followed by digits is used to represent a positional
+  parameter in the body of a function definition or a prepared
+  statement. In other contexts the dollar sign can be part of an
+  identifier or a dollar-quoted string constant. »
+  (https://www.postgresql.org/docs/current/sql-syntax-lexical.html).
+- **Character classes.** POSIX: « A character class expression is
+  expressed as a character class name enclosed within
+  bracket-<colon> ("[:" and ":]") delimiters »
+  (https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap09.html).
+  UTS #18, annex C: `alpha` is `\p{Alphabetic}`
+  (https://www.unicode.org/reports/tr18/). Counted from
+  `DerivedCoreProperties-18.0.0.txt` (dated 2026-08-07): 160,254
+  `Alphabetic` code points in 775 contiguous runs
+  (https://www.unicode.org/Public/UCD/latest/ucd/DerivedCoreProperties.txt).
+  The glyph table gives `¬` (`not`) as « Négation bit-à-bit ».
+- **Texts.** UAX #29 describes « grapheme clusters (“user-perceived
+  characters”) » (https://www.unicode.org/reports/tr29/). BQN:
+  « Character literals start and end with `'`, and have exactly one
+  character in between » (https://mlochbaum.github.io/BQN/doc/syntax.html).
+  R7RS, §6.6: « Characters are written using the notation
+  #\⟨character⟩ or #\⟨character name⟩ or #\x⟨hex scalar value⟩ ».
+  Python: « Even in a raw literal, quotes can be escaped with a
+  backslash, but the backslash remains in the result »
+  (https://docs.python.org/3/reference/lexical_analysis.html).
+- **LaTeX.** Reserved characters `\ { } % $ & _ ^ # ~`, typeset as
+  `\# \$ \% \& \{ \} \_ \~{} \^{} \textbackslash`
+  (https://latexref.xyz/Special-characters.html,
+  https://latexref.xyz/Printing-special-characters.html);
+  `\guillemetleft («)`, `\guillemetright (»)`, `\guillemotleft` being
+  « misspellings inherited from Adobe »; 72 commands under « Text
+  symbols », logos and commands with arguments among them
+  (https://latexref.xyz/Text-symbols.html); `\u` is the breve accent
+  (https://latexref.xyz/Accents.html); « The default, if this package
+  is not loaded, is UTF-8 » (https://latexref.xyz/inputenc-package.html;
+  LaTeX News 28,
+  https://www.latex-project.org/news/latex2e-news/ltnews28.pdf).
+- **TeX.** *TeX by Topic*: « an escape character […] followed by a
+  string of ‘letters’ is lumped together into a control word […] An
+  escape character followed by a single character that is not of
+  category 11, letter, is made into a control symbol »; « After
+  control words spaces are ignored »; « any quadruplet ^^xy where both
+  x and y are lowercase hexadecimal digits 0–9, a–f, is replaced by a
+  character in the range 0–255 »
+  (https://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf).
+  ConTeXt: `\backslash`, `\%`, `\{`, `\}`, `\lettertilde`
+  (https://wiki.contextgarden.net/Special_characters).
+- **OpTeX** (https://petr.olsak.net/optex/): « OpTeX is a LuaTeX
+  format (LuaHBTeX format since 2025) based on Plain TeX macros (by
+  Donald Knuth) ». Its manual
+  (https://petr.olsak.net/ftp/olsak/optex/optex-doc.pdf): the text
+  accent macros « are undefined in OpTeX. Use real letters like á, ř,
+  ž in your source document »; `\"⟨quoted text⟩"` prints
+  « language-dependent normal or alternative quotes » (« note that the
+  terminating character is the same but it isn't escaped »); inline
+  verbatim is « tagged (before and after) by a character which is
+  declared by \verbchar⟨char⟩ »; in `\code{⟨text⟩}` only `\`, `#`,
+  `%`, unmatched braces and repeated spaces or `^` are escaped. P.
+  Olšák, « Comparison of OpTeX with other formats: LaTeX and
+  ConTeXt », TUGboat 42:1 (2021): users own the names made of letters,
+  OpTeX the `\_foo` names, packages `\_pkg_foo`
+  (https://petr.olsak.net/ftp/olsak/bulletin/tb130olsak-fmtcmp.pdf).
+- **Typst**: « To escape a character, precede it with a backslash. To
+  insert any Unicode codepoint, you can write a hexadecimal escape
+  sequence: \u{1f600}. The same kind of escape sequences also work in
+  strings. » (https://typst.app/docs/reference/syntax/); symbols with
+  dotted names, `quote.chevron.r.double` for `»`, `bar.v.double` for
+  `‖`, `bar.v.triple` for `⦀` (https://typst.app/docs/reference/symbols/sym/).
+- **Uiua**, *secondary* (uiua.org returned 404 to this session, the
+  APL Wiki 403): primitives can be typed by lowercase names, and the
+  formatter rewrites them as glyphs in the source (APL Wiki, « Uiua »;
+  a blog report on its editor extension,
+  https://zenn.dev/hatappo/articles/11c7ca2bc2d98e). K7PL would store
+  the names and show the glyphs, the reverse.
+- **K, checked on 2026-10-27 with K 7.1.337** (scratch grammars, not
+  in the repository): a token `«…»` reads `«b c»` and `«»`, but a
+  content with non-ASCII characters is refused by the scanner and an
+  inner `»` is not excluded; the decision to keep ASCII in files
+  removes the need.
+- **Chapter 5 and the glyph table.** « un 2-train `(f g)` dénote
+  λx. f(g(x)), un 3-train `(f g h)` dénote la fourche »; glyph and
+  alias are « strictement équivalent[s] au niveau de l'AST »; annex A,
+  `ERR-STK-001`. The table gives `≠` only as `neq` (dyadic) while
+  chapter 5 uses it for the length; `´`, `¨`, `√` and `²` have no row;
+  `-` (`sub`) and `⊢` (`right-id`) have no monadic alias.
+
+## Archive review: early K premises (`OLD_K_K7PL`)
+
+Received from the author on 2026-10-27 as `OLD_K_K7PL.zip`, described
+as "un vieux (très vieux) dossier (il a plus d'un an) avec les
+prémisses K de K7PL", to be sorted, classed, evaluated and criticised
+against the current specification "sans y accorder trop
+d'importance". The archive is not added to the repository; this
+section is the whole of what is kept from it, pending the author's
+decision (remaining actions below).
+
+### Facts
+
+- **Content.** 20 modules, each a `.k` file and a French design note
+  (`.md`): tokens, the syntax of three layers and their union (01–05),
+  types — primitive, template, dimension, linear, traits, union
+  (06–11) —, a K configuration (12), evaluation of each layer and
+  their union (13–16), memory (17), actors (18), streams (19),
+  verification (20). 3,810 lines of K, 1,265 of notes; 398
+  `rule`s and 424 `syntax` declarations. The file dates inside the archive are 2026-06-17.
+- **State.** The K does not compile with K 7.1.337 (checked
+  2026-10-27 on the concatenation of the 20 files): the outer parser
+  stops at the first `List{…}` written inside a production
+  (`syntax BindBody ::= InitClause List{HandlerClause, ""}`); there
+  are 102 such inline lists and 2 `/* empty */` alternatives, and no
+  module imports K's built-in domains while 88 lines use `Int` or
+  `Map` operations. It is a specification sketch in K notation, not
+  a K definition.
+- **Unresolved references.** "TDD R1 … R33" (a requirement document
+  not in the archive), "LML" (a language for which `$` and `§` are
+  reserved), "B+" (the monomorphic template discipline), "G4 stand
+  by", and the keyword `sugoi`.
+
+### The layers are numbered the other way round
+
+The archive's layer 1 is the pure, terminating, tacit array core
+written in `[ ]`; its layer 2 is the S-expression logic in `( )`,
+"purement fonctionnelle", whose handlers return descriptions; its
+layer 3 holds declarations in `{ }` — types, actors, streams, memory,
+clusters — with "AUCUNE logique applicative", logic being bound from
+layer 2 by `bind-to`. The roles of the three delimiters are those of
+the current specification; only the numbers are reversed (archive
+L1 = current layer 3, archive L3 = current layer 1). The archive's
+composition rule, "N appelle ≤ N", is the current descending form
+`{ ( [ ] ) }` under that renumbering.
+
+### Classification against the current specification
+
+Verdicts: **kept** (the current specification states the same
+thing), **superseded** (the current specification or a decided
+answer chose otherwise), **input** (not in the current
+specification; material for an open question), **implementation**
+(a runtime or code-generation choice outside the specification's
+level).
+
+| Archive component | Current specification | Verdict |
+|---|---|---|
+| Five verified forms `pure`, `terminates`, `logic`, `event`, `contract` (03) | The same five proof keywords, `tab:c5-mots-cles-preuve` | kept |
+| Layer-2 handlers return a pure `HandlerResult` description, executed by the runtime (03, 14) | Chapter 3: a pure layer-2 handler returns « une description d'effets » | kept |
+| Trains `(f g)` composition, `(f g h)` fork; stack blocks `[dup * +]` typed by stack effects (02) | Chapter 5, same definitions, `[dup *]` has effect `(1 – 2)` | kept |
+| Templates monomorphised, « Pas de ∀T », « Pas de ∃T », no higher kinds (07) | Chapter 3 keeps ∀ and ∃, monomorphised in Phase 3; Q-TYP-102 « tout est monomorphé » | input: a stricter position for Q-TYP-301 |
+| Traits with `Self`, one instance per (trait, type), static dispatch (10) | `ERR-TYP-010`, `ERR-POL-001` | kept |
+| No silent wraparound: overflow returns `Result` (06) | `{result int32 overflow}` in `lst:fonction-pure` | kept |
+| `terminates [measure]`, termination by measure, productivity of streams (20) | `ERR-TER-001` « Utiliser un pli ou le mot-clé `terminates` », layer-2 productivity | kept |
+| Hot-reload with preserved state (15, 18) | `ERR-DPL-001` | kept |
+| Views `tref` without copy (13) | Annex A: « Une vue `tref` s'échappe de son cadre local » | kept |
+| No pointer crosses a layer boundary; copy at each crossing (17) | Annex A: absolute pointer in a layer-1 arena refused, relative offsets | kept |
+| Backpressure policies `block`, `drop-oldest`, `drop-newest`, `error` (19) | `ERR-CMP-002`: rate mismatch « sans stratégie d'ajustement » | input: the strategies themselves |
+| Temporal properties □ ◇ U checked by model checking (20) | Chapter 3: □ ◇ ◯ are types | superseded (integrated in the types) |
+| Numbering of layers, `.67` files for tacit code, `¤` prefix for layer calls (01, 02, 03) | Delimiters alone mark layers; one file kind | superseded |
+| Typed literals `(i64 42)`, no default numeric type; names `Int64`, `Float32` (01, 06) | `:num int32`, typed holes resolved by the solver (Q-NUM-203); families `int`, `flo`, `dec`… | superseded |
+| Types as layer-2 S-expressions, `(Int64 -> Float64)` (03) | Types set in layer 1 only, lowercase, `{function …}` (Q-TYP-201, Q-TYP-202) | superseded |
+| `;` comment or row separator in `[ ]` (01, 02) | `;;` comments, `;` disables a tree, `|` separates rows | superseded |
+| `#/regex/flags` (01, 03) | `#` is the `comptime` sigil; qualified delimiters (conversation of 2026-10-27) | superseded |
+| 2-modifiers `∘` `⊸` `⟜`, 1-modifiers `´ ˜ ¨` `` ` `` `⌜` (02) | `↢` `↣` chosen against BQN familiarity, `⊘` compose; `´` `¨` in chapter 5 | superseded (deliberately) |
+| `@var`, `@(match …)` text patterns after TXR (03) | `@` is a sigil read in Phase 0; TXR is cited for layer 2 | input |
+| `define` as the definition word (01, 03) | Q-SPEC-203 asks for a generic definition word | input |
+| `bind-to` with `init` / `on-message` / `handler-result :new-state :reply :emit` (03) | `lst:gestionnaire`, `lst:acteur`; the author's `:bind` / `:result` (Q-SPEC-202) | input |
+| Character literals `'a'`, `'\u{1F600}'`; booleans `true` / `false` (01) | No character literal or boolean name yet | input |
+| `+flag` / `-flag` boolean arguments (01) | `+verify`, `+introspect` in chapter 6 | input: a general flag syntax |
+| Strings: UTF-8, length in graphemes (UAX #29), grapheme index (06) | Text type and its length still open | input |
+| Dimensions as SI exponent vectors over 7 base dimensions, `deftype-op`, `defconversion` (08) | Units after UCUM (Q-NUM-005), `:unit mm` | input: to confront with UCUM |
+| Allocation hierarchy Tagged → Stack → Region → Owned → RC → Arena → Linear, annotations `+stack` `+region` `+rc` `+arena` (17) | Each layer is a data structure (arena, heap, stack); RC where sharing is graded | input: meanings of the doubled forms (Q-LEX-402, Q-LEX-403) |
+| Commit or rollback of a `HandlerResult`; `emit` sent only after commit (15) | Not stated in these terms | input |
+| Flat supervision, restart policies `+restart-always` … (18) | Chapter 4, actor and system scales | input |
+| `ask-and-continue`, `scatter-gather`, `saga` (03) | Not in the specification | input: a layer-2 library |
+| Modules `(module … (export …) (import …))`; tests `describe` / `it` / `expect` (03) | Module theory in chapter 4, without syntax; specification blocks purged at link time | input |
+| `deftype-layout` with explicit offsets, WAT linear memory, `defcluster`, `deploy`, `defsecurity-lattice` (04) | Layout isomorphism theorem, capabilities, confidentiality grade | input |
+| HM "B+" inference with holes, no `Any` (11) | Bidirectional checking with an SMT solver; full Damas–Milner given up | superseded |
+| Tagged pointers; slab, buddy and mmap allocators; 64-byte alignment, SIMD (06, 02, 17) | — | implementation |
+| K configuration of runtime state (12) | Operational semantics of chapter 4 | implementation, as a checklist |
+
+### Interpretation (not decided)
+
+The archive's lasting value is its intent, most of which the current
+specification already carries with a renumbered vocabulary; its K is
+not reusable as code beside `lexicon/`, which compiles and is checked.
+Its inputs are worth a question each where an open point already
+exists: the definition word, the handler and actor forms, character
+and boolean literals, flags, the length of a text, units, memory
+annotations for the doubled forms, transactional handlers, and a
+library of layer-2 orchestration patterns.
+
+### Remaining actions (author)
+
+- Keep the archive in the repository (where, under which licence
+  header) or leave it out, this section being its record.
+- Say which inputs become questions; the fifth part takes those that
+  meet a question already open.
+
 ## Research lot closure
 
 The research closing of 2026-10-25 closed the 53 files of

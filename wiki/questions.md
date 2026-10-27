@@ -1546,71 +1546,267 @@ Several options may be chosen.
 - **Reading:** kept open until the doubled delimiters are settled.
 
 
-## Lot of 2026-10-27, fifth part: escapes, one rule for strings, monomorphisation, branchings and definitions, numbers, white brackets
+## Lot of 2026-10-27, fifth part (revised): texts, qualified delimiters, character classes, trains, doubled forms, monomorphisation, branchings and definitions, numbers, names, the old K archive
 
-Questions opened by the answers to the fourth part. They follow the
-same rules: options to enumerate and objectify, then the author's
-choice; **Other** and **Clarify** are always available. The
-options were built from the research recorded in
-[research](research.md), "Reading lot: research of 2026-10-27, fifth part".
+Opened on 2026-10-27 and revised the same day, before any answer, after the
+conversation recorded in [decisions](decisions.md) (« Conversation of 2026-10-27 on
+texts, doubled and qualified delimiters, escapes and trains »). The questions follow
+the same rules: options to enumerate and objectify, then the author's choice;
+**Other** and **Clarify** are always available. The research is in
+[research](research.md), « Reading lot: research of 2026-10-27, fifth part », its
+« Conversation of 2026-10-27 », and « Archive review: early K premises ».
+
+Withdrawn as settled in the conversation:
+
+- Q-STR-301: `\` escapes the character that follows, special characters take their LaTeX names, a code point is written `\u'…'`.
+- Q-LEX-404: files keep ASCII and the editor shows the Unicode forms, so the reader never meets a white bracket.
 
 Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, `defunc`…) are placeholders.
 
-### Strings
+### Texts
 
-#### Q-STR-301 — Escapes: other traditions
+#### Q-STR-302 — Reading `""`: the empty text or an opening
 
-**Object.** The backslash lists of the fourth part (POSIX, C, Rust) did not satisfy you (Q-STR-201). Here are seven other traditions, each answering in its own way the three needs of an escape list: writing the quote itself, writing a control character, writing any character by its number. Several may be combined; any escape outside the list K7PL keeps is refused (Q-STR-102), with the first code of `ERR-LEX` (Q-STR-205). Strings already span lines (Q-STR-103), so a line break never needs an escape.
+**Object.** Decided in the conversation: `"` is the fourth typed pair, with `""` the empty text, `"s"` a text and `""s""` a raw text that the editor shows as `« s »` while files keep ASCII; repeating a delimiter raises its level, and three quotes make a block (Q-STR-204). The reader still meets `""` in files and must tell the empty text from an opening run of two quotes.
 
 **Facts.**
 
-- Ada: `string_element ::= "" | non_quotation_mark_graphic_character`; « A string_element is either a pair of quotation marks (""), or a single graphic_character other than a quotation mark » (Ada RM, 2.6 (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-2-6.html)). BQN: « Pairs of quotes `""` in between represent one quote character, and other characters (including `'`) represent themselves » (BQN, syntax (https://mlochbaum.github.io/BQN/doc/syntax.html)); « the character with code point `n` is `@+n` » (BQN, arithmetic (https://mlochbaum.github.io/BQN/doc/arithmetic.html)). SQL doubles its quote too (fourth part, research).
-- Common Lisp: « If a single escape character is seen, the single escape character is discarded, the next character is accumulated, and accumulation continues » (CLHS 2.4.5 (https://www.lispworks.com/documentation/HyperSpec/Body/02_de.htm)): `\` takes the next character as it is, and there is no other escape.
-- Python: `\N{name}`, « Named Unicode character » (Python reference, 2.5.4 (https://docs.python.org/3/reference/lexical_analysis.html)). Haskell names the ASCII controls, `\NUL` `\SOH` … `\ESC` … `\DEL`, and writes `\^A` for a control; « The escape character `\&` is provided as a “null character” to allow strings such as `"\137\&9"` and `"\SO\&H"` to be constructed » (Haskell 2010, §2.6 (https://www.haskell.org/onlinereport/haskell2010/haskellch2.html)).
-- XML: `CharRef ::= '&#' [0-9]+ ';' | '&#x' [0-9a-fA-F]+ ';'`; `&` and `<` « MUST be escaped using either numeric character references or the strings "&amp;" and "&lt;" » (XML 1.0, §2.4 and §4.1 (https://www.w3.org/TR/xml/)). R7RS: `\x<hex scalar value>;`, « specified character (note the terminating semi-colon) » (R7RS, §6.7 (https://small.r7rs.org/attachment/r7rs.pdf)).
-- JSON: « All Unicode characters may be placed within the quotation marks, except for the characters that MUST be escaped: quotation mark, reverse solidus, and the control characters (U+0000 through U+001F) » (RFC 8259, §7 (https://www.rfc-editor.org/rfc/rfc8259#section-7)). URIs: « A percent-encoded octet is encoded as a character triplet, consisting of the percent character "%" followed by the two hexadecimal digits representing that octet's numeric value » (RFC 3986, §2.1 (https://www.rfc-editor.org/rfc/rfc3986#section-2.1)), the rule K7PL took for spaces in paths (Q-STR-203).
+- CommonMark: « A code span begins with a backtick string and ends with a backtick string of equal length » (CommonMark 0.31.2, §6.1 (https://spec.commonmark.org/0.31.2/#code-spans)). C#: « A raw string literal starts and ends with a minimum of three double quote (") characters », and `""` stays the empty string (C# reference (https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string)).
+
+- **A — Two quotes then a separator: the empty text.** `""` followed by a space, a delimiter or the end of a line is the empty text; followed by anything else, it opens a raw text. *For:* your forms kept as decided. *Against:* a raw text cannot begin with a space after two quotes; it takes three.
+
+  ```text
+  (f "" x)            ;; the empty text
+  (f ""C:\path"" x)   ;; a raw text, shown « C:\path »
+  ```
+
+- **B — C#'s rule: `""` is always empty.** A raw text takes three quotes or more. *Against:* the decided `""s""` becomes `"""s"""`, and raw text and blocks share three quotes.
+
+#### Q-STR-303 — Raw text and the backslash
+
+**Object.** Decided: in `"…"`, `\` escapes the character that follows (« j'accepte que `\` échappe le caractère qui le suit »). What does `\` do in a raw text `""…""`, whose main uses — regular expressions, Windows paths, quoted TeX — are full of backslashes?
+
+**Facts.**
+
+- Python: « Even in a raw literal, quotes can be escaped with a backslash, but the backslash remains in the result » (Python reference, 2.5.6 (https://docs.python.org/3/reference/lexical_analysis.html)).
+- OpTeX: in `\code{⟨text⟩}`, « you have to escape the following characters in the ⟨text⟩: \, #, %, braces (if the braces are unmatched in the ⟨text⟩), and space or ^ (if there are more than one subsequent spaces or ^ in the ⟨text⟩) » (OpTeX manual, 1.4.7 (https://petr.olsak.net/ftp/olsak/optex/optex-doc.pdf)).
+- Common Lisp: « the single escape character is discarded, the next character is accumulated » (CLHS 2.4.5 (https://www.lispworks.com/documentation/HyperSpec/Body/02_de.htm)).
+
+- **A — Only before the closing delimiter.** In a raw text, `\` escapes the closing quotes and stays literal everywhere else. Example: `""\d+""   ;; the text \d+`. *For:* a raw text stays raw; Python and OpTeX escape only what the reader would misread.
+- **B — As in an ordinary text.** `\` escapes any character and is dropped. Example: `""\d+""   ;; the text d+`. *For:* one rule for both forms. *Against:* regular expressions and paths must double every backslash.
+
+#### Q-STR-304 — Characters that cannot be seen
+
+**Object.** Decided: special characters take their LaTeX names (`\guillemetright`), one space after a name is absorbed, and any code point is written `\u'…'`. LaTeX's text symbols name no control character: there is no tab, and `\n` or `\t` are not LaTeX names. A line break is written as such, since texts span lines (Q-STR-103).
+
+**Facts.**
+
+- The LaTeX reference lists 72 commands under « Text symbols », among them logos (`\LaTeX`), font commands (`\texttt`) and commands with an argument (`\textcircled`), which name no single character (LaTeX2e reference, Text symbols (https://latexref.xyz/Text-symbols.html)).
+
+- **A — Code points only.** Example: `"a\u'09'b"   ;; a, a tab, b`. *For:* no name outside LaTeX. *Against:* a tab reads as a number.
+- **B — A few K7PL names beside LaTeX's.** A short closed list for invisible characters (tab, no-break space…), written like LaTeX names. Example: `"a\tab b"`. *Against:* names that LaTeX does not define.
+- **C — C's `\n` and `\t` kept as exceptions.** *Against:* `\n` would read as a name under the TeX rule; two traditions.
+
+#### Q-STR-305 — The length of a text
+
+**Object.** Your « délimiteur typé (varchar 0-n) »: a text carries a bound n. In what unit is a length counted? A text type without its bound would be a typed hole, resolved as the integers are (Q-NUM-203).
+
+**Facts.**
+
+- UAX #29 describes « grapheme clusters (“user-perceived characters”) » (Unicode, UAX #29 (https://www.unicode.org/reports/tr29/)).
+- The old K archive measured « en graphèmes (UAX #29), pas en octets ni en code points », with a grapheme index for access by position in O(1).
+
+- **A — Graphemes (UAX #29).** *For:* what a reader counts. *Against:* depends on the Unicode version; an index to keep for O(1) access.
+- **B — Code points.** *For:* stable; what `\u'…'` names. *Against:* `é` may count two.
+- **C — Bytes of UTF-8.** *For:* the memory cost, visible (P3). *Against:* far from what a reader counts.
+
+#### Q-STR-306 — A character literal
+
+**Object.** K7PL has no character literal yet; ranges of characters wait for one (Q-LEX-304), and `'` now closes a code point in `\u'…'`.
+
+**Facts.**
+
+- BQN: « Character literals start and end with `'`, and have exactly one character in between » (BQN, syntax (https://mlochbaum.github.io/BQN/doc/syntax.html)). R7RS: « Characters are written using the notation #\⟨character⟩ or #\⟨character name⟩ or #\x⟨hex scalar value⟩ » (R7RS, §6.6 (https://small.r7rs.org/attachment/r7rs.pdf)).
+- The old K archive wrote `'a'`, `'\n'`, `'\u{1F600}'`.
+
+- **A — Between apostrophes.** Example: `'a'   '»'`. *Against:* a code point inside collides with `\u'…'`: `'\u'bb''`.
+- **B — A one-character text with its type.** Example: `{c :type char "a"}`. *For:* no new delimiter. *Against:* heavy for a frequent value.
+- **C — Scheme's `#\a`.** *Against:* `#` is the comptime sigil.
+
+#### Q-STR-307 — How a hole is written in a qualified literal
+
+**Object.** Decided: a hole in a qualified literal is a typed hole, passed as a parameter, never pasted as text; Q-STR-003 is reopened for these forms only, a plain `"…"` never interpolates. Your example wrote `$something`.
+
+**Facts.**
+
+- PostgreSQL: « A dollar sign ($) followed by digits is used to represent a positional parameter in the body of a function definition or a prepared statement. In other contexts the dollar sign can be part of an identifier or a dollar-quoted string constant. » (PostgreSQL manual, lexical structure (https://www.postgresql.org/docs/current/sql-syntax-lexical.html)).
+
+- **A — `$name`, told apart by the validator.** Example: `(sql|SELECT * FROM users WHERE name = $who|sql)`. *Against:* the tag's validator must tell it from the foreign language's own `$`.
+- **B — The tag's type declares its hole syntax.** SQL could keep `$1` or `:name`, another language its own. *For:* each foreign language keeps its idiom. *Against:* one rule per tag.
+- **C — `@name`, the attribute sigil.** *Against:* `@` is frequent in foreign texts (addresses, decorators).
+
+#### Q-STR-308 — Quotation marks in the view
+
+**Object.** Decided: files keep `""s""`, the editor shows `« s »`.
+
+**Facts.**
+
+- OpTeX: `\"⟨quoted text⟩"` « prints language-dependent normal or alternative quotes around ⟨quoted text⟩ » (OpTeX manual, 1.7.1 (https://petr.olsak.net/ftp/olsak/optex/optex-doc.pdf)).
+
+- **A — Always « s ».**
+- **B — By language.** « s » in French, “s” in English, from a setting of the editor or of the document.
+
+### Qualified delimiters
+
+#### Q-LEX-501 — Declaring the type of a qualified delimiter
+
+**Object.** Decided: in `tag|…|tag`, the tag names a defined type, whose syntax rules may later validate the literal; K7PL does not compile it, the user gets the checks of the foreign language. Decided too, the four forms of one tag: `"sql|…|sql"` typed text, `{sql|…|sql}` declared and checked at compile time, `(sql|…|sql)` executed, `[sql|…|sql]` pure and terminating, limited to the monotone fragment.
+
+**Facts.**
+
+- Haskell: « The ⟨quoter⟩ must be the name of an imported quoter, either qualified or unqualified » (GHC user guide (https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/template_haskell.html)). Julia: « Users and packages may also define new non-standard string literals » (Julia manual, strings (https://docs.julialang.org/en/v1/manual/strings/)).
+- OpTeX gives packages their own names, `\_pkg_foo` (TUGboat 42:1, 2021).
+
+- **A — A layer-1 type; an unknown tag is refused.** The tag is declared in layer 1, with an optional grammar; an unknown tag is a reading error with its code. Example: `{deftype sql :syntax …}`.
+- **B — A, with the tags of a library under its name.** Example: `(pkg.sql|…|pkg.sql)`.
+- **C — An unknown tag is plain text, with a warning.**
+
+#### Q-LEX-502 — Fences and the view inside a literal
+
+**Object.** Decided: repeating a delimiter raises its level, and `||` shows as `‖`. A literal that holds `|sql}` needs a longer fence; SQL's own `||` is concatenation.
+
+**Facts.**
+
+- OCaml: « the word-delimited form, for example {sql|...|sql}, should not be used for signaling that an extension is in use […] giving semantics to a specific delimiter limits the freedom to change the delimiter to avoid escaping issues » (OCaml manual, extension nodes (https://ocaml.org/manual/5.2/extensionnodes.html)). Scribble: « punctuation characters can be added between the | and the braces » (Scribble reader (https://docs.racket-lang.org/scribble/reader.html)).
+
+- **A — Repeated bars; the view never touches a literal's content.** Example: `{sql|| SELECT a || b ||sql}`. *For:* the tag keeps the type, the bars the fence; SQL's `||` stays as written.
+- **B — A second word for the fence, as OCaml.** Example: `{sql x| … |x sql}`. *Against:* two words to write.
+
+#### Q-SPEC-206 — Negation in a recursive layer-3 query
+
+**Object.** Decided: `[tag|…|tag]` is pure and terminating, limited to the monotone fragment, and `⦅…⦆` or `⦃…⦄` cannot enter layer 3. A negation `¬⟦…⟧` inside a recursive query breaks monotonicity.
+
+**Facts.**
+
+- Chapter 7, case study III: « La négation stratifiée, absente ici, changerait le tableau : une règle qui conclut de l'absence d'un fait n'est pas monotone, et le point fixe qui la contiendrait ne relèverait plus du théorème thm:terminaison_lfp. La stratification est le remède connu ; ce document ne la traite pas. »
+- PostgreSQL: « When working with recursive queries it is important to be sure that the recursive part of the query will eventually return no tuples, or else the query will loop indefinitely » (PostgreSQL manual, WITH queries (https://www.postgresql.org/docs/current/queries-with.html)).
+
+- **A — Refused inside recursion.** A negation in a recursive layer-3 query is refused; the query moves to layer 2. *For:* nothing to add to the specification.
+- **B — Stratified negation, checked at compile time.** Chapter 7's gap is filled by a new statement, to prove. *Against:* a theorem to write and prove.
+- **C — Only of a relation fixed before the recursion.** One stratum: the negated relation does not depend on the query. *For:* monotone by construction.
+
+### Character classes
+
+#### Q-LEX-503 — Classes: `:alpha:` and its forms
+
+**Object.** Your proposal: `[[:alpha:]]` a matrix range, `((:alpha:))` a contiguous list, `{{:alpha:}}` a refined Unicode type. The class name needs a form of its own, apart from the label `:alpha` of the sigil `:`; by the head rule, `[:alpha: c]` is a predicate.
+
+**Facts.**
+
+- POSIX: « A character class expression is expressed as a character class name enclosed within bracket-<colon> ("[:" and ":]") delimiters » and is used inside a bracket expression, `[[:alpha:]]` (POSIX.1-2024, XBD 9.3.5 (https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap09.html)). Unicode maps `alpha` to `\p{Alphabetic}` (UTS #18, annex C (https://www.unicode.org/reports/tr18/)).
+- Counted on Unicode 18.0 (DerivedCoreProperties): `Alphabetic` holds 160,254 code points in 775 contiguous runs — a 775×2 matrix of bounds is about 6 KB, the code points themselves about 640 KB.
+
+- **A — As proposed, with these readings.** `[:alpha: c]` a predicate; `[[:alpha:]]` the matrix of bounds (n×2); `((:alpha:))` the code points in order, produced on demand; `{{:alpha:}}` the refined type `{c : char | Alphabetic(c)}`; POSIX names mapped to Unicode by UTS #18.
+- **B — Types and predicates only.** `{{:alpha:}}` and `[:alpha: c]`; no materialised list or matrix. *For:* nothing costly to hide.
+- **C — POSIX names by locale, without Unicode.** *Against:* the meaning depends on the machine.
+
+#### Q-LEX-504 — `¬` on a class: within what?
+
+**Object.** The glyph table gives `¬` (`not`) as « Négation bit-à-bit »: the complement of a class is the bitwise negation of its characteristic vector, which needs a universe.
+
+- **A — All code points.** U+0000 to U+10FFFF, 1,114,112 values, surrogates included.
+- **B — Unicode scalar values.** The same less the 2,048 surrogates: 1,112,064 values, what a text can hold. *For:* the complement stays within valid characters.
+- **C — Assigned characters.** *Against:* changes with each Unicode version.
+
+### Trains and views
+
+#### Q-SPEC-207 — Rewriting the trains of chapter 5
+
+**Object.** Accepted in the conversation: a train is written as text, left to right with S-expression logic; the glyph form is a view of the same code; arities are typed (monadic, dyadic, at most triadic, never n-ary), so the elaboration tells a train from an application without a head word. Chapter 5 writes the mean `+´÷≠` and the standard deviation `√(+´(⊢-+´÷≠)²÷≠)` in BQN's order, modifier after its function.
+
+**Facts.**
+
+- Chapter 5: « un 2-train `(f g)` dénote λx. f(g(x)), un 3-train `(f g h)` dénote la fourche λx. (f x) g (h x) »; « Chaque opération de la bibliothèque standard y porte un glyphe Unicode concis et un alias textuel strictement équivalent au niveau de l'AST »; annex A, `ERR-STK-001`.
+
+- **A — Text form first, view in the text's order.** Chapter 5 shows the text form and, beside it, the view, where each word becomes its glyph in place; the standard deviation is rewritten once its aliases are chosen (Q-LEX-505). Example: `((fold add) div length)   ;; view: ´+÷≠`.
+- **B — Text form first, view in BQN's order.** The view moves a modifier after its function (`+´`), as chapter 5 writes today. *Against:* the view no longer replaces words in place.
+
+#### Q-LEX-505 — One alias per arity
+
+**Object.** With typed arities, each use of a glyph needs its own alias. The glyph table lacks: the monadic `≠` (length; the table gives only `neq`), `´`, `¨`, `√`, `²`, the monadic `-` (the table gives `sub`) and the monadic `⊢` (the table gives `right-id`).
+
+**Facts.**
+
+- Chapter 5 already names `´` « pli » and `¨` « chacun ».
+
+- **A — length, fold, each, sqrt, square, negate, identity.** Example: `≠ length (1) / neq (2)   ´ fold   ¨ each   √ sqrt   ² square   - negate (1) / sub (2)   ⊢ identity (1) / right-id (2)`.
+
+#### Q-LEX-506 — The boolean values
+
+**Object.** The specification names no boolean value; your example ended with `;; t nil`; the old K archive wrote `true` and `false`.
+
+- **A — true / false.**
+- **B — t / nil.** *For:* Lisp's. *Against:* `nil` is also the empty list in Lisp, which is `()` here (Q-LEX-301).
+- **C — yes / no.**
+
+#### Q-LEX-507 — Flags
+
+**Object.** Chapter 6 writes modes `+verify` and `+introspect`; the reader reads `-2` and `+4` as numbers. The old K archive made `+name` and `-name` boolean arguments of any form, a letter after the sign telling them from numbers.
+
+- **A — `+name` / `-name` everywhere.** Example: `(spawn counter +restart-always -verbose)`.
+- **B — Modes only, as today.** Example: `+verify`.
+- **C — Properties instead.** Example: `(spawn counter :restart-always true)`.
+
+### Doubled forms and white brackets
+
+#### Q-LEX-401 — ⟦ ⟧ in layer 3: which precision?
+
+**Object.** Q-LEX-302: `[[ x ]]` is `⟦ x ⟧`, a precision dedicated to layer 3 — the stack, pure and terminating computations — on a memory action, a grade or a resource. Your example: more dimensions for an array, cubes. Decided since: dimensions are written with bars (`[1 2 | 3 4 || 5 6 | 7 8]`), so cubes no longer need `[[ ]]`; files keep `[[ ]]` and the editor shows `⟦ ⟧`.
+
+**Facts.**
+
+- J: « The verb `u"n` applies u to each cell as specified by the rank n » (J Dictionary, Rank (https://www.jsoftware.com/help/dictionary/d600v.htm)); BQN's Range given a list of lengths gives an array of index lists (fourth part).
+- Chapter 3: `Vec n V` is the only array type of the grammar, its literal `[v₀, …, vₙ₋₁]`; chapter 2 writes `⟦·⟧` for a translation.
 
 Several options may be chosen.
 
-- **double — Doubling, no escape character (Ada, SQL, BQN).** A quote is written twice; nothing else is special. A control character is written as itself in a string that spans lines, or computed outside the literal, as BQN's `@+10`. Example: `"say ""hi"""`. *For:* no backslash at all. *Against:* `""` can no longer open a raw string (Q-STR-302); no tab written visibly.
-- **single — One escape, the next character as it is (Common Lisp).** `\"` and `\\` only; every other escape is refused. Example: `"say \"hi\" or \\"`. *For:* the smallest list; `\` keeps one meaning. *Against:* no control character written visibly.
-- **named — Characters by their Unicode name (Python, Raku).** Example: `"col\N{CHARACTER TABULATION}umn"`. *For:* readable; Unicode names are stable. *Against:* long.
-- **ascii — ASCII mnemonics (Haskell).** Example: `"col\HTumn\LF"`. *For:* short names from one table. *Against:* `\SOH` and `\SO` followed by `H` collide: Haskell needs `\&`.
-- **term — A number ended by a semicolon (XML, R7RS).** Example: `"\x41; \x1F600;"`. *For:* any code point; the end of the number is visible, with no fixed width and no braces. *Against:* outside strings, `;` already marks comments and disabled trees.
-- **json — JSON's list.** Example: `\"  \\  \/  \b  \f  \n  \r  \t  \uXXXX`. *For:* a K7PL string is a JSON string. *Against:* `\uXXXX` reaches only the first 65,536 code points; beyond, two escapes (a surrogate pair).
-- **percent — Percent-encoding, as paths.** Example: `"line%0Anext, 100%25"`. *For:* one rule for paths and strings. *Against:* encodes bytes, not characters; every `%` of a text becomes `%25`.
+- **range — Ranges.** The fourth part's proposal D (Q-LEX-304 waits for this answer). Example: `[[ 1..9 ]]`.
+- **frame — Placed in the caller's frame.** Storage whose size is known at compile time, reserved in the frame of the calling function and freed with it, its grade explicit. Example: `[[ buffer 256 ]]`.
+- **cells — Applied cell by cell (rank of a function).** A function applied to the cells of a given rank, as J's `"`. Example: `[[ f 1 ]]   ;; f on each row`.
 
-#### Q-STR-302 — One rule for every string
+#### Q-LEX-402 — ⦅ ⦆ in layer 2: which precision?
 
-**Object.** You ask that `""`, `"string"`, `""string""` and `"""string"""` be treated alike (Q-STR-202). Already decided: a string spans lines (Q-STR-103); `""…""` is a raw string, with the meaning of Raku's `｢…｣` (Q-STR-104); a heredoc is written between triple quotes (Q-STR-204). One conflict remains: `""` is also the empty string.
+**Object.** `(( x ))` is `⦅ x ⦆`, a precision dedicated to layer 2 — the heap, orchestration, productive computations. Your example: another resolution scheme for a list graph. Decided since: `⦅…⦆` stays in layer 2, refused in layer 3; files keep `(( ))`.
 
 **Facts.**
 
-- CommonMark: « A backtick string is a string of one or more backtick characters (`) that is neither preceded nor followed by a backtick. A code span begins with a backtick string and ends with a backtick string of equal length »; « If the resulting string both begins and ends with a space character, but does not consist entirely of space characters, a single space character is removed from the front and back » (CommonMark 0.31.2, §6.1 (https://spec.commonmark.org/0.31.2/#code-spans)).
-- C#: « A raw string literal starts and ends with a minimum of three double quote (") characters »; « When your string literal contains three consecutive double-quotes, you start and end the raw string literal with four double quote characters »; for a raw string on several lines, « Any whitespace to the left of the closing quotes is removed from all lines of the raw string literal » (C# reference, raw string literals (https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string)). `""` stays the empty string.
-- OCaml: « Quoted strings are delimited by a matching pair of `{ quoted-string-id |` and `| quoted-string-id }` with the same quoted-string-id on both sides » (OCaml manual, lexical conventions (https://ocaml.org/manual/5.2/lex.html)). Go: raw strings stand between back quotes, « Within the quotes, any character may appear except back quote » (Go specification (https://go.dev/ref/spec#String_literals)).
+- Clojure's `lazy-seq` « yields a Seqable object that will invoke the body only the first time seq is called, and will cache the result » (clojure.core (https://clojure.github.io/clojure/clojure.core-api.html)).
+- McBride and Paterson write `⟦f u₁ … uₙ⟧`, « indicating a shift into the idiom of an Applicative functor, where a pure function is applied to a sequence of effectful arguments » (Applicative programming with effects, preprint, p. 4 (https://www.staff.city.ac.uk/~ross/papers/Applicative.pdf)); Idris: « `[| f a1 …an |]` is translated into `pure f <*> a1 <*> … <*> an` » (Idris tutorial, idiom brackets (https://docs.idris-lang.org/en/latest/tutorial/interfaces.html)).
+- The old K archive had regions, `(in-region :name body)`, and allocation annotations `+stack`, `+region`, `+rc`, `+arena`.
 
-- **A — The count of quotes (CommonMark's rule).** A string opens with a run of *n* quotes and closes at the next run of exactly *n*. One quote: escapes apply (Q-STR-301). Two or more: raw, as `｢…｣`; with three or more, a block when the opening run ends its line, the indentation of the closing run being removed from every line (Q-STR-204). A run of two quotes followed by a space, a delimiter or the end of a line is the empty string. *For:* one rule for every length, your three forms kept. *Against:* a raw string cannot begin with a space after two quotes (it would read as the empty string): it takes three.
+Several options may be chosen.
 
-  ```text
-  ""                 ;; the empty string
-  "a \"b\""          ;; one quote: escapes
-  ""a "b" c""        ;; two: raw, as ｢a "b" c｣
-  """a ""b"" c"""    ;; three: raw, may hold ""
-  """
-    a block
-    """              ;; three, alone on the line: a block
-  ```
+- **lazy — Produced on demand.** A list whose elements are computed when first read, then kept. Example: `(( naturals ))`.
+- **shared — A graph with sharing.** Equal elements shared rather than copied, and the order of traversal stated (breadth or depth first). Example: `(( a b a ))   ;; a once, referenced twice`.
+- **idiom — Idiom brackets.** A pure function applied to effectful arguments, each effect in order: McBride and Paterson's own white brackets. Example: `(( + (read-a) (read-b) ))`.
+- **heap — Another heap region.** Allocation in a named region rather than the standard heap. Example: `(( :region frames … ))`.
 
-- **B — C#'s rule.** `""` is always the empty string; a raw string takes at least three quotes, and as many as needed to hold shorter runs; a block when the opening run ends its line. *For:* no exception; a rule in use (C# 11). *Against:* `""…""` of Q-STR-104 becomes `"""…"""`.
+#### Q-LEX-403 — ⦃ ⦄ in layer 1: which precision?
 
-  ```text
-  ""                 ;; the empty string
-  """a "b" c"""      ;; raw
-  """"a """b""" c""""  ;; raw, holds """
-  ```
+**Object.** `{{ x }}` is `⦃ x ⦄`, a precision dedicated to layer 1 — the linear arena, declarations and types. Your example: another arena than the standard one. Decided since: `⦃…⦄` stays in layer 1; files keep `{{ }}`.
 
-- **C — Two quotes typed, corner brackets stored.** `""` is the empty string; the file holds `｢…｣`, which the editor or the formatter writes when `""…""` is typed; blocks between triple quotes. *For:* no exception in the reader. *Against:* non-ASCII characters in files; a formatter becomes part of the toolchain.
+**Facts.**
+
+- Zig: « by convention, there is no default allocator in Zig. Instead, functions which need to allocate accept an Allocator parameter » (Zig 0.14.0 (https://ziglang.org/documentation/0.14.0/)). C++: « The memory_resource class is an abstract interface to an unbounded set of classes encapsulating memory resources » (C++ draft, [mem.res] (https://eel.is/c++draft/mem.res)). Rust's `Vec::with_capacity_in`, « nightly-only experimental », builds a vector « with the provided allocator » (Rust std, Vec (https://doc.rust-lang.org/std/vec/struct.Vec.html)).
+- Agda: instance arguments are written `{{x : T}}` or `⦃ x : T ⦄`, and are found when « a unique instance of the required type can be built from declared instances and the current context » (Agda documentation (https://agda.readthedocs.io/en/latest/language/instance-arguments.html)). Chapter 3 has `Arena V`, `Cap ρ` and `slice`.
+- The old K archive chose the place of a value along a hierarchy, register, stack, region, owned heap, reference counting, arena, linear memory, with annotations to force one.
+
+Several options may be chosen.
+
+- **arena — Another arena.** The declarations are placed in a named arena rather than the standard one. Example: `{{ :arena scratch {field buffer :num int8} }}`.
+- **instance — Filled by search (Agda).** An argument the elaborator finds by type, as it fills a handler in chapter 5, written to make the search visible or to give its result. Example: `{{ counter-handler }}`.
+- **comptime — Evaluated at compile time.** Example: `{{ table-of-squares 256 }}`.
+- **capability — A capability given explicitly.** A capability `Cap ρ` granted to what follows, as chapter 3's handlers receive non-determinism. Example: `{{ :cap clock }}`.
 
 ### Monomorphisation
 
@@ -1624,6 +1820,7 @@ Several options may be chosen.
 - rustc: « The roots of the mono item graph correspond to the public non-generic syntactic items »; then, « Starting from the roots, find uses […] until no more new nodes are found »; « A generic definition in crate X might produce monomorphizations that are compiled into crate Y »; a lazy strategy, « items will only be instantiated when actually used » (rustc 1.80.0, collector (https://github.com/rust-lang/rust/blob/1.80.0/compiler/rustc_monomorphize/src/collector.rs)). Limits: `recursion_limit`, 128 by default; `type_length_limit`, « the maximum number of type substitutions allowed when constructing a concrete type during monomorphization » (Rust reference, limits (https://doc.rust-lang.org/reference/attributes/limits.html)).
 - C++: « There is an implementation-defined quantity that specifies the limit on the total depth of recursive instantiations […]. The result of an infinite recursion in instantiation is undefined », with `X<T>` requiring `X<T*>`, which requires `X<T**>`… (C++ draft, [temp.inst] (https://eel.is/c++draft/temp.inst)). Zig: « Compile-time parameters is how Zig implements generics. It is compile-time duck typing. » (Zig 0.14.0 (https://ziglang.org/documentation/0.14.0/)).
 - Code shared at run time: Go 1.18 generates « a single chunk of assembly for each unique GC shape », each taking « a *dictionary* » (Go design, GC shape stenciling (https://github.com/golang/proposal/blob/master/design/generics-implementation-gcshape.md)); .NET makes one copy per value type, while « every time that a constructed type is instantiated with a reference type as its parameter, regardless of what type it is, the runtime reuses the previously created specialized version » (.NET guide (https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/generics-in-the-run-time)); Swift specialises only « If the generic function's definition is visible to the optimizer and the concrete type is known » (Swift, OptimizationTips (https://github.com/swiftlang/swift/blob/main/docs/OptimizationTips.rst)); GHC's `SPECIALIZE` asks « that GHC create a copy of a function with specific arguments; most commonly, a copy of an overloaded function with specific class dictionary arguments » (GHC user guide (https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html)). `ERR-POL-001` keeps all four outside K7PL.
+- The old K archive's « B+ » templates: « Pas de `∀T` », « Pas de `∃T` », no higher kinds, every template monomorphised (« `List(Int64)` est un type concret `List_Int64` »).
 
 - **A — Proposed: collect from the roots, name instances by their hash, count them in the budget.** *For:* chapter 6 is kept as written; every step has a precedent; separate compilation stays possible. *Against:* a generic's source is part of its unit's interface, as C++ headers or rustc's metadata, so changing it recompiles the units that use it.
 
@@ -1694,6 +1891,7 @@ Several options may be chosen.
 
 - Chapter 3 defines a pure layer-2 handler by its transition, « une application (Message × Capacités × État) → État dont l'effet est neutre », whose result « n'est pas un effet exécuté mais une description d'effets, une liste d'instructions que l'exécutif réalise ».
 - Chapter 5 reads today: « Un acteur est la paire additive dépendante (état : S) & Handler(S) du chapitre 3, et `bind-to` n'est qu'un accès de champ », the elaborator filling the handler by type-directed search when it is omitted, ambiguity being refused in Phase 1.
+- The old K archive bound logic to an actor as `(bind-to actor-name (init …) (on-message :tag (msg state) (handler-result :new-state … :reply … :emit […])))`, the runtime committing the result or rolling it back.
 
 - **A — As proposed.** The actor holds its fields, binds by `:bind` the selection (layer 2, productive: which messages it accepts) and gives by `:result` the transformation (layer 3, terminating: the pure function of `lst:fonction-pure`). The handler binds the actor by `:bind` and realises its outcome: the new state and the response, described by `HandlerResult`. The prose: an actor is the pair of its state and of its two functions, the transition of chapter 3 being its `:result`; the handler's `:bind` is what the elaborator fills by type-directed search when it is omitted, the paragraph on coherence moving to it.
 
@@ -1724,6 +1922,7 @@ Several options may be chosen.
 - Racket: `(define id expr)`, `(define (head args) body ...+)`; « The first form binds id to the result of expr, and the second form binds id to a procedure » (Racket reference, define (https://docs.racket-lang.org/reference/define.html)).
 - Clojure's `defn` is a macro: « Same as `(def name (fn [params* ] exprs*))` […] with any doc-string or attrs added to the var metadata » (clojure.core (https://clojure.github.io/clojure/clojure.core-api.html)). Common Lisp: `defun` « Defines a new function named function-name in the global environment » (CLHS, defun (https://www.lispworks.com/documentation/HyperSpec/Body/m_defun.htm)).
 - You wrote `(defvar alpha :num int32)` (Q-LEX-002); chapter 5 writes `defn`, `defhandler`, `defactor`.
+- The old K archive's definition word was `define`.
 
 - **A — def.** Example: `{def ?increment-bounded :type {function int32 int32 {result int32 overflow}} …}`. *For:* short; the root of every `def…` envelope; Clojure's special form.
 - **B — define.** Example: `{define ?increment-bounded :type {function int32 int32 {result int32 overflow}} …}`. *For:* Racket's and Scheme's word. *Against:* the envelopes would read `define-…` or keep `def…`.
@@ -1804,78 +2003,7 @@ Several options may be chosen.
 - **B — ERR-SMT-003.** The solver bounded nothing. *For:* the message names what the solver spent, as chapter 6 asks.
 - **C — ERR-NUM-001.** A segment for numbers, beside the warning of `flo8`. *Against:* a new segment.
 
-### Doubled forms and white brackets
-
-#### Q-LEX-401 — ⟦ ⟧ in layer 3: which precision?
-
-**Object.** Q-LEX-302: `[[ x ]]` is `⟦ x ⟧`, a precision dedicated to layer 3 — the stack, pure and terminating computations — on a memory action, a grade or a resource. Your example: more dimensions for an array, cubes.
-
-**Facts.**
-
-- J: « The verb `u"n` applies u to each cell as specified by the rank n » (J Dictionary, Rank (https://www.jsoftware.com/help/dictionary/d600v.htm)); BQN's Range given a list of lengths gives an array of index lists (fourth part).
-- Chapter 3: `Vec n V` is the only array type of the grammar, its literal `[v₀, …, vₙ₋₁]`; chapter 2 writes `⟦·⟧` for a translation.
-
-Several options may be chosen.
-
-- **rank — Arrays of any rank.** The nesting gives the dimensions: a matrix, a cube, not a vector of vectors. Example: `[[ [1 2 3] [4 5 6] ]]   ;; a 2×3 matrix, checked rectangular`.
-- **range — Ranges.** The fourth part's proposal D (Q-LEX-304 waits for this answer). Example: `[[ 1..9 ]]`.
-- **frame — Placed in the caller's frame.** Storage whose size is known at compile time, reserved in the frame of the calling function and freed with it, its grade explicit. Example: `[[ buffer 256 ]]`.
-- **cells — Applied cell by cell (rank of a function).** A function applied to the cells of a given rank, as J's `"`. Example: `[[ f 1 ]]   ;; f on each row`.
-
-#### Q-LEX-402 — ⦅ ⦆ in layer 2: which precision?
-
-**Object.** `(( x ))` is `⦅ x ⦆`, a precision dedicated to layer 2 — the heap, orchestration, productive computations. Your example: another resolution scheme for a list graph.
-
-**Facts.**
-
-- Clojure's `lazy-seq` « yields a Seqable object that will invoke the body only the first time seq is called, and will cache the result » (clojure.core (https://clojure.github.io/clojure/clojure.core-api.html)).
-- McBride and Paterson write `⟦f u₁ … uₙ⟧`, « indicating a shift into the idiom of an Applicative functor, where a pure function is applied to a sequence of effectful arguments » (Applicative programming with effects, preprint, p. 4 (https://www.staff.city.ac.uk/~ross/papers/Applicative.pdf)); Idris: « `[| f a1 …an |]` is translated into `pure f <*> a1 <*> … <*> an` » (Idris tutorial, idiom brackets (https://docs.idris-lang.org/en/latest/tutorial/interfaces.html)).
-
-Several options may be chosen.
-
-- **lazy — Produced on demand.** A list whose elements are computed when first read, then kept. Example: `(( naturals ))`.
-- **shared — A graph with sharing.** Equal elements shared rather than copied, and the order of traversal stated (breadth or depth first). Example: `(( a b a ))   ;; a once, referenced twice`.
-- **idiom — Idiom brackets.** A pure function applied to effectful arguments, each effect in order: McBride and Paterson's own white brackets. Example: `(( + (read-a) (read-b) ))`.
-- **heap — Another heap region.** Allocation in a named region rather than the standard heap. Example: `(( :region frames … ))`.
-
-#### Q-LEX-403 — ⦃ ⦄ in layer 1: which precision?
-
-**Object.** `{{ x }}` is `⦃ x ⦄`, a precision dedicated to layer 1 — the linear arena, declarations and types. Your example: another arena than the standard one.
-
-**Facts.**
-
-- Zig: « by convention, there is no default allocator in Zig. Instead, functions which need to allocate accept an Allocator parameter » (Zig 0.14.0 (https://ziglang.org/documentation/0.14.0/)). C++: « The memory_resource class is an abstract interface to an unbounded set of classes encapsulating memory resources » (C++ draft, [mem.res] (https://eel.is/c++draft/mem.res)). Rust's `Vec::with_capacity_in`, « nightly-only experimental », builds a vector « with the provided allocator » (Rust std, Vec (https://doc.rust-lang.org/std/vec/struct.Vec.html)).
-- Agda: instance arguments are written `{{x : T}}` or `⦃ x : T ⦄`, and are found when « a unique instance of the required type can be built from declared instances and the current context » (Agda documentation (https://agda.readthedocs.io/en/latest/language/instance-arguments.html)). Chapter 3 has `Arena V`, `Cap ρ` and `slice`.
-
-Several options may be chosen.
-
-- **arena — Another arena.** The declarations are placed in a named arena rather than the standard one. Example: `{{ :arena scratch {field buffer :num int8} }}`.
-- **instance — Filled by search (Agda).** An argument the elaborator finds by type, as it fills a handler in chapter 5, written to make the search visible or to give its result. Example: `{{ counter-handler }}`.
-- **comptime — Evaluated at compile time.** Example: `{{ table-of-squares 256 }}`.
-- **capability — A capability given explicitly.** A capability `Cap ρ` granted to what follows, as chapter 3's handlers receive non-determinism. Example: `{{ :cap clock }}`.
-
-#### Q-LEX-404 — Spacing white brackets
-
-**Object.** The reader does not read white brackets yet. K, which reads K7PL, refuses non-ASCII characters inside a negated character class or a range, so the class of symbols cannot exclude them: `⟦x⟧` is read as one symbol. Spaced, `⟦ x ⟧` reads as a pair, the delimiter winning over the symbol of the same length.
-
-**Facts.**
-
-- Agda: instance arguments « can be enclosed, with proper spacing, e.g. `⦃ x : T ⦄`, in the unicode braces » (Agda documentation (https://agda.readthedocs.io/en/latest/language/instance-arguments.html)).
-- Checked with K 7.1.337 on 2026-10-27: a token with priority, made of the symbol characters around a white bracket, catches `⟦x⟧` and `a⟦b` while `a≠b⊏c` stays a symbol and `⟦ a≠b [c] ⟦ x ⟧ ⟧` reads as nested pairs.
-
-- **A — Spaces required; a glued bracket refused.** A white bracket stands between spaces or other delimiters; an atom that holds one is refused with a code of `ERR-LEX`. *For:* feasible in K today; Agda's rule. *Against:* spaces that ASCII pairs do not need.
-
-  ```text
-  ⟦ x ⟧    ;; a pair
-  ⟦x⟧      ;; refused: ERR-LEX
-  ```
-
-- **B — Glued allowed.** Example: `⟦x⟧   ;; a pair`. *Against:* needs a reader that keeps white brackets out of symbols, which K's regular expressions cannot express; a pre-pass or a hand-written reader.
-- **C — ASCII in files, white brackets on screen.** Files hold `[[ x ]]`; editors may display `⟦ x ⟧`. The reader never meets a white bracket. *Against:* fonts or an editor setting; the two writings of Q-LEX-302 become one.
-
 ### Names that link statements, K and proofs
-
-Added on 2026-10-27 at the author's request, while the fifth part was open.
 
 #### Q-TRC-001 — English labels, aligned with the names of K and Lean
 
@@ -1887,7 +2015,7 @@ Added on 2026-10-27 at the author's request, while the fifth part was open.
 - Mathlib: « Terms of Props (e.g. proofs, theorem names) use snake_case. Props and Types (or Sort) (inductive types, structures, classes) are in UpperCamelCase. » (Mathlib naming conventions (https://leanprover-community.github.io/contribute/naming.html)).
 - The frozen inventory of `wiki/assurance.md` and the pins of the stage C test name statements by their present labels; like the former file names, they would keep them, with a table of correspondence.
 
-- **A — Every label in English, once the words are chosen.** Labels take the English names fixed by the vocabulary lots and by K; a table records each former label; the frozen inventory keeps the former ones. Section tags, which make page addresses, are not touched. *For:* one name from the text to K and Lean. *Against:* published links to a statement's anchor break; 594 references to rewrite, mechanically.
+- **A — Every label in English, once the words are chosen.** Labels take the English names fixed by the vocabulary lots and by K; the frozen inventory takes the new labels directly, without a table of correspondence (author's remark). Section tags, which make page addresses, are not touched. *For:* one name from the text to K and Lean. *Against:* published links to a statement's anchor break; 594 references to rewrite, mechanically.
 
   ```text
   lst:gestionnaire          → lst:handler
@@ -1951,6 +2079,16 @@ Added on 2026-10-27 at the author's request, while the fifth part was open.
   ```
 
 - **C — kebab-case everywhere, Lean included.** Example: `Lean     K7pl.«handler-purity»`. *Against:* every Lean name between «».
+
+### The old K archive
+
+#### Q-ARC-001 — Keeping the old K archive
+
+**Object.** Evaluated in research (« Archive review: early K premises »): 20 modules, a K sketch that K 7.1.337 does not compile, with the layers numbered the other way round; much of its intent is in the current specification, and some of it feeds questions of this part.
+
+- **A — Leave it out; the research section is its record.**
+- **B — Archive it unchanged in the repository.** Under an archive folder, with REUSE headers.
+- **C — Keep only its design notes.**
 
 ## The catalogue, verbatim
 
