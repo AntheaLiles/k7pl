@@ -1053,6 +1053,225 @@ Q-LEX-304).
   "Some languages call this operation flatmap." Source:
   https://doc.rust-lang.org/std/option/enum.Option.html.
 
+## Reading lot: research of 2026-10-27, fifth part
+
+Material for the fifth part of the reading lot
+([questions](questions.md)), opened by the answers to the fourth part.
+Each claim carries its source, read on 2026-10-27; quotations are
+verbatim. What is inferred for K7PL is marked as such and decides
+nothing.
+
+### Escapes: other traditions
+
+- **Doubling.** Ada: `string_element ::= "" |
+  non_quotation_mark_graphic_character`; "A string_element is either a
+  pair of quotation marks (""), or a single graphic_character other
+  than a quotation mark."
+  (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-2-6.html).
+  BQN: "Pairs of quotes `""` in between represent one quote character,
+  and other characters (including `'`) represent themselves"
+  (https://mlochbaum.github.io/BQN/doc/syntax.html); "the character
+  with code point `n` is `@+n`"
+  (https://mlochbaum.github.io/BQN/doc/arithmetic.html).
+- **One escape.** Common Lisp: "If a single escape character is seen,
+  the single escape character is discarded, the next character is
+  accumulated, and accumulation continues."
+  (https://www.lispworks.com/documentation/HyperSpec/Body/02_de.htm).
+- **Names.** Python: `\N{name}`, "Named Unicode character"
+  (https://docs.python.org/3/reference/lexical_analysis.html). Haskell
+  2010, §2.6: escapes by ASCII names (`\NUL` … `\DEL`), `\^A`,
+  decimal, octal and hexadecimal; "The escape character `\&` is
+  provided as a “null character” to allow strings such as `"\137\&9"`
+  and `"\SO\&H"` to be constructed"; a "gap", "two backslants
+  enclosing white characters", is ignored
+  (https://www.haskell.org/onlinereport/haskell2010/haskellch2.html).
+- **Terminated numbers.** XML 1.0: `CharRef ::= '&#' [0-9]+ ';' |
+  '&#x' [0-9a-fA-F]+ ';'`; `&` and `<` "MUST be escaped using either
+  numeric character references or the strings "&amp;" and "&lt;""
+  (https://www.w3.org/TR/xml/, §2.4 and §4.1). R7RS §6.7:
+  `\x<hex scalar value>;`, "specified character (note the terminating
+  semi-colon)" (https://small.r7rs.org/attachment/r7rs.pdf).
+- **JSON.** "All Unicode characters may be placed within the quotation
+  marks, except for the characters that MUST be escaped: quotation
+  mark, reverse solidus, and the control characters (U+0000 through
+  U+001F)." (https://www.rfc-editor.org/rfc/rfc8259#section-7).
+- **Percent-encoding.** "A percent-encoded octet is encoded as a
+  character triplet, consisting of the percent character "%" followed
+  by the two hexadecimal digits representing that octet's numeric
+  value." (https://www.rfc-editor.org/rfc/rfc3986#section-2.1).
+
+Inferred for K7PL, not decided: doubling the quote and opening a raw
+string with two quotes (Q-STR-104) cannot both hold; a semicolon that
+ends a number meets the semicolons that mark comments and disabled
+trees outside strings.
+
+### Strings of several quotes
+
+- **CommonMark**: "A backtick string is a string of one or more
+  backtick characters (`) that is neither preceded nor followed by a
+  backtick. A code span begins with a backtick string and ends with a
+  backtick string of equal length."; one leading and one trailing space
+  are removed when both are present
+  (https://spec.commonmark.org/0.31.2/#code-spans).
+- **C#**: "A raw string literal starts and ends with a minimum of three
+  double quote (") characters"; "When your string literal contains
+  three consecutive double-quotes, you start and end the raw string
+  literal with four double quote characters"; "The raw string
+  literal's content must not contain a set of contiguous " characters
+  whose length is equal to or greater than the raw string literal
+  delimiter length."
+  (https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string).
+- **OCaml**: "Quoted strings are delimited by a matching pair of
+  `{ quoted-string-id |` and `| quoted-string-id }` with the same
+  quoted-string-id on both sides" (https://ocaml.org/manual/5.2/lex.html).
+- **Go**: raw strings between back quotes; "Within the quotes, any
+  character may appear except back quote."
+  (https://go.dev/ref/spec#String_literals).
+
+### Monomorphisation
+
+- **Chapter 6** (`CompilationProcess.lean`, `WhatTheSolverReturns.lean`):
+  Phase 3 monomorphises each generic call into a concrete copy, once;
+  monomorphisation is type-directed inlining and decrements the budget
+  of specialisation, a grade of the unit of compilation shared with
+  inlining, whose exhaustion "arrête la duplication au lieu d'échouer";
+  Phase 4 generalises only row variables in layer 2; the budget is
+  written in the source; handlers compile by capability passing; the
+  unit of specialisation of defunctionalisation is left to decide.
+  Annex A: `ERR-POL-001` refuses dynamic dispatch and virtual tables.
+- **MLton**: "The monomorphiser works by making one pass over the
+  entire program", with "a cache for each variable declared in a
+  polymorphic declaration that maps a lists of type arguments to a new
+  variable name"; finite instances "due to the absence of polymorphic
+  recursion in SML"; unused constructors must be dropped "in order for
+  the translation to terminate"
+  (https://github.com/MLton/mlton/blob/master/doc/guide/src/Monomorphise.adoc).
+  "Whole-program compilation is an integral part of the design of
+  MLton and is not likely to change."
+  (https://github.com/MLton/mlton/blob/master/doc/guide/src/WholeProgramOptimization.adoc).
+- **rustc**: the collector builds the mono item graph from roots,
+  "the public non-generic syntactic items", and follows uses "until no
+  more new nodes are found"; "A generic definition in crate X might
+  produce monomorphizations that are compiled into crate Y"; lazy and
+  eager strategies
+  (https://github.com/rust-lang/rust/blob/1.80.0/compiler/rustc_monomorphize/src/collector.rs).
+  "Rust takes a different approach: it monomorphizes all generic
+  types." (https://rustc-dev-guide.rust-lang.org/backend/monomorph.html).
+  `recursion_limit` defaults to 128; `type_length_limit` bounds "the
+  maximum number of type substitutions allowed when constructing a
+  concrete type during monomorphization"
+  (https://doc.rust-lang.org/reference/attributes/limits.html).
+- **C++**: an "implementation-defined quantity that specifies the
+  limit on the total depth of recursive instantiations"; "The result of
+  an infinite recursion in instantiation is undefined"
+  (https://eel.is/c++draft/temp.inst).
+- **Zig**: "Compile-time parameters is how Zig implements generics. It
+  is compile-time duck typing." (https://ziglang.org/documentation/0.14.0/).
+- **Shared code.** Go 1.18: "a single chunk of assembly for each unique
+  GC shape", each taking a dictionary
+  (https://github.com/golang/proposal/blob/master/design/generics-implementation-gcshape.md).
+  .NET: one specialised type per value type; for reference types "the
+  runtime reuses the previously created specialized version"
+  (https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/generics-in-the-run-time).
+  Swift specialises only "If the generic function's definition is
+  visible to the optimizer and the concrete type is known"
+  (https://github.com/swiftlang/swift/blob/main/docs/OptimizationTips.rst).
+  GHC's `SPECIALIZE` asks "that GHC create a copy of a function with
+  specific arguments; most commonly, a copy of an overloaded function
+  with specific class dictionary arguments"
+  (https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html).
+- **Function arguments.** Lean's `@[specialize]` is "in particular
+  useful for functions that take other functions as parameters"
+  (https://github.com/leanprover/lean4/blob/v4.34.0/src/Lean/Compiler/Specialize.lean).
+  Julia "avoids automatically specializing on argument type parameters
+  in three specific cases: Type, Function, and Vararg"
+  (https://docs.julialang.org/en/v1/manual/performance-tips/).
+
+Inferred for K7PL, not decided: `ERR-POL-001` places K7PL in the
+family that copies (MLton, rustc, C++, Zig) and outside the one that
+shares code (Go, .NET, Swift, GHC); a monomorphisation stopped by an
+exhausted budget leaves no code to call, unlike an inlining. The
+mechanism put to the author (Q-TYP-301) combines rustc's collection,
+MLton's table, chapter 6's hash addressing and budget, and a refusal
+of growing instance chains.
+
+### Branchings
+
+- **Chapter 3**: the term grammar (`eq:grammaire-termes`) holds
+  `return`, `let x ← c in c`, `thunk`, `force`, `box_r`, `unbox`,
+  `always`, `now`, `next`, `delay`, `wait`, `when`, `at_n`,
+  `move_{n→m}`, `operation_ε`, `scoped_f`, `try … catch`, `out` and
+  copatterns, `free`, `slice`, `declassify_ℓ`; its types, `F_ε`,
+  `U_ε`, `!_r`, `□`, `◇`, `◯`, `@_n`, `μ`, `ν`, `Arena`, `Cap`.
+- **Haskell**: the laws of `Monad` start with `return a >>= k = k a`
+  (https://hackage.haskell.org/package/base/docs/Control-Monad.html);
+  a comonad has `extract`, `duplicate` and `extend`
+  (https://hackage.haskell.org/package/comonad/docs/Control-Comonad.html).
+- **CLOS**: "An auxiliary method is a method whose qualifier is
+  :before, :after, or :around"; "All the before methods are called, in
+  most-specific-first order. Their values are ignored."; "All the after
+  methods are called in most-specific-last order."
+  (https://www.lispworks.com/documentation/HyperSpec/Body/07_ffb.htm).
+
+### Definitions and envelopes
+
+- **Racket**: "The first form binds id to the result of expr, and the
+  second form binds id to a procedure."
+  (https://docs.racket-lang.org/reference/define.html).
+- **Clojure**: `defn` is a macro, "Same as (def name (fn [params* ]
+  exprs*)) […] with any doc-string or attrs added to the var metadata"
+  (https://clojure.github.io/clojure/clojure.core-api.html).
+- **Common Lisp**: `defun` "Defines a new function named function-name
+  in the global environment."
+  (https://www.lispworks.com/documentation/HyperSpec/Body/m_defun.htm).
+
+### Codes of warnings
+
+- **GHC** "started emiting a code with the format [GHC-12345] for its
+  messages in version 9.6.1"; the index covers "both errors and
+  warnings" (https://errors.haskell.org/).
+- **C#**: errors such as "CS0029"
+  (https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/)
+  and "Compiler Warning (level 3) CS0168"
+  (https://learn.microsoft.com/en-us/dotnet/csharp/misc/cs0168).
+- **rustc**: "lints are divided into six levels: allow expect warn
+  force-warn deny forbid" (https://doc.rust-lang.org/rustc/lints/levels.html).
+
+### White brackets: meanings and spacing
+
+- **Ranks and arrays.** J: "The verb u"n applies u to each cell as
+  specified by the rank n" (https://www.jsoftware.com/help/dictionary/d600v.htm).
+- **Lists on demand.** Clojure's `lazy-seq` "yields a Seqable object
+  that will invoke the body only the first time seq is called, and will
+  cache the result" (https://clojure.github.io/clojure/clojure.core-api.html).
+- **Idiom brackets.** McBride and Paterson write `⟦f u₁ … uₙ⟧`,
+  "indicating a shift into the idiom of an Applicative functor, where a
+  pure function is applied to a sequence of effectful arguments"
+  (https://www.staff.city.ac.uk/~ross/papers/Applicative.pdf, p. 4;
+  the brackets were checked on the rendered page). Idris: "`[| f a1
+  …an |]` is translated into `pure f <*> a1 <*> … <*> an`"
+  (https://docs.idris-lang.org/en/latest/tutorial/interfaces.html).
+- **Allocators.** Zig: "by convention, there is no default allocator
+  in Zig. Instead, functions which need to allocate accept an Allocator
+  parameter" (https://ziglang.org/documentation/0.14.0/). C++: "The
+  memory_resource class is an abstract interface to an unbounded set of
+  classes encapsulating memory resources." (https://eel.is/c++draft/mem.res).
+  Rust's `Vec::with_capacity_in` is a "nightly-only experimental API"
+  (https://doc.rust-lang.org/std/vec/struct.Vec.html).
+- **Instance arguments.** Agda: "Instance arguments are enclosed in
+  double curly braces {{ }}, e.g. {{x : T}}. Alternatively they can be
+  enclosed, with proper spacing, e.g. ⦃ x : T ⦄, in the unicode braces
+  ⦃ ⦄"; they are found when "a unique instance of the required type can
+  be built from declared instances and the current context"
+  (https://agda.readthedocs.io/en/latest/language/instance-arguments.html).
+- **K, checked on 2026-10-27 with K 7.1.337** (scratch grammar, not in
+  the repository): K refuses non-ASCII characters inside a negated
+  character class or a range, so the symbol class cannot exclude white
+  brackets; `⟦ x ⟧` reads as a pair; a token with priority made of
+  symbol characters around a white bracket catches `⟦x⟧` and `a⟦b`,
+  while `a≠b⊏c` stays a symbol and `⟦ a≠b [c] ⟦ x ⟧ ⟧` reads as nested
+  pairs.
+
 ## Research lot closure
 
 The research closing of 2026-10-25 closed the 53 files of

@@ -1491,7 +1491,7 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 
 - **Choice:** OTHER
 - **Other:** je préfère que `{{ atom }}` corresponde à `⦃ atom ⦄`, `(( atom ))` à `⦅ atom ⦆` et `[[ atom]]` à `⟦ atom ⟧` c'est à dire que ce soit sémantiquement équivalent.  mais que chaque forme doublée soit une précision ou forme spécifique dédiée à la couche source et dont l'usage permet d'apporter une précision forte sur une action mémorielle ou sur un grade ou sur une ressource ou autre => recherches à poursuivre => on peux considérer cela comme du sucre synthaxique ou comme une contrainte formelle pour accéder à un élément dont la modification doit être explicite (eg. utiliser une arene non standard, utiliser un schéma de résolution de graph de liste différent, augmenter le nombre de dimensions de l'array pour faire par exemple des cubes...)
-- **Reading:** the doubled pairs are the white brackets: `{{ atom }}` is `⦃ atom ⦄`, `(( atom ))` is `⦅ atom ⦆` and `[[ atom ]]` is `⟦ atom ⟧`, with the same meaning. Each doubled form is a precision, a form dedicated to its source layer, stating a memory action, a grade, a resource or another aspect explicitly; it may be read as syntactic sugar, or as a formal constraint for reaching an element whose change must be explicit (another arena than the standard one, another resolution scheme for a list graph, more dimensions for an array, such as cubes). Applied to the reader, which reads the white brackets as the doubled pairs of their layer; the meanings are researched in the fifth part (Q-LEX-401).
+- **Reading:** the doubled pairs are the white brackets: `{{ atom }}` is `⦃ atom ⦄`, `(( atom ))` is `⦅ atom ⦆` and `[[ atom ]]` is `⟦ atom ⟧`, with the same meaning. Each doubled form is a precision, a form dedicated to its source layer, stating a memory action, a grade, a resource or another aspect explicitly; it may be read as syntactic sugar, or as a formal constraint for reaching an element whose change must be explicit (another arena than the standard one, another resolution scheme for a list graph, more dimensions for an array, such as cubes). Applied to chapter 5. The reader does not read the white brackets yet: K's regular expressions cannot keep them out of symbols, so their spacing is put to the author in the fifth part (Q-LEX-404); the meanings are researched there too (Q-LEX-401 to Q-LEX-403).
 
 
 #### Q-LEX-303 — With ranges: what does {{…}} hold?
@@ -1545,6 +1545,333 @@ Several options may be chosen.
 - **Justification:** on traite le cas des doubles délimiteurs avant de résoudre ce sujet
 - **Reading:** kept open until the doubled delimiters are settled.
 
+
+## Lot of 2026-10-27, fifth part: escapes, one rule for strings, monomorphisation, branchings and definitions, numbers, white brackets
+
+Questions opened by the answers to the fourth part. They follow the
+same rules: options to enumerate and objectify, then the author's
+choice; **Other** and **Clarify** are always available. The
+options were built from the research recorded in
+[research](research.md), "Reading lot: research of 2026-10-27, fifth part".
+
+Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, `defunc`…) are placeholders.
+
+### Strings
+
+#### Q-STR-301 — Escapes: other traditions
+
+**Object.** The backslash lists of the fourth part (POSIX, C, Rust) did not satisfy you (Q-STR-201). Here are seven other traditions, each answering in its own way the three needs of an escape list: writing the quote itself, writing a control character, writing any character by its number. Several may be combined; any escape outside the list K7PL keeps is refused (Q-STR-102), with the first code of `ERR-LEX` (Q-STR-205). Strings already span lines (Q-STR-103), so a line break never needs an escape.
+
+**Facts.**
+
+- Ada: `string_element ::= "" | non_quotation_mark_graphic_character`; « A string_element is either a pair of quotation marks (""), or a single graphic_character other than a quotation mark » (Ada RM, 2.6 (https://www.adaic.org/resources/add_content/standards/22rm/html/RM-2-6.html)). BQN: « Pairs of quotes `""` in between represent one quote character, and other characters (including `'`) represent themselves » (BQN, syntax (https://mlochbaum.github.io/BQN/doc/syntax.html)); « the character with code point `n` is `@+n` » (BQN, arithmetic (https://mlochbaum.github.io/BQN/doc/arithmetic.html)). SQL doubles its quote too (fourth part, research).
+- Common Lisp: « If a single escape character is seen, the single escape character is discarded, the next character is accumulated, and accumulation continues » (CLHS 2.4.5 (https://www.lispworks.com/documentation/HyperSpec/Body/02_de.htm)): `\` takes the next character as it is, and there is no other escape.
+- Python: `\N{name}`, « Named Unicode character » (Python reference, 2.5.4 (https://docs.python.org/3/reference/lexical_analysis.html)). Haskell names the ASCII controls, `\NUL` `\SOH` … `\ESC` … `\DEL`, and writes `\^A` for a control; « The escape character `\&` is provided as a “null character” to allow strings such as `"\137\&9"` and `"\SO\&H"` to be constructed » (Haskell 2010, §2.6 (https://www.haskell.org/onlinereport/haskell2010/haskellch2.html)).
+- XML: `CharRef ::= '&#' [0-9]+ ';' | '&#x' [0-9a-fA-F]+ ';'`; `&` and `<` « MUST be escaped using either numeric character references or the strings "&amp;" and "&lt;" » (XML 1.0, §2.4 and §4.1 (https://www.w3.org/TR/xml/)). R7RS: `\x<hex scalar value>;`, « specified character (note the terminating semi-colon) » (R7RS, §6.7 (https://small.r7rs.org/attachment/r7rs.pdf)).
+- JSON: « All Unicode characters may be placed within the quotation marks, except for the characters that MUST be escaped: quotation mark, reverse solidus, and the control characters (U+0000 through U+001F) » (RFC 8259, §7 (https://www.rfc-editor.org/rfc/rfc8259#section-7)). URIs: « A percent-encoded octet is encoded as a character triplet, consisting of the percent character "%" followed by the two hexadecimal digits representing that octet's numeric value » (RFC 3986, §2.1 (https://www.rfc-editor.org/rfc/rfc3986#section-2.1)), the rule K7PL took for spaces in paths (Q-STR-203).
+
+Several options may be chosen.
+
+- **double — Doubling, no escape character (Ada, SQL, BQN).** A quote is written twice; nothing else is special. A control character is written as itself in a string that spans lines, or computed outside the literal, as BQN's `@+10`. Example: `"say ""hi"""`. *For:* no backslash at all. *Against:* `""` can no longer open a raw string (Q-STR-302); no tab written visibly.
+- **single — One escape, the next character as it is (Common Lisp).** `\"` and `\\` only; every other escape is refused. Example: `"say \"hi\" or \\"`. *For:* the smallest list; `\` keeps one meaning. *Against:* no control character written visibly.
+- **named — Characters by their Unicode name (Python, Raku).** Example: `"col\N{CHARACTER TABULATION}umn"`. *For:* readable; Unicode names are stable. *Against:* long.
+- **ascii — ASCII mnemonics (Haskell).** Example: `"col\HTumn\LF"`. *For:* short names from one table. *Against:* `\SOH` and `\SO` followed by `H` collide: Haskell needs `\&`.
+- **term — A number ended by a semicolon (XML, R7RS).** Example: `"\x41; \x1F600;"`. *For:* any code point; the end of the number is visible, with no fixed width and no braces. *Against:* outside strings, `;` already marks comments and disabled trees.
+- **json — JSON's list.** Example: `\"  \\  \/  \b  \f  \n  \r  \t  \uXXXX`. *For:* a K7PL string is a JSON string. *Against:* `\uXXXX` reaches only the first 65,536 code points; beyond, two escapes (a surrogate pair).
+- **percent — Percent-encoding, as paths.** Example: `"line%0Anext, 100%25"`. *For:* one rule for paths and strings. *Against:* encodes bytes, not characters; every `%` of a text becomes `%25`.
+
+#### Q-STR-302 — One rule for every string
+
+**Object.** You ask that `""`, `"string"`, `""string""` and `"""string"""` be treated alike (Q-STR-202). Already decided: a string spans lines (Q-STR-103); `""…""` is a raw string, with the meaning of Raku's `｢…｣` (Q-STR-104); a heredoc is written between triple quotes (Q-STR-204). One conflict remains: `""` is also the empty string.
+
+**Facts.**
+
+- CommonMark: « A backtick string is a string of one or more backtick characters (`) that is neither preceded nor followed by a backtick. A code span begins with a backtick string and ends with a backtick string of equal length »; « If the resulting string both begins and ends with a space character, but does not consist entirely of space characters, a single space character is removed from the front and back » (CommonMark 0.31.2, §6.1 (https://spec.commonmark.org/0.31.2/#code-spans)).
+- C#: « A raw string literal starts and ends with a minimum of three double quote (") characters »; « When your string literal contains three consecutive double-quotes, you start and end the raw string literal with four double quote characters »; for a raw string on several lines, « Any whitespace to the left of the closing quotes is removed from all lines of the raw string literal » (C# reference, raw string literals (https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string)). `""` stays the empty string.
+- OCaml: « Quoted strings are delimited by a matching pair of `{ quoted-string-id |` and `| quoted-string-id }` with the same quoted-string-id on both sides » (OCaml manual, lexical conventions (https://ocaml.org/manual/5.2/lex.html)). Go: raw strings stand between back quotes, « Within the quotes, any character may appear except back quote » (Go specification (https://go.dev/ref/spec#String_literals)).
+
+- **A — The count of quotes (CommonMark's rule).** A string opens with a run of *n* quotes and closes at the next run of exactly *n*. One quote: escapes apply (Q-STR-301). Two or more: raw, as `｢…｣`; with three or more, a block when the opening run ends its line, the indentation of the closing run being removed from every line (Q-STR-204). A run of two quotes followed by a space, a delimiter or the end of a line is the empty string. *For:* one rule for every length, your three forms kept. *Against:* a raw string cannot begin with a space after two quotes (it would read as the empty string): it takes three.
+
+  ```text
+  ""                 ;; the empty string
+  "a \"b\""          ;; one quote: escapes
+  ""a "b" c""        ;; two: raw, as ｢a "b" c｣
+  """a ""b"" c"""    ;; three: raw, may hold ""
+  """
+    a block
+    """              ;; three, alone on the line: a block
+  ```
+
+- **B — C#'s rule.** `""` is always the empty string; a raw string takes at least three quotes, and as many as needed to hold shorter runs; a block when the opening run ends its line. *For:* no exception; a rule in use (C# 11). *Against:* `""…""` of Q-STR-104 becomes `"""…"""`.
+
+  ```text
+  ""                 ;; the empty string
+  """a "b" c"""      ;; raw
+  """"a """b""" c""""  ;; raw, holds """
+  ```
+
+- **C — Two quotes typed, corner brackets stored.** `""` is the empty string; the file holds `｢…｣`, which the editor or the formatter writes when `""…""` is typed; blocks between triple quotes. *For:* no exception in the reader. *Against:* non-ASCII characters in files; a formatter becomes part of the toolchain.
+
+### Monomorphisation
+
+#### Q-TYP-301 — A mechanism, from chapter 6 and from MLton and rustc
+
+**Object.** You asked (Q-TYP-203) for the mechanisms of other compilers, weighed, then for one that keeps the best of them without distorting chapter 6. Chapter 6 already fixes: Phase 3 « monomorphise chaque appel générique en une copie concrète », once (« La monomorphisation, elle, ne s'exécute qu'une seule fois »); monomorphisation « n'est qu'une intégration dirigée par les types » and decrements the budget of specialisation, a grade carried by the unit of compilation, shared with inlining (« une seule décision les gouverne »); the interface of a unit carries its grade (`thm:interface_jugement`); a binary is addressed by the BLAKE3 hash of its normalised AST. Annex A refuses dynamic dispatch: `ERR-POL-001`, « Distribution dynamique ou table virtuelle détectée. Utiliser une résolution `comptime` ou des variantes monomorphes ».
+
+**Facts.**
+
+- MLton: « The monomorphiser works by making one pass over the entire program », with « a cache for each variable declared in a polymorphic declaration that maps a lists of type arguments to a new variable name »; the instances are finite « due to the absence of polymorphic recursion in SML » (MLton guide, Monomorphise (https://github.com/MLton/mlton/blob/master/doc/guide/src/Monomorphise.adoc)); « Whole-program compilation is an integral part of the design of MLton and is not likely to change » (MLton guide, WholeProgramOptimization (https://github.com/MLton/mlton/blob/master/doc/guide/src/WholeProgramOptimization.adoc)).
+- rustc: « The roots of the mono item graph correspond to the public non-generic syntactic items »; then, « Starting from the roots, find uses […] until no more new nodes are found »; « A generic definition in crate X might produce monomorphizations that are compiled into crate Y »; a lazy strategy, « items will only be instantiated when actually used » (rustc 1.80.0, collector (https://github.com/rust-lang/rust/blob/1.80.0/compiler/rustc_monomorphize/src/collector.rs)). Limits: `recursion_limit`, 128 by default; `type_length_limit`, « the maximum number of type substitutions allowed when constructing a concrete type during monomorphization » (Rust reference, limits (https://doc.rust-lang.org/reference/attributes/limits.html)).
+- C++: « There is an implementation-defined quantity that specifies the limit on the total depth of recursive instantiations […]. The result of an infinite recursion in instantiation is undefined », with `X<T>` requiring `X<T*>`, which requires `X<T**>`… (C++ draft, [temp.inst] (https://eel.is/c++draft/temp.inst)). Zig: « Compile-time parameters is how Zig implements generics. It is compile-time duck typing. » (Zig 0.14.0 (https://ziglang.org/documentation/0.14.0/)).
+- Code shared at run time: Go 1.18 generates « a single chunk of assembly for each unique GC shape », each taking « a *dictionary* » (Go design, GC shape stenciling (https://github.com/golang/proposal/blob/master/design/generics-implementation-gcshape.md)); .NET makes one copy per value type, while « every time that a constructed type is instantiated with a reference type as its parameter, regardless of what type it is, the runtime reuses the previously created specialized version » (.NET guide (https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/generics-in-the-run-time)); Swift specialises only « If the generic function's definition is visible to the optimizer and the concrete type is known » (Swift, OptimizationTips (https://github.com/swiftlang/swift/blob/main/docs/OptimizationTips.rst)); GHC's `SPECIALIZE` asks « that GHC create a copy of a function with specific arguments; most commonly, a copy of an overloaded function with specific class dictionary arguments » (GHC user guide (https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html)). `ERR-POL-001` keeps all four outside K7PL.
+
+- **A — Proposed: collect from the roots, name instances by their hash, count them in the budget.** *For:* chapter 6 is kept as written; every step has a precedent; separate compilation stays possible. *Against:* a generic's source is part of its unit's interface, as C++ headers or rustc's metadata, so changing it recompiles the units that use it.
+
+  1. **Collection** (rustc): from the roots of the unit — its entry points and what its interface exports — follow the uses, instance by instance, until nothing new appears; only the instances reached are made (MLton's cache, keyed by the type arguments, is the table).
+  2. **Identity by content**: an instance is named by the hash of the generic's normalised AST and of its type arguments, as the binary is in chapter 6; an instance needed by two units is made once and linked once. A generic of another unit is instantiated in the unit that uses it (rustc), its source travelling in the interface.
+  3. **Budget**: each new instance decrements the budget of specialisation written in the source; an instance already made costs nothing.
+  4. **Growth refused**: a chain of instances whose types grow on a cycle (polymorphic recursion, C++'s `X<T*>`) is refused by its own code, naming the cycle, whatever the budget — where rustc and C++ only meet a limit.
+  5. **Nothing shared at run time**: no dictionary, no table (`ERR-POL-001`); the rows of layer 2 (Phase 4) are instantiated like types; effect handlers keep chapter 6's capability passing, a capability being a value of layer 1.
+
+- **B — The whole program at once (MLton).** One pass over the whole program; every instance is known. *For:* the simplest. *Against:* no separate compilation, against the grade carried by the unit of compilation in chapter 6.
+- **C — Shared code by layout (Go).** One copy per memory layout, a dictionary for the rest. *Against:* a dictionary is dynamic dispatch, refused by `ERR-POL-001`; « tout est monomorphé » would no longer hold.
+
+#### Q-TYP-302 — When the budget of specialisation runs out
+
+**Object.** Chapter 6 says of the budget that its exhaustion « arrête la duplication au lieu d'échouer ». For inlining, stopping leaves a call, which works. For monomorphisation, a generic call left without its instance has no code to call, since nothing is shared at run time (`ERR-POL-001`).
+
+**Facts.**
+
+- Chapter 6, on the solver: « un refus qui nomme l'obligation qu'il n'a pas su décider, ce qu'il y a consacré et ce qui la déciderait est une assistance »; « le budget relevé doit être écrit dans la source »; « Le budget du solveur est un compte de ressource, jamais un délai ».
+- rustc and C++ stop at a fixed limit (Q-TYP-301); chapter 6 replaces such limits by grades carried by the unit.
+
+- **A — Inlining stops, monomorphisation refuses.** Exhaustion stops inlining (calls stay), and refuses the program if an instance is still missing, with a code naming the generic, the chain of instances, the budget spent and the budget that would suffice. The sentence of chapter 6 is made precise: « au lieu d'échouer » holds for inlining. *For:* the solver's kind of refusal; nothing hidden.
+- **B — A, with instances served first.** Instances draw on the budget before inlining, which gets what remains; the refusal comes only when the instances alone exceed it. *For:* inlining never starves a needed instance. *Against:* an order between the two uses of one budget.
+- **C — Two budgets.** One for instances, one for inlining. *Against:* chapter 6 says « une seule décision les gouverne ».
+
+#### Q-TYP-303 — Functions as arguments: one copy per function?
+
+**Object.** Chapter 6 leaves a decision open: in defunctionalisation, « l'unité de spécialisation — une fonction d'ordre supérieur employée avec deux arguments fonctionnels distincts se spécialise en deux fonctions distinctes, et il faut décider si c'est ce qu'on veut » (Brandon et al., 2023, in its bibliography). It extends monomorphisation from types to function arguments.
+
+**Facts.**
+
+- Lean: « Specialization is an optimization in the code generator for generating variants of a function that are specialized to specific parameter values. This is in particular useful for functions that take other functions as parameters » (`@[specialize]`, Lean 4.34.0, Specialize.lean (https://github.com/leanprover/lean4/blob/v4.34.0/src/Lean/Compiler/Specialize.lean)).
+- Julia: « As a heuristic, Julia avoids automatically specializing on argument type parameters in three specific cases: Type, Function, and Vararg » (Julia manual, performance tips (https://docs.julialang.org/en/v1/manual/performance-tips/)). GHC: a `SPECIALIZE` pragma generates « (a) a specialised version of the function and (b) a rewrite rule » (GHC user guide).
+
+- **A — Yes, in the same budget.** A higher-order function is copied for each distinct function argument known at compile time, each copy decrementing the budget; beyond it, the arguments are defunctionalised into tags and the function chooses by a `case` over that closed set, decided at compile time. *For:* one rule for types and functions; no closure to allocate.
+- **B — Only when asked.** A property, `:specialize` for instance, asks for copies, as Lean's attribute; otherwise one function with tagged arguments. *For:* code size stays under the programmer's eye. *Against:* a property to write where the gain is wanted.
+- **C — Never.** One function per higher-order definition, its function arguments defunctionalised into tags. *Against:* a `case` at each call of the argument.
+
+### Branchings and definitions
+
+#### Q-SPEC-201 — The inventory of branchings
+
+**Object.** You decided (Q-SPEC-101) that monadic constructions are explicit branchings, properties written with `:` — `:bind something`, `:return somethingelse` — and asked for the whole inventory, CLOS's `:before`, `:after` and `:around` included, with the constructions of the specification about resources and time. The inventory below is the term grammar of chapter 3 (`eq:grammaire-termes`), grouped by the modality each family builds or consumes. Tick the families that become branchings; the property names repeat the words of chapter 3.
+
+**Facts.**
+
+- Haskell: `return a >>= k = k a` among the laws of `Monad` (base, Control.Monad (https://hackage.haskell.org/package/base/docs/Control-Monad.html)); a comonad has `extract :: w a -> a`, `duplicate :: w a -> w (w a)` and `extend :: (w a -> b) -> w a -> w b` (comonad, Control.Comonad (https://hackage.haskell.org/package/comonad/docs/Control-Comonad.html)).
+- CLOS: « An auxiliary method is a method whose qualifier is :before, :after, or :around »; « All the before methods are called, in most-specific-first order. Their values are ignored »; inside an around method, « call-next-method can be used to call the next method » (CLHS 7.6.6.2 (https://www.lispworks.com/documentation/HyperSpec/Body/07_ffb.htm)).
+- Chapter 3, types: `F_ε` the computation that returns a value, `U_ε` its suspension, `!_r` the graded comonad, `□` `◇` `◯` the three temporal modalities, `@_n` localisation, `μ` and `ν` the fixed points, `Arena` and `Cap` the resources.
+
+Several options may be chosen.
+
+- **monad — The computation F_ε (decided).** `return v`, and `let x ← c in c`. Example: `:return  :bind`.
+- **thunk — Suspension U_ε.** `thunk c` holds a computation as a value; `force v` runs it. Example: `:thunk  :force`.
+- **comonad — The graded comonad !_r.** `box_r v` promotes a value under a grade; `unbox v as x in c` extracts it — Haskell's `extract`, of which `extend` and `duplicate` are built. Example: `:box  :unbox`.
+- **time — Time: □ ◇ ◯.** `always v`, `now v`, `next v`, `delay c`, `wait v`, `when x = v in c`. Example: `:always  :now  :next  :delay  :wait  :when`.
+- **place — Place: @_n.** `at_n c` runs at a place, `move_{n→m} v` carries a value between places. Example: `:at  :move`.
+- **effect — Operations and handlers.** `operation_ε(v)`, `scoped_f(v, c)`, `try c catch c`. Example: `:perform  :scoped  :try  :catch`.
+- **cofix — Productive streams: ν.** `out c` observes one step of a productive computation; copatterns `⟨⟨j ↦ c_j⟩⟩` answer each observation. Example: `:out`.
+- **resource — Resources.** `free v`, `slice v as (x, y) in c` splits an arena, `declassify_ℓ(v)` lowers a confidentiality level. Example: `:free  :slice  :declassify`.
+- **clos — Method combination (CLOS).** Auxiliary definitions run before, after or around a primary one, the around one calling the next. Example: `:before  :after  :around`.
+
+#### Q-SPEC-202 — Rewriting lst:gestionnaire and lst:acteur
+
+**Object.** Your answer to Q-SPEC-102: a handler binds actors, `{defhandler beta :bind actor-name}`; an actor binds productive or terminating functions, `{defactor actor-name :bind (selection algorythm) :result [transformation algorythm]}`. Below, the counter of chapter 5 rewritten on that model, with what the prose would then say. Nothing is applied before your choice.
+
+**Facts.**
+
+- Chapter 3 defines a pure layer-2 handler by its transition, « une application (Message × Capacités × État) → État dont l'effet est neutre », whose result « n'est pas un effet exécuté mais une description d'effets, une liste d'instructions que l'exécutif réalise ».
+- Chapter 5 reads today: « Un acteur est la paire additive dépendante (état : S) & Handler(S) du chapitre 3, et `bind-to` n'est qu'un accès de champ », the elaborator filling the handler by type-directed search when it is omitted, ambiguity being refused in Phase 1.
+
+- **A — As proposed.** The actor holds its fields, binds by `:bind` the selection (layer 2, productive: which messages it accepts) and gives by `:result` the transformation (layer 3, terminating: the pure function of `lst:fonction-pure`). The handler binds the actor by `:bind` and realises its outcome: the new state and the response, described by `HandlerResult`. The prose: an actor is the pair of its state and of its two functions, the transition of chapter 3 being its `:result`; the handler's `:bind` is what the elaborator fills by type-directed search when it is omitted, the paragraph on coherence moving to it.
+
+  ```text
+  {defactor counter
+    {field value :num int}
+    {field bound :num int}
+    :bind (accept Increment)
+    :result [?increment-bounded [view state value] [view state bound]]}
+  
+  {defhandler counter-handler :type …
+    :bind counter
+    (match outcome
+      ((Ok new-value)
+       (HandlerResult :state (set state value new-value) :response (Ok new-value)))
+      ((Err e)
+       (HandlerResult :state state :response (Err e))))}
+  ```
+
+- **B — The listings as proposed, the prose to rework together.** The two listings of A enter chapter 5; the paragraphs on the pair and on coherence are rewritten in a later lot.
+
+#### Q-SPEC-203 — The generic definition word
+
+**Object.** Q-TYP-201: a generic word, as Racket's `define`, from which guided envelopes are built (`defhandler`, `defunc`, `defanything`), a `defunc` carrying its function type, and a composed definition building refined types — « Toujours pas de l'objet mais très proche sans mutation ». An envelope reads as the generic word with its properties filled in.
+
+**Facts.**
+
+- Racket: `(define id expr)`, `(define (head args) body ...+)`; « The first form binds id to the result of expr, and the second form binds id to a procedure » (Racket reference, define (https://docs.racket-lang.org/reference/define.html)).
+- Clojure's `defn` is a macro: « Same as `(def name (fn [params* ] exprs*))` […] with any doc-string or attrs added to the var metadata » (clojure.core (https://clojure.github.io/clojure/clojure.core-api.html)). Common Lisp: `defun` « Defines a new function named function-name in the global environment » (CLHS, defun (https://www.lispworks.com/documentation/HyperSpec/Body/m_defun.htm)).
+- You wrote `(defvar alpha :num int32)` (Q-LEX-002); chapter 5 writes `defn`, `defhandler`, `defactor`.
+
+- **A — def.** Example: `{def ?increment-bounded :type {function int32 int32 {result int32 overflow}} …}`. *For:* short; the root of every `def…` envelope; Clojure's special form.
+- **B — define.** Example: `{define ?increment-bounded :type {function int32 int32 {result int32 overflow}} …}`. *For:* Racket's and Scheme's word. *Against:* the envelopes would read `define-…` or keep `def…`.
+- **C — defn.** Example: `{defn ?increment-bounded :type {function …} …}`. *For:* the word chapter 5 already writes. *Against:* Clojure's `defn` defines functions only.
+
+#### Q-SPEC-204 — How envelopes are made
+
+**Object.** An envelope (`defunc`, `defhandler`, `defactor`, `defvar`) is the generic word with properties filled in. Who may make one, and how does a composed definition refine a type?
+
+**Facts.**
+
+- Q-TYP-003: « On va coder la stdlib en layer 1 pour définir les fonctions et leurs comportement dans les couches 2 et 3. »
+- Annex A, `ERR-MAC-001`: « Macro dont l'expansion introduit une liaison capturable par le site d'appel sans l'avoir déclarée. »
+
+- **A — Layer-1 macros, open to everyone.** An envelope is a layer-1 macro expanded at compile time; the standard library defines `defunc`, `defhandler`, `defactor`, `defvar`, and a program may add its own, under the hygiene of `ERR-MAC-001`.
+
+  ```text
+  {defunc ?increment-bounded :type {function …} …}
+  ;; reads as
+  {def ?increment-bounded :kind function :type {function …} …}
+  ```
+
+- **B — A closed set, given by the language.** *For:* every envelope known to the tools. *Against:* a new kind of definition waits for the language.
+- **C — A, and envelopes compose.** An envelope may be built from another and add properties to it, each step refining the type of the definitions it makes, without mutating the one it builds on.
+
+  ```text
+  {defenvelope defpure :from defunc :purity ?}
+  {defpure increment-bounded …}   ;; a defunc that must be pure
+  ```
+
+
+#### Q-SPEC-205 — The name of the function envelope
+
+**Object.** You wrote `defunc`; the head of a function type is `function` (Q-TYP-202) and the abstraction is `lambda` (VOC-2026-10-26-002).
+
+- **A — defunc.** *For:* your word; reads « define function ».
+- **B — defun.** *For:* Common Lisp's word.
+- **C — defn.** *For:* Clojure's word, and chapter 5's today.
+- **D — deffunction.** *For:* the type's head, whole. *Against:* the longest.
+
+### Numbers
+
+#### Q-NUM-301 — « fixN = two floN/2 »
+
+**Object.** Your justification of Q-NUM-201 reads: « spécifier une "default value" en cas d'oubli : flo8 = flo8e4 by default ; la corrolaire fixN = two floN/2 ». Two readings are possible.
+
+**Facts.**
+
+- The complex numbers: `com64 = two flo32` (VOC-2026-10-26-023). The fixed-point numbers: `fix4.16`, « 4bit devant et 16bit derrière » (Q-NUM-004).
+
+- **A — comN: the complex numbers.** The corollary is `comN = two floN/2`, as `com64 = two flo32`.
+- **B — fixN alone: halves by default.** A fixed-point number given without its point, `fix32`, is `fix16.16` by default, with a warning, as `flo8` is `flo8e4`. Example: `fix32   ;; fix16.16, with a warning`.
+- **C — Both.**
+
+#### Q-NUM-302 — The codes of warnings
+
+**Object.** `flo8` alone gives a warning, not an error (Q-NUM-201). Codes so far are `ERR-XXX-NNN`; Q-ERR-004 plans an index with one page per code, as GHC and Rust do.
+
+**Facts.**
+
+- GHC: « started emiting a code with the format [GHC-12345] for its messages in version 9.6.1 », the index describing « both errors and warnings » (The Haskell Error Index (https://errors.haskell.org/)). C#: an error number such as « CS0029 » (C# compiler messages (https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/)), and « Compiler Warning (level 3) CS0168 » (C# reference (https://learn.microsoft.com/en-us/dotnet/csharp/misc/cs0168)): one prefix for both.
+- rustc: « lints are divided into six levels: allow expect warn force-warn deny forbid » (rustc book, lint levels (https://doc.rust-lang.org/rustc/lints/levels.html)).
+
+- **A — A prefix of their own.** Example: `WRN-NUM-001  flo8 without its format: flo8e4 assumed`. *For:* the severity reads in the code; the segments stay shared with errors.
+- **B — Named lints with levels (rustc).** Example: `flo8-default   ;; warn by default; allow or deny`. *For:* a project may turn a warning into an error. *Against:* names beside numbered codes.
+- **C — One numbering, the level beside the code (GHC, C#).** Example: `NUM-001 (warning)`. *Against:* the existing `ERR-` codes lose their prefix, or warnings carry `ERR`.
+
+#### Q-NUM-303 — The code of an unresolved typed hole
+
+**Object.** Q-NUM-203: a typed hole takes the smallest width that holds every value the solver can bound, and is refused when the solver bounds none.
+
+**Facts.**
+
+- Annex A: `ERR-SMT-001`, « Intervalle du témoin contredisant les contraintes inférées », and `ERR-SMT-002`; the `ERR-TYP` segment ends at `ERR-TYP-012`.
+- Chapter 6: a refusal « nomme l'obligation qu'il n'a pas su décider, ce qu'il y a consacré et ce qui la déciderait ».
+
+- **A — ERR-TYP-013.** A type left incomplete. *For:* the user's view: a type is missing.
+- **B — ERR-SMT-003.** The solver bounded nothing. *For:* the message names what the solver spent, as chapter 6 asks.
+- **C — ERR-NUM-001.** A segment for numbers, beside the warning of `flo8`. *Against:* a new segment.
+
+### Doubled forms and white brackets
+
+#### Q-LEX-401 — ⟦ ⟧ in layer 3: which precision?
+
+**Object.** Q-LEX-302: `[[ x ]]` is `⟦ x ⟧`, a precision dedicated to layer 3 — the stack, pure and terminating computations — on a memory action, a grade or a resource. Your example: more dimensions for an array, cubes.
+
+**Facts.**
+
+- J: « The verb `u"n` applies u to each cell as specified by the rank n » (J Dictionary, Rank (https://www.jsoftware.com/help/dictionary/d600v.htm)); BQN's Range given a list of lengths gives an array of index lists (fourth part).
+- Chapter 3: `Vec n V` is the only array type of the grammar, its literal `[v₀, …, vₙ₋₁]`; chapter 2 writes `⟦·⟧` for a translation.
+
+Several options may be chosen.
+
+- **rank — Arrays of any rank.** The nesting gives the dimensions: a matrix, a cube, not a vector of vectors. Example: `[[ [1 2 3] [4 5 6] ]]   ;; a 2×3 matrix, checked rectangular`.
+- **range — Ranges.** The fourth part's proposal D (Q-LEX-304 waits for this answer). Example: `[[ 1..9 ]]`.
+- **frame — Placed in the caller's frame.** Storage whose size is known at compile time, reserved in the frame of the calling function and freed with it, its grade explicit. Example: `[[ buffer 256 ]]`.
+- **cells — Applied cell by cell (rank of a function).** A function applied to the cells of a given rank, as J's `"`. Example: `[[ f 1 ]]   ;; f on each row`.
+
+#### Q-LEX-402 — ⦅ ⦆ in layer 2: which precision?
+
+**Object.** `(( x ))` is `⦅ x ⦆`, a precision dedicated to layer 2 — the heap, orchestration, productive computations. Your example: another resolution scheme for a list graph.
+
+**Facts.**
+
+- Clojure's `lazy-seq` « yields a Seqable object that will invoke the body only the first time seq is called, and will cache the result » (clojure.core (https://clojure.github.io/clojure/clojure.core-api.html)).
+- McBride and Paterson write `⟦f u₁ … uₙ⟧`, « indicating a shift into the idiom of an Applicative functor, where a pure function is applied to a sequence of effectful arguments » (Applicative programming with effects, preprint, p. 4 (https://www.staff.city.ac.uk/~ross/papers/Applicative.pdf)); Idris: « `[| f a1 …an |]` is translated into `pure f <*> a1 <*> … <*> an` » (Idris tutorial, idiom brackets (https://docs.idris-lang.org/en/latest/tutorial/interfaces.html)).
+
+Several options may be chosen.
+
+- **lazy — Produced on demand.** A list whose elements are computed when first read, then kept. Example: `(( naturals ))`.
+- **shared — A graph with sharing.** Equal elements shared rather than copied, and the order of traversal stated (breadth or depth first). Example: `(( a b a ))   ;; a once, referenced twice`.
+- **idiom — Idiom brackets.** A pure function applied to effectful arguments, each effect in order: McBride and Paterson's own white brackets. Example: `(( + (read-a) (read-b) ))`.
+- **heap — Another heap region.** Allocation in a named region rather than the standard heap. Example: `(( :region frames … ))`.
+
+#### Q-LEX-403 — ⦃ ⦄ in layer 1: which precision?
+
+**Object.** `{{ x }}` is `⦃ x ⦄`, a precision dedicated to layer 1 — the linear arena, declarations and types. Your example: another arena than the standard one.
+
+**Facts.**
+
+- Zig: « by convention, there is no default allocator in Zig. Instead, functions which need to allocate accept an Allocator parameter » (Zig 0.14.0 (https://ziglang.org/documentation/0.14.0/)). C++: « The memory_resource class is an abstract interface to an unbounded set of classes encapsulating memory resources » (C++ draft, [mem.res] (https://eel.is/c++draft/mem.res)). Rust's `Vec::with_capacity_in`, « nightly-only experimental », builds a vector « with the provided allocator » (Rust std, Vec (https://doc.rust-lang.org/std/vec/struct.Vec.html)).
+- Agda: instance arguments are written `{{x : T}}` or `⦃ x : T ⦄`, and are found when « a unique instance of the required type can be built from declared instances and the current context » (Agda documentation (https://agda.readthedocs.io/en/latest/language/instance-arguments.html)). Chapter 3 has `Arena V`, `Cap ρ` and `slice`.
+
+Several options may be chosen.
+
+- **arena — Another arena.** The declarations are placed in a named arena rather than the standard one. Example: `{{ :arena scratch {field buffer :num int8} }}`.
+- **instance — Filled by search (Agda).** An argument the elaborator finds by type, as it fills a handler in chapter 5, written to make the search visible or to give its result. Example: `{{ counter-handler }}`.
+- **comptime — Evaluated at compile time.** Example: `{{ table-of-squares 256 }}`.
+- **capability — A capability given explicitly.** A capability `Cap ρ` granted to what follows, as chapter 3's handlers receive non-determinism. Example: `{{ :cap clock }}`.
+
+#### Q-LEX-404 — Spacing white brackets
+
+**Object.** The reader does not read white brackets yet. K, which reads K7PL, refuses non-ASCII characters inside a negated character class or a range, so the class of symbols cannot exclude them: `⟦x⟧` is read as one symbol. Spaced, `⟦ x ⟧` reads as a pair, the delimiter winning over the symbol of the same length.
+
+**Facts.**
+
+- Agda: instance arguments « can be enclosed, with proper spacing, e.g. `⦃ x : T ⦄`, in the unicode braces » (Agda documentation (https://agda.readthedocs.io/en/latest/language/instance-arguments.html)).
+- Checked with K 7.1.337 on 2026-10-27: a token with priority, made of the symbol characters around a white bracket, catches `⟦x⟧` and `a⟦b` while `a≠b⊏c` stays a symbol and `⟦ a≠b [c] ⟦ x ⟧ ⟧` reads as nested pairs.
+
+- **A — Spaces required; a glued bracket refused.** A white bracket stands between spaces or other delimiters; an atom that holds one is refused with a code of `ERR-LEX`. *For:* feasible in K today; Agda's rule. *Against:* spaces that ASCII pairs do not need.
+
+  ```text
+  ⟦ x ⟧    ;; a pair
+  ⟦x⟧      ;; refused: ERR-LEX
+  ```
+
+- **B — Glued allowed.** Example: `⟦x⟧   ;; a pair`. *Against:* needs a reader that keeps white brackets out of symbols, which K's regular expressions cannot express; a pre-pass or a hand-written reader.
+- **C — ASCII in files, white brackets on screen.** Files hold `[[ x ]]`; editors may display `⟦ x ⟧`. The reader never meets a white bracket. *Against:* fonts or an editor setting; the two writings of Q-LEX-302 become one.
 
 ## The catalogue, verbatim
 
