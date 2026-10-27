@@ -249,7 +249,7 @@ components:
     roots:
       - proofs/
     build_command: lake build K7PL2Lean K7PL
-    check_command: scripts/ci/k7pl_semantics_build_proofs.sh
+    check_command: deno run --allow-read --allow-run --allow-write tools/ci-controller/src/build_proofs.ts --build --workdir proofs
     cache_determinants:
       - proofs/lake-manifest.json
       - proofs/lean-toolchain
