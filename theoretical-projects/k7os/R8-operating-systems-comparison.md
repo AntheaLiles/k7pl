@@ -31,8 +31,8 @@ Les sources principales sont la documentation des projets, leurs descriptions ar
 
 Sources K7PL examinées au snapshot indiqué :
 
-- [C4 — Échelle du système](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/spec/Spec/C4/SystemScale.lean)
-- [C4 — Sémantique opérationnelle](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/spec/Spec/C4/OperationalSemantics.lean)
+- [C4 — Échelle du système](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/spec/Spec/C4/EchelleDuSysteme.lean)
+- [C4 — Sémantique opérationnelle](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/spec/Spec/C4/SemantiqueOperationnelle.lean)
 - [R0 — Modèle de menace et matrice d’assurance](https://github.com/AntheaLiles/k7pl/blob/4a5daa42debaa7cd03199bc8e5a99a356bc85ffe/docs/research/k7pl-os/R0-threat-model-assurance-matrix.md)
 - [R6 — Grades, budgets et WCET](R6-grades-budgets-WCET-real-time.md)
 - [R7 — Pannes, ressources linéaires et persistance](R7-failures-linear-resources-persistence.md)

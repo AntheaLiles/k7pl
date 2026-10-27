@@ -30,7 +30,7 @@ The first two can be pursued through proof erasure, compile-time verification an
 
 ### 2.1 C4 operational semantics
 
-The current [C4 operational semantics](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/OperationalSemantics.lean) describes a configuration containing a computation, an arena state, and an effect trace, written conceptually as `⟨c, μ, τ⟩`. Pure steps preserve the arena and trace; effectful operations may change the arena and append events. The semantics also distinguishes sequential event order from the partial order needed under concurrency.
+The current [C4 operational semantics](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/SemantiqueOperationnelle.lean) describes a configuration containing a computation, an arena state, and an effect trace, written conceptually as `⟨c, μ, τ⟩`. Pure steps preserve the arena and trace; effectful operations may change the arena and append events. The semantics also distinguishes sequential event order from the partial order needed under concurrency.
 
 The associated [C-07 simulation audit](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/docs/migration/C-07-SIMULATION-AUDIT.md) identifies gaps in the source-to-target simulation contract. In particular, a relation connecting source arena state to target state is missing, the mapping from target events to the source trace is not fully defined, the target structural equivalence needs an exact contract, and the proof must control extra target steps.
 
@@ -52,9 +52,9 @@ The current experiment is therefore a useful starting point, not a completed sou
 
 ### 2.3 C6 compilation design
 
-The current [C6 compilation pipeline](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C6/CompilationProcess.lean) proposes checks for usage, types, effects, termination/productivity and constraints, followed by optimisation and lowering toward MLIR and LLVM. Its text leaves the exact decidable SMT fragment open and marks premises of pipeline stabilisation as obligations.
+The current [C6 compilation pipeline](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C6/LeProcessusDeCompilation.lean) proposes checks for usage, types, effects, termination/productivity and constraints, followed by optimisation and lowering toward MLIR and LLVM. Its text leaves the exact decidable SMT fragment open and marks premises of pipeline stabilisation as obligations.
 
-The [solve-output section](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C6/WhatTheSolverReturns.lean) distinguishes reproducible abstract compile-time resource usage from elapsed time, and asks cross-package obligations to carry certificates. That is a useful assurance design, but the stated certificate requirement must not be confused with proof that every current phase emits and checks the required certificate.
+The [solve-output section](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C6/CeQueLeSolveurRetourne.lean) distinguishes reproducible abstract compile-time resource usage from elapsed time, and asks cross-package obligations to carry certificates. That is a useful assurance design, but the stated certificate requirement must not be confused with proof that every current phase emits and checks the required certificate.
 
 ## 3. What semantic preservation must cover
 
@@ -382,7 +382,7 @@ Sources were checked on 2026-10-23 unless a named release is given.
 5. **MLIR Dialect Conversion.** Operation conversion/type legality infrastructure, not a generic semantic theorem. [Official documentation](https://mlir.llvm.org/docs/DialectConversion/).
 6. **Alive2.** Bounded LLVM translation validation and its stated limits. [PLDI paper page](https://web.tecnico.ulisboa.pt/nuno.lopes/pubs.php?id=alive2-pldi21); [tool repository](https://github.com/AliveToolkit/alive2).
 7. **MLIR translation validation research.** A candidate method requiring evaluation against K7PL's dialects. [Publication DOI](https://doi.org/10.1142/S021819402450030X).
-8. **K7PL sources.** [C4 semantics](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/OperationalSemantics.lean); [C-07 audit](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/docs/migration/C-07-SIMULATION-AUDIT.md); [K artifacts](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/CodeArtifacts.lean); [MachineSoundness](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/proofs/K7PL/MachineSoundness.lean); [ADR-0012](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/docs/decisions/0012-k-as-normative-home-of-c3-c4.md).
+8. **K7PL sources.** [C4 semantics](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/C4/SemantiqueOperationnelle.lean); [C-07 audit](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/docs/migration/C-07-SIMULATION-AUDIT.md); [K artifacts](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/spec/Spec/CodeArtifacts.lean); [MachineSoundness](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/proofs/K7PL/MachineSoundness.lean); [ADR-0012](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5/docs/decisions/0012-k-as-normative-home-of-c3-c4.md).
 
 These sources demonstrate established research directions. They do not establish that K7PL's full compiler or OS already has the described guarantees.
 

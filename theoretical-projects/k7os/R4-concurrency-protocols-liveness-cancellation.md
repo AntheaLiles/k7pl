@@ -26,16 +26,16 @@ Recommandation immédiate : ne pas ajouter une primitive générale de concurren
 
 Sources K7PL consultées à la révision de base :
 
-- [C3 — contraintes de valeur, sessions asynchrones et `thm:deadlock_acyclique`](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C3/ValueConstraints.lean#L190-L355)
-- [C3 — règles de typage et noyau de la couche 2](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C3/TypingRules.lean#L1350-L1530)
-- [C3 — grammaire des types](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C3/TypeGrammar.lean)
-- [C4 — progrès opérationnel](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/OperationalSemantics.lean#L195-L255)
-- [C4 — modèle d'acteur](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/ActorScale.lean#L25-L85)
-- [C4 — supervision, dépendances, initialisation et concurrence](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/SystemScale.lean#L55-L110)
-- [C4 — graphe statique et initialisation](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/SystemScale.lean#L200-L375)
-- [C4 — jonction atomique et contrat encore ouvert](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/SystemScale.lean#L490-L540)
-- [C4 — contrat de simulation vers le métalangage](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/UnderlyingProcessCalculus.lean#L280-L325)
-- [Annexe A.5 — codes d'erreur protocolaires et topologiques](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/AnnexA/ProtocolsSessionsAndDistributedTopology.lean)
+- [C3 — contraintes de valeur, sessions asynchrones et `thm:deadlock_acyclique`](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C3/LesContraintesDeValeur.lean#L190-L355)
+- [C3 — règles de typage et noyau de la couche 2](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C3/ReglesDeTypage.lean#L1350-L1530)
+- [C3 — grammaire des types](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C3/GrammaireDesTypes.lean)
+- [C4 — progrès opérationnel](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/SemantiqueOperationnelle.lean#L195-L255)
+- [C4 — modèle d'acteur](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/EchelleDeLActeur.lean#L25-L85)
+- [C4 — supervision, dépendances, initialisation et concurrence](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/EchelleDuSysteme.lean#L55-L110)
+- [C4 — graphe statique et initialisation](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/EchelleDuSysteme.lean#L200-L375)
+- [C4 — jonction atomique et contrat encore ouvert](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/EchelleDuSysteme.lean#L490-L540)
+- [C4 — contrat de simulation vers le métalangage](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/C4/CalculDeProcessusSousJacent.lean#L280-L325)
+- [Annexe A.5 — codes d'erreur protocolaires et topologiques](https://github.com/AntheaLiles/k7pl/blob/4aea67661b049161689acb2163cfa1ebed1b5d5d/spec/Spec/AnnexeA/ProtocolesSessionsEtTopologieDistribuee.lean)
 
 Les blocs de théorème mentionnés dans les fichiers Verso portent leur statut éditorial déclaré. Ils ne sont pas des déclarations Lean vérifiées par le noyau du seul fait qu'ils se trouvent dans des fichiers `.lean`. Ce rapport est une analyse documentaire ; les scénarios de test ci-dessous sont proposés, non exécutés.
 
