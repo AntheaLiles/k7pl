@@ -556,9 +556,12 @@ Sources read on 2026-10-26.
   line is an underscore (_). In that case, the underscore, the
   newline, and any whitespace at the beginning of the next line
   are not part of the string literal." Source: Unicon Language
-  Reference, Unicon Technical Report 8c, 2017,
-  http://unicon.org/utr/utr8.pdf. The Icon reference itself was
-  not checked.
+  Reference, Unicon Technical Report 8c, 2017, at
+  `unicon.org/utr/utr8.pdf`, which the Unicon reports page
+  (http://unicon.org/reports.html) still links to but which
+  answers 404 since 2026-10-27; archived copy of 2025-12-01:
+  http://web.archive.org/web/20251201152803/http://unicon.org/utr/utr8.pdf.
+  The Icon reference itself was not checked.
 - **Tcl.** Two groupings: double quotes, with substitutions, and
   braces, with "No substitutions" and braces that "nest within the
   word"; backslash sequences `\a \b \f \n \r \t \v \\ \ooo \xhh
