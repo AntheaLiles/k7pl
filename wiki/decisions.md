@@ -845,6 +845,79 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, fifth part (revised): answers of
+  2026-10-27 (Q-STR-302 to Q-ARC-001).** Recorded verbatim
+  in [questions](questions.md) as VOC-2026-10-27-039 to
+  VOC-2026-10-27-072. In short:
+  - Texts: `""` before a separator is the empty text,
+    otherwise it opens a raw text; in a raw text `\` stays
+    literal, and quotation marks are written `%22` and a
+    leading space `%20`, as in a URL; invisible characters
+    get a short closed list of K7PL names beside LaTeX's;
+    the bound of a text type counts the bytes of its UTF-8
+    encoding, graphemes measuring lines for the formatter
+    and the linter; a character is written like a text of
+    one character (`"a"`, `"μ"`, `"\lambda"`); the editor
+    always shows a raw text as `« s »`.
+  - Qualified delimiters: `{tag|` is one opening delimiter
+    waiting for `|tag}` (« Keep it simple »); a tag is a
+    layer-1 type, and an unknown tag leaves its literal
+    plain text, typed by the tag all the same; a negation
+    in a recursive layer-3 query is allowed only of a
+    relation fixed before the recursion.
+  - Character classes: `[:alpha: c]`, `[[:alpha:]]`,
+    `((:alpha:))` and `{{:alpha:}}` as proposed.
+  - Trains: the text form first, the view replacing each
+    word by its glyph in place, `(fold add div length)`
+    viewed `(´+÷≠)`, with fixed arities everywhere; one
+    alias per arity as a direction, each lemma still to be
+    weighed; the boolean values are `t` and `f`;
+    properties rather than flags for now.
+  - Doubled forms: `⟦ ⟧` holds ranges, storage in the
+    caller's frame and functions applied cell by cell, open
+    to more; `⦅ ⦆` are idiom brackets, with the author's
+    statement « K7PL se veut Lazy en toute circonstance »,
+    made precise in the conversation: « les automates
+    compilés en couche 3 sont invoqués paresseusement par
+    l'orchestrateur », which agrees with chapter 1's
+    strategy by layer; `⦃ ⦄` stays open.
+  - Monomorphisation: the mechanism of Q-TYP-301 A
+    (collection from the roots, instances named by their
+    hash and counted in the budget, growth on a cycle
+    refused, nothing shared at run time), its limit on
+    recompilation recorded; exhaustion of the budget stops
+    inlining and refuses a missing instance; higher-order
+    functions are copied per function argument in the same
+    budget.
+  - Branchings for the computation, for operations and
+    handlers, and for method combination, the other
+    families staying functions; the generic definition
+    word is `def`, the function envelope `defn`, and
+    envelopes are layer-1 macros open to every program,
+    which compose.
+  - Numbers: `comN = two floN/2`, and a default with a
+    warning for every type written with two segments;
+    warnings take the prefix `WRN-` (`WRN-NUM-001`); an
+    unresolved typed hole is `ERR-SMT-003`.
+  - Names: labels go into English once their words are
+    chosen; statements carry `subject`, `formalArtifact`
+    and `uses`, checked by the build; one key, written by
+    the rules of each place, mapped mechanically.
+  - The old K archive is not added: its remaining value is
+    extracted into the research, then it is discarded.
+  Kept open or clarification asked, for the next part:
+  raw-text percent decoding (Q-STR-303), the writing of
+  holes and the reservation of `@` for TXR-style pattern
+  matching (Q-STR-307), the limits of the negation rule
+  (Q-SPEC-206), the universe of `¬` (Q-LEX-504), `fold` over
+  several quoted expressions (Q-SPEC-207), `-f` and `-t`
+  (Q-LEX-506), flags (Q-LEX-507), `⦃ ⦄` (Q-LEX-403), the
+  rewrite of the handler and actor listings (Q-SPEC-202),
+  the property of Lean's `@[specialize]` (Q-TYP-303), and
+  the reading of `((:alpha:))` now that `⦅ ⦆` are idiom
+  brackets (Q-LEX-402).
+  Applied on 2026-10-27: the wiki only.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Conversation of 2026-10-27 on texts, doubled and
   qualified delimiters, escapes and trains.** Decided in
   the conversation that followed the opening of the fifth

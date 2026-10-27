@@ -1582,6 +1582,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 
 - **B — C#'s rule: `""` is always empty.** A raw text takes three quotes or more. *Against:* the decided `""s""` becomes `"""s"""`, and raw text and blocks share three quotes.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-039), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** ""%20text"" permetterait d'encoder l'espace en début de raw text
+- **Reading:** `""` followed by a space, a delimiter or the end of a line is the empty text; followed by anything else, it opens a raw text (option A). A raw text that begins with a space writes it `%20`, as paths do (VOC-2026-10-27-024). Whether `%20` is then decoded everywhere in a raw text, or only at its start, follows from Q-STR-303.
+
+
 #### Q-STR-303 — Raw text and the backslash
 
 **Object.** Decided: in `"…"`, `\` escapes the character that follows (« j'accepte que `\` échappe le caractère qui le suit »). What does `\` do in a raw text `""…""`, whose main uses — regular expressions, Windows paths, quoted TeX — are full of backslashes?
@@ -1595,6 +1602,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **A — Only before the closing delimiter.** In a raw text, `\` escapes the closing quotes and stays literal everywhere else. Example: `""\d+""   ;; the text \d+`. *For:* a raw text stays raw; Python and OpTeX escape only what the reader would misread.
 - **B — As in an ordinary text.** `\` escapes any character and is dropped. Example: `""\d+""   ;; the text d+`. *For:* one rule for both forms. *Against:* regular expressions and paths must double every backslash.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-040), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** L'objectif ici est que l'ensemble du raw text puisse être parsé, il faudra utiliser le code d'encodage http pour les guillemets %22 : je trouve cela cohérent puisque ce type de text semble adapté à la rédaction de liens.
+- **Reading:** in a raw text, `\` stays literal (option A). The justification goes further than A: the whole raw text must be readable without escapes, quotation marks inside it being written `%22`, as in a URL, which suits a text made to hold links. Put to the next part: whether every `%XX` is decoded in a raw text (a literal `%` then being `%25`), or only `%20` and `%22`; and whether `\` still escapes the closing quotes, which `%22` makes unnecessary.
+
+
 #### Q-STR-304 — Characters that cannot be seen
 
 **Object.** Decided: special characters take their LaTeX names (`\guillemetright`), one space after a name is absorbed, and any code point is written `\u'…'`. LaTeX's text symbols name no control character: there is no tab, and `\n` or `\t` are not LaTeX names. A line break is written as such, since texts span lines (Q-STR-103).
@@ -1606,6 +1620,12 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **A — Code points only.** Example: `"a\u'09'b"   ;; a, a tab, b`. *For:* no name outside LaTeX. *Against:* a tab reads as a number.
 - **B — A few K7PL names beside LaTeX's.** A short closed list for invisible characters (tab, no-break space…), written like LaTeX names. Example: `"a\tab b"`. *Against:* names that LaTeX does not define.
 - **C — C's `\n` and `\t` kept as exceptions.** *Against:* `\n` would read as a name under the TeX rule; two traditions.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-041), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** a short closed list of K7PL names for invisible characters, written like LaTeX names (option B; example `"a\tab b"`). The list itself is to be drawn up.
+
 
 #### Q-STR-305 — The length of a text
 
@@ -1620,6 +1640,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **B — Code points.** *For:* stable; what `\u'…'` names. *Against:* `é` may count two.
 - **C — Bytes of UTF-8.** *For:* the memory cost, visible (P3). *Against:* far from what a reader counts.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-042), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** Il faut dissocier deux points de vue : la longueur de rédaction en graphème recommandé dans une ligne que le lecteur lit et qui a pour objectif de préserver la lisibilité du code source (règles de fmt/linter) et le typage d'une chaine rédigée dans le code source qui prend en mémoire l'ensemble du bytecode utf-8 qui compose la chaine de caractère et commençant à 0 pour une chaine vide. En ce sens, A et C sont vrais mais n'encodent pas la même chose.
+- **Reading:** two measures, kept apart. The length that bounds a text type counts the bytes of its UTF-8 encoding, from 0 for the empty text (option C): it is what the text takes in memory. Graphemes (option A) measure a line as a reader sees it, for the formatter and the linter, which keep source lines readable. A and C are both true and do not encode the same thing.
+
+
 #### Q-STR-306 — A character literal
 
 **Object.** K7PL has no character literal yet; ranges of characters wait for one (Q-LEX-304), and `'` now closes a code point in `\u'…'`.
@@ -1633,6 +1660,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **B — A one-character text with its type.** Example: `{c :type char "a"}`. *For:* no new delimiter. *Against:* heavy for a frequent value.
 - **C — Scheme's `#\a`.** *Against:* `#` is the comptime sigil.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-043), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** Un caractère littéral : "a", "μ", "\lambda", etc.
+- **Reading:** no new delimiter: a character is written like a text of one character, `"a"`, `"μ"`, `"\lambda"`. Put to the next part: how a character is told from a text of length one — by the type the context expects, or as a typed hole resolved like the integers (Q-NUM-203).
+
+
 #### Q-STR-307 — How a hole is written in a qualified literal
 
 **Object.** Decided: a hole in a qualified literal is a typed hole, passed as a parameter, never pasted as text; Q-STR-003 is reopened for these forms only, a plain `"…"` never interpolates. Your example wrote `$something`.
@@ -1645,6 +1679,14 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **B — The tag's type declares its hole syntax.** SQL could keep `$1` or `:name`, another language its own. *For:* each foreign language keeps its idiom. *Against:* one rule per tag.
 - **C — `@name`, the attribute sigil.** *Against:* `@` is frequent in foreign texts (addresses, decorators).
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-044), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Clarification:** Nous n'avons pas encore creusé en profondeur ce sujet qui mérite de prendre le temps, de comparer les approches, notamment d'observer comment OCaml traite le sujet, idem en observant des langages memory safe, etc. Et le "@" je le réserve vraiment pour le pattern-matching inspiré de TXR Lisp
+  (man page <https://man.uex.se/1/txr>, mirroir <https://github.com/salewski/txr-mirror>)
+- **Reading:** kept open: the writing of holes deserves time and a comparison of approaches, OCaml's and those of memory-safe languages among them. `@` is reserved for pattern matching inspired by TXR Lisp; chapter 5 makes `@` a sigil read as an attribute, a reading this reservation questions (next part).
+
+
 #### Q-STR-308 — Quotation marks in the view
 
 **Object.** Decided: files keep `""s""`, the editor shows `« s »`.
@@ -1655,6 +1697,12 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 
 - **A — Always « s ».**
 - **B — By language.** « s » in French, “s” in English, from a setting of the editor or of the document.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-045), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** the editor always shows a raw text as `« s »` (option A).
+
 
 ### Qualified delimiters
 
@@ -1671,6 +1719,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **B — A, with the tags of a library under its name.** Example: `(pkg.sql|…|pkg.sql)`.
 - **C — An unknown tag is plain text, with a warning.**
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-046), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** Option A mais les tags inconnus son du text plein avec le tag appliqué comme type tout de même : cela permet de faire des opérations en invoquant le tag comme référence sans nécessité un typage intégral (bon pour le prototypage)
+- **Reading:** a tag is a layer-1 type, declared with an optional grammar (option A), but an unknown tag is not refused: its literal is plain text, typed by the tag all the same, so that operations can name the tag without a full type — useful when prototyping. Put to the next part: whether an undeclared tag gives a warning.
+
+
 #### Q-LEX-502 — Fences and the view inside a literal
 
 **Object.** Decided: repeating a delimiter raises its level, and `||` shows as `‖`. A literal that holds `|sql}` needs a longer fence; SQL's own `||` is concatenation.
@@ -1681,6 +1736,14 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 
 - **A — Repeated bars; the view never touches a literal's content.** Example: `{sql|| SELECT a || b ||sql}`. *For:* the tag keeps the type, the bars the fence; SQL's `||` stays as written.
 - **B — A second word for the fence, as OCaml.** Example: `{sql x| … |x sql}`. *Against:* two words to write.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-047), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** `{tag|` doit être traité comme un unique symbole délimiteur attendant sa paire fermante `|tag}`
+- **Justification:** Keep it simple
+- **Reading:** `{tag|` is read as one opening delimiter that waits for its closing pair `|tag}`; the same holds for the other three forms. Neither repeated bars nor a second word is added (« Keep it simple »). Put to the next part: what a literal that holds its own `|tag}` does.
+
 
 #### Q-SPEC-206 — Negation in a recursive layer-3 query
 
@@ -1694,6 +1757,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **A — Refused inside recursion.** A negation in a recursive layer-3 query is refused; the query moves to layer 2. *For:* nothing to add to the specification.
 - **B — Stratified negation, checked at compile time.** Chapter 7's gap is filled by a new statement, to prove. *Against:* a theorem to write and prove.
 - **C — Only of a relation fixed before the recursion.** One stratum: the negated relation does not depend on the query. *For:* monotone by construction.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-048), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Clarification:** J'ai besoin d'en connaitre les limites et effets d'opportunités
+- **Reading:** a negation in a recursive layer-3 query is allowed only of a relation fixed before the recursion, which keeps the query monotone by construction (option C). The author asks for the limits of this choice and the opportunities it opens before it enters chapter 7 (next part).
+
 
 ### Character classes
 
@@ -1710,6 +1780,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **B — Types and predicates only.** `{{:alpha:}}` and `[:alpha: c]`; no materialised list or matrix. *For:* nothing costly to hide.
 - **C — POSIX names by locale, without Unicode.** *Against:* the meaning depends on the machine.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-049), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Bien que je ne vois pas encore la profondeur de ce choix, il me semble plus pertinent de voter A au regard de l'expressivité qu'il permet.
+- **Reading:** the class forms as proposed (option A): `[:alpha: c]` a predicate, `[[:alpha:]]` the matrix of bounds, `((:alpha:))` the code points in order, produced on demand, `{{:alpha:}}` the refined type, POSIX names mapped to Unicode by UTS #18.
+
+
 #### Q-LEX-504 — `¬` on a class: within what?
 
 **Object.** The glyph table gives `¬` (`not`) as « Négation bit-à-bit »: the complement of a class is the bitwise negation of its characteristic vector, which needs a universe.
@@ -1717,6 +1794,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **A — All code points.** U+0000 to U+10FFFF, 1,114,112 values, surrogates included.
 - **B — Unicode scalar values.** The same less the 2,048 surrogates: 1,112,064 values, what a text can hold. *For:* the complement stays within valid characters.
 - **C — Assigned characters.** *Against:* changes with each Unicode version.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-050), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** CLARIFY
+- **Clarification:** Qu'est-ce qui empecherait A ou favoriserait B?
+- **Reading:** clarification asked: what would prevent A, or favour B. Answered in the next part.
+
 
 ### Trains and views
 
@@ -1731,6 +1815,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **A — Text form first, view in the text's order.** Chapter 5 shows the text form and, beside it, the view, where each word becomes its glyph in place; the standard deviation is rewritten once its aliases are chosen (Q-LEX-505). Example: `((fold add) div length)   ;; view: ´+÷≠`.
 - **B — Text form first, view in BQN's order.** The view moves a modifier after its function (`+´`), as chapter 5 writes today. *Against:* the view no longer replaces words in place.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-051), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Je dirais plutot soit (fold add div lenght) -> (´+÷≠) soit ((fold add) div length) -> ((´+)÷≠) ; le premier nécessite des arités fixes systématiques, le second est une réduction symbolique qui peut laisser une arité n-air à un opérateur, je préfèrerais une arité fixe systématique et si fold doit s'appliquer à plusieurs sous ensembles alors utiliser la sémantique d'emacs eg (fold '(exp) '(exp2) '(exp3)) où les exp sont évaluées en parallele puis fold ensemble.
+- **Reading:** text form first, the view replacing each word by its glyph in place, parentheses kept (option A). The author gives two writings of the mean: `(fold add div length)`, viewed `(´+÷≠)`, and `((fold add) div length)`, viewed `((´+)÷≠)`. The first needs fixed arities everywhere; the second is a symbolic reduction that could leave an operator n-ary. The author prefers fixed arities everywhere, hence the first. To fold several subsets, Emacs's way: `(fold '(exp) '(exp2) '(exp3))`, the expressions evaluated in parallel, then folded together. Put to the next part: the arity of `fold` in that form, and `'` as a quote in K7PL.
+
+
 #### Q-LEX-505 — One alias per arity
 
 **Object.** With typed arities, each use of a glyph needs its own alias. The glyph table lacks: the monadic `≠` (length; the table gives only `neq`), `´`, `¨`, `√`, `²`, the monadic `-` (the table gives `sub`) and the monadic `⊢` (the table gives `right-id`).
@@ -1741,6 +1832,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 
 - **A — length, fold, each, sqrt, square, negate, identity.** Example: `≠ length (1) / neq (2)   ´ fold   ¨ each   √ sqrt   ² square   - negate (1) / sub (2)   ⊢ identity (1) / right-id (2)`.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-052), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Le plus proche de ce que je recherche mais les bons lemmes sont encore à évaluer un à un, comme pour tous les autres lemmes du langage.
+- **Reading:** one alias per arity, as listed (option A), as a direction: each lemma is still to be weighed one by one, as for every lemma of the language.
+
+
 #### Q-LEX-506 — The boolean values
 
 **Object.** The specification names no boolean value; your example ended with `;; t nil`; the old K archive wrote `true` and `false`.
@@ -1749,6 +1847,14 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **B — t / nil.** *For:* Lisp's. *Against:* `nil` is also the empty list in Lisp, which is `()` here (Q-LEX-301).
 - **C — yes / no.**
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-053), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** J'y ai beaucoup réfléchi et pour la valeur booleenne je préfèrerais simplement `t` pour true et `f` pour false pour une raison simple : `access-f` ou autres constructions de cette nature permettrait d'aisément comprendre l'objectif du test conditionnel (si je veux un comportement spécifique sur un test booleen sans avoir à expliquer quoi faire lorsque le booléen renvois l'autre condition)
+- **Justification:** Je réfléchi à la composition de fonction à travers cet exemple illustratif
+- **Reading:** the boolean values are `t` and `f`. A name such as `access-f` would then state which outcome of a test it acts on, without saying what to do on the other; the author thinks about the composition of functions through this example. Put to the next part: whether `-f` and `-t` are a naming convention or a derived form, and the consequence that `f` and `t` can no longer name anything else (chapter 5 writes the trains `(f g)` and `(f g h)`).
+
+
 #### Q-LEX-507 — Flags
 
 **Object.** Chapter 6 writes modes `+verify` and `+introspect`; the reader reads `-2` and `+4` as numbers. The old K archive made `+name` and `-name` boolean arguments of any form, a letter after the sign telling them from numbers.
@@ -1756,6 +1862,13 @@ Words of the examples that no answer has fixed yet (`accept`, `outcome`, `def`, 
 - **A — `+name` / `-name` everywhere.** Example: `(spawn counter +restart-always -verbose)`.
 - **B — Modes only, as today.** Example: `+verify`.
 - **C — Properties instead.** Example: `(spawn counter :restart-always true)`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-054), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** Le projet mélangeait encore shell + langage, la notion de flag permettrait éventuellement de désactiver des paramètres ou d'ajouter des paramètres optionnels mais je n'ai pas encore étudier cela. Cette recherche mérite qu'on travail ensemble parce que l'emplois de flags `+` et `-` pour indiquer "avec" ou "sans" suppose de connaitre un état par défaut, que des paramètres puissent être désactivée de façon sûre ce qui les rendrait par nature optionnelle donc est-ce que dans ce context l'on pourrait simplement utiliser le flag `+` ? Est-ce que ce serait `+parametrename` ou `+:parametrename`? Bref je n'ai pas encore réexplorer ce sujet depuis l'importante réécriture du projet durant l'été.
+- **Reading:** properties rather than flags for now (option C). Flags are to be studied together: `+` and `-` for « with » and « without » assume a default state, and a parameter that can be switched off safely is optional by nature, so `+` alone might do; written `+name` or `+:name`. The modes `+verify` and `+introspect` of chapter 6 stay as written until then (next part).
+
 
 ### Doubled forms and white brackets
 
@@ -1774,6 +1887,13 @@ Several options may be chosen.
 - **frame — Placed in the caller's frame.** Storage whose size is known at compile time, reserved in the frame of the calling function and freed with it, its grade explicit. Example: `[[ buffer 256 ]]`.
 - **cells — Applied cell by cell (rank of a function).** A function applied to the cells of a given rank, as J's `"`. Example: `[[ f 1 ]]   ;; f on each row`.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-055), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** range, frame, cells, OPEN
+- **Justification:** Keep open pour continuer d'observer les opportunités.
+- **Reading:** `⟦ ⟧` in layer 3 holds ranges, storage placed in the caller's frame, and functions applied cell by cell; the question stays open to further uses. Ranges (Q-LEX-304), which waited for this answer, come back in the next part, with the rule that tells the three uses apart.
+
+
 #### Q-LEX-402 — ⦅ ⦆ in layer 2: which precision?
 
 **Object.** `(( x ))` is `⦅ x ⦆`, a precision dedicated to layer 2 — the heap, orchestration, productive computations. Your example: another resolution scheme for a list graph. Decided since: `⦅…⦆` stays in layer 2, refused in layer 3; files keep `(( ))`.
@@ -1791,6 +1911,17 @@ Several options may be chosen.
 - **idiom — Idiom brackets.** A pure function applied to effectful arguments, each effect in order: McBride and Paterson's own white brackets. Example: `(( + (read-a) (read-b) ))`.
 - **heap — Another heap region.** Allocation in a named region rather than the standard heap. Example: `(( :region frames … ))`.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-056), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** idiom
+- **Justification:** La composition du heap reviens à l'isolation des acteurs. Le partage devrait être une optimisation de compilation. K7PL se veut Lazy en toute circonstance. Ainsi, seule l'option "idiom" parmis les proposition fait sens.
+- **Reading:** `⦅ ⦆` in layer 2 are idiom brackets: a pure function applied to effectful arguments, each effect in order. Composing heaps amounts to isolating actors; sharing should be an optimisation of the compiler; « K7PL se veut Lazy en toute circonstance ». Laziness here is that of the orchestration (author's remark below): the automata compiled in layer 3 are invoked lazily by the orchestrator, which agrees with chapter 1, « stricte en couches 1 et 3, par nécessité en couche 2 ». Put to the next part: `((:alpha:))` of Q-LEX-503 must be read as an idiom bracket or given another form.
+
+**Author's remark of 2026-10-27, given in the conversation after answering, quoted as given.** On the reading that « Lazy en toute circonstance » clashed with chapter 1's « stricte en couches 1 et 3, par nécessité en couche 2 »:
+
+> c'est pas tout a fait ça, les automates compilés en couche 3 sont invoqués paresseusement par l'orchestrateur
+
+
 #### Q-LEX-403 — ⦃ ⦄ in layer 1: which precision?
 
 **Object.** `{{ x }}` is `⦃ x ⦄`, a precision dedicated to layer 1 — the linear arena, declarations and types. Your example: another arena than the standard one. Decided since: `⦃…⦄` stays in layer 1; files keep `{{ }}`.
@@ -1807,6 +1938,13 @@ Several options may be chosen.
 - **instance — Filled by search (Agda).** An argument the elaborator finds by type, as it fills a handler in chapter 5, written to make the search visible or to give its result. Example: `{{ counter-handler }}`.
 - **comptime — Evaluated at compile time.** Example: `{{ table-of-squares 256 }}`.
 - **capability — A capability given explicitly.** A capability `Cap ρ` granted to what follows, as chapter 3's handlers receive non-determinism. Example: `{{ :cap clock }}`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-057), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** CLARIFY, OPEN
+- **Clarification:** J'ai besoin d'une évaluation plus approfondie pour bien comprendre ce que les choix impliqueraient. Dans l'idée j'aime bien la définition d'Agda, j'aimerais bien savoir comment Clojure ou Lean4 utilise ces écritures, j'aime bien la notion de branchement spécifique de capability mais que signifie {{:alpha:}} dans ce contexte?
+- **Reading:** kept open, with a clarification asked: a deeper evaluation of what each option implies; the author likes Agda's definition (instance arguments) and the notion of a branching specific to a capability, and asks how Clojure and Lean 4 use these notations and what `{{:alpha:}}` means in this context. Answered in the next part.
+
 
 ### Monomorphisation
 
@@ -1833,6 +1971,13 @@ Several options may be chosen.
 - **B — The whole program at once (MLton).** One pass over the whole program; every instance is known. *For:* the simplest. *Against:* no separate compilation, against the grade carried by the unit of compilation in chapter 6.
 - **C — Shared code by layout (Go).** One copy per memory layout, a dictionary for the rest. *Against:* a dictionary is dynamic dispatch, refused by `ERR-POL-001`; « tout est monomorphé » would no longer hold.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-058), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Ce qui est le plus proche de la phylosophie de K7PL mais le "against" reste préoccupant et mérite de noter la limite avec pour objectif d'y trouver une solution élégante et ne dénaturant pas le mécanisme.
+- **Reading:** the mechanism proposed in option A is adopted: collection from the roots, instances named by their hash, counted in the budget, growth on a cycle refused, nothing shared at run time. Its limit — a generic's source is part of its unit's interface, so changing it recompiles the units that use it — is recorded, to be solved elegantly without distorting the mechanism.
+
+
 #### Q-TYP-302 — When the budget of specialisation runs out
 
 **Object.** Chapter 6 says of the budget that its exhaustion « arrête la duplication au lieu d'échouer ». For inlining, stopping leaves a call, which works. For monomorphisation, a generic call left without its instance has no code to call, since nothing is shared at run time (`ERR-POL-001`).
@@ -1846,6 +1991,12 @@ Several options may be chosen.
 - **B — A, with instances served first.** Instances draw on the budget before inlining, which gets what remains; the refusal comes only when the instances alone exceed it. *For:* inlining never starves a needed instance. *Against:* an order between the two uses of one budget.
 - **C — Two budgets.** One for instances, one for inlining. *Against:* chapter 6 says « une seule décision les gouverne ».
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-059), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** exhaustion stops inlining, whose calls stay, and refuses the program if an instance is still missing, with a code naming the generic, the chain of instances, the budget spent and the budget that would suffice (option A). « au lieu d'échouer » in chapter 6 holds for inlining.
+
+
 #### Q-TYP-303 — Functions as arguments: one copy per function?
 
 **Object.** Chapter 6 leaves a decision open: in defunctionalisation, « l'unité de spécialisation — une fonction d'ordre supérieur employée avec deux arguments fonctionnels distincts se spécialise en deux fonctions distinctes, et il faut décider si c'est ce qu'on veut » (Brandon et al., 2023, in its bibliography). It extends monomorphisation from types to function arguments.
@@ -1858,6 +2009,13 @@ Several options may be chosen.
 - **A — Yes, in the same budget.** A higher-order function is copied for each distinct function argument known at compile time, each copy decrementing the budget; beyond it, the arguments are defunctionalised into tags and the function chooses by a `case` over that closed set, decided at compile time. *For:* one rule for types and functions; no closure to allocate.
 - **B — Only when asked.** A property, `:specialize` for instance, asks for copies, as Lean's attribute; otherwise one function with tagged arguments. *For:* code size stays under the programmer's eye. *Against:* a property to write where the gain is wanted.
 - **C — Never.** One function per higher-order definition, its function arguments defunctionalised into tags. *Against:* a `case` at each call of the argument.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-060), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** L'approche de Lean est trés pertinente ici!
+- **Reading:** a higher-order function is copied for each distinct function argument known at compile time, each copy counted in the same budget, the arguments being defunctionalised beyond it (option A). The author finds Lean's approach very relevant; Lean specialises the functions marked `@[specialize]`, which is option B's request by property. Put to the next part: whether such a property complements A.
+
 
 ### Branchings and definitions
 
@@ -1882,6 +2040,13 @@ Several options may be chosen.
 - **cofix — Productive streams: ν.** `out c` observes one step of a productive computation; copatterns `⟨⟨j ↦ c_j⟩⟩` answer each observation. Example: `:out`.
 - **resource — Resources.** `free v`, `slice v as (x, y) in c` splits an arena, `declassify_ℓ(v)` lowers a confidentiality level. Example: `:free  :slice  :declassify`.
 - **clos — Method combination (CLOS).** Auxiliary definitions run before, after or around a primary one, the around one calling the next. Example: `:before  :after  :around`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-061), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** monad, effect, clos
+- **Justification:** Je ne suis pas sur d'avoir bien tout choisi mais ma méthode est la suivante : qu'est-ce qui a le plus de sens à exposer comme paramètre comparer à ce qui a le plus de sens à proposer comme fonction ? (free, slice, at, when, etc. semble être plus utiles dans un algoritme que présentés comme paramètres)
+- **Reading:** branchings — properties written with `:` — for the computation (`:return`, `:bind`), for operations and handlers (`:perform`, `:scoped`, `:try`, `:catch`) and for method combination (`:before`, `:after`, `:around`). Suspension, the graded comonad, time, place, productive streams and resources stay functions (`free`, `slice`, `at`, `when` are more useful in an algorithm than as parameters). The criterion is recorded with the choice: what makes most sense as a parameter, against what makes most sense as a function; the author is not sure every family is placed right.
+
 
 #### Q-SPEC-202 — Rewriting lst:gestionnaire and lst:acteur
 
@@ -1913,6 +2078,13 @@ Several options may be chosen.
 
 - **B — The listings as proposed, the prose to rework together.** The two listings of A enter chapter 5; the paragraphs on the pair and on coherence are rewritten in a later lot.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-062), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** C'est hyper verbeux, j'aimerais qu'on réflechisse à comment rendre cela plus naturel voir implicite. aussi un `:bind (exp)` me parait sémantiquement criticable comparer à un `:run (exp)` ou similaires (plus expressif)
+- **Reading:** kept open: the proposed listings are too verbose; a more natural, even implicit, form is to be found together, and `:bind (exp)` for an actor's selection is criticised next to `:run (exp)` or a similar, more expressive word.
+
+
 #### Q-SPEC-203 — The generic definition word
 
 **Object.** Q-TYP-201: a generic word, as Racket's `define`, from which guided envelopes are built (`defhandler`, `defunc`, `defanything`), a `defunc` carrying its function type, and a composed definition building refined types — « Toujours pas de l'objet mais très proche sans mutation ». An envelope reads as the generic word with its properties filled in.
@@ -1927,6 +2099,13 @@ Several options may be chosen.
 - **A — def.** Example: `{def ?increment-bounded :type {function int32 int32 {result int32 overflow}} …}`. *For:* short; the root of every `def…` envelope; Clojure's special form.
 - **B — define.** Example: `{define ?increment-bounded :type {function int32 int32 {result int32 overflow}} …}`. *For:* Racket's and Scheme's word. *Against:* the envelopes would read `define-…` or keep `def…`.
 - **C — defn.** Example: `{defn ?increment-bounded :type {function …} …}`. *For:* the word chapter 5 already writes. *Against:* Clojure's `defn` defines functions only.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-063), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** L'approche de Clojure est la plus pertinente ici.
+- **Reading:** the generic definition word is `def`, as Clojure (option A).
+
 
 #### Q-SPEC-204 — How envelopes are made
 
@@ -1953,6 +2132,11 @@ Several options may be chosen.
   {defpure increment-bounded …}   ;; a defunc that must be pure
   ```
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-064), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** an envelope is a layer-1 macro, expanded at compile time, open to every program under the hygiene of `ERR-MAC-001`, and envelopes compose: an envelope may be built from another and add properties to it, each step refining the type of the definitions it makes (option C).
+
 
 #### Q-SPEC-205 — The name of the function envelope
 
@@ -1962,6 +2146,12 @@ Several options may be chosen.
 - **B — defun.** *For:* Common Lisp's word.
 - **C — defn.** *For:* Clojure's word, and chapter 5's today.
 - **D — deffunction.** *For:* the type's head, whole. *Against:* the longest.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-065), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** the function envelope is `defn` (option C), the word chapter 5 already writes.
+
 
 ### Numbers
 
@@ -1977,6 +2167,13 @@ Several options may be chosen.
 - **B — fixN alone: halves by default.** A fixed-point number given without its point, `fix32`, is `fix16.16` by default, with a warning, as `flo8` is `flo8e4`. Example: `fix32   ;; fix16.16, with a warning`.
 - **C — Both.**
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-066), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** On applique la même logique pour chaque type qui nécessite de préciser deux segments et on remonte toujours un warning.
+- **Reading:** the corollary concerns the complex numbers, `comN = two floN/2`, as `com64 = two flo32` (option A). The same logic holds for every type whose name needs two segments: a default when the second is omitted, always with a warning (`flo8` is `flo8e4`). By this rule a `fixN` given without its point also takes a default with a warning; the default of each such type is put to the next part.
+
+
 #### Q-NUM-302 — The codes of warnings
 
 **Object.** `flo8` alone gives a warning, not an error (Q-NUM-201). Codes so far are `ERR-XXX-NNN`; Q-ERR-004 plans an index with one page per code, as GHC and Rust do.
@@ -1990,6 +2187,13 @@ Several options may be chosen.
 - **B — Named lints with levels (rustc).** Example: `flo8-default   ;; warn by default; allow or deny`. *For:* a project may turn a warning into an error. *Against:* names beside numbered codes.
 - **C — One numbering, the level beside the code (GHC, C#).** Example: `NUM-001 (warning)`. *Against:* the existing `ERR-` codes lose their prefix, or warnings carry `ERR`.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-067), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** L'approche GHC et CS sont intéressante pour un seul point : préétablir des range de codes pour accueillir de futures messages. Mais je préfère que le code soit explicite, c'est une leçon que j'ai appris dans le monde du contrôle commande qui produit des milliers de codes aux labels incompréhensibles ce qui entraine des acquitements plutot que de déclancher des correctifs.
+- **Reading:** warnings take a prefix of their own, `WRN-`, their segments shared with errors (option A): `WRN-NUM-001`. Codes stay explicit: no ranges reserved for future messages, the lesson of control systems whose thousands of obscure codes get acknowledged rather than fixed.
+
+
 #### Q-NUM-303 — The code of an unresolved typed hole
 
 **Object.** Q-NUM-203: a typed hole takes the smallest width that holds every value the solver can bound, and is refused when the solver bounds none.
@@ -2002,6 +2206,13 @@ Several options may be chosen.
 - **A — ERR-TYP-013.** A type left incomplete. *For:* the user's view: a type is missing.
 - **B — ERR-SMT-003.** The solver bounded nothing. *For:* the message names what the solver spent, as chapter 6 asks.
 - **C — ERR-NUM-001.** A segment for numbers, beside the warning of `flo8`. *Against:* a new segment.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-068), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** Un trou typé est à résoudre, si le solveur n'aboutit pas alors le développeur doit préciser son intention dans son code.
+- **Reading:** an unresolved typed hole is refused with `ERR-SMT-003`: the solver bounded nothing, and the developer must state the intent in the code (option B).
+
 
 ### Names that link statements, K and proofs
 
@@ -2031,6 +2242,12 @@ Several options may be chosen.
 
 - **Reading:** no table of correspondence: if labels are renamed, the frozen inventory takes the new labels directly. Applied at once to file names, which the inventory and the notes of the stage C pins now give in English ([decisions](decisions.md)).
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-069), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** every label goes into English once its words are chosen, the frozen inventory taking the new labels directly; section tags are not touched (option A).
+
+
 #### Q-TRC-002 — How a statement is attached to what it is about and to its proof
 
 **Object.** A shared name makes the link readable, but alone it is a convention: nothing fails if the K element or the Lean proof is renamed or missing. The extension of the specification already has a field for the proof, `formalArtifact := "Module.declaration"`, required with `evidence := "lean-proof"`; no statement uses it yet (64 proof sketches, 12 without evidence, 1 from the literature), and the check of `scripts/spec_checks/statement_ontology.py` is syntactic: it does not look the declaration up. A metatheorem such as type preservation is about the whole calculus, not one type, so a statement may concern several elements, or none.
@@ -2058,6 +2275,12 @@ Several options may be chosen.
 
 - **Reading:** a link that resolved and no longer does is a regression and fails the build; a link declared but not yet resolvable, such as a proof still to write, is counted, and the count feeds the generated `wiki/STATUS.md`.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-070), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** explicit fields, checked by the build: `subject`, `formalArtifact` and `uses` (option B). With the author's remark: a link that resolved and no longer does fails the build; one declared but not yet resolvable is counted for `wiki/STATUS.md`.
+
+
 #### Q-TRC-003 — The form of the shared key
 
 **Object.** K7PL writes its identifiers in kebab-case (`increase-counter`, Q-LEX-001); Lean refuses the hyphen in a name (it would need `«»`) and Mathlib writes proofs in snake_case and types in UpperCamelCase; the present labels mix `_` and `-`.
@@ -2080,6 +2303,12 @@ Several options may be chosen.
 
 - **C — kebab-case everywhere, Lean included.** Example: `Lean     K7pl.«handler-purity»`. *Against:* every Lean name between «».
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-071), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** one key, written by the rules of each place, the mapping between them mechanical and checked (option A).
+
+
 ### The old K archive
 
 #### Q-ARC-001 — Keeping the old K archive
@@ -2089,6 +2318,13 @@ Several options may be chosen.
 - **A — Leave it out; the research section is its record.**
 - **B — Archive it unchanged in the repository.** Under an archive folder, with REUSE headers.
 - **C — Keep only its design notes.**
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-072), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Extract remaining value (eg lemme candidat, glyphes, etc.) Then trash it out.
+- **Reading:** the archive is not added (option A). What value remains — candidate lemmas, glyphs and the like — is extracted into the research, then the archive is discarded.
+
 
 ## The catalogue, verbatim
 
