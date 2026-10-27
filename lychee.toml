@@ -77,6 +77,19 @@ exclude = [
   # Machine 200 capture of 2026-09-21. Re-check by 2027-01-25 (90 days). Do not
   # exclude all of nongnu.org or accept timeouts.
   "^https://www\\.nongnu\\.org/txr/txr-manpage\\.html$",
+  # Exact URL exceptions: three OpTeX sources on petr.olsak.net, cited by the
+  # reading-lot research and questions (wiki/research.md, wiki/questions.md),
+  # the first given by the owner. The runner timed out on all three in run
+  # 40556246452 (attempt 1) and in run 40581506044 (2026-10-27), after passing
+  # in the run of commit 64b8156 and in attempt 2 of run 40556246452. The same
+  # day (20:52 UTC) each answered 200 in about 1 s to an automated fetch from
+  # outside the runner. Existence evidence, 2026-10-27: Wayback Machine 200
+  # captures of 2026-08-03 (optex/), 2026-06-01 (optex-doc.pdf) and 2026-02-23
+  # (tb130olsak-fmtcmp.pdf). Re-check by 2027-01-25 (90 days). Do not exclude
+  # all of petr.olsak.net or accept timeouts.
+  "^https://petr\\.olsak\\.net/optex/$",
+  "^https://petr\\.olsak\\.net/ftp/olsak/optex/optex-doc\\.pdf$",
+  "^https://petr\\.olsak\\.net/ftp/olsak/bulletin/tb130olsak-fmtcmp\\.pdf$",
 ]
 
 # gnu.org rate-limits the runner (429 on hurd pages, which
