@@ -957,6 +957,93 @@ the primary text before a claim enters `spec/`.
   limit while instantiating"
   (https://github.com/rust-lang/rust/blob/1.80.0/compiler/rustc_monomorphize/messages.ftl).
 
+### Empty and doubled delimiters, ranges
+
+Added on 2026-10-27 at the author's request (Q-LEX-301 to
+Q-LEX-304).
+
+- **In the specification**: chapter 3 writes, in mathematics, the
+  unit value `()` and the vector literal `[v₀, …, vₙ₋₁]`
+  (`eq:grammaire-termes`); chapter 2 writes `⟦·⟧` for a translation;
+  the listings of chapter 5 open a match clause with `((Ok new-value) …)`.
+  The author's grammar repeats contents zero or more times, and
+  `lexicon/syntax/layers.k` reads empty pairs.
+- **Category theory**: a terminal object "may also be viewed as a
+  limit over the empty diagram". Source:
+  https://ncatlab.org/nlab/show/terminal+object.
+- **Common Lisp**: `()` is "an alternative notation for writing the
+  symbol nil, used to emphasize the use of nil as an empty list"
+  (https://www.lispworks.com/documentation/HyperSpec/Body/26_glo_9.htm);
+  "A lambda form is similar to a function form, except that the
+  function name is replaced by a lambda expression"
+  (https://www.lispworks.com/documentation/HyperSpec/Body/03_ababd.htm).
+- **Scheme**: "In many dialects of Lisp, the empty list, (), is a
+  legitimate expression evaluating to itself. In Scheme, it is an
+  error"; the operator of a call is any expression,
+  `((if #f + *) 3 4)` gives 12. Source: R7RS, §4.1.3,
+  https://small.r7rs.org/attachment/r7rs.pdf.
+- **Clojure**: "An empty list () evaluates to an empty list." Source:
+  https://clojure.org/reference/evaluation.
+- **Rust**: the tuple type with no fields "is often called unit"
+  (https://doc.rust-lang.org/reference/types/tuple.html); "When a block
+  does not contain a final operand and the block does not diverge, the
+  block has unit type and unit value"
+  (https://doc.rust-lang.org/reference/expressions/block-expr.html);
+  range expressions `a..b`, `a..=b`, `a..`
+  (https://doc.rust-lang.org/reference/expressions/range-expr.html);
+  `{` is escaped as `{{` in format strings
+  (https://doc.rust-lang.org/std/fmt/index.html).
+- **Haskell**: "The unit datatype () has one non-⊥ member, the nullary
+  constructor ()"
+  (https://www.haskell.org/onlinereport/haskell2010/haskellch6.html);
+  arithmetic sequences `[e1, e2 .. e3]` and `[e1 ..]`
+  (https://www.haskell.org/onlinereport/haskell2010/haskellch3.html).
+- **Python**: `()` an empty tuple, `[]` an empty list, `{}` an empty
+  dictionary. Source: https://docs.python.org/3/reference/expressions.html.
+- **Bash**: `((expression))` evaluates an arithmetic expression,
+  `[[ expression ]]` a conditional expression. Source:
+  https://man7.org/linux/man-pages/man1/bash.1.html.
+- **C++**: attributes are written `[[ … ]]`. Source:
+  https://eel.is/c++draft/dcl.attr.grammar.
+- **Org mode**: links are written `[[LINK]]` and
+  `[[LINK][DESCRIPTION]]`. Source:
+  https://orgmode.org/manual/Link-Format.html.
+- **Agda**: "Instance arguments are enclosed in double curly braces
+  {{ }}". Source:
+  https://agda.readthedocs.io/en/latest/language/instance-arguments.html.
+  **Lean 4** reads `{{x : Nat}}` as the strict implicit binder
+  `⦃x : Nat⦄`: checked on 2026-10-27 with Lean 4.34.0, the toolchain
+  of this repository (`#check @f` prints `f : ⦃x : Nat⦄ → …`).
+- **Mustache**: "A {{name}} tag in a basic template will try to find
+  the name key in the current context". Source:
+  https://mustache.github.io/mustache.5.html.
+- **Ada**: "A range has a lower bound and an upper bound and specifies
+  a subset of the values of some scalar type (the type of the range)"
+  (http://www.ada-auth.org/standards/22rm/html/RM-3-5.html); "Discrete
+  types are either integer types or are defined by enumeration of their
+  values (enumeration types)"
+  (http://www.ada-auth.org/standards/22rm/html/RM-3-2.html), as
+  `type Color is (White, Red, Yellow, Green, Blue, Brown, Black);`
+  (http://www.ada-auth.org/standards/22rm/html/RM-3-5-1.html).
+- **Raku**: ranges use "two dots, and optionally a caret which
+  indicates that the endpoint marked with it is excluded". Source:
+  https://docs.raku.org/type/Range.
+- **Ruby**: `Range.new(2, 5).to_a # => [2, 3, 4, 5]`;
+  `Range.new(2, 5, true).to_a # => [2, 3, 4]`. Source:
+  https://docs.ruby-lang.org/en/master/Range.html.
+- **Unicode** writes ranges with two dots: "0000..007F; Basic Latin".
+  Source: https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt.
+- **POSIX** regular expressions: character classes such as `[:alpha:]`
+  are written inside a bracket expression, hence `[[:alpha:]]`.
+  Source: https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap09.html.
+- **BQN**: Range `↕` "creates arrays of indices"; given a list of
+  numbers "it returns an array of index lists". Source:
+  https://mlochbaum.github.io/BQN/doc/range.html. In K7PL's
+  `tab:glyphes`, `↕` is `windows`.
+- **French mathematics**: an interval of integers is sometimes written
+  with white brackets, `⟦−5, 3⟧`. Source (*secondary*):
+  https://fr.wikipedia.org/wiki/Intervalle_(math%C3%A9matiques).
+
 ### The bind of monads
 
 - **Rust** `Option::and_then`: "Returns `None` if the option is `None`,

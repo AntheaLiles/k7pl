@@ -1130,9 +1130,9 @@ Several options may be chosen.
 - **Choice:** A
 - **Reading:** the recovery rule and the messages of `ERR-DLM-001` to `ERR-DLM-003` are confirmed.
 
-## Lot of 2026-10-27, fourth part: escapes, raw strings, paths, heredocs, types, bind, numbers
+## Lot of 2026-10-27, fourth part: escapes, raw strings, paths, heredocs, types, bind, numbers, empty and doubled delimiters
 
-Questions opened by the answers to the third part. They follow the
+Questions opened by the answers to the third part, and, at the author's request, the empty and doubled delimiters. They follow the
 same rules: options to enumerate and objectify, then the author's
 choice; **Other** and **Clarify** are always available. The
 options were built from the research recorded in
@@ -1319,6 +1319,95 @@ Words of the examples that no answer has fixed yet (`defn`, `fn`, `field`, `from
 - **A — From the uses, at compile time; refused if they fix no width.** A reading error with its code when nothing fixes the width.
 - **B — The smallest width that holds every value the solver can bound.** Refused if the solver bounds nothing. *For:* the solver of chapter 6 already bounds values.
 - **C — A default width per kind.** *Against:* the arbitrary choice that the hole is meant to avoid.
+
+### Empty and doubled delimiters
+
+#### Q-LEX-301 — What does an empty pair mean?
+
+**Object.** Your grammar repeats contents zero or more times (`{ square-content }`…), and `layers.k` reads `[]`, `()` and `{}`; nothing gives them a meaning yet. Inside a form, an empty pair is first an empty list of what the form expects at that place: `{defn ?now :type … [] …}` is a function without parameters, as Clojure's `(fn [] …)`. The question is what an empty pair means as an expression of its own.
+
+**Facts.**
+
+- Chapter 3 writes, in mathematics, the unit value `()` and the vector literal `[v₀, …, vₙ₋₁]`, whose empty case is `[]` (`eq:grammaire-termes`). In K7PL text, `()` opens layer 2 and `[]` layer 3. In category theory, a terminal object « may also be viewed as a limit over the empty diagram » (nLab, terminal object (https://ncatlab.org/nlab/show/terminal+object)): the empty product is the unit `1`.
+- Common Lisp: `()` is « an alternative notation for writing the symbol nil, used to emphasize the use of nil as an empty list » (CLHS glossary (https://www.lispworks.com/documentation/HyperSpec/Body/26_glo_9.htm)). Scheme: « In many dialects of Lisp, the empty list, (), is a legitimate expression evaluating to itself. In Scheme, it is an error. » (R7RS, §4.1.3 (https://small.r7rs.org/attachment/r7rs.pdf)). Clojure: « An empty list () evaluates to an empty list. » (Clojure reference, evaluation (https://clojure.org/reference/evaluation)).
+- Rust: the tuple type with no fields `()` « is often called unit »; « When a block does not contain a final operand and the block does not diverge, the block has unit type and unit value » (Rust reference, tuple types (https://doc.rust-lang.org/reference/types/tuple.html); block expressions (https://doc.rust-lang.org/reference/expressions/block-expr.html)). Haskell: « The unit datatype () has one non-⊥ member, the nullary constructor () » (Haskell 2010, §6.1.5 (https://www.haskell.org/onlinereport/haskell2010/haskellch6.html)). Python: `()` an empty tuple, `[]` an empty list, `{}` an empty dictionary (Python reference, §6.2 (https://docs.python.org/3/reference/expressions.html)).
+
+- **A — The unit of each layer.** An empty pair is the neutral element of its layer: `[]` the unit value, pure (the `1` of the cartesian layer); `()` the computation that does nothing and gives the unit value (`return ()`); `{}` the unit type `1`, types being set in layer 1. *For:* one rule, and each meaning stays in the layer that owns it: values in layer 3, effects in layer 2, types in layer 1. *Against:* three different objects behind one shape.
+
+  ```text
+  []   ;; the unit value
+  ()   ;; does nothing, gives []
+  {}   ;; the unit type
+  ```
+
+- **B — The unit value everywhere.** Each empty pair is the unit value, checked in its layer, as Rust's empty block. *For:* simple; Rust, Haskell. *Against:* the delimiter tells nothing more.
+- **C — Empty collections.** `[]` the empty vector (the vector literal of chapter 3), `()` the empty list, `{}` the empty record or map, as Clojure or Python. *Against:* K7PL delimiters announce layers, not data structures.
+- **D — Refused as an expression of its own.** An empty pair stands only inside a form (no parameters, no fields); alone, it is a reading error with its code, and the unit value is written with a lemma, as Scheme refuses `()`. *For:* no implicit meaning. *Against:* a lemma for a frequent value; a new code.
+
+#### Q-LEX-302 — What does a doubled pair mean?
+
+**Object.** The grammar reads `[[e]]`, `((e))` and `{{e}}`: a block whose only element is a block of the same layer. By the head rule of S-expressions, the first element of a form is its operator: `((e))` would call the result of `(e)` with no argument. The listings of chapter 5 already open a match clause with a doubled parenthesis, `((Ok new-value) …)`, whose head is a pattern; chapter 2 writes `⟦·⟧` for a translation. You suggest ranges: `[[range]]`, a matrix range of Unicode characters, and `((1..9))`, a list.
+
+**Facts.**
+
+- Scheme: the operator of a call is any expression, `((if #f + *) 3 4) ⟹ 12` (R7RS, §4.1.3 (https://small.r7rs.org/attachment/r7rs.pdf)). Common Lisp allows only a lambda expression there: « A lambda form is similar to a function form, except that the function name is replaced by a lambda expression » (CLHS 3.1.2.1.2.4 (https://www.lispworks.com/documentation/HyperSpec/Body/03_ababd.htm)).
+- Bash: `((expression))` evaluates an arithmetic expression, `[[ expression ]]` a conditional expression (bash(1) (https://man7.org/linux/man-pages/man1/bash.1.html)). C++: an attribute is written `[[ … ]]` (C++ draft, [dcl.attr.grammar] (https://eel.is/c++draft/dcl.attr.grammar)). Lua: `[[…]]` is a long string (Lua 5.4 manual (https://www.lua.org/manual/5.4/manual.html)); Org mode: `[[LINK]]` is a link (Org manual (https://orgmode.org/manual/Link-Format.html)).
+- Agda: « Instance arguments are enclosed in double curly braces {{ }} » (Agda documentation (https://agda.readthedocs.io/en/latest/language/instance-arguments.html)); Lean 4 reads `{{x : Nat}}` as the strict implicit binder `⦃x : Nat⦄` (checked with Lean 4.34.0, the version of this repository). Mustache: « A {{name}} tag in a basic template will try to find the name key in the current context » (mustache(5) (https://mustache.github.io/mustache.5.html)); Rust's format strings escape `{` as `{{` (std::fmt (https://doc.rust-lang.org/std/fmt/index.html)).
+- In French mathematics, an interval of integers is sometimes written with white brackets, `⟦−5, 3⟧` (Wikipédia, Intervalle (mathématiques) (https://fr.wikipedia.org/wiki/Intervalle_(math%C3%A9matiques)), secondary source).
+
+- **A — The head rule, nothing more.** A doubled pair is a form whose head is a form: `((e))` calls the result of `(e)` with no argument; `[[e]]` likewise in layer 3; `{{e}}` is a block of declarations holding one block. Example: `((make-counter))   ;; calls the counter that (make-counter) returns`. *For:* no special case; Scheme. *Against:* `((e))` and `(e)` differ by a call that is easy to miss.
+- **B — Grouping.** Doubling changes nothing: `((e))` is `(e)`, as parentheses in mathematics; a formatter removes the extra pair. *Against:* contradicts the head rule: in `((f x) y)` the inner form is an operator.
+- **C — Refused when the inner block is alone.** A code for `((e))`, `[[e]]` and `{{e}}` with nothing else; `((Ok v) body)` stays valid. *For:* no ambiguity. *Against:* calling a returned function without argument needs a lemma.
+- **D — Ranges and collections, by layer (your proposal).** A doubled pair writes a collection, by its elements or by a range, and its layer gives the kind: `[[…]]` a finite array or matrix, on the stack, computed in layer 3; `((…))` a list produced in layer 2, which may be unbounded; `{{…}}` a type, set in layer 1 (Q-LEX-303). *For:* each layer keeps its role: finite and terminating in layer 3, productive in layer 2, types in layer 1; close to the white brackets of French mathematics, `⟦1, 9⟧`. *Against:* a doubled pair is no longer read by the head rule; the range notation is to choose (Q-LEX-304).
+
+  ```text
+  [[1..9]]             ;; a vector of nine integers, layer 3
+  [[1..3 1..3]]        ;; a 3×3 matrix of index pairs
+  [[U+0041..U+005A]]   ;; the Latin capital letters
+  ((1..9))             ;; a list, layer 2
+  ((1..))              ;; an unbounded list, produced on demand
+  {{1..31}}            ;; a type, layer 1 (Q-LEX-303)
+  ```
+
+- **E — Another notation per pair.** Each doubled pair gets a meaning of its own, chosen pair by pair: for example `[[e]]` the denotation `⟦e⟧` or a quotation, `{{e}}` an implicit argument (Agda, Lean). *Against:* three new notations, unrelated to each other.
+
+#### Q-LEX-303 — With ranges: what does {{…}} hold?
+
+**Object.** If doubled pairs write ranges and collections (Q-LEX-302, D), `{{…}}` lives in layer 1, where types are set. You ask what it holds.
+
+**Facts.**
+
+- Ada: « A range has a lower bound and an upper bound and specifies a subset of the values of some scalar type (the type of the range). » (Ada RM, 3.5 (http://www.ada-auth.org/standards/22rm/html/RM-3-5.html)); « Discrete types are either integer types or are defined by enumeration of their values (enumeration types). » (Ada RM, 3.2 (http://www.ada-auth.org/standards/22rm/html/RM-3-2.html)), as `type Color is (White, Red, Yellow, Green, Blue, Brown, Black);` (Ada RM, 3.5.1 (http://www.ada-auth.org/standards/22rm/html/RM-3-5-1.html)).
+- Chapter 3 writes refinement types `{x : T | p}`: a range type is the refinement `{x : int | 1 ≤ x ≤ 31}`.
+
+- **A — A discrete type, by range or by enumeration.** `{{1..31}}` is the type of the integers from 1 to 31, `{{red amber green}}` the type of three values, as Ada's discrete types; the refinement of chapter 3 gives their meaning. *For:* types stay in layer 1; ranges and enumerations form one family; values come from `[[…]]` and `((…))`.
+
+  ```text
+  {field day :num {{1..31}}}
+  {field light :type {{red amber green}}}
+  ```
+
+- **B — A set of values, known at compile time.** `{{1..9}}` is the set of the nine values, a constant computed at compile time. *Against:* a value set in layer 1, where types are set.
+- **C — A repetition of declarations.** `{{…}}` repeats the declarations it holds for each value of a range, at compile time, as a macro would. Example: `{{i 1..4 {field reg-i :num int32}}}`. *Against:* a macro hidden in a delimiter; the declarations it makes are not in the text.
+
+#### Q-LEX-304 — With ranges: how is a range written?
+
+**Object.** Today the reader reads `1..9` as one symbol: it holds no space and no delimiter. A range notation is a lexical class to add, checked like the others by the probes of `tests/lexical/`.
+
+**Facts.**
+
+- Haskell: `[e1, e2 .. e3]`, the second element giving the step, and `[e1 ..]` without end (Haskell 2010, §3.10 (https://www.haskell.org/onlinereport/haskell2010/haskellch3.html)). Rust: `a..b` excludes `b`, `a..=b` includes it, `a..` has no end (Rust reference, range expressions (https://doc.rust-lang.org/reference/expressions/range-expr.html)). Raku: ranges are written with « two dots, and optionally a caret which indicates that the endpoint marked with it is excluded », `1 ..^5` (Raku documentation, Range (https://docs.raku.org/type/Range)). Ruby: `Range.new(2, 5).to_a # => [2, 3, 4, 5]`, and `Range.new(2, 5, true).to_a # => [2, 3, 4]` excludes the end (Ruby documentation, Range (https://docs.ruby-lang.org/en/master/Range.html)).
+- Unicode writes its ranges with two dots: « 0000..007F; Basic Latin » (Unicode Character Database, Blocks.txt (https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt)). POSIX regular expressions write a character class such as `[:alpha:]` inside a bracket expression, hence `[[:alpha:]]` (POSIX.1-2024, XBD chapter 9 (https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap09.html)).
+- BQN's Range `↕`, given a list of lengths, « returns an array of index lists »: a matrix of indices (BQN, Range (https://mlochbaum.github.io/BQN/doc/range.html)). In K7PL's table of glyphs, `↕` is `windows`, sliding windows.
+
+Several options may be chosen.
+
+- **incl — Inclusive bounds, a..b.** `1..9` holds 9, as Ada, Haskell, Ruby and Unicode. Example: `[[1..9]]`.
+- **excl — An excluded end, a..<b.** `0..<n` holds the n indices from 0. Example: `[[0..<n]]`. *For:* indices without writing `n-1`. *Against:* a second notation.
+- **step — A step.** The second value gives the step, as Haskell. Example: `((1 3..9))   ;; 1 3 5 7 9`. *Against:* two elements before `..`.
+- **open — No end, in layer 2 only.** `1..` has no end; layer 3 terminates, so only `((…))` may hold it. Example: `((1..))`.
+- **dims — Several ranges, a matrix.** `[[1..3 1..3]]` is the 3×3 matrix of index pairs, as BQN's `↕` given a list. Example: `[[1..3 1..3]]`.
+- **chars — Characters, by code point.** A range of code points in Unicode's notation; a range of characters written as characters waits for the character literal. Example: `[[U+0041..U+005A]]`.
 
 ## The catalogue, verbatim
 
