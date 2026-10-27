@@ -1272,6 +1272,46 @@ of growing instance chains.
   while `a≠b⊏c` stays a symbol and `⟦ a≠b [c] ⟦ x ⟧ ⟧` reads as nested
   pairs.
 
+### Names that link statements, K and proofs
+
+Added on 2026-10-27 at the author's request (Q-TRC-001 to Q-TRC-003).
+
+- **In the repository**, counted on 2026-10-27: 234 labels in
+  `spec/Spec/` (77 `thm`, 52 `sec`, 51 `eq`, 31 `tab`, 12 `fig`, 8
+  `lst`, 3 `req`, 1 `def`), with French slugs, and 594 `{num …}`
+  references. A label is registered for cross-references and rendered
+  as an anchor (`#lbl-lst-gestionnaire`); the displayed text is the
+  number. Page addresses come from section tags. The statement
+  extension (`tools/SpecExt/Theorem.lean`) has `formalArtifact`,
+  required with `evidence := "lean-proof"`; no statement uses it (64
+  `proofsketch`, 12 `none`, 1 `literature`), and
+  `scripts/spec_checks/statement_ontology.py` checks it syntactically
+  only. The 101 theorems of `src/` and `proofs/` are named in English.
+  `Spec` and `K7pl` are libraries of the same Lake package.
+- **Verso** v4.34.0: the `{name}` role resolves a Lean constant with
+  `realizeGlobalConstNoOverloadWithInfo` and logs an error when it does
+  not exist
+  (https://github.com/leanprover/verso/blob/v4.34.0/src/verso-manual/VersoManual/InlineLean.lean,
+  read in the repository's Lake package).
+- **Lean blueprint**: "`\lean` that lists the Lean declaration names
+  corresponding to the surrounding definition or statement (including
+  namespaces)"; "`\leanok` which claims the surrounding environment is
+  fully formalized"; "`\uses` that lists LaTeX labels that are used in
+  the surrounding environment. This information is used to create the
+  dependency graph"; "`leanblueprint checkdecls` to check that every
+  Lean declaration name that appear in the blueprint exist in the
+  project" (https://github.com/PatrickMassot/leanblueprint).
+- **Mathlib**: "Terms of Props (e.g. proofs, theorem names) use
+  snake_case. Props and Types (or Sort) (inductive types, structures,
+  classes) are in UpperCamelCase."
+  (https://leanprover-community.github.io/contribute/naming.html).
+
+Inferred for K7PL, not decided: a shared name makes the link readable
+but checks nothing; a statement about the whole calculus has no single
+element to share a name with; the existing `formalArtifact` field and
+Verso's name resolution make a checked link possible without a new
+tool.
+
 ## Research lot closure
 
 The research closing of 2026-10-25 closed the 53 files of

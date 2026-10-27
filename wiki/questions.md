@@ -1873,6 +1873,73 @@ Several options may be chosen.
 - **B — Glued allowed.** Example: `⟦x⟧   ;; a pair`. *Against:* needs a reader that keeps white brackets out of symbols, which K's regular expressions cannot express; a pre-pass or a hand-written reader.
 - **C — ASCII in files, white brackets on screen.** Files hold `[[ x ]]`; editors may display `⟦ x ⟧`. The reader never meets a white bracket. *Against:* fonts or an editor setting; the two writings of Q-LEX-302 become one.
 
+### Names that link statements, K and proofs
+
+Added on 2026-10-27 at the author's request, while the fifth part was open.
+
+#### Q-TRC-001 — English labels, aligned with the names of K and Lean
+
+**Object.** Your proposal: the names of statements and listings in the Verso document follow the English names specified in K, so that `lst:gestionnaire` becomes `lst:handler` and its proof is attached to a `handler` type. Today the specification holds 234 labels — 77 `thm`, 52 `sec`, 51 `eq`, 31 `tab`, 12 `fig`, 8 `lst`, 3 `req`, 1 `def` — with French slugs (`thm:preservation_type`, `thm:terminaison_couche_3`, `lst:gestionnaire`), referenced 594 times by `{num …}`. A label is never displayed — the reader sees a number — but it becomes the anchor of the published page (`#lbl-lst-gestionnaire`). Page addresses come from section tags (`c5-mise-en-pratique`), not from labels. The 101 Lean theorems of `src/` and `proofs/` are named in English (`linear_to_affine`); K names few elements yet (`LAYERS`, `ADD`…), the core words being chosen in the vocabulary lots (`lambda` for `Lam`).
+
+**Facts.**
+
+- Lean blueprint: a statement carries its label and, beside it, the Lean names that formalise it — `\label{thm:sphere_eversion}` then `\lean{sphere_eversion}`; « `\lean` that lists the Lean declaration names corresponding to the surrounding definition or statement (including namespaces) » (leanblueprint, README (https://github.com/PatrickMassot/leanblueprint)).
+- Mathlib: « Terms of Props (e.g. proofs, theorem names) use snake_case. Props and Types (or Sort) (inductive types, structures, classes) are in UpperCamelCase. » (Mathlib naming conventions (https://leanprover-community.github.io/contribute/naming.html)).
+- The frozen inventory of `wiki/assurance.md` and the pins of the stage C test name statements by their present labels; like the former file names, they would keep them, with a table of correspondence.
+
+- **A — Every label in English, once the words are chosen.** Labels take the English names fixed by the vocabulary lots and by K; a table records each former label; the frozen inventory keeps the former ones. Section tags, which make page addresses, are not touched. *For:* one name from the text to K and Lean. *Against:* published links to a statement's anchor break; 594 references to rewrite, mechanically.
+
+  ```text
+  lst:gestionnaire          → lst:handler
+  thm:terminaison_couche_3  → thm:layer-3-termination
+  ```
+
+- **B — English for new or rewritten objects only.** A label changes when its object is rewritten (as `lst:gestionnaire` and `lst:acteur` in Q-SPEC-202), not before. *For:* no mass rename. *Against:* two languages of labels for a long time.
+- **C — Labels unchanged; the link carried by fields.** Names stay as they are; the attachment to K and Lean is written in fields (Q-TRC-002). *For:* nothing published breaks. *Against:* the name alone no longer tells what it is about.
+
+#### Q-TRC-002 — How a statement is attached to what it is about and to its proof
+
+**Object.** A shared name makes the link readable, but alone it is a convention: nothing fails if the K element or the Lean proof is renamed or missing. The extension of the specification already has a field for the proof, `formalArtifact := "Module.declaration"`, required with `evidence := "lean-proof"`; no statement uses it yet (64 proof sketches, 12 without evidence, 1 from the literature), and the check of `scripts/spec_checks/statement_ontology.py` is syntactic: it does not look the declaration up. A metatheorem such as type preservation is about the whole calculus, not one type, so a statement may concern several elements, or none.
+
+**Facts.**
+
+- Verso, which builds the specification, resolves a Lean name at elaboration: its `{name}` role calls `realizeGlobalConstNoOverloadWithInfo` and logs an error when the constant does not exist (Verso v4.34.0, InlineLean.lean (https://github.com/leanprover/verso/blob/v4.34.0/src/verso-manual/VersoManual/InlineLean.lean)). The `Spec` library and the implementation `K7pl` are in the same Lake package.
+- Lean blueprint: « `\leanok` which claims the surrounding environment is fully formalized »; « `\uses` that lists LaTeX labels that are used in the surrounding environment. This information is used to create the dependency graph »; « `leanblueprint checkdecls` to check that every Lean declaration name that appear in the blueprint exist in the project » (leanblueprint, README (https://github.com/PatrickMassot/leanblueprint)).
+- Epistemic separation (project rules): a statement, a K definition, a Lean proof and a test stay distinct objects; a link says which object a proof concerns, it does not make a sketch a proof.
+
+- **A — By name only.** The key of the label is the K name and the Lean name; a script checks that the three agree. *For:* nothing to write beyond the name. *Against:* a statement about several elements, or about the whole calculus, has no single name to share.
+- **B — Explicit fields, checked by the build (blueprint style).** Each statement may carry `subject` (the K7PL elements it is about, found in `lexicon/`), `formalArtifact` (its Lean proof, the existing field) and `uses` (the statements it relies on). The build resolves the Lean name as Verso's `{name}` does and the subject in `lexicon/`, and fails if either is missing; the graph of dependencies is drawn from `uses`. *For:* every link checked at each build; several subjects allowed; the graph of the proofs comes for free. *Against:* three fields to keep; the extension and its check to extend.
+
+  ```text
+  ::::theorem (label := "thm:handler-purity") (subject := "handler")
+    (evidence := "lean-proof") (formalArtifact := "K7pl.Handler.purity")
+    (uses := "thm:substitution") …
+  ```
+
+- **C — A separate table.** `wiki/assurance.md` maps each label to its K elements, its Lean proof and its tests; a script checks the table. *For:* the manuscript is not touched. *Against:* the link lives away from the statement.
+
+#### Q-TRC-003 — The form of the shared key
+
+**Object.** K7PL writes its identifiers in kebab-case (`increase-counter`, Q-LEX-001); Lean refuses the hyphen in a name (it would need `«»`) and Mathlib writes proofs in snake_case and types in UpperCamelCase; the present labels mix `_` and `-`.
+
+- **A — Each place its own case, one mapping rule.** One key, written by the rules of each place, the mapping being mechanical and checked. *For:* each place keeps its conventions.
+
+  ```text
+  K7PL     handler, handler-purity
+  label    thm:handler-purity
+  Lean     K7pl.Handler, K7pl.Handler.purity
+  K        HANDLER, rule [handler-purity]
+  ```
+
+- **B — Dotted names everywhere.** The key is a path, element then property. *For:* the same text in labels and Lean. *Against:* a dot in labels; K7PL identifiers stay kebab-case.
+
+  ```text
+  label    thm:handler.purity
+  Lean     K7pl.Handler.purity
+  ```
+
+- **C — kebab-case everywhere, Lean included.** Example: `Lean     K7pl.«handler-purity»`. *Against:* every Lean name between «».
+
 ## The catalogue, verbatim
 
 
