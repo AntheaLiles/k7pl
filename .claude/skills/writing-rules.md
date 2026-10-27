@@ -21,14 +21,13 @@ specifications and commit messages in this repository.
 | `spec/Spec/<Ch>/<Section>.lean` | One level-2 section: its subsections (`#`, `##`…) and its blocks | CC-BY-4.0  |
 | `spec/figures/`                | Figures: canonical TikZ sources in `tikz/` (with `manifest.json`), from which `<name>.svg` (HTML) and `<name>.pdf` (PDF) are generated and not tracked; `sources/` keeps the former drawio and mermaid sources | CC-BY-4.0  |
 | `spec/CHANGELOG.md`            | Specification versions (`spec-vX.Y.Z` releases)                | CC-BY-4.0  |
+| `wiki/`                        | Canonical project documentation and generated status views     | CC-BY-4.0  |
 | `tools/SpecMain.lean`          | Specification generator (`lake exe spec`)                       | CECILL-2.1 |
 | `tools/SpecExt/`, `tools/SpecExt.lean` | Verso extensions of the specification (cross-references, statements, formulas, figures, citations…) | CECILL-2.1 |
 | `tools/SpecBib.lean`           | Bibliography, **generated** by `scripts/biblio/biblio.py`       | CECILL-2.1 |
-| `docs/bibliography/references.json` | Records of the cited works (source of `SpecBib.lean`)      | CC-BY-4.0  |
-| `docs/`                        | Current documentation, tracking, research, method, assurance and evidence | CC-BY-4.0  |
-| `docs/archives/`               | Frozen Org manuscript, former tooling                           | CC-BY-4.0 / CECILL-2.1 |
+| `wiki/references.json`            | Cited-work metadata consumed by the bibliography pipeline  | CC-BY-4.0  |
 | `LICENSES/`                    | Full license texts (managed with `reuse download`)              | —          |
-| `scripts/`                     | Maintenance (version bump, session hook, Zenodo), Org → Verso conversion (`org2verso/`), bibliography (`biblio/`), metrics and tracking | CECILL-2.1 |
+| `scripts/`                     | Bibliography generation, metrics, CI checks and maintenance   | CECILL-2.1 |
 | `zenodo.json`, `zenodo.files.json` | Zenodo metadata (shared, per PDF) — via `REUSE.toml`        | CECILL-2.1 |
 | `.github/workflows/`           | CI: build/tests/lint/axioms, Pages, REUSE, commits, security    | CECILL-2.1 |
 | `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md` | Issue and PR templates | CECILL-2.1 |
@@ -65,9 +64,9 @@ recommended under `CECILL-C` (weak copyleft), see `LICENSE.md`.
 - Strings rendered into the specification (Verso extensions, generated
   bibliography, navigation texts) follow the specification and stay in French.
 - File names: English.
-- Historical and evidence records (`docs/history/`, `docs/archives/`,
-  `docs/peer-review/`, dated audits) are not translated; they are deleted
-  progressively once their content has been analysed and arbitrated.
+- Historical and evidence records that remain in the repository are not
+  translated. Analyse and arbitrate each before moving or deleting it, and record
+  the destination or reason for removal.
 
 ## 3. Naming conventions
 
@@ -194,7 +193,7 @@ smallest change, and the change is recorded (tracking card, log).
 |---|---|
 | `{num "sec:x"}[]` | numbered cross-reference, link to the object (section, statement, formula, figure, table, listing) — replaces `\ref` |
 | `{label "sec:x"}` | label of the current section (`(display := "A.1")` forces the displayed number) |
-| `{cite "KEY1,KEY2"}[]` | numeric citation `[3, 5–7]`, numbered per chapter (`{refsection}`); the key must exist in `docs/bibliography/references.json` |
+| `{cite "KEY1,KEY2"}[]` | numeric citation `[3, 5–7]`, numbered per chapter (`{refsection}`); the key must exist in `wiki/references.json` |
 | `::::theorem (label := "thm:x") (scope := "metatheory")`, and its sibling directives | statement: definition, premise, result, requirement, result from the literature, example; see "Statements: specialised directives" below |
 | `::::thm (label := "thm:x") (status := …) (level := …)` | **historical**, kept for compatibility; `spec/` no longer uses it. `status`: `theoreme`, `proposition`, `conjecture`, `definition`, `exigence`, `litterature` |
 | `::::formula (label := "eq:x") (kind := "formule")` | formula(s): code blocks containing mathematical LaTeX, `:::caption` |
@@ -310,8 +309,8 @@ artefact.
 3. `python3 scripts/manuscript_metrics.py summary`, and `python3 scripts/suivi.py all` if tracking cards changed state.
 4. Add a line to `spec/CHANGELOG.md` (commit of type `docs(spec)`).
 
-The bibliography: adding a work = adding its record to `docs/bibliography/references.json` (fields of
-`scripts/biblio/biblio.py`), then `python3 scripts/biblio/biblio.py lean docs/bibliography/references.json
+The bibliography: adding a work = adding its record to `wiki/references.json` (fields of
+`scripts/biblio/biblio.py`), then `python3 scripts/biblio/biblio.py lean wiki/references.json
 tools/SpecBib.lean`.
 
 ## 7. Lean 4 style
@@ -447,9 +446,9 @@ Org-mode → Verso correspondences, for rewriting the existing sources:
 | `#+LATEX: \listoffigures`             | `{listof "figure"}`                            |
 | `TODO` / `DRAFT` in a heading         | `-- TODO:` comment in the source               |
 
-This table summarises `scripts/org2verso/`: the conversion of the Org manuscript is reproducible
-(`python3 scripts/org2verso/convert.py --src docs/archives/manuscrit-org --meta spec/figures --out <directory>`
-produces the current modules, character for character, as of the date of the conversion).
+The former Org-to-Verso converter has been retired. Maintain the normative
+specification in `spec/` and use the repository's Verso/Lake workflows to build
+and validate its generated outputs.
 
 ## 9. Conventional Commits
 

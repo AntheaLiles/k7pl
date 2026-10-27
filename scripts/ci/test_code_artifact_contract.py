@@ -23,8 +23,10 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.workflow_file = workflow = (ROOT / ".github/workflows/k7pl-semantics.yaml").read_text(encoding="utf-8")
         # The workflow and the scripts/ci step scripts that it runs.
         self.step_scripts = sorted(set(re.findall(r"\bscripts/ci/k7pl_semantics_\w+\.sh\b", workflow)))
+        package_evidence = (ROOT / "tools/ci-controller/src/package_evidence.ts").read_text(encoding="utf-8")
         self.workflow = "\n".join(
-            [workflow] + [(ROOT / name).read_text(encoding="utf-8") for name in self.step_scripts]
+            [workflow, package_evidence]
+            + [(ROOT / name).read_text(encoding="utf-8") for name in self.step_scripts]
         )
 
     def test_lexicon_is_the_only_home_of_k_sources(self) -> None:
@@ -76,7 +78,8 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertIn('```K (file := "lexicon/models/native-boundary.k")', self.page)
         self.assertIn("--main-module NATIVE-BOUNDARY", self.k_make)
         self.assertIn("boundary-check", self.k_make)
-        self.assertIn("k7pl_os_boundary_check.sh", self.k_make)
+        self.assertIn("tools/ci-controller/src/os_boundary_check.ts", self.k_make)
+        self.assertNotIn("k7pl_os_boundary_check.sh", self.k_make)
 
     def test_layer_grammar_is_checked_against_the_listings(self) -> None:
         self.assertIn("LAYERS_SOURCE := $(LEXICON)/syntax/refusals.k", self.k_make)
@@ -151,8 +154,10 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertNotIn("extract_verso_code.py", self.workflow)
 
     def test_workflow_packages_the_k_sources(self) -> None:
-        self.assertIn("scripts/ci/k7pl_semantics_package_evidence.sh", self.step_scripts)
-        self.assertIn('cp -a "$GITHUB_WORKSPACE/lexicon"', self.workflow)
+        self.assertIn("tools/ci-controller/src/package_evidence.ts", self.workflow_file)
+        self.assertNotIn("scripts/ci/k7pl_semantics_package_evidence.sh", self.step_scripts)
+        self.assertIn('copyItem(ws("lexicon"), art("lexicon"))', self.workflow)
+        self.assertNotIn(".build/generated/semantics.k", self.workflow)
         self.assertIn(".build/generated/check_k_examples.py", self.workflow)
 
     def test_step_scripts_trigger_the_workflow(self) -> None:

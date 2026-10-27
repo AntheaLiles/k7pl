@@ -33,15 +33,21 @@ SPEC_BUILD_EXACT = {
     "wiki/references.json",
 }
 SPEC_BUILD_PREFIXES = ("spec/", "tools/", "scripts/controles/", "scripts/biblio/")
-# Retired 2026-10-25 with the tracking folder: the primitive list moved to
-# wiki/research.md (read by scripts/controles/croise.py, which is on the
-# specification-build surface), and the tracking views were frozen and
-# deleted with scripts/suivi.py. No path triggers the tracking_views
-# surface on its own any more; it is set only by a full validation.
+# Retired 2026-10-25 with the tracking folder: the tracking views were
+# frozen and deleted with scripts/suivi.py. No path triggers the
+# tracking_views surface on its own any more; it is set only by a full
+# validation. The primitive leg that once read wiki/research.md from
+# croise.py was removed the same day (D1, owner decision): the wiki is
+# a view of what is to be done and what is done, not a normative
+# constituent, so wiki/research.md stays docs_links only by design.
 SPEC_CHECK_EXACT = set()
-LIGHT_PREFIXES = ("docs/", ".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
+# F9, owner decision 2026-10-25: docs/ is no longer a light prefix.
+# A non-markdown docs/ path is now unclassified and forces full
+# validation. Markdown docs/ files stay light through the generic
+# is_markdown rule, not through this prefix.
+LIGHT_PREFIXES = (".claude/", ".github/ISSUE_TEMPLATE/", "LICENSES/")
 LIGHT_EXACT = {"CITATION.cff"}
-PYTHON_TEST_EXACT = {"scripts/generate_status.py", "scripts/suivi.py"}
+PYTHON_TEST_EXACT = {"scripts/generate_status.py"}
 PYTHON_TEST_PREFIXES = ("tests/python/",)
 
 # Files that a check reads although they belong to another surface. These rules only add the

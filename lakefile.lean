@@ -62,7 +62,7 @@ lean_lib K7pl where
 /-- Test modules (`tests/`). Like Mathlib's own tests, they do not run the style linters. -/
 lean_lib K7plTests where
   srcDir := "tests"
-  roots := #[`ArithTest, `SemanticsTest, `SpecToolsTest, `SbomAuditTest, `RequirementEvidenceTest]
+  roots := #[`ArithTest, `SemanticsTest, `SpecToolsTest, `SbomAuditTest]
   leanOptions := k7plBaseOptions
 
 /-- Test runner, invoked by `lake test`. -/
@@ -75,7 +75,7 @@ lean_exe mainTest where
 /-- Experimental consistency audit for the scoped Lake-to-SPDX inventory. -/
 lean_lib K7plCompliance where
   srcDir := "tools"
-  roots := #[`Compliance.SbomAudit, `Compliance.RequirementEvidence]
+  roots := #[`Compliance.SbomAudit]
   leanOptions := k7plSpecOptions
 
 /-- CLI for the experimental scoped SPDX consistency audit. -/

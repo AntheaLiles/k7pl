@@ -12,8 +12,8 @@ k7pl is a programming language under design, with a specification in Verso and a
 - `spec/` is the normative source of the current specification.
 - `src/` is the source of the Lean implementation.
 - `tests/` contains the executable checks.
-- `docs/` contains tracking, decisions, audits and research material.
-- `docs/archives/` keeps the former manuscript and the former tooling; do not modify them to correct the current version.
+- `wiki/` contains maintained project documentation and generated status views.
+- `theoretical-projects/k7os/` contains research and models for the separate K7OS project; keep its evidence distinct from the normative K7PL specification.
 
 A claim in the specification, a Lean definition, a proof and a test are different objects. Never treat them as interchangeable.
 

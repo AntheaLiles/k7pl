@@ -1,0 +1,493 @@
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Single source of truth for CI component paths, commands, cache
+# determinants, proof-chain dependencies, mandatory checks, and
+# allowed claim classes. Read by tools/ci-controller (slice 1).
+# This registry is descriptive in slice 1: the impact classifier
+# still uses its own tables in scripts/ci/impact.py, and the two
+# must agree (see tools/ci-controller/README.md, cutover criteria).
+# A path may belong to several components: components are logical
+# units, not a partition of the tree. Overlaps are declared below
+# instead of being hidden.
+#
+# YAML subset supported by the controller's parser: block mappings
+# and sequences, plain/single/double-quoted scalars, booleans,
+# integers, and flow sequences. No anchors, tags, or block scalars.
+
+# D2 slice 1 (descriptive only, classifier not yet derived): every
+# component also declares `impact_surfaces` — the validation surfaces
+# a change under its roots triggers — and, where it reads files
+# outside its own roots, `read_inputs` — paths whose change triggers
+# that component's surfaces as well (the former classifier "read by
+# another surface" rules, now declared here). A path triggers the
+# surfaces of every component whose roots contain it, plus the
+# surfaces of every component whose read_inputs contain it. New
+# surface names (axiom_audit, k_compile, k_examples, klean_export,
+# tla_model_check) are declared here as derivation targets; they
+# are not yet emitted by the classifier and not yet wired to jobs.
+# The markdown rule (any .md/.markdown file triggers docs_links)
+# and the light/full exact-prefix rules remain classifier rules,
+# not components, and are not declared here.
+
+version: 1
+
+toolchains:
+  - id: lean
+    version: leanprover/lean4:v4.34.0
+    source: lean-toolchain
+  - id: k-framework
+    version: "7.1.337"
+    source: runtimeverificationinc/kframework-k:ubuntu-jammy-7.1.337@sha256:a63698c015f2b349bb9807d486bf2a48a764237a018fd207c23ac7571519b12b
+  - id: klean
+    version: 7.1.337
+    source: kframework==7.1.337
+  - id: tlc
+    version: 1.7.4
+    source: https://github.com/tlaplus/tlaplus/releases/download/v1.7.4/tla2tools.jar
+    sha256: 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
+  - id: java
+    version: "21"
+    source: temurin
+  - id: python
+    version: "3.13"
+    source: actions/setup-python
+  - id: deno
+    version: 2.9.8
+    source: denoland/deno and denoland/setup-deno
+    note: The impact, implementation/spec and controller-shadow jobs install Deno
+      through the shared composite action, which pins setup-deno v2.0.5 at
+      22d081ff2d3a40755e97629de92e3bcbfa7cf2ed. The official Deno container
+      was evaluated but not used for GitHub Actions jobs because it does not
+      include Node.js required by JavaScript-based actions such as checkout.
+
+components:
+  - id: specification
+    name: Specification (Verso)
+    roots:
+      - spec/
+    build_command: lake build Spec
+    check_command: python3 scripts/controle.py --format github
+    cache_determinants:
+      - lake-manifest.json
+      - lean-toolchain
+      - spec/
+    depends_on: []
+    required_checks:
+      - spec-check
+      - spec-build
+    impact_surfaces:
+      - spec_check
+      - spec_build
+      - python_tests
+    read_inputs:
+      # D2 slice 2: src/ is read by the spec checks only, not
+      # by the spec build — a read input may restrict its
+      # surfaces, instead of triggering the whole component.
+      - path: src/
+        surfaces:
+          - spec_check
+      # D2 slice 2: genuine inputs of the spec checks and build
+      # (the legacy classifier's spec-build exact/prefix rules,
+      # now declared here instead of hidden in a table).
+      - scripts/controle.py
+      - scripts/controles/
+      - scripts/biblio/
+      - scripts/manuscript_metrics.py
+      - wiki/references.json
+    allowed_claim_classes:
+      - execution
+      - verification
+
+  - id: spec-tooling
+    name: Specification tooling (Lean extensions)
+    roots:
+      - tools/
+    build_command: lake build Spec
+    check_command: python3 scripts/controle.py --format github
+    cache_determinants:
+      - lake-manifest.json
+      - lean-toolchain
+      - tools/
+    depends_on:
+      - specification
+    required_checks:
+      - spec-check
+      - spec-build
+      - lean-build
+    impact_surfaces:
+      - spec_check
+      - spec_build
+      - python_tests
+    allowed_claim_classes:
+      - execution
+      - verification
+    notes:
+      - "tools/Compliance is also read by the implementation build (see implementation component); tools/SpecExt is read by the specification build. The overlap is declared here instead of being resolved by silently picking one owner."
+
+  - id: implementation
+    name: Implementation (Lean)
+    roots:
+      - src/
+      - tests/
+    excludes:
+      - src/k/
+      # D2 slice 2: tests/python/ is Python tests, not Lean
+      # tests; without this exclusion the derivation would
+      # over-trigger lean_build for Python test files, which
+      # the legacy classifier's rule order (python_tests
+      # before lean_build) does not.
+      - tests/python/
+    build_command: lake build K7pl K7plTests K7plCompliance sbomAudit
+    check_command: lake test
+    cache_determinants:
+      - lake-manifest.json
+      - lean-toolchain
+      - src/
+      - tests/
+    depends_on:
+      - spec-tooling
+    required_checks:
+      - lean-build
+    impact_surfaces:
+      - lean_build
+    read_inputs:
+      - tools/SpecExt/IndexCore.lean
+      - tools/SpecExt/IndexTerms.lean
+      - tools/SpecExt/Translate.lean
+      - tools/Compliance/
+    allowed_claim_classes:
+      - execution
+      - verification
+    notes:
+      - "src/k/ is excluded: it is the K semantics component, not Lean implementation code, even though it lives under src/."
+
+  - id: k-semantics
+    name: K semantics (operational semantics)
+    roots:
+      - src/k/
+    build_command: make -C src/k check
+    check_command: make -C src/k check
+    cache_determinants:
+      - lean-toolchain
+      - lake-manifest.json
+      - spec/
+      - src/k/Makefile
+    depends_on:
+      - specification
+    required_checks:
+      - k-compile
+      - k-examples
+      - klean-export
+    impact_surfaces:
+      - k_compile
+      - k_examples
+      - klean_export
+    read_inputs:
+      # Cutover C1: inputs the K pipeline actually reads outside
+      # src/k/, declared here instead of hidden in the former
+      # k7pl-semantics.yaml path filters. The spec entries mirror
+      # those filters exactly (spec/Spec.lean, spec/Spec/,
+      # spec/formal-chain/): other spec/ files did not trigger
+      # the semantics workflow and do not trigger K here.
+      - path: spec/Spec.lean
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: spec/Spec/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: spec/formal-chain/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      # K extraction runs `lake exe spec --extract-code-only`;
+      # the extractor is tools/SpecMain.lean + tools/SpecExt/.
+      # The old filter was tools/ as a whole, but only these
+      # inputs affect extraction; the rest was over-triggering.
+      - path: tools/SpecMain.lean
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: tools/SpecExt/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      # K examples live under tests/examples/ (including the
+      # native-boundary profile); an examples change exercises
+      # the examples, it does not recompile the definition.
+      - path: tests/examples/
+        surfaces:
+          - k_examples
+      # PR #311 (author decision 2026-10-26): every K file lives
+      # in lexicon/, which the Verso K blocks display; the layer
+      # checker reads the probes of tests/layers/ and
+      # tests/lexical/ and the .k7 files of lib/. These mirror
+      # the k7pl-semantics.yaml path filters.
+      - path: lexicon/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: tests/layers/
+        surfaces:
+          - k_examples
+      - path: tests/lexical/
+        surfaces:
+          - k_examples
+      - path: lib/
+        surfaces:
+          - k_examples
+      - path: tools/layer-check/
+        surfaces:
+          - k_examples
+      # Cutover C1, author decision 2026-10-26: wiki/semantics.md
+      # keeps triggering K (it was in the former semantics
+      # workflow's path filters). TEMPORARY: this page is meant
+      # to disappear in favour of a Lean document and the
+      # lexicon/lexemes models prepared in PR #311; once #311
+      # lands and the wiki lexical pages are closed, remove
+      # this read input.
+      - path: wiki/semantics.md
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+    allowed_claim_classes:
+      - execution
+    notes:
+      - "src/k/ contains only a Makefile in the repository; the K sources live in lexicon/, which the Verso K blocks display, only the Python checker is extracted from spec/ by Verso (extract-code), and the compiled definitions live under src/k/.build/, which is not tracked. A claim from this component is execution only: it never, by itself, establishes a property."
+      - "Future tree rename: this component becomes semantics/ (with lexicon/ and siblings); only its roots change."
+
+  - id: lean-proofs
+    name: Lean proof project (Klean output)
+    roots:
+      - proofs/
+    build_command: lake build K7PL2Lean K7PL
+    check_command: scripts/ci/k7pl_semantics_build_proofs.sh
+    cache_determinants:
+      - proofs/lake-manifest.json
+      - proofs/lean-toolchain
+      - proofs/axiom-audit-contract.json
+    depends_on:
+      - k-semantics
+    required_checks:
+      - lean-proof-build
+      - axiom-audit
+    impact_surfaces:
+      - axiom_audit
+    allowed_claim_classes:
+      - execution
+      - proof
+    notes:
+      - "The only component whose stages may emit proof claims, and only for theorems actually checked by Lean with an axiom set contained in proofs/axiom-audit-contract.json and no sorryAx in the build."
+
+  - id: tla-models
+    name: TLA+ models
+    roots:
+      - theoretical-projects/k7os/models/
+    build_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary.cfg D01NativeBoundary
+    check_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary
+    cache_determinants:
+      - theoretical-projects/k7os/models/
+    depends_on: []
+    required_checks:
+      - tla-model-check
+    impact_surfaces:
+      - tla_model_check
+    allowed_claim_classes:
+      - verification
+    notes:
+      - "Deliberately no dependency on k-semantics: the D01/R9 models are hand-written models of a design, not artefacts derived from the K semantics. A future stage generating a model from K would be a new component with its own contract; it must not be implied by this entry."
+      - "TLC is bounded model checking: verification claims only, never proof claims."
+
+  - id: theoretical-projects
+    name: Theoretical projects (documentation)
+    roots:
+      - theoretical-projects/
+    excludes:
+      - theoretical-projects/k7os/models/
+    build_command: ""
+    check_command: ""
+    cache_determinants:
+      - theoretical-projects/
+    depends_on: []
+    required_checks:
+      - docs-links
+    impact_surfaces:
+      - docs_links
+    allowed_claim_classes:
+      - execution
+    notes:
+      - "Documentation component; the models subdirectory is owned by tla-models above."
+
+  - id: python-tooling
+    name: Python tooling
+    roots:
+      - scripts/
+      - tests/python/
+    excludes:
+      - scripts/ci/
+    build_command: python3 -m pytest tests/python -q
+    check_command: python3 -m unittest discover -s scripts/ci -p 'test_*.py'
+    cache_determinants:
+      - scripts/requirements-ci.txt
+      - scripts/
+      - tests/python/
+    depends_on: []
+    required_checks:
+      - python-tests
+    impact_surfaces:
+      - python_tests
+    read_inputs:
+      - wiki/assurance.md
+      - src/
+    allowed_claim_classes:
+      - execution
+      - verification
+    notes:
+      - "scripts/ci/ is excluded: it is owned by ci-configuration below, because a change there forces full validation."
+      - "Long-term target: every script under scripts/ migrates to TypeScript under Deno; this component is the migration backlog, not a permanent Python island."
+
+  - id: wiki
+    name: Wiki (documentation)
+    roots:
+      - wiki/
+    build_command: node scripts/ci/wiki_export.mjs
+    check_command: ""
+    cache_determinants:
+      - wiki/
+      - scripts/ci/wiki_export.mjs
+    depends_on: []
+    required_checks:
+      - docs-links
+      - wiki-export-validation
+    impact_surfaces:
+      - docs_links
+    allowed_claim_classes:
+      - execution
+    notes:
+      - "The wiki exporter is currently Node (.mjs); it is a Deno migration candidate (slice 4), not a permanent Node exception. Its build command is recorded as-is until that migration."
+
+  - id: ci-configuration
+    name: CI configuration
+    roots:
+      - .github/workflows/
+      - .github/actions/
+      - scripts/ci/
+    build_command: ""
+    check_command: python3 -m unittest discover -s scripts/ci -p 'test_*.py'
+    cache_determinants:
+      - .github/
+      - scripts/ci/
+    depends_on: []
+    required_checks:
+      - full-validation
+    impact_surfaces:
+      - full
+    read_inputs:
+      # D2 slice 2: the legacy classifier's full-exact files
+      # (toolchain and manifest files whose change forces full
+      # validation), now declared here instead of hidden in a table.
+      - .github/dependabot.yml
+      - lakefile.lean
+      - lean-toolchain
+      - lake-manifest.json
+      - scripts/sync_zenodo.py
+      - scripts/requirements-zenodo.txt
+    allowed_claim_classes:
+      - execution
+    notes:
+      - "A change to any root here forces full validation in the impact classifier; this component records that rule instead of re-deriving it."
+
+# Proof-chain stages. A stage belongs to one component, declares
+# the stages it requires as inputs, the claim classes it may emit,
+# and the claim classes it must emit at least one of (empty means
+# the stage is allowed to emit no claim, e.g. a pure generation
+# step whose output is checked downstream -- but a stage that
+# emits nothing never establishes anything).
+stages:
+  - id: spec-extract
+    component: specification
+    requires: []
+    allowed_claim_classes:
+      - execution
+    required_claim_classes: []
+  - id: spec-build
+    component: specification
+    requires:
+      - spec-extract
+    allowed_claim_classes:
+      - execution
+      - verification
+    required_claim_classes: []
+  - id: k-compile
+    component: k-semantics
+    requires:
+      - spec-extract
+    allowed_claim_classes:
+      - execution
+    required_claim_classes:
+      - execution
+  - id: k-examples
+    component: k-semantics
+    requires:
+      - k-compile
+    allowed_claim_classes:
+      - execution
+    required_claim_classes:
+      - execution
+  - id: klean-export
+    component: k-semantics
+    requires:
+      - k-compile
+    allowed_claim_classes:
+      - execution
+    required_claim_classes:
+      - execution
+  - id: lean-proof-build
+    component: lean-proofs
+    requires:
+      - klean-export
+    allowed_claim_classes:
+      - execution
+      - proof
+    required_claim_classes:
+      - proof
+  - id: tla-model-check
+    component: tla-models
+    requires: []
+    allowed_claim_classes:
+      - verification
+    required_claim_classes:
+      - verification
+  - id: lean-implementation-build
+    component: implementation
+    requires: []
+    allowed_claim_classes:
+      - execution
+      - verification
+    required_claim_classes:
+      - execution
+  - id: python-tests
+    component: python-tooling
+    requires: []
+    allowed_claim_classes:
+      - execution
+      - verification
+    required_claim_classes:
+      - execution
+  - id: wiki-export
+    component: wiki
+    requires: []
+    allowed_claim_classes:
+      - execution
+    required_claim_classes:
+      - execution

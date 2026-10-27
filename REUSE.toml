@@ -48,7 +48,8 @@ path = [
   ".gitleaks.toml",
   ".howfairis.yml",
   "pytest.ini",
-  "CITATION.cff"
+  "CITATION.cff",
+  "lychee.toml"
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
@@ -137,6 +138,20 @@ path = "lib/README.md"
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
 SPDX-License-Identifier = "CC-BY-4.0"
+# Slice 1 CI controller (2026-10-25): JSON files cannot carry an
+# SPDX header. The TypeScript sources carry CECILL-2.1 headers;
+# the configuration files below are technical metadata (CC0),
+# like the other CI configuration in this file.
+[[annotations]]
+path = [
+  "tools/ci-controller/deno.json",
+  "tools/ci-controller/deno.lock",
+  "tools/ci-controller/evidence.schema.json",
+  ".github/ci/components.yaml",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Cyprien PIERRE"
+SPDX-License-Identifier = "CC0-1.0"
 
 # Layer checker (2026-10-26): JSON files cannot carry an SPDX header. The
 # TypeScript sources carry CECILL-2.1 headers; the configuration and the KAST

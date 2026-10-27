@@ -47,7 +47,7 @@ boundary-kompile:
 	$(KOMPILE) "$(BOUNDARY_SOURCE)" --backend $(K_BACKEND) --main-module NATIVE-BOUNDARY --syntax-module NATIVE-BOUNDARY --output-definition "$(BOUNDARY_DEFINITION)"
 
 boundary-check: boundary-kompile
-	bash ../../scripts/ci/k7pl_os_boundary_check.sh "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
+	$(DENO) run --allow-read --allow-run=krun ../../tools/ci-controller/src/os_boundary_check.ts "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
 
 # The grammar of the layers reads texts with a Bison parser; its rules emit the code and the
 # message of each refused inclusion of delimiters.
