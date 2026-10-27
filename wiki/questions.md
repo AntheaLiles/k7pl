@@ -2826,6 +2826,178 @@ Several options may be chosen.
 - **Reading:** halves for every type written with two segments (option A): a missing second segment splits the width in two, with a warning (`fix32` is `fix16.16`).
 
 
+## Lot of 2026-10-27, seventh part: what the sixth leaves open — texts, trains, ranges and doubled forms, actors, codes and remarks
+
+Opened on 2026-10-27, once the author had answered 20 of the 25 questions of the sixth part.
+It carries the four questions not answered yet (Q-LEX-610 revised for the head word `range`)
+and the questions those answers raise. Q-LEX-606 is withdrawn: glyphs are chosen after the
+lemmas. Same rules: options to enumerate and objectify, then the author's choice; **Other** and
+**Clarify** are always available.
+
+Words of the examples that no answer has fixed yet (`accept`, `:sets`, `:reply`, `sum`, `text32g`…) are placeholders.
+
+### Texts
+
+#### Q-STR-401 — Which `%XX` a raw text decodes
+
+**Object.** Your answer to Q-STR-303: in a raw text `\` stays literal, a quotation mark is written `%22` and a leading space `%20`, so that « l'ensemble du raw text puisse être parsé ». Since a quotation mark inside is `%22`, the closing quotes are found without any escape, and `\` can stay literal everywhere, the closing quotes included. What remains is which `%XX` sequences are decoded.
+
+**Facts.**
+
+- RFC 3986: « A percent-encoded octet is encoded as a character triplet, consisting of the percent character "%" followed by the two hexadecimal digits representing that octet's numeric value », and « Because the percent ("%") character serves as the indicator for percent-encoded octets, it must be percent-encoded as "%25" for that octet to be used as data within a URI » (RFC 3986, §2.1 and §2.4 (https://www.rfc-editor.org/rfc/rfc3986)).
+
+- **A — Every `%XX`, as a URL.** Any `%` followed by two hexadecimal digits is decoded; a literal `%` is written `%25`. Example: `""100%25 sure, %22quoted%22""   ;; the text 100% sure, "quoted"`. *For:* one rule, that of URLs; any byte of the text can be written. *Against:* a `%` before two hexadecimal digits in a regular expression or a format string must be written `%25`.
+- **B — Only `%22`, and `%20` at the start.** Every other `%` stays literal. Example: `""%22quoted%22 at 50%""   ;; the text "quoted" at 50%`. *For:* a raw text stays raw almost everywhere. *Against:* the three characters `%22` themselves cannot be written in a raw text.
+- **C — `%22`, `%20` and `%25`.** The three sequences that a raw text needs, and `%25` so that the other two can be written literally. Example: `""%2522 is written %22""   ;; the text %22 is written "`. *For:* every text can be written; other `%` stay literal. *Against:* three sequences to remember instead of a rule.
+
+#### Q-STR-405 — How a text type is written
+
+**Object.** Q-STR-402: no character type; as `varchar`, a text type carries its bound, counted in graphemes or in bytes of UTF-8 as the type states, and a text type written without them is a typed hole. Numbers are written as a family and a width, `int32`, `flo64`, after a property that announces them (`:num int32`).
+
+- **A — A family, a bound and a unit letter.** *For:* written as the numbers are.
+
+  ```text
+  {field name :text text32g}   ;; 32 graphemes
+  {field key :text text16b}    ;; 16 bytes
+  {field note :text text}      ;; a typed hole
+  ```
+
+- **B — `varchar`, with the same suffix.** Example: `{field name :text varchar32g}`. *For:* the word you used. *Against:* longer, and `var` reads as variable.
+- **C — The unit as a property.** Example: `{field name :text {text 32 :unit grapheme}}`. *Against:* heavier for a frequent type.
+
+#### Q-STR-406 — A class tested on a grapheme of several code points
+
+**Object.** A class such as `:alpha:` is a set of code points (UTS #18), and a text of bound 1 counted in graphemes may hold several of them: `é` written as `e` and a combining accent is one grapheme and two code points. What does `[:alpha: c]` answer then?
+
+**Facts.**
+
+- UTS #18: « an implementation could interpret \X as matching any extended grapheme cluster, while interpreting "." as matching any single code point » (Unicode, UTS #18 (https://www.unicode.org/reports/tr18/)).
+
+- **A — Every code point is in the class.** Example: `[:alpha: "é"]   ;; t: e and the accent are both Alphabetic`.
+- **B — The first code point, the base, is in the class.** *For:* the base names the character a reader sees.
+- **C — Only a text of one code point.** A class tests a text of bound 1 counted in bytes or code points; a grapheme of several code points is refused with a code. *Against:* a third unit.
+
+### Trains
+
+#### Q-SPEC-306 — Trains longer than three words: a principled reading
+
+**Object.** Q-SPEC-303, kept open: « Les propositions sont arbitraires et non satisfaisantes ». Three readings follow from a principle already in K7PL rather than from a convention: the types (chapter 5 refuses an ambiguous search rather than choosing), the fixed arities you asked for (prefix notation needs no grouping once every arity is fixed), and the stack effects that chapter 5 gives its concatenative blocks (`[dup *]` has the effect `(1 – 2)`). Until then, chapter 5 groups its trains explicitly, three words at most.
+
+**Facts.**
+
+- J: « A train of two or three verbs produces a verb and (by repeated resolution), a verb train of any length also produces a verb. For example, the trains +-*% and +-*%^ are equivalent to +(-*%) and +-(*%^) » (J Dictionary, F. Trains (https://www.jsoftware.com/help/dictionary/dictf.htm)).
+- Prefix notation: « Assuming a given arity of all involved operators […], any well-formed prefix representation is unambiguous, and brackets within the prefix expression are unnecessary » (Wikipedia, Polish notation (https://en.wikipedia.org/wiki/Polish_notation)).
+- Factor: « A stack effect declaration takes the following form: ( input1 input2 ... -- output1 ... ) » (Factor documentation, stack effect declarations (https://docs.factorcode.org/content/article-effects.html)).
+
+- **A — By the types: one reading or a refusal.** The elaboration keeps the groupings that type-check; one is accepted, several are refused as ambiguous with a code that shows them, as an ambiguous handler search is. Example: `[identity sub fold add div length]   ;; two readings type-check: refused, both shown`. *For:* no grouping to learn. *Against:* whether a train is accepted depends on the types of its words.
+- **B — By the arities, in prefix order.** Each word takes as many operands as its arity, read left to right; composition is written by a word (`atop`). *For:* never ambiguous, whatever its length. *Against:* the combining word comes first, not between its operands.
+
+  ```text
+  [div fold add length]                ;; the mean
+  [sub identity div fold add length]   ;; x minus its mean
+  ```
+
+- **C — By the stack, as the concatenative blocks.** A train is a block whose words consume and produce values on a stack, each by its stack effect. Example: `[dup fold add swap length div]   ;; the mean`. *For:* one reading for trains and blocks. *Against:* stack words (`dup`, `swap`) appear in the train.
+
+### Doubled forms and ranges
+
+#### Q-LEX-610 — How a range is written, with the head word `range`
+
+**Object.** Revised after Q-LEX-609: the uses of `[[ … ]]` take a head word, and `[[ range 1 9 ]]` ranges items in memory. What remains is how bounds, ends, steps and dimensions are written. Today the reader reads `1..9` as one symbol.
+
+**Facts.**
+
+- Haskell: `[e1, e2 .. e3]`, the second element giving the step, and `[e1 ..]` without end (Haskell 2010, §3.10 (https://www.haskell.org/onlinereport/haskell2010/haskellch3.html)). Rust: `a..b` excludes `b`, `a..=b` includes it, `a..` has no end (Rust reference, range expressions (https://doc.rust-lang.org/reference/expressions/range-expr.html)).
+- Unicode writes its ranges with two dots: « 0000..007F; Basic Latin » (Unicode Character Database, Blocks.txt (https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt)).
+
+Several options may be chosen.
+
+- **args — Bounds as arguments, both included.** Example: `[[ range 1 9 ]]   ;; 1 to 9`.
+- **dots — `a..b` kept, inside `range`.** Example: `[[ range 1..9 ]]`. *Against:* two notations for one range.
+- **below — An excluded end, by a property.** Example: `[[ range 0 :below n ]]   ;; 0 to n-1`. *For:* indices without writing `n-1`.
+- **step — A step, by a property.** Example: `[[ range 1 9 :step 2 ]]   ;; 1 3 5 7 9`.
+- **open — No end, outside layer 3.** Layer 3 terminates, so an endless range is a lazy list of layer 2. Example: `(range 1)`.
+- **dims — Several ranges, a matrix of index pairs.** Example: `[[ range [1 3] [1 3] ]]`.
+- **chars — Texts of one character.** Example: `[[ range "a" "z" ]]`.
+
+#### Q-LEX-614 — `[[:alpha:]]` beside the head words
+
+**Object.** Q-LEX-503 reads `[[:alpha:]]` as the matrix of the bounds of a class's runs; Q-LEX-609 gives every use of `[[ … ]]` a head word (`range`, `frame`, `cells`).
+
+- **A — `[[ range :alpha: ]]`.** The runs of a class are its ranges. *For:* one head word for ranges of numbers and of characters.
+- **B — `[[:alpha:]]` kept.** A class name alone is a fourth use, recognised by its colons.
+- **C — No matrix form.** Classes keep the predicate, the stream and the type.
+
+#### Q-LEX-612 — `{{ … }}` in layer 1: an evaluation (Q-LEX-403, reopened)
+
+**Object.** You asked for a deeper evaluation of what each option implies, liked Agda's definition and a branching specific to a capability, and asked how Clojure and Lean 4 use these notations and what `{{:alpha:}}` means here. Agda's `{{ }}` are instance arguments; Lean 4's `{{ }}`, also written `⦃ ⦄`, are strict-implicit parameters; Clojure gives `{{ }}` no meaning of its own — it reads a map whose first key is a map — and attaches declarations to a form with metadata, `^{…}`. What each option implies, and what `{{:alpha:}}` would mean under it: **arena** — a named arena is a layer-1 value; `{{:alpha:}}` would name an arena, which a class is not. **instance** — the elaborator searches an argument by its type, as chapter 5 fills a handler, an ambiguous search being refused; `{{:alpha:}}` would ask for a value of the class's type, found by search. **strict** — an argument inferred only once a later explicit argument is given; `{{:alpha:}}` has no reading. **comptime** — overlaps the sigil `#`. **capability** — a `Cap ρ` granted to what follows, a branching specific to capabilities; a class is not a capability. **refine** — `{{ x }}` is a refined type, as Q-LEX-503 reads `{{:alpha:}}`: since Q-STR-402, the texts of one character that the class admits.
+
+**Facts.**
+
+- Agda: « Instance arguments are a special kind of implicit arguments that get solved by a special instance resolution algorithm, rather than by the unification algorithm used for normal implicit arguments » (Agda documentation (https://agda.readthedocs.io/en/latest/language/instance-arguments.html)).
+- Lean 4: « Strict implicit parameters are identical to ordinary implicit parameters, except Lean will only attempt to find argument values when subsequent explicit arguments are provided at a call site. Strict implicit parameters are written in double curly braces (⦃ and ⦄, or {{ and }}) »; instance-implicit parameters, found by type class synthesis, « are written in square brackets » (Lean language reference, functions (https://lean-lang.org/doc/reference/latest/Terms/Functions/)).
+- Clojure: « The metadata reader macro first reads the metadata and attaches it to the next form read » (Clojure reader (https://clojure.org/reference/reader)).
+
+Several options may be chosen.
+
+- **arena — Another arena.** Example: `{{ :arena scratch {field buffer :num int8} }}`.
+- **instance — Filled by search (Agda).** Example: `{{ counter-handler }}`.
+- **strict — Strict implicit (Lean 4).**
+- **comptime — Evaluated at compile time.** Example: `{{ table-of-squares 256 }}`.
+- **capability — A capability given explicitly.** Example: `{{ :cap clock }}`.
+- **refine — A refined type.** Example: `{{:alpha:}}   {{ x :num int32 | [> x 0] }}`.
+
+### Actors
+
+#### Q-SPEC-307 — What the implicit handler makes of a transition
+
+**Object.** Q-SPEC-305: an actor pairs each message with its pure transition, `:on`, and its handler is implicit. In chapter 5 the transition `?increment-bounded` returns a `Result`, and the handler of `lst:gestionnaire` turns `Ok` into a new value of the field `value` with the response `Ok`, and `Err` into an unchanged state with the response `Err`. Layer 3 cannot build a `HandlerResult`, a layer-2 construction (`ERR-TOP-001`), so the implicit handler, in layer 2, builds it.
+
+- **A — The rule of `Result`, the field named in the clause.** `Ok v` sets the named field to `v` and answers `Ok v`; `Err e` leaves the state and answers `Err e`.
+
+  ```text
+  {defactor counter
+    {field value :num int}
+    {field bound :num int}
+    :on (Increment :sets value [?increment-bounded [view state value] [view state bound]])}
+  ```
+
+- **B — The whole new state, the response by a property.** The transition returns the new state; `:reply` gives the response.
+
+  ```text
+  {defactor counter
+    {field value :num int}
+    {field bound :num int}
+    :on (Increment [set state value [+ [view state value] 1]] :reply …)}
+  ```
+
+- **C — A, and a handler written out when the rule does not fit.** The handler stays implicit for the rule of `Result` and is written as in `lst:gestionnaire` otherwise.
+
+### Codes and remarks
+
+#### Q-TYP-401 — The codes of the two refusals of monomorphisation
+
+**Object.** Chapter 6 now refuses a program when an instance is still missing at the exhaustion of the budget, naming the generic, the chain of instances, the budget spent and the budget that would suffice; and it refuses a chain of instances that grows on a cycle, naming the cycle. Neither has a code. Annex A has `ERR-POL-001` for dynamic dispatch, `ERR-TYP` up to `-012`, `ERR-SMT` up to `-003`.
+
+- **A — `ERR-POL-002` and `ERR-POL-003`.** *For:* beside `ERR-POL-001`: nothing shared at run time.
+- **B — `ERR-TYP-013` and `ERR-TYP-014`.**
+- **C — A new segment, `ERR-MON-001` and `ERR-MON-002`.** *Against:* a new segment.
+
+#### Q-SPEC-308 — The code of a query that does not stratify
+
+**Object.** The corollary `thm:terminaison_strates` (chapter 2): the compiler refuses a layer-3 query whose dependencies cycle through a negation. Annex A has `ERR-TER-001` for a recursion without a fold or `terminates`.
+
+- **A — `ERR-TER-002`.** *For:* beside the other refusal of termination.
+- **B — A new segment, `ERR-STR-001`.** *Against:* a new segment.
+
+#### Q-LEX-613 — The prefix of remarks
+
+**Object.** Q-LEX-605: a glyph written in a file is rewritten as its word, « pas un warning mais une remarque comme "HEY-LEX-..." ». A remark is a third kind beside errors (`ERR-`) and warnings (`WRN-`).
+
+- **A — `HEY-`, as you wrote.** Example: `HEY-LEX-001  glyph ´ rewritten as fold`.
+- **B — `NOTE-`.** Example: `NOTE-LEX-001`.
+- **C — `INF-`.** Example: `INF-LEX-001`.
+
 ## The catalogue, verbatim
 
 
