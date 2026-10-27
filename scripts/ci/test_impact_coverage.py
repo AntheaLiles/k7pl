@@ -659,9 +659,9 @@ class WorkflowConsistencyTests(unittest.TestCase):
         self.assertTrue((ROOT / "scripts/ci/verify_sbom_audit.sh").is_file())
         self.assertIn("tools/ci-controller/src/lake_to_spdx.ts", text)
         self.assertIn("tools/ci-controller/src/sbom_evidence.ts", text)
-        # Axiom audits have been ported to Deno. Keep the old shell entry point in-tree
-        # until the full CI cycle is green, but verify the replacement steps are wired.
-        self.assertTrue((ROOT / "scripts/ci/verify_audit_axioms.sh").is_file())
+        # Axiom audits have been ported to Deno; the old shell entry point was
+        # removed once the full CI cycle was green. Verify the replacement steps
+        # are wired.
         self.assertIn("tools/ci-controller/src/axiom_audit.ts audit-roots tools Compliance", text)
         self.assertIn("tools/ci-controller/src/axiom_audit.ts audit-roots tests", text)
         for path in step_scripts():
