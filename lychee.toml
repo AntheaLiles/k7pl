@@ -62,6 +62,21 @@ exclude = [
   # 2026-01-04. Browser check by the owner pending. Re-check by 2027-01-24
   # (90 days). Do not exclude all of gnu.org or accept 429.
   "^https://www\\.gnu\\.org/software/hurd/users-guide/using_gnuhurd\\.html$",
+  # Exact URL exception: the Emacs Lisp manual's "Syntax for Strings", cited
+  # by the reading-lot research (wiki/research.md). The runner timed out on it
+  # in runs 40475694696 and 40477227138 (2026-10-27); the same day, automated
+  # fetches from outside the runner got 503 and a reset connection. Existence
+  # evidence, 2026-10-27: Wayback Machine 200 capture of 2026-08-03; a mirror
+  # (docs.w3cub.com) credits this exact URL. Re-check by 2027-01-25 (90 days).
+  # Do not exclude all of gnu.org or accept timeouts.
+  "^https://www\\.gnu\\.org/software/emacs/manual/html_node/elisp/Syntax-for-Strings\\.html$",
+  # Exact URL exception: the TXR manual on nongnu.org, cited by the same
+  # research as not checked from this project's sessions. The runner timed out
+  # on it in the same two runs; an automated fetch from outside the runner got
+  # 429 (Retry-After: 4) on 2026-10-27. Existence evidence, 2026-10-27: Wayback
+  # Machine 200 capture of 2026-09-21. Re-check by 2027-01-25 (90 days). Do not
+  # exclude all of nongnu.org or accept timeouts.
+  "^https://www\\.nongnu\\.org/txr/txr-manpage\\.html$",
 ]
 
 # gnu.org rate-limits the runner (429 on hurd pages, which
