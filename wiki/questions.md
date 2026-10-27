@@ -974,7 +974,7 @@ Several options may be chosen.
 **Facts.**
 
 - Rust: `\'` `\"`, `\x41` (two hex digits, up to 0x7F), `\n` `\r` `\t` `\\` `\0`, `\u{7FFF}` (« up to 6 hex digits », a Unicode scalar value) (Rust reference (https://doc.rust-lang.org/reference/tokens.html)).
-- Tcl: `\a` `\b` `\f` `\n` `\r` `\t` `\v` `\\`, octal `\ooo`, `\xhh`, `\uhhhh`, `\Uhhhhhhhh` (Tcl(n), rule 9 (https://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm)).
+- Tcl: `\a` `\b` `\f` `\n` `\r` `\t` `\v` `\\`, octal `\ooo`, `\xhh`, `\uhhhh`, `\Uhhhhhhhh` (Tcl(n), rule 9 (https://core.tcl-lang.org/tcl/doc/core-8-6-branch/doc/Tcl.n)).
 
 Several options may be chosen.
 

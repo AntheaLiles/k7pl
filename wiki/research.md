@@ -565,8 +565,9 @@ Sources read on 2026-10-26.
   \uhhhh \Uhhhhhhhh`; for backslash-newline, "A single space
   character replaces the backslash, newline, and all spaces and
   tabs after the newline." Source: Tcl 8.6 manual page `Tcl`
-  (rules 4, 6 and 9),
-  https://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm.
+  (rules 4, 6 and 9), its source in the Tcl repository,
+  https://core.tcl-lang.org/tcl/doc/core-8-6-branch/doc/Tcl.n
+  (www.tcl-lang.org timed out on 2026-10-27).
 - **Emacs Lisp.** Double quotes; a backslash before a double quote
   or a backslash; "an escaped newline—one that is preceded by
   ‘\’—does not become part of the string"; "The newline character
@@ -838,7 +839,7 @@ the primary text before a claim enters `spec/`.
   backslash is dropped and the following character is treated as an
   ordinary character"; a backslash, a newline and the following spaces
   or tabs are replaced by one space. Source:
-  https://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm.
+  https://core.tcl-lang.org/tcl/doc/core-8-6-branch/doc/Tcl.n.
 - **Raku**: "in the plain `Q` form, backslash escapes aren't allowed",
   and `｢…｣` is its shortcut; for heredocs, "If the terminator is
   indented, that amount of indention is removed from the string
@@ -1395,7 +1396,7 @@ the revised fifth part.
   control words spaces are ignored »; « any quadruplet ^^xy where both
   x and y are lowercase hexadecimal digits 0–9, a–f, is replaced by a
   character in the range 0–255 »
-  (https://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf).
+  (https://ctan.org/pkg/texbytopic).
   ConTeXt: `\backslash`, `\%`, `\{`, `\}`, `\lettertilde`
   (https://wiki.contextgarden.net/Special_characters).
 - **OpTeX** (https://petr.olsak.net/optex/): « OpTeX is a LuaTeX
