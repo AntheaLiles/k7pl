@@ -2350,6 +2350,9 @@ Words of the examples that no answer has fixed yet (`accept`, `:on`, `:run`, `su
 - **B — Only `%22`, and `%20` at the start.** Every other `%` stays literal. Example: `""%22quoted%22 at 50%""   ;; the text "quoted" at 50%`. *For:* a raw text stays raw almost everywhere. *Against:* the three characters `%22` themselves cannot be written in a raw text.
 - **C — `%22`, `%20` and `%25`.** The three sequences that a raw text needs, and `%25` so that the other two can be written literally. Example: `""%2522 is written %22""   ;; the text %22 is written "`. *For:* every text can be written; other `%` stay literal. *Against:* three sequences to remember instead of a rule.
 
+*Not answered yet; carried into the seventh part.*
+
+
 #### Q-STR-402 — A character and a text of one character
 
 **Object.** Q-STR-306: a character is written like a text of one character, `"a"`, `"μ"`, `"\lambda"`. A character is what a class `{{:alpha:}}` refines (Q-LEX-503), so the type `char` exists; something must tell a character from a text of length one.
@@ -2362,6 +2365,13 @@ Words of the examples that no answer has fixed yet (`accept`, `:on`, `:run`, `su
 - **A — By the expected type.** A one-character literal is a `char` where a `char` is expected, a text elsewhere. Example: `{field initial :type char}   ;; "a" given to it is a char`. *For:* no mark. *Against:* where nothing expects a type, it is a text.
 - **B — A typed hole, resolved like the integers.** A literal holding one Unicode scalar value resolves to `char` unless a text is expected. *Against:* `"é"` written as `e` and a combining accent holds two values, and is a text.
 - **C — No `char`, as Python.** A character is a text of length one; classes refine texts. *Against:* ranges of characters and the predicate `[:alpha: c]` then range over texts.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-073), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** No char but varchar as in PostgreSQL and varchar(1) is a single char string, a varchar(0) is an empty string and a varchar(n) is a string of the size n. Hence as a string is typed, it's either explicit in graphem or in bytecode or seen as a typed hole.
+- **Reading:** there is no character type. As PostgreSQL's `varchar`, a text type carries its bound: a text of bound 1 is a text of one character, of bound 0 the empty text, of bound n a text of size n. The unit of the bound is stated, graphemes or bytes of UTF-8, and a text type written without it is a typed hole. This makes the unit of Q-STR-305 explicit instead of fixed to bytes. Classes then refine texts of one character. Put to the next part: how a text type is written, and what a class tests when one grapheme holds several code points.
+
 
 #### Q-STR-403 — The names of invisible characters
 
@@ -2382,6 +2392,13 @@ Several options may be chosen.
 - **zwj — `\zwj` — U+200D.**
 - **bom — `\bom` — U+FEFF.**
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-074), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** tab, cr, nbsp, shy, zwsp, zwnj, zwj, bom, OTHER
+- **Other:** À ajouter au fil de l'eau.
+- **Reading:** the eight names are kept — `\tab`, `\return`, `\nbsp`, `\shy`, `\zwsp`, `\zwnj`, `\zwj`, `\bom` — and others are added as they are needed.
+
+
 #### Q-STR-404 — How a hole is written in a qualified literal, compared
 
 **Object.** Q-STR-307, kept open: compare the approaches, OCaml's and those of memory-safe languages, `@` being reserved for pattern matching inspired by TXR Lisp. Decided: a hole in a qualified literal is a typed hole, passed as a parameter, never pasted as text; a plain text never interpolates. In each option below, the literal and its holes reach the tag's type separately, as Python's templates and JavaScript's tagged templates do.
@@ -2399,6 +2416,13 @@ Several options may be chosen.
 - **C — `$name` and `${expr}`, as Kotlin.** *Against:* `$` is SQL's positional parameter and the shell's variable.
 - **D — Declared by the tag's type.** Each tag's type declares how its holes are written (Q-STR-307 B). *For:* each foreign language keeps its idiom. *Against:* one rule per tag.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-075), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** D
+- **Justification:** One rule per tag makes sens because we shall specify languages' behaviors at some point, this is just an entry point that wont be available until we specify the type of such tag. We can use SQL as a basis for this feature and define a sql tag (standard sql, not pgsql, nor other rdbms).
+- **Reading:** each tag's type declares how its holes are written (option D). It is an entry point, available only once the type of a tag is specified; the first tag to specify is `sql`, after standard SQL, not PostgreSQL's dialect nor another vendor's.
+
+
 ### `@`, tags and fences
 
 #### Q-LEX-601 — `@` reserved for pattern matching: the sigil
@@ -2413,6 +2437,13 @@ Several options may be chosen.
 - **B — Two roles told apart by place.** In a pattern or a qualified literal, `@name` is a variable; elsewhere `@` stays an attribute. *For:* chapter 4 unchanged. *Against:* one sigil, two meanings.
 - **C — Pattern variables and pattern annotations.** `@` belongs to patterns: `@name` is a variable, and the four annotations of R-expressions stay, as properties of a pattern; outside patterns `@` is no longer a sigil. *For:* every use of `@` is about patterns.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-076), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** @name defines a pattern. @ alone is a char, text@text isn't a pattern but a string (eg. emails)
+- **Reading:** `@` belongs to patterns (option C): `@name` defines a pattern, the four annotations of R-expressions (`@linear`, `@polynomial`, `@stack`, `@backtrack`) stay as properties of a pattern, `@` alone is a character, and `text@text` is a text, not a pattern (an e-mail address). The sigils are `#`, `:`, `?` and `!`. The four annotation names cannot name a pattern variable.
+
+
 #### Q-LEX-602 — An undeclared tag: a warning?
 
 **Object.** Q-LEX-501: an unknown tag leaves its literal plain text, typed by the tag all the same, which helps prototyping. Q-NUM-302: warnings take the prefix `WRN-`.
@@ -2420,6 +2451,13 @@ Several options may be chosen.
 - **A — No warning.** *For:* prototyping stays quiet.
 - **B — A warning, `WRN-LEX-001`.** Example: `WRN-LEX-001  tag sql not declared: its literal is plain text`.
 - **C — A warning, and a refusal in a strict mode.** As chapter 6's `+strict-tdd`, a mode that refuses what prototyping allows. Example: `+strict-tags`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-077), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** Warnings shall not block compilation unless the developpers requires "no warning" with some flags.
+- **Reading:** an undeclared tag gives the warning `WRN-LEX-001` (option B). A warning never blocks compilation unless the developer asks for « no warning » with a flag.
+
 
 #### Q-LEX-603 — A literal that holds its own closer
 
@@ -2432,6 +2470,12 @@ Several options may be chosen.
 - **A — Percent-encoded, as a raw text.** The `|` of the content is written `%7C`, and the tag's validator reads it back. Example: `{sql|SELECT '%7Csql}' AS s|sql}`. *For:* the rule of raw texts (Q-STR-303). *Against:* the foreign text holds `%7C`.
 - **B — Refused, with a code.** Such a literal is rare; it moves to a block or a file. *For:* nothing to learn. *Against:* a few literals cannot be written inline.
 - **C — An alias of the tag.** A second name declared for the same type gives another closer, as OCaml chooses another identifier. Example: `{deftype sql2 :alias sql}   {sql2|… |sql} …|sql2}`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-078), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** a literal that holds its own closer is written with an alias of its tag, a second name declared for the same type (option C).
+
 
 ### Negation
 
@@ -2447,6 +2491,13 @@ Several options may be chosen.
 - **B — A, and the compiler splits a query into strata.** A negation of a relation computed in the same query is accepted when the query can be split into strata, the compiler composing them. *Against:* the stratified negation of Q-SPEC-206 B, with its statement to write and prove.
 - **C — Not yet in the specification.**
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-079), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** B me parait plus propre, on reprend Q-SPEC-206 en conséquence
+- **Reading:** option B: the rule of Q-SPEC-206 C enters the specification, and the compiler also accepts the negation of a relation computed in the same query when the query splits into strata, which it composes. Q-SPEC-206 is revised accordingly to its option B: stratified negation, checked at compile time, with a statement to write and prove.
+
+
 #### Q-LEX-604 — `¬` on a class: within what? (answer to the clarification)
 
 **Object.** You asked (Q-LEX-504) what would prevent A or favour B. A text holds only Unicode scalar values: Q-STR-305 counts a text in bytes of UTF-8, and UTF-8 cannot encode a surrogate. Under A, `¬[:alpha:]` holds the 2,048 surrogates, which no text can hold: a predicate on a character of a text never meets them, but a materialised complement, `[[¬:alpha:]]` or `((¬:alpha:))`, would list values that are not characters. Nothing prevents A for sets of integers; B keeps the complement inside the type `char`.
@@ -2459,6 +2510,12 @@ Several options may be chosen.
 - **B — Unicode scalar values.** 1,112,064 values, what a text can hold. *For:* the complement stays a set of characters.
 - **C — Assigned characters.** *Against:* changes with each Unicode version.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-080), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** the complement of a class is taken among the Unicode scalar values (option B).
+
+
 ### Trains and glyphs
 
 #### Q-SPEC-302 — The delimiter of a train
@@ -2468,6 +2525,12 @@ Several options may be chosen.
 - **A — Brackets: a train is layer 3.** Example: `[fold add div length]   ;; view: [´+÷≠]`. *For:* the layer grammar is unchanged; a train can sit inside any block.
 - **B — Parentheses: a train composes in layer 2.** A train is a layer-2 composition of layer-3 functions, the orchestrator invoking the compiled automata lazily (your remark on laziness). *Against:* a train cannot appear inside a `[ ]` block.
 - **C — Either, the delimiter giving the train's layer.** *For:* a train is written where it is used. *Against:* two writings of one train.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-081), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a train is a layer-3 expression, written between brackets (option A): `[fold add div length]`, viewed `[´+÷≠]`.
+
 
 #### Q-SPEC-303 — Trains of more than three words
 
@@ -2481,6 +2544,13 @@ Several options may be chosen.
 - **B — From the left, as the text is read.** The first three words form a fork, which becomes the left argument of the words after it. Example: `(identity sub fold add div length)   ;; (x minus its sum) divided by its length`.
 - **C — At most three words.** A longer train is refused with a code; parentheses group it. *For:* nothing to know to read a train. *Against:* more parentheses.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-082), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** Les propositions sont arbitraires et non satisfaisantes.
+- **Reading:** kept open: the three groupings proposed are arbitrary and do not satisfy; a principled rule is to be found (next part). Until then, the trains of chapter 5 are grouped explicitly, three words at most.
+
+
 #### Q-SPEC-304 — Folding several expressions, and quotation
 
 **Object.** Your justification of Q-SPEC-207: « si fold doit s'appliquer à plusieurs sous ensembles alors utiliser la sémantique d'emacs eg (fold '(exp) '(exp2) '(exp3)) où les exp sont évaluées en parallele puis fold ensemble ». With a fixed arity, `fold` takes one function; the reading proposed: the quoted expressions form one list, evaluated in parallel, whose results are folded — `((fold add) '(exp exp2 exp3))`. `'` is not yet a notation of K7PL; chapter 5 already compares a disabled tree (`;(`) to Lisp's quote.
@@ -2493,6 +2563,13 @@ Several options may be chosen.
 - **B — The disabled tree is the quote.** `;(…)` already reads a tree without running it; a declaration makes it a component of the code. Example: `((fold add) ;(exp exp2 exp3))`. *For:* no new mark.
 - **C — No quotation: a list of expressions in layer 2.** Example: `((fold add) (exp exp2 exp3))`. *Against:* evaluation order and parallelism follow the layer, not the form.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-083), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** L'objectif premier de `;(...` est de désactiver une partie de l'arbre
+- **Reading:** `'` is Lisp's quote (option A): `'x` reads `(quote x)`. The disabled tree `;(` keeps its first purpose, disabling a part of the tree.
+
+
 #### Q-LEX-605 — Glyphs in files
 
 **Object.** Decided: files keep the ASCII forms and the editor shows the Unicode ones; a train is written in words. The reader of `lexicon/` still reads a run of glyphs as a train (third part). Uiua stores glyphs, its formatter rewriting names into them (research, fifth part); K7PL stores names.
@@ -2500,6 +2577,13 @@ Several options may be chosen.
 - **A — Refused outside texts, with a code.** Example: `ERR-LEX-…  glyph in a file: write its alias`.
 - **B — Accepted, read as their aliases.** *Against:* a file may hold either form.
 - **C — Accepted with a warning.** The formatter rewrites them as words. Example: `WRN-LEX-…`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-084), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** Ppas un warning mais une remarque comme "HEY-LEX-... The glyph has been rewriten... if it's not intended, use the LaTeX description \glyphname"
+- **Reading:** a glyph written in a file outside a text is accepted and rewritten as its word by the formatter (option C), not with a warning but with a remark, of the form « HEY-LEX-… The glyph has been rewriten… if it's not intended, use the LaTeX description \glyphname »: a glyph meant as a character is written by its LaTeX name. Put to the next part: the prefix of remarks.
+
 
 #### Q-LEX-606 — Glyphs to add to the table
 
@@ -2519,6 +2603,9 @@ Several options may be chosen.
 - **index — `⊐` index-of.**
 - **pick — `⊑` pick.**
 
+**Withdrawn on 2026-10-27 by the author, unanswered: « retire le choix des glyphes car celui ci se fait après le choix des lemmes ». Glyphs are chosen after the lemmas of the vocabulary lots.**
+
+
 ### Booleans and flags
 
 #### Q-LEX-607 — `t`, `f`, and names ending in `-t` or `-f`
@@ -2532,6 +2619,12 @@ Several options may be chosen.
 - **A — A convention only.** `t` and `f` are constants that nothing can rebind; `access-f` is an ordinary name, the suffix telling the reader which outcome the function acts on. *For:* nothing new for the elaborator.
 - **B — A derived form.** For a predicate `access`, `access-f` is the one-armed branch on its false outcome and `access-t` on its true one; `t` and `f` cannot be rebound. Example: `(access-f key (log "missing"))   ;; runs only when (access key) is f`. *For:* a test states the case it handles without writing the other. *Against:* every predicate gains two names.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-085), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** `t` and `f` are constants that nothing can rebind; `access-f` is an ordinary name, its suffix a convention for the reader (option A).
+
+
 #### Q-LEX-608 — Flags
 
 **Object.** Q-LEX-507: properties for now, flags to study together. « l'emplois de flags `+` et `-` pour indiquer "avec" ou "sans" suppose de connaitre un état par défaut, que des paramètres puissent être désactivée de façon sûre ce qui les rendrait par nature optionnelle donc est-ce que dans ce context l'on pourrait simplement utiliser le flag `+` ? Est-ce que ce serait `+parametrename` ou `+:parametrename`? » Chapter 6 writes the modes `+verify`, `+introspect` and `+strict-tdd`.
@@ -2544,6 +2637,19 @@ Several options may be chosen.
 - **B — `+name` as a shorthand for `:name t`.** Flags are properties; `+name` only saves writing `t`. Example: `(spawn counter +restart-always)   ;; (spawn counter :restart-always t)`. *For:* one mechanism.
 - **C — `+:name`.** The sign applied to a property. Example: `(spawn counter +:restart-always)`. *Against:* two marks.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-086), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** Cela signifie que dans un type composé
+  {deftype name
+     :process
+     :options {
+          :some-option
+  }}
+  les paramètres sous ":option" ont implicitement une propriété booleene dont la valeur par défaut est f
+- **Reading:** `+name` is a shorthand for the property `:name t` (option B). In a composed type, the parameters listed under `:options` implicitly carry a boolean property whose default is `f`: an option not written is `f`, and `+name` sets it.
+
+
 ### Doubled forms and ranges
 
 #### Q-LEX-609 — Telling apart the three uses of `[[ … ]]`
@@ -2553,6 +2659,13 @@ Several options may be chosen.
 - **A — By what it holds.** A range notation is a range; a type and a size, storage; a function and a rank, cells. Example: `[[ 1..9 ]]   [[ buffer 256 ]]   [[ sum 1 ]]`. *Against:* a further use must not collide with these shapes.
 - **B — By a head word.** Example: `[[ range 1 9 ]]   [[ frame buffer 256 ]]   [[ cells sum 1 ]]`. *For:* open to more uses.
 - **C — By a property.** Example: `[[ :range 1..9 ]]   [[ :frame buffer 256 ]]   [[ :rank 1 sum ]]`.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-087), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** "range" plutot que ":range" indique l'action de mettre en 'range' (positionner les items en mémoire) ce qui fait plus de sens que de dire qu'il s'agit d'une propriété accueillant un attribut.
+- **Reading:** the uses of `[[ … ]]` are told apart by a head word (option B): `[[ range 1 9 ]]`, `[[ frame buffer 256 ]]`, `[[ cells sum 1 ]]`. `range` rather than `:range`: the word names the action of ranging items in memory, not a property holding an attribute. How bounds are written follows in the next part (Q-LEX-610, revised).
+
 
 #### Q-LEX-610 — How a range is written (Q-LEX-304, reopened)
 
@@ -2572,6 +2685,9 @@ Several options may be chosen.
 - **dims — Several ranges, a matrix.** Example: `[[ 1..3 1..3 ]]`.
 - **chars — Characters, now that a character is written as a text.** Example: `[[ "a".."z" ]]`.
 
+*Not answered yet; carried into the seventh part, revised for the head word `range` (Q-LEX-609).*
+
+
 #### Q-LEX-611 — `((:alpha:))` and idiom brackets
 
 **Object.** Q-LEX-503 reads `((:alpha:))` as the code points of the class in order, produced on demand; Q-LEX-402 makes `(( … ))` idiom brackets: a pure function applied to effectful arguments.
@@ -2583,6 +2699,12 @@ Several options may be chosen.
 - **A — An idiom bracket without arguments.** `((:alpha:))` lifts the class's code points into layer 2 by `pure`: a stream read on demand. The two readings agree. *For:* nothing changes.
 - **B — Another form for the stream.** Example: `(stream :alpha:)`.
 - **C — No stream form.** Classes keep the predicate, the matrix and the type.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-088), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** `((:alpha:))` is an idiom bracket without arguments (option A): the class lifted into layer 2 by `pure`, a stream read on demand.
+
 
 #### Q-LEX-612 — `{{ … }}` in layer 1: an evaluation (Q-LEX-403, reopened)
 
@@ -2603,6 +2725,9 @@ Several options may be chosen.
 - **capability — A capability given explicitly.** Example: `{{ :cap clock }}`.
 - **refine — A refined type.** Example: `{{:alpha:}}   {{ x :num int32 | [> x 0] }}`.
 
+*Not answered yet; carried into the seventh part.*
+
+
 ### Monomorphisation
 
 #### Q-TYP-401 — The codes of the two refusals of monomorphisation
@@ -2612,6 +2737,9 @@ Several options may be chosen.
 - **A — `ERR-POL-002` and `ERR-POL-003`.** *For:* beside `ERR-POL-001`: nothing shared at run time.
 - **B — `ERR-TYP-013` and `ERR-TYP-014`.**
 - **C — A new segment, `ERR-MON-001` and `ERR-MON-002`.** *Against:* a new segment.
+
+*Not answered yet; carried into the seventh part.*
+
 
 #### Q-TYP-402 — Lean's attributes beside the rule of Q-TYP-303
 
@@ -2625,6 +2753,12 @@ Several options may be chosen.
 - **B — `:nospecialize`.** A property that keeps a function defunctionalised, to save code size.
 - **C — `:specialize` and `:nospecialize`.** `:specialize` serves a function's copies first in the budget; `:nospecialize` keeps it defunctionalised.
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-089), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** no attribute: the budget decides alone (option A).
+
+
 #### Q-TYP-403 — The limit on recompilation
 
 **Object.** Q-TYP-301 records a limit, to solve without distorting the mechanism: a generic's source is part of its unit's interface, so changing it recompiles the units that use it. Chapter 6 already names a binary, and now an instance, by the hash of a normalised AST.
@@ -2636,6 +2770,12 @@ Several options may be chosen.
 - **A — A cache keyed by content.** An instance is kept under its hash; a change that leaves the generic's normalised AST unchanged recompiles nothing, and a real change recompiles the instances of that generic, not the units that use it. *For:* follows from naming instances by their hash.
 - **B — Instances in the interface.** A unit exports the instances of its generics for type arguments it declares; others are made by the user. *Against:* a list to maintain.
 - **C — Accept the limit.**
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-090), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a cache keyed by content (option A): an instance is kept under its hash; a change that leaves a generic's normalised AST unchanged recompiles nothing, and a real change recompiles that generic's instances, not the units that use it. This answers the limit recorded with Q-TYP-301.
+
 
 ### Handlers and actors
 
@@ -2664,6 +2804,12 @@ Several options may be chosen.
 
 - **C — Both listings of Q-SPEC-202, with `:run`.** `:bind` is kept for the monadic bind (Q-SPEC-101).
 
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-091), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** one clause per message (option B): `:on` pairs a message with its pure transition, and the handler is implicit. Put to the next part, before the listings of chapter 5 are rewritten: what the implicit handler makes of the transition's result — the new state and the response.
+
+
 ### Numbers
 
 #### Q-NUM-401 — Defaults of the types written with two segments
@@ -2673,6 +2819,12 @@ Several options may be chosen.
 - **A — Halves, for every such type.** A missing second segment splits the width in two, with a warning. Example: `fix32   ;; fix16.16, with WRN-NUM-…`.
 - **B — A default stated with each type.** `fix32` is `fix16.16` now; each later type states its own.
 - **C — Only `flo8` and `com` default.** `fix` is refused without its point.
+
+**Answer of the author — 2026-10-27 (VOC-2026-10-27-092), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** halves for every type written with two segments (option A): a missing second segment splits the width in two, with a warning (`fix32` is `fix16.16`).
+
 
 ## The catalogue, verbatim
 

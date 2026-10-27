@@ -845,6 +845,55 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, sixth part: answers of 2026-10-27
+  (20 of 25 questions).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-27-073 to
+  VOC-2026-10-27-092. In short:
+  - Texts: no character type; as PostgreSQL's `varchar`, a
+    text type carries its bound, counted in graphemes or in
+    bytes as stated, or left as a typed hole; the names of
+    invisible characters are `\tab`, `\return`, `\nbsp`,
+    `\shy`, `\zwsp`, `\zwnj`, `\zwj`, `\bom`, others added
+    as needed; each tag's type declares how its holes are
+    written, `sql` (standard SQL) being the first to
+    specify.
+  - `@` belongs to patterns: `@name` defines a pattern, the
+    four R-expression annotations stay, `@` alone is a
+    character and `text@text` a text; an undeclared tag
+    gives `WRN-LEX-001`, warnings never blocking
+    compilation unless a flag asks for it; a literal that
+    holds its own closer uses an alias of its tag.
+  - Negation: the semipositive rule enters the
+    specification, and the compiler also accepts a
+    negation of a relation of the same query when the query
+    splits into strata (Q-SPEC-206 revised to its option
+    B); the complement of a class is taken among Unicode
+    scalar values.
+  - Trains are layer-3 expressions between brackets,
+    `[fold add div length]`; `'` is Lisp's quote; a glyph in
+    a file is rewritten as its word by the formatter, with a
+    remark rather than a warning (« HEY-LEX-… »).
+  - `t` and `f` are constants nothing can rebind, `-f` a
+    naming convention; `+name` is a shorthand for
+    `:name t`, an option not written being `f`.
+  - `[[ … ]]` takes a head word: `range`, `frame`, `cells`;
+    `((:alpha:))` is an idiom bracket without arguments.
+  - Monomorphisation: no attribute, the budget decides
+    alone; instances are cached by content, so a real change
+    of a generic recompiles its instances, not the units
+    that use it.
+  - An actor pairs each message with its pure transition
+    (`:on`), its handler implicit.
+  - A type written with two segments takes halves by
+    default, with a warning (`fix32` is `fix16.16`).
+  Withdrawn: Q-LEX-606, the glyphs to add, « car celui ci se
+  fait après le choix des lemmes ». Kept open: the grouping
+  of trains longer than three words (Q-SPEC-303, « Les
+  propositions sont arbitraires et non satisfaisantes »).
+  Not answered yet, carried into the seventh part: Q-STR-401,
+  Q-LEX-610, Q-LEX-612 and Q-TYP-401.
+  Applied on 2026-10-27: the wiki only.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, fifth part (revised): answers of
   2026-10-27 (Q-STR-302 to Q-ARC-001).** Recorded verbatim
   in [questions](questions.md) as VOC-2026-10-27-039 to
