@@ -2326,6 +2326,354 @@ Several options may be chosen.
 - **Reading:** the archive is not added (option A). What value remains — candidate lemmas, glyphs and the like — is extracted into the research, then the archive is discarded.
 
 
+## Lot of 2026-10-27, sixth part: texts and holes, `@`, tags and fences, negation, trains and glyphs, booleans and flags, doubled forms and ranges, monomorphisation, handlers and actors, numbers
+
+Opened on 2026-10-27 after the answers to the fifth part. It takes the questions that
+the author kept open or asked to clarify there, with the research they asked for, and
+the questions those answers raise. Same rules: options to enumerate and objectify, then
+the author's choice; **Other** and **Clarify** are always available. The research is
+quoted in each question's facts.
+
+Words of the examples that no answer has fixed yet (`accept`, `:on`, `:run`, `sum`…) are placeholders.
+
+### Texts and holes
+
+#### Q-STR-401 — Which `%XX` a raw text decodes
+
+**Object.** Your answer to Q-STR-303: in a raw text `\` stays literal, a quotation mark is written `%22` and a leading space `%20`, so that « l'ensemble du raw text puisse être parsé ». Since a quotation mark inside is `%22`, the closing quotes are found without any escape, and `\` can stay literal everywhere, the closing quotes included. What remains is which `%XX` sequences are decoded.
+
+**Facts.**
+
+- RFC 3986: « A percent-encoded octet is encoded as a character triplet, consisting of the percent character "%" followed by the two hexadecimal digits representing that octet's numeric value », and « Because the percent ("%") character serves as the indicator for percent-encoded octets, it must be percent-encoded as "%25" for that octet to be used as data within a URI » (RFC 3986, §2.1 and §2.4 (https://www.rfc-editor.org/rfc/rfc3986)).
+
+- **A — Every `%XX`, as a URL.** Any `%` followed by two hexadecimal digits is decoded; a literal `%` is written `%25`. Example: `""100%25 sure, %22quoted%22""   ;; the text 100% sure, "quoted"`. *For:* one rule, that of URLs; any byte of the text can be written. *Against:* a `%` before two hexadecimal digits in a regular expression or a format string must be written `%25`.
+- **B — Only `%22`, and `%20` at the start.** Every other `%` stays literal. Example: `""%22quoted%22 at 50%""   ;; the text "quoted" at 50%`. *For:* a raw text stays raw almost everywhere. *Against:* the three characters `%22` themselves cannot be written in a raw text.
+- **C — `%22`, `%20` and `%25`.** The three sequences that a raw text needs, and `%25` so that the other two can be written literally. Example: `""%2522 is written %22""   ;; the text %22 is written "`. *For:* every text can be written; other `%` stay literal. *Against:* three sequences to remember instead of a rule.
+
+#### Q-STR-402 — A character and a text of one character
+
+**Object.** Q-STR-306: a character is written like a text of one character, `"a"`, `"μ"`, `"\lambda"`. A character is what a class `{{:alpha:}}` refines (Q-LEX-503), so the type `char` exists; something must tell a character from a text of length one.
+
+**Facts.**
+
+- Python: « There is no separate character type; a character is simply a string of size one » (Python tutorial, 3.1.2 (https://docs.python.org/3/tutorial/introduction.html)).
+- Q-NUM-203: a typed hole takes the smallest width that holds every value the solver can bound.
+
+- **A — By the expected type.** A one-character literal is a `char` where a `char` is expected, a text elsewhere. Example: `{field initial :type char}   ;; "a" given to it is a char`. *For:* no mark. *Against:* where nothing expects a type, it is a text.
+- **B — A typed hole, resolved like the integers.** A literal holding one Unicode scalar value resolves to `char` unless a text is expected. *Against:* `"é"` written as `e` and a combining accent holds two values, and is a text.
+- **C — No `char`, as Python.** A character is a text of length one; classes refine texts. *Against:* ranges of characters and the predicate `[:alpha: c]` then range over texts.
+
+#### Q-STR-403 — The names of invisible characters
+
+**Object.** Q-STR-304: a short closed list of K7PL names for invisible characters, written like LaTeX names, one space after the name being absorbed. A line break is written as such (Q-STR-103). Tick the names to keep; the names are proposals, the characters those of the Unicode Character Database.
+
+**Facts.**
+
+- The Unicode names, from UnicodeData.txt (https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt): U+0009 CHARACTER TABULATION, U+000D CARRIAGE RETURN, U+00A0 NO-BREAK SPACE, U+00AD SOFT HYPHEN, U+200B ZERO WIDTH SPACE, U+200C ZERO WIDTH NON-JOINER, U+200D ZERO WIDTH JOINER, U+FEFF ZERO WIDTH NO-BREAK SPACE (the byte order mark).
+
+Several options may be chosen.
+
+- **tab — `\tab` — U+0009.** Example: `"a\tab b"`.
+- **cr — `\return` — U+000D.** For a text that must hold a carriage return; a line break inside a text is the file's own.
+- **nbsp — `\nbsp` — U+00A0.**
+- **shy — `\shy` — U+00AD.**
+- **zwsp — `\zwsp` — U+200B.**
+- **zwnj — `\zwnj` — U+200C.**
+- **zwj — `\zwj` — U+200D.**
+- **bom — `\bom` — U+FEFF.**
+
+#### Q-STR-404 — How a hole is written in a qualified literal, compared
+
+**Object.** Q-STR-307, kept open: compare the approaches, OCaml's and those of memory-safe languages, `@` being reserved for pattern matching inspired by TXR Lisp. Decided: a hole in a qualified literal is a typed hole, passed as a parameter, never pasted as text; a plain text never interpolates. In each option below, the literal and its holes reach the tag's type separately, as Python's templates and JavaScript's tagged templates do.
+
+**Facts.**
+
+- OCaml: « Quoted strings do not interpret any character in a special way but requires that the sequence |quoted-string-id} does not occur in the string itself » (OCaml manual, lexical conventions (https://ocaml.org/manual/5.2/lex.html)): no hole at all.
+- Swift: « Each item that you insert into the string literal is wrapped in a pair of parentheses, prefixed by a backslash (`\`) » (Swift book, strings (https://docs.swift.org/swift-book/documentation/the-swift-programming-language/stringsandcharacters/)). Kotlin: « To insert a variable into a string, use the $ symbol », and `${}` for an expression (Kotlin, strings (https://kotlinlang.org/docs/strings.html)). Rust: « If a named parameter does not appear in the argument list, format! will reference a variable with that name in the current scope », `format!("{argument}")` (Rust std::fmt (https://doc.rust-lang.org/std/fmt/index.html)).
+- Python's template strings evaluate to a `Template`: « Templates provide developers with access to the string and its interpolated values before they are combined », which « enables safety checks, web templating, domain-specific languages » (PEP 750 (https://peps.python.org/pep-0750/)). JavaScript: « Tags allow you to parse template literals with a function » (MDN, template literals (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)).
+- OWASP: « Prepared statements treat bound values as data rather than SQL syntax. Concatenating untrusted values into the query before preparing it defeats this protection » (SQL injection prevention (https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)).
+- TXR: « Free variables occurring in the pattern (denoted by the @ symbol) are bound to the pieces of text occurring in the corresponding positions »; in an output clause, « Variables occurring in an output clause do not match anything; instead their contents are output » (TXR manual (https://man.uex.se/1/txr)).
+
+- **A — `@name`, as TXR.** One mark for a hole that a pattern binds and a template fills; a literal `@` in the foreign text is written `%40`, as in a raw text. Example: `(sql|SELECT * FROM users WHERE name = @who|sql)`. *For:* holes and pattern variables are one notion, as in TXR; `@` keeps the role you reserve for it. *Against:* `@` is frequent in foreign texts (addresses, decorators); `@` stops being an attribute sigil (Q-LEX-601).
+- **B — `\(expr)`, as Swift.** The escape character opens a layer-2 expression whose value is passed as a parameter. Example: `(sql|SELECT * FROM users WHERE name = \(who)|sql)`. *For:* `\` already marks what the reader must not take literally. *Against:* the foreign language's own `\` must then be escaped.
+- **C — `$name` and `${expr}`, as Kotlin.** *Against:* `$` is SQL's positional parameter and the shell's variable.
+- **D — Declared by the tag's type.** Each tag's type declares how its holes are written (Q-STR-307 B). *For:* each foreign language keeps its idiom. *Against:* one rule per tag.
+
+### `@`, tags and fences
+
+#### Q-LEX-601 — `@` reserved for pattern matching: the sigil
+
+**Object.** You reserve `@` for pattern matching inspired by TXR Lisp (Q-STR-307). Chapter 5 makes `@` one of five sigils read at the head of an atom, which « la Phase 0 en fait des attributs », and chapter 4 annotates the constructors of R-expressions, which are patterns, with `@linear`, `@polynomial`, `@stack` and `@backtrack`.
+
+**Facts.**
+
+- TXR: « Query material which is not escaped by the special character @ is literal text, which matches input character for character » (TXR manual (https://man.uex.se/1/txr)).
+
+- **A — `@` for pattern variables only.** `@name` binds in a pattern and fills a template; attributes become properties written with `:`, the R-expression annotations among them (`:linear`). Example: `(match line (@key "=" @value) …)`. *For:* one meaning for `@`. *Against:* chapter 4's annotations are rewritten.
+- **B — Two roles told apart by place.** In a pattern or a qualified literal, `@name` is a variable; elsewhere `@` stays an attribute. *For:* chapter 4 unchanged. *Against:* one sigil, two meanings.
+- **C — Pattern variables and pattern annotations.** `@` belongs to patterns: `@name` is a variable, and the four annotations of R-expressions stay, as properties of a pattern; outside patterns `@` is no longer a sigil. *For:* every use of `@` is about patterns.
+
+#### Q-LEX-602 — An undeclared tag: a warning?
+
+**Object.** Q-LEX-501: an unknown tag leaves its literal plain text, typed by the tag all the same, which helps prototyping. Q-NUM-302: warnings take the prefix `WRN-`.
+
+- **A — No warning.** *For:* prototyping stays quiet.
+- **B — A warning, `WRN-LEX-001`.** Example: `WRN-LEX-001  tag sql not declared: its literal is plain text`.
+- **C — A warning, and a refusal in a strict mode.** As chapter 6's `+strict-tdd`, a mode that refuses what prototyping allows. Example: `+strict-tags`.
+
+#### Q-LEX-603 — A literal that holds its own closer
+
+**Object.** Q-LEX-502: `{tag|` is one opening delimiter that waits for `|tag}` (« Keep it simple »), without repeated bars or a second word. What does a literal do when its content holds `|tag}`? The tag names a type, so it cannot be changed freely as OCaml's identifier can.
+
+**Facts.**
+
+- OCaml: the identifier of a quoted string « is a (possibly empty) sequence of lowercase letters and underscores that can be freely chosen to avoid such issue » (OCaml manual, lexical conventions (https://ocaml.org/manual/5.2/lex.html)).
+
+- **A — Percent-encoded, as a raw text.** The `|` of the content is written `%7C`, and the tag's validator reads it back. Example: `{sql|SELECT '%7Csql}' AS s|sql}`. *For:* the rule of raw texts (Q-STR-303). *Against:* the foreign text holds `%7C`.
+- **B — Refused, with a code.** Such a literal is rare; it moves to a block or a file. *For:* nothing to learn. *Against:* a few literals cannot be written inline.
+- **C — An alias of the tag.** A second name declared for the same type gives another closer, as OCaml chooses another identifier. Example: `{deftype sql2 :alias sql}   {sql2|… |sql} …|sql2}`.
+
+### Negation
+
+#### Q-SPEC-301 — Negation in a recursive query: limits and opportunities
+
+**Object.** Your choice for Q-SPEC-206: a negation in a recursive layer-3 query only of a relation fixed before the recursion (C), with « J'ai besoin d'en connaitre les limites et effets d'opportunités ». The databases literature calls this semipositive Datalog¬. Opportunities: (1) a query stays monotone once each negated relation is replaced by its complement, computed beforehand, so it has a least fixpoint reached by iteration, and chapter 7's `thm:terminaison_lfp` applies as it stands, without a new statement; (2) composing queries gives the stratified negation of option B: one query computes a relation, the next negates it, the order of strata being written in the code. Limits: (1) a query cannot negate what it is computing: the complement of a transitive closure takes two queries; (2) a negation needs a universe — the closed world of the values present —, as `¬` on a class does (Q-LEX-604).
+
+**Facts.**
+
+- « We consider now semipositive datalog¬ programs, which only apply negation to edb relations » (edb: the relations given to a program, not computed by it); « One could eliminate negation from semipositive programs by adding, for each edb relation […], a new edb relation […] holding the complement […] (with respect to the active domain) »; such a program has « a unique minimal fixpoint » (theorem 15.2.2); the program for the complement of transitive closure « is not a semipositive program. However, it can naturally be viewed as the composition of two semipositive programs »; « Stratification, which is studied next, may be viewed as the closure of semipositive programs under composition » (Abiteboul, Hull and Vianu, Foundations of Databases, 1995, chapter 15, §15.2 (http://webdam.inria.fr/Alice/pdfs/Chapter-15.pdf)).
+
+- **A — C enters chapter 7, with these limits.** Case study III states the rule, its reading as semipositive queries, and that a computed relation is negated by a following query.
+- **B — A, and the compiler splits a query into strata.** A negation of a relation computed in the same query is accepted when the query can be split into strata, the compiler composing them. *Against:* the stratified negation of Q-SPEC-206 B, with its statement to write and prove.
+- **C — Not yet in the specification.**
+
+#### Q-LEX-604 — `¬` on a class: within what? (answer to the clarification)
+
+**Object.** You asked (Q-LEX-504) what would prevent A or favour B. A text holds only Unicode scalar values: Q-STR-305 counts a text in bytes of UTF-8, and UTF-8 cannot encode a surrogate. Under A, `¬[:alpha:]` holds the 2,048 surrogates, which no text can hold: a predicate on a character of a text never meets them, but a materialised complement, `[[¬:alpha:]]` or `((¬:alpha:))`, would list values that are not characters. Nothing prevents A for sets of integers; B keeps the complement inside the type `char`.
+
+**Facts.**
+
+- Unicode: « Unicode scalar value: Any Unicode code point except high-surrogate and low-surrogate code points » (D76); « Because surrogate code points are not Unicode scalar values, any UTF-8 byte sequence that would otherwise map to code points U+D800..U+DFFF is ill-formed » (The Unicode Standard 16.0, chapter 3 (https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/)).
+
+- **A — All code points.** U+0000 to U+10FFFF, 1,114,112 values, surrogates included.
+- **B — Unicode scalar values.** 1,112,064 values, what a text can hold. *For:* the complement stays a set of characters.
+- **C — Assigned characters.** *Against:* changes with each Unicode version.
+
+### Trains and glyphs
+
+#### Q-SPEC-302 — The delimiter of a train
+
+**Object.** Chapter 5: « La couche 3 admet, en plus de l'écriture nommée, une notation point-free ». Your examples write trains between parentheses — `(fold add div length)`, `(not ((…)))` — which the layer grammar reads as layer 2: inside a `[ ]` block a `( )` is refused (`ERR-TOP-001`). Chapter 5 now writes the mean and the standard deviation between parentheses, as you did.
+
+- **A — Brackets: a train is layer 3.** Example: `[fold add div length]   ;; view: [´+÷≠]`. *For:* the layer grammar is unchanged; a train can sit inside any block.
+- **B — Parentheses: a train composes in layer 2.** A train is a layer-2 composition of layer-3 functions, the orchestrator invoking the compiled automata lazily (your remark on laziness). *Against:* a train cannot appear inside a `[ ]` block.
+- **C — Either, the delimiter giving the train's layer.** *For:* a train is written where it is used. *Against:* two writings of one train.
+
+#### Q-SPEC-303 — Trains of more than three words
+
+**Object.** With typed arities, `(fold add div length)` is a fork. For `(identity sub fold add div length)`, the arities leave two readings: `(identity sub (fold add div length))`, the deviation from the mean, or `((identity sub fold add) div length)`. Chapter 5 now writes its standard deviation with parenthesised trains of at most three words, so that no grouping is assumed.
+
+**Facts.**
+
+- BQN: « In a train, arguments alternate strictly with combining functions between them. Arguments can be either functions or subjects, except for the rightmost one, which has to be a function », and « To keep track of the alternation in a train of all functions, you need to know where each function is relative to the end of the train » (BQN, trains (https://mlochbaum.github.io/BQN/doc/train.html)).
+
+- **A — From the right, as BQN and APL.** The last three words form a fork, which becomes the right argument of the words before it. Example: `(identity sub fold add div length)   ;; x minus its mean`.
+- **B — From the left, as the text is read.** The first three words form a fork, which becomes the left argument of the words after it. Example: `(identity sub fold add div length)   ;; (x minus its sum) divided by its length`.
+- **C — At most three words.** A longer train is refused with a code; parentheses group it. *For:* nothing to know to read a train. *Against:* more parentheses.
+
+#### Q-SPEC-304 — Folding several expressions, and quotation
+
+**Object.** Your justification of Q-SPEC-207: « si fold doit s'appliquer à plusieurs sous ensembles alors utiliser la sémantique d'emacs eg (fold '(exp) '(exp2) '(exp3)) où les exp sont évaluées en parallele puis fold ensemble ». With a fixed arity, `fold` takes one function; the reading proposed: the quoted expressions form one list, evaluated in parallel, whose results are folded — `((fold add) '(exp exp2 exp3))`. `'` is not yet a notation of K7PL; chapter 5 already compares a disabled tree (`;(`) to Lisp's quote.
+
+**Facts.**
+
+- Common Lisp: « Single-quote followed by an expression exp is treated by the Lisp reader as an abbreviation for and is parsed identically to the expression (quote exp) » (CLHS 2.4.3 (https://www.lispworks.com/documentation/HyperSpec/Body/02_dc.htm)); « reduce uses a binary operation, function, to combine the elements of sequence » (CLHS, reduce (https://www.lispworks.com/documentation/HyperSpec/Body/f_reduce.htm)).
+
+- **A — `'` is Lisp's quote.** Example: `((fold add) '(exp exp2 exp3))`.
+- **B — The disabled tree is the quote.** `;(…)` already reads a tree without running it; a declaration makes it a component of the code. Example: `((fold add) ;(exp exp2 exp3))`. *For:* no new mark.
+- **C — No quotation: a list of expressions in layer 2.** Example: `((fold add) (exp exp2 exp3))`. *Against:* evaluation order and parallelism follow the layer, not the form.
+
+#### Q-LEX-605 — Glyphs in files
+
+**Object.** Decided: files keep the ASCII forms and the editor shows the Unicode ones; a train is written in words. The reader of `lexicon/` still reads a run of glyphs as a train (third part). Uiua stores glyphs, its formatter rewriting names into them (research, fifth part); K7PL stores names.
+
+- **A — Refused outside texts, with a code.** Example: `ERR-LEX-…  glyph in a file: write its alias`.
+- **B — Accepted, read as their aliases.** *Against:* a file may hold either form.
+- **C — Accepted with a warning.** The formatter rewrites them as words. Example: `WRN-LEX-…`.
+
+#### Q-LEX-606 — Glyphs to add to the table
+
+**Object.** Chapter 5 writes `´`, `¨`, `√` and `²`, which `tab:glyphes` does not hold; the old K archive had others (research, « Decision and extracted value »). Each added glyph takes an alias per arity, the lemma still to weigh (Q-LEX-505). `«` `»` now show a raw text, and `←` gives way to `def`.
+
+Several options may be chosen.
+
+- **fold — `´` fold.**
+- **each — `¨` each.**
+- **sqrt — `√` sqrt.**
+- **square — `²` square.**
+- **swap — `˜` swap.**
+- **scan — `` ` `` scan.**
+- **table — `⌜` table.**
+- **atop — `∘` atop.**
+- **over — `○` over.**
+- **index — `⊐` index-of.**
+- **pick — `⊑` pick.**
+
+### Booleans and flags
+
+#### Q-LEX-607 — `t`, `f`, and names ending in `-t` or `-f`
+
+**Object.** Q-LEX-506: the boolean values are `t` and `f`, and « `access-f` ou autres constructions de cette nature permettrait d'aisément comprendre l'objectif du test conditionnel ». Two consequences to settle: whether `t` and `f` can still be bound as names (chapter 5's train shapes `(f g)` are now written in mathematics), and what `-f` does in a name.
+
+**Facts.**
+
+- Common Lisp: `t` is a « Constant Variable », « The boolean representing true, and the canonical generalized boolean representing true » (CLHS, t (https://www.lispworks.com/documentation/HyperSpec/Body/v_t.htm)).
+
+- **A — A convention only.** `t` and `f` are constants that nothing can rebind; `access-f` is an ordinary name, the suffix telling the reader which outcome the function acts on. *For:* nothing new for the elaborator.
+- **B — A derived form.** For a predicate `access`, `access-f` is the one-armed branch on its false outcome and `access-t` on its true one; `t` and `f` cannot be rebound. Example: `(access-f key (log "missing"))   ;; runs only when (access key) is f`. *For:* a test states the case it handles without writing the other. *Against:* every predicate gains two names.
+
+#### Q-LEX-608 — Flags
+
+**Object.** Q-LEX-507: properties for now, flags to study together. « l'emplois de flags `+` et `-` pour indiquer "avec" ou "sans" suppose de connaitre un état par défaut, que des paramètres puissent être désactivée de façon sûre ce qui les rendrait par nature optionnelle donc est-ce que dans ce context l'on pourrait simplement utiliser le flag `+` ? Est-ce que ce serait `+parametrename` ou `+:parametrename`? » Chapter 6 writes the modes `+verify`, `+introspect` and `+strict-tdd`.
+
+**Facts.**
+
+- Rebol: « A refinement specifies a variation in the normal evaluation of a function. Refinements also allow optional arguments to be provided », written after the function name, `copy/part` (REBOL/Core guide, functions (https://www.rebol.com/docs/core23/rebolcore-9.html)).
+
+- **A — `+name` alone: an optional parameter switched on.** Absent means off; there is no `-name`, so no default to know. Example: `(spawn counter +restart-always)`.
+- **B — `+name` as a shorthand for `:name t`.** Flags are properties; `+name` only saves writing `t`. Example: `(spawn counter +restart-always)   ;; (spawn counter :restart-always t)`. *For:* one mechanism.
+- **C — `+:name`.** The sign applied to a property. Example: `(spawn counter +:restart-always)`. *Against:* two marks.
+
+### Doubled forms and ranges
+
+#### Q-LEX-609 — Telling apart the three uses of `[[ … ]]`
+
+**Object.** Q-LEX-401: in layer 3, `[[ … ]]` holds ranges, storage in the caller's frame, and functions applied cell by cell, open to more.
+
+- **A — By what it holds.** A range notation is a range; a type and a size, storage; a function and a rank, cells. Example: `[[ 1..9 ]]   [[ buffer 256 ]]   [[ sum 1 ]]`. *Against:* a further use must not collide with these shapes.
+- **B — By a head word.** Example: `[[ range 1 9 ]]   [[ frame buffer 256 ]]   [[ cells sum 1 ]]`. *For:* open to more uses.
+- **C — By a property.** Example: `[[ :range 1..9 ]]   [[ :frame buffer 256 ]]   [[ :rank 1 sum ]]`.
+
+#### Q-LEX-610 — How a range is written (Q-LEX-304, reopened)
+
+**Object.** Q-LEX-304 waited for the doubled forms; `[[ … ]]` now holds ranges in layer 3, and `(( … ))` are idiom brackets in layer 2. Today the reader reads `1..9` as one symbol.
+
+**Facts.**
+
+- Haskell: `[e1, e2 .. e3]`, the second element giving the step, and `[e1 ..]` without end (Haskell 2010, §3.10 (https://www.haskell.org/onlinereport/haskell2010/haskellch3.html)). Rust: `a..b` excludes `b`, `a..=b` includes it, `a..` has no end (Rust reference, range expressions (https://doc.rust-lang.org/reference/expressions/range-expr.html)).
+- Unicode writes its ranges with two dots: « 0000..007F; Basic Latin » (Unicode Character Database, Blocks.txt (https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt)).
+
+Several options may be chosen.
+
+- **incl — Inclusive bounds, `a..b`.** Example: `[[ 1..9 ]]`.
+- **excl — An excluded end, `a..<b`.** Example: `[[ 0..<n ]]`. *For:* indices without writing `n-1`. *Against:* a second notation.
+- **step — A step, as Haskell.** Example: `[[ 1 3..9 ]]   ;; 1 3 5 7 9`.
+- **open — No end, outside layer 3.** Layer 3 terminates, so an endless range is a lazy list of layer 2, written in a plain pair. Example: `(1..)`.
+- **dims — Several ranges, a matrix.** Example: `[[ 1..3 1..3 ]]`.
+- **chars — Characters, now that a character is written as a text.** Example: `[[ "a".."z" ]]`.
+
+#### Q-LEX-611 — `((:alpha:))` and idiom brackets
+
+**Object.** Q-LEX-503 reads `((:alpha:))` as the code points of the class in order, produced on demand; Q-LEX-402 makes `(( … ))` idiom brackets: a pure function applied to effectful arguments.
+
+**Facts.**
+
+- McBride and Paterson: « any expression built from the Applicative combinators can be transformed to a canonical form in which a single pure function is ‘applied’ to the effectful parts in depth-first order: pure f ⊛ u1 ⊛ … ⊛ un », written `⟦f u1 … un⟧` (Applicative programming with effects, p. 4 (https://www.staff.city.ac.uk/~ross/papers/Applicative.pdf)). With no effectful argument, the form is `pure f`.
+
+- **A — An idiom bracket without arguments.** `((:alpha:))` lifts the class's code points into layer 2 by `pure`: a stream read on demand. The two readings agree. *For:* nothing changes.
+- **B — Another form for the stream.** Example: `(stream :alpha:)`.
+- **C — No stream form.** Classes keep the predicate, the matrix and the type.
+
+#### Q-LEX-612 — `{{ … }}` in layer 1: an evaluation (Q-LEX-403, reopened)
+
+**Object.** You asked for a deeper evaluation of what each option implies, liked Agda's definition and a branching specific to a capability, and asked how Clojure and Lean 4 use these notations and what `{{:alpha:}}` means here. Agda's `{{ }}` are instance arguments; Lean 4's `{{ }}`, also written `⦃ ⦄`, are strict-implicit parameters; Clojure gives `{{ }}` no meaning of its own — it reads a map whose first key is a map — and attaches declarations to a form with metadata, `^{…}`. What each option implies, and what `{{:alpha:}}` would mean under it: **arena** — a named arena is a layer-1 value; `{{:alpha:}}` would name an arena, which a class is not. **instance** — the elaborator searches an argument by its type, as chapter 5 fills a handler, an ambiguous search being refused; `{{:alpha:}}` would ask for a value of the class's type, found by search. **strict** — an argument inferred only once a later explicit argument is given; `{{:alpha:}}` has no reading. **comptime** — overlaps the sigil `#`. **capability** — a `Cap ρ` granted to what follows, a branching specific to capabilities; a class is not a capability. **refine** — `{{ x }}` is a refined type, as Q-LEX-503 reads `{{:alpha:}}`: the characters of the class.
+
+**Facts.**
+
+- Agda: « Instance arguments are a special kind of implicit arguments that get solved by a special instance resolution algorithm, rather than by the unification algorithm used for normal implicit arguments » (Agda documentation (https://agda.readthedocs.io/en/latest/language/instance-arguments.html)).
+- Lean 4: « Strict implicit parameters are identical to ordinary implicit parameters, except Lean will only attempt to find argument values when subsequent explicit arguments are provided at a call site. Strict implicit parameters are written in double curly braces (⦃ and ⦄, or {{ and }}) »; instance-implicit parameters, found by type class synthesis, « are written in square brackets » (Lean language reference, functions (https://lean-lang.org/doc/reference/latest/Terms/Functions/)).
+- Clojure: « The metadata reader macro first reads the metadata and attaches it to the next form read » (Clojure reader (https://clojure.org/reference/reader)).
+
+Several options may be chosen.
+
+- **arena — Another arena.** Example: `{{ :arena scratch {field buffer :num int8} }}`.
+- **instance — Filled by search (Agda).** Example: `{{ counter-handler }}`.
+- **strict — Strict implicit (Lean 4).**
+- **comptime — Evaluated at compile time.** Example: `{{ table-of-squares 256 }}`.
+- **capability — A capability given explicitly.** Example: `{{ :cap clock }}`.
+- **refine — A refined type.** Example: `{{:alpha:}}   {{ x :num int32 | [> x 0] }}`.
+
+### Monomorphisation
+
+#### Q-TYP-401 — The codes of the two refusals of monomorphisation
+
+**Object.** Chapter 6 now refuses a program when an instance is still missing at the exhaustion of the budget, naming the generic, the chain of instances, the budget spent and the budget that would suffice; and it refuses a chain of instances that grows on a cycle, naming the cycle. Neither has a code. Annex A has `ERR-POL-001` for dynamic dispatch, `ERR-TYP` up to `-012`, `ERR-SMT` up to `-003`.
+
+- **A — `ERR-POL-002` and `ERR-POL-003`.** *For:* beside `ERR-POL-001`: nothing shared at run time.
+- **B — `ERR-TYP-013` and `ERR-TYP-014`.**
+- **C — A new segment, `ERR-MON-001` and `ERR-MON-002`.** *Against:* a new segment.
+
+#### Q-TYP-402 — Lean's attributes beside the rule of Q-TYP-303
+
+**Object.** Q-TYP-303: a higher-order function is copied for each distinct function argument, in the same budget, and defunctionalised beyond it; « L'approche de Lean est trés pertinente ici! ».
+
+**Facts.**
+
+- Lean 4: `@[specialize]` « Marks a definition to always be specialized during code generation […] By default, instance and function parameters are specialized »; `@[nospecialize]` « Marks a definition to never be specialized during code generation » (Lean 4.34.0, Specialize.lean (https://github.com/leanprover/lean4/blob/v4.34.0/src/Lean/Compiler/Specialize.lean)).
+
+- **A — None: the budget decides alone.**
+- **B — `:nospecialize`.** A property that keeps a function defunctionalised, to save code size.
+- **C — `:specialize` and `:nospecialize`.** `:specialize` serves a function's copies first in the budget; `:nospecialize` keeps it defunctionalised.
+
+#### Q-TYP-403 — The limit on recompilation
+
+**Object.** Q-TYP-301 records a limit, to solve without distorting the mechanism: a generic's source is part of its unit's interface, so changing it recompiles the units that use it. Chapter 6 already names a binary, and now an instance, by the hash of a normalised AST.
+
+**Facts.**
+
+- Unison: « Because Unison definitions are identified by their hash, they never change. […] Thus, we can parse and typecheck definitions once, and then store the results in a cache which is never invalidated » (Unison, the big idea (https://www.unison-lang.org/docs/the-big-idea/)).
+
+- **A — A cache keyed by content.** An instance is kept under its hash; a change that leaves the generic's normalised AST unchanged recompiles nothing, and a real change recompiles the instances of that generic, not the units that use it. *For:* follows from naming instances by their hash.
+- **B — Instances in the interface.** A unit exports the instances of its generics for type arguments it declares; others are made by the user. *Against:* a list to maintain.
+- **C — Accept the limit.**
+
+### Handlers and actors
+
+#### Q-SPEC-305 — Handler and actor, less verbose (Q-SPEC-202, reopened)
+
+**Object.** Q-SPEC-202: « C'est hyper verbeux, j'aimerais qu'on réflechisse à comment rendre cela plus naturel voir implicite. aussi un `:bind (exp)` me parait sémantiquement criticable comparer à un `:run (exp)` ou similaires ». Chapter 5 already lets the elaborator fill an actor's handler by type-directed search when it is omitted, an ambiguous search being refused.
+
+- **A — The actor alone, its handler implicit.** `:run` selects the messages, `:result` gives the pure transition; the handler is found by type and written only to replace it.
+
+  ```text
+  {defactor counter
+    {field value :num int}
+    {field bound :num int}
+    :run (accept Increment)
+    :result [?increment-bounded [view state value] [view state bound]]}
+  ```
+
+- **B — One clause per message.** `:on` pairs a message with its pure transition; the handler is implicit.
+
+  ```text
+  {defactor counter
+    {field value :num int}
+    {field bound :num int}
+    :on (Increment [?increment-bounded [view state value] [view state bound]])}
+  ```
+
+- **C — Both listings of Q-SPEC-202, with `:run`.** `:bind` is kept for the monadic bind (Q-SPEC-101).
+
+### Numbers
+
+#### Q-NUM-401 — Defaults of the types written with two segments
+
+**Object.** Q-NUM-301: « On applique la même logique pour chaque type qui nécessite de préciser deux segments et on remonte toujours un warning ». Known so far: `flo8` is `flo8e4` with a warning (Q-NUM-201); `com64` is `two flo32` (VOC-2026-10-26-023); `fix4.16` has 4 bits before the point and 16 after (Q-NUM-004).
+
+- **A — Halves, for every such type.** A missing second segment splits the width in two, with a warning. Example: `fix32   ;; fix16.16, with WRN-NUM-…`.
+- **B — A default stated with each type.** `fix32` is `fix16.16` now; each later type states its own.
+- **C — Only `flo8` and `com` default.** `fix` is refused without its point.
+
 ## The catalogue, verbatim
 
 
