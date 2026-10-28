@@ -18,8 +18,10 @@ export type ClaimClass = (typeof CLAIM_CLASSES)[number];
 
 // D2 slice 1: impact surfaces a component change may trigger. The
 // first seven are the legacy classifier's surfaces; the last five
-// are derivation targets declared in the registry, not yet emitted
-// by the classifier and not yet wired to jobs.
+// are derivation targets declared in the registry. Since cutover C2 they
+// are emitted by the impact job (derived step) and wired to jobs
+// (formal semantics workflow, r9-tlc); the legacy classifier still
+// decides the first seven until the C3 cutover.
 export const IMPACT_SURFACES = [
   "full",
   "docs_links",
