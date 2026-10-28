@@ -178,9 +178,11 @@ le retour arrière explicite et constitue le cas à coût exponentiel mentionné
 
 Le pli sur une algèbre initiale (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) admet
 la même lecture automate : exécuter un catamorphisme, c'est faire avancer une machine à pile qui
-consomme la structure et maintient un accumulateur de taille bornée — c'est la notation tacite
-héritée de la tradition Forth/Factor, où un bloc `[dup * +]` décrit littéralement l'effet de pile de
-son exécution. L'histomorphisme étend cette machine d'un accumulateur d'historique, dont la
+consomme la structure et maintient un accumulateur de taille bornée — c'est l'écriture tacite et
+concaténative de la couche 3, héritée de la tradition Forth/Factor, où un train à arité fixe, comme
+`[add fold square]`, la somme des carrés, s'exécute de droite à gauche sur la pile et décrit
+littéralement le mouvement de pile de son exécution (§{num "sec:c5-s-expressions-universelles"}[]).
+L'histomorphisme étend cette machine d'un accumulateur d'historique, dont la
 profondeur reste bornée par un grade $`r` plutôt que de croître avec l'entrée : c'est la même
 machine, à laquelle on adjoint une mémoire supplémentaire elle-même statiquement dimensionnée.
 R-expressions et calcul tacite sont ainsi les deux visages d'une même exigence : toute exécution de

@@ -3344,6 +3344,15 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **Justification:** attention aux choix des mots : pas d'effets en couche 3, c'est une couche pure.
 - **Reading:** settled by Q-SPEC-403 (option C): the sentence goes with the blocks. Layer 3 is pure: no « effet » is to be named in it, not even a stack effect.
 
+**Follow-up of the author — 2026-10-28 (VOC-2026-10-28-036), in the conversation, quoted as given.** To
+« Le chapitre 4 dit encore que `[dup * +]` « décrit littéralement l'effet de pile de son exécution ». Je
+n'y ai pas touché ; veux-tu une reformulation, par exemple « le mouvement de pile » ? »:
+
+- **Answer:** mets en conformité le texte
+- **Reading:** chapter 4 is brought into line with the ninth part: the tacit writing of layer 3 is the
+  concatenative train, executed right to left on the stack, whose stack movement it describes; the
+  block `[dup * +]` gives way to a train, and no effect is named in layer 3.
+
 
 ### A2 — Intervals
 
@@ -3384,6 +3393,12 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
   aussi je préfère indiquer [[1..9 skip 1 2]] où 'skip' prend "combien" et "tous les combiens" ce qui instruit plus clairement l'intégration de la suite de 1 à 9 en sautant 1 valeur sur 2.
   1 3 5 7 9.
 - **Reading:** a word after the interval (option B), in the author's form `[[1..9 skip 1 2]]`: the word takes how many values to skip and every how many, giving 1 3 5 7 9; `step` is set aside as confusing. Read as replacing the second-element form of the eighth part (`[[1 3..9]]`), which made a step and several dimensions ambiguous together; to be confirmed by the author.
+
+**Follow-up of the author — 2026-10-28 (VOC-2026-10-28-035), in the conversation, quoted as given.** To
+« garder les deux laisserait l'ambiguïté avec plusieurs dimensions. Confirmes-tu ? »:
+
+- **Answer:** Oui
+- **Reading:** confirmed: the `skip` word replaces the second-element step `[[1 3..9]]`.
 
 
 #### Q-LEX-703 — Elements or bounds

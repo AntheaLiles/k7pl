@@ -892,8 +892,12 @@ contradiction to state, not to resolve in silence.
   example against FIXAPL's fork (eighth part); how the
   conditional `select`, triadic in `lst:fonction-pure` and in
   `lexicon/lexemes/select.k`, is written now that layer 3
-  has no triadic word; whether the `skip` word replaces the second-element
-  step; chapter 4's « effet de pile » for `[dup * +]`.
+  has no triadic word.
+  Also answered in the conversation: the `skip` word replaces
+  the second-element step (VOC-2026-10-28-035); chapter 4 is
+  brought into line, its block `[dup * +]` and « effet de
+  pile » giving way to a train and its stack movement
+  (VOC-2026-10-28-036).
   Applied on 2026-10-28 (`spec/CHANGELOG.md`): chapter 5
   states the modifier, value and concatenative rules, the
   interval, class, encoding and refinement forms, `@` and
