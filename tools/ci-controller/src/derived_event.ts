@@ -1,1 +1,79 @@
-Ly8gU1BEWC1GaWxlQ29weXJpZ2h0VGV4dDogMjAyNiBDeXByaWVuIFBJRVJSRQovLwovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogQ0VDSUxMLTIuMQoKLyoqCiAqIERlY2lzaW9uIGVudHJ5IHBvaW50IGZvciB0aGUgaW1wYWN0IGpvYiAoY3V0b3ZlciBDMykuCiAqCiAqIFJ1bnMgdGhlIGRlcml2ZWQgY2xhc3NpZmllciB3aXRoIHRoZSBleGFjdCBldmVudCByb3V0aW5nIG9mCiAqIHNjcmlwdHMvY2kvY2lfaW1wYWN0LnNoICh2aWEgY2xhc3NpZmllckFyZ3MsIHNoYXJlZCB3aXRoCiAqIGltcGFjdF9ldmVudC50cyk6IGEgd29ya2Zsb3dfZGlzcGF0Y2ggb24gYXV0b21hdGlvbi9nZW5lcmF0ZWQtc3RhdHVzCiAqIGNsYXNzaWZpZXMgYWdhaW5zdCBvcmlnaW4vbWFpbiwgYSBoZWFkIGFscmVhZHkgb24gbWFpbiBnZXRzIHRoZQogKiBmdWxsIHZhbGlkYXRpb24sIGFueSBvdGhlciBtYW51YWwgZGlzcGF0Y2ggaXMgZnVsbCwgYW5kCiAqIHB1bGxfcmVxdWVzdCBhbmQgcHVzaCB1c2UgQkFTRV9TSEEuLkhFQURfU0hBLiBXcml0ZXMgYWxsCiAqIHRoaXJ0ZWVuIGRlY2lzaW9uIHN1cmZhY2VzIHRvIEdJVEhVQl9PVVRQVVQuIFRoZSBsZWdhY3kgUHl0aG9uCiAqIGNsYXNzaWZpZXIgbm8gbG9uZ2VyIGRlY2lkZXMgYW55dGhpbmc7IGl0IHJ1bnMgb25seSBpbiByZXZlcnNlZAogKiBzaGFkb3cgKGNvbnRyb2xsZXItc2hhZG93LCBub24tYmxvY2tpbmcpLgogKgogKiBSdW4gZnJvbSB0aGUgcmVwb3NpdG9yeSByb290LiBEZW5vIHBlcm1pc3Npb25zOiByZWFkIHRoZQogKiByZWdpc3RyeSwgcnVuIGdpdCBmb3IgdGhlIHJhbmdlLCByZWFkIHRoZSBldmVudCBlbnYsIHdyaXRlCiAqIEdJVEhVQl9PVVRQVVQuCiAqLwoKaW1wb3J0IHsgY2hhbmdlZFBhdGhzLCBmb3JtYXRDbGFzc2lmaWNhdGlvbiB9IGZyb20gIi4vY2xhc3NpZnkudHMiOwppbXBvcnQgeyBkZXJpdmVDbGFzc2lmaWNhdGlvbiwgZGVyaXZlZERlY2lzaW9uT3V0cHV0TGluZXMgfSBmcm9tICIuL2Rlcml2ZWQudHMiOwppbXBvcnQgeyBjbGFzc2lmaWVyQXJncyB9IGZyb20gIi4vaW1wYWN0X2V2ZW50LnRzIjsKaW1wb3J0IHsgbG9hZFJlZ2lzdHJ5RmlsZSB9IGZyb20gIi4vcmVnaXN0cnkudHMiOwppbXBvcnQgeyB3cml0ZUdpdGh1Yk91dHB1dCB9IGZyb20gIi4vb3V0cHV0LnRzIjsKCmNvbnN0IERFRkFVTFRfUkVHSVNUUlkgPSAiLmdpdGh1Yi9jaS9jb21wb25lbnRzLnlhbWwiOwoKYXN5bmMgZnVuY3Rpb24gcnVuR2l0KGFyZ3M6IHN0cmluZ1tdKTogUHJvbWlzZTx7CiAgY29kZTogbnVtYmVyOwogIHN0ZG91dDogc3RyaW5nOwogIHN0ZGVycjogc3RyaW5nOwp9PiB7CiAgY29uc3QgY29tbWFuZCA9IG5ldyBEZW5vLkNvbW1hbmQoImdpdCIsIHsKICAgIGFyZ3MsCiAgICBzdGRvdXQ6ICJwaXBlZCIsCiAgICBzdGRlcnI6ICJwaXBlZCIsCiAgfSk7CiAgY29uc3QgcmVzdWx0ID0gYXdhaXQgY29tbWFuZC5vdXRwdXQoKTsKICByZXR1cm4gewogICAgY29kZTogcmVzdWx0LmNvZGUsCiAgICBzdGRvdXQ6IG5ldyBUZXh0RGVjb2RlcigpLmRlY29kZShyZXN1bHQuc3Rkb3V0KSwKICAgIHN0ZGVycjogbmV3IFRleHREZWNvZGVyKCkuZGVjb2RlKHJlc3VsdC5zdGRlcnIpLAogIH07Cn0KCmlmIChpbXBvcnQubWV0YS5tYWluKSB7CiAgdHJ5IHsKICAgIGNvbnN0IGFyZ3MgPSBhd2FpdCBjbGFzc2lmaWVyQXJncygKICAgICAgewogICAgICAgIEVWRU5UX05BTUU6IERlbm8uZW52LmdldCgiRVZFTlRfTkFNRSIpLAogICAgICAgIFJFRjogRGVuby5lbnYuZ2V0KCJSRUYiKSwKICAgICAgICBCQVNFX1NIQTogRGVuby5lbnYuZ2V0KCJCQVNFX1NIQSIpLAogICAgICAgIEhFQURfU0hBOiBEZW5vLmVudi5nZXQoIkhFQURfU0hBIiksCiAgICAgIH0sCiAgICAgIHJ1bkdpdCwKICAgICk7CiAgICBjb25zdCBmb3JjZUZ1bGwgPSBhcmdzWzBdID09PSAiLS1mb3JjZS1mdWxsIjsKICAgIGNvbnN0IHBhdGhzID0gZm9yY2VGdWxsID8gW10gOiBhd2FpdCBjaGFuZ2VkUGF0aHMoYXJnc1sxXSwgYXJnc1szXSk7CiAgICBjb25zdCByZWdpc3RyeSA9IGxvYWRSZWdpc3RyeUZpbGUoREVGQVVMVF9SRUdJU1RSWSk7CiAgICBjb25zdCBkZXJpdmVkID0gZGVyaXZlQ2xhc3NpZmljYXRpb24ocmVnaXN0cnksIHBhdGhzLCBmb3JjZUZ1bGwpOwogICAgY29uc29sZS5sb2coZm9ybWF0Q2xhc3NpZmljYXRpb24ocGF0aHMsIGRlcml2ZWQpKTsKICAgIGNvbnNvbGUubG9nKAogICAgICBgRGVyaXZlZCBzdXJmYWNlczogJHsKICAgICAgICBPYmplY3QuZW50cmllcyhkZXJpdmVkLnN1cmZhY2VzKS5tYXAoKFtrLCB2XSkgPT4gYCR7a309JHt2fWApLmpvaW4oIiAiKQogICAgICB9IHVuY2xhc3NpZmllZD0ke2Rlcml2ZWQudW5jbGFzc2lmaWVkfWAsCiAgICApOwogICAgaWYgKGRlcml2ZWQudW5rbm93bl9wYXRocy5sZW5ndGggPiAwKSB7CiAgICAgIGNvbnNvbGUubG9nKCJEZXJpdmVkIHVuY2xhc3NpZmllZCBwYXRoczoiKTsKICAgICAgZm9yIChjb25zdCBwYXRoIG9mIGRlcml2ZWQudW5rbm93bl9wYXRocykgY29uc29sZS5sb2coYCAgJyR7cGF0aH0nYCk7CiAgICB9CiAgICB3cml0ZUdpdGh1Yk91dHB1dChkZXJpdmVkRGVjaXNpb25PdXRwdXRMaW5lcyhkZXJpdmVkKSk7CiAgfSBjYXRjaCAoZXJyb3IpIHsKICAgIGNvbnNvbGUuZXJyb3IoZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiBTdHJpbmcoZXJyb3IpKTsKICAgIERlbm8uZXhpdCgxKTsKICB9Cn0K
+// SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+//
+// SPDX-License-Identifier: CECILL-2.1
+
+/**
+ * Decision entry point for the impact job (cutover C3).
+ *
+ * Runs the derived classifier with the exact event routing of
+ * scripts/ci/ci_impact.sh (via classifierArgs, shared with
+ * impact_event.ts): a workflow_dispatch on automation/generated-status
+ * classifies against origin/main, a head already on main gets the
+ * full validation, any other manual dispatch is full, and
+ * pull_request and push use BASE_SHA..HEAD_SHA. Writes all
+ * thirteen decision surfaces to GITHUB_OUTPUT. The legacy Python
+ * classifier no longer decides anything; it runs only in reversed
+ * shadow (controller-shadow, non-blocking).
+ *
+ * Run from the repository root. Deno permissions: read the
+ * registry, run git for the range, read the event env, write
+ * GITHUB_OUTPUT.
+ */
+
+import { changedPaths, formatClassification } from "./classify.ts";
+import { deriveClassification, derivedDecisionOutputLines } from "./derived.ts";
+import { classifierArgs } from "./impact_event.ts";
+import { loadRegistryFile } from "./registry.ts";
+import { writeGithubOutput } from "./output.ts";
+
+const DEFAULT_REGISTRY = ".github/ci/components.yaml";
+
+async function runGit(args: string[]): Promise<{
+  code: number;
+  stdout: string;
+  stderr: string;
+}> {
+  const command = new Deno.Command("git", {
+    args,
+    stdout: "piped",
+    stderr: "piped",
+  });
+  const result = await command.output();
+  return {
+    code: result.code,
+    stdout: new TextDecoder().decode(result.stdout),
+    stderr: new TextDecoder().decode(result.stderr),
+  };
+}
+
+if (import.meta.main) {
+  try {
+    const args = await classifierArgs(
+      {
+        EVENT_NAME: Deno.env.get("EVENT_NAME"),
+        REF: Deno.env.get("REF"),
+        BASE_SHA: Deno.env.get("BASE_SHA"),
+        HEAD_SHA: Deno.env.get("HEAD_SHA"),
+      },
+      runGit,
+    );
+    const forceFull = args[0] === "--force-full";
+    const paths = forceFull ? [] : await changedPaths(args[1], args[3]);
+    const registry = loadRegistryFile(DEFAULT_REGISTRY);
+    const derived = deriveClassification(registry, paths, forceFull);
+    console.log(formatClassification(paths, derived));
+    console.log(
+      `Derived surfaces: ${
+        Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
+      } unclassified=${derived.unclassified}`,
+    );
+    if (derived.unknown_paths.length > 0) {
+      console.log("Derived unclassified paths:");
+      for (const path of derived.unknown_paths) console.log(`  '${path}'`);
+    }
+    writeGithubOutput(derivedDecisionOutputLines(derived));
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : String(error));
+    Deno.exit(1);
+  }
+}
