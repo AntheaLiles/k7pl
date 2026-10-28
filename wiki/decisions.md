@@ -881,6 +881,9 @@ contradiction to state, not to resolve in silence.
   S-expression not enclosed in another is an autonomous
   process, executable in parallel with the others of the same
   rank, and Emacs's lexical binding as a general perimeter.
+  Answered in the conversation (VOC-2026-10-28-032):
+  `[sub 1]` is x − 1, the value being the right argument of
+  `sub` and the train's argument its left one.
   Put back to the author: the stack reading of the author's
   example against FIXAPL's fork (eighth part); « obligatoirement
   Monadique OU Dyadique » in layer 3 against « au plus

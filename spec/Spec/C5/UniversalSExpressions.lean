@@ -195,8 +195,10 @@ son résultat devenant l'argument gauche du mot dyadique, dont l'argument droit 
 qui est à sa droite ; sans mot à sa gauche, un mot dyadique prend l'argument gauche du train ; une
 paire de crochets intérieure compte pour un mot. Un modifieur d'un opérande suit cet opérande, un
 modifieur de deux se place entre eux, et les modifieurs se prennent avant l'assemblage du train :
-`[add fold div length]` se lit `[[add fold] div length]`. Une valeur peut terminer un train, et un
-crochet n'est une application que lorsque sa tête y reçoit tous ses arguments (`[add 1 2]`). Un mot
+`[add fold div length]` se lit `[[add fold] div length]`. Une valeur peut terminer un train :
+`[sub 1]` est la fonction $`x - 1`, la valeur étant l'argument droit de `sub` et l'argument du train
+son argument gauche. Un crochet n'est une application que lorsque sa tête y reçoit tous ses
+arguments (`[add 1 2]`). Un mot
 triadique ne figure pas dans un train : il ne fait que s'appliquer. L'écart-type s'écrit ainsi avec
 un seul groupe intérieur, `[sqrt [add fold square identity sub add fold div length] div length]`
 (§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[+´÷≠]`, est une vue de l'éditeur, qui

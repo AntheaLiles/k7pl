@@ -3290,6 +3290,15 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **Justification:** vois la justification de Q-SPEC-401
 - **Reading:** a value may end a train, as in FIXAPL (option A): a bracket is an application only when its head receives all its arguments (`[range 1 9]`). Which value `[sub 1]` computes, x − 1 or 1 − x, depends on the reading put back to the author under Q-SPEC-401.
 
+**Follow-up of the author — 2026-10-28 (VOC-2026-10-28-032), in the conversation, quoted as given.** To
+« De ce choix dépend la valeur de [sub 1] : x − 1 ou 1 − x. »:
+
+- **Answer:** x-1.
+- **Reading:** `[sub 1]` is the function x − 1: the value is the right argument of `sub`, whose left
+  argument is the train's, as in FIXAPL's rule for a dyadic word with nothing on its left. The wider
+  question put back under Q-SPEC-401 — a value on the left of a dyadic word in the author's example —
+  stays open.
+
 
 #### Q-SPEC-403 — The concatenative blocks of chapter 5
 
