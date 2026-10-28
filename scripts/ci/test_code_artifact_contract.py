@@ -163,6 +163,12 @@ class CodeArtifactContractTests(unittest.TestCase):
         # registry routes to the K surfaces in place of a path filter.
         components = (ROOT / ".github/ci/components.yaml").read_text(encoding="utf-8")
         self.assertIn("- path: lexicon/", components)
+        # `lake build Spec` reads lexicon/ (input_dir in lakefile.lean): since
+        # cutover C3 the derived classifier decides spec_build, so the
+        # specification component must declare lexicon/ as a read input.
+        spec_block = components.split("  - id: specification", 1)[1].split("\n  - id: ", 1)[0]
+        self.assertIn("- path: lexicon/", spec_block)
+        self.assertIn("input_dir lexicon", self.lakefile)
         self.assertNotIn("extract_verso_code.py", self.workflow)
 
     def test_workflow_packages_the_k_sources(self) -> None:

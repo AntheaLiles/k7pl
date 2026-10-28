@@ -5,10 +5,11 @@
 /**
  * Event-to-argument adapter for the impact classifier.
  *
- * The event routing formerly lived in scripts/ci/ci_impact.sh. The Python
- * classifier remains the gating reference until the Deno/Python parity gate
- * has passed its historical-range criteria; this adapter changes only the
- * shell orchestration, not classification semantics.
+ * The event routing formerly lived in scripts/ci/ci_impact.sh.
+ * Since cutover C3, classifierArgs is shared with derived_event.ts
+ * (the decision entry point); the standalone Python-invoking main
+ * below is no longer wired to any workflow and goes away with
+ * impact.py in C4.
  */
 
 export type ImpactEnvironment = Record<string, string | undefined>;

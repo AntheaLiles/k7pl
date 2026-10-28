@@ -6,6 +6,7 @@ import { assert, assertEquals } from "./assert.ts";
 import { classify } from "../src/classify.ts";
 import {
   deriveClassification,
+  derivedDecisionOutputLines,
   derivedDivergences,
   derivedGithubOutputLines,
 } from "../src/derived.ts";
@@ -239,4 +240,29 @@ Deno.test("derived gating surfaces are emitted as GitHub outputs", () => {
   const full = derivedGithubOutputLines(derived(["Makefile"]));
   assert(full.every((line) => line.endsWith("=true")));
   assertEquals(full.length, 5);
+});
+
+Deno.test("derived decision outputs carry all thirteen surfaces in order", () => {
+  // src/k/foo.k: k-semantics roots (K surfaces) + specification
+  // read_input src/ (spec_check) + python-tooling read_input src/
+  // (python_tests).
+  const lines = derivedDecisionOutputLines(derived(["src/k/foo.k"]));
+  assertEquals(lines, [
+    "full=false",
+    "docs_links=false",
+    "spec_check=true",
+    "spec_build=false",
+    "lean_build=false",
+    "python_tests=true",
+    "tracking_views=false",
+    "unclassified=false",
+    "axiom_audit=false",
+    "k_compile=true",
+    "k_examples=true",
+    "klean_export=true",
+    "tla_model_check=false",
+  ]);
+  const full = derivedDecisionOutputLines(derived(["Makefile"]));
+  assert(full.every((line) => line.endsWith("=true")));
+  assertEquals(full.length, 13);
 });

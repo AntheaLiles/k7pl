@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 /**
- * D2 slice 2: the classifier derived from the registry. Since cutover C2,
- * its five new surfaces are emitted by the impact job and gate the formal
- * semantics workflow and r9-tlc; the legacy classifier still decides the
- * seven legacy surfaces for verify and the rest until the C3 cutover.
+ * D2 slice 2: the classifier derived from the registry. Since cutover C3,
+ * it decides all thirteen surfaces: the impact job emits them from
+ * derived_event.ts, and the legacy Python classifier runs only in
+ * reversed shadow (controller-shadow, non-blocking).
  *
  * Derivation rule, exactly as decided (D2, 2026-10-25): a path
  * triggers the impact_surfaces of every component whose roots
@@ -41,12 +41,13 @@
  *     theoretical-projects/, which the legacy classifier
  *     leaves unclassified (hence full) while the registry
  *     maps them to docs_links.
- * The shadow report lists every divergence per path; the
- * cutover decision must disposition each kind explicitly.
+ * The C3 cutover accepted these divergences as the decided
+ * behaviour; controller-shadow keeps reporting them, non-blocking.
  */
 
 import type { Component, Registry } from "./registry.ts";
 import { IMPACT_SURFACES, type ImpactSurface } from "./registry.ts";
+import { SURFACE_KEYS } from "./classify.ts";
 
 export type DerivedSurface = ImpactSurface;
 
@@ -243,6 +244,20 @@ export function derivedGithubOutputLines(
     (surface) =>
       `${surface}=${String(derived.surfaces[surface]).toLowerCase()}`,
   );
+}
+
+/** The thirteen decision lines for the impact job (cutover C3): the
+ * eight legacy keys in impact.py order, then the five gating
+ * surfaces. */
+export function derivedDecisionOutputLines(
+  derived: DerivedClassification,
+): string[] {
+  return [
+    ...SURFACE_KEYS.map(
+      (key) => `${key}=${String(derived[key]).toLowerCase()}`,
+    ),
+    ...derivedGithubOutputLines(derived),
+  ];
 }
 
 /** Per-surface legacy-key divergences between derived and legacy. */

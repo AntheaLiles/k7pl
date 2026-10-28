@@ -10,8 +10,9 @@
  *     Classify changed paths into CI surfaces, in parity with
  *     scripts/ci/impact.py. With --shadow, also run the legacy
  *     Python classifier and fail on any divergence. With
- *     --derived, classify from the registry instead (shadow
- *     only, never gating). With --derived-shadow, compare the
+ *     --derived, classify from the registry instead (the decision
+ *     classifier since cutover C3; derived_event.ts is the impact
+ *     job's entry point). With --derived-shadow, compare the
  *     derived classifier with the legacy Deno classifier and
  *     report every legacy-surface divergence (exit 1).
  *   validate-registry [--registry <path>] [--root <dir>]
@@ -38,6 +39,7 @@ import {
 import { validateEvidence, validateEvidenceSchema } from "./evidence.ts";
 import { loadRegistryFile, validateRegistry } from "./registry.ts";
 import { runShadow } from "./shadow.ts";
+import { writeGithubOutput } from "./output.ts";
 
 const DEFAULT_REGISTRY = ".github/ci/components.yaml";
 
@@ -92,14 +94,6 @@ function parseArgs(argv: string[]): Args {
   return { flags, positional };
 }
 
-function writeGithubOutput(lines: string[]): void {
-  const output = Deno.env.get("GITHUB_OUTPUT");
-  if (!output) return;
-  Deno.writeTextFileSync(output, lines.map((line) => `${line}\n`).join(""), {
-    append: true,
-  });
-}
-
 async function runClassify(args: Args): Promise<number> {
   const forceFull = args.flags.get("force-full") === true;
   const shadow = args.flags.get("shadow") === true;
@@ -151,7 +145,7 @@ async function runClassify(args: Args): Promise<number> {
     console.log(
       `Derived surfaces: ${
         Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
-      }`,
+      } unclassified=${derived.unclassified}`,
     );
     if (derived.unknown_paths.length > 0) {
       console.log("Derived unclassified paths:");
@@ -172,7 +166,7 @@ async function runClassify(args: Args): Promise<number> {
     console.log(
       `Derived surfaces: ${
         Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
-      }`,
+      } unclassified=${derived.unclassified}`,
     );
     // Per-path comparison is primary: an aggregate comparison
     // alone would hide divergences that cancel out (e.g. one

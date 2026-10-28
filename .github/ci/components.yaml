@@ -26,9 +26,9 @@
 # surfaces of every component whose read_inputs contain it. New
 # surface names (axiom_audit, k_compile, k_examples, klean_export,
 # tla_model_check) are declared here as derivation targets; since
-# cutover C2 they are emitted by the impact job (derived step) and
-# wired to jobs (formal semantics workflow, r9-tlc), while the legacy
-# classifier still decides the legacy surfaces until the C3 cutover.
+# cutover C3 the derived classifier decides all thirteen surfaces
+# (impact job, derived_event.ts), and the legacy Python classifier
+# runs only in reversed shadow.
 # The markdown rule (any .md/.markdown file triggers docs_links)
 # and the light/full exact-prefix rules remain classifier rules,
 # not components, and are not declared here.
@@ -98,6 +98,15 @@ components:
       - scripts/biblio/
       - scripts/manuscript_metrics.py
       - wiki/references.json
+      # PR #311: `lake build Spec` reads lexicon/ (`input_dir
+      # lexicon` in lakefile.lean): the Verso K blocks display
+      # its files, and the extraction refuses a K file that no
+      # block displays. Since cutover C3 the derived classifier
+      # decides these surfaces, so the input is declared here.
+      - path: lexicon/
+        surfaces:
+          - spec_check
+          - spec_build
     allowed_claim_classes:
       - execution
       - verification
