@@ -3209,6 +3209,230 @@ Several options may be chosen.
 - **Reading:** apply now (option A). The author recalls that `bind-to` already gave way to `bind` and the words of monads (fourth part: `bind` for Haskell's `>>=`, `:bind`, `:return`), and that those words must still be compared with the words of algebraic effects; that comparison belongs to the choice of words.
 
 
+## Lot of 2026-10-28, ninth part: the forms left before the choice of words — trains, intervals, types, patterns, modules and macros
+
+Opened on 2026-10-28 at the author's request, after the eighth part: a short part on the
+points A1 to A4 of the inventory of what remains before the choice of words. Points B (decided,
+to carry into the specification and the reader) and C (the words themselves) are not asked
+here; the composition of actor scenarios is discussed separately. Same rules: options to
+enumerate and objectify, then the author's choice; **Other** and **Clarify** are always
+available.
+
+Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `defmacro`, `:for`, `:encoding`…) is a placeholder: the words are chosen after these forms.
+
+### A1 — Trains
+
+#### Q-SPEC-401 — How a modifier takes its operands
+
+**Object.** Chapter 5 writes the mean `[fold add div length]` and displays it `[´+÷≠]`: the modifier comes before the word it modifies. The arity rule of the eighth part assembles functions; it does not yet say when a modifier takes its operands, nor where a modifier of two operands (`rank`, a function and a number) puts them.
+
+**Facts.**
+
+- FIXAPL: « dyadic modifiers come infix (`+⟜-`) while monadic modifiers come postfix (`+/`). Modifiers have greater operator precedence than functions, and modifiers are left-associative, while functions are right-associative » (FIXAPL, README (https://github.com/Jacob-Lockwood/fixapl)).
+- BQN: « In three cases a simpler 1-modifier is paired with a generalized 2-modifier: for each of these the 1-modifier happens to be the same as the 2-modifier with a right operand of ¯1 », Cells `˘` with Rank `⎉` among them (BQN, primitives (https://mlochbaum.github.io/BQN/doc/primitive.html)).
+
+- **A — Before their operands, taken first.** A modifier takes, on its right, as many operands as its type says, before the train is assembled. *For:* chapter 5 and its glyph view stay as they are.
+
+  ```text
+  [fold add div length]      ;; [[fold add] div length]
+  [rank sum 1 div length]    ;; [[rank sum 1] div length]
+  ```
+
+- **B — After or between them, as BQN and FIXAPL.** A modifier of one operand follows it, a modifier of two stands between them; modifiers are taken first. *For:* the order of the APL family; the glyph view reads as BQN.
+
+  ```text
+  [add fold div length]      ;; viewed [+´÷≠], as BQN writes it
+  [sum rank 1 div length]
+  ```
+
+- **C — Always grouped.** A modified word is written in its own brackets. Example: `[[fold add] div length]`. *Against:* one group more for each modifier.
+
+#### Q-SPEC-402 — A value inside a train: `[sub 1]`
+
+**Object.** Chapter 5: the arity of each word « permet à l'élaboration de distinguer un train d'une application ». `[range 1 9]` gives `range` all its arguments: an application. `[sub 1]` gives `sub` one argument of two: a train, an application missing an argument, or an error?
+
+**Facts.**
+
+- FIXAPL: « This even allows trains to have a value rather than a function as their rightmost tine (`-1` is a monadic function to subtract one), unlike other languages » (FIXAPL, README (https://github.com/Jacob-Lockwood/fixapl)).
+
+- **A — As FIXAPL: a value may end a train.** `[sub 1]` is the function x − 1; a bracket is an application only when its head receives all its arguments.
+
+  ```text
+  [sub 1]          ;; x - 1
+  [range 1 9]      ;; application
+  ```
+
+- **B — Applied from the left.** `[sub 1]` gives `sub` its first argument and waits for the second. Example: `[sub 1]          ;; 1 - y`.
+- **C — Refused.** A bracket that holds a value is an application, and one whose head lacks arguments is refused with a code.
+
+#### Q-SPEC-403 — The concatenative blocks of chapter 5
+
+**Object.** Chapter 5: « Les blocs concaténatifs comme `[dup * +]`, dans la tradition de Forth et Factor, portent leur effet de pile directement dans leur type ». Chapter 4 reads a fold as a stack machine and cites the same block. Between brackets, the arity rule now reads `[dup * +]` as a train of functions, not as a sequence of stack operations.
+
+**Facts.**
+
+- Factor: « dup ( x -- x x ) » (Factor, dup (https://docs.factorcode.org/content/word-dup,kernel.html)).
+
+- **A — Withdrawn from chapter 5.** Tacit code is written as trains; the stack reading stays in chapter 4 as the way a fold executes, not as a syntax.
+- **B — Kept, in a qualified delimiter.** A block read by the stack is a literal of its own, its effect checked by its type. Example: `[stack| dup * + |stack]`.
+- **C — Kept between brackets.** The type of the words decides: words typed by a stack effect make a block, words typed by an arity a train.
+
+#### Q-SPEC-404 — The stack effect written for `[dup *]`
+
+**Object.** Chapter 5: « `[dup *]` a l'effet `(1 – 2)` ». By the Forth standard, `dup` takes one value and leaves two, `*` takes two and leaves one: `[dup *]` takes one value and leaves one, `(1 – 1)`. Text of the manuscript: nothing changes without your consent.
+
+**Facts.**
+
+- Forth 2012, DUP: « ( x -- x x ) Duplicate x » (Forth standard, DUP (https://forth-standard.org/standard/core/DUP)); `*`: « ( n1 | u1 n2 | u2 -- n3 | u3 ) Multiply n1 | u1 by n2 | u2 giving the product n3 | u3 » (Forth standard, * (https://forth-standard.org/standard/core/Times)).
+
+- **A — Corrected to `(1 – 1)`.**
+- **B — Kept: `(1 – 2)` means something else.** Say what, with Clarify.
+- **C — Settled by Q-SPEC-403.** The sentence goes if the blocks are withdrawn.
+
+### A2 — Intervals
+
+#### Q-LEX-701 — A layer-2 interval without an end
+
+**Object.** Eighth part: « open en couche 2 serait logiquement ((1..n)) ». A layer-2 interval is a lazy list; can its end be left out?
+
+**Facts.**
+
+- Raku: « Use ∞ or * (Whatever) to indicate an end point to be open-ended »: `1 .. *` (Raku, Range (https://docs.raku.org/type/Range)). Haskell: `[ e1.. ] = enumFrom e1` (eighth part).
+
+- **A — Yes, `((1..))`.** An endless lazy list.
+- **B — Yes, with `inf` as its end.** `inf` is already a number literal. Example: `((1..inf))`.
+- **C — No.** The end is always written; an endless sequence is a stream, not an interval.
+
+#### Q-LEX-702 — A step and several dimensions together
+
+**Object.** Eighth part: a second element gives the step (`[[1 3..9]]`), several intervals form a matrix of index pairs (`[[1..3 1..3]]`). Together, `[[1 3..9 1..3]]` must be read by a rule.
+
+**Facts.**
+
+- Kotlin: « You can also iterate over numbers with a custom step using the step() function »: `0..8 step 2` (Kotlin, ranges (https://kotlinlang.org/docs/ranges.html)).
+
+- **A — A number just before an interval is its second element.** Example: `[[1 3..9 1..3]]   ;; (1 3 5 7 9) by (1 2 3)`.
+- **B — A step word after the interval, as Kotlin.** Example: `[[1..9 step 2 1..3]]`.
+- **C — A step only in a literal of one interval.** A matrix of intervals has no step.
+
+#### Q-LEX-703 — Elements or bounds
+
+**Object.** Chapter 5: `[[1..9]]` holds the elements 1 to 9, while « `[[:alpha:]]` [est] la matrice des bornes de ses plages ». The same pair gives elements for an interval and bounds for a class.
+
+**Facts.**
+
+- Raku: « Ranges serve two main purposes: to generate lists of consecutive numbers or strings, and to act as a matcher to check if a number or string is within a certain range » (Raku, Range (https://docs.raku.org/type/Range)).
+
+- **A — Kept as is.** A class is a set of ranges, an interval a sequence.
+- **B — Elements for both.** `[[:alpha:]]` holds its code points; its bounds come from a function.
+- **C — Bounds for both.** `[[1..9]]` holds the pair 1 9; its elements come from a function.
+
+### A3 — Types
+
+#### Q-STR-501 — How the encoding is written in a text type
+
+**Object.** Eighth part: the encoding belongs to the text type, UTF-8 by default, and ASCII, UTF-16, UTF-32, Emacs's and others can be written. `strN` counts bits.
+
+**Facts.**
+
+- Unicode: « The Unicode Standard uses 8-bit code units in the UTF-8 encoding form, 16-bit code units in the UTF-16 encoding form, and 32-bit code units in the UTF-32 encoding form » (Unicode glossary, Code Unit (https://www.unicode.org/glossary/)).
+
+- **A — A property beside the type.** Example: `{field name :type str256 :encoding utf16}`.
+- **B — A type constructor.** Example: `{field name :type {str 256 utf16}}`.
+- **C — One type name per encoding.** Example: `str256   utf16-256   ascii-56`.
+
+#### Q-STR-502 — A width that is not a multiple of the encoding's unit
+
+**Object.** `str12` in UTF-8 (units of 8 bits), `str40` in UTF-16 (units of 16 bits).
+
+- **A — Refused, with a code.**
+- **B — Rounded up to whole units, with a warning.** Example: `str12   ;; str16, WRN-…`.
+
+#### Q-TYP-501 — How the parameters of a generic are introduced
+
+**Object.** Third part: a type variable is introduced by a binder; chapter 6 monomorphises each generic call. No notation is written yet.
+
+**Facts.**
+
+- Typed Racket: « (All (a ...) t) […] is a parameterization of type t, with type variables a ... » (Typed Racket, types (https://docs.racket-lang.org/ts-reference/type-ref.html)).
+- Rust: « we place type name declarations inside angle brackets, <>, between the name of the function and the parameter list »: `fn largest<T>(list: &[T]) -> &T` (Rust book, generics (https://doc.rust-lang.org/book/ch10-01-syntax.html)).
+
+- **A — A property of the definition, as Rust.** Example: `{defn first :for [t] :type {function {vector t} t} …}`.
+- **B — A binder inside the type, as Typed Racket.** Example: `{defn first :type {all [t] {function {vector t} t}} …}`.
+- **C — Implicit.** A name in a type position that names no type is a parameter. *Against:* a misspelt type name becomes a parameter.
+
+#### Q-TYP-502 — What a refined type `{{ … }}` contains
+
+**Object.** Seventh part: `{{ … }}` in layer 1 is a refined type; `{{:alpha:}}` refines texts of one character by a class.
+
+**Facts.**
+
+- F*: « let nat = x:int{x >= 0} »; « whose general form is x:t { e } where t is a type, and e is a bool-typed term that may refer to the t-typed bound variable x » (F* tutorial, part 1 (https://fstar-lang.org/tutorial/book/part1/part1_getting_off_the_ground.html)).
+- LiquidHaskell: `nats :: [{v:Int | 0 <= v}]` (LiquidHaskell, specifications (https://ucsd-progsys.github.io/liquidhaskell/specifications/)).
+
+- **A — A base type and a predicate on `_`.** Example: `{{int32 [<= 0 _]}}`.
+- **B — A named variable, as F* and LiquidHaskell.** Example: `{{v int32 [<= 0 v]}}`.
+- **C — A base type and a named predicate.** Example: `{{int32 non-negative}}   {{:alpha:}}`.
+
+### A4 — Forms not written yet
+
+#### Q-SPEC-405 — How a pattern is written
+
+**Object.** Sixth part: « @name defines a pattern », and `@linear`, `@polynomial`, `@stack`, `@backtrack` are properties of a pattern. Chapter 4: « Les R-expressions unifient sous une seule interface, `(match ...)`, le filtrage structurel, PCRE, PEG et les grammaires ». Chapter 5 matches `((Increment n) …)`. How a pattern is written is not.
+
+**Facts.**
+
+- F#: « Active patterns enable you to define named partitions that subdivide input data, so that you can use these names in a pattern matching expression » (F#, active patterns (https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/active-patterns)).
+- Rust: « The at operator @ lets us create a variable that holds a value at the same time we’re testing that value for a pattern match » (Rust book, patterns (https://doc.rust-lang.org/book/ch19-03-pattern-syntax.html)); in K7PL `@` names a pattern instead.
+
+- **A — S-expressions only.** A constructor and its fields, `_`, literals, classes and intervals; repetition and choice by words; `@name` defined like any definition.
+
+  ```text
+  {def @digit [[0..9]]}
+  {def @number [many @digit] @linear}
+  (match m ((Increment n) …))
+  ```
+
+- **B — S-expressions, and foreign pattern languages in qualified delimiters.** PCRE or PEG text compiles to the same automata. Example: `{def @number [pcre|[0-9]+|pcre] @linear}`.
+- **C — Text patterns only in qualified delimiters.** S-expressions destructure structures; text is matched by a foreign pattern language.
+
+#### Q-SPEC-406 — Modules
+
+**Object.** Paths are symbols with `/` (fourth part). Nothing yet says what a module is, what it exports, or how one is imported.
+
+**Facts.**
+
+- Racket: « Each Racket module typically resides in its own file », which lists its exports with `provide` (Racket guide, modules (https://docs.racket-lang.org/guide/module-basics.html)).
+- Rust: « A module is a container for zero or more items »; « Modules can nest arbitrarily » (Rust reference, modules (https://doc.rust-lang.org/reference/items/modules.html)).
+
+- **A — One file, one module, exports listed.**
+
+  ```text
+  {module :export [print-cake]}
+  {use geometry/shapes}
+  ```
+
+- **B — Modules nested in a file, exports listed.** Example: `{module shapes :export [area] …}`.
+- **C — One file, one module, everything exported but what is marked.** Example: `{defn helper +private …}`.
+
+#### Q-SPEC-407 — How a macro or an envelope is declared
+
+**Object.** Chapter 5: « Une enveloppe est une macro de couche 1, développée à la compilation et ouverte à tout programme sous l'hygiène de `ERR-MAC-001` ; une enveloppe peut en étendre une autre et lui ajouter des propriétés ». Its typing is written (`binds`, the rule of expansion), its surface is not.
+
+**Facts.**
+
+- Racket: « The simplest way to create a macro is to use define-syntax-rule: (define-syntax-rule pattern template) » (Racket guide, pattern-based macros (https://docs.racket-lang.org/guide/pattern-macros.html)).
+
+- **A — A definition like any other.** `def` with a property that makes it a macro; an envelope is `def` with properties already filled.
+
+  ```text
+  {def swap +macro [a b] …}
+  {def defn :extends def :fills {:type function}}
+  ```
+
+- **B — A head word of its own, by pattern and template.** Example: `{defmacro swap [a b] …}`.
+- **C — Both.** Pattern and template for simple macros, a procedural form for envelopes.
+
 ## The catalogue, verbatim
 
 
