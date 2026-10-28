@@ -881,15 +881,18 @@ contradiction to state, not to resolve in silence.
   S-expression not enclosed in another is an autonomous
   process, executable in parallel with the others of the same
   rank, and Emacs's lexical binding as a general perimeter.
-  Answered in the conversation (VOC-2026-10-28-032):
-  `[sub 1]` is x − 1, the value being the right argument of
-  `sub` and the train's argument its left one.
+  Answered in the conversation: `[sub 1]` is x − 1, the
+  value being the right argument of `sub` and the train's
+  argument its left one (VOC-2026-10-28-032); layer-3 words
+  are monadic or dyadic, never triadic, n-ary operators being
+  those of layer 2 (VOC-2026-10-28-033); `{str 256 utf16}` is
+  256 bits of text, sixteen units, N counting the whole text
+  (VOC-2026-10-28-034).
   Put back to the author: the stack reading of the author's
-  example against FIXAPL's fork (eighth part); « obligatoirement
-  Monadique OU Dyadique » in layer 3 against « au plus
-  triadique » and the triadic `select`; whether N in `strN`
-  counts the whole text, as in the seventh part, or the code
-  unit; whether the `skip` word replaces the second-element
+  example against FIXAPL's fork (eighth part); how the
+  conditional `select`, triadic in `lst:fonction-pure` and in
+  `lexicon/lexemes/select.k`, is written now that layer 3
+  has no triadic word; whether the `skip` word replaces the second-element
   step; chapter 4's « effet de pile » for `[dup * +]`.
   Applied on 2026-10-28 (`spec/CHANGELOG.md`): chapter 5
   states the modifier, value and concatenative rules, the

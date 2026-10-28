@@ -185,7 +185,8 @@ couche 3 : il s'écrit entre crochets, en texte, ses mots séparés par des espa
 et selon la logique des S-expressions : `[add fold div length]` est la moyenne d'un tableau. Il est
 l'écriture concaténative de la couche 3 : à arité fixe, il s'exécute de droite à gauche sur la pile,
 où toute exécution de couche 3 a lieu. Chaque mot
-y porte une arité typée — monadique, dyadique, au plus triadique, jamais n-aire —, et c'est elle qui
+y porte une arité typée — monadique ou dyadique, jamais triadique ni n-aire, les opérateurs n-aires
+étant ceux de la couche 2, dont les délimiteurs bornent l'action —, et c'est elle qui
 permet à l'élaboration de distinguer un train d'une application ; un glyphe employé sous deux arités
 porte donc un alias par arité. C'est encore l'arité de chaque mot, et non la longueur du train, qui
 décide de son assemblage, selon la règle de FIXAPL {cite "lockwoodFIXAPL"}[]. Le train s'assemble de
@@ -198,8 +199,7 @@ modifieur de deux se place entre eux, et les modifieurs se prennent avant l'asse
 `[add fold div length]` se lit `[[add fold] div length]`. Une valeur peut terminer un train :
 `[sub 1]` est la fonction $`x - 1`, la valeur étant l'argument droit de `sub` et l'argument du train
 son argument gauche. Un crochet n'est une application que lorsque sa tête y reçoit tous ses
-arguments (`[add 1 2]`). Un mot
-triadique ne figure pas dans un train : il ne fait que s'appliquer. L'écart-type s'écrit ainsi avec
+arguments (`[add 1 2]`). L'écart-type s'écrit ainsi avec
 un seul groupe intérieur, `[sqrt [add fold square identity sub add fold div length] div length]`
 (§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[+´÷≠]`, est une vue de l'éditeur, qui
 remplace chaque mot par son glyphe à sa place et le colore selon son rôle, que son type indique :
@@ -269,7 +269,8 @@ d'autres s'ajoutant au besoin —, et tout caractère par son point de code, `\u
 Il n'y a pas de type caractère : un texte d'un caractère en tient lieu (`"a"`, `"μ"`,
 `"\lambda"`). Un type texte s'écrit `strN` : comme dans `intN`, N compte les bits qu'il alloue à
 l'encodage du texte, et `str` seul est un trou typé. Un encodage est un type raffiné de `str`,
-écrit par un constructeur de type (`{str 256 utf16}`) : UTF-8 est celui que retient la résolution
+écrit par un constructeur de type — `{str 256 utf16}` alloue 256 bits de texte, seize unités de
+16 bits — : UTF-8 est celui que retient la résolution
 d'un trou typé, et ASCII, UTF-16, UTF-32 ou celui d'Emacs s'écrivent de même. Un type raffiné porte
 son étiquette et ne se déspécialise pas : un texte `utf8` n'entre pas dans un `str12`, qui n'est
 pas étiqueté `utf8`, alors qu'un `str8` peut s'y ranger. Une largeur qui n'est pas un multiple de

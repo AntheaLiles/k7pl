@@ -3265,6 +3265,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
   "A1bis A2ter" le train produit donc A1bis et A2ter.
 - **Reading:** a modifier of one operand follows it and a modifier of two stands between them, as BQN and FIXAPL, modifiers being taken first (option B): the mean is written `[add fold div length]`, viewed `[+´÷≠]`. The justification states the author's model: as in the rest of the language, inner groups resolve first (`[fn1 [fn2 fn3] [fn4 fn5]]` gives `[fn1 fn2bis fn4bis]`), then the rest by the fixed arities; written left to right, a train is resolved right to left, so the last action is the leftmost; in layer 2 operators are n-ary and scoped by delimiters, in layer 3 they are necessarily monadic or dyadic; each operator takes the values on its right, a train may leave several values (`M A1 D M A2 A3` gives `A1bis A2ter`), and an operator short of values is an error to correct. Put back to the author: in that example a value on the left of a dyadic word is not its argument, while FIXAPL's fork (eighth part) gives a dyadic word the result of the word on its left; and « obligatoirement Monadique OU Dyadique » against chapter 5's « au plus triadique » and the triadic `select` of `lst:fonction-pure`.
 
+**Follow-up of the author — 2026-10-28 (VOC-2026-10-28-033), in the conversation, quoted as given.**
+
+- **Answer:** Couche 3 monadique ET dyadique, pas de triadique. En couche 2 c'est n-air.
+- **Reading:** layer-3 words are monadic or dyadic, never triadic; n-ary operators belong to layer 2,
+  scoped by its delimiters. This withdraws the triadic arity of chapter 5 and leaves the triadic
+  `select` of `lst:fonction-pure` and of `lexicon/lexemes/select.k` to be rethought.
+
 
 #### Q-SPEC-402 — A value inside a train: `[sub 1]`
 
@@ -3417,6 +3424,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **Choice:** B
 - **Justification:** Prenons l'exemple de l'UTF-16, comparé à str, qui peut prendre de 0 à n bits (en théorie) et qui se résout par défaut en str8 pour respecter l'UTF-8, alors l'UTF-8 comme l'UTF-16 sont des types raffinés de str, qui est lui un type secondaire composé d'une allocation d'un espace mémoire, etc. voir la spec concernant la construction de types qui est vraiment très riche et précise, sans oublier que plutot que de focus sur le type, il faut aussi comprendre que cette composition mémoire est associée à une gradation, l'association d'effet, de budgets, etc. car, et je le rappel clairement, tout est fonction dans K7PL, il n'y a pas d'objet au sens de la POO, un type est une composition fonctionnelle immuable. relire précisément la spec pour bien l'intégrer, c'est essentiel. il serait probablement pertinent de définir comment on compose un objet au sens de K7PL (composition de fonctions raffinées), la définition d'un "objet" dans le contexte de K7PL est également dans la specification.
 - **Reading:** a type constructor (option B): `{str 256 utf16}`. An encoding is a refined type of `str`, and a type is an immutable composition of functions, with its grade, effects and budgets — no object in the sense of object-oriented programming. In the specification an object is an object of the ambient category: « les objets sont les types et les programmes purs en sont les morphismes » (chapter 1). Put back to the author: the message has `str` resolve to `str8` « pour respecter l'UTF-8 », reading N as the width of the code unit, while the seventh part reads N as the bits the whole text allocates, as in `intN`.
+
+**Follow-up of the author — 2026-10-28 (VOC-2026-10-28-034), in the conversation, quoted as given.** To
+« `{str 256 utf16}`, ce sont 256 bits de texte (16 unités), ou autre chose ? »:
+
+- **Answer:** {str 256 utf16}, ce sont 256 bits de texte (16 unités)
+- **Reading:** N counts the bits of the whole text, as in the seventh part: `{str 256 utf16}` allocates
+  256 bits, sixteen UTF-16 units.
 
 
 #### Q-STR-502 — A width that is not a multiple of the encoding's unit
