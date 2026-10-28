@@ -2850,6 +2850,12 @@ Words of the examples that no answer has fixed yet (`accept`, `:sets`, `:reply`,
 - **B — Only `%22`, and `%20` at the start.** Every other `%` stays literal. Example: `""%22quoted%22 at 50%""   ;; the text "quoted" at 50%`. *For:* a raw text stays raw almost everywhere. *Against:* the three characters `%22` themselves cannot be written in a raw text.
 - **C — `%22`, `%20` and `%25`.** The three sequences that a raw text needs, and `%25` so that the other two can be written literally. Example: `""%2522 is written %22""   ;; the text %22 is written "`. *For:* every text can be written; other `%` stay literal. *Against:* three sequences to remember instead of a rule.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** every `%XX` is decoded in a raw text, as in a URL, and a literal `%` is written `%25` (option A). `\` stays literal everywhere, the closing quotes being found without escape.
+
+
 #### Q-STR-405 — How a text type is written
 
 **Object.** Q-STR-402: no character type; as `varchar`, a text type carries its bound, counted in graphemes or in bytes of UTF-8 as the type states, and a text type written without them is a typed hole. Numbers are written as a family and a width, `int32`, `flo64`, after a property that announces them (`:num int32`).
@@ -2865,6 +2871,14 @@ Words of the examples that no answer has fixed yet (`accept`, `:sets`, `:reply`,
 - **B — `varchar`, with the same suffix.** Example: `{field name :text varchar32g}`. *For:* the word you used. *Against:* longer, and `var` reads as variable.
 - **C — The unit as a property.** Example: `{field name :text {text 32 :unit grapheme}}`. *Against:* heavier for a frequent type.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-002), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** str, str8, etc.
+  Les grapèmes sont comptés que pour l'interface de développement, le type préserve la mémoire, donc strN est équivament à intN => alloue un nombre de bits
+- **Reading:** text types are written `str` and `strN` (`str8`…). Graphemes are counted only by the development interface; the type keeps to memory: `strN`, as `intN`, allocates N bits, and `str` alone is a typed hole. This replaces the unit stated by the type (Q-STR-402): the bound always counts bits. Put to the next part: a width that is not a multiple of 8.
+
+
 #### Q-STR-406 — A class tested on a grapheme of several code points
 
 **Object.** A class such as `:alpha:` is a set of code points (UTS #18), and a text of bound 1 counted in graphemes may hold several of them: `é` written as `e` and a combining accent is one grapheme and two code points. What does `[:alpha: c]` answer then?
@@ -2876,6 +2890,12 @@ Words of the examples that no answer has fixed yet (`accept`, `:sets`, `:reply`,
 - **A — Every code point is in the class.** Example: `[:alpha: "é"]   ;; t: e and the accent are both Alphabetic`.
 - **B — The first code point, the base, is in the class.** *For:* the base names the character a reader sees.
 - **C — Only a text of one code point.** A class tests a text of bound 1 counted in bytes or code points; a grapheme of several code points is refused with a code. *Against:* a third unit.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** a class tested on a grapheme of several code points tests the first, its base (option B).
+
 
 ### Trains
 
@@ -2899,6 +2919,13 @@ Words of the examples that no answer has fixed yet (`accept`, `:sets`, `:reply`,
 
 - **C — By the stack, as the concatenative blocks.** A train is a block whose words consume and produce values on a stack, each by its stack effect. Example: `[dup fold add swap length div]   ;; the mean`. *For:* one reading for trains and blocks. *Against:* stack words (`dup`, `swap`) appear in the train.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-004), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** Explore comment FIXAPL aborde le sujet. Une notion importante ici, c'est que le type d'opération indique l'arité attendue, ce qui permet de colorer le graphème comme Uiua, BQN, FIXAPL, etc., mais aussi comme colorForth. Recherche dans la spec ce que j'ai déjà écrit, car une bonne partie des réponses s'y trouve.
+- **Reading:** kept open, with research asked for: how FIXAPL treats trains; the type of an operation gives its expected arity, which lets the view colour a glyph, as Uiua, BQN and FIXAPL do, and also as colorForth does; and what the specification already says, where much of the answer is. Researched in the eighth part.
+
+
 ### Doubled forms and ranges
 
 #### Q-LEX-610 — How a range is written, with the head word `range`
@@ -2920,6 +2947,13 @@ Several options may be chosen.
 - **dims — Several ranges, a matrix of index pairs.** Example: `[[ range [1 3] [1 3] ]]`.
 - **chars — Texts of one character.** Example: `[[ range "a" "z" ]]`.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-005), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** CLARIFY
+- **Clarification:** est-ce que ça fait vraiment sens au regard de la nature de la couche 3? critique cela. je préfèrerais systématiquement garder {{:alpha:}}, ((:alpha:)) et [[:alpha:]] face à des formes syntaxique ambigües
+- **Reading:** clarification asked: whether `[[ range … ]]` makes sense given the nature of layer 3, with a critique; the author would rather always keep `{{:alpha:}}`, `((:alpha:))` and `[[:alpha:]]` than ambiguous syntactic forms. Answered in the eighth part.
+
+
 #### Q-LEX-614 — `[[:alpha:]]` beside the head words
 
 **Object.** Q-LEX-503 reads `[[:alpha:]]` as the matrix of the bounds of a class's runs; Q-LEX-609 gives every use of `[[ … ]]` a head word (`range`, `frame`, `cells`).
@@ -2927,6 +2961,12 @@ Several options may be chosen.
 - **A — `[[ range :alpha: ]]`.** The runs of a class are its ranges. *For:* one head word for ranges of numbers and of characters.
 - **B — `[[:alpha:]]` kept.** A class name alone is a fourth use, recognised by its colons.
 - **C — No matrix form.** Classes keep the predicate, the stream and the type.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-006), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** `[[:alpha:]]` is kept, a use of `[[ … ]]` recognised by the colons of the class name (option B).
+
 
 #### Q-LEX-612 — `{{ … }}` in layer 1: an evaluation (Q-LEX-403, reopened)
 
@@ -2946,6 +2986,12 @@ Several options may be chosen.
 - **comptime — Evaluated at compile time.** Example: `{{ table-of-squares 256 }}`.
 - **capability — A capability given explicitly.** Example: `{{ :cap clock }}`.
 - **refine — A refined type.** Example: `{{:alpha:}}   {{ x :num int32 | [> x 0] }}`.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-007), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** refine
+- **Reading:** `{{ … }}` in layer 1 is a refined type; `{{:alpha:}}` is the refined type of the texts of one character that the class admits.
+
 
 ### Actors
 
@@ -2973,6 +3019,13 @@ Several options may be chosen.
 
 - **C — A, and a handler written out when the rule does not fit.** The handler stays implicit for the rule of `Result` and is written as in `lst:gestionnaire` otherwise.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-008), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** B est possible aussi mais c'est qu'il nous faut une approche plus systémique pour identifier et composer les scénarios avec la question : est-ce que je souhaite séparer une vérification d'une transformation, d'une livraison, etc. c'est ici encore un point sur lequel dous devrions échanger donc pour l'instant on valide A.
+- **Reading:** the rule of `Result`, the field named in the clause (option A): `Ok v` sets the field named by `:sets` to `v` and answers `Ok v`; `Err e` leaves the state and answers `Err e`. B is possible too, but a more systemic approach is needed to identify and compose scenarios — whether to separate a check from a transformation, from a delivery, and so on —, a point to discuss together; A is accepted for now.
+
+
 ### Codes and remarks
 
 #### Q-TYP-401 — The codes of the two refusals of monomorphisation
@@ -2983,12 +3036,24 @@ Several options may be chosen.
 - **B — `ERR-TYP-013` and `ERR-TYP-014`.**
 - **C — A new segment, `ERR-MON-001` and `ERR-MON-002`.** *Against:* a new segment.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-009), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** `ERR-POL-002` for an instance still missing when the budget is spent, `ERR-POL-003` for a chain of instances that grows on a cycle (option A).
+
+
 #### Q-SPEC-308 — The code of a query that does not stratify
 
 **Object.** The corollary `thm:terminaison_strates` (chapter 2): the compiler refuses a layer-3 query whose dependencies cycle through a negation. Annex A has `ERR-TER-001` for a recursion without a fold or `terminates`.
 
 - **A — `ERR-TER-002`.** *For:* beside the other refusal of termination.
 - **B — A new segment, `ERR-STR-001`.** *Against:* a new segment.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-010), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a query that does not stratify is refused with `ERR-TER-002` (option A).
+
 
 #### Q-LEX-613 — The prefix of remarks
 
@@ -2997,6 +3062,12 @@ Several options may be chosen.
 - **A — `HEY-`, as you wrote.** Example: `HEY-LEX-001  glyph ´ rewritten as fold`.
 - **B — `NOTE-`.** Example: `NOTE-LEX-001`.
 - **C — `INF-`.** Example: `INF-LEX-001`.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-011), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** remarks take the prefix `HEY-`, as written (option A): `HEY-LEX-001` for a rewritten glyph.
+
 
 ## The catalogue, verbatim
 

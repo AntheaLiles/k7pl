@@ -845,6 +845,34 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, seventh part: answers of 2026-10-28
+  (Q-STR-401 to Q-LEX-613).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-28-001 to
+  VOC-2026-10-28-011. In short:
+  - Texts: every `%XX` is decoded in a raw text, a literal
+    `%` being `%25`; text types are `str` and `strN`, N
+    counting the bits they allocate as in `intN`, graphemes
+    being counted only by the development interface; a class
+    tested on a grapheme of several code points tests its
+    base.
+  - Doubled forms: `[[:alpha:]]` is kept beside the head
+    words; `{{ … }}` in layer 1 is a refined type.
+  - An actor's `:on` clause names the field it sets
+    (`:sets value`), the implicit handler following the rule
+    of `Result`; « il nous faut une approche plus systémique
+    pour identifier et composer les scénarios », to discuss.
+  - Codes: `ERR-POL-002` (an instance missing when the budget
+    is spent), `ERR-POL-003` (growth on a cycle),
+    `ERR-TER-002` (a query that does not stratify), and the
+    prefix `HEY-` for remarks.
+  Kept open, with research asked for: trains longer than
+  three words (Q-SPEC-306: FIXAPL, colouring by arity as
+  Uiua, BQN, FIXAPL and colorForth, and what the
+  specification already says). Clarification asked: whether
+  `[[ range … ]]` makes sense given the nature of layer 3
+  (Q-LEX-610).
+  Applied on 2026-10-28: the wiki only.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, sixth part: answers of 2026-10-27
   (20 of 25 questions).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-27-073 to
