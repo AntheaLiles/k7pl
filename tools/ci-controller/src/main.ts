@@ -30,7 +30,11 @@ import {
   formatClassification,
   githubOutputLines,
 } from "./classify.ts";
-import { deriveClassification, derivedDivergences } from "./derived.ts";
+import {
+  deriveClassification,
+  derivedDivergences,
+  derivedGithubOutputLines,
+} from "./derived.ts";
 import { validateEvidence, validateEvidenceSchema } from "./evidence.ts";
 import { loadRegistryFile, validateRegistry } from "./registry.ts";
 import { runShadow } from "./shadow.ts";
@@ -153,6 +157,7 @@ async function runClassify(args: Args): Promise<number> {
       console.log("Derived unclassified paths:");
       for (const path of derived.unknown_paths) console.log(`  '${path}'`);
     }
+    writeGithubOutput(derivedGithubOutputLines(derived));
     return 0;
   }
 
