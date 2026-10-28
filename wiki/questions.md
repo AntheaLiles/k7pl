@@ -3247,6 +3247,25 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 
 - **C — Always grouped.** A modified word is written in its own brackets. Example: `[[fold add] div length]`. *Against:* one group more for each modifier.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-018), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** l'objectif est de garder le même modèle mental que dans le reste du langage "lisp-like" soit [fn1 [fn2 fn3] [fn4 fn5]] donne [fn1 fn2bis fn4bis] ordre de prévalences, puis que selon l'arité fixée et la nature des fn restante, que le reste du train se résolve.  la rédaction est composée de gauche à droite pour que la dernière action réalisée soit celle de gauche. en lisp : (+ x y) instancie y et x puis applique l'addition. en K7PL couche 2 les opérateurs sont n-air et demande des délimiteurs pour scoper leurs actions. en couche 3 les opérateurs sont obligatoirement Monadique OU Dyadique.
+  en les résolvant toujours de droite à gauche alors leurs prévaleuce est déterministe, homogène et prévisible. je prend A pour argument (un élément consommé par les opérateurs), D pour dyadique et M pour monadique. en générant alléatoirement le train suivant :
+  "M A D M A D M D" et en le résolvant : le dernier D attend deux A donc une erreur à corriger :
+  "M A D M A D M D A A" produisant
+  "M A D M A D M A" puis
+  "M A D M A D A" il manque donc un A :
+  "M A D M A D A M D A A" =>
+  "M A D M A D A A" =>
+  "M A D M A A" les "A" sont passifs donc on va les numéroter pour mieux les identifier :
+  "M A1 D M A2 A3" =>
+  "M A1 D A2bis A3" =>
+  "M A1 A2ter" =>
+  "A1bis A2ter" le train produit donc A1bis et A2ter.
+- **Reading:** a modifier of one operand follows it and a modifier of two stands between them, as BQN and FIXAPL, modifiers being taken first (option B): the mean is written `[add fold div length]`, viewed `[+´÷≠]`. The justification states the author's model: as in the rest of the language, inner groups resolve first (`[fn1 [fn2 fn3] [fn4 fn5]]` gives `[fn1 fn2bis fn4bis]`), then the rest by the fixed arities; written left to right, a train is resolved right to left, so the last action is the leftmost; in layer 2 operators are n-ary and scoped by delimiters, in layer 3 they are necessarily monadic or dyadic; each operator takes the values on its right, a train may leave several values (`M A1 D M A2 A3` gives `A1bis A2ter`), and an operator short of values is an error to correct. Put back to the author: in that example a value on the left of a dyadic word is not its argument, while FIXAPL's fork (eighth part) gives a dyadic word the result of the word on its left; and « obligatoirement Monadique OU Dyadique » against chapter 5's « au plus triadique » and the triadic `select` of `lst:fonction-pure`.
+
+
 #### Q-SPEC-402 — A value inside a train: `[sub 1]`
 
 **Object.** Chapter 5: the arity of each word « permet à l'élaboration de distinguer un train d'une application ». `[range 1 9]` gives `range` all its arguments: an application. `[sub 1]` gives `sub` one argument of two: a train, an application missing an argument, or an error?
@@ -3265,6 +3284,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **B — Applied from the left.** `[sub 1]` gives `sub` its first argument and waits for the second. Example: `[sub 1]          ;; 1 - y`.
 - **C — Refused.** A bracket that holds a value is an application, and one whose head lacks arguments is refused with a code.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-019), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** vois la justification de Q-SPEC-401
+- **Reading:** a value may end a train, as in FIXAPL (option A): a bracket is an application only when its head receives all its arguments (`[range 1 9]`). Which value `[sub 1]` computes, x − 1 or 1 − x, depends on the reading put back to the author under Q-SPEC-401.
+
+
 #### Q-SPEC-403 — The concatenative blocks of chapter 5
 
 **Object.** Chapter 5: « Les blocs concaténatifs comme `[dup * +]`, dans la tradition de Forth et Factor, portent leur effet de pile directement dans leur type ». Chapter 4 reads a fold as a stack machine and cites the same block. Between brackets, the arity rule now reads `[dup * +]` as a train of functions, not as a sequence of stack operations.
@@ -3277,6 +3303,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **B — Kept, in a qualified delimiter.** A block read by the stack is a literal of its own, its effect checked by its type. Example: `[stack| dup * + |stack]`.
 - **C — Kept between brackets.** The type of the words decides: words typed by a stack effect make a block, words typed by an arity a train.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-020), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** la couche 3 s'execute dans la stack, toujours, point. la syntaxe pour manipuler la stack est l'écriture tacite concaténative à arité fixe de couche 3 qui se compose en train éxecutée de droite à gauche. voir la justification de Q-SPEC-401
+- **Reading:** the concatenative blocks are withdrawn from chapter 5 (option A): the train is itself the concatenative writing of layer 3, of fixed arity and executed right to left on the stack, where every layer-3 execution takes place.
+
+
 #### Q-SPEC-404 — The stack effect written for `[dup *]`
 
 **Object.** Chapter 5: « `[dup *]` a l'effet `(1 – 2)` ». By the Forth standard, `dup` takes one value and leaves two, `*` takes two and leaves one: `[dup *]` takes one value and leaves one, `(1 – 1)`. Text of the manuscript: nothing changes without your consent.
@@ -3288,6 +3321,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **A — Corrected to `(1 – 1)`.**
 - **B — Kept: `(1 – 2)` means something else.** Say what, with Clarify.
 - **C — Settled by Q-SPEC-403.** The sentence goes if the blocks are withdrawn.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-021), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** attention aux choix des mots : pas d'effets en couche 3, c'est une couche pure.
+- **Reading:** settled by Q-SPEC-403 (option C): the sentence goes with the blocks. Layer 3 is pure: no « effet » is to be named in it, not even a stack effect.
+
 
 ### A2 — Intervals
 
@@ -3303,6 +3343,12 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **B — Yes, with `inf` as its end.** `inf` is already a number literal. Example: `((1..inf))`.
 - **C — No.** The end is always written; an endless sequence is a stream, not an interval.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-022), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** an endless layer-2 interval takes `inf` as its end: `((1..inf))` (option B).
+
+
 #### Q-LEX-702 — A step and several dimensions together
 
 **Object.** Eighth part: a second element gives the step (`[[1 3..9]]`), several intervals form a matrix of index pairs (`[[1..3 1..3]]`). Together, `[[1 3..9 1..3]]` must be read by a rule.
@@ -3315,6 +3361,15 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **B — A step word after the interval, as Kotlin.** Example: `[[1..9 step 2 1..3]]`.
 - **C — A step only in a literal of one interval.** A matrix of intervals has no step.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-023), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** il faut décomposer : `1..9` en premier mot veut dire "créer une suite de 1 à 9 inclu" donc 1 2 3 4 5 6 7 8 9, en ajoutant 'step' qui signifie sauter et en y passant l'argument 2 c'est confusant : sauter 2 puis imprimer la liste de 1 à 9 ?
+  aussi je préfère indiquer [[1..9 skip 1 2]] où 'skip' prend "combien" et "tous les combiens" ce qui instruit plus clairement l'intégration de la suite de 1 à 9 en sautant 1 valeur sur 2.
+  1 3 5 7 9.
+- **Reading:** a word after the interval (option B), in the author's form `[[1..9 skip 1 2]]`: the word takes how many values to skip and every how many, giving 1 3 5 7 9; `step` is set aside as confusing. Read as replacing the second-element form of the eighth part (`[[1 3..9]]`), which made a step and several dimensions ambiguous together; to be confirmed by the author.
+
+
 #### Q-LEX-703 — Elements or bounds
 
 **Object.** Chapter 5: `[[1..9]]` holds the elements 1 to 9, while « `[[:alpha:]]` [est] la matrice des bornes de ses plages ». The same pair gives elements for an interval and bounds for a class.
@@ -3326,6 +3381,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **A — Kept as is.** A class is a set of ranges, an interval a sequence.
 - **B — Elements for both.** `[[:alpha:]]` holds its code points; its bounds come from a function.
 - **C — Bounds for both.** `[[1..9]]` holds the pair 1 9; its elements come from a function.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-024), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** comme Raku.
+- **Reading:** elements for both, as in Raku (option B): `[[:alpha:]]` holds the code points of the class; its bounds come from a function.
+
 
 ### A3 — Types
 
@@ -3341,12 +3403,26 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **B — A type constructor.** Example: `{field name :type {str 256 utf16}}`.
 - **C — One type name per encoding.** Example: `str256   utf16-256   ascii-56`.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-025), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** Prenons l'exemple de l'UTF-16, comparé à str, qui peut prendre de 0 à n bits (en théorie) et qui se résout par défaut en str8 pour respecter l'UTF-8, alors l'UTF-8 comme l'UTF-16 sont des types raffinés de str, qui est lui un type secondaire composé d'une allocation d'un espace mémoire, etc. voir la spec concernant la construction de types qui est vraiment très riche et précise, sans oublier que plutot que de focus sur le type, il faut aussi comprendre que cette composition mémoire est associée à une gradation, l'association d'effet, de budgets, etc. car, et je le rappel clairement, tout est fonction dans K7PL, il n'y a pas d'objet au sens de la POO, un type est une composition fonctionnelle immuable. relire précisément la spec pour bien l'intégrer, c'est essentiel. il serait probablement pertinent de définir comment on compose un objet au sens de K7PL (composition de fonctions raffinées), la définition d'un "objet" dans le contexte de K7PL est également dans la specification.
+- **Reading:** a type constructor (option B): `{str 256 utf16}`. An encoding is a refined type of `str`, and a type is an immutable composition of functions, with its grade, effects and budgets — no object in the sense of object-oriented programming. In the specification an object is an object of the ambient category: « les objets sont les types et les programmes purs en sont les morphismes » (chapter 1). Put back to the author: the message has `str` resolve to `str8` « pour respecter l'UTF-8 », reading N as the width of the code unit, while the seventh part reads N as the bits the whole text allocates, as in `intN`.
+
+
 #### Q-STR-502 — A width that is not a multiple of the encoding's unit
 
 **Object.** `str12` in UTF-8 (units of 8 bits), `str40` in UTF-16 (units of 16 bits).
 
 - **A — Refused, with a code.**
 - **B — Rounded up to whole units, with a warning.** Example: `str12   ;; str16, WRN-…`.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-026), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** si on type avec un type rafiné en utf8 et que le type rafiné utf8 est défini sur 8 octets alors la chaine de bits qui lui est passée sera slicée en blocs de 8 octets et interprétés au sens de utf8. si le développeur essais de faire rentrer sciement une string str12 dans un utf8 alors c'est visible en phase 0 et refusé avec un code. on ne peut pas déspécialiser un type non plus : utf8 porte son tag donc comparé str12, même si utf8 est basé sur str8 et donc pourrait rentrer dans un str12 cela est interdit car str12 n'est pas labélisé "utf8", c'est voulu, par contre str8 peut être stocké dans str12 mais bon, à ce moment là autant allouer 12 octets d'entrée de jeu.
+- **Reading:** refused with a code (option A), visible from phase 0. A refined encoding type carries its tag and is never despecialised: a `utf8` text does not go into a `str12`, which is not labelled `utf8`, even though `utf8` rests on `str8`; a plain `str8` may be stored in a `str12`. The message writes « octets » where the seventh part counts bits; read as bits.
+
 
 #### Q-TYP-501 — How the parameters of a generic are introduced
 
@@ -3361,6 +3437,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **B — A binder inside the type, as Typed Racket.** Example: `{defn first :type {all [t] {function {vector t} t}} …}`.
 - **C — Implicit.** A name in a type position that names no type is a parameter. *Against:* a misspelt type name becomes a parameter.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-027), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** attention 't' signifie 'true'. nous avions défini une stratégie de monomorfisation sans "for" (sans forall surtout) et il serait bien de lire exactement ce que la spec préconise pour cela avant de fixer un mécanisme issu d'ailleurs car c'est typiquement un pour qui a fait l'objet d'une recherche approfondie pour trouver un mécanisme naturel et ancré dans la littérature scientifique.
+- **Reading:** kept open. `t` is the constant true and cannot name a type parameter. The monomorphisation strategy was defined without « for », above all without forall, after a researched choice: what the specification prescribes is to be read before any mechanism is taken from elsewhere. Read on 2026-10-28: the kernel has `∀α.C` with the rules Gen and Inst (chapter 3), chapter 6 monomorphises each generic call into a concrete copy, a typed hole is resolved in its family (chapter 5), and records open by row variables (chapter 3); no surface notation for a type parameter is written anywhere.
+
+
 #### Q-TYP-502 — What a refined type `{{ … }}` contains
 
 **Object.** Seventh part: `{{ … }}` in layer 1 is a refined type; `{{:alpha:}}` refines texts of one character by a class.
@@ -3373,6 +3456,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **A — A base type and a predicate on `_`.** Example: `{{int32 [<= 0 _]}}`.
 - **B — A named variable, as F* and LiquidHaskell.** Example: `{{v int32 [<= 0 v]}}`.
 - **C — A base type and a named predicate.** Example: `{{int32 non-negative}}   {{:alpha:}}`.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-028), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** lis la specification, c'est très précisément expliqué.
+- **Reading:** the specification answers it: chapter 3 writes a refinement type `{x : T | p}`, a bound variable, a support type and a predicate whose proof obligation the SMT solver of chapter 6 discharges, subtyping between two refinements of the same support being the implication of their predicates. `{{ … }}` holds these three.
+
 
 ### A4 — Forms not written yet
 
@@ -3396,6 +3486,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **B — S-expressions, and foreign pattern languages in qualified delimiters.** PCRE or PEG text compiles to the same automata. Example: `{def @number [pcre|[0-9]+|pcre] @linear}`.
 - **C — Text patterns only in qualified delimiters.** S-expressions destructure structures; text is matched by a foreign pattern language.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-029), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** everything is a pattern, even a type, a construct, a trace, an algebraic effect. so '@' in front of anything means "catch this pattern" and inherit all its construction. this way we can get matching patterns straight into the network or in a data flow. PCRE/PEG automata arn't foreign things but someting K7PL compiles and put in production as an atomic operator through an orchestrator/an actor. better read the chapter about the actor model and how automatas are handled.
+- **Reading:** everything is a pattern — a type, a construct, a trace, an algebraic effect —, so `@` in front of anything means « catch this pattern » and inherits all its construction, which lets matching patterns go straight into the network or a data flow. PCRE and PEG automata are not foreign: K7PL compiles them and puts them in production as an atomic operator through an orchestrator or an actor (chapter 4 on actors and automata).
+
+
 #### Q-SPEC-406 — Modules
 
 **Object.** Paths are symbols with `/` (fourth part). Nothing yet says what a module is, what it exports, or how one is imported.
@@ -3415,6 +3512,13 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 - **B — Modules nested in a file, exports listed.** Example: `{module shapes :export [area] …}`.
 - **C — One file, one module, everything exported but what is marked.** Example: `{defn helper +private …}`.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-030), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** CLARIFY
+- **Clarification:** emacs lexical binding pour définir un périmètre général, pour le reste, il faut préciser la question parce qu'une S-Expression non encapsulée dans une autre est un processus autonome executable en parallele des autres du même rang. il faut donc définir ce qu'est un module parce que là je ne comprend pas et ai peur de mélanger les sujets
+- **Reading:** clarification asked. Emacs's lexical binding, to set a general perimeter; for the rest, the question has to be made precise, because an S-expression not enclosed in another is an autonomous process, executable in parallel with the others of the same rank: what a module is must be defined first, so as not to mix subjects.
+
+
 #### Q-SPEC-407 — How a macro or an envelope is declared
 
 **Object.** Chapter 5: « Une enveloppe est une macro de couche 1, développée à la compilation et ouverte à tout programme sous l'hygiène de `ERR-MAC-001` ; une enveloppe peut en étendre une autre et lui ajouter des propriétés ». Its typing is written (`binds`, the rule of expansion), its surface is not.
@@ -3432,6 +3536,14 @@ Every word of the examples (`fold`, `rank`, `step`, `all`, `module`, `use`, `def
 
 - **B — A head word of its own, by pattern and template.** Example: `{defmacro swap [a b] …}`.
 - **C — Both.** Pattern and template for simple macros, a procedural form for envelopes.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-031), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** on a déjà acté que le mot primitif est def, de def on défini defmacro qui fournis l'envelope.
+  donc {def defmacro <rules and shapes>}  pas besoin de préciser "refine" ou "extend" (en K7PL, rien ne s'étend, tout se précise.)  puisqu'en matière de définition d'enveloppe "def" est la primitive.
+- **Reading:** a head word of its own (option B), defined with `def`, the primitive word: `{def defmacro <rules and shapes>}`, and `defmacro` provides envelopes. No « refine » or « extend » is needed: in K7PL nothing extends, everything is made more precise.
+
 
 ## The catalogue, verbatim
 
