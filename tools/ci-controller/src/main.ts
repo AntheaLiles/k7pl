@@ -1,1 +1,312 @@
-Ly8gU1BEWC1GaWxlQ29weXJpZ2h0VGV4dDogMjAyNiBDeXByaWVuIFBJRVJSRQovLwovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogQ0VDSUxMLTIuMQoKLyoqCiAqIEs3UEwgQ0kgY29udHJvbGxlciAoc2xpY2UgMSkuCiAqCiAqIENvbW1hbmRzOgogKiAgIGNsYXNzaWZ5IC0tYmFzZSA8c2hhPiAtLWhlYWQgPHNoYT4gWy0tZm9yY2UtZnVsbF0gWy0tcGF0aHMgLi4uXQogKiAgICAgQ2xhc3NpZnkgY2hhbmdlZCBwYXRocyBpbnRvIENJIHN1cmZhY2VzLCBpbiBwYXJpdHkgd2l0aAogKiAgICAgc2NyaXB0cy9jaS9pbXBhY3QucHkuIFdpdGggLS1zaGFkb3csIGFsc28gcnVuIHRoZSBsZWdhY3kKICogICAgIFB5dGhvbiBjbGFzc2lmaWVyIGFuZCBmYWlsIG9uIGFueSBkaXZlcmdlbmNlLiBXaXRoCiAqICAgICAtLWRlcml2ZWQsIGNsYXNzaWZ5IGZyb20gdGhlIHJlZ2lzdHJ5IGluc3RlYWQgKHRoZSBkZWNpc2lvbgogKiAgICAgY2xhc3NpZmllciBzaW5jZSBjdXRvdmVyIEMzOyBkZXJpdmVkX2V2ZW50LnRzIGlzIHRoZSBpbXBhY3QKICogICAgIGpvYidzIGVudHJ5IHBvaW50KS4gV2l0aCAtLWRlcml2ZWQtc2hhZG93LCBjb21wYXJlIHRoZQogKiAgICAgZGVyaXZlZCBjbGFzc2lmaWVyIHdpdGggdGhlIGxlZ2FjeSBEZW5vIGNsYXNzaWZpZXIgYW5kCiAqICAgICByZXBvcnQgZXZlcnkgbGVnYWN5LXN1cmZhY2UgZGl2ZXJnZW5jZSAoZXhpdCAxKS4KICogICB2YWxpZGF0ZS1yZWdpc3RyeSBbLS1yZWdpc3RyeSA8cGF0aD5dIFstLXJvb3QgPGRpcj5dCiAqICAgICBMb2FkIGFuZCB2YWxpZGF0ZSAuZ2l0aHViL2NpL2NvbXBvbmVudHMueWFtbC4KICogICB2YWxpZGF0ZS1ldmlkZW5jZSAtLWV2aWRlbmNlIDxmaWxlPiBbLS1yZWdpc3RyeSA8cGF0aD5dCiAqICAgICBWYWxpZGF0ZSBvbmUgZXZpZGVuY2UgcmVjb3JkIGFnYWluc3QgdGhlIHNjaGVtYSBhbmQgdGhlCiAqICAgICByZWdpc3RyeS4KICoKICogUnVuIGZyb20gdGhlIHJlcG9zaXRvcnkgcm9vdC4gRGVubyBwZXJtaXNzaW9ucyBhcmUgcGVyIGNvbW1hbmQKICogKHNlZSBSRUFETUUubWQpOyB0aGlzIGZpbGUgbmV2ZXIgcmVxdWVzdHMgbW9yZSB0aGFuIGl0IG5lZWRzLgogKi8KCmltcG9ydCB7CiAgY2hhbmdlZFBhdGhzLAogIGNsYXNzaWZ5LAogIGZvcm1hdENsYXNzaWZpY2F0aW9uLAogIGdpdGh1Yk91dHB1dExpbmVzLAp9IGZyb20gIi4vY2xhc3NpZnkudHMiOwppbXBvcnQgewogIGRlcml2ZUNsYXNzaWZpY2F0aW9uLAogIGRlcml2ZWREaXZlcmdlbmNlcywKICBkZXJpdmVkR2l0aHViT3V0cHV0TGluZXMsCn0gZnJvbSAiLi9kZXJpdmVkLnRzIjsKaW1wb3J0IHsgdmFsaWRhdGVFdmlkZW5jZSwgdmFsaWRhdGVFdmlkZW5jZVNjaGVtYSB9IGZyb20gIi4vZXZpZGVuY2UudHMiOwppbXBvcnQgeyBsb2FkUmVnaXN0cnlGaWxlLCB2YWxpZGF0ZVJlZ2lzdHJ5IH0gZnJvbSAiLi9yZWdpc3RyeS50cyI7CmltcG9ydCB7IHJ1blNoYWRvdyB9IGZyb20gIi4vc2hhZG93LnRzIjsKaW1wb3J0IHsgd3JpdGVHaXRodWJPdXRwdXQgfSBmcm9tICIuL291dHB1dC50cyI7Cgpjb25zdCBERUZBVUxUX1JFR0lTVFJZID0gIi5naXRodWIvY2kvY29tcG9uZW50cy55YW1sIjsKCmZ1bmN0aW9uIHVzYWdlKCk6IHN0cmluZyB7CiAgcmV0dXJuIFsKICAgICJVc2FnZToiLAogICAgIiAgZGVubyBydW4gLS1hbGxvdy1yZWFkIC0tYWxsb3ctcnVuIC0tYWxsb3ctZW52IC0tYWxsb3ctd3JpdGUgc3JjL21haW4udHMgY2xhc3NpZnkgLS1iYXNlIDxzaGE+IC0taGVhZCA8c2hhPiBbLS1mb3JjZS1mdWxsXSBbLS1zaGFkb3ddIiwKICAgICIgIGRlbm8gcnVuIC0tYWxsb3ctcmVhZCAtLWFsbG93LXJ1biAtLWFsbG93LWVudiAtLWFsbG93LXdyaXRlIHNyYy9tYWluLnRzIGNsYXNzaWZ5IC0tcGF0aHMgPHBhdGguLi4+IFstLWZvcmNlLWZ1bGxdIiwKICAgICIgIGRlbm8gcnVuIC0tYWxsb3ctcmVhZCAtLWFsbG93LXJ1biBzcmMvbWFpbi50cyBjbGFzc2lmeSAtLXBhdGhzIDxwYXRoLi4uPiAtLWRlcml2ZWQiLAogICAgIiAgZGVubyBydW4gLS1hbGxvdy1yZWFkIC0tYWxsb3ctcnVuIHNyYy9tYWluLnRzIGNsYXNzaWZ5IC0tYmFzZSA8c2hhPiAtLWhlYWQgPHNoYT4gLS1kZXJpdmVkLXNoYWRvdyIsCiAgICAiICBkZW5vIHJ1biAtLWFsbG93LXJlYWQgc3JjL21haW4udHMgdmFsaWRhdGUtcmVnaXN0cnkgWy0tcmVnaXN0cnkgPHBhdGg+XSBbLS1yb290IDxkaXI+XSIsCiAgICAiICBkZW5vIHJ1biAtLWFsbG93LXJlYWQgc3JjL21haW4udHMgdmFsaWRhdGUtZXZpZGVuY2UgLS1ldmlkZW5jZSA8ZmlsZT4gWy0tcmVnaXN0cnkgPHBhdGg+XSIsCiAgXS5qb2luKCJcbiIpOwp9CgppbnRlcmZhY2UgQXJncyB7CiAgZmxhZ3M6IE1hcDxzdHJpbmcsIHN0cmluZyB8IGJvb2xlYW4+OwogIHBvc2l0aW9uYWw6IHN0cmluZ1tdOwp9CgpmdW5jdGlvbiBwYXJzZUFyZ3MoYXJndjogc3RyaW5nW10pOiBBcmdzIHsKICBjb25zdCBmbGFncyA9IG5ldyBNYXA8c3RyaW5nLCBzdHJpbmcgfCBib29sZWFuPigpOwogIGNvbnN0IHBvc2l0aW9uYWw6IHN0cmluZ1tdID0gW107CiAgZm9yIChsZXQgaSA9IDA7IGkgPCBhcmd2Lmxlbmd0aDsgaSsrKSB7CiAgICBjb25zdCBhcmcgPSBhcmd2W2ldOwogICAgaWYgKGFyZy5zdGFydHNXaXRoKCItLSIpKSB7CiAgICAgIGNvbnN0IGtleSA9IGFyZy5zbGljZSgyKTsKICAgICAgY29uc3QgZXEgPSBrZXkuaW5kZXhPZigiPSIpOwogICAgICBpZiAoZXEgPj0gMCkgewogICAgICAgIGZsYWdzLnNldChrZXkuc2xpY2UoMCwgZXEpLCBrZXkuc2xpY2UoZXEgKyAxKSk7CiAgICAgIH0gZWxzZSBpZiAoa2V5ID09PSAicGF0aHMiKSB7CiAgICAgICAgY29uc3QgdmFsdWVzOiBzdHJpbmdbXSA9IFtdOwogICAgICAgIHdoaWxlIChpICsgMSA8IGFyZ3YubGVuZ3RoICYmICFhcmd2W2kgKyAxXS5zdGFydHNXaXRoKCItLSIpKSB7CiAgICAgICAgICB2YWx1ZXMucHVzaChhcmd2WysraV0pOwogICAgICAgIH0KICAgICAgICBmbGFncy5zZXQoInBhdGhzIiwgdmFsdWVzLmpvaW4oIlxuIikpOwogICAgICB9IGVsc2UgaWYgKAogICAgICAgIFsiZm9yY2UtZnVsbCIsICJzaGFkb3ciLCAiZGVyaXZlZCIsICJkZXJpdmVkLXNoYWRvdyIsICJoZWxwIl0uaW5jbHVkZXMoCiAgICAgICAgICBrZXksCiAgICAgICAgKQogICAgICApIHsKICAgICAgICBmbGFncy5zZXQoa2V5LCB0cnVlKTsKICAgICAgfSBlbHNlIGlmIChpICsgMSA8IGFyZ3YubGVuZ3RoKSB7CiAgICAgICAgZmxhZ3Muc2V0KGtleSwgYXJndlsrK2ldKTsKICAgICAgfSBlbHNlIHsKICAgICAgICBmbGFncy5zZXQoa2V5LCB0cnVlKTsKICAgICAgfQogICAgfSBlbHNlIHsKICAgICAgcG9zaXRpb25hbC5wdXNoKGFyZyk7CiAgICB9CiAgfQogIHJldHVybiB7IGZsYWdzLCBwb3NpdGlvbmFsIH07Cn0KCmFzeW5jIGZ1bmN0aW9uIHJ1bkNsYXNzaWZ5KGFyZ3M6IEFyZ3MpOiBQcm9taXNlPG51bWJlcj4gewogIGNvbnN0IGZvcmNlRnVsbCA9IGFyZ3MuZmxhZ3MuZ2V0KCJmb3JjZS1mdWxsIikgPT09IHRydWU7CiAgY29uc3Qgc2hhZG93ID0gYXJncy5mbGFncy5nZXQoInNoYWRvdyIpID09PSB0cnVlOwogIGlmIChzaGFkb3cpIHsKICAgIGNvbnN0IGJhc2UgPSBhcmdzLmZsYWdzLmdldCgiYmFzZSIpOwogICAgY29uc3QgaGVhZCA9IGFyZ3MuZmxhZ3MuZ2V0KCJoZWFkIik7CiAgICBpZiAodHlwZW9mIGJhc2UgIT09ICJzdHJpbmciIHx8IHR5cGVvZiBoZWFkICE9PSAic3RyaW5nIikgewogICAgICBjb25zb2xlLmVycm9yKCJjbGFzc2lmeSAtLXNoYWRvdyByZXF1aXJlcyAtLWJhc2UgYW5kIC0taGVhZCIpOwogICAgICByZXR1cm4gMjsKICAgIH0KICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHJ1blNoYWRvdyhiYXNlLCBoZWFkLCAic2NyaXB0cy9jaS9pbXBhY3QucHkiLCAiLiIpOwogICAgY29uc29sZS5sb2coZm9ybWF0Q2xhc3NpZmljYXRpb24ocmVzdWx0LnBhdGhzLCByZXN1bHQuZGVubykpOwogICAgLy8gUHJpbnQgdGhlIGNvbXBhcmlzb24gZXhwbGljaXRseSBzbyBhIGRpdmVyZ2VuY2UgaXMgdW5hbWJpZ3VvdXMuCiAgICBpZiAocmVzdWx0LmRpdmVyZ2VuY2VzLmxlbmd0aCA+IDApIHsKICAgICAgY29uc29sZS5lcnJvcigKICAgICAgICAic2hhZG93OiBESVZFUkdFTkNFIGJldHdlZW4gRGVubyBhbmQgbGVnYWN5IFB5dGhvbiBjbGFzc2lmaWVyczoiLAogICAgICApOwogICAgICBmb3IgKGNvbnN0IGRpdmVyZ2VuY2Ugb2YgcmVzdWx0LmRpdmVyZ2VuY2VzKSB7CiAgICAgICAgY29uc29sZS5lcnJvcihgICAke2RpdmVyZ2VuY2V9YCk7CiAgICAgIH0KICAgICAgcmV0dXJuIDE7CiAgICB9CiAgICBjb25zb2xlLmxvZygic2hhZG93OiBEZW5vIGFuZCBsZWdhY3kgUHl0aG9uIGNsYXNzaWZpZXJzIGFncmVlIik7CiAgICByZXR1cm4gMDsKICB9CgogIGxldCBwYXRoczogc3RyaW5nW107CiAgY29uc3QgcGF0aHNGbGFnID0gYXJncy5mbGFncy5nZXQoInBhdGhzIik7CiAgaWYgKHR5cGVvZiBwYXRoc0ZsYWcgPT09ICJzdHJpbmciKSB7CiAgICBwYXRocyA9IHBhdGhzRmxhZyA9PT0gIiIgPyBbXSA6IHBhdGhzRmxhZy5zcGxpdCgiXG4iKTsKICB9IGVsc2UgewogICAgY29uc3QgYmFzZSA9IGFyZ3MuZmxhZ3MuZ2V0KCJiYXNlIik7CiAgICBjb25zdCBoZWFkID0gYXJncy5mbGFncy5nZXQoImhlYWQiKTsKICAgIGlmIChmb3JjZUZ1bGwpIHsKICAgICAgcGF0aHMgPSBbXTsKICAgIH0gZWxzZSBpZiAodHlwZW9mIGJhc2UgPT09ICJzdHJpbmciICYmIHR5cGVvZiBoZWFkID09PSAic3RyaW5nIikgewogICAgICBwYXRocyA9IGF3YWl0IGNoYW5nZWRQYXRocyhiYXNlLCBoZWFkKTsKICAgIH0gZWxzZSB7CiAgICAgIGNvbnNvbGUuZXJyb3IoCiAgICAgICAgImNsYXNzaWZ5IHJlcXVpcmVzIC0tYmFzZSBhbmQgLS1oZWFkLCBvciAtLXBhdGhzLCBvciAtLWZvcmNlLWZ1bGwiLAogICAgICApOwogICAgICByZXR1cm4gMjsKICAgIH0KICB9CiAgaWYgKGFyZ3MuZmxhZ3MuZ2V0KCJkZXJpdmVkIikgPT09IHRydWUpIHsKICAgIGNvbnN0IHJlZ2lzdHJ5ID0gbG9hZFJlZ2lzdHJ5RmlsZShERUZBVUxUX1JFR0lTVFJZKTsKICAgIGNvbnN0IGRlcml2ZWQgPSBkZXJpdmVDbGFzc2lmaWNhdGlvbihyZWdpc3RyeSwgcGF0aHMsIGZvcmNlRnVsbCk7CiAgICBjb25zb2xlLmxvZyhmb3JtYXRDbGFzc2lmaWNhdGlvbihwYXRocywgZGVyaXZlZCkpOwogICAgY29uc29sZS5sb2coCiAgICAgIGBEZXJpdmVkIHN1cmZhY2VzOiAkewogICAgICAgIE9iamVjdC5lbnRyaWVzKGRlcml2ZWQuc3VyZmFjZXMpLm1hcCgoW2ssIHZdKSA9PiBgJHtrfT0ke3Z9YCkuam9pbigiICIpCiAgICAgIH0gdW5jbGFzc2lmaWVkPSR7ZGVyaXZlZC51bmNsYXNzaWZpZWR9YCwKICAgICk7CiAgICBpZiAoZGVyaXZlZC51bmtub3duX3BhdGhzLmxlbmd0aCA+IDApIHsKICAgICAgY29uc29sZS5sb2coIkRlcml2ZWQgdW5jbGFzc2lmaWVkIHBhdGhzOiIpOwogICAgICBmb3IgKGNvbnN0IHBhdGggb2YgZGVyaXZlZC51bmtub3duX3BhdGhzKSBjb25zb2xlLmxvZyhgICAnJHtwYXRofSdgKTsKICAgIH0KICAgIHdyaXRlR2l0aHViT3V0cHV0KGRlcml2ZWRHaXRodWJPdXRwdXRMaW5lcyhkZXJpdmVkKSk7CiAgICByZXR1cm4gMDsKICB9CgogIGlmIChhcmdzLmZsYWdzLmdldCgiZGVyaXZlZC1zaGFkb3ciKSA9PT0gdHJ1ZSkgewogICAgY29uc3QgcmVnaXN0cnkgPSBsb2FkUmVnaXN0cnlGaWxlKERFRkFVTFRfUkVHSVNUUlkpOwogICAgY29uc3QgbGVnYWN5ID0gY2xhc3NpZnkocGF0aHMsIGZvcmNlRnVsbCk7CiAgICBjb25zdCBkZXJpdmVkID0gZGVyaXZlQ2xhc3NpZmljYXRpb24ocmVnaXN0cnksIHBhdGhzLCBmb3JjZUZ1bGwpOwogICAgY29uc29sZS5sb2coImxlZ2FjeToiKTsKICAgIGNvbnNvbGUubG9nKGZvcm1hdENsYXNzaWZpY2F0aW9uKHBhdGhzLCBsZWdhY3kpKTsKICAgIGNvbnNvbGUubG9nKCJkZXJpdmVkOiIpOwogICAgY29uc29sZS5sb2coZm9ybWF0Q2xhc3NpZmljYXRpb24ocGF0aHMsIGRlcml2ZWQpKTsKICAgIGNvbnNvbGUubG9nKAogICAgICBgRGVyaXZlZCBzdXJmYWNlczogJHsKICAgICAgICBPYmplY3QuZW50cmllcyhkZXJpdmVkLnN1cmZhY2VzKS5tYXAoKFtrLCB2XSkgPT4gYCR7a309JHt2fWApLmpvaW4oIiAiKQogICAgICB9IHVuY2xhc3NpZmllZD0ke2Rlcml2ZWQudW5jbGFzc2lmaWVkfWAsCiAgICApOwogICAgLy8gUGVyLXBhdGggY29tcGFyaXNvbiBpcyBwcmltYXJ5OiBhbiBhZ2dyZWdhdGUgY29tcGFyaXNvbgogICAgLy8gYWxvbmUgd291bGQgaGlkZSBkaXZlcmdlbmNlcyB0aGF0IGNhbmNlbCBvdXQgKGUuZy4gb25lCiAgICAvLyB1bmtub3duIHBhdGggdW5kZXIgZWFjaCBjbGFzc2lmaWVyIGJvdGggZm9yY2luZyBmdWxsKS4KICAgIGNvbnN0IGRpdmVyZ2VuY2VzID0gZGVyaXZlZERpdmVyZ2VuY2VzKGRlcml2ZWQsIGxlZ2FjeSk7CiAgICBjb25zdCBwZXJQYXRoOiBzdHJpbmdbXSA9IFtdOwogICAgZm9yIChjb25zdCBwYXRoIG9mIHBhdGhzKSB7CiAgICAgIGNvbnN0IHNpbmdsZURlcml2ZWQgPSBkZXJpdmVDbGFzc2lmaWNhdGlvbihyZWdpc3RyeSwgW3BhdGhdKTsKICAgICAgY29uc3Qgc2luZ2xlTGVnYWN5ID0gY2xhc3NpZnkoW3BhdGhdKTsKICAgICAgY29uc3Qgc2luZ2xlID0gZGVyaXZlZERpdmVyZ2VuY2VzKHNpbmdsZURlcml2ZWQsIHNpbmdsZUxlZ2FjeSk7CiAgICAgIGlmIChzaW5nbGUubGVuZ3RoID4gMCkgewogICAgICAgIHBlclBhdGgucHVzaChgcGF0aCAke3BhdGh9OiAke3NpbmdsZS5qb2luKCIsICIpfWApOwogICAgICB9CiAgICB9CiAgICBpZiAoZGl2ZXJnZW5jZXMubGVuZ3RoID4gMCB8fCBwZXJQYXRoLmxlbmd0aCA+IDApIHsKICAgICAgY29uc29sZS5lcnJvcigiZGVyaXZlZC1zaGFkb3c6IERJVkVSR0VOQ0VTIChkZXJpdmVkIHZzIGxlZ2FjeSk6Iik7CiAgICAgIGZvciAoY29uc3QgZGl2ZXJnZW5jZSBvZiBkaXZlcmdlbmNlcykgewogICAgICAgIGNvbnNvbGUuZXJyb3IoYCAgYWdncmVnYXRlOiAke2RpdmVyZ2VuY2V9YCk7CiAgICAgIH0KICAgICAgZm9yIChjb25zdCBkZXRhaWwgb2YgcGVyUGF0aCkgY29uc29sZS5lcnJvcihgICAke2RldGFpbH1gKTsKICAgICAgcmV0dXJuIDE7CiAgICB9CiAgICBjb25zb2xlLmxvZygiZGVyaXZlZC1zaGFkb3c6IGRlcml2ZWQgYW5kIGxlZ2FjeSBjbGFzc2lmaWVycyBhZ3JlZSIpOwogICAgcmV0dXJuIDA7CiAgfQoKICBjb25zdCByZXN1bHQgPSBjbGFzc2lmeShwYXRocywgZm9yY2VGdWxsKTsKICBjb25zb2xlLmxvZyhmb3JtYXRDbGFzc2lmaWNhdGlvbihwYXRocywgcmVzdWx0KSk7CiAgd3JpdGVHaXRodWJPdXRwdXQoZ2l0aHViT3V0cHV0TGluZXMocmVzdWx0KSk7CiAgcmV0dXJuIDA7Cn0KCmZ1bmN0aW9uIHJ1blZhbGlkYXRlUmVnaXN0cnkoYXJnczogQXJncyk6IG51bWJlciB7CiAgY29uc3QgcmVnaXN0cnlQYXRoID0gdHlwZW9mIGFyZ3MuZmxhZ3MuZ2V0KCJyZWdpc3RyeSIpID09PSAic3RyaW5nIgogICAgPyBTdHJpbmcoYXJncy5mbGFncy5nZXQoInJlZ2lzdHJ5IikpCiAgICA6IERFRkFVTFRfUkVHSVNUUlk7CiAgY29uc3Qgcm9vdCA9IHR5cGVvZiBhcmdzLmZsYWdzLmdldCgicm9vdCIpID09PSAic3RyaW5nIgogICAgPyBTdHJpbmcoYXJncy5mbGFncy5nZXQoInJvb3QiKSkKICAgIDogIi4iOwogIGxldCByZWdpc3RyeTsKICB0cnkgewogICAgcmVnaXN0cnkgPSBsb2FkUmVnaXN0cnlGaWxlKHJlZ2lzdHJ5UGF0aCk7CiAgfSBjYXRjaCAoZXJyb3IpIHsKICAgIGNvbnNvbGUuZXJyb3IoCiAgICAgIGB2YWxpZGF0ZS1yZWdpc3RyeTogJHsKICAgICAgICBlcnJvciBpbnN0YW5jZW9mIEVycm9yID8gZXJyb3IubWVzc2FnZSA6IFN0cmluZyhlcnJvcikKICAgICAgfWAsCiAgICApOwogICAgcmV0dXJuIDE7CiAgfQogIGNvbnN0IGVycm9ycyA9IHZhbGlkYXRlUmVnaXN0cnkocmVnaXN0cnksIHJvb3QpOwogIGlmIChlcnJvcnMubGVuZ3RoID4gMCkgewogICAgZm9yIChjb25zdCBlcnJvciBvZiBlcnJvcnMpIGNvbnNvbGUuZXJyb3IoYHZhbGlkYXRlLXJlZ2lzdHJ5OiAke2Vycm9yfWApOwogICAgcmV0dXJuIDE7CiAgfQogIGNvbnNvbGUubG9nKAogICAgYHZhbGlkYXRlLXJlZ2lzdHJ5OiBPSyAoJHtyZWdpc3RyeS5jb21wb25lbnRzLmxlbmd0aH0gY29tcG9uZW50cywgJHtyZWdpc3RyeS5zdGFnZXMubGVuZ3RofSBzdGFnZXMsICR7cmVnaXN0cnkudG9vbGNoYWlucy5sZW5ndGh9IHRvb2xjaGFpbnMpYCwKICApOwogIHJldHVybiAwOwp9CgpmdW5jdGlvbiBydW5WYWxpZGF0ZUV2aWRlbmNlKGFyZ3M6IEFyZ3MpOiBudW1iZXIgewogIGNvbnN0IGV2aWRlbmNlUGF0aCA9IGFyZ3MuZmxhZ3MuZ2V0KCJldmlkZW5jZSIpOwogIGlmICh0eXBlb2YgZXZpZGVuY2VQYXRoICE9PSAic3RyaW5nIikgewogICAgY29uc29sZS5lcnJvcigidmFsaWRhdGUtZXZpZGVuY2UgcmVxdWlyZXMgLS1ldmlkZW5jZSA8ZmlsZT4iKTsKICAgIHJldHVybiAyOwogIH0KICBjb25zdCByZWdpc3RyeVBhdGggPSB0eXBlb2YgYXJncy5mbGFncy5nZXQoInJlZ2lzdHJ5IikgPT09ICJzdHJpbmciCiAgICA/IFN0cmluZyhhcmdzLmZsYWdzLmdldCgicmVnaXN0cnkiKSkKICAgIDogREVGQVVMVF9SRUdJU1RSWTsKICBsZXQgcmF3OiBzdHJpbmc7CiAgdHJ5IHsKICAgIHJhdyA9IERlbm8ucmVhZFRleHRGaWxlU3luYyhldmlkZW5jZVBhdGgpOwogIH0gY2F0Y2ggewogICAgY29uc29sZS5lcnJvcihgdmFsaWRhdGUtZXZpZGVuY2U6IGNhbm5vdCByZWFkICR7ZXZpZGVuY2VQYXRofWApOwogICAgcmV0dXJuIDE7CiAgfQogIGxldCB2YWx1ZTogdW5rbm93bjsKICB0cnkgewogICAgdmFsdWUgPSBKU09OLnBhcnNlKHJhdyk7CiAgfSBjYXRjaCB7CiAgICBjb25zb2xlLmVycm9yKGB2YWxpZGF0ZS1ldmlkZW5jZTogJHtldmlkZW5jZVBhdGh9IGlzIG5vdCB2YWxpZCBKU09OYCk7CiAgICByZXR1cm4gMTsKICB9CiAgY29uc3Qgc2NoZW1hRXJyb3JzID0gdmFsaWRhdGVFdmlkZW5jZVNjaGVtYSh2YWx1ZSk7CiAgaWYgKHNjaGVtYUVycm9ycy5sZW5ndGggPiAwKSB7CiAgICBmb3IgKGNvbnN0IGVycm9yIG9mIHNjaGVtYUVycm9ycykgewogICAgICBjb25zb2xlLmVycm9yKGB2YWxpZGF0ZS1ldmlkZW5jZTogJHtlcnJvcn1gKTsKICAgIH0KICAgIHJldHVybiAxOwogIH0KICBsZXQgcmVnaXN0cnk7CiAgdHJ5IHsKICAgIHJlZ2lzdHJ5ID0gbG9hZFJlZ2lzdHJ5RmlsZShyZWdpc3RyeVBhdGgpOwogIH0gY2F0Y2ggKGVycm9yKSB7CiAgICBjb25zb2xlLmVycm9yKAogICAgICBgdmFsaWRhdGUtZXZpZGVuY2U6ICR7CiAgICAgICAgZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiBTdHJpbmcoZXJyb3IpCiAgICAgIH1gLAogICAgKTsKICAgIHJldHVybiAxOwogIH0KICBjb25zdCBlcnJvcnMgPSB2YWxpZGF0ZUV2aWRlbmNlKHZhbHVlLCByZWdpc3RyeSk7CiAgaWYgKGVycm9ycy5sZW5ndGggPiAwKSB7CiAgICBmb3IgKGNvbnN0IGVycm9yIG9mIGVycm9ycykgY29uc29sZS5lcnJvcihgdmFsaWRhdGUtZXZpZGVuY2U6ICR7ZXJyb3J9YCk7CiAgICByZXR1cm4gMTsKICB9CiAgY29uc29sZS5sb2coInZhbGlkYXRlLWV2aWRlbmNlOiBPSyIpOwogIHJldHVybiAwOwp9Cgphc3luYyBmdW5jdGlvbiBtYWluKGFyZ3Y6IHN0cmluZ1tdKTogUHJvbWlzZTxudW1iZXI+IHsKICBjb25zdCBbY29tbWFuZCwgLi4ucmVzdF0gPSBhcmd2OwogIGNvbnN0IGFyZ3MgPSBwYXJzZUFyZ3MocmVzdCk7CiAgaWYgKGFyZ3MuZmxhZ3MuZ2V0KCJoZWxwIikgPT09IHRydWUgfHwgY29tbWFuZCA9PT0gdW5kZWZpbmVkKSB7CiAgICBjb25zb2xlLmxvZyh1c2FnZSgpKTsKICAgIHJldHVybiBjb21tYW5kID09PSB1bmRlZmluZWQgPyAyIDogMDsKICB9CiAgdHJ5IHsKICAgIHN3aXRjaCAoY29tbWFuZCkgewogICAgICBjYXNlICJjbGFzc2lmeSI6CiAgICAgICAgcmV0dXJuIGF3YWl0IHJ1bkNsYXNzaWZ5KGFyZ3MpOwogICAgICBjYXNlICJ2YWxpZGF0ZS1yZWdpc3RyeSI6CiAgICAgICAgcmV0dXJuIHJ1blZhbGlkYXRlUmVnaXN0cnkoYXJncyk7CiAgICAgIGNhc2UgInZhbGlkYXRlLWV2aWRlbmNlIjoKICAgICAgICByZXR1cm4gcnVuVmFsaWRhdGVFdmlkZW5jZShhcmdzKTsKICAgICAgZGVmYXVsdDoKICAgICAgICBjb25zb2xlLmVycm9yKGB1bmtub3duIGNvbW1hbmQ6ICR7Y29tbWFuZH1cbiR7dXNhZ2UoKX1gKTsKICAgICAgICByZXR1cm4gMjsKICAgIH0KICB9IGNhdGNoIChlcnJvcikgewogICAgY29uc29sZS5lcnJvcigKICAgICAgYGNpLWNvbnRyb2xsZXI6ICR7CiAgICAgICAgZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiBTdHJpbmcoZXJyb3IpCiAgICAgIH1gLAogICAgKTsKICAgIHJldHVybiAxOwogIH0KfQoKaWYgKGltcG9ydC5tZXRhLm1haW4pIHsKICBEZW5vLmV4aXQoYXdhaXQgbWFpbihEZW5vLmFyZ3MpKTsKfQo=
+// SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+//
+// SPDX-License-Identifier: CECILL-2.1
+
+/**
+ * K7PL CI controller (slice 1).
+ *
+ * Commands:
+ *   classify --base <sha> --head <sha> [--force-full] [--paths ...]
+ *     Classify changed paths into CI surfaces, in parity with
+ *     scripts/ci/impact.py. With --shadow, also run the legacy
+ *     Python classifier and fail on any divergence. With
+ *     --derived, classify from the registry instead (the decision
+ *     classifier since cutover C3; derived_event.ts is the impact
+ *     job's entry point). With --derived-shadow, compare the
+ *     derived classifier with the legacy Deno classifier and
+ *     report every legacy-surface divergence (exit 1).
+ *   validate-registry [--registry <path>] [--root <dir>]
+ *     Load and validate .github/ci/components.yaml.
+ *   validate-evidence --evidence <file> [--registry <path>]
+ *     Validate one evidence record against the schema and the
+ *     registry.
+ *
+ * Run from the repository root. Deno permissions are per command
+ * (see README.md); this file never requests more than it needs.
+ */
+
+import {
+  changedPaths,
+  classify,
+  formatClassification,
+  githubOutputLines,
+} from "./classify.ts";
+import {
+  deriveClassification,
+  derivedDivergences,
+  derivedGithubOutputLines,
+} from "./derived.ts";
+import { validateEvidence, validateEvidenceSchema } from "./evidence.ts";
+import { loadRegistryFile, validateRegistry } from "./registry.ts";
+import { runShadow } from "./shadow.ts";
+import { writeGithubOutput } from "./output.ts";
+
+const DEFAULT_REGISTRY = ".github/ci/components.yaml";
+
+function usage(): string {
+  return [
+    "Usage:",
+    "  deno run --allow-read --allow-run --allow-env --allow-write src/main.ts classify --base <sha> --head <sha> [--force-full] [--shadow]",
+    "  deno run --allow-read --allow-run --allow-env --allow-write src/main.ts classify --paths <path...> [--force-full]",
+    "  deno run --allow-read --allow-run src/main.ts classify --paths <path...> --derived",
+    "  deno run --allow-read --allow-run src/main.ts classify --base <sha> --head <sha> --derived-shadow",
+    "  deno run --allow-read src/main.ts validate-registry [--registry <path>] [--root <dir>]",
+    "  deno run --allow-read src/main.ts validate-evidence --evidence <file> [--registry <path>]",
+  ].join("\n");
+}
+
+interface Args {
+  flags: Map<string, string | boolean>;
+  positional: string[];
+}
+
+function parseArgs(argv: string[]): Args {
+  const flags = new Map<string, string | boolean>();
+  const positional: string[] = [];
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg.startsWith("--")) {
+      const key = arg.slice(2);
+      const eq = key.indexOf("=");
+      if (eq >= 0) {
+        flags.set(key.slice(0, eq), key.slice(eq + 1));
+      } else if (key === "paths") {
+        const values: string[] = [];
+        while (i + 1 < argv.length && !argv[i + 1].startsWith("--")) {
+          values.push(argv[++i]);
+        }
+        flags.set("paths", values.join("\n"));
+      } else if (
+        ["force-full", "shadow", "derived", "derived-shadow", "help"].includes(
+          key,
+        )
+      ) {
+        flags.set(key, true);
+      } else if (i + 1 < argv.length) {
+        flags.set(key, argv[++i]);
+      } else {
+        flags.set(key, true);
+      }
+    } else {
+      positional.push(arg);
+    }
+  }
+  return { flags, positional };
+}
+
+async function runClassify(args: Args): Promise<number> {
+  const forceFull = args.flags.get("force-full") === true;
+  const shadow = args.flags.get("shadow") === true;
+  if (shadow) {
+    const base = args.flags.get("base");
+    const head = args.flags.get("head");
+    if (typeof base !== "string" || typeof head !== "string") {
+      console.error("classify --shadow requires --base and --head");
+      return 2;
+    }
+    const result = await runShadow(base, head, "scripts/ci/impact.py", ".");
+    console.log(formatClassification(result.paths, result.deno));
+    // Print the comparison explicitly so a divergence is unambiguous.
+    if (result.divergences.length > 0) {
+      console.error(
+        "shadow: DIVERGENCE between Deno and legacy Python classifiers:",
+      );
+      for (const divergence of result.divergences) {
+        console.error(`  ${divergence}`);
+      }
+      return 1;
+    }
+    console.log("shadow: Deno and legacy Python classifiers agree");
+    return 0;
+  }
+
+  let paths: string[];
+  const pathsFlag = args.flags.get("paths");
+  if (typeof pathsFlag === "string") {
+    paths = pathsFlag === "" ? [] : pathsFlag.split("\n");
+  } else {
+    const base = args.flags.get("base");
+    const head = args.flags.get("head");
+    if (forceFull) {
+      paths = [];
+    } else if (typeof base === "string" && typeof head === "string") {
+      paths = await changedPaths(base, head);
+    } else {
+      console.error(
+        "classify requires --base and --head, or --paths, or --force-full",
+      );
+      return 2;
+    }
+  }
+  if (args.flags.get("derived") === true) {
+    const registry = loadRegistryFile(DEFAULT_REGISTRY);
+    const derived = deriveClassification(registry, paths, forceFull);
+    console.log(formatClassification(paths, derived));
+    console.log(
+      `Derived surfaces: ${
+        Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
+      } unclassified=${derived.unclassified}`,
+    );
+    if (derived.unknown_paths.length > 0) {
+      console.log("Derived unclassified paths:");
+      for (const path of derived.unknown_paths) console.log(`  '${path}'`);
+    }
+    writeGithubOutput(derivedGithubOutputLines(derived));
+    return 0;
+  }
+
+  if (args.flags.get("derived-shadow") === true) {
+    const registry = loadRegistryFile(DEFAULT_REGISTRY);
+    const legacy = classify(paths, forceFull);
+    const derived = deriveClassification(registry, paths, forceFull);
+    console.log("legacy:");
+    console.log(formatClassification(paths, legacy));
+    console.log("derived:");
+    console.log(formatClassification(paths, derived));
+    console.log(
+      `Derived surfaces: ${
+        Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
+      } unclassified=${derived.unclassified}`,
+    );
+    // Per-path comparison is primary: an aggregate comparison
+    // alone would hide divergences that cancel out (e.g. one
+    // unknown path under each classifier both forcing full).
+    const divergences = derivedDivergences(derived, legacy);
+    const perPath: string[] = [];
+    for (const path of paths) {
+      const singleDerived = deriveClassification(registry, [path]);
+      const singleLegacy = classify([path]);
+      const single = derivedDivergences(singleDerived, singleLegacy);
+      if (single.length > 0) {
+        perPath.push(`path ${path}: ${single.join(", ")}`);
+      }
+    }
+    if (divergences.length > 0 || perPath.length > 0) {
+      console.error("derived-shadow: DIVERGENCES (derived vs legacy):");
+      for (const divergence of divergences) {
+        console.error(`  aggregate: ${divergence}`);
+      }
+      for (const detail of perPath) console.error(`  ${detail}`);
+      return 1;
+    }
+    console.log("derived-shadow: derived and legacy classifiers agree");
+    return 0;
+  }
+
+  const result = classify(paths, forceFull);
+  console.log(formatClassification(paths, result));
+  writeGithubOutput(githubOutputLines(result));
+  return 0;
+}
+
+function runValidateRegistry(args: Args): number {
+  const registryPath = typeof args.flags.get("registry") === "string"
+    ? String(args.flags.get("registry"))
+    : DEFAULT_REGISTRY;
+  const root = typeof args.flags.get("root") === "string"
+    ? String(args.flags.get("root"))
+    : ".";
+  let registry;
+  try {
+    registry = loadRegistryFile(registryPath);
+  } catch (error) {
+    console.error(
+      `validate-registry: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
+    return 1;
+  }
+  const errors = validateRegistry(registry, root);
+  if (errors.length > 0) {
+    for (const error of errors) console.error(`validate-registry: ${error}`);
+    return 1;
+  }
+  console.log(
+    `validate-registry: OK (${registry.components.length} components, ${registry.stages.length} stages, ${registry.toolchains.length} toolchains)`,
+  );
+  return 0;
+}
+
+function runValidateEvidence(args: Args): number {
+  const evidencePath = args.flags.get("evidence");
+  if (typeof evidencePath !== "string") {
+    console.error("validate-evidence requires --evidence <file>");
+    return 2;
+  }
+  const registryPath = typeof args.flags.get("registry") === "string"
+    ? String(args.flags.get("registry"))
+    : DEFAULT_REGISTRY;
+  let raw: string;
+  try {
+    raw = Deno.readTextFileSync(evidencePath);
+  } catch {
+    console.error(`validate-evidence: cannot read ${evidencePath}`);
+    return 1;
+  }
+  let value: unknown;
+  try {
+    value = JSON.parse(raw);
+  } catch {
+    console.error(`validate-evidence: ${evidencePath} is not valid JSON`);
+    return 1;
+  }
+  const schemaErrors = validateEvidenceSchema(value);
+  if (schemaErrors.length > 0) {
+    for (const error of schemaErrors) {
+      console.error(`validate-evidence: ${error}`);
+    }
+    return 1;
+  }
+  let registry;
+  try {
+    registry = loadRegistryFile(registryPath);
+  } catch (error) {
+    console.error(
+      `validate-evidence: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
+    return 1;
+  }
+  const errors = validateEvidence(value, registry);
+  if (errors.length > 0) {
+    for (const error of errors) console.error(`validate-evidence: ${error}`);
+    return 1;
+  }
+  console.log("validate-evidence: OK");
+  return 0;
+}
+
+async function main(argv: string[]): Promise<number> {
+  const [command, ...rest] = argv;
+  const args = parseArgs(rest);
+  if (args.flags.get("help") === true || command === undefined) {
+    console.log(usage());
+    return command === undefined ? 2 : 0;
+  }
+  try {
+    switch (command) {
+      case "classify":
+        return await runClassify(args);
+      case "validate-registry":
+        return runValidateRegistry(args);
+      case "validate-evidence":
+        return runValidateEvidence(args);
+      default:
+        console.error(`unknown command: ${command}\n${usage()}`);
+        return 2;
+    }
+  } catch (error) {
+    console.error(
+      `ci-controller: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
+    return 1;
+  }
+}
+
+if (import.meta.main) {
+  Deno.exit(await main(Deno.args));
+}
