@@ -27,8 +27,8 @@ exemple complet, un mot sur ce que la notation tacite du §{num "sec:c5-notation
 donne à voir une fois débarrassée de ses noms. La moyenne d'un tableau s'écrit
 `[fold add div length]` : plier par addition, diviser par la longueur ; l'éditeur l'affiche `[´+÷≠]`,
 chaque mot remplacé par son glyphe à sa place. Son écart-type s'écrit
-`[sqrt [[fold add [square [identity sub [fold add div length]]]] div length]]`, affiché
-`[√[[´+[²[⊢-[´+÷≠]]]]÷≠]]` : la même moyenne soustraite à chaque élément, élevée au carré, repliée
+`[sqrt [fold add square identity sub fold add div length] div length]`, affiché
+`[√[´+²⊢-´+÷≠]÷≠]` : la même moyenne soustraite à chaque élément, élevée au carré, repliée
 et divisée à son tour, puis passée à la racine. Aucun argument n'y est nommé ; le train se lit comme
 une composition de fonctions plutôt que comme une suite d'instructions, ce que le
 §{num "sec:c5-notations-specialisees"}[] annonçait.
@@ -60,11 +60,14 @@ ici un `Result`, puisque le débordement reste une issue normale du calcul plut�
 lever.
 
 Autour de ce calcul, une couche 2 orchestre l'effet observable : recevoir un message, appeler la
-fonction pure, décrire le nouvel état sans jamais le muter directement ({num "lst:gestionnaire"}[]).
+fonction pure, décrire le nouvel état sans jamais le muter directement. Ce gestionnaire, le
+programmeur ne l'écrit pas : la clause `:on` de l'acteur l'implique ({num "lst:acteur"}[]), et il est
+montré ici en entier ({num "lst:gestionnaire"}[]).
 
 ::::listing (label := "lst:gestionnaire")
 :::caption
-La couche 2 orchestre l'effet observable sans jamais muter l'état directement
+Le gestionnaire qu'implique la clause `:on` : la couche 2 orchestre l'effet observable sans jamais
+muter l'état directement
 :::
 
 ```
@@ -89,49 +92,49 @@ jamais la couche 2, s'écrit entre parenthèses, le délimiteur de la couche 2 �
 jour de l'état par la lentille `set`, qui préserve le champ `bound` inchangé sans qu'aucun
 `HandlerResult` n'ait besoin de le répéter.
 
-L'acteur lui-même n'est qu'une déclaration : aucune logique n'y figure directement, seulement la
-topologie et le rattachement du gestionnaire ({num "lst:acteur"}[]).
+L'acteur lui-même n'est qu'une déclaration : aucune logique n'y figure directement, seulement ses
+champs et, pour chaque message, la transition pure qui lui répond ({num "lst:acteur"}[]).
 
 ::::listing (label := "lst:acteur")
 :::caption
-L'acteur ne porte que sa topologie et le rattachement de son gestionnaire
+L'acteur ne porte que ses champs et, par message, sa transition pure ; son gestionnaire est
+implicite
 :::
 
 ```
-{defactor Counter
+{defactor counter
   {field value :num int}
   {field bound :num int}
-  (bind-to counter-handler)}
+  :on (Increment :sets value [?increment-bounded [view state value] [view state bound]])}
 ```
 ::::
 
-La forme `bind-to` appelle une remarque, car elle est la seule construction du langage dont
-l'existence ne se déduise pas du jugement germinal. Elle déclare une association que rien n'oblige à
-déclarer, contrevenant à la fois à la clôture du chapitre 1 et au principe de ce chapitre. Elle
-n'est donc pas une primitive. Un acteur _est_ la paire additive dépendante
+La clause `:on` appelle une remarque. Un acteur _est_ la paire additive dépendante
 $`(\text{état} : S)\,\&\,\text{Handler}(S)` du chapitre 3
-(§{num "sec:c3-structures-ouvertes-effets-et"}[]), et `bind-to` n'est qu'un accès de champ. Lorsque
-le programmeur l'omet, l'élaborateur remplit la seconde composante par recherche dirigée par le type
-— technique dont la propriété conditionnante est la _cohérence_, le fait qu'un programme valide ait
-exactement une signification {cite "racordonStateCoherenceLand2025"}[], et dont la preuve formelle
-en présence de non-déterminisme est récente et non triviale {cite "BOTTU"}[], {cite "schrijversCOCHISStableCoherent2019"}[].
-Ici elle ne coûte rien : la structure fixe le sens, la recherche n'est qu'un sucre, et une recherche
-ambiguë est refusée en Phase 1 plutôt que résolue arbitrairement. La cohérence est une condition
-d'erreur, non une obligation de métathéorie. L'unicité du type d'état par gabarit (chapitre 4,
-§{num "sec:c4-echelle-du-systeme"}[]) est la condition sous laquelle le sucre aboutit ; la voie
-modulaire, où l'association est portée par une structure plutôt que déduite, est activement conçue
-ailleurs {cite "VIVIEN"}[].
+(§{num "sec:c3-structures-ouvertes-effets-et"}[]), et la clause en donne la seconde composante sans
+la nommer : le gestionnaire se déduit de la transition par la règle de `Result` — `Ok v` donne la
+valeur `v` au champ que nomme `:sets` et répond `Ok v`, `Err e` laisse l'état inchangé et répond
+`Err e`. Aucun nom de gestionnaire n'est donc déclaré ni cherché. Rattacher un gestionnaire nommé,
+et le trouver par recherche dirigée par le type lorsque le rattachement est omis, aurait exigé la
+_cohérence_, le fait qu'un programme valide ait exactement une signification
+{cite "racordonStateCoherenceLand2025"}[], dont la preuve formelle en présence de non-déterminisme
+est récente et non triviale {cite "BOTTU"}[], {cite "schrijversCOCHISStableCoherent2019"}[] ; la
+règle de `Result` s'en passe, puisque la structure fixe le sens. Elle ne couvre que les transitions
+qui rendent un `Result` : composer d'autres scénarios — séparer une vérification d'une
+transformation ou d'une livraison — reste à concevoir, et la voie modulaire, où l'association est
+portée par une structure plutôt que déduite, est activement conçue ailleurs {cite "VIVIEN"}[].
 
-Ici, les champs portent un type et s'écrivent donc entre accolades, en couche 1 ; `bind-to`
-s'écrit entre parenthèses, le délimiteur de la couche 2, que le bloc de couche 1 admet. Le type
+Ici, les champs portent un type et s'écrivent donc entre accolades, en couche 1 ; la clause `:on`
+s'écrit entre parenthèses, le délimiteur de la couche 2, que le bloc de couche 1 admet, et sa
+transition entre crochets, où `state` désigne l'état de l'acteur. Le type
 `int`, sans largeur, est un trou typé que l'élaboration résout dans la famille des entiers : à la
 plus petite largeur qui contient toutes les valeurs que le solveur sait borner, le programme étant
 refusé si le solveur n'en borne aucune (`ERR-SMT-003`) : le développeur précise alors son intention
 dans le code. Ces
 trois déclarations respectent la forme descendante
-`{ ... ( ... [ ... ] ... ) ... }` du §{num "sec:c5-s-expressions-universelles"}[] : `bind-to` relie
-l'acteur à son gestionnaire, qui appelle lui-même le calcul pur — chaque frontière franchie porte le
-délimiteur du fragment vers lequel elle mène, et pas une de plus.
+`{ ... ( ... [ ... ] ... ) ... }` du §{num "sec:c5-s-expressions-universelles"}[] : la clause `:on`
+relie un message de l'acteur au calcul pur, que le gestionnaire implicite appelle — chaque frontière
+franchie porte le délimiteur du fragment vers lequel elle mène, et pas une de plus.
 
 L'erreur la plus commune consiste à faire remonter, dans l'autre sens, une construction qui suppose
 un effet à l'intérieur d'un bloc `[ ]` ({num "lst:erreur-remontee"}[]) :

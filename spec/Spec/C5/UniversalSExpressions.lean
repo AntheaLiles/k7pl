@@ -180,9 +180,18 @@ mots séparés par des espaces, de gauche à droite et selon la logique des S-ex
 `[fold add div length]` est la moyenne d'un tableau. Chaque mot
 y porte une arité typée — monadique, dyadique, au plus triadique, jamais n-aire —, et c'est elle qui
 permet à l'élaboration de distinguer un train d'une application ; un glyphe employé sous deux arités
-porte donc un alias par arité. Un train de plus de trois mots s'écrit groupé, trois mots au plus par
-paire de crochets. La forme en glyphes, `[´+÷≠]`, est une vue de l'éditeur, qui remplace chaque mot
-par son glyphe à sa place. Un glyphe de la table du chapitre 1 ne se lit seul que dans une suite
+porte donc un alias par arité. C'est encore l'arité de chaque mot, et non la longueur du train, qui
+décide de son assemblage, selon la règle de FIXAPL {cite "lockwoodFIXAPL"}[]. Le train s'assemble de
+droite à gauche : un mot monadique s'applique au résultat de ce qui est à sa droite ; un mot dyadique
+précédé d'un mot forme avec lui une fourche, le mot de gauche s'appliquant aux arguments du train et
+son résultat devenant l'argument gauche du mot dyadique, dont l'argument droit est le résultat de ce
+qui est à sa droite ; sans mot à sa gauche, un mot dyadique prend l'argument gauche du train ; une
+paire de crochets intérieure compte pour un mot. Un mot triadique ne figure pas dans un train : il ne
+fait que s'appliquer. L'écart-type s'écrit ainsi avec un seul groupe intérieur,
+`[sqrt [fold add square identity sub fold add div length] div length]`
+(§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[´+÷≠]`, est une vue de l'éditeur, qui
+remplace chaque mot par son glyphe à sa place et le colore selon son rôle, que son type indique :
+valeur, fonction, modifieur d'une fonction ou modifieur de deux. Un glyphe de la table du chapitre 1 ne se lit seul que dans une suite
 faite seulement de glyphes et de modifieurs, comme `´+÷≠` ; toute autre suite se lit d'un tenant,
 comme un nom ou un nombre : `increment-bounded`, `x-1` et `-2` sont chacun un atome. Un glyphe écrit
 dans un fichier hors d'un texte est accepté : le formateur le réécrit par son mot et le signale par
@@ -203,12 +212,19 @@ vecteur vide, `()` la liste vide et `{}` l'enregistrement ou la table vide ; ell
 son fragment, vérifiés à la compilation. Une paire doublée, dont la paire intérieure est seule,
 précise une forme propre à sa couche et reste dans la couche de sa paire simple ; l'éditeur l'affiche
 en crochets blancs, de même sens : `[[ x ]]` est `⟦ x ⟧`, `(( x ))` est `⦅ x ⦆` et `{{ x }}` est
-`⦃ x ⦄`. En couche 3, un mot de tête distingue les emplois de `[[ … ]]` : `[[ range … ]]` range
-des éléments en mémoire, comme un intervalle, `[[ frame … ]]` réserve un stockage dans le cadre de la
-fonction appelante, libéré avec lui, et `[[ cells … ]]` applique une fonction cellule par cellule ;
-une classe de caractères s'y reconnaît à son nom entre deux-points, `[[:alpha:]]`. En
+`⦃ x ⦄`. En couche 3, où la mémoire se calcule avant l'exécution, `[[ … ]]` ne contient qu'un
+littéral dont la taille se connaît avant l'exécution, reconnu à sa forme et sans mot de tête : une
+classe de caractères, à son nom entre deux-points (`[[:alpha:]]`), ou un intervalle, dont les bornes
+sont des littéraux ou se calculent à la compilation. Un intervalle `a..b` inclut ses deux bornes
+(`[[1..9]]`) ; un second élément en donne le pas (`[[1 3..9]]` vaut `1 3 5 7 9`) ; plusieurs
+intervalles forment la matrice de leurs paires d'indices (`[[1..3 1..3]]`) ; des textes d'un
+caractère peuvent en être les bornes (`[["a".."z"]]`). Une borne exclue, à gauche, à droite ou aux
+deux, se marque par un mot dédié, qui reste à choisir. Réserver un stockage dans le cadre de la
+fonction appelante, libéré avec lui, est une propriété de la déclaration (`+frame`), et appliquer une
+fonction cellule par cellule, un modifieur de train (`rank`). En
 couche 2, `(( … ))` est un crochet d'idiome : une fonction pure appliquée à des arguments à effet, chaque effet dans
-l'ordre. En couche 1, `{{ … }}` est un type raffiné. Deux
+l'ordre ; un intervalle y est une liste paresseuse, écrite dans la paire doublée de sa couche
+(`((1..n))`) et reconnue à sa forme. En couche 1, `{{ … }}` est un type raffiné. Deux
 points-virgules ouvrent un
 commentaire qui court jusqu'à la fin de la ligne : `;;` pour un commentaire courant, `;;;` pour un
 titre et `;;;;` pour un sous-titre. Un point-virgule seul écrit juste avant un délimiteur ouvrant —
@@ -236,7 +252,10 @@ d'autres s'ajoutant au besoin —, et tout caractère par son point de code, `\u
 `%22`, une espace initiale `%20`, et un `%` littéral `%25`.
 Il n'y a pas de type caractère : un texte d'un caractère en tient lieu (`"a"`, `"μ"`,
 `"\lambda"`). Un type texte s'écrit `strN` : comme dans `intN`, N compte les bits qu'il alloue à
-l'encodage UTF-8 du texte, et `str` seul est un trou typé. Les graphèmes ne se comptent que dans
+l'encodage du texte, et `str` seul est un trou typé. L'encodage appartient au type : UTF-8 par
+défaut, celui que retient la résolution d'un trou typé, et d'autres conventions — ASCII, UTF-16,
+UTF-32, celle d'Emacs — peuvent s'y écrire ; leur notation, et ce que vaut une largeur qui n'est pas
+un multiple de l'unité de l'encodage, restent à fixer. Les graphèmes ne se comptent que dans
 l'interface de développement : la longueur d'une ligne, que le formateur et l'analyseur de style
 mesurent pour garder le code lisible, se compte en graphèmes. Les fichiers gardent les formes ASCII ;
 l'éditeur affiche un texte brut `« s »`, comme il affiche une paire doublée en crochets blancs, `||`

@@ -467,8 +467,8 @@ tag := "refs-liste-des-glosses"
 
 : train
 
-  Suite de fonctions composées par juxtaposition, dont l'arité de l'assemblage se lit sur le nombre
-  de termes.
+  Suite de fonctions composées par juxtaposition, dont l'assemblage et l'arité se lisent sur
+  l'arité de chaque terme, et non sur leur nombre.
 
 : tranche minimale
 

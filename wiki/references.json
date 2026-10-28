@@ -5424,6 +5424,22 @@
    "urldate": "2025-05-19",
    "volume": "9"
   },
+  "lockwoodFIXAPL": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "J.",
+      "last": "Lockwood",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "FIXAPL: APL Reimagined from the Ground up with Fixed-Arity Functions",
+   "type": "online",
+   "url": "https://github.com/Jacob-Lockwood/fixapl",
+   "urldate": "2026-10-28"
+  },
   "lopesDejaVuMapCode2017": {
    "date": "2017-10-12",
    "doi": "10.1145/3133908",

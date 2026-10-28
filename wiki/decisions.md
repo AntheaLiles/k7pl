@@ -845,6 +845,60 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, eighth part: answers of 2026-10-28
+  (Q-SPEC-309 to Q-SPEC-310).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-28-012 to
+  VOC-2026-10-28-017. In short:
+  - Trains follow FIXAPL's rule, triadic words kept out: the
+    arity of each word, not the length of the train, decides
+    how it combines; read from the right, a monadic word
+    applies to the result of what is on its right, a dyadic
+    word forms a fork with the word on its left or takes the
+    train's left argument, a group counts as one word, and a
+    triadic word is only ever applied. The editor colours
+    each word by its role (value, function, modifier of one
+    function, modifier of two).
+  - `[[ … ]]` in layer 3 holds only a literal recognised by
+    its shape, a class or an interval, with no head word
+    (revises Q-LEX-609 B); frame storage is a property of a
+    declaration, cell-wise application a modifier of trains.
+    An interval is written `a..b` with both bounds included,
+    a second element giving the step, several intervals
+    forming a matrix of index pairs, texts of one character
+    allowed as bounds; other bounds are marked by a dedicated
+    keyword, still to name (the author's examples, « inner,
+    outer, left, right », are « largement criticable »); in
+    layer 2 the lazy interval is written `((1..n))`.
+  - The encoding belongs to the text type: UTF-8 by default,
+    the one a typed hole resolves to, and ASCII, UTF-16,
+    UTF-32, Emacs's and others can be written.
+  - The actor's `:on … :sets` form is applied now; the
+    author recalls that `bind-to` gave way to `bind` and the
+    words of monads, to compare with the words of algebraic
+    effects.
+  Applied on 2026-10-28 (`spec/CHANGELOG.md`): chapter 5
+  states the train rule with FIXAPL in the bibliography
+  (`wiki/references.json`, `tools/SpecBib.lean`), colouring
+  by role, the literal shapes of `[[ … ]]` and the interval
+  forms, `((1..n))`, and the encoding in the text type, and
+  rewrites the standard deviation with one inner group; the
+  glossary defines a train by the arity of its terms;
+  `lst:acteur` takes the `:on … :sets` form,
+  `lst:gestionnaire` shows the handler the clause implies,
+  the remark that follows the actor is rewritten, the row of
+  `def:elaboration` becomes the `:on` clause, and the proof
+  sketch and the note of `thm:staticite_syntaxe` no longer
+  name `bind-to`, its statement unchanged.
+  Not applied yet, with the reason: the reader
+  (`lexicon/syntax/tokens.k`) does not classify intervals,
+  which it reads as one atom, nor the doubled pairs' literal
+  shapes — to do with the reading of white brackets; the
+  keyword for excluded bounds, the notation of encodings,
+  what a width that is not a multiple of an encoding's unit
+  means, whether a layer-2 interval may leave out its end,
+  and the words `:on`, `:sets`, `bind`, `+frame` and `rank`
+  wait for the choice of words or a later question.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, seventh part: answers of 2026-10-28
   (Q-STR-401 to Q-LEX-613).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-28-001 to
@@ -883,8 +937,9 @@ contradiction to state, not to resolve in silence.
   Not applied yet, with the reason: the actor's `:on … :sets`
   form (Q-SPEC-307) replaces `bind-to`, which the definition
   `def:elaboration` lists among the six written forms and
-  the proof sketch of the phase-confinement statement
-  discusses as the only place where a name is produced; that
+  the proof sketch of the static-syntax corollary
+  (`thm:staticite_syntaxe`) discusses as the only place where
+  a name is produced; that
   rewrite touches a definition and a proof sketch, and the
   author asked for a broader discussion of scenarios first,
   so it is put to the eighth part.

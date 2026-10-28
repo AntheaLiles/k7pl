@@ -150,15 +150,15 @@ d'occurrence hors de l'index qu'elle reçoit — c'est l'hygiène ci-dessus. Auc
 germinal ne construit un nom à partir d'une valeur : les noms sont des données de la dérivation, non
 de l'évaluation.
 
-Un seul cas demande d'être regardé, car c'est le seul endroit du langage où un nom soit _produit_
-plutôt que lu : la résolution de `bind-to` par recherche dirigée par le type
-(§{num "sec:c5-mise-en-pratique"}[]). Elle ne menace pas l'énoncé, s'achevant elle aussi en Phase 1
-— une recherche ambiguë y est refusée plutôt que résolue arbitrairement.
+Un cas pourrait sembler demander d'être regardé, parce qu'un programme ne l'écrit nulle part : le
+gestionnaire implicite d'un acteur. La clause `:on` le déduit de la transition par la règle de
+`Result` (§{num "sec:c5-mise-en-pratique"}[]), avant toute exécution, sans qu'aucun nom soit
+_produit_ ni cherché ; il ne menace donc pas l'énoncé.
 :::
 
 :::note
 _Obligation ouverte._ L'argument par inspection ne vaut que si l'inventaire des mécanismes qui
-produisent de la syntaxe est complet : reste à l'énumérer, macros et résolution de `bind-to`
+produisent de la syntaxe est complet : reste à l'énumérer, macros et clauses `:on`
 comprises, et à relier la frontière de phase, l'index de portée et la paramétricité de niveau méta à
 des règles formelles plutôt qu'à la prose.
 :::
