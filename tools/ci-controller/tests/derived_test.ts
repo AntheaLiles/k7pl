@@ -1,1 +1,268 @@
-Ly8gU1BEWC1GaWxlQ29weXJpZ2h0VGV4dDogMjAyNiBDeXByaWVuIFBJRVJSRQovLwovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogQ0VDSUxMLTIuMQoKaW1wb3J0IHsgYXNzZXJ0LCBhc3NlcnRFcXVhbHMgfSBmcm9tICIuL2Fzc2VydC50cyI7CmltcG9ydCB7IGNsYXNzaWZ5IH0gZnJvbSAiLi4vc3JjL2NsYXNzaWZ5LnRzIjsKaW1wb3J0IHsKICBkZXJpdmVDbGFzc2lmaWNhdGlvbiwKICBkZXJpdmVkRGVjaXNpb25PdXRwdXRMaW5lcywKICBkZXJpdmVkRGl2ZXJnZW5jZXMsCiAgZGVyaXZlZEdpdGh1Yk91dHB1dExpbmVzLAp9IGZyb20gIi4uL3NyYy9kZXJpdmVkLnRzIjsKaW1wb3J0IHsgbG9hZFJlZ2lzdHJ5RmlsZSB9IGZyb20gIi4uL3NyYy9yZWdpc3RyeS50cyI7Cgpjb25zdCBSRVBPX1JPT1QgPSBuZXcgVVJMKCIuLi8uLi8uLi8iLCBpbXBvcnQubWV0YS51cmwpLnBhdGhuYW1lOwpjb25zdCBSRUdJU1RSWV9QQVRIID0gYCR7UkVQT19ST09UfS5naXRodWIvY2kvY29tcG9uZW50cy55YW1sYDsKCmZ1bmN0aW9uIGRlcml2ZWQocGF0aHM6IHN0cmluZ1tdKSB7CiAgcmV0dXJuIGRlcml2ZUNsYXNzaWZpY2F0aW9uKGxvYWRSZWdpc3RyeUZpbGUoUkVHSVNUUllfUEFUSCksIHBhdGhzKTsKfQoKRGVuby50ZXN0KCJkZXJpdmVkIGNsYXNzaWZpZXIgbWFwcyBzcGVjIHJvb3RzIHRvIHRoZSBzcGVjIHN1cmZhY2VzIiwgKCkgPT4gewogIGNvbnN0IHJlc3VsdCA9IGRlcml2ZWQoWyJzcGVjL1NwZWMvQzMvRm9vLmxlYW4iXSk7CiAgYXNzZXJ0RXF1YWxzKHJlc3VsdC5zcGVjX2NoZWNrLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LnNwZWNfYnVpbGQsIHRydWUpOwogIGFzc2VydEVxdWFscyhyZXN1bHQucHl0aG9uX3Rlc3RzLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LmxlYW5fYnVpbGQsIGZhbHNlKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LmZ1bGwsIGZhbHNlKTsKfSk7CgpEZW5vLnRlc3QoImRlcml2ZWQgY2xhc3NpZmllciBhcHBsaWVzIHJlYWQgaW5wdXRzIChzcmMsIGFzc3VyYW5jZSwgU3BlY0V4dCkiLCAoKSA9PiB7CiAgY29uc3QgcmVzdWx0ID0gZGVyaXZlZChbCiAgICAic3JjL0Zvby5sZWFuIiwKICAgICJ3aWtpL2Fzc3VyYW5jZS5tZCIsCiAgICAidG9vbHMvU3BlY0V4dC9JbmRleENvcmUubGVhbiIsCiAgXSk7CiAgYXNzZXJ0RXF1YWxzKHJlc3VsdC5sZWFuX2J1aWxkLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LnNwZWNfY2hlY2ssIHRydWUpOwogIGFzc2VydEVxdWFscyhyZXN1bHQucHl0aG9uX3Rlc3RzLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LmRvY3NfbGlua3MsIHRydWUpOwp9KTsKCkRlbm8udGVzdCgiYSBzcmMvIGNoYW5nZSBhbG9uZSB0cmlnZ2VycyBzcGVjX2NoZWNrLCBub3QgdGhlIHNwZWMgYnVpbGQiLCAoKSA9PiB7CiAgLy8gVGhpcyBpcyB3aHkgcmVhZCBpbnB1dHMgbWF5IHJlc3RyaWN0IHRoZWlyIHN1cmZhY2VzOiBzcmMvIGlzCiAgLy8gcmVhZCBieSB0aGUgc3BlYyBjaGVja3Mgb25seSwgd2hpbGUgc3BlYy8gcm9vdHMgdHJpZ2dlciB0aGUKICAvLyB3aG9sZSBzcGVjaWZpY2F0aW9uIHN1cmZhY2Ugc2V0LgogIGNvbnN0IHJlc3VsdCA9IGRlcml2ZWQoWyJzcmMvRm9vLmxlYW4iXSk7CiAgYXNzZXJ0RXF1YWxzKHJlc3VsdC5zcGVjX2NoZWNrLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LnNwZWNfYnVpbGQsIGZhbHNlKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LnB5dGhvbl90ZXN0cywgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKHJlc3VsdC5sZWFuX2J1aWxkLCB0cnVlKTsKfSk7CgpEZW5vLnRlc3QoImRlcml2ZWQgY2xhc3NpZmllciBtYXBzIHNwZWMtYnVpbGQgaW5wdXRzIGRlY2xhcmVkIGluIHRoZSByZWdpc3RyeSIsICgpID0+IHsKICBjb25zdCByZXN1bHQgPSBkZXJpdmVkKFsKICAgICJzY3JpcHRzL2NvbnRyb2xlLnB5IiwKICAgICJzY3JpcHRzL2NvbnRyb2xlcy9jcm9pc2UucHkiLAogICAgIndpa2kvcmVmZXJlbmNlcy5qc29uIiwKICBdKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LnNwZWNfY2hlY2ssIHRydWUpOwogIGFzc2VydEVxdWFscyhyZXN1bHQuc3BlY19idWlsZCwgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKHJlc3VsdC5weXRob25fdGVzdHMsIHRydWUpOwogIGFzc2VydEVxdWFscyhyZXN1bHQuZnVsbCwgZmFsc2UpOwp9KTsKCkRlbm8udGVzdCgiZGVyaXZlZCBjbGFzc2lmaWVyIGhvbm91cnMgbGVnYWN5IGxpZ2h0IHBhdGhzIGFuZCB0aGUgYXhpb20tYXVkaXQgZXhhY3QgcnVsZSIsICgpID0+IHsKICAvLyBDdXRvdmVyIEMwOiB0aGVzZSBwYXRocyB1c2VkIHRvIGRpdmVyZ2UgKGxpZ2h0IHBhdGhzIGZlbGwKICAvLyB0aHJvdWdoIHRvIGZ1bGwsIGF4aW9tLWF1ZGl0LnNoIHBpY2tlZCB1cCBweXRob25fdGVzdHMgZnJvbQogIC8vIHRoZSBzY3JpcHRzLyByb290KS4gVGhleSBtdXN0IG5vdyBhZ3JlZSB3aXRoIHRoZSBsZWdhY3kKICAvLyBjbGFzc2lmaWVyIGV4YWN0bHksIHBlciBwYXRoLgogIGZvciAoCiAgICBjb25zdCBwYXRoIG9mIFsKICAgICAgIi5jbGF1ZGUvc2V0dGluZ3MuanNvbiIsCiAgICAgICIuZ2l0aHViL0lTU1VFX1RFTVBMQVRFL2J1Zy5tZCIsCiAgICAgICJMSUNFTlNFUy9DQzAtMS4wLnR4dCIsCiAgICAgICJDSVRBVElPTi5jZmYiLAogICAgICAic2NyaXB0cy9heGlvbS1hdWRpdC5zaCIsCiAgICBdCiAgKSB7CiAgICBjb25zdCBkaXZlcmdlbmNlcyA9IGRlcml2ZWREaXZlcmdlbmNlcygKICAgICAgZGVyaXZlZChbcGF0aF0pLAogICAgICBjbGFzc2lmeShbcGF0aF0pLAogICAgKTsKICAgIGFzc2VydEVxdWFscyhkaXZlcmdlbmNlcywgW10sIGAke3BhdGh9IG11c3QgYWdyZWUgd2l0aCBsZWdhY3lgKTsKICB9CiAgY29uc3QgYXVkaXQgPSBkZXJpdmVkKFsic2NyaXB0cy9heGlvbS1hdWRpdC5zaCJdKTsKICBhc3NlcnRFcXVhbHMoYXVkaXQubGVhbl9idWlsZCwgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKGF1ZGl0LnNwZWNfYnVpbGQsIHRydWUpOwogIGFzc2VydEVxdWFscyhhdWRpdC5weXRob25fdGVzdHMsIGZhbHNlKTsKICBhc3NlcnRFcXVhbHMoYXVkaXQuZnVsbCwgZmFsc2UpOwp9KTsKCkRlbm8udGVzdCgiZGVyaXZlZCBjbGFzc2lmaWVyIGtlZXBzIG5vbi1NYXJrZG93biBkb2NzLXRyZWUgZmlsZXMgZmFpbC1jbG9zZWQiLCAoKSA9PiB7CiAgLy8gQ3V0b3ZlciBDMCwgYXV0aG9yIGRlY2lzaW9uIDIwMjYtMTAtMjY6IG5vbi1NYXJrZG93biBmaWxlcwogIC8vIHVuZGVyIHdpa2kvIG9yIHRoZW9yZXRpY2FsLXByb2plY3RzLyBmb3JjZSBmdWxsLCBhcyB0aGUKICAvLyBsZWdhY3kgY2xhc3NpZmllciBsZWF2ZXMgdGhlbSB1bmNsYXNzaWZpZWQuIEV4Y2VwdGlvbnM6IHRoZQogIC8vIFRMQSBtb2RlbHMgKHRsYV9tb2RlbF9jaGVjaywgRDIpIGFuZCBkZWNsYXJlZCByZWFkIGlucHV0cwogIC8vICh3aWtpL3JlZmVyZW5jZXMuanNvbiwgYSBzcGVjLWJ1aWxkIGlucHV0KS4KICBmb3IgKAogICAgY29uc3QgcGF0aCBvZiBbIndpa2kvbm90ZXMuanNvbiIsICJ0aGVvcmV0aWNhbC1wcm9qZWN0cy9rN29zL25vdGVzLnR4dCJdCiAgKSB7CiAgICBjb25zdCBkaXZlcmdlbmNlcyA9IGRlcml2ZWREaXZlcmdlbmNlcygKICAgICAgZGVyaXZlZChbcGF0aF0pLAogICAgICBjbGFzc2lmeShbcGF0aF0pLAogICAgKTsKICAgIGFzc2VydEVxdWFscyhkaXZlcmdlbmNlcywgW10sIGAke3BhdGh9IG11c3QgYWdyZWUgd2l0aCBsZWdhY3lgKTsKICAgIGFzc2VydEVxdWFscyhkZXJpdmVkKFtwYXRoXSkuZnVsbCwgdHJ1ZSk7CiAgfQogIGNvbnN0IHRsYSA9IGRlcml2ZWQoWyJ0aGVvcmV0aWNhbC1wcm9qZWN0cy9rN29zL21vZGVscy9EMDEudGxhIl0pOwogIGFzc2VydEVxdWFscyh0bGEuZnVsbCwgZmFsc2UpOwogIGFzc2VydEVxdWFscyh0bGEuc3VyZmFjZXMudGxhX21vZGVsX2NoZWNrLCB0cnVlKTsKICBjb25zdCByZWZzID0gZGVyaXZlZChbIndpa2kvcmVmZXJlbmNlcy5qc29uIl0pOwogIGFzc2VydEVxdWFscyhyZWZzLmZ1bGwsIGZhbHNlKTsKICBhc3NlcnRFcXVhbHMocmVmcy5zcGVjX2J1aWxkLCB0cnVlKTsKfSk7CgpEZW5vLnRlc3QoImRlcml2ZWQgY2xhc3NpZmllciBtYXBzIEsgcmVhZCBpbnB1dHMgdG8gdGhlIEsgc3VyZmFjZXMiLCAoKSA9PiB7CiAgLy8gQ3V0b3ZlciBDMTogdGhlIGZvcm1lciBrN3BsLXNlbWFudGljcy55YW1sIHBhdGggZmlsdGVycywKICAvLyBkZWNsYXJlZCBhcyByZWFkIGlucHV0cyBvZiBrLXNlbWFudGljcyBpbnN0ZWFkIG9mIGhpZGRlbgogIC8vIGZpbHRlcnMuIEEgc3BlYyBmaWxlIG91dHNpZGUgU3BlYy8vZm9ybWFsLWNoYWluLCBhbmQgYQogIC8vIHRvb2xzLyBmaWxlIG91dHNpZGUgdGhlIGV4dHJhY3RvciwgbXVzdCBOT1QgdHJpZ2dlciBLLgogIGNvbnN0IHNwZWMgPSBkZXJpdmVkKFsic3BlYy9TcGVjL0Zvby5sZWFuIl0pOwogIGFzc2VydEVxdWFscyhzcGVjLnN1cmZhY2VzLmtfY29tcGlsZSwgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKHNwZWMuc3VyZmFjZXMua19leGFtcGxlcywgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKHNwZWMuc3VyZmFjZXMua2xlYW5fZXhwb3J0LCB0cnVlKTsKICBjb25zdCBvdGhlclNwZWMgPSBkZXJpdmVkKFsic3BlYy9Ob3Rlcy50eHQiXSk7CiAgYXNzZXJ0RXF1YWxzKG90aGVyU3BlYy5zdXJmYWNlcy5rX2NvbXBpbGUsIGZhbHNlKTsKICBhc3NlcnRFcXVhbHMob3RoZXJTcGVjLnN1cmZhY2VzLmtfZXhhbXBsZXMsIGZhbHNlKTsKICBjb25zdCBleHRyYWN0b3IgPSBkZXJpdmVkKFsidG9vbHMvU3BlY01haW4ubGVhbiJdKTsKICBhc3NlcnRFcXVhbHMoZXh0cmFjdG9yLnN1cmZhY2VzLmtfY29tcGlsZSwgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKGV4dHJhY3Rvci5zdXJmYWNlcy5rbGVhbl9leHBvcnQsIHRydWUpOwogIGNvbnN0IGNvbXBsaWFuY2UgPSBkZXJpdmVkKFsidG9vbHMvQ29tcGxpYW5jZS9Gb28ubGVhbiJdKTsKICBhc3NlcnRFcXVhbHMoY29tcGxpYW5jZS5zdXJmYWNlcy5rX2NvbXBpbGUsIGZhbHNlKTsKICBhc3NlcnRFcXVhbHMoY29tcGxpYW5jZS5sZWFuX2J1aWxkLCB0cnVlKTsKICBjb25zdCBleGFtcGxlcyA9IGRlcml2ZWQoWyJ0ZXN0cy9leGFtcGxlcy9hZGQuazciXSk7CiAgYXNzZXJ0RXF1YWxzKGV4YW1wbGVzLnN1cmZhY2VzLmtfZXhhbXBsZXMsIHRydWUpOwogIGFzc2VydEVxdWFscyhleGFtcGxlcy5zdXJmYWNlcy5rX2NvbXBpbGUsIGZhbHNlKTsKICBhc3NlcnRFcXVhbHMoZXhhbXBsZXMubGVhbl9idWlsZCwgdHJ1ZSk7CiAgLy8gQXV0aG9yIGRlY2lzaW9uIDIwMjYtMTAtMjYsIHRlbXBvcmFyeSB1bnRpbCBQUiAjMzExOgogIC8vIHdpa2kvc2VtYW50aWNzLm1kIGtlZXBzIHRyaWdnZXJpbmcgSywgaW4gYWRkaXRpb24gdG8KICAvLyBkb2NzX2xpbmtzIGZyb20gdGhlIE1hcmtkb3duIHJ1bGUuCiAgY29uc3Qgc2VtYW50aWNzID0gZGVyaXZlZChbIndpa2kvc2VtYW50aWNzLm1kIl0pOwogIGFzc2VydEVxdWFscyhzZW1hbnRpY3Muc3VyZmFjZXMua19jb21waWxlLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMoc2VtYW50aWNzLnN1cmZhY2VzLmtfZXhhbXBsZXMsIHRydWUpOwogIGFzc2VydEVxdWFscyhzZW1hbnRpY3Muc3VyZmFjZXMua2xlYW5fZXhwb3J0LCB0cnVlKTsKICBhc3NlcnRFcXVhbHMoc2VtYW50aWNzLmRvY3NfbGlua3MsIHRydWUpOwp9KTsKCkRlbm8udGVzdCgiZGVyaXZlZCBjbGFzc2lmaWVyIG1hcHMgSywgcHJvb2ZzIGFuZCBUTEEgdG8gdGhlaXIgbmV3IHN1cmZhY2VzIiwgKCkgPT4gewogIGNvbnN0IGsgPSBkZXJpdmVkKFsic3JjL2svZm9vLmsiXSk7CiAgYXNzZXJ0RXF1YWxzKGsuc3VyZmFjZXMua19jb21waWxlLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMoay5zdXJmYWNlcy5rX2V4YW1wbGVzLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMoay5zdXJmYWNlcy5rbGVhbl9leHBvcnQsIHRydWUpOwogIC8vIERlY2lkZWQgRDIgYmVoYXZpb3VyLCBkaXZlcmdpbmcgZnJvbSBsZWdhY3k6IHNyYy9rLyBubyBsb25nZXIKICAvLyBvdmVyLXRyaWdnZXJzIHRoZSBMZWFuIGJ1aWxkOyBpdHMgc3BlYy9weXRob24gcmVhZCBydWxlcyBzdGF5LgogIGFzc2VydEVxdWFscyhrLmxlYW5fYnVpbGQsIGZhbHNlKTsKICBhc3NlcnRFcXVhbHMoay5zcGVjX2NoZWNrLCB0cnVlKTsKICBhc3NlcnRFcXVhbHMoay5weXRob25fdGVzdHMsIHRydWUpOwoKICBjb25zdCBwcm9vZnMgPSBkZXJpdmVkKFsicHJvb2ZzL0Zvby5sZWFuIl0pOwogIGFzc2VydEVxdWFscyhwcm9vZnMuc3VyZmFjZXMuYXhpb21fYXVkaXQsIHRydWUpOwogIGFzc2VydEVxdWFscyhwcm9vZnMuZnVsbCwgZmFsc2UpOwoKICBjb25zdCB0bGEgPSBkZXJpdmVkKFsidGhlb3JldGljYWwtcHJvamVjdHMvazdvcy9tb2RlbHMvRDAxLnRsYSJdKTsKICBhc3NlcnRFcXVhbHModGxhLnN1cmZhY2VzLnRsYV9tb2RlbF9jaGVjaywgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKHRsYS5mdWxsLCBmYWxzZSk7Cn0pOwoKRGVuby50ZXN0KCJkZXJpdmVkIGNsYXNzaWZpZXIgZm9yY2VzIGZ1bGwgb24gdW5rbm93biBwYXRocywgZmFpbC1jbG9zZWQiLCAoKSA9PiB7CiAgY29uc3QgcmVzdWx0ID0gZGVyaXZlZChbInNvbWUvcmFuZG9tL2ZpbGUudHh0Il0pOwogIGFzc2VydEVxdWFscyhyZXN1bHQuZnVsbCwgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKHJlc3VsdC51bmNsYXNzaWZpZWQsIHRydWUpOwogIGFzc2VydEVxdWFscyhyZXN1bHQudW5rbm93bl9wYXRocywgWyJzb21lL3JhbmRvbS9maWxlLnR4dCJdKTsKICAvLyBDb25zZXJ2YXRpdmUgZXhwYW5zaW9uOiBhbiB1bmtub3duIHBhdGggdHJpZ2dlcnMgZXZlcnkgc3VyZmFjZSwKICAvLyBpbmNsdWRpbmcgdGhlIG5ldyBkZXJpdmF0aW9uIHRhcmdldHMuCiAgYXNzZXJ0RXF1YWxzKHJlc3VsdC5zdXJmYWNlcy5heGlvbV9hdWRpdCwgdHJ1ZSk7CiAgYXNzZXJ0RXF1YWxzKHJlc3VsdC5zdXJmYWNlcy50bGFfbW9kZWxfY2hlY2ssIHRydWUpOwp9KTsKCkRlbm8udGVzdCgiZGVyaXZlZCBjbGFzc2lmaWVyIG1hcHMgZnVsbC1leGFjdCB0b29sY2hhaW4gZmlsZXMgdG8gZnVsbCIsICgpID0+IHsKICBjb25zdCByZXN1bHQgPSBkZXJpdmVkKFsibGFrZWZpbGUubGVhbiIsICJsZWFuLXRvb2xjaGFpbiJdKTsKICBhc3NlcnRFcXVhbHMocmVzdWx0LmZ1bGwsIHRydWUpOwogIGFzc2VydEVxdWFscyhyZXN1bHQudW5jbGFzc2lmaWVkLCBmYWxzZSk7Cn0pOwoKRGVuby50ZXN0KCJkZXJpdmVkIGFuZCBsZWdhY3kgY2xhc3NpZmllcnMgYWdyZWUgb24gdGhlIGNvcmUgcGF0aCBzZXQiLCAoKSA9PiB7CiAgY29uc3QgcGF0aHMgPSBbCiAgICAic3BlYy9TcGVjL0MzL0Zvby5sZWFuIiwKICAgICJzcmMvRm9vLmxlYW4iLAogICAgInRlc3RzL0Zvb1Rlc3QubGVhbiIsCiAgICAidG9vbHMvU3BlY0V4dC9JbmRleENvcmUubGVhbiIsCiAgICAic2NyaXB0cy9jb250cm9sZS5weSIsCiAgICAic2NyaXB0cy9nZW5lcmF0ZV9zdGF0dXMucHkiLAogICAgInRlc3RzL3B5dGhvbi90ZXN0X2Zvby5weSIsCiAgICAid2lraS9hc3N1cmFuY2UubWQiLAogICAgIndpa2kvZ3VpZGUubWQiLAogICAgImxha2VmaWxlLmxlYW4iLAogICAgIi5naXRodWIvd29ya2Zsb3dzL2NpLnlhbWwiLAogICAgInNjcmlwdHMvY2kvaW1wYWN0LnB5IiwKICBdOwogIGNvbnN0IGRpdmVyZ2VuY2VzID0gZGVyaXZlZERpdmVyZ2VuY2VzKGRlcml2ZWQocGF0aHMpLCBjbGFzc2lmeShwYXRocykpOwogIGFzc2VydEVxdWFscyhkaXZlcmdlbmNlcywgW10pOwp9KTsKCkRlbm8udGVzdCgiZGVyaXZlZC1zaGFkb3cgZG9jdW1lbnRzIHRoZSBrbm93biBkaXZlcmdlbmNlcywgaXQgZG9lcyBub3QgaGlkZSB0aGVtIiwgKCkgPT4gewogIGNvbnN0IHJlZ2lzdHJ5ID0gbG9hZFJlZ2lzdHJ5RmlsZShSRUdJU1RSWV9QQVRIKTsKICBjb25zdCBkaXZlcmdlbnRQYXRocyA9IFsKICAgIC8vIEludGVuZGVkIEQyIGJlaGF2aW91cjogZGVkaWNhdGVkIHN1cmZhY2VzIGluc3RlYWQgb2YgZnVsbC4KICAgICJwcm9vZnMvRm9vLmxlYW4iLAogICAgInRoZW9yZXRpY2FsLXByb2plY3RzL2s3b3MvbW9kZWxzL0QwMS50bGEiLAogICAgLy8gSW50ZW5kZWQgRDIgYmVoYXZpb3VyOiBLIHN1cmZhY2VzLCBubyBMZWFuIG92ZXItdHJpZ2dlcmluZy4KICAgICJzcmMvay9mb28uayIsCiAgICAvLyB3aWtpL3JlZmVyZW5jZXMuanNvbiBpcyBhIHNwZWMtYnVpbGQgaW5wdXQsIGJ1dCB0aGUgd2lraQogICAgLy8gcm9vdCBhbHNvIGNsYWltcyBpdCBmb3IgZG9jc19saW5rczsgY29uc2VydmF0aXZlIGV4dHJhCiAgICAvLyBzdXJmYWNlLCBrZXB0IGludGVudGlvbmFsbHksIGxlZ2FjeSBzcGVjIGJyYW5jaCBkb2VzIG5vdAogICAgLy8gc2V0IGl0LgogICAgIndpa2kvcmVmZXJlbmNlcy5qc29uIiwKICBdOwogIGZvciAoY29uc3QgcGF0aCBvZiBkaXZlcmdlbnRQYXRocykgewogICAgY29uc3QgZGl2ZXJnZW5jZXMgPSBkZXJpdmVkRGl2ZXJnZW5jZXMoCiAgICAgIGRlcml2ZUNsYXNzaWZpY2F0aW9uKHJlZ2lzdHJ5LCBbcGF0aF0pLAogICAgICBjbGFzc2lmeShbcGF0aF0pLAogICAgKTsKICAgIGFzc2VydCgKICAgICAgZGl2ZXJnZW5jZXMubGVuZ3RoID4gMCwKICAgICAgYCR7cGF0aH0gbXVzdCBkaXZlcmdlIGluIHNoYWRvdyAob3RoZXJ3aXNlIGl0IGlzIG5vdCBhIGtub3duIGNhc2UpYCwKICAgICk7CiAgfQp9KTsKCkRlbm8udGVzdCgiZGVyaXZlZCBnYXRpbmcgc3VyZmFjZXMgYXJlIGVtaXR0ZWQgYXMgR2l0SHViIG91dHB1dHMiLCAoKSA9PiB7CiAgY29uc3QgbGluZXMgPSBkZXJpdmVkR2l0aHViT3V0cHV0TGluZXMoZGVyaXZlZChbInNyYy9rL2Zvby5rIl0pKTsKICBhc3NlcnRFcXVhbHMobGluZXMsIFsKICAgICJheGlvbV9hdWRpdD1mYWxzZSIsCiAgICAia19jb21waWxlPXRydWUiLAogICAgImtfZXhhbXBsZXM9dHJ1ZSIsCiAgICAia2xlYW5fZXhwb3J0PXRydWUiLAogICAgInRsYV9tb2RlbF9jaGVjaz1mYWxzZSIsCiAgXSk7CiAgY29uc3QgZnVsbCA9IGRlcml2ZWRHaXRodWJPdXRwdXRMaW5lcyhkZXJpdmVkKFsiTWFrZWZpbGUiXSkpOwogIGFzc2VydChmdWxsLmV2ZXJ5KChsaW5lKSA9PiBsaW5lLmVuZHNXaXRoKCI9dHJ1ZSIpKSk7CiAgYXNzZXJ0RXF1YWxzKGZ1bGwubGVuZ3RoLCA1KTsKfSk7CgpEZW5vLnRlc3QoImRlcml2ZWQgZGVjaXNpb24gb3V0cHV0cyBjYXJyeSBhbGwgdGhpcnRlZW4gc3VyZmFjZXMgaW4gb3JkZXIiLCAoKSA9PiB7CiAgLy8gc3JjL2svZm9vLms6IGstc2VtYW50aWNzIHJvb3RzIChLIHN1cmZhY2VzKSArIHNwZWNpZmljYXRpb24KICAvLyByZWFkX2lucHV0IHNyYy8gKHNwZWNfY2hlY2spICsgcHl0aG9uLXRvb2xpbmcgcmVhZF9pbnB1dCBzcmMvCiAgLy8gKHB5dGhvbl90ZXN0cykuCiAgY29uc3QgbGluZXMgPSBkZXJpdmVkRGVjaXNpb25PdXRwdXRMaW5lcyhkZXJpdmVkKFsic3JjL2svZm9vLmsiXSkpOwogIGFzc2VydEVxdWFscyhsaW5lcywgWwogICAgImZ1bGw9ZmFsc2UiLAogICAgImRvY3NfbGlua3M9ZmFsc2UiLAogICAgInNwZWNfY2hlY2s9dHJ1ZSIsCiAgICAic3BlY19idWlsZD1mYWxzZSIsCiAgICAibGVhbl9idWlsZD1mYWxzZSIsCiAgICAicHl0aG9uX3Rlc3RzPXRydWUiLAogICAgInRyYWNraW5nX3ZpZXdzPWZhbHNlIiwKICAgICJ1bmNsYXNzaWZpZWQ9ZmFsc2UiLAogICAgImF4aW9tX2F1ZGl0PWZhbHNlIiwKICAgICJrX2NvbXBpbGU9dHJ1ZSIsCiAgICAia19leGFtcGxlcz10cnVlIiwKICAgICJrbGVhbl9leHBvcnQ9dHJ1ZSIsCiAgICAidGxhX21vZGVsX2NoZWNrPWZhbHNlIiwKICBdKTsKICBjb25zdCBmdWxsID0gZGVyaXZlZERlY2lzaW9uT3V0cHV0TGluZXMoZGVyaXZlZChbIk1ha2VmaWxlIl0pKTsKICBhc3NlcnQoZnVsbC5ldmVyeSgobGluZSkgPT4gbGluZS5lbmRzV2l0aCgiPXRydWUiKSkpOwogIGFzc2VydEVxdWFscyhmdWxsLmxlbmd0aCwgMTMpOwp9KTsK
+// SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+//
+// SPDX-License-Identifier: CECILL-2.1
+
+import { assert, assertEquals } from "./assert.ts";
+import { classify } from "../src/classify.ts";
+import {
+  deriveClassification,
+  derivedDecisionOutputLines,
+  derivedDivergences,
+  derivedGithubOutputLines,
+} from "../src/derived.ts";
+import { loadRegistryFile } from "../src/registry.ts";
+
+const REPO_ROOT = new URL("../../../", import.meta.url).pathname;
+const REGISTRY_PATH = `${REPO_ROOT}.github/ci/components.yaml`;
+
+function derived(paths: string[]) {
+  return deriveClassification(loadRegistryFile(REGISTRY_PATH), paths);
+}
+
+Deno.test("derived classifier maps spec roots to the spec surfaces", () => {
+  const result = derived(["spec/Spec/C3/Foo.lean"]);
+  assertEquals(result.spec_check, true);
+  assertEquals(result.spec_build, true);
+  assertEquals(result.python_tests, true);
+  assertEquals(result.lean_build, false);
+  assertEquals(result.full, false);
+});
+
+Deno.test("derived classifier applies read inputs (src, assurance, SpecExt)", () => {
+  const result = derived([
+    "src/Foo.lean",
+    "wiki/assurance.md",
+    "tools/SpecExt/IndexCore.lean",
+  ]);
+  assertEquals(result.lean_build, true);
+  assertEquals(result.spec_check, true);
+  assertEquals(result.python_tests, true);
+  assertEquals(result.docs_links, true);
+});
+
+Deno.test("a src/ change alone triggers spec_check, not the spec build", () => {
+  // This is why read inputs may restrict their surfaces: src/ is
+  // read by the spec checks only, while spec/ roots trigger the
+  // whole specification surface set.
+  const result = derived(["src/Foo.lean"]);
+  assertEquals(result.spec_check, true);
+  assertEquals(result.spec_build, false);
+  assertEquals(result.python_tests, true);
+  assertEquals(result.lean_build, true);
+});
+
+Deno.test("derived classifier maps spec-build inputs declared in the registry", () => {
+  const result = derived([
+    "scripts/controle.py",
+    "scripts/controles/croise.py",
+    "wiki/references.json",
+  ]);
+  assertEquals(result.spec_check, true);
+  assertEquals(result.spec_build, true);
+  assertEquals(result.python_tests, true);
+  assertEquals(result.full, false);
+});
+
+Deno.test("derived classifier honours legacy light paths and the axiom-audit exact rule", () => {
+  // Cutover C0: these paths used to diverge (light paths fell
+  // through to full, axiom-audit.sh picked up python_tests from
+  // the scripts/ root). They must now agree with the legacy
+  // classifier exactly, per path.
+  for (
+    const path of [
+      ".claude/settings.json",
+      ".github/ISSUE_TEMPLATE/bug.md",
+      "LICENSES/CC0-1.0.txt",
+      "CITATION.cff",
+      "scripts/axiom-audit.sh",
+    ]
+  ) {
+    const divergences = derivedDivergences(
+      derived([path]),
+      classify([path]),
+    );
+    assertEquals(divergences, [], `${path} must agree with legacy`);
+  }
+  const audit = derived(["scripts/axiom-audit.sh"]);
+  assertEquals(audit.lean_build, true);
+  assertEquals(audit.spec_build, true);
+  assertEquals(audit.python_tests, false);
+  assertEquals(audit.full, false);
+});
+
+Deno.test("derived classifier keeps non-Markdown docs-tree files fail-closed", () => {
+  // Cutover C0, author decision 2026-10-26: non-Markdown files
+  // under wiki/ or theoretical-projects/ force full, as the
+  // legacy classifier leaves them unclassified. Exceptions: the
+  // TLA models (tla_model_check, D2) and declared read inputs
+  // (wiki/references.json, a spec-build input).
+  for (
+    const path of ["wiki/notes.json", "theoretical-projects/k7os/notes.txt"]
+  ) {
+    const divergences = derivedDivergences(
+      derived([path]),
+      classify([path]),
+    );
+    assertEquals(divergences, [], `${path} must agree with legacy`);
+    assertEquals(derived([path]).full, true);
+  }
+  const tla = derived(["theoretical-projects/k7os/models/D01.tla"]);
+  assertEquals(tla.full, false);
+  assertEquals(tla.surfaces.tla_model_check, true);
+  const refs = derived(["wiki/references.json"]);
+  assertEquals(refs.full, false);
+  assertEquals(refs.spec_build, true);
+});
+
+Deno.test("derived classifier maps K read inputs to the K surfaces", () => {
+  // Cutover C1: the former k7pl-semantics.yaml path filters,
+  // declared as read inputs of k-semantics instead of hidden
+  // filters. A spec file outside Spec//formal-chain, and a
+  // tools/ file outside the extractor, must NOT trigger K.
+  const spec = derived(["spec/Spec/Foo.lean"]);
+  assertEquals(spec.surfaces.k_compile, true);
+  assertEquals(spec.surfaces.k_examples, true);
+  assertEquals(spec.surfaces.klean_export, true);
+  const otherSpec = derived(["spec/Notes.txt"]);
+  assertEquals(otherSpec.surfaces.k_compile, false);
+  assertEquals(otherSpec.surfaces.k_examples, false);
+  const extractor = derived(["tools/SpecMain.lean"]);
+  assertEquals(extractor.surfaces.k_compile, true);
+  assertEquals(extractor.surfaces.klean_export, true);
+  const compliance = derived(["tools/Compliance/Foo.lean"]);
+  assertEquals(compliance.surfaces.k_compile, false);
+  assertEquals(compliance.lean_build, true);
+  const examples = derived(["tests/examples/add.k7"]);
+  assertEquals(examples.surfaces.k_examples, true);
+  assertEquals(examples.surfaces.k_compile, false);
+  assertEquals(examples.lean_build, true);
+  // Author decision 2026-10-26, temporary until PR #311:
+  // wiki/semantics.md keeps triggering K, in addition to
+  // docs_links from the Markdown rule.
+  const semantics = derived(["wiki/semantics.md"]);
+  assertEquals(semantics.surfaces.k_compile, true);
+  assertEquals(semantics.surfaces.k_examples, true);
+  assertEquals(semantics.surfaces.klean_export, true);
+  assertEquals(semantics.docs_links, true);
+});
+
+Deno.test("derived classifier maps K, proofs and TLA to their new surfaces", () => {
+  const k = derived(["src/k/foo.k"]);
+  assertEquals(k.surfaces.k_compile, true);
+  assertEquals(k.surfaces.k_examples, true);
+  assertEquals(k.surfaces.klean_export, true);
+  // Decided D2 behaviour, diverging from legacy: src/k/ no longer
+  // over-triggers the Lean build; its spec/python read rules stay.
+  assertEquals(k.lean_build, false);
+  assertEquals(k.spec_check, true);
+  assertEquals(k.python_tests, true);
+
+  const proofs = derived(["proofs/Foo.lean"]);
+  assertEquals(proofs.surfaces.axiom_audit, true);
+  assertEquals(proofs.full, false);
+
+  const tla = derived(["theoretical-projects/k7os/models/D01.tla"]);
+  assertEquals(tla.surfaces.tla_model_check, true);
+  assertEquals(tla.full, false);
+});
+
+Deno.test("derived classifier forces full on unknown paths, fail-closed", () => {
+  const result = derived(["some/random/file.txt"]);
+  assertEquals(result.full, true);
+  assertEquals(result.unclassified, true);
+  assertEquals(result.unknown_paths, ["some/random/file.txt"]);
+  // Conservative expansion: an unknown path triggers every surface,
+  // including the new derivation targets.
+  assertEquals(result.surfaces.axiom_audit, true);
+  assertEquals(result.surfaces.tla_model_check, true);
+});
+
+Deno.test("derived classifier maps full-exact toolchain files to full", () => {
+  const result = derived(["lakefile.lean", "lean-toolchain"]);
+  assertEquals(result.full, true);
+  assertEquals(result.unclassified, false);
+});
+
+Deno.test("derived and legacy classifiers agree on the core path set", () => {
+  const paths = [
+    "spec/Spec/C3/Foo.lean",
+    "src/Foo.lean",
+    "tests/FooTest.lean",
+    "tools/SpecExt/IndexCore.lean",
+    "scripts/controle.py",
+    "scripts/generate_status.py",
+    "tests/python/test_foo.py",
+    "wiki/assurance.md",
+    "wiki/guide.md",
+    "lakefile.lean",
+    ".github/workflows/ci.yaml",
+    "scripts/ci/impact.py",
+  ];
+  const divergences = derivedDivergences(derived(paths), classify(paths));
+  assertEquals(divergences, []);
+});
+
+Deno.test("derived-shadow documents the known divergences, it does not hide them", () => {
+  const registry = loadRegistryFile(REGISTRY_PATH);
+  const divergentPaths = [
+    // Intended D2 behaviour: dedicated surfaces instead of full.
+    "proofs/Foo.lean",
+    "theoretical-projects/k7os/models/D01.tla",
+    // Intended D2 behaviour: K surfaces, no Lean over-triggering.
+    "src/k/foo.k",
+    // wiki/references.json is a spec-build input, but the wiki
+    // root also claims it for docs_links; conservative extra
+    // surface, kept intentionally, legacy spec branch does not
+    // set it.
+    "wiki/references.json",
+  ];
+  for (const path of divergentPaths) {
+    const divergences = derivedDivergences(
+      deriveClassification(registry, [path]),
+      classify([path]),
+    );
+    assert(
+      divergences.length > 0,
+      `${path} must diverge in shadow (otherwise it is not a known case)`,
+    );
+  }
+});
+
+Deno.test("derived gating surfaces are emitted as GitHub outputs", () => {
+  const lines = derivedGithubOutputLines(derived(["src/k/foo.k"]));
+  assertEquals(lines, [
+    "axiom_audit=false",
+    "k_compile=true",
+    "k_examples=true",
+    "klean_export=true",
+    "tla_model_check=false",
+  ]);
+  const full = derivedGithubOutputLines(derived(["Makefile"]));
+  assert(full.every((line) => line.endsWith("=true")));
+  assertEquals(full.length, 5);
+});
+
+Deno.test("derived decision outputs carry all thirteen surfaces in order", () => {
+  // src/k/foo.k: k-semantics roots (K surfaces) + specification
+  // read_input src/ (spec_check) + python-tooling read_input src/
+  // (python_tests).
+  const lines = derivedDecisionOutputLines(derived(["src/k/foo.k"]));
+  assertEquals(lines, [
+    "full=false",
+    "docs_links=false",
+    "spec_check=true",
+    "spec_build=false",
+    "lean_build=false",
+    "python_tests=true",
+    "tracking_views=false",
+    "unclassified=false",
+    "axiom_audit=false",
+    "k_compile=true",
+    "k_examples=true",
+    "klean_export=true",
+    "tla_model_check=false",
+  ]);
+  const full = derivedDecisionOutputLines(derived(["Makefile"]));
+  assert(full.every((line) => line.endsWith("=true")));
+  assertEquals(full.length, 13);
+});
