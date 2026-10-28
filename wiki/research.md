@@ -1470,6 +1470,74 @@ nothing.
   on the unit of the encoding (8 bits for UTF-8, 16 for UTF-16, 32 for
   UTF-32, 7 for ASCII stored without padding).
 
+### Actor scenarios: material for the discussion
+
+Opened on 2026-10-28 at the author's request (Q-SPEC-307: « il nous
+faut une approche plus systémique pour identifier et composer les
+scénarios avec la question : est-ce que je souhaite séparer une
+vérification d'une transformation, d'une livraison, etc. »).
+
+What the specification already says:
+
+- Chapter 3, « pureté des gestionnaires »: a pure layer-2 handler
+  is a map `(Message × Capacités × État) → État` whose effect is
+  neutral, and « Le résultat d'un tel gestionnaire n'est pas un effet
+  exécuté mais une _description_ d'effets, une liste d'instructions
+  que l'exécutif réalise ; c'est cette exécution, non la transition,
+  qui est journalisée. »
+- Chapter 4, the replay theorem `thm:determinisme_rejeu` (under
+  review): replaying the journaled
+  messages through the pure handlers of an actor reproduces its final
+  state up to observation.
+- Chapter 5 (eighth part): `:on (Increment :sets value […])`, the
+  handler derived by the rule of `Result`.
+
+Other systems, read on 2026-10-28; quotations are verbatim:
+
+- **Erlang/OTP `gen_server`**: `handle_call` returns
+  « {reply,Reply,NewState} […] The Reply value is sent back to the
+  client request and there becomes its return value. The gen_server
+  process continues executing with the possibly updated internal
+  state NewState ». Source:
+  https://www.erlang.org/doc/apps/stdlib/gen_server.html.
+- **Elm**: « our programs will also send Cmd and Sub values to the
+  runtime system. In this world, our programs can command the runtime
+  system to make an HTTP request or to generate a random number ».
+  Source: https://guide.elm-lang.org/effects/.
+- **The decider (J. Chassaing, 2021)**: « type Decide = Command ->
+  State -> Event list »; « This function has no reason to produce any
+  side effects »; « type Evolve = State -> Event -> State […] Given a
+  current State, when Event occurs, here is the new State ». Source:
+  https://thinkbeforecoding.com/post/2021/12/17/functional-event-sourcing-decider.
+- **Akka persistence**: « A command handler returns an Effect
+  directive that defines what event or events, if any, to persist »;
+  « The event handler must only update the state and never perform
+  side effects, as those would also be executed during recovery of
+  the persistent actor. Side effects should be performed in thenRun
+  from the command handler after persisting the event ». Source:
+  https://doc.akka.io/libraries/akka-core/current/typed/persistence.html.
+- **Event sourcing (M. Fowler, 2005)**: « Capture all changes to an
+  application state as a sequence of events ». Source:
+  https://martinfowler.com/eaaDev/EventSourcing.html.
+
+Inferred, not decided:
+
+- The three steps the author names map onto the layers. Checking a
+  message and deciding what happens is pure and terminating (layer
+  3). So is applying what was decided to the state (the decider's
+  `evolve`). Delivering — the reply, the messages to other actors,
+  what is persisted — is the description of effects of chapter 3,
+  which the executive runs (layer 2).
+- The rule of `Result` of the eighth part is the degenerate case:
+  one decision (`Ok v` or `Err e`), an `evolve` that sets one field,
+  and a delivery reduced to the reply.
+- Akka's rule that the event handler never performs side effects is
+  the condition chapter 4's replay theorem already needs: replay runs
+  the transitions again, never the deliveries.
+- Scenarios that span several messages (a protocol, a saga) are not
+  covered by any of these shapes; they belong with the session types
+  of chapter 4 and annex A.
+
 ## Archive review: early K premises (`OLD_K_K7PL`)
 
 Received from the author on 2026-10-27 as `OLD_K_K7PL.zip`, described
