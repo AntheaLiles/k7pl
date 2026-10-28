@@ -5,50 +5,33 @@
 name: K7PL formal semantics
 
 on:
-  pull_request:
-    paths:
-      - "src/k/**"
-      - "tests/examples/**"
-      - "wiki/semantics.md"
-      - "theoretical-projects/k7os/models/D01NativeBoundary.tla"
-      - "theoretical-projects/k7os/models/D01-NativeBoundary-ExpectedCounterexample.json"
-      - "theoretical-projects/k7os/models/D01-NativeBoundary*.cfg"
-      - "scripts/ci/k7pl_os_boundary_check.sh"
-      - "tests/examples/native-boundary/**"
-      - "proofs/**"
-      - "spec/formal-chain/**"
-      - "scripts/ci/test_code_artifact_contract.py"
-      - "scripts/ci/k7pl_semantics_axiom_report.py"
-      - "scripts/ci/test_k7pl_semantics_axiom_report.py"
-      - "spec/Spec.lean"
-      - "spec/Spec/**"
-      - "tools/**"
-      - "Makefile"
-      - "scripts/ci/patch_klean_prelude.py"
-      - "scripts/ci/test_patch_klean_prelude.py"
-      - "scripts/ci/k7pl_semantics_*.sh"
-      - "REUSE.toml"
-      - ".github/workflows/k7pl-semantics.yaml"
-  push:
-    branches: [main]
-    paths:
-      - "src/k/**"
-      - "tests/examples/**"
-      - "wiki/semantics.md"
-      - "proofs/**"
-      - "spec/formal-chain/**"
-      - "scripts/ci/test_code_artifact_contract.py"
-      - "scripts/ci/k7pl_semantics_axiom_report.py"
-      - "scripts/ci/test_k7pl_semantics_axiom_report.py"
-      - "spec/Spec.lean"
-      - "spec/Spec/**"
-      - "tools/**"
-      - "Makefile"
-      - "scripts/ci/patch_klean_prelude.py"
-      - "scripts/ci/test_patch_klean_prelude.py"
-      - "scripts/ci/k7pl_semantics_*.sh"
-      - "REUSE.toml"
-      - ".github/workflows/k7pl-semantics.yaml"
+  workflow_call:
+    inputs:
+      k_compile:
+        description: "K definition sources changed (derived surface)"
+        required: false
+        type: boolean
+        default: false
+      k_examples:
+        description: "K examples changed (derived surface)"
+        required: false
+        type: boolean
+        default: false
+      klean_export:
+        description: "Klean export inputs changed (derived surface)"
+        required: false
+        type: boolean
+        default: false
+      tla_model_check:
+        description: "TLA+ models changed (derived surface)"
+        required: false
+        type: boolean
+        default: false
+      axiom_audit:
+        description: "Lean proof project changed (derived surface)"
+        required: false
+        type: boolean
+        default: false
   workflow_dispatch:
 
 permissions:
@@ -57,6 +40,9 @@ permissions:
 jobs:
   d01-tlc:
     name: TLC model check and evidence for D01
+    # Cutover C2: the caller gates on the union of surfaces; inside, d01
+    # runs only for TLA+ changes (manual dispatch still runs everything).
+    if: ${{ github.event_name == 'workflow_dispatch' || inputs.tla_model_check }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -127,6 +113,9 @@ jobs:
 
   k-smoke:
     needs: d01-tlc
+    # Cutover C2: always() disables the implicit success() gate so a skipped
+    # d01 (TLA+ unchanged) does not skip k-smoke; a failed d01 still does.
+    if: ${{ always() && (github.event_name == 'workflow_dispatch' || inputs.k_compile || inputs.k_examples || inputs.klean_export || inputs.axiom_audit) && (needs.d01-tlc.result == 'success' || needs.d01-tlc.result == 'skipped') }}
     name: Compile K semantics, execute examples, export to Lean
     runs-on: ubuntu-22.04
     timeout-minutes: 45
@@ -222,6 +211,8 @@ jobs:
         run: deno run --allow-read --allow-write --allow-run=lake --allow-env=GITHUB_STEP_SUMMARY tools/ci-controller/src/render_blueprint.ts
 
       - name: Attach the checked TLC model and counterexample to the formal-chain evidence
+        # Only when d01 ran; otherwise there is no d01-tlc-evidence artifact.
+        if: ${{ github.event_name == 'workflow_dispatch' || inputs.tla_model_check }}
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: d01-tlc-evidence
@@ -242,7 +233,9 @@ jobs:
 
   refresh-main-status:
     name: Dispatch generated STATUS refresh after formal evidence
-    if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    # Cutover C2: !cancelled() disables the implicit success() gate so a
+    # skipped d01 does not block the refresh after k-smoke evidence.
+    if: ${{ !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.k-smoke.result == 'success' }}
     needs: [d01-tlc, k-smoke]
     runs-on: ubuntu-latest
     timeout-minutes: 5
