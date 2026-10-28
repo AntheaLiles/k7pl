@@ -4,7 +4,11 @@
 
 import { assert, assertEquals } from "./assert.ts";
 import { classify } from "../src/classify.ts";
-import { deriveClassification, derivedDivergences } from "../src/derived.ts";
+import {
+  deriveClassification,
+  derivedDivergences,
+  derivedGithubOutputLines,
+} from "../src/derived.ts";
 import { loadRegistryFile } from "../src/registry.ts";
 
 const REPO_ROOT = new URL("../../../", import.meta.url).pathname;
@@ -221,4 +225,18 @@ Deno.test("derived-shadow documents the known divergences, it does not hide them
       `${path} must diverge in shadow (otherwise it is not a known case)`,
     );
   }
+});
+
+Deno.test("derived gating surfaces are emitted as GitHub outputs", () => {
+  const lines = derivedGithubOutputLines(derived(["src/k/foo.k"]));
+  assertEquals(lines, [
+    "axiom_audit=false",
+    "k_compile=true",
+    "k_examples=true",
+    "klean_export=true",
+    "tla_model_check=false",
+  ]);
+  const full = derivedGithubOutputLines(derived(["Makefile"]));
+  assert(full.every((line) => line.endsWith("=true")));
+  assertEquals(full.length, 5);
 });
