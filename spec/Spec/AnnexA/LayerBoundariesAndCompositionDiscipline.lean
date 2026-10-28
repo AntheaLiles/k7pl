@@ -42,6 +42,10 @@ Codes rejetant une composition qui franchit une frontière de couche
   * Aucun composant ne correspond au filtre topologique d'une projection de namespace.
 * * `ERR-POL-001`
   * Distribution dynamique ou table virtuelle détectée. Utiliser une résolution `comptime` ou des variantes monomorphes.
+* * `ERR-POL-002`
+  * Instance manquante à l'épuisement du budget de spécialisation : le refus nomme le générique, la chaîne d'instances, le budget dépensé et celui qui suffirait. Relever le budget dans la source.
+* * `ERR-POL-003`
+  * Chaîne d'instances dont les types croissent sur un cycle, comme en produit la récursion polymorphe. Rompre le cycle par une variante monomorphe.
 * * `ERR-TYP-010`
   * Deux implémentations pour la même paire (type, trait).
 :::

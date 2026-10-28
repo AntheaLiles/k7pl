@@ -118,7 +118,8 @@ laisse inchangé l'AST normalisé du générique ne recompile rien, et un change
 que les instances de ce générique, non les unités qui les emploient.
 Chaque instance nouvelle décrémente le budget de spécialisation écrit dans la source, et une instance
 déjà fabriquée ne coûte rien. Une chaîne d'instances dont les types croissent sur un cycle, comme
-en produit la récursion polymorphe, est refusée quel que soit le budget, et le refus nomme le cycle.
+en produit la récursion polymorphe, est refusée quel que soit le budget (`ERR-POL-003`), et le refus
+nomme le cycle.
 Rien n'est partagé à l'exécution, ni dictionnaire ni table (`ERR-POL-001`) : les rangées de la
 couche 2 s'instancient comme les types, et les gestionnaires d'effets gardent le passage de
 capacités, une capacité étant une valeur de couche 1.
@@ -290,7 +291,8 @@ l'intégration adopte~: un _budget de spécialisation_, grade porté par l'unit�
 chaque intégration et chaque monomorphisation décrémentent, et dont l'épuisement arrête
 l'intégration au lieu d'échouer, ses appels restant en place. Il n'en va pas de même d'une instance
 qui manque encore : rien n'étant partagé à l'exécution, un appel générique laissé sans sa copie
-n'aurait aucun code à appeler, et le programme est refusé. Le refus nomme le générique, la chaîne
+n'aurait aucun code à appeler, et le programme est refusé (`ERR-POL-002`). Le refus nomme le
+générique, la chaîne
 d'instances qui y mène, le budget dépensé et celui qui suffirait. Ce budget est le même objet que
 celui qui borne la monomorphisation,
 laquelle n'est qu'une intégration dirigée par les types~: une seule décision les gouverne.

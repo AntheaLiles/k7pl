@@ -56,3 +56,18 @@ Avertissements émis à la lecture du texte
   * Étiquette de délimiteur qualifié non déclarée : le littéral reste un texte ordinaire, typé par l'étiquette. Déclarer le type de l'étiquette.
 :::
 ::::
+
+Une remarque n'est ni une erreur ni un avertissement : elle signale ce que l'outillage a réécrit.
+
+::::k7table (label := "tab:remarques-lecture") (align := "lZ{1.00}")
+:::caption
+Remarques émises sur le texte d'un fichier
+:::
+
+:::table +header
+* * Code
+  * Déclencheur et correction
+* * `HEY-LEX-001`
+  * Glyphe écrit hors d'un texte, réécrit par son mot. S'il était voulu comme caractère, l'écrire dans un texte par son nom LaTeX.
+:::
+::::

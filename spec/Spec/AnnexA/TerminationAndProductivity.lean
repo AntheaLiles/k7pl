@@ -30,6 +30,8 @@ Codes émis lorsqu'un critère de terminaison ou de productivité n'est pas éta
   * Déclencheur et correction
 * * `ERR-TER-001`
   * Récursion générale détectée en couche 3. Utiliser un pli ou le mot-clé `terminates`.
+* * `ERR-TER-002`
+  * Requête de couche 3 non stratifiable : une dépendance cyclique traverse une négation. Calculer la relation niée dans une requête antérieure.
 * * `ERR-IND-001`
   * Chemin d'exécution d'un flux `@:stream` bouclant indéfiniment sans émettre.
 * * `ERR-IND-003`

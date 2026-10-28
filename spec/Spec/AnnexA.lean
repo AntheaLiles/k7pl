@@ -34,7 +34,7 @@ number := false
 
 Le corpus source range ces codes par ordre alphabétique de préfixe. Cette annexe les regroupe par
 l'invariant qu'ils protègent, afin qu'un lecteur cherchant pourquoi un programme est rejeté trouve
-le chapitre correspondant plutôt qu'une liste sans principe. Six écarts avec le corpus source sont
+le chapitre correspondant plutôt qu'une liste sans principe. Huit écarts avec le corpus source sont
 assumés. Les trois premiers codes `ERR-TOP` nomment les trois inclusions de délimiteurs que la
 grammaire des couches refuse, numérotées du conteneur le plus spécifique (couche 3) au plus
 générique (couche 1) : `ERR-TOP-003`, un `{ }` à l'intérieur d'un `( )`, est ajouté, et le code que
@@ -44,7 +44,10 @@ Le segment `ERR-DLM`, absent lui aussi du corpus source, nomme les délimiteurs 
 pas, refusés dès la lecture du texte. `ERR-SMT-003`, absent lui aussi, nomme un trou typé dont le
 solveur ne borne aucune valeur. Le préfixe `WRN-`, absent lui aussi, nomme les avertissements, dont
 les segments sont ceux des erreurs : un avertissement ne bloque pas la compilation, sauf si le
-développeur l'exige par un drapeau.
+développeur l'exige par un drapeau. Le préfixe `HEY-` nomme les remarques, qui ne sont ni des erreurs
+ni des avertissements : elles signalent ce que l'outillage a réécrit. `ERR-POL-002`, `ERR-POL-003` et
+`ERR-TER-002`, absents eux aussi, nomment les deux refus de la monomorphisation et celui d'une requête
+qui ne se stratifie pas.
 `ERR-FFI-001` et `ERR-TYP-008`, qui y désignent tous deux
 une fuite de descripteur à travers la passerelle FFI, sont réunis sur une seule ligne. Cette table
 reste illustrative et non exhaustive : tout mécanisme nouveau engendrerait des codes qu'elle ne peut

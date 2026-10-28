@@ -67,7 +67,7 @@ changerait le tableau sans le rompre : une règle qui conclut de l'_absence_ d'u
 monotone, mais une requête dont les négations se stratifient s'évalue strate par strate, chacune
 relevant du théorème {num "thm:terminaison_lfp"}[] — c'est le corollaire
 {num "thm:terminaison_strates"}[], proposé et non démontré. Le compilateur découpe la requête en
-strates, et refuse celle dont une dépendance cyclique traverse une négation.
+strates, et refuse celle dont une dépendance cyclique traverse une négation (`ERR-TER-002`).
 
 Aucun mécanisme nouveau n'a dû être introduit dans ces études : elles n'ont fait que composer ce qui
 existait, ce qui est la preuve la plus convaincante que ce document puisse offrir que la

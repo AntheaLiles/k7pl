@@ -871,7 +871,23 @@ contradiction to state, not to resolve in silence.
   specification already says). Clarification asked: whether
   `[[ range … ]]` makes sense given the nature of layer 3
   (Q-LEX-610).
-  Applied on 2026-10-28: the wiki only.
+  Applied on 2026-10-28 (`spec/CHANGELOG.md`): chapter 5
+  states the decoding of `%XX` in raw texts, `strN` and
+  `str`, the base of a grapheme for classes, `[[:alpha:]]`
+  beside the head words, `{{ … }}` as a refined type and
+  `HEY-LEX-001`; chapters 6, 2 and 7 cite `ERR-POL-002`,
+  `ERR-POL-003` and `ERR-TER-002`; annex A gains these codes,
+  the prefix `HEY-` and a table of remarks (messages
+  proposals); the classification row of
+  `thm:terminaison_strates` names its refusal code.
+  Not applied yet, with the reason: the actor's `:on … :sets`
+  form (Q-SPEC-307) replaces `bind-to`, which the definition
+  `def:elaboration` lists among the six written forms and
+  the proof sketch of the phase-confinement statement
+  discusses as the only place where a name is produced; that
+  rewrite touches a definition and a proof sketch, and the
+  author asked for a broader discussion of scenarios first,
+  so it is put to the eighth part.
   Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, sixth part: answers of 2026-10-27
   (20 of 25 questions).** Recorded verbatim in

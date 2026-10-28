@@ -186,7 +186,8 @@ par son glyphe à sa place. Un glyphe de la table du chapitre 1 ne se lit seul q
 faite seulement de glyphes et de modifieurs, comme `´+÷≠` ; toute autre suite se lit d'un tenant,
 comme un nom ou un nombre : `increment-bounded`, `x-1` et `-2` sont chacun un atome. Un glyphe écrit
 dans un fichier hors d'un texte est accepté : le formateur le réécrit par son mot et le signale par
-une remarque, qui n'est ni une erreur ni un avertissement ; un glyphe voulu comme caractère s'écrit
+la remarque `HEY-LEX-001`, qui n'est ni une erreur ni un avertissement ; un glyphe voulu comme
+caractère s'écrit
 dans un texte par son nom LaTeX. L'apostrophe cite une expression, comme en Lisp : `'x` se lit
 `(quote x)`. Un
 nombre s'écrit en décimal, avec une fraction et un exposant facultatifs et des chiffres que `_` peut
@@ -204,9 +205,10 @@ précise une forme propre à sa couche et reste dans la couche de sa paire simpl
 en crochets blancs, de même sens : `[[ x ]]` est `⟦ x ⟧`, `(( x ))` est `⦅ x ⦆` et `{{ x }}` est
 `⦃ x ⦄`. En couche 3, un mot de tête distingue les emplois de `[[ … ]]` : `[[ range … ]]` range
 des éléments en mémoire, comme un intervalle, `[[ frame … ]]` réserve un stockage dans le cadre de la
-fonction appelante, libéré avec lui, et `[[ cells … ]]` applique une fonction cellule par cellule. En
+fonction appelante, libéré avec lui, et `[[ cells … ]]` applique une fonction cellule par cellule ;
+une classe de caractères s'y reconnaît à son nom entre deux-points, `[[:alpha:]]`. En
 couche 2, `(( … ))` est un crochet d'idiome : une fonction pure appliquée à des arguments à effet, chaque effet dans
-l'ordre. Le sens de `{{ … }}` en couche 1 reste à fixer. Deux
+l'ordre. En couche 1, `{{ … }}` est un type raffiné. Deux
 points-virgules ouvrent un
 commentaire qui court jusqu'à la fin de la ligne : `;;` pour un commentaire courant, `;;;` pour un
 titre et `;;;;` pour un sous-titre. Un point-virgule seul écrit juste avant un délimiteur ouvrant —
@@ -230,12 +232,13 @@ un échappement inconnu est refusé ; un caractère spécial s'écrit par son no
 seule espace après lui (`\guillemetright`), un caractère invisible par l'un des noms que K7PL
 ajoute à ceux de LaTeX — `\tab`, `\return`, `\nbsp`, `\shy`, `\zwsp`, `\zwnj`, `\zwj` et `\bom`,
 d'autres s'ajoutant au besoin —, et tout caractère par son point de code, `\u'…'`. Dans un texte brut,
-`\` reste littéral ; un guillemet s'y écrit `%22` et une espace initiale `%20`, comme dans une URL.
-Il n'y a pas de type caractère : à la manière d'un `varchar` SQL, un type texte porte sa borne, et
-un texte de borne 1 tient lieu de caractère (`"a"`, `"μ"`, `"\lambda"`), celui de borne 0 étant le
-texte vide. La borne se compte dans l'unité que le type énonce, graphèmes ou octets de l'encodage
-UTF-8 ; un type texte qui ne l'énonce pas est un trou typé. La longueur d'une ligne, que le
-formateur et l'analyseur de style mesurent pour garder le code lisible, se compte en graphèmes. Les fichiers gardent les formes ASCII ;
+`\` reste littéral et toute séquence `%XX` se décode, comme dans une URL : un guillemet s'y écrit
+`%22`, une espace initiale `%20`, et un `%` littéral `%25`.
+Il n'y a pas de type caractère : un texte d'un caractère en tient lieu (`"a"`, `"μ"`,
+`"\lambda"`). Un type texte s'écrit `strN` : comme dans `intN`, N compte les bits qu'il alloue à
+l'encodage UTF-8 du texte, et `str` seul est un trou typé. Les graphèmes ne se comptent que dans
+l'interface de développement : la longueur d'une ligne, que le formateur et l'analyseur de style
+mesurent pour garder le code lisible, se compte en graphèmes. Les fichiers gardent les formes ASCII ;
 l'éditeur affiche un texte brut `« s »`, comme il affiche une paire doublée en crochets blancs, `||`
 en `‖` et un train en glyphes.
 
@@ -258,7 +261,8 @@ de caractères se nomme entre deux deux-points, `:alpha:`, à part de l'étiquet
 points de code dans l'ordre, produits à la demande — un crochet d'idiome sans argument —, et
 `{{:alpha:}}` le type raffiné des textes d'un caractère qu'elle admet ; les noms POSIX y désignent
 les propriétés Unicode que leur associe l'UTS #18, et le complément d'une classe se prend parmi les
-valeurs scalaires Unicode.
+valeurs scalaires Unicode. Appliquée à un texte dont le caractère réunit plusieurs points de code,
+comme un `e` suivi d'un accent combinant, une classe teste le premier, sa base.
 
 Cinq mots-clés activent une preuve supplémentaire au moment de la vérification. Ils ne sont réservés
 qu'en position de tête d'une S-expression, pour ne pas restreindre leur usage comme noms ordinaires

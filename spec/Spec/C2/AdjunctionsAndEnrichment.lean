@@ -482,8 +482,8 @@ point fixe comme une constante, et la récurrence se poursuit jusqu'à $`S_k`.
 :::note
 _Obligation ouverte._ Restent à définir la relation de dépendance entre règles dont les strates se
 lisent ; à établir que le compilateur décide si une requête se stratifie, une dépendance cyclique qui
-traverse une négation la rendant non stratifiable et refusée ; à nommer ce refus d'un code ; et à
-fixer l'univers où la négation se prend, le monde clos des valeurs présentes.
+traverse une négation la rendant non stratifiable et refusée (`ERR-TER-002`) ; et à fixer l'univers où
+la négation se prend, le monde clos des valeurs présentes.
 :::
 ::::
 
