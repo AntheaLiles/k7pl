@@ -3592,6 +3592,208 @@ the reading « la généricité passe par les trous typés et la monomorphisatio
 - **Reading:** a head word of its own (option B), defined with `def`, the primitive word: `{def defmacro <rules and shapes>}`, and `defmacro` provides envelopes. No « refine » or « extend » is needed: in K7PL nothing extends, everything is made more precise.
 
 
+## Lot of 2026-10-28, tenth part: every open subject — layer 3, typed holes, patterns, modules, actor scenarios — and the gaps of the specification
+
+Opened on 2026-10-28 at the author's request: every subject left open after the ninth part,
+the actor-scenario discussion split into questions, and, with the same analysis, the places
+where the specification was found imprecise or contradictory (titles « Gap »). Each question
+gives its context in the specification, what the literature or other languages do, and options
+with their pros and cons. **Other** and **Clarify** are always available.
+
+Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `deliver`, `:same`…) is a placeholder: the words are chosen later. Questions titled « Gap » point at places where the specification is imprecise or contradicts itself.
+
+### Layer 3 after the arity decision
+
+#### Q-SPEC-501 — A conditional without a triadic word
+
+**Object.** You decided that layer 3 has monadic and dyadic words only (VOC-2026-10-28-033). Chapter 5's pure function `lst:fonction-pure` still reads `[select [< value bound] [Ok [+ value 1]] [Err Overflow]]`, and K's lexeme `lexicon/lexemes/select.k` reads `(select C E1 E2)`, « Only the condition is strict: select does not evaluate its unchosen branch »; the proofs of `proofs/` export it. The conditional needs a form with at most two operands, and should keep running one branch only.
+
+**Facts.**
+
+- BQN: « The 2-modifier Choose (◶) applies one function from a list 𝕘, based on the selecting index returned by a function 𝔽 »: `0⊸≤◶⟨-⟜1,+⟜1⟩` subtracts 1 from a negative number and adds 1 otherwise (BQN, Choose (https://mlochbaum.github.io/BQN/doc/choose.html)).
+- J: « m@.v uses the result of the verb v to perform the selection » of a verb in the list m (J Dictionary, Agenda (https://www.jsoftware.com/help/dictionary/d621.htm)).
+- Factor's `if` takes three inputs, « ? a generalized boolean, true a quotation, false a quotation » (Factor, if (https://docs.factorcode.org/content/word-if,kernel.html)): the triadic form, in a stack language.
+
+- **A — A dyadic `select` over a pair of branches.** The condition, then a pair whose two branches are functions (or quoted), so only the chosen one runs. Example: `[select [< value bound] [[Ok increment] [Err overflow]]]`. *For:* closest to today's listing; one word. *Against:* the pair must hold unevaluated branches, or both are computed.
+- **B — A modifier of two operands, as BQN's Choose and J's Agenda.** A condition function on the left selects one function from a list on the right; the train's argument goes to the chosen one only. Example: `[below-bound choose [overflow-err increment-ok]]`. *For:* tacit, fits trains and the modifier rule of the ninth part; only the chosen branch runs. *Against:* the condition and the branches must be written as functions.
+- **C — No conditional in layer 3.** Layer 3 computes without branching (masks, arithmetic); choosing between `Ok` and `Err` is done in layer 2, where words are n-ary. *For:* layer 3 stays branch-free, which suits its automata and vector code. *Against:* `?increment-bounded` can no longer return a `Result` by itself; chapter 5's listings are rewritten.
+
+#### Q-SPEC-502 — A value on the left of a dyadic word: one result or several
+
+**Object.** In your example of the ninth part, `M A1 D M A2 A3` gives `A1bis A2ter`: `D` takes the values on its right and `A1` stays apart, so the train leaves two results. FIXAPL, chosen in the eighth part, calls a dyadic word infix: a value on its left is its left argument, and a train leaves one result; `[sub 1]` = x − 1 (VOC-2026-10-28-032) follows it. Take `[abs 4 sub neg 7 2]`.
+
+**Facts.**
+
+- FIXAPL: « Dyadic function calls come in the infix position (`⍺+⍵`) and monadic function calls come in the prefix position (`¬⍵`) » (FIXAPL, README (https://github.com/Jacob-Lockwood/fixapl)).
+- Factor: « dup ( x -- x x ) »: a stack word may leave several values (Factor, dup (https://docs.factorcode.org/content/word-dup,kernel.html)).
+
+- **A — Infix, as FIXAPL: one result.** A value on the left of a dyadic word is its left argument. Example: `[abs 4 sub neg 7]       ;; abs (4 - (neg 7)) = 11`. *For:* a train has one value, as a `{function …}` type says; agrees with x − 1 and with the fork. *Against:* the stack is not read word by word: values combine by position.
+- **B — Stack, as your example: several results.** An operator takes the values on its right; a value on its left stays on the stack; a train may return several values, typed as a product. Example: `[abs 4 sub neg 7 2]     ;; 4 and (neg 7) - 2 = -9`. *For:* the stack execution of layer 3 is read literally, as in Forth and Factor. *Against:* the fork of the eighth part no longer applies to values; a train's type lists all its results.
+
+### Typed holes
+
+#### Q-TYP-601 — Two holes that must be the same width
+
+**Object.** `{function int int}` resolves two typed holes of the integer family (VOC-2026-10-28-037). Some functions need both to be equal — an identity, or a function that must return the width it receives. Chapter 6 already unifies types in Phase 3 with unification variables, which Phase 4 resolves (« résoudre chaque égalité α̂ := τ par substitution immédiate »).
+
+**Facts.**
+
+- Rust: `impl Trait` « in argument position (where it can act as an anonymous type parameter to functions) » (Rust reference, impl Trait (https://doc.rust-lang.org/reference/types/impl-trait.html)): anonymous, as K7PL's holes.
+
+- **A — Always independent.** Each hole is resolved for itself; a function that needs equal widths writes the width. *For:* nothing to add; a signature says exactly what it constrains. *Against:* an identity on any integer cannot be written once.
+- **B — Linked by the data flow.** Holes are unification variables of their family: when the body sends a value from one hole's position to the other's, Phase 3 unifies them. *For:* no syntax; uses the unification chapter 6 describes. *Against:* the link is read from the body, not from the signature.
+- **C — Linked by a property of the type.** A property says which holes are the same. Example: `{function int int :same [1 2]}`. *For:* visible in the signature; still no named parameter. *Against:* one more property to learn.
+
+#### Q-TYP-602 — Gap: which phase resolves a typed hole, and how instances are named
+
+**Object.** Three passages disagree. Chapter 5: « un trou typé que l'élaboration résout dans la famille des entiers : à la plus petite largeur qui contient toutes les valeurs que le solveur sait borner ». The elaboration theorem: « la phase de résolution du pipeline (Phase 4) résout des variables d'unification, et n'est pas une élaboration au sens du théorème ». Chapter 6: Phase 3 « monomorphise chaque appel générique en une copie concrète », naming an instance « par le condensat de l'AST normalisé de son générique et de ses arguments de type », while « bornes numériques » are left to the SMT solver in Phase 7. A width known in Phase 7 cannot name a Phase-3 copy.
+
+**Facts.**
+
+- rustc: « The monomorphization collector is run just before MIR lowering and codegen », after type checking (rustc dev guide, monomorphization (https://rustc-dev-guide.rust-lang.org/backend/monomorph.html)).
+
+- **A — Two steps.** Phase 3 copies per family, the hole staying a hole; Phase 7 fixes the widths and names the final instances. Chapter 5 says « résolution », not « élaboration ». *For:* keeps chapter 6's order and its cache by hash. *Against:* an instance has two names over its life.
+- **B — Monomorphisation after Phase 7.** Phase 3 only unifies; copies are made once every width is known, as rustc collects just before code generation. *For:* one naming, by concrete types. *Against:* moves a step of chapter 6 and what Phases 5 and 6 check.
+- **C — Widths fixed in Phase 3 where narrowing finds them.** The solver of Phase 7 only checks; a hole that narrowing cannot bound is refused (`ERR-SMT-003`). *For:* chapter 6's text barely changes. *Against:* refuses holes the solver could have bounded.
+
+#### Q-TYP-603 — Gap: the phase of `ERR-TYP-013`
+
+**Object.** Ninth part: a text width that is not a multiple of its encoding's unit is refused « en phase 0 » (now `ERR-TYP-013`). Chapter 6: Phase 0 builds the tree and desugars sigils, « un travail purement syntaxique, qui ne discute encore aucun des trois ordres »; types are established in Phase 3.
+
+- **A — Phase 0.** The reader knows the units of the built-in encodings and checks `{str 12 utf8}` as it reads it. *For:* the earliest refusal, as you asked. *Against:* Phase 0 is no longer purely syntactic; chapter 6 says so.
+- **B — Phase 3.** Where types are established. *For:* chapter 6 unchanged. *Against:* later than you asked.
+- **C — Phase 0 for built-in encodings, Phase 3 for declared ones.** *For:* earliest where possible. *Against:* one code, two places.
+
+### Patterns
+
+#### Q-SPEC-503 — What `@x` gives when it catches
+
+**Object.** Ninth part: everything is a pattern, and `@` in front of a construction « catch[es] this pattern » and inherits all its construction (VOC-2026-10-28-029). Also: « en K7PL, rien ne s'étend, tout se précise » (VOC-2026-10-28-031). Chapter 5 now says « en hérite toute la construction ». Open: what `@x` gives the code that follows.
+
+**Facts.**
+
+- Rust: « The at operator @ lets us create a variable that holds a value at the same time we’re testing that value for a pattern match » (Rust book, patterns (https://doc.rust-lang.org/book/ch19-03-pattern-syntax.html)).
+- F#: « Active patterns enable you to define named partitions that subdivide input data » (F#, active patterns (https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/active-patterns)).
+
+- **A — A refinement.** What `@x` catches is typed by `x`'s construction made precise — a refined type, as `{{ }}`; « hérite » is read as « se précise ». *For:* fits « tout se précise » and the refinement types of chapter 3.
+- **B — A filter.** `@x` lets through what matches, on a flow or the network, and binds nothing. *For:* simplest on a data flow. *Against:* the code after the match does not know what matched.
+- **C — Both.** In a `match`, `@x` binds the value refined by `x`; on a flow it filters. *For:* one sign, two uses that agree. *Against:* two readings to describe.
+
+### Modules and top-level forms
+
+#### Q-SPEC-504 — What a module is
+
+**Object.** Ninth part, clarification: Emacs's lexical binding for a general perimeter, and the fear of mixing subjects. Three things already exist: a file, which lexical binding would scope; the compilation unit of chapter 6 (« Partant des racines de l'unité de compilation — ses points d'entrée et ce que son interface exporte »); and paths, symbols with `/`.
+
+**Facts.**
+
+- Emacs: `lexical-binding` « is typically set for a whole Emacs Lisp file, as a file-local variable » (Emacs Lisp manual, variables.texi (https://github.com/emacs-mirror/emacs/blob/emacs-30/doc/lispref/variables.texi)).
+- OCaml: « Compilation units bridge the module system and the separate compilation system. A compilation unit is composed of two parts: an interface and an implementation » (OCaml manual, compilation units (https://ocaml.org/manual/latest/compunit.html)).
+- Racket: « Each Racket module typically resides in its own file » (Racket guide, modules (https://docs.racket-lang.org/guide/module-basics.html)).
+
+- **A — A file is the module.** Its lexical perimeter, its compilation unit and its path at once. *For:* one notion, as Racket and OCaml. *Against:* a unit cannot span files.
+- **B — The compilation unit is the module.** A unit may span files; each file is only a lexical perimeter. *For:* chapter 6 already defines it, with its interface. *Against:* two notions to name.
+- **C — No module.** The file is a lexical perimeter, the compilation unit is the program, and paths only name definitions. *For:* nothing new. *Against:* no separate compilation; chapter 6's interfaces lose their object.
+
+#### Q-SPEC-505 — Gap: top-level forms as autonomous processes
+
+**Object.** Ninth part: « une S-Expression non encapsulée dans une autre est un processus autonome executable en parallele des autres du même rang ». The specification says nothing of top-level forms. Chapter 6's Phase 2 collects actor definitions and checks the wiring graph is acyclic; chapter 4: « la coalgèbre qui produit l'état suivant n'est plus celle d'un acteur isolé, mais celle de l'orchestrateur tout entier ».
+
+- **A — Every top-level form, whatever its layer.** Declarations `{ }` run in parallel at compile time, `( )` and `[ ]` at run time. *For:* one rule. *Against:* a declaration is not a process in chapter 6's phases.
+- **B — Top-level layer-2 forms only.** `( )` at top level are processes started by the orchestrator; `{ }` are declarations; a top-level `[ ]` is a pure value. *For:* fits the layers and the orchestrator of chapter 4.
+- **C — B, ordered by dependencies.** Top-level processes start in parallel, ordered only by their data dependencies and the wiring graph of Phase 2. *For:* « même rang » gets a meaning: the same depth in the dependency graph. *Against:* one more rule to write in chapter 4.
+
+### Actor scenarios
+
+#### Q-ACT-001 — What a scenario is
+
+**Object.** Seventh part: « il nous faut une approche plus systémique pour identifier et composer les scénarios avec la question : est-ce que je souhaite séparer une vérification d'une transformation, d'une livraison, etc. ». A scenario may be the reaction to one message, or a sequence of messages between actors.
+
+**Facts.**
+
+- Chapter 3: « Un type de session n'en est que la version distribuée : le même automate, sauf que ses transitions sont déclenchées par l'échange de messages entre deux extrémités ».
+- Saga: « A saga is a reliably coordinated sequence of local transactions […] either all steps complete successfully or, if a local transaction fails […], the changes made by the completed steps are undone by compensating transactions » (microservices.io, Saga (https://microservices.io/patterns/data/saga.html)).
+
+- **A — The reaction to one message.** Check, transform, deliver.
+- **B — A sequence of messages.** A protocol between actors, typed by a session type.
+- **C — Both, the second built from the first.** A protocol is a session type whose steps are reactions. *For:* each level keeps its own tools.
+
+#### Q-ACT-002 — The shape of a reaction
+
+**Object.** Chapter 3: a pure layer-2 handler returns « une description d'effets, une liste d'instructions que l'exécutif réalise ». Chapter 5 today: `:on (Increment :sets value […])`, the rule of `Result`.
+
+**Facts.**
+
+- Erlang `gen_server`: `handle_call` returns « {reply,Reply,NewState} » (Erlang, gen_server (https://www.erlang.org/doc/apps/stdlib/gen_server.html)).
+- Decider: « type Decide = Command -> State -> Event list »; « type Evolve = State -> Event -> State » (J. Chassaing, decider (https://thinkbeforecoding.com/post/2021/12/17/functional-event-sourcing-decider)).
+- Elm: « our programs can command the runtime system to make an HTTP request or to generate a random number » (Elm guide, effects (https://guide.elm-lang.org/effects/)).
+
+- **A — One transition, as today.** New state and reply together, as `gen_server`. *For:* short. *Against:* check, transformation and delivery are not told apart.
+- **B — Decide and evolve, as the decider.** `decide` (layer 3) gives events or a refusal, `evolve` (layer 3) applies each event, the delivery (layer 2) is described. *For:* the three steps fall on the layers. *Against:* more to write for a simple actor.
+
+  ```text
+  :on (Increment :decide [...] :deliver (reply Ok))
+  :evolve ((Incremented n) :sets value [...])
+  ```
+
+- **C — B, with today's form as its shorthand.** `:on … :sets` stays as a decision of one event that sets one field. *For:* simple actors stay short.
+
+#### Q-ACT-003 — Named events
+
+**Object.** Should what happened be named — `Incremented` —, apart from the new state?
+
+**Facts.**
+
+- Fowler: « Capture all changes to an application state as a sequence of events » (Event Sourcing (https://martinfowler.com/eaaDev/EventSourcing.html)).
+
+- **A — Yes, always.** *For:* the journal holds facts; decide and evolve separate.
+- **B — No: the new state and the reply only.** *For:* less to declare.
+- **C — When an actor declares them.** *For:* event sourcing where it is wanted.
+
+#### Q-ACT-004 — A refused check
+
+**Object.** When the check of a message fails (today `Err Overflow`).
+
+- **A — State intact, an error reply only.**
+- **B — State intact, an error reply, and the refusal recorded as an event.** *For:* refusals are audited.
+- **C — Left to the decision.** A refusal may produce events like any decision.
+
+#### Q-ACT-005 — What a delivery covers
+
+**Object.** Each kind is described by the reaction and executed by the executive (chapter 3).
+
+**Facts.**
+
+- Akka: side effects « should be performed in thenRun from the command handler after persisting the event » (Akka, persistence (https://doc.akka.io/libraries/akka-core/current/typed/persistence.html)).
+
+Several options may be chosen.
+
+- **reply — A reply to the sender.**
+- **send — Messages to other actors.**
+- **persist — What is persisted (events or state).**
+- **outside — The outside world, through capabilities and FFI.**
+- **later — A delivery deferred in time (a timer).**
+
+#### Q-ACT-006 — Steps shared between messages
+
+**Object.** Can a check or a delivery be written once and used by several messages?
+
+- **A — No, per message.**
+- **B — Within an actor.** Example: `{defstep below-bound …}  :on (Increment :check below-bound …)`.
+- **C — Across actors too.** A library of checks and deliveries. *For:* reuse. *Against:* a step's type must be generic over the state it reads.
+
+#### Q-ACT-007 — Gap: what the journal holds
+
+**Object.** Chapter 3: « c'est cette exécution, non la transition, qui est journalisée ». Chapter 4, `thm:determinisme_rejeu`: replaying « les messages journalisés J(H) à travers les gestionnaires purs »; non-deterministic operations are « journalisées comme entrées factuelles ». The two do not name the same contents.
+
+**Facts.**
+
+- Akka: « The event handler must only update the state and never perform side effects, as those would also be executed during recovery of the persistent actor » (Akka, persistence (https://doc.akka.io/libraries/akka-core/current/typed/persistence.html)).
+
+- **A — Messages and capability values.** As chapter 4; replay runs the transitions again, never the deliveries; chapter 3's sentence is reworded. *For:* the replay theorem stays as stated.
+- **B — Events.** Replay applies `evolve` again, never `decide` nor the deliveries. *For:* short journal of facts. *Against:* the replay theorem is restated over events.
+- **C — Both.** Messages and capability values as inputs, events as outputs; deliveries are never replayed. *For:* audit and replay both. *Against:* a larger journal.
+
 ## The catalogue, verbatim
 
 
