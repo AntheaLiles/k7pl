@@ -43,8 +43,10 @@ signale que la difficulté technique n'est pas la sélection de l'affichage mais
 blocs imbriqués — remarque qui vise une syntaxe à expressions symboliques plus que toute autre, et
 qui est donc à porter au compte de ce chapitre plutôt qu'à celui d'un outillage futur.
 
-Les trains composent ces primitifs sans nommer leurs arguments — un 2-train $`(f\;g)` dénote
-$`\lambda x.\, f(g(x))`, un 3-train $`(f\;g\;h)` dénote la fourche $`\lambda x.\, (f\,x)\; g\; (h\,x)` — tandis que les
+Les trains composent ces primitifs sans nommer leurs arguments, selon l'arité de leurs mots
+(§{num "sec:c5-s-expressions-universelles"}[]) — un train $`(f\;g)` de deux mots monadiques dénote
+$`\lambda x.\, f(g(x))`, un train $`(f\;g\;h)` dont $`g` est dyadique, $`f` et $`h` monadiques,
+dénote la fourche $`\lambda x.\, (f\,x)\; g\; (h\,x)` — tandis que les
 modifieurs `´` (pli), `¨` (chacun), `↢` (liaison gauche) transforment une fonction en une autre. Les
 blocs concaténatifs comme `[dup * +]`, dans la tradition de Forth et Factor, portent leur effet de
 pile directement dans leur type : `[dup *]` a l'effet `(1 – 2)`.
