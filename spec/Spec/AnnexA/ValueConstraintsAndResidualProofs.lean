@@ -48,6 +48,8 @@ Codes émis lorsqu'une contrainte de valeur reste indécidée
   * Conflit de rangée.
 * * `ERR-FLD-001`
   * Conflit de présence de champ.
+* * `ERR-TYP-013`
+  * Largeur de texte qui n'est pas un multiple de l'unité de son encodage. Choisir une largeur multiple de cette unité.
 :::
 ::::
 

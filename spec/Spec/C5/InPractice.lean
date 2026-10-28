@@ -25,10 +25,10 @@ tag := "c5-mise-en-pratique"
 autorise, et laisser les délimiteurs en porter la trace. Avant de composer les trois couches sur un
 exemple complet, un mot sur ce que la notation tacite du §{num "sec:c5-notations-specialisees"}[]
 donne à voir une fois débarrassée de ses noms. La moyenne d'un tableau s'écrit
-`[fold add div length]` : plier par addition, diviser par la longueur ; l'éditeur l'affiche `[´+÷≠]`,
+`[add fold div length]` : plier par addition, diviser par la longueur ; l'éditeur l'affiche `[+´÷≠]`,
 chaque mot remplacé par son glyphe à sa place. Son écart-type s'écrit
-`[sqrt [fold add square identity sub fold add div length] div length]`, affiché
-`[√[´+²⊢-´+÷≠]÷≠]` : la même moyenne soustraite à chaque élément, élevée au carré, repliée
+`[sqrt [add fold square identity sub add fold div length] div length]`, affiché
+`[√[+´²⊢-+´÷≠]÷≠]` : la même moyenne soustraite à chaque élément, élevée au carré, repliée
 et divisée à son tour, puis passée à la racine. Aucun argument n'y est nommé ; le train se lit comme
 une composition de fonctions plutôt que comme une suite d'instructions, ce que le
 §{num "sec:c5-notations-specialisees"}[] annonçait.

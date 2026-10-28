@@ -47,9 +47,9 @@ Les trains composent ces primitifs sans nommer leurs arguments, selon l'arité d
 (§{num "sec:c5-s-expressions-universelles"}[]) — un train $`(f\;g)` de deux mots monadiques dénote
 $`\lambda x.\, f(g(x))`, un train $`(f\;g\;h)` dont $`g` est dyadique, $`f` et $`h` monadiques,
 dénote la fourche $`\lambda x.\, (f\,x)\; g\; (h\,x)` — tandis que les
-modifieurs `´` (pli), `¨` (chacun), `↢` (liaison gauche) transforment une fonction en une autre. Les
-blocs concaténatifs comme `[dup * +]`, dans la tradition de Forth et Factor, portent leur effet de
-pile directement dans leur type : `[dup *]` a l'effet `(1 – 2)`.
+modifieurs `´` (pli), `¨` (chacun), `↢` (liaison gauche) transforment une fonction en une autre. Le
+train est lui-même l'écriture concaténative de la couche 3 : à arité fixe, il s'exécute de droite à
+gauche sur la pile (§{num "sec:c5-s-expressions-universelles"}[]).
 
 Le nombre d'opérations qu'une telle bibliothèque peut porter est la seule grandeur non bornée de
 tout le nommage de ce langage, et il faut dire tout de suite qu'aucun seuil ne se cite. La

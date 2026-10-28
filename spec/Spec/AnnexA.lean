@@ -45,9 +45,10 @@ pas, refusés dès la lecture du texte. `ERR-SMT-003`, absent lui aussi, nomme u
 solveur ne borne aucune valeur. Le préfixe `WRN-`, absent lui aussi, nomme les avertissements, dont
 les segments sont ceux des erreurs : un avertissement ne bloque pas la compilation, sauf si le
 développeur l'exige par un drapeau. Le préfixe `HEY-` nomme les remarques, qui ne sont ni des erreurs
-ni des avertissements : elles signalent ce que l'outillage a réécrit. `ERR-POL-002`, `ERR-POL-003` et
-`ERR-TER-002`, absents eux aussi, nomment les deux refus de la monomorphisation et celui d'une requête
-qui ne se stratifie pas.
+ni des avertissements : elles signalent ce que l'outillage a réécrit. `ERR-POL-002`, `ERR-POL-003`,
+`ERR-TER-002` et `ERR-TYP-013`, absents eux aussi, nomment les deux refus de la monomorphisation,
+celui d'une requête qui ne se stratifie pas et celui d'une largeur de texte qui n'est pas un multiple
+de l'unité de son encodage.
 `ERR-FFI-001` et `ERR-TYP-008`, qui y désignent tous deux
 une fuite de descripteur à travers la passerelle FFI, sont réunis sur une seule ligne. Cette table
 reste illustrative et non exhaustive : tout mécanisme nouveau engendrerait des codes qu'elle ne peut

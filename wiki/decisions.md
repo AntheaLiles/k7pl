@@ -845,6 +845,60 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, ninth part: answers of 2026-10-28
+  (Q-SPEC-401 to Q-SPEC-407).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-28-018 to
+  VOC-2026-10-28-031. In short:
+  - Trains: a modifier of one operand follows it and a
+    modifier of two stands between them, taken first; a value
+    may end a train, and a bracket is an application only
+    when its head receives all its arguments; the train is the
+    concatenative writing of layer 3, executed right to left
+    on the stack, so the concatenative blocks of chapter 5 are
+    withdrawn with their « effet de pile » — layer 3 is pure
+    and has no effects.
+  - Intervals: a step is written by a word after the interval
+    (`[[1..9 skip 1 2]]`, how many to skip and every how
+    many); an endless layer-2 interval ends with `inf`;
+    `[[:alpha:]]` holds code points, as Raku's ranges hold
+    elements.
+  - Types: an encoding is a refined type of `str` written by a
+    type constructor (`{str 256 utf16}`), never despecialised;
+    a width that is not a multiple of its unit is refused; a
+    type is an immutable composition of functions; `{{ … }}` is
+    chapter 3's refinement type.
+  - Patterns: everything is a pattern, and `@` in front of a
+    construction catches it and inherits its construction;
+    PCRE and PEG automata are compiled by K7PL and run as
+    atomic operators through an orchestrator or an actor.
+  - Macros: `def` is the primitive word, `defmacro` is
+    defined with it and provides envelopes; in K7PL nothing
+    extends, everything is made more precise.
+  Kept open: the notation of type parameters (Q-TYP-501),
+  after reading what the specification prescribes —
+  monomorphisation without forall; what a module is
+  (Q-SPEC-406), with the author's statement that an
+  S-expression not enclosed in another is an autonomous
+  process, executable in parallel with the others of the same
+  rank, and Emacs's lexical binding as a general perimeter.
+  Put back to the author: the stack reading of the author's
+  example against FIXAPL's fork (eighth part); « obligatoirement
+  Monadique OU Dyadique » in layer 3 against « au plus
+  triadique » and the triadic `select`; whether N in `strN`
+  counts the whole text, as in the seventh part, or the code
+  unit; whether the `skip` word replaces the second-element
+  step; chapter 4's « effet de pile » for `[dup * +]`.
+  Applied on 2026-10-28 (`spec/CHANGELOG.md`): chapter 5
+  states the modifier, value and concatenative rules, the
+  interval, class, encoding and refinement forms, `@` and
+  `defmacro`; the notations section drops the concatenative
+  blocks; the mean and the standard deviation are rewritten;
+  annex A gains `ERR-TYP-013` (message proposed).
+  Not applied yet, with the reason: the reader of
+  `lexicon/syntax/` reads none of these forms yet; Q-TYP-501
+  and Q-SPEC-406 are open; the points put back to the author
+  wait for the answer.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, eighth part: answers of 2026-10-28
   (Q-SPEC-309 to Q-SPEC-310).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-28-012 to

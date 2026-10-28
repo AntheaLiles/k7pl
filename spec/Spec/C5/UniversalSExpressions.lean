@@ -167,17 +167,24 @@ Avec elle, une étiquette inconnue est une erreur, parce qu'une étiquette n'est
 Le reste de la grammaire commune tient en quelques règles. Les identifiants s'écrivent en anglais,
 en kebab-case, et les marques de contrat `?` et `!` se placent devant le nom
 (`?increment-bounded`). Quatre caractères sont des sigils, lus en tête d'un atome : `#`, `:`, `?`
-et `!` ; la Phase 0 en fait des attributs. `@` appartient aux motifs : `@nom` définit un motif, et
-les quatre annotations des R-expressions du chapitre 4 (`@linear`, `@polynomial`, `@stack`,
-`@backtrack`) en sont des propriétés ; seul, `@` est un caractère ordinaire, et `nom@domaine` n'est
-pas un motif mais un texte, comme une adresse électronique. Une définition s'écrit avec le mot générique `def` ;
-`defn`, qui définit une fonction, en est une enveloppe, c'est-à-dire `def` dont des propriétés sont
-déjà remplies. Une enveloppe est une macro de couche 1, développée à la compilation et ouverte à tout
-programme sous l'hygiène de `ERR-MAC-001` ; une enveloppe peut en étendre une autre et lui ajouter
-des propriétés, chaque étape raffinant le type des définitions qu'elle produit sans modifier celle
-qu'elle étend. Un train est une expression de couche 3 : il s'écrit entre crochets, en texte, ses
-mots séparés par des espaces, de gauche à droite et selon la logique des S-expressions :
-`[fold add div length]` est la moyenne d'un tableau. Chaque mot
+et `!` ; la Phase 0 en fait des attributs. `@` appartient aux motifs, et tout est motif — un type,
+une construction, une trace, un effet algébrique : `@` placé devant une construction capture ce motif
+et en hérite toute la construction, de sorte qu'un motif filtre directement un flux de données ou le
+réseau. Les quatre annotations des R-expressions du chapitre 4 (`@linear`, `@polynomial`, `@stack`,
+`@backtrack`) en sont des propriétés, et PCRE ou PEG n'y sont pas des langages étrangers : K7PL les
+compile en automates, mis en production comme opérateurs atomiques par un orchestrateur ou un acteur
+(§{num "sec:c4-echelle-locale"}[]). Seul, `@` est un caractère ordinaire, et `nom@domaine` n'est
+pas un motif mais un texte, comme une adresse électronique. Une définition s'écrit avec le mot
+primitif `def` ; `defmacro` se définit avec lui (`{def defmacro …}`) et fournit les enveloppes, et
+`defn`, qui définit une fonction, en est une, c'est-à-dire `def` dont des propriétés sont déjà
+remplies. Une enveloppe est une macro de couche 1, développée à la compilation et ouverte à tout
+programme sous l'hygiène de `ERR-MAC-001` ; une enveloppe peut en préciser une autre en lui ajoutant
+des propriétés — en K7PL rien ne s'étend, tout se précise —, chaque étape raffinant le type des
+définitions qu'elle produit sans modifier celle qu'elle précise. Un train est une expression de
+couche 3 : il s'écrit entre crochets, en texte, ses mots séparés par des espaces, de gauche à droite
+et selon la logique des S-expressions : `[add fold div length]` est la moyenne d'un tableau. Il est
+l'écriture concaténative de la couche 3 : à arité fixe, il s'exécute de droite à gauche sur la pile,
+où toute exécution de couche 3 a lieu. Chaque mot
 y porte une arité typée — monadique, dyadique, au plus triadique, jamais n-aire —, et c'est elle qui
 permet à l'élaboration de distinguer un train d'une application ; un glyphe employé sous deux arités
 porte donc un alias par arité. C'est encore l'arité de chaque mot, et non la longueur du train, qui
@@ -186,13 +193,16 @@ droite à gauche : un mot monadique s'applique au résultat de ce qui est à sa 
 précédé d'un mot forme avec lui une fourche, le mot de gauche s'appliquant aux arguments du train et
 son résultat devenant l'argument gauche du mot dyadique, dont l'argument droit est le résultat de ce
 qui est à sa droite ; sans mot à sa gauche, un mot dyadique prend l'argument gauche du train ; une
-paire de crochets intérieure compte pour un mot. Un mot triadique ne figure pas dans un train : il ne
-fait que s'appliquer. L'écart-type s'écrit ainsi avec un seul groupe intérieur,
-`[sqrt [fold add square identity sub fold add div length] div length]`
-(§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[´+÷≠]`, est une vue de l'éditeur, qui
+paire de crochets intérieure compte pour un mot. Un modifieur d'un opérande suit cet opérande, un
+modifieur de deux se place entre eux, et les modifieurs se prennent avant l'assemblage du train :
+`[add fold div length]` se lit `[[add fold] div length]`. Une valeur peut terminer un train, et un
+crochet n'est une application que lorsque sa tête y reçoit tous ses arguments (`[add 1 2]`). Un mot
+triadique ne figure pas dans un train : il ne fait que s'appliquer. L'écart-type s'écrit ainsi avec
+un seul groupe intérieur, `[sqrt [add fold square identity sub add fold div length] div length]`
+(§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[+´÷≠]`, est une vue de l'éditeur, qui
 remplace chaque mot par son glyphe à sa place et le colore selon son rôle, que son type indique :
 valeur, fonction, modifieur d'une fonction ou modifieur de deux. Un glyphe de la table du chapitre 1 ne se lit seul que dans une suite
-faite seulement de glyphes et de modifieurs, comme `´+÷≠` ; toute autre suite se lit d'un tenant,
+faite seulement de glyphes et de modifieurs, comme `+´÷≠` ; toute autre suite se lit d'un tenant,
 comme un nom ou un nombre : `increment-bounded`, `x-1` et `-2` sont chacun un atome. Un glyphe écrit
 dans un fichier hors d'un texte est accepté : le formateur le réécrit par son mot et le signale par
 la remarque `HEY-LEX-001`, qui n'est ni une erreur ni un avertissement ; un glyphe voulu comme
@@ -216,7 +226,8 @@ en crochets blancs, de même sens : `[[ x ]]` est `⟦ x ⟧`, `(( x ))` est `�
 littéral dont la taille se connaît avant l'exécution, reconnu à sa forme et sans mot de tête : une
 classe de caractères, à son nom entre deux-points (`[[:alpha:]]`), ou un intervalle, dont les bornes
 sont des littéraux ou se calculent à la compilation. Un intervalle `a..b` inclut ses deux bornes
-(`[[1..9]]`) ; un second élément en donne le pas (`[[1 3..9]]` vaut `1 3 5 7 9`) ; plusieurs
+(`[[1..9]]`) ; un mot qui le suit en saute des valeurs, en prenant combien sauter et tous les
+combien (`[[1..9 skip 1 2]]` vaut `1 3 5 7 9`) ; plusieurs
 intervalles forment la matrice de leurs paires d'indices (`[[1..3 1..3]]`) ; des textes d'un
 caractère peuvent en être les bornes (`[["a".."z"]]`). Une borne exclue, à gauche, à droite ou aux
 deux, se marque par un mot dédié, qui reste à choisir. Réserver un stockage dans le cadre de la
@@ -224,7 +235,10 @@ fonction appelante, libéré avec lui, est une propriété de la déclaration (`
 fonction cellule par cellule, un modifieur de train (`rank`). En
 couche 2, `(( … ))` est un crochet d'idiome : une fonction pure appliquée à des arguments à effet, chaque effet dans
 l'ordre ; un intervalle y est une liste paresseuse, écrite dans la paire doublée de sa couche
-(`((1..n))`) et reconnue à sa forme. En couche 1, `{{ … }}` est un type raffiné. Deux
+(`((1..n))`) et reconnue à sa forme, et prend `inf` pour borne s'il est sans fin (`((1..inf))`). En
+couche 1, `{{ … }}` est un type raffiné $`\{x : T \mid p\}` du chapitre 3
+(§{num "sec:c3-les-contraintes-de-valeur"}[]) : une variable, un type support et un prédicat dont
+le solveur décharge l'obligation de preuve. Deux
 points-virgules ouvrent un
 commentaire qui court jusqu'à la fin de la ligne : `;;` pour un commentaire courant, `;;;` pour un
 titre et `;;;;` pour un sous-titre. Un point-virgule seul écrit juste avant un délimiteur ouvrant —
@@ -252,10 +266,12 @@ d'autres s'ajoutant au besoin —, et tout caractère par son point de code, `\u
 `%22`, une espace initiale `%20`, et un `%` littéral `%25`.
 Il n'y a pas de type caractère : un texte d'un caractère en tient lieu (`"a"`, `"μ"`,
 `"\lambda"`). Un type texte s'écrit `strN` : comme dans `intN`, N compte les bits qu'il alloue à
-l'encodage du texte, et `str` seul est un trou typé. L'encodage appartient au type : UTF-8 par
-défaut, celui que retient la résolution d'un trou typé, et d'autres conventions — ASCII, UTF-16,
-UTF-32, celle d'Emacs — peuvent s'y écrire ; leur notation, et ce que vaut une largeur qui n'est pas
-un multiple de l'unité de l'encodage, restent à fixer. Les graphèmes ne se comptent que dans
+l'encodage du texte, et `str` seul est un trou typé. Un encodage est un type raffiné de `str`,
+écrit par un constructeur de type (`{str 256 utf16}`) : UTF-8 est celui que retient la résolution
+d'un trou typé, et ASCII, UTF-16, UTF-32 ou celui d'Emacs s'écrivent de même. Un type raffiné porte
+son étiquette et ne se déspécialise pas : un texte `utf8` n'entre pas dans un `str12`, qui n'est
+pas étiqueté `utf8`, alors qu'un `str8` peut s'y ranger. Une largeur qui n'est pas un multiple de
+l'unité de l'encodage est refusée dès la Phase 0 (`ERR-TYP-013`). Les graphèmes ne se comptent que dans
 l'interface de développement : la longueur d'une ligne, que le formateur et l'analyseur de style
 mesurent pour garder le code lisible, se compte en graphèmes. Les fichiers gardent les formes ASCII ;
 l'éditeur affiche un texte brut `« s »`, comme il affiche une paire doublée en crochets blancs, `||`
@@ -276,7 +292,8 @@ typé, passé en paramètre et jamais collé dans le texte ; un texte ordinaire 
 Chaque type d'étiquette déclare comment ses trous s'écrivent, et la règle n'existe qu'une fois ce
 type spécifié ; `sql`, d'après le SQL standard, sera le premier. Une classe
 de caractères se nomme entre deux deux-points, `:alpha:`, à part de l'étiquette `:alpha` :
-`[:alpha: c]` est un prédicat, `[[:alpha:]]` la matrice des bornes de ses plages, `((:alpha:))` ses
+`[:alpha: c]` est un prédicat, `[[:alpha:]]` ses points de code, ses bornes s'obtenant par une
+fonction, `((:alpha:))` ses
 points de code dans l'ordre, produits à la demande — un crochet d'idiome sans argument —, et
 `{{:alpha:}}` le type raffiné des textes d'un caractère qu'elle admet ; les noms POSIX y désignent
 les propriétés Unicode que leur associe l'UTS #18, et le complément d'une classe se prend parmi les
