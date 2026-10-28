@@ -3102,6 +3102,12 @@ Words of the examples that no answer has fixed yet (`fold`, `square`, `identity`
 - **B — FIXAPL's rule, triadic words kept out of trains.** As A, but a triadic word is only ever applied, never placed in a train. *For:* exactly FIXAPL's rule.
 - **C — Explicit grouping, three words at most.** As chapter 5 writes today. *Against:* five inner groups for the standard deviation.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-012), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** FIXAPL's rule, triadic words kept out of trains (option B). A train is read from the right: a monadic word applies to the result of what is on its right; a dyadic word with a word on its left forms a fork with it, the word on the left being applied to the train's arguments and giving the dyadic word its left argument; a dyadic word with nothing on its left takes the train's left argument; a bracketed group counts as one word; a triadic word is only ever applied, never placed in a train. This replaces the grouping by three words at most: the standard deviation is written `[sqrt [fold add square identity sub fold add div length] div length]`.
+
+
 #### Q-LEX-617 — Colouring words by what their type says
 
 **Object.** Q-SPEC-306: « le type d'opération indique l'arité attendue, ce qui permet de colorer le graphème comme Uiua, BQN, FIXAPL, etc., mais aussi comme colorForth ». In K7PL the colour would be a view, like the glyphs: files keep the words, and the editor colours them from their types. The view could also mark the groups a train forms (Q-SPEC-309).
@@ -3115,6 +3121,12 @@ Words of the examples that no answer has fixed yet (`fold`, `square`, `identity`
 - **B — By role, the four roles of BQN.** Values, functions, modifiers taking one function, modifiers taking two; BQN marks the role in the shape of its glyphs.
 - **C — Both.** The hue gives the role, the shade the arity.
 - **D — Not in the specification.** Left to the editor.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-013), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** words are coloured by role (option B), read from their types: values, functions, modifiers taking one function, modifiers taking two. The colouring is a view of the editor, as the glyphs are; the colours themselves are not chosen.
+
 
 ### Doubled forms in layer 3
 
@@ -3130,6 +3142,12 @@ Words of the examples that no answer has fixed yet (`fold`, `square`, `identity`
 - **A — Literal shapes only.** `[[ … ]]` holds an interval or a class, recognised by its content; storage in the caller's frame is a property of a declaration, and cell-wise application a modifier of trains. Revises Q-LEX-609 B. Example: `[[1..9]]   [[:alpha:]]   {field buffer :num int8 +frame}   [rank sum 1]`. *For:* no head word to tell apart; every size is visible before execution.
 - **B — Head words kept (Q-LEX-609 B).** Bounds must then be known before execution: literals, `#`, or a grade. Example: `[[ range 1 9 ]]   [[ frame buffer 256 ]]   [[ cells sum 1 ]]   [[:alpha:]]`.
 - **C — Literal shapes for intervals and classes, head words for the rest.** Example: `[[1..9]]   [[:alpha:]]   [[ frame buffer 256 ]]   [[ cells sum 1 ]]`.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-014), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** literal shapes only (option A), which revises Q-LEX-609 B: in layer 3, `[[ … ]]` holds an interval or a class, recognised by its content, without a head word; storage in the caller's frame is a property of a declaration (`+frame`), and cell-wise application a modifier of trains (`rank`), both words being placeholders.
+
 
 #### Q-LEX-616 — How an interval is written, if it is a literal
 
@@ -3150,6 +3168,15 @@ Several options may be chosen.
 - **chars — Texts of one character.** Example: `[["a".."z"]]`.
 - **open — No end, in layer 2 only.** A lazy list, outside layer 3. Example: `(1..)`.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-015), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** incl, step, dims, chars, OTHER
+- **Other:** open en couche 2 serait logiquement ((1..n))
+
+  pour le bornage, je préfèrerais utiliser un mot clé dédié pour représenter les bornes suivantes : `]1..9] ; [1..9] ; [1..9[ et ]1..9[` (p.ex "inner, outer, left, right => largement criticable)
+- **Reading:** inclusive bounds `a..b`, a step given by a second element (`[[1 3..9]]`), several intervals forming a matrix of index pairs (`[[1..3 1..3]]`), and texts of one character as bounds (`[["a".."z"]]`); the excluded end `a..<b` is not taken. Bounds other than the closed ones of `a..b` — written `]1..9]`, `[1..9[` and `]1..9[` in the author's message, with `[1..9]` — are marked by a dedicated keyword; the author's example names (inner, outer, left, right) are open to criticism and wait for the choice of words. In layer 2, the lazy interval is written in the doubled pair of its layer, `((1..n))`, rather than `(1..)`; whether its end may be left out is not said.
+
+
 ### Texts
 
 #### Q-STR-407 — A text width that is not a multiple of 8
@@ -3159,6 +3186,13 @@ Several options may be chosen.
 - **A — Refused, with a code.** *For:* every width holds whole bytes.
 - **B — Rounded up to a whole byte, with a warning.** Example: `str12   ;; str16, WRN-…`.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-016), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** Emacs encode le text sur 7bits, il existe d'autres conventions dans la nature, donc bien que utf8 soit un défaut appliqué à K7PL en cas de résolution de typed hole, il faut laisser la possibilité de créer du typage ascii, utf16, utf32, emacs, etc.
+- **Reading:** the width question is not answered as asked; the encoding becomes part of the text type. UTF-8 is the default, the one chosen when a typed hole is resolved, and other conventions — ASCII, UTF-16, UTF-32, Emacs's, and so on — can be written in the type. Still open: how the encoding is written, and what a width that is not a multiple of the encoding's unit means (`str12` in UTF-8). On Emacs, the Emacs Lisp manual describes its internal representation as an extension of UTF-8 that stores each character as 1 to 5 bytes, a codepoint being a 22-bit integer (research).
+
+
 ### Actors
 
 #### Q-SPEC-310 — Applying the actor's `:on … :sets` form now
@@ -3167,6 +3201,13 @@ Several options may be chosen.
 
 - **A — Now.** `lst:acteur` takes the `:on … :sets` form, `lst:gestionnaire` shows the handler the clause implies, the row of `def:elaboration` becomes the `:on` clause, the remark on `bind-to` in « Mise en pratique » is rewritten, and the proof sketch and the note of `thm:staticite_syntaxe` no longer name it; the statement itself is unchanged.
 - **B — After the discussion on scenarios.** Chapter 5 keeps `bind-to` until checks, transformations and deliveries are composed.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-017), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** rappel toi qu'on a retiré "bind-to" au profit de "bind" et des mots issues des monades. nous devons encore les comparer avec les mots des effets algébriques.
+- **Reading:** apply now (option A). The author recalls that `bind-to` already gave way to `bind` and the words of monads (fourth part: `bind` for Haskell's `>>=`, `:bind`, `:return`), and that those words must still be compared with the words of algebraic effects; that comparison belongs to the choice of words.
+
 
 ## The catalogue, verbatim
 

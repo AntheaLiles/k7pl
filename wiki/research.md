@@ -1441,6 +1441,35 @@ the revised fifth part.
   chapter 5 uses it for the length; `´`, `¨`, `√` and `²` have no row;
   `-` (`sub`) and `⊢` (`right-id`) have no monadic alias.
 
+## Reading lot: research of 2026-10-28, after the eighth part
+
+The sources of the sixth to eighth parts are quoted in the facts of
+each question ([questions](questions.md)). This section keeps what the
+answers to the eighth part raised. Read on 2026-10-28; quotations are
+verbatim; what is inferred for K7PL is marked as such and decides
+nothing.
+
+### Text encodings
+
+- **Emacs**, Emacs Lisp manual, « Text Representations »: « a character
+  codepoint in Emacs is a 22-bit integer »; « Emacs uses a
+  variable-length internal representation of characters, that stores
+  each character as a sequence of 1 to 5 8-bit bytes, depending on the
+  magnitude of its codepoint », a representation « based on » UTF-8,
+  which « Emacs extends […] to represent the additional codepoints it
+  uses for raw 8-bit bytes and characters not unified with Unicode »;
+  and, in « Coding System Basics », the coding system `utf-8-emacs`
+  « specifies that the data is represented in the internal Emacs
+  encoding ». Source:
+  https://github.com/emacs-mirror/emacs/blob/emacs-30/doc/lispref/nonascii.texi.
+- Inferred, not decided: the author's message on Q-STR-407 says that
+  Emacs encodes text on 7 bits; by the manual, its internal encoding
+  uses 8-bit bytes, 1 to 5 per character, and 7 bits is the width of
+  ASCII. The answer's point stands either way: several encodings must be
+  expressible in a text type, and a width counted in bits then depends
+  on the unit of the encoding (8 bits for UTF-8, 16 for UTF-16, 32 for
+  UTF-32, 7 for ASCII stored without padding).
+
 ## Archive review: early K premises (`OLD_K_K7PL`)
 
 Received from the author on 2026-10-27 as `OLD_K_K7PL.zip`, described
