@@ -25,8 +25,10 @@
 # surfaces of every component whose roots contain it, plus the
 # surfaces of every component whose read_inputs contain it. New
 # surface names (axiom_audit, k_compile, k_examples, klean_export,
-# tla_model_check) are declared here as derivation targets; they
-# are not yet emitted by the classifier and not yet wired to jobs.
+# tla_model_check) are declared here as derivation targets; since
+# cutover C2 they are emitted by the impact job (derived step) and
+# wired to jobs (formal semantics workflow, r9-tlc), while the legacy
+# classifier still decides the legacy surfaces until the C3 cutover.
 # The markdown rule (any .md/.markdown file triggers docs_links)
 # and the light/full exact-prefix rules remain classifier rules,
 # not components, and are not declared here.
@@ -229,8 +231,9 @@ components:
       # PR #311 (author decision 2026-10-26): every K file lives
       # in lexicon/, which the Verso K blocks display; the layer
       # checker reads the probes of tests/layers/ and
-      # tests/lexical/ and the .k7 files of lib/. These mirror
-      # the k7pl-semantics.yaml path filters.
+      # tests/lexical/ and the .k7 files of lib/. Since cutover
+      # C2 these entries, not path filters, start
+      # k7pl-semantics.yaml.
       - path: lexicon/
         surfaces:
           - k_compile
@@ -271,7 +274,7 @@ components:
     roots:
       - proofs/
     build_command: lake build K7PL2Lean K7PL
-    check_command: scripts/ci/k7pl_semantics_build_proofs.sh
+    check_command: deno run --allow-read --allow-run --allow-write tools/ci-controller/src/build_proofs.ts --build --workdir proofs
     cache_determinants:
       - proofs/lake-manifest.json
       - proofs/lean-toolchain

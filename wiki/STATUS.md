@@ -1,0 +1,6 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+# K7PL Status

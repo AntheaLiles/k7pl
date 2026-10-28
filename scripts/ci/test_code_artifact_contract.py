@@ -148,9 +148,21 @@ class CodeArtifactContractTests(unittest.TestCase):
             self.workflow.index("Install the repository-pinned Lean toolchain"),
             self.workflow.index("Compile K definition and run examples"),
         )
-        self.assertIn('"spec/Spec/**"', self.workflow)
-        self.assertIn('"lexicon/**"', self.workflow)
-        self.assertIn('"tools/**"', self.workflow)
+        # Cutover C2: the workflow is no longer triggered by path filters
+        # (spec/Spec/**, tools/**); ci.yaml calls it with surface inputs.
+        self.assertIn("workflow_call", self.workflow_file)
+        for surface in (
+            "k_compile",
+            "k_examples",
+            "klean_export",
+            "tla_model_check",
+            "axiom_audit",
+        ):
+            self.assertIn(surface, self.workflow_file)
+        # PR #311: every K file lives in lexicon/, which the component
+        # registry routes to the K surfaces in place of a path filter.
+        components = (ROOT / ".github/ci/components.yaml").read_text(encoding="utf-8")
+        self.assertIn("- path: lexicon/", components)
         self.assertNotIn("extract_verso_code.py", self.workflow)
 
     def test_workflow_packages_the_k_sources(self) -> None:
@@ -160,9 +172,14 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertNotIn(".build/generated/semantics.k", self.workflow)
         self.assertIn(".build/generated/check_k_examples.py", self.workflow)
 
-    def test_step_scripts_trigger_the_workflow(self) -> None:
-        # Both the pull_request and the push path filters.
-        self.assertEqual(self.workflow_file.count('- "scripts/ci/k7pl_semantics_*.sh"'), 2)
+    def test_semantics_workflow_is_triggered_by_surfaces_not_paths(self) -> None:
+        # Cutover C2: path filters are gone; ci.yaml calls the workflow
+        # with derived surface inputs, and workflow_dispatch stays manual.
+        self.assertIn("workflow_call", self.workflow_file)
+        self.assertIn("workflow_dispatch", self.workflow_file)
+        self.assertNotIn('- "scripts/ci/k7pl_semantics_*.sh"', self.workflow_file)
+        self.assertNotIn("pull_request:", self.workflow_file)
+        self.assertNotIn("push:", self.workflow_file)
 
 
 if __name__ == "__main__":

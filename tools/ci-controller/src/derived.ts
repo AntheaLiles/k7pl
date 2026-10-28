@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 /**
- * D2 slice 2: the classifier derived from the registry, run in
- * shadow only. It does NOT replace the legacy classifier yet.
+ * D2 slice 2: the classifier derived from the registry. Since cutover C2,
+ * its five new surfaces are emitted by the impact job and gate the formal
+ * semantics workflow and r9-tlc; the legacy classifier still decides the
+ * seven legacy surfaces for verify and the rest until the C3 cutover.
  *
  * Derivation rule, exactly as decided (D2, 2026-10-25): a path
  * triggers the impact_surfaces of every component whose roots
@@ -223,6 +225,25 @@ export const LEGACY_KEYS = [
   "tracking_views",
   "unclassified",
 ] as const;
+
+/** New derivation targets wired to jobs by cutover C2 (impact outputs). */
+export const DERIVED_GATING_SURFACES = [
+  "axiom_audit",
+  "k_compile",
+  "k_examples",
+  "klean_export",
+  "tla_model_check",
+] as const;
+
+/** GITHUB_OUTPUT lines for the derived gating surfaces, in registry order. */
+export function derivedGithubOutputLines(
+  derived: DerivedClassification,
+): string[] {
+  return DERIVED_GATING_SURFACES.map(
+    (surface) =>
+      `${surface}=${String(derived.surfaces[surface]).toLowerCase()}`,
+  );
+}
 
 /** Per-surface legacy-key divergences between derived and legacy. */
 export function derivedDivergences(
