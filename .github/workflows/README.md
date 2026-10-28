@@ -19,6 +19,7 @@ Il n'existe pas de branche `dev` servant de zone « moins vérifiée ». Les bra
 |---|---|---|
 | `ci.yaml` | PR, push sur `main`, manuel | Orchestration : classification d'impact, contrôles ciblés, contrôles invariants et `CI OK` ; sur `main`, publication de Pages (`deploy-pages`) et régénération de `wiki/STATUS.md` (`status`) |
 | `verify.yaml` | `workflow_call` | Chaîne réutilisable de validation Lean/Verso |
+| `k7pl-semantics.yaml` | Appelé par `ci.yaml`, manuel | Sémantique formelle K/TLA+ (`d01-tlc`, `k-smoke`), pilotée par les surfaces dérivées |
 | `full.yaml` | Quotidien, manuel | Vérification complète du projet |
 | `release.yaml` | Push d'un tag `spec-v*` ou `v*`, essai manuel | Contrôles avant publication ; brouillon de release attesté pour `spec-vX.Y.Z` (voir « Releases ») |
 | `zenodo.yaml` | Release `spec-v*` publiée | Archivage sur Zenodo des octets de la release publiée, après vérification (voir « Publication Zenodo ») |
@@ -32,23 +33,46 @@ Il n'existe pas de branche `dev` servant de zone « moins vérifiée ». Les bra
 
 ## Analyse d'impact
 
-La classification est implémentée par `scripts/ci/impact.py`. Elle travaille sur les chemins réellement modifiés entre le commit de base et le commit courant. Pour garantir un comportement conservateur, tout chemin inconnu force une vérification complète.
+La classification est implémentée par le contrôleur Deno (`tools/ci-controller/src/derived.ts`, point d'entrée du job d'impact : `derived_event.ts`). Elle travaille sur les chemins réellement modifiés entre le commit de base et le commit courant, d'après les règles déclarées dans le registre `.github/ci/components.yaml` : un chemin déclenche les surfaces des composants dont les racines le contiennent (hors exclusions) et des composants dont les `read_inputs` le contiennent. Pour garantir un comportement conservateur, tout chemin inconnu force une vérification complète. Le classifieur Python historique (`scripts/ci/impact.py`) ne décide plus rien : il tourne en shadow inversé (job `controller-shadow`, non bloquant, jamais dans `CI OK`), et ses divergences avec le classifieur dérivé sont rapportées dans les journaux.
 
-`scripts/ci/impact.py` est la **seule** source des chemins qui forcent la vérification complète : `ci.yaml` n'en duplique plus la liste. Le classifieur et les autres scripts de `scripts/ci/` sont testés par `python3 -m unittest discover -s scripts/ci -p 'test_*.py'` (bibliothèque standard seule, sans réseau). Le job d'impact exécute aussi `scripts/ci/check_manifest.py` (hors ligne) : un `lake-manifest.json` modifié par une PR ordinaire est contrôlé comme celui de la PR de `bump-lean`. Toute modification de `scripts/ci/**` est considérée comme une modification de l'infrastructure de CI et force donc la vérification complète.
+Le registre `.github/ci/components.yaml` est la **seule** source des règles de surfaces déclarées : `ci.yaml` n'en duplique plus la liste. Les règles résidentes du classifieur (tout Markdown déclenche `docs_links` ; chemins légers ; règles exactes) vivent dans `derived.ts`, pas dans le registre. Le contrôleur est vérifié par `deno task check`, `deno task lint`, `deno task fmt` et `deno task test` (job d'impact) ; le classifieur Python et les autres scripts de `scripts/ci/` restent testés par `python3 -m unittest discover -s scripts/ci -p 'test_*.py'` (bibliothèque standard seule, sans réseau), comme référence du shadow. Le job d'impact exécute aussi le contrôle du manifeste Lake (`tools/ci-controller/src/manifest.ts`, hors ligne) : un `lake-manifest.json` modifié par une PR ordinaire est contrôlé comme celui de la PR de `bump-lean`. Toute modification de `scripts/ci/**` ou de `.github/ci/**` est considérée comme une modification de l'infrastructure de CI et force donc la vérification complète.
 
 Les surfaces sont les suivantes.
 
-| Surface | Contrôles |
+| Surface | Ce qu'elle déclenche |
 |---|---|
-| `src/**`, `tests/**` | build Lean, tests, lint, audit des axiomes |
-| `scripts/axiom-audit.sh` | build Lean **et** build de la spécification : le script est appelé par les deux chaînes |
-| `spec/**`, `tools/**`, `wiki/references.json`, `scripts/controle.py`, `scripts/controles/**`, `scripts/manuscript_metrics.py` | contrôles statiques, build Verso, audit des axiomes, rendu HTML/TeX, PDF |
-| `wiki/research.md` (Primitive inventory) | contrôles statiques de la spécification |
-| `*.md` | contrôle des liens locaux |
+| `full` | vérification complète (tous les jobs) |
+| `docs_links` | contrôle des liens locaux (job docs de `verify.yaml`) |
+| `spec_check` | contrôles statiques de la spécification (`controle.py`) |
+| `spec_build` | build Verso, rendu HTML/TeX, PDF |
+| `lean_build` | build Lean, tests, lint, audit des axiomes de l'implémentation |
+| `python_tests` | tests Python (`scripts/ci`, `tests/python`) |
+| `tracking_views` | vues de suivi (job docs de `verify.yaml`) |
+| `unclassified` | informatif : un chemin inconnu force `full` |
+| `axiom_audit` | audit des axiomes du projet de preuves (`k-smoke`) |
+| `k_compile`, `k_examples`, `klean_export` | compilation K, exemples, export Klean vers Lean (`k-smoke`) |
+| `tla_model_check` | vérifications TLC `d01-tlc` et `r9-tlc` |
+
+Exemples de chemins (vérifiés avec le classifieur dérivé) :
+
+| Chemins | Surfaces |
+|---|---|
+| `src/**`, `tests/**` (hors `src/k/`) | `lean_build` (et `spec_check`, `python_tests` pour `src/` via les `read_inputs`) |
+| `src/k/` | `k_compile`, `k_examples`, `klean_export`, plus `spec_check` et `python_tests` via les `read_inputs` |
+| `proofs/**` | `axiom_audit` |
+| Modèles TLA (`theoretical-projects/k7os/models/`, R9) | `tla_model_check` |
+| `spec/Spec.lean`, `spec/Spec/**`, `spec/formal-chain/**`, `tools/SpecMain.lean`, `tools/SpecExt/**` | `spec_check`, `spec_build`, `python_tests`, plus les surfaces K |
+| `scripts/controle.py`, `scripts/controles/**`, `scripts/biblio/**`, `scripts/manuscript_metrics.py`, `wiki/references.json` | `spec_check`, `spec_build`, `python_tests` (`docs_links` en plus pour `wiki/references.json`) |
+| `tools/**` (Hors K) | `spec_check`, `spec_build`, `python_tests` et/ou `lean_build` selon le composant — pas de `k-smoke` |
+| `wiki/semantics.md` | surfaces K et `docs_links` (`read_input` temporaire, jusqu'à la fermeture des wiki lexicaux) |
+| `wiki/research.md` (Primitive inventory) | `docs_links` ; voir ci-dessous pour la table |
+| `*.md` | `docs_links` |
 | `docs/**`, `.claude/**`, `.github/ISSUE_TEMPLATE/**`, `LICENSES/**`, `CITATION.cff` | documentation/configuration légère ; contrôles invariants seulement, avec contrôle des liens pour Markdown |
-| `.github/workflows/**`, `.github/dependabot.yml` | vérification complète |
+| `.github/workflows/**`, `.github/ci/**`, `scripts/ci/**`, `.github/dependabot.yml` | vérification complète |
 | `lakefile.lean`, `lean-toolchain`, `lake-manifest.json` | vérification complète |
 | `scripts/sync_zenodo.py`, `scripts/requirements-zenodo.txt` | vérification complète |
+
+Depuis C2, les surfaces dérivées pilotent l'orchestration : le job `semantics` de `ci.yaml` appelle `k7pl-semantics.yaml` quand l'une des cinq surfaces dérivées est vraie, et `r9-tlc` ne tourne que si `tla_model_check` est vraie. Depuis C3, le classifieur dérivé décide les treize surfaces. `CI OK` exige les mêmes jobs qu'avant (`impact`, `verify`, `reuse`, `commitlint`, `security`, `r9-tlc`) : le workflow sémantique appelé ne le bloque pas, et `r9-tlc` en `skipped` est accepté exactement quand `tla_model_check` est absente.
 
 Les surfaces se cumulent. Par exemple, une PR modifiant `src/**` et `spec/**` exécute les chaînes Lean et Verso.
 
@@ -69,13 +93,13 @@ python3 scripts/ci/check_lean_modules.py
 lake build K7pl K7plTests
 lake test
 lake lint
-scripts/axiom-audit.sh K7pl K7pl
-scripts/axiom-audit.sh <racine> +<racine>      # pour chaque racine de tests/ lue dans lakefile.lean
+deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit K7pl K7pl
+deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit-roots tests
 ```
 
 `check_lean_modules.py` détecte les fichiers Lean de `src/` et `tests/` qu'aucune racine de `lakefile.lean` n'atteint : `lake build` ne les compile jamais, et un `#guard` faux ou un avertissement n'y ferait donc pas échouer le build. Le script échoue bruyamment si la structure de `lakefile.lean` n'est pas reconnue.
 
-L'audit d'axiomes des modules de test est lancé racine par racine, car `axiom-audit` prend un préfixe de nom de module et les modules de test sont plats. Les audits de `K7plTests` ne sont validés que par la CI GitHub : ils exigent Mathlib.
+L'audit d'axiomes des modules de test est lancé racine par racine, car `axiom-audit` prend un préfixe de nom de module et les modules de test sont plats ; les racines sont lues dans `lakefile.lean`. Les audits de `K7plTests` ne sont validés que par la CI GitHub : ils exigent Mathlib.
 
 Le cache des dépendances Lake est partagé logiquement par l'implémentation et la spécification. Sa clé dépend de `lake-manifest.json` et de `lean-toolchain`.
 
@@ -87,10 +111,10 @@ La surface de spécification exécute :
 python3 scripts/controle.py --format github
 lake exe cache get                                                 # le noyau C3 importe Mathlib
 lake build Spec
-scripts/axiom-audit.sh Spec Spec
-scripts/axiom-audit.sh Spec.C3.EffectiveKernel Spec
-scripts/axiom-audit.sh SpecExt SpecExt
-scripts/axiom-audit.sh SpecBib SpecBib
+deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit Spec Spec
+deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit Spec.C3.EffectiveKernel Spec
+deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit SpecExt SpecExt
+deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit SpecBib SpecBib
 lake exe spec --output _out/spec --with-tex
 tectonic -X compile --keep-logs -Z deterministic-mode main.tex     # avec SOURCE_DATE_EPOCH
 ```
@@ -117,7 +141,7 @@ On a push to `main`, once `CI OK` has succeeded, the `status` job of `ci.yaml` r
 
 **Why a dispatch.** The push is made with `GITHUB_TOKEN`: the `pull_request` run it causes is held until a maintainer approves it (observed as `action_required` on PR #218), and nothing else runs on the generated commit. A `workflow_dispatch` event created with `GITHUB_TOKEN` does start a run. The dispatched run is an ordinary CI run on the head of `automation/generated-status`:
 
-- its impact job compares that head with its merge base with `origin/main`, computed from the checkout (no workflow input is read). A commit that only changes `wiki/STATUS.md` therefore gets what a pull request changing that file gets: the documentation-architecture check, the local link check, and the three invariant checks (REUSE, Conventional Commits, Security). Any other change pushed to the branch is classified like in any pull request. A head that is already on `main` gets the full validation; a branch with no history in common with `main` fails the impact job, and so `CI OK`. Every other manual dispatch still runs the full validation;
+- its impact job (derived classifier, same routing) compares that head with its merge base with `origin/main`, computed from the checkout (no workflow input is read). A commit that only changes `wiki/STATUS.md` therefore gets what a pull request changing that file gets: the documentation-architecture check, the local link check, and the three invariant checks (REUSE, Conventional Commits, Security). Any other change pushed to the branch is classified like in any pull request. A head that is already on `main` gets the full validation; a branch with no history in common with `main` fails the impact job, and so `CI OK`. Every other manual dispatch still runs the full validation;
 - `CI OK` aggregates these jobs as in every run and fails if one of them fails;
 - `status` and `deploy-pages` only run on a push to `main`: the dispatched run publishes nothing and dispatches nothing.
 
@@ -225,4 +249,4 @@ artefacts publiés
 
 Chaque contrôle possède ainsi une propriété cible, une surface d'applicabilité et un oracle distincts.
 
-`README.md` est une spécification descriptive. Le comportement effectif est défini par les workflows et `scripts/ci/impact.py`. Toute divergence entre les deux doit être corrigée.
+`README.md` est une spécification descriptive. Le comportement effectif est défini par les workflows et le contrôleur Deno (`tools/ci-controller/`, registre `.github/ci/components.yaml`) ; `scripts/ci/impact.py` ne sert plus qu'au shadow inversé. Toute divergence entre les deux doit être corrigée.
