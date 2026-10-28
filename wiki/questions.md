@@ -3069,6 +3069,105 @@ Several options may be chosen.
 - **Reading:** remarks take the prefix `HEY-`, as written (option A): `HEY-LEX-001` for a rewritten glyph.
 
 
+## Lot of 2026-10-28, eighth part: trains after FIXAPL, a critique of `[[ range … ]]`, text widths, the actor
+
+Opened on 2026-10-28, once the author had answered the seventh part. It carries the research
+those answers asked for — how FIXAPL reads trains and how languages colour words, a critique of
+`[[ range … ]]` given the nature of layer 3 — and the questions they raise. Same rules: options
+to enumerate and objectify, then the author's choice; **Other** and **Clarify** are always
+available.
+
+Words of the examples that no answer has fixed yet (`fold`, `square`, `identity`, `rank`, `+frame`…) are placeholders.
+
+### Trains
+
+#### Q-SPEC-309 — Trains: FIXAPL's rule, the arity of each word
+
+**Object.** Q-SPEC-306, kept open with research asked for. What the specification already says: every word of a train carries a typed arity — monadic, dyadic, at most triadic, never n-ary — and it is what tells a train from an application (chapter 5); the glossary reads the arity of a train from the number of its terms, which settles two and three words but not more. FIXAPL draws the missing rule from fixed arities: the arity of each word, not the length of the train, decides how it combines. Applied to K7PL, read from the right, a monadic word composes (atop) with everything on its right, a dyadic word forms a fork with the word on its left and everything on its right, a dyadic word with nothing on its left takes the train's left argument, and a bracketed group counts as one word. The standard deviation then needs one inner group instead of five. FIXAPL knows two arities only, and K7PL a third.
+
+**Facts.**
+
+- FIXAPL: « Fixed-arity functions provide a wonderful solution to the age-old train problem of how to divide a tacit expression of juxtaposed functions into fork, atop, or hook combinators. […] If a function is dyadic, apply it like a fork (or a hook, if applicable). If a function is monadic, apply it as atop »; « FIXAPL expressions run from right to left »; « A dyadic function with another function directly to its left forms a fork. The function on the left is called with the input argument(s), and the result is passed as the left argument to the right function »; « If the leftmost part of an expression is a dyadic function, the left argument to that function is the left input »; « The arity of the resulting function is the greatest number of inputs required by any of these rules »; for a function written out, « If only `⍵` is present, the function is monadic, if `⍺` is present, the function is dyadic » (FIXAPL, README (https://github.com/Jacob-Lockwood/fixapl)).
+- Chapter 5 today: « Un train de plus de trois mots s'écrit groupé, trois mots au plus par paire de crochets »; the standard deviation is `[sqrt [[fold add [square [identity sub [fold add div length]]]] div length]]`.
+- Chapter 4: « R-expressions et calcul tacite sont ainsi les deux visages d'une même exigence : toute exécution de couche 3 est un automate dont la mémoire se calcule avant l'exécution, jamais pendant »; the glossary: a train is a « Suite de fonctions composées par juxtaposition, dont l'arité de l'assemblage se lit sur le nombre de termes ».
+
+- **A — FIXAPL's rule, triadic words taking two words on their left.** Read from the right: a monadic word is an atop, a dyadic word a fork with the word on its left, a triadic word a fork with the two words on its left. *For:* no length rule; grouping follows the arities the types already carry. *Against:* the triadic case is K7PL's own, without precedent in FIXAPL.
+
+  ```text
+  [fold add div length]                                          ;; the mean
+  [identity sub fold add div length]                             ;; x minus its mean
+  [sqrt [fold add square identity sub fold add div length] div length]   ;; the standard deviation
+  ```
+
+- **B — FIXAPL's rule, triadic words kept out of trains.** As A, but a triadic word is only ever applied, never placed in a train. *For:* exactly FIXAPL's rule.
+- **C — Explicit grouping, three words at most.** As chapter 5 writes today. *Against:* five inner groups for the standard deviation.
+
+#### Q-LEX-617 — Colouring words by what their type says
+
+**Object.** Q-SPEC-306: « le type d'opération indique l'arité attendue, ce qui permet de colorer le graphème comme Uiua, BQN, FIXAPL, etc., mais aussi comme colorForth ». In K7PL the colour would be a view, like the glyphs: files keep the words, and the editor colours them from their types. The view could also mark the groups a train forms (Q-SPEC-309).
+
+**Facts.**
+
+- colorForth: « The colors of program code in colorForth have semantic meaning. Red words start a definition, and green words are compiled into the current definition. […] Yellow words are executed » (Wikipedia, colorForth (https://en.wikipedia.org/wiki/ColorForth)).
+- BQN: « Every value can be used in any of four syntactic roles »; « Primitive glyphs follow patterns: 1-modifiers like ˝ are superscripts and 2-modifiers like ○ use circles » (BQN, context-free grammar (https://mlochbaum.github.io/BQN/doc/context.html)).
+
+- **A — By arity.** One colour for monadic, dyadic and triadic words, one for modifiers.
+- **B — By role, the four roles of BQN.** Values, functions, modifiers taking one function, modifiers taking two; BQN marks the role in the shape of its glyphs.
+- **C — Both.** The hue gives the role, the shade the arity.
+- **D — Not in the specification.** Left to the editor.
+
+### Doubled forms in layer 3
+
+#### Q-LEX-615 — `[[ … ]]` in layer 3: a critique of the head words
+
+**Object.** Q-LEX-610, clarification asked: « est-ce que ça fait vraiment sens au regard de la nature de la couche 3? critique cela. je préfèrerais systématiquement garder {{:alpha:}}, ((:alpha:)) et [[:alpha:]] face à des formes syntaxique ambigües ». The critique: (1) layer 3 runs as an automaton whose memory is computed before execution, so a range is a layer-3 value only if its size is known before running — bounds written as literals, computed at compile time (`#`), or bounded by a grade; (2) with a head word, `[[ range 1 9 ]]` reads as `range` applied to 1 and 9, which the plain `[range 1 9]` already says, a word in head position applied to the rest: the doubled bracket adds nothing, although a doubled form is meant to make precise, by its content, a form of its layer; (3) chapter 5 says `[[ range … ]]` « range des éléments en mémoire, comme un intervalle »: placing in memory is what `[[ frame … ]]` does, a property of storage rather than a value, and applying a function cell by cell is the rank of a function, which J writes with a conjunction, `u"n`, not with a bracket; (4) the class forms you keep are literals recognised by the shape of their content, without a head word, and an interval written `[[1..9]]` would be one more, whose size the reader sees.
+
+**Facts.**
+
+- Chapter 4: « R-expressions et calcul tacite sont ainsi les deux visages d'une même exigence : toute exécution de couche 3 est un automate dont la mémoire se calcule avant l'exécution, jamais pendant »; the glossary: a train is a « Suite de fonctions composées par juxtaposition, dont l'arité de l'assemblage se lit sur le nombre de termes ».
+- J: « The verb `u"n` applies u to each cell as specified by the rank n » (J Dictionary, Rank (https://www.jsoftware.com/help/dictionary/d600v.htm)).
+
+- **A — Literal shapes only.** `[[ … ]]` holds an interval or a class, recognised by its content; storage in the caller's frame is a property of a declaration, and cell-wise application a modifier of trains. Revises Q-LEX-609 B. Example: `[[1..9]]   [[:alpha:]]   {field buffer :num int8 +frame}   [rank sum 1]`. *For:* no head word to tell apart; every size is visible before execution.
+- **B — Head words kept (Q-LEX-609 B).** Bounds must then be known before execution: literals, `#`, or a grade. Example: `[[ range 1 9 ]]   [[ frame buffer 256 ]]   [[ cells sum 1 ]]   [[:alpha:]]`.
+- **C — Literal shapes for intervals and classes, head words for the rest.** Example: `[[1..9]]   [[:alpha:]]   [[ frame buffer 256 ]]   [[ cells sum 1 ]]`.
+
+#### Q-LEX-616 — How an interval is written, if it is a literal
+
+**Object.** For options A and C of Q-LEX-615. Its bounds are literals or computed at compile time, so its size is known before execution. By chapter 5's reading rule, `1..9` is one atom today, like `x-1`.
+
+**Facts.**
+
+- Haskell: « The arithmetic sequence [e1, e2 .. e3] denotes a list of values of type t », the second element giving the step, and `[ e1.. ] = enumFrom e1` has no end (Haskell 2010, §3.10 (https://www.haskell.org/onlinereport/haskell2010/haskellch3.html)).
+- Rust: `start..end` is the range `start ≤ x < end`, `start..=end` the range `start ≤ x ≤ end` (Rust reference, range expressions (https://doc.rust-lang.org/reference/expressions/range-expr.html)).
+- Unicode writes its ranges with two dots: « 0000..007F; Basic Latin » (Unicode Character Database, Blocks.txt (https://www.unicode.org/Public/UCD/latest/ucd/Blocks.txt)).
+
+Several options may be chosen.
+
+- **incl — Inclusive bounds, `a..b`.** Example: `[[1..9]]   ;; 1 to 9`.
+- **excl — An excluded end, `a..<b`.** Example: `[[0..<#n]]   ;; 0 to n-1, n known at compile time`.
+- **step — A step, as Haskell.** Example: `[[1 3..9]]   ;; 1 3 5 7 9`.
+- **dims — Several intervals, a matrix of index pairs.** Example: `[[1..3 1..3]]`.
+- **chars — Texts of one character.** Example: `[["a".."z"]]`.
+- **open — No end, in layer 2 only.** A lazy list, outside layer 3. Example: `(1..)`.
+
+### Texts
+
+#### Q-STR-407 — A text width that is not a multiple of 8
+
+**Object.** Q-STR-405: `strN`, as `intN`, allocates N bits, and the text is encoded in UTF-8, whose units are bytes. Integers take any width (third part). What does `str12` mean?
+
+- **A — Refused, with a code.** *For:* every width holds whole bytes.
+- **B — Rounded up to a whole byte, with a warning.** Example: `str12   ;; str16, WRN-…`.
+
+### Actors
+
+#### Q-SPEC-310 — Applying the actor's `:on … :sets` form now
+
+**Object.** Q-SPEC-307: A is accepted « pour l'instant », with « il nous faut une approche plus systémique pour identifier et composer les scénarios ». Applying it to chapter 5 goes beyond the listings: `bind-to` is one of the six written forms of the definition `def:elaboration`, and the proof sketch of the corollary on static syntax (`thm:staticite_syntaxe`) names its resolution by type-directed search as the only place where a name is produced. With `:on … :sets`, the handler is derived by the rule of `Result` and no name is searched.
+
+- **A — Now.** `lst:acteur` takes the `:on … :sets` form, `lst:gestionnaire` shows the handler the clause implies, the row of `def:elaboration` becomes the `:on` clause, the remark on `bind-to` in « Mise en pratique » is rewritten, and the proof sketch and the note of `thm:staticite_syntaxe` no longer name it; the statement itself is unchanged.
+- **B — After the discussion on scenarios.** Chapter 5 keeps `bind-to` until checks, transformations and deliveries are composed.
+
 ## The catalogue, verbatim
 
 
