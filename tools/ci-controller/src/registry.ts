@@ -1,1 +1,396 @@
-Ly8gU1BEWC1GaWxlQ29weXJpZ2h0VGV4dDogMjAyNiBDeXByaWVuIFBJRVJSRQovLwovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogQ0VDSUxMLTIuMQoKLyoqIENvbXBvbmVudCByZWdpc3RyeTogbG9hZGluZyBhbmQgdmFsaWRhdGlvbiBvZiAuZ2l0aHViL2NpL2NvbXBvbmVudHMueWFtbC4gKi8KCmltcG9ydCB7CiAgYXNMaXN0LAogIGFzUmVjb3JkLAogIGFzU3RyaW5nLAogIGFzU3RyaW5nTGlzdCwKICBwYXJzZVlhbWwsCiAgdHlwZSBZYW1sVmFsdWUsCn0gZnJvbSAiLi95YW1sLnRzIjsKCmV4cG9ydCBjb25zdCBDTEFJTV9DTEFTU0VTID0gWyJleGVjdXRpb24iLCAidmVyaWZpY2F0aW9uIiwgInByb29mIl0gYXMgY29uc3Q7CmV4cG9ydCB0eXBlIENsYWltQ2xhc3MgPSAodHlwZW9mIENMQUlNX0NMQVNTRVMpW251bWJlcl07CgovLyBEMiBzbGljZSAxOiBpbXBhY3Qgc3VyZmFjZXMgYSBjb21wb25lbnQgY2hhbmdlIG1heSB0cmlnZ2VyLiBUaGUKLy8gZmlyc3Qgc2V2ZW4gYXJlIHRoZSBsZWdhY3kgY2xhc3NpZmllcidzIHN1cmZhY2VzOyB0aGUgbGFzdCBmaXZlCi8vIGFyZSBkZXJpdmF0aW9uIHRhcmdldHMgZGVjbGFyZWQgaW4gdGhlIHJlZ2lzdHJ5LiBTaW5jZSBjdXRvdmVyIEMzCi8vIHRoZSBkZXJpdmVkIGNsYXNzaWZpZXIgZGVjaWRlcyBhbGwgdGhpcnRlZW4gKGltcGFjdCBqb2IsCi8vIGRlcml2ZWRfZXZlbnQudHMpOyB0aGUgbGVnYWN5IFB5dGhvbiBjbGFzc2lmaWVyIHJ1bnMgb25seSBpbgovLyByZXZlcnNlZCBzaGFkb3cuCmV4cG9ydCBjb25zdCBJTVBBQ1RfU1VSRkFDRVMgPSBbCiAgImZ1bGwiLAogICJkb2NzX2xpbmtzIiwKICAic3BlY19jaGVjayIsCiAgInNwZWNfYnVpbGQiLAogICJsZWFuX2J1aWxkIiwKICAicHl0aG9uX3Rlc3RzIiwKICAidHJhY2tpbmdfdmlld3MiLAogICJheGlvbV9hdWRpdCIsCiAgImtfY29tcGlsZSIsCiAgImtfZXhhbXBsZXMiLAogICJrbGVhbl9leHBvcnQiLAogICJ0bGFfbW9kZWxfY2hlY2siLApdIGFzIGNvbnN0OwpleHBvcnQgdHlwZSBJbXBhY3RTdXJmYWNlID0gKHR5cGVvZiBJTVBBQ1RfU1VSRkFDRVMpW251bWJlcl07CgpleHBvcnQgaW50ZXJmYWNlIFN0YWdlIHsKICBpZDogc3RyaW5nOwogIGNvbXBvbmVudDogc3RyaW5nOwogIHJlcXVpcmVzOiBzdHJpbmdbXTsKICBhbGxvd2VkQ2xhaW1DbGFzc2VzOiBDbGFpbUNsYXNzW107CiAgcmVxdWlyZWRDbGFpbUNsYXNzZXM6IENsYWltQ2xhc3NbXTsKfQoKLyoqIEEgZmlsZSBvciBkaXJlY3RvcnkgYSBjb21wb25lbnQgcmVhZHMgb3V0c2lkZSBpdHMgb3duIHJvb3RzLgogKiBgc3VyZmFjZXNgIHJlc3RyaWN0cyB3aGljaCBvZiB0aGUgY29tcG9uZW50J3MgaW1wYWN0IHN1cmZhY2VzCiAqIHRoZSBpbnB1dCB0cmlnZ2VyczsgbnVsbCBtZWFucyBhbGwgb2YgdGhlbS4gQSBwbGFpbiBzdHJpbmcgaW4KICogWUFNTCBpcyBlcXVpdmFsZW50IHRvIHsgcGF0aCwgc3VyZmFjZXM6IG51bGwgfS4gKi8KZXhwb3J0IGludGVyZmFjZSBSZWFkSW5wdXQgewogIHBhdGg6IHN0cmluZzsKICBzdXJmYWNlczogSW1wYWN0U3VyZmFjZVtdIHwgbnVsbDsKfQoKZXhwb3J0IGludGVyZmFjZSBDb21wb25lbnQgewogIGlkOiBzdHJpbmc7CiAgbmFtZTogc3RyaW5nOwogIHJvb3RzOiBzdHJpbmdbXTsKICBleGNsdWRlczogc3RyaW5nW107CiAgYnVpbGRDb21tYW5kOiBzdHJpbmc7CiAgY2hlY2tDb21tYW5kOiBzdHJpbmc7CiAgY2FjaGVEZXRlcm1pbmFudHM6IHN0cmluZ1tdOwogIGRlcGVuZHNPbjogc3RyaW5nW107CiAgcmVxdWlyZWRDaGVja3M6IHN0cmluZ1tdOwogIGltcGFjdFN1cmZhY2VzOiBJbXBhY3RTdXJmYWNlW107CiAgcmVhZElucHV0czogUmVhZElucHV0W107CiAgYWxsb3dlZENsYWltQ2xhc3NlczogQ2xhaW1DbGFzc1tdOwogIG5vdGVzOiBzdHJpbmdbXTsKfQoKZXhwb3J0IGludGVyZmFjZSBSZWdpc3RyeSB7CiAgdmVyc2lvbjogbnVtYmVyOwogIHRvb2xjaGFpbnM6IHsgaWQ6IHN0cmluZzsgdmVyc2lvbjogc3RyaW5nOyBzb3VyY2U6IHN0cmluZyB9W107CiAgY29tcG9uZW50czogQ29tcG9uZW50W107CiAgc3RhZ2VzOiBTdGFnZVtdOwogIGNvbXBvbmVudEJ5SWQ6IE1hcDxzdHJpbmcsIENvbXBvbmVudD47CiAgc3RhZ2VCeUlkOiBNYXA8c3RyaW5nLCBTdGFnZT47Cn0KCmZ1bmN0aW9uIGlzQ2xhaW1DbGFzcyh2YWx1ZTogc3RyaW5nKTogdmFsdWUgaXMgQ2xhaW1DbGFzcyB7CiAgcmV0dXJuIChDTEFJTV9DTEFTU0VTIGFzIHJlYWRvbmx5IHN0cmluZ1tdKS5pbmNsdWRlcyh2YWx1ZSk7Cn0KCmZ1bmN0aW9uIGNsYWltQ2xhc3NMaXN0KHZhbHVlOiBZYW1sVmFsdWUsIHdoYXQ6IHN0cmluZyk6IENsYWltQ2xhc3NbXSB7CiAgcmV0dXJuIGFzU3RyaW5nTGlzdCh2YWx1ZSwgd2hhdCkubWFwKChpdGVtKSA9PiB7CiAgICBpZiAoIWlzQ2xhaW1DbGFzcyhpdGVtKSkgewogICAgICB0aHJvdyBuZXcgRXJyb3IoYCR7d2hhdH06IHVua25vd24gY2xhaW0gY2xhc3MgJHtKU09OLnN0cmluZ2lmeShpdGVtKX1gKTsKICAgIH0KICAgIHJldHVybiBpdGVtOwogIH0pOwp9CgpmdW5jdGlvbiBvcHRpb25hbFN0cmluZ0xpc3QoCiAgcmVjb3JkOiBSZWNvcmQ8c3RyaW5nLCBZYW1sVmFsdWU+LAogIGtleTogc3RyaW5nLAogIHdoYXQ6IHN0cmluZywKKTogc3RyaW5nW10gewogIGNvbnN0IHZhbHVlID0gcmVjb3JkW2tleV07CiAgaWYgKHZhbHVlID09PSB1bmRlZmluZWQgfHwgdmFsdWUgPT09IG51bGwpIHJldHVybiBbXTsKICByZXR1cm4gYXNTdHJpbmdMaXN0KHZhbHVlLCBgJHt3aGF0fS4ke2tleX1gKTsKfQoKZnVuY3Rpb24gaXNJbXBhY3RTdXJmYWNlKHZhbHVlOiBzdHJpbmcpOiB2YWx1ZSBpcyBJbXBhY3RTdXJmYWNlIHsKICByZXR1cm4gKElNUEFDVF9TVVJGQUNFUyBhcyByZWFkb25seSBzdHJpbmdbXSkuaW5jbHVkZXModmFsdWUpOwp9CgpmdW5jdGlvbiBpbXBhY3RTdXJmYWNlTGlzdCh2YWx1ZTogWWFtbFZhbHVlLCB3aGF0OiBzdHJpbmcpOiBJbXBhY3RTdXJmYWNlW10gewogIHJldHVybiBhc1N0cmluZ0xpc3QodmFsdWUsIHdoYXQpLm1hcCgoaXRlbSkgPT4gewogICAgaWYgKCFpc0ltcGFjdFN1cmZhY2UoaXRlbSkpIHsKICAgICAgdGhyb3cgbmV3IEVycm9yKAogICAgICAgIGAke3doYXR9OiB1bmtub3duIGltcGFjdCBzdXJmYWNlICR7SlNPTi5zdHJpbmdpZnkoaXRlbSl9YCwKICAgICAgKTsKICAgIH0KICAgIHJldHVybiBpdGVtOwogIH0pOwp9CgpmdW5jdGlvbiByZWFkSW5wdXRMaXN0KHZhbHVlOiBZYW1sVmFsdWUsIHdoYXQ6IHN0cmluZyk6IFJlYWRJbnB1dFtdIHsKICBpZiAodmFsdWUgPT09IHVuZGVmaW5lZCB8fCB2YWx1ZSA9PT0gbnVsbCkgcmV0dXJuIFtdOwogIHJldHVybiBhc0xpc3QodmFsdWUsIHdoYXQpLm1hcCgoaXRlbSwgaSkgPT4gewogICAgaWYgKHR5cGVvZiBpdGVtID09PSAic3RyaW5nIikgcmV0dXJuIHsgcGF0aDogaXRlbSwgc3VyZmFjZXM6IG51bGwgfTsKICAgIGNvbnN0IHJlYyA9IGFzUmVjb3JkKGl0ZW0sIGAke3doYXR9WyR7aX1dYCk7CiAgICBjb25zdCBzdXJmYWNlc1ZhbHVlID0gcmVjWyJzdXJmYWNlcyJdOwogICAgcmV0dXJuIHsKICAgICAgcGF0aDogYXNTdHJpbmcocmVjWyJwYXRoIl0sIGAke3doYXR9WyR7aX1dLnBhdGhgKSwKICAgICAgc3VyZmFjZXM6IHN1cmZhY2VzVmFsdWUgPT09IHVuZGVmaW5lZCB8fCBzdXJmYWNlc1ZhbHVlID09PSBudWxsCiAgICAgICAgPyBudWxsCiAgICAgICAgOiBpbXBhY3RTdXJmYWNlTGlzdChzdXJmYWNlc1ZhbHVlLCBgJHt3aGF0fVske2l9XS5zdXJmYWNlc2ApLAogICAgfTsKICB9KTsKfQoKZnVuY3Rpb24gbG9hZFJlZ2lzdHJ5KHRleHQ6IHN0cmluZyk6IFJlZ2lzdHJ5IHsKICBjb25zdCBkb2MgPSBhc1JlY29yZChwYXJzZVlhbWwodGV4dCksICJyZWdpc3RyeSIpOwogIGNvbnN0IHZlcnNpb24gPSBkb2NbInZlcnNpb24iXTsKICBpZiAodHlwZW9mIHZlcnNpb24gIT09ICJudW1iZXIiIHx8IHZlcnNpb24gIT09IDEpIHsKICAgIHRocm93IG5ldyBFcnJvcigicmVnaXN0cnk6IHZlcnNpb24gbXVzdCBiZSAxIik7CiAgfQogIGNvbnN0IHRvb2xjaGFpbnMgPSBhc0xpc3QoZG9jWyJ0b29sY2hhaW5zIl0gPz8gW10sICJyZWdpc3RyeS50b29sY2hhaW5zIikubWFwKAogICAgKGl0ZW0sIGkpID0+IHsKICAgICAgY29uc3QgcmVjID0gYXNSZWNvcmQoaXRlbSwgYHJlZ2lzdHJ5LnRvb2xjaGFpbnNbJHtpfV1gKTsKICAgICAgcmV0dXJuIHsKICAgICAgICBpZDogYXNTdHJpbmcocmVjWyJpZCJdLCBgcmVnaXN0cnkudG9vbGNoYWluc1ske2l9XS5pZGApLAogICAgICAgIHZlcnNpb246IFN0cmluZyhyZWNbInZlcnNpb24iXSksCiAgICAgICAgc291cmNlOiBhc1N0cmluZyhyZWNbInNvdXJjZSJdLCBgcmVnaXN0cnkudG9vbGNoYWluc1ske2l9XS5zb3VyY2VgKSwKICAgICAgfTsKICAgIH0sCiAgKTsKICBjb25zdCBjb21wb25lbnRzOiBDb21wb25lbnRbXSA9IGFzTGlzdCgKICAgIGRvY1siY29tcG9uZW50cyJdLAogICAgInJlZ2lzdHJ5LmNvbXBvbmVudHMiLAogICkubWFwKChpdGVtLCBpKSA9PiB7CiAgICBjb25zdCByZWMgPSBhc1JlY29yZChpdGVtLCBgcmVnaXN0cnkuY29tcG9uZW50c1ske2l9XWApOwogICAgcmV0dXJuIHsKICAgICAgaWQ6IGFzU3RyaW5nKHJlY1siaWQiXSwgYHJlZ2lzdHJ5LmNvbXBvbmVudHNbJHtpfV0uaWRgKSwKICAgICAgbmFtZTogYXNTdHJpbmcocmVjWyJuYW1lIl0sIGByZWdpc3RyeS5jb21wb25lbnRzWyR7aX1dLm5hbWVgKSwKICAgICAgcm9vdHM6IGFzU3RyaW5nTGlzdChyZWNbInJvb3RzIl0sIGByZWdpc3RyeS5jb21wb25lbnRzWyR7aX1dLnJvb3RzYCksCiAgICAgIGV4Y2x1ZGVzOiBvcHRpb25hbFN0cmluZ0xpc3QoCiAgICAgICAgcmVjLAogICAgICAgICJleGNsdWRlcyIsCiAgICAgICAgYHJlZ2lzdHJ5LmNvbXBvbmVudHNbJHtpfV1gLAogICAgICApLAogICAgICBidWlsZENvbW1hbmQ6CiAgICAgICAgcmVjWyJidWlsZF9jb21tYW5kIl0gPT09IG51bGwgfHwgcmVjWyJidWlsZF9jb21tYW5kIl0gPT09IHVuZGVmaW5lZAogICAgICAgICAgPyAiIgogICAgICAgICAgOiBhc1N0cmluZygKICAgICAgICAgICAgcmVjWyJidWlsZF9jb21tYW5kIl0sCiAgICAgICAgICAgIGByZWdpc3RyeS5jb21wb25lbnRzWyR7aX1dLmJ1aWxkX2NvbW1hbmRgLAogICAgICAgICAgKSwKICAgICAgY2hlY2tDb21tYW5kOgogICAgICAgIHJlY1siY2hlY2tfY29tbWFuZCJdID09PSBudWxsIHx8IHJlY1siY2hlY2tfY29tbWFuZCJdID09PSB1bmRlZmluZWQKICAgICAgICAgID8gIiIKICAgICAgICAgIDogYXNTdHJpbmcoCiAgICAgICAgICAgIHJlY1siY2hlY2tfY29tbWFuZCJdLAogICAgICAgICAgICBgcmVnaXN0cnkuY29tcG9uZW50c1ske2l9XS5jaGVja19jb21tYW5kYCwKICAgICAgICAgICksCiAgICAgIGNhY2hlRGV0ZXJtaW5hbnRzOiBvcHRpb25hbFN0cmluZ0xpc3QoCiAgICAgICAgcmVjLAogICAgICAgICJjYWNoZV9kZXRlcm1pbmFudHMiLAogICAgICAgIGByZWdpc3RyeS5jb21wb25lbnRzWyR7aX1dYCwKICAgICAgKSwKICAgICAgZGVwZW5kc09uOiBvcHRpb25hbFN0cmluZ0xpc3QoCiAgICAgICAgcmVjLAogICAgICAgICJkZXBlbmRzX29uIiwKICAgICAgICBgcmVnaXN0cnkuY29tcG9uZW50c1ske2l9XWAsCiAgICAgICksCiAgICAgIHJlcXVpcmVkQ2hlY2tzOiBvcHRpb25hbFN0cmluZ0xpc3QoCiAgICAgICAgcmVjLAogICAgICAgICJyZXF1aXJlZF9jaGVja3MiLAogICAgICAgIGByZWdpc3RyeS5jb21wb25lbnRzWyR7aX1dYCwKICAgICAgKSwKICAgICAgaW1wYWN0U3VyZmFjZXM6IGltcGFjdFN1cmZhY2VMaXN0KAogICAgICAgIHJlY1siaW1wYWN0X3N1cmZhY2VzIl0sCiAgICAgICAgYHJlZ2lzdHJ5LmNvbXBvbmVudHNbJHtpfV0uaW1wYWN0X3N1cmZhY2VzYCwKICAgICAgKSwKICAgICAgcmVhZElucHV0czogcmVhZElucHV0TGlzdCgKICAgICAgICByZWNbInJlYWRfaW5wdXRzIl0sCiAgICAgICAgYHJlZ2lzdHJ5LmNvbXBvbmVudHNbJHtpfV0ucmVhZF9pbnB1dHNgLAogICAgICApLAogICAgICBhbGxvd2VkQ2xhaW1DbGFzc2VzOiBjbGFpbUNsYXNzTGlzdCgKICAgICAgICByZWNbImFsbG93ZWRfY2xhaW1fY2xhc3NlcyJdLAogICAgICAgIGByZWdpc3RyeS5jb21wb25lbnRzWyR7aX1dLmFsbG93ZWRfY2xhaW1fY2xhc3Nlc2AsCiAgICAgICksCiAgICAgIG5vdGVzOiBvcHRpb25hbFN0cmluZ0xpc3QocmVjLCAibm90ZXMiLCBgcmVnaXN0cnkuY29tcG9uZW50c1ske2l9XWApLAogICAgfTsKICB9KTsKICBjb25zdCBzdGFnZXM6IFN0YWdlW10gPSBhc0xpc3QoZG9jWyJzdGFnZXMiXSwgInJlZ2lzdHJ5LnN0YWdlcyIpLm1hcCgKICAgIChpdGVtLCBpKSA9PiB7CiAgICAgIGNvbnN0IHJlYyA9IGFzUmVjb3JkKGl0ZW0sIGByZWdpc3RyeS5zdGFnZXNbJHtpfV1gKTsKICAgICAgcmV0dXJuIHsKICAgICAgICBpZDogYXNTdHJpbmcocmVjWyJpZCJdLCBgcmVnaXN0cnkuc3RhZ2VzWyR7aX1dLmlkYCksCiAgICAgICAgY29tcG9uZW50OiBhc1N0cmluZygKICAgICAgICAgIHJlY1siY29tcG9uZW50Il0sCiAgICAgICAgICBgcmVnaXN0cnkuc3RhZ2VzWyR7aX1dLmNvbXBvbmVudGAsCiAgICAgICAgKSwKICAgICAgICByZXF1aXJlczogb3B0aW9uYWxTdHJpbmdMaXN0KHJlYywgInJlcXVpcmVzIiwgYHJlZ2lzdHJ5LnN0YWdlc1ske2l9XWApLAogICAgICAgIGFsbG93ZWRDbGFpbUNsYXNzZXM6IGNsYWltQ2xhc3NMaXN0KAogICAgICAgICAgcmVjWyJhbGxvd2VkX2NsYWltX2NsYXNzZXMiXSwKICAgICAgICAgIGByZWdpc3RyeS5zdGFnZXNbJHtpfV0uYWxsb3dlZF9jbGFpbV9jbGFzc2VzYCwKICAgICAgICApLAogICAgICAgIHJlcXVpcmVkQ2xhaW1DbGFzc2VzOiBjbGFpbUNsYXNzTGlzdCgKICAgICAgICAgIHJlY1sicmVxdWlyZWRfY2xhaW1fY2xhc3NlcyJdID8/IFtdLAogICAgICAgICAgYHJlZ2lzdHJ5LnN0YWdlc1ske2l9XS5yZXF1aXJlZF9jbGFpbV9jbGFzc2VzYCwKICAgICAgICApLAogICAgICB9OwogICAgfSwKICApOwoKICBjb25zdCBjb21wb25lbnRCeUlkID0gbmV3IE1hcDxzdHJpbmcsIENvbXBvbmVudD4oKTsKICBmb3IgKGNvbnN0IGNvbXBvbmVudCBvZiBjb21wb25lbnRzKSB7CiAgICBpZiAoY29tcG9uZW50QnlJZC5oYXMoY29tcG9uZW50LmlkKSkgewogICAgICB0aHJvdyBuZXcgRXJyb3IoYHJlZ2lzdHJ5OiBkdXBsaWNhdGUgY29tcG9uZW50IGlkICR7Y29tcG9uZW50LmlkfWApOwogICAgfQogICAgY29tcG9uZW50QnlJZC5zZXQoY29tcG9uZW50LmlkLCBjb21wb25lbnQpOwogIH0KICBjb25zdCBzdGFnZUJ5SWQgPSBuZXcgTWFwPHN0cmluZywgU3RhZ2U+KCk7CiAgZm9yIChjb25zdCBzdGFnZSBvZiBzdGFnZXMpIHsKICAgIGlmIChzdGFnZUJ5SWQuaGFzKHN0YWdlLmlkKSkgewogICAgICB0aHJvdyBuZXcgRXJyb3IoYHJlZ2lzdHJ5OiBkdXBsaWNhdGUgc3RhZ2UgaWQgJHtzdGFnZS5pZH1gKTsKICAgIH0KICAgIHN0YWdlQnlJZC5zZXQoc3RhZ2UuaWQsIHN0YWdlKTsKICB9CiAgcmV0dXJuIHsgdmVyc2lvbiwgdG9vbGNoYWlucywgY29tcG9uZW50cywgc3RhZ2VzLCBjb21wb25lbnRCeUlkLCBzdGFnZUJ5SWQgfTsKfQoKZnVuY3Rpb24gZXhpc3RzT25EaXNrKHJvb3Q6IHN0cmluZywgcGF0aDogc3RyaW5nKTogYm9vbGVhbiB7CiAgdHJ5IHsKICAgIERlbm8uc3RhdFN5bmMoYCR7cm9vdH0vJHtwYXRofWApOwogICAgcmV0dXJuIHRydWU7CiAgfSBjYXRjaCB7CiAgICByZXR1cm4gZmFsc2U7CiAgfQp9CgovKioKICogVmFsaWRhdGUgYSByZWdpc3RyeSBhZ2FpbnN0IGl0c2VsZiBhbmQgYWdhaW5zdCB0aGUgcmVwb3NpdG9yeQogKiB0cmVlLiBSZXR1cm5zIGEgbGlzdCBvZiBlcnJvciBzdHJpbmdzOyBhbiBlbXB0eSBsaXN0IG1lYW5zIHZhbGlkLgogKiBDaGVja3M6IHVuaXF1ZSBpZHMsIGtub3duIGRlcGVuZGVuY3kvY29tcG9uZW50L3N0YWdlIHJlZmVyZW5jZXMsCiAqIGFjeWNsaWMgY29tcG9uZW50IGRlcGVuZGVuY2llcywgYWN5Y2xpYyBzdGFnZSByZXF1aXJlbWVudHMsIGFuZAogKiBldmVyeSBkZWNsYXJlZCByb290LCBleGNsdWRlLCBhbmQgY2FjaGUgZGV0ZXJtaW5hbnQgZXhpc3Rpbmcgb24KICogZGlzayAocmVsYXRpdmUgdG8gcmVwb1Jvb3QpLgogKi8KZXhwb3J0IGZ1bmN0aW9uIHZhbGlkYXRlUmVnaXN0cnkoCiAgcmVnaXN0cnk6IFJlZ2lzdHJ5LAogIHJlcG9Sb290OiBzdHJpbmcsCik6IHN0cmluZ1tdIHsKICBjb25zdCBlcnJvcnM6IHN0cmluZ1tdID0gW107CiAgLy8gTG9va3VwcyBhcmUgZGVyaXZlZCBmcm9tIHRoZSBjb21wb25lbnQvc3RhZ2UgbGlzdHMsIG5vdCBmcm9tCiAgLy8gdGhlIG1hcHMgY2FycmllZCBieSB0aGUgcmVnaXN0cnkgb2JqZWN0LCBzbyB0aGF0IGEgcmVnaXN0cnkKICAvLyBhc3NlbWJsZWQgaW4gbWVtb3J5ICh0ZXN0cywgZnV0dXJlIGNhbGxlcnMpIGlzIGNoZWNrZWQgYXMKICAvLyBnaXZlbiByYXRoZXIgdGhhbiBhcyBwcmV2aW91c2x5IGluZGV4ZWQuCiAgY29uc3QgY29tcG9uZW50QnlJZCA9IG5ldyBNYXAocmVnaXN0cnkuY29tcG9uZW50cy5tYXAoKGMpID0+IFtjLmlkLCBjXSkpOwogIGNvbnN0IHN0YWdlQnlJZCA9IG5ldyBNYXAocmVnaXN0cnkuc3RhZ2VzLm1hcCgocykgPT4gW3MuaWQsIHNdKSk7CiAgZm9yIChjb25zdCBjb21wb25lbnQgb2YgcmVnaXN0cnkuY29tcG9uZW50cykgewogICAgZm9yIChjb25zdCBkZXAgb2YgY29tcG9uZW50LmRlcGVuZHNPbikgewogICAgICBpZiAoIWNvbXBvbmVudEJ5SWQuaGFzKGRlcCkpIHsKICAgICAgICBlcnJvcnMucHVzaChgY29tcG9uZW50ICR7Y29tcG9uZW50LmlkfTogdW5rbm93biBkZXBlbmRlbmN5ICR7ZGVwfWApOwogICAgICB9CiAgICB9CiAgICBmb3IgKAogICAgICBjb25zdCBwYXRoIG9mIFsKICAgICAgICAuLi5jb21wb25lbnQucm9vdHMsCiAgICAgICAgLi4uY29tcG9uZW50LmV4Y2x1ZGVzLAogICAgICAgIC4uLmNvbXBvbmVudC5jYWNoZURldGVybWluYW50cywKICAgICAgICAuLi5jb21wb25lbnQucmVhZElucHV0cy5tYXAoKGlucHV0KSA9PiBpbnB1dC5wYXRoKSwKICAgICAgXQogICAgKSB7CiAgICAgIGlmICghZXhpc3RzT25EaXNrKHJlcG9Sb290LCBwYXRoKSkgewogICAgICAgIGVycm9ycy5wdXNoKGBjb21wb25lbnQgJHtjb21wb25lbnQuaWR9OiBwYXRoIGRvZXMgbm90IGV4aXN0OiAke3BhdGh9YCk7CiAgICAgIH0KICAgIH0KICAgIGlmIChjb21wb25lbnQucm9vdHMubGVuZ3RoID09PSAwKSB7CiAgICAgIGVycm9ycy5wdXNoKGBjb21wb25lbnQgJHtjb21wb25lbnQuaWR9OiBubyByb290c2ApOwogICAgfQogICAgaWYgKGNvbXBvbmVudC5pbXBhY3RTdXJmYWNlcy5sZW5ndGggPT09IDApIHsKICAgICAgZXJyb3JzLnB1c2goYGNvbXBvbmVudCAke2NvbXBvbmVudC5pZH06IG5vIGltcGFjdF9zdXJmYWNlc2ApOwogICAgfQogICAgZm9yIChjb25zdCBzdXJmYWNlIG9mIGNvbXBvbmVudC5pbXBhY3RTdXJmYWNlcykgewogICAgICBpZiAoIWlzSW1wYWN0U3VyZmFjZShzdXJmYWNlKSkgewogICAgICAgIGVycm9ycy5wdXNoKAogICAgICAgICAgYGNvbXBvbmVudCAke2NvbXBvbmVudC5pZH06IHVua25vd24gaW1wYWN0IHN1cmZhY2UgJHtzdXJmYWNlfWAsCiAgICAgICAgKTsKICAgICAgfQogICAgfQogICAgZm9yIChjb25zdCBpbnB1dCBvZiBjb21wb25lbnQucmVhZElucHV0cykgewogICAgICBmb3IgKGNvbnN0IHN1cmZhY2Ugb2YgaW5wdXQuc3VyZmFjZXMgPz8gW10pIHsKICAgICAgICBpZiAoIWNvbXBvbmVudC5pbXBhY3RTdXJmYWNlcy5pbmNsdWRlcyhzdXJmYWNlKSkgewogICAgICAgICAgZXJyb3JzLnB1c2goCiAgICAgICAgICAgIGBjb21wb25lbnQgJHtjb21wb25lbnQuaWR9OiByZWFkIGlucHV0ICR7aW5wdXQucGF0aH0gdHJpZ2dlcnMgc3VyZmFjZSAke3N1cmZhY2V9LCB3aGljaCBpcyBub3Qgb25lIG9mIGl0cyBpbXBhY3Rfc3VyZmFjZXNgLAogICAgICAgICAgKTsKICAgICAgICB9CiAgICAgIH0KICAgIH0KICAgIGZvciAoY29uc3Qgc3VyZmFjZSBvZiBuZXcgU2V0KGNvbXBvbmVudC5pbXBhY3RTdXJmYWNlcykpIHsKICAgICAgaWYgKGNvbXBvbmVudC5pbXBhY3RTdXJmYWNlcy5maWx0ZXIoKHMpID0+IHMgPT09IHN1cmZhY2UpLmxlbmd0aCA+IDEpIHsKICAgICAgICBlcnJvcnMucHVzaCgKICAgICAgICAgIGBjb21wb25lbnQgJHtjb21wb25lbnQuaWR9OiBkdXBsaWNhdGUgaW1wYWN0IHN1cmZhY2UgJHtzdXJmYWNlfWAsCiAgICAgICAgKTsKICAgICAgfQogICAgfQogIH0KICAvLyBBY3ljbGljIGNvbXBvbmVudCBkZXBlbmRlbmNpZXMgKERGUykuCiAgY29uc3QgdmlzaXRpbmcgPSBuZXcgU2V0PHN0cmluZz4oKTsKICBjb25zdCB2aXNpdGVkID0gbmV3IFNldDxzdHJpbmc+KCk7CiAgY29uc3QgdmlzaXRDb21wb25lbnQgPSAoaWQ6IHN0cmluZywgY2hhaW46IHN0cmluZ1tdKTogdm9pZCA9PiB7CiAgICBpZiAodmlzaXRlZC5oYXMoaWQpKSByZXR1cm47CiAgICBpZiAodmlzaXRpbmcuaGFzKGlkKSkgewogICAgICBlcnJvcnMucHVzaChgY29tcG9uZW50IGRlcGVuZGVuY3kgY3ljbGU6ICR7Wy4uLmNoYWluLCBpZF0uam9pbigiIC0+ICIpfWApOwogICAgICByZXR1cm47CiAgICB9CiAgICB2aXNpdGluZy5hZGQoaWQpOwogICAgY29uc3QgY29tcG9uZW50ID0gY29tcG9uZW50QnlJZC5nZXQoaWQpOwogICAgaWYgKGNvbXBvbmVudCkgewogICAgICBmb3IgKGNvbnN0IGRlcCBvZiBjb21wb25lbnQuZGVwZW5kc09uKSB7CiAgICAgICAgdmlzaXRDb21wb25lbnQoZGVwLCBbLi4uY2hhaW4sIGlkXSk7CiAgICAgIH0KICAgIH0KICAgIHZpc2l0aW5nLmRlbGV0ZShpZCk7CiAgICB2aXNpdGVkLmFkZChpZCk7CiAgfTsKICBmb3IgKGNvbnN0IGNvbXBvbmVudCBvZiByZWdpc3RyeS5jb21wb25lbnRzKSB2aXNpdENvbXBvbmVudChjb21wb25lbnQuaWQsIFtdKTsKCiAgZm9yIChjb25zdCBzdGFnZSBvZiByZWdpc3RyeS5zdGFnZXMpIHsKICAgIGlmICghY29tcG9uZW50QnlJZC5oYXMoc3RhZ2UuY29tcG9uZW50KSkgewogICAgICBlcnJvcnMucHVzaChgc3RhZ2UgJHtzdGFnZS5pZH06IHVua25vd24gY29tcG9uZW50ICR7c3RhZ2UuY29tcG9uZW50fWApOwogICAgfQogICAgZm9yIChjb25zdCByZXEgb2Ygc3RhZ2UucmVxdWlyZXMpIHsKICAgICAgaWYgKCFzdGFnZUJ5SWQuaGFzKHJlcSkpIHsKICAgICAgICBlcnJvcnMucHVzaChgc3RhZ2UgJHtzdGFnZS5pZH06IHVua25vd24gcmVxdWlyZWQgc3RhZ2UgJHtyZXF9YCk7CiAgICAgIH0KICAgIH0KICAgIGZvciAoY29uc3QgcmVxdWlyZWQgb2Ygc3RhZ2UucmVxdWlyZWRDbGFpbUNsYXNzZXMpIHsKICAgICAgaWYgKCFzdGFnZS5hbGxvd2VkQ2xhaW1DbGFzc2VzLmluY2x1ZGVzKHJlcXVpcmVkKSkgewogICAgICAgIGVycm9ycy5wdXNoKAogICAgICAgICAgYHN0YWdlICR7c3RhZ2UuaWR9OiByZXF1aXJlZCBjbGFpbSBjbGFzcyAke3JlcXVpcmVkfSBpcyBub3QgYWxsb3dlZCBmb3IgdGhpcyBzdGFnZWAsCiAgICAgICAgKTsKICAgICAgfQogICAgfQogICAgY29uc3QgY29tcG9uZW50ID0gY29tcG9uZW50QnlJZC5nZXQoc3RhZ2UuY29tcG9uZW50KTsKICAgIGlmIChjb21wb25lbnQpIHsKICAgICAgZm9yIChjb25zdCBhbGxvd2VkIG9mIHN0YWdlLmFsbG93ZWRDbGFpbUNsYXNzZXMpIHsKICAgICAgICBpZiAoIWNvbXBvbmVudC5hbGxvd2VkQ2xhaW1DbGFzc2VzLmluY2x1ZGVzKGFsbG93ZWQpKSB7CiAgICAgICAgICBlcnJvcnMucHVzaCgKICAgICAgICAgICAgYHN0YWdlICR7c3RhZ2UuaWR9OiBjbGFpbSBjbGFzcyAke2FsbG93ZWR9IGlzIG5vdCBhbGxvd2VkIGZvciBjb21wb25lbnQgJHtzdGFnZS5jb21wb25lbnR9YCwKICAgICAgICAgICk7CiAgICAgICAgfQogICAgICB9CiAgICB9CiAgfQogIC8vIEFjeWNsaWMgc3RhZ2UgcmVxdWlyZW1lbnRzLgogIGNvbnN0IHNWaXNpdGluZyA9IG5ldyBTZXQ8c3RyaW5nPigpOwogIGNvbnN0IHNWaXNpdGVkID0gbmV3IFNldDxzdHJpbmc+KCk7CiAgY29uc3QgdmlzaXRTdGFnZSA9IChpZDogc3RyaW5nLCBjaGFpbjogc3RyaW5nW10pOiB2b2lkID0+IHsKICAgIGlmIChzVmlzaXRlZC5oYXMoaWQpKSByZXR1cm47CiAgICBpZiAoc1Zpc2l0aW5nLmhhcyhpZCkpIHsKICAgICAgZXJyb3JzLnB1c2goYHN0YWdlIHJlcXVpcmVtZW50IGN5Y2xlOiAke1suLi5jaGFpbiwgaWRdLmpvaW4oIiAtPiAiKX1gKTsKICAgICAgcmV0dXJuOwogICAgfQogICAgc1Zpc2l0aW5nLmFkZChpZCk7CiAgICBjb25zdCBzdGFnZSA9IHN0YWdlQnlJZC5nZXQoaWQpOwogICAgaWYgKHN0YWdlKSB7CiAgICAgIGZvciAoY29uc3QgcmVxIG9mIHN0YWdlLnJlcXVpcmVzKSB2aXNpdFN0YWdlKHJlcSwgWy4uLmNoYWluLCBpZF0pOwogICAgfQogICAgc1Zpc2l0aW5nLmRlbGV0ZShpZCk7CiAgICBzVmlzaXRlZC5hZGQoaWQpOwogIH07CiAgZm9yIChjb25zdCBzdGFnZSBvZiByZWdpc3RyeS5zdGFnZXMpIHZpc2l0U3RhZ2Uoc3RhZ2UuaWQsIFtdKTsKICByZXR1cm4gZXJyb3JzOwp9CgpleHBvcnQgZnVuY3Rpb24gbG9hZFJlZ2lzdHJ5RmlsZShwYXRoOiBzdHJpbmcpOiBSZWdpc3RyeSB7CiAgcmV0dXJuIGxvYWRSZWdpc3RyeShEZW5vLnJlYWRUZXh0RmlsZVN5bmMocGF0aCkpOwp9Cg==
+// SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+//
+// SPDX-License-Identifier: CECILL-2.1
+
+/** Component registry: loading and validation of .github/ci/components.yaml. */
+
+import {
+  asList,
+  asRecord,
+  asString,
+  asStringList,
+  parseYaml,
+  type YamlValue,
+} from "./yaml.ts";
+
+export const CLAIM_CLASSES = ["execution", "verification", "proof"] as const;
+export type ClaimClass = (typeof CLAIM_CLASSES)[number];
+
+// D2 slice 1: impact surfaces a component change may trigger. The
+// first seven are the legacy classifier's surfaces; the last five
+// are derivation targets declared in the registry. Since cutover C3
+// the derived classifier decides all thirteen (impact job,
+// derived_event.ts); the legacy Python classifier runs only in
+// reversed shadow.
+export const IMPACT_SURFACES = [
+  "full",
+  "docs_links",
+  "spec_check",
+  "spec_build",
+  "lean_build",
+  "python_tests",
+  "tracking_views",
+  "axiom_audit",
+  "k_compile",
+  "k_examples",
+  "klean_export",
+  "tla_model_check",
+] as const;
+export type ImpactSurface = (typeof IMPACT_SURFACES)[number];
+
+export interface Stage {
+  id: string;
+  component: string;
+  requires: string[];
+  allowedClaimClasses: ClaimClass[];
+  requiredClaimClasses: ClaimClass[];
+}
+
+/** A file or directory a component reads outside its own roots.
+ * `surfaces` restricts which of the component's impact surfaces
+ * the input triggers; null means all of them. A plain string in
+ * YAML is equivalent to { path, surfaces: null }. */
+export interface ReadInput {
+  path: string;
+  surfaces: ImpactSurface[] | null;
+}
+
+export interface Component {
+  id: string;
+  name: string;
+  roots: string[];
+  excludes: string[];
+  buildCommand: string;
+  checkCommand: string;
+  cacheDeterminants: string[];
+  dependsOn: string[];
+  requiredChecks: string[];
+  impactSurfaces: ImpactSurface[];
+  readInputs: ReadInput[];
+  allowedClaimClasses: ClaimClass[];
+  notes: string[];
+}
+
+export interface Registry {
+  version: number;
+  toolchains: { id: string; version: string; source: string }[];
+  components: Component[];
+  stages: Stage[];
+  componentById: Map<string, Component>;
+  stageById: Map<string, Stage>;
+}
+
+function isClaimClass(value: string): value is ClaimClass {
+  return (CLAIM_CLASSES as readonly string[]).includes(value);
+}
+
+function claimClassList(value: YamlValue, what: string): ClaimClass[] {
+  return asStringList(value, what).map((item) => {
+    if (!isClaimClass(item)) {
+      throw new Error(`${what}: unknown claim class ${JSON.stringify(item)}`);
+    }
+    return item;
+  });
+}
+
+function optionalStringList(
+  record: Record<string, YamlValue>,
+  key: string,
+  what: string,
+): string[] {
+  const value = record[key];
+  if (value === undefined || value === null) return [];
+  return asStringList(value, `${what}.${key}`);
+}
+
+function isImpactSurface(value: string): value is ImpactSurface {
+  return (IMPACT_SURFACES as readonly string[]).includes(value);
+}
+
+function impactSurfaceList(value: YamlValue, what: string): ImpactSurface[] {
+  return asStringList(value, what).map((item) => {
+    if (!isImpactSurface(item)) {
+      throw new Error(
+        `${what}: unknown impact surface ${JSON.stringify(item)}`,
+      );
+    }
+    return item;
+  });
+}
+
+function readInputList(value: YamlValue, what: string): ReadInput[] {
+  if (value === undefined || value === null) return [];
+  return asList(value, what).map((item, i) => {
+    if (typeof item === "string") return { path: item, surfaces: null };
+    const rec = asRecord(item, `${what}[${i}]`);
+    const surfacesValue = rec["surfaces"];
+    return {
+      path: asString(rec["path"], `${what}[${i}].path`),
+      surfaces: surfacesValue === undefined || surfacesValue === null
+        ? null
+        : impactSurfaceList(surfacesValue, `${what}[${i}].surfaces`),
+    };
+  });
+}
+
+function loadRegistry(text: string): Registry {
+  const doc = asRecord(parseYaml(text), "registry");
+  const version = doc["version"];
+  if (typeof version !== "number" || version !== 1) {
+    throw new Error("registry: version must be 1");
+  }
+  const toolchains = asList(doc["toolchains"] ?? [], "registry.toolchains").map(
+    (item, i) => {
+      const rec = asRecord(item, `registry.toolchains[${i}]`);
+      return {
+        id: asString(rec["id"], `registry.toolchains[${i}].id`),
+        version: String(rec["version"]),
+        source: asString(rec["source"], `registry.toolchains[${i}].source`),
+      };
+    },
+  );
+  const components: Component[] = asList(
+    doc["components"],
+    "registry.components",
+  ).map((item, i) => {
+    const rec = asRecord(item, `registry.components[${i}]`);
+    return {
+      id: asString(rec["id"], `registry.components[${i}].id`),
+      name: asString(rec["name"], `registry.components[${i}].name`),
+      roots: asStringList(rec["roots"], `registry.components[${i}].roots`),
+      excludes: optionalStringList(
+        rec,
+        "excludes",
+        `registry.components[${i}]`,
+      ),
+      buildCommand:
+        rec["build_command"] === null || rec["build_command"] === undefined
+          ? ""
+          : asString(
+            rec["build_command"],
+            `registry.components[${i}].build_command`,
+          ),
+      checkCommand:
+        rec["check_command"] === null || rec["check_command"] === undefined
+          ? ""
+          : asString(
+            rec["check_command"],
+            `registry.components[${i}].check_command`,
+          ),
+      cacheDeterminants: optionalStringList(
+        rec,
+        "cache_determinants",
+        `registry.components[${i}]`,
+      ),
+      dependsOn: optionalStringList(
+        rec,
+        "depends_on",
+        `registry.components[${i}]`,
+      ),
+      requiredChecks: optionalStringList(
+        rec,
+        "required_checks",
+        `registry.components[${i}]`,
+      ),
+      impactSurfaces: impactSurfaceList(
+        rec["impact_surfaces"],
+        `registry.components[${i}].impact_surfaces`,
+      ),
+      readInputs: readInputList(
+        rec["read_inputs"],
+        `registry.components[${i}].read_inputs`,
+      ),
+      allowedClaimClasses: claimClassList(
+        rec["allowed_claim_classes"],
+        `registry.components[${i}].allowed_claim_classes`,
+      ),
+      notes: optionalStringList(rec, "notes", `registry.components[${i}]`),
+    };
+  });
+  const stages: Stage[] = asList(doc["stages"], "registry.stages").map(
+    (item, i) => {
+      const rec = asRecord(item, `registry.stages[${i}]`);
+      return {
+        id: asString(rec["id"], `registry.stages[${i}].id`),
+        component: asString(
+          rec["component"],
+          `registry.stages[${i}].component`,
+        ),
+        requires: optionalStringList(rec, "requires", `registry.stages[${i}]`),
+        allowedClaimClasses: claimClassList(
+          rec["allowed_claim_classes"],
+          `registry.stages[${i}].allowed_claim_classes`,
+        ),
+        requiredClaimClasses: claimClassList(
+          rec["required_claim_classes"] ?? [],
+          `registry.stages[${i}].required_claim_classes`,
+        ),
+      };
+    },
+  );
+
+  const componentById = new Map<string, Component>();
+  for (const component of components) {
+    if (componentById.has(component.id)) {
+      throw new Error(`registry: duplicate component id ${component.id}`);
+    }
+    componentById.set(component.id, component);
+  }
+  const stageById = new Map<string, Stage>();
+  for (const stage of stages) {
+    if (stageById.has(stage.id)) {
+      throw new Error(`registry: duplicate stage id ${stage.id}`);
+    }
+    stageById.set(stage.id, stage);
+  }
+  return { version, toolchains, components, stages, componentById, stageById };
+}
+
+function existsOnDisk(root: string, path: string): boolean {
+  try {
+    Deno.statSync(`${root}/${path}`);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Validate a registry against itself and against the repository
+ * tree. Returns a list of error strings; an empty list means valid.
+ * Checks: unique ids, known dependency/component/stage references,
+ * acyclic component dependencies, acyclic stage requirements, and
+ * every declared root, exclude, and cache determinant existing on
+ * disk (relative to repoRoot).
+ */
+export function validateRegistry(
+  registry: Registry,
+  repoRoot: string,
+): string[] {
+  const errors: string[] = [];
+  // Lookups are derived from the component/stage lists, not from
+  // the maps carried by the registry object, so that a registry
+  // assembled in memory (tests, future callers) is checked as
+  // given rather than as previously indexed.
+  const componentById = new Map(registry.components.map((c) => [c.id, c]));
+  const stageById = new Map(registry.stages.map((s) => [s.id, s]));
+  for (const component of registry.components) {
+    for (const dep of component.dependsOn) {
+      if (!componentById.has(dep)) {
+        errors.push(`component ${component.id}: unknown dependency ${dep}`);
+      }
+    }
+    for (
+      const path of [
+        ...component.roots,
+        ...component.excludes,
+        ...component.cacheDeterminants,
+        ...component.readInputs.map((input) => input.path),
+      ]
+    ) {
+      if (!existsOnDisk(repoRoot, path)) {
+        errors.push(`component ${component.id}: path does not exist: ${path}`);
+      }
+    }
+    if (component.roots.length === 0) {
+      errors.push(`component ${component.id}: no roots`);
+    }
+    if (component.impactSurfaces.length === 0) {
+      errors.push(`component ${component.id}: no impact_surfaces`);
+    }
+    for (const surface of component.impactSurfaces) {
+      if (!isImpactSurface(surface)) {
+        errors.push(
+          `component ${component.id}: unknown impact surface ${surface}`,
+        );
+      }
+    }
+    for (const input of component.readInputs) {
+      for (const surface of input.surfaces ?? []) {
+        if (!component.impactSurfaces.includes(surface)) {
+          errors.push(
+            `component ${component.id}: read input ${input.path} triggers surface ${surface}, which is not one of its impact_surfaces`,
+          );
+        }
+      }
+    }
+    for (const surface of new Set(component.impactSurfaces)) {
+      if (component.impactSurfaces.filter((s) => s === surface).length > 1) {
+        errors.push(
+          `component ${component.id}: duplicate impact surface ${surface}`,
+        );
+      }
+    }
+  }
+  // Acyclic component dependencies (DFS).
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const visitComponent = (id: string, chain: string[]): void => {
+    if (visited.has(id)) return;
+    if (visiting.has(id)) {
+      errors.push(`component dependency cycle: ${[...chain, id].join(" -> ")}`);
+      return;
+    }
+    visiting.add(id);
+    const component = componentById.get(id);
+    if (component) {
+      for (const dep of component.dependsOn) {
+        visitComponent(dep, [...chain, id]);
+      }
+    }
+    visiting.delete(id);
+    visited.add(id);
+  };
+  for (const component of registry.components) visitComponent(component.id, []);
+
+  for (const stage of registry.stages) {
+    if (!componentById.has(stage.component)) {
+      errors.push(`stage ${stage.id}: unknown component ${stage.component}`);
+    }
+    for (const req of stage.requires) {
+      if (!stageById.has(req)) {
+        errors.push(`stage ${stage.id}: unknown required stage ${req}`);
+      }
+    }
+    for (const required of stage.requiredClaimClasses) {
+      if (!stage.allowedClaimClasses.includes(required)) {
+        errors.push(
+          `stage ${stage.id}: required claim class ${required} is not allowed for this stage`,
+        );
+      }
+    }
+    const component = componentById.get(stage.component);
+    if (component) {
+      for (const allowed of stage.allowedClaimClasses) {
+        if (!component.allowedClaimClasses.includes(allowed)) {
+          errors.push(
+            `stage ${stage.id}: claim class ${allowed} is not allowed for component ${stage.component}`,
+          );
+        }
+      }
+    }
+  }
+  // Acyclic stage requirements.
+  const sVisiting = new Set<string>();
+  const sVisited = new Set<string>();
+  const visitStage = (id: string, chain: string[]): void => {
+    if (sVisited.has(id)) return;
+    if (sVisiting.has(id)) {
+      errors.push(`stage requirement cycle: ${[...chain, id].join(" -> ")}`);
+      return;
+    }
+    sVisiting.add(id);
+    const stage = stageById.get(id);
+    if (stage) {
+      for (const req of stage.requires) visitStage(req, [...chain, id]);
+    }
+    sVisiting.delete(id);
+    sVisited.add(id);
+  };
+  for (const stage of registry.stages) visitStage(stage.id, []);
+  return errors;
+}
+
+export function loadRegistryFile(path: string): Registry {
+  return loadRegistry(Deno.readTextFileSync(path));
+}
