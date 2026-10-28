@@ -43,11 +43,11 @@ jobs:
       python_tests: ${{ steps.impact.outputs.python_tests }}
       tracking_views: ${{ steps.impact.outputs.tracking_views }}
       unclassified: ${{ steps.impact.outputs.unclassified }}
-      axiom_audit: ${{ steps.derived.outputs.axiom_audit }}
-      k_compile: ${{ steps.derived.outputs.k_compile }}
-      k_examples: ${{ steps.derived.outputs.k_examples }}
-      klean_export: ${{ steps.derived.outputs.klean_export }}
-      tla_model_check: ${{ steps.derived.outputs.tla_model_check }}
+      axiom_audit: ${{ steps.impact.outputs.axiom_audit }}
+      k_compile: ${{ steps.impact.outputs.k_compile }}
+      k_examples: ${{ steps.impact.outputs.k_examples }}
+      klean_export: ${{ steps.impact.outputs.klean_export }}
+      tla_model_check: ${{ steps.impact.outputs.tla_model_check }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -78,6 +78,18 @@ jobs:
       - name: Check the Lake manifest
         run: deno run --allow-read --allow-env=GITHUB_ACTIONS tools/ci-controller/src/manifest.ts
 
+      # Cutover C3: the derived classifier decides all thirteen
+      # surfaces. derived_event.ts owns event routing (the exact
+      # routing of scripts/ci/ci_impact.sh, via classifierArgs):
+      # manual dispatch is full validation; generated-status
+      # dispatch classifies against origin/main from the checkout
+      # (a head already on main gets full, no shared history
+      # fails); pull_request and push use BASE_SHA..HEAD_SHA.
+      # The legacy Python classifier no longer decides anything:
+      # it runs only in reversed shadow (controller-shadow,
+      # non-blocking). Parity gate evidence: over the first-parent
+      # history of main since #312 (18 diffs, 435c876..a501517),
+      # derived and legacy agree on all eight legacy keys.
       - name: Run CI impact classifier
         id: impact
         env:
@@ -85,42 +97,17 @@ jobs:
           REF: ${{ github.ref }}
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
           HEAD_SHA: ${{ github.sha }}
-        # The Deno adapter owns event routing; scripts/ci/impact.py remains the sole
-        # classifier until the Deno/Python parity gate passes its historical-range criteria.
-        # Manual dispatch is full validation; generated-status dispatch classifies against
-        # origin/main from the checkout, never from a workflow input.
-        run: deno run --allow-run=git,python3 --allow-env=EVENT_NAME,REF,BASE_SHA,HEAD_SHA tools/ci-controller/src/impact_event.ts
-
-      # Cutover C2: the derived classifier also emits its five new surfaces
-      # for orchestration (semantics call, r9-tlc). The legacy Python
-      # classifier above still decides the seven legacy surfaces; this step
-      # never gates verify. Routing mirrors impact_event.ts, except a manual
-      # dispatch on the generated-status branch forces full (conservative
-      # superset) instead of the legacy merge-base classification.
-      - name: Emit derived classifier surfaces for orchestration
-        id: derived
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
-          HEAD_SHA: ${{ github.sha }}
-        run: |
-          set -euo pipefail
-          if [ "$EVENT_NAME" = workflow_dispatch ]; then
-            deno run --allow-read --allow-run=git --allow-env --allow-write tools/ci-controller/src/main.ts classify --derived --force-full
-          else
-            deno run --allow-read --allow-run=git --allow-env --allow-write tools/ci-controller/src/main.ts classify --derived --base "$BASE_SHA" --head "$HEAD_SHA"
-          fi
+        run: deno run --allow-read --allow-run=git --allow-env=EVENT_NAME,REF,BASE_SHA,HEAD_SHA,GITHUB_OUTPUT --allow-write tools/ci-controller/src/derived_event.ts
 
   controller-shadow:
     name: Controller shadow
-    # Shadow diagnostic only, owner-approved 2026-10-25 (slice 3).
+    # Reversed shadow since cutover C3, owner-approved 2026-10-25 (slice 3).
     # This job is deliberately NOT in ci-ok's needs and runs with
     # continue-on-error: a divergence is reported in its logs, it
-    # never gates CI OK and never replaces the Python classifier.
-    # The Python classifier in the `impact` job stays the only
-    # source of truth until a cutover decision promotes the Deno
-    # controller. Runs on push and pull_request only: a manual
-    # dispatch has no base range for the shadow comparison.
+    # never gates CI OK. The Deno controller now decides; the
+    # Python classifier compares in the background. Runs on push
+    # and pull_request only: a manual dispatch has no base range
+    # for the shadow comparison.
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
     # Pin the hosted OS release; the official Deno container omits Node.js, which
     # JavaScript-based GitHub Actions need inside a job container. Keep checkout on
@@ -148,9 +135,11 @@ jobs:
           HEAD_SHA: ${{ github.sha }}
         run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/main.ts classify --shadow --base "$BASE_SHA" --head "$HEAD_SHA"
 
-      # Cutover C2: derived-vs-legacy comparison for visibility. The job has
-      # continue-on-error, so a divergence (including the intended D2 ones)
-      # is reported in the logs and never gates CI OK.
+      # Derived-vs-legacy comparison for visibility (since C2; since
+      # C3 this is the reversed shadow's derived leg: the decision
+      # now comes from derived, and this step reports the intended
+      # D2 divergences). The job has continue-on-error, so a
+      # divergence is reported in the logs and never gates CI OK.
       - name: Compare derived and legacy classifiers (derived shadow)
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
