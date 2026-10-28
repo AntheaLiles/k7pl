@@ -3481,6 +3481,15 @@ n'y ai pas touché ; veux-tu une reformulation, par exemple « le mouvement de p
 - **Justification:** attention 't' signifie 'true'. nous avions défini une stratégie de monomorfisation sans "for" (sans forall surtout) et il serait bien de lire exactement ce que la spec préconise pour cela avant de fixer un mécanisme issu d'ailleurs car c'est typiquement un pour qui a fait l'objet d'une recherche approfondie pour trouver un mécanisme naturel et ancré dans la littérature scientifique.
 - **Reading:** kept open. `t` is the constant true and cannot name a type parameter. The monomorphisation strategy was defined without « for », above all without forall, after a researched choice: what the specification prescribes is to be read before any mechanism is taken from elsewhere. Read on 2026-10-28: the kernel has `∀α.C` with the rules Gen and Inst (chapter 3), chapter 6 monomorphises each generic call into a concrete copy, a typed hole is resolved in its family (chapter 5), and records open by row variables (chapter 3); no surface notation for a type parameter is written anywhere.
 
+**Follow-up of the author — 2026-10-28 (VOC-2026-10-28-037), in the conversation, quoted as given.** To
+the reading « la généricité passe par les trous typés et la monomorphisation, sans paramètre nommé »:
+
+- **Answer:** Paramètre de type : ton interprétation est juste, {function int int} doit résoudre deux trous typés de famille int
+- **Reading:** a generic names no type parameter: it is written with typed holes, which each use resolves
+  in their family and monomorphisation copies into concrete instances; `{function int int}` resolves two
+  typed holes of the integer family. Not said: whether two holes can be required to resolve to the same
+  width.
+
 
 #### Q-TYP-502 — What a refined type `{{ … }}` contains
 

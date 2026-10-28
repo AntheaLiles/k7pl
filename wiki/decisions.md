@@ -874,9 +874,12 @@ contradiction to state, not to resolve in silence.
   - Macros: `def` is the primitive word, `defmacro` is
     defined with it and provides envelopes; in K7PL nothing
     extends, everything is made more precise.
-  Kept open: the notation of type parameters (Q-TYP-501),
-  after reading what the specification prescribes —
-  monomorphisation without forall; what a module is
+  Answered in the conversation (VOC-2026-10-28-037), for
+  Q-TYP-501: a generic names no type parameter; it is written
+  with typed holes resolved in their family by each use and
+  copied by monomorphisation — `{function int int}` resolves
+  two typed holes of the integer family.
+  Kept open: what a module is
   (Q-SPEC-406), with the author's statement that an
   S-expression not enclosed in another is an autonomous
   process, executable in parallel with the others of the same

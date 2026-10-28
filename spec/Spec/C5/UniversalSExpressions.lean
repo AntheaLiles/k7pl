@@ -218,7 +218,10 @@ masquer ; un nom qui finit par `-t` ou `-f`, comme `access-f`, reste un nom ordi
 `+nom` abrège la propriété `:nom t`, et une option qui n'est pas écrite vaut `f`. Un chemin s'écrit comme un symbole dont les noms sont séparés par `/` ; un
 espace s'y code en pourcent, comme dans une URL (`c/users/me/My%20Documents`). Un type s'écrit en
 minuscules et n'apparaît qu'après une propriété qui l'annonce, `:num` ou `:type` par exemple
-(`:num int32`). Une paire vide est la structure vide de sa couche, chaque couche étant elle-même une
+(`:num int32`). Un générique ne nomme aucun paramètre de type : il s'écrit avec des trous typés, que
+chaque emploi résout dans leur famille et que la monomorphisation recopie en instances concrètes
+(§{num "sec:c6-le-processus-de-compilation"}[]) ; `{function int int}` résout ainsi deux trous typés
+de la famille des entiers. Une paire vide est la structure vide de sa couche, chaque couche étant elle-même une
 structure de données — arène linéaire en couche 1, tas en couche 2, pile en couche 3 : `[]` est le
 vecteur vide, `()` la liste vide et `{}` l'enregistrement ou la table vide ; elle porte les grades de
 son fragment, vérifiés à la compilation. Une paire doublée, dont la paire intérieure est seule,
