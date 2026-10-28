@@ -1,1 +1,473 @@
-IyBTUERYLUZpbGVDb3B5cmlnaHRUZXh0OiAyMDI2IEN5cHJpZW4gUElFUlJFCiMKIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogQ0MwLTEuMAoKIyBTaW5nbGUgc291cmNlIG9mIHRydXRoIGZvciBDSSBjb21wb25lbnQgcGF0aHMsIGNvbW1hbmRzLCBjYWNoZQojIGRldGVybWluYW50cywgcHJvb2YtY2hhaW4gZGVwZW5kZW5jaWVzLCBtYW5kYXRvcnkgY2hlY2tzLCBhbmQKIyBhbGxvd2VkIGNsYWltIGNsYXNzZXMuIFJlYWQgYnkgdG9vbHMvY2ktY29udHJvbGxlciAoc2xpY2UgMSkuCiMgVGhpcyByZWdpc3RyeSBpcyBkZXNjcmlwdGl2ZSBpbiBzbGljZSAxOiB0aGUgaW1wYWN0IGNsYXNzaWZpZXIKIyBzdGlsbCB1c2VzIGl0cyBvd24gdGFibGVzIGluIHNjcmlwdHMvY2kvaW1wYWN0LnB5LCBhbmQgdGhlIHR3bwojIG11c3QgYWdyZWUgKHNlZSB0b29scy9jaS1jb250cm9sbGVyL1JFQURNRS5tZCwgY3V0b3ZlciBjcml0ZXJpYSkuCiMgQSBwYXRoIG1heSBiZWxvbmcgdG8gc2V2ZXJhbCBjb21wb25lbnRzOiBjb21wb25lbnRzIGFyZSBsb2dpY2FsCiMgdW5pdHMsIG5vdCBhIHBhcnRpdGlvbiBvZiB0aGUgdHJlZS4gT3ZlcmxhcHMgYXJlIGRlY2xhcmVkIGJlbG93CiMgaW5zdGVhZCBvZiBiZWluZyBoaWRkZW4uCiMKIyBZQU1MIHN1YnNldCBzdXBwb3J0ZWQgYnkgdGhlIGNvbnRyb2xsZXIncyBwYXJzZXI6IGJsb2NrIG1hcHBpbmdzCiMgYW5kIHNlcXVlbmNlcywgcGxhaW4vc2luZ2xlL2RvdWJsZS1xdW90ZWQgc2NhbGFycywgYm9vbGVhbnMsCiMgaW50ZWdlcnMsIGFuZCBmbG93IHNlcXVlbmNlcy4gTm8gYW5jaG9ycywgdGFncywgb3IgYmxvY2sgc2NhbGFycy4KCiMgRDIgc2xpY2UgMSAoZGVzY3JpcHRpdmUgb25seSwgY2xhc3NpZmllciBub3QgeWV0IGRlcml2ZWQpOiBldmVyeQojIGNvbXBvbmVudCBhbHNvIGRlY2xhcmVzIGBpbXBhY3Rfc3VyZmFjZXNgIOKAlCB0aGUgdmFsaWRhdGlvbiBzdXJmYWNlcwojIGEgY2hhbmdlIHVuZGVyIGl0cyByb290cyB0cmlnZ2VycyDigJQgYW5kLCB3aGVyZSBpdCByZWFkcyBmaWxlcwojIG91dHNpZGUgaXRzIG93biByb290cywgYHJlYWRfaW5wdXRzYCDigJQgcGF0aHMgd2hvc2UgY2hhbmdlIHRyaWdnZXJzCiMgdGhhdCBjb21wb25lbnQncyBzdXJmYWNlcyBhcyB3ZWxsICh0aGUgZm9ybWVyIGNsYXNzaWZpZXIgInJlYWQgYnkKIyBhbm90aGVyIHN1cmZhY2UiIHJ1bGVzLCBub3cgZGVjbGFyZWQgaGVyZSkuIEEgcGF0aCB0cmlnZ2VycyB0aGUKIyBzdXJmYWNlcyBvZiBldmVyeSBjb21wb25lbnQgd2hvc2Ugcm9vdHMgY29udGFpbiBpdCwgcGx1cyB0aGUKIyBzdXJmYWNlcyBvZiBldmVyeSBjb21wb25lbnQgd2hvc2UgcmVhZF9pbnB1dHMgY29udGFpbiBpdC4gTmV3CiMgc3VyZmFjZSBuYW1lcyAoYXhpb21fYXVkaXQsIGtfY29tcGlsZSwga19leGFtcGxlcywga2xlYW5fZXhwb3J0LAojIHRsYV9tb2RlbF9jaGVjaykgYXJlIGRlY2xhcmVkIGhlcmUgYXMgZGVyaXZhdGlvbiB0YXJnZXRzOyBzaW5jZQojIGN1dG92ZXIgQzMgdGhlIGRlcml2ZWQgY2xhc3NpZmllciBkZWNpZGVzIGFsbCB0aGlydGVlbiBzdXJmYWNlcwojIChpbXBhY3Qgam9iLCBkZXJpdmVkX2V2ZW50LnRzKSwgYW5kIHRoZSBsZWdhY3kgUHl0aG9uIGNsYXNzaWZpZXIKIyBydW5zIG9ubHkgaW4gcmV2ZXJzZWQgc2hhZG93LgojIFRoZSBtYXJrZG93biBydWxlIChhbnkgLm1kLy5tYXJrZG93biBmaWxlIHRyaWdnZXJzIGRvY3NfbGlua3MpCiMgYW5kIHRoZSBsaWdodC9mdWxsIGV4YWN0LXByZWZpeCBydWxlcyByZW1haW4gY2xhc3NpZmllciBydWxlcywKIyBub3QgY29tcG9uZW50cywgYW5kIGFyZSBub3QgZGVjbGFyZWQgaGVyZS4KCnZlcnNpb246IDEKCnRvb2xjaGFpbnM6CiAgLSBpZDogbGVhbgogICAgdmVyc2lvbjogbGVhbnByb3Zlci9sZWFuNDp2NC4zNC4wCiAgICBzb3VyY2U6IGxlYW4tdG9vbGNoYWluCiAgLSBpZDogay1mcmFtZXdvcmsKICAgIHZlcnNpb246ICI3LjEuMzM3IgogICAgc291cmNlOiBydW50aW1ldmVyaWZpY2F0aW9uaW5jL2tmcmFtZXdvcmstazp1YnVudHUtamFtbXktNy4xLjMzN0BzaGEyNTY6YTYzNjk4YzAxNWYyYjM0OWJiOTgwN2Q0ODZiZjJhNDhhNzY0MjM3YTAxOGZkMjA3YzIzYWM3NTcxNTE5YjEyYgogIC0gaWQ6IGtsZWFuCiAgICB2ZXJzaW9uOiA3LjEuMzM3CiAgICBzb3VyY2U6IGtmcmFtZXdvcms9PTcuMS4zMzcKICAtIGlkOiB0bGMKICAgIHZlcnNpb246IDEuNy40CiAgICBzb3VyY2U6IGh0dHBzOi8vZ2l0aHViLmNvbS90bGFwbHVzL3RsYXBsdXMvcmVsZWFzZXMvZG93bmxvYWQvdjEuNy40L3RsYTJ0b29scy5qYXIKICAgIHNoYTI1NjogOTM2YTI2MjA2MWM5MTQ2OTRkZmQ2NjlhNTQzYmUyNDU3M2M0NWQ1YWEwZmYyMGE4Yjk2YjIzZDAxZTA1MGU4OAogIC0gaWQ6IGphdmEKICAgIHZlcnNpb246ICIyMSIKICAgIHNvdXJjZTogdGVtdXJpbgogIC0gaWQ6IHB5dGhvbgogICAgdmVyc2lvbjogIjMuMTMiCiAgICBzb3VyY2U6IGFjdGlvbnMvc2V0dXAtcHl0aG9uCiAgLSBpZDogZGVubwogICAgdmVyc2lvbjogMi45LjgKICAgIHNvdXJjZTogZGVub2xhbmQvZGVubyBhbmQgZGVub2xhbmQvc2V0dXAtZGVubwogICAgbm90ZTogVGhlIGltcGFjdCwgaW1wbGVtZW50YXRpb24vc3BlYyBhbmQgY29udHJvbGxlci1zaGFkb3cgam9icyBpbnN0YWxsIERlbm8KICAgICAgdGhyb3VnaCB0aGUgc2hhcmVkIGNvbXBvc2l0ZSBhY3Rpb24sIHdoaWNoIHBpbnMgc2V0dXAtZGVubyB2Mi4wLjUgYXQKICAgICAgMjJkMDgxZmYyZDNhNDA3NTVlOTc2MjlkZTkyZTNiY2JmYTdjZjJlZC4gVGhlIG9mZmljaWFsIERlbm8gY29udGFpbmVyCiAgICAgIHdhcyBldmFsdWF0ZWQgYnV0IG5vdCB1c2VkIGZvciBHaXRIdWIgQWN0aW9ucyBqb2JzIGJlY2F1c2UgaXQgZG9lcyBub3QKICAgICAgaW5jbHVkZSBOb2RlLmpzIHJlcXVpcmVkIGJ5IEphdmFTY3JpcHQtYmFzZWQgYWN0aW9ucyBzdWNoIGFzIGNoZWNrb3V0LgoKY29tcG9uZW50czoKICAtIGlkOiBzcGVjaWZpY2F0aW9uCiAgICBuYW1lOiBTcGVjaWZpY2F0aW9uIChWZXJzbykKICAgIHJvb3RzOgogICAgICAtIHNwZWMvCiAgICBidWlsZF9jb21tYW5kOiBsYWtlIGJ1aWxkIFNwZWMKICAgIGNoZWNrX2NvbW1hbmQ6IHB5dGhvbjMgc2NyaXB0cy9jb250cm9sZS5weSAtLWZvcm1hdCBnaXRodWIKICAgIGNhY2hlX2RldGVybWluYW50czoKICAgICAgLSBsYWtlLW1hbmlmZXN0Lmpzb24KICAgICAgLSBsZWFuLXRvb2xjaGFpbgogICAgICAtIHNwZWMvCiAgICBkZXBlbmRzX29uOiBbXQogICAgcmVxdWlyZWRfY2hlY2tzOgogICAgICAtIHNwZWMtY2hlY2sKICAgICAgLSBzcGVjLWJ1aWxkCiAgICBpbXBhY3Rfc3VyZmFjZXM6CiAgICAgIC0gc3BlY19jaGVjawogICAgICAtIHNwZWNfYnVpbGQKICAgICAgLSBweXRob25fdGVzdHMKICAgIHJlYWRfaW5wdXRzOgogICAgICAjIEQyIHNsaWNlIDI6IHNyYy8gaXMgcmVhZCBieSB0aGUgc3BlYyBjaGVja3Mgb25seSwgbm90CiAgICAgICMgYnkgdGhlIHNwZWMgYnVpbGQg4oCUIGEgcmVhZCBpbnB1dCBtYXkgcmVzdHJpY3QgaXRzCiAgICAgICMgc3VyZmFjZXMsIGluc3RlYWQgb2YgdHJpZ2dlcmluZyB0aGUgd2hvbGUgY29tcG9uZW50LgogICAgICAtIHBhdGg6IHNyYy8KICAgICAgICBzdXJmYWNlczoKICAgICAgICAgIC0gc3BlY19jaGVjawogICAgICAjIEQyIHNsaWNlIDI6IGdlbnVpbmUgaW5wdXRzIG9mIHRoZSBzcGVjIGNoZWNrcyBhbmQgYnVpbGQKICAgICAgIyAodGhlIGxlZ2FjeSBjbGFzc2lmaWVyJ3Mgc3BlYy1idWlsZCBleGFjdC9wcmVmaXggcnVsZXMsCiAgICAgICMgbm93IGRlY2xhcmVkIGhlcmUgaW5zdGVhZCBvZiBoaWRkZW4gaW4gYSB0YWJsZSkuCiAgICAgIC0gc2NyaXB0cy9jb250cm9sZS5weQogICAgICAtIHNjcmlwdHMvY29udHJvbGVzLwogICAgICAtIHNjcmlwdHMvYmlibGlvLwogICAgICAtIHNjcmlwdHMvbWFudXNjcmlwdF9tZXRyaWNzLnB5CiAgICAgIC0gd2lraS9yZWZlcmVuY2VzLmpzb24KICAgIGFsbG93ZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAgICAgLSB2ZXJpZmljYXRpb24KCiAgLSBpZDogc3BlYy10b29saW5nCiAgICBuYW1lOiBTcGVjaWZpY2F0aW9uIHRvb2xpbmcgKExlYW4gZXh0ZW5zaW9ucykKICAgIHJvb3RzOgogICAgICAtIHRvb2xzLwogICAgYnVpbGRfY29tbWFuZDogbGFrZSBidWlsZCBTcGVjCiAgICBjaGVja19jb21tYW5kOiBweXRob24zIHNjcmlwdHMvY29udHJvbGUucHkgLS1mb3JtYXQgZ2l0aHViCiAgICBjYWNoZV9kZXRlcm1pbmFudHM6CiAgICAgIC0gbGFrZS1tYW5pZmVzdC5qc29uCiAgICAgIC0gbGVhbi10b29sY2hhaW4KICAgICAgLSB0b29scy8KICAgIGRlcGVuZHNfb246CiAgICAgIC0gc3BlY2lmaWNhdGlvbgogICAgcmVxdWlyZWRfY2hlY2tzOgogICAgICAtIHNwZWMtY2hlY2sKICAgICAgLSBzcGVjLWJ1aWxkCiAgICAgIC0gbGVhbi1idWlsZAogICAgaW1wYWN0X3N1cmZhY2VzOgogICAgICAtIHNwZWNfY2hlY2sKICAgICAgLSBzcGVjX2J1aWxkCiAgICAgIC0gcHl0aG9uX3Rlc3RzCiAgICBhbGxvd2VkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gZXhlY3V0aW9uCiAgICAgIC0gdmVyaWZpY2F0aW9uCiAgICBub3RlczoKICAgICAgLSAidG9vbHMvQ29tcGxpYW5jZSBpcyBhbHNvIHJlYWQgYnkgdGhlIGltcGxlbWVudGF0aW9uIGJ1aWxkIChzZWUgaW1wbGVtZW50YXRpb24gY29tcG9uZW50KTsgdG9vbHMvU3BlY0V4dCBpcyByZWFkIGJ5IHRoZSBzcGVjaWZpY2F0aW9uIGJ1aWxkLiBUaGUgb3ZlcmxhcCBpcyBkZWNsYXJlZCBoZXJlIGluc3RlYWQgb2YgYmVpbmcgcmVzb2x2ZWQgYnkgc2lsZW50bHkgcGlja2luZyBvbmUgb3duZXIuIgoKICAtIGlkOiBpbXBsZW1lbnRhdGlvbgogICAgbmFtZTogSW1wbGVtZW50YXRpb24gKExlYW4pCiAgICByb290czoKICAgICAgLSBzcmMvCiAgICAgIC0gdGVzdHMvCiAgICBleGNsdWRlczoKICAgICAgLSBzcmMvay8KICAgICAgIyBEMiBzbGljZSAyOiB0ZXN0cy9weXRob24vIGlzIFB5dGhvbiB0ZXN0cywgbm90IExlYW4KICAgICAgIyB0ZXN0czsgd2l0aG91dCB0aGlzIGV4Y2x1c2lvbiB0aGUgZGVyaXZhdGlvbiB3b3VsZAogICAgICAjIG92ZXItdHJpZ2dlciBsZWFuX2J1aWxkIGZvciBQeXRob24gdGVzdCBmaWxlcywgd2hpY2gKICAgICAgIyB0aGUgbGVnYWN5IGNsYXNzaWZpZXIncyBydWxlIG9yZGVyIChweXRob25fdGVzdHMKICAgICAgIyBiZWZvcmUgbGVhbl9idWlsZCkgZG9lcyBub3QuCiAgICAgIC0gdGVzdHMvcHl0aG9uLwogICAgYnVpbGRfY29tbWFuZDogbGFrZSBidWlsZCBLN3BsIEs3cGxUZXN0cyBLN3BsQ29tcGxpYW5jZSBzYm9tQXVkaXQKICAgIGNoZWNrX2NvbW1hbmQ6IGxha2UgdGVzdAogICAgY2FjaGVfZGV0ZXJtaW5hbnRzOgogICAgICAtIGxha2UtbWFuaWZlc3QuanNvbgogICAgICAtIGxlYW4tdG9vbGNoYWluCiAgICAgIC0gc3JjLwogICAgICAtIHRlc3RzLwogICAgZGVwZW5kc19vbjoKICAgICAgLSBzcGVjLXRvb2xpbmcKICAgIHJlcXVpcmVkX2NoZWNrczoKICAgICAgLSBsZWFuLWJ1aWxkCiAgICBpbXBhY3Rfc3VyZmFjZXM6CiAgICAgIC0gbGVhbl9idWlsZAogICAgcmVhZF9pbnB1dHM6CiAgICAgIC0gdG9vbHMvU3BlY0V4dC9JbmRleENvcmUubGVhbgogICAgICAtIHRvb2xzL1NwZWNFeHQvSW5kZXhUZXJtcy5sZWFuCiAgICAgIC0gdG9vbHMvU3BlY0V4dC9UcmFuc2xhdGUubGVhbgogICAgICAtIHRvb2xzL0NvbXBsaWFuY2UvCiAgICBhbGxvd2VkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gZXhlY3V0aW9uCiAgICAgIC0gdmVyaWZpY2F0aW9uCiAgICBub3RlczoKICAgICAgLSAic3JjL2svIGlzIGV4Y2x1ZGVkOiBpdCBpcyB0aGUgSyBzZW1hbnRpY3MgY29tcG9uZW50LCBub3QgTGVhbiBpbXBsZW1lbnRhdGlvbiBjb2RlLCBldmVuIHRob3VnaCBpdCBsaXZlcyB1bmRlciBzcmMvLiIKCiAgLSBpZDogay1zZW1hbnRpY3MKICAgIG5hbWU6IEsgc2VtYW50aWNzIChvcGVyYXRpb25hbCBzZW1hbnRpY3MpCiAgICByb290czoKICAgICAgLSBzcmMvay8KICAgIGJ1aWxkX2NvbW1hbmQ6IG1ha2UgLUMgc3JjL2sgY2hlY2sKICAgIGNoZWNrX2NvbW1hbmQ6IG1ha2UgLUMgc3JjL2sgY2hlY2sKICAgIGNhY2hlX2RldGVybWluYW50czoKICAgICAgLSBsZWFuLXRvb2xjaGFpbgogICAgICAtIGxha2UtbWFuaWZlc3QuanNvbgogICAgICAtIHNwZWMvCiAgICAgIC0gc3JjL2svTWFrZWZpbGUKICAgIGRlcGVuZHNfb246CiAgICAgIC0gc3BlY2lmaWNhdGlvbgogICAgcmVxdWlyZWRfY2hlY2tzOgogICAgICAtIGstY29tcGlsZQogICAgICAtIGstZXhhbXBsZXMKICAgICAgLSBrbGVhbi1leHBvcnQKICAgIGltcGFjdF9zdXJmYWNlczoKICAgICAgLSBrX2NvbXBpbGUKICAgICAgLSBrX2V4YW1wbGVzCiAgICAgIC0ga2xlYW5fZXhwb3J0CiAgICByZWFkX2lucHV0czoKICAgICAgIyBDdXRvdmVyIEMxOiBpbnB1dHMgdGhlIEsgcGlwZWxpbmUgYWN0dWFsbHkgcmVhZHMgb3V0c2lkZQogICAgICAjIHNyYy9rLywgZGVjbGFyZWQgaGVyZSBpbnN0ZWFkIG9mIGhpZGRlbiBpbiB0aGUgZm9ybWVyCiAgICAgICMgazdwbC1zZW1hbnRpY3MueWFtbCBwYXRoIGZpbHRlcnMuIFRoZSBzcGVjIGVudHJpZXMgbWlycm9yCiAgICAgICMgdGhvc2UgZmlsdGVycyBleGFjdGx5IChzcGVjL1NwZWMubGVhbiwgc3BlYy9TcGVjLywKICAgICAgIyBzcGVjL2Zvcm1hbC1jaGFpbi8pOiBvdGhlciBzcGVjLyBmaWxlcyBkaWQgbm90IHRyaWdnZXIKICAgICAgIyB0aGUgc2VtYW50aWNzIHdvcmtmbG93IGFuZCBkbyBub3QgdHJpZ2dlciBLIGhlcmUuCiAgICAgIC0gcGF0aDogc3BlYy9TcGVjLmxlYW4KICAgICAgICBzdXJmYWNlczoKICAgICAgICAgIC0ga19jb21waWxlCiAgICAgICAgICAtIGtfZXhhbXBsZXMKICAgICAgICAgIC0ga2xlYW5fZXhwb3J0CiAgICAgIC0gcGF0aDogc3BlYy9TcGVjLwogICAgICAgIHN1cmZhY2VzOgogICAgICAgICAgLSBrX2NvbXBpbGUKICAgICAgICAgIC0ga19leGFtcGxlcwogICAgICAgICAgLSBrbGVhbl9leHBvcnQKICAgICAgLSBwYXRoOiBzcGVjL2Zvcm1hbC1jaGFpbi8KICAgICAgICBzdXJmYWNlczoKICAgICAgICAgIC0ga19jb21waWxlCiAgICAgICAgICAtIGtfZXhhbXBsZXMKICAgICAgICAgIC0ga2xlYW5fZXhwb3J0CiAgICAgICMgSyBleHRyYWN0aW9uIHJ1bnMgYGxha2UgZXhlIHNwZWMgLS1leHRyYWN0LWNvZGUtb25seWA7CiAgICAgICMgdGhlIGV4dHJhY3RvciBpcyB0b29scy9TcGVjTWFpbi5sZWFuICsgdG9vbHMvU3BlY0V4dC8uCiAgICAgICMgVGhlIG9sZCBmaWx0ZXIgd2FzIHRvb2xzLyBhcyBhIHdob2xlLCBidXQgb25seSB0aGVzZQogICAgICAjIGlucHV0cyBhZmZlY3QgZXh0cmFjdGlvbjsgdGhlIHJlc3Qgd2FzIG92ZXItdHJpZ2dlcmluZy4KICAgICAgLSBwYXRoOiB0b29scy9TcGVjTWFpbi5sZWFuCiAgICAgICAgc3VyZmFjZXM6CiAgICAgICAgICAtIGtfY29tcGlsZQogICAgICAgICAgLSBrX2V4YW1wbGVzCiAgICAgICAgICAtIGtsZWFuX2V4cG9ydAogICAgICAtIHBhdGg6IHRvb2xzL1NwZWNFeHQvCiAgICAgICAgc3VyZmFjZXM6CiAgICAgICAgICAtIGtfY29tcGlsZQogICAgICAgICAgLSBrX2V4YW1wbGVzCiAgICAgICAgICAtIGtsZWFuX2V4cG9ydAogICAgICAjIEsgZXhhbXBsZXMgbGl2ZSB1bmRlciB0ZXN0cy9leGFtcGxlcy8gKGluY2x1ZGluZyB0aGUKICAgICAgIyBuYXRpdmUtYm91bmRhcnkgcHJvZmlsZSk7IGFuIGV4YW1wbGVzIGNoYW5nZSBleGVyY2lzZXMKICAgICAgIyB0aGUgZXhhbXBsZXMsIGl0IGRvZXMgbm90IHJlY29tcGlsZSB0aGUgZGVmaW5pdGlvbi4KICAgICAgLSBwYXRoOiB0ZXN0cy9leGFtcGxlcy8KICAgICAgICBzdXJmYWNlczoKICAgICAgICAgIC0ga19leGFtcGxlcwogICAgICAjIEN1dG92ZXIgQzEsIGF1dGhvciBkZWNpc2lvbiAyMDI2LTEwLTI2OiB3aWtpL3NlbWFudGljcy5tZAogICAgICAjIGtlZXBzIHRyaWdnZXJpbmcgSyAoaXQgd2FzIGluIHRoZSBmb3JtZXIgc2VtYW50aWNzCiAgICAgICMgd29ya2Zsb3cncyBwYXRoIGZpbHRlcnMpLiBURU1QT1JBUlk6IHRoaXMgcGFnZSBpcyBtZWFudAogICAgICAjIHRvIGRpc2FwcGVhciBpbiBmYXZvdXIgb2YgYSBMZWFuIGRvY3VtZW50IGFuZCB0aGUKICAgICAgIyBsZXhpY29uL2xleGVtZXMgbW9kZWxzIHByZXBhcmVkIGluIFBSICMzMTE7IG9uY2UgIzMxMQogICAgICAjIGxhbmRzIGFuZCB0aGUgd2lraSBsZXhpY2FsIHBhZ2VzIGFyZSBjbG9zZWQsIHJlbW92ZQogICAgICAjIHRoaXMgcmVhZCBpbnB1dC4KICAgICAgLSBwYXRoOiB3aWtpL3NlbWFudGljcy5tZAogICAgICAgIHN1cmZhY2VzOgogICAgICAgICAgLSBrX2NvbXBpbGUKICAgICAgICAgIC0ga19leGFtcGxlcwogICAgICAgICAgLSBrbGVhbl9leHBvcnQKICAgIGFsbG93ZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAgIG5vdGVzOgogICAgICAtICJzcmMvay8gY29udGFpbnMgb25seSBhIE1ha2VmaWxlIGluIHRoZSByZXBvc2l0b3J5OyB0aGUgSyBzb3VyY2VzIGFyZSBleHRyYWN0ZWQgZnJvbSBzcGVjLyBieSBWZXJzbyAoZXh0cmFjdC1jb2RlKSBhbmQgdGhlIGNvbXBpbGVkIGRlZmluaXRpb24gbGl2ZXMgdW5kZXIgc3JjL2svLmJ1aWxkLywgd2hpY2ggaXMgbm90IHRyYWNrZWQuIEEgY2xhaW0gZnJvbSB0aGlzIGNvbXBvbmVudCBpcyBleGVjdXRpb24gb25seTogaXQgbmV2ZXIsIGJ5IGl0c2VsZiwgZXN0YWJsaXNoZXMgYSBwcm9wZXJ0eS4iCiAgICAgIC0gIkZ1dHVyZSB0cmVlIHJlbmFtZTogdGhpcyBjb21wb25lbnQgYmVjb21lcyBzZW1hbnRpY3MvICh3aXRoIGxleGljb24vIGFuZCBzaWJsaW5ncyk7IG9ubHkgaXRzIHJvb3RzIGNoYW5nZS4iCgogIC0gaWQ6IGxlYW4tcHJvb2ZzCiAgICBuYW1lOiBMZWFuIHByb29mIHByb2plY3QgKEtsZWFuIG91dHB1dCkKICAgIHJvb3RzOgogICAgICAtIHByb29mcy8KICAgIGJ1aWxkX2NvbW1hbmQ6IGxha2UgYnVpbGQgSzdQTDJMZWFuIEs3UEwKICAgIGNoZWNrX2NvbW1hbmQ6IGRlbm8gcnVuIC0tYWxsb3ctcmVhZCAtLWFsbG93LXJ1biAtLWFsbG93LXdyaXRlIHRvb2xzL2NpLWNvbnRyb2xsZXIvc3JjL2J1aWxkX3Byb29mcy50cyAtLWJ1aWxkIC0td29ya2RpciBwcm9vZnMKICAgIGNhY2hlX2RldGVybWluYW50czoKICAgICAgLSBwcm9vZnMvbGFrZS1tYW5pZmVzdC5qc29uCiAgICAgIC0gcHJvb2ZzL2xlYW4tdG9vbGNoYWluCiAgICAgIC0gcHJvb2ZzL2F4aW9tLWF1ZGl0LWNvbnRyYWN0Lmpzb24KICAgIGRlcGVuZHNfb246CiAgICAgIC0gay1zZW1hbnRpY3MKICAgIHJlcXVpcmVkX2NoZWNrczoKICAgICAgLSBsZWFuLXByb29mLWJ1aWxkCiAgICAgIC0gYXhpb20tYXVkaXQKICAgIGltcGFjdF9zdXJmYWNlczoKICAgICAgLSBheGlvbV9hdWRpdAogICAgYWxsb3dlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIGV4ZWN1dGlvbgogICAgICAtIHByb29mCiAgICBub3RlczoKICAgICAgLSAiVGhlIG9ubHkgY29tcG9uZW50IHdob3NlIHN0YWdlcyBtYXkgZW1pdCBwcm9vZiBjbGFpbXMsIGFuZCBvbmx5IGZvciB0aGVvcmVtcyBhY3R1YWxseSBjaGVja2VkIGJ5IExlYW4gd2l0aCBhbiBheGlvbSBzZXQgY29udGFpbmVkIGluIHByb29mcy9heGlvbS1hdWRpdC1jb250cmFjdC5qc29uIGFuZCBubyBzb3JyeUF4IGluIHRoZSBidWlsZC4iCgogIC0gaWQ6IHRsYS1tb2RlbHMKICAgIG5hbWU6IFRMQSsgbW9kZWxzCiAgICByb290czoKICAgICAgLSB0aGVvcmV0aWNhbC1wcm9qZWN0cy9rN29zL21vZGVscy8KICAgIGJ1aWxkX2NvbW1hbmQ6IGphdmEgLWNwIHRsYTJ0b29scy5qYXIgdGxjMi5UTEMgLWNvbmZpZyBEMDEtTmF0aXZlQm91bmRhcnkuY2ZnIEQwMU5hdGl2ZUJvdW5kYXJ5CiAgICBjaGVja19jb21tYW5kOiBqYXZhIC1jcCB0bGEydG9vbHMuamFyIHRsYzIuVExDIC1jb25maWcgRDAxLU5hdGl2ZUJvdW5kYXJ5LVVuY29uZmluZWQuY2ZnIEQwMU5hdGl2ZUJvdW5kYXJ5CiAgICBjYWNoZV9kZXRlcm1pbmFudHM6CiAgICAgIC0gdGhlb3JldGljYWwtcHJvamVjdHMvazdvcy9tb2RlbHMvCiAgICBkZXBlbmRzX29uOiBbXQogICAgcmVxdWlyZWRfY2hlY2tzOgogICAgICAtIHRsYS1tb2RlbC1jaGVjawogICAgaW1wYWN0X3N1cmZhY2VzOgogICAgICAtIHRsYV9tb2RlbF9jaGVjawogICAgYWxsb3dlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIHZlcmlmaWNhdGlvbgogICAgbm90ZXM6CiAgICAgIC0gIkRlbGliZXJhdGVseSBubyBkZXBlbmRlbmN5IG9uIGstc2VtYW50aWNzOiB0aGUgRDAxL1I5IG1vZGVscyBhcmUgaGFuZC13cml0dGVuIG1vZGVscyBvZiBhIGRlc2lnbiwgbm90IGFydGVmYWN0cyBkZXJpdmVkIGZyb20gdGhlIEsgc2VtYW50aWNzLiBBIGZ1dHVyZSBzdGFnZSBnZW5lcmF0aW5nIGEgbW9kZWwgZnJvbSBLIHdvdWxkIGJlIGEgbmV3IGNvbXBvbmVudCB3aXRoIGl0cyBvd24gY29udHJhY3Q7IGl0IG11c3Qgbm90IGJlIGltcGxpZWQgYnkgdGhpcyBlbnRyeS4iCiAgICAgIC0gIlRMQyBpcyBib3VuZGVkIG1vZGVsIGNoZWNraW5nOiB2ZXJpZmljYXRpb24gY2xhaW1zIG9ubHksIG5ldmVyIHByb29mIGNsYWltcy4iCgogIC0gaWQ6IHRoZW9yZXRpY2FsLXByb2plY3RzCiAgICBuYW1lOiBUaGVvcmV0aWNhbCBwcm9qZWN0cyAoZG9jdW1lbnRhdGlvbikKICAgIHJvb3RzOgogICAgICAtIHRoZW9yZXRpY2FsLXByb2plY3RzLwogICAgZXhjbHVkZXM6CiAgICAgIC0gdGhlb3JldGljYWwtcHJvamVjdHMvazdvcy9tb2RlbHMvCiAgICBidWlsZF9jb21tYW5kOiAiIgogICAgY2hlY2tfY29tbWFuZDogIiIKICAgIGNhY2hlX2RldGVybWluYW50czoKICAgICAgLSB0aGVvcmV0aWNhbC1wcm9qZWN0cy8KICAgIGRlcGVuZHNfb246IFtdCiAgICByZXF1aXJlZF9jaGVja3M6CiAgICAgIC0gZG9jcy1saW5rcwogICAgaW1wYWN0X3N1cmZhY2VzOgogICAgICAtIGRvY3NfbGlua3MKICAgIGFsbG93ZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAgIG5vdGVzOgogICAgICAtICJEb2N1bWVudGF0aW9uIGNvbXBvbmVudDsgdGhlIG1vZGVscyBzdWJkaXJlY3RvcnkgaXMgb3duZWQgYnkgdGxhLW1vZGVscyBhYm92ZS4iCgogIC0gaWQ6IHB5dGhvbi10b29saW5nCiAgICBuYW1lOiBQeXRob24gdG9vbGluZwogICAgcm9vdHM6CiAgICAgIC0gc2NyaXB0cy8KICAgICAgLSB0ZXN0cy9weXRob24vCiAgICBleGNsdWRlczoKICAgICAgLSBzY3JpcHRzL2NpLwogICAgYnVpbGRfY29tbWFuZDogcHl0aG9uMyAtbSBweXRlc3QgdGVzdHMvcHl0aG9uIC1xCiAgICBjaGVja19jb21tYW5kOiBweXRob24zIC1tIHVuaXR0ZXN0IGRpc2NvdmVyIC1zIHNjcmlwdHMvY2kgLXAgJ3Rlc3RfKi5weScKICAgIGNhY2hlX2RldGVybWluYW50czoKICAgICAgLSBzY3JpcHRzL3JlcXVpcmVtZW50cy1jaS50eHQKICAgICAgLSBzY3JpcHRzLwogICAgICAtIHRlc3RzL3B5dGhvbi8KICAgIGRlcGVuZHNfb246IFtdCiAgICByZXF1aXJlZF9jaGVja3M6CiAgICAgIC0gcHl0aG9uLXRlc3RzCiAgICBpbXBhY3Rfc3VyZmFjZXM6CiAgICAgIC0gcHl0aG9uX3Rlc3RzCiAgICByZWFkX2lucHV0czoKICAgICAgLSB3aWtpL2Fzc3VyYW5jZS5tZAogICAgICAtIHNyYy8KICAgIGFsbG93ZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAgICAgLSB2ZXJpZmljYXRpb24KICAgIG5vdGVzOgogICAgICAtICJzY3JpcHRzL2NpLyBpcyBleGNsdWRlZDogaXQgaXMgb3duZWQgYnkgY2ktY29uZmlndXJhdGlvbiBiZWxvdywgYmVjYXVzZSBhIGNoYW5nZSB0aGVyZSBmb3JjZXMgZnVsbCB2YWxpZGF0aW9uLiIKICAgICAgLSAiTG9uZy10ZXJtIHRhcmdldDogZXZlcnkgc2NyaXB0IHVuZGVyIHNjcmlwdHMvIG1pZ3JhdGVzIHRvIFR5cGVTY3JpcHQgdW5kZXIgRGVubzsgdGhpcyBjb21wb25lbnQgaXMgdGhlIG1pZ3JhdGlvbiBiYWNrbG9nLCBub3QgYSBwZXJtYW5lbnQgUHl0aG9uIGlzbGFuZC4iCgogIC0gaWQ6IHdpa2kKICAgIG5hbWU6IFdpa2kgKGRvY3VtZW50YXRpb24pCiAgICByb290czoKICAgICAgLSB3aWtpLwogICAgYnVpbGRfY29tbWFuZDogbm9kZSBzY3JpcHRzL2NpL3dpa2lfZXhwb3J0Lm1qcwogICAgY2hlY2tfY29tbWFuZDogIiIKICAgIGNhY2hlX2RldGVybWluYW50czoKICAgICAgLSB3aWtpLwogICAgICAtIHNjcmlwdHMvY2kvd2lraV9leHBvcnQubWpzCiAgICBkZXBlbmRzX29uOiBbXQogICAgcmVxdWlyZWRfY2hlY2tzOgogICAgICAtIGRvY3MtbGlua3MKICAgICAgLSB3aWtpLWV4cG9ydC12YWxpZGF0aW9uCiAgICBpbXBhY3Rfc3VyZmFjZXM6CiAgICAgIC0gZG9jc19saW5rcwogICAgYWxsb3dlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIGV4ZWN1dGlvbgogICAgbm90ZXM6CiAgICAgIC0gIlRoZSB3aWtpIGV4cG9ydGVyIGlzIGN1cnJlbnRseSBOb2RlICgubWpzKTsgaXQgaXMgYSBEZW5vIG1pZ3JhdGlvbiBjYW5kaWRhdGUgKHNsaWNlIDQpLCBub3QgYSBwZXJtYW5lbnQgTm9kZSBleGNlcHRpb24uIEl0cyBidWlsZCBjb21tYW5kIGlzIHJlY29yZGVkIGFzLWlzIHVudGlsIHRoYXQgbWlncmF0aW9uLiIKCiAgLSBpZDogY2ktY29uZmlndXJhdGlvbgogICAgbmFtZTogQ0kgY29uZmlndXJhdGlvbgogICAgcm9vdHM6CiAgICAgIC0gLmdpdGh1Yi93b3JrZmxvd3MvCiAgICAgIC0gLmdpdGh1Yi9hY3Rpb25zLwogICAgICAtIHNjcmlwdHMvY2kvCiAgICBidWlsZF9jb21tYW5kOiAiIgogICAgY2hlY2tfY29tbWFuZDogcHl0aG9uMyAtbSB1bml0dGVzdCBkaXNjb3ZlciAtcyBzY3JpcHRzL2NpIC1wICd0ZXN0XyoucHknCiAgICBjYWNoZV9kZXRlcm1pbmFudHM6CiAgICAgIC0gLmdpdGh1Yi8KICAgICAgLSBzY3JpcHRzL2NpLwogICAgZGVwZW5kc19vbjogW10KICAgIHJlcXVpcmVkX2NoZWNrczoKICAgICAgLSBmdWxsLXZhbGlkYXRpb24KICAgIGltcGFjdF9zdXJmYWNlczoKICAgICAgLSBmdWxsCiAgICByZWFkX2lucHV0czoKICAgICAgIyBEMiBzbGljZSAyOiB0aGUgbGVnYWN5IGNsYXNzaWZpZXIncyBmdWxsLWV4YWN0IGZpbGVzCiAgICAgICMgKHRvb2xjaGFpbiBhbmQgbWFuaWZlc3QgZmlsZXMgd2hvc2UgY2hhbmdlIGZvcmNlcyBmdWxsCiAgICAgICMgdmFsaWRhdGlvbiksIG5vdyBkZWNsYXJlZCBoZXJlIGluc3RlYWQgb2YgaGlkZGVuIGluIGEgdGFibGUuCiAgICAgIC0gLmdpdGh1Yi9kZXBlbmRhYm90LnltbAogICAgICAtIGxha2VmaWxlLmxlYW4KICAgICAgLSBsZWFuLXRvb2xjaGFpbgogICAgICAtIGxha2UtbWFuaWZlc3QuanNvbgogICAgICAtIHNjcmlwdHMvc3luY196ZW5vZG8ucHkKICAgICAgLSBzY3JpcHRzL3JlcXVpcmVtZW50cy16ZW5vZG8udHh0CiAgICBhbGxvd2VkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gZXhlY3V0aW9uCiAgICBub3RlczoKICAgICAgLSAiQSBjaGFuZ2UgdG8gYW55IHJvb3QgaGVyZSBmb3JjZXMgZnVsbCB2YWxpZGF0aW9uIGluIHRoZSBpbXBhY3QgY2xhc3NpZmllcjsgdGhpcyBjb21wb25lbnQgcmVjb3JkcyB0aGF0IHJ1bGUgaW5zdGVhZCBvZiByZS1kZXJpdmluZyBpdC4iCgojIFByb29mLWNoYWluIHN0YWdlcy4gQSBzdGFnZSBiZWxvbmdzIHRvIG9uZSBjb21wb25lbnQsIGRlY2xhcmVzCiMgdGhlIHN0YWdlcyBpdCByZXF1aXJlcyBhcyBpbnB1dHMsIHRoZSBjbGFpbSBjbGFzc2VzIGl0IG1heSBlbWl0LAojIGFuZCB0aGUgY2xhaW0gY2xhc3NlcyBpdCBtdXN0IGVtaXQgYXQgbGVhc3Qgb25lIG9mIChlbXB0eSBtZWFucwojIHRoZSBzdGFnZSBpcyBhbGxvd2VkIHRvIGVtaXQgbm8gY2xhaW0sIGUuZy4gYSBwdXJlIGdlbmVyYXRpb24KIyBzdGVwIHdob3NlIG91dHB1dCBpcyBjaGVja2VkIGRvd25zdHJlYW0gLS0gYnV0IGEgc3RhZ2UgdGhhdAojIGVtaXRzIG5vdGhpbmcgbmV2ZXIgZXN0YWJsaXNoZXMgYW55dGhpbmcpLgpzdGFnZXM6CiAgLSBpZDogc3BlYy1leHRyYWN0CiAgICBjb21wb25lbnQ6IHNwZWNpZmljYXRpb24KICAgIHJlcXVpcmVzOiBbXQogICAgYWxsb3dlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIGV4ZWN1dGlvbgogICAgcmVxdWlyZWRfY2xhaW1fY2xhc3NlczogW10KICAtIGlkOiBzcGVjLWJ1aWxkCiAgICBjb21wb25lbnQ6IHNwZWNpZmljYXRpb24KICAgIHJlcXVpcmVzOgogICAgICAtIHNwZWMtZXh0cmFjdAogICAgYWxsb3dlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIGV4ZWN1dGlvbgogICAgICAtIHZlcmlmaWNhdGlvbgogICAgcmVxdWlyZWRfY2xhaW1fY2xhc3NlczogW10KICAtIGlkOiBrLWNvbXBpbGUKICAgIGNvbXBvbmVudDogay1zZW1hbnRpY3MKICAgIHJlcXVpcmVzOgogICAgICAtIHNwZWMtZXh0cmFjdAogICAgYWxsb3dlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIGV4ZWN1dGlvbgogICAgcmVxdWlyZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAtIGlkOiBrLWV4YW1wbGVzCiAgICBjb21wb25lbnQ6IGstc2VtYW50aWNzCiAgICByZXF1aXJlczoKICAgICAgLSBrLWNvbXBpbGUKICAgIGFsbG93ZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAgIHJlcXVpcmVkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gZXhlY3V0aW9uCiAgLSBpZDoga2xlYW4tZXhwb3J0CiAgICBjb21wb25lbnQ6IGstc2VtYW50aWNzCiAgICByZXF1aXJlczoKICAgICAgLSBrLWNvbXBpbGUKICAgIGFsbG93ZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAgIHJlcXVpcmVkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gZXhlY3V0aW9uCiAgLSBpZDogbGVhbi1wcm9vZi1idWlsZAogICAgY29tcG9uZW50OiBsZWFuLXByb29mcwogICAgcmVxdWlyZXM6CiAgICAgIC0ga2xlYW4tZXhwb3J0CiAgICBhbGxvd2VkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gZXhlY3V0aW9uCiAgICAgIC0gcHJvb2YKICAgIHJlcXVpcmVkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gcHJvb2YKICAtIGlkOiB0bGEtbW9kZWwtY2hlY2sKICAgIGNvbXBvbmVudDogdGxhLW1vZGVscwogICAgcmVxdWlyZXM6IFtdCiAgICBhbGxvd2VkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gdmVyaWZpY2F0aW9uCiAgICByZXF1aXJlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIHZlcmlmaWNhdGlvbgogIC0gaWQ6IGxlYW4taW1wbGVtZW50YXRpb24tYnVpbGQKICAgIGNvbXBvbmVudDogaW1wbGVtZW50YXRpb24KICAgIHJlcXVpcmVzOiBbXQogICAgYWxsb3dlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIGV4ZWN1dGlvbgogICAgICAtIHZlcmlmaWNhdGlvbgogICAgcmVxdWlyZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAtIGlkOiBweXRob24tdGVzdHMKICAgIGNvbXBvbmVudDogcHl0aG9uLXRvb2xpbmcKICAgIHJlcXVpcmVzOiBbXQogICAgYWxsb3dlZF9jbGFpbV9jbGFzc2VzOgogICAgICAtIGV4ZWN1dGlvbgogICAgICAtIHZlcmlmaWNhdGlvbgogICAgcmVxdWlyZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAtIGlkOiB3aWtpLWV4cG9ydAogICAgY29tcG9uZW50OiB3aWtpCiAgICByZXF1aXJlczogW10KICAgIGFsbG93ZWRfY2xhaW1fY2xhc3NlczoKICAgICAgLSBleGVjdXRpb24KICAgIHJlcXVpcmVkX2NsYWltX2NsYXNzZXM6CiAgICAgIC0gZXhlY3V0aW9uCg==
+# SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Single source of truth for CI component paths, commands, cache
+# determinants, proof-chain dependencies, mandatory checks, and
+# allowed claim classes. Read by tools/ci-controller (slice 1).
+# This registry is descriptive in slice 1: the impact classifier
+# still uses its own tables in scripts/ci/impact.py, and the two
+# must agree (see tools/ci-controller/README.md, cutover criteria).
+# A path may belong to several components: components are logical
+# units, not a partition of the tree. Overlaps are declared below
+# instead of being hidden.
+#
+# YAML subset supported by the controller's parser: block mappings
+# and sequences, plain/single/double-quoted scalars, booleans,
+# integers, and flow sequences. No anchors, tags, or block scalars.
+
+# D2 slice 1 (descriptive only, classifier not yet derived): every
+# component also declares `impact_surfaces` — the validation surfaces
+# a change under its roots triggers — and, where it reads files
+# outside its own roots, `read_inputs` — paths whose change triggers
+# that component's surfaces as well (the former classifier "read by
+# another surface" rules, now declared here). A path triggers the
+# surfaces of every component whose roots contain it, plus the
+# surfaces of every component whose read_inputs contain it. New
+# surface names (axiom_audit, k_compile, k_examples, klean_export,
+# tla_model_check) are declared here as derivation targets; since
+# cutover C3 the derived classifier decides all thirteen surfaces
+# (impact job, derived_event.ts), and the legacy Python classifier
+# runs only in reversed shadow.
+# The markdown rule (any .md/.markdown file triggers docs_links)
+# and the light/full exact-prefix rules remain classifier rules,
+# not components, and are not declared here.
+
+version: 1
+
+toolchains:
+  - id: lean
+    version: leanprover/lean4:v4.34.0
+    source: lean-toolchain
+  - id: k-framework
+    version: "7.1.337"
+    source: runtimeverificationinc/kframework-k:ubuntu-jammy-7.1.337@sha256:a63698c015f2b349bb9807d486bf2a48a764237a018fd207c23ac7571519b12b
+  - id: klean
+    version: 7.1.337
+    source: kframework==7.1.337
+  - id: tlc
+    version: 1.7.4
+    source: https://github.com/tlaplus/tlaplus/releases/download/v1.7.4/tla2tools.jar
+    sha256: 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
+  - id: java
+    version: "21"
+    source: temurin
+  - id: python
+    version: "3.13"
+    source: actions/setup-python
+  - id: deno
+    version: 2.9.8
+    source: denoland/deno and denoland/setup-deno
+    note: The impact, implementation/spec and controller-shadow jobs install Deno
+      through the shared composite action, which pins setup-deno v2.0.5 at
+      22d081ff2d3a40755e97629de92e3bcbfa7cf2ed. The official Deno container
+      was evaluated but not used for GitHub Actions jobs because it does not
+      include Node.js required by JavaScript-based actions such as checkout.
+
+components:
+  - id: specification
+    name: Specification (Verso)
+    roots:
+      - spec/
+    build_command: lake build Spec
+    check_command: python3 scripts/controle.py --format github
+    cache_determinants:
+      - lake-manifest.json
+      - lean-toolchain
+      - spec/
+    depends_on: []
+    required_checks:
+      - spec-check
+      - spec-build
+    impact_surfaces:
+      - spec_check
+      - spec_build
+      - python_tests
+    read_inputs:
+      # D2 slice 2: src/ is read by the spec checks only, not
+      # by the spec build — a read input may restrict its
+      # surfaces, instead of triggering the whole component.
+      - path: src/
+        surfaces:
+          - spec_check
+      # D2 slice 2: genuine inputs of the spec checks and build
+      # (the legacy classifier's spec-build exact/prefix rules,
+      # now declared here instead of hidden in a table).
+      - scripts/controle.py
+      - scripts/controles/
+      - scripts/biblio/
+      - scripts/manuscript_metrics.py
+      - wiki/references.json
+    allowed_claim_classes:
+      - execution
+      - verification
+
+  - id: spec-tooling
+    name: Specification tooling (Lean extensions)
+    roots:
+      - tools/
+    build_command: lake build Spec
+    check_command: python3 scripts/controle.py --format github
+    cache_determinants:
+      - lake-manifest.json
+      - lean-toolchain
+      - tools/
+    depends_on:
+      - specification
+    required_checks:
+      - spec-check
+      - spec-build
+      - lean-build
+    impact_surfaces:
+      - spec_check
+      - spec_build
+      - python_tests
+    allowed_claim_classes:
+      - execution
+      - verification
+    notes:
+      - "tools/Compliance is also read by the implementation build (see implementation component); tools/SpecExt is read by the specification build. The overlap is declared here instead of being resolved by silently picking one owner."
+
+  - id: implementation
+    name: Implementation (Lean)
+    roots:
+      - src/
+      - tests/
+    excludes:
+      - src/k/
+      # D2 slice 2: tests/python/ is Python tests, not Lean
+      # tests; without this exclusion the derivation would
+      # over-trigger lean_build for Python test files, which
+      # the legacy classifier's rule order (python_tests
+      # before lean_build) does not.
+      - tests/python/
+    build_command: lake build K7pl K7plTests K7plCompliance sbomAudit
+    check_command: lake test
+    cache_determinants:
+      - lake-manifest.json
+      - lean-toolchain
+      - src/
+      - tests/
+    depends_on:
+      - spec-tooling
+    required_checks:
+      - lean-build
+    impact_surfaces:
+      - lean_build
+    read_inputs:
+      - tools/SpecExt/IndexCore.lean
+      - tools/SpecExt/IndexTerms.lean
+      - tools/SpecExt/Translate.lean
+      - tools/Compliance/
+    allowed_claim_classes:
+      - execution
+      - verification
+    notes:
+      - "src/k/ is excluded: it is the K semantics component, not Lean implementation code, even though it lives under src/."
+
+  - id: k-semantics
+    name: K semantics (operational semantics)
+    roots:
+      - src/k/
+    build_command: make -C src/k check
+    check_command: make -C src/k check
+    cache_determinants:
+      - lean-toolchain
+      - lake-manifest.json
+      - spec/
+      - src/k/Makefile
+    depends_on:
+      - specification
+    required_checks:
+      - k-compile
+      - k-examples
+      - klean-export
+    impact_surfaces:
+      - k_compile
+      - k_examples
+      - klean_export
+    read_inputs:
+      # Cutover C1: inputs the K pipeline actually reads outside
+      # src/k/, declared here instead of hidden in the former
+      # k7pl-semantics.yaml path filters. The spec entries mirror
+      # those filters exactly (spec/Spec.lean, spec/Spec/,
+      # spec/formal-chain/): other spec/ files did not trigger
+      # the semantics workflow and do not trigger K here.
+      - path: spec/Spec.lean
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: spec/Spec/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: spec/formal-chain/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      # K extraction runs `lake exe spec --extract-code-only`;
+      # the extractor is tools/SpecMain.lean + tools/SpecExt/.
+      # The old filter was tools/ as a whole, but only these
+      # inputs affect extraction; the rest was over-triggering.
+      - path: tools/SpecMain.lean
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: tools/SpecExt/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      # K examples live under tests/examples/ (including the
+      # native-boundary profile); an examples change exercises
+      # the examples, it does not recompile the definition.
+      - path: tests/examples/
+        surfaces:
+          - k_examples
+      # Cutover C1, author decision 2026-10-26: wiki/semantics.md
+      # keeps triggering K (it was in the former semantics
+      # workflow's path filters). TEMPORARY: this page is meant
+      # to disappear in favour of a Lean document and the
+      # lexicon/lexemes models prepared in PR #311; once #311
+      # lands and the wiki lexical pages are closed, remove
+      # this read input.
+      - path: wiki/semantics.md
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+    allowed_claim_classes:
+      - execution
+    notes:
+      - "src/k/ contains only a Makefile in the repository; the K sources are extracted from spec/ by Verso (extract-code) and the compiled definition lives under src/k/.build/, which is not tracked. A claim from this component is execution only: it never, by itself, establishes a property."
+      - "Future tree rename: this component becomes semantics/ (with lexicon/ and siblings); only its roots change."
+
+  - id: lean-proofs
+    name: Lean proof project (Klean output)
+    roots:
+      - proofs/
+    build_command: lake build K7PL2Lean K7PL
+    check_command: deno run --allow-read --allow-run --allow-write tools/ci-controller/src/build_proofs.ts --build --workdir proofs
+    cache_determinants:
+      - proofs/lake-manifest.json
+      - proofs/lean-toolchain
+      - proofs/axiom-audit-contract.json
+    depends_on:
+      - k-semantics
+    required_checks:
+      - lean-proof-build
+      - axiom-audit
+    impact_surfaces:
+      - axiom_audit
+    allowed_claim_classes:
+      - execution
+      - proof
+    notes:
+      - "The only component whose stages may emit proof claims, and only for theorems actually checked by Lean with an axiom set contained in proofs/axiom-audit-contract.json and no sorryAx in the build."
+
+  - id: tla-models
+    name: TLA+ models
+    roots:
+      - theoretical-projects/k7os/models/
+    build_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary.cfg D01NativeBoundary
+    check_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary
+    cache_determinants:
+      - theoretical-projects/k7os/models/
+    depends_on: []
+    required_checks:
+      - tla-model-check
+    impact_surfaces:
+      - tla_model_check
+    allowed_claim_classes:
+      - verification
+    notes:
+      - "Deliberately no dependency on k-semantics: the D01/R9 models are hand-written models of a design, not artefacts derived from the K semantics. A future stage generating a model from K would be a new component with its own contract; it must not be implied by this entry."
+      - "TLC is bounded model checking: verification claims only, never proof claims."
+
+  - id: theoretical-projects
+    name: Theoretical projects (documentation)
+    roots:
+      - theoretical-projects/
+    excludes:
+      - theoretical-projects/k7os/models/
+    build_command: ""
+    check_command: ""
+    cache_determinants:
+      - theoretical-projects/
+    depends_on: []
+    required_checks:
+      - docs-links
+    impact_surfaces:
+      - docs_links
+    allowed_claim_classes:
+      - execution
+    notes:
+      - "Documentation component; the models subdirectory is owned by tla-models above."
+
+  - id: python-tooling
+    name: Python tooling
+    roots:
+      - scripts/
+      - tests/python/
+    excludes:
+      - scripts/ci/
+    build_command: python3 -m pytest tests/python -q
+    check_command: python3 -m unittest discover -s scripts/ci -p 'test_*.py'
+    cache_determinants:
+      - scripts/requirements-ci.txt
+      - scripts/
+      - tests/python/
+    depends_on: []
+    required_checks:
+      - python-tests
+    impact_surfaces:
+      - python_tests
+    read_inputs:
+      - wiki/assurance.md
+      - src/
+    allowed_claim_classes:
+      - execution
+      - verification
+    notes:
+      - "scripts/ci/ is excluded: it is owned by ci-configuration below, because a change there forces full validation."
+      - "Long-term target: every script under scripts/ migrates to TypeScript under Deno; this component is the migration backlog, not a permanent Python island."
+
+  - id: wiki
+    name: Wiki (documentation)
+    roots:
+      - wiki/
+    build_command: node scripts/ci/wiki_export.mjs
+    check_command: ""
+    cache_determinants:
+      - wiki/
+      - scripts/ci/wiki_export.mjs
+    depends_on: []
+    required_checks:
+      - docs-links
+      - wiki-export-validation
+    impact_surfaces:
+      - docs_links
+    allowed_claim_classes:
+      - execution
+    notes:
+      - "The wiki exporter is currently Node (.mjs); it is a Deno migration candidate (slice 4), not a permanent Node exception. Its build command is recorded as-is until that migration."
+
+  - id: ci-configuration
+    name: CI configuration
+    roots:
+      - .github/workflows/
+      - .github/actions/
+      - scripts/ci/
+    build_command: ""
+    check_command: python3 -m unittest discover -s scripts/ci -p 'test_*.py'
+    cache_determinants:
+      - .github/
+      - scripts/ci/
+    depends_on: []
+    required_checks:
+      - full-validation
+    impact_surfaces:
+      - full
+    read_inputs:
+      # D2 slice 2: the legacy classifier's full-exact files
+      # (toolchain and manifest files whose change forces full
+      # validation), now declared here instead of hidden in a table.
+      - .github/dependabot.yml
+      - lakefile.lean
+      - lean-toolchain
+      - lake-manifest.json
+      - scripts/sync_zenodo.py
+      - scripts/requirements-zenodo.txt
+    allowed_claim_classes:
+      - execution
+    notes:
+      - "A change to any root here forces full validation in the impact classifier; this component records that rule instead of re-deriving it."
+
+# Proof-chain stages. A stage belongs to one component, declares
+# the stages it requires as inputs, the claim classes it may emit,
+# and the claim classes it must emit at least one of (empty means
+# the stage is allowed to emit no claim, e.g. a pure generation
+# step whose output is checked downstream -- but a stage that
+# emits nothing never establishes anything).
+stages:
+  - id: spec-extract
+    component: specification
+    requires: []
+    allowed_claim_classes:
+      - execution
+    required_claim_classes: []
+  - id: spec-build
+    component: specification
+    requires:
+      - spec-extract
+    allowed_claim_classes:
+      - execution
+      - verification
+    required_claim_classes: []
+  - id: k-compile
+    component: k-semantics
+    requires:
+      - spec-extract
+    allowed_claim_classes:
+      - execution
+    required_claim_classes:
+      - execution
+  - id: k-examples
+    component: k-semantics
+    requires:
+      - k-compile
+    allowed_claim_classes:
+      - execution
+    required_claim_classes:
+      - execution
+  - id: klean-export
+    component: k-semantics
+    requires:
+      - k-compile
+    allowed_claim_classes:
+      - execution
+    required_claim_classes:
+      - execution
+  - id: lean-proof-build
+    component: lean-proofs
+    requires:
+      - klean-export
+    allowed_claim_classes:
+      - execution
+      - proof
+    required_claim_classes:
+      - proof
+  - id: tla-model-check
+    component: tla-models
+    requires: []
+    allowed_claim_classes:
+      - verification
+    required_claim_classes:
+      - verification
+  - id: lean-implementation-build
+    component: implementation
+    requires: []
+    allowed_claim_classes:
+      - execution
+      - verification
+    required_claim_classes:
+      - execution
+  - id: python-tests
+    component: python-tooling
+    requires: []
+    allowed_claim_classes:
+      - execution
+      - verification
+    required_claim_classes:
+      - execution
+  - id: wiki-export
+    component: wiki
+    requires: []
+    allowed_claim_classes:
+      - execution
+    required_claim_classes:
+      - execution
