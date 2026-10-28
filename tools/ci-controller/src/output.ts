@@ -1,1 +1,12 @@
-Ly8gU1BEWC1GaWxlQ29weXJpZ2h0VGV4dDogMjAyNiBDeXByaWVuIFBJRVJSRQovLwovLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogQ0VDSUxMLTIuMQoKLyoqIEFwcGVuZCBsaW5lcyB0byB0aGUgcnVubmVyJ3MgR0lUSFVCX09VVFBVVCBmaWxlLCBpZiBzZXQuICovCmV4cG9ydCBmdW5jdGlvbiB3cml0ZUdpdGh1Yk91dHB1dChsaW5lczogc3RyaW5nW10pOiB2b2lkIHsKICBjb25zdCBvdXRwdXQgPSBEZW5vLmVudi5nZXQoIkdJVEhVQl9PVVRQVVQiKTsKICBpZiAoIW91dHB1dCkgcmV0dXJuOwogIERlbm8ud3JpdGVUZXh0RmlsZVN5bmMob3V0cHV0LCBsaW5lcy5tYXAoKGxpbmUpID0+IGAke2xpbmV9XG5gKS5qb2luKCIiKSwgewogICAgYXBwZW5kOiB0cnVlLAogIH0pOwp9Cg==
+// SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+//
+// SPDX-License-Identifier: CECILL-2.1
+
+/** Append lines to the runner's GITHUB_OUTPUT file, if set. */
+export function writeGithubOutput(lines: string[]): void {
+  const output = Deno.env.get("GITHUB_OUTPUT");
+  if (!output) return;
+  Deno.writeTextFileSync(output, lines.map((line) => `${line}\n`).join(""), {
+    append: true,
+  });
+}
