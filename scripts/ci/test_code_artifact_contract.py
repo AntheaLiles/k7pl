@@ -124,10 +124,25 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertNotIn("extract_verso_code.py", self.workflow)
 
     def test_workflow_packages_the_generated_sources(self) -> None:
-        self.assertIn("tools/ci-controller/src/package_evidence.ts", self.workflow_file)
+        # The K job runs the compiled controller, whose package-evidence command is
+        # package_evidence.ts.
+        cli = (ROOT / "tools/ci-controller/src/cli.ts").read_text(encoding="utf-8")
+        self.assertIn("k7pl-ci package-evidence", self.workflow_file)
+        self.assertIn('"package-evidence": {', cli)
+        self.assertIn('from "./package_evidence.ts"', cli)
         self.assertNotIn("scripts/ci/k7pl_semantics_package_evidence.sh", self.step_scripts)
         self.assertIn(".build/generated/semantics.k", self.workflow)
         self.assertIn(".build/generated/check_k_examples.py", self.workflow)
+
+    def test_k_job_runs_the_compiled_controller_without_installing_deno(self) -> None:
+        k_smoke = self.workflow_file.split("  k-smoke:", 1)[1].split("\n  refresh-main-status:", 1)[0]
+        self.assertIn("needs: [d01-tlc, controller-binary]", k_smoke)
+        self.assertIn("name: k7pl-ci-controller", k_smoke)
+        self.assertIn("sha256sum -c k7pl-ci.sha256", k_smoke)
+        self.assertNotIn("setup-deno", k_smoke)
+        self.assertNotIn("apt-get", k_smoke)
+        self.assertNotIn("deno run", k_smoke)
+        self.assertIn("deno task compile", self.workflow_file)
 
     def test_semantics_workflow_is_triggered_by_surfaces_not_paths(self) -> None:
         # Cutover C2: path filters are gone; ci.yaml calls the workflow

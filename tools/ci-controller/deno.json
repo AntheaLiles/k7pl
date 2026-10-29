@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "check": "deno check src/main.ts",
+    "check": "deno check src/main.ts src/cli.ts src/derived_event.ts",
+    "compile": "deno compile --allow-read --allow-write --allow-run --allow-env=GITHUB_PATH,GITHUB_RUN_ID,GITHUB_SHA,GITHUB_STEP_SUMMARY,GITHUB_WORKSPACE,PATH,RUNNER_TEMP --target x86_64-unknown-linux-gnu --output dist/k7pl-ci src/cli.ts",
     "fmt": "deno fmt --check",
     "lint": "deno lint",
     "test": "deno test --allow-read --allow-run --allow-env --allow-write tests/"

@@ -67,6 +67,12 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
   point. `scripts/ci/test_impact_coverage.py` now checks the reads of the checks
   against the deciding classifier instead of the retired one, and the impact job
   validates the registry before deciding from it.
+- CI: the controller compiles to a self-contained binary (`deno task compile`, `src/cli.ts`,
+  `dist/k7pl-ci`). The `k-smoke` job of `k7pl-semantics.yaml`, in the K Framework container, runs
+  its controller steps with it and no longer installs `unzip` and Deno there; a `controller-binary`
+  job compiles, tests and uploads it with its digest. The binary is compiled with the union of its
+  commands' declared permissions, and each command revokes the categories it does not use;
+  `src/k/Makefile` takes the boundary check as `OS_BOUNDARY_CHECK`.
 
 - Specification wording: context-sensitive vocabulary cleanup and a source-anchored lexical-family check integrated into `scripts/controle.py`; unrelated words such as `violet` remain allowed.
 - C8 statement inventory check (`scripts/controles/statement_inventory.py`): the pre-migration

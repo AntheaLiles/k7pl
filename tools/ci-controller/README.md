@@ -28,6 +28,37 @@ Python and shell CI steps.
   `src/lean_modules.ts` for Lean-module reachability; the other ported steps are
   called from `verify.yaml`, `security.yaml` and `k7pl-semantics.yaml`.
 
+## Compiled binary
+
+`deno task compile` builds `dist/k7pl-ci` (not tracked) from `src/cli.ts`: one
+self-contained executable for x86_64 Linux that needs neither Deno nor any other
+runtime where it runs. The `k-smoke` job of `k7pl-semantics.yaml` runs in the K
+Framework container, whose image has neither Deno nor the `unzip` that Deno's
+installer needs; its controller steps run this binary, which the
+`controller-binary` job of the same workflow compiles, tests and uploads with
+its SHA-256 digest (`k7pl-ci <command>`, `k7pl-ci --help`).
+
+A compiled binary has one set of permissions, fixed at compile time. Each
+command of `src/cli.ts` declares the programs it runs, the variables it reads
+and whether it writes; the binary is compiled with their union, which
+`tests/cli_compile_test.ts` checks against the `compile` task of `deno.json`.
+Before a command runs, each permission category it does not use at all is
+revoked (`k7pl-ci permissions <command>` prints what remains). Deno revokes a
+whole category but cannot narrow one, so within a category a command receives
+the union: `--allow-run` is unrestricted because `install-klean` runs the Python
+of a virtual environment whose path is only known at run time and
+`os-boundary-check` runs the `krun` it is given, as `deno run --allow-run`
+already allowed them. The commands that run one program (`export-lean`,
+`build-proofs`, `render-blueprint`, `package-evidence`) can therefore run any
+program, and each command may read the union of the variables (`GITHUB_PATH`,
+`GITHUB_RUN_ID`, `GITHUB_SHA`, `GITHUB_STEP_SUMMARY`, `GITHUB_WORKSPACE`,
+`PATH`, `RUNNER_TEMP`); none of them is a secret. The binary is never granted
+network, FFI or system access.
+
+The runtime the binary embeds (`denort`) is downloaded by `deno compile` from
+dl.deno.land, the server from which `denoland/setup-deno` downloads Deno itself:
+the binary trusts the same source as the Deno installation it replaces.
+
 ## Runtime
 
 - Deno **2.9.8**, installed in CI by the shared composite action

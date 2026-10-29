@@ -111,11 +111,61 @@ jobs:
           retention-days: 14
           if-no-files-found: error
 
+  controller-binary:
+    name: Compile the CI controller for the K container
+    # The K image has neither Deno nor the unzip that Deno's installer
+    # needs: k-smoke runs the controller as the self-contained binary
+    # compiled here (tools/ci-controller/src/cli.ts). Runs whenever
+    # k-smoke may run.
+    if: ${{ github.event_name == 'workflow_dispatch' || inputs.k_compile || inputs.k_examples || inputs.klean_export || inputs.axiom_audit }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
+
+      # Formerly run with Deno inside k-smoke; the binary has no test runner.
+      - name: Test the Klean/Lean compatibility shim
+        working-directory: tools/ci-controller
+        run: deno test --allow-read --allow-write tests/klean_prelude_test.ts
+
+      - name: Test the permissions of the compiled entry point
+        working-directory: tools/ci-controller
+        run: deno test --allow-read --allow-run --allow-env --allow-write tests/cli_compile_test.ts
+
+      # The digest travels with the binary to detect a damaged transfer;
+      # it adds no authenticity beyond this run's own artifact store.
+      - name: Compile the controller
+        working-directory: tools/ci-controller
+        shell: bash
+        run: |
+          set -euo pipefail
+          deno task compile
+          ./dist/k7pl-ci --help
+          (cd dist && sha256sum k7pl-ci | tee k7pl-ci.sha256)
+
+      - name: Upload the compiled controller
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: k7pl-ci-controller
+          path: |
+            tools/ci-controller/dist/k7pl-ci
+            tools/ci-controller/dist/k7pl-ci.sha256
+          retention-days: 1
+          if-no-files-found: error
+
   k-smoke:
-    needs: d01-tlc
+    needs: [d01-tlc, controller-binary]
     # Cutover C2: always() disables the implicit success() gate so a skipped
     # d01 (TLA+ unchanged) does not skip k-smoke; a failed d01 still does.
-    if: ${{ always() && (github.event_name == 'workflow_dispatch' || inputs.k_compile || inputs.k_examples || inputs.klean_export || inputs.axiom_audit) && (needs.d01-tlc.result == 'success' || needs.d01-tlc.result == 'skipped') }}
+    if: ${{ always() && (github.event_name == 'workflow_dispatch' || inputs.k_compile || inputs.k_examples || inputs.klean_export || inputs.axiom_audit) && (needs.d01-tlc.result == 'success' || needs.d01-tlc.result == 'skipped') && needs.controller-binary.result == 'success' }}
     name: Compile K semantics, execute examples, export to Lean
     runs-on: ubuntu-22.04
     timeout-minutes: 45
@@ -137,25 +187,29 @@ jobs:
           test: false
           lint: false
 
-      # The pinned setup action downloads a ZIP archive; the RuntimeVerification
-      # K image does not include unzip, so install that prerequisite first.
-      - name: Install Deno archive prerequisite
+      # The controller steps below run the binary compiled by the
+      # controller-binary job: the K image needs neither Deno nor unzip.
+      - name: Download the compiled controller
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: k7pl-ci-controller
+          path: ${{ runner.temp }}/k7pl-ci
+
+      - name: Install the compiled controller
         shell: bash
         run: |
           set -euo pipefail
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y unzip
-          rm -rf /var/lib/apt/lists/*
-
-      # The Deno pin shared by every job through the composite action.
-      - name: Set up Deno
-        uses: ./.github/actions/setup-deno
+          cd "$RUNNER_TEMP/k7pl-ci"
+          sha256sum -c k7pl-ci.sha256
+          chmod +x k7pl-ci
+          ./k7pl-ci --help
+          echo "$RUNNER_TEMP/k7pl-ci" >> "$GITHUB_PATH"
 
       - name: Fetch the Mathlib cache for the root Verso build
         run: lake exe cache get
 
       - name: Record K toolchain
-        run: deno run --allow-read --allow-run --allow-env=PATH tools/ci-controller/src/record_toolchain.ts
+        run: k7pl-ci record-toolchain
 
       - name: Test Verso executable-code extraction contract
         run: python3 scripts/ci/test_code_artifact_contract.py
@@ -164,32 +218,32 @@ jobs:
         run: make -C src/k check
 
       - name: Compile and exercise the separate K7OS native-boundary profile model
-        run: make -C src/k boundary-check
+        run: make -C src/k boundary-check OS_BOUNDARY_CHECK="k7pl-ci os-boundary-check"
 
       - name: Install the pinned Klean generator
-        run: deno run --allow-read --allow-write --allow-run --allow-env=RUNNER_TEMP,GITHUB_PATH tools/ci-controller/src/install_klean.ts
+        run: k7pl-ci install-klean
 
       - name: Export the compiled KORE definition to Lean
         id: export_lean
-        run: deno run --allow-read --allow-write --allow-run=klean --allow-env=RUNNER_TEMP,GITHUB_WORKSPACE,GITHUB_STEP_SUMMARY tools/ci-controller/src/export_lean.ts
+        run: k7pl-ci export-lean
 
-      - name: Test and apply the pinned Klean/Lean compatibility shim
+      # The shim's tests run in the controller-binary job.
+      - name: Apply the pinned Klean/Lean compatibility shim
         shell: bash
         run: |
           set -euo pipefail
-          deno test --allow-read --allow-write tools/ci-controller/tests/klean_prelude_test.ts
-          deno run --allow-read --allow-write tools/ci-controller/src/klean_prelude.ts \
+          k7pl-ci klean-prelude \
             "$RUNNER_TEMP/klean-output/k7pl2lean/K7PL2Lean/Prelude.lean" \
             | tee "$GITHUB_WORKSPACE/.formal-chain-evidence/klean-patch-report.txt"
 
       - name: Stage generated Klean modules into the maintained proof project
-        run: deno run --allow-read --allow-write --allow-env=RUNNER_TEMP,GITHUB_WORKSPACE tools/ci-controller/src/stage_klean.ts
+        run: k7pl-ci stage-klean
 
       - name: Build the Klean-generated Lean project
         shell: bash
         run: |
-          deno run --allow-read --allow-run --allow-write tools/ci-controller/src/build_proofs.ts --build --workdir "$GITHUB_WORKSPACE/proofs" --log-output "$RUNNER_TEMP/k7pl-lake-build.log"
-          deno run --allow-read --allow-write --allow-env tools/ci-controller/src/axiom_report.ts --log "$RUNNER_TEMP/k7pl-lake-build.log" --contract "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" --output "$RUNNER_TEMP/k7pl-axiom-audit.json" --source-commit "$(git -C "$GITHUB_WORKSPACE" rev-parse HEAD)" --lean-version "$(lean --version)"
+          k7pl-ci build-proofs --build --workdir "$GITHUB_WORKSPACE/proofs" --log-output "$RUNNER_TEMP/k7pl-lake-build.log"
+          k7pl-ci axiom-report --log "$RUNNER_TEMP/k7pl-lake-build.log" --contract "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" --output "$RUNNER_TEMP/k7pl-axiom-audit.json" --source-commit "$(git -C "$GITHUB_WORKSPACE" rev-parse HEAD)" --lean-version "$(lean --version)"
 
       - name: Attach exact axiom dependency audit to formal-chain evidence
         shell: bash
@@ -208,7 +262,7 @@ jobs:
 
       - name: Render Verso Blueprint documentation
         id: blueprint
-        run: deno run --allow-read --allow-write --allow-run=lake --allow-env=GITHUB_STEP_SUMMARY tools/ci-controller/src/render_blueprint.ts
+        run: k7pl-ci render-blueprint
 
       - name: Attach the checked TLC model and counterexample to the formal-chain evidence
         # Only when d01 ran; otherwise there is no d01-tlc-evidence artifact.
@@ -220,7 +274,7 @@ jobs:
 
       - name: Package formal-chain build evidence
         if: ${{ success() && steps.export_lean.outcome == 'success' && steps.blueprint.outcome == 'success' }}
-        run: deno run --allow-read --allow-write --allow-run=tar --allow-env=GITHUB_WORKSPACE,RUNNER_TEMP,GITHUB_RUN_ID tools/ci-controller/src/package_evidence.ts
+        run: k7pl-ci package-evidence
 
       - name: Upload formal-chain sources, HTML, and evidence
         if: ${{ success() && steps.export_lean.outcome == 'success' && steps.blueprint.outcome == 'success' }}

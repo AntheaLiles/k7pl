@@ -22,6 +22,10 @@ SPDX-License-Identifier: CC0-1.0
   coverage guard `scripts/ci/test_impact_coverage.py`, which still asked the
   legacy classifier after C3, now asks the deciding one (`classify --json`);
   the impact job validates the registry before deciding from it.
+- Compiled controller (same branch): `deno task compile` builds the
+  self-contained `dist/k7pl-ci` from `src/cli.ts`; `k-smoke` runs its
+  controller steps with it, compiled by the `controller-binary` job, and no
+  longer installs `unzip` and Deno in the K container.
 - C4 evidence: the C3 head of `main` (`14ddaa8`) passed complete CI runs
   `40693727642` (push) and `40696783709` (dispatch). C4's own CI is not
   claimed here before it has run.

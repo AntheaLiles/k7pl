@@ -5,6 +5,9 @@ PYTHON ?= python3
 KOMPILE ?= kompile
 KRUN ?= krun
 DENO ?= deno
+# The boundary check; k7pl-semantics.yaml overrides it with the compiled controller
+# (k7pl-ci os-boundary-check), whose container has no Deno.
+OS_BOUNDARY_CHECK ?= $(DENO) run --allow-read --allow-run=krun ../../tools/ci-controller/src/os_boundary_check.ts
 KLEAN ?= klean
 K_BACKEND ?= llvm
 DEFINITION := .build/kompiled
@@ -40,7 +43,7 @@ boundary-kompile: extract-code
 	$(KOMPILE) "$(BOUNDARY_SOURCE)" --backend $(K_BACKEND) --main-module K7OS-NATIVE-BOUNDARY --syntax-module K7OS-NATIVE-BOUNDARY-SYNTAX --output-definition "$(BOUNDARY_DEFINITION)"
 
 boundary-check: boundary-kompile
-	$(DENO) run --allow-read --allow-run=krun ../../tools/ci-controller/src/os_boundary_check.ts "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
+	$(OS_BOUNDARY_CHECK) "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
 
 export-lean: kompile
 	rm -rf $(KLEAN_OUTPUT)
