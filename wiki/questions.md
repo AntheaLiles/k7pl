@@ -3618,6 +3618,12 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **B — A modifier of two operands, as BQN's Choose and J's Agenda.** A condition function on the left selects one function from a list on the right; the train's argument goes to the chosen one only. Example: `[below-bound choose [overflow-err increment-ok]]`. *For:* tacit, fits trains and the modifier rule of the ninth part; only the chosen branch runs. *Against:* the condition and the branches must be written as functions.
 - **C — No conditional in layer 3.** Layer 3 computes without branching (masks, arithmetic); choosing between `Ok` and `Err` is done in layer 2, where words are n-ary. *For:* layer 3 stays branch-free, which suits its automata and vector code. *Against:* `?increment-bounded` can no longer return a `Result` by itself; chapter 5's listings are rewritten.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-038), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** a modifier of two operands, as BQN's Choose and J's Agenda (option B): the condition, on its left, designates in the list of branches on its right the only one that runs, `f` the first and `t` the second, as BQN indexes its list. `lst:fonction-pure` becomes `[[< value bound] choose [[Err Overflow] [Ok [+ value 1]]]]`. The `(select C E1 E2)` of the K lexicon is a layer-2 form, in parentheses, where words are n-ary: it is unchanged, and so are the proofs that export it. Put back to the author: chapter 1's synopsis gives layer 3 « `select` vectoriel (dispatch) » as its branching, and `thm:homomorphisme_roues` lowers `select` to a branch-free vector mask, which computes both branches.
+
+
 #### Q-SPEC-502 — A value on the left of a dyadic word: one result or several
 
 **Object.** In your example of the ninth part, `M A1 D M A2 A3` gives `A1bis A2ter`: `D` takes the values on its right and `A1` stays apart, so the train leaves two results. FIXAPL, chosen in the eighth part, calls a dyadic word infix: a value on its left is its left argument, and a train leaves one result; `[sub 1]` = x − 1 (VOC-2026-10-28-032) follows it. Take `[abs 4 sub neg 7 2]`.
@@ -3629,6 +3635,15 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 
 - **A — Infix, as FIXAPL: one result.** A value on the left of a dyadic word is its left argument. Example: `[abs 4 sub neg 7]       ;; abs (4 - (neg 7)) = 11`. *For:* a train has one value, as a `{function …}` type says; agrees with x − 1 and with the fork. *Against:* the stack is not read word by word: values combine by position.
 - **B — Stack, as your example: several results.** An operator takes the values on its right; a value on its left stays on the stack; a train may return several values, typed as a product. Example: `[abs 4 sub neg 7 2]     ;; 4 and (neg 7) - 2 = -9`. *For:* the stack execution of layer 3 is read literally, as in Forth and Factor. *Against:* the fork of the eighth part no longer applies to values; a train's type lists all its results.
+
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-039), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Précision : si "abs (4 - (neg 7)) = 11" est la forme mathématique, que l'on peut écrire alors "|4-(-7)| = 11" dans ce cas la bonne écriture en couche 3 est : "[abs sub 4 neg 7]" donnant en décomposition : abs sub 4 -7 => |4 -  -7| => |4 + 7| => |11| => 11. CQFD.
+
+  Autrement : "[abs 4 sub neg 7]" voudrait dire "|4|" et "x+7".
+- **Reading:** a train has one result (option A). The justification writes the layer-3 form of |4 − (−7)| = 11 as `[abs sub 4 neg 7]`, decomposed « abs sub 4 -7 », and reads `[abs 4 sub neg 7]` as « |4| » and « x+7 »: a dyadic word followed by two operands takes them in order, and a value on the left of a dyadic word is not its argument. This is the opposite of option A's body (« A value on the left of a dyadic word is its left argument »), which is FIXAPL's infix rule, cited by chapter 5. Applied: one result per train. Put back to the author: how a dyadic word takes values, prefix (`[abs sub 4 neg 7]`) or infix (`[abs 4 sub neg 7]`), and how that reading meets the fork (`[add fold div length]`) and the section `[sub 1]` = x − 1.
+
 
 ### Typed holes
 
@@ -3644,6 +3659,19 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **B — Linked by the data flow.** Holes are unification variables of their family: when the body sends a value from one hole's position to the other's, Phase 3 unifies them. *For:* no syntax; uses the unification chapter 6 describes. *Against:* the link is read from the body, not from the signature.
 - **C — Linked by a property of the type.** A property says which holes are the same. Example: `{function int int :same [1 2]}`. *For:* visible in the signature; still no named parameter. *Against:* one more property to learn.
 
+**Answer of the author — 2026-10-28 (VOC-2026-10-28-040), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Imagine : fonction int int => exponent int int
+  tel que "int int" signifie "input output"
+  Donc que le flux est "input => e^input => output"
+  si "input = 10" donc "e int8 int"
+  Alors "output = e^10 ≈ 22 026"
+  Ce qui implique "exp int8 int16"
+  Les deux trous sont donc autonomes et doivent s'adapter à la plus petite allocation nécessaire.
+- **Reading:** typed holes are always independent (option A): each is resolved for itself, at the smallest width it needs. The justification reads `{function int int}` as input and output: an exponential of the input 10 takes an `int8` and returns e^10 ≈ 22 026, an `int16`. A function that needs two equal widths writes the width. Chapter 5 states the same case with an integer power, 2^10 = 1 024 in an `int16`, e^10 not being an integer.
+
+
 #### Q-TYP-602 — Gap: which phase resolves a typed hole, and how instances are named
 
 **Object.** Three passages disagree. Chapter 5: « un trou typé que l'élaboration résout dans la famille des entiers : à la plus petite largeur qui contient toutes les valeurs que le solveur sait borner ». The elaboration theorem: « la phase de résolution du pipeline (Phase 4) résout des variables d'unification, et n'est pas une élaboration au sens du théorème ». Chapter 6: Phase 3 « monomorphise chaque appel générique en une copie concrète », naming an instance « par le condensat de l'AST normalisé de son générique et de ses arguments de type », while « bornes numériques » are left to the SMT solver in Phase 7. A width known in Phase 7 cannot name a Phase-3 copy.
@@ -3656,6 +3684,13 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **B — Monomorphisation after Phase 7.** Phase 3 only unifies; copies are made once every width is known, as rustc collects just before code generation. *For:* one naming, by concrete types. *Against:* moves a step of chapter 6 and what Phases 5 and 6 check.
 - **C — Widths fixed in Phase 3 where narrowing finds them.** The solver of Phase 7 only checks; a hole that narrowing cannot bound is refused (`ERR-SMT-003`). *For:* chapter 6's text barely changes. *Against:* refuses holes the solver could have bounded.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-008), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** les phases de compilations sont réputés non fiabilisées. par exemple, la résolution SMT n'a pas suffisament été explorée pour identifier les traitements paralleles etc. ici, dans la mesure du possible, j'aimerais trouver les stratégies permettant de limiter les temps de compilations hyper longs de Rust.
+- **Reading:** monomorphisation after Phase 7 (option B): Phase 3 only unifies, a typed hole stays a variable of its family, and the copies are made once the solver has fixed every width, so that an instance has one name, from its concrete types. Placed at the opening of Phase 8, where chapter 6 already has monomorphisation share the specialisation budget of inlining (« laquelle n'est qu'une intégration dirigée par les types »): Phases 5 and 6 then check each generic once, not each copy, as rustc checks a generic before its monomorphisation collector runs. The justification: the compilation phases are not yet made reliable, and SMT solving has not been explored enough to identify what can run in parallel; the author asks for strategies that avoid Rust's very long compilation times. That research is the third report of the reading lot after the tenth part (research.md).
+
+
 #### Q-TYP-603 — Gap: the phase of `ERR-TYP-013`
 
 **Object.** Ninth part: a text width that is not a multiple of its encoding's unit is refused « en phase 0 » (now `ERR-TYP-013`). Chapter 6: Phase 0 builds the tree and desugars sigils, « un travail purement syntaxique, qui ne discute encore aucun des trois ordres »; types are established in Phase 3.
@@ -3663,6 +3698,13 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **A — Phase 0.** The reader knows the units of the built-in encodings and checks `{str 12 utf8}` as it reads it. *For:* the earliest refusal, as you asked. *Against:* Phase 0 is no longer purely syntactic; chapter 6 says so.
 - **B — Phase 3.** Where types are established. *For:* chapter 6 unchanged. *Against:* later than you asked.
 - **C — Phase 0 for built-in encodings, Phase 3 for declared ones.** *For:* earliest where possible. *Against:* one code, two places.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-009), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** un lsp devrait vérifier cela au fur et à mesure de l'écriture du code ce qui permettrait de remonter les problématiques à l'utilisateur avant de réaliser la compilation qui elle doit suivre un protocole strict et reproductible.
+- **Reading:** Phase 3, where types are established (option B): chapter 6 keeps Phase 0 purely syntactic. The justification gives the earliness to tooling: a language server checks the width while the code is written, before compilation, which follows a strict and reproducible protocol.
+
 
 ### Patterns
 
@@ -3678,6 +3720,12 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **A — A refinement.** What `@x` catches is typed by `x`'s construction made precise — a refined type, as `{{ }}`; « hérite » is read as « se précise ». *For:* fits « tout se précise » and the refinement types of chapter 3.
 - **B — A filter.** `@x` lets through what matches, on a flow or the network, and binds nothing. *For:* simplest on a data flow. *Against:* the code after the match does not know what matched.
 - **C — Both.** In a `match`, `@x` binds the value refined by `x`; on a flow it filters. *For:* one sign, two uses that agree. *Against:* two readings to describe.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** a refinement (option A): what `@x` catches is typed by `x`'s construction made precise, a refined type such as `{{ … }}` writes; « hérite » is read as « se précise ».
+
 
 ### Modules and top-level forms
 
@@ -3695,6 +3743,13 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **B — The compilation unit is the module.** A unit may span files; each file is only a lexical perimeter. *For:* chapter 6 already defines it, with its interface. *Against:* two notions to name.
 - **C — No module.** The file is a lexical perimeter, the compilation unit is the program, and paths only name definitions. *For:* nothing new. *Against:* no separate compilation; chapter 6's interfaces lose their object.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-011), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** j'ai besoin d'un rapport analytique adversarial complet sur ce sujet avec limites, opportunités, exemples, etc. et notamment un paragraphe d'analyse scientifique sur le sujet et les possibilités concernant K7PL.
+- **Reading:** kept open: the author asks for a complete adversarial analytical report on the subject, with its limits, opportunities and examples, and a paragraph of scientific analysis of the subject and of K7PL's possibilities. The report is in research.md (reading lot after the tenth part); the question is asked again after it.
+
+
 #### Q-SPEC-505 — Gap: top-level forms as autonomous processes
 
 **Object.** Ninth part: « une S-Expression non encapsulée dans une autre est un processus autonome executable en parallele des autres du même rang ». The specification says nothing of top-level forms. Chapter 6's Phase 2 collects actor definitions and checks the wiring graph is acyclic; chapter 4: « la coalgèbre qui produit l'état suivant n'est plus celle d'un acteur isolé, mais celle de l'orchestrateur tout entier ».
@@ -3702,6 +3757,13 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **A — Every top-level form, whatever its layer.** Declarations `{ }` run in parallel at compile time, `( )` and `[ ]` at run time. *For:* one rule. *Against:* a declaration is not a process in chapter 6's phases.
 - **B — Top-level layer-2 forms only.** `( )` at top level are processes started by the orchestrator; `{ }` are declarations; a top-level `[ ]` is a pure value. *For:* fits the layers and the orchestrator of chapter 4.
 - **C — B, ordered by dependencies.** Top-level processes start in parallel, ordered only by their data dependencies and the wiring graph of Phase 2. *For:* « même rang » gets a meaning: the same depth in the dependency graph. *Against:* one more rule to write in chapter 4.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-010), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** j'ai besoin d'un rapport analytique adversarial complet sur ce sujet avec limites, opportunités, exemples, etc. et notamment un paragraphe d'analyse scientifique sur le sujet et les possibilités concernant K7PL.
+- **Reading:** kept open, with the same request as Q-SPEC-504: a complete adversarial analytical report, its limits, opportunities and examples, and a paragraph of scientific analysis. The report is in research.md (reading lot after the tenth part); the question is asked again after it.
+
 
 ### Actor scenarios
 
@@ -3717,6 +3779,13 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **A — The reaction to one message.** Check, transform, deliver.
 - **B — A sequence of messages.** A protocol between actors, typed by a session type.
 - **C — Both, the second built from the first.** A protocol is a session type whose steps are reactions. *For:* each level keeps its own tools.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-002), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** Précision : l'objectif est de réagir donc pas de "check" => c'est la cible "event-based" de K7PL qui vient compléter la phylosophie "lazy"
+- **Reading:** both, the second built from the first (option C): a protocol between actors is a session type whose steps are reactions. The justification: the aim is to react, so a reaction has no « check » step of its own; this is K7PL's event-based target, which complements its lazy philosophy, the one recorded on 2026-10-27 (the automata compiled in layer 3 are invoked lazily by the orchestrator).
+
 
 #### Q-ACT-002 — The shape of a reaction
 
@@ -3738,6 +3807,12 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 
 - **C — B, with today's form as its shorthand.** `:on … :sets` stays as a decision of one event that sets one field. *For:* simple actors stay short.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** decide and evolve, with today's form as their shorthand (option C): the decision (layer 3) gives events or a refusal, the evolution (layer 3) applies each event to the state, and the delivery (layer 2) is described; `:on … :sets` stays as a decision of one event that sets one field.
+
+
 #### Q-ACT-003 — Named events
 
 **Object.** Should what happened be named — `Incremented` —, apart from the new state?
@@ -3750,6 +3825,12 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **B — No: the new state and the reply only.** *For:* less to declare.
 - **C — When an actor declares them.** *For:* event sourcing where it is wanted.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-004), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** events are named when an actor declares them (option C): event sourcing where it is wanted.
+
+
 #### Q-ACT-004 — A refused check
 
 **Object.** When the check of a message fails (today `Err Overflow`).
@@ -3757,6 +3838,13 @@ Every word of the examples (`select`, `choose`, `match`, `decide`, `evolve`, `de
 - **A — State intact, an error reply only.**
 - **B — State intact, an error reply, and the refusal recorded as an event.** *For:* refusals are audited.
 - **C — Left to the decision.** A refusal may produce events like any decision.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-005), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** l'option B est compatible avec l'option C : l'utilisateur peut choisir de logger les refus ou non, d'y réagir ou non
+- **Reading:** left to the decision (option C): a refusal is a decision like any other and may produce events. The justification: option B fits within C, the developer choosing whether refusals are recorded and whether anything reacts to them.
+
 
 #### Q-ACT-005 — What a delivery covers
 
@@ -3774,6 +3862,13 @@ Several options may be chosen.
 - **outside — The outside world, through capabilities and FFI.**
 - **later — A delivery deferred in time (a timer).**
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-012), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** send, persist
+- **Justification:** reply est inutile et la cible du message doit avoir un :on pour acceuillir le message envoyé par send. persist est effectivement important, outside est inutile car il s'agit d'envoyer (send) un message à un acteur qui prend en charge l'interopérabilité étrangère. later n'est pas pertnent, je préfère un 'defer' dans un statement :on
+- **Reading:** a delivery covers sending messages to actors and persisting. No reply of its own: a reply is a message sent to the sender, which receives it through its own `:on`. No outside world of its own: it is reached by sending to an actor in charge of foreign interoperability. No timer: a `defer` inside an `:on` clause defers. Put back to the author: what `defer` takes, and what `persist` writes beside the journal of Q-ACT-007.
+
+
 #### Q-ACT-006 — Steps shared between messages
 
 **Object.** Can a check or a delivery be written once and used by several messages?
@@ -3781,6 +3876,13 @@ Several options may be chosen.
 - **A — No, per message.**
 - **B — Within an actor.** Example: `{defstep below-bound …}  :on (Increment :check below-bound …)`.
 - **C — Across actors too.** A library of checks and deliveries. *For:* reuse. *Against:* a step's type must be generic over the state it reads.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-006), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** dans l'espace mémoire du cluster d'acteur tel que défini dans le chapitre sur l'execution parallele et concourante
+- **Reading:** steps are shared « dans l'espace mémoire du cluster d'acteur tel que défini dans le chapitre sur l'exécution parallèle et concourante ». Read on 2026-10-29: the specification names clusters once (chapter 1: « c'est le macro-modèle des acteurs et des clusters ») and defines none; chapter 4 has fibrils share « la mémoire d'une même instance d'exécution » under acquire-release; the archive of early K premises declared clusters with `defcluster` (research.md). Put back to the author as a gap: where the cluster and its memory space are defined.
+
 
 #### Q-ACT-007 — Gap: what the journal holds
 
@@ -3793,6 +3895,207 @@ Several options may be chosen.
 - **A — Messages and capability values.** As chapter 4; replay runs the transitions again, never the deliveries; chapter 3's sentence is reworded. *For:* the replay theorem stays as stated.
 - **B — Events.** Replay applies `evolve` again, never `decide` nor the deliveries. *For:* short journal of facts. *Against:* the replay theorem is restated over events.
 - **C — Both.** Messages and capability values as inputs, events as outputs; deliveries are never replayed. *For:* audit and replay both. *Against:* a larger journal.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-007), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** A par défaut avec la possibilité d'ajouter les events au journal de l'acteur
+- **Reading:** the journal holds the messages and the capability values by default (option A, as chapter 4's `thm:determinisme_rejeu`), and an actor may add its events to its journal. Replay runs the transitions again, never the deliveries. Applied: chapter 3's « c'est cette exécution, non la transition, qui est journalisée » is reworded.
+
+
+## Lot of 2026-10-29, eleventh part: modules, top-level forms and compilation time after the reports, and the points put back
+
+Opened on 2026-10-29 after the tenth part: Q-SPEC-504 and Q-SPEC-505 asked again after the
+reports the author requested (research.md, reading lot after the tenth part), the strategies
+against long compilations of Report 3, and the points put back from the tenth part. Same rules:
+context in the specification, literature, options with their pros and cons; **Other** and
+**Clarify** are always available.
+
+Every word of the examples (`choose`, `defunit`, `defmodule`, `defer`, `persist`…) is a placeholder: the words are chosen later. The three reports are in the wiki, research.md, « Reading lot: research of 2026-10-29, after the tenth part »; each question below sums up what it needs. Questions titled « Gap » point at places where the specification is imprecise or contradicts itself.
+
+### Modules, after Report 1
+
+#### Q-SPEC-601 — What a module is, after the report
+
+**Object.** Report 1 (research.md (https://github.com/AntheaLiles/k7pl/blob/claude/nifty-bardeen-whx5pv/wiki/research.md)) finds that the specification already has four groupings: the namespace, a view of the dependency graph (chapter 4: « remplace la hiérarchie de dossiers physiques par une lecture purement logique du graphe de types »); the module, an object of that graph, used but never defined; the compilation unit, with its roots, its budget, its stamp and its interface, which chapter 6 defines as its judgement (`thm:interface_jugement`: « le langage n'a pas de langage de modules séparé à maintenir »); and the package, where certificates are required. The file is a fifth, implicit one. Scope (which names a text sees) is fixed at Phase 1 and needs only a lexical perimeter.
+
+**Facts.**
+
+- Leroy: « Modularization is the process of decomposing a program in small units (modules) that can be understood in isolation by the programmers […]. Separate compilation is the process of decomposing a program in small units (compilation units) that can be typechecked and compiled separately by the compiler »; identifying them « is limiting » (Leroy, POPL 1994 (https://xavierleroy.org/publi/manifest-types-popl.pdf)).
+- Rust: « A crate is a unit of compilation and linking, as well as versioning, distribution, and runtime loading. A crate contains a tree of nested module scopes » (Rust reference (https://doc.rust-lang.org/reference/crates-and-source-files.html)).
+- Unison: « Each Unison definition is identified by a hash of its syntax tree »; « we can parse and typecheck definitions once, and then store the results in a cache which is never invalidated » (Unison, the big idea (https://www.unison-lang.org/docs/the-big-idea/)).
+- Backpack: in ML-style systems « explicit interfaces express assumptions about dependencies, and each module can be typechecked and reasoned about independently » (Backpack (https://plv.mpi-sws.org/backpack/)).
+
+- **A — The file is the module.** Its lexical perimeter, its compilation unit and its path at once. *For:* one notion; Emacs's file-local lexical binding is exactly this. *Against:* chapter 4 has already replaced folders by the dependency graph; the budget and the cache become per file; renaming a file changes a module.
+- **B — The compilation unit is the module; a file is a lexical perimeter.** Example: `{defunit math/stats :roots (mean std-dev) :budget 64}   ;; spans several files`. *For:* chapter 6 already defines it with its interface, budget and stamp; Leroy's two processes kept apart. *Against:* the unit is the grain of parallelism and reuse unless split again (Report 3).
+- **D — Definitions identified by hash; a module is a named, versioned set with an interface.** As Unison for identity, as B for the boundary that carries interface, budget, stamp and certificate; files are lexical perimeters. Example: `{defmodule math/stats :version 1.2.0 :exports (mean std-dev)}`. *For:* extends chapter 6's hashed instances to every definition: typed once, cached for good, checked in parallel. *Against:* a tool must map names, versions and files to hashes; changing a widely used definition re-checks its dependents.
+- **E — ML-style modules: signatures, structures, functors.** *For:* the strongest separate type checking. *Against:* chapter 6 already rules out a separate module language; a functor names parameters, which VOC-2026-10-28-037 refuses.
+- **C — No module.** *For:* nothing new. *Against:* chapter 6's interface, budget, stamp and certificate lose their object; no separate compilation.
+
+#### Q-SPEC-602 — Module, unit, package: how many words
+
+**Object.** Chapter 6 says « Une interface de module doit énoncer trois choses » and then defines the interface of a compilation unit; it also speaks of « la frontière de paquet ». Whatever Q-SPEC-601 decides, the specification needs to say whether these name one thing or several.
+
+- **A — One word for all three.** *For:* nothing to tell apart. *Against:* what is distributed and certified cannot be larger than what is compiled.
+- **B — Two: the module (= the unit) and the package, what is distributed, versioned and certified.** *For:* as Rust's crate and Cargo package; the certificate boundary of chapter 6 gets its own word. *Against:* two words to choose.
+- **C — Three: module, unit and package apart.** *For:* each of Leroy's processes and distribution has its word. *Against:* three notions to keep consistent.
+
+#### Q-SPEC-603 — Gap: « paquet » names two things
+
+**Object.** Chapter 3 calls an existential package a « paquet » (`pack`, `unpack`, « filtrage sur paquet effacé »); chapter 6 calls « frontière de paquet » the boundary across which SMT obligations need a certificate, and chapter 3 names « la signature des paquets » among boundary strategies.
+
+- **A — « paquet » stays for existentials; the distributed thing takes another word.** *For:* the type-theoretic term is the older and the more precise. *Against:* chapter 6 and chapter 3's boundary sentence are reworded.
+- **B — « paquet » is the distributed thing; chapter 3 writes « paquet existentiel » in full.** *For:* matches common usage of « package ». *Against:* chapter 3's existential passages are reworded.
+- **C — Leave both, the context telling them apart.** *For:* no change. *Against:* a reader of chapter 6 may read an existential where a distribution is meant.
+
+### Top-level forms, after Report 2
+
+#### Q-SPEC-604 — Top-level forms, after the report
+
+**Object.** Report 2 finds that the specification has the target — chapter 4's « composition parallèle d'acteurs sous restriction des canaux privés », Phase 2's acyclic wiring graph, the journal — and already has virtual actors: « Un acteur virtuel est une adresse logique dans le modèle abstrait », activated by loading a snapshot and replaying its journal (chapter 4). Nothing maps a text's top-level forms to that composition, and chapter 6's « points d'entrée » are undefined. Your statement: « une S-Expression non encapsulée dans une autre est un processus autonome executable en parallele des autres du même rang ».
+
+**Facts.**
+
+- Go: « package-level variable initialization proceeds stepwise, with each step selecting the variable earliest in declaration order which has no dependencies on uninitialized variables »; cycles make the program « not valid » (Go specification (https://go.dev/ref/spec#Package_initialization)).
+- Orleans: « Actors are purely logical entities that always exist, virtually. An actor cannot be explicitly created nor destroyed […]. Since actors always exist, they are always addressable » (Orleans overview (https://learn.microsoft.com/en-us/dotnet/orleans/overview)).
+- Haskell: « A Haskell program is a collection of modules, one of which, by convention, must be called Main and must export the value main » (Haskell 2010, chapter 5 (https://www.haskell.org/onlinereport/haskell2010/haskellch5.html)).
+
+- **A — Every top-level form, whatever its layer.** *For:* your statement taken literally. *Against:* a `{ }` declaration and a `[ ]` value have no behaviour to run.
+- **B — Top-level `( )` forms are processes; `{ }` declare; a top-level `[ ]` is a value.** *For:* follows the layers. *Against:* says nothing of start order.
+- **C — B, started in dependency order.** Phase 2's topological order; processes of one rank start in parallel. *For:* Go's precedent; cycles already refused (`ERR-ARC-001`). *Against:* the start takes as many steps as the graph is deep.
+- **D — B, activated lazily.** Top-level processes are chapter 4's virtual actors, activated by their first message; only event sources (an ingress, a `defer`) start at once. *For:* the lazy, event-based target; no start order to specify; chapter 4 already has the lifecycle. *Against:* what starts the program must be named; the first message pays the activation.
+
+  ```text
+  (counter)                              ;; virtual until its first message
+  (http-ingress :port 8080 :to counter)  ;; an event source, started at once
+  ```
+
+- **F — D, with C's order among the event sources.** *For:* lazy processes, ordered sources. *Against:* two rules.
+- **E — One entry point (`main`).** *For:* explicit, as Haskell and Pony. *Against:* contradicts autonomous top-level processes.
+
+#### Q-SPEC-605 — What « même rang » means
+
+- **A — The same depth in the dependency order.** A stratification: one stratum in parallel, strata in sequence, as the strata of chapter 2's `thm:terminaison_strates`. *For:* a precise meaning, already computed in Phase 2. *Against:* only useful if start is ordered (C or F).
+- **B — The same layer, not nested.** *For:* read off the text. *Against:* gives no order; order comes from messages.
+- **C — Nothing more is needed.** Under lazy activation (D), processes have no rank, only messages. *For:* one notion less. *Against:* your statement loses a word.
+
+#### Q-SPEC-606 — Kahn sub-networks, a hypothesis
+
+**Object.** Report 2: actors whose mailbox merges several senders are not deterministic, which is why chapter 1 journals their interleaving. A sub-network whose channels each have one writer and one reader, read by blocking receives, is a Kahn network.
+
+**Facts.**
+
+- Lee: « In the original PN model due to Kahn and MacQueen [31], the blocking reads ensure that every network defines a deterministic computation » (E. A. Lee, The Problem with Threads (https://www2.eecs.berkeley.edu/Pubs/TechRpts/2006/EECS-2006-1.pdf)).
+
+- **A — Pursue it as an open proposition of chapter 4.** Phase 2 recognises such sub-networks, and their interleavings are not journaled. *For:* a shorter journal without weaker replay. *Against:* a proof that the executive preserves the restriction is owed.
+- **B — Keep it in research only.** *For:* no commitment yet.
+- **C — Drop it.** *For:* one journal rule for every actor.
+
+### Compilation time, after Report 3
+
+#### Q-TYP-701 — Strategies against long compilations
+
+**Object.** Report 3 lists eight strategies, marked as already in the specification, compatible, or closed. Chapter 6 already requires that « Tout travail de compilation est borné par un grade porté par l'unité de compilation, et ce grade se mesure en compte de ressource reproductible — jamais en délai ». Choose those to write into the specification as aims.
+
+**Facts.**
+
+- Mokhov, Mitchell and Peyton Jones: « A build system is minimal if it executes tasks at most once per build and only if they transitively depend on inputs that changed since the previous build » (Build Systems à la Carte (https://www.microsoft.com/en-us/research/uploads/prod/2018/03/build-systems-a-la-carte.pdf)).
+- F*: « Even a single poorly chosen quantified assumption in the prover’s context can make an otherwise simple proof take very long » (F* tutorial (https://fstar-lang.org/tutorial/book/under_the_hood/uth_smt.html)).
+- Leino and Wüstholz: caching « uses the program’s call graph and control-flow graph to focus the verification effort on just the parts of the program that were affected by the user’s most recent modifications » (CAV 2015 (https://www.microsoft.com/en-us/research/publication/fine-grained-caching-of-verification-results/)).
+- rustc: « These are then generated by independent instances of LLVM running in parallel » (rustc dev guide (https://rustc-dev-guide.rust-lang.org/parallel-rustc.html)); Cranelift « has the potential to improve compilation times in debug mode » (rustc_codegen_cranelift (https://github.com/rust-lang/rustc_codegen_cranelift)).
+
+Several options may be chosen.
+
+- **S1 — Every phase's results keyed by hash (compiler included).** *For:* an incremental build equals a clean one. *Against:* a store to collect.
+- **S2 — Query-based incremental compilation with early cutoff.** *For:* redo only what changed. *Against:* complex; needs S1 to stay reproducible.
+- **S3 — Parallelism by independence: definitions, obligations, instances.** *For:* names fixed at Phase 1 and obligatory signatures make definitions independent. *Against:* Phases 7 and 8 iterate over the whole unit.
+- **S4 — Cached and replayed verification (certificates used locally too).** *For:* the verifier costs what changed. *Against:* checking a certificate is not free.
+- **S5 — Solver discipline: 𝒯₀, no quantifiers, small queries, resource counts.** *For:* predictable and repeatable verification. *Against:* 𝒯₀ is not yet delimited; more refusals.
+- **S6 — Fewer instances (reached only, by hash, budgeted).** *For:* already in chapter 6. *Against:* Go's shape stenciling is closed by `ERR-POL-001`.
+- **S7 — Two back ends: a fast one for development, an optimising one for release.** *For:* short loops; the language server checks while writing. *Against:* two back ends to keep equivalent.
+- **S8 — Fail early (Phase 2's manifest, the language server).** *For:* already in chapter 6. *Against:* none new.
+
+#### Q-TYP-702 — Independent holes and the number of instances
+
+**Object.** Report 3, inferred: holes resolved each at its smallest width (VOC-2026-10-28-040) multiply instances — a `{function int int}` used with four input widths and four output widths may need up to sixteen copies. The specialisation budget bounds them, and refuses beyond it (`ERR-POL-002`).
+
+**Facts.**
+
+- Go stencils « a single chunk of assembly for each unique GC shape » and passes a dictionary for the rest (Go, GC shape stenciling (https://github.com/golang/proposal/blob/master/design/generics-implementation-gcshape.md)); chapter 6 forbids run-time dictionaries (`ERR-POL-001`).
+
+- **A — Keep the smallest width; the budget decides.** *For:* the « plus petite largeur » rule unchanged. *Against:* instances may multiply up to the budget.
+- **B — Round hole widths to a small set (8, 16, 32, 64…).** *For:* few instances, shared between uses. *Against:* a hole may get more bits than it needs.
+- **C — Smallest width, rounded only when the budget would be exceeded.** The compiler rounds and reports it with a `HEY-` remark. *For:* precision by default, compilation still bounded. *Against:* an instance's width depends on the rest of the program.
+
+### Layer 3, put back
+
+#### Q-SPEC-607 — How a dyadic word takes values
+
+**Object.** Your precision to Q-SPEC-502 (VOC-2026-10-28-039): the layer-3 form of |4 − (−7)| = 11 is `[abs sub 4 neg 7]`, and `[abs 4 sub neg 7]` would mean « |4| » and « x+7 ». The option you chose, A, said the opposite: « A value on the left of a dyadic word is its left argument », FIXAPL's infix rule that chapter 5 cites. Both readings keep the section `[sub 1]` = x − 1 and the fork `[add fold div length]`; they differ on values.
+
+**Facts.**
+
+- FIXAPL: « Dyadic function calls come in the infix position (`⍺+⍵`) and monadic function calls come in the prefix position (`¬⍵`) » (FIXAPL (https://github.com/Jacob-Lockwood/fixapl)).
+- Chapter 5: layers 1 and 2 write prefix S-expressions, as `(abs (sub 4 (neg 7)))`; with fixed arities, the same prefix order reads without parentheses (inferred).
+
+- **A — Infix, as FIXAPL.** A value on the left of a dyadic word is its left argument; a dyadic word never takes two values on its right. *For:* one rule for values and functions; FIXAPL as cited. *Against:* your writing is refused; layer 3 reads in another order than layer 2.
+
+  ```text
+  [abs 4 sub neg 7]    ;; 11
+  [abs sub 4 neg 7]    ;; refused: two values side by side
+  ```
+
+- **B — Prefix, as your precision.** A dyadic word followed by two operands takes them in order; followed by one, that one is its right argument and the left comes from the word on its left (fork) or from the train's argument. *For:* the same order as layer 2, without parentheses; your example as written. *Against:* two ways to give a dyadic word its left argument; whether a group is one operand or two depends on values and functions.
+
+  ```text
+  [abs sub 4 neg 7]    ;; 11, as (abs (sub 4 (neg 7)))
+  [abs 4 sub neg 7]    ;; refused: two results, |4| and x+7
+  ```
+
+
+#### Q-SPEC-608 — Gap: `choose` and the vector mask
+
+**Object.** Chapter 5 now writes the layer-3 conditional with `choose`, which evaluates only the designated branch (VOC-2026-10-28-038). Chapter 1's synopsis gives layer 3 « `select` vectoriel (dispatch) » as its branching, and `thm:homomorphisme_roues` lowers `select` to « masquage vectoriel sans branchement », which computes both branches and keeps one per lane. Layer 3 being pure and total, computing an unchosen branch is not observable, except in cost.
+
+**Facts.**
+
+- BQN's Choose « applies one function from a list 𝕘, based on the selecting index returned by a function 𝔽 » (BQN, Choose (https://mlochbaum.github.io/BQN/doc/choose.html)).
+
+- **A — Two words.** `choose` for one condition, one branch evaluated; the dyadic `select` (⊏, selection by indices) with a mask over a pair for vectors, both branches computed. *For:* each says its cost; chapter 1 and the theorem keep `select`. *Against:* two ways to branch.
+- **B — `choose` lowers to a mask when its condition is a vector.** *For:* one word; purity makes both lowerings equal in value. *Against:* the cost of a `choose` depends on its condition's type.
+- **C — `choose` only; masks written with arithmetic.** *For:* one form. *Against:* chapter 1's synopsis and the theorem are rewritten.
+
+### Actors, put back
+
+#### Q-ACT-008 — Gap: where the actor cluster is defined
+
+**Object.** Your answer to Q-ACT-006 (VOC-2026-10-29-006): shared steps live « dans l'espace mémoire du cluster d'acteur tel que défini dans le chapitre sur l'exécution parallèle et concourante ». The specification names clusters once (chapter 1: « le macro-modèle des acteurs et des clusters ») and defines none. Chapter 4 says: « Dans un profil où plusieurs fibrilles partagent la mémoire d'une même instance d'exécution, le modèle acquisition-libération gouverne cette mémoire partagée ». The archive of early K premises declared clusters with `defcluster`.
+
+- **A — The cluster is chapter 4's execution instance.** The actors whose fibrils share one instance's memory; shared steps are definitions placed in that memory. *For:* uses what chapter 4 states. *Against:* an execution instance is a realisation choice, not a source construct.
+- **B — The cluster is a module (Q-SPEC-601).** Shared steps are its definitions, visible to its actors. *For:* no new notion. *Against:* a module is a unit of compilation, not of memory.
+- **C — A declared cluster.** Example: `{defcluster billing :actors (invoice payment) :steps (below-bound notify)}`. *For:* explicit, in the source; the archive's form. *Against:* a new declaration and its rules to write in chapter 4.
+
+#### Q-ACT-009 — What `defer` defers
+
+**Object.** Your answer to Q-ACT-005 (VOC-2026-10-29-012): no timer delivery, « je préfère un 'defer' dans un statement :on ».
+
+**Facts.**
+
+- Erlang: « send_after(Time, Dest, Msg, Options) Starts a timer. When the timer expires, the message Msg is sent to the process identified by Dest » (Erlang, erlang module (https://www.erlang.org/doc/apps/erts/erlang.html)).
+- Go: « A "defer" statement invokes a function whose execution is deferred to the moment the surrounding function returns » (Go specification (https://go.dev/ref/spec#Defer_statements)).
+- Akka: side effects « should be performed in thenRun from the command handler after persisting the event » (Akka, persistence (https://doc.akka.io/libraries/akka-core/current/typed/persistence.html)).
+
+- **A — A delivery at a later time.** Example: `:on (Tick :defer 5s (send self Tick))`. *For:* Erlang's `send_after`. *Against:* in Go, `defer` means « when the surrounding function returns », not « later ».
+- **B — A delivery after the reaction is persisted.** The delivery runs once the decision's events are in the journal, as Akka's `thenRun`. *For:* the meaning `defer` has in Go; deliveries never precede what replay needs. *Against:* timers need another form.
+- **C — Both, by what follows the word.** *For:* one word. *Against:* two meanings to learn.
+
+#### Q-ACT-010 — What `persist` writes beside the journal
+
+**Object.** The journal holds messages and capability values, and an actor may add its events (VOC-2026-10-29-007). Chapter 4: « Une réalisation peut sérialiser l'état inactif dans un instantané journalisé, restituer sa mémoire puis rejouer les messages consignés lors de la réactivation », snapshot and journal being « des choix de réalisation ».
+
+- **A — The events the actor declares.** *For:* event sourcing where it is declared (Q-ACT-003). *Against:* replay needs every event since the start.
+- **B — A snapshot of the state.** *For:* short replay; chapter 4's lifecycle. *Against:* the history between snapshots is in messages only.
+- **C — Both, the snapshot bounding the replay of events.** *For:* audit and short replay. *Against:* two things to keep consistent.
 
 ## The catalogue, verbatim
 

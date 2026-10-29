@@ -1538,6 +1538,771 @@ Inferred, not decided:
   covered by any of these shapes; they belong with the session types
   of chapter 4 and annex A.
 
+## Reading lot: research of 2026-10-29, after the tenth part
+
+Three reports asked by the author on 2026-10-29: what a module is
+(Q-SPEC-504, VOC-2026-10-29-011) and top-level forms as autonomous
+processes (Q-SPEC-505, VOC-2026-10-29-010), each « un rapport
+analytique adversarial complet sur ce sujet avec limites,
+opportunités, exemples, etc. et notamment un paragraphe d'analyse
+scientifique sur le sujet et les possibilités concernant K7PL »; and
+the strategies that avoid Rust's very long compilation times
+(Q-TYP-602, VOC-2026-10-29-008). Sources were read on 2026-10-29 and
+are quoted verbatim; the specification is quoted as it stands after
+the tenth part was applied. Each report separates what is observed
+(the specification, the sources) from what is inferred for K7PL, which
+is marked as such and decides nothing. Every word of the K7PL
+examples is a placeholder.
+
+### Report 1 — What a module is (Q-SPEC-504)
+
+#### The question
+
+The ninth part asked what a module is (Q-SPEC-406). The author's
+clarification (VOC-2026-10-28-030): « emacs lexical binding pour
+définir un périmètre général, pour le reste, il faut préciser la
+question parce qu'une S-Expression non encapsulée dans une autre est
+un processus autonome executable en parallele des autres du même
+rang. il faut donc définir ce qu'est un module parce que là je ne
+comprend pas et ai peur de mélanger les sujets ». The tenth part
+offered three options — a file, the compilation unit of chapter 6, no
+module — and the author asked for this report instead of choosing.
+The second half of the clarification, top-level forms, is Report 2.
+
+#### What the specification already holds
+
+Observed on 2026-10-29:
+
+- **Modules, used but not defined.** Chapter 4 (system scale) builds
+  « la catégorie librement engendrée par le graphe des dépendances —
+  objets les modules, morphismes les chemins de dépendance », and a
+  namespace is « une sous-catégorie large », whose inclusion is a
+  faithful functor. Restricting the graph to one dimension « remplace
+  la hiérarchie de dossiers physiques par une lecture purement logique
+  du graphe de types ». Two warnings are computed on this graph,
+  instability and centrality; annex A has `ERR-ARC-002`, « Seuil de
+  centralité dépassé (God Object) ». The glossary defines a namespace
+  as a « Sous-catégorie large du graphe des modules, close par
+  composition », but defines no module.
+- **The compilation unit and its interface.** Chapter 6 states as a
+  definition, `thm:interface_jugement`, that « l'interface d'une unité
+  de compilation est son jugement »: in Δ ⊢ t : A | ℰ, « Δ dit ce que
+  l'unité _exige_, A ce qu'elle _est_, ℰ ce qu'elle _produit_ ». It
+  draws the consequence: « S'il tient, une interface n'a rien à
+  déclarer que le jugement ne porte déjà, et le langage n'a pas de
+  langage de modules séparé à maintenir ». It also accepts the cost:
+  « si le grade est dans l'interface, alors le changer change
+  l'interface, et les unités dépendantes recompilent ». The bounded
+  compilation requirement makes the unit carry the budget: « Tout
+  travail de compilation est borné par un grade porté par l'unité de
+  compilation ». Monomorphisation starts « des racines de l'unité de
+  compilation — ses points d'entrée et ce que son interface exporte »,
+  and « Un générique d'une autre unité s'instancie dans l'unité qui
+  l'emploie, sa source voyageant dans l'interface ».
+- **The stamp.** The glossary's « estampille »: « Marque attachée à
+  une unité de compilation qui atteste de quelle définition elle
+  provient, et par laquelle deux unités se reconnaissent compatibles ».
+  Instances and the binary are named by the hash of a normalised
+  syntax tree (chapter 6).
+- **The package.** SMT obligations « qui traversent la frontière de
+  paquet » need a certificate (chapter 6); chapter 3 names « la
+  signature des paquets » among the possible strategies at a boundary.
+  The same word, « paquet », names the existential packages of chapter
+  3, with their `pack` and `unpack`.
+- **Names.** `thm:staticite_syntaxe`: « Aucune construction de K7PL ne
+  calcule un nom ; toute opération d'espace de noms vit au niveau
+  macro, où elle est typée par `binds` ». A path is a symbol whose
+  names are separated by `/` (chapter 5).
+- **Not found:** a definition of a module; a form that imports; the
+  file as a unit of the language; an entry point other than the
+  « points d'entrée » of chapter 6, which are not defined.
+
+Inference for K7PL: the specification already has four groupings —
+the namespace (a logical view), the module (an object of the
+dependency graph), the compilation unit (roots, interface, budget,
+stamp) and the package (the boundary where certificates are required)
+— and a fifth, implicit one, the file. The question is less what a
+module is than which of these coincide. The specification has also
+already ruled on one point: there is no separate module language,
+since the interface is the judgement.
+
+#### What the literature and other languages hold
+
+- **Two processes, not one.** Leroy (1994): « Modularization is the
+  process of decomposing a program in small units (modules) that can
+  be understood in isolation by the programmers […]. Separate
+  compilation is the process of decomposing a program in small units
+  (compilation units) that can be typechecked and compiled separately
+  by the compiler ». On identifying them, as Modula-2 does: « this
+  identification is limiting. Since compilation units are usually
+  directly mapped onto file system objects, separate compilation tends
+  to keep the structure of compilation units simple, with the
+  dependencies “hard-wired” inside the units » (X. Leroy, « Manifest
+  types, modules, and separate compilation », POPL 1994,
+  https://xavierleroy.org/publi/manifest-types-popl.pdf).
+- **Separate compilation stated formally.** Cardelli (1997): « Some
+  language definitions specify what are to be the compilation units
+  (e.g.: Ada [12]), but others do not (e.g.: Standard ML [17]) »; « We
+  propose a framework where each module is separately compiled to a
+  self-contained entity called a linkset; we show that separately
+  compiled, compatible modules can be safely linked together » (L.
+  Cardelli, « Program Fragments, Linking, and Modularization », POPL
+  1997, http://lucacardelli.name/Papers/Linking.A4.pdf).
+- **Weak and strong modularity.** Backpack (Kilpatrick, Dreyer, Peyton
+  Jones, Marlow, POPL 2014): « Module systems like that of Haskell
+  permit only a weak form of modularity in which module
+  implementations directly depend on other implementations and must be
+  processed in dependency order. Module systems like that of ML, on the
+  other hand, permit a stronger form of modularity in which explicit
+  interfaces express assumptions about dependencies, and each module
+  can be typechecked and reasoned about independently »
+  (https://plv.mpi-sws.org/backpack/).
+- **What ML modules are.** Rossberg, Russo and Dreyer, « F-ing
+  Modules »: « ML modules are a powerful language mechanism for
+  decomposing programs into reusable components. Unfortunately, they
+  also have a reputation for being "complex" »; their elaboration
+  translates module expressions « into vanilla System F ω », and
+  « We thereby show that ML modules are merely a particular mode of use
+  of System F ω » (https://people.mpi-sws.org/~rossberg/f-ing/). The
+  specification already cites the history of Standard ML
+  (`macqueenHistoryStandardML2020`) and Leroy's syntactic theory of
+  generativity and sharing (`leroySyntacticTheoryType1996`).
+- **Rust.** « A crate is a unit of compilation and linking, as well as
+  versioning, distribution, and runtime loading. A crate contains a
+  tree of nested module scopes » (Rust reference, crates and source
+  files, https://doc.rust-lang.org/reference/crates-and-source-files.html).
+  The unit of compilation is the crate; the module is a scope inside
+  it.
+- **Swift.** « The optimizer can only perform specialization if the
+  definition of the generic declaration is visible in the current
+  Module. This can only occur if the declaration is in the same file
+  as the invocation of the generic, unless the
+  ``-whole-module-optimization`` flag is used » (Swift, optimization
+  tips,
+  https://github.com/swiftlang/swift/blob/main/docs/OptimizationTips.rst):
+  the module boundary is an optimisation boundary.
+- **Unison.** « Each Unison definition is identified by a hash of its
+  syntax tree. Put another way, Unison code is content-addressed »;
+  « Names are like pointers to addresses »; « Because Unison
+  definitions are identified by their hash, they never change […].
+  Thus, we can parse and typecheck definitions once, and then store
+  the results in a cache which is never invalidated » (Unison, the big
+  idea, https://www.unison-lang.org/docs/the-big-idea/).
+- **Racket and phases.** Flatt (2002): Lisp and Scheme implementations
+  « tend to allow the mingling of compile-time values and run-time
+  values, as well as values from separate compilations. Such mingling
+  breaks programming tools that must parse code without executing it »;
+  MzScheme « addresses the problem through a macro system that
+  separates compilation without sacrificing the expressiveness of
+  macros » (M. Flatt, « Composable and Compilable Macros: You Want it
+  When? », ICFP 2002,
+  https://www.cs.utah.edu/plt/publications/macromod.pdf).
+- **Emacs, OCaml, Racket files.** Quoted in the tenth part
+  ([questions](questions.md), Q-SPEC-504): lexical binding is set for
+  a whole file; an OCaml compilation unit is an interface and an
+  implementation; a Racket module typically resides in its own file.
+
+#### The options, read adversarially
+
+**A — The file is the module.**
+For: one notion; Emacs's file-local lexical binding is literally
+this; Racket and OCaml practice. Against, from the specification:
+chapter 4 already reads structure off the dependency graph and
+« remplace la hiérarchie de dossiers physiques »; chapter 6 lets a
+generic's source travel in an interface and names instances by hash,
+which a file-sized unit would turn into a file-sized cache. Against,
+from the literature: Leroy's remark that compilation units mapped onto
+files keep their dependencies « hard-wired ». Hidden costs: renaming
+or splitting a file changes a module's identity; the budget of chapter
+6 becomes a per-file budget, an arbitrary grain; an actor, its
+handlers and its pure functions cannot be one unit across files.
+
+**B — The compilation unit is the module; a file is a lexical
+perimeter.**
+For: chapter 6 already gives the unit its roots, its interface (the
+judgement), its budget and its stamp; Leroy's distinction keeps both
+processes; Rust's crate is the same choice. Against: two notions to
+name — though Leroy shows they are two processes, so the second
+notion is not an addition but a recognition. Rust shows the unit
+becomes the grain of parallelism and of reuse unless it is split
+again: rustc splits each crate into codegen units (Report 3). And the
+unit boundary is where specialisation stops seeing the generic, as
+Swift's rule shows; chapter 6 answers by making the generic's source
+travel in the interface, so a cross-unit instance compiles in the
+using unit.
+
+**C — No module.**
+For: nothing new. Against: chapter 6's interface, its budget, its
+stamp and the certificate at the package boundary lose their object;
+chapter 4's dependency graph loses its objects; there is no separate
+compilation, which works against the author's aim of short
+compilations (Q-TYP-602, Report 3).
+
+**D — The definition is the unit of identity; a module is a named,
+versioned set of definitions with an interface; a file is a lexical
+perimeter.** Not among the tenth part's options; drawn from Unison and
+from chapter 6.
+For: chapter 6 already names instances and the binary by the hash of a
+normalised syntax tree; with definitions named the same way, Unison's
+« typecheck definitions once » cache, « never invalidated », follows;
+definitions are independent units of work, so they parallelise
+(Report 3); a namespace stays a view of chapter 4's graph; a module
+becomes what is versioned, signed and certified (the « paquet » of
+chapter 6). Against: identity by hash is intensional — two definitions
+that behave alike have different hashes; Unison's hash « pins down all
+its dependencies », so changing a widely used definition gives new
+hashes to everything that depends on it, which must be checked again
+(the untouched rest is not); names, versions and files need a tool
+that maps them to hashes; normalisation must be stable across compiler
+versions, or the compiler's own hash must enter the key.
+
+**E — ML-style modules: signatures, structures, functors.**
+Not among the tenth part's options; included because it is the
+reference design.
+For: the strongest modularity in Backpack's sense — each module
+« typechecked and reasoned about independently ». Against: chapter 6
+has already ruled that there is no separate module language, the
+interface being the judgement (`thm:interface_jugement`); a functor is
+a module with named parameters, while the author decided that a
+generic names no type parameter (VOC-2026-10-28-037); F-ing modules
+shows ML modules are « a particular mode of use » of System Fω, whose
+∀ and ∃ K7PL's surface does not write; and the reputation the F-ing
+abstract reports.
+
+Options combine: D for identity and B for the boundary of interface,
+budget, stamp and certificate is a candidate; so is A where the file
+and the unit happen to coincide, by convention rather than by rule.
+
+Gaps found in the specification:
+
+- « module » is used by chapter 4 and by chapter 6 (« Une interface de
+  module doit énoncer trois choses ») but never defined;
+- « paquet » names both the existential package of chapter 3 and the
+  boundary of distribution of chapter 6;
+- no form says how a unit names what it uses from another (an import),
+  although `thm:staticite_syntaxe` requires that it be static, typed by
+  `binds` at the macro level;
+- chapter 6's « points d'entrée » are not defined (Report 2).
+
+#### Examples
+
+```
+;; A — the file math/stats.k7 is the module math/stats
+{defn mean :type {function {vector num} num} [add fold div length]}
+
+;; B — a unit that spans math/stats.k7 and math/spread.k7
+{defunit math/stats :roots (mean std-dev) :budget 64}
+
+;; D — names point to hashes of normalised definitions
+{defmodule math/stats :version 1.2.0 :exports (mean std-dev)}
+```
+
+#### Scientific analysis
+
+A module system answers three questions that the literature separates
+and that languages often merge. **Scope**: which names a piece of text
+sees — a static, syntactic relation. In K7PL it is fixed at the end of
+Phase 1 (`thm:staticite_syntaxe`), so any lexical perimeter, the file
+among them, is enough for it; Emacs's lexical binding is an answer to
+this question only. **Identity and linking**: which definitions exist
+and how separately compiled pieces combine. Cardelli gives separate
+compilability a formal statement — compatible, separately compiled
+fragments link safely — and content addressing makes identity a
+function of the normalised syntax tree, so that linking becomes the
+union of sets of hashes; K7PL's stamp is the compatibility witness
+Cardelli's statement needs, and the certificate of chapter 6 its
+proof-carrying counterpart for SMT obligations. **Abstraction**: what
+a client may not see. In the ML tradition this is the signature, and
+F-ing modules reduces it to System Fω, that is, to universal and
+existential types. K7PL already holds the three ingredients apart:
+lexical scope at Phase 1, identity by hash in chapter 6, abstraction
+by the existential packages of chapter 3 with their explicit `pack`
+and `unpack`; and chapter 6 has already decided that the interface
+needs no fourth ingredient, since the judgement carries what a unit
+requires (Δ), what it is (A) and what it produces (ℰ) — a position
+that Standard ML, with no effects in its signatures, and Haskell, with
+no module system as rich, each fell short of, as chapter 6 notes. In
+chapter 4's terms, the decision left is what the objects of the free
+category 𝒟 on the dependency graph are: files (A), units (B) or
+definitions (D). Under D, a module is a set of objects of 𝒟 given an
+interface, and a namespace remains a wide subcategory — a view, not a
+container. The open mathematical point is compositional: whether the
+judgement of a unit is determined by the judgements of its
+definitions, so that a unit's interface can be computed rather than
+written. If it is, D and B compose without a second source of truth;
+if it is not, the unit's interface is a separate artefact that can
+disagree with its definitions, and chapter 6's definition would need a
+coherence statement.
+
+#### Limits of this report
+
+No measurement was made; Unison's tooling, its codebase format and its
+treatment of files were not examined beyond the page quoted; Mitchell
+and Plotkin's account of abstract types as existential types was not
+read for this report; no statement here is proved.
+
+#### What remains for the author to decide
+
+Which grouping carries the interface, the budget, the stamp and the
+certificate (A, B, C, D, E or a combination); whether « module »,
+« unit » and « package » are one word, two or three; and how the
+existential « paquet » of chapter 3 and the distributed « paquet » of
+chapter 6 are told apart. The question is asked again with these
+options in the next part.
+
+### Report 2 — Top-level forms as autonomous processes (Q-SPEC-505)
+
+#### The question
+
+The author's statement of the ninth part (VOC-2026-10-28-030): « une
+S-Expression non encapsulée dans une autre est un processus autonome
+executable en parallele des autres du même rang ». The tenth part
+noted that the specification says nothing of top-level forms and
+offered three readings; the author asked for this report.
+
+#### What the specification already holds
+
+Observed on 2026-10-29:
+
+- **The system is a parallel composition.** Chapter 4: « À l'échelle
+  du système, la coalgèbre qui produit l'état suivant n'est plus celle
+  d'un acteur isolé, mais celle de l'orchestrateur tout entier, dont
+  l'état est composé des états de tous les acteurs qu'il supervise »;
+  « un système est un terme — composition parallèle d'acteurs sous
+  restriction des canaux privés — ».
+- **Phase 2 already reads the actors.** Chapter 6: the configuration
+  pass « collecte, à partir des définitions d'acteurs et des `strand`
+  de workflow, les ressources externes que le programme engage », and
+  « C'est aussi là que le tri topologique du graphe de câblage établit
+  son acyclicité […] : un cycle y produit `ERR-ARC-001` », « Cycle
+  dans le graphe de dépendances entre acteurs et canaux » (annex A).
+- **Replay.** Chapter 1, postulate of distributed determinism: « En
+  couche 2, il est déterministe *modulo le journal* : l'entrelacement
+  des acteurs est journalisé, et c'est le journal qui le restitue ».
+- **Virtual actors.** Chapter 4 (system scale): « Un acteur virtuel est
+  une adresse logique dans le modèle abstrait. Le cycle de vie
+  distingue les états actif et inactif et exige la préservation de
+  l'état observable lors des transitions. Une réalisation peut
+  sérialiser l'état inactif dans un instantané journalisé, restituer sa
+  mémoire puis rejouer les messages consignés lors de la
+  réactivation »; the figure `fig:acteur-cycle-de-vie` draws the two
+  states, activation loading the snapshot and replaying the journal.
+- **Laziness and events.** The author's remark of 2026-10-27: « les
+  automates compilés en couche 3 sont invoqués paresseusement par
+  l'orchestrateur »; the answer to Q-ACT-001 (VOC-2026-10-29-002):
+  « l'objectif est de réagir […] c'est la cible "event-based" de K7PL
+  qui vient compléter la phylosophie "lazy" ».
+- **The layers.** Types are written in layer 1 only, inside `{ }`;
+  layer 2, `( )`, orchestrates and produces; layer 3, `[ ]`, computes
+  and terminates (chapter 5).
+- **Not found:** anything about top-level forms; a program's start;
+  the « points d'entrée » of chapter 6 beyond their name.
+
+Inference for K7PL: the specification has the target — a parallel
+composition of actors, an acyclic wiring graph, a journal, virtual
+actors that activate and deactivate — but no map from a source text's
+top-level forms to that composition.
+
+#### What the literature and other languages hold
+
+- **One entry point.** Haskell: « A Haskell program is a collection of
+  modules, one of which, by convention, must be called Main and must
+  export the value main. The value of the program is the value of the
+  identifier main in module Main, which must be a computation of type
+  IO τ for some type τ » (Haskell 2010 report, chapter 5,
+  https://www.haskell.org/onlinereport/haskell2010/haskellch5.html).
+  Pony: « A Pony program has to have a Main actor »; « our Main actor
+  has to have a constructor called create that takes a single
+  parameter of type Env. That’s how all programs start! » (Pony
+  tutorial,
+  https://tutorial.ponylang.io/getting-started/how-it-works.html).
+- **Order by dependencies.** Go: « Within a package, package-level
+  variable initialization proceeds stepwise, with each step selecting
+  the variable earliest in declaration order which has no dependencies
+  on uninitialized variables »; « If any variables are still
+  uninitialized when this process ends, those variables are part of
+  one or more initialization cycles, and the program is not valid »;
+  « If a package has imports, the imported packages are initialized
+  before initializing the package itself »; « initialization always
+  sequences the init functions: it will not invoke the next one until
+  the previous one has returned » (Go specification, package
+  initialization, https://go.dev/ref/spec#Package_initialization).
+- **Order by position.** Erlang/OTP supervisors: « When the supervisor
+  is started, the child processes are started in order from left to
+  right according to this list. When the supervisor is going to
+  terminate, it first terminates its child processes in reversed start
+  order, from right to left » (Erlang/OTP, supervisor,
+  https://www.erlang.org/doc/apps/stdlib/supervisor.html).
+- **Processes declared, then activated together.** Kahn (1974): « The
+  program S consists of a set of declarations and a body »; « The
+  infix operator par initiates the concurrent activation of the
+  processes » (G. Kahn, « The semantics of a simple language for
+  parallel programming », IFIP Congress 1974). Lee and Parks (1995)
+  describe Kahn process networks as « a model of computation where a
+  number of concurrent processes communicate through unidirectional
+  FIFO channels, where writes to the channel are non-blocking, and
+  reads are blocking », and dataflow process networks as « repeated
+  "firings" of a dataflow "actor" »
+  (https://ptolemy.berkeley.edu/publications/papers/95/processNets/).
+  Lee (2006): « In the original PN model due to Kahn and MacQueen
+  [31], the blocking reads ensure that every network defines a
+  deterministic computation » (E. A. Lee, « The Problem with
+  Threads », UCB/EECS-2006-1,
+  https://www2.eecs.berkeley.edu/Pubs/TechRpts/2006/EECS-2006-1.pdf).
+- **Processes that always exist.** Orleans: « Actors are purely
+  logical entities that always exist, virtually. An actor cannot be
+  explicitly created nor destroyed, and its virtual existence is
+  unaffected by the failure of a server that executes it. Since actors
+  always exist, they are always addressable » (Microsoft, Orleans
+  overview, https://learn.microsoft.com/en-us/dotnet/orleans/overview).
+
+#### The options, read adversarially
+
+**A — Every top-level form, whatever its layer, is a process.**
+For: one rule, the author's statement taken literally. Against: a
+`{ }` form is a declaration, elaborated in Phases 0 to 2, and has no
+behaviour to run; a `[ ]` form is a pure value, whose evaluation is
+not a process and whose place, by the laziness recorded on 2026-10-27,
+is to be invoked when needed; « types en couche 1 seulement » makes a
+running declaration a category error.
+
+**B — Top-level layer-2 forms are processes; `{ }` are declarations;
+a top-level `[ ]` is a pure value.**
+For: it follows the layers, and chapter 4's parallel composition
+receives exactly the layer-2 forms. Against: it says nothing of order;
+a process that sends before its receiver exists, or an initialisation
+with effects, is left to the executive; Go's rules show how much an
+unordered start leaves undefined.
+
+**C — B, ordered by dependencies.**
+For: Go's precedent (dependency order, then declaration order; cycles
+make the program invalid) and Erlang's (an explicit order and its
+reverse at shutdown); Phase 2 already computes the topological order
+of the wiring graph and refuses cycles (`ERR-ARC-001`); « même rang »
+gets a meaning, the same depth in that order, processes of one rank
+starting in parallel. Against: a rank-by-rank start sequences the
+system by the depth of its graph, and an event-based system does not
+need it when mailboxes buffer messages sent before a receiver is
+ready.
+
+**D — B, with lazy activation.** Not among the tenth part's options;
+drawn from chapter 4's virtual actors, from Orleans and from the
+author's laziness.
+Top-level layer-2 forms declare processes that exist virtually; the
+orchestrator activates one on its first message, and only the sources
+of events — an ingress that receives from outside, a `defer` that
+fires — start at once. For: it is the event-based and lazy target the
+author names; no start order has to be specified, since a message to a
+process not yet active activates it; chapter 4 already has the
+lifecycle — an actor virtual by default, activated by loading its
+snapshot and replaying its journal — so D adds no mechanism, only the
+rule that top-level forms are such actors; Orleans shows the model at
+scale; deactivation and failure become the same case. Against: what
+starts the system must be named, an ingress or a timer; the first
+message pays the activation; chapter 4 leaves snapshot, journal and
+atomicity of activation to the realisation, so `persist` (Q-ACT-005)
+must say what of them the language guarantees; « autonomous process »
+becomes « potential process »,
+which changes the author's statement; acyclicity and budgets must be
+checked on the virtual graph, not on the active one.
+
+**E — One entry point.**
+For: Haskell's `main`, Pony's `Main` actor; explicit. Against: it
+contradicts the author's statement that top-level forms are
+autonomous, and turns the parallel composition of chapter 4 into a
+single root.
+
+C and D combine: D for the processes, C's order for the eager sources
+when one depends on another.
+
+Determinism, adversarially: Kahn networks are deterministic because
+reads block on one channel each (Lee); actors whose mailbox merges
+messages from several senders are not, which is why chapter 1 journals
+the interleaving. Parallel top-level processes therefore do not
+threaten replay, since the journal restores the interleaving, but they
+do not give determinism by construction either.
+
+Gaps found in the specification: no rule maps top-level forms to the
+orchestrator's composition; chapter 6's « points d'entrée » are
+undefined; « même rang » has no definition; chapter 4's virtual actor
+says nothing of what first activates an actor.
+
+#### Examples
+
+```
+{defactor counter …}                   ;; layer 1: a declaration, not a process
+(counter)                              ;; layer 2: a top-level process (B, C, D)
+(http-ingress :port 8080 :to counter)  ;; layer 2: an event source, started at once under D
+[add fold div length]                  ;; layer 3: a pure value, evaluated where it is used
+```
+
+#### Scientific analysis
+
+Chapter 4 gives the system a coalgebra whose state is the product of
+the actors' states, generated by the product of their behaviour
+functors and restricted by the topology. Top-level layer-2 forms are
+the natural source of the factors of that product: each one
+contributes one component, and the restriction is the wiring graph of
+Phase 2. « Même rang » can then be read two ways. Read as depth in the
+acyclic dependency order, it is a stratification: processes of one
+stratum compose in parallel, strata compose in sequence — the same
+shape as the strata of chapter 2's `thm:terminaison_strates`, applied
+to start instead of evaluation. Read as syntax — the same layer, not
+nested — it gives no order at all, and order must come from the
+messages. The two readings correspond to two schedulers in the sense
+of Mokhov, Mitchell and Peyton Jones (Report 3): a topological
+scheduler that starts what is ready in dependency order (C), and a
+suspending one that starts what is demanded when it is demanded (D).
+On determinism, the classical result is Kahn's: networks of processes
+with blocking reads on single channels compute deterministic results,
+whatever the schedule (Lee). K7PL's actors read from mailboxes that
+merge senders, so they fall outside that class, and the journal is
+what chapter 1 uses to recover determinism. The opportunity, stated as
+a hypothesis: a sub-network whose channels each have one writer and
+one reader, read by blocking receives, is a Kahn network, and its
+interleavings need not be journaled; recognising such sub-networks in
+Phase 2 would shorten the journal without weakening replay. It would
+need a proof that the restriction is preserved by the executive.
+
+#### Limits of this report
+
+Kahn's paper was read only through its abstract and opening pages;
+the determinism result is quoted from Lee. Orleans's activation and
+deactivation were not examined beyond the overview quoted. No option
+was prototyped.
+
+#### What remains for the author to decide
+
+Which forms are processes at top level (A, B, E), whether they start
+in order (C), lazily (D) or both; what « même rang » means; what
+starts a program; and whether to pursue the Kahn sub-network
+hypothesis. The question is asked again with these options in the
+next part.
+
+### Report 3 — Compilation times: strategies against Rust's long builds (Q-TYP-602)
+
+#### The question
+
+The justification of Q-TYP-602 (VOC-2026-10-29-008): « les phases de
+compilations sont réputés non fiabilisées. par exemple, la résolution
+SMT n'a pas suffisament été explorée pour identifier les traitements
+paralleles etc. ici, dans la mesure du possible, j'aimerais trouver
+les stratégies permettant de limiter les temps de compilations hyper
+longs de Rust ». The answer to Q-TYP-603 (VOC-2026-10-29-009) adds that
+a language server checks while the code is written, and that
+compilation « doit suivre un protocole strict et reproductible ».
+
+#### What the specification already holds
+
+Observed on 2026-10-29, after the tenth part was applied:
+
+- **Predictability is a stated aim.** Chapter 6 keeps a first
+  Hindley-Milner pass « pour la prévisibilité du temps de
+  compilation »; the bounded compilation requirement: « Tout travail de
+  compilation est borné par un grade porté par l'unité de compilation,
+  et ce grade se mesure en _compte de ressource reproductible_ — jamais
+  en délai »; « _Le budget du solveur est un compte de ressource,
+  jamais un délai._ »
+- **The solver is restricted.** Only a fragment 𝒯₀ whose decidability
+  is established is submitted; any obligation outside it is « rejetée
+  à la compilation avec un code d'erreur, et jamais soumise »; 𝒯₀ is
+  not yet delimited.
+- **Instances are economised.** Monomorphisation collects from the
+  unit's roots and makes only the instances reached; an instance is
+  named by the hash of the normalised tree of its generic and its type
+  arguments, made once and linked once; a cache keyed by that hash
+  means that « un changement de cette source qui laisse inchangé l'AST
+  normalisé du générique ne recompile rien »; every new instance
+  decrements the specialisation budget. Since the tenth part,
+  monomorphisation runs once, at the opening of Phase 8, and Phases 5
+  and 6 check each generic once.
+- **Signatures are obligatory.** « toute définition de plus haut niveau
+  porte une signature » (chapter 6, after chapter 3), so that Phase 3
+  checks bidirectionally without inferring across definitions.
+- **Early failure.** Phase 2 produces a manifest of external resources
+  « validable avant même qu'un type n'ait été inféré ».
+- **A cost accepted.** Because the grade is in the interface,
+  changing it recompiles the dependent units (`thm:interface_jugement`
+  and its discussion).
+
+#### Where compilation time goes elsewhere
+
+- **rustc, monomorphisation.** Quoted in the sixth part
+  ([questions](questions.md)): the collector starts from « the public
+  non-generic syntactic items », instantiates lazily, and « A generic
+  definition in crate X might produce monomorphizations that are
+  compiled into crate Y ».
+- **rustc, parallel code generation.** « During monomorphization the
+  compiler splits up all the code to be generated into smaller chunks
+  called codegen units. These are then generated by independent
+  instances of LLVM running in parallel. At the end, the linker is run
+  to combine all the codegen units together into one binary »; the
+  same page warns: « As of November 2024, the parallel front-end is
+  undergoing significant changes, so this page contains quite a bit of
+  outdated information » (rustc dev guide, parallel compilation,
+  https://rustc-dev-guide.rust-lang.org/parallel-rustc.html).
+- **rustc, incremental compilation.** « The basic algorithm is called
+  the red-green algorithm. The high-level idea is that, after each run
+  of the compiler, we will save the results of all the queries that we
+  do, as well as the query DAG »; « if all of Q’s inputs are green,
+  then we can conclude that Q must be green » (rustc dev guide,
+  incremental compilation,
+  https://rustc-dev-guide.rust-lang.org/queries/incremental-compilation.html).
+  Salsa, its generalisation: « a Rust framework for writing
+  incremental, on-demand programs […] based on the incremental
+  recompilation techniques that we built for rustc »
+  (https://salsa-rs.github.io/salsa/).
+- **rustc, back end.** The Cranelift back end: « This has the potential
+  to improve compilation times in debug mode »
+  (https://github.com/rust-lang/rustc_codegen_cranelift).
+- **Go, fewer copies at a runtime cost.** « we will generate a single
+  chunk of assembly for each unique GC shape used by any
+  instantiation. Each chunk of assembly will take as an argument a
+  _dictionary_ »; the proposal is « middle ground » between full
+  stenciling and dictionaries (Go, GC shape stenciling,
+  https://github.com/golang/proposal/blob/master/design/generics-implementation-gcshape.md).
+- **Swift, specialisation bounded by visibility.** Quoted in Report 1.
+- **Unison, nothing rebuilt.** « we can parse and typecheck
+  definitions once, and then store the results in a cache which is
+  never invalidated » (Report 1).
+- **Build systems, in theory.** Mokhov, Mitchell and Peyton Jones:
+  « A build system is minimal if it executes tasks at most once per
+  build and only if they transitively depend on inputs that changed
+  since the previous build »; early cutoff: « When it executes a task
+  and the result is unchanged from the previous build, it is
+  unnecessary to execute the dependent tasks »; and two choices « the
+  order in which tasks are built (§4.1) and whether or not a task is
+  (re-)built (§4.2). These choices turn out to be orthogonal »
+  (« Build Systems à la Carte », ICFP 2018,
+  https://www.microsoft.com/en-us/research/uploads/prod/2018/03/build-systems-a-la-carte.pdf).
+- **Verification, cached.** Leino and Wüstholz: « The caching system
+  uses the program’s call graph and control-flow graph to focus the
+  verification effort on just the parts of the program that were
+  affected by the user’s most recent modifications »; it is
+  implemented in Boogie and used in the Dafny IDE (« Fine-grained
+  Caching of Verification Results », CAV 2015,
+  https://www.microsoft.com/en-us/research/publication/fine-grained-caching-of-verification-results/).
+- **Verification, unpredictable.** F*: « Even a single poorly chosen
+  quantified assumption in the prover’s context can make an otherwise
+  simple proof take very long »; its query statistics report a
+  failure « in 5647 milliseconds with fuel 4 and ifuel 0 and rlimit
+  2723280 » (F* tutorial, under the hood: SMT,
+  https://fstar-lang.org/tutorial/book/under_the_hood/uth_smt.html).
+  Z3's `rlimit`: « default resource limit used for solvers. Unrestricted
+  when set to 0 » (Z3 guide, parameters,
+  https://microsoft.github.io/z3guide/programming/Parameters/).
+- **Verification, faster by design.** Verus, the authors' own claim:
+  « Verus verifies code 3–61x faster and with less effort than the
+  state of the art » (« Verus: A Practical Foundation for Systems
+  Verification », SOSP 2024,
+  https://www.microsoft.com/en-us/research/publication/verus-a-practical-foundation-for-systems-verification/).
+
+#### Strategies, read adversarially
+
+Each strategy is marked: **in the specification** (already there),
+**compatible** (fits without a decision against it) or **closed**
+(ruled out by a decision).
+
+- **S1 — Content-addressed results for every phase** (compatible).
+  Extend chapter 6's instance cache to parsing, typing, effect,
+  termination and solver results, each keyed by the hash of its
+  normalised input and of the compiler. For: Unison's cache « never
+  invalidated »; a key that holds every input makes an incremental
+  build equal to a clean one. Against: normalisation must be stable;
+  the store grows and needs collection.
+- **S2 — Query-based incremental compilation with early cutoff**
+  (partly in the specification). rustc's red-green algorithm and Salsa
+  re-run only the queries whose inputs changed; early cutoff stops at
+  an unchanged output. Chapter 6's « ne recompile rien » when the
+  normalised tree is unchanged is already an early cutoff. For:
+  minimality in Mokhov's sense. Against: incremental compilers are
+  complex, and an incremental bug breaks reproducibility; S1's keys and
+  a clean reference build in continuous integration answer it.
+- **S3 — Parallelism by independence** (compatible). Names are fixed
+  after Phase 1 and every top-level definition carries a signature, so
+  Phase 3 can check definitions independently; Phases 5 and 6 check
+  each generic once; SMT obligations of distinct definitions are
+  independent queries, which can be sent in parallel; instances are
+  independent units of code generation, as rustc's codegen units. For:
+  the parallelism comes from the language's own structure, not from
+  the compiler's tricks. Against: Phase 7 and Phase 8 iterate until
+  stabilisation, which is a sequential loop over the whole unit, and
+  solving one hard query in parallel is a different problem from
+  dispatching many easy ones.
+- **S4 — Cached and replayed verification** (partly in the
+  specification). Cache solver answers by obligation hash, as Boogie
+  does for Dafny; replay a recorded proof instead of searching again —
+  chapter 6 already demands certificates across package boundaries,
+  and the same certificates can serve locally. For: the verifier then
+  costs what changed. Against: a certificate must be checked, which
+  costs less than a search but not nothing.
+- **S5 — A solver discipline** (in the specification for its
+  principles). Stay in 𝒯₀, avoid quantified assumptions or bound their
+  instantiation (F*), keep queries small (Verus's claim), and count
+  the solver's work in a resource count rather than in time, as chapter
+  6 already requires and as Z3's `rlimit` and F*'s statistics expose.
+  For: predictability, the aim chapter 6 states. Against: 𝒯₀ is not
+  yet delimited, and every obligation outside it is a refusal the
+  developer must answer.
+- **S6 — Fewer instances** (in the specification, with a risk). Only
+  reached instances, one per hash, bounded by the budget. Go's shape
+  stenciling would cut instances further but passes a dictionary at
+  run time, which chapter 6 forbids (`ERR-POL-001`): **closed** in that
+  form. A K7PL-specific risk, inferred: typed holes resolved each at
+  its smallest width (Q-TYP-601) multiply instances — a
+  `{function int int}` used with four input widths and four output
+  widths can need up to sixteen copies. Rounding hole widths to a small
+  set of widths would bound the product, at the cost of the « plus
+  petite largeur » rule.
+- **S7 — Two back ends** (compatible). A fast, non-optimising back end
+  for the development loop, as Cranelift is for rustc, and the
+  optimising one for release; the language server checks while the
+  code is written (Q-TYP-603), and the release build follows the strict
+  and reproducible protocol. Against: two back ends to keep equivalent,
+  which the preservation invariants of chapter 6 would have to cover.
+- **S8 — Fail early** (in the specification). Phase 2's manifest, the
+  phase order that refuses before investing, and the language server.
+
+#### Scientific analysis
+
+Incremental compilation is memoisation over a dependency graph of
+computations: rustc's query DAG, Salsa's database, the tasks of a
+build system. Mokhov, Mitchell and Peyton Jones show that what a build
+system does reduces to two orthogonal choices — a scheduler, which
+orders the work, and a rebuilder, which decides whether a piece must be
+redone — and they define correctness against a build from scratch.
+That is the bridge between the author's two demands: an incremental
+compiler is reproducible exactly when its rebuilder keys every result
+by all of its inputs, the compiler included, so that a cached result
+is the result a clean build would compute; content addressing, which
+chapter 6 already uses for instances, is that keying. On the solver,
+the decidability of each theory does not bound the time a query takes,
+and quantifier instantiation is the usual source of unpredictability,
+as F*'s tutorial shows; a quantifier-free 𝒯₀, small queries and a
+resource count instead of a delay give a verification whose cost is
+predictable and repeatable, and since obligations of distinct
+definitions are independent, they parallelise without any parallel
+solving. What remains specific to K7PL is the cost of precision: the
+grade in the interface recompiles dependents when it changes, and
+independent typed holes can multiply instances; both are prices
+chapter 6 accepts openly, and the budget is the mechanism that bounds
+them.
+
+#### Limits of this report
+
+Nothing was measured, on rustc or on any K7PL prototype; Verus's
+speed-up is its authors' claim; the parallel rustc front end is
+described by a page that calls itself partly outdated; whether Z3's
+`rlimit` gives the same count across platforms was not checked, and
+chapter 6's reproducible resource count depends on it or on an
+equivalent.
+
+#### What remains for the author to decide
+
+Which strategies to adopt (S1 to S8); whether hole widths are rounded
+to bound instances (S6); and how 𝒯₀ is delimited, which chapter 6
+already leaves open. The choice is asked in the next part.
+
 ## Archive review: early K premises (`OLD_K_K7PL`)
 
 Received from the author on 2026-10-27 as `OLD_K_K7PL.zip`, described
