@@ -4,9 +4,10 @@
 
 """Dry runs of the step scripts that a pull request does not run.
 
-The `status` job of ci.yaml runs only on a push to main, the workflow_dispatch branches of the
-impact step only on a manual or automated dispatch, and the BadgeApp drift job of security.yaml
-only on schedule or by hand. Their scripts are run here with stub commands first on PATH (gh,
+The `status` job of ci.yaml runs only on a push to main, and the BadgeApp drift job of
+security.yaml only on schedule or by hand. (The event routing of the impact step, formerly
+`ci_impact.sh`, is tested in TypeScript since cutover C4: tools/ci-controller/tests/
+impact_event_test.ts and derived_event_test.ts.) Their scripts are run here with stub commands first on PATH (gh,
 git when no repository is needed, python3 for the programs they call) and fake runner files: no
 network, no token, no push. The tests check the commands invoked and what is written to
 GITHUB_OUTPUT and GITHUB_STEP_SUMMARY.
@@ -18,51 +19,6 @@ import subprocess
 import unittest
 
 from step_script_testing import StepScriptCase
-
-
-class ImpactScriptTests(StepScriptCase):
-    """ci.yaml, job `impact`: which range the classifier gets for each event."""
-
-    def setUp(self):
-        super().setUp()
-        self.stub("python3")
-        self.git("init", "-q", "-b", "main")
-        self.m1 = self.commit("f", "1", "m1")
-        self.m2 = self.commit("f", "2", "m2")
-        self.git("update-ref", "refs/remotes/origin/main", self.m2)
-        self.git("switch", "-q", "-c", "topic", self.m1)
-        self.b1 = self.commit("g", "b", "b1")
-
-    def classify(self, event, ref, head, base="b" * 40):
-        result = self.run_script("ci_impact.sh", EVENT_NAME=event, REF=ref, HEAD_SHA=head, BASE_SHA=base)
-        return result, [row[1:] for row in self.calls("python3")]
-
-    def test_a_pull_request_classifies_its_range(self):
-        result, calls = self.classify("pull_request", "refs/pull/1/merge", self.b1, self.m1)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(calls, [["scripts/ci/impact.py", "--base", self.m1, "--head", self.b1]])
-
-    def test_a_manual_dispatch_forces_the_full_validation(self):
-        result, calls = self.classify("workflow_dispatch", "refs/heads/topic", self.b1)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(calls, [["scripts/ci/impact.py", "--force-full"]])
-
-    def test_the_generated_status_branch_is_classified_against_main(self):
-        result, calls = self.classify("workflow_dispatch", "refs/heads/automation/generated-status", self.b1)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(calls, [["scripts/ci/impact.py", "--base", self.m1, "--head", self.b1]])
-
-    def test_a_commit_already_on_main_gets_the_full_validation(self):
-        result, calls = self.classify("workflow_dispatch", "refs/heads/automation/generated-status", self.m2)
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(calls, [["scripts/ci/impact.py", "--force-full"]])
-
-    def test_the_generated_status_branch_needs_origin_main(self):
-        self.git("update-ref", "-d", "refs/remotes/origin/main")
-        result, calls = self.classify("workflow_dispatch", "refs/heads/automation/generated-status", self.b1)
-        self.assertEqual(result.returncode, 1)
-        self.assertIn("::error::origin/main is not available in the checkout", result.stdout)
-        self.assertEqual(calls, [])
 
 
 class StatusScriptTests(StepScriptCase):

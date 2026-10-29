@@ -2,12 +2,10 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-# The Deno set-up shared by ci.yaml (impact), verify.yaml (impl, spec)
-# and k7pl-semantics.yaml (k-smoke). The controller-shadow job uses the
-# official Deno container image instead of installing Deno through this action.
-# It holds the one
-# pinned reference to denoland/setup-deno and the one pinned Deno
-# version, so a bump touches this file only. It receives no secret
+# The Deno set-up shared by ci.yaml (impact), verify.yaml (quick, impl,
+# python-tests, spec), security.yaml and k7pl-semantics.yaml (k-smoke).
+# It holds the one pinned reference to denoland/setup-deno and the one
+# pinned Deno version, so a bump touches this file only. It receives no secret
 # and needs no token permission beyond the job's own.
 name: Set up Deno
 description: >-

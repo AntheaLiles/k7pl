@@ -59,6 +59,15 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Changed
 
+- CI, cutover C4: the impact classifier derived from `.github/ci/components.yaml`
+  (`tools/ci-controller`) is the only classifier. The legacy Python classifier
+  (`scripts/ci/impact.py`), its shell wrapper, its Deno port and the non-blocking
+  `controller-shadow` job are removed; their tests are restated for the derived
+  classifier, including end-to-end `git diff` tests of the impact job's entry
+  point. `scripts/ci/test_impact_coverage.py` now checks the reads of the checks
+  against the deciding classifier instead of the retired one, and the impact job
+  validates the registry before deciding from it.
+
 - Specification wording: context-sensitive vocabulary cleanup and a source-anchored lexical-family check integrated into `scripts/controle.py`; unrelated words such as `violet` remain allowed.
 - C8 statement inventory check (`scripts/controles/statement_inventory.py`): the pre-migration
   snapshot, which fixes the 69 historical labels and their levels, is now a frozen appendix of

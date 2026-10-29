@@ -110,7 +110,7 @@ jobs:
           lake-cache-key: ${{ inputs.use_cache && format('lake-deps-impl-{0}', hashFiles('lake-manifest.json', 'lean-toolchain')) || '' }}
           mathlib-cache: "true"
 
-      # Same Deno pin as the controller-shadow job in ci.yaml.
+      # The Deno pin shared by every job through the composite action.
       - name: Set up Deno
         uses: ./.github/actions/setup-deno
 
@@ -208,6 +208,12 @@ jobs:
 
       - name: Install hash-locked SPDX validator
         run: "python -m pip install --require-hashes --only-binary=:all: -r scripts/requirements-spdx-validator.txt"
+
+      # scripts/ci/test_impact_coverage.py asks the deciding impact
+      # classifier, the Deno controller's (cutover C4), which surfaces
+      # each file read by a check triggers.
+      - name: Set up Deno
+        uses: ./.github/actions/setup-deno
 
       # Every test_*.py of scripts/ci, subpackages with an __init__.py included (navigation_graph),
       # under this job's Python and with the hash-locked SPDX validator installed. A new test file
@@ -349,7 +355,7 @@ jobs:
           lake-cache-key: ${{ inputs.use_cache && format('lake-deps-spec-{0}', hashFiles('lake-manifest.json', 'lean-toolchain')) || '' }}
           mathlib-cache: ${{ inputs.use_cache }}
 
-      # Same Deno pin as the controller-shadow job in ci.yaml.
+      # The Deno pin shared by every job through the composite action.
       - name: Set up Deno
         uses: ./.github/actions/setup-deno
 

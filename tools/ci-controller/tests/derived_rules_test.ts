@@ -3,12 +3,32 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 import { assert, assertEquals } from "./assert.ts";
-import { classify } from "../src/classify.ts";
+import { deriveClassification } from "../src/derived.ts";
+import { loadRegistryFile } from "../src/registry.ts";
 
-// Parity cases transcribed from scripts/ci/test_impact.py. These
-// are the specification for the port: if the Python classifier
-// changes, these tests must change with it, in the same commit,
-// and the change must be owner-approved (see README.md).
+// The routing rules that tests/classify_test.ts stated for the legacy
+// classifier (transcribed from scripts/ci/test_impact.py), restated
+// for the derived classifier at cutover C4, when both legacy
+// classifiers were removed. Where the derived classifier diverges by
+// a decided D2 behaviour (proofs/), the test states the decided
+// routing; tests/derived_test.ts lists every such divergence.
+
+const REPO_ROOT = new URL("../../../", import.meta.url).pathname;
+const REGISTRY = loadRegistryFile(`${REPO_ROOT}.github/ci/components.yaml`);
+
+function classify(paths: string[], forceFull = false) {
+  return deriveClassification(REGISTRY, paths, forceFull);
+}
+
+const REPORTED = [
+  "full",
+  "docs_links",
+  "spec_check",
+  "spec_build",
+  "lean_build",
+  "python_tests",
+  "tracking_views",
+] as const;
 
 Deno.test("markdown is light", () => {
   const result = classify(["docs/foo.md"]);
@@ -103,19 +123,8 @@ Deno.test("mixed surfaces are unioned", () => {
 
 Deno.test("force full dominates", () => {
   const result = classify(["docs/foo.md"], true);
-  for (
-    const key of [
-      "full",
-      "docs_links",
-      "spec_check",
-      "spec_build",
-      "lean_build",
-      "python_tests",
-      "tracking_views",
-    ] as const
-  ) {
-    assert(result[key], key);
-  }
+  for (const key of REPORTED) assert(result[key], key);
+  assert(Object.values(result.surfaces).every((on) => on));
 });
 
 Deno.test("every full exact path forces full by name", () => {
@@ -136,6 +145,19 @@ Deno.test("every full exact path forces full by name", () => {
       `${path} must force full by name, not as unknown`,
     );
     assertEquals(result.unknown_paths, []);
+  }
+});
+
+Deno.test("every full prefix forces full by name", () => {
+  for (
+    const path of [
+      ".github/workflows/end-to-end.txt",
+      "scripts/ci/end-to-end.txt",
+    ]
+  ) {
+    const result = classify([path]);
+    assert(result.full, path);
+    assert(!result.unclassified, path);
   }
 });
 
@@ -211,28 +233,19 @@ Deno.test("spec markdown adds link check to spec surfaces", () => {
   );
 });
 
-Deno.test("proofs paths are unknown and force full", () => {
+Deno.test("proofs paths run the axiom audit, not full (decided D2)", () => {
   for (const path of ["proofs/K7PL/Proof.lean", "proofs/lakefile.toml"]) {
     const result = classify([path]);
-    assert(result.full && result.unclassified, path);
+    assert(result.surfaces.axiom_audit, path);
+    assert(!result.full && !result.unclassified, path);
   }
 });
 
 Deno.test("empty path list validates nothing", () => {
   const result = classify([]);
   assert(!result.full && !result.unclassified);
-  for (
-    const key of [
-      "docs_links",
-      "spec_check",
-      "spec_build",
-      "lean_build",
-      "python_tests",
-      "tracking_views",
-    ] as const
-  ) {
-    assert(!result[key], key);
-  }
+  for (const key of REPORTED) assert(!result[key], key);
+  assert(Object.values(result.surfaces).every((on) => !on));
 });
 
 Deno.test("case-insensitive markdown extensions", () => {

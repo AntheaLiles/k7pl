@@ -3,24 +3,20 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 /**
- * Event-to-argument adapter for the impact classifier.
+ * Event-to-range routing for the impact classifier.
  *
- * The event routing formerly lived in scripts/ci/ci_impact.sh.
- * Since cutover C3, classifierArgs is shared with derived_event.ts
- * (the decision entry point); the standalone Python-invoking main
- * below is no longer wired to any workflow and goes away with
- * impact.py in C4.
+ * The event routing formerly lived in scripts/ci/ci_impact.sh, which
+ * invoked the legacy Python classifier. Since cutover C3 classifierArgs
+ * feeds derived_event.ts, the decision entry point; cutover C4 removed
+ * the shell wrapper, the Python classifier and this module's former
+ * Python-invoking entry point.
  */
 
+import type { CommandResult, GitRunner } from "./changes.ts";
+
+export type { CommandResult, GitRunner };
+
 export type ImpactEnvironment = Record<string, string | undefined>;
-
-export interface CommandResult {
-  code: number;
-  stdout: string;
-  stderr: string;
-}
-
-export type GitRunner = (args: string[]) => Promise<CommandResult>;
 
 export async function classifierArgs(
   env: ImpactEnvironment,
@@ -74,43 +70,4 @@ export async function classifierArgs(
     );
   }
   return ["--base", base, "--head", head];
-}
-
-async function runGit(args: string[]): Promise<CommandResult> {
-  const command = new Deno.Command("git", {
-    args,
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const result = await command.output();
-  return {
-    code: result.code,
-    stdout: new TextDecoder().decode(result.stdout),
-    stderr: new TextDecoder().decode(result.stderr),
-  };
-}
-
-if (import.meta.main) {
-  try {
-    const args = await classifierArgs(
-      {
-        EVENT_NAME: Deno.env.get("EVENT_NAME"),
-        REF: Deno.env.get("REF"),
-        BASE_SHA: Deno.env.get("BASE_SHA"),
-        HEAD_SHA: Deno.env.get("HEAD_SHA"),
-      },
-      runGit,
-    );
-    const child = new Deno.Command("python3", {
-      args: ["scripts/ci/impact.py", ...args],
-      stdin: "inherit",
-      stdout: "inherit",
-      stderr: "inherit",
-    }).spawn();
-    const result = await child.status;
-    Deno.exit(result.code);
-  } catch (error) {
-    console.error(error instanceof Error ? error.message : String(error));
-    Deno.exit(1);
-  }
 }

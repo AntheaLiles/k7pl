@@ -20,8 +20,7 @@ export type ClaimClass = (typeof CLAIM_CLASSES)[number];
 // first seven are the legacy classifier's surfaces; the last five
 // are derivation targets declared in the registry. Since cutover C3
 // the derived classifier decides all thirteen (impact job,
-// derived_event.ts); the legacy Python classifier runs only in
-// reversed shadow.
+// derived_event.ts); since cutover C4 it is the only classifier.
 export const IMPACT_SURFACES = [
   "full",
   "docs_links",

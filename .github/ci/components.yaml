@@ -4,10 +4,11 @@
 
 # Single source of truth for CI component paths, commands, cache
 # determinants, proof-chain dependencies, mandatory checks, and
-# allowed claim classes. Read by tools/ci-controller (slice 1).
-# This registry is descriptive in slice 1: the impact classifier
-# still uses its own tables in scripts/ci/impact.py, and the two
-# must agree (see tools/ci-controller/README.md, cutover criteria).
+# allowed claim classes. Read by tools/ci-controller. Since cutover
+# C4 the impact classifier derived from this registry
+# (tools/ci-controller/src/derived.ts) is the only classifier: the
+# routing of every CI surface is declared here, and a change here
+# changes what the CI runs.
 # A path may belong to several components: components are logical
 # units, not a partition of the tree. Overlaps are declared below
 # instead of being hidden.
@@ -27,8 +28,8 @@
 # surface names (axiom_audit, k_compile, k_examples, klean_export,
 # tla_model_check) are declared here as derivation targets; since
 # cutover C3 the derived classifier decides all thirteen surfaces
-# (impact job, derived_event.ts), and the legacy Python classifier
-# runs only in reversed shadow.
+# (impact job, derived_event.ts); since cutover C4 the legacy Python
+# classifier and its shadow comparison are removed.
 # The markdown rule (any .md/.markdown file triggers docs_links)
 # and the light/full exact-prefix rules remain classifier rules,
 # not components, and are not declared here.
@@ -58,7 +59,7 @@ toolchains:
   - id: deno
     version: 2.9.8
     source: denoland/deno and denoland/setup-deno
-    note: The impact, implementation/spec and controller-shadow jobs install Deno
+    note: The jobs that run the controller install Deno
       through the shared composite action, which pins setup-deno v2.0.5 at
       22d081ff2d3a40755e97629de92e3bcbfa7cf2ed. The official Deno container
       was evaluated but not used for GitHub Actions jobs because it does not

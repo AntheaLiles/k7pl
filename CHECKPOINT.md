@@ -5,17 +5,26 @@ SPDX-License-Identifier: CC0-1.0
 
 # CI migration checkpoint
 
-## Current branch
+## Current state
 
-- Replacement branch: `ci/slice3-replacement`.
-- Replacement PR: #312, targeting `main`; open and not merged.
-- Original PR #309 remains open and unmerged. Do not merge either PR until
-  the replacement's complete CI is green and the remaining migration criteria
-  have been reviewed.
-- The replacement starts at `main` commit
-  `cdc91d94facb457f077cf0c5da46ec7c700c730f` and has a linear history. The
-  intermediate merge commit `da7b8cb5f706c51a2be6bdb8dcaf41e0521d07f1` was
-  omitted.
+- PR #312 (`ci/slice3-replacement`) was merged into `main` on 2026-10-27
+  (squash `435c876`); the sections below record its migration and are kept
+  as its history. Cutovers C2 and C3 followed on `main` on 2026-10-28.
+- Cutover C4 (branch `claude/ci-ts-controller-consistency`): the derived
+  classifier is the only one. Removed: `scripts/ci/impact.py`,
+  `scripts/ci/ci_impact.sh`, `scripts/ci/test_impact.py`,
+  `tools/ci-controller/src/classify.ts`, `src/shadow.ts`, their Deno tests,
+  the Python-invoking entry point of `src/impact_event.ts`, and the
+  non-blocking `controller-shadow` job, which reported on every pull request
+  the divergences that C3 had accepted as decided behaviour. Their routing
+  and end-to-end tests are restated for the derived classifier
+  (`tests/derived_rules_test.ts`, `tests/derived_event_test.ts`); the
+  coverage guard `scripts/ci/test_impact_coverage.py`, which still asked the
+  legacy classifier after C3, now asks the deciding one (`classify --json`);
+  the impact job validates the registry before deciding from it.
+- C4 evidence: the C3 head of `main` (`14ddaa8`) passed complete CI runs
+  `40693727642` (push) and `40696783709` (dispatch). C4's own CI is not
+  claimed here before it has run.
 
 ## History repair
 

@@ -3,11 +3,9 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 import { assert, assertEquals } from "./assert.ts";
-import { classify } from "../src/classify.ts";
 import {
   deriveClassification,
   derivedDecisionOutputLines,
-  derivedDivergences,
   derivedGithubOutputLines,
 } from "../src/derived.ts";
 import { loadRegistryFile } from "../src/registry.ts";
@@ -63,26 +61,28 @@ Deno.test("derived classifier maps spec-build inputs declared in the registry", 
   assertEquals(result.full, false);
 });
 
-Deno.test("derived classifier honours legacy light paths and the axiom-audit exact rule", () => {
-  // Cutover C0: these paths used to diverge (light paths fell
-  // through to full, axiom-audit.sh picked up python_tests from
-  // the scripts/ root). They must now agree with the legacy
-  // classifier exactly, per path.
+Deno.test("derived classifier honours the light paths and the axiom-audit exact rule", () => {
+  // Cutover C0: light paths trigger no surface (Markdown ones only
+  // the link check), and axiom-audit.sh does not pick up
+  // python_tests from the scripts/ root. These were the legacy
+  // classifier's rules, kept as the decided behaviour.
   for (
     const path of [
       ".claude/settings.json",
-      ".github/ISSUE_TEMPLATE/bug.md",
       "LICENSES/CC0-1.0.txt",
       "CITATION.cff",
-      "scripts/axiom-audit.sh",
     ]
   ) {
-    const divergences = derivedDivergences(
-      derived([path]),
-      classify([path]),
+    const result = derived([path]);
+    assert(
+      Object.values(result.surfaces).every((on) => !on),
+      `${path} must trigger no surface`,
     );
-    assertEquals(divergences, [], `${path} must agree with legacy`);
+    assertEquals(result.unclassified, false, path);
   }
+  const template = derived([".github/ISSUE_TEMPLATE/bug.md"]);
+  assertEquals(template.docs_links, true);
+  assertEquals(template.full, false);
   const audit = derived(["scripts/axiom-audit.sh"]);
   assertEquals(audit.lean_build, true);
   assertEquals(audit.spec_build, true);
@@ -99,12 +99,9 @@ Deno.test("derived classifier keeps non-Markdown docs-tree files fail-closed", (
   for (
     const path of ["wiki/notes.json", "theoretical-projects/k7os/notes.txt"]
   ) {
-    const divergences = derivedDivergences(
-      derived([path]),
-      classify([path]),
-    );
-    assertEquals(divergences, [], `${path} must agree with legacy`);
-    assertEquals(derived([path]).full, true);
+    const result = derived([path]);
+    assertEquals(result.full, true, path);
+    assertEquals(result.unclassified, true, path);
   }
   const tla = derived(["theoretical-projects/k7os/models/D01.tla"]);
   assertEquals(tla.full, false);
@@ -183,49 +180,69 @@ Deno.test("derived classifier maps full-exact toolchain files to full", () => {
   assertEquals(result.unclassified, false);
 });
 
-Deno.test("derived and legacy classifiers agree on the core path set", () => {
-  const paths = [
-    "spec/Spec/C3/Foo.lean",
-    "src/Foo.lean",
-    "tests/FooTest.lean",
-    "tools/SpecExt/IndexCore.lean",
-    "scripts/controle.py",
-    "scripts/generate_status.py",
-    "tests/python/test_foo.py",
-    "wiki/assurance.md",
-    "wiki/guide.md",
-    "lakefile.lean",
-    ".github/workflows/ci.yaml",
-    "scripts/ci/impact.py",
-  ];
-  const divergences = derivedDivergences(derived(paths), classify(paths));
-  assertEquals(divergences, []);
-});
-
-Deno.test("derived-shadow documents the known divergences, it does not hide them", () => {
-  const registry = loadRegistryFile(REGISTRY_PATH);
-  const divergentPaths = [
-    // Intended D2 behaviour: dedicated surfaces instead of full.
-    "proofs/Foo.lean",
-    "theoretical-projects/k7os/models/D01.tla",
-    // Intended D2 behaviour: K surfaces, no Lean over-triggering.
-    "src/k/foo.k",
-    // wiki/references.json is a spec-build input, but the wiki
-    // root also claims it for docs_links; conservative extra
-    // surface, kept intentionally, legacy spec branch does not
-    // set it.
-    "wiki/references.json",
-  ];
-  for (const path of divergentPaths) {
-    const divergences = derivedDivergences(
-      deriveClassification(registry, [path]),
-      classify([path]),
-    );
-    assert(
-      divergences.length > 0,
-      `${path} must diverge in shadow (otherwise it is not a known case)`,
+Deno.test("derived classifier keeps the routing of the core path set", () => {
+  // Formerly checked as parity with the legacy classifier; since
+  // cutover C4 the expected surfaces are stated directly.
+  const expected: Record<string, string[]> = {
+    "spec/Spec/C3/Foo.lean": ["spec_check", "spec_build", "python_tests"],
+    "src/Foo.lean": ["spec_check", "lean_build", "python_tests"],
+    "tests/FooTest.lean": ["lean_build"],
+    "tools/SpecExt/IndexCore.lean": [
+      "spec_check",
+      "spec_build",
+      "lean_build",
+      "python_tests",
+    ],
+    "scripts/controle.py": ["spec_check", "spec_build", "python_tests"],
+    "scripts/generate_status.py": ["python_tests"],
+    "tests/python/test_foo.py": ["python_tests"],
+    "wiki/assurance.md": ["docs_links", "python_tests"],
+    "wiki/guide.md": ["docs_links"],
+  };
+  const keys = [
+    "docs_links",
+    "spec_check",
+    "spec_build",
+    "lean_build",
+    "python_tests",
+  ] as const;
+  for (const [path, surfaces] of Object.entries(expected)) {
+    const result = derived([path]);
+    assertEquals(result.full, false, path);
+    assertEquals(
+      keys.filter((key) => result[key]),
+      [...surfaces],
+      path,
     );
   }
+  for (const path of ["lakefile.lean", ".github/workflows/ci.yaml"]) {
+    const result = derived([path]);
+    assertEquals(result.full, true, path);
+    assertEquals(result.unclassified, false, path);
+  }
+});
+
+Deno.test("derived classifier keeps the decided D2 divergences", () => {
+  // The divergences from the former legacy classifier that cutover
+  // C3 accepted, stated as the expected routing.
+  const registry = loadRegistryFile(REGISTRY_PATH);
+  const one = (path: string) => deriveClassification(registry, [path]);
+  // Dedicated surfaces instead of full.
+  const proofs = one("proofs/Foo.lean");
+  assertEquals(proofs.full, false);
+  assertEquals(proofs.surfaces.axiom_audit, true);
+  const tla = one("theoretical-projects/k7os/models/D01.tla");
+  assertEquals(tla.full, false);
+  assertEquals(tla.surfaces.tla_model_check, true);
+  // K surfaces, no Lean over-triggering.
+  const k = one("src/k/foo.k");
+  assertEquals(k.lean_build, false);
+  assertEquals(k.surfaces.k_compile, true);
+  // A spec-build input that the wiki root also claims for the link
+  // check: a conservative extra surface.
+  const refs = one("wiki/references.json");
+  assertEquals(refs.docs_links, true);
+  assertEquals(refs.spec_build, true);
 });
 
 Deno.test("derived gating surfaces are emitted as GitHub outputs", () => {

@@ -147,7 +147,7 @@ jobs:
           DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y unzip
           rm -rf /var/lib/apt/lists/*
 
-      # Same Deno pin as the controller-shadow job in ci.yaml.
+      # The Deno pin shared by every job through the composite action.
       - name: Set up Deno
         uses: ./.github/actions/setup-deno
 

@@ -5,8 +5,9 @@
 /**
  * D2 slice 2: the classifier derived from the registry. Since cutover C3,
  * it decides all thirteen surfaces: the impact job emits them from
- * derived_event.ts, and the legacy Python classifier runs only in
- * reversed shadow (controller-shadow, non-blocking).
+ * derived_event.ts. Since cutover C4 it is the only classifier: the
+ * legacy Python classifier (scripts/ci/impact.py), its Deno port and
+ * the shadow comparisons that ran them were removed.
  *
  * Derivation rule, exactly as decided (D2, 2026-10-25): a path
  * triggers the impact_surfaces of every component whose roots
@@ -22,8 +23,8 @@
  * unknown path must not silently drop a surface that no
  * component claims. This is conservative by design.
  *
- * Known divergences from the legacy classifier, reported by
- * --derived-shadow and NOT hidden here, are of three kinds:
+ * Its decided divergences from the former legacy classifier, which
+ * the shadow comparison reported until C4, were of three kinds:
  *   - intended: proofs/ now maps to axiom_audit instead of
  *     full, tla-models to tla_model_check instead of full,
  *     src/k/ to the K surfaces (lean_build over-triggering
@@ -42,18 +43,18 @@
  *     leaves unclassified (hence full) while the registry
  *     maps them to docs_links.
  * The C3 cutover accepted these divergences as the decided
- * behaviour; controller-shadow keeps reporting them, non-blocking.
+ * behaviour; tests/derived_test.ts asserts each of them directly.
  */
 
 import type { Component, Registry } from "./registry.ts";
 import { IMPACT_SURFACES, type ImpactSurface } from "./registry.ts";
-import { SURFACE_KEYS } from "./classify.ts";
+import { REPORT_KEYS } from "./changes.ts";
 
 export type DerivedSurface = ImpactSurface;
 
 export interface DerivedClassification {
   surfaces: Record<DerivedSurface, boolean>;
-  /** Legacy surface keys, for parity comparison with classify(). */
+  /** The eight report keys (changes.ts REPORT_KEYS) the workflows read. */
   full: boolean;
   docs_links: boolean;
   spec_check: boolean;
@@ -215,18 +216,6 @@ export function deriveClassification(
   };
 }
 
-/** Legacy surface keys shared by classify() and deriveClassification(). */
-export const LEGACY_KEYS = [
-  "full",
-  "docs_links",
-  "spec_check",
-  "spec_build",
-  "lean_build",
-  "python_tests",
-  "tracking_views",
-  "unclassified",
-] as const;
-
 /** New derivation targets wired to jobs by cutover C2 (impact outputs). */
 export const DERIVED_GATING_SURFACES = [
   "axiom_audit",
@@ -247,33 +236,15 @@ export function derivedGithubOutputLines(
 }
 
 /** The thirteen decision lines for the impact job (cutover C3): the
- * eight legacy keys in impact.py order, then the five gating
- * surfaces. */
+ * eight report keys, in the order the former impact.py wrote them,
+ * then the five gating surfaces. */
 export function derivedDecisionOutputLines(
   derived: DerivedClassification,
 ): string[] {
   return [
-    ...SURFACE_KEYS.map(
+    ...REPORT_KEYS.map(
       (key) => `${key}=${String(derived[key]).toLowerCase()}`,
     ),
     ...derivedGithubOutputLines(derived),
   ];
-}
-
-/** Per-surface legacy-key divergences between derived and legacy. */
-export function derivedDivergences(
-  derived: DerivedClassification,
-  legacy: {
-    [K in (typeof LEGACY_KEYS)[number]]: boolean;
-  },
-): string[] {
-  const divergences: string[] = [];
-  for (const key of LEGACY_KEYS) {
-    if (derived[key] !== legacy[key]) {
-      divergences.push(
-        `${key}: derived=${derived[key]} legacy=${legacy[key]}`,
-      );
-    }
-  }
-  return divergences;
 }
