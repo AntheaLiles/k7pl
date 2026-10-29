@@ -35,8 +35,10 @@ l'endroit où le non-déterminisme entre : au bord, sous forme de valeur journal
 cœur.
 
 Le résultat d'un tel gestionnaire n'est pas un effet exécuté mais une _description_ d'effets, une
-liste d'instructions que l'exécutif réalise ; c'est cette exécution, non la transition, qui est
-journalisée. Cette sémantique d'instructions est celle du point fixe initial du chapitre 2 lu comme
+liste d'instructions que l'exécutif réalise. Le journal consigne ce qui entre — les messages reçus et
+les valeurs des capacités —, et non l'exécution de ces instructions : le rejeu refait les transitions
+sans jamais refaire les livraisons (théorème {num "thm:determinisme_rejeu"}[]), et un acteur peut y
+ajouter les événements qu'il déclare. Cette sémantique d'instructions est celle du point fixe initial du chapitre 2 lu comme
 syntaxe libre des effets, et elle rassemble sous un seul objet le résultat de gestionnaire, la trace,
 la ré-invocation séquentielle d'un grade fini et l'itération de l'opération à portée. À distinguer du
 _gestionnaire d'effet_ du chapitre 2, qui interprète des opérations pour éliminer un effet.

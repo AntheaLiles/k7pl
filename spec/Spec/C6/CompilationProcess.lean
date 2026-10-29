@@ -88,10 +88,11 @@ les contraintes résiduelles sur $`\mathcal{R}`. Aucune séquentialisation entre
 unification n'est requise : elle ne le serait que pour une inférence complète à la Damas-Milner, à
 laquelle le §{num "sec:c3-structures-ouvertes-effets-et"}[] renonce.
 
-Ce même parcours unifie les types concrets, résout les types dépendants pragmatiques du chapitre 3
-(§{num "sec:c3-les-contraintes-de-valeur"}[]) et monomorphise chaque appel générique en une copie
-concrète. Unifier des types tout en ignorant encore lesquels de leurs habitants se dupliquent
-librement obligerait en effet l'unification à raisonner simultanément sur deux treillis distincts,
+Ce même parcours unifie les types concrets et résout les types dépendants pragmatiques du chapitre 3
+(§{num "sec:c3-les-contraintes-de-valeur"}[]), mais ne recopie aucun générique : un trou typé y reste
+une variable d'unification de sa famille, que la Phase 4 ne généralise ni ne ramène à `Unit`, et dont
+la largeur attend le solveur de la Phase 7. Unifier des types tout en ignorant encore lesquels de
+leurs habitants se dupliquent librement obligerait en effet l'unification à raisonner simultanément sur deux treillis distincts,
 ce que rien dans l'algorithme de Damas et Milner ne prévoit.
 
 Cet ordre n'est toutefois que l'une des trois architectures attestées : le typage de DFuzz {cite "deamorimReallyNaturalLinear2014"}[]
@@ -103,26 +104,8 @@ du temps de compilation, non par contrainte algorithmique.
 
 Lorsqu'un effet `Import` suspend cette unification — une source externe dont le type n'est pas
 encore connu —, le vérificateur reprend, une fois la source résolue, exactement où il s'était
-arrêté. La monomorphisation, elle, ne s'exécute qu'une seule fois : les phases suivantes n'auront
-plus jamais à réinférer un type déjà rendu concret.
-
-Elle procède par collecte. Partant des racines de l'unité de compilation — ses points d'entrée et ce
-que son interface exporte —, elle suit les usages, instance par instance, jusqu'à ce qu'aucune
-nouvelle n'apparaisse, et ne fabrique que les instances atteintes ; une table indexée par les
-arguments de type garde celles qui le sont déjà. Une instance est nommée par le condensat de l'AST
-normalisé de son générique et de ses arguments de type, comme le binaire l'est par le sien : une
-instance dont deux unités ont besoin est fabriquée une fois et liée une fois. Un générique d'une
-autre unité s'instancie dans l'unité qui l'emploie, sa source voyageant dans l'interface. Les
-instances sont gardées dans un cache indexé par leur condensat : un changement de cette source qui
-laisse inchangé l'AST normalisé du générique ne recompile rien, et un changement réel ne recompile
-que les instances de ce générique, non les unités qui les emploient.
-Chaque instance nouvelle décrémente le budget de spécialisation écrit dans la source, et une instance
-déjà fabriquée ne coûte rien. Une chaîne d'instances dont les types croissent sur un cycle, comme
-en produit la récursion polymorphe, est refusée quel que soit le budget (`ERR-POL-003`), et le refus
-nomme le cycle.
-Rien n'est partagé à l'exécution, ni dictionnaire ni table (`ERR-POL-001`) : les rangées de la
-couche 2 s'instancient comme les types, et les gestionnaires d'effets gardent le passage de
-capacités, une capacité étant une valeur de couche 1.
+arrêté. Aucune copie n'étant faite avant la Phase 8, les phases qui suivent vérifient chaque
+générique une seule fois, sous sa forme générique, et non chacune de ses copies.
 
 La phase de résolution (Phase 4) referme la composante $`A` du jugement. Les types existentiels du chapitre 3
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) y reçoivent leurs `pack~/~unpack` explicites,
@@ -181,6 +164,30 @@ une boucle fusionnée multiplie les grades de ses deux corps, un appel intégré
 établie, et la conduite correcte est d'itérer les deux phases jusqu'à stabilisation plutôt que de
 les enchaîner une fois. Ce que la suite linéaire décrit n'est donc pas le modèle défendu, et l'écart
 se referme par un énoncé plutôt que par une figure.
+
+La monomorphisation ouvre la Phase 8, une fois que la Phase 7 a borné chaque trou typé : elle ne
+s'exécute qu'une seule fois, chaque largeur étant connue, de sorte qu'une instance ne porte qu'un nom,
+celui de ses types concrets, et que les phases suivantes n'ont plus jamais à réinférer un type déjà
+rendu concret. Un trou dont le solveur ne borne aucune valeur n'a pas de largeur à recevoir, et le
+programme est refusé (`ERR-SMT-003`).
+
+Elle procède par collecte. Partant des racines de l'unité de compilation — ses points d'entrée et ce
+que son interface exporte —, elle suit les usages, instance par instance, jusqu'à ce qu'aucune
+nouvelle n'apparaisse, et ne fabrique que les instances atteintes ; une table indexée par les
+arguments de type garde celles qui le sont déjà. Une instance est nommée par le condensat de l'AST
+normalisé de son générique et de ses arguments de type, comme le binaire l'est par le sien : une
+instance dont deux unités ont besoin est fabriquée une fois et liée une fois. Un générique d'une
+autre unité s'instancie dans l'unité qui l'emploie, sa source voyageant dans l'interface. Les
+instances sont gardées dans un cache indexé par leur condensat : un changement de cette source qui
+laisse inchangé l'AST normalisé du générique ne recompile rien, et un changement réel ne recompile
+que les instances de ce générique, non les unités qui les emploient.
+Chaque instance nouvelle décrémente le budget de spécialisation écrit dans la source, et une instance
+déjà fabriquée ne coûte rien. Une chaîne d'instances dont les types croissent sur un cycle, comme
+en produit la récursion polymorphe, est refusée quel que soit le budget (`ERR-POL-003`), et le refus
+nomme le cycle.
+Rien n'est partagé à l'exécution, ni dictionnaire ni table (`ERR-POL-001`) : les rangées de la
+couche 2 s'instancient comme les types, et les gestionnaires d'effets gardent le passage de
+capacités, une capacité étant une valeur de couche 1.
 
 Ce que chaque passe doit préserver n'est pas la même chose pour toutes, et le document ne l'avait pas
 déclaré. Quatre invariants se distinguent, qui ne sont pas comparables : la dénotation, le jugement

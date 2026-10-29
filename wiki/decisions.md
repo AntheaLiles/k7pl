@@ -845,6 +845,62 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, tenth part: answers of 2026-10-28 and
+  2026-10-29 (Q-SPEC-501 to Q-ACT-007).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-28-038 to
+  VOC-2026-10-28-040 and VOC-2026-10-29-001 to
+  VOC-2026-10-29-012, each answer numbered on the day it was
+  given. In short:
+  - Layer 3: the conditional is a modifier of two operands, as
+    BQN's Choose: the condition designates in the list of
+    branches the only one that runs (`f` the first, `t` the
+    second); a train has one result.
+  - Typed holes: each hole is resolved for itself, at the
+    smallest width it needs; monomorphisation moves after the
+    solver of Phase 7, Phase 3 only unifying, so that an
+    instance has one name; a text width that is not a multiple
+    of its unit is refused in Phase 3 (`ERR-TYP-013`), a
+    language server signalling it while the code is written.
+  - Patterns: what `@x` catches has a refined type of `x`'s
+    construction.
+  - Actors: a scenario is a reaction, and a protocol a session
+    type whose steps are reactions; a reaction separates a
+    decision and an evolution (layer 3) from a delivery
+    (layer 2), `:on … :sets` being its shorthand; events are
+    named when an actor declares them; a refusal is a decision
+    like any other; a delivery sends and persists — a reply is
+    a message to the sender, the outside world is an actor in
+    charge of foreign interoperability, and `defer` inside an
+    `:on` clause defers; the journal holds messages and
+    capability values, and an actor may add its events.
+  Kept open: what a module is (Q-SPEC-504) and top-level forms
+  as processes (Q-SPEC-505), for which the author asked for
+  complete adversarial analytical reports; the author also
+  asked for strategies that avoid Rust's long compilation
+  times (Q-TYP-602). The three reports are in
+  [research](research.md), reading lot after the tenth part.
+  Put back to the author: how a dyadic word takes values, the
+  justification of Q-SPEC-502 writing `[abs sub 4 neg 7]`
+  (prefix) where option A's body is FIXAPL's infix; chapter
+  1's « `select` vectoriel » and `thm:homomorphisme_roues`,
+  whose mask computes both branches, against `choose`, which
+  runs one; where the actor cluster of Q-ACT-006 and its
+  memory space are defined, the specification naming clusters
+  once and defining none; what `defer` takes and what
+  `persist` writes beside the journal.
+  Applied on 2026-10-29 (`spec/CHANGELOG.md`): chapter 5
+  rewrites `lst:fonction-pure` with `choose` and states one
+  result per train, independent typed holes, `@x` as a
+  refinement, `ERR-TYP-013` in Phase 3 and the reaction model
+  after `lst:acteur`; chapter 6 moves monomorphisation to the
+  opening of Phase 8; chapter 3 rewords what the journal
+  holds. The `(select C E1 E2)` of the K lexicon, a layer-2
+  form, and the proofs that export it are unchanged.
+  Not applied yet, with the reason: the points put back and
+  Q-SPEC-504 and Q-SPEC-505, asked again after the reports, wait
+  for the eleventh part (Q-SPEC-601 to Q-ACT-010), opened on
+  2026-10-29.
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, ninth part: answers of 2026-10-28
   (Q-SPEC-401 to Q-SPEC-407).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-28-018 to

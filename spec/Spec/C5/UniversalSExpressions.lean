@@ -169,8 +169,9 @@ en kebab-case, et les marques de contrat `?` et `!` se placent devant le nom
 (`?increment-bounded`). Quatre caractères sont des sigils, lus en tête d'un atome : `#`, `:`, `?`
 et `!` ; la Phase 0 en fait des attributs. `@` appartient aux motifs, et tout est motif — un type,
 une construction, une trace, un effet algébrique : `@` placé devant une construction capture ce motif
-et en hérite toute la construction, de sorte qu'un motif filtre directement un flux de données ou le
-réseau. Les quatre annotations des R-expressions du chapitre 4 (`@linear`, `@polynomial`, `@stack`,
+et en hérite toute la construction, précisée — ce qu'il capture reçoit un type raffiné de cette
+construction, comme ceux qu'écrit `{{ … }}` —, de sorte qu'un motif filtre directement un flux de
+données ou le réseau. Les quatre annotations des R-expressions du chapitre 4 (`@linear`, `@polynomial`, `@stack`,
 `@backtrack`) en sont des propriétés, et PCRE ou PEG n'y sont pas des langages étrangers : K7PL les
 compile en automates, mis en production comme opérateurs atomiques par un orchestrateur ou un acteur
 (§{num "sec:c4-echelle-locale"}[]). Seul, `@` est un caractère ordinaire, et `nom@domaine` n'est
@@ -189,7 +190,8 @@ y porte une arité typée — monadique ou dyadique, jamais triadique ni n-aire,
 étant ceux de la couche 2, dont les délimiteurs bornent l'action —, et c'est elle qui
 permet à l'élaboration de distinguer un train d'une application ; un glyphe employé sous deux arités
 porte donc un alias par arité. C'est encore l'arité de chaque mot, et non la longueur du train, qui
-décide de son assemblage, selon la règle de FIXAPL {cite "lockwoodFIXAPL"}[]. Le train s'assemble de
+décide de son assemblage, selon la règle de FIXAPL {cite "lockwoodFIXAPL"}[], et un train rend un seul
+résultat. Le train s'assemble de
 droite à gauche : un mot monadique s'applique au résultat de ce qui est à sa droite ; un mot dyadique
 précédé d'un mot forme avec lui une fourche, le mot de gauche s'appliquant aux arguments du train et
 son résultat devenant l'argument gauche du mot dyadique, dont l'argument droit est le résultat de ce
@@ -219,9 +221,12 @@ masquer ; un nom qui finit par `-t` ou `-f`, comme `access-f`, reste un nom ordi
 espace s'y code en pourcent, comme dans une URL (`c/users/me/My%20Documents`). Un type s'écrit en
 minuscules et n'apparaît qu'après une propriété qui l'annonce, `:num` ou `:type` par exemple
 (`:num int32`). Un générique ne nomme aucun paramètre de type : il s'écrit avec des trous typés, que
-chaque emploi résout dans leur famille et que la monomorphisation recopie en instances concrètes
-(§{num "sec:c6-le-processus-de-compilation"}[]) ; `{function int int}` résout ainsi deux trous typés
-de la famille des entiers. Une paire vide est la structure vide de sa couche, chaque couche étant elle-même une
+la monomorphisation, une fois le solveur passé, résout pour chaque emploi dans leur famille et recopie
+en instances concrètes (§{num "sec:c6-le-processus-de-compilation"}[]). Chaque trou se résout pour
+lui-même, à la plus petite largeur dont il a besoin : `{function int int}` a deux trous typés de la
+famille des entiers, son entrée et sa sortie, et une puissance de deux dont l'entrée, bornée par 10,
+tient dans un `int8` rend une sortie bornée par $`2^{10} = 1\,024`, qui tient dans un `int16` ; une
+fonction qui veut deux largeurs égales écrit cette largeur. Une paire vide est la structure vide de sa couche, chaque couche étant elle-même une
 structure de données — arène linéaire en couche 1, tas en couche 2, pile en couche 3 : `[]` est le
 vecteur vide, `()` la liste vide et `{}` l'enregistrement ou la table vide ; elle porte les grades de
 son fragment, vérifiés à la compilation. Une paire doublée, dont la paire intérieure est seule,
@@ -277,7 +282,8 @@ l'encodage du texte, et `str` seul est un trou typé. Un encodage est un type ra
 d'un trou typé, et ASCII, UTF-16, UTF-32 ou celui d'Emacs s'écrivent de même. Un type raffiné porte
 son étiquette et ne se déspécialise pas : un texte `utf8` n'entre pas dans un `str12`, qui n'est
 pas étiqueté `utf8`, alors qu'un `str8` peut s'y ranger. Une largeur qui n'est pas un multiple de
-l'unité de l'encodage est refusée dès la Phase 0 (`ERR-TYP-013`). Les graphèmes ne se comptent que dans
+l'unité de l'encodage est refusée en Phase 3, où les types s'établissent (`ERR-TYP-013`) ; le
+serveur de langage la signale dès l'écriture, avant toute compilation. Les graphèmes ne se comptent que dans
 l'interface de développement : la longueur d'une ligne, que le formateur et l'analyseur de style
 mesurent pour garder le code lisible, se compte en graphèmes. Les fichiers gardent les formes ASCII ;
 l'éditeur affiche un texte brut `« s »`, comme il affiche une paire doublée en crochets blancs, `||`
