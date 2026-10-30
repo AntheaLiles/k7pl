@@ -205,6 +205,11 @@ def render_status(
 ) -> str:
     """The generated part of `wiki/STATUS.md`, before its coverage block is refreshed."""
     lines = [
+        "<!--",
+        "SPDX-FileCopyrightText: 2026 Cyprien PIERRE",
+        "SPDX-License-Identifier: CC-BY-4.0",
+        "-->",
+        "",
         "<!-- GENERATED CONTENT START -->",
         "<!--",
         "GENERATED FILE: do not edit manually.",

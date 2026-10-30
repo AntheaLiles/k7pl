@@ -9,6 +9,7 @@ import {
   derivedDecisionOutputLines,
   derivedDivergences,
   derivedGithubOutputLines,
+  isExpectedDerivedDivergence,
 } from "../src/derived.ts";
 import { loadRegistryFile } from "../src/registry.ts";
 
@@ -202,30 +203,95 @@ Deno.test("derived and legacy classifiers agree on the core path set", () => {
   assertEquals(divergences, []);
 });
 
-Deno.test("derived-shadow documents the known divergences, it does not hide them", () => {
+Deno.test("derived-shadow accepts only reviewed path-specific migration deltas", () => {
   const registry = loadRegistryFile(REGISTRY_PATH);
-  const divergentPaths = [
-    // Intended D2 behaviour: dedicated surfaces instead of full.
-    "proofs/Foo.lean",
-    "theoretical-projects/k7os/models/D01.tla",
-    // Intended D2 behaviour: K surfaces, no Lean over-triggering.
-    "src/k/foo.k",
-    // wiki/references.json is a spec-build input, but the wiki
-    // root also claims it for docs_links; conservative extra
-    // surface, kept intentionally, legacy spec branch does not
-    // set it.
-    "wiki/references.json",
+  const fullFallback = [
+    "full: derived=false legacy=true",
+    "docs_links: derived=false legacy=true",
+    "spec_check: derived=false legacy=true",
+    "spec_build: derived=false legacy=true",
+    "lean_build: derived=false legacy=true",
+    "python_tests: derived=false legacy=true",
+    "tracking_views: derived=false legacy=true",
+    "unclassified: derived=false legacy=true",
   ];
-  for (const path of divergentPaths) {
+  const fullFallbackWithoutPythonDelta = [
+    "full: derived=false legacy=true",
+    "docs_links: derived=false legacy=true",
+    "spec_check: derived=false legacy=true",
+    "spec_build: derived=false legacy=true",
+    "lean_build: derived=false legacy=true",
+    "tracking_views: derived=false legacy=true",
+    "unclassified: derived=false legacy=true",
+  ];
+  const lexiconDelta = [
+    "full: derived=false legacy=true",
+    "docs_links: derived=false legacy=true",
+    "lean_build: derived=false legacy=true",
+    "python_tests: derived=false legacy=true",
+    "tracking_views: derived=false legacy=true",
+    "unclassified: derived=false legacy=true",
+  ];
+  const cases: Array<{ path: string; expected: string[] }> = [
+    { path: "proofs/Foo.lean", expected: fullFallback },
+    {
+      path: "theoretical-projects/k7os/models/D01.tla",
+      expected: fullFallback,
+    },
+    { path: "lib/lib-example.k7", expected: fullFallback },
+    {
+      path: "scripts/check_singularities.py",
+      expected: fullFallbackWithoutPythonDelta,
+    },
+    {
+      path: "scripts/controle.py",
+      expected: fullFallbackWithoutPythonDelta,
+    },
+    {
+      path: "scripts/controles/couverture.py",
+      expected: fullFallbackWithoutPythonDelta,
+    },
+    {
+      path: "scripts/verif_singularites.py",
+      expected: fullFallbackWithoutPythonDelta,
+    },
+    { path: "lexicon/lexemes/add.k", expected: lexiconDelta },
+    {
+      path: "src/k/foo.k",
+      expected: ["lean_build: derived=false legacy=true"],
+    },
+    {
+      path: "wiki/references.json",
+      expected: ["docs_links: derived=true legacy=false"],
+    },
+  ];
+  for (const { path, expected } of cases) {
     const divergences = derivedDivergences(
       deriveClassification(registry, [path]),
       classify([path]),
     );
+    assertEquals(divergences, expected, path);
     assert(
-      divergences.length > 0,
-      `${path} must diverge in shadow (otherwise it is not a known case)`,
+      isExpectedDerivedDivergence(path, divergences),
+      `${path} must match its reviewed divergence rule`,
     );
   }
+  assertEquals(
+    isExpectedDerivedDivergence(
+      "scripts/unreviewed-new-script.py",
+      fullFallbackWithoutPythonDelta,
+    ),
+    false,
+    "an unlisted path must remain unexpected",
+  );
+  assertEquals(
+    isExpectedDerivedDivergence(
+      "lexicon/lexemes/add.k",
+      [...lexiconDelta, "axiom_audit: derived=true legacy=false"],
+    ),
+    false,
+    "a changed delta on a known path must remain unexpected",
+  );
 });
 
 Deno.test("derived gating surfaces are emitted as GitHub outputs", () => {
