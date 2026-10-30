@@ -357,4 +357,3 @@ export function isExpectedDerivedDivergence(
   return actual.length === expected.length &&
     actual.every((value, index) => value === expected[index]);
 }
-
