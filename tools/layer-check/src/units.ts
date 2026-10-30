@@ -49,6 +49,9 @@ export function listingUnits(file: string, text: string): Unit[] {
     }
     const opening = LISTING.exec(line);
     if (opening) {
+      if (listing) {
+        throw new Error(`${file}:${i + 1}: nested listing directive before ${listing.label} closes`);
+      }
       const label = LABEL.exec(opening[2])?.[1] ?? `listing at line ${i + 1}`;
       listing = { colons: opening[1], label };
       continue;
@@ -57,6 +60,9 @@ export function listingUnits(file: string, text: string): Unit[] {
     if (!fence) continue;
     let close = i + 1;
     while (close < lines.length && !FENCE_CLOSE.test(lines[close])) close++;
+    if (close === lines.length) {
+      throw new Error(`${file}:${i + 1}: unterminated fenced code block`);
+    }
     if (listing && fence[1] === "") {
       units.push({
         file,
@@ -66,6 +72,9 @@ export function listingUnits(file: string, text: string): Unit[] {
       });
     }
     i = close;
+  }
+  if (listing) {
+    throw new Error(`${file}: unterminated listing directive ${listing.label}`);
   }
   return units;
 }
