@@ -23,9 +23,18 @@ export interface Refusal {
   site?: string;
 }
 
+export type KFailureKind = "parse" | "execution";
+
 export type Reading =
   | { kind: "read"; refusals: Refusal[] }
-  | { kind: "unreadable"; detail: string };
+  | { kind: "unreadable"; failure: KFailureKind; detail: string };
+
+const PARSE_FAILURE = /\\bparse error\\b|\\bsyntax error\\b|\\bparsing failed\\b|\\bfailed to parse\\b|\\bunexpected token\\b/i;
+
+/** Classifies a non-zero K process exit without treating arbitrary failures as parse errors. */
+export function classifyKFailure(output: string): KFailureKind {
+  return PARSE_FAILURE.test(output) ? "parse" : "execution";
+}
 
 interface KNode {
   node?: string;
@@ -137,7 +146,11 @@ export async function readWithK(krun: string, definition: string, path: string):
   if (output.code !== 0) {
     const detail = stderr.split("\n").filter((l) => l.trim() !== "" && !l.includes("JAVA_TOOL"))
       .slice(0, 3).join(" | ");
-    return { kind: "unreadable", detail: detail || `krun exited with status ${output.code}` };
+    return {
+      kind: "unreadable",
+      failure: classifyKFailure(`${stderr}\n${stdout}`),
+      detail: detail || `krun exited with status ${output.code}`,
+    };
   }
   return { kind: "read", refusals: refusalsOf(JSON.parse(stdout)) };
 }
