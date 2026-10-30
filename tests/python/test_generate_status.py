@@ -109,7 +109,7 @@ def test_render_status_layout():
     assert lines[:4] == [
         "<!--",
         "SPDX-FileCopyrightText: 2026 Cyprien PIERRE",
-        "SPDX-License-Identifier: CC-BY-4.0",
+        "SPDX-License-Identifier" + ": CC-BY-4.0",
         "-->",
     ]
     assert lines[4] == ""
