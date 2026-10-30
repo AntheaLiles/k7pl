@@ -10,7 +10,7 @@ import {
   disagreement,
   judge,
 } from "../src/check.ts";
-import type { Reading } from "../src/kast.ts";
+import { classifyKFailure, type Reading } from "../src/kast.ts";
 import type { Unit } from "../src/units.ts";
 
 const K_CODES = new Set(["ERR-TOP-001", "ERR-TOP-002", "ERR-TOP-003", "ERR-DLM-001"]);
@@ -29,7 +29,7 @@ const read = (...codes: string[]): Extract<Reading, { kind: "read" }> => ({
     return { code, message: ANNEX.get(code) ?? "?", line: Number(line ?? 1) };
   }),
 });
-const unreadable: Reading = { kind: "unreadable", detail: "syntax error" };
+const unreadable: Reading = { kind: "unreadable", failure: "parse", detail: "syntax error" };
 /** Both readers agree on a text whose delimiters pair. */
 const both = (u: Unit, ...codes: string[]) =>
   judge(u, read(...codes), read(...codes), K_CODES, ANNEX);
@@ -111,6 +111,39 @@ Deno.test("delimiters that do not pair must also stop the tree reader", () => {
   assertStringIncludes(v.reason ?? "", "the tree reader reads the text");
 });
 
+Deno.test("repeated refusals are compared with multiplicity, not as a set", () => {
+  const once = judge(
+    unit(";; refused: ERR-DLM-001, ERR-DLM-001"),
+    read("ERR-DLM-001"),
+    unreadable,
+    K_CODES,
+    ANNEX,
+  );
+  assertEquals(once.ok, false);
+  assertStringIncludes(once.reason ?? "", "declared [ERR-DLM-001, ERR-DLM-001]");
+  const twice = judge(
+    unit(";; refused: ERR-DLM-001, ERR-DLM-001"),
+    read("ERR-DLM-001", "ERR-DLM-001"),
+    unreadable,
+    K_CODES,
+    ANNEX,
+  );
+  assertEquals(twice.ok, true);
+});
+
+Deno.test("only a parse failure is accepted as the tree reader expected refusal", () => {
+  assertEquals(classifyKFailure("Parse error at line 1"), "parse");
+  assertEquals(classifyKFailure("syntax error: unexpected token"), "parse");
+  assertEquals(classifyKFailure("Java exception while evaluating rule"), "execution");
+  assertEquals(
+    disagreement(read("ERR-DLM-001").refusals, {
+      kind: "unreadable",
+      failure: "execution",
+      detail: "Java exception while evaluating rule",
+    })?.includes("non-parse reason"),
+    true,
+  );
+});
 Deno.test("every code K declares needs an annex row and a text that emits it", () => {
   const v = both(unit(";; refused: ERR-TOP-001"), "ERR-TOP-001");
   const problems = associationProblems(["ERR-TOP-001", "ERR-TOP-004"], ANNEX, [v]);
