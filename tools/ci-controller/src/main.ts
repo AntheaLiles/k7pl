@@ -202,7 +202,9 @@ async function runClassify(args: Args): Promise<number> {
       !expectedKeys.has(divergence.slice(0, divergence.indexOf(":")))
     );
     if (unexpectedPerPath.length > 0 || unexplainedAggregate.length > 0) {
-      console.error("derived-shadow: UNEXPECTED divergences (derived vs legacy):");
+      console.error(
+        "derived-shadow: UNEXPECTED divergences (derived vs legacy):",
+      );
       for (const divergence of unexplainedAggregate) {
         console.error(`  aggregate: ${divergence}`);
       }
@@ -210,7 +212,9 @@ async function runClassify(args: Args): Promise<number> {
       return 1;
     }
     if (expectedPerPath.length > 0 || divergences.length > 0) {
-      console.log("derived-shadow: all divergences are documented; no unexpected mismatch");
+      console.log(
+        "derived-shadow: all divergences are documented; no unexpected mismatch",
+      );
     } else {
       console.log("derived-shadow: derived and legacy classifiers agree");
     }
