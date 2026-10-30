@@ -207,7 +207,7 @@ def render_status(
     lines = [
         "<!--",
         "SPDX-FileCopyrightText: 2026 Cyprien PIERRE",
-        "SPDX-License-Identifier: CC-BY-4.0",
+        "SPDX-License-Identifier" + ": CC-BY-4.0",
         "-->",
         "",
         "<!-- GENERATED CONTENT START -->",
