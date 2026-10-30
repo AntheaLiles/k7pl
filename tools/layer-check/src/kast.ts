@@ -29,7 +29,7 @@ export type Reading =
   | { kind: "read"; refusals: Refusal[] }
   | { kind: "unreadable"; failure: KFailureKind; detail: string };
 
-const PARSE_FAILURE = /\\bparse error\\b|\\bsyntax error\\b|\\bparsing failed\\b|\\bfailed to parse\\b|\\bunexpected token\\b/i;
+const PARSE_FAILURE = /\bparse error\b|\bsyntax error\b|\bparsing failed\b|\bfailed to parse\b|\bunexpected token\b/i;
 
 /** Classifies a non-zero K process exit without treating arbitrary failures as parse errors. */
 export function classifyKFailure(output: string): KFailureKind {
