@@ -34,8 +34,10 @@
  *     python-tooling component;
  *   - wiki/references.json, which is both a spec-build read input
  *     and part of the wiki root, so derived also triggers docs_links;
- *   - cutover C0 light-path and axiom-audit rules, and the previously
- *     accepted non-Markdown wiki/theoretical-project divergence.
+ * The cutover C0 light-path and axiom-audit exceptions are implemented
+ * directly in the derived classifier and therefore need no allowlist entry.
+ * The TLA model path and wiki/references.json exception above are the
+ * non-Markdown documentation-tree cases explicitly reviewed here.
  *
  * The allowlist is diagnostic compatibility only: the derived
  * classifier remains authoritative, and it does not weaken fail-closed
