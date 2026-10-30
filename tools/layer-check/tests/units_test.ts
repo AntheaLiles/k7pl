@@ -68,19 +68,40 @@ Deno.test("the real Verso corpus keeps its listing inventory discoverable", asyn
   assertEquals(required.filter((label) => !labels.has(label)), []);
   assertEquals(listings.length >= required.length, true);
 
-  let sourceDirectives = 0;
+  let expectedUnits = 0;
   const visit = async (directory: string): Promise<void> => {
     for await (const entry of Deno.readDir(directory)) {
       const path = `${directory}/${entry.name}`;
-      if (entry.isDirectory) await visit(path);
-      else if (entry.isFile && path.endsWith(".lean")) {
-        const source = await Deno.readTextFile(path);
-        sourceDirectives += source.split("\n").filter((line) => /^:{3,}listing\b/.test(line)).length;
+      if (entry.isDirectory) {
+        await visit(path);
+      } else if (entry.isFile && path.endsWith(".lean")) {
+        const lines = (await Deno.readTextFile(path)).split("\n");
+        let listingClose: string | undefined;
+        for (let i = 0; i < lines.length; i++) {
+          if (listingClose !== undefined && lines[i].trimEnd() === listingClose) {
+            listingClose = undefined;
+            continue;
+          }
+          const listing = /^(:{3,})listing\b/.exec(lines[i]);
+          if (listing) {
+            listingClose = listing[1];
+            continue;
+          }
+          if (listingClose === undefined) continue;
+          const fence = /^\s*```\s*([^\s`(]*)/.exec(lines[i]);
+          if (!fence) continue;
+          let close = i + 1;
+          while (close < lines.length && !/^\s*```\s*$/.test(lines[close])) close++;
+          assertEquals(close < lines.length, true);
+          if (fence[1] === "") expectedUnits++;
+          i = close;
+        }
+        assertEquals(listingClose, undefined);
       }
     }
   };
   await visit(`${root}/spec`);
-  assertEquals(listings.length, sourceDirectives);
+  assertEquals(listings.length, expectedUnits);
 });
 
 Deno.test("blocks outside listings and blocks with a language are not units", () => {
