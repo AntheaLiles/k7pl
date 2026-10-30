@@ -96,11 +96,11 @@ the PR #311 move of K source files to `lexicon/`, K example inputs under `lib/`,
 and the rename/move of the Python specification tooling. The existing
 `wiki/references.json` delta is also retained: the wiki root adds `docs_links`
 beside the declared specification read input. Unreviewed differences remain
-visible and fail the shadow step. A read input may restrict its surfaces
-(`src/` triggers `spec_check` only for the specification component); the
-implementation component excludes `tests/python/` so Python tests do not
-over-trigger `lean_build`. The derived classifier remains authoritative;
-the legacy classifier is retained as a diagnostic comparison.
+visible and fail the shadow step. A read input may restrict its surfaces (`src/`
+triggers `spec_check` only for the specification component); the implementation
+component excludes `tests/python/` so Python tests do not over-trigger
+`lean_build`. The derived classifier remains authoritative; the legacy
+classifier is retained as a diagnostic comparison.
 
 ## Shadow mode
 
