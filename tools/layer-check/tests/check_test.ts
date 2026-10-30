@@ -144,6 +144,7 @@ Deno.test("only a parse failure is accepted as the tree reader expected refusal"
     true,
   );
 });
+
 Deno.test("every code K declares needs an annex row and a text that emits it", () => {
   const v = both(unit(";; refused: ERR-TOP-001"), "ERR-TOP-001");
   const problems = associationProblems(["ERR-TOP-001", "ERR-TOP-004"], ANNEX, [v]);
