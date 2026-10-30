@@ -320,8 +320,14 @@ const EXPECTED_DERIVED_DIVERGENCES: Array<{
   { prefix: "src/k/", differences: ["lean_build: derived=false legacy=true"] },
   { prefix: "lexicon/", differences: LEGACY_FULL_FALLBACK_FOR_LEXICON },
   { prefix: "lib/", differences: LEGACY_FULL_FALLBACK_ALL_KEYS },
-  { prefix: "scripts/controles/", differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON },
-  { path: "scripts/controle.py", differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON },
+  {
+    prefix: "scripts/controles/",
+    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
+  },
+  {
+    path: "scripts/controle.py",
+    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
+  },
   {
     path: "scripts/verif_singularites.py",
     differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
