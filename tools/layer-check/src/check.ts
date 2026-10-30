@@ -48,7 +48,7 @@ export function declarations(code: string): Declaration[] {
 }
 
 export function declaredCodes(code: string): string[] {
-  return [...new Set(declarations(code).map((d) => d.code))].sort();
+  return declarations(code).map((d) => d.code).sort();
 }
 
 export interface Verdict {
@@ -59,17 +59,20 @@ export interface Verdict {
   reason?: string;
 }
 
-const sameSet = (a: string[], b: string[]) =>
-  JSON.stringify([...new Set(a)].sort()) === JSON.stringify([...new Set(b)].sort());
+const sameMultiset = (a: string[], b: string[]) =>
+  JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
 
 const isDelimiterFault = (r: Refusal) => r.code.startsWith("ERR-DLM-");
 
 /** Why the two readers disagree on a text, or undefined when they agree. */
 export function disagreement(balance: Refusal[], tree: Reading): string | undefined {
   if (balance.some(isDelimiterFault)) {
-    return tree.kind === "read"
-      ? "the balance reader finds delimiters that do not pair, the tree reader reads the text"
-      : undefined;
+    if (tree.kind === "read") {
+      return "the balance reader finds delimiters that do not pair, the tree reader reads the text";
+    }
+    return tree.failure === "parse"
+      ? undefined
+      : `the tree reader failed for a non-parse reason: ${tree.detail}`;
   }
   if (tree.kind === "unreadable") {
     return `the balance reader reads the text, the tree reader does not: ${tree.detail}`;
@@ -100,11 +103,12 @@ export function judge(
   const declared = declarations(unit.code);
   const declaredSet = declaredCodes(unit.code);
   const checkable = declaredSet.filter((c) => kCodes.has(c));
-  const unchecked = declaredSet.filter((c) => !kCodes.has(c));
+  const unchecked = [...new Set(declaredSet.filter((c) => !kCodes.has(c)))]
+    .sort();
   const emitted = balance.refusals.map((r) => r.code);
   const verdict: Verdict = { unit, ok: true, refusals: balance.refusals, unchecked };
   const fail = (reason: string): Verdict => ({ ...verdict, ok: false, reason });
-  if (!sameSet(emitted, checkable)) {
+  if (!sameMultiset(emitted, checkable)) {
     return fail(`declared [${checkable.join(", ")}], K emits [${emitted.join(", ")}]`);
   }
   for (const d of declared) {
