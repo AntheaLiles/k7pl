@@ -21,8 +21,10 @@ Checks the K7PL texts of the repository with the two K readers of
   code that these readers cannot emit (a typing error, say) is reported as not checked here.
 - **Agreement.** When the balance reader finds no delimiter fault, the tree reader must read the
   text and emit the same `ERR-TOP` codes in the same order; when it finds one, the tree reader must
-  fail to read the text. This catches a difference between the two lexical syntaxes or between the
-  two readings of the grammar of the layers.
+  fail specifically during parsing. A process or runtime failure is not accepted as a parse refusal.
+  Repeated refusal codes are compared with multiplicity, not collapsed into a set. The listing
+  collector also fails closed on unterminated or nested listing structures, and an integration test
+  reconciles every `listing` directive in the real Verso corpus with one collected unit.
 - **Lexical probes.** The `.k7` files of [`tests/lexical/`](../../tests/lexical/) give, after
   `;; expect:`, the class (`Symbol`, `Train`, `Number`, `String`) the tree reader must give each
   atom of the line; `kast --output json` reads them.
