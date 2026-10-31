@@ -50,7 +50,7 @@ TypeOK ==
     /\ revokedCapabilities \subseteq Capabilities
     /\ capabilityGeneration \in [Capabilities -> Generations]
     /\ owners \in [Capabilities -> {"FibreA", "FibreB"}]
-    /\ writtenCells \subseteq (Capabilities \X Cells \X {"FibreA", "FibreB"})
+    /\ writtenCells \subseteq {<<c, cell, fibre>> : c \in Capabilities, cell \in Cells, fibre \in {"FibreA", "FibreB"}}
     /\ unauthorizedAccesses \in Nat
 
 Allocate(s) ==
