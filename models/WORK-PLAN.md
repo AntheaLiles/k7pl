@@ -21,7 +21,7 @@ Each item is an independently reviewable work package. Its model scope is a cand
 
 **Module:** `TLA01SessionNetwork.tla`.
 
-**Abstraction and state.** The model is a finite one-message session protocol over two or three actors. The static relation `StaticDependencies` is a constant. The dynamic relation `WaitFor` is derived from actor states and `waitTarget`; it is not copied from the static graph. An edge is oriented `waiter -> expected sender`, matching the pair orientation in (Sim). State variables are:
+**Abstraction and state.** The model is a finite one-message session protocol over two or three actors. The static relation `StaticDependencies` is supplied as a finite adjacency function (`[Actors -> SUBSET Actors]`) and materialised as a set of ordered actor pairs in `StaticDependencyEdges`. This avoids tuple literals in TLC `.cfg` assignments while preserving the mathematical graph. The dynamic relation `WaitFor` is derived from actor states and `waitTarget`; it is not copied from the static graph. An edge is oriented `waiter -> expected sender`, matching the pair orientation in (Sim). State variables are:
 - `residual`: `Recv`, `Send`, `End` or `Aborted`;
 - `actorStatus`: `Runnable`, `Waiting`, `Terminal` or `Failed`;
 - `mailboxes`: pending sender/receiver message pairs;

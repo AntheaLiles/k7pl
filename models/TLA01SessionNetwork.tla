@@ -28,7 +28,8 @@ ASSUME
     /\ External \notin Actors
     /\ NoActor \notin Actors
     /\ External # NoActor
-    /\ StaticDependencies \subseteq (Actors \X Actors)
+    /\ StaticDependencies \in [Actors -> SUBSET Actors]
+    /\ \A a \in Actors : StaticDependencies[a] \subseteq Actors
     /\ ReceiveFrom \in [Actors -> (Actors \cup {External, NoActor})]
     /\ SendTo \in [Actors -> (Actors \cup {NoActor})]
     /\ InitialResidual \in [Actors -> InitialResidualStates]
@@ -96,7 +97,10 @@ StaticHasCycle(relation) ==
           /\ <<b, c>> \in relation
           /\ <<c, a>> \in relation
 
-StaticAcyclic == ~StaticHasCycle(StaticDependencies)
+StaticDependencyEdges ==
+    {<<a, b>> : a \in Actors, b \in StaticDependencies[a]}
+
+StaticAcyclic == ~StaticHasCycle(StaticDependencyEdges)
 
 WaitFor ==
     {<<a, waitTarget[a]>> :
@@ -120,7 +124,7 @@ MutualWaitDeadlock == StaticHasCycle(NonTimeoutWaitFor)
 NoMutualWaitDeadlock == ~MutualWaitDeadlock
 
 (* This is the explicit premise (Sim) of thm:deadlock_acyclique. *)
-Simulation == WaitFor \subseteq StaticDependencies
+Simulation == WaitFor \subseteq StaticDependencyEdges
 
 ActiveActors ==
     {a \in Actors : actorStatus[a] \notin {"Terminal", "Failed"}}
