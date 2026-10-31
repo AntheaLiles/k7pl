@@ -35,3 +35,8 @@ and checked by `scripts/ci/test_code_artifact_contract.py`);
 a checked model is not a proof of correspondence with
 the complete normative semantics, and the K ↔ TLA+
 simulation remains open (see `wiki/semantics.md`).
+
+
+## k7pl-tla
+
+[`k7pl-tla/`](k7pl-tla/README.md) is a non-normative work programme for systematically modelling K7PL's concurrent and temporal obligations in TLA+. It maps the specification chapters to sixteen proposed work items, records open semantic gates, and defines how TLA+, TLC, Apalache, Lean, K and implementation tests should relate. Its source analysis is pinned to PR #311 head `f3b33cd34e1da49a4c8c41ca632c586e66715e70`; the branch containing the plan is based on `main`. No new K7PL TLA+ model or normative decision is implied by this directory.
