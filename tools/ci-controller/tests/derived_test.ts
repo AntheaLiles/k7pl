@@ -109,11 +109,17 @@ Deno.test("derived classifier keeps non-Markdown docs-tree files fail-closed", (
   const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.full, false);
   assertEquals(tla.surfaces.tla_model_check, true);
-  assertEquals(derivedDivergences(tla, classify(["models/D01NativeBoundary.tla"])), []);
+  assertEquals(
+    derivedDivergences(tla, classify(["models/D01NativeBoundary.tla"])),
+    [],
+  );
   const nextK7plModel = derived(["models/TLA01Session.tla"]);
   assertEquals(nextK7plModel.full, false);
   assertEquals(nextK7plModel.surfaces.tla_model_check, true);
-  assertEquals(derivedDivergences(nextK7plModel, classify(["models/TLA01Session.tla"])), []);
+  assertEquals(
+    derivedDivergences(nextK7plModel, classify(["models/TLA01Session.tla"])),
+    [],
+  );
   const refs = derived(["wiki/references.json"]);
   assertEquals(refs.full, false);
   assertEquals(refs.spec_build, true);

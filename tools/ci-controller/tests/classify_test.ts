@@ -76,11 +76,13 @@ Deno.test("ci change forces full", () => {
 });
 
 Deno.test("TLA model paths are claimed by the dedicated derived surface", () => {
-  for (const path of [
-    "models/TLA01SessionNetwork.tla",
-    "models/TLA01-AcyclicNominal.cfg",
-    "models/TLA02-16-ExpectedCounterexamples.json",
-  ]) {
+  for (
+    const path of [
+      "models/TLA01SessionNetwork.tla",
+      "models/TLA01-AcyclicNominal.cfg",
+      "models/TLA02-16-ExpectedCounterexamples.json",
+    ]
+  ) {
     const result = classify([path]);
     assert(!result.full, path);
     assert(!result.unclassified, path);
