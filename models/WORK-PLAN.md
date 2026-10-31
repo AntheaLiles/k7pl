@@ -470,3 +470,10 @@ Les futurs modèles doivent être dérivés de clauses Verso explicites. L'audit
 - `C7` : budget par image du pipeline réactif et détails semi-naïfs du moteur déductif.
 
 Les sujets MMU/IOMMU restent des raffinements matériels proposés : le texte mentionne FFI/DMA, mais les clauses matérielles de translation CPU/device ne sont pas définies. Toute création d'un TLA-17+ exige un rattachement vers un label Verso, une qualification normative/implémentation, un contrat matériel ou runtime, un invariant falsifiable et une trace d'évidence attendue.
+
+
+### 7. Premises de sûreté et frontières d'exécution encore ouvertes
+
+- Fermer H1/H2/H3 du théorème C4 de sûreté spatiale (unicité d'introduction, portée des régions, non-capture inter-modes) par des règles et preuves Lean ; TLA-07 ne suffit pas.
+- Décider la sémantique du partage/emprunt de canaux, distincte du partage ReadCap de mémoire ; ne pas présupposer une adjunction identique.
+- Définir le contrat de frontière pour `Import` de fichier/URL/LLM, macros pré-vérification et FFI (sandbox, provenance, effets, callbacks, échecs, révocation) avant d'introduire un modèle opérationnel additionnel.

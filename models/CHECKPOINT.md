@@ -126,3 +126,10 @@ La revue de sources a porté sur :
 L'audit détaillé se trouve dans `CHAPTER-COVERAGE.md`. Il met en évidence des obligations non réductibles à MMU/IOMMU : ReadCap/WriteCap, NUMA/alignement/placement, mémoire faible release/acquire, complétude du journal, progression globale, couverture exhaustive des motifs de jonction, simulation des constructeurs du calcul de processus, canal temporel/When, moteur réactif complet, pipeline déductif semi-naïf, imports sandboxés et pipeline de compilation.
 
 **MMU/IOMMU :** les sections Verso examinées mentionnent FFI/DMA, mais ne définissent pas de contrat matériel MMU/IOMMU. Ces deux modèles sont classés comme raffinements d'implémentation proposés, et non comme garanties normatives nouvellement ratifiées.
+
+
+### Obligations C4/C3 supplémentaires relevées lors de la revue
+
+- La sûreté spatiale conditionne le résultat à H1/H2/H3 : unicité d'introduction de `WriteCap` par région (avec une obligation encore ouverte sur l'élimination de l'arène), adéquation entre intervalles et régions, et non-capture des capacités linéaires par les valeurs cartésiennes. TLA-07 n'établit pas ces lemmes de typage.
+- Le partage des canaux est distinct du partage en lecture de la mémoire et reste explicitement non tranché dans C3 ; TLA-02 ne modélise pas l'emprunt ni le partage de propriété d'un canal.
+- `Import` (fichier, URL, modèle de langage), macros exécutées avant vérification et capacités exportées par FFI constituent une frontière de confiance dont le contrat de réalisation reste ouvert. TLA-06 ne couvre pas cette sandbox ni les callbacks réentrants. Un modèle séparé ne doit être lancé qu'après définition du profil de confinement.
