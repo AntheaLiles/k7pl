@@ -284,8 +284,11 @@ jobs:
           failures=0
 
           check_positive() {
-            local config="$1" module="$2" label="$3" log="$evidence/$3.log" rc
-            if java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config "$config" "$module" >"$log" 2>&1; then
+            local config="$1" module="$2" label="$3" rc
+            local log="$evidence/$label.log"
+            local metadir="$RUNNER_TEMP/tlc-meta-$label"
+            mkdir -p "$metadir"
+            if java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -metadir "$metadir" -config "$config" "$module" >"$log" 2>&1; then
               rc=0
             else
               rc=$?
@@ -300,7 +303,9 @@ jobs:
           check_negative() {
             local config="$1" module="$2" invariant="$3" label="$4" rc
             local log="$evidence/$label.log"
-            if java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config "$config" "$module" >"$log" 2>&1; then
+            local metadir="$RUNNER_TEMP/tlc-meta-$label"
+            mkdir -p "$metadir"
+            if java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -metadir "$metadir" -config "$config" "$module" >"$log" 2>&1; then
               rc=0
             else
               rc=$?

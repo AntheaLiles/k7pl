@@ -38,7 +38,7 @@ StepBranch(b) ==
     /\ ~joined
     /\ stepCount[b] < 2
     /\ LET e == CHOOSE x \in Events :
-                    BranchOf(x] = b /\ EventIndex(x) = stepCount[b) + 1
+                    BranchOf(x) = b /\ EventIndex(x) = stepCount[b] + 1
        IN
         /\ Predecessors(e) \subseteq emitted
         /\ stepCount' = [stepCount EXCEPT ![b] = @ + 1]

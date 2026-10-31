@@ -47,14 +47,14 @@ TypeOK ==
     /\ frameOverrun \in BOOLEAN
 ReceiveEvent(e) ==
     /\ e \in Events \ delivered
-    /\ \A done \in handled : EventRank(done] < EventRank(e)
+    /\ \A done \in handled : EventRank(done) < EventRank(e)
     /\ delivered' = delivered \cup {e}
     /\ pending' = pending \cup {e}
     /\ UNCHANGED <<handled, handledOrder, logicalVersion, domVersion, patchReady, patchBase,
                    patchTarget, appliedTargets, writerCapability, unauthorizedWrites, frame, frameOverrun>>
 HandleEvent(e) ==
     /\ e \in pending
-    /\ \A other \in pending : EventRank(e] <= EventRank(other)
+    /\ \A other \in pending : EventRank(e) <= EventRank(other)
     /\ ~patchReady
     /\ pending' = pending \ {e}
     /\ handled' = handled \cup {e}
@@ -83,7 +83,7 @@ Next == \/ \E e \in Events : ReceiveEvent(e) \/ \E e \in Events : HandleEvent(e)
 Spec == Init /\ [][Next]_vars
 EventConservation == delivered = pending \cup handled /\ pending \cap handled = {}
 StreamOrderPreserved ==
-    \A i, j \in 1..Len(handledOrder) : i < j => EventRank(handledOrder[i]] < EventRank(handledOrder[j])
+    \A i, j \in 1..Len(handledOrder) : i < j => EventRank(handledOrder[i]) < EventRank(handledOrder[j])
 DOMWriteRequiresCapability == unauthorizedWrites = 0
 PatchVersionConsistent == domVersion <= logicalVersion /\ (patchReady => patchBase = domVersion)
 =============================================================================
