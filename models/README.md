@@ -33,7 +33,7 @@ The historical K7OS source files were moved from `theoretical-projects/k7os/mode
 
 ## Placement convention
 
-All TLA+ modules, TLC `.cfg` files, model-specific counterexample vectors and TLA+ workstream documents are kept directly in this directory. New work-item models should use stable identifiers in their filenames and module names, with a short nearby document or a section in `WORK-PLAN.md` recording the abstraction, assumptions, bounds, properties, omissions and evidence. No per-project or per-work-item subdirectories are introduced pre-emptively; reconsider only if the actual artefact count makes a flat directory hard to navigate.
+All TLA+ modules, TLC `.cfg` files, model-specific counterexample vectors and TLA+ workstream documents are kept directly in this directory. CI classifies the programme documents as documentation-only changes; changes to executable model files, configurations and model-specific vectors trigger TLC. New work-item models should use stable identifiers in their filenames and module names, with a short nearby document or a section in `WORK-PLAN.md` recording the abstraction, assumptions, bounds, properties, omissions and evidence. No per-project or per-work-item subdirectories are introduced pre-emptively; reconsider only if the actual artefact count makes a flat directory hard to navigate.
 
 ## Epistemic and normative status
 

@@ -273,6 +273,14 @@ components:
     name: TLA+ models
     roots:
       - models/
+    excludes:
+      - models/README.md
+      - models/CHAPTER-COVERAGE.md
+      - models/CHECKPOINT.md
+      - models/FORMAL-ARCHITECTURE.md
+      - models/OPEN-GATES.md
+      - models/TOOLCHAIN-CI.md
+      - models/WORK-PLAN.md
     build_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary.cfg D01NativeBoundary
     check_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary
     cache_determinants:

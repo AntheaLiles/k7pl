@@ -167,6 +167,11 @@ Deno.test("derived classifier maps K, proofs and TLA to their new surfaces", () 
   const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.surfaces.tla_model_check, true);
   assertEquals(tla.full, false);
+
+  const programme = derived(["models/WORK-PLAN.md"]);
+  assertEquals(programme.tla_model_check, false);
+  assertEquals(programme.docs_links, true);
+  assertEquals(programme.full, false);
 });
 
 Deno.test("derived classifier forces full on unknown paths, fail-closed", () => {
