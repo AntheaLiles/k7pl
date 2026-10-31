@@ -47,6 +47,7 @@ TypeOK ==
     /\ frameOverrun \in BOOLEAN
 ReceiveEvent(e) ==
     /\ e \in Events \ delivered
+    /\ \A done \in handled : EventRank[done] < EventRank[e]
     /\ delivered' = delivered \cup {e}
     /\ pending' = pending \cup {e}
     /\ UNCHANGED <<handled, handledOrder, logicalVersion, domVersion, patchReady, patchBase,

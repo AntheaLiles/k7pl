@@ -20,9 +20,10 @@ ASSUME
 VARIABLES available, enqueued, consumedLeft, consumedRight, joinedPairs, selected
 vars == <<available, enqueued, consumedLeft, consumedRight, joinedPairs, selected>>
 AdmissiblePairs ==
-    {<<l, r>> : l \in available \cap LeftMessages,
-                r \in available \cap RightMessages,
-                KeyOf[l] = KeyOf[r]}
+    {<<l, r>> :
+        /\ l \in available \cap LeftMessages
+        /\ r \in available \cap RightMessages
+        /\ KeyOf[l] = KeyOf[r]}
 PairRank(pair) == Rank[pair[1]] * (Cardinality(Messages) + 1) + Rank[pair[2]]
 BestPair ==
     CHOOSE pair \in AdmissiblePairs :

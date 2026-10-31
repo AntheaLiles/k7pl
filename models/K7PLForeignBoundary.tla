@@ -41,7 +41,7 @@ CallerUse ==
     /\ UNCHANGED <<callPhase, capStatus, callerAlias, foreignAlias,
                    foreignWrites, postAckWrites>>
 ForeignUse ==
-    /\ callPhase = "InCall"
+    /\ callPhase \in {"InCall", "Returned"}
     /\ capStatus = "ForeignOwned"
     /\ foreignAlias
     /\ foreignWrites' = foreignWrites + 1

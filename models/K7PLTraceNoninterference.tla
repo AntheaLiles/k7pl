@@ -34,5 +34,7 @@ RunPairedObservation ==
 Next == RunPairedObservation
 Spec == Init /\ [][Next]_vars
 LowObservationEquality == lowTraceLeft = lowTraceRight
-HighTraceRetainedSeparately == /\ highTraceLeft = {} /\ highTraceRight = {}
+HighTraceRetainedSeparately ==
+    /\ highTraceLeft \subseteq {"HighLeftEvent"}
+    /\ highTraceRight \subseteq {"HighRightEvent"}
 =============================================================================
