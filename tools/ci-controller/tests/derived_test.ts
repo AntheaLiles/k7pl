@@ -109,9 +109,11 @@ Deno.test("derived classifier keeps non-Markdown docs-tree files fail-closed", (
   const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.full, false);
   assertEquals(tla.surfaces.tla_model_check, true);
+  assertEquals(derivedDivergences(tla, classify(["models/D01NativeBoundary.tla"])), []);
   const nextK7plModel = derived(["models/TLA01Session.tla"]);
   assertEquals(nextK7plModel.full, false);
   assertEquals(nextK7plModel.surfaces.tla_model_check, true);
+  assertEquals(derivedDivergences(nextK7plModel, classify(["models/TLA01Session.tla"])), []);
   const refs = derived(["wiki/references.json"]);
   assertEquals(refs.full, false);
   assertEquals(refs.spec_build, true);
@@ -213,10 +215,8 @@ Deno.test("derived and legacy classifiers agree on the core path set", () => {
 Deno.test("derived-shadow documents the known divergences, it does not hide them", () => {
   const registry = loadRegistryFile(REGISTRY_PATH);
   const divergentPaths = [
-    // Intended D2 behaviour: dedicated surfaces instead of full.
+    // Intended D2 behaviour: dedicated axiom-audit surface instead of full.
     "proofs/Foo.lean",
-    "models/D01NativeBoundary.tla",
-    "models/TLA01Session.tla",
     // Intended D2 behaviour: K surfaces, no Lean over-triggering.
     "src/k/foo.k",
     // wiki/references.json is a spec-build input, but the wiki

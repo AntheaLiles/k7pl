@@ -85,13 +85,11 @@ fail-closed unknown → `full` as the only classifier-resident rules.
 `classify --derived` prints a derived classification;
 `classify --derived-shadow` compares derived with legacy per path (aggregate
 comparison alone would hide divergences that cancel out) and exits 1 on any
-legacy-surface divergence. The shadow currently reports three kinds of
-divergence, listed in `src/derived.ts` and asserted in `tests/derived_test.ts`:
-intended D2 behaviour (proofs/ → `axiom_audit`, TLA models → `tla_model_check`,
-`src/k/` → K surfaces without Lean over-triggering), registry gaps to close
-before cutover (light paths, `scripts/axiom-audit.sh`), and non-Markdown wiki /
-theoretical files the registry maps to `docs_links` while legacy leaves them
-unclassified. A read input may restrict its surfaces (`src/` triggers
+legacy-surface divergence. The shadow compares the shared eight-surface projection. Paths under
+`models/` are claimed by both classifiers without forcing `full`; the derived
+registry additionally emits the dedicated `tla_model_check` gate. Remaining
+divergences are migration gaps such as `proofs/`, `src/k/`, and non-Markdown
+wiki/theoretical files. A read input may restrict its surfaces (`src/` triggers
 `spec_check` only for the specification component); the implementation component
 now excludes `tests/python/` so Python tests do not over-trigger `lean_build`.
 Cutover requires dispositioning every divergence kind, the `axiom_audit`
