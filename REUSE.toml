@@ -25,7 +25,8 @@ path = [
   ".github/reuse-problem-matcher.json",
   "scripts/ci/badge_criteria_registry.json",
   "models/TLA01-CircularWait-ExpectedCounterexample.json",
-  "models/TLA01-SimulationGap-ExpectedCounterexample.json"
+  "models/TLA01-SimulationGap-ExpectedCounterexample.json",
+  "models/D01-NativeBoundary-ExpectedCounterexample.json"
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"

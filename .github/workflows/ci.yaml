@@ -328,7 +328,9 @@ jobs:
           java -version >"$evidence/java-version.txt" 2>&1
           sha256sum "$RUNNER_TEMP/tla2tools.jar" >"$evidence/tla2tools.jar.sha256"
           cd "$evidence"
-          find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          checksum_manifest="$RUNNER_TEMP/tla01-SHA256SUMS"
+          find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > "$checksum_manifest"
+          mv "$checksum_manifest" SHA256SUMS
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
