@@ -14,6 +14,8 @@ UsageIntervals.lean.
 
 namespace K7PL.Proofs.Grades
 
+universe u
+
 abbrev StructuralMode := K7pl.StructuralModes.Mode
 abbrev ModeMorphism := K7pl.StructuralModes.Morphism
 
