@@ -28,6 +28,7 @@ The work programme was prepared from the PR #311 specification snapshot at commi
 |---|---|---|
 | D01 — native boundary (historically developed in K7OS research) | `D01NativeBoundary.tla`, `D01-NativeBoundary.cfg`, `D01-NativeBoundary-Unconfined.cfg`, `D01-NativeBoundary-ExpectedCounterexample.json` | Abstract protected-state integrity profiles. Checked by `d01-tlc` in `.github/workflows/k7pl-semantics.yaml`. |
 | R9 — actor cancellation (historically developed in K7OS research) | `R9ActorCancellation.tla`, `R9ActorCancellation.cfg`, `R9-NaiveCancelClaim.cfg`, `R9-CancelRace-Test-Vector.md` | Bounded cancellation/commit race. Checked by `r9-tlc` in `.github/workflows/ci.yaml`. |
+| TLA-01 — asynchronous session network | `TLA01SessionNetwork.tla`, `TLA01-*.cfg`, `TLA01-*-ExpectedCounterexample.json` | Bounded dependency/wait-graph and deadlock model; nominal, external-wait and timeout profiles plus two negative controls. Included in `r9-tlc` when `tla_model_check` is selected. Draft only until the named TLC runs succeed. |
 
 The historical K7OS source files were moved from `theoretical-projects/k7os/models/` into this directory without changing their contents. Existing CI working directories, impact classification, cross-tool source-contract tests and documentation links were updated to point here. The K7OS research reports themselves remain under `theoretical-projects/k7os/`.
 

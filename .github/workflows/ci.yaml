@@ -195,7 +195,7 @@ jobs:
     uses: ./.github/workflows/security.yaml
 
   r9-tlc:
-    name: R9 TLA+ model check
+    name: D01, R9 and TLA-01 model checks
     needs: impact
     # ÉCART 5 (cutover C2): r9-tlc runs only when tla_model_check is present.
     if: ${{ needs.impact.outputs.tla_model_check == 'true' }}
@@ -273,6 +273,68 @@ jobs:
             echo "::error::TLC stopped before the expected D01 ProtectedIntegrity counterexample"
             exit 1
           fi
+
+      - name: Check TLA-01 nominal and environment profiles
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$GITHUB_WORKSPACE/tla01-tlc-evidence"
+          mkdir -p "$evidence"
+          for pair in \
+            "TLA01-AcyclicNominal.cfg:acyclic-nominal" \
+            "TLA01-ExternalWait.cfg:external-wait" \
+            "TLA01-Timeout.cfg:timeout"; do
+            config="${pair%%:*}"
+            label="${pair#*:}"
+            log="$evidence/$label.log"
+            java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config "$config" TLA01SessionNetwork >"$log" 2>&1
+            cat "$log"
+          done
+
+      - name: Require the two TLA-01 counterexamples
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$GITHUB_WORKSPACE/tla01-tlc-evidence"
+          check_counterexample() {
+            local config="$1"
+            local invariant="$2"
+            local label="$3"
+            local log="$evidence/$label.log"
+            set +e
+            java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config "$config" TLA01SessionNetwork >"$log" 2>&1
+            local rc=$?
+            set -e
+            cat "$log"
+            if [ "$rc" -eq 0 ]; then
+              echo "::error::TLC accepted $config; expected $invariant counterexample"
+              exit 1
+            fi
+            if ! grep -F "Invariant $invariant" "$log" >/dev/null; then
+              echo "::error::TLC failed for $config before the expected $invariant violation"
+              exit 1
+            fi
+          }
+          check_counterexample TLA01-CircularWait.cfg NoMutualWaitDeadlock circular-wait
+          check_counterexample TLA01-SimulationGap.cfg Simulation simulation-gap
+
+      - name: Preserve TLA-01 model, configurations, vectors and TLC output
+        if: always()
+        run: |
+          set -euo pipefail
+          evidence="$GITHUB_WORKSPACE/tla01-tlc-evidence"
+          mkdir -p "$evidence"
+          cp TLA01SessionNetwork.tla TLA01-*.cfg TLA01-*-ExpectedCounterexample.json "$evidence/"
+          java -version >"$evidence/java-version.txt" 2>&1
+          sha256sum "$RUNNER_TEMP/tla2tools.jar" >"$evidence/tla2tools.jar.sha256"
+          cd "$evidence"
+          find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: tla01-tlc-evidence
+          path: tla01-tlc-evidence/
 
   ci-ok:
     name: CI OK

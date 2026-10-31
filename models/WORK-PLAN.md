@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # K7PL TLA+ work plan
 
-**Status:** all items not started; no result is claimed.  
+**Status:** TLA-01 is `model-drafted`; TLA-02 through TLA-16 are `not-started`. No TLA-01 TLC result is claimed yet.  
 **Priority convention:** P0 = semantic foundation; P1 = runtime assurance; P2 = scenario or optional profile. These priorities are provisional sequencing recommendations.
 
 Each item is an independently reviewable work package. Its model scope is a candidate abstraction, not a ratified definition. Before coding, resolve the relevant gates in [OPEN-GATES.md](OPEN-GATES.md).
@@ -14,33 +14,44 @@ Each item is an independently reviewable work package. Its model scope is a cand
 
 ### TLA-01 — Asynchronous session network and deadlock freedom
 
+**Status:** `model-drafted`; TLC execution is pending.  
 **Specification:** C3 `ValueConstraints`, section `sec:c3-les-contraintes-de-valeur`, theorem `thm:deadlock_acyclique`; C4 `ActorScale`, `SystemScale`, `UnderlyingProcessCalculus` and `OperationalSemantics`.
 
-**Question.** Does the static actor/channel dependency graph constrain every dynamic wait edge, and does that relation exclude a reachable state in which all relevant actors are mutually blocked?
+**Normative status and question.** `thm:deadlock_acyclique` is explicitly `under-review` with evidence `proofsketch`. Its premise (Sim) states that if actor `a` waits for a message from `b`, then `(a,b)` belongs to the static dependency graph. C3 leaves the relation between the static and dynamic graphs open and identifies `Guard`, send, consumption, residual mailbox/session states and `Timeout` as cases to cover. C4 describes a compile-time acyclic dependency graph between actor templates. Neither the theorem nor its proof sketch is treated as a checked result here.
 
-**Candidate module:** `K7PLSessionNetwork.tla`.
+**Module:** `TLA01SessionNetwork.tla`.
 
-**State to represent:** finite actor set; channel set; endpoint protocol state; mailbox contents; actor execution state (ready, running, waiting, terminal, failed); static dependency relation; dynamic wait relation; messages and residual protocol states; timeout state.
+**Abstraction and state.** The model is a finite one-message session protocol over two or three actors. The static relation `StaticDependencies` is a constant. The dynamic relation `WaitFor` is derived from actor states and `waitTarget`; it is not copied from the static graph. An edge is oriented `waiter -> expected sender`, matching the pair orientation in (Sim). State variables are:
+- `residual`: `Recv`, `Send`, `End` or `Aborted`;
+- `actorStatus`: `Runnable`, `Waiting`, `Terminal` or `Failed`;
+- `mailboxes`: pending sender/receiver message pairs;
+- `waitTarget`: the current expected sender, external producer or `NoActor`;
+- `timeoutStatus`: `Disabled`, `Armed` or `Expired`;
+- `sent` and `consumed`: message-lifecycle sets.
 
-**Actions:** send to mailbox; receive from non-empty mailbox; block on empty mailbox; wake after message arrival; select a protocol branch; timeout; close session; fail actor; deliver or lose a message only where the selected profile explicitly permits it.
+`StaticHasCycle` is exact for the declared bound of at most three actors (self-, two- and three-node cycles). `StaticAcyclic` checks the compile-time relation. `Simulation` is the candidate invariant `WaitFor \subseteq StaticDependencies`; it is deliberately not assumed by `Init` or by the transition relation.
 
-**Safety properties:**
-- all variables satisfy declared finite types;
-- every message consumed is compatible with the receiver's residual session state;
-- a sent message is pending, consumed or removed by an explicit specified rule;
-- no actor receives a message from an incompatible session branch;
-- every dynamic wait edge is included in the static dependency relation;
-- terminal and failed states are distinguished from deadlock.
+**Transitions.** `Block` records a wait only when the expected mailbox is empty. `Send` appends a message and returns the sender without waiting for receiver readiness; it wakes a matching blocked receiver. `Consume` removes one compatible message and advances the residual protocol. `ExternalDeliver` represents one explicitly enabled environment delivery. `Timeout` changes a blocked actor to `Failed`/`Aborted`; it does not count as successful protocol termination.
 
-**Liveness properties:** under declared delivery and scheduler assumptions, an enabled actor can progress; no reachable non-terminal global state is a mutual wait deadlock. Absence of deadlock, absence of starvation and eventual termination must be separate properties.
+**Properties.** The configurations check `TypeOK`, endpoint duality, static acyclicity where applicable, (Sim), message conservation, mailbox ownership, state consistency and `NoMutualWaitDeadlock`. A raw internal wait cycle is distinct from a deadlock: `MutualWaitDeadlock` checks a cycle after removing edges whose source currently has an enabled timeout action. `ExternalWaiters` and `WaitingOnFailedActor` remain distinguishable from an internal cycle. `AllActorsTerminal` and `AllActorsQuiescent` separate successful termination from a state in which all actors are terminal or failed.
 
-**Tools:** TLA+ native state/action/temporal notation; TLC required for finite network exploration and counterexamples; Apalache optional for bounded symbolic variants; Lean for a general proof that typing and operational transitions imply the dynamic-wait/static-dependency simulation.
+**Configurations and expected checks (not yet executed):**
 
-**Deliverables:** `.tla` module, nominal and negative `.cfg`, expected counterexample (at least the cyclic three-actor case), property register, TLC output and a written account of all fairness/delivery assumptions.
+| Configuration | Purpose | Expected outcome |
+|---|---|---|
+| `TLA01-AcyclicNominal.cfg` | Two actors; one asynchronous send and one receive; static edge `B -> A` | All declared invariants hold |
+| `TLA01-CircularWait.cfg` | Three dual endpoints, all waiting before sending; static graph is cyclic | TLC finds `NoMutualWaitDeadlock` violation |
+| `TLA01-SimulationGap.cfg` | Static graph is a DAG, endpoint duality holds, but the dynamic wait graph is a three-cycle | TLC finds `Simulation` violation |
+| `TLA01-ExternalWait.cfg` | A waiter depends on an external producer; an external delivery transition is enabled | No internal wait-cycle deadlock; no delivery fairness is claimed |
+| `TLA01-Timeout.cfg` | External wait with timeout enabled and delivery disabled | Timeout failure path is included; this is not a termination guarantee |
 
-**Dependencies:** none for initial draft; TLA-02 and TLA-03 should reuse its mailbox and actor vocabulary.
+The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexample.json` and `TLA01-SimulationGap-ExpectedCounterexample.json`. CI must check the name of the expected failed invariant, not merely a non-zero process exit.
 
-**Acceptance:** a two-party acyclic scenario has no deadlock counterexample under the declared assumptions; a three-party circular-wait scenario produces a minimal counterexample when the acyclicity condition is removed; a separate negative case demonstrates that session duality alone is insufficient. The model must not claim a general theorem.
+**Assumptions and bounds.** Actors are bounded to two or three; each actor receives at most one message and sends at most one message; messages are reliable, not duplicated and represented as a set of sender/receiver pairs. The set mailbox deliberately abstracts away multiplicity and order. Session duality is checked as an invariant over the configured one-step endpoint maps; it is not a full session-typing derivation. Send is asynchronous. Timeouts are nondeterministic actions, not a clock model; no `WF` or `SF` is imposed, so neither timeout occurrence nor eventual delivery is guaranteed. External delivery after a timeout has been omitted. The model omits multiple messages per channel, join patterns, branch selection, actor creation, scheduler interleavings inside a handler, physical queue memory ordering and real-time latency.
+
+**Correspondence obligations.** The candidate abstraction maps K actor/fibre control, mailbox contents and residual protocol information to the TLA+ variables above. It does not yet define a typed relation over complete K configurations or map K's labelled partial-order trace. In particular, a rule-by-rule argument is still required for `Guard`, `Send`, message consumption, residual states and `Timeout`. `wiki/semantics.md` also confirms that the maintained K prototype does not currently represent the normative actor/session semantics. Therefore neither counterexample is yet asserted to be a K7PL execution, and no K/TLA+ or Lean/TLA+ simulation is claimed.
+
+**Dependencies:** none for this bounded draft; TLA-02 and TLA-03 may reuse the mailbox/actor vocabulary only after reviewing its boundaries. G1, G4, G14 and G15 remain open.
 
 ### TLA-02 — Join-pattern matching and atomic multi-mailbox consumption
 

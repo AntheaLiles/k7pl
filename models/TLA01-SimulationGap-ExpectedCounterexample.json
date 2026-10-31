@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "TLA-01-CE-SIMULATION-GAP-THREE-PARTY-01",
+  "model": "TLA01SessionNetwork",
+  "configuration": "TLA01-SimulationGap.cfg",
+  "initialResidual": {
+    "ActorA": "Recv",
+    "ActorB": "Recv",
+    "ActorC": "Recv"
+  },
+  "receiveFrom": {
+    "ActorA": "ActorB",
+    "ActorB": "ActorC",
+    "ActorC": "ActorA"
+  },
+  "sendTo": {
+    "ActorA": "ActorC",
+    "ActorB": "ActorA",
+    "ActorC": "ActorB"
+  },
+  "staticDependencies": [
+    ["ActorA", "ActorB"],
+    ["ActorB", "ActorC"]
+  ],
+  "expectedTrace": [
+    {"action": "Init", "dynamicWaitEdges": []},
+    {"action": "Block(ActorA)", "dynamicWaitEdges": [["ActorA", "ActorB"]]},
+    {
+      "action": "Block(ActorB)",
+      "dynamicWaitEdges": [["ActorA", "ActorB"], ["ActorB", "ActorC"]]
+    },
+    {
+      "action": "Block(ActorC)",
+      "dynamicWaitEdges": [["ActorA", "ActorB"], ["ActorB", "ActorC"], ["ActorC", "ActorA"]]
+    }
+  ],
+  "staticGraphAcyclic": true,
+  "sessionEndpointDuality": true,
+  "violatedInvariant": "Simulation",
+  "alsoViolates": "NoMutualWaitDeadlock",
+  "assumptions": {
+    "timeoutsEnabled": false,
+    "externalDeliveryEnabled": false,
+    "sendIsAsynchronous": true,
+    "mailboxesInitiallyEmpty": true,
+    "messagesReliableAndNotDuplicated": true,
+    "oneReceiveThenAtMostOneSendPerActor": true
+  },
+  "interpretation": "The abstract transition system does not constrain dynamically selected waits to the static dependency relation. This refutes the implication from static acyclicity plus endpoint duality alone; it does not refute K7PL unless the trace is shown to be a valid projection of a normative K execution.",
+  "scope": "Bounded three-actor falsification of an unconstrained abstraction and explicit witness for the open Sim obligation."
+}

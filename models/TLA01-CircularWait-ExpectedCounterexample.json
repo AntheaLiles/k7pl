@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "TLA-01-CE-CIRCULAR-WAIT-THREE-PARTY-01",
+  "model": "TLA01SessionNetwork",
+  "configuration": "TLA01-CircularWait.cfg",
+  "initialResidual": {
+    "ActorA": "Recv",
+    "ActorB": "Recv",
+    "ActorC": "Recv"
+  },
+  "receiveFrom": {
+    "ActorA": "ActorB",
+    "ActorB": "ActorC",
+    "ActorC": "ActorA"
+  },
+  "sendTo": {
+    "ActorA": "ActorC",
+    "ActorB": "ActorA",
+    "ActorC": "ActorB"
+  },
+  "staticDependencies": [
+    ["ActorA", "ActorB"],
+    ["ActorB", "ActorC"],
+    ["ActorC", "ActorA"]
+  ],
+  "expectedTrace": [
+    {"action": "Init", "waiting": []},
+    {"action": "Block(ActorA)", "waiting": [["ActorA", "ActorB"]]},
+    {
+      "action": "Block(ActorB)",
+      "waiting": [["ActorA", "ActorB"], ["ActorB", "ActorC"]]
+    },
+    {
+      "action": "Block(ActorC)",
+      "waiting": [["ActorA", "ActorB"], ["ActorB", "ActorC"], ["ActorC", "ActorA"]]
+    }
+  ],
+  "violatedInvariant": "NoMutualWaitDeadlock",
+  "assumptions": {
+    "timeoutsEnabled": false,
+    "externalDeliveryEnabled": false,
+    "sendIsAsynchronous": true,
+    "mailboxesInitiallyEmpty": true,
+    "messagesReliableAndNotDuplicated": true,
+    "oneReceiveThenAtMostOneSendPerActor": true
+  },
+  "scope": "Finite three-actor wait-before-send protocol; a counterexample to deadlock freedom when static acyclicity is absent, not a K7PL execution trace without a K/TLA+ correspondence relation."
+}

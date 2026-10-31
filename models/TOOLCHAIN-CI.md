@@ -97,7 +97,9 @@ At the source baseline used for this plan:
 - `.github/workflows/k7pl-semantics.yaml` downloads TLC 1.7.4 and verifies SHA-256 and SHA-1 before running D01;
 - the D01 job checks an enforced profile and requires a counterexample for an unconfined negative profile;
 - the workflow retains model sources, configurations, tool identity and TLC logs as CI artefacts;
-- R9 is checked by the separate `r9-tlc` job in `.github/workflows/ci.yaml`; it is not part of the D01 job;
+- R9 is checked by the `r9-tlc` job in `.github/workflows/ci.yaml`;
+- TLA-01 is checked in the same `r9-tlc` job: three nominal/environment profiles and two negative configurations whose expected invariant names are checked;
+- TLA-01 TLC evidence includes the model, configurations, counterexample vectors, logs, Java identity and the pinned TLC JAR digest;
 - `wiki/semantics.md` explicitly says that K, Lean and TLA+ results are corroborating models and that the K ↔ TLA+ projection remains open.
 
 The K7OS model files now reside beside the K7PL programme documents directly in repository-root `models/`. Their contents and CI properties are preserved; only file paths and workflow working directories changed. Their research status remains non-normative.
