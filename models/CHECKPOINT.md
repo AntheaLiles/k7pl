@@ -133,3 +133,27 @@ L'audit détaillé se trouve dans `CHAPTER-COVERAGE.md`. Il met en évidence des
 - La sûreté spatiale conditionne le résultat à H1/H2/H3 : unicité d'introduction de `WriteCap` par région (avec une obligation encore ouverte sur l'élimination de l'arène), adéquation entre intervalles et régions, et non-capture des capacités linéaires par les valeurs cartésiennes. TLA-07 n'établit pas ces lemmes de typage.
 - Le partage des canaux est distinct du partage en lecture de la mémoire et reste explicitement non tranché dans C3 ; TLA-02 ne modélise pas l'emprunt ni le partage de propriété d'un canal.
 - `Import` (fichier, URL, modèle de langage), macros exécutées avant vérification et capacités exportées par FFI constituent une frontière de confiance dont le contrat de réalisation reste ouvert. TLA-06 ne couvre pas cette sandbox ni les callbacks réentrants. Un modèle séparé ne doit être lancé qu'après définition du profil de confinement.
+
+
+## Final specification-coverage audit (2026-10-31)
+
+**Full report:** [`SPEC-COVERAGE-AUDIT-2026-10-31.md`](SPEC-COVERAGE-AUDIT-2026-10-31.md).  
+**Normative baseline:** PR #311 head `f3b33cd34e1da49a4c8c41ca632c586e66715e70`. This is a pinned documentary review, not an assertion about later specification changes.
+
+**Conclusion:** TLA-01..16 provide bounded scenario coverage, not complete specification coverage. A TLC success on a finite profile would not prove the corresponding general Verso theorem or implementation guarantee. The detailed report maps chapter and obligation families, records model limits, separates TLA targets from Lean/compiler/implementation obligations, and gives acceptance criteria for coverage maturity.
+
+**Highest-priority gaps and boundaries:**
+- Memory: physical-page ownership/reclamation; CPU MMU/TLB shootdown; IOMMU/IOTLB/ATS and DMA quiescence; remanence and zero-on-reuse; full ReadCap/WriteCap/SWMR and borrow algebra; physical SoA/PIA/NUMA/alignment refinement; canonical-store insertion and purge.
+- Runtime: multi-core scheduling/progress; actor supervision/incarnation; crash-consistent journal/snapshot; complete session/join semantics; FFI callbacks/reentrancy/asynchronous completion; device/driver lifecycle.
+- Semantics: multidimensional grade/effect accounting; level-indexed time and observations; timing/resource/cache/scheduler channels; complete partial-order/event preservation; typed source-to-process-calculus simulation and cross-model interfaces.
+- Conditional integrations: reactive backpressure, debugger lifecycle, full semi-naive/stratified deductive execution, distributed transport/CRDT and device/driver models only when their runtime profiles are selected.
+
+**MMU/IOMMU classification:** both are implementation-refinement candidates, not newly ratified normative guarantees. C4 names seven memory levels, raw WAT memory for FFI/DMA and a versioned representation profile, but does not prescribe CPU page tables/TLB or IOMMU/IOVA/IOTLB semantics. CPU translation, device translation and physical-page reclamation remain three separate but connected protocols. The shared invariant is that no page is reused while any CPU, device, callback or asynchronous operation can still access it under its previous owner.
+
+**Method allocation:** Lean remains primary for categorical/algebraic laws, H1/H2/H3, static typing, general termination/productivity, preservation/progress, fixed-point theorems and source-to-process-calculus simulation. TLA+ is for bounded runtime protocols and counterexamples. Parser/compiler tests cover static syntax and phases. Weak-memory tools and target-profile evidence are needed for concrete queue/device claims. Cryptographic hardness and WCET are outside finite TLC.
+
+**Open obligations highlighted separately:** H1 unique introduction of WriteCap, H2 region/range adequacy, and H3 non-capture across modes are not discharged by TLA-07; channel sharing/borrowing is a distinct unresolved semantic choice, not the same as shared ReadCap; dynamic Import, pre-verification macros and FFI require a defined sandbox/boundary contract before a new protocol model is justified.
+
+**Proposed order (not ratified):** physical-page lifecycle/reclamation; CPU MMU; IOMMU/DMA; weak-memory refinement; TLA-07 capability/SWMR extension; TLA-01/02 session/join completeness; TLA-06/D01 asynchronous FFI/quiescence; scheduler/supervision/crash consistency; multidimensional accounting and time/observation; typed cross-model/source-target correspondence. Do not assign TLA-17+ IDs before exact Verso anchors, profile, assumptions, bounds and acceptance criteria are reviewed.
+
+**Status:** documentary analysis recorded; no normative change, no model status promotion, and no claim that the 39 TLC profiles passed. Revalidate the source baseline if PR #311 or main changes before continuing.
