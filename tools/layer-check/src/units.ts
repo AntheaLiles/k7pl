@@ -50,7 +50,9 @@ export function listingUnits(file: string, text: string): Unit[] {
     const opening = LISTING.exec(line);
     if (opening) {
       if (listing) {
-        throw new Error(`${file}:${i + 1}: nested listing directive before ${listing.label} closes`);
+        throw new Error(
+          `${file}:${i + 1}: nested listing directive before ${listing.label} closes`,
+        );
       }
       const label = LABEL.exec(opening[2])?.[1] ?? `listing at line ${i + 1}`;
       listing = { colons: opening[1], label };

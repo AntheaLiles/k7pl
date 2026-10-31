@@ -38,7 +38,8 @@ Deno.test("malformed listings and fenced blocks fail closed", () => {
   try {
     listingUnits("spec/X.lean", '::::listing (label := "lst:broken")\n```\n[open]');
   } catch (error) {
-    missingFence = error instanceof Error && error.message.includes("unterminated fenced code block");
+    missingFence = error instanceof Error &&
+      error.message.includes("unterminated fenced code block");
   }
   assertEquals(missingFence, true);
 
@@ -46,7 +47,8 @@ Deno.test("malformed listings and fenced blocks fail closed", () => {
   try {
     listingUnits("spec/X.lean", '::::listing (label := "lst:broken")\n```\n[ok]\n```');
   } catch (error) {
-    missingDirective = error instanceof Error && error.message.includes("unterminated listing directive");
+    missingDirective = error instanceof Error &&
+      error.message.includes("unterminated listing directive");
   }
   assertEquals(missingDirective, true);
 
