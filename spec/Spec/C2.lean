@@ -7,12 +7,12 @@
 
 import VersoManual
 import SpecExt
-import Spec.C2.CategorieAmbiante
-import Spec.C2.ComonadeExponentielleEtFragments
-import Spec.C2.AlgebresCoalgebresEtPointsFixes
-import Spec.C2.AdjonctionsEtEnrichissement
-import Spec.C2.SystemeDeRaffinement
-import Spec.C2.SixSchemasDeMetatheorie
+import Spec.C2.AmbientCategory
+import Spec.C2.ExponentialComonadAndFragments
+import Spec.C2.AlgebrasCoalgebrasAndFixedPoints
+import Spec.C2.AdjunctionsAndEnrichment
+import Spec.C2.RefinementSystem
+import Spec.C2.SixMetatheorySchemas
 
 open Verso.Genre Manual
 open SpecExt
@@ -27,14 +27,14 @@ tag := "c2-fondements"
 
 {refsection "c2-fondements"}
 
-{include 0 Spec.C2.CategorieAmbiante}
+{include 0 Spec.C2.AmbientCategory}
 
-{include 0 Spec.C2.ComonadeExponentielleEtFragments}
+{include 0 Spec.C2.ExponentialComonadAndFragments}
 
-{include 0 Spec.C2.AlgebresCoalgebresEtPointsFixes}
+{include 0 Spec.C2.AlgebrasCoalgebrasAndFixedPoints}
 
-{include 0 Spec.C2.AdjonctionsEtEnrichissement}
+{include 0 Spec.C2.AdjunctionsAndEnrichment}
 
-{include 0 Spec.C2.SystemeDeRaffinement}
+{include 0 Spec.C2.RefinementSystem}
 
-{include 0 Spec.C2.SixSchemasDeMetatheorie}
+{include 0 Spec.C2.SixMetatheorySchemas}

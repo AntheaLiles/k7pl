@@ -7,12 +7,12 @@
 
 import VersoManual
 import SpecExt
-import Spec.C3.LeSystemeGradue
-import Spec.C3.LesContraintesDeValeur
-import Spec.C3.StructuresOuvertesEffetsEtMetaTheorie
-import Spec.C3.GrammaireDesTypes
-import Spec.C3.GrammaireDesTermes
-import Spec.C3.ReglesDeTypage
+import Spec.C3.GradedSystem
+import Spec.C3.ValueConstraints
+import Spec.C3.OpenStructuresEffectsAndMetatheory
+import Spec.C3.TypeGrammar
+import Spec.C3.TermGrammar
+import Spec.C3.TypingRules
 
 open Verso.Genre Manual
 open SpecExt
@@ -40,14 +40,14 @@ n'admettant que des indices exclus du suivi de ressource. De chaque notion, ce c
 que ce qu'elle est en tant que type ; la manière dont elle s'exécute relève du chapitre 4,
 séparation qui prolonge au niveau du document l'orthogonalité qu'il construit au niveau des types.
 
-{include 0 Spec.C3.LeSystemeGradue}
+{include 0 Spec.C3.GradedSystem}
 
-{include 0 Spec.C3.LesContraintesDeValeur}
+{include 0 Spec.C3.ValueConstraints}
 
-{include 0 Spec.C3.StructuresOuvertesEffetsEtMetaTheorie}
+{include 0 Spec.C3.OpenStructuresEffectsAndMetatheory}
 
-{include 0 Spec.C3.GrammaireDesTypes}
+{include 0 Spec.C3.TypeGrammar}
 
-{include 0 Spec.C3.GrammaireDesTermes}
+{include 0 Spec.C3.TermGrammar}
 
-{include 0 Spec.C3.ReglesDeTypage}
+{include 0 Spec.C3.TypingRules}

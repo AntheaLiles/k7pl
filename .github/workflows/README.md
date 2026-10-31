@@ -43,7 +43,7 @@ Les surfaces sont les suivantes.
 |---|---|
 | `full` | vérification complète (tous les jobs) |
 | `docs_links` | contrôle des liens locaux (job docs de `verify.yaml`) |
-| `spec_check` | contrôles statiques de la spécification (`controle.py`) |
+| `spec_check` | contrôles statiques de la spécification (`check_spec.py`) |
 | `spec_build` | build Verso, rendu HTML/TeX, PDF |
 | `lean_build` | build Lean, tests, lint, audit des axiomes de l'implémentation |
 | `python_tests` | tests Python (`scripts/ci`, `tests/python`) |
@@ -62,8 +62,10 @@ Exemples de chemins (vérifiés avec le classifieur dérivé) :
 | `proofs/**` | `axiom_audit` |
 | Modèles TLA (`theoretical-projects/k7os/models/`, R9) | `tla_model_check` |
 | `spec/Spec.lean`, `spec/Spec/**`, `spec/formal-chain/**`, `tools/SpecMain.lean`, `tools/SpecExt/**` | `spec_check`, `spec_build`, `python_tests`, plus les surfaces K |
-| `scripts/controle.py`, `scripts/controles/**`, `scripts/biblio/**`, `scripts/manuscript_metrics.py`, `wiki/references.json` | `spec_check`, `spec_build`, `python_tests` (`docs_links` en plus pour `wiki/references.json`) |
+| `scripts/check_spec.py`, `scripts/spec_checks/**`, `scripts/biblio/**`, `scripts/manuscript_metrics.py`, `wiki/references.json` | `spec_check`, `spec_build`, `python_tests` (`docs_links` en plus pour `wiki/references.json`) |
 | `tools/**` (Hors K) | `spec_check`, `spec_build`, `python_tests` et/ou `lean_build` selon le composant — pas de `k-smoke` |
+| `lexicon/` | `k_compile`, `k_examples`, `klean_export`, plus `spec_check` et `spec_build` : les blocs K de la spécification affichent ses fichiers |
+| `tests/layers/`, `tests/lexical/`, `lib/`, `tools/layer-check/` | `k_examples` (vérificateur des couches) |
 | `wiki/semantics.md` | surfaces K et `docs_links` (`read_input` temporaire, jusqu'à la fermeture des wiki lexicaux) |
 | `wiki/research.md` (Primitive inventory) | `docs_links` ; voir ci-dessous pour la table |
 | `*.md` | `docs_links` |
@@ -108,7 +110,7 @@ Le cache des dépendances Lake est partagé logiquement par l'implémentation et
 La surface de spécification exécute :
 
 ```
-python3 scripts/controle.py --format github
+python3 scripts/check_spec.py --format github
 lake exe cache get                                                 # le noyau C3 importe Mathlib
 lake build Spec
 deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/axiom_audit.ts audit Spec Spec
@@ -125,7 +127,7 @@ La bibliothèque `Spec` a deux racines : le document `Spec` et le noyau Lean des
 
 L'entrée `use_cache` de `verify.yaml` (défaut `true`) permet de construire sans restaurer les caches de `.lake/packages` et de Tectonic : `release.yaml` l'utilise à `false`.
 
-Une modification de `wiki/research.md` (table Primitive inventory) nécessite les contrôles statiques mais pas le build/rendu Verso, car cette table est consommée directement par `scripts/controles/croise.py`.
+Une modification de `wiki/research.md` (table Primitive inventory) nécessite les contrôles statiques mais pas le build/rendu Verso, car cette table est consommée directement par `scripts/spec_checks/cross_check.py`.
 
 Le PDF est un artefact dérivé : il n'est produit que lorsque le build de la spécification est nécessaire.
 

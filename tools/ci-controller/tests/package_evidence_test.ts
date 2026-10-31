@@ -18,8 +18,8 @@ async function fixture(
   const ws = `${tmp}/ws`;
   for (
     const rel of [
-      "src/k/.build/generated/semantics.k",
-      "src/k/.build/generated/models/native-boundary.k",
+      "lexicon/lexicon.k",
+      "lexicon/models/native-boundary.k",
       "src/k/.build/generated/check_k_examples.py",
       "src/k/Makefile",
       "tests/examples/add.k7",
@@ -83,7 +83,12 @@ Deno.test("package_evidence stages inputs, writes MANIFEST, packs the tarball", 
     assert(result.archiveSize > 0, "archive should be non-empty");
     assert(result.manifestEntries.includes("k7pl-formal-chain/MANIFEST.txt"));
     assert(
-      result.manifestEntries.includes("k7pl-formal-chain/src/k/semantics.k"),
+      result.manifestEntries.includes("k7pl-formal-chain/lexicon/lexicon.k"),
+    );
+    assert(
+      result.manifestEntries.includes(
+        "k7pl-formal-chain/lexicon/models/native-boundary.k",
+      ),
     );
     assert(
       result.manifestEntries.includes(
@@ -135,7 +140,7 @@ Deno.test("package_evidence stages inputs, writes MANIFEST, packs the tarball", 
 Deno.test("package_evidence fails on a missing input", async () => {
   const { ws, tmp, cleanup } = await fixture(true);
   try {
-    await Deno.remove(`${ws}/src/k/.build/generated/semantics.k`);
+    await Deno.remove(`${ws}/lexicon`, { recursive: true });
     let message = "";
     try {
       await packageEvidence({
@@ -147,7 +152,7 @@ Deno.test("package_evidence fails on a missing input", async () => {
     } catch (error) {
       message = error instanceof Error ? error.message : String(error);
     }
-    assertStringIncludes(message, "semantics.k");
+    assertStringIncludes(message, "lexicon");
   } finally {
     await cleanup();
   }

@@ -52,7 +52,7 @@ count and must not be quoted as current.
 - The machine-readable inventory stays in [research](research.md),
   "Primitive inventory": one row per DOING entry (rule name,
   English descriptive title, status DOING). That table is the
-  input repointed for `scripts/controles/croise.py`, which
+  input repointed for `scripts/spec_checks/cross_check.py`, which
   cross-checks the term grammar against the typing rules and
   the primitive list. Do not duplicate that table here, and do
   not repoint the checker to this page.
@@ -96,6 +96,8 @@ Abréviation d'OCaml et de F#. Même argument de brièveté. Trois abréviations
 
 abstraction  
 Le terme scientifique. Exact. Personne ne l'écrit dans du code.
+
+**Dated preference of the author (2026-10-26, VOC-2026-10-26-002), recorded in English as new content:** `lambda`. A lambda is an anonymous function; a named function is *defined*. Argument along the M-A sequence (Q-METH-001, option A): non-collision — no reserved word or glyph alias found is spelled `lambda`; the symbol λ, however, also names a natural transformation of the graded distributive law in chapter 3 (`TypingRules.lean`), a notational overlap to keep in view, distinct from the surface word; exactness — the word names the anonymous abstraction itself, whereas `fn` and `fun` evoke the *function*, which K7PL reserves for what is defined under a name; mnemonic — the word of Church and of the Lisp family; brevity — the last criterion, the only one that would prefer `fn` or `fun`. A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
 
 ### DOING Appliquer un calcul à une valeur
 
@@ -522,7 +524,7 @@ Le terme de la littérature des treillis et de Datafun. Aucun concurrent sérieu
 
 La question annonçait trois constructeurs. Le croisement de la grammaire, du jeu de règles et de cette liste en trouve ONZE, et la cause n'est pas l'oubli : la grammaire a reçu dix-sept constructeurs le 3 septembre, cette liste n'en a suivi aucun. Elle est tenue EN PARALLÈLE du jeu de règles au lieu d'en être dérivée.
 
-Les onze entrées manquantes sont créées ci-dessous. Trois règles n'en reçoivent pas, et c'est correct : est une instance du schéma $`\mathsf{operation}`$ et non un constructeur, et sont interstitielles et ne gouvernent aucun terme. outils/controles/croise.py le sait déjà et les dispense.
+Les onze entrées manquantes sont créées ci-dessous. Trois règles n'en reçoivent pas, et c'est correct : est une instance du schéma $`\mathsf{operation}`$ et non un constructeur, et sont interstitielles et ne gouvernent aucun terme. outils/spec_checks/cross_check.py le sait déjà et les dispense.
 
 Un contrôle nouveau interdit la rechute : toute règle gouvernant un constructeur de terme doit désormais porter son entrée ici, faute de quoi la passe échoue.
 

@@ -24,7 +24,7 @@ LEAN_PREFIXES = ("src/", "tests/")
 # Called by both the `impl` and the `spec` job of verify.yaml, so a change must run both.
 LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
 SPEC_BUILD_EXACT = {
-    "scripts/controle.py",
+    "scripts/check_spec.py",
     "scripts/manuscript_metrics.py",
     # Bibliography data moved from docs/bibliography/ in the
     # security/decisions/docs-root/bibliography closing: a change
@@ -32,12 +32,12 @@ SPEC_BUILD_EXACT = {
     # light documentation change.
     "wiki/references.json",
 }
-SPEC_BUILD_PREFIXES = ("spec/", "tools/", "scripts/controles/", "scripts/biblio/")
+SPEC_BUILD_PREFIXES = ("spec/", "tools/", "scripts/spec_checks/", "scripts/biblio/")
 # Retired 2026-10-25 with the tracking folder: the tracking views were
 # frozen and deleted with scripts/suivi.py. No path triggers the
 # tracking_views surface on its own any more; it is set only by a full
 # validation. The primitive leg that once read wiki/research.md from
-# croise.py was removed the same day (D1, owner decision): the wiki is
+# cross_check.py was removed the same day (D1, owner decision): the wiki is
 # a view of what is to be done and what is done, not a normative
 # constituent, so wiki/research.md stays docs_links only by design.
 SPEC_CHECK_EXACT = set()
@@ -54,7 +54,7 @@ PYTHON_TEST_PREFIXES = ("tests/python/",)
 # check to whatever else the path triggers; test_impact_coverage.py derives the need from the code
 # of the checks and fails when a file they read does not trigger them.
 # tests/python reads the statement migration register (through statement_inventory.py);
-# couverture.py scans src/ for coupling anchors, in controle.py and in the
+# statement_coverage.py scans src/ for coupling anchors, in check_spec.py and in the
 # `real_lean` pytest fixture. The stage C audits in docs/migration/ were read
 # here until the complete migration closing of 2026-10-25 deleted them; their
 # verdicts were traced in the migration matrix, deleted at the final closing,

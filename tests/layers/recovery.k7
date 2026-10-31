@@ -1,0 +1,8 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; A closing delimiter closes the nearest open delimiter of its pair (Q-LEX-006-d): the )
+;; of line 8 closes the ( of line 7, and the [ opened in between is never closed.
+{f (g
+   [h x)} ;; refused: ERR-DLM-001 at line 8

@@ -82,22 +82,25 @@ never run twice under two names.
 D2 slice 2 (shadow only): `src/derived.ts` derives surfaces from the registry —
 roots (respecting excludes) plus read inputs, with Markdown → `docs_links` and
 fail-closed unknown → `full` as the only classifier-resident rules.
-`classify --derived` prints a derived classification;
+`classify --derived` prints a derived classification.
 `classify --derived-shadow` compares derived with legacy per path (aggregate
-comparison alone would hide divergences that cancel out) and exits 1 on any
-legacy-surface divergence. The shadow currently reports three kinds of
-divergence, listed in `src/derived.ts` and asserted in `tests/derived_test.ts`:
-intended D2 behaviour (proofs/ → `axiom_audit`, TLA models → `tla_model_check`,
-`src/k/` → K surfaces without Lean over-triggering), registry gaps to close
-before cutover (light paths, `scripts/axiom-audit.sh`), and non-Markdown wiki /
-theoretical files the registry maps to `docs_links` while legacy leaves them
-unclassified. A read input may restrict its surfaces (`src/` triggers
-`spec_check` only for the specification component); the implementation component
-now excludes `tests/python/` so Python tests do not over-trigger `lean_build`.
-Cutover requires dispositioning every divergence kind, the `axiom_audit`
-deduplication refactor, and a coverage-preservation proof for the K/TLA surfaces
-— none of that is in this slice, and the legacy classifier remains the only
-gating one.
+comparison alone would hide divergences that cancel out). It prints reviewed
+migration deltas as informational output and exits 1 only for an unlisted path
+or a changed delta. The allowlist in `src/derived.ts` matches both the path
+family and the complete set of legacy-surface differences; its cases are
+asserted in `tests/derived_test.ts`.
+
+Reviewed cases include the D2 target mappings (proofs/ → `axiom_audit`, TLA
+models → `tla_model_check`, `src/k/` → K surfaces without Lean over-triggering),
+the PR #311 move of K source files to `lexicon/`, K example inputs under `lib/`,
+and the rename/move of the Python specification tooling. The existing
+`wiki/references.json` delta is also retained: the wiki root adds `docs_links`
+beside the declared specification read input. Unreviewed differences remain
+visible and fail the shadow step. A read input may restrict its surfaces (`src/`
+triggers `spec_check` only for the specification component); the implementation
+component excludes `tests/python/` so Python tests do not over-trigger
+`lean_build`. The derived classifier remains authoritative; the legacy
+classifier is retained as a diagnostic comparison.
 
 ## Shadow mode
 

@@ -22,27 +22,26 @@
  * unknown path must not silently drop a surface that no
  * component claims. This is conservative by design.
  *
- * Known divergences from the legacy classifier, reported by
- * --derived-shadow and NOT hidden here, are of three kinds:
- *   - intended: proofs/ now maps to axiom_audit instead of
- *     full, tla-models to tla_model_check instead of full,
- *     src/k/ to the K surfaces (lean_build over-triggering
- *     removed) — these are the decided D2 behaviours, and
- *     their coverage preservation is proven in the
- *     orchestration slice, not here;
- *   - closed in cutover C0: light paths (.claude/,
- *     .github/ISSUE_TEMPLATE/, LICENSES/, CITATION.cff) and
- *     scripts/axiom-audit.sh are now classifier-resident rules
- *     in this file, reproducing the legacy treatment verbatim
- *     (light = no surface; axiom-audit.sh = lean_build +
- *     spec_build), instead of falling through to component
- *     roots or to full;
- *   - other non-Markdown files under wiki/ and
- *     theoretical-projects/, which the legacy classifier
- *     leaves unclassified (hence full) while the registry
- *     maps them to docs_links.
- * The C3 cutover accepted these divergences as the decided
- * behaviour; controller-shadow keeps reporting them, non-blocking.
+ * Known divergences from the legacy classifier are kept visible by
+ * --derived-shadow, but an exact allowlist prevents reviewed migration
+ * deltas from making the diagnostic job red. The allowlist matches both
+ * the path family and the complete legacy-surface delta; a new or
+ * different delta remains unexpected. It covers:
+ *   - intended D2 targets: proofs/ -> axiom_audit, TLA models ->
+ *     tla_model_check, and src/k/ -> K surfaces without lean_build;
+ *   - the PR #311 path migration: lexicon/ -> specification and K
+ *     inputs, lib/ -> K examples, and renamed/moved scripts -> the
+ *     python-tooling component;
+ *   - wiki/references.json, which is both a spec-build read input
+ *     and part of the wiki root, so derived also triggers docs_links;
+ * The cutover C0 light-path and axiom-audit exceptions are implemented
+ * directly in the derived classifier and therefore need no allowlist entry.
+ * The TLA model path and wiki/references.json exception above are the
+ * non-Markdown documentation-tree cases explicitly reviewed here.
+ *
+ * The allowlist is diagnostic compatibility only: the derived
+ * classifier remains authoritative, and it does not weaken fail-closed
+ * handling of unclassified paths in that classifier.
  */
 
 import type { Component, Registry } from "./registry.ts";
@@ -276,4 +275,85 @@ export function derivedDivergences(
     }
   }
   return divergences;
+}
+
+// Reviewed path-specific deltas between the registry-derived classifier
+// and the legacy classifier. A rule matches only when BOTH the path
+// family and the complete set of legacy-key differences match.
+const LEGACY_FULL_FALLBACK_ALL_KEYS = [
+  "full: derived=false legacy=true",
+  "docs_links: derived=false legacy=true",
+  "spec_check: derived=false legacy=true",
+  "spec_build: derived=false legacy=true",
+  "lean_build: derived=false legacy=true",
+  "python_tests: derived=false legacy=true",
+  "tracking_views: derived=false legacy=true",
+  "unclassified: derived=false legacy=true",
+];
+const LEGACY_FULL_FALLBACK_EXCEPT_PYTHON = [
+  "full: derived=false legacy=true",
+  "docs_links: derived=false legacy=true",
+  "spec_check: derived=false legacy=true",
+  "spec_build: derived=false legacy=true",
+  "lean_build: derived=false legacy=true",
+  "tracking_views: derived=false legacy=true",
+  "unclassified: derived=false legacy=true",
+];
+const LEGACY_FULL_FALLBACK_FOR_LEXICON = [
+  "full: derived=false legacy=true",
+  "docs_links: derived=false legacy=true",
+  "lean_build: derived=false legacy=true",
+  "python_tests: derived=false legacy=true",
+  "tracking_views: derived=false legacy=true",
+  "unclassified: derived=false legacy=true",
+];
+const EXPECTED_DERIVED_DIVERGENCES: Array<{
+  prefix?: string;
+  path?: string;
+  differences: string[];
+}> = [
+  { prefix: "proofs/", differences: LEGACY_FULL_FALLBACK_ALL_KEYS },
+  {
+    prefix: "theoretical-projects/k7os/models/",
+    differences: LEGACY_FULL_FALLBACK_ALL_KEYS,
+  },
+  { prefix: "src/k/", differences: ["lean_build: derived=false legacy=true"] },
+  { prefix: "lexicon/", differences: LEGACY_FULL_FALLBACK_FOR_LEXICON },
+  { prefix: "lib/", differences: LEGACY_FULL_FALLBACK_ALL_KEYS },
+  {
+    prefix: "scripts/controles/",
+    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
+  },
+  {
+    path: "scripts/controle.py",
+    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
+  },
+  {
+    path: "scripts/verif_singularites.py",
+    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
+  },
+  {
+    path: "scripts/check_singularities.py",
+    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
+  },
+  {
+    path: "wiki/references.json",
+    differences: ["docs_links: derived=true legacy=false"],
+  },
+];
+
+/** True only for a reviewed path family with its exact expected delta. */
+export function isExpectedDerivedDivergence(
+  path: string,
+  divergences: readonly string[],
+): boolean {
+  const rule = EXPECTED_DERIVED_DIVERGENCES.find((candidate) =>
+    candidate.path === path ||
+    (candidate.prefix !== undefined && path.startsWith(candidate.prefix))
+  );
+  if (rule === undefined) return false;
+  const actual = [...divergences].sort();
+  const expected = [...rule.differences].sort();
+  return actual.length === expected.length &&
+    actual.every((value, index) => value === expected[index]);
 }

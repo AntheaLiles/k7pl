@@ -82,12 +82,13 @@ this project.
 | --- | --- | --- |
 | Normative specification | `spec/` | Authoritative language specification |
 | Experimental exposition | `spec/formal-chain/` | Verso Blueprint exposition of the experimental K → Lean chain, separate from the normative `spec/Spec/` |
-| Formalisation and implementation | `src/` | Lean formal representation and executable implementation; `src/k/` builds the experimental K definition extracted from `spec/Spec/CodeArtifacts.lean` |
+| Formalisation and implementation | `src/` | Lean formal representation and executable implementation; `src/k/` builds the K definitions of `lexicon/` |
+| K definitions | `lexicon/` | Every `.k` file of the project: the lemmas (`lexemes/`), the structure rules and syntactic sugar (`syntax/`), the non-normative K7OS model (`models/`); the `K` blocks of `spec/` display them |
 | Experimental K → Lean proofs | `proofs/` | Separate Lake package for the experimental K → Lean chain; KLean-generated modules are built in CI and are not tracked |
 | Tests | `tests/` | Executable behavioural checks |
-| Specification tooling | `tools/` | Verso generator and extensions; the isolated Paperproof extraction workspace (`tools/paperproof-export/`); the non-normative B/C/D annex prototypes (`tools/prototypes-bcd/`) |
+| Specification tooling | `tools/` | Verso generator and extensions; the isolated Paperproof extraction workspace (`tools/paperproof-export/`); the non-normative B/C/D annex prototypes (`tools/prototypes-bcd/`); the checker of K7PL texts against the grammar of the layers (`tools/layer-check/`) |
 | Auxiliary tooling | `scripts/` | Maintenance, analysis, CI support |
-| Example library | `lib/` | Example K7PL library file (`lib-exemple.k7`) |
+| Example library | `lib/` | Example K7PL library file (`lib-example.k7`) |
 | Scientific documentation | `wiki/` (this folder) | Consolidated project documentation, replacing `docs/` lot by lot |
 | Historical material | git history, traced in the migration matrix | Dated historical records. The former `docs/archives/` and `docs/history/` directories were closed in 2026-10-25: their verified content was integrated into `spec/`, `scripts/`, `tools/` or this wiki, or explicitly abandoned, and each action is traced in the migration matrix. |
 | Automation | `.github/` | CI, security, release, repository automation |
@@ -99,7 +100,7 @@ this project.
   [layers](layers.md), then [research](research.md), then the
   specification in `spec/`.
 - **Understand the research:** [research](research.md), then the
-  specification's reading guide (`spec/Spec/C1/GuideDeLecture.lean`)
+  specification's reading guide (`spec/Spec/C1/ReadingGuide.lean`)
   for the fixed meanings of postulate, theorem, commitment, and reading.
 - **Work on the project:** [method](method.md) for the working
   method, and the repository `CONTRIBUTING.md` for contribution

@@ -1,0 +1,8 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; A string literal may span lines; the lines after it keep their numbers.
+(f "first line
+second line")
+(g x ;; refused: ERR-DLM-001 at line 8

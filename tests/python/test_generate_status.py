@@ -106,7 +106,14 @@ def render(**overrides):
 def test_render_status_layout():
     text = render()
     lines = text.split("\n")
-    assert lines[0] == "<!-- GENERATED CONTENT START -->"
+    assert lines[:4] == [
+        "<!--",
+        "SPDX-FileCopyrightText: 2026 Cyprien PIERRE",
+        "SPDX-License-Identifier" + ": CC-BY-4.0",
+        "-->",
+    ]
+    assert lines[4] == ""
+    assert lines[5] == "<!-- GENERATED CONTENT START -->"
     assert "# K7PL Status" in lines
     assert text.endswith("manual edits are not part of the project workflow.\n")
     assert not text.endswith("\n\n")
@@ -234,7 +241,7 @@ def test_main_writes_the_facts_of_the_working_tree(tmp_path, monkeypatch):
     ).stdout.strip()
 
     refreshed = []
-    monkeypatch.setattr(gs.couverture, "update_status", refreshed.append)
+    monkeypatch.setattr(gs.statement_coverage, "update_status", refreshed.append)
     for name in ("VERIFICATION", "IMPACT", "VERIFY", "REUSE", "COMMITLINT", "SECURITY"):
         suffix = "" if name == "VERIFICATION" else "_RESULT"
         monkeypatch.delenv(f"K7PL_{name}{suffix}", raising=False)

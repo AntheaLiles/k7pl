@@ -10,7 +10,7 @@
  * is a separate, owner-approved decision.
  *
  * wiki/research.md classifies as docs_links only. This was a
- * preserved quirk while scripts/controles/croise.py read it (see
+ * preserved quirk while scripts/spec_checks/cross_check.py read it (see
  * the CI audit); since D1 (owner decision 2026-10-25) removed that
  * leg, it is now the correct rule: the wiki is a view of what is
  * to be done and what is done, not a normative constituent, so no
@@ -39,14 +39,14 @@ export const FULL_PREFIXES = [".github/workflows/", "scripts/ci/"];
 export const LEAN_PREFIXES = ["src/", "tests/"];
 export const LEAN_AND_SPEC_BUILD_EXACT = new Set(["scripts/axiom-audit.sh"]);
 export const SPEC_BUILD_EXACT = new Set([
-  "scripts/controle.py",
+  "scripts/check_spec.py",
   "scripts/manuscript_metrics.py",
   "wiki/references.json",
 ]);
 export const SPEC_BUILD_PREFIXES = [
   "spec/",
   "tools/",
-  "scripts/controles/",
+  "scripts/spec_checks/",
   "scripts/biblio/",
 ];
 export const SPEC_CHECK_EXACT = new Set<string>();

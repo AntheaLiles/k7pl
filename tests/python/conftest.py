@@ -4,8 +4,8 @@
 
 """Fixtures for the Python tooling tests: a mini Verso corpus, isolated from `spec/`.
 
-The checks under `scripts/controles/` read the whole manuscript through two module-level
-attributes — `manuscript_metrics.SPEC` (where the sources live) and `controles.corpus.SPEC`
+The checks under `scripts/spec_checks/` read the whole manuscript through two module-level
+attributes — `manuscript_metrics.SPEC` (where the sources live) and `spec_checks.corpus.SPEC`
 (the cached view). The fixtures below repoint both at a small synthetic corpus built in
 `tmp_path`, so a test can mutate one seal, one label or one rule and watch the checks react.
 A check that never fails on a mutation is worth nothing — see the dashboard's own motto.
@@ -126,10 +126,10 @@ La règle Var conclut $`\\Delta, x : V \\vdash x : V`$ :
 
 # The checks read the manuscript through `corpus.modules()`, which walks the include tree from
 # Spec.lean, and several of them reach for hard-coded module names (C2.Algebre, C3, C4,
-# C1.GuideDeLecture, Refs.ListeDesGlosses). The mini-corpus mirrors that skeleton — same names,
+# C1.ReadingGuide, Refs.GlossList). The mini-corpus mirrors that skeleton — same names,
 # minimal content — so every check can run here exactly as it does on the real corpus.
 SKELETON = {
-    "Spec/C1/GuideDeLecture.lean": ("GUIDE DE LECTURE", "c1-guide",
+    "Spec/C1/ReadingGuide.lean": ("GUIDE DE LECTURE", "c1-guide",
                                     "Le guide route chaque engagement : littérature, démonstration ou mesure.\n"),
     "Spec/C2/Algebre.lean": ("ALGÈBRE DES RESSOURCES", "c2-algebre",
                              "Chapitre-test pour les contrôles qui exploitent le corpus complet.\n\n"
@@ -140,7 +140,7 @@ SKELETON = {
                              "$`\\mathbb{S}_\\nu \\;=\\; \\mathbb{N}_\\infty`$\n"),
     "Spec/C4.lean": ("RESSOURCES", "c4",
                      "Les ressources : les flux portés par la sorte $`\\mathbb{S}_\\nu`$.\n"),
-    "Spec/Refs/ListeDesGlosses.lean": ("GLOSSAIRE", "glosses",
+    "Spec/Refs/GlossList.lean": ("GLOSSAIRE", "glosses",
                                        ": couche 1\n\n  Le langage.\n\n: couche 2\n\n  La dynamique.\n\n: couche 3\n\n  Les ressources.\n"),
 }
 
@@ -161,7 +161,7 @@ def mutate(corpus, rel, old, new):
 @pytest.fixture
 def corpus(tmp_path):
     """A mini-corpus mirroring the real include skeleton: C1 (+ guide), C2 (+ two sections),
-    C3, C4 and the glossary — enough for every check under `controles/` to run."""
+    C3, C4 and the glossary — enough for every check under `spec_checks/` to run."""
     spec = tmp_path / "spec"
 
     def write(rel: str, text: str):
@@ -172,11 +172,11 @@ def corpus(tmp_path):
     write("Spec.lean",
           '#doc (Manual) "MINI" =>\n%%%\nauthors := ["Test"]\n%%%\n\n'
           "{include 0 Spec.C1}\n\n{include 0 Spec.C2}\n\n{include 0 Spec.C3}\n\n"
-          "{include 0 Spec.C4}\n\n{include 0 Spec.Refs.ListeDesGlosses}\n")
+          "{include 0 Spec.C4}\n\n{include 0 Spec.Refs.GlossList}\n")
     # Chapter-level files carry their own `{label}` (as in the real corpus).
     write("Spec/C1.lean",
           header("CADRE", "c1", "c1") + "Le cadre pose $`\\omega`` les conventions.\n\n"
-          "{include 0 Spec.C1.GuideDeLecture}\n")
+          "{include 0 Spec.C1.ReadingGuide}\n")
     write("Spec/C2.lean",
           header("FONDEMENTS", "c2", "c2") + "{include 0 Spec.C2.Fondements}\n\n"
           "{include 0 Spec.C2.Algebre}\n")
@@ -191,7 +191,7 @@ def corpus(tmp_path):
 def patched(corpus, monkeypatch):
     """Point every reader of the corpus at the mini-corpus, with a fresh cache each time."""
     import manuscript_metrics as mm
-    from controles import corpus as cp
+    from spec_checks import corpus as cp
 
     monkeypatch.setattr(mm, "SPEC", corpus)
     monkeypatch.setattr(cp, "SPEC", corpus)
@@ -203,7 +203,7 @@ def patched(corpus, monkeypatch):
 @pytest.fixture(autouse=True)
 def clean_journal():
     """Each test starts from an empty verdict log and leaves it empty."""
-    from controles import journal
+    from spec_checks import journal
 
     journal.failures.clear()
     journal.github = False
@@ -219,7 +219,7 @@ def real_lean(monkeypatch):
     a regression test run the *whole* scan over the actual Lean sources, which is where a silent
     parser mismatch (anchors present but never matched) would otherwise hide forever.
     """
-    from controles import couverture
+    from spec_checks import statement_coverage
 
-    monkeypatch.setattr(couverture, "SRC", ROOT / "src")
-    return couverture
+    monkeypatch.setattr(statement_coverage, "SRC", ROOT / "src")
+    return statement_coverage

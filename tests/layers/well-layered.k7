@@ -1,0 +1,13 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; Every inclusion that the grammar of the layers admits, and the three kinds of atoms.
+{actor
+  (handler [pure [f x]] (effect (g [h y])))
+  {resource (lend [view z]) [copy w]}
+  [vector 1 -2 3.5 +4]
+  "a string with ( [ { delimiters, a \"quote\" and accents: é ≠"} ;; a comment ( [ {
+[]
+()
+{}

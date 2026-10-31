@@ -39,7 +39,7 @@ and that is why this research is long.
 | Dimension | Question asked | Where it is worked on |
 | --- | --- | --- |
 | Lexical | Which word should name this constituent, in which namespace, without collision, and with what mnemonic and brevity cost? | [primitives](primitives.md) (candidate words, argument for and against each) |
-| Syntactic | Which surface form, glyph or alias carries it, how does it parse, and how does it sit in the term grammar and the type grammar? | Term grammar and type grammar in `spec/` (C3); glyph table (C1/C5); the cross-check in `scripts/controles/croise.py` |
+| Syntactic | Which surface form, glyph or alias carries it, how does it parse, and how does it sit in the term grammar and the type grammar? | Term grammar and type grammar in `spec/` (C3); glyph table (C1/C5); the cross-check in `scripts/spec_checks/cross_check.py` |
 | Semantic | What does it mean — which typing rule governs it, which reduction, which model, which laws — and what is actually proved about it, as opposed to sketched? | Typing rules (C3), operational semantics (C4), Lean models in `src/` and `spec/`; [assurance](assurance.md) for the proof status of each claim |
 
 The three dimensions must not be collapsed: lexical coverage
@@ -120,8 +120,8 @@ the working questionnaire in [questions](questions.md):
 2 method questions — in families (values, products and
 sums; suspension, computation and quantification; time,
 coinduction and concurrency; token questions; method
-arbitrations). The questionnaire's organisation, its one
-recorded answer and its blockers are preserved there; the
+arbitrations). The questionnaire's organisation, its recorded
+answers and its blockers are preserved there; the
 registers that framed it (audit, ontology, closure plan,
 decision register, historical inventory) are closed, their
 verdicts carried here, in [questions](questions.md), in
@@ -129,15 +129,21 @@ verdicts carried here, in [questions](questions.md), in
 "Work the research lot follow-ups" — not recopied as
 registers, and with no historical lineage retold.
 
-The recorded answer, and the only one so far, is the
-author's method choice of 2026-10-25 (Q-METH-002,
-option A): a global lot after the ontological audit, no
-individual ratification of lemmas or tokens until the
-scope, categorisation and formal-chain contradictions are
-delimited. It is a method choice, not a ratification of
-any term, and it authorises no renaming.
+Two method answers are recorded. The author's method
+choice of 2026-10-25 (Q-METH-002, option A): a global lot
+after the ontological audit, no individual ratification of
+lemmas or tokens until the scope, categorisation and
+formal-chain contradictions are delimited. And the
+arbitration sequence of 2026-10-26 (Q-METH-001, option A):
+non-collision, scientific exactness, family and grade
+invariants, provisional ecological grid, mnemonic
+arguments, brevity. Individual answers are dated
+preferences until the global lot; the first is `lambda`
+for `Lam`. None of them ratifies a term, and none
+authorises a renaming.
 
-The blockers that are not lexical votes, all open:
+The blockers that are not lexical votes, all open except
+B-ONTO-07:
 
 - B-ONTO-01 — the count of 46 announced by the C3 text
   and the cross-check omits the `fix` and `declassify`
@@ -165,10 +171,10 @@ The blockers that are not lexical votes, all open:
   against a register narrative saying rules are
   missing: reconcile the register state with the
   normative state and the real proofs.
-- B-ONTO-07 — the ecological criterion has no ratified
-  rank from historical criteria: answer the
-  method-arbitration question for that criterion before
-  declaring any lexical decision methodologically stable.
+- B-ONTO-07 — the ecological criterion had no ratified
+  rank from historical criteria. Lifted on 2026-10-26:
+  Q-METH-001, option A, ranks the provisional ecological
+  grid fourth.
 
 The ontological register's other durable content is
 already where it belongs: the seven refused

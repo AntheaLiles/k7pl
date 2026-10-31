@@ -166,6 +166,20 @@ jobs:
       - name: Compile and exercise the separate K7OS native-boundary profile model
         run: make -C src/k boundary-check
 
+      # Deno comes from the "Set up Deno" step above.
+      - name: Test the layer checker
+        working-directory: tools/layer-check
+        shell: bash
+        run: |
+          set -euo pipefail
+          deno task fmt
+          deno task lint
+          deno task check
+          deno task test
+
+      - name: Check the listings and .k7 files against the grammar of the layers
+        run: make -C src/k layers-check
+
       - name: Install the pinned Klean generator
         run: deno run --allow-read --allow-write --allow-run --allow-env=RUNNER_TEMP,GITHUB_PATH tools/ci-controller/src/install_klean.ts
 

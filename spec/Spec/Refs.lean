@@ -7,12 +7,12 @@
 
 import VersoManual
 import SpecExt
-import Spec.Refs.ListeDesFigures
-import Spec.Refs.ListeDesTableaux
-import Spec.Refs.ListeDesFormules
-import Spec.Refs.ListeDesCodesSources
-import Spec.Refs.ListeDesGlosses
-import Spec.Refs.ListeDesAcronymes
+import Spec.Refs.FigureList
+import Spec.Refs.TableList
+import Spec.Refs.FormulaList
+import Spec.Refs.SourceCodeList
+import Spec.Refs.GlossList
+import Spec.Refs.AcronymList
 import Spec.Refs.Index
 
 open Verso.Genre Manual
@@ -30,16 +30,16 @@ tag := "refs"
 
 {label "sec:references-du-document"}
 
-{include 0 Spec.Refs.ListeDesFigures}
+{include 0 Spec.Refs.FigureList}
 
-{include 0 Spec.Refs.ListeDesTableaux}
+{include 0 Spec.Refs.TableList}
 
-{include 0 Spec.Refs.ListeDesFormules}
+{include 0 Spec.Refs.FormulaList}
 
-{include 0 Spec.Refs.ListeDesCodesSources}
+{include 0 Spec.Refs.SourceCodeList}
 
-{include 0 Spec.Refs.ListeDesGlosses}
+{include 0 Spec.Refs.GlossList}
 
-{include 0 Spec.Refs.ListeDesAcronymes}
+{include 0 Spec.Refs.AcronymList}
 
 {include 0 Spec.Refs.Index}

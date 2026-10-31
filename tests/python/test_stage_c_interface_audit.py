@@ -18,9 +18,9 @@ from pathlib import Path
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[2]
-C2 = ROOT / "spec" / "Spec" / "C2" / "ComonadeExponentielleEtFragments.lean"
-C3 = ROOT / "spec" / "Spec" / "C3" / "LeSystemeGradue.lean"
-TYPING = ROOT / "spec" / "Spec" / "C3" / "ReglesDeTypage.lean"
+C2 = ROOT / "spec" / "Spec" / "C2" / "ExponentialComonadAndFragments.lean"
+C3 = ROOT / "spec" / "Spec" / "C3" / "GradedSystem.lean"
+TYPING = ROOT / "spec" / "Spec" / "C3" / "TypingRules.lean"
 ASSURANCE = ROOT / "wiki" / "assurance.md"
 
 
@@ -31,29 +31,42 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # Non-normative `:::note` slots added while integrating the C8 semantic audit notes also
     # move these pins; the interface strings checked below are unchanged by those notes.
     # So does the B-01 alignment of proof vocabulary (2026-10-19), which rewords status claims
-    # in LeSystemeGradue.lean and ReglesDeTypage.lean without touching those strings.
-    # So do its extension (2026-10-20: « fibrille » for an execution unit in LeSystemeGradue.lean)
-    # and the owner's « cofibre » -> « _cofree_ » fix in ComonadeExponentielleEtFragments.lean.
-    # 2026-10-23: prohibited-vocabulary wording cleanup in LeSystemeGradue.lean; audit claims are unchanged.
+    # in GradedSystem.lean and TypingRules.lean without touching those strings.
+    # So do its extension (2026-10-20: « fibrille » for an execution unit in GradedSystem.lean)
+    # and the owner's « cofibre » -> « _cofree_ » fix in ExponentialComonadAndFragments.lean.
+    # 2026-10-23: prohibited-vocabulary wording cleanup in GradedSystem.lean; audit claims are unchanged.
     # 2026-10-24: the Layer-3 parallelism statement records explicit depth profiles and purity;
     # its corrected Verso math delimiters and source-integrity pin are kept synchronized here.
     # 2026-10-22: the fig:fragments-emboites alternative text/description was narrowed to its
     # structural-rule scope; formal interface strings are independently checked below.
     # 2026-10-25 (migration closing): three pins are re-synced to their
-    # current HEAD blobs after the spec rewordings above — LeSystemeGradue.lean
+    # current HEAD blobs after the spec rewordings above — GradedSystem.lean
     # (a58598531b331fd843975bf65e6e330bebb3e8d2, replacing 1d6849a5b1b8d0747b3c70ac53ec13e02d7ffbb7),
-    # GrammaireDesTypes.lean (08cdf667032f7377ec8eb1719efe3bfe4862a567, replacing
-    # 60df0208198163e9bf76dea24391e29d1f23834f) and ReglesDeTypage.lean
+    # TypeGrammar.lean (08cdf667032f7377ec8eb1719efe3bfe4862a567, replacing
+    # 60df0208198163e9bf76dea24391e29d1f23834f) and TypingRules.lean
     # (74541a39b3d94c902ab7809697e665aef1ba93b9, replacing ac11edad16bec18a96126371a624977e0659416b);
     # the interface-string checks below still pass, so this is a pin re-sync,
     # not a ratification of any changed content. In particular it does not
     # ratify the Nxt/Loc rule-inventory drift, which the substitution
     # inventory test still reports as a failure pending review.
+    # 2026-10-27: the author's choices Q-TYP-001 and Q-TYP-002 rewrite the formulas of the
+    # metalanguage and the type notations of the theory prose from code spans to math spans
+    # (e.g. `M_Lin = (𝓡, {0}, false)` becomes $`M_{\mathrm{Lin}} = (\mathcal{R}, \{0\}, \mathrm{false})`).
+    # Four pins are re-synced: ExponentialComonadAndFragments.lean (25ea45a9…, replacing
+    # 1080a623…), GradedSystem.lean (bd6d774c…, replacing a5859853…), TypeGrammar.lean
+    # (08f3d573…, replacing 08cdf667…) and TypingRules.lean (4f83a512…, replacing 74541a39…).
+    # The interface strings below are checked in their new notation; a pin re-sync, not a
+    # ratification of any changed content.
+    # 2026-10-27 (owner request): the module files of spec/ get English names, used throughout
+    # these notes; three blobs are unchanged. GradedSystem.lean is re-synced (fc7b98ac…,
+    # replacing bd6d774c…): its changes only name the renamed check script
+    # (scripts/check_spec.py) and the renamed figure asset (contraction-weakening-matrix).
+    # A pin re-sync, not a ratification of any changed content.
     integrated_source_blobs = {
-        "spec/Spec/C2/ComonadeExponentielleEtFragments.lean": "1080a623283f1ce85ec3084b724487f59df395f0",
-        "spec/Spec/C3/LeSystemeGradue.lean": "a58598531b331fd843975bf65e6e330bebb3e8d2",
-        "spec/Spec/C3/GrammaireDesTypes.lean": "08cdf667032f7377ec8eb1719efe3bfe4862a567",
-        "spec/Spec/C3/ReglesDeTypage.lean": "74541a39b3d94c902ab7809697e665aef1ba93b9",
+        "spec/Spec/C2/ExponentialComonadAndFragments.lean": "25ea45a9aeb423505302ae4016af552bd3db4955",
+        "spec/Spec/C3/GradedSystem.lean": "fc7b98ac9b6ff2bd01ed1378b5120c213675a2b4",
+        "spec/Spec/C3/TypeGrammar.lean": "08f3d573323e6f3411fb51897ef000362b81b822",
+        "spec/Spec/C3/TypingRules.lean": "4f83a5129ed1b764d1db487d389290a761ff0612",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():
@@ -91,10 +104,11 @@ def test_subtyping_direction_is_read_from_the_source_equation():
 def test_reference_modes_are_selected_but_their_proposition_remains_unproved():
     source = C3.read_text(encoding="utf-8")
 
-    assert "M_Lin = (𝓡, {0}, false)" in source
-    assert "M_Aff = (𝓡, {0}, true)" in source
-    assert "M_Unr = (𝓡, 𝓡, true)" in source
-    assert "M_Rel = (𝓡, 𝓡, false)" in source
+    # Math spans since 2026-10-27 (Q-TYP-002); the triples themselves are unchanged.
+    assert r"M_{\mathrm{Lin}} = (\mathcal{R}, \{0\}, \mathrm{false})" in source
+    assert r"M_{\mathrm{Aff}} = (\mathcal{R}, \{0\}, \mathrm{true})" in source
+    assert r"M_{\mathrm{Unr}} = (\mathcal{R}, \mathcal{R}, \mathrm{true})" in source
+    assert r"M_{\mathrm{Rel}} = (\mathcal{R}, \mathcal{R}, \mathrm{false})" in source
     assert "n'est pas un mode normatif de la grammaire courante" in source
     statement = source.split('label := "thm:morphismes_modes"', maxsplit=1)[1].split("::::", maxsplit=1)[0]
     assert 'state := "under-review"' in statement

@@ -18,6 +18,7 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.extension = (ROOT / "tools/SpecExt/CodeArtifacts.lean").read_text(encoding="utf-8")
         self.spec_main = (ROOT / "tools/SpecMain.lean").read_text(encoding="utf-8")
         self.k_make = (ROOT / "src/k/Makefile").read_text(encoding="utf-8")
+        self.lakefile = (ROOT / "lakefile.lean").read_text(encoding="utf-8")
         self.root_make = (ROOT / "Makefile").read_text(encoding="utf-8")
         self.workflow_file = workflow = (ROOT / ".github/workflows/k7pl-semantics.yaml").read_text(encoding="utf-8")
         # The workflow and the scripts/ci step scripts that it runs.
@@ -28,29 +29,67 @@ class CodeArtifactContractTests(unittest.TestCase):
             + [(ROOT / name).read_text(encoding="utf-8") for name in self.step_scripts]
         )
 
-    def test_verso_is_the_only_maintained_k_definition(self) -> None:
-        self.assertIn('```k7plK (file := "src/k/.build/generated/semantics.k")', self.page)
+    def test_lexicon_is_the_only_home_of_k_sources(self) -> None:
+        # Owner decision of 2026-10-26: every K file lives in lexicon/ (lexemes/, syntax/).
+        stray = [
+            path.relative_to(ROOT).as_posix()
+            for path in ROOT.rglob("*.k")
+            if not set(path.relative_to(ROOT).parts) & {".git", ".lake", ".build", "_out"}
+            and path.relative_to(ROOT).parts[0] != "lexicon"
+        ]
+        self.assertEqual(stray, [])
+        self.assertTrue((ROOT / "lexicon/lexemes").is_dir())
+        self.assertTrue((ROOT / "lexicon/syntax").is_dir())
         self.assertFalse((ROOT / "src/k/semantics.k").exists())
-        self.assertIn("$(K_SOURCE)", self.k_make)
-        self.assertIn("lake exe spec --extract-code-only", self.k_make)
+        self.assertIn("K_SOURCE := $(LEXICON)/lexicon.k", self.k_make)
+        self.assertIn("--main-module LEXICON --syntax-module LEXICON", self.k_make)
         self.assertIn("SpecExt.CodeArtifacts.extractArtifacts sourceDoc", self.spec_main)
+
+    def test_each_lexicon_file_is_displayed_by_exactly_one_k_block(self) -> None:
+        displayed = []
+        for path in sorted((ROOT / "spec").rglob("*.lean")):
+            text = path.read_text(encoding="utf-8")
+            for match in re.finditer(r'```K \(file := "([^"]+)"\)\n```', text):
+                displayed.append(match.group(1))
+        lexicon = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / "lexicon").rglob("*.k"))
+        self.assertEqual(sorted(displayed), lexicon)
+        self.assertEqual(len(displayed), len(set(displayed)))
+
+    def test_k_blocks_display_their_file_instead_of_copying_it(self) -> None:
+        self.assertIn("meta def K : CodeBlockExpanderOf LexiconFileConfig", self.extension)
+        self.assertIn("IO.FS.readFile file", self.extension)
+        self.assertIn("must stay empty", self.extension)
+        self.assertIn('path.startsWith "lexicon/" && path.endsWith ".k"', self.extension)
+        self.assertIn("displayed by no K block", self.extension)
+        self.assertNotIn("k7plK", self.extension)
+        self.assertNotIn("k7osModel", self.extension)
+        self.assertIn("input_dir lexicon", self.lakefile)
+        self.assertIn("needs := #[lexicon]", self.lakefile)
 
     def test_page_declares_the_k_blocks_normative(self) -> None:
         # Owner decision of 2026-10-19: the K code blocks of the Verso files are normative;
         # the Python checker stays a verification tool.
-        self.assertIn("Le bloc K de sémantique du sous-langage K7PL ci-dessous est la source éditable normative", self.page)
+        self.assertIn("Les blocs K de sémantique du sous-langage K7PL\nci-dessous sont la source éditable normative", self.page)
         self.assertIn("Le modèle K7OS séparé est explicitement non normatif", self.page)
-        self.assertIn("de vérification et n'est pas normatif", self.page)
+        self.assertIn("vérification et n'est pas normatif", self.page)
         self.assertIn('tag := "experimental-code-artifacts"', self.page)
 
-    def test_k7os_profile_model_is_separate_and_extracted_from_verso(self) -> None:
-        self.assertIn('k7osModel (file := "src/k/.build/generated/models/native-boundary.k")', self.page)
-        self.assertIn('meta def k7osModel : CodeBlockExpanderOf CodeArtifactConfig', self.extension)
-        self.assertIn('"k7os-model"', self.extension)
-        self.assertIn('target.startsWith "src/k/.build/generated/models/"', self.extension)
+    def test_k7os_profile_model_is_separate(self) -> None:
+        self.assertIn('```K (file := "lexicon/models/native-boundary.k")', self.page)
+        self.assertIn("--main-module NATIVE-BOUNDARY", self.k_make)
         self.assertIn("boundary-check", self.k_make)
         self.assertIn("tools/ci-controller/src/os_boundary_check.ts", self.k_make)
         self.assertNotIn("k7pl_os_boundary_check.sh", self.k_make)
+
+    def test_layer_grammar_is_checked_against_the_listings(self) -> None:
+        self.assertIn("LAYERS_SOURCE := $(LEXICON)/syntax/refusals.k", self.k_make)
+        self.assertIn("--main-module REFUSALS --syntax-module TOKENS --gen-bison-parser", self.k_make)
+        self.assertIn("tools/layer-check/src/main.ts check", self.k_make)
+        self.assertIn("BALANCE_SOURCE := $(LEXICON)/syntax/balance.k", self.k_make)
+        self.assertIn("--main-module BALANCE --syntax-module SCANNER --gen-bison-parser", self.k_make)
+        self.assertIn('--balance "src/k/$(BALANCE_DEFINITION)"', self.k_make)
+        self.assertIn('--kast "$(KAST)"', self.k_make)
+        self.assertIn("make -C src/k layers-check", self.workflow)
 
     def test_d01_counterexample_vector_is_aligned_across_tools(self) -> None:
         vector_path = ROOT / "theoretical-projects/k7os/models/D01-NativeBoundary-ExpectedCounterexample.json"
@@ -85,7 +124,6 @@ class CodeArtifactContractTests(unittest.TestCase):
     def test_native_extraction_validates_targets_before_writing(self) -> None:
         self.assertIn('target.startsWith "src/k/.build/generated/"', self.extension)
         self.assertIn('component != ".."', self.extension)
-        self.assertIn('target.endsWith ".k"', self.extension)
         self.assertIn('target.endsWith ".py"', self.extension)
         self.assertIn("collectPart text", self.extension)
         self.assertIn("code.getString", self.extension)
@@ -121,12 +159,23 @@ class CodeArtifactContractTests(unittest.TestCase):
             "axiom_audit",
         ):
             self.assertIn(surface, self.workflow_file)
+        # PR #311: every K file lives in lexicon/, which the component
+        # registry routes to the K surfaces in place of a path filter.
+        components = (ROOT / ".github/ci/components.yaml").read_text(encoding="utf-8")
+        self.assertIn("- path: lexicon/", components)
+        # `lake build Spec` reads lexicon/ (input_dir in lakefile.lean): since
+        # cutover C3 the derived classifier decides spec_build, so the
+        # specification component must declare lexicon/ as a read input.
+        spec_block = components.split("  - id: specification", 1)[1].split("\n  - id: ", 1)[0]
+        self.assertIn("- path: lexicon/", spec_block)
+        self.assertIn("input_dir lexicon", self.lakefile)
         self.assertNotIn("extract_verso_code.py", self.workflow)
 
-    def test_workflow_packages_the_generated_sources(self) -> None:
+    def test_workflow_packages_the_k_sources(self) -> None:
         self.assertIn("tools/ci-controller/src/package_evidence.ts", self.workflow_file)
         self.assertNotIn("scripts/ci/k7pl_semantics_package_evidence.sh", self.step_scripts)
-        self.assertIn(".build/generated/semantics.k", self.workflow)
+        self.assertIn('copyItem(ws("lexicon"), art("lexicon"))', self.workflow)
+        self.assertNotIn(".build/generated/semantics.k", self.workflow)
         self.assertIn(".build/generated/check_k_examples.py", self.workflow)
 
     def test_semantics_workflow_is_triggered_by_surfaces_not_paths(self) -> None:

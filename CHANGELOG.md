@@ -23,6 +23,9 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ### Added
 
+- `lexicon/`, the home of every K file (owner decision of 2026-10-26): `lexicon/lexemes/` for the lemmas of the language, `lexicon/syntax/` for structure rules and syntactic sugar, `lexicon/models/` for the non-normative K7OS model. The `K` blocks of the specification display these files; `lake exe spec` refuses a K file that no block displays, and `lakefile.lean` makes `Spec` depend on `lexicon/` (`input_dir`).
+- Grammar of the three layers in K (`lexicon/syntax/`, module `LAYERS`), with the three refused inclusions of delimiters and their codes `ERR-TOP-001` to `ERR-TOP-003` and messages emitted by K. `tools/layer-check/` (Deno, no dependency) checks every listing of `spec/` and every `.k7` file against it, and the emitted messages against annex A; `make k-layers-check`, a CI step of `k7pl-semantics.yaml`, and one probe per code in `tests/layers/`.
+
 - K7OS exploration portfolio: preserve the previously studied shared-address-space/unikernel target, alternative isolation architectures, actor-memory constraints, native/FFI and DMA boundaries, concurrency, cancellation, recovery, persistence, budgets, boot and build-chain options in a separate non-normative dossier. Update the SPEC-D register to reflect merged R4/R5 reports and map language obligations separately from OS-realization decisions. No target architecture or new normative K7PL guarantee is ratified.
 
 
@@ -58,6 +61,8 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - CI: automated checks of the OpenSSF badge criteria (#129).
 
 ### Changed
+
+- French file names are renamed in English (owner request of 2026-10-27), with every import, script, test, workflow and document that names them: the 51 module files of `spec/Spec/` (`AnnexeA/` becomes `AnnexA/`, `C5/MiseEnPratique.lean` becomes `C5/InPractice.lean`…; titles, labels, tags and HTML pages are unchanged); `scripts/controle.py` becomes `scripts/check_spec.py` and the package `scripts/controles/` becomes `scripts/spec_checks/` (`algebre` → `algebra`, `couverture` → `statement_coverage`, `croise` → `cross_check`, `indexation` → `indexing`, `semantique` → `semantics`, `singularites` → `singularities`, `vocabulaire` → `vocabulary`, `donnees/sondes.json` → `data/probes.json`); `scripts/verif_singularites.py` becomes `scripts/check_singularities.py` and `tests/python/test_controles.py` becomes `tests/python/test_spec_checks.py`; the figure assets `matrice-contraction-affaiblissement` and `specialisation-du-jugement` become `contraction-weakening-matrix` and `judgement-specialisation`; the K7OS dossier files of `theoretical-projects/k7os/` get English names (the three R0–R2 briefs, which sit beside their English reports, are named `R0-brief-…`, `R1-brief-…`, `R2-brief-…`). The CI impact tables (`scripts/ci/impact.py` and its Deno port) and the component registry follow. File contents are not translated. The frozen pre-migration inventory of `wiki/assurance.md` and the notes of the audit pins name the files by their English names, by the author's instruction that no correspondence be kept; the digest that pins the inventory is re-synced, its rows, labels, line numbers and levels unchanged.
 
 - Specification wording: context-sensitive vocabulary cleanup and a source-anchored lexical-family check integrated into `scripts/controle.py`; unrelated words such as `violet` remain allowed.
 - C8 statement inventory check (`scripts/controles/statement_inventory.py`): the pre-migration

@@ -70,7 +70,7 @@ components:
     roots:
       - spec/
     build_command: lake build Spec
-    check_command: python3 scripts/controle.py --format github
+    check_command: python3 scripts/check_spec.py --format github
     cache_determinants:
       - lake-manifest.json
       - lean-toolchain
@@ -93,11 +93,20 @@ components:
       # D2 slice 2: genuine inputs of the spec checks and build
       # (the legacy classifier's spec-build exact/prefix rules,
       # now declared here instead of hidden in a table).
-      - scripts/controle.py
-      - scripts/controles/
+      - scripts/check_spec.py
+      - scripts/spec_checks/
       - scripts/biblio/
       - scripts/manuscript_metrics.py
       - wiki/references.json
+      # PR #311: `lake build Spec` reads lexicon/ (`input_dir
+      # lexicon` in lakefile.lean): the Verso K blocks display
+      # its files, and the extraction refuses a K file that no
+      # block displays. Since cutover C3 the derived classifier
+      # decides these surfaces, so the input is declared here.
+      - path: lexicon/
+        surfaces:
+          - spec_check
+          - spec_build
     allowed_claim_classes:
       - execution
       - verification
@@ -107,7 +116,7 @@ components:
     roots:
       - tools/
     build_command: lake build Spec
-    check_command: python3 scripts/controle.py --format github
+    check_command: python3 scripts/check_spec.py --format github
     cache_determinants:
       - lake-manifest.json
       - lean-toolchain
@@ -228,6 +237,29 @@ components:
       - path: tests/examples/
         surfaces:
           - k_examples
+      # PR #311 (author decision 2026-10-26): every K file lives
+      # in lexicon/, which the Verso K blocks display; the layer
+      # checker reads the probes of tests/layers/ and
+      # tests/lexical/ and the .k7 files of lib/. Since cutover
+      # C2 these entries, not path filters, start
+      # k7pl-semantics.yaml.
+      - path: lexicon/
+        surfaces:
+          - k_compile
+          - k_examples
+          - klean_export
+      - path: tests/layers/
+        surfaces:
+          - k_examples
+      - path: tests/lexical/
+        surfaces:
+          - k_examples
+      - path: lib/
+        surfaces:
+          - k_examples
+      - path: tools/layer-check/
+        surfaces:
+          - k_examples
       # Cutover C1, author decision 2026-10-26: wiki/semantics.md
       # keeps triggering K (it was in the former semantics
       # workflow's path filters). TEMPORARY: this page is meant
@@ -243,7 +275,7 @@ components:
     allowed_claim_classes:
       - execution
     notes:
-      - "src/k/ contains only a Makefile in the repository; the K sources are extracted from spec/ by Verso (extract-code) and the compiled definition lives under src/k/.build/, which is not tracked. A claim from this component is execution only: it never, by itself, establishes a property."
+      - "src/k/ contains only a Makefile in the repository; the K sources live in lexicon/, which the Verso K blocks display, only the Python checker is extracted from spec/ by Verso (extract-code), and the compiled definitions live under src/k/.build/, which is not tracked. A claim from this component is execution only: it never, by itself, establishes a property."
       - "Future tree rename: this component becomes semantics/ (with lexicon/ and siblings); only its roots change."
 
   - id: lean-proofs

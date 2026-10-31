@@ -1,0 +1,1903 @@
+-- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+--
+-- SPDX-License-Identifier: CC-BY-4.0
+
+-- Converted from the Org-mode manuscript by scripts/org2verso/convert.py. From the commit that
+-- introduces this file on, the Verso source is the source of truth: edit it directly.
+
+import VersoManual
+import SpecExt
+
+open Verso.Genre Manual
+open SpecExt
+
+set_option linter.unusedVariables false
+
+#doc (Manual) "Règles de typage" =>
+%%%
+file := "g-regles"
+tag := "g-regles"
+%%%
+
+{label "sec:g-regles"}
+
+Deux règles sont données au corps : celle du point fixe déductif ({num "eq:regle-fix"}[]) et celle
+de la déclassification ({num "eq:regle-declassify"}[]). Les autres sont données ici, en quatre
+groupes, dans l'ordre où l'induction du chapitre 4 (§{num "sec:c4-le-calcul-de-processus"}[]) les
+rencontre. Ce qui suit n'est plus un inventaire mais un jeu. Chaque groupe a son coût, et c'est ce
+compte qui a réduit ce qui paraissait un chantier ouvert à une liste bornée de décisions.
+
+Une première tranche du jeu de règles est désormais définie comme du Lean compilable dans la source de la spécification,
+dans le module `Spec.C3.EffectiveKernel` que `lake build Spec` construit avec ce document, sous le nom `K7pl.Spec.C3.EffectiveKernel`. Elle relie une grammaire interne à des jugements inductifs :
+`ValueTyping` porte `Var`, l'unité et `Pair` ; `ComputationTyping` porte `Ret`, `Lam`, `App` et `Let`.
+Le contexte du noyau est explicitement l'observation d'usage $`\pi_U`, tandis que le type de fonction conserve le grade complet
+(usage, coordonnée monotone, niveau, budget). La règle `App` projette le grade par $`\pi_U(r)` pour mettre à l'échelle le contexte
+de l'argument, puis utilise une opération de composition contextuelle indexée par l'effet. Cette opération reste un paramètre explicite :
+son instanciation par $`\boxtimes` est indexée par la couche et n'est pas supposée globalement additive.
+La règle `Let` utilise ce même opérateur avec l'effet traversé, au lieu de remplacer silencieusement $`\boxtimes` par une addition.
+Des théorèmes compilés construisent les dérivations de `λx. return x`, de `let x := (); return x` et de l'application de l'identité à l'unité, sous un grade arbitraire pour les trois coordonnées non liées à l'usage.
+
+Cette tranche est un fragment du système C3, pas son jeu complet. Le porteur et la composition des effets restent des paramètres explicites ;
+aucune loi d'effet n'est supposée. La composition contextuelle complète $`\boxtimes`, la définition et le domaine de $`\psi`, la consommation de budget,
+les conversions, les autres règles, la substitution générale et la simulation ne sont pas prouvés par ce noyau. Ils restent des obligations
+de formalisation et de preuve, pas des conséquences de sa compilation.
+
+Les règles _structurelles_ se réduisent à une seule, et c'est le premier gain de la gradation. Dans
+un système gradué, l'affaiblissement et la contraction ne sont pas des règles mais des conséquences
+de l'arithmétique des grades : affaiblir, c'est produire une liaison au grade nul ; contracter,
+c'est additionner deux grades. La règle de variable les absorbe donc toutes deux, en exigeant que
+toutes les liaisons du contexte portent le grade nul sauf celle qu'on emploie, laquelle porte
+l'unité. L'échange est admissible pour une raison distincte et qui tient à un choix ancien : les
+contextes ne sont pas ordonnés, l'encodage des protocoles dans l'implication linéaire (chapitre 3)
+ayant précisément permis d'éviter le produit ordonné qu'ils auraient exigé. Une règle primitive
+donc, et trois propriétés à établir.
+
+Les règles des _connecteurs_ sont les plus nombreuses — une introduction et une élimination par
+constructeur des trois grammaires, soit une quarantaine — et les plus routinières. Six seulement
+demandent de l'attention. Les quatre de l'adjonction entre valeurs et calculs portent le régime
+d'évaluation et fixent où les effets s'accumulent. Celles du quantificateur existentiel comptent
+double, car c'est par elles que passe la preuve de non-interférence : le témoin caché y est
+l'abstraction que la paramétricité transforme en indiscernabilité. Et les trois modalités
+temporelles n'ont pas de forme héritée — leur combinaison avec la gradation est propre à ce langage,
+et leurs règles sont à concevoir plutôt qu'à transcrire.
+
+Les règles _propres à K7PL_ sont moins nombreuses qu'annoncé, et pour une raison simple : les
+sessions n'y contribuent rien. Un protocole étant une syntaxe de surface sur l'implication linéaire,
+ses règles sont celles de cette implication, et la dualité tombe du retournement des arguments
+plutôt que d'un jeu propre. Restent donc deux groupes. L'introduction et l'élimination de la
+modalité graduée, où le contexte est multiplié par le grade à l'entrée et divisé à la sortie — c'est
+là que vit toute la discipline de ressource. Et les opérations à effet, dont la règle compose par le
+produit de la quantale, avec la réserve que le chapitre 3 a posée. Les opérations à portée prennent
+un calcul en argument et ne sont pas des effets algébriques ordinaires~; leur forme est fixée plus
+bas (§{num "sec:g-scoped"}[]), l'effet y devenant une fonction de l'effet de l'argument plutôt
+qu'une constante.
+
+Les règles de _sous-typage_, enfin, sont peu nombreuses et recèlent le seul piège de l'ensemble. Ce
+sont les coercions que la structure ordonnée du grade autorise, une par composante, plus leur
+composition. Le piège est que _la direction de la coercion n'est pas la même pour toutes_. Sur
+l'usage, elle descend : disposer d'une ressource librement copiable permet de ne l'employer qu'une
+fois, et $`!_\omega A` se coerce donc en $`!_1 A`. Sur la monotonie, elle descend aussi : avoir
+établi qu'une fonction préserve l'ordre permet de l'oublier. Sur le niveau de confidentialité, elle
+_monte_ : une donnée publique peut être traitée comme secrète, jamais l'inverse — c'est le sens même
+de la garantie. Et sur le budget, elle monte également : un calcul qui exige peu s'emploie là où
+l'on offre davantage. Deux composantes descendent, deux montent, et prendre le produit des ordres
+sans y regarder inverserait la garantie de confidentialité. L'ordre du sous-typage n'est donc pas
+l'ordre du grade mais son produit mixte, et cette distinction doit figurer dans les règles plutôt
+que dans un commentaire.
+
+Ce qui suit donne le jeu central. Les conventions sont celles-ci. $`\Delta` est un contexte gradué
+$`x_1 :_{r_1} V_1, \ldots`. La notation de surface $`r\cdot\Delta` désigne une action _règle-locale_ :
+pour {sc}[Box], {sc}[App], la substitution et le contexte de {sc}[Sc], son interprétation de référence est
+$`\operatorname{Scale}_{Usage}(\pi_U(r),\Delta)`, conformément à la décision d’autrice C-01. Les lois et leur compatibilité avec les règles restent à prouver. Les répétitions effectives sont représentées par
+la transformation d'effet $`\varphi_n`, distincte de l'action contextuelle. La notation ne constitue
+donc pas une multiplication primitive du grade complet, dont l'action globale reste une obligation de C2.
+$`\Delta_1 + \Delta_2` les additionne composante par composante, _à condition qu'ils portent les
+mêmes liaisons_. La condition s'écrit $`0\cdot\Delta_1 = 0\cdot\Delta_2`, l'annulation des grades ne
+laissant que les couples variable-type, et sans elle l'addition point par point n'est pas définie {cite "HUANG"}[]
+; $`\mathbf{0}` est le contexte de grades nuls. Enfin $`\Delta_1 \boxtimes_\varepsilon \Delta_2`
+note la composition que la loi distributive du chapitre 3
+(§{num "sec:c3-structures-ouvertes-effets-et"}[]) gouverne, définie au chapitre 1
+(§{num "sec:c1-de-la-loi-distributive"}[], équation {num "eq:boxtimes"}[]) par
+$`\Delta_1 + \psi(\Delta_2, \varepsilon)` : l'addition assortie du transport que $`\varphi` et
+$`\psi` prescrivent.
+
+Une précision de notation, qui n'en est pas une de forme. $`\boxtimes` _dépend de l'effet traversé_,
+et l'omettre laisserait le lecteur le reconstituer à chaque règle. L'indice est donné par le
+séquencement, et sans ambiguïté : c'est l'effet du calcul qui s'exécute _le premier_, celui dont
+l'exigence du second doit traverser le coût.
+
+Le relever une fois pour toutes fait apparaître un fait que l'absence d'indice dissimulait. _Deux
+règles seulement portent un indice non trivial_ : {sc}[Let], où c'est $`\varepsilon_1`, l'effet du
+calcul lié ; et {sc}[App], où c'est $`\varepsilon_0`, celui du terme fonction. Les neuf autres — {sc}[Unbox], {sc}[Open], {sc}[OneE], {sc}[Split], {sc}[Case], {sc}[When], {sc}[Sc], {sc}[VecE],
+et le lemme de substitution — éliminent toutes une _valeur_, dont l'effet est neutre. Par le lemme
+ci-après, leur $`\boxtimes` _est_ l'addition ponctuelle. La composition graduée n'a donc de contenu
+propre qu'aux deux endroits où un calcul précède un autre calcul, ce qui est exactement là où l'on
+attendait qu'elle en eût, et nulle part ailleurs. Les règles portent désormais leur indice, et une
+mécanisation n'aura ni à le deviner ni à traiter neuf cas là où deux suffisent.
+
+::::corollary (label := "thm:boxtimes_addition") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+:::title
+$`\boxtimes` généralise l'addition ponctuelle
+:::
+
+:::statement +titled
+L'addition est le cas sans coût temporel
+
+Pour tous contextes $`\Delta_1, \Delta_2` et tout effet $`\varepsilon` dont la composante temporelle
+est nulle, $$`\Delta_1 \boxtimes_\varepsilon \Delta_2 \;=\; \Delta_1 + \Delta_2,` et l'égalité est
+_totale_ : $`\psi(\cdot,\varepsilon)` y est définie partout.
+:::
+
+:::proofsketch
+Par la définition ({num "eq:boxtimes"}[]), Δ₁ ⊠ε Δ₂ = Δ₁ + ψ(Δ₂, ε). Lorsque l'effet a un coût temporel nul, la composante budgétaire de ψ est l'identité puisque β ⊖ 0 = β ; si les domaines structurels sont satisfaits, le produit mixte se réduit donc à l'addition point par point. Cela ne rend pas ψ partielle selon l'admissibilité : la définissabilité structurelle de ψ et l'autorisation de traversée sont deux obligations distinctes. Toute règle qui compose des contextes doit vérifier la compatibilité des clés/types et Adm pour chaque budget traversé. La soustraction tronquée et $`\mathrm{Cost}_{\mathrm{Budget}}` sont totales ; la partialité du passage est portée par son domaine d'admissibilité, pas par ces fonctions.
+:::
+
+:::note
+_Obligation ouverte._ Reste à définir la composante temporelle nulle sur la structure complète :
+travail et profondeur nuls à chaque niveau, non une seule coordonnée ni un seul niveau. Restent aussi
+à énoncer la condition de liaisons communes à $`\Delta_1` et $`\Delta_2`, dont dépend la définition
+de $`\Delta_1 + \Delta_2` et qui est distincte de la totalité de $`\psi`, et à montrer que le domaine
+de $`\psi` est sans restriction sur ce sous-ensemble d'effets.
+:::
+::::
+Ce lemme n'est pas une commodité de calcul : il situe K7PL par rapport à la forme reçue. Des
+présentations indépendantes des systèmes gradués écrivent la règle d'application en multipliant le
+contexte de l'argument par le grade que la flèche exige, puis en le combinant à celui du terme
+fonction par l'_addition ponctuelle_ du semi-anneau {cite "hanukaevUnificationGradedSubstructural2026"}[], {cite "hughesProgramSynthesisGraded2024"}[].
+K7PL écrit $`\Delta_1 \boxtimes_{\varepsilon_0} (r\cdot\Delta_2)`, et le lemme dit que les deux
+formes coïncident dès que l'effet ne coûte rien. Or aucune d'elles n'a d'effet qui traverse le
+coeffet : leur composante temporelle est identiquement nulle, et leur $`\boxtimes` _est_ leur $`+`.
+Elles n'ont donc pas fait un autre choix — elles travaillent dans le cas où les deux opérateurs se
+confondent, et n'avaient aucune raison d'en distinguer deux. K7PL généralise la forme reçue plutôt
+qu'il ne s'en écarte, et c'est l'effet traversant qui l'y oblige.
+
+::::formula (label := "eq:jeu-regles") (kind := "formule")
+```
+\begin{gather*}
+\textsc{Var}\;\frac{\;}{\;\mathbf{0}\cdot\Delta,\, x :_{1} V \;\vdash\; x : V\;}
+\qquad
+\textsc{Ret}\;\frac{\;\Delta \vdash v : V\;}{\;\Delta \vdash \mathsf{return}\;v : F_{\mathbf{1}} V \mid \mathbf{1}\;}
+\\[8pt]
+\textsc{Th}\;\frac{\;\Delta \vdash c : C \mid \varepsilon\;}{\;\Delta \vdash \mathsf{thunk}\;c : U_\varepsilon C\;}
+\end{gather*}
+```
+
+```
+\begin{equation*}
+\textsc{Let}\;\frac{\;\Delta_1 \vdash c_1 : F_{\varepsilon_1} V \mid \varepsilon_1 \qquad \Delta_2,\, x:_1 V \vdash c_2 : C \mid \varepsilon_2\;}{\;\Delta_1 \boxtimes_{\varepsilon_1} \Delta_2 \vdash \mathsf{let}\;x \leftarrow c_1\;\mathsf{in}\;c_2 : C \mid \varepsilon_1 \cdot \varepsilon_2\;}
+\qquad
+\textsc{Fo}\;\frac{\;\Delta \vdash v : U_\varepsilon C\;}{\;\Delta \vdash \mathsf{force}\;v : C \mid \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{gather*}
+\textsc{Box}\;\frac{\;\Delta \vdash v : V\;}{\;r\cdot\Delta \vdash \mathsf{box}_r\,v : !_r V\;}
+\\[8pt]
+\textsc{Unbox}\;\frac{\;\Delta_1 \vdash v : !_r V \qquad \Delta_2,\, x :_r V \vdash c : C \mid \varepsilon\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{unbox}\;v\;\mathsf{as}\;x\;\mathsf{in}\;c : C \mid \varepsilon\;}
+\end{gather*}
+```
+
+```
+\begin{gather*}
+\textsc{Lam}\;\frac{\;\Delta,\, x :_r V \vdash c : C \mid \varepsilon\;}{\;\Delta \vdash \lambda x.c : V_r \multimap_\varepsilon C \mid \mathbf{1}\;}
+\\[8pt]
+\textsc{App}\;\frac{\;\Delta_1 \vdash c : V_r \multimap_\varepsilon C \mid \varepsilon_0 \qquad \Delta_2 \vdash v : V\;}{\;\Delta_1 \boxtimes_{\varepsilon_0} (r\cdot\Delta_2) \vdash c\,v : C \mid \varepsilon_0 \cdot \varepsilon\;}
+\end{gather*}
+```
+
+```
+\begin{equation*}
+\textsc{Pair}\;\frac{\;\Delta_1 \vdash v_1 : V_1 \qquad \Delta_2 \vdash v_2 : V_2\;}{\;\Delta_1 + \Delta_2 \vdash (v_1,v_2) : V_1 \otimes V_2\;}
+\qquad
+\textsc{Inj}\;\frac{\;\Delta \vdash v : V_i \qquad i \in I\;}{\;\Delta \vdash \mathsf{inj}_i\,v : \textstyle\bigoplus_{j \in I} V_j\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Pack}\;\frac{\;\Delta \vdash v : V[W/\alpha]\;}{\;\Delta \vdash \mathsf{pack}\,(W,v) : \exists\alpha.V\;}
+\qquad
+\textsc{Open}\;\frac{\;\Delta_1 \vdash v : \exists\alpha.V \quad \Delta_2,\, x:_1 V \vdash c : C \mid \varepsilon \quad \alpha \notin \mathrm{fv}(\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2) \cup \mathrm{fv}(\varepsilon) \cup \mathrm{fv}(C)\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{open}\;v\;\mathsf{as}\;(\alpha,x)\;\mathsf{in}\;c : C \mid \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{One}\;\frac{\;}{\;\mathbf{0}\cdot\Delta \vdash () : \mathbf{1}\;}
+\qquad
+\textsc{OneE}\;\frac{\;\Delta_1 \vdash v : \mathbf{1} \qquad \Delta_2 \vdash c : C \mid \varepsilon\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{let}\;() = v\;\mathsf{in}\;c : C \mid \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Split}\;\frac{\;\Delta_1 \vdash v : V_1 \otimes V_2 \qquad \Delta_2,\, x :_{1} V_1,\, y :_{1} V_2 \vdash c : C \mid \varepsilon\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{let}\;(x,y) = v\;\mathsf{in}\;c : C \mid \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Case}\;\frac{\;\Delta_1 \vdash v : \textstyle\bigoplus_{i \in I} V_i \qquad \Delta_2,\, x :_{1} V_i \vdash c_i : C \mid \varepsilon \;\;(\forall i \in I) \qquad \mathrm{niv}(\Delta_1) \sqsubseteq \hat\ell(\varepsilon)\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{case}\;v\;\mathsf{of}\;\{i \mapsto c_i\}_{i \in I} : C \mid \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Op}\;\frac{\;\Delta \vdash v : V_{\mathsf{operation}} \qquad \mathrm{niv}(\Delta) \sqsubseteq \hat\ell(\varepsilon)\;}{\;\Delta \vdash \mathsf{operation}_\varepsilon(v) : F_{\mathbf{1}} W \mid \varepsilon\;}
+\qquad
+\textsc{Tick}\;\frac{\;}{\;\mathbf{0} \vdash \mathbf{tick} : F_{\mathbf{1}} \mathbf{1} \mid \langle \mathbf{1}, \delta_{\hat\ell}\rangle\;}
+\qquad
+\textsc{Del}\;\frac{\;\Delta \vdash c : C \mid \varepsilon\;}{\;{\bigcirc}\Delta \vdash \mathsf{delay}\;c : {\bigcirc}C \mid \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Sub}\;\frac{\;\Delta \vdash c : C \mid \varepsilon \qquad C <: C' \qquad \varepsilon \sqsubseteq \varepsilon'\;}{\;\Delta \vdash c : C' \mid \varepsilon'\;}
+\qquad
+\textsc{SubBox}\;\frac{\;r \preccurlyeq r'\;}{\;!_r V <: !_{r'} V\;}
+\end{equation*}
+```
+
+:::caption
+Le jeu de règles central : variable, adjonction, modalité graduée, effets et sous-typage
+:::
+::::
+
+Deux niveaux circulent dans ces règles, et ils ne sont pas le même ordre. Le _niveau de lecture_
+$`\ell` est la troisième composante d'un grade $`r` : ce qu'une liaison $`x :_r V` donne le droit
+de lire, et $`\mathrm{niv}(\Delta) = \bigsqcup_{x :_r V \in \Delta} \mathrm{niv}(r)` est celui d'un
+contexte. Le _niveau de production_ $`\hat\ell` est celui auquel un événement est observable : la
+famille $`\kappa` d'un effet $`\varepsilon = \langle \varphi, \kappa \rangle` est indexée par lui, et
+$`\hat\ell(\varepsilon)` en désigne la borne inférieure des niveaux où $`\kappa` est non nulle — et
+$`\top` si $`\kappa = 0`, un effet sans événement temporel n'ayant rien à protéger. Le premier est
+contravariant (le niveau d'un contexte monte avec ce qu'il lit), le second covariant ; les écrire
+$`\ell` et $`\hat\ell` évite que « $`\ell \sqsubseteq \ell` » ne soit inénonçable. {sc}[Tick]
+choisit son niveau de production $`\hat\ell`, et l'effet $`\langle \mathbf{1}, \delta_{\hat\ell}\rangle` est
+bien formé, $`\kappa` étant une famille et non un nombre. Ce choix serait libre, donc contournable,
+sans la clause de couplage que portent {sc}[Op] et {sc}[Case] : un calcul n'inspecte ni ne
+transmet que des valeurs dont le niveau de lecture est au plus son niveau de production. Un
+`case` sur une somme secrète dont les branches produiraient des ticks publics est ainsi
+rejeté, et le canal temporel que ce document déclare fermé l'est par règle. La correspondance est
+_dérivée_ et non décidée : l'exclusion de $`\varphi_\ell` hors de la quantale des effets
+n'est plus une clause négative posée à la main. Le niveau courant du processus est celui que
+porte son effet ; il n'est donc pas nécessaire de l'indexer en plus dans le jugement. {sc}[Tick] n'est d'ailleurs pas une règle primitive mais une règle _admissible_ : c'est l'instance de {sc}[Op] pour l'opération d'effet $`\langle \mathbf{1}, \delta_{\hat\ell}\rangle` appliquée à $`()` dans le contexte $`\mathbf{0}`, dont la clause de couplage est satisfaite d'office. Elle est écrite pour fixer le choix de $`\hat\ell`, comme {sc}[Expand] se dérive au chapitre 5.
+
+Trois de ces règles ne demandent rien, et sont écrites plutôt qu'omises : une règle absente est un
+cas manquant dans toute induction — et le lemme de substitution du §{num "sec:g-regles"}[] procède
+par récurrence sur la dérivation. {sc}[One] et {sc}[OneE] donnent l'unité ; {sc}[Split] élimine le
+tenseur ; {sc}[Case] élimine la somme. Deux points seulement s'y décident. Le premier est que {sc}[Case]
+_partage_ son contexte entre les branches au lieu de l'additionner, une seule d'entre elles
+s'exécutant : c'est le même trait que {sc}[With] au §{num "sec:g-regles"}[], et il est correct pour
+la même raison. Le second est que toutes les branches y portent le _même_ effet ; cela ne restreint
+rien, {sc}[Sub] permettant de relever chacune jusqu'à leur borne supérieure, et l'écrire ainsi évite
+d'introduire un joint dans la règle. Cet argument suppose l'existence de cette borne supérieure,
+c'est-à-dire l'existence de _jointures_ — et c'est la condition du théorème {num "thm:coherence_subsomption"}[]
+ci-après, dont la vérification est faite au §{num "sec:g-regles"}[]. L'argument employé ici est donc
+déjà celui du théorème, et il n'était pas dit qu'il l'était : relever une branche jusqu'à un joint
+et démontrer que deux dérivations coïncident demandent la même structure.
+
+La forme _indexée_ de {sc}[Case] n'est pas un raffinement de présentation, et il faut dire pourquoi
+elle a été préférée à la forme binaire que ce texte écrivait. Un gestionnaire d'acteur a autant
+de branches qu'il reçoit d'espèces de messages. L'encoder par une cascade de sommes binaires
+rendrait le nombre de branches dépendant d'un ordre arbitraire, et le typage d'un protocole
+dépendrait de la manière dont on a associé les alternatives. Les types de session de cette même
+grammaire portaient d'ailleurs déjà la forme indexée, $`\oplus\{\ell_i : S_i\}` : c'étaient les
+types de valeur et de calcul qui faisaient exception. La somme et la conjonction additive sont donc
+indexées partout, et {sc}[Inj], {sc}[With] et {sc}[Proj] le sont avec elles.
+
+Un second motif appuie ce choix, indépendant du premier, et la mécanisation étant un objectif
+déclaré : le coût de preuve. Une mécanisation de référence rapporte que l'ajout de quelques règles
+de réduction pour les sommes disjointes a _doublé_ la preuve de correction, le seul lemme de
+confluence recevant treize cas de plus, dont plusieurs répétitifs {cite "abelPOPLMarkReloadedMechanizing2019"}[].
+Un schéma indexé donne un cas d'induction là où une cascade de binaires en donne autant que de
+branches. Deux raisons indépendantes — la fidélité au protocole d'un acteur, et le coût de la preuve
+— arrivent donc au même choix, ce qui est le meilleur statut qu'un choix de présentation puisse
+avoir.
+
+Ce passage à l'indexation oblige à dire ce que l'ensemble d'indices $`I` peut être, question que la
+forme binaire dissimulait. La réponse tient en deux temps, et c'est le prédicat de treillis fini qui
+la porte. Aucune restriction n'est imposée à $`I` dans la grammaire : une somme sur un ensemble
+infini d'étiquettes est un type licite, et il le faut, un gestionnaire pouvant recevoir des messages
+d'un type non borné. La restriction apparaît là où elle est nécessaire, dans
+$`\mathsf{Trellis}_{\text{fin}}`, dont la clause exige explicitement que $`I` soit fini — sans quoi
+l'itération de l'opérateur de point fixe cesserait de terminer. _La contrainte est ainsi portée par
+le jugement qui en a besoin, et non par la grammaire qui n'en a que faire_, ce qui est la règle que
+ce document s'applique partout ailleurs.
+
+La flèche $`V_r \multimap_\varepsilon C` porte _une_ annotation, et il vaut la peine de dire
+pourquoi une seule suffit, car ce n'est pas le cas général. Un calcul par poussée de valeur pur ne
+demande aucune annotation sur la flèche. Une extension qui doit traiter l'évaluation paresseuse en
+demande _deux_ — celle de l'argument et celle de la fonction —, l'argument y étant un calcul
+suspendu dont l'effet reste à consigner {cite "mcdermottExtendedCallbypushvalueReasoning2019"}[].
+Ici l'argument est une _valeur_, donc sans effet propre : il n'y a rien à annoter de son côté, et
+$`\varepsilon` ne dit que ce que le corps produira. C'est encore la séparation valeur/calcul qui
+paie, et l'économie se lit sur la forme même de la flèche.
+
+Trois autres règles portent l'essentiel et méritent un mot. {sc}[Box] et {sc}[Unbox] sont le lieu de
+toute la discipline de ressource : entrer sous la modalité multiplie le contexte par le grade, en
+sortir le restitue à la liaison. {sc}[App] est celle où la loi distributive se manifeste. L'argument
+y voit son contexte multiplié par la demande que la fonction exprime : c'est $`\varphi` à l'œuvre
+sur un cas concret. Et {sc}[Open] porte sa condition de bord, $`\alpha` n'apparaissant ni dans les
+contextes, ni dans l'effet, ni dans le type de sortie : c'est elle qui rend le témoin inatteignable, et c'est sur elle que la preuve de
+non-interférence s'appuiera.
+
+La relation $`\preccurlyeq` de {sc}[SubBox] n'est pas l'ordre du grade mais le produit _mixte_
+annoncé plus haut. Le décrire ne suffit pas à une transcription, qui demande la relation elle-même ;
+on la pose donc composante par composante, chacune avec sa direction et l'opération de composition
+qui l'accompagne.
+
+::::k7table (label := "tab:produit-mixte") (align := "lZ{1.37}lZ{0.81}Z{0.81}")
+:::caption
+Le produit mixte du sous-typage et les opérations distinctes qu'il faut vérifier par composante
+:::
+
+:::table +header
+* * Composante
+  * Direction de la coercion
+  * Relation
+  * Agrégation / combinaison
+  * Multiplication globale candidate
+* * usage $`u`
+  * descend, $`\omega` se coerce en $`1`
+  * $`u \geq u'`
+  * addition du facteur d'usage
+  * multiplication du semi-anneau
+* * monotonie $`m`
+  * descend, une preuve s'oublie
+  * $`m \succeq m'`
+  * à formaliser
+  * minimum des deux marques
+* * niveau $`\ell`
+  * monte, public vers secret
+  * $`\ell \leq \ell'`
+  * joint $`\sqcup` là où le branchement l'exige
+  * non fixé
+* * budget $`\beta`
+  * monte, exiger peu s'emploie là où l'on offre plus
+  * $`\beta \leq \beta'`
+  * opération additive du facteur
+  * multiplication de $`\mathbb{N}_\infty`; $`\ominus` reste une consommation indexée par l'effet
+:::
+::::
+
+::::formula (label := "eq:sous-typage-grade") (kind := "equation")
+```
+\begin{equation*}
+r \preccurlyeq r' \;\Longleftrightarrow\;
+u \geq u' \;\land\; m \succeq m' \;\land\; \ell \leq \ell'
+\;\land\; \beta \leq \beta',
+\qquad
+r=\langle u,m,\ell,\beta\rangle,\;
+r'=\langle u',m',\ell',\beta'\rangle.
+\end{equation*}
+```
+:::caption
+Définition explicite de la relation de sous-typage sur les grades
+:::
+::::
+
+Autrement dit $`\preccurlyeq` est le produit
+$`({\geq}) \times ({\succeq}) \times ({\leq}) \times ({\leq})` sur le porteur complet $`\mathcal{G}`, et non l'ordre de
+précision $`\sqsubseteq` dont il diffère sur deux composantes. L'écrire autrement inverserait la
+garantie de confidentialité, qui est la seule des quatre dont le sens dépende de la direction.
+
+La dernière colonne n'est pas décorative : c'est elle qui porte la vérification du
+§{num "sec:g-regles"}[]. Les lois de la comonade graduée ne mentionnent l'ordre que par une exigence
+de monotonie de la composition, et chaque ligne la satisfait _dans sa propre direction_. La
+condition à retenir n'est donc pas que l'ordre soit uniforme, mais que pour chaque composante
+l'opération et la direction aient été choisies ensemble.
+
+Cette table donne aussi, et c'est moins attendu, la condition d'une propriété que le système possède
+sans l'avoir énoncée. {sc}[Sub] et {sc}[SubBox] sont deux règles _interstitielles_. Elles
+s'appliquent en tout point d'une dérivation, de sorte que plusieurs dérivations typent le même
+programme dès qu'elles existent. Rien n'a jusqu'ici établi qu'elles s'accordent, c'est-à-dire que
+ces dérivations dénotent la même chose.
+
+::::proposition (label := "thm:coherence_subsomption") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+:::title
+cohérence de la subsomption
+:::
+
+:::statement +titled
+Un programme valide a exactement une signification
+
+Si deux dérivations typent le même terme, leurs interprétations coïncident.
+:::
+
+:::proofsketch
+En trois temps : interpréter chaque sous-typage par une fonction de conversion ; éliminer
+réflexivité et transitivité des dérivations ; pousser la subsomption à travers les règles
+d'introduction jusqu'à l'unicité des dérivations.
+
+_Ce que la suite établit, et ce qu'elle n'établit pas._ L'ordre du sous-typage possède ses
+_jointures_ : un produit d'ordres les possède si et seulement si chaque facteur les possède, prises
+composante par composante, et les quatre facteurs les ont — l'usage sous $`\geq` comme minima de
+l'ordre naturel de $`\mathbb{N}_\infty`, la monotonie sous $`\succeq` comme chaîne à deux éléments,
+le niveau par définition du treillis, le budget sous $`\leq` comme maxima.
+
+Mais _l'existence de jointures n'est pas la cohérence des coercions_, et cette esquisse confondait
+les deux. Un ordre peut avoir ses jointures sans que les fonctions de conversion associées
+commutent : ce qu'il faut est que, pour tous $`r \preccurlyeq s \preccurlyeq t`, la conversion
+composée de $`r` vers $`t` égale la conversion directe, et que la conversion de $`r` vers lui-même
+soit l'identité. C'est une condition sur les _coercions_, non sur l'ordre, et elle reste à établir :
+facteur par facteur d'abord, puis par fermeture sur le produit, le composé de quatre familles
+cohérentes l'étant si les quatre le sont.
+
+_Réduction établie._ Chaque facteur est un préordre, donc une catégorie mince : entre deux grades il
+y a au plus une flèche, et deux dérivations de $`r \preccurlyeq r'` désignent la même. Si la
+conversion est définie comme le transport le long de cette flèche, la cohérence énoncée se ramène à
+la fonctorialité de ce transport — identité en $`r \preccurlyeq r`, composition en
+$`r \preccurlyeq s \preccurlyeq t` — à vérifier pour chacune des quatre familles, puis à clore par
+produit, la fonctorialité d'un produit de catégories l'étant composante par composante. La conversion de chaque facteur se définit ainsi. Sur le niveau, la monotonie et le budget, la conversion est l'_identité_ sur la valeur sous-jacente : seule l'étiquette change, de sorte que l'identité et la composition sont immédiates. Sur l'usage, c'est le morphisme canonique de comonades gradués $`!_{u} \Rightarrow !_{u'}` pour $`u \geq u'` : la dérivation (compteur) de $`\omega` vers $`1` et l'affaiblissement de $`1` vers $`0`. Seule équation à vérifier : de $`\omega` à $`0`, la conversion composée, dérivation puis affaiblissement, est la conversion directe. Elle tient parce que $`!_0 A` est l'unité, terminale dans le fragment affine du chapitre 2 : toute flèche vers un objet terminal est unique, donc deux chemins de $`!_\omega A` vers $`!_0 A` coïncident. Les trois autres facteurs étant l'identité, la cohérence des quatre familles est établie, et le produit la ferme ; le théorème {num "thm:coherence_subsomption"}[] reste une proposition tant que l'existence des jointures entre modes quelconques (chapitre 1) n'est pas acquise hors des quatre facteurs.
+:::
+
+:::note
+_Obligation ouverte._ L'état de proposition est maintenu : la fonctorialité du transport — identité
+et composition — reste à vérifier pour chacune des quatre familles de conversion, interaction entre
+usage et coercion comprise, puis à clore par produit.
+:::
+::::
+La forme de cette preuve est celle qu'emploie la cohérence de la subsomption pour un calcul
+monadique {cite "schwinghammerCoherenceSubsumptionMonadic2009"}[]. La condition qu'elle demande n'est pas encore acquise ici : K7PL doit vérifier les conversions
+propres à son ordre produit. Les jointures déjà utilisées aux branchements constituent une donnée
+algébrique utile, mais elles ne suffisent pas à établir la cohérence des coercions.
+
+Une réserve de portée doit être notée maintenant plutôt qu'au moment où l'on voudrait s'en passer. {rmq}[Les
+universels bornés ou les jointures, pas les deux. La question se posera le jour où les
+quantificateurs demanderont une borne.] La règle de Breazu-Tannen pour les universels bornés, qui
+autorise le sous-typage contravariant des bornes, est incompatible avec l'existence des jointures.
+K7PL a des universels et des sommes ; s'il veut un jour borner ses quantificateurs, il devra
+renoncer à l'un des deux.
+
+S'il tient, un programme accepté a exactement une signification, et le vérificateur peut choisir
+n'importe quelle dérivation sans changer le sens du programme. S'il tombe, deux dérivations d'un
+même terme pourraient dénoter deux choses, et l'énoncé de correction de la traduction perdrait son
+objet.
+
+{rmq}[Le chapitre 5 invoque une propriété du même nom. Ce n'est pas le même objet, et la
+ressemblance des énoncés est ce qui rend la confusion facile.] Le chapitre 5
+(§{num "sec:c5-mise-en-pratique"}[]) emploie le mot dans un autre sens : la cohérence y conditionne
+la _résolution d'une recherche_ dirigée par le type, celle-ci porte sur des _dérivations de
+subsomption_. Le schéma d'énoncé est le même — un programme valide a exactement une signification —
+et il est employé deux fois dans ce document pour deux objets distincts. Que la preuve ci-dessus
+s'étende à la recherche est une question ouverte, et elle n'est pas traitée ici.
+
+# Les deux autres modalités temporelles
+%%%
+tag := "g-regles-les-deux-autres-modalites-temporelles"
+%%%
+
+Elles n'ont pas de forme héritée, et il faut donc les concevoir. Ce qui les détermine est moins leur
+logique — qui est celle des modalités de nécessité et de possibilité sur un ordre linéaire — que
+leur interaction avec la gradation, qui est propre à ce langage.
+
+La modalité $`\Box` dit qu'une valeur est disponible _à tout instant_. Son introduction exige donc
+que rien dans son contexte ne cesse de l'être, faute de quoi la valeur ne pourrait pas être
+reproduite plus tard. C'est le patron de la promotion, et il n'est pas fortuit qu'il ressemble à
+celui de la modalité d'usage. La modalité $`\Diamond` dit qu'une valeur _finira_ par être
+disponible, sans dire quand. Elle s'introduit de deux façons — ce qui est là est éventuellement là,
+et ce qui sera là après un délai est éventuellement là — et son élimination porte la contrainte qui
+compte. On ne peut rien conclure d'un délai non borné qui ne soit lui-même non borné, de sorte que
+le résultat reste sous $`\Diamond`.
+
+::::formula (label := "eq:regles-temporelles") (kind := "formule")
+```
+\begin{equation*}
+\textsc{Alw}\;\frac{\;{\Box}\Delta \vdash v : V\;}{\;{\Box}\Delta \vdash \mathsf{always}\;v : {\Box}V\;}
+\qquad
+\textsc{Alw}^{-}\;\frac{\;\Delta \vdash v : {\Box}V\;}{\;\Delta \vdash \mathsf{at}\;v : F_{\mathbf{1}} V \mid \mathbf{1}\;}
+\qquad
+\textsc{Now}\;\frac{\;\Delta \vdash v : V\;}{\;\Delta \vdash \mathsf{now}\;v : {\Diamond}V\;}
+\end{equation*}
+```
+
+```
+\begin{gather*}
+\textsc{Nxt}\;\frac{\;\Delta \vdash v : V\;}{\;{\bigcirc}\Delta \vdash \mathsf{next}\;v : {\bigcirc}V\;}\qquad\textsc{Wait}\;\frac{\;\Delta \vdash v : {\bigcirc}{\Diamond}V\;}{\;\Delta \vdash \mathsf{wait}\;v : F_{\mathbf{1}}\,{\Diamond}V \mid \mathbf{1}\;}
+\\[8pt]
+\textsc{When}\;\frac{\;\Delta_1 \vdash v : {\Diamond}V \qquad {\Box}\Delta_2,\, x :_r V \vdash c : {\Diamond}C \mid \varepsilon\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} ({\Box}\Delta_2) \vdash \mathsf{when}\;x = v\;\mathsf{in}\;c : {\Diamond}C \mid \varepsilon\;}
+\end{gather*}
+```
+
+:::caption
+Règles des modalités de permanence et d'éventualité ; la latence d'attente est distincte du coût d'exécution
+:::
+::::
+
+Le contrat de When doit séparer l'événement déclencheur du coût d'exécution de l'automate déclenché. P3-B, ratifiée le 11 octobre 2026, décide que l'attente environnementale, de durée potentiellement non bornée, est une latence de surveillance et d'orchestration ; elle ne s'impute pas au coût d'exécution propre de l'automate une fois l'événement survenu. La conclusion de typage conserve donc l'effet d'exécution ε, au lieu de remplacer sa famille temporelle par le maximum ω.
+
+L'absence de déclenchement dans un temps fini reste possible : P3-B ne promet ni vivacité de l'environnement ni échéance finie. Elle exige que la latence de surveillance reste observable séparément, mais ne ratifie pas le carrier ni le type de cette observation. C-04/C-07 doivent fixer cette représentation avant qu'une coordonnée ou un canal ne soit ajouté à la sémantique.
+
+La prémisse Box Δ₂ continue de porter la disponibilité après une attente ; elle ne suffit pas à rendre tous les budgets admissibles. Les règles de composition doivent vérifier séparément que ψ est structurellement définie et que les budgets traversés satisfont Adm. La correction de ressource pour When reste à démontrer règle par règle.
+
+Cette contrainte est désormais posée, et il faut dire comment : _aucun connecteur n'a été ajouté_.
+La duale que la règle réclame — une ressource disponible maintenant et encore après une attente de
+durée non bornée — est exactement ce que $`{\Box}` dénote déjà, « disponible à tout instant ». Le
+document a longtemps cherché un symbole pour un objet qu'il possédait.
+
+La coïncidence n'est pas fortuite, et elle se lit sur la règle d'introduction de $`{\Box}`, qui
+exige déjà un contexte $`{\Box}\Delta`. Cette exigence _est_ la condition de report : on ne peut
+promettre une disponibilité permanente qu'à partir de ressources elles-mêmes permanentes. {rmq}[La
+règle portait la contrainte depuis le début ; c'est la règle d'attente qui ne l'invoquait pas.
+Chercher un connecteur neuf revenait à ignorer celui dont on disposait.] La règle {sc}[When] invoque
+donc cette modalité plutôt que d'en introduire une nouvelle, et sa conclusion tient ce qu'elle
+promet.
+
+Deux conséquences, et la seconde est un coût qui disparaît.
+
+La première est que la coercion $`{\Box}S \to S` existe déjà sous le nom $`\mathsf{at}` : ce qui est
+disponible à tout moment l'est en particulier maintenant, et la réciproque est fausse — c'est ce qui
+donne son contenu à la modalité.
+
+La seconde est que _la grammaire des types ne gagne rien_. Une rédaction antérieure inscrivait ici
+le coût d'un connecteur ajouté et le justifiait en le projetant sur la composante de contexte du
+jugement germinal. Le coût n'existe pas : la condition de clôture n'est pas seulement tenue, elle
+est tenue _sans dépense_, ce qui est le cas le plus favorable qu'elle puisse connaître.
+
+Deux remarques closent ce point. La première est que $`\Box` et $`\bigcirc` suffisent aux couches 1
+et 2, dont les calendriers sont bornés par construction. $`\Diamond` n'est requis que là où un
+transducteur produit à un rythme que son entrée ne détermine pas, cas que le chapitre 4 signale. La
+seconde est que $`\Box` ressemble à la modalité d'usage sans lui être identique : l'une porte sur le
+temps, l'autre sur le nombre d'emplois, et leur parenté est celle que le chapitre 2 énonce entre
+toutes les modalités graduées sur une structure ordonnée — même patron, structures distinctes.
+
+# Les opérations à portée
+%%%
+tag := "g-scoped"
+%%%
+
+{label "sec:g-scoped"}
+
+La règle {sc}[Op] vaut d'une opération algébrique ordinaire, qui reçoit une valeur et rend un
+calcul. Celles qui reçoivent un _calcul_ — un gestionnaire, un bloc délimité — n'entrent pas dans ce
+moule, et le chapitre 3 signale depuis longtemps qu'elles ne sont pas des effets algébriques
+ordinaires. Leur forme est celle de la règle {sc}[Sc] ci-dessous.
+
+::::formula (label := "eq:regle-portee") (kind := "formule")
+```
+\begin{equation*}
+\textsc{Sc}\;\frac{\;\Delta_1 \vdash v : V_{\mathsf{operation}} \qquad \Delta_2 \vdash c : C \mid \varepsilon_c \qquad f = \varphi_n \circ \pi_S \in \mathcal{M}\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} (n\cdot\Delta_2) \vdash \mathsf{scoped}_{f}(v,\,c) : F_{\mathbf{1}} W \mid f(\varepsilon_c)\;}
+\end{equation*}
+```
+
+:::caption
+La forme d'une opération à portée : son effet est une fonction de l'effet de son argument
+:::
+::::
+
+Le scalaire $`n` agit sur le contexte comme un scalaire d'usage : $`n \cdot \Delta_2`
+se lit sous l'architecture factorisée comme $`\mathrm{Scale}_{\mathrm{Usage}}(n, \Delta_2)`. La transformation
+$`\varphi_n` sur l'effet est une opération distincte. La règle ne requiert donc
+aucune multiplication préalable de la composante budgétaire par $`n`.
+
+Ce qui distingue cette règle de {sc}[Op] tient entièrement à $`f`. L'effet d'une opération à portée
+n'est pas une constante mais une _fonction de l'effet de son argument_ : un gestionnaire qui
+intercepte une exception retire cet effet, un gestionnaire qui rejoue son bloc le double, un
+gestionnaire qui l'ignore l'annule. Le grade d'effet devient donc fonctionnel, et c'est la même
+généralisation que celle qu'exigent les effets dépendants — à ceci près que l'indice y parcourt les
+valeurs quand il parcourt ici les effets eux-mêmes. On pourrait croire que la gradation indexée du
+chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) suffit à porter cette forme. Le
+§{num "sec:g-regles"}[] montre qu'il n'en est rien, l'une indexant sur les valeurs et l'autre sur
+les effets, et qu'une structure propre est requise — un monoïde de transformateurs agissant sur
+l'algèbre des effets.
+
+Une distinction s'impose ici, et la mise en parallèle est ce qui la rend nécessaire. L'algèbre des
+effets porte deux fragments qu'il faut nommer : $`\mathcal{E}_{\text{alg}}`, celui des opérations
+algébriques ordinaires, qui se composent par le séquencement _et_ par la mise en parallèle ; et
+$`\mathcal{E}_{\text{scoped}}`, celui des opérations à portée, dont l'effet est une _fonction_ de
+l'effet de son argument et que le monoïde de transformateurs gouverne.
+
+Ce que la seconde composition révèle est que ces deux fragments ne se comportent pas pareillement
+sous elle. Deux effets algébriques se mettent en parallèle sans rien demander. Deux opérations à
+portée ne le peuvent qu'une fois leurs transformateurs appliqués, les fonctions ne se composant pas
+en parallèle comme des valeurs. _La clôture est donc faible sur ce fragment, et il faut l'écrire
+ainsi_ : les opérations à portée se projettent bien sur la composante d'effet du jugement, mais
+elles y entrent par une structure que les opérations ordinaires n'ont pas. {rmq}[Ranger l'exception
+plutôt que de la nier. Une clôture qu'on déclarerait forte là où elle est faible serait une clôture
+qu'on ne pourrait plus invoquer ailleurs.] Les unifier sous une même machinerie serait une
+uniformisation abusive ; les tenir pour deux mécanismes étrangers serait oublier qu'ils partagent
+leur place dans le jugement. Ils partagent la place et diffèrent par la structure, et c'est ce que
+la nomenclature doit dire.
+
+Le contexte du bloc y est multiplié par $`n`, et cette multiplication est ce qui fait sortir le bloc
+du fragment de sa couche : un bloc rejoué deux fois porte des grades que le fragment affine n'admet
+pas. Ce n'est pas une entorse mais un déplacement, et le paragraphe sur la sédimentation le justifie
+— ce qui borne une réexécution est le budget et non la discipline de ressource, le premier tarifant
+ce que la seconde interdirait sans le mesurer.
+
+## Le monoïde des transformateurs
+%%%
+tag := "g-scoped-le-monoide-des-transformateurs"
+%%%
+
+La règle quantifie sur $`\mathcal{M}`, qu'il faut donc poser. Avant de le faire, il faut situer cet
+objet _par rapport à ce que la littérature appelle une opération à portée_, faute de quoi on
+croirait construire la même chose.
+
+La littérature définit une opération à portée sur une monade $`T`, d'arité $`k`, comme une famille
+$`\sigma_A : (TA)^k \to TA` naturelle en $`A` {cite "matacheScopedEffectsScoped2025"}[]. Elle agit
+donc sur des _calculs_, et les travaux récents en donnent une théorie complète en traitant les
+portées comme des _ressources_ ouvertes et fermées par des opérations dédiées, dans le cadre des
+théories algébriques paramétrées. Ce n'est pas ce que $`\mathcal{M}` est. Un système de types
+n'annote pas des calculs, il annote leurs effets~; $`\mathcal{M}` est donc l'_ombre au niveau des
+annotations_ de ce que la littérature définit au niveau des calculs — ce qu'une opération à portée
+fait subir à l'annotation, non ce qu'elle fait au calcul.
+
+Cette différence de niveau porte une condition, écrite ici plutôt que laissée implicite. La règle {sc}[Sc]
+donne à $`\mathsf{scoped}_f(v,c)` l'effet $`f(\varepsilon_c)`, c'est-à-dire une fonction de la seule
+annotation de son argument. Pour que cela soit correct, il faut que l'action de $`\sigma` sur les
+annotations _se factorise par l'annotation_ : deux calculs de même effet doivent donner, sous la
+même opération à portée, des effets égaux. Rien ne le garantit a priori, et ce document ne l'établit
+pas. C'est une réserve de portée réelle, inscrite à la nouvelle entrée de travaux qui la porte.
+
+Ceci posé, deux familles suffisent à engendrer $`\mathcal{M}`, et chacune correspond à une forme de
+gestionnaire réalisable.
+
+La première est l'_itération_. Pour $`n \in \mathbb{N}_\infty`, $`\varphi_n` envoie
+$`\langle \varepsilon_0, k\rangle` sur $`\langle \varepsilon_0^{\,n},\, n\,k\rangle`. Elle n'est pas
+une famille nouvelle : c'est l'action que la loi distributive du chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]) exerce déjà sur l'effet, lue comme une application de
+$`\mathcal{E}` dans lui-même. Et elle est un morphisme de monoïdes, ce qui est le premier fait à
+retenir : $`\varphi_n \circ \varphi_m = \varphi_{nm}`, puisque
+$`(\varepsilon^m)^n = \varepsilon^{nm}` et $`n(mk) = (nm)k` ; $`\varphi_1` est l'identité, et
+$`\varphi_0` envoie tout sur l'unité.
+
+La seconde est la _rétraction_. Pour un ensemble $`S` d'opérations, $`\pi_S` efface de
+$`\varepsilon_0` les occurrences des opérations de $`S` et laisse les autres dans leur ordre, sans
+toucher au facteur temporel. Elle est idempotente et $`\pi_S \circ \pi_T = \pi_{S \cup T}`. Que le
+facteur temporel soit laissé intact demande un mot : intercepter une opération ne réduit pas la
+borne de coût, qui reste une sur-approximation. C'est un choix de _sûreté contre finesse_, et il va
+dans le sens où l'on veut se tromper.
+
+::::formula (label := "eq:monoide") (kind := "formule")
+```
+\begin{align*}
+\mathcal{M} &\;=\; \langle\, \varphi_n,\ \pi_S \;\mid\; n \in \mathbb{N}_\infty,\ S \subseteq \mathrm{Ops} \,\rangle \;\subseteq\; \mathrm{End}_{\text{mon}}(\mathcal{E})\\
+\varphi_n \circ \varphi_m &\;=\; \varphi_{nm} \qquad\qquad \pi_S \circ \pi_T \;=\; \pi_{S \cup T} \qquad\qquad \varphi_n \circ \pi_S \;=\; \pi_S \circ \varphi_n
+\end{align*}
+```
+
+:::caption
+Le monoïde des transformateurs d'effets, ses deux familles de générateurs et ses trois lois
+:::
+::::
+
+Les trois exigences que la vérification du §{num "sec:g-regles"}[] avait posées sont satisfaites, et
+se vérifient une à une plutôt qu'elles ne s'affirment. L'identité est $`\varphi_1`, qui est un
+générateur, et c'est le gestionnaire transparent. La composition est celle des gestionnaires
+imbriqués, et la clôture tient par construction d'un sous-monoïde engendré. L'action préserve
+l'ordre parce que chaque générateur le préserve — l'itération dans une quantale et la multiplication
+dans $`\mathbb{N}_\infty` sont monotones, l'effacement l'est aussi — et parce qu'une composée
+d'applications monotones l'est.
+
+### La troisième loi, et la condition sous laquelle elle tient
+%%%
+tag := "g-scoped-le-monoide-des-transformateurs-la-troisieme-loi-et"
+%%%
+
+La commutation des deux familles n'est pas gratuite, et c'est elle qui décide de tout le reste. Le
+calcul est court. D'un côté
+$`\varphi_n(\pi_S\langle \varepsilon_0, k\rangle) = \langle (\pi_S \varepsilon_0)^n,\, n\,k\rangle`
+; de l'autre
+$`\pi_S(\varphi_n\langle \varepsilon_0, k\rangle) = \langle \pi_S(\varepsilon_0^{\,n}),\, n\,k\rangle`.
+Les facteurs temporels coïncident, et les deux applications sont donc égales si et seulement si
+
+::::formula (label := "eq:commutation") (kind := "equation")
+```
+\begin{equation}
+\pi_S(\varepsilon_0^{\,n}) \;=\; (\pi_S\,\varepsilon_0)^{\,n}
+\end{equation}
+```
+::::
+
+c'est-à-dire si et seulement si $`\pi_S` est un morphisme de la quantale. Or l'effacement l'est dès
+lors qu'aucune relation de la présentation de $`\mathcal{E}_0` ne lie une opération effacée à une
+opération conservée : sur une présentation libre, $`\pi_S` est l'unique morphisme prolongeant
+$`\mathrm{op} \mapsto \mathbf{1}` pour $`\mathrm{op} \in S`, et il satisfait
+$`\pi_S(\alpha\beta) = \pi_S(\alpha)\,\pi_S(\beta)` par définition. Le cas $`n = \omega` demande en
+outre que $`\pi_S` préserve les bornes supérieures, ce qu'un morphisme de quantale fait.
+
+_Ce document tient donc la commutation pour acquise sur une présentation sans relation croisée, et
+la signale comme une condition et non comme un fait général._ Une extension de $`\mathcal{E}_0` qui
+introduirait une équation reliant une opération interceptable à une opération conservée romprait la
+commutation, donc les formes normales, donc la décidabilité de l'appartenance à $`\mathcal{M}`.
+C'est le point où ce monoïde est fragile.
+
+### La commutation, esquissée
+%%%
+tag := "g-scoped-le-monoide-des-transformateurs-la-commutation-demon"
+%%%
+
+L'énoncé se pose pour ce qu'il est, trois choses en dépendant : les formes normales, donc la
+décidabilité de l'appartenance, donc la vérifiabilité de la règle.
+
+::::lemma (label := "thm:commutation_monoide") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+:::title
+commutation des deux familles
+:::
+
+:::statement +titled
+Sous une condition sur la présentation
+
+Soit $`\mathcal{E}_0` présentée par un ensemble d'opérations $`\mathrm{Ops}` et un ensemble de
+relations $`\mathrm{Rel}`, et soit $`S \subseteq \mathrm{Ops}`. Si aucune relation de
+$`\mathrm{Rel}` ne fait intervenir à la fois une opération de $`S` et une opération de
+$`\mathrm{Ops} \setminus S`, alors (i) $`\pi_S` est un morphisme de monoïdes ordonnés, et pour tout
+$`n` _fini_, $$`\pi_S \circ \varphi_n \;=\; \varphi_n \circ \pi_S ;` (ii) si de plus $`\mathcal{E}_0` est
+une quantale et que le quotient préserve les suprema — exigence sur $`\mathcal{E}_0`, nommée comme
+telle —, l'égalité vaut pour $`n = \omega`.
+:::
+
+:::proofsketch
+En deux temps, dont le premier ne suppose aucune complétude.
+
+_$`\pi_S` est bien définie._ Sur le monoïde libre $`\mathrm{Ops}^{*}`, l'application
+$`\mathrm{op} \mapsto \mathbf{1}` pour $`\mathrm{op} \in S` et $`\mathrm{op} \mapsto \mathrm{op}`
+sinon se prolonge d'une seule manière en un morphisme de monoïdes, lequel satisfait
+$`\pi_S(\alpha\beta) = \pi_S(\alpha)\,\pi_S(\beta)` par construction. Ce morphisme descend au
+quotient par $`\mathrm{Rel}` si et seulement si il respecte chaque relation. Une relation dont
+toutes les lettres sont dans $`S` devient $`\mathbf{1} = \mathbf{1}` ; une relation dont aucune
+lettre n'y est se transporte inchangée ; une relation mixte est exclue par hypothèse. Il n'en reste
+aucune à vérifier. La monotonie vient de ce que $`\mathcal{E}_0` est un monoïde ordonné par treillis,
+dont le produit distribue sur les bornes supérieures _finies_.
+
+_La commutation à $`n` fini._ $`\pi_S(\varepsilon^n) = (\pi_S\varepsilon)^n` par récurrence
+immédiate depuis la multiplicativité, sans complétude. Sur le facteur temporel, $`\pi_S` agit comme
+l'identité et $`\varphi_n` par $`k \mapsto n\,k` : deux applications dont l'une est l'identité
+commutent. Les deux composantes commutant, le couple commute.
+
+_Le cas $`n = \omega`._ Il emploie $`\varepsilon^\omega = \bigvee_m \varepsilon^m` et exige que
+$`\pi_S` préserve les suprema. Cette préservation n'est pas gratuite : étendre $`\pi_S` par
+$`\pi_S(\bigvee_i \alpha_i) = \bigvee_i \pi_S(\alpha_i)` présuppose ce qu'il s'agit d'établir. Elle
+est donc posée comme hypothèse (ii) sur $`\mathcal{E}_0`, et non démontrée. Pour un ensemble fini
+d'étiquettes — le seul cas qu'un motif de boîte puisse écrire, que la règle {sc}[Guard] emploie —
+le besoin se réduit aux bornes supérieures finies, que le monoïde ordonné par treillis fournit : cette
+condition s'écrit sur la règle, elle n'est pas supposée.
+:::
+
+:::note
+_Obligation ouverte._ Restent à vérifier que la projection respecte chaque relation de la
+présentation, et à confronter monotonie et équation d'itération finie à la structure effective de
+monoïde ordonné. Le cas $`n = \omega` dépend de la préservation des suprema et ne se déduit pas de
+la multiplicativité finie.
+:::
+::::
+La réserve est dans l'hypothèse et non dans la preuve, ce qui est la bonne place. Une extension de
+$`\mathcal{E}_0` qui poserait une équation reliant une opération interceptable à une opération
+conservée romprait la commutation, donc les formes normales, donc la décidabilité. _La condition
+doit voyager avec l'algèbre des effets, non rester dans cette page._
+
+### Deux projections, et non une
+%%%
+tag := "g-scoped-le-monoide-des-transformateurs-deux-projections-et"
+%%%
+
+La rétraction $`\pi_S` laisse le facteur temporel intact. C'est le bon choix pour ce à quoi le
+monoïde sert — une borne de coût doit sur-approximer, et garder le temps d'une opération interceptée
+fait errer du côté sûr. Mais la même forme sert ailleurs à un tout autre usage, et là ce choix est
+faux.
+
+Projeter une trace au niveau $`\ell`, c'est en retirer ce qu'un observateur de ce niveau ne voit
+pas, et c'est l'opération dont la stratification du journal et la non-interférence ont besoin.
+Effacer les _opérations_ de niveau supérieur sans effacer leur _durée_ laisserait un observateur bas
+compter les pas qu'elles ont coûtés. La projection observationnelle doit donc retirer aussi le
+temps, quand la projection conservatrice doit le garder. Les deux sont des instances du schéma de
+restriction (chapitre~2, §{num "sec:c2-six-schemas-de-metatheorie"}[], théorème {num "thm:schema_restriction"}[]),
+et c'est lui qui dit pourquoi les confondre serait fatal : un schéma commun n'autorise pas à
+identifier deux critères, et c'est le critère qui fait toute la différence entre fermer le canal
+temporel et l'ouvrir.
+
+::::k7table (label := "tab:deux-projections") (align := "Z{0.91}Z{0.80}Z{0.84}Z{1.45}")
+:::caption
+Les deux projections, de même forme sur les effets et de traitement opposé sur le temps
+:::
+
+:::table +header
+* * Projection
+  * sur $`\mathcal{E}_0`
+  * sur le temps
+  * Emploi
+* * $`\pi^{\dagger}_S` — conservatrice
+  * efface $`S`
+  * garde $`k`
+  * typage des gestionnaires, $`\mathcal{M}`
+* * $`\pi^{\flat}_{\ell}` — observationnelle
+  * efface au-dessus de $`\ell`
+  * retire le temps effacé
+  * observation, journal, relation logique
+:::
+::::
+
+Les deux coïncident exactement lorsqu'aucune opération effacée ne consomme de temps, et
+$`\pi^{\dagger}` majore $`\pi^{\flat}` partout ailleurs. Employer la première là où la seconde est
+requise ouvrirait le canal temporel dans la démonstration même qui prétend le fermer.
+
+### La seconde projection, définie
+%%%
+tag := "g-scoped-le-monoide-des-transformateurs-la-seconde-projectio"
+%%%
+
+Le facteur temporel étant une famille indexée par les niveaux (§{num "sec:g-grammaire-types"}[]),
+$`\pi^{\flat}_{\ell}` se définit sans rien ajouter : elle efface de $`\varphi` les opérations
+étiquetées au-dessus de $`\ell`, et annule les composantes de $`\kappa` d'indice supérieur à
+$`\ell`. Ce que voit l'observateur de niveau $`\ell` est donc, des deux côtés, ce qui lui est
+accessible — et rien de ce qui a été effacé ne subsiste par sa durée.
+
+La commutation esquissée plus haut vaut pour les deux projections, et pour la même raison. Sur
+$`\mathcal{E}_0` l'argument est celui du théorème ; sur le facteur temporel, $`\pi^{\dagger}` agit
+comme l'identité et $`\pi^{\flat}` comme une restriction, or l'une et l'autre commutent avec la
+multiplication scalaire de $`\varphi_n`, qui opère point par point. Les formes normales survivent
+donc au passage à la seconde projection, et avec elles la décidabilité.
+
+Une remarque sur l'exclusion de $`\varphi_\ell` du monoïde. Sous cette forme, l'étiquetage joint le
+niveau du calcul à celui de l'effet et ne peut donc que le _relever_ ; il ne saurait déclassifier
+par lui-même. L'exclusion décidée plus haut n'en est pas moins la bonne : l'admettre obligerait à
+démontrer, pour chaque transformateur, qu'il ne relève jamais que vers le haut, quand l'exclure rend
+la question sans objet. C'est un choix conservateur, et il est écrit comme tel plutôt que présenté
+comme une nécessité.
+
+### Formes normales, et ce qu'elles achètent
+%%%
+tag := "g-scoped-le-monoide-des-transformateurs-formes-normales-et-c"
+%%%
+
+Les trois lois suffisent à normaliser. Tout mot en les générateurs se réduit à
+$`\varphi_n \circ \pi_S`, où $`n` est le produit des exposants rencontrés et $`S` la réunion des
+ensembles effacés ; et $`\varphi_0` absorbe toute rétraction, puisque
+$`\varphi_0 \circ \pi_S = \varphi_0`. Un élément de $`\mathcal{M}` est donc soit $`\varphi_0`, soit
+un couple $`(n, S)` avec $`n \geq 1`, et l'égalité de deux transformateurs se décide sur ce couple.
+
+C'est ce qui rend la règle {sc}[Sc] vérifiable. Un gestionnaire déclare son $`f` ; le système
+vérifie qu'il appartient à $`\mathcal{M}`, ce qui revient à le mettre en forme normale ; et cette
+vérification est décidable. Sans les formes normales, l'appartenance à un sous-monoïde de
+$`\mathrm{End}(\mathcal{E})` ne le serait pas, et la règle serait ininspectable.
+
+### Ce que le monoïde ne contient pas, et pourquoi
+%%%
+tag := "g-scoped-le-monoide-des-transformateurs-ce-que-le-monoide-ne"
+%%%
+
+Une troisième famille aurait pu y figurer et n'y figure pas. La loi distributive fait aussi agir le
+_niveau_ sur l'effet, en l'étiquetant : un calcul de niveau $`\ell` produit un effet observable au
+niveau $`\ell`. L'application $`\varphi_\ell` correspondante est un endomorphisme monotone de
+$`\mathcal{E}`, et rien dans la construction n'interdirait de l'admettre.
+
+Elle est exclue, et c'est une décision de sûreté plutôt que d'économie. Un gestionnaire qui pourrait
+ré-étiqueter le niveau d'un effet déclassifierait — par une porte que la déclassification délimitée
+du chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]) ne contrôle pas, puisqu'elle ne
+contrôle que l'échappatoire nommée. Admettre $`\varphi_\ell` dans $`\mathcal{M}` rouvrirait donc
+l'attaque de blanchiment que la déclassification ferme, et le ferait à l'endroit exact où la preuve
+de non-interférence est le plus fragile, celui du canal temporel. _Le monoïde n'itère et n'efface ;
+il n'étiquette pas._
+
+## Ce que les couches en font
+%%%
+tag := "g-scoped-ce-que-les-couches-en-font"
+%%%
+
+Le monoïde est un, et les couches n'en reçoivent pas des versions différentes : elles en admettent
+des parties différentes, et ces parties sont des conséquences de leur spécialisation plutôt que des
+définitions à poser. Trois énoncés suffisent à le dire.
+
+Le premier est immédiat et il ferme une question plutôt qu'il n'en ouvre une. La couche 3 pose
+$`\mathcal{E} = \emptyset` ; or il n'existe qu'une application de l'ensemble vide dans lui-même,
+l'identité. _La couche 3 n'admet aucune opération à portée, et ce n'est pas une restriction qu'on
+lui impose mais une conséquence de n'avoir pas d'effets._ Rien n'est à écrire pour elle.
+
+Le deuxième porte sur les deux autres couches, et il déplace la question là où elle appartient. Un
+transformateur $`\varphi_n \circ \pi_S` est admissible sur un calcul de composante temporelle $`k`,
+dans un contexte de budget $`\beta`, si et seulement si $`\beta \ominus n\,k` est défini —
+c'est-à-dire si le budget couvre les $`n` exécutions. Ce n'est pas le fragment de la couche qui
+borne la réexécution, c'est son budget. La couche 1 porte une échéance stricte et borne donc $`n`
+plus serré que la couche 2, qui porte un budget sans échéance ; l'inclusion des transformateurs
+admissibles suit cet ordre.
+
+Le troisième est une mise en garde, et elle vaut d'être écrite parce que l'inverse se croit
+volontiers. Les fragments de ressource s'emboîtent en allant de la couche 1 vers la couche 3. Les
+transformateurs admissibles s'emboîtent dans un autre ordre, la couche 3 étant la plus pauvre. _Les
+deux stratifications ne s'alignent pas_, et l'image d'une sédimentation où tout se déposerait dans
+le même sens ne vaut que sur l'axe des ressources. Le chapitre 1 la donne d'ailleurs pour une
+lecture et non pour un théorème ; ce paragraphe en fixe la borne.
+
+## Ce que la construction ne lève pas
+%%%
+tag := "g-scoped-ce-que-la-construction-ne-leve-pas"
+%%%
+
+Une réserve accompagne cette règle, et le fait d'avoir construit $`\mathcal{M}` ne la lève pas.
+Encoder une opération à portée de cette façon revient à en faire une _élaboration_, et une
+élaboration écrite naïvement n'appartient à aucune interface d'effet : on ne peut alors en raffiner
+l'implémentation sans recompiler. Il faut aussitôt ajouter ce que ce document affirmait à tort être
+établi, car la littérature ne s'arrête pas à ce constat — elle le _résout_. Les algèbres de
+surcharge syntaxique donnent des élaborations modulaires, composables une à une, des effets d'ordre
+supérieur vers les effets algébriques primitifs {cite "bachpoulsenHeftyAlgebrasModular2023"}[]. La
+perte de modularité n'est donc pas une impossibilité de principe. C'est le prix d'un encodage
+particulier — et il faut dire lequel des deux est le choix, faute de quoi l'énoncé paraît se
+contredire. _L'encodage est le choix ; la perte en est la conséquence nécessaire._ K7PL retient le
+monoïde de transformateurs, et cette structure entraîne la perte, elle ne coexiste pas avec elle. La
+raison s'en voit maintenant. Un gestionnaire est identifié à l'action qu'il exerce, c'est-à-dire à
+sa forme normale $`(n, S)`, et non à une signature qu'il satisfairait. Deux implémentations qui
+n'agissent pas identiquement sur l'effet ne sont pas interchangeables, quelle que soit leur
+ressemblance par ailleurs. La règle donne donc un typage correct et non une modularité, et K7PL ne
+revendique que le premier.
+
+### Mesure ou borne, et la factorisation que l'écart décide
+%%%
+tag := "g-scoped-ce-que-la-construction-ne-leve-pas-mesure-ou-borne"
+%%%
+
+Une condition reste, que la construction de $`\mathcal{M}` suppose sans la nommer. Pour qu'un
+transformateur agisse sur l'_annotation_ d'un calcul, il faut que son action _se factorise_ par
+cette annotation : deux calculs de même effet doivent recevoir, sous la même opération à portée, le
+même effet. Rien ne l'impose a priori, et la littérature donne trois opérations canoniques —
+semi-déterminisme, état local, coupure — dont le comportement dépend du calcul et non seulement de
+son effet.
+
+La condition tient ou non selon ce qu'on lit dans une annotation, et c'est cette lecture qu'il faut
+fixer.
+
+* Lue comme une *mesure* — ce que le calcul coûte —, _la factorisation échoue_. L'opération
+  $`\mathsf{once}`, qui retient la première branche d'un calcul non déterministe, en donne le
+  contre-exemple : deux calculs de même effet total peuvent avoir des premières branches de coûts
+  différents, et le résultat n'est alors pas fonction de l'annotation seule.
+
+* Lue comme une *borne* — ce que le calcul ne dépassera pas —, _elle tient_. L'action de
+  $`\varphi_n \circ \pi_S` sur la borne est correcte parce qu'elle sur-approxime : le coût réel de
+  $`\mathsf{scoped}_f(v, c)` reste sous ce que le monoïde calcule, quel que soit le calcul que
+  l'annotation recouvre.
+
+_Or ce document lit déjà l'annotation comme une borne_, et le §{num "sec:g-semantique"}[] le dit
+sans le nommer : la préservation fait décroître $`\tau\cdot\varepsilon`, ce qui n'a de sens que si
+$`\varepsilon` majore ce qui reste à produire. La factorisation est donc acquise, sous la lecture
+que le document pratique — il fallait seulement en tirer la conséquence.
+
+La classe des opérations à portée que K7PL revendique se caractérise alors sans détour : _ce sont
+celles dont l'action sur la borne appartient à $`\mathcal{M}`_. L'appartenance se décide par mise en
+forme normale $`(n, S)`, et c'est ce qui rend la règle {sc}[Sc] inspectable. On ne caractérise donc
+pas cette classe par une propriété sémantique difficile à vérifier, mais par une appartenance à un
+monoïde à formes normales.
+
+Le prix doit être écrit. Un gestionnaire qui _réduit_ le coût n'en reçoit aucun crédit : sa borne
+reste celle du calcul non coupé. C'est imprécis, et c'est sûr. _C'est l'arbitrage déjà rendu pour
+$`\pi^{\dagger}`_, la projection conservatrice qui garde le facteur temporel d'une opération effacée
+— une borne de coût doit errer du côté sûr, et le document le décide ici pour la seconde fois, pour
+la même raison.
+
+# Les deux vérifications
+%%%
+tag := "g-regles-les-deux-verifications"
+%%%
+
+Deux points restaient à examiner sur le jeu qui précède. Ils ne peuvent pas encore produire
+de résultat positif, car les opérations employées par les règles n'ont pas toutes le même statut.
+
+## La première : signatures du produit mixte et de l'action graduée
+%%%
+tag := "g-regles-les-deux-verifications-la-premiere-le-produit-mixte"
+%%%
+
+Le sous-typage coerce dans deux directions opposées selon la composante — descendant sur l'usage et
+sur la monotonie, montant sur le niveau et sur le budget. Cette relation reste bien définie par le
+produit des quatre préordres. Elle ne suffit toutefois pas à établir que les lois d'une comonade
+graduée survivent au produit.
+
+Trois familles d'opérations doivent être distinguées. L'agrégation des contextes combine des grades
+de liaisons ; une éventuelle multiplication de la grade algebra compose des indices ; enfin
+$`r \cdot \Delta` met un contexte à l'échelle. La consommation budgétaire $`\beta \ominus k` est une
+quatrième opération, indexée par l'effet. Identifier ces quatre familles sous le mot « composition »
+était trop fort.
+
+Le cas du budget montre immédiatement pourquoi. La soustraction tronquée $`\ominus` intervient dans
+$`\boxtimes` via $`\psi`, mais elle n'est pas la multiplication d'une grade algebra. La loi utile
+pour une répétition entière, $`n(\beta \ominus k) = n\beta \ominus nk`, est une loi de compatibilité
+entre une action de multiplicité et la consommation ; elle ne définit pas l'opération de
+composition des grades.
+
+Le cas du niveau est plus contraignant encore. Le joint $`\sqcup` est utilisé par les règles pour
+agréger conservativement des annotations de confidentialité. Une construction standard d'une grade
+algebra à partir d'un treillis distributif donne au contraire, sous l'ordre retenu pour le treillis,
+$`+ = \sqcup` et $`\times = \sqcap`. Il ne s'ensuit donc pas que l'opération requise par la
+composition du niveau soit la multiplication de cette grade algebra. Une dualisation de l'ordre
+pourrait modifier cette correspondance, mais elle demanderait alors une preuve de compatibilité avec
+le sous-typage et la sémantique de confidentialité.
+
+Le résultat que l'on peut conserver à ce stade est donc plus faible et plus exact :
+
+* chaque composante doit fournir les opérations d'agrégation effectivement utilisées par les règles ;
+* chaque composante participant à `MulG` doit fournir une multiplication satisfaisant les lois de
+  grade algebra requises ;
+* chaque composante participant à `Scale` doit fournir une action du scalaire considéré et les lois
+  demandées par `Box`, `App` et substitution ;
+* les preuves de monotonie et de compatibilité sont à faire sur chacune de ces opérations séparément.
+
+Aucune de ces conditions n'établit encore `Scale = MulG`. La proposition de cohérence de la
+subsomption reste elle aussi distincte : ses conversions doivent être fonctorielles, indépendamment
+des lois de mise à l'échelle.
+
+## La seconde : la fonction des opérations à portée
+%%%
+tag := "g-regles-les-deux-verifications-la-seconde-la-fonction-des-o"
+%%%
+
+Le §{num "sec:g-regles"}[] avance que la fonction $`f` d'une opération à portée se ramène à la
+gradation indexée, sous réserve de vérification. La vérification est négative.
+
+Les deux constructions généralisent bien le même trait — un grade qui est une fonction plutôt qu'une
+constante — mais elles n'indexent pas sur le même objet. La gradation indexée est un foncteur
+contravariant de la catégorie de base vers celle des monades graduées : son indice parcourt les
+_valeurs_, et c'est ce qui permet à l'effet d'un parcours de dépendre de la longueur parcourue. La
+fonction $`f` d'une opération à portée transforme un grade d'effet en un autre : son indice, si l'on
+veut employer ce mot, parcourt les _effets_. Un foncteur depuis la base ne fournit pas cela ; il
+faudrait que la base contienne l'algèbre des effets, ce qui n'a pas de sens dans la construction
+retenue.
+
+Ce que la structure requiert est autre chose, et plus modeste : que les transformateurs admissibles
+forment un _monoïde d'endomorphismes_ agissant sur l'algèbre des effets. L'identité y est le
+gestionnaire transparent, la composition celle des gestionnaires imbriqués, et l'action doit
+préserver l'ordre pour que le sous-typage des effets traverse une portée. C'est une structure
+supplémentaire, non une instance de celle du chapitre 1.
+
+Deux conséquences en découlent. La première est que les opérations à portée coûtent au langage une
+pièce de plus qu'annoncé, et la §{num "sec:g-regles"}[] le dit désormais. La seconde est que ce coût
+éclaire la réserve de modularité : un monoïde d'endomorphismes n'est pas une interface d'effet, et
+c'est précisément pourquoi on ne peut raffiner l'implémentation d'un gestionnaire sans recompiler {cite "bachpoulsenHeftyAlgebrasModular2023"}[].
+La réserve n'était pas une prudence, elle était la conséquence de la structure.
+
+## La troisième : la loi distributive, écrite
+%%%
+tag := "g-regles-les-deux-verifications-la-troisieme-la-loi-distributive"
+%%%
+
+La loi distributive graduée du chapitre 1 était nommée et employée sans que ses conditions soient
+écrites ; {sc}[Let] et {sc}[App] la supposaient. Elle s'écrit
+$`\lambda_{r,\varepsilon} : !_r\,T_\varepsilon \Rightarrow T_{\varphi_n(\varepsilon)}\,!_{\psi(r,\varepsilon)}`,
+où $`\varphi_n(\varepsilon) = \varepsilon^n` pour la multiplicité d'exécution $`n` que fournit le
+combinateur de contrôle de la règle, et $`\psi` le transport de contexte du chapitre 1. Trois
+conditions de cohérence sont exigées d'une loi distributive graduée, et elles se vérifient.
+
+::::thm (label := "thm:loi_distributive_conditions") (status := "theoreme")
+:::title
+conditions de cohérence de la loi distributive
+:::
+
+:::statement +titled
+Unité, composition, naturalité
+
+(U) $`\varphi_1(\varepsilon) = \varepsilon` et $`\varphi_0(\varepsilon) = \mathbf{1}`. (C) $`\varphi_{n m} = \varphi_n \circ \varphi_m`, y compris
+pour $`n` ou $`m` égal à $`\omega`, de sorte que $`\lambda` est compatible avec la comultiplication
+$`\delta_{r,s}`. (N) $`\lambda` est naturelle en le type, $`\varphi_n` et $`\psi` n'agissant que sur les
+annotations.
+:::
+
+:::proofsketch
+(U) : $`\varepsilon^1 = \varepsilon` et $`\varepsilon^0 = \mathbf{1}` par définition de la puissance dans
+un monoïde. (C) : dans un monoïde, $`\varepsilon^{n m} = (\varepsilon^{m})^{n}` par récurrence sur $`n`.
+Pour $`\omega`, $`\varepsilon^\omega = \bigvee_k \varepsilon^k` ; la distributivité du produit sur les
+bornes supérieures donne $`(\varepsilon^\omega)^m = \bigvee_k \varepsilon^{k m}`, égal à
+$`\varepsilon^\omega` pour $`m \geq 1`, et à $`\mathbf{1}` pour $`m = 0`, ce qui est
+$`\varphi_0 \circ \varphi_\omega`. (N) : les deux membres ne diffèrent que par l'annotation, que
+$`\varphi_n` et $`\psi` transforment sans regarder le type.
+:::
+::::
+
+Une quatrième condition ne tient pas, et il faut le dire : la compatibilité de $`\lambda` avec la
+multiplication de la monade exigerait que $`\varphi_n` soit un _morphisme de monoïde_,
+$`\varphi_n(\varepsilon\delta) = \varphi_n(\varepsilon)\,\varphi_n(\delta)`. Or
+$`(\varepsilon\delta)^n \neq \varepsilon^n \delta^n` dès que $`\varepsilon` et $`\delta` ne commutent pas ;
+l'égalité vaut sur le facteur temporel, où $`k \mapsto n k` est additif, et sur toute partie commutative
+de $`\mathcal{E}_0`. Les règles du jeu n'emploient jamais cette condition : elles mettent à l'échelle un
+corps entier, jamais la moitié d'une séquence, et la seule propriété qu'elles invoquent est la loi de
+cohérence du théorème {num "thm:coherence_axiome"}[]. La loi est donc une loi distributive
+_affaiblie_ — sans compatibilité avec le produit — et le mot ne doit pas être entendu au sens strict.
+Ce qui en résulte : déplacer un bloc mis à l'échelle de part et d'autre d'une frontière de séquence
+change l'annotation d'effet, et aucune règle ne le fait ; toute extension qui le ferait devra écrire la
+condition sur une partie commutative.
+
+# Les connecteurs restants
+%%%
+tag := "g-regles-les-connecteurs-restants"
+%%%
+
+Six connecteurs manquaient au jeu — $`\mathsf{Vec}`, $`\mathsf{Arena}`, les points fixes $`\mu` et
+$`\nu`, la conjonction additive, le quantificateur universel — et ce texte affirmait qu'ils
+suivaient mécaniquement les patrons déjà écrits, leur absence étant une économie de place et non une
+difficulté. Les écrire vérifie cette affirmation, et _elle ne tient pas tout à fait_. Trois d'entre
+eux suivent en effet mécaniquement ; les trois autres ne suivent pas, et chacun pour une raison qui
+vaut d'être connue.
+
+## Les trois qui suivent
+%%%
+tag := "g-regles-les-connecteurs-restants-les-trois-qui-suivent"
+%%%
+
+Les points fixes se replient et se déplient sans que le grade intervienne, la récursion étant portée
+par le type et non par la ressource. Le quantificateur universel est le dual de l'existentiel déjà
+écrit, sa condition de bord portant sur la variable de type et non sur le contexte.
+
+::::formula (label := "eq:connecteurs-mecaniques") (kind := "formule")
+```
+\begin{equation*}
+\textsc{Fold}\;\frac{\;\Delta \vdash v : V[\mu\alpha.V/\alpha]\;}{\;\Delta \vdash \mathsf{fold}\;v : \mu\alpha.V\;}
+\qquad
+\textsc{Unfold}\;\frac{\;\Delta \vdash v : \mu\alpha.V\;}{\;\Delta \vdash \mathsf{unfold}\;v : V[\mu\alpha.V/\alpha]\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Gen}\;\frac{\;\Delta \vdash c : C \mid \varepsilon \qquad \alpha \notin \mathrm{fv}(\Delta)\;}{\;\Delta \vdash \Lambda\alpha.c : \forall\alpha.C \mid \varepsilon\;}
+\qquad
+\textsc{Inst}\;\frac{\;\Delta \vdash c : \forall\alpha.C \mid \varepsilon\;}{\;\Delta \vdash c\,[W] : C[W/\alpha] \mid \varepsilon\;}
+\end{equation*}
+```
+
+:::caption
+Les connecteurs qui suivent les patrons déjà posés
+:::
+::::
+
+## Le point fixe coinductif
+%%%
+tag := "g-nu"
+%%%
+
+{label "sec:g-nu"}
+
+Le connecteur $`\nu\alpha.C` figurait à la grammaire des types sans qu'aucune règle de terme ne
+l'habite, et c'était le seul de dix-neuf dans ce cas. Ce qui suit l'habite, et la forme retenue
+n'est pas celle que l'on attendrait.
+
+La forme catégorique — un anamorphisme depuis une coalgèbre, dont l'unicité donne la productivité —
+était disponible et le chapitre 2 la construit déjà. Elle n'est pourtant pas retenue au noyau, et
+pour une raison interne au document plutôt que d'ergonomie. Le théorème {num "thm:progression_polarisee"}[]
+énonce la progression pour un calcul « dont le type porte un indice de taille décroissant au sens de
+$`p(\ell)` », et sa preuve dit que l'argument « ne dépend pas de la polarité : c'est le même des
+deux côtés ». _Ce théorème présuppose donc déjà l'indice de taille du côté coinductif._ Prouver la
+productivité par la terminalité donnerait à la couche 2 un argument différent de celui de la couche
+3, et l'unification que le théorème revendique cesserait d'en être une. La forme dimensionnée
+n'ajoute rien : elle écrit ce que l'énoncé central suppose.
+
+Un type coinductif porte donc un indice de taille, noté $`\nu\alpha.C\,\langle i \rangle`, qui
+compte les observations restant disponibles. L'indice est un grade, pris dans la _sorte coinductive_
+$`\mathbb{S}_\nu = \mathbb{N}_\infty` que le chapitre 2
+(§{num "sec:c2-algebres-coalgebres-et-points"}[]) distingue de la sorte inductive. $`\omega` y est
+admis, et c'est lui qui type un flux non terminé : l'absorption $`\omega \ominus 1 = \omega` laisse
+une observation toujours disponible, là où une taille finie $`n` en borne le nombre à $`n`. Aucun
+type ne porte les deux sortes.
+
+::::formula (label := "eq:regles-nu") (kind := "formule")
+```
+\begin{equation*}
+\textsc{Out}\;\frac{\;\Delta \vdash c : \nu\alpha.C\,\langle i+1 \rangle \mid \varepsilon\;}{\;\Delta \vdash \mathsf{out}\;c : C[\nu\alpha.C\,\langle i \rangle/\alpha] \mid \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Cop}\;\frac{\;\bigl(\Delta,\ x :_{1} U_{\varepsilon}(\nu\alpha.C\,\langle i \rangle) \;\vdash\; c_j : C_j\,\langle i \rangle \mid \varepsilon \bigr)_{j \in J}\;}{\;\Delta \vdash \langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J} : \nu\alpha.C\,\langle i+1 \rangle \mid \varepsilon\;}
+\end{equation*}
+```
+
+:::caption
+Les deux règles du point fixe coinductif. L'observation consomme une unité de taille ; le copatron
+en produit une.
+:::
+::::
+
+Le sous-typage des tailles est la clause de $`<:` que {sc}[Sub] emploie entre deux types coinductifs de même
+corps : $`\nu\alpha.C\,\langle j \rangle <: \nu\alpha.C\,\langle i \rangle` dès que $`i \leq j`. Un flux qui offre
+plus d'observations s'emploie là où l'on en attend moins ; c'est cette clause qui comble l'écart entre la taille
+$`i` de la prémisse de {sc}[Cop] et la taille $`i+1` du copatron qu'on lui substitue.
+
+Un point de lecture avant tout le reste, car la question se pose immédiatement. Comment {sc}[Out]
+s'instancie-t-il sur un flux de taille $`\omega`, dont la prémisse demande $`\langle i+1 \rangle` ?
+Par $`\omega + 1 = \omega`, qui est l'une des quatre égalités du chapitre 2 : la prémisse est
+satisfaite avec $`i = \omega`, et la conclusion rend un type de taille $`\omega` encore. _Une
+observation sur un flux infini laisse un flux infini_, et la règle n'a pas eu à être modifiée pour
+le dire — c'est la sorte qui porte la différence. Sur une taille finie $`n`, la même règle épuise le
+flux en $`n` observations, ce qui est le comportement voulu d'un flux borné.
+
+Trois choses se lisent ensuite sur ces deux règles, et la troisième est celle qui compte.
+
+La première est que l'appel corécursif est _disponible_ dans chaque branche, sous la liaison $`x`, qui est un
+thunk du copatron (une valeur, que la branche emploie par $`\mathsf{force}\;x`), mais à une taille strictement inférieure. C'est la décroissance, et elle est un fait de typage :
+aucune inspection de la syntaxe du terme n'a lieu, aucun gardien n'est posé, et la garantie tient du
+jugement seul. Le critère est ainsi le dual exact de celui qui borne le pli de couche 3, comme le
+théorème {num "thm:progression_polarisee"}[] l'affirmait sans encore le pouvoir.
+
+La deuxième est que le contexte n'est pas mis à l'échelle. Chaque branche du copatron reçoit le même
+$`\Delta`, pour la même raison que la conjonction additive : une seule observation est faite à la
+fois, et les autres branches ne sont pas exécutées. Le copatron est un connecteur additif, et il en
+suit le patron sans exception.
+
+La troisième est que l'anamorphisme n'est pas perdu, il est _dérivé_. Étant donné une coalgèbre
+$`v : U(V \multimap C[V/\alpha])`, le copatron
+$`\langle\!\langle j \mapsto (\mathsf{out}\,(\mathsf{force}\;v))\,.j \rangle\!\rangle` définit un
+terme de type $`U(V \multimap \forall i.\,\nu\alpha.C\,\langle i \rangle)`, quantifié sur toutes les
+tailles. La forme catégorique reste donc disponible aux démonstrations, sans être une primitive que
+la métathéorie devrait porter. C'est le régime que le chapitre 5 réserve aux glyphes, appliqué ici à
+un schéma de récursion.
+
+## Les trois qui ne suivent pas
+%%%
+tag := "g-regles-les-connecteurs-restants-les-trois-qui-ne-suivent-p"
+%%%
+
+La _conjonction additive_ est le premier écart, et le plus net. Tous les connecteurs écrits
+jusqu'ici composent deux contextes en les additionnant ou en les faisant passer par $`\boxtimes` ;
+la conjonction additive, elle, _partage_ le même contexte entre ses deux composantes, puisqu'une
+seule sera consommée. Sa règle n'est donc pas une instance des patrons précédents mais leur
+exception, et c'est ce qui distingue l'additif du multiplicatif. L'écrire comme un patron de plus
+aurait fait perdre la distinction.
+
+::::formula (label := "eq:connecteurs-propres") (kind := "formule")
+```
+\begin{equation*}
+\textsc{With}\;\frac{\;\Delta \vdash c_i : C_i \mid \varepsilon \;\;(\forall i \in I)\;}{\;\Delta \vdash \langle c_i \rangle_{i \in I} : \textstyle\mathop{\&}_{i \in I} C_i \mid \varepsilon\;}
+\qquad
+\textsc{Proj}\;\frac{\;\Delta \vdash c : \textstyle\mathop{\&}_{j \in I} C_j \mid \varepsilon \qquad i \in I\;}{\;\Delta \vdash c.i : C_i \mid \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{VecI}\;\frac{\;\Delta \vdash v_i : V \;\;(i < n)\;}{\;n\cdot\Delta \vdash [v_0,\ldots,v_{n-1}] : \mathsf{Vec}\;n\;V\;}
+\qquad
+\textsc{VecE}\;\frac{\;\Delta_1 \vdash v : \mathsf{Vec}\;n\;V \quad \Delta_2,\, x :_{r} V \vdash c : C \mid \varepsilon(i)\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} (n\cdot\Delta_2) \vdash \mathsf{iter}_{V}\;v\;c : C \mid \textstyle\prod_{i<n}\varepsilon(i)\;}
+\end{equation*}
+```
+
+:::caption
+La conjonction additive partage son contexte au lieu de l'additionner, et l'arène le multiplie par
+sa longueur
+:::
+::::
+
+Le _vecteur_ est le deuxième écart, et il est plus intéressant que le premier. Construire un vecteur
+de longueur $`n` à partir d'un même contexte le multiplie par $`n`, et le parcourir compose $`n`
+effets qui _ne sont pas les mêmes_. C'est ici, et non dans un exemple, que la gradation indexée du
+chapitre 1 devient nécessaire, l'effet du parcours étant une famille indexée par la position et non
+une constante. Le vecteur n'est donc pas un connecteur de plus : c'est le premier site où
+l'indexation mord, et son élimination emploie exactement le facteur $`n\cdot\Delta` que la
+ré-invocation séquentielle de la traduction retrouvera.
+
+L'_arène_ est le troisième, et son écart n'est pas de forme mais de portée. Une arène est une
+région, et ce qui la gouverne — l'allocation en $`O(1)`, la libération à la sortie de portée, la
+disjonction des régions que le produit tensoriel dénote — appartient au modèle mémoire du chapitre 4
+et non au seul jeu de règles. Sa règle d'introduction se lit comme celle d'une modalité graduée dont
+l'indice est une taille. Son élimination demande la conformité de l'abaissement, laquelle est une
+propriété du compilateur et non du système de types. _Ce document ne la donne donc pas ici_, et le
+dit : la transcription en assistant de preuve devra la poser depuis le chapitre 4, ou l'admettre
+comme paramètre.
+
+La découpe d'une capacité d'écriture est en revanche une règle du noyau, et c'est elle qui porte
+l'unicité d'introduction. Une capacité $`\mathsf{Cap}\;\rho` sur un segment $`\rho` d'une arène ne
+s'obtient que de deux façons : de l'élimination de l'arène, l'exception déclarée ci-dessus, qui
+fournit la capacité sur la région entière, ou de la découpe d'une capacité déjà détenue.
+
+::::formula (label := "eq:regle-slice") (kind := "equation")
+```
+\begin{equation*}
+\textsc{Slice}\;\frac{\;\Delta_1 \vdash v : \mathsf{Cap}\;\rho \qquad \Delta_2,\, x :_{1} \mathsf{Cap}\;\rho_1,\, y :_{1} \mathsf{Cap}\;\rho_2 \vdash c : C \mid \varepsilon \qquad \rho = \rho_1 \uplus \rho_2\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} \Delta_2 \vdash \mathsf{slice}\;v\;\mathsf{as}\;(x,y)\;\mathsf{in}\;c : C \mid \varepsilon\;}
+\end{equation*}
+```
+:::caption
+Découpe d'une capacité d'écriture : $`v` est consommée, deux capacités sur des segments disjoints en
+naissent. La condition $`\rho = \rho_1 \uplus \rho_2` est de l'arithmétique d'intervalles, que le
+solveur décharge. Le mot {sc}[Slice] est provisoire (`T-68`).
+:::
+::::
+
+Les grades des liaisons $`x` et $`y` sont $`\mathbf{1}` : la capacité reçue est consommée, non
+copiée, et rien dans la règle ne laisse subsister $`v` après la découpe. Il en résulte que, dans un
+contexte clos, une capacité sur un segment est dérivable au plus une fois, ce qui est l'hypothèse
+(H1) du théorème {num "thm:surete_spatiale"}[] : l'unique source de capacité initiale est
+l'élimination de l'arène, linéaire en l'arène, et {sc}[Slice] ne fait que partager ce qu'elle a
+donné.
+
+## Le parallélisme de couche 3
+%%%
+tag := "g-parallelisme"
+%%%
+
+{label "sec:g-parallelisme"}
+
+Le facteur temporel d'un effet n'est pas un nombre mais un _couple_, et c'est ce que le parallélisme
+demande. $`\kappa = \langle w, s \rangle` porte le _travail_ — le nombre total de pas, quelle que
+soit la façon dont ils se répartissent — et la _profondeur_, la longueur du plus long chemin de
+dépendances. Deux compositions les gouvernent, et leur différence est tout le contenu du
+parallélisme.
+
+::::formula (label := "eq:cout-parallele") (kind := "formule")
+```
+\begin{align*}
+\langle w_1, s_1 \rangle \cdot \langle w_2, s_2 \rangle &= \langle w_1 + w_2,\ s_1 + s_2 \rangle\\
+\langle w_1, s_1 \rangle \parallel \langle w_2, s_2 \rangle &= \langle w_1 + w_2,\ \max(s_1, s_2) \rangle
+\end{align*}
+```
+
+:::caption
+Séquencement et mise en parallèle du coût, par niveau
+:::
+::::
+
+$`(\mathcal{E}_0, \cdot, 1)` reste un monoïde non commutatif — l'ordre des effets compte.
+$`(\mathcal{E}_0, \parallel, 1)` en est un _commutatif_ — l'ordre de deux branches parallèles ne
+compte pas, et c'est précisément ce qu'on veut dire en les mettant en parallèle. Les deux sont liés
+par la loi d'échange
+$`(a \cdot b) \parallel (c \cdot d) \sqsubseteq (a \parallel c) \cdot (b \parallel d)`, qui dit
+qu'entrelacer ne coûte jamais plus que séquencer par tranches.
+
+Un constructeur de calcul et un combinateur suffisent à l'exprimer.
+
+::::formula (label := "eq:regles-parallele") (kind := "formule")
+```
+\begin{equation*}
+\textsc{Par}\;\frac{\;\Delta_1 \vdash c_1 : F_{\varepsilon_1} V_1 \mid \varepsilon_1 \qquad \Delta_2 \vdash c_2 : F_{\varepsilon_2} V_2 \mid \varepsilon_2\;}{\;\Delta_1 + \Delta_2 \vdash c_1 \parallel c_2 : F_{\varepsilon_1 \parallel \varepsilon_2} (V_1 \otimes V_2) \mid \varepsilon_1 \parallel \varepsilon_2\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Vmap}\;\frac{\;\Delta_1 \vdash v : U_\varepsilon (V \multimap F_\varepsilon W) \qquad \Delta_2 \vdash w : \mathsf{Vec}\;n\;V\;}{\;\Delta_1 + (n \cdot \Delta_2) \vdash \mathsf{vmap}\;v\;w : F\,(\mathsf{Vec}\;n\;W) \mid \langle n \cdot w(\varepsilon),\ s(\varepsilon) \rangle\;}
+\end{equation*}
+```
+
+:::caption
+La mise en parallèle et l'application vectorisée. La profondeur de {sc}[Vmap] ne dépend pas de $`n`.
+:::
+::::
+
+Trois remarques, et la troisième est le résultat.
+
+La première est que {sc}[Par] compose ses contextes par l'_addition_, exactement comme la règle de
+la paire. Rien n'est inventé : la règle existait pour les valeurs, elle est étendue aux calculs.
+
+La deuxième est que {sc}[Par] _n'est pas_ la conjonction additive, et les confondre serait l'erreur.
+La conjonction additive partage son contexte parce qu'une seule branche s'exécutera ; {sc}[Par]
+l'additionne parce que les deux s'exécutent. {rmq}[Le partage dit « l'une ou l'autre » ; l'addition
+dit « l'une et l'autre ». C'est la même différence qu'entre le choix et la coexistence.] C'est la
+différence entre le choix et la coexistence de ressources, et elle se lit sur la composition des
+contextes.
+
+La troisième est que _la profondeur de $`\mathsf{vmap}` ne dépend pas de $`n`_. C'est la
+vectorisation, écrite dans le type plutôt que promise par le compilateur : appliquer une fonction à
+un vecteur de longueur $`n` coûte $`n` fois son travail et une seule fois sa profondeur. Un
+programme qui l'écrit dit qu'il est vectorisable, et le vérificateur le tient.
+
+::::theorem (label := "thm:determinisme_parallele") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+:::title
+déterminisme du parallélisme de couche 3
+:::
+
+:::statement +titled
+Mettre en parallèle ne change pas ce qui est calculé
+
+Pour $`c_1` et $`c_2` de couche 3, les calculs $`c_1 \parallel c_2` et
+$`\mathsf{let}\;x \leftarrow c_1\;\mathsf{in}\;\mathsf{let}\;y \leftarrow c_2\;\mathsf{in}\;\mathsf{return}\,(x,y)`
+rendent la même valeur sous la sémantique de couche 3. Leurs profils de coût diffèrent : la profondeur
+du calcul parallèle est $`\max(s_1,s_2)`, celle du calcul séquentiel est $`s_1+s_2`, et
+$`\max(s_1,s_2) \le s_1+s_2`. Les deux calculs n’introduisent aucun effet algébrique.
+:::
+
+:::proofsketch
+La spécialisation de la couche 3 en C1 fixe $`\Delta=\Delta_{\omega}`, $`\mathcal{G}=\mathcal{G}_{\text{pile}}`
+et $`\mathcal{E}=\emptyset`. Aucune opération algébrique observable ne peut donc intervenir entre
+les branches. Le profil de pile reste statiquement décrit par les types et les grades de pile ; il ne
+constitue pas un effet de $`\mathcal{E}`. Le coût est suivi séparément par la gradation temporelle :
+la composition parallèle donne une profondeur $`\max(s_1,s_2)`, la composition séquentielle
+$`s_1+s_2`. Cette inégalité compare des profondeurs formelles, non des effets observables.
+:::
+
+:::note
+_Obligation ouverte._ La terminaison des calculs bien typés de couche 3 est un invariant normatif :
+la récursion générale est exclue et les constructions récursives admises doivent respecter le schéma
+de taille décroissante. La formalisation de cette garantie est suivie par
+{num "thm:terminaison_couche_3"}[] et reste sous revue en C2 ; ce statut n’autorise pas la divergence
+d’un terme valide de couche 3. Il reste à définir le sens de « même valeur » (syntaxique,
+dénotationnel ou observationnel), la sémantique de $`c_1 \parallel c_2` et de la composition
+séquentielle, le traitement des erreurs hors du domaine considéré et la dérivation de l’indépendance
+des branches à partir des règles de la couche 3.
+:::
+::::
+Ce que cet énoncé achète mérite d'être dit, car il est facile et n'en est pas moins un résultat. _Le
+parallélisme de couche 3 n'a pas besoin d'être vérifié_ : il est sûr par la structure du fragment,
+et non par une analyse d'indépendance que le compilateur conduirait. Là où un langage ordinaire doit
+prouver que deux tâches ne se marchent pas dessus, celui-ci n'a pas d'endroit où elles le
+pourraient.
+
+## La couche 2 — concurrence asynchrone à boîtes aux lettres
+%%%
+tag := "g-couche2"
+%%%
+
+{label "sec:g-couche2"}
+
+Le chapitre 4 décrit des acteurs, des boîtes aux lettres et des motifs de jonction ; le noyau formel
+n'en portait rien, et la couche 2 n'y avait ni constructeur ni type habitable. Ce qui suit l'écrit,
+et l'_asynchronie est primitive_ : l'émission ne bloque pas, la réception bloque, et le rendez-vous
+synchrone se dérive d'une émission suivie d'une attente. L'inverse obligerait à introduire les
+tampons de toute façon, et laisserait la boîte aux lettres hors du noyau — ce qui était la
+situation.
+
+Deux constructeurs de valeur entrent, et ils portent leur discipline dans leur _grade_ plutôt que
+dans une seconde zone de contexte. Une liaison $`x :_1 \mathsf{Chan}\;S` est linéaire parce que son
+grade vaut un, et non parce qu'elle vivrait dans une zone linéaire ; un canal annulable porte un
+grade affine, un canal de diffusion un grade non contraint. {rmq}[Ce que le chapitre 1 revendiquait
+— une seule zone de contexte — n'est tenu que si la discipline des canaux y entre par le grade.
+C'est ici que la revendication se paie ou se perd.]
+
+::::formula (label := "eq:motifs-boite") (kind := "formule")
+```
+\begin{align*}
+\text{(valeurs)}\quad V &::= \dots \mid \mathsf{Chan}\;S \mid \mathsf{Mb}\;E\\
+\text{(motifs)}\quad E &::= 0 \mid 1 \mid m[\overline{V}] \mid E \cdot E \mid E + E \mid E^{*}
+\end{align*}
+```
+
+:::caption
+Les canaux de session et les boîtes aux lettres, avec l'algèbre des motifs
+:::
+::::
+
+L'opération centrale n'est aucune de ces cinq : c'est le _résiduel_ $`E / m`, qui donne le motif
+restant après consommation d'un message $`m`. C'est lui qui fait d'une boîte un objet à état typé
+plutôt qu'un sac : consommer transforme le type, et le type dit ce qu'il reste à recevoir.
+
+::::formula (label := "eq:regles-couche2") (kind := "formule")
+```
+\begin{equation*}
+\textsc{Spawn}\;\frac{\;\Delta \vdash c : F_{\mathbf{1}} \mathbf{1} \mid \varepsilon\;}{\;\Delta \vdash \mathsf{spawn}\;c : F_{\mathbf{1}} \mathbf{1} \mid \langle \mathsf{spawn},\ \langle w(\varepsilon),\ 0 \rangle \rangle\;}
+\qquad
+\textsc{New}\;\frac{\;\;}{\;0 \vdash \mathsf{new}_E : F_{\mathbf{1}} (\mathsf{Mb}\;E) \mid \mathbf{1}\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Send}\;\frac{\;\Delta_1 \vdash v :_r \mathsf{Mb}\;E \qquad \Delta_2 \vdash \overline{v} : \overline{V} \qquad m[\overline{V}] \sqsubseteq E\;}{\;\Delta_1 + \Delta_2 \vdash \mathsf{send}\;m(\overline{v})\;\mathsf{to}\;v : F_{\mathbf{1}} \mathbf{1} \mid \langle \mathsf{send}_m,\ \langle 1, 1 \rangle \rangle\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Guard}\;\frac{\;\Delta_0 \vdash v :_1 \mathsf{Mb}\;E \quad E = \textstyle\sum_i P_i \cdot E_i \quad \bigl(\Delta_i,\ \overline{x_i} :_1 \overline{V_i},\ y :_1 \mathsf{Mb}\;E_i \vdash c_i : C \mid \varepsilon_i\bigr)_i\;}{\;\Delta_0 \boxtimes_{\mathbf{1}} \bigl(\textstyle\bigsqcup_i \Delta_i\bigr) \vdash \mathsf{guard}\;v\;\{p_i \mapsto c_i\}_i : C \mid \textstyle\bigsqcup_i \varepsilon_i\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Free}\;\frac{\;\Delta \vdash v :_1 \mathsf{Mb}\;\mathbf{1}\;}{\;\Delta \vdash \mathsf{free}\;v : F_{\mathbf{1}} \mathbf{1} \mid \mathbf{1}\;}
+\end{equation*}
+```
+
+:::caption
+Engendrer, créer une boîte, émettre, recevoir sous garde, libérer
+:::
+::::
+
+Trois points de conception méritent d'être lus sur ces règles, et le troisième est celui qu'aucun
+énoncé du manuscrit ne portait.
+
+{sc}[Spawn] ajoute le travail de la tâche fille et _rien à la profondeur de la mère_. C'est le
+modèle de la bifurcation et de la jonction, et c'est ce qui rend le coût compositionnel : engendrer
+une tâche ne rallonge pas le chemin critique de celui qui l'engendre, il augmente la facture totale.
+
+Dans {sc}[Guard], chaque branche porte un _motif conjonctif_
+$`p_i = m_{i1}(\overline{x_{i1}}) \mathbin{\&} \cdots \mathbin{\&} m_{ik_i}(\overline{x_{ik_i}})`, de type de boîte
+$`P_i = m_{i1}[\overline{V_{i1}}] \cdot \cdots \cdot m_{ik_i}[\overline{V_{ik_i}}]`, et $`\overline{x_i}`, $`\overline{V_i}`
+concatènent les charges de ses messages ; $`k_i = 1` redonne la garde à un message. La branche ne s'ouvre que
+si tous les messages du motif sont présents, et les consomme d'un seul tenant : c'est ainsi que le motif de
+jonction du chapitre 4 est une forme de {sc}[Guard], et non un protocole bâti dessus.
+
+{sc}[Guard] rend explicite la _continuation de motif_, $`y :_1 \mathsf{Mb}\;E_i` : consommer les messages du
+motif transforme le type de la boîte. C'est l'état porté par le type, et c'est ce que le chapitre
+4 décrit en prose sans pouvoir l'écrire. La consommation multi-places d'un motif de jonction en est
+l'opération native, et non un protocole d'appariement à inventer.
+
+{sc}[Free] exige $`\mathsf{Mb}\;\mathbf{1}`, c'est-à-dire une boîte _vide_. L'absence de déchets
+devient donc une propriété de typage : un acteur ne peut pas disparaître en laissant des messages
+non lus, parce que le terme qui le libérerait n'a pas de dérivation. {rmq}[Une garantie que le
+manuscrit ne revendiquait pas, et qu'il obtient en écrivant la règle qui lui manquait.] C'est une
+garantie que le manuscrit ne portait sous aucune forme.
+
+La configuration de la machine change en conséquence, et c'est le prix annoncé. Elle passe d'un
+triplet à $`\langle \mathcal{P} \mid \mu \mid \mathcal{M} \mid \tau \rangle`, où $`\mathcal{P}` est
+un multi-ensemble de calculs, $`\mathcal{M}` associe à chaque localisation un multi-ensemble de
+messages, et où $`\tau` _cesse d'être une suite_ : sous concurrence, l'ordre d'occurrence des
+événements n'est plus total, et la trace devient un ordre partiel étiqueté. Les règles de réduction
+se scindent alors en locales — celles qui précèdent, appliquées à un membre du multi-ensemble — et
+globales, qui sont les cinq ci-dessus ; la congruence est la permutation du multi-ensemble.
+
+## La couche 1 — distribution, localité, défaillance
+%%%
+tag := "g-couche1"
+%%%
+
+{label "sec:g-couche1"}
+
+La distribution est l'extension la plus lourde que ce langage ait à porter, et c'est pourquoi elle
+est le meilleur argument en faveur de la condition de clôture : _elle se décompose exactement sur
+les trois strates, sans en réclamer une quatrième_.
+
+::::k7table (label := "tab:g-distribution") (align := "Z{1.0}lZ{1.0}")
+:::caption
+Les trois aspects de la distribution et la strate où chacun se range
+:::
+
+:::table +header
+* * Aspect
+  * Strate
+  * Objet
+* * _où_ une valeur réside
+  * coeffet
+  * la modalité graduée $`@_n` sur le demi-treillis des localisations
+* * ce que _coûte_ un déplacement
+  * effet
+  * $`\mathsf{net}_{n,m}` dans la quantale, de coût $`\langle c, c \rangle`
+* * ce qui est _déplaçable_
+  * raffinement
+  * le prédicat $`\mathsf{Ser}(V)`
+:::
+::::
+
+La première ligne mérite d'être soulignée, car elle décide du reste. $`@_n` est une _modalité
+graduée sur une structure ordonnée_ — la huitième instance du procédé que le chapitre 2
+(§{num "sec:c2-adjonctions-et-enrichissement"}[]) construit unefois pour toutes. {rmq}[Neuf
+instances d'un même procédé. Une dixième ne demanderait rien de plus, et c'est ce qu'on attend d'une
+construction qui porte.] Loger la localité dans une cinquième composante du grade l'aurait rendue
+spéciale ; l'écrire comme une instance la rend ordinaire, et c'est ce qu'elle doit être.
+
+::::formula (label := "eq:regles-couche1") (kind := "formule")
+```
+\begin{equation*}
+\textsc{Loc}\;\frac{\;\Delta \vdash v : V\;}{\;@_n \Delta \vdash \mathsf{loc}_n\,v : @_n V\;}
+\qquad
+\textsc{At}\;\frac{\;\Delta \vdash c : F_{\varepsilon} V \mid \varepsilon \qquad \mathrm{loc}(\Delta) \sqsupseteq n\;}{\;@_n \Delta \vdash \mathsf{at}_n\;c : F_{@_n\varepsilon}(@_n V) \mid @_n \varepsilon\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Move}\;\frac{\;\Delta \vdash v : @_n V \qquad \mathsf{Ser}(V) \qquad n \sqsubseteq m\;}{\;\Delta \vdash \mathsf{move}_{n \to m}\;v : F\,(@_m V) \mid \langle \mathsf{net}_{n,m},\ \langle c, c \rangle \rangle\;}
+\end{equation*}
+```
+
+```
+\begin{equation*}
+\textsc{Try}\;\frac{\;\Delta_1 \vdash c : C \mid \varepsilon \qquad \Delta_2 \vdash h : C \mid \varepsilon'\;}{\;\Delta_1 \sqcup \Delta_2 \vdash \mathsf{try}\;c\;\mathsf{catch}\;h : C \mid \varepsilon \sqcup \varepsilon' \sqcup \mathsf{fail}\;}
+\end{equation*}
+```
+
+:::caption
+Localiser un calcul, déplacer une valeur, récupérer d'une défaillance
+:::
+::::
+
+Deux changements de forme, comme pour les modalités temporelles. {sc}[Loc] est l'introduction de $`@_n V`
+qui manquait : aucune valeur de la grammaire n'habitait ce type, de sorte que la prémisse de {sc}[Move] n'avait
+pas de valeur close à recevoir. {sc}[At] se restreint à un calcul qui _rend_ une valeur : son type est
+$`@_n(F_{\varepsilon}V) = F_{@_n\varepsilon}(@_n V)`, le résultat localisé en $`n`, ce qui est aussi la forme que
+{sc}[Move] rend ; exécuter à distance un calcul qui ne rend rien de la forme $`F` n'avait pas de sens que le texte
+fixait.
+
+Le coût d'un déplacement est $`\langle c, c \rangle` : le travail et la profondeur y sont égaux,
+parce qu'un transfert ne se parallélise pas avec lui-même. C'est le seul endroit du langage où les
+deux composantes coïncident par nature, et non par accident.
+
+_La défaillance ne se type pas._ Elle se discipline, en trois temps qui existent déjà : le grade
+affine de la couche 2 autorise l'abandon, {sc}[Try] donne la portée de récupération, et la
+supervision du chapitre 4 en devient la politique. Vouloir la typer reviendrait à promettre qu'une
+machine ne tombe pas, ce qu'aucun système de types ne peut tenir.
+
+Une conséquence de représentation, et elle est mince. Un déplacement traverse un format de
+transport, de sorte que l'hypothèse d'environnement reproductible gagne une composante réseau. C'est
+une coordonnée de plus au profil matériel, et aucun objet nouveau.
+
+## Ce que la vérification apprend
+%%%
+tag := "g-regles-les-connecteurs-restants-ce-que-la-verification-app"
+%%%
+
+Trois connecteurs sur six suivaient les patrons, trois n'y entraient pas. L'affirmation qu'ils
+étaient tous mécaniques était donc trop large, et l'épreuve le montre : une induction qui les aurait
+traités par « comme ci-dessus » aurait manqué le partage de contexte de l'additif et l'indexation du
+vecteur, c'est-à-dire deux des endroits où le système fait un travail qu'un système ordinaire ne
+fait pas.
+
+Le monoïde des transformateurs est construit au §{num "sec:g-regles"}[] ; ce qui reste ouvert n'est
+plus son contenu mais une condition sur lui, la commutation de ses deux familles, qui tient sur une
+présentation sans relation croisée et se romprait sur une autre.
+
+# Le lemme de substitution
+%%%
+tag := "g-regles-le-lemme-de-substitution"
+%%%
+
+Aucune des inductions ouvertes n'aboutit sans lui, et sa forme est contrainte par la gradation
+indexée : il porte sur trois niveaux à la fois, le terme, le type et le grade.
+
+Si $`\Delta,\, x :_r V_i \vdash c : C \mid \varepsilon(i)` et $`\Delta' \vdash v : V_j`, alors
+$`\Delta \boxtimes_{\mathbf{1}} (r\cdot\Delta') \vdash c[v/x] : C[j/i] \mid \varepsilon(j)`.
+
+Deux clauses le conditionnent. La première est celle que le chapitre 3 pose : la formation des types
+s'effectue dans un contexte dont tous les usages sont annulés, faute de quoi un type pourrait
+dépendre d'une ressource consommée et la substitution cesserait d'être admissible. La seconde tient
+au facteur $`r\cdot\Delta'` : substituer une valeur employée $`r` fois multiplie les exigences de
+son contexte d'autant, ce qui est la contrepartie de {sc}[App] et doit être vérifié cohérent avec
+l'action d'usage effectivement retenue.
+
+Sous l'architecture factorisée, la seconde clause doit être lue après projection du grade sur son
+usage : $`\mathrm{Scale}_{\mathrm{Usage}}(\pi_U(r), \Delta')`. Le grade complet reste l'annotation de la liaison ; il n'est
+pas lui-même supposé agir multiplicativement sur toutes ses composantes.
+
+Une troisième réserve touche l'appel par poussée de valeur : le lemme ne substitue que des valeurs, ce
+qui écarte l'incompatibilité entre effets observables, élimination dépendante et substitution, mais
+les indices de taille dont dépendent les types modifient les annotations d'effet — un parcours de
+$`N` éléments effectue $`N` pas, et substituer une valeur d'indice change l'effet. La stabilité de la
+quantale et de l'itération $`\varepsilon^n` par substitution d'indices est donc un lemme _séparé_, non
+une conséquence du lemme ci-dessus : on la restreint aux indices intervenant dans les effets qui sont
+_clos à la compilation_, et le lemme de substitution ne traite que ce cas, sans dépendance d'indices
+dynamiques. Son extension demande le cadre de la monade graduée indexée, que l'on écrit maintenant dans le cas
+clos.
+
+La _monade graduée indexée_ est la famille $`T^{i}_{\varepsilon}`, où l'indice $`i` parcourt un
+langage d'indices (tailles, longueurs, bornes) et où l'annotation $`\varepsilon(i)` en dépend ; la
+substitution d'un indice $`j` à $`i` agit sur les annotations par la même opération que sur les types.
+
+::::thm (label := "thm:substitution_indices") (status := "theoreme")
+:::title
+stabilité de l'effet par substitution d'indices clos
+:::
+
+:::statement +titled
+La puissance d'effet commute avec la substitution d'un indice clos
+
+Si $`n(i)` et $`\varepsilon(i)` sont des termes d'indices et $`j` un indice clos à la compilation, alors
+$`\bigl(\varepsilon(i)^{n(i)}\bigr)[j/i] = \varepsilon(j)^{n(j)}`, et le lemme de substitution
+ci-dessus conclut $`c[v/x] : C[j/i] \mid \varepsilon(j)` sans autre condition sur l'itération.
+:::
+
+:::proofsketch
+La substitution est un homomorphisme du langage d'indices, et la puissance $`\varepsilon^{n}` est définie
+sur la valeur de $`n`, un indice clos s'évaluant en un élément de $`\mathbb{N}_\infty`. Substituer $`j`
+puis évaluer, ou évaluer le terme substitué, donne le même entier ; les deux membres sont donc la même
+puissance de la même annotation. L'hypothèse de clôture est ce qui rend l'évaluation possible : pour un
+indice dynamique, $`\varepsilon^{n}` n'a plus de valeur à la compilation, et c'est le cas hors du
+périmètre du langage.
+:::
+::::
+
+
+## La loi de cohérence que l'induction réclame
+%%%
+tag := "g-regles-le-lemme-de-substitution-la-loi-de-coherence-que-l"
+%%%
+
+Conduire l'induction fait apparaître un besoin que le chapitre 1 ne formule pas, posé ici avant la
+preuve plutôt que découvert dedans. L'action requise par la substitution est une action contextuelle
+d'usage ; les transformations d'effet restent séparées et ne définissent pas une seconde mise à
+l'échelle du grade complet.
+
+Pour les usages, l’interface de référence ratifiée est
+$`\operatorname{Scale}_{Usage}(a,\langle u,m,\ell,\beta\rangle) = \langle a\cdot u,m,\ell,\beta\rangle`.
+Comme $`\psi` laisse inchangées l'usage, la monotonie et le niveau et n'agit que sur le budget, la
+compatibilité correspondante est :
+::::formula (label := "eq:coherence-usage") (kind := "formule")
+```
+\begin{equation*}
+\operatorname{Scale}_{Usage}(a,\psi(\Delta,\varepsilon))
+=
+\psi(\operatorname{Scale}_{Usage}(a,\Delta),\varepsilon).
+\end{equation*}
+```
+::::
+
+Aucune transformation $`\varphi_a` de l'effet n'est alors requise. Cette propriété évite d'étendre
+artificiellement $`\varphi_r` à un usage rationnel : $`a=1/N` décrit une capacité d'usage, non une
+fraction d'exécution.
+
+Les répétitions effectives utilisent séparément une multiplicité entière $`n` sur l'effet, par
+exemple $`\varphi_n(\varepsilon)=\varepsilon^n`. La règle {sc}[Sc] conserve l'action contextuelle
+de $`\operatorname{Scale}_{Usage}(n,-)` et applique $`\varphi_n` à l'effet produit. Aucune seconde
+action $`\operatorname{Scale}_{Exec}` sur le grade complet n'est donc requise par le langage actuel.
+
+La séparation répond directement aux règles. $`\mathrm{Scale}_{\mathrm{Usage}}` porte les demandes de
+$`Box`, $`App`, substitution et le contexte de {sc}[Sc] ; les transformations comme $`\varphi_n`
+portent les effets produits par une répétition. La loi universelle
+$`r\cdot\psi(\Delta,\varepsilon)=\psi(r\cdot\Delta,\varphi_r(\varepsilon))` est abandonnée comme
+formulation générale : elle confondait une action de contexte et une action sur les effets, et elle
+obligeait à donner un sens à $`\varphi_r` pour des grades d'usage rationnels.
+
+Le point reste conditionnel pour la preuve complète de substitution. Les lois d'identité, de composition,
+de distributivité de $`\mathrm{Scale}_{\mathrm{Usage}}` sur l'agrégation des contextes et sa compatibilité
+avec les conversions de $`Sub` et $`SubBox` doivent être considérées avec les domaines exacts
+des constructions auxquelles elles s'appliquent.
+
+## Cible de preuve — substitution
+
+
+::::lemma (label := "thm:substitution") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+:::title
+substitution sur trois niveaux
+:::
+
+:::statement +titled
+Terme, type et grade ensemble
+
+Si $`\Delta,\, x :_r V_i \vdash c : C \mid \varepsilon(i)` et $`\Delta' \vdash v : V_j`, alors
+la notation de surface $`\Delta \boxtimes_{\mathbf{1}} (r\cdot\Delta')` est interprétée, sous
+l'architecture factorisée, par $`\mathrm{Scale}_{\mathrm{Usage}}(\pi_U(r),\Delta')` et la conclusion est
+$$`\Delta \boxtimes_{\mathbf{1}} \mathrm{Scale}_{\mathrm{Usage}}(\pi_U(r),\Delta')
+\;\vdash\; c[v/x] : C[j/i] \mid \varepsilon(j).`
+
+Les hypothèses quantitatives requises sont : la formation des types dans un contexte d'usages
+annulés ; l'identité, la composition et la bilinéarité de $`\mathrm{Scale}_{\mathrm{Usage}}` sur la composante d'usage ;
+la commutation de $`\mathrm{Scale}_{\mathrm{Usage}}` avec $`\psi` ; et la compatibilité des conversions de grade complet
+avec les constructeurs de types. La transformation $`\varphi_n` reste séparée lorsqu'une règle produit un
+effet répété. L'énoncé reste donc une proposition conditionnelle, mais ses obligations sont désormais
+factorisées par rôle du scalaire.
+:::
+:::proofsketch
+Sous ces hypothèses, une preuve naturelle procède par induction sur la dérivation de $`\Delta,\, x :_r V_i \vdash c : C \mid \varepsilon(i)`. Les
+règles de typage se rangent en quatre groupes. Les cas purement syntaxiques ne demandent aucune
+propriété quantitative nouvelle ; les autres utilisent les lois propres à la sorte de scalaire qui
+apparaît dans la règle.
+
+_La variable._ Deux sous-cas exclusifs. Si $`c = x`, la
+règle {sc}[Var] impose que toutes les autres liaisons soient au grade nul et que celle-ci soit à
+l'unité : donc $`\Delta = \mathbf{0}` et $`r = 1`. La conclusion demandée devient
+$`\mathbf{0} \boxtimes_{\mathbf{1}} \Delta' \vdash v : V_j`, soit $`\Delta' \vdash v : V_j`, qui est
+l'hypothèse. Si $`c=y\neq x`, la même règle impose $`r=0` ; la substitution ne fait rien, et
+$`\mathrm{Scale}_{\mathrm{Usage}}(0,\Delta')=0\cdot\Delta'` laisse le contexte inchangé. Le facteur $`r` compte donc bien les
+emplois de la variable substituée, mais son action quantitative passe par la projection d'usage.
+
+_Les règles structurelles ne fournissent aucun cas_ : l'affaiblissement et la contraction sont
+encodés par l'arithmétique des grades. Il n'y a donc pas de règle structurelle supplémentaire à
+compatibiliser avec $`\mathrm{Scale}_{\mathrm{Usage}}`.
+
+_Le cas à deux prémisses qui additionne les contextes_ — {sc}[Pair] — répartit les occurrences de x entre ses deux prémisses, avec r = r₁ + r₂. La recombinaison des hypothèses d'induction utilise π_U(r₁ + r₂) = π_U(r₁) + π_U(r₂) et l'additivité de Scale_Usage sur l'addition point par point ; elle n'exige aucune action sur la monotonie, le niveau ou le budget. {sc}[Inj], en revanche, a une seule prémisse et conserve son contexte ; son cas est traité par l'hypothèse d'induction pour cette prémisse, sans inventer une seconde occurrence ni une décomposition r = r₁ + r₂.
+
+_Les règles à contextes composés_ — {sc}[Let], {sc}[App], {sc}[Unbox], {sc}[Open] — utilisent la
+loi de commutation de $`\mathrm{Scale}_{\mathrm{Usage}}` avec $`\psi` et sa composition scalaire. En particulier, pour
+un scalaire d'usage $`a`, la loi de compatibilité à prouver
+$$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1 \boxtimes_{\varepsilon} \Delta_2)`
+est égale à
+$$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1) \boxtimes_{\varepsilon} \mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_2)`
+par la définition de $`\boxtimes`, la commutation avec $`\psi` et l'additivité de l'action sur
+l'usage. La composition $`\mathrm{Scale}_{\mathrm{Usage}}(a,\mathrm{Scale}_{\mathrm{Usage}}(b,\Delta))=\mathrm{Scale}_{\mathrm{Usage}}(ab,\Delta)` ferme le
+cas d'imbriquement.
+
+_La règle {sc}[Sc]_ représente une répétition effective sur deux axes distincts : $`\mathrm{Scale}_{\mathrm{Usage}}(n,-)`
+sur le contexte et $`\varphi_n` sur l'effet. Ces deux actions restent séparées ; aucune nouvelle action
+sur le grade complet n'est introduite.
+
+_Les règles de sous-typage_ {sc}[Sub] et {sc}[SubBox] demandent la compatibilité des conversions
+avec les constructeurs. Pour {sc}[SubBox], la projection
+$`\preccurlyeq`
+donne déjà la direction d'usage nécessaire :
+$`r \preccurlyeq r' \Rightarrow \pi_U(r) \geq \pi_U(r')`.
+La monotonie de la multiplication de l'usage permet alors de conserver cette direction sous une
+mise à l'échelle commune. La compatibilité des composantes de niveau, monotonie et budget reste
+une obligation distincte.
+
+_Les modalités temporelles_ demandent un cas distinct pour {sc}[When], qui transforme la composante
+temporelle. Sa compatibilité avec les actions de grade ne découle pas de la présence de
+$`\omega` seule et reste à établir lorsque son domaine exact sera fixé.
+
+_Les trois niveaux._ La substitution du terme donne $`c[v/x]` ; celle du type donne
+$`C[j/i]` ; celle du grade donne l'effet $`\varepsilon(j)`. Les deux dernières se font ensemble parce
+que l'indice est le même. La première clause, formation des types dans un contexte d'usages annulés,
+garantit qu'aucun type ne dépend d'une ressource consommée.
+
+_Une condition de bord, si l'échange venait à être restreint._ L'énoncé place $`x` à l'extrémité
+droite du contexte. Sur une application finie des variables vers les grades — ce que $`\Delta` est
+ici, l'addition point par point en étant la marque —, cette écriture est une notation et non une
+contrainte. Elle en deviendrait une sous la discipline d'échange envisagée au chapitre 3
+(§{num "sec:c3-le-systeme-gradue"}[]) : la substitution ne serait alors admissible que pour la
+liaison _maximale_ de sa zone. Le lemme ne s'en trouverait pas faux, mais moins général, et la
+restriction serait le contenu même de la discipline plutôt qu'un défaut — on ne consomme pas le
+second message d'une session avant le premier.
+:::
+
+:::note
+_Obligation ouverte._ Les hypothèses quantitatives sont des obligations distinctes, à suivre
+séparément : formation des types en contexte d'usages annulés, lois de
+$`\mathrm{Scale}_{\mathrm{Usage}}`, commutation avec $`\psi`, compatibilité des conversions de grade
+complet et action $`\varphi_n` pour les effets répétés. Le cas {sc}[When] reste ouvert.
+:::
+::::
+Une forme simultanée en découle, et elle n'est pas un corollaire immédiat sous la discipline
+ci-dessus.
+
+::::corollary (label := "thm:substitution_simultanee") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+:::title
+substitution simultanée — corollaire de la substitution élémentaire
+:::
+
+:::statement +titled
+Fermer un terme, une liaison à la fois
+
+Soit $`\Delta \vdash c : C \mid \varepsilon` et $`\gamma` une substitution qui associe à chaque
+liaison $`x_k :_{r_k} V_k` de $`\Delta` une valeur $`\Delta_k \vdash v_k : V_k`. Alors
+$$`\textstyle\boxtimes_{\mathbf{1}}\,_k \operatorname{Scale}_{Usage}(\pi_U(r_k),\Delta_k) \;\vdash\; \gamma c : C \mid \varepsilon,`
+et la dérivation s'obtient en appliquant le théorème {num "thm:substitution"}[] une fois par
+liaison.
+:::
+
+:::proofsketch
+Par récurrence sur le cardinal de $`\Delta`, chaque pas retirant une liaison. Le cas de base est le
+contexte vide, où $`\gamma c = c`. Le pas emploie le théorème {num "thm:substitution"}[] et rien
+d'autre, la recomposition des contextes étant la sienne. Cet énoncé n'a donc pas de contenu propre
+au-delà de ce qui suit, et il est un corollaire plutôt qu'un théorème : seul le lemme élémentaire
+est à mécaniser, l'itération s'en déduisant.
+
+_Ce que l'énoncé doit fixer, et c'est tout son contenu._ L'_ordre_ dans lequel les liaisons sont
+retirées est indifférent tant que le contexte est une application finie ; il cesse de l'être sous
+une discipline d'échange, où une liaison non maximale dans sa zone n'est pas substituable. La
+récurrence se conduit alors dans l'_ordre inverse_ de chaque zone : on retire d'abord la maximale,
+ce qui rend maximale la suivante, et ainsi jusqu'à épuisement. Cet ordre existe toujours, un ordre
+partiel sur un ensemble fini ayant toujours un élément maximal, et $`\gamma` fermant le terme,
+toutes les liaisons sont bien retirées. C'est le seul point où la forme simultanée demande davantage
+que la forme simple.
+:::
+
+:::note
+_Obligation ouverte._ Le corollaire hérite des obligations du lemme élémentaire. L'indifférence à
+l'ordre repose sur le caractère d'application finie du contexte ; sous des zones ordonnées, la
+substitution suit l'ordre inverse de chaque zone, comme l'esquisse le dit.
+:::
+::::
+Une remarque sur le statut de ce qui précède. Le proofsketch de substitution est une cible de preuve, non une démonstration complète vérifiée. L'inventaire courant compte 49 occurrences de règles en C3 ; l'audit C-06 fournit une matrice de ces occurrences et le test associé contrôle uniquement la correspondance structurelle entre le texte source et cette matrice. Aucun de ces contrôles ne démontre le théorème de substitution ni ses cas par constructeur. L'état under-review / proofsketch doit donc être conservé tant que les cas, conversions, contraintes de fraîcheur et dépendances de domaine n'ont pas été justifiés.
+
+Deux familles s'ajoutent à cet inventaire, que le corps nomme sans les donner et qui n'appartiennent
+à aucun des quatre groupes ci-dessus.
+
+La première est celle de la _loi distributive graduée_, qui gouverne le passage d'une exigence de
+contexte à un effet et réciproquement. Sa forme est celle d'une transformation naturelle entre les
+deux modalités,
+$`\lambda_{r,\varepsilon} : !_r \circ T_\varepsilon \Rightarrow T_{\varphi(r,\varepsilon)} \circ !_{\psi(r,\varepsilon)}`,
+où $`\varphi` et $`\psi` disent comment chaque côté est modifié par le passage de l'autre. Deux
+règles en dérivent : l'une permet de commuter une demande et un effet en payant le prix que
+$`\varphi` et $`\psi` fixent, l'autre interdit de le faire lorsque ce prix n'est pas défini. Ce sont
+ces deux fonctions qui portent tout le contenu — les poser, c'est décider si exiger deux fois une
+ressource puis produire un effet est la même chose que l'inverse, et à quel coût.
+
+La seconde est celle de la _gradation indexée_. Une monade graduée ordinaire donne à chaque terme un
+grade d'effet fixe ; ici le grade dépend des indices que porte le contexte, et la règle doit donc
+lire ces indices. Un parcours de $`\mathsf{Vec}\;n\;A` n'a pas un grade d'effet, il a une _famille_
+de grades indexée par $`n`, et la règle d'application doit substituer dans cette famille l'indice
+effectif de son argument. Il en résulte que la substitution opère sur deux niveaux à la fois — le
+terme et le grade — et que le lemme de substitution du paragraphe précédent doit être énoncé pour
+les deux ensemble, faute de quoi il ne dit rien du cas qui compte.
+
+Les deux règles que cette famille exige se laissent écrire dès maintenant, puisqu'elles ne dépendent
+que de la grammaire. La première est l'application, où l'indice effectif de l'argument est substitué
+dans la famille de grades de la fonction :
+
+::::formula (label := "eq:regle-app-indexee") (kind := "equation")
+```
+\begin{equation}
+\frac{\;\Delta_1 \vdash f : (x{:}_r A_i) \multimap_{\varepsilon(i)} B \qquad \Delta_2 \vdash v : A_j\;}{\;\Delta_1 \boxtimes_{\mathbf{1}} (r\cdot\Delta_2) \vdash f\,v : B[j/i] \mid \varepsilon(j)\;}
+\end{equation}
+```
+::::
+
+où $`\boxtimes` note la composition des contextes que la loi distributive gouverne. La seconde est
+le lemme de substitution, énoncé sur les deux niveaux : si
+$`\Delta, x{:}_r A_i \vdash t : B \mid \varepsilon(i)` et $`\Delta' \vdash v : A_j`, alors
+$`\Delta \boxtimes (r\cdot\Delta') \vdash t[v/x] : B[j/i] \mid \varepsilon(j)` — le facteur $`r`
+étant celui de la liaison substituée, comme dans l'énoncé qui ouvre cette section. Sa forme
+ordinaire — celle qui ne substitue que dans le terme et le type — serait ici vraie et sans emploi,
+puisqu'elle ne dirait rien du grade, qui est ce dont dépend le cas intéressant.
+
+Le facteur $`r` n'est pas un ornement, et l'omettre rendrait l'énoncé faux dans le seul sens qui
+compte. La règle {sc}[App] conclut sur $`\Delta_1 \boxtimes (r\cdot\Delta_2)` : une fonction qui
+déclare consommer son argument $`r` fois multiplie d'autant les exigences du contexte qui le
+produit. Le lemme en est la contrepartie, puisque substituer est ce que l'application fait en
+réduisant. S'il concluait sur $`\Delta \boxtimes \Delta'`, la réduction de $`(\lambda x.c)\,v`
+produirait un terme typable dans un contexte strictement plus faible que celui où l'application
+l'était, et la préservation serait fausse. Les deux énoncés de cette section portent donc le même
+facteur, et la règle d'application indexée aussi.

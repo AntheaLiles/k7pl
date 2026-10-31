@@ -62,6 +62,41 @@ exclude = [
   # 2026-01-04. Browser check by the owner pending. Re-check by 2027-01-24
   # (90 days). Do not exclude all of gnu.org or accept 429.
   "^https://www\\.gnu\\.org/software/hurd/users-guide/using_gnuhurd\\.html$",
+  # Exact URL exception: the Emacs Lisp manual's "Syntax for Strings", cited
+  # by the reading-lot research (wiki/research.md). The runner timed out on it
+  # in runs 40475694696 and 40477227138 (2026-10-27); the same day, automated
+  # fetches from outside the runner got 503 and a reset connection. Existence
+  # evidence, 2026-10-27: Wayback Machine 200 capture of 2026-08-03; a mirror
+  # (docs.w3cub.com) credits this exact URL. Re-check by 2027-01-25 (90 days).
+  # Do not exclude all of gnu.org or accept timeouts.
+  "^https://www\\.gnu\\.org/software/emacs/manual/html_node/elisp/Syntax-for-Strings\\.html$",
+  # Exact URL exception: the TXR manual on nongnu.org, cited by the same
+  # research as not checked from this project's sessions. The runner timed out
+  # on it in the same two runs; an automated fetch from outside the runner got
+  # 429 (Retry-After: 4) on 2026-10-27. Existence evidence, 2026-10-27: Wayback
+  # Machine 200 capture of 2026-09-21. Re-check by 2027-01-25 (90 days). Do not
+  # exclude all of nongnu.org or accept timeouts.
+  "^https://www\\.nongnu\\.org/txr/txr-manpage\\.html$",
+  # Exact URL exceptions: three OpTeX sources on petr.olsak.net, cited by the
+  # reading-lot research and questions (wiki/research.md, wiki/questions.md),
+  # the first given by the owner. The runner timed out on all three in run
+  # 40556246452 (attempt 1) and in run 40581506044 (2026-10-27), after passing
+  # in the run of commit 64b8156 and in attempt 2 of run 40556246452. The same
+  # day (20:52 UTC) each answered 200 in about 1 s to an automated fetch from
+  # outside the runner. Existence evidence, 2026-10-27: Wayback Machine 200
+  # captures of 2026-08-03 (optex/), 2026-06-01 (optex-doc.pdf) and 2026-02-23
+  # (tb130olsak-fmtcmp.pdf). Re-check by 2027-01-25 (90 days). Do not exclude
+  # all of petr.olsak.net or accept timeouts.
+  "^https://petr\\.olsak\\.net/optex/$",
+  "^https://petr\\.olsak\\.net/ftp/olsak/optex/optex-doc\\.pdf$",
+  "^https://petr\\.olsak\\.net/ftp/olsak/bulletin/tb130olsak-fmtcmp\\.pdf$",
+  # Exact URL exception: the CTAN page of TeX by Topic, cited by the
+  # reading-lot research (wiki/research.md). The runner timed out on it in
+  # runs 40597638904 and 40598568664 (2026-10-27), after passing in the runs of
+  # commits d1c0340 and f92d603. The same day (23:05 UTC) it answered 200 in
+  # 0.4 s to an automated fetch from outside the runner. Re-check by 2027-01-25
+  # (90 days). Do not exclude all of ctan.org or accept timeouts.
+  "^https://ctan\\.org/pkg/texbytopic$",
 ]
 
 # gnu.org rate-limits the runner (429 on hurd pages, which

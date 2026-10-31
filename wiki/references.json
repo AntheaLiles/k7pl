@@ -731,6 +731,34 @@
    "urldate": "2025-05-19",
    "volume": "26"
   },
+  "abiteboulFoundationsDatabases1995": {
+   "date": "1995",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Serge",
+      "last": "Abiteboul",
+      "lineage": ""
+     },
+     {
+      "first": "Richard",
+      "last": "Hull",
+      "lineage": ""
+     },
+     {
+      "first": "Victor",
+      "last": "Vianu",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Addison-Wesley",
+   "title": "Foundations of Databases",
+   "type": "book",
+   "url": "http://webdam.inria.fr/Alice/",
+   "urldate": "2026-10-27"
+  },
   "acetoAxiomatizingTropicalSemirings2001": {
    "booktitle": "Foundations of Software Science and Computation Structures",
    "date": "2001",
@@ -2153,6 +2181,23 @@
    },
    "title": "The Logical Meeting Point of Multiset Rewriting and Process Algebra: Progress Report",
    "type": "report"
+  },
+  "chassaingDecider": {
+   "date": "2021-12-17",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "J.",
+      "last": "Chassaing",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Functional Event Sourcing Decider",
+   "type": "online",
+   "url": "https://thinkbeforecoding.com/post/2021/12/17/functional-event-sourcing-decider",
+   "urldate": "2026-10-28"
   },
   "chirimarReferenceCountingComputational1996": {
    "date": "1996-03",
@@ -5395,6 +5440,38 @@
    "url": "https://dl.acm.org/doi/10.1145/3704843",
    "urldate": "2025-05-19",
    "volume": "9"
+  },
+  "lochbaumBQNChoose": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "M.",
+      "last": "Lochbaum",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "BQN: Choose",
+   "type": "online",
+   "url": "https://mlochbaum.github.io/BQN/doc/choose.html",
+   "urldate": "2026-10-28"
+  },
+  "lockwoodFIXAPL": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "J.",
+      "last": "Lockwood",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "FIXAPL: APL Reimagined from the Ground up with Fixed-Arity Functions",
+   "type": "online",
+   "url": "https://github.com/Jacob-Lockwood/fixapl",
+   "urldate": "2026-10-28"
   },
   "lopesDejaVuMapCode2017": {
    "date": "2017-10-12",

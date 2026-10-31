@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-CONTROLS = ROOT / "scripts" / "controles"
+CONTROLS = ROOT / "scripts" / "spec_checks"
 if str(CONTROLS) not in sys.path:
     sys.path.insert(0, str(CONTROLS))
 
@@ -23,7 +23,8 @@ def test_current_inventory_matches_all_active_statement_blocks():
     errors = inventory.check_inventory()
     assert errors == [], "\n".join(errors)
     rows = inventory.source_inventory()
-    assert len(rows) == 81
+    # 82 since 2026-10-27: thm:terminaison_strates, added by the author's choice Q-SPEC-301.
+    assert len(rows) == 82
     assert len({row["path"] for row in rows}) == 21
 
 
@@ -126,14 +127,20 @@ def test_all_historical_labels_survive_with_only_declared_companion_objects():
     assert len(historical) == 69
     assert historical <= active
     assert active - historical == inventory.EXPECTED_COMPANION_LABELS
-    assert len(inventory.EXPECTED_COMPANION_LABELS) == 12
+    # 13 since 2026-10-27: thm:terminaison_strates (Q-SPEC-301).
+    assert len(inventory.EXPECTED_COMPANION_LABELS) == 13
 
 
 # SHA-256 of the detailed table of the pre-migration snapshot. The digest was computed on
 # LEAN-STATEMENT-INVENTORY.md (last version e9b5d2b2) before the snapshot moved, unchanged, into
 # the appendix of the migration register. The level and label checks read this table, so any
 # edit to it must fail here rather than silently rebase the historical baseline.
-FROZEN_HISTORICAL_TABLE_SHA256 = "88e8213a23c0103db2a6f6789ffb175553f83adb051839040fc67225d7f66c10"
+# 2026-10-27 (author's instruction, « il faut lui donner directement les bons noms pour ne pas
+# maintenir des fichiers de correspondances qui n'ont aucune valeur ajoutée »): the snapshot names
+# the module files by their English names (renamed on 2026-10-27) instead of the former ones; its
+# 69 rows, labels, line numbers, statuses and levels are unchanged. The digest is re-synced
+# (replacing 88e8213a…); any other edit still fails here.
+FROZEN_HISTORICAL_TABLE_SHA256 = "40c420259d789cf9777836879f2ca06725e11f3658aad29f5cce9fd578e8569f"
 
 
 def test_historical_snapshot_is_frozen():
