@@ -7,45 +7,71 @@ SPDX-License-Identifier: CC0-1.0
 
 ## Current state
 
-- Workstream: planning and formal-analysis backlog for TLA+ modelling of K7PL.
-- Status: the programme is drafted; no new K7PL TLA+ model has been added yet. Historical D01/R9 files have been relocated without changing their contents; existing TLC jobs retain their checking behaviour.
-- Branch base: `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`.
-- Analysed specification snapshot: PR #311 head `f3b33cd34e1da49a4c8c41ca632c586e66715e70`.
-- PR #311 was open at the time this checkpoint was created.
-- Canonical location: repository-root `models/`; no per-project subdirectory is used.
+- Workstream: progressive TLA+ modelling of K7PL asynchronous and concurrent runtime protocols.
+- Branch: `research/k7pl-tla-workplan-2026-10-31`.
+- TLA-01 implementation revision: `e7b78b2b2e95aed238184733e3a6a57f9e8ab60f` (direct child of the planning head below).
+- Planning head before implementation: `80a439df4fb1e34392bbf27388e5322f63095040`.
+- Branch base: `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`; comparison after the TLA-01 implementation reported six commits ahead and zero behind.
+- PR #311 remained open at head `f3b33cd34e1da49a4c8c41ca632c586e66715e70`; this is the lexical-source snapshot used by the plan, not an assertion that its changes are merged or normative.
+- Canonical location: repository-root `models/`; no model subdirectories have been introduced.
+- Status: **TLA-01 is `model-drafted`**. TLC has not yet executed the new module. No model-check result or observed TLA-01 counterexample is claimed.
 
-## Documents created
+## Implemented increment
 
-- `README.md`: purpose, source baseline, status vocabulary and non-normative scope.
-- `CHAPTER-COVERAGE.md`: chapter-by-chapter mapping, including explicit non-targets.
-- `WORK-PLAN.md`: sixteen model work packages, their candidate state/actions/properties, tools, dependencies and acceptance criteria.
-- `FORMAL-ARCHITECTURE.md`: responsibilities, abstraction relation, forward simulation and traceability.
-- `TOOLCHAIN-CI.md`: TLA+, TLC, Apalache, TLAPS, PlusCal and conditional external tools; CI/evidence proposal.
-- `OPEN-GATES.md`: unresolved decisions that must not be selected implicitly.
-- `CHECKPOINT.md`: this workstream's status and next action.
+Commit `e7b78b2b2e95aed238184733e3a6a57f9e8ab60f` adds:
 
-## Existing sources used
+- `models/TLA01SessionNetwork.tla`;
+- `models/TLA01-AcyclicNominal.cfg`;
+- `models/TLA01-CircularWait.cfg`;
+- `models/TLA01-SimulationGap.cfg`;
+- `models/TLA01-ExternalWait.cfg`;
+- `models/TLA01-Timeout.cfg`;
+- `models/TLA01-CircularWait-ExpectedCounterexample.json`;
+- `models/TLA01-SimulationGap-ExpectedCounterexample.json`;
+- TLA-01 contract, bounds, assumptions, omissions and correspondence status in `WORK-PLAN.md`;
+- the model index and toolchain baseline;
+- REUSE annotations for the JSON vectors;
+- TLC invocation, expected-invariant checks and an evidence artifact in the existing `r9-tlc` job. The existing D01 and R9 commands are preserved.
 
-- PR #311 specification and code at the pinned head above.
-- `theoretical-projects/k7os/R4-concurrence-protocoles-vivacite-annulation.md`.
-- `theoretical-projects/k7os/R5-memoire-emprunt-aliasing-logique-separation.md`.
-- `theoretical-projects/k7os/R6-grades-budgets-WCET-temps-reel.md`.
-- `theoretical-projects/k7os/R7-pannes-ressources-lineaires-persistance.md`.
-- `theoretical-projects/k7os/R9-model-checking-contre-exemples-tracabilite.md`.
-- `models/D01NativeBoundary.tla`.
-- `models/R9ActorCancellation.tla`.
-- `wiki/semantics.md` and `.github/workflows/k7pl-semantics.yaml`.
+The model keeps `StaticDependencies` constant and derives `WaitFor` from blocked actor states. It checks (Sim) rather than assuming it. The `SimulationGap` profile intentionally retains a static DAG and dual endpoint maps while allowing a dynamic three-actor wait cycle; its expected invariant failure is `Simulation`. The separate `CircularWait` profile uses a cyclic static graph and expects `NoMutualWaitDeadlock` to fail.
 
-## Findings retained
+## Normative and correspondence findings
 
-1. The current TLA+ models are K7OS research models, not a normative K7PL semantic model.
-2. D01 is a small native-boundary profile with a checked negative configuration.
-3. R9 is a bounded actor-cancellation race model; the distinction between cancel request and acknowledgement must remain explicit.
-4. D01 is checked by the `d01-tlc` job in `k7pl-semantics.yaml`; R9 is checked separately by `r9-tlc` in `ci.yaml`.
-5. The K/Lean/TLA+ projection is explicitly open in `wiki/semantics.md`.
-6. The highest-value initial work is the dependency DAG versus dynamic wait graph, atomic join matching and scheduler/global progress.
-7. General algebraic, typing, syntax and fixed-point theorems remain Lean/parser work; TLA+ should model the relevant runtime protocols and finite scenarios.
+- C3 `thm:deadlock_acyclique` is marked `under-review` with `proofsketch`; the work does not promote it to a checked theorem.
+- The specification explicitly leaves the static/dynamic graph relation open for `Guard`, `Send`, consumption, residual states and `Timeout`.
+- C4's compile-time actor-template graph and the C3 premise (Sim) have not yet been tied by a complete typed relation in this work.
+- The model uses the (Sim) pair orientation `waiter -> expected sender`. Whether this is exactly the orientation of the graph construction in the C4 implementation remains a correspondence question.
+- The maintained K prototype described in `wiki/semantics.md` does not implement the normative actor/session semantics. No K/TLA+ or Lean/TLA+ simulation is asserted.
+- The expected JSON vectors are authored witnesses for the abstract transition design, not actual TLC-produced traces yet.
+
+## Bounds, assumptions and omissions
+
+- Actor cardinality is two or three; `StaticHasCycle` is exact only under this bound.
+- Each actor receives at most one message and sends at most one message. Mailboxes are sets of sender/receiver pairs, not the normative K multiset in full generality.
+- Sends are asynchronous; no sender waits for recipient readiness. A receive blocks only while its expected message is absent.
+- Internal endpoint duality is checked for the configured one-step protocol maps. This is not a proof of general session typing.
+- External delivery and timeout are explicit actions. Timeout is nondeterministic and changes an actor to `Failed`, not `Terminal`. Late external delivery after timeout is outside this draft.
+- No `WF` or `SF` is assumed. No starvation-freedom, eventual delivery, eventual timeout, global progress or eventual termination claim is made.
+- Multiple messages, message multiplicity/order, join matching, branches, actor creation, scheduler interleavings, weak memory and physical time are omitted.
+
+## Commands and tool evidence
+
+- Remote branch comparison: `main...research/k7pl-tla-workplan-2026-10-31` reported `ahead_by = 6`, `behind_by = 0` immediately after the implementation commit.
+- Local source checks: both JSON vectors parsed; five TLC configurations were checked for the expected specification/deadlock-control directives; module name, (Sim) declaration, finite actor bound and absence of WF/SF declarations were checked by a small Python source check.
+- Local Java runtime: OpenJDK `21.0.12.1`.
+- TLC target: repository-pinned `1.7.4`, SHA-256 `936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88`, SHA-1 `bee4a54f3ee3d4afc347c3240ec2d9e93b075104`.
+- TLC was not available in the execution container. Attempting to retrieve the pinned JAR failed with DNS resolution error (`curl: (6) Could not resolve host: github.com`). No TLC command was executed locally.
+- No PR was opened, so the branch's new CI job has not run. The new TLC checks are wired to `tla_model_check` and will execute in the existing PR CI path.
+- This execution environment did not contain a local repository checkout; branch status, commits and tree changes were inspected and written through the remote Git data interface. No local `git status`, `git diff` or shell commit was possible.
+
+## Open points
+
+1. Define the K-side object corresponding to a dependency edge and prove the rule-level mapping from `Guard`/mailbox typing to a dynamic wait edge.
+2. Confirm the graph-edge orientation and whether one mailbox may have multiple candidate senders.
+3. Ratify neither timeout resolution nor late-message handling: their current model behaviour is a bounded profile only.
+4. After the TLC job runs, inspect both actual traces, verify the invariant names and compare the observed traces with the JSON witness vectors.
+5. Only after TLC parses and checks the declared profiles may TLA-01 advance to `model-checked-bounded` or `counterexample-found`.
 
 ## Next action
 
-Review [OPEN-GATES.md](OPEN-GATES.md), beginning with G1–G5, and confirm the priority/dependency order for TLA-01, TLA-02, TLA-03 and TLA-08. Then draft the smallest finite TLA-01 model and its negative three-actor circular-wait configuration. Do not change normative specification text or the current K semantics until the transition contract and correspondence requirements have been reviewed.
+Run the new `r9-tlc` path on this branch through the normal PR CI once a PR is explicitly authorised. Inspect the five TLC logs and the `tla01-tlc-evidence` artifact before revising any property or advancing the work-plan status. Then use the checked counterexample to formulate the rule-by-rule K/Lean correspondence obligation; do not start TLA-02 by treating the draft mailbox abstraction as already established.

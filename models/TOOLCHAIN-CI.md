@@ -136,8 +136,8 @@ The artefact must not be called a proof unless the verification method is a proo
 ## 7. CI rollout
 
 1. Preserve the existing D01 and R9 checks while moving their working directory to repository-root `models/`.
-2. Add a syntax/parsing job for `models/` when the first new K7PL work item is drafted.
-3. Add TLC jobs incrementally, starting with TLA-01 and TLA-02 when their contracts stabilise.
+2. TLA-01 is now parsed and checked through the existing `r9-tlc` job when `tla_model_check` is selected; a separate syntax-only tier is deferred.
+3. Add further model-specific TLC configurations incrementally, beginning with TLA-02 only after its join-matching contract is isolated from this one-message mailbox abstraction.
 4. Add the scheduler/liveness model only after fairness assumptions are reviewed.
 5. Add model-selection and artifact packaging so a changed shared module triggers every dependent model.
 6. Add Apalache only after a representative model demonstrates a concrete need.
