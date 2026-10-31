@@ -10,7 +10,7 @@ SPDX-License-Identifier: CC0-1.0
 - Workstream: progressive TLA+ modelling of K7PL asynchronous and concurrent runtime protocols.
 - Canonical location: repository-root `models/`; no model subdirectories have been introduced.
 - Branch: `research/k7pl-tla-workplan-2026-10-31`.
-- Current head: `38650fca3598757818c382fcc94112175cb174e4`; nine commits ahead of `main`, zero behind.
+- TLA-01 source/configuration correction: `38650fca3598757818c382fcc94112175cb174e4`; subsequent commits on this branch update the work plan and evidence checkpoint.
 - Base: `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`.
 - Draft PR: [#318](https://github.com/AntheaLiles/k7pl/pull/318), base `main`, head `38650fc`; open, draft, not merged.
 - TLA-01 status: **`model-drafted`**. TLC has executed against the previous head, but the first nominal configuration failed in the TLC configuration parser before TLA module parsing or state exploration. No TLA-01 invariant result and no TLC-observed TLA-01 counterexample is claimed.
@@ -43,8 +43,8 @@ The CI-only fixes in commit `970cf5bcd8547847d0dc4c2956b6bbdff99d6934` corrected
 - The pinned TLC artifact was downloaded by GitHub Actions and its SHA-256/SHA-1 checks completed successfully. TLC reports `TLC2 Version 2.19` internally.
 - Existing R9 and D01 positive checks and their negative controls passed in the run's `D01, R9 and TLA-01 model checks` job. The TLA-01 nominal/environment step then stopped at the old configuration encoding described above. The two planned TLA-01 negative profiles were skipped; they have not been checked.
 - Evidence artifact `tla01-tlc-evidence`, artifact ID `13055089416`, SHA-256 `d18f946f8d4dd8bf85f43f0e3eec6ce75f2d27a3d67f16fe7b8069f5a5410333`, contains the old source/configuration and `acyclic-nominal.log` recording the parser failure. It is diagnostic evidence, not a successful TLA-01 result.
-- New CI run [#2392](https://github.com/AntheaLiles/k7pl/actions/runs/41235780982), head `38650fc`, was created but is pending with no jobs started. The previous run remains in progress on its K compilation and Verso specification-build jobs. `.github/workflows/ci.yaml` serialises CI by workflow/ref with `cancel-in-progress: false`; therefore the new run waits behind the older run.
-- The run on `38650fc` has not yet exercised the adjacency-function correction. The current branch head remains unverified by TLC.
+- The initial run triggered on the corrected source head was superseded and cancelled when a later documentation commit updated the same PR. The latest-head PR CI run remains queued behind the older same-PR CI run, which is still executing its K compilation. `.github/workflows/ci.yaml` serialises CI by workflow/ref with `cancel-in-progress: false`; no TLA-01 TLC job has started on the corrected adjacency-function encoding yet.
+- The latest TLA-01 source/configuration remains unverified by TLC until that queued run starts and its evidence is inspected.
 
 ## Normative and correspondence findings
 

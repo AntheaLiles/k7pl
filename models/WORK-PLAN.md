@@ -29,7 +29,7 @@ Each item is an independently reviewable work package. Its model scope is a cand
 - `timeoutStatus`: `Disabled`, `Armed` or `Expired`;
 - `sent` and `consumed`: message-lifecycle sets.
 
-`StaticHasCycle` is exact for the declared bound of at most three actors (self-, two- and three-node cycles). `StaticAcyclic` checks the compile-time relation. `Simulation` is the candidate invariant `WaitFor \subseteq StaticDependencies`; it is deliberately not assumed by `Init` or by the transition relation.
+`StaticHasCycle` is exact for the declared bound of at most three actors (self-, two- and three-node cycles). `StaticAcyclic` checks the compile-time relation. `Simulation` is the candidate invariant `WaitFor \subseteq StaticDependencyEdges`; it is deliberately not assumed by `Init` or by the transition relation.
 
 **Transitions.** `Block` records a wait only when the expected mailbox is empty. `Send` appends a message and returns the sender without waiting for receiver readiness; it wakes a matching blocked receiver. `Consume` removes one compatible message and advances the residual protocol. `ExternalDeliver` represents one explicitly enabled environment delivery. `Timeout` changes a blocked actor to `Failed`/`Aborted`; it does not count as successful protocol termination.
 
