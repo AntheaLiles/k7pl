@@ -24,12 +24,12 @@
  *
  * Known divergences from the legacy classifier, reported by
  * --derived-shadow and NOT hidden here, are of three kinds:
- *   - intended: proofs/ now maps to axiom_audit instead of
- *     full, tla-models to tla_model_check instead of full,
- *     src/k/ to the K surfaces (lean_build over-triggering
- *     removed) — these are the decided D2 behaviours, and
- *     their coverage preservation is proven in the
- *     orchestration slice, not here;
+ *   - intended: proofs/ maps to axiom_audit instead of full,
+ *     and src/k/ maps to K surfaces without the obsolete
+ *     lean_build over-trigger. The models/ path family is
+ *     claimed by both legacy projections; the derived registry
+ *     additionally emits tla_model_check, which is not one of
+ *     the legacy eight comparison keys;
  *   - closed in cutover C0: light paths (.claude/,
  *     .github/ISSUE_TEMPLATE/, LICENSES/, CITATION.cff) and
  *     scripts/axiom-audit.sh are now classifier-resident rules
@@ -41,8 +41,8 @@
  *     theoretical-projects/, which the legacy classifier
  *     leaves unclassified (hence full) while the registry
  *     maps them to docs_links.
- * The C3 cutover accepted these divergences as the decided
- * behaviour; controller-shadow keeps reporting them, non-blocking.
+ * The remaining differences are explicit migration gaps; model paths
+ * must remain neutral in the shared legacy-key projection.
  */
 
 import type { Component, Registry } from "./registry.ts";
