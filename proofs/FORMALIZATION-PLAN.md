@@ -26,7 +26,7 @@ La classification distingue :
 | Grades et ressources | `Grades/Scaling` | Correspondance bidirectionnelle entre les deux grades, projection `π_U`, commutation avec `Scale_Usage` | Ne prouve pas la simulation des règles K |
 | Grades et ressources | `Grades/StructuralModes` | Réutilise les morphismes Ideal-based de l'implémentation et le candidat Rel | N'établit pas que les règles K les imposent |
 | Grades et ressources | `Grades/Budget` | Réutilise `ℕ∞`, `Cost_Budget`, `Adm`, `consumeK`; prouve la borne du résidu | Les règles opérationnelles n'invoquent pas encore `consumeK` sous preuve d'admissibilité |
-| Structures | `Structural/CapabilityPartition` | Symétrie, irréflexivité et séparation de `K7pl.MemoryRange.Range` | Pas de correspondance aux identités de régions ni H1/H3 |
+| Structures | `Structural/RangeSeparation` | Symétrie, irréflexivité et séparation de `K7pl.MemoryRange.Range` | Pas de correspondance aux identités de régions ni H1/H3 |
 | Mémoire | `Memory/EntityRef` | Invalidation après incrément de génération | Génération `Nat` non bornée ; pas de concurrence |
 | Métathéorie | `Metatheory/MultiStep` | Fermeture réflexive-transitive et préservation d'invariant | Pas de propriété temporelle ni de simulation |
 

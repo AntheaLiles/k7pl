@@ -40,7 +40,7 @@ async function fixture(
       "proofs/Grades/StructuralModes.lean",
       "proofs/Grades/Budget.lean",
       "proofs/Structural.lean",
-      "proofs/Structural/CapabilityPartition.lean",
+      "proofs/Structural/RangeSeparation.lean",
       "proofs/Memory.lean",
       "proofs/Memory/EntityRef.lean",
       "proofs/Metatheory.lean",

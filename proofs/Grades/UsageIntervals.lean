@@ -17,10 +17,10 @@ namespace K7PL.Proofs.Grades
 
 abbrev Usage := K7pl.UsageScale.Usage
 
-def uLin : Set Usage := {u | 1 ≤ u ∧ u ≤ 1}
-def uAff : Set Usage := {u | u ≤ 1}
-def uRel : Set Usage := {u | 1 ≤ u}
-def uUnr : Set Usage := Set.univ
+def uLin : Set Usage := Set.Icc 1 1
+def uAff : Set Usage := Set.Icc 0 1
+def uRel : Set Usage := Set.Ici 1
+def uUnr : Set Usage := Set.Icc 0 ⊤
 
 /-- The specification kernel and implementation use definitionally equal usage carriers. -/
 theorem specUsage_eq_implementationUsage :
@@ -28,24 +28,28 @@ theorem specUsage_eq_implementationUsage :
 
 theorem uLin_subset_uAff : uLin ⊆ uAff := by
   intro u hu
-  exact hu.2
+  exact ⟨bot_le, hu.2⟩
 
-theorem uAff_subset_uUnr : uAff ⊆ uUnr := Set.subset_univ _
+theorem uAff_subset_uUnr : uAff ⊆ uUnr := by
+  intro u hu
+  exact ⟨bot_le, le_top⟩
 
 theorem uLin_subset_uRel : uLin ⊆ uRel := by
   intro u hu
   exact hu.1
 
-theorem uRel_subset_uUnr : uRel ⊆ uUnr := Set.subset_univ _
+theorem uRel_subset_uUnr : uRel ⊆ uUnr := by
+  intro u hu
+  exact ⟨bot_le, le_top⟩
 
 /-- The affine and relevant usage intervals are incomparable. -/
 theorem uAff_uRel_incomparable :
     ¬ uAff ⊆ uRel ∧ ¬ uRel ⊆ uAff := by
   constructor
   · intro h
-    have hzero : (0 : Usage) ∈ uAff := by norm_num [uAff]
+    have hzero : (0 : Usage) ∈ uAff := by norm_num [uAff, Set.mem_Icc]
     have hzeroRel : (0 : Usage) ∈ uRel := h hzero
-    norm_num [uRel] at hzeroRel
+    norm_num [uRel, Set.mem_Ici] at hzeroRel
   · intro h
     have htwo : (2 : Usage) ∈ uRel := by norm_num [uRel]
     have htwoAff : (2 : Usage) ∈ uAff := h htwo
