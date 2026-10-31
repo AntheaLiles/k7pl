@@ -458,3 +458,15 @@ The current sixteen models do not cover the full runtime and hardware refinement
 - OS file/network/process/device capability lifecycle only where those interfaces are in scope.
 
 C1 foundational postulates, C2 category/grade/fixed-point laws, C3 static typing and general metatheorems, C5 grammar/escaping/macro hygiene, C6 compiler correctness and generic termination, cryptographic hardness, WCET and physical hardware guarantees must not be presented as “covered” by finite TLC exploration. They require Lean, parser/compiler validation, cryptographic analysis or target-specific measurement and refinement. The detailed register is in [CHAPTER-COVERAGE.md](CHAPTER-COVERAGE.md).
+
+
+## 6. Audit de traçabilité normative
+
+Les futurs modèles doivent être dérivés de clauses Verso explicites. L'audit complémentaire dans `CHAPTER-COVERAGE.md` relie notamment :
+- `C4/ModelesDeMemoire.lean` et `C4/EchelleDeLActeur.lean` : sept régimes mémoire, durée de vie EntityRef, partitions SoA/PIA, alignement/NUMA, modèle de représentation et zéro-copie ;
+- `C4/EchelleDuSysteme.lean` : journal complet du non-déterminisme, rejeu observationnel/binaire, ordonnanceur, superviseur, progrès global, graphe d'attente, communication inter-instance et mémoire faible ;
+- `C4/CalculDeProcessusSousJacent.lean` : simulation source/cible, trace causale, effets, tick et When, avec des clauses de traduction encore absentes ;
+- `C3/LeSystemeGradue.lean` : relation ReadCap/WriteCap, capacités transversales, Dest strictement linéaire, partage et CRDT ;
+- `C7` : budget par image du pipeline réactif et détails semi-naïfs du moteur déductif.
+
+Les sujets MMU/IOMMU restent des raffinements matériels proposés : le texte mentionne FFI/DMA, mais les clauses matérielles de translation CPU/device ne sont pas définies. Toute création d'un TLA-17+ exige un rattachement vers un label Verso, une qualification normative/implémentation, un contrat matériel ou runtime, un invariant falsifiable et une trace d'évidence attendue.

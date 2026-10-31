@@ -13,8 +13,8 @@ SPDX-License-Identifier: CC0-1.0
 - Branch base: `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`.
 - Source corrections commit: `8e53ae99f187e86411aaa74f26a5c22d4991f1cc`.
 - Unified CI/shadow commit: `7e48b0c0377f20cf71f3ecea50c00fcadb572b34`.
-- The replacement branch has a clean first-parent history from `main`; both commits use allowed Conventional Commit types (`fix`). The previous branch's non-compliant commits are not ancestors of this branch.
-- Superseded PR: [#318](https://github.com/AntheaLiles/k7pl/pull/318), on `research/k7pl-tla-workplan-2026-10-31`. It must be closed after the replacement PR has been opened. Do not delete the old branch in this workflow; the repository owner will do that.
+- The replacement branch has a clean first-parent history from `main`; commits use allowed Conventional Commit types (`fix`, `docs`). The previous branch's non-compliant commits are not ancestors of this branch.
+- Superseded PR: [#318](https://github.com/AntheaLiles/k7pl/pull/318) is **closed** (not merged). Replacement PR: [#319](https://github.com/AntheaLiles/k7pl/pull/319) is **open as draft** on this branch. The old branch `research/k7pl-tla-workplan-2026-10-31` remains; the repository owner will delete it.
 - `main` has not been changed or merged.
 
 ## Observed failures and root causes
@@ -111,3 +111,18 @@ Detailed coverage and package definitions are maintained in [CHAPTER-COVERAGE.md
 3. For every negative profile, compare the actual TLC trace with its authored expectation. A parser/type/ASSUME failure must never count as a successful negative case.
 4. Keep model statuses unchanged until the new run proves that the named profile reached the named invariant or completed state exploration.
 5. Once the 39 profiles pass, review model completeness against the current Verso head, identify exact clauses not covered, and only then assign the next candidate model IDs.
+
+
+## Audit complémentaire de Verso
+
+La revue de sources a porté sur :
+- `spec/Spec/C4/ModelesDeMemoire.lean` : sept niveaux de mémoire, de pointeurs tagués à mémoire linéaire WAT pour FFI/DMA, sûreté spatiale sous hypothèses H1/H2/H3 et profil de représentation Π.
+- `spec/Spec/C4/EchelleDeLActeur.lean` : identité/durée de vie d'EntityRef après destroy/reuse/restore/génération épuisée, SoA/PIA, plages d'écriture disjointes, alignement 64 octets, placement NUMA, contrats Arrow/Cap'n Proto/MLIR et déduplication.
+- `spec/Spec/C4/EchelleDuSysteme.lean` : snapshot/journal/rejeu, journalisation de l'horloge et de l'aléa, file concurrente release/acquire, progrès sous équité mémoire, reprise d'acteur, CRDT, graphe de dépendances statique vs wait-for dynamique, et progrès global.
+- `spec/Spec/C4/CalculDeProcessusSousJacent.lean` : simulation complète source→métalangage, conservation des événements et de l'ordre causal, canal de temps, tick et When ; les clauses de traduction restent explicitement incomplètes.
+- `spec/Spec/C3/LeSystemeGradue.lean` : ReadCap/WriteCap, partage de lecture sans WriteCap concurrent, destinations strictement Lin, âges décroissants, capacités transversales et CRDT.
+- `spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean` et `EtudeDeCasIIIMoteurDeductifSurArenes.lean` : pipeline UI, coût par image, et clôture monotone semi-naïve ; négation stratifiée explicitement non traitée.
+
+L'audit détaillé se trouve dans `CHAPTER-COVERAGE.md`. Il met en évidence des obligations non réductibles à MMU/IOMMU : ReadCap/WriteCap, NUMA/alignement/placement, mémoire faible release/acquire, complétude du journal, progression globale, couverture exhaustive des motifs de jonction, simulation des constructeurs du calcul de processus, canal temporel/When, moteur réactif complet, pipeline déductif semi-naïf, imports sandboxés et pipeline de compilation.
+
+**MMU/IOMMU :** les sections Verso examinées mentionnent FFI/DMA, mais ne définissent pas de contrat matériel MMU/IOMMU. Ces deux modèles sont classés comme raffinements d'implémentation proposés, et non comme garanties normatives nouvellement ratifiées.
