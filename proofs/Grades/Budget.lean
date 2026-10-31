@@ -8,8 +8,9 @@ import K7pl.GradeBudget
 
 The canonical implementation model is used directly: profiles inhabit
 (ℕ∞ × ℕ∞)^L, scalar cost is max(work, depth), admissibility is cost coverage,
-and consumption is defined only with an admissibility witness. This file
-proves an additional order bound on the returned residual.
+and consumption is defined only with an admissibility witness. This module
+collects the principal sequential/parallel and partial-consumption contracts
+and proves an order bound on the returned residual.
 -/
 
 namespace K7PL.Proofs.Grades
@@ -55,8 +56,43 @@ theorem consumeK_bounded_by_budget
   unfold consume K7pl.GradeBudget.consumeK
   exact truncatedSub_le_budget budget (costBudget κ)
 
+/-- The partial consumption operation conserves the declared budget and cost. -/
+theorem consumeK_conservation
+    {Level : Type u} (budget : ℕ∞) (κ : TemporalProfile Level)
+    (h : Admissible budget κ) :
+    consume budget κ h + costBudget κ = budget :=
+  K7pl.GradeBudget.consumeK_conservation budget κ h
+
+/-- Parallel profile cost uses additive work and maximum depth. -/
+theorem parallel_cost_characterization
+    {Level : Type u} (left right : TemporalProfile Level) :
+    K7pl.GradeBudget.costBudget
+        (K7pl.GradeBudget.parallelProfile left right) =
+      max
+        (K7pl.GradeBudget.workAggregate left +
+          K7pl.GradeBudget.workAggregate right)
+        (max
+          (K7pl.GradeBudget.depthAggregate left)
+          (K7pl.GradeBudget.depthAggregate right)) :=
+  K7pl.GradeBudget.costBudget_parallel_eq left right
+
+/-- Sequential profile composition admits the sum-of-work/depth upper bound. -/
+theorem sequential_cost_upper_bound
+    {Level : Type u} (left right : TemporalProfile Level) :
+    K7pl.GradeBudget.costBudget
+        (K7pl.GradeBudget.sequentialProfile left right) ≤
+      max
+        (K7pl.GradeBudget.workAggregate left +
+          K7pl.GradeBudget.workAggregate right)
+        (K7pl.GradeBudget.depthAggregate left +
+          K7pl.GradeBudget.depthAggregate right) :=
+  K7pl.GradeBudget.costBudget_sequential_le left right
+
 #print axioms K7PL.Proofs.Grades.unbounded_budget_admissible
 #print axioms K7PL.Proofs.Grades.truncatedSub_le_budget
 #print axioms K7PL.Proofs.Grades.consumeK_bounded_by_budget
+#print axioms K7PL.Proofs.Grades.consumeK_conservation
+#print axioms K7PL.Proofs.Grades.parallel_cost_characterization
+#print axioms K7PL.Proofs.Grades.sequential_cost_upper_bound
 
 end K7PL.Proofs.Grades

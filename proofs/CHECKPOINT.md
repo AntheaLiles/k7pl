@@ -12,11 +12,13 @@
 - création des racines théoriques `Grades`, `Structural`, `Memory` et
   `Metatheory`, sans dossier `proofs/K7PL/` ;
 - réutilisation de `K7pl.UsageScale`, `K7pl.StructuralModes`,
+  `K7pl.MemoryCapability`,
   `K7pl.MemoryRange`, `K7pl.GradeBudget` et `Spec.C3.EffectiveKernel` ;
 - correspondance bidirectionnelle des grades de la spécification et de
   l'implémentation, intervalles d'usage, morphismes de modes existants,
   contrat budgétaire `ℕ∞`, lois de séparation des plages, invalidation d'une
-  référence par génération et préservation d'invariant sur traces finies ;
+  référence par génération, préservation de l'unicité des capacités d'écriture,
+  exclusion de doubles écrivains et préservation d'invariant sur traces finies ;
 - déplacement des anciens fichiers KLean dans `archive/KLean/`, où ils
   demeurent compilables mais explicitement historiques ;
 - raccordement du projet Lake, de la chaîne CI, de l'audit d'axiomes et de

@@ -9,7 +9,7 @@ organised by theoretical domain, not by the language name:
 - `Grades/`: usage intervals, specification/implementation grade correspondence,
   the implementation's structural modes, and its `ℕ∞` budget contract.
 - `Structural/`: separation properties over the implementation's actual finite memory ranges.
-- `Memory/`: generation-based entity-reference invalidation.
+- `Memory/`: linear capability-ownership invariants and generation-based entity-reference invalidation.
 - `Metatheory/`: generic multi-step closure and invariant preservation.
 
 The root modules `Grades.lean`, `Structural.lean`, `Memory.lean` and
@@ -100,8 +100,9 @@ The current proofs are deliberately local:
   relational mode remains an algebraic candidate, not a fourth normative mode;
   usage interval `U_Rel` and structural mode `M_Rel` remain distinct.
 - the budget domain reuses `ℕ∞`, `Cost_Budget`, `Adm` and partial `consumeK`;
-  its new theorem only bounds the residual. Operational typing rules are not
-  yet proved to invoke `consumeK` correctly.
+  the selected results cover conservation, residual bounds and the existing
+  sequential/parallel cost contracts. Operational typing rules are not yet
+  proved to invoke `consumeK` correctly.
 - range disjointness reuses the implementation's interval type and proves
   elementary relation laws; no range-to-physical-region mapping or H1/H3 proof
   is supplied.

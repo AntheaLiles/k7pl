@@ -25,8 +25,9 @@ La classification distingue :
 | Grades et ressources | `Grades/UsageIntervals` | Inclusions Lin/Aff/Rel/Unr ; incomparabilité Aff/Rel | Propriétés ensemblistes des intervalles |
 | Grades et ressources | `Grades/Scaling` | Correspondance bidirectionnelle entre les deux grades, projection `π_U`, commutation avec `Scale_Usage` | Ne prouve pas la simulation des règles K |
 | Grades et ressources | `Grades/StructuralModes` | Réutilise les morphismes Ideal-based de l'implémentation et le candidat Rel | N'établit pas que les règles K les imposent |
-| Grades et ressources | `Grades/Budget` | Réutilise `ℕ∞`, `Cost_Budget`, `Adm`, `consumeK`; prouve la borne du résidu | Les règles opérationnelles n'invoquent pas encore `consumeK` sous preuve d'admissibilité |
+| Grades et ressources | `Grades/Budget` | Réutilise `ℕ∞`, `Cost_Budget`, `Adm`, `consumeK`; conservation, borne du résidu, caractérisation du coût parallèle et borne séquentielle | Les règles opérationnelles n'invoquent pas encore `consumeK` sous preuve d'admissibilité |
 | Structures | `Structural/RangeSeparation` | Symétrie, irréflexivité et séparation de `K7pl.MemoryRange.Range` | Pas de correspondance aux identités de régions ni H1/H3 |
+| Mémoire | `Memory/CapabilityOwnership` | Préservation de l'unicité après allocation, exclusion de deux écrivains dans un état parallèle globalement unique, bornes de comptage | Modèle abstrait de comptage ; pas de simulation des règles K |
 | Mémoire | `Memory/EntityRef` | Invalidation après incrément de génération | Génération `Nat` non bornée ; pas de concurrence |
 | Métathéorie | `Metatheory/MultiStep` | Fermeture réflexive-transitive et préservation d'invariant | Pas de propriété temporelle ni de simulation |
 
@@ -62,9 +63,10 @@ abstraits ne prouve pas que les règles de typage K les imposent.
 
 Le domaine réutilise `K7pl.GradeBudget` : `K = (ℕ∞ × ℕ∞)^L`,
 `Cost_Budget = max(W,D)`, `Adm` et l'interface partielle `consumeK` dont
-l'argument inclut une preuve d'admissibilité. Le lemme ajouté prouve que le
-résidu consommé ne dépasse pas le budget disponible. Cela ne prouve pas que
-les règles opérationnelles préservent l'admissibilité.
+l'argument inclut une preuve d'admissibilité. Les résultats exposent la conservation de `consumeK`, la borne du résidu,
+la caractérisation du coût parallèle (travail additif, profondeur maximale)
+et une borne du coût séquentiel. Cela ne prouve pas que les règles
+opérationnelles préservent l'admissibilité.
 
 ### Capabilités et sûreté spatiale
 
@@ -78,6 +80,16 @@ une plage à une région physique. Cela ne démontre pas :
 
 Le théorème C4 de sûreté spatiale reste donc conditionnel et n'est pas
 re-prouvé par ce lot.
+
+### Capabilités d'écriture
+
+`K7pl.MemoryCapability` représente, pour chaque région, les jetons d'arène
+et capacités d'écriture vivants. L'invariant impose que leur somme soit au plus
+un. La formalisation prouve la préservation de cet invariant par allocation
+lorsqu'un jeton d'arène existe, puis l'impossibilité de deux écrivains dans
+une composition parallèle dont l'état global satisfait l'invariant. Cela
+formalise un noyau de comptage associé à H1 ; cela ne prouve pas que les règles
+K `Arena`, `WriteCap`, `alloc_range` et `Par` réalisent ce modèle.
 
 ### EntityRef et cycle de vie
 

@@ -198,6 +198,21 @@
       "role": "partial budget consumption cannot exceed available budget"
     },
     {
+      "name": "K7PL.Proofs.Grades.consumeK_conservation",
+      "axioms": [],
+      "role": "partial budget consumption conserves the available budget and cost"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.parallel_cost_characterization",
+      "axioms": [],
+      "role": "parallel cost is additive work and maximum depth"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.sequential_cost_upper_bound",
+      "axioms": [],
+      "role": "sequential cost has the work/depth sum upper bound"
+    },
+    {
       "name": "K7PL.Proofs.Structural.disjoint_symmetric",
       "axioms": [],
       "role": "memory-range disjointness is symmetric"
@@ -211,6 +226,26 @@
       "name": "K7PL.Proofs.Structural.disjoint_ranges_have_distinct_representations",
       "axioms": [],
       "role": "disjoint ranges have distinct range representations"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.allocate_preserves_unique",
+      "axioms": [],
+      "role": "arena allocation preserves capability uniqueness"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.no_double_writer",
+      "axioms": [],
+      "role": "parallel globally unique state excludes two writers for one region"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.writer_count_le_one",
+      "axioms": [],
+      "role": "global capability uniqueness bounds writer count"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.arena_count_le_one",
+      "axioms": [],
+      "role": "global capability uniqueness bounds arena-token count"
     },
     {
       "name": "K7PL.Proofs.Memory.reuse_invalidates_previous_reference",

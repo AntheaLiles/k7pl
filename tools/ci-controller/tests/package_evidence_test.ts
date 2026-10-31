@@ -42,6 +42,7 @@ async function fixture(
       "proofs/Structural.lean",
       "proofs/Structural/RangeSeparation.lean",
       "proofs/Memory.lean",
+      "proofs/Memory/CapabilityOwnership.lean",
       "proofs/Memory/EntityRef.lean",
       "proofs/Metatheory.lean",
       "proofs/Metatheory/MultiStep.lean",
