@@ -23,10 +23,10 @@ La classification distingue :
 | Domaine | Modules | Résultats présents | Limite |
 |---|---|---|---|
 | Grades et ressources | `Grades/UsageIntervals` | Inclusions Lin/Aff/Rel/Unr ; incomparabilité Aff/Rel | Propriétés ensemblistes des intervalles |
-| Grades et ressources | `Grades/Scaling` | Projection `π_U`, composition du scaling, conservation des autres coordonnées | Réutilise les définitions du noyau C3 |
-| Grades et ressources | `Grades/StructuralModes` | Inclusion candidates Lin→Aff→Unr et transitivité | Contrat des morphismes de modes non ratifié |
-| Grades et ressources | `Grades/Budget` | Succès, conservation et rejet du sur-débit en `Nat` | Pas de `ℕ∞` ni du `Consume` général |
-| Structures | `Structural/CapabilityPartition` | Exclusivité et couverture d'une partition finie | Ne prouve pas H1/H2/H3 |
+| Grades et ressources | `Grades/Scaling` | Correspondance bidirectionnelle entre les deux grades, projection `π_U`, commutation avec `Scale_Usage` | Ne prouve pas la simulation des règles K |
+| Grades et ressources | `Grades/StructuralModes` | Réutilise les morphismes Ideal-based de l'implémentation et le candidat Rel | N'établit pas que les règles K les imposent |
+| Grades et ressources | `Grades/Budget` | Réutilise `ℕ∞`, `Cost_Budget`, `Adm`, `consumeK`; prouve la borne du résidu | Les règles opérationnelles n'invoquent pas encore `consumeK` sous preuve d'admissibilité |
+| Structures | `Structural/CapabilityPartition` | Symétrie, irréflexivité et séparation de `K7pl.MemoryRange.Range` | Pas de correspondance aux identités de régions ni H1/H3 |
 | Mémoire | `Memory/EntityRef` | Invalidation après incrément de génération | Génération `Nat` non bornée ; pas de concurrence |
 | Métathéorie | `Metatheory/MultiStep` | Fermeture réflexive-transitive et préservation d'invariant | Pas de propriété temporelle ni de simulation |
 
@@ -34,10 +34,13 @@ La classification distingue :
 
 ### Grades
 
-Le porteur courant est importé depuis `Spec.C3.EffectiveKernel` :
-`Usage = WithTop ℚ≥0`, et le grade conserve ses quatre coordonnées
-(usage, monotonie, niveau, budget). La projection `π_U` et `Scale_Usage`
-ne sont pas redéfinies ici.
+Le porteur d'usage est importé depuis `K7pl.UsageScale` et rapproché par
+égalité définitionnelle de `Spec.C3.EffectiveKernel.Usage`.
+`Grades/Scaling.lean` met en correspondance le grade de C3 avec celui de
+l'implémentation par deux conversions inverses. Lean vérifie la conservation
+des quatre composantes, la compatibilité de `π_U` et la commutation avec
+`Scale_Usage`. C'est une correspondance de représentations, pas une preuve
+de raffinement des règles K.
 
 Les intervalles formalisés sont :
 - `uLin = {1}` ;
@@ -49,23 +52,26 @@ Le fait que `uAff` et `uRel` soient incomparables est démontré par les
 témoins 0 et 2. Cela ne valide ni l'algèbre de grades entière ni les règles de
 typage.
 
-La structure des modes est représentée séparément des intervalles d'usage.
-Le résultat sur Lin/Aff/Unr utilise un ordre candidat (inclusion des idéaux
-contractibles et implication de la permission d'affaiblissement). Il ne doit
-pas être lu comme une preuve des morphismes normatifs annoncés dans le texte :
-leur contrat exact reste une obligation de spécification.
+La structure de modes n'est pas redéfinie dans `proofs/` : les théorèmes
+réutilisent `K7pl.StructuralModes.Mode` et `Morphism`, construits à partir
+d'idéaux de contraction et de permissions d'affaiblissement. Le candidat
+relationnel reste séparé du trio de référence. L'existence de ces morphismes
+abstraits ne prouve pas que les règles de typage K les imposent.
 
 ### Budget
 
-`consumeFinite` traite deux quantités naturelles et renvoie une option. Les
-trois lemmes démontrent les cas bornés de réussite, conservation et rejet.
-Le passage à `ℕ∞`, l'algèbre budgétaire complète et les interactions avec
-`Scale_Usage`, `ψ`, les effets et l'annulation restent ouverts.
+Le domaine réutilise `K7pl.GradeBudget` : `K = (ℕ∞ × ℕ∞)^L`,
+`Cost_Budget = max(W,D)`, `Adm` et l'interface partielle `consumeK` dont
+l'argument inclut une preuve d'admissibilité. Le lemme ajouté prouve que le
+résidu consommé ne dépasse pas le budget disponible. Cela ne prouve pas que
+les règles opérationnelles préservent l'admissibilité.
 
 ### Capabilités et sûreté spatiale
 
-La partition de régions est un lemme élémentaire sur les Finset. Elle peut
-servir de brique pour une future relation de séparation. Elle ne démontre pas :
+Le module réutilise `K7pl.MemoryRange.Range` et sa relation `Disjoint` ; il
+ajoute symétrie, irréflexivité et non-identité de deux plages disjointes.
+Cela formalise le volet arithmétique de H2 sur les plages, mais n'identifie pas
+une plage à une région physique. Cela ne démontre pas :
 - H1 : introduction unique et linéaire de `WriteCap` ;
 - H2 : disjonction des plages impliquant des régions distinctes ;
 - H3 : non-capture des capacités linéaires par les valeurs cartésiennes.

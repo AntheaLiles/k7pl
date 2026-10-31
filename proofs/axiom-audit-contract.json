@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "purpose": "Expected #print axioms dependency sets for the archived KLean proof-of-concept and the maintained domain-oriented Lean formalisation.",
+  "purpose": "Expected #print axioms dependency sets for the archived KLean proof-of-concept and the maintained domain-oriented Lean formalisation, which reuses the executable root library's grade, budget, structural-mode and memory-range models.",
   "policy": {
     "forbiddenAxioms": [
       "sorryAx",
@@ -108,6 +108,11 @@
       "role": "combined type-and-execution example witness"
     },
     {
+      "name": "K7PL.Proofs.Grades.specUsage_eq_implementationUsage",
+      "axioms": [],
+      "role": "C3 and implementation usage carriers are definitionally equal"
+    },
+    {
       "name": "K7PL.Proofs.Grades.uLin_subset_uAff",
       "axioms": [],
       "role": "usage interval inclusion: Lin to Aff"
@@ -133,59 +138,79 @@
       "role": "usage interval incomparability: Aff and Rel"
     },
     {
-      "name": "K7PL.Proofs.Grades.piU_scaleUsage",
+      "name": "K7PL.Proofs.Grades.specToImplementation_toSpecification",
       "axioms": [],
-      "role": "usage projection of grade scaling"
+      "role": "specification-to-implementation grade roundtrip"
     },
     {
-      "name": "K7PL.Proofs.Grades.scaleUsage_preserves_nonUsage_coordinates",
+      "name": "K7PL.Proofs.Grades.implementationToSpecification_toImplementation",
       "axioms": [],
-      "role": "grade scaling preserves non-usage coordinates"
+      "role": "implementation-to-specification grade roundtrip"
     },
     {
-      "name": "K7PL.Proofs.Grades.piU_scaleUsage_comp",
+      "name": "K7PL.Proofs.Grades.specToImplementation_piU",
       "axioms": [],
-      "role": "projection of composed grade scaling"
+      "role": "grade representation preserves the usage projection"
     },
     {
-      "name": "K7PL.Proofs.Grades.consumeFinite_succeeds",
+      "name": "K7PL.Proofs.Grades.specToImplementation_scaleUsage",
       "axioms": [],
-      "role": "finite budget successful consumption"
+      "role": "grade representation commutes with usage scaling"
     },
     {
-      "name": "K7PL.Proofs.Grades.consumeFinite_conserves",
+      "name": "K7PL.Proofs.Grades.linear_to_affine",
       "axioms": [],
-      "role": "finite budget conservation"
+      "role": "reference structural mode morphism Lin to Aff"
     },
     {
-      "name": "K7PL.Proofs.Grades.consumeFinite_rejects_overdraw",
+      "name": "K7PL.Proofs.Grades.affine_to_unrestricted",
       "axioms": [],
-      "role": "finite budget overdraw rejection"
+      "role": "reference structural mode morphism Aff to Unr"
     },
     {
-      "name": "K7PL.Proofs.Grades.mode_candidate_trans",
+      "name": "K7PL.Proofs.Grades.linear_to_unrestricted",
       "axioms": [],
-      "role": "transitivity of structural mode inclusion candidate"
+      "role": "reference structural mode morphism Lin to Unr"
     },
     {
-      "name": "K7PL.Proofs.Grades.lin_to_aff_candidate",
+      "name": "K7PL.Proofs.Grades.relational_to_unrestricted",
       "axioms": [],
-      "role": "Lin to Aff inclusion candidate"
+      "role": "non-normative relational candidate to Unr"
     },
     {
-      "name": "K7PL.Proofs.Grades.aff_to_unr_candidate",
+      "name": "K7PL.Proofs.Grades.affine_not_to_relational",
       "axioms": [],
-      "role": "Aff to Unr inclusion candidate"
+      "role": "no Aff to relational-candidate morphism"
     },
     {
-      "name": "K7PL.Proofs.Grades.lin_to_unr_candidate",
+      "name": "K7PL.Proofs.Grades.unbounded_budget_admissible",
       "axioms": [],
-      "role": "Lin to Unr inclusion candidate"
+      "role": "every temporal profile is admissible under an unbounded budget"
     },
     {
-      "name": "K7PL.Proofs.Structural.partition_exactly_one_owner",
+      "name": "K7PL.Proofs.Grades.truncatedSub_le_budget",
       "axioms": [],
-      "role": "finite disjoint partition membership"
+      "role": "truncated budget subtraction is bounded by the available budget"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.consumeK_bounded_by_budget",
+      "axioms": [],
+      "role": "partial budget consumption cannot exceed available budget"
+    },
+    {
+      "name": "K7PL.Proofs.Structural.disjoint_symmetric",
+      "axioms": [],
+      "role": "memory-range disjointness is symmetric"
+    },
+    {
+      "name": "K7PL.Proofs.Structural.disjoint_irreflexive",
+      "axioms": [],
+      "role": "memory-range disjointness is irreflexive"
+    },
+    {
+      "name": "K7PL.Proofs.Structural.disjoint_ranges_have_distinct_representations",
+      "axioms": [],
+      "role": "disjoint ranges have distinct range representations"
     },
     {
       "name": "K7PL.Proofs.Memory.reuse_invalidates_previous_reference",

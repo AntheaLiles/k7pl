@@ -11,11 +11,12 @@
 
 - création des racines théoriques `Grades`, `Structural`, `Memory` et
   `Metatheory`, sans dossier `proofs/K7PL/` ;
-- réutilisation directe de `Spec.C3.EffectiveKernel` pour `Usage`,
-  `Grade`, `π_U` et `Scale_Usage` ;
-- lemmes locaux sur intervalles d'usage, scaling, modes candidats, budget fini,
-  partition de régions, invalidation d'une référence par génération et
-  préservation d'invariant sur traces finies ;
+- réutilisation de `K7pl.UsageScale`, `K7pl.StructuralModes`,
+  `K7pl.MemoryRange`, `K7pl.GradeBudget` et `Spec.C3.EffectiveKernel` ;
+- correspondance bidirectionnelle des grades de la spécification et de
+  l'implémentation, intervalles d'usage, morphismes de modes existants,
+  contrat budgétaire `ℕ∞`, lois de séparation des plages, invalidation d'une
+  référence par génération et préservation d'invariant sur traces finies ;
 - déplacement des anciens fichiers KLean dans `archive/KLean/`, où ils
   demeurent compilables mais explicitement historiques ;
 - raccordement du projet Lake, de la chaîne CI, de l'audit d'axiomes et de
@@ -23,7 +24,7 @@
 
 ## À vérifier dans la CI
 
-1. Résolution de la dépendance locale vers la bibliothèque racine K7PL.
+1. Résolution des imports des modules d'implémentation et du noyau de spécification.
 2. Compilation Lean de chaque domaine et des modules KLean archivés.
 3. Exactitude de l'audit `#print axioms` ; ajuster le contrat seulement si
    l'axiome observé est justifié et explicitement approuvé.

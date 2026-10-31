@@ -1,39 +1,62 @@
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 -- SPDX-License-Identifier: CC0-1.0
-import Mathlib.Tactic
+
+import K7pl.GradeBudget
 
 /-!
-# Finite budget arithmetic
+# Budget domain
 
-This is an executable Nat-valued accounting model, not the specification's
-full ℕ∞ budget algebra or its still-open partial Consume operation.
+The canonical implementation model is used directly: profiles inhabit
+(ℕ∞ × ℕ∞)^L, scalar cost is max(work, depth), admissibility is cost coverage,
+and consumption is defined only with an admissibility witness. This file
+proves an additional order bound on the returned residual.
 -/
 
 namespace K7PL.Proofs.Grades
 
-def consumeFinite (remaining requested : Nat) : Option Nat :=
-  if requested ≤ remaining then some (remaining - requested) else none
+universe u
 
-theorem consumeFinite_succeeds
-    {remaining requested : Nat}
-    (h : requested ≤ remaining) :
-    consumeFinite remaining requested = some (remaining - requested) := by
-  simp [consumeFinite, h]
+abbrev TemporalProfile (Level : Type u) := K7pl.GradeBudget.K Level
 
-theorem consumeFinite_conserves
-    {remaining requested : Nat}
-    (h : requested ≤ remaining) :
-    requested + (remaining - requested) = remaining := by
-  omega
+def costBudget {Level : Type u} (κ : TemporalProfile Level) : ℕ∞ :=
+  K7pl.GradeBudget.costBudgetK κ
 
-theorem consumeFinite_rejects_overdraw
-    {remaining requested : Nat}
-    (h : remaining < requested) :
-    consumeFinite remaining requested = none := by
-  simp [consumeFinite, Nat.not_le.mpr h]
+def Admissible {Level : Type u} (budget : ℕ∞)
+    (κ : TemporalProfile Level) : Prop :=
+  K7pl.GradeBudget.admK budget κ
 
-#print axioms K7PL.Proofs.Grades.consumeFinite_succeeds
-#print axioms K7PL.Proofs.Grades.consumeFinite_conserves
-#print axioms K7PL.Proofs.Grades.consumeFinite_rejects_overdraw
+noncomputable def consume {Level : Type u} (budget : ℕ∞)
+    (κ : TemporalProfile Level) (h : Admissible budget κ) : ℕ∞ :=
+  K7pl.GradeBudget.consumeK budget κ h
+
+/-- Every profile is admissible against the top (unbounded) budget. -/
+theorem unbounded_budget_admissible
+    {Level : Type u} (κ : TemporalProfile Level) :
+    Admissible ⊤ κ := by
+  exact le_top
+
+/-- Truncated subtraction never returns more budget than was available. -/
+theorem truncatedSub_le_budget (budget cost : ℕ∞) :
+    K7pl.GradeBudget.truncatedSub budget cost ≤ budget := by
+  cases budget with
+  | top => simp [K7pl.GradeBudget.truncatedSub]
+  | coe b =>
+      cases cost with
+      | top => simp [K7pl.GradeBudget.truncatedSub]
+      | coe k =>
+          change ((↑(b - k) : ℕ∞) ≤ (↑b : ℕ∞))
+          exact_mod_cast Nat.sub_le b k
+
+/-- Consumption is bounded by the declared budget on its partial domain. -/
+theorem consumeK_bounded_by_budget
+    {Level : Type u} (budget : ℕ∞) (κ : TemporalProfile Level)
+    (h : Admissible budget κ) :
+    consume budget κ h ≤ budget := by
+  unfold consume K7pl.GradeBudget.consumeK
+  exact truncatedSub_le_budget budget (costBudget κ)
+
+#print axioms K7PL.Proofs.Grades.unbounded_budget_admissible
+#print axioms K7PL.Proofs.Grades.truncatedSub_le_budget
+#print axioms K7PL.Proofs.Grades.consumeK_bounded_by_budget
 
 end K7PL.Proofs.Grades

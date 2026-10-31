@@ -1,35 +1,41 @@
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 -- SPDX-License-Identifier: CC0-1.0
-import Mathlib.Data.Finset.Basic
+
+import K7pl.MemoryRange
 
 /-!
-# Finite capability-region partitions
+# Separation of finite memory ranges
 
-The theorem below is a set-theoretic partition lemma. It is a small reusable
-component for later capability proofs; it does not establish the linear
-introduction, range denotation, or non-capture hypotheses H1/H2/H3 of the
-spatial-safety statement in C4.
+The range representation and its disjointness predicate come from the
+implementation module. This file proves elementary relation laws and
+reuses the existing interval-level H2 lemma. It does not identify ranges with
+physical regions and therefore does not establish the full spatial-safety
+hypotheses H1/H2/H3.
 -/
 
 namespace K7PL.Proofs.Structural
 
-structure DisjointPartition (whole left right : Finset Nat) : Prop where
-  covers : left ∪ right = whole
-  separated : ∀ region, region ∈ left → region ∈ right → False
+abbrev Range := K7pl.MemoryRange.Range
+abbrev Disjoint := K7pl.MemoryRange.Disjoint
 
-theorem partition_exactly_one_owner
-    {whole left right : Finset Nat}
-    (partition : DisjointPartition whole left right)
-    {region : Nat}
-    (belongs : region ∈ whole) :
-    (region ∈ left ∨ region ∈ right) ∧
-      ¬ (region ∈ left ∧ region ∈ right) := by
-  have inUnion : region ∈ left ∪ right := by
-    rw [partition.covers]
-    exact belongs
-  exact ⟨Finset.mem_union.mp inUnion, fun overlap =>
-    partition.separated region overlap.1 overlap.2⟩
+theorem disjoint_symmetric {r s : Range} (h : Disjoint r s) :
+    Disjoint s r := by
+  rcases h with h | h
+  · exact Or.inr h
+  · exact Or.inl h
 
-#print axioms K7PL.Proofs.Structural.partition_exactly_one_owner
+theorem disjoint_irreflexive (r : Range) : ¬ Disjoint r r := by
+  intro h
+  rcases h with h | h
+  · exact Nat.lt_irrefl _ h
+  · exact Nat.lt_irrefl _ h
+
+theorem disjoint_ranges_have_distinct_representations
+    {r s : Range} (h : Disjoint r s) : r ≠ s :=
+  K7pl.MemoryRange.disjoint_ne h
+
+#print axioms K7PL.Proofs.Structural.disjoint_symmetric
+#print axioms K7PL.Proofs.Structural.disjoint_irreflexive
+#print axioms K7PL.Proofs.Structural.disjoint_ranges_have_distinct_representations
 
 end K7PL.Proofs.Structural

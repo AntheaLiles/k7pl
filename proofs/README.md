@@ -6,10 +6,9 @@
 This package is the maintained Lean proof layer for K7PL. Its source tree is
 organised by theoretical domain, not by the language name:
 
-- `Grades/`: usage intervals, grade scaling, structural-mode inclusion
-  candidates and a finite budget-accounting model.
-- `Structural/`: reusable separation lemmas for finite capability-region
-  partitions.
+- `Grades/`: usage intervals, specification/implementation grade correspondence,
+  the implementation's structural modes, and its `ℕ∞` budget contract.
+- `Structural/`: separation properties over the implementation's actual finite memory ranges.
 - `Memory/`: generation-based entity-reference invalidation.
 - `Metatheory/`: generic multi-step closure and invariant preservation.
 
@@ -19,11 +18,14 @@ directory is used.
 
 ## Source of definitions and dependencies
 
-The grade representation is imported from
-`Spec.C3.EffectiveKernel`, which is part of the root Verso/Lean specification.
-The proof package depends on the repository root Lake package so that it uses
-the same Lean 4.34.0, Mathlib and CSLib pins. It deliberately does not duplicate
-the definition of `Usage` or `Grade`.
+The proof package imports both the root implementation library (`K7pl`) and the
+C3 effective kernel (`Spec.C3.EffectiveKernel`). The usage interval module
+reuses the implementation carrier; `Grades/Scaling.lean` defines explicit
+record maps and proves that the two four-coordinate grade representations,
+usage projection and scaling commute. No third grade representation is added.
+The same local package dependency reuses `K7pl.StructuralModes`,
+`K7pl.MemoryRange` and `K7pl.GradeBudget`, with the repository's pinned Lean
+4.34.0, Mathlib and CSLib graph.
 
 KLean-generated files remain staged in `K7PL2Lean/` by the existing export
 pipeline. They are implementation artefacts, not maintained proof sources.
@@ -91,15 +93,18 @@ The current proofs are deliberately local:
 - `uLin`, `uAff`, `uRel`, `uUnr` are represented as sets over the existing
   non-negative usage carrier. Their inclusions and affine/relevant
   incomparability are set-theoretic facts; they do not prove the typing rules.
-- scaling the usage projection and preservation of the other grade coordinates
-  follow from the existing C3 kernel definition. No laws are inferred for
-  `ψ`, effect composition or the complete `⊠` operator.
-- mode inclusions are explicitly candidates because the normative
-  mode-morphism contract is still under review. `Rel` is not introduced as
-  a normative structural mode.
-- finite `Nat` budget consumption is an accounting lemma, not the general
-  `ℕ∞` budget or the full partial `Consume` operation.
-- finite-set partitioning is not a proof of H1/H2/H3 or of spatial safety.
+- grade correspondence is a representation theorem between the spec kernel
+  and implementation records; it does not prove that K typing rules use either
+  representation or that K refines the Lean semantics.
+- mode morphisms reuse the implementation's Ideal-based definition. The
+  relational mode remains an algebraic candidate, not a fourth normative mode;
+  usage interval `U_Rel` and structural mode `M_Rel` remain distinct.
+- the budget domain reuses `ℕ∞`, `Cost_Budget`, `Adm` and partial `consumeK`;
+  its new theorem only bounds the residual. Operational typing rules are not
+  yet proved to invoke `consumeK` correctly.
+- range disjointness reuses the implementation's interval type and proves
+  elementary relation laws; no range-to-physical-region mapping or H1/H3 proof
+  is supplied.
 - generation-based reference invalidation assumes unbounded `Nat` generations;
   it does not cover bounded counters, concurrent reclamation, persistence or ABA
   at the concrete representation level.
