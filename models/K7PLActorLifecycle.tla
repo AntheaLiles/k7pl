@@ -60,7 +60,7 @@ PersistSnapshot ==
     /\ Len(journal) > 0
     /\ ~snapshotDurable
     /\ snapshotCursor' = Len(journal) - 1
-    /\ snapshotState' = logicalState - DeltaOf(journal[Len(journal)]]
+    /\ snapshotState' = logicalState - DeltaOf(journal[Len(journal)])
     /\ snapshotDurable' = TRUE
     /\ UNCHANGED <<phase, mailbox, processed, journal, logicalState, snapshotPublished,
                    replayCursor, replayState>>
