@@ -3,10 +3,12 @@
 (* TLA-07 candidate. Small generation bounds are counterexample devices, not production widths. *)
 ---------------- MODULE K7PLMemoryCapabilities ----------------
 EXTENDS Naturals, FiniteSets
+
 CONSTANTS
     Slots, Generations, MaxGeneration,
     Capabilities, CapSlot, CapCells, OwnerOf, Cells,
     AllowGenerationWrap, UnsafeStaleAccess, UnsafeRestoreRevive
+
 ASSUME
     /\ IsFiniteSet(Slots)
     /\ IsFiniteSet(Generations)
@@ -19,13 +21,16 @@ ASSUME
     /\ AllowGenerationWrap \in BOOLEAN
     /\ UnsafeStaleAccess \in BOOLEAN
     /\ UnsafeRestoreRevive \in BOOLEAN
+
 VARIABLES
     generation, activeSlots, staleGenerations,
     validCapabilities, revokedCapabilities, capabilityGeneration,
     owners, writtenCells, unauthorizedAccesses
+
 vars == <<generation, activeSlots, staleGenerations,
           validCapabilities, revokedCapabilities, capabilityGeneration,
           owners, writtenCells, unauthorizedAccesses>>
+
 Init ==
     /\ generation = [s \in Slots |-> 0]
     /\ activeSlots = {}
@@ -36,6 +41,7 @@ Init ==
     /\ owners = OwnerOf
     /\ writtenCells = {}
     /\ unauthorizedAccesses = 0
+
 TypeOK ==
     /\ generation \in [Slots -> Generations]
     /\ activeSlots \subseteq Slots
@@ -44,20 +50,26 @@ TypeOK ==
     /\ revokedCapabilities \subseteq Capabilities
     /\ capabilityGeneration \in [Capabilities -> Generations]
     /\ owners \in [Capabilities -> {"FibreA", "FibreB"}]
-    /\ writtenCells \subseteq (Capabilities \X Cells)
+    /\ writtenCells \subseteq (Capabilities \X Cells \X {"FibreA", "FibreB"})
     /\ unauthorizedAccesses \in Nat
+
 Allocate(s) ==
     /\ s \in Slots \ activeSlots
     /\ activeSlots' = activeSlots \cup {s}
     /\ UNCHANGED <<generation, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, owners, writtenCells, unauthorizedAccesses>>
+                   revokedCapabilities, capabilityGeneration, owners,
+                   writtenCells, unauthorizedAccesses>>
+
 Destroy(s) ==
     /\ s \in activeSlots
     /\ activeSlots' = activeSlots \ {s}
     /\ staleGenerations' = [staleGenerations EXCEPT ![s] = @ \cup {generation[s]}]
     /\ validCapabilities' = validCapabilities \ {c \in validCapabilities : CapSlot[c] = s}
-    /\ revokedCapabilities' = revokedCapabilities \cup {c \in validCapabilities : CapSlot[c] = s}
-    /\ UNCHANGED <<generation, capabilityGeneration, owners, unauthorizedAccesses>>
+    /\ revokedCapabilities' =
+         revokedCapabilities \cup {c \in validCapabilities : CapSlot[c] = s}
+    /\ UNCHANGED <<generation, capabilityGeneration, owners,
+                   writtenCells, unauthorizedAccesses>>
+
 ReuseSlot(s) ==
     /\ s \in Slots \ activeSlots
     /\ (AllowGenerationWrap \/ generation[s] # MaxGeneration)
@@ -65,7 +77,9 @@ ReuseSlot(s) ==
          [generation EXCEPT
              ![s] = IF @ = MaxGeneration THEN 0 ELSE @ + 1]
     /\ UNCHANGED <<activeSlots, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, owners, unauthorizedAccesses>>
+                   revokedCapabilities, capabilityGeneration, owners,
+                   writtenCells, unauthorizedAccesses>>
+
 GrantCapability(c) ==
     /\ c \in Capabilities
     /\ CapSlot[c] \in activeSlots
@@ -74,54 +88,79 @@ GrantCapability(c) ==
     /\ validCapabilities' = validCapabilities \cup {c}
     /\ capabilityGeneration' =
          [capabilityGeneration EXCEPT ![c] = generation[CapSlot[c]]]
-    /\ UNCHANGED <<generation, activeSlots, staleGenerations, revokedCapabilities,
-                   owners, unauthorizedAccesses>>
+    /\ UNCHANGED <<generation, activeSlots, staleGenerations,
+                   revokedCapabilities, owners, writtenCells, unauthorizedAccesses>>
+
+TransferCapability(c, recipient) ==
+    /\ c \in validCapabilities
+    /\ recipient \in {"FibreA", "FibreB"}
+    /\ recipient # owners[c]
+    /\ owners' = [owners EXCEPT ![c] = recipient]
+    /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
+                   revokedCapabilities, capabilityGeneration, writtenCells,
+                   unauthorizedAccesses>>
+
 RevokeCapability(c) ==
     /\ c \in validCapabilities
     /\ validCapabilities' = validCapabilities \ {c}
     /\ revokedCapabilities' = revokedCapabilities \cup {c}
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, capabilityGeneration,
-                   owners, unauthorizedAccesses>>
+                   owners, writtenCells, unauthorizedAccesses>>
+
 RestoreRevokedCapability(c) ==
     /\ UnsafeRestoreRevive
     /\ c \in revokedCapabilities
     /\ revokedCapabilities' = revokedCapabilities \ {c}
     /\ validCapabilities' = validCapabilities \cup {c}
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, capabilityGeneration,
-                   owners, unauthorizedAccesses>>
-WriteCell(c, cell) ==
+                   owners, writtenCells, unauthorizedAccesses>>
+
+WriteCell(c, cell, fibre) ==
     /\ c \in validCapabilities
+    /\ owners[c] = fibre
     /\ CapSlot[c] \in activeSlots
     /\ capabilityGeneration[c] = generation[CapSlot[c]]
     /\ cell \in CapCells[c]
+    /\ writtenCells' = writtenCells \cup {<<c, cell, fibre>>}
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
                    revokedCapabilities, capabilityGeneration, owners, unauthorizedAccesses>>
+
 StaleAccess(c) ==
     /\ UnsafeStaleAccess
     /\ c \in revokedCapabilities
     /\ unauthorizedAccesses' = unauthorizedAccesses + 1
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
                    revokedCapabilities, capabilityGeneration, owners, writtenCells>>
+
 Next ==
     \/ \E s \in Slots : Allocate(s)
     \/ \E s \in Slots : Destroy(s)
     \/ \E s \in Slots : ReuseSlot(s)
     \/ \E c \in Capabilities : GrantCapability(c)
+    \/ \E c \in Capabilities, recipient \in {"FibreA", "FibreB"} :
+          TransferCapability(c, recipient)
     \/ \E c \in Capabilities : RevokeCapability(c)
     \/ \E c \in Capabilities : RestoreRevokedCapability(c)
-    \/ \E c \in Capabilities, recipient \in {"FibreA", "FibreB"} : TransferCapability(c, recipient)
-    \/ \E c \in Capabilities, cell \in Cells, fibre \in {"FibreA", "FibreB"} : WriteCell(c, cell, fibre)
+    \/ \E c \in Capabilities, cell \in Cells, fibre \in {"FibreA", "FibreB"} :
+          WriteCell(c, cell, fibre)
     \/ \E c \in Capabilities : StaleAccess(c)
+
 Spec == Init /\ [][Next]_vars
+
 NoStaleEntityAlias ==
     \A s \in activeSlots : generation[s] \notin staleGenerations[s]
+
 ValidCapabilitiesMatchGeneration ==
     \A c \in validCapabilities :
         /\ CapSlot[c] \in activeSlots
         /\ capabilityGeneration[c] = generation[CapSlot[c]]
+
 NoCapabilityRevival == validCapabilities \cap revokedCapabilities = {}
+
 NoUnauthorizedAccess == unauthorizedAccesses = 0
+
 NoOverlappingWriteRights ==
     \A c1, c2 \in validCapabilities :
         c1 # c2 => CapCells[c1] \cap CapCells[c2] = {}
+
 =============================================================================

@@ -71,7 +71,14 @@ PublishResult ==
     /\ published' = TRUE
     /\ publishedFacts' = known
     /\ UNCHANGED <<known, delta, budgetRemaining, iterations, status>>
-Next == \/ StartJob \/ Iterate \/ MarkSaturated \/ RefuseOnBudget \/ PublishResult
+Next ==
+    \/ StartJob
+    \/ Iterate
+    \/ MarkSaturated
+    \/ RefuseOnBudget
+    \/ PublishResult
+    \/ CancelJob
+    \/ FailJob
 Spec == Init /\ [][Next]_vars
 PublishedImpliesSaturated == published => status = "Saturated"
 PublishedResultIsKnown == published => publishedFacts \subseteq known

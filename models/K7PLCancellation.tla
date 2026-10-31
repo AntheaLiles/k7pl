@@ -63,7 +63,7 @@ CommitEffect ==
     /\ accepted
     /\ serviceState = "Accepted"
     /\ ~committed
-    /\ (~cancelAcknowledged \/ UnsafePostAckCommit)
+    /\ (~cancelAcknowledged \/ (UnsafePostAckCommit /\ serviceState = "Cancelled"))
     /\ committed' = TRUE
     /\ commitCount' = commitCount + 1
     /\ serviceState' = "Committed"
