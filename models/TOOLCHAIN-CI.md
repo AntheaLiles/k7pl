@@ -99,7 +99,8 @@ At the source baseline used for this plan:
 - the workflow retains model sources, configurations, tool identity and TLC logs as CI artefacts;
 - R9 is checked by the `r9-tlc` job in `.github/workflows/ci.yaml`;
 - TLA-01 is checked in the same `r9-tlc` job: three nominal/environment profiles and two negative configurations whose expected invariant names are checked;
-- TLA-01 TLC evidence includes the model, configurations, counterexample vectors, logs, Java identity and the pinned TLC JAR digest;
+- TLA-02..16 are checked in that job as one candidate suite: nominal profiles, targeted negative controls and temporal properties where declared;
+- the TLA-01 artifact retains its own model/configuration/vector/log set; `tla-models-evidence` retains all TLA-02..16 modules, configurations, authored counterexample expectations, logs, Java identity and the pinned TLC JAR digest;
 - `wiki/semantics.md` explicitly says that K, Lean and TLA+ results are corroborating models and that the K ↔ TLA+ projection remains open.
 
 The K7OS model files now reside beside the K7PL programme documents directly in repository-root `models/`. Their contents and CI properties are preserved; only file paths and workflow working directories changed. Their research status remains non-normative.
@@ -137,9 +138,9 @@ The artefact must not be called a proof unless the verification method is a proo
 
 1. Preserve the existing D01 and R9 checks while moving their working directory to repository-root `models/`.
 2. TLA-01 is now parsed and checked through the existing `r9-tlc` job when `tla_model_check` is selected; a separate syntax-only tier is deferred.
-3. Add further model-specific TLC configurations incrementally, beginning with TLA-02 only after its join-matching contract is isolated from this one-message mailbox abstraction.
-4. Add the scheduler/liveness model only after fairness assumptions are reviewed.
-5. Add model-selection and artifact packaging so a changed shared module triggers every dependent model.
+3. TLA-02..16 candidate modules and finite profiles are now present and routed through the same TLC suite; their runs remain pending. The TLA-02 selection policy is exploratory only, and G2 is not ratified.
+4. TLA-03 fairness applies only in its explicit fair profile; it is not a normative scheduler guarantee. TLA-14/15 remain conditional, and TLA-16 remains an atomic abstract queue.
+5. Model-selection/artifact coverage is grouped by the TLA workstream directory; any model/config/vector change triggers the suite. A future shared imported module must also trigger every dependent model.
 6. Add Apalache only after a representative model demonstrates a concrete need.
 7. Add cross-formalism evidence only after an explicit K/TLA or Lean/TLA relation exists.
 

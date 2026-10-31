@@ -5,7 +5,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # K7PL TLA+ work plan
 
-**Status:** TLA-01 is `model-drafted`; TLA-02 through TLA-16 are `not-started`. No TLA-01 TLC result is claimed yet.  
+**Status:** TLA-01 remains `model-drafted` pending its corrected TLC rerun. TLA-02 through TLA-16 now have candidate modules and finite positive/negative configurations; all new TLC checks are pending. TLA-14 and TLA-15 remain conditional profiles, and TLA-16 is abstract-only.  
 **Priority convention:** P0 = semantic foundation; P1 = runtime assurance; P2 = scenario or optional profile. These priorities are provisional sequencing recommendations.
 
 Each item is an independently reviewable work package. Its model scope is a candidate abstraction, not a ratified definition. Before coding, resolve the relevant gates in [OPEN-GATES.md](OPEN-GATES.md).
@@ -57,6 +57,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-02 — Join-pattern matching and atomic multi-mailbox consumption
 
+
+**Implementation status:** `model-drafted`. `K7PLJoinPatterns.tla`; finite two-channel, four-message matching; deterministic rank-based selection is a test policy only. Profiles: `TLA02-AtomicJoin.cfg`, `TLA02-PartialConsume.cfg`. G2 remains open; no matching or ordering semantics are ratified.
 **Specification:** C3 `ValueConstraints` and session types; C4 `SystemScale`, theorem `thm:sync_motifs_jonction`; C4 `UnderlyingProcessCalculus`, construction `J ▷ P`; C4 `OperationalSemantics`, `Guard`.
 
 **Question.** Does a join transition consume exactly one admissible tuple of messages atomically, using the declared deterministic selection policy, and leave every unselected message available?
@@ -88,6 +90,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-03 — Scheduler, fairness and global pool progress
 
+
+**Implementation status:** `model-drafted`. `K7PLScheduler.tla`; two finite fibres, weak fairness parameterised per fibre, and an explicit starvation control. Profiles: `TLA03-FairScheduler.cfg`, `TLA03-StarvationControl.cfg`. G3 remains open; fairness is assumed only in the fair profile.
 **Specification:** C2 `AlgebrasCoalgebrasAndFixedPoints` (actor and bounded activations); C3 `TermGrammar` (`wait`, `when`, parallel composition); C4 `LocalScale`, `ActorScale`, `SystemScale` (initialisation), `OperationalSemantics` theorem `thm:progres`.
 
 **Question.** Does the scheduler preserve the distinction between local progress, progress of at least one runnable fibre, and eventual service of each continuously enabled actor?
@@ -112,6 +116,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-08 — Fork/join, `parallel`, `vmap` and partial-order traces
 
+
+**Implementation status:** `model-drafted`. `K7PLParallelExecution.tla`; two branches, two events per branch, predecessor relation and an explicit early-join control. Profiles: `TLA08-PartialOrderJoin.cfg`, `TLA08-EarlyJoinControl.cfg`. No global trace order is inferred.
 **Specification:** C2 parallel effect action; C3 `TermGrammar` and `TypingRules`; C4 `OperationalSemantics` reductions for `parallel` and `vmap`; C4 `UnderlyingProcessCalculus`.
 
 **Question.** Do concurrent branches preserve local order and causal dependencies without imposing a false total order on independent events?
@@ -134,6 +140,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-11 — Trace stratification and observational non-interference
 
+
+**Implementation status:** `model-drafted`. `K7PLTraceNoninterference.tla`; self-composed pair of finite runs and a value/output-level low-observation comparison. Profiles: `TLA11-PairedLowObservation.cfg`, `TLA11-HighInfluenceControl.cfg`. Timing, scheduler and event-count leakage remain outside this model; G8 remains open.
 **Specification:** C2 restriction/erasure schemas; C3 `TypingRules` level projection; C4 `OperationalSemantics`, theorem `thm:stratification_journal`; C4 `MetalanguageSortSystem`; C7 interactive replay case.
 
 **Question.** Can an observer at level ℓ distinguish two executions that agree on public initial state and public inputs but differ in higher-level state or events?
@@ -158,6 +166,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-04 — Actor lifecycle, snapshots, journal and replay
 
+
+**Implementation status:** `model-drafted`. `K7PLActorLifecycle.tla`; finite mailbox, append-only event journal, snapshot prefix and replay cursor, with an early-publication negative control. Profiles: `TLA04-ConsistentLifecycle.cfg`, `TLA04-EarlyPublishControl.cfg`. Snapshot persistence is atomic in this abstraction; crash-consistent storage is not established.
 **Specification:** C3 pure handlers and journal; C4 `SystemScale` actor lifecycle, `thm:determinisme_rejeu`, `thm:rejeu_binaire`; C7 case study II.
 
 **Question.** Do deactivation, snapshot, restore and replay preserve a coherent observable actor state across every interruption point?
@@ -180,6 +190,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-05 — Cancellation, commit and failure paths
 
+
+**Implementation status:** `model-drafted`. `K7PLCancellation.tla`; request, acceptance, cancellation acknowledgement, commit and timeout are distinct states. Profiles: `TLA05-CancelCommitRace.cfg`, `TLA05-PostAckCommitControl.cfg`. The post-ack guarantee remains a candidate contract; R9 is retained unchanged.
 **Specification:** C4 `SystemScale` failure, cancellation, recovery and restoration paths; K7OS research model R9.
 
 **Existing starting point:** `models/R9ActorCancellation.tla`. It distinguishes cancel request from acknowledgement and has a negative property `NoCommitAfterCancelRequest` that is intentionally too strong.
@@ -204,6 +216,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-06 — FFI transfer, foreign aliases and revocation
 
+
+**Implementation status:** `model-drafted`. `K7PLForeignBoundary.tla`; explicit transfer, caller/foreign aliases, return, revocation and acknowledgement. Profiles: `TLA06-RevocationProtocol.cfg`, `TLA06-StaleAliasControl.cfg`, `TLA06-CallerAliasControl.cfg`. Logical revocation does not prove hardware/OS alias invalidation; G6 remains open.
 **Specification:** C4 `SystemScale` foreign-interface contract, `thm:surete_ffi`, `thm:revocation_ffi`; C4 `MemoryModels`; existing D01 native-boundary model.
 
 **Question.** What does transfer of a capability mean during a call, and what protocol ensures that the foreign component cannot use the transferred access after revocation?
@@ -226,6 +240,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-07 — Capabilities, regions and entity lifetime
 
+
+**Implementation status:** `model-drafted`. `K7PLMemoryCapabilities.tla`; finite slots, two generation values, capability-to-region ranges, revocation and restore. Profiles: `TLA07-CapabilityLifetime.cfg`, `TLA07-GenerationWrapControl.cfg`, `TLA07-StaleAccessControl.cfg`, `TLA07-RevocationRestoreControl.cfg`. The two-value generation domain is a counterexample device, not a production-width argument; G7 remains open.
 **Specification:** C3 `GradedSystem`; C4 `ActorScale` (arenas, regions, partitioned ranges, EntityRef); C4 `MemoryModels`; C2 capacity lemma.
 
 **Question.** Do allocation, transfer, revocation, deletion, slot reuse and restore preserve capability ownership and entity identity?
@@ -248,6 +264,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-09 — Dynamic resource accounting and budget consumption
 
+
+**Implementation status:** `model-drafted`. `K7PLResourceAccounting.tla`; finite linear/affine/unrestricted binding classes, per-fibre counters, aggregate use and an abstract integer budget. Profiles: `TLA09-ResourceBudget.cfg`, `TLA09-GradeOveruseControl.cfg`, `TLA09-BudgetOverdrawControl.cfg`. Cost units remain abstract; G9 remains open.
 **Specification:** C2 `ExponentialComonadAndFragments` (budget interface and partial `Consume`); C3 `GradedSystem`, `TypingRules`; C4 `OperationalSemantics`, theorem `thm:correction_ressource`.
 
 **Question.** Does a bounded execution account for each effective use and cost without exceeding its declared grade/budget?
@@ -270,6 +288,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-10 — Temporal triggers, waiting, deadlines and budget separation
 
+
+**Implementation status:** `model-drafted`. `K7PLTemporalScheduling.tla`; bounded logical wait ticks, event-triggered activation, execution-cost counter and timeout. Profiles: `TLA10-SeparateWaitAndCost.cfg`, `TLA10-ChargeWaitControl.cfg`. No physical time or deadline guarantee is claimed; G10 remains open.
 **Specification:** C3 `TermGrammar` and `TypingRules` (`at`, `wait`, `when`, `delay`); C4 `OperationalSemantics`; C4 `UnderlyingProcessCalculus` simulation contract; C7 case study I.
 
 **Question.** Does the model keep environmental waiting latency separate from the cost of the triggered automaton, as required by decision P3-B?
@@ -294,6 +314,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-12 — Native reactive pipeline and frame lifecycle
 
+
+**Implementation status:** `model-drafted`. `K7PLReactivePipeline.tla`; ordered finite input events, logical state version, patch base/target, exclusive DOM writer capability and frame-overrun flag. Profiles: `TLA12-ReactivePipeline.cfg`, `TLA12-UnauthorizedDOMWriteControl.cfg`. Frame ticks are logical only.
 **Specification:** C7 `CaseStudyINativeReactiveArchitecture`; C3 `GradedSystem` capability `WriteCap(DOM)`; C4 actors and event processing.
 
 **Candidate module:** `K7PLReactivePipeline.tla`.
@@ -310,6 +332,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-13 — Deductive-engine job lifecycle
 
+
+**Implementation status:** `model-drafted`. `K7PLDeductiveJob.tla`; finite monotone closure, delta iteration, bounded iteration budget, saturation and publication. Profiles: `TLA13-DeductiveSaturation.cfg`, `TLA13-EarlyPublishControl.cfg`. This does not replace Lean's general fixed-point/termination proofs.
 **Specification:** C2 fixed points and monotonicity; C4 `SystemScale` and operational semantics; C7 `CaseStudyIIIDeductiveEngineOnColumnarArenas`.
 
 **Candidate module:** `K7PLDeductiveJob.tla`.
@@ -326,6 +350,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-14 — Noise session protocol (conditional)
 
+
+**Implementation status:** `candidate-conditional`. `K7PLNoiseSession.tla`; finite handshake phase and message-state machine with a skipped-message negative control. Profiles: `TLA14-NoiseHandshake.cfg`, `TLA14-SkippedMessageControl.cfg`. No cryptographic primitive or Noise security property is modelled; G13 remains open and the profile is not adopted.
 **Specification:** C4 `LocalScale` protocol example and C3 session types.
 
 **Candidate module:** `K7PLNoiseSession.tla`, or a profile of TLA-01 if the vocabulary is shared.
@@ -340,6 +366,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-15 — Replicated state and eventual convergence (conditional)
 
+
+**Implementation status:** `candidate-conditional`. `K7PLReplicaConvergence.tla`; two-replica grow-only-set profile with explicit connected-network and fairness assumptions plus an overwrite-merge counterexample. Profiles: `TLA15-ConnectedGSet.cfg`, `TLA15-OverwriteMergeControl.cfg`. No distributed runtime or delivery guarantee is adopted; G12 remains open.
 **Specification:** C4 `SystemScale` CRDT/partition discussion; C3 asynchronous messages; C4 journal and actor recovery.
 
 **Candidate module:** `K7PLReplicaConvergence.tla`.
@@ -354,6 +382,8 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 ### TLA-16 — SPSC queues and weak-memory refinement (external implementation verification)
 
+
+**Implementation status:** `model-drafted` (abstract queue only). `K7PLSPSCQueue.tla`; two-slot SPSC ring, producer/consumer indices, publication/consumption accounting and an unread-overwrite negative control. Profiles: `TLA16-SPSCQueue.cfg`, `TLA16-OverwriteUnreadControl.cfg`. Atomic visibility is assumed; concrete weak-memory verification is deferred until the runtime language/target is fixed; G11 remains open.
 **Specification:** C4 `SystemScale` SPSC queues, release/acquire publication/consumption and mailbox representation; C4 `ActorScale` memory partitioning; C4 `thm:sync_motifs_jonction`.
 
 **Question.** Does the chosen queue implementation refine the abstract mailbox protocol under the actual language and hardware memory model?
