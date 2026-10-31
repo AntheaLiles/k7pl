@@ -8,92 +8,106 @@ SPDX-License-Identifier: CC0-1.0
 ## Current repository state
 
 - Repository: `AntheaLiles/k7pl`.
-- Canonical model location: repository-root `models/`; no model subdirectories.
-- Work branch: `research/k7pl-tla-workplan-2026-10-31`.
-- Current source head: `cd06607aa67d7273825ea534b64e0f42c2f31830`.
-- Base: `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`.
-- Comparison: 26 commits ahead of `main`, zero behind.
-- Draft PR: [#318](https://github.com/AntheaLiles/k7pl/pull/318), targeting `main`; open, draft, not merged.
-- Latest CI run for head `cd06607`: [run 41238524798](https://github.com/AntheaLiles/k7pl/actions/runs/41238524798), created and pending when this checkpoint was written.
-- Main remains unchanged. No normative Verso clause, theorem status or project decision has been ratified by these candidate models.
+- Canonical model location: repository-root `models/`, kept flat.
+- Replacement branch: `fix/tla-ci-unified-suite-2026-10-31`.
+- Branch base: `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`.
+- Source corrections commit: `8e53ae99f187e86411aaa74f26a5c22d4991f1cc`.
+- Unified CI/shadow commit: `7e48b0c0377f20cf71f3ecea50c00fcadb572b34`.
+- The replacement branch has a clean first-parent history from `main`; both commits use allowed Conventional Commit types (`fix`). The previous branch's non-compliant commits are not ancestors of this branch.
+- Superseded PR: [#318](https://github.com/AntheaLiles/k7pl/pull/318), on `research/k7pl-tla-workplan-2026-10-31`. It must be closed after the replacement PR has been opened. Do not delete the old branch in this workflow; the repository owner will do that.
+- `main` has not been changed or merged.
 
-## Implemented scope
+## Observed failures and root causes
 
-TLA-01..16 now have model sources in the single `models/` directory. The historical D01 and R9 models remain present with their original identifiers and existing checks.
+The last fully inspected failure was [CI run #2410](https://github.com/AntheaLiles/k7pl/actions/runs/41238652081) on old head `47b910a5b8241cb77462b82a2247eb1eb3f9fe69`.
 
-| Work item | Module | Configurations |
+1. **TLC configuration parsing:** the first TLA-01 and TLA-02 profiles stopped in the TLC config parser with `ConfigFileException` (line 8 and line 7 respectively, “expecting ], but did not find it”). The `.cfg` files supplied function constructors such as `[x |-> y]`. The failure preceded module parsing and state exploration; it was not an invariant counterexample.
+2. **CommitLint:** at least one old-branch commit used a type not allowed by the repository's Conventional Commit configuration. The replacement history starts from `main` and uses `fix(tla): ...` and `fix(ci): ...`; no old commit was cherry-picked as an ancestor.
+3. **Controller Shadow:** the derived registry routed `models/` files to `tla_model_check`, but the legacy Python/Deno eight-key projection treated non-Markdown model files as unknown and forced `full`. A TLA-specific neutral path rule was added to both legacy classifiers. The derived classifier continues to emit the dedicated `tla_model_check` surface; shadow parity is asserted in tests.
+
+## Corrections implemented on the replacement branch
+
+- Replaced function-valued assignments in the affected TLA-01, 02, 04, 07, 08, 09, 12 and 13 configurations with finite scalar/set constants. Their deterministic selectors and relations are now module operators.
+- Corrected TLA-05 `CommitEffect`: normal commit is allowed before cancellation acknowledgement; the negative control can commit after acknowledgement only when its unsafe switch is enabled. The previous condition contradicted itself by requiring both `Accepted` and `Cancelled`.
+- Replaced the two separate TLA check sections with **one step covering TLA-01..16**.
+- The unified step executes 18 positive and 21 negative profiles (39 in total), accumulates failures, and preserves an individual log per profile so one parse failure does not suppress later diagnostics.
+- Replaced the two TLA evidence uploads with one `tla-model-check-evidence` artefact containing modules, configurations, authored expectations, individual logs, Java/TLC metadata and a SHA-256 manifest.
+- Aligned Python and Deno legacy classifiers on `models/`, added classifier tests and removed TLA paths from the list of expected shadow divergences.
+
+## Verification status
+
+**The corrections above are committed but have not yet been validated by the new CI run.** No claim is made here that the modified TLA modules parse, that positive profiles complete, or that negative profiles produce their intended invariant failures. The previous run only established the configuration parser failure for the first TLA-01 and TLA-02 cases. The authored JSON counterexample vectors remain expectations, not observed TLC traces.
+
+The controller shadow will be considered corrected only when the new run's Deno/Python shadow and derived-shadow logs show no divergence for `models/`, and the new unit tests pass. CommitLint will be considered corrected only when the new branch's commitlint job accepts the full new history.
+
+TLA-01..16 remain candidate models with bounded/conditional scopes. The models are independent transition systems run by one common CI step; they are not composed into one transition system and do not establish K/TLA or Lean/TLA refinement.
+
+## Current model allocation
+
+| Model | Domain | Principal abstraction limit |
 |---|---|---|
-| TLA-01 | `TLA01SessionNetwork.tla` | 5 |
-| TLA-02 | `K7PLJoinPatterns.tla` | 2 |
-| TLA-03 | `K7PLScheduler.tla` | 2 |
-| TLA-04 | `K7PLActorLifecycle.tla` | 2 |
-| TLA-05 | `K7PLCancellation.tla` | 2 |
-| TLA-06 | `K7PLForeignBoundary.tla` | 3 |
-| TLA-07 | `K7PLMemoryCapabilities.tla` | 4 |
-| TLA-08 | `K7PLParallelExecution.tla` | 2 |
-| TLA-09 | `K7PLResourceAccounting.tla` | 3 |
-| TLA-10 | `K7PLTemporalScheduling.tla` | 2 |
-| TLA-11 | `K7PLTraceNoninterference.tla` | 2 |
-| TLA-12 | `K7PLReactivePipeline.tla` | 2 |
-| TLA-13 | `K7PLDeductiveJob.tla` | 2 |
-| TLA-14 | `K7PLNoiseSession.tla` | 2 |
-| TLA-15 | `K7PLReplicaConvergence.tla` | 2 |
-| TLA-16 | `K7PLSPSCQueue.tla` | 2 |
+| TLA-01 | Asynchronous sessions, waits, messages, dependency graph, timeout | 2–3 actors and bounded messages; progress depends on environment assumptions |
+| TLA-02 | Two-channel join and atomic consumption | Finite message set; rank-based choice remains exploratory |
+| TLA-03 | Fibre scheduling and fairness | Small scheduler; fairness is profile-local |
+| TLA-04 | Actor mailbox, snapshot, journal and replay | Snapshot persistence is assumed atomic |
+| TLA-05 | Cancellation, acknowledgement, commit, timeout and retry | Linearisation contract remains open |
+| TLA-06 | Foreign capability transfer and revocation | Logical handoff only; not a concrete ABI/FFI refinement |
+| TLA-07 | Slots, identity generations, capability ranges and ownership | Logical memory model; no physical page or translation model |
+| TLA-08 | Fork/join and partial-order causality | Finite two-branch DAG |
+| TLA-09 | Abstract grade usage and integer resource budget | Scalar counters, not the full multidimensional grade algebra |
+| TLA-10 | Waiting/triggering separated from execution cost | Discrete logical ticks; no physical time or WCET |
+| TLA-11 | Paired low-observation traces | Value-level observer; no timing/cache/scheduler leakage |
+| TLA-12 | Reactive event order, versions and DOM patch publication | Simplified queue and patch model; backpressure omitted |
+| TLA-13 | Bounded deductive-job closure and result publication | Finite closure relation; does not prove general fixed-point theorems |
+| TLA-14 | Abstract Noise-like handshake phases | Conditional profile; no cryptographic primitive or security proof |
+| TLA-15 | Two-replica grow-only-set convergence | Connected/reliable/fair profile; no general partition model |
+| TLA-16 | Two-slot abstract SPSC queue | Atomic visibility; no weak-memory/ISA refinement |
 
-The 15 newly added modules have 34 TLC configurations: 15 nominal/positive profiles and 19 negative controls. The aggregate `TLA02-16-ExpectedCounterexamples.json` records the intended unsafe transitions and expected invariant names. It is an authored test plan, **not observed TLC output**.
+## Modelling gaps required to approach specification coverage
 
-## Conceptual composition
+The current chapter matrix is mapped to the PR #311 snapshot (`f3b33cd34e1da49a4c8c41ca632c586e66715e70`). It is a chapter-level allocation, not a proof that every property in every chapter is covered. In particular, C4 `MemoryModels` currently addresses spatial safety, regions and capability lifetime; there is no explicit MMU/IOMMU contract identified in that allocation. MMU/IOMMU models are therefore classified below as implementation refinements until an exact normative Verso clause is identified.
 
-`MODEL-DEPENDENCIES.md` describes the intended conceptual relations:
-- TLA-01 supplies the finite actor/mailbox/wait-graph vocabulary.
-- TLA-02 adds multi-message join matching; G2 remains open.
-- TLA-03 isolates per-fibre scheduling and fairness.
-- TLA-04/05 model lifecycle, journal/replay, cancellation, commit and failure states.
-- TLA-06/07 model foreign capability transfer, aliasing, revocation, identity generations and region ownership.
-- TLA-08/09 model branch partial orders and abstract grade/resource accounting.
-- TLA-10/11 model temporal trigger/cost separation and paired low-observation checks.
-- TLA-12/13 model reactive publication and bounded deductive-job lifecycle.
-- TLA-14/15 are conditional handshake and grow-only-set replication profiles.
-- TLA-16 is an atomic abstract SPSC ring; concrete weak-memory refinement is not modelled.
+### P0 — memory and hardware isolation
 
-The models are independently bounded and are run together by one CI job. They do **not** form a single imported or composed transition system. Their dependencies are conceptual interfaces and proof obligations, not established simulation/refinement relations. A future integrated model requires an explicit typed state relation and transition/stuttering correspondence.
+| Missing model family | Coverage to add |
+|---|---|
+| CPU MMU / virtual memory | Address spaces, page tables, map/unmap, permissions, page faults, copy-on-write, ASID/PCID reuse, per-core TLB, shootdown and acknowledgement, stale translation after revoke/remap |
+| IOMMU / DMA | Device domains, IOVA, IOMMU/IOTLB and ATS caches, PASID, in-flight DMA, invalidation completion, device reset/hot-unplug and page reuse barriers |
+| Physical page reclamation | Pin/unpin, CPU/device references, concurrent free/reuse, epochs/hazard pointers, ABA, migration and allocator metadata |
+| Memory remanence | Zero-on-allocation/reuse, partial buffer initialisation, dirty cache/DMA buffers and cross-domain residual-data exposure |
+| Shared permission algebra | Multiple readers, exclusive writer, fractional permissions, split/merge, borrows, aliases and concurrent revocation |
+| Weak-memory refinement | Atomics, acquire/release, fences, CAS, coherence, tearing and compiler/CPU reordering for a named language/ISA |
 
-## CI integration
+MMU and IOMMU should be two separate protocols, connected through physical-page ownership and invalidation completion. The former models CPU-local TLBs and shootdown; the latter models device domains, IOVA translation, IOTLB/ATS caches and DMA already in flight. TLA+ can explore protocol obligations under explicit hardware assumptions, but cannot prove those assumptions about a particular processor, chipset, firmware or device.
 
-The existing `D01, R9 and TLA-01` TLC job was expanded and renamed to `D01, R9 and TLA-01..16 model checks`. Its timeout is 20 minutes. It runs:
-- D01 and R9 checks, preserved;
-- the five TLA-01 configurations, with expected invariant-name checks for its two negative profiles;
-- 15 positive TLA-02..16 profiles;
-- 19 TLA-02..16 negative profiles, each requiring its designated invariant name;
-- separate evidence artefacts `tla01-tlc-evidence` and `tla-models-evidence`, with source/configuration copies, expected vectors, Java version, pinned TLC digest, logs and a checksum manifest.
+### P1 — runtime concurrency and recovery
 
-The TLA-02..16 execution step uses `if: always()` so that a TLA-01 failure does not prevent later candidate models from running and producing diagnostics. The job is selected by the `tla_model_check` impact surface; the `models/` root is already classified accordingly.
+- Multi-core scheduling, interrupts, preemption, work stealing, priorities, lock contention, priority inversion and cancellation safe points.
+- Actor spawn/destroy/restart, supervision trees, incarnation IDs, late messages to replaced actors and crash loops.
+- Crash-consistent snapshots/journals: WAL, flush/barrier ordering, torn writes, partial recovery, journal compaction, inbox/outbox and idempotence.
+- Concrete FFI/ABI layout, alignment, pointer provenance/aliasing, pinning, callbacks, reentrancy, unwind/panic and asynchronous callbacks after revocation.
+- Device and driver lifecycle: reset, hot-plug, in-flight I/O, interrupt routing, driver replacement and asynchronous capability revocation.
+- Distributed transport loss, duplication, reordering, partitions, membership/epoch, failure detection, quorum and retries.
+- Full resource algebra/effect accounting using `𝒢 = 𝓡 × 𝕄 × ℒ × 𝔅`, rather than the scalar abstraction in TLA-09.
+- Physical clocks, drift, jitter, deadlines and timeout/cancellation races.
+- Timing, resource, cache and scheduler side channels beyond TLA-11's value-only observations.
+- A composed system model with explicit shared state and refinement relations between lifecycle, capabilities, queues and resource budgets.
 
-## Verification status — important limitation
+### P2 — conditional integration services
 
-**No TLA-02..16 module has yet been parsed or model-checked by TLC in CI.** The current source head's run 41238524798 was pending when recorded. Do not describe the candidate suite as green or bounded-model-checked.
+- Reactive backpressure, bounded queues, coalescing/debounce, stale async results, cancellation and patch rollback.
+- Cryptographic handshake properties such as nonce uniqueness, transcript binding, replay/downgrade and peer authentication; TLA-14 is not a cryptographic proof.
+- Concurrent incremental compiler workers and cache invalidation only if such a service is actually implemented.
+- OS capability lifecycle for files, networking, processes and devices where those interfaces are specified.
 
-The earlier CI run [#2391](https://github.com/AntheaLiles/k7pl/actions/runs/41235562330), on head `970cf5b`, established:
-- Deno, REUSE, actionlint, commitlint, completed security checks, Python tests, quick checks and the Lean implementation build passed after CI-only corrections;
-- historical D01 positive and negative TLC checks passed;
-- historical R9 positive and negative TLC checks passed;
-- TLA-01 reached TLC 1.7.4 but failed in the old configuration parser at the tuple-set assignment for `StaticDependencies`, before module parsing or state exploration.
+Not every chapter obligation should become a TLC model. C1 foundational postulates; C2 categorical laws, grade semirings and general fixed-point properties; C3 static typing, duality and general preservation/progress; C5 parsing, escaping, grammar and macro hygiene; and C6 compiler correctness/general termination need Lean proofs, parser/compiler testing or dedicated methods. Cryptographic hardness, WCET and physical hardware guarantees also require methods beyond finite TLC exploration.
 
-TLA-01 was corrected to encode `StaticDependencies` as a finite adjacency function `[Actors -> SUBSET Actors]`, with `StaticDependencyEdges` reconstructed in TLA+. That correction has not yet been validated by the latest-head run.
+Detailed coverage and package definitions are maintained in [CHAPTER-COVERAGE.md](CHAPTER-COVERAGE.md); proposed sequencing is in [WORK-PLAN.md](WORK-PLAN.md).
 
-The pinned tool download and digest checks succeeded in run #2391. The `tla01-tlc-evidence` artefact from that run is diagnostic evidence for the previous parser failure, not a successful TLA-01 result. No TLA-01 expected JSON counterexample has yet been observed from TLC.
+## Next actions
 
-The controller-shadow job has reported the previously documented, intentional legacy/derived classifier differences for TLA model paths. It is non-gating and remains visible; it is not a TLA property result.
-
-## Epistemic and normative status
-
-- TLA-01 remains `model-drafted`. C3 `thm:deadlock_acyclique` remains `under-review` with evidence `proofsketch`.
-- TLA-02..13 and TLA-16 are candidate models; all TLC runs are pending.
-- TLA-14 and TLA-15 are executable conditional profiles, not adopted K7PL requirements.
-- G2 matching policy, G3 fairness, G4 mailbox/timeout semantics, G5 cancellation linearisation, G6 revocation, G7 identity/lifetime, G8 observer/timing semantics, G9 budget units, G10 time model, G11 weak-memory target, G12 distribution semantics and G13 protocol adoption remain open as applicable.
-- No K/TLA+ or Lean/TLA+ correspondence is asserted. The current K prototype does not implement the normative actor/session semantics.
-- TLC results, when available, will apply only to the exact finite models, constants, assumptions, configurations and tool version run. They do not prove unbounded K7PL semantics or physical runtime performance/isolation.
-
-## Next action
-
-Inspect CI run 41238524798 and both TLA artefacts. Fix parser/model/property/CI defects from the actual output. Compare all actual counterexample traces against the authored JSON witnesses. Keep model statuses unchanged until the named configurations complete and the expected invariant names are observed. Only then decide whether to refine any cross-model interfaces or advance the work-plan statuses.
+1. Open the replacement PR and close PR #318 as superseded; leave the old branch for the repository owner to delete.
+2. Inspect every job on the new PR head: CommitLint; Python/Deno tests; Controller Shadow; TLC 39-profile step; REUSE and the other required CI checks.
+3. For every negative profile, compare the actual TLC trace with its authored expectation. A parser/type/ASSUME failure must never count as a successful negative case.
+4. Keep model statuses unchanged until the new run proves that the named profile reached the named invariant or completed state exploration.
+5. Once the 39 profiles pass, review model completeness against the current Verso head, identify exact clauses not covered, and only then assign the next candidate model IDs.
