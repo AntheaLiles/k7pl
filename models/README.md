@@ -14,11 +14,12 @@ The directory is intentionally flat. The repository concerns K7PL throughout, so
 | File | Purpose |
 |---|---|
 | [`WORK-PLAN.md`](WORK-PLAN.md) | Sixteen candidate TLA+ work packages, now accompanied by one module and finite TLC configurations per work package; scope, dependencies, open gates and acceptance criteria remain in this plan. |
-| [`CHAPTER-COVERAGE.md`](CHAPTER-COVERAGE.md) | Maps obligations to K7PL specification chapters and explicitly identifies non-targets for TLA+. |
+| [`CHAPTER-COVERAGE.md`](CHAPTER-COVERAGE.md) | Working chapter map and candidate TLA allocation. |
 | [`FORMAL-ARCHITECTURE.md`](FORMAL-ARCHITECTURE.md) | Defines the division between normative Verso, executable K semantics, TLA+, model checkers, Lean and implementation tests; records simulation obligations. |
 | [`TOOLCHAIN-CI.md`](TOOLCHAIN-CI.md) | Tool roles and limits, CI tiers and reproducible model-checking evidence. |
 | [`OPEN-GATES.md`](OPEN-GATES.md) | Unresolved semantic/methodological decisions; no open question is silently ratified. |
-| [`CHECKPOINT.md`](CHECKPOINT.md) | Current state and next action for the workstream. |
+| [`SPEC-COVERAGE-AUDIT-2026-10-31.md`](SPEC-COVERAGE-AUDIT-2026-10-31.md) | Obligation-level audit against the pinned PR #311 specification snapshot; gaps, non-TLA methods and acceptance criteria. |
+| [`CHECKPOINT.md`](CHECKPOINT.md) | Current state and next action for the workstream, including the latest coverage audit. |
 
 The work programme was prepared from the PR #311 specification snapshot at commit `f3b33cd34e1da49a4c8c41ca632c586e66715e70`. The work branch starts from `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`; references must be revalidated against current `main` before implementation.
 
