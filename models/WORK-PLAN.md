@@ -169,7 +169,7 @@ Each item is an independently reviewable work package. Its model scope is a cand
 
 **Specification:** C4 `SystemScale` failure, cancellation, recovery and restoration paths; K7OS research model R9.
 
-**Existing starting point:** `theoretical-projects/k7os/models/R9ActorCancellation.tla`. It distinguishes cancel request from acknowledgement and has a negative property `NoCommitAfterCancelRequest` that is intentionally too strong.
+**Existing starting point:** `models/R9ActorCancellation.tla`. It distinguishes cancel request from acknowledgement and has a negative property `NoCommitAfterCancelRequest` that is intentionally too strong.
 
 **Question.** What is the commit/cancellation linearisation point, and what does an acknowledgement promise?
 

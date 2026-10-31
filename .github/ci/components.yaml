@@ -272,11 +272,11 @@ components:
   - id: tla-models
     name: TLA+ models
     roots:
-      - theoretical-projects/k7os/models/
+      - models/
     build_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary.cfg D01NativeBoundary
     check_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary
     cache_determinants:
-      - theoretical-projects/k7os/models/
+      - models/
     depends_on: []
     required_checks:
       - tla-model-check
@@ -292,8 +292,6 @@ components:
     name: Theoretical projects (documentation)
     roots:
       - theoretical-projects/
-    excludes:
-      - theoretical-projects/k7os/models/
     build_command: ""
     check_command: ""
     cache_determinants:
@@ -306,7 +304,7 @@ components:
     allowed_claim_classes:
       - execution
     notes:
-      - "Documentation component; the models subdirectory is owned by tla-models above."
+      - "Documentation component for the non-executable K7OS research dossiers; all TLA+ artefacts live in repository-root models/."
 
   - id: python-tooling
     name: Python tooling

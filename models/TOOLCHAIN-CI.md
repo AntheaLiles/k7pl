@@ -92,15 +92,15 @@ GenMC is a candidate only if the relevant concrete implementation is C/C++ and t
 ## 4. Existing repository baseline
 
 At the source baseline used for this plan:
-- the D01 native-boundary TLA+ model and configurations are under `theoretical-projects/k7os/models/`;
-- the R9 cancellation model and configurations are also under `theoretical-projects/k7os/models/`;
+- the D01 native-boundary TLA+ model and configurations are under `models/`;
+- the R9 cancellation model and configurations are also under `models/`;
 - `.github/workflows/k7pl-semantics.yaml` downloads TLC 1.7.4 and verifies SHA-256 and SHA-1 before running D01;
 - the D01 job checks an enforced profile and requires a counterexample for an unconfined negative profile;
 - the workflow retains model sources, configurations, tool identity and TLC logs as CI artefacts;
-- R9 is described in the research dossier, but is not currently run by that D01 job;
+- R9 is checked by the separate `r9-tlc` job in `.github/workflows/ci.yaml`; it is not part of the D01 job;
 - `wiki/semantics.md` explicitly says that K, Lean and TLA+ results are corroborating models and that the K ↔ TLA+ projection remains open.
 
-This work programme does not alter those existing models or workflows. It proposes a separate K7PL modelling directory. Migration or reclassification of existing K7OS artefacts requires a separate reviewed change.
+The K7OS model files now reside beside the K7PL programme documents directly in repository-root `models/`. Their contents and CI properties are preserved; only file paths and workflow working directories changed. Their research status remains non-normative.
 
 ## 5. Proposed CI tiers
 
@@ -133,12 +133,12 @@ The artefact must not be called a proof unless the verification method is a proo
 
 ## 7. CI rollout
 
-1. Keep the existing D01 job unchanged while the new workstream is drafted.
-2. Add a syntax/parsing job for the new directory.
+1. Preserve the existing D01 and R9 checks while moving their working directory to repository-root `models/`.
+2. Add a syntax/parsing job for `models/` when the first new K7PL work item is drafted.
 3. Add TLC jobs incrementally, starting with TLA-01 and TLA-02 when their contracts stabilise.
 4. Add the scheduler/liveness model only after fairness assumptions are reviewed.
 5. Add model-selection and artifact packaging so a changed shared module triggers every dependent model.
 6. Add Apalache only after a representative model demonstrates a concrete need.
 7. Add cross-formalism evidence only after an explicit K/TLA or Lean/TLA relation exists.
 
-No workflow edit is authorised by this planning branch alone.
+The relocation changes paths and working directories only; it does not add properties, alter TLC versions or change the epistemic status of existing results.

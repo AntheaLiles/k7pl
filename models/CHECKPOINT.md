@@ -8,11 +8,11 @@ SPDX-License-Identifier: CC0-1.0
 ## Current state
 
 - Workstream: planning and formal-analysis backlog for TLA+ modelling of K7PL.
-- Status: documentation drafted; no new TLA+ model or CI workflow has been implemented by this workstream.
+- Status: the programme is drafted; no new K7PL TLA+ model has been added yet. Historical D01/R9 files have been relocated without changing their contents; existing TLC jobs retain their checking behaviour.
 - Branch base: `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`.
 - Analysed specification snapshot: PR #311 head `f3b33cd34e1da49a4c8c41ca632c586e66715e70`.
 - PR #311 was open at the time this checkpoint was created.
-- New directory: `theoretical-projects/k7pl-tla/`.
+- Canonical location: repository-root `models/`; no per-project subdirectory is used.
 
 ## Documents created
 
@@ -32,8 +32,8 @@ SPDX-License-Identifier: CC0-1.0
 - `theoretical-projects/k7os/R6-grades-budgets-WCET-temps-reel.md`.
 - `theoretical-projects/k7os/R7-pannes-ressources-lineaires-persistance.md`.
 - `theoretical-projects/k7os/R9-model-checking-contre-exemples-tracabilite.md`.
-- `theoretical-projects/k7os/models/D01NativeBoundary.tla`.
-- `theoretical-projects/k7os/models/R9ActorCancellation.tla`.
+- `models/D01NativeBoundary.tla`.
+- `models/R9ActorCancellation.tla`.
 - `wiki/semantics.md` and `.github/workflows/k7pl-semantics.yaml`.
 
 ## Findings retained
@@ -41,7 +41,7 @@ SPDX-License-Identifier: CC0-1.0
 1. The current TLA+ models are K7OS research models, not a normative K7PL semantic model.
 2. D01 is a small native-boundary profile with a checked negative configuration.
 3. R9 is a bounded actor-cancellation race model; the distinction between cancel request and acknowledgement must remain explicit.
-4. Current CI runs D01 with TLC 1.7.4; R9 is not part of that D01 job.
+4. D01 is checked by the `d01-tlc` job in `k7pl-semantics.yaml`; R9 is checked separately by `r9-tlc` in `ci.yaml`.
 5. The K/Lean/TLA+ projection is explicitly open in `wiki/semantics.md`.
 6. The highest-value initial work is the dependency DAG versus dynamic wait graph, atomic join matching and scheduler/global progress.
 7. General algebraic, typing, syntax and fixed-point theorems remain Lean/parser work; TLA+ should model the relevant runtime protocols and finite scenarios.
