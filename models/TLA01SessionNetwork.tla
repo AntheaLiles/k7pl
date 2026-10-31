@@ -127,10 +127,8 @@ StaticHasCycle(relation) ==
           /\ <<c, a>> \in relation
 
 StaticDependencyEdges ==
-    UNION {
-        {<<a, b>> : b \in Actors /\ StaticDependencyExists(a, b)} :
-            a \in Actors
-    }
+    {pair \in (Actors \X Actors) :
+        StaticDependencyExists(pair[1], pair[2])}
 
 StaticAcyclic == ~StaticHasCycle(StaticDependencyEdges)
 
