@@ -158,12 +158,10 @@
       "expectedInvariant": "BudgetNonNegative",
       "witness": [
         "Use(Lin,FibreA)",
-        "Use(Lin,FibreA)",
         "Use(Aff,FibreA)",
-        "Use(Unr,FibreA)",
         "Use(Unr,FibreA)"
       ],
-      "meaning": "The unsafe affordability bypass drives the abstract remaining budget below zero.",
+      "meaning": "With a two-unit initial budget, three otherwise grade-admissible unit-cost uses cause a negative remaining budget when the affordability guard is bypassed.",
       "gate": "G9"
     },
     {

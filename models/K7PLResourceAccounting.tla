@@ -46,7 +46,9 @@ Finish ==
     /\ \A b \in LinearBindings : uses[b] >= 1
     /\ finished' = TRUE
     /\ UNCHANGED <<uses, usesByFibre, remainingBudget, totalCost>>
-Next == \/ \E b \in Bindings, f \in Fibres : Use(b, f) \/ Finish
+Next ==
+    \/ \E b \in Bindings, f \in Fibres : Use(b, f)
+    \/ Finish
 Spec == Init /\ [][Next]_vars
 UsageWithinGrade == \A b \in Bindings : uses[b] <= GradeLimit[b]
 BudgetNonNegative == remainingBudget >= 0

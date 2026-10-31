@@ -42,7 +42,9 @@ Consume ==
         /\ buffer' = [buffer EXCEPT ![consumerIndex] = Empty]
     /\ consumerIndex' = NextSlot(consumerIndex)
     /\ UNCHANGED <<producerIndex, published, overwritten>>
-Next == \/ \E m \in Messages : Publish(m) \/ Consume
+Next ==
+    \/ \E m \in Messages : Publish(m)
+    \/ Consume
 Spec == Init /\ [][Next]_vars
 MessageConservation ==
     published = consumed \cup PendingMessages
