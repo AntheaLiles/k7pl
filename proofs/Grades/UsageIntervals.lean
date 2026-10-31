@@ -22,6 +22,8 @@ def uUnr : Set Usage := Set.univ
 
 theorem uLin_subset_uAff : uLin ⊆ uAff := by
   intro u hu
+  change u = 1 at hu
+  change u ≤ 1
   rw [hu]
   exact le_rfl
 
@@ -29,6 +31,8 @@ theorem uAff_subset_uUnr : uAff ⊆ uUnr := Set.subset_univ _
 
 theorem uLin_subset_uRel : uLin ⊆ uRel := by
   intro u hu
+  change u = 1 at hu
+  change 1 ≤ u
   rw [hu]
   exact le_rfl
 

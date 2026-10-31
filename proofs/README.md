@@ -50,10 +50,17 @@ In particular, the archived proofs still do **not** establish:
 From the repository root, `make proof` runs the K export/staging pipeline and
 then builds `K7PL2Lean`, `KLeanArchive` and `K7PLProofs`.
 
-From this directory, after KLean sources have been staged:
+The maintained domain library can be built independently of KLean export:
 
 ```sh
-lake build K7PL2Lean KLeanArchive K7PLProofs
+lake build K7PLProofs
+```
+
+After the KLean export pipeline has staged its generated sources, the
+historical archive can also be checked:
+
+```sh
+lake build K7PL2Lean KLeanArchive
 ```
 
 The CI axiom contract checks the exact `#print axioms` dependencies for

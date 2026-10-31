@@ -10,7 +10,7 @@
  * structurally instead.
  *
  * The ported contract is:
- * - run `lake build K7PL2Lean K7PL` and capture its log (the
+ * - run `lake build K7PL2Lean KLeanArchive K7PLProofs` and capture its log (the
  *   Lean build is the proof; this module only audits its output);
  * - fail on any `sorryAx` in the log;
  * - fail if either machine-soundness theorem has no axiom record;
@@ -141,7 +141,7 @@ export interface RunBuildProofsOptions {
 }
 
 /**
- * Run `lake build K7PL2Lean K7PL`, capture the log, and audit it
+ * Run `lake build K7PL2Lean KLeanArchive K7PLProofs`, capture the log, and audit it
  * with {@link checkBuildLog}. A non-zero lake exit is itself a
  * failure, mirroring `set -euo pipefail` in the shell script:
  * the audit verdict never overrides a failed build.
@@ -163,7 +163,7 @@ export async function runBuildProofs(
   }
   const errors: string[] = [];
   if (code !== 0) {
-    errors.push(`lake build K7PL2Lean K7PL exited with code ${code}`);
+    errors.push(`lake build K7PL2Lean KLeanArchive K7PLProofs exited with code ${code}`);
   }
   errors.push(...checkBuildLog(log));
   return {

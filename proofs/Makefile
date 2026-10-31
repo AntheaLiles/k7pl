@@ -6,4 +6,4 @@ proof:
 	lake build K7PL2Lean KLeanArchive K7PLProofs
 
 clean:
-	rm -rf .lake _out lake-manifest.json K7PL2Lean.lean K7PL2Lean
+	rm -rf .lake _out K7PL2Lean.lean K7PL2Lean
