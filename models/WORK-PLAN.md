@@ -425,3 +425,36 @@ A work item may be:
 - **completed-with-scope-limit** — its acceptance criteria are met, with limitations retained.
 
 No item is complete merely because TLC returns success.
+
+
+## 5. Missing coverage register — proposed work, not ratified scope
+
+The current sixteen models do not cover the full runtime and hardware refinement surface. The following packages are candidates; each must first be traced to a current Verso requirement or explicitly labelled as an implementation refinement.
+
+### P0 — memory and hardware isolation
+- **CPU/MMU translation protocol:** address spaces, page-table mutations, page permissions, page faults, ASID/PCID reuse, per-core TLB state, shootdown request/acknowledgement, and stale translations after revoke/remap.
+- **IOMMU/DMA protocol:** device domains, IOVA mappings, in-flight DMA, IOTLB and ATS caches, PASID, invalidation completion, reset/hot-unplug and device reassignment. Keep this distinct from the CPU/MMU model; link both through physical-page ownership and invalidation-completion relations.
+- **Physical page reclamation:** pin/unpin, references from CPUs/devices, concurrent free/reuse, epochs/hazard pointers, ABA and page migration.
+- **Memory remanence:** page zeroing/initialisation and residual-data isolation when buffers or physical pages change owner.
+- **Shared permission algebra:** multi-reader/exclusive-writer, fractional permissions, split/merge, borrows, alias creation and concurrent revocation.
+- **Concrete weak memory:** acquire/release, fences, CAS, coherence and reordering for a named runtime language and target ISA.
+
+### P1 — runtime completeness and recovery
+- Multi-core scheduler, interrupts, preemption, work stealing, priority inversion and cancellation safe points.
+- Actor spawn/restart/supervision, incarnation IDs and late-message rejection.
+- Crash-consistent journals and snapshots: WAL, flush barriers, partial writes, journal compaction, outbox/inbox and idempotent recovery.
+- FFI/ABI refinement: representation, alignment, provenance, pinning, callbacks, reentrancy, unwind safety and callbacks after revocation.
+- Device/driver lifecycle, in-flight I/O, reset, hot-plug and asynchronous revocation.
+- Unreliable distributed transport, partitions, membership, failure detection, quorum and retry semantics.
+- Full multidimensional resource/effect accounting based on `𝒢 = 𝓡 × 𝕄 × ℒ × 𝔅`, rather than TLA-09's scalar abstraction.
+- Physical time, clock drift, jitter, deadline and timeout/cancellation races.
+- Timing/resource/cache/scheduler non-interference, beyond TLA-11's value-level observation model.
+- A composed state/refinement model connecting actor lifecycle, capability ownership, queue state, and resource budgets.
+
+### P2 — conditional and scenario-specific
+- Reactive backpressure and stale asynchronous responses.
+- Cryptographic session properties (nonce uniqueness, transcript binding, replay/downgrade and peer authentication); TLA-14 is only an abstract phase machine.
+- Concurrent incremental compilation only if the implementation actually contains concurrent workers/caches.
+- OS file/network/process/device capability lifecycle only where those interfaces are in scope.
+
+C1 foundational postulates, C2 category/grade/fixed-point laws, C3 static typing and general metatheorems, C5 grammar/escaping/macro hygiene, C6 compiler correctness and generic termination, cryptographic hardness, WCET and physical hardware guarantees must not be presented as “covered” by finite TLC exploration. They require Lean, parser/compiler validation, cryptographic analysis or target-specific measurement and refinement. The detailed register is in [CHAPTER-COVERAGE.md](CHAPTER-COVERAGE.md).

@@ -134,3 +134,60 @@ The programme deliberately does not assign TLA+ as the primary tool for:
 - a numerical WCET proof.
 
 These may be assumptions or refinement targets of a model, but their proof obligations belong to other methods.
+
+
+## 4. Gaps beyond the current TLA-01..16 allocation
+
+This section is a research register, not a claim that every item below is already a normative K7PL requirement. The chapter matrix above maps the current TLA allocation against the PR #311 specification snapshot. A gap becomes a normative model obligation only after its state, transition and guarantee are traced to a current Verso clause. In particular, the current C4 `MemoryModels` allocation describes spatial safety, regions and capability lifetime; it does not establish a hardware MMU or IOMMU contract.
+
+### 4.1 P0 — memory isolation and implementation refinement
+
+| Proposed modelling package | Missing state and transitions | Central property to investigate | Current gap |
+|---|---|---|---|
+| CPU virtual memory / MMU | Address spaces; page-table levels and entries; map/unmap; permission changes; page faults; copy-on-write; ASID/PCID allocation and reuse; per-core TLB entries; shootdown messages and acknowledgements | A revoked or remapped page cannot be accessed through a stale CPU translation; physical-page reuse waits until all relevant invalidations have completed | TLA-07 models logical slots/generations/capabilities, not translation caches or address spaces |
+| Device translation / IOMMU | Device-to-domain assignment; IOVA mappings; IOMMU page tables; IOTLB and device ATS caches; PASID; in-flight DMA; invalidation and completion; reset, hot-unplug and device reassignment | No stale translation or in-flight DMA can access a page after revocation or after it is reassigned to another protection domain | No current model contains devices, DMA operations, IOVA translation or device-cache invalidation |
+| Physical page lifecycle and reclamation | Physical-page allocation/free/reuse; pin/unpin; CPU and device references; reference counts; epoch/hazard reclamation; page migration; ABA and allocator metadata | A page cannot be reused while any CPU, device or asynchronous operation can still hold an effective reference to its previous owner | TLA-07 bounds logical generations, but does not model concurrent physical reclamation or outstanding references |
+| Initialisation and cross-domain remanence | Zero-on-allocation or zero-before-reuse; dirty cache lines; DMA buffers; partial initialisation; abandoned pages; crash/restart of an owner | A new protection domain cannot observe residual data from a previous owner, including through an incompletely initialised DMA buffer | No current model tracks payload contents across physical ownership changes |
+| Shared-memory permission algebra | Multiple readers; exclusive writers; fractional read permissions; split/merge of permissions; borrow lifetimes; alias creation; overlapping mappings; concurrent revocation | Permission composition never creates incompatible writes or allows a revoked alias to remain effective | TLA-07 only checks finite disjoint logical write ranges; TLA-09 uses scalar use counts, not the full grade algebra |
+| Concrete atomics and weak-memory refinement | Atomic read/write/CAS; relaxed/acquire/release; fences; coherence; tearing; compiler and CPU reordering; per-core observations; queue payload publication | The concrete queue and capability protocols refine the abstract happens-before and publication rules under a named language/ISA memory model | TLA-16 assumes atomic transitions and does not represent weak-memory executions |
+
+**MMU and IOMMU must be separate transition systems.** They interact through physical-page ownership and completion of invalidation, but their agents and caches differ. The CPU/MMU model should include a per-core TLB and a shootdown completion protocol. The IOMMU model should include device domains, IOVA translations, IOTLB/ATS caches and DMA already in flight. Both need explicit hardware assumptions; TLC can find protocol counterexamples under those assumptions, but cannot prove that a specific CPU, chipset, firmware or peripheral implements them correctly.
+
+### 4.2 P1 — runtime concurrency, failure and semantic completeness
+
+| Proposed modelling package | Missing state and transitions | Why the current allocation is insufficient |
+|---|---|---|
+| Multi-core scheduler and preemption | Per-core run queues, work stealing, priority classes, preemption, interrupts, deferred work, lock contention, priority inversion, cancellation safe points | TLA-03 uses a small fibre scheduler and profile-local fairness assumptions |
+| Actor supervision and incarnation lifecycle | Spawn/destroy, restart policies, supervision trees, actor incarnation IDs, late messages to a restarted actor, restart loops | TLA-04 models mailbox/snapshot/replay of one abstract actor, not supervision topology |
+| Crash-consistent storage and transactions | WAL ordering, flush/barrier completion, torn writes, partial snapshots, journal compaction, inbox/outbox deduplication, atomic publication | TLA-04 assumes atomic snapshot persistence; its journal is an in-memory abstract sequence |
+| Concrete FFI/ABI boundary | Layout/alignment, pointer provenance and aliasing, pinning, callbacks and reentrancy, unwind/panic, async callbacks after return/revoke, thread affinity | TLA-06 models logical capability handoff and acknowledgement, not an ABI or concrete runtime |
+| Device and driver lifecycle | Device discovery, reset, hot-plug, driver replacement, capability grant/revoke, in-flight I/O, interrupt routing, fault reporting | The IOMMU candidate must be complemented by driver/device ownership and failure transitions |
+| Distributed transport and membership | Loss, duplication, reordering, partitions, membership/epochs, failure detection, quorum/election, retries, reconciliation | TLA-15 is a two-replica connected-network G-set profile with conditional fairness, not a general unreliable transport |
+| Resource algebra at execution time | The product `𝒢 = 𝓡 × 𝕄 × ℒ × 𝔅`; grade composition; effect composition; parallel split/join; fractional sharing; capability transfer; refunds/settlement; overflow and cancellation accounting | TLA-09 checks a scalar count and abstract integer budget only |
+| Temporal runtime guarantees | Logical/physical clock relation, drift, jitter, deadlines, timer cancellation races, queueing latency, simultaneous triggers | TLA-10 uses bounded logical ticks and makes no physical latency or WCET claim |
+| Non-interference beyond values | Timing, resource-consumption, cache contention, scheduler choices, termination/control-flow channels, declassification and attacker observation model | TLA-11 checks paired low-value traces; it omits timing and microarchitectural channels |
+| Full session progress assumptions | Fair message delivery, bounded/unbounded queues, timeout cancellation semantics, retries and duplicate handling, external actor failure | TLA-01 is a bounded topology model; progress depends on assumptions that are not fully represented by endpoint duality |
+| Cross-model composition | Shared typed state, ownership transfer between lifecycle/capability/queue/resource models, stuttering and refinement relation | The sixteen models currently execute independently; conceptual dependencies are not a composed system proof |
+
+### 4.3 P2 — conditional services and integration
+
+| Proposed modelling package | Missing state and transitions | Activation condition |
+|---|---|---|
+| Reactive backpressure | Bounded event queues, overload, coalescing/debounce, dropped events, stale asynchronous responses, cancellation and patch rollback | Expand only if the C7 reactive runtime contract requires these guarantees |
+| Cryptographic handshake and channel security | Nonce uniqueness, transcript binding, replay/downgrade, peer authentication, key confirmation and compromise assumptions | TLA-14 is only a finite protocol-phase abstraction; use a cryptographic verification method for security properties |
+| Concurrent compilation service | Concurrent workers, incremental cache invalidation, task cancellation, stale build results and atomic artifact publication | Only if implementation actually introduces a concurrent compiler service |
+| OS resource capability protocols | File/network/process/device handle lifecycle, delegation, revocation, close races and asynchronous I/O completion | Model only interfaces included in the specified execution environment |
+
+### 4.4 Properties that should not be turned into artificial TLC models
+
+The following are real coverage obligations, but they normally belong to another formal method:
+
+- C1 postulates and foundational vocabulary: formalise or discharge by the relevant logical/metatheoretic method, not by inventing an operational automaton without transitions.
+- C2 category theory, adjunctions, comonads, grade semirings, monotonicity and general fixed-point existence: Lean proofs, with TLC only for finite operational scenarios.
+- C3 static typing, subtyping, session duality and general preservation/progress: Lean metatheory; TLC challenges dynamic assumptions and counterexamples but does not replace the proofs.
+- C5 lexical analysis, escaping, delimiters, grammar, macro hygiene, expansion and elaboration: parser/compiler tests and Lean-level formalisation.
+- C6 compilation correctness, static solver correctness and general termination of specialisation: Lean proofs, compiler validation and differential tests.
+- Cryptographic hardness and primitive security: a dedicated cryptographic model/analysis; a finite TLA state machine cannot establish computational security.
+- Real-time WCET and hardware isolation: target-specific measurement, architecture evidence and implementation refinement are required in addition to abstract models.
+
+The priority labels are proposed sequencing aids, not owner-ratified priorities. Each future package needs a named source clause, explicit assumptions, abstraction relation, positive profile, negative control and evidence plan before it is assigned a TLA identifier.
