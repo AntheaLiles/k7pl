@@ -165,6 +165,6 @@ NoUnauthorizedAccess == unauthorizedAccesses = 0
 
 NoOverlappingWriteRights ==
     \A c1, c2 \in validCapabilities :
-        c1 # c2 => CapCells(c1] \cap CapCells(c2) = {}
+        c1 # c2 => CapCells(c1) \cap CapCells(c2) = {}
 
 =============================================================================
