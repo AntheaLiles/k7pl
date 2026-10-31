@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "status": "authored-expected-counterexamples-not-yet-observed-by-TLC",
+  "note": "Expected negative-control scenarios for TLA-02..16. These are authored witnesses, not TLC traces. The CI artifact must retain actual output and confirm the named invariant before any status is advanced.",
+  "cases": [
+    {
+      "id": "TLA-02",
+      "module": "K7PLJoinPatterns",
+      "configuration": "TLA02-PartialConsume.cfg",
+      "expectedInvariant": "BalancedConsumption",
+      "witness": [
+        "Init",
+        "PartialConsumeLeft(message)"
+      ],
+      "meaning": "Partial consumption of one side of a join leaves left/right consumed counts unbalanced.",
+      "gate": "G2"
+    },
+    {
+      "id": "TLA-03",
+      "module": "K7PLScheduler",
+      "configuration": "TLA03-StarvationControl.cfg",
+      "expectedInvariant": "NoStall",
+      "witness": [
+        "Init",
+        "StallScheduler"
+      ],
+      "meaning": "An explicit scheduler-stall control violates the no-stall safety invariant; this is not a scheduler theorem.",
+      "gate": "G3"
+    },
+    {
+      "id": "TLA-04",
+      "module": "K7PLActorLifecycle",
+      "configuration": "TLA04-EarlyPublishControl.cfg",
+      "expectedInvariant": "PublishedSnapshotDurable",
+      "witness": [
+        "Init",
+        "Freeze",
+        "PublishSnapshot"
+      ],
+      "meaning": "Publishing before durable snapshot persistence violates publication safety.",
+      "gate": "G4"
+    },
+    {
+      "id": "TLA-05",
+      "module": "K7PLCancellation",
+      "configuration": "TLA05-PostAckCommitControl.cfg",
+      "expectedInvariant": "AcknowledgedCancellationMeansNoCommit",
+      "witness": [
+        "SendRequest",
+        "AcceptRequest",
+        "RequestCancellation",
+        "AcknowledgeCancellation",
+        "CommitEffect"
+      ],
+      "meaning": "A deliberately enabled post-ack commit violates the candidate acknowledgement contract.",
+      "gate": "G5"
+    },
+    {
+      "id": "TLA-06",
+      "module": "K7PLForeignBoundary",
+      "configuration": "TLA06-StaleAliasControl.cfg",
+      "expectedInvariant": "NoForeignUseAfterAcknowledgement",
+      "witness": [
+        "TransferCapability",
+        "ReturnFromForeign",
+        "RevokeCapability",
+        "AcknowledgeRevocation",
+        "StaleForeignUse"
+      ],
+      "meaning": "A retained foreign alias mutates after acknowledgement under the unsafe control.",
+      "gate": "G6"
+    },
+    {
+      "id": "TLA-06-caller-alias",
+      "module": "K7PLForeignBoundary",
+      "configuration": "TLA06-CallerAliasControl.cfg",
+      "expectedInvariant": "NoCallerUseDuringExclusiveCall",
+      "witness": [
+        "TransferCapability",
+        "CallerUse"
+      ],
+      "meaning": "A caller-retained alias violates the exclusive-transfer profile.",
+      "gate": "G6"
+    },
+    {
+      "id": "TLA-07",
+      "module": "K7PLMemoryCapabilities",
+      "configuration": "TLA07-GenerationWrapControl.cfg",
+      "expectedInvariant": "NoStaleEntityAlias",
+      "witness": [
+        "Allocate",
+        "Destroy",
+        "ReuseSlot",
+        "Allocate",
+        "Destroy",
+        "ReuseSlot",
+        "Allocate"
+      ],
+      "meaning": "Two-value generation wrap can recreate an old entity reference in this deliberately tiny domain.",
+      "gate": "G7"
+    },
+    {
+      "id": "TLA-07-stale-access",
+      "module": "K7PLMemoryCapabilities",
+      "configuration": "TLA07-StaleAccessControl.cfg",
+      "expectedInvariant": "NoUnauthorizedAccess",
+      "witness": [
+        "Allocate",
+        "GrantCapability",
+        "RevokeCapability",
+        "StaleAccess"
+      ],
+      "meaning": "An explicitly enabled stale capability access increments the unauthorized-access counter.",
+      "gate": "G7"
+    },
+    {
+      "id": "TLA-07-revival",
+      "module": "K7PLMemoryCapabilities",
+      "configuration": "TLA07-RevocationRestoreControl.cfg",
+      "expectedInvariant": "NoCapabilityRevival",
+      "witness": [
+        "Allocate",
+        "GrantCapability",
+        "RevokeCapability",
+        "RestoreRevokedCapability"
+      ],
+      "meaning": "An unsafe restore action reactivates a revoked capability.",
+      "gate": "G7"
+    },
+    {
+      "id": "TLA-08",
+      "module": "K7PLParallelExecution",
+      "configuration": "TLA08-EarlyJoinControl.cfg",
+      "expectedInvariant": "JoinRequiresAllBranches",
+      "witness": [
+        "Init",
+        "JoinBranches"
+      ],
+      "meaning": "An early join publishes before both finite branch traces have completed.",
+      "gate": ""
+    },
+    {
+      "id": "TLA-09",
+      "module": "K7PLResourceAccounting",
+      "configuration": "TLA09-GradeOveruseControl.cfg",
+      "expectedInvariant": "UsageWithinGrade",
+      "witness": [
+        "Use(Lin,FibreA)",
+        "Use(Lin,FibreA)"
+      ],
+      "meaning": "A linear binding is used twice when the grade guard is bypassed.",
+      "gate": "G9"
+    },
+    {
+      "id": "TLA-09-budget",
+      "module": "K7PLResourceAccounting",
+      "configuration": "TLA09-BudgetOverdrawControl.cfg",
+      "expectedInvariant": "BudgetNonNegative",
+      "witness": [
+        "Use(Lin,FibreA)",
+        "Use(Aff,FibreA)",
+        "Use(Unr,FibreA)"
+      ],
+      "meaning": "With a two-unit initial budget, three otherwise grade-admissible unit-cost uses cause a negative remaining budget when the affordability guard is bypassed.",
+      "gate": "G9"
+    },
+    {
+      "id": "TLA-10",
+      "module": "K7PLTemporalScheduling",
+      "configuration": "TLA10-ChargeWaitControl.cfg",
+      "expectedInvariant": "BudgetAccounting",
+      "witness": [
+        "AdvanceWait"
+      ],
+      "meaning": "Charging environment wait time breaks the equation relating budget to execution cost.",
+      "gate": "G10"
+    },
+    {
+      "id": "TLA-11",
+      "module": "K7PLTraceNoninterference",
+      "configuration": "TLA11-HighInfluenceControl.cfg",
+      "expectedInvariant": "LowObservationEquality",
+      "witness": [
+        "RunPairedObservation"
+      ],
+      "meaning": "Different high inputs alter low-visible outputs despite identical low input.",
+      "gate": "G8"
+    },
+    {
+      "id": "TLA-12",
+      "module": "K7PLReactivePipeline",
+      "configuration": "TLA12-UnauthorizedDOMWriteControl.cfg",
+      "expectedInvariant": "DOMWriteRequiresCapability",
+      "witness": [
+        "HandleEvent(Event1)",
+        "ApplyPatch"
+      ],
+      "meaning": "A DOM patch is applied without the writer capability under the unsafe profile.",
+      "gate": ""
+    },
+    {
+      "id": "TLA-13",
+      "module": "K7PLDeductiveJob",
+      "configuration": "TLA13-EarlyPublishControl.cfg",
+      "expectedInvariant": "PublishedImpliesSaturated",
+      "witness": [
+        "StartJob",
+        "PublishResult"
+      ],
+      "meaning": "A partial fact set is published before closure saturation.",
+      "gate": ""
+    },
+    {
+      "id": "TLA-14",
+      "module": "K7PLNoiseSession",
+      "configuration": "TLA14-SkippedMessageControl.cfg",
+      "expectedInvariant": "MessagesAcceptedWereSent",
+      "witness": [
+        "AcceptClientHello",
+        "SendServerHello",
+        "UnsafeSkipAccept"
+      ],
+      "meaning": "The server accepts ClientFinish though the client has not sent it; optional protocol-state profile only.",
+      "gate": "G13"
+    },
+    {
+      "id": "TLA-15",
+      "module": "K7PLReplicaConvergence",
+      "configuration": "TLA15-OverwriteMergeControl.cfg",
+      "expectedInvariant": "AllIssuedUpdatesRetained",
+      "witness": [
+        "GossipAB",
+        "DeliverAB"
+      ],
+      "meaning": "Unsafe overwrite merge can discard the receiving replica's local update; conditional grow-only-set profile.",
+      "gate": "G12"
+    },
+    {
+      "id": "TLA-16",
+      "module": "K7PLSPSCQueue",
+      "configuration": "TLA16-OverwriteUnreadControl.cfg",
+      "expectedInvariant": "MessageConservation",
+      "witness": [
+        "Publish(Message1)",
+        "Publish(Message2)",
+        "Publish(Message3)"
+      ],
+      "meaning": "Overwriting a non-empty ring slot loses an unread message in the atomic abstract queue model.",
+      "gate": "G11"
+    }
+  ]
+}

@@ -13,9 +13,9 @@ SPDX-License-Identifier: CC-BY-4.0
 
 Le workflow recommandé combine quatre outils avec des rôles séparés : TLA+/TLC pour explorer les états atteignables d’un protocole concurrent fini ; Apalache pour des recherches symboliques à longueur bornée ; tests à état pour confronter une implémentation à un modèle de référence ; Lean pour prouver les propriétés retenues une fois les relations sémantiques définies. Ces résultats ne sont pas interchangeables.
 
-Le prototype livré dans [models/R9ActorCancellation.tla](models/R9ActorCancellation.tla) représente un acteur A, un service B, une requête, une demande d’annulation et un effet externe validé au plus une fois. Il rend visible une distinction critique : **demander l’annulation n’équivaut pas à recevoir l’accusé d’annulation**. Si la requête a été acceptée, le commit et l’interruption peuvent être deux transitions concurrentes. Le modèle autorise soit l’interruption avant commit, soit le commit avant accusé. Il impose qu’un accusé d’annulation ne soit pas émis après validation de l’effet.
+Le prototype livré dans [models/R9ActorCancellation.tla](../../models/R9ActorCancellation.tla) représente un acteur A, un service B, une requête, une demande d’annulation et un effet externe validé au plus une fois. Il rend visible une distinction critique : **demander l’annulation n’équivaut pas à recevoir l’accusé d’annulation**. Si la requête a été acceptée, le commit et l’interruption peuvent être deux transitions concurrentes. Le modèle autorise soit l’interruption avant commit, soit le commit avant accusé. Il impose qu’un accusé d’annulation ne soit pas émis après validation de l’effet.
 
-Les fichiers du modèle comprennent une [configuration nominale](models/R9ActorCancellation.cfg), une [configuration négative](models/R9-NaiveCancelClaim.cfg) et un [vecteur de test](models/R9-CancelRace-Test-Vector.md). Le job [R9 TLA+ model check du workflow CI](../../.github/workflows/ci.yaml) exécute les deux configurations avec un JAR TLC identifié et vérifié par SHA-256 et SHA-1. Les runs [CI #1998](https://github.com/AntheaLiles/k7pl/actions/runs/40083251090) et [CI #2001](https://github.com/AntheaLiles/k7pl/actions/runs/40083746248) ont confirmé le résultat nominal et le contre-exemple attendu. La portée reste celle du modèle borné décrit ci-dessous : ces résultats n’établissent pas sa correspondance avec la sémantique normative complète de K7PL.
+Les fichiers du modèle comprennent une [configuration nominale](../../models/R9ActorCancellation.cfg), une [configuration négative](../../models/R9-NaiveCancelClaim.cfg) et un [vecteur de test](../../models/R9-CancelRace-Test-Vector.md). Le job [R9 TLA+ model check du workflow CI](../../.github/workflows/ci.yaml) exécute les deux configurations avec un JAR TLC identifié et vérifié par SHA-256 et SHA-1. Les runs [CI #1998](https://github.com/AntheaLiles/k7pl/actions/runs/40083251090) et [CI #2001](https://github.com/AntheaLiles/k7pl/actions/runs/40083746248) ont confirmé le résultat nominal et le contre-exemple attendu. La portée reste celle du modèle borné décrit ci-dessous : ces résultats n’établissent pas sa correspondance avec la sémantique normative complète de K7PL.
 
 ## 2. Constats K7PL au snapshot audité
 
@@ -74,7 +74,7 @@ Lean peut représenter une relation de transition finie et prouver des propriét
 
 ## 4. Modèle et invariants
 
-Le modèle est défini dans [R9ActorCancellation.tla](models/R9ActorCancellation.tla). L’acteur A et le service B disposent chacun d’un crédit initial de deux unités. Il n’y a qu’une requête ; les domaines sont bornés pour rendre l’exploration finie.
+Le modèle est défini dans [R9ActorCancellation.tla](../../models/R9ActorCancellation.tla). L’acteur A et le service B disposent chacun d’un crédit initial de deux unités. Il n’y a qu’une requête ; les domaines sont bornés pour rendre l’exploration finie.
 
 | Variable | Domaine | Rôle |
 |---|---|---|
@@ -130,7 +130,7 @@ La séquence Send → Accept → CancelRequest → EffectCommit réfute l’hypo
 
 Ce contrôle valide le modèle TLA+ et les invariants qu’il contient pour cette instance finie. Il ne prouve ni que le modèle couvre tous les comportements normatifs de K7PL, ni que son abstraction d’annulation correspond au contrat réel du runtime.
 
-Le fichier [R9-CancelRace-Test-Vector.md](models/R9-CancelRace-Test-Vector.md) conserve le témoin et son oracle. La configuration [R9-NaiveCancelClaim.cfg](models/R9-NaiveCancelClaim.cfg) demande au model checker de chercher le contre-exemple attendu ; [R9ActorCancellation.cfg](models/R9ActorCancellation.cfg) ne vérifie que les invariants nominaux.
+Le fichier [R9-CancelRace-Test-Vector.md](../../models/R9-CancelRace-Test-Vector.md) conserve le témoin et son oracle. La configuration [R9-NaiveCancelClaim.cfg](../../models/R9-NaiveCancelClaim.cfg) demande au model checker de chercher le contre-exemple attendu ; [R9ActorCancellation.cfg](../../models/R9ActorCancellation.cfg) ne vérifie que les invariants nominaux.
 
 | ID de test | Séquence | Oracle |
 |---|---|---|

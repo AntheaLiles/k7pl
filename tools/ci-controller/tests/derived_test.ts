@@ -106,9 +106,12 @@ Deno.test("derived classifier keeps non-Markdown docs-tree files fail-closed", (
     assertEquals(divergences, [], `${path} must agree with legacy`);
     assertEquals(derived([path]).full, true);
   }
-  const tla = derived(["theoretical-projects/k7os/models/D01.tla"]);
+  const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.full, false);
   assertEquals(tla.surfaces.tla_model_check, true);
+  const nextK7plModel = derived(["models/TLA01Session.tla"]);
+  assertEquals(nextK7plModel.full, false);
+  assertEquals(nextK7plModel.surfaces.tla_model_check, true);
   const refs = derived(["wiki/references.json"]);
   assertEquals(refs.full, false);
   assertEquals(refs.spec_build, true);
@@ -161,9 +164,14 @@ Deno.test("derived classifier maps K, proofs and TLA to their new surfaces", () 
   assertEquals(proofs.surfaces.axiom_audit, true);
   assertEquals(proofs.full, false);
 
-  const tla = derived(["theoretical-projects/k7os/models/D01.tla"]);
+  const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.surfaces.tla_model_check, true);
   assertEquals(tla.full, false);
+
+  const programme = derived(["models/WORK-PLAN.md"]);
+  assertEquals(programme.surfaces.tla_model_check, false);
+  assertEquals(programme.docs_links, true);
+  assertEquals(programme.full, false);
 });
 
 Deno.test("derived classifier forces full on unknown paths, fail-closed", () => {
@@ -207,7 +215,8 @@ Deno.test("derived-shadow documents the known divergences, it does not hide them
   const divergentPaths = [
     // Intended D2 behaviour: dedicated surfaces instead of full.
     "proofs/Foo.lean",
-    "theoretical-projects/k7os/models/D01.tla",
+    "models/D01NativeBoundary.tla",
+    "models/TLA01Session.tla",
     // Intended D2 behaviour: K surfaces, no Lean over-triggering.
     "src/k/foo.k",
     // wiki/references.json is a spec-build input, but the wiki

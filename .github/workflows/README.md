@@ -51,7 +51,7 @@ Les surfaces sont les suivantes.
 | `unclassified` | informatif : un chemin inconnu force `full` |
 | `axiom_audit` | audit des axiomes du projet de preuves (`k-smoke`) |
 | `k_compile`, `k_examples`, `klean_export` | compilation K, exemples, export Klean vers Lean (`k-smoke`) |
-| `tla_model_check` | vérifications TLC `d01-tlc` et `r9-tlc` |
+| `tla_model_check` | vérifications TLC D01, R9 et TLA-01..16 (profils nominaux, contrôles négatifs et propriétés temporelles explicites) ; artefacts séparés `tla01-tlc-evidence` et `tla-models-evidence` |
 
 Exemples de chemins (vérifiés avec le classifieur dérivé) :
 
@@ -60,7 +60,7 @@ Exemples de chemins (vérifiés avec le classifieur dérivé) :
 | `src/**`, `tests/**` (hors `src/k/`) | `lean_build` (et `spec_check`, `python_tests` pour `src/` via les `read_inputs`) |
 | `src/k/` | `k_compile`, `k_examples`, `klean_export`, plus `spec_check` et `python_tests` via les `read_inputs` |
 | `proofs/**` | `axiom_audit` |
-| Modèles TLA (`theoretical-projects/k7os/models/`, R9) | `tla_model_check` |
+| Modèles TLA (`models/`, D01, R9, TLA-01 et futurs modèles K7PL) | `tla_model_check` |
 | `spec/Spec.lean`, `spec/Spec/**`, `spec/formal-chain/**`, `tools/SpecMain.lean`, `tools/SpecExt/**` | `spec_check`, `spec_build`, `python_tests`, plus les surfaces K |
 | `scripts/controle.py`, `scripts/controles/**`, `scripts/biblio/**`, `scripts/manuscript_metrics.py`, `wiki/references.json` | `spec_check`, `spec_build`, `python_tests` (`docs_links` en plus pour `wiki/references.json`) |
 | `tools/**` (Hors K) | `spec_check`, `spec_build`, `python_tests` et/ou `lean_build` selon le composant — pas de `k-smoke` |
