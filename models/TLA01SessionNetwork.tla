@@ -19,6 +19,29 @@ TimeoutStates == {"Disabled", "Armed", "Expired"}
 MessageSenders == Actors \cup {External}
 Messages == MessageSenders \X Actors
 
+ReceiveFrom(a) ==
+    CASE a = ActorIdA -> ReceiveFromA
+      [] a = ActorIdB -> ReceiveFromB
+      [] OTHER -> ReceiveFromC
+
+SendTo(a) ==
+    CASE a = ActorIdA -> SendToA
+      [] a = ActorIdB -> SendToB
+      [] OTHER -> SendToC
+
+InitialResidual(a) ==
+    CASE a = ActorIdA -> InitialResidualA
+      [] a = ActorIdB -> InitialResidualB
+      [] OTHER -> InitialResidualC
+
+StaticDependencyExists(a, b) ==
+    \/ (a = ActorIdA /\ b = ActorIdB /\ "A>B" \in StaticDependencies)
+    \/ (a = ActorIdA /\ b = ActorIdC /\ "A>C" \in StaticDependencies)
+    \/ (a = ActorIdB /\ b = ActorIdA /\ "B>A" \in StaticDependencies)
+    \/ (a = ActorIdB /\ b = ActorIdC /\ "B>C" \in StaticDependencies)
+    \/ (a = ActorIdC /\ b = ActorIdA /\ "C>A" \in StaticDependencies)
+    \/ (a = ActorIdC /\ b = ActorIdB /\ "C>B" \in StaticDependencies)
+
 ASSUME
     /\ IsFiniteSet(Actors)
     /\ Cardinality(Actors) \in {2, 3}
@@ -58,29 +81,6 @@ VARIABLES
     consumed
 
 vars == <<residual, actorStatus, mailboxes, waitTarget, timeoutStatus, sent, consumed>>
-
-ReceiveFrom(a) ==
-    CASE a = ActorIdA -> ReceiveFromA
-      [] a = ActorIdB -> ReceiveFromB
-      [] OTHER -> ReceiveFromC
-
-SendTo(a) ==
-    CASE a = ActorIdA -> SendToA
-      [] a = ActorIdB -> SendToB
-      [] OTHER -> SendToC
-
-InitialResidual(a) ==
-    CASE a = ActorIdA -> InitialResidualA
-      [] a = ActorIdB -> InitialResidualB
-      [] OTHER -> InitialResidualC
-
-StaticDependencyExists(a, b) ==
-    \/ (a = ActorIdA /\ b = ActorIdB /\ "A>B" \in StaticDependencies)
-    \/ (a = ActorIdA /\ b = ActorIdC /\ "A>C" \in StaticDependencies)
-    \/ (a = ActorIdB /\ b = ActorIdA /\ "B>A" \in StaticDependencies)
-    \/ (a = ActorIdB /\ b = ActorIdC /\ "B>C" \in StaticDependencies)
-    \/ (a = ActorIdC /\ b = ActorIdA /\ "C>A" \in StaticDependencies)
-    \/ (a = ActorIdC /\ b = ActorIdB /\ "C>B" \in StaticDependencies)
 
 ExpectedMessage(a) == <<ReceiveFrom(a), a>> \in mailboxes[a]
 
@@ -127,7 +127,10 @@ StaticHasCycle(relation) ==
           /\ <<c, a>> \in relation
 
 StaticDependencyEdges ==
-    {<<a, b>> : a \in Actors, b \in Actors /\ StaticDependencyExists(a, b)}
+    UNION {
+        {<<a, b>> : b \in Actors /\ StaticDependencyExists(a, b)} :
+            a \in Actors
+    }
 
 StaticAcyclic == ~StaticHasCycle(StaticDependencyEdges)
 

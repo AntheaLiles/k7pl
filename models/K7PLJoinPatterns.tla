@@ -27,7 +27,7 @@ AdmissiblePairs ==
     {<<l, r>> :
         l \in available \cap LeftMessages,
         r \in available \cap RightMessages,
-        KeyOf(l] = KeyOf(r)}
+        KeyOf(l) = KeyOf(r)}
 PairRank(pair) == Rank(pair[1]) * (Cardinality(Messages) + 1) + Rank(pair[2])
 BestPair ==
     CHOOSE pair \in AdmissiblePairs :
@@ -79,5 +79,5 @@ JoinedPairsConsumed ==
     \A pair \in joinedPairs :
         /\ pair[1] \in consumedLeft
         /\ pair[2] \in consumedRight
-        /\ KeyOf(pair[1]] = KeyOf(pair[2])
+        /\ KeyOf(pair[1]) = KeyOf(pair[2])
 =============================================================================
