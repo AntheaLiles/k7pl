@@ -164,7 +164,7 @@ Deno.test("derived classifier maps K, proofs and TLA to their new surfaces", () 
   assertEquals(proofs.surfaces.axiom_audit, true);
   assertEquals(proofs.full, false);
 
-  const tla = derived(["models/D01.tla"]);
+  const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.surfaces.tla_model_check, true);
   assertEquals(tla.full, false);
 });
