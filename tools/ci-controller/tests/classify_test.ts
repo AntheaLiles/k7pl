@@ -212,7 +212,7 @@ Deno.test("spec markdown adds link check to spec surfaces", () => {
 });
 
 Deno.test("proofs paths are unknown and force full", () => {
-  for (const path of ["proofs/K7PL/Proof.lean", "proofs/lakefile.toml"]) {
+  for (const path of ["proofs/archive/KLean/Proof.lean", "proofs/lakefile.lean"]) {
     const result = classify([path]);
     assert(result.full && result.unclassified, path);
   }

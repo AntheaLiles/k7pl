@@ -67,7 +67,7 @@ class CodeArtifactContractTests(unittest.TestCase):
         tla = (ROOT / "theoretical-projects/k7os/models/D01NativeBoundary.tla").read_text(encoding="utf-8")
         negative_cfg = (ROOT / "theoretical-projects/k7os/models/D01-NativeBoundary-Unconfined.cfg").read_text(encoding="utf-8")
         k_example = (ROOT / vector["kExample"]).read_text(encoding="utf-8")
-        lean = (ROOT / "proofs/K7PL/NativeBoundary.lean").read_text(encoding="utf-8")
+        lean = (ROOT / "proofs/archive/KLean/NativeBoundary.lean").read_text(encoding="utf-8")
         blueprint = (ROOT / "spec/formal-chain/BlueprintK7PL/Chapters/Semantics.lean").read_text(encoding="utf-8")
         self.assertIn("Values == {0, 1}", tla)
         self.assertIn("BoundaryEnforced = FALSE", negative_cfg)

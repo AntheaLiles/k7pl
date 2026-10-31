@@ -315,7 +315,7 @@ class ReadByAnotherSurfaceTests(unittest.TestCase):
             self.surfaces("spec/formal-chain/BlueprintK7PL.lean"),
             {"spec_check", "spec_build", "python_tests"},
         )
-        for path in ("proofs/K7PL/Proof.lean", "proofs/lakefile.toml"):
+        for path in ("proofs/archive/KLean/Proof.lean", "proofs/lakefile.lean"):
             with self.subTest(path=path):
                 result = classify([path])
                 self.assertTrue(result["full"] and result["unclassified"], path)

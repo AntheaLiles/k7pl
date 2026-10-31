@@ -39,7 +39,7 @@ path = [
   "proofs/Makefile",
   "spec/formal-chain/Makefile",
   "proofs/.gitignore",
-  "proofs/lakefile.toml",
+  "proofs/lakefile.lean",
   "spec/formal-chain/.gitignore",
   "spec/formal-chain/lakefile.lean",
   ".gitattributes",

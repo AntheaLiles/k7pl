@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
-  "purpose": "Expected #print axioms dependency sets for the KLean-generated K7PL proof slice used by the D-01 assurance chain.",
+  "purpose": "Expected #print axioms dependency sets for the archived KLean proof-of-concept and the maintained domain-oriented Lean formalisation.",
   "policy": {
-    "forbiddenAxioms": ["sorryAx", "Lean.ofReduceBool"],
-    "allowedStandardAxioms": ["propext", "Classical.choice", "Quot.sound"],
+    "forbiddenAxioms": [
+      "sorryAx",
+      "Lean.ofReduceBool"
+    ],
+    "allowedStandardAxioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
     "matching": "exact-set"
   },
   "declarations": [
@@ -19,32 +26,44 @@
     },
     {
       "name": "K7PL.MachineSoundness.rewrites_preserve_machine_typing",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "preservation of generated machine transitions"
     },
     {
       "name": "K7PL.MachineSoundness.end_to_end_preservation",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "end-to-end preservation over generated configurations"
     },
     {
       "name": "K7PL.Bridge.add_root_is_klean_rewrite",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "KLean bridge: addition root rule"
     },
     {
       "name": "K7PL.Bridge.less_than_root_is_klean_rewrite",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "KLean bridge: comparison root rule"
     },
     {
       "name": "K7PL.Bridge.select_true_root_is_klean_rewrite",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "KLean bridge: select true root rule"
     },
     {
       "name": "K7PL.Bridge.select_false_root_is_klean_rewrite",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "KLean bridge: select false root rule"
     },
     {
@@ -69,18 +88,114 @@
     },
     {
       "name": "K7PL.Example.root_add_klean_preserves_type",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "example-specific KLean preservation witness"
     },
     {
       "name": "K7PL.Example.nested_add_example_evaluates_to_six",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "nested-add execution witness"
     },
     {
       "name": "K7PL.Example.add_example_end_to_end",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "combined type-and-execution example witness"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uLin_subset_uAff",
+      "axioms": [],
+      "role": "usage interval inclusion: Lin to Aff"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uAff_subset_uUnr",
+      "axioms": [],
+      "role": "usage interval inclusion: Aff to Unr"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uLin_subset_uRel",
+      "axioms": [],
+      "role": "usage interval inclusion: Lin to Rel"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uRel_subset_uUnr",
+      "axioms": [],
+      "role": "usage interval inclusion: Rel to Unr"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uAff_uRel_incomparable",
+      "axioms": [],
+      "role": "usage interval incomparability: Aff and Rel"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.piU_scaleUsage",
+      "axioms": [],
+      "role": "usage projection of grade scaling"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.scaleUsage_preserves_nonUsage_coordinates",
+      "axioms": [],
+      "role": "grade scaling preserves non-usage coordinates"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.piU_scaleUsage_comp",
+      "axioms": [],
+      "role": "projection of composed grade scaling"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.consumeFinite_succeeds",
+      "axioms": [],
+      "role": "finite budget successful consumption"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.consumeFinite_conserves",
+      "axioms": [],
+      "role": "finite budget conservation"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.consumeFinite_rejects_overdraw",
+      "axioms": [],
+      "role": "finite budget overdraw rejection"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.mode_candidate_trans",
+      "axioms": [],
+      "role": "transitivity of structural mode inclusion candidate"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.lin_to_aff_candidate",
+      "axioms": [],
+      "role": "Lin to Aff inclusion candidate"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.aff_to_unr_candidate",
+      "axioms": [],
+      "role": "Aff to Unr inclusion candidate"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.lin_to_unr_candidate",
+      "axioms": [],
+      "role": "Lin to Unr inclusion candidate"
+    },
+    {
+      "name": "K7PL.Proofs.Structural.partition_exactly_one_owner",
+      "axioms": [],
+      "role": "finite disjoint partition membership"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.reuse_invalidates_previous_reference",
+      "axioms": [],
+      "role": "generation increment invalidates previous entity reference"
+    },
+    {
+      "name": "K7PL.Proofs.Metatheory.preservesInvariant",
+      "axioms": [],
+      "role": "finite multi-step invariant preservation"
     }
   ]
 }

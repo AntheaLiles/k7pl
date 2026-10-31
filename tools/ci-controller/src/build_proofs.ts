@@ -70,6 +70,28 @@ export const BRIDGE_NATIVE_DECLARATIONS = [
   "K7PL.NativeBoundary.unconfined_native_write_trace_replay",
 ] as const;
 
+/** Maintained domain-theory declarations; each must have a #print axioms record. */
+export const DOMAIN_THEOREMS = [
+  "K7PL.Proofs.Grades.uLin_subset_uAff",
+  "K7PL.Proofs.Grades.uAff_subset_uUnr",
+  "K7PL.Proofs.Grades.uLin_subset_uRel",
+  "K7PL.Proofs.Grades.uRel_subset_uUnr",
+  "K7PL.Proofs.Grades.uAff_uRel_incomparable",
+  "K7PL.Proofs.Grades.piU_scaleUsage",
+  "K7PL.Proofs.Grades.scaleUsage_preserves_nonUsage_coordinates",
+  "K7PL.Proofs.Grades.piU_scaleUsage_comp",
+  "K7PL.Proofs.Grades.consumeFinite_succeeds",
+  "K7PL.Proofs.Grades.consumeFinite_conserves",
+  "K7PL.Proofs.Grades.consumeFinite_rejects_overdraw",
+  "K7PL.Proofs.Grades.mode_candidate_trans",
+  "K7PL.Proofs.Grades.lin_to_aff_candidate",
+  "K7PL.Proofs.Grades.aff_to_unr_candidate",
+  "K7PL.Proofs.Grades.lin_to_unr_candidate",
+  "K7PL.Proofs.Structural.partition_exactly_one_owner",
+  "K7PL.Proofs.Memory.reuse_invalidates_previous_reference",
+  "K7PL.Proofs.Metatheory.preservesInvariant",
+] as const;
+
 /**
  * Structural audit of a captured build log. Returns error
  * strings in check order (sorryAx, then machine-soundness
@@ -92,6 +114,11 @@ export function checkBuildLog(text: string): string[] {
     }
   }
   for (const declaration of BRIDGE_NATIVE_DECLARATIONS) {
+    if (!hasAnyRecord(declaration)) {
+      errors.push(`Missing axiom audit for ${declaration}.`);
+    }
+  }
+  for (const declaration of DOMAIN_THEOREMS) {
     if (!hasAnyRecord(declaration)) {
       errors.push(`Missing axiom audit for ${declaration}.`);
     }
@@ -123,7 +150,7 @@ export async function runBuildProofs(
   options: RunBuildProofsOptions = {},
 ): Promise<BuildProofsResult> {
   const command = new Deno.Command("lake", {
-    args: ["build", "K7PL2Lean", "K7PL"],
+    args: ["build", "K7PL2Lean", "KLeanArchive", "K7PLProofs"],
     stdout: "piped",
     stderr: "piped",
     cwd: options.workingDir,
