@@ -14,7 +14,7 @@ Each item is an independently reviewable work package. Its model scope is a cand
 
 ### TLA-01 — Asynchronous session network and deadlock freedom
 
-**Status:** `model-drafted`; TLC execution is pending.  
+**Status:** `model-drafted`; the first TLC attempt reached the configuration parser but stopped before module/state exploration. The configuration encoding has been corrected and the rerun is pending.  
 **Specification:** C3 `ValueConstraints`, section `sec:c3-les-contraintes-de-valeur`, theorem `thm:deadlock_acyclique`; C4 `ActorScale`, `SystemScale`, `UnderlyingProcessCalculus` and `OperationalSemantics`.
 
 **Normative status and question.** `thm:deadlock_acyclique` is explicitly `under-review` with evidence `proofsketch`. Its premise (Sim) states that if actor `a` waits for a message from `b`, then `(a,b)` belongs to the static dependency graph. C3 leaves the relation between the static and dynamic graphs open and identifies `Guard`, send, consumption, residual mailbox/session states and `Timeout` as cases to cover. C4 describes a compile-time acyclic dependency graph between actor templates. Neither the theorem nor its proof sketch is treated as a checked result here.
@@ -35,7 +35,7 @@ Each item is an independently reviewable work package. Its model scope is a cand
 
 **Properties.** The configurations check `TypeOK`, endpoint duality, static acyclicity where applicable, (Sim), message conservation, mailbox ownership, state consistency and `NoMutualWaitDeadlock`. A raw internal wait cycle is distinct from a deadlock: `MutualWaitDeadlock` checks a cycle after removing edges whose source currently has an enabled timeout action. `ExternalWaiters` and `WaitingOnFailedActor` remain distinguishable from an internal cycle. `AllActorsTerminal` and `AllActorsQuiescent` separate successful termination from a state in which all actors are terminal or failed.
 
-**Configurations and expected checks (not yet executed):**
+**Configurations and expected checks (rerun pending after a configuration-parser failure):**
 
 | Configuration | Purpose | Expected outcome |
 |---|---|---|
@@ -46,6 +46,8 @@ Each item is an independently reviewable work package. Its model scope is a cand
 | `TLA01-Timeout.cfg` | External wait with timeout enabled and delivery disabled | Timeout failure path is included; this is not a termination guarantee |
 
 The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexample.json` and `TLA01-SimulationGap-ExpectedCounterexample.json`. CI must check the name of the expected failed invariant, not merely a non-zero process exit.
+
+**First TLC attempt (CI run 2391).** TLC 1.7.4 was fetched and its pinned digest verified. The nominal profile stopped with a `ConfigFileException` at configuration line 8: the parser expected `}` while reading the set-of-tuples assignment for `StaticDependencies`. This occurred before TLA module parsing and state exploration; it is not an invariant counterexample. The parameter was therefore re-encoded in all five configurations as an adjacency function `[Actors -> SUBSET Actors]`; `StaticDependencyEdges` reconstructs the corresponding ordered-pair relation inside TLA+. The new head's PR run is queued behind the preceding CI run.
 
 **Assumptions and bounds.** Actors are bounded to two or three; each actor receives at most one message and sends at most one message; messages are reliable, not duplicated and represented as a set of sender/receiver pairs. The set mailbox deliberately abstracts away multiplicity and order. Session duality is checked as an invariant over the configured one-step endpoint maps; it is not a full session-typing derivation. Send is asynchronous. Timeouts are nondeterministic actions, not a clock model; no `WF` or `SF` is imposed, so neither timeout occurrence nor eventual delivery is guaranteed. External delivery after a timeout has been omitted. The model omits multiple messages per channel, join patterns, branch selection, actor creation, scheduler interleavings inside a handler, physical queue memory ordering and real-time latency.
 
