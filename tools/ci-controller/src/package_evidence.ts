@@ -224,7 +224,15 @@ export async function packageEvidence(
     await copyItem(ws(`proofs/${name}`), art("proofs/"));
   }
   await copyItem(ws("proofs/axiom-audit-contract.json"), art("proofs/"));
-  for (const directory of ["Grades", "Structural", "Memory", "Metatheory", "archive"]) {
+  for (
+    const directory of [
+      "Grades",
+      "Structural",
+      "Memory",
+      "Metatheory",
+      "archive",
+    ]
+  ) {
     await copyItem(ws(`proofs/${directory}`), art("proofs/"));
   }
   for (

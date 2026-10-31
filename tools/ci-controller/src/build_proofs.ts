@@ -163,7 +163,9 @@ export async function runBuildProofs(
   }
   const errors: string[] = [];
   if (code !== 0) {
-    errors.push(`lake build K7PL2Lean KLeanArchive K7PLProofs exited with code ${code}`);
+    errors.push(
+      `lake build K7PL2Lean KLeanArchive K7PLProofs exited with code ${code}`,
+    );
   }
   errors.push(...checkBuildLog(log));
   return {

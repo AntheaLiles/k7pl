@@ -5,8 +5,8 @@
 import { assert, assertEquals, assertStringIncludes } from "./assert.ts";
 import {
   BRIDGE_NATIVE_DECLARATIONS,
-  DOMAIN_THEOREMS,
   checkBuildLog,
+  DOMAIN_THEOREMS,
   MACHINE_SOUNDNESS_THEOREMS,
   parseCliArgs,
 } from "../src/build_proofs.ts";
