@@ -5,76 +5,95 @@ SPDX-License-Identifier: CC0-1.0
 
 # K7PL TLA+ workstream checkpoint
 
-## Current state
+## Current repository state
 
-- Workstream: progressive TLA+ modelling of K7PL asynchronous and concurrent runtime protocols.
-- Canonical location: repository-root `models/`; no model subdirectories have been introduced.
-- Branch: `research/k7pl-tla-workplan-2026-10-31`.
-- TLA-01 source/configuration correction: `38650fca3598757818c382fcc94112175cb174e4`; subsequent commits on this branch update the work plan and evidence checkpoint.
+- Repository: `AntheaLiles/k7pl`.
+- Canonical model location: repository-root `models/`; no model subdirectories.
+- Work branch: `research/k7pl-tla-workplan-2026-10-31`.
+- Current source head: `cd06607aa67d7273825ea534b64e0f42c2f31830`.
 - Base: `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`.
-- Draft PR: [#318](https://github.com/AntheaLiles/k7pl/pull/318), base `main`, head `38650fc`; open, draft, not merged.
-- TLA-01 status: **`model-drafted`**. TLC has executed against the previous head, but the first nominal configuration failed in the TLC configuration parser before TLA module parsing or state exploration. No TLA-01 invariant result and no TLC-observed TLA-01 counterexample is claimed.
-- No normative specification theorem or K7PL semantics was changed or ratified by this work.
+- Comparison: 26 commits ahead of `main`, zero behind.
+- Draft PR: [#318](https://github.com/AntheaLiles/k7pl/pull/318), targeting `main`; open, draft, not merged.
+- Latest CI run for head `cd06607`: [run 41238524798](https://github.com/AntheaLiles/k7pl/actions/runs/41238524798), created and pending when this checkpoint was written.
+- Main remains unchanged. No normative Verso clause, theorem status or project decision has been ratified by these candidate models.
 
-## Implemented model and latest correction
+## Implemented scope
 
-The TLA-01 implementation commit is `e7b78b2b2e95aed238184733e3a6a57f9e8ab60f`. It adds:
+TLA-01..16 now have model sources in the single `models/` directory. The historical D01 and R9 models remain present with their original identifiers and existing checks.
 
-- `models/TLA01SessionNetwork.tla`;
-- five configurations: nominal asynchronous send/receive, circular wait, simulation gap, external wait and timeout;
-- two authored JSON expected-counterexample vectors;
-- model contract, scope, limitations and work-plan entries;
-- integration into the existing `D01, R9 and TLA-01 model checks` CI job and a `tla01-tlc-evidence` artifact.
+| Work item | Module | Configurations |
+|---|---|---|
+| TLA-01 | `TLA01SessionNetwork.tla` | 5 |
+| TLA-02 | `K7PLJoinPatterns.tla` | 2 |
+| TLA-03 | `K7PLScheduler.tla` | 2 |
+| TLA-04 | `K7PLActorLifecycle.tla` | 2 |
+| TLA-05 | `K7PLCancellation.tla` | 2 |
+| TLA-06 | `K7PLForeignBoundary.tla` | 3 |
+| TLA-07 | `K7PLMemoryCapabilities.tla` | 4 |
+| TLA-08 | `K7PLParallelExecution.tla` | 2 |
+| TLA-09 | `K7PLResourceAccounting.tla` | 3 |
+| TLA-10 | `K7PLTemporalScheduling.tla` | 2 |
+| TLA-11 | `K7PLTraceNoninterference.tla` | 2 |
+| TLA-12 | `K7PLReactivePipeline.tla` | 2 |
+| TLA-13 | `K7PLDeductiveJob.tla` | 2 |
+| TLA-14 | `K7PLNoiseSession.tla` | 2 |
+| TLA-15 | `K7PLReplicaConvergence.tla` | 2 |
+| TLA-16 | `K7PLSPSCQueue.tla` | 2 |
 
-The model treats `StaticDependencies` as an adjacency function and derives the ordered-pair relation `StaticDependencyEdges`. `WaitFor` is derived from blocked actors; (Sim) is checked rather than assumed. The mathematical edge direction remains `waiter -> expected sender`.
+The 15 newly added modules have 34 TLC configurations: 15 nominal/positive profiles and 19 negative controls. The aggregate `TLA02-16-ExpectedCounterexamples.json` records the intended unsafe transitions and expected invariant names. It is an authored test plan, **not observed TLC output**.
 
-The config-encoding correction is commit `38650fca3598757818c382fcc94112175cb174e4`. Before it, the nominal TLC configuration assigned `StaticDependencies = {<<ActorB, ActorA>>}`. TLC's config parser rejected this at line 8 with `ConfigFileException: expecting }, but did not find it`. The five configurations now encode finite adjacency functions, and the module constructs `StaticDependencyEdges` from those functions. The same correction is described in `WORK-PLAN.md`.
+## Conceptual composition
 
-The CI-only fixes in commit `970cf5bcd8547847d0dc4c2956b6bbdff99d6934` corrected:
-- a Deno test accessing `tla_model_check` outside `surfaces`;
-- missing REUSE metadata for the moved D01 JSON vector;
-- ShellCheck SC2094 in the evidence-manifest generation step.
+`MODEL-DEPENDENCIES.md` describes the intended conceptual relations:
+- TLA-01 supplies the finite actor/mailbox/wait-graph vocabulary.
+- TLA-02 adds multi-message join matching; G2 remains open.
+- TLA-03 isolates per-fibre scheduling and fairness.
+- TLA-04/05 model lifecycle, journal/replay, cancellation, commit and failure states.
+- TLA-06/07 model foreign capability transfer, aliasing, revocation, identity generations and region ownership.
+- TLA-08/09 model branch partial orders and abstract grade/resource accounting.
+- TLA-10/11 model temporal trigger/cost separation and paired low-observation checks.
+- TLA-12/13 model reactive publication and bounded deductive-job lifecycle.
+- TLA-14/15 are conditional handshake and grow-only-set replication profiles.
+- TLA-16 is an atomic abstract SPSC ring; concrete weak-memory refinement is not modelled.
 
-## CI evidence
+The models are independently bounded and are run together by one CI job. They do **not** form a single imported or composed transition system. Their dependencies are conceptual interfaces and proof obligations, not established simulation/refinement relations. A future integrated model requires an explicit typed state relation and transition/stuttering correspondence.
 
-- PR #318 was opened as a draft to activate the ordinary CI path.
-- First PR CI run on the prior head `ff76fa9` failed before TLC because of the Deno test, REUSE and SC2094 issues. The controller-shadow job also reported the known legacy/derived classifier divergence for the new TLA classification; this job is non-gating and the divergence remains visible.
-- CI run [#2391](https://github.com/AntheaLiles/k7pl/actions/runs/41235562330), head `970cf5b`: Impact analysis, Deno checks, REUSE, actionlint, commitlint, security checks, Python tests, quick checks, Lean implementation build and the separate D01 model-check job passed. Controller shadow reported the known non-gating divergence.
-- The pinned TLC artifact was downloaded by GitHub Actions and its SHA-256/SHA-1 checks completed successfully. TLC reports `TLC2 Version 2.19` internally.
-- Existing R9 and D01 positive checks and their negative controls passed in the run's `D01, R9 and TLA-01 model checks` job. The TLA-01 nominal/environment step then stopped at the old configuration encoding described above. The two planned TLA-01 negative profiles were skipped; they have not been checked.
-- Evidence artifact `tla01-tlc-evidence`, artifact ID `13055089416`, SHA-256 `d18f946f8d4dd8bf85f43f0e3eec6ce75f2d27a3d67f16fe7b8069f5a5410333`, contains the old source/configuration and `acyclic-nominal.log` recording the parser failure. It is diagnostic evidence, not a successful TLA-01 result.
-- The initial run triggered on the corrected source head was superseded and cancelled when a later documentation commit updated the same PR. The latest-head PR CI run remains queued behind the older same-PR CI run, which is still executing its K compilation. `.github/workflows/ci.yaml` serialises CI by workflow/ref with `cancel-in-progress: false`; no TLA-01 TLC job has started on the corrected adjacency-function encoding yet.
-- The latest TLA-01 source/configuration remains unverified by TLC until that queued run starts and its evidence is inspected.
+## CI integration
 
-## Normative and correspondence findings
+The existing `D01, R9 and TLA-01` TLC job was expanded and renamed to `D01, R9 and TLA-01..16 model checks`. Its timeout is 20 minutes. It runs:
+- D01 and R9 checks, preserved;
+- the five TLA-01 configurations, with expected invariant-name checks for its two negative profiles;
+- 15 positive TLA-02..16 profiles;
+- 19 TLA-02..16 negative profiles, each requiring its designated invariant name;
+- separate evidence artefacts `tla01-tlc-evidence` and `tla-models-evidence`, with source/configuration copies, expected vectors, Java version, pinned TLC digest, logs and a checksum manifest.
 
-- C3 `thm:deadlock_acyclique` remains `under-review` with evidence `proofsketch`; this work does not promote it to a checked theorem.
-- The relation between static and dynamic dependency graphs remains open for `Guard`, `Send`, message consumption, residual protocol states and `Timeout`.
-- C4's compile-time actor-template graph has not been linked by a complete typed relation to the C3 dynamic wait graph.
-- The model's edge orientation `waiter -> expected sender` still requires confirmation against the normative graph construction.
-- The maintained K prototype described in `wiki/semantics.md` does not yet implement the normative actor/session semantics. No K/TLA+ or Lean/TLA+ simulation is asserted.
-- The JSON vectors remain authored expected witnesses until TLC emits and their contents are compared against actual traces.
+The TLA-02..16 execution step uses `if: always()` so that a TLA-01 failure does not prevent later candidate models from running and producing diagnostics. The job is selected by the `tla_model_check` impact surface; the `models/` root is already classified accordingly.
 
-## Bounds, assumptions and omissions
+## Verification status — important limitation
 
-- Actor cardinality is two or three; cycle detection is exact only for this bound.
-- Each actor receives at most one message and sends at most one message. Mailboxes are sets of sender/receiver pairs, not the normative K multiset in full generality.
-- Sends are asynchronous; a sender does not wait for recipient readiness. A receive blocks only while its expected message is absent.
-- Endpoint duality is checked for configured one-step protocol maps, not for general session typing.
-- External delivery and timeout are explicit actions. Timeout is nondeterministic and changes an actor to `Failed`, not `Terminal`. Late external delivery after timeout is omitted.
-- No `WF` or `SF` is assumed. No starvation-freedom, eventual delivery, eventual timeout, global progress or eventual termination claim is made.
-- Multiple messages, multiplicity/order, join matching, branches, actor creation, scheduler interleavings, weak memory and physical time are omitted.
+**No TLA-02..16 module has yet been parsed or model-checked by TLC in CI.** The current source head's run 41238524798 was pending when recorded. Do not describe the candidate suite as green or bounded-model-checked.
 
-## Open points
+The earlier CI run [#2391](https://github.com/AntheaLiles/k7pl/actions/runs/41235562330), on head `970cf5b`, established:
+- Deno, REUSE, actionlint, commitlint, completed security checks, Python tests, quick checks and the Lean implementation build passed after CI-only corrections;
+- historical D01 positive and negative TLC checks passed;
+- historical R9 positive and negative TLC checks passed;
+- TLA-01 reached TLC 1.7.4 but failed in the old configuration parser at the tuple-set assignment for `StaticDependencies`, before module parsing or state exploration.
 
-1. Inspect the latest PR run and verify that SANY/TLC parse the updated module and all five configurations.
-2. Require the three positive/environment profiles to complete without invariant violations.
-3. Require the circular-wait profile to fail specifically on `NoMutualWaitDeadlock` and the simulation-gap profile to fail specifically on `Simulation`.
-4. Compare the TLC-observed traces to both JSON vectors; retain actual logs and hashes.
-5. Define the K-side object corresponding to a dependency edge and prove the rule-level mapping from `Guard`/mailbox typing to a dynamic wait edge.
-6. Confirm graph-edge orientation and whether one mailbox may have multiple candidate senders.
-7. Do not infer timeout progress or late-message semantics from this bounded model.
+TLA-01 was corrected to encode `StaticDependencies` as a finite adjacency function `[Actors -> SUBSET Actors]`, with `StaticDependencyEdges` reconstructed in TLA+. That correction has not yet been validated by the latest-head run.
+
+The pinned tool download and digest checks succeeded in run #2391. The `tla01-tlc-evidence` artefact from that run is diagnostic evidence for the previous parser failure, not a successful TLA-01 result. No TLA-01 expected JSON counterexample has yet been observed from TLC.
+
+The controller-shadow job has reported the previously documented, intentional legacy/derived classifier differences for TLA model paths. It is non-gating and remains visible; it is not a TLA property result.
+
+## Epistemic and normative status
+
+- TLA-01 remains `model-drafted`. C3 `thm:deadlock_acyclique` remains `under-review` with evidence `proofsketch`.
+- TLA-02..13 and TLA-16 are candidate models; all TLC runs are pending.
+- TLA-14 and TLA-15 are executable conditional profiles, not adopted K7PL requirements.
+- G2 matching policy, G3 fairness, G4 mailbox/timeout semantics, G5 cancellation linearisation, G6 revocation, G7 identity/lifetime, G8 observer/timing semantics, G9 budget units, G10 time model, G11 weak-memory target, G12 distribution semantics and G13 protocol adoption remain open as applicable.
+- No K/TLA+ or Lean/TLA+ correspondence is asserted. The current K prototype does not implement the normative actor/session semantics.
+- TLC results, when available, will apply only to the exact finite models, constants, assumptions, configurations and tool version run. They do not prove unbounded K7PL semantics or physical runtime performance/isolation.
 
 ## Next action
 
-Inspect CI run #2392 (or its replacement if a newer docs-only checkpoint commit supersedes it). Correct further model or syntax defects using TLC output, and do not advance the TLA-01 work-plan status before the named profiles and actual counterexamples have been observed. TLA-02 remains gated on TLA-01's bounded checks and must treat G2 matching choices as exploratory candidates, not normative decisions.
+Inspect CI run 41238524798 and both TLA artefacts. Fix parser/model/property/CI defects from the actual output. Compare all actual counterexample traces against the authored JSON witnesses. Keep model statuses unchanged until the named configurations complete and the expected invariant names are observed. Only then decide whether to refine any cross-model interfaces or advance the work-plan statuses.

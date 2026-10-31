@@ -137,11 +137,11 @@ The artefact must not be called a proof unless the verification method is a proo
 ## 7. CI rollout
 
 1. Preserve the existing D01 and R9 checks while moving their working directory to repository-root `models/`.
-2. TLA-01 is now parsed and checked through the existing `r9-tlc` job when `tla_model_check` is selected; a separate syntax-only tier is deferred.
+2. TLA-01 is wired into the existing `r9-tlc` job when `tla_model_check` is selected. The first TLC attempt on the previous source revision failed in `.cfg` parsing; the adjacency-function correction is present, but the latest-head run is pending and no corrected TLA-01 result is claimed.
 3. TLA-02..16 candidate modules and finite profiles are now present and routed through the same TLC suite; their runs remain pending. The TLA-02 selection policy is exploratory only, and G2 is not ratified.
 4. TLA-03 fairness applies only in its explicit fair profile; it is not a normative scheduler guarantee. TLA-14/15 remain conditional, and TLA-16 remains an atomic abstract queue.
 5. Model-selection/artifact coverage is grouped by the TLA workstream directory; any model/config/vector change triggers the suite. A future shared imported module must also trigger every dependent model.
 6. Add Apalache only after a representative model demonstrates a concrete need.
 7. Add cross-formalism evidence only after an explicit K/TLA or Lean/TLA relation exists.
 
-The relocation changes paths and working directories only; it does not add properties, alter TLC versions or change the epistemic status of existing results.
+The expanded suite adds candidate models and finite configurations without changing normative K7PL text. The current head has not yet passed TLC; the previous TLA-01 parser failure is recorded in `CHECKPOINT.md`. The suite result must be reviewed before any model status advances.
