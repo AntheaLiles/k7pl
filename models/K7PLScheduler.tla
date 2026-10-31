@@ -11,29 +11,31 @@ ASSUME
     /\ AllowStarvation \in BOOLEAN
     /\ AllowSuspend \in BOOLEAN
     /\ AllowTerminate \in BOOLEAN
-VARIABLES fibreStatus, pc, served, stalled
-vars == <<fibreStatus, pc, served, stalled>>
+VARIABLES fibreStatus, pc, served, stalled, terminatedAtPc
+vars == <<fibreStatus, pc, served, stalled, terminatedAtPc>>
 Init ==
     /\ fibreStatus = [f \in Fibres |-> "Ready"]
     /\ pc = [f \in Fibres |-> 0]
     /\ served = {}
     /\ stalled = FALSE
+    /\ terminatedAtPc = [f \in Fibres |-> 0]
 TypeOK ==
     /\ fibreStatus \in [Fibres -> {"Ready", "Waiting", "Terminated"}]
     /\ pc \in [Fibres -> {0, 1}]
     /\ served \subseteq Fibres
     /\ stalled \in BOOLEAN
+    /\ terminatedAtPc \in [Fibres -> {0, 1}]
 RunStep(f) ==
     /\ fibreStatus[f] = "Ready"
     /\ ~stalled
     /\ pc' = [pc EXCEPT ![f] = 1 - @]
     /\ served' = served \cup {f}
-    /\ UNCHANGED <<fibreStatus, stalled>>
+    /\ UNCHANGED <<fibreStatus, stalled, terminatedAtPc>>
 Suspend(f) ==
     /\ AllowSuspend
     /\ fibreStatus[f] = "Ready"
     /\ fibreStatus' = [fibreStatus EXCEPT ![f] = "Waiting"]
-    /\ UNCHANGED <<pc, served, stalled>>
+    /\ UNCHANGED <<pc, served, stalled, terminatedAtPc>>
 Wake(f) ==
     /\ fibreStatus[f] = "Waiting"
     /\ fibreStatus' = [fibreStatus EXCEPT ![f] = "Ready"]
@@ -47,7 +49,7 @@ StallScheduler ==
     /\ AllowStarvation
     /\ ~stalled
     /\ stalled' = TRUE
-    /\ UNCHANGED <<fibreStatus, pc, served>>
+    /\ UNCHANGED <<fibreStatus, pc, served, terminatedAtPc>>
 Next ==
     \/ \E f \in Fibres : RunStep(f)
     \/ \E f \in Fibres : Suspend(f)
@@ -61,6 +63,6 @@ Fairness ==
 Spec == Init /\ [][Next]_vars /\ Fairness
 NoStall == ~stalled
 NoTerminatedFibreExecutes ==
-    \A f \in Fibres : fibreStatus[f] = "Terminated" => f \notin served \/ pc[f] \in {0, 1}
+    \A f \in Fibres : fibreStatus[f] = "Terminated" => pc[f] = terminatedAtPc[f]
 EventuallyEachServed == \A f \in Fibres : <> (f \in served)
 =============================================================================

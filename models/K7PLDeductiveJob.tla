@@ -26,7 +26,7 @@ TypeOK ==
     /\ delta \subseteq Facts
     /\ budgetRemaining \in Nat
     /\ iterations \in Nat
-    /\ status \in {"Ready", "Running", "Saturated", "Refused"}
+    /\ status \in {"Ready", "Running", "Saturated", "Refused", "Cancelled", "Failed"}
     /\ published \in BOOLEAN
     /\ publishedFacts \subseteq Facts
 StartJob ==
@@ -49,6 +49,16 @@ MarkSaturated ==
     /\ delta = {}
     /\ status' = "Saturated"
     /\ UNCHANGED <<known, delta, budgetRemaining, iterations, published, publishedFacts>>
+
+CancelJob ==
+    /\ status \in {"Ready", "Running"}
+    /\ status' = "Cancelled"
+    /\ UNCHANGED <<known, delta, budgetRemaining, iterations, published, publishedFacts>>
+
+FailJob ==
+    /\ status \in {"Ready", "Running"}
+    /\ status' = "Failed"
+    /\ UNCHANGED <<known, delta, budgetRemaining, iterations, published, publishedFacts>>
 RefuseOnBudget ==
     /\ status = "Running"
     /\ delta # {}
@@ -66,4 +76,6 @@ Spec == Init /\ [][Next]_vars
 PublishedImpliesSaturated == published => status = "Saturated"
 PublishedResultIsKnown == published => publishedFacts \subseteq known
 SaturatedMeansClosed == status = "Saturated" => Derived(known) \subseteq known
+CancelledNotPublished == status = "Cancelled" => ~published
+FailedNotPublished == status = "Failed" => ~published
 =============================================================================

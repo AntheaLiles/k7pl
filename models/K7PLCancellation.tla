@@ -45,12 +45,14 @@ AcceptRequest ==
                    timedOut, commitCount, retrySeen>>
 RequestCancellation ==
     /\ accepted
+    /\ serviceState = "Accepted"
     /\ ~cancelRequested
     /\ cancelRequested' = TRUE
     /\ UNCHANGED <<requestSent, accepted, cancelAcknowledged, committed,
                    timedOut, serviceState, commitCount, retrySeen>>
 AcknowledgeCancellation ==
     /\ cancelRequested
+    /\ serviceState = "Accepted"
     /\ ~cancelAcknowledged
     /\ ~committed
     /\ cancelAcknowledged' = TRUE
@@ -59,6 +61,7 @@ AcknowledgeCancellation ==
                    timedOut, commitCount, retrySeen>>
 CommitEffect ==
     /\ accepted
+    /\ serviceState = "Accepted"
     /\ ~committed
     /\ (~cancelAcknowledged \/ UnsafePostAckCommit)
     /\ committed' = TRUE
@@ -66,6 +69,12 @@ CommitEffect ==
     /\ serviceState' = "Committed"
     /\ UNCHANGED <<requestSent, accepted, cancelRequested, cancelAcknowledged,
                    timedOut, retrySeen>>
+FailService ==
+    /\ accepted
+    /\ serviceState = "Accepted"
+    /\ serviceState' = "Failed"
+    /\ UNCHANGED <<requestSent, accepted, cancelRequested, cancelAcknowledged,
+                   committed, timedOut, commitCount, retrySeen>>
 RetryRequest ==
     /\ requestSent
     /\ ~retrySeen
@@ -84,6 +93,7 @@ Next ==
     \/ RequestCancellation
     \/ AcknowledgeCancellation
     \/ CommitEffect
+    \/ FailService
     \/ RetryRequest
     \/ TimeoutRequest
 Spec == Init /\ [][Next]_vars

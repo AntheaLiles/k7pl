@@ -22,10 +22,10 @@ ASSUME
 VARIABLES
     generation, activeSlots, staleGenerations,
     validCapabilities, revokedCapabilities, capabilityGeneration,
-    owners, unauthorizedAccesses
+    owners, writtenCells, unauthorizedAccesses
 vars == <<generation, activeSlots, staleGenerations,
           validCapabilities, revokedCapabilities, capabilityGeneration,
-          owners, unauthorizedAccesses>>
+          owners, writtenCells, unauthorizedAccesses>>
 Init ==
     /\ generation = [s \in Slots |-> 0]
     /\ activeSlots = {}
@@ -34,6 +34,7 @@ Init ==
     /\ revokedCapabilities = {}
     /\ capabilityGeneration = [c \in Capabilities |-> 0]
     /\ owners = OwnerOf
+    /\ writtenCells = {}
     /\ unauthorizedAccesses = 0
 TypeOK ==
     /\ generation \in [Slots -> Generations]
@@ -43,12 +44,13 @@ TypeOK ==
     /\ revokedCapabilities \subseteq Capabilities
     /\ capabilityGeneration \in [Capabilities -> Generations]
     /\ owners \in [Capabilities -> {"FibreA", "FibreB"}]
+    /\ writtenCells \subseteq (Capabilities \X Cells)
     /\ unauthorizedAccesses \in Nat
 Allocate(s) ==
     /\ s \in Slots \ activeSlots
     /\ activeSlots' = activeSlots \cup {s}
     /\ UNCHANGED <<generation, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, owners, unauthorizedAccesses>>
+                   revokedCapabilities, capabilityGeneration, owners, writtenCells, unauthorizedAccesses>>
 Destroy(s) ==
     /\ s \in activeSlots
     /\ activeSlots' = activeSlots \ {s}
@@ -99,7 +101,7 @@ StaleAccess(c) ==
     /\ c \in revokedCapabilities
     /\ unauthorizedAccesses' = unauthorizedAccesses + 1
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, owners>>
+                   revokedCapabilities, capabilityGeneration, owners, writtenCells>>
 Next ==
     \/ \E s \in Slots : Allocate(s)
     \/ \E s \in Slots : Destroy(s)
@@ -107,7 +109,8 @@ Next ==
     \/ \E c \in Capabilities : GrantCapability(c)
     \/ \E c \in Capabilities : RevokeCapability(c)
     \/ \E c \in Capabilities : RestoreRevokedCapability(c)
-    \/ \E c \in Capabilities, cell \in Cells : WriteCell(c, cell)
+    \/ \E c \in Capabilities, recipient \in {"FibreA", "FibreB"} : TransferCapability(c, recipient)
+    \/ \E c \in Capabilities, cell \in Cells, fibre \in {"FibreA", "FibreB"} : WriteCell(c, cell, fibre)
     \/ \E c \in Capabilities : StaleAccess(c)
 Spec == Init /\ [][Next]_vars
 NoStaleEntityAlias ==
