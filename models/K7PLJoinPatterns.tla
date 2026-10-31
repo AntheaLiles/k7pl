@@ -10,7 +10,7 @@ ASSUME
     /\ RightMessages \subseteq Messages
     /\ LeftMessages \cap RightMessages = {}
     /\ KeyOf \in [Messages -> Nat]
-    /\ Rank \in [Messages -> Nat]
+    /\ Rank \in [Messages -> 1..Cardinality(Messages)]
     /\ \A m, n \in Messages : Rank[m] = Rank[n] => m = n
     /\ InitiallyAvailable \subseteq Messages
     /\ InitiallyAvailable \cap LeftMessages # {}

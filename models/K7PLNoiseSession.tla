@@ -22,48 +22,56 @@ TypeOK ==
     /\ closed \in BOOLEAN
     /\ failed \in BOOLEAN
 SendClientHello ==
+    /\ ~failed
     /\ clientPhase = 0
     /\ ~closed
     /\ sent' = sent \cup {"ClientHello"}
     /\ clientPhase' = 1
     /\ UNCHANGED <<serverPhase, accepted, closed, failed>>
 AcceptClientHello ==
+    /\ ~failed
     /\ serverPhase = 0
     /\ "ClientHello" \in sent
     /\ accepted' = accepted \cup {"ClientHello"}
     /\ serverPhase' = 1
     /\ UNCHANGED <<clientPhase, sent, closed, failed>>
 SendServerHello ==
+    /\ ~failed
     /\ serverPhase = 1
     /\ "ClientHello" \in accepted
     /\ sent' = sent \cup {"ServerHello"}
     /\ serverPhase' = 2
     /\ UNCHANGED <<clientPhase, accepted, closed, failed>>
 AcceptServerHello ==
+    /\ ~failed
     /\ clientPhase = 1
     /\ "ServerHello" \in sent
     /\ accepted' = accepted \cup {"ServerHello"}
     /\ clientPhase' = 2
     /\ UNCHANGED <<serverPhase, sent, closed, failed>>
 SendClientFinish ==
+    /\ ~failed
     /\ clientPhase = 2
     /\ "ServerHello" \in accepted
     /\ sent' = sent \cup {"ClientFinish"}
     /\ clientPhase' = 3
     /\ UNCHANGED <<serverPhase, accepted, closed, failed>>
 AcceptClientFinish ==
+    /\ ~failed
     /\ serverPhase = 2
     /\ "ClientFinish" \in sent
     /\ accepted' = accepted \cup {"ClientFinish"}
     /\ serverPhase' = 3
     /\ UNCHANGED <<clientPhase, sent, closed, failed>>
 SendServerFinish ==
+    /\ ~failed
     /\ serverPhase = 3
     /\ "ClientFinish" \in accepted
     /\ sent' = sent \cup {"ServerFinish"}
     /\ serverPhase' = 4
     /\ UNCHANGED <<clientPhase, accepted, closed, failed>>
 AcceptServerFinish ==
+    /\ ~failed
     /\ clientPhase = 3
     /\ serverPhase = 4
     /\ "ServerFinish" \in sent
@@ -72,6 +80,7 @@ AcceptServerFinish ==
     /\ closed' = TRUE
     /\ UNCHANGED <<serverPhase, sent, failed>>
 UnsafeSkipAccept ==
+    /\ ~failed
     /\ UnsafeSkipMessage
     /\ serverPhase = 2
     /\ "ClientFinish" \notin accepted
