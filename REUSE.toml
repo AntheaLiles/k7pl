@@ -27,7 +27,8 @@ path = [
   "models/TLA01-CircularWait-ExpectedCounterexample.json",
   "models/TLA01-SimulationGap-ExpectedCounterexample.json",
   "models/D01-NativeBoundary-ExpectedCounterexample.json",
-  "models/TLA02-16-ExpectedCounterexamples.json"
+  "models/TLA02-16-ExpectedCounterexamples.json",
+  "models/TLC-PROFILES.json"
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 Cyprien PIERRE"

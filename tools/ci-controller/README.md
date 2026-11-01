@@ -5,8 +5,10 @@ SPDX-License-Identifier: CECILL-2.1
 
 # K7PL CI controller
 
-TypeScript tooling for the K7PL CI, running under Deno. The controller is
-integrated in selected CI checks while the broader migration remains staged.
+TypeScript tooling for the K7PL CI, running under Deno. The derived Deno
+classifier is the blocking decision source for all thirteen validation
+surfaces; the Python and legacy Deno classifiers remain non-blocking
+comparison references.
 
 ## Current workflow integration
 
@@ -68,34 +70,30 @@ fail-closed rule (an unknown path forces full validation). It writes the
 surfaces to `GITHUB_OUTPUT` when that variable is set, in the same key order as
 the Python classifier.
 
-D2 slice 1 (descriptive only): `.github/ci/components.yaml` now also declares,
-per component, `impact_surfaces` and, where applicable, `read_inputs` (the
-former "read by another surface" rules). `validate-registry` checks them (known
-surface vocabulary, non-empty, no duplicates, read inputs existing on disk). The
-classifier does **not** read them yet: it still uses its own tables, and the new
-surface names (`axiom_audit`, `k_compile`, `k_examples`, `klean_export`,
-`tla_model_check`) are derivation targets, not outputs. Deriving the classifier
-from the registry is the next D2 slice, in shadow first, with a parity test —
-and with the deduplication refactor for `axiom_audit`, so the same audit is
-never run twice under two names.
+## Registry-derived classification
 
-D2 slice 2 (shadow only): `src/derived.ts` derives surfaces from the registry —
-roots (respecting excludes) plus read inputs, with Markdown → `docs_links` and
-fail-closed unknown → `full` as the only classifier-resident rules.
-`classify --derived` prints a derived classification;
-`classify --derived-shadow` compares derived with legacy per path (aggregate
-comparison alone would hide divergences that cancel out) and exits 1 on any
-legacy-surface divergence. The shadow compares the shared eight-surface
-projection. Paths under `models/` are claimed by both classifiers without
-forcing `full`; the derived registry additionally emits the dedicated
-`tla_model_check` gate. Remaining divergences are migration gaps such as
-`proofs/`, `src/k/`, and non-Markdown wiki/theoretical files. A read input may
-restrict its surfaces (`src/` triggers `spec_check` only for the specification
-component); the implementation component now excludes `tests/python/` so Python
-tests do not over-trigger `lean_build`. Cutover requires dispositioning every
-divergence kind, the `axiom_audit` deduplication refactor, and a
-coverage-preservation proof for the K/TLA surfaces — none of that is in this
-slice, and the legacy classifier remains the only gating one.
+The blocking impact job reads `.github/ci/components.yaml` through
+`src/derived.ts` and `src/derived_event.ts`; the derived classifier decides
+all thirteen validation surfaces. Component roots, exclusions and
+`read_inputs` define path-to-surface routing. The Markdown `docs_links` rule,
+light/full path rules and fail-closed unknown-path rule remain
+classifier-resident because they are not component ownership rules.
+
+`classify --derived` prints the registry-derived classification.
+`classify --derived-shadow` compares it with the legacy Deno projection
+per path; `classify --shadow` compares the legacy Deno and Python
+implementations. Both comparisons run in `controller-shadow`, which is
+explicitly non-blocking. Neither legacy implementation decides the CI result.
+
+The `tla-models` component owns `models/`. Its finite execution inventory is
+`models/TLC-PROFILES.json`; the Deno runner validates exact coverage of every
+TLA configuration and model module before invoking TLC. Changes to the runner,
+its tests and its Deno task manifest are declared as `read_inputs` of the
+component, so the model-check gate also exercises its orchestration code.
+
+The derived classifier is therefore authoritative. Further cleanup of the
+legacy Python and Deno projections is a separate migration decision and must
+preserve the fail-closed handling of unknown paths.
 
 ## Shadow mode
 
@@ -115,27 +113,16 @@ a proof claim for `lean-proof-build`), malformed digest, or any claim on a
 failed stage are all rejected. A record is a checkable claim about a stage, not
 a proof in itself.
 
-## Remaining classifier cutover criteria
+## Remaining legacy retirement work
 
-The Deno test, check, lint and format tasks now run in the blocking `impact`
-job. Event routing for the impact classifier is also implemented in
-`src/impact_event.ts`; it preserves the existing Python classifier as the source
-of truth while replacing the shell wrapper in the workflow. The legacy
-`scripts/ci/ci_impact.sh` remains for compatibility and its regression tests.
-The migration is still staged: the Deno/Python comparison stays report-only
-until parity evidence is reviewed.
+The derived Deno classifier is already the blocking decision source for all
+thirteen surfaces. Python and the older Deno classifier remain in
+`controller-shadow` as comparison references; they are not gates and must
+not be described as sources of truth. The shell entry point remains for
+compatibility and its regression tests.
 
-Before switching the authoritative impact-classifier call away from Python:
-
-1. The blocking Deno quality tasks must pass in a complete CI cycle.
-2. `validate-registry` must pass against the repository tree.
-3. Shadow mode must agree on the current base/head and representative historical
-   ranges (documentation-only, specification-only, Lean-only, CI-only, and
-   unknown paths); any divergence must be explained and resolved rather than
-   hidden by aggregate surface equality.
-4. The registry, evidence schema, and parity results must have been reviewed,
-   including the owner decisions recorded in the slice-1 report.
-5. Only a separate, explicit cutover change may make the Deno classifier
-   authoritative and move the parity job into the blocking gate. Keep the Python
-   reference and shell entry points in the repository until that change has
-   passed a complete green CI cycle.
+Before removing any legacy reference, retain per-path parity evidence across
+representative historical ranges (documentation-only, specification-only,
+Lean-only, CI-only and unknown paths), explain every divergence, and preserve
+the fail-closed unknown-path behaviour. Do not silently convert an intended
+shadow divergence into an assumption of equivalence.
