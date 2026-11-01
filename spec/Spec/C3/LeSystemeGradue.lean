@@ -278,6 +278,15 @@ condition de bord (la substitution est admissible pour la liaison _maximale_ de 
 condition qui n'est pas un défaut mais le contenu même de la restriction : on ne consomme pas le
 second message d'une session avant le premier.
 
+Écrit une fois, le cas tient en un exemple. Une session envoie un entier, puis un booléen : la zone
+du canal porte deux liaisons, celle du premier envoi et celle du second, dans leur ordre
+d'occurrence. La condition de bord ne laisse substituer que la liaison maximale, celle que la
+réduction atteint, c'est-à-dire le pas que le protocole attend. Permuter les deux liaisons
+consommerait le booléen avant l'entier, et la zone refuse cette permutation ; les contracter
+fusionnerait les deux pas en un seul, ce que le mode de la zone refuse de même, son idéal de
+contraction étant $`\{0\}`. L'ordre du protocole est donc porté par la représentation du contexte,
+non par une règle ajoutée au jeu.
+
 Cette condition doit alors être acquittée aux trois endroits où ce lemme sert, et les trois verdicts
 diffèrent. La _préservation_ la satisfait sans hypothèse : un rédex substitue toujours dans la
 liaison la plus récemment introduite, et l'ordre d'une zone suivant l'ordre d'introduction, cette
