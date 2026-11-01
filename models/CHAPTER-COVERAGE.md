@@ -50,7 +50,7 @@ The existence and termination of a least fixed point, monotonicity, grade algebr
 | `spec/Spec/C3/LesContraintesDeValeur.lean` — `thm:deadlock_acyclique` | Relate static dependencies to dynamic waits, including `Guard`, message send/consume, residual mailbox types and `Timeout` | TLA-01 | TLC counterexamples and finite models; Lean for general proof |
 | `spec/Spec/C3/LesContraintesDeValeur.lean` — session communication | Type-correct asynchronous protocols and residual states | TLA-01 | TLA+ / TLC for reachable executions; Lean for duality and typing |
 | `spec/Spec/C3/LeSystemeGradue.lean` | Linear write capabilities, concurrent readers/writers and fractional grades | TLA-07, TLA-09 | TLA+ finite resource protocols; Lean for static grade guarantees |
-| `spec/Spec/C3/GrammaireDesTermes.lean` and `TypingRules` | Parallel composition, `wait`, `when`, `at`, grades and effects | TLA-03, TLA-08, TLA-09, TLA-10 | TLA+ for runtime behaviour; Lean for typing/effect laws |
+| `spec/Spec/C3/GrammaireDesTermes.lean` and `spec/Spec/C3/ReglesDeTypage.lean` | Parallel composition, `wait`, `when`, `at`, grades and effects | TLA-03, TLA-08, TLA-09, TLA-10 | TLA+ for runtime behaviour; Lean for typing/effect laws |
 | `spec/Spec/C3/StructuresOuvertesEffetsEtMetaTheorie.lean` | Pure handlers and journal inputs | TLA-04, TLA-11 | TLA+ for replay/observation scenarios; Lean for functional correctness |
 
 TLA+ must not become a duplicate type checker. Protocol duality, grade algebra, subtyping and static derivability stay in the static formalisation and proof layer. TLC should challenge the behavioural conclusions that are not implied by endpoint typing alone.
