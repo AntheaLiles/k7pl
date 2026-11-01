@@ -328,8 +328,11 @@ jobs:
           if [ ! -f "$evidence/tla2tools.jar.sha256" ]; then
             sha256sum "$RUNNER_TEMP/tla2tools.jar" >"$evidence/tla2tools.jar.sha256"
           fi
+          checksum_manifest="$RUNNER_TEMP/tla-model-check-SHA256SUMS"
+          rm -f "$checksum_manifest"
           cd "$evidence"
-          find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 -r sha256sum > SHA256SUMS
+          find . -type f -print0 | sort -z | xargs -0 -r sha256sum > "$checksum_manifest"
+          mv "$checksum_manifest" SHA256SUMS
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()

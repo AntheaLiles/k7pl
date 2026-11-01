@@ -6,9 +6,9 @@ SPDX-License-Identifier: CECILL-2.1
 # K7PL CI controller
 
 TypeScript tooling for the K7PL CI, running under Deno. The derived Deno
-classifier is the blocking decision source for all thirteen validation
-surfaces; the Python and legacy Deno classifiers remain non-blocking
-comparison references.
+classifier is the blocking decision source for all thirteen validation surfaces;
+the Python and legacy Deno classifiers remain non-blocking comparison
+references.
 
 ## Current workflow integration
 
@@ -50,7 +50,7 @@ each command; do not run the controller with `-A`.
 | `classify --shadow`            | As above, plus `--allow-run=python3` (legacy classifier) and `--allow-write` for its temporary `GITHUB_OUTPUT` file                    |
 | `validate-registry`            | `--allow-read`                                                                                                                         |
 | `validate-evidence`            | `--allow-read`                                                                                                                         |
-| TLC profile runner              | `--allow-read --allow-write --allow-run=java,sha256sum`                                                                                |
+| TLC profile runner             | `--allow-read --allow-write --allow-run=java,sha256sum`                                                                                |
 | `deno test` (this directory)   | `--allow-read --allow-run --allow-env --allow-write` (tests create temporary git repositories and temporary output files)              |
 
 Examples:
@@ -74,17 +74,17 @@ the Python classifier.
 ## Registry-derived classification
 
 The blocking impact job reads `.github/ci/components.yaml` through
-`src/derived.ts` and `src/derived_event.ts`; the derived classifier decides
-all thirteen validation surfaces. Component roots, exclusions and
-`read_inputs` define path-to-surface routing. The Markdown `docs_links` rule,
-light/full path rules and fail-closed unknown-path rule remain
-classifier-resident because they are not component ownership rules.
+`src/derived.ts` and `src/derived_event.ts`; the derived classifier decides all
+thirteen validation surfaces. Component roots, exclusions and `read_inputs`
+define path-to-surface routing. The Markdown `docs_links` rule, light/full path
+rules and fail-closed unknown-path rule remain classifier-resident because they
+are not component ownership rules.
 
 `classify --derived` prints the registry-derived classification.
-`classify --derived-shadow` compares it with the legacy Deno projection
-per path; `classify --shadow` compares the legacy Deno and Python
-implementations. Both comparisons run in `controller-shadow`, which is
-explicitly non-blocking. Neither legacy implementation decides the CI result.
+`classify --derived-shadow` compares it with the legacy Deno projection per
+path; `classify --shadow` compares the legacy Deno and Python implementations.
+Both comparisons run in `controller-shadow`, which is explicitly non-blocking.
+Neither legacy implementation decides the CI result.
 
 The `tla-models` component owns `models/`. Its finite execution inventory is
 `models/TLC-PROFILES.json`; the Deno runner validates exact coverage of every
@@ -92,9 +92,9 @@ TLA configuration and model module before invoking TLC. Changes to the runner,
 its tests and its Deno task manifest are declared as `read_inputs` of the
 component, so the model-check gate also exercises its orchestration code.
 
-The derived classifier is therefore authoritative. Further cleanup of the
-legacy Python and Deno projections is a separate migration decision and must
-preserve the fail-closed handling of unknown paths.
+The derived classifier is therefore authoritative. Further cleanup of the legacy
+Python and Deno projections is a separate migration decision and must preserve
+the fail-closed handling of unknown paths.
 
 ## Shadow mode
 
@@ -118,9 +118,9 @@ a proof in itself.
 
 The derived Deno classifier is already the blocking decision source for all
 thirteen surfaces. Python and the older Deno classifier remain in
-`controller-shadow` as comparison references; they are not gates and must
-not be described as sources of truth. The shell entry point remains for
-compatibility and its regression tests.
+`controller-shadow` as comparison references; they are not gates and must not be
+described as sources of truth. The shell entry point remains for compatibility
+and its regression tests.
 
 Before removing any legacy reference, retain per-path parity evidence across
 representative historical ranges (documentation-only, specification-only,
