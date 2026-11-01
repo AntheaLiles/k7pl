@@ -94,7 +94,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLScheduler.tla`; two finite fibres, weak fairness parameterised per fibre, and an explicit starvation control. Profiles: `TLA03-FairScheduler.cfg`, `TLA03-StarvationControl.cfg`. G3 remains open; fairness is assumed only in the fair profile.
-**Specification:** C2 `AlgebrasCoalgebrasAndFixedPoints` (actor and bounded activations); C3 `TermGrammar` (`wait`, `when`, parallel composition); C4 `LocalScale`, `EchelleDeLActeur`, `EchelleDuSysteme` (initialisation), `SemantiqueOperationnelle` theorem `thm:progres`.
+**Specification:** C2 `AlgebresCoalgebresEtPointsFixes` (actor and bounded activations); C3 `GrammaireDesTermes` (`wait`, `when`, parallel composition); C4 `EchelleLocale`, `EchelleDeLActeur`, `EchelleDuSysteme` (initialisation), `SemantiqueOperationnelle` theorem `thm:progres`.
 
 **Question.** Does the scheduler preserve the distinction between local progress, progress of at least one runnable fibre, and eventual service of each continuously enabled actor?
 
@@ -120,7 +120,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLParallelExecution.tla`; two branches, two events per branch, predecessor relation and an explicit early-join control. Profiles: `TLA08-PartialOrderJoin.cfg`, `TLA08-EarlyJoinControl.cfg`. No global trace order is inferred.
-**Specification:** C2 parallel effect action; C3 `TermGrammar` and `TypingRules`; C4 `SemantiqueOperationnelle` reductions for `parallel` and `vmap`; C4 `CalculDeProcessusSousJacent`.
+**Specification:** C2 parallel effect action; C3 `GrammaireDesTermes` and `ReglesDeTypage`; C4 `SemantiqueOperationnelle` reductions for `parallel` and `vmap`; C4 `CalculDeProcessusSousJacent`.
 
 **Question.** Do concurrent branches preserve local order and causal dependencies without imposing a false total order on independent events?
 
@@ -144,7 +144,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLTraceNoninterference.tla`; self-composed pair of finite runs and a value/output-level low-observation comparison. Profiles: `TLA11-PairedLowObservation.cfg`, `TLA11-HighInfluenceControl.cfg`. Timing, scheduler and event-count leakage remain outside this model; G8 remains open.
-**Specification:** C2 restriction/erasure schemas; C3 `TypingRules` level projection; C4 `SemantiqueOperationnelle`, theorem `thm:stratification_journal`; C4 `MetalanguageSortSystem`; C7 interactive replay case.
+**Specification:** C2 restriction/erasure schemas; C3 `ReglesDeTypage` level projection; C4 `SemantiqueOperationnelle`, theorem `thm:stratification_journal`; C4 `MetalanguageSortSystem`; C7 interactive replay case.
 
 **Question.** Can an observer at level ℓ distinguish two executions that agree on public initial state and public inputs but differ in higher-level state or events?
 
@@ -268,7 +268,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLResourceAccounting.tla`; finite linear/affine/unrestricted binding classes, per-fibre counters, aggregate use and an abstract integer budget. Profiles: `TLA09-ResourceBudget.cfg`, `TLA09-GradeOveruseControl.cfg`, `TLA09-BudgetOverdrawControl.cfg`. Cost units remain abstract; G9 remains open.
-**Specification:** C2 `ExponentialComonadAndFragments` (budget interface and partial `Consume`); C3 `LeSystemeGradue`, `TypingRules`; C4 `SemantiqueOperationnelle`, theorem `thm:correction_ressource`.
+**Specification:** C2 `ComonadeExponentielleEtFragments` (budget interface and partial `Consume`); C3 `LeSystemeGradue`, `ReglesDeTypage`; C4 `SemantiqueOperationnelle`, theorem `thm:correction_ressource`.
 
 **Question.** Does a bounded execution account for each effective use and cost without exceeding its declared grade/budget?
 
@@ -292,7 +292,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLTemporalScheduling.tla`; bounded logical wait ticks, event-triggered activation, execution-cost counter and timeout. Profiles: `TLA10-SeparateWaitAndCost.cfg`, `TLA10-ChargeWaitControl.cfg`. No physical time or deadline guarantee is claimed; G10 remains open.
-**Specification:** C3 `TermGrammar` and `TypingRules` (`at`, `wait`, `when`, `delay`); C4 `SemantiqueOperationnelle`; C4 `CalculDeProcessusSousJacent` simulation contract; C7 case study I.
+**Specification:** C3 `GrammaireDesTermes` and `ReglesDeTypage` (`at`, `wait`, `when`, `delay`); C4 `SemantiqueOperationnelle`; C4 `CalculDeProcessusSousJacent` simulation contract; C7 case study I.
 
 **Question.** Does the model keep environmental waiting latency separate from the cost of the triggered automaton, as required by decision P3-B?
 
@@ -354,7 +354,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `candidate-conditional`. `K7PLNoiseSession.tla`; finite handshake phase and message-state machine with a skipped-message negative control. Profiles: `TLA14-NoiseHandshake.cfg`, `TLA14-SkippedMessageControl.cfg`. No cryptographic primitive or Noise security property is modelled; G13 remains open and the profile is not adopted.
-**Specification:** C4 `LocalScale` protocol example and C3 session types.
+**Specification:** C4 `EchelleLocale` protocol example and C3 session types.
 
 **Candidate module:** `K7PLNoiseSession.tla`, or a profile of TLA-01 if the vocabulary is shared.
 
