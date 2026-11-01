@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Current specification baseline:** `main@2fbf609f6f3e67ffe011a3f28fd247526684155a`, reviewed 2026-11-01. Current chapter/file mapping is in `CHAPTER-COVERAGE.md`; theorem assurance status is in `wiki/assurance.md`.
 
-**Status:** TLA-01 remains `model-drafted`; the five TLA-01 profiles matched their expected outcomes in run 41306284770, pending trace/state-evidence review. The first suite run (41305607506) matched 10/18 positive and 12/21 negative outcomes; the second run on the corrected-source head matched 15/18 positive and 17/21 negative outcomes. Seven profiles still fail before their expected verdict in TLA-02 (both profiles), TLA-07 (four profiles) and TLA-12 (positive profile). TLA-14 and TLA-15 remain conditional profiles, and TLA-16 is abstract-only.  
+**Status:** all model items remain `model-drafted` pending current-head evidence. The latest inspected complete TLC artefact is run 41308633862 on `dafbc608f8c94a97644f336286cc228e94d3d975`: 33/39 profiles reached their expected outcomes (16/18 positive and 17/21 negative). Six failed before verdict: both TLA-02 profiles failed to parse their `.cfg` tuple assignment, and all four TLA-07 profiles failed parsing in `ValidCapabilitiesMatchGeneration`. Later commits corrected these source expressions; they have not yet been checked by TLC. The current manifest has 40 profiles (18 positive, 22 negative) after adding a TLA-12 revocation control; no 40-profile run has completed. TLA-14 and TLA-15 remain conditional profiles, and TLA-16 is abstract-only.  
 **Model-family grouping:** the following sections group foundational, runtime/resource and conditional scenario models. They are not P0/P1/P2 urgency labels. The single P0–P4 remediation scale is defined in [REMEDIATION-ROADMAP-P0-P4.md](REMEDIATION-ROADMAP-P0-P4.md).
 
 Each item is an independently reviewable work package. Its model scope is a candidate abstraction, not a ratified definition. Before coding, resolve the relevant gates in [OPEN-GATES.md](OPEN-GATES.md).
@@ -47,7 +47,7 @@ Each item is an independently reviewable work package. Its model scope is a cand
 | `TLA01-ExternalWait.cfg` | A waiter depends on an external producer; an external delivery transition is enabled | No internal wait-cycle deadlock; no delivery fairness is claimed |
 | `TLA01-Timeout.cfg` | External wait with timeout enabled and delivery disabled | Timeout failure path is included; this is not a termination guarantee |
 
-The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexample.json` and `TLA01-SimulationGap-ExpectedCounterexample.json`. CI must check the name of the expected failed invariant, not merely a non-zero process exit.
+The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexample.json` and `TLA01-SimulationGap-ExpectedCounterexample.json`. The observed SimulationGap trace in run 41308633862 is only `Init → Block(ActorC)` and contains one edge ActorC → ActorA, not a three-actor wait cycle; the expected JSON was corrected on the branch to match that trace. CI must check the exact named failed invariant and a trace, not merely a non-zero process exit.
 
 **First TLC attempt (CI run 2391).** TLC 1.7.4 was fetched and its pinned digest verified. The nominal profile stopped with a `ConfigFileException` at configuration line 8: the parser expected `}` while reading the set-of-tuples assignment for `StaticDependencies`. This occurred before TLA module parsing and state exploration; it is not an invariant counterexample. The parameter was therefore re-encoded in all five configurations as an adjacency function `[Actors -> SUBSET Actors]`; `StaticDependencyEdges` reconstructs the corresponding ordered-pair relation inside TLA+. The corrected model/configuration inventory is checked by the Deno controller; TLC results remain pending until the current PR head completes its CI run.
 
@@ -93,7 +93,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 ### TLA-03 — Scheduler, fairness and global pool progress
 
 
-**Implementation status:** `model-drafted`. `K7PLScheduler.tla`; two finite fibres, weak fairness parameterised per fibre, and an explicit starvation control. Profiles: `TLA03-FairScheduler.cfg`, `TLA03-StarvationControl.cfg`. G3 remains open; fairness is assumed only in the fair profile.
+**Implementation status:** `model-drafted`. `K7PLScheduler.tla`; two finite fibres, weak fairness parameterised per fibre, and an explicit starvation control. Profiles: `TLA03-FairScheduler.cfg`, `TLA03-StarvationControl.cfg`. Run 41308633862 on the prior source returned 19 generated / 9 distinct states, depth 5 for the fair profile and reached the negative `NoStall` control in 4 / 4 states, depth 2. The positive profile sets `AllowTerminate = FALSE`, so `NoTerminatedFibreExecutes` is not exercised. When enabled, `Terminate(f)` currently accepts any Ready fibre; no valid-completion predicate exists. G3 remains open; fairness is assumed only in the fair profile.
 **Specification:** C2 `AlgebresCoalgebresEtPointsFixes` (actor and bounded activations); C3 `GrammaireDesTermes` (`wait`, `when`, parallel composition); C4 `EchelleLocale`, `EchelleDeLActeur`, `EchelleDuSysteme` (initialisation), `SemantiqueOperationnelle` theorem `thm:progres`.
 
 **Question.** Does the scheduler preserve the distinction between local progress, progress of at least one runnable fibre, and eventual service of each continuously enabled actor?
@@ -114,7 +114,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 **Dependencies:** TLA-01 actor states; OPEN-GATE G3 (fairness contract).
 
-**Acceptance:** the model demonstrates the difference between global progress and starvation. No fairness condition may be added merely to make TLC pass; its connection to a real scheduler guarantee must be documented.
+**Acceptance:** the model demonstrates the difference between global progress and starvation. Safe termination additionally requires a reachable valid-completion state and a guard preventing every post-termination execution action. Do not enable `Terminate` or add fairness until the completion predicate and runtime fairness contract are decided in G3.
 
 ### TLA-08 — Fork/join, `parallel`, `vmap` and partial-order traces
 
@@ -243,10 +243,10 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 ### TLA-07 — Capabilities, regions and entity lifetime
 
 
-**Implementation status:** `model-drafted`. `K7PLMemoryCapabilities.tla`; finite slots, two generation values, capability-to-region ranges, revocation and restore. Profiles: `TLA07-CapabilityLifetime.cfg`, `TLA07-GenerationWrapControl.cfg`, `TLA07-StaleAccessControl.cfg`, `TLA07-RevocationRestoreControl.cfg`. The two-value generation domain is a counterexample device, not a production-width argument; G7 remains open.
+**Implementation status:** `model-drafted`. `K7PLMemoryCapabilities.tla`; finite slots, two generation values, capability-to-region ranges, revocation and restore. Profiles: `TLA07-CapabilityLifetime.cfg`, `TLA07-GenerationWrapControl.cfg`, `TLA07-StaleAccessControl.cfg`, `TLA07-RevocationRestoreControl.cfg`. The 41308633862 run failed parsing all four profiles in `ValidCapabilitiesMatchGeneration`; subsequent LET-binding corrections in commits `39924233` and `70a15318` await TLC validation. The fixed `CapCells` ranges are disjoint constants; no grant/split/merge/transfer operation changes the ownership/permission set. The current model does not prove rights preservation. The two-value generation domain is a counterexample device, not a production-width argument; G7 remains open.
 **Specification:** C3 `LeSystemeGradue`; C4 `EchelleDeLActeur` (arenas, regions, partitioned ranges, EntityRef); C4 `ModelesDeMemoire`; C2 capacity lemma.
 
-**Question.** Do allocation, transfer, revocation, deletion, slot reuse and restore preserve capability ownership and entity identity?
+**Question.** Do allocation, transfer, revocation, deletion, slot reuse and restore preserve capability ownership and entity identity? First define who owns each region/range, how rights change, and how ReadCap/WriteCap ownership is represented. Constant disjoint cell sets alone cannot test preservation.
 
 **Candidate module:** `K7PLMemoryCapabilities.tla`.
 
@@ -317,7 +317,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 ### TLA-12 — Native reactive pipeline and frame lifecycle
 
 
-**Implementation status:** `model-drafted`. `K7PLReactivePipeline.tla`; ordered finite input events, logical state version, patch base/target, exclusive DOM writer capability and frame-overrun flag. Profiles: `TLA12-ReactivePipeline.cfg`, `TLA12-UnauthorizedDOMWriteControl.cfg`. Frame ticks are logical only.
+**Implementation status:** `model-drafted`. `K7PLReactivePipeline.tla`; ordered finite input events, logical state version, patch base/target, exclusive DOM writer capability, revocation state and frame-overrun flag. Profiles: `TLA12-ReactivePipeline.cfg`, `TLA12-UnauthorizedDOMWriteControl.cfg`, and the new `TLA12-ApplyAfterRevocationControl.cfg` (40th inventory profile). `RevokeWriterCapability` is enabled after `HandleEvent` has prepared a patch; `NoApplyAfterRevocation` checks that the unsafe path cannot apply it. The 41308633862 result (33 generated / 23 distinct, depth 7) belongs to the pre-revocation model only. The new positive/negative interleaving has not yet been run by TLC. G18 leaves the pending patch's lifecycle undecided. Frame ticks are logical only.
 **Specification:** C7 `EtudeDeCasIArchitectureReactiveNative`; C3 `LeSystemeGradue` capability `WriteCap(DOM)`; C4 actors and event processing.
 
 **Candidate module:** `K7PLReactivePipeline.tla`.
@@ -328,7 +328,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 **Tools:** TLA+ native and TLC for event/patch races. Frame ticks may be modelled abstractly. Benchmarks and target-specific WCET analysis are required for real latency.
 
-**Acceptance:** protocol safety passes in a finite model; frame-overrun behaviour is explicit. No performance claim follows from TLC.
+**Acceptance:** protocol safety passes in a finite model; the revoke-between-handle-and-apply interleaving is explored by the positive profile and reproduced by the named negative control; the pending-patch policy is separately ratified before disposal/retry/lease semantics are added. Frame-overrun behaviour is explicit. No performance claim follows from TLC.
 
 **Dependencies:** TLA-03, TLA-08 and TLA-09.
 
@@ -458,3 +458,15 @@ Les sujets MMU/IOMMU restent des raffinements matériels proposés : le texte me
 - Fermer H1/H2/H3 du théorème C4 de sûreté spatiale (unicité d'introduction, portée des régions, non-capture inter-modes) par des règles et preuves Lean ; TLA-07 ne suffit pas.
 - Décider la sémantique du partage/emprunt de canaux, distincte du partage ReadCap de mémoire ; ne pas présupposer une adjunction identique.
 - Définir le contrat de frontière pour `Import` de fichier/URL/LLM, macros pré-vérification et FFI (sandbox, provenance, effets, callbacks, échecs, révocation) avant d'introduire un modèle opérationnel additionnel.
+
+
+## 7. Remediation snapshot — 2026-11-01
+
+TLA-01, TLA-02, TLA-03, TLA-05, TLA-07, TLA-09, TLA-11, TLA-12 and TLA-16
+remain `model-drafted`; the current source SHA `a7a6d631f0c19876b0437276e6cd6e8bec79a3de`
+has no completed 40-profile TLC result. The only inspected full suite is run
+41308633862 on its parent SHA `dafbc608...`, with 33/39 expected outcomes.
+The property-by-property sensitivity table and bounded evidence are maintained
+in `CHAPTER-COVERAGE.md` §4.7. Semantic decisions remain in `OPEN-GATES.md`;
+no K/TLA+/Lean simulation is claimed.
+
