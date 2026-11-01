@@ -155,6 +155,16 @@ A work item is blocked when its model would otherwise have to choose one of thes
 
 ## G16 — Priorities and normative authority
 
-The P0/P1/P2 labels in this work programme describe suggested sequencing only. They do not change the existing roadmap, assurance status or normative requirements.
+The model-family groupings in WORK-PLAN.md are descriptive. The separate P0–P4 scale in REMEDIATION-ROADMAP-P0-P4.md describes audit-remediation urgency only; neither grouping changes the existing roadmap, assurance status or normative requirements.
 
-**Gate:** review the priority sequence and dependencies before opening implementation tasks. Any normative change requires explicit owner ratification and the repository's normal issue/PR workflow.
+**Gate:** review sequencing and dependencies before opening implementation tasks. Any normative change requires explicit owner ratification and the repository's normal issue/PR workflow.
+
+## G17 — Non-vacuity and property sensitivity
+
+- Which transition can exercise each positive invariant or temporal property?
+- Is that transition reachable under the positive profile's constants and assumptions?
+- Is the property substantive, definitionally implied, bounded-scenario-only or conditional?
+- Does a negative control reach the named violation through the intended unsafe alternative, rather than through parsing, configuration, ASSUME or type failure?
+- Does the retained trace demonstrate the claimed behaviour, and does the run exhaust the declared state space?
+
+**Gate:** do not count a positive result as substantive protocol coverage until the relevant transitions are reachable and the property has a meaningful sensitivity argument. Keep definition-level checks if useful, but label them honestly. Do not remove invariants or weaken assumptions merely to make the suite pass.
