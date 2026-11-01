@@ -52,6 +52,10 @@ In particular, the archived proofs still do **not** establish:
 From the repository root, `make proof` runs the K export/staging pipeline and
 then builds `K7PL2Lean`, `KLeanArchive` and `K7PLProofs`.
 
+All three libraries are Lake default targets. The previous package-wide
+`maxHeartbeats=10000000` allowance is preserved on each library, including
+the generated KLean interface and the historical archive.
+
 The maintained domain library can be built independently of KLean export:
 
 ```sh

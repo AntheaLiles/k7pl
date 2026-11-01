@@ -258,8 +258,16 @@ components:
       - proofs/lean-toolchain
       - proofs/axiom-audit-contract.json
       - spec/Spec/C3/EffectiveKernel.lean
+      - src/K7pl/
     depends_on:
       - k-semantics
+    read_inputs:
+      - path: src/K7pl/
+        surfaces:
+          - axiom_audit
+      - path: spec/Spec/C3/EffectiveKernel.lean
+        surfaces:
+          - axiom_audit
     required_checks:
       - lean-proof-build
       - axiom-audit

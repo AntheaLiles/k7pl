@@ -51,6 +51,26 @@ Deno.test("a src/ change alone triggers spec_check, not the spec build", () => {
   assertEquals(result.lean_build, true);
 });
 
+Deno.test("Lean proof source dependencies trigger the exact axiom audit", () => {
+  const proofInputs = [
+    "src/K7pl/UsageScale.lean",
+    "src/K7pl/StructuralModes.lean",
+    "src/K7pl/GradeBudget.lean",
+    "src/K7pl/MemoryRange.lean",
+    "src/K7pl/MemoryCapability.lean",
+    "spec/Spec/C3/EffectiveKernel.lean",
+  ];
+  for (const path of proofInputs) {
+    const result = derived([path]);
+    assertEquals(
+      result.surfaces.axiom_audit,
+      true,
+      `${path} must invalidate the domain proof audit`,
+    );
+    assertEquals(result.full, false, `${path} must keep its targeted checks`);
+  }
+});
+
 Deno.test("derived classifier maps spec-build inputs declared in the registry", () => {
   const result = derived([
     "scripts/controle.py",

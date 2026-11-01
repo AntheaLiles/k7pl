@@ -7,10 +7,11 @@ import K7pl.MemoryRange
 # Separation of finite memory ranges
 
 The range representation and its disjointness predicate come from the
-implementation module. This file proves elementary relation laws and
-reuses the existing interval-level H2 lemma. It does not identify ranges with
-physical regions and therefore does not establish the full spatial-safety
-hypotheses H1/H2/H3.
+implementation module. This file proves elementary relation laws and reuses
+the interval-arithmetic lemma `disjoint_ne` for distinct representations.
+It covers only the arithmetic side of H2 on ranges; it does not prove that
+disjoint ranges identify distinct physical regions. It therefore does not
+establish the full spatial-safety hypotheses H1/H2/H3.
 -/
 
 namespace K7PL.Proofs.Structural
@@ -27,8 +28,8 @@ theorem disjoint_symmetric {r s : Range} (h : Disjoint r s) :
 theorem disjoint_irreflexive (r : Range) : ¬ Disjoint r r := by
   intro h
   rcases h with h | h
-  · exact Nat.lt_irrefl _ h
-  · exact Nat.lt_irrefl _ h
+  · exact Nat.not_lt_of_ge r.valid h
+  · exact Nat.not_lt_of_ge r.valid h
 
 theorem disjoint_ranges_have_distinct_representations
     {r s : Range} (h : Disjoint r s) : r ≠ s :=

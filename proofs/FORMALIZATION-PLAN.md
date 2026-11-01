@@ -31,6 +31,23 @@ La classification distingue :
 | Mémoire | `Memory/EntityRef` | Invalidation après incrément de génération | Génération `Nat` non bornée ; pas de concurrence |
 | Métathéorie | `Metatheory/MultiStep` | Fermeture réflexive-transitive et préservation d'invariant | Pas de propriété temporelle ni de simulation |
 
+## Composition du périmètre d'assurance
+
+Le contrat d'axiomes suit 30 déclarations. Leur présence dans ce périmètre ne
+signifie pas que les 30 preuves sont nouvelles dans cette tranche :
+
+| Nature | Déclarations exposées | Nombre | Portée |
+|---|---|---:|---|
+| Réutilisation / ré-exposition | 5 morphismes de modes, 4 résultats budgétaires, 2 résultats de propriété des capacités, 1 lemme de séparation des plages | 12 | Théorèmes déjà établis dans les modules canoniques de l'implémentation, désormais audités dans le paquet de preuves |
+| Correspondance définitionnelle | Conversions des grades, projection d'usage et commutation du scaling | 4 | Garde-fous de cohérence entre deux représentations champ-à-champ identiques ; les preuves sont définitionnelles (`rfl`) |
+| Contenu de preuve nouveau | 6 relations d'intervalles, 2 lois de disjonction, 2 bornes de comptage, 2 bornes budgétaires, 1 invalidation par génération, 1 préservation multi-pas | 14 | Résultats nouvellement formalisés dans ce paquet, dans les modèles et limites décrits ci-dessous |
+
+Le total `12 + 4 + 14 = 30` décrit le périmètre d'audit, pas un décompte
+de théorèmes de sûreté K7PL établis. Les ré-expositions augmentent la
+traçabilité de l'assurance ; les quatre résultats définitionnels ne sont pas
+des preuves de raffinement ; les quatorze autres restent limités à leurs
+modèles et hypothèses explicites.
+
 ## Dépendances théoriques
 
 ### Grades
@@ -43,11 +60,12 @@ des quatre composantes, la compatibilité de `π_U` et la commutation avec
 `Scale_Usage`. C'est une correspondance de représentations, pas une preuve
 de raffinement des règles K.
 
-Les intervalles formalisés sont :
-- `uLin = {1}` ;
-- `uAff = {u | u ≤ 1}` ;
-- `uRel = {u | 1 ≤ u}` ;
-- `uUnr = 𝒫(Usage)`.
+Les intervalles formalisés, sur le porteur `WithTop ℚ≥0`, sont ceux de la
+table C2 :
+- `uLin = Set.Icc 1 1` (`[1..1]`) ;
+- `uAff = Set.Icc 0 1` (`[0..1]`) ;
+- `uRel = Set.Ici 1` (`[1..ω]`) ;
+- `uUnr = Set.Icc 0 ⊤` (`[0..ω]`).
 
 Le fait que `uAff` et `uRel` soient incomparables est démontré par les
 témoins 0 et 2. Cela ne valide ni l'algèbre de grades entière ni les règles de
@@ -106,6 +124,24 @@ relation à petits pas. Le théorème de préservation transfère tout invariant
 préservé par un pas à toute trace finie. Il s'agit d'un principe de preuve,
 pas d'un théorème de terminaison ou de progression.
 
+## Dépendances de compilation et invalidation de l'assurance
+
+Les modules de domaine dépendent des définitions de `src/K7pl/` et du noyau
+`spec/Spec/C3/EffectiveKernel.lean`. Ces chemins sont des entrées de lecture
+du composant CI `lean-proofs`, limitées à la surface `axiom_audit` : leur
+modification doit donc relancer la compilation du paquet de preuves et son
+audit exact `#print axioms`, en plus des contrôles déclenchés par leurs
+composants propriétaires. Cette liste doit rester synchronisée avec les
+imports directs et transitifs des modules Lean ; l'ajout d'un nouvel import
+de source locale implique l'ajout de l'entrée correspondante et d'un test de
+classification.
+
+À cette révision, `cache_determinants` est une métadonnée du registre :
+aucun consommateur ne dérive de ce champ une clé de cache effective. Il ne
+constitue donc pas, à lui seul, un mécanisme d'invalidation. Les entrées
+source sont également déclarées comme `read_inputs`, qui est le mécanisme
+effectif de déclenchement de la surface de preuve.
+
 ## Frontières K / Lean / TLA+
 
 La séparation cible est :
@@ -142,6 +178,49 @@ Les interfaces envisagées avec #311 et #319 sont postérieures à leur fusion :
    explicites, non par des ressemblances de noms.
 7. Séparer terminaison, productivité, fairness et progression ; prouver
    chaque résultat avec ses hypothèses opérationnelles.
+
+## Programme de formalisation postérieur à cette tranche
+
+La séquence ci-dessous est un ordre de dépendance technique proposé pour la
+recherche ; elle ne ratifie aucune règle ni propriété normative.
+
+1. **Relier les capacités au système de transitions K.** Après stabilisation
+   des règles K, définir une relation de représentation entre configuration K
+   et état Lean. Démontrer, règle par règle, la préservation de l'invariant
+   d'unicité par `Arena`, `WriteCap`, `alloc_range` et `Par`. Le résultat
+   de comptage actuel ne devient une preuve sur l'exécution K qu'après cette
+   simulation.
+2. **Distinguer les trois obligations spatiales.** Pour H1, établir
+   l'introduction et la consommation linéaire de `WriteCap` sur les transitions.
+   Pour H2, définir le lien entre plages et régions puis prouver que la
+   disjonction des plages implique la distinction des régions. Pour H3,
+   formaliser l'absence de capture d'une capacité linéaire par les valeurs
+   cartésiennes. Ne pas fusionner ces obligations en un unique lemme
+   d'« isolation ».
+3. **Raccorder les budgets aux règles opérationnelles.** Identifier pour
+   chaque règle de typage/exécution le coût consommé, le domaine partiel de
+   `Consume`, les preuves d'admissibilité et la borne du résidu. Démontrer la
+   préservation des budgets règle par règle avant d'en déduire des propriétés
+   de composition.
+4. **Raffiner le modèle EntityRef.** Introduire l'encodage borné concret et
+   expliciter la politique d'épuisement ou de non-réutilisation. Séparer
+   invalidation séquentielle, ABA, références tardives, quiescence et
+   reclamation concurrente ; le compteur `Nat` ne tranche aucune de ces
+   questions à lui seul.
+5. **Instancier la métathéorie par couche.** Construire les relations de pas
+   propres à chaque couche, puis traiter séparément progression, terminaison,
+   productivité et fairness. La fermeture multi-pas générique actuelle ne
+   fournit aucune de ces propriétés sans hypothèses supplémentaires.
+6. **Établir les ponts inter-modèles.** Après la relation K↔Lean, définir le
+   mapping d'états vers TLA+ et prouver la préservation des transitions et
+   invariants. Les explorations TLC bornées servent à chercher des
+   contre-exemples et à valider des instances finies ; elles ne remplacent pas
+   le théorème de correspondance.
+
+Pour chaque étape, le critère de sortie reste : source et SHA identifiés,
+hypothèses explicites, relation de représentation définie, preuve compilée,
+audit d'axiomes exact et contre-exemples négatifs pertinents examinés. Une
+obligation reste ouverte tant que ces éléments ne sont pas réunis.
 
 ## Critères de maturité
 
