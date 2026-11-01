@@ -52,20 +52,20 @@ contextes ne sont pas ordonnés, l'encodage des protocoles dans l'implication li
 ayant précisément permis d'éviter le produit ordonné qu'ils auraient exigé. Une règle primitive
 donc, et trois propriétés à établir.
 
-Les règles des _connecteurs_ sont les plus nombreuses — une introduction et une élimination par
-constructeur des trois grammaires, soit une quarantaine — et les plus routinières. Six seulement
+Les règles des _connecteurs_ sont les plus nombreuses (une introduction et une élimination par
+constructeur des trois grammaires, soit une quarantaine) et les plus routinières. Six seulement
 demandent de l'attention. Les quatre de l'adjonction entre valeurs et calculs portent le régime
 d'évaluation et fixent où les effets s'accumulent. Celles du quantificateur existentiel comptent
 double, car c'est par elles que passe la preuve de non-interférence : le témoin caché y est
 l'abstraction que la paramétricité transforme en indiscernabilité. Et les trois modalités
-temporelles n'ont pas de forme héritée — leur combinaison avec la gradation est propre à ce langage,
+temporelles n'ont pas de forme héritée : leur combinaison avec la gradation est propre à ce langage,
 et leurs règles sont à concevoir plutôt qu'à transcrire.
 
 Les règles _propres à K7PL_ sont moins nombreuses qu'annoncé, et pour une raison simple : les
 sessions n'y contribuent rien. Un protocole étant une syntaxe de surface sur l'implication linéaire,
 ses règles sont celles de cette implication, et la dualité tombe du retournement des arguments
 plutôt que d'un jeu propre. Restent donc deux groupes. L'introduction et l'élimination de la
-modalité graduée, où le contexte est multiplié par le grade à l'entrée et divisé à la sortie — c'est
+modalité graduée, où le contexte est multiplié par le grade à l'entrée et divisé à la sortie : c'est
 là que vit toute la discipline de ressource. Et les opérations à effet, dont la règle compose par le
 produit de la quantale, avec la réserve que le chapitre 3 a posée. Les opérations à portée prennent
 un calcul en argument et ne sont pas des effets algébriques ordinaires~; leur forme est fixée plus
@@ -78,7 +78,7 @@ composition. Le piège est que _la direction de la coercion n'est pas la même p
 l'usage, elle descend : disposer d'une ressource librement copiable permet de ne l'employer qu'une
 fois, et $`!_\omega A` se coerce donc en $`!_1 A`. Sur la monotonie, elle descend aussi : avoir
 établi qu'une fonction préserve l'ordre permet de l'oublier. Sur le niveau de confidentialité, elle
-_monte_ : une donnée publique peut être traitée comme secrète, jamais l'inverse — c'est le sens même
+_monte_ : une donnée publique peut être traitée comme secrète, jamais l'inverse : c'est le sens même
 de la garantie. Et sur le budget, elle monte également : un calcul qui exige peu s'emploie là où
 l'on offre davantage. Deux composantes descendent, deux montent, et prendre le produit des ordres
 sans y regarder inverserait la garantie de confidentialité. L'ordre du sous-typage n'est donc pas
@@ -88,7 +88,7 @@ que dans un commentaire.
 Ce qui suit donne le jeu central. Les conventions sont celles-ci. $`\Delta` est un contexte gradué
 $`x_1 :_{r_1} V_1, \ldots`. La notation de surface $`r\cdot\Delta` désigne une action _règle-locale_ :
 pour {sc}[Box], {sc}[App], la substitution et le contexte de {sc}[Sc], son interprétation de référence est
-$`\operatorname{Scale}_{Usage}(\pi_U(r),\Delta)`, conformément à la décision d’autrice C-01. Les lois et leur compatibilité avec les règles restent à prouver. Les répétitions effectives sont représentées par
+$`\operatorname{Scale}_{Usage}(\pi_U(r),\Delta)`. Les lois et leur compatibilité avec les règles restent à prouver. Les répétitions effectives sont représentées par
 la transformation d'effet $`\varphi_n`, distincte de l'action contextuelle. La notation ne constitue
 donc pas une multiplication primitive du grade complet, dont l'action globale reste une obligation de C2.
 $`\Delta_1 + \Delta_2` les additionne composante par composante, _à condition qu'ils portent les
@@ -108,8 +108,8 @@ l'exigence du second doit traverser le coût.
 
 Le relever une fois pour toutes fait apparaître un fait que l'absence d'indice dissimulait. _Deux
 règles seulement portent un indice non trivial_ : {sc}[Let], où c'est $`\varepsilon_1`, l'effet du
-calcul lié ; et {sc}[App], où c'est $`\varepsilon_0`, celui du terme fonction. Les neuf autres — {sc}[Unbox], {sc}[Open], {sc}[OneE], {sc}[Split], {sc}[Case], {sc}[When], {sc}[Sc], {sc}[VecE],
-et le lemme de substitution — éliminent toutes une _valeur_, dont l'effet est neutre. Par le lemme
+calcul lié ; et {sc}[App], où c'est $`\varepsilon_0`, celui du terme fonction. Les neuf autres ({sc}[Unbox], {sc}[Open], {sc}[OneE], {sc}[Split], {sc}[Case], {sc}[When], {sc}[Sc], {sc}[VecE]
+et le lemme de substitution) éliminent toutes une _valeur_, dont l'effet est neutre. Par le lemme
 ci-après, leur $`\boxtimes` _est_ l'addition ponctuelle. La composition graduée n'a donc de contenu
 propre qu'aux deux endroits où un calcul précède un autre calcul, ce qui est exactement là où l'on
 attendait qu'elle en eût, et nulle part ailleurs. Les règles portent désormais leur indice, et une
@@ -147,7 +147,7 @@ fonction par l'_addition ponctuelle_ du semi-anneau {cite "hanukaevUnificationGr
 K7PL écrit $`\Delta_1 \boxtimes_{\varepsilon_0} (r\cdot\Delta_2)`, et le lemme dit que les deux
 formes coïncident dès que l'effet ne coûte rien. Or aucune d'elles n'a d'effet qui traverse le
 coeffet : leur composante temporelle est identiquement nulle, et leur $`\boxtimes` _est_ leur $`+`.
-Elles n'ont donc pas fait un autre choix — elles travaillent dans le cas où les deux opérateurs se
+Elles n'ont donc pas fait un autre choix : elles travaillent dans le cas où les deux opérateurs se
 confondent, et n'avaient aucune raison d'en distinguer deux. K7PL généralise la forme reçue plutôt
 qu'il ne s'en écarte, et c'est l'effet traversant qui l'y oblige.
 
@@ -250,8 +250,8 @@ $`\ell` est la troisième composante d'un grade $`r` : ce qu'une liaison $`x :_r
 de lire, et $`\mathrm{niv}(\Delta) = \bigsqcup_{x :_r V \in \Delta} \mathrm{niv}(r)` est celui d'un
 contexte. Le _niveau de production_ $`\hat\ell` est celui auquel un événement est observable : la
 famille $`\kappa` d'un effet $`\varepsilon = \langle \varphi, \kappa \rangle` est indexée par lui, et
-$`\hat\ell(\varepsilon)` en désigne la borne inférieure des niveaux où $`\kappa` est non nulle — et
-$`\top` si $`\kappa = 0`, un effet sans événement temporel n'ayant rien à protéger. Le premier est
+$`\hat\ell(\varepsilon)` en désigne la borne inférieure des niveaux où $`\kappa` est non nulle (et
+$`\top` si $`\kappa = 0`, un effet sans événement temporel n'ayant rien à protéger). Le premier est
 contravariant (le niveau d'un contexte monte avec ce qu'il lit), le second covariant ; les écrire
 $`\ell` et $`\hat\ell` évite que « $`\ell \sqsubseteq \ell` » ne soit inénonçable. {sc}[Tick]
 choisit son niveau de production $`\hat\ell`, et l'effet $`\langle \mathbf{1}, \delta_{\hat\ell}\rangle` est
@@ -265,7 +265,7 @@ n'est plus une clause négative posée à la main. Le niveau courant du processu
 porte son effet ; il n'est donc pas nécessaire de l'indexer en plus dans le jugement. {sc}[Tick] n'est d'ailleurs pas une règle primitive mais une règle _admissible_ : c'est l'instance de {sc}[Op] pour l'opération d'effet $`\langle \mathbf{1}, \delta_{\hat\ell}\rangle` appliquée à $`()` dans le contexte $`\mathbf{0}`, dont la clause de couplage est satisfaite d'office. Elle est écrite pour fixer le choix de $`\hat\ell`, comme {sc}[Expand] se dérive au chapitre 5.
 
 Trois de ces règles ne demandent rien, et sont écrites plutôt qu'omises : une règle absente est un
-cas manquant dans toute induction — et le lemme de substitution du §{num "sec:g-regles"}[] procède
+cas manquant dans toute induction, et le lemme de substitution du §{num "sec:g-regles"}[] procède
 par récurrence sur la dérivation. {sc}[One] et {sc}[OneE] donnent l'unité ; {sc}[Split] élimine le
 tenseur ; {sc}[Case] élimine la somme. Deux points seulement s'y décident. Le premier est que {sc}[Case]
 _partage_ son contexte entre les branches au lieu de l'additionner, une seule d'entre elles
@@ -273,13 +273,12 @@ s'exécutant : c'est le même trait que {sc}[With] au §{num "sec:g-regles"}[], 
 la même raison. Le second est que toutes les branches y portent le _même_ effet ; cela ne restreint
 rien, {sc}[Sub] permettant de relever chacune jusqu'à leur borne supérieure, et l'écrire ainsi évite
 d'introduire un joint dans la règle. Cet argument suppose l'existence de cette borne supérieure,
-c'est-à-dire l'existence de _jointures_ — et c'est la condition du théorème {num "thm:coherence_subsomption"}[]
-ci-après, dont la vérification est faite au §{num "sec:g-regles"}[]. L'argument employé ici est donc
-déjà celui du théorème, et il n'était pas dit qu'il l'était : relever une branche jusqu'à un joint
+c'est-à-dire l'existence de _jointures_ (c'est la condition du théorème {num "thm:coherence_subsomption"}[]
+ci-après, dont la vérification est faite au §{num "sec:g-regles"}[]). L'argument employé ici est donc
+déjà celui du théorème : relever une branche jusqu'à un joint
 et démontrer que deux dérivations coïncident demandent la même structure.
 
-La forme _indexée_ de {sc}[Case] n'est pas un raffinement de présentation, et il faut dire pourquoi
-elle a été préférée à la forme binaire que ce texte écrivait. Un gestionnaire d'acteur a autant
+La forme _indexée_ de {sc}[Case] n'est pas un raffinement de présentation. Un gestionnaire d'acteur a autant
 de branches qu'il reçoit d'espèces de messages. L'encoder par une cascade de sommes binaires
 rendrait le nombre de branches dépendant d'un ordre arbitraire, et le typage d'un protocole
 dépendrait de la manière dont on a associé les alternatives. Les types de session de cette même
@@ -292,16 +291,16 @@ déclaré : le coût de preuve. Une mécanisation de référence rapporte que l'
 de réduction pour les sommes disjointes a _doublé_ la preuve de correction, le seul lemme de
 confluence recevant treize cas de plus, dont plusieurs répétitifs {cite "abelPOPLMarkReloadedMechanizing2019"}[].
 Un schéma indexé donne un cas d'induction là où une cascade de binaires en donne autant que de
-branches. Deux raisons indépendantes — la fidélité au protocole d'un acteur, et le coût de la preuve
-— arrivent donc au même choix, ce qui est le meilleur statut qu'un choix de présentation puisse
+branches. Deux raisons indépendantes (la fidélité au protocole d'un acteur, et le coût de la preuve)
+arrivent donc au même choix, ce qui est le meilleur statut qu'un choix de présentation puisse
 avoir.
 
 Ce passage à l'indexation oblige à dire ce que l'ensemble d'indices $`I` peut être, question que la
 forme binaire dissimulait. La réponse tient en deux temps, et c'est le prédicat de treillis fini qui
 la porte. Aucune restriction n'est imposée à $`I` dans la grammaire : une somme sur un ensemble
-infini d'étiquettes est un type licite, et il le faut, un gestionnaire pouvant recevoir des messages
+infini d'étiquettes est un type licite : un gestionnaire peut recevoir des messages
 d'un type non borné. La restriction apparaît là où elle est nécessaire, dans
-$`\mathsf{Trellis}_{\text{fin}}`, dont la clause exige explicitement que $`I` soit fini — sans quoi
+$`\mathsf{Trellis}_{\text{fin}}`, dont la clause exige explicitement que $`I` soit fini : sans quoi
 l'itération de l'opérateur de point fixe cesserait de terminer. _La contrainte est ainsi portée par
 le jugement qui en a besoin, et non par la grammaire qui n'en a que faire_, ce qui est la règle que
 ce document s'applique partout ailleurs.
@@ -309,7 +308,7 @@ ce document s'applique partout ailleurs.
 La flèche $`V_r \multimap_\varepsilon C` porte _une_ annotation, et il vaut la peine de dire
 pourquoi une seule suffit, car ce n'est pas le cas général. Un calcul par poussée de valeur pur ne
 demande aucune annotation sur la flèche. Une extension qui doit traiter l'évaluation paresseuse en
-demande _deux_ — celle de l'argument et celle de la fonction —, l'argument y étant un calcul
+demande _deux_ (celle de l'argument et celle de la fonction), l'argument y étant un calcul
 suspendu dont l'effet reste à consigner {cite "mcdermottExtendedCallbypushvalueReasoning2019"}[].
 Ici l'argument est une _valeur_, donc sans effet propre : il n'y a rien à annoter de son côté, et
 $`\varepsilon` ne dit que ce que le corps produira. C'est encore la séparation valeur/calcul qui
@@ -330,7 +329,7 @@ qui l'accompagne.
 
 ::::k7table (label := "tab:produit-mixte") (align := "lZ{1.37}lZ{0.81}Z{0.81}")
 :::caption
-Le produit mixte du sous-typage et les opérations distinctes qu'il faut vérifier par composante
+Le produit mixte du sous-typage et les opérations distinctes à vérifier par composante
 :::
 
 :::table +header
@@ -413,13 +412,12 @@ d'introduction jusqu'à l'unicité des dérivations.
 
 _Ce que la suite établit, et ce qu'elle n'établit pas._ L'ordre du sous-typage possède ses
 _jointures_ : un produit d'ordres les possède si et seulement si chaque facteur les possède, prises
-composante par composante, et les quatre facteurs les ont — l'usage sous $`\geq` comme minima de
+composante par composante, et les quatre facteurs les ont : l'usage sous $`\geq` comme minima de
 l'ordre naturel de $`\mathbb{N}_\infty`, la monotonie sous $`\succeq` comme chaîne à deux éléments,
 le niveau par définition du treillis, le budget sous $`\leq` comme maxima.
 
-Mais _l'existence de jointures n'est pas la cohérence des coercions_, et cette esquisse confondait
-les deux. Un ordre peut avoir ses jointures sans que les fonctions de conversion associées
-commutent : ce qu'il faut est que, pour tous $`r \preccurlyeq s \preccurlyeq t`, la conversion
+_L'existence de jointures n'est pas la cohérence des coercions._ Un ordre peut avoir ses
+jointures sans que les fonctions de conversion associées commutent : la condition est que, pour tous $`r \preccurlyeq s \preccurlyeq t`, la conversion
 composée de $`r` vers $`t` égale la conversion directe, et que la conversion de $`r` vers lui-même
 soit l'identité. C'est une condition sur les _coercions_, non sur l'ordre, et elle reste à établir :
 facteur par facteur d'abord, puis par fermeture sur le produit, le composé de quatre familles
@@ -428,14 +426,14 @@ cohérentes l'étant si les quatre le sont.
 _Réduction établie._ Chaque facteur est un préordre, donc une catégorie mince : entre deux grades il
 y a au plus une flèche, et deux dérivations de $`r \preccurlyeq r'` désignent la même. Si la
 conversion est définie comme le transport le long de cette flèche, la cohérence énoncée se ramène à
-la fonctorialité de ce transport — identité en $`r \preccurlyeq r`, composition en
-$`r \preccurlyeq s \preccurlyeq t` — à vérifier pour chacune des quatre familles, puis à clore par
+la fonctorialité de ce transport (identité en $`r \preccurlyeq r`, composition en
+$`r \preccurlyeq s \preccurlyeq t`) à vérifier pour chacune des quatre familles, puis à clore par
 produit, la fonctorialité d'un produit de catégories l'étant composante par composante. La conversion de chaque facteur se définit ainsi. Sur le niveau, la monotonie et le budget, la conversion est l'_identité_ sur la valeur sous-jacente : seule l'étiquette change, de sorte que l'identité et la composition sont immédiates. Sur l'usage, c'est le morphisme canonique de comonades gradués $`!_{u} \Rightarrow !_{u'}` pour $`u \geq u'` : la dérivation (compteur) de $`\omega` vers $`1` et l'affaiblissement de $`1` vers $`0`. Seule équation à vérifier : de $`\omega` à $`0`, la conversion composée, dérivation puis affaiblissement, est la conversion directe. Elle tient parce que $`!_0 A` est l'unité, terminale dans le fragment affine du chapitre 2 : toute flèche vers un objet terminal est unique, donc deux chemins de $`!_\omega A` vers $`!_0 A` coïncident. Les trois autres facteurs étant l'identité, la cohérence des quatre familles est établie, et le produit la ferme ; le théorème {num "thm:coherence_subsomption"}[] reste une proposition tant que l'existence des jointures entre modes quelconques (chapitre 1) n'est pas acquise hors des quatre facteurs.
 :::
 
 :::note
-_Obligation ouverte._ L'état de proposition est maintenu : la fonctorialité du transport — identité
-et composition — reste à vérifier pour chacune des quatre familles de conversion, interaction entre
+_Obligation ouverte._ L'état de proposition est maintenu : la fonctorialité du transport (identité
+et composition) reste à vérifier pour chacune des quatre familles de conversion, interaction entre
 usage et coercion comprise, puis à clore par produit.
 :::
 ::::
@@ -444,23 +442,21 @@ monadique {cite "schwinghammerCoherenceSubsumptionMonadic2009"}[]. La condition 
 propres à son ordre produit. Les jointures déjà utilisées aux branchements constituent une donnée
 algébrique utile, mais elles ne suffisent pas à établir la cohérence des coercions.
 
-Une réserve de portée doit être notée maintenant plutôt qu'au moment où l'on voudrait s'en passer. {rmq}[Les
-universels bornés ou les jointures, pas les deux. La question se posera le jour où les
-quantificateurs demanderont une borne.] La règle de Breazu-Tannen pour les universels bornés, qui
+Une réserve de portée se note ici : la règle de Breazu-Tannen pour les universels bornés, qui
 autorise le sous-typage contravariant des bornes, est incompatible avec l'existence des jointures.
-K7PL a des universels et des sommes ; s'il veut un jour borner ses quantificateurs, il devra
-renoncer à l'un des deux.
+K7PL a des universels et des sommes ; borner un jour ses quantificateurs demanderait de renoncer à
+l'un des deux.
 
 S'il tient, un programme accepté a exactement une signification, et le vérificateur peut choisir
 n'importe quelle dérivation sans changer le sens du programme. S'il tombe, deux dérivations d'un
 même terme pourraient dénoter deux choses, et l'énoncé de correction de la traduction perdrait son
 objet.
 
-{rmq}[Le chapitre 5 invoque une propriété du même nom. Ce n'est pas le même objet, et la
-ressemblance des énoncés est ce qui rend la confusion facile.] Le chapitre 5
-(§{num "sec:c5-mise-en-pratique"}[]) emploie le mot dans un autre sens : la cohérence y conditionne
+Le chapitre 5
+(§{num "sec:c5-mise-en-pratique"}[]) emploie le mot dans un autre sens, pour un objet distinct, et
+la ressemblance des énoncés rend la confusion facile : la cohérence y conditionne
 la _résolution d'une recherche_ dirigée par le type, celle-ci porte sur des _dérivations de
-subsomption_. Le schéma d'énoncé est le même — un programme valide a exactement une signification —
+subsomption_. Le schéma d'énoncé est le même (un programme valide a exactement une signification)
 et il est employé deux fois dans ce document pour deux objets distincts. Que la preuve ci-dessus
 s'étende à la recherche est une question ouverte, et elle n'est pas traitée ici.
 
