@@ -31,7 +31,7 @@ part d'un foncteur $`p : \mathcal{D} \to \mathcal{T}`, où $`\mathcal{T}` est un
 _termes sous-jacents_ et $`\mathcal{D}` une catégorie de _dérivations_ au-dessus d'eux. Les objets
 de $`\mathcal{D}` que $`p` envoie sur un même objet de $`\mathcal{T}` en sont les _raffinements_.
 Ils forment la _fibre_ au-dessus de cet objet, et les morphismes de $`\mathcal{D}` que $`p` envoie
-sur une identité y sont les morphismes _verticaux_ (ceux qui ne changent rien au terme et tout à ce
+sur une identité y sont les morphismes _verticaux_ : ceux qui ne changent rien au terme et tout à ce
 qu'on en sait.
 
 Ce geste (indexer une famille par une base et raisonner fibre par fibre) est employé trois fois

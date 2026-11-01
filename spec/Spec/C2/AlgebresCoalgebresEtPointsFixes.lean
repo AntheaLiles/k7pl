@@ -278,7 +278,7 @@ faire, et c'est ce que ce document demande.[^fn1]
 Un schéma manque encore, et il est celui que la couche 2 exécute le plus souvent. Un gestionnaire
 d'acteur consomme un flux de messages et le replie en un état fini : c'est un anamorphisme suivi
 d'un catamorphisme, autrement dit un _hylomorphisme_ (la généralisation commune des deux, dont les
-formes simples ne sont que des cas particuliers {cite "yangFantasticMorphismsWhere2022"}[]. Sa
+formes simples ne sont que des cas particuliers) {cite "yangFantasticMorphismsWhere2022"}[]. Sa
 terminaison ne découle ni du premier théorème, dont l'entrée n'est pas bien fondée, ni du second,
 dont la sortie n'est pas un flux. Elle vient d'ailleurs, et K7PL en dispose déjà : un gestionnaire
 traite un message par activation, et le nombre d'activations par tour d'ordonnancement est borné par
@@ -295,7 +295,7 @@ L'espace d'état joue le rôle de $`A`, et $`G` décrit, pour chaque état, l'ob
 qu'il produit et l'état suivant qu'il détermine.
 
 Les flux infinis de couche 2 sont modélisés par $`\nu G`, le plus grand point fixe du conteneur
-$`G`, pris dans $`\mathcal{C}` et non dans une catégorie cartésienne (ce qui n'est pas un détail,
+$`G`, pris dans $`\mathcal{C}` et non dans une catégorie cartésienne : ce qui n'est pas un détail,
 puisque les flux de K7PL transportent des ressources et non des valeurs pures, un message consommé
 ne pouvant l'être deux fois. Ce sont donc des flux monoïdaux, au sens où les flux ordinaires donnent
 une sémantique au flot de données avec fonctions pures quand leur généralisation monoïdale la donne
@@ -476,7 +476,7 @@ est la comonade cofree. Cette classe ne se réduit pas à un pli sur un foncteur
 une _loi distributive_ $`\lambda : F \circ N \Rightarrow N \circ F` de l'endofoncteur sur la
 comonade, soumise à deux conditions de cohérence, et c'est elle qui fait de l'algèbre $`\mathit{in}`
 et de la coalgèbre de contexte une $`\lambda`-bialgèbre (une algèbre et une coalgèbre de porteur
-commun {cite "hinzeUnifyingStructuredRecursion2016"}[]. Ce document emploie l'histomorphisme sans
+commun) {cite "hinzeUnifyingStructuredRecursion2016"}[]. Ce document emploie l'histomorphisme sans
 avoir posé cette loi ; elle lui est due, et elle est distincte de la loi distributive graduée du
 chapitre 1, qui distribue la modalité de grade sur la monade d'effet et non un foncteur de motif sur
 une comonade d'historique. Autant l'écrire ici que la laisser en dette.
