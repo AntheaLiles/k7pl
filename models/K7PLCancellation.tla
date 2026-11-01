@@ -62,7 +62,7 @@ AcknowledgeCancellation ==
 CommitEffect ==
     /\ accepted
     /\ ~committed
-    /\ (serviceState = "Accepted" /\ ~cancelAcknowledged
+    /\ ((serviceState = "Accepted" /\ ~cancelAcknowledged)
         \/ (UnsafePostAckCommit /\ serviceState = "Cancelled" /\ cancelAcknowledged))
     /\ committed' = TRUE
     /\ commitCount' = commitCount + 1

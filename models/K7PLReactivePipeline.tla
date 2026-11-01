@@ -82,7 +82,11 @@ AdvanceFrame ==
     /\ frameOverrun' = frameOverrun \/ patchReady
     /\ UNCHANGED <<delivered, pending, handled, handledOrder, logicalVersion, domVersion,
                    patchReady, patchBase, patchTarget, appliedTargets, writerCapability, unauthorizedWrites>>
-Next == \/ \E e \in Events : ReceiveEvent(e) \/ \E e \in Events : HandleEvent(e) \/ ApplyPatch \/ AdvanceFrame
+Next ==
+    \/ \E receivedEvent \in Events : ReceiveEvent(receivedEvent)
+    \/ \E handledEvent \in Events : HandleEvent(handledEvent)
+    \/ ApplyPatch
+    \/ AdvanceFrame
 Spec == Init /\ [][Next]_vars
 EventConservation == delivered = pending \cup handled /\ pending \cap handled = {}
 StreamOrderPreserved ==

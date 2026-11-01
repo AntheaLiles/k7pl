@@ -91,7 +91,7 @@ GrantCapability(c) ==
     /\ c \notin revokedCapabilities
     /\ validCapabilities' = validCapabilities \cup {c}
     /\ capabilityGeneration' =
-         [capabilityGeneration EXCEPT ![c] = generation[CapSlot(c]])
+         [capabilityGeneration EXCEPT ![c] = generation[CapSlot(c)]]
     /\ UNCHANGED <<generation, activeSlots, staleGenerations,
                    revokedCapabilities, owners, writtenCells, unauthorizedAccesses>>
 
