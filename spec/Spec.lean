@@ -14,6 +14,7 @@ import Spec.C4
 import Spec.C5
 import Spec.C6
 import Spec.C7
+import Spec.Conclusion
 import Spec.Refs
 import Spec.AnnexeA
 import Spec.ProofVisualizations
@@ -61,6 +62,8 @@ Le statut de chaque affirmation est une donnée du texte, non une impression de 
 {include 0 Spec.C6}
 
 {include 0 Spec.C7}
+
+{include 0 Spec.Conclusion}
 
 {include 0 Spec.Refs}
 
