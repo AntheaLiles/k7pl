@@ -536,7 +536,7 @@ représentation et la primitive atomique éventuelles relèvent du raffinement.
 Quatre résultats de ce document en sont des lectures : l'activation
 conditionnelle ci-dessus ; le circuit breaker de session, qui compare le tag d'un message à ce que la
 boîte attend ; la ré-invocation séquentielle d'un grade fini ; et la traduction d'un service répliqué
-$`!x(y).P`. Il suffit de poser l'objet une fois pour que chacun s'énonce comme sa restriction :
+$`!x(y).P`. L'objet posé une fois, chacun s'énonce comme sa restriction :
 l'activation conditionnelle est la consommation atomique multi-places sur $`\mathsf{Bag}(\mathsf{Cap}(c))`
 pour deux canaux ; le circuit breaker est la comparaison du tag d'un message à l'indice de la somme ; la
 ré-invocation d'un grade fini est le service répliqué $`n` fois sur un canal de la boîte ; la

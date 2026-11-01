@@ -792,7 +792,7 @@ dont dépend un secret n'est jamais étiqueté en deçà du secret.
 
 :::proofsketch
 Par préservation (théorème {num "thm:preservation"}[]), chaque contractum reste typable avec une borne
-d'effet qui ne fait que décroître, de sorte qu'il suffit de la propriété sur le pas. Pour
+d'effet qui ne fait que décroître, de sorte que la propriété sur le pas suffit. Pour
 {sc}[Tick], le contexte est nul, donc $`\mathrm{niv}(\mathbf{0}) = \bot \sqsubseteq \hat\ell`. Pour {sc}[Op]
 et {sc}[Case], c'est exactement la clause de couplage $`\mathrm{niv}(\Delta) \sqsubseteq \hat\ell(\varepsilon)`. Les
 autres règles composent des contextes dont le niveau est la jointure de ceux des prémisses, et la
