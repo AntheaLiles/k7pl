@@ -32,6 +32,8 @@ le fragment qui gouverne une expression et les frontières auxquelles ce fragmen
 privilégie une syntaxe fixe et une compilation homogène, au prix d'une extension du noyau plus
 limitée et d'un risque de verbosité.
 
+La surface définie dans ce chapitre est implémentée avec le Framework K ; les définitions exécutables du dépôt (`src/k/`) portent la grammaire, la lecture des couches et les codes de refus que l'annexe A définit normativement.
+
 La délimitation par régions répond au problème identifié dans les systèmes substructurels dont les
 contraintes d'usage sont définies globalement : une discipline unique s'adapte mal à des domaines aux
 besoins hétérogènes {cite "herlihyModularSubstructuralConstraints2026"}[]. K7PL en retient toutefois
