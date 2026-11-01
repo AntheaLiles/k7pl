@@ -364,8 +364,9 @@ exister pour l'observer. La performance du bas niveau et la pureté mathématiqu
 ainsi d'être en tension — l'une est la preuve constructive de l'autre.
 
 Cette même unicité impose une règle de composition aux fermetures : la modalité d'une fermeture ne
-peut être plus permissive que celle de la plus contrainte de ses captures, c'est-à-dire la rencontre
-— au sens du treillis $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` — des modalités capturées. Une
+peut être plus permissive que celle de la plus contrainte de ses captures, c'est-à-dire la rencontre,
+au sens de la chaîne des fragments $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}`, des modalités
+capturées. Une
 fermeture qui capture une ressource `Lin` doit elle-même être `Lin`, quelles que soient ses autres
 captures. L'autoriser à être `Unr` permettrait de l'invoquer plusieurs fois, donc de dupliquer la
 ressource linéaire qu'elle referme, ce qui contredirait directement l'absence de contraction (chapitre 2,
@@ -463,8 +464,9 @@ initialisée. La distinction entre une multiplicité proprement linéaire et un 
 que le calcul de destinations retient, et pour cette raison {cite "bagrelDestinationCalculusLinear2025"}[].
 Le point s'écrit plutôt qu'il ne se suppose, la chaîne de sous-typage de ce chapitre _monte_ vers
 l'affine : sans exclusion explicite, la règle générale autoriserait ce que la sûreté interdit.
-`Dest T` et `Incomplete A B` sont donc hors de la portée de {sc}[SubBox] sur la composante d'usage,
-et `finalize` est la seule sortie de leur linéarité.
+`Dest T` et `Incomplete A B` sont donc hors de la portée de {sc}[SubBox] sur la composante d'usage
+(§{num "sec:g-regles"}[], où la relation ≼ de cette règle est définie comme produit mixte), et
+`finalize` est la seule sortie de leur linéarité.
 
 Un même exemple traverse les trois modalités et rend visible ce qu'elles coûtent et ce qu'elles
 garantissent. Une `String` est une valeur immuable, `Unr`, dont la validité UTF-8 est garantie une
