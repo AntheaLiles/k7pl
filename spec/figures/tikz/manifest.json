@@ -79,5 +79,11 @@
       "source": "grade-coercion-directions.tex",
       "asset_stem": "grade-coercion-directions",
       "canonical_verso": "spec/Spec/C3/ReglesDeTypage.lean#fig:coercion-composantes"
-    }  ]
+    } ,
+    {
+      "id": "zoned-context-occurrence-order",
+      "source": "zoned-context-occurrence-order.tex",
+      "asset_stem": "zoned-context-occurrence-order",
+      "canonical_verso": "spec/Spec/C3/LeSystemeGradue.lean#fig:contexte-a-zones"
+    } ]
 }

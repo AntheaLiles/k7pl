@@ -287,6 +287,20 @@ fusionnerait les deux pas en un seul, ce que le mode de la zone refuse de même,
 contraction étant $`\{0\}`. L'ordre du protocole est donc porté par la représentation du contexte,
 non par une règle ajoutée au jeu.
 
+::::figure (label := "fig:contexte-a-zones") (src := "zoned-context-occurrence-order") (alt := "Deux zones côte à côte. À gauche, une zone de session contenant deux liaisons, premier envoi send(Int) puis second envoi send(Bool), reliées par une flèche d'ordre d'occurrence ; au-dessus, une double flèche barrée indique l'échange refusé, et la seconde liaison est marquée comme liaison maximale, seule substituable. À droite, une zone ordinaire contenant deux liaisons x et y, avec une double flèche d'échange libre au-dessus et la mention qu'aucun ordre n'y est imposé.") (width := "90")
+:::caption
+Un contexte à zones : l'ordre d'occurrence gouverne l'échange et la substitution
+:::
+
+:::desc
+À gauche, la zone du canal d'une session : deux liaisons dans leur ordre d'occurrence, le premier
+envoi $`\mathsf{send}(\mathrm{Int})` puis le second $`\mathsf{send}(\mathrm{Bool})`. L'échange y
+est refusé, et la substitution n'est admissible que pour la liaison maximale, la plus récente. À
+droite, une zone ordinaire : deux liaisons $`x` et $`y` s'échangent librement, aucun ordre n'y est
+imposé.
+:::
+::::
+
 Cette condition doit alors être acquittée aux trois endroits où ce lemme sert, et les trois verdicts
 diffèrent. La _préservation_ la satisfait sans hypothèse : un rédex substitue toujours dans la
 liaison la plus récemment introduite, et l'ordre d'une zone suivant l'ordre d'introduction, cette
