@@ -27,7 +27,7 @@ où les effets sont traités.
 
 Un _gestionnaire de couche 2 est pur_ lorsque sa fonction de transition est une application
 $`(\mathsf{Message} \times \mathsf{Capacit\acute{e}s} \times \mathsf{\acute{E}tat}) \to \mathsf{\acute{E}tat}`
-dont l'effet est neutre : toute source de non-déterminisme — horloge, aléa, latence — y entre comme
+dont l'effet est neutre : toute source de non-déterminisme (horloge, aléa, latence) y entre comme
 une capacité reçue en argument plutôt que comme une opération invoquée. La pureté n'est donc pas
 une discipline que le gestionnaire s'imposerait : c'est la forme de son type, que le vérificateur
 refuse autrement. Ce n'est pas une restriction sur ce qu'un acteur peut faire, mais sur l'endroit
@@ -51,10 +51,10 @@ monde extérieur qu'il ne peut qu'observer par effet. Elle referme ensuite le ch
 garanties qui font de cet ensemble un système plutôt qu'un empilement.
 
 Un enregistrement s'ouvre par une variable de rangée : ses champs, chacun annoté d'un grade de
-présence — `Absent[G]` ou `Present T[G]` —, forment un monoïde sous la concaténation biaisée
+présence (`Absent[G]` ou `Present T[G]`), forment un monoïde sous la concaténation biaisée
 `r // s`, d'élément neutre `Absent[]`. Ce grade de présence n'emprunte pas la notation
 $`\mathcal{G}` par commodité : c'est le même objet, et la raison en est immédiate. Un champ est
-absent ou présent une fois — jamais deux —, de sorte que le grade de présence prend ses valeurs dans
+absent ou présent une fois (jamais deux), de sorte que le grade de présence prend ses valeurs dans
 $`\{0,1\} \subset \mathcal{R}`, c'est-à-dire exactement le sous-ensemble dont le chapitre 2
 (§{num "sec:c2-la-comonade-exponentielle-et"}[]) fait le fragment _affine_. L'affaiblissement y est
 disponible au grade $`0`, la contraction ne s'y instancie pas, la somme sortant de l'ensemble. La
@@ -79,7 +79,7 @@ compilation sans jamais matérialiser de structure intermédiaire.
 
 Un type s'ouvre différemment lorsqu'il choisit de ne pas révéler l'un de ses paramètres : `∃a. τ`
 empaquète une valeur d'un type réel mais dissimulé. L'introduction s'annote au site de définition ;
-l'élimination, une simple projection `e.τ`, ne demande aucun `unpack` explicite en surface —
+l'élimination, une simple projection `e.τ`, ne demande aucun `unpack` explicite en surface :
 l'élaboration vers un langage noyau muni de `pack~/~unpack` reste interne et préserve à la fois la
 solidité du typage et son effacement complet à la compilation. Cette projection implicite est
 toutefois refusée lorsque le témoin du paquet porte un grade effaçable : c'est le filtrage sur
@@ -93,17 +93,17 @@ précise n'ait à être exposée à l'appelant.
 Un type s'ouvre enfin sur le monde par les effets algébriques du chapitre 2
 (§{num "sec:c2-algebres-coalgebres-et-points"}[]), que cette section précise en deux points.
 D'abord, un effet peut être étiqueté : le foncteur $`E` porte, indexée par un grade, une famille de
-transformations naturelles distinctes selon l'étiquette — deux lois de composition différentes pour
+transformations naturelles distinctes selon l'étiquette : deux lois de composition différentes pour
 un même effet `State`, par exemple, selon que l'étiquette distingue un état neuf d'un état ancien.
 Ensuite, deux effets se composent sans empiler de monades : si $`E \cong R \circ L` est la
-décomposition de $`E` par l'adjonction qui l'engendre — `State s ≅ (s →) ∘ (s ×)` en est l'exemple
-canonique —, alors $`E \Join F \cong R \circ F \circ L` insère $`F` dans cette décomposition et en
+décomposition de $`E` par l'adjonction qui l'engendre (`State s ≅ (s →) ∘ (s ×)` en est l'exemple
+canonique), alors $`E \Join F \cong R \circ F \circ L` insère $`F` dans cette décomposition et en
 hérite les transformations de liaison, dès lors qu'est fournie la loi distributive graduée reliant
 les deux axes.
 
 Cette décomposition régit la _composition_ de deux familles d'effets ; leur _séquencement_ relève,
 lui, du produit non commutatif de la quantale du §{num "sec:c1-axiomatique-germinale"}[], et leur
-répétition de l'itération qu'elle induit — trois opérations distinctes qu'il serait fâcheux de
+répétition de l'itération qu'elle induit : trois opérations distinctes qu'il serait fâcheux de
 confondre, la première portant sur les théories d'effets, les deux autres sur leurs occurrences.
 C'est le même partage que documente le plongement des systèmes d'effets fins dans un langage hôte {cite "orchardEmbeddingEffectSystems2014"}[],
 où la gradation de la monade remplace l'empilement parce qu'une monade ordinaire n'offre qu'une vue
@@ -111,8 +111,8 @@ binaire, pure ou effectueuse. Gaboardi, Katsumata, Orchard, Breuvart et Uustalu 
 établissent que cette loi gouverne l'interaction d'un axe de ressource et d'un axe d'effet, et
 qu'elle ne se déduit pas de la seule juxtaposition de leurs gradations.
 
-Le chapitre 6 monomorphise cette composition en code direct, sans indirection. L'import dynamique —
-depuis un fichier, une URL, un modèle de langage — est un effet `Import` ordinaire. Le vérificateur
+Le chapitre 6 monomorphise cette composition en code direct, sans indirection. L'import dynamique
+(depuis un fichier, une URL, un modèle de langage) est un effet `Import` ordinaire. Le vérificateur
 de types suspend son travail, évalue l'expression importée dans un environnement aux effets
 contrôlés, puis reprend le typage sur le résultat, dont la provenance est journalisée (P4) pour
 rester rejouable.
@@ -130,14 +130,14 @@ Ce sont trois manifestations d'un même manque : trois instances d'_un seul obje
 l'_intégrité_ comme la duale de la confidentialité. La confidentialité contraint ce qu'une flèche
 peut lire et vit du côté du contexte, l'intégrité contraint ce qu'elle peut écrire et vit du côté
 des effets. Il y note aussi, sans en tirer la conséquence, que c'est de ce côté-là que se dit ce que
-la frontière de confiance laisse indéterminé — une macro exécutée avant vérification, un import dont
+la frontière de confiance laisse indéterminé : une macro exécutée avant vérification, un import dont
 l'origine n'est pas attestée produisent des valeurs de _basse intégrité_, et rien ne les distingue
 aujourd'hui des autres {cite "marshallGradedModalTypes2023"}[].
 
 La frontière de confiance est donc un objet du jugement, non une notion extérieure à lui : elle est
 le niveau d'intégrité, porté du côté de $`\mathcal{E}` comme la confidentialité l'est du côté de
 $`\Delta`. Les trois franchissements deviennent trois manières d'abaisser ce niveau, et l'écart qui
-n'était pas justifié cesse d'en être un — c'est la même composante, lue à trois endroits. Ce point
+n'était pas justifié cesse d'en être un : c'est la même composante, lue à trois endroits. Ce point
 importe au-delà de la présentation : tant que la frontière restait hors du jugement, elle
 constituait une restriction non exprimée dans celui-ci, c'est-à-dire le seul contre-exemple connu au
 principe de complétude graduée du §{num "sec:c3-le-systeme-gradue"}[]. La ranger dans $`\mathcal{E}`
@@ -169,7 +169,7 @@ contrats respectifs, sans déduire d'une garantie interne une garantie de correc
 Lorsque la source est un modèle de langage, la discipline retenue veut que seule la forme des types
 franchisse la frontière, jamais les valeurs. Il importe de ne pas confondre cette discipline avec
 une garantie : c'est une convention d'interface, que le système de types ne démontre pas.
-L'orthogonalité de P2 sépare deux axes de typage, elle n'établit aucune non-interférence — empêcher
+L'orthogonalité de P2 sépare deux axes de typage, elle n'établit aucune non-interférence : empêcher
 l'information de remonter d'un niveau sensible vers un résultat observable suppose un suivi de
 dépendance paramétré par un treillis de niveaux, avec assignation d'un niveau au résultat de chaque
 calcul {cite "choudhuryDependentDependencyCalculus2022"}[], {cite "liuConsistencyDependentCalculus2025"}[].
@@ -177,8 +177,8 @@ K7PL ne possède pas ce mécanisme, et le §{num "sec:c1-postulats"}[] explique 
 hors de ses postulats.
 
 Cette ouverture a une contrepartie diagnostique. Un trou, noté `_`, est le terme le moins précis
-possible pour un type donné — le point le plus bas, sur ce type, du treillis $`\sqsubseteq` du
-chapitre 2 — et le compilateur y répond par narrowing en proposant les termes qui le raffinent
+possible pour un type donné (le point le plus bas, sur ce type, du treillis $`\sqsubseteq` du
+chapitre 2) et le compilateur y répond par narrowing en proposant les termes qui le raffinent
 jusqu'à devenir acceptables. Cette réponse n'est pas une lecture supplémentaire du système de types :
 c'est une synthèse dirigée par les types et les grades, donc une recherche de preuve, avec espace de
 recherche et possibilité d'échec. L'exploitation des grades y réduit effectivement l'exploration par
@@ -187,13 +187,13 @@ la supprime pas {cite "hughesProgramSynthesisGraded2024"}[].
 
 K7PL retient le schéma soustractif de gestion des ressources, dérivé du modèle de contexte
 entrée-sortie de la programmation logique linéaire {cite "hughesResourcefulProgramSynthesis2021"}[],
-et borne la recherche par un budget qui est lui-même un grade $`r` — conformément à P3. La
+et borne la recherche par un budget qui est lui-même un grade $`r` (conformément à P3). La
 complétion d'un trou peut donc échouer par épuisement de budget, au même titre que le test par
 propriétés du chapitre 6 peut échouer à trouver un contre-exemple.
 
 Symétriquement, pour toute requête de sous-typage $`\upsilon \sqsubseteq A`, le compilateur peut
-extraire du programme la tranche minimale — le sous-ensemble de la dérivation, au sens des
-morphismes composés du chapitre 2 — qui suffit à expliquer pourquoi $`A` a été dérivé. Cette même
+extraire du programme la tranche minimale (le sous-ensemble de la dérivation, au sens des
+morphismes composés du chapitre 2) qui suffit à expliquer pourquoi $`A` a été dérivé. Cette même
 tranche répond à la question inverse aux frontières de couches : un jugement
 `Δ;Γ ⊢ C at d ▷ Δ';Γ'[m]` décompose un contexte en un trou et son environnement, formalisant ce
 qu'une couche laisse à une autre le soin de compléter.
@@ -201,7 +201,7 @@ qu'une couche laisse à une autre le soin de compléter.
 Ce que ce chapitre a construit ne mérite le nom de système de types qu'à condition de satisfaire
 quatre garanties, et c'est par elles qu'il se referme. La première paraît plus modeste que ne le
 voudrait la tradition de Damas et Milner, et ne l'est pas : _la vérification est bidirectionnelle_,
-non principale. Ce n'est pas un renoncement mais une _forme_ — celle sous laquelle un système à
+non principale. Ce n'est pas un renoncement mais une _forme_ : celle sous laquelle un système à
 tailles s'implante, adoptée par les travaux qui en font la métathéorie sans jamais la présenter
 comme une réserve {cite "abelWellfoundedRecursionCopatterns2016"}[]. L'inférence principale et la
 vérification bidirectionnelle ne sont pas deux degrés d'ambition sur la même échelle~: la seconde
@@ -216,7 +216,7 @@ dépendante de Moon, Eades III et Orchard procède de même {cite "moonGradedMod
 le typage des types linéaires indexés se réduit à une théorie du premier ordre indécidable,
 traitable seulement en pratique {cite "deamorimReallyNaturalLinear2014"}[]. La terminaison de la
 vérification, elle, reste garantie par un graphe de dépendance acyclique entre variables de type,
-grades, dimensions et variables de rangée — une instance de plus de la terminaison structurelle du
+grades, dimensions et variables de rangée, une instance de plus de la terminaison structurelle du
 chapitre 2.
 
 La deuxième garantie est la stabilité par substitution, et le semi-anneau du
@@ -240,7 +240,7 @@ Ces garanties se paient, et le coût porte sur un seul sujet : l'ergonomie. Six 
 
 * Les flux de couche 2 portent un indice de taille.
 
-* Les délimiteurs du chapitre 5 ajoutent une marque là où d'autres langages n'en demandent aucune —
+* Les délimiteurs du chapitre 5 ajoutent une marque là où d'autres langages n'en demandent aucune :
   risque de verbosité sur lequel concluent les auteurs qui ont doté des langages de description
   matérielle de types quantitatifs {cite "hughesResourcefulProgramSynthesis2021"}[].
 
@@ -258,13 +258,13 @@ préservation du type
 Stabilité du typage par réduction
 
 Pour tout terme K7PL bien typé $`t : \tau` dont aucun type ne dépend d'une variable soumise au suivi
-de ressource — la condition de séparation de P2 —, si $`t` se réduit en $`t'` ($`t \leadsto t'`) par évaluation, alors $`t' : \tau` :
+de ressource (la condition de séparation de P2), si $`t` se réduit en $`t'` ($`t \leadsto t'`) par évaluation, alors $`t' : \tau` :
 $`\Delta \vdash t : \tau \land t \leadsto t' \implies \Delta \vdash t' : \tau`.
 :::
 
 :::proofsketch
 Par induction structurelle sur la règle de réduction. La $`\beta`-réduction locale préserve le
-contexte linéaire, les substitutions consommant et produisant des ressources de façon isomorphe —
+contexte linéaire, les substitutions consommant et produisant des ressources de façon isomorphe :
 argument qui n'est valide que sous la condition de séparation rappelée dans l'énoncé.
 :::
 :::note
@@ -276,7 +276,7 @@ d'abaissement vers MLIR ; les obligations P2 et P1b restent attachées à chacun
 Le volet évaluation est un corollaire de la préservation du §{num "sec:g-semantique"}[] ; le volet abaissement MLIR est celui de la conjecture {num "thm:abaissement_grades"}[], non démontré.
 
 L'abaissement
-MLIR — défonctionnalisation et _inlining_ statique des effets — transforme les fonctions d'ordre
+MLIR (défonctionnalisation et _inlining_ statique des effets) transforme les fonctions d'ordre
 supérieur et les effets en tables de saut statiques, et se justifie par des arguments syntaxiques
 propres à chaque passe (substitution, inversibilité des règles) ; sa formulation comme isomorphisme
 naturel dans _C_ relève de l'obligation P1b, non établie (chapitre 1).
@@ -299,7 +299,7 @@ Ce théorème et la préservation du §{num "sec:g-semantique"}[] (théorème {n
 ne sont pas deux formulations d'une même chose. Celle du §{num "sec:g-semantique"}[] est plus fine, portant les
 grades, les effets et la décroissance du potentiel, là où celui-ci ne parle que du type. Celui-ci
 est plus large, couvrant l'abaissement que celle-ci ne couvre pas. Pour le volet évaluation, cet
-énoncé est donc un corollaire de celui du §{num "sec:g-semantique"}[] — oublier le grade et l'effet dans la conclusion
+énoncé est donc un corollaire de celui du §{num "sec:g-semantique"}[] : oublier le grade et l'effet dans la conclusion
 graduée donne exactement la stabilité du type. Pour le volet abaissement, l'intersection des deux
 laisse un énoncé sans démonstration, la préservation graduée à travers l'abaissement, isolé au
 chapitre 6 (§{num "sec:c6-le-processus-de-compilation"}[], théorème {num "thm:abaissement_grades"}[])
@@ -311,7 +311,7 @@ esquissée au §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[
 les grades à travers la compilation, et elle est énoncée sans être démontrée (théorème {num "thm:abaissement_grades"}[]).
 Le présent énoncé est la _préservation du type_, qui couvre les deux mouvements mais oublie le grade
 ; il est plus large et plus pauvre. Ce qui manque à ce document est donc exactement la
-seconde, et non « la préservation » en général — la nommer évite de croire la dette plus grande ou
+seconde, et non « la préservation » en général : la nommer évite de croire la dette plus grande ou
 plus petite qu'elle n'est.
 
 S'il tient, l'abaissement cesse d'être un endroit où la garantie peut se perdre : ce que le
@@ -321,7 +321,7 @@ code produit, c'est-à-dire par le mécanisme même que le langage prétend rend
 
 Enfin, la substituabilité obéit à une forme généralisée du principe de Liskov : un programme $`g`
 peut remplacer un programme $`f` si et seulement si la précondition de $`f` implique celle de $`g`
-et la postcondition de $`g` implique celle de $`f` — vérifiable directement pour les types et les
+et la postcondition de $`g` implique celle de $`f` : vérifiable directement pour les types et les
 effets, par le solveur SMT pour les contraintes de valeur. C'est cette dernière garantie qui rend
 les refactorings prouvés possibles : remplacer un fragment de programme par un autre n'est légitime
 que lorsque cette implication tient, et elle seule.
