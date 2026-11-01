@@ -91,29 +91,41 @@ GenMC is a candidate only if the relevant concrete implementation is C/C++ and t
 
 ## 4. Existing repository baseline
 
-At the source baseline used for this plan:
-- the D01 native-boundary TLA+ model and configurations are under `models/`;
-- the R9 cancellation model and configurations are also under `models/`;
-- `.github/workflows/k7pl-semantics.yaml` downloads TLC 1.7.4 and verifies SHA-256 and SHA-1 before running D01;
-- the D01 job checks an enforced profile and requires a counterexample for an unconfined negative profile;
-- the workflow retains model sources, configurations, tool identity and TLC logs as CI artefacts;
-- R9 is checked by the `r9-tlc` job in `.github/workflows/ci.yaml`;
-- TLA-01 is checked in the same `r9-tlc` job: three nominal/environment profiles and two negative configurations whose expected invariant names are checked;
-- TLA-02..16 are checked in that job as one candidate suite: nominal profiles, targeted negative controls and temporal properties where declared;
-- the TLA-01 artifact retains its own model/configuration/vector/log set; `tla-models-evidence` retains all TLA-02..16 modules, configurations, authored counterexample expectations, logs, Java identity and the pinned TLC JAR digest;
-- `wiki/semantics.md` explicitly says that K, Lean and TLA+ results are corroborating models and that the K ↔ TLA+ projection remains open.
+Repository state reviewed on **2026-11-01**, with the workstream based on
+`main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`:
 
-The K7OS model files now reside beside the K7PL programme documents directly in repository-root `models/`. Their contents and CI properties are preserved; only file paths and workflow working directories changed. Their research status remains non-normative.
+- The D01 native-boundary model is checked once by `d01-tlc` in
+  `.github/workflows/k7pl-semantics.yaml`. It produces
+  `d01-tlc-evidence`, retained for 14 days and consumed by `k-smoke`.
+- R9 and TLA-01..16 are checked by `r9-tlc` in
+  `.github/workflows/ci.yaml`. D01 is deliberately not repeated in this job.
+- The 39 TLA-01..16 profiles (18 positive, 21 negative) are declared in
+  `models/TLC-PROFILES.json`. The Deno runner validates the manifest against
+  every `TLA*.cfg` and every TLA/K7PL model module before execution; the
+  controller test suite checks that a new or renamed profile cannot be omitted.
+- The `tla-model-check-evidence` artifact contains the TLA-01..16 sources,
+  configurations, authored expectations, per-profile logs, Java identity,
+  pinned TLC JAR digest, and the R9 sources/configurations/logs. The R9 files
+  are under its `r9/` subdirectory. This artifact is distinct from
+  `d01-tlc-evidence`; neither is described as a proof.
+- TLC 1.7.4 is downloaded and verified against the pinned SHA-256 and SHA-1
+  before execution. The unified artifact has fail-on-missing upload semantics
+  and 14-day retention.
+- `wiki/semantics.md` states that K, Lean and TLA+ remain corroborating
+  descriptions and that the K ↔ TLA+ projection is open. If PR #311 later
+  replaces that page, its `models/` path reference and non-normative disclaimer
+  must be preserved in the successor documentation.
+
 
 ## 5. Proposed CI tiers
 
-| Tier | Trigger | Checks | Evidence |
-|---|---|---|---|
-| TLA parse | Any `.tla` or `.cfg` change | SANY/parser and import resolution | Parser/tool version, module list, output |
-| TLA model check | Model or configuration change | TLC invariants, deadlocks and temporal properties | Sources, configs, logs, state counts, traces, hashes |
-| TLA extended | Selected models or manual/full workflow | Apalache; TLAPS only when a proof is registered | Exact tool versions, solver, bounds or proof output |
-| Formal-chain packaging | Model/proof/source changes | Package TLA, K sources, Lean source and matching evidence | Commit-matched archive with provenance |
-| Concrete refinement | Runtime implementation changes | Model-specific tests and external concurrency checker where relevant | Runtime revision, platform profile, test traces |
+| Tier | Implementation status | Trigger | Checks | Evidence |
+|---|---|---|---|---|
+| TLA parse | **Not implemented** | Any `.tla` or `.cfg` change | SANY/parser and import resolution | Parser/tool version, module list, output |
+| TLA model check | **Implemented** | `tla_model_check` impact surface | TLC invariants and declared temporal properties for R9 and TLA-01..16; negative profiles must fail at the named invariant | Sources, configs, logs, state counts, traces, hashes |
+| TLA extended | **Not implemented** | Selected models or manual/full workflow | Apalache; TLAPS only when a proof is registered | Exact tool versions, solver, bounds or proof output |
+| Formal-chain packaging | **Not implemented** | Model/proof/source changes | Package TLA, K sources, Lean source and matching evidence | Commit-matched archive with provenance |
+| Concrete refinement | **Not implemented** | Runtime implementation changes | Model-specific tests and external concurrency checker where relevant | Runtime revision, platform profile, test traces |
 
 Do not make every PR run every expensive analysis. Use a source-impact map, but ensure that shared modules trigger all dependent models and that manual/full execution remains available.
 

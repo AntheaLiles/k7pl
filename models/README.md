@@ -18,10 +18,16 @@ The directory is intentionally flat. The repository concerns K7PL throughout, so
 | [`FORMAL-ARCHITECTURE.md`](FORMAL-ARCHITECTURE.md) | Defines the division between normative Verso, executable K semantics, TLA+, model checkers, Lean and implementation tests; records simulation obligations. |
 | [`TOOLCHAIN-CI.md`](TOOLCHAIN-CI.md) | Tool roles and limits, CI tiers and reproducible model-checking evidence. |
 | [`OPEN-GATES.md`](OPEN-GATES.md) | Unresolved semantic/methodological decisions; no open question is silently ratified. |
-| [`SPEC-COVERAGE-AUDIT-2026-10-31.md`](SPEC-COVERAGE-AUDIT-2026-10-31.md) | Obligation-level audit against the pinned PR #311 specification snapshot; gaps, non-TLA methods and acceptance criteria. |
+| [`MODEL-DEPENDENCIES.md`](MODEL-DEPENDENCIES.md) | Conceptual interfaces and dependencies between independent model modules; not a composition relation. |
+| [`TLC-PROFILES.json`](TLC-PROFILES.json) | Authoritative finite-profile inventory executed by the Deno TLC runner and checked for exact configuration/module coverage. |
+| [`SPEC-COVERAGE-AUDIT-2026-10-31.md`](SPEC-COVERAGE-AUDIT-2026-10-31.md) | Historical obligation-level review of the unmerged PR #311 snapshot; not the current specification baseline. |
 | [`CHECKPOINT.md`](CHECKPOINT.md) | Current state and next action for the workstream, including the latest coverage audit. |
 
-The work programme was prepared from the PR #311 specification snapshot at commit `f3b33cd34e1da49a4c8c41ca632c586e66715e70`. The work branch starts from `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`; references must be revalidated against current `main` before implementation.
+**Current specification baseline:** `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a` (reviewed 2026-11-01). The live model-to-specification matrix is `CHAPTER-COVERAGE.md`; theorem status and open assurance obligations remain centralised in [`wiki/assurance.md`](../wiki/assurance.md).
+
+The initial obligation-level report was prepared against PR #311 at `f3b33cd34e1da49a4c8c41ca632c586e66715e70`. PR #311 is still open and unmerged; that report is preserved as a historical snapshot only. It must not be treated as the current normative baseline or as a reason to merge #311 before its lexical work is complete.
+
+The replacement workstream starts from the current `main` baseline above. `wiki/semantics.md` currently carries a path reference to `models/`; when PR #311 eventually replaces that page with its lexicon documentation, that reference and the non-normative model disclaimer must be carried into the successor page.
 
 ## Existing model baselines
 
@@ -49,6 +55,8 @@ Keep these statuses distinct: **specified**, **modelled**, **model-checked**, **
 
 The TLA-02..16 modules deliberately keep their state spaces separate. They use common design vocabulary—mailbox messages and matching, actor/fibre readiness, lifecycle journals, capability ownership, abstract resource units, logical time, level-labelled observations, and publication/consumption protocols—but do not import one another or claim a cross-module refinement. Their documented dependencies are conceptual contracts and proof obligations, not a syntactic import graph.
 
-The r9-tlc job runs one unified TLA-01..16 step: 18 positive and 21 negative profiles (39 total), with failure accumulation and one `tla-model-check-evidence` artifact containing sources, configurations, expectations and per-profile logs. This makes cross-model regressions visible in one revision while keeping explicit-state exploration tractable. A future composed system model requires a separately reviewed interface relation; it must not be inferred from running independent modules in the same workflow.
+The `r9-tlc` job runs the 18 positive and 21 negative TLA-01..16 profiles from `TLC-PROFILES.json`; the Deno runner rejects an incomplete or duplicate inventory and accumulates failures while retaining one log per profile. Its `tla-model-check-evidence` artifact also contains the R9 model, configurations and logs. D01 is checked once in `k7pl-semantics.yaml`, whose separate `d01-tlc-evidence` artifact remains the input to `k-smoke`. This makes cross-model regressions visible in one revision while keeping explicit-state exploration tractable. A future composed system model requires a separately reviewed interface relation; it must not be inferred from running independent modules in the same workflow.
+
+The finite-profile manifest is an execution inventory, not a second specification of model semantics. The move from function-valued TLC constants to operators/domains internalised in modules makes the current instances reproducible but reduces parameterisation: changing actor, message or graph domains now requires a reviewed module edit. Preserve that limitation rather than silently treating these models as generic families.
 
 TLA-14 and TLA-15 are executable conditional profiles, not adopted library or distributed-runtime requirements. TLA-16 models an atomic abstract ring and does not model weak-memory behaviours. No TLA-01..16 profile has yet been TLC-checked on the replacement branch, and none establishes K/Lean correspondence or changes normative K7PL semantics. The missing implementation-refinement work (MMU, IOMMU/DMA, physical-page reclamation, weak memory and additional runtime protocols) is itemised in [CHAPTER-COVERAGE.md](CHAPTER-COVERAGE.md).
