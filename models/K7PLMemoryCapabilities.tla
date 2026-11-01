@@ -85,15 +85,17 @@ ReuseSlot(s) ==
                    writtenCells, unauthorizedAccesses>>
 
 GrantCapability(c) ==
-    /\ c \in Capabilities
-    /\ CapSlot(c) \in activeSlots
-    /\ c \notin validCapabilities
-    /\ c \notin revokedCapabilities
-    /\ validCapabilities' = validCapabilities \cup {c}
-    /\ capabilityGeneration' =
-         [capabilityGeneration EXCEPT ![c] = generation[CapSlot(c)]]
-    /\ UNCHANGED <<generation, activeSlots, staleGenerations,
-                   revokedCapabilities, owners, writtenCells, unauthorizedAccesses>>
+    LET slot == CapSlot(c)
+    IN
+        /\ c \in Capabilities
+        /\ slot \in activeSlots
+        /\ c \notin validCapabilities
+        /\ c \notin revokedCapabilities
+        /\ validCapabilities' = validCapabilities \cup {c}
+        /\ capabilityGeneration' =
+             [capabilityGeneration EXCEPT ![c] = generation[slot]]
+        /\ UNCHANGED <<generation, activeSlots, staleGenerations,
+                       revokedCapabilities, owners, writtenCells, unauthorizedAccesses>>
 
 TransferCapability(c, recipient) ==
     /\ c \in validCapabilities
