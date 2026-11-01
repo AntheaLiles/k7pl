@@ -23,7 +23,7 @@ tag := "c4-echelle-locale"
 
 À l'échelle la plus fine, un automate n'est pas une métaphore : c'est la forme même que prend
 l'exécution, que celle-ci reconnaisse un motif ou calcule un pli. Cette section décrit les deux
-automates de couche 3 — l'un pour le filtrage, l'autre pour le calcul —, puis les deux régimes
+automates de couche 3 (l'un pour le filtrage, l'autre pour le calcul), puis les deux régimes
 d'exécution, fibrilles et fibres, qui les portent.
 
 Les R-expressions unifient sous une seule interface, `(match ...)`, le filtrage structurel, PCRE,
@@ -31,7 +31,7 @@ PEG et les grammaires ; leur compilation ne masque jamais la complexité qu'un m
 l'expose. Chaque constructeur porte une annotation : `@linear` pour un automate fini déterministe
 (linéaire en la longueur du texte, constant par octet ou par bloc), `@polynomial` pour un automate
 non déterministe, `@stack` pour un automate à pile (analyse polynomiale, pile proportionnelle à la
-profondeur d'imbrication) et `@backtrack` pour le retour arrière explicite, seul exponentiel — le
+profondeur d'imbrication) et `@backtrack` pour le retour arrière explicite, seul exponentiel : le
 coût exponentiel vient du retour arrière, non de la pile. Trois conséquences en découlent.
 
 * Un motif utilisant une classe de caractères, une répétition ou une composition simple se résout en
@@ -51,9 +51,9 @@ solveur SMT vérifie compatible avec la mémoire disponible. La discipline reten
 autre composant de K7PL, une borne statique. Les positions capturées ne sont jamais copiées : ce
 sont des paires d'offsets dans le texte source lui-même.
 
-Les trois analyses d'automates que ce document conduit — les R-expressions ici, le protocole Noise
+Les trois analyses d'automates que ce document conduit (les R-expressions ici, le protocole Noise
 comme automate fini au §{num "sec:c4-echelle-du-systeme"}[], la syntaxe de K7PL au
-§{num "sec:c5-s-expressions-universelles"}[] — se rangent dans une même table, et P3 s'y applique une
+§{num "sec:c5-s-expressions-universelles"}[]) se rangent dans une même table, et P3 s'y applique une
 fois : le temps et l'espace sont donnés par la machine, non par l'affirmation locale.
 
 ::::k7table (label := "tab:classes-motifs") (align := "lllll")
@@ -104,7 +104,7 @@ Cette classification est celle des machines, et n'est qu'une coupe d'un espace �
 seconde dimension est précisément celle où ce chapitre se déplacera s'il tient sa promesse. Le
 compte rendu coalgébrique de la théorie des automates ne gradue pas seulement du déterministe au non
 déterministe. Il ajoute l'_alternant_, et surtout il indexe toute la construction par le choix du
-_foncteur_, lequel décide sur quoi l'automate opère — des mots, des arbres, des arbres à branchement
+_foncteur_, lequel décide sur quoi l'automate opère : des mots, des arbres, des arbres à branchement
 non borné, des systèmes de transitions étiquetés. Sous une hypothèse unique, que ce foncteur
 préserve les produits fibrés faibles, la classe des langages reconnaissables reste close par
 réunion, intersection et projection, et tout automate alternant se transforme en un non déterministe
@@ -135,7 +135,7 @@ faute de quoi le chapitre vendrait des propriétés qu'il n'a pas. La première 
 grammaires d'expressions d'analyse, dont l'absence d'ambiguïté est un argument affiché. Ce qui est
 cédé en retour est nommé par leur auteur même : à la place de déterminer si deux alternatives d'une
 grammaire hors contexte sont ambiguës, le concepteur doit déterminer si deux alternatives d'un choix
-priorisé peuvent être _réordonnées_ sans changer le langage — question indécidable en général {cite "fordParsingExpressionGrammars"}[].
+priorisé peuvent être _réordonnées_ sans changer le langage : question indécidable en général {cite "fordParsingExpressionGrammars"}[].
 L'ambiguïté n'est donc pas éliminée, elle est déplacée du texte analysé vers la grammaire qui
 l'analyse, et le déplacement vaut d'être dit.
 
@@ -145,22 +145,22 @@ _taille de l'entrée_ et non à la profondeur maximale de récursion, deux grand
 différer de plusieurs ordres de grandeur, et sa défense est comparative plutôt qu'absolue {cite "fordPackratParsingSimple"}[].
 Or P3 interdit de dissimuler un coût, et un coût annoncé sur une seule dimension en dissimule une
 autre. Le point n'est pas seulement de méthode : l'analyse par dérivée d'une grammaire à pile
-visible — celle dont §{num "sec:c5-s-expressions-universelles"}[] montre que la syntaxe de K7PL
-relève par construction — donne le _même_ temps linéaire avec une pile, donc un espace proportionnel
+visible (celle dont §{num "sec:c5-s-expressions-universelles"}[] montre que la syntaxe de K7PL
+relève par construction) donne le _même_ temps linéaire avec une pile, donc un espace proportionnel
 à la profondeur d'imbrication {cite "jiaDerivativebasedParserGenerator2021"}[]. Sur le postulat qui
 gouverne ce projet, la seconde technique domine la première. Les deux coûts sont donc annoncés ici,
 et le choix de technique est laissé à l'implantation plutôt que réputé neutre.
 
 L'annotation `@polynomial` repose sur une hypothèse qui doit être nommée : que la déterminisation
 d'un automate non déterministe _existe_. Elle est acquise dans le cadre ensembliste ordinaire, et
-elle ne l'est pas partout. Dans le cadre _nominal_ — celui où les états portent des noms modulo
-permutation —, la construction de l'ensemble des parties finies ne préserve pas la finitude par
+elle ne l'est pas partout. Dans le cadre _nominal_ (celui où les états portent des noms modulo
+permutation), la construction de l'ensemble des parties finies ne préserve pas la finitude par
 orbites, et la déterminisation standard échoue {cite "bojanczykAutomataTheoryNominal2014"}[]. La
 question n'est pas oiseuse pour ce document, qui manipule des noms modulo $`\alpha`-équivalence au
 chapitre 5. Deux réponses sont possibles et une seule est écrite ici : les automates de cette
 section opèrent sur des _caractères_ et non sur des noms, de sorte qu'ils restent dans le cadre
-ensembliste et que l'annotation tient. Si un motif venait un jour à filtrer sur des noms liés — une
-R-expression sur des AST plutôt que sur du texte —, l'annotation devrait être revue, et ce qui
+ensembliste et que l'annotation tient. Si un motif venait un jour à filtrer sur des noms liés (une
+R-expression sur des AST plutôt que sur du texte), l'annotation devrait être revue, et ce qui
 survivrait sans condition est la minimalisation des automates _déterministes_, qui ne dépend pas de
 la symétrie des données.
 
@@ -178,7 +178,7 @@ le retour arrière explicite et constitue le cas à coût exponentiel mentionné
 
 Le pli sur une algèbre initiale (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) admet
 la même lecture automate : exécuter un catamorphisme, c'est faire avancer une machine à pile qui
-consomme la structure et maintient un accumulateur de taille bornée — c'est la notation tacite
+consomme la structure et maintient un accumulateur de taille bornée : c'est la notation tacite
 héritée de la tradition Forth/Factor, où un bloc `[dup * +]` décrit littéralement l'effet de pile de
 son exécution. L'histomorphisme étend cette machine d'un accumulateur d'historique, dont la
 profondeur reste bornée par un grade $`r` plutôt que de croître avec l'entrée : c'est la même
@@ -189,7 +189,7 @@ couche 3 est un automate dont la mémoire se calcule avant l'exécution, jamais 
 Cette exigence détermine à son tour le régime d'exécution qui porte l'automate. Une fibrille est une
 coroutine sans pile propre, compilée directement en machine à états : c'est le régime par défaut des
 couches 2 et 3, compatible WebAssembly, et c'est lui qui réalise matériellement l'automate borné qui
-vient d'être décrit — une fibrille n'est jamais qu'un DFA, un pli ou un flux de plus, portés par le
+vient d'être décrit : une fibrille n'est jamais qu'un DFA, un pli ou un flux de plus, portés par le
 même mécanisme. Une fibre, à l'inverse, est une coroutine à pile propre, allouée par `mmap`, seule
 capable d'un `yield` à une profondeur arbitraire. Elle n'est nécessaire que pour les appels FFI
 asynchrones vers du code étranger dont la structure d'appel échappe, par construction, à toute borne
@@ -201,8 +201,8 @@ Les flux infinis de la couche 2 (`@:stream`) sont des semicoroutines asymétriqu
 même schéma au cas coinductif. L'anamorphisme du chapitre 2
 (§{num "sec:c2-algebres-coalgebres-et-points"}[]) s'y exécute concrètement comme une machine dont le
 compilateur a calculé, à l'avance, la taille maximale de pile, allouée une fois pour toutes dans un
-`StreamContext` fixe. Chaque `yield` n'est alors qu'un échange de pointeur de contexte en $`O(1)` —
-ni allocation, ni copie — de sorte qu'un flux qui ne termine jamais reste, à chaque pas, aussi borné
+`StreamContext` fixe. Chaque `yield` n'est alors qu'un échange de pointeur de contexte en $`O(1)`
+(ni allocation, ni copie), de sorte qu'un flux qui ne termine jamais reste, à chaque pas, aussi borné
 en mémoire que le pli le plus fini de cette section.
 
 Un mot sur le vocabulaire, car il porte ici une décision et non une commodité. Le régime de la

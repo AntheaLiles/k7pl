@@ -23,7 +23,7 @@ tag := "c4-modeles-de-memoire"
 
 Le chapitre 1 (§{num "sec:c1-postulats"}[]) a posé que l'absence de course à la donnée et la sûreté
 mémoire se déduisent de l'absence de diagonale dans _C_, sans le démontrer. C'est ici que la
-démonstration a son lieu, puisque les deux objets qu'elle met en jeu — la fibrille et l'arène —
+démonstration a son lieu, puisque les deux objets qu'elle met en jeu (la fibrille et l'arène)
 viennent d'être construits. La capacité d'écriture $`\mathsf{WriteCap}(r)` est une ressource
 linéaire au sens du chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]), et l'énoncé n'emploie de son
 grade que le caractère linéaire.
@@ -85,8 +85,8 @@ hypothèse, sans justification circulaire. H2 et H3 restent des prémisses disti
 remplace H1.
 :::
 ::::
-Une hypothèse porte tout, et elle n'est pas gratuite : (H3). Les deux autres sont des lemmes sur la règle d'introduction ; la « région » s'y entend comme une discipline de portée, que le polymorphisme paramétrique ordinaire suffit à définir. {rmq}[C'est le sens unique d'imbrication des
-délimiteurs qui tient l'hypothèse. Ce théorème dit ce qui casse dans l'autre sens.] La preuve
+Une hypothèse porte tout, et elle n'est pas gratuite : (H3). Les deux autres sont des lemmes sur la règle d'introduction ; la « région » s'y entend comme une discipline de portée, que le polymorphisme paramétrique ordinaire suffit à définir. C'est le sens unique d'imbrication
+des délimiteurs qui tient l'hypothèse ; ce théorème dit ce qui casse dans l'autre sens. La preuve
 suppose les deux contextes disjoints, ce que $`\Gamma_1 \otimes \Gamma_2` écrit mais ne garantit pas
 par lui-même dès que les fragments s'imbriquent. La couche 3 admet la contraction ; si une valeur
 cartésienne pouvait capturer une capacité linéaire, la duplication licite en couche 3 dupliquerait
@@ -99,8 +99,8 @@ sens, et c'est ce théorème.
 
 S'il tient, l'absence de course à la donnée exigée par P4 et la sûreté mémoire exigée par P3 cessent
 d'être des propriétés à vérifier sur le langage : ce sont deux lectures de l'absence de diagonale
-dans _C_. S'il tombe — si la déclaration d'indépendance entre modes n'était pas tenable —, il
-faudrait un mécanisme d'exécution pour interdire la mutation concurrente, c'est-à-dire ce que le
+dans _C_. S'il tombe (si la déclaration d'indépendance entre modes n'était pas tenable), un
+mécanisme d'exécution deviendrait requis pour interdire la mutation concurrente, c'est-à-dire ce que le
 postulat d'autonomie physique refuse.
 
 ::::proposition (label := "thm:introduction_unique") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "memory-safety")
@@ -111,8 +111,8 @@ loi unique d'introduction des ressources d'écriture
 :::statement +titled
 Une ressource d'écriture est introduite au plus une fois par région, sous une mesure strictement décroissante
 
-Dans un contexte clos, la règle d'introduction d'une ressource d'écriture — capacité sur un segment
-d'arène, destination, grade linéaire — consomme linéairement l'objet qu'elle découpe, et son indice
+Dans un contexte clos, la règle d'introduction d'une ressource d'écriture (capacité sur un segment
+d'arène, destination, grade linéaire) consomme linéairement l'objet qu'elle découpe, et son indice
 (taille du segment, âge $`k` de $`\mathsf{Lin}_k`, taille de l'arène) décroît strictement. Il en
 résulte : (a) au plus une capacité d'écriture par région est dérivable (hypothèse H1 du théorème
 {num "thm:surete_spatiale"}[]) ; (b) les destinations ne forment pas de cycle ; (c) la
@@ -136,14 +136,14 @@ linéaire en l'arène_, que le modèle mémoire de la section suivante établit 
 :::
 
 :::note
-_Obligation ouverte._ Le bloc réunit trois conclusions — unicité par région, absence de cycle des
-destinations, terminaison de la construction d'une arène — dont les mesures et les obligations
+_Obligation ouverte._ Le bloc réunit trois conclusions (unicité par région, absence de cycle des
+destinations, terminaison de la construction d'une arène) dont les mesures et les obligations
 diffèrent ; elles sont à suivre séparément. Le cas de l'élimination de l'arène reste à écrire, et H1
 en dépend : la sûreté spatiale ne peut pas s'appuyer sur ce bloc tant qu'il manque.
 :::
 ::::
 Ce que les arènes viennent de faire pour l'acteur, la mémoire physique le fait sur sept niveaux, et
-c'est ici qu'il faut le dire puisque la section précédente vient d'en poser le cas principal. Cette
+c'est ici que cela se dit, puisque la section précédente vient d'en poser le cas principal. Cette
 hiérarchie instancie l'exigence d'effacement que le chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[])
 pose pour les grades ; aucun de ses niveaux ne s'appuie sur un ramasse-miettes ou un comptage de
 références atomique.
@@ -203,9 +203,9 @@ partage est _observable_ depuis le langage. La question n'est pas oiseuse : obse
 sous-termes sont le _même objet_, et non seulement égaux, c'est observer la représentation et non la
 valeur, et toute solution directe y perd la transparence référentielle {cite "gillTypesafeObservableSharing"}[].
 
-Deux réponses sont possibles et il faut en choisir une. K7PL retient la première — le partage n'est
+Deux réponses sont possibles. K7PL retient la première : le partage n'est
 pas observable, la déduplication est une propriété de la représentation et rien du langage ne permet
-de la constater —, de sorte que la transparence est préservée sans condition. La seconde réponse
+de la constater, de sorte que la transparence est préservée sans condition. La seconde réponse
 resterait ouverte si le besoin s'en faisait sentir : rendre le partage observable _sous une
 modalité_, la transparence étant alors préservée partout où la modalité est absente. C'est une
 possibilité que les grades donnent et que la littérature citée, qui n'en a pas, ne pouvait pas
@@ -214,7 +214,7 @@ envisager.
 Deux travaux plus récents rendent cette seconde voie moins spéculative. L'un traite le partage et la
 mutation par des _coeffets_, c'est-à-dire par l'appareil même de ce document {cite "bianchiniCoeffectsSharingMutation2022"}[]~;
 l'autre établit que le partage _maximal_ se décide, ce qui borne ce qu'un compilateur peut promettre {cite "grabmayerMaximalSharingLam"}[].
-Ce chapitre n'emprunte ni l'un ni l'autre — son choix reste que le partage n'est pas observable —,
+Ce chapitre n'emprunte ni l'un ni l'autre (son choix reste que le partage n'est pas observable),
 mais l'ouverture qu'il laisse n'est pas une porte sur du vide.
 
 

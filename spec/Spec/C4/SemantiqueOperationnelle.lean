@@ -28,7 +28,7 @@ par forme d'élimination. La préservation et le progrès sont démontrés, le s
 hypothèses nommées, sur les constructeurs que la relation réduit, et le lemme de substitution l'est
 également au chapitre 3.
 
-Le cadre est fixé, et la relation doit être définie sur les configurations complètes. Une configuration est un triplet ⟨c | μ | τ⟩ où c est un calcul, μ un état d'arène — une application des régions vers leur contenu — et τ la trace d'effets d'exécution. Dans le fragment séquentiel, cette trace est un mot ; sous concurrence, les obligations de préservation lisent son ordre comme un ordre partiel étiqueté le long de chaque chaîne, sans imposer de séquencement entre événements indépendants. La relation de réduction est définie par les schémas suivants, donnés en style à petits pas.
+Le cadre est fixé, et la relation doit être définie sur les configurations complètes. Une configuration est un triplet ⟨c | μ | τ⟩ où c est un calcul, μ un état d'arène (une application des régions vers leur contenu) et τ la trace d'effets d'exécution. Dans le fragment séquentiel, cette trace est un mot ; sous concurrence, les obligations de préservation lisent son ordre comme un ordre partiel étiqueté le long de chaque chaîne, sans imposer de séquencement entre événements indépendants. La relation de réduction est définie par les schémas suivants, donnés en style à petits pas.
 
 La latence d'attente environnementale de When reste observable séparément du coût d'exécution de l'automate déclenché : elle ne s'ajoute ni à son effet ε ni à `Cost_Budget`. La représentation et le type exacts de cette observation séparée ne sont pas fixés. La configuration affichée ici ne les définit pas encore : c'est une obligation d'interface ouverte, pas une coordonnée de trace ajoutée implicitement à la sémantique normative.
 
@@ -37,7 +37,7 @@ relation donnée « par exemples » ne supporte pas la récurrence dont la prés
 c'est la récurrence qui manquait.
 
 Les réductions _pures_ ne touchent ni $`\mu` ni $`\tau`. Elles se lisent une par forme
-d'élimination, et il y en a exactement une par règle d'élimination du §{num "sec:g-regles"}[] — la
+d'élimination, et il y en a exactement une par règle d'élimination du §{num "sec:g-regles"}[] : la
 correspondance étant ce qui rendra la preuve de préservation mécanique.
 
 ::::formula (label := "eq:reductions-pures") (kind := "formule")
@@ -74,7 +74,7 @@ Deux d'entre elles appellent un mot. Le parcours d'un vecteur non vide se dépli
 suite,
 $`\mathsf{iter}_{V}\;[v_0,\ldots,v_{n-1}]\;c \longrightarrow \mathsf{let}\;\_ \leftarrow c[v_0/x]\;\mathsf{in}\;\mathsf{iter}_{V}\;[v_1,\ldots,v_{n-1}]\;c`,
 ce qui est la lecture opérationnelle du produit $`\prod_{i<n}\varepsilon(i)` que {sc}[VecE]
-synthétise — l'effet du parcours se compose donc pas à pas, et non d'un coup. Et le point fixe
+synthétise : l'effet du parcours se compose donc pas à pas, et non d'un coup. Et le point fixe
 déductif se déplie sur son argument un nombre de fois que fixe le type, la terminaison étant assurée
 par la finitude du treillis plutôt que par la forme du terme (schéma plus bas).
 
@@ -218,7 +218,7 @@ sans que le texte le dicte. La mise en parallèle et l'application vectorisée s
 jointure_ : les branches s'exécutent chacune depuis la trace vide, et la trace de la configuration
 s'étend d'un seul événement, la composition parallèle des produits de leurs traces
 ($`\pi(\tau)` est le produit, dans la quantale, des événements du mot $`\tau`). C'est la lecture de la profondeur
-que le type annonce — le maximum des profondeurs, non leur somme —, que le dépliage en séquence aurait
+que le type annonce (le maximum des profondeurs, non leur somme), que le dépliage en séquence aurait
 perdue. La découpe d'une capacité substitue à ses deux variables un jeton sans contenu : la sûreté spatiale
 reste une propriété du typage, et l'arène n'a rien à lire. La garde consomme d'un seul tenant tous les
 messages de son motif conjonctif. Enfin la défaillance d'une portée de récupération est un pas de
@@ -357,7 +357,7 @@ présentation. Elle est _déterministe_ sur la couche 3, ce que la totalité de 
 ce dont dépend le rejeu de P4. Elle rend l'écoulement du temps _observable_, puisque
 $`\mathbf{tick}` étend la trace et que c'est sur cette trace que les bornes de coût et la
 non-interférence temporelle se liront. Et elle se relève aux configurations concurrentes de la
-couche 2 — plusieurs calculs, une arène partagée, une trace par fibrille — sans que le déterminisme
+couche 2 (plusieurs calculs, une arène partagée, une trace par fibrille) sans que le déterminisme
 de la couche 3 soit perdu, propriété que la machine abstraite désignée au chapitre 4 possède {cite "cairesLinearSessionAbstract2026"}[].
 
 Deux propriétés font de cette relation autre chose qu'une description, et la relation étant
@@ -418,7 +418,7 @@ _Congruence._ Par hypothèse de récurrence sur le sous-calcul, plus la monotoni
 quantale : si $`\varepsilon_1' \sqsubseteq \varepsilon_1` alors
 $`\varepsilon_1'\cdot\varepsilon_2 \sqsubseteq \varepsilon_1\cdot\varepsilon_2`, ce qui est la loi
 de quantale du §{num "sec:c1-axiomatique-germinale"}[]. Pour le contexte $`\mathsf{scoped}_f(v,E)`,
-il faut de plus que $`f` soit monotone : elle l'est, tout élément de $`\mathcal{M}` étant de la
+$`f` est de plus monotone : elle l'est, tout élément de $`\mathcal{M}` étant de la
 forme normale $`\varphi_n \circ \pi_S` dont les deux facteurs le sont.
 
 _Schémas ajoutés_ ({num "eq:reductions-pures-suite"}[] et {num "eq:reductions-couche2"}[]). Le point
@@ -435,7 +435,7 @@ reste ouvert. Le copatron demande de substituer à $`x` un thunk du copatron : l
 s'applique, et ce cas se dérive par {sc}[Th], {sc}[Sub] et ce lemme. _Les deux autres ne sont donc pas démontrés_, et
 l'énoncé ci-dessus ne l'est que pour les blocs ({num "eq:reductions-pures"}[]) et
 ({num "eq:reductions-effets"}[]). Les cinq règles globales de la couche 2 demandent en outre de typer
-les configurations — chaque localisation porte le type $`\mathsf{Mb}\;E` de ses messages en attente —,
+les configurations (chaque localisation porte le type $`\mathsf{Mb}\;E` de ses messages en attente),
 ce que ce document n'écrit pas : la préservation n'y est pas démontrée non plus.
 
 _Schémas orientés_ ({num "eq:reductions-orientees"}[]). La découpe : le jeton est typé
@@ -445,7 +445,7 @@ $`\Delta_2`, et l'inégalité d'effet est
 $`\tau\cdot\mathsf{fail}\cdot\varepsilon' \sqsubseteq \tau\cdot(\varepsilon \sqcup \varepsilon' \sqcup \mathsf{fail})` ;
 l'affaiblissement par la jointure y est requis comme pour la réussite. La fourche et la jointure : chaque
 branche se conserve par récurrence sur sa suite de pas, d'où $`\pi(\tau_i) \sqsubseteq \varepsilon_i`, et la
-monotonie de $`\parallel` — que ce document n'énonce pas — donne
+monotonie de $`\parallel` (que ce document n'énonce pas) donne
 $`\tau\cdot(\pi(\tau_1)\parallel\pi(\tau_2)) \sqsubseteq \tau\cdot(\varepsilon_1\parallel\varepsilon_2)`, le
 contractum $`\mathsf{return}\;(v_1,v_2)` étant d'effet neutre ; pour $`\mathsf{vmap}`, le même argument sur
 $`n` branches. La garde à motif conjonctif demande, comme celle à un message, de typer les configurations.
@@ -488,9 +488,9 @@ progrès
 :::statement +titled
 Un calcul bien typé qui n'est pas terminal avance, et le pool avec lui
 
-Soit $`\vdash c : C \mid \varepsilon` dans le contexte vide. Alors $`c` est terminal — de la forme
+Soit $`\vdash c : C \mid \varepsilon` dans le contexte vide. Alors $`c` est terminal : de la forme
 $`\mathsf{return}\;v`, $`\lambda x. c_0`, $`\Lambda\alpha. c_0`, $`\langle c_i\rangle_{i\in I}`,
-$`\langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J}` ou $`\mathsf{delay}\;c_0` — ou bien il existe
+$`\langle\!\langle j \mapsto c_j \rangle\!\rangle_{j \in J}` ou $`\mathsf{delay}\;c_0`, ou bien il existe
 $`\langle c' \mid \mu' \mid \tau'\rangle` tel que
 $`\langle c \mid \mu \mid \tau\rangle \longrightarrow \langle c' \mid \mu' \mid \tau'\rangle`, et ce
 pour tout $`\mu` et tout $`\tau`.
@@ -544,8 +544,8 @@ donc ces deux points comme hypothèses de module, et non comme lemmes.
 _Obligation ouverte._ L'énoncé porte sur le progrès local d'un calcul clos. Le progrès global d'un
 pool en est distinct : il demande en outre la configuration du pool, le critère « au moins un membre
 avance » et la prémisse d'acyclicité qui exclut le blocage mutuel, et le progrès local ne suffit pas
-à l'établir. Les deux hypothèses nommées dans l'esquisse — totalité de chaque opération à effet sur
-ses arguments bien typés, conformité de l'arène à l'abaissement — sont des prémisses de l'énoncé et
+à l'établir. Les deux hypothèses nommées dans l'esquisse (totalité de chaque opération à effet sur
+ses arguments bien typés, conformité de l'arène à l'abaissement) sont des prémisses de l'énoncé et
 non des détails de réalisation.
 :::
 ::::
@@ -558,7 +558,7 @@ de toute l'exécution.
 
 La conséquence en est une propriété que ce document n'a pas à demander séparément. Une opération
 dont le coût réel dépasse sa part moyenne reste admissible pourvu que $`\varepsilon'` diminue
-d'autant — c'est le paiement d'un potentiel accumulé, et la préservation l'autorise puisqu'elle ne
+d'autant : c'est le paiement d'un potentiel accumulé, et la préservation l'autorise puisqu'elle ne
 contraint que la somme. _L'annotation d'effet n'a donc pas à porter le pire cas de chaque opération
 pour que la borne soit correcte._ Elle doit seulement rendre $`\tau\cdot\varepsilon` décroissant, ce
 qui est la préservation elle-même et non une condition supplémentaire.
@@ -580,7 +580,7 @@ est linéaire et que la couche 3, où la duplication serait libre, n'a pas d'eff
 _L'affinité requise est donc acquise là où un potentiel serait porté, et pour une raison
 structurelle._
 
-Les trois niveaux que le chapitre 1 distingue — budget, borne synthétisée, coût effectif — sont
+Les trois niveaux que le chapitre 1 distingue (budget, borne synthétisée, coût effectif) sont
 ainsi ceux-là mêmes que cette littérature emploie, sous d'autres noms. Deux directions restent
 ouvertes et sont signalées à la section sur ce que chaque preuve ouverte y puise (§{num "sec:g-tracabilite"}[]) : l'analyse amortie en présence d'effets {cite "chuHandlingExceptionsEffects"}[],
 qui est le cadre exact de ce langage, et les systèmes admettant des classes arbitraires de fonctions
@@ -593,7 +593,7 @@ _veut dire_. La configuration de réduction porte un état d'arène $`\mu` et un
 $`\tau` ; elle ne porte rien qui compte les usages de variables. La préservation dit que le type se
 conserve et que le potentiel ne croît pas ; le progrès dit qu'un calcul bien typé avance. Aucun des
 deux ne dit que le grade _compte ce qu'il prétend compter_. Il est jusqu'ici une grandeur purement
-statique, qu'aucun énoncé ne relie à un comportement observable — et c'est P3 qui l'exige, le
+statique, qu'aucun énoncé ne relie à un comportement observable : et c'est P3 qui l'exige, le
 postulat interdisant de dissimuler un coût et le grade en étant la mesure. Un grade relié à rien
 d'observable dissimulerait tout.
 
@@ -616,7 +616,7 @@ $$`\nu(x) \;\leq\; \text{la composante d'usage du grade de } x \text{ dans } \De
 :::proofsketch
 La configuration est celle d'une machine instrumentée : les accès au tas correspondent aux
 références de variables, et la machine les suit. L'induction est celle de la préservation, avec un
-cas par règle et la charge supplémentaire de montrer que $`\nu` ne dépasse jamais l'annotation —
+cas par règle et la charge supplémentaire de montrer que $`\nu` ne dépasse jamais l'annotation :
 ce qui est immédiat aux règles qui n'emploient pas la variable, et se ramène à la loi de cohérence
 de $`\varphi` et $`\psi` à celles qui composent deux contextes.
 :::
@@ -633,13 +633,13 @@ théorème ; les résultats de la littérature cités plus bas motivent la route
 ::::
 La forme de machine instrumentée est empruntée à un système modal gradué où elle a déjà servi {cite "erikssonGradedModalType2025"}[].
 Ce théorème n'est pas un de plus : trois propriétés en descendent, et deux figurent déjà à ce
-document sous une forme non graduée — la sûreté du typage, la non-interférence des ressources non
+document sous une forme non graduée (la sûreté du typage, la non-interférence des ressources non
 pertinentes, et la propriété du _pointeur unique_ pour les ressources linéaires, celle qui autorise
-la mise à jour en place, donc celle dont l'arène dépend {cite "choudhuryGradedDependentType2021"}[].
+la mise à jour en place, donc celle dont l'arène dépend) {cite "choudhuryGradedDependentType2021"}[].
 C'est ce qui en fait le plus lourd du programme et le plus rentable.
 
-Deux réserves accompagnent la forme, et elles viennent des travaux qui l'ont établie ailleurs. {rmq}[Une
-forme à suivre, non un résultat à transporter. La distinction décide de ce qu'on peut invoquer.] La
+Deux réserves accompagnent la forme, et elles viennent des travaux qui l'ont établie ailleurs : une
+forme à suivre, non un résultat à transporter, et la distinction décide de ce qu'on peut invoquer. La
 première est qu'établir un tel énoncé a exigé, dans un système gradué dépendant, une restriction sur
 le filtrage que la sûreté non graduée n'exigeait pas : c'est un coût à anticiper plutôt qu'à
 découvrir. La seconde est que les résultats disponibles {cite "mannucciResourceBoundedTypeTheory2025"}[]
@@ -647,8 +647,8 @@ valent du fragment simplement typé sans récursion.
 
 Une remarque de méthode décide de l'architecture de la preuve plutôt que de son contenu. Le grade
 portant plusieurs composantes qu'on voudrait mesurer différemment, la voie économique consiste en
-une extraction unique du programme vers une récurrence, puis en une interprétation par composante —
-le choix de l'interprétation étant le choix de la mesure — plutôt qu'en un théorème par composante {cite "kavvosRecurrenceExtractionFunctional"}[].
+une extraction unique du programme vers une récurrence, puis en une interprétation par composante
+(le choix de l'interprétation étant le choix de la mesure) plutôt qu'en un théorème par composante {cite "kavvosRecurrenceExtractionFunctional"}[].
 Le grade n'étant pas clos (§{num "sec:c1-axiomatique-germinale"}[]), cette factorisation n'est pas
 seulement économique : un théorème par composante devrait être rouvert à chaque extension, une
 interprétation de plus ne rouvre rien.
@@ -668,7 +668,7 @@ sur la construction de compilateurs recommande volontiers de donner, à côté d
 une _machine abstraite_ à grands pas et à environnements, avec une règle de machine par règle de
 typage. L'argument principal en est qu'on évite ainsi d'avoir à démontrer un lemme de substitution.
 
-Cet argument ne porte pas ici, et il faut dire pourquoi. Le lemme de substitution est _déjà
+Cet argument ne porte pas ici, pour une raison qui se dit. Le lemme de substitution est _déjà
 esquissé_ (§{num "sec:g-regles"}[]), et il ne l'a pas été pour la sémantique opérationnelle mais
 pour les relations logiques du §{num "sec:g-relation-logique"}[] et pour la traduction vers le
 métalangage, qui en ont besoin quelle que soit la présentation retenue. Le coût que la machine à
@@ -676,7 +676,7 @@ environnements permettrait d'éviter est donc un coût déjà engagé, et engag�
 
 Ce document retient donc _un seul objet_ : la relation $`\longrightarrow` ci-dessus est la
 définition de l'exécution, et rien d'autre ne l'est. Une machine à environnements, si elle vient,
-sera une construction du chapitre 6 — une optimisation d'implantation, dont la correction se
+sera une construction du chapitre 6 : une optimisation d'implantation, dont la correction se
 démontrera _par rapport à_ cette relation plutôt que de la remplacer. La première implantation,
 elle, n'a pas à être efficace : elle a à être fidèle, et son office est de vérifier les exemples,
 comme Reynolds l'a fait pour GEDANKEN en traduisant sa définition formelle en un interprète qu'il
@@ -695,11 +695,11 @@ serait la léguer à l'improvisation. Un vérificateur dispose d'une grande libe
 il parcourt l'arbre de syntaxe, et cet ordre décide de la localité des messages d'erreur bien plus
 que le jeu de règles. Les ordres de parcours que les descriptions théoriques emploient par défaut
 n'ont pas été conçus dans ce but, et l'expérience de la famille ML l'établit largement. Cet ordre
-n'est ni une règle ni un pas de réduction : il appartient à la spécification de l'outillage —
-interprète, formateur, analyseur, serveur de langage — que le chapitre 7 renvoie à un second temps.
+n'est ni une règle ni un pas de réduction : il appartient à la spécification de l'outillage
+(interprète, formateur, analyseur, serveur de langage) que le chapitre 7 renvoie à un second temps.
 _Ce renvoi est ici rendu explicite, pour qu'il soit un choix et non un oubli._
 
-Ce renvoi a un coût, qu'il faut dire : un théorème en dépend. La reproductibilité du rejet
+Ce renvoi a un coût, qui se dit : un théorème en dépend. La reproductibilité du rejet
 (théorème {num "thm:rejet_reproductible"}[]) suppose l'hypothèse $`D_{\mathrm{det}}`, qui
 rassemble trois choix que la spécification de l'outillage doit donc fixer, et non plus laisser : (a)
 l'_ordre de parcours_ de l'arbre de syntaxe, qui décide de la localité des messages ; (b) l'_ordre de
@@ -763,8 +763,8 @@ pas une hypothèse ajoutée mais la structure de $`\mathcal{E}`.
 :::note
 _Obligation ouverte._ Restent à définir la relation de rejeu, l'alphabet des traces, l'action de
 $`\pi^{\flat}_\ell` sur les étiquettes, les valeurs et le temps, et la fonction d'observation d'un
-observateur de niveau $`\ell`. Effacer un pas au-dessus de $`\ell` et sa durée ne suffit pas : il faut
-encore que ce pas n'influence ni le contrôle ni les pas ultérieurs de niveau au plus $`\ell`. C'est
+observateur de niveau $`\ell`. Effacer un pas au-dessus de $`\ell` et sa durée ne suffit pas : ce pas ne doit
+en outre influencer ni le contrôle ni les pas ultérieurs de niveau au plus $`\ell`. C'est
 une prémisse de non-interférence observationnelle, que le chapitre 2 ne tient que pour le fragment
 séquentiel et, sous concurrence, à l'état de conjecture. La portée du déterminisme invoqué pour
 l'unicité du rejeu reste à ajuster à cette relation.
@@ -773,7 +773,7 @@ l'unicité du rejeu reste à ajuster à cette relation.
 Deux remarques closent ce point. La première est que le rejeu intégral de P4 en est le cas où
 l'observateur atteint le niveau le plus haut, la projection devenant l'identité~: P4 n'est pas
 affaibli par la stratification, il en est l'instance supérieure. La seconde est que la réalisation
-qu'appelle cet énoncé — le journal stratifié — n'est pas choisie pour son coût mais parce que sa
+qu'appelle cet énoncé (le journal stratifié) n'est pas choisie pour son coût mais parce que sa
 structure _est_ celle de la projection~: journaliser par niveau, c'est n'avoir rien à projeter au
 moment du rejeu.
 
@@ -815,18 +815,18 @@ tag := "g-relation-logique"
 {label "sec:g-relation-logique"}
 
 Le lemme de substitution rend trois inductions conduisibles, et deux d'entre elles partagent le même
-objet : une relation logique. On la définit ici une fois, et on la quantifie deux fois — c'est
+objet : une relation logique. On la définit ici une fois, et on la quantifie deux fois : c'est
 l'économie que la clôture du lemme de substitution avait annoncée, et elle se réalise.
 
 Fixons un niveau d'observation $`\ell \in \mathcal{L}`. La relation se définit par récurrence sur la
 grammaire des types (§{num "sec:g-grammaire-types"}[]), et elle porte _deux familles_ et non une.
-C'est le point qu'il faut établir avant les clauses, car il n'était pas prévu.
+C'est le point à établir avant les clauses, car il n'était pas prévu.
 
 Le jugement germinal sépare ce que le terme exige, $`\Delta` gradué, de ce qu'il produit,
 $`\mathcal{E}`. Or le niveau vit des deux côtés : dans le grade d'une liaison, où il dit ce qu'un
 observateur a le droit de _lire_. Et dans la famille temporelle de l'effet, où il dit à quel niveau
 un pas a été _fait_. Une relation qui n'indexerait que le premier côté ne dirait rien des traces, et
-la non-interférence deviendrait inénonçable — son hypothèse porte sur les entrées, sa conclusion sur
+la non-interférence deviendrait inénonçable : son hypothèse porte sur les entrées, sa conclusion sur
 les exécutions. La relation a donc une clause de valeurs, indexée par le grade, et une clause de
 calculs, indexée par l'effet ; ce sont les deux versants du même $`\ell`, lus dans deux composantes
 distinctes du jugement.
@@ -867,7 +867,7 @@ _La clause de la modalité graduée est la seule qui décide_, et c'est là que 
 observateur de niveau $`\ell` lit ce que le niveau du grade lui accorde, et rien d'autre ;
 au-dessus, la relation est totale, ce qui signifie exactement qu'aucune information n'en descend.
 Comme le $`!_r` est _une_ modalité dont l'indice est un quadruplet, la clause n'inspecte que la
-troisième composante — et le chapitre 1 énonce que $`\varphi` et $`\psi` ne mêlent jamais deux
+troisième composante, et le chapitre 1 énonce que $`\varphi` et $`\psi` ne mêlent jamais deux
 composantes du grade entre elles. La relation est donc bien définie sur la structure produit sans
 qu'il faille rien vérifier de plus : c'est la première des deux conditions de la clause de session, et elle repose sur un énoncé
 déjà écrit.
@@ -914,8 +914,8 @@ compatible, définie composante par composante.
 
 :::proofsketch
 On pose la relation du produit comme l'intersection des relations tirées en arrière par les
-projections. La compatibilité avec chaque opération — action de $`\varphi` et $`\psi`, composition,
-unité — se vérifie composante par composante, puisque ces opérations agissent sans jamais mêler deux
+projections. La compatibilité avec chaque opération (action de $`\varphi` et $`\psi`, composition,
+unité) se vérifie composante par composante, puisque ces opérations agissent sans jamais mêler deux
 composantes (§{num "sec:c1-de-la-loi-distributive"}[]). La clause de $`!^r V` n'inspectant que la
 troisième composante, elle se lit sur la seule relation du facteur de confidentialité, les autres
 facteurs la traversant inchangés. Facteur par facteur : sur l'_usage_ $`\mathbb{N}_\infty`, la clause de $`!^r V` compare des comptes et la relation d'un facteur est celle du lemme de ce facteur, $`\varphi` et $`\psi` y étant la multiplication ; sur la _monotonie_ (deux points), la relation est l'égalité, la marque ne modifiant pas le terme ; sur le _niveau_, c'est la clause décisive, la relation y est celle du treillis $`\mathcal{L}` indexée par le niveau d'observation $`\ell` ; sur le _budget_, $`\psi` le diminue sans toucher la valeur, donc la relation de valeur est inchangée et la condition porte sur la trace. Les quatre cas sont immédiats. Pour le budget, $`\psi` agit de la même façon sur les deux substitutions, l'effet $`\varepsilon` étant commun aux deux exécutions ; il diminue les budgets d'autant sans toucher la valeur, et la relation de valeur est donc inchangée. La condition porte sur la trace, que la clause de niveau projette, et elle est acquise par le lemme de substitution. Ce qui est établi ici est une _compatibilité_ et non seulement une
@@ -1007,14 +1007,14 @@ contient : $`\ell \mapsto \mathcal{R}_\ell\llbracket A \rrbracket` est la seule 
 chapitre ait besoin, et trois énoncés en sont des lectures. La non-interférence graduée est la relation
 nue appliquée à deux entrées de niveau supérieur à $`\ell` ; la divulgation délimitée est la même relation
 sous l'hypothèse $`\mathcal{X}` ; le lemme fondamental est la preuve qu'elles partagent. Cette famille
-n'est pas monotone en $`\ell`, et il ne faut pas lui prêter cette propriété : sur un type de fonction
+n'est pas monotone en $`\ell`, et cette propriété ne lui est pas prêtée : sur un type de fonction
 $`V \multimap C`, abaisser le niveau agrandit à la fois l'ensemble des arguments à traiter et la relation
 que les résultats doivent satisfaire, de sorte qu'aucune inclusion ne vaut en général. La préservation
 (théorème {num "thm:preservation"}[]) n'en fait pas partie : elle porte sur un pas d'une exécution et non
 sur deux exécutions apparentées, et son analogue serait une relation unaire sur les configurations, qui
 n'est pas écrite ici.
 
-## Ce qui n'est pas démontré, et il faut le dire précisément
+## Ce qui n'est pas démontré, dit précisément
 %%%
 tag := "g-semantique-le-lemme-fondamental-et-ce-qu-il-coute-ce-qui-n"
 %%%
@@ -1023,8 +1023,8 @@ La grammaire des types (§{num "sec:g-grammaire-types"}[]) compte une troisième
 la traite pas. Ce n'est pas un oubli de rédaction : c'est le second obstacle de la clause de session, et il est le même que celui de l'extension aux canaux.
 
 Le manque se localise en deux points, nommés plutôt que rassemblés sous « l'extension aux canaux ».
-Le premier est que les clauses de session — $`\mathbf{End}`, l'émission, la réception, les
-branchements, les trois modalités temporelles — se laissent écrire par récurrence comme les autres.
+Le premier est que les clauses de session ($`\mathbf{End}`, l'émission, la réception, les
+branchements, les trois modalités temporelles) se laissent écrire par récurrence comme les autres.
 Mais que leur bonne définition suppose que deux exécutions apparentées emploient des noms de canaux
 _correspondants_. Le second, qui est le vrai, est qu'un canal créé par un calcul de niveau supérieur
 à $`\ell` ne doit pas être observable en deçà, et que rien dans la relation telle qu'elle est écrite
@@ -1035,8 +1035,8 @@ premières strates, et la non-interférence l'est autant : ce qui manque est l'i
 règles de communication, que ni la proposition {num "thm:chaine_fils"}[], bornée à un fragment, ni la clause ne remplacent.
 
 L'énoncé honnête est donc celui-ci. _La non-interférence graduée est esquissée pour le fragment sans
-communication_, temps compris — ce qui est plus que ce que la plupart des systèmes gradués
-établissent, le canal temporel y étant le plus souvent laissé de côté — _et elle attend, pour le
+communication_, temps compris (ce qui est plus que ce que la plupart des systèmes gradués
+établissent, le canal temporel y étant le plus souvent laissé de côté), _et elle attend, pour le
 fragment avec canaux, un objet unique partagé avec la preuve de traduction_. Un seul travail reste,
 et il sert deux théorèmes.
 
@@ -1053,14 +1053,14 @@ On ne construit donc pas de seconde relation ; on renforce celle-ci.
 Deux substitutions sont dites $`\mathcal{X}`-apparentées lorsqu'elles sont apparentées au sens
 précédent et que, pour toute expression $`e \in \mathcal{X}`, $`\gamma e` et $`\gamma' e` s'évaluent
 à la même valeur. Le lemme fondamental se rejoue mot pour mot sous cette hypothèse renforcée, _et un
-seul cas change_ — celui que le théorème {num "thm:lemme_fondamental"}[] laissait de côté.
+seul cas change_ : celui que le théorème {num "thm:lemme_fondamental"}[] laissait de côté.
 
 Sous la relation nue, {sc}[Declassify] met la preuve en échec, et de la manière la plus nette. La
 règle conclut en $`!_{\ell'} A` avec $`\ell' \leq \ell` à partir d'un $`!_{\ell} A`, de sorte qu'un
 couple apparenté par la relation _totale_ devrait ressortir apparenté par une relation d'_égalité_.
 Rien ne le donne, et c'est correct : une déclassification divulgue, et un théorème qui la
 traverserait sans hypothèse serait faux. Sous la relation renforcée, la condition de bord de la
-règle — $`e \in \mathcal{X}` — fait que l'hypothèse ajoutée s'applique exactement à cet argument, et
+règle ($`e \in \mathcal{X}`) fait que l'hypothèse ajoutée s'applique exactement à cet argument, et
 le cas se ferme. _La différence entre les deux théorèmes est donc un cas d'une induction, et cette
 mesure est exacte_ : ce que l'ensemble d'échappatoires libère est ce que ce cas consomme, ni plus ni
 moins.
@@ -1072,19 +1072,19 @@ tag := "g-semantique-la-divulgation-delimitee-ou-le-meme-argument-qu-2"
 
 Le mode de défaillance contre lequel cette formulation a été construite est l'attaque par
 blanchiment, où l'on fait transiter par une échappatoire une valeur qu'elle n'était pas censée
-révéler. Il faut vérifier que la preuve mord dessus, et la vérification donne un résultat que le
+révéler. Que la preuve morde dessus se vérifie, et la vérification donne un résultat que le
 document ne porte pas.
 
-La règle exige $`e \in \mathcal{X}`, condition _syntaxique_ et non sémantique : il ne suffit pas que
-l'argument soit égal à une échappatoire, il faut qu'il en soit une. C'est ce qui bloque le
+La règle exige $`e \in \mathcal{X}`, condition _syntaxique_ et non sémantique : l'argument ne peut
+pas seulement être égal à une échappatoire, il doit en être une. C'est ce qui bloque le
 blanchiment ordinaire, où l'attaquant calculerait une valeur haute qui coïncide avec une expression
-autorisée. La formulation est donc bien celle qu'il fallait.
+autorisée. La formulation est donc bien la bonne.
 
 Mais le lemme de substitution en révèle un contournement que la règle n'exclut pas. Substituer dans
 un terme donne $`\mathbf{declassify}_{\ell'}(e)[v/x] = \mathbf{declassify}_{\ell'}(e[v/x])`, et
 _rien ne garantit que $`e[v/x]` appartienne encore à $`\mathcal{X}`_. Si $`\mathcal{X}` contient une
 expression à variable libre, un appelant peut y substituer ce qu'il veut et déclassifier une valeur
-que la déclaration ne couvrait pas — l'échappatoire devient un gabarit plutôt qu'une permission.
+que la déclaration ne couvrait pas : l'échappatoire devient un gabarit plutôt qu'une permission.
 Symétriquement, si $`e[v/x] \notin \mathcal{X}`, la substitution détruit la dérivation, et le lemme
 de substitution serait faux sur ce cas.
 
@@ -1157,7 +1157,7 @@ Du _quatrième groupe_, les cas résistants, deux se soldent et deux restent.
 
 Le cas (a), les types dépendants pragmatiques, se ramène à une composition : les raffinements sont
 effacés à la compilation, le foncteur d'effacement du chapitre 2 (théorème {num "thm:schema_effacement"}[]) le justifie, et il reste à vérifier que
-la composée préserve le typage — ce que le lemme de substitution donne, l'effacement commutant avec
+la composée préserve le typage : ce que le lemme de substitution donne, l'effacement commutant avec
 la substitution puisqu'il n'agit pas sur les termes. Le cas (d), les opérations à portée, est réglé
 par la ré-invocation séquentielle et sa clause est écrite.
 
@@ -1180,13 +1180,13 @@ le métalangage, non la convergence de son itération.
 
 _Le semi-treillis n'a pas besoin d'une interprétation nouvelle._ C'est le second constat, et il
 dissout la moitié du cas. $`\mathsf{Trellis}_{\text{fin}}` est engendré par quatre clauses
-(§{num "sec:g-grammaire-types"}[]) — un type de base à porteur fini, l'unité, une somme ou un
-produit de deux tels types, un vecteur de longueur finie — et _la traduction traite déjà ces quatre
+(§{num "sec:g-grammaire-types"}[]) : un type de base à porteur fini, l'unité, une somme ou un
+produit de deux tels types, un vecteur de longueur finie, et _la traduction traite déjà ces quatre
 formes_. Le porteur $`\llbracket S \rrbracket` existe donc sans qu'on ajoute rien. Quant à la
 structure d'ordre, le chapitre 2 la pose sur ces types : l'élément neutre est l'ensemble vide, le
 joint est l'union, la hauteur est le cardinal du plus grand support. L'ordre $`\sqsubseteq`, le
 joint $`\sqcup` et le minimum $`\bot` sont alors des _fonctions définissables_ par récurrence sur
-les quatre clauses, l'égalité y étant décidable — non des primitives à ajouter à la cible. _Ce qui
+les quatre clauses, l'égalité y étant décidable : non des primitives à ajouter à la cible. _Ce qui
 paraissait une interprétation à donner était une définition à écrire._
 
 Reste l'image de l'opérateur lui-même, et l'appareil qu'elle réclame est déjà là.
@@ -1219,7 +1219,7 @@ $`\llbracket \bot \rrbracket`, elle donne $`\llbracket S \rrbracket`.
 
 _Le bon sortage_ est immédiat : l'itération ne crée que des canaux de continuation, de genre
 $`\mathsf{prog}`, donc restreignables ; aucun canal distingué n'y figure, ce qui est cohérent avec
-$`\mathcal{E} = \emptyset` — un opérateur sans effet n'a pas de canal d'effet à mentionner.
+$`\mathcal{E} = \emptyset` : un opérateur sans effet n'a pas de canal d'effet à mentionner.
 
 _La valeur_ est celle du théorème {num "thm:terminaison_lfp"}[] : la suite étant stationnaire au
 plus tard au rang $`h`, appliquer $`f` exactement $`h` fois donne le plus petit point fixe, les
@@ -1245,18 +1245,18 @@ Une remarque doit accompagner cette image, car elle corrige une facilité et fai
 deux résultats qu'on croyait indépendants.
 
 L'esquisse du théorème {num "thm:terminaison_lfp"}[] note que « _l'égalité décidable de $`S` détecte
-ce rang_ » — c'est-à-dire qu'on pourrait sortir de l'itération dès la stabilisation. C'est vrai, et
+ce rang_ » : c'est-à-dire qu'on pourrait sortir de l'itération dès la stabilisation. C'est vrai, et
 _la traduction ne doit pas le faire_. Une sortie anticipée rendrait la durée de $`\mathbf{fix}\,f`
 dépendante de la donnée sur laquelle il itère, donc observable. C'est le canal temporel que la
 projection observationnelle et le théorème {num "thm:lemme_fondamental"}[] ferment. _Itérer jusqu'au
 bout n'est donc pas une approximation grossière que l'on tolérerait faute de mieux : c'est ce que la
-non-interférence exige_, et P3 le veut pour la même raison — un nombre de tours fixé est
+non-interférence exige_, et P3 le veut pour la même raison : un nombre de tours fixé est
 prédictible, un nombre de tours dépendant de la donnée ne l'est pas.
 
 Deux exigences que rien n'obligeait à se rencontrer donnent donc ici la même prescription. C'est
 aussi la réponse à une objection qu'un lecteur pressé formulerait : la borne $`h` est celle du type
 et non du calcul, une itération réelle convergeant souvent bien plus tôt. C'est exact, et la
-différence n'est pas un gaspillage à corriger — elle est le prix de la prédictibilité, et le
+différence n'est pas un gaspillage à corriger : elle est le prix de la prédictibilité, et le
 document le paie sciemment.
 
 Une seconde remarque, plus mince. L'évaluation _semi-naïve_, que le chapitre 4 signale comme ce qui
@@ -1274,5 +1274,5 @@ tag := "g-traduction-ce-que-la-cloture-de-b-acheve"
 Les quatre cas résistants sont réduits à des objets construits, et l'induction entière est planifiée : les groupes 1 à 3 par le
 lemme de commutation, (a) par composition avec le foncteur d'effacement, (c) par le système de
 sortes, (b) et (d) par le même appareil de ré-invocation bornée. _Le théorème {num "thm:traduction_metalangage"}[]
-n'est pas pour autant conduit_ : l'induction est planifiée, ses cas résistants réduits, mais elle n'est pas menée à son terme, et la dette de fidélité que le chapitre 6 nommait — « établir que
-$`\llbracket \cdot \rrbracket` préserve le typage » — reste ouverte, plus étroite qu'elle ne l'était.
+n'est pas pour autant conduit_ : l'induction est planifiée, ses cas résistants réduits, mais elle n'est pas menée à son terme, et la dette de fidélité que le chapitre 6 nommait (« établir que
+$`\llbracket \cdot \rrbracket` préserve le typage ») reste ouverte, plus étroite qu'elle ne l'était.

@@ -56,7 +56,7 @@ Ce que le cadre de sortes paramétrique offre, et ce que K7PL en retient
 :::
 ::::
 
-_La cible n'est pas changée._ Le métalangage reste celui du chapitre 4 — machine à sessions
+_La cible n'est pas changée._ Le métalangage reste celui du chapitre 4 : machine à sessions
 linéaires et machine chimique réflexive. On lui ajoute une discipline de noms, et rien d'autre.
 
 # Les sortes
@@ -85,7 +85,7 @@ On note $`\mathrm{gen}(s)` et $`\mathrm{niv}(s)` les deux projections, et
 $`\mathcal{S}_{\mathsf{prog}} = \{s \mid \mathrm{gen}(s) = \mathsf{prog}\}`.
 
 L'assignation suit la traduction. Un canal de programme reçoit la sorte
-$`\langle \mathsf{prog}, \ell \rangle` où $`\ell` est _le niveau de ses événements_ — la borne
+$`\langle \mathsf{prog}, \ell \rangle` où $`\ell` est _le niveau de ses événements_ : la borne
 supérieure des niveaux qu'étiquette $`\varphi` sur les effets de communiquer dessus. Le canal
 distingué de l'opération $`a` produite au niveau $`\ell` reçoit
 $`\langle \mathsf{operation}_a, \ell \rangle`, et celui du temps
@@ -101,8 +101,8 @@ traduction oublie (§{num "sec:c4-le-calcul-de-processus"}[]) ; le porter dans u
 passer dans la cible et le foncteur d'effacement cesserait d'en être un, emportant avec lui le
 périmètre du théorème {num "thm:fidelite_interprete"}[]. Le niveau d'un effet, lui, vit dans
 $`\mathcal{E}`, qui a une image. Il est traduit de plein droit. _Le chapitre 1 posait déjà que le
-niveau agit des deux côtés — il contraint ce qu'on lit du côté du grade, il étiquette du côté de
-l'effet — et c'est ici que la distinction sert pour la première fois._
+niveau agit des deux côtés (il contraint ce qu'on lit du côté du grade, il étiquette du côté de
+l'effet) et c'est ici que la distinction sert pour la première fois._
 
 Une conséquence tombe sans travail : la famille temporelle
 $`\kappa \in \mathbb{N}_\infty^{\mathcal{L}}` _est_ la famille des canaux de temps, un par niveau.
@@ -145,8 +145,8 @@ il est fourni par la configuration ambiante, et le gestionnaire d'effet est le p
 l'offre. Poser $`\mathcal{S}_\nu = \mathcal{S}_{\mathsf{prog}} \cup \mathcal{S}_{\mathsf{maillon}}` dit
 exactement cela, et le dit en une clause vérifiable plutôt qu'en une phrase : les canaux d'opération
 et le canal de temps ambiant n'y sont pas, les maillons y sont, et ils ne sont pas des canaux d'effet
-mais les continuations de l'un d'eux (§{num "sec:g-sortes-fil"}[]). Avec la première ligne — on ne
-transmet qu'un nom de programme, ou son propre maillon suivant — un terme traduit ne peut ni _créer_ ni
+mais les continuations de l'un d'eux (§{num "sec:g-sortes-fil"}[]). Avec la première ligne (on ne
+transmet qu'un nom de programme, ou son propre maillon suivant), un terme traduit ne peut ni _créer_ ni
 _recevoir_ un nom d'effet : il ne peut donc en mentionner aucun qu'il n'ait reçu de la traduction
 elle-même.
 
@@ -191,10 +191,10 @@ cinquième est celle du transfert, que la traduction emploie pour passer un fil 
 :::
 ::::
 
-La quatrième clause est l'endroit où l'on sort du cadre emprunté, et il faut le dire. Ce cadre est
+La quatrième clause est l'endroit où l'on sort du cadre emprunté, et cela se dit. Ce cadre est
 un cadre de communication _binaire_ ; ses auteurs signalent qu'ils héritent du $`\pi`-calcul
 l'encodage du join-calculus plutôt que d'en traiter les primitives. Or K7PL tient l'atomicité d'un
-motif de jonction pour primitive — c'est une transition de réseau de Petri consommant plusieurs
+motif de jonction pour primitive : c'est une transition de réseau de Petri consommant plusieurs
 places d'un seul tenant, et c'est P1 qui le veut. On ajoute donc la clause, _qui est une conjonction
 de la deuxième_, et l'on redémontre ci-dessous ce que l'on n'hérite plus.
 
@@ -206,8 +206,8 @@ clôture du bon sortage par substitution
 :::statement +titled
 Substituer ne défait pas le sortage
 
-Si $`\vdash_{\mathcal{S}} P` et si $`\sigma` est une substitution bien sortée — c'est-à-dire telle
-que $`\mathrm{sort}(x) \mathbin{\#} \mathrm{sort}(\sigma x)` pour tout $`x` de son domaine — alors
+Si $`\vdash_{\mathcal{S}} P` et si $`\sigma` est une substitution bien sortée (c'est-à-dire telle
+que $`\mathrm{sort}(x) \mathbin{\#} \mathrm{sort}(\sigma x)` pour tout $`x` de son domaine) alors
 $`\vdash_{\mathcal{S}} P\sigma`.
 :::
 
@@ -215,7 +215,7 @@ $`\vdash_{\mathcal{S}} P\sigma`.
 Par induction sur la dérivation de $`\vdash_{\mathcal{S}} P`, et chaque cas est immédiat pour la
 même raison. Comme $`\#` est l'égalité, une substitution bien sortée préserve la sorte de tout nom :
 $`\mathrm{sort}(\sigma x) = \mathrm{sort}(x)`. Les cinq clauses ne portent que sur des sortes de
-noms — la cinquième, celle du transfert, aussi —, et leurs prémisses sont donc littéralement inchangées.
+noms (la cinquième, celle du transfert, aussi), et leurs prémisses sont donc littéralement inchangées.
 
 Le cas de la jonction ne demande rien de plus que le cas de la réception, dont il est une
 conjonction : si chacune des $`n` prémisses est préservée, leur conjonction l'est. _C'est le
@@ -249,24 +249,24 @@ mentionne. Aucun n'est lié, et aucun n'est transmis.
 Par induction parallèle à celle du théorème {num "thm:traduction_metalangage"}[], sur la même
 dérivation. La sédimentation range les cas en trois groupes de coût très inégal.
 
-_Couche 3 — aucun cas._ On y a $`\varepsilon = \emptyset` : aucun canal distingué n'existe, le terme
-traduit ne mentionne que des noms de genre $`\mathsf{prog}` — et, quand la traduction enfile le fil
-de temps, les maillons que la clause du `let` crée et que ses transferts consomment (§{num "sec:g-sortes-fil"}[]) —,
+_Couche 3 : aucun cas._ On y a $`\varepsilon = \emptyset` : aucun canal distingué n'existe, le terme
+traduit ne mentionne que des noms de genre $`\mathsf{prog}`, et, quand la traduction enfile le fil
+de temps, les maillons que la clause du `let` crée et que ses transferts consomment (§{num "sec:g-sortes-fil"}[]),
 et le bon sortage est celui d'un terme sans effet.
 
-_Couche 1 — un seul cas._ Le seul effet ordinaire y est $`\mathbf{tick}`, et l'usage courant y est
+_Couche 1 : un seul cas._ Le seul effet ordinaire y est $`\mathbf{tick}`, et l'usage courant y est
 mononiveau ; le théorème {num "thm:temps_mononiveau"}[] fait alors s'effondrer la famille
 temporelle, et les sortes en présence se réduisent à
 $`\{\langle \mathsf{prog},\ell\rangle, \langle \mathsf{temps},\ell\rangle, \langle \mathsf{maillon},\ell\rangle\}`
 pour un unique $`\ell`.
 
-_Couche 2 — tous les cas._ C'est le seul lieu où l'obligation a un contenu. Les règles structurelles
+_Couche 2 : tous les cas._ C'est le seul lieu où l'obligation a un contenu. Les règles structurelles
 et les connecteurs n'engendrent que des noms de genre $`\mathsf{prog}` et des maillons, restreignables par
 $`\mathcal{S}_\nu` ; la modalité graduée aussi, un service répliqué comme un canal linéaire portant
 la même sorte. Le cas de $`\mathsf{operation}_\varepsilon(v)` est celui qui produit une émission sur
 un canal distingué : la clause d'émission demande
 $`\mathrm{gen}(\llbracket v \rrbracket) = \mathsf{prog}`, ce que fournit l'hypothèse d'induction, et
-$`\mathrm{niv}(\llbracket v \rrbracket) \sqsubseteq \ell`, ce que fournit l'étiquetage $`\varphi` —
+$`\mathrm{niv}(\llbracket v \rrbracket) \sqsubseteq \ell`, ce que fournit l'étiquetage $`\varphi` :
 le calcul qui produit l'effet étant de niveau $`\ell`, tout ce qu'il possède l'est aussi. Le cas des
 opérations à portée passe par la ré-invocation séquentielle, qui ne crée pas de nom nouveau.
 
@@ -342,7 +342,7 @@ famille $`\kappa` n'est pas concentrée en un niveau n'a pas de clause : elle de
 quels fils son événement s'écrit, et le texte ne le dit pas. Les sortes sont celles du tableau
 {num "tab:capacites"}[] : $`t_k` est de sorte $`\langle \mathsf{temps}, k\rangle` ou
 $`\langle \mathsf{maillon}, k\rangle`, $`t'_k` et $`t''_k` de sorte $`\langle \mathsf{maillon}, k\rangle`.
-Les constantes d'événement — le niveau, l'effet — ne sont pas des noms et échappent aux capacités.
+Les constantes d'événement (le niveau, l'effet) ne sont pas des noms et échappent aux capacités.
 
 Ce que le gestionnaire reçoit se lit alors sur les sortes. Le gestionnaire du niveau $`k` est le
 processus qui reçoit un événement puis un maillon, et écoute ce maillon ; il est fourni par la
@@ -376,7 +376,7 @@ est consommé par l'émission et $`t'_{\hat\ell}` produit par elle, la capacité
 satisfaite puisque les deux noms ont le niveau $`\hat\ell` et que le second est un maillon ; chaque
 autre niveau traverse par un transfert, bien sorté par la cinquième clause du bon sortage. L'opération
 est le même cas, sous l'hypothèse que $`\llbracket \mathsf{operation} \rrbracket` ne mentionne aucun
-fil — hypothèse de module, qui s'ajoute à sa totalité. {sc}[Ret] est le transfert seul. {sc}[Let] : par
+fil : hypothèse de module, qui s'ajoute à sa totalité. {sc}[Ret] est le transfert seul. {sc}[Let] : par
 hypothèse d'induction $`c_1` consomme $`\vec t` et produit $`\vec t''`, $`c_2` consomme $`\vec t''` et
 produit $`\vec t'` ; chaque $`t''_k` est créé par $`(\nu \vec t'')`, de sorte de genre $`\mathsf{maillon}`,
 restreignable, produit une fois et consommé une fois. Les éliminations pures traduisent leur sujet,
@@ -447,7 +447,7 @@ des grades aux sortes. Le théorème {num "thm:confinement_sortes"}[] énonce ce
 licite ; sans lui, un programme pourrait fabriquer un canal dont la sorte ne dirait pas la
 vérité sur ses événements.
 
-La formule se lit à gros traits, et il faut deux précisions pour qu'elle soit une définition. La
+La formule se lit à gros traits, et deux précisions sont requises pour en faire une définition. La
 première est le premier obstacle du §{num "sec:g-relation-logique"}[] : deux exécutions apparentées
 doivent employer des noms de canaux _correspondants_. Une _correspondance_ $`\theta` est une bijection
 finie entre des noms de la première exécution et des noms de la seconde, qui conserve la sorte,
@@ -493,10 +493,10 @@ vérifie clause par clause. La définition est par récurrence sur $`S`, les typ
 figurent relevant de la formule ({num "eq:relation-logique"}[]) pour leurs points fixes ; $`\mathsf{Chan}\;S`
 ne contenant $`S` que comme sous-terme, la récurrence sur la paire $`(V, S)` est bien fondée.
 
-Trois choses n'y sont pas écrites, et il faut les dire. La _délégation_, l'échange d'un canal de session
+Trois choses n'y sont pas écrites, et elles se disent. La _délégation_, l'échange d'un canal de session
 comme valeur ($`V = \mathsf{Chan}\;S'`), demande de relier aussi le processus qui tient l'autre
 extrémité ; la clause ne traite que les données et les localisations. Le contenu des trois modalités
-temporelles — ce que « après un délai » ou « à tout instant » veut dire à l'exécution — suppose une
+temporelles (ce que « après un délai » ou « à tout instant » veut dire à l'exécution) suppose une
 horloge que la relation → n'a pas : la clause se borne à y comparer les fils, et la lecture de
 $`\bigcirc`, $`\Box`, $`\Diamond` suit la lecture séquentielle retenue pour les formes temporelles, où
 la durée d'attente n'est pas un pas de la relation (§{num "sec:g-semantique"}[]). Et la comparaison est _insensible à la terminaison_ : deux journaux
@@ -529,7 +529,7 @@ qui précède plutôt qu'à l'abandonner.
 
 1. _Le niveau d'un effet ne doit dépendre du grade que par $`\varphi`._ C'est ce qui garantit que la
    sorte n'emporte rien de $`\mathcal{G}`. Si un autre chemin existait, l'effacement fuirait et le
-   niveau devrait sortir de la sorte — auquel cas le second obstacle de la clause de session retomberait. _C'est la dette réelle de
+   niveau devrait sortir de la sorte : auquel cas le second obstacle de la clause de session retomberait. _C'est la dette réelle de
    cette construction_, et la seule qui touche l'axiome.
 
 2. _Le canal de l'ordre des messages._ La projection $`\pi^{\flat}_{\ell}` efface les événements
@@ -538,7 +538,7 @@ qui précède plutôt qu'à l'abandonner.
    contrôle de flux en concurrence typée par sessions établit une non-interférence _sensible au
    progrès_ qui l'exclut ; il reste à vérifier si notre formulation en fait autant.
 
-3. _Un seul niveau par processus_ — réglé. La littérature du domaine en emploie deux, une
+3. _Un seul niveau par processus_ : réglé. La littérature du domaine en emploie deux, une
    habilitation et un niveau courant. K7PL les a : l'habilitation est le niveau de lecture
    $`\mathrm{niv}(r)` des liaisons, le niveau courant est le niveau de production $`\hat\ell` porté
    par l'effet, et la jointure des niveaux de lecture, bornée par {sc}[Op] et {sc}[Case], est la

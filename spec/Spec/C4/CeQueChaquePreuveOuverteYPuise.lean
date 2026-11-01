@@ -39,6 +39,6 @@ et sur la loi de cohérence qu'il a réclamée. Les _règles de la loi distribut
 de la _gradation indexée_ sont des règles, et appartiennent au jeu de règles du §{num "sec:g-regles"}[] dès qu'elles seront écrites.
 
 Un dernier point inverse l'ordre apparent des priorités. Le métalangage du chapitre 4, qui est la
-_cible_ de la traduction, est formellement présenté — grammaire, motifs, coupure — quand K7PL, qui
+_cible_ de la traduction, est formellement présenté (grammaire, motifs, coupure) quand K7PL, qui
 en est la _source_, ne l'est pas. Cette asymétrie est le vrai retard de ce document, et cette section
 est ce qui la comble.

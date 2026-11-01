@@ -24,8 +24,8 @@ tag := "c4-echelle-du-systeme"
 À l'échelle du système, la coalgèbre qui produit l'état suivant n'est plus celle d'un acteur isolé,
 mais celle de l'orchestrateur tout entier, dont l'état est composé des états de tous les acteurs
 qu'il supervise. Le foncteur qui l'engendre est exhibé au §{num "sec:c4-le-calcul-de-processus"}[] :
-sous la lecture de la couche 2 comme calcul de processus, un système est un terme — composition
-parallèle d'acteurs sous restriction des canaux privés —, et le foncteur cherché est le produit des
+sous la lecture de la couche 2 comme calcul de processus, un système est un terme (composition
+parallèle d'acteurs sous restriction des canaux privés), et le foncteur cherché est le produit des
 foncteurs de comportement individuels, restreint aux transitions que la topologie de coupures
 autorise. Cette section suit quatre questions que doit résoudre une telle coalgèbre à grande
 échelle. Comment ses composants naissent et persistent. Comment la forme de leur assemblage reste
@@ -36,8 +36,8 @@ clôture, ce que cette machinerie offre sans rien y ajouter à un domaine qui se
 Cette section décrit le modèle abstrait du système et les obligations qui en découlent. Les détails
 de runtime, de synchronisation, de persistance et de placement mémoire sont des choix de réalisation
 sauf lorsqu'une exigence est explicitement posée ; ils ne fixent pas, à eux seuls, une architecture.
-Cette réserve ne retire ni les contraintes de représentation explicitement normatives — notamment
-ECS/SoA/PIA, l'alignement et le placement NUMA définis dans « EchelleDeLActeur » — ni les invariants
+Cette réserve ne retire ni les contraintes de représentation explicitement normatives (notamment
+ECS/SoA/PIA, l'alignement et le placement NUMA définis dans « EchelleDeLActeur » ) ni les invariants
 des couches. La couche 3 reste cartésienne et pure ($`\mathcal{E}=\emptyset`), ses calculs valides
 terminent selon les schémas récursifs admis et leur coût de pile est statiquement gradué. La couche 2
 exige la productivité de chaque observation sous sa garde typée, sans exiger la terminaison du flux
@@ -116,8 +116,8 @@ de barrières. Les résultats cités portent sur des modèles déterminés ; ils
 correction d'une réalisation K7PL qui n'a pas été spécifiée. Le choix des barrières et la preuve de
 progrès restent des obligations de raffinement.
 
-Dans un profil qui retient la persistance avec rejeu, les sources non déterministes — horloge,
-générateur aléatoire et autres entrées de l'environnement — doivent être consignées dans le journal
+Dans un profil qui retient la persistance avec rejeu, les sources non déterministes (horloge,
+générateur aléatoire et autres entrées de l'environnement) doivent être consignées dans le journal
 puis remplacées par les valeurs enregistrées lors du rejeu. Le résultat observationnel attendu dépend
 de la complétude du journal et de la fidélité du runtime ; il ne découle pas de la seule persistance.
 L'identité bit à bit est une propriété distincte, conditionnée par le profil de représentation $`\Pi`
@@ -131,7 +131,7 @@ déterminisme logique du rejeu
 :::statement +titled
 Reproduction de l'état final à l'observation près
 
-Soit $`J` un journal _complet_ : une fonction d'observation lui associe à chaque événement extérieur observable de l'historique $`H` une entrée, de sorte que tout le non-déterminisme y est consigné — c'est un paramètre de l'hypothèse de rejeu, et non une conséquence de la pureté. Pour tout acteur $`A` d'historique d'exécution $`H`, rejouer les messages journalisés $`J(H)` à
+Soit $`J` un journal _complet_ : une fonction d'observation lui associe à chaque événement extérieur observable de l'historique $`H` une entrée, de sorte que tout le non-déterminisme y est consigné : c'est un paramètre de l'hypothèse de rejeu, et non une conséquence de la pureté. Pour tout acteur $`A` d'historique d'exécution $`H`, rejouer les messages journalisés $`J(H)` à
 travers les gestionnaires purs de $`A` produit un état final observationnellement égal à
 l'original : $`\text{Rejeu}(J(H), S_0) \approx_{\text{obs}} S_{\text{final}}`.
 :::
@@ -162,12 +162,12 @@ identité binaire du rejeu, sous environnement reproductible
 :::statement +titled
 Le pas que la pureté ne franchit pas
 
-Sous l'hypothèse $`E_{\text{repro}}` — ordonnancement, mode d'arrondi flottant, version de la
+Sous l'hypothèse $`E_{\text{repro}}` (ordonnancement, mode d'arrondi flottant, version de la
 chaîne de compilation et architecture, comportement des NaN compris, identiques entre l'exécution et
-le rejeu — et sous l'hypothèse $`H_{\text{repr}}` d'invariance de la représentation — deux états
+le rejeu) et sous l'hypothèse $`H_{\text{repr}}` d'invariance de la représentation (deux états
 atteignables observationnellement égaux ont la même représentation sous le profil $`\Pi` :
 $`x \approx_{\text{obs}} y \Rightarrow \operatorname{repr}_{\Pi}(x) = \operatorname{repr}_{\Pi}(y)`
-—, l'égalité du théorème précédent est une identité binaire :
+), l'égalité du théorème précédent est une identité binaire :
 $`\text{Rejeu}(J(H), S_0) =_{\text{bit}} S_{\text{final}}`.
 :::
 
@@ -176,8 +176,8 @@ Si l'égalité observationnelle du théorème précédent est établie, $`E_{\te
 représentation d'une valeur dénotée et l'ordre d'évaluation ; $`H_{\text{repr}}` transporte alors
 cette égalité en identité de représentation.
 
-_Trois rejeux, une seule relation._ Ce document en distingue trois — le rejeu logique, l'identité
-binaire, et le rejeu stratifié par niveau du §{num "sec:g-semantique"}[] — et ils ne sont pas trois notions mais _trois
+_Trois rejeux, une seule relation._ Ce document en distingue trois (le rejeu logique, l'identité
+binaire, et le rejeu stratifié par niveau du §{num "sec:g-semantique"}[]) et ils ne sont pas trois notions mais _trois
 instances de la même_ : l'égalité modulo une projection. Le premier projette sur l'observation, le
 deuxième sur la représentation, le troisième sur un niveau. Les trois sont donc des instances du
 schéma de restriction (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[],
@@ -221,7 +221,7 @@ hypothèses de communication et de reprise restent à préciser pour le profil c
 
 Cette population d'acteurs ne s'assemble pas librement. Le compilateur construit, en amont de toute
 exécution, le graphe de dépendances entre gabarits d'acteurs et le prouve acyclique. Cette
-construction suppose une condition que ce document laissait implicite et qu'il faut écrire : *le
+construction suppose une condition restée implicite et qui s'écrit : *le
 type d'état est unique par gabarit d'acteur*. Cette acyclicité n'est pas ajoutée par K7PL : elle est
 ce que produit toute composition fondée sur la logique linéaire, dont il est établi que les réseaux
 d'interconnexion engendrés sont strictement moins expressifs que ceux d'un calcul de sessions
@@ -235,37 +235,37 @@ l'exécution.
 
 Un point de vocabulaire doit être fixé ici, car ce document a employé les deux et ce ne sont pas
 deux façons de dire la même chose. La composition _est_ la coupure, et la coupure est l'endroit où
-la logique linéaire classique et l'intuitionniste diffèrent — un canal à droite, ou plusieurs. La
+la logique linéaire classique et l'intuitionniste diffèrent : un canal à droite, ou plusieurs. La
 classique est strictement plus expressive ; mais la _localité des noms partagés_ est imposée par
 l'intuitionniste et non par la classique, celle-ci interdisant en outre les envois vides sur canaux
 reçus, et les deux contraintes découlent de la même exigence d'exactement un canal à droite {cite "heuvelComparingSessionType2024"}[].
 Or ce chapitre revendique la localité comme une propriété _structurelle_ et non comme une discipline
 maintenue. Elle vient donc du typage _intuitionniste_, et c'est celui-ci que K7PL retient partout :
 au chapitre 3 pour les types de session, et ici pour le métalangage. Ce qui se paie en retour est
-l'expressivité que la classique aurait donnée, et ce prix est le même que celui de l'acyclicité — il
+l'expressivité que la classique aurait donnée, et ce prix est le même que celui de l'acyclicité : il
 est payé une fois, pour deux bénéfices.
 
 Son coût est triple. Elle exclut les boucles de rétroaction, construction centrale du flot de
 données, que les flux monoïdaux interprètent en formant une catégorie à rétroaction {cite "dilavoreMonoidalStreamsDataflow2022"}[].
-Elle prive le langage d'une _trace_, donc de la voie canonique vers une partie compacte close — la
+Elle prive le langage d'une _trace_, donc de la voie canonique vers une partie compacte close : la
 construction Int, qui plonge toute catégorie tracée dans une catégorie tortile {cite "HASEGAWA-TRACED"}[].
 Et elle exclut les topologies circulaires elles-mêmes.
 
 Une remarque s'impose avant d'aller plus loin, car elle écarte une objection que ce document s'était
-faite à lui-même. On pourrait croire qu'une extension déductive — un moteur de règles
-relationnelles, dont les définitions se rappellent mutuellement — exigerait des interconnexions
+faite à lui-même. On pourrait croire qu'une extension déductive (un moteur de règles
+relationnelles, dont les définitions se rappellent mutuellement) exigerait des interconnexions
 circulaires et mettrait donc l'acyclicité en défaut. Il n'en est rien : la récursion d'un tel moteur
 n'est pas un cycle de communication mais le plus petit point fixe d'une fonction monotone, calculé
 par itération locale depuis le plus petit élément d'un semi-treillis (chapitre 2,
 §{num "sec:c2-adjonctions-et-enrichissement"}[]). Un ensemble de règles se compile en un terme de
-point fixe porté par un gabarit unique, dont les relations sont des arènes de couche 1 — la
+point fixe porté par un gabarit unique, dont les relations sont des arènes de couche 1 : la
 représentation restant paramétrique, sous les seules propriétés que l'évaluation semi-naïve
 incrémentale réclame {cite "sahebolamriBringYourOwn2023"}[]. Le graphe de gabarits reste acyclique
 sans qu'aucune concession lui soit faite, et la clôture du chapitre 1 n'est pas mise à l'épreuve :
 le point fixe se projette sur $`\Delta` et $`\mathcal{G}` comme n'importe quel pli.
 
 La compilation d'un tel ensemble tient en trois temps, et rien n'y est propre au langage. Les
-prédicats extensionnels — les faits donnés — deviennent des arènes de couche 1, une par prédicat,
+prédicats extensionnels (les faits donnés) deviennent des arènes de couche 1, une par prédicat,
 dans la disposition colonnaire du théorème {num "thm:isomorphisme_memoire"}[]. Les règles deviennent
 une fonction $`f` d'un tuple de relations dans lui-même, chaque règle contribuant l'union de ce
 qu'elle dérive. Cette fonction est monotone par construction, puisqu'ajouter des faits ne peut qu'en
@@ -283,24 +283,24 @@ Deux précisions achèvent le tableau. L'itération naïve recalcule à chaque t
 déjà ; l'évaluation _semi-naïve_ ne considère que les faits nouveaux du tour précédent, et c'est
 elle qui rend le dispositif praticable. Elle n'est pas une optimisation extérieure au cadre : elle
 exploite la différence entre deux éléments consécutifs de la chaîne croissante, différence que
-l'ordre fournit. Et le semi-anneau sur lequel cette évaluation se fait n'est pas $`\mathcal{R}` — le
-§{num "sec:c2-la-comonade-exponentielle-et"}[] l'a noté — mais un semi-anneau propre à l'extension,
+l'ordre fournit. Et le semi-anneau sur lequel cette évaluation se fait n'est pas $`\mathcal{R}` (le
+§{num "sec:c2-la-comonade-exponentielle-et"}[] l'a noté) mais un semi-anneau propre à l'extension,
 le booléen pour des règles ordinaires : une structure supplémentaire, non un réemploi.
 
 Cette restriction répond en outre à une question que le chapitre 6 aurait rencontrée sans elle :
 comment un compilateur constate-t-il qu'une obligation est indécidable _avant_ de tenter de la
-décharger. Il ne le constate pas, et il ne le peut pas — décider si une obligation est décidable est
+décharger. Il ne le constate pas, et il ne le peut pas : décider si une obligation est décidable est
 lui-même indécidable en général. Ce qui vaut est ce que fait cette section : restreindre le _langage
 des obligations_, de sorte qu'une obligation indécidable ne soit pas rejetée mais _inexprimable_.
 C'est la garantie par inexpressibilité du chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]),
-appliquée ici au langage des obligations, et elle a le bénéfice qui lui est propre — rendre
+appliquée ici au langage des obligations, et elle a le bénéfice qui lui est propre : rendre
 inexprimable plutôt qu'interdire retire une liste de cas à tenir à jour.
 
 Une frontière doit en revanche être fixée, et elle est stricte. Un tel moteur augmenté
 d'arithmétique entière et de négation stratifiée serait _indécidable_. La décidabilité ne revient
 qu'en restreignant les prédicats numériques à des bornes maximales ou minimales et sous une
-condition de linéarité limitant la multiplication, et la complexité ne retombe aux bornes usuelles —
-polynomiale en la taille des données — que sous une exigence supplémentaire de stabilité {cite "kaminskiComplexityExpressivePower2022"}[].
+condition de linéarité limitant la multiplication, et la complexité ne retombe aux bornes usuelles
+(polynomiale en la taille des données) que sous une exigence supplémentaire de stabilité {cite "kaminskiComplexityExpressivePower2022"}[].
 Une extension déductive de K7PL se tiendrait donc sous ces trois restrictions, ou renoncerait à
 l'arithmétique : hors d'elles, ce n'est pas la prédictibilité que le langage perdrait, c'est la
 décidabilité.
@@ -308,7 +308,7 @@ décidabilité.
 L'acyclicité est enfin _levable_, et le prix en est mieux connu qu'il n'y paraît. Il n'exige pas de
 type global : la compatibilité multipartite s'établit sans qu'aucun type ne chorégraphie les
 processus, et l'on peut même vérifier des protocoles pour lesquels aucun type global n'existe {cite "horneSessionSubtypingMultiparty2020"}[].
-Ce qui remplace l'acyclicité est une condition supplémentaire, vérifiable statiquement — liberté de
+Ce qui remplace l'acyclicité est une condition supplémentaire, vérifiable statiquement : liberté de
 course, formulée comme un problème d'inférence de types, ou annotations de priorité sur les canaux
 dont le typage est décidable et la décidabilité mécanisée {cite "saffrichBorrowingSessionTypes2025"}[].
 L'extension reste hors périmètre ici ; mais elle ne coûterait pas ce que ce document annonçait, et
@@ -317,7 +317,7 @@ la localité de l'architecture n'y serait pas engagée.
 Reste à dire pourquoi ce document ne l'emprunte pas, et la raison n'est pas la prudence : elle suit
 de choix déjà arrêtés ailleurs. Depuis que la couche 2 se lit comme un calcul de processus
 (§{num "sec:c4-le-calcul-de-processus"}[]), l'acyclicité n'est plus une hypothèse mais une
-conséquence — un terme y est un arbre de coupures, et un arbre n'a pas de cycle. Admettre des
+conséquence : un terme y est un arbre de coupures, et un arbre n'a pas de cycle. Admettre des
 interconnexions circulaires produirait des termes qui ne sont pas des arbres, donc hors de l'image
 de la traduction, donc hors de portée de l'énoncé de fidélité que le chapitre 6 en tire. Et la
 localité, qui est l'une des deux modifications définissant le calcul cible et ce qui le rend
@@ -363,8 +363,8 @@ ordre d'initialisation par DAG topologique
 :::statement +titled
 Ordre compatible avec les dépendances
 
-Si le graphe de dépendances $`G` des acteurs et canaux est acyclique — vérifié en Phase 1.5
-(chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) —, il existe un tri topologique $`T`
+Si le graphe de dépendances $`G` des acteurs et canaux est acyclique (vérifié en Phase 1.5
+(chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[])), il existe un tri topologique $`T`
 dans lequel chaque dépendance précède le nœud qui en dépend. Cet ordre exclut une dépendance
 circulaire ; il ne garantit pas, à lui seul, que chaque initialiseur termine ni que l'ordonnanceur
 fait progresser toutes les initialisations.
@@ -383,24 +383,24 @@ _Obligation ouverte._ Classer chaque initialiseur par couche. Pour un calcul bie
 restreint à un schéma inductif admis, la terminaison relève de l'invariant normatif de couche 3
 ({num "thm:terminaison_couche_3"}[]) ; sa preuve générique reste en revue, sans autoriser la
 divergence d'un terme valide. Si l'initialiseur dépend d'une communication ou d'une opération à
-effet, il faut appliquer le contrat de sa couche : la productivité de couche 2 impose chaque
+effet, le contrat de sa couche s'applique : la productivité de couche 2 impose chaque
 observation en temps fini sous sa garde ({num "thm:productivite_couche_2"}[]), mais ne garantit ni
 la terminaison du flux entier ni la sélection de l'acteur par l'ordonnanceur. Restent à établir les
 hypothèses de progrès de l'exécution et la correspondance entre attentes dynamiques et arêtes de $`G`.
 :::
 ::::
 Les espaces de noms se lisent sur ce même graphe : un namespace en retient la restriction à une
-dimension choisie — la pureté, l'effet, le couplage — ce qui remplace la hiérarchie de dossiers
+dimension choisie (la pureté, l'effet, le couplage), ce qui remplace la hiérarchie de dossiers
 physiques par une lecture purement logique du graphe de types. Le graphe lui-même se traite
 fonctionnellement : une représentation inductive où un graphe est une fonction des sommets vers des
-ensembles pondérés — non nécessairement finis, et génériques sur une large classe de poids — fait
+ensembles pondérés (non nécessairement finis, et génériques sur une large classe de poids) fait
 des algorithmes de graphes des transformations de graphes {cite "erwigInductiveGraphsFunctional2001"}[].
 Les poids génériques y sont des grades, ce qui rapproche cette représentation de ce document plus
 que ne le ferait une bibliothèque de graphes ordinaire.
 
 Ce rapport est fonctoriel, mais dans le sens inverse de celui qu'on lui prête d'ordinaire. Soit
-$`\mathcal{D}` la catégorie librement engendrée par le graphe des dépendances — objets les modules,
-morphismes les chemins de dépendance — et $`\mathcal{D}_{|k}` celle engendrée par le seul
+$`\mathcal{D}` la catégorie librement engendrée par le graphe des dépendances (objets les modules,
+morphismes les chemins de dépendance) et $`\mathcal{D}_{|k}` celle engendrée par le seul
 sous-graphe des arêtes de dimension $`k`. L'identité d'un module est le chemin vide, présent dans
 les deux ; et la composition de deux chemins d'arêtes de dimension $`k` est un chemin d'arêtes de
 dimension $`k`, puisque la concaténation ne quitte pas le sous-graphe. L'inclusion
@@ -427,7 +427,7 @@ Deux précisions sur leur statut. Ces métriques sont des algorithmes de graphes
 structurellement récursifs {cite "kidneyFormalisingGraphAlgorithms2025"}[] : elles ne relèvent donc
 pas du catamorphisme de couche 3 (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) et
 s'exécutent dans le compilateur, non dans le langage. Et le traitement inductif du graphe de câblage
-— tri topologique sur une structure finie donnée en entier — est légitime pour cette raison précise,
+(tri topologique sur une structure finie donnée en entier) est légitime pour cette raison précise,
 qui ne vaut pas du graphe d'attente à l'exécution. Celui-ci se déplie et relève de la coinduction,
 comme le chapitre 3 (§{num "sec:c3-les-contraintes-de-valeur"}[]) l'établit pour l'absence de
 blocage mutuel en régime permanent.
@@ -436,7 +436,7 @@ Ce statut d'avertissement n'est pas une fatalité pour toutes les métriques du 
 numérique, en particulier, est à portée du système de types plutôt que de la seule heuristique. Des
 bornes saines sur l'erreur inverse, inférées automatiquement et coïncidant avec les bornes
 théoriques du pire cas, s'obtiennent en combinant un système de coeffets gradués avec la linéarité
-stricte {cite "kellisonBeanLanguageBackward2025"}[] — soit exactement l'appareil dont la couche 1
+stricte {cite "kellisonBeanLanguageBackward2025"}[] : soit exactement l'appareil dont la couche 1
 dispose déjà, $`\mathcal{G}` pour la gradation et le fragment linéaire pour la stricte consommation.
 L'extension n'est pas conduite dans ce document ; elle n'exigerait aucun mécanisme nouveau.
 
@@ -523,7 +523,7 @@ demande une preuve de raffinement.
 :::
 
 :::note
-_Obligation ouverte._ Formaliser le prédicat d'appariement — types, motifs, charges et gardes —,
+_Obligation ouverte._ Formaliser le prédicat d'appariement (types, motifs, charges et gardes),
 la sélection des messages et la transition qui les consomme ensemble sans double consommation.
 La propriété sémantique ne démontre ni l'atomicité d'une réalisation ni son absence de verrou.
 :::
@@ -547,7 +547,7 @@ La structure physique de cette boîte tient en une phrase : _un anneau SPSC par 
 file de jonction par acteur_. La capacité d'écriture d'un canal est linéaire, de sorte qu'un anneau n'a qu'un
 producteur, et la boîte n'a qu'un consommateur, l'acteur qui la détient ; l'indexation de $`\mathsf{Mailbox}`
 par canal est cette même partition. Aucune des deux extrémités n'a besoin de comparer-et-échanger, et les deux
-barrières de ce chapitre — libération à la publication, acquisition à la consommation — suffisent. La file de
+barrières de ce chapitre (libération à la publication, acquisition à la consommation) suffisent. La file de
 jonction est l'état que l'acteur tient pour ses motifs en attente, au sens du calcul de jonction
 {cite "fournetReflexiveCHAMJoincalculus1996"}[] : pour chaque motif, l'ensemble des anneaux non vides dont il a besoin,
 lisible par masquage binaire. L'appariement atomique n'est alors pas un protocole entre pairs : l'acteur étant
@@ -560,9 +560,9 @@ simplifierait la topologie, mais au prix d'un comparer-et-échanger que P3 refus
 celui des émetteurs. Cette borne mémoire est connue à la compilation : le graphe de câblage est donné en entier, et
 chaque anneau a une capacité qui est un grade ; une boîte créée à l'exécution par {sc}[New] porte le sien.
 
-L'énoncé est _local_ : il porte sur une jonction prise isolément. {rmq}[L'atomicité locale est
-esquissée, la localité ne l'est pas. Les deux mots se ressemblent et ne disent pas la même chose.]
-La propriété dont l'architecture a besoin est distincte et ne s'en déduit pas — la _localité_ au
+L'énoncé est _local_ : il porte sur une jonction prise isolément. L'atomicité locale est
+esquissée ; la localité ne l'est pas, et les deux mots ne disent pas la même chose.
+La propriété dont l'architecture a besoin est distincte et ne s'en déduit pas : la _localité_ au
 sens de Herlihy et Wing, c'est-à-dire la conservation de la correction lorsque des objets corrects
 sont composés horizontalement, ce que le graphe de câblage fait par construction. Son traitement
 compositionnel est un problème à part entière, dont la formulation connue ne repose ni sur
@@ -598,8 +598,8 @@ par l'orchestrateur, ne sont pas définis par ce passage.
 
 Lorsque la communication franchit la frontière du système lui-même, vers un système d'exploitation
 hôte, le contrat doit préciser la propriété du tampon transféré par la passerelle VirtIO {cite "VIRTIO"}[].
-Le protocole VirtIO définit une _virtqueue_ composée de zones distinctes — table de descripteurs,
-anneau disponible côté pilote, anneau utilisé côté périphérique —, mais cette organisation ne prouve
+Le protocole VirtIO définit une _virtqueue_ composée de zones distinctes (table de descripteurs,
+anneau disponible côté pilote, anneau utilisé côté périphérique), mais cette organisation ne prouve
 pas à elle seule que l'hôte ne conserve aucun accès après le retour. La réalisation doit établir les
 conditions de transfert, de restitution et de révocation ; le mécanisme qui garantit ces propriétés
 reste ouvert.
@@ -691,20 +691,20 @@ une spécialisation directe. Chaque pièce y a déjà son nom.
   l'inférence probabiliste sans mécanisme dédié. Le raisonnement statique sur un programme
   probabiliste, en revanche, demande deux notions dont K7PL ne dispose pas. Le coût, d'abord : en
   présence d'effets probabilistes la grandeur pertinente est le coût _espéré_, et le coût au mieux
-  ou au pire pour le non-déterminisme — analyses distinctes, dont chacune a dû être établie
-  séparément avant qu'un cadre général ne les unifie {cite "EFFCOST"}[] —, tandis que la seule borne
+  ou au pire pour le non-déterminisme (analyses distinctes, dont chacune a dû être établie
+  séparément avant qu'un cadre général ne les unifie {cite "EFFCOST"}[]), tandis que la seule borne
   de coût de la couche 2 est un débit déterministe.
 
 Ce débit demande à être dit, et la manière de le dire n'est pas celle qu'on attendrait. Un débit est
-un rapport — des messages par unité de temps —, et une algèbre d'effets ne divise pas. Il ne
+un rapport (des messages par unité de temps), et une algèbre d'effets ne divise pas. Il ne
 s'exprime donc pas comme une grandeur calculée mais comme un _calendrier déclaré dans le type_, au
 moyen de trois modalités sur l'ordre linéaire des instants : $`\bigcirc A`, qui dit qu'un $`A` sera
 disponible au pas suivant ; $`\Box A`, qu'il l'est à tout instant ; $`\Diamond A`, qu'il le sera
 sans qu'on dise quand {cite "dasParallelComplexityAnalysis"}[]. Un flux dont chaque continuation
 porte un $`\bigcirc` a un débit d'un message par pas, et cela se lit sur son type sans qu'aucun
 rapport soit formé. La latence d'un pipeline est le nombre de $`\bigcirc` que traverse le type du
-processus qui le compose. Lorsque le calendrier n'est pas bornable statiquement — un transducteur
-qui compresse son entrée émet à un rythme que l'entrée seule ne détermine pas —, $`\Diamond` prend
+processus qui le compose. Lorsque le calendrier n'est pas bornable statiquement (un transducteur
+qui compresse son entrée émet à un rythme que l'entrée seule ne détermine pas), $`\Diamond` prend
 le relais et énonce l'inévitabilité sans l'échéance.
 
 Ces trois constructeurs sont la quatrième instance du procédé du chapitre 2
@@ -717,12 +717,12 @@ laquelle leur correction est établie : la nôtre reste à écrire.
 
 Une dernière remarque borne ce que ces modalités permettent de revendiquer. Rendre le temps
 structurel ouvre la possibilité d'énoncer qu'une durée ne dépend pas d'une donnée qu'elle ne devrait
-pas révéler — la non-interférence appliquée à la composante temporelle plutôt qu'aux valeurs. Cette
+pas révéler : la non-interférence appliquée à la composante temporelle plutôt qu'aux valeurs. Cette
 possibilité a une limite, et elle n'est pas dans le langage : un canal temporel se referme
 complètement au niveau du jeu d'instructions, par une conception du matériel qui contrôle le temps
 au moyen du flot d'information, et les travaux qui l'établissent opèrent à l'échelle du système
-entier. K7PL peut donc fermer les canaux que son système de types _voit_ — ceux qu'une branche
-conditionnelle ou une itération à borne variable ouvrent dans le programme —, non ceux que le
+entier. K7PL peut donc fermer les canaux que son système de types _voit_ (ceux qu'une branche
+conditionnelle ou une itération à borne variable ouvrent dans le programme), non ceux que le
 matériel ouvre sous lui. Un cache dont le temps de réponse dépend de ce qui y a été écrit reste
 invisible au typage. La revendication est donc bornée par la plateforme, exactement comme le
 référentiel du modèle mémoire l'a été au §{num "sec:c4-echelle-du-systeme"}[], et cette borne doit
@@ -735,9 +735,9 @@ distribution.
 
 Ces deux notions sont déclarées hors périmètre, au même titre que l'extension Datalog envisagée au
 chapitre 4. Hors périmètre, et non hors d'atteinte : les cônes mesurables modélisent la logique
-linéaire intuitionniste, et la théorie de l'intégration qui leur manquait — l'ingrédient qui
+linéaire intuitionniste, et la théorie de l'intégration qui leur manquait (l'ingrédient qui
 interprète les primitives d'échantillonnage, pour l'appel par valeur comme pour l'appel par poussée
-de valeur — a été développée {cite "ehrhardIntegrationCones2025"}[]. K7PL ayant retenu le CBPV
+de valeur) a été développée {cite "ehrhardIntegrationCones2025"}[]. K7PL ayant retenu le CBPV
 (§{num "sec:c1-axiomatique-germinale"}[]), c'est son propre régime d'évaluation qui rend cette
 extension disponible. Ce que ce chapitre établit est plus étroit que ce qu'une lecture rapide y
 verrait : l'inférence probabiliste n'avait besoin d'aucun mécanisme qu'elle ne possédât déjà.
