@@ -16,22 +16,16 @@
 # and sequences, plain/single/double-quoted scalars, booleans,
 # integers, and flow sequences. No anchors, tags, or block scalars.
 
-# D2 slice 1 (descriptive only, classifier not yet derived): every
-# component also declares `impact_surfaces` — the validation surfaces
-# a change under its roots triggers — and, where it reads files
-# outside its own roots, `read_inputs` — paths whose change triggers
-# that component's surfaces as well (the former classifier "read by
-# another surface" rules, now declared here). A path triggers the
-# surfaces of every component whose roots contain it, plus the
-# surfaces of every component whose read_inputs contain it. New
-# surface names (axiom_audit, k_compile, k_examples, klean_export,
-# tla_model_check) are declared here as derivation targets; since
-# cutover C3 the derived classifier decides all thirteen surfaces
-# (impact job, derived_event.ts), and the legacy Python classifier
-# runs only in reversed shadow.
-# The markdown rule (any .md/.markdown file triggers docs_links)
-# and the light/full exact-prefix rules remain classifier rules,
-# not components, and are not declared here.
+# Registry-derived classification (cutover C3): every component declares
+# `impact_surfaces` and, where it reads files outside its own roots,
+# `read_inputs`. A path triggers the surfaces of every component whose
+# roots contain it (outside exclusions), plus every component whose
+# `read_inputs` contain it. The derived Deno classifier reads this registry
+# and decides all thirteen validation surfaces. The Python and legacy Deno
+# projections remain comparison-only in the non-blocking shadow job.
+# The Markdown documentation rule, light/full path rules and fail-closed
+# unknown-path rule remain classifier-resident; they are not component
+# ownership rules.
 
 version: 1
 
