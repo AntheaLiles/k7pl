@@ -470,3 +470,19 @@ The property-by-property sensitivity table and bounded evidence are maintained
 in `CHAPTER-COVERAGE.md` §4.7. Semantic decisions remain in `OPEN-GATES.md`;
 no K/TLA+/Lean simulation is claimed.
 
+
+
+## 8. Latest 40-profile execution — 2026-11-01
+
+Run 41310176908 on source SHA `a7a6d631...` exercised all 40 profiles and
+reached 37 expected outcomes (17/18 positive, 20/22 negative). The three
+failures and their exact state/depth/queue metrics are in
+`CHAPTER-COVERAGE.md` §4.7.1. TLA-02 parsing is fixed. TLA-07 parsing is fixed,
+but the positive capability-lifetime invariant was unexpectedly violated and
+the revocation-restore control did not violate `NoCapabilityRevival` after
+full search. TLA-12's negative control reached an incomplete ApplyPatch
+successor. Commit `a173e227...` corrects these three source defects; its CI
+run 41311344952 is pending with no jobs created. These fixes are committed,
+not validated. `TLA-03` remains vacuous for safe termination; TLA-07 still
+does not model region ownership/rights transfer; TLA-12 leaves pending-patch
+lifecycle open under G18.

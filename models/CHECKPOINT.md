@@ -5,136 +5,144 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # K7PL TLA+ workstream checkpoint
 
-**Snapshot:** 2026-11-01, live repository state observed during this pass.  
+**Snapshot:** 2026-11-01, after source commit \`a173e227445df7a1a9966d7d443360a41248c36a\`.  
 **Repository:** AntheaLiles/k7pl.  
-**Branch:** `fix/tla-ci-unified-suite-2026-10-31`, PR #319.  
-**Current head:** `a7a6d631f0c19876b0437276e6cd6e8bec79a3de`.  
-**Base:** `main@2fbf609f6f3e67ffe011a3f28fd247526684155a` (rechecked; unchanged).  
-**PR:** open, ready for review (not draft), not merged.
+**PR:** #319, branch \`fix/tla-ci-unified-suite-2026-10-31\`.  
+**Source head:** \`a173e227445df7a1a9966d7d443360a41248c36a\`.  
+**Base:** \`main@2fbf609f6f3e67ffe011a3f28fd247526684155a\` (rechecked; unchanged).  
+**PR state:** open, not draft, not merged.
 
-## Current repository state
+## Repository and process state
 
-- Models remain at repository-root `models/`, intentionally flat.
-- PR #311 remains open and unmerged. Its head is not a normative source;
-  current specification clauses were rechecked against main at the base SHA.
-- `CHAPTER-COVERAGE.md` is the live model coverage matrix;
-  `OPEN-GATES.md` records semantic questions; `WORK-PLAN.md` records
-  model scope; `wiki/assurance.md` remains the central theorem/gap register.
-- No main-branch write, force-push, protection bypass or PR merge occurred.
+- \`models/\` remains at repository root and intentionally flat.
+- PR #311 remains open and unmerged; it is not the normative source.
+- Applicable clauses were checked against current \`main\` at the PR base SHA.
+- \`wiki/assurance.md\` remains the central theorem/gap register. H1–H3
+  remain open; no TLA-07 claim discharges them.
+- All writes were fast-forward updates to this PR branch. No main-branch write,
+  force-push, protection bypass or merge occurred.
 
-## Commits added in this remediation pass
+## Commits added by this remediation pass
 
 | SHA | Commit | Scope |
 |---|---|---|
-| `dafbc608f8c94a97644f336286cc228e94d3d975` | `fix(tla): repair blocking model checks` | Initial TLA-02/TLA-07/TLA-12 source corrections; strict D01/R9 shell predicates; REUSE header |
-| `399242330c8d81e54975d60cf3e184f7d843195a` | `fix(tla): make profile sentinels parser-safe` | Move NoPair to a module operator; remove unsupported tuple assignments from CFG; LET binding in TLA-07 invariant |
-| `70a15318a546b88211b97aad7ca157a83a79ac5f` | `fix(tla): avoid nested capability index expressions` | LET binding in TLA-07 GrantCapability |
-| `279f160b61c5502b2cb730841377ef4c4d88fbd6` | `fix(tla): model prepared-patch revocation interleaving` | TLA-12 revocation action/invariant/negative profile; correct TLA-01 SimulationGap expected trace; profile inventory 40 |
-| `a7a6d631f0c19876b0437276e6cd6e8bec79a3de` | `fix(tla): correct control profile comment syntax` | Correct TLA CFG comment syntax in the new revocation control |
+| \`dafbc608f8c94a97644f336286cc228e94d3d975\` | \`fix(tla): repair blocking model checks\` | TLA-02/TLA-07/TLA-12 initial fixes; strict D01/R9 predicates; REUSE header |
+| \`399242330c8d81e54975d60cf3e184f7d843195a\` | \`fix(tla): make profile sentinels parser-safe\` | Move TLA-02 sentinel to module; CFG parser fix; TLA-07 LET binding |
+| \`70a15318a546b88211b97aad7ca157a83a79ac5f\` | \`fix(tla): avoid nested capability index expressions\` | TLA-07 LET binding in GrantCapability |
+| \`279f160b61c5502b2cb730841377ef4c4d88fbd6\` | \`fix(tla): model prepared-patch revocation interleaving\` | TLA-12 revocation model/invariant/control; 40th profile; correct TLA-01 oracle |
+| \`a7a6d631f0c19876b0437276e6cd6e8bec79a3de\` | \`fix(tla): correct control profile comment syntax\` | TLA-12 CFG comment syntax |
+| \`8e661c718f1f55cfec39b168ef80a624289ebce1\` | \`docs(tla): record live remediation evidence and gates\` | Checkpoint, roadmap, gates, dependencies, toolchain evidence |
+| \`9410a577c195d9fec828f47f92dbf23570f97fc6\` | \`docs(tla): qualify model coverage and property sensitivity\` | Sensitivity matrix and TLA-01/03/07/12 work-plan notes |
+| \`a173e227445df7a1a9966d7d443360a41248c36a\` | \`fix(tla): enforce capability reuse and revocation invariants\` | TLA-07 monotone revocation history and safe generation reuse; TLA-12 action completeness; REUSE annotation |
 
-Each commit was appended by a non-forced fast-forward ref update against the
-immediately preceding head. The PR head above is the current source revision.
+Every commit above was appended without force-push.
 
-## Source changes in this pass
+## Source changes in the latest commit
 
-- TLA-02: `NoPair` is now defined in the TLA module as a pair, rather than
-  assigned as a tuple literal in a TLC configuration (the CFG parser rejected
-  that syntax).
-- TLA-07: local `LET` bindings isolate `CapSlot(c)` in
-  `WriteCell`, `ValidCapabilitiesMatchGeneration` and `GrantCapability`.
-- TLA-12: `frameOverrun'` now assigns the explicit parenthesised disjunction.
-  The later candidate extension models revocation between `HandleEvent` and
-  `ApplyPatch`, tracks post-revocation application and adds a negative profile.
-- TLA-01: the authored SimulationGap JSON was corrected to the observed
-  one-step TLC witness; it no longer claims that a wait cycle was observed.
-- D01/R9 negative shell checks now require TLC's exact named invariant
-  violation and a counterexample trace header, and reject parser, semantic,
-  ASSUME and TypeOK failures.
-- The TLA inventory is now 40 profiles: 18 positive and 22 negative.
-  The controller test expects 22 negative profiles.
+- TLA-07 \`Allocate\` rejects a generation already recorded as stale, unless a
+  preceding \`ReuseSlot\` explicitly marked an unsafe finite-generation collision
+  under \`AllowGenerationWrap\`. The marker is consumed when the slot is allocated.
+- TLA-07 records \`everRevokedCapabilities\` monotonically. Destroy and explicit
+  revocation add to this history; normal grant cannot reactivate a historically
+  revoked capability. The intentionally unsafe restore control can, making
+  \`NoCapabilityRevival\` falsifiable instead of tautological.
+- TLA-12 parenthesises the disjunction assigned to
+  \`appliedAfterRevocation'\`, preventing operator precedence from leaving that
+  variable unspecified in \`ApplyPatch\`.
+- \`REUSE.toml\` includes the new JSON oracle in the existing CC0 annotation,
+  because JSON cannot carry an SPDX comment.
 
-## Validation evidence and limits
+These are model-level corrections to existing candidate invariants and
+controls. They do not ratify language semantics, establish region ownership,
+or decide the lifecycle of a prepared patch after revocation.
 
-### Latest complete TLC artifact inspected
+## Latest complete TLC evidence inspected
 
-Run [41308633862](https://github.com/AntheaLiles/k7pl/actions/runs/41308633862)
-was executed on `dafbc608f8c94a97644f336286cc228e94d3d975`, with the previous
-39-profile manifest:
+Run [41310176908](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908)
+used source SHA \`a7a6d631f0c19876b0437276e6cd6e8bec79a3de\` and the 40-profile
+manifest (18 positive, 22 negative):
 
-- 16/18 positive profiles reached the no-error TLC completion diagnostic.
-- 17/21 negative profiles reached their exact expected invariant violation.
-- Six profiles failed before the expected verdict: TLA-02 positive and
-  negative (tuple literal rejected in CFG parsing); TLA-07 positive and three
-  negative controls (parser error in `ValidCapabilitiesMatchGeneration`).
-- TLA-12 positive passed on the pre-revocation model (33 generated, 23
-  distinct states, depth 7, queue empty); this does not validate the later
-  revocation action or the new 40th profile.
-- The D01/R9 shell checks passed with the stricter predicates. D01's
-  standalone evidence artifact remains the input consumed by `k-smoke`.
-- The unified artifact contained 113 files. Its `SHA256SUMS` file had 112
-  entries, all verified after normalising a leading `./`; the TLC JAR
-  SHA-256 was `936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88`,
-  matching the workflow pin.
+- 37/40 profiles reached the expected outcome: 17/18 positive and 20/22
+  negative.
+- TLA-02 positive and negative both passed after the CFG sentinel correction.
+- All TLA-07 profiles parsed; three did not meet the expected result:
+  - positive \`tla07-capability-lifetime\`: \`NoStaleEntityAlias\` violated
+    after \`Init → Allocate → Destroy → Allocate\`; 8 generated, 8 distinct,
+    3 queued, depth 4.
+  - negative \`tla07-revocation-restore\`: full exploration completed
+    (23,211 generated, 5,292 distinct, queue empty, depth 19), but the expected
+    \`NoCapabilityRevival\` violation did not occur. Restore removed the
+    capability from the current revoked set as it added it to the active set;
+    historical revocation was not recorded.
+  - negative \`tla12-apply-after-revocation\`: TLC reported an incomplete
+    successor for \`ApplyPatch\`, with \`appliedAfterRevocation\` unspecified;
+    13 generated, 11 distinct, 6 queued, depth 4.
+- TLA-12 positive passed (49 generated, 33 distinct, queue empty, depth 7).
+- The new source commit \`a173e227...\` addresses those three model defects.
+  It has **not yet been validated by TLC**.
 
-This is evidence for SHA `dafbc608...` and the old 39-profile inventory
-only. It does not validate the later TLA-02/TLA-07 changes or the new TLA-12
-interleaving.
+The full artifact is [\`tla-model-check-evidence\` — run 41310176908,
+artifact 13085331418](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908/artifacts/13085331418).
+It contains 116 archive entries; all 115 entries in \`SHA256SUMS\` were
+verified. TLC 1.7.4 JAR digest was verified by the workflow as
+\`936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88\`.
+Uploaded artifact SHA-256:
+\`3c6ab091887715f0cd38f3a2bf59570a929bfca8b1ad74cb6aa979e9b6135e1d\`.
 
-### Current-head CI
+## CI state by exact source SHA
 
-- Current source head: `a7a6d631f0c19876b0437276e6cd6e8bec79a3de`.
-- CI run [41310176908](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908):
-  `pending`, with no jobs created at last observation.
-- Documentation publication run 41310176530: `queued`.
-- Earlier CI run 41308633862 remains `in_progress` in
-  `Formal semantics / Compile K semantics, execute examples, export to Lean`,
-  step `Render Verso Blueprint documentation`. Its job logs are no longer
-  retrievable from the GitHub API (404 BlobNotFound); it was not cancelled.
-  This unfinished run is currently preventing the newer CI run from starting.
-- Intermediate runs 41309147207 and 41309882634 were cancelled after later
-  commits advanced the branch. They are not validation evidence.
-
-### Other checks observed on run 41308633862 (same parent SHA dafbc)
-
-- REUSE: passed, 581/581 files with copyright and license information.
-- CommitLint: passed (`Lint free!`); actionlint and zizmor: passed.
-- Deno controller quick checks and registry/classifier shadow: passed.
-- Python tooling checks: passed.
-- Lean build and axiom audits: passed.
-- Verso specification validation and PDF build: passed.
-- D01 separate TLC and artifact producer: passed.
-- Unified 39-profile TLC job: failed (33/39 expected outcomes).
-- K semantic compile/examples/Verso Blueprint render: still in progress at last
-  observation; no completion verdict.
-- Exact independent `deno fmt`, `deno check`, `deno lint` and `deno test`
-  command outcomes were not separately confirmed from the retrieved logs.
+- Run [41310176908](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908)
+  on \`a7a6d631...\` fails overall because of the three TLA profiles above and
+  the missing REUSE annotation for
+  \`models/TLA12-Revocation-ExpectedCounterexample.json\`.
+- Deno CI-controller checks passed: \`deno task fmt\`, \`deno task lint\`,
+  \`deno task check\`, \`deno task test\`; 327 tests passed, zero failed.
+  Derived-surface/classifier checks passed.
+- CommitLint, actionlint, zizmor, gitleaks and OSV checks passed.
+- Python tooling checks passed.
+- Lean build completed (1,287 jobs); Lean inventory/axiom audits passed.
+- Verso specification build completed (1,578 jobs), specification checks,
+  PDF and HTML artifacts succeeded.
+- D01 standalone TLC passed with the exact \`ProtectedIntegrity\` violation
+  and a trace; artifact 13085037909 was produced and remains consumed by
+  \`k-smoke\`.
+- K semantic compile/examples/Verso Blueprint rendering remained in progress
+  at last observation; do not infer its completion from independent Lean or
+  specification builds.
+- Run [41311344952](https://github.com/AntheaLiles/k7pl/actions/runs/41311344952)
+  is attached to the current source SHA \`a173e227...\` and is \`pending\` with
+  no jobs created at last observation. Run 41310176908 still holds the workflow
+  concurrency slot with its K/Verso job in progress.
+- No current-source-head verdict exists for the 40-profile suite or REUSE.
 
 ## Remediation status
 
-- **P0:** open. The current 40-profile inventory has not completed on the
-  current head. No current-head TLC verdict exists. P0.3 strict D01/R9
-  predicates and P0.4 integrity inspection have evidence on the old run;
-  P0.1 parser fixes remain unvalidated.
-- **P1:** partially implemented, not closed. TLA-01 expected trace corrected;
-  TLA-12 revocation interleaving represented. TLA-03 termination, TLA-07
-  ownership, TLA-05 definitional checks, TLA-09 arithmetic dependence,
-  TLA-11 one-step scope and TLA-16 atomic abstraction remain limitations.
-- **P2:** current-main clause mapping rechecked; G3, G6/G7/G8/G9/G11/G14,
-  and new G18 remain open. No KState/TLAState relation or simulation theorem
-  is established.
-- **P3/P4:** deferred; no concrete target/runtime or selected integration
-  contract justifies those refinements.
+- **P0:** open. The latest complete 40-profile result is 37/40 on
+  \`a7a6d631...\`; the three source corrections and REUSE annotation are on
+  \`a173e227...\`, but that SHA has not yet been validated.
+- **P1:** partially implemented. TLA-01 oracle matches the observed one-edge
+  Simulation witness; TLA-12 models revocation between handling and apply, but
+  pending-patch disposition is open. TLA-03 termination is vacuous in the
+  positive profile; TLA-07 ownership/rights preservation is not established by
+  fixed disjoint cell sets; TLA-05/09/11/16 limits are in CHAPTER-COVERAGE.
+- **P2:** clause mapping checked against current main at the base SHA. G3
+  (valid termination), G7 (region/range ownership and rights operations), G18
+  (prepared-patch lifecycle), fairness and K/TLA/Lean relation remain open.
+  No KState/TLAState relation, refinement map or simulation theorem is claimed.
+- **P3/P4:** deferred pending concrete target/runtime/integration contracts.
+- \`wiki/assurance.md\` is unchanged: no existing theorem/gap was discharged.
+  H1–H3 remain open and are not covered by TLA-07.
 
 ## Next actions
 
-1. Obtain a completed run for the current head and inspect the entire 40-profile
-   artifact, exact state/depth/queue metrics, traces, TLC digest and checksum
-   manifest. Do not transfer the 39-profile result to the current manifest.
-2. If TLA-02/TLA-07 parser fixes pass, perform property-by-property sensitivity
-   review; if they fail, fix the semantic cause and rerun the current head.
-3. Obtain explicit decisions for G3 valid termination, G7 region ownership and
-   G18 prepared-patch lifecycle. Do not add fairness or patch disposal policy
-   without owner ratification.
-4. Update the assurance register only when a theorem/gap status genuinely
-   changes; H1–H3 remain open and are not covered by TLA-07.
-5. Keep the PR open and unmerged.
+1. Validate the exact \`a173e227...\` head on a fresh completed CI run:
+   40 TLC profiles, REUSE, Deno, Python, Lean, K and Verso.
+2. Inspect every profile's diagnostic, generated/distinct states, queue, depth
+   and trace in the 40-profile artifact. Do not transfer \`a7a6d631...\`
+   results to the current head.
+3. Obtain explicit owner decisions for G3, G7 and G18; do not introduce
+   fairness, completion predicates, ownership algebra or patch-disposition
+   semantics without ratification.
+4. Preserve the separation between abstract atomic TLA-16 and concrete
+   weak-memory implementation; defer P3/P4.
+5. Keep PR #319 open and unmerged.
