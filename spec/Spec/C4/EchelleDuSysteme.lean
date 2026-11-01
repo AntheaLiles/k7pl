@@ -441,7 +441,7 @@ dispose déjà, $`\mathcal{G}` pour la gradation et le fragment linéaire pour l
 L'extension n'est pas conduite dans ce document ; elle n'exigerait aucun mécanisme nouveau.
 
 Les machines à états composables décrivent enfin cette même topologie de façon exécutable plutôt que
-descriptive. Chaque handler d'acteur en est une, et les combinateurs séquentiel, parallèle,
+descriptive. Chaque gestionnaire d'acteur en est une, et les combinateurs séquentiel, parallèle,
 alternatif ou de rétroaction qui les assemblent reconstituent le DAG des dépendances. La génération
 de diagrammes d'architecture n'est donc pas un outil séparé du langage, mais une interprétation
 supplémentaire de cette même description.

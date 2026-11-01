@@ -385,6 +385,12 @@ tag := "refs-liste-des-glosses"
   Coalgèbre dont l'état est composé des états de tous les acteurs qu'elle supervise, et qui décide
   de leur activation et de leur redémarrage.
 
+: ordre d'occurrence
+
+  Ordre dans lequel les liaisons d'un terme apparaissent, lu de gauche à droite ; il gouverne la
+  restriction d'échange dans une zone et la décomposition de la substitution simultanée en
+  substitutions simples.
+
 : phase
 
   Étape du processus de compilation qui suppose acquis tout ce qu'établissent les précédentes, et
@@ -399,6 +405,11 @@ tag := "refs-liste-des-glosses"
 
   Composante du facteur temporel mesurant la longueur du plus long chemin de dépendances, et que la
   mise en parallèle laisse inchangée au lieu de l'additionner.
+
+: produit mixte
+
+  Relation de sous-typage sur les grades définie composante par composante, chaque composante
+  gardant sa direction propre : l'usage et la monotonie descendent, le niveau et le budget montent.
 
 : quantale
 
