@@ -30,7 +30,7 @@ tag := "c4-automates"
 
 {refsection "c4-automates"}
 
-Ce chapitre répond à la question du comportement : que fait un programme bien typé lorsqu'il s'exécute, seul, entre acteurs, et à l'échelle d'un système ? Il présuppose la dualité algèbres et coalgèbres du chapitre 2 et le jugement du chapitre 3. Il établit la sémantique opérationnelle et le calcul de processus sous-jacent, les modèles de mémoire, le système de sortes du métalangage, et il déploie l'analyse aux trois échelles du langage : locale, de l'acteur et du système. Il se conclut par l'inventaire de ce que chaque preuve encore ouverte puise dans ces constructions. Pour l'outillage : le chapitre est établi par des démonstrations rédigées et des esquisses de preuve ; des modèles compagnons en TLA+, explorés par TLC dans un périmètre borné, portent sur l'annulation d'acteur et la frontière native (projet k7os, `theoretical-projects/k7os/models/`).
+Ce chapitre pose la sémantique du langage en exécution. Il établit la sémantique opérationnelle et le calcul de processus sous-jacent, ainsi que les modèles de mémoire et le système de sortes du métalangage. Il déploie également l'analyse aux trois échelles du langage (locale, de l'acteur et du système) et inventorie ce que chaque preuve ouverte y puise. Les démonstrations sont rédigées, avec des esquisses de preuve ; des modèles compagnons en TLA+, explorés par TLC dans un périmètre borné, portent sur l'annulation d'acteur et la frontière native (projet k7os).
 
 {include 0 Spec.C4.Introduction}
 
