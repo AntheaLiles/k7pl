@@ -322,6 +322,24 @@ sur un cas concret. Et {sc}[Open] porte sa condition de bord, $`\alpha` n'appara
 contextes, ni dans l'effet, ni dans le type de sortie : c'est elle qui rend le témoin inatteignable, et c'est sur elle que la preuve de
 non-interférence s'appuiera.
 
+Un exemple complet tient en un arbre. L'application de l'identité à une variable, au grade $`1` :
+
+::::formula (label := "eq:derivation-identite") (kind := "formule")
+```
+\begin{gather*}
+\textsc{App}\;\frac{\;\textsc{Lam}\;\frac{\;\textsc{Ret}\;\frac{\;\textsc{Var}\;\frac{\;}{\;\mathbf{0}\cdot\emptyset,\, x :_{1} V \;\vdash\; x : V\;}\;}{\;x :_{1} V \;\vdash\; \mathsf{return}\;x : F_{\mathbf{1}} V \mid \mathbf{1}\;}\;}{\;\emptyset \;\vdash\; \lambda x.\,\mathsf{return}\;x : V_{1} \multimap_{\mathbf{1}} F_{\mathbf{1}} V \mid \mathbf{1}\;} \qquad \textsc{Var}\;\frac{\;}{\;\mathbf{0}\cdot\emptyset,\, y :_{1} V \;\vdash\; y : V\;}\;}{\;\emptyset \boxtimes_{\mathbf{1}} (\mathbf{1}\cdot(y :_{1} V)) \;\vdash\; (\lambda x.\,\mathsf{return}\;x)\;y : F_{\mathbf{1}} V \mid \mathbf{1} \cdot \mathbf{1}\;}
+\end{gather*}
+```
+::::
+
+Le contexte de la conclusion se calcule. L'effet traversé $`\mathbf{1}` a un coût temporel nul :
+$`\psi` y est l'identité sur le budget, et $`\boxtimes_{\mathbf{1}}` se réduit à l'addition point par
+point, donc $`\emptyset \boxtimes_{\mathbf{1}} (\mathbf{1}\cdot(y :_{1} V)) = y :_{1} V`. L'effet
+composé $`\mathbf{1} \cdot \mathbf{1}` vaut $`\mathbf{1}`. La dérivation conclut donc
+$`y :_{1} V \vdash (\lambda x.\,\mathsf{return}\;x)\;y : F_{\mathbf{1}} V \mid \mathbf{1}` : la
+variable est consommée exactement une fois, la fonction ne produit aucun effet, et le seul opérateur
+de composition du jeu, $`\boxtimes`, n'a eu à traverser qu'un effet nul.
+
 La relation $`\preccurlyeq` de {sc}[SubBox] n'est pas l'ordre du grade mais le produit _mixte_
 annoncé plus haut. Le décrire ne suffit pas à une transcription, qui demande la relation elle-même ;
 on la pose donc composante par composante, chacune avec sa direction et l'opération de composition
@@ -381,6 +399,16 @@ Autrement dit $`\preccurlyeq` est le produit
 $`({\geq}) \times ({\succeq}) \times ({\leq}) \times ({\leq})` sur le porteur complet $`\mathcal{G}`, et non l'ordre de
 précision $`\sqsubseteq` dont il diffère sur deux composantes. L'écrire autrement inverserait la
 garantie de confidentialité, qui est la seule des quatre dont le sens dépende de la direction.
+
+Un cas chiffré fixe les quatre directions d'un coup. Soit $`r = \langle \omega, m, \mathrm{Public}, 5\rangle`
+et $`r' = \langle 1, m', \mathrm{Secret}, 12\rangle`, la marque $`m` portant une preuve de monotonie
+que $`m'` a oubliée. Alors $`r \preccurlyeq r'` : l'usage descend ($`\omega \geq 1` : ce qui peut
+servir sans compter sert là où un seul usage est demandé), la monotonie descend ($`m \succeq m'`),
+le niveau monte ($`\mathrm{Public} \leq \mathrm{Secret}`) et le budget monte ($`5 \leq 12` : un
+terme qui exige $`5` s'emploie là où $`12` sont offerts). Lu dans $`\mathcal{R}` par $`\pi_U`,
+l'usage donne $`\pi_U(r) = \omega \geq 1 = \pi_U(r')` : trois composantes se comparent dans le sens
+de la coercion, la quatrième, l'usage, se compare dans le sens inverse, et c'est ce renversement que
+« produit mixte » nomme.
 
 La dernière colonne n'est pas décorative : c'est elle qui porte la vérification du
 §{num "sec:g-regles"}[]. Les lois de la comonade graduée ne mentionnent l'ordre que par une exigence
