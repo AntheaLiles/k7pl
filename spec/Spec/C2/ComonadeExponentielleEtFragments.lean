@@ -512,6 +512,12 @@ w_A:!_0A\to A.
 ```
 ::::
 
+Le contrôle de contraction tient en deux lignes. Dupliquer une valeur détenue au grade d'usage
+$`1` demanderait $`c_{u,v}` avec $`u + v = 1` et $`u, v \geq 1`, ce que l'arithmétique de
+$`\mathcal{R}` refuse ; les seules décompositions de $`1` sont $`(1, 0)` et $`(0, 1)`, dont une
+copie tombe au grade $`0`, qui ne compte aucun usage. Ce n'est pas de la contraction mais un
+affaiblissement déguisé, et le grade $`1` reste non contractable.
+
 Les règles de typage ajoutent ensuite trois conditions de liaison au grade complet :
 
 1. $`r\preccurlyeq r'` doit impliquer $`\pi_U(r)\geq\pi_U(r')` ;
