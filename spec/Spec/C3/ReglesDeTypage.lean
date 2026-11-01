@@ -465,16 +465,16 @@ s'étende à la recherche est une question ouverte, et elle n'est pas traitée i
 tag := "g-regles-les-deux-autres-modalites-temporelles"
 %%%
 
-Elles n'ont pas de forme héritée, et il faut donc les concevoir. Ce qui les détermine est moins leur
-logique — qui est celle des modalités de nécessité et de possibilité sur un ordre linéaire — que
-leur interaction avec la gradation, qui est propre à ce langage.
+Elles n'ont pas de forme héritée : elles se conçoivent. Ce qui les détermine est moins leur
+logique (qui est celle des modalités de nécessité et de possibilité sur un ordre linéaire) que leur
+interaction avec la gradation, qui est propre à ce langage.
 
 La modalité $`\Box` dit qu'une valeur est disponible _à tout instant_. Son introduction exige donc
 que rien dans son contexte ne cesse de l'être, faute de quoi la valeur ne pourrait pas être
 reproduite plus tard. C'est le patron de la promotion, et il n'est pas fortuit qu'il ressemble à
 celui de la modalité d'usage. La modalité $`\Diamond` dit qu'une valeur _finira_ par être
-disponible, sans dire quand. Elle s'introduit de deux façons — ce qui est là est éventuellement là,
-et ce qui sera là après un délai est éventuellement là — et son élimination porte la contrainte qui
+disponible, sans dire quand. Elle s'introduit de deux façons (ce qui est là est éventuellement là,
+et ce qui sera là après un délai est éventuellement là) et son élimination porte la contrainte qui
 compte. On ne peut rien conclure d'un délai non borné qui ne soit lui-même non borné, de sorte que
 le résultat reste sous $`\Diamond`.
 
@@ -502,42 +502,41 @@ Règles des modalités de permanence et d'éventualité ; la latence d'attente e
 :::
 ::::
 
-Le contrat de When doit séparer l'événement déclencheur du coût d'exécution de l'automate déclenché. P3-B, ratifiée le 11 octobre 2026, décide que l'attente environnementale, de durée potentiellement non bornée, est une latence de surveillance et d'orchestration ; elle ne s'impute pas au coût d'exécution propre de l'automate une fois l'événement survenu. La conclusion de typage conserve donc l'effet d'exécution ε, au lieu de remplacer sa famille temporelle par le maximum ω.
+Le contrat de When doit séparer l'événement déclencheur du coût d'exécution de l'automate déclenché. L'attente environnementale, de durée potentiellement non bornée, est une latence de surveillance et d'orchestration ; elle ne s'impute pas au coût d'exécution propre de l'automate une fois l'événement survenu. La conclusion de typage conserve donc l'effet d'exécution ε, au lieu de remplacer sa famille temporelle par le maximum ω.
 
-L'absence de déclenchement dans un temps fini reste possible : P3-B ne promet ni vivacité de l'environnement ni échéance finie. Elle exige que la latence de surveillance reste observable séparément, mais ne ratifie pas le carrier ni le type de cette observation. C-04/C-07 doivent fixer cette représentation avant qu'une coordonnée ou un canal ne soit ajouté à la sémantique.
+L'absence de déclenchement dans un temps fini reste possible : ni vivacité de l'environnement ni échéance finie ne sont promises. La latence de surveillance reste observable séparément ; le porteur et le type de cette observation ne sont pas fixés ici.
+
+:::note
+_Obligation ouverte._ Le porteur et le type de l'observation de la latence de surveillance restent à fixer, avant qu'une coordonnée ou un canal ne soit ajouté à la sémantique.
+:::
 
 La prémisse Box Δ₂ continue de porter la disponibilité après une attente ; elle ne suffit pas à rendre tous les budgets admissibles. Les règles de composition doivent vérifier séparément que ψ est structurellement définie et que les budgets traversés satisfont Adm. La correction de ressource pour When reste à démontrer règle par règle.
 
-Cette contrainte est désormais posée, et il faut dire comment : _aucun connecteur n'a été ajouté_.
-La duale que la règle réclame — une ressource disponible maintenant et encore après une attente de
-durée non bornée — est exactement ce que $`{\Box}` dénote déjà, « disponible à tout instant ». Le
-document a longtemps cherché un symbole pour un objet qu'il possédait.
+Aucun connecteur n'est ajouté pour porter cette contrainte. La duale que la règle réclame (une
+ressource disponible maintenant et encore après une attente de durée non bornée) est exactement ce
+que $`{\Box}` dénote déjà, « disponible à tout instant ».
 
-La coïncidence n'est pas fortuite, et elle se lit sur la règle d'introduction de $`{\Box}`, qui
-exige déjà un contexte $`{\Box}\Delta`. Cette exigence _est_ la condition de report : on ne peut
-promettre une disponibilité permanente qu'à partir de ressources elles-mêmes permanentes. {rmq}[La
-règle portait la contrainte depuis le début ; c'est la règle d'attente qui ne l'invoquait pas.
-Chercher un connecteur neuf revenait à ignorer celui dont on disposait.] La règle {sc}[When] invoque
-donc cette modalité plutôt que d'en introduire une nouvelle, et sa conclusion tient ce qu'elle
-promet.
+La règle d'introduction de $`{\Box}` exige déjà un contexte $`{\Box}\Delta`, et cette exigence
+_est_ la condition de report : une disponibilité permanente ne se promet qu'à partir de ressources
+elles-mêmes permanentes. La règle {sc}[When] invoque donc cette modalité plutôt que d'en introduire
+une nouvelle.
 
 Deux conséquences, et la seconde est un coût qui disparaît.
 
 La première est que la coercion $`{\Box}S \to S` existe déjà sous le nom $`\mathsf{at}` : ce qui est
-disponible à tout moment l'est en particulier maintenant, et la réciproque est fausse — c'est ce qui
+disponible à tout moment l'est en particulier maintenant, et la réciproque est fausse : c'est ce qui
 donne son contenu à la modalité.
 
-La seconde est que _la grammaire des types ne gagne rien_. Une rédaction antérieure inscrivait ici
-le coût d'un connecteur ajouté et le justifiait en le projetant sur la composante de contexte du
-jugement germinal. Le coût n'existe pas : la condition de clôture n'est pas seulement tenue, elle
-est tenue _sans dépense_, ce qui est le cas le plus favorable qu'elle puisse connaître.
+La seconde est que _la grammaire des types ne gagne rien_ : la condition de clôture est tenue
+_sans dépense_, aucun connecteur n'étant ajouté, ce qui est le cas le plus favorable qu'elle puisse
+connaître.
 
 Deux remarques closent ce point. La première est que $`\Box` et $`\bigcirc` suffisent aux couches 1
 et 2, dont les calendriers sont bornés par construction. $`\Diamond` n'est requis que là où un
 transducteur produit à un rythme que son entrée ne détermine pas, cas que le chapitre 4 signale. La
 seconde est que $`\Box` ressemble à la modalité d'usage sans lui être identique : l'une porte sur le
 temps, l'autre sur le nombre d'emplois, et leur parenté est celle que le chapitre 2 énonce entre
-toutes les modalités graduées sur une structure ordonnée — même patron, structures distinctes.
+toutes les modalités graduées sur une structure ordonnée : même patron, structures distinctes.
 
 # Les opérations à portée
 %%%
@@ -547,7 +546,7 @@ tag := "g-scoped"
 {label "sec:g-scoped"}
 
 La règle {sc}[Op] vaut d'une opération algébrique ordinaire, qui reçoit une valeur et rend un
-calcul. Celles qui reçoivent un _calcul_ — un gestionnaire, un bloc délimité — n'entrent pas dans ce
+calcul. Celles qui reçoivent un _calcul_ (un gestionnaire, un bloc délimité) n'entrent pas dans ce
 moule, et le chapitre 3 signale depuis longtemps qu'elles ne sont pas des effets algébriques
 ordinaires. Leur forme est celle de la règle {sc}[Sc] ci-dessous.
 
@@ -572,11 +571,11 @@ Ce qui distingue cette règle de {sc}[Op] tient entièrement à $`f`. L'effet d'
 n'est pas une constante mais une _fonction de l'effet de son argument_ : un gestionnaire qui
 intercepte une exception retire cet effet, un gestionnaire qui rejoue son bloc le double, un
 gestionnaire qui l'ignore l'annule. Le grade d'effet devient donc fonctionnel, et c'est la même
-généralisation que celle qu'exigent les effets dépendants — à ceci près que l'indice y parcourt les
+généralisation que celle qu'exigent les effets dépendants, à ceci près que l'indice y parcourt les
 valeurs quand il parcourt ici les effets eux-mêmes. On pourrait croire que la gradation indexée du
 chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) suffit à porter cette forme. Le
 §{num "sec:g-regles"}[] montre qu'il n'en est rien, l'une indexant sur les valeurs et l'autre sur
-les effets, et qu'une structure propre est requise — un monoïde de transformateurs agissant sur
+les effets, et qu'une structure propre est requise : un monoïde de transformateurs agissant sur
 l'algèbre des effets.
 
 Une distinction s'impose ici, et la mise en parallèle est ce qui la rend nécessaire. L'algèbre des
@@ -588,11 +587,8 @@ l'effet de son argument et que le monoïde de transformateurs gouverne.
 Ce que la seconde composition révèle est que ces deux fragments ne se comportent pas pareillement
 sous elle. Deux effets algébriques se mettent en parallèle sans rien demander. Deux opérations à
 portée ne le peuvent qu'une fois leurs transformateurs appliqués, les fonctions ne se composant pas
-en parallèle comme des valeurs. _La clôture est donc faible sur ce fragment, et il faut l'écrire
-ainsi_ : les opérations à portée se projettent bien sur la composante d'effet du jugement, mais
-elles y entrent par une structure que les opérations ordinaires n'ont pas. {rmq}[Ranger l'exception
-plutôt que de la nier. Une clôture qu'on déclarerait forte là où elle est faible serait une clôture
-qu'on ne pourrait plus invoquer ailleurs.] Les unifier sous une même machinerie serait une
+en parallèle comme des valeurs. _La clôture est donc faible sur ce fragment_ : les opérations à portée se projettent bien sur la composante d'effet du jugement, mais
+elles y entrent par une structure que les opérations ordinaires n'ont pas. Les unifier sous une même machinerie serait une
 uniformisation abusive ; les tenir pour deux mécanismes étrangers serait oublier qu'ils partagent
 leur place dans le jugement. Ils partagent la place et diffèrent par la structure, et c'est ce que
 la nomenclature doit dire.
@@ -600,7 +596,7 @@ la nomenclature doit dire.
 Le contexte du bloc y est multiplié par $`n`, et cette multiplication est ce qui fait sortir le bloc
 du fragment de sa couche : un bloc rejoué deux fois porte des grades que le fragment affine n'admet
 pas. Ce n'est pas une entorse mais un déplacement, et le paragraphe sur la sédimentation le justifie
-— ce qui borne une réexécution est le budget et non la discipline de ressource, le premier tarifant
+: ce qui borne une réexécution est le budget et non la discipline de ressource, le premier tarifant
 ce que la seconde interdirait sans le mesurer.
 
 ## Le monoïde des transformateurs
@@ -608,9 +604,8 @@ ce que la seconde interdirait sans le mesurer.
 tag := "g-scoped-le-monoide-des-transformateurs"
 %%%
 
-La règle quantifie sur $`\mathcal{M}`, qu'il faut donc poser. Avant de le faire, il faut situer cet
-objet _par rapport à ce que la littérature appelle une opération à portée_, faute de quoi on
-croirait construire la même chose.
+La règle quantifie sur $`\mathcal{M}`, qui se pose ici, situé par rapport à ce que la littérature
+appelle une opération à portée, avec laquelle il ne se confond pas.
 
 La littérature définit une opération à portée sur une monade $`T`, d'arité $`k`, comme une famille
 $`\sigma_A : (TA)^k \to TA` naturelle en $`A` {cite "matacheScopedEffectsScoped2025"}[]. Elle agit
@@ -618,15 +613,15 @@ donc sur des _calculs_, et les travaux récents en donnent une théorie complèt
 portées comme des _ressources_ ouvertes et fermées par des opérations dédiées, dans le cadre des
 théories algébriques paramétrées. Ce n'est pas ce que $`\mathcal{M}` est. Un système de types
 n'annote pas des calculs, il annote leurs effets~; $`\mathcal{M}` est donc l'_ombre au niveau des
-annotations_ de ce que la littérature définit au niveau des calculs — ce qu'une opération à portée
+annotations_ de ce que la littérature définit au niveau des calculs : ce qu'une opération à portée
 fait subir à l'annotation, non ce qu'elle fait au calcul.
 
 Cette différence de niveau porte une condition, écrite ici plutôt que laissée implicite. La règle {sc}[Sc]
 donne à $`\mathsf{scoped}_f(v,c)` l'effet $`f(\varepsilon_c)`, c'est-à-dire une fonction de la seule
-annotation de son argument. Pour que cela soit correct, il faut que l'action de $`\sigma` sur les
-annotations _se factorise par l'annotation_ : deux calculs de même effet doivent donner, sous la
-même opération à portée, des effets égaux. Rien ne le garantit a priori, et ce document ne l'établit
-pas. C'est une réserve de portée réelle, inscrite à la nouvelle entrée de travaux qui la porte.
+annotation de son argument. Pour que cela soit correct, l'action de $`\sigma` sur les annotations
+_se factorise par l'annotation_ : deux calculs de même effet doivent donner, sous la même opération
+à portée, des effets égaux. Rien ne le garantit a priori, et ce document ne l'établit pas : c'est
+une réserve de portée réelle, que la lecture de l'annotation comme borne, plus bas, lève.
 
 Ceci posé, deux familles suffisent à engendrer $`\mathcal{M}`, et chacune correspond à une forme de
 gestionnaire réalisable.
@@ -664,8 +659,8 @@ Les trois exigences que la vérification du §{num "sec:g-regles"}[] avait posé
 se vérifient une à une plutôt qu'elles ne s'affirment. L'identité est $`\varphi_1`, qui est un
 générateur, et c'est le gestionnaire transparent. La composition est celle des gestionnaires
 imbriqués, et la clôture tient par construction d'un sous-monoïde engendré. L'action préserve
-l'ordre parce que chaque générateur le préserve — l'itération dans une quantale et la multiplication
-dans $`\mathbb{N}_\infty` sont monotones, l'effacement l'est aussi — et parce qu'une composée
+l'ordre parce que chaque générateur le préserve (l'itération dans une quantale et la multiplication
+dans $`\mathbb{N}_\infty` sont monotones, l'effacement l'est aussi) et parce qu'une composée
 d'applications monotones l'est.
 
 ### La troisième loi, et la condition sous laquelle elle tient
@@ -722,8 +717,8 @@ relations $`\mathrm{Rel}`, et soit $`S \subseteq \mathrm{Ops}`. Si aucune relati
 $`\mathrm{Rel}` ne fait intervenir à la fois une opération de $`S` et une opération de
 $`\mathrm{Ops} \setminus S`, alors (i) $`\pi_S` est un morphisme de monoïdes ordonnés, et pour tout
 $`n` _fini_, $$`\pi_S \circ \varphi_n \;=\; \varphi_n \circ \pi_S ;` (ii) si de plus $`\mathcal{E}_0` est
-une quantale et que le quotient préserve les suprema — exigence sur $`\mathcal{E}_0`, nommée comme
-telle —, l'égalité vaut pour $`n = \omega`.
+une quantale et que le quotient préserve les suprema (exigence sur $`\mathcal{E}_0`, nommée comme
+telle), l'égalité vaut pour $`n = \omega`.
 :::
 
 :::proofsketch
@@ -748,7 +743,7 @@ _Le cas $`n = \omega`._ Il emploie $`\varepsilon^\omega = \bigvee_m \varepsilon^
 $`\pi_S` préserve les suprema. Cette préservation n'est pas gratuite : étendre $`\pi_S` par
 $`\pi_S(\bigvee_i \alpha_i) = \bigvee_i \pi_S(\alpha_i)` présuppose ce qu'il s'agit d'établir. Elle
 est donc posée comme hypothèse (ii) sur $`\mathcal{E}_0`, et non démontrée. Pour un ensemble fini
-d'étiquettes — le seul cas qu'un motif de boîte puisse écrire, que la règle {sc}[Guard] emploie —
+d'étiquettes (le seul cas qu'un motif de boîte puisse écrire, que la règle {sc}[Guard] emploie),
 le besoin se réduit aux bornes supérieures finies, que le monoïde ordonné par treillis fournit : cette
 condition s'écrit sur la règle, elle n'est pas supposée.
 :::
@@ -771,7 +766,7 @@ tag := "g-scoped-le-monoide-des-transformateurs-deux-projections-et"
 %%%
 
 La rétraction $`\pi_S` laisse le facteur temporel intact. C'est le bon choix pour ce à quoi le
-monoïde sert — une borne de coût doit sur-approximer, et garder le temps d'une opération interceptée
+monoïde sert : une borne de coût doit sur-approximer, et garder le temps d'une opération interceptée
 fait errer du côté sûr. Mais la même forme sert ailleurs à un tout autre usage, et là ce choix est
 faux.
 
@@ -795,11 +790,11 @@ Les deux projections, de même forme sur les effets et de traitement opposé sur
   * sur $`\mathcal{E}_0`
   * sur le temps
   * Emploi
-* * $`\pi^{\dagger}_S` — conservatrice
+* * $`\pi^{\dagger}_S`, conservatrice
   * efface $`S`
   * garde $`k`
   * typage des gestionnaires, $`\mathcal{M}`
-* * $`\pi^{\flat}_{\ell}` — observationnelle
+* * $`\pi^{\flat}_{\ell}`, observationnelle
   * efface au-dessus de $`\ell`
   * retire le temps effacé
   * observation, journal, relation logique
@@ -819,7 +814,7 @@ Le facteur temporel étant une famille indexée par les niveaux (§{num "sec:g-g
 $`\pi^{\flat}_{\ell}` se définit sans rien ajouter : elle efface de $`\varphi` les opérations
 étiquetées au-dessus de $`\ell`, et annule les composantes de $`\kappa` d'indice supérieur à
 $`\ell`. Ce que voit l'observateur de niveau $`\ell` est donc, des deux côtés, ce qui lui est
-accessible — et rien de ce qui a été effacé ne subsiste par sa durée.
+accessible : et rien de ce qui a été effacé ne subsiste par sa durée.
 
 La commutation esquissée plus haut vaut pour les deux projections, et pour la même raison. Sur
 $`\mathcal{E}_0` l'argument est celui du théorème ; sur le facteur temporel, $`\pi^{\dagger}` agit
@@ -861,7 +856,7 @@ niveau $`\ell`. L'application $`\varphi_\ell` correspondante est un endomorphism
 $`\mathcal{E}`, et rien dans la construction n'interdirait de l'admettre.
 
 Elle est exclue, et c'est une décision de sûreté plutôt que d'économie. Un gestionnaire qui pourrait
-ré-étiqueter le niveau d'un effet déclassifierait — par une porte que la déclassification délimitée
+ré-étiqueter le niveau d'un effet déclassifierait par une porte que la déclassification délimitée
 du chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]) ne contrôle pas, puisqu'elle ne
 contrôle que l'échappatoire nommée. Admettre $`\varphi_\ell` dans $`\mathcal{M}` rouvrirait donc
 l'attaque de blanchiment que la déclassification ferme, et le ferait à l'endroit exact où la preuve
@@ -884,8 +879,8 @@ lui impose mais une conséquence de n'avoir pas d'effets._ Rien n'est à écrire
 
 Le deuxième porte sur les deux autres couches, et il déplace la question là où elle appartient. Un
 transformateur $`\varphi_n \circ \pi_S` est admissible sur un calcul de composante temporelle $`k`,
-dans un contexte de budget $`\beta`, si et seulement si $`\beta \ominus n\,k` est défini —
-c'est-à-dire si le budget couvre les $`n` exécutions. Ce n'est pas le fragment de la couche qui
+dans un contexte de budget $`\beta`, si et seulement si $`\beta \ominus n\,k` est défini
+(c'est-à-dire si le budget couvre les $`n` exécutions). Ce n'est pas le fragment de la couche qui
 borne la réexécution, c'est son budget. La couche 1 porte une échéance stricte et borne donc $`n`
 plus serré que la couche 2, qui porte un budget sans échéance ; l'inclusion des transformateurs
 admissibles suit cet ordre.
@@ -905,13 +900,12 @@ tag := "g-scoped-ce-que-la-construction-ne-leve-pas"
 Une réserve accompagne cette règle, et le fait d'avoir construit $`\mathcal{M}` ne la lève pas.
 Encoder une opération à portée de cette façon revient à en faire une _élaboration_, et une
 élaboration écrite naïvement n'appartient à aucune interface d'effet : on ne peut alors en raffiner
-l'implémentation sans recompiler. Il faut aussitôt ajouter ce que ce document affirmait à tort être
-établi, car la littérature ne s'arrête pas à ce constat — elle le _résout_. Les algèbres de
+l'implémentation sans recompiler. La littérature ne s'arrête pas à ce constat, elle le _résout_ : les algèbres de
 surcharge syntaxique donnent des élaborations modulaires, composables une à une, des effets d'ordre
 supérieur vers les effets algébriques primitifs {cite "bachpoulsenHeftyAlgebrasModular2023"}[]. La
-perte de modularité n'est donc pas une impossibilité de principe. C'est le prix d'un encodage
-particulier — et il faut dire lequel des deux est le choix, faute de quoi l'énoncé paraît se
-contredire. _L'encodage est le choix ; la perte en est la conséquence nécessaire._ K7PL retient le
+perte de modularité n'est donc pas une impossibilité de principe : c'est le prix d'un encodage
+particulier, et la distinction se dit nettement. _L'encodage est le choix ; la perte en est la
+conséquence nécessaire._ K7PL retient le
 monoïde de transformateurs, et cette structure entraîne la perte, elle ne coexiste pas avec elle. La
 raison s'en voit maintenant. Un gestionnaire est identifié à l'action qu'il exerce, c'est-à-dire à
 sa forme normale $`(n, S)`, et non à une signature qu'il satisfairait. Deux implémentations qui
@@ -924,22 +918,21 @@ revendique que le premier.
 tag := "g-scoped-ce-que-la-construction-ne-leve-pas-mesure-ou-borne"
 %%%
 
-Une condition reste, que la construction de $`\mathcal{M}` suppose sans la nommer. Pour qu'un
-transformateur agisse sur l'_annotation_ d'un calcul, il faut que son action _se factorise_ par
-cette annotation : deux calculs de même effet doivent recevoir, sous la même opération à portée, le
-même effet. Rien ne l'impose a priori, et la littérature donne trois opérations canoniques —
-semi-déterminisme, état local, coupure — dont le comportement dépend du calcul et non seulement de
-son effet.
+Une condition reste, que la construction de $`\mathcal{M}` suppose sans la nommer. L'action d'un
+transformateur sur l'_annotation_ d'un calcul doit se _factoriser_ par cette annotation : deux
+calculs de même effet doivent recevoir, sous la même opération à portée, le même effet. Rien ne
+l'impose a priori, et la littérature donne trois opérations canoniques (semi-déterminisme, état
+local, coupure) dont le comportement dépend du calcul et non seulement de son effet.
 
-La condition tient ou non selon ce qu'on lit dans une annotation, et c'est cette lecture qu'il faut
-fixer.
+La condition tient ou non selon ce qu'on lit dans une annotation, et cette lecture se fixe
+comme suit.
 
-* Lue comme une *mesure* — ce que le calcul coûte —, _la factorisation échoue_. L'opération
+* Lue comme une *mesure* (ce que le calcul coûte), _la factorisation échoue_. L'opération
   $`\mathsf{once}`, qui retient la première branche d'un calcul non déterministe, en donne le
   contre-exemple : deux calculs de même effet total peuvent avoir des premières branches de coûts
   différents, et le résultat n'est alors pas fonction de l'annotation seule.
 
-* Lue comme une *borne* — ce que le calcul ne dépassera pas —, _elle tient_. L'action de
+* Lue comme une *borne* (ce que le calcul ne dépassera pas), _elle tient_. L'action de
   $`\varphi_n \circ \pi_S` sur la borne est correcte parce qu'elle sur-approxime : le coût réel de
   $`\mathsf{scoped}_f(v, c)` reste sous ce que le monoïde calcule, quel que soit le calcul que
   l'annotation recouvre.
@@ -947,7 +940,7 @@ fixer.
 _Or ce document lit déjà l'annotation comme une borne_, et le §{num "sec:g-semantique"}[] le dit
 sans le nommer : la préservation fait décroître $`\tau\cdot\varepsilon`, ce qui n'a de sens que si
 $`\varepsilon` majore ce qui reste à produire. La factorisation est donc acquise, sous la lecture
-que le document pratique — il fallait seulement en tirer la conséquence.
+que le document pratique.
 
 La classe des opérations à portée que K7PL revendique se caractérise alors sans détour : _ce sont
 celles dont l'action sur la borne appartient à $`\mathcal{M}`_. L'appartenance se décide par mise en
@@ -958,8 +951,8 @@ monoïde à formes normales.
 Le prix doit être écrit. Un gestionnaire qui _réduit_ le coût n'en reçoit aucun crédit : sa borne
 reste celle du calcul non coupé. C'est imprécis, et c'est sûr. _C'est l'arbitrage déjà rendu pour
 $`\pi^{\dagger}`_, la projection conservatrice qui garde le facteur temporel d'une opération effacée
-— une borne de coût doit errer du côté sûr, et le document le décide ici pour la seconde fois, pour
-la même raison.
+(une borne de coût doit errer du côté sûr, et le document le décide ici pour la seconde fois, pour
+la même raison).
 
 # Les deux vérifications
 %%%
