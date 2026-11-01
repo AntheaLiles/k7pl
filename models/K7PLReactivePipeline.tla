@@ -78,7 +78,7 @@ ApplyPatch ==
     /\ patchReady' = FALSE
     /\ appliedTargets' = appliedTargets \cup {patchTarget}
     /\ unauthorizedWrites' = IF writerCapability THEN unauthorizedWrites ELSE unauthorizedWrites + 1
-    /\ appliedAfterRevocation' = appliedAfterRevocation \/ writerRevoked
+    /\ appliedAfterRevocation' = (appliedAfterRevocation \/ writerRevoked)
     /\ UNCHANGED <<delivered, pending, handled, handledOrder, logicalVersion, patchBase,
                    patchTarget, writerCapability, writerRevoked, frame, frameOverrun>>
 RevokeWriterCapability ==
