@@ -46,11 +46,22 @@ changes with every correction commit.
 
 ## Validation state
 
-The fixes in this commit have not yet been observed in a GitHub Actions run.
-Do not report a successful TLC profile, an all-green CI result, or a promoted
-model status until the current PR head completes its checks. A negative profile
-counts as successful only when TLC reaches the named invariant violation;
-configuration, parser, ASSUME or type failures are failures.
+The first end-to-end TLC run (workflow run 41305607506, on the
+pre-parser-fix head) executed all 39 profiles. Ten of 18 positive profiles
+completed without errors; twelve of 21 negative profiles reached their named
+invariant violation. The remaining 17 profiles did not reach a model verdict:
+TLA-01, TLA-02, TLA-05, TLA-07, TLA-12 and TLA-16 contained parse or semantic
+analysis errors. These were corrected in the current branch head by making
+set comprehensions and action quantifier scopes explicit, correcting the
+TLA-05 disjunction grouping and the TLA-07 bracket mismatch. The negative
+runner criterion was also tightened to require TLC's exact
+`Error: Invariant <name> is violated.` diagnostic.
+
+The corrected head has not yet completed its rerun. Do not report the 39
+profiles as green, an all-green CI result, or a promoted model status until
+that rerun completes. A negative profile counts as successful only when TLC
+reaches the named invariant violation; configuration, parser, ASSUME, type or
+wrong-invariant failures are failures.
 
 ## Next actions
 
