@@ -242,61 +242,45 @@ Le théorème C4 de sûreté spatiale par capacités linéaires est marqué `und
 Ces trois familles de travaux sont de nature différente : H1–H3 sont d'abord des obligations de métathéorie et de typage ; le partage de canaux reste une décision sémantique ; Import/FFI requiert un contrat de frontière et peut ensuite recevoir un modèle opérationnel. Les futures fiches doivent les garder séparées.
 
 
-### 4.7 What the current positive checks actually establish
+### 4.7 Property sensitivity and observed bounded evidence
 
-The presence of a positive configuration is not evidence that every invariant
-in it exercises a meaningful transition. The following cases must be kept
-separate from substantive protocol coverage:
+The following table distinguishes source-level reasoning from actual TLC
+observations. The only complete archive inspected in this snapshot is run
+[41308633862](https://github.com/AntheaLiles/k7pl/actions/runs/41308633862),
+on source head \`dafbc608f8c94a97644f336286cc228e94d3d975\`. It ran the previous
+39-profile inventory (18 positive, 21 negative), not the current 40-profile
+inventory. Its results are historical evidence for that exact SHA only.
+The run did not validate the later TLA-02/TLA-07 parser corrections or the
+TLA-12 revocation extension. No result below is promoted to a current-head
+verdict.
 
-- **TLA-07 — `NoOverlappingWriteRights`:** the configured memory-cell ranges
-  are disjoint by construction. The current profile therefore checks a
-  consequence of the chosen constants, not a transition protocol that
-  preserves disjointness under split, merge, grant, revoke or reuse. The next
-  extension should introduce those state-changing operations only after their
-  ownership contract is specified.
-- **TLA-12 — `DOMWriteRequiresCapability`:** in the positive profile,
-  `writerCapability` is initialised to `TRUE` and is never changed. The
-  negative profile initialises it to `FALSE` and enables the unsafe write.
-  This distinguishes authorised from unauthorised initial states, but it
-  does not test revocation in the interval between `HandleEvent` and
-  `ApplyPatch`. A meaningful next model revision needs an explicit
-  revocation transition and an owner-ratified decision about whether an already
-  prepared patch must be discarded, retried or committed under a lease.
-- **TLA-03 — `NoTerminatedFibreExecutes`:** the positive profile fixes
-  `AllowTerminate = FALSE`; it cannot test execution after termination.
-- **TLA-01 — timeout profile:** its `NoMutualWaitDeadlock` property is defined
-  over `NonTimeoutWaitFor`, which excludes edges whose timeout action is
-  enabled. The timeout profile is useful for the timeout path, but is not an
-  independent proof that timeout-enabled wait cycles are deadlock-free.
-- **TLA-01 — Simulation Gap:** the cited configuration checks only
-  `Simulation`. The authored witness also contains a dynamic wait cycle, but
-  TLC stops at the first violated invariant. Treat `NoMutualWaitDeadlock`
-  here as a trace-derived observation, not a second TLC verdict.
-- **TLA-05:** `CommittedNotCancelled` and
-  `TimeoutIsNotAcknowledgement` are close to definitional consequences of
-  the transition updates. The profile's substantive checks are
-  `AcknowledgedCancellationMeansNoCommit` and `EffectAtMostOnce`.
-- **TLA-09:** the positive `BudgetNonNegative` result is arithmetically
-  implied by the configured grade limits; it is a consistency check, not
-  independent evidence for the general budget law.
-- **TLA-11:** `RunPairedObservation` is a one-transition paired-run model.
-  Its result checks a deliberately small definition-level example, not a
-  broad exploration of a trace space.
+| Invariant / property | Transition that actually challenges it | Positive assumptions | Negative control | Observed TLC result | Vacuity / limit | Claim currently authorised |
+|---|---|---|---|---|---|---|
+| TLA-01 \`NoMutualWaitDeadlock\` | \`Block\`, \`Timeout\`, \`ExternalDeliver\`; the deadlock predicate excludes wait edges whose timeout action is enabled | Finite 2–3 actors; one message per actor; timeout nondeterministic; no WF/SF | \`TLA01-CircularWait.cfg\` | Run 413086: positive timeout profile 3 generated / 3 distinct states, depth 3, queue empty; negative circular wait 11 / 8, depth 4, named violation reached | Timeout is a failure/abort path, not successful termination. External delivery is a separate action. No fairness means neither timeout occurrence nor eventual delivery is guaranteed. Built-in TLC deadlock detection is disabled by \`CHECK_DEADLOCK FALSE\`. | Bounded distinction between a timeout-enabled wait and the deliberately constructed internal cycle; no general deadlock-freedom or progress theorem. |
+| TLA-01 \`Simulation\` | \`Block(ActorC)\` creates the dynamic edge ActorC → ActorA | Static dependency relation acyclic; endpoint duality holds; dynamic waits are not constrained to the static graph | \`TLA01-SimulationGap.cfg\` | Run 413086: 4 generated / 4 distinct, depth 2; exact \`Simulation\` invariant violation | TLC stops at the first configured invariant. The observed trace is \`Init → Block(ActorC)\`, with one edge ActorC → ActorA. It is **not** a three-actor wait cycle; \`NoMutualWaitDeadlock\` is not a second verdict. The expected JSON was corrected to this observation in commit \`279f160b\`. | A one-step counterexample to the unconstrained abstract implication (Sim); not a K7PL execution absent a K/TLA projection. |
+| TLA-03 \`NoTerminatedFibreExecutes\` | \`Terminate(f)\` would need to occur before a later \`RunStep(f)\` | Positive profile sets \`AllowTerminate = FALSE\`; weak fairness is applied to \`RunStep(f)\`, not to termination | \`TLA03-StarvationControl.cfg\` | Run 413086: fair positive 19 generated / 9 distinct, depth 5; negative \`NoStall\` violation reached in 4 / 4, depth 2 | The positive profile cannot take \`Terminate\`; the property is not exercised. In the module, \`Terminate(f)\` is enabled for any Ready fibre when the constant permits it; no valid-completion predicate currently guards termination. | The fair profile checks bounded scheduler behaviour under its stated WF assumption; it does not validate safe termination or establish a runtime fairness contract. G3 remains open. |
+| TLA-05 cancellation/commit | \`RequestCancellation\`, \`AcknowledgeCancellation\`, \`CommitEffect\` interleavings | Finite request/service state; commit and acknowledgement are distinct transitions | \`TLA05-PostAckCommitControl.cfg\` | Run 413086: positive 62 / 33, depth 7, queue empty; negative reached \`AcknowledgedCancellationMeansNoCommit\` after Send, Accept, RequestCancellation, AcknowledgeCancellation, CommitEffect (33 / 22, depth 6) | \`CommittedNotCancelled\` and \`TimeoutIsNotAcknowledgement\` are close to consequences of transition updates; only the post-ack guarantee and at-most-once claim are substantive candidates. | A bounded cancellation/commit race witness under the candidate post-ack contract; not a general exactly-once external-effect guarantee. |
+| TLA-07 \`NoOverlappingWriteRights\` and lifetime invariants | Would require grant, split, transfer, merge, revoke, region destruction and slot reuse to change ownership/permission state | Current \`CapCells\` ranges are disjoint constants; finite slots and two generation values | Generation-wrap, stale-access and revoke/restore controls | Run 413086: TLA-07 positive and all three negative controls failed before a model verdict at \`ValidCapabilitiesMatchGeneration\` parsing. Parser changes were subsequently made in commits \`39924233\` and \`70a15318\`; not yet TLC-validated. | Disjoint constant cells do not challenge rights preservation. The state field \`owners\` does not itself model the required region ownership algebra. H1–H3 are Lean/type-theory obligations, not TLA-07 coverage. | No current validated TLA-07 property claim. Define ownership and permission operations first; keep H1–H3 open. |
+| TLA-09 \`BudgetNonNegative\` / \`UsageWithinGrade\` | \`Use\` and budget consumption transitions, including unsafe overuse | Finite grades, counters and abstract cost units | \`TLA09-GradeOveruseControl.cfg\`; \`TLA09-BudgetOverdrawControl.cfg\` | Run 413086: positive 73 / 36, depth 6; negative grade-overuse 12 / 6, depth 3; negative budget-overdraw 49 / 15, depth 4 | Positive non-negativity follows arithmetically from configured grade limits. Cost units are not CPU cycles or wall time. | Bounded consistency and sensitivity checks only; not independent evidence for the general budget law or \`thm:correction_ressource\`. |
+| TLA-11 \`LowObservationEquality\` | \`RunPairedObservation\` | Paired runs synchronise public values; one-step finite self-composition | \`TLA11-HighInfluenceControl.cfg\` | Run 413086: positive 2 / 2, depth 2; negative \`LowObservationEquality\` violation 2 / 2, depth 2 | One transition only; timing, event count/order, scheduler effects and long traces are outside the model. | One-step value/output observation example; no general trace non-interference claim. G8 remains open. |
+| TLA-12 \`DOMWriteRequiresCapability\` and \`NoApplyAfterRevocation\` | \`HandleEvent → RevokeWriterCapability → ApplyPatch\` | Current candidate leaves the prepared patch pending when the capability is revoked; ApplyPatch is disabled unless the unsafe switch is enabled | Existing unauthorized-writer control; new \`TLA12-ApplyAfterRevocationControl.cfg\` | Run 413086: old positive 33 / 23, depth 7; old unauthorized-write negative 4 / 4, depth 3. The revocation action, invariant and new 40th profile were added later in commit \`279f160b\`; no TLC result yet. | The model forbids application after revocation but deliberately does not decide what happens to the pending patch. That policy remains G18. | Only the pre-extension bounded writer-capability check has historical evidence. The new interleaving is model-drafted and awaits TLC plus owner decision on patch lifecycle. |
+| TLA-16 abstract SPSC queue | \`Publish\`, \`Consume\`, slot reuse | Atomic abstract transitions; two-slot queue; bounded producer/consumer indices | \`TLA16-OverwriteUnreadControl.cfg\` | Run 413086: positive 49 / 32, depth 7; negative message-conservation violation 23 / 14, depth 4 | Compiler reordering, hardware memory model, cache coherence and release/acquire implementation are absent. | Bounded abstract queue protocol only; no concrete weak-memory or hardware guarantee. G11 remains open. |
 
-All 43 current model configurations set `CHECK_DEADLOCK FALSE`. TLC's
-built-in deadlock detection is therefore disabled. This is distinct from
-checking the explicit `NoMutualWaitDeadlock` invariant in selected TLA-01
-profiles; do not report the suite as having globally checked absence of
-deadlock. The suite's finite actor, event, budget and generation bounds are
-scenario bounds, not production maxima or unbounded proofs.
+For positive profiles the queue is empty at successful completion. For negative
+profiles TLC stops at the first expected invariant violation; a non-empty
+remaining queue is expected and must not be misreported as exhausted. State
+counts and depths are evidence about only the exact finite configurations.
+The artifact's 39 results must not be projected onto the current 40-profile
+manifest or onto a later source SHA.
 
-The finite-state corrections in this audit do not remove a violation witness:
-TLA-06 replaces occurrence counters with booleans because its named
-invariants distinguish only zero from one-or-more; TLA-12 introduces
-`FrameLimit = 2` because no target invariant depends on unbounded frame
-growth. These are explicit finite abstractions. Their relevance is limited to
-the properties actually checked, and the bounds remain part of each profile's
-evidence.
+All current model configurations set \`CHECK_DEADLOCK FALSE\`; TLC's built-in
+deadlock detector is therefore disabled. Explicit wait-cycle invariants remain
+separate checks and do not constitute suite-wide deadlock detection.
+
+H1–H3 remain independent obligations in \`wiki/assurance.md\`: unique
+introduction of \`WriteCap\`, distinct region/range semantics, and prevention
+of linear-capability capture across product modes. No TLA-07 result discharges
+them.
 
 ### 4.8 Order of further modelling work
 
@@ -304,9 +288,10 @@ Do not assign TLA-17+ identifiers merely to expand the directory. The
 highest-value next work is to strengthen the contracts and observable
 transitions already present:
 
-1. Define the capability-revocation/patch-commit policy before extending
-   TLA-12; then model the interleaving between event handling, revocation,
-   acknowledgement and patch application.
+1. The candidate TLA-12 interleaving between event handling, revocation and
+   patch application is now represented. Obtain the owner decision on whether
+   a prepared patch is discarded, recomputed/retried or governed by a bounded
+   lease before adding lifecycle behaviour.
 2. Extend TLA-07 only after the ownership algebra is fixed: multiple
    `ReadCap`, exclusive `WriteCap`, borrow/split/merge, region destruction,
    actor incarnation and stale references. Keep H1–H3 as Lean obligations.
