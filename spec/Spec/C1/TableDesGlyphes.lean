@@ -26,9 +26,9 @@ La table {num "tab:glyphes"}[] complète la dualité glyphe/alias construite au 
 standard_, montrée sous ses deux noms, strictement équivalents au niveau de l'AST. La colonne du
 _point de code_ n'est pas un choix de typographie : elle est la forme normative du glyphe. Un glyphe
 se déclare par son code positionnel Unicode, de sorte que la table reste vérifiable sans dépendre de
-la fonte qui l'affiche, et que la cinquième règle d'admission — aucun couple de glyphes ne se
-ressemble à l'œil — porte sur des objets identifiés plutôt que sur des dessins. Le glyphe n'est pas
-une primitive du noyau — l'arbitrage qui le fixe est écrit au chapitre 5, et cette table en est la
+la fonte qui l'affiche, et que la cinquième règle d'admission (aucun couple de glyphes ne se
+ressemble à l'œil) porte sur des objets identifiés plutôt que sur des dessins. Le glyphe n'est pas
+une primitive du noyau : l'arbitrage qui le fixe est écrit au chapitre 5, et cette table en est la
 table des noms, non celle des constructions.
 
 ::::k7table (label := "tab:glyphes") (align := "lllZ{1.00}")
@@ -156,7 +156,7 @@ Glyphes de la bibliothèque standard de couche 3 et leurs alias textuels
 :::
 ::::
 
-Deux lignes de cette table portent une décision de notation qu'il faut écrire, car elle s'écarte de
+Deux lignes de cette table portent une décision de notation qui s'écrit, car elle s'écarte de
 la source dont le reste s'inspire. Les glyphes de liaison empruntés à BQN étaient `⟜` et `⊸` ; le
 second est l'implication linéaire de Girard, employée dans tout ce document au sens logique, et un
 signe ne peut pas porter deux travaux. Ce n'est pas le signe logique qui cède. Les deux glyphes de
@@ -164,13 +164,13 @@ liaison ont alors été changés _ensemble_, et non le seul fautif : `bind-left`
 une paire, et une paire dont un membre garde sa forme d'emprunt quand l'autre reçoit une forme
 improvisée n'est plus une paire. Le couple retenu, `↢` et `↣`, est image l'un de l'autre, chacun
 tient en un point de code, et la pointe désigne le côté où l'argument s'attache. Ce qui se perd est
-la familiarité pour un lecteur venu de BQN, et c'est le seul coût — un argument de familiarité, non
+la familiarité pour un lecteur venu de BQN, et c'est le seul coût : un argument de familiarité, non
 de devinabilité.
 
 Trois signes de ce document servent à plusieurs endroits, et la séparation qui les rend sans danger
 doit être dite plutôt que supposée. Le tourniquet `⊢` marque le jugement dans la notation
 mathématique, l'identité droite dans la notation de couche 3, et le groupement non capturant dans
-celle des R-expressions. Trois emplois, trois contextes que rien ne mélange — les mathématiques ne
+celle des R-expressions. Trois emplois, trois contextes que rien ne mélange : les mathématiques ne
 s'écrivent pas dans un programme, et une R-expression a ses propres délimiteurs. Le sigil `#` marque
 l'évaluation à la compilation et rien d'autre ; il est réservé à cet usage, et toute intention
 ultérieure de l'employer pour autre chose doit céder, l'usage écrit primant l'usage projeté. Le
@@ -188,14 +188,14 @@ est décidable et vérifiable par machine plutôt qu'apprécié.
 L'instrument appliqué à cette table rend un résultat en deux temps, et le second est plus utile que
 le premier. Aucun couple des vingt-huit ne partage un squelette : la règle est _satisfaite_ à
 l'intérieur du jeu. Mais quatre de ces glyphes ont un confusable _hors_ du jeu, et deux d'entre eux
-visent une cible qui est un caractère d'identifiant légal — le signe de multiplication se confond
+visent une cible qui est un caractère d'identifiant légal : le signe de multiplication se confond
 avec la lettre `x`, la disjonction logique avec la lettre `v`. Les deux autres, une étoile cerclée
 et une rune, sont sans portée pratique.
 
 Ce que ce constat corrige n'est pas le jeu de glyphes mais la _portée de la règle_. Elle regardait à
 l'intérieur du jeu quand le danger est au-dehors : un programme peut porter `x` là où son auteur
 voulait le signe de multiplication, et rien ne le signalerait, l'un et l'autre étant licites à cette
-position. La règle se réénonce donc en deux clauses — aucun couple du jeu ne partage un squelette,
+position. La règle se réénonce donc en deux clauses : aucun couple du jeu ne partage un squelette,
 _et_ tout glyphe dont le squelette est un caractère d'identifiant est déclaré comme tel. La seconde
 clause est celle qui manquait, et c'est l'instrument qui l'a fait apparaître.
 

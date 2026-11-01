@@ -23,8 +23,7 @@ Un système logiciel contemporain est sommé de tenir trois exigences à la fois
 
 Elle résiste parce qu'on la pense comme un arbitrage : on choisit un point sur un triangle de compromis et l'on hérite des faiblesses de ce point. K7PL part d'une autre hypothèse : si les trois exigences s'expriment comme instances d'une même structure algébrique, il ne s'agit plus de choisir mais de _graduer_, dans un seul langage et sans changer de paradigme, le niveau de rigueur payé localement. C'est de ces trois exigences que découlent les recherches qui fondent le langage : la théorie des catégories, la théorie des types et la théorie des automates, exposées aux chapitres 2, 3 et 4. La vérification formelle n'y figure pas comme une exigence de plus : elle est le moyen par lequel les propriétés annoncées s'établissent, et l'outillage qui la porte est indiqué au seuil de chaque chapitre. Chaque notion propre au langage est définie ici avant d'être employée ; seuls les rudiments de la théorie des catégories sont supposés connus.
 
-Trois maturités se distinguent dans ce qui suit. {rmq}[Le lecteur est en droit de savoir laquelle il
-lit. Les termes employés ici sont tous définis en leur lieu.]
+Trois maturités se distinguent dans ce qui suit.
 
 _Arrêté_ : ne changera plus sans révision de l'axiomatique. Le jugement à trois composantes et sa
 strate d'obligations. La sédimentation en trois fragments et son origine dans le semi-anneau. Le

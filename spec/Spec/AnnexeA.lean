@@ -38,11 +38,11 @@ assumés. `ERR-TOP-003`, mentionné au chapitre 6 (§{num "sec:c6-le-processus-d
 absent de la table source, est ajouté ici. `ERR-FFI-001` et `ERR-TYP-008`, qui y désignent tous deux
 une fuite de descripteur à travers la passerelle FFI, sont réunis sur une seule ligne. Cette table
 reste illustrative et non exhaustive : tout mécanisme nouveau engendrerait des codes qu'elle ne peut
-anticiper, et le regroupement thématique facilite la navigation sans garantir la complétude —
+anticiper, et le regroupement thématique facilite la navigation sans garantir la complétude,
 qu'aucune partie de ce document n'a revendiquée pour cette annexe.
 
-Un code ne vaut que par le message qu'il porte, et il faut dire sur quoi cette annexe s'appuie pour
-en régler la forme — car ce qu'on peut invoquer ici est plus mince qu'il n'y paraît. Une revue
+Un code ne vaut que par le message qu'il porte, et ce sur quoi cette annexe s'appuie pour en régler
+la forme se dit tout de suite : ce qu'on peut invoquer ici est plus mince qu'il n'y paraît. Une revue
 systématique d'un demi-siècle de littérature sur les messages d'erreur retourne six cent cinquante
 et un articles, en inspecte quatre cent quarante-huit à la main, et en tire dix lignes directrices
 qui englobent vingt des vingt-deux propositions des quatre travaux ayant tenté une synthèse. Son
@@ -57,21 +57,21 @@ opposer.
 Deux résultats échappent à cette réserve, parce qu'ils sont mesurés. Le premier chiffre ce que la
 lisibilité d'un message coûte en temps : sept cent dix virgule sept secondes contre trois cent
 vingt-quatre virgule neuf, soit un facteur deux, à moins d'un pour mille {cite "dennyErrorMessageReadability2020"}[].
-Le second isole les facteurs qui la déterminent — longueur du message, emploi de jargon, structure
-de la phrase, vocabulaire — par trois expériences dont la troisième fait noter des messages par des
+Le second isole les facteurs qui la déterminent (longueur du message, emploi de jargon, structure
+de la phrase, vocabulaire) par trois expériences dont la troisième fait noter des messages par des
 débutants sur des échelles dérivées des deux premières {cite "dennyDesigningProgrammingError2021"}[].
 Ces quatre facteurs sont les seuls dont cette annexe se réclame, et ils gouvernent la colonne «
 déclencheur et correction » de chacune des tables qui suivent : un déclencheur nommé sans jargon,
 une correction dite en une phrase, et rien qui suppose un serveur de langage à portée.
 
-Une distinction de plus est employée ici, et elle vient d'ailleurs, ce qu'il faut déclarer. Les
-messages de ce langage se répartissent en trois niveaux — le _signal_, qui dit ce qui est faux à un
+Une distinction de plus est employée ici ; elle vient d'ailleurs et se déclare comme telle. Les
+messages de ce langage se répartissent en trois niveaux : le _signal_, qui dit ce qui est faux à un
 endroit ; la _règle_, qui précise quel invariant n'est pas respecté ; la _connaissance_, qui dit pourquoi cet
 invariant existe. Cette stratification n'est pas une invention de la littérature des messages
 d'erreur : c'est la taxonomie des niveaux de contrôle cognitif d'un opérateur {cite "rasmussenSkillsRulesKnowledge1983"}[],
 et aucune des dix lignes directrices de la revue ne la nomme. L'appliquer aux diagnostics d'un
 compilateur est donc un transport, et il se justifie par ceci que la taxonomie porte sur ce qu'un
-opérateur fait d'une information — ce qu'un message d'erreur est. Le transport est faisable ; il
+opérateur fait d'une information : ce qu'un message d'erreur est. Le transport est faisable ; il
 n'est pas acquis, et la question de savoir à quel niveau un message doit s'adresser dépend de ce que
 le lecteur sait déjà, ce qu'aucune mesure du corpus ne tranche.
 

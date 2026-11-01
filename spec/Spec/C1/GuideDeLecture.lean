@@ -150,25 +150,24 @@ Les onze engagements, ce qu'ils affirment, ce qui les tient et par où ils se l�
 ::::
 
 Aucun de ces engagements n'est caché : chacun est signalé là où il est pris, et la table {num "tab:engagements"}[]
-ne fait que les rassembler. Ils ne sont pas de même nature. Les deux paris sur l'usage — le coût
-d'expressivité des deux postulats, et la rareté des changements de fragment — ne se tranchent que
+ne fait que les rassembler. Ils ne sont pas de même nature. Les deux paris sur l'usage (le coût
+d'expressivité des deux postulats, et la rareté des changements de fragment) ne se tranchent que
 par une mise à l'épreuve, et ce document écrit désormais laquelle plutôt que de la laisser à
 imaginer. Le second se mesure _sur du texte_, sans rien exécuter : on écrit un corpus de programmes
 représentatifs, on compte les franchissements de fragment par millier de lignes, et on rapporte ce
 nombre à celui des expressions. La mesure est disponible dès que la syntaxe est gelée, et elle
 n'attend aucun prototype. Le premier demande le noyau exécutable : on relève les programmes du
 corpus que les deux postulats rejettent, et l'on regarde pour chacun s'il existe une reformulation
-acceptée — ce qui rend un _taux de rejet sans reformulation disponible_, et non une opinion. Écrire
+acceptée : ce qui rend un _taux de rejet sans reformulation disponible_, et non une opinion. Écrire
 ces deux protocoles ne les acquitte pas ; cela dit ce qu'un pair devrait refaire pour les
 contredire. Les autres sont des propositions dont on saurait dire ce qu'il faudrait pour les
 établir.
 
 Une règle gouverne désormais cette table, et elle vaut d'être posée parce qu'un engagement qui ne
-dit pas comment il se lèvera n'est pas un engagement mais un aveu. {rmq}[Trois routes seulement. Une
-quatrième — « on verra » — n'en est pas une.] _Tout engagement de ce document nomme la route par
+dit pas comment il se lèvera n'est pas un engagement mais un aveu. _Tout engagement de ce document nomme la route par
 laquelle il se lèvera, et il n'y en a que trois._ La _littérature_ : l'énoncé est déjà établi
 ailleurs, et il se référence dans sa source primaire plutôt qu’il ne se redémontre. La
-_démonstration_ : il ne l'est pas, et ce document ou sa mécanisation doit le prouver — auquel cas
+_démonstration_ : il ne l'est pas, et ce document ou sa mécanisation doit le prouver : auquel cas
 l'engagement porte le nom du théorème qui l'acquittera. La _mesure_ : il ne se démontre pas du tout,
 étant un énoncé sur l'usage ou sur une réalisation, et l'engagement porte alors le protocole qui le
 trancherait.
@@ -176,22 +175,22 @@ trancherait.
 Trois conséquences suivent, et la première a déjà joué. Un engagement dont la route est la
 démonstration _cesse d'être un engagement le jour où le théorème est écrit_ : la fidélité de
 l'interpréteur de référence en était sortie, la section sur la traduction passant pour avoir démontré que celle-ci préserve le
-typage ; elle y est rentrée, l'induction étant planifiée et non conduite. La table le dit maintenant — un document qui ne relit pas ses
+typage ; elle y est rentrée, l'induction étant planifiée et non conduite. La table le dit : un document qui ne relit pas ses
 engagements finit par s'accuser de dettes qu'il a payées, ou par se croire quitte de celles qu'il n'a pas payées. La deuxième est qu'un engagement dont la
 route est la mesure ne se lèvera jamais par la lecture, et qu'il est vain de l'y attendre. La
 troisième est qu'un engagement _sans route nommée_ est une anomalie : il en reste un dans cette
 table, l'enrichissement sur les préordres pour la part qui excède l'ordre des fibres, et sa route
-est la démonstration — le théorème {num "thm:raffinement"}[] en dérive l'autre part, et rien
+est la démonstration : le théorème {num "thm:raffinement"}[] en dérive l'autre part, et rien
 n'établit encore celle-là.
 
 Une lecture est une analogie qui organise sans engager. Il n'en reste que deux, et c'est le résultat
-d'un travail. La plupart des analogies de la première rédaction ont été soit esquissées — le
+d'un travail. La plupart des analogies de la première rédaction ont été soit esquissées (le
 namespace comme inclusion fonctorielle, l'orchestrateur comme coalgèbre, le grade de présence comme
-fragment affine — soit requalifiées en réserve.
+fragment affine) soit requalifiées en réserve.
 
 La _sédimentation triadique_ est une lecture : que les trois couches se « déposent » l'une sur
 l'autre est une image, et ce qui la soutient formellement est l'inclusion des fragments, qui est
-autre chose. Cette réserve a désormais une mesure : l'inclusion tient sur l'axe des ressources et
+autre chose. Cette réserve a une mesure : l'inclusion tient sur l'axe des ressources et
 s'inverse sur _deux_ autres. Sur celui des effets, où la couche 3 est la plus pauvre puisqu'elle
 n'en a aucun ; et sur celui de la concurrence, où elle est la plus pauvre également, son
 parallélisme étant déterministe quand la couche 2 porte l'entrelacement
@@ -208,8 +207,8 @@ transport a un coût, que le postulat d'autonomie physique interdit de dissimule
 théorie publiée ne compte dans un budget. L'assistant de preuve visé impose l'irrélevance
 définitionnelle des preuves, ce qui contredit l'univalence. Enfin aucune variante homotopique ne
 fournit le semi-anneau ordonné agissant sur le contexte, qui est le cœur de K7PL. Ce choix n'exclut
-pas les imports ciblés d'une même famille — théorie de modes pour ranger les modalités, calf pour
+pas les imports ciblés d'une même famille (théorie de modes pour ranger les modalités, calf pour
 le coût et la distinction de phase, théorie des types graduée formalisée pour l'effacement et la
-décidabilité, récursion gardée pour la productivité —, qui s'instruisent un à un et ne sont versés
+décidabilité, récursion gardée pour la productivité), qui s'instruisent un à un et ne sont versés
 au texte qu'au fur et à mesure qu'ils le sont ; ni l'emploi ponctuel et instrumental, comme outil de
 preuve, d'une théorie cubique sans types de Glue pour la seule dette de la sédimentation graduée.

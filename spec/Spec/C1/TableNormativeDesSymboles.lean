@@ -24,9 +24,9 @@ tag := "c1-table-normative"
 Ce document emploie un symbole par objet, et un objet par symbole. La table {num "tab:c1-symboles"}[]
 en fixe la correspondance, et elle est _normative_ : aucune section ultérieure n'introduit de
 variante locale, et un symbole absent de cette table n'a pas de sens dans ce document. Une table
-descriptive documenterait la divergence ; celle-ci l'interdit. {rmq}[La distinction entre $`\Delta`
+descriptive documenterait la divergence ; celle-ci l'interdit. La distinction entre $`\Delta`
 et $`\Gamma` est celle qui coûte le plus cher à enfreindre : elle sépare ce que le langage exige de
-ce que la métathéorie manipule.]
+ce que la métathéorie manipule.
 
 ::::k7table (label := "tab:c1-symboles") (align := "lZ{1.0}")
 :::caption
@@ -86,7 +86,7 @@ Un mot sur le partage des glyphes modaux, car deux relectures indépendantes l'o
 contraires. La ressource porte $`!` et non $`\Box` : c'est le glyphe de l'exponentielle depuis
 Girard, un lecteur le reconnaît sans l'apprendre, et il ne se confond avec rien. Le carré reste au
 temps, où la nécessité modale lui donne son meilleur titre. Ce document a longtemps écrit les deux
-pour le même objet — l'exponentielle ici, le carré indicé aux règles de typage —, ce qui était le vrai défaut,
+pour le même objet (l'exponentielle ici, le carré indicé aux règles de typage), ce qui était le vrai défaut,
 l'un ou l'autre valant mieux que les deux.
 
 {bibliography}
