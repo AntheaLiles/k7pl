@@ -127,7 +127,7 @@ Repository state reviewed on **2026-11-01**, with the workstream based on
 | Tier | Implementation status | Trigger | Checks | Evidence |
 |---|---|---|---|---|
 | TLA parse | **Not implemented** | Any `.tla` or `.cfg` change | SANY/parser and import resolution | Parser/tool version, module list, output |
-| TLA model check | **Implemented** | `tla_model_check` impact surface | TLC invariants and declared temporal properties for R9 and TLA-01..16; negative profiles must fail at the named invariant | Sources, configs, logs, state counts, traces, hashes |
+| TLA model check | **Implemented** | `tla_model_check` impact surface | TLC checks for D01, R9 and TLA-01..16; the 39 TLA profiles accumulate failures and negative profiles must reach their named invariant violation | Sources, configs, authored expectations, per-profile logs, state counts, traces and hashes |
 | TLA extended | **Not implemented** | Selected models or manual/full workflow | Apalache; TLAPS only when a proof is registered | Exact tool versions, solver, bounds or proof output |
 | Formal-chain packaging | **Not implemented** | Model/proof/source changes | Package TLA, K sources, Lean source and matching evidence | Commit-matched archive with provenance |
 | Concrete refinement | **Not implemented** | Runtime implementation changes | Model-specific tests and external concurrency checker where relevant | Runtime revision, platform profile, test traces |
