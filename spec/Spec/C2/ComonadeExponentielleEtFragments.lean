@@ -24,12 +24,12 @@ tag := "c2-la-comonade-exponentielle-et"
 L'exponentielle vient de Girard, qui distingue les fragments cartésien, affine et linéaire comme
 restrictions successives de la contraction et de l'affaiblissement, et isole $`!` comme l'opérateur
 les restituant à la demande. Sa traduction de l'implication intuitionniste en $`!A \multimap B`
-établit que rien ne se perd à descendre au fragment linéaire — résultat dont la complétude pleine a
+établit que rien ne se perd à descendre au fragment linéaire : résultat dont la complétude pleine a
 depuis été démontrée {cite "toninhoInterconnectabilitySessionBasedLogical2018"}[], et sur lequel
 repose la sédimentation triadique tout entière. La formalisation catégorique exacte s'est révélée
 plus délicate que l'énoncé logique : les premières propositions, identifiant $`!` à un foncteur muni
 des isomorphismes $`!(A \& B) \cong \, !A \otimes \, !B` et $`! \top \cong I`, laissaient
-sous-déterminée la compatibilité entre la comultiplication et le comonoïde induit sur chaque $`!A` —
+sous-déterminée la compatibilité entre la comultiplication et le comonoïde induit sur chaque $`!A` :
 compatibilité pourtant nécessaire à la cartésianité de la catégorie de co-Kleisli. La correction est
 due à Bierman, construisant sur Seely : sa définition de _catégorie linéaire_, imposant que chaque
 $`\delta_A` soit un morphisme de comonoïdes, s'est imposée, et c'est elle que cette section
@@ -43,7 +43,7 @@ renseigne sur l'usage du contexte {cite "brunelCoreQuantitativeCoeffect2014"}[].
 catégorique complète est celle d'une comonade exponentielle linéaire _indexée_, sur une structure de
 gradation plus riche qu'un semi-anneau ordinaire {cite "fukiharaGeneralizedBoundedLinear2021"}[].
 Aujourd'hui, la notion de modèle est établie autour d'un objet unique, l'_adjonction
-linéaire-non-linéaire_, dont il est acquis qu'elle englobe les notions antérieures — catégories de
+linéaire-non-linéaire_, dont il est acquis qu'elle englobe les notions antérieures : catégories de
 Seely, catégories de Lafont, catégories linéaires {cite "haringtonCategoricalModelsLinear2025"}[].
 C'est d'elle que part la construction qui suit, l'exponentielle en étant dérivée plutôt que posée.
 
@@ -53,24 +53,22 @@ semi-anneau doivent être exigées avant d'aller plus loin, car le lemme de subs
 elles ne se déduisent pas des axiomes. La _propriété du zéro-somme_ : si $`q_1 + q_2 = 0` alors
 $`q_1 = q_2 = 0`. Et la _propriété du zéro-produit_ : si $`q_1 \cdot q_2 = 0` alors $`q_1 = 0` ou
 $`q_2 = 0`. Elles sont ce qui rend les substitutions bien typées {cite "HUANG"}[], et $`\mathcal{R}`
-les satisfait — un produit de rationnels positifs n'est nul que si un facteur l'est, et $`\omega`
+les satisfait : un produit de rationnels positifs n'est nul que si un facteur l'est, et $`\omega`
 absorbe sans annuler. Les satisfaire et les exiger sont deux choses, et c'est la seconde qui compte
 pour une mécanisation.
 
 Une clause sur la composante de budget, qui exige davantage que le semi-anneau ne donne. Elle
 emploie la soustraction tronquée $`\ominus`, qui n'est ni l'addition ni le produit et ne s'en dérive
-pas. D8 ratifie l’option A : la convention globale est formulée par cas, reste commune aux couches qui utilisent Consume et ne se confond pas avec le résidu de l’addition :
+pas. La convention globale est formulée par cas, reste commune aux couches qui utilisent Consume et ne se confond pas avec le résidu de l’addition :
 $$`\beta \ominus k \;=\; \begin{cases} \omega & \text{si } \beta = \omega\\ 0 & \text{si } \beta < k\\ \beta - k & \text{sinon} \end{cases}`
 
-C'est la _soustraction tronquée prolongée_ en $`\omega`, et il faut dire ce qu'elle n'est pas : _ce
-n'est pas le résidu de l'addition_. Le résidu — le plus petit $`x` tel que $`k + x \ge \beta` —
-rendrait $`\omega \ominus \omega = 0`, puisque $`\omega + 0 \ge \omega`. {rmq}[Deux définitions qui
-coïncident sur les entiers et divergent à l'infini. Celle qu'on retient est celle qui ne promet rien
-qu'elle ne tienne.] La différence n'est visible qu'en ω et décide de la vérité de la loi candidate de compatibilité de multiplicité. La revue indépendante R-02 attribue cette loi à six démonstrations historiques ; cette attribution ne vaut cependant pas preuve que les cibles du source courant en dépendent. La comparaison adverse de leurs proofsketches est consignée dans [l'audit D11](../../../docs/migration/L1-D11-AUDIT-MULTIPLICITY-SITES-2026-10-11.md) : plusieurs cibles courantes n'invoquent pas directement la loi dans leur esquisse, et deux obligations restent indéterminées ou conditionnelles. Le choix de la convention globale et son contre-exemple restent décrits immédiatement ci-dessus.
+C'est la _soustraction tronquée prolongée_ en $`\omega`, et ce qu'elle n'est pas se dit tout de suite : _ce
+n'est pas le résidu de l'addition_. Le résidu (le plus petit $`x` tel que $`k + x \ge \beta`)
+rendrait $`\omega \ominus \omega = 0`, puisque $`\omega + 0 \ge \omega`. La différence n'est visible qu'en ω et décide de la vérité de la loi candidate de compatibilité de multiplicité.
 
 La structure requise pour cette composante est donc un monoïde commutatif _naturellement ordonné_
 muni de cette soustraction, dont la part semi-anneau n'est qu'un fragment. Les conaturels la
-satisfont — d'où le fait que la question ne se pose jamais en pratique —, mais la satisfaire et
+satisfont (d'où le fait que la question ne se pose jamais en pratique), mais la satisfaire et
 l'impliquer sont deux choses, et on exige ici ce qu'on emploie. Une structure concurrente est
 écartée explicitement, étant celle qu'on propose spontanément pour un budget : le semi-anneau
 tropical, où le minimum tient lieu de somme. On y gagnerait le pire cas comme opération primitive~;
@@ -83,15 +81,15 @@ d'une opération de moins et s'achète une théorie équationnelle finie.
 
 Soit par ailleurs
 $`\mathcal{R} = (\mathbb{Q}_{\ge 0} \cup \{\omega\},\,+,\, \times,\, 0,\, 1,\, \le)` est le semi-anneau
-ordonné d'usage : le porteur contient les rationnels positifs — les capacités de lecture divisées
-du chapitre 3 en ont besoin — et un élément absorbant $`\omega` pour l'usage non contraint. Ce
+ordonné d'usage : le porteur contient les rationnels positifs (les capacités de lecture divisées
+du chapitre 3 en ont besoin) et un élément absorbant $`\omega` pour l'usage non contraint. Ce
 dernier n'est pas une commodité ajoutée : _restreint au sous-semi-anneau des entiers_,
 $`\mathcal{R}` est le type des conaturels $`\mathbb{N}_\infty`, dual coinductif des naturels, dont
 il est établi qu'ils forment un semi-anneau commutatif exponentiel {cite "xieConaturalNumbersForm2025"}[].
 Quatre égalités gouvernent $`\omega` et se lisent partout sans être écrites nulle part ; les voici,
 car trois démonstrations en dépendent :
 $$`0 \cdot \omega = 0 \qquad \omega \cdot 0 = 0 \qquad \omega + \omega = \omega \qquad \omega \cdot \omega = \omega`
-$`\omega` absorbe donc l'addition et le produit, sauf devant $`0` qui l'absorbe en retour — c'est la
+$`\omega` absorbe donc l'addition et le produit, sauf devant $`0` qui l'absorbe en retour : c'est la
 convention ordinaire du sous-semi-anneau des entiers étendu, et la seule qui fasse de $`0` un grade
 signifiant « jamais employé ».
 
@@ -103,14 +101,14 @@ donc dans la même algèbre sans y avoir les mêmes droits, et
 
 Une conséquence borne ce que cette structure peut fournir ailleurs. $`\mathcal{R}` est naturellement
 ordonné, ce qui suffit à en faire un support d'évaluation pour un moteur déductif, dont la
-complexité en données s'analyse en deux temps — mise à plat du programme en un système d'équations
+complexité en données s'analyse en deux temps : mise à plat du programme en un système d'équations
 polynomiales, puis plus petit point fixe sur le semi-anneau {cite "zhaoEvaluatingDatalogSemirings2024"}[].
-Mais les deux classes pour lesquelles cette évaluation admet des algorithmes efficaces —
-semi-anneaux de rang fini, semi-anneaux absorbants totalement ordonnés — ne contiennent pas
+Mais les deux classes pour lesquelles cette évaluation admet des algorithmes efficaces
+(semi-anneaux de rang fini, semi-anneaux absorbants totalement ordonnés) ne contiennent pas
 $`\mathcal{R}` : les conaturels ne sont ni de rang fini, ni absorbants au sens où $`a + a\,b = a`.
 Une extension déductive n'hériterait donc pas sa borne de coût du semi-anneau des grades. Elle
-évaluerait sur un semi-anneau propre — le booléen pour les règles ordinaires, qui est de rang fini
-et absorbant —, structure supplémentaire et non réemploi.
+évaluerait sur un semi-anneau propre (le booléen pour les règles ordinaires, qui est de rang fini
+et absorbant), structure supplémentaire et non réemploi.
 
 Une loi de compatibilité est formulée ici avant les règles de typage (§{num "sec:g-regles"}[]),
 mais sa preuve dépend du domaine exact des deux actions. Elle relie la mise à l'échelle du contexte
@@ -234,13 +232,13 @@ tag := "sec:c2-interface-cout-budgetaire"
 
 {label "sec:c2-interface-cout-budgetaire"}
 
-La famille temporelle normative est `K = (ℕ∞ × ℕ∞)^ℒ`. La convention ratifiée D4 autorise ℒ vide et fixe `sup ∅ = 0` dans ℕ∞. En conséquence, W et D sont totales sur K, et la décision D3 retient `Cost_Budget : K → ℕ∞` totale, sous ces conventions.
+La famille temporelle normative est `K = (ℕ∞ × ℕ∞)^ℒ`. La convention retient ℒ éventuellement vide et fixe `sup ∅ = 0` dans ℕ∞. En conséquence, W et D sont totales sur K, et `Cost_Budget : K → ℕ∞` est totale, sous ces conventions.
 
 La définition canonique est `Cost_Budget(κ) = max(W(κ), D(κ))`, où W et D sont définis dans la section suivante. Cette scalarisation borne simultanément le travail agrégé et la profondeur agrégée. Elle n'ajoute aucune action budgétaire à `Scale_Usage` et n'implique aucune multiplication globale du grade complet 𝒢.
 
-Le principe d'admissibilité ratifié par D5 est la couverture du coût annoncé : `Adm(β, κ)` signifie que `Cost_Budget(κ) ≤ β`. Sous les types canoniques `β : ℕ∞` et `Cost_Budget(κ) : ℕ∞`, comme ω est maximal, la clause `β = ω` de la formulation disjonctive antérieure est logiquement redondante. Le module Lean `K7pl.GradeBudget` formalise cette identité d'ordre et expose maintenant le porteur `K L`, le coût `costBudgetK`, l'admissibilité `admK` et la consommation à précondition `consumeK`, avec conservation sur le domaine admis. Ce pont définit un modèle formel de référence pour les types et contrats de C2 ; il ne prouve pas encore que les règles de typage et transitions opérationnelles K7PL préservent l'admissibilité ni qu'elles invoquent `Consume` uniquement sur son domaine.
+Le principe d'admissibilité est la couverture du coût annoncé : `Adm(β, κ)` signifie que `Cost_Budget(κ) ≤ β`. Sous les types canoniques `β : ℕ∞` et `Cost_Budget(κ) : ℕ∞`, comme ω est maximal, la clause `β = ω` de la formulation disjonctive antérieure est logiquement redondante. Le module Lean `K7pl.GradeBudget` formalise cette identité d'ordre et expose le porteur `K L`, le coût `costBudgetK`, l'admissibilité `admK` et la consommation à précondition `consumeK`, avec conservation sur le domaine admis. Ce pont définit un modèle formel de référence pour les types et contrats de C2 ; il ne prouve pas encore que les règles de typage et transitions opérationnelles K7PL préservent l'admissibilité ni qu'elles invoquent `Consume` uniquement sur son domaine.
 
-La consommation reste une opération partielle, même si `Cost_Budget` est totale : `Consume(β, κ)` est définie uniquement si `Adm(β, κ)` est satisfaite, et vaut alors `β ⊖ Cost_Budget(κ)`. La soustraction tronquée ⊖ est, elle, définie globalement sur ℕ∞, selon la convention de C2 prolongée par D8, notamment `ω ⊖ ω = ω`. Il ne faut donc pas déplacer la partialité de `Consume` vers `Cost_Budget` ni la confondre avec le domaine de ψ.
+La consommation reste une opération partielle, même si `Cost_Budget` est totale : `Consume(β, κ)` est définie uniquement si `Adm(β, κ)` est satisfaite, et vaut alors `β ⊖ Cost_Budget(κ)`. La soustraction tronquée ⊖ est, elle, définie globalement sur ℕ∞, selon la convention par cas posée plus haut, notamment `ω ⊖ ω = ω`. La partialité de `Consume` ne se déplace donc pas vers `Cost_Budget` et ne se confond pas avec le domaine de ψ.
 
 Le domaine de ψ est conceptuellement indépendant de la définissabilité de Consume. Une ψ structurellement définie ne suffit pas à autoriser une traversée budgétaire : les règles de composition doivent vérifier séparément l'admissibilité du budget pour chaque liaison affectée. Inversement, l'admissibilité n'établit pas à elle seule que ψ est définie pour des contextes incompatibles. Les règles qui utilisent Δ₁ ⊠ε Δ₂ doivent rendre explicites ces deux obligations.
 
@@ -296,8 +294,8 @@ simultanément $`W(κ)\le C(κ)` et $`D(κ)\le C(κ)`, on a
 `Cost_Budget(κ)≤C(κ)`. Il s'agit donc de la plus petite borne scalaire qui
 domine les deux dimensions temporelles.
 
-Sous les deux hypothèses déjà normatives — budget scalaire et borne simultanée du travail et de la
-profondeur par P3 — cette propriété détermine la plus petite scalarisation admissible. Elle ne vient
+Sous les deux hypothèses déjà normatives (budget scalaire et borne simultanée du travail et de la
+profondeur par P3), cette propriété détermine la plus petite scalarisation admissible. Elle ne vient
 pas de la comonade et ne justifie aucune multiplication supplémentaire du grade. L'alternative d'un
 budget vectoriel reste une extension architecturale possible, mais elle n'est pas requise par les
 règles actuelles.
@@ -393,16 +391,16 @@ c_{i,j,A}: !_{i+_I j}A\to !_i A\otimes !_j A,\
 
 Les deux opérations sur les indices n'ont pas nécessairement le même rôle. $`+_I` porte la
 décomposition d'une ressource exponentiée dans $`c`, tandis que $`\cdot_I` porte la composition
-des morphismes dans la structure graduée. Dans une grade algebra classique, ces deux opérations
+des morphismes dans la structure graduée. Dans une algèbre de grades classique, ces deux opérations
 correspondent respectivement à l'addition et à la multiplication ; dans une architecture
 hétérogène ou multi-objet, leur réalisation peut demander des morphismes supplémentaires.
 
 Les obligations minimales sont alors la neutralité de $`+_I` par $`0_I`, la neutralité de
 $`\cdot_I` par un indice $`1_I`, l'associativité des opérations au niveau requis par la
 construction choisie, et la compatibilité de $`w`, $`c` et des coercions avec ces opérations.
-La décision d’autrice C-01 fixe l’interface de référence I = ℛ. Les neutralités, associativité, naturalité et compatibilités de w, c et des coercions restent des obligations à démontrer pour cette instance.
+L’interface de référence fixe l’indice à I = ℛ. Les neutralités, associativité, naturalité et compatibilités de w, c et des coercions restent des obligations à démontrer pour cette instance.
 
-L’interface retenue est I = ℛ : l’indice effectif de l’exponentielle est la composante d’usage projetée du grade complet. I = 𝒢 exigerait une structure algébrique supplémentaire sur le grade complet et n’appartient pas au contrat normatif ratifié. La syntaxe !ᵣ conserve néanmoins l’annotation complète r ; sa traduction dans l’interface d’indexation suit π_U et Bang_𝒢 définis ci-dessous. La ratification de l’interface ne prouve pas les lois de cohérence de cette instance.
+L’interface retenue est I = ℛ : l’indice effectif de l’exponentielle est la composante d’usage projetée du grade complet. I = 𝒢 exigerait une structure algébrique supplémentaire sur le grade complet et n’appartient pas au contrat normatif. La syntaxe !ᵣ conserve néanmoins l’annotation complète r ; sa traduction dans l’interface d’indexation suit π_U et Bang_𝒢 définis ci-dessous. Le choix de l’interface ne prouve pas les lois de cohérence de cette instance.
 
 Cette interface est introduite pour distinguer ce qui relève de l'indexation de $`!` de ce qui
 relève de la mise à l'échelle des contextes. En particulier, $`r\cdot\Delta` n'est pas identifié
@@ -416,7 +414,7 @@ tag := "sec:c2-candidat-factorisation-index-complet"
 
 {label "sec:c2-candidat-factorisation-index-complet"}
 
-La décision d'autrice du 11 octobre 2026 retient cette factorisation comme interface de référence : π_U projette le grade complet sur sa seule composante d'usage, et Bang_𝒢 est le raccourci d'indexation qui en résulte. Cette ratification fixe le rôle de l'interface, non la preuve de ses lois de compatibilité :
+Cette factorisation est l'interface de référence : π_U projette le grade complet sur sa seule composante d'usage, et Bang_𝒢 est le raccourci d'indexation qui en résulte. Ce choix fixe le rôle de l'interface, non la preuve de ses lois de compatibilité :
 
 ::::formula (label := "eq:index-factorisation-grade-complet") (kind := "formule")
 ```
@@ -456,7 +454,7 @@ L'interface de référence est donc `π_U : 𝒢 → 𝒭` et `Bang_𝒢(r,A) :=
 tag := "sec:c2-action-candidate-scale-usage"
 %%%
 
-La décision d'autrice retient `Scale_Usage` comme action contextuelle de référence. Elle agit uniquement sur la composante d'usage du grade complet ; l'action liaison par liaison n'est définie que pour les contextes dont les clés et les types sont compatibles :
+`Scale_Usage` est l'action contextuelle de référence. Elle agit uniquement sur la composante d'usage du grade complet ; l'action liaison par liaison n'est définie que pour les contextes dont les clés et les types sont compatibles :
 
 ::::formula (label := "eq:scale-usage-grade") (kind := "formule")
 ```
@@ -487,7 +485,7 @@ Ces lois portent sur l'action contextuelle. Elles ne constituent pas une défini
 elles ne disent rien à elles seules de la transformation des effets par `φ_n`. Le point temporel
 scalaire/bidimensionnel reste donc hors du domaine de cette action.
 
-Statut : interface de référence ratifiée. Les lois d'identité, de composition, d'additivité et de monotonie sont des obligations mathématiques sur les domaines indiqués ; leur présence sous forme de formule ne vaut ni preuve Lean ni preuve de compatibilité avec toutes les conversions et règles du langage.
+Statut : interface de référence. Les lois d'identité, de composition, d'additivité et de monotonie sont des obligations mathématiques sur les domaines indiqués ; leur présence sous forme de formule ne vaut ni preuve Lean ni preuve de compatibilité avec toutes les conversions et règles du langage.
 
 ## Clôture minimale de la gradation d'usage
 %%%
@@ -497,7 +495,7 @@ tag := "sec:c2-cloture-minimale-gradation-usage"
 {label "sec:c2-cloture-minimale-gradation-usage"}
 
 Une fois le support fixé à $`I=\mathcal{R}`, la dette de gradation indexée se réduit à une famille
-finie de lois. Pour les usages admissibles, il faut disposer d'une identité, d'une composition des
+finie de lois. Pour les usages admissibles, trois choses sont requises : une identité, une composition des
 coercions et de la compatibilité de la comonade avec la décomposition graduée :
 
 ::::formula (label := "eq:lois-coercion-usage") (kind := "formule")
@@ -537,7 +535,7 @@ composition, et l'ordre dans lequel ce chapitre l'expose reflète l'ordre dans l
 l'a établie. Benton a montré que l'exponentielle de la logique linéaire se scinde en deux modalités
 adjointes reliant une logique intuitionniste à une logique linéaire. Fujii, Katsumata et Melliès ont
 établi que toute monade graduée se factorise comme une _action stricte_ transportée le long d'un
-foncteur adjoint à gauche, et de deux manières — l'une généralisant Eilenberg-Moore, l'autre Kleisli {cite "fujiiFormalTheoryGraded2016"}[].
+foncteur adjoint à gauche, et de deux manières : l'une généralisant Eilenberg-Moore, l'autre Kleisli {cite "fujiiFormalTheoryGraded2016"}[].
 K7PL en emploie le dual, pour une comonade graduée, et retient la factorisation généralisant
 Kleisli, puisque c'est la structure de Kleisli graduée que la suite de ce chapitre construit. La
 conjonction des deux résultats donne, pour les modalités graduées, une paire de modalités adjointes
@@ -547,8 +545,8 @@ De cette dérivation suit ce dont le chapitre 3 aura besoin, et qui ne se lisait
 seule.
 
 Cette décomposition n'est pas une curiosité de présentation : c'est elle qui donne au chapitre 3 le
-lieu où loger le partage. Une catégorie monoïdale symétrique dénote par $`\otimes` la _séparation_ —
-deux objets joints par le tenseur sont deux ressources indépendantes —, et scinder un grade par la
+lieu où loger le partage. Une catégorie monoïdale symétrique dénote par $`\otimes` la _séparation_
+(deux objets joints par le tenseur sont deux ressources indépendantes), et scinder un grade par la
 contraction produit encore deux objets séparés, non deux vues d'une même ressource. Le partage exige
 une diagonale, donc le fragment cartésien ; c'est du côté cartésien de l'adjonction qu'il vit, et
 non d'une division opérée du côté linéaire. Le point vaut d'être souligné parce que la littérature
@@ -565,15 +563,14 @@ faut dire dans quel sens : c'est la _liberté_ de l'exponentielle qui porte le r
 n'y suffisant pas. Une exponentielle libre jointe aux biproduits finis donne la structure de
 catégorie différentielle, donc une codéréliction {cite "bluteDifferentialCategories2006"}[], {cite "lemayCoderelictionsFreeExponential2021"}[].
 La réciproque est fausse, et récemment établie comme telle : une codéréliction _induit_
-l'enrichissement additif, par convolution bialgébrique, de sorte que l'implication ne remonte pas —
+l'enrichissement additif, par convolution bialgébrique, de sorte que l'implication ne remonte pas :
 une catégorie additive n'a pas pour autant de codéréliction. Il est en outre établi qu'une
 codéréliction, lorsqu'elle existe, est _unique_, ce qui rend la vérification décidable en principe
 plutôt qu'affaire d'appréciation.
 
-L'abstention de K7PL est donc plus robuste que sa formulation ne le laissait croire, et c'est la
+L'abstention de K7PL est donc plus robuste qu'elle ne paraît, et c'est la
 première qui la porte : l'exponentielle étant _donnée_ et non construite comme _cofree_, aucun des
-deux résultats ne s'applique. {rmq}[Ce qui protège n'est pas de refuser l'addition, c'est de refuser
-la liberté de l'exponentielle. La nuance décide de quels modèles restent admissibles.] Le langage
+deux résultats ne s'applique. Le langage
 n'a aucun usage de la structure différentielle, et n'a pas à en hériter par inadvertance ; mais un
 modèle concret peut légitimement en porter davantage que le langage n'en déclare, et c'est le cas
 ordinaire plutôt que l'exception.
@@ -587,7 +584,7 @@ dépendante du support d'indexation et des actions retenues.
 L'indexation par $`\mathcal{R}` n'est pas un ornement ajouté à une structure qui tiendrait sans elle :
 c'est ce qui rend $`w` et $`c` opérants. Dans la présentation non graduée, chaque $`!A` porte une
 structure de comonoïde commutatif vis-à-vis de $`\otimes`, l'affaiblissement et la contraction y
-étant disponibles ou non — un choix binaire, qui ne permet que trois configurations. Ici, le
+étant disponibles ou non : un choix binaire, qui ne permet que trois configurations. Ici, le
 comonoïde est _gradué_ sur l'indice d'usage : $`w` ne s'applique qu'à $`!_0`, et $`c` ne décompose
 $`!_{u+v}` qu'en respectant l'addition de l'indice. L'axiomatisation de la compatibilité entre ce comonoïde et le couple
 $`(\varepsilon, \delta)` reste celle que la lignée rappelée ci-dessus a établie, indexée ; K7PL
@@ -595,8 +592,8 @@ l'adopte sans réserve dans sa version corrigée et graduée.
 
 Une précision est nécessaire avant de construire, car l'incise « $`\otimes` restreint aux objets
 exponentiés » que l'on trouve souvent recouvre une difficulté réelle. Il n'existe en général pas de
-structure monoïdale sur la catégorie des coalgèbres libres — isomorphe à la catégorie de co-Kleisli
-—, le tenseur ne s'y faisant pas bifoncteur faute de définition sensée sur les morphismes. La
+structure monoïdale sur la catégorie des coalgèbres libres (isomorphe à la catégorie de co-Kleisli),
+le tenseur ne s'y faisant pas bifoncteur faute de définition sensée sur les morphismes. La
 structure de produit ne s'obtient qu'en plongeant cette catégorie dans une catégorie plus large, où
 le produit tensoriel de deux objets a $`!A \otimes !B` pour objet sous-jacent {cite "SCHALK"}[].
 C'est ce détour, et non une restriction, que la construction qui suit emprunte.
@@ -628,8 +625,8 @@ co-Kleisli du grade absorbant soit authentiquement cartésienne n'est pas assum�
 de la définition de catégorie linéaire retenue ci-dessus, dont la preuve est publiée et dont des
 formulations équivalentes sont établies {cite "SCHALK"}[], {cite "biermanWhatCategoricalModel1995"}[].
 
-Ce que ce document assume est le théorème de cohérence proprement dit — celui qui garantit que les
-diagrammes construits à partir des isomorphismes naturels commutent —, et il l'assume comme le fait
+Ce que ce document assume est le théorème de cohérence proprement dit (celui qui garantit que les
+diagrammes construits à partir des isomorphismes naturels commutent), et il l'assume comme le fait
 la littérature primaire dont il reprend les constructions, qui le référence sans le redémontrer {cite "bentonLinearLcalculusCategorical1993"}[], {cite "kellyCoherenceClosedCategories1971"}[].
 Deux précisions s'imposent sur cet emprunt, car il porte sur deux choses d'espèce différente que le
 mot « assumer » recouvrirait sans les distinguer.
@@ -637,10 +634,10 @@ mot « assumer » recouvrirait sans les distinguer.
 La première est que la cohérence emprunte à _deux_ régimes. Pour la part monoïdale, c'est bien un
 théorème publié. La catégorie close de Kelly et Mac Lane est une catégorie munie du tenseur et de
 l'exponentiation interne, d'une unité, des isomorphismes d'associativité et de symétrie et de six
-diagrammes d'axiomes — structure que leurs auteurs disent non essentiellement différente d'une
+diagrammes d'axiomes : structure que leurs auteurs disent non essentiellement différente d'une
 monoïdale symétrique close. Leur théorème garantit la commutation de tout diagramme bâti sur ces
 isomorphismes. Pour la part _graduée_, en revanche, il n'y a pas de théorème à assumer : les lois de
-la comonade graduée — counité, coassociativité indexée par le produit du semi-anneau — sont posées
+la comonade graduée (counité, coassociativité indexée par le produit du semi-anneau) sont posées
 comme _axiomes_ de la structure. Un théorème de cohérence sert là où les isomorphismes ne sont pas
 donnés commutants et doivent être prouvés tels ; ici ils le sont par définition. Assumer un théorème
 et poser un axiome ne sont pas le même acte, et le lecteur a le droit de savoir lequel porte quoi.
@@ -650,7 +647,7 @@ _trois_ maillons et non deux. Une comonade monoïdale sur une monoïdale symétr
 structure monoïdale aux coalgèbres. La clôture de la base rend les coalgèbres libres exponentiables.
 Et c'est seulement _si de plus_ la catégorie des coalgèbres libres est close par le tenseur qu'elle
 est elle-même monoïdale symétrique close. Ce document pose le premier maillon par P1, dérive le
-deuxième de l'adjonction monoïdale — une composée de foncteurs monoïdaux étant monoïdale —, et
+deuxième de l'adjonction monoïdale (une composée de foncteurs monoïdaux étant monoïdale), et
 acquitte le troisième par le choix de la définition de catégorie linéaire, qui l'inclut. C'est ce
 troisième maillon que ce choix paie, et non un emprunt tacite. Le cas gradué s'y transpose sans rien
 demander de neuf : la clause « toute puissance d'une coalgèbre libre est libre » y devient la
@@ -662,15 +659,14 @@ $`\mathcal{C}_{!_\omega}` est donc cartésienne : c'est le fragment cartésien d
 triadique, et la partie $`\Delta_{\omega}` du contexte germinal n'est que la notation, hors de
 $`\mathcal{C}_{!_\omega}`, pour un objet vu à travers cette catégorie. C'est ce que le chapitre 1
 (§{num "sec:c1-axiomatique-germinale"}[]) annonçait en écartant la zone $`\Gamma` de la présentation
-usuelle. La construction qui précède en est la justification, et c'est sur les grades — non sur une
-disposition de zones — que l'adjonction dont ce paragraphe établit le côté cartésien se lit.
+usuelle. La construction qui précède en est la justification, et c'est sur les grades (non sur une
+disposition de zones) que l'adjonction dont ce paragraphe établit le côté cartésien se lit.
 
-Les fragments et les modalités doivent maintenant être séparés en deux objets qui avaient été
-rapprochés à tort. La théorie des modes contrôle les règles structurelles ; les intervalles de grades
+Les fragments et les modalités sont deux objets distincts. La théorie des modes contrôle les règles structurelles ; les intervalles de grades
 décrivent, pour la syntaxe de K7PL, l'ensemble des annotations d'usage admissibles. Une inclusion
 d'intervalles n'est donc pas, à elle seule, un morphisme de modes.
 
-Au sens de la théorie des modes introduite par Hanukaev et Eades {cite "hanukaevUnificationGradedSubstructural2026"}[], un mode est un triplet (Rₘ, Cont(m), Weak(m)) : une algèbre de grades, un idéal de grades contractables et un prédicat d'affaiblissement. La décision de périmètre ratifiée dans D-16 retient trois modes structurels de référence pour le langage actuel :
+Au sens de la théorie des modes introduite par Hanukaev et Eades {cite "hanukaevUnificationGradedSubstructural2026"}[], un mode est un triplet (Rₘ, Cont(m), Weak(m)) : une algèbre de grades, un idéal de grades contractables et un prédicat d'affaiblissement. Trois modes structurels de référence sont retenus pour le langage actuel :
 
 `M_Lin = (𝒭, {0}, false)`,
 `M_Aff = (𝒭, {0}, true)`,
