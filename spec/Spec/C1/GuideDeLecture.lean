@@ -85,6 +85,10 @@ d'un niveau différent ; ils ne doivent pas être déduits automatiquement du r�
 verte signifie que les contrôles configurés ont réussi sur leur périmètre d'impact, non que toutes
 les revendications de K7PL sont prouvées.
 
+Dans l'état présent de l'ouvrage, la distinction entre esquisse et preuve n'est pas théorique :
+tout appui de démonstration déclaré est une esquisse (66 énoncés), et aucun énoncé ne déclare une
+preuve rédigée ni une preuve Lean.
+
 Il y a onze engagements, et leur brièveté est en soi une donnée : la plupart de ce qui en fut un au
 cours de la rédaction est devenu soit un théorème, soit une réserve explicite.
 

@@ -473,7 +473,7 @@ langage {cite "REDDY-PASSIVITY"}[]. Ce n'est pas la vérification qui était en 
 c'était le lieu où elle s'interprétait. Des grades à valeurs non entières ne sont ni exotiques ni un
 obstacle à la métathéorie. L'analyse de sensibilité locale par coeffets dépendants {cite "sannierDependentCoeffectsLocal2026"}[]
 et le suivi de l'erreur inverse en arithmétique flottante {cite "kellisonBeanLanguageBackward2025"}[]
-en font l'un et l'autre un usage central. Les _data races_ ne sont donc pas détectées, elles sont
+en font l'un et l'autre un usage central. Les _data races_ par aliasing ne sont donc pas détectées, elles sont
 rendues inexprimables : un grade dont la somme dépasse $`1` n'a simplement pas de dérivation.
 
 Une capabilité transversale (connexion réseau, horloge, source d'aléa) se déclare exactement de la
