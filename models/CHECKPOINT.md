@@ -61,17 +61,17 @@ TLA-05 disjunction grouping and the TLA-07 bracket mismatch. The negative
 runner criterion was also tightened to require TLC's exact
 `Error: Invariant <name> is violated.` diagnostic.
 
-The corrected source expressions and stricter negative-result predicate are present on the PR branch. At this snapshot the PR head before this documentation update was 29845511f018b80da543b975a995b477d4ba9cb4; its associated CI workflow run 41306284770 was pending. The earlier run 41305607506 was on the pre-parser-fix head and is not evidence for the corrected files. Do not report the 39 profiles as green, an all-green CI result, or a promoted model status until a completed run on the current head meets every expected outcome. A negative profile counts as successful only when TLC reaches the exact named invariant violation; configuration, parser, ASSUME, type, timeout or wrong-invariant failures are failures.
+The first end-to-end run 41305607506 was on pre-parser-fix head efd0212b065016c206b9c83c0059f3623957959b: 10/18 positive and 12/21 negative outcomes matched. The corrected-source run 41306284770 was on head 29845511f018b80da543b975a995b477d4ba9cb4: 15/18 positive and 17/21 negative outcomes matched. Seven profiles still had no expected verdict: TLA-02 positive and negative stopped with a TypeOK evaluation error (the NoPairValue string sentinel is compared with a message-pair tuple); all four TLA-07 profiles failed parsing at the WriteCell expression on line 126; TLA-12 positive stopped because AdvanceFrame did not completely specify frameOverrun. The later CI run 41307048438 on the subsequent documentation/registry-test head 225112f22622390256c574d810933aa2acd23fdd was cancelled during branch updates. The current head therefore has no completed full CI run. Do not report the 39 profiles as green, an all-green CI result or a promoted model status until the current head completes CI and all 39 outcomes match. A negative profile counts as successful only when TLC reaches the exact named invariant violation; configuration, parser, ASSUME, type, timeout or wrong-invariant failures are failures.
 
 ## Next actions
 
-1. Inspect the latest CI run on the current PR head; do not reuse the first
-   run as evidence for the parser-corrected sources.
-2. Review tla-model-check-evidence profile by profile: all 18 positive and
-   21 negative TLA profiles must match their declared outcome; inspect state
-   counts, traces, bounds, tool digest and retained D01/R9 logs.
-3. Close P0 in REMEDIATION-ROADMAP-P0-P4.md only after the corrected-head run
-   and all other required checks complete successfully.
+1. Correct TLA-02 TypeOK's heterogeneous NoPairValue sentinel comparison;
+   correct the TLA-07 WriteCell parser expression; make the TLA-12 AdvanceFrame
+   action fully assign frameOverrun and rerun the three families.
+2. Run all 39 profiles on the latest PR head and inspect each state count,
+   queue exhaustion, trace, bound, TLC digest and retained D01/R9 log.
+3. Close P0 in REMEDIATION-ROADMAP-P0-P4.md only after all 39 outcomes and
+   required CI checks complete successfully on the current head.
 4. Then work through P1 non-vacuity and property sensitivity, P2 current-main
    traceability and open semantic gates, and defer P3/P4 until their target
    contracts are explicit. Use CHAPTER-COVERAGE.md for coverage and

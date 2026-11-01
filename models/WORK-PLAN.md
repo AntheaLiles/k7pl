@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Current specification baseline:** `main@2fbf609f6f3e67ffe011a3f28fd247526684155a`, reviewed 2026-11-01. Current chapter/file mapping is in `CHAPTER-COVERAGE.md`; theorem assurance status is in `wiki/assurance.md`.
 
-**Status:** TLA-01 remains `model-drafted` pending the corrected-head TLC rerun. The first end-to-end run (41305607506, pre-parser-fix head) matched 10/18 positive and 12/21 negative outcomes; 17 profiles in TLA-01, 02, 05, 07, 12 and 16 failed before a model verdict because of parser/semantic errors. The branch contains corrections; the rerun on the corrected head is pending. TLA-14 and TLA-15 remain conditional profiles, and TLA-16 is abstract-only.  
+**Status:** TLA-01 remains `model-drafted`; the five TLA-01 profiles matched their expected outcomes in run 41306284770, pending trace/state-evidence review. The first suite run (41305607506) matched 10/18 positive and 12/21 negative outcomes; the second run on the corrected-source head matched 15/18 positive and 17/21 negative outcomes. Seven profiles still fail before their expected verdict in TLA-02 (both profiles), TLA-07 (four profiles) and TLA-12 (positive profile). TLA-14 and TLA-15 remain conditional profiles, and TLA-16 is abstract-only.  
 **Model-family grouping:** the following sections group foundational, runtime/resource and conditional scenario models. They are not P0/P1/P2 urgency labels. The single P0–P4 remediation scale is defined in [REMEDIATION-ROADMAP-P0-P4.md](REMEDIATION-ROADMAP-P0-P4.md).
 
 Each item is an independently reviewable work package. Its model scope is a candidate abstraction, not a ratified definition. Before coding, resolve the relevant gates in [OPEN-GATES.md](OPEN-GATES.md).
