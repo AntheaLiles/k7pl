@@ -155,6 +155,9 @@ Suivant la discipline de *The Craft of Research* (Booth et al.) :
    réel et souvent mal compris des lecteurs, il se remplace par une
    restructuration de la phrase (deux phrases, deux-points, parenthèse
    technique quand elle est brève).
+6. Dans les sources, un paragraphe tient sur une seule ligne : pas de
+   retour à la ligne manuel avant la fin du paragraphe, le renvoi à la
+   ligne est l'affaire du rendu et de l'éditeur, pas du texte source.
 
 ## 8. Manière de corriger
 
