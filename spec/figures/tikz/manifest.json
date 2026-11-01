@@ -73,5 +73,11 @@
       "asset_stem": "unidirectionnal-reactive-cycle",
       "canonical_verso": "spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean#fig:cycle-reactif"
     }
-  ]
+,
+    {
+      "id": "grade-coercion-directions",
+      "source": "grade-coercion-directions.tex",
+      "asset_stem": "grade-coercion-directions",
+      "canonical_verso": "spec/Spec/C3/ReglesDeTypage.lean#fig:coercion-composantes"
+    }  ]
 }

@@ -410,6 +410,21 @@ l'usage donne $`\pi_U(r) = \omega \geq 1 = \pi_U(r')` : trois composantes se com
 de la coercion, la quatrième, l'usage, se compare dans le sens inverse, et c'est ce renversement que
 « produit mixte » nomme.
 
+::::figure (label := "fig:coercion-composantes") (src := "grade-coercion-directions") (alt := "La coercion d'un grade, composante par composante. En haut, le grade r, quadruplet : usage oméga, monotonie m, niveau Public, budget 5. En bas, le grade r prime : usage 1, monotonie m prime, niveau Secret, budget 12. Quatre flèches verticales relient les composantes : l'usage descend selon supérieur ou égal, la monotonie descend selon succeq, le niveau monte selon inférieur ou égal, le budget monte selon inférieur ou égal. Une note précise que pi_U lit l'usage dans le semi-anneau dans le sens inverse des trois autres comparaisons.") (width := "90")
+:::caption
+La coercion d'un grade, composante par composante
+:::
+
+:::desc
+Le grade $`r = \langle \omega, m, \mathrm{Public}, 5\rangle` se coerce en
+$`r' = \langle 1, m', \mathrm{Secret}, 12\rangle`. L'usage descend, de $`\omega` à $`1` ; la
+monotonie descend, une preuve s'oublie ; le niveau monte, de Public à Secret ; le budget monte, de
+$`5` à $`12`. La relation est le produit mixte
+$`({\geq}) \times ({\succeq}) \times ({\leq}) \times ({\leq})`, et $`\pi_U` lit l'usage dans
+$`\mathcal{R}` dans le sens inverse des trois autres comparaisons.
+:::
+::::
+
 La dernière colonne n'est pas décorative : c'est elle qui porte la vérification du
 §{num "sec:g-regles"}[]. Les lois de la comonade graduée ne mentionnent l'ordre que par une exigence
 de monotonie de la composition, et chaque ligne la satisfait _dans sa propre direction_. La
