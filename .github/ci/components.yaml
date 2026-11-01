@@ -276,6 +276,8 @@ components:
       - models/TOOLCHAIN-CI.md
       - models/WORK-PLAN.md
       - models/MODEL-DEPENDENCIES.md
+      - models/REMEDIATION-ROADMAP-P0-P4.md
+      - models/REMEDIATION-EXECUTION-PROMPT.md
       - models/SPEC-COVERAGE-AUDIT-2026-10-31.md
     build_command: deno run --allow-read tools/ci-controller/src/tla_model_check.ts --model-dir models --validate-only
     check_command: deno run --allow-read --allow-write --allow-run=java,sha256sum tools/ci-controller/src/tla_model_check.ts --model-dir models --tlc-jar tla2tools.jar --evidence tla-model-check-evidence
