@@ -46,7 +46,7 @@ Grammaire des termes, en style appel par poussée de valeur
 
 Cette grammaire est complète au sens précis où chaque règle du §{num "sec:g-regles"}[] y trouve la
 forme qu'elle gouverne, et réciproquement. Elle ne l'était pas : dix-sept constructeurs y manquaient
-— les deux éliminations d'unité et de tenseur, l'introduction et la projection du produit négatif,
+: les deux éliminations d'unité et de tenseur, l'introduction et la projection du produit négatif,
 l'ouverture de l'existentiel, le dépliage, les deux formes du quantificateur universel, l'opération
 à portée, le littéral de vecteur, et les six formes temporelles. L'écart s'était creusé sans
 qu'aucun contrôle le voie, et c'est la faute que la Définition de Standard ML s'impute : ne pas
@@ -56,8 +56,8 @@ désormais les deux, et il échoue plutôt que de laisser l'écart se rouvrir.
 Quatre introductions sont rangées parmi les valeurs, et c'est une correction. $`\mathsf{always}\;v`,
 $`\mathsf{now}\;v`, $`\mathsf{next}\;v` et $`\mathsf{loc}_n\,v` construisent un habitant d'un type de valeur,
 $`{\Box}V`, $`{\Diamond}V`, $`{\bigcirc}V` et $`@_n V`, sans rien exécuter et sans effet ; elles étaient écrites parmi les
-calculs, ou n'étaient pas écrites, de sorte que les éliminations qui les attendent — $`\mathsf{at}`,
-$`\mathsf{wait}`, $`\mathsf{when}`, $`\mathsf{move}` — n'avaient aucune valeur close à consommer. La règle de rangement
+calculs, ou n'étaient pas écrites, de sorte que les éliminations qui les attendent ($`\mathsf{at}`,
+$`\mathsf{wait}`, $`\mathsf{when}`, $`\mathsf{move}`) n'avaient aucune valeur close à consommer. La règle de rangement
 est celle des autres introductions : une valeur est ce qui s'introduit, un calcul est ce qui s'élimine ou
 s'exécute. $`\mathsf{at}\;v`, $`\mathsf{wait}\;v` et $`\mathbf{declassify}_{\ell}(v)` _consomment_ une valeur pour en
 produire une autre : ce sont des calculs, de type $`F_{\mathbf{1}}\,V`, et le rendu de leur résultat passe par

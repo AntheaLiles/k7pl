@@ -351,8 +351,8 @@ $$`\{!_u\}_{u \in \mathcal{R}}`
 d'endofoncteurs sur _C_. Cette construction est compatible avec une comonade graduée indexée par un
 semi-anneau d'usage {cite "fukiharaGeneralizedBoundedLinear2021"}[]. Depuis que le chapitre 3
 porte cependant un grade complet $`r=\langle u,m,\ell,\beta\rangle` dans $`\mathcal{G}`, il ne
-s'ensuit pas que $`\mathcal{G}` soit lui-même le semi-anneau d'indexation de la comonade. Il faudrait
-pour cela définir une structure algébrique complète sur $`\mathcal{G}` et vérifier ses lois.
+s'ensuit pas que $`\mathcal{G}` soit lui-même le semi-anneau d'indexation de la comonade. Cela
+demanderait de définir une structure algébrique complète sur $`\mathcal{G}` et de vérifier ses lois.
 
 Le manuscrit doit donc conserver trois objets distincts tant que cette correspondance n'est pas
 démontrée : $`\mathcal{R}` pour le semi-anneau d'usage, $`\mathcal{G}` pour l'annotation complète
@@ -434,7 +434,7 @@ La formule définit une factorisation de l'indice, pas un effacement du grade. L
 que son indice d'usage. Les propriétés qui consultent m, ell ou beta restent attachées à
 l'annotation et à leurs interprétations propres.
 
-Cette lecture n'est recevable qu'avec une compatibilité des deux niveaux. Il faut notamment :
+Cette lecture n'est recevable qu'avec une compatibilité des deux niveaux, qui demande notamment :
 
 ```
 r \preccurlyeq r'

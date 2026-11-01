@@ -22,12 +22,12 @@ tag := "g-grammaire-types"
 {label "sec:g-grammaire-types"}
 
 Les sections qui suivent écrivent ce que le corps décrit sans le poser : la grammaire des types et
-des termes, puis le jeu des règles de typage. Elles sont la fondation des preuves — la préservation
+des termes, puis le jeu des règles de typage. Elles sont la fondation des preuves : la préservation
 du typage par la traduction, la non-interférence graduée, la divulgation délimitée, les règles de la
 loi distributive et celles de la gradation indexée sont des inductions ou des relations logiques, et
 se définissent _par récurrence sur une grammaire ou sur un jeu de règles_. Les deux grammaires sont
 écrites, la somme et la conjonction additive sous leur forme indexée ; le jeu de règles est complet
-pour les constructeurs du noyau, à une exception déclarée — l'arène, dont l'élimination relève du
+pour les constructeurs du noyau, à une exception déclarée : l'arène, dont l'élimination relève du
 modèle mémoire et non du système de types. La sémantique opérationnelle et ses théorèmes suivent au
 chapitre 4 (§{num "sec:g-semantique"}[]).
 
@@ -67,7 +67,7 @@ calculs. Le croisement est vérifié mécaniquement à chaque construction du do
 l'inverse. Les quatre règles sans constructeur ne sont pas une anomalie : ce sont les deux règles de
 sous-typage, qui s'appliquent à tout terme sans en former, et les deux règles structurelles de
 formation de contexte. Une grammaire qui ne serait pas croisée avec ses règles ne serait pas
-incomplète — elle serait invérifiable, ce qui est pire, puisque rien ne signalerait l'écart.
+incomplète : elle serait invérifiable, ce qui est pire, puisque rien ne signalerait l'écart.
 
 Trois points appellent un commentaire, car ils fixent des choix que le corps a pris sans les écrire
 sous cette forme. Le premier est que $`!_r` est _une_ modalité et non quatre : sa syntaxe accepte un
@@ -165,15 +165,15 @@ produit et par borne supérieure puisque la concentration en $`\ell` l'est.
 :::
 :::note
 _Obligation ouverte._ Restent à définir la concentration comme prédicat sur $`\kappa` et à vérifier
-chaque opération de la signature effective de quantale ordonnée — produit séquentiel, opération
-parallèle (somme des travaux, maximum des profondeurs), bornes supérieures —, en nommant
+chaque opération de la signature effective de quantale ordonnée (produit séquentiel, opération
+parallèle (somme des travaux, maximum des profondeurs), bornes supérieures), en nommant
 l'opération que désigne « produit ». Si la structure n'est une sous-quantale que pour une signature
 restreinte, l'énoncé doit l'être aussi. Reste encore à relier, par la sémantique opérationnelle, la
 prémisse sur les $`\mathbf{tick}` émis au support de $`\kappa`.
 :::
 ::::
-La lecture qu'il faut en faire est celle que le chapitre 1 a déjà pratiquée sur les contextes. Une
+La lecture à en faire est celle que le chapitre 1 a déjà pratiquée sur les contextes. Une
 zone non restreinte n'était pas une seconde zone mais la partie de grade $`\omega` de la première ;
 un compteur de pas nu n'est pas une seconde notion mais la famille concentrée en un niveau. Là où le
-langage n'emploie qu'un niveau — la couche 1 dans son usage ordinaire, tout programme qui ne mêle
-pas les confidentialités —, la généralisation est invisible.
+langage n'emploie qu'un niveau (la couche 1 dans son usage ordinaire, tout programme qui ne mêle
+pas les confidentialités), la généralisation est invisible.

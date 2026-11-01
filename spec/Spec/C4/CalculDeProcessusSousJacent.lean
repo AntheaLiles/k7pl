@@ -32,7 +32,7 @@ qu'au-dessus d'elle.
 
 Ce métalangage n'est pas une invention de ce document, et le dire évite un malentendu que l'équation
 du chapitre 1 pourrait entretenir. Écrire « $`\pi`-calcul augmenté de motifs de jonction » suggère
-une extension, dont il faudrait justifier ce qu'elle ajoute ; il s'agit en réalité d'une
+une extension, dont l'ajout demanderait justification ; il s'agit en réalité d'une
 _présentation alternative_ du même pouvoir expressif. Le calcul obtenu en ajoutant la réflexion à la
 machine chimique abstraite {cite "berryChemicalAbstractMachine1992"}[] est prouvé équivalent au
 $`\pi`-calcul, à congruence barbelée faible près, et sa métathéorie est établie {cite "fournetReflexiveCHAMJoincalculus1996"}[].
@@ -280,7 +280,7 @@ dérivations vers les termes sous-jacents, sans exhiber ce foncteur. C'est
 $`\llbracket \cdot \rrbracket` : une dérivation de K7PL porte $`\mathcal{G}` et $`\mathcal{E}` ; son
 image ne porte ni les grades ni les effets latents des types, ses opérations à effet y devenant des
 communications sur des canaux distingués. L'effacement de la Phase 8 n'est donc pas une opération
-de compilation qu'il faudrait justifier séparément : c'est l'action de ce foncteur sur les objets,
+de compilation qui demanderait une justification séparée : c'est l'action de ce foncteur sur les objets,
 et la non-interférence du chapitre 1 est l'énoncé que le métalangage ne voit pas la dérivation.
 
 La deuxième concerne l'_échelle du système_. Le §{num "sec:c4-echelle-du-systeme"}[] pose que
@@ -445,7 +445,7 @@ non les effets : ni, par conséquent, le temps, que le
 chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) y a logé sous la forme d'une opération
 $`\mathbf{tick}`. Un interpréteur prouvé fidèle au métalangage ne serait donc prouvé fidèle qu'à
 cette part-là, et les garanties de la Phase 5 comme celles de la Phase 9 resteraient à établir
-ailleurs. Il faut se garder d'en tirer que les effets échapperaient à tout traitement structurel :
+ailleurs. Il serait faux d'en tirer que les effets échapperaient à tout traitement structurel :
 ils sont gradués comme le contexte l'est, et la correction conjointe des deux gradations est un
 résultat établi sur ce régime d'évaluation {cite "torczonEffectsCoeffectsCallbypushvalue2024"}[]. Ce
 qui échapperait au métalangage échapperait au métalangage, non au système de types.

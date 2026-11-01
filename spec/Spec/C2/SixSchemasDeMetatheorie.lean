@@ -25,8 +25,7 @@ Six énoncés reviennent dans ce document sous des habillages différents, et ch
 une fois pour toutes. Ce ne sont pas des théorèmes sur K7PL mais sur la forme de ses démonstrations :
 les chapitres qui suivent les instancient plutôt qu'ils ne les refont. Leur statut varie : chaque
 schéma porte ses hypothèses et les obligations qui restent à vérifier pour l'appliquer au système
-effectif. {rmq}[Écrire le schéma avant
-ses instances évite d'écrire trois fois la même récurrence, et rend visible ce qu'elles partagent.]
+effectif.
 
 Le mot « schéma » désigne ici un patron conditionnel, et non un résultat acquis sur le langage. Le
 champ state décrit l'état épistémique de l'énoncé ; le champ evidence décrit le type d'appui déclaré.
@@ -37,7 +36,7 @@ obligations propres à chaque schéma restent indiquées ci-dessous.
 Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le
 désucrage d'une forme de surface, la traduction vers le métalangage et l'abaissement vers la
 représentation intermédiaire ont ceci de commun qu'ils sont définis par récurrence sur la structure
-des termes et qu'ils doivent commuter avec la substitution — faute de quoi le sens dépendrait de
+des termes et qu'ils doivent commuter avec la substitution : faute de quoi le sens dépendrait de
 l'ordre dans lequel on transforme et on substitue.
 
 ::::lemma (label := "thm:schema_commutation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
@@ -76,8 +75,8 @@ de renommage, puis à vérifier la condition latérale du cas du lieur. Tant que
 sont pas remplies, l'instance reste sous-spécifiée.
 :::
 ::::
-Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qu'il faut
-établir, et rien de plus : non pas que la traduction préserve le jugement, mais que chaque règle de
+Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qui est
+à établir, et rien de plus : non pas que la traduction préserve le jugement, mais que chaque règle de
 la source a une dérivation pour image.
 
 ::::lemma (label := "thm:schema_preservation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
@@ -143,8 +142,8 @@ schéma de restriction
 Retirer sans déformer
 
 Soit $`p` un critère sur les éléments d'une structure, et $`\rho_p` l'opération qui retire ceux que
-$`p` exclut. Si $`p` est _stable par les opérations de la structure_ — l'image d'un élément retenu
-ne contient que des éléments retenus — alors $`\rho_p` est un morphisme : elle commute à la
+$`p` exclut. Si $`p` est _stable par les opérations de la structure_ (l'image d'un élément retenu
+ne contient que des éléments retenus) alors $`\rho_p` est un morphisme : elle commute à la
 composition et préserve l'identité.
 :::
 
@@ -168,13 +167,12 @@ fois la même chose. La _projection conservatrice_ retire les opérations d'une 
 temps ; la _projection observationnelle_ retire ce qui excède un niveau, temps compris ;
 l'_effacement indexé_ retire ce qui est gradué au-dessus d'un niveau ; la _restriction d'un espace
 de noms_ retire les arêtes hors d'une dimension ; et la _purge de spécification_ de la dernière
-phase de compilation retire les blocs qui n'ont servi qu'à vérifier. {rmq}[Cinq retraits, une
-condition. Ce qui change d'une instance à l'autre est le critère, jamais l'argument.]
+phase de compilation retire les blocs qui n'ont servi qu'à vérifier.
 
 Ce que le schéma apporte n'est pas l'économie de cinq preuves, c'est la _condition_ qu'elles
 partagent et qu'aucune n'énonçait : une restriction n'est un morphisme que si son critère est
 stable. Les deux projections du chapitre suivant diffèrent précisément par leur critère, et c'est
-pourquoi les confondre ouvrirait le canal que l'une d'elles prétend fermer — ce n'est pas une
+pourquoi les confondre ouvrirait le canal que l'une d'elles prétend fermer : ce n'est pas une
 coïncidence malheureuse mais une conséquence du schéma.
 
 Un cinquième schéma gouverne tout ce qui, dans ce document, _répète_. Cinq mécanismes font la même
@@ -228,16 +226,16 @@ multiplication du budget tant qu'aucune telle action n'est définie.
 Certaines constructions en sont des instances directes : la traduction d'un grade fini, le parcours
 d'un vecteur, l'opération à portée et l'image bornée du point fixe déductif. L'expansion d'une macro
 n'en est pas une instance directe : elle conserve l'ordre des occurrences des arguments et compose
-leurs effets sans convertir le grade déclaré en multiplicité d'effet.
-{rmq}[Le schéma décrit une ré-invocation homogène ; la macro relève d'un schéma plus général de
-substitution séquentielle. Les deux partagent l'action contextuelle d'usage, mais leurs obligations
-sur les effets sont différentes.]
+leurs effets sans convertir le grade déclaré en multiplicité d'effet. Le schéma décrit une
+ré-invocation homogène ; la macro relève d'un schéma plus général de substitution séquentielle.
+Les deux partagent l'action contextuelle d'usage, mais leurs obligations sur les effets sont
+différentes.
 
 
 Un sixième schéma est le plus général des six, et il absorbe une part des précédents. Tout ce qui,
-dans ce document, _traduit une représentation riche vers une représentation plus pauvre_ —
-l'élaboration de la syntaxe de surface, l'effacement de la dernière phase, l'abaissement vers la
-représentation intermédiaire, la traduction vers le métalangage — obéit au même énoncé.
+dans ce document, _traduit une représentation riche vers une représentation plus pauvre_
+(l'élaboration de la syntaxe de surface, l'effacement de la dernière phase, l'abaissement vers la
+représentation intermédiaire, la traduction vers le métalangage) obéit au même énoncé.
 
 ::::lemma (label := "thm:schema_effacement") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
@@ -271,19 +269,17 @@ validation de la conclusion composée.
 ::::
 Quatre constructions en sont des instances, et la quatrième est celle qui coûtait le plus cher : la
 fidélité de l'interpréteur de référence. Elle cesse d'être une propriété à établir construction par
-construction pour devenir la vérification de trois conditions sur une transformation. {rmq}[Ce qui
-demandait une induction par construction demande désormais trois conditions par transformation.
-C'est le même travail divisé par le nombre de constructions.]
+construction pour devenir la vérification de trois conditions sur une transformation.
 
-Ce schéma dit en outre _ce qu'il ne faut pas confondre_, et c'est son second usage. Préserver le
+Ce schéma dit en outre _ce qui ne se confond pas_, et c'est son second usage. Préserver le
 typage, simuler l'exécution et être correct vis-à-vis de la machine sont trois énoncés distincts~;
 le schéma établit le premier, et les deux autres demeurent. Les glissements entre eux sont la classe
 d'erreur que ce document a le plus de mal à éviter, parce que les trois s'énoncent avec les mêmes
 mots.
 
 Un septième énoncé mérite le même traitement, et il porte sur les capacités plutôt que sur les
-termes. Le chapitre 4 l'emploie deux fois — pour la mémoire partagée et pour la frontière étrangère
-— et l'argument y est le même à un mot près.
+termes. Le chapitre 4 l'emploie deux fois (pour la mémoire partagée et pour la frontière étrangère)
+et l'argument y est le même à un mot près.
 
 ::::lemma (label := "thm:lemme_capacite") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "resources")
 :::title

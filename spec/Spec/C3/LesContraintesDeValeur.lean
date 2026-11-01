@@ -132,7 +132,7 @@ appliquée à une propriété du type. Le contenu de la règle ne changerait pas
 Une troisième famille de contraintes ne porte pas sur une valeur figée mais sur son évolution. Le
 typestate est un paramètre de type qui suit une grammaire d'états `File(Open)`, `File(Closed)`,
 chaque transition validée par unification de ce paramètre, sans le moindre coût à l'exécution. La
-règle ci-dessus en fixe le prix, et il faut l'écrire : un typestate se vérifie, il ne se filtre pas.
+règle ci-dessus en fixe le prix, et ce prix s'écrit ainsi : un typestate se vérifie, il ne se filtre pas.
 Un programme qui aurait besoin de brancher à l'exécution sur l'état d'un fichier doit porter un tag
 explicite, lequel appartient alors à la phase d'exécution et cesse d'être gratuit. C'est le seul
 point où l'effacement de K7PL restreint ce que le développeur peut écrire, et il le restreint dans
@@ -342,9 +342,7 @@ un cas pour {sc}[Guard], l'émission et la consommation de message, les types r�
 expiration du blocage mutuel proprement dit.
 :::
 ::::
-Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. {rmq}[Le câblage est
-donné, l'attente se déplie. Traiter le second comme le premier reviendrait à lire un objet
-coinductif par induction.] Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné
+Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. Le graphe de câblage du §{num "sec:c4-echelle-de-l-acteur"}[] est donné
 en entier à la compilation : fini, statique, il se traite inductivement, et le tri topologique de la
 Phase 2 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie
 au fil des activations et n'est jamais donné. L'acyclicité du premier n'implique donc pas
