@@ -38,9 +38,11 @@ changes with every correction commit.
 - The 39 TLA-01..16 profiles are declared in TLC-PROFILES.json; Deno checks
   exact configuration/module coverage and runs each profile with failure
   accumulation and per-profile logs.
-- D01 is run once in k7pl-semantics.yaml; the R9/TLA suite is run in
-  ci.yaml. The artifacts are distinct: d01-tlc-evidence for D01 and
-  tla-model-check-evidence for R9 + TLA-01..16.
+- D01 remains in the blocking r9-tlc job in ci.yaml and is also run by
+  k7pl-semantics.yaml to produce d01-tlc-evidence for k-smoke. This duplicate
+  run is intentional because the reusable semantics workflow is not part of
+  CI OK. The unified tla-model-check-evidence contains D01 + R9 + TLA-01..16;
+  d01-tlc-evidence remains the separate formal-chain input artifact.
 
 ## Validation state
 
