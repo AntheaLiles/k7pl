@@ -116,15 +116,18 @@ La question symétrique (quand une valeur effacée peut-elle être ressuscitée 
 habituelle : seulement sur un type _stable_ au sens de {cite "DANIELSSON-ERASED"}[], c'est-à-dire un
 type dont un habitant se reconstruit depuis sa version effacée.
 
-Son _statut_, en revanche, est moins bon que son contenu, et se corrige ici. Elle est ici une règle
-à faire respecter, vérifiée cas par cas : trois interdictions énumérées et une quatrième à ajouter
-le jour où un quatrième éliminateur apparaîtra. Une distinction de phase _synthétique_ fait mieux :
-la phase y étant une proposition du contexte, la discrimination n'est pas interdite, elle est
-_inexprimable_, et la conservativité dans les deux phases s'en déduit au lieu d'être vérifiée {cite "THEOCHARIS"}[].
-La règle devient alors une conséquence de l'encodage plutôt qu'une condition de bord, ce qui est la
-transformation que ce document a opérée ailleurs pour l'hygiène : passer d'une discipline appliquée
-à une propriété du type. Le contenu ne change pas ; ce qui change est qu'il n'y aura plus de liste à
-tenir à jour.
+Son statut est consigné comme obligation ouverte.
+
+:::note
+_Obligation ouverte._ La règle est ici une discipline vérifiée cas par cas, sur une liste
+d'interdictions à tenir à jour (trois énumérées, une quatrième à ajouter le jour où un quatrième
+éliminateur apparaîtra). Une distinction de phase _synthétique_ ferait mieux : la phase y étant une
+proposition du contexte, la discrimination ne serait pas interdite mais _inexprimable_, et la
+conservativité dans les deux phases s'en déduirait au lieu d'être vérifiée {cite "THEOCHARIS"}[].
+Opérer cette transformation ferait de la règle une conséquence de l'encodage plutôt qu'une
+condition de bord, comme le document l'a fait ailleurs pour l'hygiène : passer d'une discipline
+appliquée à une propriété du type. Le contenu de la règle ne changerait pas.
+:::
 
 Une troisième famille de contraintes ne porte pas sur une valeur figée mais sur son évolution. Le
 typestate est un paramètre de type qui suit une grammaire d'états `File(Open)`, `File(Closed)`,
@@ -195,15 +198,22 @@ constructeurs primitifs y contreviendrait : cinq primitives, une définition de 
 structure catégorique et un théorème là où $`\multimap`, présent depuis le
 §{num "sec:c2-la-categorie-ambiante"}[], suffit.
 
-Une dette naît de ce choix : la préservation des types par cet encodage est établie dans la
-littérature pour la grammaire de GV, non pour celle de K7PL. Ce document la revendique et ne la
-démontre pas.
+La préservation des types par cet encodage est revendiquée sans démonstration, comme le consigne
+l'obligation qui suit.
 
-Deux hypothèses tombent avec cet encodage. La première voulait que _C_, restreinte aux objets
-utilisés dans les protocoles, fût $`\ast`-autonome : formulation dont le quantificateur portait au
-surplus sur les charges utiles, que la dualité ne touche pas, K7PL n'ayant pas de délégation de
-session. La seconde, qui l'avait remplacée, munissait un squelette fini de duaux choisis. Ni l'une
-ni l'autre n'a plus d'objet : il n'y a pas de squelette, seulement des flèches.
+:::note
+_Obligation ouverte._ La préservation des types par l'encodage des sessions en implications
+linéaires est établie dans la littérature pour la grammaire de GV, non pour celle de K7PL. Elle
+reste à démontrer pour cette dernière.
+:::
+
+:::note
+_Hypothèses abandonnées._ Deux formulations antérieures n'ont plus d'objet. La première voulait
+que _C_, restreinte aux objets utilisés dans les protocoles, fût $`\ast`-autonome : formulation
+dont le quantificateur portait au surplus sur les charges utiles, que la dualité ne touche pas,
+K7PL n'ayant pas de délégation de session. La seconde, qui l'avait remplacée, munissait un
+squelette fini de duaux choisis. Il n'y a pas de squelette, seulement des flèches.
+:::
 
 Cette absence de délégation situe par ailleurs K7PL sur le clivage qui sépare les interprétations de
 la logique linéaire en types de session. Les présentations classique et intuitionniste ont engendré
