@@ -24,9 +24,18 @@ const moduleFiles = entries.filter((entry) =>
 ).map((entry) => entry.name);
 
 Deno.test("TLC manifest covers every TLA config and model module exactly once", () => {
-  assertEquals(validateProfileInventory(profiles, configFiles, moduleFiles), []);
-  assertEquals(profiles.filter((profile) => profile.kind === "positive").length, 18);
-  assertEquals(profiles.filter((profile) => profile.kind === "negative").length, 21);
+  assertEquals(
+    validateProfileInventory(profiles, configFiles, moduleFiles),
+    [],
+  );
+  assertEquals(
+    profiles.filter((profile) => profile.kind === "positive").length,
+    18,
+  );
+  assertEquals(
+    profiles.filter((profile) => profile.kind === "negative").length,
+    21,
+  );
 });
 
 Deno.test("a new TLA config cannot be silently omitted from the profile suite", () => {

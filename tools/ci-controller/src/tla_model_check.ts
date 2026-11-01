@@ -24,9 +24,13 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 export function parseTlaProfiles(value: unknown): TlaProfile[] {
-  if (!isRecord(value) || value.schemaVersion !== 1 ||
-    !Array.isArray(value.profiles)) {
-    throw new Error("TLC-PROFILES.json must have schemaVersion 1 and a profiles array");
+  if (
+    !isRecord(value) || value.schemaVersion !== 1 ||
+    !Array.isArray(value.profiles)
+  ) {
+    throw new Error(
+      "TLC-PROFILES.json must have schemaVersion 1 and a profiles array",
+    );
   }
 
   return value.profiles.map((entry, index): TlaProfile => {
@@ -40,9 +44,13 @@ export function parseTlaProfiles(value: unknown): TlaProfile[] {
     if (kind !== "positive" && kind !== "negative") {
       throw new Error("profile " + index + " has an invalid kind");
     }
-    if (typeof config !== "string" ||
-      !/^TLA\d{2}-[A-Za-z0-9-]+\.cfg$/.test(config)) {
-      throw new Error("profile " + index + " has an invalid TLA config filename");
+    if (
+      typeof config !== "string" ||
+      !/^TLA\d{2}-[A-Za-z0-9-]+\.cfg$/.test(config)
+    ) {
+      throw new Error(
+        "profile " + index + " has an invalid TLA config filename",
+      );
     }
     if (typeof module !== "string" || !/^[A-Za-z][A-Za-z0-9]*$/.test(module)) {
       throw new Error("profile " + index + " has an invalid module name");
@@ -51,9 +59,13 @@ export function parseTlaProfiles(value: unknown): TlaProfile[] {
       throw new Error("profile " + index + " has an invalid label");
     }
     if (kind === "negative") {
-      if (typeof entry.expectedInvariant !== "string" ||
-        !/^[A-Za-z][A-Za-z0-9]*$/.test(entry.expectedInvariant)) {
-        throw new Error("negative profile " + label + " must name expectedInvariant");
+      if (
+        typeof entry.expectedInvariant !== "string" ||
+        !/^[A-Za-z][A-Za-z0-9]*$/.test(entry.expectedInvariant)
+      ) {
+        throw new Error(
+          "negative profile " + label + " must name expectedInvariant",
+        );
       }
       return {
         kind,
@@ -64,7 +76,9 @@ export function parseTlaProfiles(value: unknown): TlaProfile[] {
       };
     }
     if ("expectedInvariant" in entry) {
-      throw new Error("positive profile " + label + " must not declare expectedInvariant");
+      throw new Error(
+        "positive profile " + label + " must not declare expectedInvariant",
+      );
     }
     return { kind, config, module, label };
   });
@@ -100,10 +114,14 @@ export function validateProfileInventory(
     usedModules.add(profile.module);
 
     if (!configNames.includes(profile.config)) {
-      errors.push("registered config is missing from models/: " + profile.config);
+      errors.push(
+        "registered config is missing from models/: " + profile.config,
+      );
     }
     if (!moduleNames.includes(profile.module)) {
-      errors.push("profile module is missing from models/: " + profile.module + ".tla");
+      errors.push(
+        "profile module is missing from models/: " + profile.module + ".tla",
+      );
     }
   }
 
@@ -114,7 +132,9 @@ export function validateProfileInventory(
   }
   for (const module of moduleNames) {
     if (!usedModules.has(module)) {
-      errors.push("TLA model module has no registered profile: " + module + ".tla");
+      errors.push(
+        "TLA model module has no registered profile: " + module + ".tla",
+      );
     }
   }
   return errors;
@@ -227,7 +247,9 @@ async function runSuite(
 
   let failures = 0;
   for (const profile of profiles) {
-    const metaDir = await Deno.makeTempDir({ prefix: "tlc-" + profile.label + "-" });
+    const metaDir = await Deno.makeTempDir({
+      prefix: "tlc-" + profile.label + "-",
+    });
     const args = [
       "-cp",
       jar,
@@ -254,11 +276,15 @@ async function runSuite(
 
     const logPath = joined(evidenceDir, profile.label + ".log");
     await Deno.writeTextFile(logPath, output);
-    console.log("===== " + profile.label + " (" + profile.kind + ") =====\n" + output);
+    console.log(
+      "===== " + profile.label + " (" + profile.kind + ") =====\n" + output,
+    );
 
     const passed = profile.kind === "positive"
-      ? code === 0 && output.includes("Model checking completed. No error has been found.")
-      : code !== 0 && output.includes("Invariant " + profile.expectedInvariant);
+      ? code === 0 &&
+        output.includes("Model checking completed. No error has been found.")
+      : code !== 0 &&
+        output.includes("Invariant " + profile.expectedInvariant);
     if (!passed) {
       failures++;
       if (profile.kind === "positive") {
@@ -283,7 +309,8 @@ async function runSuite(
     return 1;
   }
   console.log(
-    "All " + profiles.length + " registered TLA profiles matched their expected result.",
+    "All " + profiles.length +
+      " registered TLA profiles matched their expected result.",
   );
   return 0;
 }
@@ -300,13 +327,17 @@ async function main(args: string[]): Promise<number> {
 
   const modelDir = String(options.get("--model-dir") ?? "models");
   const profiles = await inventory(modelDir);
-  console.log("TLA inventory: " + profiles.length + " profiles registered and covered.");
+  console.log(
+    "TLA inventory: " + profiles.length + " profiles registered and covered.",
+  );
   if (options.get("--validate-only") === true) return 0;
 
   const jar = options.get("--tlc-jar");
   const evidence = options.get("--evidence");
   if (typeof jar !== "string" || typeof evidence !== "string") {
-    throw new Error("--tlc-jar and --evidence are required unless --validate-only is used");
+    throw new Error(
+      "--tlc-jar and --evidence are required unless --validate-only is used",
+    );
   }
   return await runSuite(profiles, modelDir, jar, evidence);
 }
