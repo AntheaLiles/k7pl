@@ -1316,8 +1316,8 @@ Séquencement et mise en parallèle du coût, par niveau
 :::
 ::::
 
-$`(\mathcal{E}_0, \cdot, 1)` reste un monoïde non commutatif — l'ordre des effets compte.
-$`(\mathcal{E}_0, \parallel, 1)` en est un _commutatif_ — l'ordre de deux branches parallèles ne
+$`(\mathcal{E}_0, \cdot, 1)` reste un monoïde non commutatif : l'ordre des effets compte.
+$`(\mathcal{E}_0, \parallel, 1)` en est un _commutatif_ : l'ordre de deux branches parallèles ne
 compte pas, et c'est précisément ce qu'on veut dire en les mettant en parallèle. Les deux sont liés
 par la loi d'échange
 $`(a \cdot b) \parallel (c \cdot d) \sqsubseteq (a \parallel c) \cdot (b \parallel d)`, qui dit
@@ -1350,8 +1350,7 @@ la paire. Rien n'est inventé : la règle existait pour les valeurs, elle est é
 
 La deuxième est que {sc}[Par] _n'est pas_ la conjonction additive, et les confondre serait l'erreur.
 La conjonction additive partage son contexte parce qu'une seule branche s'exécutera ; {sc}[Par]
-l'additionne parce que les deux s'exécutent. {rmq}[Le partage dit « l'une ou l'autre » ; l'addition
-dit « l'une et l'autre ». C'est la même différence qu'entre le choix et la coexistence.] C'est la
+l'additionne parce que les deux s'exécutent. C'est la
 différence entre le choix et la coexistence de ressources, et elle se lit sur la composition des
 contextes.
 
@@ -1401,7 +1400,7 @@ et non par une analyse d'indépendance que le compilateur conduirait. Là où un
 prouver que deux tâches ne se marchent pas dessus, celui-ci n'a pas d'endroit où elles le
 pourraient.
 
-## La couche 2 — concurrence asynchrone à boîtes aux lettres
+## La couche 2 : concurrence asynchrone à boîtes aux lettres
 %%%
 tag := "g-couche2"
 %%%
@@ -1412,15 +1411,13 @@ Le chapitre 4 décrit des acteurs, des boîtes aux lettres et des motifs de jonc
 n'en portait rien, et la couche 2 n'y avait ni constructeur ni type habitable. Ce qui suit l'écrit,
 et l'_asynchronie est primitive_ : l'émission ne bloque pas, la réception bloque, et le rendez-vous
 synchrone se dérive d'une émission suivie d'une attente. L'inverse obligerait à introduire les
-tampons de toute façon, et laisserait la boîte aux lettres hors du noyau — ce qui était la
+tampons de toute façon, et laisserait la boîte aux lettres hors du noyau : ce qui était la
 situation.
 
 Deux constructeurs de valeur entrent, et ils portent leur discipline dans leur _grade_ plutôt que
 dans une seconde zone de contexte. Une liaison $`x :_1 \mathsf{Chan}\;S` est linéaire parce que son
 grade vaut un, et non parce qu'elle vivrait dans une zone linéaire ; un canal annulable porte un
-grade affine, un canal de diffusion un grade non contraint. {rmq}[Ce que le chapitre 1 revendiquait
-— une seule zone de contexte — n'est tenu que si la discipline des canaux y entre par le grade.
-C'est ici que la revendication se paie ou se perd.]
+grade affine, un canal de diffusion un grade non contraint.
 
 ::::formula (label := "eq:motifs-boite") (kind := "formule")
 ```
@@ -1492,19 +1489,17 @@ l'opération native, et non un protocole d'appariement à inventer.
 
 {sc}[Free] exige $`\mathsf{Mb}\;\mathbf{1}`, c'est-à-dire une boîte _vide_. L'absence de déchets
 devient donc une propriété de typage : un acteur ne peut pas disparaître en laissant des messages
-non lus, parce que le terme qui le libérerait n'a pas de dérivation. {rmq}[Une garantie que le
-manuscrit ne revendiquait pas, et qu'il obtient en écrivant la règle qui lui manquait.] C'est une
-garantie que le manuscrit ne portait sous aucune forme.
+non lus, parce que le terme qui le libérerait n'a pas de dérivation.
 
 La configuration de la machine change en conséquence, et c'est le prix annoncé. Elle passe d'un
 triplet à $`\langle \mathcal{P} \mid \mu \mid \mathcal{M} \mid \tau \rangle`, où $`\mathcal{P}` est
 un multi-ensemble de calculs, $`\mathcal{M}` associe à chaque localisation un multi-ensemble de
 messages, et où $`\tau` _cesse d'être une suite_ : sous concurrence, l'ordre d'occurrence des
 événements n'est plus total, et la trace devient un ordre partiel étiqueté. Les règles de réduction
-se scindent alors en locales — celles qui précèdent, appliquées à un membre du multi-ensemble — et
+se scindent alors en locales (celles qui précèdent, appliquées à un membre du multi-ensemble) et
 globales, qui sont les cinq ci-dessus ; la congruence est la permutation du multi-ensemble.
 
-## La couche 1 — distribution, localité, défaillance
+## La couche 1 : distribution, localité, défaillance
 %%%
 tag := "g-couche1"
 %%%
@@ -1537,10 +1532,8 @@ Les trois aspects de la distribution et la strate où chacun se range
 ::::
 
 La première ligne mérite d'être soulignée, car elle décide du reste. $`@_n` est une _modalité
-graduée sur une structure ordonnée_ — la huitième instance du procédé que le chapitre 2
-(§{num "sec:c2-adjonctions-et-enrichissement"}[]) construit unefois pour toutes. {rmq}[Neuf
-instances d'un même procédé. Une dixième ne demanderait rien de plus, et c'est ce qu'on attend d'une
-construction qui porte.] Loger la localité dans une cinquième composante du grade l'aurait rendue
+graduée sur une structure ordonnée_ : la huitième instance du procédé que le chapitre 2
+(§{num "sec:c2-adjonctions-et-enrichissement"}[]) construit une fois pour toutes. Loger la localité dans une cinquième composante du grade l'aurait rendue
 spéciale ; l'écrire comme une instance la rend ordinaire, et c'est ce qu'elle doit être.
 
 ::::formula (label := "eq:regles-couche1") (kind := "formule")
@@ -1594,11 +1587,10 @@ une coordonnée de plus au profil matériel, et aucun objet nouveau.
 tag := "g-regles-les-connecteurs-restants-ce-que-la-verification-app"
 %%%
 
-Trois connecteurs sur six suivaient les patrons, trois n'y entraient pas. L'affirmation qu'ils
-étaient tous mécaniques était donc trop large, et l'épreuve le montre : une induction qui les aurait
-traités par « comme ci-dessus » aurait manqué le partage de contexte de l'additif et l'indexation du
-vecteur, c'est-à-dire deux des endroits où le système fait un travail qu'un système ordinaire ne
-fait pas.
+Trois connecteurs sur six suivaient les patrons, trois n'y entraient pas. Une induction qui les
+aurait traités par « comme ci-dessus » aurait manqué le partage de contexte de l'additif et
+l'indexation du vecteur, c'est-à-dire deux des endroits où le système fait un travail qu'un système
+ordinaire ne fait pas.
 
 Le monoïde des transformateurs est construit au §{num "sec:g-regles"}[] ; ce qui reste ouvert n'est
 plus son contenu mais une condition sur lui, la commutation de ses deux familles, qui tient sur une
