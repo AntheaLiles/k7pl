@@ -186,6 +186,8 @@ Deno.test("derived classifier maps K, proofs and TLA to their new surfaces", () 
       "models/TOOLCHAIN-CI.md",
       "models/WORK-PLAN.md",
       "models/MODEL-DEPENDENCIES.md",
+      "models/REMEDIATION-ROADMAP-P0-P4.md",
+      "models/REMEDIATION-EXECUTION-PROMPT.md",
       "models/SPEC-COVERAGE-AUDIT-2026-10-31.md",
     ]
   ) {
