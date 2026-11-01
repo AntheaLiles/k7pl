@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "TLA-12-CE-APPLY-AFTER-REVOCATION-01",
+  "model": "K7PLReactivePipeline",
+  "configuration": "TLA12-ApplyAfterRevocationControl.cfg",
+  "expectedTrace": [
+    {
+      "action": "Init",
+      "patchReady": false,
+      "writerCapability": true,
+      "writerRevoked": false
+    },
+    {
+      "action": "HandleEvent(Event1)",
+      "patchReady": true,
+      "writerCapability": true,
+      "writerRevoked": false
+    },
+    {
+      "action": "RevokeWriterCapability",
+      "patchReady": true,
+      "writerCapability": false,
+      "writerRevoked": true
+    },
+    {
+      "action": "ApplyPatch",
+      "patchReady": false,
+      "writerCapability": false,
+      "writerRevoked": true,
+      "appliedAfterRevocation": true
+    }
+  ],
+  "violatedInvariant": "NoApplyAfterRevocation",
+  "assumptions": {
+    "writerCapabilityInitially": true,
+    "allowWriterRevocation": true,
+    "unsafeLayer2Write": true,
+    "frameLimit": 2,
+    "events": [
+      "Event1",
+      "Event2"
+    ],
+    "initiallyDelivered": [
+      "Event1",
+      "Event2"
+    ]
+  },
+  "interpretation": "The control deliberately permits ApplyPatch after WriteCap(DOM) revocation. The positive profile rejects this transition and leaves the prepared patch pending. This is a safety witness only; the lifecycle policy for the pending patch (discard, retry/recompute, or bounded lease) remains an owner decision and is not selected by this model.",
+  "scope": "Finite two-event candidate interleaving; not a normative decision on pending-patch disposal, deadline, or frame behaviour."
+}

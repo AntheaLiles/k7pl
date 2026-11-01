@@ -19,19 +19,28 @@
     "ActorC": "ActorB"
   },
   "staticDependencies": [
-    ["ActorA", "ActorB"],
-    ["ActorB", "ActorC"]
+    [
+      "ActorA",
+      "ActorB"
+    ],
+    [
+      "ActorB",
+      "ActorC"
+    ]
   ],
   "expectedTrace": [
-    {"action": "Init", "dynamicWaitEdges": []},
-    {"action": "Block(ActorA)", "dynamicWaitEdges": [["ActorA", "ActorB"]]},
     {
-      "action": "Block(ActorB)",
-      "dynamicWaitEdges": [["ActorA", "ActorB"], ["ActorB", "ActorC"]]
+      "action": "Init",
+      "dynamicWaitEdges": []
     },
     {
       "action": "Block(ActorC)",
-      "dynamicWaitEdges": [["ActorA", "ActorB"], ["ActorB", "ActorC"], ["ActorC", "ActorA"]]
+      "dynamicWaitEdges": [
+        [
+          "ActorC",
+          "ActorA"
+        ]
+      ]
     }
   ],
   "staticGraphAcyclic": true,
@@ -39,8 +48,8 @@
   "violatedInvariant": "Simulation",
   "secondaryObservation": {
     "property": "NoMutualWaitDeadlock",
-    "status": "trace-derived; not checked by TLA01-SimulationGap.cfg",
-    "interpretation": "The witness contains a dynamic wait cycle, but TLC stops at the configured Simulation invariant; this is not a second TLC verdict."
+    "status": "not violated by the earliest TLC witness; not checked by TLA01-SimulationGap.cfg",
+    "interpretation": "The observed counterexample contains one dynamic wait edge ActorC -> ActorA, not a cycle. TLC stops at the configured Simulation invariant; NoMutualWaitDeadlock is neither violated nor checked by this profile."
   },
   "assumptions": {
     "timeoutsEnabled": false,
@@ -50,6 +59,6 @@
     "messagesReliableAndNotDuplicated": true,
     "oneReceiveThenAtMostOneSendPerActor": true
   },
-  "interpretation": "The abstract transition system does not constrain dynamically selected waits to the static dependency relation. This refutes the implication from static acyclicity plus endpoint duality alone; it does not refute K7PL unless the trace is shown to be a valid projection of a normative K execution.",
-  "scope": "Bounded three-actor falsification of an unconstrained abstraction and explicit witness for the open Sim obligation."
+  "interpretation": "The abstract transition system does not constrain the dynamically selected wait of ActorC to the static dependency relation. This one-step witness refutes the implication from static acyclicity plus endpoint duality alone; it does not establish a K7PL counterexample unless projected from a normative K execution.",
+  "scope": "Single-step bounded falsification of an unconstrained abstraction and explicit witness for the open Sim obligation; no dynamic wait cycle is demonstrated by this profile."
 }

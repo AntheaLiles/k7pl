@@ -256,6 +256,13 @@
       "module": "K7PLSPSCQueue",
       "label": "tla16-overwrite-unread",
       "expectedInvariant": "MessageConservation"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA12-ApplyAfterRevocationControl.cfg",
+      "module": "K7PLReactivePipeline",
+      "label": "tla12-apply-after-revocation",
+      "expectedInvariant": "NoApplyAfterRevocation"
     }
   ]
 }
