@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # Prompt — poursuivre la remédiation TLA+ K7PL P0–P4
 
 Tu interviens sur le dépôt AntheaLiles/k7pl, dans le cadre de la PR #319 et de la branche fix/tla-ci-unified-suite-2026-10-31.

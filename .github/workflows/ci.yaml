@@ -252,8 +252,16 @@ jobs:
             echo "::error::TLC accepted a property whose counterexample is expected"
             exit 1
           fi
-          if ! grep -F "Invariant NoCommitAfterCancelRequest" "$log" >/dev/null; then
-            echo "::error::TLC stopped before the expected invariant failure"
+          if ! grep -F "Error: Invariant NoCommitAfterCancelRequest is violated." "$log" >/dev/null; then
+            echo "::error::TLC did not report the exact NoCommitAfterCancelRequest invariant violation"
+            exit 1
+          fi
+          if ! grep -F "Error: The behavior up to this point is:" "$log" >/dev/null; then
+            echo "::error::TLC did not provide a counterexample trace for R9 cancellation"
+            exit 1
+          fi
+          if grep -F -e "***Parse Error***" -e "Parsing or semantic analysis failed." -e "Error: Evaluating invariant TypeOK failed." -e "Error: Assumption" "$log" >/dev/null; then
+            echo "::error::TLC R9 cancellation log also contains a parser, ASSUME or type failure"
             exit 1
           fi
 
@@ -279,8 +287,16 @@ jobs:
             echo "::error::TLC accepted the unconfined profile despite the expected integrity counterexample"
             exit 1
           fi
-          if ! grep -F "Invariant ProtectedIntegrity" "$log" >/dev/null; then
-            echo "::error::TLC stopped before the expected D01 ProtectedIntegrity counterexample"
+          if ! grep -F "Error: Invariant ProtectedIntegrity is violated." "$log" >/dev/null; then
+            echo "::error::TLC did not report the exact ProtectedIntegrity invariant violation"
+            exit 1
+          fi
+          if ! grep -F "Error: The behavior up to this point is:" "$log" >/dev/null; then
+            echo "::error::TLC did not provide a counterexample trace for D01 native boundary"
+            exit 1
+          fi
+          if grep -F -e "***Parse Error***" -e "Parsing or semantic analysis failed." -e "Error: Evaluating invariant TypeOK failed." -e "Error: Assumption" "$log" >/dev/null; then
+            echo "::error::TLC D01 native boundary log also contains a parser, ASSUME or type failure"
             exit 1
           fi
 

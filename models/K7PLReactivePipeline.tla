@@ -79,7 +79,7 @@ ApplyPatch ==
 AdvanceFrame ==
     /\ frame < FrameLimit
     /\ frame' = frame + 1
-    /\ frameOverrun' = frameOverrun \/ patchReady
+    /\ frameOverrun' = (frameOverrun \/ patchReady)
     /\ UNCHANGED <<delivered, pending, handled, handledOrder, logicalVersion, domVersion,
                    patchReady, patchBase, patchTarget, appliedTargets, writerCapability, unauthorizedWrites>>
 Next ==
