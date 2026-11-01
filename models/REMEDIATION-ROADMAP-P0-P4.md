@@ -62,7 +62,9 @@ The following changes are present in the PR #319 branch after the first run:
 - The six module-level parser/semantic defects observed in the first run were corrected in commit 9a243c9675259c99b83c131301e4a5e7407ddcd7.
 - The negative-profile runner now requires TLC's exact diagnostic: Error: Invariant <name> is violated. A parser error, timeout, unrelated invariant violation or arbitrary non-zero exit cannot count as a successful negative profile.
 
-The checkpoint was updated in commit 29845511f018b80da543b975a995b477d4ba9cb4. The CI run associated with that pre-documentation head, workflow run 41306284770, was pending when this snapshot was written. **The corrected 39-profile suite has not yet been observed completing successfully.** Do not describe it as green until the run on the current head provides the evidence.
+The first corrected-source run (workflow 41306284770, TLA job 124848026610) completed all 39 invocations on PR head 29845511f018b80da543b975a995b477d4ba9cb4. It matched 15/18 positive and 17/21 negative outcomes; seven profiles still failed before their expected verdict. The remaining failures were: TLA-02 positive and negative, both stopping at TypeOK evaluation because NoPairValue is a string sentinel compared with a message-pair tuple; TLA-07 positive and all three negative controls, all stopping at a parser error in WriteCell line 126; and TLA-12 positive, where TLC reported that AdvanceFrame did not completely assign frameOverrun. These are not successful model verdicts.
+
+The later CI run 41307048438, created on documentation/registry-test head 225112f22622390256c574d810933aa2acd23fdd, was cancelled during subsequent branch updates. The current branch head after those documentation updates is 01884f37e90f4f8ab84e0221f3380d170610e031, for which no full CI run has completed. The model source has not changed since the corrected-source run, but P0 remains open until the current head is validated.
 
 ### 2.3 Audit findings that remain relevant after the first run
 
@@ -75,17 +77,18 @@ The first run confirmed that the new runner exposes syntax and semantic failures
 ### Findings
 
 1. The initial audit's B1 was a TLA-16 module/configuration type mismatch. The configuration values were changed to strings; the first actual run then exposed a separate module-level comprehension error.
-2. The initial audit's B2 identified unbounded state growth in TLA-06 and TLA-12. The counters/bounds were changed as described above; their corrected positive profiles still require an observed completed run.
+2. The initial audit's B2 identified unbounded state growth in TLA-06 and TLA-12. The counter/bound changes were made; TLA-06 positive completed in the corrected-source run, while TLA-12 still fails because AdvanceFrame does not specify frameOverrun.
 3. The initial audit's B3 identified an infeasible TLA-14 authored witness. The missing SendClientHello transition was added; retain the JSON as an expected scenario, not as an observed TLC trace.
-4. The first end-to-end run exposed further parser/semantic defects in TLA-01, TLA-02, TLA-05, TLA-07, TLA-12 and TLA-16.
+4. The first end-to-end run exposed parser/semantic defects in TLA-01, TLA-02, TLA-05, TLA-07, TLA-12 and TLA-16. The corrected-source run resolved the TLA-01 and TLA-05 profile failures and enabled TLA-16 positive/negative verdicts, but left the seven failures described in §2.2.
 5. Before the strict runner correction, a negative profile could be misclassified if TLC failed for an unrelated reason and the output happened to contain the expected invariant name. The current TLA runner checks the exact invariant-violation diagnostic.
 6. D01 and R9 also use shell-level negative-result checks. Their current grep tests should be reviewed for equivalent strictness; do not assume the stricter Deno predicate automatically governs those legacy checks.
+7. The second run shows that parser repair is not the same as model correctness: TLA-02 now parses but its heterogeneous NoPairValue sentinel makes TypeOK evaluation fail; TLA-07 still has a parser error in WriteCell; TLA-12 parses but AdvanceFrame leaves frameOverrun unspecified.
 
 ### Recommended actions
 
 | ID | Action | Acceptance evidence |
 |---|---|---|
-| P0.1 | Run the corrected branch head through all 39 TLA profiles. Resolve every parser, semantic, ASSUME, type, invariant and timeout failure without weakening the intended property. | All 18 positive profiles complete with TLC's no-error completion message; all 21 negative profiles terminate on their exact named invariant violation. |
+| P0.1 | Resolve the seven remaining profile failures (TLA-02 x2, TLA-07 x4, TLA-12 x1), then run the current PR head through all 39 TLA profiles. Fix model semantics rather than weakening the intended property. | All 18 positive profiles complete with TLC's no-error completion message; all 21 negative profiles terminate on their exact named invariant violation. |
 | P0.2 | Inspect each profile's state count, queue exhaustion, depth, exact configuration, constants and tool identity. Distinguish completed exploration from initial-state-only or otherwise vacuous runs. | Per-profile evidence is retained; each profile has a recorded completion verdict and its declared bounds. |
 | P0.3 | Review the legacy D01/R9 negative checks for the same false-positive risk as the original TLA runner. Require a specific TLC invariant-violation diagnostic, not merely a non-zero exit or occurrence of the invariant name. | Negative D01/R9 tests fail on parser/configuration errors and pass only on their expected invariant violation. |
 | P0.4 | Preserve the suite evidence for the exact CI head: sources, configs, authored expectations, individual logs, Java/TLC version and digest, checksums, state counts and counterexample traces. Keep the D01 artifact hand-off to k-smoke intact. | Artifact is present with fail-on-missing semantics; evidence identifies the exact head and every profile. |
@@ -94,7 +97,7 @@ The first run confirmed that the new runner exposes syntax and semantic failures
 
 ### P0 exit rule
 
-P0 is closed only on a single identified PR head where the required CI jobs are complete and successful, all 39 profiles meet their declared outcomes, and the evidence artifact has been inspected. A queued or pending run, successful unrelated jobs, or a green subset is not P0 closure.
+P0 is closed only on a single identified PR head where the required CI jobs are complete and successful, all 39 profiles meet their declared outcomes, and the evidence artifact has been inspected. A queued, pending, cancelled or failed run, successful unrelated jobs, or a green subset is not P0 closure.
 
 ## 4. P1 — make existing model properties substantive
 

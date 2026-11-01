@@ -27,17 +27,18 @@ Le but n'est pas de faire passer artificiellement la CI au vert. Il est d'obteni
 
 ## Phase 1 — P0 : établir la validation réelle
 
-1. Récupère le dernier head de PR #319 et les runs de ce SHA exact. Si un run est en attente, ne le déclare pas validé.
-2. Inspecte le run D01/R9/TLA-01..16 et son artefact. Vérifie les 39 profils un par un :
+1. Récupère le dernier head de PR #319 et les runs de ce SHA exact. Les résultats connus sur un head antérieur ne remplacent jamais une validation du head courant. Si un run est en attente, annulé ou absent, ne le déclare pas validé.
+2. Le dernier run TLC complet observé est 41306284770 sur head 29845511f018b80da543b975a995b477d4ba9cb4 : 15/18 positifs et 17/21 négatifs ont atteint leur résultat attendu. Sept profils restent bloquants : TLA-02 positif/négatif (TypeOK compare le sentinel string NoPairValue avec un tuple), TLA-07 positif et trois négatifs (erreur de parsing dans WriteCell ligne 126), TLA-12 positif (AdvanceFrame ne spécifie pas complètement frameOverrun). Le run 41307048438 sur le head suivant a été annulé ; le head courant doit être validé.
+3. Inspecte le run D01/R9/TLA-01..16 et son artefact. Vérifie les 39 profils un par un :
    - 18 positifs : TLC doit terminer et afficher son diagnostic de model checking sans erreur ;
    - 21 négatifs : TLC doit terminer sur le diagnostic exact de violation de l'invariant déclaré dans TLC-PROFILES.json ;
    - parsing, semantic analysis, ASSUME faux, TypeOK, timeout, mauvaise violation ou arrêt incomplet = échec.
-3. Vérifie le nombre d'états, le nombre d'états distincts, la profondeur et l'épuisement de la file pour chaque profil. Distingue un modèle exploré d'un modèle qui n'a pratiquement qu'un état initial.
-4. Vérifie que les traces négatives suivent les actions attendues et correspondent aux JSON d'attente. Le JSON reste un oracle rédigé tant qu'il n'est pas comparé à une trace TLC observée.
-5. Passe également en revue les contrôles négatifs D01/R9 : leur prédicat shell doit prouver la violation attendue et ne pas accepter un simple échec de parser ou une mention non probante de l'invariant.
-6. Vérifie l'artefact complet, le digest TLC, les logs et les sommes de contrôle. Vérifie que l'artefact D01 séparé reste consommé par k-smoke.
-7. Exécute les contrôles locaux et CI pertinents : Deno fmt/check/lint/test, validation du registre, contrôles Python en shadow, REUSE, CommitLint, actionlint, tests Lean/K/Verso concernés.
-8. Corrige tous les défauts P0 par des changements sémantiquement justifiés. Ne marque aucun profil validé avant observation du run exact.
+4. Vérifie le nombre d'états, le nombre d'états distincts, la profondeur et l'épuisement de la file pour chaque profil. Distingue un modèle exploré d'un modèle qui n'a pratiquement qu'un état initial.
+5. Vérifie que les traces négatives suivent les actions attendues et correspondent aux JSON d'attente. Le JSON reste un oracle rédigé tant qu'il n'est pas comparé à une trace TLC observée.
+6. Passe également en revue les contrôles négatifs D01/R9 : leur prédicat shell doit prouver la violation attendue et ne pas accepter un simple échec de parser ou une mention non probante de l'invariant.
+7. Vérifie l'artefact complet, le digest TLC, les logs et les sommes de contrôle. Vérifie que l'artefact D01 séparé reste consommé par k-smoke.
+8. Exécute les contrôles locaux et CI pertinents : Deno fmt/check/lint/test, validation du registre, contrôles Python en shadow, REUSE, CommitLint, actionlint, tests Lean/K/Verso concernés.
+9. Corrige tous les défauts P0 par des changements sémantiquement justifiés. Ne marque aucun profil validé avant observation du run exact.
 
 ## Phase 2 — P1 : contrôler la non-vacuité et la sensibilité des propriétés
 
