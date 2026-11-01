@@ -46,19 +46,19 @@ un marquage aux frontières plutôt qu'à chaque expression.
 
 Ce choix a une conséquence sur la compilation. La nécessité d'un délimiteur ne peut pas toujours être
 vérifiée par la syntaxe locale ou par simple comptage : elle dépend du fragment auquel appartient la
-fonction appelée. Le contrôle intervient donc en Phase 1.5, après résolution des noms, plutôt qu'en
+fonction appelée. Le contrôle doit donc intervenir en Phase 1.5, après résolution des noms, plutôt qu'en
 Phase 1. Un fichier isolé ne suffit pas à vérifier ce marquage ; c'est le coût assumé de cette
 stratégie.
 
 Le deuxième arbitrage concerne les glyphes. Ils ne constituent pas des primitives syntaxiques, mais
 des macros de la bibliothèque standard qui s'expansent en constructions du noyau et en annotations.
-Un alias textuel désigne la même macro : les deux graphies partagent donc, par construction, son
+Un alias textuel vaut la même macro : les deux graphies partagent donc, par construction, son
 associativité, sa priorité et son expansion.
 
 Cette décision écarte les _macros de lecture_, qui étendent l'analyseur lui-même. L'enjeu n'est pas
 leur faisabilité technique, mais la stabilité de la surface du langage. Lorsque l'analyse dépend de
-la configuration du programme lu, les outils qui ne l'exécutent pas — analyseurs statiques, éditeurs
-et autres consommateurs du code — risquent de ne plus disposer d'une grammaire commune. C'est le
+la configuration du programme lu, les outils qui ne l'exécutent pas (analyseurs statiques, éditeurs
+et autres consommateurs du code) risquent de ne plus disposer d'une grammaire commune. C'est le
 problème de l'« île » décrit dans la réflexion de Hickey sur l'histoire de Clojure
 {cite "hickeyHistoryClojure2020"}[]. Avec des macros ordinaires, la grammaire reste fixe et l'AST
 demeure lisible indépendamment des extensions de la bibliothèque. La staticité syntaxique est ainsi
@@ -68,7 +68,7 @@ simple convention.
 Le troisième arbitrage en découle : les R- et X-expressions appartiennent à la syntaxe du noyau
 plutôt qu'à une bibliothèque extensible par de nouvelles formes syntaxiques de même niveau. Le noyau
 renonce ainsi à un point d'extension supplémentaire, sans interdire la création d'autres langages de
-motifs. Ceux-ci se définissent en macros, dans la bibliothèque, et restent soumis aux règles communes
+motifs. Ceux-ci se définissent en macros, dans la bibliothèque, et doivent rester soumis aux règles communes
 d'élaboration.
 
 L'enjeu ergonomique se déplace donc vers la composition de macros-fonctions au-dessus du noyau et vers
@@ -82,7 +82,7 @@ les opérations intellectuelles autant qu'elle les exprime
 la couche 3, sans démontrer à elle seule leur supériorité ergonomique. La tradition Lisp apporte un
 second principe : la représentation arborescente commune du code et des données permet de traiter
 configuration, macro et AST comme des objets compatibles. La syntaxe parenthésée de la couche 2
-s'inspire plus particulièrement de Lisps applicatifs modernes — TXR Lisp, Gerbil et LFE — dont les
+s'inspire plus particulièrement de Lisps applicatifs modernes (TXR Lisp {cite "kylhekuTxrReferenceManual"}[], Gerbil {cite "gerbilSchemeReference"}[], LFE {cite "lispFlavoredErlang"}[]), dont les
 usages illustrent la possibilité d'orchestrer des systèmes réels à partir de listes imbriquées.
 
 Ces justifications conceptuelles ne suffisent pas à établir la facilité d'apprentissage de K7PL. Les
@@ -99,7 +99,7 @@ d'enseignement, non sur la composition de trains par des praticiens. Le transfer
 
 Une étude contrôlée randomisée portant sur Obsidian, qui combine propriété, actifs et typestate,
 fournit un résultat plus directement défavorable à l'hypothèse d'une utilisation sans surcoût
-{cite "coblenzCanAdvancedType2020"}[]. Sur les vingt participants initiaux — dix par condition —,
+{cite "coblenzCanAdvancedType2020"}[]. Sur les vingt participants initiaux (dix par condition),
 quatorze ont été retenus pour l'analyse. Quatre participants sur dix dans la condition Obsidian,
 contre un dans la condition Solidity, n'ont pas disposé de suffisamment de temps pour achever une
 solution jugée satisfaisante. Un participant d'Obsidian a abandonné après une heure quinze. Sur la
