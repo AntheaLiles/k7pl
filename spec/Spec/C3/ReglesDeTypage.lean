@@ -579,7 +579,7 @@ les effets, et qu'une structure propre est requise : un monoïde de transformate
 l'algèbre des effets.
 
 Une distinction s'impose ici, et la mise en parallèle est ce qui la rend nécessaire. L'algèbre des
-effets porte deux fragments qu'il faut nommer : $`\mathcal{E}_{\text{alg}}`, celui des opérations
+effets porte deux fragments nommés : $`\mathcal{E}_{\text{alg}}`, celui des opérations
 algébriques ordinaires, qui se composent par le séquencement _et_ par la mise en parallèle ; et
 $`\mathcal{E}_{\text{scoped}}`, celui des opérations à portée, dont l'effet est une _fonction_ de
 l'effet de son argument et que le monoïde de transformateurs gouverne.
@@ -967,28 +967,27 @@ de résultat positif, car les opérations employées par les règles n'ont pas t
 tag := "g-regles-les-deux-verifications-la-premiere-le-produit-mixte"
 %%%
 
-Le sous-typage coerce dans deux directions opposées selon la composante — descendant sur l'usage et
-sur la monotonie, montant sur le niveau et sur le budget. Cette relation reste bien définie par le
+Le sous-typage coerce dans deux directions opposées selon la composante (descendant sur l'usage et
+sur la monotonie, montant sur le niveau et sur le budget). Cette relation reste bien définie par le
 produit des quatre préordres. Elle ne suffit toutefois pas à établir que les lois d'une comonade
 graduée survivent au produit.
 
 Trois familles d'opérations doivent être distinguées. L'agrégation des contextes combine des grades
-de liaisons ; une éventuelle multiplication de la grade algebra compose des indices ; enfin
+de liaisons ; une éventuelle multiplication de l'algèbre de grades compose des indices ; enfin
 `r·Δ` met un contexte à l'échelle. La consommation budgétaire `β ⊖ k` est une
-quatrième opération, indexée par l'effet. Identifier ces quatre familles sous le mot « composition »
-était trop fort.
+quatrième opération, indexée par l'effet.
 
 Le cas du budget montre immédiatement pourquoi. La soustraction tronquée `⊖` intervient dans
-$`\boxtimes` via $`\psi`, mais elle n'est pas la multiplication d'une grade algebra. La loi utile
+$`\boxtimes` via $`\psi`, mais elle n'est pas la multiplication d'une algèbre de grades. La loi utile
 pour une répétition entière, `n(β ⊖ k)=nβ ⊖ nk`, est une loi de compatibilité
 entre une action de multiplicité et la consommation ; elle ne définit pas l'opération de
 composition des grades.
 
 Le cas du niveau est plus contraignant encore. Le joint `⊔` est utilisé par les règles pour
-agréger conservativement des annotations de confidentialité. Une construction standard d'une grade
-algebra à partir d'un treillis distributif donne au contraire, sous l'ordre retenu pour le treillis,
+agréger conservativement des annotations de confidentialité. Une construction standard d'une algèbre de grades
+à partir d'un treillis distributif donne au contraire, sous l'ordre retenu pour le treillis,
 `+ = ⊔` et `× = ⊓`. Il ne s'ensuit donc pas que l'opération requise par la
-composition du niveau soit la multiplication de cette grade algebra. Une dualisation de l'ordre
+composition du niveau soit la multiplication de cette algèbre de grades. Une dualisation de l'ordre
 pourrait modifier cette correspondance, mais elle demanderait alors une preuve de compatibilité avec
 le sous-typage et la sémantique de confidentialité.
 
@@ -996,7 +995,7 @@ Le résultat que l'on peut conserver à ce stade est donc plus faible et plus ex
 
 * chaque composante doit fournir les opérations d'agrégation effectivement utilisées par les règles ;
 * chaque composante participant à `MulG` doit fournir une multiplication satisfaisant les lois de
-  grade algebra requises ;
+  d'algèbre de grades requises ;
 * chaque composante participant à `Scale` doit fournir une action du scalaire considéré et les lois
   demandées par `Box`, `App` et substitution ;
 * les preuves de monotonie et de compatibilité sont à faire sur chacune de ces opérations séparément.
@@ -1013,8 +1012,8 @@ tag := "g-regles-les-deux-verifications-la-seconde-la-fonction-des-o"
 Le §{num "sec:g-regles"}[] avance que la fonction $`f` d'une opération à portée se ramène à la
 gradation indexée, sous réserve de vérification. La vérification est négative.
 
-Les deux constructions généralisent bien le même trait — un grade qui est une fonction plutôt qu'une
-constante — mais elles n'indexent pas sur le même objet. La gradation indexée est un foncteur
+Les deux constructions généralisent bien le même trait (un grade qui est une fonction plutôt qu'une
+constante) mais elles n'indexent pas sur le même objet. La gradation indexée est un foncteur
 contravariant de la catégorie de base vers celle des monades graduées : son indice parcourt les
 _valeurs_, et c'est ce qui permet à l'effet d'un parcours de dépendre de la longueur parcourue. La
 fonction $`f` d'une opération à portée transforme un grade d'effet en un autre : son indice, si l'on
@@ -1029,7 +1028,7 @@ préserver l'ordre pour que le sous-typage des effets traverse une portée. C'es
 supplémentaire, non une instance de celle du chapitre 1.
 
 Deux conséquences en découlent. La première est que les opérations à portée coûtent au langage une
-pièce de plus qu'annoncé, et la §{num "sec:g-regles"}[] le dit désormais. La seconde est que ce coût
+pièce de plus qu'annoncé. La seconde est que ce coût
 éclaire la réserve de modularité : un monoïde d'endomorphismes n'est pas une interface d'effet, et
 c'est précisément pourquoi on ne peut raffiner l'implémentation d'un gestionnaire sans recompiler {cite "bachpoulsenHeftyAlgebrasModular2023"}[].
 La réserve n'était pas une prudence, elle était la conséquence de la structure.
@@ -1046,7 +1045,13 @@ où $`\varphi_n(\varepsilon) = \varepsilon^n` pour la multiplicité d'exécution
 combinateur de contrôle de la règle, et $`\psi` le transport de contexte du chapitre 1. Trois
 conditions de cohérence sont exigées d'une loi distributive graduée, et elles se vérifient.
 
-::::thm (label := "thm:loi_distributive_conditions") (status := "theoreme")
+Le périmètre de cette loi se dit d'emblée. Elle est écrite pour les répétitions effectives : la
+multiplicité $`n` est celle que fournit le combinateur de contrôle de la règle, et $`\varphi_n` est
+la puissance dans le monoïde des effets. La loi distributive graduée générale entre les deux côtés
+de l'adjonction, celle que le chapitre 1 nomme (§{num "sec:c1-de-la-loi-distributive"}[]), n'est pas
+posée ici : elle reste nommée, et ce qui suit n'en établit que le cas des répétitions.
+
+::::proposition (label := "thm:loi_distributive_conditions") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 conditions de cohérence de la loi distributive
 :::
@@ -1071,7 +1076,7 @@ $`\varphi_n` et $`\psi` transforment sans regarder le type.
 :::
 ::::
 
-Une quatrième condition ne tient pas, et il faut le dire : la compatibilité de $`\lambda` avec la
+Une quatrième condition ne tient pas : la compatibilité de $`\lambda` avec la
 multiplication de la monade exigerait que $`\varphi_n` soit un _morphisme de monoïde_,
 $`\varphi_n(\varepsilon\delta) = \varphi_n(\varepsilon)\,\varphi_n(\delta)`. Or
 $`(\varepsilon\delta)^n \neq \varepsilon^n \delta^n` dès que $`\varepsilon` et $`\delta` ne commutent pas ;
@@ -1079,7 +1084,7 @@ l'égalité vaut sur le facteur temporel, où $`k \mapsto n k` est additif, et s
 de $`\mathcal{E}_0`. Les règles du jeu n'emploient jamais cette condition : elles mettent à l'échelle un
 corps entier, jamais la moitié d'une séquence, et la seule propriété qu'elles invoquent est la loi de
 cohérence du théorème {num "thm:coherence_axiome"}[]. La loi est donc une loi distributive
-_affaiblie_ — sans compatibilité avec le produit — et le mot ne doit pas être entendu au sens strict.
+_affaiblie_ (sans compatibilité avec le produit), et le mot ne doit pas être entendu au sens strict.
 Ce qui en résulte : déplacer un bloc mis à l'échelle de part et d'autre d'une frontière de séquence
 change l'annotation d'effet, et aucune règle ne le fait ; toute extension qui le ferait devra écrire la
 condition sur une partie commutative.
@@ -1089,12 +1094,11 @@ condition sur une partie commutative.
 tag := "g-regles-les-connecteurs-restants"
 %%%
 
-Six connecteurs manquaient au jeu — $`\mathsf{Vec}`, $`\mathsf{Arena}`, les points fixes $`\mu` et
-$`\nu`, la conjonction additive, le quantificateur universel — et ce texte affirmait qu'ils
-suivaient mécaniquement les patrons déjà écrits, leur absence étant une économie de place et non une
-difficulté. Les écrire vérifie cette affirmation, et _elle ne tient pas tout à fait_. Trois d'entre
-eux suivent en effet mécaniquement ; les trois autres ne suivent pas, et chacun pour une raison qui
-vaut d'être connue.
+Six connecteurs manquaient au jeu : $`\mathsf{Vec}`, $`\mathsf{Arena}`, les points fixes $`\mu` et
+$`\nu`, la conjonction additive, le quantificateur universel. Leur absence tenait à une économie de
+place ; les écrire montre qu'ils ne suivent pas tous mécaniquement les patrons déjà écrits. Trois
+d'entre eux suivent en effet mécaniquement ; les trois autres ne suivent pas, et chacun pour une
+raison qui vaut d'être connue.
 
 ## Les trois qui suivent
 %%%
@@ -1138,7 +1142,7 @@ Le connecteur $`\nu\alpha.C` figurait à la grammaire des types sans qu'aucune r
 l'habite, et c'était le seul de dix-neuf dans ce cas. Ce qui suit l'habite, et la forme retenue
 n'est pas celle que l'on attendrait.
 
-La forme catégorique — un anamorphisme depuis une coalgèbre, dont l'unicité donne la productivité —
+La forme catégorique (un anamorphisme depuis une coalgèbre, dont l'unicité donne la productivité)
 était disponible et le chapitre 2 la construit déjà. Elle n'est pourtant pas retenue au noyau, et
 pour une raison interne au document plutôt que d'ergonomie. Le théorème {num "thm:progression_polarisee"}[]
 énonce la progression pour un calcul « dont le type porte un indice de taille décroissant au sens de
@@ -1185,7 +1189,7 @@ s'instancie-t-il sur un flux de taille $`\omega`, dont la prémisse demande $`\l
 Par $`\omega + 1 = \omega`, qui est l'une des quatre égalités du chapitre 2 : la prémisse est
 satisfaite avec $`i = \omega`, et la conclusion rend un type de taille $`\omega` encore. _Une
 observation sur un flux infini laisse un flux infini_, et la règle n'a pas eu à être modifiée pour
-le dire — c'est la sorte qui porte la différence. Sur une taille finie $`n`, la même règle épuise le
+le dire : c'est la sorte qui porte la différence. Sur une taille finie $`n`, la même règle épuise le
 flux en $`n` observations, ce qui est le comportement voulu d'un flux borné.
 
 Trois choses se lisent ensuite sur ces deux règles, et la troisième est celle qui compte.
@@ -1253,8 +1257,8 @@ l'indexation mord, et son élimination emploie exactement le facteur $`n\cdot\De
 ré-invocation séquentielle de la traduction retrouvera.
 
 L'_arène_ est le troisième, et son écart n'est pas de forme mais de portée. Une arène est une
-région, et ce qui la gouverne — l'allocation en $`O(1)`, la libération à la sortie de portée, la
-disjonction des régions que le produit tensoriel dénote — appartient au modèle mémoire du chapitre 4
+région, et ce qui la gouverne (l'allocation en $`O(1)`, la libération à la sortie de portée, la
+disjonction des régions que le produit tensoriel dénote) appartient au modèle mémoire du chapitre 4
 et non au seul jeu de règles. Sa règle d'introduction se lit comme celle d'une modalité graduée dont
 l'indice est une taille. Son élimination demande la conformité de l'abaissement, laquelle est une
 propriété du compilateur et non du système de types. _Ce document ne la donne donc pas ici_, et le
@@ -1294,8 +1298,8 @@ tag := "g-parallelisme"
 {label "sec:g-parallelisme"}
 
 Le facteur temporel d'un effet n'est pas un nombre mais un _couple_, et c'est ce que le parallélisme
-demande. $`\kappa = \langle w, s \rangle` porte le _travail_ — le nombre total de pas, quelle que
-soit la façon dont ils se répartissent — et la _profondeur_, la longueur du plus long chemin de
+demande. $`\kappa = \langle w, s \rangle` porte le _travail_ (le nombre total de pas, quelle que
+soit la façon dont ils se répartissent) et la _profondeur_, la longueur du plus long chemin de
 dépendances. Deux compositions les gouvernent, et leur différence est tout le contenu du
 parallélisme.
 
