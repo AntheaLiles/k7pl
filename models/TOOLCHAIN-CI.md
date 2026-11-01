@@ -179,3 +179,35 @@ The artefact must not be called a proof unless the verification method is a proo
 7. Add cross-formalism evidence only after an explicit K/TLA or Lean/TLA relation exists.
 
 The expanded suite adds candidate models and finite configurations without changing normative K7PL text. The current head has not yet passed TLC; the previous TLA-01 parser failure is recorded in `CHECKPOINT.md`. The suite result must be reviewed before any model status advances.
+
+
+## 8. Live CI evidence — 2026-11-01
+
+The manifest now contains 40 TLA profiles (18 positive, 22 negative), after
+adding `TLA12-ApplyAfterRevocationControl.cfg`. The last inspected full TLC
+artifact is still the 39-profile run [41308633862](https://github.com/AntheaLiles/k7pl/actions/runs/41308633862)
+on `dafbc608f8c94a97644f336286cc228e94d3d975`: 16/18 positive and 17/21
+negative outcomes matched. TLA-02's two configurations failed CFG parsing;
+TLA-07's four configurations failed parsing in `ValidCapabilitiesMatchGeneration`.
+Later source fixes and the TLA-12 revocation model are not covered by that
+artifact. The artifact contains 113 files; all 112 entries in `SHA256SUMS`
+were verified. TLC JAR SHA-256: `936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88`.
+The separate D01 evidence artifact remained successful and consumed by
+`k-smoke`.
+
+For the same run/SHA `dafbc608...`, REUSE passed for 581/581 files, CommitLint,
+actionlint and zizmor passed, controller quick checks and classifier shadow
+passed, Python tooling checks passed, Lean implementation build and axiom
+audits passed, Verso specification checks and PDF generation passed, and the
+separate D01 TLC job passed. The unified TLC job failed (33/39 total expected
+outcomes); K semantics compile/examples/Verso Blueprint render was still in
+progress at last observation. The exact individual Deno fmt/check/lint/test
+command outcomes were not separately confirmed in the retrieved log excerpts.
+
+The current PR #319 source head is `a7a6d631f0c19876b0437276e6cd6e8bec79a3de`.
+CI run [41310176908](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908)
+is pending and has no jobs yet. The older K/Verso formal-chain job in run
+41308633862 remains in progress at `Render Verso Blueprint documentation`,
+blocking the queued run under workflow concurrency. Intermediate runs
+41309147207 and 41309882634 were cancelled after later fast-forward commits;
+they are not validation results. Do not label the current head validated.

@@ -33,6 +33,8 @@ A work item is blocked when its model would otherwise have to choose one of thes
 - Which transitions, if any, are weakly fair?
 - Are any actions strongly fair?
 - Does the scheduler make per-actor guarantees, per-fibre guarantees or only global pool progress?
+- What predicate establishes that a fibre has completed a valid program result and may transition to Terminated?
+- Can any Ready fibre terminate, or must termination be justified by a completed control-flow/result state?
 - Is an external event producer assumed to deliver, and under what condition?
 
 **Gate:** document each fairness assumption next to the action and justify it against an actual runtime contract. Do not add WF/SF merely to make a liveness check pass.
@@ -73,6 +75,8 @@ A work item is blocked when its model would otherwise have to choose one of thes
 - Can generation counters wrap or be reset?
 - What must be invalidated on destruction, restoration and actor reincarnation?
 - Which guarantees belong to the language and which to a target-specific representation?
+- Who owns a region and each range/cell, and how is ownership transferred when a capability is split, merged, borrowed or revoked?
+- Which operations change the permission set, and what invariant relates region ownership to ReadCap/WriteCap authority?
 
 **Gate:** include reuse and wraparound in the abstraction or clearly declare them outside the model and retain an independent proof obligation.
 
@@ -168,3 +172,13 @@ The model-family groupings in WORK-PLAN.md are descriptive. The separate P0–P4
 - Does the retained trace demonstrate the claimed behaviour, and does the run exhaust the declared state space?
 
 **Gate:** do not count a positive result as substantive protocol coverage until the relevant transitions are reachable and the property has a meaningful sensitivity argument. Keep definition-level checks if useful, but label them honestly. Do not remove invariants or weaken assumptions merely to make the suite pass.
+
+
+## G18 — Prepared reactive patch after writer-capability revocation
+
+- If `HandleEvent` has prepared a patch but `ApplyPatch` has not yet run, what must happen when `WriteCap(DOM)` is revoked?
+- Must the prepared patch be discarded, recomputed/retried under a newly granted capability, or retained under an explicitly bounded lease?
+- How are the patch base version, intervening logical state changes, queued events, resource accounting and frame deadline treated in each policy?
+- Is revocation synchronous with respect to all outstanding patch work, or does it have a completion/acknowledgement point?
+
+**Gate:** the current TLA-12 candidate only checks that an already prepared patch is not applied after revocation; it leaves the patch pending. Do not infer a discard, retry or lease policy from that safety abstraction. Ratify the lifecycle policy and its failure cases before modelling disposal, recomputation or lease expiry.

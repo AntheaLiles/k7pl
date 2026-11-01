@@ -49,3 +49,27 @@ The file TLA02-16-ExpectedCounterexamples.json records authored expected negativ
 The first end-to-end run 41305607506 on the pre-parser-fix head matched 10/18 positive and 12/21 negative outcomes; 17 profiles had no model verdict. The corrected-source run 41306284770 on head 29845511f018b80da543b975a995b477d4ba9cb4 matched 15/18 positive and 17/21 negative outcomes. The seven remaining failures were TLA-02 positive/negative (TypeOK evaluation error comparing string NoPairValue with a pair tuple), TLA-07 positive plus three negative profiles (parser error in WriteCell line 126), and TLA-12 positive (AdvanceFrame failed to specify frameOverrun). The current PR head contains later documentation and registry-test updates, but no full CI run has completed on it. These observations do not establish the current branch as green.
 
 No model establishes K/TLA+ or Lean/TLA+ correspondence, no result changes normative Verso text, and no TLC run is a proof for unbounded systems.
+
+
+## Current evidence snapshot — 2026-11-01
+
+The live profile manifest on PR #319 head `a7a6d631f0c19876b0437276e6cd6e8bec79a3de`
+contains 40 TLA-01..16 profiles (18 positive, 22 negative). This is an
+inventory statement, not a checked outcome. The latest complete archive
+inspected is run [41308633862](https://github.com/AntheaLiles/k7pl/actions/runs/41308633862)
+on source SHA `dafbc608f8c94a97644f336286cc228e94d3d975`, with the prior
+39-profile manifest: 16/18 positive and 17/21 negative profiles reached the
+expected outcome. TLA-02 positive/negative failed CFG parsing; all four TLA-07
+profiles failed parsing in `ValidCapabilitiesMatchGeneration`. Those sources
+were corrected after this run. The new TLA-12 revocation profile and its
+expected trace were also added after the run. None of those later changes has
+current-head TLC evidence.
+
+D01/R9 shell predicates, artifact checksums, TLC JAR pin, separate D01
+artifact consumption by `k-smoke`, REUSE, CommitLint, actionlint, controller
+shadow, Python tooling, Lean and Verso/PDF checks passed in run 41308633862
+on SHA `dafbc608...`; the K semantics/Verso Blueprint job remained in progress.
+The current CI run 41310176908 on `a7a6d631...` is pending with no jobs
+created. The older K/Verso job in run 41308633862 remains in progress,
+so no newer full CI verdict is available. No relation or theorem transfers
+between independently modelled components by implication.
