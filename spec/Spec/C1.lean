@@ -27,6 +27,8 @@ tag := "c1-prolegomenes"
 
 {refsection "c1-prolegomenes"}
 
+Ce chapitre répond à une question préalable : à quelles conditions ce qui suit peut-il être lu, cru et opposé au texte lui-même ? Il ne présuppose aucun autre chapitre. Il établit les quatre postulats du langage et leur expression conjointe dans un jugement de typage unique (axiomatique germinale), fixe le vocabulaire des énoncés et des évidences auquel tout l'ouvrage se tient (guide de lecture), et donne les tables normatives des symboles et des glyphes. Aucun énoncé de ce chapitre n'est modélisé ni vérifié par un outil : le chapitre pose les objets et les conventions que les chapitres suivants modélisent, chacun indiquant son outillage à son propre seuil.
+
 {include 0 Spec.C1.Introduction}
 
 {include 0 Spec.C1.GuideDeLecture}
