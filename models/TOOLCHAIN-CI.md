@@ -94,20 +94,25 @@ GenMC is a candidate only if the relevant concrete implementation is C/C++ and t
 Repository state reviewed on **2026-11-01**, with the workstream based on
 `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a`:
 
-- The D01 native-boundary model is checked once by `d01-tlc` in
-  `.github/workflows/k7pl-semantics.yaml`. It produces
-  `d01-tlc-evidence`, retained for 14 days and consumed by `k-smoke`.
-- R9 and TLA-01..16 are checked by `r9-tlc` in
-  `.github/workflows/ci.yaml`. D01 is deliberately not repeated in this job.
+- D01 is checked in `r9-tlc` in `.github/workflows/ci.yaml`, which is a
+  dependency of `CI OK`. It is also checked by `d01-tlc` in
+  `.github/workflows/k7pl-semantics.yaml` to produce `d01-tlc-evidence` for
+  `k-smoke`. This duplicate execution is intentional because the reusable
+  semantics workflow is not itself part of the `CI OK` gate. Removing the
+  duplication requires a verified cross-job artifact hand-off that preserves
+  both the gate and the formal-chain consumer.
+- R9 and TLA-01..16 are checked by `r9-tlc` in `.github/workflows/ci.yaml`;
+  D01/R9/TLA-01..16 evidence is stored together in `tla-model-check-evidence`.
 - The 39 TLA-01..16 profiles (18 positive, 21 negative) are declared in
   `models/TLC-PROFILES.json`. The Deno runner validates the manifest against
   every `TLA*.cfg` and every TLA/K7PL model module before execution; the
   controller test suite checks that a new or renamed profile cannot be omitted.
-- The `tla-model-check-evidence` artifact contains the TLA-01..16 sources,
-  configurations, authored expectations, per-profile logs, Java identity,
-  pinned TLC JAR digest, and the R9 sources/configurations/logs. The R9 files
-  are under its `r9/` subdirectory. This artifact is distinct from
-  `d01-tlc-evidence`; neither is described as a proof.
+- The `tla-model-check-evidence` artifact contains D01 under `d01/`, R9 under
+  `r9/`, and TLA-01..16 at the artifact root: sources, configurations,
+  authored expectations, per-profile logs, Java identity, pinned TLC JAR
+  digest and checksums. The separate `d01-tlc-evidence` produced by the
+  reusable semantics workflow is consumed by `k-smoke`; neither artifact is
+  described as a proof.
 - TLC 1.7.4 is downloaded and verified against the pinned SHA-256 and SHA-1
   before execution. The unified artifact has fail-on-missing upload semantics
   and 14-day retention.
