@@ -28,12 +28,14 @@ ASSUME
 
 VARIABLES
     generation, activeSlots, staleGenerations,
-    validCapabilities, revokedCapabilities, capabilityGeneration,
-    owners, writtenCells, unauthorizedAccesses
+    validCapabilities, revokedCapabilities, everRevokedCapabilities,
+    capabilityGeneration, unsafeReuseSlots, owners, writtenCells,
+    unauthorizedAccesses
 
 vars == <<generation, activeSlots, staleGenerations,
-          validCapabilities, revokedCapabilities, capabilityGeneration,
-          owners, writtenCells, unauthorizedAccesses>>
+          validCapabilities, revokedCapabilities, everRevokedCapabilities,
+          capabilityGeneration, unsafeReuseSlots, owners, writtenCells,
+          unauthorizedAccesses>>
 
 Init ==
     /\ generation = [s \in Slots |-> 0]
@@ -41,7 +43,9 @@ Init ==
     /\ staleGenerations = [s \in Slots |-> {}]
     /\ validCapabilities = {}
     /\ revokedCapabilities = {}
+    /\ everRevokedCapabilities = {}
     /\ capabilityGeneration = [c \in Capabilities |-> 0]
+    /\ unsafeReuseSlots = {}
     /\ owners = [c \in Capabilities |-> OwnerOf(c)]
     /\ writtenCells = {}
     /\ unauthorizedAccesses = 0
@@ -52,17 +56,22 @@ TypeOK ==
     /\ staleGenerations \in [Slots -> SUBSET Generations]
     /\ validCapabilities \subseteq Capabilities
     /\ revokedCapabilities \subseteq Capabilities
+    /\ everRevokedCapabilities \subseteq Capabilities
     /\ capabilityGeneration \in [Capabilities -> Generations]
+    /\ unsafeReuseSlots \subseteq Slots
     /\ owners \in [Capabilities -> {"FibreA", "FibreB"}]
     /\ writtenCells \subseteq {<<c, cell, fibre>> : c \in Capabilities, cell \in Cells, fibre \in {"FibreA", "FibreB"}}
     /\ unauthorizedAccesses \in Nat
 
 Allocate(s) ==
     /\ s \in Slots \ activeSlots
+    /\ (generation[s] \notin staleGenerations[s] \/ s \in unsafeReuseSlots)
     /\ activeSlots' = activeSlots \cup {s}
+    /\ unsafeReuseSlots' = unsafeReuseSlots \ {s}
     /\ UNCHANGED <<generation, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, owners,
-                   writtenCells, unauthorizedAccesses>>
+                   revokedCapabilities, everRevokedCapabilities,
+                   capabilityGeneration, owners, writtenCells,
+                   unauthorizedAccesses>>
 
 Destroy(s) ==
     /\ s \in activeSlots
@@ -71,18 +80,25 @@ Destroy(s) ==
     /\ validCapabilities' = validCapabilities \ {c \in validCapabilities : CapSlot(c) = s}
     /\ revokedCapabilities' =
          revokedCapabilities \cup {c \in validCapabilities : CapSlot(c) = s}
-    /\ UNCHANGED <<generation, capabilityGeneration, owners,
-                   writtenCells, unauthorizedAccesses>>
+    /\ everRevokedCapabilities' =
+         everRevokedCapabilities \cup {c \in validCapabilities : CapSlot(c) = s}
+    /\ UNCHANGED <<generation, capabilityGeneration, unsafeReuseSlots,
+                   owners, writtenCells, unauthorizedAccesses>>
 
 ReuseSlot(s) ==
-    /\ s \in Slots \ activeSlots
-    /\ (AllowGenerationWrap \/ generation[s] # MaxGeneration)
-    /\ generation' =
-         [generation EXCEPT
-             ![s] = IF @ = MaxGeneration THEN 0 ELSE @ + 1]
-    /\ UNCHANGED <<activeSlots, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, owners,
-                   writtenCells, unauthorizedAccesses>>
+    LET nextGeneration == IF generation[s] = MaxGeneration THEN 0 ELSE generation[s] + 1
+    IN
+        /\ s \in Slots \ activeSlots
+        /\ (AllowGenerationWrap \/ generation[s] # MaxGeneration)
+        /\ generation' = [generation EXCEPT ![s] = nextGeneration]
+        /\ unsafeReuseSlots' =
+             IF AllowGenerationWrap /\ nextGeneration \in staleGenerations[s]
+             THEN unsafeReuseSlots \cup {s}
+             ELSE unsafeReuseSlots
+        /\ UNCHANGED <<activeSlots, staleGenerations, validCapabilities,
+                       revokedCapabilities, everRevokedCapabilities,
+                       capabilityGeneration, owners, writtenCells,
+                       unauthorizedAccesses>>
 
 GrantCapability(c) ==
     LET slot == CapSlot(c)
@@ -91,11 +107,14 @@ GrantCapability(c) ==
         /\ slot \in activeSlots
         /\ c \notin validCapabilities
         /\ c \notin revokedCapabilities
+        /\ c \notin everRevokedCapabilities
         /\ validCapabilities' = validCapabilities \cup {c}
         /\ capabilityGeneration' =
              [capabilityGeneration EXCEPT ![c] = generation[slot]]
         /\ UNCHANGED <<generation, activeSlots, staleGenerations,
-                       revokedCapabilities, owners, writtenCells, unauthorizedAccesses>>
+                       revokedCapabilities, everRevokedCapabilities,
+                       unsafeReuseSlots, owners, writtenCells,
+                       unauthorizedAccesses>>
 
 TransferCapability(c, recipient) ==
     /\ c \in validCapabilities
@@ -103,15 +122,17 @@ TransferCapability(c, recipient) ==
     /\ recipient # owners[c]
     /\ owners' = [owners EXCEPT ![c] = recipient]
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, writtenCells,
+                   revokedCapabilities, everRevokedCapabilities,
+                   capabilityGeneration, unsafeReuseSlots, writtenCells,
                    unauthorizedAccesses>>
 
 RevokeCapability(c) ==
     /\ c \in validCapabilities
     /\ validCapabilities' = validCapabilities \ {c}
     /\ revokedCapabilities' = revokedCapabilities \cup {c}
+    /\ everRevokedCapabilities' = everRevokedCapabilities \cup {c}
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, capabilityGeneration,
-                   owners, writtenCells, unauthorizedAccesses>>
+                   unsafeReuseSlots, owners, writtenCells, unauthorizedAccesses>>
 
 RestoreRevokedCapability(c) ==
     /\ UnsafeRestoreRevive
@@ -119,7 +140,8 @@ RestoreRevokedCapability(c) ==
     /\ revokedCapabilities' = revokedCapabilities \ {c}
     /\ validCapabilities' = validCapabilities \cup {c}
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, capabilityGeneration,
-                   owners, writtenCells, unauthorizedAccesses>>
+                   everRevokedCapabilities, unsafeReuseSlots, owners,
+                   writtenCells, unauthorizedAccesses>>
 
 WriteCell(c, cell, fibre) ==
     LET slot == CapSlot(c)
@@ -131,14 +153,17 @@ WriteCell(c, cell, fibre) ==
         /\ cell \in CapCells(c)
         /\ writtenCells' = writtenCells \cup {<<c, cell, fibre>>}
         /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
-                       revokedCapabilities, capabilityGeneration, owners, unauthorizedAccesses>>
+                       revokedCapabilities, everRevokedCapabilities,
+                       capabilityGeneration, unsafeReuseSlots, owners,
+                       unauthorizedAccesses>>
 
 StaleAccess(c) ==
     /\ UnsafeStaleAccess
     /\ c \in revokedCapabilities
     /\ unauthorizedAccesses' = unauthorizedAccesses + 1
     /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, owners, writtenCells>>
+                   revokedCapabilities, everRevokedCapabilities,
+                   capabilityGeneration, unsafeReuseSlots, owners, writtenCells>>
 
 Next ==
     \/ \E s \in Slots : Allocate(s)
@@ -165,7 +190,7 @@ ValidCapabilitiesMatchGeneration ==
             /\ slot \in activeSlots
             /\ capabilityGeneration[c] = generation[slot]
 
-NoCapabilityRevival == validCapabilities \cap revokedCapabilities = {}
+NoCapabilityRevival == validCapabilities \cap everRevokedCapabilities = {}
 
 NoUnauthorizedAccess == unauthorizedAccesses = 0
 
