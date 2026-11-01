@@ -32,6 +32,8 @@ l'abordent, sollicitant la pile entière depuis trois angles ; elles illustrent 
 d'intégration et ne constituent, à elles seules, ni une preuve générale de correction ni une
 validation empirique des performances.
 
+Aucune de ces études n'est outillée ; ce sont des scénarios rédigés, de valeur d'intégration, qui ne vérifient rien au sens des chapitres précédents.
+
 {include 0 Spec.C7.EtudeDeCasIArchitectureReactiveNative}
 
 {include 0 Spec.C7.EtudeDeCasIIDeveloppementInteractifEt}
