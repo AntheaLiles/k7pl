@@ -527,7 +527,7 @@ L'induction ne porte que sur les formes que les blocs ({num "eq:reductions-pures
 ({num "eq:reductions-modalites"}[]), proposées, ajoutent : la déclassification, les éliminations
 temporelles, la localisation et le déplacement y ont un schéma, et leur cas du progrès se lit comme les autres,
 la forme canonique de leur sujet fournissant le rédex. Aucun de ces cas n'est conduit en détail.
-La liste des formes terminales de l'énoncé nomme désormais $`\Lambda\alpha. c`, le copatron et
+La liste des formes terminales de l'énoncé nomme $`\Lambda\alpha. c`, le copatron et
 $`\mathsf{delay}\;c`, qui sont des calculs clos qu'aucun schéma ne réduit ; et l'énoncé porte sur un calcul bien typé quelconque, quand la preuve
 ne couvre que les constructeurs ci-dessus.
 

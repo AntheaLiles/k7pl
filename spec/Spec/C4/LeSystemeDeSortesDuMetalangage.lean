@@ -544,7 +544,7 @@ qui précède plutôt qu'à l'abandonner.
    par l'effet, et la jointure des niveaux de lecture, bornée par {sc}[Op] et {sc}[Case], est la
    règle de propagation. Il ne reste rien à vérifier ici.
 
-4. _La mécanisation ne s'appuiera sur rien._ La méta-théorie du cadre emprunté n'est vérifiée par
+4. _La mécanisation ne s'appuiera sur rien._ La métathéorie du cadre emprunté n'est vérifiée par
    machine que pour une unique sorte de noms. Le cas d'un sortage arbitraire y est établi à la main,
    et ses auteurs signalent qu'un traitement mécanisé passant à l'échelle reste à faire. Notre
    conception a de nombreuses sortes. C'est une charge, non un obstacle.
@@ -564,4 +564,4 @@ qui précède plutôt qu'à l'abandonner.
 
 7. _La clause de session ne traite ni la délégation ni la lecture des modalités temporelles._ La
    première demande de relier les deux extrémités d'un canal échangé ; la seconde dépend d'une horloge
-   que la relation de réduction n'a pas (lecture séquentielle des formes temporelles, à ratifier).
+   que la relation de réduction n'a pas (lecture séquentielle des formes temporelles, proposée).

@@ -26,11 +26,9 @@ propre. Reste à dire ce qu'elles sont _ensemble_, et le chapitre 1
 (§{num "sec:c1-axiomatique-germinale"}[]) l'a annoncé sous la forme d'une équation : la couche 2
 relève d'un $`\pi`-calcul enrichi de motifs de jonction. Cette section fait de cette équation une
 construction. Ce qu'elle apporte est une _lecture_, dans laquelle acteurs, sessions, jonctions et
-effets cessent d'être quatre mécanismes voisins pour devenir les constructeurs d'un même calcul — et
-le §{num "sec:g-couche2"}[] en écrit depuis peu les règles, de sorte que cette lecture a
-désormais un appareil sous elle plutôt qu'au-dessus d'elle. {rmq}[La lecture précédait les règles,
-ce qui est l'ordre de la découverte et non celui de la justification. Les règles étant écrites, les
-deux coïncident.]
+effets cessent d'être quatre mécanismes voisins pour devenir les constructeurs d'un même calcul :
+le §{num "sec:g-couche2"}[] en écrit les règles, et cette lecture a un appareil sous elle plutôt
+qu'au-dessus d'elle.
 
 Ce métalangage n'est pas une invention de ce document, et le dire évite un malentendu que l'équation
 du chapitre 1 pourrait entretenir. Écrire « $`\pi`-calcul augmenté de motifs de jonction » suggère
@@ -321,9 +319,9 @@ Soient Cₛ = ⟨c, μ, τ⟩ et Cₛ' = ⟨c', μ', τ'⟩ deux configurations 
 :::
 
 :::proofsketch
-L'induction annoncée par l'ancienne esquisse ne suffit pas encore à démontrer cet énoncé sur les configurations complètes. Elle couvre des groupes de réductions pures, puis annonce une simulation des réductions à effet ; mais les clauses de traduction par constructeur ne sont pas toutes définies dans la source, et la relation cible n'est pas encore instanciée pour l'état d'arène μ.
+L'induction annoncée ne suffit pas encore à démontrer cet énoncé sur les configurations complètes. Elle couvre des groupes de réductions pures, puis annonce une simulation des réductions à effet ; mais les clauses de traduction par constructeur ne sont pas toutes définies dans la source, et la relation cible n'est pas encore instanciée pour l'état d'arène μ.
 
-Avant la preuve par cas, le contrat doit fixer : (1) la grammaire des configurations cibles et leur état de mémoire ; (2) `R_cfg` comme relation typée qui relie terme, état d'arène et traces d'exécution ; (3) l'équivalence structurelle cible et la stabilité de la simulation sous cette équivalence ; (4) une clause de traduction par règle source, y compris opérations, tick, gestionnaires à portée et déclenchement de When ; (5) la conservation des événements et de leur ordre causal, sans imposer un ordre total entre fibrilles indépendantes ; (6) la commutation de traduction avec la substitution et ses conditions de fraîcheur ; (7) la représentation, le carrier et le type de l'observation de latence de When. P3-B ne ratifie pas cette dernière représentation ; aucun carrier particulier n'est donc fixé ici.
+Avant la preuve par cas, le contrat doit fixer : (1) la grammaire des configurations cibles et leur état de mémoire ; (2) `R_cfg` comme relation typée qui relie terme, état d'arène et traces d'exécution ; (3) l'équivalence structurelle cible et la stabilité de la simulation sous cette équivalence ; (4) une clause de traduction par règle source, y compris opérations, tick, gestionnaires à portée et déclenchement de When ; (5) la conservation des événements et de leur ordre causal, sans imposer un ordre total entre fibrilles indépendantes ; (6) la commutation de traduction avec la substitution et ses conditions de fraîcheur ; (7) la représentation, le carrier et le type de l'observation de latence de When. Cette dernière représentation n'est pas fixée ; aucun carrier particulier n'est donc retenu ici.
 
 Cette proposition reste under-review / proofsketch. Aucune preuve de simulation, de bisimulation, d'équivalence observationnelle ou de pleine abstraction ne découle de cette reformulation du contrat.
 :::
@@ -372,8 +370,8 @@ leur sujet puis passent $`t` et $`t'` à leur corps inchangés. Le domaine de la
 relation : $`\to` a des schémas pour les formes des blocs ({num "eq:reductions-pures"}[]),
 ({num "eq:reductions-pures-suite"}[]), ({num "eq:reductions-effets"}[]) et
 ({num "eq:reductions-couche2"}[]), auxquels s'ajoutent ceux de la formule
-({num "eq:reductions-orientees"}[]) et ({num "eq:reductions-modalites"}[]), proposés à la ratification ; tous les
-constructeurs de la grammaire des termes ont désormais un schéma (table {num "tab:couverture-reductions"}[]), mais
+({num "eq:reductions-orientees"}[]) et ({num "eq:reductions-modalites"}[]), proposés ; tous les
+constructeurs de la grammaire des termes ont un schéma (table {num "tab:couverture-reductions"}[]), mais
 la traduction n'a de clause que pour une partie d'entre eux, et la proposition ne porte que sur celle-là : la traduction n'écrit de clause que pour $`\mathsf{return}`,
 $`\mathsf{let}`, $`\mathbf{tick}` et $`\mathsf{operation}` ; le point fixe a son image (théorème
 {num "thm:image_fix"}[]), mais le copatron, la récupération, la mise en parallèle, la découpe et les cinq

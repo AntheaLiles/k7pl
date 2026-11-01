@@ -202,8 +202,7 @@ sauf dans le code $`\ell`-sensible. Le marquage est la composante de niveau que 
 aucun mécanisme nouveau. Le théorème d'abaissement devient « $`P_{\text{grad}}`
 est l'obligation de chaque passe », forme sous laquelle il se mécanise passe par passe, et la
 compilation reproductible reçoit son critère : toute passe appliquée est déterministe et respecte
-$`P_{\text{trace}}(\ell)` pour le niveau du binaire. Cette déclaration est proposée à la ratification
-de l'auteur ; elle ne résout pas le conflit entre P3 et la non-interférence temporelle, elle le
+$`P_{\text{trace}}(\ell)` pour le niveau du binaire. Cette déclaration est une proposition ; elle ne résout pas le conflit entre P3 et la non-interférence temporelle, elle le
 localise.
 
 

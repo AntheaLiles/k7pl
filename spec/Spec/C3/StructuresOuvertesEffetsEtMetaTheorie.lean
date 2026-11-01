@@ -13,7 +13,7 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "Structures ouvertes, effets et méta-théorie" =>
+#doc (Manual) "Structures ouvertes, effets et métathéorie" =>
 %%%
 file := "c3-structures-ouvertes-effets-et"
 tag := "c3-structures-ouvertes-effets-et"
