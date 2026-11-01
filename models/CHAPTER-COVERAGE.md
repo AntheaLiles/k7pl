@@ -35,10 +35,10 @@ A later model may instantiate a C1 commitment, but its normative home remains th
 
 | Specification area | Candidate obligation | Work item | Preferred method |
 |---|---|---|---|
-| `C2/AlgebrasCoalgebrasAndFixedPoints` | Actor consumes messages, evolves state and is bounded by grades per scheduling turn; `yield` advances productive streams | TLA-03 | TLA+ / TLC for scheduler scenarios; Lean for general coalgebraic and productivity claims |
-| `C2/ExponentialComonadAndFragments` | Cost and budget composition, partial `Consume`, parallel effect action | TLA-09 | Lean for algebraic laws; TLA+ for finite operational accounting scenarios |
-| `C2/SixMetatheorySchemas` | Static topological-order result and capacity lemma | No independent model; relate to TLA-01/TLA-07 if an execution scenario is needed | Lean and static graph algorithms |
-| `C2/AdjunctionsAndEnrichment` | Grade-factorisation and order laws | No direct TLA+ model | Lean |
+| `spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean` | Actor consumes messages, evolves state and is bounded by grades per scheduling turn; `yield` advances productive streams | TLA-03 | TLA+ / TLC for scheduler scenarios; Lean for general coalgebraic and productivity claims |
+| `spec/Spec/C2/ComonadeExponentielleEtFragments.lean` | Cost and budget composition, partial `Consume`, parallel effect action | TLA-09 | Lean for algebraic laws; TLA+ for finite operational accounting scenarios |
+| `spec/Spec/C2/SixSchemasDeMetatheorie.lean` | Static topological-order result and capacity lemma | No independent model; relate to TLA-01/TLA-07 if an execution scenario is needed | Lean and static graph algorithms |
+| `spec/Spec/C2/AdjonctionsEtEnrichissement.lean` | Grade-factorisation and order laws | No direct TLA+ model | Lean |
 
 The existence and termination of a least fixed point, monotonicity, grade algebra and adjunction laws are not model-checking tasks. TLA-13 concerns the execution protocol of one deductive job, not a replacement proof of the general fixed-point theorem.
 
@@ -46,12 +46,12 @@ The existence and termination of a least fixed point, monotonicity, grade algebr
 
 | Specification area | Candidate obligation | Work item | Preferred method |
 |---|---|---|---|
-| `C3/ValueConstraints` — asynchronous sessions | Dual endpoints do not guarantee message delivery or progress; static dependency DAG must constrain dynamic wait graph | TLA-01 | TLA+ / TLC; Lean for the general simulation theorem |
-| `C3/ValueConstraints` — `thm:deadlock_acyclique` | Relate static dependencies to dynamic waits, including `Guard`, message send/consume, residual mailbox types and `Timeout` | TLA-01 | TLC counterexamples and finite models; Lean for general proof |
-| `C3/ValueConstraints` — session communication | Type-correct asynchronous protocols and residual states | TLA-01 | TLA+ / TLC for reachable executions; Lean for duality and typing |
-| `C3/GradedSystem` | Linear write capabilities, concurrent readers/writers and fractional grades | TLA-07, TLA-09 | TLA+ finite resource protocols; Lean for static grade guarantees |
-| `C3/TermGrammar` and `TypingRules` | Parallel composition, `wait`, `when`, `at`, grades and effects | TLA-03, TLA-08, TLA-09, TLA-10 | TLA+ for runtime behaviour; Lean for typing/effect laws |
-| `C3/OpenStructuresEffectsAndMetatheory` | Pure handlers and journal inputs | TLA-04, TLA-11 | TLA+ for replay/observation scenarios; Lean for functional correctness |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` — asynchronous sessions | Dual endpoints do not guarantee message delivery or progress; static dependency DAG must constrain dynamic wait graph | TLA-01 | TLA+ / TLC; Lean for the general simulation theorem |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` — `thm:deadlock_acyclique` | Relate static dependencies to dynamic waits, including `Guard`, message send/consume, residual mailbox types and `Timeout` | TLA-01 | TLC counterexamples and finite models; Lean for general proof |
+| `spec/Spec/C3/LesContraintesDeValeur.lean` — session communication | Type-correct asynchronous protocols and residual states | TLA-01 | TLA+ / TLC for reachable executions; Lean for duality and typing |
+| `spec/Spec/C3/LeSystemeGradue.lean` | Linear write capabilities, concurrent readers/writers and fractional grades | TLA-07, TLA-09 | TLA+ finite resource protocols; Lean for static grade guarantees |
+| `spec/Spec/C3/GrammaireDesTermes.lean` and `TypingRules` | Parallel composition, `wait`, `when`, `at`, grades and effects | TLA-03, TLA-08, TLA-09, TLA-10 | TLA+ for runtime behaviour; Lean for typing/effect laws |
+| `spec/Spec/C3/StructuresOuvertesEffetsEtMetaTheorie.lean` | Pure handlers and journal inputs | TLA-04, TLA-11 | TLA+ for replay/observation scenarios; Lean for functional correctness |
 
 TLA+ must not become a duplicate type checker. Protocol duality, grade algebra, subtyping and static derivability stay in the static formalisation and proof layer. TLC should challenge the behavioural conclusions that are not implied by endpoint typing alone.
 
@@ -61,24 +61,24 @@ C4 is the primary TLA+ target because it defines system states, process transiti
 
 | Specification file / section | Obligation or mechanism | Work item |
 |---|---|---|
-| `C4/LocalScale` | Bounded stack and finite protocol sequences | TLA-14 only if Noise is an adopted integration profile; the R-expression parser itself is not a TLA+ target |
-| `C4/ActorScale` | Private actor state, actor transitions, fibres, partitioned regions, entity identity and generation | TLA-07, TLA-08 |
-| `C4/MemoryModels` | Spatial safety, region disjointness, capability introduction and lifetime | TLA-07; Lean remains primary for general memory-safety theorems |
-| `C4/SystemScale` | Actor lifecycle, activation, deactivation, snapshot, journal and replay | TLA-04 |
-| `C4/SystemScale` | Failure, cancellation, recovery and restoration paths | TLA-04, TLA-05, TLA-06 |
-| `C4/SystemScale` | Static dependency DAG versus dynamic wait graph; actor scheduling and initialization | TLA-01, TLA-03 |
-| `C4/SystemScale` | Multi-message join patterns and atomic consumption | TLA-02 |
-| `C4/SystemScale` | SPSC mailbox and acquire/release implementation refinement | TLA-16 |
-| `C4/SystemScale` | FFI transfer, error paths, foreign aliases and revocation | TLA-06 |
-| `C4/SystemScale` | CRDT replication and eventual convergence after partitions | TLA-15, conditional on a distributed profile |
-| `C4/UnderlyingProcessCalculus` | Process calculus, communications, cuts, join patterns and actor translation | TLA-01, TLA-02, TLA-08; K-to-TLA correspondence is a separate obligation |
-| `C4/OperationalSemantics` | Global pool progress, fork/join, parallel transitions and partial-order traces | TLA-03, TLA-08 |
-| `C4/OperationalSemantics` — `thm:correction_ressource` | Instrumented execution counter and effective usage bound | TLA-09 as bounded exploration; Lean for the theorem |
-| `C4/OperationalSemantics` — temporal forms | `at`, `wait`, `when`, `delay` and the separation of environmental waiting from execution cost | TLA-10 |
-| `C4/OperationalSemantics` — `thm:stratification_journal` | Replay projection by security level and influence on later control | TLA-11 |
-| `C4/OperationalSemantics` — `thm:preservation`, `thm:progres` | Transition-level safety and global progress | TLA-03, TLA-08; Lean remains primary for the general metatheorems |
-| `C4/MetalanguageSortSystem` | Trace order, session relation and level-indexed observation | TLA-01, TLA-08, TLA-11 |
-| `C4/WhatEachOpenProofDrawsOn` | Inventory of open proofs | Cross-reference model evidence; do not create a model solely for the inventory |
+| `spec/Spec/C4/EchelleLocale.lean` | Bounded stack and finite protocol sequences | TLA-14 only if Noise is an adopted integration profile; the R-expression parser itself is not a TLA+ target |
+| `spec/Spec/C4/EchelleDeLActeur.lean` | Private actor state, actor transitions, fibres, partitioned regions, entity identity and generation | TLA-07, TLA-08 |
+| `spec/Spec/C4/ModelesDeMemoire.lean` | Spatial safety, region disjointness, capability introduction and lifetime | TLA-07; Lean remains primary for general memory-safety theorems |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | Actor lifecycle, activation, deactivation, snapshot, journal and replay | TLA-04 |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | Failure, cancellation, recovery and restoration paths | TLA-04, TLA-05, TLA-06 |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | Static dependency DAG versus dynamic wait graph; actor scheduling and initialization | TLA-01, TLA-03 |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | Multi-message join patterns and atomic consumption | TLA-02 |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | SPSC mailbox and acquire/release implementation refinement | TLA-16 |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | FFI transfer, error paths, foreign aliases and revocation | TLA-06 |
+| `spec/Spec/C4/EchelleDuSysteme.lean` | CRDT replication and eventual convergence after partitions | TLA-15, conditional on a distributed profile |
+| `spec/Spec/C4/CalculDeProcessusSousJacent.lean` | Process calculus, communications, cuts, join patterns and actor translation | TLA-01, TLA-02, TLA-08; K-to-TLA correspondence is a separate obligation |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` | Global pool progress, fork/join, parallel transitions and partial-order traces | TLA-03, TLA-08 |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` — `thm:correction_ressource` | Instrumented execution counter and effective usage bound | TLA-09 as bounded exploration; Lean for the theorem |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` — temporal forms | `at`, `wait`, `when`, `delay` and the separation of environmental waiting from execution cost | TLA-10 |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` — `thm:stratification_journal` | Replay projection by security level and influence on later control | TLA-11 |
+| `spec/Spec/C4/SemantiqueOperationnelle.lean` — `thm:preservation`, `thm:progres` | Transition-level safety and global progress | TLA-03, TLA-08; Lean remains primary for the general metatheorems |
+| `spec/Spec/C4/LeSystemeDeSortesDuMetalangage.lean` | Trace order, session relation and level-indexed observation | TLA-01, TLA-08, TLA-11 |
+| `spec/Spec/C4/CeQueChaquePreuveOuverteYPuise.lean` | Inventory of open proofs | Cross-reference model evidence; do not create a model solely for the inventory |
 
 Several statements in C4 are marked `under-review` with `proofsketch`. Their presence in Verso is not a checked Lean proof. A model may help sharpen the statement or find a counterexample, but it cannot be recorded as closing the proof obligation.
 

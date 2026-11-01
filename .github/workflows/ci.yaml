@@ -315,7 +315,6 @@ jobs:
             fi
           done
           cp R9ActorCancellation.tla R9ActorCancellation.cfg R9-NaiveCancelClaim.cfg R9-CancelRace-Test-Vector.md "$r9/"
-          cp R9ActorCancellation.tla R9ActorCancellation.cfg R9-NaiveCancelClaim.cfg R9-CancelRace-Test-Vector.md "$r9/"
           for log in r9-positive-tlc.log r9-negative-tlc.log; do
             if [ -f "$RUNNER_TEMP/$log" ]; then
               cp "$RUNNER_TEMP/$log" "$r9/"

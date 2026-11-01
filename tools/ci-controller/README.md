@@ -50,6 +50,7 @@ each command; do not run the controller with `-A`.
 | `classify --shadow`            | As above, plus `--allow-run=python3` (legacy classifier) and `--allow-write` for its temporary `GITHUB_OUTPUT` file                    |
 | `validate-registry`            | `--allow-read`                                                                                                                         |
 | `validate-evidence`            | `--allow-read`                                                                                                                         |
+| TLC profile runner              | `--allow-read --allow-write --allow-run=java,sha256sum`                                                                                |
 | `deno test` (this directory)   | `--allow-read --allow-run --allow-env --allow-write` (tests create temporary git repositories and temporary output files)              |
 
 Examples:
