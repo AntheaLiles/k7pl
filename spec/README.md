@@ -32,7 +32,7 @@ dire et obtenir l'arbitrage de l'auteur, plutôt que la contourner.
    les preuves, le Framework K pour la sémantique exécutable, TLA+ pour les
    modèles concurrents) : l'outillage n'est pas une fin en soi, il est le
    continuum de la démarche scientifique, et le lecteur doit savoir dès le
-   seuil quel artefact porte quelle vérification.
+   seuil quel artefact porte quelle vérification. Tous les seuils suivent la même structure (objet du chapitre, ce qu'il établit, ce qu'il ajoute, outillage en prose linéaire et sans étiquette), pour que le lecteur retrouve chaque information à la même place d'un chapitre à l'autre.
 3. **Seuil et bilan de section.** Une section longue annonce son objet en
    ouverture et, si elle établit quelque chose, le dit en clôture avant de
    passer à la suivante.
