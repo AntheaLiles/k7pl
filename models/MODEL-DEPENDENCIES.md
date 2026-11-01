@@ -73,3 +73,30 @@ The current CI run 41310176908 on `a7a6d631...` is pending with no jobs
 created. The older K/Verso job in run 41308633862 remains in progress,
 so no newer full CI verdict is available. No relation or theorem transfers
 between independently modelled components by implication.
+
+
+## Current source and execution evidence — 2026-11-01
+
+The last complete 40-profile artifact inspected is run
+[41310176908](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908)
+on `a7a6d631f0c19876b0437276e6cd6e8bec79a3de`: 17/18 positive and 20/22
+negative profiles reached their declared outcome. The three failures and all
+state/depth/queue metrics are in `CHAPTER-COVERAGE.md` §4.7.1. TLA-02 is
+repaired; all TLA-07 profiles parse, but one positive invariant fails and the
+revocation-restore negative control is ineffective; TLA-12's negative profile
+has an incomplete action. Commit `a173e227...` corrects these issues and adds
+the JSON oracle to the existing CC0 REUSE annotation. Its run
+[41311344952](https://github.com/AntheaLiles/k7pl/actions/runs/41311344952)
+is pending with no jobs created at last observation. No evidence transfers
+from the a7 run to the later source SHA.
+
+On run 41310176908, Deno controller tasks fmt/lint/check/test passed (327
+checks), Python tooling, Lean build and axiom audits, Verso specification and
+PDF, D01 standalone TLC, CommitLint, actionlint, zizmor, gitleaks and OSV
+checks passed. REUSE failed only on the unannotated JSON oracle; the fix is in
+`a173e227...` and awaits rerun. K semantics compile/examples/Verso Blueprint
+rendering remained in progress. The TLC archive had 116 entries and 115
+verified SHA256SUMS entries; JAR SHA-256
+`936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88`, uploaded
+archive SHA-256
+`3c6ab091887715f0cd38f3a2bf59570a929bfca8b1ad74cb6aa979e9b6135e1d`.

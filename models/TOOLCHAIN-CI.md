@@ -211,3 +211,37 @@ is pending and has no jobs yet. The older K/Verso formal-chain job in run
 blocking the queued run under workflow concurrency. Intermediate runs
 41309147207 and 41309882634 were cancelled after later fast-forward commits;
 they are not validation results. Do not label the current head validated.
+
+
+## 9. Current 40-profile result and follow-up source head — 2026-11-01
+
+Run [41310176908](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908)
+on `a7a6d631f0c19876b0437276e6cd6e8bec79a3de` ran all 40 profiles and
+reached 37/40 expected outcomes (17/18 positive, 20/22 negative). The exact
+profile outcomes, generated/distinct/queue counts and depths are in
+`CHAPTER-COVERAGE.md` §4.7.1. Three failures remained: positive TLA-07
+`NoStaleEntityAlias` unexpectedly violated; negative TLA-07 `NoCapabilityRevival`
+not violated after complete search (23,211 / 5,292 / 0, depth 19); and the
+TLA-12 negative control's incomplete `ApplyPatch` successor (13 / 11 / 6,
+depth 4). TLA-02 parser failures and TLA-07 parser failures were resolved.
+
+Artifact [13085331418](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908/artifacts/13085331418):
+116 entries, 115 SHA256SUMS entries verified; TLC 1.7.4 JAR SHA-256
+`936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88` matches
+the pinned release. Uploaded artifact digest
+`3c6ab091887715f0cd38f3a2bf59570a929bfca8b1ad74cb6aa979e9b6135e1d`.
+
+Deno controller tasks fmt/lint/check/test passed (327 tests, zero failures);
+Python tooling, Lean 1,287-job build, Lean inventory/axiom checks, Verso
+specification build (1,578 jobs), PDF, D01 TLC, CommitLint, actionlint,
+zizmor, gitleaks and OSV checks passed. REUSE failed only because
+`models/TLA12-Revocation-ExpectedCounterexample.json` was not included in the
+CC0 annotation; commit `a173e227...` adds it. The K semantic compile/examples/
+Verso Blueprint job remained in progress at last observation.
+
+Commit `a173e227445df7a1a9966d7d443360a41248c36a` corrects the three TLA model
+defects and REUSE annotation. Its run
+[41311344952](https://github.com/AntheaLiles/k7pl/actions/runs/41311344952)
+is pending with no jobs at last observation because 41310176908 still holds
+the workflow concurrency slot. These source corrections are committed but
+not validated; do not transfer the 37/40 result to `a173e227...`.

@@ -276,3 +276,42 @@ P0 remains open until one completed current-head CI run validates every one of
 the 40 profiles and the corresponding reproducibility evidence is inspected.
 No status in this roadmap changes normative Verso clauses. P3/P4 remain
 deferred until their concrete target/integration contracts are selected.
+
+
+## 11. Updated result — run 41310176908 and source commit a173e227
+
+Run [41310176908](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908)
+on source SHA `a7a6d631f0c19876b0437276e6cd6e8bec79a3de` exercised all 40
+profiles and produced 37 expected outcomes (17/18 positive, 20/22 negative).
+The three failures were:
+
+- TLA-07 positive `NoStaleEntityAlias` violated after `Init → Allocate →
+  Destroy → Allocate`, proving that `Allocate` bypassed `ReuseSlot` and reused
+  an old generation (8 / 8 / 3, depth 4).
+- TLA-07 negative `NoCapabilityRevival` did not violate after full exploration
+  (23,211 / 5,292 / 0, depth 19): the invariant compared only current active
+  and revoked sets, so restore erased the history of revocation.
+- TLA-12 negative control stopped on an incomplete `ApplyPatch` successor
+  because `appliedAfterRevocation` was unspecified (13 / 11 / 6, depth 4).
+
+Commit `a173e227445df7a1a9966d7d443360a41248c36a` fixes these source defects:
+monotone historical revocation, safe stale-generation allocation with an
+explicit unsafe-wrap marker, parenthesised TLA-12 assignment, and REUSE
+annotation for the new JSON oracle. These are source corrections only; the
+current 40-profile CI run is
+[41311344952](https://github.com/AntheaLiles/k7pl/actions/runs/41311344952),
+pending with no jobs created at last observation. P0 remains open until this
+SHA's run completes and its artifact is inspected.
+
+| Priority | State | Evidence / exit criterion |
+|---|---|---|
+| P0 | In progress, not closed | Run 41310176908: 37/40 on `a7a6d631...`; source fixes at `a173e227...` await exact-SHA CI. |
+| P1 | Partially remediated | TLA-01 expected trace corrected; TLA-12 revocation interleaving modelled; TLA-07 lifetime and revocation invariants repaired after observed failures. All fixes await TLC. TLA-03 termination, TLA-07 ownership, TLA-05/09/11/16 limits remain. |
+| P2 | Open decisions | Rechecked against `main@2fbf609...`; G3 completion/termination, G7 ownership/range rights, G18 pending-patch lifecycle, fairness and K/TLA/Lean relation remain open. No simulation/refinement theorem claimed. |
+| P3 | Deferred | MMU/IOMMU, reclamation, concrete weak memory, ABI/FFI and persistence await target contracts and abstraction relations. |
+| P4 | Deferred | Noise/CRDT/backpressure/concurrent compilation/OS capabilities/probabilistic or symbolic tools remain conditional on scope. |
+
+The complete 40-row state/depth/queue table and artifact integrity evidence
+are in `CHAPTER-COVERAGE.md` §4.7.1. No normative Verso clause changed;
+no recommendation became language semantics. `wiki/assurance.md` remains the
+central assurance register; H1–H3 remain open.

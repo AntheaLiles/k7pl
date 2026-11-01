@@ -282,6 +282,82 @@ introduction of \`WriteCap\`, distinct region/range semantics, and prevention
 of linear-capability capture across product modes. No TLA-07 result discharges
 them.
 
+### 4.7.1 Observed result for all 40 profiles — run 41310176908
+
+Source SHA: \`a7a6d631f0c19876b0437276e6cd6e8bec79a3de\`. Manifest: 18 positive,
+22 negative. The run reached the declared result for 37 profiles (17/18
+positive, 20/22 negative). A negative profile passes only when TLC reports
+the exact expected invariant violation; full state-space exhaustion without
+that violation is a failed control. An incomplete successor is also a failure.
+
+Artifact: [run 41310176908 / artifact 13085331418](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908/artifacts/13085331418).
+The archive had 116 entries; all 115 \`SHA256SUMS\` entries verified.
+TLC 1.7.4 JAR SHA-256: \`936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88\`.
+Uploaded archive SHA-256: \`3c6ab091887715f0cd38f3a2bf59570a929bfca8b1ad74cb6aa979e9b6135e1d\`.
+
+| Profile | Kind | Observed TLC result | Generated / distinct / queue | Depth |
+|---|---|---|---:|---:|
+| \`tla01-acyclic-nominal\` | positive | completed, no error | 5 / 4 / 0 | 3 |
+| \`tla01-circular-wait\` | negative | \`NoMutualWaitDeadlock\` violated | 11 / 8 / 2 | 4 |
+| \`tla01-external-wait\` | positive | completed, no error | 5 / 4 / 0 | 3 |
+| \`tla01-simulation-gap\` | negative | \`Simulation\` violated | 4 / 4 / 2 | 2 |
+| \`tla01-timeout\` | positive | completed, no error | 3 / 3 / 0 | 3 |
+| \`tla02-atomic-join\` | positive | completed, no error | 3 / 3 / 0 | 3 |
+| \`tla02-partial-consume\` | negative | \`BalancedConsumption\` violated | 3 / 3 / 1 | 2 |
+| \`tla03-fair-scheduler\` | positive | completed, no error | 19 / 9 / 0 | 5 |
+| \`tla03-starvation-control\` | negative | \`NoStall\` violated | 4 / 4 / 2 | 2 |
+| \`tla04-consistent-lifecycle\` | positive | completed, no error | 100 / 69 / 0 | 16 |
+| \`tla04-early-publish\` | negative | \`PublishedSnapshotDurable\` violated | 12 / 12 / 7 | 3 |
+| \`tla05-cancel-commit\` | positive | completed, no error | 62 / 33 / 0 | 7 |
+| \`tla05-post-ack-commit\` | negative | \`AcknowledgedCancellationMeansNoCommit\` violated | 33 / 22 / 9 | 6 |
+| \`tla06-caller-alias\` | negative | \`NoCallerUseDuringExclusiveCall\` violated | 3 / 3 / 0 | 3 |
+| \`tla06-revocation\` | positive | completed, no error | 14 / 11 / 0 | 6 |
+| \`tla06-stale-alias\` | negative | \`NoForeignUseAfterAcknowledgement\` violated | 15 / 12 / 1 | 6 |
+| \`tla07-capability-lifetime\` | positive | **FAIL:** \`NoStaleEntityAlias\` violated unexpectedly | 8 / 8 / 3 | 4 |
+| \`tla07-generation-wrap\` | negative | \`NoStaleEntityAlias\` violated | 10 / 8 / 3 | 4 |
+| \`tla07-revocation-restore\` | negative | **FAIL:** full exploration; expected \`NoCapabilityRevival\` not violated | 23,211 / 5,292 / 0 | 19 |
+| \`tla07-stale-access\` | negative | \`NoUnauthorizedAccess\` violated | 29 / 27 / 16 | 5 |
+| \`tla08-early-join\` | negative | \`JoinRequiresAllBranches\` violated | 4 / 4 / 2 | 2 |
+| \`tla08-partial-order\` | positive | completed, no error | 15 / 11 / 0 | 7 |
+| \`tla09-budget-overdraw\` | negative | \`BudgetNonNegative\` violated | 49 / 15 / 8 | 4 |
+| \`tla09-grade-overuse\` | negative | \`UsageWithinGrade\` violated | 12 / 6 / 3 | 3 |
+| \`tla09-resource-budget\` | positive | completed, no error | 73 / 36 / 0 | 6 |
+| \`tla10-charge-wait\` | negative | \`BudgetAccounting\` violated | 2 / 2 / 0 | 2 |
+| \`tla10-wait-cost\` | positive | completed, no error | 34 / 32 / 0 | 8 |
+| \`tla11-high-influence\` | negative | \`LowObservationEquality\` violated | 2 / 2 / 0 | 2 |
+| \`tla11-low-observation\` | positive | completed, no error | 2 / 2 / 0 | 2 |
+| \`tla12-apply-after-revocation\` | negative | **FAIL:** incomplete successor; \`ApplyPatch\` did not assign \`appliedAfterRevocation\` | 13 / 11 / 6 | 4 |
+| \`tla12-reactive-pipeline\` | positive | completed, no error | 49 / 33 / 0 | 7 |
+| \`tla12-unauthorized-dom\` | negative | \`DOMWriteRequiresCapability\` violated | 4 / 4 / 1 | 3 |
+| \`tla13-deductive-saturation\` | positive | completed, no error | 14 / 14 / 0 | 6 |
+| \`tla13-early-publish\` | negative | \`PublishedImpliesSaturated\` violated | 6 / 6 / 3 | 3 |
+| \`tla14-noise-conditional\` | positive | completed, no error | 17 / 17 / 0 | 9 |
+| \`tla14-skipped-message\` | negative | \`MessagesAcceptedWereSent\` violated | 9 / 9 / 2 | 5 |
+| \`tla15-gset-conditional\` | positive | completed, no error | 15 / 11 / 0 | 5 |
+| \`tla15-overwrite-merge\` | negative | \`AllIssuedUpdatesRetained\` violated | 4 / 4 / 1 | 3 |
+| \`tla16-overwrite-unread\` | negative | \`MessageConservation\` violated | 23 / 14 / 8 | 4 |
+| \`tla16-spsc-abstract\` | positive | completed, no error | 49 / 32 / 0 | 7 |
+
+The TLA-07 failures have different causes. In \`tla07-capability-lifetime\`,
+\`Allocate\` could reactivate a destroyed slot at its old generation without
+taking \`ReuseSlot\`; the witness was \`Init → Allocate → Destroy → Allocate\`.
+In \`tla07-revocation-restore\`, the invariant compared active and currently
+revoked sets. \`RestoreRevokedCapability\` removed a capability from the revoked
+set while adding it to the active set, so historical revival was invisible.
+The completed 23,211-state search is a failed negative control, not a pass.
+
+The TLA-12 failure is a TLA operator-precedence issue: without parentheses,
+\`appliedAfterRevocation' = appliedAfterRevocation \\/ writerRevoked\` does not
+constrain the primed variable on every branch. This was corrected in
+\`a173e227...\`.
+
+The source changes in \`a173e227...\` add a monotone historical-revocation set,
+guard safe allocation against stale generations, record an explicit unsafe
+finite-generation collision, and parenthesise the TLA-12 assignment. Those
+changes are not validated by this 40-profile run. The source-head CI run for
+\`a173e227...\` is [41311344952](https://github.com/AntheaLiles/k7pl/actions/runs/41311344952),
+pending at last observation.
+
 ### 4.8 Order of further modelling work
 
 Do not assign TLA-17+ identifiers merely to expand the directory. The
