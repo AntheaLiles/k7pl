@@ -164,58 +164,42 @@ Les interfaces envisagées avec #311 et #319 sont postérieures à leur fusion :
 
 ## Travaux différés
 
-1. Formaliser H1/H2/H3, puis le théorème C4 spatial, après stabilisation des
-   règles d'introduction/capture des capacités.
-2. Étendre `Consume` à l'algèbre de budget normative, avec domaine partiel
-   explicite et interactions avec les grades.
-3. Démontrer les lois de composition de `⊠`, `ψ` et effets à partir de
-   leurs contrats réels, sans factorisation additive implicite.
-4. Définir la sémantique des sessions et établir dualité/substitution/
-   préservation ; brancher ensuite le mapping TLA.
-5. Modéliser le cycle de vie concurrent des slots : destroy, incarnation,
-   références tardives, opérations async, revocation et reclaim.
-6. Établir la correspondance K↔Lean puis Lean↔TLA par des obligations
-   explicites, non par des ressemblances de noms.
-7. Séparer terminaison, productivité, fairness et progression ; prouver
-   chaque résultat avec ses hypothèses opérationnelles.
-
-## Programme de formalisation postérieur à cette tranche
-
 La séquence ci-dessous est un ordre de dépendance technique proposé pour la
 recherche ; elle ne ratifie aucune règle ni propriété normative.
 
-1. **Relier les capacités au système de transitions K.** Après stabilisation
-   des règles K, définir une relation de représentation entre configuration K
-   et état Lean. Démontrer, règle par règle, la préservation de l'invariant
-   d'unicité par `Arena`, `WriteCap`, `alloc_range` et `Par`. Le résultat
-   de comptage actuel ne devient une preuve sur l'exécution K qu'après cette
-   simulation.
-2. **Distinguer les trois obligations spatiales.** Pour H1, établir
-   l'introduction et la consommation linéaire de `WriteCap` sur les transitions.
-   Pour H2, définir le lien entre plages et régions puis prouver que la
-   disjonction des plages implique la distinction des régions. Pour H3,
-   formaliser l'absence de capture d'une capacité linéaire par les valeurs
-   cartésiennes. Ne pas fusionner ces obligations en un unique lemme
-   d'« isolation ».
-3. **Raccorder les budgets aux règles opérationnelles.** Identifier pour
-   chaque règle de typage/exécution le coût consommé, le domaine partiel de
-   `Consume`, les preuves d'admissibilité et la borne du résidu. Démontrer la
-   préservation des budgets règle par règle avant d'en déduire des propriétés
-   de composition.
-4. **Raffiner le modèle EntityRef.** Introduire l'encodage borné concret et
-   expliciter la politique d'épuisement ou de non-réutilisation. Séparer
-   invalidation séquentielle, ABA, références tardives, quiescence et
-   reclamation concurrente ; le compteur `Nat` ne tranche aucune de ces
-   questions à lui seul.
+1. **Relier la sûreté des capacités aux transitions K.** Stabiliser les règles
+   concernées, définir une relation de représentation entre configurations K
+   et états Lean, puis démontrer la préservation règle par règle pour
+   `Arena`, `WriteCap`, `alloc_range` et `Par`. Distinguer les trois
+   obligations : H1 (introduction et consommation linéaire de `WriteCap`),
+   H2 (relation entre plages et régions, puis disjonction des régions) et H3
+   (absence de capture des capacités linéaires dans les valeurs cartésiennes).
+   Le modèle de comptage actuel n'établit aucune de ces propriétés sur
+   l'exécution K sans cette relation.
+2. **Raccorder grades et budgets à l'opérationnel.** Identifier, pour chaque
+   règle pertinente, le coût, le domaine partiel de `Consume`, l'admissibilité
+   et le résidu. Démontrer la préservation des budgets règle par règle avant
+   d'établir les lois de composition de `⊠`, `ψ` et des effets ; ne pas
+   supposer de factorisation additive qui ne découle pas de leurs contrats.
+3. **Formaliser les sessions.** Définir leur sémantique, puis établir
+   dualité, substitution et préservation sous des hypothèses explicites.
+   Le raccordement à TLA+ doit passer par un mapping d'états et de transitions,
+   et non par une similitude de noms ou de formes syntaxiques.
+4. **Raffiner le cycle de vie de `EntityRef`.** Relier le modèle abstrait
+   `Nat` à l'encodage borné concret ; préciser l'épuisement, le non-réemploi
+   et les conditions de destruction/réincarnation. Traiter séparément ABA,
+   références tardives, opérations asynchrones, quiescence, révocation et
+   reclamation concurrente.
 5. **Instancier la métathéorie par couche.** Construire les relations de pas
-   propres à chaque couche, puis traiter séparément progression, terminaison,
-   productivité et fairness. La fermeture multi-pas générique actuelle ne
-   fournit aucune de ces propriétés sans hypothèses supplémentaires.
-6. **Établir les ponts inter-modèles.** Après la relation K↔Lean, définir le
-   mapping d'états vers TLA+ et prouver la préservation des transitions et
-   invariants. Les explorations TLC bornées servent à chercher des
-   contre-exemples et à valider des instances finies ; elles ne remplacent pas
-   le théorème de correspondance.
+   propres à chaque couche. Établir la préservation sur ces relations, puis
+   traiter séparément progression, terminaison, productivité et fairness :
+   la fermeture multi-pas générique ne fournit pas ces propriétés sans
+   hypothèses opérationnelles supplémentaires.
+6. **Établir et vérifier les ponts inter-modèles.** Après K↔Lean, définir le
+   mapping vers les états TLA+ et prouver la préservation des transitions et
+   invariants. Utiliser TLC pour explorer des instances bornées et chercher
+   des contre-exemples ; une exploration finie ne remplace pas le théorème de
+   correspondance ni les preuves universelles.
 
 Pour chaque étape, le critère de sortie reste : source et SHA identifiés,
 hypothèses explicites, relation de représentation définie, preuve compilée,

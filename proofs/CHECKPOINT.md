@@ -10,9 +10,9 @@
 
 ## Correctifs de l'audit PR #320 (2026-11-01)
 
-- **B1 :** `disjoint_irreflexive` utilise désormais `Nat.not_lt_of_ge
-  r.valid h` dans les deux branches ; la contradiction exploite la validité
-  de la plage au lieu d'appliquer `Nat.lt_irrefl` à deux champs distincts.
+- **B1 :** les deux branches de `disjoint_irreflexive` utilisent
+  `r.valid` pour contredire `r.last < r.first` via
+  `Nat.not_lt_of_ge`.
 - **M2 :** `maxHeartbeats=10000000` est rétabli dans les trois bibliothèques
   Lake. Les trois sont déclarées `default_target` ; le passage TOML → DSL ne
   change donc plus silencieusement la limite ni le périmètre du build par défaut.
