@@ -42,7 +42,7 @@ l'effectif était faible et les groupes comparés potentiellement biaisés par l
 tâches précédentes. Les tâches antérieures ne montraient pas le même écart de temps.
 
 La portée de ce résultat reste limitée : tutoriel bref, langage distinct de K7PL, petit effectif et
-tâche complexe. Il suffit néanmoins à interdire de présenter l'utilisabilité de traits comparables
+tâche complexe. Il n'en interdit pas moins de présenter l'utilisabilité de traits comparables
 comme acquise. K7PL peut revendiquer les garanties que son système entend établir ; le coût
 d'apprentissage et d'utilisation de ces garanties reste une question empirique ouverte.
 

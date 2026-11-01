@@ -34,21 +34,21 @@ opérationnel {cite "bourMerlinLanguageServer"}[].
 
 Cette dualité suit la règle de Stroustrup : la concision au glyphe pour qui la pratique, l'explicite
 à l'alias pour qui découvre. La formule suppose sans le dire que le choix appartient au _lecteur_,
-et il faut le dire, car cela commande ce que l'outillage doit porter. Le style dépend en réalité des
+et cela se dit, car cela commande ce que l'outillage doit porter. Le style dépend en réalité des
 choix des auteurs _et_ de ceux des lecteurs, distinctement, et un dispositif qui ne servirait que
 les seconds ne rendrait qu'une moitié du service {cite "cohenCodeStyleSheets2025"}[]. La même source
 signale que la difficulté technique n'est pas la sélection de l'affichage mais la _mise en page_ des
-blocs imbriqués — remarque qui vise une syntaxe à expressions symboliques plus que toute autre, et
-qui est donc à porter au compte de ce chapitre plutôt qu'à celui d'un outillage futur.
+blocs imbriqués (remarque qui vise une syntaxe à expressions symboliques plus que toute autre, et
+qui est donc à porter au compte de ce chapitre plutôt qu'à celui d'un outillage futur).
 
-Les trains composent ces primitifs sans nommer leurs arguments — un 2-train `(f g)` dénote
-`λx. f(g(x))`, un 3-train `(f g h)` dénote la fourche `λx. (f x) g (h x)` — tandis que les
+Les trains composent ces primitifs sans nommer leurs arguments : un 2-train `(f g)` dénote
+`λx. f(g(x))`, un 3-train `(f g h)` dénote la fourche `λx. (f x) g (h x)`, tandis que les
 modifieurs `´` (pli), `¨` (chacun), `↢` (liaison gauche) transforment une fonction en une autre. Les
 blocs concaténatifs comme `[dup * +]`, dans la tradition de Forth et Factor, portent leur effet de
 pile directement dans leur type : `[dup *]` a l'effet `(1 – 2)`.
 
 Le nombre d'opérations qu'une telle bibliothèque peut porter est la seule grandeur non bornée de
-tout le nommage de ce langage, et il faut dire tout de suite qu'aucun seuil ne se cite. La
+tout le nommage de ce langage, et il se dit tout de suite qu'aucun seuil ne se cite. La
 littérature ne rend pas de nombre au-delà duquel le coût de vocabulaire dominerait. Ni la revue de
 la lisibilité, ni celle des messages d'erreur, ni les deux rétrospectives de langages dont le
 vocabulaire a crû sur un demi-siècle. Celle d'APL, écrite en deux temps à quarante-deux ans
@@ -71,12 +71,12 @@ arbre, et le jeton de tête suffit à désigner la forme cherchée. Le mécanism
 même dont le chapitre 4 fait sa théorie, de sorte que le langage porte déjà les moyens de son propre
 outil de recherche.
 
-Les R-expressions et les X-expressions — dont le chapitre 4 (§{num "sec:c4-echelle-locale"}[]) a
-déjà donné la sémantique d'exécution pour les premières — sont des types de données intégrés au
+Les R-expressions et les X-expressions (dont le chapitre 4 (§{num "sec:c4-echelle-locale"}[]) a
+déjà donné la sémantique d'exécution pour les premières) sont des types de données intégrés au
 langage, avec une syntaxe qui leur est propre plutôt qu'une bibliothèque que l'utilisateur pourrait
 redéfinir. Cette syntaxe bénie a un prix, nommé au §{num "sec:c5-s-expressions-universelles"}[] ;
 son bénéfice immédiat est de permettre au compilateur des optimisations qu'aucune construction
-générique ne rendrait possibles — la fusion d'un motif R-expression et d'un flux X-expression en un
+générique ne rendrait possibles : la fusion d'un motif R-expression et d'un flux X-expression en un
 seul automate `K7PL.FSM`, sans conversion intermédiaire en chaîne de caractères. Une X-expression
 s'écrit `(tag-symbole [attributs] enfants...)` ; ses attributs occupent un espace de pile linéaire
 de couche 3, si bien qu'un calcul de couche 2 destiné à y figurer doit d'abord être matérialisé par
@@ -102,7 +102,7 @@ d'hygiène. Ces modèles éclairent des aspects distincts de la métaprogrammati
 
 Le confinement des phases et la modularité des effets sont deux propriétés distinctes. L'expansion
 de macro relève de l'_élaboration_ au sens de la littérature sur les effets d'ordre supérieur. Celle-ci
-établit que les opérations prenant des calculs en argument — comme un gestionnaire — brisent la
+établit que les opérations prenant des calculs en argument (comme un gestionnaire) brisent la
 modularité des effets algébriques lorsqu'elles sont encodées naïvement, sans interface d'effet. Une
 élaboration structurée peut rétablir cette modularité en composant les cas séparément
 {cite "bachpoulsenHeftyAlgebrasModular2023"}[]. Le modèle actuel ne définit pas encore une interface
@@ -113,11 +113,11 @@ de traiter séparément ces obligations.
 
 Encore faut-il dire de quel type est cet AST, faute de quoi l'hygiène resterait une discipline
 d'implémentation plutôt qu'une propriété. L'AST de K7PL est l'algèbre initiale d'une signature à
-opérateurs liants, intrinsèquement indexée par la portée — soit une instance directe du $`\mu F`
+opérateurs liants, intrinsèquement indexée par la portée : soit une instance directe du $`\mu F`
 construit au chapitre 2 (§{num "sec:c2-algebres-coalgebres-et-points"}[]), et non un mécanisme
 supplémentaire. Cette formulation n'est pas un raffinement théorique : c'est elle qui rend
 génériques, une fois pour toutes et preuves comprises, les parcours que le compilateur répète
-autrement pour chaque opération — renommage, substitution, désucrage, impression {cite "allaisTypeScopeSafe2018"}[].
+autrement pour chaque opération : renommage, substitution, désucrage, impression {cite "allaisTypeScopeSafe2018"}[].
 Elle fournit en outre au système de macros l'objet formel qu'il manipule sans le nommer : la
 métavariable, et l'opération de métasubstitution qui l'accompagne, dont découle un raisonnement
 équationnel du second ordre sur les expansions. Le lemme de substitution s'y obtient par
@@ -144,14 +144,14 @@ Par inspection de la grammaire, en quatre points. La seule construction qui prod
 _macro_, qui transforme un AST en AST. Elle s'exécute en Phase 0, avant la vérification et
 l'exécution du programme. Cette phase ne suffit pas à déterminer les effets accessibles à la macro :
 ils dépendent du contrat du macro-système. Son type porte la portée, de sorte qu'elle ne peut produire
-d'occurrence hors de l'index qu'elle reçoit — c'est l'hygiène ci-dessus. Aucune règle du jugement
+d'occurrence hors de l'index qu'elle reçoit : c'est l'hygiène ci-dessus. Aucune règle du jugement
 germinal ne construit un nom à partir d'une valeur : les noms sont des données de la dérivation, non
 de l'évaluation.
 
 Un seul cas demande d'être regardé, car c'est le seul endroit du langage où un nom soit _produit_
 plutôt que lu : la résolution de `bind-to` par recherche dirigée par le type
 (§{num "sec:c5-mise-en-pratique"}[]). Elle ne menace pas l'énoncé, s'achevant elle aussi en Phase 1
-— une recherche ambiguë y est refusée plutôt que résolue arbitrairement.
+: une recherche ambiguë y est refusée plutôt que résolue arbitrairement.
 :::
 
 :::note
@@ -186,20 +186,20 @@ couche n'est pas rejeté par une règle ; aucune dérivation ne le produit, faut
 le jugement ambiant ne porte pas. Ce que ces deux cas ajoutent au critère du chapitre 1 est le lieu où la structure porte
 l'interdit : l'index d'un préfaisceau ici, la ressource d'un contexte là.
 
-Et il faut en écrire le revers, qui se paie exactement où le gain se prend. Un cas inexprimable ne dispose pas d'un diagnostic dédié : aucune règle spécifique n'en signale
+Et le revers s'en écrit, qui se paie exactement où le gain se prend. Un cas inexprimable ne dispose pas d'un diagnostic dédié : aucune règle spécifique n'en signale
 la cause ; le lecteur reçoit un échec de dérivation là où une règle de rejet aurait produit un
 message. C'est ce
 que la stratification des diagnostics de l'annexe des codes d'erreur doit compenser, et c'est
 pourquoi elle n'est pas un ornement.
 
-K7PL conserve néanmoins l'anaphore délibérée — la macro qui introduit intentionnellement une liaison
+K7PL conserve néanmoins l'anaphore délibérée : la macro qui introduit intentionnellement une liaison
 destinée au corps de son site d'appel, tradition Lisp dont ce chapitre se réclame. Elle passe par
 une extension explicite de l'index de portée, `binds`, qui apparaît dans le type de la macro.
 L'anaphore n'est ni interdite ni silencieuse, elle est visible dans la signature, selon la même
-règle que ce document applique aux délimiteurs, au typestate et aux capabilités — rendre coûteux et
+règle que ce document applique aux délimiteurs, au typestate et aux capabilités : rendre coûteux et
 lisible plutôt qu'interdire. En interne, chaque variable porte un nom et un indice à la De Bruijn :
 le nom préserve la lisibilité des messages d'erreur, l'indice résout le masquage sans renommage
-coûteux, et il ne s'affiche que lorsqu'il est non nul — une variable jamais masquée reste, à
+coûteux, et il ne s'affiche que lorsqu'il est non nul : une variable jamais masquée reste, à
 l'écran, un nom nu.
 
 Que `binds` figure dans le _type_ plutôt que dans la mise en œuvre a une conséquence que ce chapitre
@@ -213,7 +213,7 @@ lient se composent parce que leurs index de portée se composent, sans qu'aucune
 l'autre. Ce n'est pas une amélioration ergonomique, c'est un défaut de modularité qui cesse
 d'exister.
 
-Un précédent industriel existe sur le dispositif voisin — le délimiteur qui annonce un régime plutôt
+Un précédent industriel existe sur le dispositif voisin : le délimiteur qui annonce un régime plutôt
 qu'une construction. F# a introduit `async { … }` comme une réinterprétation _localisée_ des
 constructions de contrôle existantes, plutôt que comme un jeu de primitives nouvelles, et la forme
 est devenue un standard de fait bien au-delà de ce langage {cite "symeEarlyHistory2020"}[]. K7PL
@@ -260,8 +260,8 @@ hygiène graduée des expansions
 :::statement +titled
 La même commutation, au grade déclaré
 
-L'énoncé précédent porte sur l'AST non gradué. Sa version graduée — chaque métavariable $`x_i`
-portant son grade déclaré $`r_i`, et la conclusion le contexte $`\boxtimes_i (r_i \cdot \Delta_i)` —
+L'énoncé précédent porte sur l'AST non gradué. Sa version graduée (chaque métavariable $`x_i`
+portant son grade déclaré $`r_i`, et la conclusion le contexte $`\boxtimes_i (r_i \cdot \Delta_i)`)
 est la même commutation, au contexte et à l'effet près.
 :::
 
@@ -293,8 +293,7 @@ _Obligation ouverte._ L'exigence reste séparée tant qu'aucune algèbre de liai
 désucrage compositionnel ne sont fournis ; l'hygiène sur l'AST du noyau ne l'établit pas.
 :::
 ::::
-Ce que cet énoncé rend inexprimable importe plus que ce qu'il évite. {rmq}[Pas une discipline
-appliquée, un type qui ne laisse pas la question se poser.] La conclusion n'est pas qu'une capture
+Ce que cet énoncé rend inexprimable importe plus que ce qu'il évite. La conclusion n'est pas qu'une capture
 est évitée par un renommage. Mais qu'elle est inécrivable : produire une occurrence hors de l'index
 de portée reçu demanderait un terme qui n'est pas dans le préfaisceau. Le macro-système n'a donc pas
 de discipline d'hygiène à appliquer.
@@ -305,7 +304,7 @@ gradué, c'est-à-dire sur l'image du foncteur d'effacement du chapitre 4
 duplique, ce qui est une contraction et n'est licite qu'au grade $`\omega`. L'énoncé gradué suppose
 donc de savoir ce qu'une macro déclare de ses arguments, question que ce document laisse ouverte. La
 seconde touche à ce que le mot _hygiène_ promet d'ordinaire : l'énoncé porte sur la métasubstitution
-dans l'AST du noyau, quand le but usuel est la préservation de l'$`\alpha`-équivalence de surface —
+dans l'AST du noyau, quand le but usuel est la préservation de l'$`\alpha`-équivalence de surface :
 qu'un programme et son renommage aient la même expansion telle que le programmeur la lit. Celle-ci
 ne s'en déduit pas sans une algèbre de liaison de la surface, que ce document n'a pas construite. La
 difficulté est connue sous le nom de _resucrage_ : reconduire une propriété établie au noyau jusqu'à
@@ -313,16 +312,16 @@ la forme de surface demande que le désucrage soit lui-même compositionnel, et 
 pas de soi {cite "pombrioHygienicResugaringCompositional"}[].
 
 Une inquiétude s'écarte en revanche, et elle porterait sur la fondation plutôt que sur la surface.
-Manipuler des noms frais — ce que fait toute construction qui choisit un nom — pourrait sembler
+Manipuler des noms frais (ce que fait toute construction qui choisit un nom) pourrait sembler
 exiger une forme d'axiome du choix. Il n'en est rien : dans les ensembles nominaux, tout élément a
 un support fini et l'ensemble des noms est infini, de sorte qu'un nom frais existe toujours, et
 c'est le quantificateur de fraîcheur qui dispense du choix {cite "pittsNominalSetsNames2013"}[]. Le
-coût de la fraîcheur est donc nul du côté de la fondation, et entier du côté de la mécanisation — ce
+coût de la fraîcheur est donc nul du côté de la fondation, et entier du côté de la mécanisation : ce
 que le chapitre 6 discute.
 
 S'il tient, le macro-système hérite de l'hygiène sans avoir à la faire respecter, et une
-bibliothèque tierce ne peut pas capturer un nom du programme qui l'appelle. S'il tombe, il faut
-réintroduire un mécanisme de renommage à l'expansion, c'est-à-dire une discipline à vérifier plutôt
+bibliothèque tierce ne peut pas capturer un nom du programme qui l'appelle. S'il tombe, un
+mécanisme de renommage se réintroduit à l'expansion, c'est-à-dire une discipline à vérifier plutôt
 qu'une propriété du type.
 
 Cet énoncé est une instance du schéma de commutation (chapitre 2,
@@ -343,5 +342,5 @@ macro ordinaire a le type $`\mathsf{AST}\,\Gamma \to \mathsf{AST}\,\Gamma`, une 
 qui introduit les liaisons $`\overline{x}` a le type
 $`\mathsf{AST}\,\Gamma \to \mathsf{AST}\,(\Gamma, \overline{x})`. L'index de portée du résultat
 n'est pas celui de l'argument, et cet écart _est_ la déclaration. Un appelant lit donc dans la
-signature ce que la macro va lier chez lui, et le théorème ci-dessus vaut inchangé — il porte sur
+signature ce que la macro va lier chez lui, et le théorème ci-dessus vaut inchangé : il porte sur
 l'index reçu, quel qu'il soit.

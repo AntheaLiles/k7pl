@@ -21,14 +21,14 @@ tag := "c5-ce-qu-une-macro-declare"
 
 {label "sec:c5-ce-qu-une-macro-declare"}
 
-Une macro de bibliothèque expose une interface, et il faut dire de quoi elle est faite. Faute de
+Une macro de bibliothèque expose une interface, dont la composition se dit. Faute de
 quoi la seule manière de savoir ce qu'une macro fait serait de l'expanser, et une bibliothèque
 tierce deviendrait inauditable. La reproductibilité que le bac à sable achète ne servirait alors à
 rien : on saurait l'expansion reproductible sans savoir ce qu'elle produit.
 
 Une chose se déduit avant même d'être déclarée, et il vaut la peine de la retirer de l'interface
 plutôt que de l'y laisser par prudence : la _spécialisation_. Les liens entre une macro générale et
-ses variantes sont de deux espèces seulement — poser deux termes égaux l'un à l'autre, ce qui est
+ses variantes sont de deux espèces seulement : poser deux termes égaux l'un à l'autre, ce qui est
 une contraction, et poser un terme égal à l'identité, ce qui est une substitution d'unité et non un
 affaiblissement. La structure qui en résulte est l'_ordre d'instance_ sur les termes, calculable par
 filtrage dans un sens et par anti-unification dans l'autre {cite "hoekstraCombinatorNdimensionalArray"}[].
@@ -37,7 +37,7 @@ faire déclarer par l'auteur de la bibliothèque. Ce que l'interface doit porter
 déduit pas ; la hiérarchie de spécialisation, elle, se calcule.
 
 La forme de cette interface n'est pas à inventer. _Une déclaration de macro est le jugement germinal
-porté d'un étage_ — ce que l'expansion exige, ce qu'elle est, ce qu'elle produit — et les trois
+porté d'un étage_ (ce que l'expansion exige, ce qu'elle est, ce qu'elle produit) et les trois
 composantes s'y instancient sans qu'aucun mécanisme nouveau soit requis. Ce paragraphe l'établit
 composante par composante, puis en tire la règle de typage d'une expansion, laquelle se révèle
 _dérivable_ plutôt que posée.
@@ -47,21 +47,21 @@ _dérivable_ plutôt que posée.
 tag := "c5-ce-qu-une-macro-declare-les-trois-composantes-au-niveau-m"
 %%%
 
-$`\Delta` — _ce que l'expansion exige de ses arguments_. C'est ici que se referme la question que le
+$`\Delta` : _ce que l'expansion exige de ses arguments_. C'est ici que se referme la question que le
 théorème {num "thm:hygiene"}[] laissait ouverte. Une macro qui place son argument en $`k` positions
 le duplique, et cette duplication n'est pas anodine : si l'argument dénote une ressource de grade
 linéaire, l'expansion l'emploierait $`k` fois. Une macro déclare donc, _par métavariable_, un grade
-$`r` — et ce grade n'est pas d'une nouvelle espèce. _C'est le scalaire par lequel l'expansion
+$`r`, et ce grade n'est pas d'une nouvelle espèce. _C'est le scalaire par lequel l'expansion
 multiplie le contexte de l'appelant_, exactement le $`r \cdot \Delta` que le lemme de substitution
 gouverne.
 
-$`A` — _ce qu'elle est_. Le type déjà donné, précisé de ce que l'arbre porte : l'AST étant
+$`A` : _ce qu'elle est_. Le type déjà donné, précisé de ce que l'arbre porte : l'AST étant
 intrinsèquement indexé par la portée _et par le type_, une macro a le type
 $`\mathsf{AST}\,\Gamma\,A_1 \to \cdots \to \mathsf{AST}\,\Gamma\,A_n \to \mathsf{AST}\,(\Gamma, \overline{x})\,B`.
 L'extension de portée $`\overline{x}` y est la déclaration d'anaphore du paragraphe précédent ; elle
 appartient à cette composante et non à une autre.
 
-$`\mathcal{E}` — _ce qu'elle produit_, et c'est ici qu'un piège attend. _Il y a deux effets et non
+$`\mathcal{E}` : _ce qu'elle produit_, et c'est ici qu'un piège attend. _Il y a deux effets et non
 un._ L'effet de l'_expansion_ est vide : une macro ne peut ni lire un fichier, ni interroger le
 réseau, ni consulter l'horloge, et c'est ce qui rend l'expansion reproductible. L'effet du _code
 produit_ ne l'est pas. Confondre les deux reviendrait à confondre le lieu de la contrainte et le
@@ -182,15 +182,15 @@ tag := "c5-ce-qu-une-macro-declare-trois-choix-et-ce-qui-les-decide"
 %%%
 
 Le grade déclaré est une *borne* et non un compte exact, et cette fois la raison n'est pas seulement
-la cohérence avec les arbitrages antérieurs. Un corps de macro qui _branche_ — plaçant son argument
-dans une alternative et pas dans l'autre — n'a pas de compte exact : la borne est le maximum sur les
+la cohérence avec les arbitrages antérieurs. Un corps de macro qui _branche_ (plaçant son argument
+dans une alternative et pas dans l'autre) n'a pas de compte exact : la borne est le maximum sur les
 branches, et c'est la seule quantité calculable statiquement. Or c'est déjà la règle du noyau, le
 grade d'un $`\mathsf{case}` étant le joint de ses branches. _Le niveau macro n'invente donc pas sa
 règle, il applique celle d'en dessous._
 
 La couche est *déclarée*, non inférée. L'inférer demanderait d'inspecter le corps, ce qui est
 possible mais contraire à l'objet : une interface se lit, elle ne se calcule pas. La déclaration est
-en revanche _vérifiée_ contre le corps, par le contrôle 3 ci-dessus — déclarée et contrôlée, comme
+en revanche _vérifiée_ contre le corps, par le contrôle 3 ci-dessus : déclarée et contrôlée, comme
 le grade l'est.
 
 Le *polymorphisme en grade* est admis, et sous une restriction. Sans lui, deux macros ne différant
@@ -199,7 +199,7 @@ supporterait. Une macro peut donc quantifier sur une variable de grade, mais _en
 seulement_ : la quantification est instanciée au site d'appel, où le grade est connu, de sorte que
 tout contrôle se ramène à une instance close. Admettre un rang supérieur ferait porter au
 vérificateur des contraintes de grade à variables sous quantificateur, dont la décidabilité n'est
-pas acquise — et P3 veut qu'aucune obligation de compilation ne le soit pas.
+pas acquise, et P3 veut qu'aucune obligation de compilation ne le soit pas.
 
 # La limite, et elle est réelle
 %%%
@@ -212,18 +212,18 @@ non plus du seul corps.
 
 Une partie du cas est couverte, et par un appareil que le document possède déjà : la gradation étant
 _indexée_ (chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]), un grade déclaré peut être une
-fonction d'un indice porté par le _type_ de l'argument — la longueur d'un vecteur littéral, par
-exemple. C'est la quatrième fois que l'indexation paie un cas qu'on croyait hors de portée.
+fonction d'un indice porté par le _type_ de l'argument (la longueur d'un vecteur littéral, par
+exemple). C'est la quatrième fois que l'indexation paie un cas qu'on croyait hors de portée.
 
 _Ce qui reste dehors est nommé plutôt que passé sous silence_ : une macro qui branche sur la _forme
-syntaxique_ de son argument — selon qu'il est un littéral ou une variable — n'est pas couverte, sa
+syntaxique_ de son argument (selon qu'il est un littéral ou une variable) n'est pas couverte, sa
 dépendance ne passant par aucun indice de type. Une telle macro doit déclarer le maximum sur les
 formes possibles, ou se voir refusée. K7PL prend la première voie et la déclare imprécise : c'est le
-même arbitrage que partout ailleurs dans ce document — sur-approximer plutôt que renoncer.
+même arbitrage que partout ailleurs dans ce document : sur-approximer plutôt que renoncer.
 
 Cette même métaprogrammation absorbe des protocoles binaires hérités sans qu'aucun automate n'ait à
 être écrit à la main. Le développeur exprime, de façon déclarative en couche 2, les en-têtes, les
 tailles de champs et l'ordre des octets d'un protocole existant. Le système de macros en dérive à la
 compilation le `{deftype}` correspondant ainsi que le DFA de validation optimisé (chapitre 4,
 §{num "sec:c4-echelle-locale"}[]). Une bibliothèque pour un protocole legacy n'est, de ce point de
-vue, qu'une macro parmi d'autres — jamais un module distinct nécessitant du code non vérifié.
+vue, qu'une macro parmi d'autres : jamais un module distinct nécessitant du code non vérifié.

@@ -30,7 +30,7 @@ soustraite à chaque élément, élevée au carré, repliée et divisée à son 
 racine. Aucun argument n'y est nommé ; le train se lit comme une composition de fonctions plutôt que
 comme une suite d'instructions, ce que le §{num "sec:c5-notations-specialisees"}[] annonçait.
 
-Cette section construit maintenant un exemple unique — un compteur borné, répliqué en acteur — en
+Cette section construit maintenant un exemple unique (un compteur borné, répliqué en acteur) en
 remontant des trois couches jusqu'à leur composition, puis en examinant l'erreur la plus commune à
 leur frontière.
 
@@ -50,7 +50,7 @@ Le cœur du calcul : une fonction pure de couche 3, totale et sans effet
 ::::
 
 Le suffixe `?` engage le contrat du chapitre 3 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) :
-cette fonction ne peut ni déclencher d'effet ni paniquer, elle ne peut que retourner une valeur —
+cette fonction ne peut ni déclencher d'effet ni paniquer, elle ne peut que retourner une valeur :
 ici un `Result`, puisque le débordement reste une issue normale du calcul plutôt qu'une exception à
 lever.
 
@@ -77,8 +77,8 @@ La couche 2 orchestre l'effet observable sans jamais muter l'état directement
 Le calcul de couche 3 est appelé depuis la couche 2, ce qui est légitime : le pur s'invoque de
 partout (§{num "sec:c5-s-expressions-universelles"}[]). C'est cette frontière, seule, que les
 crochets de l'appel signalent. Le reste du gestionnaire, qui ne quitte jamais la couche 2, s'écrit
-en parenthèses ordinaires — y compris la mise à jour de l'état par la lentille `^=`, qui préserve le
-champ `borne` inchangé sans qu'aucun `HandlerResult` n'ait besoin de le répéter.
+en parenthèses ordinaires (y compris la mise à jour de l'état par la lentille `^=`, qui préserve le
+champ `borne` inchangé sans qu'aucun `HandlerResult` n'ait besoin de le répéter).
 
 L'acteur lui-même n'est qu'une déclaration : aucune logique n'y figure directement, seulement la
 topologie et le rattachement du gestionnaire ({num "lst:acteur"}[]).
@@ -103,7 +103,7 @@ n'est donc pas une primitive. Un acteur _est_ la paire additive dépendante
 $`(\text{état} : S)\,\&\,\text{Handler}(S)` du chapitre 3
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]), et `bind-to` n'est qu'un accès de champ. Lorsque
 le programmeur l'omet, l'élaborateur remplit la seconde composante par recherche dirigée par le type
-— technique dont la propriété conditionnante est la _cohérence_, le fait qu'un programme valide ait
+: technique dont la propriété conditionnante est la _cohérence_, le fait qu'un programme valide ait
 exactement une signification {cite "racordonStateCoherenceLand2025"}[], et dont la preuve formelle
 en présence de non-déterminisme est récente et non triviale {cite "BOTTU"}[], {cite "schrijversCOCHISStableCoherent2019"}[].
 Ici elle ne coûte rien : la structure fixe le sens, la recherche n'est qu'un sucre, et une recherche
@@ -117,7 +117,7 @@ Ici, `champ` et `bind-to` restent tous deux dans le fragment ambiant de la décl
 s'écrivent en parenthèses ordinaires, et seule l'accolade d'ouverture de `defactor` annonce la
 couche 1. Ces trois déclarations respectent déjà la forme descendante
 `{ ... ( ... [ ... ] ... ) ... }` du §{num "sec:c5-s-expressions-universelles"}[] : `bind-to` relie
-l'acteur à son gestionnaire, qui appelle lui-même le calcul pur — chaque frontière franchie porte le
+l'acteur à son gestionnaire, qui appelle lui-même le calcul pur : chaque frontière franchie porte le
 délimiteur du fragment vers lequel elle mène, et pas une de plus.
 
 L'erreur la plus commune consiste à faire remonter, dans l'autre sens, une construction qui suppose
@@ -135,10 +135,10 @@ ERR-TOP-001
 ```
 ::::
 
-La parenthèse ordinaire n'est pas ici en cause en elle-même — un appel à `select` ou à `^.`
+La parenthèse ordinaire n'est pas ici en cause en elle-même : un appel à `select` ou à `^.`
 s'écrirait de la même manière dans ce même bloc, sans rien enfreindre. Ce qui est rejeté, c'est que
-`HandlerResult` suppose un état d'acteur et un effet de couche 2 — $`\mathcal{E}` et
-$`\Delta_{\text{aff}}` — dont le jugement de couche 3 ne dispose tout simplement pas ($`\Delta = \Delta_{\omega}`, chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]). Aucun délimiteur ne
+`HandlerResult` suppose un état d'acteur et un effet de couche 2 ($`\mathcal{E}` et
+$`\Delta_{\text{aff}}`) dont le jugement de couche 3 ne dispose tout simplement pas ($`\Delta = \Delta_{\omega}`, chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]). Aucun délimiteur ne
 pourrait rendre cet appel légitime, puisqu'aucune transition vers la couche 2 n'est permise depuis
 la couche 3. Ce n'est pas une erreur de notation que le bon crochet aurait évitée, c'est une
 impossibilité structurelle que la notation ne fait que rendre visible.
