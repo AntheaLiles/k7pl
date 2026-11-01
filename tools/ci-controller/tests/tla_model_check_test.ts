@@ -5,8 +5,8 @@
 import { assert, assertEquals, assertStringIncludes } from "./assert.ts";
 import {
   parseTlaProfiles,
-  validateProfileInventory,
   type TlaProfile,
+  validateProfileInventory,
 } from "../src/tla_model_check.ts";
 
 const MODELS_URL = new URL("../../../models/", import.meta.url);

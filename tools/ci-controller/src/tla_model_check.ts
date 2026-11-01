@@ -242,7 +242,9 @@ async function runSuite(
     jarDigest.stdout + jarDigest.stderr,
   );
   if (jarDigest.code !== 0) {
-    throw new Error("sha256sum failed for TLC JAR with exit code " + jarDigest.code);
+    throw new Error(
+      "sha256sum failed for TLC JAR with exit code " + jarDigest.code,
+    );
   }
 
   let failures = 0;
