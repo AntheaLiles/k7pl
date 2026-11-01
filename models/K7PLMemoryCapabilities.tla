@@ -120,14 +120,16 @@ RestoreRevokedCapability(c) ==
                    owners, writtenCells, unauthorizedAccesses>>
 
 WriteCell(c, cell, fibre) ==
-    /\ c \in validCapabilities
-    /\ owners[c] = fibre
-    /\ CapSlot(c) \in activeSlots
-    /\ capabilityGeneration[c] = generation[CapSlot(c])
-    /\ cell \in CapCells(c)
-    /\ writtenCells' = writtenCells \cup {<<c, cell, fibre>>}
-    /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
-                   revokedCapabilities, capabilityGeneration, owners, unauthorizedAccesses>>
+    LET slot == CapSlot(c)
+    IN
+        /\ c \in validCapabilities
+        /\ owners[c] = fibre
+        /\ slot \in activeSlots
+        /\ capabilityGeneration[c] = generation[slot]
+        /\ cell \in CapCells(c)
+        /\ writtenCells' = writtenCells \cup {<<c, cell, fibre>>}
+        /\ UNCHANGED <<generation, activeSlots, staleGenerations, validCapabilities,
+                       revokedCapabilities, capabilityGeneration, owners, unauthorizedAccesses>>
 
 StaleAccess(c) ==
     /\ UnsafeStaleAccess
