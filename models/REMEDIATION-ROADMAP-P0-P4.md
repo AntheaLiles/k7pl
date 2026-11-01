@@ -97,7 +97,7 @@ The first run confirmed that the new runner exposes syntax and semantic failures
 
 ### P0 exit rule
 
-P0 is closed only on a single identified PR head where the required CI jobs are complete and successful, all 39 profiles meet their declared outcomes, and the evidence artifact has been inspected. A queued, pending, cancelled or failed run, successful unrelated jobs, or a green subset is not P0 closure.
+P0 is closed only on a single identified PR head where the required CI jobs are complete and successful, all 40 profiles meet their declared outcomes, and the evidence artifact has been inspected. A queued, pending, cancelled or failed run, successful unrelated jobs, or a green subset is not P0 closure.
 
 ## 4. P1 — make existing model properties substantive
 
@@ -107,7 +107,7 @@ P0 is closed only on a single identified PR head where the required CI jobs are 
 |---|---|---|
 | TLA-03 — NoTerminatedFibreExecutes | The positive profile fixes AllowTerminate = FALSE. The property cannot exercise a termination transition in that profile. | Add a positive scenario in which termination is reachable and ensure every execution action is guarded against a terminated fibre. Keep the unsafe control as a separate counterexample. |
 | TLA-07 — NoOverlappingWriteRights | CapCells are disjoint by construction and do not change. The property does not test preservation under ownership or permission transitions. | First resolve the WriteCap/ReadCap and region-ownership contracts. Then model grant, split, transfer, revoke, merge and reuse only where those operations are defined. Keep H1–H3 as Lean/type-theory obligations. |
-| TLA-12 — DOMWriteRequiresCapability | writerCapability is initialised but never changed. The model does not represent revocation between HandleEvent and ApplyPatch. | Obtain an explicit policy for a prepared patch after capability revocation: discard, retry or commit under a defined lease. Add a revocation action and positive/negative interleavings only after this decision. |
+| TLA-12 — DOMWriteRequiresCapability / NoApplyAfterRevocation | A revocation action and positive/negative interleaving now exist in the candidate model; the prepared patch remains pending after revocation. | TLC must validate the new profile; the owner must decide whether the pending patch is discarded, recomputed/retried or governed by a bounded lease (G18). Do not infer a policy from the safety invariant. |
 | TLA-01 — timeout profile | NoMutualWaitDeadlock is defined over NonTimeoutWaitFor, which excludes edges with an armed timeout. This is not a general deadlock-freedom result for timeout-enabled waits. | Separate internal wait-cycle, timeout-enabled escape, timeout occurrence, external delivery and global progress claims. State fairness assumptions for any liveness claim. |
 | TLA-01 — Simulation Gap | The cited configuration checks Simulation. TLC stops at the first violated invariant, so another property visible in the same trace is not a second TLC verdict. | Keep each expected negative property in a configuration that checks that property; label trace-derived observations separately. |
 | TLA-05 — CommittedNotCancelled and TimeoutIsNotAcknowledgement | These are close to definitional consequences of the transition updates. The substantive checks are AcknowledgedCancellationMeansNoCommit and EffectAtMostOnce. | Retain the checks for consistency if useful, but do not count them as independent protocol coverage. Add scenarios that exercise the meaningful commit/cancel race. |
@@ -115,7 +115,7 @@ P0 is closed only on a single identified PR head where the required CI jobs are 
 | TLA-11 — LowObservationEquality | RunPairedObservation is a one-transition paired-run model. | Treat it as a definition-level example. Expand trace length, event ordering and attacker observations only after G8 is resolved. |
 | TLA-16 — abstract SPSC queue | The model assumes atomic transitions and does not explore compiler/CPU reorderings, cache coherence or release/acquire behaviour. | Keep it labelled abstract-only. Do not claim weak-memory correctness from this model. |
 
-All 43 configurations currently set CHECK_DEADLOCK FALSE. Built-in TLC deadlock detection is therefore disabled across this suite. This does not invalidate the explicit NoMutualWaitDeadlock invariant in selected TLA-01 profiles, but it prohibits a claim that the suite globally checked deadlock absence.
+All current configurations set CHECK_DEADLOCK FALSE. Built-in TLC deadlock detection is therefore disabled across this suite. This does not invalidate the explicit NoMutualWaitDeadlock invariant in selected TLA-01 profiles, but it prohibits a claim that the suite globally checked deadlock absence.
 
 ### Recommended P1 deliverables
 
@@ -223,3 +223,56 @@ Use these status terms precisely: model-drafted, model-checked-bounded, countere
 5. Activate P4 selectively after a feature or integration is adopted.
 
 The immediate next action is therefore to inspect the latest CI run on the corrected PR #319 head, obtain the 39-profile verdicts, and then work through P1 without conflating model quality with specification coverage.
+
+
+## 10. Live repository and evidence snapshot — 2026-11-01
+
+The PR #319 branch is `fix/tla-ci-unified-suite-2026-10-31`, current head
+`a7a6d631f0c19876b0437276e6cd6e8bec79a3de`, base
+`main@2fbf609f6f3e67ffe011a3f28fd247526684155a`. PR #319 remains open,
+not draft and unmerged. Main was rechecked at the same base SHA. The current
+manifest contains 40 profiles (18 positive, 22 negative); this count is not a
+validation result.
+
+The latest completed TLA suite artifact inspected is run
+[41308633862](https://github.com/AntheaLiles/k7pl/actions/runs/41308633862)
+on `dafbc608f8c94a97644f336286cc228e94d3d975`, using the previous 39-profile
+inventory. It matched 16/18 positive and 17/21 negative outcomes (33/39).
+TLA-02 positive and negative failed CFG parsing because tuple literals were
+assigned in configuration; TLA-07 positive and its three controls failed
+parsing in `ValidCapabilitiesMatchGeneration`. The TLA-02 sentinel has since
+moved into the module, and LET bindings were added for TLA-07 parser-sensitive
+index expressions (commits `39924233` and `70a15318`); these changes have not
+been run successfully by TLC. TLA-12's old positive profile passed 33 generated
+/ 23 distinct states, depth 7, but the revocation transition and new negative
+profile were added later in `279f160b` and remain unvalidated.
+
+Run 41308633862's separate D01/R9 checks passed with the stricter shell
+predicates. Its archive contained 113 files, 112 verified SHA256SUMS entries,
+and a TLC JAR digest matching the workflow pin. REUSE (581/581), CommitLint,
+actionlint, zizmor, controller quick checks/shadow, Python tooling, Lean build
+and axiom audits, Verso specification and PDF checks passed on that SHA. The
+K semantics/Verso Blueprint job remained in progress. The current head's CI
+run [41310176908](https://github.com/AntheaLiles/k7pl/actions/runs/41310176908)
+is pending with no jobs created; the older run 41308633862 still has its K job
+in progress. No current-head model-checking result exists.
+
+### Current P0/P1 state
+
+| Work item | State | Evidence / remaining criterion |
+|---|---|---|
+| P0.1 TLA-02/TLA-07/TLA-12 blocking defects | In progress | Source corrections are committed; the current 40-profile run has not completed on the current head. |
+| P0.2 per-profile verdicts, states, depth, queue and traces | Blocked | Available only for run 41308633862's 39-profile inventory; its six failed profiles have no expected verdict. Current 40-profile archive absent. |
+| P0.3 D01/R9 shell predicate hardening | Done on inspected SHA | Run 41308633862 reached exact `ProtectedIntegrity` and `NoCommitAfterCancelRequest` violations with trace headers; no current-head rerun yet. |
+| P0.4 artifact, digest and checksum inspection | Done on inspected SHA | Run 41308633862: 113 files; 112 SHA256SUMS entries verified; TLC digest matches pin. |
+| P0.5 docs-only classification, registry and tooling checks | Partially evidenced | Controller shadow, REUSE, CommitLint and actionlint passed on `dafbc608...`; current source head still awaits CI. |
+| P1 TLA-01 expected trace | Corrected, bounded evidence | The JSON now matches the observed one-step `Init → Block(ActorC)` witness; no wait cycle is claimed. |
+| P1 TLA-03 termination | Blocked by G3 | Positive profile disables termination; no valid-completion predicate guards Terminate. Do not enable termination to manufacture coverage. |
+| P1 TLA-07 ownership | Blocked by G7 / H1–H3 | Disjoint constant cells do not test permission preservation. Define ownership and rights-changing operations; H1–H3 remain Lean obligations. |
+| P1 TLA-12 revocation | Model-drafted; TLC pending; G18 open | Revocation interleaving and negative control are present; fate of the prepared patch is not selected. |
+| P1 TLA-05/09/11/16 quality | Limits documented | Definition-level checks, arithmetic consequence, one-step trace and abstract atomic queue respectively; no general claims. |
+
+P0 remains open until one completed current-head CI run validates every one of
+the 40 profiles and the corresponding reproducibility evidence is inspected.
+No status in this roadmap changes normative Verso clauses. P3/P4 remain
+deferred until their concrete target/integration contracts are selected.
