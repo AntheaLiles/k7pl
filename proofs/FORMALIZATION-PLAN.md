@@ -142,6 +142,43 @@ constitue donc pas, à lui seul, un mécanisme d'invalidation. Les entrées
 source sont également déclarées comme `read_inputs`, qui est le mécanisme
 effectif de déclenchement de la surface de preuve.
 
+## Priorité d'assurance CI — indépendance du domaine
+
+Le paquet `K7PLProofs` n'a pas de dépendance logique aux sources KLean
+générées : son build est documenté et configuré comme autonome. L'orchestration
+ne préserve pourtant pas cette indépendance. À cette révision,
+`build_proofs.ts` lance systématiquement `K7PL2Lean`, `KLeanArchive` et
+`K7PLProofs`, puis exige dans le même journal les déclarations de machine,
+de bridge et de domaine. Le workflow sémantique exécute en outre l'extraction
+K et l'export KLean avant ce build. Une erreur ou une annulation dans cette
+chaîne préalable supprime donc aussi la possibilité de constater séparément
+l'état des preuves de domaine. C'est un couplage d'orchestration, non une
+dépendance du modèle Lean.
+
+La prochaine tranche CI devrait fournir deux niveaux d'assurance distincts :
+
+1. **Contrôle de domaine autonome :** compiler `K7PLProofs` seul, extraire les
+   30 déclarations de `DOMAIN_THEOREMS`, puis auditer leurs ensembles
+   `#print axioms` en matching exact. La sélection doit être dérivée du
+   contrat maître `axiom-audit-contract.json` et échouer si un nom manque ou
+   apparaît en double ; elle ne doit ni dupliquer la politique d'axiomes ni
+   l'assouplir. L'évidence publiée doit porter explicitement le scope
+   « domaine » et ne pas être présentée comme l'audit complet du paquet.
+2. **Contrôle d'intégration complet :** conserver le pipeline K → KLean,
+   compiler les trois bibliothèques, puis exécuter l'audit exact des 45
+   déclarations et le packaging de la formal-chain/Blueprint. C'est ce niveau
+   qui autorise une affirmation globale sur le paquet de preuves historiques
+   et de domaine.
+
+Critères d'acceptation : une panne injectée dans l'export KLean ne doit pas
+empêcher le build et l'audit autonome des 30 théorèmes de domaine ; une
+déclaration absente, un axiome supplémentaire ou `sorryAx` doit faire
+échouer ce contrôle ; le rapport partiel ne doit jamais satisfaire le contrat
+global de 45 déclarations ; le contrôle d'intégration doit toujours exiger
+les trois bibliothèques et les 45 ensembles exacts. La séparation des jobs
+n'établit aucune propriété K7PL supplémentaire : elle améliore l'observabilité
+et l'isolation des défaillances de l'assurance.
+
 ## Frontières K / Lean / TLA+
 
 La séparation cible est :
