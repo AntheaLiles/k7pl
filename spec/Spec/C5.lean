@@ -12,7 +12,7 @@ import Spec.C5.NotationsSpecialisees
 import Spec.C5.LeTheoremeDElaboration
 import Spec.C5.CeQuUneMacroDeclare
 import Spec.C5.MiseEnPratique
-import Spec.C5.DiscussionEmpirique
+import Spec.C5.EmpiricalDiscussion
 
 open Verso.Genre Manual
 open SpecExt
@@ -96,4 +96,4 @@ usages illustrent la possibilité d'orchestrer des systèmes réels à partir de
 
 {include 0 Spec.C5.MiseEnPratique}
 
-{include 0 Spec.C5.DiscussionEmpirique}
+{include 0 Spec.C5.EmpiricalDiscussion}
