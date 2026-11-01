@@ -116,14 +116,20 @@ Repository state reviewed on **2026-11-01**, with the workstream based on
 - TLC 1.7.4 is downloaded and verified against the pinned SHA-256 and SHA-1
   before execution. The unified artifact has fail-on-missing upload semantics
   and 14-day retention.
-- First end-to-end run 41305607506, on pre-parser-fix head
-  `efd0212b065016c206b9c83c0059f3623957959b`, executed all 39 TLA profiles:
-  10/18 positive profiles completed without an invariant error, 12/21 negative
-  profiles reached their named invariant violation, and 17 profiles failed
-  before a model verdict due to parser/semantic errors in TLA-01, 02, 05, 07,
-  12 and 16. The branch contains repairs for those source defects and a stricter
-  negative-result predicate; the corrected-head rerun was pending at the
-  2026-11-01 snapshot. These results are not a green-suite claim.
+- First run 41305607506 on pre-parser-fix head
+  `efd0212b065016c206b9c83c0059f3623957959b` executed all 39 TLA profiles:
+  10/18 positive and 12/21 negative outcomes matched; 17 profiles had no model
+  verdict because of parser/semantic defects in six modules.
+- Corrected-source run 41306284770 on head
+  `29845511f018b80da543b975a995b477d4ba9cb4` matched 15/18 positive and 17/21
+  negative outcomes. Seven profiles remained unsuccessful: TLA-02 positive and
+  negative stopped at TypeOK evaluation (string sentinel NoPairValue compared
+  with a message-pair tuple); TLA-07 positive plus three negative profiles
+  failed parsing in WriteCell line 126; TLA-12 positive failed because
+  AdvanceFrame did not completely assign frameOverrun. The TLA job and CI OK
+  therefore failed. The current branch head is later and contains documentation
+  and registry-test updates; its full CI run has not completed. Do not call the
+  suite green based on either run.
 - The current CI design has a model-check stage but no separate fast TLA parse
   tier. A parser-only tier remains a proposal until the pinned TLC/SANY
   invocation and import-resolution behaviour are verified.
