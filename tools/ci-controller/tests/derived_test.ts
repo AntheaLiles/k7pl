@@ -126,9 +126,20 @@ Deno.test("derived classifier keeps non-Markdown docs-tree files fail-closed", (
     assertEquals(divergences, [], `${path} must agree with legacy`);
     assertEquals(derived([path]).full, true);
   }
-  const tla = derived(["theoretical-projects/k7os/models/D01.tla"]);
+  const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.full, false);
   assertEquals(tla.surfaces.tla_model_check, true);
+  assertEquals(
+    derivedDivergences(tla, classify(["models/D01NativeBoundary.tla"])),
+    [],
+  );
+  const nextK7plModel = derived(["models/TLA01Session.tla"]);
+  assertEquals(nextK7plModel.full, false);
+  assertEquals(nextK7plModel.surfaces.tla_model_check, true);
+  assertEquals(
+    derivedDivergences(nextK7plModel, classify(["models/TLA01Session.tla"])),
+    [],
+  );
   const refs = derived(["wiki/references.json"]);
   assertEquals(refs.full, false);
   assertEquals(refs.spec_build, true);
@@ -181,9 +192,37 @@ Deno.test("derived classifier maps K, proofs and TLA to their new surfaces", () 
   assertEquals(proofs.surfaces.axiom_audit, true);
   assertEquals(proofs.full, false);
 
-  const tla = derived(["theoretical-projects/k7os/models/D01.tla"]);
+  const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.surfaces.tla_model_check, true);
   assertEquals(tla.full, false);
+
+  for (
+    const path of [
+      "models/README.md",
+      "models/CHAPTER-COVERAGE.md",
+      "models/CHECKPOINT.md",
+      "models/FORMAL-ARCHITECTURE.md",
+      "models/OPEN-GATES.md",
+      "models/TOOLCHAIN-CI.md",
+      "models/WORK-PLAN.md",
+      "models/MODEL-DEPENDENCIES.md",
+      "models/REMEDIATION-ROADMAP-P0-P4.md",
+      "models/REMEDIATION-EXECUTION-PROMPT.md",
+      "models/SPEC-COVERAGE-AUDIT-2026-10-31.md",
+    ]
+  ) {
+    const programme = derived([path]);
+    assertEquals(programme.surfaces.tla_model_check, false, path);
+    assertEquals(programme.docs_links, true, path);
+    assertEquals(programme.full, false, path);
+  }
+  const r9Vector = derived(["models/R9-CancelRace-Test-Vector.md"]);
+  assertEquals(r9Vector.surfaces.tla_model_check, true);
+  assertEquals(r9Vector.full, false);
+
+  const profileInventory = derived(["models/TLC-PROFILES.json"]);
+  assertEquals(profileInventory.surfaces.tla_model_check, true);
+  assertEquals(profileInventory.full, false);
 });
 
 Deno.test("derived classifier forces full on unknown paths, fail-closed", () => {
@@ -225,9 +264,8 @@ Deno.test("derived and legacy classifiers agree on the core path set", () => {
 Deno.test("derived-shadow documents the known divergences, it does not hide them", () => {
   const registry = loadRegistryFile(REGISTRY_PATH);
   const divergentPaths = [
-    // Intended D2 behaviour: dedicated surfaces instead of full.
+    // Intended D2 behaviour: dedicated axiom-audit surface instead of full.
     "proofs/Foo.lean",
-    "theoretical-projects/k7os/models/D01.tla",
     // Intended D2 behaviour: K surfaces, no Lean over-triggering.
     "src/k/foo.k",
     // wiki/references.json is a spec-build input, but the wiki

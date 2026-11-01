@@ -49,7 +49,7 @@ jobs:
       contents: read
     defaults:
       run:
-        working-directory: theoretical-projects/k7os/models
+        working-directory: models
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -91,8 +91,16 @@ jobs:
             echo "::error::TLC accepted an unconfined profile despite the expected integrity counterexample"
             exit 1
           fi
-          if ! grep -F "Invariant ProtectedIntegrity" "$log" >/dev/null; then
-            echo "::error::TLC stopped before the expected D01 ProtectedIntegrity counterexample"
+          if ! grep -F "Error: Invariant ProtectedIntegrity is violated." "$log" >/dev/null; then
+            echo "::error::TLC did not report the exact ProtectedIntegrity invariant violation"
+            exit 1
+          fi
+          if ! grep -F "Error: The behavior up to this point is:" "$log" >/dev/null; then
+            echo "::error::TLC did not provide a counterexample trace for D01 native boundary"
+            exit 1
+          fi
+          if grep -F -e "***Parse Error***" -e "Parsing or semantic analysis failed." -e "Error: Evaluating invariant TypeOK failed." -e "Error: Assumption" "$log" >/dev/null; then
+            echo "::error::TLC D01 native boundary log also contains a parser, ASSUME or type failure"
             exit 1
           fi
 

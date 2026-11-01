@@ -28,6 +28,7 @@ EXPECTED_FULL_EXACT = {
     "scripts/requirements-zenodo.txt",
 }
 EXPECTED_FULL_PREFIXES = (".github/workflows/", "scripts/ci/")
+EXPECTED_TLA_MODEL_PREFIXES = ("models/",)
 SURFACES = ("full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests")
 EXPECTED_PYTHON_TEST_EXACT = {"scripts/generate_status.py"}
 EXPECTED_PYTHON_TEST_PREFIXES = ("tests/python/",)
@@ -107,6 +108,15 @@ class ImpactTests(unittest.TestCase):
         self.assertTrue(result["full"])
         self.assertTrue(result["unclassified"])
 
+    def test_tla_model_paths_are_claimed_by_the_dedicated_surface(self):
+        for path in ("models/TLA01SessionNetwork.tla", "models/TLA01-AcyclicNominal.cfg",
+                     "models/TLA02-16-ExpectedCounterexamples.json"):
+            with self.subTest(path=path):
+                result = classify([path])
+                self.assertFalse(result["full"])
+                self.assertFalse(result["unclassified"])
+                self.assertEqual(result["unknown_paths"], [])
+
     def test_non_markdown_docs_path_forces_full(self):
         # F9, owner decision 2026-10-25: docs/ is no longer a light
         # prefix. A non-markdown docs/ path is unclassified, hence
@@ -143,6 +153,7 @@ class FullSurfaceTests(unittest.TestCase):
     def test_expected_lists_match_the_classifier(self):
         self.assertEqual(impact.FULL_EXACT, EXPECTED_FULL_EXACT)
         self.assertEqual(impact.FULL_PREFIXES, EXPECTED_FULL_PREFIXES)
+        self.assertEqual(impact.TLA_MODEL_PREFIXES, EXPECTED_TLA_MODEL_PREFIXES)
 
     def test_each_exact_path_forces_full(self):
         for path in sorted(EXPECTED_FULL_EXACT):
