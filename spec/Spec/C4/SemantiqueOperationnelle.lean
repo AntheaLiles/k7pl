@@ -30,7 +30,7 @@ hypothèses nommées, sur les constructeurs que la relation réduit, et le lemme
 
 Le cadre est fixé, et la relation doit être définie sur les configurations complètes. Une configuration est un triplet ⟨c | μ | τ⟩ où c est un calcul, μ un état d'arène — une application des régions vers leur contenu — et τ la trace d'effets d'exécution. Dans le fragment séquentiel, cette trace est un mot ; sous concurrence, les obligations de préservation lisent son ordre comme un ordre partiel étiqueté le long de chaque chaîne, sans imposer de séquencement entre événements indépendants. La relation de réduction est définie par les schémas suivants, donnés en style à petits pas.
 
-P3-B ratifie que la latence d'attente environnementale de When doit rester observable séparément du coût d'exécution de l'automate déclenché et ne doit pas être ajoutée à son effet ε ni à `Cost_Budget`. La représentation et le type exacts de cette observation séparée ne sont toutefois pas ratifiés par cette décision. La configuration affichée ici ne les définit pas encore : il s'agit d'une obligation d'interface C-04/C-07, pas d'une coordonnée de trace ajoutée implicitement à la sémantique normative.
+La latence d'attente environnementale de When reste observable séparément du coût d'exécution de l'automate déclenché : elle ne s'ajoute ni à son effet ε ni à `Cost_Budget`. La représentation et le type exacts de cette observation séparée ne sont pas fixés. La configuration affichée ici ne les définit pas encore : c'est une obligation d'interface ouverte, pas une coordonnée de trace ajoutée implicitement à la sémantique normative.
 
 Les schémas se rangent en trois familles, écrites toutes plutôt que représentées par une : une
 relation donnée « par exemples » ne supporte pas la récurrence dont la préservation a besoin, et
@@ -109,10 +109,10 @@ cet argument s'exécuter avant de conclure. Elle est donc un contexte d'évaluat
 
 Ces blocs ne réduisaient pas tous les constructeurs de la grammaire des termes
 (§{num "sec:g-grammaire-termes"}[]). Ce qui suit écrit les schémas que le texte des chapitres 2 à 4
-détermine déjà ; puis cinq autres, que le texte ne détermine pas et qui sont écrits sur l'orientation que
-l'instruction des décisions recommande, _proposés à la ratification_ ; enfin les six autres, que la correction
+détermine déjà ; puis cinq autres, que le texte ne détermine pas et qui sont écrits par choix
+d'orientation, _à titre de propositions_ ; enfin les six autres, que la correction
 des grammaires a rendus écrivables (déclassification, formes temporelles, localisation, déplacement), eux aussi
-proposés à la ratification (table {num "tab:couverture-reductions"}[]).
+à titre de propositions (table {num "tab:couverture-reductions"}[]).
 
 Trois réductions pures s'ajoutent. Le point fixe déductif se déplie _exactement_ $`h` fois depuis le
 plus petit élément, $`h` étant la hauteur du type $`S` que la règle ({num "eq:regle-fix"}[]) lui
@@ -315,25 +315,25 @@ Les constructeurs de calcul et leur schéma de réduction : ce qui est écrit, c
   * écrit ({num "eq:reductions-couche2"}[])
   * les « règles globales » du §{num "sec:g-couche2"}[]
 * * $`\mathsf{guard}` à motif conjonctif
-  * écrit, à ratifier ({num "eq:reductions-orientees"}[])
+  * écrit, proposé ({num "eq:reductions-orientees"}[])
   * la règle {sc}[Guard] porte des motifs conjonctifs ; le choix du message suit la structure de la boîte
 * * $`\mathsf{try}` quand le corps défaille
-  * écrit, à ratifier ({num "eq:reductions-orientees"}[])
+  * écrit, proposé ({num "eq:reductions-orientees"}[])
   * la défaillance n'est pas un terme du langage : pas de l'environnement, sans retour en arrière
 * * $`\mathbf{declassify}`
-  * écrit, à ratifier ({num "eq:reductions-modalites"}[])
+  * écrit, proposé ({num "eq:reductions-modalites"}[])
   * le contractum n'est pas typable dans le même contexte : la préservation graduée y tient à l'abaissement près
 * * $`\mathsf{at}`, $`\mathsf{wait}`, $`\mathsf{when}` (introductions : $`\mathsf{always}`, $`\mathsf{now}`, $`\mathsf{next}`, valeurs ; $`\mathsf{delay}`, terminal)
-  * écrit, à ratifier ({num "eq:reductions-modalites"}[])
+  * écrit, proposé ({num "eq:reductions-modalites"}[])
   * lecture séquentielle : la configuration n'a pas d'horloge, la durée d'attente vit dans la trace de la cible
 * * $`\parallel`, $`\mathsf{vmap}`
-  * écrit, à ratifier : fourche et jointure ({num "eq:reductions-orientees"}[])
+  * écrit, proposé : fourche et jointure ({num "eq:reductions-orientees"}[])
   * le déplier en séquence majorerait la profondeur que le type annonce ; reste l'entrelacement avec une trace par branche
 * * $`\mathsf{at}_n`, $`\mathsf{move}_{n \to m}` (introduction : $`\mathsf{loc}_n`, valeur)
-  * écrit, à ratifier ({num "eq:reductions-modalites"}[])
+  * écrit, proposé ({num "eq:reductions-modalites"}[])
   * machine unique : le lieu est une étiquette de type, la configuration n'a pas de lieu courant
 * * $`\mathsf{slice}`
-  * écrit, à ratifier ({num "eq:reductions-orientees"}[])
+  * écrit, proposé ({num "eq:reductions-orientees"}[])
   * jeton de capacité sans contenu ; la règle ne donne pas le découpage dans le terme, et le typage le porte
 :::
 ::::
@@ -524,7 +524,7 @@ que la forme globale ci-dessus renvoie à l'acyclicité du graphe de dépendance
 L'induction ne porte que sur les formes que les blocs ({num "eq:reductions-pures"}[]),
 ({num "eq:reductions-pures-suite"}[]), ({num "eq:reductions-effets"}[]) et
 ({num "eq:reductions-couche2"}[]) réduisent, plus celles que les formules ({num "eq:reductions-orientees"}[]) et
-({num "eq:reductions-modalites"}[]), proposées à la ratification, ajoutent : la déclassification, les éliminations
+({num "eq:reductions-modalites"}[]), proposées, ajoutent : la déclassification, les éliminations
 temporelles, la localisation et le déplacement y ont un schéma, et leur cas du progrès se lit comme les autres,
 la forme canonique de leur sujet fournissant le rédex. Aucun de ces cas n'est conduit en détail.
 La liste des formes terminales de l'énoncé nomme désormais $`\Lambda\alpha. c`, le copatron et
