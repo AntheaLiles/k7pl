@@ -10,7 +10,7 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "APOGOMÈNE" =>
+#doc (Manual) "APOGOMÈNES" =>
 %%%
 file := "apogomene"
 tag := "apogomene"

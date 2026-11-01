@@ -19,7 +19,7 @@ open SpecExt
 
 set_option linter.unusedVariables false
 
-#doc (Manual) "PROLÉGOMÈNE" =>
+#doc (Manual) "PROLÉGOMÈNES" =>
 %%%
 file := "c1-prolegomenes"
 tag := "c1-prolegomenes"
