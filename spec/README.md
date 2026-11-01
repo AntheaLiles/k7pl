@@ -27,6 +27,12 @@ dire et obtenir l'arbitrage de l'auteur, plutôt que la contourner.
 2. **Seuil de chapitre.** Chaque chapitre s'ouvre par un seuil : la question
    à laquelle il répond, ce qu'il présuppose, ce qu'il établit, son plan. Un
    fichier de chapitre réduit à un sommaire d'inclusions n'est pas un seuil.
+   Le seuil indique aussi, lorsqu'il y en a un, l'outillage avec lequel les
+   énoncés du chapitre sont modélisés et vérifiés (par exemple Lean 4 pour
+   les preuves, le Framework K pour la sémantique exécutable, TLA+ pour les
+   modèles concurrents) : l'outillage n'est pas une fin en soi, il est le
+   continuum de la démarche scientifique, et le lecteur doit savoir dès le
+   seuil quel artefact porte quelle vérification.
 3. **Seuil et bilan de section.** Une section longue annonce son objet en
    ouverture et, si elle établit quelque chose, le dit en clôture avant de
    passer à la suivante.
@@ -145,6 +151,10 @@ Suivant la discipline de *The Craft of Research* (Booth et al.) :
    cèdent la place à un sujet nommé dès qu'un agent existe.
 4. Aucun adverbe d'intensité sans quantité (« très », « largement »,
    « la plupart ») : soit un nombre, soit une borne, soit la suppression.
+5. Le tiret quadratin (—) ne s'emploie pas : rarement utilisé dans l'usage
+   réel et souvent mal compris des lecteurs, il se remplace par une
+   restructuration de la phrase (deux phrases, deux-points, parenthèse
+   technique quand elle est brève).
 
 ## 8. Manière de corriger
 
