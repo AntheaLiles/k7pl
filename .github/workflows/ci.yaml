@@ -195,7 +195,7 @@ jobs:
     uses: ./.github/workflows/security.yaml
 
   r9-tlc:
-    name: R9 and TLA-01..16 model checks
+    name: D01, R9 and TLA-01..16 model checks
     needs: impact
     # ÉCART 5 (cutover C2): r9-tlc runs only when tla_model_check is present.
     if: ${{ needs.impact.outputs.tla_model_check == 'true' }}
@@ -257,6 +257,33 @@ jobs:
             exit 1
           fi
 
+      - name: Check D01 native-boundary model with enforced boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/d01-positive-tlc.log"
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary.cfg D01NativeBoundary >"$log" 2>&1
+          cat "$log"
+
+      - name: Check D01 native-boundary counterexample without enforcement
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/d01-negative-tlc.log"
+          set +e
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary >"$log" 2>&1
+          rc=$?
+          set -e
+          cat "$log"
+          if [ "$rc" -eq 0 ]; then
+            echo "::error::TLC accepted the unconfined profile despite the expected integrity counterexample"
+            exit 1
+          fi
+          if ! grep -F "Invariant ProtectedIntegrity" "$log" >/dev/null; then
+            echo "::error::TLC stopped before the expected D01 ProtectedIntegrity counterexample"
+            exit 1
+          fi
+
       - name: Set up Deno
         if: always()
         uses: ./.github/actions/setup-deno
@@ -271,13 +298,23 @@ jobs:
             --tlc-jar "$RUNNER_TEMP/tla2tools.jar" \
             --evidence "$GITHUB_WORKSPACE/tla-model-check-evidence"
 
-      - name: Preserve R9 and unified TLA evidence
+      - name: Preserve D01, R9 and unified TLA evidence
         if: always()
         run: |
           set -euo pipefail
           evidence="$GITHUB_WORKSPACE/tla-model-check-evidence"
+          d01="$evidence/d01"
           r9="$evidence/r9"
-          mkdir -p "$r9"
+          mkdir -p "$d01" "$r9"
+          cp D01NativeBoundary.tla D01-NativeBoundary.cfg D01-NativeBoundary-Unconfined.cfg D01-NativeBoundary-ExpectedCounterexample.json "$d01/"
+          for log in d01-positive-tlc.log d01-negative-tlc.log; do
+            if [ -f "$RUNNER_TEMP/$log" ]; then
+              cp "$RUNNER_TEMP/$log" "$d01/"
+            else
+              echo "::warning::D01 evidence log $log was not produced"
+            fi
+          done
+          cp R9ActorCancellation.tla R9ActorCancellation.cfg R9-NaiveCancelClaim.cfg R9-CancelRace-Test-Vector.md "$r9/"
           cp R9ActorCancellation.tla R9ActorCancellation.cfg R9-NaiveCancelClaim.cfg R9-CancelRace-Test-Vector.md "$r9/"
           for log in r9-positive-tlc.log r9-negative-tlc.log; do
             if [ -f "$RUNNER_TEMP/$log" ]; then

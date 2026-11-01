@@ -51,7 +51,7 @@ Les surfaces sont les suivantes.
 | `unclassified` | informatif : un chemin inconnu force `full` |
 | `axiom_audit` | audit des axiomes du projet de preuves (`k-smoke`) |
 | `k_compile`, `k_examples`, `klean_export` | compilation K, exemples, export Klean vers Lean (`k-smoke`) |
-| `tla_model_check` | vérifications TLC D01, R9 et TLA-01..16 (profils nominaux, contrôles négatifs et propriétés temporelles explicites) ; artefact unifié `tla-model-check-evidence` pour TLA-01..16 |
+| `tla_model_check` | vérifications TLC D01, R9 et TLA-01..16 (18 profils positifs + 21 contrôles négatifs) ; `tla-model-check-evidence` conserve D01 + R9 + les 39 profils et leurs logs. D01 est exécuté dans `r9-tlc` pour le gate `CI OK`, puis dans `d01-tlc` du workflow sémantique pour produire `d01-tlc-evidence`, consommé par `k-smoke` (redondance intentionnelle, à supprimer seulement avec un transfert d'artefact vérifié). |
 
 Exemples de chemins (vérifiés avec le classifieur dérivé) :
 
