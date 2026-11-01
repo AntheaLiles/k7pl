@@ -158,6 +158,10 @@ Suivant la discipline de *The Craft of Research* (Booth et al.) :
 6. Dans les sources, un paragraphe tient sur une seule ligne : pas de
    retour à la ligne manuel avant la fin du paragraphe, le renvoi à la
    ligne est l'affaire du rendu et de l'éditeur, pas du texte source.
+7. Aucun gras dans la spécification : ni graisse typographique sur les
+   glyphes mathématiques (un R script gras se lit comme un N et a fait
+   croire à un second objet), ni emphase en gras ; l'emphase passe par
+   l'italique.
 
 ## 8. Manière de corriger
 
