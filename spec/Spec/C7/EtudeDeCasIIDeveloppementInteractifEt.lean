@@ -36,7 +36,7 @@ au moment où il en a besoin.
 Un trou, écrit `_`, est le point le moins précis du treillis de précision pour le type attendu
 (chapitre 3, §{num "sec:c3-structures-ouvertes-effets-et"}[]). Lorsqu'un développeur en laisse un
 dans son code, le compilateur ne se contente pas de le signaler, il propose, par narrowing, les
-termes qui le raffinent jusqu'à devenir acceptables — la même tranche minimale de dérivation qui
+termes qui le raffinent jusqu'à devenir acceptables : la même tranche minimale de dérivation qui
 explique un message d'erreur explique tout aussi bien une suggestion de complétion, puisque l'une et
 l'autre s'obtiennent par la même extraction de sous-dérivation. Lorsqu'un comportement inattendu
 survient à l'exécution, le Replay Debugger n'a besoin d'aucune instrumentation ajoutée après coup.

@@ -120,7 +120,7 @@ tag := "refs-liste-des-glosses"
 
 : composante du jugement
 
-  Chacune des trois parties que porte le jugement germinal — le contexte gradué, le type, l'effet —
+  Chacune des trois parties que porte le jugement germinal (le contexte gradué, le type, l'effet)
   et dont une couche donnée peut n'employer qu'une partie.
 
 : condition de clôture
@@ -139,8 +139,8 @@ tag := "refs-liste-des-glosses"
 
 : contrainte de valeur
 
-  Restriction portant sur ce que le contenu d'une valeur peut être — une taille, un intervalle, un
-  état, un protocole, une dimension physique — indépendamment de la modalité qui gouverne son usage.
+  Restriction portant sur ce que le contenu d'une valeur peut être (une taille, un intervalle, un
+  état, un protocole, une dimension physique) indépendamment de la modalité qui gouverne son usage.
 
 : copatron
 
@@ -463,8 +463,8 @@ tag := "refs-liste-des-glosses"
 
 : sorte de taille
 
-  Chacun des deux domaines où vit un indice de taille — l'un sans plus grand élément, pour la
-  polarité inductive, l'autre avec, pour la coinductive — qu'aucun type ne porte ensemble.
+  Chacun des deux domaines où vit un indice de taille (l'un sans plus grand élément, pour la
+  polarité inductive, l'autre avec, pour la coinductive) qu'aucun type ne porte ensemble.
 
 : système de raffinement
 

@@ -49,13 +49,13 @@ qu'espéré.
 Les doctests occupent, dans ce paysage, une position particulière : le compilateur les exécute comme
 des tests unitaires ordinaires pendant la compilation, avant la génération de code (Phase 9), ce qui en fait la
 seule forme de test dont l'échec bloque la compilation elle-même plutôt qu'une exécution ultérieure.
-En mode `+strict-tdd`, un symbole public sans doctest associé est lui-même rejeté — la documentation
+En mode `+strict-tdd`, un symbole public sans doctest associé est lui-même rejeté : la documentation
 devient une obligation de preuve comme une autre, vérifiée avec le même sérieux que le jugement
 lui-même.
 
 Un résidu dynamique subsiste néanmoins, et ce chapitre ne prétend pas l'éliminer : la falsification
 des indices SMT par test de propriétés (§{num "sec:c6-le-processus-de-compilation"}[], Phase 7),
-activée en mode `+verify`, reste un test au sens classique du terme — une exécution qui pourrait
+activée en mode `+verify`, reste un test au sens classique du terme : une exécution qui pourrait
 échouer, plutôt qu'une preuve qui ne le peut pas. Le chemin nominal de K7PL est statique de bout en
 bout ; ce résidu en est la seule exception assumée, et il ne porte que sur les indices qu'un
 développeur a lui-même fournis, jamais sur le cœur du système de types.
@@ -72,7 +72,7 @@ Et la traduction vers un métalangage en π-calcul, interprété une fois pour t
 adéquation se raisonnent au niveau du métalangage {cite "CASTELLAN-PI"}[].
 
 Une quatrième voie se signale pour ce qu'elle prouve de faisabilité plutôt que pour être suivie : le
-même objet — un interpréteur de référence servant d'oracle à un testeur — a été construit et
+même objet (un interpréteur de référence servant d'oracle à un testeur) a été construit et
 _entièrement vérifié_ ailleurs, pour exactement cet usage {cite "wattWasmRefisabelleVerifiedMonadic2023"}[].
 L'hypothèse de confiance énoncée ci-dessus n'est donc pas une limite de principe : elle a un prix,
 et ce prix a été payé au moins une fois.
@@ -81,8 +81,8 @@ C'est la troisième voie que ce document retient, et le chapitre 4
 (§{num "sec:c4-le-calcul-de-processus"}[]) la construit : le métalangage y est défini, la traduction
 donnée, et sa préservation du typage énoncée en théorème. La dette change alors de nature. Il ne
 s'agit plus de prouver l'interpréteur correct construction par construction, mais d'établir que la
-traduction préserve le typage — le métalangage étant interprété une fois pour toutes, correction et
-adéquation s'y raisonnent {cite "cairesLinearSessionAbstract2026"}[]. Cette dette-là reste ouverte,
+traduction préserve le typage (le métalangage étant interprété une fois pour toutes, correction et
+adéquation s'y raisonnent) {cite "cairesLinearSessionAbstract2026"}[]. Cette dette-là reste ouverte,
 et elle est plus étroite : le théorème {num "thm:traduction_metalangage"}[] l'énonce et n'en donne
 qu'une esquisse, et la fidélité elle-même demande en outre la simulation du théorème {num "thm:simulation"}[], qui l'accompagne.
 
@@ -95,12 +95,12 @@ elle conditionne la valeur de l'énoncé.
 
 Reste le protocole du test différentiel, que ce chapitre invoque sans l'avoir écrit. Il compare, sur
 un même programme, l'exécution du binaire optimisé et celle de l'interpréteur de référence. Le
-corpus est composé de trois sources — les doctests, les cas d'étude du chapitre 7, et des
-programmes engendrés par propriété à graine fixée et consignée —, et chaque cas porte son profil
+corpus est composé de trois sources (les doctests, les cas d'étude du chapitre 7, et des
+programmes engendrés par propriété à graine fixée et consignée), et chaque cas porte son profil
 de représentation $`\Pi`. La comparaison se fait sur l'observation et la trace d'effets modulo la
 congruence du métalangage : aucune tolérance sur le rejeu logique ; sur la représentation, l'égalité
-bit à bit n'est exigée que sous le profil déclaré. Un écart est classé — erreur du compilateur,
-erreur de l'oracle, ou ambiguïté de la spécification — et bissecté phase par phase du pipeline,
+bit à bit n'est exigée que sous le profil déclaré. Un écart est classé (erreur du compilateur,
+erreur de l'oracle, ou ambiguïté de la spécification) et bissecté phase par phase du pipeline,
 puis réduit au plus petit programme qui le reproduit, lequel rejoint le corpus de non-régression.
 Le test est reproductible si chaque passe appliquée est déterministe et que la trace est respectée
 au niveau du binaire testé : c'est le critère opérationnel de la compilation reproductible.

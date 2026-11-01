@@ -28,13 +28,13 @@ compilation est qu'_aucune abstraction ne dissimule un coût de vérification_. 
 le solveur dépense n'est donc pas une commodité : c'est le même principe appliqué à l'autre moment,
 et il commande ce qui suit. Un rejet n'est une contrainte que s'il est muet ; un refus qui nomme
 l'obligation qu'il n'a pas su décider, ce qu'il y a consacré et ce qui la déciderait est une
-assistance. La décision de rejeter plutôt que de dégrader n'en est pas défaite — elle reçoit ici ce
+assistance. La décision de rejeter plutôt que de dégrader n'en est pas défaite : elle reçoit ici ce
 qu'elle doit comporter pour être tenable.
 
 La mesure employée décide de tout le reste, et elle n'est pas le temps. Un délai dépend de la
 machine ; il rendrait la compilation non reproductible, ce qui heurte l'objectif que ce document
-s'est fixé. Un _compte de ressource reproductible_ — mesure abstraite du coût de vérification qui ne
-dépend que de la formule d'entrée et de la configuration du solveur — est en revanche un grade :
+s'est fixé. Un _compte de ressource reproductible_ (mesure abstraite du coût de vérification qui ne
+dépend que de la formule d'entrée et de la configuration du solveur) est en revanche un grade :
 déterministe, additif, décrémentable. Il se loge dans l'appareil existant sans rien y ajouter, aux
 côtés du budget de spécialisation. _Le budget du solveur est un compte de ressource, jamais un
 délai._
@@ -43,12 +43,12 @@ Ce que le solveur reçoit ainsi, les autres phases le recevaient déjà, et cela
 les quatre.
 
 > *Exigence de compilation bornée.* Tout travail de compilation est borné par un grade porté par
-> l'unité de compilation, et ce grade se mesure en _compte de ressource reproductible_ — jamais en
+> l'unité de compilation, et ce grade se mesure en _compte de ressource reproductible_, jamais en
 > délai.
 
 Ce n'est pas un postulat, et la distinction n'est pas de forme : les postulats ne bougent que sur
 infaisabilité et portent sur le _langage_, quand celle-ci porte sur son _compilateur_. Un manquement
-ne serait donc pas un défaut du langage mais de l'outil qui le réalise — ce qui n'en fait pas une
+ne serait donc pas un défaut du langage mais de l'outil qui le réalise : ce qui n'en fait pas une
 exigence molle, mais une exigence dont le lieu de réparation est ailleurs.
 
 Que ce grade soit porté par l'_unité de compilation_ appelle une observation qui dépasse le
@@ -90,12 +90,11 @@ Elle s'accompagne d'une clôture _locale_ : pour les formes de déclaration énu
 :::proofsketch
 L'énoncé ne se démontre pas, il se _montre_ : il s'agit de vérifier, par énumération sur les formes
 de déclaration de ce chapitre, que chacune se range dans l'une des trois composantes et qu'aucune
-n'en demande une quatrième. L'énumération est finie et se conduit à la lecture. La clôture ne vaut que pour ces formes : elle est suffisante, non nécessaire, et une extension qui exigerait une quatrième composante — l'extension probabiliste du chapitre 4, dont le raisonnement statique demande deux notions que K7PL n'a pas — ne la contredit pas mais appelle la clause de révision de l'axiome (chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]).
+n'en demande une quatrième. L'énumération est finie et se conduit à la lecture. La clôture ne vaut que pour ces formes : elle est suffisante, non nécessaire, et une extension qui exigerait une quatrième composante (l'extension probabiliste du chapitre 4, dont le raisonnement statique demande deux notions que K7PL n'a pas) ne la contredit pas mais appelle la clause de révision de l'axiome (chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]).
 :::
 ::::
 Deux échecs historiques symétriques donnent la mesure de cet énoncé, et c'est ce qui le rend
-intéressant plutôt que tautologique. {rmq}[Chacun porte deux des trois obligations, aucun les
-trois.] Standard ML a des signatures riches et pas d'effets dans son interface {cite "macqueenHistoryStandardML2020"}[].
+intéressant plutôt que tautologique. Standard ML a des signatures riches et pas d'effets dans son interface {cite "macqueenHistoryStandardML2020"}[].
 Haskell a les effets dans ses types et pas de système de modules de cette richesse {cite "hudakHistoryHaskellBeing2007"}[].
 L'un et l'autre ont payé cette absence par un dispositif séparé ajouté après coup.
 
@@ -103,12 +102,12 @@ Ce théorème est la jonction de trois pièces que ce document écrit dans trois
 relier : la théorie des modules du chapitre 4, le grade porté par l'unité de compilation ci-dessus,
 et le jugement à trois composantes du chapitre 1. S'il tient, une interface n'a rien à déclarer que
 le jugement ne porte déjà, et le langage n'a pas de langage de modules séparé à maintenir. S'il
-tombe — s'il fallait une quatrième obligation —, K7PL rejoindrait les deux échecs ci-dessus et
+tombe (si une quatrième obligation devenait requise), K7PL rejoindrait les deux échecs ci-dessus et
 devrait ajouter le dispositif qu'ils ont dû ajouter.
 
 Une conséquence pratique en découle, et elle n'est pas confortable : si le grade est dans
 l'interface, alors le changer change l'interface, et les unités dépendantes recompilent. C'est une
-contrainte réelle, mais elle est du bon côté — la translucidité est ici l'honnêteté, et une
+contrainte réelle, mais elle est du bon côté : la translucidité est ici l'honnêteté, et une
 interface qui cacherait le grade cacherait un coût, ce que P3 interdit.
 
 Les quatre sites en sont les instances, et aucun n'a été ajouté pour la satisfaire.
@@ -120,7 +119,7 @@ Les quatre sites en sont les instances, et aucun n'a été ajouté pour la satis
 * Le test par propriétés des indices, dont le nombre d'itérations est lui-même un grade.
 
 * Le compte de ressource du solveur, le quatrième et le dernier à l'avoir reçu. _L'exigence ne
-  prescrit donc rien de neuf — elle nomme ce que le pipeline faisait déjà en quatre endroits sans le
+  prescrit donc rien de neuf : elle nomme ce que le pipeline faisait déjà en quatre endroits sans le
   dire nulle part._
 
 La clause qui interdit le délai est celle qui porte tout le reste. Un délai dépend de la machine ;
@@ -131,7 +130,7 @@ reproductible. Un compte de ressource, lui, est un grade : déterministe, additi
 Ce que cette exigence achète, enfin, se lit à côté de P3 et complète ce qu'il laissait ouvert. P3
 dit qu'aucune abstraction ne dissimule un coût mémoire _à l'exécution_ ; l'exigence ci-dessus dit
 que rien ne peut faire diverger _la compilation_. Les deux ensemble donnent la prédictibilité que ce
-document revendique — l'une pour ce qui s'exécute, l'autre pour ce qui vérifie —, et l'audit qui
+document revendique (l'une pour ce qui s'exécute, l'autre pour ce qui vérifie), et l'audit qui
 avait relevé que P3 ne gouverne pas la compilation trouve ici sa réponse : ce n'était pas à P3 de le
 faire.
 
@@ -153,8 +152,8 @@ reproductibilité du rejet
 :::statement +titled
 Deux compilations de la même source disent la même chose
 
-À configuration de solveur fixée, et sous l'hypothèse $`D_{\mathrm{det}}` — tout parcours, toute
-recherche et toute graine sont des fonctions de la source et du compte de ressource —, le message de
+À configuration de solveur fixée, et sous l'hypothèse $`D_{\mathrm{det}}` (tout parcours, toute
+recherche et toute graine sont des fonctions de la source et du compte de ressource), le message de
 rejet est une fonction de la source seule : deux compilations d'un même programme produisent le même
 message, à l'identique.
 :::
@@ -164,8 +163,8 @@ Les quatre composantes du message sont chacune fonction de la source. L'obligati
 localisation se lisent sur la dérivation. La vérification est bidirectionnelle et non principale
 (chapitre 3) : l'énoncé n'invoque donc pas une inférence principale, mais l'hypothèse
 $`D_{\mathrm{det}}`, qui rend le choix des grades par défaut indépendant de l'ordre de parcours.
-Le document en possède les deux moitiés — compte reproductible, budget relevé écrit dans la
-source — et $`D_{\mathrm{det}}` les assemble ; c'est une exigence sur l'implémentation, non un
+Le document en possède les deux moitiés (compte reproductible, budget relevé écrit dans la
+source) et $`D_{\mathrm{det}}` les assemble ; c'est une exigence sur l'implémentation, non un
 théorème du système de types.
 Le compte de ressource ne dépend, par construction, que de la formule soumise et de la
 configuration ; il est donc identique d'une exécution à l'autre et d'une machine à l'autre. L'état à
@@ -194,17 +193,17 @@ tag := "c6-ce-que-le-solveur-retourne-ce-qu-un-rejet-propose-et-pour"
 %%%
 
 Le solveur reçoit exactement trois choses : une formule, des indices, une borne de ressource. Une
-obligation qu'il ne décharge pas ne peut donc être secourue qu'en agissant sur l'une des trois —
+obligation qu'il ne décharge pas ne peut donc être secourue qu'en agissant sur l'une des trois :
 _découper_ l'obligation, _fournir_ un indice, _relever_ la borne. Il n'y a pas de quatrième voie, et
 ce n'est pas une limite d'imagination : c'est la clôture de ce dont la procédure dispose. Le
-raisonnement est celui que le chapitre 1 tient pour les trois strates du jugement — trois entrées,
+raisonnement est celui que le chapitre 1 tient pour les trois strates du jugement : trois entrées,
 trois recours, et aucune quatrième place à inventer.
 
 Les deux premières voies emploient ce que le document possède déjà : le découpage est une écriture,
 et les indices `invariant`, `witness` et `lemma` sont soumis au test par propriétés décrit
 ci-dessus. La troisième porte une contrainte, et elle est structurelle plutôt que stylistique : _le
 budget relevé doit être écrit dans la source_. S'il vivait dans une configuration, la
-reproductibilité que le théorème {num "thm:rejet_reproductible"}[] énonce se perdrait aussitôt — le
+reproductibilité que le théorème {num "thm:rejet_reproductible"}[] énonce se perdrait aussitôt : le
 message dépendrait d'un fichier que la source ne mentionne pas, et l'objectif de compilation
 reproductible deviendrait inatteignable.
 
@@ -235,7 +234,7 @@ sa réponse ; une obligation non déchargée en est un cas. Le compilateur rend 
 le trou doit satisfaire au lieu d'un refus, et le rejet devient un dialogue.
 
 Une distinction achève ce point, faute de quoi on croirait la décision de rejeter revenue. _Le rejet
-reste terminal au niveau de l'artefact_ — aucun binaire n'est produit, et rien de ce qui a été
+reste terminal au niveau de l'artefact_ : aucun binaire n'est produit, et rien de ce qui a été
 arbitré n'est défait. Il cesse de l'être _au niveau de la session d'édition_, où le trou permet de
 continuer à travailler sur un programme incomplet. La frontière entre l'erreur et l'incomplétude
 s'efface pour l'éditeur sans s'effacer pour le compilateur, et les deux exigences qui semblaient
@@ -284,7 +283,7 @@ syntaxique ou fondé sur le modèle mémoire ; leur formulation comme isomorphis
 relève de l'obligation P1b. Quatre familles s'y rangent.
 
 * L'adjonction curry/uncurry et l'isomorphisme de Yoneda du chapitre 2
-  (§{num "sec:c2-adjonctions-et-enrichissement"}[]) en fournissent deux instances ; l'argument est syntaxique — chaque présentation se transforme en l'autre par substitution, les règles d'abstraction et d'application étant inversibles.
+  (§{num "sec:c2-adjonctions-et-enrichissement"}[]) en fournissent deux instances ; l'argument est syntaxique : chaque présentation se transforme en l'autre par substitution, les règles d'abstraction et d'application étant inversibles.
 
 * La déforestation et la fusion de boucles éliminent les structures intermédiaires ; leur argument est la commutation de la substitution avec le pli, par induction sur la structure éliminée, avec un contexte multiplié par le grade du corps fusionné.
 
@@ -307,29 +306,29 @@ jugement, et c'est le genre de bénéfice qu'une composante d'effet rend sans qu
 lui.
 
 Deux réécritures appellent une correction du même ordre, et dans les deux cas c'est le grade qui la
-porte. L'_intégration_ d'abord : ce chapitre en fait une exception à la décroissance — elle ne
-retire une indirection qu'en dupliquant un corps — et en conclut que sa terminaison exige d'être
+porte. L'_intégration_ d'abord : ce chapitre en fait une exception à la décroissance (elle ne
+retire une indirection qu'en dupliquant un corps) et en conclut que sa terminaison exige d'être
 budgétée. Le budget est inutile sur le fragment qui compte. N'intégrer que les fonctions _appelées
 une seule fois_ donne un système rétrécissant, dont la mesure décroît par construction, normalisable
 en temps linéaire et _confluent_, de sorte que le choix de l'algorithme n'affecte pas la qualité du
 code final {cite "appelShrinkingLambdaExpressions1997"}[]. Or « appelée une seule fois » est ce que
 la composante d'usage du grade déclare : là où un compilateur ordinaire a besoin d'une analyse pour
 l'établir, le jugement gradué la porte. Le budget se restreint donc au fragment hors grade, et la
-confluence est acquise sur le reste — ce qui retire l'obligation de justifier un ordre
+confluence est acquise sur le reste : ce qui retire l'obligation de justifier un ordre
 d'intégration.
 
 La _défonctionnalisation_ ensuite, où deux énoncés sont confondus en un. Qu'elle soit un
 isomorphisme naturel établit sa transparence sémantique, et ce chapitre en tire implicitement que
 son résultat est bon. La transparence vaut de la _transformation_ ; la qualité du _résultat_ dépend
-d'un choix que l'isomorphisme ne détermine pas, l'unité de spécialisation — une fonction d'ordre
+d'un choix que l'isomorphisme ne détermine pas, l'unité de spécialisation (une fonction d'ordre
 supérieur employée avec deux arguments fonctionnels distincts se spécialise en deux fonctions
-distinctes, et il faut décider si c'est ce qu'on veut {cite "brandonBetterDefunctionalizationLambda2023"}[].
+distinctes, entre lesquelles un choix s'impose : si c'est ce qu'on veut) {cite "brandonBetterDefunctionalizationLambda2023"}[].
 L'argument de transparence est conservé ; ce qui ne l'est pas est la conclusion de qualité qu'on en
 tirait.
 
 Deux mécanismes de cette phase ont un compte rendu attesté. Les opérations d'effet et leurs
 gestionnaires compilent par le style à _passage de capacités_ combiné au passage de continuations
-itéré, l'idiome que ce document possède déjà — une capacité de couche 1 étant un canal linéaire. La
+itéré, l'idiome que ce document possède déjà : une capacité de couche 1 étant un canal linéaire. La
 technique est générale : elle engendre du code dans tout langage à fonctions de première classe,
 sans hypothèse sur la cible, avec des accélérations mesurées sur les langages existants à
 gestionnaires ou à opérateurs de contrôle {cite "xieGeneralizedEvidencePassing2021"}[]. Le comptage
@@ -341,7 +340,7 @@ de la disposition mémoire {cite "reinkingPerceusGarbageFree2021"}[].
 
 Une difficulté propre à ce document doit être ajoutée ici, et elle vient de son choix de fondation
 plutôt que de sa mise en œuvre. La théorie quantitative des types marque le jugement d'un indicateur
-binaire — effacé ou présent — de sorte que l'effaçabilité d'une abstraction se lit _sur le
+binaire (effacé ou présent) de sorte que l'effaçabilité d'une abstraction se lit _sur le
 jugement_. La théorie graduée, qui la généralise, remplace cet indicateur par une modalité $`!_q A`.
 Elle gagne en équations définitionnelles, et elle perd précisément cela : il n'est plus apparent
 qu'une abstraction de type $`\Pi^q x{:}A.B` sera employée à l'exécution ou non, ce qui rend
@@ -349,7 +348,7 @@ l'effacement des _fermetures de fonction_ difficile {cite "HUANG"}[]. Le coût e
 il tombe exactement sur la phase décrite ci-dessus. Il ne remet pas en cause le choix de la
 gradation : la théorie quantitative ne saurait porter les quatre composantes du grade. Mais il
 oblige à dire que l'effaçabilité d'une fermeture se décide ici par la composante d'usage et non par
-lecture du jugement — une décision qui est un travail d'analyse là où la théorie quantitative n'en
+lecture du jugement : une décision qui est un travail d'analyse là où la théorie quantitative n'en
 demandait aucun.
 
 Deux précisions rendent cette décision moins arbitraire qu'elle n'en a l'air. La première est que
@@ -363,59 +362,59 @@ la phase d'effacement un critère décidable plutôt qu'un cas d'espèce.
 
 La seconde est qu'une quatrième conception de l'effacement existe, que ce document n'a pas retenue
 et dont il doit dire pourquoi. L'annotation y vit au _jugement_, et la règle d'application la
-compose par une rencontre plutôt que par la multiplication d'un semi-anneau — l'argument n'étant
+compose par une rencontre plutôt que par la multiplication d'un semi-anneau : l'argument n'étant
 retenu que si le terme entier l'est _et_ si l'application l'est {cite "tejiscakDependentlyTypedCalculus2020"}[].
 Elle traite en outre le filtrage et les motifs forcés, que les autres conceptions laissent de côté.
 Son interaction avec les univers, elle, se règle en une phrase de ses auteurs : la stratification
 des univers y est _orthogonale_ au propos, et les implantations sont attendues d'apporter la leur.
-C'est aussi la position de ce document, et pour la même raison — l'annotation est portée par le
-jugement, non par la sorte du type —, de sorte que l'interaction ne se produit tout simplement pas.
+C'est aussi la position de ce document, et pour la même raison (l'annotation est portée par le
+jugement, non par la sorte du type), de sorte que l'interaction ne se produit tout simplement pas.
 
 Elle se produit ailleurs, et la même source dit où : les systèmes qui modélisent l'effacement
 _indirectement_, par un univers séparé ou par l'irrélevance, en héritent les limitations, et une
-partie du calcul inutile cesse d'être effaçable — un programme normalement linéaire pouvant alors
+partie du calcul inutile cesse d'être effaçable : un programme normalement linéaire pouvant alors
 s'exécuter en temps exponentiel. Le cas d'école est celui d'un univers réservé aux propositions, où
 les indices d'une famille de types, qui sont ce que ce document manipule, ne s'effacent pas.
 
 La forme que prendrait un abaissement à types préservés est en revanche connue, et elle est
 instructive parce qu'elle défait une évidence. Défonctionnaliser dans un cadre dépendant ne consiste
-pas à remplacer la flèche par un type de données — cette voie, qui fonctionne du simplement typé au
+pas à remplacer la flèche par un type de données : cette voie, qui fonctionne du simplement typé au
 polymorphe, _échoue_ en présence de dépendance. Ce qui fonctionne est de remplacer l'abstraction par
 une _étiquette de première classe_ dans un calcul à contexte double : un contexte de types comme
 d'ordinaire, et un contexte de _définitions d'étiquettes_ qui associe à chaque étiquette le
 télescope de ses variables libres, son type et son corps. Deux contraintes le rendent sain, et elles
 sont sévères : les types peuvent mentionner les étiquettes, jamais l'inverse ; et le corps d'une
 étiquette se type dans le contexte des étiquettes _précédentes_, de sorte qu'aucune étiquette ne se
-référence elle-même. Une boucle infinie devient ainsi mal typée — non par une analyse de
+référence elle-même. Une boucle infinie devient ainsi mal typée, non par une analyse de
 terminaison, mais parce que sa signature est mal portée. Ce document a besoin de cette forme au
 moment où sa Phase 8 défonctionnalise sous des types dépendants pragmatiques, et il n'a pas d'autre
 voie connue.
 
 Le terme optimisé descend enfin vers MLIR puis LLVM : les tableaux de couche 3 vers `memref.alloc`,
 les automates du chapitre 4 vers le dialecte `K7PL.FSM`. Les correspondances de disposition du
-chapitre 4 (théorème {num "thm:isomorphisme_memoire"}[]) rendent cette génération de code directe _dans le domaine de ce théorème_ — les tampons de couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto, pour les scalaires primitifs —, une transposition en $`O(n)` étant requise dès qu'une liste de structures est en jeu. L'édition de liens
-qui referme le pipeline purge tout bloc de spécification — doctests, assertions `comptime` — sauf en
+chapitre 4 (théorème {num "thm:isomorphisme_memoire"}[]) rendent cette génération de code directe _dans le domaine de ce théorème_ (les tampons de couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto, pour les scalaires primitifs), une transposition en $`O(n)` étant requise dès qu'une liste de structures est en jeu. L'édition de liens
+qui referme le pipeline purge tout bloc de spécification (doctests, assertions `comptime`) sauf en
 mode `+introspect`, garantie que le DAG de dépendance rend structurelle plutôt que déclarative
 (`ERR-TOP-003`). Le binaire résultant, adressé par le condensat BLAKE3 de son AST normalisé plutôt
 que par un numéro de version, identifie par un seul et même condensat deux programmes dont
-l'écriture diffère mais dont les arbres coïncident après normalisation — la dépendance ne se rompt
+l'écriture diffère mais dont les arbres coïncident après normalisation : la dépendance ne se rompt
 jamais silencieusement. La normalisation décide ici une égalité _syntaxique canonique_, et rien de
 plus : deux programmes de même sens dont les arbres normalisés diffèrent reçoivent deux adresses,
 l'équivalence sémantique n'étant pas décidable.
 
-Un mode `+dev` n'exécute que les phases 0 à 5 — de l'analyse syntaxique à la vérification de pureté, points de
-contrôle compris —, plus une version allégée de la Phase 6, quand un mode `+release` seul engage
+Un mode `+dev` n'exécute que les phases 0 à 5 (de l'analyse syntaxique à la vérification de pureté, points de
+contrôle compris), plus une version allégée de la Phase 6, quand un mode `+release` seul engage
 les phases 7 à 9. Ce cache, comme le reste du pipeline,
 s'appuie sur ce même hachage pour ne recompiler que ce qui a changé. En production, le remplacement
 d'un acteur ne repasse jamais par ce pipeline : l'orchestrateur substitue directement l'image
 compilée par échange de pointeur, draine l'ancien acteur, et rejoue le journal Cap'n Proto pour
-reconstituer l'état exact — le JIT, lui, reste exclusif au REPL interactif.
+reconstituer l'état exact : le JIT, lui, reste exclusif au REPL interactif.
 
 Deux choses doivent être dites de cette descente, et la première défait une crainte que le document
 laissait planer. On suppose volontiers qu'une discipline de ressource s'efface au passage vers une
 représentation de bas niveau, faute d'une cible capable de la porter. Ce n'est pas le cas : il
 existe une extension typée de WebAssembly où le type d'une fonction est polymorphe sur les
-emplacements mémoire, les tailles, les types _et les qualificateurs_ — c'est-à-dire sur les
+emplacements mémoire, les tailles, les types _et les qualificateurs_, c'est-à-dire sur les
 annotations de linéarité elles-mêmes {cite "fitzgibbonsRichWasmBringingSafe2024"}[]. La couche 1
 n'aurait donc pas à abandonner sa discipline pour atteindre une cible portable, et la visée déclarée
 de cette extension est la situation de la passerelle du chapitre 4 : faire coexister du code sûr et
@@ -437,7 +436,7 @@ Cet abaissement appelle un énoncé que le document n'a nulle part, et son absen
 lacune de présentation. La stabilité du typage par réduction énoncée au chapitre 3 couvre
 l'évaluation _et_ l'abaissement, mais sans grade ; la préservation graduée du §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[])
 porte les grades, mais ne couvre que l'évaluation. Rien, entre les deux, n'établit que descendre
-vers MLIR préserve ce que le chapitre 1 a posé — et c'est le trajet qui relie les deux bouts de ce
+vers MLIR préserve ce que le chapitre 1 a posé : et c'est le trajet qui relie les deux bouts de ce
 document.
 
 La forme de l'énoncé manquant est en revanche connue, et la chose a été poussée loin ailleurs : la
@@ -451,7 +450,7 @@ et pour la même raison. Elle tient à deux vues du liage qui ne se recouvrent p
 abstrait, un programme est une application partielle des identifiants vers les définitions : le
 lieur est _insensible à l'ordre_ et peut réarranger à sa guise. À l'étage concret, les définitions
 sont fondues en sections atomiques suivant un ordre particulier, et le lieur les concatène comme des
-boîtes noires — l'ordre y décide du résultat. La commutativité entre liage et compilation, sur
+boîtes noires : l'ordre y décide du résultat. La commutativité entre liage et compilation, sur
 laquelle repose toute la compilation séparée vérifiée, _casse_ à la transition entre les deux.
 
 La solution retenue est celle qui coûte le moins, et sa forme est le vrai acquis pour ce document.
@@ -476,11 +475,11 @@ langage dont le jugement _compte_ les usages~; ce qui transporte est la forme de
 méthode de pontage, non un résultat sur les grades. Écrire que la méthode transporte est donc exact,
 écrire que le résultat transporte serait faux. Un obstacle plus ancien se tient d'ailleurs en amont
 de celui-là, et il a un nom : l'équivalence par les noms contre l'équivalence par la structure,
-compliquée par la _générativité_ — une instance de module engendrant des types nouveaux. Le problème
+compliquée par la _générativité_ : une instance de module engendrant des types nouveaux. Le problème
 est bien posé depuis longtemps et se traite _sans estampilles_, ce qui importe ici parce que le
 hachage par lequel ce chapitre identifie ses unités est précisément une estampille {cite "leroySyntacticTheoryType1996"}[].
-Ce que ce document adopte reste le hachage, pour ce qu'il donne par ailleurs — le cache et
-l'équivalence sémantique de deux programmes syntaxiquement distincts —, mais il ne peut plus se
+Ce que ce document adopte reste le hachage, pour ce qu'il donne par ailleurs (le cache et
+l'équivalence sémantique de deux programmes syntaxiquement distincts), mais il ne peut plus se
 présenter comme la seule voie.
 
 ::::conjecture (label := "thm:abaissement_grades") (level := "compilation") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "compilation")
@@ -504,8 +503,8 @@ Instance du schéma de préservation par traduction (chapitre 2,
 traduction étant ici l'abaissement. Sa condition est que chaque règle d'abaissement envoie une
 dérivation source sur une dérivation cible, et le schéma conclut. Le travail est donc par phase et
 non global : chacune des passes du pipeline s'accompagne de sa propre obligation, et une passe qui
-n'accomplit qu'une tâche se vérifie isolément. Le grade étant une grandeur statique, ce qu'il faut
-établir n'est pas qu'aucun observateur cible ne distingue plus que la source, mais que l'annotation
+n'accomplit qu'une tâche se vérifie isolément. Le grade étant une grandeur statique, ce qui est
+à établir n'est pas qu'aucun observateur cible ne distingue plus que la source, mais que l'annotation
 portée par la source a une image dans la cible et que cette image ne l'affaiblit pas.
 :::
 
@@ -519,8 +518,7 @@ La distinction qui commande cet énoncé est celle qu'établit la littérature s
 vérifiée : préserver le _comportement_ et être _pleinement abstrait_ ne sont pas la même exigence {cite "pattersonNext700Compiler"}[],
 et c'est la première qui est en jeu ici.
 
-Ce théorème n'est pas démontré, et le projet se donne pour objectif de le démontrer : la préservation graduée de bout en bout est une revendication _déclarée_, non une réserve à abandonner. Le chemin n'en dénature pas la portée : la preuve se conduit passe par passe, sur le fragment dont les fonctions d'ordre supérieur sont monomorphisées et inlinées avant l'émission, puis s'étend à mesure que la défonctionnalisation quantitative le permet. Tant qu'elle n'est pas conduite, l'énoncé reste une conjecture et aucune prose ne le dit acquis. {rmq}[Son absence était invisible tant que deux énoncés voisins
-passaient pour un seul.] Il est énoncé parce que son absence restait invisible tant que la stabilité
+Ce théorème n'est pas démontré, et le projet se donne pour objectif de le démontrer : la préservation graduée de bout en bout est une revendication _déclarée_, non une réserve à abandonner. Le chemin n'en dénature pas la portée : la preuve se conduit passe par passe, sur le fragment dont les fonctions d'ordre supérieur sont monomorphisées et inlinées avant l'émission, puis s'étend à mesure que la défonctionnalisation quantitative le permet. Tant qu'elle n'est pas conduite, l'énoncé reste une conjecture et aucune prose ne le dit acquis. Il est énoncé parce que son absence restait invisible tant que la stabilité
 du chapitre 3 et la préservation du §{num "sec:g-semantique"}[] passaient pour deux formulations de la même chose. La
 première est plus large sur ce qu'elle couvre, la seconde plus fine sur ce qu'elle porte : leur
 intersection laisse l'abaissement gradué sans énoncé.
@@ -535,7 +533,7 @@ l'obligation se vérifie, non qu'elle est acquise ; elle ne dispense pas de la d
 L'état de l'art doit être donné avec ses statuts, car ils diffèrent. La littérature fournit la forme
 de la règle que cet énoncé devra porter : dans un calcul défonctionnalisé quantitatif, l'usage total
 d'une étiquette est la somme des usages de chaque contexte, chacun multiplié par l'usage désigné de
-son argument — soit $`\sum_i q_i \Gamma_i`, qui est la forme que $`\boxtimes` généralise. Mais les
+son argument : soit $`\sum_i q_i \Gamma_i`, qui est la forme que $`\boxtimes` généralise. Mais les
 deux moitiés n'ont pas le même statut : la défonctionnalisation dépendante est établie et publiée,
 tandis que sa version quantitative est présentée comme une conjecture dont les preuves sont
 annoncées et non faites {cite "HUANG"}[]. La forme est donc connue et le résultat ne l'est pas. Ce
@@ -546,8 +544,8 @@ S'il tient, la garantie graduée traverse le compilateur et le binaire produit p
 promettait. S'il tombe, le grade s'arrête à la sortie du vérificateur, et toute borne de coût
 annoncée dans une interface cesse de valoir du code exécuté.
 
-Avant cet abaissement final, l'AST aplati — table des symboles, graphe d'appel, annotations de type
-et de coût — reste lui-même exportable sous forme de tableaux Arrow columnaires, selon un schéma
+Avant cet abaissement final, l'AST aplati (table des symboles, graphe d'appel, annotations de type
+et de coût) reste lui-même exportable sous forme de tableaux Arrow columnaires, selon un schéma
 versionné qui en garantit la stabilité. Cette version n'est pas un simple numéro. Chaque
 enregistrement déclare l'espace réservé à son bloc racine, de sorte qu'un lecteur d'une version
 antérieure franchit sans le comprendre ce qu'une version ultérieure y a ajouté. Le mécanisme est
@@ -566,15 +564,15 @@ contrôle ; la re-vérification porte sur l'AST entier, jamais sur les seuls
 champs qu'un lecteur donné sait lire. Cette exigence n'est pas un théorème mais une règle, et elle
 s'énonce par ce qu'elle interdit~: un vérificateur qui rencontre un identifiant de schéma ou une
 révision qu'il ne connaît pas _rejette_ l'artefact, au lieu d'en franchir les champs inconnus. Le
-mécanisme de bloc déclaré reste alors ce pour quoi il est fait — transporter un artefact vers un
-lecteur qui n'a pas à tout comprendre — sans jamais servir à contrôler une dérivation. Le mode de
+mécanisme de bloc déclaré reste alors ce pour quoi il est fait (transporter un artefact vers un
+lecteur qui n'a pas à tout comprendre) sans jamais servir à contrôler une dérivation. Le mode de
 défaillance que cette règle ferme est précis~: un compilateur qui sauterait des champs vérifierait
 un programme amputé, puis signerait le programme entier.
 
-Cette sérialisation permet à des outils tiers — vérificateurs formels, analyseurs statiques,
-assistants fondés sur un modèle de langage — de lire le programme compilé comme une donnée
+Cette sérialisation permet à des outils tiers (vérificateurs formels, analyseurs statiques,
+assistants fondés sur un modèle de langage) de lire le programme compilé comme une donnée
 structurée plutôt que comme un texte à reparser, et de proposer des corrections ou des preuves sans
-jamais toucher au code source. Chaque nœud y porte un `provenance_id` — fichier, ligne, colonne,
-composant d'origine — qui traverse le pipeline jusqu'au binaire final via les métadonnées
+jamais toucher au code source. Chaque nœud y porte un `provenance_id` (fichier, ligne, colonne,
+composant d'origine) qui traverse le pipeline jusqu'au binaire final via les métadonnées
 LLVM/DWARF. En cas de panne, le superviseur remonte cette chaîne de causalité jusqu'à la définition
 source exacte, plutôt que de s'arrêter à l'adresse mémoire fautive.

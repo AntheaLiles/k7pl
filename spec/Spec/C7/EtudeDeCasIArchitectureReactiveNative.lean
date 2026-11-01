@@ -22,7 +22,7 @@ tag := "c7-etude-de-cas-i"
 {label "sec:c7-etude-de-cas-i"}
 
 Cette étude s'inscrit dans la lignée de la programmation réactive fonctionnelle et des architectures
-à flux unidirectionnel — la famille dont Elm et React ont fait une pratique courante —, où l'état
+à flux unidirectionnel (la famille dont Elm et React ont fait une pratique courante), où l'état
 d'une interface se déduit d'un flux d'événements plutôt que de se muter directement. K7PL en reprend
 le principe sans en emprunter l'implémentation : le _diffing_ y devient un catamorphisme, et la
 mutation du DOM une capabilité exclusive plutôt qu'une convention de cadriciel.
@@ -46,17 +46,17 @@ produit automatiquement par l'application des patches.
 :::
 ::::
 
-Un événement, capturé en couche 1, alimente un flux réactif de couche 2 — la même semicoroutine
+Un événement, capturé en couche 1, alimente un flux réactif de couche 2 : la même semicoroutine
 asymétrique que le chapitre 4 (§{num "sec:c4-echelle-locale"}[]) a construite pour tout flux infini,
 ici spécialisée aux événements d'interface. Ce flux produit un nouvel état, purement représenté
 comme une X-expression (chapitre 5, §{num "sec:c5-notations-specialisees"}[]) plutôt que comme une
 structure mutable : la couche 2 ne manipule jamais le DOM directement, elle ne fait que décrire
 l'arbre qu'il devrait devenir. La réconciliation de cet arbre avec le précédent est un catamorphisme
-de couche 3 (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]). Un pli dont la mesure —
-la profondeur de l'arbre — décroît strictement à chaque étape, produisant un vecteur de correctifs
+de couche 3 (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]). Un pli dont la mesure (la
+profondeur de l'arbre) décroît strictement à chaque étape, produisant un vecteur de correctifs
 sur une arène linéaire plutôt qu'une nouvelle structure entière. Lorsque deux branches de l'arbre
-partagent le même hachage BLAKE3 — la même déduplication canonique que le chapitre 4
-(§{num "sec:c4-echelle-de-l-acteur"}[]) a établie pour l'état des acteurs —, le diffing s'arrête sur
+partagent le même hachage BLAKE3 (la même déduplication canonique que le chapitre 4
+(§{num "sec:c4-echelle-de-l-acteur"}[]) a établie pour l'état des acteurs), le diffing s'arrête sur
 cette branche en $`O(1)` sans la comparer nœud par nœud. L'égalité des condensats ne vaut égalité
 des branches que si celles-ci sont hachées sous une représentation canonique, et sous l'hypothèse de
 résistance aux collisions que le chapitre 4 déclare : une hypothèse cryptographique, non un
