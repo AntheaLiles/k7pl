@@ -158,8 +158,10 @@ NoStaleEntityAlias ==
 
 ValidCapabilitiesMatchGeneration ==
     \A c \in validCapabilities :
-        /\ CapSlot(c) \in activeSlots
-        /\ capabilityGeneration[c] = generation[CapSlot(c])
+        LET slot == CapSlot(c)
+        IN
+            /\ slot \in activeSlots
+            /\ capabilityGeneration[c] = generation[slot]
 
 NoCapabilityRevival == validCapabilities \cap revokedCapabilities = {}
 
