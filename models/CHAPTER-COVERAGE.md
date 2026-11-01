@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 # Specification coverage and TLA+ allocation
 
 **Current specification baseline:** `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a` (reviewed 2026-11-01).  
-**Status:** living documentary model-coverage matrix; proposed coverage, not normative ratification. The theorem/gap classification itself remains in `wiki/assurance.md`.
+**Status:** living documentary model-coverage matrix; proposed coverage, not normative ratification. The theorem/gap classification itself remains in `wiki/assurance.md`. Remediation urgency P0–P4 is tracked separately in [REMEDIATION-ROADMAP-P0-P4.md](REMEDIATION-ROADMAP-P0-P4.md).
 
 ## 1. Chapter-level matrix
 
@@ -21,7 +21,7 @@ SPDX-License-Identifier: CC-BY-4.0
 | C7 — Practical integration | Reactive interface, interactive development/replay debugger, deductive engine | TLA-12 and TLA-13; optional profiles TLA-14 and TLA-15 | Scenario-level |
 | Annex A | Summaries of protocol, session, capability, memory, productivity and termination requirements | Cross-reference the corresponding work items; do not create duplicate models merely because an annex repeats a chapter commitment. | Inherited |
 
-Priority labels P0/P1/P2 used in the work plan are provisional sequencing recommendations. They are not the repository's existing roadmap priorities and are not owner-ratified.
+The groupings in WORK-PLAN.md describe model families, not remediation priority. The audit-remediation scale P0–P4 is defined only in REMEDIATION-ROADMAP-P0-P4.md; it is proposed sequencing guidance and does not alter the normative roadmap.
 
 ## 2. Detailed mapping
 
@@ -140,7 +140,7 @@ These may be assumptions or refinement targets of a model, but their proof oblig
 
 This section is a research register, not a claim that every item below is already a normative K7PL requirement. The chapter matrix above maps the current TLA allocation against the PR #311 specification snapshot. A gap becomes a normative model obligation only after its state, transition and guarantee are traced to a current Verso clause. In particular, the current C4 `ModelesDeMemoire` allocation describes spatial safety, regions and capability lifetime; it does not establish a hardware MMU or IOMMU contract.
 
-### 4.1 P0 — memory isolation and implementation refinement
+### 4.1 Memory isolation and implementation refinement
 
 | Proposed modelling package | Missing state and transitions | Central property to investigate | Current gap |
 |---|---|---|---|
@@ -153,7 +153,7 @@ This section is a research register, not a claim that every item below is alread
 
 **MMU and IOMMU must be separate transition systems.** They interact through physical-page ownership and completion of invalidation, but their agents and caches differ. The CPU/MMU model should include a per-core TLB and a shootdown completion protocol. The IOMMU model should include device domains, IOVA translations, IOTLB/ATS caches and DMA already in flight. Both need explicit hardware assumptions; TLC can find protocol counterexamples under those assumptions, but cannot prove that a specific CPU, chipset, firmware or peripheral implements them correctly.
 
-### 4.2 P1 — runtime concurrency, failure and semantic completeness
+### 4.2 Runtime concurrency, failure and semantic completeness
 
 | Proposed modelling package | Missing state and transitions | Why the current allocation is insufficient |
 |---|---|---|
@@ -169,7 +169,7 @@ This section is a research register, not a claim that every item below is alread
 | Full session progress assumptions | Fair message delivery, bounded/unbounded queues, timeout cancellation semantics, retries and duplicate handling, external actor failure | TLA-01 is a bounded topology model; progress depends on assumptions that are not fully represented by endpoint duality |
 | Cross-model composition | Shared typed state, ownership transfer between lifecycle/capability/queue/resource models, stuttering and refinement relation | The sixteen models currently execute independently; conceptual dependencies are not a composed system proof |
 
-### 4.3 P2 — conditional services and integration
+### 4.3 Conditional services and integration
 
 | Proposed modelling package | Missing state and transitions | Activation condition |
 |---|---|---|
@@ -190,7 +190,7 @@ The following are real coverage obligations, but they normally belong to another
 - Cryptographic hardness and primitive security: a dedicated cryptographic model/analysis; a finite TLA state machine cannot establish computational security.
 - Real-time WCET and hardware isolation: target-specific measurement, architecture evidence and implementation refinement are required in addition to abstract models.
 
-The priority labels are proposed sequencing aids, not owner-ratified priorities. Each future package needs a named source clause, explicit assumptions, abstraction relation, positive profile, negative control and evidence plan before it is assigned a TLA identifier.
+The package groupings in this section are descriptive coverage categories, not P0–P4 urgency labels. Each future package needs a named source clause, explicit assumptions, abstraction relation, positive profile, negative control and evidence plan before it is assigned a TLA identifier.
 
 
 ## 4.5 Audit explicite des obligations Verso (révision main 2fbf609)

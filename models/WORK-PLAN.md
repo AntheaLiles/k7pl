@@ -7,12 +7,12 @@ SPDX-License-Identifier: CC-BY-4.0
 
 **Current specification baseline:** `main@2fbf609f6f3e67ffe011a3f28fd247526684155a`, reviewed 2026-11-01. Current chapter/file mapping is in `CHAPTER-COVERAGE.md`; theorem assurance status is in `wiki/assurance.md`.
 
-**Status:** TLA-01 remains `model-drafted` pending its corrected TLC rerun. TLA-02 through TLA-16 now have candidate modules and finite positive/negative configurations; all new TLC checks are pending. TLA-14 and TLA-15 remain conditional profiles, and TLA-16 is abstract-only.  
-**Priority convention:** P0 = semantic foundation; P1 = runtime assurance; P2 = scenario or optional profile. These priorities are provisional sequencing recommendations.
+**Status:** TLA-01 remains `model-drafted` pending the corrected-head TLC rerun. The first end-to-end run (41305607506, pre-parser-fix head) matched 10/18 positive and 12/21 negative outcomes; 17 profiles in TLA-01, 02, 05, 07, 12 and 16 failed before a model verdict because of parser/semantic errors. The branch contains corrections; the rerun on the corrected head is pending. TLA-14 and TLA-15 remain conditional profiles, and TLA-16 is abstract-only.  
+**Model-family grouping:** the following sections group foundational, runtime/resource and conditional scenario models. They are not P0/P1/P2 urgency labels. The single P0–P4 remediation scale is defined in [REMEDIATION-ROADMAP-P0-P4.md](REMEDIATION-ROADMAP-P0-P4.md).
 
 Each item is an independently reviewable work package. Its model scope is a candidate abstraction, not a ratified definition. Before coding, resolve the relevant gates in [OPEN-GATES.md](OPEN-GATES.md).
 
-## P0 — Semantic foundations
+## Semantic foundations
 
 ### TLA-01 — Asynchronous session network and deadlock freedom
 
@@ -164,7 +164,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 **Acceptance:** the model finds a counterexample when a high event changes a low-visible branch or timing observation; the positive model passes only under explicit non-interference assumptions. A projection that merely filters events is insufficient if hidden events influence later public behaviour.
 
-## P1 — Runtime and resource assurance
+## Runtime and resource assurance
 
 ### TLA-04 — Actor lifecycle, snapshots, journal and replay
 
@@ -312,7 +312,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 **Acceptance:** the model verifies that environmental waiting does not decrement the execution-cost budget under the declared rule and shows counterexamples if wait and execution counters are conflated. It must not claim a physical deadline guarantee.
 
-## P2 — Scenarios and optional profiles
+## Scenarios and optional profiles
 
 ### TLA-12 — Native reactive pipeline and frame lifecycle
 
@@ -432,12 +432,12 @@ No item is complete merely because TLC returns success.
 
 ## 5. Coverage register — single source
 
-The live gap and coverage register is maintained in
+The live model-coverage register is maintained in
 [`CHAPTER-COVERAGE.md`](CHAPTER-COVERAGE.md), with theorem/assurance status
-kept in [`wiki/assurance.md`](../wiki/assurance.md). Do not copy the P0/P1/P2
-inventory into this work plan: this document records proposed implementation
-sequencing and acceptance steps only. Priority labels remain proposed
-sequencing, not normative scope or owner-ratified roadmap commitments.
+kept in [`wiki/assurance.md`](../wiki/assurance.md). Do not duplicate the
+P0–P4 remediation inventory here: this work plan records model-family scope,
+dependencies and acceptance steps. Neither grouping nor remediation priority
+changes normative scope or constitutes an owner-ratified roadmap commitment.
 
 
 ## 6. Audit de traçabilité normative
