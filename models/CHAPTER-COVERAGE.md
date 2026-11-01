@@ -138,7 +138,7 @@ These may be assumptions or refinement targets of a model, but their proof oblig
 
 ## 4. Gaps beyond the current TLA-01..16 allocation
 
-This section is a research register, not a claim that every item below is already a normative K7PL requirement. The chapter matrix above maps the current TLA allocation against the PR #311 specification snapshot. A gap becomes a normative model obligation only after its state, transition and guarantee are traced to a current Verso clause. In particular, the current C4 `MemoryModels` allocation describes spatial safety, regions and capability lifetime; it does not establish a hardware MMU or IOMMU contract.
+This section is a research register, not a claim that every item below is already a normative K7PL requirement. The chapter matrix above maps the current TLA allocation against the PR #311 specification snapshot. A gap becomes a normative model obligation only after its state, transition and guarantee are traced to a current Verso clause. In particular, the current C4 `ModelesDeMemoire` allocation describes spatial safety, regions and capability lifetime; it does not establish a hardware MMU or IOMMU contract.
 
 ### 4.1 P0 — memory isolation and implementation refinement
 
