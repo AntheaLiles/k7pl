@@ -116,6 +116,17 @@ Repository state reviewed on **2026-11-01**, with the workstream based on
 - TLC 1.7.4 is downloaded and verified against the pinned SHA-256 and SHA-1
   before execution. The unified artifact has fail-on-missing upload semantics
   and 14-day retention.
+- First end-to-end run 41305607506, on pre-parser-fix head
+  `efd0212b065016c206b9c83c0059f3623957959b`, executed all 39 TLA profiles:
+  10/18 positive profiles completed without an invariant error, 12/21 negative
+  profiles reached their named invariant violation, and 17 profiles failed
+  before a model verdict due to parser/semantic errors in TLA-01, 02, 05, 07,
+  12 and 16. The branch contains repairs for those source defects and a stricter
+  negative-result predicate; the corrected-head rerun was pending at the
+  2026-11-01 snapshot. These results are not a green-suite claim.
+- The current CI design has a model-check stage but no separate fast TLA parse
+  tier. A parser-only tier remains a proposal until the pinned TLC/SANY
+  invocation and import-resolution behaviour are verified.
 - `wiki/semantics.md` states that K, Lean and TLA+ remain corroborating
   descriptions and that the K ↔ TLA+ projection is open. If PR #311 later
   replaces that page, its `models/` path reference and non-normative disclaimer
