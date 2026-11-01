@@ -34,7 +34,7 @@ Deno.test("TLC manifest covers every TLA config and model module exactly once", 
   );
   assertEquals(
     profiles.filter((profile) => profile.kind === "negative").length,
-    21,
+    22,
   );
 });
 
