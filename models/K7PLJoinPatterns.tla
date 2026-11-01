@@ -3,7 +3,8 @@
 (* TLA-02 candidate. Selection ordering is an exploratory finite policy, not ratified. *)
 ---------------- MODULE K7PLJoinPatterns ----------------
 EXTENDS Naturals, FiniteSets
-CONSTANTS Messages, LeftMessages, RightMessages, InitiallyAvailable, NoPair, AllowPartialConsume
+CONSTANTS Messages, LeftMessages, RightMessages, InitiallyAvailable, AllowPartialConsume
+NoPair == <<"NoPairValue", "NoPairValue">>
 ASSUME
     /\ IsFiniteSet(Messages)
     /\ LeftMessages \subseteq Messages
