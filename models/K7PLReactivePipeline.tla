@@ -3,13 +3,14 @@
 (* TLA-12 candidate. Frame ticks are logical counters, not WCET or physical latency guarantees. *)
 ---------------- MODULE K7PLReactivePipeline ----------------
 EXTENDS Naturals, Sequences, FiniteSets
-CONSTANTS Events, InitialEvents, WriterCapabilityInitially, UnsafeLayer2Write
+CONSTANTS Events, InitialEvents, WriterCapabilityInitially, UnsafeLayer2Write, FrameLimit
 ASSUME
     /\ IsFiniteSet(Events)
     /\ InitialEvents \subseteq Events
     /\ Events = {"Event1", "Event2"}
     /\ WriterCapabilityInitially \in BOOLEAN
     /\ UnsafeLayer2Write \in BOOLEAN
+    /\ FrameLimit \in Nat \ {0}
 EventRank(e) == IF e = "Event1" THEN 1 ELSE 2
 VARIABLES delivered, pending, handled, handledOrder, logicalVersion, domVersion, patchReady,
           patchBase, patchTarget, appliedTargets, writerCapability, unauthorizedWrites, frame, frameOverrun
@@ -43,7 +44,7 @@ TypeOK ==
     /\ appliedTargets \subseteq Nat
     /\ writerCapability \in BOOLEAN
     /\ unauthorizedWrites \in Nat
-    /\ frame \in Nat
+    /\ frame \in 0..FrameLimit
     /\ frameOverrun \in BOOLEAN
 ReceiveEvent(e) ==
     /\ e \in Events \ delivered
@@ -74,7 +75,9 @@ ApplyPatch ==
     /\ unauthorizedWrites' = IF writerCapability THEN unauthorizedWrites ELSE unauthorizedWrites + 1
     /\ UNCHANGED <<delivered, pending, handled, handledOrder, logicalVersion, patchBase,
                    patchTarget, writerCapability, frame, frameOverrun>>
+(* FrameLimit bounds exploration; it is not a physical frame-rate claim. *)
 AdvanceFrame ==
+    /\ frame < FrameLimit
     /\ frame' = frame + 1
     /\ frameOverrun' = frameOverrun \/ patchReady
     /\ UNCHANGED <<delivered, pending, handled, handledOrder, logicalVersion, domVersion,

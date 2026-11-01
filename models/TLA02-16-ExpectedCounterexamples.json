@@ -216,6 +216,7 @@
       "configuration": "TLA14-SkippedMessageControl.cfg",
       "expectedInvariant": "MessagesAcceptedWereSent",
       "witness": [
+        "SendClientHello",
         "AcceptClientHello",
         "SendServerHello",
         "UnsafeSkipAccept"

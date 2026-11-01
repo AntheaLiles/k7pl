@@ -7,25 +7,25 @@ CONSTANTS RetainCallerAlias, UnsafeStaleAccess
 ASSUME /\ RetainCallerAlias \in BOOLEAN /\ UnsafeStaleAccess \in BOOLEAN
 VARIABLES
     callPhase, capStatus, callerAlias, foreignAlias,
-    callerAccesses, foreignWrites, postAckWrites
+    callerAccessed, foreignWriteOccurred, postAckWriteOccurred
 vars == <<callPhase, capStatus, callerAlias, foreignAlias,
-          callerAccesses, foreignWrites, postAckWrites>>
+          callerAccessed, foreignWriteOccurred, postAckWriteOccurred>>
 Init ==
     /\ callPhase = "Idle"
     /\ capStatus = "CallerOwned"
     /\ callerAlias = TRUE
     /\ foreignAlias = FALSE
-    /\ callerAccesses = 0
-    /\ foreignWrites = 0
-    /\ postAckWrites = 0
+    /\ callerAccessed = FALSE
+    /\ foreignWriteOccurred = FALSE
+    /\ postAckWriteOccurred = FALSE
 TypeOK ==
     /\ callPhase \in {"Idle", "InCall", "Returned", "Revoked", "Acked", "Failed"}
     /\ capStatus \in {"CallerOwned", "ForeignOwned", "Revoked"}
     /\ callerAlias \in BOOLEAN
     /\ foreignAlias \in BOOLEAN
-    /\ callerAccesses \in Nat
-    /\ foreignWrites \in Nat
-    /\ postAckWrites \in Nat
+    /\ callerAccessed \in BOOLEAN
+    /\ foreignWriteOccurred \in BOOLEAN
+    /\ postAckWriteOccurred \in BOOLEAN
 TransferCapability ==
     /\ callPhase = "Idle"
     /\ capStatus = "CallerOwned"
@@ -33,50 +33,53 @@ TransferCapability ==
     /\ callPhase' = "InCall"
     /\ callerAlias' = RetainCallerAlias
     /\ foreignAlias' = TRUE
-    /\ UNCHANGED <<callerAccesses, foreignWrites, postAckWrites>>
+    /\ UNCHANGED <<callerAccessed, foreignWriteOccurred, postAckWriteOccurred>>
 CallerUse ==
     /\ callPhase = "InCall"
     /\ callerAlias
-    /\ callerAccesses' = callerAccesses + 1
+    /\ ~callerAccessed
+    /\ callerAccessed' = TRUE
     /\ UNCHANGED <<callPhase, capStatus, callerAlias, foreignAlias,
-                   foreignWrites, postAckWrites>>
+                   foreignWriteOccurred, postAckWriteOccurred>>
 ForeignUse ==
     /\ callPhase \in {"InCall", "Returned"}
     /\ capStatus = "ForeignOwned"
     /\ foreignAlias
-    /\ foreignWrites' = foreignWrites + 1
+    /\ ~foreignWriteOccurred
+    /\ foreignWriteOccurred' = TRUE
     /\ UNCHANGED <<callPhase, capStatus, callerAlias, foreignAlias,
-                   callerAccesses, postAckWrites>>
+                   callerAccessed, postAckWriteOccurred>>
 ReturnFromForeign ==
     /\ callPhase = "InCall"
     /\ callPhase' = "Returned"
-    /\ UNCHANGED <<capStatus, callerAlias, foreignAlias, callerAccesses,
-                   foreignWrites, postAckWrites>>
+    /\ UNCHANGED <<capStatus, callerAlias, foreignAlias, callerAccessed,
+                   foreignWriteOccurred, postAckWriteOccurred>>
 FailForeignCall ==
     /\ callPhase = "InCall"
     /\ callPhase' = "Failed"
-    /\ UNCHANGED <<capStatus, callerAlias, foreignAlias, callerAccesses,
-                   foreignWrites, postAckWrites>>
+    /\ UNCHANGED <<capStatus, callerAlias, foreignAlias, callerAccessed,
+                   foreignWriteOccurred, postAckWriteOccurred>>
 RevokeCapability ==
     /\ callPhase \in {"Returned", "Failed"}
     /\ capStatus = "ForeignOwned"
     /\ capStatus' = "Revoked"
     /\ callPhase' = "Revoked"
-    /\ UNCHANGED <<callerAlias, foreignAlias, callerAccesses, foreignWrites, postAckWrites>>
+    /\ UNCHANGED <<callerAlias, foreignAlias, callerAccessed, foreignWriteOccurred, postAckWriteOccurred>>
 AcknowledgeRevocation ==
     /\ callPhase = "Revoked"
     /\ capStatus = "Revoked"
     /\ callPhase' = "Acked"
-    /\ UNCHANGED <<capStatus, callerAlias, foreignAlias, callerAccesses,
-                   foreignWrites, postAckWrites>>
+    /\ UNCHANGED <<capStatus, callerAlias, foreignAlias, callerAccessed,
+                   foreignWriteOccurred, postAckWriteOccurred>>
 StaleForeignUse ==
     /\ callPhase = "Acked"
     /\ capStatus = "Revoked"
     /\ foreignAlias
     /\ UnsafeStaleAccess
-    /\ postAckWrites' = postAckWrites + 1
+    /\ ~postAckWriteOccurred
+    /\ postAckWriteOccurred' = TRUE
     /\ UNCHANGED <<callPhase, capStatus, callerAlias, foreignAlias,
-                   callerAccesses, foreignWrites>>
+                   callerAccessed, foreignWriteOccurred>>
 Next ==
     \/ TransferCapability
     \/ CallerUse
@@ -87,7 +90,7 @@ Next ==
     \/ AcknowledgeRevocation
     \/ StaleForeignUse
 Spec == Init /\ [][Next]_vars
-NoCallerUseDuringExclusiveCall == callerAccesses = 0
-NoForeignUseAfterAcknowledgement == postAckWrites = 0
+NoCallerUseDuringExclusiveCall == ~callerAccessed
+NoForeignUseAfterAcknowledgement == ~postAckWriteOccurred
 RevokedCapabilityNotOwned == capStatus = "Revoked" => callPhase \in {"Revoked", "Acked"}
 =============================================================================
