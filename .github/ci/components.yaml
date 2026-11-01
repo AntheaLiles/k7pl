@@ -4,10 +4,10 @@
 
 # Single source of truth for CI component paths, commands, cache
 # determinants, proof-chain dependencies, mandatory checks, and
-# allowed claim classes. Read by tools/ci-controller (slice 1).
-# This registry is descriptive in slice 1: the impact classifier
-# still uses its own tables in scripts/ci/impact.py, and the two
-# must agree (see tools/ci-controller/README.md, cutover criteria).
+# allowed claim classes. The derived Deno classifier reads this
+# registry and decides all thirteen validation surfaces.
+# Python and legacy Deno projections remain only in non-blocking
+# shadow comparisons; they do not make CI decisions.
 # A path may belong to several components: components are logical
 # units, not a partition of the tree. Overlaps are declared below
 # instead of being hidden.
@@ -281,8 +281,10 @@ components:
       - models/OPEN-GATES.md
       - models/TOOLCHAIN-CI.md
       - models/WORK-PLAN.md
-    build_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary.cfg D01NativeBoundary
-    check_command: java -cp tla2tools.jar tlc2.TLC -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary
+      - models/MODEL-DEPENDENCIES.md
+      - models/SPEC-COVERAGE-AUDIT-2026-10-31.md
+    build_command: deno run --allow-read tools/ci-controller/src/tla_model_check.ts --model-dir models --validate-only
+    check_command: deno run --allow-read --allow-write --allow-run=java,sha256sum tools/ci-controller/src/tla_model_check.ts --model-dir models --tlc-jar tla2tools.jar --evidence tla-model-check-evidence
     cache_determinants:
       - models/
     depends_on: []
@@ -290,9 +292,21 @@ components:
       - tla-model-check
     impact_surfaces:
       - tla_model_check
+    read_inputs:
+      - path: tools/ci-controller/src/tla_model_check.ts
+        surfaces:
+          - tla_model_check
+      - path: tools/ci-controller/tests/tla_model_check_test.ts
+        surfaces:
+          - tla_model_check
+      - path: tools/ci-controller/deno.json
+        surfaces:
+          - tla_model_check
     allowed_claim_classes:
       - verification
     notes:
+      - "TLC profile inventory is declared in models/TLC-PROFILES.json and validated against all TLA*.cfg and TLA/K7PL model modules by the Deno controller tests. A new TLA configuration without a manifest row fails the tests."
+      - "R9-CancelRace-Test-Vector.md intentionally remains inside this component's trigger surface: changing the executable test vector reruns the R9/TLA evidence job."
       - "Deliberately no dependency on k-semantics: the D01/R9 models are hand-written models of a design, not artefacts derived from the K semantics. A future stage generating a model from K would be a new component with its own contract; it must not be implied by this entry."
       - "TLC is bounded model checking: verification claims only, never proof claims."
 

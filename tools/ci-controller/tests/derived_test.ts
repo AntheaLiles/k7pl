@@ -176,10 +176,21 @@ Deno.test("derived classifier maps K, proofs and TLA to their new surfaces", () 
   assertEquals(tla.surfaces.tla_model_check, true);
   assertEquals(tla.full, false);
 
-  const programme = derived(["models/WORK-PLAN.md"]);
-  assertEquals(programme.surfaces.tla_model_check, false);
-  assertEquals(programme.docs_links, true);
-  assertEquals(programme.full, false);
+  for (
+    const path of [
+      "models/WORK-PLAN.md",
+      "models/MODEL-DEPENDENCIES.md",
+      "models/SPEC-COVERAGE-AUDIT-2026-10-31.md",
+    ]
+  ) {
+    const programme = derived([path]);
+    assertEquals(programme.surfaces.tla_model_check, false, path);
+    assertEquals(programme.docs_links, true, path);
+    assertEquals(programme.full, false, path);
+  }
+  const r9Vector = derived(["models/R9-CancelRace-Test-Vector.md"]);
+  assertEquals(r9Vector.surfaces.tla_model_check, true);
+  assertEquals(r9Vector.full, false);
 });
 
 Deno.test("derived classifier forces full on unknown paths, fail-closed", () => {
