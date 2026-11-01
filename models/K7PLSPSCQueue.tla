@@ -12,7 +12,8 @@ ASSUME
 VARIABLES buffer, producerIndex, consumerIndex, published, consumed, overwritten
 vars == <<buffer, producerIndex, consumerIndex, published, consumed, overwritten>>
 NextSlot(s) == IF s = "Slot0" THEN "Slot1" ELSE "Slot0"
-PendingMessages == {buffer[s] : s \in Slots /\ buffer[s] # Empty}
+PendingMessages ==
+    {message \in Messages : \E slot \in Slots : buffer[slot] = message}
 Init ==
     /\ buffer = [s \in Slots |-> Empty]
     /\ producerIndex = "Slot0"

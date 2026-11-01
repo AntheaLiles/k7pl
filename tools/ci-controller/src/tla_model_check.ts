@@ -286,7 +286,9 @@ async function runSuite(
       ? code === 0 &&
         output.includes("Model checking completed. No error has been found.")
       : code !== 0 &&
-        output.includes("Invariant " + profile.expectedInvariant);
+        output.includes(
+          "Error: Invariant " + profile.expectedInvariant + " is violated.",
+        );
     if (!passed) {
       failures++;
       if (profile.kind === "positive") {

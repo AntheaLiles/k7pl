@@ -133,8 +133,8 @@ StaticDependencyEdges ==
 StaticAcyclic == ~StaticHasCycle(StaticDependencyEdges)
 
 WaitFor ==
-    {<<a, waitTarget[a]>> :
-        a \in Actors /\ actorStatus[a] = "Waiting" /\ waitTarget[a] \in Actors}
+    {edge \in (Actors \X Actors) :
+        actorStatus[edge[1]] = "Waiting" /\ waitTarget[edge[1]] = edge[2]}
 
 ExternalWaiters ==
     {a \in Actors : actorStatus[a] = "Waiting" /\ waitTarget[a] = External}
