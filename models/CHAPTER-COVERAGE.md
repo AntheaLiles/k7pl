@@ -268,6 +268,10 @@ separate from substantive protocol coverage:
   over `NonTimeoutWaitFor`, which excludes edges whose timeout action is
   enabled. The timeout profile is useful for the timeout path, but is not an
   independent proof that timeout-enabled wait cycles are deadlock-free.
+- **TLA-01 — Simulation Gap:** the cited configuration checks only
+  `Simulation`. The authored witness also contains a dynamic wait cycle, but
+  TLC stops at the first violated invariant. Treat `NoMutualWaitDeadlock`
+  here as a trace-derived observation, not a second TLC verdict.
 - **TLA-05:** `CommittedNotCancelled` and
   `TimeoutIsNotAcknowledgement` are close to definitional consequences of
   the transition updates. The profile's substantive checks are
