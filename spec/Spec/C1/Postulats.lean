@@ -32,7 +32,7 @@ ce coût est réductible mais non nul {cite "lorenzenOxidizingOCamlModal2024"}[]
 complète, enfin, prouve des propriétés arbitraires contre une charge d'annotation que ses propres
 auteurs situent. Combiner suivi d'usage et dépendance impose la discipline du contexte annulé {cite "atkeySyntaxSemanticsQuantitative2018"}[],
 et les systèmes gradués dépendants portent un vecteur de grades de contexte à côté de celui du sujet {cite "moonGradedModalDependent2021"}[].
-Aucun ne gradue.
+Aucun ne gradue une liaison sur les quatre composantes à la fois.
 
 K7PL répond par quatre postulats immuables, qui définissent le périmètre du langage ; toute
 construction qui les enfreindrait en serait par définition exclue. Ils ne sont pas dérivés d'un
