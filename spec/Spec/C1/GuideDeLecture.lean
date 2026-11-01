@@ -160,8 +160,7 @@ n'attend aucun prototype. Le premier demande le noyau exécutable : on relève l
 corpus que les deux postulats rejettent, et l'on regarde pour chacun s'il existe une reformulation
 acceptée : ce qui rend un _taux de rejet sans reformulation disponible_, et non une opinion. Écrire
 ces deux protocoles ne les acquitte pas ; cela dit ce qu'un pair devrait refaire pour les
-contredire. Les autres sont des propositions dont on saurait dire ce qu'il faudrait pour les
-établir.
+contredire. Les autres sont des propositions dont on saurait dire par quoi les établir.
 
 Une règle gouverne désormais cette table, et elle vaut d'être posée parce qu'un engagement qui ne
 dit pas comment il se lèvera n'est pas un engagement mais un aveu. _Tout engagement de ce document nomme la route par

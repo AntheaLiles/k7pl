@@ -446,7 +446,7 @@ Cette dualité n'est pas une analogie mais une identité catégorique : une $`F`
 une $`F^{\text{op}}`-coalgèbre dans $`\mathcal{C}^{\text{op}}` (la même paire $`(A, \alpha)`, la
 flèche $`\alpha` étant simplement lue dans l'autre sens) et l'initialité dans _C_ correspond à la
 terminalité dans $`\mathcal{C}^{\text{op}}`. Terminaison et productivité ne sont donc pas deux
-propriétés qu'il faudrait établir séparément pour chaque couche : ce sont la même propriété
+propriétés à établir séparément pour chaque couche : ce sont la même propriété
 (existence et unicité d'un morphisme vers ou depuis un point fixe) énoncée dans deux catégories
 duales l'une de l'autre.
 
