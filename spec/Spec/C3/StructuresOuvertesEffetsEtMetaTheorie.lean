@@ -28,11 +28,10 @@ où les effets sont traités.
 Un _gestionnaire de couche 2 est pur_ lorsque sa fonction de transition est une application
 $`(\mathsf{Message} \times \mathsf{Capacit\acute{e}s} \times \mathsf{\acute{E}tat}) \to \mathsf{\acute{E}tat}`
 dont l'effet est neutre : toute source de non-déterminisme — horloge, aléa, latence — y entre comme
-une capacité reçue en argument plutôt que comme une opération invoquée. {rmq}[La pureté n'est pas
-une discipline que le gestionnaire s'imposerait : c'est la forme de son type, et le vérificateur la
-refuse autrement.] Ce n'est donc pas une restriction sur ce qu'un acteur peut faire, mais sur
-l'endroit où le non-déterminisme entre : au bord, sous forme de valeur journalisable, et non au
-cœur.
+une capacité reçue en argument plutôt que comme une opération invoquée. La pureté n'est donc pas
+une discipline que le gestionnaire s'imposerait : c'est la forme de son type, que le vérificateur
+refuse autrement. Ce n'est pas une restriction sur ce qu'un acteur peut faire, mais sur l'endroit
+où le non-déterminisme entre : au bord, sous forme de valeur journalisable, et non au cœur.
 
 Le résultat d'un tel gestionnaire n'est pas un effet exécuté mais une _description_ d'effets, une
 liste d'instructions que l'exécutif réalise ; c'est cette exécution, non la transition, qui est
@@ -288,7 +287,7 @@ ici exclut cette configuration par construction ; le cas général relève de la
 théorie des types dépendants gradués {cite "moonGradedModalDependent2021"}[], et ce document ne le
 traite pas.
 
-Le volet abaissement, lui, est revendiqué et non démontré, et il faut le dire ainsi. La préservation
+Le volet abaissement, lui, est revendiqué et non démontré. La préservation
 des types à travers l'abaissement d'un langage à la fois quantitatif et dépendant demeure un
 problème ouvert, qui a motivé la conception de langages d'assemblage dédiés faute qu'aucun langage
 existant n'y convienne {cite "HUANG"}[]. Il n'est pas hors d'atteinte pour autant : l'évaluation
@@ -297,8 +296,7 @@ par les langages dédiés qui s'expriment en diagrammes de boîtes et de fils, d
 construction {cite "BERNARDY"}[].
 
 Ce théorème et la préservation du §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[])
-ne sont pas deux formulations d'une même chose. {rmq}[Deux emboîtements de sens contraire. L'un est
-plus fin, l'autre plus large, et aucun ne contient l'autre.] Celle du §{num "sec:g-semantique"}[] est plus fine, portant les
+ne sont pas deux formulations d'une même chose. Celle du §{num "sec:g-semantique"}[] est plus fine, portant les
 grades, les effets et la décroissance du potentiel, là où celui-ci ne parle que du type. Celui-ci
 est plus large, couvrant l'abaissement que celle-ci ne couvre pas. Pour le volet évaluation, cet
 énoncé est donc un corollaire de celui du §{num "sec:g-semantique"}[] — oublier le grade et l'effet dans la conclusion
@@ -312,14 +310,13 @@ qui ne l'est pas. La _préservation par évaluation_ porte les grades et les eff
 esquissée au §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[]). La _préservation par abaissement_ porte
 les grades à travers la compilation, et elle est énoncée sans être démontrée (théorème {num "thm:abaissement_grades"}[]).
 Le présent énoncé est la _préservation du type_, qui couvre les deux mouvements mais oublie le grade
-; il est plus large et plus pauvre. {rmq}[Trois noms plutôt qu'un seul mot. Ce qui manque devient
-alors lisible : c'est la seconde, et elle seule.] Ce qui manque à ce document est donc exactement la
+; il est plus large et plus pauvre. Ce qui manque à ce document est donc exactement la
 seconde, et non « la préservation » en général — la nommer évite de croire la dette plus grande ou
 plus petite qu'elle n'est.
 
 S'il tient, l'abaissement cesse d'être un endroit où la garantie peut se perdre : ce que le
 vérificateur a établi sur le source vaut du code produit. S'il tombe sur son volet MLIR, la garantie
-s'arrête à l'entrée du compilateur, et il faut alors la rétablir en aval — par une vérification du
+s'arrête à l'entrée du compilateur, et elle se rétablit alors en aval, par une vérification du
 code produit, c'est-à-dire par le mécanisme même que le langage prétend rendre inutile.
 
 Enfin, la substituabilité obéit à une forme généralisée du principe de Liskov : un programme $`g`
