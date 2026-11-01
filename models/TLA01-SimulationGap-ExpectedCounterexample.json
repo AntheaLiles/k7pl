@@ -37,7 +37,11 @@
   "staticGraphAcyclic": true,
   "sessionEndpointDuality": true,
   "violatedInvariant": "Simulation",
-  "alsoViolates": "NoMutualWaitDeadlock",
+  "secondaryObservation": {
+    "property": "NoMutualWaitDeadlock",
+    "status": "trace-derived; not checked by TLA01-SimulationGap.cfg",
+    "interpretation": "The witness contains a dynamic wait cycle, but TLC stops at the configured Simulation invariant; this is not a second TLC verdict."
+  },
   "assumptions": {
     "timeoutsEnabled": false,
     "externalDeliveryEnabled": false,
