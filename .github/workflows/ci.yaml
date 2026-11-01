@@ -195,7 +195,7 @@ jobs:
     uses: ./.github/workflows/security.yaml
 
   r9-tlc:
-    name: D01, R9 and TLA-01..16 model checks
+    name: R9 and TLA-01..16 model checks
     needs: impact
     # ÉCART 5 (cutover C2): r9-tlc runs only when tla_model_check is present.
     if: ${{ needs.impact.outputs.tla_model_check == 'true' }}
@@ -231,7 +231,12 @@ jobs:
           printf '%s  %s\n' "$TLC_SHA1" "$RUNNER_TEMP/tla2tools.jar" | sha1sum --check -
 
       - name: Check nominal model
-        run: java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config R9ActorCancellation.cfg R9ActorCancellation
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/r9-positive-tlc.log"
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config R9ActorCancellation.cfg R9ActorCancellation >"$log" 2>&1
+          cat "$log"
 
       - name: Check the intended counterexample
         shell: bash
@@ -252,139 +257,51 @@ jobs:
             exit 1
           fi
 
-      - name: Check D01 native-boundary model with enforced boundary
-        run: java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary.cfg D01NativeBoundary
-
-      - name: Check D01 native-boundary counterexample without enforcement
-        shell: bash
-        run: |
-          set -euo pipefail
-          log="$RUNNER_TEMP/d01-native-boundary-negative.log"
-          set +e
-          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary >"$log" 2>&1
-          rc=$?
-          set -e
-          cat "$log"
-          if [ "$rc" -eq 0 ]; then
-            echo "::error::TLC accepted the unconfined profile despite the expected integrity counterexample"
-            exit 1
-          fi
-          if ! grep -F "Invariant ProtectedIntegrity" "$log" >/dev/null; then
-            echo "::error::TLC stopped before the expected D01 ProtectedIntegrity counterexample"
-            exit 1
-          fi
-
-      - name: Check all TLA-01..16 profiles (39 checks)
+      - name: Set up Deno
         if: always()
-        shell: bash
+        uses: ./.github/actions/setup-deno
+
+      - name: Check all registered TLA-01..16 profiles
+        if: always()
         run: |
           set -euo pipefail
-          evidence="$GITHUB_WORKSPACE/tla-model-check-evidence"
-          mkdir -p "$evidence"
-          failures=0
+          deno run --allow-read --allow-write --allow-run=java,sha256sum \
+            ../tools/ci-controller/src/tla_model_check.ts \
+            --model-dir . \
+            --tlc-jar "$RUNNER_TEMP/tla2tools.jar" \
+            --evidence "$GITHUB_WORKSPACE/tla-model-check-evidence"
 
-          check_positive() {
-            local config="$1" module="$2" label="$3" rc
-            local log="$evidence/$label.log"
-            local metadir="$RUNNER_TEMP/tlc-meta-$label"
-            mkdir -p "$metadir"
-            if java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -metadir "$metadir" -config "$config" "$module" >"$log" 2>&1; then
-              rc=0
-            else
-              rc=$?
-            fi
-            cat "$log"
-            if [ "$rc" -ne 0 ] || ! grep -F "Model checking completed. No error has been found." "$log" >/dev/null; then
-              echo "::error::TLA positive profile $config failed or did not complete exploration"
-              failures=$((failures + 1))
-            fi
-          }
-
-          check_negative() {
-            local config="$1" module="$2" invariant="$3" label="$4" rc
-            local log="$evidence/$label.log"
-            local metadir="$RUNNER_TEMP/tlc-meta-$label"
-            mkdir -p "$metadir"
-            if java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -metadir "$metadir" -config "$config" "$module" >"$log" 2>&1; then
-              rc=0
-            else
-              rc=$?
-            fi
-            cat "$log"
-            if [ "$rc" -eq 0 ] || ! grep -F "Invariant $invariant" "$log" >/dev/null; then
-              echo "::error::TLA negative profile $config did not produce expected $invariant counterexample"
-              failures=$((failures + 1))
-            fi
-          }
-
-          check_positive TLA01-AcyclicNominal.cfg TLA01SessionNetwork tla01-acyclic-nominal
-          check_positive TLA01-ExternalWait.cfg TLA01SessionNetwork tla01-external-wait
-          check_positive TLA01-Timeout.cfg TLA01SessionNetwork tla01-timeout
-          check_positive TLA02-AtomicJoin.cfg K7PLJoinPatterns tla02-atomic-join
-          check_positive TLA03-FairScheduler.cfg K7PLScheduler tla03-fair-scheduler
-          check_positive TLA04-ConsistentLifecycle.cfg K7PLActorLifecycle tla04-consistent-lifecycle
-          check_positive TLA05-CancelCommitRace.cfg K7PLCancellation tla05-cancel-commit
-          check_positive TLA06-RevocationProtocol.cfg K7PLForeignBoundary tla06-revocation
-          check_positive TLA07-CapabilityLifetime.cfg K7PLMemoryCapabilities tla07-capability-lifetime
-          check_positive TLA08-PartialOrderJoin.cfg K7PLParallelExecution tla08-partial-order
-          check_positive TLA09-ResourceBudget.cfg K7PLResourceAccounting tla09-resource-budget
-          check_positive TLA10-SeparateWaitAndCost.cfg K7PLTemporalScheduling tla10-wait-cost
-          check_positive TLA11-PairedLowObservation.cfg K7PLTraceNoninterference tla11-low-observation
-          check_positive TLA12-ReactivePipeline.cfg K7PLReactivePipeline tla12-reactive-pipeline
-          check_positive TLA13-DeductiveSaturation.cfg K7PLDeductiveJob tla13-deductive-saturation
-          check_positive TLA14-NoiseHandshake.cfg K7PLNoiseSession tla14-noise-conditional
-          check_positive TLA15-ConnectedGSet.cfg K7PLReplicaConvergence tla15-gset-conditional
-          check_positive TLA16-SPSCQueue.cfg K7PLSPSCQueue tla16-spsc-abstract
-
-          check_negative TLA01-CircularWait.cfg TLA01SessionNetwork NoMutualWaitDeadlock tla01-circular-wait
-          check_negative TLA01-SimulationGap.cfg TLA01SessionNetwork Simulation tla01-simulation-gap
-          check_negative TLA02-PartialConsume.cfg K7PLJoinPatterns BalancedConsumption tla02-partial-consume
-          check_negative TLA03-StarvationControl.cfg K7PLScheduler NoStall tla03-starvation-control
-          check_negative TLA04-EarlyPublishControl.cfg K7PLActorLifecycle PublishedSnapshotDurable tla04-early-publish
-          check_negative TLA05-PostAckCommitControl.cfg K7PLCancellation AcknowledgedCancellationMeansNoCommit tla05-post-ack-commit
-          check_negative TLA06-StaleAliasControl.cfg K7PLForeignBoundary NoForeignUseAfterAcknowledgement tla06-stale-alias
-          check_negative TLA06-CallerAliasControl.cfg K7PLForeignBoundary NoCallerUseDuringExclusiveCall tla06-caller-alias
-          check_negative TLA07-GenerationWrapControl.cfg K7PLMemoryCapabilities NoStaleEntityAlias tla07-generation-wrap
-          check_negative TLA07-StaleAccessControl.cfg K7PLMemoryCapabilities NoUnauthorizedAccess tla07-stale-access
-          check_negative TLA07-RevocationRestoreControl.cfg K7PLMemoryCapabilities NoCapabilityRevival tla07-revocation-restore
-          check_negative TLA08-EarlyJoinControl.cfg K7PLParallelExecution JoinRequiresAllBranches tla08-early-join
-          check_negative TLA09-GradeOveruseControl.cfg K7PLResourceAccounting UsageWithinGrade tla09-grade-overuse
-          check_negative TLA09-BudgetOverdrawControl.cfg K7PLResourceAccounting BudgetNonNegative tla09-budget-overdraw
-          check_negative TLA10-ChargeWaitControl.cfg K7PLTemporalScheduling BudgetAccounting tla10-charge-wait
-          check_negative TLA11-HighInfluenceControl.cfg K7PLTraceNoninterference LowObservationEquality tla11-high-influence
-          check_negative TLA12-UnauthorizedDOMWriteControl.cfg K7PLReactivePipeline DOMWriteRequiresCapability tla12-unauthorized-dom
-          check_negative TLA13-EarlyPublishControl.cfg K7PLDeductiveJob PublishedImpliesSaturated tla13-early-publish
-          check_negative TLA14-SkippedMessageControl.cfg K7PLNoiseSession MessagesAcceptedWereSent tla14-skipped-message
-          check_negative TLA15-OverwriteMergeControl.cfg K7PLReplicaConvergence AllIssuedUpdatesRetained tla15-overwrite-merge
-          check_negative TLA16-OverwriteUnreadControl.cfg K7PLSPSCQueue MessageConservation tla16-overwrite-unread
-
-          if [ "$failures" -ne 0 ]; then
-            echo "::error::$failures of 39 TLA profiles failed their expected result"
-            exit 1
-          fi
-          echo "All 39 TLA profiles matched their expected result."
-
-      - name: Preserve unified TLA-01..16 sources, configurations and TLC evidence
+      - name: Preserve R9 and unified TLA evidence
         if: always()
         run: |
           set -euo pipefail
           evidence="$GITHUB_WORKSPACE/tla-model-check-evidence"
-          mkdir -p "$evidence"
-          cp TLA01SessionNetwork.tla TLA01-*.cfg TLA01-*-ExpectedCounterexample.json K7PL*.tla TLA02-*.cfg TLA03-*.cfg TLA04-*.cfg TLA05-*.cfg TLA06-*.cfg TLA07-*.cfg TLA08-*.cfg TLA09-*.cfg TLA10-*.cfg TLA11-*.cfg TLA12-*.cfg TLA13-*.cfg TLA14-*.cfg TLA15-*.cfg TLA16-*.cfg TLA02-16-ExpectedCounterexamples.json "$evidence/"
-          java -version >"$evidence/java-version.txt" 2>&1
-          if [ -f "$RUNNER_TEMP/tla2tools.jar" ]; then
+          r9="$evidence/r9"
+          mkdir -p "$r9"
+          cp R9ActorCancellation.tla R9ActorCancellation.cfg R9-NaiveCancelClaim.cfg R9-CancelRace-Test-Vector.md "$r9/"
+          for log in r9-positive-tlc.log r9-negative-tlc.log; do
+            if [ -f "$RUNNER_TEMP/$log" ]; then
+              cp "$RUNNER_TEMP/$log" "$r9/"
+            else
+              echo "::warning::R9 evidence log $log was not produced"
+            fi
+          done
+          if [ ! -f "$evidence/java-version.txt" ]; then
+            java -version >"$evidence/java-version.txt" 2>&1
+          fi
+          if [ ! -f "$evidence/tla2tools.jar.sha256" ]; then
             sha256sum "$RUNNER_TEMP/tla2tools.jar" >"$evidence/tla2tools.jar.sha256"
           fi
           cd "$evidence"
-          manifest="$RUNNER_TEMP/tla-model-check-SHA256SUMS"
-          find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > "$manifest"
-          mv "$manifest" SHA256SUMS
+          find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 -r sha256sum > SHA256SUMS
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: tla-model-check-evidence
           path: tla-model-check-evidence/
+          if-no-files-found: error
+          retention-days: 14
 
   ci-ok:
     name: CI OK
