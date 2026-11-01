@@ -40,7 +40,7 @@ n'admettant que des indices exclus du suivi de ressource. De chaque notion, ce c
 que ce qu'elle est en tant que type ; la manière dont elle s'exécute relève du chapitre 4,
 séparation qui prolonge au niveau du document l'orthogonalité qu'il construit au niveau des types.
 
-Pour l'outillage : une première tranche du jeu de règles de ce chapitre est formalisée en Lean 4 dans le module `Spec.C3.EffectiveKernel`, que la construction du présent document compile ; le reste est établi par des démonstrations rédigées et des esquisses de preuve, au statut indiqué en chaque lieu.
+Une première tranche du jeu de règles de ce chapitre est formalisée en Lean 4 (module `Spec.C3.EffectiveKernel`, compilé avec le présent document) ; le reste relève de démonstrations rédigées et d'esquisses de preuve, au statut indiqué en chaque lieu.
 
 {include 0 Spec.C3.LeSystemeGradue}
 
