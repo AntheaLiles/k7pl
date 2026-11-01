@@ -25,6 +25,10 @@ changes with every correction commit.
   gaps remain in wiki/assurance.md. The dated
   SPEC-COVERAGE-AUDIT-2026-10-31.md is historical, not the current main
   baseline.
+- REMEDIATION-ROADMAP-P0-P4.md is the single remediation-priority register;
+  REMEDIATION-EXECUTION-PROMPT.md is the reusable execution brief. The
+  P0–P4 scale is distinct from the descriptive model-family groupings in
+  WORK-PLAN.md.
 
 ## Corrections in this pass
 
@@ -57,22 +61,18 @@ TLA-05 disjunction grouping and the TLA-07 bracket mismatch. The negative
 runner criterion was also tightened to require TLC's exact
 `Error: Invariant <name> is violated.` diagnostic.
 
-The corrected head has not yet completed its rerun. Do not report the 39
-profiles as green, an all-green CI result, or a promoted model status until
-that rerun completes. A negative profile counts as successful only when TLC
-reaches the named invariant violation; configuration, parser, ASSUME, type or
-wrong-invariant failures are failures.
+The corrected source expressions and stricter negative-result predicate are present on the PR branch. At this snapshot the PR head before this documentation update was 29845511f018b80da543b975a995b477d4ba9cb4; its associated CI workflow run 41306284770 was pending. The earlier run 41305607506 was on the pre-parser-fix head and is not evidence for the corrected files. Do not report the 39 profiles as green, an all-green CI result, or a promoted model status until a completed run on the current head meets every expected outcome. A negative profile counts as successful only when TLC reaches the exact named invariant violation; configuration, parser, ASSUME, type, timeout or wrong-invariant failures are failures.
 
 ## Next actions
 
-1. Inspect the Deno format/check/lint/tests, registry validation, REUSE and
-   CommitLint results on the updated PR head.
-2. Review the uploaded tla-model-check-evidence: all 39 TLA profiles must
-   meet their expected positive/negative result, and the R9 logs must be
-   retained. D01 is separately evidenced by d01-tlc-evidence.
-3. If the profiles complete, keep model status labels unchanged until actual
-   traces and state-space completion have been reviewed against their declared
-   witnesses and limits.
-4. Continue the model-quality work in CHAPTER-COVERAGE.md; use
-   WORK-PLAN.md for sequencing only, and wiki/assurance.md for the
-   authoritative theorem/gap register.
+1. Inspect the latest CI run on the current PR head; do not reuse the first
+   run as evidence for the parser-corrected sources.
+2. Review tla-model-check-evidence profile by profile: all 18 positive and
+   21 negative TLA profiles must match their declared outcome; inspect state
+   counts, traces, bounds, tool digest and retained D01/R9 logs.
+3. Close P0 in REMEDIATION-ROADMAP-P0-P4.md only after the corrected-head run
+   and all other required checks complete successfully.
+4. Then work through P1 non-vacuity and property sensitivity, P2 current-main
+   traceability and open semantic gates, and defer P3/P4 until their target
+   contracts are explicit. Use CHAPTER-COVERAGE.md for coverage and
+   wiki/assurance.md for the authoritative theorem/gap register.
