@@ -449,7 +449,7 @@ l'exponentielle d'usage, ainsi qu'une action `Scale_Usage` compatible avec `Box`
 substitution. La préservation du niveau dans l'interprétation logique et la consommation du budget
 par `Consume` doivent rester indépendantes de cette projection.
 
-L'interface de référence est donc `π_U : 𝒢 → 𝓡` et `Bang_𝒢(r,A) := !_{π_U(r)}A`. Le grade syntaxique conserve les quatre composantes ; le noyau comonadique est indexé par 𝓡. Cette décision n'introduit aucune multiplication globale sur 𝒢 et ne ferme pas les obligations de preuve de la substitution, des coercions, de la counité w ni de la comultiplication c. Une indexation multi-composante demeure une généralisation éventuelle, hors du contrat normatif actuel.
+L'interface de référence est donc `π_U : 𝒢 → 𝒭` et `Bang_𝒢(r,A) := !_{π_U(r)}A`. Le grade syntaxique conserve les quatre composantes ; le noyau comonadique est indexé par 𝒭. Cette décision n'introduit aucune multiplication globale sur 𝒢 et ne ferme pas les obligations de preuve de la substitution, des coercions, de la counité w ni de la comultiplication c. Une indexation multi-composante demeure une généralisation éventuelle, hors du contrat normatif actuel.
 
 # Action de référence de mise à l'échelle d'usage
 %%%
@@ -666,13 +666,13 @@ d'intervalles n'est donc pas, à elle seule, un morphisme de modes.
 
 Au sens de la théorie des modes introduite par Hanukaev et Eades {cite "hanukaevUnificationGradedSubstructural2026"}[], un mode est un triplet (Rₘ, Cont(m), Weak(m)) : une algèbre de grades, un idéal de grades contractables et un prédicat d'affaiblissement. La décision de périmètre ratifiée dans D-16 retient trois modes structurels de référence pour le langage actuel :
 
-`M_Lin = (𝓡, {0}, false)`,
-`M_Aff = (𝓡, {0}, true)`,
-`M_Unr = (𝓡, 𝓡, true)`. 
+`M_Lin = (𝒭, {0}, false)`,
+`M_Aff = (𝒭, {0}, true)`,
+`M_Unr = (𝒭, 𝒭, true)`. 
 
-Le mode structurel `M_Rel = (𝓡, 𝓡, false)` n'appartient pas au périmètre normatif actuel. Cela ne supprime pas l'intervalle d'usage `U_Rel = [1..ω]` : `U_Rel` reste une strate syntaxique d'annotations d'usage, distincte d'un mode structurel. La note d'opportunité `L1-REL-MODE-OPPORTUNITIES-2026-10-11.md` conserve `M_Rel` comme piste séparée, sans lui attribuer de règle normative.
+Le mode structurel `M_Rel = (𝒭, 𝒭, false)` n'appartient pas au périmètre normatif actuel. Cela ne supprime pas l'intervalle d'usage `U_Rel = [1..ω]` : `U_Rel` reste une strate syntaxique d'annotations d'usage, distincte d'un mode structurel. La note d'opportunité `L1-REL-MODE-OPPORTUNITIES-2026-10-11.md` conserve `M_Rel` comme piste séparée, sans lui attribuer de règle normative.
 
-Les applications identité du porteur 𝓡 fournissent, sous le contrat de morphisme retenu, les candidats Lin → Aff, Aff → Unr et Lin → Unr. Ce constat structurel ne suffit pas à prouver que le jugement de typage K7PL réalise effectivement ces permissions. Les règles de typage et leurs conversions doivent satisfaire le contrat d'algèbre, d'idéal de contraction et de Weak ; les états under-review/proofsketch demeurent inchangés. L'inclusion ensembliste des intervalles d'usage n'est pas une preuve de morphisme.
+Les applications identité du porteur 𝒭 fournissent, sous le contrat de morphisme retenu, les candidats Lin → Aff, Aff → Unr et Lin → Unr. Ce constat structurel ne suffit pas à prouver que le jugement de typage K7PL réalise effectivement ces permissions. Les règles de typage et leurs conversions doivent satisfaire le contrat d'algèbre, d'idéal de contraction et de Weak ; les états under-review/proofsketch demeurent inchangés. L'inclusion ensembliste des intervalles d'usage n'est pas une preuve de morphisme.
 
 Les intervalles syntaxiques restent distincts :
 `U_Lin = [1..1]`, `U_Aff = [0..1]`, `U_Rel = [1..ω]`, `U_Unr = [0..ω]`.

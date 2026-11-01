@@ -117,8 +117,8 @@ $`\preccurlyeq`, ni l'ordre de précision $`\sqsubseteq`.
 Pour raisonner sur les permissions structurelles, la définition de Hanukaev et Eades doit être utilisée explicitement {cite "hanukaevUnificationGradedSubstructural2026"}[] : un mode est un triplet (Rₘ, Cont(m), Weak(m)), où Rₘ est une algèbre de grades, Cont(m) un idéal de grades contractables et Weak(m) le prédicat d'affaiblissement.
 
 Le périmètre normatif actuel retient les trois modes structurels de référence :
-`M_Lin = (𝓡, {0}, false)`, `M_Aff = (𝓡, {0}, true)`, `M_Unr = (𝓡, 𝓡, true)`.
-Le quadruplet `M_Rel = (𝓡, 𝓡, false)` reste une possibilité théorique documentée séparément, mais n'est pas un mode normatif de la grammaire courante. Cela n'efface pas `U_Rel = [1..ω]`, qui demeure un intervalle d'usage syntaxique et ne doit pas être confondu avec un mode structurel.
+`M_Lin = (𝒭, {0}, false)`, `M_Aff = (𝒭, {0}, true)`, `M_Unr = (𝒭, 𝒭, true)`.
+Le quadruplet `M_Rel = (𝒭, 𝒭, false)` reste une possibilité théorique documentée séparément, mais n'est pas un mode normatif de la grammaire courante. Cela n'efface pas `U_Rel = [1..ω]`, qui demeure un intervalle d'usage syntaxique et ne doit pas être confondu avec un mode structurel.
 
 ::::proposition (label := "thm:morphismes_modes") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
@@ -130,7 +130,7 @@ Sous les triplets ci-dessus, les identités du porteur de grades donnent les mor
 :::
 
 :::proofsketch
-Chaque identité conserve le porteur et son ordre. Le passage `Lin → Aff` introduit l'affaiblissement ; `Aff → Unr` étend les grades contractables de `{0}` à 𝓡 ; `Lin → Unr` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
+Chaque identité conserve le porteur et son ordre. Le passage `Lin → Aff` introduit l'affaiblissement ; `Aff → Unr` étend les grades contractables de `{0}` à 𝒭 ; `Lin → Unr` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
 :::
 
 :::note
