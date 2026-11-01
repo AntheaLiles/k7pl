@@ -5,9 +5,9 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # K7PL TLA+ specification coverage audit
 
-**Specification baseline:** `AntheaLiles/k7pl` PR #311, head `f3b33cd34e1da49a4c8c41ca632c586e66715e70` (2026-10-31).  
-**Model baseline:** repository-root `models/`, replacement workstream PR #319.  
-**Status:** completed documentary coverage analysis; no normative change and no model status promotion.
+**Historical specification snapshot:** `AntheaLiles/k7pl` PR #311, head `f3b33cd34e1da49a4c8c41ca632c586e66715e70` (2026-10-31; still open and unmerged on 2026-11-01).  
+**Model snapshot:** repository-root `models/`, replacement workstream PR #319.  
+**Status:** historical documentary analysis only. This report is **not** the current `main` specification baseline; use `CHAPTER-COVERAGE.md` for the live model-coverage matrix and `wiki/assurance.md` for theorem/gap status. No normative change and no model status promotion.
 
 ## 1. Executive result
 

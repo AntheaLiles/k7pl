@@ -1,7 +1,7 @@
 <!--
 SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 SPDX-License-Identifier: CC-BY-4.0
---->
+-->
 
 # TLA+ candidate suite: interfaces, dependencies and limits
 
@@ -44,6 +44,6 @@ TLA-14 and TLA-15 are executable conditional profiles, not adopted library or di
 
 ## Evidence status
 
-The file TLA02-16-ExpectedCounterexamples.json records authored expected negative-control scenarios. It is not TLC output. The CI artifact tla-models-evidence records actual modules, configurations, logs, tool identity and checksums. The first suite run must be reviewed for parser errors, invariant names, state-space completion and counterexample correspondence before statuses move beyond model-drafted.
+The file TLA02-16-ExpectedCounterexamples.json records authored expected negative-control scenarios. It is not TLC output. The CI artifact tla-model-check-evidence records TLA-01..16 modules, configurations, authored expectations, per-profile logs, Java/TLC identity and checksums, plus R9 sources/configurations/logs under r9/. D01 is run once by k7pl-semantics.yaml and retained separately as d01-tlc-evidence for k-smoke. The first suite run must be reviewed for parser errors, invariant names, state-space completion and counterexample correspondence before statuses move beyond model-drafted.
 
 No model establishes K/TLA+ or Lean/TLA+ correspondence, no result changes normative Verso text, and no TLC run is a proof for unbounded systems.

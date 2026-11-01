@@ -5,8 +5,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Specification coverage and TLA+ allocation
 
-**Specification baseline:** PR #311 at `f3b33cd34e1da49a4c8c41ca632c586e66715e70`.  
-**Status:** documentary analysis; proposed coverage, not normative ratification.
+**Current specification baseline:** `main` at `2fbf609f6f3e67ffe011a3f28fd247526684155a` (reviewed 2026-11-01).  
+**Status:** living documentary model-coverage matrix; proposed coverage, not normative ratification. The theorem/gap classification itself remains in `wiki/assurance.md`.
 
 ## 1. Chapter-level matrix
 
@@ -241,6 +241,101 @@ Le théorème C4 de sûreté spatiale par capacités linéaires est marqué `und
 
 Ces trois familles de travaux sont de nature différente : H1–H3 sont d'abord des obligations de métathéorie et de typage ; le partage de canaux reste une décision sémantique ; Import/FFI requiert un contrat de frontière et peut ensuite recevoir un modèle opérationnel. Les futures fiches doivent les garder séparées.
 
+
+### 4.7 What the current positive checks actually establish
+
+The presence of a positive configuration is not evidence that every invariant
+in it exercises a meaningful transition. The following cases must be kept
+separate from substantive protocol coverage:
+
+- **TLA-07 — `NoOverlappingWriteRights`:** the configured memory-cell ranges
+  are disjoint by construction. The current profile therefore checks a
+  consequence of the chosen constants, not a transition protocol that
+  preserves disjointness under split, merge, grant, revoke or reuse. The next
+  extension should introduce those state-changing operations only after their
+  ownership contract is specified.
+- **TLA-12 — `DOMWriteRequiresCapability`:** in the positive profile,
+  `writerCapability` is initialised to `TRUE` and is never changed. The
+  negative profile initialises it to `FALSE` and enables the unsafe write.
+  This distinguishes authorised from unauthorised initial states, but it
+  does not test revocation in the interval between `HandleEvent` and
+  `ApplyPatch`. A meaningful next model revision needs an explicit
+  revocation transition and an owner-ratified decision about whether an already
+  prepared patch must be discarded, retried or committed under a lease.
+- **TLA-03 — `NoTerminatedFibreExecutes`:** the positive profile fixes
+  `AllowTerminate = FALSE`; it cannot test execution after termination.
+- **TLA-01 — timeout profile:** its `NoMutualWaitDeadlock` property is defined
+  over `NonTimeoutWaitFor`, which excludes edges whose timeout action is
+  enabled. The timeout profile is useful for the timeout path, but is not an
+  independent proof that timeout-enabled wait cycles are deadlock-free.
+- **TLA-05:** `CommittedNotCancelled` and
+  `TimeoutIsNotAcknowledgement` are close to definitional consequences of
+  the transition updates. The profile's substantive checks are
+  `AcknowledgedCancellationMeansNoCommit` and `EffectAtMostOnce`.
+- **TLA-09:** the positive `BudgetNonNegative` result is arithmetically
+  implied by the configured grade limits; it is a consistency check, not
+  independent evidence for the general budget law.
+- **TLA-11:** `RunPairedObservation` is a one-transition paired-run model.
+  Its result checks a deliberately small definition-level example, not a
+  broad exploration of a trace space.
+
+All 43 current model configurations set `CHECK_DEADLOCK FALSE`. TLC's
+built-in deadlock detection is therefore disabled. This is distinct from
+checking the explicit `NoMutualWaitDeadlock` invariant in selected TLA-01
+profiles; do not report the suite as having globally checked absence of
+deadlock. The suite's finite actor, event, budget and generation bounds are
+scenario bounds, not production maxima or unbounded proofs.
+
+The finite-state corrections in this audit do not remove a violation witness:
+TLA-06 replaces occurrence counters with booleans because its named
+invariants distinguish only zero from one-or-more; TLA-12 introduces
+`FrameLimit = 2` because no target invariant depends on unbounded frame
+growth. These are explicit finite abstractions. Their relevance is limited to
+the properties actually checked, and the bounds remain part of each profile's
+evidence.
+
+### 4.8 Order of further modelling work
+
+Do not assign TLA-17+ identifiers merely to expand the directory. The
+highest-value next work is to strengthen the contracts and observable
+transitions already present:
+
+1. Define the capability-revocation/patch-commit policy before extending
+   TLA-12; then model the interleaving between event handling, revocation,
+   acknowledgement and patch application.
+2. Extend TLA-07 only after the ownership algebra is fixed: multiple
+   `ReadCap`, exclusive `WriteCap`, borrow/split/merge, region destruction,
+   actor incarnation and stale references. Keep H1–H3 as Lean obligations.
+3. Extend TLA-06/D01 around asynchronous FFI completion, callbacks,
+   reentrancy and quiescence. Logical revocation alone is not evidence of
+   physical alias or DMA invalidation.
+4. Define a single physical-page lifetime/ownership invariant (M3) before
+   building the separate CPU/MMU (M1) and IOMMU/DMA (M2) protocols. Their
+   translation caches and agents differ, but safe page reuse couples them.
+5. Reconcile R9/TLA-05 and TLA-01/TLA-02/TLA-16 with explicit typed interface
+   relations before attempting a composed transition system.
+6. Only then select target-specific weak-memory, device and runtime refinement
+   tools. TLA+ does not verify CPU/device implementation assumptions itself.
+
+These priorities are proposed research sequencing, not owner-ratified
+normative additions. The normative source remains Verso; implementation
+refinements must not be promoted into language guarantees without an explicit
+specification decision.
+
 ## Obligation-level audit
 
-The chapter-level mapping in this file is complemented by the pinned, obligation-level report [SPEC-COVERAGE-AUDIT-2026-10-31.md](SPEC-COVERAGE-AUDIT-2026-10-31.md). It audits C2–C4 and C7 properties against TLA-01..16, separates TLA+ protocol obligations from Lean/compiler/implementation proof obligations, details the seven memory levels and distinguishes CPU MMU, IOMMU/DMA and physical-page reclamation. Its normative baseline is PR #311 head `f3b33cd34e1da49a4c8c41ca632c586e66715e70`; revalidate before treating it as current after further specification changes.
+The chapter-level matrix in this file is the live model-coverage register for
+`main@2fbf609f6f3e67ffe011a3f28fd247526684155a`. The theorem/gap status and
+assurance classification are centralised in [`wiki/assurance.md`](../wiki/assurance.md);
+do not duplicate that register here. The obligation-level report
+[`SPEC-COVERAGE-AUDIT-2026-10-31.md`](SPEC-COVERAGE-AUDIT-2026-10-31.md)
+is retained as a historical analysis of the then-open PR #311 head
+`f3b33cd34e1da49a4c8c41ca632c586e66715e70`, not as the current specification
+baseline. PR #311 remained open and unmerged on 2026-11-01. Revalidate any
+specific obligation against current main before implementation.
+
+The update to `wiki/semantics.md` that points to repository-root `models/`
+must be carried into PR #311's successor lexicon documentation if that PR
+eventually replaces the wiki page. PR #311 is explicitly not to be merged
+before its lexical work is finished; do not resolve this dependency by
+merging it prematurely.

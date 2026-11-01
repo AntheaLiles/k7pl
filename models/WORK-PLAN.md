@@ -5,6 +5,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # K7PL TLA+ work plan
 
+**Current specification baseline:** `main@2fbf609f6f3e67ffe011a3f28fd247526684155a`, reviewed 2026-11-01. Current chapter/file mapping is in `CHAPTER-COVERAGE.md`; theorem assurance status is in `wiki/assurance.md`.
+
 **Status:** TLA-01 remains `model-drafted` pending its corrected TLC rerun. TLA-02 through TLA-16 now have candidate modules and finite positive/negative configurations; all new TLC checks are pending. TLA-14 and TLA-15 remain conditional profiles, and TLA-16 is abstract-only.  
 **Priority convention:** P0 = semantic foundation; P1 = runtime assurance; P2 = scenario or optional profile. These priorities are provisional sequencing recommendations.
 
@@ -15,7 +17,7 @@ Each item is an independently reviewable work package. Its model scope is a cand
 ### TLA-01 — Asynchronous session network and deadlock freedom
 
 **Status:** `model-drafted`; the first TLC attempt reached the configuration parser but stopped before module/state exploration. The configuration encoding has been corrected and the rerun is pending.  
-**Specification:** C3 `ValueConstraints`, section `sec:c3-les-contraintes-de-valeur`, theorem `thm:deadlock_acyclique`; C4 `ActorScale`, `SystemScale`, `UnderlyingProcessCalculus` and `OperationalSemantics`.
+**Specification:** C3 `LesContraintesDeValeur`, section `sec:c3-les-contraintes-de-valeur`, theorem `thm:deadlock_acyclique`; C4 `EchelleDeLActeur`, `EchelleDuSysteme`, `CalculDeProcessusSousJacent` and `SemantiqueOperationnelle`.
 
 **Normative status and question.** `thm:deadlock_acyclique` is explicitly `under-review` with evidence `proofsketch`. Its premise (Sim) states that if actor `a` waits for a message from `b`, then `(a,b)` belongs to the static dependency graph. C3 leaves the relation between the static and dynamic graphs open and identifies `Guard`, send, consumption, residual mailbox/session states and `Timeout` as cases to cover. C4 describes a compile-time acyclic dependency graph between actor templates. Neither the theorem nor its proof sketch is treated as a checked result here.
 
@@ -47,7 +49,7 @@ Each item is an independently reviewable work package. Its model scope is a cand
 
 The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexample.json` and `TLA01-SimulationGap-ExpectedCounterexample.json`. CI must check the name of the expected failed invariant, not merely a non-zero process exit.
 
-**First TLC attempt (CI run 2391).** TLC 1.7.4 was fetched and its pinned digest verified. The nominal profile stopped with a `ConfigFileException` at configuration line 8: the parser expected `}` while reading the set-of-tuples assignment for `StaticDependencies`. This occurred before TLA module parsing and state exploration; it is not an invariant counterexample. The parameter was therefore re-encoded in all five configurations as an adjacency function `[Actors -> SUBSET Actors]`; `StaticDependencyEdges` reconstructs the corresponding ordered-pair relation inside TLA+. The new head's PR run is queued behind the preceding CI run.
+**First TLC attempt (CI run 2391).** TLC 1.7.4 was fetched and its pinned digest verified. The nominal profile stopped with a `ConfigFileException` at configuration line 8: the parser expected `}` while reading the set-of-tuples assignment for `StaticDependencies`. This occurred before TLA module parsing and state exploration; it is not an invariant counterexample. The parameter was therefore re-encoded in all five configurations as an adjacency function `[Actors -> SUBSET Actors]`; `StaticDependencyEdges` reconstructs the corresponding ordered-pair relation inside TLA+. The corrected model/configuration inventory is checked by the Deno controller; TLC results remain pending until the current PR head completes its CI run.
 
 **Assumptions and bounds.** Actors are bounded to two or three; each actor receives at most one message and sends at most one message; messages are reliable, not duplicated and represented as a set of sender/receiver pairs. The set mailbox deliberately abstracts away multiplicity and order. Session duality is checked as an invariant over the configured one-step endpoint maps; it is not a full session-typing derivation. Send is asynchronous. Timeouts are nondeterministic actions, not a clock model; no `WF` or `SF` is imposed, so neither timeout occurrence nor eventual delivery is guaranteed. External delivery after a timeout has been omitted. The model omits multiple messages per channel, join patterns, branch selection, actor creation, scheduler interleavings inside a handler, physical queue memory ordering and real-time latency.
 
@@ -59,7 +61,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLJoinPatterns.tla`; finite two-channel, four-message matching; deterministic rank-based selection is a test policy only. Profiles: `TLA02-AtomicJoin.cfg`, `TLA02-PartialConsume.cfg`. G2 remains open; no matching or ordering semantics are ratified.
-**Specification:** C3 `ValueConstraints` and session types; C4 `SystemScale`, theorem `thm:sync_motifs_jonction`; C4 `UnderlyingProcessCalculus`, construction `J ▷ P`; C4 `OperationalSemantics`, `Guard`.
+**Specification:** C3 `LesContraintesDeValeur` and session types; C4 `EchelleDuSysteme`, theorem `thm:sync_motifs_jonction`; C4 `CalculDeProcessusSousJacent`, construction `J ▷ P`; C4 `SemantiqueOperationnelle`, `Guard`.
 
 **Question.** Does a join transition consume exactly one admissible tuple of messages atomically, using the declared deterministic selection policy, and leave every unselected message available?
 
@@ -92,7 +94,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLScheduler.tla`; two finite fibres, weak fairness parameterised per fibre, and an explicit starvation control. Profiles: `TLA03-FairScheduler.cfg`, `TLA03-StarvationControl.cfg`. G3 remains open; fairness is assumed only in the fair profile.
-**Specification:** C2 `AlgebrasCoalgebrasAndFixedPoints` (actor and bounded activations); C3 `TermGrammar` (`wait`, `when`, parallel composition); C4 `LocalScale`, `ActorScale`, `SystemScale` (initialisation), `OperationalSemantics` theorem `thm:progres`.
+**Specification:** C2 `AlgebrasCoalgebrasAndFixedPoints` (actor and bounded activations); C3 `TermGrammar` (`wait`, `when`, parallel composition); C4 `LocalScale`, `EchelleDeLActeur`, `EchelleDuSysteme` (initialisation), `SemantiqueOperationnelle` theorem `thm:progres`.
 
 **Question.** Does the scheduler preserve the distinction between local progress, progress of at least one runnable fibre, and eventual service of each continuously enabled actor?
 
@@ -118,7 +120,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLParallelExecution.tla`; two branches, two events per branch, predecessor relation and an explicit early-join control. Profiles: `TLA08-PartialOrderJoin.cfg`, `TLA08-EarlyJoinControl.cfg`. No global trace order is inferred.
-**Specification:** C2 parallel effect action; C3 `TermGrammar` and `TypingRules`; C4 `OperationalSemantics` reductions for `parallel` and `vmap`; C4 `UnderlyingProcessCalculus`.
+**Specification:** C2 parallel effect action; C3 `TermGrammar` and `TypingRules`; C4 `SemantiqueOperationnelle` reductions for `parallel` and `vmap`; C4 `CalculDeProcessusSousJacent`.
 
 **Question.** Do concurrent branches preserve local order and causal dependencies without imposing a false total order on independent events?
 
@@ -142,7 +144,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLTraceNoninterference.tla`; self-composed pair of finite runs and a value/output-level low-observation comparison. Profiles: `TLA11-PairedLowObservation.cfg`, `TLA11-HighInfluenceControl.cfg`. Timing, scheduler and event-count leakage remain outside this model; G8 remains open.
-**Specification:** C2 restriction/erasure schemas; C3 `TypingRules` level projection; C4 `OperationalSemantics`, theorem `thm:stratification_journal`; C4 `MetalanguageSortSystem`; C7 interactive replay case.
+**Specification:** C2 restriction/erasure schemas; C3 `TypingRules` level projection; C4 `SemantiqueOperationnelle`, theorem `thm:stratification_journal`; C4 `MetalanguageSortSystem`; C7 interactive replay case.
 
 **Question.** Can an observer at level ℓ distinguish two executions that agree on public initial state and public inputs but differ in higher-level state or events?
 
@@ -168,7 +170,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLActorLifecycle.tla`; finite mailbox, append-only event journal, snapshot prefix and replay cursor, with an early-publication negative control. Profiles: `TLA04-ConsistentLifecycle.cfg`, `TLA04-EarlyPublishControl.cfg`. Snapshot persistence is atomic in this abstraction; crash-consistent storage is not established.
-**Specification:** C3 pure handlers and journal; C4 `SystemScale` actor lifecycle, `thm:determinisme_rejeu`, `thm:rejeu_binaire`; C7 case study II.
+**Specification:** C3 pure handlers and journal; C4 `EchelleDuSysteme` actor lifecycle, `thm:determinisme_rejeu`, `thm:rejeu_binaire`; C7 case study II.
 
 **Question.** Do deactivation, snapshot, restore and replay preserve a coherent observable actor state across every interruption point?
 
@@ -192,7 +194,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLCancellation.tla`; request, acceptance, cancellation acknowledgement, commit and timeout are distinct states. Profiles: `TLA05-CancelCommitRace.cfg`, `TLA05-PostAckCommitControl.cfg`. The post-ack guarantee remains a candidate contract; R9 is retained unchanged.
-**Specification:** C4 `SystemScale` failure, cancellation, recovery and restoration paths; K7OS research model R9.
+**Specification:** C4 `EchelleDuSysteme` failure, cancellation, recovery and restoration paths; K7OS research model R9.
 
 **Existing starting point:** `models/R9ActorCancellation.tla`. It distinguishes cancel request from acknowledgement and has a negative property `NoCommitAfterCancelRequest` that is intentionally too strong.
 
@@ -218,7 +220,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLForeignBoundary.tla`; explicit transfer, caller/foreign aliases, return, revocation and acknowledgement. Profiles: `TLA06-RevocationProtocol.cfg`, `TLA06-StaleAliasControl.cfg`, `TLA06-CallerAliasControl.cfg`. Logical revocation does not prove hardware/OS alias invalidation; G6 remains open.
-**Specification:** C4 `SystemScale` foreign-interface contract, `thm:surete_ffi`, `thm:revocation_ffi`; C4 `MemoryModels`; existing D01 native-boundary model.
+**Specification:** C4 `EchelleDuSysteme` foreign-interface contract, `thm:surete_ffi`, `thm:revocation_ffi`; C4 `ModelesDeMemoire`; existing D01 native-boundary model.
 
 **Question.** What does transfer of a capability mean during a call, and what protocol ensures that the foreign component cannot use the transferred access after revocation?
 
@@ -242,7 +244,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLMemoryCapabilities.tla`; finite slots, two generation values, capability-to-region ranges, revocation and restore. Profiles: `TLA07-CapabilityLifetime.cfg`, `TLA07-GenerationWrapControl.cfg`, `TLA07-StaleAccessControl.cfg`, `TLA07-RevocationRestoreControl.cfg`. The two-value generation domain is a counterexample device, not a production-width argument; G7 remains open.
-**Specification:** C3 `GradedSystem`; C4 `ActorScale` (arenas, regions, partitioned ranges, EntityRef); C4 `MemoryModels`; C2 capacity lemma.
+**Specification:** C3 `LeSystemeGradue`; C4 `EchelleDeLActeur` (arenas, regions, partitioned ranges, EntityRef); C4 `ModelesDeMemoire`; C2 capacity lemma.
 
 **Question.** Do allocation, transfer, revocation, deletion, slot reuse and restore preserve capability ownership and entity identity?
 
@@ -266,7 +268,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLResourceAccounting.tla`; finite linear/affine/unrestricted binding classes, per-fibre counters, aggregate use and an abstract integer budget. Profiles: `TLA09-ResourceBudget.cfg`, `TLA09-GradeOveruseControl.cfg`, `TLA09-BudgetOverdrawControl.cfg`. Cost units remain abstract; G9 remains open.
-**Specification:** C2 `ExponentialComonadAndFragments` (budget interface and partial `Consume`); C3 `GradedSystem`, `TypingRules`; C4 `OperationalSemantics`, theorem `thm:correction_ressource`.
+**Specification:** C2 `ExponentialComonadAndFragments` (budget interface and partial `Consume`); C3 `LeSystemeGradue`, `TypingRules`; C4 `SemantiqueOperationnelle`, theorem `thm:correction_ressource`.
 
 **Question.** Does a bounded execution account for each effective use and cost without exceeding its declared grade/budget?
 
@@ -290,7 +292,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLTemporalScheduling.tla`; bounded logical wait ticks, event-triggered activation, execution-cost counter and timeout. Profiles: `TLA10-SeparateWaitAndCost.cfg`, `TLA10-ChargeWaitControl.cfg`. No physical time or deadline guarantee is claimed; G10 remains open.
-**Specification:** C3 `TermGrammar` and `TypingRules` (`at`, `wait`, `when`, `delay`); C4 `OperationalSemantics`; C4 `UnderlyingProcessCalculus` simulation contract; C7 case study I.
+**Specification:** C3 `TermGrammar` and `TypingRules` (`at`, `wait`, `when`, `delay`); C4 `SemantiqueOperationnelle`; C4 `CalculDeProcessusSousJacent` simulation contract; C7 case study I.
 
 **Question.** Does the model keep environmental waiting latency separate from the cost of the triggered automaton, as required by decision P3-B?
 
@@ -316,7 +318,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLReactivePipeline.tla`; ordered finite input events, logical state version, patch base/target, exclusive DOM writer capability and frame-overrun flag. Profiles: `TLA12-ReactivePipeline.cfg`, `TLA12-UnauthorizedDOMWriteControl.cfg`. Frame ticks are logical only.
-**Specification:** C7 `CaseStudyINativeReactiveArchitecture`; C3 `GradedSystem` capability `WriteCap(DOM)`; C4 actors and event processing.
+**Specification:** C7 `EtudeDeCasIArchitectureReactiveNative`; C3 `LeSystemeGradue` capability `WriteCap(DOM)`; C4 actors and event processing.
 
 **Candidate module:** `K7PLReactivePipeline.tla`.
 
@@ -334,7 +336,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted`. `K7PLDeductiveJob.tla`; finite monotone closure, delta iteration, bounded iteration budget, saturation and publication. Profiles: `TLA13-DeductiveSaturation.cfg`, `TLA13-EarlyPublishControl.cfg`. This does not replace Lean's general fixed-point/termination proofs.
-**Specification:** C2 fixed points and monotonicity; C4 `SystemScale` and operational semantics; C7 `CaseStudyIIIDeductiveEngineOnColumnarArenas`.
+**Specification:** C2 fixed points and monotonicity; C4 `EchelleDuSysteme` and operational semantics; C7 `EtudeDeCasIIIMoteurDeductifSurArenes`.
 
 **Candidate module:** `K7PLDeductiveJob.tla`.
 
@@ -368,7 +370,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `candidate-conditional`. `K7PLReplicaConvergence.tla`; two-replica grow-only-set profile with explicit connected-network and fairness assumptions plus an overwrite-merge counterexample. Profiles: `TLA15-ConnectedGSet.cfg`, `TLA15-OverwriteMergeControl.cfg`. No distributed runtime or delivery guarantee is adopted; G12 remains open.
-**Specification:** C4 `SystemScale` CRDT/partition discussion; C3 asynchronous messages; C4 journal and actor recovery.
+**Specification:** C4 `EchelleDuSysteme` CRDT/partition discussion; C3 asynchronous messages; C4 journal and actor recovery.
 
 **Candidate module:** `K7PLReplicaConvergence.tla`.
 
@@ -384,7 +386,7 @@ The two negative traces are recorded in `TLA01-CircularWait-ExpectedCounterexamp
 
 
 **Implementation status:** `model-drafted` (abstract queue only). `K7PLSPSCQueue.tla`; two-slot SPSC ring, producer/consumer indices, publication/consumption accounting and an unread-overwrite negative control. Profiles: `TLA16-SPSCQueue.cfg`, `TLA16-OverwriteUnreadControl.cfg`. Atomic visibility is assumed; concrete weak-memory verification is deferred until the runtime language/target is fixed; G11 remains open.
-**Specification:** C4 `SystemScale` SPSC queues, release/acquire publication/consumption and mailbox representation; C4 `ActorScale` memory partitioning; C4 `thm:sync_motifs_jonction`.
+**Specification:** C4 `EchelleDuSysteme` SPSC queues, release/acquire publication/consumption and mailbox representation; C4 `EchelleDeLActeur` memory partitioning; C4 `thm:sync_motifs_jonction`.
 
 **Question.** Does the chosen queue implementation refine the abstract mailbox protocol under the actual language and hardware memory model?
 
@@ -427,47 +429,26 @@ A work item may be:
 No item is complete merely because TLC returns success.
 
 
-## 5. Missing coverage register — proposed work, not ratified scope
 
-The current sixteen models do not cover the full runtime and hardware refinement surface. The following packages are candidates; each must first be traced to a current Verso requirement or explicitly labelled as an implementation refinement.
+## 5. Coverage register — single source
 
-### P0 — memory and hardware isolation
-- **CPU/MMU translation protocol:** address spaces, page-table mutations, page permissions, page faults, ASID/PCID reuse, per-core TLB state, shootdown request/acknowledgement, and stale translations after revoke/remap.
-- **IOMMU/DMA protocol:** device domains, IOVA mappings, in-flight DMA, IOTLB and ATS caches, PASID, invalidation completion, reset/hot-unplug and device reassignment. Keep this distinct from the CPU/MMU model; link both through physical-page ownership and invalidation-completion relations.
-- **Physical page reclamation:** pin/unpin, references from CPUs/devices, concurrent free/reuse, epochs/hazard pointers, ABA and page migration.
-- **Memory remanence:** page zeroing/initialisation and residual-data isolation when buffers or physical pages change owner.
-- **Shared permission algebra:** multi-reader/exclusive-writer, fractional permissions, split/merge, borrows, alias creation and concurrent revocation.
-- **Concrete weak memory:** acquire/release, fences, CAS, coherence and reordering for a named runtime language and target ISA.
-
-### P1 — runtime completeness and recovery
-- Multi-core scheduler, interrupts, preemption, work stealing, priority inversion and cancellation safe points.
-- Actor spawn/restart/supervision, incarnation IDs and late-message rejection.
-- Crash-consistent journals and snapshots: WAL, flush barriers, partial writes, journal compaction, outbox/inbox and idempotent recovery.
-- FFI/ABI refinement: representation, alignment, provenance, pinning, callbacks, reentrancy, unwind safety and callbacks after revocation.
-- Device/driver lifecycle, in-flight I/O, reset, hot-plug and asynchronous revocation.
-- Unreliable distributed transport, partitions, membership, failure detection, quorum and retry semantics.
-- Full multidimensional resource/effect accounting based on `𝒢 = 𝓡 × 𝕄 × ℒ × 𝔅`, rather than TLA-09's scalar abstraction.
-- Physical time, clock drift, jitter, deadline and timeout/cancellation races.
-- Timing/resource/cache/scheduler non-interference, beyond TLA-11's value-level observation model.
-- A composed state/refinement model connecting actor lifecycle, capability ownership, queue state, and resource budgets.
-
-### P2 — conditional and scenario-specific
-- Reactive backpressure and stale asynchronous responses.
-- Cryptographic session properties (nonce uniqueness, transcript binding, replay/downgrade and peer authentication); TLA-14 is only an abstract phase machine.
-- Concurrent incremental compilation only if the implementation actually contains concurrent workers/caches.
-- OS file/network/process/device capability lifecycle only where those interfaces are in scope.
-
-C1 foundational postulates, C2 category/grade/fixed-point laws, C3 static typing and general metatheorems, C5 grammar/escaping/macro hygiene, C6 compiler correctness and generic termination, cryptographic hardness, WCET and physical hardware guarantees must not be presented as “covered” by finite TLC exploration. They require Lean, parser/compiler validation, cryptographic analysis or target-specific measurement and refinement. The detailed register is in [CHAPTER-COVERAGE.md](CHAPTER-COVERAGE.md).
+The live gap and coverage register is maintained in
+[`CHAPTER-COVERAGE.md`](CHAPTER-COVERAGE.md), with theorem/assurance status
+kept in [`wiki/assurance.md`](../wiki/assurance.md). Do not copy the P0/P1/P2
+inventory into this work plan: this document records proposed implementation
+sequencing and acceptance steps only. Priority labels remain proposed
+sequencing, not normative scope or owner-ratified roadmap commitments.
 
 
 ## 6. Audit de traçabilité normative
 
-Les futurs modèles doivent être dérivés de clauses Verso explicites. L'audit complémentaire dans `CHAPTER-COVERAGE.md` relie notamment :
-- `C4/ModelesDeMemoire.lean` et `C4/EchelleDeLActeur.lean` : sept régimes mémoire, durée de vie EntityRef, partitions SoA/PIA, alignement/NUMA, modèle de représentation et zéro-copie ;
-- `C4/EchelleDuSysteme.lean` : journal complet du non-déterminisme, rejeu observationnel/binaire, ordonnanceur, superviseur, progrès global, graphe d'attente, communication inter-instance et mémoire faible ;
-- `C4/CalculDeProcessusSousJacent.lean` : simulation source/cible, trace causale, effets, tick et When, avec des clauses de traduction encore absentes ;
-- `C3/LeSystemeGradue.lean` : relation ReadCap/WriteCap, capacités transversales, Dest strictement linéaire, partage et CRDT ;
-- `C7` : budget par image du pipeline réactif et détails semi-naïfs du moteur déductif.
+Les futurs modèles doivent être dérivés de clauses Verso explicites. L'audit complémentaire dans `CHAPTER-COVERAGE.md` relie les fichiers présents
+sur le baseline courant `main@2fbf609f6f3e67ffe011a3f28fd247526684155a` :
+- `spec/Spec/C4/ModelesDeMemoire.lean` et `spec/Spec/C4/EchelleDeLActeur.lean` : sept régimes mémoire, durée de vie EntityRef, partitions SoA/PIA, alignement/NUMA, modèle de représentation et zéro-copie ;
+- `spec/Spec/C4/EchelleDuSysteme.lean` : journal complet du non-déterminisme, rejeu observationnel/binaire, ordonnanceur, superviseur, progrès global, graphe d'attente, communication inter-instance et mémoire faible ;
+- `spec/Spec/C4/CalculDeProcessusSousJacent.lean` et `spec/Spec/C4/SemantiqueOperationnelle.lean` : simulation source/cible, trace causale, effets, tick et When, avec des clauses de traduction encore absentes ;
+- `spec/Spec/C3/LeSystemeGradue.lean` et `spec/Spec/C3/LesContraintesDeValeur.lean` : relation ReadCap/WriteCap, capacités transversales, Dest strictement linéaire, partage et CRDT ;
+- `spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean` et `spec/Spec/C7/EtudeDeCasIIIMoteurDeductifSurArenes.lean` : budget par image du pipeline réactif et détails semi-naïfs du moteur déductif.
 
 Les sujets MMU/IOMMU restent des raffinements matériels proposés : le texte mentionne FFI/DMA, mais les clauses matérielles de translation CPU/device ne sont pas définies. Toute création d'un TLA-17+ exige un rattachement vers un label Verso, une qualification normative/implémentation, un contrat matériel ou runtime, un invariant falsifiable et une trace d'évidence attendue.
 
