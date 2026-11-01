@@ -322,7 +322,7 @@ normative additions. The normative source remains Verso; implementation
 refinements must not be promoted into language guarantees without an explicit
 specification decision.
 
-## Obligation-level audit
+## 5. Obligation-level audit
 
 The chapter-level matrix in this file is the live model-coverage register for
 `main@2fbf609f6f3e67ffe011a3f28fd247526684155a`. The theorem/gap status and

@@ -58,13 +58,26 @@ Deno.test("duplicate registrations are rejected", () => {
 });
 
 Deno.test("a registered profile cannot refer to a missing module", () => {
+  const firstModule = profiles[0].module + ".tla";
   const errors = validateProfileInventory(
     profiles,
     configFiles,
-    moduleFiles.filter((name) => name !== profiles[0].module + ".tla"),
+    moduleFiles.filter((name) => name !== firstModule),
   );
   assertStringIncludes(
     errors.join("\n"),
-    "profile module is missing from models/: " + profiles[0].module + ".tla",
+    "profile module is missing from models/: " + firstModule,
+  );
+});
+
+Deno.test("a new TLA model module cannot be silently omitted", () => {
+  const errors = validateProfileInventory(
+    profiles,
+    configFiles,
+    [...moduleFiles, "TLA17NewModel.tla"],
+  );
+  assertStringIncludes(
+    errors.join("\n"),
+    "TLA model module has no registered profile: TLA17NewModel.tla",
   );
 });
