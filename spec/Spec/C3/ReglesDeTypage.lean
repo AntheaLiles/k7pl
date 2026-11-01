@@ -1620,7 +1620,7 @@ pas lui-même supposé agir multiplicativement sur toutes ses composantes.
 
 Une troisième réserve touche l'appel par poussée de valeur : le lemme ne substitue que des valeurs, ce
 qui écarte l'incompatibilité entre effets observables, élimination dépendante et substitution, mais
-les indices de taille dont dépendent les types modifient les annotations d'effet — un parcours de
+les indices de taille dont dépendent les types modifient les annotations d'effet : un parcours de
 $`N` éléments effectue $`N` pas, et substituer une valeur d'indice change l'effet. La stabilité de la
 quantale et de l'itération $`\varepsilon^n` par substitution d'indices est donc un lemme _séparé_, non
 une conséquence du lemme ci-dessus : on la restreint aux indices intervenant dans les effets qui sont
@@ -1632,7 +1632,7 @@ La _monade graduée indexée_ est la famille $`T^{i}_{\varepsilon}`, où l'indic
 langage d'indices (tailles, longueurs, bornes) et où l'annotation $`\varepsilon(i)` en dépend ; la
 substitution d'un indice $`j` à $`i` agit sur les annotations par la même opération que sur les types.
 
-::::thm (label := "thm:substitution_indices") (status := "theoreme")
+::::proposition (label := "thm:substitution_indices") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
 stabilité de l'effet par substitution d'indices clos
 :::
@@ -1666,7 +1666,7 @@ preuve plutôt que découvert dedans. L'action requise par la substitution est u
 d'usage ; les transformations d'effet restent séparées et ne définissent pas une seconde mise à
 l'échelle du grade complet.
 
-Pour les usages, l’interface de référence ratifiée est
+Pour les usages, l’interface de référence est
 $`\operatorname{Scale}_{Usage}(a,\langle u,m,\ell,\beta\rangle) = \langle a\cdot u,m,\ell,\beta\rangle`.
 Comme $`\psi` laisse inchangées l'usage, la monotonie et le niveau et n'agit que sur le budget, la
 compatibilité correspondante est :
@@ -1701,7 +1701,7 @@ de distributivité de $`\mathrm{Scale}_{\mathrm{Usage}}` sur l'agrégation des c
 avec les conversions de $`Sub` et $`SubBox` doivent être considérées avec les domaines exacts
 des constructions auxquelles elles s'appliquent.
 
-## Cible de preuve — substitution
+## Cible de preuve : substitution
 
 
 ::::lemma (label := "thm:substitution") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
@@ -1743,9 +1743,9 @@ _Les règles structurelles ne fournissent aucun cas_ : l'affaiblissement et la c
 encodés par l'arithmétique des grades. Il n'y a donc pas de règle structurelle supplémentaire à
 compatibiliser avec $`\mathrm{Scale}_{\mathrm{Usage}}`.
 
-_Le cas à deux prémisses qui additionne les contextes_ — {sc}[Pair] — répartit les occurrences de x entre ses deux prémisses, avec r = r₁ + r₂. La recombinaison des hypothèses d'induction utilise π_U(r₁ + r₂) = π_U(r₁) + π_U(r₂) et l'additivité de Scale_Usage sur l'addition point par point ; elle n'exige aucune action sur la monotonie, le niveau ou le budget. {sc}[Inj], en revanche, a une seule prémisse et conserve son contexte ; son cas est traité par l'hypothèse d'induction pour cette prémisse, sans inventer une seconde occurrence ni une décomposition r = r₁ + r₂.
+_Le cas à deux prémisses qui additionne les contextes_ ({sc}[Pair]) répartit les occurrences de x entre ses deux prémisses, avec r = r₁ + r₂. La recombinaison des hypothèses d'induction utilise π_U(r₁ + r₂) = π_U(r₁) + π_U(r₂) et l'additivité de Scale_Usage sur l'addition point par point ; elle n'exige aucune action sur la monotonie, le niveau ou le budget. {sc}[Inj], en revanche, a une seule prémisse et conserve son contexte ; son cas est traité par l'hypothèse d'induction pour cette prémisse, sans inventer une seconde occurrence ni une décomposition r = r₁ + r₂.
 
-_Les règles à contextes composés_ — {sc}[Let], {sc}[App], {sc}[Unbox], {sc}[Open] — utilisent la
+_Les règles à contextes composés_ ({sc}[Let], {sc}[App], {sc}[Unbox], {sc}[Open]) utilisent la
 loi de commutation de $`\mathrm{Scale}_{\mathrm{Usage}}` avec $`\psi` et sa composition scalaire. En particulier, pour
 un scalaire d'usage $`a`, la loi de compatibilité à prouver
 $$`\mathrm{Scale}_{\mathrm{Usage}}(a,\Delta_1 \boxtimes_{\varepsilon} \Delta_2)`
@@ -1778,12 +1778,12 @@ que l'indice est le même. La première clause, formation des types dans un cont
 garantit qu'aucun type ne dépend d'une ressource consommée.
 
 _Une condition de bord, si l'échange venait à être restreint._ L'énoncé place $`x` à l'extrémité
-droite du contexte. Sur une application finie des variables vers les grades — ce que $`\Delta` est
-ici, l'addition point par point en étant la marque —, cette écriture est une notation et non une
+droite du contexte. Sur une application finie des variables vers les grades (ce que $`\Delta` est
+ici, l'addition point par point en étant la marque), cette écriture est une notation et non une
 contrainte. Elle en deviendrait une sous la discipline d'échange envisagée au chapitre 3
 (§{num "sec:c3-le-systeme-gradue"}[]) : la substitution ne serait alors admissible que pour la
 liaison _maximale_ de sa zone. Le lemme ne s'en trouverait pas faux, mais moins général, et la
-restriction serait le contenu même de la discipline plutôt qu'un défaut — on ne consomme pas le
+restriction serait le contenu même de la discipline plutôt qu'un défaut : on ne consomme pas le
 second message d'une session avant le premier.
 :::
 
@@ -1799,7 +1799,7 @@ ci-dessus.
 
 ::::corollary (label := "thm:substitution_simultanee") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
-substitution simultanée — corollaire de la substitution élémentaire
+substitution simultanée, corollaire de la substitution élémentaire
 :::
 
 :::statement +titled
@@ -1835,7 +1835,9 @@ l'ordre repose sur le caractère d'application finie du contexte ; sous des zone
 substitution suit l'ordre inverse de chaque zone, comme l'esquisse le dit.
 :::
 ::::
-Une remarque sur le statut de ce qui précède. Le proofsketch de substitution est une cible de preuve, non une démonstration complète vérifiée. L'inventaire courant compte 49 occurrences de règles en C3 ; l'audit C-06 fournit une matrice de ces occurrences et le test associé contrôle uniquement la correspondance structurelle entre le texte source et cette matrice. Aucun de ces contrôles ne démontre le théorème de substitution ni ses cas par constructeur. L'état under-review / proofsketch doit donc être conservé tant que les cas, conversions, contraintes de fraîcheur et dépendances de domaine n'ont pas été justifiés.
+:::note
+_Statut de ce qui précède._ L'esquisse de substitution est une cible de preuve, non une démonstration complète vérifiée. L'inventaire courant compte 49 occurrences de règles au chapitre 3 ; une matrice de ces occurrences existe, et le contrôle associé vérifie uniquement la correspondance structurelle entre le texte source et cette matrice. Aucun de ces contrôles ne démontre le théorème de substitution ni ses cas par constructeur. L'état under-review / proofsketch se conserve donc tant que les cas, conversions, contraintes de fraîcheur et dépendances de domaine n'ont pas été justifiés.
+:::
 
 Deux familles s'ajoutent à cet inventaire, que le corps nomme sans les donner et qui n'appartiennent
 à aucun des quatre groupes ci-dessus.
@@ -1847,15 +1849,15 @@ $`\lambda_{r,\varepsilon} : !_r \circ T_\varepsilon \Rightarrow T_{\varphi(r,\va
 où $`\varphi` et $`\psi` disent comment chaque côté est modifié par le passage de l'autre. Deux
 règles en dérivent : l'une permet de commuter une demande et un effet en payant le prix que
 $`\varphi` et $`\psi` fixent, l'autre interdit de le faire lorsque ce prix n'est pas défini. Ce sont
-ces deux fonctions qui portent tout le contenu — les poser, c'est décider si exiger deux fois une
+ces deux fonctions qui portent tout le contenu : les poser, c'est décider si exiger deux fois une
 ressource puis produire un effet est la même chose que l'inverse, et à quel coût.
 
 La seconde est celle de la _gradation indexée_. Une monade graduée ordinaire donne à chaque terme un
 grade d'effet fixe ; ici le grade dépend des indices que porte le contexte, et la règle doit donc
 lire ces indices. Un parcours de $`\mathsf{Vec}\;n\;A` n'a pas un grade d'effet, il a une _famille_
 de grades indexée par $`n`, et la règle d'application doit substituer dans cette famille l'indice
-effectif de son argument. Il en résulte que la substitution opère sur deux niveaux à la fois — le
-terme et le grade — et que le lemme de substitution du paragraphe précédent doit être énoncé pour
+effectif de son argument. Il en résulte que la substitution opère sur deux niveaux à la fois (le
+terme et le grade) et que le lemme de substitution du paragraphe précédent doit être énoncé pour
 les deux ensemble, faute de quoi il ne dit rien du cas qui compte.
 
 Les deux règles que cette famille exige se laissent écrire dès maintenant, puisqu'elles ne dépendent
@@ -1873,9 +1875,9 @@ dans la famille de grades de la fonction :
 où $`\boxtimes` note la composition des contextes que la loi distributive gouverne. La seconde est
 le lemme de substitution, énoncé sur les deux niveaux : si
 $`\Delta, x{:}_r A_i \vdash t : B \mid \varepsilon(i)` et $`\Delta' \vdash v : A_j`, alors
-$`\Delta \boxtimes (r\cdot\Delta') \vdash t[v/x] : B[j/i] \mid \varepsilon(j)` — le facteur $`r`
+$`\Delta \boxtimes (r\cdot\Delta') \vdash t[v/x] : B[j/i] \mid \varepsilon(j)` : le facteur $`r`
 étant celui de la liaison substituée, comme dans l'énoncé qui ouvre cette section. Sa forme
-ordinaire — celle qui ne substitue que dans le terme et le type — serait ici vraie et sans emploi,
+ordinaire (celle qui ne substitue que dans le terme et le type) serait ici vraie et sans emploi,
 puisqu'elle ne dirait rien du grade, qui est ce dont dépend le cas intéressant.
 
 Le facteur $`r` n'est pas un ornement, et l'omettre rendrait l'énoncé faux dans le seul sens qui
