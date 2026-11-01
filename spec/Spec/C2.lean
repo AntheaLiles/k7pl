@@ -27,6 +27,8 @@ tag := "c2-fondements"
 
 {refsection "c2-fondements"}
 
+Ce chapitre pose les fondements catégoriques du langage. Il établit la catégorie ambiante, la comonade exponentielle et la sédimentation en fragments qu'elle induit. Il décrit également la dualité des algèbres et des coalgèbres, les adjonctions et l'enrichissement, le système de raffinement et son foncteur d'effacement, et dégage six schémas de métathéorie réutilisés dans tout l'ouvrage. Ses énoncés sont établis par des démonstrations rédigées et des esquisses de preuve ; aucun module Lean ne les formalise à ce stade.
+
 {include 0 Spec.C2.CategorieAmbiante}
 
 {include 0 Spec.C2.ComonadeExponentielleEtFragments}
