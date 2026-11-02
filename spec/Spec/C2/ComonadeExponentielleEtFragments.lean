@@ -334,7 +334,7 @@ restent à expliciter ; la loi ne s'étend ni à une multiplicité rationnelle n
 sans action définie et preuve propre.
 :::
 ::::
-L'interface budgétaire est désormais fixée sous les hypothèses normatives retenues. Le grade porte un budget $`\beta \in \mathbb{N}_\infty`, tandis que la composante temporelle normative est la famille $`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`. Les agrégateurs $`W` et $`D` et la scalarisation `Cost_Budget` sont définis ci-dessous ; la consommation reste séparée et n'intervient que lorsque l'effet traverse effectivement un contexte par $`\psi`.
+L'interface budgétaire est fixée sous les hypothèses normatives retenues. Le grade porte un budget $`\beta \in \mathbb{N}_\infty`, tandis que la composante temporelle normative est la famille $`\kappa \in (\mathbb{N}_\infty\times\mathbb{N}_\infty)^{\mathcal L}`. Les agrégateurs $`W` et $`D` et la scalarisation `Cost_Budget` sont définis ci-dessous ; la consommation reste séparée et n'intervient que lorsque l'effet traverse effectivement un contexte par $`\psi`.
 
 Une extension concurrente pourrait ultérieurement raffiner la famille temporelle par plusieurs composantes de coût, mais cette extension n'appartient pas à la définition normative actuelle. Elle ne doit donc pas décider aujourd'hui de la structure du grade ni de la consommation budgétaire.
 
@@ -356,8 +356,8 @@ demanderait de définir une structure algébrique complète sur $`\mathcal{G}` e
 
 Le manuscrit doit donc conserver trois objets distincts tant que cette correspondance n'est pas
 démontrée : $`\mathcal{R}` pour le semi-anneau d'usage, $`\mathcal{G}` pour l'annotation complète
-du jugement, et la famille de modes qui gouverne les permissions structurelles. Les tests des séances
-35 à 52 soutiennent désormais une architecture de référence factorisée : la comonade est indexée par
+du jugement, et la famille de modes qui gouverne les permissions structurelles. L'architecture de
+référence est factorisée : la comonade est indexée par
 $`\mathcal{R}` et les autres composantes de $`r` sont conservées comme annotations et interfaces
 orthogonales. Une indexation par un porteur plus riche reste mathématiquement possible comme
 généralisation, mais elle n'est plus requise par les règles actuelles. La factorisation doit encore

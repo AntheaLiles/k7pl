@@ -152,7 +152,7 @@ Les onze engagements, ce qu'ils affirment, ce qui les tient et par où ils se l�
 Aucun de ces engagements n'est caché : chacun est signalé là où il est pris, et la table {num "tab:engagements"}[]
 ne fait que les rassembler. Ils ne sont pas de même nature. Les deux paris sur l'usage (le coût
 d'expressivité des deux postulats, et la rareté des changements de fragment) ne se tranchent que
-par une mise à l'épreuve, et ce document écrit désormais laquelle plutôt que de la laisser à
+par une mise à l'épreuve, et ce document écrit laquelle plutôt que de la laisser à
 imaginer. Le second se mesure _sur du texte_, sans rien exécuter : on écrit un corpus de programmes
 représentatifs, on compte les franchissements de fragment par millier de lignes, et on rapporte ce
 nombre à celui des expressions. La mesure est disponible dès que la syntaxe est gelée, et elle
@@ -162,7 +162,7 @@ acceptée : ce qui rend un _taux de rejet sans reformulation disponible_, et non
 ces deux protocoles ne les acquitte pas ; cela dit ce qu'un pair devrait refaire pour les
 contredire. Les autres sont des propositions dont on saurait dire par quoi les établir.
 
-Une règle gouverne désormais cette table, et elle vaut d'être posée parce qu'un engagement qui ne
+Une règle gouverne cette table, et elle vaut d'être posée parce qu'un engagement qui ne
 dit pas comment il se lèvera n'est pas un engagement mais un aveu. _Tout engagement de ce document nomme la route par
 laquelle il se lèvera, et il n'y en a que trois._ La _littérature_ : l'énoncé est déjà établi
 ailleurs, et il se référence dans sa source primaire plutôt qu’il ne se redémontre. La

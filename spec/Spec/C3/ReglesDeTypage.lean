@@ -27,7 +27,7 @@ groupes, dans l'ordre où l'induction du chapitre 4 (§{num "sec:c4-le-calcul-de
 rencontre. Ce qui suit n'est plus un inventaire mais un jeu. Chaque groupe a son coût, et c'est ce
 compte qui a réduit ce qui paraissait un chantier ouvert à une liste bornée de décisions.
 
-Une première tranche du jeu de règles est désormais définie comme du Lean compilable dans la source de la spécification,
+Une première tranche du jeu de règles est définie comme du Lean compilable dans la source de la spécification,
 dans le module `Spec.C3.EffectiveKernel` que `lake build Spec` construit avec ce document, sous le nom `K7pl.Spec.C3.EffectiveKernel`. Elle relie une grammaire interne à des jugements inductifs :
 `ValueTyping` porte `Var`, l'unité et `Pair` ; `ComputationTyping` porte `Ret`, `Lam`, `App` et `Let`.
 Le contexte du noyau est explicitement l'observation d'usage `π_U`, tandis que le type de fonction conserve le grade complet
@@ -112,7 +112,7 @@ calcul lié ; et {sc}[App], où c'est $`\varepsilon_0`, celui du terme fonction.
 et le lemme de substitution) éliminent toutes une _valeur_, dont l'effet est neutre. Par le lemme
 ci-après, leur $`\boxtimes` _est_ l'addition ponctuelle. La composition graduée n'a donc de contenu
 propre qu'aux deux endroits où un calcul précède un autre calcul, ce qui est exactement là où l'on
-attendait qu'elle en eût, et nulle part ailleurs. Les règles portent désormais leur indice, et une
+attendait qu'elle en eût, et nulle part ailleurs. Les règles portent leur indice, et une
 mécanisation n'aura ni à le deviner ni à traiter neuf cas là où deux suffisent.
 
 ::::corollary (label := "thm:boxtimes_addition") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")

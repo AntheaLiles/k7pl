@@ -1093,8 +1093,8 @@ _closes_, évaluées dans l'état initial. La substitution y est alors l'identit
 l'échappatoire désigne une valeur déterminée avant l'exécution plutôt qu'une forme à remplir. C'est
 la lecture que retient la littérature dont l'énoncé est repris {cite "sabelfeldModelDelimitedInformation2004"}[],
 et elle n'est pas une restriction gênante : une politique de déclassification qui ne saurait pas
-dire _quoi_ elle divulgue ne serait pas une politique. La règle du chapitre 2 porte désormais cette
-clause, par la prémisse $`\mathrm{fv}(v) = \emptyset` : l'écart de formalisation relevé au chantier est refermé.
+dire _quoi_ elle divulgue ne serait pas une politique. La règle du chapitre 2 porte cette
+clause, par la prémisse $`\mathrm{fv}(v) = \emptyset`.
 
 # La traduction vers le métalangage : ce que le lemme solde
 %%%
