@@ -62,11 +62,20 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # replacing bd6d774c…): its changes only name the renamed check script
     # (scripts/check_spec.py) and the renamed figure asset (contraction-weakening-matrix).
     # A pin re-sync, not a ratification of any changed content.
+    # 2026-11-03: the specification writing pass (pre-audit A-G) and its integration of
+    # main reword the prose of these files under the writing rules of spec/README.md
+    # (section 7) and restore the two legacy ::::thm headers of TypingRules.lean.
+    # Four pins are re-synced: ExponentialComonadAndFragments.lean (bb8a6a97...,
+    # replacing 25ea45a9...), GradedSystem.lean (bc618228..., replacing fc7b98ac...),
+    # TypeGrammar.lean (45e86062..., replacing 08f3d573...) and TypingRules.lean
+    # (2b3e2755..., replacing 4f83a512...). EffectiveKernel.lean is untouched by the
+    # pass and keeps its pin. The interface strings below are unchanged and still
+    # checked; a pin re-sync, not a ratification of any changed content.
     integrated_source_blobs = {
-        "spec/Spec/C2/ExponentialComonadAndFragments.lean": "25ea45a9aeb423505302ae4016af552bd3db4955",
-        "spec/Spec/C3/GradedSystem.lean": "fc7b98ac9b6ff2bd01ed1378b5120c213675a2b4",
-        "spec/Spec/C3/TypeGrammar.lean": "08f3d573323e6f3411fb51897ef000362b81b822",
-        "spec/Spec/C3/TypingRules.lean": "4f83a5129ed1b764d1db487d389290a761ff0612",
+        "spec/Spec/C2/ExponentialComonadAndFragments.lean": "bb8a6a97b8f238cb86995f5a1f038b1475120913",
+        "spec/Spec/C3/GradedSystem.lean": "bc618228bad4ab77125b4189d715446bc1f5d623",
+        "spec/Spec/C3/TypeGrammar.lean": "45e860625d73eb767cc4cf0281e4c474a8f497d9",
+        "spec/Spec/C3/TypingRules.lean": "2b3e2755b4184cae8ece34b9037e562fce2008d1",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():

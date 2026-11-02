@@ -22,8 +22,13 @@ RULES_SOURCE = ROOT / "spec" / "Spec" / "C3" / "TypingRules.lean"
 # K7PL (composing a type is providing an immutable object), a conception
 # strongly inspired by CLOS, whose construction includes locality clauses.
 # The pinned inventory is therefore 51 occurrences, not 49.
+#
+# NOTE — 2026-11-03: the worked derivation example added to TypingRules.lean by
+# the specification writing pass (examples lot) mentions the existing rules
+# Var (twice more), Ret, Lam and App (once more each). No new rule joins the
+# inventory. The pinned inventory is therefore 56 occurrences, not 51.
 EXPECTED_RULE_OCCURRENCES = Counter([
-    "Var", "Ret", "Th", "Let", "Fo", "Box", "Unbox", "Lam", "App", "Pair", "Inj",
+    "Var", "Var", "Var", "Ret", "Ret", "Th", "Let", "Fo", "Box", "Unbox", "Lam", "Lam", "App", "App", "Pair", "Inj",
     "Pack", "Open", "One", "OneE", "Split", "Case", "Op", "Tick", "Del", "Sub",
     "SubBox", "Alw", "Alw", "Now", "Nxt", "Wait", "When", "Sc", "Fold", "Unfold", "Gen",
     "Inst", "Out", "Cop", "With", "Proj", "VecI", "VecE", "Slice", "Par", "Vmap",
@@ -39,4 +44,4 @@ def test_c3_rule_inventory_still_matches_the_pinned_inventory():
         "C3 rule inventory changed; review the proof by cases: "
         f"missing={EXPECTED_RULE_OCCURRENCES - actual}, added={actual - EXPECTED_RULE_OCCURRENCES}"
     )
-    assert sum(actual.values()) == 51
+    assert sum(actual.values()) == 56
