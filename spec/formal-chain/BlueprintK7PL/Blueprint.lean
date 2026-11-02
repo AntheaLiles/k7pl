@@ -13,12 +13,10 @@ open Informal
 
 #doc (Manual) "K7PL — Sémantique et preuves du sous-langage" =>
 
-Ce Blueprint documente une première chaîne expérimentale autour d’un sous-ensemble
-de K7PL. La sémantique opérationnelle est compilée par K Framework, le KORE généré
-est exporté par `klean`, puis Lean vérifie les preuves du sous-langage et un témoin
-de transition KLean concret.
+Ce Blueprint documente une première chaîne expérimentale autour d’un sous-ensemble de K7PL. La sémantique opérationnelle
+est compilée par K Framework, le KORE généré est exporté par `klean`, puis Lean vérifie les preuves du sous-langage et
+un témoin de transition KLean concret.
 
 {include 0 BlueprintK7PL.Chapters.Semantics}
 
-{blueprint_graph}
-{blueprint_summary}
+{blueprint_graph} {blueprint_summary}

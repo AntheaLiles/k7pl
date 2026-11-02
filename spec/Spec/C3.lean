@@ -27,18 +27,20 @@ tag := "c3-types"
 
 {refsection "c3-types"}
 
-Le chapitre 2 a construit l'appareil catégorique ; celui-ci en tire le système que le développeur
-écrit. Il n'y ajoute aucune construction : une seule décision, P2, épuise la question — tout type de
-K7PL est le produit d'une modalité d'usage et d'une contrainte de valeur, variant indépendamment
-l'une de l'autre. La modalité, trace au niveau des types de la stratification en trois fragments
-(§{num "sec:c2-la-comonade-exponentielle-et"}[]), détermine si une ressource se copie librement,
-s'abandonne sans y avoir touché, ou doit être consommée exactement une fois. La contrainte de valeur
-ne dit rien de l'usage et tout du contenu : taille, intervalle, état, protocole, dimension physique.
-Aucune des deux ne conditionne l'autre hors des trois couplages que P2 nomme — sous la condition de
-séparation posée par ce postulat, que le §{num "sec:c3-les-contraintes-de-valeur"}[] respecte en
-n'admettant que des indices exclus du suivi de ressource. De chaque notion, ce chapitre ne retient
-que ce qu'elle est en tant que type ; la manière dont elle s'exécute relève du chapitre 4,
-séparation qui prolonge au niveau du document l'orthogonalité qu'il construit au niveau des types.
+Le chapitre 2 a construit l'appareil catégorique ; celui-ci en tire le système que le développeur écrit. Il n'y ajoute
+aucune construction : une seule décision, P2, épuise la question : tout type de K7PL est le produit d'une modalité
+d'usage et d'une contrainte de valeur, variant indépendamment l'une de l'autre. La modalité, trace au niveau des types
+de la stratification en trois fragments (§{num "sec:c2-la-comonade-exponentielle-et"}[]), détermine si une ressource se
+copie librement, s'abandonne sans y avoir touché, ou doit être consommée exactement une fois. La contrainte de valeur ne
+dit rien de l'usage et tout du contenu : taille, intervalle, état, protocole, dimension physique. Aucune des deux ne
+conditionne l'autre hors des trois couplages que P2 nomme, sous la condition de séparation posée par ce postulat, que le
+§{num "sec:c3-les-contraintes-de-valeur"}[] respecte en n'admettant que des indices exclus du suivi de ressource. De
+chaque notion, ce chapitre ne retient que ce qu'elle est en tant que type ; la manière dont elle s'exécute relève du
+chapitre 4, séparation qui prolonge au niveau du document l'orthogonalité qu'il construit au niveau des types.
+
+Une première tranche du jeu de règles de ce chapitre est formalisée en Lean 4 (module `Spec.C3.EffectiveKernel`, compilé
+avec le présent document) ; le reste relève de démonstrations rédigées et d'esquisses de preuve, au statut indiqué en
+chaque lieu.
 
 {include 0 Spec.C3.GradedSystem}
 
