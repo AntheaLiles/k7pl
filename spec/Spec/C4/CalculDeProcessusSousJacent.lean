@@ -371,7 +371,7 @@ relation : $`\to` a des schémas pour les formes des blocs ({num "eq:reductions-
 ({num "eq:reductions-couche2"}[]), auxquels s'ajoutent ceux de la formule
 ({num "eq:reductions-orientees"}[]) et ({num "eq:reductions-modalites"}[]), proposés ; tous les
 constructeurs de la grammaire des termes ont un schéma (table {num "tab:couverture-reductions"}[]), mais
-la traduction n'a de clause que pour une partie d'entre eux, et la proposition ne porte que sur celle-là : la traduction n'écrit de clause que pour $`\mathsf{return}`,
+la traduction n'a de clause que pour une partie d'entre eux, et la proposition ne porte que sur celle-là. La traduction n'écrit de clause que pour $`\mathsf{return}`,
 $`\mathsf{let}`, $`\mathbf{tick}` et $`\mathsf{operation}` ; le point fixe a son image (théorème
 {num "thm:image_fix"}[]), mais le copatron, la récupération, la mise en parallèle, la découpe et les cinq
 constructeurs de couche 2 n'ont pas de clause, et leur simulation n'est pas acquise. On ignore même si chaque pas source y est suivi

@@ -208,6 +208,7 @@ définitionnelle des preuves, ce qui contredit l'univalence. Enfin aucune varian
 fournit le semi-anneau ordonné agissant sur le contexte, qui est le cœur de K7PL. Ce choix n'exclut
 pas les imports ciblés d'une même famille (théorie de modes pour ranger les modalités, calf pour
 le coût et la distinction de phase, théorie des types graduée formalisée pour l'effacement et la
-décidabilité, récursion gardée pour la productivité), qui s'instruisent un à un et ne sont versés
-au texte qu'au fur et à mesure qu'ils le sont ; ni l'emploi ponctuel et instrumental, comme outil de
-preuve, d'une théorie cubique sans types de Glue pour la seule dette de la sédimentation graduée.
+décidabilité, récursion gardée pour la productivité). Ces imports s'instruisent un à un et ne sont
+versés au texte qu'au fur et à mesure qu'ils le sont. Le choix n'exclut pas non plus l'emploi
+ponctuel et instrumental, comme outil de preuve, d'une théorie cubique sans types de Glue pour la
+seule dette de la sédimentation graduée.

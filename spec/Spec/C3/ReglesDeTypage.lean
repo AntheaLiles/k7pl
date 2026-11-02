@@ -455,7 +455,7 @@ d'introduction jusqu'à l'unicité des dérivations.
 
 _Ce que la suite établit, et ce qu'elle n'établit pas._ L'ordre du sous-typage possède ses
 _jointures_ : un produit d'ordres les possède si et seulement si chaque facteur les possède, prises
-composante par composante, et les quatre facteurs les ont : l'usage sous $`\geq` comme minima de
+composante par composante. Les quatre facteurs les ont : l'usage sous $`\geq` comme minima de
 l'ordre naturel de $`\mathbb{N}_\infty`, la monotonie sous $`\succeq` comme chaîne à deux éléments,
 le niveau par définition du treillis, le budget sous $`\leq` comme maxima.
 
