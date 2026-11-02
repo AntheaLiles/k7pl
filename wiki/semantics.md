@@ -16,14 +16,17 @@ the complete normative semantics.
 
 ## Prototype scope
 
-The editable source of the definition is the K block of
-`spec/Spec/CodeArtifacts.lean`; the Python block of the
-same page holds the checker for the example programs.
-`lake exe spec --extract-code-only` generates
-`src/k/.build/generated/semantics.k` and
-`src/k/.build/generated/check_k_examples.py`. These
-artefacts are ignored by Git and must not be edited
-directly. The source programs are in `tests/examples/`
+The editable source of the definition is in `lexicon/`:
+one file per lemma in `lexicon/lexemes/` (`literals.k`,
+`add.k`, `lt.k`, `select.k`), composed by the module
+`LEXICON` of `lexicon/lexicon.k`. The `K` blocks of
+`spec/Spec/CodeArtifacts.lean` display these files, read
+when the document is elaborated, and the extraction pass
+refuses a K file of `lexicon/` that no block displays.
+The Python block of the same page holds the checker for
+the example programs: `lake exe spec --extract-code-only`
+generates `src/k/.build/generated/check_k_examples.py`,
+ignored by Git and not to be edited directly. The source programs are in `tests/examples/`
 and use the `.k7` extension.
 
 | Construct | K representation | Behaviour |
@@ -86,9 +89,9 @@ make formal-chain
 
 ## Native boundary model (profile model, non-normative)
 
-The separate model
-`src/k/.build/generated/models/native-boundary.k` is
-extracted from a `k7osModel` block in the Verso page.
+The separate model `lexicon/models/native-boundary.k`
+(module `NATIVE-BOUNDARY`) is displayed by a `K` block of
+the Verso page.
 It compares three cases: a native call conforming to
 its contract, a write refused under the abstract
 hypothesis of an enforced boundary, and a native
@@ -115,12 +118,13 @@ not a proof that the model corresponds to the
 complete normative semantics of K7PL**. The TLC
 sources and logs are packaged with the K sources,
 the Lean proofs and the Verso documentation in the
-formal-semantics workflow. The TLA+ sources live in
-`theoretical-projects/k7os/models/` (moved from
-`docs/research/k7pl-os/models/` in the research
-closing of 2026-10-25, with the workflows repointed);
-they are executable models, not wiki or specification
-content. The projection relation
+formal-semantics workflow. The TLA+ sources live directly in the repository-root
+`models/` directory, alongside the work programme,
+chapter-coverage matrix, open gates, formal architecture
+and toolchain/CI plan. The historical D01 and R9 models
+retain their original identifiers and provenance; their
+contents are unchanged by the relocation. They are
+executable models, not wiki or specification content. The projection relation
 between complete K configurations, TLA+ states and
 `K7PL.NativeBoundary.State` remains explicitly open.
 

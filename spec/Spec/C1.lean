@@ -8,11 +8,11 @@
 import VersoManual
 import SpecExt
 import Spec.C1.Introduction
-import Spec.C1.GuideDeLecture
-import Spec.C1.Postulats
-import Spec.C1.AxiomatiqueGerminale
-import Spec.C1.TableNormativeDesSymboles
-import Spec.C1.TableDesGlyphes
+import Spec.C1.ReadingGuide
+import Spec.C1.Postulates
+import Spec.C1.GerminalAxiomatics
+import Spec.C1.NormativeSymbolTable
+import Spec.C1.GlyphTable
 
 open Verso.Genre Manual
 open SpecExt
@@ -29,12 +29,12 @@ tag := "c1-prolegomenes"
 
 {include 0 Spec.C1.Introduction}
 
-{include 0 Spec.C1.GuideDeLecture}
+{include 0 Spec.C1.ReadingGuide}
 
-{include 0 Spec.C1.Postulats}
+{include 0 Spec.C1.Postulates}
 
-{include 0 Spec.C1.AxiomatiqueGerminale}
+{include 0 Spec.C1.GerminalAxiomatics}
 
-{include 0 Spec.C1.TableNormativeDesSymboles}
+{include 0 Spec.C1.NormativeSymbolTable}
 
-{include 0 Spec.C1.TableDesGlyphes}
+{include 0 Spec.C1.GlyphTable}

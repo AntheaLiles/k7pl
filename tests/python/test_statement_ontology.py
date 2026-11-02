@@ -4,7 +4,7 @@
 
 """Focused regression tests for the migrated statement ontology."""
 
-from controles.statement_ontology import violations
+from spec_checks.statement_ontology import violations
 
 
 def test_legacy_statement_remains_compatible():

@@ -1,9 +1,16 @@
 {
   "schemaVersion": 1,
-  "purpose": "Expected #print axioms dependency sets for the KLean-generated K7PL proof slice used by the D-01 assurance chain.",
+  "purpose": "Expected #print axioms dependency sets for the archived KLean proof-of-concept and the maintained domain-oriented Lean formalisation, which reuses the executable root library's grade, budget, structural-mode and memory-range models.",
   "policy": {
-    "forbiddenAxioms": ["sorryAx", "Lean.ofReduceBool"],
-    "allowedStandardAxioms": ["propext", "Classical.choice", "Quot.sound"],
+    "forbiddenAxioms": [
+      "sorryAx",
+      "Lean.ofReduceBool"
+    ],
+    "allowedStandardAxioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
     "matching": "exact-set"
   },
   "declarations": [
@@ -19,32 +26,44 @@
     },
     {
       "name": "K7PL.MachineSoundness.rewrites_preserve_machine_typing",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "preservation of generated machine transitions"
     },
     {
       "name": "K7PL.MachineSoundness.end_to_end_preservation",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "end-to-end preservation over generated configurations"
     },
     {
       "name": "K7PL.Bridge.add_root_is_klean_rewrite",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "KLean bridge: addition root rule"
     },
     {
       "name": "K7PL.Bridge.less_than_root_is_klean_rewrite",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "KLean bridge: comparison root rule"
     },
     {
       "name": "K7PL.Bridge.select_true_root_is_klean_rewrite",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "KLean bridge: select true root rule"
     },
     {
       "name": "K7PL.Bridge.select_false_root_is_klean_rewrite",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "KLean bridge: select false root rule"
     },
     {
@@ -69,18 +88,265 @@
     },
     {
       "name": "K7PL.Example.root_add_klean_preserves_type",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "example-specific KLean preservation witness"
     },
     {
       "name": "K7PL.Example.nested_add_example_evaluates_to_six",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "nested-add execution witness"
     },
     {
       "name": "K7PL.Example.add_example_end_to_end",
-      "axioms": ["propext"],
+      "axioms": [
+        "propext"
+      ],
       "role": "combined type-and-execution example witness"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.specUsage_eq_implementationUsage",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "C3 and implementation usage carriers are definitionally equal"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uLin_subset_uAff",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "usage interval inclusion: Lin to Aff"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uAff_subset_uUnr",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "usage interval inclusion: Aff to Unr"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uLin_subset_uRel",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "usage interval inclusion: Lin to Rel"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uRel_subset_uUnr",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "usage interval inclusion: Rel to Unr"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.uAff_uRel_incomparable",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "usage interval incomparability: Aff and Rel"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.specToImplementation_toSpecification",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "specification-to-implementation grade roundtrip"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.implementationToSpecification_toImplementation",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "implementation-to-specification grade roundtrip"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.specToImplementation_piU",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "grade representation preserves the usage projection"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.specToImplementation_scaleUsage",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "grade representation commutes with usage scaling"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.linear_to_affine",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "reference structural mode morphism Lin to Aff"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.affine_to_unrestricted",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "reference structural mode morphism Aff to Unr"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.linear_to_unrestricted",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "reference structural mode morphism Lin to Unr"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.relational_to_unrestricted",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "non-normative relational candidate to Unr"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.affine_not_to_relational",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "no Aff to relational-candidate morphism"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.unbounded_budget_admissible",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "every temporal profile is admissible under an unbounded budget"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.truncatedSub_le_budget",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "truncated budget subtraction is bounded by the available budget"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.consumeK_bounded_by_budget",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "partial budget consumption cannot exceed available budget"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.consumeK_conservation",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "partial budget consumption conserves the available budget and cost"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.parallel_cost_characterization",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "parallel cost is additive work and maximum depth"
+    },
+    {
+      "name": "K7PL.Proofs.Grades.sequential_cost_upper_bound",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "sequential cost has the work/depth sum upper bound"
+    },
+    {
+      "name": "K7PL.Proofs.Structural.disjoint_symmetric",
+      "axioms": [],
+      "role": "memory-range disjointness is symmetric"
+    },
+    {
+      "name": "K7PL.Proofs.Structural.disjoint_irreflexive",
+      "axioms": [],
+      "role": "memory-range disjointness is irreflexive"
+    },
+    {
+      "name": "K7PL.Proofs.Structural.disjoint_ranges_have_distinct_representations",
+      "axioms": [],
+      "role": "disjoint ranges have distinct range representations"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.allocate_preserves_unique",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "arena allocation preserves capability uniqueness"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.no_double_writer",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "parallel globally unique state excludes two writers for one region"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.writer_count_le_one",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "global capability uniqueness bounds writer count"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.arena_count_le_one",
+      "axioms": [
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "global capability uniqueness bounds arena-token count"
+    },
+    {
+      "name": "K7PL.Proofs.Memory.reuse_invalidates_previous_reference",
+      "axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "role": "generation increment invalidates previous entity reference"
+    },
+    {
+      "name": "K7PL.Proofs.Metatheory.preservesInvariant",
+      "axioms": [],
+      "role": "finite multi-step invariant preservation"
     }
   ]
 }

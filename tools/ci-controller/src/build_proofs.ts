@@ -10,7 +10,7 @@
  * structurally instead.
  *
  * The ported contract is:
- * - run `lake build K7PL2Lean K7PL` and capture its log (the
+ * - run `lake build K7PL2Lean KLeanArchive K7PLProofs` and capture its log (the
  *   Lean build is the proof; this module only audits its output);
  * - fail on any `sorryAx` in the log;
  * - fail if either machine-soundness theorem has no axiom record;
@@ -70,6 +70,40 @@ export const BRIDGE_NATIVE_DECLARATIONS = [
   "K7PL.NativeBoundary.unconfined_native_write_trace_replay",
 ] as const;
 
+/** Maintained domain-theory declarations; each must have a #print axioms record. */
+export const DOMAIN_THEOREMS = [
+  "K7PL.Proofs.Grades.specUsage_eq_implementationUsage",
+  "K7PL.Proofs.Grades.uLin_subset_uAff",
+  "K7PL.Proofs.Grades.uAff_subset_uUnr",
+  "K7PL.Proofs.Grades.uLin_subset_uRel",
+  "K7PL.Proofs.Grades.uRel_subset_uUnr",
+  "K7PL.Proofs.Grades.uAff_uRel_incomparable",
+  "K7PL.Proofs.Grades.specToImplementation_toSpecification",
+  "K7PL.Proofs.Grades.implementationToSpecification_toImplementation",
+  "K7PL.Proofs.Grades.specToImplementation_piU",
+  "K7PL.Proofs.Grades.specToImplementation_scaleUsage",
+  "K7PL.Proofs.Grades.linear_to_affine",
+  "K7PL.Proofs.Grades.affine_to_unrestricted",
+  "K7PL.Proofs.Grades.linear_to_unrestricted",
+  "K7PL.Proofs.Grades.relational_to_unrestricted",
+  "K7PL.Proofs.Grades.affine_not_to_relational",
+  "K7PL.Proofs.Grades.unbounded_budget_admissible",
+  "K7PL.Proofs.Grades.truncatedSub_le_budget",
+  "K7PL.Proofs.Grades.consumeK_bounded_by_budget",
+  "K7PL.Proofs.Grades.consumeK_conservation",
+  "K7PL.Proofs.Grades.parallel_cost_characterization",
+  "K7PL.Proofs.Grades.sequential_cost_upper_bound",
+  "K7PL.Proofs.Structural.disjoint_symmetric",
+  "K7PL.Proofs.Structural.disjoint_irreflexive",
+  "K7PL.Proofs.Structural.disjoint_ranges_have_distinct_representations",
+  "K7PL.Proofs.Memory.allocate_preserves_unique",
+  "K7PL.Proofs.Memory.no_double_writer",
+  "K7PL.Proofs.Memory.writer_count_le_one",
+  "K7PL.Proofs.Memory.arena_count_le_one",
+  "K7PL.Proofs.Memory.reuse_invalidates_previous_reference",
+  "K7PL.Proofs.Metatheory.preservesInvariant",
+] as const;
+
 /**
  * Structural audit of a captured build log. Returns error
  * strings in check order (sorryAx, then machine-soundness
@@ -96,6 +130,11 @@ export function checkBuildLog(text: string): string[] {
       errors.push(`Missing axiom audit for ${declaration}.`);
     }
   }
+  for (const declaration of DOMAIN_THEOREMS) {
+    if (!hasAnyRecord(declaration)) {
+      errors.push(`Missing axiom audit for ${declaration}.`);
+    }
+  }
   return errors;
 }
 
@@ -114,7 +153,7 @@ export interface RunBuildProofsOptions {
 }
 
 /**
- * Run `lake build K7PL2Lean K7PL`, capture the log, and audit it
+ * Run `lake build K7PL2Lean KLeanArchive K7PLProofs`, capture the log, and audit it
  * with {@link checkBuildLog}. A non-zero lake exit is itself a
  * failure, mirroring `set -euo pipefail` in the shell script:
  * the audit verdict never overrides a failed build.
@@ -123,7 +162,7 @@ export async function runBuildProofs(
   options: RunBuildProofsOptions = {},
 ): Promise<BuildProofsResult> {
   const command = new Deno.Command("lake", {
-    args: ["build", "K7PL2Lean", "K7PL"],
+    args: ["build", "K7PL2Lean", "KLeanArchive", "K7PLProofs"],
     stdout: "piped",
     stderr: "piped",
     cwd: options.workingDir,
@@ -136,7 +175,9 @@ export async function runBuildProofs(
   }
   const errors: string[] = [];
   if (code !== 0) {
-    errors.push(`lake build K7PL2Lean K7PL exited with code ${code}`);
+    errors.push(
+      `lake build K7PL2Lean KLeanArchive K7PLProofs exited with code ${code}`,
+    );
   }
   errors.push(...checkBuildLog(log));
   return {

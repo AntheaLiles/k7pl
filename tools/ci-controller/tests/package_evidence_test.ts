@@ -18,8 +18,8 @@ async function fixture(
   const ws = `${tmp}/ws`;
   for (
     const rel of [
-      "src/k/.build/generated/semantics.k",
-      "src/k/.build/generated/models/native-boundary.k",
+      "lexicon/lexicon.k",
+      "lexicon/models/native-boundary.k",
       "src/k/.build/generated/check_k_examples.py",
       "src/k/Makefile",
       "tests/examples/add.k7",
@@ -28,14 +28,32 @@ async function fixture(
       "wiki/semantics.md",
       "proofs/K7PL2Lean.lean",
       "proofs/K7PL2Lean/Mod.lean",
-      "proofs/lakefile.toml",
+      "proofs/lakefile.lean",
       "proofs/lean-toolchain",
       "proofs/lake-manifest.json",
       "proofs/README.md",
-      "proofs/K7PL.lean",
+      "proofs/Grades.lean",
       "proofs/Makefile",
       "proofs/axiom-audit-contract.json",
-      "proofs/K7PL/Inner.lean",
+      "proofs/Grades/UsageIntervals.lean",
+      "proofs/Grades/Scaling.lean",
+      "proofs/Grades/StructuralModes.lean",
+      "proofs/Grades/Budget.lean",
+      "proofs/Structural.lean",
+      "proofs/Structural/RangeSeparation.lean",
+      "proofs/Memory.lean",
+      "proofs/Memory/CapabilityOwnership.lean",
+      "proofs/Memory/EntityRef.lean",
+      "proofs/Metatheory.lean",
+      "proofs/Metatheory/MultiStep.lean",
+      "proofs/FORMALIZATION-PLAN.md",
+      "proofs/CHECKPOINT.md",
+      "proofs/archive/KLean.lean",
+      "proofs/archive/KLean/Proof.lean",
+      "proofs/archive/KLean/Bridge.lean",
+      "proofs/archive/KLean/MachineSoundness.lean",
+      "proofs/archive/KLean/Example.lean",
+      "proofs/archive/KLean/NativeBoundary.lean",
       "spec/formal-chain/BlueprintK7PL.lean",
       "spec/formal-chain/BlueprintK7PLMain.lean",
       "spec/formal-chain/lakefile.lean",
@@ -83,7 +101,12 @@ Deno.test("package_evidence stages inputs, writes MANIFEST, packs the tarball", 
     assert(result.archiveSize > 0, "archive should be non-empty");
     assert(result.manifestEntries.includes("k7pl-formal-chain/MANIFEST.txt"));
     assert(
-      result.manifestEntries.includes("k7pl-formal-chain/src/k/semantics.k"),
+      result.manifestEntries.includes("k7pl-formal-chain/lexicon/lexicon.k"),
+    );
+    assert(
+      result.manifestEntries.includes(
+        "k7pl-formal-chain/lexicon/models/native-boundary.k",
+      ),
     );
     assert(
       result.manifestEntries.includes(
@@ -92,7 +115,7 @@ Deno.test("package_evidence stages inputs, writes MANIFEST, packs the tarball", 
     );
     assert(
       result.manifestEntries.includes(
-        "k7pl-formal-chain/proofs/K7PL/Inner.lean",
+        "k7pl-formal-chain/proofs/Grades/UsageIntervals.lean",
       ),
     );
     assert(
@@ -135,7 +158,7 @@ Deno.test("package_evidence stages inputs, writes MANIFEST, packs the tarball", 
 Deno.test("package_evidence fails on a missing input", async () => {
   const { ws, tmp, cleanup } = await fixture(true);
   try {
-    await Deno.remove(`${ws}/src/k/.build/generated/semantics.k`);
+    await Deno.remove(`${ws}/lexicon`, { recursive: true });
     let message = "";
     try {
       await packageEvidence({
@@ -147,7 +170,7 @@ Deno.test("package_evidence fails on a missing input", async () => {
     } catch (error) {
       message = error instanceof Error ? error.message : String(error);
     }
-    assertStringIncludes(message, "semantics.k");
+    assertStringIncludes(message, "lexicon");
   } finally {
     await cleanup();
   }

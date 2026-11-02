@@ -3,9 +3,10 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-# Gathers the generated K sources, the Klean output, the proof project, the Blueprint sources and
-# HTML and the evidence files under $RUNNER_TEMP/k7pl-formal-chain, writes its MANIFEST.txt, and
-# packs it into $RUNNER_TEMP/k7pl-formal-chain-$GITHUB_RUN_ID.tar.gz for the upload step.
+# Gathers the K sources of lexicon/, the generated checker, the Klean output, the proof project,
+# the Blueprint sources and HTML and the evidence files under $RUNNER_TEMP/k7pl-formal-chain,
+# writes its MANIFEST.txt, and packs it into $RUNNER_TEMP/k7pl-formal-chain-$GITHUB_RUN_ID.tar.gz
+# for the upload step.
 #
 # Called by: .github/workflows/k7pl-semantics.yaml, job `k-smoke`, step "Package formal-chain build
 # evidence", from the repository root, when the export and the Blueprint succeeded.
@@ -17,10 +18,9 @@ set -euo pipefail
 ARTIFACT_ROOT="$RUNNER_TEMP/k7pl-formal-chain"
 ARCHIVE="$RUNNER_TEMP/k7pl-formal-chain-${GITHUB_RUN_ID}.tar.gz"
 rm -rf "$ARTIFACT_ROOT" "$ARCHIVE"
-mkdir -p "$ARTIFACT_ROOT/proofs" "$ARTIFACT_ROOT/spec/formal-chain" "$ARTIFACT_ROOT/src/k/models" "$ARTIFACT_ROOT/tests/examples/native-boundary" "$ARTIFACT_ROOT/wiki"
+mkdir -p "$ARTIFACT_ROOT/proofs" "$ARTIFACT_ROOT/spec/formal-chain" "$ARTIFACT_ROOT/src/k" "$ARTIFACT_ROOT/tests/examples/native-boundary" "$ARTIFACT_ROOT/wiki"
 
-cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/semantics.k" "$ARTIFACT_ROOT/src/k/semantics.k"
-cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/models/native-boundary.k" "$ARTIFACT_ROOT/src/k/models/native-boundary.k"
+cp -a "$GITHUB_WORKSPACE/lexicon" "$ARTIFACT_ROOT/lexicon"
 cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/check_k_examples.py" "$ARTIFACT_ROOT/src/k/check_k_examples.py"
 cp -a "$GITHUB_WORKSPACE/src/k/Makefile" "$ARTIFACT_ROOT/src/k/"
 cp -a "$GITHUB_WORKSPACE/tests/examples/add.k7" "$GITHUB_WORKSPACE/tests/examples/select.k7" "$ARTIFACT_ROOT/tests/examples/"
@@ -29,9 +29,9 @@ cp -a "$GITHUB_WORKSPACE/wiki/semantics.md" "$ARTIFACT_ROOT/wiki/"
 cp -a "$RUNNER_TEMP/klean-output/k7pl2lean" "$ARTIFACT_ROOT/klean-output"
 cp -a "$GITHUB_WORKSPACE/proofs/K7PL2Lean.lean" "$ARTIFACT_ROOT/proofs/"
 cp -a "$GITHUB_WORKSPACE/proofs/K7PL2Lean" "$ARTIFACT_ROOT/proofs/"
-cp -a "$GITHUB_WORKSPACE/proofs/lakefile.toml" "$GITHUB_WORKSPACE/proofs/lean-toolchain" "$GITHUB_WORKSPACE/proofs/lake-manifest.json" "$GITHUB_WORKSPACE/proofs/README.md" "$GITHUB_WORKSPACE/proofs/K7PL.lean" "$GITHUB_WORKSPACE/proofs/Makefile" "$ARTIFACT_ROOT/proofs/"
+cp -a "$GITHUB_WORKSPACE/proofs/lakefile.lean" "$GITHUB_WORKSPACE/proofs/lean-toolchain" "$GITHUB_WORKSPACE/proofs/lake-manifest.json" "$GITHUB_WORKSPACE/proofs/README.md" "$GITHUB_WORKSPACE/proofs/FORMALIZATION-PLAN.md" "$GITHUB_WORKSPACE/proofs/CHECKPOINT.md" "$GITHUB_WORKSPACE/proofs/Grades.lean" "$GITHUB_WORKSPACE/proofs/Structural.lean" "$GITHUB_WORKSPACE/proofs/Memory.lean" "$GITHUB_WORKSPACE/proofs/Metatheory.lean" "$GITHUB_WORKSPACE/proofs/Makefile" "$ARTIFACT_ROOT/proofs/"
 cp -a "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" "$ARTIFACT_ROOT/proofs/"
-cp -a "$GITHUB_WORKSPACE/proofs/K7PL" "$ARTIFACT_ROOT/proofs/"
+cp -a "$GITHUB_WORKSPACE/proofs/Grades" "$GITHUB_WORKSPACE/proofs/Structural" "$GITHUB_WORKSPACE/proofs/Memory" "$GITHUB_WORKSPACE/proofs/Metatheory" "$GITHUB_WORKSPACE/proofs/archive" "$ARTIFACT_ROOT/proofs/"
 
 cp -a "$GITHUB_WORKSPACE/spec/formal-chain/BlueprintK7PL.lean" "$GITHUB_WORKSPACE/spec/formal-chain/BlueprintK7PLMain.lean" "$GITHUB_WORKSPACE/spec/formal-chain/lakefile.lean" "$GITHUB_WORKSPACE/spec/formal-chain/lean-toolchain" "$GITHUB_WORKSPACE/spec/formal-chain/lake-manifest.json" "$GITHUB_WORKSPACE/spec/formal-chain/Makefile" "$ARTIFACT_ROOT/spec/formal-chain/"
 cp -a "$GITHUB_WORKSPACE/spec/formal-chain/BlueprintK7PL" "$ARTIFACT_ROOT/spec/formal-chain/"

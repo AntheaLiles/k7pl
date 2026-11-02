@@ -3,18 +3,21 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 /**
- * K7PL CI controller (slice 1).
+ * K7PL CI controller.
  *
  * Commands:
- *   classify --base <sha> --head <sha> [--force-full] [--paths ...]
- *     Classify changed paths into CI surfaces, in parity with
- *     scripts/ci/impact.py. With --shadow, also run the legacy
- *     Python classifier and fail on any divergence. With
- *     --derived, classify from the registry instead (the decision
- *     classifier since cutover C3; derived_event.ts is the impact
- *     job's entry point). With --derived-shadow, compare the
- *     derived classifier with the legacy Deno classifier and
- *     report every legacy-surface divergence (exit 1).
+ *   classify --base <sha> --head <sha> [--force-full] [--registry <path>]
+ *   classify --paths <path...> [--force-full] [--registry <path>]
+ *     Classify changed paths into CI surfaces with the classifier
+ *     derived from the registry, the only classifier since cutover
+ *     C4 (derived_event.ts is the impact job's entry point). Prints
+ *     the report and appends the thirteen decision lines to
+ *     GITHUB_OUTPUT when it is set.
+ *   classify --json [--paths <path...> | --stdin] [--registry <path>]
+ *     Print one classification per path, as a JSON object keyed by
+ *     path: the question a check asks of a single file it reads
+ *     (scripts/ci/test_impact_coverage.py). --stdin reads the paths,
+ *     one per line, from standard input.
  *   validate-registry [--registry <path>] [--root <dir>]
  *     Load and validate .github/ci/components.yaml.
  *   validate-evidence --evidence <file> [--registry <path>]
@@ -25,20 +28,14 @@
  * (see README.md); this file never requests more than it needs.
  */
 
-import {
-  changedPaths,
-  classify,
-  formatClassification,
-  githubOutputLines,
-} from "./classify.ts";
+import { changedPaths, formatClassification } from "./changes.ts";
 import {
   deriveClassification,
-  derivedDivergences,
-  derivedGithubOutputLines,
+  type DerivedClassification,
+  derivedDecisionOutputLines,
 } from "./derived.ts";
 import { validateEvidence, validateEvidenceSchema } from "./evidence.ts";
 import { loadRegistryFile, validateRegistry } from "./registry.ts";
-import { runShadow } from "./shadow.ts";
 import { writeGithubOutput } from "./output.ts";
 
 const DEFAULT_REGISTRY = ".github/ci/components.yaml";
@@ -46,10 +43,9 @@ const DEFAULT_REGISTRY = ".github/ci/components.yaml";
 function usage(): string {
   return [
     "Usage:",
-    "  deno run --allow-read --allow-run --allow-env --allow-write src/main.ts classify --base <sha> --head <sha> [--force-full] [--shadow]",
-    "  deno run --allow-read --allow-run --allow-env --allow-write src/main.ts classify --paths <path...> [--force-full]",
-    "  deno run --allow-read --allow-run src/main.ts classify --paths <path...> --derived",
-    "  deno run --allow-read --allow-run src/main.ts classify --base <sha> --head <sha> --derived-shadow",
+    "  deno run --allow-read --allow-run=git --allow-env=GITHUB_OUTPUT --allow-write src/main.ts classify --base <sha> --head <sha> [--force-full]",
+    "  deno run --allow-read --allow-env=GITHUB_OUTPUT --allow-write src/main.ts classify --paths <path...> [--force-full]",
+    "  deno run --allow-read src/main.ts classify --json (--paths <path...> | --stdin)",
     "  deno run --allow-read src/main.ts validate-registry [--registry <path>] [--root <dir>]",
     "  deno run --allow-read src/main.ts validate-evidence --evidence <file> [--registry <path>]",
   ].join("\n");
@@ -77,9 +73,7 @@ function parseArgs(argv: string[]): Args {
         }
         flags.set("paths", values.join("\n"));
       } else if (
-        ["force-full", "shadow", "derived", "derived-shadow", "help"].includes(
-          key,
-        )
+        ["force-full", "json", "stdin", "help"].includes(key)
       ) {
         flags.set(key, true);
       } else if (i + 1 < argv.length) {
@@ -94,35 +88,66 @@ function parseArgs(argv: string[]): Args {
   return { flags, positional };
 }
 
+/** One path's classification, as `classify --json` prints it. */
+function pathSummary(
+  derived: DerivedClassification,
+): Record<string, boolean> {
+  return {
+    ...derived.surfaces,
+    full: derived.full,
+    docs_links: derived.docs_links,
+    spec_check: derived.spec_check,
+    spec_build: derived.spec_build,
+    lean_build: derived.lean_build,
+    python_tests: derived.python_tests,
+    tracking_views: derived.tracking_views,
+    unclassified: derived.unclassified,
+  };
+}
+
+async function readStdinLines(): Promise<string[]> {
+  const text = await new Response(Deno.stdin.readable).text();
+  return text.split("\n").map((line) => line.replace(/\r$/, "")).filter((
+    line,
+  ) => line !== "");
+}
+
+const CLASSIFY_FLAGS = new Set([
+  "base",
+  "head",
+  "paths",
+  "force-full",
+  "json",
+  "stdin",
+  "registry",
+  "help",
+]);
+
 async function runClassify(args: Args): Promise<number> {
-  const forceFull = args.flags.get("force-full") === true;
-  const shadow = args.flags.get("shadow") === true;
-  if (shadow) {
-    const base = args.flags.get("base");
-    const head = args.flags.get("head");
-    if (typeof base !== "string" || typeof head !== "string") {
-      console.error("classify --shadow requires --base and --head");
-      return 2;
-    }
-    const result = await runShadow(base, head, "scripts/ci/impact.py", ".");
-    console.log(formatClassification(result.paths, result.deno));
-    // Print the comparison explicitly so a divergence is unambiguous.
-    if (result.divergences.length > 0) {
-      console.error(
-        "shadow: DIVERGENCE between Deno and legacy Python classifiers:",
-      );
-      for (const divergence of result.divergences) {
-        console.error(`  ${divergence}`);
-      }
-      return 1;
-    }
-    console.log("shadow: Deno and legacy Python classifiers agree");
-    return 0;
+  // An option this command does not know is refused, so that a caller
+  // still passing a mode removed at cutover C4 (--shadow,
+  // --derived-shadow, --derived) fails instead of silently classifying.
+  const unknown = [...args.flags.keys()].filter((key) =>
+    !CLASSIFY_FLAGS.has(key)
+  );
+  if (unknown.length > 0) {
+    console.error(
+      `classify: unknown option ${
+        unknown.map((key) => `--${key}`).join(", ")
+      }\n${usage()}`,
+    );
+    return 2;
   }
+  const forceFull = args.flags.get("force-full") === true;
+  const registryPath = typeof args.flags.get("registry") === "string"
+    ? String(args.flags.get("registry"))
+    : DEFAULT_REGISTRY;
 
   let paths: string[];
   const pathsFlag = args.flags.get("paths");
-  if (typeof pathsFlag === "string") {
+  if (args.flags.get("stdin") === true) {
+    paths = await readStdinLines();
+  } else if (typeof pathsFlag === "string") {
     paths = pathsFlag === "" ? [] : pathsFlag.split("\n");
   } else {
     const base = args.flags.get("base");
@@ -133,69 +158,30 @@ async function runClassify(args: Args): Promise<number> {
       paths = await changedPaths(base, head);
     } else {
       console.error(
-        "classify requires --base and --head, or --paths, or --force-full",
+        "classify requires --base and --head, or --paths, or --stdin, or --force-full",
       );
       return 2;
     }
   }
-  if (args.flags.get("derived") === true) {
-    const registry = loadRegistryFile(DEFAULT_REGISTRY);
-    const derived = deriveClassification(registry, paths, forceFull);
-    console.log(formatClassification(paths, derived));
-    console.log(
-      `Derived surfaces: ${
-        Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
-      } unclassified=${derived.unclassified}`,
-    );
-    if (derived.unknown_paths.length > 0) {
-      console.log("Derived unclassified paths:");
-      for (const path of derived.unknown_paths) console.log(`  '${path}'`);
-    }
-    writeGithubOutput(derivedGithubOutputLines(derived));
-    return 0;
-  }
+  const registry = loadRegistryFile(registryPath);
 
-  if (args.flags.get("derived-shadow") === true) {
-    const registry = loadRegistryFile(DEFAULT_REGISTRY);
-    const legacy = classify(paths, forceFull);
-    const derived = deriveClassification(registry, paths, forceFull);
-    console.log("legacy:");
-    console.log(formatClassification(paths, legacy));
-    console.log("derived:");
-    console.log(formatClassification(paths, derived));
-    console.log(
-      `Derived surfaces: ${
-        Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
-      } unclassified=${derived.unclassified}`,
-    );
-    // Per-path comparison is primary: an aggregate comparison
-    // alone would hide divergences that cancel out (e.g. one
-    // unknown path under each classifier both forcing full).
-    const divergences = derivedDivergences(derived, legacy);
-    const perPath: string[] = [];
+  if (args.flags.get("json") === true) {
+    const perPath: Record<string, Record<string, boolean>> = {};
     for (const path of paths) {
-      const singleDerived = deriveClassification(registry, [path]);
-      const singleLegacy = classify([path]);
-      const single = derivedDivergences(singleDerived, singleLegacy);
-      if (single.length > 0) {
-        perPath.push(`path ${path}: ${single.join(", ")}`);
-      }
+      perPath[path] = pathSummary(deriveClassification(registry, [path]));
     }
-    if (divergences.length > 0 || perPath.length > 0) {
-      console.error("derived-shadow: DIVERGENCES (derived vs legacy):");
-      for (const divergence of divergences) {
-        console.error(`  aggregate: ${divergence}`);
-      }
-      for (const detail of perPath) console.error(`  ${detail}`);
-      return 1;
-    }
-    console.log("derived-shadow: derived and legacy classifiers agree");
+    console.log(JSON.stringify(perPath));
     return 0;
   }
 
-  const result = classify(paths, forceFull);
-  console.log(formatClassification(paths, result));
-  writeGithubOutput(githubOutputLines(result));
+  const derived = deriveClassification(registry, paths, forceFull);
+  console.log(formatClassification(paths, derived));
+  console.log(
+    `Derived surfaces: ${
+      Object.entries(derived.surfaces).map(([k, v]) => `${k}=${v}`).join(" ")
+    } unclassified=${derived.unclassified}`,
+  );
+  writeGithubOutput(derivedDecisionOutputLines(derived));
   return 0;
 }
 

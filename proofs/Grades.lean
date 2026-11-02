@@ -1,0 +1,6 @@
+-- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+-- SPDX-License-Identifier: CC0-1.0
+import Grades.UsageIntervals
+import Grades.Scaling
+import Grades.StructuralModes
+import Grades.Budget

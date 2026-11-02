@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "description": "Authoritative inventory for the TLA-01..16 TLC suite. Every TLA profile configuration and each TLA/K7PL model module must be covered by this manifest.",
+  "profiles": [
+    {
+      "kind": "positive",
+      "config": "TLA01-AcyclicNominal.cfg",
+      "module": "TLA01SessionNetwork",
+      "label": "tla01-acyclic-nominal"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA01-ExternalWait.cfg",
+      "module": "TLA01SessionNetwork",
+      "label": "tla01-external-wait"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA01-Timeout.cfg",
+      "module": "TLA01SessionNetwork",
+      "label": "tla01-timeout"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA02-AtomicJoin.cfg",
+      "module": "K7PLJoinPatterns",
+      "label": "tla02-atomic-join"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA03-FairScheduler.cfg",
+      "module": "K7PLScheduler",
+      "label": "tla03-fair-scheduler"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA04-ConsistentLifecycle.cfg",
+      "module": "K7PLActorLifecycle",
+      "label": "tla04-consistent-lifecycle"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA05-CancelCommitRace.cfg",
+      "module": "K7PLCancellation",
+      "label": "tla05-cancel-commit"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA06-RevocationProtocol.cfg",
+      "module": "K7PLForeignBoundary",
+      "label": "tla06-revocation"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA07-CapabilityLifetime.cfg",
+      "module": "K7PLMemoryCapabilities",
+      "label": "tla07-capability-lifetime"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA08-PartialOrderJoin.cfg",
+      "module": "K7PLParallelExecution",
+      "label": "tla08-partial-order"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA09-ResourceBudget.cfg",
+      "module": "K7PLResourceAccounting",
+      "label": "tla09-resource-budget"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA10-SeparateWaitAndCost.cfg",
+      "module": "K7PLTemporalScheduling",
+      "label": "tla10-wait-cost"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA11-PairedLowObservation.cfg",
+      "module": "K7PLTraceNoninterference",
+      "label": "tla11-low-observation"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA12-ReactivePipeline.cfg",
+      "module": "K7PLReactivePipeline",
+      "label": "tla12-reactive-pipeline"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA13-DeductiveSaturation.cfg",
+      "module": "K7PLDeductiveJob",
+      "label": "tla13-deductive-saturation"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA14-NoiseHandshake.cfg",
+      "module": "K7PLNoiseSession",
+      "label": "tla14-noise-conditional"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA15-ConnectedGSet.cfg",
+      "module": "K7PLReplicaConvergence",
+      "label": "tla15-gset-conditional"
+    },
+    {
+      "kind": "positive",
+      "config": "TLA16-SPSCQueue.cfg",
+      "module": "K7PLSPSCQueue",
+      "label": "tla16-spsc-abstract"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA01-CircularWait.cfg",
+      "module": "TLA01SessionNetwork",
+      "label": "tla01-circular-wait",
+      "expectedInvariant": "NoMutualWaitDeadlock"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA01-SimulationGap.cfg",
+      "module": "TLA01SessionNetwork",
+      "label": "tla01-simulation-gap",
+      "expectedInvariant": "Simulation"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA02-PartialConsume.cfg",
+      "module": "K7PLJoinPatterns",
+      "label": "tla02-partial-consume",
+      "expectedInvariant": "BalancedConsumption"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA03-StarvationControl.cfg",
+      "module": "K7PLScheduler",
+      "label": "tla03-starvation-control",
+      "expectedInvariant": "NoStall"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA04-EarlyPublishControl.cfg",
+      "module": "K7PLActorLifecycle",
+      "label": "tla04-early-publish",
+      "expectedInvariant": "PublishedSnapshotDurable"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA05-PostAckCommitControl.cfg",
+      "module": "K7PLCancellation",
+      "label": "tla05-post-ack-commit",
+      "expectedInvariant": "AcknowledgedCancellationMeansNoCommit"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA06-StaleAliasControl.cfg",
+      "module": "K7PLForeignBoundary",
+      "label": "tla06-stale-alias",
+      "expectedInvariant": "NoForeignUseAfterAcknowledgement"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA06-CallerAliasControl.cfg",
+      "module": "K7PLForeignBoundary",
+      "label": "tla06-caller-alias",
+      "expectedInvariant": "NoCallerUseDuringExclusiveCall"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA07-GenerationWrapControl.cfg",
+      "module": "K7PLMemoryCapabilities",
+      "label": "tla07-generation-wrap",
+      "expectedInvariant": "NoStaleEntityAlias"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA07-StaleAccessControl.cfg",
+      "module": "K7PLMemoryCapabilities",
+      "label": "tla07-stale-access",
+      "expectedInvariant": "NoUnauthorizedAccess"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA07-RevocationRestoreControl.cfg",
+      "module": "K7PLMemoryCapabilities",
+      "label": "tla07-revocation-restore",
+      "expectedInvariant": "NoCapabilityRevival"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA08-EarlyJoinControl.cfg",
+      "module": "K7PLParallelExecution",
+      "label": "tla08-early-join",
+      "expectedInvariant": "JoinRequiresAllBranches"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA09-GradeOveruseControl.cfg",
+      "module": "K7PLResourceAccounting",
+      "label": "tla09-grade-overuse",
+      "expectedInvariant": "UsageWithinGrade"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA09-BudgetOverdrawControl.cfg",
+      "module": "K7PLResourceAccounting",
+      "label": "tla09-budget-overdraw",
+      "expectedInvariant": "BudgetNonNegative"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA10-ChargeWaitControl.cfg",
+      "module": "K7PLTemporalScheduling",
+      "label": "tla10-charge-wait",
+      "expectedInvariant": "BudgetAccounting"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA11-HighInfluenceControl.cfg",
+      "module": "K7PLTraceNoninterference",
+      "label": "tla11-high-influence",
+      "expectedInvariant": "LowObservationEquality"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA12-UnauthorizedDOMWriteControl.cfg",
+      "module": "K7PLReactivePipeline",
+      "label": "tla12-unauthorized-dom",
+      "expectedInvariant": "DOMWriteRequiresCapability"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA13-EarlyPublishControl.cfg",
+      "module": "K7PLDeductiveJob",
+      "label": "tla13-early-publish",
+      "expectedInvariant": "PublishedImpliesSaturated"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA14-SkippedMessageControl.cfg",
+      "module": "K7PLNoiseSession",
+      "label": "tla14-skipped-message",
+      "expectedInvariant": "MessagesAcceptedWereSent"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA15-OverwriteMergeControl.cfg",
+      "module": "K7PLReplicaConvergence",
+      "label": "tla15-overwrite-merge",
+      "expectedInvariant": "AllIssuedUpdatesRetained"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA16-OverwriteUnreadControl.cfg",
+      "module": "K7PLSPSCQueue",
+      "label": "tla16-overwrite-unread",
+      "expectedInvariant": "MessageConservation"
+    },
+    {
+      "kind": "negative",
+      "config": "TLA12-ApplyAfterRevocationControl.cfg",
+      "module": "K7PLReactivePipeline",
+      "label": "tla12-apply-after-revocation",
+      "expectedInvariant": "NoApplyAfterRevocation"
+    }
+  ]
+}

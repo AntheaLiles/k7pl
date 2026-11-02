@@ -46,14 +46,26 @@ candidate_run=""
 
 # Select only a successful formal-semantics run for the exact source commit.
 # Pull-request runs and stale evidence do not qualify.
-runs="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow k7pl-semantics.yaml --branch main --commit "$SOURCE_SHA" --limit 30 --json databaseId,status,conclusion,headSha)"
+# Since cutover C2, ci.yaml calls k7pl-semantics.yaml as a reusable workflow: the K job runs
+# inside the CI run and uploads k7pl-axiom-audit-<CI run id>. A manual dispatch of
+# k7pl-semantics.yaml still runs it on its own. Both are searched; the run executing this
+# script (GITHUB_RUN_ID) is never a candidate, nor something to wait for.
+current_run="${GITHUB_RUN_ID:-}"
+list_runs() {
+  local workflow
+  for workflow in ci.yaml k7pl-semantics.yaml; do
+    gh run list --repo "$GITHUB_REPOSITORY" --workflow "$workflow" --branch main --commit "$SOURCE_SHA" --limit 30 --json databaseId,status,conclusion,headSha
+  done | jq -s --arg current "$current_run" 'add | map(select((.databaseId | tostring) != $current))'
+}
+
+runs="$(list_runs)"
 candidate_run="$(printf '%s' "$runs" | jq -r --arg sha "$SOURCE_SHA" '[.[] | select(.headSha == $sha and .status == "completed" and .conclusion == "success")][0].databaseId // empty')"
 
 # The final status-dispatch job can launch CI before the enclosing workflow has switched to
 # completed. Poll briefly so the workflow can finish and publish its standalone audit artifact.
 if [ -z "$candidate_run" ] && [ "$EVENT_NAME" = "workflow_dispatch" ]; then
   for attempt in $(seq 1 36); do
-    runs="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow k7pl-semantics.yaml --branch main --commit "$SOURCE_SHA" --limit 30 --json databaseId,status,conclusion,headSha)"
+    runs="$(list_runs)"
     candidate_run="$(printf '%s' "$runs" | jq -r --arg sha "$SOURCE_SHA" '[.[] | select(.headSha == $sha and .status == "completed" and .conclusion == "success")][0].databaseId // empty')"
     [ -n "$candidate_run" ] && break
     active_run="$(printf '%s' "$runs" | jq -r --arg sha "$SOURCE_SHA" '[.[] | select(.headSha == $sha and .status != "completed")][0].databaseId // empty')"
@@ -71,7 +83,7 @@ if [ -z "$candidate_run" ]; then
 fi
 
 if ! gh run download "$candidate_run" --repo "$GITHUB_REPOSITORY" --name "k7pl-axiom-audit-$candidate_run" --dir "$out"; then
-  echo "::error::K7PL formal-semantics run $candidate_run succeeded for $SOURCE_SHA but its required axiom audit artifact could not be downloaded."
+  echo "::error::Run $candidate_run succeeded for $SOURCE_SHA but its axiom audit artifact k7pl-axiom-audit-$candidate_run could not be downloaded (or its K job did not run)."
   exit 1
 fi
 
