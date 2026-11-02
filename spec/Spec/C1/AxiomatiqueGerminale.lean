@@ -423,7 +423,7 @@ rend le canal temporel énonçable, et c'est là que la preuve de non-interfére
 De cette quantale découle une opération d'_itération_ induite, qui donne son annotation d'effet à un
 flux coinductif de couche 2 (chapitre 4, §{num "sec:c4-echelle-locale"}[]) et son critère à la Phase
 5 du compilateur (chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]) : sans elle, une boucle
-n'aurait tout simplement pas d'effet calculable. Leur intégration au système de types et leur
+n'aurait pas d'effet calculable. Leur intégration au système de types et leur
 composition sans pile de monades sont traitées au chapitre 3
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) ; leur résorption statique par _inlining_, au
 chapitre 6.

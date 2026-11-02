@@ -368,7 +368,7 @@ Elle traite en outre le filtrage et les motifs forcés, que les autres conceptio
 Son interaction avec les univers, elle, se règle en une phrase de ses auteurs : la stratification
 des univers y est _orthogonale_ au propos, et les implantations sont attendues d'apporter la leur.
 C'est aussi la position de ce document, et pour la même raison (l'annotation est portée par le
-jugement, non par la sorte du type), de sorte que l'interaction ne se produit tout simplement pas.
+jugement, non par la sorte du type), de sorte que l'interaction ne se produit pas.
 
 Elle se produit ailleurs, et la même source dit où : les systèmes qui modélisent l'effacement
 _indirectement_, par un univers séparé ou par l'irrélevance, en héritent les limitations, et une
