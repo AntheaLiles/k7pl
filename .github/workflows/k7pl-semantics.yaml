@@ -269,7 +269,7 @@ jobs:
         shell: bash
         run: |
           k7pl-ci build-proofs --build --workdir "$GITHUB_WORKSPACE/proofs" --log-output "$RUNNER_TEMP/k7pl-lake-build.log"
-          k7pl-ci axiom-report --log "$RUNNER_TEMP/k7pl-lake-build.log" --contract "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" --output "$RUNNER_TEMP/k7pl-axiom-audit.json" --source-commit "$(git -C "$GITHUB_WORKSPACE" rev-parse HEAD)" --lean-version "$(lean --version)"
+          k7pl-ci axiom-report --log "$RUNNER_TEMP/k7pl-lake-build.log" --contract "$GITHUB_WORKSPACE/proofs/axiom-audit-contract.json" --output "$RUNNER_TEMP/k7pl-axiom-audit.json" --source-commit "$GITHUB_SHA" --lean-version "$(lean --version)"
 
       - name: Attach exact axiom dependency audit to formal-chain evidence
         shell: bash
