@@ -1032,7 +1032,7 @@ La loi distributive graduée générale entre les deux côtés de l'adjonction, 
 "sec:c1-de-la-loi-distributive"}[]), n'est pas posée ici : elle reste nommée, et ce qui suit n'en établit que le cas des
 répétitions.
 
-::::proposition (label := "thm:loi_distributive_conditions") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+::::thm (label := "thm:loi_distributive_conditions") (status := "theoreme")
 :::title
 conditions de cohérence de la loi distributive
 :::
@@ -1581,7 +1581,7 @@ La _monade graduée indexée_ est la famille $`T^{i}_{\varepsilon}`, où l'indic
 (tailles, longueurs, bornes) et où l'annotation $`\varepsilon(i)` en dépend ; la substitution d'un indice $`j` à $`i`
 agit sur les annotations par la même opération que sur les types.
 
-::::proposition (label := "thm:substitution_indices") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
+::::thm (label := "thm:substitution_indices") (status := "theoreme")
 :::title
 stabilité de l'effet par substitution d'indices clos
 :::

@@ -113,10 +113,11 @@ Pour raisonner sur les permissions structurelles, la définition de Hanukaev et 
 {cite "hanukaevUnificationGradedSubstructural2026"}[] : un mode est un triplet (Rₘ, Cont(m), Weak(m)), où Rₘ est une
 algèbre de grades, Cont(m) un idéal de grades contractables et Weak(m) le prédicat d'affaiblissement.
 
-Le périmètre normatif actuel retient les trois modes structurels de référence : $`M_{\mathrm{Lin}} = (\mathcal{R},
-\{0\}, \mathrm{false})`, $`M_{\mathrm{Aff}} = (\mathcal{R}, \{0\}, \mathrm{true})`, $`M_{\mathrm{Unr}} = (\mathcal{R},
-\mathcal{R}, \mathrm{true})`. Le quadruplet $`M_{\mathrm{Rel}} = (\mathcal{R}, \mathcal{R}, \mathrm{false})` reste une
-possibilité théorique documentée séparément, mais n'est pas un mode normatif de la grammaire courante. Cela n'efface pas
+Le périmètre normatif actuel retient les trois modes structurels de référence :
+$`M_{\mathrm{Lin}} = (\mathcal{R}, \{0\}, \mathrm{false})` , $`M_{\mathrm{Aff}} = (\mathcal{R}, \{0\}, \mathrm{true})` ,
+$`M_{\mathrm{Unr}} = (\mathcal{R}, \mathcal{R}, \mathrm{true})` . Le quadruplet
+$`M_{\mathrm{Rel}} = (\mathcal{R}, \mathcal{R}, \mathrm{false})` reste une possibilité théorique documentée séparément,
+mais n'est pas un mode normatif de la grammaire courante. Cela n'efface pas
 $`U_{\mathrm{Rel}} = [1..\omega]`, qui demeure un intervalle d'usage syntaxique et ne doit pas être confondu avec un
 mode structurel.
 
@@ -132,7 +133,9 @@ contrat exact de morphisme. Aucune comparaison structurelle n'est affirmée pour
 intervalle d'usage dans le périmètre courant.
 :::
 
-:::proofsketch Chaque identité conserve le porteur et son ordre. Le passage $`\mathrm{Lin} \to \mathrm{Aff}` introduit l'affaiblissement ; $`\mathrm{Aff} \to \mathrm{Unr}` étend les grades contractables de $`\{0\}` à 𝒭 ; $`\mathrm{Lin} \to \mathrm{Unr}` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch. :::
+:::proofsketch
+Chaque identité conserve le porteur et son ordre. Le passage $`\mathrm{Lin} \to \mathrm{Aff}` introduit l'affaiblissement ; $`\mathrm{Aff} \to \mathrm{Unr}` étend les grades contractables de $`\{0\}` à 𝒭 ; $`\mathrm{Lin} \to \mathrm{Unr}` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
+:::
 
 :::note
 _Obligation ouverte._ Restent à énoncer les conditions de morphisme de modes avec leur sens (inclusion des grades
@@ -311,12 +314,11 @@ ce que la voie disponible évite à la source, et le payer à la cible n'est pas
 
 Reste à dire ce qu'est la consommation d'une ressource linéaire, faute de quoi P3 exigerait une libération déterministe
 sans indiquer par quoi elle passe. À tout type linéaire est associé un _destructeur_ : un morphisme invoqué au point de
-consommation, dont l'exécution est fixée par la
-structure du type et non par une politique d'exécution. Le terme est pris au sens que lui donne la
-synthèse des modèles de propriété et d'emprunt des langages systèmes avec les types linéaires de la programmation
-fonctionnelle, où il est expressément distingué du _finaliseur_ {cite "munch-maccagnoniResourcePolymorphism2018"}[]. Le
-premier est déterministe et lié au type, le second non. Seul le premier réalise P3 : le second rendrait la libération
-dépendante d'un ramasse-miettes que la couche 1 n'a pas.
+consommation, dont l'exécution est fixée par la structure du type et non par une politique d'exécution. Le terme est
+pris au sens que lui donne la synthèse des modèles de propriété et d'emprunt des langages systèmes avec les types
+linéaires de la programmation fonctionnelle, où il est expressément distingué du _finaliseur_ {cite
+"munch-maccagnoniResourcePolymorphism2018"}[]. Le premier est déterministe et lié au type, le second non. Seul le
+premier réalise P3 : le second rendrait la libération dépendante d'un ramasse-miettes que la couche 1 n'a pas.
 
 Trois opérations gouvernent sa propagation, et ce sont celles du semi-anneau, non celles d'un treillis. Le _partage_
 d'une ressource entre deux sous-termes somme leurs grades : une liaison exercée à hauteur de $`r` dans l'un et de $`s`
@@ -442,13 +444,13 @@ _data races_ par aliasing ne sont donc pas détectées, elles sont rendues inexp
 $`1` n'a simplement pas de dérivation.
 
 Une capabilité transversale (connexion réseau, horloge, source d'aléa) se déclare exactement de la même façon, mais dans
-la signature d'une fonction plutôt que sur une région d'arène :
-`:requires [NetworkCap ClockCap]` engage une dépendance dont l'absence, au site d'appel, est une
-erreur de compilation (`Unsatisfied Capability`) plutôt qu'un échec à l'exécution. Cette déclaration a une conséquence
-directe sur la testabilité : puisque la capacité n'est jamais qu'un grade porté par le type, rien n'empêche de la
-satisfaire, en mode test, par une version déterministe (une horloge virtuelle, un flux statique) sans toucher au corps
-de la fonction elle-même. Une fonction qui déclare ses dépendances par grade se teste donc en isolation aussi
-naturellement qu'un calcul pur, sans infrastructure ni double de test construit à la main.
+la signature d'une fonction plutôt que sur une région d'arène : `:requires [NetworkCap ClockCap]` engage une dépendance
+dont l'absence, au site d'appel, est une erreur de compilation (`Unsatisfied Capability`) plutôt qu'un échec à
+l'exécution. Cette déclaration a une conséquence directe sur la testabilité : puisque la capacité n'est jamais qu'un
+grade porté par le type, rien n'empêche de la satisfaire, en mode test, par une version déterministe (une horloge
+virtuelle, un flux statique) sans toucher au corps de la fonction elle-même. Une fonction qui déclare ses dépendances
+par grade se teste donc en isolation aussi naturellement qu'un calcul pur, sans infrastructure ni double de test
+construit à la main.
 
 Une destination pousse cette logique un cran plus loin : c'est une `WriteCap` non plus sur une valeur existante, mais
 sur un emplacement qui n'existe pas encore. Le type $`\mathsf{Dest}\;T` est cette capacité d'écriture unique vers un
