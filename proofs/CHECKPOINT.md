@@ -88,7 +88,10 @@ CI cutover C4 (#331) pull requests. Answers to the five points above:
    and Mathlib, are the three standard axioms that the contract's policy allows,
    and no `sorryAx` or `Lean.ofReduceBool` appears. The 26 expected sets were
    set to the observed ones; the matching stays exact.
-3. **Blueprint.** Not rendered locally; the K job of CI renders it.
+3. **Blueprint.** `lake build BlueprintK7PL` passes locally (940 jobs). The
+   Blueprint workspace requires the proof package, hence the root package and
+   its dependencies, which its manifest now lists, its own pins unchanged; the
+   K job renders it.
 4. **Checks.** Deno and Python tests, registry validation, REUSE and both
    documentation checks pass locally.
 5. **Invalidation.** `tests/derived_test.ts` checks that `src/K7pl/` and

@@ -110,6 +110,14 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertIn("working-directory: proofs\n        run: lake exe cache get", k_smoke)
         lakefile = (ROOT / "proofs/lakefile.lean").read_text(encoding="utf-8")
         self.assertIn('require k7pl from ".."', lakefile)
+        # spec/formal-chain requires the proof package, hence the root package and its
+        # dependencies: Lake refuses a manifest that does not list them (the Blueprint
+        # render failed with "dependency 'k7pl' of 'K7PLProofs' not in manifest").
+        chain = json.loads((ROOT / "spec/formal-chain/lake-manifest.json").read_text(encoding="utf-8"))
+        names = {package["name"] for package in chain["packages"]}
+        root = json.loads((ROOT / "lake-manifest.json").read_text(encoding="utf-8"))
+        self.assertIn("k7pl", names)
+        self.assertLessEqual({package["name"] for package in root["packages"]}, names)
 
     def test_d01_counterexample_vector_is_aligned_across_tools(self) -> None:
         vector_path = ROOT / "models/D01-NativeBoundary-ExpectedCounterexample.json"
