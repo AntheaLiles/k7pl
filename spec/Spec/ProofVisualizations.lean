@@ -48,7 +48,7 @@ pas l'inspection humaine des transitions et de la lisibilité.
 ::::proofviz (slug := "grade-budget-finite-multiplicity")
 ::::
 
-## Préservation de l’unicité après allocation d’une capacité
+## Préservation de l'unicité après allocation d'une capacité
 
 ::::proofviz (slug := "memory-capability-allocate-unique")
 ::::

@@ -165,7 +165,7 @@ contredire. Les autres sont des propositions dont on saurait dire par quoi les �
 Une règle gouverne cette table, et elle vaut d'être posée parce qu'un engagement qui ne
 dit pas comment il se lèvera n'est pas un engagement mais un aveu. _Tout engagement de ce document nomme la route par
 laquelle il se lèvera, et il n'y en a que trois._ La _littérature_ : l'énoncé est déjà établi
-ailleurs, et il se référence dans sa source primaire plutôt qu’il ne se redémontre. La
+ailleurs, et il se référence dans sa source primaire plutôt qu'il ne se redémontre. La
 _démonstration_ : il ne l'est pas, et ce document ou sa mécanisation doit le prouver : auquel cas
 l'engagement porte le nom du théorème qui l'acquittera. La _mesure_ : il ne se démontre pas du tout,
 étant un énoncé sur l'usage ou sur une réalisation, et l'engagement porte alors le protocole qui le

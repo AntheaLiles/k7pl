@@ -78,7 +78,7 @@ une extension demandant une quatrième composante relève de la clause de révis
 
 ::::proposition (label := "thm:interface_jugement_cloture") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "compilation")
 :::title
-clôture locale de l’interface
+clôture locale de l'interface
 :::
 
 :::statement +titled

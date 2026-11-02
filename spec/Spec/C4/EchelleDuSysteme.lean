@@ -340,10 +340,10 @@ les preuves correspondantes sont toutefois encore en revue en C2, notamment la g
 ni que les messages deviennent observables. Le cas d'une file interrogée sous modèle mémoire faible
 donne une raison concrète d'invoquer l'équité mémoire : sans propagation équitable des écritures, un
 consommateur peut continuer à sonder sans observer la publication d'un producteur
-{cite "lahavMakingWeakMemory2021"}[]. L’absence de blocage est une autre propriété, établie seulement
+{cite "lahavMakingWeakMemory2021"}[]. L'absence de blocage est une autre propriété, établie seulement
 sous la simulation du graphe d'attente ({num "thm:deadlock_acyclique"}[]) ; elle n'implique ni le
 progrès global ni la terminaison équitable {cite "jacobsSelfDualDistillationSession2022"}[]
-{cite "PADOVANI"}[]. Ces dernières propriétés dépendent aussi du profil d’ordonnancement et des
+{cite "PADOVANI"}[]. Ces dernières propriétés dépendent aussi du profil d'ordonnancement et des
 hypothèses de communication ; elles ne sont pas déduites du seul typage.
 
 Le modèle abstrait ne fixe pas le mécanisme d'isolation entre acteurs. Les garanties de typage
@@ -615,27 +615,27 @@ les effets et les garanties doivent être précisés à leur niveau respectif.
 
 ::::theorem (label := "thm:surete_ffi") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "ffi-safety")
 :::title
-retrait de capacité d’écriture dans le contexte linéaire
+retrait de capacité d'écriture dans le contexte linéaire
 :::
 
 :::statement +titled
-Disponibilité de la capacité pendant l’appel
+Disponibilité de la capacité pendant l'appel
 
-Dans le modèle abstrait, si l’appel FFI transfère `WriteCap(B)` du contexte linéaire de l’acteur
-à celui de la passerelle, cette capacité n’est plus disponible dans le contexte de l’acteur pendant
-l’appel. Toute opération dont le typage exige cette capacité est donc rejetée dans ce contexte.
+Dans le modèle abstrait, si l'appel FFI transfère `WriteCap(B)` du contexte linéaire de l'acteur
+à celui de la passerelle, cette capacité n'est plus disponible dans le contexte de l'acteur pendant
+l'appel. Toute opération dont le typage exige cette capacité est donc rejetée dans ce contexte.
 :::
 
 :::proofsketch
-Le transfert retire `WriteCap(B)` du contexte linéaire de l’acteur et la confie à la passerelle.
-L’élimination de coupure conserve ce retrait pendant l’appel ; une dérivation qui exige cette
-capacité ne peut donc pas être construite à partir du contexte de l’acteur.
+Le transfert retire `WriteCap(B)` du contexte linéaire de l'acteur et la confie à la passerelle.
+L'élimination de coupure conserve ce retrait pendant l'appel ; une dérivation qui exige cette
+capacité ne peut donc pas être construite à partir du contexte de l'acteur.
 :::
 
 :::note
-_Portée de l’énoncé._ Cette esquisse concerne uniquement la capacité `WriteCap(B)` dans le modèle
-abstrait. Elle ne démontre ni l’absence d’autres droits ou alias vers le tampon ni la conformité
-d’un appel natif. La révocation après retour relève de l’exigence distincte qui suit.
+_Portée de l'énoncé._ Cette esquisse concerne uniquement la capacité `WriteCap(B)` dans le modèle
+abstrait. Elle ne démontre ni l'absence d'autres droits ou alias vers le tampon ni la conformité
+d'un appel natif. La révocation après retour relève de l'exigence distincte qui suit.
 :::
 ::::
 ::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "ffi-safety")
@@ -660,7 +660,7 @@ la réalisation de la passerelle empêche tout accès ultérieur non autorisé a
 mécanisme de vérification et de révocation reste ouvert ; cette exigence ne se vérifie pas par le typage.
 :::
 ::::
-Le retrait d’une capacité du contexte typé et la révocation d’un accès déjà accordé sont des
+Le retrait d'une capacité du contexte typé et la révocation d'un accès déjà accordé sont des
 obligations distinctes ; la seconde exige un argument de sûreté propre à la frontière
 {cite "gouniSecurityReasoningSubstructural2026"}[].
 

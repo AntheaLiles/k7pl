@@ -140,7 +140,7 @@ le sens de ce que le paragraphe précédent revendique. Un type de session n'en 
 distribuée : le même automate, sauf que ses transitions sont déclenchées par l'échange de messages
 entre deux extrémités plutôt que par des appels locaux.
 
-::::figure (label := "fig:session-automate") (src := "session-protocol-as-automata") (alt := "Automate de session : un point initial plein mène à SEND_INT ; send(Int) mène à RECV_BOOL, puis recv(Bool) mène à l’état final en double cercle, avec un disque violet au centre.") (width := "90")
+::::figure (label := "fig:session-automate") (src := "session-protocol-as-automata") (alt := "Automate de session : un point initial plein mène à SEND_INT ; send(Int) mène à RECV_BOOL, puis recv(Bool) mène à l'état final en double cercle, avec un disque violet au centre.") (width := "90")
 :::caption
 Un protocole de session comme automate à états
 :::
@@ -408,11 +408,11 @@ compilateur du profil pris en charge.
 
 ::::requirement (label := "req:homomorphisme_roues_realisation") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "representation")
 :::title
-réalisation de l’arithmétique des roues
+réalisation de l'arithmétique des roues
 :::
 
 :::statement +titled
-Réalisation de l’arithmétique de couche 3
+Réalisation de l'arithmétique de couche 3
 
 L'arithmétique de
 couche 3 sur les valeurs encodées est _spécifiée par K7PL_, par la table de propagation des

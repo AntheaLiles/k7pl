@@ -59,7 +59,7 @@ pour une mécanisation.
 
 Une clause sur la composante de budget, qui exige davantage que le semi-anneau ne donne. Elle
 emploie la soustraction tronquée $`\ominus`, qui n'est ni l'addition ni le produit et ne s'en dérive
-pas. La convention globale est formulée par cas, reste commune aux couches qui utilisent Consume et ne se confond pas avec le résidu de l’addition :
+pas. La convention globale est formulée par cas, reste commune aux couches qui utilisent Consume et ne se confond pas avec le résidu de l'addition :
 $$`\beta \ominus k \;=\; \begin{cases} \omega & \text{si } \beta = \omega\\ 0 & \text{si } \beta < k\\ \beta - k & \text{sinon} \end{cases}`
 
 C'est la _soustraction tronquée prolongée_ en $`\omega`, et ce qu'elle n'est pas se dit tout de suite : _ce
@@ -252,7 +252,7 @@ Consume : {(β, κ) ∈ 𝔅 × K | Adm(β, κ)} → 𝔅
 Consume(β, κ) = β ⊖ Cost_Budget(κ)
 ```
 
-Ici Adm exprime la couverture du coût annoncé. Puisque ω est l’élément maximal de 𝔅, le disjoint β = ω de la formule historique est redondant, et non une seconde clause sémantique. Consume est définie sur le sous-domaine admissible et reste donc partielle sur 𝔅 × K.
+Ici Adm exprime la couverture du coût annoncé. Puisque ω est l'élément maximal de 𝔅, le disjoint β = ω de la formule historique est redondant, et non une seconde clause sémantique. Consume est définie sur le sous-domaine admissible et reste donc partielle sur 𝔅 × K.
 
 Pour un effet bien formé `ε = (ε₀, κ_ε)` et un contexte bien formé `Δ = {xᵢ :_{⟨uᵢ,mᵢ,ℓᵢ,βᵢ⟩} Vᵢ}`, la transformation structurelle ψ conserve les clés, les types et les trois coordonnées non budgétaires, et applique la soustraction totale liaison par liaison :
 
@@ -261,7 +261,7 @@ Pour un effet bien formé `ε = (ε₀, κ_ε)` et un contexte bien formé `Δ =
   {xᵢ :_{⟨uᵢ,mᵢ,ℓᵢ, βᵢ ⊖ Cost_Budget(κ_ε)⟩} Vᵢ}
 ```
 
-Cette définition est totale sur les contextes et effets bien formés : son domaine n’est pas restreint par Adm ni par le domaine de Consume. La composition Δ₁ ⊠ε Δ₂ reste en revanche partielle : elle n’est définie que si la compatibilité des clés/types permet l’addition et si Adm(βᵢ, κ_ε) est satisfaite pour chaque budget βᵢ traversé dans Δ₂. Une valeur définie de ψ ne rend donc pas licite une traversée inadmissible. Cette normalisation découle de la totalité de Cost_Budget et de la soustraction ; elle ne prouve pas encore que chaque règle de typage impose effectivement la précondition Adm.
+Cette définition est totale sur les contextes et effets bien formés : son domaine n'est pas restreint par Adm ni par le domaine de Consume. La composition Δ₁ ⊠ε Δ₂ reste en revanche partielle : elle n'est définie que si la compatibilité des clés/types permet l'addition et si Adm(βᵢ, κ_ε) est satisfaite pour chaque budget βᵢ traversé dans Δ₂. Une valeur définie de ψ ne rend donc pas licite une traversée inadmissible. Cette normalisation découle de la totalité de Cost_Budget et de la soustraction ; elle ne prouve pas encore que chaque règle de typage impose effectivement la précondition Adm.
 
 
 # Scalarisation minimale du budget scalaire
@@ -398,9 +398,9 @@ hétérogène ou multi-objet, leur réalisation peut demander des morphismes sup
 Les obligations minimales sont alors la neutralité de $`+_I` par $`0_I`, la neutralité de
 $`\cdot_I` par un indice $`1_I`, l'associativité des opérations au niveau requis par la
 construction choisie, et la compatibilité de $`w`, $`c` et des coercions avec ces opérations.
-L’interface de référence fixe l’indice à I = ℛ. Les neutralités, associativité, naturalité et compatibilités de w, c et des coercions restent des obligations à démontrer pour cette instance.
+L'interface de référence fixe l'indice à I = ℛ. Les neutralités, associativité, naturalité et compatibilités de w, c et des coercions restent des obligations à démontrer pour cette instance.
 
-L’interface retenue est I = ℛ : l’indice effectif de l’exponentielle est la composante d’usage projetée du grade complet. I = 𝒢 exigerait une structure algébrique supplémentaire sur le grade complet et n’appartient pas au contrat normatif. La syntaxe !ᵣ conserve néanmoins l’annotation complète r ; sa traduction dans l’interface d’indexation suit π_U et Bang_𝒢 définis ci-dessous. Le choix de l’interface ne prouve pas les lois de cohérence de cette instance.
+L'interface retenue est I = ℛ : l'indice effectif de l'exponentielle est la composante d'usage projetée du grade complet. I = 𝒢 exigerait une structure algébrique supplémentaire sur le grade complet et n'appartient pas au contrat normatif. La syntaxe !ᵣ conserve néanmoins l'annotation complète r ; sa traduction dans l'interface d'indexation suit π_U et Bang_𝒢 définis ci-dessous. Le choix de l'interface ne prouve pas les lois de cohérence de cette instance.
 
 Cette interface est introduite pour distinguer ce qui relève de l'indexation de $`!` de ce qui
 relève de la mise à l'échelle des contextes. En particulier, $`r\cdot\Delta` n'est pas identifié

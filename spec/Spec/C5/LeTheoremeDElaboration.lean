@@ -29,11 +29,11 @@ Ce qui suit dans ce chapitre décrit des formes, non des mécanismes.] Le mot _�
 
 ::::definition (label := "def:elaboration") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "syntax")
 :::title
-fonction d’élaboration
+fonction d'élaboration
 :::
 
 :::statement +titled
-Fonction d’élaboration
+Fonction d'élaboration
 
 Soit $`\mathrm{Elab} : \mathsf{Surface} \to \mathsf{Noyau}` la fonction d'élaboration.
 :::

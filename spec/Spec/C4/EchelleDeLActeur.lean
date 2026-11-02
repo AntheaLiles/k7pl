@@ -131,7 +131,7 @@ Le passage d'un état de la coalgèbre au suivant traverse enfin une promotion �
 `HandlerResult` est produit par un gestionnaire de couche 2 dont le corps calcule en couche 3, sur
 des tableaux dont la disposition est celle d'Arrow. Il est validé, puis transféré vers l'arène
 canonique de couche 1. La conformité de ce transfert au domaine sans copie de la proposition
-{num "thm:isomorphisme_memoire"}[] dépend des contrats de disposition, d’alignement, de schéma et de
+{num "thm:isomorphisme_memoire"}[] dépend des contrats de disposition, d'alignement, de schéma et de
 propriété ; elle reste à vérifier pour le profil cible.
 
 L'arène calcule un condensat cryptographique (BLAKE3), déterministe et conçu pour résister aux

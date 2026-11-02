@@ -1414,7 +1414,7 @@ Pour $`c_1` et $`c_2` de couche 3, les calculs $`c_1 \parallel c_2` et
 $`\mathsf{let}\;x \leftarrow c_1\;\mathsf{in}\;\mathsf{let}\;y \leftarrow c_2\;\mathsf{in}\;\mathsf{return}\,(x,y)`
 rendent la même valeur sous la sémantique de couche 3. Leurs profils de coût diffèrent : la profondeur
 du calcul parallèle est $`\max(s_1,s_2)`, celle du calcul séquentiel est $`s_1+s_2`, et
-$`\max(s_1,s_2) \le s_1+s_2`. Les deux calculs n’introduisent aucun effet algébrique.
+$`\max(s_1,s_2) \le s_1+s_2`. Les deux calculs n'introduisent aucun effet algébrique.
 :::
 
 :::proofsketch
@@ -1430,10 +1430,10 @@ $`s_1+s_2`. Cette inégalité compare des profondeurs formelles, non des effets 
 _Obligation ouverte._ La terminaison des calculs bien typés de couche 3 est un invariant normatif :
 la récursion générale est exclue et les constructions récursives admises doivent respecter le schéma
 de taille décroissante. La formalisation de cette garantie est suivie par
-{num "thm:terminaison_couche_3"}[] et reste sous revue en C2 ; ce statut n’autorise pas la divergence
-d’un terme valide de couche 3. Il reste à définir le sens de « même valeur » (syntaxique,
+{num "thm:terminaison_couche_3"}[] et reste sous revue en C2 ; ce statut n'autorise pas la divergence
+d'un terme valide de couche 3. Il reste à définir le sens de « même valeur » (syntaxique,
 dénotationnel ou observationnel), la sémantique de $`c_1 \parallel c_2` et de la composition
-séquentielle, le traitement des erreurs hors du domaine considéré et la dérivation de l’indépendance
+séquentielle, le traitement des erreurs hors du domaine considéré et la dérivation de l'indépendance
 des branches à partir des règles de la couche 3.
 :::
 ::::
@@ -1709,7 +1709,7 @@ preuve plutôt que découvert dedans. L'action requise par la substitution est u
 d'usage ; les transformations d'effet restent séparées et ne définissent pas une seconde mise à
 l'échelle du grade complet.
 
-Pour les usages, l’interface de référence est
+Pour les usages, l'interface de référence est
 $`\operatorname{Scale}_{Usage}(a,\langle u,m,\ell,\beta\rangle) = \langle a\cdot u,m,\ell,\beta\rangle`.
 Comme $`\psi` laisse inchangées l'usage, la monotonie et le niveau et n'agit que sur le budget, la
 compatibilité correspondante est :
