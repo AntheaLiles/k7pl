@@ -5,73 +5,73 @@
       "id": "compilation-pipeline",
       "source": "compilation-pipeline.tex",
       "asset_stem": "compilation-process",
-      "canonical_verso": "spec/Spec/C6/LeProcessusDeCompilation.lean#fig:comp-process"
+      "canonical_verso": "spec/Spec/C6/CompilationProcess.lean#fig:comp-process"
     },
     {
       "id": "session-protocol",
       "source": "session-protocol.tex",
       "asset_stem": "session-protocol-as-automata",
-      "canonical_verso": "spec/Spec/C3/LesContraintesDeValeur.lean#fig:session-automate"
+      "canonical_verso": "spec/Spec/C3/ValueConstraints.lean#fig:session-automate"
     },
     {
       "id": "structural-modes",
       "source": "structural-modes.tex",
-      "asset_stem": "matrice-contraction-affaiblissement",
-      "canonical_verso": "spec/Spec/C3/LeSystemeGradue.lean#fig:modalites-structurelles"
+      "asset_stem": "contraction-weakening-matrix",
+      "canonical_verso": "spec/Spec/C3/GradedSystem.lean#fig:modalites-structurelles"
     },
     {
-      "id": "specialisation-du-jugement",
-      "source": "specialisation-du-jugement.tex",
-      "asset_stem": "specialisation-du-jugement",
-      "canonical_verso": "spec/Spec/C1/AxiomatiqueGerminale.lean#fig:specialisation-couches"
+      "id": "judgement-specialisation",
+      "source": "judgement-specialisation.tex",
+      "asset_stem": "judgement-specialisation",
+      "canonical_verso": "spec/Spec/C1/GerminalAxiomatics.lean#fig:specialisation-couches"
     },
     {
       "id": "co-algebra-duality",
       "source": "co-algebra-duality.tex",
       "asset_stem": "co-algebra-duality",
-      "canonical_verso": "spec/Spec/C2/AlgebresCoalgebresEtPointsFixes.lean#fig:dualite-algebre-coalgebre"
+      "canonical_verso": "spec/Spec/C2/AlgebrasCoalgebrasAndFixedPoints.lean#fig:dualite-algebre-coalgebre"
     },
     {
       "id": "fragments-nestings",
       "source": "fragments-nestings.tex",
       "asset_stem": "fragments-nestings",
-      "canonical_verso": "spec/Spec/C2/ComonadeExponentielleEtFragments.lean#fig:fragments-emboites"
+      "canonical_verso": "spec/Spec/C2/ExponentialComonadAndFragments.lean#fig:fragments-emboites"
     },
     {
       "id": "session-protocol-as-dual-exchange",
       "source": "session-protocol-as-dual-exchange.tex",
       "asset_stem": "session-protocol-as-dual-exchange",
-      "canonical_verso": "spec/Spec/C3/LesContraintesDeValeur.lean#fig:session-dualite"
+      "canonical_verso": "spec/Spec/C3/ValueConstraints.lean#fig:session-dualite"
     },
     {
       "id": "rexp-hierarchy-complexity",
       "source": "rexp-hierarchy-complexity.tex",
       "asset_stem": "rexp-hierarchy-complexity",
-      "canonical_verso": "spec/Spec/C4/EchelleLocale.lean#fig:rexp-complexite"
+      "canonical_verso": "spec/Spec/C4/LocalScale.lean#fig:rexp-complexite"
     },
     {
       "id": "soa-partitionning",
       "source": "soa-partitionning.tex",
       "asset_stem": "soa-partitionning",
-      "canonical_verso": "spec/Spec/C4/EchelleDeLActeur.lean#fig:arene-partition"
+      "canonical_verso": "spec/Spec/C4/ActorScale.lean#fig:arene-partition"
     },
     {
       "id": "virtual-actor-lca",
       "source": "virtual-actor-lca.tex",
       "asset_stem": "virtual-actor-lca",
-      "canonical_verso": "spec/Spec/C4/EchelleDuSysteme.lean#fig:acteur-cycle-de-vie"
+      "canonical_verso": "spec/Spec/C4/SystemScale.lean#fig:acteur-cycle-de-vie"
     },
     {
       "id": "session-circuit-breaker",
       "source": "session-circuit-breaker.tex",
       "asset_stem": "session-circuit-breaker",
-      "canonical_verso": "spec/Spec/C4/EchelleDuSysteme.lean#fig:circuit-breaker"
+      "canonical_verso": "spec/Spec/C4/SystemScale.lean#fig:circuit-breaker"
     },
     {
       "id": "unidirectionnal-reactive-cycle",
       "source": "unidirectionnal-reactive-cycle.tex",
       "asset_stem": "unidirectionnal-reactive-cycle",
-      "canonical_verso": "spec/Spec/C7/EtudeDeCasIArchitectureReactiveNative.lean#fig:cycle-reactif"
+      "canonical_verso": "spec/Spec/C7/CaseStudyINativeReactiveArchitecture.lean#fig:cycle-reactif"
     }
   ]
 }

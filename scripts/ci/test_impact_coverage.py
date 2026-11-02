@@ -77,7 +77,7 @@ PYTEST_DIR = "tests/python"
 ENTRY_POINTS: dict[str, tuple[frozenset[str], ...]] = {
     # verify.yaml: job `quick`, step "Check the specification" (full || spec_check); job
     # `python-tests`, step "Check the real corpus with the tooling under test" (python_tests).
-    "scripts/controle.py": (frozenset({"spec_check"}), frozenset({"python_tests"})),
+    "scripts/check_spec.py": (frozenset({"spec_check"}), frozenset({"python_tests"})),
 }
 # verify.yaml: job `python-tests`, step "Test the Python tooling": `pytest tests/python`.
 PYTEST_STEPS = (frozenset({"python_tests"}),)
@@ -90,7 +90,7 @@ NOT_RUN_BY_A_CHECK: dict[str, str] = {}
 
 # (reader, path read): over-approximations of the analysis.
 EXEMPT_READS = {
-    ("scripts/controles/couverture.py", "wiki/STATUS.md"): (
+    ("scripts/spec_checks/statement_coverage.py", "wiki/STATUS.md"): (
         "default target of update_status(), a writer that only the `status` job of ci.yaml calls "
         "(through generate_status.py) after the CI gate; no check reads the file"
     ),
@@ -612,14 +612,14 @@ class ReadCoverageTests(unittest.TestCase):
         """Reads that the audit found by hand: if the resolver stops seeing them, it is broken."""
         seen = {(entry, reader, read) for entry, _, reader, _, _, read in observed_reads()}
         expected = {
-            ("tests/python/test_statement_inventory.py", "scripts/controles/statement_inventory.py",
+            ("tests/python/test_statement_inventory.py", "scripts/spec_checks/statement_inventory.py",
              "wiki/assurance.md"),
-            ("scripts/controle.py", "scripts/controles/couverture.py", "src/K7pl.lean"),
+            ("scripts/check_spec.py", "scripts/spec_checks/statement_coverage.py", "src/K7pl.lean"),
         }
         self.assertEqual(expected - seen, set())
         self.assertGreater(len(seen), 200)
-        controle = closure([ROOT / "scripts" / "controle.py"])
-        self.assertIn(ROOT / "scripts" / "controles" / "couverture.py", controle)
+        controle = closure([ROOT / "scripts" / "check_spec.py"])
+        self.assertIn(ROOT / "scripts" / "spec_checks" / "statement_coverage.py", controle)
 
 
 class WorkflowConsistencyTests(unittest.TestCase):

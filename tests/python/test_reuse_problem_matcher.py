@@ -20,7 +20,7 @@ def test_reuse_problem_matcher_is_scoped_to_reuse_lines_output():
     expression = re.compile(problem["pattern"][0]["regexp"])
 
     cases = (
-        ("scripts/controle.py: no license identifier", "scripts/controle.py", "no license identifier"),
+        ("scripts/check_spec.py: no license identifier", "scripts/check_spec.py", "no license identifier"),
         ("LICENSES/CECILL-2.1: bad license 'CECILL-2.1'", "LICENSES/CECILL-2.1", "bad license 'CECILL-2.1'"),
         ("README.md: invalid SPDX License Expression 'GPL-3.0'", "README.md", "invalid SPDX License Expression 'GPL-3.0'"),
     )

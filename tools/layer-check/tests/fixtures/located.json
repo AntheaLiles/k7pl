@@ -1,0 +1,308 @@
+{
+  "format": "KAST",
+  "version": 4,
+  "term": {
+    "node": "KApply",
+    "label": {
+      "node": "KLabel",
+      "name": "<generatedTop>",
+      "params": []
+    },
+    "arity": 2,
+    "args": [
+      {
+        "node": "KApply",
+        "label": {
+          "node": "KLabel",
+          "name": "<k>",
+          "params": []
+        },
+        "arity": 1,
+        "args": [
+          {
+            "node": "KSequence",
+            "arity": 1,
+            "items": [
+              {
+                "node": "KApply",
+                "label": {
+                  "node": "KLabel",
+                  "name": "reports",
+                  "params": []
+                },
+                "arity": 2,
+                "args": [
+                  {
+                    "node": "KApply",
+                    "label": {
+                      "node": "KLabel",
+                      "name": "located",
+                      "params": []
+                    },
+                    "arity": 2,
+                    "args": [
+                      {
+                        "node": "KApply",
+                        "label": {
+                          "node": "KLabel",
+                          "name": "refusal",
+                          "params": []
+                        },
+                        "arity": 2,
+                        "args": [
+                          {
+                            "node": "KApply",
+                            "label": {
+                              "node": "KLabel",
+                              "name": "ERR-TOP-001_CODES_Code",
+                              "params": []
+                            },
+                            "arity": 0,
+                            "args": []
+                          },
+                          {
+                            "node": "KToken",
+                            "sort": {
+                              "node": "KSort",
+                              "name": "Message",
+                              "params": []
+                            },
+                            "token": "\"Structure de couche 2 `( )` instanci\u00e9e dans un bloc de couche 3 `[ ]`. D\u00e9placer le calcul dans un `let` de couche 2 en amont.\""
+                          }
+                        ]
+                      },
+                      {
+                        "node": "KApply",
+                        "label": {
+                          "node": "KLabel",
+                          "name": "at",
+                          "params": []
+                        },
+                        "arity": 2,
+                        "args": [
+                          {
+                            "node": "KApply",
+                            "label": {
+                              "node": "KLabel",
+                              "name": "paren",
+                              "params": []
+                            },
+                            "arity": 0,
+                            "args": []
+                          },
+                          {
+                            "node": "KToken",
+                            "sort": {
+                              "node": "KSort",
+                              "name": "Int",
+                              "params": []
+                            },
+                            "token": "1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "node": "KApply",
+                    "label": {
+                      "node": "KLabel",
+                      "name": "reports",
+                      "params": []
+                    },
+                    "arity": 2,
+                    "args": [
+                      {
+                        "node": "KApply",
+                        "label": {
+                          "node": "KLabel",
+                          "name": "located",
+                          "params": []
+                        },
+                        "arity": 2,
+                        "args": [
+                          {
+                            "node": "KApply",
+                            "label": {
+                              "node": "KLabel",
+                              "name": "refusal",
+                              "params": []
+                            },
+                            "arity": 2,
+                            "args": [
+                              {
+                                "node": "KApply",
+                                "label": {
+                                  "node": "KLabel",
+                                  "name": "ERR-DLM-001_CODES_Code",
+                                  "params": []
+                                },
+                                "arity": 0,
+                                "args": []
+                              },
+                              {
+                                "node": "KToken",
+                                "sort": {
+                                  "node": "KSort",
+                                  "name": "Message",
+                                  "params": []
+                                },
+                                "token": "\"D\u00e9limiteur ouvrant jamais referm\u00e9. Ajouter le d\u00e9limiteur fermant de sa paire, ou retirer l'ouvrant.\""
+                              }
+                            ]
+                          },
+                          {
+                            "node": "KApply",
+                            "label": {
+                              "node": "KLabel",
+                              "name": "at",
+                              "params": []
+                            },
+                            "arity": 2,
+                            "args": [
+                              {
+                                "node": "KApply",
+                                "label": {
+                                  "node": "KLabel",
+                                  "name": "paren",
+                                  "params": []
+                                },
+                                "arity": 0,
+                                "args": []
+                              },
+                              {
+                                "node": "KToken",
+                                "sort": {
+                                  "node": "KSort",
+                                  "name": "Int",
+                                  "params": []
+                                },
+                                "token": "1"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "node": "KApply",
+                        "label": {
+                          "node": "KLabel",
+                          "name": "reports",
+                          "params": []
+                        },
+                        "arity": 2,
+                        "args": [
+                          {
+                            "node": "KApply",
+                            "label": {
+                              "node": "KLabel",
+                              "name": "located",
+                              "params": []
+                            },
+                            "arity": 2,
+                            "args": [
+                              {
+                                "node": "KApply",
+                                "label": {
+                                  "node": "KLabel",
+                                  "name": "refusal",
+                                  "params": []
+                                },
+                                "arity": 2,
+                                "args": [
+                                  {
+                                    "node": "KApply",
+                                    "label": {
+                                      "node": "KLabel",
+                                      "name": "ERR-DLM-002_CODES_Code",
+                                      "params": []
+                                    },
+                                    "arity": 0,
+                                    "args": []
+                                  },
+                                  {
+                                    "node": "KToken",
+                                    "sort": {
+                                      "node": "KSort",
+                                      "name": "Message",
+                                      "params": []
+                                    },
+                                    "token": "\"D\u00e9limiteur fermant sans d\u00e9limiteur ouvrant. Retirer le fermant, ou ajouter l'ouvrant de sa paire.\""
+                                  }
+                                ]
+                              },
+                              {
+                                "node": "KApply",
+                                "label": {
+                                  "node": "KLabel",
+                                  "name": "at",
+                                  "params": []
+                                },
+                                "arity": 2,
+                                "args": [
+                                  {
+                                    "node": "KApply",
+                                    "label": {
+                                      "node": "KLabel",
+                                      "name": "paren",
+                                      "params": []
+                                    },
+                                    "arity": 0,
+                                    "args": []
+                                  },
+                                  {
+                                    "node": "KToken",
+                                    "sort": {
+                                      "node": "KSort",
+                                      "name": "Int",
+                                      "params": []
+                                    },
+                                    "token": "3"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "node": "KApply",
+                            "label": {
+                              "node": "KLabel",
+                              "name": ".List{\"reports\"}",
+                              "params": []
+                            },
+                            "arity": 0,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "node": "KApply",
+        "label": {
+          "node": "KLabel",
+          "name": "<generatedCounter>",
+          "params": []
+        },
+        "arity": 1,
+        "args": [
+          {
+            "node": "KToken",
+            "sort": {
+              "node": "KSort",
+              "name": "Int",
+              "params": []
+            },
+            "token": "0"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -67,7 +67,7 @@ theorem nested_add_example_evaluates_to_six :
       (K7PL.Bridge.initialState exampleProgram)
       (K7PL.Bridge.initialIntState 6) := by
   apply Rewrites.tran
-  · exact Rewrites.K7PL_SYNTAX_k7Add2_heat
+  · exact Rewrites.ADD_k7Add2_heat
       (K0 := SortK7Exp.inj_SortInt 1)
       (HOLE := SortK7Exp.k7Add
         (SortK7Exp.inj_SortInt 2)
@@ -77,7 +77,7 @@ theorem nested_add_example_evaluates_to_six :
     · exact Rewrites.k7AddEval
         (I := 2) (J := 3) (_Val0 := 5) (by rfl)
     · apply Rewrites.tran
-      · exact Rewrites.K7PL_SYNTAX_k7Add2_cool
+      · exact Rewrites.ADD_k7Add2_cool
           (K0 := SortK7Exp.inj_SortInt 1)
           (HOLE := SortK7Exp.inj_SortInt 5)
           (by rfl) (by rfl) (by rfl)

@@ -15,7 +15,7 @@ Exécuter selon le changement :
 ```
 lake build Spec
 lake exe spec --output _out/spec --with-tex
-python3 scripts/controle.py
+python3 scripts/check_spec.py
 ```
 
 Ajouter `python3 scripts/suivi.py all` lorsque les fiches de suivi ont changé.

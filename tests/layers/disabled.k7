@@ -1,0 +1,7 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; A disabled tree is read and checked like any other tree (Q-LEX-104).
+(f ;[g x] y)
+[f ;(g x) y] ;; refused: ERR-TOP-001 at line 7

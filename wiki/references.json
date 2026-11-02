@@ -731,6 +731,34 @@
    "urldate": "2025-05-19",
    "volume": "26"
   },
+  "abiteboulFoundationsDatabases1995": {
+   "date": "1995",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Serge",
+      "last": "Abiteboul",
+      "lineage": ""
+     },
+     {
+      "first": "Richard",
+      "last": "Hull",
+      "lineage": ""
+     },
+     {
+      "first": "Victor",
+      "last": "Vianu",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Addison-Wesley",
+   "title": "Foundations of Databases",
+   "type": "book",
+   "url": "http://webdam.inria.fr/Alice/",
+   "urldate": "2026-10-27"
+  },
   "acetoAxiomatizingTropicalSemirings2001": {
    "booktitle": "Foundations of Software Science and Computation Structures",
    "date": "2001",
@@ -2154,6 +2182,23 @@
    "title": "The Logical Meeting Point of Multiset Rewriting and Process Algebra: Progress Report",
    "type": "report"
   },
+  "chassaingDecider": {
+   "date": "2021-12-17",
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "J.",
+      "last": "Chassaing",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Functional Event Sourcing Decider",
+   "type": "online",
+   "url": "https://thinkbeforecoding.com/post/2021/12/17/functional-event-sourcing-decider",
+   "urldate": "2026-10-28"
+  },
   "chirimarReferenceCountingComputational1996": {
    "date": "1996-03",
    "doi": "10.1017/S0956796800001660",
@@ -3374,6 +3419,14 @@
    "type": "article",
    "url": "http://portal.acm.org/citation.cfm?doid=237721.237805",
    "urldate": "2026-08-02"
+  },
+  "fstarUnderstandingZ3": {
+   "langid": "english",
+   "persons": {},
+   "title": "Proof-Oriented Programming in F*: Understanding how F* uses Z3",
+   "type": "online",
+   "url": "https://fstar-lang.org/tutorial/book/under_the_hood/uth_smt.html",
+   "urldate": "2026-11-02"
   },
   "fuDependentlyTypedFolds2018": {
    "date": "2018",
@@ -5081,6 +5134,53 @@
    "urldate": "2025-05-07",
    "volume": "5"
   },
+  "leeProblemThreads2006": {
+   "date": "2006-01-10",
+   "institution": "EECS Department, University of California, Berkeley",
+   "langid": "english",
+   "number": "UCB/EECS-2006-1",
+   "persons": {
+    "author": [
+     {
+      "first": "Edward A.",
+      "last": "Lee",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "The Problem with Threads",
+   "type": "report",
+   "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2006/EECS-2006-1.html",
+   "urldate": "2026-11-02"
+  },
+  "leinoFineGrainedCaching2015": {
+   "booktitle": "Computer Aided Verification",
+   "date": "2015",
+   "doi": "10.1007/978-3-319-21690-4_22",
+   "langid": "english",
+   "pages": "380--397",
+   "persons": {
+    "author": [
+     {
+      "first": "K. Rustan M.",
+      "last": "Leino",
+      "lineage": ""
+     },
+     {
+      "first": "Valentin",
+      "last": "Wüstholz",
+      "lineage": ""
+     }
+    ]
+   },
+   "publisher": "Springer",
+   "series": "Lecture Notes in Computer Science",
+   "volume": "9206",
+   "title": "Fine-Grained Caching of Verification Results",
+   "type": "inproceedings",
+   "url": "https://doi.org/10.1007/978-3-319-21690-4_22",
+   "urldate": "2026-11-02"
+  },
   "leissaMimIRExtensibleTypeSafe2025": {
    "date": "2024-11-11",
    "doi": "10.1145/3704840",
@@ -5395,6 +5495,38 @@
    "url": "https://dl.acm.org/doi/10.1145/3704843",
    "urldate": "2025-05-19",
    "volume": "9"
+  },
+  "lochbaumBQNChoose": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "M.",
+      "last": "Lochbaum",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "BQN: Choose",
+   "type": "online",
+   "url": "https://mlochbaum.github.io/BQN/doc/choose.html",
+   "urldate": "2026-10-28"
+  },
+  "lockwoodFIXAPL": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "J.",
+      "last": "Lockwood",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "FIXAPL: APL Reimagined from the Ground up with Fixed-Arity Functions",
+   "type": "online",
+   "url": "https://github.com/Jacob-Lockwood/fixapl",
+   "urldate": "2026-10-28"
   },
   "lopesDejaVuMapCode2017": {
    "date": "2017-10-12",
@@ -5870,6 +6002,39 @@
    "url": "https://dl.acm.org/doi/10.1145/3473571",
    "urldate": "2025-05-07",
    "volume": "5"
+  },
+  "mokhovBuildSystemsCarte2018": {
+   "date": "2018-07-30",
+   "doi": "10.1145/3236774",
+   "issn": "2475-1421",
+   "journaltitle": "Proceedings of the ACM on Programming Languages",
+   "langid": "english",
+   "number": "ICFP",
+   "pages": "1--29",
+   "persons": {
+    "author": [
+     {
+      "first": "Andrey",
+      "last": "Mokhov",
+      "lineage": ""
+     },
+     {
+      "first": "Neil",
+      "last": "Mitchell",
+      "lineage": ""
+     },
+     {
+      "first": "Simon",
+      "last": "Peyton Jones",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "Build Systems à la Carte",
+   "type": "article",
+   "url": "https://doi.org/10.1145/3236774",
+   "urldate": "2026-11-02",
+   "volume": "2"
   },
   "moonGradedModalDependent2021": {
    "date": "2021",

@@ -17,7 +17,7 @@ specifications and commit messages in this repository.
 | `src/K7pl/`                    | Implementation of the language in Lean 4 (Mathlib, CSLib)       | CECILL-2.1 |
 | `tests/`                       | Lean 4 tests (one `<Module>Test.lean` file per module)          | CECILL-2.1 |
 | `spec/Spec.lean`               | Root of the Verso specification: title, `{texsetup}`, inclusion of the chapters | CC-BY-4.0  |
-| `spec/Spec/<Ch>.lean`          | One chapter (`C1`…`C7`, `Refs`, `AnnexeA`…`AnnexeD`): title, `{refsection}`, introduction, `{include}` of the sections | CC-BY-4.0  |
+| `spec/Spec/<Ch>.lean`          | One chapter (`C1`…`C7`, `Refs`, `AnnexA`…`AnnexD`): title, `{refsection}`, introduction, `{include}` of the sections | CC-BY-4.0  |
 | `spec/Spec/<Ch>/<Section>.lean` | One level-2 section: its subsections (`#`, `##`…) and its blocks | CC-BY-4.0  |
 | `spec/figures/`                | Figures: canonical TikZ sources in `tikz/` (with `manifest.json`), from which `<name>.svg` (HTML) and `<name>.pdf` (PDF) are generated and not tracked; `sources/` keeps the former drawio and mermaid sources | CC-BY-4.0  |
 | `spec/CHANGELOG.md`            | Specification versions (`spec-vX.Y.Z` releases)                | CC-BY-4.0  |
@@ -288,8 +288,8 @@ The argument, explicitly incomplete.
 - `proofsketch`, `written-proof` or `lean-proof` on an object that is not a result;
 - a hypothesis with `global` scope.
 
-**Ontology check** (`scripts/controles/statement_ontology.py`, run by
-`scripts/controle.py`). It repeats these rules and adds:
+**Ontology check** (`scripts/spec_checks/statement_ontology.py`, run by
+`scripts/check_spec.py`). It repeats these rules and adds:
 
 - `evidence := "proofsketch"` requires a `:::proofsketch` slot; that slot is only allowed with
   `evidence` equal to `proofsketch` or `literature`;
@@ -409,13 +409,13 @@ Style:
 
 ### Prohibited lexical family in the French specification
 
-The lexical family registered in `scripts/controles/vocabulaire.py`, including its listed grammatical forms and derivatives, is prohibited in authored textual sources under `spec/`. The check is lexical, not a ban on matching character sequences: unrelated words such as `violet` remain valid.
+The lexical family registered in `scripts/spec_checks/vocabulary.py`, including its listed grammatical forms and derivatives, is prohibited in authored textual sources under `spec/`. The check is lexical, not a ban on matching character sequences: unrelated words such as `violet` remain valid.
 
 Do not use a blind global replacement. Choose a context-sensitive formulation that preserves the technical claim and its epistemic status. Examples include `non-respect de l'invariant`, `exigence non satisfaite`, `écart au protocole`, `rejet à la compilation`, `cas inexprimable` and `absence de dérivation`, as appropriate to the actual meaning.
 
 Do not change a formal statement's premises, conclusion, scope, seal (`state`/`role`) or evidence status as a side effect of lexical editing. For claims about declassification or non-interference, state exactly which property is retained, weakened or suspended and under what conditions. If no equivalent wording is clear, request author arbitration instead of inventing a substitute.
 
-The rule is enforced by `scripts/controle.py` through `scripts/controles/vocabulaire.py`.
+The rule is enforced by `scripts/check_spec.py` through `scripts/spec_checks/vocabulary.py`.
 
 Org-mode → Verso correspondences, for rewriting the existing sources:
 

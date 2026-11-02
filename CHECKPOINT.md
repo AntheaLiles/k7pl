@@ -204,7 +204,7 @@ SPDX-License-Identifier: CC0-1.0
 - The only non-green job was the report-only external-link checker. With the
   first exact exception active, its rerun found two HTTP 429 responses for
   `https://www.gnu.org/software/hurd/gnumach-doc/Introduction.html`, cited
-  twice in `theoretical-projects/k7os/R8-comparaison-systemes-exploitation.md`.
+  twice in `theoretical-projects/k7os/R8-operating-systems-comparison.md`.
 - Commit `1c781352b403000dd018fc2539970c93ec5fc05a` adds an exact URL-only
   exception with a reason and a 2027-01-25 re-check date. It does not accept
   429 responses globally or exclude the GNU domain. Commit

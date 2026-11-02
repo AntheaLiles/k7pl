@@ -1,0 +1,426 @@
+{
+  "format": "KAST",
+  "version": 4,
+  "term": {
+    "node": "KApply",
+    "label": { "node": "KLabel", "name": "program", "params": [] },
+    "arity": 2,
+    "args": [
+      {
+        "node": "KApply",
+        "label": { "node": "KLabel", "name": "squareExp", "params": [] },
+        "arity": 1,
+        "args": [
+          {
+            "node": "KApply",
+            "label": { "node": "KLabel", "name": "squareContents", "params": [] },
+            "arity": 2,
+            "args": [
+              {
+                "node": "KToken",
+                "sort": { "node": "KSort", "name": "Symbol", "params": [] },
+                "token": "vector"
+              },
+              {
+                "node": "KApply",
+                "label": { "node": "KLabel", "name": "squareContents", "params": [] },
+                "arity": 2,
+                "args": [
+                  {
+                    "node": "KToken",
+                    "sort": { "node": "KSort", "name": "Number", "params": [] },
+                    "token": "42"
+                  },
+                  {
+                    "node": "KApply",
+                    "label": { "node": "KLabel", "name": "squareContents", "params": [] },
+                    "arity": 2,
+                    "args": [
+                      {
+                        "node": "KToken",
+                        "sort": { "node": "KSort", "name": "Number", "params": [] },
+                        "token": "-2"
+                      },
+                      {
+                        "node": "KApply",
+                        "label": { "node": "KLabel", "name": "squareContents", "params": [] },
+                        "arity": 2,
+                        "args": [
+                          {
+                            "node": "KToken",
+                            "sort": { "node": "KSort", "name": "Number", "params": [] },
+                            "token": "3.25"
+                          },
+                          {
+                            "node": "KApply",
+                            "label": { "node": "KLabel", "name": "squareContents", "params": [] },
+                            "arity": 2,
+                            "args": [
+                              {
+                                "node": "KToken",
+                                "sort": { "node": "KSort", "name": "Number", "params": [] },
+                                "token": "1.5e-3"
+                              },
+                              {
+                                "node": "KApply",
+                                "label": {
+                                  "node": "KLabel",
+                                  "name": "squareContents",
+                                  "params": []
+                                },
+                                "arity": 2,
+                                "args": [
+                                  {
+                                    "node": "KToken",
+                                    "sort": { "node": "KSort", "name": "Number", "params": [] },
+                                    "token": "1_000_000"
+                                  },
+                                  {
+                                    "node": "KApply",
+                                    "label": {
+                                      "node": "KLabel",
+                                      "name": "squareContents",
+                                      "params": []
+                                    },
+                                    "arity": 2,
+                                    "args": [
+                                      {
+                                        "node": "KToken",
+                                        "sort": { "node": "KSort", "name": "Number", "params": [] },
+                                        "token": "1/3"
+                                      },
+                                      {
+                                        "node": "KApply",
+                                        "label": {
+                                          "node": "KLabel",
+                                          "name": "squareContents",
+                                          "params": []
+                                        },
+                                        "arity": 2,
+                                        "args": [
+                                          {
+                                            "node": "KToken",
+                                            "sort": {
+                                              "node": "KSort",
+                                              "name": "Number",
+                                              "params": []
+                                            },
+                                            "token": "3+4i"
+                                          },
+                                          {
+                                            "node": "KApply",
+                                            "label": {
+                                              "node": "KLabel",
+                                              "name": "squareContents",
+                                              "params": []
+                                            },
+                                            "arity": 2,
+                                            "args": [
+                                              {
+                                                "node": "KToken",
+                                                "sort": {
+                                                  "node": "KSort",
+                                                  "name": "Number",
+                                                  "params": []
+                                                },
+                                                "token": "-1.5-2i"
+                                              },
+                                              {
+                                                "node": "KApply",
+                                                "label": {
+                                                  "node": "KLabel",
+                                                  "name": "squareContents",
+                                                  "params": []
+                                                },
+                                                "arity": 2,
+                                                "args": [
+                                                  {
+                                                    "node": "KToken",
+                                                    "sort": {
+                                                      "node": "KSort",
+                                                      "name": "Number",
+                                                      "params": []
+                                                    },
+                                                    "token": "inf"
+                                                  },
+                                                  {
+                                                    "node": "KApply",
+                                                    "label": {
+                                                      "node": "KLabel",
+                                                      "name": "squareContents",
+                                                      "params": []
+                                                    },
+                                                    "arity": 2,
+                                                    "args": [
+                                                      {
+                                                        "node": "KToken",
+                                                        "sort": {
+                                                          "node": "KSort",
+                                                          "name": "Number",
+                                                          "params": []
+                                                        },
+                                                        "token": "-inf"
+                                                      },
+                                                      {
+                                                        "node": "KApply",
+                                                        "label": {
+                                                          "node": "KLabel",
+                                                          "name": "squareContents",
+                                                          "params": []
+                                                        },
+                                                        "arity": 2,
+                                                        "args": [
+                                                          {
+                                                            "node": "KToken",
+                                                            "sort": {
+                                                              "node": "KSort",
+                                                              "name": "Number",
+                                                              "params": []
+                                                            },
+                                                            "token": "nan"
+                                                          },
+                                                          {
+                                                            "node": "KApply",
+                                                            "label": {
+                                                              "node": "KLabel",
+                                                              "name": "squareContents",
+                                                              "params": []
+                                                            },
+                                                            "arity": 2,
+                                                            "args": [
+                                                              {
+                                                                "node": "KToken",
+                                                                "sort": {
+                                                                  "node": "KSort",
+                                                                  "name": "Train",
+                                                                  "params": []
+                                                                },
+                                                                "token": "+"
+                                                              },
+                                                              {
+                                                                "node": "KApply",
+                                                                "label": {
+                                                                  "node": "KLabel",
+                                                                  "name": "squareContents",
+                                                                  "params": []
+                                                                },
+                                                                "arity": 2,
+                                                                "args": [
+                                                                  {
+                                                                    "node": "KToken",
+                                                                    "sort": {
+                                                                      "node": "KSort",
+                                                                      "name": "Train",
+                                                                      "params": []
+                                                                    },
+                                                                    "token": "-"
+                                                                  },
+                                                                  {
+                                                                    "node": "KApply",
+                                                                    "label": {
+                                                                      "node": "KLabel",
+                                                                      "name": "squareContents",
+                                                                      "params": []
+                                                                    },
+                                                                    "arity": 2,
+                                                                    "args": [
+                                                                      {
+                                                                        "node": "KToken",
+                                                                        "sort": {
+                                                                          "node": "KSort",
+                                                                          "name": "Train",
+                                                                          "params": []
+                                                                        },
+                                                                        "token": "+´÷≠"
+                                                                      },
+                                                                      {
+                                                                        "node": "KApply",
+                                                                        "label": {
+                                                                          "node": "KLabel",
+                                                                          "name": "squareContents",
+                                                                          "params": []
+                                                                        },
+                                                                        "arity": 2,
+                                                                        "args": [
+                                                                          {
+                                                                            "node": "KToken",
+                                                                            "sort": {
+                                                                              "node": "KSort",
+                                                                              "name": "Train",
+                                                                              "params": []
+                                                                            },
+                                                                            "token": "<="
+                                                                          },
+                                                                          {
+                                                                            "node": "KApply",
+                                                                            "label": {
+                                                                              "node": "KLabel",
+                                                                              "name": "squareContents",
+                                                                              "params": []
+                                                                            },
+                                                                            "arity": 2,
+                                                                            "args": [
+                                                                              {
+                                                                                "node": "KToken",
+                                                                                "sort": {
+                                                                                  "node": "KSort",
+                                                                                  "name": "Symbol",
+                                                                                  "params": []
+                                                                                },
+                                                                                "token": "increase-counter"
+                                                                              },
+                                                                              {
+                                                                                "node": "KApply",
+                                                                                "label": {
+                                                                                  "node": "KLabel",
+                                                                                  "name": "squareContents",
+                                                                                  "params": []
+                                                                                },
+                                                                                "arity": 2,
+                                                                                "args": [
+                                                                                  {
+                                                                                    "node": "KToken",
+                                                                                    "sort": {
+                                                                                      "node": "KSort",
+                                                                                      "name": "Symbol",
+                                                                                      "params": []
+                                                                                    },
+                                                                                    "token": "^="
+                                                                                  },
+                                                                                  {
+                                                                                    "node": "KApply",
+                                                                                    "label": {
+                                                                                      "node": "KLabel",
+                                                                                      "name": "squareContents",
+                                                                                      "params": []
+                                                                                    },
+                                                                                    "arity": 2,
+                                                                                    "args": [
+                                                                                      {
+                                                                                        "node": "KToken",
+                                                                                        "sort": {
+                                                                                          "node": "KSort",
+                                                                                          "name": "Symbol",
+                                                                                          "params": []
+                                                                                        },
+                                                                                        "token": "x-1"
+                                                                                      },
+                                                                                      {
+                                                                                        "node": "KApply",
+                                                                                        "label": {
+                                                                                          "node": "KLabel",
+                                                                                          "name": "squareContents",
+                                                                                          "params": []
+                                                                                        },
+                                                                                        "arity": 2,
+                                                                                        "args": [
+                                                                                          {
+                                                                                            "node": "KToken",
+                                                                                            "sort": {
+                                                                                              "node": "KSort",
+                                                                                              "name": "Symbol",
+                                                                                              "params": []
+                                                                                            },
+                                                                                            "token": "1__0"
+                                                                                          },
+                                                                                          {
+                                                                                            "node": "KApply",
+                                                                                            "label": {
+                                                                                              "node": "KLabel",
+                                                                                              "name": "squareContents",
+                                                                                              "params": []
+                                                                                            },
+                                                                                            "arity": 2,
+                                                                                            "args": [
+                                                                                              {
+                                                                                                "node": "KToken",
+                                                                                                "sort": {
+                                                                                                  "node": "KSort",
+                                                                                                  "name": "Symbol",
+                                                                                                  "params": []
+                                                                                                },
+                                                                                                "token": "0x1F"
+                                                                                              },
+                                                                                              {
+                                                                                                "node": "KApply",
+                                                                                                "label": {
+                                                                                                  "node": "KLabel",
+                                                                                                  "name": "squareContents",
+                                                                                                  "params": []
+                                                                                                },
+                                                                                                "arity": 2,
+                                                                                                "args": [
+                                                                                                  {
+                                                                                                    "node": "KToken",
+                                                                                                    "sort": {
+                                                                                                      "node": "KSort",
+                                                                                                      "name": "Symbol",
+                                                                                                      "params": []
+                                                                                                    },
+                                                                                                    "token": "infinity"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "node": "KApply",
+                                                                                                    "label": {
+                                                                                                      "node": "KLabel",
+                                                                                                      "name": ".List{\"squareContents\"}",
+                                                                                                      "params": []
+                                                                                                    },
+                                                                                                    "arity": 0,
+                                                                                                    "args": []
+                                                                                                  }
+                                                                                                ]
+                                                                                              }
+                                                                                            ]
+                                                                                          }
+                                                                                        ]
+                                                                                      }
+                                                                                    ]
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "node": "KApply",
+        "label": { "node": "KLabel", "name": ".List{\"program\"}", "params": [] },
+        "arity": 0,
+        "args": []
+      }
+    ]
+  }
+}
