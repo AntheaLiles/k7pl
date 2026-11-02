@@ -202,18 +202,33 @@ export async function packageEvidence(
   await copyItem(ws("proofs/K7PL2Lean"), art("proofs/"));
   for (
     const name of [
-      "lakefile.toml",
+      "lakefile.lean",
       "lean-toolchain",
       "lake-manifest.json",
       "README.md",
-      "K7PL.lean",
+      "FORMALIZATION-PLAN.md",
+      "CHECKPOINT.md",
+      "Grades.lean",
+      "Structural.lean",
+      "Memory.lean",
+      "Metatheory.lean",
       "Makefile",
     ]
   ) {
     await copyItem(ws(`proofs/${name}`), art("proofs/"));
   }
   await copyItem(ws("proofs/axiom-audit-contract.json"), art("proofs/"));
-  await copyItem(ws("proofs/K7PL"), art("proofs/"));
+  for (
+    const directory of [
+      "Grades",
+      "Structural",
+      "Memory",
+      "Metatheory",
+      "archive",
+    ]
+  ) {
+    await copyItem(ws(`proofs/${directory}`), art("proofs/"));
+  }
   for (
     const name of [
       "BlueprintK7PL.lean",

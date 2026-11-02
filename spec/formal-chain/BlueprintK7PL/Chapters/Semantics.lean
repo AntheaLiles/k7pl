@@ -3,11 +3,11 @@
 import Verso
 import VersoManual
 import VersoBlueprint
-import K7PL.Proof
-import K7PL.Bridge
-import K7PL.Example
-import K7PL.MachineSoundness
-import K7PL.NativeBoundary
+import KLean.Proof
+import KLean.Bridge
+import KLean.Example
+import KLean.MachineSoundness
+import KLean.NativeBoundary
 
 open Verso.Genre
 open Verso.Genre.Manual

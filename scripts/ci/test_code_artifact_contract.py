@@ -100,6 +100,17 @@ class CodeArtifactContractTests(unittest.TestCase):
         layer_tasks = json.loads((ROOT / "tools/layer-check/deno.json").read_text(encoding="utf-8"))["tasks"]
         self.assertIn("--output dist/k7pl-layer-check src/main.ts", layer_tasks["compile"])
 
+    def test_proof_project_fetches_its_mathlib_cache_before_building(self) -> None:
+        # proofs/ requires the root package, hence Mathlib, in a Lake workspace of its own:
+        # without its own cache the proof build compiles Mathlib from source and runs past
+        # the K job's timeout (run 41248858168 was cancelled during that build).
+        k_smoke = self.workflow_file.split("  k-smoke:", 1)[1].split("\n  refresh-main-status:", 1)[0]
+        cache = k_smoke.index("Fetch the Mathlib cache for the proof project")
+        self.assertLess(cache, k_smoke.index("k7pl-ci build-proofs"))
+        self.assertIn("working-directory: proofs\n        run: lake exe cache get", k_smoke)
+        lakefile = (ROOT / "proofs/lakefile.lean").read_text(encoding="utf-8")
+        self.assertIn('require k7pl from ".."', lakefile)
+
     def test_d01_counterexample_vector_is_aligned_across_tools(self) -> None:
         vector_path = ROOT / "models/D01-NativeBoundary-ExpectedCounterexample.json"
         vector = json.loads(vector_path.read_text(encoding="utf-8"))
@@ -115,7 +126,7 @@ class CodeArtifactContractTests(unittest.TestCase):
         tla = (ROOT / "models/D01NativeBoundary.tla").read_text(encoding="utf-8")
         negative_cfg = (ROOT / "models/D01-NativeBoundary-Unconfined.cfg").read_text(encoding="utf-8")
         k_example = (ROOT / vector["kExample"]).read_text(encoding="utf-8")
-        lean = (ROOT / "proofs/K7PL/NativeBoundary.lean").read_text(encoding="utf-8")
+        lean = (ROOT / "proofs/archive/KLean/NativeBoundary.lean").read_text(encoding="utf-8")
         blueprint = (ROOT / "spec/formal-chain/BlueprintK7PL/Chapters/Semantics.lean").read_text(encoding="utf-8")
         self.assertIn("Values == {0, 1}", tla)
         self.assertIn("BoundaryEnforced = FALSE", negative_cfg)

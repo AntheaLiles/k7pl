@@ -249,7 +249,9 @@ Deno.test("spec markdown adds link check to spec surfaces", () => {
 });
 
 Deno.test("proofs paths run the axiom audit, not full (decided D2)", () => {
-  for (const path of ["proofs/K7PL/Proof.lean", "proofs/lakefile.toml"]) {
+  for (
+    const path of ["proofs/archive/KLean/Proof.lean", "proofs/lakefile.lean"]
+  ) {
     const result = classify([path]);
     assert(result.surfaces.axiom_audit, path);
     assert(!result.full && !result.unclassified, path);

@@ -1,8 +1,8 @@
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 -- SPDX-License-Identifier: CC0-1.0
-import K7PL.Proof
-import K7PL.Bridge
-import K7PL.MachineSoundness
+import KLean.Proof
+import KLean.Bridge
+import KLean.MachineSoundness
 
 /-!
 Executable/Lean bridge smoke test for the minimal example.
