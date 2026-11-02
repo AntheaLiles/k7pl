@@ -45,3 +45,6 @@ __pycache__/
 /spec/figures/session-circuit-breaker.svg
 /spec/figures/unidirectionnal-reactive-cycle.pdf
 /spec/figures/unidirectionnal-reactive-cycle.svg
+
+# Compiled CI controller (deno task compile in tools/ci-controller)
+/tools/ci-controller/dist/

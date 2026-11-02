@@ -78,18 +78,26 @@ jobs:
       - name: Check the Lake manifest
         run: deno run --allow-read --allow-env=GITHUB_ACTIONS tools/ci-controller/src/manifest.ts
 
+      # The registry is the classifier's only source of routing: an
+      # invalid registry fails the gate before anything is decided
+      # from it.
+      - name: Validate the component registry
+        run: deno run --allow-read tools/ci-controller/src/main.ts validate-registry
+
       # Cutover C3: the derived classifier decides all thirteen
-      # surfaces. derived_event.ts owns event routing (the exact
-      # routing of scripts/ci/ci_impact.sh, via classifierArgs):
+      # surfaces. derived_event.ts owns event routing (impact_event.ts,
+      # the former scripts/ci/ci_impact.sh, via classifierArgs):
       # manual dispatch is full validation; generated-status
       # dispatch classifies against origin/main from the checkout
       # (a head already on main gets full, no shared history
       # fails); pull_request and push use BASE_SHA..HEAD_SHA.
-      # The legacy Python classifier no longer decides anything:
-      # it runs only in reversed shadow (controller-shadow,
-      # non-blocking). Parity gate evidence: over the first-parent
-      # history of main since #312 (18 diffs, 435c876..a501517),
-      # derived and legacy agree on all eight legacy keys.
+      # Cutover C4: it is the only classifier. The legacy Python
+      # classifier, its Deno port and the non-blocking
+      # controller-shadow job that compared them are removed;
+      # tools/ci-controller/tests/derived_event_test.ts and
+      # derived_rules_test.ts carry their routing tests, and
+      # scripts/ci/test_impact_coverage.py checks the reads of the
+      # checks against this classifier.
       - name: Run CI impact classifier
         id: impact
         env:
@@ -98,53 +106,6 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
           HEAD_SHA: ${{ github.sha }}
         run: deno run --allow-read --allow-run=git --allow-env=EVENT_NAME,REF,BASE_SHA,HEAD_SHA,GITHUB_OUTPUT --allow-write tools/ci-controller/src/derived_event.ts
-
-  controller-shadow:
-    name: Controller shadow
-    # Reversed shadow since cutover C3, owner-approved 2026-10-25 (slice 3).
-    # This job is deliberately NOT in ci-ok's needs and runs with
-    # continue-on-error: a divergence is reported in its logs, it
-    # never gates CI OK. The Deno controller now decides; the
-    # Python classifier compares in the background. Runs on push
-    # and pull_request only: a manual dispatch has no base range
-    # for the shadow comparison.
-    if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
-    # Pin the hosted OS release; the official Deno container omits Node.js, which
-    # JavaScript-based GitHub Actions need inside a job container. Keep checkout on
-    # the hosted runner and install the exact Deno version with the shared action.
-    runs-on: ubuntu-22.04
-    timeout-minutes: 10
-    permissions:
-      contents: read
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: Set up Deno
-        uses: ./.github/actions/setup-deno
-
-      - name: Validate the component registry
-        run: deno run --allow-read tools/ci-controller/src/main.ts validate-registry
-
-      - name: Compare Deno and Python classifiers (shadow)
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
-          HEAD_SHA: ${{ github.sha }}
-        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/main.ts classify --shadow --base "$BASE_SHA" --head "$HEAD_SHA"
-
-      # Derived-vs-legacy comparison for visibility (since C2; since
-      # C3 this is the reversed shadow's derived leg: the decision
-      # now comes from derived, and this step reports the intended
-      # D2 divergences). The job has continue-on-error, so a
-      # divergence is reported in the logs and never gates CI OK.
-      - name: Compare derived and legacy classifiers (derived shadow)
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
-          HEAD_SHA: ${{ github.sha }}
-        run: deno run --allow-read --allow-run --allow-env --allow-write tools/ci-controller/src/main.ts classify --derived-shadow --base "$BASE_SHA" --head "$HEAD_SHA"
 
   verify:
     name: Verification

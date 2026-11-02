@@ -4,11 +4,15 @@
 
 """Guard: a file that a check reads must make the impact classifier run that check.
 
-`impact.py` decides which CI surfaces run again for a pull request. A file that a check reads
-but that does not trigger the check lets a pull request break the check without running it: the
-failure then surfaces in a later, unrelated pull request. The routing tables of `impact.py` are
-written by hand; this guard derives from the code of the checks which repository files they read,
-and asks `impact.classify` whether each of them triggers the step that reads it.
+The impact classifier of the Deno controller (tools/ci-controller/src/derived.ts, derived from
+the component registry .github/ci/components.yaml) decides which CI surfaces run again for a pull
+request; since cutover C4 it is the only classifier. A file that a check reads but that does not
+trigger the check lets a pull request break the check without running it: the failure then
+surfaces in a later, unrelated pull request. The registry is written by hand; this guard derives
+from the code of the checks which repository files they read, and asks the deciding classifier
+(`classify --json`, one classification per path) whether each of them triggers the step that
+reads it. Until C4 it asked the legacy Python classifier, which no longer decided anything after
+cutover C3. Deno must be available: set DENO, or put deno on PATH.
 
 What is analysed:
 
@@ -29,7 +33,7 @@ What is analysed:
 * Lean: the files reached through `import` from the targets that the `impl` and `spec` jobs build
   (`LEAN_TARGETS`).
 
-Each file of the code closure and each file it reads must trigger the step: `impact.classify`
+Each file of the code closure and each file it reads must trigger the step: the classifier
 must set `full` or one of the surfaces of the step. A directory that is read is expanded to every
 file under it.
 
@@ -58,18 +62,23 @@ from __future__ import annotations
 
 import ast
 import functools
+import json
 import os
 import re
+import shutil
+import subprocess
 import tempfile
 import textwrap
 import unittest
+from collections.abc import Iterable
 from pathlib import Path
 
 import check_lean_modules as lean
-import impact
 
 ROOT = Path(__file__).resolve().parents[2]
 VERIFY = ROOT / ".github" / "workflows" / "verify.yaml"
+CONTROLLER = ROOT / "tools" / "ci-controller" / "src" / "main.ts"
+REGISTRY = ROOT / ".github" / "ci" / "components.yaml"
 PYTEST_DIR = "tests/python"
 
 # A step runs when `full` or one of its surfaces is set; an entry point run by two steps must
@@ -365,8 +374,48 @@ def entry_points() -> dict[str, tuple[list[Path], tuple[frozenset[str], ...]]]:
     return entries
 
 
+def deno_executable() -> str:
+    """The Deno that runs the impact classifier: $DENO, or deno on PATH."""
+    deno = os.environ.get("DENO") or shutil.which("deno")
+    if not deno:
+        raise RuntimeError(
+            "deno is required: the impact classifier is the Deno controller's "
+            "(tools/ci-controller) since cutover C4; set DENO or put deno on PATH"
+        )
+    return deno
+
+
+_CLASSIFICATIONS: dict[str, dict[str, bool]] = {}
+
+
+def classify_paths(paths: Iterable[str]) -> None:
+    """Classify every path not classified yet, one classification per path, in one run."""
+    missing = sorted({path for path in paths if path not in _CLASSIFICATIONS})
+    if not missing:
+        return
+    done = subprocess.run(
+        [
+            deno_executable(), "run", f"--allow-read={ROOT}", str(CONTROLLER),
+            "classify", "--json", "--stdin", "--registry", str(REGISTRY),
+        ],
+        input="".join(f"{path}\n" for path in missing),
+        capture_output=True, text=True, cwd=ROOT, timeout=300, check=False,
+    )
+    if done.returncode != 0:
+        raise RuntimeError(f"classify --json failed ({done.returncode}): {done.stderr}")
+    result = json.loads(done.stdout)
+    if set(result) != set(missing):
+        raise RuntimeError("classify --json did not classify exactly the paths it was given")
+    _CLASSIFICATIONS.update(result)
+
+
+def classification(path: str) -> dict[str, bool]:
+    classify_paths([path])
+    return _CLASSIFICATIONS[path]
+
+
 def triggers(path: str, step: frozenset[str]) -> bool:
-    result = impact.classify([path])
+    result = classification(path)
     return bool(result["full"]) or any(result[surface] for surface in step)
 
 
@@ -383,7 +432,7 @@ def observed_reads():
 
 def surfaces_of(path: str) -> str:
     """The flags that `path` sets, for failure messages."""
-    result = impact.classify([path])
+    result = classification(path)
     flags = ("full", "docs_links", "spec_check", "spec_build", "lean_build", "python_tests", "tracking_views")
     return ",".join(key for key in flags if result[key]) or "nothing"
 
@@ -551,7 +600,9 @@ class ReadCoverageTests(unittest.TestCase):
 
     def test_every_file_a_check_reads_triggers_it(self):
         failures = set()
-        for entry, step, reader, line, path, read in observed_reads():
+        reads = list(observed_reads())
+        classify_paths(read for *_, read in reads)
+        for entry, step, reader, line, path, read in reads:
             if (reader, path) in EXEMPT_READS or triggers(read, step):
                 continue
             failures.add(
@@ -560,12 +611,15 @@ class ReadCoverageTests(unittest.TestCase):
             )
         self.assertFalse(
             failures,
-            "files read by a check that do not trigger it; route them in scripts/ci/impact.py "
+            "files read by a check that do not trigger it; route them in .github/ci/components.yaml "
             "(or exempt the read with its reason here):\n  " + "\n  ".join(sorted(failures)),
         )
 
     def test_the_code_a_check_runs_triggers_it(self):
         failures = set()
+        classify_paths(
+            relative(code) for start, _ in entry_points().values() for code in closure(start)
+        )
         for entry, (start, steps) in entry_points().items():
             for code in closure(start):
                 for step in steps:
@@ -672,6 +726,9 @@ class WorkflowConsistencyTests(unittest.TestCase):
 class LeanCoverageTests(unittest.TestCase):
     def test_every_lean_file_a_job_builds_triggers_it(self):
         failures = []
+        classify_paths(
+            relative(path) for names in LEAN_TARGETS.values() for path in lean_reachable(names)
+        )
         for surface, names in LEAN_TARGETS.items():
             for path in sorted(lean_reachable(names)):
                 rel = relative(path)
