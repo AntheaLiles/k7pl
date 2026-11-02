@@ -25,12 +25,12 @@ tag := "c7-integration"
 {refsection "c7-integration"}
 
 Les pièces de K7PL ont été posées une à une, chacune avec son statut. Reste une question plus
-exigeante : l'ensemble tient-il lorsqu'un programme réel sollicite plusieurs mécanismes à la fois,
-sous une contrainte que la théorie prise pièce par pièce ne rencontre jamais : un budget de temps
-par image, une bibliothèque utilisable sans connaître ses usages futurs ? Trois études de cas
-l'abordent, sollicitant la pile entière depuis trois angles ; elles illustrent des scénarios
-d'intégration et ne constituent, à elles seules, ni une preuve générale de correction ni une
-validation empirique des performances.
+exigeante : celle de savoir si l'ensemble tient lorsqu'un programme réel sollicite plusieurs
+mécanismes à la fois, sous une contrainte que la théorie prise pièce par pièce ne rencontre
+jamais : un budget de temps par image, une bibliothèque utilisable sans connaître ses usages
+futurs. Trois études de cas l'abordent, sollicitant la pile entière depuis trois angles ; elles
+illustrent des scénarios d'intégration et ne constituent, à elles seules, ni une preuve générale
+de correction ni une validation empirique des performances.
 
 Aucune de ces études n'est outillée ; ce sont des scénarios rédigés, de valeur d'intégration, qui ne vérifient rien au sens des chapitres précédents.
 
