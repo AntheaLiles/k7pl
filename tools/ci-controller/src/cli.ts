@@ -125,7 +125,7 @@ export const COMMANDS: Readonly<Record<string, CommandSpec>> = {
   "render-blueprint": {
     summary: "Render the Verso Blueprint documentation with lake",
     run: ["lake"],
-    env: ["GITHUB_STEP_SUMMARY"],
+    env: ["GITHUB_WORKSPACE", "GITHUB_STEP_SUMMARY"],
     write: true,
     takesArgs: false,
     main: () => exitStatus(() => renderBlueprint()),

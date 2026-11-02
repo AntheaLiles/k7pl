@@ -129,3 +129,23 @@ Deno.test("--help lists every command", async () => {
     assertStringIncludes(result.out, name);
   }
 });
+
+Deno.test("no command of the binary locates files from import.meta.url", async () => {
+  // In the compiled binary, import.meta.url names the embedded
+  // module, not a file of the checkout: a path derived from it
+  // points outside the repository (render-blueprint once looked for
+  // /spec/formal-chain). The commands take their paths from their
+  // arguments or from GITHUB_WORKSPACE and RUNNER_TEMP instead.
+  const cli = await Deno.readTextFile(CLI);
+  const modules = [...cli.matchAll(/from "\.\/([a-z_]+\.ts)"/g)].map((m) =>
+    m[1]
+  );
+  assert(modules.length >= Object.keys(COMMANDS).length, modules.join(","));
+  for (const module of modules) {
+    const source = await Deno.readTextFile(`${CONTROLLER}src/${module}`);
+    assert(
+      !/new URL\([^)]*import\.meta\.url/.test(source),
+      `${module} derives a path from import.meta.url`,
+    );
+  }
+});
