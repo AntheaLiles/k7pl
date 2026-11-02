@@ -25,12 +25,12 @@
  *
  * Its decided divergences from the former legacy classifier, which
  * the shadow comparison reported until C4, were of three kinds:
- *   - intended: proofs/ now maps to axiom_audit instead of
- *     full, tla-models to tla_model_check instead of full,
- *     src/k/ to the K surfaces (lean_build over-triggering
- *     removed) — these are the decided D2 behaviours, and
- *     their coverage preservation is proven in the
- *     orchestration slice, not here;
+ *   - intended: proofs/ maps to axiom_audit instead of full,
+ *     and src/k/ maps to the K surfaces without the obsolete
+ *     lean_build over-trigger. The models/ path family, which
+ *     both legacy projections claimed, also emits
+ *     tla_model_check, which was not one of the eight legacy
+ *     comparison keys;
  *   - closed in cutover C0: light paths (.claude/,
  *     .github/ISSUE_TEMPLATE/, LICENSES/, CITATION.cff) and
  *     scripts/axiom-audit.sh are now classifier-resident rules

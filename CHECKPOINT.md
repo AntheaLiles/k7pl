@@ -29,6 +29,48 @@ SPDX-License-Identifier: CC0-1.0
 - C4 evidence: the C3 head of `main` (`14ddaa8`) passed complete CI runs
   `40693727642` (push) and `40696783709` (dispatch). C4's own CI is not
   claimed here before it has run.
+- C4 per-path parity evidence (2026-11-02), which the C3 controller README
+  required before any legacy reference is removed.
+  - Method: every first-parent commit of `main` up to `7dbbe29`, i.e. 1 839
+    ranges with changes (867 documentation-only, 300 specification, 12
+    Lean-only, 409 full by infrastructure or toolchain, 149 full with
+    unknown paths, 102 mixed). The 1 215 distinct paths they change are
+    taken with `git diff --name-only --no-renames` against the first parent,
+    plus seven synthetic unknown paths. Legacy is `classify([path])` of
+    `scripts/ci/impact.py` at `7dbbe29`; derived is `classify --json --stdin`
+    of this branch. Both are compared on the eight report keys.
+  - Observed: 33 paths diverge, in the six families below, and every range
+    divergence comes from one of them. The seven synthetic unknown paths and
+    every `models/` path agree, so the fail-closed handling of unknown paths
+    is unchanged.
+  - `proofs/` (12 paths): legacy full (unknown), derived `axiom_audit` only.
+    This is decided D2 behaviour, listed in the owner's expected-divergence
+    table on the PR #311 branch.
+  - `src/k/` (3 paths): legacy also sets `lean_build`, derived does not. This
+    is decided D2 behaviour, listed in the owner's table.
+  - `wiki/references.json`: derived also sets `docs_links`, because the wiki
+    root claims it. This is a conservative extra surface, listed in the
+    owner's table.
+  - `scripts/` files that the legacy classifier did not list (13 paths):
+    `bump-lean.sh`, `claude-session-start.sh`, `extract_verso_code.py`,
+    `inventory_legacy.py`, `latest-lean-version.sh`, `org2md.py`,
+    `org2verso/*.py`, `requirements-ci.txt`, `requirements-spdx-validator.txt`,
+    `suivi.py` and `verif_singularites.py`.
+    - Legacy treats them as full (unknown); derived sets `python_tests` only,
+      from the `python-tooling` root `scripts/` declared at D2.
+    - Where a gated job reads these files, that job is `python-tests`: the
+      requirements files directly, the bump-lean scripts through their
+      `scripts/ci` tests.
+    - The owner's table lists four `scripts/` paths of this family:
+      `scripts/controles/`, `controle.py`, `verif_singularites.py` and
+      `check_singularities.py`. The other paths follow the same registry
+      rule but were not reviewed one by one (HUMAN ACTION REQUIRED if that
+      review is wanted).
+  - `scripts/org2verso/README.md`: derived also sets `python_tests`, from the
+    same root. This is a conservative extra surface.
+  - `.github/actions/*` (3 paths): both are full; only the `unclassified`
+    label differs, because the derived registry claims `.github/` for CI
+    configuration.
 
 ## History repair
 

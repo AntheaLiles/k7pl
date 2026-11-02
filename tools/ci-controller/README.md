@@ -6,8 +6,9 @@ SPDX-License-Identifier: CECILL-2.1
 # K7PL CI controller
 
 TypeScript tooling for the K7PL CI, running under Deno. The controller decides
-what the CI runs (the impact classifier) and carries the Deno ports of former
-Python and shell CI steps.
+what the CI runs: the derived classifier is the blocking decision source for all
+thirteen validation surfaces, and since cutover C4 the only classifier. It also
+carries the Deno ports of former Python and shell CI steps.
 
 ## Current workflow integration
 
@@ -83,6 +84,7 @@ each command; do not run the controller with `-A`.
 | `src/derived_event.ts` (impact) | `--allow-read --allow-run=git --allow-env=EVENT_NAME,REF,BASE_SHA,HEAD_SHA,GITHUB_OUTPUT --allow-write`                   |
 | `validate-registry`             | `--allow-read`                                                                                                            |
 | `validate-evidence`             | `--allow-read`                                                                                                            |
+| TLC profile runner              | `--allow-read --allow-write --allow-run=java,sha256sum`                                                                   |
 | `deno test` (this directory)    | `--allow-read --allow-run --allow-env --allow-write` (tests create temporary git repositories and temporary output files) |
 
 Examples:
@@ -108,16 +110,23 @@ at cutover C4 (`--shadow`, `--derived-shadow`, `--derived`) fails.
 
 ## The derived classifier
 
-A path triggers the `impact_surfaces` of every component whose roots contain it
-(respecting that component's excludes), plus the surfaces of every component
-whose `read_inputs` contain it; a read input may restrict its surfaces (`src/`
-triggers `spec_check` only for the specification component). Rules that are not
-component tables live in `src/derived.ts`: any Markdown file triggers
-`docs_links`; the light paths trigger nothing; `scripts/axiom-audit.sh` triggers
-`lean_build` and `spec_build`; a non-Markdown file under `wiki/` or
-`theoretical-projects/` that no component claims as a TLA model or read input is
-unclassified; and any unclassified path forces full validation, which sets every
-surface.
+The blocking impact job reads `.github/ci/components.yaml` through
+`src/derived.ts` and `src/derived_event.ts`. A path triggers the
+`impact_surfaces` of every component whose roots contain it (respecting that
+component's excludes), plus the surfaces of every component whose `read_inputs`
+contain it; a read input may restrict its surfaces (`src/` triggers `spec_check`
+only for the specification component). Rules that are not component ownership
+rules live in `src/derived.ts`: any Markdown file triggers `docs_links`; the
+light paths trigger nothing; `scripts/axiom-audit.sh` triggers `lean_build` and
+`spec_build`; a non-Markdown file under `wiki/` or `theoretical-projects/` that
+no component claims as a read input is unclassified; and any unclassified path
+forces full validation, which sets every surface (fail-closed).
+
+The `tla-models` component owns `models/`. Its finite execution inventory is
+`models/TLC-PROFILES.json`; the Deno runner validates exact coverage of every
+TLA configuration and model module before invoking TLC. Changes to the runner,
+its tests and its Deno task manifest are declared as `read_inputs` of the
+component, so the model-check gate also exercises its orchestration code.
 
 The routing is asserted by `tests/derived_test.ts` (registry semantics and the
 decided D2 divergences from the former legacy classifier),
