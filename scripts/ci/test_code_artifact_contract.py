@@ -201,6 +201,13 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertNotIn("apt-get", k_smoke)
         self.assertNotIn("deno run", k_smoke)
         self.assertIn("deno task compile", self.workflow_file)
+        # The checkout is owned by another user than the container's: git refuses it
+        # ("dubious ownership"), and an audited commit read with git came out empty, so the
+        # generated status could never match the audit to its commit. GITHUB_SHA is the
+        # commit the job checked out.
+        self.assertIn('k7pl-ci axiom-report', k_smoke)
+        self.assertIn('--source-commit "$GITHUB_SHA"', k_smoke)
+        self.assertNotIn("rev-parse", k_smoke)
 
     def test_semantics_workflow_is_triggered_by_surfaces_not_paths(self) -> None:
         # Cutover C2: path filters are gone; ci.yaml calls the workflow

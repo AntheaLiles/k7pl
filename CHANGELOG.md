@@ -97,6 +97,16 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - SPDX validation: reject undeclared SPDX 2.3 root properties in the wrapper after confirming that `spdx-tools 0.8.5` accepted a field forbidden by the pinned JSON Schema; add unit and CLI regressions.
 - Added an empirical probe for an undeclared top-level SPDX JSON field; the new probe remains non-blocking until its external-validator behavior is observed and interpreted.
 
+### Fixed
+
+- Generated status (`wiki/STATUS.md`): the axiom audit was never found, so the status always read
+  "NOT AVAILABLE". `scripts/ci/ci_status_fetch_axioms.sh` looked for runs of
+  `k7pl-semantics.yaml`, which no longer run on their own since `ci.yaml` calls that workflow
+  (cutover C2); it now searches the CI runs of the audited commit too, never counting the run
+  that executes it. The K job recorded the audited commit with `git rev-parse`, which the K
+  container refuses ("dubious ownership"), so the audit carried no commit and could not match
+  the status; it now passes `GITHUB_SHA`, the commit it checked out.
+
 ### Security and research
 
 - Assurance tooling: add deterministic adversarial mutation tests for the Lake-to-OSV adapter and record the observed OSV-Scanner, actionlint, zizmor, and generated-figure accessibility results with their limitations. This does not introduce a general fuzzer, a Lean SAST claim, or a blocking vulnerability gate.

@@ -115,7 +115,38 @@ class AxiomEvidenceScriptTests(StepScriptCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(self.output.read_text(), "available=false\nreport_path=\n")
         self.assertIn("No completed successful K7PL formal-semantics run", result.stdout)
-        self.assertEqual(len(self.calls("gh")), 1)
+        # Both workflows are searched: since cutover C2 the K job runs inside ci.yaml.
+        self.assertEqual(
+            [call[call.index("--workflow") + 1] for call in self.calls("gh")],
+            ["ci.yaml", "k7pl-semantics.yaml"],
+        )
+
+    def test_audit_is_taken_from_the_ci_run_that_ran_the_k_job(self):
+        # Regression: the search looked only for k7pl-semantics.yaml runs, which
+        # no longer exist on their own since ci.yaml calls that workflow, so a
+        # matching audit was never found. The run executing the script (the
+        # refresh dispatch) is neither a candidate nor waited for.
+        sha = "a" * 40
+        runs = (
+            '[{"databaseId":7,"status":"in_progress","conclusion":"","headSha":"%s"},'
+            '{"databaseId":42,"status":"completed","conclusion":"success","headSha":"%s"}]'
+        ) % (sha, sha)
+        self.stub("gh", (
+            'if [ "$1" = run ] && [ "$2" = list ]; then\n'
+            '  case "$*" in *"--workflow ci.yaml"*) printf \'%s\' "$CI_RUNS";; *) printf "[]";; esac\n'
+            'elif [ "$1" = run ] && [ "$2" = download ]; then\n'
+            '  while [ $# -gt 0 ]; do [ "$1" = --dir ] && dir="$2"; shift; done\n'
+            '  printf "{}" > "$dir/k7pl-axiom-audit.json"\n'
+            'else exit 2; fi'
+        ))
+        result = self.fetch(EVENT_NAME="workflow_dispatch", GITHUB_RUN_ID="7", CI_RUNS=runs)
+        self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+        self.assertIn("available=true\n", self.output.read_text())
+        download = [call for call in self.calls("gh") if call[2] == "download"]
+        self.assertEqual(len(download), 1)
+        self.assertEqual(download[0][3], "42")
+        self.assertEqual(download[0][download[0].index("--name") + 1], "k7pl-axiom-audit-42")
+        self.assertNotIn("Waiting", result.stdout)
 
     def test_malformed_source_commit_fails_closed(self):
         result = self.fetch(SOURCE_SHA="not-a-commit")
