@@ -636,8 +636,6 @@ Ce théorème n'est pas un de plus : trois propriétés en descendent, et deux f
 document sous une forme non graduée (la sûreté du typage, la non-interférence des ressources non
 pertinentes, et la propriété du _pointeur unique_ pour les ressources linéaires, celle qui autorise
 la mise à jour en place, donc celle dont l'arène dépend) {cite "choudhuryGradedDependentType2021"}[].
-C'est ce qui en fait le plus lourd du programme et le plus rentable.
-
 Deux réserves accompagnent la forme, et elles viennent des travaux qui l'ont établie ailleurs : une
 forme à suivre, non un résultat à transporter, et la distinction décide de ce qu'on peut invoquer. La
 première est qu'établir un tel énoncé a exigé, dans un système gradué dépendant, une restriction sur
