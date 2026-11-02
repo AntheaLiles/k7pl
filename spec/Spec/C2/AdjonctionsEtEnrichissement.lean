@@ -87,8 +87,7 @@ La dernière structure que _C_ doit porter est la relation de précision $`\sqsu
 chapitre 1 (P2). Sur chaque catégorie d'artefacts syntaxiques (types, termes, contextes, effets,
 grades), $`\sqsubseteq` est un _demi-treillis supérieur borné_, de joint $`\sqcup` et d'élément
 minimal : $`A \sqsubseteq B` se lit « $`A` est une version au plus aussi précise que $`B` ».
-Pourquoi cette structure et pas une plus riche ? Une version antérieure de ce texte déclarait un
-treillis distributif borné et l'engagement était plus lourd que l'usage. Le joint sert : aux
+Un treillis distributif borné porterait un engagement plus lourd que l'usage. Le joint sert : aux
 branchements du chapitre 3, où il sur-approxime les effets d'un filtrage, et à la relation de
 sous-typage du §{num "sec:g-regles"}[], dont le théorème {num "thm:coherence_subsomption"}[] montre qu'il
 conditionne la cohérence. La rencontre ne sert nulle part, et la distributivité n'est invoquée par
