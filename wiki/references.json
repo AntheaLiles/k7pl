@@ -3616,6 +3616,14 @@
    "urldate": "2026-08-02",
    "volume": "24"
   },
+  "gerbilSchemeReference": {
+   "langid": "english",
+   "persons": {},
+   "title": "Gerbil Scheme",
+   "type": "online",
+   "url": "https://cons.io/reference/",
+   "urldate": "2026-11-01"
+  },
   "ghicaBoundedLinearTypes2014": {
    "booktitle": "European {{Symposium}} on {{Programming}}",
    "date": "2014-04-05",
@@ -5092,6 +5100,22 @@
    "urldate": "2026-08-02",
    "volume": "35"
   },
+  "kylhekuTxrReferenceManual": {
+   "langid": "english",
+   "persons": {
+    "author": [
+     {
+      "first": "Kaz",
+      "last": "Kylheku",
+      "lineage": ""
+     }
+    ]
+   },
+   "title": "TXR Reference Manual",
+   "type": "online",
+   "url": "http://www.nongnu.org/txr/txr-manpage.html",
+   "urldate": "2026-11-01"
+  },
   "lahavMakingWeakMemory2021": {
    "date": "2021-10-20",
    "doi": "10.1145/3485475",
@@ -5462,6 +5486,14 @@
    "type": "inproceedings",
    "url": "https://dl.acm.org/doi/10.1145/2951913.2951921",
    "urldate": "2026-08-27"
+  },
+  "lispFlavoredErlang": {
+   "langid": "english",
+   "persons": {},
+   "title": "Lisp Flavored Erlang",
+   "type": "online",
+   "url": "https://docs.lfe.io/v0.9/index.html",
+   "urldate": "2026-11-01"
   },
   "liuConsistencyDependentCalculus2025": {
    "date": "2025-01-07",
