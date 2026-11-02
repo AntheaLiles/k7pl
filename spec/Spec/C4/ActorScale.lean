@@ -84,14 +84,14 @@ capabilité de la région dont il provient. Le système de types (chapitre 3, §
 dès lors à un offset issu d'une `ReadCap` sur une région d'indexer une autre région. La confusion entre deux objets
 d'une même arène SoA est ainsi rendue non typable, plutôt que détectée à l'exécution.
 
-`EntityRef` désigne une entité et sa durée de vie, sans conférer à lui seul un droit d'accès.
-L'encodage par index et génération (par exemple 32 bits pour chaque champ dans une référence de 64 bits) est une
-possibilité de réalisation, non une garantie de sûreté en soi. Toute opération qui utilise une référence doit préserver
-l'identité et la durée de vie de l'entité visée : une référence invalide ou périmée ne doit autoriser aucun accès ni
-effet sur une autre entité. Cette propriété doit rester vraie après destruction, réutilisation d'un emplacement,
-restauration d'état et épuisement ou réinitialisation des générations. L'implémentation peut employer une validation ou
-un autre mécanisme, mais sa conformité à cette propriété doit être établie ; la seule présence d'un champ de génération
-ne suffit pas à la démontrer.
+`EntityRef` désigne une entité et sa durée de vie, sans conférer à lui seul un droit d'accès. L'encodage par index et
+génération (par exemple 32 bits pour chaque champ dans une référence de 64 bits) est une possibilité de réalisation, non
+une garantie de sûreté en soi. Toute opération qui utilise une référence doit préserver l'identité et la durée de vie de
+l'entité visée : une référence invalide ou périmée ne doit autoriser aucun accès ni effet sur une autre entité. Cette
+propriété doit rester vraie après destruction, réutilisation d'un emplacement, restauration d'état et épuisement ou
+réinitialisation des générations. L'implémentation peut employer une validation ou un autre mécanisme, mais sa
+conformité à cette propriété doit être établie ; la seule présence d'un champ de génération ne suffit pas à la
+démontrer.
 
 C'est ici que les grades fractionnaires du chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]) trouvent leur réalisation
 physique normative. Une arène est partitionnée statiquement en segments d'index contigus, un par fibrille concurrente :
@@ -115,11 +115,11 @@ lecture d'une discipline SWMR complète.
 :::
 ::::
 
-Le passage d'un état de la coalgèbre au suivant traverse enfin une promotion à deux vitesses. Un
-`HandlerResult` est produit par un gestionnaire de couche 2 dont le corps calcule en couche 3, sur
-des tableaux dont la disposition est celle d'Arrow. Il est validé, puis transféré vers l'arène canonique de couche 1. La
-conformité de ce transfert au domaine sans copie de la proposition {num "thm:isomorphisme_memoire"}[] dépend des
-contrats de disposition, d'alignement, de schéma et de propriété ; elle reste à vérifier pour le profil cible.
+Le passage d'un état de la coalgèbre au suivant traverse enfin une promotion à deux vitesses. Un `HandlerResult` est
+produit par un gestionnaire de couche 2 dont le corps calcule en couche 3, sur des tableaux dont la disposition est
+celle d'Arrow. Il est validé, puis transféré vers l'arène canonique de couche 1. La conformité de ce transfert au
+domaine sans copie de la proposition {num "thm:isomorphisme_memoire"}[] dépend des contrats de disposition,
+d'alignement, de schéma et de propriété ; elle reste à vérifier pour le profil cible.
 
 L'arène calcule un condensat cryptographique (BLAKE3), déterministe et conçu pour résister aux collisions. La
 comparaison de deux condensats déjà calculés est en $`O(1)` ; le calcul du condensat d'une structure de taille $`n` est
@@ -155,7 +155,17 @@ structure, Arrow décompose la donnée en un tampon par champ tandis que Cap'n P
 champs d'un même élément sont adjacents. Les deux dispositions sont alors transposées l'une de l'autre.
 :::
 
-:::proofsketch Un tableau primitif Arrow est un unique tampon contigu dont la taille vaut au moins la largeur de créneau multipliée par la longueur, et son bitmap de validité peut être omis lorsque le compte de nuls est nul : la couche 3 étant totale, un $`\mathsf{Vec}\;n\;T` n'a jamais de valeur absente. Une liste Cap'n Proto d'éléments non composites est de son côté un tableau plat de valeurs. Les trois représentations sont donc le même tableau contigu, et l'alignement sur 64 bits de l'abaissement MLIR satisfait le minimum de 8 octets qu'Arrow impose à la sérialisation. Hors de ce domaine, Cap'n Proto exige qu'une liste de structures soit encodée en composite (disposition orientée ligne) quand Arrow répartit les mêmes données en un tampon par champ ; aucun réencodage local ne les réconcilie, et le passage de l'une à l'autre est une transposition en $`O(n)`. :::
+:::proofsketch
+Un tableau primitif Arrow est un unique tampon contigu dont la taille vaut au moins la largeur de créneau multipliée par
+la longueur, et son bitmap de validité peut être omis lorsque le compte de
+nuls est nul : la couche 3 étant totale, un $`\mathsf{Vec}\;n\;T` n'a jamais de valeur absente. Une liste Cap'n
+Proto d'éléments non composites est de son côté un tableau plat de valeurs. Les trois représentations sont donc le même
+tableau contigu, et l'alignement sur 64 bits de l'abaissement MLIR satisfait le minimum de 8 octets qu'Arrow impose à la
+sérialisation. Hors de ce domaine, Cap'n Proto exige qu'une liste de structures soit encodée en composite (disposition
+orientée ligne) quand Arrow répartit les mêmes données en un tampon par champ ; aucun réencodage local ne les
+réconcilie,
+et le passage de l'une à l'autre est une transposition en $`O(n)`.
+:::
 
 :::note
 _Obligation ouverte._ Restent à vérifier, contre les versions épinglées d'Arrow, de Cap'n Proto et de MLIR, les contrats

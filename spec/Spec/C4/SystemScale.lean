@@ -425,13 +425,13 @@ le non-respect entraîne une erreur de compilation. La modestie ne vaut d'ailleu
 stabilité numérique, elle, est démontrable dans le cadre du langage et ne reste un avertissement que faute d'avoir été
 instrumentée.
 
-Deux précisions sur leur statut. Ces métriques sont des algorithmes de graphes, qui ne sont pas
-structurellement récursifs {cite "kidneyFormalisingGraphAlgorithms2025"}[] : elles ne relèvent donc
-pas du catamorphisme de couche 3 (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) et s'exécutent dans le
-compilateur, non dans le langage. Et le traitement inductif du graphe de câblage (tri topologique sur une structure
-finie donnée en entier) est légitime pour cette raison précise, qui ne vaut pas du graphe d'attente à l'exécution.
-Celui-ci se déplie et relève de la coinduction, comme le chapitre 3 (§{num "sec:c3-les-contraintes-de-valeur"}[])
-l'établit pour l'absence de blocage mutuel en régime permanent.
+Deux précisions sur leur statut. Ces métriques sont des algorithmes de graphes, qui ne sont pas structurellement
+récursifs {cite "kidneyFormalisingGraphAlgorithms2025"}[] : elles ne relèvent donc pas du catamorphisme de couche 3
+(chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) et s'exécutent dans le compilateur, non dans le langage.
+Et le traitement inductif du graphe de câblage (tri topologique sur une structure finie donnée en entier) est légitime
+pour cette raison précise, qui ne vaut pas du graphe d'attente à l'exécution. Celui-ci se déplie et relève de la
+coinduction, comme le chapitre 3 (§{num "sec:c3-les-contraintes-de-valeur"}[]) l'établit pour l'absence de blocage
+mutuel en régime permanent.
 
 Ce statut d'avertissement n'est pas une fatalité pour toutes les métriques du langage : la stabilité numérique, en
 particulier, est à portée du système de types plutôt que de la seule heuristique. Des bornes saines sur l'erreur
@@ -460,8 +460,7 @@ couverture, ni la définition sémantique du motif, ni la preuve de raffinement 
 Un motif de jonction, dont la couverture des combinaisons de messages se vérifie statiquement
 :::
 
-```
-(define-join-pattern traite-resultat
+``` (define-join-pattern traite-resultat
   ((msg-fini id resultat) (traite-succes resultat))
   ((msg-tic delai)        (traite-abandon id)))
 ```
@@ -607,22 +606,36 @@ retrait de capacité d'écriture dans le contexte linéaire
 :::statement +titled
 Disponibilité de la capacité pendant l'appel
 
-Dans le modèle abstrait, si l'appel FFI transfère $`\mathsf{WriteCap}(B)` du contexte linéaire de l'acteur à celui de la
-passerelle, cette capacité n'est plus disponible dans le contexte de l'acteur pendant l'appel. Toute opération dont le
-typage exige cette capacité est donc rejetée dans ce contexte. :::
+Dans le modèle abstrait, si l'appel FFI transfère $`\mathsf{WriteCap}(B)` du contexte linéaire de l'acteur
+à celui de la passerelle, cette capacité n'est plus disponible dans le contexte de l'acteur pendant l'appel. Toute
+opération dont le typage exige cette capacité est donc rejetée dans ce contexte.
+:::
 
-:::proofsketch Le transfert retire $`\mathsf{WriteCap}(B)` du contexte linéaire de l'acteur et la confie à la passerelle. L'élimination de coupure conserve ce retrait pendant l'appel ; une dérivation qui exige cette capacité ne peut donc pas être construite à partir du contexte de l'acteur. :::
+:::proofsketch
+Le transfert retire $`\mathsf{WriteCap}(B)` du contexte linéaire de l'acteur et la confie à la passerelle.
+L'élimination de coupure conserve ce retrait pendant l'appel ; une dérivation qui exige cette capacité ne peut donc pas
+être construite à partir du contexte de l'acteur.
+:::
 
-:::note _Portée de l'énoncé._ Cette esquisse concerne uniquement la capacité $`\mathsf{WriteCap}(B)` dans le modèle abstrait. Elle ne démontre ni l'absence d'autres droits ou alias vers le tampon ni la conformité d'un appel natif. La révocation après retour relève de l'exigence distincte qui suit. ::: :::: ::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "ffi-safety") :::title révocation à la frontière étrangère :::
+:::note
+_Portée de l'énoncé._ Cette esquisse concerne uniquement la capacité $`\mathsf{WriteCap}(B)` dans le modèle
+abstrait. Elle ne démontre ni l'absence d'autres droits ou alias vers le tampon ni la conformité d'un appel natif. La
+révocation après retour relève de l'exigence distincte qui suit.
+:::
+::::
+::::requirement (label := "thm:revocation_ffi") (level := "representation") (state := "not-applicable") (evidence := "none") (scope := "ffi-safety")
+:::title
+révocation à la frontière étrangère
+:::
 
 :::statement +titled
 Ce que le système de types ne peut pas tenir seul
 
-Après le retour de la passerelle, l'interface étrangère ne doit plus pouvoir accéder à $`B`, selon le contrat de
-transfert défini pour cet appel. Cette clause n'est pas un théorème du langage : le typage retire une capacité du
-contexte d'un terme qu'il gouverne, mais ne révoque pas à lui seul un accès détenu par un composant étranger. La
-réalisation doit établir cette propriété. La représentation des références, le mécanisme de restitution ou de révocation
-et les moyens de vérification restent ouverts ; aucun mécanisme particulier n'est imposé ici.
+Après le retour de la passerelle, l'interface étrangère ne doit plus pouvoir accéder à $`B`, selon
+le contrat de transfert défini pour cet appel. Cette clause n'est pas un théorème du langage : le typage retire une
+capacité du contexte d'un terme qu'il gouverne, mais ne révoque pas à lui seul un accès détenu par un composant
+étranger. La réalisation doit établir cette propriété. La représentation des références, le mécanisme de restitution ou
+de révocation et les moyens de vérification restent ouverts ; aucun mécanisme particulier n'est imposé ici.
 :::
 
 :::note
@@ -681,17 +694,16 @@ hiérarchie de caches. Son régime de communication est asynchrone au sens du $`
 que le chapitre 3 a retenu. Ce que K7PL n'emprunte pas est la sémantique de réécriture temporisée sur laquelle leur
 correction est établie : la nôtre reste à écrire.
 
-Une dernière remarque borne ce que ces modalités permettent de revendiquer. Rendre le temps
-structurel ouvre la possibilité d'énoncer qu'une durée ne dépend pas d'une donnée qu'elle ne devrait
-pas révéler : la non-interférence appliquée à la composante temporelle plutôt qu'aux valeurs. Cette possibilité a une
-limite, et elle n'est pas dans le langage : un canal temporel se referme complètement au niveau du jeu d'instructions,
-par une conception du matériel qui contrôle le temps au moyen du flot d'information, et les travaux qui l'établissent
-opèrent à l'échelle du système entier. K7PL peut donc fermer les canaux que son système de types _voit_ (ceux qu'une
-branche conditionnelle ou une itération à borne variable ouvrent dans le programme), non ceux que le matériel ouvre sous
-lui. Un cache dont le temps de réponse dépend de ce qui y a été écrit reste invisible au typage. La revendication est
-donc bornée par la plateforme, exactement comme le référentiel du modèle mémoire l'a été au §{num
-"sec:c4-echelle-du-systeme"}[], et cette borne doit accompagner tout énoncé de non-interférence temporelle plutôt que le
-suivre.
+Une dernière remarque borne ce que ces modalités permettent de revendiquer. Rendre le temps structurel ouvre la
+possibilité d'énoncer qu'une durée ne dépend pas d'une donnée qu'elle ne devrait pas révéler : la non-interférence
+appliquée à la composante temporelle plutôt qu'aux valeurs. Cette possibilité a une limite, et elle n'est pas dans le
+langage : un canal temporel se referme complètement au niveau du jeu d'instructions, par une conception du matériel qui
+contrôle le temps au moyen du flot d'information, et les travaux qui l'établissent opèrent à l'échelle du système
+entier. K7PL peut donc fermer les canaux que son système de types _voit_ (ceux qu'une branche conditionnelle ou une
+itération à borne variable ouvrent dans le programme), non ceux que le matériel ouvre sous lui. Un cache dont le temps
+de réponse dépend de ce qui y a été écrit reste invisible au typage. La revendication est donc bornée par la plateforme,
+exactement comme le référentiel du modèle mémoire l'a été au §{num "sec:c4-echelle-du-systeme"}[], et cette borne doit
+accompagner tout énoncé de non-interférence temporelle plutôt que le suivre.
 
 La terminaison, ensuite : sur un calcul randomisé, un type utile atteste une probabilité $`q` de réduction vers une
 valeur, éventuellement strictement inférieure à $`1` {cite "antonelliCurryHowardMeet2022"}[]. La journalisation de P4

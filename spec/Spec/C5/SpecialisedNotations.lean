@@ -139,7 +139,8 @@ dérivation, non de l'évaluation.
 
 Un cas pourrait sembler demander d'être regardé, parce qu'un programme ne l'écrit nulle part : le gestionnaire implicite
 d'un acteur. La clause `:on` le déduit de la transition par la règle de `Result` (§{num "sec:c5-mise-en-pratique"}[]),
-avant toute exécution, sans qu'aucun nom soit _produit_ ni cherché ; il ne menace donc pas l'énoncé. :::
+avant toute exécution, sans qu'aucun nom soit _produit_ ni cherché ; il ne menace donc pas l'énoncé.
+:::
 
 :::note
 _Obligation ouverte._ L'argument par inspection ne vaut que si l'inventaire des mécanismes qui produisent de la syntaxe
