@@ -845,6 +845,57 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Reading lot, eleventh part: answers of 2026-10-29
+  (Q-SPEC-601 to Q-ACT-010).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-10-29-013 to
+  VOC-2026-10-29-025. In short:
+  - Modules: definitions are identified by a hash of their
+    normalised tree; the module is the compilation unit, a named
+    set of definitions with an interface, which carries the
+    interface, the specialisation budget and the stamp; a file is
+    a lexical perimeter; the package is what is distributed,
+    versioned and certified, and its boundary is where a
+    certificate is required.
+  - Top-level forms: a top-level `( )` form is a process, a
+    virtual actor activated by its first message; `{ }` declares;
+    a top-level `[ ]` is a value; only event sources start at
+    once, in Phase 2's dependency order, the sources of one rank
+    (the same depth in that order) in parallel.
+  - Kahn sub-networks: pursued as a conjecture of chapter 4.
+  - Compilation time: six aims written into chapter 6 (results
+    keyed by hash, query-based incremental compilation with early
+    cutoff, parallelism by independence, cached and replayed
+    verification, a solver discipline, failing early); hole widths
+    are rounded to the powers of two from 8 bits.
+  - Layer 3: a train reads in prefix notation, each word taking
+    its operands on its right and none on its left, so the fork of
+    the eighth part is withdrawn; `choose` runs one branch, the
+    dyadic `select` with a mask computes both, lane by lane.
+  - Actors: a cluster is chapter 4's execution instance, whose
+    memory its actors share under acquire-release; what follows
+    `:defer` is typed in a unit of time or of count; a delivery
+    persists a snapshot of the state by default, the developer
+    adding messages or events explicitly.
+  Kept open: Q-SPEC-603, where the author asked to check that
+  `pack`/`unpack` and `box`/`unbox` are not ambiguous; the check
+  is in [research](research.md), reading lot after the eleventh
+  part.
+  Put back to the author: the words of that check (the
+  existential eliminator, called `open` in the formal text and
+  `unpack` in the prose; « box », which GHC and Rust use for heap
+  allocation; « paquet » and « empaqueter », each naming two
+  things); the general fork, which the prefix rule leaves without
+  a writing; whether the rule extends to modifiers; which count
+  unit expresses a delivery once the reaction is persisted;
+  whether a module carries a version of its own; and the
+  author's remark that `select` may suffice, to be checked later.
+  Applied on 2026-11-02 (`spec/CHANGELOG.md`): chapter 5 (prefix
+  trains, the standard deviation rewritten, rounded hole widths,
+  `choose` and `select`, `defer` and `persist`); chapter 6 (module,
+  file and package, six aims); chapter 4 (top-level forms, the
+  cluster, conjecture `thm:sous_reseaux_kahn`, registered in
+  [assurance](assurance.md) and in the statement inventory).
+  Follow-up: Roadmap: Work the research lot follow-ups.
 - **Reading lot, tenth part: answers of 2026-10-28 and
   2026-10-29 (Q-SPEC-501 to Q-ACT-007).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-28-038 to

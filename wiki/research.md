@@ -2303,6 +2303,110 @@ Which strategies to adopt (S1 to S8); whether hole widths are rounded
 to bound instances (S6); and how 𝒯₀ is delimited, which chapter 6
 already leaves open. The choice is asked in the next part.
 
+## Reading lot: research after the eleventh part
+
+Two checks follow from the answers of the eleventh part (2026-10-29): the
+one the author asked for under Q-SPEC-603 (VOC-2026-10-29-025), « Vérifie
+qu'il n'y a pas d'ambigüité entre `pack` `unpack` et `box` `unbox` », and
+what the prefix rule of Q-SPEC-607 (VOC-2026-10-29-020) leaves without a
+writing. The specification is quoted as it stands after the eleventh part
+was applied; sources were read on 2026-11-02. Inferences are marked and
+decide nothing.
+
+### `pack`/`unpack` and `box`/`unbox` (Q-SPEC-603)
+
+#### Observed in the specification
+
+- Two introduction and elimination pairs, of two different types. The
+  graded modality: `box_r v : !_r V`, rule Box, eliminated by
+  `unbox v as x in c`, rule Unbox (`spec/Spec/C3/TermGrammar.lean:27-30`,
+  `spec/Spec/C3/TypingRules.lean:175-177`, the reduction
+  `unbox (box_r v) as x in c ⟶ c[v/x]` in
+  `spec/Spec/C4/OperationalSemantics.lean:58`). The existential:
+  `pack (W, v) : ∃α.V`, rule Pack, eliminated by
+  `open v as (α, x) in c`, rule Open (`TermGrammar.lean:27-30`,
+  `TypingRules.lean:199-201`, `OperationalSemantics.lean:59`).
+- The existential eliminator has two names. The formal grammar, the rule and
+  the reduction call it `open`; the prose of chapter 3 calls it `unpack`
+  (« ne demande aucun `unpack` explicite en surface », « un langage noyau muni
+  de `pack~/~unpack` », « le compilateur exige alors un `unpack` explicite
+  (`ERR-TYP-011`) », `spec/Spec/C3/OpenStructuresEffectsAndMetatheory.lean:85-91`),
+  and so does chapter 6 (« leurs `pack~/~unpack` explicites »,
+  `spec/Spec/C6/CompilationProcess.lean:111`).
+- « Open » names a third thing: the typestate example
+  `File(Open)`, `File(Closed)` (`spec/Spec/C3/ValueConstraints.lean:130`).
+- No passage of the specification uses « box » or « boxed » in the sense of a
+  heap representation (searched: `boxed`, `unboxed`, `boxing`).
+- « empaqueter » is used for the existential (« ∃a. τ empaquète une valeur »,
+  « d'empaqueter avec la valeur la preuve », `OpenStructuresEffectsAndMetatheory.lean:83,92`)
+  and for a representation choice (« le choix d'empaqueter une
+  représentation d'exécution efficace avec des invariants effaçables »,
+  `ValueConstraints.lean:75`).
+- « paquet » names the existential package (`OpenStructuresEffectsAndMetatheory.lean:88-89`,
+  `ValueConstraints.lean:62`, annex A « paquet existentiel ») and, since
+  Q-SPEC-602, the distributed, versioned and certified thing (« frontière de
+  paquet », chapter 6; « la signature des paquets », chapter 3; `ERR-PKG-003`
+  « Preuve SMT d'un paquet invalidée à la re-vérification locale », annex A).
+- The catalogue already asks for the canonical K word of the existential
+  eliminator, unanswered: Q-TOKEN-002 (`open`, `unpack`, or `open` kept with a
+  distinction of sort), noting the collision with Lean's `open` keyword.
+
+#### Observed in the literature
+
+- GHC: « Most types in GHC are boxed, which means that values of that type
+  are represented by a pointer to a heap object »; « An unboxed type, however,
+  is represented by the value itself, no pointers or heap allocation are
+  involved » ([GHC User's Guide, Unboxed types and primitive operations](https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/primitives.html)).
+- Rust: `Box<T>` is « A pointer type that uniquely owns a heap allocation of
+  type `T` » ([Rust standard library, `Box`](https://doc.rust-lang.org/std/boxed/struct.Box.html)).
+
+#### Interpretation (not decided)
+
+- Between the two pairs there is no formal ambiguity: `box`/`unbox` and
+  `pack`/`open` introduce and eliminate different types under different rules.
+- There are three ambiguities of naming. The existential eliminator is called
+  `open` in the formal text and `unpack` in the prose. « box » carries, in GHC
+  and Rust, the sense of a heap allocation, which a reader may bring to
+  K7PL's graded `box_r`, all the more since chapter 6 lowers representations.
+  « paquet » and « empaqueter » each name two things.
+- The choice is the author's: which word the existential eliminator takes
+  (Q-TOKEN-002), whether the graded box keeps the word « box », and which word
+  the distributed thing takes if « paquet » stays with the existential. It is
+  asked in the next part.
+
+### What the prefix rule leaves without a writing (Q-SPEC-607)
+
+#### Observed
+
+- The prefix rule as applied: each word takes its operands on its right; a
+  dyadic word followed by one operand takes it as its right argument and the
+  train's argument as its left; a monadic word with nothing on its right takes
+  the train's argument; a bracketed group counts as one word.
+- Under this rule, `[g h]` with `g` dyadic and `h` monadic is
+  λx. x g (h x), and the mean `[add fold div length]` is Σ(x ÷ n): the same
+  writing and value as before, with another structure. The standard deviation
+  is written `[sqrt [add fold div length] square sub add fold div length]`.
+- The fork of the eighth part, λx. (f x) g (h x) for any monadic `f` and `h`,
+  was the reading of a dyadic word that took the word on its left. It is
+  withdrawn, and no other rule gives it a writing: in `[g f h]` the monadic `f`
+  takes `h` as its operand, so `g` receives one operand, f(h x). The range of a
+  vector, (max x) − (min x), has no writing under the rule as applied.
+- Modifiers still follow their operand (`add fold`) or stand between two
+  (`[cond] choose [branches]`): they take an operand on their left. The
+  answer speaks of dyadic words and does not say whether it extends to them.
+
+#### Interpretation (not decided)
+
+- Either a train keeps only what the prefix rule writes, the fork becoming a
+  named combinator, a word of two function operands (BQN's and FIXAPL's fork
+  is a reading, not a word); or a nilad standing for the train's argument
+  lets a branch end (`[sub max ⊢ min]` for the range, ⊢ being a placeholder);
+  or the fork is left to layer 2, where arguments are named.
+- Extending the rule to modifiers would write `[fold add]` and
+  `[choose [cond] [branches]]`, as layer 2 writes them, and would withdraw the
+  infix placement decided in the ninth part.
+- Both are asked in the next part; neither is decided here.
+
 ## Archive review: early K premises (`OLD_K_K7PL`)
 
 Received from the author on 2026-10-27 as `OLD_K_K7PL.zip`, described

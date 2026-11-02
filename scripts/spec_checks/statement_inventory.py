@@ -48,6 +48,9 @@ EXPECTED_COMPANION_LABELS = {
     # Author decision 2026-10-27 (Q-SPEC-301, which revises Q-SPEC-206 to its option B):
     # the stratified-negation corollary of thm:terminaison_lfp, state "proposed".
     "thm:terminaison_strates",
+    # Author decision 2026-10-29 (Q-SPEC-606, option A): Kahn sub-networks pursued as an
+    # open proposition of chapter 4, state "proposed".
+    "thm:sous_reseaux_kahn",
 }
 HISTORICAL_ROW = re.compile(r"^\| `[^\`]+` \| \d+ \| `(?P<label>[^\`]+)` \|", re.M)
 HISTORICAL_LEVEL_ROW = re.compile(

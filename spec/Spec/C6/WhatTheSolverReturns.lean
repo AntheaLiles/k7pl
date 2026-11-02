@@ -106,6 +106,16 @@ le jugement ne porte déjà, et le langage n'a pas de langage de modules sépar�
 tombe — s'il fallait une quatrième obligation —, K7PL rejoindrait les deux échecs ci-dessus et
 devrait ajouter le dispositif qu'ils ont dû ajouter.
 
+Le module dont l'interface est ici le jugement est l'unité de compilation elle-même : un ensemble
+nommé de définitions muni d'une interface, et c'est lui qui porte cette interface, le budget de
+spécialisation et l'estampille. Chaque définition y est identifiée par le condensat de son arbre
+normalisé, comme les instances le sont déjà (§{num "sec:c6-le-processus-de-compilation"}[]) : elle
+n'est typée qu'une fois, et ses résultats se gardent sans jamais s'invalider, puisqu'un changement
+réel change son condensat. Un fichier n'est qu'un périmètre lexical : il borne la portée de ses noms
+et ne délimite ni un module ni une unité. Ce qui se distribue, se versionne et se certifie est le
+_paquet_, et la frontière de paquet est celle où un certificat est exigé
+(§{num "sec:c6-le-processus-de-compilation"}[]).
+
 Une conséquence pratique en découle, et elle n'est pas confortable : si le grade est dans
 l'interface, alors le changer change l'interface, et les unités dépendantes recompilent. C'est une
 contrainte réelle, mais elle est du bon côté — la translucidité est ici l'honnêteté, et une
@@ -122,6 +132,29 @@ Les quatre sites en sont les instances, et aucun n'a été ajouté pour la satis
 * Le compte de ressource du solveur, le quatrième et le dernier à l'avoir reçu. _L'exigence ne
   prescrit donc rien de neuf — elle nomme ce que le pipeline faisait déjà en quatre endroits sans le
   dire nulle part._
+
+À cette exigence s'ajoutent six objectifs, que le compilateur vise sans que le langage en dépende.
+
+* Les résultats de chaque phase sont indexés par condensat, celui du compilateur compris, de sorte
+  qu'une compilation incrémentale rende exactement ce que rend une compilation complète.
+
+* La compilation est incrémentale et procède par requêtes ; elle s'arrête dès qu'un résultat
+  recalculé est inchangé, un système de construction minimal n'exécutant une tâche que si elle dépend
+  d'une entrée modifiée {cite "mokhovBuildSystemsCarte2018"}[].
+
+* Les définitions, les obligations et les instances se traitent en parallèle dès qu'elles sont
+  indépendantes, ce que permettent des noms fixés avant la vérification et des signatures
+  obligatoires.
+
+* La vérification se garde en cache et se rejoue, les certificats servant aussi à l'intérieur d'une
+  compilation, de sorte que le vérificateur ne refait que ce que la dernière modification touche
+  {cite "leinoFineGrainedCaching2015"}[].
+
+* Le solveur suit une discipline : le fragment $`\mathcal{T}_0`, pas de quantificateurs, des
+  requêtes courtes et des comptes de ressource, une seule hypothèse quantifiée mal choisie pouvant
+  rendre très longue une preuve autrement simple {cite "fstarUnderstandingZ3"}[].
+
+* Une erreur s'annonce au plus tôt, par le manifeste de la Phase 2 et par le serveur de langage.
 
 La clause qui interdit le délai est celle qui porte tout le reste. Un délai dépend de la machine ;
 deux compilations d'une même source y donneraient des résultats différents, et la reproductibilité

@@ -25,11 +25,11 @@ tag := "c5-mise-en-pratique"
 autorise, et laisser les délimiteurs en porter la trace. Avant de composer les trois couches sur un
 exemple complet, un mot sur ce que la notation tacite du §{num "sec:c5-notations-specialisees"}[]
 donne à voir une fois débarrassée de ses noms. La moyenne d'un tableau s'écrit
-`[add fold div length]` : plier par addition, diviser par la longueur ; l'éditeur l'affiche `[+´÷≠]`,
-chaque mot remplacé par son glyphe à sa place. Son écart-type s'écrit
-`[sqrt [add fold square identity sub add fold div length] div length]`, affiché
-`[√[+´²⊢-+´÷≠]÷≠]` : la même moyenne soustraite à chaque élément, élevée au carré, repliée
-et divisée à son tour, puis passée à la racine. Aucun argument n'y est nommé ; le train se lit comme
+`[add fold div length]` : diviser chaque élément par la longueur, puis plier par addition ;
+l'éditeur l'affiche `[+´÷≠]`, chaque mot remplacé par son glyphe à sa place. Son écart-type s'écrit
+`[sqrt [add fold div length] square sub add fold div length]`, affiché `[√[+´÷≠]²-+´÷≠]` : la
+moyenne soustraite à chaque élément, l'écart élevé au carré, la même moyenne prise de ces carrés,
+puis passée à la racine. Aucun argument n'y est nommé ; le train se lit comme
 une composition de fonctions plutôt que comme une suite d'instructions, ce que le
 §{num "sec:c5-notations-specialisees"}[] annonçait.
 
@@ -59,7 +59,11 @@ ici un `Result`, puisque le débordement reste une issue normale du calcul plut�
 lever. La couche 3 n'ayant que des mots monadiques et dyadiques, le choix s'y écrit par un modifieur
 de deux opérandes, comme le Choose de BQN {cite "lochbaumBQNChoose"}[] : `choose` prend à sa gauche la
 condition et à sa droite la liste des branches, dont il n'évalue que celle que la condition désigne,
-la première pour `f`, la seconde pour `t`.
+la première pour `f`, la seconde pour `t`. Pour un vecteur de conditions, le `select` dyadique,
+sélection par indices, prend un masque sur une paire et calcule les deux branches élément par élément,
+sans branchement : c'est le `select` vectoriel du chapitre 1 et de la proposition
+{num "thm:homomorphisme_roues"}[]. Chacun dit ainsi son coût, `choose` n'évaluant qu'une branche et
+`select` les deux.
 
 Autour de ce calcul, une couche 2 orchestre l'effet observable : recevoir un message, appeler la
 fonction pure, décrire le nouvel état sans jamais le muter directement. Ce gestionnaire, le
@@ -131,7 +135,12 @@ livraison, de couche 2, que la réaction décrit et que l'exécutif réalise. Un
 événements ou n'en produit pas, se journalise ou non, selon ce que l'acteur décide. Une livraison
 envoie des messages et persiste : une réponse n'est qu'un message envoyé à l'émetteur, qui le reçoit
 par sa propre clause `:on` ; le monde extérieur se joint par un message à l'acteur qui porte
-l'interopérabilité étrangère ; une livraison différée s'écrit par `defer` dans une clause `:on`. Un
+l'interopérabilité étrangère ; une livraison différée s'écrit par `defer` dans une clause `:on`,
+suivi d'une quantité typée dans une unité de temps, qui la reporte à plus tard, ou dans une unité de
+compte, une époque ou un tic par exemple, qui la reporte d'autant de pas. À côté du journal, une
+livraison persiste par défaut un instantané de l'état, de sorte qu'un acteur redémarre à son dernier
+état connu ; le développeur peut y ajouter explicitement les messages, les événements ou d'autres
+éléments. Un
 scénario est ainsi la réaction à un message, et un protocole entre acteurs un type de session
 (§{num "sec:c3-les-contraintes-de-valeur"}[]) dont chaque pas est une réaction. La voie modulaire,
 où l'association est portée par une structure plutôt que déduite, est activement conçue ailleurs
@@ -142,7 +151,8 @@ s'écrit entre parenthèses, le délimiteur de la couche 2, que le bloc de couch
 transition entre crochets, où `state` désigne l'état de l'acteur. Le type
 `int`, sans largeur, est un trou typé que la monomorphisation fixe dans la famille des entiers, une
 fois le solveur passé (§{num "sec:c6-le-processus-de-compilation"}[]) : à la
-plus petite largeur qui contient toutes les valeurs que le solveur sait borner, le programme étant
+plus petite puissance de deux, à partir de 8 bits, qui contient toutes les valeurs que le solveur
+sait borner, le programme étant
 refusé si le solveur n'en borne aucune (`ERR-SMT-003`) : le développeur précise alors son intention
 dans le code. Ces
 trois déclarations respectent la forme descendante

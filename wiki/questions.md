@@ -3932,6 +3932,12 @@ Every word of the examples (`choose`, `defunit`, `defmodule`, `defer`, `persist`
 - **E — ML-style modules: signatures, structures, functors.** *For:* the strongest separate type checking. *Against:* chapter 6 already rules out a separate module language; a functor names parameters, which VOC-2026-10-28-037 refuses.
 - **C — No module.** *For:* nothing new. *Against:* chapter 6's interface, budget, stamp and certificate lose their object; no separate compilation.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-013), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** D
+- **Reading:** definitions are identified by a hash of their normalised tree, as chapter 6 already names its instances, so that each is typed once and its results are cached for good; a module is a named set of definitions with an interface, the boundary that carries the interface, the specialisation budget and the stamp; files are lexical perimeters only (option D). Read with Q-SPEC-602, which puts the version and the certificate on the package: option D's example wrote `:version` on the module, and whether a module carries a version of its own is put back. Applied: chapter 6.
+
+
 #### Q-SPEC-602 — Module, unit, package: how many words
 
 **Object.** Chapter 6 says « Une interface de module doit énoncer trois choses » and then defines the interface of a compilation unit; it also speaks of « la frontière de paquet ». Whatever Q-SPEC-601 decides, the specification needs to say whether these name one thing or several.
@@ -3940,6 +3946,12 @@ Every word of the examples (`choose`, `defunit`, `defmodule`, `defer`, `persist`
 - **B — Two: the module (= the unit) and the package, what is distributed, versioned and certified.** *For:* as Rust's crate and Cargo package; the certificate boundary of chapter 6 gets its own word. *Against:* two words to choose.
 - **C — Three: module, unit and package apart.** *For:* each of Leroy's processes and distribution has its word. *Against:* three notions to keep consistent.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-014), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** two words: the module, which is the compilation unit, and the package, which is distributed, versioned and certified, the certificate boundary of chapter 6 being the package's (option B). The words themselves are chosen later. Applied: chapter 6.
+
+
 #### Q-SPEC-603 — Gap: « paquet » names two things
 
 **Object.** Chapter 3 calls an existential package a « paquet » (`pack`, `unpack`, « filtrage sur paquet effacé »); chapter 6 calls « frontière de paquet » the boundary across which SMT obligations need a certificate, and chapter 3 names « la signature des paquets » among boundary strategies.
@@ -3947,6 +3959,13 @@ Every word of the examples (`choose`, `defunit`, `defmodule`, `defer`, `persist`
 - **A — « paquet » stays for existentials; the distributed thing takes another word.** *For:* the type-theoretic term is the older and the more precise. *Against:* chapter 6 and chapter 3's boundary sentence are reworded.
 - **B — « paquet » is the distributed thing; chapter 3 writes « paquet existentiel » in full.** *For:* matches common usage of « package ». *Against:* chapter 3's existential passages are reworded.
 - **C — Leave both, the context telling them apart.** *For:* no change. *Against:* a reader of chapter 6 may read an existential where a distribution is meant.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-025), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** Vérifie qu'il n'y a pas d'ambigüité entre `pack` `unpack` et `box` `unbox`.
+- **Reading:** left open: the author asks to check that `pack`/`unpack` and `box`/`unbox` are not ambiguous. The check is in research.md (« Reading lot: research after the eleventh part »); what it finds returns as a question of the next part. Nothing is applied.
+
 
 ### Top-level forms, after Report 2
 
@@ -3973,11 +3992,23 @@ Every word of the examples (`choose`, `defunit`, `defmodule`, `defer`, `persist`
 - **F — D, with C's order among the event sources.** *For:* lazy processes, ordered sources. *Against:* two rules.
 - **E — One entry point (`main`).** *For:* explicit, as Haskell and Pony. *Against:* contradicts autonomous top-level processes.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-015), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** F
+- **Reading:** top-level `( )` forms are processes, `{ }` forms declare and a top-level `[ ]` is a value; top-level processes are chapter 4's virtual actors, activated by their first message, and only event sources (an ingress, a `defer`) start at once, in Phase 2's dependency order, the sources of one rank starting in parallel (option F). What starts a program is thus its event sources. Applied: chapter 4, after the virtual actor.
+
+
 #### Q-SPEC-605 — What « même rang » means
 
 - **A — The same depth in the dependency order.** A stratification: one stratum in parallel, strata in sequence, as the strata of chapter 2's `thm:terminaison_strates`. *For:* a precise meaning, already computed in Phase 2. *Against:* only useful if start is ordered (C or F).
 - **B — The same layer, not nested.** *For:* read off the text. *Against:* gives no order; order comes from messages.
 - **C — Nothing more is needed.** Under lazy activation (D), processes have no rank, only messages. *For:* one notion less. *Against:* your statement loses a word.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-016), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** « même rang » is the same depth in the dependency order: the forms of one stratum start in parallel, the strata in sequence (option A); with Q-SPEC-604 it orders the event sources. Applied: chapter 4.
+
 
 #### Q-SPEC-606 — Kahn sub-networks, a hypothesis
 
@@ -3990,6 +4021,12 @@ Every word of the examples (`choose`, `defunit`, `defmodule`, `defer`, `persist`
 - **A — Pursue it as an open proposition of chapter 4.** Phase 2 recognises such sub-networks, and their interleavings are not journaled. *For:* a shorter journal without weaker replay. *Against:* a proof that the executive preserves the restriction is owed.
 - **B — Keep it in research only.** *For:* no commitment yet.
 - **C — Drop it.** *For:* one journal rule for every actor.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-017), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** Kahn sub-networks are pursued as an open proposition of chapter 4: Phase 2 recognises the sub-networks whose channels each have one writer and one reader, read by blocking receives, and their interleavings are not journaled; the proof that the executive preserves the restriction is owed (option A). Applied: chapter 4, as a conjecture that cites Kahn and MacQueen through Lee.
+
 
 ### Compilation time, after Report 3
 
@@ -4015,6 +4052,12 @@ Several options may be chosen.
 - **S7 — Two back ends: a fast one for development, an optimising one for release.** *For:* short loops; the language server checks while writing. *Against:* two back ends to keep equivalent.
 - **S8 — Fail early (Phase 2's manifest, the language server).** *For:* already in chapter 6. *Against:* none new.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-018), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** S1, S2, S3, S4, S5, S8
+- **Reading:** six strategies are written into the specification as aims: every phase's results keyed by hash, the compiler included (S1); query-based incremental compilation with early cutoff (S2); parallelism by the independence of definitions, obligations and instances (S3); cached and replayed verification, certificates being used locally too (S4); a solver discipline of 𝒯₀, no quantifiers, small queries and resource counts (S5); failing early (S8). Not retained: fewer instances (S6), already in chapter 6 and unchanged there, and two back ends (S7). Applied: chapter 6, after the bounded-compilation requirement.
+
+
 #### Q-TYP-702 — Independent holes and the number of instances
 
 **Object.** Report 3, inferred: holes resolved each at its smallest width (VOC-2026-10-28-040) multiply instances — a `{function int int}` used with four input widths and four output widths may need up to sixteen copies. The specialisation budget bounds them, and refuses beyond it (`ERR-POL-002`).
@@ -4026,6 +4069,12 @@ Several options may be chosen.
 - **A — Keep the smallest width; the budget decides.** *For:* the « plus petite largeur » rule unchanged. *Against:* instances may multiply up to the budget.
 - **B — Round hole widths to a small set (8, 16, 32, 64…).** *For:* few instances, shared between uses. *Against:* a hole may get more bits than it needs.
 - **C — Smallest width, rounded only when the budget would be exceeded.** The compiler rounds and reports it with a `HEY-` remark. *For:* precision by default, compilation still bounded. *Against:* an instance's width depends on the rest of the program.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-019), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** hole widths are rounded to a small set, 8, 16, 32, 64 bits and so on, read as the powers of two from 8: a typed hole takes the smallest width of that set that holds every value the solver bounds (option B). This replaces « la plus petite largeur » of VOC-2026-10-28-040; the example of chapter 5 keeps its widths, 8 and 16 being in the set. Applied: chapter 5.
+
 
 ### Layer 3, put back
 
@@ -4052,6 +4101,12 @@ Several options may be chosen.
   [abs 4 sub neg 7]    ;; refused: two results, |4| and x+7
   ```
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-020), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** B et sans équivoque. Le dyadique regarde le premier et le deuxième à droite. Pure application de la Polish Notation. Le débat est clos. Pas d'histoire de regarder à gauche ou je sais pas quoi.
+- **Reading:** prefix, as option B without its fork: a dyadic word takes the first and the second operand on its right, as in Polish notation, and no word takes an operand on its left. Kept from option B's body: a dyadic word followed by one operand takes it as its right argument, the train's argument giving the left one, so `[sub 1]` stays x − 1 (VOC-2026-10-28-032); a monadic word with nothing on its right takes the train's argument. Withdrawn: the fork of the eighth part (VOC-2026-10-28-012), where a dyadic word took the word on its left. The mean `[add fold div length]` keeps its writing and its value, read now as the sum of each element divided by the length; the standard deviation, which needed the fork, is rewritten `[sqrt [add fold div length] square sub add fold div length]`. Put back: whether the rule extends to modifiers, which still follow their operand (`add fold`) or stand between two (`choose`). Applied: chapter 5.
+
 
 #### Q-SPEC-608 — Gap: `choose` and the vector mask
 
@@ -4065,6 +4120,13 @@ Several options may be chosen.
 - **B — `choose` lowers to a mask when its condition is a vector.** *For:* one word; purity makes both lowerings equal in value. *Against:* the cost of a `choose` depends on its condition's type.
 - **C — `choose` only; masks written with arithmetic.** *For:* one form. *Against:* chapter 1's synopsis and the theorem are rewritten.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-021), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Je pense que select suffit mais nous le vérifierons plus tard.
+- **Reading:** two words: `choose`, for one condition, evaluates only the designated branch; the dyadic `select`, selection by indices, applied with a mask over a pair, computes both branches lane by lane, as chapter 1's synopsis and `thm:homomorphisme_roues` say (option A). The justification expects `select` may suffice; that is to be checked later, and is recorded so. Applied: chapter 5.
+
+
 ### Actors, put back
 
 #### Q-ACT-008 — Gap: where the actor cluster is defined
@@ -4074,6 +4136,13 @@ Several options may be chosen.
 - **A — The cluster is chapter 4's execution instance.** The actors whose fibrils share one instance's memory; shared steps are definitions placed in that memory. *For:* uses what chapter 4 states. *Against:* an execution instance is a realisation choice, not a source construct.
 - **B — The cluster is a module (Q-SPEC-601).** Shared steps are its definitions, visible to its actors. *For:* no new notion. *Against:* a module is a unit of compilation, not of memory.
 - **C — A declared cluster.** Example: `{defcluster billing :actors (invoice payment) :steps (below-bound notify)}`. *For:* explicit, in the source; the archive's form. *Against:* a new declaration and its rules to write in chapter 4.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-022), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** C'est la seule façon de spécifier le partage sécurisé et sûre d'un espace mémoire à des acteurs différents. Et c'est précisément l'objectif de notre spécification.
+- **Reading:** the actor cluster is chapter 4's execution instance: the actors whose fibrils share one instance's memory, under the acquire-release model; shared steps are definitions placed in that memory (option A). The justification gives the reason: it is the only way to specify the safe sharing of one memory space between different actors, which is what the specification aims at. Applied: chapter 4.
+
 
 #### Q-ACT-009 — What `defer` defers
 
@@ -4089,6 +4158,13 @@ Several options may be chosen.
 - **B — A delivery after the reaction is persisted.** The delivery runs once the decision's events are in the journal, as Akka's `thenRun`. *For:* the meaning `defer` has in Go; deliveries never precede what replay needs. *Against:* timers need another form.
 - **C — Both, by what follows the word.** *For:* one word. *Against:* two meanings to learn.
 
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-023), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** Ce qui suis `:deffer` devra être typé en unité de temps ou unité de compte (epoch, tick, etc.)
+- **Reading:** `defer` has both meanings, told apart by what follows it, and what follows `:defer` is typed in a unit of time or a unit of count, an epoch or a tick for instance (option C, with the justification). Read: a duration defers a delivery to a later time, as Erlang's `send_after`; a count defers it by logical steps. Which count expresses option B's meaning, a delivery once the reaction is persisted, is put back. Applied: chapter 5.
+
+
 #### Q-ACT-010 — What `persist` writes beside the journal
 
 **Object.** The journal holds messages and capability values, and an actor may add its events (VOC-2026-10-29-007). Chapter 4: « Une réalisation peut sérialiser l'état inactif dans un instantané journalisé, restituer sa mémoire puis rejouer les messages consignés lors de la réactivation », snapshot and journal being « des choix de réalisation ».
@@ -4096,6 +4172,13 @@ Several options may be chosen.
 - **A — The events the actor declares.** *For:* event sourcing where it is declared (Q-ACT-003). *Against:* replay needs every event since the start.
 - **B — A snapshot of the state.** *For:* short replay; chapter 4's lifecycle. *Against:* the history between snapshots is in messages only.
 - **C — Both, the snapshot bounding the replay of events.** *For:* audit and short replay. *Against:* two things to keep consistent.
+
+**Answer of the author — 2026-10-29 (VOC-2026-10-29-024), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** Déjà répondu, par défaut l'option B qui permet de redémarrer au dernier état connu (Erlang et compagnie) et si le développeur le choisi explicitement il peut ajouter le message, l'évènement, etc.
+- **Reading:** by default `persist` writes a snapshot of the state (option B), so that an actor restarts at its last known state, as in Erlang; the developer may explicitly add the messages, the events and so on. The author recalls that this was already answered: it agrees with VOC-2026-10-29-007, where the journal holds the messages and the capability values and an actor may add its events. Applied: chapter 5.
+
 
 ## The catalogue, verbatim
 

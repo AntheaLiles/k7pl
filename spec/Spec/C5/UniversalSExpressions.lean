@@ -190,20 +190,23 @@ y porte une arité typée — monadique ou dyadique, jamais triadique ni n-aire,
 étant ceux de la couche 2, dont les délimiteurs bornent l'action —, et c'est elle qui
 permet à l'élaboration de distinguer un train d'une application ; un glyphe employé sous deux arités
 porte donc un alias par arité. C'est encore l'arité de chaque mot, et non la longueur du train, qui
-décide de son assemblage, selon la règle de FIXAPL {cite "lockwoodFIXAPL"}[], et un train rend un seul
-résultat. Le train s'assemble de
-droite à gauche : un mot monadique s'applique au résultat de ce qui est à sa droite ; un mot dyadique
-précédé d'un mot forme avec lui une fourche, le mot de gauche s'appliquant aux arguments du train et
-son résultat devenant l'argument gauche du mot dyadique, dont l'argument droit est le résultat de ce
-qui est à sa droite ; sans mot à sa gauche, un mot dyadique prend l'argument gauche du train ; une
-paire de crochets intérieure compte pour un mot. Un modifieur d'un opérande suit cet opérande, un
-modifieur de deux se place entre eux, et les modifieurs se prennent avant l'assemblage du train :
-`[add fold div length]` se lit `[[add fold] div length]`. Une valeur peut terminer un train :
+décide de son assemblage, comme dans FIXAPL {cite "lockwoodFIXAPL"}[], et un train rend un seul
+résultat. Le train se lit en notation préfixe, celle des couches 1 et 2 sans leurs parenthèses :
+chaque mot prend ses opérandes à sa droite, un mot monadique le premier, un mot dyadique le premier
+et le deuxième, et aucun mot ne prend d'opérande à sa gauche. `[abs sub 4 neg 7]` vaut ainsi
+$`|4 - (-7)| = 11`, comme `(abs (sub 4 (neg 7)))`, et `[abs 4 sub neg 7]` est refusé, puisqu'il
+laisserait deux résultats, $`|4|` et $`x + 7`. Une paire de crochets intérieure compte pour un mot.
+Les opérandes qui manquent viennent des arguments du train : un mot monadique sans rien à sa droite
+s'applique à l'argument du train, et un mot dyadique suivi d'un seul opérande le prend pour argument
+droit, l'argument gauche du train, ou son seul argument, étant son argument gauche. Un modifieur d'un
+opérande suit cet opérande, un modifieur de deux se place entre eux, et les modifieurs se prennent
+avant l'assemblage du train : `[add fold div length]` se lit `[[add fold] div length]`, la somme de
+chaque élément divisé par la longueur, c'est-à-dire la moyenne. Une valeur peut terminer un train :
 `[sub 1]` est la fonction $`x - 1`, la valeur étant l'argument droit de `sub` et l'argument du train
 son argument gauche. Un crochet n'est une application que lorsque sa tête y reçoit tous ses
-arguments (`[add 1 2]`). L'écart-type s'écrit ainsi avec
-un seul groupe intérieur, `[sqrt [add fold square identity sub add fold div length] div length]`
-(§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[+´÷≠]`, est une vue de l'éditeur, qui
+arguments (`[add 1 2]`). L'écart-type s'écrit ainsi avec un seul groupe intérieur,
+`[sqrt [add fold div length] square sub add fold div length]` : la moyenne du carré de l'écart de
+chaque élément à la moyenne, passée à la racine (§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[+´÷≠]`, est une vue de l'éditeur, qui
 remplace chaque mot par son glyphe à sa place et le colore selon son rôle, que son type indique :
 valeur, fonction, modifieur d'une fonction ou modifieur de deux. Un glyphe de la table du chapitre 1 ne se lit seul que dans une suite
 faite seulement de glyphes et de modifieurs, comme `+´÷≠` ; toute autre suite se lit d'un tenant,
@@ -223,7 +226,9 @@ minuscules et n'apparaît qu'après une propriété qui l'annonce, `:num` ou `:t
 (`:num int32`). Un générique ne nomme aucun paramètre de type : il s'écrit avec des trous typés, que
 la monomorphisation, une fois le solveur passé, résout pour chaque emploi dans leur famille et recopie
 en instances concrètes (§{num "sec:c6-le-processus-de-compilation"}[]). Chaque trou se résout pour
-lui-même, à la plus petite largeur dont il a besoin : `{function int int}` a deux trous typés de la
+lui-même, à la plus petite largeur d'un ensemble restreint, les puissances de deux à partir de 8
+bits (8, 16, 32, 64…), qui contienne toutes ses valeurs, de sorte que des emplois voisins partagent
+leurs instances : `{function int int}` a deux trous typés de la
 famille des entiers, son entrée et sa sortie, et une puissance de deux dont l'entrée, bornée par 10,
 tient dans un `int8` rend une sortie bornée par $`2^{10} = 1\,024`, qui tient dans un `int16` ; une
 fonction qui veut deux largeurs égales écrit cette largeur. Une paire vide est la structure vide de sa couche, chaque couche étant elle-même une

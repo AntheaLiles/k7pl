@@ -79,6 +79,15 @@ rejouer les messages consignés lors de la réactivation. L'instantané, le jour
 physique et l'atomicité de l'activation sont des choix de réalisation ; les coûts et les limites de
 capacité dépendent du profil retenu.
 
+Les formes de premier niveau d'un texte s'y rattachent. Une forme `( )` qu'aucune autre n'encapsule
+est un processus : un acteur virtuel, activé par son premier message. Une forme `{ }` de premier
+niveau déclare, et une forme `[ ]` de premier niveau est une valeur. Seules les sources
+d'événements — une entrée du monde extérieur, un `defer` — démarrent aussitôt, dans l'ordre des
+dépendances que calcule la Phase 2 (§{num "sec:c6-le-processus-de-compilation"}[]) : les sources de
+même rang, c'est-à-dire de même profondeur dans cet ordre, démarrent en parallèle, et les rangs se
+suivent, comme les strates du théorème {num "thm:terminaison_strates"}[]. Ce qui démarre un
+programme est donc l'ensemble de ses sources d'événements, et non un point d'entrée unique.
+
 ::::figure (label := "fig:acteur-cycle-de-vie") (src := "virtual-actor-lca") (alt := "Cycle à deux états. Un point initial mène à Désactivé. De Désactivé vers Actif, l'activation charge l'instantané et rejoue le journal. Sur Actif, une boucle figure le traitement de message. D'Actif vers Désactivé, l'inactivité gèle l'état, le persiste et libère la mémoire.") (width := "90")
 :::caption
 Exemple de cycle de vie par instantané et rejeu
@@ -207,6 +216,43 @@ d'élision de champ en sont trois projections. Les énoncés de disposition ({nu
 donné, non des résultats du calcul des types. La phase 7 a pour rôle de contrôler cette conformité ;
 ce contrôle ne remplace pas la formalisation des hypothèses et des preuves encore ouvertes associées
 à ces énoncés.
+
+Le journal consigne l'entrelacement des messages parce qu'une boîte qui fusionne plusieurs émetteurs
+n'est pas déterministe. Un sous-réseau dont chaque canal n'a qu'un écrivain et qu'un lecteur, lu par
+des réceptions bloquantes, échappe à cette raison, et ce document poursuit la proposition suivante
+sans la tenir pour acquise.
+
+::::conjecture (label := "thm:sous_reseaux_kahn") (level := "langage") (role := "conjecture") (state := "proposed") (evidence := "proofsketch") (scope := "concurrency")
+:::title
+sous-réseaux de Kahn, sans journal d'entrelacement
+:::
+
+:::statement +titled
+Ce que la restriction rend déterministe
+
+Soit $`N` un sous-réseau d'acteurs que la Phase 2 reconnaît dans le graphe de câblage : chacun de
+ses canaux a un seul écrivain et un seul lecteur, et chaque acteur de $`N` n'y lit que par des
+réceptions bloquantes sur un canal à la fois, sans tester la présence d'un message ni choisir entre
+plusieurs canaux. Alors deux exécutions de $`N` sur les mêmes entrées produisent la même suite de
+messages sur chacun de ses canaux, et le rejeu de $`N` reproduit son état final à l'observation près
+sans que l'entrelacement de ses messages soit journalisé.
+:::
+
+:::proofsketch
+Non conduite. Dans le modèle des réseaux de processus de Kahn et MacQueen, les lectures bloquantes
+garantissent que tout réseau définit un calcul déterministe {cite "leeProblemThreads2006"}[]. Il
+reste à montrer que les acteurs de $`N` s'y ramènent : un canal d'un seul écrivain est un anneau de
+la boîte décrite plus bas, et une réception bloquante sur un seul anneau n'a aucun choix à consigner.
+:::
+
+:::note
+_Obligation ouverte._ L'état de conjecture est maintenu. Restent à définir la reconnaissance de
+$`N` par la Phase 2, à montrer que l'exécutif préserve la restriction — un écrivain, un lecteur,
+des réceptions bloquantes — pendant toute l'exécution, et à relier l'énoncé au théorème
+{num "thm:determinisme_rejeu"}[], dont il allégerait, pour $`N`, la prémisse de complétude du
+journal.
+:::
+::::
 
 Une réalisation peut surveiller la continuité des acteurs par battements de cœur et politiques de
 redémarrage. Ces mécanismes ne suffisent pas à garantir la reprise : l'énoncé « un acteur en panne
@@ -491,7 +537,10 @@ Pour la réalisation choisie, les barrières nécessaires et suffisantes doivent
 preuve de raffinement et les hypothèses de progrès, non par le seul comptage des opérations.
 
 Dans un profil où plusieurs fibrilles partagent la mémoire d'une même instance d'exécution, le
-modèle acquisition-libération gouverne cette mémoire partagée. Entre instances distinctes, l'ordre
+modèle acquisition-libération gouverne cette mémoire partagée. Un _cluster_ d'acteurs est cette instance : les
+acteurs dont les fibrilles en partagent la mémoire. Les étapes que ses acteurs ont en commun sont des
+définitions placées dans cette mémoire, sous le même modèle, et c'est ainsi que se spécifie le
+partage sûr d'un espace mémoire entre des acteurs distincts. Entre instances distinctes, l'ordre
 des messages dépend du protocole de communication retenu ; le journal est une option, non une
 architecture imposée. Le modèle abstrait ne fixe ni le nombre de machines, ni la hiérarchie de caches,
 ni le nombre de cœurs. Toute garantie temporelle chiffrée doit déclarer le profil qui lui donne un

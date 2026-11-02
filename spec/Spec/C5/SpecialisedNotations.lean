@@ -44,9 +44,10 @@ blocs imbriqués — remarque qui vise une syntaxe à expressions symboliques pl
 qui est donc à porter au compte de ce chapitre plutôt qu'à celui d'un outillage futur.
 
 Les trains composent ces primitifs sans nommer leurs arguments, selon l'arité de leurs mots
-(§{num "sec:c5-s-expressions-universelles"}[]) — un train $`(f\;g)` de deux mots monadiques dénote
-$`\lambda x.\, f(g(x))`, un train $`(f\;g\;h)` dont $`g` est dyadique, $`f` et $`h` monadiques,
-dénote la fourche $`\lambda x.\, (f\,x)\; g\; (h\,x)` — tandis que les
+(§{num "sec:c5-s-expressions-universelles"}[]), en notation préfixe — un train $`(f\;g)` de deux
+mots monadiques dénote $`\lambda x.\, f(g(x))`, un train $`(g\;h)` dont $`g` est dyadique et $`h`
+monadique dénote $`\lambda x.\, x\; g\; (h\,x)`, l'argument du train donnant à $`g` son argument
+gauche — tandis que les
 modifieurs `´` (pli), `¨` (chacun), `↢` (liaison gauche) transforment une fonction en une autre. Le
 train est lui-même l'écriture concaténative de la couche 3 : à arité fixe, il s'exécute de droite à
 gauche sur la pile (§{num "sec:c5-s-expressions-universelles"}[]).
