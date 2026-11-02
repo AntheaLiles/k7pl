@@ -313,9 +313,9 @@ revérifiée, l'acyclicité du chapitre 4 (§{num "sec:c4-echelle-du-systeme"}[]
 donner au métalangage sa propre discipline d'ordre, c'est-à-dire la logique linéaire ordonnée du côté cible. Mais c'est
 ce que la voie disponible évite à la source, et le payer à la cible n'est pas le payer moins.
 
-Encore faut-il dire ce qu'est la consommation d'une ressource linéaire, faute de quoi P3 exigerait une libération
-déterministe sans indiquer par quoi elle passe. À tout type linéaire est associé un _destructeur_ : un morphisme invoqué
-au point de consommation, dont l'exécution est fixée par la
+Reste à dire ce qu'est la consommation d'une ressource linéaire, faute de quoi P3 exigerait une libération déterministe
+sans indiquer par quoi elle passe. À tout type linéaire est associé un _destructeur_ : un morphisme invoqué au point de
+consommation, dont l'exécution est fixée par la
 structure du type et non par une politique d'exécution. Le terme est pris au sens que lui donne la
 synthèse des modèles de propriété et d'emprunt des langages systèmes avec les types linéaires de la programmation
 fonctionnelle, où il est expressément distingué du _finaliseur_ {cite "munch-maccagnoniResourcePolymorphism2018"}[]. Le

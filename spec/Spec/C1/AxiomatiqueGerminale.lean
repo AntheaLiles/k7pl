@@ -201,7 +201,7 @@ croire qu'une équivalence de types autorise un changement de disposition, ce qu
   établit et de ce que les théories antérieures livrent. Une composante nouvelle n'est donc pas une
   entorse à justifier, mais l'usage normal d'un objet ouvert.
 
-  Encore faut-il dire à quelles conditions, faute de quoi l'ouverture se lirait comme une licence.
+  Reste à dire à quelles conditions, faute de quoi l'ouverture se lirait comme une licence.
   Elles sont au nombre de quatre. La composante doit être une _structure ordonnée_. Ses opérations
   propres doivent se définir sur son facteur ; l'ordre du produit est pris point par point {cite "mannucciResourceBoundedTypeTheory2025"}[]. Si la
   composante participe à une mise à l'échelle, elle doit en outre porter une _action précisément
@@ -599,8 +599,8 @@ _thunkabilité_ que la démonstration désigne comme la sortie du triangle, et K
 _est_ la séparation des valeurs et des calculs qu'il tient de son régime d'évaluation.
 
 Une seconde économie, plus concrète, suit du même choix. La voie des _effets comme capacités_ (où un gestionnaire est
-une capacité passée plutôt qu'une portée dynamique) obtient la sûreté d'effet au prix d'une restriction majeure. Il y
-faut séparer les fonctions des valeurs et traiter toutes les fonctions comme de _seconde classe_ {cite
+une capacité passée plutôt qu'une portée dynamique) obtient la sûreté d'effet au prix d'une restriction majeure. La
+restriction sépare les fonctions des valeurs et traite toutes les fonctions comme de _seconde classe_ {cite
 "brachthauserEffectsCapabilitiesEffect2020"}[]. C'est ce que l'appel par poussée de valeur donne, et sans le demander :
 un calcul n'y est pas une valeur, une suspension en est une. Cette voie s'emprunte donc sans en payer le prix de la
 restriction, non celui de l'allocation ou de l'indirection que les suspensions réintroduisent si l'_inlining_ ne les

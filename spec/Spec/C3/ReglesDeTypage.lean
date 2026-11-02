@@ -1004,8 +1004,8 @@ Les deux constructions généralisent bien le même trait (un grade qui est une 
 elles n'indexent pas sur le même objet. La gradation indexée est un foncteur contravariant de la catégorie de base vers
 celle des monades graduées : son indice parcourt les _valeurs_, et c'est ce qui permet à l'effet d'un parcours de
 dépendre de la longueur parcourue. La fonction $`f` d'une opération à portée transforme un grade d'effet en un autre :
-son indice, si l'on veut employer ce mot, parcourt les _effets_. Un foncteur depuis la base ne fournit pas cela ; il
-faudrait que la base contienne l'algèbre des effets, ce qui n'a pas de sens dans la construction retenue.
+son indice, si l'on veut employer ce mot, parcourt les _effets_. Un foncteur depuis la base ne fournit pas cela ; cela
+demanderait que la base contienne l'algèbre des effets, ce qui n'a pas de sens dans la construction retenue.
 
 Ce que la structure requiert est autre chose, et plus modeste : que les transformateurs admissibles forment un _monoïde
 d'endomorphismes_ agissant sur l'algèbre des effets. L'identité y est le gestionnaire transparent, la composition celle

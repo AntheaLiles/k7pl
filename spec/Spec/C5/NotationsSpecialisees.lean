@@ -99,9 +99,9 @@ pour toutes les opérations introduites par macro et n'établit donc ni leur ré
 l'élaboration. Un confinement peut limiter leurs capacités, sans suffire à établir cette modularité. Une interface
 propre aux opérations d'ordre supérieur permettrait de traiter séparément ces obligations.
 
-Encore faut-il dire de quel type est cet AST, faute de quoi l'hygiène resterait une discipline d'implémentation plutôt
-qu'une propriété. L'AST de K7PL est l'algèbre initiale d'une signature à opérateurs liants, intrinsèquement indexée par
-la portée : soit une instance directe du $`\mu F` construit au chapitre 2 (§{num
+Reste à dire de quel type est cet AST, faute de quoi l'hygiène resterait une discipline d'implémentation plutôt qu'une
+propriété. L'AST de K7PL est l'algèbre initiale d'une signature à opérateurs liants, intrinsèquement indexée par la
+portée : soit une instance directe du $`\mu F` construit au chapitre 2 (§{num
 "sec:c2-algebres-coalgebres-et-points"}[]), et non un mécanisme supplémentaire. Cette formulation n'est pas un
 raffinement théorique : c'est elle qui rend génériques, une fois pour toutes et preuves comprises, les parcours que le
 compilateur répète autrement pour chaque opération : renommage, substitution, désucrage, impression {cite
@@ -154,7 +154,7 @@ syntaxe d'une instruction après exécution peut différer de sa forme antérieu
 entre syntaxe, expansion et élaboration, non d'un mécanisme de confinement non spécifié.
 
 Une condition supplémentaire doit être nommée, car elle est distincte du confinement. Qu'une valeur soit close à la
-compilation ne suffit pas à rendre libre le produit engendré par le métaniveau. Il y faut la _générativité_, qui
+compilation ne suffit pas à rendre libre le produit engendré par le métaniveau. Cela demande la _générativité_, qui
 internalise le fait qu'un métaprogramme ne peut pas inspecter la structure des termes du niveau objet. C'est de cette
 propriété, non de la clôture, que se tire la fermeture de l'univers des sommes de produits par la somme dépendante {cite
 "kovacsClosurefreeFunctionalProgramming2024"}[]. La paramétricité du métaniveau en l'objet doit donc être établie dans

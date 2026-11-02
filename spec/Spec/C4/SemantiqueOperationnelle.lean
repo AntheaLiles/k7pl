@@ -964,7 +964,7 @@ les clauses de session ($`\mathbf{End}`, l'émission, la réception, les branche
 laissent écrire par récurrence comme les autres. Mais que leur bonne définition suppose que deux exécutions apparentées
 emploient des noms de canaux _correspondants_. Le second, qui est le vrai, est qu'un canal créé par un calcul de niveau
 supérieur à $`\ell` ne doit pas être observable en deçà, et que rien dans la relation telle qu'elle est écrite ne
-l'assure. Il y faut le système de sortes du métalangage, qui est l'objet que cette extension devait construire : il
+l'assure. Le système de sortes du métalangage l'assure, lui qui est l'objet que cette extension devait construire : il
 l'est (§{num "sec:g-sortes"}[]), avec la correspondance des noms et le fil de temps enfilé, et la clause de session y
 est écrite (formule {num "eq:relation-sessions-mondes"}[]). La relation de cette section reste définie sur les deux
 premières strates, et la non-interférence l'est autant : ce qui manque est l'induction du lemme fondamental sur les

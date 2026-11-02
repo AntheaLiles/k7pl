@@ -570,11 +570,11 @@ portant l'annotation $`r` ; la construction comonadique actuellement établie po
 Deux précisions négatives, qui évitent au lecteur de situer _C_ ailleurs qu'elle n'est. K7PL ne suppose pas son
 exponentielle _libre_ : la structure de comonoïde gradué y est donnée, non construite comme comonoïde cocommutatif
 _cofree_ sur $`A`, de sorte que _C_ n'est pas une catégorie de Lafont. Et K7PL ne suppose pas de biproduits finis. Ces
-deux abstentions vont ensemble, et il faut dire dans quel sens : c'est la _liberté_ de l'exponentielle qui porte le
-risque, l'additivité n'y suffisant pas. Une exponentielle libre jointe aux biproduits finis donne la structure de
-catégorie différentielle, donc une codéréliction {cite "bluteDifferentialCategories2006"}[], {cite
-"lemayCoderelictionsFreeExponential2021"}[]. La réciproque est fausse, et récemment établie comme telle : une
-codéréliction _induit_ l'enrichissement additif, par convolution bialgébrique, de sorte que l'implication ne remonte pas
+deux abstentions vont ensemble : c'est la _liberté_ de l'exponentielle qui porte le risque, l'additivité n'y suffisant
+pas. Une exponentielle libre jointe aux biproduits finis donne la structure de catégorie différentielle, donc une
+codéréliction {cite "bluteDifferentialCategories2006"}[], {cite "lemayCoderelictionsFreeExponential2021"}[]. La
+réciproque est fausse, et récemment établie comme telle : une codéréliction _induit_ l'enrichissement additif, par
+convolution bialgébrique, de sorte que l'implication ne remonte pas
 : une catégorie additive n'a pas pour autant de codéréliction. Il est en outre établi qu'une codéréliction, lorsqu'elle
 existe, est _unique_, ce qui rend la vérification décidable en principe plutôt qu'affaire d'appréciation.
 
