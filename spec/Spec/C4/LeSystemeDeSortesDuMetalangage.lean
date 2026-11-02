@@ -247,7 +247,7 @@ mentionne. Aucun n'est lié, et aucun n'est transmis.
 
 :::proofsketch
 Par induction parallèle à celle du théorème {num "thm:traduction_metalangage"}[], sur la même
-dérivation. La sédimentation range les cas en trois groupes de coût très inégal.
+dérivation. La sédimentation range les cas en trois groupes de coût inégal.
 
 _Couche 3 : aucun cas._ On y a $`\varepsilon = \emptyset` : aucun canal distingué n'existe, le terme
 traduit ne mentionne que des noms de genre $`\mathsf{prog}`, et, quand la traduction enfile le fil

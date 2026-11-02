@@ -20,7 +20,7 @@ tag := "c1-guide-de-lecture"
 %%%
 
 Quatre mots ont ici un sens fixe et ne s'emploient pas l'un pour l'autre. Les énoncés qui suivent
-sont de forces très inégales, et c'est à ces mots qu'on les reconnaît. Un _postulat_ est posé et non
+sont de forces inégales, et c'est à ces mots qu'on les reconnaît. Un _postulat_ est posé et non
 dérivé : les quatre du chapitre 1 sont de cette espèce, et ils servent de filtre d'évaluation plutôt
 que de nomenclature. Un _théorème_ est un énoncé de résultat. Sa démonstration, son esquisse éventuelle et sa réserve
 sont des éléments distincts : le nom du bloc ne vaut ni preuve acquise ni validation de sa portée. Un _engagement_ est tenu pour vrai sans démonstration, et le dit ; la liste
@@ -183,7 +183,7 @@ est la démonstration : le théorème {num "thm:raffinement"}[] en dérive l'aut
 n'établit encore celle-là.
 
 Une lecture est une analogie qui organise sans engager. Il n'en reste que deux, et c'est le résultat
-d'un travail. La plupart des analogies de la première rédaction ont été soit esquissées (le
+d'un travail. Les autres analogies ont été soit esquissées (le
 namespace comme inclusion fonctorielle, l'orchestrateur comme coalgèbre, le grade de présence comme
 fragment affine) soit requalifiées en réserve.
 

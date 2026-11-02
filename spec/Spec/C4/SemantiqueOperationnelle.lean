@@ -692,7 +692,7 @@ Une troisième chose existe pourtant, que ni les règles ni la relation ne porte
 serait la léguer à l'improvisation. Un vérificateur dispose d'une grande liberté dans l'_ordre_ où
 il parcourt l'arbre de syntaxe, et cet ordre décide de la localité des messages d'erreur bien plus
 que le jeu de règles. Les ordres de parcours que les descriptions théoriques emploient par défaut
-n'ont pas été conçus dans ce but, et l'expérience de la famille ML l'établit largement. Cet ordre
+n'ont pas été conçus dans ce but, et l'expérience de la famille ML l'établit. Cet ordre
 n'est ni une règle ni un pas de réduction : il appartient à la spécification de l'outillage
 (interprète, formateur, analyseur, serveur de langage) que le chapitre 7 renvoie à un second temps.
 _Ce renvoi est ici rendu explicite, pour qu'il soit un choix et non un oubli._

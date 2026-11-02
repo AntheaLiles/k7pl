@@ -71,7 +71,7 @@ document retient l'oracle par économie de moyens, et il tient l'écart pour une
 choix.
 
 Une précision de méthode s'y ajoute, qui porte sur la valeur de ce que le test rend. Lorsqu'un test
-vise un comportement de modèle mémoire, les observations qui comptent sont extrêmement rares et de
+vise un comportement de modèle mémoire, les observations qui comptent sont rares et de
 nature probabiliste, de sorte qu'une campagne non réglée donne une confiance _illusoire_ plutôt que
 faible : sans protocole, l'absence d'observation ne distingue pas l'impossible de l'improbable. Une
 méta-étude des travaux antérieurs y relève des résultats de faible reproductibilité et un emploi

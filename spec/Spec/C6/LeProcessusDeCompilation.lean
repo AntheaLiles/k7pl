@@ -37,7 +37,7 @@ dit exactement cela, et le compte reste de huit. Une implantation en comptera bi
 c'est la configuration recommandée plutôt qu'une tension. Le cadre nanopass critique le compilateur
 organisé en un petit nombre de passes monolithiques, difficile à comprendre et à maintenir, où même
 un développeur expérimenté introduit des défauts subtils en modifiant une passe. Il recommande à la
-place une collection de passes très fines n'accomplissant chacune qu'une seule tâche, structure qui
+place une collection de passes fines n'accomplissant chacune qu'une seule tâche, structure qui
 _aligne_ l'implantation sur l'organisation logique {cite "sarkarEDUCATIONALPEARLNanopass2005"}[]. La
 littérature sur la compilation vérifiée y ajoute une seconde raison, indépendante de la
 maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément {cite "pattersonNext700Compiler"}[].
