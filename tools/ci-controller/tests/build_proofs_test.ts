@@ -6,6 +6,7 @@ import { assert, assertEquals, assertStringIncludes } from "./assert.ts";
 import {
   BRIDGE_NATIVE_DECLARATIONS,
   checkBuildLog,
+  DOMAIN_THEOREMS,
   MACHINE_SOUNDNESS_THEOREMS,
   parseCliArgs,
 } from "../src/build_proofs.ts";
@@ -36,6 +37,7 @@ function passingLog(): string {
     ...BRIDGE_NATIVE_DECLARATIONS.map((name) =>
       name.startsWith("K7PL.Bridge") ? dependsLine(name) : noneLine(name)
     ),
+    ...DOMAIN_THEOREMS.map((name) => noneLine(name)),
   ];
   return lines.join("\n") + "\n";
 }
@@ -145,6 +147,21 @@ Deno.test("does-not-depend line does satisfy a bridge/native-boundary declaratio
     !checkBuildLog(log).some((error) => error.includes(declaration)),
     JSON.stringify(checkBuildLog(log)),
   );
+});
+
+Deno.test("missing domain theorem line fails", () => {
+  for (const declaration of DOMAIN_THEOREMS) {
+    const log = passingLog().split("\n").filter((line) =>
+      !line.includes(`'${declaration}'`)
+    ).join("\n");
+    const errors = checkBuildLog(log);
+    assert(
+      errors.some((error) =>
+        error.includes("Missing axiom audit") && error.includes(declaration)
+      ),
+      JSON.stringify(errors),
+    );
+  }
 });
 
 Deno.test("parser yields declaration to axiom-set pairs", () => {

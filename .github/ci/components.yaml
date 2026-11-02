@@ -276,14 +276,24 @@ components:
     name: Lean proof project (Klean output)
     roots:
       - proofs/
-    build_command: lake build K7PL2Lean K7PL
+    build_command: lake build K7PL2Lean KLeanArchive K7PLProofs
     check_command: k7pl-ci build-proofs --build --workdir proofs
     cache_determinants:
+      - proofs/lakefile.lean
       - proofs/lake-manifest.json
       - proofs/lean-toolchain
       - proofs/axiom-audit-contract.json
+      - spec/Spec/C3/EffectiveKernel.lean
+      - src/K7pl/
     depends_on:
       - k-semantics
+    read_inputs:
+      - path: src/K7pl/
+        surfaces:
+          - axiom_audit
+      - path: spec/Spec/C3/EffectiveKernel.lean
+        surfaces:
+          - axiom_audit
     required_checks:
       - lean-proof-build
       - axiom-audit
@@ -293,6 +303,7 @@ components:
       - execution
       - proof
     notes:
+      - "Domain sources are organised under Grades/, Structural/, Memory/ and Metatheory/; historical generated-KLean proof-of-concept sources live under archive/KLean/."
       - "The only component whose stages may emit proof claims, and only for theorems actually checked by Lean with an axiom set contained in proofs/axiom-audit-contract.json and no sorryAx in the build."
 
   - id: tla-models

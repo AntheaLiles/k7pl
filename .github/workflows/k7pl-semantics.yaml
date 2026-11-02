@@ -265,6 +265,12 @@ jobs:
       - name: Stage generated Klean modules into the maintained proof project
         run: k7pl-ci stage-klean
 
+      # proofs/ is its own Lake workspace (it requires the root package, hence Mathlib):
+      # without its own cache it would compile Mathlib from source, past this job's timeout.
+      - name: Fetch the Mathlib cache for the proof project
+        working-directory: proofs
+        run: lake exe cache get
+
       - name: Build the Klean-generated Lean project
         shell: bash
         run: |

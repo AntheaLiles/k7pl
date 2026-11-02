@@ -21,7 +21,7 @@
       "manifestFile": "lake-manifest.json",
       "inherited": false,
       "dir": "../../proofs",
-      "configFile": "lakefile.toml"
+      "configFile": "lakefile.lean"
     },
     {
       "url": "https://github.com/leanprover-community/ProofWidgets4",

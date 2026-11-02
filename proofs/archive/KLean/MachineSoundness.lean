@@ -1,7 +1,7 @@
 -- SPDX-FileCopyrightText: 2026 Cyprien PIERRE
 -- SPDX-License-Identifier: CC0-1.0
-import K7PL.Proof
-import K7PL.Bridge
+import KLean.Proof
+import KLean.Bridge
 
 /-!
 # Machine-level preservation for the exported K semantics
