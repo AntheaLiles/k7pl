@@ -3,21 +3,29 @@
 // SPDX-License-Identifier: CECILL-2.1
 
 import { assert, assertEquals } from "./assert.ts";
-import { classify } from "../src/classify.ts";
 import {
   deriveClassification,
   derivedDecisionOutputLines,
-  derivedDivergences,
   derivedGithubOutputLines,
-  isExpectedDerivedDivergence,
 } from "../src/derived.ts";
 import { loadRegistryFile } from "../src/registry.ts";
+import { REPORT_KEYS } from "../src/changes.ts";
 
 const REPO_ROOT = new URL("../../../", import.meta.url).pathname;
 const REGISTRY_PATH = `${REPO_ROOT}.github/ci/components.yaml`;
 
 function derived(paths: string[]) {
   return deriveClassification(loadRegistryFile(REGISTRY_PATH), paths);
+}
+
+/**
+ * A TLA model triggers tla_model_check only: none of the eight report
+ * keys, which the former legacy classifiers also left unset for it.
+ */
+function assertReportKeysUnset(result: ReturnType<typeof derived>) {
+  for (const key of REPORT_KEYS) {
+    assertEquals(result[key], false, key);
+  }
 }
 
 Deno.test("derived classifier maps spec roots to the spec surfaces", () => {
@@ -64,26 +72,28 @@ Deno.test("derived classifier maps spec-build inputs declared in the registry", 
   assertEquals(result.full, false);
 });
 
-Deno.test("derived classifier honours legacy light paths and the axiom-audit exact rule", () => {
-  // Cutover C0: these paths used to diverge (light paths fell
-  // through to full, axiom-audit.sh picked up python_tests from
-  // the scripts/ root). They must now agree with the legacy
-  // classifier exactly, per path.
+Deno.test("derived classifier honours the light paths and the axiom-audit exact rule", () => {
+  // Cutover C0: light paths trigger no surface (Markdown ones only
+  // the link check), and axiom-audit.sh does not pick up
+  // python_tests from the scripts/ root. These were the legacy
+  // classifier's rules, kept as the decided behaviour.
   for (
     const path of [
       ".claude/settings.json",
-      ".github/ISSUE_TEMPLATE/bug.md",
       "LICENSES/CC0-1.0.txt",
       "CITATION.cff",
-      "scripts/axiom-audit.sh",
     ]
   ) {
-    const divergences = derivedDivergences(
-      derived([path]),
-      classify([path]),
+    const result = derived([path]);
+    assert(
+      Object.values(result.surfaces).every((on) => !on),
+      `${path} must trigger no surface`,
     );
-    assertEquals(divergences, [], `${path} must agree with legacy`);
+    assertEquals(result.unclassified, false, path);
   }
+  const template = derived([".github/ISSUE_TEMPLATE/bug.md"]);
+  assertEquals(template.docs_links, true);
+  assertEquals(template.full, false);
   const audit = derived(["scripts/axiom-audit.sh"]);
   assertEquals(audit.lean_build, true);
   assertEquals(audit.spec_build, true);
@@ -100,27 +110,18 @@ Deno.test("derived classifier keeps non-Markdown docs-tree files fail-closed", (
   for (
     const path of ["wiki/notes.json", "theoretical-projects/k7os/notes.txt"]
   ) {
-    const divergences = derivedDivergences(
-      derived([path]),
-      classify([path]),
-    );
-    assertEquals(divergences, [], `${path} must agree with legacy`);
-    assertEquals(derived([path]).full, true);
+    const result = derived([path]);
+    assertEquals(result.full, true, path);
+    assertEquals(result.unclassified, true, path);
   }
   const tla = derived(["models/D01NativeBoundary.tla"]);
   assertEquals(tla.full, false);
   assertEquals(tla.surfaces.tla_model_check, true);
-  assertEquals(
-    derivedDivergences(tla, classify(["models/D01NativeBoundary.tla"])),
-    [],
-  );
+  assertReportKeysUnset(tla);
   const nextK7plModel = derived(["models/TLA01Session.tla"]);
   assertEquals(nextK7plModel.full, false);
   assertEquals(nextK7plModel.surfaces.tla_model_check, true);
-  assertEquals(
-    derivedDivergences(nextK7plModel, classify(["models/TLA01Session.tla"])),
-    [],
-  );
+  assertReportKeysUnset(nextK7plModel);
   const refs = derived(["wiki/references.json"]);
   assertEquals(refs.full, false);
   assertEquals(refs.spec_build, true);
@@ -223,110 +224,69 @@ Deno.test("derived classifier maps full-exact toolchain files to full", () => {
   assertEquals(result.unclassified, false);
 });
 
-Deno.test("derived and legacy classifiers agree on the core path set", () => {
-  const paths = [
-    "spec/Spec/C3/Foo.lean",
-    "src/Foo.lean",
-    "tests/FooTest.lean",
-    "tools/SpecExt/IndexCore.lean",
-    "scripts/check_spec.py",
-    "scripts/generate_status.py",
-    "tests/python/test_foo.py",
-    "wiki/assurance.md",
-    "wiki/guide.md",
-    "lakefile.lean",
-    ".github/workflows/ci.yaml",
-    "scripts/ci/impact.py",
-  ];
-  const divergences = derivedDivergences(derived(paths), classify(paths));
-  assertEquals(divergences, []);
-});
-
-Deno.test("derived-shadow accepts only reviewed path-specific migration deltas", () => {
-  const registry = loadRegistryFile(REGISTRY_PATH);
-  const fullFallback = [
-    "full: derived=false legacy=true",
-    "docs_links: derived=false legacy=true",
-    "spec_check: derived=false legacy=true",
-    "spec_build: derived=false legacy=true",
-    "lean_build: derived=false legacy=true",
-    "python_tests: derived=false legacy=true",
-    "tracking_views: derived=false legacy=true",
-    "unclassified: derived=false legacy=true",
-  ];
-  const fullFallbackWithoutPythonDelta = [
-    "full: derived=false legacy=true",
-    "docs_links: derived=false legacy=true",
-    "spec_check: derived=false legacy=true",
-    "spec_build: derived=false legacy=true",
-    "lean_build: derived=false legacy=true",
-    "tracking_views: derived=false legacy=true",
-    "unclassified: derived=false legacy=true",
-  ];
-  const lexiconDelta = [
-    "full: derived=false legacy=true",
-    "docs_links: derived=false legacy=true",
-    "lean_build: derived=false legacy=true",
-    "python_tests: derived=false legacy=true",
-    "tracking_views: derived=false legacy=true",
-    "unclassified: derived=false legacy=true",
-  ];
-  const cases: Array<{ path: string; expected: string[] }> = [
-    { path: "proofs/Foo.lean", expected: fullFallback },
-    { path: "lib/lib-example.k7", expected: fullFallback },
-    {
-      path: "scripts/check_singularities.py",
-      expected: fullFallbackWithoutPythonDelta,
-    },
-    {
-      path: "scripts/controle.py",
-      expected: fullFallbackWithoutPythonDelta,
-    },
-    {
-      path: "scripts/controles/couverture.py",
-      expected: fullFallbackWithoutPythonDelta,
-    },
-    {
-      path: "scripts/verif_singularites.py",
-      expected: fullFallbackWithoutPythonDelta,
-    },
-    { path: "lexicon/lexemes/add.k", expected: lexiconDelta },
-    {
-      path: "src/k/foo.k",
-      expected: ["lean_build: derived=false legacy=true"],
-    },
-    {
-      path: "wiki/references.json",
-      expected: ["docs_links: derived=true legacy=false"],
-    },
-  ];
-  for (const { path, expected } of cases) {
-    const divergences = derivedDivergences(
-      deriveClassification(registry, [path]),
-      classify([path]),
-    );
-    assertEquals(divergences, expected, path);
-    assert(
-      isExpectedDerivedDivergence(path, divergences),
-      `${path} must match its reviewed divergence rule`,
+Deno.test("derived classifier keeps the routing of the core path set", () => {
+  // Formerly checked as parity with the legacy classifier; since
+  // cutover C4 the expected surfaces are stated directly.
+  const expected: Record<string, string[]> = {
+    "spec/Spec/C3/Foo.lean": ["spec_check", "spec_build", "python_tests"],
+    "src/Foo.lean": ["spec_check", "lean_build", "python_tests"],
+    "tests/FooTest.lean": ["lean_build"],
+    "tools/SpecExt/IndexCore.lean": [
+      "spec_check",
+      "spec_build",
+      "lean_build",
+      "python_tests",
+    ],
+    "scripts/check_spec.py": ["spec_check", "spec_build", "python_tests"],
+    "scripts/generate_status.py": ["python_tests"],
+    "tests/python/test_foo.py": ["python_tests"],
+    "wiki/assurance.md": ["docs_links", "python_tests"],
+    "wiki/guide.md": ["docs_links"],
+  };
+  const keys = [
+    "docs_links",
+    "spec_check",
+    "spec_build",
+    "lean_build",
+    "python_tests",
+  ] as const;
+  for (const [path, surfaces] of Object.entries(expected)) {
+    const result = derived([path]);
+    assertEquals(result.full, false, path);
+    assertEquals(
+      keys.filter((key) => result[key]),
+      [...surfaces],
+      path,
     );
   }
-  assertEquals(
-    isExpectedDerivedDivergence(
-      "scripts/unreviewed-new-script.py",
-      fullFallbackWithoutPythonDelta,
-    ),
-    false,
-    "an unlisted path must remain unexpected",
-  );
-  assertEquals(
-    isExpectedDerivedDivergence(
-      "lexicon/lexemes/add.k",
-      [...lexiconDelta, "axiom_audit: derived=true legacy=false"],
-    ),
-    false,
-    "a changed delta on a known path must remain unexpected",
-  );
+  for (const path of ["lakefile.lean", ".github/workflows/ci.yaml"]) {
+    const result = derived([path]);
+    assertEquals(result.full, true, path);
+    assertEquals(result.unclassified, false, path);
+  }
+});
+
+Deno.test("derived classifier keeps the decided D2 divergences", () => {
+  // The divergences from the former legacy classifier that cutover
+  // C3 accepted, stated as the expected routing.
+  const registry = loadRegistryFile(REGISTRY_PATH);
+  const one = (path: string) => deriveClassification(registry, [path]);
+  // Dedicated surfaces instead of full.
+  const proofs = one("proofs/Foo.lean");
+  assertEquals(proofs.full, false);
+  assertEquals(proofs.surfaces.axiom_audit, true);
+  const tla = one("models/D01NativeBoundary.tla");
+  assertEquals(tla.full, false);
+  assertEquals(tla.surfaces.tla_model_check, true);
+  // K surfaces, no Lean over-triggering.
+  const k = one("src/k/foo.k");
+  assertEquals(k.lean_build, false);
+  assertEquals(k.surfaces.k_compile, true);
+  // A spec-build input that the wiki root also claims for the link
+  // check: a conservative extra surface.
+  const refs = one("wiki/references.json");
+  assertEquals(refs.docs_links, true);
+  assertEquals(refs.spec_build, true);
 });
 
 Deno.test("derived gating surfaces are emitted as GitHub outputs", () => {

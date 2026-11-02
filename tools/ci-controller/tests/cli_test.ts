@@ -10,6 +10,7 @@ const MAIN = `${REPO_ROOT}tools/ci-controller/src/main.ts`;
 async function runCli(
   args: string[],
   extraEnv: Record<string, string> = {},
+  stdin?: string,
 ): Promise<{ code: number; out: string; err: string }> {
   const command = new Deno.Command(Deno.execPath(), {
     args: [
@@ -21,12 +22,19 @@ async function runCli(
       MAIN,
       ...args,
     ],
+    stdin: stdin === undefined ? "null" : "piped",
     stdout: "piped",
     stderr: "piped",
     cwd: REPO_ROOT,
     env: { ...Deno.env.toObject(), ...extraEnv },
   });
-  const { code, stdout, stderr } = await command.output();
+  const child = command.spawn();
+  if (stdin !== undefined) {
+    const writer = child.stdin.getWriter();
+    await writer.write(new TextEncoder().encode(stdin));
+    await writer.close();
+  }
+  const { code, stdout, stderr } = await child.output();
   return {
     code,
     out: new TextDecoder().decode(stdout),
@@ -71,6 +79,68 @@ Deno.test("cli classify writes GITHUB_OUTPUT when set", async () => {
     assertStringIncludes(written, "full=false\n");
   } finally {
     await Deno.remove(tmp).catch(() => {});
+  }
+});
+
+Deno.test("cli classify writes the thirteen decision lines", async () => {
+  const tmp = await Deno.makeTempFile();
+  try {
+    const result = await runCli(["classify", "--paths", "src/k/foo.k"], {
+      GITHUB_OUTPUT: tmp,
+    });
+    assert(result.code === 0, result.err);
+    const written = await Deno.readTextFile(tmp);
+    assert(written.split("\n").filter((line) => line !== "").length === 13);
+    assertStringIncludes(written, "k_compile=true\n");
+    assertStringIncludes(written, "lean_build=false\n");
+  } finally {
+    await Deno.remove(tmp).catch(() => {});
+  }
+});
+
+Deno.test("cli classify --json classifies each path on its own", async () => {
+  const result = await runCli([
+    "classify",
+    "--json",
+    "--paths",
+    "src/Foo.lean",
+    "docs/a.md",
+    "new-format.toml",
+  ]);
+  assert(result.code === 0, result.err);
+  const perPath = JSON.parse(result.out);
+  assert(perPath["src/Foo.lean"].lean_build === true);
+  assert(perPath["src/Foo.lean"].full === false);
+  assert(perPath["docs/a.md"].docs_links === true);
+  assert(perPath["docs/a.md"].lean_build === false);
+  assert(perPath["new-format.toml"].full === true);
+  assert(perPath["new-format.toml"].unclassified === true);
+  assert(perPath["new-format.toml"].axiom_audit === true);
+});
+
+Deno.test("cli classify --json --stdin reads one path per line", async () => {
+  const result = await runCli(
+    ["classify", "--json", "--stdin"],
+    {},
+    "spec/Spec/C1.lean\r\nwiki/research.md\n\n",
+  );
+  assert(result.code === 0, result.err);
+  const perPath = JSON.parse(result.out);
+  assert(Object.keys(perPath).length === 2);
+  assert(perPath["spec/Spec/C1.lean"].spec_build === true);
+  assert(perPath["wiki/research.md"].spec_build === false);
+});
+
+Deno.test("cli classify refuses the modes removed at cutover C4", async () => {
+  for (const mode of ["--shadow", "--derived-shadow", "--derived"]) {
+    const result = await runCli([
+      "classify",
+      "--paths",
+      "docs/a.md",
+      mode,
+    ]);
+    assert(result.code === 2, `${mode}: ${result.out}`);
+    assertStringIncludes(result.err, "unknown option");
   }
 });
 

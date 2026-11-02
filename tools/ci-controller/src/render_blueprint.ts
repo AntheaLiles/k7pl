@@ -10,8 +10,12 @@
  * page, and writes the page count to the job summary.
  * The shell script runs with working-directory
  * spec/formal-chain; this port takes that directory
- * explicitly (defaulting to spec/formal-chain under the
- * repository root) and runs lake there.
+ * explicitly (defaulting to spec/formal-chain under
+ * $GITHUB_WORKSPACE, the checkout, as export_lean.ts and
+ * stage_klean.ts do) and runs lake there. The default is
+ * not derived from import.meta.url: in the compiled
+ * controller (cli.ts) that URL names the binary's embedded
+ * module, not a file of the checkout.
  *
  * Deliberate deviation from the shell script: the original
  * writes its summary lines with `printf '%s\\n'`, which
@@ -22,8 +26,10 @@
  */
 
 export interface RenderBlueprintOptions {
-  /** Blueprint directory; default: <repo root>/spec/formal-chain. */
+  /** Blueprint directory; default: <workspace>/spec/formal-chain. */
   dir?: string;
+  /** Repository checkout; default: $GITHUB_WORKSPACE. */
+  workspace?: string;
   /** Default: $GITHUB_STEP_SUMMARY. */
   stepSummary?: string;
   /** PATH for lake, defaulting to the process PATH. */
@@ -71,8 +77,8 @@ async function appendText(path: string, text: string): Promise<void> {
 export async function renderBlueprint(
   options: RenderBlueprintOptions = {},
 ): Promise<BlueprintRender> {
-  const repoRoot = new URL("../../../", import.meta.url).pathname;
-  const dir = options.dir ?? `${repoRoot}spec/formal-chain`;
+  const dir = options.dir ??
+    `${requiredEnv("GITHUB_WORKSPACE", options.workspace)}/spec/formal-chain`;
   const stepSummary = requiredEnv("GITHUB_STEP_SUMMARY", options.stepSummary);
   const lake = new Deno.Command("lake", {
     args: ["exe", "vbp", "build"],

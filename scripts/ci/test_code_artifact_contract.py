@@ -84,12 +84,21 @@ class CodeArtifactContractTests(unittest.TestCase):
     def test_layer_grammar_is_checked_against_the_listings(self) -> None:
         self.assertIn("LAYERS_SOURCE := $(LEXICON)/syntax/refusals.k", self.k_make)
         self.assertIn("--main-module REFUSALS --syntax-module TOKENS --gen-bison-parser", self.k_make)
-        self.assertIn("tools/layer-check/src/main.ts check", self.k_make)
+        self.assertIn("LAYER_CHECK ?= $(DENO) run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts", self.k_make)
+        self.assertIn("$(LAYER_CHECK) check", self.k_make)
         self.assertIn("BALANCE_SOURCE := $(LEXICON)/syntax/balance.k", self.k_make)
         self.assertIn("--main-module BALANCE --syntax-module SCANNER --gen-bison-parser", self.k_make)
         self.assertIn('--balance "src/k/$(BALANCE_DEFINITION)"', self.k_make)
         self.assertIn('--kast "$(KAST)"', self.k_make)
-        self.assertIn("make -C src/k layers-check", self.workflow)
+        self.assertIn('make -C src/k layers-check LAYER_CHECK="k7pl-layer-check"', self.workflow)
+        # The K container has no Deno: the layer checker runs there as the binary that the
+        # controller-binary job compiles, which also runs its unit tests.
+        binary_job = self.workflow_file.split("  controller-binary:", 1)[1].split("\n  k-smoke:", 1)[0]
+        self.assertIn("(cd ../layer-check && deno task compile)", binary_job)
+        self.assertIn("tools/ci-controller/dist/k7pl-layer-check", binary_job)
+        self.assertIn("working-directory: tools/layer-check", binary_job)
+        layer_tasks = json.loads((ROOT / "tools/layer-check/deno.json").read_text(encoding="utf-8"))["tasks"]
+        self.assertIn("--output dist/k7pl-layer-check src/main.ts", layer_tasks["compile"])
 
     def test_d01_counterexample_vector_is_aligned_across_tools(self) -> None:
         vector_path = ROOT / "models/D01-NativeBoundary-ExpectedCounterexample.json"
@@ -172,11 +181,26 @@ class CodeArtifactContractTests(unittest.TestCase):
         self.assertNotIn("extract_verso_code.py", self.workflow)
 
     def test_workflow_packages_the_k_sources(self) -> None:
-        self.assertIn("tools/ci-controller/src/package_evidence.ts", self.workflow_file)
+        # The K job runs the compiled controller, whose package-evidence command is
+        # package_evidence.ts.
+        cli = (ROOT / "tools/ci-controller/src/cli.ts").read_text(encoding="utf-8")
+        self.assertIn("k7pl-ci package-evidence", self.workflow_file)
+        self.assertIn('"package-evidence": {', cli)
+        self.assertIn('from "./package_evidence.ts"', cli)
         self.assertNotIn("scripts/ci/k7pl_semantics_package_evidence.sh", self.step_scripts)
         self.assertIn('copyItem(ws("lexicon"), art("lexicon"))', self.workflow)
         self.assertNotIn(".build/generated/semantics.k", self.workflow)
         self.assertIn(".build/generated/check_k_examples.py", self.workflow)
+
+    def test_k_job_runs_the_compiled_controller_without_installing_deno(self) -> None:
+        k_smoke = self.workflow_file.split("  k-smoke:", 1)[1].split("\n  refresh-main-status:", 1)[0]
+        self.assertIn("needs: [d01-tlc, controller-binary]", k_smoke)
+        self.assertIn("name: k7pl-ci-controller", k_smoke)
+        self.assertIn("sha256sum -c k7pl-ci.sha256", k_smoke)
+        self.assertNotIn("setup-deno", k_smoke)
+        self.assertNotIn("apt-get", k_smoke)
+        self.assertNotIn("deno run", k_smoke)
+        self.assertIn("deno task compile", self.workflow_file)
 
     def test_semantics_workflow_is_triggered_by_surfaces_not_paths(self) -> None:
         # Cutover C2: path filters are gone; ci.yaml calls the workflow

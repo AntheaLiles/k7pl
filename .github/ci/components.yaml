@@ -4,10 +4,10 @@
 
 # Single source of truth for CI component paths, commands, cache
 # determinants, proof-chain dependencies, mandatory checks, and
-# allowed claim classes. The derived Deno classifier reads this
-# registry and decides all thirteen validation surfaces.
-# Python and legacy Deno projections remain only in non-blocking
-# shadow comparisons; they do not make CI decisions.
+# allowed claim classes. Read by tools/ci-controller. The derived
+# classifier (tools/ci-controller/src/derived.ts) reads this registry
+# and decides all thirteen validation surfaces; since cutover C4 it is
+# the only classifier. A change here changes what the CI runs.
 # A path may belong to several components: components are logical
 # units, not a partition of the tree. Overlaps are declared below
 # instead of being hidden.
@@ -16,13 +16,13 @@
 # and sequences, plain/single/double-quoted scalars, booleans,
 # integers, and flow sequences. No anchors, tags, or block scalars.
 
-# Registry-derived classification (cutover C3): every component declares
+# Registry-derived classification: every component declares
 # `impact_surfaces` and, where it reads files outside its own roots,
 # `read_inputs`. A path triggers the surfaces of every component whose
 # roots contain it (outside exclusions), plus every component whose
-# `read_inputs` contain it. The derived Deno classifier reads this registry
-# and decides all thirteen validation surfaces. The Python and legacy Deno
-# projections remain comparison-only in the non-blocking shadow job.
+# `read_inputs` contain it. The derived classifier decides all thirteen
+# validation surfaces (cutover C3); the legacy Python and Deno
+# classifiers and their shadow comparison are removed (cutover C4).
 # The Markdown documentation rule, light/full path rules and fail-closed
 # unknown-path rule remain classifier-resident; they are not component
 # ownership rules.
@@ -52,7 +52,7 @@ toolchains:
   - id: deno
     version: 2.9.8
     source: denoland/deno and denoland/setup-deno
-    note: The impact, implementation/spec and controller-shadow jobs install Deno
+    note: The jobs that run the controller install Deno
       through the shared composite action, which pins setup-deno v2.0.5 at
       22d081ff2d3a40755e97629de92e3bcbfa7cf2ed. The official Deno container
       was evaluated but not used for GitHub Actions jobs because it does not
@@ -277,7 +277,7 @@ components:
     roots:
       - proofs/
     build_command: lake build K7PL2Lean K7PL
-    check_command: deno run --allow-read --allow-run --allow-write tools/ci-controller/src/build_proofs.ts --build --workdir proofs
+    check_command: k7pl-ci build-proofs --build --workdir proofs
     cache_determinants:
       - proofs/lake-manifest.json
       - proofs/lean-toolchain

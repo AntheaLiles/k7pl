@@ -5,8 +5,9 @@
 /**
  * D2 slice 2: the classifier derived from the registry. Since cutover C3,
  * it decides all thirteen surfaces: the impact job emits them from
- * derived_event.ts, and the legacy Python classifier runs only in
- * reversed shadow (controller-shadow, non-blocking).
+ * derived_event.ts. Since cutover C4 it is the only classifier: the
+ * legacy Python classifier (scripts/ci/impact.py), its Deno port and
+ * the shadow comparisons that ran them were removed.
  *
  * Derivation rule, exactly as decided (D2, 2026-10-25): a path
  * triggers the impact_surfaces of every component whose roots
@@ -22,41 +23,38 @@
  * unknown path must not silently drop a surface that no
  * component claims. This is conservative by design.
  *
- * Known divergences from the legacy classifier are kept visible by
- * --derived-shadow, but an exact allowlist prevents reviewed migration
- * deltas from making the diagnostic job red. The allowlist matches both
- * the path family and the complete legacy-surface delta; a new or
- * different delta remains unexpected. It covers:
- *   - intended D2 targets: proofs/ -> axiom_audit, and src/k/ -> K
- *     surfaces without lean_build;
- *   - the PR #311 path migration: lexicon/ -> specification and K
- *     inputs, lib/ -> K examples, and renamed/moved scripts -> the
- *     python-tooling component;
- *   - wiki/references.json, which is both a spec-build read input
- *     and part of the wiki root, so derived also triggers docs_links;
- * The TLA models live under models/, which both classifiers claim: the
- * derived registry additionally emits tla_model_check, which is not one
- * of the legacy eight comparison keys, so model paths stay neutral in
- * the shared legacy-key projection and need no allowlist entry.
- * The cutover C0 light-path and axiom-audit exceptions are implemented
- * directly in the derived classifier and therefore need no allowlist entry.
- * The wiki/references.json exception above is the non-Markdown
- * documentation-tree case explicitly reviewed here.
- *
- * The allowlist is diagnostic compatibility only: the derived
- * classifier remains authoritative, and it does not weaken fail-closed
- * handling of unclassified paths in that classifier.
+ * Its decided divergences from the former legacy classifier, which
+ * the shadow comparison reported until C4, were of three kinds:
+ *   - intended: proofs/ maps to axiom_audit instead of full,
+ *     and src/k/ maps to the K surfaces without the obsolete
+ *     lean_build over-trigger. The models/ path family, which
+ *     both legacy projections claimed, also emits
+ *     tla_model_check, which was not one of the eight legacy
+ *     comparison keys;
+ *   - closed in cutover C0: light paths (.claude/,
+ *     .github/ISSUE_TEMPLATE/, LICENSES/, CITATION.cff) and
+ *     scripts/axiom-audit.sh are now classifier-resident rules
+ *     in this file, reproducing the legacy treatment verbatim
+ *     (light = no surface; axiom-audit.sh = lean_build +
+ *     spec_build), instead of falling through to component
+ *     roots or to full;
+ *   - other non-Markdown files under wiki/ and
+ *     theoretical-projects/, which the legacy classifier
+ *     leaves unclassified (hence full) while the registry
+ *     maps them to docs_links.
+ * The C3 cutover accepted these divergences as the decided
+ * behaviour; tests/derived_test.ts asserts each of them directly.
  */
 
 import type { Component, Registry } from "./registry.ts";
 import { IMPACT_SURFACES, type ImpactSurface } from "./registry.ts";
-import { SURFACE_KEYS } from "./classify.ts";
+import { REPORT_KEYS } from "./changes.ts";
 
 export type DerivedSurface = ImpactSurface;
 
 export interface DerivedClassification {
   surfaces: Record<DerivedSurface, boolean>;
-  /** Legacy surface keys, for parity comparison with classify(). */
+  /** The eight report keys (changes.ts REPORT_KEYS) the workflows read. */
   full: boolean;
   docs_links: boolean;
   spec_check: boolean;
@@ -218,18 +216,6 @@ export function deriveClassification(
   };
 }
 
-/** Legacy surface keys shared by classify() and deriveClassification(). */
-export const LEGACY_KEYS = [
-  "full",
-  "docs_links",
-  "spec_check",
-  "spec_build",
-  "lean_build",
-  "python_tests",
-  "tracking_views",
-  "unclassified",
-] as const;
-
 /** New derivation targets wired to jobs by cutover C2 (impact outputs). */
 export const DERIVED_GATING_SURFACES = [
   "axiom_audit",
@@ -250,110 +236,15 @@ export function derivedGithubOutputLines(
 }
 
 /** The thirteen decision lines for the impact job (cutover C3): the
- * eight legacy keys in impact.py order, then the five gating
- * surfaces. */
+ * eight report keys, in the order the former impact.py wrote them,
+ * then the five gating surfaces. */
 export function derivedDecisionOutputLines(
   derived: DerivedClassification,
 ): string[] {
   return [
-    ...SURFACE_KEYS.map(
+    ...REPORT_KEYS.map(
       (key) => `${key}=${String(derived[key]).toLowerCase()}`,
     ),
     ...derivedGithubOutputLines(derived),
   ];
-}
-
-/** Per-surface legacy-key divergences between derived and legacy. */
-export function derivedDivergences(
-  derived: DerivedClassification,
-  legacy: {
-    [K in (typeof LEGACY_KEYS)[number]]: boolean;
-  },
-): string[] {
-  const divergences: string[] = [];
-  for (const key of LEGACY_KEYS) {
-    if (derived[key] !== legacy[key]) {
-      divergences.push(
-        `${key}: derived=${derived[key]} legacy=${legacy[key]}`,
-      );
-    }
-  }
-  return divergences;
-}
-
-// Reviewed path-specific deltas between the registry-derived classifier
-// and the legacy classifier. A rule matches only when BOTH the path
-// family and the complete set of legacy-key differences match.
-const LEGACY_FULL_FALLBACK_ALL_KEYS = [
-  "full: derived=false legacy=true",
-  "docs_links: derived=false legacy=true",
-  "spec_check: derived=false legacy=true",
-  "spec_build: derived=false legacy=true",
-  "lean_build: derived=false legacy=true",
-  "python_tests: derived=false legacy=true",
-  "tracking_views: derived=false legacy=true",
-  "unclassified: derived=false legacy=true",
-];
-const LEGACY_FULL_FALLBACK_EXCEPT_PYTHON = [
-  "full: derived=false legacy=true",
-  "docs_links: derived=false legacy=true",
-  "spec_check: derived=false legacy=true",
-  "spec_build: derived=false legacy=true",
-  "lean_build: derived=false legacy=true",
-  "tracking_views: derived=false legacy=true",
-  "unclassified: derived=false legacy=true",
-];
-const LEGACY_FULL_FALLBACK_FOR_LEXICON = [
-  "full: derived=false legacy=true",
-  "docs_links: derived=false legacy=true",
-  "lean_build: derived=false legacy=true",
-  "python_tests: derived=false legacy=true",
-  "tracking_views: derived=false legacy=true",
-  "unclassified: derived=false legacy=true",
-];
-const EXPECTED_DERIVED_DIVERGENCES: Array<{
-  prefix?: string;
-  path?: string;
-  differences: string[];
-}> = [
-  { prefix: "proofs/", differences: LEGACY_FULL_FALLBACK_ALL_KEYS },
-  { prefix: "src/k/", differences: ["lean_build: derived=false legacy=true"] },
-  { prefix: "lexicon/", differences: LEGACY_FULL_FALLBACK_FOR_LEXICON },
-  { prefix: "lib/", differences: LEGACY_FULL_FALLBACK_ALL_KEYS },
-  {
-    prefix: "scripts/controles/",
-    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
-  },
-  {
-    path: "scripts/controle.py",
-    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
-  },
-  {
-    path: "scripts/verif_singularites.py",
-    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
-  },
-  {
-    path: "scripts/check_singularities.py",
-    differences: LEGACY_FULL_FALLBACK_EXCEPT_PYTHON,
-  },
-  {
-    path: "wiki/references.json",
-    differences: ["docs_links: derived=true legacy=false"],
-  },
-];
-
-/** True only for a reviewed path family with its exact expected delta. */
-export function isExpectedDerivedDivergence(
-  path: string,
-  divergences: readonly string[],
-): boolean {
-  const rule = EXPECTED_DERIVED_DIVERGENCES.find((candidate) =>
-    candidate.path === path ||
-    (candidate.prefix !== undefined && path.startsWith(candidate.prefix))
-  );
-  if (rule === undefined) return false;
-  const actual = [...divergences].sort();
-  const expected = [...rule.differences].sort();
-  return actual.length === expected.length &&
-    actual.every((value, index) => value === expected[index]);
 }

@@ -32,8 +32,6 @@ ROOT = Path(__file__).resolve().parents[2]
 # Files whose docs/ mentions are known, historical, and not live reads.
 # - check_documentation_architecture.py: the legacy-path guard itself;
 #   its LEGACY_PATHS list is intentional, and its own tests cover it.
-# - impact.py: LIGHT_PREFIXES classifies any future docs/ path in a
-#   diff as a light change; it never reads a docs/ file.
 # - check_singularities.py: a single historical comment quoting a
 #   deleted research file; the script reads spec/, not docs/.
 # - spec_checks/cross_check.py, spec_checks/statement_coverage.py, spec_checks/structure.py:
@@ -41,7 +39,6 @@ ROOT = Path(__file__).resolve().parents[2]
 #   wiki/research.md, wiki/STATUS.md, and spec/ respectively.
 ALLOWLIST = {
     "scripts/ci/check_documentation_architecture.py",
-    "scripts/ci/impact.py",
     "scripts/check_singularities.py",
     "scripts/spec_checks/cross_check.py",
     "scripts/spec_checks/statement_coverage.py",
