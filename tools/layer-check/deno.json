@@ -1,6 +1,7 @@
 {
   "tasks": {
     "check": "deno check src/main.ts",
+    "compile": "deno compile --allow-read --allow-write --allow-run --target x86_64-unknown-linux-gnu --output dist/k7pl-layer-check src/main.ts",
     "fmt": "deno fmt --check",
     "lint": "deno lint",
     "test": "deno test --allow-read --allow-write --allow-run tests/"

@@ -98,3 +98,24 @@ Deno.test("render_blueprint fails when the HTML directory is missing", async () 
     await Deno.remove(bin, { recursive: true });
   }
 });
+
+Deno.test("render_blueprint defaults to spec/formal-chain under the workspace", async () => {
+  // The compiled controller cannot locate the checkout from
+  // import.meta.url; the default directory comes from the workspace.
+  const bin = await stubBin("ok");
+  const tmp = await Deno.makeTempDir();
+  try {
+    const dir = `${tmp}/spec/formal-chain`;
+    await Deno.mkdir(dir, { recursive: true });
+    const result = await renderBlueprint({
+      workspace: tmp,
+      stepSummary: `${tmp}/summary.md`,
+      path: `${bin}:${Deno.env.get("PATH") ?? ""}`,
+    });
+    assertEquals(result.htmlDir, `${dir}/_out/site/html-multi`);
+    assertEquals(result.htmlCount, 2);
+  } finally {
+    await Deno.remove(tmp, { recursive: true });
+    await Deno.remove(bin, { recursive: true });
+  }
+});

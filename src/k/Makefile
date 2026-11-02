@@ -6,6 +6,11 @@ DENO ?= deno
 KOMPILE ?= kompile
 KRUN ?= krun
 KAST ?= kast
+# The boundary check and the layer checker; k7pl-semantics.yaml overrides them with the
+# compiled binaries (k7pl-ci os-boundary-check, k7pl-layer-check), as its K container has
+# no Deno.
+OS_BOUNDARY_CHECK ?= $(DENO) run --allow-read --allow-run=krun ../../tools/ci-controller/src/os_boundary_check.ts
+LAYER_CHECK ?= $(DENO) run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts
 KLEAN ?= klean
 K_BACKEND ?= llvm
 LEXICON := ../../lexicon
@@ -47,7 +52,7 @@ boundary-kompile:
 	$(KOMPILE) "$(BOUNDARY_SOURCE)" --backend $(K_BACKEND) --main-module NATIVE-BOUNDARY --syntax-module NATIVE-BOUNDARY --output-definition "$(BOUNDARY_DEFINITION)"
 
 boundary-check: boundary-kompile
-	$(DENO) run --allow-read --allow-run=krun ../../tools/ci-controller/src/os_boundary_check.ts "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
+	$(OS_BOUNDARY_CHECK) "$(CURDIR)/$(BOUNDARY_DEFINITION)" "$(KRUN)" "$(CURDIR)/../../tests/examples/native-boundary"
 
 # The grammar of the layers reads texts with a Bison parser; its rules emit the code and the
 # message of each refused inclusion of delimiters.
@@ -65,7 +70,7 @@ balance-kompile:
 # the codes and messages that K emits against annex A, the lexical probes of tests/lexical/ and
 # the glyphs of the reader against the table of chapter 1.
 layers-check: layers-kompile balance-kompile
-	cd ../.. && $(DENO) run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts check --definition "src/k/$(LAYERS_DEFINITION)" --balance "src/k/$(BALANCE_DEFINITION)" --krun "$(KRUN)" --kast "$(KAST)"
+	cd ../.. && $(LAYER_CHECK) check --definition "src/k/$(LAYERS_DEFINITION)" --balance "src/k/$(BALANCE_DEFINITION)" --krun "$(KRUN)" --kast "$(KAST)"
 
 export-lean: kompile
 	rm -rf $(KLEAN_OUTPUT)

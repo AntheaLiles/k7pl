@@ -42,8 +42,14 @@ deno run --allow-read --allow-write --allow-run tools/layer-check/src/main.ts ch
   --definition src/k/.build/layers-kompiled --balance src/k/.build/balance-kompiled --kast kast
 ```
 
-The unit tests need no K installation: `deno task test` from this directory. Like
-`tools/ci-controller/` (pull request #309), the tool has no dependency outside Deno itself.
+The unit tests need no K installation: `deno task test` from this directory. `deno task compile`
+builds `dist/k7pl-layer-check` (not tracked), one self-contained executable with the same
+permissions as the command above: the K job of `k7pl-semantics.yaml` runs it in the K Framework
+container, which has no Deno (`make -C src/k layers-check LAYER_CHECK=k7pl-layer-check`), and runs
+the unit tests outside that container. The tool locates the texts from `--root` (the working
+directory by default), never from its own module URL, which a compiled binary does not resolve to
+the checkout. Like `tools/ci-controller/` (pull request #309), the tool has no dependency outside
+Deno itself.
 
 **Limits.** K 7.1.337 aborts on the `locations` attribute for these definitions, so a line is the
 balance reader's own count of line breaks, and a column is not given. Inline code spans of the
