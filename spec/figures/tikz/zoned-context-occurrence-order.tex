@@ -1,0 +1,39 @@
+% SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+% SPDX-License-Identifier: CC-BY-4.0
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta}
+\begin{document}
+\begin{tikzpicture}[
+  font=\sffamily\small,
+  zone/.style={draw, line width=.65pt},
+  bind/.style={draw, line width=.65pt, align=center, minimum width=30mm, minimum height=14mm},
+  bindsm/.style={draw, line width=.65pt, align=center, minimum width=16mm, minimum height=14mm},
+  swap/.style={{Stealth[length=2.4mm]}-{Stealth[length=2.4mm]}, line width=.8pt},
+  arr/.style={-{Stealth[length=2.6mm]}, line width=.8pt}
+]
+% Zone A: a session zone, restricted exchange
+\draw[zone] (5mm,16mm) rectangle (82mm,74mm);
+\node at (43.5mm,70mm) {zone de session};
+\node at (43.5mm,65.5mm) {échange refusé};
+\draw[swap] (24mm,61mm) -- (62mm,61mm);
+\draw[line width=.8pt] (41mm,58.8mm) -- (46mm,63.2mm);
+\draw[line width=.8pt] (41mm,63.2mm) -- (46mm,58.8mm);
+\node[bind] at (24mm,46mm) {premier envoi\\$\mathsf{send}(\mathrm{Int})$};
+\node[bind] at (62mm,46mm) {second envoi\\$\mathsf{send}(\mathrm{Bool})$};
+\draw[arr] (40mm,46mm) -- (45.5mm,46mm);
+\node at (43.5mm,31mm) {ordre d'occurrence};
+\node[align=center] at (62mm,23mm) {liaison maximale\\substitution admissible};
+
+% Zone B: an ordinary zone, free exchange
+\draw[zone] (92mm,16mm) rectangle (147mm,74mm);
+\node at (119.5mm,70mm) {zone ordinaire};
+\node at (119.5mm,65.5mm) {échange libre};
+\draw[swap] (107mm,61mm) -- (132mm,61mm);
+\node[bindsm] at (107mm,46mm) {$x$};
+\node[bindsm] at (132mm,46mm) {$y$};
+\node at (119.5mm,31mm) {aucun ordre imposé};
+\end{tikzpicture}
+\end{document}
