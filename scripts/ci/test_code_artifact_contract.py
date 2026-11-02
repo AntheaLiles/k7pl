@@ -69,10 +69,14 @@ class CodeArtifactContractTests(unittest.TestCase):
     def test_page_declares_the_k_blocks_normative(self) -> None:
         # Owner decision of 2026-10-19: the K code blocks of the Verso files are normative;
         # the Python checker stays a verification tool.
-        self.assertIn("Les blocs K de sémantique du sous-langage K7PL\nci-dessous sont la source éditable normative", self.page)
-        self.assertIn("Le modèle K7OS séparé est explicitement non normatif", self.page)
-        self.assertIn("vérification et n'est pas normatif", self.page)
-        self.assertIn('tag := "experimental-code-artifacts"', self.page)
+        # The assertions run on the page with whitespace collapsed: the contract is the
+        # declaration itself, not where the prose happens to wrap (spec/README.md §7.6
+        # reflows paragraphs at 120 characters).
+        page = re.sub(r"\s+", " ", self.page)
+        self.assertIn("Les blocs K de sémantique du sous-langage K7PL ci-dessous sont la source éditable normative", page)
+        self.assertIn("Le modèle K7OS séparé est explicitement non normatif", page)
+        self.assertIn("vérification et n'est pas normatif", page)
+        self.assertIn('tag := "experimental-code-artifacts"', page)
 
     def test_k7os_profile_model_is_separate(self) -> None:
         self.assertIn('```K (file := "lexicon/models/native-boundary.k")', self.page)
