@@ -44,9 +44,9 @@ Ce que le cadre de sortes paramétrique offre, et ce que K7PL en retient
 * * Ce que le cadre offre
   * Ce que K7PL en fait
 * * environnements d'assertions, logique associée
-  * *laissé* — le métalangage du chapitre 4 n'en a pas, et c'est ce qui nous épargne la difficulté connue des types de session dans ce cadre, laquelle naît de la non-monotonie de cette logique
+  * *laissé* — le métalangage du chapitre 4 n'en a pas, ce qui lui épargne la difficulté connue des types de session dans ce cadre, laquelle naît de la non-monotonie de cette logique
 * * algèbre de termes générale, filtrage étendu
-  * *laissé* — nos objets sont des noms, et le filtrage dont nous avons besoin est celui des motifs de jonction, déjà posé
+  * *laissé* — les objets sont des noms, et le filtrage requis est celui des motifs de jonction, déjà posé
 * * ensemble de sortes, fonction d'assignation
   * *retenu*
 * * quatre prédicats de capacité
@@ -151,7 +151,7 @@ _recevoir_ un nom d'effet : il ne peut donc en mentionner aucun qu'il n'ait reç
 elle-même.
 
 _La substitution_ est prise discrète, et ce n'est pas une paresse : c'est ce qui rend le seul
-théorème que nous ayons à redémontrer immédiat. Le cadre emprunté dérive en général deux préordres
+théorème à redémontrer immédiat. Le cadre emprunté dérive en général deux préordres
 d'usage et n'exige de la substitution qu'elle _raffine_ la sorte ; en prenant $`\#` égal à
 l'égalité, ces préordres deviennent l'identité et la clôture se lit sans induction. Le typage est
 déjà fait par les types de session, et les sortes n'ont pas à le refaire.
@@ -536,7 +536,7 @@ qui précède plutôt qu'à l'abandonner.
    au-dessus de $`\ell` et leur durée. Rien n'établit qu'elle ferme le canal formé par _l'ordre
    relatif_ des messages restants, qui est distinct de leur durée. La littérature récente sur le
    contrôle de flux en concurrence typée par sessions établit une non-interférence _sensible au
-   progrès_ qui l'exclut ; il reste à vérifier si notre formulation en fait autant.
+   progrès_ qui l'exclut ; il reste à vérifier si la formulation retenue ici en fait autant.
 
 3. _Un seul niveau par processus_ : réglé. La littérature du domaine en emploie deux, une
    habilitation et un niveau courant. K7PL les a : l'habilitation est le niveau de lecture
@@ -546,8 +546,8 @@ qui précède plutôt qu'à l'abandonner.
 
 4. _La mécanisation ne s'appuiera sur rien._ La métathéorie du cadre emprunté n'est vérifiée par
    machine que pour une unique sorte de noms. Le cas d'un sortage arbitraire y est établi à la main,
-   et ses auteurs signalent qu'un traitement mécanisé passant à l'échelle reste à faire. Notre
-   conception a de nombreuses sortes. C'est une charge, non un obstacle.
+   et ses auteurs signalent qu'un traitement mécanisé passant à l'échelle reste à faire. La
+conception retenue ici a de nombreuses sortes. C'est une charge, non un obstacle.
 
 5. _Les conditions de bonne formation du cadre emprunté n'ont pas été revérifiées pour le prédicat
    d'émission étendu._ La capacité qui transmet un maillon le long d'un fil, et la clause du
