@@ -250,14 +250,14 @@ theorem rewrites_preserve_machine_typing {s s' : SortGeneratedTopCell}
   induction hr generalizing τ with
   | tran h₁ h₂ ih₁ ih₂ =>
       exact ih₂ (ih₁ ht)
-  | K7PL_SYNTAX_k7Add1_heat =>
+  | ADD_k7Add1_heat =>
       cases ht with
       | configuration hItem hKont =>
           cases hItem with
           | add hHole hRight =>
               exact MachineTyping.configuration (itemTyping_of_encodedExprTyping hHole)
                 (KontTyping.add0 hRight hKont)
-  | K7PL_SYNTAX_k7Add1_cool hVal0 hVal1 hReq =>
+  | ADD_k7Add1_cool hVal0 hVal1 hReq =>
       cases ht with
       | configuration hItem hKont =>
           cases hKont with
@@ -266,14 +266,14 @@ theorem rewrites_preserve_machine_typing {s s' : SortGeneratedTopCell}
               obtain ⟨n, rfl⟩ := kresult_int_is_int hItem hReady
               exact MachineTyping.configuration
                 (ItemTyping.add (encodedExprTyping_of_hasType (HasType.intLit n)) hRight) hTail
-  | K7PL_SYNTAX_k7Add2_heat =>
+  | ADD_k7Add2_heat =>
       cases ht with
       | configuration hItem hKont =>
           cases hItem with
           | add hLeft hHole =>
               exact MachineTyping.configuration (itemTyping_of_encodedExprTyping hHole)
                 (KontTyping.add1 hLeft hKont)
-  | K7PL_SYNTAX_k7Add2_cool hVal0 hVal1 hReq =>
+  | ADD_k7Add2_cool hVal0 hVal1 hReq =>
       cases ht with
       | configuration hItem hKont =>
           cases hKont with
@@ -282,14 +282,14 @@ theorem rewrites_preserve_machine_typing {s s' : SortGeneratedTopCell}
               obtain ⟨n, rfl⟩ := kresult_int_is_int hItem hReady
               exact MachineTyping.configuration
                 (ItemTyping.add hLeft (encodedExprTyping_of_hasType (HasType.intLit n))) hTail
-  | K7PL_SYNTAX_k7Lt1_heat =>
+  | LT_k7Lt1_heat =>
       cases ht with
       | configuration hItem hKont =>
           cases hItem with
           | lessThan hHole hRight =>
               exact MachineTyping.configuration (itemTyping_of_encodedExprTyping hHole)
                 (KontTyping.lt0 hRight hKont)
-  | K7PL_SYNTAX_k7Lt1_cool hVal0 hVal1 hReq =>
+  | LT_k7Lt1_cool hVal0 hVal1 hReq =>
       cases ht with
       | configuration hItem hKont =>
           cases hKont with
@@ -298,14 +298,14 @@ theorem rewrites_preserve_machine_typing {s s' : SortGeneratedTopCell}
               obtain ⟨n, rfl⟩ := kresult_int_is_int hItem hReady
               exact MachineTyping.configuration
                 (ItemTyping.lessThan (encodedExprTyping_of_hasType (HasType.intLit n)) hRight) hTail
-  | K7PL_SYNTAX_k7Lt2_heat =>
+  | LT_k7Lt2_heat =>
       cases ht with
       | configuration hItem hKont =>
           cases hItem with
           | lessThan hLeft hHole =>
               exact MachineTyping.configuration (itemTyping_of_encodedExprTyping hHole)
                 (KontTyping.lt1 hLeft hKont)
-  | K7PL_SYNTAX_k7Lt2_cool hVal0 hVal1 hReq =>
+  | LT_k7Lt2_cool hVal0 hVal1 hReq =>
       cases ht with
       | configuration hItem hKont =>
           cases hKont with
@@ -314,14 +314,14 @@ theorem rewrites_preserve_machine_typing {s s' : SortGeneratedTopCell}
               obtain ⟨n, rfl⟩ := kresult_int_is_int hItem hReady
               exact MachineTyping.configuration
                 (ItemTyping.lessThan hLeft (encodedExprTyping_of_hasType (HasType.intLit n))) hTail
-  | K7PL_SYNTAX_k7Select1_heat =>
+  | SELECT_k7Select1_heat =>
       cases ht with
       | configuration hItem hKont =>
           cases hItem with
           | select hCond hThen hElse =>
               exact MachineTyping.configuration (itemTyping_of_encodedExprTyping hCond)
                 (KontTyping.select0 hThen hElse hKont)
-  | K7PL_SYNTAX_k7Select1_cool hVal0 hVal1 hReq =>
+  | SELECT_k7Select1_cool hVal0 hVal1 hReq =>
       cases ht with
       | configuration hItem hKont =>
           cases hKont with

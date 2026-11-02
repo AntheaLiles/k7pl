@@ -55,7 +55,7 @@ After a relevant change:
 ```
 lake build Spec
 lake exe spec --output _out/spec --with-tex
-python3 scripts/controle.py
+python3 scripts/check_spec.py
 ```
 
 If tracking is affected, also run `python3 scripts/suivi.py all`.
@@ -65,7 +65,7 @@ If tracking is affected, also run `python3 scripts/suivi.py all`.
 
 Follow the lexical exclusion defined in [the writing rules](../skills/writing-rules.md). The registered French lexical family and its covered inflections and derivatives are prohibited in authored textual sources under `spec/`. Do not make global substitutions: preserve technical meaning, formal premises and conclusions, scope, labels and epistemic status. When a safe equivalent is uncertain, record the problem for author arbitration.
 
-`python3 scripts/controle.py` enforces this rule and reports source positions.
+`python3 scripts/check_spec.py` enforces this rule and reports source positions.
 
 ## Research
 

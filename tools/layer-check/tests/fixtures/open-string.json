@@ -1,0 +1,150 @@
+{
+  "format": "KAST",
+  "version": 4,
+  "term": {
+    "node": "KApply",
+    "label": { "node": "KLabel", "name": "<generatedTop>", "params": [] },
+    "arity": 2,
+    "args": [
+      {
+        "node": "KApply",
+        "label": { "node": "KLabel", "name": "<k>", "params": [] },
+        "arity": 1,
+        "args": [
+          {
+            "node": "KSequence",
+            "arity": 1,
+            "items": [
+              {
+                "node": "KApply",
+                "label": { "node": "KLabel", "name": "reports", "params": [] },
+                "arity": 2,
+                "args": [
+                  {
+                    "node": "KApply",
+                    "label": { "node": "KLabel", "name": "located", "params": [] },
+                    "arity": 2,
+                    "args": [
+                      {
+                        "node": "KApply",
+                        "label": { "node": "KLabel", "name": "refusal", "params": [] },
+                        "arity": 2,
+                        "args": [
+                          {
+                            "node": "KApply",
+                            "label": {
+                              "node": "KLabel",
+                              "name": "ERR-DLM-004_CODES_Code",
+                              "params": []
+                            },
+                            "arity": 0,
+                            "args": []
+                          },
+                          {
+                            "node": "KToken",
+                            "sort": { "node": "KSort", "name": "Message", "params": [] },
+                            "token": "\"Chaîne jamais refermée : elle court jusqu'à la fin du texte. Ajouter le guillemet fermant.\""
+                          }
+                        ]
+                      },
+                      {
+                        "node": "KApply",
+                        "label": { "node": "KLabel", "name": "at", "params": [] },
+                        "arity": 2,
+                        "args": [
+                          {
+                            "node": "KApply",
+                            "label": { "node": "KLabel", "name": "quote", "params": [] },
+                            "arity": 0,
+                            "args": []
+                          },
+                          {
+                            "node": "KToken",
+                            "sort": { "node": "KSort", "name": "Int", "params": [] },
+                            "token": "1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "node": "KApply",
+                    "label": { "node": "KLabel", "name": "reports", "params": [] },
+                    "arity": 2,
+                    "args": [
+                      {
+                        "node": "KApply",
+                        "label": { "node": "KLabel", "name": "located", "params": [] },
+                        "arity": 2,
+                        "args": [
+                          {
+                            "node": "KApply",
+                            "label": { "node": "KLabel", "name": "refusal", "params": [] },
+                            "arity": 2,
+                            "args": [
+                              {
+                                "node": "KApply",
+                                "label": {
+                                  "node": "KLabel",
+                                  "name": "ERR-DLM-001_CODES_Code",
+                                  "params": []
+                                },
+                                "arity": 0,
+                                "args": []
+                              },
+                              {
+                                "node": "KToken",
+                                "sort": { "node": "KSort", "name": "Message", "params": [] },
+                                "token": "\"Délimiteur ouvrant jamais refermé. Ajouter le délimiteur fermant de sa paire, ou retirer l'ouvrant.\""
+                              }
+                            ]
+                          },
+                          {
+                            "node": "KApply",
+                            "label": { "node": "KLabel", "name": "at", "params": [] },
+                            "arity": 2,
+                            "args": [
+                              {
+                                "node": "KApply",
+                                "label": { "node": "KLabel", "name": "paren", "params": [] },
+                                "arity": 0,
+                                "args": []
+                              },
+                              {
+                                "node": "KToken",
+                                "sort": { "node": "KSort", "name": "Int", "params": [] },
+                                "token": "1"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "node": "KApply",
+                        "label": { "node": "KLabel", "name": ".List{\"reports\"}", "params": [] },
+                        "arity": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "node": "KApply",
+        "label": { "node": "KLabel", "name": "<generatedCounter>", "params": [] },
+        "arity": 1,
+        "args": [
+          {
+            "node": "KToken",
+            "sort": { "node": "KSort", "name": "Int", "params": [] },
+            "token": "0"
+          }
+        ]
+      }
+    ]
+  }
+}

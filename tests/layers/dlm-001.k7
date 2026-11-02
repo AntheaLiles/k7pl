@@ -1,0 +1,7 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; An opening delimiter never closed: the first [ of line 6.
+[f [g x]
+;; refused: ERR-DLM-001 at line 6

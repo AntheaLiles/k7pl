@@ -1,0 +1,7 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; A closing delimiter of another pair than every delimiter still open: the ) meets
+;; the [, which stays open.
+[f x) ;; refused: ERR-DLM-003 at line 7, ERR-DLM-001 at line 7

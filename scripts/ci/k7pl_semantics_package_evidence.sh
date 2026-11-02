@@ -3,9 +3,10 @@
 #
 # SPDX-License-Identifier: CECILL-2.1
 
-# Gathers the generated K sources, the Klean output, the proof project, the Blueprint sources and
-# HTML and the evidence files under $RUNNER_TEMP/k7pl-formal-chain, writes its MANIFEST.txt, and
-# packs it into $RUNNER_TEMP/k7pl-formal-chain-$GITHUB_RUN_ID.tar.gz for the upload step.
+# Gathers the K sources of lexicon/, the generated checker, the Klean output, the proof project,
+# the Blueprint sources and HTML and the evidence files under $RUNNER_TEMP/k7pl-formal-chain,
+# writes its MANIFEST.txt, and packs it into $RUNNER_TEMP/k7pl-formal-chain-$GITHUB_RUN_ID.tar.gz
+# for the upload step.
 #
 # Called by: .github/workflows/k7pl-semantics.yaml, job `k-smoke`, step "Package formal-chain build
 # evidence", from the repository root, when the export and the Blueprint succeeded.
@@ -17,10 +18,9 @@ set -euo pipefail
 ARTIFACT_ROOT="$RUNNER_TEMP/k7pl-formal-chain"
 ARCHIVE="$RUNNER_TEMP/k7pl-formal-chain-${GITHUB_RUN_ID}.tar.gz"
 rm -rf "$ARTIFACT_ROOT" "$ARCHIVE"
-mkdir -p "$ARTIFACT_ROOT/proofs" "$ARTIFACT_ROOT/spec/formal-chain" "$ARTIFACT_ROOT/src/k/models" "$ARTIFACT_ROOT/tests/examples/native-boundary" "$ARTIFACT_ROOT/wiki"
+mkdir -p "$ARTIFACT_ROOT/proofs" "$ARTIFACT_ROOT/spec/formal-chain" "$ARTIFACT_ROOT/src/k" "$ARTIFACT_ROOT/tests/examples/native-boundary" "$ARTIFACT_ROOT/wiki"
 
-cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/semantics.k" "$ARTIFACT_ROOT/src/k/semantics.k"
-cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/models/native-boundary.k" "$ARTIFACT_ROOT/src/k/models/native-boundary.k"
+cp -a "$GITHUB_WORKSPACE/lexicon" "$ARTIFACT_ROOT/lexicon"
 cp -a "$GITHUB_WORKSPACE/src/k/.build/generated/check_k_examples.py" "$ARTIFACT_ROOT/src/k/check_k_examples.py"
 cp -a "$GITHUB_WORKSPACE/src/k/Makefile" "$ARTIFACT_ROOT/src/k/"
 cp -a "$GITHUB_WORKSPACE/tests/examples/add.k7" "$GITHUB_WORKSPACE/tests/examples/select.k7" "$ARTIFACT_ROOT/tests/examples/"

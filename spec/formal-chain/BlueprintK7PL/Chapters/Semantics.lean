@@ -55,7 +55,7 @@ L’audit `#print axioms` rapporte que `K7PL.Proof.progress` ne dépend d’aucu
 :::
 
 :::definition "generated_k_semantics" (parent := "subset")
-`src/k/semantics.k` définit la sémantique K exécutable du sous-langage. K la
+`lexicon/lexicon.k` et les lemmes de `lexicon/lexemes/` définissent la sémantique K exécutable du sous-langage. K la
 compile vers KORE ; `klean` génère `Rewrites` sur des configurations K complètes,
 avec les transitions heat/cool et les frames de continuation. Les équations de
 la fonction K `typeOf` ne sont pas encodées comme des règles reliées à `HasType`.

@@ -37,18 +37,18 @@ def test_annotation_policy_prioritizes_specification():
 def test_lean_error_matcher_excludes_warnings():
     expression = matcher_expression("lean-problem-matcher.json")
     assert expression.fullmatch(
-        "spec/Spec/C3/ReglesDeTypage.lean:1598:37: error: expected identifier"
+        "spec/Spec/C3/TypingRules.lean:1598:37: error: expected identifier"
     )
     assert not expression.fullmatch(
-        "spec/Spec/C3/ReglesDeTypage.lean:1598:37: warning: declaration uses 'sorry'"
+        "spec/Spec/C3/TypingRules.lean:1598:37: warning: declaration uses 'sorry'"
     )
 
 
 def test_specification_warning_matcher_matches_only_warnings():
     expression = matcher_expression("lean-spec-warning-problem-matcher.json")
     assert expression.fullmatch(
-        "spec/Spec/C3/ReglesDeTypage.lean:1598:37: warning: declaration uses 'sorry'"
+        "spec/Spec/C3/TypingRules.lean:1598:37: warning: declaration uses 'sorry'"
     )
     assert not expression.fullmatch(
-        "spec/Spec/C3/ReglesDeTypage.lean:1598:37: error: expected identifier"
+        "spec/Spec/C3/TypingRules.lean:1598:37: error: expected identifier"
     )

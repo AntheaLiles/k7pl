@@ -13,8 +13,8 @@
  *     --derived, classify from the registry instead (the decision
  *     classifier since cutover C3; derived_event.ts is the impact
  *     job's entry point). With --derived-shadow, compare the
- *     derived classifier with the legacy Deno classifier and
- *     report every legacy-surface divergence (exit 1).
+ *     derived classifier with the legacy Deno classifier; documented
+ *     migration deltas are informational, unexpected deltas exit 1.
  *   validate-registry [--registry <path>] [--root <dir>]
  *     Load and validate .github/ci/components.yaml.
  *   validate-evidence --evidence <file> [--registry <path>]
@@ -35,6 +35,7 @@ import {
   deriveClassification,
   derivedDivergences,
   derivedGithubOutputLines,
+  isExpectedDerivedDivergence,
 } from "./derived.ts";
 import { validateEvidence, validateEvidenceSchema } from "./evidence.ts";
 import { loadRegistryFile, validateRegistry } from "./registry.ts";
@@ -171,25 +172,52 @@ async function runClassify(args: Args): Promise<number> {
     // Per-path comparison is primary: an aggregate comparison
     // alone would hide divergences that cancel out (e.g. one
     // unknown path under each classifier both forcing full).
+    // Documented migration deltas remain visible but are not CI
+    // failures; any new path or changed delta remains fatal.
     const divergences = derivedDivergences(derived, legacy);
-    const perPath: string[] = [];
+    const expectedPerPath: string[] = [];
+    const unexpectedPerPath: string[] = [];
+    const expectedKeys = new Set<string>();
     for (const path of paths) {
       const singleDerived = deriveClassification(registry, [path]);
       const singleLegacy = classify([path]);
       const single = derivedDivergences(singleDerived, singleLegacy);
       if (single.length > 0) {
-        perPath.push(`path ${path}: ${single.join(", ")}`);
+        const detail = `path ${path}: ${single.join(", ")}`;
+        if (isExpectedDerivedDivergence(path, single)) {
+          expectedPerPath.push(detail);
+          for (const divergence of single) {
+            expectedKeys.add(divergence.slice(0, divergence.indexOf(":")));
+          }
+        } else {
+          unexpectedPerPath.push(detail);
+        }
       }
     }
-    if (divergences.length > 0 || perPath.length > 0) {
-      console.error("derived-shadow: DIVERGENCES (derived vs legacy):");
-      for (const divergence of divergences) {
+    if (expectedPerPath.length > 0) {
+      console.log("derived-shadow: documented divergences (informational):");
+      for (const detail of expectedPerPath) console.log(`  ${detail}`);
+    }
+    const unexplainedAggregate = divergences.filter((divergence) =>
+      !expectedKeys.has(divergence.slice(0, divergence.indexOf(":")))
+    );
+    if (unexpectedPerPath.length > 0 || unexplainedAggregate.length > 0) {
+      console.error(
+        "derived-shadow: UNEXPECTED divergences (derived vs legacy):",
+      );
+      for (const divergence of unexplainedAggregate) {
         console.error(`  aggregate: ${divergence}`);
       }
-      for (const detail of perPath) console.error(`  ${detail}`);
+      for (const detail of unexpectedPerPath) console.error(`  ${detail}`);
       return 1;
     }
-    console.log("derived-shadow: derived and legacy classifiers agree");
+    if (expectedPerPath.length > 0 || divergences.length > 0) {
+      console.log(
+        "derived-shadow: all divergences are documented; no unexpected mismatch",
+      );
+    } else {
+      console.log("derived-shadow: derived and legacy classifiers agree");
+    }
     return 0;
   }
 

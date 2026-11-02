@@ -81,16 +81,33 @@ rules and fail-closed unknown-path rule remain classifier-resident because they
 are not component ownership rules.
 
 `classify --derived` prints the registry-derived classification.
-`classify --derived-shadow` compares it with the legacy Deno projection per
-path; `classify --shadow` compares the legacy Deno and Python implementations.
-Both comparisons run in `controller-shadow`, which is explicitly non-blocking.
-Neither legacy implementation decides the CI result.
+`classify --derived-shadow` compares it with the legacy Deno projection per path
+(aggregate comparison alone would hide divergences that cancel out);
+`classify --shadow` compares the legacy Deno and Python implementations. Both
+comparisons run in `controller-shadow`, which is explicitly non-blocking.
+Neither legacy implementation decides the CI result. The derived shadow prints
+reviewed migration deltas as informational output and exits 1 only for an
+unlisted path or a changed delta. The allowlist in `src/derived.ts` matches both
+the path family and the complete set of legacy-surface differences; its cases
+are asserted in `tests/derived_test.ts`.
+
+Reviewed cases include the D2 target mappings (proofs/ → `axiom_audit`, `src/k/`
+→ K surfaces without Lean over-triggering), the PR #311 move of K source files
+to `lexicon/`, K example inputs under `lib/`, and the rename/move of the Python
+specification tooling. The existing `wiki/references.json` delta is also
+retained: the wiki root adds `docs_links` beside the declared specification read
+input. Unreviewed differences remain visible and fail the shadow step. A read
+input may restrict its surfaces (`src/` triggers `spec_check` only for the
+specification component); the implementation component excludes `tests/python/`
+so Python tests do not over-trigger `lean_build`.
 
 The `tla-models` component owns `models/`. Its finite execution inventory is
 `models/TLC-PROFILES.json`; the Deno runner validates exact coverage of every
 TLA configuration and model module before invoking TLC. Changes to the runner,
 its tests and its Deno task manifest are declared as `read_inputs` of the
-component, so the model-check gate also exercises its orchestration code.
+component, so the model-check gate also exercises its orchestration code. Both
+classifiers claim `models/`, the derived one adding `tla_model_check`, which is
+not one of the legacy keys: model paths need no allowlist entry.
 
 The derived classifier is therefore authoritative. Further cleanup of the legacy
 Python and Deno projections is a separate migration decision and must preserve

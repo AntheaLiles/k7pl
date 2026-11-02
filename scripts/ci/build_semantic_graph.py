@@ -442,7 +442,7 @@ def main() -> int:
     parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--ref", default=os.environ.get("GITHUB_SHA", "main"))
-    parser.add_argument("--source", default="spec/Spec/C6/LeProcessusDeCompilation.lean")
+    parser.add_argument("--source", default="spec/Spec/C6/CompilationProcess.lean")
     parser.add_argument("--label", default="sec:c6-le-processus-de-compilation")
     parser.add_argument("--start-line", type=int, default=22)
     parser.add_argument("--end-line", type=int, default=50)

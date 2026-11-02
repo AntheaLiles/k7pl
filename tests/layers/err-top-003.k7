@@ -1,0 +1,6 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; A layer 1 expression inside a layer 2 block.
+(f {g x}) ;; refused: ERR-TOP-003

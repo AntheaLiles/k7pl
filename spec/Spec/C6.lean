@@ -7,9 +7,9 @@
 
 import VersoManual
 import SpecExt
-import Spec.C6.LeProcessusDeCompilation
-import Spec.C6.CeQueLeSolveurRetourne
-import Spec.C6.StrategiesDeVerificationEtDeTest
+import Spec.C6.CompilationProcess
+import Spec.C6.WhatTheSolverReturns
+import Spec.C6.VerificationAndTestStrategies
 
 open Verso.Genre Manual
 open SpecExt
@@ -80,8 +80,8 @@ contrôle doit donc porter n'est pas le principe du test différentiel — qui n
 le _protocole de réglage_ des routines de sollicitation, sans lequel un rapport vert ne veut rien
 dire.
 
-{include 0 Spec.C6.LeProcessusDeCompilation}
+{include 0 Spec.C6.CompilationProcess}
 
-{include 0 Spec.C6.CeQueLeSolveurRetourne}
+{include 0 Spec.C6.WhatTheSolverReturns}
 
-{include 0 Spec.C6.StrategiesDeVerificationEtDeTest}
+{include 0 Spec.C6.VerificationAndTestStrategies}

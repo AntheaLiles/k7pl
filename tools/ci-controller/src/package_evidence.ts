@@ -5,9 +5,10 @@
 /**
  * Port of scripts/ci/k7pl_semantics_package_evidence.sh.
  *
- * Gathers the generated K sources, the Klean output, the
- * proof project, the Blueprint sources and HTML and the
- * evidence files under $RUNNER_TEMP/k7pl-formal-chain,
+ * Gathers the K sources of lexicon/, the generated checker,
+ * the Klean output, the proof project, the Blueprint sources
+ * and HTML and the evidence files under
+ * $RUNNER_TEMP/k7pl-formal-chain,
  * writes its MANIFEST.txt, and packs it into
  * $RUNNER_TEMP/k7pl-formal-chain-$GITHUB_RUN_ID.tar.gz for
  * the upload step.
@@ -173,7 +174,7 @@ export async function packageEvidence(
     const dir of [
       `${artifactRoot}/proofs`,
       `${artifactRoot}/spec/formal-chain`,
-      `${artifactRoot}/src/k/models`,
+      `${artifactRoot}/src/k`,
       `${artifactRoot}/tests/examples/native-boundary`,
       `${artifactRoot}/wiki`,
     ]
@@ -183,14 +184,7 @@ export async function packageEvidence(
 
   const ws = (rel: string) => `${workspace}/${rel}`;
   const art = (rel: string) => `${artifactRoot}/${rel}`;
-  await copyItem(
-    ws("src/k/.build/generated/semantics.k"),
-    art("src/k/semantics.k"),
-  );
-  await copyItem(
-    ws("src/k/.build/generated/models/native-boundary.k"),
-    art("src/k/models/native-boundary.k"),
-  );
+  await copyItem(ws("lexicon"), art("lexicon"));
   await copyItem(
     ws("src/k/.build/generated/check_k_examples.py"),
     art("src/k/check_k_examples.py"),

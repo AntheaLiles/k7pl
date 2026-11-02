@@ -1,0 +1,7 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; A string never closed runs to the end of the text (Q-ERR-101): the ( of line 7 is
+;; never closed either.
+(print "hello) ;; refused: ERR-DLM-004 at line 7, ERR-DLM-001 at line 7

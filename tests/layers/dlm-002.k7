@@ -1,0 +1,6 @@
+;; SPDX-FileCopyrightText: 2026 Cyprien PIERRE
+;;
+;; SPDX-License-Identifier: CECILL-C
+
+;; A closing delimiter while no delimiter is open.
+(f x)) ;; refused: ERR-DLM-002 at line 6

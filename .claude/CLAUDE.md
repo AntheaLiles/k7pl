@@ -106,7 +106,7 @@ For Lean, run at least the relevant checks among:
 
 For `spec/`, use the repository's Verso checks, in particular:
 
-`lake build Spec`, `lake exe spec --output _out/spec --with-tex`, `python3 scripts/controle.py`.
+`lake build Spec`, `lake exe spec --output _out/spec --with-tex`, `python3 scripts/check_spec.py`.
 
 Also run the tracking checks when the files they cover change.
 

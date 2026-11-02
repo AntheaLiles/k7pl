@@ -112,7 +112,7 @@ A fourth route would be a way of not choosing.
 
 This rule is alive, not historical: it is checked by
 `route_of_each_commitment()` in
-`scripts/controles/notation.py`. One tension is left
+`scripts/spec_checks/notation.py`. One tension is left
 open below: the rule names no route for a design
 decision, which neither literature, demonstration
 nor measurement can settle; design decisions have
