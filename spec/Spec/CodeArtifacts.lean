@@ -14,18 +14,17 @@ number := false
 tag := "experimental-code-artifacts"
 %%%
 
-Le bloc K de sémantique du sous-langage K7PL ci-dessous est la source éditable normative
-pour ce sous-langage expérimental. Le modèle K7OS séparé est explicitement non normatif :
-il explore une hypothèse de profil sans l'imposer au langage. Le script Python est un outil
-de vérification et n'est pas normatif. Les artefacts sont extraits dans
+Le bloc K de sémantique du sous-langage K7PL ci-dessous est la source éditable normative pour ce sous-langage
+expérimental. Le modèle K7OS séparé est explicitement non normatif : il explore une hypothèse de profil sans l'imposer
+au langage. Le script Python est un outil de vérification et n'est pas normatif. Les artefacts sont extraits dans
 `src/k/.build/generated/` ; ces fichiers sont générés, ignorés par Git, et ne doivent pas
 être modifiés directement.
 
-La commande `lake exe spec --extract-code-only` effectue uniquement l'extraction, sans produire
-le site. `make k-check` compile la sémantique du sous-langage et exécute ses exemples.
+La commande `lake exe spec --extract-code-only` effectue uniquement l'extraction, sans produire le site. `make k-check`
+compile la sémantique du sous-langage et exécute ses exemples.
 `make boundary-check` compile séparément le modèle K7OS et vérifie ses trois résultats.
-L'extraction seule ne valide pas le code : les compilateurs et tests restent responsables
-de vérifier les fichiers générés.
+L'extraction seule ne valide pas le code : les compilateurs et tests restent responsables de vérifier les fichiers
+générés.
 
 # Définition K expérimentale
 
@@ -98,10 +97,9 @@ de vérifier les fichiers générés.
 
 # Modèle d'exécution K7OS : frontière native (profil non normatif)
 
-Ce bloc est un modèle d'exploration du système envisagé, pas une règle du langage K7PL.
-Le booléen passé à nativeWrite représente uniquement l'hypothèse abstraite d'une frontière
-appliquée. Il ne modélise ni une MMU, ni un IOMMU, ni une isolation matérielle particulière.
-La définition reste éditée ici, puis extraite par Verso.
+Ce bloc est un modèle d'exploration du système envisagé, pas une règle du langage K7PL. Le booléen passé à nativeWrite
+représente uniquement l'hypothèse abstraite d'une frontière appliquée. Il ne modélise ni une MMU, ni un IOMMU, ni une
+isolation matérielle particulière. La définition reste éditée ici, puis extraite par Verso.
 
 ```k7osModel (file := "src/k/.build/generated/models/native-boundary.k")
  // SPDX-FileCopyrightText: 2026 Cyprien PIERRE
@@ -146,9 +144,8 @@ La définition reste éditée ici, puis extraite par Verso.
 
 # Script Python de vérification des exemples
 
-Ce script exécute krun sur les programmes maintenus sous tests/examples/ et vérifie leurs
-résultats attendus. Il est lui aussi généré depuis Verso : il ne constitue pas une seconde source
-à maintenir dans le dépôt.
+Ce script exécute krun sur les programmes maintenus sous tests/examples/ et vérifie leurs résultats attendus. Il est lui
+aussi généré depuis Verso : il ne constitue pas une seconde source à maintenir dans le dépôt.
 
 ```pythonScript (file := "src/k/.build/generated/check_k_examples.py")
 #!/usr/bin/env python3

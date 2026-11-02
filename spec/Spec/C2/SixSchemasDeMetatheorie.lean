@@ -21,23 +21,20 @@ tag := "c2-six-schemas-de-metatheorie"
 
 {label "sec:c2-six-schemas-de-metatheorie"}
 
-Six énoncés reviennent dans ce document sous des habillages différents, et chacun est énoncé ici
-une fois pour toutes. Ce ne sont pas des théorèmes sur K7PL mais sur la forme de ses démonstrations :
-les chapitres qui suivent les instancient plutôt qu'ils ne les refont. Leur statut varie : chaque
-schéma porte ses hypothèses et les obligations qui restent à vérifier pour l'appliquer au système
-effectif.
+Six énoncés reviennent dans ce document sous des habillages différents, et chacun est énoncé ici une fois pour toutes.
+Ce ne sont pas des théorèmes sur K7PL mais sur la forme de ses démonstrations : les chapitres qui suivent les
+instancient plutôt qu'ils ne les refont. Leur statut varie : chaque schéma porte ses hypothèses et les obligations qui
+restent à vérifier pour l'appliquer au système effectif.
 
-Le mot « schéma » désigne ici un patron conditionnel, et non un résultat acquis sur le langage. Le
-champ state décrit l'état épistémique de l'énoncé ; le champ evidence décrit le type d'appui déclaré.
-Ni le rôle lemma, ni une esquisse, ni une compilation de la documentation ne valide les hypothèses
-d'une instance. Le guide de lecture du chapitre 1 fixe la qualification de l'évidence ; les
-obligations propres à chaque schéma restent indiquées ci-dessous.
+Le mot « schéma » désigne ici un patron conditionnel, et non un résultat acquis sur le langage. Le champ state décrit
+l'état épistémique de l'énoncé ; le champ evidence décrit le type d'appui déclaré. Ni le rôle lemma, ni une esquisse, ni
+une compilation de la documentation ne valide les hypothèses d'une instance. Le guide de lecture du chapitre 1 fixe la
+qualification de l'évidence ; les obligations propres à chaque schéma restent indiquées ci-dessous.
 
-Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le
-désucrage d'une forme de surface, la traduction vers le métalangage et l'abaissement vers la
-représentation intermédiaire ont ceci de commun qu'ils sont définis par récurrence sur la structure
-des termes et qu'ils doivent commuter avec la substitution : faute de quoi le sens dépendrait de
-l'ordre dans lequel on transforme et on substitue.
+Le premier gouverne toute transformation qui traverse une substitution. L'expansion d'une macro, le désucrage d'une
+forme de surface, la traduction vers le métalangage et l'abaissement vers la représentation intermédiaire ont ceci de
+commun qu'ils sont définis par récurrence sur la structure des termes et qu'ils doivent commuter avec la substitution :
+faute de quoi le sens dépendrait de l'ordre dans lequel on transforme et on substitue.
 
 ::::lemma (label := "thm:schema_commutation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
@@ -47,37 +44,33 @@ schéma de commutation
 :::statement +titled
 Transformer puis substituer, ou l'inverse
 
-Soit $`T` une transformation définie par récurrence sur la structure des termes, qui n'introduit
-aucune variable libre et respecte les liaisons. Supposons de plus que chacune de ses clauses soit
-compatible avec la substitution : action sur les variables, action sur chaque constructeur,
-traitement des lieurs et évitement de capture compris. Alors, à renommage près des variables liées,
-$$`T \circ \text{subst} \;=\; \text{subst} \circ T.`
+Soit $`T` une transformation définie par récurrence sur la structure des termes, qui n'introduit aucune variable libre
+et respecte les liaisons. Supposons de plus que chacune de ses clauses soit compatible avec la substitution : action sur
+les variables, action sur chaque constructeur, traitement des lieurs et évitement de capture compris. Alors, à renommage
+près des variables liées, $$`T \circ \text{subst} \;=\; \text{subst} \circ T.`
 
-Le schéma est paramétré par trois données, et les nommer dit ce qu'une instance doit fournir : le
-_langage objet_ sur lequel $`T` opère ; les _règles de construction_ par lesquelles la récurrence
-procède ; et la _discipline de liaison_, qui fixe l'ordre d'occurrence et l'évitement de capture.
+Le schéma est paramétré par trois données, et les nommer dit ce qu'une instance doit fournir : le _langage objet_ sur
+lequel $`T` opère ; les _règles de construction_ par lesquelles la récurrence procède ; et la _discipline de liaison_,
+qui fixe l'ordre d'occurrence et l'évitement de capture.
 :::
 
 :::proofsketch
-Par récurrence sur le terme. Les cas des constructeurs sont immédiats, $`T` y étant définie
-composante par composante. Le seul cas non immédiat est celui du lieur : il demande que la variable
-substituée ne soit pas capturée par le lieur que $`T` produit, ce que l'hypothèse de compatibilité
-fournit pour la clause du lieur.
+Par récurrence sur le terme. Les cas des constructeurs sont immédiats, $`T` y étant définie composante par composante.
+Le seul cas non immédiat est celui du lieur : il demande que la variable substituée ne soit pas capturée par le lieur
+que $`T` produit, ce que l'hypothèse de compatibilité fournit pour la clause du lieur.
 :::
 
 :::note
-_Obligation ouverte._ Les trois premières hypothèses (récurrence structurelle, aucune variable libre
-introduite, respect des liaisons) ne fixent pas à elles seules les équations de compatibilité dont
-dépend la commutation ; l'énoncé suppose donc explicitement la compatibilité de chaque clause de
-$`T` avec la substitution. Pour chaque instance, restent à expliciter l'action de $`T` sur les
-variables et sur chaque constructeur, lieurs compris, la substitution sans capture et l'équivalence
-de renommage, puis à vérifier la condition latérale du cas du lieur. Tant que ces obligations ne
-sont pas remplies, l'instance reste sous-spécifiée.
+_Obligation ouverte._ Les trois premières hypothèses (récurrence structurelle, aucune variable libre introduite, respect
+des liaisons) ne fixent pas à elles seules les équations de compatibilité dont dépend la commutation ; l'énoncé suppose
+donc explicitement la compatibilité de chaque clause de $`T` avec la substitution. Pour chaque instance, restent à
+expliciter l'action de $`T` sur les variables et sur chaque constructeur, lieurs compris, la substitution sans capture
+et l'équivalence de renommage, puis à vérifier la condition latérale du cas du lieur. Tant que ces obligations ne sont
+pas remplies, l'instance reste sous-spécifiée.
 :::
 ::::
-Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qui est
-à établir, et rien de plus : non pas que la traduction préserve le jugement, mais que chaque règle de
-la source a une dérivation pour image.
+Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qui est à établir, et rien de plus
+: non pas que la traduction préserve le jugement, mais que chaque règle de la source a une dérivation pour image.
 
 ::::lemma (label := "thm:schema_preservation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
@@ -87,28 +80,26 @@ schéma de préservation par traduction
 :::statement +titled
 Une traduction dérivante préserve le jugement
 
-Soit $`\llbracket \cdot \rrbracket` une traduction d'un système de règles vers un autre. Si l'image
-de chaque règle de la source est une _dérivation_ de la cible, alors toute dérivation
-$`\mathcal{D}_s : \Delta_s \vdash t_s` a pour image une dérivation
-$`\mathcal{D}_t : \Delta_t \vdash \llbracket t_s \rrbracket`.
+Soit $`\llbracket \cdot \rrbracket` une traduction d'un système de règles vers un autre. Si l'image de chaque règle de
+la source est une _dérivation_ de la cible, alors toute dérivation $`\mathcal{D}_s : \Delta_s \vdash t_s` a pour image
+une dérivation $`\mathcal{D}_t : \Delta_t \vdash \llbracket t_s \rrbracket`.
 :::
 
 :::proofsketch
-Par récurrence sur $`\mathcal{D}_s`. Chaque règle fournit sa dérivation image par hypothèse ; la
-composition de dérivations étant admissible dans la cible, les images se recollent. Le travail réel
-d'une instance est donc d'exhiber une dérivation par règle, et l'énoncé général n'a pas à être
-refait.
+Par récurrence sur $`\mathcal{D}_s`. Chaque règle fournit sa dérivation image par hypothèse ; la composition de
+dérivations étant admissible dans la cible, les images se recollent. Le travail réel d'une instance est donc d'exhiber
+une dérivation par règle, et l'énoncé général n'a pas à être refait.
 :::
 
 :::note
-_Obligation ouverte._ Restent à définir les formes de jugement de la source et de la cible, la
-traduction des contextes et l'obligation propre à chaque règle, prémisses et conditions latérales
-comprises. L'admissibilité de la composition des dérivations dépend du système cible effectif.
-L'énoncé général ne dispense aucune instance de remplir cette obligation.
+_Obligation ouverte._ Restent à définir les formes de jugement de la source et de la cible, la traduction des contextes
+et l'obligation propre à chaque règle, prémisses et conditions latérales comprises. L'admissibilité de la composition
+des dérivations dépend du système cible effectif. L'énoncé général ne dispense aucune instance de remplir cette
+obligation.
 :::
 ::::
-Le troisième est un fait de théorie des graphes, employé deux fois par ce document et qu'il serait
-vain de démontrer deux fois.
+Le troisième est un fait de théorie des graphes, employé deux fois par ce document et qu'il serait vain de démontrer
+deux fois.
 
 ::::lemma (label := "thm:tri_topologique") (level := "langage") (role := "lemma") (state := "supported") (evidence := "proofsketch") (scope := "graphs")
 :::title
@@ -118,20 +109,19 @@ tri topologique
 :::statement +titled
 Un graphe fini acyclique s'ordonne
 
-Tout graphe orienté fini et acyclique admet un ordre total de ses sommets tel que toute arête aille
-d'un sommet plus petit vers un sommet plus grand.
+Tout graphe orienté fini et acyclique admet un ordre total de ses sommets tel que toute arête aille d'un sommet plus
+petit vers un sommet plus grand.
 :::
 
 :::proofsketch
-Par récurrence sur le nombre de sommets. Un graphe fini acyclique non vide possède un sommet sans
-prédécesseur : sinon, en remontant les prédécesseurs, la finitude force la répétition d'un sommet,
-donc un cycle. Ce sommet est placé en tête, et l'hypothèse d'induction ordonne le reste.
+Par récurrence sur le nombre de sommets. Un graphe fini acyclique non vide possède un sommet sans prédécesseur : sinon,
+en remontant les prédécesseurs, la finitude force la répétition d'un sommet, donc un cycle. Ce sommet est placé en tête,
+et l'hypothèse d'induction ordonne le reste.
 :::
 
 ::::
-Un quatrième schéma gouverne tout ce qui, dans ce document, _retire_. Cinq constructions
-l'instancient sans qu'aucune ne le nomme, et leur parenté n'est aujourd'hui qu'une ressemblance de
-forme.
+Un quatrième schéma gouverne tout ce qui, dans ce document, _retire_. Cinq constructions l'instancient sans qu'aucune ne
+le nomme, et leur parenté n'est aujourd'hui qu'une ressemblance de forme.
 
 ::::lemma (label := "thm:schema_restriction") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
@@ -141,42 +131,37 @@ schéma de restriction
 :::statement +titled
 Retirer sans déformer
 
-Soit $`p` un critère sur les éléments d'une structure, et $`\rho_p` l'opération qui retire ceux que
-$`p` exclut. Si $`p` est _stable par les opérations de la structure_ (l'image d'un élément retenu
-ne contient que des éléments retenus) alors $`\rho_p` est un morphisme : elle commute à la
-composition et préserve l'identité.
+Soit $`p` un critère sur les éléments d'une structure, et $`\rho_p` l'opération qui retire ceux que $`p` exclut. Si $`p`
+est _stable par les opérations de la structure_ (l'image d'un élément retenu ne contient que des éléments retenus) alors
+$`\rho_p` est un morphisme : elle commute à la composition et préserve l'identité.
 :::
 
 :::proofsketch
-Par récurrence sur la structure. Le seul cas non immédiat est celui d'une opération dont un argument
-est retiré et l'autre non ; la stabilité de $`p` l'exclut, puisqu'elle demande que le retrait d'un
-élément entraîne celui de tout ce qui en dépend. C'est cette condition, et elle seule, qui sépare
-une restriction d'une mutilation.
+Par récurrence sur la structure. Le seul cas non immédiat est celui d'une opération dont un argument est retiré et
+l'autre non ; la stabilité de $`p` l'exclut, puisqu'elle demande que le retrait d'un élément entraîne celui de tout ce
+qui en dépend. C'est cette condition, et elle seule, qui sépare une restriction d'une mutilation.
 :::
 
 :::note
-_Obligation ouverte._ Pour une structure quelconque, la stabilité des éléments retenus ne définit
-pas à elle seule une application sur tous les éléments d'origine, ni un retrait qui préserve
-l'identité et la composition. Restent à définir la structure ou la catégorie, la source et la cible
-de $`\rho_p`, son action sur les objets et les opérations, et la condition exacte de stabilité ;
-puis à vérifier chacune des cinq instances contre cette interface.
+_Obligation ouverte._ Pour une structure quelconque, la stabilité des éléments retenus ne définit pas à elle seule une
+application sur tous les éléments d'origine, ni un retrait qui préserve l'identité et la composition. Restent à définir
+la structure ou la catégorie, la source et la cible de $`\rho_p`, son action sur les objets et les opérations, et la
+condition exacte de stabilité ; puis à vérifier chacune des cinq instances contre cette interface.
 :::
 ::::
-Cinq constructions en sont des instances, et les reconnaître comme telles dispense de vérifier cinq
-fois la même chose. La _projection conservatrice_ retire les opérations d'une sorte et garde le
-temps ; la _projection observationnelle_ retire ce qui excède un niveau, temps compris ;
-l'_effacement indexé_ retire ce qui est gradué au-dessus d'un niveau ; la _restriction d'un espace
-de noms_ retire les arêtes hors d'une dimension ; et la _purge de spécification_ de la dernière
-phase de compilation retire les blocs qui n'ont servi qu'à vérifier.
+Cinq constructions en sont des instances, et les reconnaître comme telles dispense de vérifier cinq fois la même chose.
+La _projection conservatrice_ retire les opérations d'une sorte et garde le temps ; la _projection observationnelle_
+retire ce qui excède un niveau, temps compris ; l'_effacement indexé_ retire ce qui est gradué au-dessus d'un niveau ;
+la _restriction d'un espace de noms_ retire les arêtes hors d'une dimension ; et la _purge de spécification_ de la
+dernière phase de compilation retire les blocs qui n'ont servi qu'à vérifier.
 
-Ce que le schéma apporte n'est pas l'économie de cinq preuves, c'est la _condition_ qu'elles
-partagent et qu'aucune n'énonçait : une restriction n'est un morphisme que si son critère est
-stable. Les deux projections du chapitre suivant diffèrent précisément par leur critère, et c'est
-pourquoi les confondre ouvrirait le canal que l'une d'elles prétend fermer : ce n'est pas une
-coïncidence malheureuse mais une conséquence du schéma.
+Ce que le schéma apporte n'est pas l'économie de cinq preuves, c'est la _condition_ qu'elles partagent et qu'aucune
+n'énonçait : une restriction n'est un morphisme que si son critère est stable. Les deux projections du chapitre suivant
+diffèrent précisément par leur critère, et c'est pourquoi les confondre ouvrirait le canal que l'une d'elles prétend
+fermer : ce n'est pas une coïncidence malheureuse mais une conséquence du schéma.
 
-Un cinquième schéma gouverne tout ce qui, dans ce document, _répète_. Cinq mécanismes font la même
-chose sous cinq noms, et aucun ne renvoie aux autres.
+Un cinquième schéma gouverne tout ce qui, dans ce document, _répète_. Cinq mécanismes font la même chose sous cinq noms,
+et aucun ne renvoie aux autres.
 
 ::::lemma (label := "thm:schema_reinvocation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "none") (scope := "metatheory")
 :::title
@@ -186,20 +171,19 @@ schéma de ré-invocation bornée
 :::statement +titled
 Employer $`n` fois, c'est invoquer $`n` fois en séquence
 
-Pour $`t` de contexte $`\Delta` et d'effet $`\varepsilon`, et pour $`n \in \mathbb{N}_\infty`,
-la ré-invocation $`\mathsf{reinvo}(n,t)` combine deux actions distinctes : le contexte est mis à
-l'échelle par $`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et l'effet devient
-$`\varphi_n(\varepsilon)`. Pour $`n` fini, c'est la ré-invocation séquentielle bornée. Le cas
-$`n = \omega` est traité à part : $`\operatorname{Scale}_{\mathrm{Usage}}(\omega,-)` est l'action de
-l'usage non borné, et $`\varphi_\omega` emploie $`\varepsilon^\omega = \bigvee_m \varepsilon^m`
-(§{num "sec:g-scoped"}[]), qui suppose ces suprema dans le monoïde des effets.
+Pour $`t` de contexte $`\Delta` et d'effet $`\varepsilon`, et pour $`n \in \mathbb{N}_\infty`, la ré-invocation
+$`\mathsf{reinvo}(n,t)` combine deux actions distinctes : le contexte est mis à l'échelle par
+$`\operatorname{Scale}_{\mathrm{Usage}}(n,\Delta)` et l'effet devient $`\varphi_n(\varepsilon)`. Pour $`n` fini, c'est
+la ré-invocation séquentielle bornée. Le cas $`n = \omega` est traité à part :
+$`\operatorname{Scale}_{\mathrm{Usage}}(\omega,-)` est l'action de l'usage non borné, et $`\varphi_\omega` emploie
+$`\varepsilon^\omega = \bigvee_m \varepsilon^m` (§{num "sec:g-scoped"}[]), qui suppose ces suprema dans le monoïde des
+effets.
 :::
 :::note
-_Obligation ouverte._ Restent à établir l'existence des suprema qui définissent $`\varphi_\omega`, et
-le lien entre $`\mathsf{reinvo}(\omega,t)` et le service répliqué que la traduction associe au grade
-$`\omega`. L'associativité, l'unité et la compatibilité entre mise à l'échelle et action sur les
-effets ne sont pas établies par ce bloc ; elles relèvent de l'exigence qui suit. Aucune
-multiplication du budget ne doit en être déduite.
+_Obligation ouverte._ Restent à établir l'existence des suprema qui définissent $`\varphi_\omega`, et le lien entre
+$`\mathsf{reinvo}(\omega,t)` et le service répliqué que la traduction associe au grade $`\omega`. L'associativité,
+l'unité et la compatibilité entre mise à l'échelle et action sur les effets ne sont pas établies par ce bloc ; elles
+relèvent de l'exigence qui suit. Aucune multiplication du budget ne doit en être déduite.
 :::
 ::::
 
@@ -211,31 +195,29 @@ compatibilité de la ré-invocation
 :::statement +titled
 Compatibilité contexte/effet
 
-L'associativité requiert séparément la composition des mises à l'échelle
-et celle des transformations d'effet ; l'unité est $`n=1`.
+L'associativité requiert séparément la composition des mises à l'échelle et celle des transformations d'effet ; l'unité
+est $`n=1`.
 
-La mise à l'échelle du contexte est celle de la modalité factorisée. La loi de coût est l'action
-$`\varphi_n` sur les effets. Leur compatibilité constitue une obligation propre à la ré-invocation
-finie ; elle n'est pas une instance automatique d'une loi uniforme sur le grade complet. Au cas
-$`n = \omega`, la compatibilité est une obligation distincte, conditionnelle à l'existence des
-suprema qui définissent $`\varphi_\omega`. Sur le
-budget, cette compatibilité reste distincte de $`Scale_Usage` et ne doit pas introduire une
-multiplication du budget tant qu'aucune telle action n'est définie.
+La mise à l'échelle du contexte est celle de la modalité factorisée. La loi de coût est l'action $`\varphi_n` sur les
+effets. Leur compatibilité constitue une obligation propre à la ré-invocation finie ; elle n'est pas une instance
+automatique d'une loi uniforme sur le grade complet. Au cas $`n = \omega`, la compatibilité est une obligation
+distincte, conditionnelle à l'existence des suprema qui définissent $`\varphi_\omega`. Sur le budget, cette
+compatibilité reste distincte de $`Scale_Usage` et ne doit pas introduire une multiplication du budget tant qu'aucune
+telle action n'est définie.
 :::
 ::::
-Certaines constructions en sont des instances directes : la traduction d'un grade fini, le parcours
-d'un vecteur, l'opération à portée et l'image bornée du point fixe déductif. L'expansion d'une macro
-n'en est pas une instance directe : elle conserve l'ordre des occurrences des arguments et compose
-leurs effets sans convertir le grade déclaré en multiplicité d'effet. Le schéma décrit une
-ré-invocation homogène ; la macro relève d'un schéma plus général de substitution séquentielle.
-Les deux partagent l'action contextuelle d'usage, mais leurs obligations sur les effets sont
+Certaines constructions en sont des instances directes : la traduction d'un grade fini, le parcours d'un vecteur,
+l'opération à portée et l'image bornée du point fixe déductif. L'expansion d'une macro n'en est pas une instance directe
+: elle conserve l'ordre des occurrences des arguments et compose leurs effets sans convertir le grade déclaré en
+multiplicité d'effet. Le schéma décrit une ré-invocation homogène ; la macro relève d'un schéma plus général de
+substitution séquentielle. Les deux partagent l'action contextuelle d'usage, mais leurs obligations sur les effets sont
 différentes.
 
 
-Un sixième schéma est le plus général des six, et il absorbe une part des précédents. Tout ce qui,
-dans ce document, _traduit une représentation riche vers une représentation plus pauvre_
-(l'élaboration de la syntaxe de surface, l'effacement de la dernière phase, l'abaissement vers la
-représentation intermédiaire, la traduction vers le métalangage) obéit au même énoncé.
+Un sixième schéma est le plus général des six, et il absorbe une part des précédents. Tout ce qui, dans ce document,
+_traduit une représentation riche vers une représentation plus pauvre_ (l'élaboration de la syntaxe de surface,
+l'effacement de la dernière phase, l'abaissement vers la représentation intermédiaire, la traduction vers le
+métalangage) obéit au même énoncé.
 
 ::::lemma (label := "thm:schema_effacement") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
@@ -245,41 +227,37 @@ schéma d'effacement
 :::statement +titled
 Une transformation hygiénique est un morphisme de systèmes de raffinement
 
-Soit $`T` une transformation définie par récurrence sur la structure, n'introduisant aucune variable
-libre et respectant les liaisons. Alors $`T` induit un morphisme de systèmes de raffinement : elle
-envoie une dérivation sur une dérivation, commute à la substitution, et ce qu'elle oublie est
-exactement la fibre.
+Soit $`T` une transformation définie par récurrence sur la structure, n'introduisant aucune variable libre et respectant
+les liaisons. Alors $`T` induit un morphisme de systèmes de raffinement : elle envoie une dérivation sur une dérivation,
+commute à la substitution, et ce qu'elle oublie est exactement la fibre.
 :::
 
 :::proofsketch
-Trois conditions, et chacune est déjà esquissée. La commutation à la substitution est le
-théorème {num "thm:schema_commutation"}[]. L'envoi des dérivations sur des dérivations est le
-théorème {num "thm:schema_preservation"}[], dont la condition est que l'image de chaque règle soit
-une dérivation. Que l'oubli soit une fibre est le théorème {num "thm:raffinement"}[], qui construit
-le système de raffinement dont la traduction est le foncteur.
+Trois conditions, et chacune est déjà esquissée. La commutation à la substitution est le théorème {num
+"thm:schema_commutation"}[]. L'envoi des dérivations sur des dérivations est le théorème {num
+"thm:schema_preservation"}[], dont la condition est que l'image de chaque règle soit une dérivation. Que l'oubli soit
+une fibre est le théorème {num "thm:raffinement"}[], qui construit le système de raffinement dont la traduction est le
+foncteur.
 :::
 
 :::note
-_Obligation ouverte._ Les trois résultats cités ne donnent pas à eux seuls la conclusion que « ce
-qu'elle oublie est exactement la fibre ». Restent à définir les systèmes de raffinement et leur
-morphisme, l'application dont on prend les fibres, puis à vérifier que les hypothèses du théorème de
-raffinement cité correspondent bien à la transformation du schéma. Les citations ne valent pas
-validation de la conclusion composée.
+_Obligation ouverte._ Les trois résultats cités ne donnent pas à eux seuls la conclusion que « ce qu'elle oublie est
+exactement la fibre ». Restent à définir les systèmes de raffinement et leur morphisme, l'application dont on prend les
+fibres, puis à vérifier que les hypothèses du théorème de raffinement cité correspondent bien à la transformation du
+schéma. Les citations ne valent pas validation de la conclusion composée.
 :::
 ::::
-Quatre constructions en sont des instances, et la quatrième est celle qui coûtait le plus cher : la
-fidélité de l'interpréteur de référence. Elle cesse d'être une propriété à établir construction par
-construction pour devenir la vérification de trois conditions sur une transformation.
+Quatre constructions en sont des instances, et la quatrième est celle qui coûtait le plus cher : la fidélité de
+l'interpréteur de référence. Elle cesse d'être une propriété à établir construction par construction pour devenir la
+vérification de trois conditions sur une transformation.
 
-Ce schéma dit en outre _ce qui ne se confond pas_, et c'est son second usage. Préserver le
-typage, simuler l'exécution et être correct vis-à-vis de la machine sont trois énoncés distincts~;
-le schéma établit le premier, et les deux autres demeurent. Les glissements entre eux sont la classe
-d'erreur que ce document a le plus de mal à éviter, parce que les trois s'énoncent avec les mêmes
-mots.
+Ce schéma dit en outre _ce qui ne se confond pas_, et c'est son second usage. Préserver le typage, simuler l'exécution
+et être correct vis-à-vis de la machine sont trois énoncés distincts~; le schéma établit le premier, et les deux autres
+demeurent. Les glissements entre eux sont la classe d'erreur que ce document a le plus de mal à éviter, parce que les
+trois s'énoncent avec les mêmes mots.
 
-Un septième énoncé mérite le même traitement, et il porte sur les capacités plutôt que sur les
-termes. Le chapitre 4 l'emploie deux fois (pour la mémoire partagée et pour la frontière étrangère)
-et l'argument y est le même à un mot près.
+Un septième énoncé mérite le même traitement, et il porte sur les capacités plutôt que sur les termes. Le chapitre 4
+l'emploie deux fois (pour la mémoire partagée et pour la frontière étrangère) et l'argument y est le même à un mot près.
 
 ::::lemma (label := "thm:lemme_capacite") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "resources")
 :::title
@@ -289,23 +267,21 @@ lemme de capacité
 :::statement +titled
 Deux accès concurrents n'ont pas de dérivation
 
-Soit une ressource $`r` dont l'accès n'est dérivable que d'une liaison portant $`\text{Cap}(r)`. Si
-$`\text{Cap}(r)` est de grade linéaire, alors aucun terme ne dérive deux accès concurrents à $`r`.
+Soit une ressource $`r` dont l'accès n'est dérivable que d'une liaison portant $`\text{Cap}(r)`. Si $`\text{Cap}(r)` est
+de grade linéaire, alors aucun terme ne dérive deux accès concurrents à $`r`.
 :::
 
 :::proofsketch
-Deux accès concurrents demanderaient deux occurrences de $`\text{Cap}(r)` dans le même contexte,
-donc une contraction sur une liaison de grade $`1` : la somme des grades vaudrait $`2`, et la règle
-de contraction n'est disponible qu'aux grades qui l'admettent. Il n'y a pas de dérivation, et la
-garantie ne coûte donc aucune vérification.
+Deux accès concurrents demanderaient deux occurrences de $`\text{Cap}(r)` dans le même contexte, donc une contraction
+sur une liaison de grade $`1` : la somme des grades vaudrait $`2`, et la règle de contraction n'est disponible qu'aux
+grades qui l'admettent. Il n'y a pas de dérivation, et la garantie ne coûte donc aucune vérification.
 :::
 
 :::note
-_Obligation ouverte._ L'argument vaut relativement à des règles que le bloc ne cite pas :
-introduction et accès de la capacité, règle de contraction et grades qui l'admettent, notion
-formelle d'accès concurrents. Restent à les citer ou à les énoncer, puis à vérifier si la conclusion
-découle de la seule linéarité ou demande en outre une propriété de la sémantique opérationnelle. Le
-résultat demeure conditionnel jusque-là.
+_Obligation ouverte._ L'argument vaut relativement à des règles que le bloc ne cite pas : introduction et accès de la
+capacité, règle de contraction et grades qui l'admettent, notion formelle d'accès concurrents. Restent à les citer ou à
+les énoncer, puis à vérifier si la conclusion découle de la seule linéarité ou demande en outre une propriété de la
+sémantique opérationnelle. Le résultat demeure conditionnel jusque-là.
 :::
 ::::
 {bibliography}

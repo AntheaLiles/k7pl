@@ -19,32 +19,41 @@ file := "c1-introduction"
 tag := "c1-introduction"
 %%%
 
-Un système logiciel contemporain est sommé de tenir trois exigences à la fois : la performance du bas niveau, nativement et en parallèle ; la sûreté de la mémoire sans ramasse-miettes ni comptage de références, un programme devant pouvoir s'exécuter près du matériel sans que son exécution, ou celle d'un pair, corrompe la mémoire ; et la résilience, c'est-à-dire une exécution durable et une isolation effective entre composants. Aucune de ces exigences n'est neuve ; leur conjonction l'est.
+Un système logiciel contemporain est sommé de tenir trois exigences à la fois : la performance du bas niveau, nativement
+et en parallèle ; la sûreté de la mémoire sans ramasse-miettes ni comptage de références, un programme devant pouvoir
+s'exécuter près du matériel sans que son exécution, ou celle d'un pair, corrompe la mémoire ; et la résilience,
+c'est-à-dire une exécution durable et une isolation effective entre composants. Aucune de ces exigences n'est neuve ;
+leur conjonction l'est.
 
-Elle résiste parce qu'on la pense comme un arbitrage : on choisit un point sur un triangle de compromis et l'on hérite des faiblesses de ce point. K7PL part d'une autre hypothèse : si les trois exigences s'expriment comme instances d'une même structure algébrique, il ne s'agit plus de choisir mais de _graduer_, dans un seul langage et sans changer de paradigme, le niveau de rigueur payé localement. C'est de ces trois exigences que découlent les recherches qui fondent le langage : la théorie des catégories, la théorie des types et la théorie des automates, exposées aux chapitres 2, 3 et 4. La vérification formelle n'y figure pas comme une exigence de plus : elle est le moyen par lequel les propriétés annoncées s'établissent, et l'outillage qui la porte est indiqué au seuil de chaque chapitre. Chaque notion propre au langage est définie ici avant d'être employée ; seuls les rudiments de la théorie des catégories sont supposés connus.
+Elle résiste parce qu'on la pense comme un arbitrage : on choisit un point sur un triangle de compromis et l'on hérite
+des faiblesses de ce point. K7PL part d'une autre hypothèse : si les trois exigences s'expriment comme instances d'une
+même structure algébrique, il ne s'agit plus de choisir mais de _graduer_, dans un seul langage et sans changer de
+paradigme, le niveau de rigueur payé localement. C'est de ces trois exigences que découlent les recherches qui fondent
+le langage : la théorie des catégories, la théorie des types et la théorie des automates, exposées aux chapitres 2, 3 et
+4. La vérification formelle n'y figure pas comme une exigence de plus : elle est le moyen par lequel les propriétés
+annoncées s'établissent, et l'outillage qui la porte est indiqué au seuil de chaque chapitre. Chaque notion propre au
+langage est définie ici avant d'être employée ; seuls les rudiments de la théorie des catégories sont supposés connus.
 
 Trois maturités se distinguent dans ce qui suit.
 
-_Arrêté_ : ne changera plus sans révision de l'axiomatique. Le jugement à trois composantes et sa
-strate d'obligations. La sédimentation en trois fragments et son origine dans le semi-anneau. Le
-système de raffinement et son foncteur d'effacement. Les correspondances de disposition et leur
-domaine exact. Le modèle mémoire acquisition-libération et sa portée d'une machine. Les trois
-critères de terminaison. L'encodage des protocoles dans l'implication linéaire.
+_Arrêté_ : ne changera plus sans révision de l'axiomatique. Le jugement à trois composantes et sa strate d'obligations.
+La sédimentation en trois fragments et son origine dans le semi-anneau. Le système de raffinement et son foncteur
+d'effacement. Les correspondances de disposition et leur domaine exact. Le modèle mémoire acquisition-libération et sa
+portée d'une machine. Les trois critères de terminaison. L'encodage des protocoles dans l'implication linéaire.
 
-_Construit, non éprouvé_ : la construction est faite, l'épreuve ne l'est pas. L'extension déductive
-et son opérateur de point fixe ; les modalités temporelles et le débit qu'elles expriment ; l'axe de
-confidentialité et sa modalité graduée ; la déclassification par échappatoires nommées ; le
-métalangage et la traduction vers lui ; le jeu de règles de typage, complet pour les constructeurs du noyau (§{num "sec:g-regles"}[]), dont restent à établir les propriétés et non plus l'existence.
+_Construit, non éprouvé_ : la construction est faite, l'épreuve ne l'est pas. L'extension déductive et son opérateur de
+point fixe ; les modalités temporelles et le débit qu'elles expriment ; l'axe de confidentialité et sa modalité graduée
+; la déclassification par échappatoires nommées ; le métalangage et la traduction vers lui ; le jeu de règles de typage,
+complet pour les constructeurs du noyau (§{num "sec:g-regles"}[]), dont restent à établir les propriétés et non plus
+l'existence.
 
-_Nommé, non posé_ : le document sait qu'il en a besoin et ne l'a pas donné. La loi distributive
-graduée entre les deux côtés de l'adjonction ; la gradation indexée qu'exigent les effets dépendant
-de valeurs. Ce qui suspend les preuves ouvertes est l'incomplétude de ces deux objets, non l'absence du jeu de règles.
+_Nommé, non posé_ : le document sait qu'il en a besoin et ne l'a pas donné. La loi distributive graduée entre les deux
+côtés de l'adjonction ; la gradation indexée qu'exigent les effets dépendant de valeurs. Ce qui suspend les preuves
+ouvertes est l'incomplétude de ces deux objets, non l'absence du jeu de règles.
 
-Cette troisième catégorie n'est pas une liste de manques : c'est l'état d'un chantier dont les
-objets sont identifiés et les dépendances connues. Un programme de recherche se distingue d'une
-dette en ce qu'il sait ce qu'il cherche.
+Cette troisième catégorie n'est pas une liste de manques : c'est l'état d'un chantier dont les objets sont identifiés et
+les dépendances connues. Un programme de recherche se distingue d'une dette en ce qu'il sait ce qu'il cherche.
 
-Une exigence de rédaction tient d'un bout à l'autre, et le lecteur est fondé à l'opposer au texte :
-le statut annoncé d'une affirmation doit correspondre à l'état effectif des définitions et des
-preuves qui la portent, et ce qui n'est pas établi reste explicitement conditionnel ou est nommé
-comme tel.
+Une exigence de rédaction tient d'un bout à l'autre, et le lecteur est fondé à l'opposer au texte : le statut annoncé
+d'une affirmation doit correspondre à l'état effectif des définitions et des preuves qui la portent, et ce qui n'est pas
+établi reste explicitement conditionnel ou est nommé comme tel.

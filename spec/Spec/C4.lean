@@ -30,7 +30,11 @@ tag := "c4-automates"
 
 {refsection "c4-automates"}
 
-Ce chapitre pose la sémantique du langage en exécution. Il établit la sémantique opérationnelle et le calcul de processus sous-jacent, ainsi que les modèles de mémoire et le système de sortes du métalangage. Il déploie également l'analyse aux trois échelles du langage (locale, de l'acteur et du système) et inventorie ce que chaque preuve ouverte y puise. Les démonstrations sont rédigées, avec des esquisses de preuve ; des modèles compagnons en TLA+, explorés par TLC dans un périmètre borné, portent sur l'annulation d'acteur et la frontière native (projet k7os).
+Ce chapitre pose la sémantique du langage en exécution. Il établit la sémantique opérationnelle et le calcul de
+processus sous-jacent, ainsi que les modèles de mémoire et le système de sortes du métalangage. Il déploie également
+l'analyse aux trois échelles du langage (locale, de l'acteur et du système) et inventorie ce que chaque preuve ouverte y
+puise. Les démonstrations sont rédigées, avec des esquisses de preuve ; des modèles compagnons en TLA+, explorés par TLC
+dans un périmètre borné, portent sur l'annulation d'acteur et la frontière native (projet k7os).
 
 {include 0 Spec.C4.Introduction}
 

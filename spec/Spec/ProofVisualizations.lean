@@ -16,17 +16,14 @@ tag := "proof-visualizations"
 
 # Visualisations de preuves Lean
 
-Les vues ci-dessous sont des observations documentaires dérivées des états de buts
-et des hypothèses rapportés par l'extracteur Paperproof. Elles complètent les sources
-Lean sans s'y substituer. Elles ne constituent ni une preuve indépendante, ni une
-validation de correspondance entre une déclaration Lean et un énoncé normatif.
+Les vues ci-dessous sont des observations documentaires dérivées des états de buts et des hypothèses rapportés par
+l'extracteur Paperproof. Elles complètent les sources Lean sans s'y substituer. Elles ne constituent ni une preuve
+indépendante, ni une validation de correspondance entre une déclaration Lean et un énoncé normatif.
 
-La compilation K7PL principale et le workspace d'extraction sont tous deux
-épinglés sur Lean 4.34.0. Le run CI 38451997922 a confirmé l'extraction des cinq
-cibles sélectionnées, leur rendu par les backends Verso HTML/TeX et la compilation
-du PDF. Cette validation porte sur les exemples présents dans ce corpus ; elle ne
-garantit pas une prise en charge universelle des constructions Lean et ne remplace
-pas l'inspection humaine des transitions et de la lisibilité.
+La compilation K7PL principale et le workspace d'extraction sont tous deux épinglés sur Lean 4.34.0. Le run CI
+38451997922 a confirmé l'extraction des cinq cibles sélectionnées, leur rendu par les backends Verso HTML/TeX et la
+compilation du PDF. Cette validation porte sur les exemples présents dans ce corpus ; elle ne garantit pas une prise en
+charge universelle des constructions Lean et ne remplace pas l'inspection humaine des transitions et de la lisibilité.
 
 ## Conservation sémantique de double
 

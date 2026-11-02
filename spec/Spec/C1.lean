@@ -27,7 +27,10 @@ tag := "c1-prolegomenes"
 
 {refsection "c1-prolegomenes"}
 
-Ce chapitre pose les conventions et objectifs du projet. Il établit les quatre postulats du langage et leur expression conjointe dans un jugement de typage unique (axiomatique germinale). Il fixe également le vocabulaire des énoncés et des évidences auquel tout l'ouvrage se réfère (guide de lecture), et donne les tables normatives des symboles et des glyphes.
+Ce chapitre pose les conventions et objectifs du projet. Il établit les quatre postulats du langage et leur expression
+conjointe dans un jugement de typage unique (axiomatique germinale). Il fixe également le vocabulaire des énoncés et des
+évidences auquel tout l'ouvrage se réfère (guide de lecture), et donne les tables normatives des symboles et des
+glyphes.
 
 {include 0 Spec.C1.Introduction}
 
