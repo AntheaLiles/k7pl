@@ -195,17 +195,17 @@ jobs:
     uses: ./.github/workflows/security.yaml
 
   r9-tlc:
-    name: R9 TLA+ model check
+    name: D01, R9 and TLA-01..16 model checks
     needs: impact
     # ÉCART 5 (cutover C2): r9-tlc runs only when tla_model_check is present.
     if: ${{ needs.impact.outputs.tla_model_check == 'true' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     permissions:
       contents: read
     defaults:
       run:
-        working-directory: theoretical-projects/k7os/models
+        working-directory: models
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -231,7 +231,12 @@ jobs:
           printf '%s  %s\n' "$TLC_SHA1" "$RUNNER_TEMP/tla2tools.jar" | sha1sum --check -
 
       - name: Check nominal model
-        run: java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config R9ActorCancellation.cfg R9ActorCancellation
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/r9-positive-tlc.log"
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config R9ActorCancellation.cfg R9ActorCancellation >"$log" 2>&1
+          cat "$log"
 
       - name: Check the intended counterexample
         shell: bash
@@ -247,19 +252,32 @@ jobs:
             echo "::error::TLC accepted a property whose counterexample is expected"
             exit 1
           fi
-          if ! grep -F "Invariant NoCommitAfterCancelRequest" "$log" >/dev/null; then
-            echo "::error::TLC stopped before the expected invariant failure"
+          if ! grep -F "Error: Invariant NoCommitAfterCancelRequest is violated." "$log" >/dev/null; then
+            echo "::error::TLC did not report the exact NoCommitAfterCancelRequest invariant violation"
+            exit 1
+          fi
+          if ! grep -F "Error: The behavior up to this point is:" "$log" >/dev/null; then
+            echo "::error::TLC did not provide a counterexample trace for R9 cancellation"
+            exit 1
+          fi
+          if grep -F -e "***Parse Error***" -e "Parsing or semantic analysis failed." -e "Error: Evaluating invariant TypeOK failed." -e "Error: Assumption" "$log" >/dev/null; then
+            echo "::error::TLC R9 cancellation log also contains a parser, ASSUME or type failure"
             exit 1
           fi
 
       - name: Check D01 native-boundary model with enforced boundary
-        run: java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary.cfg D01NativeBoundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/d01-positive-tlc.log"
+          java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary.cfg D01NativeBoundary >"$log" 2>&1
+          cat "$log"
 
       - name: Check D01 native-boundary counterexample without enforcement
         shell: bash
         run: |
           set -euo pipefail
-          log="$RUNNER_TEMP/d01-native-boundary-negative.log"
+          log="$RUNNER_TEMP/d01-negative-tlc.log"
           set +e
           java -cp "$RUNNER_TEMP/tla2tools.jar" tlc2.TLC -workers 1 -config D01-NativeBoundary-Unconfined.cfg D01NativeBoundary >"$log" 2>&1
           rc=$?
@@ -269,10 +287,76 @@ jobs:
             echo "::error::TLC accepted the unconfined profile despite the expected integrity counterexample"
             exit 1
           fi
-          if ! grep -F "Invariant ProtectedIntegrity" "$log" >/dev/null; then
-            echo "::error::TLC stopped before the expected D01 ProtectedIntegrity counterexample"
+          if ! grep -F "Error: Invariant ProtectedIntegrity is violated." "$log" >/dev/null; then
+            echo "::error::TLC did not report the exact ProtectedIntegrity invariant violation"
             exit 1
           fi
+          if ! grep -F "Error: The behavior up to this point is:" "$log" >/dev/null; then
+            echo "::error::TLC did not provide a counterexample trace for D01 native boundary"
+            exit 1
+          fi
+          if grep -F -e "***Parse Error***" -e "Parsing or semantic analysis failed." -e "Error: Evaluating invariant TypeOK failed." -e "Error: Assumption" "$log" >/dev/null; then
+            echo "::error::TLC D01 native boundary log also contains a parser, ASSUME or type failure"
+            exit 1
+          fi
+
+      - name: Set up Deno
+        if: always()
+        uses: ./.github/actions/setup-deno
+
+      - name: Check all registered TLA-01..16 profiles
+        if: always()
+        run: |
+          set -euo pipefail
+          deno run --allow-read --allow-write --allow-run=java,sha256sum \
+            ../tools/ci-controller/src/tla_model_check.ts \
+            --model-dir . \
+            --tlc-jar "$RUNNER_TEMP/tla2tools.jar" \
+            --evidence "$GITHUB_WORKSPACE/tla-model-check-evidence"
+
+      - name: Preserve D01, R9 and unified TLA evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          evidence="$GITHUB_WORKSPACE/tla-model-check-evidence"
+          d01="$evidence/d01"
+          r9="$evidence/r9"
+          mkdir -p "$d01" "$r9"
+          cp D01NativeBoundary.tla D01-NativeBoundary.cfg D01-NativeBoundary-Unconfined.cfg D01-NativeBoundary-ExpectedCounterexample.json "$d01/"
+          for log in d01-positive-tlc.log d01-negative-tlc.log; do
+            if [ -f "$RUNNER_TEMP/$log" ]; then
+              cp "$RUNNER_TEMP/$log" "$d01/"
+            else
+              echo "::warning::D01 evidence log $log was not produced"
+            fi
+          done
+          cp R9ActorCancellation.tla R9ActorCancellation.cfg R9-NaiveCancelClaim.cfg R9-CancelRace-Test-Vector.md "$r9/"
+          for log in r9-positive-tlc.log r9-negative-tlc.log; do
+            if [ -f "$RUNNER_TEMP/$log" ]; then
+              cp "$RUNNER_TEMP/$log" "$r9/"
+            else
+              echo "::warning::R9 evidence log $log was not produced"
+            fi
+          done
+          if [ ! -f "$evidence/java-version.txt" ]; then
+            java -version >"$evidence/java-version.txt" 2>&1
+          fi
+          if [ ! -f "$evidence/tla2tools.jar.sha256" ]; then
+            sha256sum "$RUNNER_TEMP/tla2tools.jar" >"$evidence/tla2tools.jar.sha256"
+          fi
+          checksum_manifest="$RUNNER_TEMP/tla-model-check-SHA256SUMS"
+          rm -f "$checksum_manifest"
+          cd "$evidence"
+          find . -type f -print0 | sort -z | xargs -0 -r sha256sum > "$checksum_manifest"
+          mv "$checksum_manifest" SHA256SUMS
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: tla-model-check-evidence
+          path: tla-model-check-evidence/
+          if-no-files-found: error
+          retention-days: 14
 
   ci-ok:
     name: CI OK

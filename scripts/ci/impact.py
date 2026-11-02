@@ -20,6 +20,8 @@ FULL_EXACT = {
     "scripts/requirements-zenodo.txt",
 }
 FULL_PREFIXES = (".github/workflows/", "scripts/ci/")
+# Claimed by the dedicated derived tla_model_check surface, not a legacy key.
+TLA_MODEL_PREFIXES = ("models/",)
 LEAN_PREFIXES = ("src/", "tests/")
 # Called by both the `impl` and the `spec` job of verify.yaml, so a change must run both.
 LEAN_AND_SPEC_BUILD_EXACT = {"scripts/axiom-audit.sh"}
@@ -140,6 +142,8 @@ def classify(paths: list[str], force_full: bool = False) -> dict[str, object]:
         elif path in LEAN_AND_SPEC_BUILD_EXACT:
             lean_build = True
             spec_build = True
+        elif starts(path, TLA_MODEL_PREFIXES):
+            pass  # Claimed by the dedicated derived TLA gate, outside legacy keys.
         elif is_markdown(path) or starts(path, LIGHT_PREFIXES) or path in LIGHT_EXACT:
             pass
         else:

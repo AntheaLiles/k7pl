@@ -27,17 +27,21 @@
  * deltas from making the diagnostic job red. The allowlist matches both
  * the path family and the complete legacy-surface delta; a new or
  * different delta remains unexpected. It covers:
- *   - intended D2 targets: proofs/ -> axiom_audit, TLA models ->
- *     tla_model_check, and src/k/ -> K surfaces without lean_build;
+ *   - intended D2 targets: proofs/ -> axiom_audit, and src/k/ -> K
+ *     surfaces without lean_build;
  *   - the PR #311 path migration: lexicon/ -> specification and K
  *     inputs, lib/ -> K examples, and renamed/moved scripts -> the
  *     python-tooling component;
  *   - wiki/references.json, which is both a spec-build read input
  *     and part of the wiki root, so derived also triggers docs_links;
+ * The TLA models live under models/, which both classifiers claim: the
+ * derived registry additionally emits tla_model_check, which is not one
+ * of the legacy eight comparison keys, so model paths stay neutral in
+ * the shared legacy-key projection and need no allowlist entry.
  * The cutover C0 light-path and axiom-audit exceptions are implemented
  * directly in the derived classifier and therefore need no allowlist entry.
- * The TLA model path and wiki/references.json exception above are the
- * non-Markdown documentation-tree cases explicitly reviewed here.
+ * The wiki/references.json exception above is the non-Markdown
+ * documentation-tree case explicitly reviewed here.
  *
  * The allowlist is diagnostic compatibility only: the derived
  * classifier remains authoritative, and it does not weaken fail-closed
@@ -313,10 +317,6 @@ const EXPECTED_DERIVED_DIVERGENCES: Array<{
   differences: string[];
 }> = [
   { prefix: "proofs/", differences: LEGACY_FULL_FALLBACK_ALL_KEYS },
-  {
-    prefix: "theoretical-projects/k7os/models/",
-    differences: LEGACY_FULL_FALLBACK_ALL_KEYS,
-  },
   { prefix: "src/k/", differences: ["lean_build: derived=false legacy=true"] },
   { prefix: "lexicon/", differences: LEGACY_FULL_FALLBACK_FOR_LEXICON },
   { prefix: "lib/", differences: LEGACY_FULL_FALLBACK_ALL_KEYS },

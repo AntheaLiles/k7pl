@@ -28,10 +28,14 @@ exploration dossier, and a provisional delta register
 Each delta remains conditioned on an author decision and
 on revalidation at the current head; the deltas are
 carried as open roadmap items and open decisions in the
-wiki, never as clauses. The executable models live in
-`k7os/models/` (TLA+ models and configurations, run by
-`.github/workflows/k7pl-semantics.yaml` and `ci.yaml`
-and checked by `scripts/ci/test_code_artifact_contract.py`);
-a checked model is not a proof of correspondence with
-the complete normative semantics, and the K ↔ TLA+
+wiki, never as clauses. The TLA+ sources and their
+configurations are centralised directly in the repository-
+root [`models/`](../models/README.md) directory. A
+checked model is not a proof of correspondence with the
+complete normative semantics, and the K ↔ TLA+
 simulation remains open (see `wiki/semantics.md`).
+
+
+## K7PL TLA+ work programme
+
+The non-normative K7PL TLA+ programme, including its sixteen work packages, chapter coverage, formal architecture, toolchain plan and open semantic gates, is maintained directly under repository-root [`models/`](../models/README.md). It is part of this K7PL repository and therefore does not use a redundant `k7pl/` subdirectory.

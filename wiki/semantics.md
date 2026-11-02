@@ -118,12 +118,13 @@ not a proof that the model corresponds to the
 complete normative semantics of K7PL**. The TLC
 sources and logs are packaged with the K sources,
 the Lean proofs and the Verso documentation in the
-formal-semantics workflow. The TLA+ sources live in
-`theoretical-projects/k7os/models/` (moved from
-`docs/research/k7pl-os/models/` in the research
-closing of 2026-10-25, with the workflows repointed);
-they are executable models, not wiki or specification
-content. The projection relation
+formal-semantics workflow. The TLA+ sources live directly in the repository-root
+`models/` directory, alongside the work programme,
+chapter-coverage matrix, open gates, formal architecture
+and toolchain/CI plan. The historical D01 and R9 models
+retain their original identifiers and provenance; their
+contents are unchanged by the relocation. They are
+executable models, not wiki or specification content. The projection relation
 between complete K configurations, TLA+ states and
 `K7PL.NativeBoundary.State` remains explicitly open.
 

@@ -36,6 +36,9 @@ export const FULL_EXACT = new Set([
   "scripts/requirements-zenodo.txt",
 ]);
 export const FULL_PREFIXES = [".github/workflows/", "scripts/ci/"];
+// The dedicated TLA gate is outside the legacy eight-surface projection.
+// Claim models/ here to avoid treating it as an unknown path that forces full.
+export const TLA_MODEL_PREFIXES = ["models/"];
 export const LEAN_PREFIXES = ["src/", "tests/"];
 export const LEAN_AND_SPEC_BUILD_EXACT = new Set(["scripts/axiom-audit.sh"]);
 export const SPEC_BUILD_EXACT = new Set([
@@ -154,6 +157,8 @@ export function classify(
     } else if (LEAN_AND_SPEC_BUILD_EXACT.has(path)) {
       leanBuild = true;
       specBuild = true;
+    } else if (startsWithAny(path, TLA_MODEL_PREFIXES)) {
+      // Claimed by the derived tla_model_check surface, not a legacy key.
     } else if (
       isMarkdown(path) || startsWithAny(path, LIGHT_PREFIXES) ||
       LIGHT_EXACT.has(path)

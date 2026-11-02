@@ -75,6 +75,21 @@ Deno.test("ci change forces full", () => {
   assert(result.docs_links);
 });
 
+Deno.test("TLA model paths are claimed by the dedicated derived surface", () => {
+  for (
+    const path of [
+      "models/TLA01SessionNetwork.tla",
+      "models/TLA01-AcyclicNominal.cfg",
+      "models/TLA02-16-ExpectedCounterexamples.json",
+    ]
+  ) {
+    const result = classify([path]);
+    assert(!result.full, path);
+    assert(!result.unclassified, path);
+    assertEquals(result.unknown_paths, []);
+  }
+});
+
 Deno.test("non-markdown docs path forces full (F9)", () => {
   const result = classify(["docs/notes.txt"]);
   assert(result.full);
