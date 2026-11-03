@@ -4244,6 +4244,10 @@ of effects and definitions.
 
   *For:* each audience reads its own names. *Against:* contradicts « pas deux jeux de noms pour les mêmes objets »; the export from K to Lean would translate names.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** one word per construct, everywhere (option A): the chosen word is the surface word, the name of `lexicon/lexemes/<word>.k`, of the Lean constructor and of the TLA+ operator, and the name in chapter 3's formulas; where a formula writes another name today, the formula takes the word. Two words remain only for two objects, as chapter 3's rule says (`operation` and `perform`).
 
 ### Kernel of call-by-push-value
 
@@ -4301,6 +4305,11 @@ of effects and definitions.
 
   *For:* short, and a verb like its neighbours. *Against:* Lisp readers expect `apply` to spread a list.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-002), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** If we expect to spread something, hence we shall use `spread` 🤷
+- **Reading:** application has no written word; the construct is named `apply` in K, Lean, TLA+ and the diagnostics (option C). Applying a function to a list of arguments, Lisp's `apply`, takes another word, `spread`, as the justification proposes.
 
 #### Q-LEM-003 — Suspending a computation as a value, `thunk c`
 
@@ -4356,6 +4365,10 @@ of effects and definitions.
 
   *For:* Lisp familiarity. *Against:* two kernel constructs under one word.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** `thunk` (option A).
 
 #### Q-LEM-004 — Running a suspended computation, `force v`
 
@@ -4410,6 +4423,10 @@ of effects and definitions.
 
   *For:* pairs with `suspend`. *Against:* names what a continuation does, not what `force` does.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-004), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** `force` (option A).
 
 #### Q-LEM-005 — Returning a value as a computation, `return v`
 
@@ -4477,6 +4494,10 @@ of effects and definitions.
 
   *For:* categorical precision. *Against:* names the unit type in every ML.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-005), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** `return` (option A), as the construct, the formula and the branching `:return` already write it.
 
 #### Q-LEM-006 — Sequencing two computations, `let x ← c in c`
 
@@ -4544,6 +4565,12 @@ of effects and definitions.
 
   *For:* Levy's keyword. *Against:* made for an infix writing.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-006), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** Pas de bind-left ou bind-right, un seul bind qui branche l'expression à sa droite (defun lambda :bind exp)
+- **Reading:** `bind` (option B): the construct, its formula and the branching `:bind` share it, and chapter 5's `let` becomes `bind`. The glyph aliases `bind-left` and `bind-right` are withdrawn: there is one `bind`, which branches the expression on its right, as in `(defun lambda :bind exp)` (the other words of the example are placeholders).
+- **Put back to the author:** what replaces, in chapter 1's glyph table, the glyphs `↢` and `↣` that the two aliases named, and the paragraph that justifies their pair.
 
 ### Connectives
 
@@ -4611,6 +4638,10 @@ of effects and definitions.
 
   *For:* Lisp familiarity. *Against:* the register's arbitration 23 forbids one word for three jobs.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-007), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** `unit` (option A): a word for the value, also the name of the type after `:type`; `()` stays the empty list of chapter 5, which closes the gap.
 
 #### Q-LEM-008 — Consuming the unit, `let () = v in c`, and sequencing that discards
 
@@ -4666,6 +4697,10 @@ of effects and definitions.
 
   *For:* frees `do`. *Against:* longer.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-008), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
 
 #### Q-LEM-009 — Joining two disjoint resources, `(v, v)`
 
@@ -4732,6 +4767,11 @@ of effects and definitions.
 
   *For:* Lisp familiarity. *Against:* not the same object.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-009), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** Why not "join" and sql's/nosql's lemmas?
+- **Reading:** kept open: the author asks to weigh `join` and the words of SQL and NoSQL.
 
 #### Q-LEM-010 — Taking a pair apart, `let (x,y) = v in c`
 
@@ -4797,6 +4837,12 @@ of effects and definitions.
 
   *For:* family symmetry. *Against:* rare.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-010), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** The reverse of Q-LEM-006 is `unbind`
+- **Reading:** taking a pair apart is `unbind`, the reverse of `bind` (Q-LEM-006).
+- **Put back to the author:** in Lisp, `makunbound` removes a binding, a sense of « unbind » to keep apart from taking a pair apart into two bindings.
 
 #### Q-LEM-011 — Tagging a value for a sum, `inj_i v`
 
@@ -4862,6 +4908,11 @@ of effects and definitions.
 
   *For:* explicit. *Against:* chapter 5's listings change for nothing they lack.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-011), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** If tag and label are two, then whe shall use tag and label
+- **Reading:** the tag is applied to its value, as `(Ok v)`, and the construct is named `tag` (option B). Since chapter 3's « étiquette » names two things, the index of a sum and the labels of structural modes, the first is `tag` and the second `label`.
 
 #### Q-LEM-012 — Branching on a tag, `case v of {i ↦ c}`
 
@@ -4917,6 +4968,10 @@ of effects and definitions.
 
   *For:* the kernel's word. *Against:* chapter 4, chapter 5 and Annex A change.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-012), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** `case` everywhere, R-expressions included (option C): chapter 4's single interface, chapter 5's listings and Annex A write `case` where they write `match` today.
 
 #### Q-LEM-013 — Offering several observations of one computation, `⟨c_i⟩`
 
@@ -4985,6 +5040,10 @@ of effects and definitions.
 
   *For:* no new word. *Against:* two kernel constructs under one word.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-013), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
 
 #### Q-LEM-014 — Asking one observation, `c.i`
 
@@ -5051,6 +5110,10 @@ of effects and definitions.
 
   *For:* an existing word. *Against:* two objects under one word.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-014), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
 
 ### Gaps of the specification
 
@@ -5114,6 +5177,25 @@ of effects and definitions.
 
   *For:* nothing changes. *Against:* the gap stays.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-015), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:**
+
+  > Need an overview because case is great in patter matching and in real-time programing we will try to catch things on the flow rather than get them from a disk to memory to compute them.
+  >
+  > catch <construct>
+  >     case <formA> <transformA>
+  >     case <formB> <transformB>
+  >
+  > Pouvant donner
+  > (case (catch <form>)
+  >             <formA> <transformA>
+  >             <formB> <transformB>)
+  > Où la forme peut représenter le type rafiné, le budget, la valeur binaire, ou toute autre construction.
+
+- **Reading:** kept open: the author asks for an overview. `case` serves pattern matching, and a real-time program catches values on the flow rather than bringing them from disk to memory to compute them; the author sketches a `catch` of a construct followed by `case` clauses, each a form and a transformation, or `(case (catch <form>) <formA> <transformA> <formB> <transformB>)`, where a form may be a refinement type, a budget, a binary value or any other construction.
+- **Put back to the author:** `catch` already names the handler of the kernel's `try c catch c` (chapter 3's grammar); under Q-LEM-001, a second object needs a second word, or the two must be shown to be one object.
 
 #### Q-LEM-016 — Gap — `cond`, named and never defined
 
@@ -5160,6 +5242,18 @@ of effects and definitions.
   6. *Brevity:* —
 
   *For:* one word for conditionals. *Against:* a chain of clauses is not a single condition.
+
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-016), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:**
+
+  > Pas de conditionnel, on passe par le pattern matching
+  >
+  > Donc `catch` et `case`
+
+- **Reading:** no conditional form: branching goes through pattern matching, with `catch` and `case`; `cond` leaves chapter 3 and Annex A.
+- **Put back to the author:** how this reads with `choose` and the dyadic `select` of layer 3 (VOC-2026-10-29-021), with the triadic `select` of the K lexicon, and with Q-LEM-015, kept open; and the same remark on `catch` as in Q-LEM-015.
 
 ## The catalogue, verbatim
 

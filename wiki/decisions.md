@@ -845,6 +845,40 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Lemma lot 1: answers of 2026-11-03 (Q-LEM-001 to Q-LEM-016).**
+  Recorded verbatim in [questions](questions.md) as
+  VOC-2026-11-03-001 to VOC-2026-11-03-016. Dated preferences, ratified
+  only in the global lot (VOC-2026-10-26-002). In short:
+  - Method: one word per construct, everywhere, chapter 3's
+    formulas included; two words only for two objects.
+  - Kernel: application has no written word and is named `apply`,
+    spreading a list of arguments being `spread`; `thunk`,
+    `force`, `return`; sequencing is `bind`, chapter 5's `let`
+    becoming `bind`, and the glyph aliases `bind-left` and
+    `bind-right` are withdrawn, one `bind` branching the
+    expression on its right.
+  - Connectives: the unit value is `unit`, `()` staying the empty
+    list; taking a pair apart is `unbind`; the injection is
+    written as the tag applied and named `tag`, the labels of
+    structural modes being `label`; the eliminator of sums is
+    `case`, R-expressions included.
+  - Gaps: no conditional form, branching going through pattern
+    matching with `catch` and `case`; `cond` leaves chapter 3 and
+    Annex A.
+  Kept open: Q-LEM-008 (consuming the unit), Q-LEM-009 (the pair;
+  the author asks to weigh `join` and the words of SQL and NoSQL),
+  Q-LEM-013 (the negative product), Q-LEM-014 (its projection) and
+  Q-LEM-015 (the words of the conditional; the author asks for an
+  overview of `catch` and `case` on a flow).
+  Put back to the author: the glyphs `↢` and `↣` once the aliases
+  are withdrawn; `unbind` against Lisp's removal of a binding;
+  `catch`, which already names the handler of `try c catch c`;
+  and how the absence of a conditional reads with `choose`, the
+  dyadic `select` and the `select` of the K lexicon.
+  Not applied yet: the answers are dated preferences; applying
+  them changes chapter 3's grammar, chapter 1's glyph table,
+  chapters 4 and 5, Annex A and the K lexicon, and waits for the
+  author's go-ahead.
 - **Reading lot, eleventh part: answers of 2026-10-29
   (Q-SPEC-601 to Q-ACT-010).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-29-013 to
