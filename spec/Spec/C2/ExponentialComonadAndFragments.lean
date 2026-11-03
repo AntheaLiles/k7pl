@@ -464,7 +464,7 @@ niveau dans l'interprétation logique et la consommation du budget par $`\mathrm
 de cette projection.
 
 L'interface de référence est donc $`\pi_U : \mathcal{G} \to \mathcal{R}` et $`\mathrm{Bang}_{\mathcal{G}}(r, A) :=
-{!}_{\pi_U(r)}A`. Le grade syntaxique conserve les quatre composantes ; le noyau comonadique est indexé par 𝒭. Cette
+{!}_{\pi_U(r)}A`. Le grade syntaxique conserve les quatre composantes ; le noyau comonadique est indexé par ℛ. Cette
 décision n'introduit aucune multiplication globale sur 𝒢 et ne ferme pas les obligations de preuve de la substitution,
 des coercions, de la counité w ni de la comultiplication c. Une indexation multi-composante demeure une généralisation
 éventuelle, hors du contrat normatif actuel.
@@ -685,7 +685,7 @@ une strate syntaxique d'annotations d'usage, distincte d'un mode structurel. La 
 `L1-REL-MODE-OPPORTUNITIES-2026-10-11.md` conserve $`M_{\mathrm{Rel}}` comme piste séparée, sans lui attribuer de règle
 normative.
 
-Les applications identité du porteur 𝒭 fournissent, sous le contrat de morphisme retenu, les candidats Lin → Aff, Aff →
+Les applications identité du porteur ℛ fournissent, sous le contrat de morphisme retenu, les candidats Lin → Aff, Aff →
 Unr et Lin → Unr. Ce constat structurel ne suffit pas à prouver que le jugement de typage K7PL réalise effectivement ces
 permissions. Les règles de typage et leurs conversions doivent satisfaire le contrat d'algèbre, d'idéal de contraction
 et de Weak ; les états under-review/proofsketch demeurent inchangés. L'inclusion ensembliste des intervalles d'usage
