@@ -248,9 +248,9 @@ l'arbitrage y est plus contraint qu'il n'en a l'air. La littérature le pose dan
 d'analyse de ressource _automatisées_ sont restreintes à des familles de bornes relativement contraintes, tandis que les
 techniques plus _expressives_, admettant des bornes qui dépendent des valeurs, reposent sur des preuves écrites à la
 main {cite "knothLiquidResourceTypes2020"}[]. Or les grades de ce document dépendent de valeurs (grades fractionnaires,
-rangées à grade de présence, `Vector(n,T)`) de sorte qu'une technique purement automatisée ne les couvrirait pas ; et
-l'exigence de compilation bornée du §{num "sec:c6-exigence-compilation-bornee"}[] exclut les preuves manuelles. Le point
-de rencontre est donc étroit, et il a un nom : des types à raffinement augmentés d'_annotations de potentiel_,
+rangées à grade de présence, $`\mathsf{Vector}(n, T)`) de sorte qu'une technique purement automatisée ne les couvrirait
+pas ; et l'exigence de compilation bornée du §{num "sec:c6-exigence-compilation-bornee"}[] exclut les preuves manuelles.
+Le point de rencontre est donc étroit, et il a un nom : des types à raffinement augmentés d'_annotations de potentiel_,
 conduisant une analyse amortie. Ce n'est pas un dispositif à ajouter : le budget du grade _est_ un potentiel
 (§{num "sec:g-semantique"}[]) et les contraintes de valeur du chapitre 3 _sont_ les raffinements : c'est la
 reconnaissance que les trois pièces du dispositif sont déjà au document sous d'autres noms.
