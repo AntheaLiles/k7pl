@@ -203,8 +203,9 @@ deux se place entre eux, et les modifieurs se prennent avant l'assemblage du tra
 `[[add fold] div length]`, la somme de chaque élément divisé par la longueur, c'est-à-dire la moyenne. Une valeur peut
 terminer un train : `[sub 1]` est la fonction $`x - 1`, la valeur étant l'argument droit de `sub` et l'argument du train
 son argument gauche. Un crochet n'est une application que lorsque sa tête y reçoit tous ses arguments (`[add 1 2]`).
-L'écart-type s'écrit ainsi avec un seul groupe intérieur, `[sqrt [add fold div length] square sub add fold div
-length]` : la moyenne du carré de l'écart de chaque élément à la moyenne, passée à la racine
+L'écart-type s'écrit ainsi avec un seul groupe intérieur,
+`[sqrt [add fold div length] square sub add fold div length]` : la moyenne du carré de l'écart de chaque élément à la
+moyenne, passée à la racine
 (§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[+´÷≠]`, est une vue de l'éditeur, qui remplace chaque mot
 par son glyphe à sa place et le colore selon son rôle, que son type indique : valeur, fonction, modifieur d'une fonction
 ou modifieur de deux. Un glyphe de la table du chapitre 1 ne se lit seul que dans une suite faite seulement de glyphes
