@@ -158,7 +158,13 @@ Suivant la discipline de *The Craft of Research* (Booth et al.) :
 6. Dans les sources, un paragraphe forme un bloc, sans ligne vide en
    son intérieur. Le texte est renvoyé à la ligne à 120 caractères au
    plus ; le code, les formules et les lignes de tableau gardent leur
-   ligne propre.
+   ligne propre. Le renvoi ne coupe jamais un rôle (`{num …}`,
+   `{cite …}`) ni un code en ligne, que TeX lit en verbatim, et ne fait
+   jamais commencer une ligne de prose par un marqueur de bloc (`: `,
+   `* `, `- `, un numéro suivi d'un point ou d'une parenthèse). Les
+   fichiers de code (`lakefile.lean`, définitions Lean, blocs `%%%`) ne
+   sont pas renvoyés. `python3 scripts/check_spec.py` refuse un rôle ou
+   un code en ligne coupé et un `: ` en tête d'une ligne de prose.
 7. Aucun gras dans la spécification : ni graisse typographique sur les
    glyphes mathématiques (un R script gras se lit comme un N et a fait
    croire à un second objet), ni emphase en gras ; l'emphase passe par

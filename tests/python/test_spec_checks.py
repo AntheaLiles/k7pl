@@ -83,6 +83,37 @@ def test_hardcoded_appendix_letter_is_caught(patched):
     assert has_failure("lettre d'annexe")
 
 
+
+def test_inline_atoms_on_one_line_ok(struct):
+    assert not [f for f in struct if "atome" in f]
+
+
+def test_split_role_head_is_caught(patched):
+    """Mutation: a line break inside a role head, as a 120-column re-wrap once left 230 of them."""
+    from spec_checks import structure
+
+    mutate(patched, "Spec/C2/Fondements.lean", '{num "eq:pilote"}', '{num\n"eq:pilote"}')
+    structure.inline_atoms_on_one_line()
+    assert has_failure("rôle coupé")
+
+
+def test_split_inline_code_is_caught(patched):
+    """Mutation: inline code cut by a line break, which the TeX output cannot read verbatim."""
+    from spec_checks import structure
+
+    mutate(patched, "Spec/C2/Fondements.lean", "Il y a une règle de typage Var", "Il y a une règle `de\ntypage` Var")
+    structure.inline_atoms_on_one_line()
+    assert has_failure("code en ligne coupé")
+
+
+def test_definition_marker_in_a_paragraph_is_caught(patched):
+    """Mutation: a re-wrapped line that starts with `: `, which opens a definition list."""
+    from spec_checks import structure
+
+    mutate(patched, "Spec/C2/Fondements.lean", "Il y a une règle de typage Var", "Il y a une règle\n: de typage Var")
+    structure.inline_atoms_on_one_line()
+    assert has_failure("en tête de ligne")
+
 def test_author_comment_is_caught(patched):
     from spec_checks import structure
 

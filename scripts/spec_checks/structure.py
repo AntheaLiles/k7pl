@@ -98,7 +98,40 @@ def glossary_covers_layers():
         ok("glossaire : les trois couches y figurent")
 
 
+def _prose(text):
+    """The text outside fenced blocks, metadata blocks and mathematics, line breaks kept."""
+    text = re.sub(r"^(`{3,}).*?^\1\s*$", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S | re.M)
+    text = re.sub(r"^%%%$.*?^%%%$", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S | re.M)
+    return re.sub(r"\$\$?`[^`]*`", lambda m: re.sub(r"[^\n]", " ", m.group(0)), text)
+
+
+def inline_atoms_on_one_line():
+    """A role head and an inline code span never cross a line break, and a line of prose never starts
+    with the marker of a definition item. Verso refuses a role head cut by a line break; the TeX
+    output reads inline code verbatim, which cannot span a line; and a line that starts with `: `
+    opens a definition list. A 120-column re-wrap once broke all three (#334)."""
+    bad = []
+    for name, _, text in corpus.modules():
+        prose = _prose(text)
+        for m in re.finditer(r"(?<!\\)\{[A-Za-z][\w.-]*(?: [^{}\n]*)?\n", prose):
+            bad.append(f"{name}:{prose.count(chr(10), 0, m.start()) + 1}: rôle coupé")
+        for m in re.finditer(r"(?<![`$])`([^`]*)`(?!`)", prose):
+            if "\n" in m.group(1):
+                bad.append(f"{name}:{prose.count(chr(10), 0, m.start()) + 1}: code en ligne coupé")
+        lines = prose.split("\n")
+        for i in range(1, len(lines)):
+            prev = lines[i - 1]
+            prose_line = prev.strip() and not prev[0].isspace() and not re.match(r"(: |\{|:::|#|%|[*|-] |\d+[.)] )", prev)
+            if lines[i].startswith(": ") and prose_line:
+                bad.append(f"{name}:{i + 1}: « : » en tête de ligne au milieu d'un paragraphe")
+    if bad:
+        ko("%d atome(s) en ligne coupé(s) ou marqueur de bloc en tête de ligne : %s" % (len(bad), bad[:5]))
+    else:
+        ok("rôles et code en ligne d'un seul tenant, aucun « : » en tête de ligne de prose")
+
+
 def run():
     print("\n[Structure]")
-    for check in (references_resolve, labels_unique_and_prefixed, appendix_letters, tables_regular, no_author_comments, glossary_covers_layers):
+    for check in (references_resolve, labels_unique_and_prefixed, appendix_letters, tables_regular, no_author_comments,
+                  glossary_covers_layers, inline_atoms_on_one_line):
         check()
