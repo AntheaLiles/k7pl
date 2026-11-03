@@ -71,11 +71,19 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # (2b3e2755..., replacing 4f83a512...). EffectiveKernel.lean is untouched by the
     # pass and keeps its pin. The interface strings below are unchanged and still
     # checked; a pin re-sync, not a ratification of any changed content.
+    # 2026-11-03, later: the build fix of the same pass re-wraps the paragraphs whose
+    # line breaks fell inside a Verso role, and restores the indentation of a definition
+    # item and three numbered conditions; the text is unchanged once whitespace is
+    # collapsed. Four pins are re-synced again: ExponentialComonadAndFragments.lean
+    # (48a3be15..., replacing bb8a6a97...), GradedSystem.lean (64dacc7a..., replacing
+    # bc618228...), TypeGrammar.lean (7799b142..., replacing 45e86062...) and
+    # TypingRules.lean (1ce42652..., replacing 2b3e2755...). A pin re-sync, not a
+    # ratification of any changed content.
     integrated_source_blobs = {
-        "spec/Spec/C2/ExponentialComonadAndFragments.lean": "bb8a6a97b8f238cb86995f5a1f038b1475120913",
-        "spec/Spec/C3/GradedSystem.lean": "bc618228bad4ab77125b4189d715446bc1f5d623",
-        "spec/Spec/C3/TypeGrammar.lean": "45e860625d73eb767cc4cf0281e4c474a8f497d9",
-        "spec/Spec/C3/TypingRules.lean": "2b3e2755b4184cae8ece34b9037e562fce2008d1",
+        "spec/Spec/C2/ExponentialComonadAndFragments.lean": "48a3be158994d62b3cf97c053027bf985c325c77",
+        "spec/Spec/C3/GradedSystem.lean": "64dacc7af666201988b5c25ebb01b36545f67c28",
+        "spec/Spec/C3/TypeGrammar.lean": "7799b142f784de0240af93a7d2a688a0cb276ba0",
+        "spec/Spec/C3/TypingRules.lean": "1ce42652fb80c6550762fa593f63134f2d713c24",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",
     }
     for path, expected_blob in integrated_source_blobs.items():

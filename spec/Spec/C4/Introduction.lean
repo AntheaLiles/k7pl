@@ -31,17 +31,17 @@ Une unité se signale avant même de descendre aux échelles, et ce chapitre gag
 laisser paraître fortuite. Trois traits que ce document traite en trois endroits distincts (le système de _sortes_ du
 métalangage, l'_hygiène_ et son $`\alpha`-équivalence, et le _budget_ porté par le grade) sont trois instances d'un même
 paramètre. Un cadre d'apprentissage d'automates paramétré en une monade a pour instances les langages sortés, les
-langages nominaux avec liaison, et les fonctions de coût {cite
-"urbatAutomataLearningAlgebraic2020,heerdtCategoricalFrameworkLearning2022"}[]. Ce sont les trois. L'argument d'unité
-est donc disponible, et il n'est pas décoratif : trois traits qui partagent un paramètre partagent aussi ce qu'on peut
-démontrer d'eux.
+langages nominaux avec liaison, et les fonctions de coût
+{cite "urbatAutomataLearningAlgebraic2020,heerdtCategoricalFrameworkLearning2022"}[]. Ce sont les trois. L'argument
+d'unité est donc disponible, et il n'est pas décoratif : trois traits qui partagent un paramètre partagent aussi ce
+qu'on peut démontrer d'eux.
 
 Une précision sur ce que « la même forme à trois échelles » veut dire au juste, car la formule est vraie dans un sens et
 fausse dans un autre. Un automate se lit comme un _foncteur_ d'une catégorie d'entrée (qui spécifie le type des langages
-et des machines) vers une catégorie de sortie, qui spécifie le type des valeurs produites {cite
-"colcombetAutomataMinimizationFunctorial2020"}[]. Les trois échelles ci-après ne sont pas trois instances d'un même
-foncteur obtenues en changeant la seule sortie. Elles diffèrent par les deux, l'échelle locale produisant une valeur,
-celle de l'acteur une observation et un état suivant, celle du système une transition de processus.
+et des machines) vers une catégorie de sortie, qui spécifie le type des valeurs produites
+{cite "colcombetAutomataMinimizationFunctorial2020"}[]. Les trois échelles ci-après ne sont pas trois instances d'un
+même foncteur obtenues en changeant la seule sortie. Elles diffèrent par les deux, l'échelle locale produisant une
+valeur, celle de l'acteur une observation et un état suivant, celle du système une transition de processus.
 
 Ce qui les unit est plus fort qu'une identité de foncteur, et ce serait un théorème plutôt qu'une construction. La même
 source établit comment _relever_ une adjonction entre catégories de valeurs de sortie en une adjonction entre catégories
@@ -54,11 +54,12 @@ Ce modèle d'exécution se retrouve à trois échelles, et la précision qui pr�
 chapitre 2 a construit la coalgèbre terminale $`\nu F` comme le point fixe portant la productivité : un état, une
 observation qu'il produit, un état suivant qu'il détermine. C'est ce schéma que ce chapitre retrouve, à trois reprises.
 D'abord dans le plus petit automate qui reconnaît un motif ou exécute un pli (§{num "sec:c4-echelle-locale"}[], échelle
-locale). Puis dans l'acteur, dont l'espace d'état tout entier est une instance de cette même coalgèbre (§{num
-"sec:c4-echelle-de-l-acteur"}[], échelle de l'acteur). Enfin dans l'orchestrateur, qui supervise une constellation
-d'acteurs comme une coalgèbre dont l'état est composé d'états d'acteurs (§{num "sec:c4-echelle-du-systeme"}[], échelle
-du système). Ce que les trois partagent est donc le _schéma_ de la coalgèbre, et ce qui les relie sont les adjonctions
-relevées, non une identité de foncteur, que le paragraphe précédent écarte.
+locale). Puis dans l'acteur, dont l'espace d'état tout entier est une instance de cette même coalgèbre
+(§{num "sec:c4-echelle-de-l-acteur"}[], échelle de l'acteur). Enfin dans l'orchestrateur, qui supervise une
+constellation d'acteurs comme une coalgèbre dont l'état est composé d'états d'acteurs
+(§{num "sec:c4-echelle-du-systeme"}[], échelle du système). Ce que les trois partagent est donc le _schéma_ de la
+coalgèbre, et ce qui les relie sont les adjonctions relevées, non une identité de foncteur, que le paragraphe précédent
+écarte.
 
 Ce motif porte d'ailleurs un nom que ce document n'emploie pas et qui lui vaudrait sa métathéorie : un acteur est une
 définition par _copatrons_. Sa conjonction additive $`\Pi_{i \in I}`, introduite par $`\langle c_i \rangle` et éliminée

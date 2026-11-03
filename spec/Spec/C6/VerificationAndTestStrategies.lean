@@ -58,11 +58,11 @@ sémantiquement correct par construction, sans qu'aucune preuve ne relie son com
 chapitres 1 et 2. C'est une hypothèse de confiance, non un théorème.
 
 Elle n'est pas hors d'atteinte pour autant. Trois techniques attestées s'y appliquent. Les prédicats logiques pour la
-logique linéaire intuitionniste, par lesquels s'établit la complétude pleine de la traduction de Girard {cite
-"hasegawaGirardTranslationLogical2000"}[]. La bisimilarité applicative, définie coinductivement pour les λ-calculs à
-état et adaptée à un interpréteur qui en manipule {cite "RITTER-PITTS"}[]. Et la traduction vers un métalangage en
-π-calcul, interprété une fois pour toutes, où correction et adéquation se raisonnent au niveau du métalangage {cite
-"CASTELLAN-PI"}[].
+logique linéaire intuitionniste, par lesquels s'établit la complétude pleine de la traduction de Girard
+{cite "hasegawaGirardTranslationLogical2000"}[]. La bisimilarité applicative, définie coinductivement pour les λ-calculs
+à état et adaptée à un interpréteur qui en manipule {cite "RITTER-PITTS"}[]. Et la traduction vers un métalangage en
+π-calcul, interprété une fois pour toutes, où correction et adéquation se raisonnent au niveau du métalangage
+{cite "CASTELLAN-PI"}[].
 
 Une quatrième voie se signale pour ce qu'elle prouve de faisabilité plutôt que pour être suivie : le même objet (un
 interpréteur de référence servant d'oracle à un testeur) a été construit et _entièrement vérifié_ ailleurs, pour

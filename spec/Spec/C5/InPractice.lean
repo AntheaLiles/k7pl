@@ -57,9 +57,9 @@ reste une issue normale du calcul plutôt qu'une exception à lever. La couche 3
 dyadiques, le choix s'y écrit par un modifieur de deux opérandes, comme le Choose de BQN {cite "lochbaumBQNChoose"}[] :
 `choose` prend à sa gauche la condition et à sa droite la liste des branches, dont il n'évalue que celle que la
 condition désigne, la première pour `f`, la seconde pour `t`. Pour un vecteur de conditions, le `select` dyadique,
-sélection par indices, prend un masque sur une paire et calcule les deux branches élément par élément, sans branchement
-: c'est le `select` vectoriel du chapitre 1 et de la proposition {num "thm:homomorphisme_roues"}[]. Chacun dit ainsi son
-coût, `choose` n'évaluant qu'une branche et `select` les deux.
+sélection par indices, prend un masque sur une paire et calcule les deux branches élément par élément, sans
+branchement : c'est le `select` vectoriel du chapitre 1 et de la proposition {num "thm:homomorphisme_roues"}[]. Chacun
+dit ainsi son coût, `choose` n'évaluant qu'une branche et `select` les deux.
 
 Autour de ce calcul, une couche 2 orchestre l'effet observable : recevoir un message, appeler la fonction pure, décrire
 le nouvel état sans jamais le muter directement. Ce gestionnaire, le programmeur ne l'écrit pas : la clause `:on` de
@@ -84,8 +84,8 @@ directement
 ```
 ::::
 
-Le calcul de couche 3 est appelé depuis la couche 2, ce qui est légitime : le pur s'invoque de partout (§{num
-"sec:c5-s-expressions-universelles"}[]). C'est cette frontière, seule, que les crochets de l'appel signalent ; à
+Le calcul de couche 3 est appelé depuis la couche 2, ce qui est légitime : le pur s'invoque de partout
+(§{num "sec:c5-s-expressions-universelles"}[]). C'est cette frontière, seule, que les crochets de l'appel signalent ; à
 l'intérieur, les lectures de l'état par la lentille `view` s'écrivent elles aussi entre crochets, puisqu'elles se
 vérifient dans le fragment cartésien de l'appel. Le gestionnaire s'ouvre en couche 1, comme toute définition ; son
 corps, qui ne quitte jamais la couche 2, s'écrit entre parenthèses, le délimiteur de la couche 2 (y compris la mise à
@@ -108,30 +108,30 @@ L'acteur ne porte que ses champs et, par message, sa transition pure ; son gesti
 ```
 ::::
 
-La clause `:on` appelle une remarque. Un acteur _est_ la paire additive dépendante $`(\text{état} :
-S)\,\&\,\text{Handler}(S)` du chapitre 3 (§{num "sec:c3-structures-ouvertes-effets-et"}[]), et la clause en donne la
-seconde composante sans la nommer : le gestionnaire se déduit de la transition par la règle de `Result` : `Ok v` donne
-la valeur `v` au champ que nomme `:sets` et répond `Ok v`, `Err e` laisse l'état inchangé et répond `Err e`. Aucun nom
-de gestionnaire n'est donc déclaré ni cherché. Rattacher un gestionnaire nommé, et le trouver par recherche dirigée par
-le type lorsque le rattachement est omis, aurait exigé la _cohérence_, le fait qu'un programme valide ait exactement une
-signification {cite "racordonStateCoherenceLand2025"}[], dont la preuve formelle en présence de non-déterminisme est
-récente et non triviale {cite "BOTTU"}[], {cite "schrijversCOCHISStableCoherent2019"}[] ; la règle de `Result` s'en
-passe, puisque la structure fixe le sens. Elle ne couvre que les transitions qui rendent un `Result`, et la clause `:on
-… :sets` n'est que la forme abrégée d'une réaction : une décision d'un seul événement, qui fixe un seul champ. Sa forme
-pleine sépare, comme le _decider_ de la programmation par événements {cite "chassaingDecider"}[], la décision, de couche
-3, qui rend des événements ou un refus, l'évolution, de couche 3, qui applique chaque événement à l'état, et la
-livraison, de couche 2, que la réaction décrit et que l'exécutif réalise. Un acteur ne nomme ses événements que s'il les
-déclare, et un refus est une décision comme une autre : il produit des événements ou n'en produit pas, se journalise ou
-non, selon ce que l'acteur décide. Une livraison envoie des messages et persiste : une réponse n'est qu'un message
-envoyé à l'émetteur, qui le reçoit par sa propre clause `:on` ; le monde extérieur se joint par un message à l'acteur
-qui porte l'interopérabilité étrangère ; une livraison différée s'écrit par `defer` dans une clause `:on`, suivi d'une
-quantité typée dans une unité de temps, qui la reporte à plus tard, ou dans une unité de compte, une époque ou un tic
-par exemple, qui la reporte d'autant de pas. À côté du journal, une livraison persiste par défaut un instantané de
-l'état, de sorte qu'un acteur redémarre à son dernier état connu ; le développeur peut y ajouter explicitement les
-messages, les événements ou d'autres éléments. Un scénario est ainsi la réaction à un message, et un protocole entre
-acteurs un type de session (§{num "sec:c3-les-contraintes-de-valeur"}[]) dont chaque pas est une réaction. La voie
-modulaire, où l'association est portée par une structure plutôt que déduite, est activement conçue ailleurs {cite
-"VIVIEN"}[].
+La clause `:on` appelle une remarque. Un acteur _est_ la paire additive dépendante
+$`(\text{état} : S)\,\&\,\text{Handler}(S)` du chapitre 3 (§{num "sec:c3-structures-ouvertes-effets-et"}[]), et la
+clause en donne la seconde composante sans la nommer : le gestionnaire se déduit de la transition par la règle de
+`Result` : `Ok v` donne la valeur `v` au champ que nomme `:sets` et répond `Ok v`, `Err e` laisse l'état inchangé et
+répond `Err e`. Aucun nom de gestionnaire n'est donc déclaré ni cherché. Rattacher un gestionnaire nommé, et le trouver
+par recherche dirigée par le type lorsque le rattachement est omis, aurait exigé la _cohérence_, le fait qu'un programme
+valide ait exactement une signification {cite "racordonStateCoherenceLand2025"}[], dont la preuve formelle en présence
+de non-déterminisme est récente et non triviale {cite "BOTTU"}[], {cite "schrijversCOCHISStableCoherent2019"}[] ; la
+règle de `Result` s'en passe, puisque la structure fixe le sens. Elle ne couvre que les transitions qui rendent un
+`Result`, et la clause `:on … :sets` n'est que la forme abrégée d'une réaction : une décision d'un seul événement, qui
+fixe un seul champ. Sa forme pleine sépare, comme le _decider_ de la programmation par événements
+{cite "chassaingDecider"}[], la décision, de couche 3, qui rend des événements ou un refus, l'évolution, de couche 3,
+qui applique chaque événement à l'état, et la livraison, de couche 2, que la réaction décrit et que l'exécutif réalise.
+Un acteur ne nomme ses événements que s'il les déclare, et un refus est une décision comme une autre : il produit des
+événements ou n'en produit pas, se journalise ou non, selon ce que l'acteur décide. Une livraison envoie des messages et
+persiste : une réponse n'est qu'un message envoyé à l'émetteur, qui le reçoit par sa propre clause `:on` ; le monde
+extérieur se joint par un message à l'acteur qui porte l'interopérabilité étrangère ; une livraison différée s'écrit par
+`defer` dans une clause `:on`, suivi d'une quantité typée dans une unité de temps, qui la reporte à plus tard, ou dans
+une unité de compte, une époque ou un tic par exemple, qui la reporte d'autant de pas. À côté du journal, une livraison
+persiste par défaut un instantané de l'état, de sorte qu'un acteur redémarre à son dernier état connu ; le développeur
+peut y ajouter explicitement les messages, les événements ou d'autres éléments. Un scénario est ainsi la réaction à un
+message, et un protocole entre acteurs un type de session (§{num "sec:c3-les-contraintes-de-valeur"}[]) dont chaque pas
+est une réaction. La voie modulaire, où l'association est portée par une structure plutôt que déduite, est activement
+conçue ailleurs {cite "VIVIEN"}[].
 
 Ici, les champs portent un type et s'écrivent donc entre accolades, en couche 1 ; la clause `:on` s'écrit entre
 parenthèses, le délimiteur de la couche 2, que le bloc de couche 1 admet, et sa transition entre crochets, où `state`
@@ -139,9 +139,10 @@ désigne l'état de l'acteur. Le type `int`, sans largeur, est un trou typé que
 des entiers, une fois le solveur passé (§{num "sec:c6-le-processus-de-compilation"}[]) : à la plus petite puissance de
 deux, à partir de 8 bits, qui contient toutes les valeurs que le solveur sait borner, le programme étant refusé si le
 solveur n'en borne aucune (`ERR-SMT-003`) : le développeur précise alors son intention dans le code. Ces trois
-déclarations respectent la forme descendante `{ ... ( ... [ ... ] ... ) ... }` du §{num
-"sec:c5-s-expressions-universelles"}[] : la clause `:on` relie un message de l'acteur au calcul pur, que le gestionnaire
-implicite appelle : chaque frontière franchie porte le délimiteur du fragment vers lequel elle mène, et pas une de plus.
+déclarations respectent la forme descendante `{ ... ( ... [ ... ] ... ) ... }` du
+§{num "sec:c5-s-expressions-universelles"}[] : la clause `:on` relie un message de l'acteur au calcul pur, que le
+gestionnaire implicite appelle : chaque frontière franchie porte le délimiteur du fragment vers lequel elle mène, et pas
+une de plus.
 
 L'erreur la plus commune consiste à faire remonter, dans l'autre sens, une construction qui suppose un effet à
 l'intérieur d'un bloc `[ ]` ({num "lst:erreur-remontee"}[]) :
@@ -161,7 +162,7 @@ L'erreur la plus commune : une construction à effet remontée dans un bloc pur,
 La parenthèse n'est pas ici en cause comme simple notation : dans ce même bloc, un emploi de `choose` ou un appel à
 `view` s'écrit entre crochets sans rien enfreindre, et la parenthèse ne s'y trouve que parce que `HandlerResult` est une
 construction de couche 2. Ce qui est rejeté, c'est que `HandlerResult` suppose un état d'acteur et un effet de couche 2
-($`\mathcal{E}` et $`\Delta_{\text{aff}}$) dont le jugement de couche 3 ne dispose pas ($`\Delta = \Delta_{\omega}`,
+($`\mathcal{E}` et $`\Delta_{\text{aff}}`) dont le jugement de couche 3 ne dispose pas ($`\Delta = \Delta_{\omega}`,
 chapitre 1, §{num "sec:c1-axiomatique-germinale"}[]). Aucun délimiteur ne pourrait rendre cet appel légitime,
 puisqu'aucune transition vers la couche 2 n'est permise depuis la couche 3. Ce n'est pas une erreur de notation que le
 bon crochet aurait évitée, c'est une impossibilité structurelle que la notation ne fait que rendre visible.

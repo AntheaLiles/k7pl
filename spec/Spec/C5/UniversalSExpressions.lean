@@ -59,12 +59,12 @@ un `( )` à l'intérieur d'un `[ ]` (`ERR-TOP-001`), un `{ }` à l'intérieur d'
 l'intérieur d'un `( )` (`ERR-TOP-003`). Cette contrainte n'est pas stylistique : elle découle directement des
 spécialisations du jugement germinal établies au chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]). Le jugement de
 couche 3 n'admet que des liaisons de grade $`\omega` ; un bloc de couche 3 ne peut donc rien exiger qui soit affine ou
-linéaire. Le jugement de couche 1, à l'inverse, dispose de $`\Delta_{\text{lin}}`, dont le chapitre 2 (§{num
-"sec:c2-la-comonade-exponentielle-et"}[]) a montré qu'il s'inclut fidèlement dans $`\Delta_{\text{aff}}`. Un fragment de
-couche 2 peut donc être évalué à l'intérieur d'un contexte de couche 1, ce contexte fournissant tout ce dont la couche 2
-a besoin. La réciproque échouerait, faute d'une ressource strictement linéaire à offrir. C'est cette même asymétrie qui
-permet à un calcul de couche 3 (n'ayant besoin que de $`\Delta_{\omega}`, présent dans les trois jugements) d'être
-invoqué depuis n'importe laquelle des trois couches.
+linéaire. Le jugement de couche 1, à l'inverse, dispose de $`\Delta_{\text{lin}}`, dont le chapitre 2
+(§{num "sec:c2-la-comonade-exponentielle-et"}[]) a montré qu'il s'inclut fidèlement dans $`\Delta_{\text{aff}}`. Un
+fragment de couche 2 peut donc être évalué à l'intérieur d'un contexte de couche 1, ce contexte fournissant tout ce dont
+la couche 2 a besoin. La réciproque échouerait, faute d'une ressource strictement linéaire à offrir. C'est cette même
+asymétrie qui permet à un calcul de couche 3 (n'ayant besoin que de $`\Delta_{\omega}`, présent dans les trois
+jugements) d'être invoqué depuis n'importe laquelle des trois couches.
 
 La grammaire des couches s'écrit en K ({num "lst:grammaire-couches"}[]) ; chaque production en transcrit une règle.
 
@@ -113,14 +113,13 @@ est _à pile visible_ lorsque la structure d'appel et de retour se lit dans l'al
 délimiteurs, ouvertures et fermetures distinctes et fixées, ne s'imbriquant que dans un seul sens : la définition est
 satisfaite par construction. La classe est celle où l'analyse est linéaire, où la vérification d'imbrication est
 décidable, et où l'algorithme central a été formellement vérifié {cite "jiaDerivativebasedParserGenerator2021"}[]. Le
-lecteur de
-`lexicon/syntax/balance.k` en est une mise en œuvre : il empile chaque délimiteur ouvrant avec sa
-ligne et dépile au fermant de sa paire. Il refuse ainsi, dès la lecture, un délimiteur jamais refermé, un fermant sans
-ouvrant et un fermant d'une autre paire que les délimiteurs encore ouverts (codes `ERR-DLM`, annexe {num
-"sec:annexe-a-codes"}[]), ainsi qu'une inclusion que la grammaire des couches refuse. Un second trait de cette approche
-compte pour un langage homoiconique : l'analyseur rend une _forêt_ de tous les arbres valides, là où le choix priorisé
-d'une grammaire d'expressions d'analyse élit une lecture en silence. Une ambiguïté devient alors une chose qu'on peut
-voir et refuser, plutôt qu'une chose que l'analyseur tranche pour soi.
+lecteur de `lexicon/syntax/balance.k` en est une mise en œuvre : il empile chaque délimiteur ouvrant avec sa ligne et
+dépile au fermant de sa paire. Il refuse ainsi, dès la lecture, un délimiteur jamais refermé, un fermant sans ouvrant et
+un fermant d'une autre paire que les délimiteurs encore ouverts (codes `ERR-DLM`, annexe {num "sec:annexe-a-codes"}[]),
+ainsi qu'une inclusion que la grammaire des couches refuse. Un second trait de cette approche compte pour un langage
+homoiconique : l'analyseur rend une _forêt_ de tous les arbres valides, là où le choix priorisé d'une grammaire
+d'expressions d'analyse élit une lecture en silence. Une ambiguïté devient alors une chose qu'on peut voir et refuser,
+plutôt qu'une chose que l'analyseur tranche pour soi.
 
 L'écriture d'un délimiteur doit définir la limite de sa couche, et c'est sa nature :
 `{je suis en couche 1} (je suis en couche 2 [et maintenant en couche 3])`. Chaque couche a son
@@ -204,12 +203,12 @@ deux se place entre eux, et les modifieurs se prennent avant l'assemblage du tra
 `[[add fold] div length]`, la somme de chaque élément divisé par la longueur, c'est-à-dire la moyenne. Une valeur peut
 terminer un train : `[sub 1]` est la fonction $`x - 1`, la valeur étant l'argument droit de `sub` et l'argument du train
 son argument gauche. Un crochet n'est une application que lorsque sa tête y reçoit tous ses arguments (`[add 1 2]`).
-L'écart-type s'écrit ainsi avec un seul groupe intérieur, `[sqrt [add fold div length] square sub add fold div length]`
-: la moyenne du carré de l'écart de chaque élément à la moyenne, passée à la racine (§{num
-"sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[+´÷≠]`, est une vue de l'éditeur, qui remplace chaque mot par son
-glyphe à sa place et le colore selon son rôle, que son type indique : valeur, fonction, modifieur d'une fonction ou
-modifieur de deux. Un glyphe de la table du chapitre 1 ne se lit seul que dans une suite faite seulement de glyphes et
-de modifieurs, comme `+´÷≠` ; toute autre suite se lit d'un tenant, comme un nom ou un nombre : `increment-bounded`,
+L'écart-type s'écrit ainsi avec un seul groupe intérieur, `[sqrt [add fold div length] square sub add fold div
+length]` : la moyenne du carré de l'écart de chaque élément à la moyenne, passée à la racine
+(§{num "sec:c5-mise-en-pratique"}[]). La forme en glyphes, `[+´÷≠]`, est une vue de l'éditeur, qui remplace chaque mot
+par son glyphe à sa place et le colore selon son rôle, que son type indique : valeur, fonction, modifieur d'une fonction
+ou modifieur de deux. Un glyphe de la table du chapitre 1 ne se lit seul que dans une suite faite seulement de glyphes
+et de modifieurs, comme `+´÷≠` ; toute autre suite se lit d'un tenant, comme un nom ou un nombre : `increment-bounded`,
 `x-1` et `-2` sont chacun un atome. Un glyphe écrit dans un fichier hors d'un texte est accepté : le formateur le
 réécrit par son mot et le signale par la remarque `HEY-LEX-001`, qui n'est ni une erreur ni un avertissement ; un glyphe
 voulu comme caractère s'écrit dans un texte par son nom LaTeX. L'apostrophe cite une expression, comme en Lisp : `'x` se
@@ -230,10 +229,10 @@ veut deux largeurs égales écrit cette largeur. Une paire vide est la structure
 elle-même une structure de données (arène linéaire en couche 1, tas en couche 2, pile en couche 3) : `[]` est le vecteur
 vide, `()` la liste vide et `{}` l'enregistrement ou la table vide ; elle porte les grades de son fragment, vérifiés à
 la compilation. Une paire doublée, dont la paire intérieure est seule, précise une forme propre à sa couche et reste
-dans la couche de sa paire simple ; l'éditeur l'affiche en crochets blancs, de même sens : `[[ x ]]` est `⟦ x ⟧`, `(( x
-))` est `⦅ x ⦆` et `{{ x }}` est `⦃ x ⦄`. En couche 3, où la mémoire se calcule avant l'exécution, `[[ … ]]` ne contient
-qu'un littéral dont la taille se connaît avant l'exécution, reconnu à sa forme et sans mot de tête : une classe de
-caractères, à son nom entre deux-points (`[[:alpha:]]`), ou un intervalle, dont les bornes sont des littéraux ou se
+dans la couche de sa paire simple ; l'éditeur l'affiche en crochets blancs, de même sens : `[[ x ]]` est `⟦ x ⟧`,
+`(( x ))` est `⦅ x ⦆` et `{{ x }}` est `⦃ x ⦄`. En couche 3, où la mémoire se calcule avant l'exécution, `[[ … ]]` ne
+contient qu'un littéral dont la taille se connaît avant l'exécution, reconnu à sa forme et sans mot de tête : une classe
+de caractères, à son nom entre deux-points (`[[:alpha:]]`), ou un intervalle, dont les bornes sont des littéraux ou se
 calculent à la compilation. Un intervalle `a..b` inclut ses deux bornes (`[[1..9]]`) ; un mot qui le suit en saute des
 valeurs, en prenant combien sauter et tous les combien (`[[1..9 skip 1 2]]` vaut `1 3 5 7 9`) ; plusieurs intervalles
 forment la matrice de leurs paires d'indices (`[[1..3 1..3]]`) ; des textes d'un caractère peuvent en être les bornes
@@ -285,20 +284,18 @@ qui attend sa paire fermante `|sql}`, et ce qu'ils encadrent est le texte de ce 
 L'étiquette est un type de couche 1, déclaré avec une grammaire facultative qui peut valider le littéral ; une étiquette
 inconnue laisse le littéral en texte ordinaire, typé par l'étiquette tout de même, ce qui permet de prototyper avant de
 tout typer, et l'avertissement `WRN-LEX-001` le signale. Les quatre formes d'une même étiquette suivent leurs couches :
-`"sql|…|sql"` est un texte typé,
-`{sql|…|sql}` est déclaré et vérifié à la compilation, `(sql|…|sql)` est exécuté, et `[sql|…|sql]`
-est pur et termine, limité aux requêtes dont les négations se stratifient (corollaire {num
-"thm:terminaison_strates"}[]). Un littéral qui contient sa propre fermante s'écrit avec un alias de l'étiquette, second
-nom déclaré pour le même type. Un trou dans un littéral qualifié est un trou typé, passé en paramètre et jamais collé
-dans le texte ; un texte ordinaire n'interpole jamais. Chaque type d'étiquette déclare comment ses trous s'écrivent, et
-la règle n'existe qu'une fois ce type spécifié ; `sql`, d'après le SQL standard, sera le premier. Une classe de
-caractères se nomme entre deux deux-points, `:alpha:`, à part de l'étiquette `:alpha` :
-`[:alpha: c]` est un prédicat, `[[:alpha:]]` ses points de code, ses bornes s'obtenant par une
-fonction, `((:alpha:))` ses points de code dans l'ordre, produits à la demande (un crochet d'idiome sans argument), et
-`{{:alpha:}}` le type raffiné des textes d'un caractère qu'elle admet ; les noms POSIX y désignent
-les propriétés Unicode que leur associe l'UTS #18, et le complément d'une classe se prend parmi les valeurs scalaires
-Unicode. Appliquée à un texte dont le caractère réunit plusieurs points de code, comme un `e` suivi d'un accent
-combinant, une classe teste le premier, sa base.
+`"sql|…|sql"` est un texte typé, `{sql|…|sql}` est déclaré et vérifié à la compilation, `(sql|…|sql)` est exécuté, et
+`[sql|…|sql]` est pur et termine, limité aux requêtes dont les négations se stratifient (corollaire
+{num "thm:terminaison_strates"}[]). Un littéral qui contient sa propre fermante s'écrit avec un alias de l'étiquette,
+second nom déclaré pour le même type. Un trou dans un littéral qualifié est un trou typé, passé en paramètre et jamais
+collé dans le texte ; un texte ordinaire n'interpole jamais. Chaque type d'étiquette déclare comment ses trous
+s'écrivent, et la règle n'existe qu'une fois ce type spécifié ; `sql`, d'après le SQL standard, sera le premier. Une
+classe de caractères se nomme entre deux deux-points, `:alpha:`, à part de l'étiquette `:alpha` : `[:alpha: c]` est un
+prédicat, `[[:alpha:]]` ses points de code, ses bornes s'obtenant par une fonction, `((:alpha:))` ses points de code
+dans l'ordre, produits à la demande (un crochet d'idiome sans argument), et `{{:alpha:}}` le type raffiné des textes
+d'un caractère qu'elle admet ; les noms POSIX y désignent les propriétés Unicode que leur associe l'UTS #18, et le
+complément d'une classe se prend parmi les valeurs scalaires Unicode. Appliquée à un texte dont le caractère réunit
+plusieurs points de code, comme un `e` suivi d'un accent combinant, une classe teste le premier, sa base.
 
 Cinq mots-clés activent une preuve supplémentaire au moment de la vérification. Ils ne sont réservés qu'en position de
 tête d'une S-expression, pour ne pas restreindre leur usage comme noms ordinaires ailleurs. Aucun n'est un mécanisme.

@@ -30,11 +30,11 @@ l'énoncé n'emploie de son grade que le caractère linéaire.
 Un modèle dénotationnel existe pour cette discipline. Il est situé ici plutôt qu'adopté. Un _espace de capacité_ est un
 ensemble muni d'une relation de poids qui assigne à chaque valeur les ensembles de capacités qu'elle peut détenir. Un
 morphisme y est une fonction qui préserve les poids, et ses auteurs établissent que ce sont précisément les fonctions
-sûres du point de vue des capacités, sans accès non autorisé ni autorité ambiante {cite
-"choudhuryRecoveringPurityComonads2020"}[]. Ce modèle valide la discipline que ce document emploie, non son énoncé : son
-objet est la permission de produire un effet, quand celui du théorème est la disjonction de régions. Et il sert un
-système qui recouvre la pureté depuis un ambiant impur, direction que ce document écarte ; l'adopter comme sémantique
-importerait la lecture relative de la pureté qu'il refuse.
+sûres du point de vue des capacités, sans accès non autorisé ni autorité ambiante
+{cite "choudhuryRecoveringPurityComonads2020"}[]. Ce modèle valide la discipline que ce document emploie, non son
+énoncé : son objet est la permission de produire un effet, quand celui du théorème est la disjonction de régions. Et il
+sert un système qui recouvre la pureté depuis un ambiant impur, direction que ce document écarte ; l'adopter comme
+sémantique importerait la lecture relative de la pureté qu'il refuse.
 
 ::::theorem (label := "thm:surete_spatiale") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "memory-safety")
 :::title
@@ -44,31 +44,31 @@ sûreté spatiale par capacités linéaires
 :::statement +titled
 Impossibilité de mutation concurrente
 
-Soient $`t_1` et $`t_2` deux membres du multi-ensemble de calculs, composés par la règle {sc}[Par] (§{num
-"sec:g-parallelisme"}[]) et donc sous des contextes _additionnés_, $`\Delta_1 + \Delta_2`. On suppose (H1) l'_unicité
-d'introduction_ : la règle d'introduction de $`\mathsf{WriteCap}(r)` consomme linéairement l'arène ou le segment dont
-elle découpe $`r`, de sorte qu'au plus une capacité d'écriture par région est dérivable en contexte clos ; (H2) la
-_portée_ : deux capacités de $`\mathsf{Range}` disjoints ne dénotent pas la même région (arithmétique d'intervalles,
-déchargeable par le solveur) ; et (H3) le respect du sens d'imbrication des délimiteurs du chapitre 5, qui interdit à
-une valeur cartésienne de capturer une capacité linéaire. Soit $`\mathsf{WriteCap}(r)` une capacité d'écriture sur une
-région d'arène $`r`. Si $`\Delta_1 \vdash t_1 : \mathsf{WriteCap}(r) \multimap \mathsf{Unit}`, alors il n'existe aucun
-terme $`t_2'` tel que $`\Delta_2 \vdash t_2' : \mathsf{WriteCap}(r) \multimap \tau`, quel que soit $`\tau` : aucune
-opération mutante sur $`r` n'est typable sous $`\Delta_2`.
+Soient $`t_1` et $`t_2` deux membres du multi-ensemble de calculs, composés par la règle {sc}[Par]
+(§{num "sec:g-parallelisme"}[]) et donc sous des contextes _additionnés_, $`\Delta_1 + \Delta_2`. On suppose (H1)
+l'_unicité d'introduction_ : la règle d'introduction de $`\mathsf{WriteCap}(r)` consomme linéairement l'arène ou le
+segment dont elle découpe $`r`, de sorte qu'au plus une capacité d'écriture par région est dérivable en contexte clos ;
+(H2) la _portée_ : deux capacités de $`\mathsf{Range}` disjoints ne dénotent pas la même région (arithmétique
+d'intervalles, déchargeable par le solveur) ; et (H3) le respect du sens d'imbrication des délimiteurs du chapitre 5,
+qui interdit à une valeur cartésienne de capturer une capacité linéaire. Soit $`\mathsf{WriteCap}(r)` une capacité
+d'écriture sur une région d'arène $`r`. Si $`\Delta_1 \vdash t_1 : \mathsf{WriteCap}(r) \multimap \mathsf{Unit}`, alors
+il n'existe aucun terme $`t_2'` tel que $`\Delta_2 \vdash t_2' : \mathsf{WriteCap}(r) \multimap \tau`, quel que soit
+$`\tau` : aucune opération mutante sur $`r` n'est typable sous $`\Delta_2`.
 :::
 
 :::proofsketch
-Instance du lemme de capacité (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[], théorème {num
-"thm:lemme_capacite"}[]), la ressource étant la région $`r` et la capacité $`\mathsf{WriteCap}(r)`. L'absence de
+Instance du lemme de capacité (chapitre 2, §{num "sec:c2-six-schemas-de-metatheorie"}[], théorème
+{num "thm:lemme_capacite"}[]), la ressource étant la région $`r` et la capacité $`\mathsf{WriteCap}(r)`. L'absence de
 diagonale interdit de _dupliquer_ une capacité donnée ; elle n'interdit pas d'en _introduire deux_ pour la même région,
 et c'est (H1) qui l'exclut, (H2) ramenant la disjonction des régions à celle des intervalles. Sans (H1), une primitive
-`alloc_range` non linéaire en son arène produirait deux capacités distinctes pour la même région :
-le théorème tiendrait pour chacune et tomberait pour le couple. Celle-ci vit dans le fragment linéaire strict de _C_,
-lequel ne porte par construction aucun morphisme de duplication $`A \to A \otimes A`. C'est l'_addition_ des contextes
-qui porte la disjonction, et c'est ce que la règle {sc}[Par] donne : une capacité de grade $`1` présente dans $`\Delta_1
-+ \Delta_2` y est présente une seule fois, la somme des grades valant $`1` et non $`2`. Sa consommation par $`t_1` la
-retire donc structurellement de $`\Delta_2`, et le raisonnement vaut sur le multi-ensemble entier par associativité de
-l'addition. Sans elle dans son propre contexte de typage, $`t_2` ne peut construire aucun terme bien typé opérant sur
-$`r` : l'absence se lit sur la dérivation, sans analyse supplémentaire.
+`alloc_range` non linéaire en son arène produirait deux capacités distinctes pour la même région : le théorème tiendrait
+pour chacune et tomberait pour le couple. Celle-ci vit dans le fragment linéaire strict de _C_, lequel ne porte par
+construction aucun morphisme de duplication $`A \to A \otimes A`. C'est l'_addition_ des contextes qui porte la
+disjonction, et c'est ce que la règle {sc}[Par] donne : une capacité de grade $`1` présente dans $`\Delta_1 + \Delta_2`
+y est présente une seule fois, la somme des grades valant $`1` et non $`2`. Sa consommation par $`t_1` la retire donc
+structurellement de $`\Delta_2`, et le raisonnement vaut sur le multi-ensemble entier par associativité de l'addition.
+Sans elle dans son propre contexte de typage, $`t_2` ne peut construire aucun terme bien typé opérant sur $`r` :
+l'absence se lit sur la dérivation, sans analyse supplémentaire.
 :::
 
 :::note
@@ -192,8 +192,8 @@ Les sept niveaux de gestion mémoire de K7PL
 Le cinquième régime appelle une précision que le tableau ne peut pas porter, et dont la réponse n'est pas indifférente.
 La déduplication canonique est un partage de graphe ; reste à dire si ce partage est _observable_ depuis le langage. La
 question n'est pas oiseuse : observer que deux sous-termes sont le _même objet_, et non seulement égaux, c'est observer
-la représentation et non la valeur, et toute solution directe y perd la transparence référentielle {cite
-"gillTypesafeObservableSharing"}[].
+la représentation et non la valeur, et toute solution directe y perd la transparence référentielle
+{cite "gillTypesafeObservableSharing"}[].
 
 Deux réponses sont possibles. K7PL retient la première : le partage n'est pas observable, la déduplication est une
 propriété de la représentation et rien du langage ne permet de la constater, de sorte que la transparence est préservée
@@ -203,9 +203,9 @@ les grades donnent et que la littérature citée, qui n'en a pas, ne pouvait pas
 
 Deux travaux plus récents rendent cette seconde voie moins spéculative. L'un traite le partage et la mutation par des
 _coeffets_, c'est-à-dire par l'appareil même de ce document {cite "bianchiniCoeffectsSharingMutation2022"}[]~; l'autre
-établit que le partage _maximal_ se décide, ce qui borne ce qu'un compilateur peut promettre {cite
-"grabmayerMaximalSharingLam"}[]. Ce chapitre n'emprunte ni l'un ni l'autre (son choix reste que le partage n'est pas
-observable), mais l'ouverture qu'il laisse n'est pas une porte sur du vide.
+établit que le partage _maximal_ se décide, ce qui borne ce qu'un compilateur peut promettre
+{cite "grabmayerMaximalSharingLam"}[]. Ce chapitre n'emprunte ni l'un ni l'autre (son choix reste que le partage n'est
+pas observable), mais l'ouverture qu'il laisse n'est pas une porte sur du vide.
 
 
 # Profil de représentation Π et portée des garanties concrètes

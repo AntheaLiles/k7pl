@@ -33,9 +33,9 @@ module `Spec.C3.EffectiveKernel` que `lake build Spec` construit avec ce documen
 l'unité et `Pair` ; `ComputationTyping` porte `Ret`, `Lam`, `App` et `Let`. Le contexte du noyau est explicitement
 l'observation d'usage $`\pi_U`, tandis que le type de fonction conserve le grade complet (usage, coordonnée monotone,
 niveau, budget). La règle `App` projette le grade par $`\pi_U(r)` pour mettre à l'échelle le contexte de l'argument,
-puis utilise une opération de composition contextuelle indexée par l'effet. Cette opération reste un paramètre explicite
-: son instanciation par $`\boxtimes` est indexée par la couche et n'est pas supposée globalement additive. La règle
-`Let` utilise ce même opérateur avec l'effet traversé, au lieu de remplacer silencieusement $`\boxtimes` par une
+puis utilise une opération de composition contextuelle indexée par l'effet. Cette opération reste un paramètre
+explicite : son instanciation par $`\boxtimes` est indexée par la couche et n'est pas supposée globalement additive. La
+règle `Let` utilise ce même opérateur avec l'effet traversé, au lieu de remplacer silencieusement $`\boxtimes` par une
 addition. Des théorèmes compilés construisent les dérivations de `λx. return x`, de `let x := (); return x` et de
 l'application de l'identité à l'unité, sous un grade arbitraire pour les trois coordonnées non liées à l'usage.
 
@@ -81,9 +81,9 @@ montent, et prendre le produit des ordres sans y regarder inverserait la garanti
 sous-typage n'est donc pas l'ordre du grade mais son produit mixte, et cette distinction doit figurer dans les règles
 plutôt que dans un commentaire.
 
-Ce qui suit donne le jeu central. Les conventions sont celles-ci. $`\Delta` est un contexte gradué $`x_1 :_{r_1} V_1,
-\ldots`. La notation de surface $`r\cdot\Delta` désigne une action _règle-locale_ : pour {sc}[Box], {sc}[App], la
-substitution et le contexte de {sc}[Sc], son interprétation de référence est
+Ce qui suit donne le jeu central. Les conventions sont celles-ci. $`\Delta` est un contexte gradué
+$`x_1 :_{r_1} V_1, \ldots`. La notation de surface $`r\cdot\Delta` désigne une action _règle-locale_ : pour {sc}[Box],
+{sc}[App], la substitution et le contexte de {sc}[Sc], son interprétation de référence est
 $`\operatorname{Scale}_{Usage}(\pi_U(r),\Delta)`. Les lois et leur compatibilité avec les règles restent à prouver. Les
 répétitions effectives sont représentées par la transformation d'effet $`\varphi_n`, distincte de l'action contextuelle.
 La notation ne constitue donc pas une multiplication primitive du grade complet, dont l'action globale reste une
@@ -91,9 +91,9 @@ obligation de C2. $`\Delta_1 + \Delta_2` les additionne composante par composant
 liaisons_. La condition s'écrit $`0\cdot\Delta_1 = 0\cdot\Delta_2`, l'annulation des grades ne laissant que les couples
 variable-type, et sans elle l'addition point par point n'est pas définie {cite "HUANG"}[] ; $`\mathbf{0}` est le
 contexte de grades nuls. Enfin $`\Delta_1 \boxtimes_\varepsilon \Delta_2` note la composition que la loi distributive du
-chapitre 3 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) gouverne, définie au chapitre 1 (§{num
-"sec:c1-de-la-loi-distributive"}[], équation {num "eq:boxtimes"}[]) par $`\Delta_1 + \psi(\Delta_2, \varepsilon)` :
-l'addition assortie du transport que $`\varphi` et $`\psi` prescrivent.
+chapitre 3 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) gouverne, définie au chapitre 1
+(§{num "sec:c1-de-la-loi-distributive"}[], équation {num "eq:boxtimes"}[]) par $`\Delta_1 + \psi(\Delta_2,
+\varepsilon)` : l'addition assortie du transport que $`\varphi` et $`\psi` prescrivent.
 
 Une précision de notation, qui n'en est pas une de forme. $`\boxtimes` _dépend de l'effet traversé_, et l'omettre
 laisserait le lecteur le reconstituer à chaque règle. L'indice est donné par le séquencement, et sans ambiguïté : c'est
@@ -140,13 +140,13 @@ totalité de $`\psi`, et à montrer que le domaine de $`\psi` est sans restricti
 ::::
 Ce lemme n'est pas une commodité de calcul : il situe K7PL par rapport à la forme reçue. Des présentations indépendantes
 des systèmes gradués écrivent la règle d'application en multipliant le contexte de l'argument par le grade que la flèche
-exige, puis en le combinant à celui du terme fonction par l'_addition ponctuelle_ du semi-anneau {cite
-"hanukaevUnificationGradedSubstructural2026"}[], {cite "hughesProgramSynthesisGraded2024"}[]. K7PL écrit $`\Delta_1
-\boxtimes_{\varepsilon_0} (r\cdot\Delta_2)`, et le lemme dit que les deux formes coïncident dès que l'effet ne coûte
-rien. Or aucune d'elles n'a d'effet qui traverse le coeffet : leur composante temporelle est identiquement nulle, et
-leur $`\boxtimes` _est_ leur $`+`. Elles n'ont donc pas fait un autre choix : elles travaillent dans le cas où les deux
-opérateurs se confondent, et n'avaient aucune raison d'en distinguer deux. K7PL généralise la forme reçue plutôt qu'il
-ne s'en écarte, et c'est l'effet traversant qui l'y oblige.
+exige, puis en le combinant à celui du terme fonction par l'_addition ponctuelle_ du semi-anneau
+{cite "hanukaevUnificationGradedSubstructural2026"}[], {cite "hughesProgramSynthesisGraded2024"}[]. K7PL écrit
+$`\Delta_1 \boxtimes_{\varepsilon_0} (r\cdot\Delta_2)`, et le lemme dit que les deux formes coïncident dès que l'effet
+ne coûte rien. Or aucune d'elles n'a d'effet qui traverse le coeffet : leur composante temporelle est identiquement
+nulle, et leur $`\boxtimes` _est_ leur $`+`. Elles n'ont donc pas fait un autre choix : elles travaillent dans le cas où
+les deux opérateurs se confondent, et n'avaient aucune raison d'en distinguer deux. K7PL généralise la forme reçue
+plutôt qu'il ne s'en écarte, et c'est l'effet traversant qui l'y oblige.
 
 ::::formula (label := "eq:jeu-regles") (kind := "formule")
 ```
@@ -270,16 +270,16 @@ l'additionner, une seule d'entre elles s'exécutant : c'est le même trait que {
 il est correct pour la même raison. Le second est que toutes les branches y portent le _même_ effet ; cela ne restreint
 rien, {sc}[Sub] permettant de relever chacune jusqu'à leur borne supérieure, et l'écrire ainsi évite d'introduire un
 joint dans la règle. Cet argument suppose l'existence de cette borne supérieure, c'est-à-dire l'existence de _jointures_
-(c'est la condition du théorème {num "thm:coherence_subsomption"}[] ci-après, dont la vérification est faite au §{num
-"sec:g-regles"}[]). L'argument employé ici est donc déjà celui du théorème : relever une branche jusqu'à un joint et
-démontrer que deux dérivations coïncident demandent la même structure.
+(c'est la condition du théorème {num "thm:coherence_subsomption"}[] ci-après, dont la vérification est faite au
+§{num "sec:g-regles"}[]). L'argument employé ici est donc déjà celui du théorème : relever une branche jusqu'à un joint
+et démontrer que deux dérivations coïncident demandent la même structure.
 
 La forme _indexée_ de {sc}[Case] n'est pas un raffinement de présentation. Un gestionnaire d'acteur a autant de branches
 qu'il reçoit d'espèces de messages. L'encoder par une cascade de sommes binaires rendrait le nombre de branches
 dépendant d'un ordre arbitraire, et le typage d'un protocole dépendrait de la manière dont on a associé les
-alternatives. Les types de session de cette même grammaire portaient d'ailleurs déjà la forme indexée, $`\oplus\{\ell_i
-: S_i\}` : c'étaient les types de valeur et de calcul qui faisaient exception. La somme et la conjonction additive sont
-donc indexées partout, et {sc}[Inj], {sc}[With] et {sc}[Proj] le sont avec elles.
+alternatives. Les types de session de cette même grammaire portaient d'ailleurs déjà la forme indexée,
+$`\oplus\{\ell_i : S_i\}` : c'étaient les types de valeur et de calcul qui faisaient exception. La somme et la
+conjonction additive sont donc indexées partout, et {sc}[Inj], {sc}[With] et {sc}[Proj] le sont avec elles.
 
 Un second motif appuie ce choix, indépendant du premier, et la mécanisation étant un objectif déclaré : le coût de
 preuve. Une mécanisation de référence rapporte que l'ajout de quelques règles de réduction pour les sommes disjointes a
@@ -299,9 +299,9 @@ par la grammaire qui n'en a que faire_, ce qui est la règle que ce document s'a
 La flèche $`V_r \multimap_\varepsilon C` porte _une_ annotation, et il vaut la peine de dire pourquoi une seule suffit,
 car ce n'est pas le cas général. Un calcul par poussée de valeur pur ne demande aucune annotation sur la flèche. Une
 extension qui doit traiter l'évaluation paresseuse en demande _deux_ (celle de l'argument et celle de la fonction),
-l'argument y étant un calcul suspendu dont l'effet reste à consigner {cite
-"mcdermottExtendedCallbypushvalueReasoning2019"}[]. Ici l'argument est une _valeur_, donc sans effet propre : il n'y a
-rien à annoter de son côté, et $`\varepsilon` ne dit que ce que le corps produira. C'est encore la séparation
+l'argument y étant un calcul suspendu dont l'effet reste à consigner
+{cite "mcdermottExtendedCallbypushvalueReasoning2019"}[]. Ici l'argument est une _valeur_, donc sans effet propre : il
+n'y a rien à annoter de son côté, et $`\varepsilon` ne dit que ce que le corps produira. C'est encore la séparation
 valeur/calcul qui paie, et l'économie se lit sur la forme même de la flèche.
 
 Trois autres règles portent l'essentiel et méritent un mot. {sc}[Box] et {sc}[Unbox] sont le lieu de toute la discipline
@@ -467,10 +467,10 @@ _Obligation ouverte._ L'état de proposition est maintenu : la fonctorialité du
 par produit.
 :::
 ::::
-La forme de cette preuve est celle qu'emploie la cohérence de la subsomption pour un calcul monadique {cite
-"schwinghammerCoherenceSubsumptionMonadic2009"}[]. La condition qu'elle demande n'est pas encore acquise ici : K7PL doit
-vérifier les conversions propres à son ordre produit. Les jointures déjà utilisées aux branchements constituent une
-donnée algébrique utile, mais elles ne suffisent pas à établir la cohérence des coercions.
+La forme de cette preuve est celle qu'emploie la cohérence de la subsomption pour un calcul monadique
+{cite "schwinghammerCoherenceSubsumptionMonadic2009"}[]. La condition qu'elle demande n'est pas encore acquise ici :
+K7PL doit vérifier les conversions propres à son ordre produit. Les jointures déjà utilisées aux branchements
+constituent une donnée algébrique utile, mais elles ne suffisent pas à établir la cohérence des coercions.
 
 Une réserve de portée se note ici : la règle de Breazu-Tannen pour les universels bornés, qui autorise le sous-typage
 contravariant des bornes, est incompatible avec l'existence des jointures. K7PL a des universels et des sommes ; borner
@@ -617,9 +617,8 @@ jugement. Ils partagent la place et diffèrent par la structure, et c'est ce que
 
 Le contexte du bloc y est multiplié par $`n`, et cette multiplication est ce qui fait sortir le bloc du fragment de sa
 couche : un bloc rejoué deux fois porte des grades que le fragment affine n'admet pas. Ce n'est pas une entorse mais un
-déplacement, et le paragraphe sur la sédimentation le justifie
-: ce qui borne une réexécution est le budget et non la discipline de ressource, le premier tarifant
-ce que la seconde interdirait sans le mesurer.
+déplacement, et le paragraphe sur la sédimentation le justifie : ce qui borne une réexécution est le budget et non la
+discipline de ressource, le premier tarifant ce que la seconde interdirait sans le mesurer.
 
 ## Le monoïde des transformateurs
 %%%
@@ -781,9 +780,10 @@ Projeter une trace au niveau $`\ell`, c'est en retirer ce qu'un observateur de c
 l'opération dont la stratification du journal et la non-interférence ont besoin. Effacer les _opérations_ de niveau
 supérieur sans effacer leur _durée_ laisserait un observateur bas compter les pas qu'elles ont coûtés. La projection
 observationnelle doit donc retirer aussi le temps, quand la projection conservatrice doit le garder. Les deux sont des
-instances du schéma de restriction (chapitre~2, §{num "sec:c2-six-schemas-de-metatheorie"}[], théorème {num
-"thm:schema_restriction"}[]), et c'est lui qui dit pourquoi les confondre serait fatal : un schéma commun n'autorise pas
-à identifier deux critères, et c'est le critère qui fait toute la différence entre fermer le canal temporel et l'ouvrir.
+instances du schéma de restriction (chapitre~2, §{num "sec:c2-six-schemas-de-metatheorie"}[], théorème
+{num "thm:schema_restriction"}[]), et c'est lui qui dit pourquoi les confondre serait fatal : un schéma commun
+n'autorise pas à identifier deux critères, et c'est le critère qui fait toute la différence entre fermer le canal
+temporel et l'ouvrir.
 
 ::::k7table (label := "tab:deux-projections") (align := "Z{0.91}Z{0.80}Z{0.84}Z{1.45}")
 :::caption
@@ -857,11 +857,11 @@ $`\varphi_\ell` correspondante est un endomorphisme monotone de $`\mathcal{E}`, 
 n'interdirait de l'admettre.
 
 Elle est exclue, et c'est une décision de sûreté plutôt que d'économie. Un gestionnaire qui pourrait ré-étiqueter le
-niveau d'un effet déclassifierait par une porte que la déclassification délimitée du chapitre 2 (§{num
-"sec:c2-adjonctions-et-enrichissement"}[]) ne contrôle pas, puisqu'elle ne contrôle que l'échappatoire nommée. Admettre
-$`\varphi_\ell` dans $`\mathcal{M}` rouvrirait donc l'attaque de blanchiment que la déclassification ferme, et le ferait
-à l'endroit exact où la preuve de non-interférence est le plus fragile, celui du canal temporel. _Le monoïde n'itère et
-n'efface ; il n'étiquette pas._
+niveau d'un effet déclassifierait par une porte que la déclassification délimitée du chapitre 2
+(§{num "sec:c2-adjonctions-et-enrichissement"}[]) ne contrôle pas, puisqu'elle ne contrôle que l'échappatoire nommée.
+Admettre $`\varphi_\ell` dans $`\mathcal{M}` rouvrirait donc l'attaque de blanchiment que la déclassification ferme, et
+le ferait à l'endroit exact où la preuve de non-interférence est le plus fragile, celui du canal temporel. _Le monoïde
+n'itère et n'efface ; il n'étiquette pas._
 
 ## Ce que les couches en font
 %%%
@@ -1028,9 +1028,9 @@ Trois conditions de cohérence sont exigées d'une loi distributive graduée, et
 
 Le périmètre de cette loi se dit d'emblée. Elle est écrite pour les répétitions effectives : la multiplicité $`n` est
 celle que fournit le combinateur de contrôle de la règle, et $`\varphi_n` est la puissance dans le monoïde des effets.
-La loi distributive graduée générale entre les deux côtés de l'adjonction, celle que le chapitre 1 nomme (§{num
-"sec:c1-de-la-loi-distributive"}[]), n'est pas posée ici : elle reste nommée, et ce qui suit n'en établit que le cas des
-répétitions.
+La loi distributive graduée générale entre les deux côtés de l'adjonction, celle que le chapitre 1 nomme
+(§{num "sec:c1-de-la-loi-distributive"}[]), n'est pas posée ici : elle reste nommée, et ce qui suit n'en établit que le
+cas des répétitions.
 
 ::::thm (label := "thm:loi_distributive_conditions") (status := "theoreme")
 :::title
@@ -1367,8 +1367,8 @@ tag := "g-couche2"
 Le chapitre 4 décrit des acteurs, des boîtes aux lettres et des motifs de jonction ; le noyau formel n'en portait rien,
 et la couche 2 n'y avait ni constructeur ni type habitable. Ce qui suit l'écrit, et l'_asynchronie est primitive_ :
 l'émission ne bloque pas, la réception bloque, et le rendez-vous synchrone se dérive d'une émission suivie d'une
-attente. L'inverse obligerait à introduire les tampons de toute façon, et laisserait la boîte aux lettres hors du noyau
-: ce qui était la situation.
+attente. L'inverse obligerait à introduire les tampons de toute façon, et laisserait la boîte aux lettres hors du
+noyau : ce qui était la situation.
 
 Deux constructeurs de valeur entrent, et ils portent leur discipline dans leur _grade_ plutôt que dans une seconde zone
 de contexte. Une liaison $`x :_1 \mathsf{Chan}\;S` est linéaire parce que son grade vaut un, et non parce qu'elle

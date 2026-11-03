@@ -39,10 +39,10 @@ fractionnaire dit exactement cela, et le compte reste de huit. Une implantation 
 configuration recommandée plutôt qu'une tension. Le cadre nanopass critique le compilateur organisé en un petit nombre
 de passes monolithiques, difficile à comprendre et à maintenir, où même un développeur expérimenté introduit des défauts
 subtils en modifiant une passe. Il recommande à la place une collection de passes fines n'accomplissant chacune qu'une
-seule tâche, structure qui _aligne_ l'implantation sur l'organisation logique {cite
-"sarkarEDUCATIONALPEARLNanopass2005"}[]. La littérature sur la compilation vérifiée y ajoute une seconde raison,
-indépendante de la maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément {cite
-"pattersonNext700Compiler"}[]. Deux sources, deux motifs, une même recommandation : et huit phases logiques n'en
+seule tâche, structure qui _aligne_ l'implantation sur l'organisation logique
+{cite "sarkarEDUCATIONALPEARLNanopass2005"}[]. La littérature sur la compilation vérifiée y ajoute une seconde raison,
+indépendante de la maintenabilité : une passe qui n'accomplit qu'une tâche se vérifie isolément
+{cite "pattersonNext700Compiler"}[]. Deux sources, deux motifs, une même recommandation : et huit phases logiques n'en
 contredisent aucun.
 
 ::::figure (label := "fig:comp-process") (src := "compilation-process") (alt := "Pipeline en serpentin : huit ordres de vérification et deux points de contrôle intercalaires. Une boucle entre ConstraintSolve (phase 5) et Optimize (phase 6) indique leur itération jusqu'à stabilisation.") (width := "90")
@@ -57,8 +57,8 @@ leur itération jusqu'à stabilisation ; 1.5 et 2.5 sont intercalaires.
 :::
 ::::
 
-Tout commence par construire l'arbre syntaxique du texte du chapitre 5 et par y désucrer les sigils en attributs (Phase
-0) : un travail purement syntaxique, qui ne discute encore aucun des trois ordres.
+Tout commence par construire l'arbre syntaxique du texte du chapitre 5 et par y désucrer les sigils en attributs
+(Phase 0) : un travail purement syntaxique, qui ne discute encore aucun des trois ordres.
 
 Les macros s'exécutent alors (Phase 1), sur cet arbre et avant toute vérification, dans le bac à sable du chapitre 3
 (§{num "sec:c3-structures-ouvertes-effets-et"}[]) : une macro n'y lit que les définitions que son site d'appel a en
@@ -86,15 +86,15 @@ celles des éliminations, et défère au solveur les contraintes résiduelles su
 entre analyse de flot et unification n'est requise : elle ne le serait que pour une inférence complète à la
 Damas-Milner, à laquelle le §{num "sec:c3-structures-ouvertes-effets-et"}[] renonce.
 
-Ce même parcours unifie les types concrets et résout les types dépendants pragmatiques du chapitre 3 (§{num
-"sec:c3-les-contraintes-de-valeur"}[]), mais ne recopie aucun générique : un trou typé y reste une variable
+Ce même parcours unifie les types concrets et résout les types dépendants pragmatiques du chapitre 3
+(§{num "sec:c3-les-contraintes-de-valeur"}[]), mais ne recopie aucun générique : un trou typé y reste une variable
 d'unification de sa famille, que la Phase 4 ne généralise ni ne ramène à `Unit`, et dont la largeur attend le solveur de
 la Phase 7. Unifier des types tout en ignorant encore lesquels de leurs habitants se dupliquent librement obligerait en
 effet l'unification à raisonner simultanément sur deux treillis distincts, ce que rien dans l'algorithme de Damas et
 Milner ne prévoit.
 
-Cet ordre n'est toutefois que l'une des trois architectures attestées : le typage de DFuzz {cite
-"deamorimReallyNaturalLinear2014"}[] exécute une passe de style Hindley-Milner puis une procédure de résolution de
+Cet ordre n'est toutefois que l'une des trois architectures attestées : le typage de DFuzz
+{cite "deamorimReallyNaturalLinear2014"}[] exécute une passe de style Hindley-Milner puis une procédure de résolution de
 contraintes, tandis que Granule {cite "orchardQuantitativeProgramReasoning2019"}[] et la théorie graduée dépendante de
 Moon et al. {cite "moonGradedModalDependent2021"}[] procèdent par typage bidirectionnel adossé à un solveur SMT, sans
 séquentialiser les deux treillis. K7PL retient la première pour la prévisibilité du temps de compilation, non par
@@ -105,22 +105,20 @@ vérificateur reprend, une fois la source résolue, exactement où il s'était a
 Phase 8, les phases qui suivent vérifient chaque générique une seule fois, sous sa forme générique, et non chacune de
 ses copies.
 
-La phase de résolution (Phase 4) referme la composante $`A` du jugement. Les types existentiels du chapitre 3 (§{num
-"sec:c3-structures-ouvertes-effets-et"}[]) y reçoivent leurs `pack~/~unpack` explicites, effacés en surface mais
+La phase de résolution (Phase 4) referme la composante $`A` du jugement. Les types existentiels du chapitre 3
+(§{num "sec:c3-structures-ouvertes-effets-et"}[]) y reçoivent leurs `pack~/~unpack` explicites, effacés en surface mais
 nécessaires au cœur vérifié. Un contexte complet (portant simultanément toutes les variables d'unification encore
 ouvertes) permet de résoudre chaque égalité $`\hat\alpha := \tau` par substitution immédiate dans ce contexte plutôt que
 par une substitution globale reconstruite à chaque pas. Ce qui reste, une fois cette résolution achevée, se généralise
-différemment selon la couche. En couche 3, une variable non résolue reçoit par défaut le type
-`Unit`, ou le programme est rejeté. En couche 2, seules les variables de rangée se généralisent, le
-reste retombant sur `Unit`. En couche 1, il n'existe plus de variable d'unification à généraliser : la linéarité stricte
-a déjà tout déterminé en Phase 3.
+différemment selon la couche. En couche 3, une variable non résolue reçoit par défaut le type `Unit`, ou le programme
+est rejeté. En couche 2, seules les variables de rangée se généralisent, le reste retombant sur `Unit`. En couche 1, il
+n'existe plus de variable d'unification à généraliser : la linéarité stricte a déjà tout déterminé en Phase 3.
 
-La composante $`\mathcal{E}` ne peut se vérifier qu'à présent (Phase 5), une fois $`A` stabilisé : tout
-`perform` doit être couvert par un gestionnaire, sous peine d'une erreur immédiate (`ERR-EFF-001`),
-et tout bloc `[ ]` doit satisfaire $`\mathcal{E} = \emptyset` : la vérification de pureté qui, au chapitre 5 (§{num
-"sec:c5-mise-en-pratique"}[]), rejetait un `HandlerResult` égaré en couche 3. Le narrowing déjà mobilisé en Phase 3
-raffine au passage le type de chaque branche d'un `match`, de sorte que cette vérification ne recommence rien depuis le
-début.
+La composante $`\mathcal{E}` ne peut se vérifier qu'à présent (Phase 5), une fois $`A` stabilisé : tout `perform` doit
+être couvert par un gestionnaire, sous peine d'une erreur immédiate (`ERR-EFF-001`), et tout bloc `[ ]` doit satisfaire
+$`\mathcal{E} = \emptyset` : la vérification de pureté qui, au chapitre 5 (§{num "sec:c5-mise-en-pratique"}[]), rejetait
+un `HandlerResult` égaré en couche 3. Le narrowing déjà mobilisé en Phase 3 raffine au passage le type de chaque branche
+d'un `match`, de sorte que cette vérification ne recommence rien depuis le début.
 
 Sait-on désormais qu'un terme n'a pas d'effet caché : c'est alors (Phase 6), et alors seulement, que sa terminaison ou
 sa productivité (la dernière propriété structurelle à établir avant le recours à un solveur) devient une question qui a
@@ -128,34 +126,33 @@ un sens. Ces deux propriétés ne font ici qu'une seule vérification, et c'est 
 chapitre 2 (§{num "sec:c2-algebres-coalgebres-et-points"}[]). La terminaison comme la productivité y reposent sur un
 indice de taille porté par le type, non sur une inspection de la syntaxe du terme. Vérifier qu'un pli de couche 3
 décroît et qu'un flux de couche 2 progresse, c'est vérifier le même jugement sous deux polarités. Cette phase porte donc
-désormais une seule procédure là où elle en portait deux
-: une inspection de mesure structurelle d'un côté, un contrôle de gardiennage de l'autre. Le nombre
-de phases du pipeline est inchangé : c'est le contenu de celle-ci qui se simplifie, non son rang. Pour les automates du
-chapitre 4 (§{num "sec:c4-echelle-locale"}[]), la complexité du motif est validée contre son annotation, et la
-profondeur d'un PDA supervisé contre le grade qui la borne.
+désormais une seule procédure là où elle en portait deux : une inspection de mesure structurelle d'un côté, un contrôle
+de gardiennage de l'autre. Le nombre de phases du pipeline est inchangé : c'est le contenu de celle-ci qui se simplifie,
+non son rang. Pour les automates du chapitre 4 (§{num "sec:c4-echelle-locale"}[]), la complexité du motif est validée
+contre son annotation, et la profondeur d'un PDA supervisé contre le grade qui la borne.
 
 Ce qui subsiste après cette preuve structurelle (Phase 7) : bornes numériques, débit, contraintes de rangée n'a rien de
 plus simple à établir sans aide extérieure. Un solveur pour les contraintes de rangée les résout par ensembles
-disjoints, tandis que le reste est exporté vers un solveur SMT externe, sur les théories dédiées du chapitre 3 (§{num
-"sec:c3-les-contraintes-de-valeur"}[]). Ces théories doivent être nommées, faute de quoi la prévisibilité annoncée reste
-une intention~: l'arithmétique linéaire sur les entiers et les rationnels pour les bornes de taille et les grades
-fractionnaires, les tableaux pour les accès d'arène, les fonctions non interprétées pour les prédicats de raffinement
-opaques. Toutes sont décidables, ce qui fonde l'argument de terminaison de la Phase~7 ; leur combinaison ne l'est pas
-nécessairement, et la dette est ici de nommer ce sur quoi le compilateur se restreint. Soit $`\mathcal{T}_{\text{K7PL}}`
-la combinaison de ces théories. Le compilateur ne soumet au solveur que le fragment $`\mathcal{T}_0 \subseteq
-\mathcal{T}_{\text{K7PL}}` dont la décidabilité est acquise ; toute obligation hors de $`\mathcal{T}_0` est _rejetée à
-la compilation_ avec un code d'erreur, et jamais soumise. Ce que ce document ne fait pas encore est de délimiter
-$`\mathcal{T}_0`, et l'argument de terminaison de la Phase 7 vaut de ce fragment plutôt que de la combinaison entière.
-Le solveur reste une boîte noire pour les obligations internes à une compilation, reproduites dans le même
-environnement. Pour celles qui traversent la frontière de paquet, un _certificat_ est exigé : une réponse négative ne se
-croit pas sur parole, les solveurs modernes sachant produire des preuves vérifiables indépendamment. La Phase~7 porte
-cette clause. Une réserve porte sur l'ordre de cette phase et de la suivante. Les optimisations que la Phase~8 conduit
-(déforestation, _inlining_, défonctionnalisation) transforment les contextes et peuvent donc engendrer des contraintes
-de grades que la Phase~7 avait déjà déchargées~: une boucle fusionnée multiplie les grades de ses deux corps, un appel
-intégré substitue son contexte à l'échelle de son propre grade. Le pipeline suppose ici une dépendance à sens unique qui
-n'est pas établie, et la conduite correcte est d'itérer les deux phases jusqu'à stabilisation plutôt que de les
-enchaîner une fois. Ce que la suite linéaire décrit n'est donc pas le modèle défendu, et l'écart se referme par un
-énoncé plutôt que par une figure.
+disjoints, tandis que le reste est exporté vers un solveur SMT externe, sur les théories dédiées du chapitre 3
+(§{num "sec:c3-les-contraintes-de-valeur"}[]). Ces théories doivent être nommées, faute de quoi la prévisibilité
+annoncée reste une intention~: l'arithmétique linéaire sur les entiers et les rationnels pour les bornes de taille et
+les grades fractionnaires, les tableaux pour les accès d'arène, les fonctions non interprétées pour les prédicats de
+raffinement opaques. Toutes sont décidables, ce qui fonde l'argument de terminaison de la Phase~7 ; leur combinaison ne
+l'est pas nécessairement, et la dette est ici de nommer ce sur quoi le compilateur se restreint. Soit
+$`\mathcal{T}_{\text{K7PL}}` la combinaison de ces théories. Le compilateur ne soumet au solveur que le fragment
+$`\mathcal{T}_0 \subseteq \mathcal{T}_{\text{K7PL}}` dont la décidabilité est acquise ; toute obligation hors de
+$`\mathcal{T}_0` est _rejetée à la compilation_ avec un code d'erreur, et jamais soumise. Ce que ce document ne fait pas
+encore est de délimiter $`\mathcal{T}_0`, et l'argument de terminaison de la Phase 7 vaut de ce fragment plutôt que de
+la combinaison entière. Le solveur reste une boîte noire pour les obligations internes à une compilation, reproduites
+dans le même environnement. Pour celles qui traversent la frontière de paquet, un _certificat_ est exigé : une réponse
+négative ne se croit pas sur parole, les solveurs modernes sachant produire des preuves vérifiables indépendamment. La
+Phase~7 porte cette clause. Une réserve porte sur l'ordre de cette phase et de la suivante. Les optimisations que la
+Phase~8 conduit (déforestation, _inlining_, défonctionnalisation) transforment les contextes et peuvent donc engendrer
+des contraintes de grades que la Phase~7 avait déjà déchargées~: une boucle fusionnée multiplie les grades de ses deux
+corps, un appel intégré substitue son contexte à l'échelle de son propre grade. Le pipeline suppose ici une dépendance à
+sens unique qui n'est pas établie, et la conduite correcte est d'itérer les deux phases jusqu'à stabilisation plutôt que
+de les enchaîner une fois. Ce que la suite linéaire décrit n'est donc pas le modèle défendu, et l'écart se referme par
+un énoncé plutôt que par une figure.
 
 La monomorphisation ouvre la Phase 8, une fois que la Phase 7 a borné chaque trou typé : elle ne s'exécute qu'une seule
 fois, chaque largeur étant connue, de sorte qu'une instance ne porte qu'un nom, celui de ses types concrets, et que les
@@ -254,9 +251,9 @@ main {cite "knothLiquidResourceTypes2020"}[]. Or les grades de ce document dépe
 rangées à grade de présence, `Vector(n,T)`) de sorte qu'une technique purement automatisée ne les couvrirait pas ; et
 l'exigence de compilation bornée du §{num "sec:c6-exigence-compilation-bornee"}[] exclut les preuves manuelles. Le point
 de rencontre est donc étroit, et il a un nom : des types à raffinement augmentés d'_annotations de potentiel_,
-conduisant une analyse amortie. Ce n'est pas un dispositif à ajouter : le budget du grade _est_ un potentiel (§{num
-"sec:g-semantique"}[]) et les contraintes de valeur du chapitre 3 _sont_ les raffinements : c'est la reconnaissance que
-les trois pièces du dispositif sont déjà au document sous d'autres noms.
+conduisant une analyse amortie. Ce n'est pas un dispositif à ajouter : le budget du grade _est_ un potentiel
+(§{num "sec:g-semantique"}[]) et les contraintes de valeur du chapitre 3 _sont_ les raffinements : c'est la
+reconnaissance que les trois pièces du dispositif sont déjà au document sous d'autres noms.
 
 Une brique y manque toutefois, et elle est nommée. Les analyses de ce type s'arrêtent au premier gestionnaire : le
 transfert de contrôle non local entre un effet et son gestionnaire avait résisté à toutes les techniques antérieures, et

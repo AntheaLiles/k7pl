@@ -24,23 +24,23 @@ tag := "c2-la-comonade-exponentielle-et"
 L'exponentielle vient de Girard, qui distingue les fragments cartésien, affine et linéaire comme restrictions
 successives de la contraction et de l'affaiblissement, et isole $`!` comme l'opérateur les restituant à la demande. Sa
 traduction de l'implication intuitionniste en $`!A \multimap B` établit que rien ne se perd à descendre au fragment
-linéaire : résultat dont la complétude pleine a depuis été démontrée {cite
-"toninhoInterconnectabilitySessionBasedLogical2018"}[], et sur lequel repose la sédimentation triadique tout entière. La
-formalisation catégorique exacte s'est révélée plus délicate que l'énoncé logique : les premières propositions,
-identifiant $`!` à un foncteur muni des isomorphismes $`!(A \& B) \cong \, !A \otimes \, !B` et $`! \top \cong I`,
-laissaient sous-déterminée la compatibilité entre la comultiplication et le comonoïde induit sur chaque $`!A` :
-compatibilité pourtant nécessaire à la cartésianité de la catégorie de co-Kleisli. La correction est due à Bierman,
-construisant sur Seely : sa définition de _catégorie linéaire_, imposant que chaque $`\delta_A` soit un morphisme de
-comonoïdes, s'est imposée, et c'est elle que cette section instancie. Schalk en donne l'exposé avec les preuves et
-recense les formulations équivalentes {cite "SCHALK"}[], {cite "biermanWhatCategoricalModel1995"}[].
+linéaire : résultat dont la complétude pleine a depuis été démontrée
+{cite "toninhoInterconnectabilitySessionBasedLogical2018"}[], et sur lequel repose la sédimentation triadique tout
+entière. La formalisation catégorique exacte s'est révélée plus délicate que l'énoncé logique : les premières
+propositions, identifiant $`!` à un foncteur muni des isomorphismes $`!(A \& B) \cong \, !A \otimes \, !B` et
+$`! \top \cong I`, laissaient sous-déterminée la compatibilité entre la comultiplication et le comonoïde induit sur
+chaque $`!A` : compatibilité pourtant nécessaire à la cartésianité de la catégorie de co-Kleisli. La correction est due
+à Bierman, construisant sur Seely : sa définition de _catégorie linéaire_, imposant que chaque $`\delta_A` soit un
+morphisme de comonoïdes, s'est imposée, et c'est elle que cette section instancie. Schalk en donne l'exposé avec les
+preuves et recense les formulations équivalentes {cite "SCHALK"}[], {cite "biermanWhatCategoricalModel1995"}[].
 
 La lignée s'est prolongée dans une direction que K7PL suit : l'exponentielle n'est pas condamnée à être un opérateur
 unique. On peut l'indexer par un semi-anneau : la contraction fusionne alors deux usages par l'addition, et
 l'application met le contexte de l'argument à l'échelle par la multiplication {cite "ghicaBoundedLinearTypes2014"}[]. La
-modalité obtenue porte une étiquette qui renseigne sur l'usage du contexte {cite
-"brunelCoreQuantitativeCoeffect2014"}[]. Sa sémantique catégorique complète est celle d'une comonade exponentielle
-linéaire _indexée_, sur une structure de gradation plus riche qu'un semi-anneau ordinaire {cite
-"fukiharaGeneralizedBoundedLinear2021"}[]. Aujourd'hui, la notion de modèle est établie autour d'un objet unique,
+modalité obtenue porte une étiquette qui renseigne sur l'usage du contexte
+{cite "brunelCoreQuantitativeCoeffect2014"}[]. Sa sémantique catégorique complète est celle d'une comonade exponentielle
+linéaire _indexée_, sur une structure de gradation plus riche qu'un semi-anneau ordinaire
+{cite "fukiharaGeneralizedBoundedLinear2021"}[]. Aujourd'hui, la notion de modèle est établie autour d'un objet unique,
 l'_adjonction linéaire-non-linéaire_, dont il est acquis qu'elle englobe les notions antérieures : catégories de Seely,
 catégories de Lafont, catégories linéaires {cite "haringtonCategoricalModelsLinear2025"}[]. C'est d'elle que part la
 construction qui suit, l'exponentielle en étant dérivée plutôt que posée.
@@ -70,8 +70,8 @@ ne se pose jamais en pratique), mais la satisfaire et l'impliquer sont deux chos
 Une structure concurrente est écartée explicitement, étant celle qu'on propose spontanément pour un budget : le
 semi-anneau tropical, où le minimum tient lieu de somme. On y gagnerait le pire cas comme opération primitive~; on y
 perdrait la finitude de l'axiomatisation, aucun des semi-anneaux exotiques usuellement considérés n'ayant de base finie
-pour ses équations, non plus que les semi-anneaux faibles commutatifs idempotents qui les sous-tendent {cite
-"acetoAxiomatizingTropicalSemirings2001"}[]. Pour un document dont les règles doivent se vérifier par machine, une
+pour ses équations, non plus que les semi-anneaux faibles commutatifs idempotents qui les sous-tendent
+{cite "acetoAxiomatizingTropicalSemirings2001"}[]. Pour un document dont les règles doivent se vérifier par machine, une
 axiomatisation infinie n'est pas un inconvénient de présentation~: c'est un obstacle. Le choix des conaturels résidués
 se paie donc d'une opération de moins et s'achète une théorie équationnelle finie.
 
@@ -79,8 +79,8 @@ Soit par ailleurs $`\mathcal{R} = (\mathbb{Q}_{\ge 0} \cup \{\omega\},\,+,\, \ti
 semi-anneau ordonné d'usage : le porteur contient les rationnels positifs (les capacités de lecture divisées du chapitre
 3 en ont besoin) et un élément absorbant $`\omega` pour l'usage non contraint. Ce dernier n'est pas une commodité
 ajoutée : _restreint au sous-semi-anneau des entiers_, $`\mathcal{R}` est le type des conaturels $`\mathbb{N}_\infty`,
-dual coinductif des naturels, dont il est établi qu'ils forment un semi-anneau commutatif exponentiel {cite
-"xieConaturalNumbersForm2025"}[]. Quatre égalités gouvernent $`\omega` et se lisent partout sans être écrites nulle part
+dual coinductif des naturels, dont il est établi qu'ils forment un semi-anneau commutatif exponentiel
+{cite "xieConaturalNumbersForm2025"}[]. Quatre égalités gouvernent $`\omega` et se lisent partout sans être écrites nulle part
 ; les voici, car trois démonstrations en dépendent : $$`0 \cdot \omega = 0 \qquad \omega \cdot 0 = 0 \qquad \omega +
 \omega = \omega \qquad \omega \cdot \omega = \omega` $`\omega` absorbe donc l'addition et le produit, sauf devant $`0`
 qui l'absorbe en retour : c'est la convention ordinaire du sous-semi-anneau des entiers étendu, et la seule qui fasse de
@@ -92,13 +92,13 @@ ne terminant jamais. Un grade et un indice de taille vivent donc dans la même a
 §{num "sec:c2-algebres-coalgebres-et-points"}[] pose la clause qui les sépare.
 
 Une conséquence borne ce que cette structure peut fournir ailleurs. $`\mathcal{R}` est naturellement ordonné, ce qui
-suffit à en faire un support d'évaluation pour un moteur déductif, dont la complexité en données s'analyse en deux temps
-: mise à plat du programme en un système d'équations polynomiales, puis plus petit point fixe sur le semi-anneau {cite
-"zhaoEvaluatingDatalogSemirings2024"}[]. Mais les deux classes pour lesquelles cette évaluation admet des algorithmes
-efficaces (semi-anneaux de rang fini, semi-anneaux absorbants totalement ordonnés) ne contiennent pas $`\mathcal{R}` :
-les conaturels ne sont ni de rang fini, ni absorbants au sens où $`a + a\,b = a`. Une extension déductive n'hériterait
-donc pas sa borne de coût du semi-anneau des grades. Elle évaluerait sur un semi-anneau propre (le booléen pour les
-règles ordinaires, qui est de rang fini et absorbant), structure supplémentaire et non réemploi.
+suffit à en faire un support d'évaluation pour un moteur déductif, dont la complexité en données s'analyse en deux
+temps : mise à plat du programme en un système d'équations polynomiales, puis plus petit point fixe sur le semi-anneau
+{cite "zhaoEvaluatingDatalogSemirings2024"}[]. Mais les deux classes pour lesquelles cette évaluation admet des
+algorithmes efficaces (semi-anneaux de rang fini, semi-anneaux absorbants totalement ordonnés) ne contiennent pas
+$`\mathcal{R}` : les conaturels ne sont ni de rang fini, ni absorbants au sens où $`a + a\,b = a`. Une extension
+déductive n'hériterait donc pas sa borne de coût du semi-anneau des grades. Elle évaluerait sur un semi-anneau propre
+(le booléen pour les règles ordinaires, qui est de rang fini et absorbant), structure supplémentaire et non réemploi.
 
 Une loi de compatibilité est formulée ici avant les règles de typage (§{num "sec:g-regles"}[]), mais sa preuve dépend du
 domaine exact des deux actions. Elle relie la mise à l'échelle du contexte et le transport de l'effet ; la partie
@@ -258,9 +258,9 @@ Ici Adm exprime la couverture du coût annoncé. Puisque ω est l'élément maxi
 historique est redondant, et non une seconde clause sémantique. Consume est définie sur le sous-domaine admissible et
 reste donc partielle sur 𝔅 × K.
 
-Pour un effet bien formé $`\varepsilon = (\varepsilon_0, \kappa_\varepsilon)` et un contexte bien formé $`\Delta = \{x_i
-:_{\langle u_i, m_i, \ell_i, \beta_i \rangle} V_i\}`, la transformation structurelle ψ conserve les clés, les types et
-les trois coordonnées non budgétaires, et applique la soustraction totale liaison par liaison :
+Pour un effet bien formé $`\varepsilon = (\varepsilon_0, \kappa_\varepsilon)` et un contexte bien formé
+$`\Delta = \{x_i :_{\langle u_i, m_i, \ell_i, \beta_i \rangle} V_i\}`, la transformation structurelle ψ conserve les
+clés, les types et les trois coordonnées non budgétaires, et applique la soustraction totale liaison par liaison :
 
 ```
 ψ(Δ, ε) =
@@ -543,9 +543,9 @@ n'est pas de la contraction mais un affaiblissement déguisé, et le grade $`1` 
 
 Les règles de typage ajoutent ensuite trois conditions de liaison au grade complet :
 
-1. $`r\preccurlyeq r'` doit impliquer $`\pi_U(r)\geq\pi_U(r')` ; 2. `Box`, `App` et substitution doivent utiliser
-$`Scale_{\mathrm{Usage}}(\pi_U(r),-)` ; 3. les composantes restantes du grade doivent conserver leurs propres
-conversions et ne doivent pas être introduites dans l'index de la comonade sans obligation indépendante.
+1. $`r\preccurlyeq r'` doit impliquer $`\pi_U(r)\geq\pi_U(r')` ;
+2. `Box`, `App` et substitution doivent utiliser $`Scale_{\mathrm{Usage}}(\pi_U(r),-)` ;
+3. les composantes restantes du grade doivent conserver leurs propres conversions et ne doivent pas être introduites dans l'index de la comonade sans obligation indépendante.
 
 Ces clauses constituent la clôture minimale recherchée. Elles ne prouvent pas la cohérence sémantique de toutes les
 conversions ; elles isolent exactement les obligations à démontrer pour que la factorisation
@@ -572,9 +572,9 @@ sont deux ressources indépendantes), et scinder un grade par la contraction pro
 vues d'une même ressource. Le partage exige une diagonale, donc le fragment cartésien ; c'est du côté cartésien de
 l'adjonction qu'il vit, et non d'une division opérée du côté linéaire. Le point vaut d'être souligné parce que la
 littérature le documente en creux : faire cohabiter dans un même niveau un produit qui sépare et un produit qui partage
-brise la correction, et la parade connue est la stratification à deux niveaux {cite
-"deamorimSeparatedSharedEffects2023"}[]. Intuitivement, dans la syntaxe complète, $`!_r A` dénote une ressource $`A`
-portant l'annotation $`r` ; la construction comonadique actuellement établie porte cependant sur l'indice d'usage.
+brise la correction, et la parade connue est la stratification à deux niveaux
+{cite "deamorimSeparatedSharedEffects2023"}[]. Intuitivement, dans la syntaxe complète, $`!_r A` dénote une ressource
+$`A` portant l'annotation $`r` ; la construction comonadique actuellement établie porte cependant sur l'indice d'usage.
 
 Deux précisions négatives, qui évitent au lecteur de situer _C_ ailleurs qu'elle n'est. K7PL ne suppose pas son
 exponentielle _libre_ : la structure de comonoïde gradué y est donnée, non construite comme comonoïde cocommutatif
@@ -583,9 +583,9 @@ deux abstentions vont ensemble : c'est la _liberté_ de l'exponentielle qui port
 pas. Une exponentielle libre jointe aux biproduits finis donne la structure de catégorie différentielle, donc une
 codéréliction {cite "bluteDifferentialCategories2006"}[], {cite "lemayCoderelictionsFreeExponential2021"}[]. La
 réciproque est fausse, et récemment établie comme telle : une codéréliction _induit_ l'enrichissement additif, par
-convolution bialgébrique, de sorte que l'implication ne remonte pas
-: une catégorie additive n'a pas pour autant de codéréliction. Il est en outre établi qu'une codéréliction, lorsqu'elle
-existe, est _unique_, ce qui rend la vérification décidable en principe plutôt qu'affaire d'appréciation.
+convolution bialgébrique, de sorte que l'implication ne remonte pas : une catégorie additive n'a pas pour autant de
+codéréliction. Il est en outre établi qu'une codéréliction, lorsqu'elle existe, est _unique_, ce qui rend la
+vérification décidable en principe plutôt qu'affaire d'appréciation.
 
 L'abstention de K7PL est donc plus robuste qu'elle ne paraît, et c'est la première qui la porte : l'exponentielle étant
 _donnée_ et non construite comme _cofree_, aucun des deux résultats ne s'applique. Le langage n'a aucun usage de la
@@ -632,13 +632,13 @@ cette structure satisfait les lois d'une catégorie cartésienne.
 Deux statuts se distinguent ici, et les confondre serait se dénigrer. Que les foncteurs d'inclusion entre fragments
 soient fidèles est immédiat, vérifiable sur la construction. Que la catégorie de co-Kleisli du grade absorbant soit
 authentiquement cartésienne n'est pas assumé non plus : cela suit de la définition de catégorie linéaire retenue
-ci-dessus, dont la preuve est publiée et dont des formulations équivalentes sont établies {cite "SCHALK"}[], {cite
-"biermanWhatCategoricalModel1995"}[].
+ci-dessus, dont la preuve est publiée et dont des formulations équivalentes sont établies {cite "SCHALK"}[],
+{cite "biermanWhatCategoricalModel1995"}[].
 
 Ce que ce document assume est le théorème de cohérence proprement dit (celui qui garantit que les diagrammes construits
 à partir des isomorphismes naturels commutent), et il l'assume comme le fait la littérature primaire dont il reprend les
-constructions, qui le référence sans le redémontrer {cite "bentonLinearLcalculusCategorical1993"}[], {cite
-"kellyCoherenceClosedCategories1971"}[]. Deux précisions s'imposent sur cet emprunt, car il porte sur deux choses
+constructions, qui le référence sans le redémontrer {cite "bentonLinearLcalculusCategorical1993"}[],
+{cite "kellyCoherenceClosedCategories1971"}[]. Deux précisions s'imposent sur cet emprunt, car il porte sur deux choses
 d'espèce différente que le mot « assumer » recouvrirait sans les distinguer.
 
 La première est que la cohérence emprunte à _deux_ régimes. Pour la part monoïdale, c'est bien un théorème publié. La

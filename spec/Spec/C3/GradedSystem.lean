@@ -23,19 +23,19 @@ tag := "c3-le-systeme-gradue"
 
 Traiter la modalité comme un _grade_ plutôt que comme trois cases disjointes vient de Granule, qui généralise linéarité
 et affinité à un système modal gradué par un semi-anneau quelconque {cite "orchardQuantitativeProgramReasoning2019"}[].
-K7PL adopte cette gradation en fixant le semi-anneau : $`\mathcal{R}` est celui du §{num
-"sec:c2-la-comonade-exponentielle-et"}[], et la restriction porte non sur le porteur mais sur le _langage de
+K7PL adopte cette gradation en fixant le semi-anneau : $`\mathcal{R}` est celui du
+§{num "sec:c2-la-comonade-exponentielle-et"}[], et la restriction porte non sur le porteur mais sur le _langage de
 contraintes_ soumis au solveur. La prévisibilité du temps de compilation vient de cette restriction, non d'un nombre de
 points. La décidabilité repose sur la même restriction, jointe à la structure concrète de $`\mathcal{R}` : sommes,
 produits et comparaisons sans quantification, sur des coordonnées dont la théorie est décidable. Normalisation et
 préservation des grades sous réduction, elles, s'obtiennent pour le système gradué sur un semi-anneau partiellement
 ordonné arbitraire {cite "abelGradedModalDependent2023"}[]. Cette économie ne suffit cependant pas à écarter la
 difficulté propre à la combinaison des deux axes. La formation des types doit s'effectuer dans un contexte dont tous les
-usages sont annulés, faute de quoi la substitution cesse d'être admissible {cite
-"atkeySyntaxSemanticsQuantitative2018"}[]. Les théories graduées dépendantes acquittent cette exigence en portant un
-vecteur de grades de contexte à côté de celui du sujet {cite "moonGradedModalDependent2021"}[]. Ce que K7PL évite, il ne
-l'évite pas par la petitesse de son treillis mais parce que ses types dépendants pragmatiques n'exposent que des indices
-exclus du suivi de ressource.
+usages sont annulés, faute de quoi la substitution cesse d'être admissible
+{cite "atkeySyntaxSemanticsQuantitative2018"}[]. Les théories graduées dépendantes acquittent cette exigence en portant
+un vecteur de grades de contexte à côté de celui du sujet {cite "moonGradedModalDependent2021"}[]. Ce que K7PL évite, il
+ne l'évite pas par la petitesse de son treillis mais parce que ses types dépendants pragmatiques n'exposent que des
+indices exclus du suivi de ressource.
 
 Un _grade_ est une annotation portée par une liaison. C'est le $`r` de $`x :_r V`, et il dit combien de fois et à
 quelles conditions cette liaison-ci sera employée. Les opérations algébriques qui portent cette annotation restent
@@ -53,8 +53,8 @@ Ces sous-ensembles sont des _intervalles_, et les écrire ainsi corrige une impr
 entretenait. Une modalité dit ce qu'une ressource _peut_ subir, non ce qu'elle subit : elle est donc un intervalle
 $`[m..M]` de $`\mathcal{R}`, sa borne basse disant si l'abandon est permis et sa borne haute si la duplication l'est.
 Écrire $`\text{Unr} = \{\omega\}` ferait croire qu'une ressource non restreinte doit être employée une infinité de
-fois~; elle peut aussi n'être pas employée du tout, et c'est la borne basse qui le dit. La table {num
-"tab:modalites-intervalles"}[] donne les quatre instances de cette unique construction.
+fois~; elle peut aussi n'être pas employée du tout, et c'est la borne basse qui le dit. La table
+{num "tab:modalites-intervalles"}[] donne les quatre instances de cette unique construction.
 
 ::::k7table (label := "tab:modalites-intervalles") (align := "llllZ{1.00}")
 :::caption
@@ -153,10 +153,10 @@ Un cadre général existe, dont ce chapitre est une instance : un calcul des sé
 modes_, où le contexte obéit aux propriétés structurelles ordinaires tandis qu'un terme, tiré de la théorie des modes,
 contraint la manière dont il peut être employé. Le cadre exprime les produits et implications non associatifs, ordonnés,
 linéaires, affines, pertinents et cartésiens, les foncteurs, les (co)monades et les adjonctions, et l'admissibilité de
-la coupure y est démontrée _indépendamment_ de la théorie des modes choisie {cite
-"licataFibrationalFrameworkSubstructural2017"}[]. Ce dernier point est le plus utile ici : ce que ce document esquisse
-sur ses trois couches n'a pas à être repris si une quatrième s'ajoutait, pourvu qu'elle s'exprime comme un mode de la
-même théorie.
+la coupure y est démontrée _indépendamment_ de la théorie des modes choisie
+{cite "licataFibrationalFrameworkSubstructural2017"}[]. Ce dernier point est le plus utile ici : ce que ce document
+esquisse sur ses trois couches n'a pas à être repris si une quatrième s'ajoutait, pourvu qu'elle s'exprime comme un mode
+de la même théorie.
 
 Des langages implantent ces modes, et l'un d'eux est en production. Un travail récent dote OCaml de trois axes de modes
 (_affinité_, _unicité_ et _localité_) pour rendre sûres l'allocation sur la pile et la mise à jour en place, avec deux
@@ -175,12 +175,12 @@ d'un de ces langages a le droit de demander pourquoi ils ont été rendus dans c
 Un mode étant la donnée d'une algèbre de grades, d'un idéal de contraction et d'un booléen d'affaiblissement, une
 question se pose que ce document a rencontrée trois fois sans la reconnaître comme une seule : celle de l'_échange_, la
 quatrième règle structurelle, que rien ici ne restreint. Trois besoins indépendants la réclament. Lever l'acyclicité du
-graphe d'acteurs par le sous-typage multipartite demande un cadre non commutatif, ce que le chapitre 4 (§{num
-"sec:c4-echelle-du-systeme"}[]) note comme une objection locale {cite "horneSessionSubtypingMultiparty2020"}[].
-Emprunter une session sans la consommer repose sur un typage linéaire _ordonné_ {cite
-"saffrichBorrowingSessionTypes2025"}[]. Et rendre déductible, plutôt que déclarée, l'annotation de classe d'automate du
-chapitre 4 passe par une caractérisation qui demande la logique affine non commutative {cite
-"pradicImplicitAutomataLcalculi"}[]. Trois arcs de recherche distincts, un même prix.
+graphe d'acteurs par le sous-typage multipartite demande un cadre non commutatif, ce que le chapitre 4
+(§{num "sec:c4-echelle-du-systeme"}[]) note comme une objection locale {cite "horneSessionSubtypingMultiparty2020"}[].
+Emprunter une session sans la consommer repose sur un typage linéaire _ordonné_
+{cite "saffrichBorrowingSessionTypes2025"}[]. Et rendre déductible, plutôt que déclarée, l'annotation de classe
+d'automate du chapitre 4 passe par une caractérisation qui demande la logique affine non commutative
+{cite "pradicImplicitAutomataLcalculi"}[]. Trois arcs de recherche distincts, un même prix.
 
 La voie évidente est le _contexte ordonné_, et son prix est chiffré : l'extension est conservative (rien de ce qui est
 énoncé ici ne serait perdu), mais elle coûte un troisième contexte et quatre implications au lieu d'une, dont deux
@@ -226,8 +226,8 @@ Une condition en découle, et elle n'est pas un raccommodage : c'est ce que le b
 niveau. Les trois données d'un mode existent toutes pour une même raison : rendre l'_ordre d'application_ des règles
 structurelles indifférent. L'idéal est clos par addition pour que contracter trois liaisons donne le même terme quel que
 soit l'appariement choisi ; il contient $`0` pour que contraction et affaiblissement commutent ; il absorbe pour que
-contracter puis substituer et substituer puis contracter coïncident {cite
-"hanukaevUnificationGradedSubstructural2026"}[]. Un prédicat d'échange, lui, rend l'ordre _pertinent_. Les deux ne se
+contracter puis substituer et substituer puis contracter coïncident
+{cite "hanukaevUnificationGradedSubstructural2026"}[]. Un prédicat d'échange, lui, rend l'ordre _pertinent_. Les deux ne se
 rencontrent qu'en un point, mais ce point est réel : la contraction _fusionne_ deux liaisons, donc détruit l'ordre entre
 elles. D'où la condition : $$`q_1, q_2 \in \mathrm{Cont}(m) \setminus \{0\} \Rightarrow \text{l'ordre de } q_1, q_2
 \text{ est sans importance}`$$. On ne fusionne deux emplois d'une ressource que si leur ordre est sans importance : on
@@ -316,14 +316,14 @@ Reste à dire ce qu'est la consommation d'une ressource linéaire, faute de quoi
 sans indiquer par quoi elle passe. À tout type linéaire est associé un _destructeur_ : un morphisme invoqué au point de
 consommation, dont l'exécution est fixée par la structure du type et non par une politique d'exécution. Le terme est
 pris au sens que lui donne la synthèse des modèles de propriété et d'emprunt des langages systèmes avec les types
-linéaires de la programmation fonctionnelle, où il est expressément distingué du _finaliseur_ {cite
-"munch-maccagnoniResourcePolymorphism2018"}[]. Le premier est déterministe et lié au type, le second non. Seul le
+linéaires de la programmation fonctionnelle, où il est expressément distingué du _finaliseur_
+{cite "munch-maccagnoniResourcePolymorphism2018"}[]. Le premier est déterministe et lié au type, le second non. Seul le
 premier réalise P3 : le second rendrait la libération dépendante d'un ramasse-miettes que la couche 1 n'a pas.
 
 Trois opérations gouvernent sa propagation, et ce sont celles du semi-anneau, non celles d'un treillis. Le _partage_
 d'une ressource entre deux sous-termes somme leurs grades : une liaison exercée à hauteur de $`r` dans l'un et de $`s`
-dans l'autre porte le grade $`r+s`, ce qui est la contraction $`c_{r,s}` du §{num
-"sec:c2-la-comonade-exponentielle-et"}[]. La _capture_ par une fermeture, ou plus généralement l'application d'une
+dans l'autre porte le grade $`r+s`, ce qui est la contraction $`c_{r,s}` du
+§{num "sec:c2-la-comonade-exponentielle-et"}[]. La _capture_ par une fermeture, ou plus généralement l'application d'une
 fonction dont l'argument porte le grade $`r`, met le contexte de cet argument à l'échelle par $`r` (la multiplication du
 semi-anneau, soit $`\delta_{r,s}` lue dans l'autre sens). Le _branchement_ seul échappe à cette discipline : les deux
 branches d'un `match` étant exclusives, leurs grades ne s'additionnent pas mais se joignent par $`\sqcup`, et ce joint
@@ -366,13 +366,13 @@ porte sur le système gradué général, non sur cet axe.
 Sur cette signature (écrite ou reconstituée) le compilateur dispose du grade attendu de chaque liaison et procède
 _bidirectionnellement_. Il vérifie les formes d'introduction contre le grade annoncé, synthétise celui des formes
 d'élimination, et défère au solveur SMT les contraintes résiduelles sur $`\mathcal{R}`. C'est l'architecture qu'adoptent
-les systèmes gradués existants {cite "moonGradedModalDependent2021"}[], {cite
-"orchardQuantitativeProgramReasoning2019"}[], et elle dispense de l'ordonnancement que la conception antérieure de K7PL
-imposait entre analyse de flot et unification (ordonnancement qui n'était nécessaire que pour une inférence complète à
-la Damas-Milner, à laquelle le §{num "sec:c3-structures-ouvertes-effets-et"}[] renonce). Ce que le développeur y perd en
-concision d'écriture, le §{num "sec:c3-structures-ouvertes-effets-et"}[] le nomme ; ce qu'il y gagne est un modèle de
-coût de compilation prévisible, et des messages d'erreur qui pointent une signature plutôt qu'un point d'unification
-arbitraire.
+les systèmes gradués existants {cite "moonGradedModalDependent2021"}[],
+{cite "orchardQuantitativeProgramReasoning2019"}[], et elle dispense de l'ordonnancement que la conception antérieure de
+K7PL imposait entre analyse de flot et unification (ordonnancement qui n'était nécessaire que pour une inférence
+complète à la Damas-Milner, à laquelle le §{num "sec:c3-structures-ouvertes-effets-et"}[] renonce). Ce que le
+développeur y perd en concision d'écriture, le §{num "sec:c3-structures-ouvertes-effets-et"}[] le nomme ; ce qu'il y
+gagne est un modèle de coût de compilation prévisible, et des messages d'erreur qui pointent une signature plutôt qu'un
+point d'unification arbitraire.
 
 Le cas Lin porte une propriété plus forte qu'une simple comptabilité d'usage : une valeur $`\mathrm{Lin}\,T` est le
 témoin qu'une seule référence existe, prouvée à la compilation plutôt que vérifiée à l'exécution. Cette unicité,
@@ -404,9 +404,9 @@ conformément à P3, au prix d'un ensemble de programmes acceptés strictement p
 Les capabilités raffinent cette même idée en grades véritablement numériques plutôt qu'en trois points discrets. Une
 $`\mathsf{WriteCap}(T)` porte un grade linéaire strict, $`\mathcal{G}=1` : sa duplication est exclue par l'absence de
 diagonale, comme tout objet du fragment linéaire strict. Une $`\mathsf{ReadCap}(T)` n'est pas une fraction de cette
-capacité, et la distinction est essentielle : diviser un grade linéaire produit, par la contraction du §{num
-"sec:c2-la-comonade-exponentielle-et"}[], deux capacités _séparées_ (c'est ce que le tenseur sert à dire), non deux
-lecteurs d'une même région.
+capacité, et la distinction est essentielle : diviser un grade linéaire produit, par la contraction du
+§{num "sec:c2-la-comonade-exponentielle-et"}[], deux capacités _séparées_ (c'est ce que le tenseur sert à dire), non
+deux lecteurs d'une même région.
 
 Le partage en lecture vit de l'autre côté de l'adjonction du §{num "sec:c2-la-comonade-exponentielle-et"}[] : une
 $`\mathsf{ReadCap}(T)` est l'image, par le foncteur qui va du fragment linéaire au fragment cartésien, de la région
@@ -469,9 +469,9 @@ _proprement linéaire_ : elle ne peut pas être affine, et elle ne peut donc pas
 $`\text{Lin} \subseteq \text{Aff} \subseteq \text{Unr}` posée ci-dessus. Le motif est direct : le mode affine admet
 l'affaiblissement, donc l'abandon ; une destination abandonnée est un trou jamais rempli ; et lire la structure
 finalisée reviendrait à lire de la mémoire non initialisée. La distinction entre une multiplicité proprement linéaire et
-un mode affine est celle que le calcul de destinations retient, et pour cette raison {cite
-"bagrelDestinationCalculusLinear2025"}[]. Le point s'écrit plutôt qu'il ne se suppose, la chaîne de sous-typage de ce
-chapitre _monte_ vers l'affine : sans exclusion explicite, la règle générale autoriserait ce que la sûreté interdit.
+un mode affine est celle que le calcul de destinations retient, et pour cette raison
+{cite "bagrelDestinationCalculusLinear2025"}[]. Le point s'écrit plutôt qu'il ne se suppose, la chaîne de sous-typage de
+ce chapitre _monte_ vers l'affine : sans exclusion explicite, la règle générale autoriserait ce que la sûreté interdit.
 $`\mathsf{Dest}\;T` et $`\mathsf{Incomplete}\;A\;B` sont donc hors de la portée de {sc}[SubBox] sur la composante
 d'usage (§{num "sec:g-regles"}[], où la relation ≼ de cette règle est définie comme produit mixte), et `finalize` est la
 seule sortie de leur linéarité.

@@ -54,9 +54,9 @@ est fixe, et cela ne dit rien du nombre des deux autres.
 Ensuite les familles indexées que le chapitre 3 emploie ($`\mathsf{Vector}(n, T)`, les rangées à grade de présence,
 $`\mathsf{Incomplete}\;A\;B` dont la forme change à chaque remplissage) sont admises d'office, sans qu'aucune primitive
 ne soit ajoutée pour les accueillir. Enfin, et c'est ce dont le §{num "sec:c2-algebres-coalgebres-et-points"}[] a
-besoin, *les conteneurs préservent les plus petits et les plus grands points fixes* {cite
-"damatoFormalisingInductiveCoinductive2024"}[] : $`\mu F` et $`\nu G` restent l'un et l'autre dans la classe, et leur
-emboîtement aussi.
+besoin, *les conteneurs préservent les plus petits et les plus grands points fixes*
+{cite "damatoFormalisingInductiveCoinductive2024"}[] : $`\mu F` et $`\nu G` restent l'un et l'autre dans la classe, et
+leur emboîtement aussi.
 
 Cela posé, un tableau de taille $`n` sur $`T` n'est pas un conteneur distinct des fonctions : c'est un élément de
 $`\text{Hom}(\text{Fin}(n), T)`, où $`\text{Fin}(n)` est le coproduit de $`n` copies de l'unité, $`\text{Fin}(n) =
@@ -87,11 +87,11 @@ n'affaiblit donc rien~; cela retire seulement une dette de justification qu'aucu
 
 En revanche, de quel _ordre_ il s'agit se précise, car deux théories de l'information portent le même mot sans être le
 même ordre. Celle de Shannon ordonne par ce qu'on _sait_ (des relations d'équivalence sur le domaine, formant un
-treillis complet), celle de Scott par ce qui est _défini_, au sens du progrès du calcul {cite
-"huntReconcilingShannonScott2023"}[]. La relation de précision compare des raffinements, donc ce qu'un type _garantit_ :
-elle est du côté de Shannon. La conséquence n'est pas verbale, les deux ordres n'ayant pas les mêmes propriétés de
-complétude, et il n'est pas indifférent que la composante de niveau du grade emploie ce même treillis, redécouvert
-plusieurs fois dans la littérature du flot d'information.
+treillis complet), celle de Scott par ce qui est _défini_, au sens du progrès du calcul
+{cite "huntReconcilingShannonScott2023"}[]. La relation de précision compare des raffinements, donc ce qu'un type
+_garantit_ : elle est du côté de Shannon. La conséquence n'est pas verbale, les deux ordres n'ayant pas les mêmes
+propriétés de complétude, et il n'est pas indifférent que la composante de niveau du grade emploie ce même treillis,
+redécouvert plusieurs fois dans la littérature du flot d'information.
 
 K7PL étend cette relation aux morphismes de _C_ eux-mêmes et exige que la composition et le tenseur soient monotones :
 si $`f \sqsubseteq f'` et $`g \sqsubseteq g'`, alors $`g \circ f \sqsubseteq g' \circ f'` et $`f \otimes g \sqsubseteq
@@ -101,12 +101,12 @@ ordinaire, elle gagne un ordre compatible sur chaque ensemble de morphismes para
 Cette exigence de monotonie ne pèse pas sur chaque primitive séparément : elle est portée par les types, au même titre
 que l'usage l'est par les grades. Le grade d'une liaison acquiert à cette fin une seconde composante, _discrète_ ou
 _monotone_, et une fonction dont le grade porte la seconde marque est astreinte à préserver $`\sqsubseteq`. Le procédé
-est celui de Datafun, qui suit la monotonie par les types en distinguant deux sortes de variables et deux flèches {cite
-"DATAFUN"}[]. K7PL n'en retient pas la présentation à deux zones, qu'il a écartée au chapitre 1 (§{num
-"sec:c1-axiomatique-germinale"}[]), mais l'idée que la monotonie est une propriété déclarée et vérifiée plutôt qu'une
-charge de preuve reconduite à chaque extension. Une construction nouvelle n'a donc pas à démontrer qu'elle respecte
-l'ordre : elle porte un grade qui l'y oblige, ou n'en porte pas et se voit refuser l'accès aux constructions qui
-l'exigent.
+est celui de Datafun, qui suit la monotonie par les types en distinguant deux sortes de variables et deux flèches
+{cite "DATAFUN"}[]. K7PL n'en retient pas la présentation à deux zones, qu'il a écartée au chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]), mais l'idée que la monotonie est une propriété déclarée et vérifiée plutôt
+qu'une charge de preuve reconduite à chaque extension. Une construction nouvelle n'a donc pas à démontrer qu'elle
+respecte l'ordre : elle porte un grade qui l'y oblige, ou n'en porte pas et se voit refuser l'accès aux constructions
+qui l'exigent.
 
 Ce procédé n'est pas propre à la monotonie, et s'énonce une fois dans sa forme générale. Soit $`(P, \preceq)` une
 structure ordonnée. Une _modalité graduée sur $`P`_ est une famille de comonades $`\{!_p\}_{p \in P}` sur _C_, indexée
@@ -183,20 +183,21 @@ programme utile doit parfois _abaisser_ délibérément un niveau : vérifier un
 d'une valeur secrète, et le refuser rendrait le langage inutilisable. Ce mécanisme, la _déclassification_, coerce le
 niveau vers le bas et sert d'échappatoire au régime ordinaire. Son risque propre porte un nom : l'_attaque par
 blanchiment_, où l'échappatoire est employée pour faire sortir davantage que ce qu'elle était censée libérer, une valeur
-secrète transitant par la fonction déclassifiante sous un déguisement quelconque {cite
-"sabelfeldModelDelimitedInformation2004"}[]. Il en résulte que spécifier la déclassification demande deux choses et non
-une : une règle qui l'autorise, et une garantie de bout en bout qui borne ce qu'elle peut libérer : la _divulgation
-délimitée_, dont il est établi qu'un système de types l'impose. Une règle sans cette garantie rendrait le grade de
-confidentialité contournable par construction, et ce document ne donne pour l'instant ni l'une ni l'autre. Il donne les
-deux ici.
+secrète transitant par la fonction déclassifiante sous un déguisement quelconque
+{cite "sabelfeldModelDelimitedInformation2004"}[]. Il en résulte que spécifier la déclassification demande deux choses
+et non une : une règle qui l'autorise, et une garantie de bout en bout qui borne ce qu'elle peut libérer : la
+_divulgation délimitée_, dont il est établi qu'un système de types l'impose. Une règle sans cette garantie rendrait le
+grade de confidentialité contournable par construction, et ce document ne donne pour l'instant ni l'une ni l'autre. Il
+donne les deux ici.
 
 La règle procède par _échappatoires nommées_ plutôt que par une permission générale de déclassifier. Une déclaration
-fixe un ensemble fini $`\mathcal{X}` d'expressions (les échappatoires) dont chacune énonce ce qui est autorisé à sortir
-: le résultat de la comparaison d'un mot de passe, la somme d'une colonne, le rang d'un enchérisseur. Ces expressions
-sont _closes_, $`\forall e \in \mathcal{X},\ \mathrm{fv}(e) = \emptyset`, et évaluées dans l'état initial : une
-échappatoire ouverte ouvrirait un contournement par substitution, puisque $`\mathbf{declassify}_{\ell'}(e)[v/x] =
-\mathbf{declassify}_{\ell'}(e[v/x])` sans que $`e[v/x] \in \mathcal{X}`, et l'attaquant ferait comparer le secret à une
-valeur de son choix (§{num "sec:g-semantique"}[]). La règle ne s'applique qu'à elles :
+fixe un ensemble fini $`\mathcal{X}` d'expressions (les échappatoires) dont chacune énonce ce qui est autorisé à
+sortir : le résultat de la comparaison d'un mot de passe, la somme d'une colonne, le rang d'un enchérisseur. Ces
+expressions sont _closes_, $`\forall e \in \mathcal{X},\ \mathrm{fv}(e) = \emptyset`, et évaluées dans l'état initial :
+une échappatoire ouverte ouvrirait un contournement par substitution, puisque
+$`\mathbf{declassify}_{\ell'}(e)[v/x] = \mathbf{declassify}_{\ell'}(e[v/x])` sans que $`e[v/x] \in \mathcal{X}`, et
+l'attaquant ferait comparer le secret à une valeur de son choix (§{num "sec:g-semantique"}[]). La règle ne s'applique
+qu'à elles :
 
 ::::formula (label := "eq:regle-declassify") (kind := "equation")
 ```
@@ -236,9 +237,9 @@ indiscernables à ce niveau.
 
 :::proofsketch
 Non démontré en l'état : l'énoncé est une proposition, et ce croquis n'en est que le plan. La preuve est conduite comme
-un cas de l'induction du lemme fondamental, sous la relation renforcée par $`\mathcal{X}` (§{num
-"sec:g-relation-logique"}[], divulgation délimitée) : seul le cas de {sc}[Declassify] change, et la condition de bord
-$`e \in \mathcal{X}` le ferme. La clôture des échappatoires est désormais imposée par la règle elle-même (prémisse
+un cas de l'induction du lemme fondamental, sous la relation renforcée par $`\mathcal{X}`
+(§{num "sec:g-relation-logique"}[], divulgation délimitée) : seul le cas de {sc}[Declassify] change, et la condition de
+bord $`e \in \mathcal{X}` le ferme. La clôture des échappatoires est désormais imposée par la règle elle-même (prémisse
 $`\mathrm{fv}(v) = \emptyset`) ; l'énoncé reste une proposition tant que le lemme fondamental n'est pas conduit sur tous
 ses cas. La quantification est ce qui porte l'énoncé. On n'exige pas que deux états indiscernables au niveau $`\ell`
 produisent des sorties indiscernables (ce serait la non-interférence stricte, dont la déclassification aménage une
@@ -248,9 +249,9 @@ une relation logique se construit, qui relie deux états s'accordant sur $`\ell`
 fondamental (théorème {num "thm:lemme_fondamental"}[]) ne couvre que le fragment sans `Declassify` ; il fournit les cas
 ordinaires, mais pas le cas de divulgation. Il reste à établir une clause de relation logique qui traite explicitement
 ce cas, en conservant la clause de clôture des échappatoires posée plus haut (chaque $`e \in \mathcal{X}` est close),
-faute de quoi la substitution ouvrirait le contournement par blanchiment. Le théorème de non-interférence {num
-"thm:non_interference"}[] couvre les cas séquentiels où aucune déclassification n'est employée ; le traitement de la
-communication demeure hors de sa portée. Cette extension n'est pas démontrée ici.
+faute de quoi la substitution ouvrirait le contournement par blanchiment. Le théorème de non-interférence
+{num "thm:non_interference"}[] couvre les cas séquentiels où aucune déclassification n'est employée ; le traitement de
+la communication demeure hors de sa portée. Cette extension n'est pas démontrée ici.
 :::
 
 :::note
@@ -294,15 +295,15 @@ du contexte et non à celui des effets.
 Une seconde lecture du même budget existe, dénotationnelle plutôt que modale, et elle vaut d'être signalée pour ce
 qu'elle prouve de faisabilité. Le coût d'un programme se ramène d'abord par extraction syntaxique à une _récurrence_,
 avec un théorème de borne : tout programme source est majoré par la récurrence extraite. Le langage des récurrences
-reçoit ensuite une sémantique dénotationnelle qui abstrait les types de données {cite
-"dannerDenotationalSemanticsFoundation2022,cutlerDenotationalRecurrenceExtraction2020"}[]. Le budget de ce document
-n'est donc pas seul de son espèce : ce qu'il fait porter au type, cette voie le fait porter à une dénotation, et les
-deux se rejoignent sur le point qui compte : une borne établie sur la _forme_ du programme plutôt que mesurée sur son
-exécution.
+reçoit ensuite une sémantique dénotationnelle qui abstrait les types de données
+{cite "dannerDenotationalSemanticsFoundation2022,cutlerDenotationalRecurrenceExtraction2020"}[]. Le budget de ce
+document n'est donc pas seul de son espèce : ce qu'il fait porter au type, cette voie le fait porter à une dénotation,
+et les deux se rejoignent sur le point qui compte : une borne établie sur la _forme_ du programme plutôt que mesurée sur
+son exécution.
 
-Le _temps_ est la quatrième : une modalité sur l'ordre linéaire des instants, dont le chapitre 4 (§{num
-"sec:c4-echelle-du-systeme"}[]) tire les calendriers de la couche 2. Quatre structures ordonnées, quatre modalités, un
-seul procédé : c'est la forme que prend ici la condition de clôture.
+Le _temps_ est la quatrième : une modalité sur l'ordre linéaire des instants, dont le chapitre 4
+(§{num "sec:c4-echelle-du-systeme"}[]) tire les calendriers de la couche 2. Quatre structures ordonnées, quatre
+modalités, un seul procédé : c'est la forme que prend ici la condition de clôture.
 
 Que le grade complet soit un produit n'est pas un pari de ce document. La construction du produit de structures graduées
 autorise à raisonner coordonnée par coordonnée sur l'ordre, comme le font les systèmes gradués pour combiner plusieurs
@@ -320,19 +321,19 @@ multiplication par un scalaire rationnel ne reste donc pas dans le budget actuel
 facteurs de monotonie et de niveau ne sont pas davantage des modules ; leur action attendue doit être l'identité si
 telle est bien l'intention du calcul. La loi de mise à l'échelle et les preuves qui en dépendent sont par conséquent
 conditionnelles à cette définition d'action. Ce point est une obligation de fond, non une question de notation. Une
-conséquence en découle, et elle porte sur ce qu'un développeur peut écrire. Un produit de
-structures ordonnées est plus _large_ que l'ensemble des grades qu'un programme peut effectivement
-former, et pour une raison de fond : les coordonnées ne croissent pas au même rythme. La contraction additionne dans le
-facteur d'usage tout en saturant dans un facteur borné, de sorte qu'un grade dont la première composante s'est
-incrémentée sans que la seconde ait saturé ne s'obtient ni par usage de variable, ni par contraction {cite
-"liepeltSameCoeffectDifferent2026"}[]. De tels grades existent dans le produit sans être _dérivables_.
+conséquence en découle, et elle porte sur ce qu'un développeur peut écrire. Un produit de structures ordonnées est plus
+_large_ que l'ensemble des grades qu'un programme peut effectivement former, et pour une raison de fond : les
+coordonnées ne croissent pas au même rythme. La contraction additionne dans le facteur d'usage tout en saturant dans un
+facteur borné, de sorte qu'un grade dont la première composante s'est incrémentée sans que la seconde ait saturé ne
+s'obtient ni par usage de variable, ni par contraction {cite "liepeltSameCoeffectDifferent2026"}[]. De tels grades
+existent dans le produit sans être _dérivables_.
 
 La distinction entre le domaine des grades et ceux que la dérivation habite n'est donc pas un détail de présentation, et
 deux conséquences pratiques en découlent. Une annotation écrite à la main peut être bien formée sans correspondre à
 aucun programme, et le vérificateur doit le signaler comme tel plutôt que d'échouer plus loin sur une unification qui
 n'aboutira pas. Et l'approximation par l'ordre (remplacer un grade par un majorant) est parfois le seul moyen
-d'atteindre une région du produit, ce qui rattache la question au joint des branchements du chapitre 3 (§{num
-"sec:c3-le-systeme-gradue"}[]) : ce que ce joint sur-approxime, il le fait pour la même raison.
+d'atteindre une région du produit, ce qui rattache la question au joint des branchements du chapitre 3
+(§{num "sec:c3-le-systeme-gradue"}[]) : ce que ce joint sur-approxime, il le fait pour la même raison.
 
 Ce second axe n'est pas gratuit et son bénéfice principal est ailleurs qu'ici. Une fonction monotone d'un type dans
 lui-même admet un plus petit point fixe dès que ce type possède un plus petit élément et une borne supérieure (un
@@ -377,12 +378,12 @@ terminaison du point fixe déductif
 :::statement +titled
 Un troisième critère de terminaison, porté par le type
 
-Soit $`S \in \mathsf{Trellis}_{\text{fin}}` de hauteur $`h`, et $`f : S \to_{\text{mon}} S`. Alors la suite $`x_0 =
-\bot`, $`x_{n+1} = f(x_n)` est croissante, stationnaire en au plus $`h` étapes, et sa limite est le plus petit point
-fixe de $`f`. L'opérateur $`\mathbf{fix}` est donc total sur $`\mathsf{Trellis}_{\text{fin}}`. La borne $`h` dépend du
-type $`S`, ce qui fait de cet énoncé un cas de gradation /indexée/ au sens du chapitre 1 (§{num
-"sec:c1-axiomatique-germinale"}[]). Le grade d'effet de $`\mathbf{fix}\,f` n'est pas une constante mais une fonction de
-l'indice que porte $`S`.
+Soit $`S \in \mathsf{Trellis}_{\text{fin}}` de hauteur $`h`, et $`f : S \to_{\text{mon}} S`. Alors la suite
+$`x_0 = \bot`, $`x_{n+1} = f(x_n)` est croissante, stationnaire en au plus $`h` étapes, et sa limite est le plus petit
+point fixe de $`f`. L'opérateur $`\mathbf{fix}` est donc total sur $`\mathsf{Trellis}_{\text{fin}}`. La borne $`h`
+dépend du type $`S`, ce qui fait de cet énoncé un cas de gradation /indexée/ au sens du chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]). Le grade d'effet de $`\mathbf{fix}\,f` n'est pas une constante mais une
+fonction de l'indice que porte $`S`.
 :::
 
 :::proofsketch
@@ -466,9 +467,9 @@ Cette structure ne referme pas seule la construction du chapitre : le §{num "se
 montre l'origine. L'ordre de précision modal $`\text{Unr} \sqsubseteq \text{Aff} \sqsubseteq \text{Lin}` du chapitre 1
 est la restriction de $`\sqsubseteq` à la seule dimension des modalités d'usage. Une modalité est d'autant plus précise
 qu'elle contraint davantage l'usage. Ce n'est pas le sous-typage $`\preccurlyeq` des règles de typage, qui descend sur
-l'usage ($`!\omega\,A <: {!}1\,A`) : les deux ordres sont opposés sur cette seule composante, ce que la table {num
-"tab:produit-mixte"}[] donne composante par composante. Les foncteurs d'inclusion du §{num
-"sec:c2-la-comonade-exponentielle-et"}[] réalisent catégoriquement cette stratification sur les fragments eux-mêmes.
-Types dépendants, raffinements, sessions et existentielles, dont le chapitre 3 tire parti de cette même relation sur
-chacune de leurs propres dimensions, ne feront qu'instancier, pour un artefact syntaxique après l'autre, ce même
-treillis.
+l'usage ($`!\omega\,A <: {!}1\,A`) : les deux ordres sont opposés sur cette seule composante, ce que la table
+{num "tab:produit-mixte"}[] donne composante par composante. Les foncteurs d'inclusion du
+§{num "sec:c2-la-comonade-exponentielle-et"}[] réalisent catégoriquement cette stratification sur les fragments
+eux-mêmes. Types dépendants, raffinements, sessions et existentielles, dont le chapitre 3 tire parti de cette même
+relation sur chacune de leurs propres dimensions, ne feront qu'instancier, pour un artefact syntaxique après l'autre, ce
+même treillis.

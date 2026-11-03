@@ -69,8 +69,8 @@ et l'équivalence de renommage, puis à vérifier la condition latérale du cas 
 pas remplies, l'instance reste sous-spécifiée.
 :::
 ::::
-Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qui est à établir, et rien de plus
-: non pas que la traduction préserve le jugement, mais que chaque règle de la source a une dérivation pour image.
+Le deuxième gouverne les traductions d'un système de règles vers un autre. Il dit ce qui est à établir, et rien de
+plus : non pas que la traduction préserve le jugement, mais que chaque règle de la source a une dérivation pour image.
 
 ::::lemma (label := "thm:schema_preservation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
@@ -207,8 +207,8 @@ telle action n'est définie.
 :::
 ::::
 Certaines constructions en sont des instances directes : la traduction d'un grade fini, le parcours d'un vecteur,
-l'opération à portée et l'image bornée du point fixe déductif. L'expansion d'une macro n'en est pas une instance directe
-: elle conserve l'ordre des occurrences des arguments et compose leurs effets sans convertir le grade déclaré en
+l'opération à portée et l'image bornée du point fixe déductif. L'expansion d'une macro n'en est pas une instance
+directe : elle conserve l'ordre des occurrences des arguments et compose leurs effets sans convertir le grade déclaré en
 multiplicité d'effet. Le schéma décrit une ré-invocation homogène ; la macro relève d'un schéma plus général de
 substitution séquentielle. Les deux partagent l'action contextuelle d'usage, mais leurs obligations sur les effets sont
 différentes.
@@ -233,11 +233,11 @@ commute à la substitution, et ce qu'elle oublie est exactement la fibre.
 :::
 
 :::proofsketch
-Trois conditions, et chacune est déjà esquissée. La commutation à la substitution est le théorème {num
-"thm:schema_commutation"}[]. L'envoi des dérivations sur des dérivations est le théorème {num
-"thm:schema_preservation"}[], dont la condition est que l'image de chaque règle soit une dérivation. Que l'oubli soit
-une fibre est le théorème {num "thm:raffinement"}[], qui construit le système de raffinement dont la traduction est le
-foncteur.
+Trois conditions, et chacune est déjà esquissée. La commutation à la substitution est le théorème
+{num "thm:schema_commutation"}[]. L'envoi des dérivations sur des dérivations est le théorème
+{num "thm:schema_preservation"}[], dont la condition est que l'image de chaque règle soit une dérivation. Que l'oubli
+soit une fibre est le théorème {num "thm:raffinement"}[], qui construit le système de raffinement dont la traduction est
+le foncteur.
 :::
 
 :::note

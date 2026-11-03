@@ -27,8 +27,8 @@ non-interférence graduée, la divulgation délimitée, les règles de la loi di
 sont des inductions ou des relations logiques, et se définissent _par récurrence sur une grammaire ou sur un jeu de
 règles_. Les deux grammaires sont écrites, la somme et la conjonction additive sous leur forme indexée ; le jeu de
 règles est complet pour les constructeurs du noyau, à une exception déclarée : l'arène, dont l'élimination relève du
-modèle mémoire et non du système de types. La sémantique opérationnelle et ses théorèmes suivent au chapitre 4 (§{num
-"sec:g-semantique"}[]).
+modèle mémoire et non du système de types. La sémantique opérationnelle et ses théorèmes suivent au chapitre 4
+(§{num "sec:g-semantique"}[]).
 
 Les types se rangent en trois strates, conformément au chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) : les types
 de valeur, les types de calcul, et les modalités graduées qui les relient. La séparation des deux premières est celle
@@ -67,18 +67,19 @@ pire, puisque rien ne signalerait l'écart.
 Trois points appellent un commentaire, car ils fixent des choix que le corps a pris sans les écrire sous cette forme. Le
 premier est que $`!_r` est _une_ modalité et non quatre : sa syntaxe accepte un grade complet comme indice, dont les
 composantes sont l'usage, la marque de monotonie, le niveau de confidentialité et le budget. La correspondance de cet
-indice avec le support de la comonade graduée est désormais testée par le candidat $`\mathcal{G} \xrightarrow{\pi_U}
-\mathcal{R} \xrightarrow{!} End(\mathcal{C})` du §{num "sec:c2-candidat-factorisation-index-complet"}[]. La notation
-conserve le grade complet comme annotation, tandis que le noyau comonadique reçoit son indice d'usage. Le statut reste
-celui d'une architecture candidate tant que les coercions du grade complet et la substitution ne sont pas entièrement
-vérifiées. Le deuxième est que les types de session portent les trois modalités temporelles du §{num
-"sec:c4-echelle-du-systeme"}[], ce qui est la manière dont le débit s'exprime. Le troisième est que
-$`\mathsf{Trellis}_{\text{fin}}`, condition de l'opérateur de point fixe, se lit sur cette grammaire. Le quatrième est
-ce que cette grammaire engendre pour les types que les règles concluent et que le corps écrit par abréviation :
-$`{\Box}V`, $`{\Diamond}V` et $`{\bigcirc}V`, types de valeur, et $`{\bigcirc}C`, type de calcul, sont des productions ;
-$`{\Diamond}C`, $`@_n C` et $`!_\ell A` n'en sont pas, et ce sont des _abréviations_, définies plus bas. Le dire en
-prose ne suffit pas à une induction, qui a besoin d'un prédicat ; on le pose donc par les quatre clauses qui
-l'engendrent, et par rien d'autre. Les trois abréviations viennent d'abord, car les règles les emploient.
+indice avec le support de la comonade graduée est désormais testée par le candidat
+$`\mathcal{G} \xrightarrow{\pi_U} \mathcal{R} \xrightarrow{!} End(\mathcal{C})` du
+§{num "sec:c2-candidat-factorisation-index-complet"}[]. La notation conserve le grade complet comme annotation, tandis
+que le noyau comonadique reçoit son indice d'usage. Le statut reste celui d'une architecture candidate tant que les
+coercions du grade complet et la substitution ne sont pas entièrement vérifiées. Le deuxième est que les types de
+session portent les trois modalités temporelles du §{num "sec:c4-echelle-du-systeme"}[], ce qui est la manière dont le
+débit s'exprime. Le troisième est que $`\mathsf{Trellis}_{\text{fin}}`, condition de l'opérateur de point fixe, se lit
+sur cette grammaire. Le quatrième est ce que cette grammaire engendre pour les types que les règles concluent et que le
+corps écrit par abréviation : $`{\Box}V`, $`{\Diamond}V` et $`{\bigcirc}V`, types de valeur, et $`{\bigcirc}C`, type de
+calcul, sont des productions ; $`{\Diamond}C`, $`@_n C` et $`!_\ell A` n'en sont pas, et ce sont des _abréviations_,
+définies plus bas. Le dire en prose ne suffit pas à une induction, qui a besoin d'un prédicat ; on le pose donc par les
+quatre clauses qui l'engendrent, et par rien d'autre. Les trois abréviations viennent d'abord, car les règles les
+emploient.
 
 Le niveau de confidentialité est la troisième composante du grade. $`!_\ell V` abrège $`!_{r}\,V` pour un grade $`r =
 \langle u, m, \ell, \beta \rangle` dont seule la troisième composante est nommée, et $`r[\ell']` est le grade $`\langle

@@ -24,12 +24,12 @@ tag := "c5-le-theoreme-d-elaboration"
 Ce chapitre décrit six façons d'écrire ce que le noyau exécute : la macro ordinaire, le glyphe, la forme sucrée, la
 clause `:on` d'un acteur, les R-expressions et X-expressions, la notation sans point. Elles n'ont pas la même origine ni
 le même usage, et elles ont un seul et même statut. Plutôt que de le redire six fois, ce document l'énonce ici et
-l'invoque ensuite. Ce qui suit dans ce chapitre décrit des formes, non des mécanismes.] Le mot _élaboration_ désigne ici
+l'invoque ensuite. Ce qui suit dans ce chapitre décrit des formes, non des mécanismes. Le mot _élaboration_ désigne ici
 la traduction Surface → Noyau ; la phase de résolution du pipeline (§{num "sec:c6-le-processus-de-compilation"}[], point
-de contrôle de la Phase 4) résout des variables d'unification, et n'est pas une élaboration au sens du théorème {num
-"thm:elaboration"}[]. L'expansion de macro est la Phase 1 du pipeline : elle opère sur l'arbre, donc après l'analyse
-syntaxique, qui est la Phase 0, et avant la configuration (Phase 2) ; la figure du chapitre 6 numérote ses onze étapes
-de 0 à 10 sans fraction.
+de contrôle de la Phase 4) résout des variables d'unification, et n'est pas une élaboration au sens du théorème
+{num "thm:elaboration"}[]. L'expansion de macro est la Phase 1 du pipeline : elle opère sur l'arbre, donc après
+l'analyse syntaxique, qui est la Phase 0, et avant la configuration (Phase 2) ; la figure du chapitre 6 numérote ses
+onze étapes de 0 à 10 sans fraction.
 
 ::::definition (label := "def:elaboration") (level := "langage") (state := "not-applicable") (evidence := "none") (scope := "syntax")
 :::title

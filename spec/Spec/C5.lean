@@ -37,8 +37,8 @@ La surface définie dans ce chapitre est implémentée avec le Framework K ; les
 définit normativement.
 
 La délimitation par régions répond au problème identifié dans les systèmes substructurels dont les contraintes d'usage
-sont définies globalement : une discipline unique s'adapte mal à des domaines aux besoins hétérogènes {cite
-"herlihyModularSubstructuralConstraints2026"}[]. K7PL en retient toutefois trois fragments fixes, là où cette
+sont définies globalement : une discipline unique s'adapte mal à des domaines aux besoins hétérogènes
+{cite "herlihyModularSubstructuralConstraints2026"}[]. K7PL en retient toutefois trois fragments fixes, là où cette
 littérature explore la personnalisation des contraintes ; les usages mixtes restent donc hors de portée. La seconde
 limite est ergonomique : dans l'étude du typage quantitatif des circuits, les auteurs constatent que la linéarité peut
 imposer une verbosité excessive, au point d'envisager de l'assouplir {cite "demuijnck-hughesWiringCircuitsEasy2023"}[].

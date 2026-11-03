@@ -35,11 +35,11 @@ number := false
 Le corpus source range ces codes par ordre alphabétique de préfixe. Cette annexe les regroupe par l'invariant qu'ils
 protègent, afin qu'un lecteur cherchant pourquoi un programme est rejeté trouve le chapitre correspondant plutôt qu'une
 liste sans principe. Huit écarts avec le corpus source sont assumés. Les trois premiers codes `ERR-TOP` nomment les
-trois inclusions de délimiteurs que la grammaire des couches refuse, numérotées du conteneur le plus spécifique (couche
-3) au plus générique (couche 1) : `ERR-TOP-003`, un `{ }` à l'intérieur d'un `( )`, est ajouté, et le code que le corpus
-source numérotait `ERR-TOP-003` devient `ERR-TOP-004`. Ce dernier, mentionné au chapitre 6 (§{num
-"sec:c6-le-processus-de-compilation"}[]) mais absent de la table source, est ajouté ici. Le segment `ERR-DLM`, absent
-lui aussi du corpus source, nomme les délimiteurs qui ne s'apparient pas, refusés dès la lecture du texte.
+trois inclusions de délimiteurs que la grammaire des couches refuse, numérotées du conteneur le plus spécifique
+(couche 3) au plus générique (couche 1) : `ERR-TOP-003`, un `{ }` à l'intérieur d'un `( )`, est ajouté, et le code que
+le corpus source numérotait `ERR-TOP-003` devient `ERR-TOP-004`. Ce dernier, mentionné au chapitre 6
+(§{num "sec:c6-le-processus-de-compilation"}[]) mais absent de la table source, est ajouté ici. Le segment `ERR-DLM`,
+absent lui aussi du corpus source, nomme les délimiteurs qui ne s'apparient pas, refusés dès la lecture du texte.
 `ERR-SMT-003`, absent lui aussi, nomme un trou typé dont le solveur ne borne aucune valeur. Le préfixe `WRN-`, absent
 lui aussi, nomme les avertissements, dont les segments sont ceux des erreurs : un avertissement ne bloque pas la
 compilation, sauf si le développeur l'exige par un drapeau. Le préfixe `HEY-` nomme les remarques, qui ne sont ni des
@@ -66,8 +66,8 @@ Deux résultats échappent à cette réserve, parce qu'ils sont mesurés. Le pre
 message coûte en temps : sept cent dix virgule sept secondes contre trois cent vingt-quatre virgule neuf, soit un
 facteur deux, à moins d'un pour mille {cite "dennyErrorMessageReadability2020"}[]. Le second isole les facteurs qui la
 déterminent (longueur du message, emploi de jargon, structure de la phrase, vocabulaire) par trois expériences dont la
-troisième fait noter des messages par des débutants sur des échelles dérivées des deux premières {cite
-"dennyDesigningProgrammingError2021"}[]. Ces quatre facteurs sont les seuls dont cette annexe se réclame, et ils
+troisième fait noter des messages par des débutants sur des échelles dérivées des deux premières
+{cite "dennyDesigningProgrammingError2021"}[]. Ces quatre facteurs sont les seuls dont cette annexe se réclame, et ils
 gouvernent la colonne « déclencheur et correction » de chacune des tables qui suivent : un déclencheur nommé sans
 jargon, une correction dite en une phrase, et rien qui suppose un serveur de langage à portée.
 

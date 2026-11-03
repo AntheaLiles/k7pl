@@ -110,11 +110,12 @@ projection, et tout automate alternant se transforme en un non déterministe éq
 exponentiellement {cite "kupkeCoalgebraicAutomataTheory2008"}[].
 
 Une seconde coupe du même objet fait du passage du déterministe au non déterministe un changement de base bicatégorique,
-et de l'accessibilité une extension de Kan {cite
-"boccaliBicategoriesAutomataAutomata2023,loregianAutomataCoalgebrasCategories2024"}[]. Ce que ce document gagne à le
-dire n'est pas décoratif : les annotations ci-dessus fixent la première dimension et laissent la seconde implicite, en
-supposant partout que le foncteur est celui des mots. C'est vrai des R-expressions sur du texte ; ce ne l'est plus d'une
-R-expression qui filtrerait des arbres de syntaxe, cas que la réserve du paragraphe suivant vise par un autre chemin.
+et de l'accessibilité une extension de Kan
+{cite "boccaliBicategoriesAutomataAutomata2023,loregianAutomataCoalgebrasCategories2024"}[]. Ce que ce document gagne à
+le dire n'est pas décoratif : les annotations ci-dessus fixent la première dimension et laissent la seconde implicite,
+en supposant partout que le foncteur est celui des mots. C'est vrai des R-expressions sur du texte ; ce ne l'est plus
+d'une R-expression qui filtrerait des arbres de syntaxe, cas que la réserve du paragraphe suivant vise par un autre
+chemin.
 
 Deux acquis de cette même littérature portent sur des constructions que ce chapitre emploie sans les avoir situées. Le
 premier concerne la _minimalisation d'un automate gradué_, qui n'était pas définie ici. La réalisation de Nerode existe
@@ -122,8 +123,8 @@ et est unique à isomorphisme près pour les langages de multiensembles ; or un 
 c'est-à-dire exactement la composante d'usage du grade. Minimaliser un automate gradué, c'est donc construire la
 réalisation minimale de son comportement, ce qui donne ce que ce document n'avait pas : un critère d'_identité_ entre
 deux automates construits différemment {cite "yadavGeneralCategoricalFramework2022"}[]. La version générale s'obtient
-sous des hypothèses modestes, les effets de bord restant en paramètre, avec sa procédure de déterminisation {cite
-"heerdtTreeAutomataAlgebras2019"}[]. Le second prolonge l'argument d'unité posé en ouverture de ce chapitre :
+sous des hypothèses modestes, les effets de bord restant en paramètre, avec sa procédure de déterminisation
+{cite "heerdtTreeAutomataAlgebras2019"}[]. Le second prolonge l'argument d'unité posé en ouverture de ce chapitre :
 l'inférence d'un automate depuis des observations est le pendant, côté comportement, de ce que la synthèse dirigée par
 les grades fait côté type.
 
@@ -149,10 +150,10 @@ l'implantation plutôt que réputé neutre.
 L'annotation `@polynomial` repose sur une hypothèse qui doit être nommée : que la déterminisation d'un automate non
 déterministe _existe_. Elle est acquise dans le cadre ensembliste ordinaire, et elle ne l'est pas partout. Dans le cadre
 _nominal_ (celui où les états portent des noms modulo permutation), la construction de l'ensemble des parties finies ne
-préserve pas la finitude par orbites, et la déterminisation standard échoue {cite
-"bojanczykAutomataTheoryNominal2014"}[]. La question n'est pas oiseuse pour ce document, qui manipule des noms modulo
-$`\alpha`-équivalence au chapitre 5. Deux réponses sont possibles et une seule est écrite ici : les automates de cette
-section opèrent sur des _caractères_ et non sur des noms, de sorte qu'ils restent dans le cadre ensembliste et que
+préserve pas la finitude par orbites, et la déterminisation standard échoue
+{cite "bojanczykAutomataTheoryNominal2014"}[]. La question n'est pas oiseuse pour ce document, qui manipule des noms
+modulo $`\alpha`-équivalence au chapitre 5. Deux réponses sont possibles et une seule est écrite ici : les automates de
+cette section opèrent sur des _caractères_ et non sur des noms, de sorte qu'ils restent dans le cadre ensembliste et que
 l'annotation tient. Si un motif venait un jour à filtrer sur des noms liés (une R-expression sur des AST plutôt que sur
 du texte), l'annotation devrait être revue, et ce qui survivrait sans condition est la minimalisation des automates
 _déterministes_, qui ne dépend pas de la symétrie des données.
