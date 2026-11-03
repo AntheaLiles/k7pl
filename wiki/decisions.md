@@ -875,6 +875,11 @@ contradiction to state, not to resolve in silence.
   `catch`, which already names the handler of `try c catch c`;
   and how the absence of a conditional reads with `choose`, the
   dyadic `select` and the `select` of the K lexicon.
+  Answered in the conversation the same day: `catch` and the
+  kernel's `try c catch c` are one object, a generalisation of
+  pattern matching (VOC-2026-11-03-017); the glyphs are dealt
+  with once every lemma is fixed (VOC-2026-11-03-018). Lemma lot
+  2 asks what `catch` gathers and how it is written.
   Not applied yet: the answers are dated preferences; applying
   them changes chapter 3's grammar, chapter 1's glyph table,
   chapters 4 and 5, Annex A and the K lexicon, and waits for the

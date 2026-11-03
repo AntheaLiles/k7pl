@@ -4572,6 +4572,13 @@ of effects and definitions.
 - **Reading:** `bind` (option B): the construct, its formula and the branching `:bind` share it, and chapter 5's `let` becomes `bind`. The glyph aliases `bind-left` and `bind-right` are withdrawn: there is one `bind`, which branches the expression on its right, as in `(defun lambda :bind exp)` (the other words of the example are placeholders).
 - **Put back to the author:** what replaces, in chapter 1's glyph table, the glyphs `↢` and `↣` that the two aliases named, and the paragraph that justifies their pair.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-018), given in the conversation, quoted as given.**
+
+> Les glyphe on les traite quand tous les lemmes sont fixés
+
+- **Reading:** the glyphs, `↢` and `↣` among them, are dealt with once every lemma is fixed.
+
+
 ### Connectives
 
 #### Q-LEM-007 — Gap — the unit value, `()`
@@ -5255,6 +5262,592 @@ of effects and definitions.
 - **Reading:** no conditional form: branching goes through pattern matching, with `catch` and `case`; `cond` leaves chapter 3 and Annex A.
 - **Put back to the author:** how this reads with `choose` and the dyadic `select` of layer 3 (VOC-2026-10-29-021), with the triadic `select` of the K lexicon, and with Q-LEM-015, kept open; and the same remark on `catch` as in Q-LEM-015.
 
+## Lemma lot 2 of 2026-11-03: matching after lot 1, products asked again, existentials, grading, effects
+
+Opened on 2026-11-03, after the answers to lemma lot 1. Same format: a fiche of the construct, the
+specification's text, what the literature and other languages do, and options weighed on the six
+criteria of Q-METH-001 (option A) in their order, with their pros and cons. **Other** and **Clarify**
+are always available.
+
+Second lot of lemmas. It asks again the five questions lot 1 kept open, now that `bind`, `unbind`, `unit`, `tag` and `case` are preferred, and goes on with the existentials, the grading and the operations of effects. Recorded since lot 1: `catch` and the kernel's `try c catch c` are one object, a generalisation of pattern matching (VOC-2026-11-03-017); the glyphs are dealt with once every lemma is fixed (VOC-2026-11-03-018). Each option is weighed on the six criteria of Q-METH-001 (option A), in their order; an answer is a dated preference, ratified only in the global lot (VOC-2026-10-26-002). Every word of the examples other than the one asked is a placeholder. Left for lot 3: the types (`Λ`, instantiation, `fold`, `unfold`, `fix`, `iter`), time, place, concurrency, memory, `declassify`, and the scoped operations and handlers once Q-LEM-101 has said what `catch` gathers.
+
+### Matching, after lot 1
+
+#### Q-LEM-101 — What `catch` gathers
+
+**Fiche.**
+
+- **Constructs:** the kernel's eliminators that choose a continuation by what they meet: `case v of` (Case), `try c catch h` (Try), the handling of operations (Op, Sc), `guard v {p_i ↦ c_i}` (Guard), `when x = v in c` (When)
+- **Recorded:** `case` for sums (VOC-2026-11-03-012); no conditional, branching by `catch` and `case` (VOC-2026-11-03-016); `catch` and `try … catch` are one object, a generalisation of pattern matching (VOC-2026-11-03-017)
+
+**Object.** Five kernel constructs choose a continuation by what they meet: a value's tag (`case`), a failure (`try c catch h`, which on failure gives `⟨h ∣ μ ∣ τ·fail⟩`, OperationalSemantics (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/OperationalSemantics.lean)), an operation of an effect (its handler), messages in a mailbox (`guard`: « La branche ne s'ouvre que si tous les messages du motif sont présents, et les consomme d'un seul tenant », TypingRules (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)), and an event (`when`). Tick those that become forms of `catch`; the others keep a word of their own, asked later.
+
+**Facts.**
+
+- OCaml 5: « Similar to exception patterns in a match ... with expression, OCaml also supports effect patterns »; one `match f () with` may hold a value case, `| exception e ->` and `| effect Yield, k ->` (OCaml manual, effect handlers (https://ocaml.org/manual/5.3/effects.html)).
+- Erlang's `receive`: « The patterns in the clauses are matched against a message from top to bottom »; « The execution is suspended, possibly indefinitely, until a message arrives that matches one of the patterns » (Erlang, expressions (https://www.erlang.org/doc/system/expressions.html)).
+- Algebraic effects: a handler is a list of clauses, `handler {return x ↦ c_r, op_1(x; k) ↦ c_1, …}`, used by `with v handle c` (Pretnar 2015 (https://www.eff-lang.org/handlers-tutorial.pdf)).
+
+Several options may be chosen.
+
+- **fail — Failures: `try c catch h`.** Already recorded (VOC-2026-11-03-017).
+  *For:* the kernel's word. *Against:* —
+
+- **operation — Operations of effects: the handler's clauses.** A catch matches the operations its computation performs, each clause receiving the continuation.
+  *For:* OCaml 5 puts effect cases in its `match`; one construct for failures and effects. *Against:* a handler is also a value (chapter 3's rule names `handler` a value); the value and the matching must still be told apart.
+
+- **message — Messages: `guard`.** A catch on a mailbox waits for the messages its patterns name, join patterns included.
+  *For:* Erlang's `receive` is this; real-time code « catches things on the flow » (VOC-2026-11-03-015). *Against:* `guard` consumes several messages at once and waits: its cost and its blocking must stay visible.
+
+- **event — Events: `when x = v in c`.** A catch on a temporal value waits for the event and binds what it carries.
+  *For:* the same shape: wait, then branch on what arrives. *Against:* time is a modality of its own (chapter 3); its words are in lot 3.
+
+- **value — Values: `case` itself.** `case` becomes the clause list of a catch on a value already present.
+  *For:* one construct for everything that is matched. *Against:* `case` is the preferred word for sums (VOC-2026-11-03-012); this makes it a part of `catch`.
+
+
+#### Q-LEM-102 — How a catch is written
+
+**Fiche.**
+
+- **Now in the specification:** chapter 3 `try c catch h`; no surface form
+- **Recorded:** your two sketches (VOC-2026-11-03-015): `catch <construct>` followed by `case <form> <transform>` clauses; and `(case (catch <form>) <formA> <transformA> <formB> <transformB>)`
+- **Overlaps:** layer 2's words are n-ary, in parentheses; `case` is the eliminator of sums
+
+**Object.** Whatever Q-LEM-101 gathers, a catch has three parts: what is watched (a computation, a mailbox, a flow), the clauses (a form and its transformation), and for an operation the continuation. A form may be « le type raffiné, le budget, la valeur binaire, ou toute autre construction » (VOC-2026-11-03-015).
+
+**Facts.**
+
+- OCaml 5: « Similar to exception patterns in a match ... with expression, OCaml also supports effect patterns »; one `match f () with` may hold a value case, `| exception e ->` and `| effect Yield, k ->` (OCaml manual, effect handlers (https://ocaml.org/manual/5.3/effects.html)).
+- OCaml keeps `try … with` beside `match … with`: `try comp1 () with | effect (Xchg n), k -> continue k (n+1)` (OCaml manual, effect handlers (https://ocaml.org/manual/5.3/effects.html)).
+
+- **A — `case` gives the clauses, `catch` marks what is caught.** Example: `(case (catch (read-sensor)) (ok v) (use v) timeout (retry))`.
+
+  1. *Non-collision:* no new word.
+  2. *Scientific exactness:* `catch` produces what `case` matches.
+  3. *Family and grade invariants:* `case` is the only clause list.
+  4. *Ecological grid (provisional):* close to OCaml's `match f () with`.
+  5. *Mnemonic:* your second sketch.
+  6. *Brevity:* short.
+
+  *For:* one clause syntax for everything. *Against:* `catch` alone reads as a value, not as a wait.
+
+- **B — `catch` heads, each clause introduced by `case`.** Example: `(catch (read-sensor) (case (ok v) (use v)) (case timeout (retry)))`.
+
+  1. *Non-collision:* no new word.
+  2. *Scientific exactness:* the watched computation is the head.
+  3. *Family and grade invariants:* `case` names a clause, not the eliminator of sums.
+  4. *Ecological grid (provisional):* Erlang's `receive` with clauses.
+  5. *Mnemonic:* your first sketch.
+  6. *Brevity:* one `case` per clause.
+
+  *For:* what is watched comes first. *Against:* `case` takes a second sense, a clause.
+
+- **C — `catch` heads, the kind of what is caught written in the pattern.** As OCaml 5 writes `exception e` and `effect E, k` inside its patterns. Example: `(catch (read-sensor) v (use v) (fail e) (log e) (effect tick k) (resume k))`.
+
+  1. *Non-collision:* the kinds (`fail`, `effect`) need words.
+  2. *Scientific exactness:* each clause says what it catches.
+  3. *Family and grade invariants:* one form for every kind.
+  4. *Ecological grid (provisional):* OCaml 5.
+  5. *Mnemonic:* explicit.
+  6. *Brevity:* longer patterns.
+
+  *For:* one form; nothing hidden. *Against:* two more words in patterns.
+
+- **D — `case` for values present, `catch` for what arrives, one clause syntax.** Example: `(case v (ok x) (use x) (err e) (log e))   (catch (read-sensor) (ok x) (use x) timeout (retry))`.
+
+  1. *Non-collision:* two heads for two situations.
+  2. *Scientific exactness:* the head says whether the form waits.
+  3. *Family and grade invariants:* the same clauses under both.
+  4. *Ecological grid (provisional):* Erlang's `case` and `receive`.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* short.
+
+  *For:* the cost (waiting or not) is in the word. *Against:* two heads for one generalisation.
+
+
+#### Q-LEM-103 — Consuming the unit, asked again
+
+**Fiche.**
+
+- **Symbol:** `let () = V in N`
+- **Rule:** OneE
+- **Recorded:** kept open (VOC-2026-11-03-008); since then: `bind` (VOC-2026-11-03-006), `unit` (VOC-2026-11-03-007)
+
+**Object.** A computation run for its effect returns `unit`; the next one follows. With the words of lot 1, the kernel writes it `bind () = c1 in c2`.
+
+**Facts.**
+
+- Common Lisp's implicit progn: « an ordered set of adjacent forms appearing in another form, and defined by their context in that form » « to be executed as if within a progn » (CLHS glossary (https://www.lispworks.com/documentation/HyperSpec/Body/26_glo_i.htm)).
+- Pretnar abbreviates sequencing without use to `c1 ; c2` (Pretnar 2015 (https://www.eff-lang.org/handlers-tutorial.pdf)).
+
+- **A — The pattern `unit` of `bind`.** Example: `(bind [unit (log x)] (return x))`.
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* the kernel's pattern.
+  3. *Family and grade invariants:* one binding form with patterns.
+  4. *Ecological grid (provisional):* ML.
+  5. *Mnemonic:* explicit.
+  6. *Brevity:* verbose for a run of effects.
+
+  *For:* no word. *Against:* every effect costs a binding.
+
+- **B — An implicit sequence: a body runs its forms in order.** Example: `(bind [x (read)] (log x) (return x))`.
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* each form but the last must return `unit`, checked by the type.
+  3. *Family and grade invariants:* the bodies of `bind` and definitions alike.
+  4. *Ecological grid (provisional):* Lisp's implicit progn.
+  5. *Mnemonic:* familiar to Lisp readers.
+  6. *Brevity:* the shortest.
+
+  *For:* no word, no binding. *Against:* the order is carried by position, not by a word.
+
+- **C — A block word, `seq`.** Example: `(seq (log x) (return x))`.
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* exact if every form but the last returns `unit`.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Clojure's `do`, Scheme's `begin`.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* three letters.
+
+  *For:* the sequence is named. *Against:* one more word.
+
+
+### Products, asked again
+
+#### Q-LEM-104 — The pair, with `join` and the words of SQL and NoSQL
+
+**Fiche.**
+
+- **Symbol:** `(V₁, V₂)`
+- **Rule:** Pair
+- **Recorded:** kept open: « Why not "join" and sql's/nosql's lemmas? » (VOC-2026-11-03-009)
+- **Overlaps:** `join` is the alias of the glyph `∾`, « Concaténation verticale » (chapter 1); the lattice's « joint » `⊔`; the « motif de jonction » of chapters 1 and 4
+
+**Object.** The pair joins two separate resources. Chapter 1's glyph table already gives `join` to `∾` (GlyphTable (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C1/GlyphTable.lean)); chapter 2 writes the lattice's least upper bound « joint ⊔ ».
+
+**Facts.**
+
+- PostgreSQL: « Queries that access multiple tables (or multiple instances of the same table) at one time are called join queries »; « A row constructor is an expression that builds a row value (also called a composite value) using values for its member fields », written `ROW(1,2.5,'this is a test')` (PostgreSQL, joins (https://www.postgresql.org/docs/current/tutorial-join.html); PostgreSQL, row constructors (https://www.postgresql.org/docs/current/sql-expressions.html)).
+- MongoDB's `$lookup`: « Performs a left outer join to a collection in the same database » (MongoDB (https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/)); Cassandra: « CQL also support tuples and tuple types (where the elements can be of different types) » (CQL types (https://cassandra.apache.org/doc/latest/cassandra/developing/cql/types.html)).
+
+- **A — `pair`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* exact for two parts.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* universal.
+  5. *Mnemonic:* immediate.
+  6. *Brevity:* four letters.
+
+  *For:* immediate. *Against:* silent on the separation, which the type carries.
+
+- **B — `tuple`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* n-ary where the kernel is binary.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* ML, Haskell, Python, Cassandra.
+  5. *Mnemonic:* known.
+  6. *Brevity:* five letters.
+
+  *For:* one word for any length. *Against:* the kernel construct is binary.
+
+- **C — `row`, as SQL's row constructor.**
+
+  1. *Non-collision:* no collision found in the specification.
+  2. *Scientific exactness:* a row is a composite value of named or ordered fields.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* SQL.
+  5. *Mnemonic:* known to database readers.
+  6. *Brevity:* three letters.
+
+  *For:* the database reading you suggest. *Against:* suggests a table around it.
+
+- **D — `join`.**
+
+  1. *Non-collision:* collisions: the alias of `∾`, the lattice's join `⊔`, the join patterns.
+  2. *Scientific exactness:* inexact: a SQL join combines tables by a condition, not two values.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* SQL, MongoDB.
+  5. *Mnemonic:* known with another sense.
+  6. *Brevity:* four letters.
+
+  *For:* the database word. *Against:* three objects already carry it in K7PL.
+
+
+#### Q-LEM-105 — The negative product, with codata
+
+**Fiche.**
+
+- **Symbol:** `⟨M_i⟩`
+- **Rule:** With
+- **Recorded:** kept open (VOC-2026-11-03-013); « Toujours pas de l'objet mais très proche sans mutation » (VOC-2026-10-27-027)
+- **Overlaps:** `case` is the eliminator of sums; this construct is its dual
+
+**Object.** A computation that waits to be asked which of its components to run. The literature on codata describes it as an object known by the observations it answers; `case` being preferred for sums, the dual is open to a dual word.
+
+**Facts.**
+
+- « codata declarations define the types of destructors (which consume values of the codata type) »; « The combination of observation-based interfaces, message-passing, and dynamic dispatch are exactly the tools needed for procedural abstraction »; its values are written `{H1 → e1, …, Hn → en}` (Downen et al., Codata in Action (https://www.microsoft.com/en-us/research/uploads/prod/2020/01/CoDataInAction.pdf)).
+- Agda: « we can define the fields of a record as separate declarations » (Agda, copatterns (https://agda.readthedocs.io/en/latest/language/copatterns.html)).
+- Levy writes it `λ{i.M_i}` (Levy 2006 (https://pblevy.github.io/papers/hosc05.pdf)).
+
+**The λ overlap.** The symbol λ names two objects in the specification: the abstraction `λx.c` (rule `Lam`) and, in chapter 3, a natural transformation of the graded distributive law. A candidate must only ever name the first.
+
+- **A — `object`.**
+
+  1. *Non-collision:* no collision in the specification.
+  2. *Scientific exactness:* the codata reading: known by what it answers.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* object-oriented languages, with mutation.
+  5. *Mnemonic:* your « très proche sans mutation ».
+  6. *Brevity:* six letters.
+
+  *For:* the codata literature's own reading. *Against:* readers expect mutable state.
+
+- **B — `cocase`, the dual of `case` (a proposal, without a source for the word).**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* names the duality with the eliminator of sums.
+  3. *Family and grade invariants:* pairs with `case`.
+  4. *Ecological grid (provisional):* no source checked for the word.
+  5. *Mnemonic:* clear to who knows duality.
+  6. *Brevity:* six letters.
+
+  *For:* the family `case`/`cocase`. *Against:* a coinage.
+
+- **C — `with`.**
+
+  1. *Non-collision:* risk: `with v handle c` in effects.
+  2. *Scientific exactness:* linear logic's name of `&`.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* linear logic.
+  5. *Mnemonic:* opaque.
+  6. *Brevity:* four letters.
+
+  *For:* the logic's word. *Against:* read as a handler.
+
+- **D — The abstraction's word over labels, as Levy's `λ{i.M_i}`.** Read the λ note: the word would name the abstraction `λx.c` only, extended to labels.
+
+  1. *Non-collision:* one word for `Lam` and `With`.
+  2. *Scientific exactness:* exact in Levy's reading.
+  3. *Family and grade invariants:* abstraction over a value or a label.
+  4. *Ecological grid (provisional):* Levy.
+  5. *Mnemonic:* a known word.
+  6. *Brevity:* the abstraction's length.
+
+  *For:* no new word. *Against:* two kernel constructs under one word.
+
+
+#### Q-LEM-106 — Asking one observation, with codata
+
+**Fiche.**
+
+- **Symbol:** `M.i`
+- **Rule:** Proj
+- **Recorded:** kept open (VOC-2026-11-03-014)
+- **Overlaps:** chapter 1: `.` for projection and decimals; Annex A's `e.τ`; the rule Out's retained « observation » (`ν`); the kernel's `send m(v) to v`
+
+**Object.** The negative product of Q-LEM-105 runs only the component asked.
+
+**Facts.**
+
+- « codata observations of the form t.H using “dot notation”, which can be thought of as sending the message H to the object t or as a method invocation from object-oriented languages » (Downen et al., Codata in Action (https://www.microsoft.com/en-us/research/uploads/prod/2020/01/CoDataInAction.pdf)).
+- Clojure: « Keywords implement IFn for invoke() of one argument (a map) » (Clojure, data structures (https://clojure.org/reference/data_structures)).
+
+- **A — `.` only; the construct is named `project`.**
+
+  1. *Non-collision:* `.` also writes decimals and `e.τ`, told apart by position.
+  2. *Scientific exactness:* the categorical term.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* dot notation everywhere.
+  5. *Mnemonic:* known.
+  6. *Brevity:* one character.
+
+  *For:* chapter 1 already says so. *Against:* `project` suggests a cartesian product.
+
+- **B — `.` only; the construct is named `observe`.**
+
+  1. *Non-collision:* near the rule Out's « observation » (`ν`).
+  2. *Scientific exactness:* the codata word.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* codata literature.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* seven letters.
+
+  *For:* names what happens. *Against:* two kernel constructs near one word.
+
+- **C — The label applied, as Clojure keywords.** Example: `(:increment counter)`.
+
+  1. *Non-collision:* `:` opens properties and branchings.
+  2. *Scientific exactness:* Levy's `î‘M`.
+  3. *Family and grade invariants:* projection as application.
+  4. *Ecological grid (provisional):* Clojure.
+  5. *Mnemonic:* known to Clojure readers.
+  6. *Brevity:* short.
+
+  *For:* one rule. *Against:* `:` already has a role.
+
+
+### Existentials
+
+#### Q-LEM-107 — Hiding a witness, `pack (W, v)`
+
+**Fiche.**
+
+- **Symbol:** `pack (W, V)`
+- **Family:** existentielle
+- **Rule:** Pack
+- **Now in the specification:** chapter 3 `pack (V, v)`; prose « empaquète », « paquet »; Annex A also calls a verified SMT proof « un paquet »
+- **Register:** retained `pack`; candidates `pack`, `seal`, `abstract`
+- **Recorded:** Q-SPEC-603 put back « paquet » and « empaqueter », each naming two things
+
+**Object.** Chapter 3: « $`\exists a.\, \tau` empaquète une valeur d'un type réel mais dissimulé » (OpenStructuresEffectsAndMetatheory (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/OpenStructuresEffectsAndMetatheory.lean)).
+
+**Facts.**
+
+- OCaml's first-class modules: « pack a module as a first-class value, which can later be dynamically unpacked into a module » (OCaml manual, first-class modules (https://ocaml.org/manual/5.3/firstclassmodules.html)).
+
+- **A — `pack`.**
+
+  1. *Non-collision:* « paquet » names a proof bundle too, in French prose only.
+  2. *Scientific exactness:* the literature's word.
+  3. *Family and grade invariants:* pairs with `unpack`.
+  4. *Ecological grid (provisional):* OCaml, type theory.
+  5. *Mnemonic:* known.
+  6. *Brevity:* four letters.
+
+  *For:* the register's retained word. *Against:* the French « paquet » stays ambiguous.
+
+- **B — `seal`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* says the witness is closed off.
+  3. *Family and grade invariants:* pairs with `unseal`.
+  4. *Ecological grid (provisional):* rare.
+  5. *Mnemonic:* evocative.
+  6. *Brevity:* four letters.
+
+  *For:* frees « paquet ». *Against:* less usual.
+
+- **C — `abstract`.**
+
+  1. *Non-collision:* collision: « abstraction » names `λ`.
+  2. *Scientific exactness:* the type-theory sense (abstract types).
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* ML's abstract types.
+  5. *Mnemonic:* ambiguous.
+  6. *Brevity:* eight letters.
+
+  *For:* the theory's sense. *Against:* two meanings of « abstraction ».
+
+
+#### Q-LEM-108 — Opening an existential, `open v as (α,x) in c`
+
+**Fiche.**
+
+- **Symbol:** `open V as (α,x) in N`
+- **Rule:** Open
+- **Now in the specification:** the formula writes `open`; the prose writes `unpack` (`ERR-TYP-011`)
+- **Recorded:** Q-SPEC-603 put back `open` against `unpack`; `unbind` takes a pair apart (VOC-2026-11-03-010)
+
+**Object.** Chapter 3: « l'élimination, une simple projection `e.τ`, ne demande aucun `unpack` explicite en surface », but « le compilateur exige alors un `unpack` explicite (`ERR-TYP-011`) » when the witness carries an erasable grade (OpenStructuresEffectsAndMetatheory (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/OpenStructuresEffectsAndMetatheory.lean)).
+
+**Facts.**
+
+- OCaml: `(val e : S)` « extracts the module that was encapsulated in this value » (OCaml manual, first-class modules (https://ocaml.org/manual/5.3/firstclassmodules.html)).
+
+- **A — `unpack`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the reverse of `pack`.
+  3. *Family and grade invariants:* pairs with `pack`, as `unbind` with `bind`.
+  4. *Ecological grid (provisional):* OCaml's wording.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* six letters.
+
+  *For:* what the prose and `ERR-TYP-011` already say. *Against:* the formula changes.
+
+- **B — `open`.**
+
+  1. *Non-collision:* risk: OCaml's `open` brings a module's names into scope; files are opened.
+  2. *Scientific exactness:* the formula's word.
+  3. *Family and grade invariants:* no pair with `pack`.
+  4. *Ecological grid (provisional):* type theory.
+  5. *Mnemonic:* ambiguous.
+  6. *Brevity:* four letters.
+
+  *For:* the formula's word. *Against:* the prose and the error message change.
+
+- **C — A pattern of `unbind`.** The witness and the value are bound together, as `unbind` takes a pair apart. Example: `(unbind [(a x) v] …)`.
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* an existential is a pair of a type and a value.
+  3. *Family and grade invariants:* one decomposition form.
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* needs explaining.
+  6. *Brevity:* short.
+
+  *For:* no word. *Against:* the witness is a type, not a value.
+
+
+### Grading
+
+#### Q-LEM-109 — Promoting a value under a grade, `box_r v`
+
+**Fiche.**
+
+- **Symbol:** `box_r V`
+- **Family:** gradation
+- **Rule:** Box
+- **Register:** none retained; candidates `box`, `promote`, `grade`
+- **Recorded:** Q-SPEC-603 put back « box », which GHC and Rust use for heap allocation
+
+**Object.** The value enters the graded comonad `!_r`, usable `r` times.
+
+**Facts.**
+
+- Granule: « can be constructed by promotion, written [t], which promotes a term t to a graded modal type » (Orchard et al., ICFP 2019 (https://www.cs.kent.ac.uk/people/staff/dao7/publ/granule-icfp19.pdf)).
+- Rust: « Box<T>, casually referred to as a ‘box’, provides the simplest form of heap allocation in Rust » (Rust, std::boxed (https://doc.rust-lang.org/std/boxed/index.html)).
+
+- **A — `box`.**
+
+  1. *Non-collision:* ecological collision: heap allocation in Rust and GHC.
+  2. *Scientific exactness:* the modal-logic word.
+  3. *Family and grade invariants:* pairs with `unbox`.
+  4. *Ecological grid (provisional):* modal type theory.
+  5. *Mnemonic:* known, with the heap sense.
+  6. *Brevity:* three letters.
+
+  *For:* the kernel's word. *Against:* readers from Rust expect an allocation.
+
+- **B — `promote`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* Granule's term.
+  3. *Family and grade invariants:* pairs with `demote`, or with the pattern of Q-LEM-110.
+  4. *Ecological grid (provisional):* Granule.
+  5. *Mnemonic:* says what happens.
+  6. *Brevity:* seven letters.
+
+  *For:* no heap sense. *Against:* longer.
+
+- **C — `grade`.**
+
+  1. *Non-collision:* « grade » already names the annotation.
+  2. *Scientific exactness:* names the annotation, not the act.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* five letters.
+
+  *For:* the grade is visible. *Against:* the noun and the act share a word.
+
+
+#### Q-LEM-110 — Using a graded value, `unbox v as x in c`
+
+**Fiche.**
+
+- **Symbol:** `unbox V as x in N`
+- **Rule:** Unbox
+- **Register:** none retained; candidates `unbox`, `extract`, `let-box`
+
+**Object.** The graded value is taken out and bound to `x`, which may then be used as its grade allows.
+
+**Facts.**
+
+- Granule: « The “boxing” (promotion) construct [t] is dualised by the unboxing pattern [p] », with `let [p] = t1 in t2` as sugar (Orchard et al., ICFP 2019 (https://www.cs.kent.ac.uk/people/staff/dao7/publ/granule-icfp19.pdf)).
+- Haskell's comonads: `extract :: w a -> a` (comonad, Control.Comonad (https://hackage.haskell.org/package/comonad/docs/Control-Comonad.html)).
+
+- **A — `unbox`.**
+
+  1. *Non-collision:* « unboxed » means without indirection in GHC and Rust.
+  2. *Scientific exactness:* the dual of `box`.
+  3. *Family and grade invariants:* pairs with `box`.
+  4. *Ecological grid (provisional):* modal type theory.
+  5. *Mnemonic:* known.
+  6. *Brevity:* five letters.
+
+  *For:* the kernel's word. *Against:* follows `box` into the heap sense.
+
+- **B — A pattern of `bind`, as Granule's unboxing pattern.** Example: `(bind [(promoted x) v] …)`.
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* Granule's reading.
+  3. *Family and grade invariants:* one binding form with patterns.
+  4. *Ecological grid (provisional):* Granule.
+  5. *Mnemonic:* needs the pattern word.
+  6. *Brevity:* short.
+
+  *For:* no word. *Against:* the pattern still needs a name.
+
+- **C — `extract`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the comonad's operation, ungraded.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Haskell.
+  5. *Mnemonic:* says what happens.
+  6. *Brevity:* seven letters.
+
+  *For:* the comonad reading. *Against:* Haskell's `extract` has no grade.
+
+
+### Effects
+
+#### Q-LEM-111 — Invoking an operation, `operation_ε(v)`
+
+**Fiche.**
+
+- **Symbol:** `perform_op(V)`, chapter 3 `operation_ε(v)`
+- **Family:** effets
+- **Rule:** Op
+- **Now in the specification:** chapter 3 `operation`; the surface word `perform`; the branching `:perform` (VOC-2026-10-27-061)
+- **Overlaps:** chapter 3's rule: `operation` and `scoped` are kinds of operation, `perform` and `handle` actions, `handler` a value
+
+**Object.** Chapter 3: « `perform` et `handle` sont deux actions, invoquer et traiter ; `handler` n'est ni l'un ni l'autre, c'est le nom d'une _valeur_ » (TermGrammar (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TermGrammar.lean)). Under Q-LEM-001, the formula takes the surface word when they name one object.
+
+**Facts.**
+
+- OCaml 5: « The computation comp1 performs the effect twice using the perform primitive », `perform (Xchg 0)` (OCaml manual, effect handlers (https://ocaml.org/manual/5.3/effects.html)).
+- Pretnar writes the operation applied, `op(v; y. c)`, « operation call » (Pretnar 2015 (https://www.eff-lang.org/handlers-tutorial.pdf)).
+
+- **A — `perform` for the term; `operation` stays the kind declared.**
+
+  1. *Non-collision:* no collision.
+  2. *Scientific exactness:* two objects, two words, as chapter 3's rule says.
+  3. *Family and grade invariants:* a verb for the term.
+  4. *Ecological grid (provisional):* OCaml 5, Eff.
+  5. *Mnemonic:* known.
+  6. *Brevity:* seven letters.
+
+  *For:* the surface and the branching already write it. *Against:* the formula changes.
+
+- **B — `operation` for both.**
+
+  1. *Non-collision:* one word for the kind and the term.
+  2. *Scientific exactness:* conflates the declaration and its use.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* nine letters.
+
+  *For:* the formula's word. *Against:* chapter 3's rule says they are two objects.
+
+- **C — No word: the operation applied, as a tag is applied.** Example: `(tick 1)`.
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* Pretnar's `op(v; y. c)`.
+  3. *Family and grade invariants:* like `tag`: the name applied.
+  4. *Ecological grid (provisional):* effect calculi.
+  5. *Mnemonic:* the operation's own name.
+  6. *Brevity:* the shortest.
+
+  *For:* an operation reads as a function call. *Against:* an effect does not show in the text.
+
 ## The catalogue, verbatim
 
 
@@ -5286,6 +5879,13 @@ Pour chaque proposition, trois dimensions restent distinctes :
 Les objets complets et les règles sont détaillés dans le registre ontologique (core-vocabulary-ontology-2026-10-25.md, deleted with the research lot; survives in git history). Les QCM sont ordonnés par familles, pas par importance esthétique.
 
 ## 2. Famille : valeurs, produits et sommes
+
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-017), given in the conversation, quoted as given.**
+
+> Pour catch c'est le même objet (généralisation du pattern matching)
+
+- **Reading:** the `catch` of Q-LEM-015 and Q-LEM-016 and the `catch` of the kernel's `try c catch c` are one object, a generalisation of pattern matching. What it gathers and how it is written are asked in lemma lot 2 (Q-LEM-101, Q-LEM-102).
+
 
 ### Q-TERM-001 — Variable / occurrence liée
 
