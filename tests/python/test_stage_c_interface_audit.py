@@ -79,9 +79,14 @@ def test_historical_audit_is_pinned_and_current_integration_keeps_stage_c_open()
     # bc618228...), TypeGrammar.lean (7799b142..., replacing 45e86062...) and
     # TypingRules.lean (1ce42652..., replacing 2b3e2755...). A pin re-sync, not a
     # ratification of any changed content.
+    # 2026-11-03, PDF fix: GradedSystem.lean loses two stray dollar signs after a display
+    # formula (64dacc7a... -> bfd8ebbb...), and the script capital R written U+1D4AD, an
+    # unassigned code point, becomes U+211B in GradedSystem.lean and
+    # ExponentialComonadAndFragments.lean (48a3be15... -> b289f2ff...). A pin re-sync,
+    # not a ratification of any changed content.
     integrated_source_blobs = {
-        "spec/Spec/C2/ExponentialComonadAndFragments.lean": "48a3be158994d62b3cf97c053027bf985c325c77",
-        "spec/Spec/C3/GradedSystem.lean": "64dacc7af666201988b5c25ebb01b36545f67c28",
+        "spec/Spec/C2/ExponentialComonadAndFragments.lean": "b289f2ffe91025e19f692abeaae3502051365a0c",
+        "spec/Spec/C3/GradedSystem.lean": "bfd8ebbb5818cf28e4049f048658c3e63101204c",
         "spec/Spec/C3/TypeGrammar.lean": "7799b142f784de0240af93a7d2a688a0cb276ba0",
         "spec/Spec/C3/TypingRules.lean": "1ce42652fb80c6550762fa593f63134f2d713c24",
         "spec/Spec/C3/EffectiveKernel.lean": "127039c7b93fee5696f2c0b1c81805ba29726bb0",

@@ -134,7 +134,7 @@ intervalle d'usage dans le périmètre courant.
 :::
 
 :::proofsketch
-Chaque identité conserve le porteur et son ordre. Le passage $`\mathrm{Lin} \to \mathrm{Aff}` introduit l'affaiblissement ; $`\mathrm{Aff} \to \mathrm{Unr}` étend les grades contractables de $`\{0\}` à 𝒭 ; $`\mathrm{Lin} \to \mathrm{Unr}` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
+Chaque identité conserve le porteur et son ordre. Le passage $`\mathrm{Lin} \to \mathrm{Aff}` introduit l'affaiblissement ; $`\mathrm{Aff} \to \mathrm{Unr}` étend les grades contractables de $`\{0\}` à ℛ ; $`\mathrm{Lin} \to \mathrm{Unr}` satisfait les deux inclusions. Cette vérification est conditionnelle au contrat de mode et aux lois de l'algèbre et de l'idéal. Elle ne démontre pas que les règles de typage K7PL réalisent ces permissions, ni que les morphismes de fragments préservent leur dénotation. L'état de cette proposition reste under-review / proofsketch.
 :::
 
 :::note
@@ -230,7 +230,7 @@ contracter puis substituer et substituer puis contracter coïncident
 {cite "hanukaevUnificationGradedSubstructural2026"}[]. Un prédicat d'échange, lui, rend l'ordre _pertinent_. Les deux ne se
 rencontrent qu'en un point, mais ce point est réel : la contraction _fusionne_ deux liaisons, donc détruit l'ordre entre
 elles. D'où la condition : $$`q_1, q_2 \in \mathrm{Cont}(m) \setminus \{0\} \Rightarrow \text{l'ordre de } q_1, q_2
-\text{ est sans importance}`$$. On ne fusionne deux emplois d'une ressource que si leur ordre est sans importance : on
+\text{ est sans importance}`. On ne fusionne deux emplois d'une ressource que si leur ordre est sans importance : on
 ne fusionne pas le premier et le second message d'une session.
 
 :::::proposition (label := "thm:echange_contraction") (level := "langage") (role := "proposition") (state := "under-review") (evidence := "none") (scope := "graded-typing")
