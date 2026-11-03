@@ -143,7 +143,9 @@ private def isListing (title : String) : Bool :=
 private partial def markPart (r : Recognisers) (depth : Nat) (p : Part Manual) : M (Part Manual) := do
   if isListing p.titleString then return p
   if depth == 1 then set ({} : Seen)
-  let content ← p.content.mapM (markBlock r)
+  -- The root part's own content is front matter (title page, summary), not a chapter: an index
+  -- mark there has no section to cite, and its anchor cannot be linked from the index page.
+  let content ← p.content.mapM (markBlock (if depth == 0 then { r with index := #[] } else r))
   let subParts ← p.subParts.mapM (markPart r (depth + 1))
   return { p with content, subParts }
 
