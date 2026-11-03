@@ -27,8 +27,8 @@ en coalgèbre terminale. Le calcul de processus communicants de Hoare complète 
 typé dont l'alternance stricte d'émission et de réception fonde la dualité des protocoles du chapitre 3 et la
 synchronisation par anneaux verrou-libres du §{num "sec:c4-echelle-du-systeme"}[]. Pony montre enfin, plus près de K7PL,
 qu'un modèle d'acteurs zéro-copie et sans ramasse-miettes peut reposer sur des capacités de référence prouvées à la
-compilation plutôt que sur un arbitrage à l'exécution : la lecture graduée que ce chapitre hérite du §{num
-"sec:c3-le-systeme-gradue"}[].
+compilation plutôt que sur un arbitrage à l'exécution : la lecture graduée que ce chapitre hérite du
+§{num "sec:c3-le-systeme-gradue"}[].
 
 La coalgèbre terminale qui définit un acteur (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]) a besoin d'un
 lieu où loger son espace d'état ; cette section décrit ce lieu et les opérations qui le maintiennent cohérent d'un pas
@@ -52,19 +52,19 @@ grade _est_ cette étiquette. Le dispositif se lit presque terme à terme dans c
 Une réserve doit accompagner cet acquis, car elle porte sur un canal _voisin et distinct_. Le canal de terminaison n'est
 pas le canal de _temporisation_, et le remède ci-dessus ne ferme que le premier. Pour le second, la propriété visée est
 la non-interférence probabiliste, qu'un système de types suffit à garantir, mais les systèmes qui l'obtiennent le font
-au prix de restrictions _sévères_, imposées précisément pour empêcher les fuites par le temps {cite
-"smithNewTypeSystem2001"}[]. La non-interférence temporelle ne s'ajoute donc pas à un système de types : elle en
+au prix de restrictions _sévères_, imposées précisément pour empêcher les fuites par le temps
+{cite "smithNewTypeSystem2001"}[]. La non-interférence temporelle ne s'ajoute donc pas à un système de types : elle en
 restreint l'expressivité, et de combien est une question de conception que ce document n'a pas tranchée. S'y ajoute un
 trou documenté dans lequel ce langage se place exactement : les descriptions matérielles à contrôle de flot savent
 éliminer les canaux de temporisation, les langages logiciels savent garantir la non-interférence. Mais les deux se
-construisent indépendamment et il n'existe aucune abstraction pour _composer_ leurs garanties {cite
-"zagieboyloUsingInformationFlow2019"}[]. Un unikernel est la jonction des deux.
+construisent indépendamment et il n'existe aucune abstraction pour _composer_ leurs garanties
+{cite "zagieboyloUsingInformationFlow2019"}[]. Un unikernel est la jonction des deux.
 
 Le second tient au pont entre les deux vocabulaires que ce chapitre emploie sans les relier. Il pose que l'espace d'état
 d'un acteur est une instance de coalgèbre terminale, et le chapitre 3 pose les types de session ; le pont entre les deux
 est affirmé et non construit. Il l'a été ailleurs, et littéralement : les types de session _sont_ des états de
-coalgèbres, et la dualité des protocoles, que le chapitre 3 pose comme définition, s'y obtient comme conséquence {cite
-"keizerSessionCoalgebrasCoalgebraic2021"}[]. C'est l'unification que ce chapitre annonce en ouverture, appliquée à
+coalgèbres, et la dualité des protocoles, que le chapitre 3 pose comme définition, s'y obtient comme conséquence
+{cite "keizerSessionCoalgebrasCoalgebraic2021"}[]. C'est l'unification que ce chapitre annonce en ouverture, appliquée à
 l'endroit précis où il ne l'a pas faite.
 
 Un mot de vocabulaire s'impose avant d'y venir, car ce chapitre nomme une chose et en emploie deux. Une _arène_ est une
@@ -174,11 +174,11 @@ d'alignement sur 64 bits ne remplace pas le contrat précis de chaque format.
 :::
 ::::
 Les deux spécifications sont normatives sur ce point, et c'est d'elles que l'énoncé tire sa forme. Arrow définit le
-tampon primitif contigu et l'omission licite du bitmap de validité quand le compte de nuls est nul {cite
-"SpecificationsApacheArrow"}[]. Cap'n Proto définit la liste plate de valeurs, l'encodage du pointeur distinguant les
-largeurs d'un bit à huit octets, et impose la disposition composite dès que l'élément est une structure : un mot
-d'étiquette suivi des structures contiguës, chacune portant sa section de données puis sa section de pointeurs {cite
-"CAPNPROTO-SPEC"}[].
+tampon primitif contigu et l'omission licite du bitmap de validité quand le compte de nuls est nul
+{cite "SpecificationsApacheArrow"}[]. Cap'n Proto définit la liste plate de valeurs, l'encodage du pointeur distinguant
+les largeurs d'un bit à huit octets, et impose la disposition composite dès que l'élément est une structure : un mot
+d'étiquette suivi des structures contiguës, chacune portant sa section de données puis sa section de pointeurs
+{cite "CAPNPROTO-SPEC"}[].
 
 La vérification se fait donc à la compilation, et son comment suit. La coïncidence bit à bit n'est pas une propriété à
 prouver au cas par cas. C'est une égalité entre trois formules de disposition, et trois nombres la déterminent pour un

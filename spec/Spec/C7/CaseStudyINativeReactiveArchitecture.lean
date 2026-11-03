@@ -47,29 +47,29 @@ des patches.
 
 Un événement, capturé en couche 1, alimente un flux réactif de couche 2 : la même semicoroutine asymétrique que le
 chapitre 4 (§{num "sec:c4-echelle-locale"}[]) a construite pour tout flux infini, ici spécialisée aux événements
-d'interface. Ce flux produit un nouvel état, purement représenté comme une X-expression (chapitre 5, §{num
-"sec:c5-notations-specialisees"}[]) plutôt que comme une
-structure mutable : la couche 2 ne manipule jamais le DOM directement, elle ne fait que décrire
-l'arbre qu'il devrait devenir. La réconciliation de cet arbre avec le précédent est un catamorphisme de couche 3
-(chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]). Un pli dont la mesure (la profondeur de l'arbre) décroît
-strictement à chaque étape, produisant un vecteur de correctifs sur une arène linéaire plutôt qu'une nouvelle structure
-entière. Lorsque deux branches de l'arbre partagent le même hachage BLAKE3 (la même déduplication canonique que le
-chapitre 4 (§{num "sec:c4-echelle-de-l-acteur"}[]) a établie pour l'état des acteurs), le diffing s'arrête sur cette
-branche en $`O(1)` sans la comparer nœud par nœud. L'égalité des condensats ne vaut égalité des branches que si
-celles-ci sont hachées sous une représentation canonique, et sous l'hypothèse de résistance aux collisions que le
-chapitre 4 déclare : une hypothèse cryptographique, non un théorème du langage. Le vecteur de correctifs qui en résulte
-redescend enfin en couche 1, où il est appliqué au DOM réel. La flèche de retour de la figure représente la capture d'un
-événement externe ultérieur ; elle ne signifie pas que l'application des patches produit elle-même un nouvel événement.
+d'interface. Ce flux produit un nouvel état, purement représenté comme une X-expression (chapitre 5,
+§{num "sec:c5-notations-specialisees"}[]) plutôt que comme une structure mutable : la couche 2 ne manipule jamais le DOM
+directement, elle ne fait que décrire l'arbre qu'il devrait devenir. La réconciliation de cet arbre avec le précédent
+est un catamorphisme de couche 3 (chapitre 2, §{num "sec:c2-algebres-coalgebres-et-points"}[]). Un pli dont la mesure
+(la profondeur de l'arbre) décroît strictement à chaque étape, produisant un vecteur de correctifs sur une arène
+linéaire plutôt qu'une nouvelle structure entière. Lorsque deux branches de l'arbre partagent le même hachage BLAKE3 (la
+même déduplication canonique que le chapitre 4 (§{num "sec:c4-echelle-de-l-acteur"}[]) a établie pour l'état des
+acteurs), le diffing s'arrête sur cette branche en $`O(1)` sans la comparer nœud par nœud. L'égalité des condensats ne
+vaut égalité des branches que si celles-ci sont hachées sous une représentation canonique, et sous l'hypothèse de
+résistance aux collisions que le chapitre 4 déclare : une hypothèse cryptographique, non un théorème du langage. Le
+vecteur de correctifs qui en résulte redescend enfin en couche 1, où il est appliqué au DOM réel. La flèche de retour de
+la figure représente la capture d'un événement externe ultérieur ; elle ne signifie pas que l'application des patches
+produit elle-même un nouvel événement.
 
 Cette dernière étape révèle que l'isolation entre couches n'est pas qu'une discipline de style. La couche 1 détient
 seule la `WriteCap(DOM)`, capabilité graduée au sens du chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]), et aucune
 expression de couche 2 ne peut y prétendre. La couche 2 ne contient jamais que des X-expressions, des données pures,
 jamais un pointeur vers le DOM. Une fuite de pointeur DOM vers la couche 2 est ainsi rendue non typable, pas seulement
 déconseillée. Les animations prolongent ce même cycle sans y ajouter de mécanisme : ce sont des transformations pures de
-couche 3, pilotées par un flux temporel coinductif de couche 2 dont la productivité (chapitre 2, §{num
-"sec:c2-algebres-coalgebres-et-points"}[]) garantit qu'une nouvelle image est toujours disponible en temps fini. La
-productivité ne fournit pas pour autant, à elle seule, une borne de latence par image : le respect d'un budget d'image
-exige une borne de coût distincte et une validation dédiée. Les arènes de couche 1 qui portent ce cycle sont réutilisées
-par rotation plutôt que libérées et réallouées : aucun ramasse-miettes ne vient interrompre le rythme d'affichage. Cette
-architecture est compatible avec l'objectif de P3, mais ne démontre pas à elle seule le respect d'une échéance fixe :
-celui-ci reste à établir par les bornes de coût et par une validation du scénario concret.
+couche 3, pilotées par un flux temporel coinductif de couche 2 dont la productivité (chapitre 2,
+§{num "sec:c2-algebres-coalgebres-et-points"}[]) garantit qu'une nouvelle image est toujours disponible en temps fini.
+La productivité ne fournit pas pour autant, à elle seule, une borne de latence par image : le respect d'un budget
+d'image exige une borne de coût distincte et une validation dédiée. Les arènes de couche 1 qui portent ce cycle sont
+réutilisées par rotation plutôt que libérées et réallouées : aucun ramasse-miettes ne vient interrompre le rythme
+d'affichage. Cette architecture est compatible avec l'objectif de P3, mais ne démontre pas à elle seule le respect d'une
+échéance fixe : celui-ci reste à établir par les bornes de coût et par une validation du scénario concret.

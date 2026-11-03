@@ -29,8 +29,8 @@ Elle résiste parce qu'on la pense comme un arbitrage : on choisit un point sur 
 des faiblesses de ce point. K7PL part d'une autre hypothèse : si les trois exigences s'expriment comme instances d'une
 même structure algébrique, il ne s'agit plus de choisir mais de _graduer_, dans un seul langage et sans changer de
 paradigme, le niveau de rigueur payé localement. C'est de ces trois exigences que découlent les recherches qui fondent
-le langage : la théorie des catégories, la théorie des types et la théorie des automates, exposées aux chapitres 2, 3 et
-4. La vérification formelle n'y figure pas comme une exigence de plus : elle est le moyen par lequel les propriétés
+le langage : la théorie des catégories, la théorie des types et la théorie des automates, exposées aux chapitres 2, 3
+et 4. La vérification formelle n'y figure pas comme une exigence de plus : elle est le moyen par lequel les propriétés
 annoncées s'établissent, et l'outillage qui la porte est indiqué au seuil de chaque chapitre. Chaque notion propre au
 langage est définie ici avant d'être employée ; seuls les rudiments de la théorie des catégories sont supposés connus.
 

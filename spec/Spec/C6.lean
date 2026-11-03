@@ -50,9 +50,9 @@ serait donc à transposer plutôt qu'à construire, le grade y remplaçant l'emp
 Trois pièces couvrent par ailleurs la propriété la plus difficile à mécaniser de ce document. La non-interférence
 _insensible à la terminaison_ (la variante qu'un langage total peut viser) s'établit par relations logiques, et le fonds
 en porte la version mécanisée {cite "gregersenMechanizedLogicalRelations2021"}[], ainsi que deux constructions qui la
-dérivent de la paramétricité plutôt que de la poser {cite
-"algehedSimpleNoninterferenceParametricity2019,bowmanNoninterferenceFree"}[]. Le motif invoqué par leurs auteurs est
-celui de ce document : les langages modernes ont des types riches (ordre supérieur, références, types abstraits) et
+dérivent de la paramétricité plutôt que de la poser
+{cite "algehedSimpleNoninterferenceParametricity2019,bowmanNoninterferenceFree"}[]. Le motif invoqué par leurs auteurs
+est celui de ce document : les langages modernes ont des types riches (ordre supérieur, références, types abstraits) et
 c'est cette richesse, non la propriété elle-même, qui rend la preuve à la main impraticable.
 
 Ce dispositif a une forme plus forte, nommée ici plutôt que laissée au lecteur. Un oracle de test est supposé correct

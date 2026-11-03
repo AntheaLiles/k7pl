@@ -32,8 +32,8 @@ Ce métalangage n'est pas une invention de ce document, et le dire évite un mal
 pourrait entretenir. Écrire « $`\pi`-calcul augmenté de motifs de jonction » suggère une extension, dont l'ajout
 demanderait justification ; il s'agit en réalité d'une _présentation alternative_ du même pouvoir expressif. Le calcul
 obtenu en ajoutant la réflexion à la machine chimique abstraite {cite "berryChemicalAbstractMachine1992"}[] est prouvé
-équivalent au $`\pi`-calcul, à congruence barbelée faible près, et sa métathéorie est établie {cite
-"fournetReflexiveCHAMJoincalculus1996"}[]. Ce document emprunte donc un calcul, il n'en propose pas un.
+équivalent au $`\pi`-calcul, à congruence barbelée faible près, et sa métathéorie est établie
+{cite "fournetReflexiveCHAMJoincalculus1996"}[]. Ce document emprunte donc un calcul, il n'en propose pas un.
 
 Une seconde parenté rend _vérifiable_ ce qui serait resté une ressemblance. Il existe une extension des psi-calculi par
 motifs abstraits et filtrage, munie de _sortes_ sur le langage des termes de données, qui représente directement
@@ -67,8 +67,8 @@ P, Q \;::=\;& \overline{x}\langle v\rangle.P \;\mid\; x(y).P \;\mid\; x \triangl
 où $`J ::= x_1(y_1) \,\&\, \cdots \,\&\, x_n(y_n)` est un _motif de jonction_, consommant $`n` messages d'un seul
 tenant. Les quatre premières formes sont l'émission et la réception, la sélection et l'offre de branchement ; la
 cinquième est la _coupure_, seule forme de composition, qui lie deux processus sur un canal privé de type $`S` ; la
-septième est le service répliqué ; la huitième le point fixe introduit au §{num
-"sec:c2-adjonctions-et-enrichissement"}[].
+septième est le service répliqué ; la huitième le point fixe introduit au
+§{num "sec:c2-adjonctions-et-enrichissement"}[].
 
 Chacune traduit un mécanisme déjà construit, et l'intérêt de la lecture est que cette correspondance est exhaustive : il
 n'y a rien dans la couche 2 qui n'y figure, et rien qui y figure sans emploi.
@@ -78,8 +78,8 @@ ajoutent. Le premier porte sur les _motifs de jonction_. Les règles de réactio
 des comportements en concurrence, et leur déclenchement admet en général un choix non déterministe : source que le
 chapitre 1 ne compte pas parmi les siennes. Deux politiques existent : celle du _premier motif_ rendrait l'ordre
 d'écriture des clauses sémantiquement significatif, de sorte que la mise en page déciderait quel couple de messages est
-consommé. La _partition en ensembles disjoints_ rend le choix forcé, et donc inexistant {cite
-"maAlgebraicPatternMatching2008"}[]. K7PL retient la seconde, et le coût en est nul : le compilateur vérifie déjà
+consommé. La _partition en ensembles disjoints_ rend le choix forcé, et donc inexistant
+{cite "maAlgebraicPatternMatching2008"}[]. K7PL retient la seconde, et le coût en est nul : le compilateur vérifie déjà
 statiquement l'exhaustivité des motifs, de sorte que la disjonction est une vérification du même ordre, faite au même
 endroit.
 
@@ -87,9 +87,9 @@ Le second porte sur le _point fixe_. La grammaire ci-dessus en donne un opérate
 exception à la règle que ce document applique partout ailleurs : la couche 3 interdit la récursion générale et exprime
 toute itération comme un pli sur le plus petit point fixe. Aucune raison n'est donnée à cette exception, et il n'y en a
 pas de bonne : ajouter à un lambda-calcul linéaire concurrent les types récursifs et les _catamorphismes_, en suivant la
-sémantique des algèbres initiales, y fait _naître_ les types de session récursifs au lieu de les postuler {cite
-"lindleyTalkingBananasStructural2016"}[]. Le point fixe du métalangage devrait donc être un catamorphisme, comme celui
-de la couche 3, et l'exception disparaître.
+sémantique des algèbres initiales, y fait _naître_ les types de session récursifs au lieu de les postuler
+{cite "lindleyTalkingBananasStructural2016"}[]. Le point fixe du métalangage devrait donc être un catamorphisme, comme
+celui de la couche 3, et l'exception disparaître.
 
 * Un _acteur_ est un point fixe gardé par une réception. La coalgèbre terminale du
   §{num "sec:c2-algebres-coalgebres-et-points"}[] (un état $`S`, une transition
@@ -128,13 +128,13 @@ de la couche 3, et l'exception disparaître.
   de coupures, et un arbre n'a pas de cycle.
 
 Un second principe d'architecture y trouve son fondement, et ce document le posait jusqu'ici sans appui. La _localité_
-(un acteur n'accède qu'à son propre état, aucune mémoire n'est partagée entre machines, et le modèle mémoire du §{num
-"sec:c4-echelle-du-systeme"}[] a pour portée une machine) n'est pas une discipline que K7PL s'imposerait par prudence.
-C'est l'une des deux modifications qui définissent le calcul dans lequel il se traduit : on l'obtient de la machine
-chimique générique en imposant la localité et en ajoutant la réflexion, et c'est cela qui rend le modèle _consistant
-avec la distribution_ {cite "fournetReflexiveCHAMJoincalculus1996"}[]. Ce que le chapitre 4 décrit comme un choix
-d'architecture est donc une propriété du calcul sous-jacent, et l'ordre des raisons s'en trouve inversé. La localité
-n'est pas imposée à un modèle qui pourrait s'en passer, elle est ce qui rend ce modèle distribuable.
+(un acteur n'accède qu'à son propre état, aucune mémoire n'est partagée entre machines, et le modèle mémoire du
+§{num "sec:c4-echelle-du-systeme"}[] a pour portée une machine) n'est pas une discipline que K7PL s'imposerait par
+prudence. C'est l'une des deux modifications qui définissent le calcul dans lequel il se traduit : on l'obtient de la
+machine chimique générique en imposant la localité et en ajoutant la réflexion, et c'est cela qui rend le modèle
+_consistant avec la distribution_ {cite "fournetReflexiveCHAMJoincalculus1996"}[]. Ce que le chapitre 4 décrit comme un
+choix d'architecture est donc une propriété du calcul sous-jacent, et l'ordre des raisons s'en trouve inversé. La
+localité n'est pas imposée à un modèle qui pourrait s'en passer, elle est ce qui rend ce modèle distribuable.
 
 Cette dernière remarque suggère l'énoncé que cette section doit à la lecture qu'elle propose.
 
@@ -218,33 +218,33 @@ lecture un service répliqué : le choix étant dicté par le grade, ce qui est 
 l'image du fragment cartésien.
 
 Le quatrième groupe est celui des _cas résistants_, au nombre de quatre, et ils se nomment. Les types dépendants
-pragmatiques demandent un fragment du second ordre, disponible avec sa théorie de l'équivalence {cite
-"pierceBehavioralEquivalencePolymorphic2000"}[]~; la traduction y envoie un indice sur une variable de type quantifiée,
-et la préservation demande que la quantification du métalangage soit assez riche pour porter les contraintes que le
-solveur décharge : ce que ce document n'établit pas. L'opérateur de point fixe déductif demande que le semi-treillis
-d'arrivée soit lui-même interprété, faute de quoi son image n'a pas de type~; la machine à sessions linéaires possède
-les types inductifs nécessaires {cite "cairesLinearSessionAbstract2026"}[], mais l'interprétation du treillis y reste à
-donner. Et les canaux distingués demandent que la traduction ne produise que des termes _bien sortés_, une sorte étant
-réservée aux effets et interdite au programme traduit~; c'est une propriété de la traduction elle-même, vérifiable par
-une induction parallèle sur la même dérivation, et non une hypothèse supplémentaire. Le quatrième ne résiste pas
-aujourd'hui mais résisterait _demain_, et c'est le seul dont ce document sache qu'il ne pourra pas le lever. Si la
-discipline d'échange restreint envisagée au chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]) était adoptée, une zone de
-contexte porterait un ordre~; or la composition parallèle du métalangage est _commutative_, et un ordre ne survit pas à
-une image commutative. La traduction resterait _correcte_ (l'extrusion de portée qu'elle emploie repose sur une
-propriété de grade que l'ordre ne touche pas). Mais elle cesserait de transporter l'ordre, de sorte qu'une propriété
-établie sur la zone ordonnée ne se lirait plus sur l'image. C'est une _perte_ et non un échec, et la nommer maintenant
-coûte moins que de la découvrir en adoptant la discipline : elle est l'un des prix de cette adoption, et il n'était pas
-compté.
+pragmatiques demandent un fragment du second ordre, disponible avec sa théorie de l'équivalence
+{cite "pierceBehavioralEquivalencePolymorphic2000"}[]~; la traduction y envoie un indice sur une variable de type
+quantifiée, et la préservation demande que la quantification du métalangage soit assez riche pour porter les contraintes
+que le solveur décharge : ce que ce document n'établit pas. L'opérateur de point fixe déductif demande que le
+semi-treillis d'arrivée soit lui-même interprété, faute de quoi son image n'a pas de type~; la machine à sessions
+linéaires possède les types inductifs nécessaires {cite "cairesLinearSessionAbstract2026"}[], mais l'interprétation du
+treillis y reste à donner. Et les canaux distingués demandent que la traduction ne produise que des termes _bien
+sortés_, une sorte étant réservée aux effets et interdite au programme traduit~; c'est une propriété de la traduction
+elle-même, vérifiable par une induction parallèle sur la même dérivation, et non une hypothèse supplémentaire. Le
+quatrième ne résiste pas aujourd'hui mais résisterait _demain_, et c'est le seul dont ce document sache qu'il ne pourra
+pas le lever. Si la discipline d'échange restreint envisagée au chapitre 3 (§{num "sec:c3-le-systeme-gradue"}[]) était
+adoptée, une zone de contexte porterait un ordre~; or la composition parallèle du métalangage est _commutative_, et un
+ordre ne survit pas à une image commutative. La traduction resterait _correcte_ (l'extrusion de portée qu'elle emploie
+repose sur une propriété de grade que l'ordre ne touche pas). Mais elle cesserait de transporter l'ordre, de sorte
+qu'une propriété établie sur la zone ordonnée ne se lirait plus sur l'image. C'est une _perte_ et non un échec, et la
+nommer maintenant coûte moins que de la découvrir en adoptant la discipline : elle est l'un des prix de cette adoption,
+et il n'était pas compté.
 
 Reste à dire ce qu'on fait du métalangage une fois la traduction établie, car c'est là que l'économie se réalise. On ne
 l'interprète qu'une fois. Une machine abstraite pour les sessions linéaires, dont la stratégie d'évaluation est
-séquentielle et déterministe et dont l'adéquation est prouvée dans les deux sens, en fournit l'interprétation {cite
-"cairesLinearSessionAbstract2026"}[]~; l'équivalence observationnelle du calcul, pleinement abstraite vis-à-vis de la
-congruence barbelée faible, en fournit la théorie des programmes {cite "fournetReflexiveCHAMJoincalculus1996"}[].
+séquentielle et déterministe et dont l'adéquation est prouvée dans les deux sens, en fournit l'interprétation
+{cite "cairesLinearSessionAbstract2026"}[]~; l'équivalence observationnelle du calcul, pleinement abstraite vis-à-vis de
+la congruence barbelée faible, en fournit la théorie des programmes {cite "fournetReflexiveCHAMJoincalculus1996"}[].
 Correction et adéquation se raisonnent donc à ce niveau, une fois pour toutes, et non construction par construction de
 K7PL. C'est ce que signifiait, au chapitre 6 (§{num "sec:c6-strategies-de-verification-et"}[]), l'affirmation que la
-dette de fidélité est plus étroite qu'elle n'y paraissait~: elle se réduit à la préservation du typage par $`\llbracket
-\cdot \rrbracket`, dont le plan qui précède donne l'induction sans la mener à son terme.
+dette de fidélité est plus étroite qu'elle n'y paraissait~: elle se réduit à la préservation du typage par
+$`\llbracket \cdot \rrbracket`, dont le plan qui précède donne l'induction sans la mener à son terme.
 
 Trois conséquences se lisent sur cette traduction, et c'est en cela qu'elle vaut mieux qu'une reformulation.
 
@@ -265,16 +265,16 @@ coalgèbres.
 
 Une restriction doit toutefois y être ajoutée à la main, et c'est la seule des trois conséquences qui en demande une.
 Cet argument _remonte_ de la cible vers la source, quand les deux autres en descendent. Or la topologie de coupures ne
-porte pas les disciplines que la cible ne connaît pas : l'ordre d'une zone d'échange (chapitre 3, §{num
-"sec:c3-le-systeme-gradue"}[]) en est une. Le foncteur ainsi obtenu _admet donc des transitions que la source interdit_
-: c'est une sur-approximation, dont la coalgèbre de l'orchestrateur est une sous-coalgèbre. Cela suffit à établir que le
-foncteur existe et quelle forme il a ; cela ne suffirait pas à en tirer une propriété de sûreté, une sur-approximation
-ne démontrant jamais une sûreté.
+porte pas les disciplines que la cible ne connaît pas : l'ordre d'une zone d'échange (chapitre 3,
+§{num "sec:c3-le-systeme-gradue"}[]) en est une. Le foncteur ainsi obtenu _admet donc des transitions que la source
+interdit_ : c'est une sur-approximation, dont la coalgèbre de l'orchestrateur est une sous-coalgèbre. Cela suffit à
+établir que le foncteur existe et quelle forme il a ; cela ne suffirait pas à en tirer une propriété de sûreté, une
+sur-approximation ne démontrant jamais une sûreté.
 
-La troisième concerne la _fidélité de l'interpréteur_ de référence (chapitre 6, §{num
-"sec:c6-strategies-de-verification-et"}[]). L'interpréteur est fidèle si ses transitions sont celles du métalangage.
-Comme celui-ci est interprété une fois pour toutes, correction et adéquation se raisonnent à son niveau et non sur
-chaque construction de K7PL. Cette remarque se laisse porter jusqu'à un énoncé, qui dit ce qu'un interpréteur de
+La troisième concerne la _fidélité de l'interpréteur_ de référence (chapitre 6,
+§{num "sec:c6-strategies-de-verification-et"}[]). L'interpréteur est fidèle si ses transitions sont celles du
+métalangage. Comme celui-ci est interprété une fois pour toutes, correction et adéquation se raisonnent à son niveau et
+non sur chaque construction de K7PL. Cette remarque se laisse porter jusqu'à un énoncé, qui dit ce qu'un interpréteur de
 référence garantit et ce qu'il ne garantit pas.
 
 ::::theorem (label := "thm:simulation") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
@@ -334,32 +334,31 @@ Clauses de traduction avec le canal de temps enfilé : chaque événement consom
 :::
 ::::
 
-Le canal étant linéaire, $`t''` n'existe qu'une fois que $`c_1` a émis son dernier événement ; le
-`let` ordonne donc les traces de $`c_1` et de $`c_2` sans que la composition parallèle, commutative, y
-intervienne. Pour $`\mathbf{tick}`, un pas du métalangage (la réception de l'émission sur $`t`) étend la trace de
-$`\langle \mathbf{1}, \delta_\ell \rangle` et rend $`t'`, ce qui est le cas $`\mathbf{tick}` de la simulation. Ces
-clauses sont celles du cas mononiveau : la version par niveau, et ce qu'elle exige du système de sortes (un genre de
-plus pour les maillons), est au §{num "sec:g-sortes-fil"}[] (formule {num "eq:traduction-fils"}[], proposition {num
-"thm:chaine_fils"}[]).
+Le canal étant linéaire, $`t''` n'existe qu'une fois que $`c_1` a émis son dernier événement ; le `let` ordonne donc les
+traces de $`c_1` et de $`c_2` sans que la composition parallèle, commutative, y intervienne. Pour $`\mathbf{tick}`, un
+pas du métalangage (la réception de l'émission sur $`t`) étend la trace de $`\langle \mathbf{1}, \delta_\ell \rangle` et
+rend $`t'`, ce qui est le cas $`\mathbf{tick}` de la simulation. Ces clauses sont celles du cas mononiveau : la version
+par niveau, et ce qu'elle exige du système de sortes (un genre de plus pour les maillons), est au
+§{num "sec:g-sortes-fil"}[] (formule {num "eq:traduction-fils"}[], proposition {num "thm:chaine_fils"}[]).
 
 Un calcul qui n'émet rien doit rendre le canal de temps tel qu'il l'a reçu, et les trois clauses ci-dessus ne le disent
 pas : sans clause pour $`\mathsf{return}\;v`, un `let` dont la première branche est pure laisserait $`t''` sans lien
-avec le journal. Cette clause est $`\llbracket \mathsf{return}\;v \rrbracket_{z,t,t'} = \overline{z}\langle \llbracket v
-\rrbracket \rangle \mid [t \leftrightarrow t']`, où $`[t \leftrightarrow t']` est le transfert de la logique linéaire,
-l'identité de la cible, que la grammaire du métalangage ne listait pas ; il disparaît par sa propre réduction, et les
-éliminations pures traduisent leur sujet puis passent $`t` et $`t'` à leur corps inchangés. Le domaine de la simulation
-est celui de la relation : $`\to` a des schémas pour les formes des blocs ({num "eq:reductions-pures"}[]), ({num
-"eq:reductions-pures-suite"}[]), ({num "eq:reductions-effets"}[]) et ({num "eq:reductions-couche2"}[]), auxquels
-s'ajoutent ceux de la formule ({num "eq:reductions-orientees"}[]) et ({num "eq:reductions-modalites"}[]), proposés ;
-tous les constructeurs de la grammaire des termes ont un schéma (table {num "tab:couverture-reductions"}[]), mais la
-traduction n'a de clause que pour une partie d'entre eux, et la proposition ne porte que sur celle-là. La traduction
-n'écrit de clause que pour $`\mathsf{return}`, $`\mathsf{let}`, $`\mathbf{tick}` et $`\mathsf{operation}` ; le point
-fixe a son image (théorème {num "thm:image_fix"}[]), mais le copatron, la récupération, la mise en parallèle, la découpe
-et les cinq constructeurs de couche 2 n'ont pas de clause, et leur simulation n'est pas acquise. On ignore même si
-chaque pas source y est suivi d'un pas cible au moins : engendrer une fibrille, créer une boîte ou rendre le résultat
-d'un corps qui a réussi ne communiquent pas, et l'énoncé pourrait y devoir s'entendre $`\to^{*}`. L'induction sur les
-schémas à clause reste à conduire ; elle ne demande plus que la commutation du théorème {num
-"thm:commutation_traduction"}[].
+avec le journal. Cette clause est
+$`\llbracket \mathsf{return}\;v \rrbracket_{z,t,t'} = \overline{z}\langle \llbracket v \rrbracket \rangle \mid [t \leftrightarrow t']`,
+où $`[t \leftrightarrow t']` est le transfert de la logique linéaire, l'identité de la cible, que la grammaire du
+métalangage ne listait pas ; il disparaît par sa propre réduction, et les éliminations pures traduisent leur sujet puis
+passent $`t` et $`t'` à leur corps inchangés. Le domaine de la simulation est celui de la relation : $`\to` a des
+schémas pour les formes des blocs ({num "eq:reductions-pures"}[]), ({num "eq:reductions-pures-suite"}[]),
+({num "eq:reductions-effets"}[]) et ({num "eq:reductions-couche2"}[]), auxquels s'ajoutent ceux de la formule
+({num "eq:reductions-orientees"}[]) et ({num "eq:reductions-modalites"}[]), proposés ; tous les constructeurs de la
+grammaire des termes ont un schéma (table {num "tab:couverture-reductions"}[]), mais la traduction n'a de clause que
+pour une partie d'entre eux, et la proposition ne porte que sur celle-là. La traduction n'écrit de clause que pour
+$`\mathsf{return}`, $`\mathsf{let}`, $`\mathbf{tick}` et $`\mathsf{operation}` ; le point fixe a son image (théorème
+{num "thm:image_fix"}[]), mais le copatron, la récupération, la mise en parallèle, la découpe et les cinq constructeurs
+de couche 2 n'ont pas de clause, et leur simulation n'est pas acquise. On ignore même si chaque pas source y est suivi
+d'un pas cible au moins : engendrer une fibrille, créer une boîte ou rendre le résultat d'un corps qui a réussi ne
+communiquent pas, et l'énoncé pourrait y devoir s'entendre $`\to^{*}`. L'induction sur les schémas à clause reste à
+conduire ; elle ne demande plus que la commutation du théorème {num "thm:commutation_traduction"}[].
 
 ::::theorem (label := "thm:fidelite_interprete") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "translation")
 :::title
@@ -369,14 +368,14 @@ fidélité de l'interpréteur de référence
 :::statement +titled
 Une réduction, et son périmètre exact
 
-Supposons la traduction $`\llbracket \cdot \rrbracket` préservant le typage (théorème {num
-"thm:traduction_metalangage"}[]) et l'interprétation du métalangage adéquate vis-à-vis de son équivalence
-observationnelle, et _sous l'hypothèse Sim_ d'un théorème de simulation reliant la relation $`\to` du §{num
-"sec:g-semantique"}[] à la réduction du métalangage : $`\langle c \mid \mu \mid \tau \rangle \to \langle c' \mid \mu'
-\mid \tau' \rangle` entraîne $`\llbracket c \rrbracket \to^{+} \llbracket c' \rrbracket` modulo $`\equiv`, la trace
-s'étendant en conséquence. Alors tout est fidèle à la sémantique de K7PL sur la structure de communication, sur le
-contrôle _et sur les effets_. Il ne l'est pas sur les grades ni sur les raffinements, que la traduction oublie par
-construction.
+Supposons la traduction $`\llbracket \cdot \rrbracket` préservant le typage (théorème
+{num "thm:traduction_metalangage"}[]) et l'interprétation du métalangage adéquate vis-à-vis de son équivalence
+observationnelle, et _sous l'hypothèse Sim_ d'un théorème de simulation reliant la relation $`\to` du
+§{num "sec:g-semantique"}[] à la réduction du métalangage :
+$`\langle c \mid \mu \mid \tau \rangle \to \langle c' \mid \mu' \mid \tau' \rangle` entraîne
+$`\llbracket c \rrbracket \to^{+} \llbracket c' \rrbracket` modulo $`\equiv`, la trace s'étendant en conséquence. Alors
+tout est fidèle à la sémantique de K7PL sur la structure de communication, sur le contrôle _et sur les effets_. Il ne
+l'est pas sur les grades ni sur les raffinements, que la traduction oublie par construction.
 :::
 
 :::proofsketch
@@ -388,13 +387,13 @@ théorème, qui reste à établir (c'est une induction sur la même dérivation 
 prouvée ici : l'énoncé est conditionnel, et l'engagement « fidélité de l'interpréteur » reste ouvert tant qu'elle ne
 l'est pas.
 
-La fidélité se factorise, et c'est tout l'argument. Elle est une instance du schéma d'effacement (chapitre 2, §{num
-"sec:c2-six-schemas-de-metatheorie"}[], théorème {num "thm:schema_effacement"}[]) : la traduction étant définie par
-récurrence et hygiénique, elle induit un morphisme de systèmes de raffinement, et il n'y a donc pas une propriété à
+La fidélité se factorise, et c'est tout l'argument. Elle est une instance du schéma d'effacement (chapitre 2,
+§{num "sec:c2-six-schemas-de-metatheorie"}[], théorème {num "thm:schema_effacement"}[]) : la traduction étant définie
+par récurrence et hygiénique, elle induit un morphisme de systèmes de raffinement, et il n'y a donc pas une propriété à
 établir construction par construction mais trois conditions à vérifier sur une transformation. Un interpréteur de
-référence n'interprète pas K7PL : il interprète le métalangage. Le chemin d'un programme à son observation passe donc
+référence n'interprète pas K7PL : il interprète le métalangage. Le chemin d'un programme à son observation passe donc
 par $`\llbracket \cdot \rrbracket` puis par l'interprétation du métalangage. Si la première préserve le typage, un
-programme bien typé donne un terme bien typé ; si la seconde est adéquate, le comportement observable de ce terme
+programme bien typé donne un terme bien typé ; si la seconde est adéquate, le comportement observable de ce terme
 s'accorde à sa dénotation. La composée l'est donc aussi, et aucune construction de K7PL n'a besoin d'être traitée
 séparément.
 

@@ -25,24 +25,24 @@ Le verrou n'est pas le choix entre performance, sûreté et vérification : c'es
 pôles a ses langages et chacun paie ailleurs ce qu'il obtient. Confier au développeur la mémoire et la concurrence
 achète la vitesse contre des fuites et des courses qu'aucune analyse du langage ne prévient. La discipline de propriété
 et d'emprunt achète la sûreté contre de l'expressivité et de l'apprentissage ; sa synthèse formelle a été conduite sur
-Cyclone, C++11, Rust et les types linéaires de Linear Lisp, Clean et Alms {cite
-"munch-maccagnoniResourcePolymorphism2018"}[]. Les systèmes de modes qui l'assouplissent, en séparant affinité, unicité
-et localité, montrent que ce coût est réductible mais non nul {cite "lorenzenOxidizingOCamlModal2024"}[]. La dépendance
-complète, enfin, prouve des propriétés arbitraires contre une charge d'annotation que ses propres auteurs situent.
-Combiner suivi d'usage et dépendance impose la discipline du contexte annulé {cite
-"atkeySyntaxSemanticsQuantitative2018"}[], et les systèmes gradués dépendants portent un vecteur de grades de contexte à
-côté de celui du sujet {cite "moonGradedModalDependent2021"}[]. Aucun ne gradue une liaison sur les quatre composantes à
-la fois.
+Cyclone, C++11, Rust et les types linéaires de Linear Lisp, Clean et Alms
+{cite "munch-maccagnoniResourcePolymorphism2018"}[]. Les systèmes de modes qui l'assouplissent, en séparant affinité,
+unicité et localité, montrent que ce coût est réductible mais non nul {cite "lorenzenOxidizingOCamlModal2024"}[]. La
+dépendance complète, enfin, prouve des propriétés arbitraires contre une charge d'annotation que ses propres auteurs
+situent. Combiner suivi d'usage et dépendance impose la discipline du contexte annulé
+{cite "atkeySyntaxSemanticsQuantitative2018"}[], et les systèmes gradués dépendants portent un vecteur de grades de
+contexte à côté de celui du sujet {cite "moonGradedModalDependent2021"}[]. Aucun ne gradue une liaison sur les quatre
+composantes à la fois.
 
 K7PL répond par quatre postulats immuables, qui définissent le périmètre du langage ; toute construction qui les
 enfreindrait en serait par définition exclue. Ils ne sont pas dérivés d'un principe plus général : ils sont posés, et
 l'on aurait pu en poser d'autres. La confidentialité en est le cas le plus net : il montre à quelle condition un
 postulat absent se rattrape sans en ajouter un. Elle et l'effacement relèvent d'une même analyse de dépendance, sous un
-treillis générique de niveaux {cite "choudhuryDependentDependencyCalculus2022"}[], {cite
-"liuConsistencyDependentCalculus2025"}[]. Le chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]) énonce que
-graduer une liaison sur une structure ordonnée est un procédé unique, dont la monotonie et la confidentialité sont deux
-instances. Celle-ci n'ajoute donc rien à l'appareil : elle emploie ce qui est déjà là, c'est la
-forme que la clôture énoncée ci-après réclame d'une extension.
+treillis générique de niveaux {cite "choudhuryDependentDependencyCalculus2022"}[],
+{cite "liuConsistencyDependentCalculus2025"}[]. Le chapitre 2 (§{num "sec:c2-adjonctions-et-enrichissement"}[]) énonce
+que graduer une liaison sur une structure ordonnée est un procédé unique, dont la monotonie et la confidentialité sont
+deux instances. Celle-ci n'ajoute donc rien à l'appareil : elle emploie ce qui est déjà là, c'est la forme que la
+clôture énoncée ci-après réclame d'une extension.
 
 : P1
 
@@ -210,20 +210,20 @@ la trouver.
 Reste à dire quel _statut_ donner aux échappatoires que cette borne inférieure exige. Elles sont traitées ici comme des
 exceptions à la garantie de confidentialité, ce qui laisse ouverte la question de savoir si leur ensemble est clos :
 question qu'une liste ne peut pas trancher. Le procédé retenu par la déclassification sémantique relâchée est meilleur :
-il n'assouplit pas la modalité de classification, il en _ajoute une seconde_, dédiée {cite
-"rajaniGradedModalRelaxed2025"}[]. Transposé ici, cela signifie que la composante de niveau du grade est la modalité de
-classification, et que les échappatoires nommées relèvent d'une modalité distincte plutôt que d'une exception à la
-première. Le bénéfice est direct : l'ensemble des échappatoires devient énonçable comme un _type_ et non comme une
-liste, et la question de sa clôture cesse d'être ouverte pour devenir une propriété de ce type.
+il n'assouplit pas la modalité de classification, il en _ajoute une seconde_, dédiée
+{cite "rajaniGradedModalRelaxed2025"}[]. Transposé ici, cela signifie que la composante de niveau du grade est la
+modalité de classification, et que les échappatoires nommées relèvent d'une modalité distincte plutôt que d'une
+exception à la première. Le bénéfice est direct : l'ensemble des échappatoires devient énonçable comme un _type_ et non
+comme une liste, et la question de sa clôture cesse d'être ouverte pour devenir une propriété de ce type.
 
 La borne inférieure qui manque s'énonce d'ailleurs simplement, et son énoncé désigne du même coup la réalisation la plus
 naturelle. Pour chaque niveau $`\ell`, la projection du journal sur ce niveau doit suffire à rejouer le comportement que
 l'observateur de niveau $`\ell` observe. Cette formulation porte les deux bornes d'un seul tenant. Elle est une borne
 inférieure, puisqu'elle exige que le journal contienne assez pour ce rejeu-là ; et une borne supérieure, puisqu'un
 observateur qui ne dispose que de la projection ne peut rien apprendre au-dessus de $`\ell`. P4 devient ainsi une
-famille d'exigences indexée par les niveaux, comme la non-interférence en est une (chapitre 2, §{num
-"sec:c2-le-systeme-de-raffinement"}[]), et le rejeu intégral en est le cas où l'observateur atteint le niveau le plus
-haut. La réalisation qu'elle appelle est le journal stratifié : non parce qu'il serait le moins coûteux, mais parce
+famille d'exigences indexée par les niveaux, comme la non-interférence en est une (chapitre 2,
+§{num "sec:c2-le-systeme-de-raffinement"}[]), et le rejeu intégral en est le cas où l'observateur atteint le niveau le
+plus haut. La réalisation qu'elle appelle est le journal stratifié : non parce qu'il serait le moins coûteux, mais parce
 qu'il est celui dont la structure est déjà celle de la spécification. Rejouer un acteur revient ainsi à substituer, dans
 l'ordre, les valeurs journalisées aux appels non déterministes d'origine : mécanisme détaillé au chapitre 4, dont
 l'isomorphisme mémoire avec le format de journalisation est assuré à la compilation (chapitre 6).
@@ -285,14 +285,14 @@ physiques plutôt que comme simple produit de types.
 Cette disjonction fonde à elle seule deux des quatre postulats précédents. Dans le fragment linéaire (celui où aucune
 règle de contraction n'est admise (chapitre 2, §{num "sec:c2-la-comonade-exponentielle-et"}[])), il n'existe aucun
 morphisme de duplication $`A \to A \otimes A`, la diagonale catégorique. Aucune valeur ne peut donc apparaître dupliquée
-dans un terme sans passer par un mécanisme de partage explicite, les grades fractionnaires du chapitre 3 (§{num
-"sec:c3-le-systeme-gradue"}[]). Deux références actives ne peuvent en particulier jamais désigner la même région
+dans un terme sans passer par un mécanisme de partage explicite, les grades fractionnaires du chapitre 3
+(§{num "sec:c3-le-systeme-gradue"}[]). Deux références actives ne peuvent en particulier jamais désigner la même région
 physique sans que cette coïncidence soit elle-même typée.
 
 C'est l'absence de _data race_ exigée par P4, et la garantie de sûreté mémoire exigée par P3. Ni l'une ni l'autre n'est
 une propriété vérifiée après coup sur le langage : toutes deux se déduisent de deux faits, et non d'un seul : l'absence
 de diagonale dans _C_, qui interdit de _dupliquer_ une capacité, et l'unicité de son introduction, qui interdit d'en
-_créer deux_ pour la même région. Le théorème qui les porte est énoncé au chapitre 4 (§{num
-"sec:c4-modeles-de-memoire"}[]), là où les fibrilles et les arènes existent. Deux fibrilles exécutées en parallèle sous
-des contextes disjoints ne peuvent détenir la même capacité d'écriture, et aucune opération mutante concurrente n'est
-donc typable. Ce chapitre en retient l'obligation, non la preuve.
+_créer deux_ pour la même région. Le théorème qui les porte est énoncé au chapitre 4
+(§{num "sec:c4-modeles-de-memoire"}[]), là où les fibrilles et les arènes existent. Deux fibrilles exécutées en
+parallèle sous des contextes disjoints ne peuvent détenir la même capacité d'écriture, et aucune opération mutante
+concurrente n'est donc typable. Ce chapitre en retient l'obligation, non la preuve.

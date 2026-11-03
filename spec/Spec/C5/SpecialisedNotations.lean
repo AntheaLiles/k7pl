@@ -29,8 +29,8 @@ opération de la bibliothèque standard y porte un glyphe Unicode concis et un a
 niveau de l'AST. `⌊` et `min`, `⊏` et `select` dénotent une seule et même macro : l'éditeur peut afficher l'un ou
 l'autre sans toucher au programme sous-jacent, dont les fichiers gardent l'alias. Les arités étant typées, un glyphe
 employé sous deux arités porte un alias pour chacune : `≠` seul est `length`, `≠` entre deux arguments est `neq`. Un
-service d'édition qui calcule sa réponse depuis les types plutôt que depuis le texte a son précédent opérationnel {cite
-"bourMerlinLanguageServer"}[].
+service d'édition qui calcule sa réponse depuis les types plutôt que depuis le texte a son précédent opérationnel
+{cite "bourMerlinLanguageServer"}[].
 
 Cette dualité suit la règle de Stroustrup : la concision au glyphe pour qui la pratique, l'explicite à l'alias pour qui
 découvre. La formule suppose sans le dire que le choix appartient au _lecteur_, et cela se dit, car cela commande ce que
@@ -40,37 +40,38 @@ La même source signale que la difficulté technique n'est pas la sélection de 
 blocs imbriqués (remarque qui vise une syntaxe à expressions symboliques plus que toute autre, et qui est donc à porter
 au compte de ce chapitre plutôt qu'à celui d'un outillage futur).
 
-Les trains composent ces primitifs sans nommer leurs arguments, selon l'arité de leurs mots (§{num
-"sec:c5-s-expressions-universelles"}[]), en notation préfixe : un train $`(f\;g)` de deux mots monadiques dénote
-$`\lambda x.\, f(g(x))`, un train $`(g\;h)` dont $`g` est dyadique et $`h` monadique dénote $`\lambda x.\, x\; g\;
-(h\,x)`, l'argument du train donnant à $`g` son argument gauche, tandis que les modifieurs `´` (pli), `¨` (chacun), `↢`
-(liaison gauche) transforment une fonction en une autre. Le train est lui-même l'écriture concaténative de la couche 3 :
-à arité fixe, il s'exécute de droite à gauche sur la pile (§{num "sec:c5-s-expressions-universelles"}[]).
+Les trains composent ces primitifs sans nommer leurs arguments, selon l'arité de leurs mots
+(§{num "sec:c5-s-expressions-universelles"}[]), en notation préfixe : un train $`(f\;g)` de deux mots monadiques dénote
+$`\lambda x.\, f(g(x))`, un train $`(g\;h)` dont $`g` est dyadique et $`h` monadique dénote
+$`\lambda x.\, x\; g\; (h\,x)`, l'argument du train donnant à $`g` son argument gauche, tandis que les modifieurs `´`
+(pli), `¨` (chacun), `↢` (liaison gauche) transforment une fonction en une autre. Le train est lui-même l'écriture
+concaténative de la couche 3 : à arité fixe, il s'exécute de droite à gauche sur la pile
+(§{num "sec:c5-s-expressions-universelles"}[]).
 
 Le nombre d'opérations qu'une telle bibliothèque peut porter est la seule grandeur non bornée de tout le nommage de ce
 langage, et il se dit tout de suite qu'aucun seuil ne se cite. La littérature ne rend pas de nombre au-delà duquel le
 coût de vocabulaire dominerait. Ni la revue de la lisibilité, ni celle des messages d'erreur, ni les deux rétrospectives
 de langages dont le vocabulaire a crû sur un demi-siècle. Celle d'APL, écrite en deux temps à quarante-deux ans
-d'intervalle, et celle du C++, qui sont des témoignages de concepteurs et vont d'ailleurs en sens contraire {cite
-"falkoffEvolutionAPL1978,huiAPL19782020,stroustrupThrivingCrowdedChanging2020"}[]. Le budget de la bibliothèque est donc
-une décision de conception, à assumer comme telle, et non un seuil emprunté. Ce qui existe à la place n'est pas un
-plafond mais un prix unitaire : la carte de justesse par jeton estime la justesse d'un novice _jeton par jeton_, et dit
-lesquels coûtent plutôt que combien sont de trop {cite "stefikEmpiricalInvestigationProgramming2013"}[]. C'est
+d'intervalle, et celle du C++, qui sont des témoignages de concepteurs et vont d'ailleurs en sens contraire
+{cite "falkoffEvolutionAPL1978,huiAPL19782020,stroustrupThrivingCrowdedChanging2020"}[]. Le budget de la bibliothèque
+est donc une décision de conception, à assumer comme telle, et non un seuil emprunté. Ce qui existe à la place n'est pas
+un plafond mais un prix unitaire : la carte de justesse par jeton estime la justesse d'un novice _jeton par jeton_, et
+dit lesquels coûtent plutôt que combien sont de trop {cite "stefikEmpiricalInvestigationProgramming2013"}[]. C'est
 l'instrument à employer si ce budget doit un jour se défendre par la mesure.
 
 Un dernier bénéfice de la forme choisie ne passe pas par la lisibilité : elle rend le code _retrouvable_. Les outils de
 recherche syntaxique exploitent la structure d'arbre du code et sont à ce titre plus expressifs que la recherche par
 chaîne ou par expression régulière. Leur limite est que la requête doive être un fragment complet et analysable, ce qui
 rend inutile toute requête en cours de frappe, et le travail qui lève cette limite le fait en ne demandant qu'un
-découpage en jetons, avec des jokers conscients de l'arbre construits sur des _automates d'arbres_ {cite
-"matuteSyntacticCodeSearch2024"}[]. Une syntaxe à expressions symboliques y est structurellement favorable : tout
+découpage en jetons, avec des jokers conscients de l'arbre construits sur des _automates d'arbres_
+{cite "matuteSyntacticCodeSearch2024"}[]. Une syntaxe à expressions symboliques y est structurellement favorable : tout
 fragment y est déjà un arbre, et le jeton de tête suffit à désigner la forme cherchée. Le mécanisme invoqué est celui-là
 même dont le chapitre 4 fait sa théorie, de sorte que le langage porte déjà les moyens de son propre outil de recherche.
 
 Les R-expressions et les X-expressions (dont le chapitre 4 (§{num "sec:c4-echelle-locale"}[]) a déjà donné la sémantique
 d'exécution pour les premières) sont des types de données intégrés au langage, avec une syntaxe qui leur est propre
-plutôt qu'une bibliothèque que l'utilisateur pourrait redéfinir. Cette syntaxe bénie a un prix, nommé au §{num
-"sec:c5-s-expressions-universelles"}[] ; son bénéfice immédiat est de permettre au compilateur des optimisations
+plutôt qu'une bibliothèque que l'utilisateur pourrait redéfinir. Cette syntaxe bénie a un prix, nommé au
+§{num "sec:c5-s-expressions-universelles"}[] ; son bénéfice immédiat est de permettre au compilateur des optimisations
 qu'aucune construction générique ne rendrait possibles : la fusion d'un motif R-expression et d'un flux X-expression en
 un seul automate `K7PL.FSM`, sans conversion intermédiaire en chaîne de caractères. Une X-expression s'écrit
 `(tag-symbole [attributs] enfants...)` ; ses attributs occupent un espace de pile linéaire de couche 3, si bien qu'un
@@ -104,14 +105,14 @@ propre aux opérations d'ordre supérieur permettrait de traiter séparément ce
 
 Reste à dire de quel type est cet AST, faute de quoi l'hygiène resterait une discipline d'implémentation plutôt qu'une
 propriété. L'AST de K7PL est l'algèbre initiale d'une signature à opérateurs liants, intrinsèquement indexée par la
-portée : soit une instance directe du $`\mu F` construit au chapitre 2 (§{num
-"sec:c2-algebres-coalgebres-et-points"}[]), et non un mécanisme supplémentaire. Cette formulation n'est pas un
+portée : soit une instance directe du $`\mu F` construit au chapitre 2
+(§{num "sec:c2-algebres-coalgebres-et-points"}[]), et non un mécanisme supplémentaire. Cette formulation n'est pas un
 raffinement théorique : c'est elle qui rend génériques, une fois pour toutes et preuves comprises, les parcours que le
-compilateur répète autrement pour chaque opération : renommage, substitution, désucrage, impression {cite
-"allaisTypeScopeSafe2018"}[]. Elle fournit en outre au système de macros l'objet formel qu'il manipule sans le nommer :
-la métavariable, et l'opération de métasubstitution qui l'accompagne, dont découle un raisonnement équationnel du second
-ordre sur les expansions. Le lemme de substitution s'y obtient par construction plutôt que par preuve séparée {cite
-"fioreFormalMetatheorySecondorder2022"}[].
+compilateur répète autrement pour chaque opération : renommage, substitution, désucrage, impression
+{cite "allaisTypeScopeSafe2018"}[]. Elle fournit en outre au système de macros l'objet formel qu'il manipule sans le
+nommer : la métavariable, et l'opération de métasubstitution qui l'accompagne, dont découle un raisonnement équationnel
+du second ordre sur les expansions. Le lemme de substitution s'y obtient par construction plutôt que par preuve séparée
+{cite "fioreFormalMetatheorySecondorder2022"}[].
 
 Une seconde propriété suit de la même construction, et elle décide de ce que le compilateur peut faire plutôt que de ce
 que le programmeur peut écrire.
@@ -151,24 +152,25 @@ portée et la paramétricité de niveau méta à des règles formelles plutôt q
 Ce théorème porte sur la staticité de la syntaxe ; il ne fixe pas, à lui seul, la politique d'effets du macro-système.
 Un confinement de la Phase 0 peut limiter les capacités des macros et contribuer à la sûreté, mais ce mécanisme reste
 une option de réalisation à spécifier, non une conséquence du théorème. La comparaison avec APL reste pertinente : la
-syntaxe d'une instruction après exécution peut différer de sa forme antérieure {cite
-"saalConsiderationsDesignCompiler1978"}[]. Pour K7PL, la staticité revendiquée doit découler de la relation formelle
-entre syntaxe, expansion et élaboration, non d'un mécanisme de confinement non spécifié.
+syntaxe d'une instruction après exécution peut différer de sa forme antérieure
+{cite "saalConsiderationsDesignCompiler1978"}[]. Pour K7PL, la staticité revendiquée doit découler de la relation
+formelle entre syntaxe, expansion et élaboration, non d'un mécanisme de confinement non spécifié.
 
 Une condition supplémentaire doit être nommée, car elle est distincte du confinement. Qu'une valeur soit close à la
 compilation ne suffit pas à rendre libre le produit engendré par le métaniveau. Cela demande la _générativité_, qui
 internalise le fait qu'un métaprogramme ne peut pas inspecter la structure des termes du niveau objet. C'est de cette
-propriété, non de la clôture, que se tire la fermeture de l'univers des sommes de produits par la somme dépendante {cite
-"kovacsClosurefreeFunctionalProgramming2024"}[]. La paramétricité du métaniveau en l'objet doit donc être établie dans
-le modèle formel ; elle ne peut être attribuée au confinement tant que celui-ci n'est pas une exigence de réalisation.
+propriété, non de la clôture, que se tire la fermeture de l'univers des sommes de produits par la somme dépendante
+{cite "kovacsClosurefreeFunctionalProgramming2024"}[]. La paramétricité du métaniveau en l'objet doit donc être établie
+dans le modèle formel ; elle ne peut être attribuée au confinement tant que celui-ci n'est pas une exigence de
+réalisation.
 
 L'hygiène des macros cesse alors d'être un dispositif pour devenir un théorème : une macro bien typée reçoit un AST
 indexé par une portée et ne peut produire d'occurrence hors de cet index, de sorte qu'une capture accidentelle n'est pas
-évitée mais inexprimable. C'est la garantie par inexpressibilité du chapitre 1 (§{num
-"sec:c1-axiomatique-germinale"}[]), appliquée ici à la capture de nom. La seconde occurrence est ailleurs et de même
-forme : un terme qui franchit une frontière de couche n'est pas rejeté par une règle ; aucune dérivation ne le produit,
-faute de la ressource que le jugement ambiant ne porte pas. Ce que ces deux cas ajoutent au critère du chapitre 1 est le
-lieu où la structure porte l'interdit : l'index d'un préfaisceau ici, la ressource d'un contexte là.
+évitée mais inexprimable. C'est la garantie par inexpressibilité du chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]), appliquée ici à la capture de nom. La seconde occurrence est ailleurs et de
+même forme : un terme qui franchit une frontière de couche n'est pas rejeté par une règle ; aucune dérivation ne le
+produit, faute de la ressource que le jugement ambiant ne porte pas. Ce que ces deux cas ajoutent au critère du chapitre
+1 est le lieu où la structure porte l'interdit : l'index d'un préfaisceau ici, la ressource d'un contexte là.
 
 Et le revers s'en écrit, qui se paie exactement où le gain se prend. Un cas inexprimable ne dispose pas d'un diagnostic
 dédié : aucune règle spécifique n'en signale la cause ; le lecteur reçoit un échec de dérivation là où une règle de
@@ -286,9 +288,9 @@ soi {cite "pombrioHygienicResugaringCompositional"}[].
 Une inquiétude s'écarte en revanche, et elle porterait sur la fondation plutôt que sur la surface. Manipuler des noms
 frais (ce que fait toute construction qui choisit un nom) pourrait sembler exiger une forme d'axiome du choix. Il n'en
 est rien : dans les ensembles nominaux, tout élément a un support fini et l'ensemble des noms est infini, de sorte qu'un
-nom frais existe toujours, et c'est le quantificateur de fraîcheur qui dispense du choix {cite
-"pittsNominalSetsNames2013"}[]. Le coût de la fraîcheur est donc nul du côté de la fondation, et entier du côté de la
-mécanisation : ce que le chapitre 6 discute.
+nom frais existe toujours, et c'est le quantificateur de fraîcheur qui dispense du choix
+{cite "pittsNominalSetsNames2013"}[]. Le coût de la fraîcheur est donc nul du côté de la fondation, et entier du côté de
+la mécanisation : ce que le chapitre 6 discute.
 
 S'il tient, le macro-système hérite de l'hygiène sans avoir à la faire respecter, et une bibliothèque tierce ne peut pas
 capturer un nom du programme qui l'appelle. S'il tombe, un mécanisme de renommage se réintroduit à l'expansion,

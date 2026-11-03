@@ -34,8 +34,8 @@ domaine qui semblait lui être étranger.
 Cette section décrit le modèle abstrait du système et les obligations qui en découlent. Les détails de runtime, de
 synchronisation, de persistance et de placement mémoire sont des choix de réalisation sauf lorsqu'une exigence est
 explicitement posée ; ils ne fixent pas, à eux seuls, une architecture. Cette réserve ne retire ni les contraintes de
-représentation explicitement normatives (notamment ECS/SoA/PIA, l'alignement et le placement NUMA définis dans §{num
-"sec:c4-echelle-de-l-acteur"}[] ) ni les invariants des couches. La couche 3 reste cartésienne et pure
+représentation explicitement normatives (notamment ECS/SoA/PIA, l'alignement et le placement NUMA définis dans
+§{num "sec:c4-echelle-de-l-acteur"}[] ) ni les invariants des couches. La couche 3 reste cartésienne et pure
 ($`\mathcal{E}=\emptyset`), ses calculs valides terminent selon les schémas récursifs admis et leur coût de pile est
 statiquement gradué. La couche 2 exige la productivité de chaque observation sous sa garde typée, sans exiger la
 terminaison du flux entier. Le statut « under-review » des preuves concerne leur formalisation ; il n'autorise ni un
@@ -103,9 +103,9 @@ doivent être vérifiés pour la réalisation retenue.
 
 La note d'ingénierie citée documente une réalisation de file et ses mesures, mais ne constitue pas une preuve de
 correction. Les travaux sur les files bornées concurrentes sous modèle mémoire faible présentent des preuves mécaniques
-en logique de séparation, où l'ordre entre accès est exprimé par un transfert de vue {cite
-"mevelFormalVerificationConcurrent2021"}[]. Ces preuves portent sur le modèle et l'implémentation qu'elles étudient ;
-elles ne valident pas automatiquement une réalisation K7PL.
+en logique de séparation, où l'ordre entre accès est exprimé par un transfert de vue
+{cite "mevelFormalVerificationConcurrent2021"}[]. Ces preuves portent sur le modèle et l'implémentation qu'elles
+étudient ; elles ne valident pas automatiquement une réalisation K7PL.
 
 Pour une file concurrente fondée sur un modèle mémoire faible, le progrès du consommateur peut dépendre d'une hypothèse
 d'équité mémoire : le système mémoire propage équitablement les écritures publiées {cite "lahavMakingWeakMemory2021"}[].
@@ -189,15 +189,14 @@ c'est l'invariance de la représentation, et non son injectivité, qui fait pass
 l'identité binaire. Hypothèses d'environnement et conclusion binaire sont à suivre séparément.
 :::
 ::::
-Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représentation_ $`\Pi = \langle
-v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}}, \mathrm{arch}, \mathrm{mem}, \mathrm{round},
-v_{\mathrm{schéma}} \rangle` : versions des trois spécifications de disposition, architecture et comportement NaN,
-modèle mémoire, mode d'arrondi, version de schéma. $`E_{\text{repro}}`, la portée « une machine » du modèle mémoire et
-la convention d'élision de champ en sont trois projections. Les énoncés de disposition ({num
-"thm:isomorphisme_memoire"}[]) et de rejeu binaire ({num "thm:rejeu_binaire"}[]) expriment des obligations de conformité
-du compilateur à un profil donné, non des résultats du calcul des types. La phase 7 a pour rôle de contrôler cette
-conformité ; ce contrôle ne remplace pas la formalisation des hypothèses et des preuves encore ouvertes associées à ces
-énoncés.
+Ces hypothèses éparses se rassemblent en un seul objet, le _profil de représentation_
+$`\Pi = \langle v_{\mathrm{Arrow}}, v_{\mathrm{Capnp}}, v_{\mathrm{MLIR}}, \mathrm{arch}, \mathrm{mem}, \mathrm{round}, v_{\mathrm{schéma}}
+\rangle` : versions des trois spécifications de disposition, architecture et comportement NaN, modèle mémoire, mode
+d'arrondi, version de schéma. $`E_{\text{repro}}`, la portée « une machine » du modèle mémoire et la convention
+d'élision de champ en sont trois projections. Les énoncés de disposition ({num "thm:isomorphisme_memoire"}[]) et de
+rejeu binaire ({num "thm:rejeu_binaire"}[]) expriment des obligations de conformité du compilateur à un profil donné,
+non des résultats du calcul des types. La phase 7 a pour rôle de contrôler cette conformité ; ce contrôle ne remplace
+pas la formalisation des hypothèses et des preuves encore ouvertes associées à ces énoncés.
 
 Le journal consigne l'entrelacement des messages parce qu'une boîte qui fusionne plusieurs émetteurs n'est pas
 déterministe. Un sous-réseau dont chaque canal n'a qu'un écrivain et qu'un lecteur, lu par des réceptions bloquantes,
@@ -245,11 +244,11 @@ pour le profil concerné.
 
 Cette population d'acteurs ne s'assemble pas librement. Le compilateur construit, en amont de toute exécution, le graphe
 de dépendances entre gabarits d'acteurs et le prouve acyclique. Cette construction suppose une condition restée
-implicite et qui s'écrit : *le type d'état est unique par gabarit d'acteur*. Cette acyclicité n'est pas ajoutée par K7PL
-: elle est ce que produit toute composition fondée sur la logique linéaire, dont il est établi que les réseaux
+implicite et qui s'écrit : *le type d'état est unique par gabarit d'acteur*. Cette acyclicité n'est pas ajoutée par
+K7PL : elle est ce que produit toute composition fondée sur la logique linéaire, dont il est établi que les réseaux
 d'interconnexion engendrés sont strictement moins expressifs que ceux d'un calcul de sessions multipartites, et qu'ils
-excluent les interconnexions circulaires entre trois participants ou plus {cite
-"toninhoInterconnectabilitySessionBasedLogical2018"}[].
+excluent les interconnexions circulaires entre trois participants ou plus
+{cite "toninhoInterconnectabilitySessionBasedLogical2018"}[].
 
 C'est cette unicité qui identifie un nœud du graphe, et c'est elle qui rend aboutissante la recherche du gestionnaire
 décrite au chapitre 5 (§{num "sec:c5-mise-en-pratique"}[]). La preuve d'acyclicité est portée par un paramètre fantôme
@@ -277,19 +276,19 @@ Une remarque s'impose avant d'aller plus loin, car elle écarte une objection qu
 On pourrait croire qu'une extension déductive (un moteur de règles relationnelles, dont les définitions se rappellent
 mutuellement) exigerait des interconnexions circulaires et mettrait donc l'acyclicité en défaut. Il n'en est rien : la
 récursion d'un tel moteur n'est pas un cycle de communication mais le plus petit point fixe d'une fonction monotone,
-calculé par itération locale depuis le plus petit élément d'un semi-treillis (chapitre 2, §{num
-"sec:c2-adjonctions-et-enrichissement"}[]). Un ensemble de règles se compile en un terme de point fixe porté par un
-gabarit unique, dont les relations sont des arènes de couche 1 : la représentation restant paramétrique, sous les seules
-propriétés que l'évaluation semi-naïve incrémentale réclame {cite "sahebolamriBringYourOwn2023"}[]. Le graphe de
+calculé par itération locale depuis le plus petit élément d'un semi-treillis (chapitre 2,
+§{num "sec:c2-adjonctions-et-enrichissement"}[]). Un ensemble de règles se compile en un terme de point fixe porté par
+un gabarit unique, dont les relations sont des arènes de couche 1 : la représentation restant paramétrique, sous les
+seules propriétés que l'évaluation semi-naïve incrémentale réclame {cite "sahebolamriBringYourOwn2023"}[]. Le graphe de
 gabarits reste acyclique sans qu'aucune concession lui soit faite, et la clôture du chapitre 1 n'est pas mise à
 l'épreuve : le point fixe se projette sur $`\Delta` et $`\mathcal{G}` comme n'importe quel pli.
 
 La compilation d'un tel ensemble tient en trois temps, et rien n'y est propre au langage. Les prédicats extensionnels
-(les faits donnés) deviennent des arènes de couche 1, une par prédicat, dans la disposition colonnaire du théorème {num
-"thm:isomorphisme_memoire"}[]. Les règles deviennent une fonction $`f` d'un tuple de relations dans lui-même, chaque
-règle contribuant l'union de ce qu'elle dérive. Cette fonction est monotone par construction, puisqu'ajouter des faits
-ne peut qu'en faire dériver davantage, et son grade porte donc la marque du §{num
-"sec:c2-adjonctions-et-enrichissement"}[] sans que le programmeur ait à l'écrire. Le programme entier est alors
+(les faits donnés) deviennent des arènes de couche 1, une par prédicat, dans la disposition colonnaire du théorème
+{num "thm:isomorphisme_memoire"}[]. Les règles deviennent une fonction $`f` d'un tuple de relations dans lui-même,
+chaque règle contribuant l'union de ce qu'elle dérive. Cette fonction est monotone par construction, puisqu'ajouter des
+faits ne peut qu'en faire dériver davantage, et son grade porte donc la marque du
+§{num "sec:c2-adjonctions-et-enrichissement"}[] sans que le programmeur ait à l'écrire. Le programme entier est alors
 $`\mathbf{fix}\,f`. Sa terminaison dépend des propriétés du domaine des relations et de la fonction $`f`. La garantie de
 terminaison de couche 3 demeure un invariant du langage : les calculs admis doivent respecter le schéma récursif à
 indice décroissant défini par C1/C2. Le constructeur supplémentaire de point fixe n'est admissible que si son typage
@@ -315,8 +314,8 @@ qu'interdire retire une liste de cas à tenir à jour.
 Une frontière doit en revanche être fixée, et elle est stricte. Un tel moteur augmenté d'arithmétique entière et de
 négation stratifiée serait _indécidable_. La décidabilité ne revient qu'en restreignant les prédicats numériques à des
 bornes maximales ou minimales et sous une condition de linéarité limitant la multiplication, et la complexité ne retombe
-aux bornes usuelles (polynomiale en la taille des données) que sous une exigence supplémentaire de stabilité {cite
-"kaminskiComplexityExpressivePower2022"}[]. Une extension déductive de K7PL se tiendrait donc sous ces trois
+aux bornes usuelles (polynomiale en la taille des données) que sous une exigence supplémentaire de stabilité
+{cite "kaminskiComplexityExpressivePower2022"}[]. Une extension déductive de K7PL se tiendrait donc sous ces trois
 restrictions, ou renoncerait à l'arithmétique : hors d'elles, ce n'est pas la prédictibilité que le langage perdrait,
 c'est la décidabilité.
 
@@ -360,10 +359,10 @@ pas déduites du seul typage.
 Le modèle abstrait ne fixe pas le mécanisme d'isolation entre acteurs. Les garanties de typage peuvent établir des
 propriétés logiques d'accès dans le modèle ; elles ne démontrent pas, à elles seules, l'absence de canaux cachés ni
 l'inaccessibilité physique de la mémoire. Un espace d'adressage partagé, une isolation assurée par le compilateur ou un
-modèle de composants comme WebAssembly constituent des options de réalisation aux hypothèses distinctes {cite
-"groupWebAssemblySpecification,groupWebAssemblySpecAddendum,groupWebAssemblyCodeMetadata"}[]. Aucune n'est imposée ici.
-Toute réalisation doit établir sa correspondance avec les invariants du modèle et les hypothèses d'exécution qu'elle
-retient.
+modèle de composants comme WebAssembly constituent des options de réalisation aux hypothèses distinctes
+{cite "groupWebAssemblySpecification,groupWebAssemblySpecAddendum,groupWebAssemblyCodeMetadata"}[]. Aucune n'est imposée
+ici. Toute réalisation doit établir sa correspondance avec les invariants du modèle et les hypothèses d'exécution
+qu'elle retient.
 
 ::::lemma (label := "thm:liberte_initialisation") (level := "langage") (role := "lemma") (state := "under-review") (evidence := "proofsketch") (scope := "runtime")
 :::title
@@ -373,17 +372,17 @@ ordre d'initialisation par DAG topologique
 :::statement +titled
 Ordre compatible avec les dépendances
 
-Si le graphe de dépendances $`G` des acteurs et canaux est acyclique (vérifié en Phase 1.5 (chapitre 6, §{num
-"sec:c6-le-processus-de-compilation"}[])), il existe un tri topologique $`T` dans lequel chaque dépendance précède le
-nœud qui en dépend. Cet ordre exclut une dépendance circulaire ; il ne garantit pas, à lui seul, que chaque initialiseur
-termine ni que l'ordonnanceur fait progresser toutes les initialisations.
+Si le graphe de dépendances $`G` des acteurs et canaux est acyclique (vérifié en Phase 1.5 (chapitre 6,
+§{num "sec:c6-le-processus-de-compilation"}[])), il existe un tri topologique $`T` dans lequel chaque dépendance précède
+le nœud qui en dépend. Cet ordre exclut une dépendance circulaire ; il ne garantit pas, à lui seul, que chaque
+initialiseur termine ni que l'ordonnanceur fait progresser toutes les initialisations.
 :::
 
 :::proofsketch
 La Phase 1.5 calcule le tri topologique et échoue la compilation si un cycle est détecté (`ERR-ARC-001`). Pour un graphe
-acyclique, l'existence de cet ordre découle du théorème {num "thm:tri_topologique"}[] (chapitre 2, §{num
-"sec:c2-six-schemas-de-metatheorie"}[]). L'argument établit l'ordre des dépendances, non la terminaison des opérations
-d'initialisation ni le progrès du runtime.
+acyclique, l'existence de cet ordre découle du théorème {num "thm:tri_topologique"}[] (chapitre 2,
+§{num "sec:c2-six-schemas-de-metatheorie"}[]). L'argument établit l'ordre des dépendances, non la terminaison des
+opérations d'initialisation ni le progrès du runtime.
 :::
 
 :::note
@@ -448,19 +447,20 @@ séparé du langage, mais une interprétation supplémentaire de cette même des
 Le modèle abstrait définit les canaux typés, les messages admissibles et les transitions de communication ; il ne fixe
 ni la représentation du transport ni le coût de chaque opération. Un anneau SPSC borné et alloué avant exécution, ou une
 table d'entrées, sont des réalisations possibles. L'absence de verrou, le coût des retraits groupés et la correction
-concurrente doivent être justifiés pour la représentation et la cible retenues. Un motif de jonction $`x(u) \mid y(v)
-\triangleright P` décrit les messages requis par une transition sans imposer un masquage binaire ou un automate concret.
-La couverture syntaxique des combinaisons doit être établie par une analyse statique du motif. Un modèle de performance,
-éventuellement exprimé en PEPA (_Performance Evaluation Process Algebra_, Hillston) {cite
-"hillstonCompositionalApproachPerformance"}[], peut analyser un comportement quantifié ; il ne remplace ni l'analyse de
-couverture, ni la définition sémantique du motif, ni la preuve de raffinement :
+concurrente doivent être justifiés pour la représentation et la cible retenues. Un motif de jonction
+$`x(u) \mid y(v) \triangleright P` décrit les messages requis par une transition sans imposer un masquage binaire ou un
+automate concret. La couverture syntaxique des combinaisons doit être établie par une analyse statique du motif. Un
+modèle de performance, éventuellement exprimé en PEPA (_Performance Evaluation Process Algebra_, Hillston)
+{cite "hillstonCompositionalApproachPerformance"}[], peut analyser un comportement quantifié ; il ne remplace ni
+l'analyse de couverture, ni la définition sémantique du motif, ni la preuve de raffinement :
 
 ::::listing (label := "lst:motif-jonction")
 :::caption
 Un motif de jonction, dont la couverture des combinaisons de messages se vérifie statiquement
 :::
 
-``` (define-join-pattern traite-resultat
+```
+(define-join-pattern traite-resultat
   ((msg-fini id resultat) (traite-succes resultat))
   ((msg-tic delai)        (traite-abandon id)))
 ```
@@ -678,17 +678,17 @@ directe. Chaque pièce y a déjà son nom.
 
 Ce débit demande à être dit, et la manière de le dire n'est pas celle qu'on attendrait. Un débit est un rapport (des
 messages par unité de temps), et une algèbre d'effets ne divise pas. Il ne s'exprime donc pas comme une grandeur
-calculée mais comme un _calendrier déclaré dans le type_, au moyen de trois modalités sur l'ordre linéaire des instants
-: $`\bigcirc A`, qui dit qu'un $`A` sera disponible au pas suivant ; $`\Box A`, qu'il l'est à tout instant ; $`\Diamond
-A`, qu'il le sera sans qu'on dise quand {cite "dasParallelComplexityAnalysis"}[]. Un flux dont chaque continuation porte
-un $`\bigcirc` a un débit d'un message par pas, et cela se lit sur son type sans qu'aucun rapport soit formé. La latence
-d'un pipeline est le nombre de $`\bigcirc` que traverse le type du processus qui le compose. Lorsque le calendrier n'est
-pas bornable statiquement (un transducteur qui compresse son entrée émet à un rythme que l'entrée seule ne détermine
-pas), $`\Diamond` prend le relais et énonce l'inévitabilité sans l'échéance.
+calculée mais comme un _calendrier déclaré dans le type_, au moyen de trois modalités sur l'ordre linéaire des
+instants : $`\bigcirc A`, qui dit qu'un $`A` sera disponible au pas suivant ; $`\Box A`, qu'il l'est à tout instant ;
+$`\Diamond A`, qu'il le sera sans qu'on dise quand {cite "dasParallelComplexityAnalysis"}[]. Un flux dont chaque
+continuation porte un $`\bigcirc` a un débit d'un message par pas, et cela se lit sur son type sans qu'aucun rapport
+soit formé. La latence d'un pipeline est le nombre de $`\bigcirc` que traverse le type du processus qui le compose.
+Lorsque le calendrier n'est pas bornable statiquement (un transducteur qui compresse son entrée émet à un rythme que
+l'entrée seule ne détermine pas), $`\Diamond` prend le relais et énonce l'inévitabilité sans l'échéance.
 
-Ces trois constructeurs sont la quatrième instance du procédé du chapitre 2 (§{num
-"sec:c2-adjonctions-et-enrichissement"}[]), l'ordre étant ici celui du temps. Deux raisons rendent leur emprunt direct
-plutôt qu'analogique. L'analyse dont ils proviennent est paramétrique dans le modèle de coût, ce qui la laisse
+Ces trois constructeurs sont la quatrième instance du procédé du chapitre 2
+(§{num "sec:c2-adjonctions-et-enrichissement"}[]), l'ordre étant ici celui du temps. Deux raisons rendent leur emprunt
+direct plutôt qu'analogique. L'analyse dont ils proviennent est paramétrique dans le modèle de coût, ce qui la laisse
 compatible avec un référentiel de coût à déclarer pour chaque profil. Le présent chapitre ne fixe ni machine cible ni
 hiérarchie de caches. Son régime de communication est asynchrone au sens du $`\pi`-calcul asynchrone, c'est-à-dire celui
 que le chapitre 3 a retenu. Ce que K7PL n'emprunte pas est la sémantique de réécriture temporisée sur laquelle leur

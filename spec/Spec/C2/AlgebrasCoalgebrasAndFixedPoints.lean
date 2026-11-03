@@ -48,12 +48,12 @@ vérifiée après coup : elle est une conséquence de l'initialité.
 
 Le catamorphisme ne suffit pas à porter cette récursion. Dès qu'un type imbriqué apparaît (un type paramétré dont la
 récursion s'accompagne d'un changement du paramètre, ce dont $`\mathsf{Incomplete}\;A\;B` est le cas limite), le pli
-ordinaire ne décrit plus que des transformations naturelles, limitation trop étroite pour l'usage {cite
-"birdGeneralisedFoldsNested1999"}[]. K7PL retient donc la forme générale, le pli dépendamment typé : il est défini par
-récursion bien fondée, existe pour tout type imbriqué, ne dépend d'aucune fonction `map`, et se spécialise en le pli
-d'ordre supérieur traditionnel {cite "fuDependentlyTypedFolds2018"}[]. Le catamorphisme de l'équation {num
-"eq:catamorphisme"}[] en demeure le cas particulier, celui où le paramètre ne change pas. Ce dispositif porte à lui seul
-ce que le langage obtenait par trois (l'itération, le principe d'induction qui découle de sa définition, et la
+ordinaire ne décrit plus que des transformations naturelles, limitation trop étroite pour l'usage
+{cite "birdGeneralisedFoldsNested1999"}[]. K7PL retient donc la forme générale, le pli dépendamment typé : il est défini
+par récursion bien fondée, existe pour tout type imbriqué, ne dépend d'aucune fonction `map`, et se spécialise en le pli
+d'ordre supérieur traditionnel {cite "fuDependentlyTypedFolds2018"}[]. Le catamorphisme de l'équation
+{num "eq:catamorphisme"}[] en demeure le cas particulier, celui où le paramètre ne change pas. Ce dispositif porte à lui
+seul ce que le langage obtenait par trois (l'itération, le principe d'induction qui découle de sa définition, et la
 vérifiabilité formelle des programmes ainsi définis {cite "fuDependentlyTypedFolds2018"}[]), ce qui sert la condition de
 clôture du chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]).
 
@@ -84,13 +84,13 @@ pas : la comonade qu'un tel schéma demande est la comonade cofree du foncteur d
 quand $`!_r` est la modalité d'usage. Deux comonades, deux rôles, et aucune raison qu'elles se confondent.
 
 Le critère de terminaison, lui, ne peut pas être une mesure structurelle décroissante. La profondeur restante de $`x`
-n'est pas disponible sur un type imbriqué, l'appel récursif y portant sur une autre
-instance du paramètre : la mesure n'a plus de domaine fixe et sa décroissance ne signifie plus rien.
-La garantie doit donc reposer sur les types seuls, ce que la littérature nomme terminaison fondée sur les types {cite
-"matthesRecursionNestedDatatypes2008"}[]. K7PL l'adopte à peu de frais : une taille est un ordinal, un ordinal est un
-grade, et $`\mathcal{R}` (§{num "sec:c2-la-comonade-exponentielle-et"}[]) porte déjà $`\omega`. Le peu de frais a
-toutefois un prix, et c'est une clause de bonne formation qui s'écrit plutôt qu'elle ne se suppose. Il y a _deux sortes
-de tailles_, et les confondre est l'erreur que la clause doit écarter.
+n'est pas disponible sur un type imbriqué, l'appel récursif y portant sur une autre instance du paramètre : la mesure
+n'a plus de domaine fixe et sa décroissance ne signifie plus rien. La garantie doit donc reposer sur les types seuls, ce
+que la littérature nomme terminaison fondée sur les types {cite "matthesRecursionNestedDatatypes2008"}[]. K7PL l'adopte
+à peu de frais : une taille est un ordinal, un ordinal est un grade, et $`\mathcal{R}`
+(§{num "sec:c2-la-comonade-exponentielle-et"}[]) porte déjà $`\omega`. Le peu de frais a toutefois un prix, et c'est une
+clause de bonne formation qui s'écrit plutôt qu'elle ne se suppose. Il y a _deux sortes de tailles_, et les confondre
+est l'erreur que la clause doit écarter.
 
 $$`\mathbb{S}_\mu \;=\; \mathbb{N}_\infty \setminus \{\omega\} \qquad\qquad \mathbb{S}_\nu \;=\; \mathbb{N}_\infty`
 
@@ -130,9 +130,9 @@ v`.
 :::proofsketch
 La couche 3 interdit la récursion générale, et toute itération s'y exprime comme un pli dépendamment typé sur $`\mu F`,
 plus petit point fixe du conteneur $`F`, dont les habitants sont bien fondés par construction. Le type du pli porte un
-indice de taille $`i`, et celui de l'appel récursif un indice strictement inférieur. C'est l'hypothèse du théorème {num
-"thm:progression_polarisee"}[], dont cet énoncé est l'instance en $`p = \mu` ; l'argument général y est conduit une fois
-et n'est pas repris ici. Ce qui est propre à cette instance est le domaine : la décroissance porte sur des types
+indice de taille $`i`, et celui de l'appel récursif un indice strictement inférieur. C'est l'hypothèse du théorème
+{num "thm:progression_polarisee"}[], dont cet énoncé est l'instance en $`p = \mu` ; l'argument général y est conduit une
+fois et n'est pas repris ici. Ce qui est propre à cette instance est le domaine : la décroissance porte sur des types
 imbriqués, où aucune mesure structurelle n'est disponible, et c'est ce que le pli dépendamment typé achète. Le
 paramorphisme linéaire est admis au même titre.
 :::
@@ -164,8 +164,8 @@ des arbres finis et dont l'existence tient à la positivité stricte du conteneu
 petit point fixe, celui d'une fonction monotone d'un type dans lui-même, qui n'est pas une algèbre initiale mais la
 limite d'une chaîne croissante dans un ordre. Son existence tient à la complétude de cet ordre et non à la forme d'un
 foncteur, et sa terminaison à une propriété métrique (la hauteur) plutôt qu'à la bonne fondation d'une structure. Les
-deux sont des points fixes et des plus petits, et là s'arrête la ressemblance. Le §{num
-"sec:c2-adjonctions-et-enrichissement"}[] construit le second.
+deux sont des points fixes et des plus petits, et là s'arrête la ressemblance. Le
+§{num "sec:c2-adjonctions-et-enrichissement"}[] construit le second.
 
 Dualement, une $`F`-coalgèbre est un couple $`(A, \alpha : A \to F(A))` ; un morphisme de $`F`-coalgèbres $`(A,\alpha)
 \to (B,\beta)` est $`f : A \to B` tel que $`F(f) \circ \alpha = \beta \circ f`. La coalgèbre terminale $`\nu F` (munie
@@ -187,13 +187,13 @@ Pour $`F(X) = A \otimes X`, $`\nu F` est le type des flux infinis de $`A` et $`\
 Le théorème qui précède porte sur une couche prise isolément. Or la thèse du chapitre 1 n'est pas que les couches
 existent séparément, c'est qu'elles s'emboîtent : du fini pur à l'intérieur de l'infini productif. Cet emboîtement
 demande son propre énoncé, et il n'est pas gratuit : sur des points fixes imbriqués, approcher l'objet en itérant sur
-l'un des deux seulement ne converge pas, et l'itération porte sur les deux simultanément {cite
-"kurzApproximationNestedFixpoints2015"}[]. Deux propriétés y pourvoient. Les conteneurs préservent les plus petits et
-les plus grands points fixes (§{num "sec:c2-adjonctions-et-enrichissement"}[]) {cite
-"damatoFormalisingInductiveCoinductive2024,altenkirchIndexedContainers2015"}[], de sorte que l'emboîtement ne sort pas
-de la classe où le théorème précédent a été établi. Et une version coalgébrique du lemme de Bekič réduit le système
-simultané à un point fixe unique, dont l'objet visé est la coalgèbre finale {cite
-"kurzApproximationNestedFixpoints2015"}[].
+l'un des deux seulement ne converge pas, et l'itération porte sur les deux simultanément
+{cite "kurzApproximationNestedFixpoints2015"}[]. Deux propriétés y pourvoient. Les conteneurs préservent les plus petits
+et les plus grands points fixes (§{num "sec:c2-adjonctions-et-enrichissement"}[])
+{cite "damatoFormalisingInductiveCoinductive2024,altenkirchIndexedContainers2015"}[], de sorte que l'emboîtement ne sort
+pas de la classe où le théorème précédent a été établi. Et une version coalgébrique du lemme de Bekič réduit le système
+simultané à un point fixe unique, dont l'objet visé est la coalgèbre finale
+{cite "kurzApproximationNestedFixpoints2015"}[].
 
 ::::literature (label := "thm:sedimentation") (level := "langage") (state := "not-applicable") (evidence := "literature") (scope := "literature") (source := "unresolved: Kurz et al.; source bibliographique du résultat non gradué de points fixes imbriqués à relier au point 4 (traçabilité bibliographique)")
 :::title
@@ -244,8 +244,8 @@ l'autre bien fondées, mais rien ne garantit plus que leur emboîtement le soit,
 
 La préservation invoquée ici a été établie deux fois, et les deux cadres ne se recouvrent pas. Le résultat existe ; sa
 version graduée n'existe pas encore, et c'est là que ce document met sa demande. Le second l'obtient dans la catégorie
-sauvage des types, c'est-à-dire sans supposer l'unicité des preuves d'identité {cite
-"altenkirchIndexedContainers2015"}[], de sorte que la réserve qu'on pourrait opposer (celle d'une extensionnalité
+sauvage des types, c'est-à-dire sans supposer l'unicité des preuves d'identité
+{cite "altenkirchIndexedContainers2015"}[], de sorte que la réserve qu'on pourrait opposer (celle d'une extensionnalité
 postulée) tombe. Ce qui ne tombe pas est que ces résultats valent sur des types et non sur des types gradués. La
 transposition à la gradation reste à faire, et c'est ce que ce document demande.[^fn1]
 
@@ -254,12 +254,12 @@ chapitre 6 n'offre pas.
 
 Un schéma manque encore, et il est celui que la couche 2 exécute le plus souvent. Un gestionnaire d'acteur consomme un
 flux de messages et le replie en un état fini : c'est un anamorphisme suivi d'un catamorphisme, autrement dit un
-_hylomorphisme_ (la généralisation commune des deux, dont les formes simples ne sont que des cas particuliers) {cite
-"yangFantasticMorphismsWhere2022"}[]. Sa terminaison ne découle ni du premier théorème, dont l'entrée n'est pas bien
-fondée, ni du second, dont la sortie n'est pas un flux. Elle vient d'ailleurs, et K7PL en dispose déjà : un gestionnaire
-traite un message par activation, et le nombre d'activations par tour d'ordonnancement est borné par un grade $`r`
-(chapitre 4, §{num "sec:c4-echelle-locale"}[]). L'hylomorphisme de couche 2 est donc borné par un grade : ce qui est
-exactement P3, appliqué au schéma de récursion plutôt qu'à l'allocation.
+_hylomorphisme_ (la généralisation commune des deux, dont les formes simples ne sont que des cas particuliers)
+{cite "yangFantasticMorphismsWhere2022"}[]. Sa terminaison ne découle ni du premier théorème, dont l'entrée n'est pas
+bien fondée, ni du second, dont la sortie n'est pas un flux. Elle vient d'ailleurs, et K7PL en dispose déjà : un
+gestionnaire traite un message par activation, et le nombre d'activations par tour d'ordonnancement est borné par un
+grade $`r` (chapitre 4, §{num "sec:c4-echelle-locale"}[]). L'hylomorphisme de couche 2 est donc borné par un grade : ce
+qui est exactement P3, appliqué au schéma de récursion plutôt qu'à l'allocation.
 
 La productivité coinductive qu'exige la couche 2 des flux et des acteurs (produire une valeur observable en temps fini,
 même si le calcul dans son entier ne termine jamais) est la garantie duale de la terminaison : à chaque étape,
@@ -276,13 +276,14 @@ généralisation monoïdale la donne pour des théories de processus {cite "dila
 
 Le critère de progression y est le dual exact de celui de la terminaison, et pour la même raison : un gardiennage
 purement syntaxique (exiger que l'appel corécursif soit précédé d'un `yield`) n'est pas compositionnel, puisqu'il
-interdit à une occurrence corécursive d'apparaître sous une opération définie antérieurement {cite
-"xieConaturalNumbersForm2025"}[], c'est-à-dire sous n'importe quel combinateur défini par l'utilisateur. Or la couche 2
-est d'ordre supérieur et composable, et la restriction y mordrait sur le cas courant plutôt que sur l'exception. K7PL
-retient donc un critère porté par les types : le type du flux est indexé par une taille, et le `yield` fait décroître
-cet indice au sens dual, chaque observation consommant une unité de profondeur d'approximation. C'est la formulation par
-types dimensionnés, sur laquelle repose le traitement coinductif usuel des automates et des langages formels, et qui
-s'accompagne du filtrage par copatrons comme forme définitionnelle naturelle du `yield` {cite "ABEL-COALG"}[].
+interdit à une occurrence corécursive d'apparaître sous une opération définie antérieurement
+{cite "xieConaturalNumbersForm2025"}[], c'est-à-dire sous n'importe quel combinateur défini par l'utilisateur. Or la
+couche 2 est d'ordre supérieur et composable, et la restriction y mordrait sur le cas courant plutôt que sur
+l'exception. K7PL retient donc un critère porté par les types : le type du flux est indexé par une taille, et le `yield`
+fait décroître cet indice au sens dual, chaque observation consommant une unité de profondeur d'approximation. C'est la
+formulation par types dimensionnés, sur laquelle repose le traitement coinductif usuel des automates et des langages
+formels, et qui s'accompagne du filtrage par copatrons comme forme définitionnelle naturelle du `yield`
+{cite "ABEL-COALG"}[].
 
 ::::corollary (label := "thm:productivite_couche_2") (level := "langage") (role := "corollary") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
@@ -341,8 +342,8 @@ progression, paramétrée par la couche
 :::statement +titled
 Une seule idée, lue selon la polarité de la couche
 
-Soit $`\ell` une couche polarisée et $`p(\ell)` sa polarité, donnée par la table de sédimentation du chapitre 1 (§{num
-"sec:c1-axiomatique-germinale"}[]) : $`p(3) = \mu` et $`p(2) = \nu`. Soit $`F` un conteneur.
+Soit $`\ell` une couche polarisée et $`p(\ell)` sa polarité, donnée par la table de sédimentation du chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]) : $`p(3) = \mu` et $`p(2) = \nu`. Soit $`F` un conteneur.
 
 Un calcul de couche $`\ell` défini sur $`p(\ell)F` par un schéma dont le type porte un indice de taille décroissant _au
 sens de_ $`p(\ell)` _progresse_ en un nombre fini d'étapes, la progression s'entendant : en $`p = \mu`, jusqu'à
@@ -436,10 +437,11 @@ issus d'une comonade_), doublement générique : paramétrée par le type de don
 l'histomorphisme s'obtenant lorsque $`N` est la comonade cofree. Cette classe ne se réduit pas à un pli sur un foncteur
 enrichi : elle exige une _loi distributive_ $`\lambda : F \circ N \Rightarrow N \circ F` de l'endofoncteur sur la
 comonade, soumise à deux conditions de cohérence, et c'est elle qui fait de l'algèbre $`\mathit{in}` et de la coalgèbre
-de contexte une $`\lambda`-bialgèbre (une algèbre et une coalgèbre de porteur commun) {cite
-"hinzeUnifyingStructuredRecursion2016"}[]. Ce document emploie l'histomorphisme sans avoir posé cette loi ; elle lui est
-due, et elle est distincte de la loi distributive graduée du chapitre 1, qui distribue la modalité de grade sur la
-monade d'effet et non un foncteur de motif sur une comonade d'historique. Autant l'écrire ici que la laisser en dette.
+de contexte une $`\lambda`-bialgèbre (une algèbre et une coalgèbre de porteur commun)
+{cite "hinzeUnifyingStructuredRecursion2016"}[]. Ce document emploie l'histomorphisme sans avoir posé cette loi ; elle
+lui est due, et elle est distincte de la loi distributive graduée du chapitre 1, qui distribue la modalité de grade sur
+la monade d'effet et non un foncteur de motif sur une comonade d'historique. Autant l'écrire ici que la laisser en
+dette.
 
 ::::theorem (label := "thm:loi_historique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "fixed-points")
 :::title
@@ -519,16 +521,17 @@ la troncature est un morphisme de comonades
 La troncature préserve les lois de comonade, pour tout foncteur
 
 Soit $`F` un endofoncteur, en particulier un conteneur. La convention de remplissage est l'_écartement_ : $`N_0 A = A`
-et $`N_{r+1} A = A \times F(N_r A)`, la structure plus profonde étant écartée et non remplacée. La troncature $`T_{r,n}
-: N_n \Rightarrow N_r` ($`r \le n`) est définie par $`T_{0,n} = \mathit{head}` et $`T_{r+1,n+1}(a,t) = (a,
-F(T_{r,n})\,t)`, et $`T_r : N \Rightarrow N_r` sur $`N = \text{Cofree}_F` par la même récurrence sur la structure
-déroulée. Pour tout $`F`, sans autre hypothèse : (i) $`N_r`, de counité $`\epsilon = \mathit{id} : N_0 \Rightarrow
-\mathit{Id}` et de comultiplication $`\delta_{r,s} : N_{r+s} \Rightarrow N_r N_s`, est une comonade graduée par le
-monoïde additif des profondeurs $`(\mathbb{N}, +, 0)` ; (ii) $`T_r` est un morphisme de comonades de $`N` vers $`N_r` ;
-(iii) $`\lambda_0 = \mathit{id}` et $`\lambda_{r+1} = \langle F\,\mathit{fst},\ F(\lambda_r)\circ F\,\mathit{snd}
-\rangle` définissent $`\lambda_r : F N_r \Rightarrow N_r F`, avec $`\lambda_r \circ F(T_r) = T_r \circ \lambda`, qui
-satisfait les deux conditions de cohérence de la loi distributive. Aucune restriction de la classe des conteneurs
-admissibles n'est requise.
+et $`N_{r+1} A = A \times F(N_r A)`, la structure plus profonde étant écartée et non remplacée. La troncature
+$`T_{r,n} : N_n \Rightarrow N_r` ($`r \le n`) est définie par $`T_{0,n} = \mathit{head}` et
+$`T_{r+1,n+1}(a,t) = (a, F(T_{r,n})\,t)`, et $`T_r : N \Rightarrow N_r` sur $`N = \text{Cofree}_F` par la même
+récurrence sur la structure déroulée. Pour tout $`F`, sans autre hypothèse : (i) $`N_r`, de counité
+$`\epsilon = \mathit{id} : N_0 \Rightarrow \mathit{Id}` et de comultiplication
+$`\delta_{r,s} : N_{r+s} \Rightarrow N_r N_s`, est une comonade graduée par le monoïde additif des profondeurs
+$`(\mathbb{N}, +, 0)` ; (ii) $`T_r` est un morphisme de comonades de $`N` vers $`N_r` ; (iii) $`\lambda_0 = \mathit{id}`
+et $`\lambda_{r+1} = \langle F\,\mathit{fst},\ F(\lambda_r)\circ F\,\mathit{snd} \rangle` définissent
+$`\lambda_r : F N_r \Rightarrow N_r F`, avec $`\lambda_r \circ F(T_r) = T_r \circ \lambda`, qui satisfait les deux
+conditions de cohérence de la loi distributive. Aucune restriction de la classe des conteneurs admissibles n'est
+requise.
 :::
 
 :::proofsketch
@@ -604,8 +607,8 @@ Cette lecture a un domaine : les gestionnaires de K7PL sont bornés par les dél
 portée, et une portée n'est pas une opération algébrique. Ils relèvent à ce titre des effets _à portée_, dont la
 caractérisation passe par des théories algébriques paramétrées mêlant opérations à portée et opérations algébriques
 {cite "matacheScopedEffectsScoped2025"}[] : la correspondance entre monades et théories algébriques que cette notion
-suppose faisant elle-même l'objet d'un traitement général, par monades à arités et théorèmes de nerf {cite
-"bergerMonadsAritiesTheir2012"}[]. La lecture par $`F`-algèbre n'en est pas invalidée : elle est paramétrée.
+suppose faisant elle-même l'objet d'un traitement général, par monades à arités et théorèmes de nerf
+{cite "bergerMonadsAritiesTheir2012"}[]. La lecture par $`F`-algèbre n'en est pas invalidée : elle est paramétrée.
 
 C'est ce même schéma qui, au chapitre 6, permet l'_inlining_ statique des gestionnaires : un catamorphisme dont
 l'algèbre est connue à la compilation se spécialise sans reste, sans jamais recourir à une table de dispatch dynamique.

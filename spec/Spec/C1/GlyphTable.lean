@@ -21,14 +21,14 @@ tag := "g-table-glyphes"
 
 {label "sec:g-table-glyphes"}
 
-La table {num "tab:glyphes"}[] complète la dualité glyphe/alias construite au chapitre 5 (§{num
-"sec:c5-notations-specialisees"}[]) : chaque ligne est une seule _macro de la bibliothèque standard_, montrée sous ses
-deux noms, strictement équivalents au niveau de l'AST. La colonne du _point de code_ n'est pas un choix de typographie :
-elle est la forme normative du glyphe. Un glyphe se déclare par son code positionnel Unicode, de sorte que la table
-reste vérifiable sans dépendre de la fonte qui l'affiche, et que la cinquième règle d'admission (aucun couple de glyphes
-ne se ressemble à l'œil) porte sur des objets identifiés plutôt que sur des dessins. Le glyphe n'est pas une primitive
-du noyau : l'arbitrage qui le fixe est écrit au chapitre 5, et cette table en est la table des noms, non celle des
-constructions.
+La table {num "tab:glyphes"}[] complète la dualité glyphe/alias construite au chapitre 5
+(§{num "sec:c5-notations-specialisees"}[]) : chaque ligne est une seule _macro de la bibliothèque standard_, montrée
+sous ses deux noms, strictement équivalents au niveau de l'AST. La colonne du _point de code_ n'est pas un choix de
+typographie : elle est la forme normative du glyphe. Un glyphe se déclare par son code positionnel Unicode, de sorte que
+la table reste vérifiable sans dépendre de la fonte qui l'affiche, et que la cinquième règle d'admission (aucun couple
+de glyphes ne se ressemble à l'œil) porte sur des objets identifiés plutôt que sur des dessins. Le glyphe n'est pas une
+primitive du noyau : l'arbitrage qui le fixe est écrit au chapitre 5, et cette table en est la table des noms, non celle
+des constructions.
 
 ::::k7table (label := "tab:glyphes") (align := "lllZ{1.00}")
 :::caption
@@ -196,9 +196,9 @@ d'adresses, non la conception d'un jeu de glyphes~; sa donnée est calibrée sur
 diverses devant une chaîne isolée, non sur ce que confond un programmeur devant une ligne de code. Elle est employée ici
 parce qu'elle est le seul instrument normatif disponible, et non parce que son cadre serait le nôtre.
 
-La table {num "tab:glyphes"}[] couvre les opérations de calcul de couche 3 ; les R-expressions (chapitre 4, §{num
-"sec:c4-echelle-locale"}[]) portent leur propre vocabulaire glyphique, organisé selon la même hiérarchie de complexité
-qui détermine l'automate vers lequel chaque niveau s'abaisse.
+La table {num "tab:glyphes"}[] couvre les opérations de calcul de couche 3 ; les R-expressions (chapitre 4,
+§{num "sec:c4-echelle-locale"}[]) portent leur propre vocabulaire glyphique, organisé selon la même hiérarchie de
+complexité qui détermine l'automate vers lequel chaque niveau s'abaisse.
 
 ::::k7table (label := "tab:glyphes-rexp") (align := "llZ{1.00}")
 :::caption

@@ -34,12 +34,12 @@ l'endroit où le non-déterminisme entre : au bord, sous forme de valeur journal
 
 Le résultat d'un tel gestionnaire n'est pas un effet exécuté mais une _description_ d'effets, une liste d'instructions
 que l'exécutif réalise. Le journal consigne ce qui entre (les messages reçus et les valeurs des capacités), et non
-l'exécution de ces instructions : le rejeu refait les transitions sans jamais refaire les livraisons (théorème {num
-"thm:determinisme_rejeu"}[]), et un acteur peut y ajouter les événements qu'il déclare. Cette sémantique d'instructions
-est celle du point fixe initial du chapitre 2 lu comme
-syntaxe libre des effets, et elle rassemble sous un seul objet le résultat de gestionnaire, la trace,
-la ré-invocation séquentielle d'un grade fini et l'itération de l'opération à portée. À distinguer du _gestionnaire
-d'effet_ du chapitre 2, qui interprète des opérations pour éliminer un effet.
+l'exécution de ces instructions : le rejeu refait les transitions sans jamais refaire les livraisons (théorème
+{num "thm:determinisme_rejeu"}[]), et un acteur peut y ajouter les événements qu'il déclare. Cette sémantique
+d'instructions est celle du point fixe initial du chapitre 2 lu comme syntaxe libre des effets, et elle rassemble sous
+un seul objet le résultat de gestionnaire, la trace, la ré-invocation séquentielle d'un grade fini et l'itération de
+l'opération à portée. À distinguer du _gestionnaire d'effet_ du chapitre 2, qui interprète des opérations pour éliminer
+un effet.
 
 Deux énoncés en dépendent, et c'est pourquoi la définition est écrite plutôt que supposée. Le déterminisme du rejeu
 (chapitre 4) tient de ce que la transition est une fonction, et le cas d'usage réactif (chapitre 7) de ce que le journal
@@ -63,8 +63,8 @@ semi-anneau, et
 parallèle qui lui ressemblerait.
 
 L'inférence des rangées ne produit que des contraintes résiduelles simples, résolues par union-find. Lorsqu'une
-collection hétérogène exige un type commun, c'est le joint $`\sqcup` du treillis de précision du chapitre 2 (§{num
-"sec:c2-adjonctions-et-enrichissement"}[]) qui en calcule la plus petite généralisation. La forme générale de cet
+collection hétérogène exige un type commun, c'est le joint $`\sqcup` du treillis de précision du chapitre 2
+(§{num "sec:c2-adjonctions-et-enrichissement"}[]) qui en calcule la plus petite généralisation. La forme générale de cet
 enregistrement est la _paire additive dépendante_ $`(x : A)\,\&\,B`, généralisation de la conjonction additive de la
 logique linéaire déjà rencontrée au chapitre 2 (§{num "sec:c2-la-comonade-exponentielle-et"}[]) : elle décrit
 simultanément la substructuralité et la dépendance, ce dont K7PL possède les deux ingrédients sans les avoir jusqu'ici
@@ -86,14 +86,15 @@ Qualifier l'existentielle par une contrainte, $`\exists a.\, Q \wedge \tau`, per
 preuve qu'elle satisfait $`Q` : c'est ainsi qu'un raffinement de coût ou un effet $`\mathcal{E}` peuvent voyager cachés
 derrière un type existentiel, sans que leur nature précise n'ait à être exposée à l'appelant.
 
-Un type s'ouvre enfin sur le monde par les effets algébriques du chapitre 2 (§{num
-"sec:c2-algebres-coalgebres-et-points"}[]), que cette section précise en deux points. D'abord, un effet peut être
+Un type s'ouvre enfin sur le monde par les effets algébriques du chapitre 2
+(§{num "sec:c2-algebres-coalgebres-et-points"}[]), que cette section précise en deux points. D'abord, un effet peut être
 étiqueté : le foncteur $`E` porte, indexée par un grade, une famille de transformations naturelles distinctes selon
 l'étiquette : deux lois de composition différentes pour un même effet `State`, par exemple, selon que l'étiquette
-distingue un état neuf d'un état ancien. Ensuite, deux effets se composent sans empiler de monades : si $`E \cong R
-\circ L` est la décomposition de $`E` par l'adjonction qui l'engendre ($`\mathsf{State}\;s \cong (s \to) \circ (s
-\times)` en est l'exemple canonique), alors $`E \Join F \cong R \circ F \circ L` insère $`F` dans cette décomposition et
-en hérite les transformations de liaison, dès lors qu'est fournie la loi distributive graduée reliant les deux axes.
+distingue un état neuf d'un état ancien. Ensuite, deux effets se composent sans empiler de monades : si
+$`E \cong R \circ L` est la décomposition de $`E` par l'adjonction qui l'engendre
+($`\mathsf{State}\;s \cong (s \to) \circ (s \times)` en est l'exemple canonique), alors
+$`E \Join F \cong R \circ F \circ L` insère $`F` dans cette décomposition et en hérite les transformations de liaison,
+dès lors qu'est fournie la loi distributive graduée reliant les deux axes.
 
 Cette décomposition régit la _composition_ de deux familles d'effets ; leur _séquencement_ relève, lui, du produit non
 commutatif de la quantale du §{num "sec:c1-axiomatique-germinale"}[], et leur répétition de l'itération qu'elle induit :
@@ -192,18 +193,18 @@ porte des indices que le premier ne saurait pas synthétiser.
 Toute définition de plus haut niveau porte une signature ; à partir d'elle, le compilateur vérifie les formes
 d'introduction et synthétise les formes d'élimination. K7PL n'infère pas les grades d'une définition non annotée et ne
 produit pas de type le plus général, parce qu'aucun système gradué comparable ne le fait. Granule exige la même
-signature et range inférence et types principaux parmi ses travaux futurs {cite
-"orchardQuantitativeProgramReasoning2019"}[] ; la théorie graduée dépendante de Moon, Eades III et Orchard procède de
-même {cite "moonGradedModalDependent2021"}[]. Et le typage des types linéaires indexés se réduit à une théorie du
+signature et range inférence et types principaux parmi ses travaux futurs
+{cite "orchardQuantitativeProgramReasoning2019"}[] ; la théorie graduée dépendante de Moon, Eades III et Orchard procède
+de même {cite "moonGradedModalDependent2021"}[]. Et le typage des types linéaires indexés se réduit à une théorie du
 premier ordre indécidable, traitable seulement en pratique {cite "deamorimReallyNaturalLinear2014"}[]. La terminaison de
 la vérification, elle, reste garantie par un graphe de dépendance acyclique entre variables de type, grades, dimensions
 et variables de rangée, une instance de plus de la terminaison structurelle du chapitre 2.
 
-La deuxième garantie est la stabilité par substitution, et le semi-anneau du §{num
-"sec:c2-la-comonade-exponentielle-et"}[] la rend démontrable au lieu de la laisser postulée. Substituer `let x = e1 in
-e2` par `e2[e1/x]` préserve le typage _parce que_ le grade $`r` porté par
-`x` met le contexte de `e1` à l'échelle par $`r`, la mise à l'échelle étant la multiplication du
-semi-anneau. L'ordre dans lequel plusieurs variables existentielles sont quantifiées n'affecte jamais le résultat.
+La deuxième garantie est la stabilité par substitution, et le semi-anneau du
+§{num "sec:c2-la-comonade-exponentielle-et"}[] la rend démontrable au lieu de la laisser postulée. Substituer
+`let x = e1 in e2` par `e2[e1/x]` préserve le typage _parce que_ le grade $`r` porté par `x` met le contexte de `e1` à
+l'échelle par $`r`, la mise à l'échelle étant la multiplication du semi-anneau. L'ordre dans lequel plusieurs variables
+existentielles sont quantifiées n'affecte jamais le résultat.
 
 Ces garanties se paient, et le coût porte sur un seul sujet : l'ergonomie. Six charges le composent.
 
@@ -224,9 +225,9 @@ Ces garanties se paient, et le coût porte sur un seul sujet : l'ergonomie. Six 
   matérielle de types quantitatifs {cite "hughesResourcefulProgramSynthesis2021"}[].
 
 Aucun de ces coûts n'est arbitraire : chacun achète une garantie que les postulats réclament. Mais leur somme n'a pas
-été conçue, elle s'est accumulée. Deux d'entre eux ont été réduits depuis (§{num
-"sec:c3-structures-ouvertes-effets-et"}[]) ; les autres subsistent, et le total reste le point faible du chapitre, nommé
-ici plutôt que passé sous silence.
+été conçue, elle s'est accumulée. Deux d'entre eux ont été réduits depuis
+(§{num "sec:c3-structures-ouvertes-effets-et"}[]) ; les autres subsistent, et le total reste le point faible du
+chapitre, nommé ici plutôt que passé sous silence.
 
 ::::theorem (label := "thm:preservation_type") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "graded-typing")
 :::title
@@ -268,17 +269,17 @@ Le volet abaissement, lui, est revendiqué et non démontré. La préservation d
 langage à la fois quantitatif et dépendant demeure un problème ouvert, qui a motivé la conception de langages
 d'assemblage dédiés faute qu'aucun langage existant n'y convienne {cite "HUANG"}[]. Il n'est pas hors d'atteinte pour
 autant : l'évaluation d'un terme linéaire vers les morphismes d'une catégorie monoïdale symétrique, motivée précisément
-par les langages dédiés qui s'expriment en diagrammes de boîtes et de fils, dispose d'une construction {cite
-"BERNARDY"}[].
+par les langages dédiés qui s'expriment en diagrammes de boîtes et de fils, dispose d'une construction
+{cite "BERNARDY"}[].
 
 Ce théorème et la préservation du §{num "sec:g-semantique"}[] (théorème {num "thm:preservation"}[]) ne sont pas deux
 formulations d'une même chose. Celle du §{num "sec:g-semantique"}[] est plus fine, portant les grades, les effets et la
 décroissance du potentiel, là où celui-ci ne parle que du type. Celui-ci est plus large, couvrant l'abaissement que
-celle-ci ne couvre pas. Pour le volet évaluation, cet énoncé est donc un corollaire de celui du §{num
-"sec:g-semantique"}[] : oublier le grade et l'effet dans la conclusion graduée donne exactement la stabilité du type.
-Pour le volet abaissement, l'intersection des deux laisse un énoncé sans démonstration, la préservation graduée à
-travers l'abaissement, isolé au chapitre 6 (§{num "sec:c6-le-processus-de-compilation"}[], théorème {num
-"thm:abaissement_grades"}[]) plutôt que supposé acquis ici.
+celle-ci ne couvre pas. Pour le volet évaluation, cet énoncé est donc un corollaire de celui du
+§{num "sec:g-semantique"}[] : oublier le grade et l'effet dans la conclusion graduée donne exactement la stabilité du
+type. Pour le volet abaissement, l'intersection des deux laisse un énoncé sans démonstration, la préservation graduée à
+travers l'abaissement, isolé au chapitre 6 (§{num "sec:c6-le-processus-de-compilation"}[], théorème
+{num "thm:abaissement_grades"}[]) plutôt que supposé acquis ici.
 
 Trois préservations circulent donc dans ce document, et les nommer sépare ce qui est acquis de ce qui ne l'est pas. La
 _préservation par évaluation_ porte les grades et les effets, et elle est esquissée au §{num "sec:g-semantique"}[]

@@ -25,7 +25,8 @@ open SpecExt
 
 #doc (Manual) "K7PL : KonSept Programming Language" =>
 %%%
-authors := ["Cyprien PIERRE"] shortTitle := "K7PL"
+authors := ["Cyprien PIERRE"]
+shortTitle := "K7PL"
 %%%
 
 {texsetup}

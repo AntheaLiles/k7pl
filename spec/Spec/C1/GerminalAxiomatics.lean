@@ -47,10 +47,10 @@ mais d'ordre, et l'ordre décide de la métathéorie : ce qui est posé se démo
 
 La troisième est un ancêtre plus ancien qu'on ne l'attendrait. Trois des quatre problèmes ouverts que Reynolds laissait
 en 1970 à un langage sans types déclarés sont, dans le vocabulaire d'aujourd'hui, la dépendance des types aux valeurs,
-la non-dissimulation du coût, et le déterminisme d'exécution : soit le lambda-Pi, P3 et P4 {cite
-"reynoldsGEDANKENSimpleTypeless1970"}[]. Et pour le deuxième, il ne se contente pas de poser le problème : il _désigne_
-les deux remèdes employés ici, la discipline sur les variables et l'annotation portée par le type. Cinquante-six ans
-séparent l'énoncé de sa réalisation, et rien n'oblige à faire comme si le problème était neuf.
+la non-dissimulation du coût, et le déterminisme d'exécution : soit le lambda-Pi, P3 et P4
+{cite "reynoldsGEDANKENSimpleTypeless1970"}[]. Et pour le deuxième, il ne se contente pas de poser le problème : il
+_désigne_ les deux remèdes employés ici, la discipline sur les variables et l'annotation portée par le type.
+Cinquante-six ans séparent l'énoncé de sa réalisation, et rien n'oblige à faire comme si le problème était neuf.
 
 Un quatrième point relève du même registre et concerne l'adoption plutôt que la théorie. Les contrats d'interface de la
 couche 1 passent volontiers pour un détail d'ingénierie~; ils sont davantage. Un langage qui vise un unikernel n'a pas
@@ -148,14 +148,14 @@ croire qu'une équivalence de types autorise un changement de disposition, ce qu
 
 : $`\Delta`
 
-_le contexte gradué_, où la modalité de chaque liaison est portée par son grade. Il couvre les trois fragments d'un seul
-tenant. Au grade $`\omega` (la partie notée $`\Delta_{\omega}`), les scalaires et les fonctions pures se copient
-librement, sans qu'aucune trace de cette duplication n'affecte la mémoire ; c'est la modalité `Unr` du chapitre 3,
-réalisée au chapitre 2 comme catégorie de co-Kleisli. Aux autres grades siègent les ressources qui ne se dupliquent pas
-librement : ressources uniques ou partageables et abandonnables sous condition. Les canaux y trouvent leur place sans
-qu'un contexte d'interaction séparé soit nécessaire. Un canal est une ressource de $`\Delta`, typée par un protocole de
-session (chapitre 3, §{num "sec:c3-les-contraintes-de-valeur"}[]) : linéaire pour un point d'accès exclusif
-$`\mathsf{Chan}(p)`, affine à contraction restreinte pour un point d'accès partagé $`\mathsf{SharedChan}(p)`.
+  _le contexte gradué_, où la modalité de chaque liaison est portée par son grade. Il couvre les trois fragments d'un seul
+  tenant. Au grade $`\omega` (la partie notée $`\Delta_{\omega}`), les scalaires et les fonctions pures se copient
+  librement, sans qu'aucune trace de cette duplication n'affecte la mémoire ; c'est la modalité `Unr` du chapitre 3,
+  réalisée au chapitre 2 comme catégorie de co-Kleisli. Aux autres grades siègent les ressources qui ne se dupliquent pas
+  librement : ressources uniques ou partageables et abandonnables sous condition. Les canaux y trouvent leur place sans
+  qu'un contexte d'interaction séparé soit nécessaire. Un canal est une ressource de $`\Delta`, typée par un protocole de
+  session (chapitre 3, §{num "sec:c3-les-contraintes-de-valeur"}[]) : linéaire pour un point d'accès exclusif
+  $`\mathsf{Chan}(p)`, affine à contraction restreinte pour un point d'accès partagé $`\mathsf{SharedChan}(p)`.
 
   Ce mot de _canal_ recevra trois lectures, qui n'en font qu'une prise sous trois angles. Il désigne
   d'abord un _type_ : un protocole de session, avec ses émissions, ses réceptions et ses
@@ -167,18 +167,18 @@ $`\mathsf{Chan}(p)`, affine à contraction restreinte pour un point d'accès par
   glissement de sens entre les chapitres se tromperait ; c'est le même objet, décrit par sa forme,
   par son emploi, et par son image.
 
-Le partage se lit alors sans mécanisme supplémentaire. Un $`\mathsf{SharedChan}(p)` n'est pas une construction à part
-mais la même ressource à un grade admettant la contraction, et son image dans le métalangage est le service répliqué
-$`!x(y).P` : celui-là même par lequel une capacité de lecture se traduit. Le partage d'un canal et le partage d'une
-région relèvent donc du même geste, ce que le chapitre 3 obtient pour la mémoire par l'image cartésienne de la région.
-Il n'y avait pas deux questions, il y en avait une, posée deux fois. Un motif de jonction $`x(u) \mid y(v)
-\triangleright P` n'est ainsi rien d'autre qu'un produit tensoriel $`x \otimes y` consommé atomiquement dans $`\Delta`
-(c'est-à-dire, dans le vocabulaire de la concurrence vraie dont procède cette lecture {cite
-"prattTransitionCancellationConcurrency2003"}[], une transition de réseau de Petri, dont plusieurs places d'entrée sont
-consommées d'un seul tenant). Le rapprochement n'est pas ornemental : c'est dans ce cadre, étendu aux réseaux colorés,
-qu'un langage concurrent d'ordre supérieur à état partagé reçoit une interprétation compositionnelle adéquate {cite
-"castellanGeometryCausalityMultitoken2023"}[]. Sa réalisation par anneaux verrou-libres fait l'objet du chapitre 4,
-Théorie des automates (§{num "sec:c4-echelle-du-systeme"}[]).
+  Le partage se lit alors sans mécanisme supplémentaire. Un $`\mathsf{SharedChan}(p)` n'est pas une construction à part
+  mais la même ressource à un grade admettant la contraction, et son image dans le métalangage est le service répliqué
+  $`!x(y).P` : celui-là même par lequel une capacité de lecture se traduit. Le partage d'un canal et le partage d'une
+  région relèvent donc du même geste, ce que le chapitre 3 obtient pour la mémoire par l'image cartésienne de la région.
+  Il n'y avait pas deux questions, il y en avait une, posée deux fois. Un motif de jonction
+  $`x(u) \mid y(v) \triangleright P` n'est ainsi rien d'autre qu'un produit tensoriel $`x \otimes y` consommé atomiquement
+  dans $`\Delta` (c'est-à-dire, dans le vocabulaire de la concurrence vraie dont procède cette lecture
+  {cite "prattTransitionCancellationConcurrency2003"}[], une transition de réseau de Petri, dont plusieurs places d'entrée
+  sont consommées d'un seul tenant). Le rapprochement n'est pas ornemental : c'est dans ce cadre, étendu aux réseaux
+  colorés, qu'un langage concurrent d'ordre supérieur à état partagé reçoit une interprétation compositionnelle adéquate
+  {cite "castellanGeometryCausalityMultitoken2023"}[]. Sa réalisation par anneaux verrou-libres fait l'objet du chapitre
+  4, Théorie des automates (§{num "sec:c4-echelle-du-systeme"}[]).
 
 : $`\mathcal{G}`
 
@@ -419,10 +419,10 @@ apparie le niveau et le temps. Qu'un $`\mathbf{tick}` soit étiqueté par le niv
 rend le canal temporel énonçable, et c'est là que la preuve de non-interférence devra travailler.
 
 De cette quantale découle une opération d'_itération_ induite, qui donne son annotation d'effet à un flux coinductif de
-couche 2 (chapitre 4, §{num "sec:c4-echelle-locale"}[]) et son critère à la Phase 5 du compilateur (chapitre 6, §{num
-"sec:c6-le-processus-de-compilation"}[]) : sans elle, une boucle n'aurait pas d'effet calculable. Leur intégration au
-système de types et leur composition sans pile de monades sont traitées au chapitre 3 (§{num
-"sec:c3-structures-ouvertes-effets-et"}[]) ; leur résorption statique par _inlining_, au chapitre 6.
+couche 2 (chapitre 4, §{num "sec:c4-echelle-locale"}[]) et son critère à la Phase 5 du compilateur (chapitre 6,
+§{num "sec:c6-le-processus-de-compilation"}[]) : sans elle, une boucle n'aurait pas d'effet calculable. Leur intégration
+au système de types et leur composition sans pile de monades sont traitées au chapitre 3
+(§{num "sec:c3-structures-ouvertes-effets-et"}[]) ; leur résorption statique par _inlining_, au chapitre 6.
 
 Ce jugement ne porte pas de composante de coût, et ce point demande à être justifié, car les contraintes de complexité
 sont une exigence de ce langage et non un ornement. Elles y sont, mais réparties, et c'est cette répartition qui les
@@ -453,10 +453,10 @@ produit moins direct : cela fixe seulement où elle se situe dans l'un et dans l
 Une distinction manque encore, et son absence confondrait un théorème avec une obligation. Entre ce que l'exécution
 consomme et ce que le budget alloue s'intercale une troisième grandeur : la _borne synthétisée_, celle que les règles de
 typage calculent. Trois niveaux se lisent donc sur un jugement (le budget, qui est ce qu'on accorde ; la borne, qui est
-ce que le système déduit ; le coût, qui est ce qui advient) et deux inégalités les relient, de statuts différents {cite
-"mannucciResourceBoundedTypeTheory2025"}[]. Que le coût reste sous la borne est un _théorème de correction_ du système
-d'effets, à établir une fois pour toutes ; que la borne tienne dans le budget est une _obligation_, déchargée programme
-par programme. Confondre les deux reviendrait à demander au solveur ce que la métathéorie doit fournir.
+ce que le système déduit ; le coût, qui est ce qui advient) et deux inégalités les relient, de statuts différents
+{cite "mannucciResourceBoundedTypeTheory2025"}[]. Que le coût reste sous la borne est un _théorème de correction_ du
+système d'effets, à établir une fois pour toutes ; que la borne tienne dans le budget est une _obligation_, déchargée
+programme par programme. Confondre les deux reviendrait à demander au solveur ce que la métathéorie doit fournir.
 
 Une réserve accompagne ces trois niveaux et dit ce que le système _ne_ fait pas. Ce que l'appareil doit établir est une
 _correction_ : le coût reste sous la borne, et la borne sous le budget. Caractériser une _classe de complexité_
@@ -466,10 +466,10 @@ parce que ses indices _sont_ des polynômes, ni plus ni moins.
 
 Le paysage compte trois positions, et ce document est hors des deux premières. La caractérisation _sans ressource_, où
 la seule discipline sur les variables donne la classe sans aucune annotation, est complète pour le temps polynomial. La
-caractérisation _prédicative_, qui stratifie les données par niveaux, en donne une autre {cite
-"caporasoPredicativeApproachClassification2001"}[]. K7PL est la troisième : il annote, et son annotation ne borne pas la
-classe. Ce n'est pas une position faible, c'est une position _autre_ : celle d'un langage qui veut qu'un programme dise
-son coût, non d'un système qui veut prouver qu'aucun programme ne dépasse un coût.
+caractérisation _prédicative_, qui stratifie les données par niveaux, en donne une autre
+{cite "caporasoPredicativeApproachClassification2001"}[]. K7PL est la troisième : il annote, et son annotation ne borne
+pas la classe. Ce n'est pas une position faible, c'est une position _autre_ : celle d'un langage qui veut qu'un
+programme dise son coût, non d'un système qui veut prouver qu'aucun programme ne dépasse un coût.
 
 Le point qui tranche est ailleurs, et il est simple : _dans K7PL le budget est déclaré, non borné par le système_. Un
 programme qui annonce un budget démesuré et le consomme est bien typé. Le système de types borne donc chaque programme
@@ -480,9 +480,9 @@ longueur du tableau), ce qui étend ce qu'on peut dire sans restreindre ce qu'on
 Ce qu'il en coûterait se nomme, car une distinction s'y cache que l'on confond aisément. _Dimensionner n'est pas payer._
 K7PL dimensionne : l'arène est fixée au pire cas, calculé à la compilation, et chaque écriture y est en $`O(1)` : c'est
 P3. Une méthode de paiement à la manière de LFPL fait tenir au programme un jeton par cellule allouée, de sorte qu'aucun
-programme n'alloue plus qu'il n'a reçu. C'est cette seconde discipline, assortie d'une preuve par réalisabilité {cite
-"atkeyPolynomialTimeDependent2024"}[], qui donne une classe. La première donne une garantie par programme, la seconde
-une garantie sur l'ensemble des programmes. _K7PL prend la première et ne revendique pas la seconde._
+programme n'alloue plus qu'il n'a reçu. C'est cette seconde discipline, assortie d'une preuve par réalisabilité
+{cite "atkeyPolynomialTimeDependent2024"}[], qui donne une classe. La première donne une garantie par programme, la
+seconde une garantie sur l'ensemble des programmes. _K7PL prend la première et ne revendique pas la seconde._
 
 Ce choix n'est pas propre à ce document, et le dire évite de le prendre pour un aveu : les systèmes gradués qui suivent
 des coûts explicites l'énoncent comme leur position : viser des budgets explicites plutôt que des classes de complexité.
@@ -505,9 +505,9 @@ composante séparée devrait les tenir ensemble : ce serait $`\mathcal{C}` repar
 Cette condition est la _loi candidate de cohérence_ de $`\varphi` et $`\psi`. Elle ne pourra être quantifiée sur tout
 grade $`r` qu'après définition du domaine d'action correspondant, et elle porte alors sur tout contexte $`\Delta` et
 tout effet $`\varepsilon`, mettre à l'échelle après transport doit revenir à transporter après mise à l'échelle, l'effet
-étant échelonné du même facteur. Elle est une obligation du §{num "sec:g-regles"}[] (théorème {num
-"thm:coherence_axiome"}[]), là où le lemme de substitution, la relation logique et la traduction l'emploient l'une après
-l'autre.
+étant échelonné du même facteur. Elle est une obligation du §{num "sec:g-regles"}[] (théorème
+{num "thm:coherence_axiome"}[]), là où le lemme de substitution, la relation logique et la traduction l'emploient l'une
+après l'autre.
 
 Cette loi n'ajoute rien à l'appareil : elle énonce une compatibilité entre deux fonctions déjà posées. Elle reste
 cependant une loi candidate dont la portée dépend du support d'indexation et des actions retenues. Dans l'architecture
@@ -540,10 +540,10 @@ Deux précisions doivent accompagner cette organisation, faute de quoi elle prom
 première porte sur l'_interaction_ des deux côtés. Poser une modalité graduée sur le contexte et une sur le calcul ne
 dit rien de leur rapport, et leur juxtaposition ne le donne pas. Qu'un calcul exige deux fois une ressource _puis_
 produise un effet soit ou non la même chose que l'inverse est une question à laquelle ni la comonade, ni la monade, ni
-leur produit ne répondent. La
-structure qui y répond est une _loi distributive graduée_ entre les deux, dont la lecture syntaxique
-est une théorie équationnelle {cite "gaboardiCombiningEffectsCoeffects2016"}[]. Le chapitre 3 (§{num
-"sec:c3-structures-ouvertes-effets-et"}[]) en tire les règles de composition, et ce document ne l'instancie pas au-delà.
+leur produit ne répondent. La structure qui y répond est une _loi distributive graduée_ entre les deux, dont la lecture
+syntaxique est une théorie équationnelle {cite "gaboardiCombiningEffectsCoeffects2016"}[]. Le chapitre 3
+(§{num "sec:c3-structures-ouvertes-effets-et"}[]) en tire les règles de composition, et ce document ne l'instancie pas
+au-delà.
 
 La seconde porte sur la nature de la gradation des effets, et elle corrige une facilité. Dès lors que le temps est un
 effet, l'effet d'un terme _dépend de valeurs_ : le nombre de $`\mathbf{tick}` d'un parcours dépend de la longueur du
@@ -598,11 +598,11 @@ _est_ la séparation des valeurs et des calculs qu'il tient de son régime d'év
 
 Une seconde économie, plus concrète, suit du même choix. La voie des _effets comme capacités_ (où un gestionnaire est
 une capacité passée plutôt qu'une portée dynamique) obtient la sûreté d'effet au prix d'une restriction majeure. La
-restriction sépare les fonctions des valeurs et traite toutes les fonctions comme de _seconde classe_ {cite
-"brachthauserEffectsCapabilitiesEffect2020"}[]. C'est ce que l'appel par poussée de valeur donne, et sans le demander :
-un calcul n'y est pas une valeur, une suspension en est une. Cette voie s'emprunte donc sans en payer le prix de la
-restriction, non celui de l'allocation ou de l'indirection que les suspensions réintroduisent si l'_inlining_ ne les
-élimine pas systématiquement, avec l'abaissement qui l'accompagne : style à passage de capacités et continuations
+restriction sépare les fonctions des valeurs et traite toutes les fonctions comme de _seconde classe_
+{cite "brachthauserEffectsCapabilitiesEffect2020"}[]. C'est ce que l'appel par poussée de valeur donne, et sans le
+demander : un calcul n'y est pas une valeur, une suspension en est une. Cette voie s'emprunte donc sans en payer le prix
+de la restriction, non celui de l'allocation ou de l'indirection que les suspensions réintroduisent si l'_inlining_ ne
+les élimine pas systématiquement, avec l'abaissement qui l'accompagne : style à passage de capacités et continuations
 itérées, avec un sous-ensemble à _coût nul_ caractérisé par un système de types plus restrictif et une preuve qu'aucune
 abstraction de gestionnaire ne subsiste dans le code produit {cite "schusterCompilingEffectHandlers2020"}[]. Conception
 et abaissement des effets ne sont pas deux questions, et le chapitre 6 (§{num "sec:c6-le-processus-de-compilation"}[])
@@ -615,10 +615,10 @@ goût.
 
 Reste à dire _quelle_ forme de ce cadre est retenue : il en existe deux, et le prix les sépare. La forme simple, sans
 extension de Kleisli pour les fonctions dépendantes, ne suffit pas à encoder l'appel par valeur dépendant ni
-l'élimination _forte_ des connecteurs positifs~; elle suffit pour l'élimination _faible_ {cite
-"vakarFrameworkDependentTypes2015"}[]. Or la règle de filtrage de ce document porte le même type de conclusion dans
-toutes ses branches, et ce type ne mentionne pas l'indice examiné : K7PL n'a donc que l'élimination faible, et se tient
-du côté qui ne paie pas. Le jour (et seulement le jour) où un motif devra dépendre du sujet examiné, la variante
+l'élimination _forte_ des connecteurs positifs~; elle suffit pour l'élimination _faible_
+{cite "vakarFrameworkDependentTypes2015"}[]. Or la règle de filtrage de ce document porte le même type de conclusion
+dans toutes ses branches, et ce type ne mentionne pas l'indice examiné : K7PL n'a donc que l'élimination faible, et se
+tient du côté qui ne paie pas. Le jour (et seulement le jour) où un motif devra dépendre du sujet examiné, la variante
 enrichie deviendra nécessaire, et son prix est connu : perte de l'unicité du typage, donc besoin de règles de
 coercition. La frontière est ainsi localisée avant d'être franchie, ce qui est tout ce qu'on peut demander à un document
 qui ne la franchit pas.
@@ -629,20 +629,20 @@ fantômes, les états de typestate et les grades eux-mêmes ; et celle de l'exé
 une valeur observable.
 
 De cette distinction découle la propriété dont dépend toute la fin du pipeline, la _non-interférence_ : le comportement
-entrée-sortie d'un programme ne peut dépendre de ce qui appartient à la phase de compilation {cite
-"niuCostawareLogicalFramework2022"}[]. C'est elle, et non une simple convention d'ingénierie, qui autorise la Phase 10
-du chapitre 6 à purger les blocs de spécification sans changer le programme. C'est elle aussi qui impose la règle
-générale du §{num "sec:c3-les-contraintes-de-valeur"}[]) : aucun éliminateur ne discrimine sur un argument appartenant à
-la phase de compilation. Les cinq mécanismes d'effacement que les chapitres suivants emploient (grades effaçables,
-contraintes de valeur, typestate, existentielles, purge des spécifications) ne sont pas cinq dispositifs, mais cinq
-usages de celui-ci.
+entrée-sortie d'un programme ne peut dépendre de ce qui appartient à la phase de compilation
+{cite "niuCostawareLogicalFramework2022"}[]. C'est elle, et non une simple convention d'ingénierie, qui autorise la
+Phase 10 du chapitre 6 à purger les blocs de spécification sans changer le programme. C'est elle aussi qui impose la
+règle générale du §{num "sec:c3-les-contraintes-de-valeur"}[]) : aucun éliminateur ne discrimine sur un argument
+appartenant à la phase de compilation. Les cinq mécanismes d'effacement que les chapitres suivants emploient (grades
+effaçables, contraintes de valeur, typestate, existentielles, purge des spécifications) ne sont pas cinq dispositifs,
+mais cinq usages de celui-ci.
 
 Cette distinction n'est pas propre à K7PL : c'est une _modalité de nécessité_, dans la lecture par étagement où un terme
 sous $`\Box` est du code disponible à la compilation plutôt qu'une valeur d'exécution. Les λ-calculs modaux qui la
-formalisent sont nombreux et leur sémantique catégorique est établie de longue date {cite
-"kavvosManyWorldsModal2016"}[]. K7PL n'en instancie aucun formellement (il retient la lecture, non l'appareil), mais la
-non-interférence qu'il pose ici comme propriété y découle de la structure modale elle-même, ce qui indique par où elle
-se démontrerait.
+formalisent sont nombreux et leur sémantique catégorique est établie de longue date
+{cite "kavvosManyWorldsModal2016"}[]. K7PL n'en instancie aucun formellement (il retient la lecture, non l'appareil),
+mais la non-interférence qu'il pose ici comme propriété y découle de la structure modale elle-même, ce qui indique par
+où elle se démontrerait.
 
 Ce jugement est le point fixe minimal de K7PL. Acteur, session, entité d'un système à composants, tableau, capacité ne
 sont pas des primitives distinctes du langage. Ce sont des macro-expansions de ce même jugement, obtenues par
@@ -676,12 +676,12 @@ rattacher à la prémisse manquante qui la produit, de sorte que les familles ac
 un par mécanisme. La table qui les apparie reste à écrire.
 
 La suffisance d'abord. Une extension qui se range dans l'une des trois strates s'exprime par composition et
-tensorisation des morphismes existants, donc reste dans _C_ : c'est P1. Portant un grade, elle porte une borne statique
-: c'est P3. Portant une contrainte de valeur indépendante de sa modalité, elle respecte P2 par construction. Mais elle
-ne satisfait P4 qu'à une condition supplémentaire : un effet nouveau se projette bien sur $`\mathcal{E}` tout en
-introduisant une source de non-déterminisme, si rien n'oblige à la journaliser. La projection sur les trois composantes
-est donc suffisante _pourvu que tout effet non déterministe soit journalisé_, et cette clause appartient à la condition
-de clôture plutôt qu'à P4 seul.
+tensorisation des morphismes existants, donc reste dans _C_ : c'est P1. Portant un grade, elle porte une borne
+statique : c'est P3. Portant une contrainte de valeur indépendante de sa modalité, elle respecte P2 par construction.
+Mais elle ne satisfait P4 qu'à une condition supplémentaire : un effet nouveau se projette bien sur $`\mathcal{E}` tout
+en introduisant une source de non-déterminisme, si rien n'oblige à la journaliser. La projection sur les trois
+composantes est donc suffisante _pourvu que tout effet non déterministe soit journalisé_, et cette clause appartient à
+la condition de clôture plutôt qu'à P4 seul.
 
 La nécessité, en revanche, ne tient pas, et un contre-exemple suffit à le montrer. Une extension probabiliste
 attacherait à chaque terme un poids réel, au sens du chapitre 4 (§{num "sec:c4-echelle-du-systeme"}[]). Elle pourrait
@@ -727,10 +727,10 @@ Reste à dire ce qui fait qu'une couche est _correcte_ : question distincte de l
 Une couche l'est lorsque sa composition avec la couche inférieure implémente l'interface qu'elle expose à la couche
 supérieure. C'est le critère des architectures à couches d'abstraction certifiées, où une interface est une signature
 d'objet plus une stratégie. La condition que les modèles antérieurs peinaient à satisfaire (l'encapsulation de l'état)
-est ici acquise, les acteurs de K7PL n'exposant que leur comportement observable (chapitre 4, §{num
-"sec:c4-echelle-de-l-acteur"}[]) {cite "oliveiravaleLayeredObjectbasedGame2022"}[]. Ce critère est ici acquis plutôt que
-supposé : il suit de la terminalité de la coalgèbre qui définit un acteur, comme le chapitre 1 (§{num
-"sec:c1-axiomatique-germinale"}[]) l'établit. La projection est alors la suivante. Le $`\lambda`-calcul linéaire
+est ici acquise, les acteurs de K7PL n'exposant que leur comportement observable (chapitre 4,
+§{num "sec:c4-echelle-de-l-acteur"}[]) {cite "oliveiravaleLayeredObjectbasedGame2022"}[]. Ce critère est ici acquis
+plutôt que supposé : il suit de la terminalité de la coalgèbre qui définit un acteur, comme le chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]) l'établit. La projection est alors la suivante. Le $`\lambda`-calcul linéaire
 correspond aux fragments cartésien et affine : couche 3 pour la pureté, couche 2 pour la productivité. Ce sont deux
 restrictions structurelles l'une de l'autre, où les ressources sont respectivement partagées ou abandonnées. Le
 $`\pi`-calcul et les motifs de jonction correspondent aux synchronisations de $`\Delta` en couche 1 (linéarité stricte)
@@ -793,24 +793,25 @@ complet plutôt que ce qu'elle y ajoute.
 Ces trois jugements ne sont pas trois calculs différents : ce sont trois restrictions du même calcul, obtenues en fixant
 la forme admissible de $`\Delta`, l'algèbre de grades $`\mathcal{G}` et le domaine de $`\mathcal{E}`.
 $`\mathcal{G}_{\text{pile}}` et $`\mathcal{G}_{\text{budget}}` sont deux sous-domaines de $`\mathcal{G}`, non deux
-valeurs : par projection du produit, $`\mathcal{G}_{\text{pile}} = \mathbb{N}_\infty \times \{\mathrm{d}\} \times
-\mathcal{L} \times \{0\}` (budget nul) et $`\mathcal{G}_{\text{budget}} = \mathbb{N}_\infty \times
-\{\mathrm{d},\mathrm{m}\} \times \mathcal{L} \times \mathbb{N}_\infty`. P3 gouverne la borne synthétisée et l'admission
-à la bibliothèque ; il ne gouverne ni le coût de compilation ni l'amortissement interne d'un régime de mémoire, à la
-condition que la borne synthétisée soit sûre. La preuve que cette restriction est conservative (qu'elle ajoute des
-contraintes d'usage sans altérer la sémantique dénotationnelle sous-jacente) repose sur l'existence de foncteurs
-d'inclusion fidèles $`F_{1 \to 2} : \text{Linéaire} \hookrightarrow \text{Affine}` et $`F_{2 \to 3} : \text{Affine}
-\hookrightarrow \text{Cartésien}`. La construction de ces foncteurs est différée au chapitre 2 (§{num
-"sec:c2-la-comonade-exponentielle-et"}[]), mais leur existence est déjà ce qui légitime, dans tout ce document, l'emploi
-du terme de _sédimentation_ plutôt que de simple juxtaposition. Cette légitimité a une réserve : le théorème de bonne
-définition de la sédimentation ({num "thm:sedimentation"}[]) vaut pour des conteneurs non gradués, et sa transposition à
-la gradation reste à faire.
+valeurs : par projection du produit,
+$`\mathcal{G}_{\text{pile}} = \mathbb{N}_\infty \times \{\mathrm{d}\} \times \mathcal{L} \times \{0\}` (budget nul) et
+$`\mathcal{G}_{\text{budget}} = \mathbb{N}_\infty \times \{\mathrm{d},\mathrm{m}\} \times \mathcal{L} \times \mathbb{N}_\infty`.
+P3 gouverne la borne synthétisée et l'admission à la bibliothèque ; il ne gouverne ni le coût de compilation ni
+l'amortissement interne d'un régime de mémoire, à la condition que la borne synthétisée soit sûre. La preuve que cette
+restriction est conservative (qu'elle ajoute des contraintes d'usage sans altérer la sémantique dénotationnelle
+sous-jacente) repose sur l'existence de foncteurs d'inclusion fidèles
+$`F_{1 \to 2} : \text{Linéaire} \hookrightarrow \text{Affine}` et
+$`F_{2 \to 3} : \text{Affine} \hookrightarrow \text{Cartésien}`. La construction de ces foncteurs est différée au
+chapitre 2 (§{num "sec:c2-la-comonade-exponentielle-et"}[]), mais leur existence est déjà ce qui légitime, dans tout ce
+document, l'emploi du terme de _sédimentation_ plutôt que de simple juxtaposition. Cette légitimité a une réserve : le
+théorème de bonne définition de la sédimentation ({num "thm:sedimentation"}[]) vaut pour des conteneurs non gradués, et
+sa transposition à la gradation reste à faire.
 
 Le _sens_ de cette sédimentation est un arbitrage et non une commodité d'exposition. Elle va du plus _contraint_ vers le
 plus _libre_, et l'autre lecture existe : on sait recouvrer la pureté à l'intérieur d'un langage impur, en la capturant
-par une comonade. Cela donne une traduction allant en sens inverse et préservant les égalités du calcul {cite
-"choudhuryRecoveringPurityComonads2020"}[]. Ce document ne la retient pas, et le motif n'est pas pédagogique. Recouvrer
-la pureté la rend _relative_ : elle devient ce qu'une modalité isole d'un ambiant impur, et l'ambiant reste la
+par une comonade. Cela donne une traduction allant en sens inverse et préservant les égalités du calcul
+{cite "choudhuryRecoveringPurityComonads2020"}[]. Ce document ne la retient pas, et le motif n'est pas pédagogique.
+Recouvrer la pureté la rend _relative_ : elle devient ce qu'une modalité isole d'un ambiant impur, et l'ambiant reste la
 référence. K7PL exige qu'elle soit _absolue_ (la couche 3 est pure par construction, non par soustraction), et ce qui
 rend cette exigence tenable est le traitement _algébrique_ des effets. Un effet y est une opération _ajoutée_ à un
 calcul pur, avec sa théorie équationnelle ; il n'est pas une propriété ambiante à défaire. La pureté n'a donc rien à
@@ -867,24 +868,25 @@ effet ou comme processus. C'est cette lecture de recours qui rend la stratificat
 seulement au métathéoricien : la couche inférieure n'est pas un fragment dégradé, c'est le lieu où va ce qui ne se
 prouve pas plus haut.
 
-La seconde tient dans la quatrième colonne, et elle porte plus loin qu'une correspondance. Les algèbres initiales $`\mu
-F` sont en couche 3, les coalgèbres terminales $`\nu F` en couche 2 : _l'axe de sédimentation est l'axe de polarité_. La
-couche ne dit donc pas seulement quelles règles
-structurelles sont admises, elle dit si l'on est du côté inductif ou du côté coinductif, et par
-conséquent laquelle des deux garanties duales, terminaison ou productivité, est celle qu'on doit établir. Le chapitre 2
-(§{num "sec:c2-algebres-coalgebres-et-points"}[]) en fait le paramètre d'un théorème unique plutôt que d'en écrire deux,
-et le chapitre 4 (§{num "sec:c4-echelle-locale"}[]) en tire son vocabulaire d'exécution. Une limite s'y lit du même coup
-: la couche 1 n'est ni $`\mu` ni $`\nu`, et l'axe de polarité ne court donc que sur deux des trois couches.
+La seconde tient dans la quatrième colonne, et elle porte plus loin qu'une correspondance. Les algèbres initiales
+$`\mu F` sont en couche 3, les coalgèbres terminales $`\nu F` en couche 2 : _l'axe de sédimentation est l'axe de
+polarité_. La couche ne dit donc pas seulement quelles règles structurelles sont admises, elle dit si l'on est du côté
+inductif ou du côté coinductif, et par conséquent laquelle des deux garanties duales, terminaison ou productivité, est
+celle qu'on doit établir. Le chapitre 2 (§{num "sec:c2-algebres-coalgebres-et-points"}[]) en fait le paramètre d'un
+théorème unique plutôt que d'en écrire deux, et le chapitre 4 (§{num "sec:c4-echelle-locale"}[]) en tire son vocabulaire
+d'exécution. Une limite s'y lit du même coup : la couche 1 n'est ni $`\mu` ni $`\nu`, et l'axe de polarité ne court donc
+que sur deux des trois couches.
 
 Une voie reste ouverte du côté de la construction. Cette table présente la sédimentation comme une _lecture_ : trois
 fragments d'une même catégorie, reliés par des inclusions fidèles. Elle pourrait recevoir une _construction_ : la
 littérature des automates catégoriques bâtit des classes obtenues en _recollant_ plusieurs régimes en une catégorie
-unique, avec la minimisation acquise par conception plutôt que démontrée après coup {cite
-"colcombetAutomataCategoryGlued2017b"}[]. La construction n'exige pas la structure linéaire de son exemple principal
-(elle est énoncée pour un couple quelconque d'une catégorie et d'une sous-catégorie) et ce qu'elle demande à la place
-est un _système de factorisation à travers_ cette sous-catégorie. Le motif de cette notion généralisée est celui-là même
-qui intéresserait ce document : elle existe pour les sous-catégories closes par quotients mais non par sous-objets, ce
-qu'un fragment substructurel est plausiblement. L'obligation est donc concrète, et elle n'est pas remplie ici.
+unique, avec la minimisation acquise par conception plutôt que démontrée après coup
+{cite "colcombetAutomataCategoryGlued2017b"}[]. La construction n'exige pas la structure linéaire de son exemple
+principal (elle est énoncée pour un couple quelconque d'une catégorie et d'une sous-catégorie) et ce qu'elle demande à
+la place est un _système de factorisation à travers_ cette sous-catégorie. Le motif de cette notion généralisée est
+celui-là même qui intéresserait ce document : elle existe pour les sous-catégories closes par quotients mais non par
+sous-objets, ce qu'un fragment substructurel est plausiblement. L'obligation est donc concrète, et elle n'est pas
+remplie ici.
 
 La table se prolonge enfin par la table {num "tab:dimensions"}[], qui décline cette même stratification sur les axes
 d'ingénierie du langage :

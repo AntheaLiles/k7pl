@@ -38,15 +38,14 @@ parenté vaut d'être signalée puisqu'elle n'est pas une coïncidence. Les fibr
 premier emploi ; la famille d'effacements par niveau de sécurité, construite ci-après, le deuxième ; et la gradation
 indexée des effets, que le chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) vient de poser, le troisième. Cette
 dernière notion est elle-même inspirée de la vue fibrée et destinée à donner la sémantique d'un système à raffinements
-{cite "kuraCategoryTheoreticFrameworkDependent2026"}[]
-: c'est-à-dire de ce que le présent théorème énonce être K7PL.
+{cite "kuraCategoryTheoreticFrameworkDependent2026"}[] : c'est-à-dire de ce que le présent théorème énonce être K7PL.
 
-Ce que K7PL possède déjà est ce triplet. La catégorie des termes est celle du métalangage construit au chapitre 4 (§{num
-"sec:c4-le-calcul-de-processus"}[]) ; celle des dérivations est faite des jugements de K7PL, avec leurs composantes
-$`\mathcal{G}` et $`\mathcal{E}` ; et le foncteur est la traduction $`\llbracket \cdot \rrbracket`, qui envoie une
-dérivation sur un processus sans emporter ni les grades ni les effets latents que portent les types (les opérations à
-effet, elles, y deviennent des communications sur des canaux distingués). C'est cet oubli (le foncteur oublie ce que la
-Phase 8 efface) qui fait de l'ensemble un système de raffinement et non une simple traduction.
+Ce que K7PL possède déjà est ce triplet. La catégorie des termes est celle du métalangage construit au chapitre 4
+(§{num "sec:c4-le-calcul-de-processus"}[]) ; celle des dérivations est faite des jugements de K7PL, avec leurs
+composantes $`\mathcal{G}` et $`\mathcal{E}` ; et le foncteur est la traduction $`\llbracket \cdot \rrbracket`, qui
+envoie une dérivation sur un processus sans emporter ni les grades ni les effets latents que portent les types (les
+opérations à effet, elles, y deviennent des communications sur des canaux distingués). C'est cet oubli (le foncteur
+oublie ce que la Phase 8 efface) qui fait de l'ensemble un système de raffinement et non une simple traduction.
 
 ::::theorem (label := "thm:raffinement") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "metatheory")
 :::title
@@ -105,8 +104,9 @@ la non-interférence comme indiscernabilité dans la base
 Deuxième lecture
 
 Sous les hypothèses du théorème {num "thm:raffinement"}[], et pour une relation d'observation fixée sur $`\mathcal{T}`,
-qui détermine ce que la sémantique cible distingue, la non-interférence du chapitre 1 (§{num
-"sec:c1-axiomatique-germinale"}[]) est l'énoncé que $`\mathcal{T}` ne distingue pas deux dérivations de même image.
+qui détermine ce que la sémantique cible distingue, la non-interférence du chapitre 1
+(§{num "sec:c1-axiomatique-germinale"}[]) est l'énoncé que $`\mathcal{T}` ne distingue pas deux dérivations de même
+image.
 :::
 
 :::note
@@ -132,11 +132,11 @@ dimension d'usage.
 :::
 
 :::proofsketch
-C'est précisément sur les dimensions que le foncteur n'emporte pas que le §{num
-"sec:c2-adjonctions-et-enrichissement"}[] définit $`\sqsubseteq`, et l'ordre annoncé y est donc l'ordre de la fibre
-plutôt qu'une structure ajoutée. Les morphismes verticaux sont les foncteurs d'inclusion du §{num
-"sec:c2-la-comonade-exponentielle-et"}[] : passer de $`\mathrm{Lin}\,T` à $`\mathrm{Unr}\,T` ne change pas le terme,
-seulement ce qu'on s'autorise à en faire, et l'inclusion se projette donc sur une identité.
+C'est précisément sur les dimensions que le foncteur n'emporte pas que le
+§{num "sec:c2-adjonctions-et-enrichissement"}[] définit $`\sqsubseteq`, et l'ordre annoncé y est donc l'ordre de la
+fibre plutôt qu'une structure ajoutée. Les morphismes verticaux sont les foncteurs d'inclusion du
+§{num "sec:c2-la-comonade-exponentielle-et"}[] : passer de $`\mathrm{Lin}\,T` à $`\mathrm{Unr}\,T` ne change pas le
+terme, seulement ce qu'on s'autorise à en faire, et l'inclusion se projette donc sur une identité.
 :::
 
 :::note
@@ -174,10 +174,10 @@ Une généralisation s'impose, que la lecture qui précède rend naturelle et qu
 formuler. L'effacement de la Phase 10 est binaire : ce qui appartient à la compilation disparaît, ce qui appartient à
 l'exécution demeure. C'est un treillis à deux points, et rien n'oblige à s'y tenir. Si l'on se donne un treillis de
 niveaux $`(\mathcal{L}, \leq)` (celui-là même sur lequel le §{num "sec:c2-adjonctions-et-enrichissement"}[] fait porter
-la modalité de confidentialité), le foncteur unique devient une _famille indexée_ $`\{\llbracket \cdot
-\rrbracket_\ell\}_{\ell \in \mathcal{L}}`, celui d'indice $`\ell` retirant tout ce qui est gradué au-dessus de $`\ell`
-et conservant le reste. La distinction de phase en est l'instance à deux points, la compilation étant le niveau haut et
-l'exécution le niveau bas.
+la modalité de confidentialité), le foncteur unique devient une _famille indexée_
+$`\{\llbracket \cdot \rrbracket_\ell\}_{\ell \in \mathcal{L}}`, celui d'indice $`\ell` retirant tout ce qui est gradué
+au-dessus de $`\ell` et conservant le reste. La distinction de phase en est l'instance à deux points, la compilation
+étant le niveau haut et l'exécution le niveau bas.
 
 Ce déplacement a une conséquence qui vaut d'être dite, car elle change ce qu'un énoncé de sécurité doit prouver. La
 non-interférence cesse d'être une propriété unique pour devenir une famille : pour chaque $`\ell`, deux dérivations de
@@ -190,14 +190,14 @@ Il désigne en revanche la voie, car trois sont disponibles et leur coût diffè
 réemploie le plus de ce qui précède. Elle produit des théorèmes utiles sur les programmes à partir de leurs seuls types,
 sans rien devoir à leur contenu. Une preuve de non-interférence en a été tirée pour une variante du calcul de dépendance
 auquel le chapitre 1 (§{num "sec:c1-postulats"}[]) rattache la confidentialité, par une construction modulaire
-s'appuyant sur l'encodage de l'abstraction de données au moyen de types _existentiels_ {cite
-"algehedSimpleNoninterferenceParametricity2019"}[].
+s'appuyant sur l'encodage de l'abstraction de données au moyen de types _existentiels_
+{cite "algehedSimpleNoninterferenceParametricity2019"}[].
 
-K7PL possède ces existentielles et en fait déjà le moyen de cacher un témoin (chapitre 3, §{num
-"sec:c3-structures-ouvertes-effets-et"}[]). Il ne manque que le lien : la paramétricité transforme l'abstraction en
-indiscernabilité, et l'indiscernabilité _est_ la non-interférence. Un énoncé obtenu de cette façon serait le quatrième
-de même espèce dans ce document, après la terminaison, la productivité et la monotonie : tous portés par les types,
-aucun par une inspection du terme.
+K7PL possède ces existentielles et en fait déjà le moyen de cacher un témoin (chapitre 3,
+§{num "sec:c3-structures-ouvertes-effets-et"}[]). Il ne manque que le lien : la paramétricité transforme l'abstraction
+en indiscernabilité, et l'indiscernabilité _est_ la non-interférence. Un énoncé obtenu de cette façon serait le
+quatrième de même espèce dans ce document, après la terminaison, la productivité et la monotonie : tous portés par les
+types, aucun par une inspection du terme.
 
 ::::theorem (label := "thm:non_interference") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "security")
 :::title
@@ -281,8 +281,8 @@ couvrir.
 Deux autres voies étaient disponibles (relations logiques mécanisées, normalisation) et rien n'oblige à celle-ci sinon
 l'économie. La paramétricité tire ses théorèmes des seuls types, ce qui est la position que ce document tient pour la
 terminaison, la productivité et la monotonie. Elle emploie en outre des existentielles que K7PL possède, et elle a été
-conduite sur une variante du calcul de dépendance auquel le chapitre 1 rattache la confidentialité {cite
-"algehedSimpleNoninterferenceParametricity2019"}[].
+conduite sur une variante du calcul de dépendance auquel le chapitre 1 rattache la confidentialité
+{cite "algehedSimpleNoninterferenceParametricity2019"}[].
 
 L'esquisse ne conduit pas la preuve, et trois points y résisteraient. Le choix de la relation doit être vérifié
 compatible avec le produit du grade (§{num "sec:c2-adjonctions-et-enrichissement"}[]) : une relation par facteur ne

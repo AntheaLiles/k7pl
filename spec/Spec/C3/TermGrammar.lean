@@ -45,12 +45,12 @@ Grammaire des termes, en style appel par poussée de valeur
 ::::
 
 Cette grammaire est complète au sens précis où chaque règle du §{num "sec:g-regles"}[] y trouve la forme qu'elle
-gouverne, et réciproquement. Elle ne l'était pas : dix-sept constructeurs y manquaient
-: les deux éliminations d'unité et de tenseur, l'introduction et la projection du produit négatif,
-l'ouverture de l'existentiel, le dépliage, les deux formes du quantificateur universel, l'opération à portée, le
-littéral de vecteur, et les six formes temporelles. L'écart s'était creusé sans qu'aucun contrôle le voie, et c'est la
-faute que la Définition de Standard ML s'impute : ne pas spécifier la syntaxe complète parce que le reste est dérivé. Un
-contrôle automatique compare désormais les deux, et il échoue plutôt que de laisser l'écart se rouvrir.
+gouverne, et réciproquement. Elle ne l'était pas : dix-sept constructeurs y manquaient : les deux éliminations d'unité
+et de tenseur, l'introduction et la projection du produit négatif, l'ouverture de l'existentiel, le dépliage, les deux
+formes du quantificateur universel, l'opération à portée, le littéral de vecteur, et les six formes temporelles. L'écart
+s'était creusé sans qu'aucun contrôle le voie, et c'est la faute que la Définition de Standard ML s'impute : ne pas
+spécifier la syntaxe complète parce que le reste est dérivé. Un contrôle automatique compare désormais les deux, et il
+échoue plutôt que de laisser l'écart se rouvrir.
 
 Quatre introductions sont rangées parmi les valeurs, et c'est une correction. $`\mathsf{always}\;v`, $`\mathsf{now}\;v`,
 $`\mathsf{next}\;v` et $`\mathsf{loc}_n\,v` construisent un habitant d'un type de valeur, $`{\Box}V`, $`{\Diamond}V`,

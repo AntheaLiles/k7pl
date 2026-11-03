@@ -29,10 +29,10 @@ Une chose se déduit avant même d'être déclarée, et il vaut la peine de la r
 laisser par prudence : la _spécialisation_. Les liens entre une macro générale et ses variantes sont de deux espèces
 seulement : poser deux termes égaux l'un à l'autre, ce qui est une contraction, et poser un terme égal à l'identité, ce
 qui est une substitution d'unité et non un affaiblissement. La structure qui en résulte est l'_ordre d'instance_ sur les
-termes, calculable par filtrage dans un sens et par anti-unification dans l'autre {cite
-"hoekstraCombinatorNdimensionalArray"}[]. Un compilateur peut donc _dériver_ quelle spécialisation s'applique à un site
-d'appel, au lieu de la faire déclarer par l'auteur de la bibliothèque. Ce que l'interface doit porter est ce qui ne se
-déduit pas ; la hiérarchie de spécialisation, elle, se calcule.
+termes, calculable par filtrage dans un sens et par anti-unification dans l'autre
+{cite "hoekstraCombinatorNdimensionalArray"}[]. Un compilateur peut donc _dériver_ quelle spécialisation s'applique à un
+site d'appel, au lieu de la faire déclarer par l'auteur de la bibliothèque. Ce que l'interface doit porter est ce qui ne
+se déduit pas ; la hiérarchie de spécialisation, elle, se calcule.
 
 La forme de cette interface n'est pas à inventer. _Une déclaration de macro est le jugement germinal porté d'un étage_
 (ce que l'expansion exige, ce qu'elle est, ce qu'elle produit) et les trois composantes s'y instancient sans qu'aucun
@@ -44,12 +44,12 @@ expansion, laquelle se révèle _dérivable_ plutôt que posée.
 tag := "c5-ce-qu-une-macro-declare-les-trois-composantes-au-niveau-m"
 %%%
 
-$`\Delta` : _ce que l'expansion exige de ses arguments_. C'est ici que se referme la question que le théorème {num
-"thm:hygiene"}[] laissait ouverte. Une macro qui place son argument en $`k` positions le duplique, et cette duplication
-n'est pas anodine : si l'argument dénote une ressource de grade linéaire, l'expansion l'emploierait $`k` fois. Une macro
-déclare donc, _par métavariable_, un grade $`r`, et ce grade n'est pas d'une nouvelle espèce. _C'est le scalaire par
-lequel l'expansion multiplie le contexte de l'appelant_, exactement le $`r \cdot \Delta` que le lemme de substitution
-gouverne.
+$`\Delta` : _ce que l'expansion exige de ses arguments_. C'est ici que se referme la question que le théorème
+{num "thm:hygiene"}[] laissait ouverte. Une macro qui place son argument en $`k` positions le duplique, et cette
+duplication n'est pas anodine : si l'argument dénote une ressource de grade linéaire, l'expansion l'emploierait $`k`
+fois. Une macro déclare donc, _par métavariable_, un grade $`r`, et ce grade n'est pas d'une nouvelle espèce. _C'est le
+scalaire par lequel l'expansion multiplie le contexte de l'appelant_, exactement le $`r \cdot \Delta` que le lemme de
+substitution gouverne.
 
 $`A` : _ce qu'elle est_. Le type déjà donné, précisé de ce que l'arbre porte : l'AST étant intrinsèquement indexé par la
 portée _et par le type_, une macro a le type $`\mathsf{AST}\,\Gamma\,A_1 \to \cdots \to \mathsf{AST}\,\Gamma\,A_n \to
@@ -94,11 +94,11 @@ la règle d'expansion est dérivable
 :::statement +titled
 Une macro n'ajoute rien au noyau
 
-La règle {sc}[Expand] n'est pas un axiome du système : elle se dérive du lemme de substitution (théorème {num
-"thm:substitution"}[]) appliqué à chaque occurrence du corps, puis de la composition séquentielle des effets dans
+La règle {sc}[Expand] n'est pas un axiome du système : elle se dérive du lemme de substitution (théorème
+{num "thm:substitution"}[]) appliqué à chaque occurrence du corps, puis de la composition séquentielle des effets dans
 l'ordre syntaxique des occurrences. La mise à l'échelle du contexte et la composition séquentielle des effets sont
-traitées séparément comme dans l'architecture factorisée. C'est l'instance du théorème d'élaboration (théorème {num
-"thm:elaboration"}[]) où la forme de surface est un appel de macro.
+traitées séparément comme dans l'architecture factorisée. C'est l'instance du théorème d'élaboration (théorème
+{num "thm:elaboration"}[]) où la forme de surface est un appel de macro.
 :::
 
 :::proofsketch

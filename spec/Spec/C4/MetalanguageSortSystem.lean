@@ -80,8 +80,8 @@ observables
 :::
 ::::
 
-On note $`\mathrm{gen}(s)` et $`\mathrm{niv}(s)` les deux projections, et $`\mathcal{S}_{\mathsf{prog}} = \{s \mid
-\mathrm{gen}(s) = \mathsf{prog}\}`.
+On note $`\mathrm{gen}(s)` et $`\mathrm{niv}(s)` les deux projections, et
+$`\mathcal{S}_{\mathsf{prog}} = \{s \mid \mathrm{gen}(s) = \mathsf{prog}\}`.
 
 L'assignation suit la traduction. Un canal de programme reçoit la sorte $`\langle \mathsf{prog}, \ell \rangle` où
 $`\ell` est _le niveau de ses événements_ : la borne supérieure des niveaux qu'étiquette $`\varphi` sur les effets de
@@ -93,8 +93,8 @@ où $`\ell` est le niveau du fil qu'il prolonge. Le genre $`\mathsf{temps}` rest
 configuration.
 
 Ce choix demande d'être justifié plutôt que posé, car une variante s'offrait et elle est fausse. Le niveau porté par la
-sorte est celui de _l'effet_, non celui du grade. Le grade est ce que la traduction oublie (§{num
-"sec:c4-le-calcul-de-processus"}[]) ; le porter dans une sorte le ferait passer dans la cible et le foncteur
+sorte est celui de _l'effet_, non celui du grade. Le grade est ce que la traduction oublie
+(§{num "sec:c4-le-calcul-de-processus"}[]) ; le porter dans une sorte le ferait passer dans la cible et le foncteur
 d'effacement cesserait d'en être un, emportant avec lui le périmètre du théorème {num "thm:fidelite_interprete"}[]. Le
 niveau d'un effet, lui, vit dans $`\mathcal{E}`, qui a une image. Il est traduit de plein droit. _Le chapitre 1 posait
 déjà que le niveau agit des deux côtés (il contraint ce qu'on lit du côté du grade, il étiquette du côté de l'effet) et
@@ -241,10 +241,11 @@ mentionne que des noms de genre $`\mathsf{prog}`, et, quand la traduction enfile
 clause du `let` crée et que ses transferts consomment (§{num "sec:g-sortes-fil"}[]), et le bon sortage est celui d'un
 terme sans effet.
 
-_Couche 1 : un seul cas._ Le seul effet ordinaire y est $`\mathbf{tick}`, et l'usage courant y est mononiveau ; le
-théorème {num "thm:temps_mononiveau"}[] fait alors s'effondrer la famille temporelle, et les sortes en présence se
-réduisent à $`\{\langle \mathsf{prog},\ell\rangle, \langle \mathsf{temps},\ell\rangle, \langle
-\mathsf{maillon},\ell\rangle\}` pour un unique $`\ell`.
+_Couche 1 : un seul cas._ Le seul effet ordinaire y est $`\mathbf{tick}`, et l'usage courant y est mononiveau ; le
+théorème {num "thm:temps_mononiveau"}[] fait alors s'effondrer la famille temporelle, et les sortes en présence se
+réduisent à
+$`\{\langle \mathsf{prog},\ell\rangle, \langle \mathsf{temps},\ell\rangle, \langle \mathsf{maillon},\ell\rangle\}` pour
+un unique $`\ell`.
 
 _Couche 2 : tous les cas._ C'est le seul lieu où l'obligation a un contenu. Les règles structurelles et les connecteurs
 n'engendrent que des noms de genre $`\mathsf{prog}` et des maillons, restreignables par $`\mathcal{S}_\nu` ; la modalité
@@ -295,10 +296,10 @@ canal : le programme les crée par la clause du `let`, et ne peut que les transm
 
 Le fil est ensuite une _famille_, et la traduction doit l'être aussi. Le §{num "sec:g-sortes"}[] a posé que la famille
 temporelle $`\kappa \in \mathbb{N}_\infty^{\mathcal{L}}` est la famille des canaux de temps, un par niveau ; les clauses
-de la formule {num "eq:traduction-temps"}[] n'en écrivent qu'un, ce qui est le cas mononiveau du théorème {num
-"thm:temps_mononiveau"}[]. Pour un treillis $`\mathcal{L}` fini, la traduction prend une famille de fils reçus $`\vec t
-= (t_k)_{k \in \mathcal{L}}` et une famille de fils rendus $`\vec t'`. Un événement d'un niveau ne touche que le fil de
-ce niveau ; tous les autres fils le traversent par transfert.
+de la formule {num "eq:traduction-temps"}[] n'en écrivent qu'un, ce qui est le cas mononiveau du théorème
+{num "thm:temps_mononiveau"}[]. Pour un treillis $`\mathcal{L}` fini, la traduction prend une famille de fils reçus
+$`\vec t = (t_k)_{k \in \mathcal{L}}` et une famille de fils rendus $`\vec t'`. Un événement d'un niveau ne touche que
+le fil de ce niveau ; tous les autres fils le traversent par transfert.
 
 ::::formula (label := "eq:traduction-fils") (kind := "formule")
 ```

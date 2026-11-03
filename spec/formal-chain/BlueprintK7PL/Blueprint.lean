@@ -19,4 +19,5 @@ un témoin de transition KLean concret.
 
 {include 0 BlueprintK7PL.Chapters.Semantics}
 
-{blueprint_graph} {blueprint_summary}
+{blueprint_graph}
+{blueprint_summary}

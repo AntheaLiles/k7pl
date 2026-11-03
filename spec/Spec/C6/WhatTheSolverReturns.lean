@@ -94,10 +94,10 @@ statique demande deux notions que K7PL n'a pas) ne la contredit pas mais appelle
 :::
 ::::
 Deux échecs historiques symétriques donnent la mesure de cet énoncé, et c'est ce qui le rend intéressant plutôt que
-tautologique. Standard ML a des signatures riches et pas d'effets dans son interface {cite
-"macqueenHistoryStandardML2020"}[]. Haskell a les effets dans ses types et pas de système de modules de cette richesse
-{cite "hudakHistoryHaskellBeing2007"}[]. L'un et l'autre ont payé cette absence par un dispositif séparé ajouté après
-coup.
+tautologique. Standard ML a des signatures riches et pas d'effets dans son interface
+{cite "macqueenHistoryStandardML2020"}[]. Haskell a les effets dans ses types et pas de système de modules de cette
+richesse {cite "hudakHistoryHaskellBeing2007"}[]. L'un et l'autre ont payé cette absence par un dispositif séparé ajouté
+après coup.
 
 Ce théorème est la jonction de trois pièces que ce document écrit dans trois chapitres sans les relier : la théorie des
 modules du chapitre 4, le grade porté par l'unité de compilation ci-dessus, et le jugement à trois composantes du
@@ -107,12 +107,12 @@ deux échecs ci-dessus et devrait ajouter le dispositif qu'ils ont dû ajouter.
 
 Le module dont l'interface est ici le jugement est l'unité de compilation elle-même : un ensemble nommé de définitions
 muni d'une interface, et c'est lui qui porte cette interface, le budget de spécialisation et l'estampille. Chaque
-définition y est identifiée par le condensat de son arbre normalisé, comme les instances le sont déjà (§{num
-"sec:c6-le-processus-de-compilation"}[]) : elle n'est typée qu'une fois, et ses résultats se gardent sans jamais
+définition y est identifiée par le condensat de son arbre normalisé, comme les instances le sont déjà
+(§{num "sec:c6-le-processus-de-compilation"}[]) : elle n'est typée qu'une fois, et ses résultats se gardent sans jamais
 s'invalider, puisqu'un changement réel change son condensat. Un fichier n'est qu'un périmètre lexical : il borne la
 portée de ses noms et ne délimite ni un module ni une unité. Ce qui se distribue, se versionne et se certifie est le
-_paquet_, et la frontière de paquet est celle où un certificat est exigé (§{num
-"sec:c6-le-processus-de-compilation"}[]).
+_paquet_, et la frontière de paquet est celle où un certificat est exigé
+(§{num "sec:c6-le-processus-de-compilation"}[]).
 
 Une conséquence pratique en découle, et elle n'est pas confortable : si le grade est dans l'interface, alors le changer
 change l'interface, et les unités dépendantes recompilent. C'est une contrainte réelle, mais elle est du bon côté : la
@@ -154,9 +154,9 @@ Les quatre sites en sont les instances, et aucun n'a été ajouté pour la satis
 * Une erreur s'annonce au plus tôt, par le manifeste de la Phase 2 et par le serveur de langage.
 
 La clause qui interdit le délai est celle qui porte tout le reste. Un délai dépend de la machine ; deux compilations
-d'une même source y donneraient des résultats différents, et la reproductibilité du rejet (théorème {num
-"thm:rejet_reproductible"}[]) tomberait avec l'objectif de compilation reproductible. Un compte de ressource, lui, est
-un grade : déterministe, additif, décrémentable.
+d'une même source y donneraient des résultats différents, et la reproductibilité du rejet (théorème
+{num "thm:rejet_reproductible"}[]) tomberait avec l'objectif de compilation reproductible. Un compte de ressource, lui,
+est un grade : déterministe, additif, décrémentable.
 
 Ce que cette exigence achète, enfin, se lit à côté de P3 et complète ce qu'il laissait ouvert. P3 dit qu'aucune
 abstraction ne dissimule un coût mémoire _à l'exécution_ ; l'exigence ci-dessus dit que rien ne peut faire diverger _la
@@ -336,9 +336,9 @@ La _défonctionnalisation_ ensuite, où deux énoncés sont confondus en un. Qu'
 transparence sémantique, et ce chapitre en tire implicitement que son résultat est bon. La transparence vaut de la
 _transformation_ ; la qualité du _résultat_ dépend d'un choix que l'isomorphisme ne détermine pas, l'unité de
 spécialisation (une fonction d'ordre supérieur employée avec deux arguments fonctionnels distincts se spécialise en deux
-fonctions distinctes, entre lesquelles un choix s'impose : si c'est ce qu'on veut) {cite
-"brandonBetterDefunctionalizationLambda2023"}[]. L'argument de transparence est conservé ; ce qui ne l'est pas est la
-conclusion de qualité qu'on en tirait. K7PL décide : une fonction d'ordre supérieur est copiée pour chaque argument
+fonctions distinctes, entre lesquelles un choix s'impose : si c'est ce qu'on veut)
+{cite "brandonBetterDefunctionalizationLambda2023"}[]. L'argument de transparence est conservé ; ce qui ne l'est pas est
+la conclusion de qualité qu'on en tirait. K7PL décide : une fonction d'ordre supérieur est copiée pour chaque argument
 fonctionnel distinct connu à la compilation, et chaque copie décrémente le même budget de spécialisation que les
 instances de types. Au-delà du budget, ses arguments fonctionnels sont défonctionnalisés en étiquettes, et la fonction
 choisit par un `case` sur cet ensemble clos, fixé à la compilation.
@@ -382,10 +382,10 @@ aussi la position de ce document, et pour la même raison (l'annotation est port
 type), de sorte que l'interaction ne se produit pas.
 
 Elle se produit ailleurs, et la même source dit où : les systèmes qui modélisent l'effacement _indirectement_, par un
-univers séparé ou par l'irrélevance, en héritent les limitations, et une partie du calcul inutile cesse d'être effaçable
-: un programme normalement linéaire pouvant alors s'exécuter en temps exponentiel. Le cas d'école est celui d'un univers
-réservé aux propositions, où les indices d'une famille de types, qui sont ce que ce document manipule, ne s'effacent
-pas.
+univers séparé ou par l'irrélevance, en héritent les limitations, et une partie du calcul inutile cesse d'être
+effaçable : un programme normalement linéaire pouvant alors s'exécuter en temps exponentiel. Le cas d'école est celui
+d'un univers réservé aux propositions, où les indices d'une famille de types, qui sont ce que ce document manipule, ne
+s'effacent pas.
 
 La forme que prendrait un abaissement à types préservés est en revanche connue, et elle est instructive parce qu'elle
 défait une évidence. Défonctionnaliser dans un cadre dépendant ne consiste pas à remplacer la flèche par un type de
@@ -400,16 +400,17 @@ forme au moment où sa Phase 8 défonctionnalise sous des types dépendants prag
 connue.
 
 Le terme optimisé descend enfin vers MLIR puis LLVM : les tableaux de couche 3 vers `memref.alloc`, les automates du
-chapitre 4 vers le dialecte `K7PL.FSM`. Les correspondances de disposition du chapitre 4 (théorème {num
-"thm:isomorphisme_memoire"}[]) rendent cette génération de code directe _dans le domaine de ce théorème_ (les tampons de
-couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto, pour les scalaires primitifs), une transposition en
-$`O(n)` étant requise dès qu'une liste de structures est en jeu. L'édition de liens qui referme le pipeline purge tout
-bloc de spécification (doctests, assertions `comptime`) sauf en mode `+introspect`, garantie que le DAG de dépendance
-rend structurelle plutôt que déclarative (`ERR-TOP-004`). Le binaire résultant, adressé par le condensat BLAKE3 de son
-AST normalisé plutôt que par un numéro de version, identifie par un seul et même condensat deux programmes dont
-l'écriture diffère mais dont les arbres coïncident après normalisation : la dépendance ne se rompt jamais
-silencieusement. La normalisation décide ici une égalité _syntaxique canonique_, et rien de plus : deux programmes de
-même sens dont les arbres normalisés diffèrent reçoivent deux adresses, l'équivalence sémantique n'étant pas décidable.
+chapitre 4 vers le dialecte `K7PL.FSM`. Les correspondances de disposition du chapitre 4 (théorème
+{num "thm:isomorphisme_memoire"}[]) rendent cette génération de code directe _dans le domaine de ce théorème_ (les
+tampons de couche 3 vers Arrow, les segments de couche 2 vers Cap'n Proto, pour les scalaires primitifs), une
+transposition en $`O(n)` étant requise dès qu'une liste de structures est en jeu. L'édition de liens qui referme le
+pipeline purge tout bloc de spécification (doctests, assertions `comptime`) sauf en mode `+introspect`, garantie que le
+DAG de dépendance rend structurelle plutôt que déclarative (`ERR-TOP-004`). Le binaire résultant, adressé par le
+condensat BLAKE3 de son AST normalisé plutôt que par un numéro de version, identifie par un seul et même condensat deux
+programmes dont l'écriture diffère mais dont les arbres coïncident après normalisation : la dépendance ne se rompt
+jamais silencieusement. La normalisation décide ici une égalité _syntaxique canonique_, et rien de plus : deux
+programmes de même sens dont les arbres normalisés diffèrent reçoivent deux adresses, l'équivalence sémantique n'étant
+pas décidable.
 
 Un mode `+dev` n'exécute que les phases 0 à 5 (de l'analyse syntaxique à la vérification de pureté, points de contrôle
 compris), plus une version allégée de la Phase 6, quand un mode `+release` seul engage les phases 7 à 9. Ce cache, comme
@@ -425,8 +426,8 @@ est polymorphe sur les emplacements mémoire, les tailles, les types _et les qua
 annotations de linéarité elles-mêmes {cite "fitzgibbonsRichWasmBringingSafe2024"}[]. La couche 1 n'aurait donc pas à
 abandonner sa discipline pour atteindre une cible portable, et la visée déclarée de cette extension est la situation de
 la passerelle du chapitre 4 : faire coexister du code sûr et du code étranger sans que le premier perde ses garanties.
-La même famille de travaux porte les gestionnaires d'effets jusqu'à cette cible {cite
-"phipps-costinContinuingWebAssemblyEffect2023"}[], ce qui referme le second bout du même trajet.
+La même famille de travaux porte les gestionnaires d'effets jusqu'à cette cible
+{cite "phipps-costinContinuingWebAssemblyEffect2023"}[], ce qui referme le second bout du même trajet.
 
 La seconde est une réserve sur le choix d'infrastructure, et elle vise ce document plutôt qu'un tiers. Écrire un
 dialecte de types linéaires pour une infrastructure dont le système de types est faible coûte cher, et ce n'est pas la
@@ -524,8 +525,8 @@ tant que la stabilité du chapitre 3 et la préservation du §{num "sec:g-semant
 de la même chose. La première est plus large sur ce qu'elle couvre, la seconde plus fine sur ce qu'elle porte : leur
 intersection laisse l'abaissement gradué sans énoncé.
 
-Comme les théorèmes de disposition et de rejeu binaire du chapitre 4 ({num "thm:isomorphisme_memoire"}[], {num
-"thm:rejeu_binaire"}[]), cet énoncé se lit comme une propriété de _conformité du compilateur_ à un profil de
+Comme les théorèmes de disposition et de rejeu binaire du chapitre 4 ({num "thm:isomorphisme_memoire"}[],
+{num "thm:rejeu_binaire"}[]), cet énoncé se lit comme une propriété de _conformité du compilateur_ à un profil de
 représentation (§{num "sec:c4-echelle-du-systeme"}[]), vérifiée passe par passe par le pipeline de validation, et non
 comme un théorème du calcul des types : son niveau est « compilation ». Cette lecture dit où l'obligation se vérifie,
 non qu'elle est acquise ; elle ne dispense pas de la démontrer.

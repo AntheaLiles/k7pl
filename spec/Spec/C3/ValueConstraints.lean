@@ -55,42 +55,42 @@ Cet effacement n'est cependant pas gratuit. Abel, Danielsson et Eriksson {cite "
 les programmes ouverts, trois réserves conjointes s'y ajoutent : toutes les variables du contexte effaçables, contexte
 cohérent, et filtrage interdit sur un paquet dont le témoin est effacé. Lever cette dernière suffit à perdre la
 canonicité, contre-exemple à l'appui. K7PL adopte ces trois réserves comme conditions de sa propre garantie
-d'effacement, la troisième prenant la forme d'une restriction sur les existentielles (§{num
-"sec:c3-structures-ouvertes-effets-et"}[]). Une voie alternative existe, qui encode l'effacement comme distinction de
-phase et en tire la conservativité sur la théorie des types sous-jacente {cite "THEOCHARIS"}[]. Ce document ne
-l'emprunte pas, mais elle reste disponible si la restriction du §{num "sec:c3-structures-ouvertes-effets-et"}[] se
-révélait trop coûteuse.
+d'effacement, la troisième prenant la forme d'une restriction sur les existentielles
+(§{num "sec:c3-structures-ouvertes-effets-et"}[]). Une voie alternative existe, qui encode l'effacement comme
+distinction de phase et en tire la conservativité sur la théorie des types sous-jacente {cite "THEOCHARIS"}[]. Ce
+document ne l'emprunte pas, mais elle reste disponible si la restriction du
+§{num "sec:c3-structures-ouvertes-effets-et"}[] se révélait trop coûteuse.
 
 Les contraintes de taille en sont l'illustration la plus directe : $`\mathsf{Vector}(n, T)` n'introduit aucun mécanisme
-propre, elle réutilise l'isomorphisme $`\text{Hom}(\text{Fin}(n),T) \cong \text{Vec}(n,T)` établi au chapitre 2 (§{num
-"sec:c2-adjonctions-et-enrichissement"}[]). Cet isomorphisme fixe la sémantique du type, non sa représentation machine :
-celle-ci relève de l'abaissement (chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]), et le choix d'empaqueter
-une représentation d'exécution efficace avec des invariants effaçables reste explicite : c'est à cette condition que la
-complexité de la structure résultante demeure prévisible, comme P3 l'exige {cite "allaisBuiltinTypesViewed2023"}[].
-L'accès `(arr i)` porte la contrainte $`0 \le i < n` ; le compilateur doit en prouver la validité, ou la transformer en
-$`\mathsf{Result}(T, \mathsf{OutOfBounds})` lorsque la preuve échoue : jamais une vérification dynamique silencieuse.
-Les dimensions physiques (types SI, $`\mathsf{Velocity} = \mathsf{Length} / \mathsf{Time}`) suivent le même principe par
-des paramètres fantômes : la contrainte est vérifiée puis intégralement effacée, sans laisser au binaire final la
-moindre trace de son unité.
+propre, elle réutilise l'isomorphisme $`\text{Hom}(\text{Fin}(n),T) \cong \text{Vec}(n,T)` établi au chapitre 2
+(§{num "sec:c2-adjonctions-et-enrichissement"}[]). Cet isomorphisme fixe la sémantique du type, non sa représentation
+machine : celle-ci relève de l'abaissement (chapitre 6, §{num "sec:c6-le-processus-de-compilation"}[]), et le choix
+d'empaqueter une représentation d'exécution efficace avec des invariants effaçables reste explicite : c'est à cette
+condition que la complexité de la structure résultante demeure prévisible, comme P3 l'exige
+{cite "allaisBuiltinTypesViewed2023"}[]. L'accès `(arr i)` porte la contrainte $`0 \le i < n` ; le compilateur doit en
+prouver la validité, ou la transformer en $`\mathsf{Result}(T, \mathsf{OutOfBounds})` lorsque la preuve échoue : jamais
+une vérification dynamique silencieuse. Les dimensions physiques (types SI,
+$`\mathsf{Velocity} = \mathsf{Length} / \mathsf{Time}`) suivent le même principe par des paramètres fantômes : la
+contrainte est vérifiée puis intégralement effacée, sans laisser au binaire final la moindre trace de son unité.
 
-Lorsque la contrainte ne se laisse pas encoder aussi directement, K7PL délègue. Un type de raffinement $`\{x : T \mid
-p\}` engage une obligation de preuve résolue par le solveur SMT du chapitre 6, sur des théories dédiées : `K7PL.Map`
-pour les cartes finies, `K7PL.SI` pour les dimensions physiques, `K7PL.Age` pour l'ordre linéaire des destinations. Des
-lemmes explicites la guident si nécessaire. Lorsque le prédicat porte sur les valeurs _internes_ à une structure (les
-éléments d'une carte, les composantes d'un CRDT composé), ces lemmes ne sont pas facultatifs. Ils sont les principes
-d'induction profonde du type porteur {cite "johannDeepInductionInduction2020"}[], sans lesquels l'obligation reste
-indéchargeable quel que soit le solveur. Le sous-typage entre deux raffinements de même support n'est alors rien d'autre
-qu'une implication logique entre leurs prédicats, vérifiée automatiquement.
+Lorsque la contrainte ne se laisse pas encoder aussi directement, K7PL délègue. Un type de raffinement
+$`\{x : T \mid p\}` engage une obligation de preuve résolue par le solveur SMT du chapitre 6, sur des théories dédiées :
+`K7PL.Map` pour les cartes finies, `K7PL.SI` pour les dimensions physiques, `K7PL.Age` pour l'ordre linéaire des
+destinations. Des lemmes explicites la guident si nécessaire. Lorsque le prédicat porte sur les valeurs _internes_ à une
+structure (les éléments d'une carte, les composantes d'un CRDT composé), ces lemmes ne sont pas facultatifs. Ils sont
+les principes d'induction profonde du type porteur {cite "johannDeepInductionInduction2020"}[], sans lesquels
+l'obligation reste indéchargeable quel que soit le solveur. Le sous-typage entre deux raffinements de même support n'est
+alors rien d'autre qu'une implication logique entre leurs prédicats, vérifiée automatiquement.
 
 Une famille de contraintes s'ajoute à celles-ci lorsque le prédicat porte sur une ressource consommée plutôt que sur une
 valeur : l'annotation de potentiel, portée par la déclaration d'un type de données et indiquant comment le potentiel s'y
-répartit. Elle n'est pas un ornement. L'analyse automatique de ressources échange l'automatisation contre la flexibilité
-: les techniques entièrement automatiques se restreignent à des familles de bornes contraintes, les bornes dépendantes
-des valeurs relevant sinon de preuves écrites à la main, et c'est l'annotation de potentiel qui permet de sortir de ce
-dilemme {cite "knothLiquidResourceTypes2020"}[]. K7PL ne peut donc revendiquer simultanément l'automatisation complète
-des bornes de coût, trois familles de bornes hétérogènes selon la couche, et l'absence de toute annotation de ressource.
-L'inférence des bornes n'est automatique que sur les familles que le solveur atteint, et une borne dépendante d'une
-valeur demande une annotation.
+répartit. Elle n'est pas un ornement. L'analyse automatique de ressources échange l'automatisation contre la
+flexibilité : les techniques entièrement automatiques se restreignent à des familles de bornes contraintes, les bornes
+dépendantes des valeurs relevant sinon de preuves écrites à la main, et c'est l'annotation de potentiel qui permet de
+sortir de ce dilemme {cite "knothLiquidResourceTypes2020"}[]. K7PL ne peut donc revendiquer simultanément
+l'automatisation complète des bornes de coût, trois familles de bornes hétérogènes selon la couche, et l'absence de
+toute annotation de ressource. L'inférence des bornes n'est automatique que sur les familles que le solveur atteint, et
+une borne dépendante d'une valeur demande une annotation.
 
 Ces conditions se laissent ramener à une règle unique, et c'est sous cette forme que K7PL la retient : _aucun
 éliminateur ne discrimine sur un argument appartenant à la phase de compilation_ : ni projection existentielle sur un
@@ -109,10 +109,10 @@ Son statut est consigné comme obligation ouverte.
 _Obligation ouverte._ La règle est ici une discipline vérifiée cas par cas, sur une liste d'interdictions à tenir à jour
 (trois énumérées, une quatrième à ajouter le jour où un quatrième éliminateur apparaîtra). Une distinction de phase
 _synthétique_ ferait mieux : la phase y étant une proposition du contexte, la discrimination ne serait pas interdite
-mais _inexprimable_, et la conservativité dans les deux phases s'en déduirait au lieu d'être vérifiée {cite
-"THEOCHARIS"}[]. Opérer cette transformation ferait de la règle une conséquence de l'encodage plutôt qu'une condition de
-bord, comme le document l'a fait ailleurs pour l'hygiène : passer d'une discipline appliquée à une propriété du type. Le
-contenu de la règle ne changerait pas.
+mais _inexprimable_, et la conservativité dans les deux phases s'en déduirait au lieu d'être vérifiée
+{cite "THEOCHARIS"}[]. Opérer cette transformation ferait de la règle une conséquence de l'encodage plutôt qu'une
+condition de bord, comme le document l'a fait ailleurs pour l'hygiène : passer d'une discipline appliquée à une
+propriété du type. Le contenu de la règle ne changerait pas.
 :::
 
 Une troisième famille de contraintes ne porte pas sur une valeur figée mais sur son évolution. Le typestate est un
@@ -141,8 +141,8 @@ L'automate représenté est celui du protocole $`\mathsf{Send}(\mathsf{Int}, \ma
 :::
 ::::
 
-Chaque extrémité d'un canal de session est une ressource linéaire de $`\Delta` (chapitre 2, §{num
-"sec:c2-la-comonade-exponentielle-et"}[]), et le protocole qu'elle porte s'accompagne de son dual : à un
+Chaque extrémité d'un canal de session est une ressource linéaire de $`\Delta` (chapitre 2,
+§{num "sec:c2-la-comonade-exponentielle-et"}[]), et le protocole qu'elle porte s'accompagne de son dual : à un
 $`\mathsf{Send}(T, P)` correspond nécessairement un $`\mathsf{Recv}(T, P^{\perp})` du côté opposé. Cette dualité n'est
 ni une hypothèse ni même une définition : elle est une _conséquence_, et c'est ce qui permet à ce chapitre de n'ajouter
 aucun constructeur de type. La figure {num "fig:session-dualite"}[] montre le même échange du point de vue des deux
@@ -166,12 +166,12 @@ arguments : $`\tau_1 \multimap \tau_2` est dual de $`\tau_2 \multimap \tau_1`, *
 Il n'y a pas d'involution à définir, pas de squelette à munir de duaux, pas de théorème d'adéquation à démontrer entre
 une involution syntaxique et une négation catégorique. C'est la démarche minimale attestée pour ajouter des sessions à
 un $`\lambda`-calcul linéaire, où l'on obtient absence de blocage et progrès global du seul système de types linéaire,
-par des preuves plus courtes que celles des systèmes à constructeurs dédiés {cite
-"jacobsSelfDualDistillationSession2022"}[]. Un bénéfice second, et il n'est pas mince : l'ambiante _C_ n'a besoin
-d'aucune négation. Elle reste une catégorie monoïdale symétrique close, cadre dans lequel les exponentielles du §{num
-"sec:c2-la-comonade-exponentielle-et"}[] sont parfaitement définies : la structure sans négation de la logique linéaire
-multiplicative supporte $`!` et $`?`, la relation de De Morgan y étant remplacée par la force tensorielle {cite
-"bluteStorageTensorialStrength1996"}[].
+par des preuves plus courtes que celles des systèmes à constructeurs dédiés
+{cite "jacobsSelfDualDistillationSession2022"}[]. Un bénéfice second, et il n'est pas mince : l'ambiante _C_ n'a besoin
+d'aucune négation. Elle reste une catégorie monoïdale symétrique close, cadre dans lequel les exponentielles du
+§{num "sec:c2-la-comonade-exponentielle-et"}[] sont parfaitement définies : la structure sans négation de la logique
+linéaire multiplicative supporte $`!` et $`?`, la relation de De Morgan y étant remplacée par la force tensorielle
+{cite "bluteStorageTensorialStrength1996"}[].
 
 Le motif est celui que la condition de clôture du chapitre 1 (§{num "sec:c1-axiomatique-germinale"}[]) impose : toute
 extension doit se projeter sur les composantes existantes plutôt que d'en ajouter. Faire des cinq formes de protocole
@@ -261,10 +261,9 @@ types de session) et non sur la logique linéaire intuitionniste entière, dont 
 problème à part entière {cite "ALLAIS-MCBRIDE"}[]. Son admissibilité n'a d'ailleurs pas à être supposée, puisqu'elle
 s'obtient indépendamment de la théorie des modes dans les cadres qui paramètrent produits et implications (ordonnés,
 linéaires, affines, cartésiens) par une telle théorie {cite "licataFibrationalFrameworkSubstructural2017"}[]. Le second
-est que la preuve procède par coinduction sur le dépliage plutôt que par induction sur la
-structure, un graphe se laissant mieux traiter comme structure coinductive dès le départ, les
-algorithmes de graphes n'étant pas structurellement récursifs dans leurs présentations usuelles {cite
-"kidneyFormalisingGraphAlgorithms2025"}[].
+est que la preuve procède par coinduction sur le dépliage plutôt que par induction sur la structure, un graphe se
+laissant mieux traiter comme structure coinductive dès le départ, les algorithmes de graphes n'étant pas
+structurellement récursifs dans leurs présentations usuelles {cite "kidneyFormalisingGraphAlgorithms2025"}[].
 
 ::::theorem (label := "thm:deadlock_acyclique") (level := "langage") (role := "theorem") (state := "under-review") (evidence := "proofsketch") (scope := "concurrency")
 :::title
@@ -292,10 +291,10 @@ de cycle dans la relation « attend un message de ». L'étape de préservation 
 du graphe d'attente, que l'énoncé pose en prémisse (Sim) : sous cette simulation, tout cycle d'attente serait un cycle
 de câblage, et l'acyclicité vérifiée en Phase 1.5 conclut.
 
-_Cette simulation n'est plus un emprunt._ Depuis que la couche 2 a ses règles (§{num "sec:g-regles"}[], §{num
-"sec:g-couche2"}[]), le graphe de câblage n'est plus un objet posé au-dehors : il est celui des dépendances entre boîtes
-aux lettres, que le jugement porte. Une attente est une instance de {sc}[Guard] sur une boîte, et la boîte y est une
-liaison du contexte ; l'arête d'attente est donc une arête de dépendance par construction du typage, et non par une
+_Cette simulation n'est plus un emprunt._ Depuis que la couche 2 a ses règles (§{num "sec:g-regles"}[],
+§{num "sec:g-couche2"}[]), le graphe de câblage n'est plus un objet posé au-dehors : il est celui des dépendances entre
+boîtes aux lettres, que le jugement porte. Une attente est une instance de {sc}[Guard] sur une boîte, et la boîte y est
+une liaison du contexte ; l'arête d'attente est donc une arête de dépendance par construction du typage, et non par une
 hypothèse que l'exécution aurait à honorer. Ce qui était la prémisse manquante de cet énoncé est devenu une lecture de
 ses règles ; tant que cette lecture n'est pas conduite règle par règle, elle figure dans l'énoncé comme prémisse (Sim).
 :::
@@ -309,11 +308,11 @@ atteignables, avec un cas pour {sc}[Guard], l'émission et la consommation de me
 expiration du blocage mutuel proprement dit.
 :::
 ::::
-Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. Le graphe de câblage du §{num
-"sec:c4-echelle-de-l-acteur"}[] est donné en entier à la compilation : fini, statique, il se traite inductivement, et le
-tri topologique de la Phase 2 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se déplie
-au fil des activations et n'est jamais donné. L'acyclicité du premier n'implique donc pas mécaniquement celle du second,
-et c'est pourquoi l'énoncé porte sur les états atteignables et non sur le câblage.
+Deux graphes sont en jeu, et les confondre serait l'erreur à ne pas commettre. Le graphe de câblage du
+§{num "sec:c4-echelle-de-l-acteur"}[] est donné en entier à la compilation : fini, statique, il se traite inductivement,
+et le tri topologique de la Phase 2 en établit l'acyclicité une fois pour toutes. Le graphe d'attente à l'exécution se
+déplie au fil des activations et n'est jamais donné. L'acyclicité du premier n'implique donc pas mécaniquement celle du
+second, et c'est pourquoi l'énoncé porte sur les états atteignables et non sur le câblage.
 
 Sous (Sim), l'absence de blocage mutuel serait donc une propriété de compilation : le tri topologique de la Phase 1.5 la
 déciderait, et aucun mécanisme d'exécution (détection de cycle, temporisation globale) n'aurait à la surveiller. Tant
@@ -329,11 +328,11 @@ un gestionnaire, modélisée comme un effet algébrique (chapitre 2, §{num "sec
 plutôt que confondue avec une erreur définitive. La théorie des roues instancie ce premier régime pour l'arithmétique :
 une opération invalide ($`0/0`) ne lève pas d'exception mais produit une singularité : $`\bot`, $`\infty`, $`\circ`,
 $`\delta`, constructeurs d'un type algébrique $`\mathsf{Wheel}(T)` distinct du flottant IEEE 754 sous-jacent, dont la
-conversion reste explicite dans les deux sens. Les deux premières viennent de la théorie des roues {cite
-"carlstromWheelsDivisionZero2004"}[] ; les deux dernières, et leur combinaison $`\circ\delta`, sont une extension de
-K7PL, définie plus bas. Ces singularités se propagent algébriquement à travers les opérations vectorielles, sans jamais
-introduire de branchement ; si $`\bot` atteint la sortie d'une fonction, le résultat est simplement l'absence de donnée
-: un échec prouvé plutôt que silencieux.
+conversion reste explicite dans les deux sens. Les deux premières viennent de la théorie des roues
+{cite "carlstromWheelsDivisionZero2004"}[] ; les deux dernières, et leur combinaison $`\circ\delta`, sont une extension
+de K7PL, définie plus bas. Ces singularités se propagent algébriquement à travers les opérations vectorielles, sans
+jamais introduire de branchement ; si $`\bot` atteint la sortie d'une fonction, le résultat est simplement l'absence de
+donnée : un échec prouvé plutôt que silencieux.
 
 ::::proposition (label := "thm:homomorphisme_roues") (level := "representation") (role := "proposition") (state := "under-review") (evidence := "proofsketch") (scope := "representation")
 :::title
