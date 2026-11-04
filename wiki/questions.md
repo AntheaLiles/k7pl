@@ -5262,14 +5262,15 @@ of effects and definitions.
 - **Reading:** no conditional form: branching goes through pattern matching, with `catch` and `case`; `cond` leaves chapter 3 and Annex A.
 - **Put back to the author:** how this reads with `choose` and the dyadic `select` of layer 3 (VOC-2026-10-29-021), with the triadic `select` of the K lexicon, and with Q-LEM-015, kept open; and the same remark on `catch` as in Q-LEM-015.
 
-## Lemma lot 2 of 2026-11-03: matching after lot 1, products asked again, existentials, grading, effects
+## Lemma lot 2 of 2026-11-03: matching after lot 1, products asked again, existentials, grading, effects, types, time, place, concurrency
 
-Opened on 2026-11-03, after the answers to lemma lot 1. Same format: a fiche of the construct, the
-specification's text, what the literature and other languages do, and options weighed on the six
-criteria of Q-METH-001 (option A) in their order, with their pros and cons. **Other** and **Clarify**
-are always available.
+Opened on 2026-11-03, after the answers to lemma lot 1, and extended on 2026-11-04 to 24 questions at the
+author's request (Q-LEM-112 to Q-LEM-124: types and recursion, time, place, concurrency and memory,
+confidentiality). Same format: a fiche of the construct, the specification's text, what the literature and
+other languages do, and options weighed on the six criteria of Q-METH-001 (option A) in their order, with
+their pros and cons. **Other** and **Clarify** are always available.
 
-Second lot of lemmas. It asks again the five questions lot 1 kept open, now that `bind`, `unbind`, `unit`, `tag` and `case` are preferred, and goes on with the existentials, the grading and the operations of effects. Recorded since lot 1: `catch` and the kernel's `try c catch c` are one object, a generalisation of pattern matching (VOC-2026-11-03-017); the glyphs are dealt with once every lemma is fixed (VOC-2026-11-03-018). Each option is weighed on the six criteria of Q-METH-001 (option A), in their order; an answer is a dated preference, ratified only in the global lot (VOC-2026-10-26-002). Every word of the examples other than the one asked is a placeholder. Left for lot 3: the types (`Λ`, instantiation, `fold`, `unfold`, `fix`, `iter`), time, place, concurrency, memory, `declassify`, and the scoped operations and handlers once Q-LEM-101 has said what `catch` gathers.
+Second lot of lemmas. It asks again the five questions lot 1 kept open, now that `bind`, `unbind`, `unit`, `tag` and `case` are preferred, and goes on with the existentials, the grading and the operations of effects. Recorded since lot 1: `catch` and the kernel's `try c catch c` are one object, a generalisation of pattern matching (VOC-2026-11-03-017); the glyphs are dealt with once every lemma is fixed (VOC-2026-11-03-018). Each option is weighed on the six criteria of Q-METH-001 (option A), in their order; an answer is a dated preference, ratified only in the global lot (VOC-2026-10-26-002). Every word of the examples other than the one asked is a placeholder. Left for lot 3: the scoped operations and handlers, once Q-LEM-101 has said what `catch` gathers, `guard`, the observation `out` and the copatterns of streams, and whatever this lot keeps open.
 
 ### Matching, after lot 1
 
@@ -5847,6 +5848,635 @@ Several options may be chosen.
   6. *Brevity:* the shortest.
 
   *For:* an operation reads as a function call. *Against:* an effect does not show in the text.
+
+
+### Types and recursion
+
+#### Q-LEM-112 — Generalising over a type, `Λα.c`
+
+**Fiche.**
+
+- **Symbol:** `Λα. c`
+- **Rule:** Gen
+- **Register:** none retained; « généralisation », the word of Damas and Milner
+- **Overlaps:** type positions are opened by a property such as `:type` (VOC-2026-10-27-027)
+
+**Object.** A computation abstracted over a type variable absent from its context, the dual of the existential's `pack`.
+
+**Facts.**
+
+- GHC: « Allow use of the forall keyword in places where universal quantification is implicit », `g :: forall b. (b -> b)` (GHC, explicit forall (https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/explicit_forall.html)).
+
+**The λ overlap.** The symbol λ names two objects in the specification: the abstraction `λx.c` (rule `Lam`) and, in chapter 3, a natural transformation of the graded distributive law. A candidate must only ever name the first.
+
+- **A — `forall`, the word of the type, also names the term.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the quantifier itself.
+  3. *Family and grade invariants:* one word for the type and its introduction.
+  4. *Ecological grid (provisional):* Haskell, logic.
+  5. *Mnemonic:* known.
+  6. *Brevity:* six letters.
+
+  *For:* what readers of types know. *Against:* a term named after its type.
+
+- **B — No written word, inferred; the construct is named `generalise`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* Damas and Milner's word.
+  3. *Family and grade invariants:* a verb, as `bind`.
+  4. *Ecological grid (provisional):* ML inference.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* never written in programs.
+
+  *For:* programs stay unannotated where inference works. *Against:* a long name in diagnostics.
+
+- **C — The abstraction's word over types.** Read the λ note: the word would name the abstraction `λx.c` only, extended to types.
+
+  1. *Non-collision:* one word for `Lam` and `Gen`.
+  2. *Scientific exactness:* System F writes both as abstractions.
+  3. *Family and grade invariants:* one family.
+  4. *Ecological grid (provisional):* System F.
+  5. *Mnemonic:* a known word.
+  6. *Brevity:* the abstraction's length.
+
+  *For:* no new word. *Against:* two kernel constructs under one word.
+
+
+#### Q-LEM-113 — Instantiating a type, `c [W]`
+
+**Fiche.**
+
+- **Symbol:** `c [W]`
+- **Rule:** Inst
+- **Register:** none retained; « instanciation » (Damas and Milner), « application de type » rejected as naming the form
+- **Recorded:** application is named `apply` (VOC-2026-11-03-002)
+- **Overlaps:** `@x` is a refinement in chapter 5; `@_n` is the localisation
+
+**Object.** Substituting a type for the variable a generalised computation abstracts.
+
+**Facts.**
+
+- GHC: « The TypeApplications extension allows you to use visible type application in expressions », `show (read @Int "5")` (GHC, type applications (https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/type_applications.html)).
+
+- **A — No written word, inferred; the construct is named `instantiate`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* Damas and Milner's word.
+  3. *Family and grade invariants:* a verb.
+  4. *Ecological grid (provisional):* ML inference.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* never written in programs.
+
+  *For:* names the act. *Against:* a long name in diagnostics.
+
+- **B — `apply`, one word for applying to a value or to a type.**
+
+  1. *Non-collision:* one name for two kernel constructs.
+  2. *Scientific exactness:* System F writes both as application.
+  3. *Family and grade invariants:* one family with `apply`.
+  4. *Ecological grid (provisional):* System F.
+  5. *Mnemonic:* nothing new to learn.
+  6. *Brevity:* five letters.
+
+  *For:* no new word. *Against:* two constructs, one name.
+
+- **C — The type written with `@`, as GHC.**
+
+  1. *Non-collision:* collision: `@x` refinements and `@_n` places.
+  2. *Scientific exactness:* exact.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Haskell.
+  5. *Mnemonic:* known to Haskell readers.
+  6. *Brevity:* one character.
+
+  *For:* short. *Against:* `@` already carries two senses.
+
+
+#### Q-LEM-114 — Folding and unfolding a recursive type, `fold v`, `unfold v`
+
+**Fiche.**
+
+- **Symbol:** `fold v`, `unfold v`
+- **Rules:** Fold, Unfold
+- **Register:** retained `fold` and `unfold` (« repliage », « dépliage »)
+- **Overlaps:** layer 3's `fold` is BQN's Fold, a reduction: `[add fold div length]` (chapter 5)
+
+**Object.** The two halves of an iso-recursive type: `fold` makes a value of the unfolded type a value of the recursive type, `unfold` exposes one step. Chapter 5 already writes `fold` for reduction in layer 3 (InPractice (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/InPractice.lean)).
+
+**Facts.**
+
+- Isorecursive types « are distinct (and disjoint) types with special term constructs, usually called roll and unroll » (Wikipedia, recursive data type (https://en.wikipedia.org/wiki/Recursive_data_type)).
+- BQN's Fold « applies 𝔽 between elements—always two at a time—of the list to yield a single result value » (BQN, Fold (https://mlochbaum.github.io/BQN/doc/fold.html)).
+
+- **A — `fold` and `unfold`.**
+
+  1. *Non-collision:* collision: layer 3's `fold`, a reduction.
+  2. *Scientific exactness:* the recursion-schemes word.
+  3. *Family and grade invariants:* a pair.
+  4. *Ecological grid (provisional):* type theory.
+  5. *Mnemonic:* known in two senses.
+  6. *Brevity:* four and six letters.
+
+  *For:* the register's words. *Against:* `fold` names two things.
+
+- **B — `roll` and `unroll`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the iso-recursive word.
+  3. *Family and grade invariants:* a pair.
+  4. *Ecological grid (provisional):* type theory.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* four and six letters.
+
+  *For:* frees `fold` for reduction. *Against:* less known than fold.
+
+- **C — No word: a recursive type's tags fold and `case` unfolds.** Values of a recursive type are built by their tags (`tag`, VOC-2026-11-03-011) and taken apart by `case`.
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* folding is hidden in the constructors.
+  3. *Family and grade invariants:* one family with `tag` and `case`.
+  4. *Ecological grid (provisional):* ML datatypes.
+  5. *Mnemonic:* nothing to learn.
+  6. *Brevity:* the shortest.
+
+  *For:* no word. *Against:* the kernel still names the constructs in K and Lean.
+
+
+#### Q-LEM-115 — Recursion, `fix v`
+
+**Fiche.**
+
+- **Symbol:** `fix v`
+- **Rule:** the kernel's fixed point
+- **Overlaps:** the register's `fold`, `unfold` and `out`
+
+**Object.** The fixed point of a suspended computation, the source of general recursion in the kernel.
+
+**Facts.**
+
+- Haskell: « fix f is the least fixed point of the function f, i.e. the least defined x such that f x = x » (Haskell, Data.Function (https://hackage.haskell.org/package/base/docs/Data-Function.html)).
+- Levy writes recursion `rec x. M`, which steps to `M[thunk rec x. M/x]` (Levy 2006 (https://pblevy.github.io/papers/hosc05.pdf)).
+
+- **A — `fix`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the fixed point.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Haskell, PCF.
+  5. *Mnemonic:* known.
+  6. *Brevity:* three letters.
+
+  *For:* the kernel's word. *Against:* opaque without the theory.
+
+- **B — `rec`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* Levy's word.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Levy, OCaml's `let rec`.
+  5. *Mnemonic:* says recursion.
+  6. *Brevity:* three letters.
+
+  *For:* reads as recursion. *Against:* an abbreviation.
+
+- **C — No term word: a definition may call itself by its name.**
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* recursion through names.
+  3. *Family and grade invariants:* definitions only.
+  4. *Ecological grid (provisional):* most languages.
+  5. *Mnemonic:* nothing to learn.
+  6. *Brevity:* —
+
+  *For:* no word. *Against:* anonymous recursion needs a name in K and Lean anyway.
+
+
+#### Q-LEM-116 — Going through a vector, `iter_V v c`
+
+**Fiche.**
+
+- **Symbol:** `iter_V v c`
+- **Rules:** VecI, VecE
+- **Register:** none retained; « pli indexé gradué »
+- **Overlaps:** the glyph alias `repeat` (`⍟`, « Applique une fonction n fois »); layer 3's `fold`; `vmap` (Q-LEM-121)
+
+**Object.** The elimination of a vector: the body runs once per position, the context multiplied by the length, and « le parcourir compose n effets qui _ne sont pas les mêmes_ » (TypingRules (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)).
+
+**Facts.**
+
+- BQN: « Repeat (⍟) is a 2-modifier that applies its operand function 𝔽 multiple times » (BQN, Repeat (https://mlochbaum.github.io/BQN/doc/repeat.html)).
+
+- **A — `iter`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the kernel's word.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Gödel's T, OCaml's `List.iter`.
+  5. *Mnemonic:* known.
+  6. *Brevity:* four letters.
+
+  *For:* the kernel's word. *Against:* an abbreviation.
+
+- **B — `each`.**
+
+  1. *Non-collision:* near BQN's Each, a map without sequenced effects.
+  2. *Scientific exactness:* says per element.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* BQN, Ruby.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* four letters.
+
+  *For:* readable. *Against:* suggests independence, where effects are composed in order.
+
+- **C — `for`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* a loop over the positions.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* most languages.
+  5. *Mnemonic:* immediate.
+  6. *Brevity:* three letters.
+
+  *For:* immediate. *Against:* an imperative word.
+
+
+### Time
+
+#### Q-LEM-117 — The next step, `next v` and `delay c`
+
+**Fiche.**
+
+- **Symbols:** `next v` (value, `○V`), `delay c` (computation, `○C`)
+- **Rules:** Nxt, Del
+- **Register:** none retained; candidates `suivant`, `next`; « différer », to arbitrate « au temps 2 »
+- **Overlaps:** `:defer` of the actor clause (lot 11)
+
+**Object.** Chapter 3 ranks `next v` among values and keeps `delay c` among computations: « $`\mathsf{delay}\;c` reste un calcul, d'introduction du type ○C » (TermGrammar (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TermGrammar.lean)).
+
+**Facts.**
+
+- Temporal logic reads `X` as « NeXt Time » or « Tomorrow » (SEP, temporal logic (https://plato.stanford.edu/entries/logic-temporal/)).
+
+- **A — `next` for the value, `delay` for the computation.**
+
+  1. *Non-collision:* `delay` is Scheme's memoised promise.
+  2. *Scientific exactness:* two objects, two words.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* temporal logic, Scheme.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* four and five letters.
+
+  *For:* the specification's words. *Against:* two words for one modality.
+
+- **B — `next` for both.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* one modality, ○.
+  3. *Family and grade invariants:* value and computation alike.
+  4. *Ecological grid (provisional):* temporal logic.
+  5. *Mnemonic:* one word.
+  6. *Brevity:* four letters.
+
+  *For:* one word per modality. *Against:* Q-LEM-001 asks two words for two objects.
+
+
+#### Q-LEM-118 — Gap — `at` names two constructs
+
+**Fiche.**
+
+- **Constructs:** `at v`, the elimination of `□V` (rule Alw⁻); `at_n c`, running a computation at a place (rule At)
+- **Register:** for Alw⁻: « Le mot actuel est une préposition, ce qui rompt la règle de forme des constructeurs »; for At: « localisation »
+- **Recorded:** one word per construct (VOC-2026-11-03-001)
+
+**Object.** The kernel writes `at v` (time: read at an instant a value available at every instant) and `at_n c` (place) (TermGrammar (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TermGrammar.lean)). Two objects under one word.
+
+**Facts.**
+
+- Temporal logic reads `G` as « It is always going to be the case that … » (SEP, temporal logic (https://plato.stanford.edu/entries/logic-temporal/)).
+
+- **A — The place keeps `at`; the elimination of `□` takes another word (`sample`, a proposal).**
+
+  1. *Non-collision:* removes the double use.
+  2. *Scientific exactness:* `at` reads as a place.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* —
+
+  *For:* `at` reads naturally for places. *Against:* a new word for time.
+
+- **B — Time keeps `at`; the place takes another word (`on`, a proposal).**
+
+  1. *Non-collision:* removes the double use.
+  2. *Scientific exactness:* `at` reads as an instant.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* —
+
+  *For:* the temporal family keeps its words. *Against:* a preposition still names a constructor.
+
+- **C — No word for the elimination of `□`: a pattern of `unbind`.**
+
+  1. *Non-collision:* removes the double use.
+  2. *Scientific exactness:* `□V` gives its value now.
+  3. *Family and grade invariants:* one decomposition form.
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* needs explaining.
+  6. *Brevity:* short.
+
+  *For:* no word. *Against:* the instant is implicit.
+
+
+#### Q-LEM-119 — Waiting for an event, `when x = v in c`
+
+**Fiche.**
+
+- **Symbol:** `when x = v in c`
+- **Rule:** When
+- **Neighbours:** `now v` introduces `◇V`; `wait v` turns `○◇V` into `◇V`
+- **Recorded:** Q-LEM-101 asks whether events become a form of `catch`
+
+**Object.** The value of an eventual guarantee is bound as soon as it arrives; the result stays eventual.
+
+**Facts.**
+
+- JavaScript: « The await operator is used to wait for a Promise and get its fulfillment value » (MDN, await (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)).
+- Temporal logic reads `F` as « It will (at some point in the Future) be the case that … » (SEP, temporal logic (https://plato.stanford.edu/entries/logic-temporal/)).
+
+- **A — `when`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the specification's word.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* reads naturally.
+  6. *Brevity:* four letters.
+
+  *For:* the kernel's word. *Against:* a conjunction for a constructor.
+
+- **B — `await`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* names the wait.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* JavaScript, Rust, C#.
+  5. *Mnemonic:* known.
+  6. *Brevity:* five letters.
+
+  *For:* widely known. *Against:* suggests a promise, not a temporal modality.
+
+- **C — A form of `catch` on an eventual value.**
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* wait, then branch on what arrives.
+  3. *Family and grade invariants:* one matching family.
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* follows Q-LEM-101.
+  6. *Brevity:* —
+
+  *For:* your generalisation. *Against:* depends on Q-LEM-101.
+
+
+### Place
+
+#### Q-LEM-120 — Places: `loc_n v` and `move_{n→m} v`
+
+**Fiche.**
+
+- **Symbols:** `loc_n v` (a value at a place, `@_n V`), `move_{n→m} v`
+- **Rules:** Loc, Move
+- **Register:** Loc: candidates « lieu », « localisée »; Move: retained « déplacement », « migration » rejected
+- **Overlaps:** `at_n c` (Q-LEM-118); `@x` refinements
+
+**Object.** A value labelled with its place, and its transport to a place that dominates it, paying the network.
+
+**Facts.**
+
+- Erlang's `spawn(Node, Fun)` starts a process on a named node: `spawn(Fun)` « Returns the process identifier of a new process started by the application of Fun to the empty list [] » (Erlang, erts (https://www.erlang.org/doc/apps/erts/erlang.html)).
+
+- **A — `loc` and `move`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the kernel's words.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* short.
+
+  *For:* the specification's words. *Against:* `loc` is an abbreviation.
+
+- **B — `place` and `move`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* names the label.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* five letters.
+
+  *For:* a full word. *Against:* `place` also reads as a verb.
+
+- **C — `at` and `move`, if Q-LEM-118 gives `at` to places.**
+
+  1. *Non-collision:* depends on Q-LEM-118.
+  2. *Scientific exactness:* one word for the place of a value and of a computation.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* reads naturally.
+  6. *Brevity:* two letters.
+
+  *For:* one family for places. *Against:* two constructs under `at`.
+
+
+### Concurrency and memory
+
+#### Q-LEM-121 — Parallelism: `c ∥ c` and `vmap`
+
+**Fiche.**
+
+- **Symbols:** `c ∥ c`, `vmap v v`
+- **Rules:** Par, Vmap
+- **Register:** retained « mise en parallèle » and « application vectorisée »
+- **Overlaps:** `iter` (Q-LEM-116)
+
+**Object.** `c ∥ c` runs two computations without ordering their steps; `vmap` applies one function to every element of a vector, paying its depth once.
+
+**Facts.**
+
+- Haskell's `par`: « Indicates that it may be beneficial to evaluate the first argument in parallel with the second » (Haskell, Control.Parallel (https://hackage.haskell.org/package/parallel/docs/Control-Parallel.html)).
+- JAX: « Vectorizing map. Creates a function which maps fun over argument axes » (JAX, vmap (https://docs.jax.dev/en/latest/_autosummary/jax.vmap.html)).
+
+- **A — `par` and `vmap`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the kernel's words.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Haskell, JAX.
+  5. *Mnemonic:* known.
+  6. *Brevity:* short.
+
+  *For:* the literature's words. *Against:* two abbreviations.
+
+- **B — `par` and `each`.**
+
+  1. *Non-collision:* near `iter` if Q-LEM-116 takes `each`.
+  2. *Scientific exactness:* BQN's Each is a map.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* BQN.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* short.
+
+  *For:* readable. *Against:* does not say parallel.
+
+- **C — `both` and `vmap`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* says two at once.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* four letters.
+
+  *For:* plain English. *Against:* binary only.
+
+
+#### Q-LEM-122 — Actors: `spawn c`, `new_E`, `send m(v) to v`
+
+**Fiche.**
+
+- **Symbols:** `spawn c`, `new_E`, `send m(v̄) to v`
+- **Rules:** Spawn, New, Send
+- **Register:** retained « engendrement », « création de boîte », « émission »
+- **Overlaps:** codata reads an observation as sending a message (Q-LEM-106); `guard` may become a `catch` (Q-LEM-101)
+
+**Object.** Starting a task its parent does not wait for; creating an empty mailbox whose pattern says what it accepts; dropping a message in a mailbox without waiting for it to be read.
+
+**Facts.**
+
+- Erlang: `spawn(Fun)` « Returns the process identifier of a new process started by the application of Fun to the empty list [] » (Erlang, erts (https://www.erlang.org/doc/apps/erts/erlang.html)); `Expr1 ! Expr2` « Sends the value of Expr2 as a message to the process specified by Expr1 » (Erlang, expressions (https://www.erlang.org/doc/system/expressions.html)).
+
+- **A — `spawn`, `new`, `send`.**
+
+  1. *Non-collision:* `new` is generic.
+  2. *Scientific exactness:* the kernel's words.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Erlang.
+  5. *Mnemonic:* known.
+  6. *Brevity:* short.
+
+  *For:* the specification's words. *Against:* `new` says nothing of a mailbox.
+
+- **B — `spawn`, `mailbox`, `send`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* names what is created.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Erlang's vocabulary.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* seven letters.
+
+  *For:* says what it creates. *Against:* a noun for an act.
+
+
+#### Q-LEM-123 — Memory: `free v` and `slice v as (x,y) in c`
+
+**Fiche.**
+
+- **Symbols:** `free v`, `slice v as (x,y) in c`
+- **Rules:** Free, Slice
+- **Register:** Free: retained « libération », « fermeture » rejected; Slice: « découpe », provisional
+- **Recorded:** taking a pair apart is `unbind` (VOC-2026-11-03-010)
+
+**Object.** `free` destroys a mailbox or a resource once exhausted; `slice` consumes a write capability on a segment and gives two on disjoint segments.
+
+**Facts.**
+
+- Rust: `std::mem::drop` « Disposes of a value » (Rust, drop (https://doc.rust-lang.org/std/mem/fn.drop.html)); `split_at_mut` « Divides one mutable slice into two at an index » (Rust, slice (https://doc.rust-lang.org/std/primitive.slice.html)).
+
+- **A — `free` and `slice`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the kernel's words.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* C's `free`.
+  5. *Mnemonic:* known.
+  6. *Brevity:* short.
+
+  *For:* the specification's words. *Against:* `free` suggests manual memory management.
+
+- **B — `drop` and `split`.**
+
+  1. *Non-collision:* `split` was weighed for pairs in lot 1.
+  2. *Scientific exactness:* Rust's words.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Rust.
+  5. *Mnemonic:* known.
+  6. *Brevity:* short.
+
+  *For:* Rust's vocabulary for the same discipline. *Against:* `split` also splits sequences.
+
+- **C — `release` and `slice`.**
+
+  1. *Non-collision:* near the « delimited release » of declassification (Q-LEM-124).
+  2. *Scientific exactness:* says a resource is given back.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* seven letters.
+
+  *For:* no manual-memory sense. *Against:* longer.
+
+
+### Confidentiality
+
+#### Q-LEM-124 — Lowering a level, `declassify_ℓ(v)`
+
+**Fiche.**
+
+- **Symbol:** `declassify_ℓ(v)`
+- **Rule:** Declassify
+- **Register:** retained « déclassification », « le terme de Sabelfeld et Myers »
+
+**Object.** An escape hatch, closed and named in advance, that lowers the confidentiality level of a value; chapter 2 bounds what it may release by « la divulgation délimitée » (AdjunctionsAndEnrichment (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C2/AdjunctionsAndEnrichment.lean)).
+
+**Facts.**
+
+- Chapter 2 cites Sabelfeld and Myers, « A Model for Delimited Information Release » (2004), for the laundering attack and delimited release.
+
+- **A — `declassify`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* the literature's word.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* information-flow languages.
+  5. *Mnemonic:* known.
+  6. *Brevity:* ten letters.
+
+  *For:* the specification's word. *Against:* long.
+
+- **B — `release`.**
+
+  1. *Non-collision:* near Q-LEM-123 C.
+  2. *Scientific exactness:* the « delimited release » of the cited model.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* seven letters.
+
+  *For:* names what the guarantee bounds. *Against:* says nothing of the level.
+
+- **C — `downgrade`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* names the lowering.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* nine letters.
+
+  *For:* plain. *Against:* not the literature's word.
 
 ## The catalogue, verbatim
 
