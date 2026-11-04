@@ -2407,6 +2407,301 @@ decide nothing.
   infix placement decided in the ninth part.
 - Both are asked in the next part; neither is decided here.
 
+## Reading lot: research of 2026-11-04, connecting to a flow
+
+The author confirmed on 2026-11-04 the reading of pattern matching given in
+the conversation (VOC-2026-11-04-001): every construction is a pattern, `@x`
+is every pattern of `x`, what is caught carries the refined type of its
+construction, and a pattern is compiled into an automaton put in production
+by an actor or an orchestrator. `case` keeps a role, « définir des conditions
+sur un motif attrapé à l'image du CASE en SQL » (VOC-2026-11-04-002). The
+author then asked (VOC-2026-11-04-003):
+
+> Les réflexions que nous devrions alors avoir c'est comment se connecter au
+> flux et comment simuler un flux lorsque l'on doit lire ailleurs que sur un
+> réseau. Nous avons :on qui semble alors redondant avec catch dans le sens où
+> en data-flow le fait d'envoyer un flux à un automate est un routage naturel
+> et implicite... nous devrions approfondir comment gèrent les langages de
+> control-flow et de pattern-matching avancés comme TXR Lisp, Go, etc.
+
+This section gathers what the specification already writes, what other
+languages do, with their sources (read on 2026-11-04), and the choices this
+leaves. Observed facts and interpretations are kept apart; nothing here is
+decided.
+
+### Observed in the specification
+
+- Chapter 4 opens on « Toute fonction ou groupe de fonctions mis en
+  production est un _automate_ » (`spec/Spec/C4/Introduction.lean`).
+- A program starts from its event sources, not from an entry point: « Une
+  forme `( )` qu'aucune autre n'encapsule est un processus : un acteur
+  virtuel, activé par son premier message » ; « Seules les sources
+  d'événements (une entrée du monde extérieur, un `defer`) démarrent
+  aussitôt » ; « Ce qui démarre un programme est donc l'ensemble de ses
+  sources d'événements » (`spec/Spec/C4/SystemScale.lean`).
+- The outside world enters as a message: « le monde extérieur se joint par
+  un message à l'acteur qui porte l'interopérabilité étrangère », and « une
+  réponse n'est qu'un message envoyé à l'émetteur, qui le reçoit par sa
+  propre clause `:on` » (`spec/Spec/C5/InPractice.lean`).
+- The `:on` clause gives an actor its handler without naming it:
+  `:on (Increment :sets value …)`, « la clause `:on … :sets` n'est que la
+  forme abrégée d'une réaction » (`spec/Spec/C5/InPractice.lean`).
+- A pattern and a flow can be fused at compilation: « la fusion d'un motif
+  R-expression et d'un flux X-expression en un seul automate `K7PL.FSM`,
+  sans conversion intermédiaire en chaîne de caractères »
+  (`spec/Spec/C5/SpecialisedNotations.lean`).
+- A mailbox that merges several writers is not deterministic, which is why
+  the journal records the interleaving; the conjecture
+  `thm:sous_reseaux_kahn` drops the journal for a sub-network whose
+  channels have « un seul écrivain et un seul lecteur », read « par des
+  réceptions bloquantes sur un canal à la fois, sans tester la présence
+  d'un message ni choisir entre plusieurs canaux »
+  (`spec/Spec/C4/SystemScale.lean`).
+- A recorded flow can already be replayed: the journal and the replay of
+  chapter 4 (an actor « redémarre à son dernier état connu », the snapshot
+  bounding the replay of messages).
+
+### What other languages do
+
+- **AWK.** « An awk program is composed of pairs of the form: pattern
+  { action } »; « Input shall be interpreted as a sequence of records »;
+  « each file operand (or standard input if no files were specified) shall
+  be processed in turn »; « When input is read that matches a pattern, the
+  action associated with that pattern is carried out » ([POSIX,
+  awk](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html)).
+  The flow is implicit: the program is only patterns and actions, and a
+  file and standard input are the same kind of source.
+- **TXR.** It « comprises two languages integrated into a single tool: a
+  text scanning and extraction language referred to as the TXR Pattern
+  Language […] and a general-purpose dialect of Lisp called TXR Lisp »;
+  « Patterns can contain actions which transform data and generate
+  output »; « The TXR pattern language reads standard input via a lazy
+  list ». The `next` directive « indicates that the remaining directives in
+  the current block are to be applied against a new input source », which
+  « may be a string or an input stream » (a file name, or
+  `(open-command `git log`)`, a process's output), and `@(next :list
+  lisp-expr)` « treats TXR Lisp expression lisp-expr as a source of text
+  […] as if it were the lines of a text file » ([TXR manual, version
+  302](https://www.nongnu.org/txr/txr-manpage.html)). The source is named
+  inside the pattern, and a list in memory simulates a file.
+- **Go.** « A channel provides a mechanism for concurrently executing
+  functions to communicate by sending and receiving values of a specified
+  element type »; « A "select" statement chooses which of a set of possible
+  send or receive operations will proceed »; with `range`, « For channels,
+  the iteration values produced are the successive values sent on the
+  channel until the channel is closed » ([Go
+  specification](https://go.dev/ref/spec)). For bytes, « Reader is the
+  interface that wraps the basic Read method », and package `io`'s
+  « primary job is to wrap existing implementations of such primitives,
+  such as those in package os » ([io](https://pkg.go.dev/io));
+  `strings.NewReader` « returns a new Reader reading from s »
+  ([strings](https://pkg.go.dev/strings)). A file, a socket and a string
+  are all readers, so a string simulates the network.
+- **Erlang.** In `receive`, « The patterns in the clauses are matched
+  against a message from top to bottom »; « The execution is suspended,
+  possibly indefinitely, until a message arrives that matches one of the
+  patterns »; `Expr1 ! Expr2` « Sends the value of Expr2 as a message to the
+  process specified by Expr1 » ([Erlang,
+  expressions](https://www.erlang.org/doc/system/expressions.html)). The
+  mailbox is the only flow; everything else becomes a message.
+- **Elixir.** « Streams are composable, lazy enumerables »; `IO.stream/2`
+  « streams input lines, one by one », and the documentation's example
+  streams `File.stream!` through `Stream.map` without loading the file
+  ([Elixir, Stream](https://elixir.hexdocs.pm/Stream.html)). A list, a file
+  and standard input are all enumerables.
+- **ReactiveX.** « An Observable is the asynchronous/push "dual" to the
+  synchronous/pull Iterable », which lets one « treat streams of
+  asynchronous events with the same sort of simple, composable operations »
+  as collections ([ReactiveX](https://reactivex.io/intro.html)).
+- **OCaml 5.** One `match` holds value cases, `exception` cases and
+  `effect` cases ([OCaml manual, effect
+  handlers](https://ocaml.org/manual/5.3/effects.html)); already in lemma
+  lot 2.
+- **SQL.** « The SQL CASE expression is a generic conditional expression,
+  similar to if/else statements in other programming languages »:
+  `CASE WHEN condition THEN result [WHEN ...] [ELSE result] END`
+  ([PostgreSQL](https://www.postgresql.org/docs/current/functions-conditional.html)).
+  The conditions are tested in order on what the query has already
+  selected; `ELSE` gives the default.
+
+### Interpretation for K7PL (not decided)
+
+**Connecting to a flow.** Three models appear.
+
+- *Implicit, data-flow.* As in AWK, the program is patterns and actions; a
+  pattern placed on a source receives it. Phase 2's wiring graph would
+  connect sources to automata, and `:on` would no longer be needed. This is
+  what the author's remark on `:on` points to.
+- *Named source.* As in TXR (`@(next source)`) or Go (a channel), the
+  catch names the flow it reads. The routing is explicit and the graph is
+  readable from the text.
+- *Mailbox only.* As in Erlang and in chapter 5 today (« le monde extérieur
+  se joint par un message »), every source becomes messages to an actor,
+  and `catch` only ever reads a mailbox.
+
+**Simulating a flow.** Four mechanisms, which can combine.
+
+- A value in memory read as a flow: TXR's `:list`, Go's
+  `strings.NewReader`, Elixir's enumerables.
+- Files and processes as sources of the same kind as the network: AWK's
+  file operands, TXR's `open-command`, Go's `io.Reader`.
+- The journal replayed as a flow: K7PL already records and replays
+  messages, so a recorded run is a simulated flow.
+- `defer` as a source of ticks: chapter 4 already counts it among the
+  event sources.
+
+**`:on` against `catch`.** Three readings.
+
+- `:on` is a `catch` on the actor's mailbox, in short form, and stays as
+  that abbreviation.
+- `:on` is withdrawn: an actor's reactions are its catch clauses, and
+  routing is implicit.
+- `:on` declares the routing (which flow feeds the actor) and `catch`
+  matches. This keeps the wiring graph explicit.
+
+**A constraint that chooses between them.** A catch that waits on several
+sources at once is a choice between channels, Go's `select`. Under the
+conjecture `thm:sous_reseaux_kahn`, that choice is exactly what removes
+determinism and calls the journal back. Implicit routing that merges flows
+into one automaton has the same cost. The model of connection therefore
+decides which programs stay Kahn sub-networks.
+
+**`case` after a catch.** On the SQL model, `case` lists conditions on
+what was caught, tested in order, with a default. A guard is a condition
+of a `case`, and a refinement is a condition the type already carries.
+
+### Questions this leaves for the author
+
+1. Is a program's connection to its flows implicit (data-flow), named in
+   the catch, or always through an actor's mailbox?
+2. Which sources count as flows of the same kind: the network, files,
+   processes, values in memory, the journal, ticks?
+3. How is a flow simulated: by a value in memory, by a file, or by
+   replaying a journal?
+4. What becomes of `:on`: an abbreviation of a catch, withdrawn, or the
+   declaration of routing?
+5. May one catch read several sources at once, with the journal it then
+   requires, or does it read one, keeping Kahn determinism?
+6. Does `case` keep SQL's order and default (`ELSE`)?
+
+These questions replace Q-LEM-101 and Q-LEM-102 of lemma lot 2, withdrawn
+on 2026-11-04, and bear on Q-LEM-119 (`when`), withdrawn with them.
+
+## Reading lot: research of 2026-11-04, pattern matching, control flow, joins and reactivity
+
+The author asked on 2026-11-04 (conversation):
+
+> Mets à jour le QCM avec toutes les questions dédiées spécifiquement au pattern
+> matching et associé en retirant temporairement toutes les questions non
+> répondues. On va, ensemble, trancher tout ce qui concerne le pattern matching,
+> le control flow, le joint pattern, le reactive etc. puisque c'est l'un des
+> focus important de K7PL. Cela nous permettera d'en délimiter la discipline et
+> de pouvoir en déduire les besoins réels connexes.
+
+Lemma lot 3 in [questions](questions.md) carries the questions. This section
+gathers what the specification already writes, the outside sources used, and
+the related needs the reading brings out. Observed facts and interpretations
+are kept apart; nothing here is decided.
+
+### Observed in the specification
+
+- Patterns. « `@` appartient aux motifs, et tout est motif » ; « `@` placé
+  devant une construction capture ce motif et en hérite toute la
+  construction, précisée » ; without the label rule « une étiquette mal
+  orthographiée serait une variable fraîche, donc un motif qui filtre tout et
+  ne signale rien » (`spec/Spec/C5/UniversalSExpressions.lean`). The handler
+  listing of chapter 5 binds with bare names, `((Increment n) …)`
+  (`spec/Spec/C5/InPractice.lean`).
+- Automaton classes. R-expressions carry `@linear`, `@polynomial`, `@stack`
+  or `@backtrack`; « Le vérificateur de complexité (chapitre 6) rejette toute
+  structure non linéaire apparaissant dans un contexte annoté `@linear` »
+  (`spec/Spec/C4/LocalScale.lean`). Nothing says which class holds when none
+  is written.
+- Receiving. Chapter 3's grammar has `guard v {p_i ↦ c_i}` with guard
+  patterns `p ::= m(x̄) | p & p`; « La branche ne s'ouvre que si tous les
+  messages du motif sont présents, et les consomme d'un seul tenant ». Mailbox
+  patterns form an algebra `E ::= 0 | 1 | m[V̄] | E·E | E+E | E*`, and the
+  residual `E / m` makes a mailbox « un objet à état typé plutôt qu'un sac ».
+  `free` requires an empty mailbox, so that « un acteur ne peut pas
+  disparaître en laissant des messages non lus »
+  (`spec/Spec/C3/TypingRules.lean`).
+- Kernel. `try c catch c`, `guard`, `operation_ε(v)` and the handlers are
+  separate constructs; « `perform` et `handle` sont deux actions, invoquer et
+  traiter » (`spec/Spec/C3/TermGrammar.lean`). The temporal forms (`always`,
+  `now`, `next`, `delay`, `at`, `wait`, `when`) and the negative product's
+  `out c` and `⟨⟨j ↦ c_j⟩⟩` are in the same grammar.
+- Mailboxes and joins. « La boîte aux lettres abstraite est un multi-ensemble
+  de ressources linéaires indexé par canal »; physically « un anneau SPSC par
+  couple (émetteur, boîte), et une file de jonction par acteur »; « Quand
+  plusieurs anneaux portent un message qui convient au motif, l'acteur les
+  examine dans l'ordre fixe des identifiants d'émetteur »; « chaque anneau a
+  une capacité qui est un grade » (`spec/Spec/C4/SystemScale.lean`).
+- Control flow in layer 3. `choose` picks one branch of a list by a
+  condition and `select` computes both under a mask; « Chacun dit ainsi son
+  coût » (`spec/Spec/C5/InPractice.lean`).
+- Determinism. The conjecture `thm:sous_reseaux_kahn` drops the journal for
+  sub-networks read « par des réceptions bloquantes sur un canal à la fois,
+  sans tester la présence d'un message ni choisir entre plusieurs canaux »
+  (`spec/Spec/C4/SystemScale.lean`).
+
+### Sources used by the lot
+
+Each question quotes its sources. The lot draws on:
+- patterns: Python's PEP 635, Elixir's pin operator, the OCaml and Rust
+  manuals, F#'s active patterns, TXR;
+- matching automata: Maranget's decision trees (ML 2008);
+- clause order and mailboxes: AWK and Erlang;
+- refinement after a test: Typed Racket's occurrence typing;
+- conditions: PostgreSQL's `CASE`;
+- chaining: Elixir's `with`;
+- continuations: OCaml 5's effect handlers;
+- synchronous reactivity: Esterel's primer and Lustre (Halbwachs et al. 1991);
+- event patterns: SQL's `MATCH_RECOGNIZE` (Trino) and Flink CEP;
+- back pressure: Reactive Streams;
+- codata: copatterns (Abel et al., POPL 2013).
+
+The sources of the earlier reading lot on flows (TXR, Go, Elixir, ReactiveX)
+are reused.
+
+### Interpretation: the axes of the discipline (not decided)
+
+The lot sorts the subject along four axes:
+- what a pattern is and how it is written: binding, values already known,
+  aliases, alternatives and conjunctions, computing patterns, automaton class;
+- how clauses are tried: writing, order, coverage, what nothing catches, the
+  type seen after a clause, `case`;
+- where patterns read: values, mailboxes, flows, sequences over time;
+- what produces what is caught and what resumes after it.
+
+Joins sit across the third and fourth axes; reactivity across the third.
+
+### Related needs brought out by the reading (to put to the author)
+
+1. Coverage is stated two ways. The glossary and Annex A reject message
+   combinations a join pattern does not cover. Chapter 4 rejects them only
+   « dans le profil qui adopte la couverture exhaustive » (Q-LEM-209).
+2. The listing `lst:motif-jonction` is presented as a join, but each of its
+   two clauses takes one message: it is a choice between a result and a
+   deadline, not a conjunction. Its second clause uses `id`, which only the
+   first clause binds (Q-LEM-224).
+3. Annex A still advises, for an imperative conditional, « Utiliser `match`,
+   `cond` ou `select` ». `cond` leaves (VOC-2026-11-03-016) and `match`
+   becomes `case` (VOC-2026-11-03-012), neither applied yet.
+4. The fixed order of sender identifiers makes the choice among rings a
+   function of the mailbox's state, which the journal restores. No statement
+   bounds how long a sender with a high identifier may wait (fairness).
+5. If a mailbox's type says everything that may arrive (Q-LEM-210 A), the
+   actor at the boundary must type the outside world completely, and what
+   fails that type must become a value that can be caught.
+6. A flow read by several automata (Q-LEM-208 C) needs an explicit fan-out,
+   since a mailbox has one consumer and a channel's write capability is
+   linear.
+7. A deadline in a pattern needs a tick source; `defer` exists only inside an
+   `:on` clause today (Q-LEM-227).
+8. Lemma lot 1 chose `case` everywhere, R-expressions included, but
+   chapter 4 still writes `(match ...)`; applying it waits for the author's
+   go-ahead.
+
 ## Archive review: early K premises (`OLD_K_K7PL`)
 
 Received from the author on 2026-10-27 as `OLD_K_K7PL.zip`, described

@@ -845,6 +845,80 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Lemma lot 2: answers given up to 2026-11-04 (seven questions).**
+  Recorded verbatim in [questions](questions.md) as
+  VOC-2026-11-03-019 to VOC-2026-11-03-022 and VOC-2026-11-04-004 to
+  VOC-2026-11-04-006. Dated preferences, ratified only in the global
+  lot (VOC-2026-10-26-002). In short:
+  - Existentials: `pack` hides a witness, `unpack` opens it.
+  - Grading: `box` promotes a value under a grade, `unbox` uses it.
+  - Vectors: `iter` goes through a vector.
+  - Time: waiting for an event is a form of `catch` on an eventual
+    value, with no word of its own (Q-LEM-119, answered before this
+    record withdrew it; the withdrawal is corrected).
+  - Actors: an ordinary actor is started by `invoke`; an actor that
+    heals itself is a `daemon`, started by `summon`; `mailbox` is set
+    aside; creating a mailbox and sending are not answered.
+  Put back to the author: `invoke` against invoking an operation
+  (chapter 3, Q-LEM-111). On 2026-11-04 the author asked to settle
+  pattern matching first: lemma lot 3 asks it, with the questions of
+  lot 2 that bear on it (Q-LEM-103, 105, 106, 111, 115, 117, 118,
+  121); the others (Q-LEM-104, 112, 113, 114, 120, 123, 124) are set
+  aside on the page until lot 3 is answered.
+  Not applied yet: applying the words waits for the author's go-ahead.
+- **Pattern matching and flows: answers of 2026-11-04, given in
+  the conversation.** Recorded verbatim in [questions](questions.md),
+  under lemma lot 2, as VOC-2026-11-04-001 to VOC-2026-11-04-003. The
+  author confirmed the reading of pattern matching: every
+  construction is a pattern, `@x` is every pattern of `x`, what is
+  caught carries the refined type of its construction, and a pattern
+  is compiled into an automaton put in production by an actor or an
+  orchestrator. `case` sets conditions on what was caught, as SQL's
+  `CASE`. To study next: how a program connects to a flow, how a flow
+  is simulated off the network, and whether `:on` is redundant with
+  `catch`; the research is in [research](research.md), « Reading lot:
+  research of 2026-11-04, connecting to a flow », with six questions
+  for the author. Q-LEM-101, Q-LEM-102 and Q-LEM-119 of lemma lot 2
+  are withdrawn, unanswered.
+- **Lemma lot 1: answers of 2026-11-03 (Q-LEM-001 to Q-LEM-016).**
+  Recorded verbatim in [questions](questions.md) as
+  VOC-2026-11-03-001 to VOC-2026-11-03-016. Dated preferences, ratified
+  only in the global lot (VOC-2026-10-26-002). In short:
+  - Method: one word per construct, everywhere, chapter 3's
+    formulas included; two words only for two objects.
+  - Kernel: application has no written word and is named `apply`,
+    spreading a list of arguments being `spread`; `thunk`,
+    `force`, `return`; sequencing is `bind`, chapter 5's `let`
+    becoming `bind`, and the glyph aliases `bind-left` and
+    `bind-right` are withdrawn, one `bind` branching the
+    expression on its right.
+  - Connectives: the unit value is `unit`, `()` staying the empty
+    list; taking a pair apart is `unbind`; the injection is
+    written as the tag applied and named `tag`, the labels of
+    structural modes being `label`; the eliminator of sums is
+    `case`, R-expressions included.
+  - Gaps: no conditional form, branching going through pattern
+    matching with `catch` and `case`; `cond` leaves chapter 3 and
+    Annex A.
+  Kept open: Q-LEM-008 (consuming the unit), Q-LEM-009 (the pair;
+  the author asks to weigh `join` and the words of SQL and NoSQL),
+  Q-LEM-013 (the negative product), Q-LEM-014 (its projection) and
+  Q-LEM-015 (the words of the conditional; the author asks for an
+  overview of `catch` and `case` on a flow).
+  Put back to the author: the glyphs `↢` and `↣` once the aliases
+  are withdrawn; `unbind` against Lisp's removal of a binding;
+  `catch`, which already names the handler of `try c catch c`;
+  and how the absence of a conditional reads with `choose`, the
+  dyadic `select` and the `select` of the K lexicon.
+  Answered in the conversation the same day: `catch` and the
+  kernel's `try c catch c` are one object, a generalisation of
+  pattern matching (VOC-2026-11-03-017); the glyphs are dealt
+  with once every lemma is fixed (VOC-2026-11-03-018). Lemma lot
+  2 asks what `catch` gathers and how it is written.
+  Not applied yet: the answers are dated preferences; applying
+  them changes chapter 3's grammar, chapter 1's glyph table,
+  chapters 4 and 5, Annex A and the K lexicon, and waits for the
+  author's go-ahead.
 - **Reading lot, eleventh part: answers of 2026-10-29
   (Q-SPEC-601 to Q-ACT-010).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-29-013 to

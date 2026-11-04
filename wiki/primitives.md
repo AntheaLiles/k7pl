@@ -109,6 +109,8 @@ Le terme scientifique ; et chez K7PL c'est AUSSI la composition, puisqu'il n'y a
 apply  
 Le mot que Lisp emploie quand l'application doit être réifiée. Usuel dans la famille. Réserve à l'application dynamique ; ce n'est pas le même objet.
 
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-002), recorded in English as new content:** no written word; the construct is named `apply`, and applying a function to a list of arguments takes the word `spread` (lemma lot 1, Q-LEM-002, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
+
 ### DOING Suspendre un calcul en une valeur
 
     SYMBOLE: {M} | FAMILLE: noyau_CBPV | REGLE: Th | LEMME-RETENU: thunk | LEMME-CANDIDAT: thunk, suspend, delay, suspension
@@ -122,6 +124,8 @@ Le verbe, plus explicite. c1 emploie déjà « suspension » en français. Non u
 delay  
 Le mot de Scheme pour la promesse. Famille Lisp. Chez K7PL le mot est pris : la modalité temporelle a une règle Del, et un délai n'est pas une suspension.
 
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-003), recorded in English as new content:** `thunk` (lemma lot 1, Q-LEM-003, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
+
 ### DOING Reprendre un calcul suspendu
 
     SYMBOLE: V! | FAMILLE: noyau_CBPV | REGLE: Fo | LEMME-RETENU: force | LEMME-CANDIDAT: force, run, resume
@@ -131,6 +135,8 @@ Le mot de Levy, et celui de Scheme pour la promesse. Doublement usuel : littéra
 
 run  
 Plus commun hors du domaine. Lisible sans culture préalable. Trop générique ; se confondrait avec l'exécution d'un programme.
+
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-004), recorded in English as new content:** `force` (lemma lot 1, Q-LEM-004, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
 
 ### DOING Injecter une valeur dans un calcul trivial
 
@@ -145,6 +151,8 @@ Le verbe que la littérature CBPV emploie parfois pour éviter le contresens. L�
 pure  
 Le mot de Haskell pour le même rôle applicatif. Usuel dans la famille fonctionnelle. Chez K7PL le mot est PRIS : pure est l'un des cinq mots-clés réservés en position de tête, et il exige un effet vide. Collision à éviter.
 
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-005), recorded in English as new content:** `return` (lemma lot 1, Q-LEM-005, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
+
 ### DOING Séquencer deux calculs en liant le résultat du premier
 
     SYMBOLE: x ← M in N | FAMILLE: noyau_CBPV | REGLE: Let | LEMME-RETENU | LEMME-CANDIDAT: bind, let, do, sequence
@@ -158,6 +166,8 @@ Le mot de la famille Lisp et ML pour une liaison. Usuel, court, et la forme (let
 do  
 La notation de Haskell pour l'enchaînement. Brièveté du cas courant, et il est le cas courant. Suppose un bloc, donc une forme différente de la forme générale.
 
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-006), recorded in English as new content:** `bind`, chapter 5's `let` becoming `bind` and the glyph aliases `bind-left` and `bind-right` being withdrawn (lemma lot 1, Q-LEM-006, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
+
 ### DOING Dénoter la seule valeur du type unité
 
     SYMBOLE: () | FAMILLE: connecteurs | REGLE: One | LEMME-RETENU | LEMME-CANDIDAT: unit, nil, void
@@ -170,6 +180,8 @@ Le mot de Lisp. Famille. Chez Lisp, nil est aussi la liste vide et le faux : tro
 
 void  
 Le mot des langages à la C. Connu très largement. Void y désigne l'absence de valeur, pas une valeur unique : contresens.
+
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-007), recorded in English as new content:** `unit`, `()` staying the empty list (lemma lot 1, Q-LEM-007, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
 
 ### DOING Consommer l'unité sans rien lier
 
@@ -201,6 +213,8 @@ Le verbe le plus direct. Court, et il dit ce qui se passe. Split est employé ai
 unpair  
 Symétrique de pair. Cohérence de famille, qui est le critère 3. Peu usuel.
 
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-010), recorded in English as new content:** `unbind`, the reverse of `bind` (lemma lot 1, Q-LEM-010, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
+
 ### DOING Marquer une valeur d'une étiquette de somme
 
     SYMBOLE: inj_i V | FAMILLE: connecteurs | REGLE: Inj | LEMME-RETENU | LEMME-CANDIDAT: inject, tag, variant
@@ -211,6 +225,8 @@ Le terme catégorique. Exact. Long, et le cas courant l'écrit souvent.
 tag  
 Le mot opérationnel. Court, et il dit ce qui est stocké. Suggère une représentation, alors que le constructeur est logique.
 
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-011), recorded in English as new content:** the tag applied to its value; the construct is named `tag`, and the labels of structural modes `label` (lemma lot 1, Q-LEM-011, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
+
 ### DOING Choisir une branche selon l'étiquette
 
     SYMBOLE: case V of {i ↦ N_i} | FAMILLE: connecteurs | REGLE: Case | LEMME-RETENU | LEMME-CANDIDAT: case, match, switch
@@ -220,6 +236,8 @@ Le mot de ML, de Haskell et de Scheme. Usuel dans les trois familles dont K7PL h
 
 match  
 Le mot d'OCaml et de Rust. Également usuel. Chez K7PL, le filtrage de motifs des R-expressions emploiera probablement ce mot : risque de collision entre le filtrage de sommes et le filtrage de textes.
+
+**Dated preference of the author (2026-11-03, VOC-2026-11-03-012), recorded in English as new content:** `case`, R-expressions included (lemma lot 1, Q-LEM-012, in [questions](questions.md)). A preference, not a ratification: it is arbitrated in the global lot (VOC-2026-10-25-001).
 
 ### DOING Offrir plusieurs observations sur un même calcul
 
