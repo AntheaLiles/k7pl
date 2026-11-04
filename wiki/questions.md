@@ -5270,11 +5270,25 @@ confidentiality). Same format: a fiche of the construct, the specification's tex
 other languages do, and options weighed on the six criteria of Q-METH-001 (option A) in their order, with
 their pros and cons. **Other** and **Clarify** are always available.
 
-Second lot of lemmas. It asks again the five questions lot 1 kept open, now that `bind`, `unbind`, `unit`, `tag` and `case` are preferred, and goes on with the existentials, the grading and the operations of effects. Recorded since lot 1: `catch` and the kernel's `try c catch c` are one object, a generalisation of pattern matching (VOC-2026-11-03-017); the glyphs are dealt with once every lemma is fixed (VOC-2026-11-03-018). Each option is weighed on the six criteria of Q-METH-001 (option A), in their order; an answer is a dated preference, ratified only in the global lot (VOC-2026-10-26-002). Every word of the examples other than the one asked is a placeholder. Left for lot 3: the scoped operations and handlers, once Q-LEM-101 has said what `catch` gathers, `guard`, the observation `out` and the copatterns of streams, and whatever this lot keeps open.
+Second lot of lemmas. It asks again what lot 1 kept open, now that `bind`, `unbind`, `unit`, `tag` and `case` are preferred, and goes on with the existentials, the grading, the operations of effects, the types and recursion, time, place, concurrency, memory and confidentiality. Recorded since lot 1: `catch` and the kernel's `try c catch c` are one object, a generalisation of pattern matching (VOC-2026-11-03-017); the glyphs are dealt with once every lemma is fixed (VOC-2026-11-03-018); every construction is a pattern, `@x` being every pattern of `x`, and `case` sets conditions on what was caught, as SQL's `CASE` (VOC-2026-11-04-001, -002). Q-LEM-101, Q-LEM-102 and Q-LEM-119 are withdrawn: how a program connects to its flows comes first, in the research of 2026-11-04 (research.md). Each option is weighed on the six criteria of Q-METH-001 (option A), in their order; an answer is a dated preference, ratified only in the global lot (VOC-2026-10-26-002). Every word of the examples other than the one asked is a placeholder.
+
+**Answers of the author — 2026-11-04, given in the conversation, quoted as given.**
+
+The author asked for a summary of what is understood of pattern matching, then answered:
+
+> Tu as bien compris et bien résumé. case garde un role pour définir des conditions sur un motif attrapé à l'image du CASE en SQL, @x est tout motif de x.
+>
+> Les réflexions que nous devrions alors avoir c'est comment se connecter au flux et comment simuler un flux lorsque l'on doit lire ailleurs que sur un réseau. Nous avons :on qui semble alors redondant avec catch dans le sens où en data-flow le fait d'envoyer un flux à un automate est un routage naturel et implicite... nous devrions approfondir comment gèrent les langages de control-flow et de pattern-matching avancés comme TXR Lisp, Go, etc.
+
+- **VOC-2026-11-04-001, reading:** the summary stands: every construction is a pattern (a type, refined or not, with its grades and budget; a construction or tag; a binary value; an R-expression; a trace; an algebraic effect), written with the language itself and turned into a pattern by `@`; `@x` is every pattern of `x`; what is caught carries the refined type of its construction; matching generalises in what is matched, where (a value present or a flow arriving: data, messages, events, effects, failures) and how (a pattern compiled into an automaton put in production by an actor or an orchestrator).
+- **VOC-2026-11-04-002, reading:** `case` keeps a role: it sets conditions on what a pattern has caught, as SQL's `CASE`.
+- **VOC-2026-11-04-003, reading:** to study next, how a program connects to a flow, how a flow is simulated when reading elsewhere than on a network, and whether `:on` is redundant with `catch` when routing a flow to an automaton is natural and implicit in data-flow, from what TXR Lisp, Go and other control-flow and pattern-matching languages do. Done in [research](research.md), « Reading lot: research of 2026-11-04, connecting to a flow ».
 
 ### Matching, after lot 1
 
 #### Q-LEM-101 — What `catch` gathers
+
+**Withdrawn on 2026-11-04, unanswered.** The author confirmed the reading of pattern matching given in the conversation and asked first how a program connects to its flows (VOC-2026-11-04-001 to -003, below); the research of 2026-11-04 in [research](research.md) replaces this question.
 
 **Fiche.**
 
@@ -5308,6 +5322,8 @@ Several options may be chosen.
 
 
 #### Q-LEM-102 — How a catch is written
+
+**Withdrawn on 2026-11-04, unanswered.** Replaced by the research of 2026-11-04 in [research](research.md): how a catch is written follows from how it connects to its flow.
 
 **Fiche.**
 
@@ -6190,6 +6206,8 @@ Several options may be chosen.
 
 
 #### Q-LEM-119 — Waiting for an event, `when x = v in c`
+
+**Withdrawn on 2026-11-04, unanswered.** Waiting for an event depends on how a program connects to its flows, the subject of the research of 2026-11-04 in [research](research.md).
 
 **Fiche.**
 

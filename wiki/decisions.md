@@ -845,6 +845,20 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Pattern matching and flows: answers of 2026-11-04, given in
+  the conversation.** Recorded verbatim in [questions](questions.md),
+  under lemma lot 2, as VOC-2026-11-04-001 to VOC-2026-11-04-003. The
+  author confirmed the reading of pattern matching: every
+  construction is a pattern, `@x` is every pattern of `x`, what is
+  caught carries the refined type of its construction, and a pattern
+  is compiled into an automaton put in production by an actor or an
+  orchestrator. `case` sets conditions on what was caught, as SQL's
+  `CASE`. To study next: how a program connects to a flow, how a flow
+  is simulated off the network, and whether `:on` is redundant with
+  `catch`; the research is in [research](research.md), « Reading lot:
+  research of 2026-11-04, connecting to a flow », with six questions
+  for the author. Q-LEM-101, Q-LEM-102 and Q-LEM-119 of lemma lot 2
+  are withdrawn, unanswered.
 - **Lemma lot 1: answers of 2026-11-03 (Q-LEM-001 to Q-LEM-016).**
   Recorded verbatim in [questions](questions.md) as
   VOC-2026-11-03-001 to VOC-2026-11-03-016. Dated preferences, ratified
