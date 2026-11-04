@@ -5661,6 +5661,10 @@ Several options may be chosen.
 
   *For:* the theory's sense. *Against:* two meanings of « abstraction ».
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-019), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** hiding a witness is `pack` (option A).
 
 #### Q-LEM-108 — Opening an existential, `open v as (α,x) in c`
 
@@ -5710,6 +5714,10 @@ Several options may be chosen.
 
   *For:* no word. *Against:* the witness is a type, not a value.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-020), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** opening an existential is `unpack` (option A), the reverse of `pack`.
 
 ### Grading
 
@@ -5763,6 +5771,10 @@ Several options may be chosen.
 
   *For:* the grade is visible. *Against:* the noun and the act share a word.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-021), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** promoting a value under a grade is `box` (option A).
 
 #### Q-LEM-110 — Using a graded value, `unbox v as x in c`
 
@@ -5812,6 +5824,10 @@ Several options may be chosen.
 
   *For:* the comonad reading. *Against:* Haskell's `extract` has no grade.
 
+**Answer of the author — 2026-11-03 (VOC-2026-11-03-022), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** using a graded value is `unbox` (option A), the reverse of `box`.
 
 ### Effects
 
@@ -6116,6 +6132,10 @@ Several options may be chosen.
 
   *For:* immediate. *Against:* an imperative word.
 
+**Answer of the author — 2026-11-04 (VOC-2026-11-04-004), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** going through a vector is `iter` (option A).
 
 ### Time
 
@@ -6207,7 +6227,7 @@ Several options may be chosen.
 
 #### Q-LEM-119 — Waiting for an event, `when x = v in c`
 
-**Withdrawn on 2026-11-04, unanswered.** Waiting for an event depends on how a program connects to its flows, the subject of the research of 2026-11-04 in [research](research.md).
+**Answered before its withdrawal.** This record withdrew the question on 2026-11-04 without seeing that the author had answered it in the questionnaire the same morning (VOC-2026-11-04-005, below); the answer stands.
 
 **Fiche.**
 
@@ -6256,6 +6276,11 @@ Several options may be chosen.
 
   *For:* your generalisation. *Against:* depends on Q-LEM-101.
 
+**Answer of the author — 2026-11-04 (VOC-2026-11-04-005), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Reading:** waiting for an event is a form of `catch` on an eventual value (option C), with no word of its own, as VOC-2026-11-04-001 reads matching.
+- **Put back to the author:** chapter 3's `when x = v in c` and `wait v` become forms of `catch`; whether the kernel keeps them as constructs is asked in lemma lot 3 (Q-LEM-217).
 
 ### Place
 
@@ -6397,6 +6422,13 @@ Several options may be chosen.
 
   *For:* says what it creates. *Against:* a noun for an act.
 
+**Answer of the author — 2026-11-04 (VOC-2026-11-04-006), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** If the actor is self-healing (auto recovery on its own failure, eg. for the main orchestrator) then it shall be considered evil `daemon`. Asking for such evil shall be done with `summon`. If you prefer a friendly and peacefull actor then you shall `invoke` it instead.
+- **Justification:** mailbox and co. seems to suggest other meenings
+- **Reading:** an ordinary actor is started by `invoke`; an actor that heals itself, recovering from its own failure as the main orchestrator does, is a `daemon`, and is started by `summon`. `mailbox` is set aside, as suggesting other meanings. Creating a mailbox (`new_E`) and sending (`send`) are not answered.
+- **Put back to the author:** chapter 3 writes « `perform` et `handle` sont deux actions, invoquer et traiter », and Q-LEM-111 asks the word for invoking an operation: `invoke` would name starting an actor and, in the prose, calling an operation. What creates a mailbox and what sends are left without a word; lemma lot 3 asks what produces what a catch catches (Q-LEM-215) and how a program connects to its flows (Q-LEM-218).
 
 #### Q-LEM-123 — Memory: `free v` and `slice v as (x,y) in c`
 
@@ -6495,6 +6527,719 @@ Several options may be chosen.
   6. *Brevity:* nine letters.
 
   *For:* plain. *Against:* not the literature's word.
+
+## Lemma lot 3 of 2026-11-04: pattern matching, control flow, joins and reactivity
+
+Opened on 2026-11-04 at the author's request: « On va, ensemble, trancher tout ce qui concerne le pattern
+matching, le control flow, le joint pattern, le reactive etc. puisque c'est l'un des focus important de K7PL.
+Cela nous permettera d'en délimiter la discipline et de pouvoir en déduire les besoins réels connexes. » The
+page shows this lot with the questions of lemma lot 2 that bear on it, unchanged and kept under lot 2 below
+(Q-LEM-103, Q-LEM-111, Q-LEM-115, Q-LEM-105, Q-LEM-106, Q-LEM-121, Q-LEM-117, Q-LEM-118); the other unanswered questions of lot 2 are set aside on the page until this lot is answered
+(Q-LEM-104, Q-LEM-112, Q-LEM-113, Q-LEM-114, Q-LEM-120, Q-LEM-123, Q-LEM-124). The research behind the lot is in [research](research.md), « Reading lot: research of
+2026-11-04, pattern matching, control flow, joins and reactivity ». **Other** and **Clarify** are always
+available.
+
+Third lot of lemmas, asked on 2026-11-04: settle together everything about pattern matching, control flow, join patterns and reactivity, one of K7PL's main focuses, to delimit the discipline and deduce the real needs around it. It starts from what is recorded: every construction is a pattern, `@x` is every pattern of `x`, what is caught carries the refined type of its construction, and a pattern compiles into an automaton put in production by an actor or an orchestrator; `case` sets conditions on what was caught, as SQL's `CASE` (VOC-2026-11-04-001, -002); `catch` and `try … catch` are one object (VOC-2026-11-03-017); there is no conditional form (VOC-2026-11-03-016); waiting for an event is a form of `catch` (VOC-2026-11-04-005). It also starts from what the specification already writes: chapter 3's `guard` with conjunctive patterns, its algebra of mailbox patterns and their residual; chapter 4's join patterns, mailboxes, R-expression classes and Kahn sub-networks. The questions of lemma lot 2 that bear on the subject are asked again here, unchanged; its other unanswered questions are set aside until this lot is answered. Options that choose a word are weighed on the six criteria of Q-METH-001 in their order; options that choose a behaviour carry what is for and against them. An answer is a dated preference, ratified only in the global lot (VOC-2026-10-26-002). Every word of the examples other than the one asked is a placeholder.
+
+### The pattern
+
+#### Q-LEM-201 — How a pattern names what it catches
+
+**Fiche.**
+
+- **Now in the specification:** chapter 5's handler binds with bare names: `((Increment n) …)`, `((Ok new-value) …)`
+- **Recorded:** `@` belongs to patterns and `@name` defines a pattern (VOC-2026-10-27-076); `@x` is every pattern of `x` (VOC-2026-11-04-002); a label is never binding (chapter 5)
+- **Overlaps:** TXR's `@name` binds a variable
+
+**Object.** A pattern catches a whole and often parts of it that the clause then uses: something must say which parts are named. Chapter 5 already closes the trap for labels: without its rule « une étiquette mal orthographiée serait une variable fraîche, donc un motif qui filtre tout et ne signale rien » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/UniversalSExpressions.lean)).
+
+**Facts.**
+
+- Chapter 5: « `@` appartient aux motifs, et tout est motif […] : `@` placé devant une construction capture ce motif et en hérite toute la construction, précisée — ce qu'il capture reçoit un type raffiné de cette construction » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/UniversalSExpressions.lean)).
+- TXR: « Query material which is not escaped by the special character @ is literal text, which matches input character for character » (TXR manual (https://man.uex.se/1/txr)); a TXR variable is written `@name`.
+- Python: « Capture patterns take on the form of a name that accepts any value and binds it to a (local) variable », and « any dotted name (i.e., attribute access) is to be interpreted as a value pattern » (PEP 635 (https://peps.python.org/pep-0635/)).
+- OCaml: « Patterns are linear: a variable cannot be bound several times by a given pattern » (OCaml manual, patterns (https://ocaml.org/manual/5.3/patterns.html)).
+
+- **A — A bare name binds; `@` marks the pattern.** Inside a pattern, a declared construction or tag is matched and any other name binds. Chapter 5's rule on labels extends to tags: an undeclared tag in a pattern is an error, not a fresh variable. Example: `(catch inbox (@(Increment n) (add n)))`.
+  *For:* the specification's listings already read so; ML, Python. *Against:* what binds is not visible; it rests on every tag being declared.
+
+- **B — `@name` binds inside a pattern, as TXR.** A bare name inside a pattern is a declared construction or a value; `@n` binds. Example: `(catch inbox ((Increment @n) (add n)))`.
+  *For:* what binds is visible; a misspelled bare name is an unknown construction, an error. *Against:* `@name` also defines a pattern and `@x` catches every pattern of `x`: `@n` would bind when `n` is fresh and catch when `n` names a construction, one sign read two ways by what is declared.
+
+- **C — Patterns never bind; what was caught is named after the pattern.** `@x` catches; the caught value is named once, after the pattern, and its parts are taken by `unbind` (VOC-2026-11-03-010). Example: `(catch inbox (@Increment :as m (unbind [(Increment n) m] (add n))))`.
+  *For:* one meaning for `@`; a pattern is only a pattern. *Against:* every part costs a second step.
+
+
+#### Q-LEM-202 — Matching a value already known
+
+**Object.** A clause may need to catch only the reply whose identifier equals one already held, the `id` of a request sent earlier. If a bare name binds (Q-LEM-201 A), a bare `id` would catch every identifier.
+
+**Facts.**
+
+- Elixir's pin operator `^` is used to « pattern match against a variable's existing value rather than rebinding the variable » (Elixir, pattern matching (https://elixir.hexdocs.pm/pattern-matching.html)).
+- Python reads dotted names as values, which « precludes, in particular, local variables and global variables defined in the current module from acting as constants » (PEP 635 (https://peps.python.org/pep-0635/)).
+- OCaml: « Patterns are linear: a variable cannot be bound several times by a given pattern » (OCaml manual, patterns (https://ocaml.org/manual/5.3/patterns.html)).
+
+- **A — A mark compares with the value held, as Elixir's `^`.** The sign is chosen with the glyphs, once every lemma is fixed (VOC-2026-11-03-018). Example: `(catch inbox (@(Reply ^id body) (use body)))`.
+  *For:* the comparison is in the pattern, so the automaton tests it and leaves other replies in place. *Against:* one more sign in patterns.
+
+- **B — The comparison goes in the `case` conditions.** Example: `(catch inbox (@(Reply other body) (case [= other id] (use body))))`.
+  *For:* no new sign; SQL's reading of `case` (VOC-2026-11-04-002). *Against:* the reply is caught before its condition is tested: on a mailbox, a failed condition must give it back (Q-LEM-210).
+
+- **C — A name already bound compares, a name used twice means equal.** Non-linear patterns, as Prolog and Erlang. Example: `(catch inbox (@(Reply id body) (use body)))`.
+  *For:* nothing to write. *Against:* OCaml forbids it; a name that happens to be bound turns a binder into a test silently.
+
+
+#### Q-LEM-203 — Naming the whole and its parts
+
+**Fiche.**
+
+- **Overlaps:** Rust and Haskell write the alias with `@`, which K7PL gives to patterns
+
+**Object.** A clause may use a part and the whole it caught, the whole to forward it and a part to decide.
+
+**Facts.**
+
+- OCaml: « The pattern pattern1 as value-name matches the same values as pattern1 » (OCaml manual, patterns (https://ocaml.org/manual/5.3/patterns.html)).
+- Rust: « To bind the matched value of a pattern to a variable, use the syntax `variable @ subpattern` » (Rust reference, patterns (https://doc.rust-lang.org/reference/patterns.html)).
+
+- **A — `:as`, a property after the pattern.** Example: `(catch inbox (@(Order id lines) :as order (forward order)))`.
+
+  1. *Non-collision:* no collision: a property, like `:sets`.
+  2. *Scientific exactness:* names the whole caught.
+  3. *Family and grade invariants:* the property family of K7PL.
+  4. *Ecological grid (provisional):* OCaml's `as`.
+  5. *Mnemonic:* reads « as order ».
+  6. *Brevity:* three characters.
+
+  *For:* K7PL's property syntax. *Against:* outside the pattern, so not usable on a part.
+
+- **B — `as` inside the pattern, as OCaml.** Example: `(catch inbox (@((Order id lines) as order) (forward order)))`.
+
+  1. *Non-collision:* `as` is the kernel's binder in `unbox v as x in c`.
+  2. *Scientific exactness:* OCaml's alias.
+  3. *Family and grade invariants:* usable on any part.
+  4. *Ecological grid (provisional):* OCaml.
+  5. *Mnemonic:* known.
+  6. *Brevity:* two letters.
+
+  *For:* an alias at any depth. *Against:* `as` already reads in chapter 3's `… as x in c`.
+
+- **C — No alias: the whole is caught, its parts taken by `unbind`.** Example: `(catch inbox (@Order :as order (unbind [(Order id lines) order] …)))`.
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* two steps.
+  3. *Family and grade invariants:* `unbind` reverses `bind`.
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* —
+  6. *Brevity:* longer.
+
+  *For:* no word. *Against:* verbose for a frequent need.
+
+
+#### Q-LEM-204 — Alternatives and conjunctions in one pattern
+
+**Fiche.**
+
+- **Now in the specification:** chapter 3's guard patterns `p ::= m(x̄) | p & p`, `&` joining messages
+- **Overlaps:** R-expressions already have alternation; SQL's row patterns write `|`
+
+**Object.** A pattern may accept one of several shapes, or require several at once. On one value, « both » means the value matches both; on a mailbox, chapter 3 reads `&` as « every message present ».
+
+**Facts.**
+
+- OCaml: « The pattern pattern1 | pattern2 represents the logical "or" of the two patterns pattern1 and pattern2 » (OCaml manual, patterns (https://ocaml.org/manual/5.3/patterns.html)); Rust refuses `p | q` when « the same set of bindings are not introduced in `p` and `q` » (Rust reference, patterns (https://doc.rust-lang.org/reference/patterns.html)).
+- F# combines two active patterns on one value with `&`: `| Cube x & Square _ ->` (F#, active patterns (https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/active-patterns)).
+- Chapter 3, rule Guard: each branch carries a conjunctive pattern `m1(x1) & … & mk(xk)`; « La branche ne s'ouvre que si tous les messages du motif sont présents, et les consomme d'un seul tenant » (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)).
+
+- **A — `|` and `&`, `&` meaning every part present, on a value as on a mailbox.** Example: `(catch inbox (@(Done r) | @(Cancelled r) (close r)) (@(Ping) & @(Tick) (pong)))`.
+  *For:* one sign for conjunctions and joins, as F# on values and chapter 3 on messages. *Against:* on a mailbox `&` consumes several messages, on a value it tests one twice: the cost differs.
+
+- **B — `|` only; `&` kept for joins of messages.**
+  *For:* `&` keeps one reading, the join. *Against:* two refinements of one value are combined in `case`.
+
+- **C — No alternative inside a pattern: one clause per shape; `&` for joins.**
+  *For:* each clause one shape; the automaton is simpler. *Against:* a shared transformation is repeated.
+
+
+#### Q-LEM-205 — A pattern that computes
+
+**Fiche.**
+
+- **Recorded:** `@name` defines a pattern (VOC-2026-10-27-076)
+- **Now in the specification:** R-expressions carry one of four automaton classes (chapter 4)
+
+**Object.** A defined pattern may be structural (shapes and refinements, compiled into the automaton) or may compute (« parses as an integer », « is even »), calling a function.
+
+**Facts.**
+
+- F#: « Active patterns enable you to define named partitions that subdivide input data, so that you can use these names in a pattern matching expression just as you would for a discriminated union »; « Active patterns that do not always produce a value are called partial active patterns; they have a return value that is an option type » (F#, active patterns (https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/active-patterns)).
+- Chapter 4: « Les R-expressions unifient sous une seule interface, `(match ...)`, le filtrage structurel, PCRE, PEG et les grammaires ; leur compilation ne masque jamais la complexité qu'un motif engage, elle l'expose » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/LocalScale.lean)).
+
+- **A — Structural only: what computes goes in `case`.**
+  *For:* a pattern's class, hence its cost, is known from its text. *Against:* a computed view of data (F#'s RGB and HSB views of one colour) is written as a condition.
+
+- **B — A defined pattern may call a layer 3 function returning an option.** As F#'s partial active patterns. The function is pure and terminating; its budget adds to the pattern's class and is checked as chapter 6 checks the annotations. Example: `{def @integer [parse-int]}   (catch line (@(integer n) (add n)))`.
+  *For:* several views of the same data; the automaton calls the function as an atomic operator. *Against:* the class alone no longer tells the whole cost.
+
+
+#### Q-LEM-206 — The automaton class when none is written
+
+**Fiche.**
+
+- **Now in the specification:** `@linear` (DFA), `@polynomial` (NFA), `@stack` (pushdown, depth a grade), `@backtrack` (exponential)
+
+**Object.** Chapter 4 annotates every R-expression constructor; nothing says what holds when the program writes none.
+
+**Facts.**
+
+- Chapter 4: « Le vérificateur de complexité (chapitre 6) rejette toute structure non linéaire apparaissant dans un contexte annoté `@linear` » ; « c'est une preuve d'admissibilité, qui prévient structurellement le déni de service par expression régulière » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/LocalScale.lean)).
+- Maranget: « The primary advantage of decision trees is that they never test a given subterm of the subject value more than once (and their primary drawback is potential code size explosion) » (Maranget 2008 (https://www.cs.tufts.edu/~nr/cs257/archive/luc-maranget/good-trees08.pdf)).
+
+- **A — `@linear` by default; more must be written.**
+  *For:* real time is the default; a costlier pattern says so in the text. *Against:* back-references and nesting always need an annotation.
+
+- **B — Inferred: the least class that compiles it, shown by the language server.**
+  *For:* nothing to write; the annotation is written only to require a bound. *Against:* a small change can raise a pattern's class without the text showing it.
+
+- **C — Inferred, but `@linear` required on a flow from outside.**
+  *For:* what comes from the network, files or processes is guarded; inside, nothing to write. *Against:* two rules, by where the flow comes from.
+
+
+### Clauses: writing, order, coverage
+
+#### Q-LEM-207 — How a catch and its cases are written
+
+**Fiche.**
+
+- **Recorded:** your sketches (VOC-2026-11-03-015); `case` sets conditions on what was caught, as SQL's `CASE` (VOC-2026-11-04-002)
+- **Replaces:** Q-LEM-102, withdrawn on 2026-11-04
+
+**Object.** A catch has three parts: what it watches (a value, a computation, a mailbox, a flow), its patterns, and for each pattern the conditions and the transformations.
+
+**Facts.**
+
+- PostgreSQL: `CASE WHEN condition THEN result [WHEN ...] [ELSE result] END` (PostgreSQL, conditional expressions (https://www.postgresql.org/docs/current/functions-conditional.html)).
+- Python: « guards are only supported on the level of case clauses and not for individual patterns » (PEP 635 (https://peps.python.org/pep-0635/)).
+- Erlang: « The patterns in the clauses are matched against a message from top to bottom »; « The first message from the start of the message queue that matches will be selected »; « All other messages in the message queue remain unchanged » (Erlang, expressions (https://www.erlang.org/doc/system/expressions.html)).
+
+- **A — `catch` heads; a clause per pattern; `case` inside a clause for its conditions.** Example: `(catch inbox
+  (@(Increment n) (case [< n 0] (refuse n) else (add n)))
+  (@(Reset) (reset)))`.
+  *For:* patterns and conditions on two levels, each with one role. *Against:* two levels of nesting for a simple clause with a condition.
+
+- **B — `catch` heads; each clause a pattern, an optional `case` condition, a transformation.** Example: `(catch inbox
+  @(Increment n) case [< n 0] (refuse n)
+  @(Increment n) (add n)
+  @(Reset) (reset))`.
+  *For:* flat, as Python's guarded clauses. *Against:* a pattern is repeated for each condition.
+
+- **C — `case` heads with one catch as its subject; several patterns, several catches.** Your second sketch, `case` keeping SQL's role. Example: `(case (catch inbox @(Increment n))
+  [< n 0] (refuse n)
+  else (add n))`.
+  *For:* reads as SQL's `CASE` on what was caught. *Against:* a mailbox watched for several patterns needs one catch per pattern, or a pattern with `|`.
+
+
+#### Q-LEM-208 — Which clause wins
+
+**Object.** When what arrives matches several clauses, or several automata read the same flow.
+
+**Facts.**
+
+- Maranget on ML: « the matched rule is unique, thanks to the textual priority scheme » (Maranget 2008 (https://www.cs.tufts.edu/~nr/cs257/archive/luc-maranget/good-trees08.pdf)).
+- AWK: « An awk program is composed of pairs of the form: pattern { action } »; « When input is read that matches a pattern, the action associated with that pattern is carried out » (POSIX, awk (https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html)); every pair is tried on every record.
+- Erlang: « The patterns in the clauses are matched against a message from top to bottom »; « The first message from the start of the message queue that matches will be selected »; « All other messages in the message queue remain unchanged » (Erlang, expressions (https://www.erlang.org/doc/system/expressions.html)).
+- Chapter 4: « la boîte n'a qu'un consommateur, l'acteur qui la détient » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)).
+
+- **A — The first that matches, top to bottom.**
+  *For:* ML, Erlang; the order of the text is the priority. *Against:* a clause can hide a later one.
+
+- **B — Every clause that matches runs, as AWK.**
+  *For:* data-flow: one record feeds every rule that wants it. *Against:* the order of the runs must be fixed, and on a mailbox only one clause may consume.
+
+- **C — The first within a catch; every automaton fed by a flow receives it.** Two levels: inside one catch, the text's order; between the automata a flow is wired to, each receives the element and picks its own first clause.
+  *For:* data-flow routing between automata, ML's priority inside one. *Against:* a mailbox has one consumer: a flow read by two automata needs an explicit fan-out, a copy or an unrestricted grade.
+
+- **D — The most specific, whatever the order.** A clause whose refinement is contained in another's wins.
+  *For:* the order of the text does not matter. *Against:* two clauses neither of which contains the other need a rule; the solver must decide containment.
+
+
+#### Q-LEM-209 — Coverage
+
+**Object.** Must the clauses of a catch cover everything its subject may be?
+
+**Facts.**
+
+- The glossary defines a join pattern as « Règle qui ne se déclenche qu'à l'arrivée d'une combinaison de messages, et dont la couverture de toutes les combinaisons se vérifie statiquement » (glossary (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/Refs/GlossList.lean)); Annex A lists among rejections « Combinaison de messages non couverte par un motif de jonction » (Annex A (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/AnnexA/ProtocolsSessionsAndDistributedTopology.lean)).
+- Chapter 4: « Dans le profil qui adopte la couverture exhaustive, les combinaisons admissibles non couvertes sont à rejeter en compilation » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)).
+- Annex A: « Singularité non gérée : la division renvoie `Result<Float64, Singularity>`, exigeant un filtrage exhaustif en couche 2 » (Annex A (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/AnnexA/ValueConstraintsAndResidualProofs.lean)).
+
+- **A — Always required; a default clause covers the rest.** A clause that can never be reached gives a warning.
+  *For:* nothing unforeseen; the glossary and Annex A as written. *Against:* a prototype must write its default clauses.
+
+- **B — Required in a profile that adopts it, a warning elsewhere.** As chapter 4 writes it; warnings never block compilation unless a flag asks (VOC-2026-10-27-077).
+  *For:* prototyping stays light. *Against:* a program's meaning on unforeseen input depends on its profile.
+
+- **C — A warning only.**
+  *For:* nothing blocks. *Against:* contradicts the glossary and Annex A, which reject.
+
+
+#### Q-LEM-210 — What no clause catches, on a mailbox or a flow
+
+**Object.** On a value, coverage settles it. On a mailbox or a flow, a message may arrive that no clause catches at that moment.
+
+**Facts.**
+
+- Erlang: « The patterns in the clauses are matched against a message from top to bottom »; « The first message from the start of the message queue that matches will be selected »; « All other messages in the message queue remain unchanged » (Erlang, expressions (https://www.erlang.org/doc/system/expressions.html)).
+- Chapter 3, rule Free: `free` requires an empty mailbox, so that « un acteur ne peut pas disparaître en laissant des messages non lus »; rule Guard requires the mailbox type `E` to be the sum of the branches' patterns, `E = Σ P_i · E_i` (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)).
+
+- **A — It cannot arrive: the mailbox's type says what may come, and the catch covers it.** As chapter 3's Guard. What comes from outside is typed at the boundary: what fails its type arrives as an error value, itself caught.
+  *For:* no hidden queue; the type says everything. *Against:* the boundary actor must type the outside world completely.
+
+- **B — It stays for a later catch, as Erlang.**
+  *For:* a catch waits for what it wants without losing the rest. *Against:* a mailbox can grow with messages nobody catches; `free` then refuses it.
+
+- **C — It goes to a flow of letters nobody caught, journaled, which another automaton may catch.**
+  *For:* nothing is lost and nothing piles up. *Against:* one more flow per actor to wire.
+
+
+#### Q-LEM-211 — The type seen by the following clauses
+
+**Object.** What a clause catches carries the refined type of its construction (VOC-2026-11-04-001). The question is what the next clauses, and the default, see.
+
+**Facts.**
+
+- Typed Racket's occurrence typing « allows the type system to ascribe more precise types based on whether a predicate check succeeds or fails » (Typed Racket guide (https://docs.racket-lang.org/ts-guide/occurrence-typing.html)).
+- Chapter 3: the residual `E / m` « donne le motif restant après consommation d'un message » and makes a mailbox « un objet à état typé plutôt qu'un sac » (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)).
+
+- **A — The remainder: each following clause sees the type minus what earlier ones caught.**
+  *For:* the default knows what it receives; the same idea as chapter 3's residual. *Against:* the solver computes a difference of refinements at each clause.
+
+- **B — The declared type: only the catching clause gets a refinement.**
+  *For:* simpler to check. *Against:* the default must test again what it could know.
+
+
+#### Q-LEM-212 — `case` after a catch: order and default
+
+**Fiche.**
+
+- **Recorded:** `case` sets conditions on what was caught, as SQL's `CASE` (VOC-2026-11-04-002)
+
+**Object.** How the conditions of a `case` are tried, and what holds when none is true.
+
+**Facts.**
+
+- PostgreSQL: « If the condition's result is not true, any subsequent `WHEN` clauses are examined in the same manner »; « If no `WHEN` condition yields true, the value of the `CASE` expression is the result of the `ELSE` clause »; « If the `ELSE` clause is omitted and no condition is true, the result is null » (PostgreSQL, conditional expressions (https://www.postgresql.org/docs/current/functions-conditional.html)).
+- Python: « The wildcard pattern is a special case of a ‘capture’ pattern: it accepts any value, but does not bind it to a variable » (PEP 635 (https://peps.python.org/pep-0635/)).
+
+- **A — In order, the first true wins; `else` gives the default, as SQL.** Without `else`, the conditions must cover (Q-LEM-209): there is no null. Example: `(case [< n 0] (refuse n) [= n 0] (ignore) else (add n))`.
+  *For:* SQL's reading, the word you named. *Against:* order matters, as in any first-match.
+
+- **B — In order; `_` is the default condition, as ML's wildcard.** Example: `(case [< n 0] (refuse n) _ (add n))`.
+  *For:* one sign for « anything » in patterns and conditions. *Against:* less readable than a word.
+
+- **C — Unordered: the conditions must be disjoint, proved by the solver; `else` optional.**
+  *For:* no hidden priority; each condition reads alone. *Against:* the solver must prove disjointness, which can fail on conditions it cannot decide.
+
+
+### Control flow without a conditional
+
+#### Q-LEM-213 — `choose` and `select` in layer 3
+
+**Fiche.**
+
+- **Recorded:** no conditional form; `cond` leaves (VOC-2026-11-03-016); put back: how this reads with `choose` and `select`
+
+**Object.** Layer 3 has two words that pick among branches without being a conditional form.
+
+**Facts.**
+
+- Chapter 5: « `choose` prend à sa gauche la condition et à sa droite la liste des branches, dont il n'évalue que celle que la condition désigne » ; « Chacun dit ainsi son coût, `choose` n'évaluant qu'une branche et `select` les deux » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/InPractice.lean)).
+
+- **A — Both stay: `choose` indexes a list of branches, `select` applies a mask.**
+  *For:* no branching syntax: an index and a mask; the cost is in the word. *Against:* `choose` with a boolean reads as a conditional.
+
+- **B — `choose` goes, layer 3 branching by `catch` and `case`; `select` stays.**
+  *For:* one way to branch; `select` does not branch. *Against:* layer 3 gets the full matching machinery.
+
+- **C — Both go: `case` on values, mapped over a vector for masks.**
+  *For:* one family. *Against:* loses the vector `select` without branching of chapter 1.
+
+
+#### Q-LEM-214 — Chaining catches
+
+**Object.** Several steps, each of which may fail: parse, then check, then store. Without a conditional, the chain must stop at the first failure and give it back.
+
+**Facts.**
+
+- Elixir's `with`: « Combine matching clauses. »; « `<-` will simply abort the `with` chain and return the non-matched value. » (Elixir, special forms (https://elixir.hexdocs.pm/Kernel.SpecialForms.html)).
+
+- **A — A refutable pattern in `bind`: the first value that fails is the result.** Example: `(bind [@(Ok a) (parse x)] [@(Ok b) (check a)] (store b))`.
+  *For:* no word; `bind` is the sequence (VOC-2026-11-03-006). *Against:* `bind` then branches, which a reader may not expect.
+
+- **B — A word for the chain, as Elixir's `with`.**
+  *For:* the chain is named. *Against:* `with` is a candidate for the negative product (Q-LEM-105).
+
+- **C — Nested catches only.**
+  *For:* nothing new. *Against:* depth grows with each step.
+
+
+#### Q-LEM-215 — What produces what a catch catches
+
+**Fiche.**
+
+- **Now in the specification:** `send m(v̄) to v` (messages), `operation_ε(v)` (operations, surface `perform`), failures caught by `try c catch h`
+- **Recorded:** `catch` gathers every kind (VOC-2026-11-04-001)
+
+**Object.** If one `catch` catches failures, operations, messages and events, the question is whether what produces them is one word or several.
+
+**Facts.**
+
+- Esterel: « The “emit O” statement is instantaneous. It emits the signal O and terminates at the time it starts » (Esterel v5 primer (https://www.rw.cdl.uni-saarland.de/people/kaestner/private/es0203/esterel_primer.pdf)).
+- OCaml 5 performs an operation with `perform` and ends a continuation without resuming it with `discontinue` (OCaml manual, effect handlers (https://ocaml.org/manual/5.3/effects.html)).
+- Chapter 3: « l'émission ne bloque pas, la réception bloque » (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)).
+
+- **A — One word for all, `emit`; the type says what is emitted and where.**
+  *For:* the dual of one `catch` is one word. *Against:* waiting or not waiting (an operation resumes, a message does not) no longer shows in the text.
+
+- **B — Two: `send` to a mailbox or flow, without waiting; `perform` to the enclosing catch.** A failure is an operation that is never resumed.
+  *For:* the difference that costs (waiting or not) is in the word. *Against:* failures have no word of their own.
+
+- **C — Three: `send`, `perform`, and a word for failures (`fail`, `raise` or `throw`).**
+  *For:* each kind visible. *Against:* three words for what one `catch` gathers.
+
+
+#### Q-LEM-216 — Resuming after a catch
+
+**Object.** When a catch catches an operation, it receives the rest of the computation, the continuation, and may resume it. K7PL's grades can say how many times.
+
+**Facts.**
+
+- OCaml 5: « The handler uses the continue primitive to resume the suspended computation with the successor of the offered value »; « every captured continuation must be resumed either with a continue or discontinue exactly once »; « Hence, OCaml does not support multi-shot continuations. » (OCaml manual, effect handlers (https://ocaml.org/manual/5.3/effects.html)).
+
+- **A — `continue` and `discontinue`, the continuation linear.**
+
+  1. *Non-collision:* no loop `continue` in K7PL, which has no loops.
+  2. *Scientific exactness:* OCaml's one-shot continuations.
+  3. *Family and grade invariants:* a pair, positive and negative.
+  4. *Ecological grid (provisional):* OCaml 5.
+  5. *Mnemonic:* known.
+  6. *Brevity:* eight and eleven letters.
+
+  *For:* an established pair. *Against:* `continue` reads as a loop keyword in most languages.
+
+- **B — `resume`, the continuation's grade saying how often (1, n, ω).**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* names the act.
+  3. *Family and grade invariants:* the grade carries the count, as for any value.
+  4. *Ecological grid (provisional):* —
+  5. *Mnemonic:* clear.
+  6. *Brevity:* six letters.
+
+  *For:* one-shot by default, more when the grade says so. *Against:* ending without resuming needs a word.
+
+- **C — No word: the continuation is a function, applied.**
+
+  1. *Non-collision:* nothing new.
+  2. *Scientific exactness:* a continuation is a function.
+  3. *Family and grade invariants:* `apply` unwritten (VOC-2026-11-03-002).
+  4. *Ecological grid (provisional):* effect calculi.
+  5. *Mnemonic:* —
+  6. *Brevity:* the shortest.
+
+  *For:* nothing to learn. *Against:* resuming does not show in the text.
+
+
+#### Q-LEM-217 — One construct in the kernel, or three
+
+**Fiche.**
+
+- **Now in the specification:** chapter 3's rules Try (`try c catch h`), Guard (`guard v {p_i ↦ c_i}`) and the handlers of operations (`handle`)
+- **Recorded:** `catch` and `try … catch` are one object (VOC-2026-11-03-017); `catch` gathers every kind (VOC-2026-11-04-001); one word per construct, everywhere (VOC-2026-11-03-001)
+
+**Object.** Whether the surface `catch` is one construct of the kernel, or the name of three.
+
+**Facts.**
+
+- OCaml 5: « Similar to exception patterns in a match ... with expression, OCaml also supports effect patterns »: one `match` holds value, exception and effect cases (OCaml manual, effect handlers (https://ocaml.org/manual/5.3/effects.html)).
+- Chapter 3: « `perform` et `handle` sont deux actions, invoquer et traiter » (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TermGrammar.lean)).
+
+- **A — One construct and one rule, `catch`, replacing Try, Guard and the handlers.** What it watches (a computation, a mailbox, a flow) is its argument; its patterns say what they catch.
+  *For:* the kernel says what the surface says. *Against:* the metatheory of three rules is rewritten as one: a proof obligation.
+
+- **B — Three kernel constructs under one word, indexed by what they catch.** `catch_fail`, `catch_msg`, `catch_op`, each keeping its rule.
+  *For:* the proofs stand. *Against:* Q-LEM-001 counts one word per construct: the index is a second name.
+
+- **C — Three constructs, three words (`catch`, `guard`, `handle`).**
+  *For:* each rule its word. *Against:* against VOC-2026-11-04-001.
+
+
+### Flows
+
+#### Q-LEM-218 — How a program connects to its flows
+
+**Fiche.**
+
+- **Research:** « Reading lot: research of 2026-11-04, connecting to a flow », question 1
+
+**Object.** Chapter 4: « Ce qui démarre un programme est donc l'ensemble de ses sources d'événements » ; chapter 5: « le monde extérieur se joint par un message à l'acteur qui porte l'interopérabilité étrangère » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean), chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/InPractice.lean)).
+
+**Facts.**
+
+- AWK: « Input shall be interpreted as a sequence of records »; « each file operand (or standard input if no files were specified) shall be processed in turn » (POSIX, awk (https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html)).
+- TXR: `next` « indicates that the remaining directives in the current block are to be applied against a new input source » (TXR manual (https://www.nongnu.org/txr/txr-manpage.html)).
+- Go: « A channel provides a mechanism for concurrently executing functions to communicate by sending and receiving values of a specified element type » (Go specification (https://go.dev/ref/spec)).
+- Erlang: `Expr1 ! Expr2` « Sends the value of Expr2 as a message to the process specified by Expr1 » (Erlang, expressions (https://www.erlang.org/doc/system/expressions.html)).
+
+- **A — Implicit, data-flow: a pattern placed on a source receives it.** As AWK. Phase 2's wiring graph connects sources to automata.
+  *For:* the program is patterns and transformations; routing is natural. *Against:* the wiring is read from the graph, not from the clause.
+
+- **B — Named in the catch: the catch says what it reads.** As TXR's `next` or a Go channel. Example: `(catch (source "orders.log") (@(Order id) …))`.
+  *For:* the graph is readable from the text. *Against:* every catch names its source.
+
+- **C — Through a mailbox only: every source becomes messages to an actor.** As Erlang, and chapter 5 today.
+  *For:* one kind of flow; the journal sees everything. *Against:* a file read becomes a stream of messages.
+
+
+#### Q-LEM-219 — Which sources are flows of the same kind
+
+**Fiche.**
+
+- **Research:** question 2
+
+**Object.** Which sources a catch reads in the same way, with the same patterns.
+
+**Facts.**
+
+- Go: « Reader is the interface that wraps the basic Read method » (io (https://pkg.go.dev/io)); a file, a socket and a string are readers.
+- Elixir: `IO.stream/2` « streams input lines, one by one » (Elixir, Stream (https://elixir.hexdocs.pm/Stream.html)).
+- Chapter 4: « Seules les sources d'événements — une entrée du monde extérieur, un `defer` — démarrent aussitôt » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)).
+
+Several options may be chosen.
+
+- **net — The network.**
+- **file — Files.**
+- **proc — Processes (their output).**
+- **mem — Values in memory.**
+- **journal — The journal.**
+- **tick — Ticks of `defer`.**
+- **mailbox — Mailboxes.**
+
+#### Q-LEM-220 — How a flow is simulated
+
+**Fiche.**
+
+- **Research:** question 3
+
+**Object.** Testing a program that reads the network without the network.
+
+**Facts.**
+
+- TXR: `@(next :list lisp-expr)` « treats TXR Lisp expression lisp-expr as a source of text […] as if it were the lines of a text file » (TXR manual (https://www.nongnu.org/txr/txr-manpage.html)).
+- Go: `strings.NewReader` « returns a new Reader reading from s » (strings (https://pkg.go.dev/strings)).
+- Chapter 5: an actor « redémarre à son dernier état connu » from its snapshot and its journal (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/InPractice.lean)).
+
+Several options may be chosen.
+
+- **mem — A value in memory read as a flow.**
+- **file — A file read as a flow.**
+- **journal — A recorded journal replayed.**
+- **tick — Ticks of `defer` driving time.**
+
+#### Q-LEM-221 — What becomes of `:on`
+
+**Fiche.**
+
+- **Research:** question 4
+- **Now in the specification:** `:on (Increment :sets value […])`
+
+**Object.** Chapter 5: « la clause `:on … :sets` n'est que la forme abrégée d'une réaction » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/InPractice.lean)). In data-flow, sending a flow to an automaton is routing.
+
+**Facts.**
+
+- Chapter 5: « `@` appartient aux motifs, et tout est motif […] : `@` placé devant une construction capture ce motif et en hérite toute la construction, précisée — ce qu'il capture reçoit un type raffiné de cette construction » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/UniversalSExpressions.lean)).
+
+- **A — An abbreviation of a catch on the actor's mailbox; it stays.**
+  *For:* the actor's listing stays short. *Against:* two ways to write a catch.
+
+- **B — Withdrawn: an actor's reactions are its catch clauses.**
+  *For:* one form. *Against:* the `:sets` abbreviation goes with it.
+
+- **C — The declaration of routing: which flow feeds the actor; `catch` matches.**
+  *For:* the wiring graph is explicit in the actor. *Against:* `:on` changes meaning.
+
+
+#### Q-LEM-222 — Reading several sources at once
+
+**Fiche.**
+
+- **Research:** question 5
+
+**Object.** A catch that waits on several sources and takes whichever comes first chooses between channels. Waiting for all of them, in a fixed order, does not.
+
+**Facts.**
+
+- Chapter 4's conjecture `thm:sous_reseaux_kahn` drops the journal of interleavings for a sub-network whose channels have « un seul écrivain et un seul lecteur », read « par des réceptions bloquantes sur un canal à la fois, sans tester la présence d'un message ni choisir entre plusieurs canaux » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)).
+- Go: « A "select" statement chooses which of a set of possible send or receive operations will proceed » (Go specification (https://go.dev/ref/spec)).
+
+- **A — One source per catch: Kahn's determinism, no journal.**
+  *For:* every such sub-network replays without a journal of interleavings. *Against:* a result-or-deadline wait cannot be written.
+
+- **B — Several, whichever comes first, the journal recording the choice.**
+  *For:* Go's `select`; deadlines and cancellations are natural. *Against:* the sub-network leaves Kahn's class.
+
+- **C — Several only when all are required (a join); one otherwise.** Waiting for all sources reads each in turn, which stays deterministic; a first-of choice needs the journal and is written as such.
+  *For:* determinism by default, the choice explicit and paid for. *Against:* two forms to learn.
+
+
+#### Q-LEM-223 — The order of a mailbox
+
+**Object.** Which message a catch may take when several are waiting.
+
+**Facts.**
+
+- Chapter 4: « La boîte aux lettres abstraite est un multi-ensemble de ressources linéaires indexé par canal »; its structure: « un anneau SPSC par couple (émetteur, boîte), et une file de jonction par acteur » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)).
+- Erlang: « The patterns in the clauses are matched against a message from top to bottom »; « The first message from the start of the message queue that matches will be selected »; « All other messages in the message queue remain unchanged » (Erlang, expressions (https://www.erlang.org/doc/system/expressions.html)).
+
+- **A — A multiset: any message that matches, as the abstract model.**
+  *For:* the model of chapter 3 and 4. *Against:* two messages from one sender may be taken out of order.
+
+- **B — In order per sender: the first that matches in each sender's ring.**
+  *For:* the physical structure of chapter 4; a sender's order is kept. *Against:* the order between senders is the fixed order of chapter 4, not arrival.
+
+- **C — Strictly first in, first out: only the oldest message may be caught.**
+  *For:* Kahn's blocking read. *Against:* a message no clause catches blocks the mailbox.
+
+
+### Joins and parallelism
+
+#### Q-LEM-224 — How a join is written
+
+**Fiche.**
+
+- **Now in the specification:** chapter 4's listing `define-join-pattern`; chapter 3's `guard` with `p & p`
+- **Observed:** the listing's two clauses take one message each, a choice between a result and a deadline, not a conjunction; its second clause uses `id`, which only the first binds
+
+**Object.** Chapter 4: « Un acteur peut exprimer l'attente simultanée d'un résultat et d'une échéance par deux clauses d'un même motif » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)).
+
+**Facts.**
+
+- Chapter 3, rule Guard: each branch carries a conjunctive pattern `m1(x1) & … & mk(xk)`; « La branche ne s'ouvre que si tous les messages du motif sont présents, et les consomme d'un seul tenant » (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)).
+- Chapter 4 reads the join queue « au sens du calcul de jonction » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)) and writes a join pattern `J ::= x1(y1) & … & xn(yn)` (chapter 4, process calculus (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/UnderlyingProcessCalculus.lean)).
+
+- **A — A join is a catch whose pattern is a conjunction; `define-join-pattern` and `guard` leave.** Example: `(catch inbox (@(Done id r) & @(Ack id) (finish r)))`.
+  *For:* one construct (Q-LEM-217 A). *Against:* the name « join » disappears from the text.
+
+- **B — A join is a named pattern, defined with `@name` and caught by name.** Example: `{def @done-and-acked (& (Done id r) (Ack id))}   (catch inbox (@done-and-acked (finish r)))`.
+  *For:* reusable; `@name` defines a pattern (VOC-2026-10-27-076). *Against:* one more definition.
+
+- **C — `define-join-pattern` stays, as the definition form of joins.**
+  *For:* the specification's listing. *Against:* a second definition form beside `def`.
+
+
+### Time and reactivity
+
+#### Q-LEM-225 — The model of time
+
+**Object.** Chapter 3 makes asynchrony primitive: « l'émission ne bloque pas, la réception bloque » (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)). Synchronous languages make a reaction instantaneous and deterministic.
+
+**Facts.**
+
+- Esterel: « A system is said to be deterministic if the same sequence of inputs always produces the same sequence of outputs »; its program ABRO, `loop [ await A || await B ]; emit O each R`, emits `O` as soon as `A` and `B` have both occurred, and restarts at each `R` (Esterel v5 primer (https://www.rw.cdl.uni-saarland.de/people/kaestner/private/es0203/esterel_primer.pdf)).
+- Lustre « is a data flow synchronous language, designed for programming reactive systems » (Halbwachs et al. 1991 (https://homepage.divms.uiowa.edu/~tinelli/classes/181/Fall20/Papers/Halb91.pdf)).
+
+- **A — Asynchronous only, as now; time comes from `defer` ticks.**
+  *For:* one model. *Against:* simultaneity cannot be written.
+
+- **B — Synchronous inside an actor, asynchronous between actors.** A reaction is a logical instant: what it emits is simultaneous; actors exchange messages.
+  *For:* deterministic reactions; the network stays asynchronous. *Against:* two models to explain.
+
+- **C — Synchronous everywhere.**
+  *For:* determinism everywhere, as Esterel. *Against:* a distributed program cannot share one clock.
+
+
+#### Q-LEM-226 — Patterns over time
+
+**Fiche.**
+
+- **Recorded:** a trace is a pattern (VOC-2026-11-04-001)
+
+**Object.** A pattern that catches a sequence of events: an order, then its payment, then no cancellation.
+
+**Facts.**
+
+- SQL's row pattern recognition: `MATCH_RECOGNIZE` « is used to detect patterns in a set of rows »; « Row pattern is a form of a regular expression with some syntactical extensions specific to row pattern recognition », as `PATTERN (A B+ C+ D+)` with conditions in `DEFINE` (Trino (https://trino.io/docs/current/sql/match-recognize.html)).
+- Flink CEP: « It allows you to detect event patterns in an endless stream of events »; relaxed contiguity « Ignores non-matching events appearing in-between the matching ones » (Flink CEP (https://nightlies.apache.org/flink/flink-docs-stable/docs/libs/cep/)).
+
+- **A — R-expressions over the events of a flow.** Concatenation, `|`, repetition, conditions in `case`; the same automata and classes as on text. Example: `(catch orders (@[(Order id) (Paid id) (not (Cancelled id))] (ship id)))`.
+  *For:* one pattern language for text, values and time. *Against:* sequence operators to fix for events.
+
+- **B — Combinators: next, followed by, not followed by.**
+  *For:* Flink's vocabulary. *Against:* a second pattern language.
+
+- **C — Statements: await, every, abort, as Esterel.**
+  *For:* control written as control. *Against:* not patterns: outside the generalisation.
+
+
+#### Q-LEM-227 — Deadlines and windows
+
+**Object.** A pattern over time must often complete within a delay, or give up.
+
+**Facts.**
+
+- Flink CEP: `within` « Defines the maximum time interval for an event sequence to match the pattern »; « If a non-completed event sequence exceeds this time, it is discarded » (Flink CEP (https://nightlies.apache.org/flink/flink-docs-stable/docs/libs/cep/)).
+- Erlang: « receive...after works exactly as receive, except that if no matching message has arrived within ExprT milliseconds », « then BodyT is evaluated instead » (Erlang, expressions (https://www.erlang.org/doc/system/expressions.html)).
+- Chapter 5: `defer` takes « une quantité typée dans une unité de temps […] ou dans une unité de compte, une époque ou un tic par exemple » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/InPractice.lean)).
+
+- **A — A window word, `within`, with a typed quantity of time or count.** Example: `(catch orders (@[(Order id) (Paid id)] :within 30 s (ship id)))`.
+  *For:* the deadline is part of the pattern. *Against:* one more word.
+
+- **B — No window: a deadline is a clause catching a `defer` tick.** As chapter 4's result-or-deadline and Erlang's `after`.
+  *For:* nothing new: a tick is an event. *Against:* the deadline is far from the pattern it bounds.
+
+- **C — Both: `within` elaborates into a tick clause.**
+  *For:* short to write, one semantics. *Against:* one more abbreviation.
+
+
+#### Q-LEM-228 — Previous values and sampling
+
+**Fiche.**
+
+- **Overlaps:** Lustre's `when` samples a flow; chapter 3's `when x = v in c` waits (Q-LEM-119: a form of `catch`)
+
+**Object.** Whether a flow is also a value with a history: its previous value, its first value, a slower clock.
+
+**Facts.**
+
+- Lustre: « pre (“previous”) acts as a memory »; `E -> F` « is always equal to F, but at the first time of its clock »; « when “samples” an expression according to a slower clock »; « current “interpolates” an expression on the clock immediately faster than its own » (Halbwachs et al. 1991 (https://homepage.divms.uiowa.edu/~tinelli/classes/181/Fall20/Papers/Halb91.pdf)).
+
+- **A — No: a flow is only caught; state lives in an actor.** The previous value is the actor's state, updated by its evolution (chapter 5).
+  *For:* one model. *Against:* a filter or a derivative needs an actor.
+
+- **B — Yes: Lustre's operators in layer 3, on flows.**
+  *For:* control laws and filters as equations; compiled to automata. *Against:* four more words.
+
+- **C — Only the previous value, as a pattern looking back on the trace.**
+  *For:* the most frequent need, no clock calculus. *Against:* no sampling.
+
+
+#### Q-LEM-229 — When a flow is faster than its automaton
+
+**Object.** Chapter 4: « chaque anneau a une capacité qui est un grade » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)). The question is what happens when the ring is full.
+
+**Facts.**
+
+- Reactive Streams: « Reactive Streams is an initiative to provide a standard for asynchronous stream processing with non-blocking back pressure », so that « the receiving side is not forced to buffer arbitrary amounts of data » (Reactive Streams (https://www.reactive-streams.org/)).
+
+- **A — The writer waits when the ring is full.**
+  *For:* bounded memory; Kahn's networks with bounded channels. *Against:* a slow reader slows its writers.
+
+- **B — A policy declared per channel: wait, drop the oldest, drop the newest, keep the latest.**
+  *For:* sensors drop, orders wait. *Against:* a declaration per channel.
+
+- **C — Demand: the reader grants credit, the writer sends within it.**
+  *For:* Reactive Streams. *Against:* a protocol under every channel.
 
 ## The catalogue, verbatim
 

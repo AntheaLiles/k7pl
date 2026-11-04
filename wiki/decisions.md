@@ -845,6 +845,27 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Lemma lot 2: answers given up to 2026-11-04 (seven questions).**
+  Recorded verbatim in [questions](questions.md) as
+  VOC-2026-11-03-019 to VOC-2026-11-03-022 and VOC-2026-11-04-004 to
+  VOC-2026-11-04-006. Dated preferences, ratified only in the global
+  lot (VOC-2026-10-26-002). In short:
+  - Existentials: `pack` hides a witness, `unpack` opens it.
+  - Grading: `box` promotes a value under a grade, `unbox` uses it.
+  - Vectors: `iter` goes through a vector.
+  - Time: waiting for an event is a form of `catch` on an eventual
+    value, with no word of its own (Q-LEM-119, answered before this
+    record withdrew it; the withdrawal is corrected).
+  - Actors: an ordinary actor is started by `invoke`; an actor that
+    heals itself is a `daemon`, started by `summon`; `mailbox` is set
+    aside; creating a mailbox and sending are not answered.
+  Put back to the author: `invoke` against invoking an operation
+  (chapter 3, Q-LEM-111). On 2026-11-04 the author asked to settle
+  pattern matching first: lemma lot 3 asks it, with the questions of
+  lot 2 that bear on it (Q-LEM-103, 105, 106, 111, 115, 117, 118,
+  121); the others (Q-LEM-104, 112, 113, 114, 120, 123, 124) are set
+  aside on the page until lot 3 is answered.
+  Not applied yet: applying the words waits for the author's go-ahead.
 - **Pattern matching and flows: answers of 2026-11-04, given in
   the conversation.** Recorded verbatim in [questions](questions.md),
   under lemma lot 2, as VOC-2026-11-04-001 to VOC-2026-11-04-003. The

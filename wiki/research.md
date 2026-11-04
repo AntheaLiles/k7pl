@@ -2587,6 +2587,121 @@ of a `case`, and a refinement is a condition the type already carries.
 These questions replace Q-LEM-101 and Q-LEM-102 of lemma lot 2, withdrawn
 on 2026-11-04, and bear on Q-LEM-119 (`when`), withdrawn with them.
 
+## Reading lot: research of 2026-11-04, pattern matching, control flow, joins and reactivity
+
+The author asked on 2026-11-04 (conversation):
+
+> Mets à jour le QCM avec toutes les questions dédiées spécifiquement au pattern
+> matching et associé en retirant temporairement toutes les questions non
+> répondues. On va, ensemble, trancher tout ce qui concerne le pattern matching,
+> le control flow, le joint pattern, le reactive etc. puisque c'est l'un des
+> focus important de K7PL. Cela nous permettera d'en délimiter la discipline et
+> de pouvoir en déduire les besoins réels connexes.
+
+Lemma lot 3 in [questions](questions.md) carries the questions. This section
+gathers what the specification already writes, the outside sources used, and
+the related needs the reading brings out. Observed facts and interpretations
+are kept apart; nothing here is decided.
+
+### Observed in the specification
+
+- Patterns. « `@` appartient aux motifs, et tout est motif » ; « `@` placé
+  devant une construction capture ce motif et en hérite toute la
+  construction, précisée » ; without the label rule « une étiquette mal
+  orthographiée serait une variable fraîche, donc un motif qui filtre tout et
+  ne signale rien » (`spec/Spec/C5/UniversalSExpressions.lean`). The handler
+  listing of chapter 5 binds with bare names, `((Increment n) …)`
+  (`spec/Spec/C5/InPractice.lean`).
+- Automaton classes. R-expressions carry `@linear`, `@polynomial`, `@stack`
+  or `@backtrack`; « Le vérificateur de complexité (chapitre 6) rejette toute
+  structure non linéaire apparaissant dans un contexte annoté `@linear` »
+  (`spec/Spec/C4/LocalScale.lean`). Nothing says which class holds when none
+  is written.
+- Receiving. Chapter 3's grammar has `guard v {p_i ↦ c_i}` with guard
+  patterns `p ::= m(x̄) | p & p`; « La branche ne s'ouvre que si tous les
+  messages du motif sont présents, et les consomme d'un seul tenant ». Mailbox
+  patterns form an algebra `E ::= 0 | 1 | m[V̄] | E·E | E+E | E*`, and the
+  residual `E / m` makes a mailbox « un objet à état typé plutôt qu'un sac ».
+  `free` requires an empty mailbox, so that « un acteur ne peut pas
+  disparaître en laissant des messages non lus »
+  (`spec/Spec/C3/TypingRules.lean`).
+- Kernel. `try c catch c`, `guard`, `operation_ε(v)` and the handlers are
+  separate constructs; « `perform` et `handle` sont deux actions, invoquer et
+  traiter » (`spec/Spec/C3/TermGrammar.lean`). The temporal forms (`always`,
+  `now`, `next`, `delay`, `at`, `wait`, `when`) and the negative product's
+  `out c` and `⟨⟨j ↦ c_j⟩⟩` are in the same grammar.
+- Mailboxes and joins. « La boîte aux lettres abstraite est un multi-ensemble
+  de ressources linéaires indexé par canal »; physically « un anneau SPSC par
+  couple (émetteur, boîte), et une file de jonction par acteur »; « Quand
+  plusieurs anneaux portent un message qui convient au motif, l'acteur les
+  examine dans l'ordre fixe des identifiants d'émetteur »; « chaque anneau a
+  une capacité qui est un grade » (`spec/Spec/C4/SystemScale.lean`).
+- Control flow in layer 3. `choose` picks one branch of a list by a
+  condition and `select` computes both under a mask; « Chacun dit ainsi son
+  coût » (`spec/Spec/C5/InPractice.lean`).
+- Determinism. The conjecture `thm:sous_reseaux_kahn` drops the journal for
+  sub-networks read « par des réceptions bloquantes sur un canal à la fois,
+  sans tester la présence d'un message ni choisir entre plusieurs canaux »
+  (`spec/Spec/C4/SystemScale.lean`).
+
+### Sources used by the lot
+
+Each question quotes its sources. The lot draws on:
+- patterns: Python's PEP 635, Elixir's pin operator, the OCaml and Rust
+  manuals, F#'s active patterns, TXR;
+- matching automata: Maranget's decision trees (ML 2008);
+- clause order and mailboxes: AWK and Erlang;
+- refinement after a test: Typed Racket's occurrence typing;
+- conditions: PostgreSQL's `CASE`;
+- chaining: Elixir's `with`;
+- continuations: OCaml 5's effect handlers;
+- synchronous reactivity: Esterel's primer and Lustre (Halbwachs et al. 1991);
+- event patterns: SQL's `MATCH_RECOGNIZE` (Trino) and Flink CEP;
+- back pressure: Reactive Streams;
+- codata: copatterns (Abel et al., POPL 2013).
+
+The sources of the earlier reading lot on flows (TXR, Go, Elixir, ReactiveX)
+are reused.
+
+### Interpretation: the axes of the discipline (not decided)
+
+The lot sorts the subject along four axes:
+- what a pattern is and how it is written: binding, values already known,
+  aliases, alternatives and conjunctions, computing patterns, automaton class;
+- how clauses are tried: writing, order, coverage, what nothing catches, the
+  type seen after a clause, `case`;
+- where patterns read: values, mailboxes, flows, sequences over time;
+- what produces what is caught and what resumes after it.
+
+Joins sit across the third and fourth axes; reactivity across the third.
+
+### Related needs brought out by the reading (to put to the author)
+
+1. Coverage is stated two ways. The glossary and Annex A reject message
+   combinations a join pattern does not cover. Chapter 4 rejects them only
+   « dans le profil qui adopte la couverture exhaustive » (Q-LEM-209).
+2. The listing `lst:motif-jonction` is presented as a join, but each of its
+   two clauses takes one message: it is a choice between a result and a
+   deadline, not a conjunction. Its second clause uses `id`, which only the
+   first clause binds (Q-LEM-224).
+3. Annex A still advises, for an imperative conditional, « Utiliser `match`,
+   `cond` ou `select` ». `cond` leaves (VOC-2026-11-03-016) and `match`
+   becomes `case` (VOC-2026-11-03-012), neither applied yet.
+4. The fixed order of sender identifiers makes the choice among rings a
+   function of the mailbox's state, which the journal restores. No statement
+   bounds how long a sender with a high identifier may wait (fairness).
+5. If a mailbox's type says everything that may arrive (Q-LEM-210 A), the
+   actor at the boundary must type the outside world completely, and what
+   fails that type must become a value that can be caught.
+6. A flow read by several automata (Q-LEM-208 C) needs an explicit fan-out,
+   since a mailbox has one consumer and a channel's write capability is
+   linear.
+7. A deadline in a pattern needs a tick source; `defer` exists only inside an
+   `:on` clause today (Q-LEM-227).
+8. Lemma lot 1 chose `case` everywhere, R-expressions included, but
+   chapter 4 still writes `(match ...)`; applying it waits for the author's
+   go-ahead.
+
 ## Archive review: early K premises (`OLD_K_K7PL`)
 
 Received from the author on 2026-10-27 as `OLD_K_K7PL.zip`, described
