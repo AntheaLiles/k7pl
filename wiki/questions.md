@@ -7407,6 +7407,11 @@ carried with it are no longer shown on the page. Each is replaced by a form or g
 
   *For:* the smallest change. *Against:* the cutting you point at stays.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-012), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** the method is kept (option A): one dossier per theme, ending in generic forms written in K7PL and checked against the nesting rule; the words come last, per form.
+
 ### The generic forms
 
 #### Q-FRM-001 — Reading a flow: the form, and its word
@@ -7489,6 +7494,12 @@ carried with it are no longer shown on the page. Each is replaced by a form or g
 
   *For:* ties reading a flow to the theory of observations. *Against:* long, and already claimed.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-013), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** E
+- **Justification:** L'observation ressemble beaucoup plus à mon modèle mental, un flux a déjà sa destination, en l'observant on peut réaliser des opérations par réaction sans dévier le flux. Considérant la nature pub/sub de K7PL, un flux est envoyé à un automate le demandant, un observeur est un traitement parallele au flux.
+- **Reading:** `observe` (option E). Observation is closer to the author's mental model: a flow already has its destination, and by observing it one carries out operations by reaction without diverting it. K7PL being publish and subscribe, a flow is sent to an automaton that asks for it; an observer is a processing parallel to the flow.
+
 #### Q-FRM-002 — What a case does to what it reads: observe, or take
 
 **Fiche.**
@@ -7524,6 +7535,13 @@ carried with it are no longer shown on the page. Each is replaced by a form or g
 - **C — A case always takes; observing asks for a copy written upstream.**
 
   *For:* chapter 3 unchanged. *Against:* against your example: catching would divert the frame from the display.
+
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-014), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** `read <something>` consomme donc le `case` prend et produit, `observe <something>` regarde le flux lui même et y réagit. C'est comme si on mettait une loupe sur un flux de message et que tout en les laissant passer on prennait des notes en remarquant des mots.
+- **Reading:** two words, not one form graded by the flow. `read <something>` consumes: its `case` takes and produces. `observe <something>` looks at the flow itself and reacts to it: a magnifying glass on a flow of messages, notes being taken on the words noticed while the messages pass.
+- **Put back to the author:** Q-FRM-001's answer then names one of two forms. Does `observe` take the same `case` clauses as `read`, consumption being the only difference?
 
 #### Q-FRM-003 — The pattern: a construction with holes
 
@@ -7572,6 +7590,13 @@ carried with it are no longer shown on the page. Each is replaced by a form or g
 
   *For:* `@x` keeps one reading. *Against:* every part used costs a second step.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-016), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Justification:** Réexplorer TXR Lisp, AWK, Jq, Perl/Raku. Un pattern peut etre lié à des propriétés, au grade, aux labels, aux types, mais aussi une regex, une table de caractère, etc. ce qui signifie que je pourrais demander @"jul?" Et trouver jul jule julie julia juliette etc. => ici je veux indiquer que les wildcards font parti des trous typés et permettent également de créer des pattern. Ensuite, `case` est le mot de déclanchement d'action par réaction à un fait observé/lu ce qui est une propriété exclusive de la couche 2 (la couche 3 est passive, pure, sans effets) donc créer un case en couche 3 est incohérent. La couche 3 utilise uniquement des opérateurs sur la stack issue des travaux historiques CBQN, Uiua, KAP, J, FIXAPL, etc.
+- **Reading:** kept open, with research asked for: TXR Lisp, AWK, jq, Perl and Raku are to be explored again. A pattern can be tied to properties, to the grade, to labels, to types, and can also be a regular expression, a character table and so on: `@"jul?"` would find jul, jule, julie, julia, juliette. Wildcards are part of typed holes and also create patterns. `case` is the word that triggers an action in reaction to a fact observed or read, which belongs to layer 2 only: layer 3 is passive, pure, without effects, so a `case` in layer 3 is incoherent. Layer 3 uses only operators on the stack, in the line of CBQN, Uiua, KAP, J and FIXAPL.
+- **Put back to the author:** what `?` denotes in `@"jul?"`: one character in a glob, an optional `l` in a regular expression; neither gives that list as whole words. To settle with the exploration asked for.
+
 #### Q-FRM-004 — Combining patterns: the logical connectives, and the join
 
 **Fiche.**
@@ -7611,6 +7636,12 @@ carried with it are no longer shown on the page. Each is replaced by a form or g
 - **C — Connectives only between conditions, patterns staying whole.**
 
   *For:* patterns stay simple. *Against:* against your answer.
+
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-015), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** Utiliser directement les opérateurs logiques, demande moi la table exacte, je l'ai préparée `and or nand nor xor xnor imply nimply yes not`
+- **Reading:** the logical operators are used directly; the author has prepared their exact table: `and`, `or`, `nand`, `nor`, `xor`, `xnor`, `imply`, `nimply`, `yes`, `not`. The table was given on the same evening and is recorded below (VOC-2026-11-12-018). It replaces the list of VOC-2026-11-06-003: `xand` and `xnand` are gone, `imply`, `nimply` and `yes` come in.
 
 #### Q-FRM-005 — Where each part is written: the three layers
 
@@ -7662,6 +7693,13 @@ carried with it are no longer shown on the page. Each is replaced by a form or g
   ```
 
   *For:* alternatives stay in layer 3. *Against:* a default comes back, which your answer to Q-LEM-212 leaves out; one more word.
+
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-017), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** CLARIFY
+- **Clarify:** Il y a ici diverses mécompréhensions. Il est parfaitement possible de calculer en couche 2 qui est un Lisp/Scheme classique, sur le heap (sans gc ni rc, avec borrow checking et tout le reste.) Donc dans ton exemple [add value 1] demanderait de créer un automate de couche 3 procédant simplement à l'augmentation d'un compteur, ce qui serait overkill et pourrait être très simplement réaliser en couche 2 (car cdr).
+- **Reading:** a clarification is asked, the card holding several misunderstandings. Layer 2 is a classic Lisp or Scheme, on the heap, without garbage collection or reference counting, with borrow checking and the rest: one computes there. `[add value 1]` would ask for a layer-3 automaton that only increases a counter, which is overkill; it is done simply in layer 2 (`car`, `cdr`).
+- **Put back to the author:** the dossier followed chapter 5, which opens on « Écrire du K7PL, c'est choisir, à chaque expression, le fragment le moins permissif que la tâche autorise » and gives as its first example a bounded counter whose increment is « une fonction pure de couche 3 » (`lst:fonction-pure`), called between brackets from the actor's `:on` clause. What sends a computation to layer 3, and does that example stand?
 
 #### Q-FRM-006 — What a case gives: a flow, its label, its instances
 
@@ -7776,6 +7814,48 @@ Several options may be chosen.
 - **resources — Resources and grades.** The pair, `box` and `unbox`, `free`, `slice`, budgets, `declassify` (Q-LEM-104, 123, 124).
 
 - **place — Sources, places and distribution.** Which sources are flows, how a flow is simulated, `loc`, `move`, `at`, clusters (Q-LEM-120, 219, 220).
+
+## Statement of 2026-11-12 (evening): the logic gates, and a misunderstanding of the layers
+
+**Statement of the author — 2026-11-12 (VOC-2026-11-12-018), given in the conversation with an attached table, quoted as given.**
+
+> En pièce jointe les portes logiques exactes avec leurs symboles, nom, usage en s-exp, tables de vérité.
+>
+> J'ai répondu à 6 questions sur 10 et m'arrete là pour l'instant parce qu'il y a encore un problème de compréhension fondamentale de K7PL
+
+- **Reading:** the ten logical operators of K7PL are given with their symbols, names, S-expressions and truth tables (table below). The author answered six of the ten cards of dossier 1 and stops there: the dossier still misunderstands K7PL at its base. The six answers, recorded above under their cards (VOC-2026-11-12-012 to -017), say where: the layers.
+
+**The table of the attachment**, transcribed. The four columns of results follow the rows of the author's tables: `a` and `b` true; `a` true and `b` false; `a` false and `b` true; both false. The symbol is described as drawn; glyphs are dealt with once every lemma is fixed (VOC-2026-11-03-018).
+
+| Name | Symbol, as drawn | S-expression | T T | T F | F T | F F |
+| --- | --- | --- | --- | --- | --- | --- |
+| OR | `∨` | `(or a b)` | T | T | T | F |
+| NOR | `∨` with a bar above | `(nor a b)` | F | F | F | T |
+| XOR | `∨` with a bar below | `(xor a b)` | F | T | T | F |
+| XNOR | `∨` with a bar above and a bar below | `(xnor a b)` | T | F | F | T |
+| AND | `∧` | `(and a b)` | T | F | F | F |
+| NAND | `∧` with a bar above | `(nand a b)` | F | F | F | T |
+| IMPLY | `⇒` | `(imply a b)` | T | F | T | T |
+| NIMPLY | `⇏` | `(nimply a b)` | F | T | F | F |
+
+The two operators of one operand:
+
+| Name | Symbol, as drawn | S-expression | T | F |
+| --- | --- | --- | --- | --- |
+| YES | `⌟` | `(yes a)` | T | F |
+| NOT | `¬` | `(not a)` | F | T |
+
+- **Put back to the author:** the table drawn for NAND is the table of NOR (F, F, F, T). The gate drawn, an AND whose output is negated, gives F, T, T, T. The row above records the attachment as given; which is meant?
+
+**What the six answers correct**, as read, to be confirmed by the author before dossier 1 is rewritten.
+
+- The dossier placed every computation in layer 3 and left layer 2 to route. The author: layer 2 is a classic Lisp or Scheme on the heap, where one computes; layer 3 is passive, pure, made only of operators on the stack, and going there asks for an automaton.
+- The dossier wrote `case` in layer 3 (Q-FRM-005, Q-FRM-007). The author: `case` triggers an action in reaction to a fact observed or read, and belongs to layer 2 only.
+- The dossier let the flow's usage grade decide whether a case observes or takes (Q-FRM-002). The author: two words, `read`, which consumes, and `observe`, which looks at a flow that keeps its destination.
+- The dossier separated connectives from a `join` (Q-FRM-004). The author: the logical operators, used directly.
+- The dossier reduced a pattern to a construction with holes (Q-FRM-003). The author: a pattern can be tied to properties, grades, labels and types, and can be a regular expression or a character table; wildcards are typed holes and create patterns.
+
+The cards Q-FRM-006, Q-FRM-007, Q-FRM-008 and Q-DOS-001 are not answered. They rest on the same readings and are left as asked until the dossier is rewritten.
 
 ## The catalogue, verbatim
 

@@ -845,6 +845,38 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Thematic dossier 1: answers of 2026-11-12 (six of ten cards), and
+  the table of logical operators.** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-12-012 to -018. Dated
+  preferences, ratified only in the global lot (VOC-2026-10-26-002).
+  In short:
+  - Method: one dossier per theme, ending in generic forms; the words
+    come last (Q-METH-003, option A).
+  - Two forms: `read`, which consumes, its `case` taking and
+    producing; `observe`, which looks at a flow that keeps its
+    destination and reacts to it. K7PL is publish and subscribe: a
+    flow is sent to an automaton that asks for it.
+  - Layers: layer 2 is a classic Lisp or Scheme on the heap, without
+    garbage collection or reference counting, with borrow checking,
+    and one computes there; layer 3 is passive, pure, made only of
+    operators on the stack, and has no `case`.
+  - Logic: ten operators used directly, `and`, `or`, `nand`, `nor`,
+    `xor`, `xnor`, `imply`, `nimply`, `yes`, `not`, with the author's
+    table of symbols, S-expressions and truth tables.
+  - Patterns: kept open; wildcards are typed holes and create
+    patterns; TXR Lisp, AWK, jq, Perl and Raku are to be explored
+    again.
+  The author stopped at six cards: dossier 1 misreads the layers. The
+  readings that fall are listed in [research](research.md),
+  « Corrections by the author, 2026-11-12 », with the sentences of
+  chapters 4 and 5 the dossier had followed.
+  Put back to the author: the NAND table of the attachment, which is
+  the table of NOR; what sends a computation to layer 3, and whether
+  chapter 5's first example (`lst:fonction-pure`) stands; whether
+  `observe` takes the same `case` clauses as `read`; what `?` denotes
+  in `@"jul?"`.
+  Not applied: nothing changes in `spec/` or `lexicon/`. Dossier 1 is
+  to be rewritten once the author has confirmed the corrected reading.
 - **Lemma lot 3: answers given up to 2026-11-12 (fourteen questions), and
   the author's statement on method.** Recorded verbatim in
   [questions](questions.md) as VOC-2026-11-05-001 to -003,

@@ -2723,6 +2723,79 @@ it is decided: its forms are put to the author in
 [questions](questions.md), Q-METH-003, Q-FRM-001 to Q-FRM-008 and
 Q-DOS-001.
 
+### Corrections by the author, 2026-11-12
+
+The author answered six of the ten cards the same evening and stopped
+there, « parce qu'il y a encore un problème de compréhension
+fondamentale de K7PL » (VOC-2026-11-12-012 to -018, in
+[questions](questions.md)). The readings below, made in this dossier,
+are wrong or not kept. The dossier is left as written, as the record of
+what was asked; it is to be rewritten once the author has confirmed
+the corrected reading.
+
+Recorded from the author.
+
+- **Layer 2 computes.** It is « un Lisp/Scheme classique, sur le heap
+  (sans gc ni rc, avec borrow checking et tout le reste.) » Writing
+  `[add value 1]` asks for a layer-3 automaton that only increases a
+  counter, « ce qui serait overkill », where layer 2 does it simply.
+  The dossier's triad (declared in layer 1, read in layer 2, computed
+  in layer 3) and every example that writes the computation of a case
+  between brackets fall with it.
+- **Layer 3 has no `case`.** « `case` est le mot de déclanchement
+  d'action par réaction à un fait observé/lu ce qui est une propriété
+  exclusive de la couche 2 (la couche 3 est passive, pure, sans effets)
+  donc créer un case en couche 3 est incohérent. La couche 3 utilise
+  uniquement des opérateurs sur la stack issue des travaux historiques
+  CBQN, Uiua, KAP, J, FIXAPL, etc. » Forms F5 (its three ways of
+  branching in layer 3) and F7 (`[fix [case …]]`) fall with it.
+- **Two words, not a grade.** `read` consumes: its `case` takes and
+  produces. `observe` looks at the flow itself and reacts, the flow
+  keeping its destination. The proposal of F2, that the usage grade
+  decide, is not kept. The word chosen in Q-FRM-001, `observe`, names
+  the second of the two.
+- **K7PL is publish and subscribe.** « un flux est envoyé à un automate
+  le demandant, un observeur est un traitement parallele au flux ».
+- **The logical operators are used directly.** They are ten: `and`,
+  `or`, `nand`, `nor`, `xor`, `xnor`, `imply`, `nimply`, `yes`, `not`,
+  with the table recorded in [questions](questions.md). The separate
+  `join` of F4 is not taken up.
+- **A pattern is more than a construction with holes.** It can be tied
+  to properties, to the grade, to labels, to types, and can be a
+  regular expression or a character table; wildcards are part of typed
+  holes and also create patterns, as `@"jul?"`. TXR Lisp, AWK, jq, Perl
+  and Raku are to be explored again (F3, kept open).
+- **The method is kept** (Q-METH-003, option A).
+
+Observed: where the wrong reading of the layers came from. This is put
+back to the author, who alone decides whether the specification is to
+change.
+
+- Chapter 5 opens its practice section on « Écrire du K7PL, c'est
+  choisir, à chaque expression, le fragment le moins permissif que la
+  tâche autorise », and its first example is a bounded counter whose
+  increment is « une fonction pure de couche 3 », `lst:fonction-pure`,
+  called between brackets from the actor's `:on` clause
+  (`spec/Spec/C5/InPractice.lean`).
+- Chapter 5 gives the roles as « la couche 2 orchestre et produit, la
+  couche 3 calcule et termine »
+  (`spec/Spec/C5/UniversalSExpressions.lean`), and chapter 4 calls
+  layer 2 « le langage de liaison qui connecte les primitives des
+  couches 1 et 3 sans jamais en exécuter les effets »
+  (`spec/Spec/C4/Introduction.lean`).
+- What the specification says in the author's sense, and the dossier
+  did not weigh: each layer is a data structure, « arène linéaire en
+  couche 1, tas en couche 2, pile en couche 3 : `[]` est le vecteur
+  vide, `()` la liste vide et `{}` l'enregistrement ou la table vide »
+  (chapter 5); chapter 1's table gives layer 2 a Lisp-1 namespace, a
+  heap under ownership, bounded recursion and `match` and `cond`, and
+  layer 3 the stack, no recursion (« plis, balayages, réductions »)
+  and a vector `select`.
+- Not found in the specification as such: that layer 2 is a classic
+  Lisp or Scheme in which ordinary computation is written; that K7PL
+  is publish and subscribe (Annex A names a `stream-subscribe` and a
+  « Souscription circulaire à un flux », nothing more).
+
 ### What went wrong before, and the method proposed
 
 Observed.
