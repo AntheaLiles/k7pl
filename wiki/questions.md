@@ -5431,6 +5431,10 @@ Several options may be chosen.
 
   *For:* the sequence is named. *Against:* one more word.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-007), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
 
 ### Products, asked again
 
@@ -6589,6 +6593,12 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — A name already bound compares, a name used twice means equal.** Non-linear patterns, as Prolog and Erlang. Example: `(catch inbox (@(Reply id body) (use body)))`.
   *For:* nothing to write. *Against:* OCaml forbids it; a name that happens to be bound turns a binder into a test silently.
 
+**Answer of the author — 2026-11-06 (VOC-2026-11-06-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Je pense que le symbole `^` n'est pas pertinent mais que l'approche d'elixir est intéressante. Il manque par contre de pouvoir faire des motifs à trous (comme like avec des wildcards en SQL)
+- **Reading:** a value already held is compared inside the pattern, as Elixir does (option A), but `^` is not the sign for it. A need is added: patterns with holes, as the wildcards of SQL's `LIKE`.
+- **Put back to the author:** dossier 1 proposes to mark the holes rather than the value held, so that no sign such as `^` is needed, and to write the holes of a text in a qualified literal (Q-FRM-003).
 
 #### Q-LEM-203 — Naming the whole and its parts
 
@@ -6636,6 +6646,10 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 
   *For:* no word. *Against:* verbose for a frequent need.
 
+**Answer of the author — 2026-11-06 (VOC-2026-11-06-002), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
 
 #### Q-LEM-204 — Alternatives and conjunctions in one pattern
 
@@ -6661,6 +6675,12 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — No alternative inside a pattern: one clause per shape; `&` for joins.**
   *For:* each clause one shape; the automaton is simpler. *Against:* a shared transformation is repeated.
 
+**Answer of the author — 2026-11-06 (VOC-2026-11-06-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** En fait il manque les constructeurs logiques `or, nor, xor, xnor, and, nand, xand, xnand`, associés à catch et case nous devrions avoirs tous les constructeurs logiques suffisants.
+- **Reading:** the logical constructors are missing: `or`, `nor`, `xor`, `xnor`, `and`, `nand`, `xand`, `xnand`; with the reading of a flow and `case`, they should be all the logical constructors needed.
+- **Put back to the author:** `xand` and `xnand` have no agreed truth table: XAND is listed as another name of XNOR. Which functions are meant? Dossier 1 separates the connectives on one element from the join between elements (Q-FRM-004).
 
 #### Q-LEM-205 — A pattern that computes
 
@@ -6682,6 +6702,12 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **B — A defined pattern may call a layer 3 function returning an option.** As F#'s partial active patterns. The function is pure and terminating; its budget adds to the pattern's class and is checked as chapter 6 checks the annotations. Example: `{def @integer [parse-int]}   (catch line (@(integer n) (add n)))`.
   *For:* several views of the same data; the automaton calls the function as an atomic operator. *Against:* the class alone no longer tells the whole cost.
 
+**Answer of the author — 2026-11-05 (VOC-2026-11-05-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** Quand on attrape un pattern pour en faire quelque chose, c'est un traitement parallèle à l'action initiée par le flux, ce qui signifie qu'un envoi d'une matrice de pixels colorés vers un affichage s'affiche et qu'on peut apporter un traitement parallèle suivant des conditions attrapées en vol. Cela n'empêche donc pas la computation du flux et le cas permet la computation déclenchée par le pattern.
+- **Reading:** structural only (option A): what computes goes in `case`. Catching a pattern is a processing parallel to the action the flow starts: a matrix of coloured pixels sent to a display is displayed, and a parallel processing is brought on conditions caught in flight. Catching does not prevent the flow's own computation; the case allows the computation the pattern triggers.
+- **Put back to the author:** chapter 3's `guard` consumes the messages it matches, and `free` asks for an empty mailbox. Dossier 1 proposes that the flow's usage grade decide whether a case observes or takes (Q-FRM-002).
 
 #### Q-LEM-206 — The automaton class when none is written
 
@@ -6705,6 +6731,11 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — Inferred, but `@linear` required on a flow from outside.**
   *For:* what comes from the network, files or processes is guarded; inside, nothing to write. *Against:* two rules, by where the flow comes from.
 
+**Answer of the author — 2026-11-05 (VOC-2026-11-05-002), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** Pour moi la class ne doit pas être déclarée car il s'agit d'un effet de couche d'une part et d'algorithme d'autre part. donc inférence systématique
+- **Reading:** inferred, always (option B): the class is not declared, since it is an effect of the layer on one hand and of the algorithm on the other.
 
 ### Clauses: writing, order, coverage
 
@@ -6763,6 +6794,13 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **D — The most specific, whatever the order.** A clause whose refinement is contained in another's wins.
   *For:* the order of the text does not matter. *Against:* two clauses neither of which contains the other need a rule; the solver must decide containment.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** All of them as AWK but the flow is rooted to automatas (eg. 1 flow and 3 patterns to catch with dedicated actions to run on them, the flow is divided and piped to 3 sub-automatas ; 1 flow and 1 pattern to catch but cached 3 times the flow is wired to a single automata with its mailbox until the mailbox is full and a new instance of the automata is rased to assure scalability)
+- **Clarify:** Il serait intéressant d'évaluer si un pattent trouvé est passé avec un label pour faciliter son identification par l'automate suivant ou non
+- **Reading:** every case that matches runs, as AWK, and the flow is routed to automata. One flow and three patterns, each with its action: the flow is divided and piped to three sub-automata. One flow and one pattern caught three times: the flow is wired to a single automaton with its mailbox, until the mailbox is full and a new instance of the automaton is raised, for scalability.
+- **Put back to the author:** « cached 3 times » is read as « caught three times »; to confirm. The label asked for is weighed in dossier 1 (Q-FRM-006), with the bound on instances that P3 asks for.
 
 #### Q-LEM-209 — Coverage
 
@@ -6783,6 +6821,12 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — A warning only.**
   *For:* nothing blocks. *Against:* contradicts the glossary and Annex A, which reject.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-002), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:** Je pense que nous pouvons adopter A de manière graduée pour faciliter le prototypage et donc proposer un hybride entre A et B.
+- **Reading:** option A, graduated to ease prototyping: a hybrid of A (always required) and B (required in a profile, a warning elsewhere).
+- **Put back to the author:** how to graduate: by the layer and the usage grade, by a flag, or both (Q-FRM-008).
 
 #### Q-LEM-210 — What no clause catches, on a mailbox or a flow
 
@@ -6841,6 +6885,20 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — Unordered: the conditions must be disjoint, proved by the solver; `else` optional.**
   *For:* no hidden priority; each condition reads alone. *Against:* the solver must prove disjointness, which can fail on conditions it cannot decide.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:**
+
+  > (case <pattern> <computation>)
+  > (case <pattern> <computation>)
+  > (case <pattern> <computation>)
+  >
+  > Si le pattern n'est pas trouvé alors il ne se passe rien, si l'inverse est recherché alors :
+  > (case <not-pattern> <computation>)
+
+- **Reading:** a `case` takes a pattern and a computation, `(case <pattern> <computation>)`, and cases follow one another. When a pattern is not found nothing happens; there is no default. The reverse is asked by a pattern that negates: `(case <not-pattern> <computation>)`.
+- **Put back to the author:** with no default and no order, coverage and the reverse rest on `not`; on a linear flow, chapter 3's Guard asks that the cases cover (Q-FRM-002, Q-FRM-008).
 
 ### Control flow without a conditional
 
@@ -6865,6 +6923,12 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — Both go: `case` on values, mapped over a vector for masks.**
   *For:* one family. *Against:* loses the vector `select` without branching of chapter 1.
 
+**Answer of the author — 2026-11-05 (VOC-2026-11-05-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** je pense que nous pouvons tout de même trouver comment assurer le branching.
+- **Reading:** both go (option C): `choose` and `select` leave layer 3, and branching is to be found again with `case`.
+- **Put back to the author:** layer-3 words are monadic or dyadic (VOC-2026-10-28-033); `case` takes two operands, but several cases are an n-ary form. Three ways are weighed in dossier 1 (Q-FRM-005).
 
 #### Q-LEM-214 — Chaining catches
 
@@ -6883,6 +6947,10 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — Nested catches only.**
   *For:* nothing new. *Against:* depth grows with each step.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-004), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
 
 #### Q-LEM-215 — What produces what a catch catches
 
@@ -6950,6 +7018,11 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 
   *For:* nothing to learn. *Against:* resuming does not show in the text.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-005), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** C
+- **Justification:** Limité par le grade. En control flow l'objectif est de traiter le flux de donnée de manière productive (K7PL couche 2) donc d'attraper chaque patter survenant.
+- **Reading:** no word (option C): the continuation is a function, applied, and its grade limits how often. In control flow the aim is to process the data flow productively, in layer 2, hence to catch each pattern that occurs.
 
 #### Q-LEM-217 — One construct in the kernel, or three
 
@@ -6974,6 +7047,19 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — Three constructs, three words (`catch`, `guard`, `handle`).**
   *For:* each rule its word. *Against:* against VOC-2026-11-04-001.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-006), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OTHER
+- **Other:**
+
+  > Je préfèrerais même retirer le mot `catch` qui est un implicite du paramètre de `case` au profit d'un mot plus facile à comprendre indiquant que l'on regarde, que l'on lit, un flux de donnée identifié
+  > (<lire le flux> <le flux à lire>
+  >     <case-1>
+  >     <case-2>
+  >     ...)
+
+- **Reading:** the word `catch` is withdrawn: it is implicit in what `case` takes. A word easier to understand takes the head, saying that one watches, or reads, an identified data flow; the cases follow it: `(<read the flow> <the flow to read> <case-1> <case-2> ...)`.
+- **Put back to the author:** the word that reads is asked in dossier 1 (Q-FRM-001): `read`, `watch`, `on`, `from`, `observe`.
 
 ### Flows
 
@@ -7001,6 +7087,10 @@ Third lot of lemmas, asked on 2026-11-04: settle together everything about patte
 - **C — Through a mailbox only: every source becomes messages to an actor.** As Erlang, and chapter 5 today.
   *For:* one kind of flow; the journal sees everything. *Against:* a file read becomes a stream of messages.
 
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-008), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
 
 #### Q-LEM-219 — Which sources are flows of the same kind
 
@@ -7240,6 +7330,452 @@ Several options may be chosen.
 
 - **C — Demand: the reader grants credit, the writer sends within it.**
   *For:* Reactive Streams. *Against:* a protocol under every channel.
+
+## Statement of 2026-11-12: philosophy, method, and the nesting of delimiters
+
+**Statement of the author — 2026-11-12, given in the conversation, quoted as given.**
+
+> J'ai répondu à quelques questions mais je pense qu'il faut retravailler les questions et propositions au regard des commentaires que j'ai exprimé. Reprend l'objectif phylosophique de K7PL notamment dans son ancrage pattern-matching, data-flow, control-flow, constraint programming, logic programming et fonctionnel.
+>
+> Réélabore sur ce que nous avons exploré ensemble, sur les précédentes réponses et commentaires, sur les divers choix et orientations explorés et documentés.
+>
+> Je pense que nous avons une problématique de méthode car cette recherche lexicale a du mal à aboutir... probablement parce que chaque sujet est très découpé là où je pense que je préfèrerais des recherches cohérentes de thématiques permettant d'aboutir sur les formes génériques à employer, sur lesquelles s'appuyer. Je note en plus que des propositions de code en exemple de réponses violent la règle synthaxique la plus élémentaire de K7PL sur l'imbrication des délimiteurs de couches.
+
+- **VOC-2026-11-12-009, reading:** the questions and their options are to be reworked from the comments given, starting again from K7PL's philosophical aim and its anchoring in pattern matching, data-flow, control-flow, constraint programming, logic programming and functional programming, and from everything explored, answered and documented so far.
+- **VOC-2026-11-12-010, reading:** a problem of method: the lexical research does not converge, probably because each subject is cut too finely. The author would prefer coherent research by theme, leading to the generic forms to use and to rest on. Proposed in answer, to be confirmed (Q-METH-003): one dossier per theme, ending in generic forms; the words come last, per form.
+- **VOC-2026-11-12-011, reading:** examples of code offered in the options break K7PL's most elementary rule of syntax, the nesting of the layer delimiters. Checked: 12 of the 123 K7PL texts of the three lemma lots are at fault, all by a `( )` inside a `[ ]` (`ERR-TOP-001`); the list is in [research](research.md), « Thematic dossier 1 », erratum. From this record on, every example is checked against the nesting rule before it is published.
+
+These statements are answered by [research](research.md), « Thematic dossier 1 of 2026-11-12: reading a flow », and by the questions Q-METH-003, Q-FRM-001 to Q-FRM-008 and Q-DOS-001 below. The questions of lemma lot 3 left unanswered, and those of lemma lot 2 carried with it, are set aside: the dossier's forms replace them or a later dossier takes them up.
+
+## Thematic dossier 1 of 2026-11-12: reading a flow (Q-METH-003, Q-FRM-001 to Q-FRM-008, Q-DOS-001)
+
+Opened on 2026-11-12 in answer to the author's statement of the same day (above). The argument and its
+sources are in [research](research.md), « Thematic dossier 1 of 2026-11-12: reading a flow ». Each card
+gives one generic form, what it rests on, what it absorbs, and the decision that remains on the whole
+form. **Other** and **Clarify** are always available.
+
+First thematic dossier, written on 2026-11-12 after your statement that the lexical research does not converge because each subject is cut too finely, and that you would prefer coherent research by theme leading to the generic forms to use (VOC-2026-11-12-010). It starts again from what K7PL sets out to do and from everything you have answered, and reads pattern matching, data-flow, control-flow, constraint programming, logic programming and functional programming as six readings of one form: a flow is read, and each `case` joins a pattern to a computation. The whole argument, with its sources, is in research.md, « Thematic dossier 1 of 2026-11-12: reading a flow ». Each card below gives one generic form, what it rests on and what it absorbs, and asks about the form as a whole. Every example is written on one scenario, yours: frames sent to a display, and conditions caught in flight. Every example has been checked against the nesting rule of the layers (`[ ]` holds only `[ ]`; `( )` holds `( )` and `[ ]`; `{ }` holds all three). Every word of the examples other than `case` is a placeholder, the reading word `read` included. An answer is a dated preference, ratified only in the global lot (VOC-2026-10-26-002). **Other** and **Clarify** are always available, and a comment is worth more than a choice.
+
+**Set aside by this dossier.** The questions of lemma lot 3 left unanswered and those of lemma lot 2
+carried with it are no longer shown on the page. Each is replaced by a form or goes to a later dossier:
+
+- Q-LEM-105: the dossier on objects and observations.
+- Q-LEM-106: the dossier on objects and observations.
+- Q-LEM-111: Q-FRM-006, then the dossier on sequencing and effects.
+- Q-LEM-115: Q-FRM-007.
+- Q-LEM-117: the dossier on time and order.
+- Q-LEM-118: the dossier on time and order.
+- Q-LEM-121: Q-FRM-002.
+- Q-LEM-201: Q-FRM-003.
+- Q-LEM-207: Q-FRM-001.
+- Q-LEM-210: Q-FRM-002 and Q-FRM-008.
+- Q-LEM-211: Q-FRM-006.
+- Q-LEM-215: Q-FRM-006, then the dossier on sequencing and effects.
+- Q-LEM-219: the dossier on sources, places and distribution.
+- Q-LEM-220: the dossier on sources, places and distribution.
+- Q-LEM-221: Q-FRM-001.
+- Q-LEM-222: Q-FRM-004.
+- Q-LEM-223: the dossier on time and order.
+- Q-LEM-224: Q-FRM-004.
+- Q-LEM-225: the dossier on time and order.
+- Q-LEM-226: the dossier on time and order.
+- Q-LEM-227: the dossier on time and order.
+- Q-LEM-228: the dossier on time and order.
+- Q-LEM-229: Q-FRM-006, then the dossier on time and order.
+
+### Method
+
+#### Q-METH-003 — The method from here on: a dossier per theme
+
+**Fiche.**
+
+- **Recorded:** the arbitration sequence for words (Q-METH-001, option A); ratification in a global lot (Q-METH-002, option A)
+- **Your statement:** « cette recherche lexicale a du mal à aboutir... probablement parce que chaque sujet est très découpé là où je pense que je préfèrerais des recherches cohérentes de thématiques permettant d'aboutir sur les formes génériques à employer, sur lesquelles s'appuyer » (VOC-2026-11-12-010)
+- **Observed:** in lemma lot 3, 8 of your 13 answers are **Other** or **Keep open**, and the 5 others each add a comment that changes the option: 62% outside the options, the highest of the fourteen lots (the others range from 14% to 47%). 12 of the 123 K7PL texts of the three lemma lots break the nesting rule, all by a `( )` inside a `[ ]`
+
+**Object.** What went wrong, as I read it. The lemma lots asked for a word, construct by construct, before the form that carries the word was settled, so that each answer depended on neighbours not yet answered. The options were taken from other languages (ML, Erlang, OCaml, Clojure) rather than derived from K7PL's own principles. And the examples were not passed through the layer grammar. This card asks whether the way dossier 1 is built is the method to keep.
+
+- **A — A dossier per theme, ending in generic forms; the words come last.** Each dossier gives, in order: what the specification states and what you have answered on the theme, quoted; outside work read as a whole, not option by option; the generic forms, written in K7PL on one running scenario and checked against the layer grammar; what each form absorbs or changes in the kernel; a few decisions, each on a whole form; then the words of the forms kept, weighed on Q-METH-001. Answers stay dated preferences until the global lot (Q-METH-002).
+
+  *For:* decisions bear on forms that hold together; a word is chosen for a form already kept. *Against:* a dossier is longer to read than a question.
+
+- **B — Dossiers discussed in the conversation only, recorded verbatim; no cards.**
+
+  *For:* your comments have carried more than your choices. *Against:* nothing marks what is settled and what is not, short of rereading the record.
+
+- **C — Separate questions as before, grouped by theme behind a synthesis.**
+
+  *For:* the smallest change. *Against:* the cutting you point at stays.
+
+### The generic forms
+
+#### Q-FRM-001 — Reading a flow: the form, and its word
+
+**Fiche.**
+
+- **Your sketch:** « Je préfèrerais même retirer le mot `catch` qui est un implicite du paramètre de `case` au profit d'un mot plus facile à comprendre indiquant que l'on regarde, que l'on lit, un flux de donnée identifié » : `(<lire le flux> <le flux à lire> <case-1> <case-2> ...)` (VOC-2026-11-12-006)
+- **Recorded:** `catch` and `try … catch` are one object (VOC-2026-11-03-017); waiting for an event is a form of it (VOC-2026-11-04-005); `:on` seems redundant, routing being implicit in data-flow (VOC-2026-11-04-003)
+- **Absorbs:** Q-LEM-207, 217, 218, 221; in the kernel `try … catch`, `guard`, `when` and the handlers of operations; in chapter 4 `(match …)` and `define-join-pattern`; in chapter 5 `:on`
+
+**Form.**
+
+```text
+;; `read` is a placeholder: the word is what this card asks
+(read frames
+  (case @dark   [count])
+  (case @bright [histogram]))
+```
+
+**Object.** The form is yours. What is read comes first and is named: a source, a mailbox, the flow another reading gives, or a computation, whose results, failures and operations are then what its cases catch. Chapter 4 already says what such a form is when nothing encloses it: « Une forme `( )` qu'aucune autre n'encapsule est un processus : un acteur virtuel, activé par son premier message » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)). An actor's `:on` clause is then the same reading with the flow left unsaid: its own mailbox. What the card asks is the word.
+
+**Facts.**
+
+- Go: « Reader is the interface that wraps the basic Read method » (io (https://pkg.go.dev/io)); a file, a socket and a text in memory are all read alike.
+- Esterel's first versions wrote « do...watching », later replaced by « abort...when » (Esterel v5 primer (https://www.rw.cdl.uni-saarland.de/people/kaestner/private/es0203/esterel_primer.pdf)).
+- Chapter 4: an actor is « un état auquel on ne pose que des questions », defined by the family of its observations (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/Introduction.lean)).
+
+- **A — `read`.**
+
+  1. *Non-collision:* Lisp's `read` and K7PL's own Phase 0 reader read a text into a tree; the old K archive had a property `:read` for an access right.
+  2. *Scientific exactness:* names reading; says nothing false when a case takes what it reads.
+  3. *Family and grade invariants:* pairs with a writing word, should one be kept.
+  4. *Ecological grid (provisional):* Unix, Go's `Reader`.
+  5. *Mnemonic:* your « lire ».
+  6. *Brevity:* four letters.
+
+  *For:* the plainest word for what you describe. *Against:* the reader of Phase 0 already « reads ».
+
+- **B — `watch`.**
+
+  1. *Non-collision:* no collision found in the specification.
+  2. *Scientific exactness:* names looking without taking: exact for a flow that goes on, less so where a case takes.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* Esterel's former `watching`; file watchers.
+  5. *Mnemonic:* your « regarder ».
+  6. *Brevity:* five letters.
+
+  *For:* says that the flow is not diverted. *Against:* wrong where reading consumes.
+
+- **C — `on`.**
+
+  1. *Non-collision:* the actor's `:on` exists: one object under one word if the clause abbreviates this form (Q-LEM-001), a collision otherwise.
+  2. *Scientific exactness:* names the occasion, not the act.
+  3. *Family and grade invariants:* the property `:on` and the form share a word, as `:bind` and `bind`.
+  4. *Ecological grid (provisional):* event handlers named `on…` in many languages.
+  5. *Mnemonic:* weak alone.
+  6. *Brevity:* two letters.
+
+  *For:* nothing new: the word is already in chapter 5. *Against:* a preposition for a head word.
+
+- **D — `from`.**
+
+  1. *Non-collision:* no collision found.
+  2. *Scientific exactness:* names the source and is silent on the act.
+  3. *Family and grade invariants:* —
+  4. *Ecological grid (provisional):* SQL's `FROM`, beside your SQL `CASE` and `LIKE`.
+  5. *Mnemonic:* reads « from frames, case … ».
+  6. *Brevity:* four letters.
+
+  *For:* the SQL family you draw on. *Against:* does not say that something is watched.
+
+- **E — `observe`.**
+
+  1. *Non-collision:* chapter 4 and codata use « observation » for what an actor answers; Q-LEM-106 weighs `observe` for the projection.
+  2. *Scientific exactness:* exact where the flow goes on.
+  3. *Family and grade invariants:* the dual of a pattern is a copattern, an observation.
+  4. *Ecological grid (provisional):* ReactiveX's Observable.
+  5. *Mnemonic:* clear.
+  6. *Brevity:* seven letters.
+
+  *For:* ties reading a flow to the theory of observations. *Against:* long, and already claimed.
+
+#### Q-FRM-002 — What a case does to what it reads: observe, or take
+
+**Fiche.**
+
+- **Recorded:** « `(case <pattern> <computation>)` […] Si le pattern n'est pas trouvé alors il ne se passe rien, si l'inverse est recherché alors : `(case <not-pattern> <computation>)` » (VOC-2026-11-12-003); « All of them as AWK but the flow is rooted to automatas » (VOC-2026-11-12-001)
+- **Your example:** « Quand on attrape un pattern pour en faire quelque chose, c'est un traitement parallèle à l'action initiée par le flux, ce qui signifie qu'un envoi d'une matrice de pixels colorés vers un affichage s'affiche et qu'on peut apporter un traitement parallèle suivant des conditions attrapées en vol. Cela n'empêche donc pas la computation du flux et le cas permet la computation déclenchée par le pattern. » (VOC-2026-11-05-001)
+- **Absorbs:** Q-LEM-208, 210, 212, 121
+
+**Form.**
+
+```text
+(read frames                          ;; every case whose pattern is found runs, each for itself
+  (case @dark       [count])
+  (case (not @dark) [histogram]))     ;; the reverse is a pattern, not a default
+```
+
+**Object.** Settled by your answers: a case is a pattern and a computation; cases do not know one another; nothing happens when a pattern is not found; the reverse is a pattern. One thing is not settled. In your example a case *observes*: the frame still reaches the display. In chapter 3 a case *takes*: « La branche ne s'ouvre que si tous les messages du motif sont présents, et les consomme d'un seul tenant », and `free` asks for an empty mailbox (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)). K7PL has a place for this difference. P2 holds that how a thing may be used, its grade, is independent of what it is (chapter 1 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C1/Postulates.lean)); and chapter 3 gives a linear region a readable image, a `ReadCap`, where « N lecteurs simultanés sont exprimables » (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/GradedSystem.lean)).
+
+**Facts.**
+
+- Linda has both gestures: `in` « Takes out a tuple that matches a given pattern from the tuplespace », `rd` « Copies a tuple that matches a given pattern »; « (input) consumes the tuple […] whereas (read) only reads it » (Linda (https://en.wikipedia.org/wiki/Linda_(coordination_language))).
+- Constraint Handling Rules have both kinds of rule: propagation rules « add the constraints in the body to the store, without removing the heads », simplification rules rewrite the heads into the body (CHR (https://en.wikipedia.org/wiki/Constraint_Handling_Rules)).
+- Unix: « The tee utility shall copy standard input to standard output, making a copy in zero or more files » (POSIX, tee (https://pubs.opengroup.org/onlinepubs/9799919799/utilities/tee.html)).
+
+- **A — The flow's usage grade decides.** One form, three behaviours, by the grade of what flows. Unrestricted: every case that matches observes, and the flow goes on to where it was going — your display. Affine: at most one case takes an element, and one that no case catches is dropped. Linear: exactly one case takes it, so the cases must be disjoint and cover, which is checked at compile time — chapter 3's Guard as it stands. To observe a linear flow, one reads its readable image.
+
+  *For:* nothing is added: the grade P2 already gives does the work; Guard, `free` and your display are one form at three grades. *Against:* whether cases observe or take is read from the flow's type, not from the text of the reading.
+
+- **B — A case always observes; taking is another word.**
+
+  *For:* the frequent case reads simply. *Against:* two words; a linear element observed by a case and taken by none must be caught by another check.
+
+- **C — A case always takes; observing asks for a copy written upstream.**
+
+  *For:* chapter 3 unchanged. *Against:* against your example: catching would divert the frame from the display.
+
+#### Q-FRM-003 — The pattern: a construction with holes
+
+**Fiche.**
+
+- **Recorded:** `@` belongs to patterns (VOC-2026-10-27-076); everything is a pattern, and `@x` is every pattern of `x` (VOC-2026-11-04-002); what is caught has the refined type of its construction (VOC-2026-11-04-001)
+- **Your comment:** « Je pense que le symbole `^` n'est pas pertinent mais que l'approche d'elixir est intéressante. Il manque par contre de pouvoir faire des motifs à trous (comme like avec des wildcards en SQL) » (VOC-2026-11-06-001)
+- **Already in K7PL:** the typed hole: « Un générique ne nomme aucun paramètre de type : il s'écrit avec des trous typés »; `int` without a width, `str`, and the holes of a qualified literal, each « un trou typé, passé en paramètre »
+- **Absorbs:** Q-LEM-201, 202, 203
+
+**Form.**
+
+```text
+(read replies
+  (case (Reply id @body)   [parse body])   ;; `id` is held: compared. `@body` is a hole: caught and named
+  (case (Reply @int @str)  [count])        ;; holes typed by a declared construction, left unnamed
+  (case @Reply             [archive]))     ;; every Reply, whole: it is the computation's argument
+```
+
+**Object.** K7PL already has the notion you ask for. A typed hole is a place left open, with a type, that something fills later: the solver and monomorphisation for a generic, a parameter for a qualified literal (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/UniversalSExpressions.lean)). A pattern is then a construction some of whose places are holes, and matching is what fills them. `@` marks the hole, never the value held: it is Elixir's distinction with the mark on the other side, so no `^` is needed. `@x` where `x` is declared is « tout motif de x », a hole of that type left unnamed; `@x` where `x` is a new name is a hole named `x`, typed by its place in the construction. The whole that a case caught is the argument of its computation, as a train takes its missing operands from its arguments; the parts are the named holes. No alias word is needed (Q-LEM-203, kept open).
+
+**Facts.**
+
+- Elixir's pin is used to « pattern match against a variable's existing value rather than rebinding the variable » (Elixir, pattern matching (https://elixir.hexdocs.pm/pattern-matching.html)): there the mark is on the value held.
+- CDuce: « A value identifier inside a pattern behaves as a capture variable: it accepts and binds any value »; « a pattern without any capture variable is nothing but a closed type » (CDuce manual (https://www.cduce.org/manual_types_patterns.html)).
+- SQL: « An underscore (`_`) in pattern stands for (matches) any single character; a percent sign (`%`) matches any sequence of zero or more characters » (PostgreSQL, LIKE (https://www.postgresql.org/docs/current/functions-matching.html)).
+- Chapter 5: « Chaque type d'étiquette déclare comment ses trous s'écrivent […] ; `sql`, d'après le SQL standard, sera le premier »; the four forms of a tag follow their layers, `[sql|…|sql]` being « pur et termine » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/UniversalSExpressions.lean)).
+
+- **A — `@` marks the holes; a bare name is held or declared; texts take their holes in a qualified literal.** As above. The holes of a text are those its tag declares, SQL's `LIKE` first, written in the qualified literal of the layer where the pattern stands.
+
+  ```text
+  (case (Order [like|FR-%|like] @total) [add total])
+  ```
+
+  *For:* one notion, the typed hole, for generics, literals and patterns; no new sign, no alias word. *Against:* `@name` reads two ways by what is declared, so a hole may not take the name of a declared construction: the compiler must refuse it.
+
+- **B — A bare name binds, as in chapter 5's handler today; a held value takes a mark.**
+
+  *For:* chapter 5's listing stays as written. *Against:* needs the mark you set aside; a misspelled construction becomes a variable, « un motif qui filtre tout et ne signale rien » (chapter 5).
+
+- **C — Holes are typed and never named; parts are taken afterwards by `unbind`.**
+
+  ```text
+  (case (Reply id @str) [parse])
+  ```
+
+  *For:* `@x` keeps one reading. *Against:* every part used costs a second step.
+
+#### Q-FRM-004 — Combining patterns: the logical connectives, and the join
+
+**Fiche.**
+
+- **Your answer:** « En fait il manque les constructeurs logiques `or, nor, xor, xnor, and, nand, xand, xnand`, associés à catch et case nous devrions avoirs tous les constructeurs logiques suffisants. » (VOC-2026-11-06-003)
+- **Recorded:** you asked to weigh `join` and the words of SQL (VOC-2026-11-03-009); layer-3 words are monadic or dyadic, n-ary operators being those of layer 2 (VOC-2026-10-28-033)
+- **Now in the specification:** chapter 3's guard patterns `p ::= m(x̄) | p & p`; chapter 4's `define-join-pattern`
+- **Absorbs:** Q-LEM-204, 222, 224
+
+**Form.**
+
+```text
+(read frames
+  (case (and @dark (not @corrupt)) [count])        ;; one element that is both
+  (case (nor @dark @bright)        [histogram]))   ;; one element that is neither
+
+(read orders payments
+  (case (join (Order @id @total) (Paid @id)) [ship id]))   ;; two elements, one from each flow, the same `id`
+```
+
+**Object.** Two things are called « and ». On one element, a connective is an operation on what a pattern accepts: `and` what both accept, `or` what either accepts, `not` what it refuses, and `nand`, `nor`, `xor`, `xnor` follow. Chapter 4 notes that recognisable languages stay « close par réunion, intersection et projection » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/LocalScale.lean)), so `and` and `or` leave a pattern in its class. Between elements — a result and its acknowledgement — « and » is a join: several elements present together, linked by a hole written twice, which is the join's condition. `not` is monadic and the others dyadic, so they are layer-3 words as they stand, and n-ary in layer 2. One point is put back to you: `xand` and `xnand` have no agreed table.
+
+**Facts.**
+
+- CDuce « recognizes the full set of boolean connectives, whose interpretation is purely set-theoretic »; « a capture variable cannot appear on both side » of `&`, and the right side of a difference « is necessarily a type (no capture variable) » (CDuce manual (https://www.cduce.org/manual_types_patterns.html)).
+- Datalog: « The `:-` symbol is read as "if", and the comma is read "and" »: `ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).` joins two facts by the shared `Z` (Datalog (https://en.wikipedia.org/wiki/Datalog)).
+- The XNOR gate is « sometimes ENOR, EXNOR, NXOR, XAND » (XNOR gate (https://en.wikipedia.org/wiki/XNOR_gate)).
+
+- **A — Connectives for one element; `join` between elements.** `and`, `or`, `not`, `nand`, `nor`, `xor`, `xnor` act on one element. `join` asks for several elements together, a hole written twice being their link. A hole under `not`, or on one side only of `or`, names nothing.
+
+  *For:* each word has one meaning and one cost; `(and (Order …) (Paid …))` is then a pattern nothing can match, which the solver can report. *Against:* one word more than chapter 3's `&`.
+
+- **B — `and` does both, as chapter 3's `p & p`.**
+
+  *For:* fewer words. *Against:* one word, two costs: a test on one element, a wait for several.
+
+- **C — Connectives only between conditions, patterns staying whole.**
+
+  *For:* patterns stay simple. *Against:* against your answer.
+
+#### Q-FRM-005 — Where each part is written: the three layers
+
+**Fiche.**
+
+- **The rule:** « les types se posent en couche 1 seulement, la couche 2 orchestre et produit, la couche 3 calcule et termine » (chapter 5)
+- **Your answers:** « Pour moi la class ne doit pas être déclarée car il s'agit d'un effet de couche d'une part et d'algorithme d'autre part. donc inférence systématique » (VOC-2026-11-05-002); `choose` and `select` leave: « je pense que nous pouvons tout de même trouver comment assurer le branching. » (VOC-2026-11-05-003)
+- **Erratum:** 12 examples of the lemma lots put a `( )` inside a `[ ]` (`ERR-TOP-001`), as `(bind [x (read-sensor)] …)`; they are listed in research.md
+- **Absorbs:** Q-LEM-205, 206, 213
+
+**Form.**
+
+```text
+{def dark :type {{f frame [lt mean f 16]}}}   ;; layer 1: the shape is declared, with its type
+
+(read frames                                   ;; layer 2: the flow is read, and reading does not end
+  (case @dark [count]))                        ;; layer 3: the computation is pure, and ends
+```
+
+**Object.** The nesting rule gives the form its three places, and each place its guarantee. A pattern that needs a type — a refinement, a budget, a binary layout — is declared in layer 1 and named; layer 2 can only name it, since a `{ }` inside a `( )` is `ERR-TOP-003`. The reading is layer 2: productive, with as many cases as needed. The computation is layer 3 when it is pure, and then it ends; one that has effects stays in `( )`. The class of the automaton is not written: it follows from the layer the pattern stands in and from the pattern itself. What remains is branching *inside* layer 3. `case` takes a pattern and a computation, two operands, so it is a layer-3 word as it stands; but several cases are an n-ary form, and layer 3 has none.
+
+**Facts.**
+
+- Chapter 5: « Une parenthèse à l'intérieur d'un bloc `[ ]` n'y est jamais légitime : elle annonce la couche 2 dans un bloc qui n'en dispose pas » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/UniversalSExpressions.lean)).
+- Chapter 4: « toute exécution de couche 3 est un automate dont la mémoire se calcule avant l'exécution, jamais pendant » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/LocalScale.lean)).
+
+- **A — In layer 3, a case that finds nothing gives the value back unchanged.** « Il ne se passe rien » is the identity. On a vector, a case computes on the cells its pattern catches and leaves the others, which is the mask of the former `select` written with a pattern. Cases follow one another as the words of a train.
+
+  ```text
+  [case @negative neg]   ;; the absolute value, of a number or of each cell of a vector
+  ```
+
+  *For:* total, one result, no branching construct; your sentence taken to the letter. *Against:* what leaves has the type of what entered, or their union; two outcomes of one test, `Ok` and `Err`, need two cases in a row, the second seeing what the first gave.
+
+- **B — Layer 3 has no alternatives: a value that needs several cases is read in layer 2.**
+
+  ```text
+  (read value
+    (case @below-bound       (Ok [add value 1]))
+    (case (not @below-bound) (Err Overflow)))
+  ```
+
+  *For:* one reading form everywhere; layer 3 stays without branches, which suits its automata and its vector code. *Against:* `?increment-bounded` is no longer a layer-3 function by itself.
+
+- **C — A dyadic word gives a case its other outcome: what to compute where it finds nothing.**
+
+  ```text
+  [else [case @below-bound [Ok add value 1]] [Err Overflow]]
+  ```
+
+  *For:* alternatives stay in layer 3. *Against:* a default comes back, which your answer to Q-LEM-212 leaves out; one more word.
+
+#### Q-FRM-006 — What a case gives: a flow, its label, its instances
+
+**Fiche.**
+
+- **Your answer:** « 1 flow and 3 patterns to catch with dedicated actions to run on them, the flow is divided and piped to 3 sub-automatas ; 1 flow and 1 pattern to catch but cached 3 times the flow is wired to a single automata with its mailbox until the mailbox is full and a new instance of the automata is rased to assure scalability » (VOC-2026-11-12-001)
+- **You asked:** « Il serait intéressant d'évaluer si un pattent trouvé est passé avec un label pour faciliter son identification par l'automate suivant ou non »
+- **Recorded:** the injection into a sum is `tag` (VOC-2026-11-03-011); an operation's continuation is a function, applied, limited by its grade (VOC-2026-11-12-005)
+- **Absorbs:** Q-LEM-211, 214, 215, 229, 111
+
+**Form.**
+
+```text
+{def dark-means (read frames (case @dark [mean]))}   ;; a reading that is named: what its cases give is a flow
+
+(read dark-means                                     ;; which another reading reads
+  (case @near-black [alarm]))
+```
+
+**Object.** Three consequences of reading a flow as data-flow. First, what the computations of a reading give is itself a flow; naming the reading names it, and another reading reads it. Chaining steps (Q-LEM-214, kept open) is reading what a case gave, and sending needs no word as long as the wiring says where things go — your remark that routing is natural and implicit. Second, the label you ask about. What a case caught already has the refined type of its pattern, so a later reading that asks `@dark` of a flow of `dark` has nothing to test. Where the results of several cases meet in one flow, that flow's type is their sum, and the sum's `tag` is the label; where nothing meets, nothing is carried. Third, instances. A case whose computation is layer 3 keeps no state, so its copies are interchangeable; P3 asks that their number be a bound known beforehand — chapter 4: « chaque anneau a une capacité qui est un grade » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)) — and P4 that the order of what they give be restored or journaled.
+
+**Facts.**
+
+- Orleans: « The Orleans Runtime automatically creates additional activations of a stateless worker grain if the existing ones are busy. The maximum number of activations per silo is limited by default by the number of CPU cores on the machine »; such activations « aren't individually addressable » (Orleans, stateless workers (https://learn.microsoft.com/en-us/dotnet/orleans/grains/stateless-worker-grains)).
+- The old K archive listed the properties `:replicas`, `:policy` and `:growth-policy`, and the back-pressure policies `block` and `drop-oldest` (research (https://github.com/AntheaLiles/k7pl/blob/main/wiki/research.md)).
+
+- **A — The type is the label; a `tag` only where cases meet; instances for cases without state, within a grade.** As above. A new instance is raised when a mailbox is full, up to a bound written as a grade; beyond it the writer waits. What the instances give is merged in the order the journal records.
+
+  *For:* no cost that the text does not show (P3); a label only where something must be told apart. *Against:* a case that keeps state cannot be copied; the next automaton must know the wiring to know the type it receives.
+
+- **B — Everything caught always travels with a label naming its case.**
+
+  *For:* the next automaton reads the label without knowing the wiring. *Against:* a cost on every element, which P3 would have the text show.
+
+- **C — No instance by itself: a full mailbox makes its writer wait; copies are asked by a property.**
+
+  *For:* bounded and visible in the text. *Against:* against your answer on scalability.
+
+#### Q-FRM-007 — Rules: the same form for logic and for constraints
+
+**Fiche.**
+
+- **Now in the specification:** the deductive extension: a set of rules compiled into `fix f`, relations as layer-1 arenas, semi-naive evaluation, stratified negation (`ERR-TER-002`); `[sql|…|sql]`, pure and terminating; refinement types and the solver of Phase 7
+- **Recorded:** the semipositive rule for negation, taken in the closed world of the values present (sixth part); coverage graduated (VOC-2026-11-12-002)
+- **Absorbs:** Q-LEM-115; part of Q-LEM-209
+
+**Form.**
+
+```text
+[fix [case [join [edge @a @b] [path @b @c]] [path a c]]]   ;; layer 3: closed to a fixed point, and it ends
+```
+
+**Object.** A rule of a deductive engine is a case: its pattern joins facts through shared holes, and its computation gives a fact. Closed by `fix` over relations, it is chapter 4's deductive extension, in layer 3, where the whole program is then `fix f` (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)); `not` is its stratified negation. Read on a flow in layer 2, the same case fires at each new fact, which is what semi-naive evaluation does round by round: it « ne considère que les faits nouveaux du tour précédent ». The hole is the variable of logic programming and of constraint solving alike: Phase 3 unifies, and the solver of Phase 7 decides at compile time what it can of a pattern — that two cases are disjoint, that they cover, that an `and` accepts nothing — the rest staying a test the automaton runs.
+
+**Facts.**
+
+- Datalog: « evaluating Datalog programs always terminates »; bottom-up strategies « repeatedly add consequences of the rules until a fixpoint is reached » (Datalog (https://en.wikipedia.org/wiki/Datalog)).
+- Constraint Handling Rules: « In contrast to Prolog, CHR rules are multi-headed and are executed in a committed-choice manner using a forward chaining algorithm » (CHR (https://en.wikipedia.org/wiki/Constraint_Handling_Rules)).
+- Chapter 7: « Le calcul lui-même est un `fix` de couche 3 sur le type des relations, dont la hauteur finie tient au nombre fini de sommets » (chapter 7 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C7/CaseStudyIIIDeductiveEngineOnColumnarArenas.lean)).
+
+- **A — Rules are cases: the deductive extension is written with this form.** `[sql|…|sql]` remains what it is, a text of another language.
+
+  *For:* one form for matching, routing and deduction; a rule can be read on a flow or closed over a relation without being rewritten. *Against:* the kernel's `fix` and its theorem must be stated for cases; a proof obligation.
+
+- **B — Rules stay in qualified literals; cases read flows and values only.**
+
+  *For:* nothing to prove anew. *Against:* two ways to write a join: in a case and in a foreign text.
+
+- **C — Rules are cases read in layer 2 only; the compiler writes the layer-3 fixed point.**
+
+  *For:* the programmer writes one thing. *Against:* termination is no longer visible in the text.
+
+#### Q-FRM-008 — Coverage, graduated
+
+**Fiche.**
+
+- **Your answer:** « Je pense que nous pouvons adopter A de manière graduée pour faciliter le prototypage et donc proposer un hybride entre A et B. » (VOC-2026-11-12-002)
+- **Recorded:** a warning never blocks compilation unless a flag asks for it (VOC-2026-10-27-077)
+- **Observed:** the glossary and Annex A refuse an uncovered combination of messages; chapter 4 refuses it only « dans le profil qui adopte la couverture exhaustive »
+- **Absorbs:** Q-LEM-209, 210
+
+**Object.** K7PL's own word for « graduated » is in its first page: to graduate, « dans un seul langage et sans changer de paradigme, le niveau de rigueur payé localement ». The question is what graduates coverage: something the program already says, or something set beside it. Chapter 6 has a precedent for the second: « En mode `+strict-tdd`, un symbole public sans doctest associé est lui-même rejeté » (chapter 6 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C6/VerificationAndTestStrategies.lean)).
+
+- **A — By what K7PL already grades: the layer and the usage grade.** Coverage is required where it is owed: on a linear flow, each element having to be taken once; and on a value read in layer 3, which is total. Elsewhere an element no case catches goes on (unrestricted) or is dropped (affine), and the compiler says so in a remark.
+
+  *For:* nothing to set; a prototype on unrestricted flows is free, and rigour comes with the grade. *Against:* no way to ask for more on an unrestricted flow.
+
+- **B — By a flag: a warning by default, a refusal under a strict flag.**
+
+  *For:* simple to explain; as `+strict-tdd`. *Against:* a program's meaning on unforeseen input depends on how it is compiled.
+
+- **C — Both: A's minimum by structure, and a flag that turns the remaining remarks into refusals.**
+
+  *For:* your hybrid: what is owed is always required, the rest can be raised. *Against:* two mechanisms.
+
+### What follows
+
+#### Q-DOS-001 — The dossiers that follow
+
+**Object.** If Q-METH-003 keeps the method, which themes come next, and in what order (say the order in the comment)? Each takes up the questions set aside, as whole forms. The questions of lemma lots 2 and 3 that each would take up are named.
+
+Several options may be chosen.
+
+- **time — Time and order over flows.** Sequences of events, windows and deadlines, the model of time, previous values, the order of a mailbox, a flow faster than its reader (Q-LEM-117, 118, 223, 225 to 229).
+
+- **effects — Sequencing and effects.** `bind` and the unit, operations and what resumes them, scoped operations, failures (Q-LEM-103, 111, 215); the faulty examples of `bind` are rewritten there.
+
+- **objects — Objects and observations.** The negative product, codata and copatterns, actors, `invoke`, `summon` and `daemon` (Q-LEM-105, 106, 122).
+
+- **types — Definitions, types and holes.** `def` and its envelopes, typed holes and generics, refinements, existentials, recursive types (Q-LEM-112 to 114).
+
+- **resources — Resources and grades.** The pair, `box` and `unbox`, `free`, `slice`, budgets, `declassify` (Q-LEM-104, 123, 124).
+
+- **place — Sources, places and distribution.** Which sources are flows, how a flow is simulated, `loc`, `move`, `at`, clusters (Q-LEM-120, 219, 220).
 
 ## The catalogue, verbatim
 

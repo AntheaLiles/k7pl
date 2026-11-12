@@ -845,6 +845,47 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Lemma lot 3: answers given up to 2026-11-12 (fourteen questions), and
+  the author's statement on method.** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-05-001 to -003,
+  VOC-2026-11-06-001 to -003 and VOC-2026-11-12-001 to -011. Dated
+  preferences, ratified only in the global lot (VOC-2026-10-26-002).
+  In short:
+  - Reading a flow: the word `catch` is withdrawn, implicit in what
+    `case` takes; a word that reads an identified flow takes the head
+    and the cases follow it. A `case` is a pattern and a computation;
+    every case that matches runs, as AWK; nothing happens when a
+    pattern is not found, and the reverse is a pattern that negates.
+  - Patterns: a held value is compared in the pattern, without `^`;
+    patterns need holes, as SQL's `LIKE`; the logical constructors
+    are to be added; a pattern stays structural, catching being
+    parallel to what the flow does; the automaton's class is always
+    inferred.
+  - Routing: the flow is divided and piped to one sub-automaton per
+    case; a new instance is raised when a mailbox is full; whether a
+    found pattern travels with a label is to be evaluated.
+  - Control flow: `choose` and `select` leave layer 3, branching to be
+    found again; a continuation is a function, applied, limited by its
+    grade.
+  - Coverage: required, in a graduated way that eases prototyping.
+  Kept open: Q-LEM-103, Q-LEM-203, Q-LEM-214, Q-LEM-218.
+  Put back to the author: what `xand` and `xnand` denote; « cached 3
+  times », read as « caught three times ».
+  Statement of 2026-11-12: the lexical research does not converge
+  because each subject is cut too finely; the author would prefer
+  coherent research by theme, leading to generic forms; and examples
+  offered in the options broke the nesting rule of the layers.
+  Checked: 12 of 123 texts, all `ERR-TOP-001`; listed in
+  [research](research.md).
+  **Proposed, awaiting the author's confirmation (Q-METH-003):** one
+  dossier per theme, ending in generic forms written in K7PL and
+  checked against the nesting rule; the words come last, per form.
+  Dossier 1, « reading a flow », is written that way in
+  [research](research.md), with eight forms put to the author
+  (Q-FRM-001 to Q-FRM-008). The unanswered questions of lemma lots 2
+  and 3 are set aside: a form replaces them or a later dossier takes
+  them up.
+  Not applied: nothing changes in `spec/` or `lexicon/`.
 - **Lemma lot 2: answers given up to 2026-11-04 (seven questions).**
   Recorded verbatim in [questions](questions.md) as
   VOC-2026-11-03-019 to VOC-2026-11-03-022 and VOC-2026-11-04-004 to
