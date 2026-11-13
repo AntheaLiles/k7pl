@@ -845,6 +845,36 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Thematic dossier 1: the corrected reading confirmed on 2026-11-12,
+  and the second version.** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-12-019 to -023. Dated
+  preferences, ratified only in the global lot (VOC-2026-10-26-002).
+  In short:
+  - The corrected reading of the layers is right: layer 2 is a classic
+    Lisp or Scheme on the heap, where one computes, orchestrates and
+    reacts; layer 3 is passive, pure, made only of operators on the
+    stack; `case` exists in layer 2 only.
+  - Layer 3 is meant for computation of very high performance:
+    tensors, matrix computation, strictly bounded protocols.
+  - `read` can be abandoned under a true publish and subscribe logic,
+    routing being written with the monadic connectors.
+  - NAND is F, T, T, T; the table recorded from the attachment is
+    corrected.
+  - The example `@"jul?"` was indicative and is to be criticised.
+  Corrected in this record: « branchement » is a connection, a plug,
+  not a branching; the record now writes « connector ».
+  Dossier 1 is rewritten in [research](research.md), « Thematic
+  dossier 1, second version (2026-11-12): observing a flow », with the
+  exploration the author asked for (TXR, AWK, jq, Perl, Raku) and a
+  survey of publish and subscribe. Eight forms are put to the author
+  (Q-FRM-101 to Q-FRM-108) and the dossiers that follow (Q-DOS-002).
+  The four cards of the first version left unanswered are withdrawn.
+  Put back to the author: whether the monadic connectors are the
+  properties recorded on 2026-10-27; whether chapter 5's rule of the
+  least permissive fragment and its first example are rewritten.
+  Not read: TXR Lisp's structural pattern matching, the current
+  manual refusing every request.
+  Not applied: nothing changes in `spec/` or `lexicon/`.
 - **Thematic dossier 1: answers of 2026-11-12 (six of ten cards), and
   the table of logical operators.** Recorded verbatim in
   [questions](questions.md) as VOC-2026-11-12-012 to -018. Dated

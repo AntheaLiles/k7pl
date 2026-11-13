@@ -7834,7 +7834,7 @@ Several options may be chosen.
 | XOR | `∨` with a bar below | `(xor a b)` | F | T | T | F |
 | XNOR | `∨` with a bar above and a bar below | `(xnor a b)` | T | F | F | T |
 | AND | `∧` | `(and a b)` | T | F | F | F |
-| NAND | `∧` with a bar above | `(nand a b)` | F | F | F | T |
+| NAND | `∧` with a bar above | `(nand a b)` | F | T | T | T |
 | IMPLY | `⇒` | `(imply a b)` | T | F | T | T |
 | NIMPLY | `⇏` | `(nimply a b)` | F | T | F | F |
 
@@ -7845,7 +7845,7 @@ The two operators of one operand:
 | YES | `⌟` | `(yes a)` | T | F |
 | NOT | `¬` | `(not a)` | F | T |
 
-- **Put back to the author:** the table drawn for NAND is the table of NOR (F, F, F, T). The gate drawn, an AND whose output is negated, gives F, T, T, T. The row above records the attachment as given; which is meant?
+- **Corrected on the author's instruction (VOC-2026-11-12-022):** the attachment drew for NAND the table of NOR (F, F, F, T). The gate drawn, an AND whose output is negated, gives F, T, T, T, which the row above now records.
 
 **What the six answers correct**, as read, to be confirmed by the author before dossier 1 is rewritten.
 
@@ -7856,6 +7856,393 @@ The two operators of one operand:
 - The dossier reduced a pattern to a construction with holes (Q-FRM-003). The author: a pattern can be tied to properties, grades, labels and types, and can be a regular expression or a character table; wildcards are typed holes and create patterns.
 
 The cards Q-FRM-006, Q-FRM-007, Q-FRM-008 and Q-DOS-001 are not answered. They rest on the same readings and are left as asked until the dossier is rewritten.
+
+## Confirmation of 2026-11-12: the corrected reading of the layers
+
+After the statement above, five questions were put to the author in the conversation:
+
+1. whether the corrected reading was right (layer 2 a classic Lisp or Scheme on the heap, where one computes, orchestrates and reacts; layer 3 passive and pure, made only of operators on the stack; `case` in layer 2 only; K7PL publish and subscribe, with `read`, which consumes, and `observe`, which looks at a flow that keeps its destination; patterns tied to properties, grades, labels and types, or being a regular expression or a character table, wildcards being typed holes; ten logical operators used directly);
+2. what sends a computation to layer 3, and whether chapter 5's first example, `?increment-bounded`, stands;
+3. whether `observe` takes the same `case` clauses as `read`;
+4. whether NAND is F, T, T, T;
+5. what `?` denotes in `@"jul?"`.
+
+**Answer of the author — 2026-11-12 (VOC-2026-11-12-019 to -023), given in the conversation, quoted as given.**
+
+> 1. Le résumé est juste
+> 2. La couche 3 a vocation à accueillir des calculs de très haute performance (tenseurs, calcul matriciel, prise en charge de protocol strictement borné, etc.)
+> 3. read peut même être abandonné si on applique une véritable logique pub/sub en sachant que le routage est instrumentable de manière expressive par les connecteurs monadiques
+> 4. Oui corrige l'anomalie
+> 5. Mon exemple etait purement indicatif et méritte d'être critiqué.
+
+- **VOC-2026-11-12-019, reading:** the corrected reading of question 1 is right.
+- **VOC-2026-11-12-020, reading:** layer 3 is meant for computation of very high performance: tensors, matrix computation, the handling of a strictly bounded protocol, and so on. Whether chapter 5's first example stands is not answered; it is asked in Q-FRM-107.
+- **VOC-2026-11-12-021, reading:** `read` can even be abandoned if a true publish and subscribe logic is applied, routing being expressible by the monadic connectors. The connectors are read as the properties recorded on 2026-10-27 (VOC-2026-10-27-030, VOC-2026-10-27-061): `:return`, `:bind`; `:perform`, `:scoped`, `:try`, `:catch`; `:before`, `:after`, `:around`. This reading is put to the author in Q-FRM-103. Question 3 falls with `read`.
+- **VOC-2026-11-12-022, reading:** NAND is F, T, T, T; the anomaly of the attachment is corrected in the table above.
+- **VOC-2026-11-12-023, reading:** the example `@"jul?"` was only indicative and is to be criticised; done in Q-FRM-105.
+
+A word corrected in this record: the author's « branchement » (VOC-2026-10-27-030) was translated by « branching ». It is a connection, a plug, as in « un seul bind qui branche l'expression à sa droite » (VOC-2026-11-03-006). From here on the record writes « connector ».
+
+## Thematic dossier 1, second version, of 2026-11-12: observing a flow (Q-FRM-101 to Q-FRM-108, Q-DOS-002)
+
+Opened on 2026-11-13, once the author had confirmed the corrected reading (above). The argument and its
+sources are in [research](research.md), « Thematic dossier 1, second version (2026-11-12): observing a
+flow ». Each card gives one form and asks about it as a whole. **Other** and **Clarify** are always
+available.
+
+Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the reading it now starts from (VOC-2026-11-12-019 to -021). Layer 2 is a classic Lisp or Scheme on the heap, where one computes, orchestrates and reacts. Layer 3 is passive and pure, made only of operators on the stack, and meant for very-high-performance computation: tensors, matrix computation, strictly bounded protocols. `case` triggers an action in reaction to a fact, and exists in layer 2 only. K7PL is publish and subscribe: a flow is sent to the automaton that asks for it, `observe` looks at a flow that keeps its destination, and `read` may be abandoned, routing being written with the monadic connectors. The ten logical operators of your table are used directly. As you asked, TXR, AWK, jq, Perl and Raku were read again for patterns, with a survey of publish and subscribe; the reading is in research.md, « Thematic dossier 1, second version ». Each card gives one form and asks about it as a whole. Every example is on your scenario, frames sent to a display. In every example a computation is written in layer 2, between parentheses; brackets appear only where a matrix is computed. Every example has been checked against the nesting rule of the layers. Every word of the examples other than `observe`, `case` and the ten operators is a placeholder. An answer is a dated preference, ratified only in the global lot (VOC-2026-10-26-002). **Other** and **Clarify** are always available, and a comment is worth more than a choice.
+
+**Withdrawn.** The four cards of the first version left unanswered are no longer shown on the page:
+
+- Q-DOS-001: asked again as Q-DOS-002.
+- Q-FRM-006: rewritten as Q-FRM-108.
+- Q-FRM-007: withdrawn: it wrote `case` in layer 3; rules go to a later dossier (Q-DOS-002).
+- Q-FRM-008: withdrawn: coverage is owed by what an automaton is sent, not by what it observes; it goes with automata and actors (Q-DOS-002).
+
+### Observing and routing
+
+#### Q-FRM-101 — Observing: the one form, and the place of `:on`
+
+**Fiche.**
+
+- **Your answers:** `observe` (VOC-2026-11-12-013): « un flux a déjà sa destination, en l'observant on peut réaliser des opérations par réaction sans dévier le flux »; « read peut même être abandonné si on applique une véritable logique pub/sub » (VOC-2026-11-12-021)
+- **Recorded:** `case` is « le mot de déclanchement d'action par réaction à un fait observé/lu ce qui est une propriété exclusive de la couche 2 » (VOC-2026-11-12-016); cases do not know one another, and nothing happens when a pattern is not found (VOC-2026-11-12-003)
+- **Now in the specification:** an actor's `:on (Increment :sets value …)`, « la forme abrégée d'une réaction »; chapter 3's `guard`, which consumes the messages it matches
+- **Replaces:** Q-FRM-001 and Q-FRM-002 of the first version
+
+**Form.**
+
+```text
+(observe frames
+  (case @dark   (warn operator))
+  (case @bright (dim display)))
+```
+
+**Object.** The form as you corrected it. An observer stands beside a flow that has its destination; each `case` reacts, in layer 2, and nothing is diverted. This is the one gesture of publish and subscribe: being notified. Taking is the gesture of tuple spaces and queues, where « consumers pull new tuples from the space in a synchronous style » (Eugster et al. (https://www.cs.princeton.edu/courses/archive/spr17/cos598D/PublishSubscribe03.pdf)). If `read` goes, one thing is left to place: the automaton a flow is sent to. Its reactions are written today in its `:on` clauses.
+
+**Facts.**
+
+- Eugster et al.: in publish and subscribe, « subscribers register their interest in an event, or a pattern of events, and are subsequently asynchronously notified of events generated by publishers » (The Many Faces of Publish/Subscribe (https://www.cs.princeton.edu/courses/archive/spr17/cos598D/PublishSubscribe03.pdf)).
+- The same survey on Linda: « in() to import (and remove) a tuple from the tuple space, and read() to read (without removing) a tuple »; and on the event service: « every subscriber will receive an event for every event conforming to its interest » (Eugster et al. (https://www.cs.princeton.edu/courses/archive/spr17/cos598D/PublishSubscribe03.pdf)).
+- Chapter 5: « la clause `:on … :sets` n'est que la forme abrégée d'une réaction » (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/InPractice.lean)).
+
+- **A — One form everywhere: an automaton observes what it is sent as it observes any flow.** `:on` becomes the abbreviation of `observe` inside an actor, its own input being the flow left unsaid.
+
+  *For:* one form and one word for every reaction. *Against:* the text no longer tells the destination of a flow from those that look at it.
+
+- **B — Two places: `observe` for a flow that goes elsewhere, `:on` for what the automaton itself is sent.**
+
+  *For:* the destination is visible in the text; chapter 5's actor stays as written. *Against:* a reaction has two writings.
+
+- **C — `read` stays beside `observe` after all, for what is taken.**
+
+  *For:* your first answer (VOC-2026-11-12-014). *Against:* you said since that true publish and subscribe does without it.
+
+#### Q-FRM-102 — Asking for a flow: by name, by type, by content
+
+**Fiche.**
+
+- **Your answers:** « un flux est envoyé à un automate le demandant » (VOC-2026-11-12-013); your sketch reads « un flux de donnée identifié » (VOC-2026-11-12-006)
+- **Recorded:** everything is a pattern, and `@x` is every pattern of `x` (VOC-2026-11-04-002); « Un pattern peut etre lié à des propriétés, au grade, aux labels, aux types » (VOC-2026-11-12-016)
+
+**Form.**
+
+```text
+(observe frames                          (case @dark (warn operator)))   ;; by name: the flow called `frames`
+(observe @frame                          (case @dark (warn operator)))   ;; by type: whatever is published that is a `frame`
+(observe (and @frame (not @test-frame))  (case @dark (warn operator)))   ;; by a pattern: types and properties, combined
+```
+
+**Object.** Publish and subscribe systems differ by how a subscriber says what it wants, and the survey names three ways. By topic: a name, with hierarchies and wildcards. By content: events are classified « according to the properties of the events themselves », and the filters « can be logically combined (and, or, etc.) to form complex subscription patterns ». By type: « a scheme that filters events according to their type », where « type safety can be ensured at compile-time » (Eugster et al. (https://www.cs.princeton.edu/courses/archive/spr17/cos598D/PublishSubscribe03.pdf)). K7PL's patterns already cover the three: a name or a label, a type or a refinement, properties, and the logical operators to combine them. The question is what may stand after `observe`.
+
+**Facts.**
+
+- NATS: « While publishers always send to a fully specified subject, subscribers can use wildcards to receive messages from multiple subjects » (NATS, subjects (https://docs.nats.io/nats-concepts/subjects)).
+- The survey on what a subscriber knows: subscribers register « without knowing the effective sources of these events » (Eugster et al. (https://www.cs.princeton.edu/courses/archive/spr17/cos598D/PublishSubscribe03.pdf)).
+
+- **A — A name: the flow is identified, as in your sketch; the patterns are in the cases.**
+
+  *For:* the wiring is read from the text: each observer names its flow. *Against:* an observer must know the name of what it looks at.
+
+- **B — A pattern: a name is the simplest one; a type, a refinement or a combination can stand there too.**
+
+  *For:* « tout est motif »; subscription by type is checked at compile time, and an observer need not know who publishes. *Against:* the wiring must be computed from the types; an observer may receive flows it did not foresee.
+
+- **C — A type, always.**
+
+  *For:* one rule, checked at compile time. *Against:* two flows of one type cannot be told apart.
+
+#### Q-FRM-103 — Routing: the destination of a flow, and the connectors
+
+**Fiche.**
+
+- **Your answer:** « le routage est instrumentable de manière expressive par les connecteurs monadiques » (VOC-2026-11-12-021)
+- **Recorded:** « les constructions monadiques sont des "branchements" explicites déclarés avec le préfixe ":" donc ":bind something" et ":return somethingelse" » (VOC-2026-10-27-030); « un seul bind qui branche l'expression à sa droite (defun lambda :bind exp) » (VOC-2026-11-03-006); the families kept on 2026-10-27 (VOC-2026-10-27-061): `:return`, `:bind`; `:perform`, `:scoped`, `:try`, `:catch`; `:before`, `:after`, `:around`
+- **A word corrected:** this record has translated « branchement » by « branching »; it is a connection, a plug, and the cards now write « connector »
+
+**Form.**
+
+```text
+(capture camera :bind display)   ;; `:bind` plugs what the form gives into what stands on its right
+```
+
+**Object.** My reading of your sentence, to confirm: the monadic connectors are the properties recorded on 2026-10-27. `:bind` gives a flow its destination, as a pipe does. `:before` and `:after` attach a treatment whose result is not used, which is what an observer is. `:around` stands in the path and decides whether what it wraps runs: it is the only one that can divert. `:try` and `:catch` route a failure. If « monadique » meant instead the operators of one operand, `yes` and `not`, say so: the card is then beside the point.
+
+**Facts.**
+
+- jq: « The | operator combines two filters by feeding the output(s) of the one on the left into the input of the one on the right »; « If two filters are separated by a comma, then the same input will be fed into both » (jq manual (https://jqlang.org/manual/)).
+- CLOS: « All the before methods are called, in most-specific-first order. Their values are ignored »; inside an around method, « call-next-method can be used to call the next method » (CLHS 7.6.6.2 (https://www.lispworks.com/documentation/HyperSpec/Body/07_ffb.htm)).
+
+- **A — `:bind` writes the destination; `observe` is how one stands beside a flow; `:before`, `:after` and `:around` attach to a definition, as in CLOS.**
+
+  *For:* each connector keeps the sense it was recorded with. *Against:* two ways to stand beside something: `observe` for a flow, `:after` for a definition.
+
+- **B — The same connectors attach to flows: `:after` is an observer, `:around` an interception; `observe` is their long form.**
+
+  *For:* one family for all routing; what `read` did is `:around`. *Against:* `observe` and `:after` then say one thing twice.
+
+- **C — Other connectors are meant.**
+
+### Patterns
+
+#### Q-FRM-104 — What a pattern can be, and how what was caught is named
+
+**Fiche.**
+
+- **Your answer:** « Un pattern peut etre lié à des propriétés, au grade, aux labels, aux types, mais aussi une regex, une table de caractère, etc. » (VOC-2026-11-12-016)
+- **Recorded:** `@` in front of a construction catches that pattern; what is caught has the refined type of its construction (VOC-2026-11-04-001); a held value is compared, without `^` (VOC-2026-11-06-001)
+- **Already in K7PL:** a type name without a width is a typed hole (`int`, `str`); « une étiquette n'est jamais liante »; a field is read with the lens `view`; in an actor's `:on` clause « `state` désigne l'état de l'acteur », without being declared
+- **Replaces:** Q-FRM-003 of the first version, kept open
+
+**Form.**
+
+```text
+(case @frame                    (count it))   ;; a type
+(case @dark                     (count it))   ;; a refinement, declared in layer 1
+(case @(Reply id str)           (count it))   ;; a construction: `id` is held and compared, `str` is a typed hole
+(case @(Order :priority urgent) (count it))   ;; a property
+(case @"jul*"                   (count it))   ;; a text with holes: the next card
+```
+
+**Object.** One relation, « is this an x? », for many kinds of x. Raku has it in one operator: « The semantics are left to the type of the right-hand side operand » — a type checks the type, a regular expression matches, a piece of code is called (Raku, operators (https://docs.raku.org/language/operators)). On values held, TXR needs no mark either: a variable without a binding matches and binds, and one that has a value is compared, « The bound variable is effectively replaced by the text which it denotes » (TXR manual (https://man.uex.se/1/txr)). K7PL can go one step further with what it has: a bare type name is already a typed hole, so inside `@( … )` a type name is a hole of that type and anything else is held and compared. No mark, and no word that both binds and compares. What remains is how a reaction names what was caught. In the examples, `it` is a placeholder for that.
+
+**Facts.**
+
+- Raku's refinement of a type is a pattern of its own: « A `subset` declares a new type that will re-dispatch to its base type. If a where clause is supplied any assignment will be checked against the given code object », as `subset Positive of Int where * > -1` (Raku, type system (https://docs.raku.org/language/typesystem)).
+- AWK names nothing: the record is `$0` and « The awk utility shall denote the first field in a record $1, the second $2, and so on » (POSIX, awk (https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html)). jq's filter receives its input as `.`.
+- Raku's regexes take Unicode properties as classes: « `<:Lu>` matches a single, uppercase letter », and « Categories can be used together, with an infix operator » (Raku, regexes (https://docs.raku.org/language/regexes)). Perl's `tr` works from a table: « the transliteration table is built at compile time » (perlop (https://perldoc.perl.org/perlop)).
+
+- **A — Nothing is named in a pattern: the reaction receives what was caught under one fixed word, and reads its parts with `view`.**
+
+  ```text
+  (case @(Reply id str) (parse (view it body)))
+  ```
+
+  *For:* `@` has one reading and a pattern never binds; AWK's `$0`, jq's `.`, the `state` of `:on`. *Against:* one observer inside another hides the outer word.
+
+- **B — The whole is named by a property after the pattern; its parts are read with `view`.**
+
+  ```text
+  (case @(Reply id str) :as reply (parse (view reply body)))
+  ```
+
+  *For:* explicit, and it nests. *Against:* one more property to write each time.
+
+- **C — A hole can carry a name, as TXR's variables and ML's patterns.**
+
+  *For:* the part is at hand without `view`. *Against:* needs a writing for a named hole, which `@name` cannot be while `@x` is every pattern of `x`.
+
+#### Q-FRM-105 — Holes in a text: your `@"jul?"`, criticised
+
+**Fiche.**
+
+- **Your example:** « je pourrais demander @"jul?" Et trouver jul jule julie julia juliette etc. => ici je veux indiquer que les wildcards font parti des trous typés et permettent également de créer des pattern » (VOC-2026-11-12-016); « Mon exemple etait purement indicatif et méritte d'être critiqué » (VOC-2026-11-12-023)
+- **Recorded:** a plain text never interpolates; `text@text` is a text; a class is written `:alpha:`, and `[[:alpha:]]` holds its code points
+
+**Form.**
+
+```text
+@"jul*"            ;; the glob alphabet: `*` any text, `?` one grapheme
+@("jul" str)       ;; the same pattern, its hole written as a typed hole
+@("jul" :alpha:)   ;; `jul` then one letter: a hole typed by a class
+```
+
+**Object.** The criticism, in three points. First, `?` has three senses. In a shell pattern « A <question-mark> is a pattern that shall match any character » (POSIX, pattern matching (https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html)); in a regular expression « The `?` quantifier makes the preceding atom match zero or once » (Raku, regexes (https://docs.raku.org/language/regexes)); in SQL's `LIKE` it is an ordinary character, the wildcards being `_` and `%` (PostgreSQL (https://www.postgresql.org/docs/current/functions-matching.html)). None of the three gives your five names as whole texts: the shell pattern finds only `jule`, the regular expression only `ju` and `jul`. Your list is what `jul*` gives in a shell, `jul%` in SQL, or a search for `jul` inside the text. Second, the example therefore hides two choices: which alphabet of wildcards, and whether a pattern must cover the whole text or may be found inside it. Third, what your sentence adds is the part to keep: a wildcard is a typed hole. `?` is a hole of one grapheme and `*` a hole of `str`; a class types a hole more finely. A plain text never interpolates, so it is `@` that makes the text a pattern.
+
+**Facts.**
+
+- POSIX: « The <asterisk> ('*') is a pattern that shall match any string, including the null string » (POSIX, pattern matching (https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html)).
+- SQL: « An underscore (`_`) in pattern stands for (matches) any single character; a percent sign (`%`) matches any sequence of zero or more characters » (PostgreSQL, LIKE (https://www.postgresql.org/docs/current/functions-matching.html)).
+- TXR writes a hole with its width or its regular expression: a variable with a regular expression « extends over all characters from the current position which match the regular expression » (TXR manual (https://man.uex.se/1/txr)).
+
+- **A — The shell alphabet inside `@"…"`: `?` one grapheme, `*` any text; the whole text must match.**
+
+  ```text
+  @"jul*"
+  ```
+
+  *For:* the shortest; known from shells and from the subjects of publish and subscribe. *Against:* `?` and `*` become special in a pattern text and need an escape; the holes have no finer type.
+
+- **B — Holes written as typed holes: a text pattern is a sequence of texts and holes.**
+
+  ```text
+  @("jul" str)
+  ```
+
+  *For:* your sentence to the letter; no character becomes special; a class or a type refines the hole. *Against:* longer for the frequent case.
+
+- **C — Both: A is the short writing of B, the formatter showing either.**
+
+  *For:* short to write, one meaning. *Against:* two writings to learn.
+
+- **D — The alphabet of regular expressions, as Perl and Raku.**
+
+  ```text
+  @"jul.*"
+  ```
+
+  *For:* the most expressive, and R-expressions already compile it. *Against:* the class of the automaton is less visible; `?` then means « optional », not « one character ».
+
+#### Q-FRM-106 — The ten operators: how many operands
+
+**Fiche.**
+
+- **Your table:** `or`, `nor`, `xor`, `xnor`, `and`, `nand`, `imply`, `nimply`, each written `(op a b)`; `yes` and `not`, written `(op a)` (VOC-2026-11-12-018); NAND corrected to F, T, T, T (VOC-2026-11-12-022)
+- **Your answer:** « Utiliser directement les opérateurs logiques » (VOC-2026-11-12-015)
+- **Recorded:** « Couche 3 monadique ET dyadique, pas de triadique. En couche 2 c'est n-air. » (VOC-2026-10-28-033)
+- **Replaces:** Q-FRM-004 of the first version
+
+**Form.**
+
+```text
+(observe frames
+  (case (and @dark (not @corrupt)) (warn operator))
+  (case (nor @dark @bright)        (store sample)))
+```
+
+**Object.** Used directly: a pattern answers yes or no of what is observed, so the operators of the language combine patterns and none is reserved for them. AWK does so: its pattern is « any valid expression, a range specified by two expressions separated by a comma », or one of two special words (POSIX, awk (https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html)). So does a subscription by content, whose constraints « can be logically combined (and, or, etc.) » (Eugster et al. (https://www.cs.princeton.edu/courses/archive/spr17/cos598D/PublishSubscribe03.pdf)). Having one or two operands, the ten are also layer-3 operators as they stand: on vectors of truth values, cell by cell. One point remains for layer 2, whose words take any number of operands. `and` and `or` extend without question. With three operands `xor` has two readings, and `imply` and `nimply` have none.
+
+**Facts.**
+
+- TXR combines patterns the same way: `all` fails « If any of the clauses fails to match »; `some` succeeds « If any of the clauses succeed »; `none` « succeeds only if all of the clauses fail » (TXR manual (https://man.uex.se/1/txr)).
+- Raku's junctions: `all`, « no value evaluates to False »; `any`, « at least one value evaluates to True »; `one`, « exactly one value evaluates to True »; `none`, « no value evaluates to True » (Raku, Junction (https://docs.raku.org/type/Junction)).
+
+**Note.** One more point, for your comment and for the dossier on time: `(and @order @payment)`. No single element is both. Either the pattern matches nothing, or it asks for the two events together, what the survey calls correlation: « participants can subscribe to logical combinations of elementary events and are only notified upon occurrence of the composite events ». The second reading needs to say within what span of time.
+
+- **A — Two operands, as your table; more by nesting.**
+
+  ```text
+  (and @dark (and (not @corrupt) (not @test-frame)))
+  ```
+
+  *For:* the table is the whole definition; the same words in layers 2 and 3. *Against:* layer 2 nests where its other words do not.
+
+- **B — Any number of operands in layer 2 where the sense is one: `and`, `or`, `nand`, `nor`; `xor` and `xnor` by parity; `imply` and `nimply` of two.**
+
+  ```text
+  (and @dark (not @corrupt) (not @test-frame))
+  ```
+
+  *For:* layer 2's habit; parity is what nesting `xor` gives. *Against:* `(xor a b c)` is true when all three are, which surprises.
+
+- **C — As B, but `xor` of several operands means exactly one, as Raku's `one`.**
+
+  *For:* the sense most readers expect of « one or the other ». *Against:* `(xor a b c)` is no longer `(xor a (xor b c))`: the n-ary word and the table part ways.
+
+### Layers
+
+#### Q-FRM-107 — What layer 3 is asked for; chapter 5's sentence and its first example
+
+**Fiche.**
+
+- **Your answers:** « La couche 3 a vocation à accueillir des calculs de très haute performance (tenseurs, calcul matriciel, prise en charge de protocol strictement borné, etc.) » (VOC-2026-11-12-020); layer 2 is « un Lisp/Scheme classique, sur le heap », and `[add value 1]` « serait overkill » (VOC-2026-11-12-017); « La couche 3 utilise uniquement des opérateurs sur la stack » (VOC-2026-11-12-016)
+- **Recorded:** « les automates compilés en couche 3 sont invoqués paresseusement par l'orchestrateur » (fifth part)
+- **Now in the specification:** « Écrire du K7PL, c'est choisir, à chaque expression, le fragment le moins permissif que la tâche autorise »; a bounded counter whose increment is « une fonction pure de couche 3 » (`lst:fonction-pure`), called between brackets from `:on`; « la couche 2 orchestre et produit, la couche 3 calcule et termine »
+- **Replaces:** Q-FRM-005 of the first version
+
+**Form.**
+
+```text
+{def dark :type {{f frame [lt mean f 16]}}}   ;; layer 1 declares the type; the mean of a matrix is layer-3 work
+
+(observe frames
+  (case @dark   (add dark-count 1))           ;; a counter: layer 2, where any Lisp computes
+  (case @bright (store [histogram it])))      ;; the histogram of a matrix: layer 3, between brackets
+```
+
+**Object.** The corrected reading in one example: the counter is computed in layer 2, and brackets appear where a matrix is computed. The specification points the other way in three places: its rule of the least permissive fragment sends every pure computation to layer 3, its first example is a counter written there, and its summary of the roles leaves computing to layer 3 alone (chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/InPractice.lean), chapter 5 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C5/UniversalSExpressions.lean)). The first version of this dossier followed them. Whether the specification changes is yours to decide, and nothing is applied without your go-ahead.
+
+- **A — Rewrite the three: the rule says what layer 3 is for, the roles say that layer 2 computes, the example counts in layer 2 and shows layer 3 on a matrix or a bounded protocol.**
+
+  *For:* the specification says what you say. *Against:* the example runs through four listings of chapter 5 and the text around them; a wide change.
+
+- **B — Keep the rule and add its cost, a bracket asking for an automaton; change the example only.**
+
+  *For:* a smaller change. *Against:* the rule still reads as « pure, hence layer 3 ».
+
+- **C — Leave the three as they are.**
+
+  *For:* nothing to rewrite. *Against:* the next reader makes the mistake this dossier made.
+
+#### Q-FRM-108 — What a reaction gives: publication, label, instances
+
+**Fiche.**
+
+- **Your answer:** « 1 flow and 3 patterns to catch with dedicated actions to run on them, the flow is divided and piped to 3 sub-automatas ; […] the flow is wired to a single automata with its mailbox until the mailbox is full and a new instance of the automata is rased to assure scalability » (VOC-2026-11-12-001)
+- **You asked:** « Il serait intéressant d'évaluer si un pattent trouvé est passé avec un label pour faciliter son identification par l'automate suivant ou non »
+- **Recorded:** the injection into a sum is `tag` (VOC-2026-11-03-011); an operation's continuation is a function, applied, limited by its grade (VOC-2026-11-12-005)
+- **Replaces:** Q-FRM-006 of the first version, not answered
+
+**Form.**
+
+```text
+(observe frames
+  (case @dark (mean-of it) :bind dark-means))   ;; what the reaction gives is published to `dark-means`
+
+(observe dark-means
+  (case @near-black (warn operator)))
+```
+
+**Object.** Under publish and subscribe a reaction that only reacts publishes nothing; one that gives something publishes it where its connector says. On the label you asked to evaluate: what a case caught has the refined type of its pattern, and subscription by type lets the next observer ask for that type, with nothing to test again. Where what several cases give is published to one flow, that flow's type is their sum, and the sum's `tag` tells them apart. So the type is the label, and a `tag` is carried only where flows meet. On instances: P3 asks that their number be known beforehand — chapter 4, « chaque anneau a une capacité qui est un grade » (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)) — and a reaction that keeps state cannot be copied.
+
+**Facts.**
+
+- Orleans: « The Orleans Runtime automatically creates additional activations of a stateless worker grain if the existing ones are busy. The maximum number of activations per silo is limited by default by the number of CPU cores on the machine » (Orleans, stateless workers (https://learn.microsoft.com/en-us/dotnet/orleans/grains/stateless-worker-grains)).
+- The survey on subscription by type: it « can lead to a natural description of content-based filtering through public members of the considered event type » (Eugster et al. (https://www.cs.princeton.edu/courses/archive/spr17/cos598D/PublishSubscribe03.pdf)).
+
+- **A — The type is the label; a `tag` only where flows meet; instances for reactions without state, up to a bound written as a grade.** Beyond the bound, whoever publishes waits.
+
+  *For:* no cost that the text does not show; a label only where something must be told apart. *Against:* the next automaton must know the types published to it.
+
+- **B — Everything caught always travels with a label naming its case.**
+
+  *For:* the next automaton reads the label and needs nothing else. *Against:* a cost on every element, which P3 would have the text show.
+
+- **C — No instance by itself: copies are asked by a property.**
+
+  *For:* bounded and visible. *Against:* against your answer on scalability.
+
+### What follows
+
+#### Q-DOS-002 — The dossiers that follow
+
+**Object.** Which themes come next, and in what order (say the order in the comment)? Each takes up, as whole forms, the questions set aside.
+
+Several options may be chosen.
+
+- **layer3 — Layer 3: the operators on the stack.** Tensors, matrix computation, strictly bounded protocols; the line of CBQN, Uiua, KAP, J and FIXAPL; what replaces `choose` and `select` (Q-LEM-213).
+
+- **time — Time, order and correlation over flows.** Two events « together », sequences, windows and deadlines, previous values, the order of a mailbox, a flow faster than its observers (Q-LEM-117, 118, 223, 225 to 229).
+
+- **connectors — The connectors, sequencing and effects.** The whole inventory of connectors, `bind` and the unit, operations and what resumes them, failures (Q-LEM-103, 111, 215); the faulty examples of `bind` are rewritten there.
+
+- **actors — Automata, actors and what they are sent.** Destinations and their mailboxes, coverage of what an automaton is sent, `invoke`, `summon` and `daemon`, objects and observations (Q-LEM-105, 106, 122, 209).
+
+- **rules — Rules and deduction.** A rule as an observer that correlates facts and publishes one; the fixed point computed in layer 3; negation and its strata (Q-LEM-115).
+
+- **types — Definitions, types and holes.** `def` and its envelopes, typed holes and generics, refinements, existentials, recursive types (Q-LEM-112 to 114).
+
+- **resources — Resources, grades, places.** The pair, `box` and `unbox`, `free`, `slice`, budgets, `declassify`, `loc` and `move`, sources and their simulation (Q-LEM-104, 120, 123, 124, 219, 220).
 
 ## The catalogue, verbatim
 
