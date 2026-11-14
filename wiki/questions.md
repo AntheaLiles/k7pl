@@ -8318,6 +8318,319 @@ After the answers to dossier 1, second version, three questions were put to the 
 - **VOC-2026-11-14-012, reading:** the order suits: dossier 2 on layer 1, then automata and actors, then rules and deduction.
 - **VOC-2026-11-14-013, reading:** the writing of the specification comes once everything has been dealt with, since several points will probably be iterated on. Nothing is applied to `spec/` or `lexicon/` before then, chapter 5's rewrite (Q-FRM-107) included.
 
+## Thematic dossier 2 of 2026-11-14: layer 1 (Q-FRM-201 to Q-FRM-209)
+
+Opened on 2026-11-14, after the author confirmed the reading of layer 1 and the order of the dossiers
+(VOC-2026-11-14-011, -012). The argument and its sources are in [research](research.md), « Thematic
+dossier 2 (2026-11-14): layer 1 ». Each card gives one form and asks about it as a whole. **Other** and
+**Clarify** are always available.
+
+Dossier 2, on layer 1, written on 2026-11-14 after you confirmed its reading (VOC-2026-11-14-011) and asked to consolidate it before the layers that derive from it. Layer 1 is the strictly linear context: nothing is duplicated or lost, and time is read twice, a finite budget in the grades and a `tick` in the effects. Its actions fall in four families: declaring and typing, holding memory, touching the outside world, supervising. Much is already settled by your earlier answers, and each card quotes them: types are set in layer 1 only, `def` is the primitive word with its envelopes, everything is monomorphised through typed holes, refinements are written `{{ … }}`, a delivery persists, `invoke`, `summon` and `daemon` name how actors start. The cards ask only what remains, as whole forms. The scenario of dossier 1 continues from below: the camera is a foreign device, the frames live in an arena of three, the capture is a supervised daemon. The argument and its sources are in research.md, « Thematic dossier 2 (2026-11-14): layer 1 ». Every example has been checked against the nesting rule of the layers. Every word of the examples other than those a card asks about is a placeholder. Nothing is written into the specification before all the dossiers are done (VOC-2026-11-14-013). **Other** and **Clarify** are always available, and a comment is worth more than a choice.
+
+### Declaring and typing
+
+#### Q-FRM-201 — Declaring: one form, and what a type is
+
+**Fiche.**
+
+- **Recorded:** « Une définition s'écrit avec le mot primitif `def` ; `defmacro` se définit avec lui […] et `defn` […] en est une, c'est-à-dire `def` dont des propriétés sont déjà remplies » (chapter 5); « en K7PL rien ne s'étend, tout se précise »; a type is « une composition immuable de fonctions » (ninth part); type names are lowercase and appear only after a property that announces them, `:num` or `:type` (VOC-2026-10-27-027)
+- **Your words:** « typer une fonction c'est préparer un objet immuable »; « K7PL préfère la clarté à la concision »; « On va coder la stdlib en layer 1 pour définir les fonctions et leurs comportement dans les couches 2 et 3. »
+- **Already in K7PL:** `{function int32 int32 {result int32 overflow}}`, `{str 256 utf16}`, `{{ … }}`, `{field value :num int}`
+
+**Form.**
+
+```text
+{def frame {matrix nat8 1080 1920}}             ;; a type: the definition of a type
+{def dark {{f frame [lt mean f 16]}}}             ;; a refined type: also a type
+{def black :type frame [fill 0]}                  ;; a value: `:type` announces its type
+```
+
+**Object.** One form declares everything in layer 1: `def`, a name, properties, a body. What is not settled is how a type is named. `:type` announces the type of what is defined, so `{def black :type frame …}` defines a value. Defining `frame` itself needs something else, and dossier 1 wrote `{def dark :type {{…}}}`, which by that rule made `dark` a value whose type is the refinement, not the refinement. Common Lisp has a word for it: « deftype defines a derived type specifier named name » (CLHS, deftype (https://www.lispworks.com/documentation/HyperSpec/Body/m_deftp.htm)).
+
+- **A — A type is a definition like any other: its body is a type, and no property is written.** `{def frame {matrix …}}` names a type because its body is one; `frame` then stands wherever a property announces a type. A refinement is a type, so `{def dark {{…}}}` names it.
+
+  *For:* one form; « tout se précise »: a refined type is a definition made more precise. *Against:* whether a definition names a type or a value is read from its body.
+
+- **B — An envelope for types, as `defn` for functions: `deftype`.**
+
+  ```text
+  {deftype frame {matrix nat8 1080 1920}}
+  ```
+
+  *For:* the kind is visible in the head, as `defn`; Common Lisp's word. *Against:* one more envelope; refinements, encodings and records each want theirs.
+
+- **C — A property says the kind: `:kind type`, of which `deftype` is the envelope.**
+
+  ```text
+  {def frame :kind type {matrix nat8 1080 1920}}
+  ```
+
+  *For:* your Racket-like `define` with guided envelopes: the envelope is `def` with `:kind` filled. *Against:* longest when written in full.
+
+#### Q-FRM-202 — Typed holes: a hole of no family, and what remains of ∀
+
+**Fiche.**
+
+- **Recorded:** « Polymorphisme est interdit en K7PL => tout est monomorphé. » (third part); « un générique ne nomme aucun paramètre de type : il s'écrit avec des trous typés, que la monomorphisation […] résout pour chaque emploi dans leur famille » (chapter 5, VOC-2026-10-28-037); « nous avions défini une stratégie de monomorfisation sans "for" (sans forall surtout) » (VOC-2026-10-28-027)
+- **Now in the specification:** the kernel keeps `Λα.c` and `c [W]`, rules Gen and Inst (chapter 3); monomorphisation opens Phase 8, once Phase 7 has bounded each typed hole (chapter 6)
+- **Absorbs:** Q-LEM-112 and Q-LEM-113, set aside since lemma lot 2
+
+**Form.**
+
+```text
+{defn brightest :type {function {vector flo} flo} …}   ;; `flo` is a typed hole: one copy per width used
+{defn first :type {function {vector any} any} …}       ;; a hole of no family: the card's question
+```
+
+**Object.** A typed hole belongs to a family — `int`, `flo`, `str` — and is resolved within it, one copy per width used. Two points are left. A function such as `first`, which works on a vector of anything, needs a hole of no family; nothing writes one yet. And the kernel still has the quantifier the surface does without: rules Gen and Inst (chapter 3 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C3/TypingRules.lean)), which monomorphisation then erases (chapter 6 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C6/CompilationProcess.lean)).
+
+- **A — A hole of no family is written with one word (`any`, a placeholder); the kernel keeps Gen and Inst, produced by elaboration and never written.**
+
+  *For:* the surface stays without ∀; the kernel's metatheory is unchanged; Q-LEM-112 and 113 have no surface word, their constructs being named `generalise` and `instantiate`. *Against:* one more reserved word.
+
+- **B — Every hole belongs to a declared family; what works on anything is written for a family declared to hold all types.**
+
+  *For:* no hole without a family, so every copy is bounded in its family. *Against:* « all types » is still a family to write.
+
+- **C — As A, and the kernel loses ∀: elaboration monomorphises before the kernel.**
+
+  *For:* the kernel says what the surface says. *Against:* chapter 3's rules and the proofs that use them are rewritten.
+
+#### Q-FRM-203 — The comparators: `equal`, `equiv`, `nequal`, `nequiv`
+
+**Fiche.**
+
+- **Your answer:** « nous devons ajouter `equiv` `equal` `nequiv` `nequal` etc. (Les comparateurs de valeurs, formes, etc.) » (VOC-2026-11-14-006); in layer 2, operators are n-ary (VOC-2026-11-14-009)
+- **Now in the specification:** sharing is not observable: « la déduplication est une propriété de la représentation et rien du langage ne permet de la constater » (chapter 4); definitions are identified by the hash of their normalised tree (eleventh part); `lt` is a lexeme of `lexicon/`
+
+**Form.**
+
+```text
+(observe frames
+  (case (equal it last-frame) (skip it))       ;; the same value
+  (case (equiv it last-frame) (count it)))     ;; equivalent, in a sense the card asks
+```
+
+**Object.** Comparing is declared with the types, so the family comes here. Two kinds of sameness are asked for, of values and of forms. A third, identity — « these are the same object » — does not exist in K7PL, since sharing cannot be observed (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/MemoryModels.lean)). With n-ary operators, one more point: `(nequal a b c)` means either « not all equal » or « all different ».
+
+**Facts.**
+
+- Common Lisp: `equal` « Returns true if x and y are structurally similar (isomorphic) objects »; `equalp` « Returns true if x and y are equal, or if they have components that are of the same type as each other » and those components are `equalp` (CLHS, equal (https://www.lispworks.com/documentation/HyperSpec/Body/f_equal.htm), CLHS, equalp (https://www.lispworks.com/documentation/HyperSpec/Body/f_equalp.htm)).
+- Raku: `eqv` « could be called an equivalence operator, and it will return `True` if the two arguments are structurally the same », « i.e. from the same type and (recursively) contain equivalent values » (Raku, eqv (https://docs.raku.org/routine/eqv)).
+
+**Note.** For the n-ary forms, proposed: `(equal a b c)` is « all equal »; `(nequal a b c)` is « not all equal », its negation; « all different » would be another word if needed.
+
+- **A — `equal`: same type and same value; `equiv`: equivalent under the relation the type declares.** `1` and `1.0` are `equiv` for numbers, two texts for a declared normalisation, two frames for a tolerance. `nequal` and `nequiv` are their negations; no identity comparator.
+
+  *For:* each type says what « equivalent » means, in layer 1, where types are set. *Against:* a type without a declared equivalence has none.
+
+- **B — `equal` for values; `equiv` for forms: two definitions, types or patterns that differ only in names.** `equiv` compares normalised trees, which is how definitions are already identified.
+
+  *For:* your « valeurs, formes » taken to the letter; uses the hash K7PL already computes. *Against:* approximate equality of values (`1` and `1.0`) needs another word.
+
+- **C — Graded, as Lisp: from strict to loose, each level its word.**
+
+  *For:* a known family. *Against:* four or five words where two may do.
+
+### Holding memory
+
+#### Q-FRM-204 — Memory: the arena, its capabilities, and giving them back
+
+**Fiche.**
+
+- **Now in the specification:** a write capability is linear: « la règle d'introduction de `WriteCap(r)` consomme linéairement l'arène ou le segment dont elle découpe r » (chapter 4); seven levels of memory, none with a garbage collector or reference counting; « l'arène, dont l'élimination relève du modèle mémoire » is the one construct whose rules are not written (chapter 3)
+- **Your words:** « tu touche à la mémoire c'est couche 1 » (VOC-2026-11-14-007)
+- **Absorbs:** Q-LEM-123 (`free v`, `slice v as (x,y) in c`), set aside since lemma lot 2
+
+**Form.**
+
+```text
+{def framebuffer :type {arena frame 3}}        ;; three frames, contiguous, allocated once
+{unbind [front back spare] {slice framebuffer}}   ;; three write capabilities, one per frame
+{free spare}                                      ;; given back: linear, it cannot just be dropped
+```
+
+**Object.** Layer 1 is strictly linear: a value is used exactly once, never duplicated and never left. A capability can therefore not simply be forgotten at the end of a block, as an affine language does; something must use it. The card asks how memory is taken, cut and given back, and the words `slice` and `free` with it.
+
+**Facts.**
+
+- Austral: « A linear type is a type whose values can only be used once », and a linear value « cannot be used zero times »; « We can't leak memory, we can't deallocate twice » (Austral (https://austral-lang.org/spec/spec.html)).
+- Rust: « Each value in Rust has an owner », and « When the owner goes out of scope, the value will be dropped »; « Rust calls `drop` automatically at the closing curly bracket » (Rust book (https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html)).
+- Zig: « The Zig language performs no memory management on behalf of the programmer »; « functions which need to allocate accept an `Allocator` parameter »; an arena allocator lets one « free entire arenas at once » (Zig (https://ziglang.org/documentation/master/)).
+
+- **A — Explicit: `slice` cuts capabilities, `free` gives one back, as Austral.**
+
+  *For:* linear to the letter: every capability is used, and the use shows. *Against:* every capability ends with a word.
+
+- **B — The end of the declaring block gives back what is left, as Rust's `drop`.**
+
+  *For:* nothing to write in the frequent case. *Against:* the end of a block becomes a use, an affine rule inside a linear layer.
+
+- **C — Arenas are given back whole, as Zig's; regions are never freed one by one.**
+
+  *For:* one release per arena, and the bound of each arena is a grade. *Against:* a region kept long holds its whole arena.
+
+#### Q-FRM-205 — Grades and budgets: how they are written
+
+**Fiche.**
+
+- **Now in the specification:** « une composante non écrite prend la valeur qui n'impose aucune contrainte — ω pour l'usage, la marque discrète pour la monotonie, le niveau public pour la confidentialité »; but « Le budget s'écrit donc toujours dès qu'une liaison alloue » (chapter 1)
+- **Recorded:** `box` promotes under a grade, `unbox` uses it (VOC-2026-11-03-021, -022); a flag `+nom` abbreviates `:nom t` (chapter 5)
+- **Absorbs:** Q-LEM-124 (`declassify`), set aside since lemma lot 2, for the level
+
+**Form.**
+
+```text
+{def histogram :type {vector nat32 256} :budget 1 :use 1}   ;; allocates: its budget is written
+{def threshold :type nat8 16}                                 ;; allocates nothing: every component elided
+```
+
+**Object.** A grade has components: usage, monotony, confidentiality level, budget. All may be elided but one: P3 forbids hiding a cost, so a binding that allocates writes its budget (chapter 1 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C1/GerminalAxiomatics.lean)). Nothing yet says how they are written.
+
+- **A — Properties on the declaration: `:budget`, `:use`, `:level`, one per component.**
+
+  *For:* the property syntax K7PL already has; elision is not writing the property. *Against:* a long declaration when many components are written.
+
+- **B — In the type, as a graded type: `{box 1 frame}`.**
+
+  *For:* the grade travels with the type, as in chapter 3's `!_r`. *Against:* types become long; the budget of a binding is not a property of its type.
+
+- **C — Properties for the binding (`:budget`, `:use`), the type for the level (`{secret frame}`).**
+
+  *For:* what is about cost stays on the binding, what is about information goes with the value. *Against:* two places to look.
+
+#### Q-FRM-206 — Disjoint resources held together: the pair and the record
+
+**Fiche.**
+
+- **Now in the specification:** P1: « son produit tensoriel ⊗ modélise la coexistence de ressources disjointes »; `{}` is « l'enregistrement ou la table vide » (chapter 5)
+- **Recorded:** taking a pair apart is `unbind` (VOC-2026-11-03-010); you asked to weigh `join` and the words of SQL and NoSQL (VOC-2026-11-03-009)
+- **Absorbs:** Q-LEM-104, set aside since lemma lot 2
+
+**Form.**
+
+```text
+{def buffers {pair {cap frame} {cap frame}}}           ;; positional
+{def buffers {record :front {cap frame} :back {cap frame}}}   ;; labelled
+```
+
+**Object.** Two capabilities on two frames are two disjoint resources held together: the front buffer and the back buffer. In layer 1 this is the tensor of P1 (chapter 1 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C1/Postulates.lean)). The question is whether it is written by position, by label, or both.
+
+**Facts.**
+
+- SQL builds a row by position: « A row constructor is an expression that builds a row value (also called a composite value) using values for its member fields » (PostgreSQL, row constructors (https://www.postgresql.org/docs/current/sql-expressions.html)).
+
+- **A — The record only: fields are labelled; a pair is a record of two labels.**
+
+  *For:* `{}` is already the empty record; « K7PL préfère la clarté à la concision ». *Against:* the two halves of a swap have to be named.
+
+- **B — Both: `pair` (or `tuple`, n-ary) by position, the record by label.**
+
+  *For:* position where names add nothing. *Against:* two forms of one product.
+
+- **C — Both, with SQL's word for the positional form, `row`.**
+
+  *For:* the family of SQL you draw on. *Against:* `row` already names the rows of an array (`|`).
+
+### The outside world
+
+#### Q-FRM-207 — A foreign interface: its declaration and its contract
+
+**Fiche.**
+
+- **Now in the specification:** « La déclaration de cette interface porte un attribut explicite `unsafe` : il signale les obligations propres à cette frontière »; « le contrat doit spécifier les valeurs et effets exposés ainsi que les conditions de retour et d'échec » (chapter 4); what crosses it has low integrity (chapter 3)
+- **Recorded:** « le monde extérieur se joint par un message à l'acteur qui porte l'interopérabilité étrangère » (chapter 5); interface contracts are « son facteur d'adoption tout entier » (chapter 1)
+
+**Form.**
+
+```text
+{def camera +unsafe :foreign c
+  :type {function {} frame}
+  :fails {device-lost timeout}}
+```
+
+**Object.** Chapter 4 fixes what a foreign declaration must carry: the attribute `unsafe`, refused if missing, and a contract — values, effects, conditions of return and of failure (chapter 4 (https://github.com/AntheaLiles/k7pl/blob/main/spec/Spec/C4/SystemScale.lean)). Chapter 5 says that the outside world reaches a program as a message to the actor that holds the foreign interoperability. The card asks for the form.
+
+**Facts.**
+
+- Rust: « External blocks provide declarations of items that are not defined in the current crate and are the basis of Rust's foreign function interface. These are akin to unchecked imports. »; « The `unsafe` keyword is semantically required to appear before the `extern` keyword on external blocks »; « If the ABI string is not specified, it defaults to "C" » (Rust reference (https://doc.rust-lang.org/reference/items/external-blocks.html)).
+
+- **A — A declaration like any other, marked `+unsafe`, its contract in properties.** `:foreign` names the convention, `:type` the values, `:fails` the failures; the actor that holds the interface is a separate declaration that calls it.
+
+  *For:* one form for everything declared; the contract is read in one place. *Against:* the foreign call and the actor that carries it are two declarations.
+
+- **B — An actor declaration whose messages are the contract.** An envelope of `defactor` for foreign interfaces, each message a foreign call, each failure a message back.
+
+  *For:* chapter 5's sentence to the letter: the outside world is an actor. *Against:* a pure foreign function (a checksum in C) becomes an actor.
+
+- **C — Both: A for the function, B generated from it for what crosses as messages.**
+
+  *For:* the contract is written once. *Against:* a generated actor to explain.
+
+#### Q-FRM-208 — Sources, and simulating them
+
+**Fiche.**
+
+- **Now in the specification:** « Seules les sources d'événements — une entrée du monde extérieur, un `defer` — démarrent aussitôt »; « Ce qui démarre un programme est donc l'ensemble de ses sources d'événements » (chapter 4)
+- **Recorded:** K7PL is publish and subscribe, and what stands after `observe` is a pattern, a name being the simplest (VOC-2026-11-14-001)
+- **Absorbs:** Q-LEM-219 and Q-LEM-220, set aside since lemma lot 3
+
+**Form.**
+
+```text
+{def frames :type {stream frame} :source camera}              ;; in production
+{def frames :type {stream frame} :source "capture.k7log"}     ;; simulated: a recorded journal replayed
+```
+
+**Object.** A source is where a flow enters: a device, the network, a file, a process, the journal, the ticks of `defer`. Under publish and subscribe the observers of `frames` do not know where it comes from: « the interacting parties do not need to know each other » (Eugster et al. (https://www.cs.princeton.edu/courses/archive/spr17/cos598D/PublishSubscribe03.pdf)). Simulating is then changing the declaration of the source, and nothing else.
+
+- **A — A source is a declaration whose `:source` names its origin; simulating changes that property.** A device, a file, a process, a value in memory or a recorded journal are origins of the same kind; the observers are unchanged.
+
+  *For:* one form; the program does not know it is simulated. *Against:* production and simulation differ in the text of the declaration.
+
+- **B — The source stays as written; a profile of compilation substitutes origins by name.**
+
+  *For:* the program text never changes between production and test. *Against:* what runs depends on how it is compiled.
+
+- **C — Both: A's property, and B's profile able to override it.**
+
+  *For:* simple to read, and tests change nothing. *Against:* two mechanisms.
+
+### Supervising
+
+#### Q-FRM-209 — Supervision: who restarts what, and how often
+
+**Fiche.**
+
+- **Recorded:** an ordinary actor is started by `invoke`; an actor that heals itself is a `daemon`, started by `summon` (VOC-2026-11-04-006); a delivery persists a snapshot, so that an actor « redémarre à son dernier état connu » (chapter 5)
+- **Now in the specification:** « Une réalisation peut surveiller la continuité des acteurs par battements de cœur et politiques de redémarrage », the hypotheses of progress being « explicitées dans le profil de déploiement » (chapter 4); in chapter 1's table, layer 1's effects are « Tous, supervisés »
+- **The old archive:** `+restart-always`, `+restart-never`, `+restart-max`, `+restart-with-state`, and the states `created`, `idle`, `running`, `paused`, `restarting`, `crashed`, `completed`, `dead` (research.md)
+
+**Form.**
+
+```text
+{defactor capture :kind daemon :restart permanent :at-most {5 :per 60 s}
+  :on (tick …)}
+```
+
+**Object.** Who decides that the capture restarts, how many times, and what else restarts with it. Your `daemon` says that the actor heals itself; what is left is where the policy is written.
+
+**Facts.**
+
+- Erlang: « A supervisor is responsible for starting, stopping, and monitoring its child processes ». Strategies: one_for_one, « only that process is restarted »; one_for_all, « all remaining child processes are terminated » and restarted; rest_for_one, those « after the terminated process in start order ». « The supervisors have a built-in mechanism to limit the number of restarts which can occur in a given time interval ». A child is `permanent`, « always restarted », `transient`, « restarted only if it terminates abnormally », or `temporary`, « never restarted » (Erlang, supervisor (https://www.erlang.org/doc/system/sup_princ.html)).
+
+- **A — On the daemon itself: its restart value and its limit are properties of its declaration.**
+
+  *For:* the daemon heals itself, as your word says; read in one place. *Against:* what restarts with it (Erlang's one_for_all) has nowhere to be written.
+
+- **B — In a supervisor: a declaration that lists its children and a strategy, as Erlang.**
+
+  *For:* groups that live and die together are written. *Against:* a daemon no longer heals itself: something above it does.
+
+- **C — Both: the daemon's restart value and limit on it; the strategy on the orchestrator that summons it.**
+
+  *For:* each fact where it belongs; the orchestrator already supervises (chapter 4). *Against:* two places to read.
+
 ## The catalogue, verbatim
 
 

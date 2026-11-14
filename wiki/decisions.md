@@ -845,6 +845,21 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Thematic dossier 2, layer 1, opened on 2026-11-14 (proposed, not
+  decided).** Written in [research](research.md), « Thematic dossier 2
+  (2026-11-14): layer 1 », with nine forms put to the author in
+  [questions](questions.md) (Q-FRM-201 to Q-FRM-209):
+  - how a type is named;
+  - a typed hole of no family, and what remains of ∀ in the kernel;
+  - the comparators `equal`, `equiv`, `nequal`, `nequiv`;
+  - giving memory back (`slice`, `free`);
+  - how grades and budgets are written;
+  - the product of disjoint resources;
+  - foreign interfaces;
+  - sources and their simulation;
+  - supervision.
+  It takes up Q-LEM-104, 112, 113, 123, 124, 219 and 220, set aside
+  since lemma lots 2 and 3.
 - **Statement of 2026-11-14: n-ary logic, layer 3, layer 1, and when
   the specification is written.** Recorded verbatim in
   [questions](questions.md) as VOC-2026-11-14-009 to -013. In short:

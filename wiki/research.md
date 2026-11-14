@@ -2702,6 +2702,197 @@ Joins sit across the third and fourth axes; reactivity across the third.
    chapter 4 still writes `(match ...)`; applying it waits for the author's
    go-ahead.
 
+## Thematic dossier 2 (2026-11-14): layer 1
+
+The author confirmed the reading of layer 1 on 2026-11-14
+(VOC-2026-11-14-011) and asked to consolidate the actions of layer 1
+before the layers that derive from it (VOC-2026-11-14-008). This
+dossier gathers what the specification states and what the author has
+already answered about layer 1, adds the outside work read for it, and
+puts nine forms to the author (Q-FRM-201 to Q-FRM-209 in
+[questions](questions.md)). Observed facts, recorded answers and
+interpretations are kept apart. Nothing is decided, and nothing is
+written into the specification before all the dossiers are done
+(VOC-2026-11-14-013).
+
+### Layer 1, as the specification and the record give it
+
+Observed in the specification.
+
+- **Judgement.** « En couche 1 (infrastructure), Δ se restreint à sa
+  forme linéaire stricte et l'échéance temporelle se lit sur les deux
+  composantes que la répartition lui a données — un budget fini dans
+  les grades, un tick dans les effets »
+  (`spec/Spec/C1/GerminalAxiomatics.lean`).
+- **Chapter 1's table of dimensions** gives layer 1:
+  - « Fonctionnel bas niveau »; effects « Tous, supervisés »;
+    termination « Non garantie, supervisée »;
+  - mutation « Contrôlée par ownership »; data « Mutables, sous
+    ownership »;
+  - a Lisp-2 namespace; memory in « Arènes linéaires et ownership »;
+  - recursion « Bornée, supervisée ».
+- **Declarations.** « les types se posent en couche 1 seulement »; « Une
+  définition s'ouvre donc en couche 1, où se pose son type »; « Une
+  enveloppe est une macro de couche 1 »; `{{ … }}` « est un type raffiné
+  {x : T | p} du chapitre 3 »; a tag of a qualified literal « est un
+  type de couche 1 »; `{}` is « l'enregistrement ou la table vide »
+  (`spec/Spec/C5/UniversalSExpressions.lean`).
+- **Memory.**
+  - The write capability is linear, and its introduction « consomme
+    linéairement l'arène ou le segment dont elle découpe r ».
+  - Seven levels of memory, layer 1 holding canonical deduplication,
+    contiguous linear arenas and raw linear memory for foreign
+    interfaces and DMA; none relies on « un ramasse-miettes ou un
+    comptage de références atomique ».
+  - Sharing is not observable: « la déduplication est une propriété de
+    la représentation et rien du langage ne permet de la constater »
+    (`spec/Spec/C4/MemoryModels.lean`).
+  - The arena's elimination rule is not written (chapter 3).
+- **Grades.** A component left unwritten takes its permissive value,
+  except the budget: « Le budget s'écrit donc toujours dès qu'une
+  liaison alloue, et il ne s'élide que là où il vaut zéro » (chapter 1).
+- **The outside world.**
+  - A foreign declaration « porte un attribut explicite `unsafe` », and
+    its contract « doit spécifier les valeurs et effets exposés ainsi
+    que les conditions de retour et d'échec »
+    (`spec/Spec/C4/SystemScale.lean`).
+  - What crosses the trust boundary has low integrity, carried in the
+    effects (`spec/Spec/C3/OpenStructuresEffectsAndMetatheory.lean`).
+  - Fibres, coroutines with their own stack, are confined to layer 1
+    for foreign asynchronous calls (`spec/Spec/C4/LocalScale.lean`).
+  - Interface contracts are the language's « facteur d'adoption tout
+    entier » (chapter 1).
+- **Supervision.** « Une réalisation peut surveiller la continuité des
+  acteurs par battements de cœur et politiques de redémarrage »; the
+  hypotheses of progress belong to the deployment profile (chapter 4).
+
+Recorded from the author.
+
+- « Polymorphisme est interdit en K7PL => tout est monomorphé. »
+- A generic names no type parameter and is written with typed holes
+  (VOC-2026-10-28-037); the monomorphisation « sans forall surtout »
+  (VOC-2026-10-28-027).
+- Type names are lowercase and appear after a property that announces
+  them; a function type is flat, headed by `function`.
+- « On va coder la stdlib en layer 1 pour définir les fonctions et leurs
+  comportement dans les couches 2 et 3. »
+- The number kinds and widths (`int`, `nat`, `flo`, `dec`, `fix`,
+  `com`, `rat`, `rea` and more); texts `str` and `strN`; encodings as
+  refined types.
+- `def`, `defmacro` and the envelopes; « rien ne s'étend, tout se
+  précise »; definitions identified by the hash of their normalised
+  tree; module, file and package.
+- `pack`, `unpack`, `box`, `unbox`, `unbind`; an ordinary actor started
+  by `invoke`, a self-healing `daemon` started by `summon`.
+- « tu touche à la mémoire c'est couche 1 » (VOC-2026-11-14-007); the
+  comparators `equiv`, `equal`, `nequiv`, `nequal` to add
+  (VOC-2026-11-14-006).
+
+### Outside work, read for this dossier
+
+Read on 2026-11-14.
+
+- **Linearity and memory.**
+  - Austral: « A linear type is a type whose values can only be used
+    once », and such a value « cannot be used zero times »; « We can't
+    leak memory, we can't deallocate twice ».
+  - Rust, which is affine: « When the owner goes out of scope, the
+    value will be dropped »; « Rust calls `drop` automatically at the
+    closing curly bracket ».
+  - Zig: « The Zig language performs no memory management on behalf of
+    the programmer »; « functions which need to allocate accept an
+    `Allocator` parameter »; an arena lets one « free entire arenas at
+    once ».
+- **Foreign interfaces.** Rust: « External blocks provide declarations
+  of items that are not defined in the current crate and are the basis
+  of Rust's foreign function interface. These are akin to unchecked
+  imports. »; `unsafe` is required before `extern`, and the default ABI
+  is `"C"`.
+- **Equality.**
+  - Common Lisp's `equal` « Returns true if x and y are structurally
+    similar (isomorphic) objects », and `equalp` is looser.
+  - Raku's `eqv` returns true « if the two arguments are structurally
+    the same », « i.e. from the same type and (recursively) contain
+    equivalent values ».
+- **Naming a type.** Common Lisp: « deftype defines a derived type
+  specifier named name ».
+- **Supervision.** Erlang:
+  - « A supervisor is responsible for starting, stopping, and
+    monitoring its child processes »;
+  - three strategies (one_for_one, one_for_all, rest_for_one), a limit
+    on « the number of restarts which can occur in a given time
+    interval »;
+  - three restart values for a child, `permanent`, `transient`,
+    `temporary`.
+- **Sources.** Publish and subscribe decouples in space: « the
+  interacting parties do not need to know each other » (Eugster et al.,
+  already read for dossier 1).
+
+### Interpretation: what layer 1 still needs
+
+Most of layer 1 is settled by earlier answers. What remains is
+structural.
+
+1. **How a type is named** (Q-FRM-201). `:type` announces the type of
+   what is defined, so a definition that names a type needs another
+   writing. Dossier 1 wrote `{def dark :type {{…}}}`, which by that rule
+   made `dark` a value, not a refinement.
+2. **A hole of no family, and ∀ in the kernel** (Q-FRM-202). Holes
+   belong to families; a function on a vector of anything needs one of
+   no family. The kernel keeps Gen and Inst, which monomorphisation
+   erases.
+3. **Comparators** (Q-FRM-203). Two kinds of sameness, of values and of
+   forms; identity does not exist, sharing being unobservable. With
+   n-ary operators, `nequal` must say whether it means « not all equal »
+   or « all different ».
+4. **Giving memory back** (Q-FRM-204). Layer 1 being strictly linear,
+   a capability cannot be forgotten at the end of a block, as an affine
+   language does: `free`, a block end that counts as a use, or whole
+   arenas.
+5. **Writing grades and budgets** (Q-FRM-205). The budget must be
+   written where a binding allocates; nothing says how.
+6. **The product of disjoint resources** (Q-FRM-206). By position, by
+   label, or both.
+7. **Foreign interfaces** (Q-FRM-207). A declaration with `unsafe` and
+   a contract, or an actor whose messages are the contract.
+8. **Sources and simulation** (Q-FRM-208). Under publish and subscribe,
+   simulating is changing where a source comes from; the property or a
+   profile of compilation.
+9. **Supervision** (Q-FRM-209). On the daemon, in a supervisor, or
+   both.
+
+### Left for later dossiers
+
+- Places (`loc`, `move`, `at`, Q-LEM-118 and Q-LEM-120) and clusters:
+  with automata and actors, where distribution is decided.
+- The confidentiality level and `declassify` (Q-LEM-124): its writing
+  is part of Q-FRM-205; the escape itself with resources once the
+  grades are written.
+- Recursive types, `fold` and `unfold` (Q-LEM-114): with rules and
+  deduction, where fixed points are.
+- The kept-open cards of dossier 1 (Q-FRM-104, Q-FRM-105) and the n-ary
+  reading of `imply`, put back to the author.
+
+### Sources read for this dossier
+
+- Austral specification: <https://austral-lang.org/spec/spec.html>
+- Rust book, ownership:
+  <https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html>
+- Rust reference, external blocks:
+  <https://doc.rust-lang.org/reference/items/external-blocks.html>
+- Zig language reference: <https://ziglang.org/documentation/master/>
+- Common Lisp HyperSpec: `equal`
+  <https://www.lispworks.com/documentation/HyperSpec/Body/f_equal.htm>,
+  `equalp`
+  <https://www.lispworks.com/documentation/HyperSpec/Body/f_equalp.htm>,
+  `deftype`
+  <https://www.lispworks.com/documentation/HyperSpec/Body/m_deftp.htm>
+- Raku, `eqv`: <https://docs.raku.org/routine/eqv>
+- Erlang, supervisor principles:
+  <https://www.erlang.org/doc/system/sup_princ.html>
+- PostgreSQL, row constructors:
+  <https://www.postgresql.org/docs/current/sql-expressions.html>
+
 ## Thematic dossier 1, second version (2026-11-12): observing a flow
 
 The first version of this dossier (below) misread the layers. The
