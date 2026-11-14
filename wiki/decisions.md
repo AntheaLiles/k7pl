@@ -845,6 +845,248 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Thematic dossier 2, layer 1, opened on 2026-11-14 (proposed, not
+  decided).** Written in [research](research.md), « Thematic dossier 2
+  (2026-11-14): layer 1 », with nine forms put to the author in
+  [questions](questions.md) (Q-FRM-201 to Q-FRM-209):
+  - how a type is named;
+  - a typed hole of no family, and what remains of ∀ in the kernel;
+  - the comparators `equal`, `equiv`, `nequal`, `nequiv`;
+  - giving memory back (`slice`, `free`);
+  - how grades and budgets are written;
+  - the product of disjoint resources;
+  - foreign interfaces;
+  - sources and their simulation;
+  - supervision.
+  It takes up Q-LEM-104, 112, 113, 123, 124, 219 and 220, set aside
+  since lemma lots 2 and 3.
+- **Statement of 2026-11-14: n-ary logic, layer 3, layer 1, and when
+  the specification is written.** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-14-009 to -013. In short:
+  - In layer 2 all ten logical operators are n-ary (correcting the
+    reading of Q-FRM-106).
+  - Layer 3 stays functional and total in the first sense of the term.
+  - The reading of layer 1 is right: declaring and typing, holding
+    memory, touching the outside world, supervising.
+  - The order of the dossiers: layer 1, then automata and actors, then
+    rules and deduction.
+  - **The specification is written once everything has been dealt
+    with**, the points being iterated on first. Every answer recorded
+    since lemma lot 1 waits for that moment, chapter 5's rewrite
+    (Q-FRM-107) included.
+  Put back to the author: the n-ary reading of `imply` and `nimply`
+  (proposed: folded to the right, `(imply a b c)` being
+  `(imply (and a b) c)`) and of `xor` and `xnor` (by parity).
+- **Thematic dossier 1, second version: answers of 2026-11-13 and
+  2026-11-14 (nine cards).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-13-001 and
+  VOC-2026-11-14-001 to -008. Dated preferences, ratified only in the
+  global lot (VOC-2026-10-26-002). In short:
+  - Observing: `observe` stands beside a flow that goes elsewhere,
+    followed by a pattern (a name, a type, a refinement or a
+    combination); `:on` is not a form of `observe` but triggers a
+    sequence inside an actor.
+  - Connectors: `:bind` writes the destination of a flow; `:before`,
+    `:after` and `:around` attach to a definition and act on the flow,
+    as in CLOS, where `observe` is parallel to it.
+  - Logic: in layer 2, `and`, `or`, `nand`, `nor` are n-ary, `xor` and
+    `xnor` read by parity, `imply` and `nimply` take two; a language
+    server shows each operator's conditions of success; comparators of
+    values and forms are to be added (`equiv`, `equal`, `nequiv`,
+    `nequal`).
+  - Layers: touching memory is layer 1, ordinary development layer 2,
+    the greatest computing power layer 3, each with its « prix
+    d'expressivité »; chapter 5's rule of the least permissive
+    fragment, its summary of the roles and its first example are to be
+    rewritten (Q-FRM-107, option A).
+  - What a reaction gives: the type is the label, a `tag` only where
+    flows meet, instances of a reaction without state up to a bound
+    written as a grade.
+  - Next dossiers: automata and actors, rules, definitions and types,
+    resources and grades, layer 1 first.
+  Kept open: Q-FRM-104 (how a reaction names what it caught) and
+  Q-FRM-105 (holes in a text).
+  Put back to the author: the order of the four dossiers; whether
+  chapter 1's table of dimensions changes with chapter 5.
+  Not applied: the rewrite of chapter 5 waits for the author's
+  go-ahead; nothing changes in `spec/` or `lexicon/`.
+- **Thematic dossier 1: the corrected reading confirmed on 2026-11-12,
+  and the second version.** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-12-019 to -023. Dated
+  preferences, ratified only in the global lot (VOC-2026-10-26-002).
+  In short:
+  - The corrected reading of the layers is right: layer 2 is a classic
+    Lisp or Scheme on the heap, where one computes, orchestrates and
+    reacts; layer 3 is passive, pure, made only of operators on the
+    stack; `case` exists in layer 2 only.
+  - Layer 3 is meant for computation of very high performance:
+    tensors, matrix computation, strictly bounded protocols.
+  - `read` can be abandoned under a true publish and subscribe logic,
+    routing being written with the monadic connectors.
+  - NAND is F, T, T, T; the table recorded from the attachment is
+    corrected.
+  - The example `@"jul?"` was indicative and is to be criticised.
+  Corrected in this record: « branchement » is a connection, a plug,
+  not a branching; the record now writes « connector ».
+  Dossier 1 is rewritten in [research](research.md), « Thematic
+  dossier 1, second version (2026-11-12): observing a flow », with the
+  exploration the author asked for (TXR, AWK, jq, Perl, Raku) and a
+  survey of publish and subscribe. Eight forms are put to the author
+  (Q-FRM-101 to Q-FRM-108) and the dossiers that follow (Q-DOS-002).
+  The four cards of the first version left unanswered are withdrawn.
+  Put back to the author: whether the monadic connectors are the
+  properties recorded on 2026-10-27; whether chapter 5's rule of the
+  least permissive fragment and its first example are rewritten.
+  Not read: TXR Lisp's structural pattern matching, the current
+  manual refusing every request.
+  Not applied: nothing changes in `spec/` or `lexicon/`.
+- **Thematic dossier 1: answers of 2026-11-12 (six of ten cards), and
+  the table of logical operators.** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-12-012 to -018. Dated
+  preferences, ratified only in the global lot (VOC-2026-10-26-002).
+  In short:
+  - Method: one dossier per theme, ending in generic forms; the words
+    come last (Q-METH-003, option A).
+  - Two forms: `read`, which consumes, its `case` taking and
+    producing; `observe`, which looks at a flow that keeps its
+    destination and reacts to it. K7PL is publish and subscribe: a
+    flow is sent to an automaton that asks for it.
+  - Layers: layer 2 is a classic Lisp or Scheme on the heap, without
+    garbage collection or reference counting, with borrow checking,
+    and one computes there; layer 3 is passive, pure, made only of
+    operators on the stack, and has no `case`.
+  - Logic: ten operators used directly, `and`, `or`, `nand`, `nor`,
+    `xor`, `xnor`, `imply`, `nimply`, `yes`, `not`, with the author's
+    table of symbols, S-expressions and truth tables.
+  - Patterns: kept open; wildcards are typed holes and create
+    patterns; TXR Lisp, AWK, jq, Perl and Raku are to be explored
+    again.
+  The author stopped at six cards: dossier 1 misreads the layers. The
+  readings that fall are listed in [research](research.md),
+  « Corrections by the author, 2026-11-12 », with the sentences of
+  chapters 4 and 5 the dossier had followed.
+  Put back to the author: the NAND table of the attachment, which is
+  the table of NOR; what sends a computation to layer 3, and whether
+  chapter 5's first example (`lst:fonction-pure`) stands; whether
+  `observe` takes the same `case` clauses as `read`; what `?` denotes
+  in `@"jul?"`.
+  Not applied: nothing changes in `spec/` or `lexicon/`. Dossier 1 is
+  to be rewritten once the author has confirmed the corrected reading.
+- **Lemma lot 3: answers given up to 2026-11-12 (fourteen questions), and
+  the author's statement on method.** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-05-001 to -003,
+  VOC-2026-11-06-001 to -003 and VOC-2026-11-12-001 to -011. Dated
+  preferences, ratified only in the global lot (VOC-2026-10-26-002).
+  In short:
+  - Reading a flow: the word `catch` is withdrawn, implicit in what
+    `case` takes; a word that reads an identified flow takes the head
+    and the cases follow it. A `case` is a pattern and a computation;
+    every case that matches runs, as AWK; nothing happens when a
+    pattern is not found, and the reverse is a pattern that negates.
+  - Patterns: a held value is compared in the pattern, without `^`;
+    patterns need holes, as SQL's `LIKE`; the logical constructors
+    are to be added; a pattern stays structural, catching being
+    parallel to what the flow does; the automaton's class is always
+    inferred.
+  - Routing: the flow is divided and piped to one sub-automaton per
+    case; a new instance is raised when a mailbox is full; whether a
+    found pattern travels with a label is to be evaluated.
+  - Control flow: `choose` and `select` leave layer 3, branching to be
+    found again; a continuation is a function, applied, limited by its
+    grade.
+  - Coverage: required, in a graduated way that eases prototyping.
+  Kept open: Q-LEM-103, Q-LEM-203, Q-LEM-214, Q-LEM-218.
+  Put back to the author: what `xand` and `xnand` denote; « cached 3
+  times », read as « caught three times ».
+  Statement of 2026-11-12: the lexical research does not converge
+  because each subject is cut too finely; the author would prefer
+  coherent research by theme, leading to generic forms; and examples
+  offered in the options broke the nesting rule of the layers.
+  Checked: 12 of 123 texts, all `ERR-TOP-001`; listed in
+  [research](research.md).
+  **Proposed, awaiting the author's confirmation (Q-METH-003):** one
+  dossier per theme, ending in generic forms written in K7PL and
+  checked against the nesting rule; the words come last, per form.
+  Dossier 1, « reading a flow », is written that way in
+  [research](research.md), with eight forms put to the author
+  (Q-FRM-001 to Q-FRM-008). The unanswered questions of lemma lots 2
+  and 3 are set aside: a form replaces them or a later dossier takes
+  them up.
+  Not applied: nothing changes in `spec/` or `lexicon/`.
+- **Lemma lot 2: answers given up to 2026-11-04 (seven questions).**
+  Recorded verbatim in [questions](questions.md) as
+  VOC-2026-11-03-019 to VOC-2026-11-03-022 and VOC-2026-11-04-004 to
+  VOC-2026-11-04-006. Dated preferences, ratified only in the global
+  lot (VOC-2026-10-26-002). In short:
+  - Existentials: `pack` hides a witness, `unpack` opens it.
+  - Grading: `box` promotes a value under a grade, `unbox` uses it.
+  - Vectors: `iter` goes through a vector.
+  - Time: waiting for an event is a form of `catch` on an eventual
+    value, with no word of its own (Q-LEM-119, answered before this
+    record withdrew it; the withdrawal is corrected).
+  - Actors: an ordinary actor is started by `invoke`; an actor that
+    heals itself is a `daemon`, started by `summon`; `mailbox` is set
+    aside; creating a mailbox and sending are not answered.
+  Put back to the author: `invoke` against invoking an operation
+  (chapter 3, Q-LEM-111). On 2026-11-04 the author asked to settle
+  pattern matching first: lemma lot 3 asks it, with the questions of
+  lot 2 that bear on it (Q-LEM-103, 105, 106, 111, 115, 117, 118,
+  121); the others (Q-LEM-104, 112, 113, 114, 120, 123, 124) are set
+  aside on the page until lot 3 is answered.
+  Not applied yet: applying the words waits for the author's go-ahead.
+- **Pattern matching and flows: answers of 2026-11-04, given in
+  the conversation.** Recorded verbatim in [questions](questions.md),
+  under lemma lot 2, as VOC-2026-11-04-001 to VOC-2026-11-04-003. The
+  author confirmed the reading of pattern matching: every
+  construction is a pattern, `@x` is every pattern of `x`, what is
+  caught carries the refined type of its construction, and a pattern
+  is compiled into an automaton put in production by an actor or an
+  orchestrator. `case` sets conditions on what was caught, as SQL's
+  `CASE`. To study next: how a program connects to a flow, how a flow
+  is simulated off the network, and whether `:on` is redundant with
+  `catch`; the research is in [research](research.md), « Reading lot:
+  research of 2026-11-04, connecting to a flow », with six questions
+  for the author. Q-LEM-101, Q-LEM-102 and Q-LEM-119 of lemma lot 2
+  are withdrawn, unanswered.
+- **Lemma lot 1: answers of 2026-11-03 (Q-LEM-001 to Q-LEM-016).**
+  Recorded verbatim in [questions](questions.md) as
+  VOC-2026-11-03-001 to VOC-2026-11-03-016. Dated preferences, ratified
+  only in the global lot (VOC-2026-10-26-002). In short:
+  - Method: one word per construct, everywhere, chapter 3's
+    formulas included; two words only for two objects.
+  - Kernel: application has no written word and is named `apply`,
+    spreading a list of arguments being `spread`; `thunk`,
+    `force`, `return`; sequencing is `bind`, chapter 5's `let`
+    becoming `bind`, and the glyph aliases `bind-left` and
+    `bind-right` are withdrawn, one `bind` branching the
+    expression on its right.
+  - Connectives: the unit value is `unit`, `()` staying the empty
+    list; taking a pair apart is `unbind`; the injection is
+    written as the tag applied and named `tag`, the labels of
+    structural modes being `label`; the eliminator of sums is
+    `case`, R-expressions included.
+  - Gaps: no conditional form, branching going through pattern
+    matching with `catch` and `case`; `cond` leaves chapter 3 and
+    Annex A.
+  Kept open: Q-LEM-008 (consuming the unit), Q-LEM-009 (the pair;
+  the author asks to weigh `join` and the words of SQL and NoSQL),
+  Q-LEM-013 (the negative product), Q-LEM-014 (its projection) and
+  Q-LEM-015 (the words of the conditional; the author asks for an
+  overview of `catch` and `case` on a flow).
+  Put back to the author: the glyphs `↢` and `↣` once the aliases
+  are withdrawn; `unbind` against Lisp's removal of a binding;
+  `catch`, which already names the handler of `try c catch c`;
+  and how the absence of a conditional reads with `choose`, the
+  dyadic `select` and the `select` of the K lexicon.
+  Answered in the conversation the same day: `catch` and the
+  kernel's `try c catch c` are one object, a generalisation of
+  pattern matching (VOC-2026-11-03-017); the glyphs are dealt
+  with once every lemma is fixed (VOC-2026-11-03-018). Lemma lot
+  2 asks what `catch` gathers and how it is written.
+  Not applied yet: the answers are dated preferences; applying
+  them changes chapter 3's grammar, chapter 1's glyph table,
+  chapters 4 and 5, Annex A and the K lexicon, and waits for the
+  author's go-ahead.
 - **Reading lot, eleventh part: answers of 2026-10-29
   (Q-SPEC-601 to Q-ACT-010).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-10-29-013 to

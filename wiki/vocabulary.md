@@ -129,7 +129,7 @@ verdicts carried here, in [questions](questions.md), in
 "Work the research lot follow-ups" — not recopied as
 registers, and with no historical lineage retold.
 
-Two method answers are recorded. The author's method
+Three method answers are recorded. The author's method
 choice of 2026-10-25 (Q-METH-002, option A): a global lot
 after the ontological audit, no individual ratification of
 lemmas or tokens until the scope, categorisation and
@@ -137,7 +137,10 @@ formal-chain contradictions are delimited. And the
 arbitration sequence of 2026-10-26 (Q-METH-001, option A):
 non-collision, scientific exactness, family and grade
 invariants, provisional ecological grid, mnemonic
-arguments, brevity. Individual answers are dated
+arguments, brevity. And the choice of 2026-11-12
+(Q-METH-003, option A): the research proceeds by thematic
+dossiers that end in generic forms, the words of a form
+being weighed last. Individual answers are dated
 preferences until the global lot; the first is `lambda`
 for `Lam`. None of them ratifies a term, and none
 authorises a renaming.
