@@ -8302,6 +8302,22 @@ Several options may be chosen.
 - **Reading:** the dossiers to come are automata and actors, rules and deduction, definitions, types and holes, and resources, grades and places. The author wants to consolidate the actions of layer 1 before going deeper into the layers that derive from it. Layer 3's operators, time and order, and the connectors with sequencing and effects are not chosen for now.
 - **Put back to the author:** the order among the four. Read from the justification: what layer 1 does first (definitions and types, then resources and grades), then what derives from it (automata and actors, rules).
 
+## Statement of 2026-11-14: n-ary logic, layer 3, layer 1, and when the specification is written
+
+After the answers to dossier 1, second version, three questions were put to the author in the conversation: whether the reading of layer 1 was right (a strictly linear context, a budget and a `tick`; four families of actions: declaring and typing, holding memory, touching the outside world, supervising); whether the proposed order of the dossiers suited (dossier 2 on layer 1, merging definitions and types with resources and grades; then automata and actors; then rules); and whether chapter 5's rewrite (Q-FRM-107) is applied now or once the dossiers are done, chapter 1's table of dimensions giving layer 3 the « Paradigme » « Fonctionnel total ».
+
+**Statement of the author — 2026-11-14 (VOC-2026-11-14-009 to -013), given in the conversation, quoted as given.**
+
+> Logique de couche 2 : tous sont n-air.
+> La couche 3 reste bien fonctionnelle totale au sens premier du terme.
+> Ta définition de couche 1 est ok. L'ordre me convient. Les rédactions se font une fois que nous avons fini de tout traiter car nous devrions itérrer probablement sur divers points.
+
+- **VOC-2026-11-14-009, reading:** in layer 2 all ten logical operators are n-ary. This corrects the reading of Q-FRM-106 (VOC-2026-11-14-006), which kept `imply` and `nimply` to two operands. Put back: the n-ary reading of `imply` and `nimply`, proposed as the right fold, `(imply a b c)` being `(imply a (imply b c))`, that is `(imply (and a b) c)`; and of `xor` and `xnor`, read by parity.
+- **VOC-2026-11-14-010, reading:** layer 3 stays functional and total in the first sense of the term: chapter 1's « Fonctionnel total » stands.
+- **VOC-2026-11-14-011, reading:** the reading of layer 1 is right: a strictly linear context, with a finite budget in the grades and a `tick` in the effects; four families of actions, declaring and typing, holding memory, touching the outside world, supervising.
+- **VOC-2026-11-14-012, reading:** the order suits: dossier 2 on layer 1, then automata and actors, then rules and deduction.
+- **VOC-2026-11-14-013, reading:** the writing of the specification comes once everything has been dealt with, since several points will probably be iterated on. Nothing is applied to `spec/` or `lexicon/` before then, chapter 5's rewrite (Q-FRM-107) included.
+
 ## The catalogue, verbatim
 
 

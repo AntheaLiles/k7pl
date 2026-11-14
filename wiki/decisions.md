@@ -845,6 +845,23 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Statement of 2026-11-14: n-ary logic, layer 3, layer 1, and when
+  the specification is written.** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-14-009 to -013. In short:
+  - In layer 2 all ten logical operators are n-ary (correcting the
+    reading of Q-FRM-106).
+  - Layer 3 stays functional and total in the first sense of the term.
+  - The reading of layer 1 is right: declaring and typing, holding
+    memory, touching the outside world, supervising.
+  - The order of the dossiers: layer 1, then automata and actors, then
+    rules and deduction.
+  - **The specification is written once everything has been dealt
+    with**, the points being iterated on first. Every answer recorded
+    since lemma lot 1 waits for that moment, chapter 5's rewrite
+    (Q-FRM-107) included.
+  Put back to the author: the n-ary reading of `imply` and `nimply`
+  (proposed: folded to the right, `(imply a b c)` being
+  `(imply (and a b) c)`) and of `xor` and `xnor` (by parity).
 - **Thematic dossier 1, second version: answers of 2026-11-13 and
   2026-11-14 (nine cards).** Recorded verbatim in
   [questions](questions.md) as VOC-2026-11-13-001 and
