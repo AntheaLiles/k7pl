@@ -845,6 +845,39 @@ contradiction to state, not to resolve in silence.
 
 ### Decided
 
+- **Thematic dossier 1, second version: answers of 2026-11-13 and
+  2026-11-14 (nine cards).** Recorded verbatim in
+  [questions](questions.md) as VOC-2026-11-13-001 and
+  VOC-2026-11-14-001 to -008. Dated preferences, ratified only in the
+  global lot (VOC-2026-10-26-002). In short:
+  - Observing: `observe` stands beside a flow that goes elsewhere,
+    followed by a pattern (a name, a type, a refinement or a
+    combination); `:on` is not a form of `observe` but triggers a
+    sequence inside an actor.
+  - Connectors: `:bind` writes the destination of a flow; `:before`,
+    `:after` and `:around` attach to a definition and act on the flow,
+    as in CLOS, where `observe` is parallel to it.
+  - Logic: in layer 2, `and`, `or`, `nand`, `nor` are n-ary, `xor` and
+    `xnor` read by parity, `imply` and `nimply` take two; a language
+    server shows each operator's conditions of success; comparators of
+    values and forms are to be added (`equiv`, `equal`, `nequiv`,
+    `nequal`).
+  - Layers: touching memory is layer 1, ordinary development layer 2,
+    the greatest computing power layer 3, each with its « prix
+    d'expressivité »; chapter 5's rule of the least permissive
+    fragment, its summary of the roles and its first example are to be
+    rewritten (Q-FRM-107, option A).
+  - What a reaction gives: the type is the label, a `tag` only where
+    flows meet, instances of a reaction without state up to a bound
+    written as a grade.
+  - Next dossiers: automata and actors, rules, definitions and types,
+    resources and grades, layer 1 first.
+  Kept open: Q-FRM-104 (how a reaction names what it caught) and
+  Q-FRM-105 (holes in a text).
+  Put back to the author: the order of the four dossiers; whether
+  chapter 1's table of dimensions changes with chapter 5.
+  Not applied: the rewrite of chapter 5 waits for the author's
+  go-ahead; nothing changes in `spec/` or `lexicon/`.
 - **Thematic dossier 1: the corrected reading confirmed on 2026-11-12,
   and the second version.** Recorded verbatim in
   [questions](questions.md) as VOC-2026-11-12-019 to -023. Dated

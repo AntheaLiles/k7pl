@@ -2771,6 +2771,37 @@ A word corrected. This record has translated the author's
 connection, a plug: « un seul bind qui branche l'expression à sa
 droite ». This version writes « connector ».
 
+### Answers of 2026-11-13 and 2026-11-14
+
+The author answered the nine cards of this version (VOC-2026-11-13-001,
+VOC-2026-11-14-001 to -008, in [questions](questions.md)). What they
+settle, as dated preferences:
+
+- `observe` stands beside a flow that goes elsewhere, and what stands
+  after it is a pattern: a name, a type, a refinement or a combination.
+- `:on` is not a form of `observe`: it triggers a sequence inside an
+  actor, for what the actor itself is sent.
+- The monadic connectors are the properties recorded on 2026-10-27:
+  `:bind` gives a flow its destination; `:before`, `:after` and
+  `:around` attach to a definition and act on the flow, as in CLOS,
+  where `observe` is parallel to it.
+- In layer 2, `and`, `or`, `nand` and `nor` take any number of
+  operands, `xor` and `xnor` read by parity, `imply` and `nimply` take
+  two. Comparators of values and forms are to be added (`equiv`,
+  `equal`, `nequiv`, `nequal`).
+- The vision of the layers, in the author's words: « tu touche à la
+  mémoire c'est couche 1 ; tu fait un dev classique voir non optimisé
+  c'est couche 2 ; tu veux la plus grande puissance de calcul c'est
+  couche 3 ; et il y a un "prix d'expressivité" à chaque fois ».
+  Chapter 5's rule, roles and first example are to be rewritten
+  accordingly, once the author gives the go-ahead.
+- What a reaction gives: the type is the label; a `tag` only where
+  flows meet; instances of a reaction without state up to a bound.
+- Kept open: how a reaction names what it caught (Q-FRM-104) and the
+  holes of a text (Q-FRM-105).
+- Next: layer 1 first, « consolider les actions de couches 1 avant
+  d'approfondir les autres couches qui en dérivent ».
+
 ### Outside work, read as a whole
 
 Read on 2026-11-12. What could not be read is said at the end.

@@ -7938,6 +7938,12 @@ Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the rea
 
   *For:* your first answer (VOC-2026-11-12-014). *Against:* you said since that true publish and subscribe does without it.
 
+**Answer of the author — 2026-11-14 (VOC-2026-11-14-002), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:** :on n'est pas une forme d'observe mais un déclancheur de séquence dans un acteur.
+- **Reading:** two places (option B): `observe` for a flow that goes elsewhere, `:on` for what the automaton itself is sent. `:on` is not a form of `observe`: it triggers a sequence inside an actor.
+
 #### Q-FRM-102 — Asking for a flow: by name, by type, by content
 
 **Fiche.**
@@ -7972,6 +7978,11 @@ Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the rea
 
   *For:* one rule, checked at compile time. *Against:* two flows of one type cannot be told apart.
 
+**Answer of the author — 2026-11-14 (VOC-2026-11-14-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Reading:** a pattern stands after `observe` (option B): a name is the simplest one; a type, a refinement or a combination can stand there too.
+
 #### Q-FRM-103 — Routing: the destination of a flow, and the connectors
 
 **Fiche.**
@@ -8002,6 +8013,12 @@ Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the rea
   *For:* one family for all routing; what `read` did is `:around`. *Against:* `observe` and `:after` then say one thing twice.
 
 - **C — Other connectors are meant.**
+
+**Answer of the author — 2026-11-14 (VOC-2026-11-14-003), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** :after n'est pas équivalent à observe car il agit sur le flux comme dans CLOS là où observe est parallele au flux.
+- **Reading:** the monadic connectors are the properties recorded on 2026-10-27 (option A): `:bind` writes the destination of a flow; `observe` is how one stands beside a flow; `:before`, `:after` and `:around` attach to a definition, as in CLOS. `:after` is not equivalent to `observe`: it acts on the flow, as in CLOS, where `observe` is parallel to the flow.
 
 ### Patterns
 
@@ -8051,6 +8068,11 @@ Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the rea
 - **C — A hole can carry a name, as TXR's variables and ML's patterns.**
 
   *For:* the part is at hand without `view`. *Against:* needs a writing for a named hole, which `@name` cannot be while `@x` is every pattern of `x`.
+
+**Answer of the author — 2026-11-14 (VOC-2026-11-14-004), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
 
 #### Q-FRM-105 — Holes in a text: your `@"jul?"`, criticised
 
@@ -8103,6 +8125,11 @@ Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the rea
 
   *For:* the most expressive, and R-expressions already compile it. *Against:* the class of the automaton is less visible; `?` then means « optional », not « one character ».
 
+**Answer of the author — 2026-11-14 (VOC-2026-11-14-005), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** OPEN
+- **Reading:** kept open.
+
 #### Q-FRM-106 — The ten operators: how many operands
 
 **Fiche.**
@@ -8149,6 +8176,18 @@ Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the rea
 
   *For:* the sense most readers expect of « one or the other ». *Against:* `(xor a b c)` is no longer `(xor a (xor b c))`: the n-ary word and the table part ways.
 
+**Answer of the author — 2026-11-14 (VOC-2026-11-14-006), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** B
+- **Justification:**
+
+  > Un LSP devrait indiquer au développeur les conditions de succes des opérateurs.
+  >
+  > Not également, nous devons ajouter `equiv` `equal` `nequiv` `nequal` etc. (Les comparateurs de valeurs, formes, etc.)
+
+- **Reading:** in layer 2, `and`, `or`, `nand` and `nor` take any number of operands, `xor` and `xnor` read by parity, and `imply` and `nimply` take two (option B). A language server should show the developer the conditions under which each operator succeeds. To add: `equiv`, `equal`, `nequiv`, `nequal` and the like, the comparators of values, forms and so on.
+- **Put back to the author:** the comparators are a family of their own, to weigh in the dossier on definitions, types and holes: equality of values, of forms (structural), of types, and their negations.
+
 ### Layers
 
 #### Q-FRM-107 — What layer 3 is asked for; chapter 5's sentence and its first example
@@ -8183,6 +8222,13 @@ Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the rea
 - **C — Leave the three as they are.**
 
   *For:* nothing to rewrite. *Against:* the next reader makes the mistake this dossier made.
+
+**Answer of the author — 2026-11-14 (VOC-2026-11-14-007), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Justification:** La vision doit être claire : tu touche à la mémoire c'est couche 1 ; tu fait un dev classique voir non optimisé c'est couche 2 ; tu veux la plus grande puissance de calcul c'est couche 3 ; et il y a un "prix d'expressivité" à chaque fois.
+- **Reading:** chapter 5's three passages are to be rewritten (option A): the rule says what layer 3 is for, the roles say that layer 2 computes, and the first example counts in layer 2 and shows layer 3 on a matrix or a bounded protocol. The vision to state: touching memory is layer 1; ordinary development, even unoptimised, is layer 2; the greatest computing power is layer 3; and each time there is a « prix d'expressivité ».
+- **Put back to the author:** applying the rewrite to `spec/` waits for the author's go-ahead, as every change to the specification: chapter 5's rule of the least permissive fragment, its summary of the roles, the four listings of the bounded counter, and chapter 1's table of dimensions, which gives layer 3 the « Paradigme » « Fonctionnel total ».
 
 #### Q-FRM-108 — What a reaction gives: publication, label, instances
 
@@ -8222,6 +8268,11 @@ Dossier 1, rewritten on 2026-11-12 after your corrections. You confirmed the rea
 
   *For:* bounded and visible. *Against:* against your answer on scalability.
 
+**Answer of the author — 2026-11-13 (VOC-2026-11-13-001), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** A
+- **Reading:** the type is the label, and a `tag` is carried only where what several cases give meets in one flow; a reaction without state may have instances, up to a bound written as a grade, beyond which whoever publishes waits (option A).
+
 ### What follows
 
 #### Q-DOS-002 — The dossiers that follow
@@ -8243,6 +8294,13 @@ Several options may be chosen.
 - **types — Definitions, types and holes.** `def` and its envelopes, typed holes and generics, refinements, existentials, recursive types (Q-LEM-112 to 114).
 
 - **resources — Resources, grades, places.** The pair, `box` and `unbox`, `free`, `slice`, budgets, `declassify`, `loc` and `move`, sources and their simulation (Q-LEM-104, 120, 123, 124, 219, 220).
+
+**Answer of the author — 2026-11-14 (VOC-2026-11-14-008), given in the clickable questionnaire, quoted as given.**
+
+- **Choice:** actors, rules, types, resources
+- **Justification:** Je veux qu'on consolide les actions de couches 1 avant d'approfondir les autres couches qui en dérivent.
+- **Reading:** the dossiers to come are automata and actors, rules and deduction, definitions, types and holes, and resources, grades and places. The author wants to consolidate the actions of layer 1 before going deeper into the layers that derive from it. Layer 3's operators, time and order, and the connectors with sequencing and effects are not chosen for now.
+- **Put back to the author:** the order among the four. Read from the justification: what layer 1 does first (definitions and types, then resources and grades), then what derives from it (automata and actors, rules).
 
 ## The catalogue, verbatim
 
